@@ -250,4 +250,8 @@ GitHub.sublime-settings
 # Ignore all local history of files
 .history
 
+
 # End of https://www.gitignore.io/api/node,sass,macos,intellij,sublimetext,visualstudiocode
+
+# Production
+/build
