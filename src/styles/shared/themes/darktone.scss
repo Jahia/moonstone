@@ -1,29 +1,27 @@
+
+
+/* FONTS ////////////////////////////*/
+
+@import "../tokens/fonts.scss";
+@font-face {
+    font-family: font-file("nunito-sans", "font-family"), font-file("nunito-sans", "font-family-alternate");
+    src: url($font-path + font-file("nunito-sans", "regular")) format(font-file("nunito-sans", "format"));
+    font-weight: bold;
+}
+
+* {
+    font-family: "Nunito Sans";
+}
+
+
+
+/* COLORS ///////////////////////////*/
 @import "../tokens/colors.scss";
-
-/* TEXT /////////////////////////*/
-$text-primary: none;
-$text-secondary: none;
-$text-success: none;
-$text-danger: none;
-$text-warning: none;
-$text-info: none;
-$text-light: $white;
-$text-dark: none;
-$text-body: none;
-$text-muted: none;
-$text-white: $white;
-$text-black-50: none;
-$text-white-50: none;
-
-
-/* BACKGROUND ///////////////////*/
-$bg-primary: $blue;
-$bg-secondary: none;
-$bg-success: none;
-$bg-danger: none;
-$bg-warning: none;
-$bg-info: none;
-$bg-light: none;
-$bg-dark: none;
-$bg-white: $white;
-$bg-transparent: none;
+$color-brand: $blue-dark;
+$color-primary: $blue;
+$color-secondary: red;
+$color-success: red;
+$color-danger: red;
+$color-warning: red;
+$color-info: red;
+$color-white: $white;

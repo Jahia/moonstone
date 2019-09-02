@@ -1,12 +1,12 @@
 @import "../../../styles/shared/_all.scss";
 .mds-button {
     border: 0;
-    background: $bg-primary;
-    color: $text-white;
+    background: $color-brand;
+    color: $color-white;
 
-    padding: 8px 16px;
+    padding: space(sm) space(xl);
 
     &:hover {
-        background: yellow;
+        background: $color-primary;
     }
 }
