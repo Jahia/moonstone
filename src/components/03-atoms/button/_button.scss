@@ -1,0 +1,11 @@
+.mds-button {
+    border: 0;
+    background: red;
+    color: #fff;
+
+    padding: 8px 16px;
+
+    &:hover {
+        background: yellow;
+    }
+}
