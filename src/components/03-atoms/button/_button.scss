@@ -1,7 +1,8 @@
+@import "../../../styles/shared/_all.scss";
 .mds-button {
     border: 0;
-    background: red;
-    color: #fff;
+    background: $bg-primary;
+    color: $text-white;
 
     padding: 8px 16px;
 
