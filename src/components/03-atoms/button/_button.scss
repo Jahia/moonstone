@@ -1,12 +1,11 @@
 @import '../../../styles/shared/all';
 
 .mds-button {
-    padding: space(small) space(large);
-
-    color: $color-white;
-
+    font-size: 40px;
     border: 0;
     background: $color-brand;
+    color: $color-white;
+    padding: space(small) space(large);
 
     &:hover {
         background: $color-primary;
