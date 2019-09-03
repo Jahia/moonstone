@@ -42,3 +42,17 @@ $font-list: (
         @warn "Unknown `#{$variant}` in `#{map-get($fontKey, 'font-family')}`. Use:`#{map-keys($fontKey)}`";
     }
 }
+
+@mixin build-class-list($font-family, $prefix, $styles) {
+    @each $name, $props in $styles {
+       .#{$prefix}#{$name}{
+            font-family: $font-family;
+            @each $key, $value in $props {
+                #{$key}:$value;
+            }
+       }
+    }
+}
+
+
+

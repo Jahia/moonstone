@@ -1,6 +1,6 @@
 /* FONTS ////////////////////////////*/
 @import '../tokens/fonts.scss';
-$font-family: 'nunito-sans';
+
 @font-face {
     @include font-face($nunito-sans, 'light');
 }
@@ -10,11 +10,31 @@ $font-family: 'nunito-sans';
 @font-face {
     @include font-face($nunito-sans, 'semi-bold');
 }
+
+$font-size: 1rem !default;
+$font-line-height: 1 !default;
+$font-styles:(
+    giga:( font-size: $font-size * 4.75, font-weight: 300, line-height: $font-line-height * 1.25 ),
+    mega:( font-size: $font-size * 3.375, font-weight: 300, line-height: $font-line-height * 1.25 ),
+    alpha:( font-size: $font-size * 2.25, font-weight: 300, line-height: $font-line-height * 1.25 ),
+    beta:( font-size: $font-size * 1.75, font-weight: 300, line-height: $font-line-height * 1.25 ),
+    gamma:( font-size: $font-size * 1.25, font-weight: 300, line-height: $font-line-height * 1.25 ),
+    delta:( font-size: $font-size * 1.125, font-weight: 600, line-height: $font-line-height * 1.25 ),
+    epsilon:( font-size: $font-size * 1, font-weight: 600, line-height: $font-line-height * 1.25 ),
+    zeta:( font-size: $font-size * 0.875, font-weight: 600, line-height: $font-line-height * 1.25 ),
+    iota:( font-size: $font-size * 0.875, font-weight: 400, line-height: $font-line-height * 1.25 ),
+    omega:( font-size: $font-size * 0.75, font-weight: 600, line-height: $font-line-height * 1.25 ),
+    caption:( font-size: $font-size * 0.75, font-weight: 400, line-height: $font-line-height * 1.5 ),
+    legal:( font-size: $font-size * 0.6875, font-weight: 400, line-height: $font-line-height * 1.5 ),
+    p:( font-size: $font-size * 1, font-weight: 400, line-height: $font-line-height * 1.5 )
+)!default;
+
 *{
     font-family: "Nunito Sans", map-get($nunito-sans, 'font-family-alternate');
     font-weight: normal;
     font-style: normal;
 }
+@include build-class-list( map-get($nunito-sans, 'font-family'), "font-", $font-styles);
 
 
 
