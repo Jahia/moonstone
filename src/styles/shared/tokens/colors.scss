@@ -1,9 +1,9 @@
-$blue-dark:#007CB0;
-$blue: #00A0E3;
-//$blue-light: #D3E9F3;
+$blue-dark: #007cb0;
+$blue: #00a0e3;
 
-$white:#FFFFFF;
-$black:#000000;
+//$blue-light: #D3E9F3;
+$white: #fff;
+$black: #000;
 
 /*
 $red:#E0182D;
@@ -15,3 +15,7 @@ $green-light:#FFD3D8;
 $orange:#E0182D;
 $orange-light:#FFD3D8;
 */
+
+body {
+    padding: 0.5px;
+}

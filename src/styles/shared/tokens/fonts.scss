@@ -1,10 +1,8 @@
 $font-path: '../../../assets/fonts/';
-
 $nunito-sans: (
     font-family: 'Nunito Sans',
     font-family-alternate: sans-serif,
     format: 'truetype',
-    /////////////////////////////
     black: 'NunitoSans-Black.ttf',
     black-italic: 'NunitoSans-BlackItalic.ttf',
     bold: 'NunitoSans-Bold.ttf',
@@ -21,7 +19,7 @@ $nunito-sans: (
     semi-bold-italic: 'NunitoSans-SemiBoldItalic.ttf',
 ) !default;
 
-/*---------------------------------------------------------------------*/
+/* --------------------------------------------------------------------- */
 $fonts: (
     nunito-sans: $nunito-sans,
 ) !default;
@@ -29,12 +27,18 @@ $fonts: (
 @function font-file($font, $variant) {
     @if map-has-key($fonts, $font) {
         $font-map: map-get($fonts, $font);
+
+        // stylelint-disable-next-line
         @if map-has-key($font-map, $variant) {
             @return map-get($font-map, $variant);
         }
+
         @warn "Unknown `#{$variant}` in `#{$font}`. Use:`#{$font-map}`";
+
         @return null;
     }
+
     @warn "Unknown `#{$font}` in $fonts. Use:`#{$fonts}`";
+
     @return null;
 }
