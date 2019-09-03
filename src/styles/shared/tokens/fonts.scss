@@ -30,7 +30,6 @@ $font-list: (
 @mixin font-face($fontKey, $variant) {
     @if map-has-key($fontKey, $variant){
         $font-props : map-get($fontKey, $variant);
-        $f : map-get-keys($fontKey, $variant);
         font-family: map-get($fontKey, 'font-family');
         src: url("#{$font-path}#{map-get($font-props,'file')}") format("#{map-get($fontKey, 'format')}");
         @if map-has-key($font-props, "weight"){
