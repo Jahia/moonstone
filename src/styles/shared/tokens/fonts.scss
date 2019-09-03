@@ -5,36 +5,41 @@ $nunito-sans: (
     font-family-alternate: sans-serif,
     format: 'truetype',
     /////////////////////////////
-    black: 'NunitoSans-Black.ttf',
-    black-italic: 'NunitoSans-BlackItalic.ttf',
-    bold: 'NunitoSans-Bold.ttf',
-    bold-italic: 'NunitoSans-BoldItalic.ttf',
-    extra-bold: 'NunitoSans-ExtraBold.ttf',
-    extra-bold-italic: 'NunitoSans-ExtraBoldItalic.ttf',
-    extra-light: 'NunitoSans-ExtraLight.ttf',
-    extra-light-italic: 'NunitoSans-ExtraLightItalic.ttf',
-    light: 'NunitoSans-Light.ttf',
-    light-italic: 'NunitoSans-LightItalic.ttf',
-    regular: 'NunitoSans-Regular.ttf',
-    regular-italic: 'NunitoSans-RegularItalic.ttf',
-    semi-bold: 'NunitoSans-SemiBold.ttf',
-    semi-bold-italic: 'NunitoSans-SemiBoldItalic.ttf',
+    extra-light: (file: "NunitoSans-ExtraLight.ttf", weight: 200, style: "normal"),
+    extra-light-italic: (file: "NunitoSans-ExtraLightItalic.ttf", weight: 200, style: "italic"),
+    light: (file: "NunitoSans-Light.ttf", weight: 300, style: "normal"),
+    light-italic: (file: "NunitoSans-LightItalic.ttf", weight: 300, style: "italic"),
+    regular: (file: "NunitoSans-Regular.ttf", weight: 400, style: "normal"),
+    regular-italic: (file: "NunitoSans-RegularItalic.ttf", weight: 400, style: "italic"),
+    semi-bold: (file: "NunitoSans-SemiBold.ttf", weight: 600, style: "normal"),
+    semi-bold-italic: (file: "NunitoSans-SemiBoldItalic.ttf", weight: 600, style: "italic"),
+    bold: (file: "NunitoSans-Bold.ttf", weight: 700, style: "normal"),
+    bold-italic: (file: "NunitoSans-BoldItalic.ttf", weight: 700, style: "italic"),
+    extra-bold: (file: "NunitoSans-ExtraBold.ttf", weight: 800, style: "normal"),
+    extra-bold-italic: (file: "NunitoSans-ExtraBoldItalic.ttf", weight: 800, style: "italic"),
+    black: (file: "NunitoSans-Black.ttf", weight: 900, style: "normal"),
+    black-italic: (file: "NunitoSans-BlackItalic.ttf", weight: 900, style: "italic")
 ) !default;
 
 /*---------------------------------------------------------------------*/
-$fonts: (
+$font-list: (
     nunito-sans: $nunito-sans,
 ) !default;
 
-@function font-file($font, $variant) {
-    @if map-has-key($fonts, $font) {
-        $font-map: map-get($fonts, $font);
-        @if map-has-key($font-map, $variant) {
-            @return map-get($font-map, $variant);
+
+@mixin font-face($fontKey, $variant) {
+    @if map-has-key($fontKey, $variant){
+        $font-props : map-get($fontKey, $variant);
+        $f : map-get-keys($fontKey, $variant);
+        font-family: map-get($fontKey, 'font-family');
+        src: url("#{$font-path}#{map-get($font-props,'file')}") format("#{map-get($fontKey, 'format')}");
+        @if map-has-key($font-props, "weight"){
+            font-weight: map-get($font-props, "weight");
         }
-        @warn "Unknown `#{$variant}` in `#{$font}`. Use:`#{$font-map}`";
-        @return null;
+        @if map-has-key($font-props, "style"){
+            font-style: map-get($font-props, "style");
+        }
+    }@else{
+        @warn "Unknown `#{$variant}` in `#{map-get($fontKey, 'font-family')}`. Use:`#{map-keys($fontKey)}`";
     }
-    @warn "Unknown `#{$font}` in $fonts. Use:`#{$fonts}`";
-    @return null;
 }
