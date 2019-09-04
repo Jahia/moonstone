@@ -3,13 +3,11 @@ $nunito-sans: (
     font-family: 'Nunito Sans',
     font-family-alternate: sans-serif,
     format: 'truetype',
-    /////////////////////////////
-        extra-light:
-        (
-            file: 'NunitoSans-ExtraLight.ttf',
-            weight: 200,
-            style: 'normal',
-        ),
+    extra-light: (
+        file: 'NunitoSans-ExtraLight.ttf',
+        weight: 200,
+        style: 'normal',
+    ),
     extra-light-italic: (
         file: 'NunitoSans-ExtraLightItalic.ttf',
         weight: 200,
@@ -77,7 +75,7 @@ $nunito-sans: (
     ),
 ) !default;
 
-/*---------------------------------------------------------------------*/
+/* --------------------------------------------------------------------- */
 $font-list: (
     nunito-sans: $nunito-sans,
 ) !default;
@@ -85,27 +83,32 @@ $font-list: (
 @mixin font-face($fontKey, $variant) {
     @if map-has-key($fontKey, $variant) {
         $font-props: map-get($fontKey, $variant);
-        font-family: map-get($fontKey, 'font-family');
-        src: url("#{$font-path}#{map-get($font-props,'file')}")
-            format("#{map-get($fontKey, 'format')}");
+        /* stylelint-disable-next-line  */
         @if map-has-key($font-props, 'weight') {
             font-weight: map-get($font-props, 'weight');
         }
+
+        font-family: map-get($fontKey, 'font-family');
+        src: url("#{$font-path}#{map-get($font-props,'file')}") format("#{map-get($fontKey, 'format')}");
+        /* stylelint-disable-next-line  */
         @if map-has-key($font-props, 'style') {
             font-style: map-get($font-props, 'style');
         }
-    } @else {
+    }
+    @else {
         @warn "Unknown `#{$variant}` in `#{map-get($fontKey, 'font-family')}`. Use:`#{map-keys($fontKey)}`";
     }
 }
 
 @mixin build-class-list($font-family, $prefix, $styles) {
     @each $name, $props in $styles {
+        %#{$prefix}#{$name},
         .#{$prefix}#{$name} {
-            font-family: $font-family;
             @each $key, $value in $props {
                 #{$key}: $value;
             }
+
+            font-family: $font-family;
         }
     }
 }
