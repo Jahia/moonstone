@@ -11,5 +11,4 @@
 // // Learn more about service workers: https://bit.ly/CRA-PWA
 // serviceWorker.unregister()
 
-
-import 'button' from '@jahia/moonstone/button'
+export * from './components'
