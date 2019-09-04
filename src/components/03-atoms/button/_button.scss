@@ -1,13 +1,15 @@
 @import '../../../styles/shared/all';
 
 .mds-button {
-    font-size: 40px;
+    @extend .font-giga;
+    //font-size: 40px;
     border: 0;
-    background: $color-brand;
-    color: $color-white;
+    background: $mds-color-brand;
+    color: $mds-color-white;
+
     padding: space(small) space(large);
 
     &:hover {
-        background: $color-primary;
+        background: $mds-color-primary;
     }
 }
