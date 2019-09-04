@@ -7,11 +7,38 @@
 
     color: $mds-color-white;
 
-    //font-size: 40px;
     border: 0;
     background: $mds-color-brand;
 
     &:hover {
         background: $mds-color-primary;
     }
+
+    &.primary {
+        background: $mds-color-primary;
+    }
+
+    &.secondary {
+        background: $mds-color-secondary;
+    }
+
+    &.success {
+        background: $mds-color-success;
+    }
+
+    &.danger {
+        background: $mds-color-danger;
+    }
+
+    &.warning {
+        background: $mds-color-warning;
+    }
 }
+
+/*
+$mds-color-primary:
+$mds-color-secondary:
+$mds-color-success:
+$mds-color-danger:
+$mds-color-warning
+*/

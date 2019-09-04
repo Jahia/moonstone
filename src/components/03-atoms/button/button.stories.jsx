@@ -36,18 +36,19 @@ storiesOf('Button', module)
         { notes: { markdown: doc } }
     )
     .add(
-        'default-2',
+        'colors',
         () => (
-            <Button
-                label='tata'
-                // error={error()}
-                // readOnly={readOnly()}
-                // onBlur={onBlur()}
-                // onChange={onChange()}
-                // onFocus={onFocus()}
-            />
+            <div>
+                <Button label='primary' />
+                <Button label='secondary' style='secondary' />
+                <Button label='success' style='success' />
+                <Button label='danger' style='danger' />
+                <Button label='warning' style='warning' />
+            </div>
         ),
-        { notes: { markdown: doc } }
+        {
+            notes: { markdown: doc }
+        }
     )
 // .add(
 //     'number',
