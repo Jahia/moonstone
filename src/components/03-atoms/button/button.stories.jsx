@@ -40,11 +40,11 @@ storiesOf('Button', module)
         () => (
             <div>
                 <Button label='primary' />
-                <Button label='secondary' style='secondary' />
-                <Button label='success' style='success' />
-                <Button label='danger' style='danger' />
-                <Button label='warning' style='warning' />
-                <Button label='warning' style='warning' isDisabled='true' />
+                <Button label='secondary' classes='secondary' />
+                <Button label='success' classes='success' />
+                <Button label='danger' classes='danger' />
+                <Button label='warning' classes='warning' />
+                <Button label='warning' classes='warning' isDisabled='true' />
             </div>
         ),
         {

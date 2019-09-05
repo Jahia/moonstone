@@ -3,7 +3,7 @@ import './_button.scss'
 // import { Button as MuiButton, withStyles } from '@material-ui/core'
 // import * as _ from 'lodash'
 // import classnames from 'classnames'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 //import PropTypeConstants from '@src/PropTypesConstants.js'
 
 // let styles = theme => ({
@@ -98,7 +98,8 @@ import PropTypes from 'prop-types'
 // )
 
 const Button = ({ label, classes }) => {
-    return <button className='mds-button'>{label}</button>
+    let classNames = classes ? classes : ''
+    return <button className={'mds-button' + ' ' + classNames}>{label}</button>
 }
 /*
 Button.propTypes =
