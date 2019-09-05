@@ -1,0 +1,34 @@
+@import '../../../styles/shared/all';
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+span,
+blockquote {
+    color: $mds-text-color-black;
+
+    &.primary {
+        color: $mds-text-color-primary;
+    }
+
+    &.secondary {
+        color: $mds-text-color-secondary;
+    }
+
+    &.success {
+        color: $mds-text-color-success;
+    }
+
+    &.danger {
+        color: $mds-text-color-danger;
+    }
+
+    &.warning {
+        color: $mds-text-color-warning;
+    }
+}
