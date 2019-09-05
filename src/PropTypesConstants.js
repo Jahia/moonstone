@@ -14,7 +14,7 @@ export const TextVariants = [
     'omega',
     'caption',
     'legal',
-    'p',
+    'p'
 ]
 
 export default {
@@ -42,6 +42,6 @@ export default {
     button: {
         variant: PropTypes.oneOf(['ghost', 'primary', 'secondary', 'inline']),
         colors: PropTypes.oneOf(['default', 'inverted']),
-        sizes: PropTypes.oneOf(['normal', 'compact']),
-    },
+        sizes: PropTypes.oneOf(['normal', 'compact'])
+    }
 }

@@ -1,5 +1,7 @@
 /* FONTS //////////////////////////// */
-@import '../tokens/fonts.scss';
+@import '../tokens/fonts/fonts.scss';
+@import '../mixin/fonts.scss';
+@import '../tokens/fonts/nunito-sans.scss';
 
 @font-face {
     @include font-face($nunito-sans, 'light');
@@ -15,72 +17,22 @@
 
 $mds-font-size: 1rem !default;
 $mds-font-line-height: 1 !default;
+
+/* prettier-ignore */
 $mds-font-styles: (
-    giga: (
-        font-size: $mds-font-size * 4.75,
-        font-weight: 300,
-        line-height: $mds-font-line-height * 1.25,
-    ),
-    mega: (
-        font-size: $mds-font-size * 3.375,
-        font-weight: 300,
-        line-height: $mds-font-line-height * 1.25,
-    ),
-    alpha: (
-        font-size: $mds-font-size * 2.25,
-        font-weight: 300,
-        line-height: $mds-font-line-height * 1.25,
-    ),
-    beta: (
-        font-size: $mds-font-size * 1.75,
-        font-weight: 300,
-        line-height: $mds-font-line-height * 1.25,
-    ),
-    gamma: (
-        font-size: $mds-font-size * 1.25,
-        font-weight: 300,
-        line-height: $mds-font-line-height * 1.25,
-    ),
-    delta: (
-        font-size: $mds-font-size * 1.125,
-        font-weight: 600,
-        line-height: $mds-font-line-height * 1.25,
-    ),
-    epsilon: (
-        font-size: $mds-font-size * 1,
-        font-weight: 600,
-        line-height: $mds-font-line-height * 1.25,
-    ),
-    zeta: (
-        font-size: $mds-font-size * 0.875,
-        font-weight: 600,
-        line-height: $mds-font-line-height * 1.25,
-    ),
-    iota: (
-        font-size: $mds-font-size * 0.875,
-        font-weight: 400,
-        line-height: $mds-font-line-height * 1.25,
-    ),
-    omega: (
-        font-size: $mds-font-size * 0.75,
-        font-weight: 600,
-        line-height: $mds-font-line-height * 1.25,
-    ),
-    caption: (
-        font-size: $mds-font-size * 0.75,
-        font-weight: 400,
-        line-height: $mds-font-line-height * 1.5,
-    ),
-    legal: (
-        font-size: $mds-font-size * 0.6875,
-        font-weight: 400,
-        line-height: $mds-font-line-height * 1.5,
-    ),
-    p: (
-        font-size: $mds-font-size * 1,
-        font-weight: 400,
-        line-height: $mds-font-line-height * 1.5,
-    ),
+    giga: (font-size: $mds-font-size * 4.75, font-weight: 300, line-height: $mds-font-line-height * 1.25),
+    mega: (font-size: $mds-font-size * 3.375, font-weight: 300, line-height: $mds-font-line-height * 1.25),
+    alpha: (font-size: $mds-font-size * 2.25, font-weight: 300, line-height: $mds-font-line-height * 1.25),
+    beta: (font-size: $mds-font-size * 1.75, font-weight: 300, line-height: $mds-font-line-height * 1.25),
+    gamma: (font-size: $mds-font-size * 1.25, font-weight: 300, line-height: $mds-font-line-height * 1.25),
+    delta: (font-size: $mds-font-size * 1.125, font-weight: 600, line-height: $mds-font-line-height * 1.25),
+    epsilon: (font-size: $mds-font-size * 1, font-weight: 600, line-height: $mds-font-line-height * 1.25 ),
+    zeta: (font-size: $mds-font-size * 0.875, font-weight: 600, line-height: $mds-font-line-height * 1.25),
+    iota: (font-size: $mds-font-size * 0.875, font-weight: 400, line-height: $mds-font-line-height * 1.25),
+    omega: (font-size: $mds-font-size * 0.75, font-weight: 600, line-height: $mds-font-line-height * 1.25),
+    caption: (font-size: $mds-font-size * 0.75, font-weight: 400, line-height: $mds-font-line-height * 1.5),
+    legal: (font-size: $mds-font-size * 0.6875, font-weight: 400, line-height: $mds-font-line-height * 1.5),
+    p: (font-size: $mds-font-size * 1, font-weight: 400, line-height: $mds-font-line-height * 1.5)
 ) !default;
 
 * {
@@ -91,7 +43,7 @@ $mds-font-styles: (
 
 @include build-class-list(
     map-get($nunito-sans, 'font-family'),
-    'font-',
+    'mds-font-',
     $mds-font-styles
 );
 
@@ -106,4 +58,4 @@ $mds-color-danger: $mdc-color-red-A700;
 $mds-color-warning: $mdc-color-orange-700;
 $mds-color-info: $mdc-color-blue-700;
 $mds-color-white: $mdc-color-white;
-$mds-color-black: $mdc-color-black;
+$mds-color-black: $mdc-color-blue-50;
