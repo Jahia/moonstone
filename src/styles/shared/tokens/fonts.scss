@@ -4,10 +4,12 @@ $nunito-sans: (
     font-family-alternate: sans-serif,
     format: 'truetype',
     extra-light: (
-        file: '    ns        ttf',
+        file: 'NunitoSans-ExtraLight.ttf',
         weight: 200,
-        e: 'normal',
-        extra-light-it file: 'NunitoSans-ExtraLightItalic.ttf',
+        style: 'normal',
+    ),
+    extra-light-italic: (
+        file: 'NunitoSans-ExtraLightItalic.ttf',
         weight: 200,
         style: 'italic',
     ),
@@ -84,8 +86,7 @@ $font-list: (
         $font-props: map-get($fontKey, $variant);
 
         font-family: map-get($fontKey, 'font-family');
-        src:
-            url("#{$font-path}#{map-get($font-props,'file')}")
+        src: url("#{$font-path}#{map-get($font-props,'file')}")
             format("#{map-get($fontKey, 'format')}");
 
         @if map-has-key($font-props, 'weight') {
@@ -94,8 +95,7 @@ $font-list: (
         @if map-has-key($font-props, 'style') {
             font-style: map-get($font-props, 'style');
         }
-    }
-    @else {
+    } @else {
         @warn "Unknown `#{$variant}` in `#{map-get($fontKey, 'font-family')}`. Use:`#{map-keys($fontKey)}`";
     }
 }
