@@ -1,0 +1,34 @@
+%capitalize,
+.capitalize {
+    text-transform: capitalize;
+}
+
+%uppercase,
+.uppercase {
+    text-transform: uppercase;
+}
+
+%lowercase,
+.lowercase {
+    text-transform: lowercase;
+}
+
+/*
+$text-props: (
+    text-transform: (
+        capitalize: capitalize,
+        uppercase: uppercase,
+        lowercase: lowercase
+    ),
+    text-align: (
+        left: left,
+        right: right,
+        center: center,
+        justify: justify,
+        justify-all: justify-all,
+        start: start,
+        end: end,
+        match-parent: match-parent
+    )
+);
+*/

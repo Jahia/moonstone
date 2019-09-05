@@ -1,6 +1,7 @@
 /* FONTS //////////////////////////// */
-@import '../tokens/fonts/nunito-sans.scss';
+@import '../tokens/fonts/fonts.scss';
 @import '../mixin/fonts.scss';
+@import '../tokens/fonts/nunito-sans.scss';
 
 @font-face {
     @include font-face($nunito-sans, 'light');
@@ -42,7 +43,7 @@ $mds-font-styles: (
 
 @include build-class-list(
     map-get($nunito-sans, 'font-family'),
-    'font-',
+    'mds-font-',
     $mds-font-styles
 );
 
