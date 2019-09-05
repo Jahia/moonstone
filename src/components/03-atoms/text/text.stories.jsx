@@ -24,6 +24,6 @@ storiesOf('Text', module)
             </div>
         ),
         {
-            notes: { markdown: doc }
+            notes: { markdown: doc },
         }
     )

@@ -9,7 +9,7 @@ const Text = ({ label, classes }) => {
 Text.defaultProps = {
     color: 'default',
     variant: 'ghost',
-    size: 'normal'
+    size: 'normal',
 }
 
 Text.displayName = 'mds-Text'
