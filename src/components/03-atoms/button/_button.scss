@@ -1,15 +1,63 @@
 @import '../../../styles/shared/all';
 
 .mds-button {
-    @extend .font-giga;
-    //font-size: 40px;
-    border: 0;
-    background: $mds-color-brand;
-    color: $mds-color-white;
+    @extend %mds-font-epsilon;
+    @extend %uppercase;
 
     padding: space(small) space(large);
 
+    color: $mds-color-white;
+
+    border: 0;
+    background: $mds-color-primary;
+
+    &:disabled {
+        background: $mdc-color-blue-gray-500 !important;
+        cursor: none !important;
+    }
+
     &:hover {
         background: $mds-color-primary;
+        cursor: pointer;
+    }
+
+    &.primary {
+        background: $mds-color-primary;
+
+        &:hover {
+            background: darken($mds-color-primary, 10%);
+        }
+    }
+
+    &.secondary {
+        background: $mds-color-secondary;
+
+        &:hover {
+            background: $mds-color-primary;
+        }
+    }
+
+    &.success {
+        background: $mds-color-success;
+
+        &:hover {
+            background: $mds-color-primary;
+        }
+    }
+
+    &.danger {
+        background: $mds-color-danger;
+
+        &:hover {
+            background: $mds-color-primary;
+        }
+    }
+
+    &.warning {
+        background: $mds-color-warning;
+
+        &:hover {
+            background: $mds-color-primary;
+        }
     }
 }
