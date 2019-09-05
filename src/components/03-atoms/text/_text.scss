@@ -1,0 +1,27 @@
+@import '../../../styles/shared/all';
+
+.text-default {
+    @extend %mds-font-epsilon;
+
+    color: $mds-color-black;
+
+    &.primary {
+        color: $mds-color-primary;
+    }
+
+    &.secondary {
+        color: $mds-color-secondary;
+    }
+
+    &.success {
+        color: $mds-color-success;
+    }
+
+    &.danger {
+        color: $mds-color-danger;
+    }
+
+    &.warning {
+        color: $mds-color-warning;
+    }
+}
