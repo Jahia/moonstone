@@ -3,13 +3,14 @@ import './_text.scss'
 import PropTypes from 'prop-types'
 
 const Text = ({ label, classes }) => {
-    return <p className=''>{label}</p>
+    let classNames = classes ? classes : ''
+    return <p className={classNames}>{label}</p>
 }
 
 Text.defaultProps = {
     color: 'default',
     variant: 'ghost',
-    size: 'normal',
+    size: 'normal'
 }
 
 Text.displayName = 'mds-Text'

@@ -16,14 +16,15 @@ storiesOf('Text', module)
         'colors',
         () => (
             <div>
-                <Text label='primary' />
-                <Text label='secondary' style='secondary' />
-                <Text label='success' style='success' />
-                <Text label='danger' style='danger' />
-                <Text label='warning' style='warning' />
+                <Text label='default' />
+                <Text label='primary' classes='primary' />
+                <Text label='secondary' classes='secondary' />
+                <Text label='success' classes='success' />
+                <Text label='danger' classes='danger' />
+                <Text label='warning' classes='warning' />
             </div>
         ),
         {
-            notes: { markdown: doc },
+            notes: { markdown: doc }
         }
     )

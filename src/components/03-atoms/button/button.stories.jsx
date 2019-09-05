@@ -44,7 +44,7 @@ storiesOf('Button', module)
                 <Button label='success' classes='success' />
                 <Button label='danger' classes='danger' />
                 <Button label='warning' classes='warning' />
-                <Button label='warning' classes='warning' isDisabled='true' />
+                <Button label='disabled' classes='warning' isDisabled='true' />
             </div>
         ),
         {

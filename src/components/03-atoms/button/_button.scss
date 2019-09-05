@@ -1,13 +1,13 @@
 @import '../../../styles/shared/all';
 
 .mds-button {
-    @extend %mds-font-giga;
+    @extend %mds-font-epsilon;
+    @extend %uppercase;
 
     padding: space(small) space(large);
 
     color: $mds-color-white;
 
-    //font-size: 40px;
     border: 0;
     background: $mds-color-brand;
 
