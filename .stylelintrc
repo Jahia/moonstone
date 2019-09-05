@@ -13,7 +13,8 @@
                 "name": "extend"
             },
             {
-                "type": "at-rule"
+                "type": "at-rule",
+                "selector": "^/(?!@if$)(?!@else$)[a-z0-9]+$/"
             },
             "custom-properties",
             "dollar-variables",

@@ -99,7 +99,7 @@ import './_button.scss'
 
 const Button = ({ label, classes }) => {
     let classNames = classes ? classes : ''
-    return <button className={'mds-button' + ' ' + classNames}>{label}</button>
+    return <button className={`mds-button ${classNames}`}>{label}</button>
 }
 /*
 Button.propTypes =

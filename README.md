@@ -38,6 +38,8 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 This project use [prettier](https://prettier.io/) to format automatically your code.
 You can install the plugin corresponding to your favorite IDE [VS Code](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
 
+`yarn prettier` run prettiers formatting commands. We launch this command before each commit.
+
 
 ### Husky
 
