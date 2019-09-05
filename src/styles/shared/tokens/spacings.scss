@@ -3,26 +3,33 @@
 // Control the default styling of most Bootstrap elements by modifying these
 // variables. Mostly focused on spacing.
 // You can add more entries to the $spacers map, should you need more variation.
-
 $spacer: 1rem !default;
 $spacers: (
-  none: 0,
-  extra-small: ($spacer * .25),
-  small: ($spacer * .5),
-  medium: $spacer,
-  large: ($spacer * 1.5),
-  extra-large: ($spacer * 3)
+    none: 0,
+    extra-small: (
+        $spacer * 0.25,
+    ),
+    small: (
+        $spacer * 0.5,
+    ),
+    medium: $spacer,
+    large: (
+        $spacer * 1.5,
+    ),
+    extra-large: (
+        $spacer * 3,
+    ),
 ) !default;
 
 @function space($key) {
     @if map-has-key($spacers, $key) {
-      @return map-get($spacers, $key);
+        @return map-get($spacers, $key);
     }
-  
+
     @warn "Unknown `#{$key}` in $spacings. Use:`#{map-keys($spacers)}`";
+
     @return null;
 }
-
 
 /*
 // Grid breakpoints

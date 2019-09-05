@@ -255,3 +255,7 @@ GitHub.sublime-settings
 
 # Production
 /build
+/public
+
+# Stylelint
+.stylelintcache

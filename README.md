@@ -1,28 +1,53 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Installation
+
+Install all packages with `yarn` command.
+
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `yarn start`
+### Start
 
-Run the storybook environement on `http://localhost:6006`
+`yarn start` run the storybook environement on `http://localhost:6006`
 
 
-### `yarn test`
+### Test
 
-Launches the test runner in the interactive watch mode.<br>
+`yarn test` Launches the test runner in the interactive watch mode.
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### ESlint
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+`yarn lint:js` run ESlint script to lint all javascript files with autofix enable.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### Stylelint
+
+`yarn lint:scss` run stylelint script to lint all scss files with autofix enable.
+
+
+### Linters
+
+`yarn lint` run all lint commands (javascript and style).
+
+### Prettier
+
+This project use [prettier](https://prettier.io/) to format automatically your code.
+You can install the plugin corresponding to your favorite IDE [VS Code](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
+
+`yarn prettier` run prettiers formatting commands. We launch this command before each commit.
+
+
+### Husky
+
+Before each push [Husky](https://github.com/typicode/husky) launch lint scripts with autofix enable to allow to only push formatted code.
+
+
+-----
+
 
 ### `npm run eject`
 
@@ -39,27 +64,3 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

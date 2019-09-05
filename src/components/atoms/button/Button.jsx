@@ -4,7 +4,7 @@ import './_button.scss'
 // import * as _ from 'lodash'
 // import classnames from 'classnames'
 import PropTypes from 'prop-types'
-import PropTypeConstants from '../../../PropTypesConstants.js'
+import PropTypeConstants from '@src/PropTypesConstants.js'
 
 // let styles = theme => ({
 //     root: {
