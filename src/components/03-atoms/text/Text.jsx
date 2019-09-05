@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 const Text = ({ label, classes }) => {
     let classNames = classes ? classes : ''
-    return <p className={classNames}>{label}</p>
+    return <div className={classNames}>{label}</div>
 }
 
 Text.defaultProps = {
