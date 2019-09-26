@@ -3,9 +3,10 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
-        "prop-types": "^15.7.2",
-        "react": "^16.9.0",
-        "react-dom": "^16.9.0"
+        "prop-types": "^15.7.2"
+    },
+    "peerDependencies": {
+        "react": "^16.9.0"
     },
     "scripts": {
         "start": "start-storybook -p 6006",
@@ -15,7 +16,9 @@
         "lint": "yarn prettier && yarn lint:js && yarn lint:scss",
         "lint:js": "eslint --ext js,jsx,json --fix .",
         "lint:scss": "stylelint './src/**/*.scss' --fix",
-        "build": "build-storybook",
+        "build": "yarn build:storybook && yarn build:lib",
+        "build:lib": "webpack && cp package.json dist/",
+        "build:storybook": "build-storybook",
         "deploy": "rsync -r ./storybook-static/ jahia@design.int.jahia.com:/var/www/vhosts/contenteditor.jahia.design/html/moonstone/"
     },
     "eslintConfig": {
@@ -40,6 +43,7 @@
         ]
     },
     "devDependencies": {
+        "react": "^16.9.0",
         "@babel/core": "^7.5.5",
         "@babel/preset-env": "^7.6.2",
         "@babel/preset-react": "^7.0.0",
@@ -54,22 +58,30 @@
         "babel-jest": "^24.9.0",
         "babel-loader": "^8.0.6",
         "component-test-utils-react": "^1.0.0-alpha.7",
+        "css-loader": "^3.2.0",
         "eslint": "^6.4.0",
         "eslint-config-prettier": "^6.1.0",
         "eslint-plugin-jest": "^22.16.0",
         "eslint-plugin-json": "^1.4.0",
         "eslint-plugin-prettier": "^3.1.0",
         "eslint-plugin-react": "^7.14.3",
+        "file-loader": "^4.2.0",
         "husky": "^3.0.5",
         "identity-obj-proxy": "^3.0.0",
         "jest": "^24.9.0",
+        "mini-css-extract-plugin": "^0.8.0",
+        "node-sass": "^4.12.0",
         "prettier": "^1.18.2",
         "react-test-renderer": "^16.9.0",
+        "sass-loader": "^8.0.0",
         "storybook-addon-versions": "^0.4.3",
         "storybook-readme": "^5.0.8",
+        "style-loader": "^1.0.0",
         "stylelint": "^10.1.0",
         "stylelint-config-standard": "^18.3.0",
         "stylelint-order": "^3.1.0",
-        "stylelint-scss": "^3.10.0"
+        "stylelint-scss": "^3.10.0",
+        "webpack": "^4.41.0",
+        "webpack-cli": "^3.3.9"
     }
 }

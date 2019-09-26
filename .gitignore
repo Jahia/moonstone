@@ -261,3 +261,4 @@ GitHub.sublime-settings
 .stylelintcache
 
 storybook-static/
+dist/
