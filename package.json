@@ -10,15 +10,13 @@
     },
     "scripts": {
         "start": "start-storybook -p 6006",
-        "build": "react-scripts build",
         "test": "react-scripts test",
-        "eject": "react-scripts eject",
-        "build-storybook": "build-storybook",
-        "build:css": "node-sass-chokidar src/styles/moonstone.scss -o build/ --output-style compressed",
         "prettier": "prettier --only-changed --write '**/*.{jsx,js,scss}' --loglevel error",
         "lint": "yarn prettier && yarn lint:js && yarn lint:scss",
         "lint:js": "eslint --ext js,jsx,json --fix .",
-        "lint:scss": "stylelint './src/**/*.scss' --fix"
+        "lint:scss": "stylelint './src/**/*.scss' --fix",
+        "build": "build-storybook",
+        "publish": "rsync -r ./storybook-static/ jahia@design.int.jahia.com:/var/www/vhosts/contenteditor.jahia.design/html/moonstone/"
     },
     "eslintConfig": {
         "extends": "react-app"

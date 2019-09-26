@@ -259,3 +259,5 @@ GitHub.sublime-settings
 
 # Stylelint
 .stylelintcache
+
+storybook-static/
