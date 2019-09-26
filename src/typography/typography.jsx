@@ -7,7 +7,7 @@ export const Typography = ({ children, component, variant }) =>
     React.createElement(
         component,
         {
-            className: `typography_${variant}`
+            className: `typography typography_${variant}`
         },
         children
     )
