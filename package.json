@@ -21,26 +21,12 @@
         "build:storybook": "build-storybook",
         "deploy": "rsync -r ./storybook-static/ jahia@design.int.jahia.com:/var/www/vhosts/contenteditor.jahia.design/html/moonstone/"
     },
-    "eslintConfig": {
-        "extends": "react-app"
-    },
+    "module": "dist/main.js",
     "husky": {
         "hooks": {
             "pre-commit": "yarn prettier",
             "pre-push": "yarn lint"
         }
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
     },
     "devDependencies": {
         "react": "^16.9.0",
