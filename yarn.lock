@@ -3618,6 +3618,18 @@ component-emitter@^1.2.1:
   resolved "https://registry.yarnpkg.com/component-emitter/-/component-emitter-1.3.0.tgz#16e4070fba8ae29b679f2215853ee181ab2eabc0"
   integrity sha512-Rd3se6QB+sO1TwqZjscQrurpEPIfO0/yYnSin6Q/rD3mOutHvUrCAhJub3r90uNb+SESBuE0QYoB90YdfatsRg==
 
+component-test-utils-react@^1.0.0-alpha.7:
+  version "1.0.0-alpha.7"
+  resolved "https://registry.yarnpkg.com/component-test-utils-react/-/component-test-utils-react-1.0.0-alpha.7.tgz#dd97e093bce1923adbe549a065fa96e366e5af6b"
+  integrity sha512-m/GoUmj4IL/jXAO4+lbV0aw2BNPoJWufFnpzddGGmN4yF2c+ERkNeQIf7cj0BaL2Krzz4A5Psd1AGT695NLugQ==
+  dependencies:
+    react-is "^16.5.2"
+
+component-test-utils@^1.0.0-alpha.0:
+  version "1.0.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/component-test-utils/-/component-test-utils-1.0.0-alpha.0.tgz#4e669f240dbefa802247c16a4e2291b8a9225314"
+  integrity sha512-8VrW6UgRP1NDpzm7TFIn9o6kgkXIQ+8f6MnxXxZlPCo1h1533zain+yKznVbtsRzmIyvT9VoNAh22RoZ3CA/7Q==
+
 compose-function@3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/compose-function/-/compose-function-3.0.3.tgz#9ed675f13cc54501d30950a486ff6a7ba3ab185f"
@@ -10656,7 +10668,7 @@ react-inspector@^3.0.2:
     is-dom "^1.0.9"
     prop-types "^15.6.1"
 
-react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4:
+react-is@^16.5.2, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4:
   version "16.9.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.9.0.tgz#21ca9561399aad0ff1a7701c01683e8ca981edcb"
   integrity sha512-tJBzzzIgnnRfEm046qRcURvwQnZVXmuCbscxUO5RWrGTXpon2d4c8mI0D8WE6ydVIm29JiLB6+RslkIvym9Rjw==

@@ -3,11 +3,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './typography.scss'
 
-export const Typography = ({ children, component, variant }) =>
+export const Typography = ({ children, component, variant, ...props }) =>
     React.createElement(
         component,
         {
-            className: `typography typography_${variant}`
+            ...props,
+            className: `typography typography_${variant} ${props.className}`
         },
         children
     )

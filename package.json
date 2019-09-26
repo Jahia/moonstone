@@ -49,6 +49,8 @@
         "@storybook/addons": "^5.1.11",
         "@storybook/react": "^5.1.11",
         "babel-loader": "^8.0.6",
+        "component-test-utils": "^1.0.0-alpha.0",
+        "component-test-utils-react": "^1.0.0-alpha.7",
         "eslint": "^6.2.2",
         "eslint-config-prettier": "^6.1.0",
         "eslint-plugin-jest": "^22.16.0",
