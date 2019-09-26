@@ -16,7 +16,7 @@
         "lint:js": "eslint --ext js,jsx,json --fix .",
         "lint:scss": "stylelint './src/**/*.scss' --fix",
         "build": "build-storybook",
-        "publish": "rsync -r ./storybook-static/ jahia@design.int.jahia.com:/var/www/vhosts/contenteditor.jahia.design/html/moonstone/"
+        "deploy": "rsync -r ./storybook-static/ jahia@design.int.jahia.com:/var/www/vhosts/contenteditor.jahia.design/html/moonstone/"
     },
     "eslintConfig": {
         "extends": "react-app"
