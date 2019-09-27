@@ -2,6 +2,13 @@ const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const nodeExternals = require('webpack-node-externals')
 
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+
+const productionPlugins =
+    process.env.WEBPACK_MODE === 'production'
+        ? [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})]
+        : []
+
 module.exports = {
     entry: './src/index.js',
     output: {
@@ -28,8 +35,7 @@ module.exports = {
             {
                 test: /\.scss$/i,
                 use: [
-                    // Creates `style` nodes from JS strings
-                    'style-loader',
+                    MiniCssExtractPlugin.loader,
                     // Translates CSS into CommonJS
                     'css-loader',
                     // Compiles Sass to CSS
@@ -43,6 +49,7 @@ module.exports = {
         ]
     },
     plugins: [
+        ...productionPlugins,
         new MiniCssExtractPlugin({
             filename: '[name].css',
             chunkFilename: '[id].css'
