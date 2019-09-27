@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { Typography } from './typography'
+import { Typography } from './index'
 
 storiesOf('Typography', module).add('all', () => (
     <div>

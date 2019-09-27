@@ -1,0 +1,25 @@
+@import '../colors/colors.scss';
+
+.navItem {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 3.5rem;
+    width: 18.75rem;
+    color: $color-neutral;
+    transition: all 2s;
+
+    &:hover {
+        color: $color-accent;
+    }
+
+    &.navItem_selected {
+        color: $color-neutral;
+        background-color: $color-accent;
+    }
+}
+
+.navItem-icon-container {
+    height: 3.5rem;
+    width: 3.5rem;
+}

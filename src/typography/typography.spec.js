@@ -1,5 +1,5 @@
 import React from 'react'
-import { Typography } from './typography'
+import { Typography } from './index'
 import { shallow } from 'component-test-utils-react'
 
 describe('Typography', () => {
