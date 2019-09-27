@@ -7,7 +7,8 @@
     height: 3.5rem;
     width: 18.75rem;
     color: $color-neutral;
-    transition: all 2s;
+    transition: all 0.2s;
+    cursor: pointer;
 
     &:hover {
         color: $color-accent;
@@ -16,10 +17,14 @@
     &.navItem_selected {
         color: $color-neutral;
         background-color: $color-accent;
+        cursor: default;
     }
 }
 
 .navItem-icon-container {
     height: 3.5rem;
     width: 3.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

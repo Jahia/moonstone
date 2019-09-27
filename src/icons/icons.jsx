@@ -1,18 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import './icons.scss'
+import './icons-loader'
 
-const files = require.context('!svg-sprite-loader!./asset', false, /.*\.svg$/)
-files.keys().forEach(files)
-
-export const Icon = ({ name, className }) => (
-    <svg className={`svg-icon ${className}`} width='1em' height='1em'>
+export const Icon = ({ name, className, ...props }) => (
+    <svg
+        {...props}
+        className={`svg-icon ${className}`}
+        width='1em'
+        height='1em'
+    >
         <use xlinkHref={`#${name}`}></use>
     </svg>
 )
 
 Icon.defaultProps = {
-    name: null,
     className: ''
 }
 
