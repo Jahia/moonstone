@@ -1,5 +1,8 @@
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const SpriteLoaderPlugin = require('svg-sprite-loader/plugin')
+// const SVGSymbolSprite = require('svg-symbol-sprite-loader')
+// const HtmlWebpackPlugin = require('html-webpack-plugin')
 const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
@@ -39,13 +42,47 @@ module.exports = {
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
                 use: ['file-loader']
+            },
+            {
+                test: /\.svg$/,
+                loader: 'svg-sprite-loader',
+                options: {}
             }
+            // {
+            //     // The loader transforms imported SVGs in JS objects of SVG data that
+            //     // can be used with any icon component
+            //     test: /\.svg$/,
+            //     use: [
+            //         {
+            //             loader: 'svg-symbol-sprite-loader',
+
+            //             // optional: Provide a function which returns a customized symbol ID.
+            //             // It receives the full file path as an argument
+            //             options: {
+            //                 symbolId: filePath =>
+            //                     `icon-${path.basename(filePath, '.svg')}`
+            //             }
+            //         }
+            //     ]
+            // }
         ]
     },
     plugins: [
         new MiniCssExtractPlugin({
             filename: '[name].css',
             chunkFilename: '[id].css'
-        })
+        }),
+        new SpriteLoaderPlugin()
+        // // The plugin will append a script with the sprite hash to head
+        // // ⚠️ Order matters, the HTML plugin must be included before the SVG sprite
+        // // plugin so that the HTML plugin hooks are registered!
+        // new HtmlWebpackPlugin(),
+
+        // // The plugin extracts the imported SVGs into a separate sprite file,
+        // new SVGSymbolSprite({
+        //     filename: `icon-sprite${
+        //         process.env.NODE_ENV === 'production' ? '.[chunkhash]' : ''
+        //     }.svg`
+        // })()
     ]
 }
