@@ -8,7 +8,9 @@ export const Typography = ({ children, component, variant, ...props }) =>
         component,
         {
             ...props,
-            className: `typography typography_${variant} ${props.className}`
+            className: `typography typography_${variant} ${
+                props.className ? props.className : ''
+            }`
         },
         children
     )

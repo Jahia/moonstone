@@ -17,7 +17,8 @@
         "lint:js": "eslint --ext js,jsx,json --fix .",
         "lint:scss": "stylelint './src/**/*.scss' --fix",
         "build": "yarn build:storybook && yarn build:lib",
-        "build:lib": "webpack",
+        "build:lib": "webpack --mode production",
+        "build:lib:dev": "webpack --mode development",
         "build:storybook": "build-storybook",
         "deploy": "rsync -r ./storybook-static/ jahia@design.int.jahia.com:/var/www/vhosts/contenteditor.jahia.design/html/moonstone/"
     },
@@ -57,6 +58,7 @@
         "jest": "^24.9.0",
         "mini-css-extract-plugin": "^0.8.0",
         "node-sass": "^4.12.0",
+        "optimize-css-assets-webpack-plugin": "^5.0.3",
         "prettier": "^1.18.2",
         "react": "^16.9.0",
         "react-test-renderer": "^16.9.0",
@@ -69,8 +71,8 @@
         "stylelint-order": "^3.1.0",
         "stylelint-scss": "^3.10.0",
         "svg-sprite-loader": "^4.1.6",
-        "terser-webpack-plugin": "^2.1.0",
         "svgo-loader": "^2.2.1",
+        "terser-webpack-plugin": "^2.1.0",
         "webpack": "^4.41.0",
         "webpack-cli": "^3.3.9",
         "webpack-node-externals": "^1.7.2"
