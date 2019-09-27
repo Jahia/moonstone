@@ -1,15 +1,18 @@
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
     entry: './src/index.js',
     output: {
         filename: 'main.js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'dist'),
+        library: '',
+        libraryTarget: 'commonjs'
     },
     mode: 'development',
     devtool: 'source-map',
-    externals: ['react'],
+    externals: [nodeExternals()],
     resolve: {
         extensions: ['.js', '.json', '.jsx', '.scss']
     },

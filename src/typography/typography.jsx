@@ -20,7 +20,7 @@ Typography.defaultProps = {
 }
 
 Typography.propTypes = {
-    children: PropTypes.string,
+    children: PropTypes.node,
     component: PropTypes.string,
     variant: PropTypes.oneOf([
         'page',
