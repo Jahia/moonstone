@@ -2,13 +2,16 @@
 
 .navItem {
     display: flex;
-    align-items: center;
     justify-content: flex-start;
-    height: 3.5rem;
+    align-items: center;
     width: 18.75rem;
+    height: 3.5rem;
+
     color: $color-neutral;
-    transition: all 0.2s;
+
     cursor: pointer;
+
+    transition: all 0.2s;
 
     &:hover {
         color: $color-accent;
@@ -16,15 +19,16 @@
 
     &.navItem_selected {
         color: $color-neutral;
+
         background-color: $color-accent;
         cursor: default;
     }
 }
 
 .navItem-icon-container {
-    height: 3.5rem;
-    width: 3.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
 }
