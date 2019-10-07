@@ -27,9 +27,15 @@
     "module": "dist/main.js",
     "husky": {
         "hooks": {
-            "pre-commit": "yarn prettier",
-            "pre-push": "yarn lint"
+            "pre-commit": "lint-staged",
+            "pre-push": "yarn test"
         }
+    },
+    "lint-staged": {
+        "src/**/*.{js,jsx,scss}": [
+            "yarn lint",
+            "git add"
+        ]
     },
     "devDependencies": {
         "@babel/core": "^7.5.5",
@@ -57,6 +63,7 @@
         "husky": "^3.0.5",
         "identity-obj-proxy": "^3.0.0",
         "jest": "^24.9.0",
+        "lint-staged": "^9.4.1",
         "mini-css-extract-plugin": "^0.8.0",
         "node-sass": "^4.12.0",
         "optimize-css-assets-webpack-plugin": "^5.0.3",
