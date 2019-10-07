@@ -1,11 +1,11 @@
-.svg-icon {
+.svgIcon {
     width: 24px;
     height: 24px;
 
     fill: currentColor;
-}
 
-.svg-icon_big {
-    width: 32px;
-    height: 32px;
+    &.big {
+        width: 32px;
+        height: 32px;
+    }
 }

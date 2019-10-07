@@ -1,7 +1,8 @@
 import React from 'react'
 
 import PropTypes from 'prop-types'
-import './typography.scss'
+import styles from './typography.scss'
+import classnames from 'classnames'
 
 export const TypographyVariants = [
     'page',
@@ -22,7 +23,7 @@ export const Typography = ({
         component,
         {
             ...props,
-            className: `typography typography_${variant} ${className}`
+            className: classnames(styles.typography, styles[variant], className)
         },
         children
     )

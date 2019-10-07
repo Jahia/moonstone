@@ -17,18 +17,18 @@
         color: $color-accent;
     }
 
-    &.navItem_selected {
+    &.selected {
         color: $color-neutral;
 
         background-color: $color-accent;
         cursor: default;
     }
-}
 
-.navItem-icon-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 3.5rem;
-    height: 3.5rem;
+    &_iconContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 3.5rem;
+        height: 3.5rem;
+    }
 }
