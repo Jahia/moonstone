@@ -1,7 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import PropTypes from 'prop-types'
-import './spacings.scss'
 
 export const Spacing = ({ spacing, name }) => {
     return (

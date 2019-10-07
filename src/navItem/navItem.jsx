@@ -1,15 +1,20 @@
 import React from 'react'
 
 import PropTypes from 'prop-types'
-import './navItem.scss'
+import styles from './navItem.scss'
+import classnames from 'classnames'
 import { Typography } from '../typography'
 
 export const NavItem = ({ children, className, selected, icon, ...props }) => (
     <li
         {...props}
-        className={`navItem ${selected ? 'navItem_selected' : ''} ${className}`}
+        className={classnames(
+            styles.navItem,
+            { [styles.selected]: selected },
+            className
+        )}
     >
-        <div className='navItem-icon-container'>{icon}</div>
+        <div className={classnames(styles.navItem_iconContainer)}>{icon}</div>
         <Typography component='div'>{children}</Typography>
     </li>
 )
