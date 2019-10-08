@@ -27,7 +27,6 @@ describe('NavItem', () => {
         const wrapper = shallow(
             <NavItem icon={<Icon />}>Content children</NavItem>
         )
-
         expect(wrapper.html()).toContain('Icon')
     })
 
@@ -38,8 +37,7 @@ describe('NavItem', () => {
                 Content children
             </NavItem>
         )
-
-        expect(wrapper.html()).toContain('navItem_selected')
+        expect(wrapper.props.className).toContain('navItem selected')
     })
 
     it('should not set selected the item when not giving selected property', () => {
@@ -47,7 +45,6 @@ describe('NavItem', () => {
         const wrapper = shallow(
             <NavItem icon={<Icon />}>Content children</NavItem>
         )
-
         expect(wrapper.html()).not.toContain('navItem_selected')
     })
 })
