@@ -39,7 +39,7 @@ describe('NavItem', () => {
             </NavItem>
         );
 
-        expect(wrapper.html()).toContain('navItem_selected');
+        expect(wrapper.html()).toContain('navItem selected');
     });
 
     it('should not set selected the item when not giving selected property', () => {

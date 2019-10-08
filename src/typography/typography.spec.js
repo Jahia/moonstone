@@ -12,7 +12,8 @@ describe('Typography', () => {
         const wrapper = shallow(
             <Typography variant="page">Content children</Typography>
         );
-        expect(wrapper.props.className).toContain('typography_page');
+        console.log(wrapper.props);
+        expect(wrapper.props.className).toContain('typography page');
     });
 
     it('should display a tag html p by default', () => {
@@ -22,7 +23,7 @@ describe('Typography', () => {
 
     it('should display a regular variant by default', () => {
         const wrapper = shallow(<Typography>Content children</Typography>);
-        expect(wrapper.props.className).toContain('typography_regular');
+        expect(wrapper.props.className).toContain('typography regular');
     });
 
     it('should display a tag html h1', () => {
