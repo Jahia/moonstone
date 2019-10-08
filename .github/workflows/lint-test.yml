@@ -11,10 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: yarn install
+    - uses: actions/checkout@v1
+    - name: Install
+      run: yarn install --no-lockfile
     - name: Lint Javascript
       run: yarn lint:js
     - name: Lint SCSS
       run: yarn lint:js
-    - name: Test SCSS
+    - name: Unit tests
       run: yarn test    
