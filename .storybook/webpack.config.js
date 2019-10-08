@@ -9,7 +9,10 @@ module.exports = async ({config, mode}) => {
             {
                 loader: 'css-loader',
                 options: {
-                    modules: true
+                    modules: {
+                        mode: 'local',
+                        localIdentName: '[name]__[local]'
+                    },
                 }
             },
             'sass-loader'
