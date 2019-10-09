@@ -13,9 +13,11 @@
         "start": "start-storybook -p 6006",
         "test": "jest --ci --runInBand --coverage",
         "tdd": "jest --watch",
-        "lint": "yarn lint:js && yarn lint:scss",
-        "lint:js": "eslint --ext js,jsx,json --fix .",
-        "lint:scss": "stylelint './src/**/*.scss' --fix",
+        "lint:js": "eslint --ext js,jsx,json .",
+        "lint:scss": "stylelint './src/**/*.scss'",
+        "lint:js:fix": "yarn lint:js --fix .",
+        "lint:scss:fix": "yarn lint:scss --fix",
+        "lint:fix": "yarn lint:js && yarn lint:scss",
         "build": "yarn build:storybook && yarn build:lib",
         "build:lib": "webpack --mode production",
         "build:lib:dev": "webpack --mode development",
@@ -33,7 +35,7 @@
     },
     "lint-staged": {
         "src/**/*.{js,jsx,scss}": [
-            "yarn lint",
+            "yarn lint:fix",
             "git add"
         ]
     },

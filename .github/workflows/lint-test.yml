@@ -1,15 +1,15 @@
 name: CI Linting & Unit Tests
 
-on: 
+on:
   pull_request:
-    branches: 
+    branches:
       - master
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v1
     - name: Install
@@ -17,6 +17,6 @@ jobs:
     - name: Lint Javascript
       run: yarn lint:js
     - name: Lint SCSS
-      run: yarn lint:js
+      run: yarn lint:scss
     - name: Unit tests
-      run: yarn test    
+      run: yarn test
