@@ -1,16 +1,17 @@
-const path = require('path')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const SpriteLoaderPlugin = require('svg-sprite-loader/plugin')
-// const SVGSymbolSprite = require('svg-symbol-sprite-loader')
+const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserJSPlugin = require('terser-webpack-plugin');
+const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
+// Const SVGSymbolSprite = require('svg-symbol-sprite-loader')
 // const HtmlWebpackPlugin = require('html-webpack-plugin')
-const nodeExternals = require('webpack-node-externals')
+const nodeExternals = require('webpack-node-externals');
 
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const productionPlugins =
-    process.env.WEBPACK_MODE === 'production'
-        ? [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})]
-        : []
+    process.env.WEBPACK_MODE === 'production' ?
+        [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})] :
+        [];
 
 module.exports = {
     entry: './src/index.js',
@@ -97,4 +98,4 @@ module.exports = {
         //     }.svg`
         // })()
     ]
-}
+};
