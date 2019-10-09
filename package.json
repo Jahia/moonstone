@@ -13,8 +13,7 @@
         "start": "start-storybook -p 6006",
         "test": "jest --ci --runInBand --coverage",
         "tdd": "jest --watch",
-        "prettier": "prettier --only-changed --write '**/*.{jsx,js,scss}' --loglevel error",
-        "lint": "yarn prettier && yarn lint:js && yarn lint:scss",
+        "lint": "yarn lint:js && yarn lint:scss",
         "lint:js": "eslint --ext js,jsx,json --fix .",
         "lint:scss": "stylelint './src/**/*.scss' --fix",
         "build": "yarn build:storybook && yarn build:lib",
@@ -27,9 +26,15 @@
     "module": "dist/main.js",
     "husky": {
         "hooks": {
-            "pre-commit": "yarn prettier",
-            "pre-push": "yarn lint"
+            "pre-commit": "lint-staged",
+            "pre-push": "yarn test"
         }
+    },
+    "lint-staged": {
+        "src/**/*.{js,jsx,scss}": [
+            "yarn lint",
+            "git add"
+        ]
     },
     "devDependencies": {
         "@babel/core": "^7.5.5",
@@ -47,20 +52,18 @@
         "babel-loader": "^8.0.6",
         "component-test-utils-react": "^1.0.0-alpha.7",
         "css-loader": "^3.2.0",
-        "eslint": "^6.4.0",
-        "eslint-config-prettier": "^6.1.0",
+        "eslint": "5.16.0",
         "eslint-plugin-jest": "^22.16.0",
         "eslint-plugin-json": "^1.4.0",
-        "eslint-plugin-prettier": "^3.1.0",
         "eslint-plugin-react": "^7.14.3",
         "file-loader": "^4.2.0",
         "husky": "^3.0.5",
         "identity-obj-proxy": "^3.0.0",
         "jest": "^24.9.0",
+        "lint-staged": "^9.4.1",
         "mini-css-extract-plugin": "^0.8.0",
         "node-sass": "^4.12.0",
         "optimize-css-assets-webpack-plugin": "^5.0.3",
-        "prettier": "^1.18.2",
         "react": "^16.9.0",
         "react-test-renderer": "^16.9.0",
         "sass-loader": "^8.0.0",
