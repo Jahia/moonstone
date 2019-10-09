@@ -1,5 +1,4 @@
-import './reset.scss';
-
-export * from './typography';
-export * from './navItem';
+export * from './globalstyle';
 export * from './icons';
+export * from './navItem';
+export * from './typography';
