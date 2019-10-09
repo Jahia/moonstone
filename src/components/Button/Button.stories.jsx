@@ -13,6 +13,6 @@ storiesOf('Button', module)
     })
     .addDecorator(withKnobs)
     .add('default', () => (
-        <Button/>
+        <Button onClick={() => {}}/>
     ));
 
