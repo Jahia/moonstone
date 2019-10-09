@@ -9,12 +9,12 @@ export const PrimaryNavItem = ({label, className, isSelected, icon, ...props}) =
     <li
         {...props}
         className={classnames(
-            styles.navItem,
+            styles.primaryNavItem,
             {[styles.selected]: isSelected},
             className
         )}
     >
-        <div className={classnames(styles.navItem_iconContainer)}>{icon}</div>
+        <div className={classnames(styles.primaryNavItem_iconContainer)}>{icon}</div>
         <Typography component="div">{label}</Typography>
     </li>
 );

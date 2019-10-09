@@ -1,0 +1,11 @@
+
+.primaryNav {
+    width: 18.75rem;
+    height: 100vh;
+
+    background-color: #131c21;
+
+    &.expanded {
+        width: 50rem;
+    }
+}
