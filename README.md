@@ -1,4 +1,15 @@
-<h1 align="center">Welcome to moonstone 👋</h1>
+<a href="https://www.jahia.com/">
+    <img src="https://www.jahia.com/modules/jahiacom-templates/images/jahia-3x.png" alt="Jahia logo" title="Jahia" align="right" height="60" />
+</a>
+
+Moonstone
+======================
+
+<p align="center">Jahia Design System</p>
+
+<p align="center">Moonstone is our library of styles re-usable React components</p>
+
+
 <p>
   <a href="https://www.npmjs.com/package/moonstone" target="_blank">
     <img alt="Version" src="https://img.shields.io/npm/v/@jahia/moonstone.svg">
@@ -7,8 +18,6 @@
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
 </p>
-
-> Jahia Design System
 
 ### 🏠 [Homepage](https://zeroheight.com/29db18463)
 
