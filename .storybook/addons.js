@@ -1,4 +1,6 @@
 import '@storybook/addon-actions/register';
 import '@storybook/addon-links/register';
-import '@storybook/addon-notes';
-import '@storybook/addon-knobs';
+import '@storybook/addon-storysource/register';
+import '@storybook/addon-docs/register';
+import '@storybook/addon-notes/register';
+import '@storybook/addon-knobs/register';
