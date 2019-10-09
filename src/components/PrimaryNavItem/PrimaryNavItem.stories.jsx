@@ -1,7 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
-import {NavItem} from './index';
-import {Icon} from '../icons';
+import {PrimaryNavItem} from './index';
+import {Icon} from '../Icon';
 
 storiesOf('NavItem', module).add('all', () => (
     <ul
@@ -11,14 +11,14 @@ storiesOf('NavItem', module).add('all', () => (
             height: '100vh'
         }}
     >
-        <NavItem icon={<Icon name="musique"/>}>
+        <PrimaryNavItem icon={<Icon name="musique"/>}>
             NavItem not selected (default)
-        </NavItem>
+        </PrimaryNavItem>
 
-        <NavItem selected icon={<Icon name="musique"/>}>
+        <PrimaryNavItem selected icon={<Icon name="musique"/>}>
             NavItem Selected
-        </NavItem>
+        </PrimaryNavItem>
 
-        <NavItem icon={<Icon name="drink"/>}>Another NavItem</NavItem>
+        <PrimaryNavItem icon={<Icon name="drink"/>}>Another NavItem</PrimaryNavItem>
     </ul>
 ));

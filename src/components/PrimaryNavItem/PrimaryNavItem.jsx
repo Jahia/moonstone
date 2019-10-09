@@ -1,11 +1,11 @@
 import React from 'react';
 
 import PropTypes from 'prop-types';
-import styles from './navItem.scss';
+import styles from './PrimaryNavItem.scss';
 import classnames from 'classnames';
-import {Typography} from '../typography';
+import {Typography} from '../Typography';
 
-export const NavItem = ({children, className, selected, icon, ...props}) => (
+export const PrimaryNavItem = ({children, className, selected, icon, ...props}) => (
     <li
         {...props}
         className={classnames(
@@ -19,13 +19,13 @@ export const NavItem = ({children, className, selected, icon, ...props}) => (
     </li>
 );
 
-NavItem.defaultProps = {
+PrimaryNavItem.defaultProps = {
     children: '',
     className: '',
     selected: false
 };
 
-NavItem.propTypes = {
+PrimaryNavItem.propTypes = {
     children: PropTypes.node,
     icon: PropTypes.node,
     selected: PropTypes.bool,
