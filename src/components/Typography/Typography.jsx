@@ -1,7 +1,7 @@
 import React from 'react';
 
 import PropTypes from 'prop-types';
-import styles from './typography.scss';
+import styles from './Typography.scss';
 import classnames from 'classnames';
 
 export const TypographyVariants = [

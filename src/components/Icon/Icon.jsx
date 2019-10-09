@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './icons.scss';
+import styles from './Icon.scss';
 import classnames from 'classnames';
-import './icons-loader';
+import '../../icons/icons-loader';
 
 export const IconSizes = ['default', 'big'];
 

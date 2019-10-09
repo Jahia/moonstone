@@ -1,7 +1,7 @@
 import React from 'react';
 import {addDecorator, addParameters, configure} from '@storybook/react';
 import {DocsContainer, DocsPage} from '@storybook/addon-docs/blocks';
-import {GlobalStyle} from '../src/globalstyle';
+import {GlobalStyle} from '../src';
 
 addDecorator(story => (
     <>

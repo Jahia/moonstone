@@ -2,7 +2,7 @@ import React from 'react';
 import {shallow} from 'component-test-utils-react';
 import {Icon} from './index';
 
-jest.mock('./icons-loader', () => {});
+jest.mock('../../icons/icons-loader', () => {});
 
 describe('Icon', () => {
     it('should add extra props', () => {

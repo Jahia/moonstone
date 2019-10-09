@@ -1,9 +1,9 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {select, withKnobs} from '@storybook/addon-knobs';
-import markdownNotes from './typography.md';
+import markdownNotes from './Typography.md';
 
-import {Typography, TypographyVariants} from './typography';
+import {Typography, TypographyVariants} from './index';
 
 storiesOf('Typography', module)
     .addParameters({

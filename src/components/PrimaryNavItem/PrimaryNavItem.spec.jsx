@@ -1,23 +1,23 @@
 import React from 'react';
 import {shallow} from 'component-test-utils-react';
-import {NavItem} from './index';
+import {PrimaryNavItem} from './index';
 
 describe('NavItem', () => {
     it('should display a text children', () => {
-        const wrapper = shallow(<NavItem>Content children</NavItem>);
+        const wrapper = shallow(<PrimaryNavItem>Content children</PrimaryNavItem>);
         expect(wrapper.html()).toContain('Content children');
     });
 
     it('should add extra props ', () => {
         const wrapper = shallow(
-            <NavItem onClick={() => {}}>Content children</NavItem>
+            <PrimaryNavItem onClick={() => {}}>Content children</PrimaryNavItem>
         );
         expect(wrapper.html()).toContain('onClick');
     });
 
     it('should add extra className ', () => {
         const wrapper = shallow(
-            <NavItem className="yoloooo">Content children</NavItem>
+            <PrimaryNavItem className="yoloooo">Content children</PrimaryNavItem>
         );
         expect(wrapper.props.className).toContain('yoloooo');
     });
@@ -25,7 +25,7 @@ describe('NavItem', () => {
     it('should display the icon', () => {
         const Icon = () => <svg/>;
         const wrapper = shallow(
-            <NavItem icon={<Icon/>}>Content children</NavItem>
+            <PrimaryNavItem icon={<Icon/>}>Content children</PrimaryNavItem>
         );
 
         expect(wrapper.html()).toContain('Icon');
@@ -34,9 +34,9 @@ describe('NavItem', () => {
     it('should set selected the item when give selected property', () => {
         const Icon = () => <svg/>;
         const wrapper = shallow(
-            <NavItem selected icon={<Icon/>}>
+            <PrimaryNavItem selected icon={<Icon/>}>
                 Content children
-            </NavItem>
+            </PrimaryNavItem>
         );
 
         expect(wrapper.html()).toContain('navItem selected');
@@ -45,7 +45,7 @@ describe('NavItem', () => {
     it('should not set selected the item when not giving selected property', () => {
         const Icon = () => <svg/>;
         const wrapper = shallow(
-            <NavItem icon={<Icon/>}>Content children</NavItem>
+            <PrimaryNavItem icon={<Icon/>}>Content children</PrimaryNavItem>
         );
 
         expect(wrapper.html()).not.toContain('navItem_selected');
