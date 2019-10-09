@@ -1,2 +1,3 @@
 src/styles/reset/_normalize.scss
 build/
+**/*.jsx
