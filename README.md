@@ -18,11 +18,9 @@
 yarn add @jahia/moonstone
 ```
 
-## Import css to your project main JS
+## Import global styles into your project
 
-```js
-import 'moonstone/dist/main.css'
-```
+Use the component `GlobalStyle` add the root of your app to load CSS globals and resets.
 
 ## Use the design System
 
@@ -30,26 +28,29 @@ import 'moonstone/dist/main.css'
 import React from 'react'
 import logo from './logo.svg'
 import './App.css'
-import { Typography } from 'moonstone'
+import {GlobalStyle, Typography} from 'moonstone'
 
 function App() {
     return (
-        <div className='App'>
-            <header className='App-header'>
-                <img src={logo} className='App-logo' alt='logo' />
-                <Typography>
-                    Edit <code>src/App.js</code> and save to reload.
-                </Typography>
-                <a
-                    className='App-link'
-                    href='https://reactjs.org'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                >
-                    Learn React
-                </a>
-            </header>
-        </div>
+        <>
+            <GlobalStyle/>
+            <div className='App'>
+                <header className='App-header'>
+                    <img src={logo} className='App-logo' alt='logo' />
+                    <Typography>
+                        Edit <code>src/App.js</code> and save to reload.
+                    </Typography>
+                    <a
+                        className='App-link'
+                        href='https://reactjs.org'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                    >
+                        Learn React
+                    </a>
+                </header>
+            </div>
+        </>
     )
 }
 
