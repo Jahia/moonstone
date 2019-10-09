@@ -36,8 +36,23 @@ Typography.defaultProps = {
 };
 
 Typography.propTypes = {
+    /**
+     * Content of the component
+     */
     children: PropTypes.node,
+
+    /**
+     * Custom classname to use
+     */
     className: PropTypes.string,
+
+    /**
+     * The component used for the root node
+     */
     component: PropTypes.string,
+
+    /**
+     * Variant to use
+     */
     variant: PropTypes.oneOf(TypographyVariants)
 };
