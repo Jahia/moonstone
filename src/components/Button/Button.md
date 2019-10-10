@@ -1,4 +1,4 @@
-##Goals:
+## Goals:
 Create a basic button component
 
 ## Specifications:
