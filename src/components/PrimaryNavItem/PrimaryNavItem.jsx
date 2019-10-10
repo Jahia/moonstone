@@ -22,7 +22,8 @@ export const PrimaryNavItem = ({children, className, selected, icon, ...props}) 
 PrimaryNavItem.defaultProps = {
     children: '',
     className: '',
-    selected: false
+    selected: false,
+    hasNotification: false
 };
 
 PrimaryNavItem.propTypes = {
@@ -32,7 +33,7 @@ PrimaryNavItem.propTypes = {
     children: PropTypes.node,
 
     /**
-     * Icon name from our icon library
+     * Icon node from our icon library
      */
     icon: PropTypes.node,
 
@@ -40,6 +41,16 @@ PrimaryNavItem.propTypes = {
      * Element is selected or not
      */
     selected: PropTypes.bool,
+
+    /**
+     * Element is selected or not
+     */
+    onClick: PropTypes.func.isRequired,
+
+    /**
+     * Element has notification
+     */
+    hasNotification: PropTypes.bool,
 
     /**
      * Additional classname
