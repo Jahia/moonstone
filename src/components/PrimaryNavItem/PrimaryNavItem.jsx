@@ -26,8 +26,23 @@ PrimaryNavItem.defaultProps = {
 };
 
 PrimaryNavItem.propTypes = {
+    /**
+     * Children
+     */
     children: PropTypes.node,
+
+    /**
+     * Icon name from our icon library
+     */
     icon: PropTypes.node,
+
+    /**
+     * Element is selected or not
+     */
     selected: PropTypes.bool,
+
+    /**
+     * Additional classname
+     */
     className: PropTypes.string
 };
