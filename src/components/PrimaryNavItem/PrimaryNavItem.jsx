@@ -5,12 +5,12 @@ import styles from './PrimaryNavItem.scss';
 import classnames from 'classnames';
 import {Typography} from '../Typography';
 
-export const PrimaryNavItem = ({children, className, selected, icon, ...props}) => (
+export const PrimaryNavItem = ({children, className, isSelected, icon, ...props}) => (
     <li
         {...props}
         className={classnames(
             styles.navItem,
-            {[styles.selected]: selected},
+            {[styles.selected]: isSelected},
             className
         )}
     >
@@ -22,7 +22,7 @@ export const PrimaryNavItem = ({children, className, selected, icon, ...props}) 
 PrimaryNavItem.defaultProps = {
     children: '',
     className: '',
-    selected: false,
+    isSelected: false,
     hasNotification: false
 };
 
@@ -40,7 +40,7 @@ PrimaryNavItem.propTypes = {
     /**
      * Element is selected or not
      */
-    selected: PropTypes.bool,
+    isSelected: PropTypes.bool,
 
     /**
      * Element is selected or not
