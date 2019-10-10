@@ -16,16 +16,13 @@ https://jira.jahia.org/browse/MOON-XXX
 
 ## Description
 
-<!--
-Please describe what your change is about.
-If you made specific implementation choices worth an explanation, those can be detailed in this section
--->
+PraimryNavItemsGroup definition
 
 ## Tests
 
 The following are included in this PR
-- [ ] Unit Tests (Most changes _should_ have unit tests)
-- [ ] Integration Tests
+
+- [ ] Unit Test skeleton
 
 ## Checklist
 
@@ -35,12 +32,10 @@ If some are not applicable they could simply be deleted deleted.
 If you need to provide more details, please use the description section.
 -->
 
-I have considered the following implications of my change:
-
-- [ ] Security (in particular for changes to authentication, authorization, data fetching, ...)
-- [ ] Performance
-- [ ] Migration
-- [ ] Code maintainability
+- [ ] All files present ( component - md - scss - spec - stories )
+- [ ] Are all props ok and documented
+- [ ] Required props and default values
+- [ ] Example in storybook
 
 ## Documentation
 
@@ -48,6 +43,4 @@ I have considered the following implications of my change:
 Indicate if you have been writing documentation has part of this change.
 -->
 
-- [ ] Inline documentation
-- [ ] Internal Documentation (wiki)
-- [ ] User-facing Documentation
+- [ ] README documentation
