@@ -32,7 +32,8 @@ Typography.defaultProps = {
     children: '',
     className: '',
     component: 'p',
-    variant: 'regular'
+    variant: 'regular',
+    href: ''
 };
 
 Typography.propTypes = {
@@ -50,6 +51,11 @@ Typography.propTypes = {
      * The component used for the root node
      */
     component: PropTypes.string,
+
+    /**
+     * If variant === 'link' ? isRequired = true
+     */
+    href: PropTypes.string,
 
     /**
      * Variant to use
