@@ -1,5 +1,5 @@
 {
-    "extends": ["stylelint-config-standard"],
+    "extends": ["stylelint-config-standard", "stylelint-config-css-modules"],
     "plugins": ["stylelint-scss", "stylelint-order"],
     "rules": {
         "indentation": 4,
@@ -328,7 +328,6 @@
         "keyframe-declaration-no-important": true,
         "declaration-block-no-duplicate-properties": true,
         "declaration-block-no-shorthand-property-overrides": true,
-        "selector-pseudo-class-no-unknown": true,
         "selector-pseudo-element-no-unknown": true,
         "selector-type-no-unknown": true,
         "media-feature-name-no-unknown": true,
