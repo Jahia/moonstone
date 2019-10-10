@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import styles from './PrimaryNav.scss';
 
-export const PrimaryNav = ({expanded, headerLogo, children, env}) => {
-    console.log({expanded, headerLogo, children, env});
+export const PrimaryNav = ({isExpanded, headerLogo, children, env}) => {
+    console.log({isExpanded, headerLogo, children, env});
     return (
         <div className={classnames(
             styles.primaryNav,
-            {[styles.expanded]: expanded},
+            {[styles.expanded]: isExpanded},
         )}
         >
             <ul>
@@ -19,7 +19,7 @@ export const PrimaryNav = ({expanded, headerLogo, children, env}) => {
 };
 
 PrimaryNav.defaultProps = {
-    expanded: false,
+    isExpanded: false,
     headerLogo: '',
     children: null,
     env: ''
@@ -30,7 +30,7 @@ PrimaryNav.propTypes = {
     /**
      * Is navigation expanded
      */
-    expanded: PropTypes.bool,
+    isExpanded: PropTypes.bool,
 
     /**
      * Image of logo application
