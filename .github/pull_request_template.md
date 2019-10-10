@@ -16,7 +16,7 @@ https://jira.jahia.org/browse/MOON-XXX
 
 ## Description
 
-PraimryNavItemsGroup definition
+XXX component definition
 
 ## Tests
 
