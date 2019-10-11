@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import styles from './PrimaryNav.scss';
 
-export const PrimaryNav = ({isExpanded, headerLogo, children, env}) => {
-    console.log({isExpanded, headerLogo, children, env});
+export const PrimaryNav = ({isExpanded, headerLogo, children, headerCaption}) => {
+    console.log({isExpanded, headerLogo, children, headerCaption});
     return (
         <div className={classnames(
             styles.primaryNav,
@@ -21,8 +21,8 @@ export const PrimaryNav = ({isExpanded, headerLogo, children, env}) => {
 PrimaryNav.defaultProps = {
     isExpanded: false,
     headerLogo: '',
-    children: null,
-    env: ''
+    headerCaption: '',
+    children: null
 };
 
 PrimaryNav.propTypes = {
@@ -38,13 +38,12 @@ PrimaryNav.propTypes = {
     headerLogo: PropTypes.any,
 
     /**
-     * Items
-     */
-    children: PropTypes.any,
-
-    /**
      * Application's environment
      */
-    env: PropTypes.string
+    headerCaption: PropTypes.string,
 
+    /**
+     * Items
+     */
+    children: PropTypes.any
 };
