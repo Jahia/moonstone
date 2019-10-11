@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const PrimaryNavItemsGroup = ({isDisplayedByDefault, children}) => {
-    console.log({isDisplayedByDefault, children});
+export const PrimaryNavItemsGroup = ({isDisplayedByDefault, hasSeparator, children}) => {
+    console.log({isDisplayedByDefault, hasSeparator, children});
     return (
         <primaryNavItemsGroup/>
     );
 };
 
 PrimaryNavItemsGroup.defaultProps = {
-    isDisplayedByDefault: true
+    isDisplayedByDefault: true,
+    hasSeparator: true
 };
 
 PrimaryNavItemsGroup.propTypes = {
@@ -21,6 +22,10 @@ PrimaryNavItemsGroup.propTypes = {
     /**
      * Items displayed inside the group
      */
-    children: PropTypes.arrayOf(PropTypes.node).isRequired
+    children: PropTypes.arrayOf(PropTypes.node).isRequired,
 
+    /**
+     * Shows a separator between items
+     */
+    hasSeparator: PropTypes.bool
 };
