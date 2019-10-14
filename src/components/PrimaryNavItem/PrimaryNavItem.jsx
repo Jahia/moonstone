@@ -23,19 +23,20 @@ PrimaryNavItem.defaultProps = {
     children: '',
     className: '',
     isSelected: false,
-    hasNotification: false
+    hasNotification: false,
+    variant: 'button'
 };
 
 PrimaryNavItem.propTypes = {
     /**
      * Children
      */
-    children: PropTypes.node,
+    children: PropTypes.string,
 
     /**
      * Icon node from our icon library
      */
-    icon: PropTypes.node,
+    icon: PropTypes.element,
 
     /**
      * Element is selected or not
@@ -51,6 +52,11 @@ PrimaryNavItem.propTypes = {
      * Element has notification
      */
     hasNotification: PropTypes.bool,
+
+    /**
+     * Element has notification
+     */
+    variant: PropTypes.oneOf(['button', 'link']),
 
     /**
      * Additional classname
