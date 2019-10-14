@@ -60,7 +60,7 @@ Typography.propTypes = {
     variant: PropTypes.oneOf(TypographyVariants),
 
     /**
-     * Variant to use
+     * Does the children contain HTML markup
      */
     isHtml: PropTypes.bool
 };
