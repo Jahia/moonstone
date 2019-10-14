@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Button = ({onClick, size, isDisabled, iconName, type, variant, color}) => {
-    console.log({onClick, size, isDisabled, iconName, type, variant, color});
+export const Button = ({onClick, size, isDisabled, icon, variant, color}) => {
+    console.log({onClick, size, isDisabled, icon, variant, color});
     return (
         <button type="button"/>
     );
@@ -11,8 +11,7 @@ export const Button = ({onClick, size, isDisabled, iconName, type, variant, colo
 Button.defaultProps = {
     size: 'medium',
     isDisabled: false,
-    iconName: '',
-    type: 'button',
+    icon: null,
     variant: 'default',
     color: 'inherit'
 };
@@ -36,12 +35,7 @@ Button.propTypes = {
     /**
      * Icon name, if it's empty the button has no icon
      */
-    iconName: PropTypes.string,
-
-    /**
-     *  Determine the button type
-     */
-    type: PropTypes.oneOf(['button', 'submit', 'reset']),
+    icon: PropTypes.element,
 
     /**
      * Button style
