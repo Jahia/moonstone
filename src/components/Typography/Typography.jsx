@@ -12,6 +12,8 @@ export const TypographyVariants = [
     'strong'
 ];
 
+const childrenPropType = (props, propName, componentName) => (props.isHtml ? PropTypes.node(props, propName, componentName) : PropTypes.string(props, propName, componentName));
+
 export const Typography = ({
     children,
     component,
@@ -32,14 +34,15 @@ Typography.defaultProps = {
     children: '',
     className: '',
     component: 'p',
-    variant: 'regular'
+    variant: 'regular',
+    isHtml: false
 };
 
 Typography.propTypes = {
     /**
      * Content of the component
      */
-    children: PropTypes.node,
+    children: childrenPropType,
 
     /**
      * Custom classname to use
@@ -54,5 +57,10 @@ Typography.propTypes = {
     /**
      * Variant to use
      */
-    variant: PropTypes.oneOf(TypographyVariants)
+    variant: PropTypes.oneOf(TypographyVariants),
+
+    /**
+     * Does the children contain HTML markup
+     */
+    isHtml: PropTypes.bool
 };
