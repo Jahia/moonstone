@@ -5,7 +5,7 @@ import markdownNotes from './Button.md';
 
 import {Button} from './index';
 
-storiesOf('Button', module)
+storiesOf('Components|Button', module)
     .addParameters({
         component: Button,
         componentSubtitle: 'Button',
@@ -15,4 +15,3 @@ storiesOf('Button', module)
     .add('default', () => (
         <Button onClick={() => {}}/>
     ));
-

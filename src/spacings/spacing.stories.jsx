@@ -31,7 +31,7 @@ export const Spacing = ({spacing, name}) => {
     );
 };
 
-storiesOf('Spacing', module).add('default', () => (
+storiesOf('Tokens|Spacing', module).add('default', () => (
     <div style={{display: 'flex'}}>
         <div style={{margin: '0 auto'}}>
             <Spacing spacing={4} name="nano"/>

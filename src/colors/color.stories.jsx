@@ -28,7 +28,7 @@ export const Colors = ({backgroundColor, name}) => {
     );
 };
 
-storiesOf('Colors', module)
+storiesOf('Tokens|Colors', module)
     .add('default', () => (
         <div style={{display: 'flex'}}>
             <div style={{margin: '0 auto', display: 'flex'}}>

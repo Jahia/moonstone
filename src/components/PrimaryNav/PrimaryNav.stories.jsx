@@ -5,10 +5,10 @@ import markdownNotes from './PrimaryNav.md';
 
 import {PrimaryNav} from './index';
 import {PrimaryNavItem} from '../PrimaryNavItem';
-import {Musique} from '../../icons';
 import {PrimaryNavItemsGroup} from '../PrimaryNavItemsGroup';
+import {Musique} from '../../icons';
 
-storiesOf('PrimaryNav', module)
+storiesOf('Components|PrimaryNav', module)
     .addParameters({
         component: PrimaryNav,
         componentSubtitle: 'PrimaryNav',

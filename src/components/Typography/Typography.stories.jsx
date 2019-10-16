@@ -5,7 +5,7 @@ import markdownNotes from './Typography.md';
 
 import {Typography, TypographyVariants} from './index';
 
-storiesOf('Typography', module)
+storiesOf('Tokens|Typography', module)
     .addParameters({
         component: Typography,
         componentSubtitle: 'Displays text',
