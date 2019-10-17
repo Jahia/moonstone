@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// TODO implement the component !
+// eslint-disable-next-line 
 export const PrimaryNavItemsGroup = ({isDisplayedByDefault, hasSeparator, children}) => {
     console.log({isDisplayedByDefault, hasSeparator, children});
     return (
