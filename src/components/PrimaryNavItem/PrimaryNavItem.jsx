@@ -5,29 +5,74 @@ import styles from './PrimaryNavItem.scss';
 import classnames from 'classnames';
 import {Typography} from '../Typography';
 
-export const PrimaryNavItem = ({children, className, selected, icon, ...props}) => (
+export const PrimaryNavItem = ({label, className, isSelected, icon, ...props}) => (
     <li
         {...props}
         className={classnames(
             styles.navItem,
-            {[styles.selected]: selected},
+            {[styles.selected]: isSelected},
             className
         )}
     >
         <div className={classnames(styles.navItem_iconContainer)}>{icon}</div>
-        <Typography component="div">{children}</Typography>
+        <Typography component="div">{label}</Typography>
     </li>
 );
 
 PrimaryNavItem.defaultProps = {
-    children: '',
-    className: '',
-    selected: false
+    label: '',
+    icon: null,
+    subtitle: null,
+    button: null,
+    isSelected: false,
+    badge: null,
+    variant: 'button',
+    className: ''
 };
 
 PrimaryNavItem.propTypes = {
-    children: PropTypes.node,
-    icon: PropTypes.node,
-    selected: PropTypes.bool,
-    className: PropTypes.string
+    /**
+     * Label
+     */
+    label: PropTypes.string,
+
+    /**
+     * Icon node from our icon library
+     */
+    icon: PropTypes.element,
+
+    /**
+     * Subtitle
+     */
+    subtitle: PropTypes.string,
+
+    /**
+     * Optional button
+     */
+    button: PropTypes.node,
+
+    /**
+     * Element is selected or not
+     */
+    isSelected: PropTypes.bool,
+
+    /**
+     * Element has badge
+     */
+    badge: PropTypes.string,
+
+    /**
+     * Element has notification
+     */
+    variant: PropTypes.oneOf(['button', 'link']),
+
+    /**
+     * Additional classname
+     */
+    className: PropTypes.string,
+
+    /**
+     * Element is selected or not
+     */
+    onClick: PropTypes.func
 };
