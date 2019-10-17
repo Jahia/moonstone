@@ -3,30 +3,24 @@ import PropTypes from 'prop-types';
 
 // TODO implement the component !
 // eslint-disable-next-line
-export const PrimaryNavItemsGroup = ({isDisplayedByDefault, hasSeparator, children}) => {
+export const PrimaryNavItemsGroup = ({isDisplayedWhenCollapsed, children}) => {
     return (
-        <primaryNavItemsGroup/>
+        <div/>
     );
 };
 
 PrimaryNavItemsGroup.defaultProps = {
-    isDisplayedByDefault: true,
-    hasSeparator: true
+    isDisplayedWhenCollapsed: true
 };
 
 PrimaryNavItemsGroup.propTypes = {
     /**
      * Group is visible when the navigation is collapsed
      */
-    isDisplayedByDefault: PropTypes.bool,
+    isDisplayedWhenCollapsed: PropTypes.bool,
 
     /**
      * Items displayed inside the group
      */
-    children: PropTypes.arrayOf(PropTypes.node).isRequired,
-
-    /**
-     * Shows a separator between items
-     */
-    hasSeparator: PropTypes.bool
+    children: PropTypes.arrayOf(PropTypes.node).isRequired
 };
