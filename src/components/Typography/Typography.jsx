@@ -9,7 +9,8 @@ export const TypographyVariants = [
     'section',
     'regular',
     'caption',
-    'strong'
+    'strong',
+    'button'
 ];
 
 const childrenPropType = (props, propName, componentName) => (props.isHtml ? PropTypes.node(props, propName, componentName) : PropTypes.string(props, propName, componentName));
