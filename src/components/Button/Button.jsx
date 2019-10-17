@@ -1,36 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Button = ({onClick, size, isDisabled, icon, variant, color}) => {
-    console.log({onClick, size, isDisabled, icon, variant, color});
+export const ButtonSizes = ['small', 'medium', 'big'];
+export const ButtonVariants = ['default', 'primary', 'ghost'];
+export const ButtonColors = ['accent', 'inherit', 'success', 'warning', 'danger', 'reverse'];
+
+// TODO implement the component !
+// eslint-disable-next-line
+export const Button = ({label, onClick, size, isDisabled, icon, variant, color}) => {
     return (
         <button type="button"/>
     );
 };
 
 Button.defaultProps = {
+    label: '',
     size: 'medium',
-    isDisabled: false,
     icon: null,
     variant: 'default',
+    isDisabled: false,
     color: 'inherit'
 };
 
 Button.propTypes = {
     /**
-     * Function trigger on click
+     * Button label
      */
-    onClick: PropTypes.func.isRequired,
+    label: PropTypes.string,
 
     /**
      * Icon size
      */
-    size: PropTypes.oneOf(['small', 'medium', 'big']),
-
-    /**
-     *
-     */
-    isDisabled: PropTypes.bool,
+    size: PropTypes.oneOf(ButtonSizes),
 
     /**
      * Icon name, if it's empty the button has no icon
@@ -40,10 +41,20 @@ Button.propTypes = {
     /**
      * Button style
      */
-    variant: PropTypes.oneOf(['default', 'primary', 'ghost']),
+    variant: PropTypes.oneOf(ButtonVariants),
 
     /**
      * Button color
      */
-    color: PropTypes.oneOf(['accent', 'inherit', 'success', 'warning', 'danger', 'reverse'])
+    color: PropTypes.oneOf(ButtonColors),
+
+    /**
+     * Is button disabled
+     */
+    isDisabled: PropTypes.bool,
+
+    /**
+     * Function trigger on click
+     */
+    onClick: PropTypes.func.isRequired
 };
