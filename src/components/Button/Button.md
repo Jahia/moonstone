@@ -6,6 +6,6 @@ Create a basic button component
 ## Specifications:
 A disabled button cannot be clickable.
 
-Text label should use component typography, with variant xxx
+Text label should use component typography, with variant "button"
 
 We need design specs for each props and states (hover, focus, disables; active ...

@@ -9,7 +9,8 @@ export const TypographyVariants = [
     'section',
     'regular',
     'caption',
-    'strong'
+    'strong',
+    'button'
 ];
 
 export const Typography = ({
