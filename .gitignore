@@ -25,6 +25,8 @@
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
 
+.idea
+
 # Gradle
 .idea/**/gradle.xml
 .idea/**/libraries
@@ -260,3 +262,5 @@ GitHub.sublime-settings
 
 storybook-static/
 dist/
+
+yalc.lock
