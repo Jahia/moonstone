@@ -1,6 +1,6 @@
 This component is only used to build the navigation.
 
-Specifications:
+## Specifications:
 
 When `Navigation-primary` is collapsed only icon should be display, but navigation_item's label must be display on hover with a tooltip from the default title attribute.
 

@@ -18,14 +18,10 @@ storiesOf('PrimaryNavItem', module)
             height: '100vh'
         }}
         >
-            <PrimaryNavItem icon={<Icon name="musique"/>}>
-            NavItem not selected (default)
-            </PrimaryNavItem>
+            <PrimaryNavItem icon={<Icon name="musique"/>} label="NavItem not selected (default)"/>
 
-            <PrimaryNavItem selected icon={<Icon name="musique"/>}>
-            NavItem Selected
-            </PrimaryNavItem>
+            <PrimaryNavItem selected icon={<Icon name="musique"/>} label="NavItem Selected"/>
 
-            <PrimaryNavItem icon={<Icon name="drink"/>}>Another NavItem</PrimaryNavItem>
+            <PrimaryNavItem icon={<Icon name="drink"/>} label="Another NavItem"/>
         </ul>
     ));

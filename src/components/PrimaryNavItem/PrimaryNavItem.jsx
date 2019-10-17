@@ -5,7 +5,7 @@ import styles from './PrimaryNavItem.scss';
 import classnames from 'classnames';
 import {Typography} from '../Typography';
 
-export const PrimaryNavItem = ({children, className, isSelected, icon, ...props}) => (
+export const PrimaryNavItem = ({label, className, isSelected, icon, ...props}) => (
     <li
         {...props}
         className={classnames(
@@ -15,23 +15,26 @@ export const PrimaryNavItem = ({children, className, isSelected, icon, ...props}
         )}
     >
         <div className={classnames(styles.navItem_iconContainer)}>{icon}</div>
-        <Typography component="div">{children}</Typography>
+        <Typography component="div">{label}</Typography>
     </li>
 );
 
 PrimaryNavItem.defaultProps = {
-    children: '',
-    className: '',
+    label: '',
+    icon: null,
+    subtitle: null,
+    button: null,
     isSelected: false,
-    hasNotification: false,
-    variant: 'button'
+    badge: null,
+    variant: 'button',
+    className: ''
 };
 
 PrimaryNavItem.propTypes = {
     /**
-     * Children
+     * Label
      */
-    children: PropTypes.string,
+    label: PropTypes.string,
 
     /**
      * Icon node from our icon library
@@ -39,19 +42,24 @@ PrimaryNavItem.propTypes = {
     icon: PropTypes.element,
 
     /**
+     * Subtitle
+     */
+    subtitle: PropTypes.string,
+
+    /**
+     * Optional button
+     */
+    button: PropTypes.node,
+
+    /**
      * Element is selected or not
      */
     isSelected: PropTypes.bool,
 
     /**
-     * Element is selected or not
+     * Element has badge
      */
-    onClick: PropTypes.func.isRequired,
-
-    /**
-     * Element has notification
-     */
-    hasNotification: PropTypes.bool,
+    badge: PropTypes.string,
 
     /**
      * Element has notification
@@ -61,5 +69,10 @@ PrimaryNavItem.propTypes = {
     /**
      * Additional classname
      */
-    className: PropTypes.string
+    className: PropTypes.string,
+
+    /**
+     * Element is selected or not
+     */
+    onClick: PropTypes.func
 };
