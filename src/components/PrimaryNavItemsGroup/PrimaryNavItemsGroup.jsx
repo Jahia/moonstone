@@ -5,7 +5,9 @@ import PropTypes from 'prop-types';
 // eslint-disable-next-line
 export const PrimaryNavItemsGroup = ({isDisplayedWhenCollapsed, children}) => {
     return (
-        <div/>
+        <div>
+            {children}
+        </div>
     );
 };
 
