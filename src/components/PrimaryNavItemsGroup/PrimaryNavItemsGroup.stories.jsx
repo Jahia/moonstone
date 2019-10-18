@@ -15,7 +15,7 @@ storiesOf('PrimaryNavItemsGroup', module)
     })
     .addDecorator(withKnobs)
     .add('default', () => (
-        <ul
+        <div
             style={{
                 backgroundColor: '#131c21',
                 width: '18.75rem',
@@ -26,6 +26,6 @@ storiesOf('PrimaryNavItemsGroup', module)
                 <PrimaryNavItem icon={<Icon name="musique"/>} label="NavItem not selected (default)"/>
                 <PrimaryNavItem icon={<Icon name="musique"/>} label="NavItem not selected (default)"/>
             </PrimaryNavItemsGroup>
-        </ul>
+        </div>
     ));
 
