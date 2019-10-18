@@ -20,7 +20,7 @@ storiesOf('PrimaryNavItem', module)
         >
             <PrimaryNavItem icon={<Icon name="musique"/>} label="NavItem not selected (default)"/>
 
-            <PrimaryNavItem selected icon={<Icon name="musique"/>} label="NavItem Selected"/>
+            <PrimaryNavItem isSelected icon={<Icon name="musique"/>} label="NavItem Selected"/>
 
             <PrimaryNavItem icon={<Icon name="drink"/>} label="Another NavItem"/>
         </ul>

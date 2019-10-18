@@ -40,7 +40,7 @@ describe('NavItem', () => {
             <PrimaryNavItem isSelected icon={<Icon/>} label="Content children" onClick={() => {}}/>
         );
 
-        expect(wrapper.html()).toContain('navItem selected');
+        expect(wrapper.html()).toContain('primaryNavItem selected');
     });
 
     it('should not set selected the item when not giving selected property', () => {
@@ -49,6 +49,6 @@ describe('NavItem', () => {
             <PrimaryNavItem icon={<Icon/>} label="Content children" onClick={() => {}}/>
         );
 
-        expect(wrapper.html()).not.toContain('navItem_selected');
+        expect(wrapper.html()).not.toContain('primaryNavItem selected');
     });
 });
