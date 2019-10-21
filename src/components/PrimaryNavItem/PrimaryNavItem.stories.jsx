@@ -1,7 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {PrimaryNavItem} from './index';
-import {Icon} from '../Icon';
+import {Musique} from '../../icons';
 import markdownNotes from './PrimaryNavItem.md';
 
 storiesOf('PrimaryNavItem', module)
@@ -12,16 +12,19 @@ storiesOf('PrimaryNavItem', module)
     })
     .add('all', () => (
         <ul
-        style={{
-            backgroundColor: '#131c21',
-            width: '18.75rem',
-            height: '100vh'
-        }}
+      style={{
+        backgroundColor: '#131c21',
+        width: '18.75rem',
+        height: '100vh'
+      }}
         >
-            <PrimaryNavItem icon={<Icon name="musique"/>} label="NavItem not selected (default)"/>
+            <PrimaryNavItem
+        icon={<Musique/>}
+        label="NavItem not selected (default)"
+      />
 
-            <PrimaryNavItem isSelected icon={<Icon name="musique"/>} label="NavItem Selected"/>
+            <PrimaryNavItem isSelected icon={<Musique/>} label="NavItem Selected"/>
 
-            <PrimaryNavItem icon={<Icon name="drink"/>} label="Another NavItem"/>
+            <PrimaryNavItem icon={<Musique/>} label="Another NavItem"/>
         </ul>
     ));

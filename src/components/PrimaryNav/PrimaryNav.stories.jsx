@@ -5,7 +5,7 @@ import markdownNotes from './PrimaryNav.md';
 
 import {PrimaryNav} from './index';
 import {PrimaryNavItem} from '../PrimaryNavItem';
-import {Icon} from '../Icon';
+import {Musique} from '../../icons';
 import {PrimaryNavItemsGroup} from '../PrimaryNavItemsGroup';
 
 storiesOf('PrimaryNav', module)
@@ -22,8 +22,8 @@ storiesOf('PrimaryNav', module)
             top={
                 <>
                     <PrimaryNavItemsGroup>
-                        <PrimaryNavItem label="NavItem not selected" icon={<Icon name="musique"/>}/>
-                        <PrimaryNavItem isSelected label="NavItem selected" icon={<Icon name="musique"/>}/>
+                        <PrimaryNavItem label="NavItem not selected" icon={<Musique/>}/>
+                        <PrimaryNavItem isSelected label="NavItem selected" icon={<Musique/>}/>
                     </PrimaryNavItemsGroup>
                     <PrimaryNavItemsGroup isDisplayedWhenCollapsed={false}>
                         <PrimaryNavItem variant="link" label="Link"/>
@@ -33,10 +33,9 @@ storiesOf('PrimaryNav', module)
             bottom={
                 <>
                     <PrimaryNavItemsGroup>
-                        <PrimaryNavItem label="Bottom item" icon={<Icon name="musique"/>}/>
+                        <PrimaryNavItem label="Bottom item" icon={<Musique/>}/>
                     </PrimaryNavItemsGroup>
                 </>
             }
         />
     ));
-
