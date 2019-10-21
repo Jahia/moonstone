@@ -6,6 +6,7 @@ import markdownNotes from './PrimaryNav.md';
 import {PrimaryNav} from './index';
 import {PrimaryNavItem} from '../PrimaryNavItem';
 import {Icon} from '../Icon';
+import {PrimaryNavItemsGroup} from '../PrimaryNavItemsGroup';
 
 storiesOf('PrimaryNav', module)
     .addParameters({
@@ -15,14 +16,27 @@ storiesOf('PrimaryNav', module)
     })
     .addDecorator(withKnobs)
     .add('default', () => (
-        <PrimaryNav>
-            <PrimaryNavItem icon={<Icon name="musique"/>}>
-                NavItem not selected (default)
-            </PrimaryNavItem>
-
-            <PrimaryNavItem selected icon={<Icon name="musique"/>}>
-                NavItem Selected
-            </PrimaryNavItem>
-        </PrimaryNav>
+        <PrimaryNav
+            headerLogo={<img src="logo.gif"/>}
+            headerCaption="development"
+            top={
+                <>
+                    <PrimaryNavItemsGroup>
+                        <PrimaryNavItem label="NavItem not selected" icon={<Icon name="musique"/>}/>
+                        <PrimaryNavItem isSelected label="NavItem selected" icon={<Icon name="musique"/>}/>
+                    </PrimaryNavItemsGroup>
+                    <PrimaryNavItemsGroup isDisplayedWhenCollapsed={false}>
+                        <PrimaryNavItem variant="link" label="Link"/>
+                    </PrimaryNavItemsGroup>
+                </>
+            }
+            bottom={
+                <>
+                    <PrimaryNavItemsGroup>
+                        <PrimaryNavItem label="Bottom item" icon={<Icon name="musique"/>}/>
+                    </PrimaryNavItemsGroup>
+                </>
+            }
+        />
     ));
 

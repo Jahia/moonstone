@@ -15,13 +15,17 @@ storiesOf('PrimaryNavItemsGroup', module)
     })
     .addDecorator(withKnobs)
     .add('default', () => (
-        <PrimaryNavItemsGroup>
-            <PrimaryNavItem icon={<Icon name="musique"/>}>
-                NavItem not selected (default)
-            </PrimaryNavItem>
-            <PrimaryNavItem icon={<Icon name="musique"/>}>
-                NavItem not selected (default)
-            </PrimaryNavItem>
-        </PrimaryNavItemsGroup>
+        <div
+            style={{
+                backgroundColor: '#131c21',
+                width: '18.75rem',
+                height: '100vh'
+            }}
+        >
+            <PrimaryNavItemsGroup>
+                <PrimaryNavItem icon={<Icon name="musique"/>} label="NavItem not selected (default)"/>
+                <PrimaryNavItem icon={<Icon name="musique"/>} label="NavItem not selected (default)"/>
+            </PrimaryNavItemsGroup>
+        </div>
     ));
 
