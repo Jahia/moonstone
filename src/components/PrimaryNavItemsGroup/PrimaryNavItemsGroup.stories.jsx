@@ -7,7 +7,7 @@ import {PrimaryNavItemsGroup} from './index';
 import {PrimaryNavItem} from '../PrimaryNavItem';
 import {Musique} from '../../icons';
 
-storiesOf('PrimaryNavItemsGroup', module)
+storiesOf('Components|PrimaryNavItemsGroup', module)
     .addParameters({
         component: PrimaryNavItemsGroup,
         componentSubtitle: 'PrimaryNavItemsGroup',

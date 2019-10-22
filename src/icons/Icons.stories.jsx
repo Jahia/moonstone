@@ -5,7 +5,7 @@ import {select, withKnobs} from '@storybook/addon-knobs';
 import markdownNotes from './Icons.md';
 import {Karaoke, Drink, Musique, Zip} from './index';
 
-storiesOf('Icons', module)
+storiesOf('Tokens|Icons', module)
     .addDecorator(withKnobs)
     .addParameters({
         component: Karaoke,

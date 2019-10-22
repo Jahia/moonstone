@@ -15,7 +15,7 @@ export const PrimaryNavItem = ({label, className, isSelected, icon, ...props}) =
         )}
     >
         <div className={classnames(styles.primaryNavItem_iconContainer)}>{icon}</div>
-        <Typography component="div">{label}</Typography>
+        <Typography component="span">{label}</Typography>
     </li>
 );
 

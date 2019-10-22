@@ -1,10 +1,37 @@
+@import '../../colors/colors.scss';
+
+$primaryNavExpanded: 300px;
+$primaryNav: 56px;
+
 .primaryNav {
-    width: 18.75rem;
+    width: $primaryNav;
     height: 100vh;
 
-    background-color: #131c21;
+    color: $color-neutral;
+
+    background: $color-dark;
+    overflow: hidden;
 
     &.expanded {
-        width: 50rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+
+        width: $primaryNavExpanded;
+        height: 100%;
+
+        box-shadow: 8px 0 16px 0 rgba($color-dark, 0.6);
     }
+}
+
+.overlay {
+    position: fixed;
+    z-index: 800;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: $color-dark;
+    opacity: 0.6;
 }

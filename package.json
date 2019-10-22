@@ -17,7 +17,7 @@
         "lint:scss": "stylelint './src/**/*.scss'",
         "lint:js:fix": "yarn lint:js --fix .",
         "lint:scss:fix": "yarn lint:scss --fix",
-        "lint:fix": "yarn lint:js && yarn lint:scss",
+        "lint:fix": "yarn lint:js:fix && yarn lint:scss:fix",
         "optimize:svg": "svgo -r -f ./src/",
         "build": "yarn build:storybook && yarn build:lib",
         "prebuild:lib": "rimraf dist/",
