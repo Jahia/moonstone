@@ -15,27 +15,29 @@ storiesOf('Components|PrimaryNav', module)
         notes: {markdown: markdownNotes}
     })
     .addDecorator(withKnobs)
-    .add('default', () => (
-        <PrimaryNav
-            headerLogo={<img src="logo.gif"/>}
-            headerCaption="development"
-            top={
-                <>
-                    <PrimaryNavItemsGroup>
-                        <PrimaryNavItem label="NavItem not selected" icon={<Musique/>}/>
-                        <PrimaryNavItem isSelected label="NavItem selected" icon={<Musique/>}/>
-                    </PrimaryNavItemsGroup>
-                    <PrimaryNavItemsGroup isDisplayedWhenCollapsed={false}>
-                        <PrimaryNavItem variant="link" label="Link"/>
-                    </PrimaryNavItemsGroup>
-                </>
-            }
-            bottom={
-                <>
-                    <PrimaryNavItemsGroup>
-                        <PrimaryNavItem label="Bottom item" icon={<Musique/>}/>
-                    </PrimaryNavItemsGroup>
-                </>
-            }
-        />
+    .add('Default', () => (
+        <div style={{transform: 'scale(1)', height: '100vh'}}>
+            <PrimaryNav
+                headerLogo={<img src="logo.gif"/>}
+                headerCaption="development"
+                top={
+                    <>
+                        <PrimaryNavItemsGroup>
+                            <PrimaryNavItem label="NavItem not selected" icon={<Musique/>}/>
+                            <PrimaryNavItem isSelected label="NavItem selected" icon={<Musique/>}/>
+                        </PrimaryNavItemsGroup>
+                        <PrimaryNavItemsGroup isDisplayedWhenCollapsed={false}>
+                            <PrimaryNavItem variant="link" label="Link"/>
+                        </PrimaryNavItemsGroup>
+                    </>
+                }
+                bottom={
+                    <>
+                        <PrimaryNavItemsGroup>
+                            <PrimaryNavItem label="Bottom item" icon={<Musique/>}/>
+                        </PrimaryNavItemsGroup>
+                    </>
+                }
+            />
+        </div>
     ));
