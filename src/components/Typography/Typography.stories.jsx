@@ -5,7 +5,7 @@ import {select, withKnobs} from '@storybook/addon-knobs';
 import markdownNotes from './Typography.md';
 
 import {Typography, TypographyVariants} from './index';
-import storyStyles from '../../styles/storybook/styles.scss';
+import storyStyles from '@/styles/storybook/styles.scss';
 
 storiesOf('Tokens|Typography', module)
     .addParameters({

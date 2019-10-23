@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './PrimaryNavItem.scss';
 import classnames from 'classnames';
-import {Typography} from '../Typography';
+import {Typography} from '@/components/Typography';
 
 export const PrimaryNavItem = ({label, className, isSelected, icon, ...props}) => (
     <li

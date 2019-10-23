@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 
 import styles from './spacings.scss';
-import storyStyles from '../styles/storybook/styles.scss';
+import storyStyles from '@/styles/storybook/styles.scss';
 
 let cx = classnames.bind(styles);
 
@@ -17,7 +17,7 @@ export const Spacing = ({name}) => {
     );
 };
 
-storiesOf('Tokens|Spacing', module).add('Default', () => (
+storiesOf('Tokens|Spacings', module).add('Default', () => (
     <section className={classnames(storyStyles.storyWrapper)}>
         <Spacing name="nano"/>
         <Spacing name="small"/>
