@@ -24,7 +24,7 @@ module.exports = {
     resolve: {
         // Add alias to import files easily
         alias: {
-            '@': path.resolve(__dirname, 'src/')
+            '~': path.resolve(__dirname, 'src/')
         },
         extensions: ['.js', '.json', '.jsx', '.scss']
     },

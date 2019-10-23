@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 
 import styles from './spacings.scss';
-import storyStyles from '@/styles/storybook/styles.scss';
+import storyStyles from '~/styles/storybook/styles.scss';
 
 let cx = classnames.bind(styles);
 

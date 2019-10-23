@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import styles from './PrimaryNav.scss';
-// Import l from '../../styles/_layout.scss';
 
 // TODO implement the component !
 export const PrimaryNav = ({headerLogo, top, bottom, headerCaption}) => {

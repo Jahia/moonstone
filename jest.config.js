@@ -8,6 +8,6 @@ module.exports = {
         '<rootDir>/__mocks__/fileMock.js',
         '\\.svg$': '<rootDir>/__mocks__/svgMock.js',
         '\\.(css|scss)$': 'identity-obj-proxy',
-        '^@/(.*)$': '<rootDir>/src/$1'
+        '^~/(.*)$': '<rootDir>/src/$1'
     }
 };
