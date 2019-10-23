@@ -1,9 +1,11 @@
 import React from 'react';
+import classnames from 'classnames/bind';
 import {storiesOf} from '@storybook/react';
 import {select, withKnobs} from '@storybook/addon-knobs';
 import markdownNotes from './Typography.md';
 
 import {Typography, TypographyVariants} from './index';
+import storyStyles from '../../styles/storybook/styles.scss';
 
 storiesOf('Tokens|Typography', module)
     .addParameters({
@@ -12,18 +14,28 @@ storiesOf('Tokens|Typography', module)
         notes: {markdown: markdownNotes}
     })
     .addDecorator(withKnobs)
-    .add('default', () => (
-        <div>
-            <Typography variant="page">Page title</Typography>
-            <Typography variant="section">Section title</Typography>
-            <Typography>Regular (default)</Typography>
-            <Typography variant={select('Size', ['tiny', 'small', 'medium', 'large'], 'z')}>Caption</Typography>
-            <Typography variant="strong">Strong</Typography>
-        </div>
+    .add('Default', () => (
+        <section className={classnames(storyStyles.storyWrapper)}>
+            <div className={classnames(storyStyles.storyItem)}>
+                <Typography variant="page">Page title</Typography>
+            </div>
+            <div className={classnames(storyStyles.storyItem)}>
+                <Typography variant="section">Section title</Typography>
+            </div>
+            <div className={classnames(storyStyles.storyItem)}>
+                <Typography>Regular (default)</Typography>
+            </div>
+            <div className={classnames(storyStyles.storyItem)}>
+                <Typography variant={select('Size', ['tiny', 'small', 'medium', 'large'], 'z')}>Caption</Typography>
+            </div>
+            <div className={classnames(storyStyles.storyItem)}>
+                <Typography variant="strong">Strong</Typography>
+            </div>
+        </section>
     ))
 
-    .add('variants', () => (
-        <div>
+    .add('Variants', () => (
+        <section className={classnames(storyStyles.storyWrapper)}>
             <Typography variant={select('Variant', TypographyVariants, 'regular')}>Text</Typography>
-        </div>
+        </section>
     ));

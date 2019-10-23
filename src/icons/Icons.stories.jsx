@@ -1,6 +1,8 @@
 import React from 'react';
+import classnames from 'classnames';
 import {storiesOf} from '@storybook/react';
 import {select, withKnobs} from '@storybook/addon-knobs';
+import storyStyles from '../styles/storybook/styles.scss';
 
 import markdownNotes from './Icons.md';
 import {Karaoke, Drink, Musique, Zip} from './index';
@@ -12,22 +14,22 @@ storiesOf('Tokens|Icons', module)
         componentSubtitle: 'Displays icon',
         notes: {markdown: markdownNotes}
     })
-    .add('default', () => {
+    .add('Default', () => {
         const size = select('size', ['small', 'default', 'big'], 'default');
         return (
-            <div style={{display: 'flex', flexDirection: 'column'}}>
-                <div style={{margin: '1rem auto'}}>
+            <section className={classnames(storyStyles.storyWrapper)}>
+                <div className={classnames(storyStyles.storyItem)}>
                     <Karaoke size={size}/>
                 </div>
-                <div style={{margin: '1rem auto'}}>
+                <div className={classnames(storyStyles.storyItem)}>
                     <Drink size={size}/>
                 </div>
-                <div style={{margin: '1rem auto'}}>
+                <div className={classnames(storyStyles.storyItem)}>
                     <Musique size={size}/>
                 </div>
-                <div style={{margin: '1rem auto'}}>
+                <div className={classnames(storyStyles.storyItem)}>
                     <Zip size={size}/>
                 </div>
-            </div>
+            </section>
         );
     });

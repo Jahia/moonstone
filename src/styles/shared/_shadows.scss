@@ -1,0 +1,15 @@
+@import 'colors';
+
+$shadows: (
+    'level1': 0 4px 8px rgba($color-dark, 0.2)
+);
+
+@function shadow($shadowName) {
+    @if map-has-key($shadows, $shadowName) {
+        @return map-get($shadows, $shadowName);
+    }
+
+    @warn "The key #{$shadowName} is not in the map ’$shadowName";
+
+    @return null;
+}

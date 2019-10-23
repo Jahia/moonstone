@@ -14,7 +14,7 @@ storiesOf('Components|PrimaryNavItemsGroup', module)
         notes: {markdown: markdownNotes}
     })
     .addDecorator(withKnobs)
-    .add('default', () => (
+    .add('Default', () => (
         <div
             style={{
                 backgroundColor: '#131c21',

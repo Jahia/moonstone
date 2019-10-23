@@ -1,7 +1,6 @@
 const path = require('path');
 const createCompiler = require('@storybook/addon-docs/mdx-compiler-plugin');
 
-
 // Export a function. Accept the base config as the only param.
 module.exports = async ({config, mode}) => {
     config.module.rules.push({

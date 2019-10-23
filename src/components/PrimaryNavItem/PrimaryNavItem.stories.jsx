@@ -10,7 +10,7 @@ storiesOf('Components|PrimaryNavItem', module)
         componentSubtitle: 'PrimaryNavItem',
         notes: {markdown: markdownNotes}
     })
-    .add('all', () => (
+    .add('Default', () => (
         <ul style={{
             backgroundColor: '#131c21',
             width: '18.75rem',

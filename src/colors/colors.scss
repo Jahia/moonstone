@@ -1,5 +1,56 @@
-$color-dark: #131c21;
-$color-neutral: #fdfdfd;
-$color-accent: #00a0e3;
-$color-grey: #565050;
-$color-grey_light: #dadada;
+@import '../styles/shared/all';
+
+@mixin colorValue($value) {
+    &::after {
+        content: "#{$value}";
+
+        position: absolute;
+        bottom: spacing('small');
+        left: 0;
+
+        color: $color-gray60;
+    }
+}
+
+.colorPalette {
+    position: relative;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & + & {
+        margin-top: spacing('medium');
+    }
+}
+
+.colorShape {
+    width: 160px;
+    height: 80px;
+
+    border: 1px solid $color-gray_light;
+}
+
+@each $name, $colorValue in $colorsAccent {
+    .color-#{$name} {
+        @include colorValue($colorValue);
+
+        background-color: $colorValue;
+    }
+}
+
+@each $name, $colorValue in $colorsNeutral {
+    .color-#{$name} {
+        @include colorValue($colorValue);
+
+        background-color: $colorValue;
+    }
+}
+
+@each $name, $colorValue in $colorsSupport {
+    .color-#{$name} {
+        @include colorValue($colorValue);
+
+        background-color: $colorValue;
+    }
+}

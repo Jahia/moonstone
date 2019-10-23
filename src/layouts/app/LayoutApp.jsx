@@ -3,15 +3,14 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
 import style from './LayoutApp.scss';
-import l from '../../styles/_layout.scss';
 
 export const LayoutApp = ({navigation, content}) => {
     return (
-        <div className={classnames(style.layoutApp, l.flexRow_center)}>
+        <div className={classnames(style.layoutApp, 'flexRow_center', 'flexRow')}>
             <div className={classnames(style.slotNavigation)}>
                 {navigation}
             </div>
-            <div className={classnames(l.flexFluid, l.flexRow)}>
+            <div className={classnames('flexFluid', 'flexRow')}>
                 {content}
             </div>
         </div>

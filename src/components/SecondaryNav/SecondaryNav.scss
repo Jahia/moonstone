@@ -1,9 +1,9 @@
-@import '../../colors/colors.scss';
+@import '../../styles/shared/all';
 
 .secondaryNav {
     height: 100%;
 
-    color: $color-neutral;
+    color: $color-light;
 
-    background: $color-grey;
+    background: $color-gray;
 }

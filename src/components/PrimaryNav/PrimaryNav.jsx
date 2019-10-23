@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import styles from './PrimaryNav.scss';
-import l from '../../styles/_layout.scss';
+// Import l from '../../styles/_layout.scss';
 
 // TODO implement the component !
 export const PrimaryNav = ({headerLogo, top, bottom, headerCaption}) => {
@@ -22,11 +22,11 @@ export const PrimaryNav = ({headerLogo, top, bottom, headerCaption}) => {
             <nav className={classnames(
                 styles.primaryNav,
                 {[styles.expanded]: isExpanded},
-                l.flexCol,
+                'flexCol',
             )}
             >
                 <button type="button" onClick={toggleExpand}>Toggle</button>
-                <ul className={classnames(l.flexFluid)}>
+                <ul className={classnames('flexFluid')}>
                     {top}
                 </ul>
                 <ul>

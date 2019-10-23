@@ -13,7 +13,7 @@
 }
 
 // Horizontal layout
-.flexRow {
+:global(.flexRow) {
     @extend %flex-row;
 
     &_nowrap {
@@ -41,7 +41,7 @@
 }
 
 // Vertical layout
-.flexCol {
+:global(.flexCol) {
     @extend %flex-column;
 
     &_reverse {
@@ -51,18 +51,18 @@
     }
 }
 
-.alignCenter {
+:global(.alignCenter) {
     align-items: center;
 }
 
-.alignTop {
+:global(.alignTop) {
     align-items: flex-start;
 }
 
-.alignBottom {
+:global(.alignBottom) {
     align-items: flex-end;
 }
 
-.flexFluid {
+:global(.flexFluid) {
     flex: 1;
 }
