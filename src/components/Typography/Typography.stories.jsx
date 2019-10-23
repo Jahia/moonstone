@@ -2,10 +2,11 @@ import React from 'react';
 import classnames from 'classnames/bind';
 import {storiesOf} from '@storybook/react';
 import {select, withKnobs} from '@storybook/addon-knobs';
-import markdownNotes from './Typography.md';
+import centered from '@storybook/addon-centered/react';
+import storyStyles from '~/styles/storybook/styles.scss';
 
 import {Typography, TypographyVariants} from './index';
-import storyStyles from '~/styles/storybook/styles.scss';
+import markdownNotes from './Typography.md';
 
 storiesOf('Tokens|Typography', module)
     .addParameters({
@@ -14,8 +15,9 @@ storiesOf('Tokens|Typography', module)
         notes: {markdown: markdownNotes}
     })
     .addDecorator(withKnobs)
+    .addDecorator(centered)
     .add('Default', () => (
-        <section className={classnames(storyStyles.storyWrapper)}>
+        <>
             <div className={classnames(storyStyles.storyItem)}>
                 <Typography variant="page">Page title</Typography>
             </div>
@@ -31,11 +33,9 @@ storiesOf('Tokens|Typography', module)
             <div className={classnames(storyStyles.storyItem)}>
                 <Typography variant="strong">Strong</Typography>
             </div>
-        </section>
+        </>
     ))
 
     .add('Variants', () => (
-        <section className={classnames(storyStyles.storyWrapper)}>
-            <Typography variant={select('Variant', TypographyVariants, 'regular')}>Text</Typography>
-        </section>
+        <Typography variant={select('Variant', TypographyVariants, 'regular')}>Text</Typography>
     ));

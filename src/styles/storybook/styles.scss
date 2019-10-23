@@ -1,20 +1,12 @@
 @import "../shared/all";
 
-.storyWrapper {
-    display: flex;
-    flex-flow: column wrap;
-
-    width: 600px;
-    margin: 0 auto;
-    padding: spacing('huge');
-}
-
 .storyItem {
     position: relative;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
+    min-width: 500px;
     min-height: 80px;
 
     & + & {

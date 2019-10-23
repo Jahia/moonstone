@@ -1,5 +1,6 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
+import centered from '@storybook/addon-centered/react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 
@@ -17,16 +18,18 @@ export const Spacing = ({name}) => {
     );
 };
 
-storiesOf('Tokens|Spacings', module).add('Default', () => (
-    <section className={classnames(storyStyles.storyWrapper)}>
-        <Spacing name="nano"/>
-        <Spacing name="small"/>
-        <Spacing name="medium"/>
-        <Spacing name="large"/>
-        <Spacing name="big"/>
-        <Spacing name="huge"/>
-    </section>
-));
+storiesOf('Tokens|Spacings', module)
+    .addDecorator(centered)
+    .add('Default', () => (
+        <>
+            <Spacing name="nano"/>
+            <Spacing name="small"/>
+            <Spacing name="medium"/>
+            <Spacing name="large"/>
+            <Spacing name="big"/>
+            <Spacing name="huge"/>
+        </>
+    ));
 
 Spacing.propTypes = {
     name: PropTypes.string.isRequired

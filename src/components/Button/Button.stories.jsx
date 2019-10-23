@@ -1,10 +1,9 @@
 import React from 'react';
-import classnames from 'classnames';
 import {storiesOf} from '@storybook/react';
 import {withKnobs} from '@storybook/addon-knobs';
-import markdownNotes from './Button.md';
-import storyStyles from '~/styles/storybook/styles.scss';
+import centered from '@storybook/addon-centered/react';
 
+import markdownNotes from './Button.md';
 import {Button} from './index';
 
 storiesOf('Components|Button', module)
@@ -13,9 +12,8 @@ storiesOf('Components|Button', module)
         componentSubtitle: 'Button',
         notes: {markdown: markdownNotes}
     })
+    .addDecorator(centered)
     .addDecorator(withKnobs)
     .add('Default', () => (
-        <section className={classnames(storyStyles.storyWrapper)}>
-            <Button onClick={() => {}}/>
-        </section>
+        <Button onClick={() => {}}/>
     ));
