@@ -1,0 +1,39 @@
+// @create-index
+
+export {default as Add} from './Add.svg';
+export {default as AddComment} from './AddComment.svg';
+export {default as Cancel} from './Cancel.svg';
+export {default as Check} from './Check.svg';
+export {default as Close} from './Close.svg';
+export {default as Comments} from './Comments.svg';
+export {default as Compare} from './Compare.svg';
+export {default as Copy} from './Copy.svg';
+export {default as Delete} from './Delete.svg';
+export {default as Download} from './Download.svg';
+export {default as Edit} from './Edit.svg';
+export {default as Event} from './Event.svg';
+export {default as Exit} from './Exit.svg';
+export {default as Filter} from './Filter.svg';
+export {default as HelpOutline} from './HelpOutline.svg';
+export {default as Hidden} from './Hidden.svg';
+export {default as Link} from './Link.svg';
+export {default as Maximize} from './Maximize.svg';
+export {default as Notifications} from './Notifications.svg';
+export {default as NotificationsActive} from './NotificationsActive.svg';
+export {default as OpenInBrowser} from './OpenInBrowser.svg';
+export {default as OpenInNew} from './OpenInNew.svg';
+export {default as PanelFixed} from './PanelFixed.svg';
+export {default as PanelOverlay} from './PanelOverlay.svg';
+export {default as Power} from './Power.svg';
+export {default as Print} from './Print.svg';
+export {default as Publish} from './Publish.svg';
+export {default as Reload} from './Reload.svg';
+export {default as Replay} from './Replay.svg';
+export {default as Reply} from './Reply.svg';
+export {default as Save} from './Save.svg';
+export {default as Search} from './Search.svg';
+export {default as Share} from './Share.svg';
+export {default as Unlink} from './Unlink.svg';
+export {default as Unlock} from './Unlock.svg';
+export {default as Visibility} from './Visibility.svg';
+
