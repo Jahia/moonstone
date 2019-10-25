@@ -1,9 +1,11 @@
 const path = require('path');
 const createCompiler = require('@storybook/addon-docs/mdx-compiler-plugin');
 
-
 // Export a function. Accept the base config as the only param.
 module.exports = async ({config, mode}) => {
+    // Add alias to import files easily
+    config.resolve.alias['~'] = path.resolve(__dirname, '../src/');
+
     config.module.rules.push({
         test: /\.stories\.jsx?$/,
         loaders: [require.resolve('@storybook/addon-storysource/loader')],

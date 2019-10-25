@@ -5,8 +5,8 @@ import {withKnobs, number, text, boolean} from '@storybook/addon-knobs';
 
 import {LayoutApp} from './app';
 import {LayoutModule} from './module';
-import {PrimaryNav} from '../components/PrimaryNav';
-import {SecondaryNav} from '../components/SecondaryNav';
+import {PrimaryNav} from '~/components/PrimaryNav';
+import {SecondaryNav} from '~/components/SecondaryNav';
 
 const resizeWidth = () => number('Set width to resize', 245, {min: 120, max: 496, step: 20}, 'Level 2');
 

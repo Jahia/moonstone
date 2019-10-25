@@ -1,7 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {PrimaryNavItem} from './index';
-import {Musique} from '../../icons';
+import {Musique} from '~/icons';
 import markdownNotes from './PrimaryNavItem.md';
 
 storiesOf('Components|PrimaryNavItem', module)
@@ -10,7 +10,7 @@ storiesOf('Components|PrimaryNavItem', module)
         componentSubtitle: 'PrimaryNavItem',
         notes: {markdown: markdownNotes}
     })
-    .add('all', () => (
+    .add('Default', () => (
         <ul style={{
             backgroundColor: '#131c21',
             width: '18.75rem',

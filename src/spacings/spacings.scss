@@ -1,9 +1,24 @@
-$base-space-unit: 8px;
+@import '../styles/shared/all';
 
-// Spacings
-$spacing-nano: $base-space-unit * 0.5;
-$spacing-small: $base-space-unit;
-$spacing-medium: $base-space-unit * 2;
-$spacing-large: $base-space-unit * 3;
-$spacing-big: $base-space-unit * 5;
-$spacing-huge: $base-space-unit * 7;
+@mixin itemValue($value) {
+    &::after {
+        content: "#{$value}";
+
+        position: absolute;
+        bottom: spacing('small');
+        left: 0;
+
+        color: $color-gray60;
+    }
+}
+
+@each $name, $spacingValue in $spacings {
+    .spacing-#{$name} {
+        @include itemValue($spacingValue);
+
+        width: $spacingValue;
+        height: $spacingValue;
+
+        background-color: $color-accent;
+    }
+}

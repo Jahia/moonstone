@@ -1,8 +1,9 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {withKnobs} from '@storybook/addon-knobs';
-import markdownNotes from './Button.md';
+import centered from '@storybook/addon-centered/react';
 
+import markdownNotes from './Button.md';
 import {Button} from './index';
 
 storiesOf('Components|Button', module)
@@ -11,7 +12,8 @@ storiesOf('Components|Button', module)
         componentSubtitle: 'Button',
         notes: {markdown: markdownNotes}
     })
+    .addDecorator(centered)
     .addDecorator(withKnobs)
-    .add('default', () => (
+    .add('Default', () => (
         <Button onClick={() => {}}/>
     ));

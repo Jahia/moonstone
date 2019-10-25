@@ -4,8 +4,8 @@ import {withKnobs} from '@storybook/addon-knobs';
 import markdownNotes from './PrimaryNavItemsGroup.md';
 
 import {PrimaryNavItemsGroup} from './index';
-import {PrimaryNavItem} from '../PrimaryNavItem';
-import {Musique} from '../../icons';
+import {PrimaryNavItem} from '~/components/PrimaryNavItem';
+import {Musique} from '~/icons';
 
 storiesOf('Components|PrimaryNavItemsGroup', module)
     .addParameters({
@@ -14,7 +14,7 @@ storiesOf('Components|PrimaryNavItemsGroup', module)
         notes: {markdown: markdownNotes}
     })
     .addDecorator(withKnobs)
-    .add('default', () => (
+    .add('Default', () => (
         <div
             style={{
                 backgroundColor: '#131c21',

@@ -1,4 +1,4 @@
-@import '../../colors/colors.scss';
+@import '~/styles/shared/all';
 
 $primaryNavExpanded: 300px;
 $primaryNav: 56px;
@@ -7,7 +7,7 @@ $primaryNav: 56px;
     width: $primaryNav;
     height: 100vh;
 
-    color: $color-neutral;
+    color: $color-light;
 
     background: $color-dark;
     overflow: hidden;

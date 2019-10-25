@@ -4,9 +4,9 @@ import {withKnobs} from '@storybook/addon-knobs';
 import markdownNotes from './PrimaryNav.md';
 
 import {PrimaryNav} from './index';
-import {PrimaryNavItem} from '../PrimaryNavItem';
-import {PrimaryNavItemsGroup} from '../PrimaryNavItemsGroup';
-import {Musique} from '../../icons';
+import {PrimaryNavItem} from '~/components/PrimaryNavItem';
+import {PrimaryNavItemsGroup} from '~/components/PrimaryNavItemsGroup';
+import {Musique} from '~/icons';
 
 storiesOf('Components|PrimaryNav', module)
     .addParameters({

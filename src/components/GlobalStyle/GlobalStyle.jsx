@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './GlobalStyle.scss';
+import '~/styles/global/all.scss';
 
 export const GlobalStyle = () => {
     return <></>;
