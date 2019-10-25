@@ -22,6 +22,10 @@ module.exports = {
     devtool: 'source-map',
     externals: [nodeExternals()],
     resolve: {
+        // Add alias to import files easily
+        alias: {
+            '~': path.resolve(__dirname, 'src/')
+        },
         extensions: ['.js', '.json', '.jsx', '.scss']
     },
     module: {

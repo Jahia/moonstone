@@ -1,0 +1,68 @@
+//---
+// Flex class wrapper
+//---
+
+%flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+%flex-row {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+// Horizontal layout
+:global(.flexRow) {
+    @extend %flex-row;
+
+    &_nowrap {
+        display: flex;
+        flex-direction: row;
+    }
+
+    &_reverse {
+        @extend %flex-row;
+
+        justify-content: flex-end;
+    }
+
+    &_center {
+        @extend %flex-row;
+
+        justify-content: center;
+    }
+
+    &_between {
+        @extend %flex-row;
+
+        justify-content: space-between;
+    }
+}
+
+// Vertical layout
+:global(.flexCol) {
+    @extend %flex-column;
+
+    &_reverse {
+        @extend %flex-column;
+
+        justify-content: flex-end;
+    }
+}
+
+:global(.alignCenter) {
+    align-items: center;
+}
+
+:global(.alignTop) {
+    align-items: flex-start;
+}
+
+:global(.alignBottom) {
+    align-items: flex-end;
+}
+
+:global(.flexFluid) {
+    flex: 1;
+}

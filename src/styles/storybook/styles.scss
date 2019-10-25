@@ -1,0 +1,15 @@
+@import "../shared/all";
+
+.storyItem {
+    position: relative;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 500px;
+    min-height: 80px;
+
+    & + & {
+        margin-top: spacing('medium');
+    }
+}

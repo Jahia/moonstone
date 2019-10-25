@@ -1,4 +1,4 @@
-@import '../../colors/colors.scss';
+@import '~/styles/shared/all';
 
 .primaryNavItem {
     display: flex;
@@ -7,7 +7,7 @@
     width: 18.75rem;
     height: 3.5rem;
 
-    color: $color-neutral;
+    color: $color-light;
 
     cursor: pointer;
 
@@ -18,7 +18,7 @@
     }
 
     &.selected {
-        color: $color-neutral;
+        color: $color-light;
 
         background-color: $color-accent;
         cursor: default;

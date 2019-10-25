@@ -1,3 +1,5 @@
+@import '../shared/all';
+
 @font-face {
     font-weight: 400;
     font-family: 'Nunito';
@@ -8,4 +10,18 @@
     font-weight: 600;
     font-family: 'Nunito';
     src: url('/src/fonts/Nunito/Nunito-Bold.ttf');
+}
+
+html {
+    box-sizing: border-box;
+
+    font-size: 16px;
+    font-family: 'Nunito', sans-serif;
+    color: $color-dark;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: inherit;
 }

@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import styles from './PrimaryNav.scss';
 
+// TODO implement the component !
 export const PrimaryNav = ({headerLogo, top, bottom, headerCaption}) => {
     console.log({headerLogo, top, bottom, headerCaption});
     const [isExpanded, setExpanded] = useState(false);
@@ -11,20 +12,28 @@ export const PrimaryNav = ({headerLogo, top, bottom, headerCaption}) => {
         setExpanded(!isExpanded);
     }
 
+    useEffect(() => {
+        setExpanded(isExpanded);
+    }, [isExpanded]);
+
     return (
-        <div className={classnames(
-            styles.primaryNav,
-            {[styles.expanded]: isExpanded},
-        )}
-        >
-            <button type="button" onClick={toggleExpand}>Toggle</button>
-            <ul>
-                {top}
-            </ul>
-            <ul>
-                {bottom}
-            </ul>
-        </div>
+        <>
+            <nav className={classnames(
+                styles.primaryNav,
+                {[styles.expanded]: isExpanded},
+                'flexCol',
+            )}
+            >
+                <button type="button" onClick={toggleExpand}>Toggle</button>
+                <ul className={classnames('flexFluid')}>
+                    {top}
+                </ul>
+                <ul>
+                    {bottom}
+                </ul>
+            </nav>
+            {isExpanded && <div className={(styles.overlay)} onClick={toggleExpand}/>}
+        </>
     );
 };
 

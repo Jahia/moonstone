@@ -4,11 +4,11 @@ import {withKnobs} from '@storybook/addon-knobs';
 import markdownNotes from './PrimaryNav.md';
 
 import {PrimaryNav} from './index';
-import {PrimaryNavItem} from '../PrimaryNavItem';
-import {PrimaryNavItemsGroup} from '../PrimaryNavItemsGroup';
+import {PrimaryNavItem} from '~/components/PrimaryNavItem';
+import {PrimaryNavItemsGroup} from '~/components/PrimaryNavItemsGroup';
 import {Apps} from '../../icons/asset';
 
-storiesOf('PrimaryNav', module)
+storiesOf('Components|PrimaryNav', module)
     .addParameters({
         component: PrimaryNav,
         componentSubtitle: 'PrimaryNav',

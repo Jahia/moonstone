@@ -4,17 +4,17 @@ import {withKnobs} from '@storybook/addon-knobs';
 import markdownNotes from './PrimaryNavItemsGroup.md';
 
 import {PrimaryNavItemsGroup} from './index';
-import {PrimaryNavItem} from '../PrimaryNavItem';
-import {Musique} from '../../icons';
+import {PrimaryNavItem} from '~/components/PrimaryNavItem';
+import {Musique} from '~/icons';
 
-storiesOf('PrimaryNavItemsGroup', module)
+storiesOf('Components|PrimaryNavItemsGroup', module)
     .addParameters({
         component: PrimaryNavItemsGroup,
         componentSubtitle: 'PrimaryNavItemsGroup',
         notes: {markdown: markdownNotes}
     })
     .addDecorator(withKnobs)
-    .add('default', () => (
+    .add('Default', () => (
         <div
             style={{
                 backgroundColor: '#131c21',
