@@ -5,7 +5,7 @@ import markdownNotes from './PrimaryNavItemsGroup.md';
 
 import {PrimaryNavItemsGroup} from './index';
 import {PrimaryNavItem} from '~/components/PrimaryNavItem';
-import {Musique} from '~/icons';
+import {Edit} from '~/icons';
 
 storiesOf('Components|PrimaryNavItemsGroup', module)
     .addParameters({
@@ -23,8 +23,8 @@ storiesOf('Components|PrimaryNavItemsGroup', module)
             }}
         >
             <PrimaryNavItemsGroup>
-                <PrimaryNavItem icon={<Musique/>} label="NavItem not selected (default)"/>
-                <PrimaryNavItem icon={<Musique/>} label="NavItem not selected (default)"/>
+                <PrimaryNavItem icon={<Edit/>} label="NavItem not selected (default)"/>
+                <PrimaryNavItem icon={<Edit/>} label="NavItem not selected (default)"/>
             </PrimaryNavItemsGroup>
         </div>
     ));

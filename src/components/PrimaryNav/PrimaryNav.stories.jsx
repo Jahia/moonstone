@@ -6,7 +6,7 @@ import markdownNotes from './PrimaryNav.md';
 import {PrimaryNav} from './index';
 import {PrimaryNavItem} from '~/components/PrimaryNavItem';
 import {PrimaryNavItemsGroup} from '~/components/PrimaryNavItemsGroup';
-import {Musique} from '~/icons';
+import {Apps, Feather, Setting} from '~/icons';
 
 storiesOf('Components|PrimaryNav', module)
     .addParameters({
@@ -15,7 +15,7 @@ storiesOf('Components|PrimaryNav', module)
         notes: {markdown: markdownNotes}
     })
     .addDecorator(withKnobs)
-    .add('Default', () => (
+    .add('default', () => (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <PrimaryNav
                 headerLogo={<img src="logo.gif"/>}
@@ -23,8 +23,8 @@ storiesOf('Components|PrimaryNav', module)
                 top={
                     <>
                         <PrimaryNavItemsGroup>
-                            <PrimaryNavItem label="NavItem not selected" icon={<Musique/>}/>
-                            <PrimaryNavItem isSelected label="NavItem selected" icon={<Musique/>}/>
+                            <PrimaryNavItem label="NavItem not selected" icon={<Feather/>}/>
+                            <PrimaryNavItem isSelected label="NavItem selected" icon={<Apps/>}/>
                         </PrimaryNavItemsGroup>
                         <PrimaryNavItemsGroup isDisplayedWhenCollapsed={false}>
                             <PrimaryNavItem variant="link" label="Link"/>
@@ -34,7 +34,7 @@ storiesOf('Components|PrimaryNav', module)
                 bottom={
                     <>
                         <PrimaryNavItemsGroup>
-                            <PrimaryNavItem label="Bottom item" icon={<Musique/>}/>
+                            <PrimaryNavItem label="Bottom item" icon={<Setting/>}/>
                         </PrimaryNavItemsGroup>
                     </>
                 }

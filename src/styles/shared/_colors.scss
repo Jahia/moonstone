@@ -48,3 +48,14 @@ $colorsSupport: (
     "warning": $color-warning,
     "danger": $color-danger,
 );
+$colors: map-merge(map-merge($colorsAccent, $colorsNeutral), $colorsSupport);
+
+@function color($colorName) {
+    @if map-has-key($colors, $colorName) {
+        @return map-get($colors, $colorName);
+    }
+
+    @warn "The key #{$colorName} is not in the map ’$colors’";
+
+    @return null;
+}
