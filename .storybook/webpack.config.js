@@ -55,7 +55,7 @@ module.exports = async ({config, mode}) => {
                     template: require('../src/icons/svgrTemplate').template,
                     icon: true,
                     dimensions: false,
-                    replaceAttrValues: { '#131C21': 'currentColor' }
+                    replaceAttrValues: { '#000': 'currentColor' }
                 }
             }
         ],

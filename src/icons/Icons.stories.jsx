@@ -1,37 +1,63 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import {storiesOf} from '@storybook/react';
-import {select, withKnobs} from '@storybook/addon-knobs';
+import {withKnobs, select, color} from '@storybook/addon-knobs';
 import centered from '@storybook/addon-centered/react';
 import storyStyles from '~/styles/storybook/styles.scss';
 
 import markdownNotes from './Icons.md';
-import {Karaoke, Drink, Musique, Zip} from './index';
+import * as Icons from './asset';
+
+// Storybook knobs
+const iconsName = Object.keys(Icons);
+const iconsSize = () => select('Set icon size', {Big: 'big', Default: 'default', Small: 'small'}, 'big');
+
+// Create a component to display in storybook
+export const IconWrapper = ({iconName, size, color}) => {
+    return (
+        <div className={classnames(storyStyles.storyGridItem)} style={{color: color}}>
+            {React.createElement(Icons[iconName], {size: size})}
+            <span>{iconName}</span>
+        </div>
+    );
+};
+
+// Display all icons from `icons/asset`
+function displayIcons() {
+    let allIcons = [];
+
+    for (const name of iconsName) {
+        allIcons.push(
+            <IconWrapper key={`key-${name}`} iconName={name} size="big"/>
+        );
+    }
+
+    return allIcons;
+}
 
 storiesOf('Tokens|Icons', module)
-    .addDecorator(withKnobs)
-    .addDecorator(centered)
     .addParameters({
-        component: Karaoke,
-        componentSubtitle: 'Displays icon',
+        component: Icons,
+        componentSubtitle: 'Icons',
         notes: {markdown: markdownNotes}
     })
-    .add('Default', () => {
-        const size = select('size', ['small', 'default', 'big'], 'default');
-        return (
-            <>
-                <div className={classnames(storyStyles.storyItem)}>
-                    <Karaoke size={size}/>
-                </div>
-                <div className={classnames(storyStyles.storyItem)}>
-                    <Drink size={size}/>
-                </div>
-                <div className={classnames(storyStyles.storyItem)}>
-                    <Musique size={size}/>
-                </div>
-                <div className={classnames(storyStyles.storyItem)}>
-                    <Zip size={size}/>
-                </div>
-            </>
-        );
-    });
+    .addDecorator(centered)
+    .addDecorator(withKnobs)
+    .add('Default', () => (
+        <section className={classnames(storyStyles.storyGrid)}>
+            {displayIcons()}
+        </section>
+    ))
+    .add('Playground', () => (
+        <IconWrapper
+            iconName={select('Choose your icon', iconsName, 'Edit')}
+            size={iconsSize()}
+            color={color('Change color', '#000')}/>
+    ));
+
+IconWrapper.propTypes = {
+    iconName: PropTypes.string.isRequired,
+    size: PropTypes.string,
+    color: PropTypes.string
+};

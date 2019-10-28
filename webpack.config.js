@@ -77,8 +77,7 @@ module.exports = {
                             template: require('./src/icons/svgrTemplate').template,
                             icon: true,
                             dimensions: false,
-                            // ReplaceAttrValues: {'#000': 'currentColor'}
-                            replaceAttrValues: {'#131C21': 'currentColor'}
+                            replaceAttrValues: {'#000': 'currentColor'}
                         }
                     }
                 ]

@@ -13,3 +13,23 @@
         margin-top: spacing('medium');
     }
 }
+
+.storyGrid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.storyGridItem {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 130px;
+    height: 72px;
+
+    margin: spacing('big');
+}
