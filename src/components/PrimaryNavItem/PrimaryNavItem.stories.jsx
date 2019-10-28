@@ -1,7 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {PrimaryNavItem} from './index';
-import {Musique} from '~/icons';
+import {Edit} from '~/icons';
 import markdownNotes from './PrimaryNavItem.md';
 
 storiesOf('Components|PrimaryNavItem', module)
@@ -17,8 +17,8 @@ storiesOf('Components|PrimaryNavItem', module)
             height: '100vh'
             }}
         >
-            <PrimaryNavItem icon={<Musique/>} label="NavItem not selected (default)"/>
-            <PrimaryNavItem isSelected icon={<Musique/>} label="NavItem Selected"/>
-            <PrimaryNavItem icon={<Musique/>} label="Another NavItem"/>
+            <PrimaryNavItem icon={<Edit/>} label="NavItem not selected (default)"/>
+            <PrimaryNavItem isSelected icon={<Edit/>} label="NavItem Selected"/>
+            <PrimaryNavItem icon={<Edit/>} label="Another NavItem"/>
         </ul>
     ));
