@@ -7,7 +7,7 @@
         "prop-types": "^15.7.2"
     },
     "peerDependencies": {
-        "react": "^16.9.0"
+        "react": "^16.11.0"
     },
     "scripts": {
         "start": "yarn index-icons && start-storybook -p 6006",
@@ -61,13 +61,14 @@
         "@storybook/addon-viewport": "^5.2.5",
         "@storybook/addons": "^5.2.5",
         "@storybook/react": "^5.2.5",
+        "@storybook/source-loader": "^5.2.5",
         "@svgr/webpack": "^4.3.3",
         "auto": "^7.12.3",
         "babel-eslint": "^10.0.3",
         "babel-jest": "^24.9.0",
         "babel-loader": "^8.0.6",
         "component-test-utils-react": "^1.0.0-alpha.7",
-        "create-index": "^2.4.0",
+        "create-index": "^2.5.0",
         "css-loader": "^3.2.0",
         "eslint": "5.16.0",
         "eslint-plugin-jest": "^22.16.0",
