@@ -14,6 +14,13 @@ export const TypographyVariants = [
 ];
 
 const childrenPropType = (props, propName, componentName) => (props.isHtml ? PropTypes.node(props, propName, componentName) : PropTypes.string(props, propName, componentName));
+const filterOutProps = function (props, out = []) {
+    const newProps = Object.assign({}, props);
+    out.forEach(function (o) {
+        delete newProps[o];
+    });
+    return newProps;
+};
 
 export const Typography = ({
     children,
@@ -25,7 +32,7 @@ export const Typography = ({
     React.createElement(
         component,
         {
-            ...props,
+            ...filterOutProps(props, ['isHtml']),
             className: classnames(styles.typography, styles[variant], className)
         },
         children
