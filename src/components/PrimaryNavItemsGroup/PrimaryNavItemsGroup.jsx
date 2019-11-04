@@ -24,5 +24,5 @@ PrimaryNavItemsGroup.propTypes = {
     /**
      * Items displayed inside the group
      */
-    children: PropTypes.arrayOf(PropTypes.node).isRequired
+    children: PropTypes.oneOf(PropTypes.arrayOf(PropTypes.node).isRequired, PropTypes.objectOf(PropTypes.node).isRequired)
 };

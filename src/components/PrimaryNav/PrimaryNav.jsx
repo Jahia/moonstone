@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
+import classnames from 'clsx';
 import styles from './PrimaryNav.scss';
 
 // TODO implement the component !
@@ -11,10 +11,6 @@ export const PrimaryNav = ({headerLogo, top, bottom, headerCaption}) => {
     function toggleExpand() {
         setExpanded(!isExpanded);
     }
-
-    useEffect(() => {
-        setExpanded(isExpanded);
-    }, [isExpanded]);
 
     return (
         <>
@@ -58,10 +54,10 @@ PrimaryNav.propTypes = {
     /**
      * Primary nav groups displayed at the top
      */
-    top: PropTypes.arrayOf(PropTypes.element),
+    top: PropTypes.oneOf(PropTypes.arrayOf(PropTypes.element), PropTypes.objectOf(PropTypes.element)),
 
     /**
      * Primary nav groups displayed at the bottom
      */
-    bottom: PropTypes.arrayOf(PropTypes.element)
+    bottom: PropTypes.oneOf(PropTypes.arrayOf(PropTypes.element), PropTypes.objectOf(PropTypes.element))
 };

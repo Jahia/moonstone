@@ -2,7 +2,7 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 import styles from './Typography.scss';
-import classnames from 'classnames';
+import classnames from 'clsx';
 
 export const TypographyVariants = [
     'page',
