@@ -49,7 +49,7 @@ storiesOf('Tokens|Icons', module)
             {displayIcons()}
         </section>
     ))
-    .add('Playground', () => (
+    .add('⚽️Playground', () => (
         <IconWrapper
             iconName={select('Choose your icon', iconsName, 'Edit')}
             size={iconsSize()}
