@@ -12,6 +12,8 @@ $primaryNav: 56px;
     background: $color-dark;
     overflow: hidden;
 
+    transition: width 0.2s;
+
     &.expanded {
         position: fixed;
         top: 0;
@@ -34,4 +36,21 @@ $primaryNav: 56px;
 
     background-color: $color-dark;
     opacity: 0.6;
+}
+
+.navHeader {
+    height: $primaryNav;
+}
+
+.navButtonContainer {
+    width: $primaryNav;
+
+    & > button {
+        color: $color-light;
+
+        border: none;
+        outline: none;
+        background: inherit;
+        cursor: pointer;
+    }
 }
