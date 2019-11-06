@@ -1,0 +1,86 @@
+@import '~/styles/shared/all';
+
+$primaryNavExpanded: 300px;
+$primaryNav: 56px;
+
+.separatorContainer {
+    width: $primaryNav;
+    height: 100vh;
+
+    color: $color-light;
+
+    background: $color-dark;
+    overflow: hidden;
+
+    transition: width 0.2s;
+
+    &.expanded {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+
+        width: $primaryNavExpanded;
+        height: 100%;
+
+        box-shadow: 8px 0 16px 0 rgba($color-dark, 0.6);
+    }
+}
+
+.overlay {
+    position: fixed;
+    z-index: 800;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: $color-dark;
+    opacity: 0.6;
+}
+
+.navHeader {
+    height: $primaryNav;
+}
+
+.navButtonContainer {
+    width: $primaryNav;
+    min-width: $primaryNav;
+
+    & > button {
+        color: $color-light;
+
+        border: none;
+        outline: none;
+        background: inherit;
+        cursor: pointer;
+    }
+}
+
+.modeIcon {
+    position: absolute;
+    top: 18px;
+    left: 28px;
+
+    width: 10px;
+    height: 10px;
+
+    color: $color-accent;
+
+    pointer-events: none;
+}
+
+.modeIconHeader {
+    width: 15px;
+    height: 15px;
+
+    color: $color-accent;
+
+    pointer-events: none;
+}
+
+.headerCaption {
+    margin-left: 40px;
+
+    font-size: 8pt;
+    color: $color-light;
+}
