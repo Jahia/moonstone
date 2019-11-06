@@ -1,7 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {PrimaryNavItem} from './index';
-import {Edit} from '~/icons';
+import Edit from '~/icons/asset/Edit.svg';
 import markdownNotes from './PrimaryNavItem.md';
 
 storiesOf('Components|PrimaryNavItem', module)

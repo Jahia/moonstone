@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import styles from './PrimaryNav.scss';
 import {PrimaryNavContext} from './PrimaryNav.context';
-// TODO resolve this issue here
-import Menu from '../../../dist/icons/Menu';
-import ArrowLeft from '../../../dist/icons/ArrowLeft';
+import ArrowLeft from '~/icons/asset/ArrowLeft.svg';
+import Menu from '~/icons/asset/Menu.svg';
 
 const NavButton = ({isExpanded, toggleExpand, modeIcon}) => {
     if (isExpanded) {
