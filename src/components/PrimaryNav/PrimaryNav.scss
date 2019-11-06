@@ -44,6 +44,7 @@ $primaryNav: 56px;
 
 .navButtonContainer {
     width: $primaryNav;
+    min-width: $primaryNav;
 
     & > button {
         color: $color-light;
@@ -53,4 +54,33 @@ $primaryNav: 56px;
         background: inherit;
         cursor: pointer;
     }
+}
+
+.modeIcon {
+    position: absolute;
+    top: 18px;
+    left: 28px;
+
+    width: 10px;
+    height: 10px;
+
+    color: $color-accent;
+
+    pointer-events: none;
+}
+
+.modeIconHeader {
+    width: 15px;
+    height: 15px;
+
+    color: $color-accent;
+
+    pointer-events: none;
+}
+
+.headerCaption {
+    margin-left: 50px;
+
+    font-size: 8pt;
+    color: $color-light;
 }

@@ -44,6 +44,12 @@
 :global(.flexCol) {
     @extend %flex-column;
 
+    &_center {
+        @extend %flex-column;
+
+        justify-content: center;
+    }
+
     &_reverse {
         @extend %flex-column;
 

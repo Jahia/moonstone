@@ -7,7 +7,7 @@ import {PrimaryNavContext} from './PrimaryNav.context';
 import Menu from '../../../dist/icons/Menu';
 import ArrowLeft from '../../../dist/icons/ArrowLeft';
 
-const NavButton = ({isExpanded, toggleExpand}) => {
+const NavButton = ({isExpanded, toggleExpand, modeIcon}) => {
     if (isExpanded) {
         return (
             <button type="button" onClick={toggleExpand}>
@@ -16,21 +16,50 @@ const NavButton = ({isExpanded, toggleExpand}) => {
         );
     }
 
+    let icon;
+
+    if (modeIcon) {
+        icon = React.cloneElement(modeIcon, {
+            className: classnames(styles.modeIcon)
+        });
+    }
+
     return (
-        <button type="button" onClick={toggleExpand}>
-            <Menu/>
-        </button>
+        <>
+            {icon}
+            <button type="button" onClick={toggleExpand}>
+                <Menu/>
+            </button>
+        </>
     );
 };
 
 NavButton.propTypes = {
     isExpanded: PropTypes.bool.isRequired,
-    toggleExpand: PropTypes.func.isRequired
+    toggleExpand: PropTypes.func.isRequired,
+    modeIcon: PropTypes.element
 };
 
-const NavHeader = ({isExpanded, headerCaption}) => {
+const NavHeader = ({isExpanded, headerCaption, modeIcon}) => {
     if (isExpanded) {
-        return headerCaption;
+        let icon;
+
+        if (modeIcon) {
+            icon = React.cloneElement(modeIcon, {
+                className: classnames(styles.modeIconHeader)
+            });
+        }
+
+        return (
+            <>
+                <div>
+                    JAHIA
+                </div>
+                <div className={classnames('flexRow_nowrap', 'alignCenter', styles.headerCaption)}>
+                    {icon}{headerCaption}
+                </div>
+            </>
+        );
     }
 
     return null;
@@ -38,10 +67,11 @@ const NavHeader = ({isExpanded, headerCaption}) => {
 
 NavHeader.propTypes = {
     isExpanded: PropTypes.bool.isRequired,
-    headerCaption: PropTypes.string.isRequired
+    headerCaption: PropTypes.string.isRequired,
+    modeIcon: PropTypes.element
 };
 
-export const PrimaryNav = ({headerLogo, top, bottom, headerCaption}) => {
+export const PrimaryNav = ({headerLogo, top, bottom, headerCaption, modeIcon}) => {
     console.log({headerLogo, top, bottom, headerCaption});
     const [isExpanded, setExpanded] = useState(false);
 
@@ -59,10 +89,10 @@ export const PrimaryNav = ({headerLogo, top, bottom, headerCaption}) => {
             >
                 <div className={classnames('flexRow_nowrap', styles.navHeader)}>
                     <div className={classnames(styles.navButtonContainer, 'flexRow', 'flexRow_center')}>
-                        <NavButton isExpanded={isExpanded} toggleExpand={toggleExpand}/>
+                        <NavButton isExpanded={isExpanded} toggleExpand={toggleExpand} modeIcon={modeIcon}/>
                     </div>
-                    <div className={classnames('flexRow', 'flexRow_center', 'alignCenter', 'flexFluid')}>
-                        <NavHeader headerCaption={headerCaption} isExpanded={isExpanded}/>
+                    <div className={classnames('flexCol', 'flexCol_center', 'alignCenter', 'flexFluid')}>
+                        <NavHeader headerCaption={headerCaption} isExpanded={isExpanded} modeIcon={modeIcon}/>
                     </div>
                 </div>
 
@@ -91,6 +121,11 @@ PrimaryNav.propTypes = {
      * Image of logo application
      */
     headerLogo: PropTypes.node,
+
+    /**
+     * Image for application mode
+     */
+    modeIcon: PropTypes.element,
 
     /**
      * Application's environment
