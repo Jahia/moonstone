@@ -18,7 +18,8 @@
 
     &_nowrap {
         display: flex;
-        flex-direction: row;
+        flex-flow: row;
+        flex-wrap: nowrap;
     }
 
     &_reverse {
