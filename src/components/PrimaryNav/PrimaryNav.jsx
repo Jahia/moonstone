@@ -40,7 +40,7 @@ NavButton.propTypes = {
     modeIcon: PropTypes.element
 };
 
-const NavHeader = ({isExpanded, headerCaption, modeIcon}) => {
+const NavHeader = ({isExpanded, headerCaption, modeIcon, headerLogo}) => {
     if (isExpanded) {
         let icon;
 
@@ -53,7 +53,7 @@ const NavHeader = ({isExpanded, headerCaption, modeIcon}) => {
         return (
             <>
                 <div>
-                    JAHIA
+                    {headerLogo}
                 </div>
                 <div className={classnames('flexRow_nowrap', 'alignCenter', styles.headerCaption)}>
                     {icon}{headerCaption}
@@ -68,11 +68,11 @@ const NavHeader = ({isExpanded, headerCaption, modeIcon}) => {
 NavHeader.propTypes = {
     isExpanded: PropTypes.bool.isRequired,
     headerCaption: PropTypes.string.isRequired,
-    modeIcon: PropTypes.element
+    modeIcon: PropTypes.element,
+    headerLogo: PropTypes.node
 };
 
 export const PrimaryNav = ({headerLogo, top, bottom, headerCaption, modeIcon}) => {
-    console.log({headerLogo, top, bottom, headerCaption});
     const [isExpanded, setExpanded] = useState(false);
 
     function toggleExpand() {
@@ -92,7 +92,7 @@ export const PrimaryNav = ({headerLogo, top, bottom, headerCaption, modeIcon}) =
                         <NavButton isExpanded={isExpanded} toggleExpand={toggleExpand} modeIcon={modeIcon}/>
                     </div>
                     <div className={classnames('flexCol', 'flexCol_center', 'alignCenter', 'flexFluid')}>
-                        <NavHeader headerCaption={headerCaption} isExpanded={isExpanded} modeIcon={modeIcon}/>
+                        <NavHeader headerCaption={headerCaption} isExpanded={isExpanded} modeIcon={modeIcon} headerLogo={headerLogo}/>
                     </div>
                 </div>
 
