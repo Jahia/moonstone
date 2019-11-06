@@ -112,8 +112,8 @@ export const PrimaryNav = ({headerLogo, top, bottom, headerCaption, modeIcon}) =
 PrimaryNav.defaultProps = {
     headerLogo: '',
     headerCaption: '',
-    top: [],
-    bottom: []
+    top: null,
+    bottom: null
 };
 
 PrimaryNav.propTypes = {
@@ -135,10 +135,10 @@ PrimaryNav.propTypes = {
     /**
      * Primary nav groups displayed at the top
      */
-    top: PropTypes.oneOf(PropTypes.arrayOf(PropTypes.element), PropTypes.objectOf(PropTypes.element)),
+    top: PropTypes.element,
 
     /**
      * Primary nav groups displayed at the bottom
      */
-    bottom: PropTypes.oneOf(PropTypes.arrayOf(PropTypes.element), PropTypes.objectOf(PropTypes.element))
+    bottom: PropTypes.element
 };
