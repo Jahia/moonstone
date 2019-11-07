@@ -18,7 +18,7 @@
         "lint:js:fix": "yarn lint:js --fix .",
         "lint:scss:fix": "yarn lint:scss --fix",
         "lint:fix": "yarn lint:js:fix && yarn lint:scss:fix",
-        "index-icons": "create-index ./src/icons/asset -r -x svg",
+        "index-icons": "create-index ./src/icons/asset -r -x svg && eslint --fix src/icons/asset/index.js",
         "build": "yarn index-icons && yarn build:storybook && yarn build:lib",
         "prebuild:lib": "rimraf dist/",
         "build:lib": "webpack --mode production",
