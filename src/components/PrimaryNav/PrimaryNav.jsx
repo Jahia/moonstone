@@ -39,38 +39,32 @@ NavButton.propTypes = {
     modeIcon: PropTypes.element
 };
 
-const NavHeader = ({isExpanded, headerCaption, modeIcon, headerLogo}) => {
-    if (isExpanded) {
-        let icon;
+const NavHeader = ({headerCaption, modeIcon, headerLogo}) => {
+    let icon;
 
-        if (modeIcon) {
-            icon = React.cloneElement(modeIcon, {
-                className: classnames(styles.modeIconHeader)
-            });
-        }
-
-        return (
-            <>
-                {headerLogo}
-                <div className={classnames('flexRow_nowrap', 'alignCenter', styles.headerCaption)}>
-                    {icon}{headerCaption}
-                </div>
-            </>
-        );
+    if (modeIcon) {
+        icon = React.cloneElement(modeIcon, {
+            className: classnames(styles.modeIconHeader)
+        });
     }
 
-    return null;
+    return (
+        <>
+            {headerLogo}
+            <div className={classnames('flexRow_nowrap', 'alignCenter', styles.headerCaption)}>
+                {icon}{headerCaption}
+            </div>
+        </>
+    );
 };
 
 NavHeader.propTypes = {
-    isExpanded: PropTypes.bool.isRequired,
     headerCaption: PropTypes.string.isRequired,
     modeIcon: PropTypes.element,
     headerLogo: PropTypes.node
 };
 
 export const PrimaryNav = ({headerLogo, top, bottom, headerCaption, modeIcon}) => {
-    console.log('Render');
     const [isExpanded, setExpanded] = useState(false);
 
     function toggleExpand() {
@@ -89,8 +83,10 @@ export const PrimaryNav = ({headerLogo, top, bottom, headerCaption, modeIcon}) =
                     <div className={classnames(styles.navButtonContainer, 'flexRow', 'flexRow_center')}>
                         <NavButton isExpanded={isExpanded} toggleExpand={toggleExpand} modeIcon={modeIcon}/>
                     </div>
-                    <div className={classnames('flexCol', 'flexCol_center', 'alignCenter', 'flexFluid', styles.logoCaptionGroup)}>
-                        <NavHeader headerCaption={headerCaption} isExpanded={isExpanded} modeIcon={modeIcon} headerLogo={headerLogo}/>
+                    <div
+                        className={classnames('flexCol', 'flexCol_center', 'alignCenter', 'flexFluid', styles.logoCaptionGroup)}
+                    >
+                        <NavHeader headerCaption={headerCaption} modeIcon={modeIcon} headerLogo={headerLogo}/>
                     </div>
                 </div>
 
