@@ -38,6 +38,10 @@ $primaryNav: 56px;
     opacity: 0.6;
 }
 
+.logoCaptionGroup {
+    padding-right: 2.5rem;
+}
+
 .navHeader {
     height: $primaryNav;
 }
@@ -83,4 +87,5 @@ $primaryNav: 56px;
 
     font-size: 8pt;
     color: $color-light;
+    white-space: nowrap;
 }
