@@ -40,6 +40,7 @@ const ComponentsConfig = {
             },
             {
                 test: /\.scss$/i,
+                sideEffects: true,
                 use: [
                     'style-loader',
                     // Translates CSS into CommonJS
