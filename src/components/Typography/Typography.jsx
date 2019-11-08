@@ -27,13 +27,14 @@ export const Typography = ({
     component,
     variant,
     className,
+    isNowrap,
     ...props
 }) =>
     React.createElement(
         component,
         {
             ...filterOutProps(props, ['isHtml']),
-            className: classnames(styles.typography, styles[variant], className)
+            className: classnames(styles.typography, styles[variant], className, {[styles.nowrap]: isNowrap})
         },
         children
     );
@@ -43,7 +44,8 @@ Typography.defaultProps = {
     className: '',
     component: 'p',
     variant: 'regular',
-    isHtml: false
+    isHtml: false,
+    isNowrap: false
 };
 
 Typography.propTypes = {
@@ -70,5 +72,10 @@ Typography.propTypes = {
     /**
      * Does the children contain HTML markup
      */
-    isHtml: PropTypes.bool
+    isHtml: PropTypes.bool,
+
+    /**
+     * No wrapping for text
+     */
+    isNowrap: PropTypes.bool
 };

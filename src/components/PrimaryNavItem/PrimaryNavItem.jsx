@@ -14,7 +14,7 @@ export const PrimaryNavItem = ({label, className, isSelected, icon, ...props}) =
         )}
     >
         <div className={classnames(styles.primaryNavItem_iconContainer)}>{icon}</div>
-        <Typography component="span" className={classnames(styles.primaryNavItem_label)}>{label}</Typography>
+        <Typography isNowrap component="span" className={classnames(styles.primaryNavItem_label)}>{label}</Typography>
     </li>
 );
 
