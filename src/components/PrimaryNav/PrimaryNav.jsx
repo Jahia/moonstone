@@ -76,7 +76,7 @@ export const PrimaryNav = ({headerLogo, top, bottom, headerCaption, modeIcon}) =
             <nav className={classnames(
                 styles.primaryNav,
                 {[styles.expanded]: isExpanded},
-                'flexCol',
+                'flexCol_nowrap',
             )}
             >
                 <div className={classnames('flexRow_nowrap', styles.navHeader)}>
