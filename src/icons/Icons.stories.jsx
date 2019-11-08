@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import {storiesOf} from '@storybook/react';
 import {withKnobs, select, color} from '@storybook/addon-knobs';
-import centered from '@storybook/addon-centered/react';
 import storyStyles from '~/styles/storybook/styles.scss';
 
 import markdownNotes from './Icons.md';
@@ -42,7 +41,6 @@ storiesOf('Tokens|Icons', module)
         componentSubtitle: 'Icons',
         notes: {markdown: markdownNotes}
     })
-    .addDecorator(centered)
     .addDecorator(withKnobs)
     .add('Default', () => (
         <section className={classnames(storyStyles.storyGrid)}>

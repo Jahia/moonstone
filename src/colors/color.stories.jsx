@@ -1,6 +1,5 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
-import centered from '@storybook/addon-centered/react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 import styles from './colors.scss';
@@ -45,15 +44,20 @@ function displayColors(palette) {
 }
 
 storiesOf('Tokens|Colors', module)
-    .addDecorator(centered)
     .add('Accent', () => (
-        displayColors(paletteAccent)
+        <section className={classnames(storyStyles.storyWrapper)}>
+            {displayColors(paletteAccent)}
+        </section>
     ))
     .add('Neutral', () => (
-        displayColors(paletteNeutral)
+        <section className={classnames(storyStyles.storyWrapper)}>
+            {displayColors(paletteNeutral)}
+        </section>
     ))
     .add('Support', () => (
-        displayColors(paletteSupport)
+        <section className={classnames(storyStyles.storyWrapper)}>
+            {displayColors(paletteSupport)}
+        </section>
     ));
 
 Color.propTypes = {

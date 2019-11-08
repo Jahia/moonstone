@@ -1,8 +1,7 @@
 import React from 'react';
-import classnames from 'classnames/bind';
+import classnames from 'classnames';
 import {storiesOf} from '@storybook/react';
 import {select, withKnobs} from '@storybook/addon-knobs';
-import centered from '@storybook/addon-centered/react';
 import storyStyles from '~/styles/storybook/styles.scss';
 
 import {Typography, TypographyVariants} from './index';
@@ -15,9 +14,8 @@ storiesOf('Tokens|Typography', module)
         notes: {markdown: markdownNotes}
     })
     .addDecorator(withKnobs)
-    .addDecorator(centered)
     .add('Default', () => (
-        <>
+        <section className={classnames(storyStyles.storyWrapper)}>
             <div className={classnames(storyStyles.storyItem)}>
                 <Typography variant="page">Page title</Typography>
             </div>
@@ -33,9 +31,11 @@ storiesOf('Tokens|Typography', module)
             <div className={classnames(storyStyles.storyItem)}>
                 <Typography variant="strong">Strong</Typography>
             </div>
-        </>
+        </section>
     ))
 
     .add('Variants', () => (
-        <Typography variant={select('Variant', TypographyVariants, 'regular')}>Text</Typography>
+        <section className={classnames(storyStyles.storyWrapper)}>
+            <Typography variant={select('Variant', TypographyVariants, 'regular')}>Text</Typography>
+        </section>
     ));
