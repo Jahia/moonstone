@@ -9,9 +9,12 @@
 
     color: $color-light;
 
+    border-radius: 2rem;
+    outline: 0.5rem solid $color-dark;
+
     cursor: pointer;
 
-    transition: all 0.2s;
+    transition: color 0.2s, background-color 0.2s;
 
     &:hover {
         color: $color-accent;
@@ -20,8 +23,6 @@
     &.selected {
         color: $color-light;
 
-        border-radius: 2rem;
-        outline: 0.5rem solid $color-dark;
         background-color: $color-accent;
         cursor: default;
     }
