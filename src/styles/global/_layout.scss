@@ -4,7 +4,7 @@
 
 %flex-column {
     display: flex;
-    flex-direction: column;
+    flex-flow: column wrap;
 }
 
 %flex-row {
@@ -12,64 +12,84 @@
     flex-flow: row wrap;
 }
 
-// Horizontal layout
+// ---
+// Horizontal
+// ---
 :global(.flexRow) {
     @extend %flex-row;
-
-    &_nowrap {
-        display: flex;
-        flex-flow: row;
-        flex-wrap: nowrap;
-    }
-
-    &_reverse {
-        @extend %flex-row;
-
-        justify-content: flex-end;
-    }
-
-    &_center {
-        @extend %flex-row;
-
-        justify-content: center;
-    }
-
-    &_between {
-        @extend %flex-row;
-
-        justify-content: space-between;
-    }
 }
 
-// Vertical layout
+:global(.flexRow_nowrap) {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+:global(.flexRow_reverse) {
+    @extend %flex-row;
+
+    justify-content: flex-end;
+}
+
+:global(.flexRow_center) {
+    @extend %flex-row;
+
+    justify-content: center;
+}
+
+:global(.flexRow_between) {
+    @extend %flex-row;
+
+    justify-content: space-between;
+}
+
+// ---
+// Vertical
+// ---
 :global(.flexCol) {
     @extend %flex-column;
-
-    &_center {
-        @extend %flex-column;
-
-        justify-content: center;
-    }
-
-    &_reverse {
-        @extend %flex-column;
-
-        justify-content: flex-end;
-    }
 }
 
+:global(.flexCol_nowrap) {
+    display: flex;
+    flex-direction: column;
+}
+
+:global(.flexCol_reverse) {
+    @extend %flex-column;
+
+    justify-content: flex-end;
+}
+
+:global(.flexCol_center) {
+    @extend %flex-column;
+
+    justify-content: center;
+}
+
+:global(.flexCol_between) {
+    @extend %flex-column;
+
+    justify-content: space-between;
+}
+
+// ---
+// Alignment
+// ---
 :global(.alignCenter) {
     align-items: center;
 }
 
-:global(.alignTop) {
+:global(.alignStart) {
     align-items: flex-start;
 }
 
-:global(.alignBottom) {
+:global(.alignEnd) {
     align-items: flex-end;
 }
 
+// ---
+// Helpers
+// ---
 :global(.flexFluid) {
     flex: 1;
 }
