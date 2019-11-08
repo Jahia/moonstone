@@ -21,7 +21,7 @@
 
 :global(.flexRow_nowrap) {
     display: flex;
-    flex-direction: row;
+    flex-flow: row nowrap;
 }
 
 :global(.flexRow_reverse) {

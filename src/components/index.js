@@ -4,3 +4,4 @@ export * from './PrimaryNav';
 export * from './PrimaryNavItem';
 export * from './PrimaryNavItemsGroup';
 export * from './Typography';
+export * from './Separator';

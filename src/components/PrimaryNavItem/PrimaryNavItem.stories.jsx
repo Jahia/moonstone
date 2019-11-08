@@ -1,8 +1,9 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {PrimaryNavItem} from './index';
-import {Edit} from '~/icons';
+import Edit from '~/icons/asset/Edit.svg';
 import markdownNotes from './PrimaryNavItem.md';
+import {boolean, withKnobs} from '@storybook/addon-knobs';
 
 storiesOf('Components|PrimaryNavItem', module)
     .addParameters({
@@ -10,6 +11,7 @@ storiesOf('Components|PrimaryNavItem', module)
         componentSubtitle: 'PrimaryNavItem',
         notes: {markdown: markdownNotes}
     })
+    .addDecorator(withKnobs)
     .add('Default', () => (
         <ul style={{
             backgroundColor: '#131c21',
@@ -19,6 +21,6 @@ storiesOf('Components|PrimaryNavItem', module)
         >
             <PrimaryNavItem icon={<Edit/>} label="NavItem not selected (default)"/>
             <PrimaryNavItem isSelected icon={<Edit/>} label="NavItem Selected"/>
-            <PrimaryNavItem icon={<Edit/>} label="Another NavItem"/>
+            <PrimaryNavItem isSelected={boolean('selected')} icon={<Edit/>} label="Another NavItem"/>
         </ul>
     ));

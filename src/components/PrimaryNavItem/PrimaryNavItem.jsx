@@ -1,8 +1,7 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
 import styles from './PrimaryNavItem.scss';
-import classnames from 'classnames';
+import classnames from 'clsx';
 import {Typography} from '~/components/Typography';
 
 export const PrimaryNavItem = ({label, className, isSelected, icon, ...props}) => (
@@ -15,7 +14,7 @@ export const PrimaryNavItem = ({label, className, isSelected, icon, ...props}) =
         )}
     >
         <div className={classnames(styles.primaryNavItem_iconContainer)}>{icon}</div>
-        <Typography component="span">{label}</Typography>
+        <Typography isNowrap component="span" className={classnames(styles.primaryNavItem_label)}>{label}</Typography>
     </li>
 );
 

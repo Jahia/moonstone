@@ -2,6 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
+const IconsConfig = require('./webpack.icons.config');
 
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
@@ -10,7 +11,7 @@ const productionPlugins =
       [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})] :
       [];
 
-module.exports = {
+const ComponentsConfig = {
     entry: './src/index.js',
     output: {
         filename: 'main.js',
@@ -39,6 +40,7 @@ module.exports = {
             },
             {
                 test: /\.scss$/i,
+                sideEffects: true,
                 use: [
                     'style-loader',
                     // Translates CSS into CommonJS
@@ -65,13 +67,6 @@ module.exports = {
                 },
                 use: [
                     {
-                        loader: 'file-loader',
-                        options: {
-                            outputPath: 'icons',
-                            name: '[name].js'
-                        }
-                    },
-                    {
                         loader: '@svgr/webpack',
                         options: {
                             template: require('./src/icons/svgrTemplate').template,
@@ -92,3 +87,5 @@ module.exports = {
         })
     ]
 };
+
+module.exports = [ComponentsConfig, IconsConfig];

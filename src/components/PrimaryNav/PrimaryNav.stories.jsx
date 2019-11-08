@@ -6,7 +6,9 @@ import markdownNotes from './PrimaryNav.md';
 import {PrimaryNav} from './index';
 import {PrimaryNavItem} from '~/components/PrimaryNavItem';
 import {PrimaryNavItemsGroup} from '~/components/PrimaryNavItemsGroup';
-import {Apps, Feather, Setting} from '~/icons';
+import Apps from '~/icons/asset/Apps.svg';
+import Feather from '~/icons/asset/Feather.svg';
+import Setting from '~/icons/asset/Setting.svg';
 
 storiesOf('Components|PrimaryNav', module)
     .addParameters({
