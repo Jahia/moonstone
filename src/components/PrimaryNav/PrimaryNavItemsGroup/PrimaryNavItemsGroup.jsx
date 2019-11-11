@@ -1,9 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
+import {PrimaryNavContext} from '../PrimaryNav.context';
 
-// TODO implement the component !
 // eslint-disable-next-line
 export const PrimaryNavItemsGroup = ({isDisplayedWhenCollapsed, children}) => {
+    const primaryNavContext = useContext(PrimaryNavContext);
+
+    if (!primaryNavContext.isExpanded && !isDisplayedWhenCollapsed) {
+        return null;
+    }
+
     return (
         <li>
             <ul>
