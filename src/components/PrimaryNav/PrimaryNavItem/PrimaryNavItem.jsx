@@ -2,19 +2,69 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './PrimaryNavItem.scss';
 import classnames from 'clsx';
-import {Typography} from '~/components/Typography';
+import {Typography, TypographyVariants} from '~/components/Typography';
+
+// Internal component
+const Item = ({icon, label, textVariant, subtitle}) => (
+    <>
+        <div className={classnames(styles.primaryNavItem_iconContainer)}>{icon}</div>
+
+        <div className={classnames(styles.primaryNavItem_textContainer)}>
+            <Typography isNowrap
+                        variant={textVariant}
+                        component="span"
+                        className={classnames(styles.primaryNavItem_label)}
+            >
+                {label}
+            </Typography>
+            {subtitle &&
+            <Typography isNowrap component="div" variant="subtitle" className={classnames(styles.primaryNavItem_label)}>
+                {subtitle}
+            </Typography>}
+        </div>
+    </>
+);
+
+Item.propTypes = {
+    label: PropTypes.string,
+    icon: PropTypes.element,
+    textVariant: PropTypes.oneOf(TypographyVariants),
+    subtitle: PropTypes.string
+};
+
+// Internal component
+const ItemTypeResolver = ({url, icon, label, subtitle, textVariant}) => {
+    if (url) {
+        return (
+            <a className={classnames(styles.primaryNavItem, styles.primaryNavItem_linkItem)} href={url} target="_blank" rel="noopener noreferrer">
+                <Item icon={icon} label={label} subtitle={subtitle} textVariant={textVariant}/>
+            </a>
+        );
+    }
+
+    return (
+        <Item icon={icon} label={label} subtitle={subtitle} textVariant={textVariant}/>
+    );
+};
+
+ItemTypeResolver.propTypes = {
+    url: PropTypes.string,
+    label: PropTypes.string,
+    icon: PropTypes.element,
+    textVariant: PropTypes.oneOf(TypographyVariants),
+    subtitle: PropTypes.string
+};
 
 export const PrimaryNavItem = ({label, className, isSelected, icon, ...props}) => (
     <li
-        {...props}
         className={classnames(
             styles.primaryNavItem,
             {[styles.selected]: isSelected},
             className
         )}
+        onClick={props.onClick}
     >
-        <div className={classnames(styles.primaryNavItem_iconContainer)}>{icon}</div>
-        <Typography isNowrap component="span" className={classnames(styles.primaryNavItem_label)}>{label}</Typography>
+        <ItemTypeResolver icon={icon} label={label} textVariant={props.textVariant} subtitle={props.subtitle} url={props.url}/>
     </li>
 );
 
@@ -25,8 +75,9 @@ PrimaryNavItem.defaultProps = {
     button: null,
     isSelected: false,
     badge: null,
-    variant: 'button',
-    className: ''
+    className: '',
+    url: null,
+    textVariant: 'regular'
 };
 
 PrimaryNavItem.propTypes = {
@@ -61,9 +112,14 @@ PrimaryNavItem.propTypes = {
     badge: PropTypes.string,
 
     /**
-     * Element has notification
+     * Style of typography component
      */
-    variant: PropTypes.oneOf(['button', 'link']),
+    textVariant: PropTypes.oneOf(TypographyVariants),
+
+    /**
+     * URL to navigate to. If this is used <a> element will be returned with target set to _blank.
+     */
+    url: PropTypes.string,
 
     /**
      * Additional classname

@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import {PrimaryNavContext} from '../PrimaryNav.context';
+import {Separator} from '../Separator';
 
 // eslint-disable-next-line
 export const PrimaryNavItemsGroup = ({isDisplayedWhenCollapsed, children}) => {
@@ -11,11 +12,14 @@ export const PrimaryNavItemsGroup = ({isDisplayedWhenCollapsed, children}) => {
     }
 
     return (
-        <li>
-            <ul>
-                {children}
-            </ul>
-        </li>
+        <>
+            <Separator/>
+            <li>
+                <ul>
+                    {children}
+                </ul>
+            </li>
+        </>
     );
 };
 

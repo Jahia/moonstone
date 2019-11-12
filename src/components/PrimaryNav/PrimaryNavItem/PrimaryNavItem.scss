@@ -38,5 +38,19 @@
 
     &_label {
         padding-left: 0.5rem;
+
+        color: inherit;
+
+        text-decoration: none;
+    }
+
+    &_textContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    &_linkItem {
+        width: 100%;
     }
 }

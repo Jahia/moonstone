@@ -1,5 +1,6 @@
 import React from 'react';
 import {shallow} from 'component-test-utils-react';
+import TestRenderer from 'react-test-renderer';
 import {PrimaryNavItem} from './index';
 
 describe('NavItem', () => {
@@ -27,11 +28,8 @@ describe('NavItem', () => {
 
     it('should display the icon', () => {
         const Icon = () => <svg/>;
-        const wrapper = shallow(
-            <PrimaryNavItem icon={<Icon/>} label="Content children" onClick={() => {}}/>
-        );
-
-        expect(wrapper.html()).toContain('Icon');
+        const testRenderer = TestRenderer.create(<PrimaryNavItem icon={<Icon/>} label="Content children" onClick={() => {}}/>);
+        expect(testRenderer.root.findByType(Icon));
     });
 
     it('should set selected the item when give selected property', () => {
