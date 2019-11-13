@@ -29,7 +29,7 @@ storiesOf('Components|PrimaryNav', module)
                             <PrimaryNavItem isSelected label="NavItem selected" icon={<Apps/>}/>
                         </PrimaryNavItemsGroup>
                         <PrimaryNavItemsGroup isDisplayedWhenCollapsed={false}>
-                            <PrimaryNavItem variant="link" label="Link"/>
+                            <PrimaryNavItem url="https://jahia.com" label="Jahia Link"/>
                         </PrimaryNavItemsGroup>
                     </>
                 }
