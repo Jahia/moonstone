@@ -129,10 +129,10 @@ PrimaryNav.propTypes = {
     /**
      * Primary nav groups displayed at the top
      */
-    top: PropTypes.oneOf(PropTypes.element, PropTypes.arrayOf(PropTypes.element)),
+    top: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)]),
 
     /**
      * Primary nav groups displayed at the bottom
      */
-    bottom: PropTypes.oneOf(PropTypes.element, PropTypes.arrayOf(PropTypes.element))
+    bottom: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)])
 };

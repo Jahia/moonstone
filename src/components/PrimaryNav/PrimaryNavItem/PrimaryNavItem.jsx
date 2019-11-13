@@ -33,17 +33,17 @@ Item.propTypes = {
 };
 
 // Internal component
-const ItemTypeResolver = ({url, icon, label, subtitle, textVariant}) => {
+const ItemTypeResolver = ({url, icon, label, subtitle}) => {
     if (url) {
         return (
             <a className={classnames(styles.primaryNavItem, styles.primaryNavItem_linkItem)} href={url} target="_blank" rel="noopener noreferrer">
-                <Item icon={icon} label={label} subtitle={subtitle} textVariant={textVariant}/>
+                <Item icon={icon} label={label} subtitle={subtitle} textVariant="caption"/>
             </a>
         );
     }
 
     return (
-        <Item icon={icon} label={label} subtitle={subtitle} textVariant={textVariant}/>
+        <Item icon={icon} label={label} subtitle={subtitle} textVariant="regular"/>
     );
 };
 
@@ -51,7 +51,6 @@ ItemTypeResolver.propTypes = {
     url: PropTypes.string,
     label: PropTypes.string,
     icon: PropTypes.element,
-    textVariant: PropTypes.oneOf(TypographyVariants),
     subtitle: PropTypes.string
 };
 
@@ -64,7 +63,7 @@ export const PrimaryNavItem = ({label, className, isSelected, icon, ...props}) =
         )}
         onClick={props.onClick}
     >
-        <ItemTypeResolver icon={icon} label={label} textVariant={props.textVariant} subtitle={props.subtitle} url={props.url}/>
+        <ItemTypeResolver icon={icon} label={label} subtitle={props.subtitle} url={props.url}/>
     </li>
 );
 
@@ -76,8 +75,7 @@ PrimaryNavItem.defaultProps = {
     isSelected: false,
     badge: null,
     className: '',
-    url: null,
-    textVariant: 'regular'
+    url: null
 };
 
 PrimaryNavItem.propTypes = {
@@ -110,11 +108,6 @@ PrimaryNavItem.propTypes = {
      * Element has badge
      */
     badge: PropTypes.string,
-
-    /**
-     * Style of typography component
-     */
-    textVariant: PropTypes.oneOf(TypographyVariants),
 
     /**
      * URL to navigate to. If this is used <a> element will be returned with target set to _blank.
