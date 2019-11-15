@@ -2,7 +2,7 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {withKnobs} from '@storybook/addon-knobs';
 
-import {PrimaryNav} from '../PrimaryNav';
+import {PrimaryNav} from '../index';
 import {Separator} from './index';
 import markdownNotes from './Separator.md';
 

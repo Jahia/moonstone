@@ -4,8 +4,8 @@ import {withKnobs} from '@storybook/addon-knobs';
 import markdownNotes from './PrimaryNav.md';
 
 import {PrimaryNav} from './index';
-import {PrimaryNavItem} from '~/components/PrimaryNavItem';
-import {PrimaryNavItemsGroup} from '~/components/PrimaryNavItemsGroup';
+import {PrimaryNavItem} from '~/components/PrimaryNav/PrimaryNavItem';
+import {PrimaryNavItemsGroup} from '~/components/PrimaryNav/PrimaryNavItemsGroup';
 import Apps from '~/icons/asset/Apps.svg';
 import Feather from '~/icons/asset/Feather.svg';
 import Setting from '~/icons/asset/Setting.svg';
@@ -29,7 +29,7 @@ storiesOf('Components|PrimaryNav', module)
                             <PrimaryNavItem isSelected label="NavItem selected" icon={<Apps/>}/>
                         </PrimaryNavItemsGroup>
                         <PrimaryNavItemsGroup isDisplayedWhenCollapsed={false}>
-                            <PrimaryNavItem variant="link" label="Link"/>
+                            <PrimaryNavItem url="https://jahia.com" label="Jahia Link"/>
                         </PrimaryNavItemsGroup>
                     </>
                 }

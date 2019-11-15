@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import classnames from 'clsx';
-import {PrimaryNavContext} from '../PrimaryNav';
+import {PrimaryNavContext} from '../index';
 
 export const Separator = () => {
     const primaryNavContext = useContext(PrimaryNavContext);
