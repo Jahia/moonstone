@@ -46,8 +46,15 @@
 
     &_textContainer {
         display: flex;
+        flex-grow: 2;
         flex-direction: column;
         justify-content: center;
+    }
+
+    &_buttonContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: right;
     }
 
     &_linkItem {
