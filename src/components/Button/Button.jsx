@@ -14,7 +14,8 @@ export const Button = ({label, onClick, size, isDisabled, icon, variant, color})
             className={classnames(styles.button, styles[variant], styles[color], (icon === null) ? null : styles.icon)}
             type="button"
             onClick={onClick}
-        ><i>{icon}</i>{label}
+        >
+          <i>{icon}</i>{label}
         </button>
     );
 };
