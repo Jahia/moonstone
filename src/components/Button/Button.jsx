@@ -15,7 +15,7 @@ export const Button = ({label, onClick, size, isDisabled, icon, variant, color})
             type="button"
             onClick={onClick}
         >
-          <i>{icon}</i>{label}
+            <i>{icon}</i>{label}
         </button>
     );
 };
