@@ -1,15 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './Button.scss';
+import classnames from 'clsx';
 
 export const ButtonSizes = ['small', 'medium', 'big'];
 export const ButtonVariants = ['default', 'primary', 'ghost'];
 export const ButtonColors = ['accent', 'inherit', 'success', 'warning', 'danger', 'reverse'];
 
-// TODO implement the component !
 // eslint-disable-next-line
 export const Button = ({label, onClick, size, isDisabled, icon, variant, color}) => {
     return (
-        <button type="button"/>
+        <button
+            className={classnames(styles.button, styles[variant], styles[color], (icon === null) ? null : styles.icon)}
+            type="button"
+            onClick={onClick}
+        >
+            <i>{icon}</i>{label}
+        </button>
     );
 };
 

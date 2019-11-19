@@ -5,7 +5,7 @@ import classnames from 'clsx';
 import {Typography, TypographyVariants} from '~/components/Typography';
 
 // Internal component
-const Item = ({icon, label, textVariant, subtitle}) => (
+const Item = ({icon, label, textVariant, subtitle, button}) => (
     <>
         <div className={classnames(styles.primaryNavItem_iconContainer)}>{icon}</div>
 
@@ -22,6 +22,9 @@ const Item = ({icon, label, textVariant, subtitle}) => (
                 {subtitle}
             </Typography>}
         </div>
+        <div className={classnames(styles.primaryNavItem_buttonContainer)}>
+            {button}
+        </div>
     </>
 );
 
@@ -29,21 +32,22 @@ Item.propTypes = {
     label: PropTypes.string,
     icon: PropTypes.element,
     textVariant: PropTypes.oneOf(TypographyVariants),
-    subtitle: PropTypes.string
+    subtitle: PropTypes.string,
+    button: PropTypes.node
 };
 
 // Internal component
-const ItemTypeResolver = ({url, icon, label, subtitle}) => {
+const ItemTypeResolver = ({url, icon, label, subtitle, button}) => {
     if (url) {
         return (
             <a className={classnames(styles.primaryNavItem, styles.primaryNavItem_linkItem)} href={url} target="_blank" rel="noopener noreferrer">
-                <Item icon={icon} label={label} subtitle={subtitle} textVariant="caption"/>
+                <Item icon={icon} label={label} subtitle={subtitle} textVariant="caption" button={button}/>
             </a>
         );
     }
 
     return (
-        <Item icon={icon} label={label} subtitle={subtitle} textVariant="regular"/>
+        <Item icon={icon} label={label} subtitle={subtitle} textVariant="regular" button={button}/>
     );
 };
 
@@ -51,7 +55,8 @@ ItemTypeResolver.propTypes = {
     url: PropTypes.string,
     label: PropTypes.string,
     icon: PropTypes.element,
-    subtitle: PropTypes.string
+    subtitle: PropTypes.string,
+    button: PropTypes.node
 };
 
 export const PrimaryNavItem = ({label, className, isSelected, icon, ...props}) => (
@@ -63,7 +68,7 @@ export const PrimaryNavItem = ({label, className, isSelected, icon, ...props}) =
         )}
         onClick={props.onClick}
     >
-        <ItemTypeResolver icon={icon} label={label} subtitle={props.subtitle} url={props.url}/>
+        <ItemTypeResolver icon={icon} label={label} subtitle={props.subtitle} url={props.url} button={props.button}/>
     </li>
 );
 
