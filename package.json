@@ -1,6 +1,6 @@
 {
     "name": "@jahia/moonstone",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "dependencies": {
         "@svgr/webpack": "^4.3.3",
         "clsx": "^1.0.4",
