@@ -1,3 +1,23 @@
+# v0.3.0 (Thu Nov 21 2019)
+
+#### 🚀  Enhancement
+
+- Backlog 11280 [#29](https://github.com/Jahia/moonstone/pull/29) ([@AKarmanov](https://github.com/AKarmanov) [@tdraier](https://github.com/tdraier))
+
+#### 🐛  Bug Fix
+
+- BACKLOG-11286: Implement Button in PrimaryNavItem [#33](https://github.com/Jahia/moonstone/pull/33) ([@cedmail](https://github.com/cedmail))
+- BACKLOG-11281: Move files, update primary nav item component to be able to handle links [#32](https://github.com/Jahia/moonstone/pull/32) ([@AKarmanov](https://github.com/AKarmanov))
+- MOON-1 : Fix global style loading [#31](https://github.com/Jahia/moonstone/pull/31) ([@tdraier](https://github.com/tdraier))
+- MOON-4 : Fixed format of generated index file [#30](https://github.com/Jahia/moonstone/pull/30) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 2
+
+- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v0.2.0 (Thu Nov 07 2019)
 
 #### 🚀  Enhancement
