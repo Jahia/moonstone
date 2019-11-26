@@ -10,7 +10,6 @@
     color: $color-light;
 
     border-radius: 2rem;
-    outline: 0.5rem solid $color-dark;
 
     cursor: pointer;
     overflow: hidden; // Hide content when primaryNav is collapsed
@@ -30,6 +29,9 @@
         display: flex;
         flex: 1;
         justify-content: flex-start;
+        overflow: hidden;
+        min-width: 2.5rem;
+        max-width: 100%; // Necessery to truncate text inside it
 
         &:hover {
             color: $color-accent;
@@ -53,15 +55,16 @@
 
     &_textContainer {
         display: flex;
-        flex-grow: 2;
         flex-direction: column;
         justify-content: center;
+        overflow: hidden;
     }
 
     &_buttonContainer {
         display: flex;
         flex-direction: column;
         justify-content: right;
+        overflow: hidden;
     }
 
     &_linkItem {

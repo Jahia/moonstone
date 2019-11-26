@@ -17,6 +17,8 @@ storiesOf('Components|PrimaryNavItem', module)
     .addDecorator(withKnobs)
     .add('Default', () => (
         <ul style={{
+            display: 'flex',
+            flexDirection: 'column',
             backgroundColor: '#131c21',
             width: '18.75rem',
             height: '100vh'

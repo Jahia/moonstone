@@ -1,3 +1,5 @@
+@import '~/styles/shared/all.scss';
+
 .typography {
     &.page {
         font-weight: 400;
@@ -31,11 +33,13 @@
 
     &.subtitle {
         font-weight: 400;
-        font-size: 9px;
+        font-size: 11px;
         line-height: 15px;
+
+        opacity: 0.6;
     }
 
     &.nowrap {
-        white-space: nowrap;
+        @include truncate;
     }
 }
