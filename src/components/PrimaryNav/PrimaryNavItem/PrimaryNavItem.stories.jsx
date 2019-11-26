@@ -26,6 +26,6 @@ storiesOf('Components|PrimaryNavItem', module)
             <PrimaryNavItem isSelected icon={<Edit/>} label="NavItem Selected"/>
             <PrimaryNavItem isSelected={boolean('selected')} icon={<Edit/>} label="Another NavItem"/>
             <PrimaryNavItem icon={<Person/>} label="My profile" subtitle="username as a subtitle"/>
-            <PrimaryNavItem icon={<Person/>} label="My profile" subtitle="username as a subtitle" button={<Button icon={<Power/>} label="Sign Out" variant="ghost" color="reverse"/>}/>
+            <PrimaryNavItem icon={<Person/>} label="My profile" subtitle="username as a subtitle" button={<Button icon={<Power size="small"/>} label="Sign Out" variant="ghost" color="reverse"/>}/>
         </ul>
     ));
