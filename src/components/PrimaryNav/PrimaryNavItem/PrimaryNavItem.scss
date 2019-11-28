@@ -24,51 +24,51 @@
 
         pointer-events: none;
     }
+}
 
-    &_content {
-        display: flex;
-        flex: 1;
-        justify-content: flex-start;
-        overflow: hidden;
-        min-width: 2.5rem;
-        max-width: 100%; // Necessery to truncate text inside it
+.primaryNavItem_content {
+    display: flex;
+    flex: 1;
+    justify-content: flex-start;
+    overflow: hidden;
+    min-width: 2.5rem;
+    max-width: 100%; // Necessery to truncate text inside it
 
-        &:hover {
-            color: $color-accent;
-        }
+    &:hover {
+        color: $color-accent;
     }
+}
 
-    &_iconContainer {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 2.5rem;
-        min-width: 2.5rem;
-        height: 2.5rem;
-    }
+.primaryNavItem_iconContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.5rem;
+    min-width: 2.5rem;
+    height: 2.5rem;
+}
 
-    &_label {
-        color: inherit;
+.primaryNavItem_label {
+    color: inherit;
 
-        text-decoration: none;
-    }
+    text-decoration: none;
+}
 
-    &_textContainer {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        overflow: hidden;
-    }
+.primaryNavItem_textContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+}
 
-    &_buttonContainer {
-        display: flex;
-        flex-direction: column;
-        justify-content: right;
-        overflow: hidden;
-    }
+.primaryNavItem_buttonContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    overflow: hidden;
+}
 
-    &_linkItem {
-        width: 100%;
-        margin: 0;
-    }
+.primaryNavItem_linkItem {
+    width: 100%;
+    margin: 0;
 }

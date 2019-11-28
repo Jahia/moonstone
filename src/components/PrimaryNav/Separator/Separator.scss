@@ -1,18 +1,18 @@
 @import '~/styles/shared/all';
 
 // Css for html only solution i. e. <div className="separator"/>. But it causes twitching during transition due to resizing.
-.separator {
-    width: 40%;
+.separator,
+.separator_expanded {
     height: 1px;
 
     background-color: $color-gray;
     opacity: 0.4;
+}
 
-    &_expanded {
-        width: 90%;
-        height: 1px;
+.separator {
+    width: 40%;
+}
 
-        background-color: $color-gray;
-        opacity: 0.4;
-    }
+.separator_expanded {
+    width: 90%;
 }
