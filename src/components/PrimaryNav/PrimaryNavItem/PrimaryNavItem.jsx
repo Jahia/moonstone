@@ -7,24 +7,27 @@ import {Typography, TypographyVariants} from '~/components/Typography';
 // Internal component
 const Item = ({icon, label, textVariant, subtitle, button}) => (
     <>
-        <div className={classnames(styles.primaryNavItem_iconContainer)}>{icon}</div>
+        <div className={classnames(styles.primaryNavItem_content)}>
+            <div className={classnames(styles.primaryNavItem_iconContainer)}>{icon}</div>
 
-        <div className={classnames(styles.primaryNavItem_textContainer)}>
-            <Typography isNowrap
-                        variant={textVariant}
-                        component="span"
-                        className={classnames(styles.primaryNavItem_label)}
-            >
-                {label}
-            </Typography>
-            {subtitle &&
-            <Typography isNowrap component="div" variant="subtitle" className={classnames(styles.primaryNavItem_label)}>
-                {subtitle}
-            </Typography>}
+            <div className={classnames(styles.primaryNavItem_textContainer)}>
+                <Typography isNowrap
+                            variant={textVariant}
+                            component="span"
+                            className={classnames(styles.primaryNavItem_label)}
+                >
+                    {label}
+                </Typography>
+                {subtitle &&
+                <Typography isNowrap component="div" variant="subtitle" className={classnames(styles.primaryNavItem_label)}>
+                    {subtitle}
+                </Typography>}
+            </div>
         </div>
+        {button &&
         <div className={classnames(styles.primaryNavItem_buttonContainer)}>
             {button}
-        </div>
+        </div>}
     </>
 );
 
@@ -125,7 +128,7 @@ PrimaryNavItem.propTypes = {
     className: PropTypes.string,
 
     /**
-     * Element is selected or not
+     * Function triggered on click
      */
     onClick: PropTypes.func
 };

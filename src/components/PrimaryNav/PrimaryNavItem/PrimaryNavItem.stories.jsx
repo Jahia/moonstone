@@ -17,6 +17,8 @@ storiesOf('Components|PrimaryNavItem', module)
     .addDecorator(withKnobs)
     .add('Default', () => (
         <ul style={{
+            display: 'flex',
+            flexDirection: 'column',
             backgroundColor: '#131c21',
             width: '18.75rem',
             height: '100vh'
@@ -26,6 +28,6 @@ storiesOf('Components|PrimaryNavItem', module)
             <PrimaryNavItem isSelected icon={<Edit/>} label="NavItem Selected"/>
             <PrimaryNavItem isSelected={boolean('selected')} icon={<Edit/>} label="Another NavItem"/>
             <PrimaryNavItem icon={<Person/>} label="My profile" subtitle="username as a subtitle"/>
-            <PrimaryNavItem icon={<Person/>} label="My profile" subtitle="username as a subtitle" button={<Button icon={<Power/>} label="Sign Out" variant="ghost" color="reverse"/>}/>
+            <PrimaryNavItem icon={<Person/>} label="My profile" subtitle="username as a subtitle" button={<Button icon={<Power size="small"/>} label="Sign Out" variant="ghost" color="reverse"/>}/>
         </ul>
     ));

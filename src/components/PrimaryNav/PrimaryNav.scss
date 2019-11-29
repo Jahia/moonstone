@@ -18,7 +18,7 @@ $primaryNav: 56px;
         position: fixed;
         top: 0;
         left: 0;
-        z-index: 1000;
+        z-index: 9000;
 
         width: $primaryNavExpanded;
         height: 100%;
@@ -83,9 +83,10 @@ $primaryNav: 56px;
 }
 
 .headerCaption {
+    @include truncate;
+
     margin-left: 40px;
 
     font-size: 8pt;
     color: $color-light;
-    white-space: nowrap;
 }

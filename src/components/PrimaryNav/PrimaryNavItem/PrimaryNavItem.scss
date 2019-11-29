@@ -10,54 +10,65 @@
     color: $color-light;
 
     border-radius: 2rem;
-    outline: 0.5rem solid $color-dark;
 
     cursor: pointer;
+    overflow: hidden; // Hide content when primaryNav is collapsed
 
     transition: color 0.2s, background-color 0.2s;
-
-    &:hover {
-        color: $color-accent;
-    }
 
     &.selected {
         color: $color-light;
 
         background-color: $color-accent;
         cursor: default;
+
+        pointer-events: none;
     }
+}
 
-    &_iconContainer {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 2.5rem;
-        min-width: 2.5rem;
-        height: 2.5rem;
+.primaryNavItem_content {
+    display: flex;
+    flex: 1;
+    justify-content: flex-start;
+    overflow: hidden;
+    min-width: 2.5rem;
+    max-width: 100%; // Necessery to truncate text inside it
+
+    &:hover {
+        color: $color-accent;
     }
+}
 
-    &_label {
-        padding-left: 0.5rem;
+.primaryNavItem_iconContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.5rem;
+    min-width: 2.5rem;
+    height: 2.5rem;
+}
 
-        color: inherit;
+.primaryNavItem_label {
+    color: inherit;
 
-        text-decoration: none;
-    }
+    text-decoration: none;
+}
 
-    &_textContainer {
-        display: flex;
-        flex-grow: 2;
-        flex-direction: column;
-        justify-content: center;
-    }
+.primaryNavItem_textContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+}
 
-    &_buttonContainer {
-        display: flex;
-        flex-direction: column;
-        justify-content: right;
-    }
+.primaryNavItem_buttonContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    overflow: hidden;
+}
 
-    &_linkItem {
-        width: 100%;
-    }
+.primaryNavItem_linkItem {
+    width: 100%;
+    margin: 0;
 }
