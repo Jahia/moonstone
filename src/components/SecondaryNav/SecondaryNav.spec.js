@@ -1,6 +1,5 @@
 import React from 'react';
 import {shallow} from 'component-test-utils-react';
-// Import TestRenderer from 'react-test-renderer';
 import {SecondaryNav} from './index';
 
 describe('SecondaryNav', () => {
