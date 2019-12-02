@@ -1,5 +1,8 @@
-@mixin truncate($maxWidth: 100%) {
-    display: inline-block;
+@mixin truncate($maxWidth: 100%, $display: null) {
+    @if ($display) {
+        display: $display;
+    }
+
     max-width: $maxWidth;
 
     white-space: nowrap;
