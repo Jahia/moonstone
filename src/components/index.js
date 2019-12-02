@@ -6,3 +6,4 @@ export * from './PrimaryNav/PrimaryNavItemsGroup';
 export * from './PrimaryNav/Separator';
 export * from './SecondaryNav';
 export * from './Typography';
+export * from './ResizableBox';

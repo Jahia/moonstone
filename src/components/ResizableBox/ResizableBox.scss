@@ -1,0 +1,24 @@
+@import '~/styles/shared/all';
+
+.resizable_handle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 18px !important;
+
+    transition: color 0.2s ease-in;
+
+    &:active,
+    &:hover {
+        color: $color-accent;
+    }
+}
+
+.resizable_handle_icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+
+    margin: auto;
+}
