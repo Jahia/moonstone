@@ -1,9 +1,22 @@
 @import '~/styles/shared/all';
 
 .secondaryNav {
+    // TODO: Remove when we will use Resizable
+    width: 245px;
     height: 100%;
 
     color: $color-light;
 
-    background: $color-gray;
+    background: $color-gray_dark;
+}
+
+.secondaryNav_header {
+    @include truncate;
+
+    display: block;
+    padding: spacing('large');
+
+    text-align: center;
+
+    text-transform: capitalize;
 }
