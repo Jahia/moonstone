@@ -1,6 +1,7 @@
 import React from 'react';
 import {addDecorator, addParameters, configure} from '@storybook/react';
 import {DocsContainer, DocsPage} from '@storybook/addon-docs/blocks';
+import {withA11y} from '@storybook/addon-a11y';
 import {GlobalStyle} from '../src';
 
 addDecorator(story => (
@@ -9,6 +10,8 @@ addDecorator(story => (
         {story()}
     </>
 ));
+
+addDecorator(withA11y);
 
 addParameters({
     docs: {
