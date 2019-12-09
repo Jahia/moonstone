@@ -90,7 +90,7 @@ export const PrimaryNav = ({headerLogo, top, bottom, headerCaption, modeIcon}) =
                     </div>
                 </div>
 
-                <ul className={classnames('flexFluid')}>
+                <ul className={classnames('flexCol', 'flexFluid')}>
                     {top}
                 </ul>
 

@@ -1,0 +1,34 @@
+@import '~/styles/shared/all';
+
+.separator {
+    height: 1px;
+
+    border: 0;
+    background: $color-gray40;
+
+    // Size's Separator
+    &.size_medium {
+        width: calc(100% - #{spacing(huge)});
+    }
+
+    &.size_large {
+        width: calc(100% - #{spacing(medium)});
+    }
+
+    &.size_full {
+        width: 100%;
+    }
+
+    // Spacing's Separator
+    &.spacing_small {
+        margin: spacing(small) auto;
+    }
+
+    &.spacing_medium {
+        margin: spacing(medium) auto;
+    }
+
+    &.spacing_big {
+        margin: spacing(big) auto;
+    }
+}

@@ -1,9 +1,10 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'clsx';
+import styles from './PrimaryNavItemsGroup.scss';
 import {PrimaryNavContext} from '../PrimaryNav.context';
-import {Separator} from '../Separator';
+import {Separator} from '~/components/Separator';
 
-// eslint-disable-next-line
 export const PrimaryNavItemsGroup = ({isDisplayedWhenCollapsed, children}) => {
     const primaryNavContext = useContext(PrimaryNavContext);
 
@@ -13,8 +14,10 @@ export const PrimaryNavItemsGroup = ({isDisplayedWhenCollapsed, children}) => {
 
     return (
         <>
-            <Separator/>
-            <li>
+            <li className={classnames(styles.primaryNavItemsGroup)}>
+                <Separator size="large" spacing="small"/>
+            </li>
+            <li className={classnames(styles.primaryNavItemsGroup)}>
                 <ul>
                     {children}
                 </ul>
