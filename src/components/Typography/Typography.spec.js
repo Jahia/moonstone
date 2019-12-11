@@ -12,7 +12,6 @@ describe('Typography', () => {
         const wrapper = shallow(
             <Typography variant="page">Content children</Typography>
         );
-        console.log(wrapper.props);
         expect(wrapper.props.className).toContain('typography page');
     });
 
