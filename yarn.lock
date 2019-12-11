@@ -4090,10 +4090,10 @@ component-emitter@^1.2.1:
   resolved "https://registry.yarnpkg.com/component-emitter/-/component-emitter-1.3.0.tgz#16e4070fba8ae29b679f2215853ee181ab2eabc0"
   integrity sha512-Rd3se6QB+sO1TwqZjscQrurpEPIfO0/yYnSin6Q/rD3mOutHvUrCAhJub3r90uNb+SESBuE0QYoB90YdfatsRg==
 
-component-test-utils-react@^1.0.0-alpha.7:
-  version "1.0.0-alpha.8"
-  resolved "https://registry.yarnpkg.com/component-test-utils-react/-/component-test-utils-react-1.0.0-alpha.8.tgz#e4e20ff84b3b29b17a2dd99a20d604cbc1c1df25"
-  integrity sha512-+CEBMI9KrwXHkoB03DXfAWOdTgbNdK8FNKMkaOVewlsFiM+EHtmKZ7p0HyhjGskOTsY6LWrsao/CJZaZmEpv4A==
+component-test-utils-react@^1.0.0-alpha.11:
+  version "1.0.0-alpha.11"
+  resolved "https://registry.yarnpkg.com/component-test-utils-react/-/component-test-utils-react-1.0.0-alpha.11.tgz#5ede11a94757cec6ed9d7946a6e52eb0e99d1aaf"
+  integrity sha512-GIMz55K3RgKusWYY2Zi5VB7yDfdeEoYzVLPsCSm1Htx01BC2DweyK4Ex0umCNI8hBT2uwkqvZFUnTQ/iv4i9lg==
   dependencies:
     react-is "^16.5.2"
 

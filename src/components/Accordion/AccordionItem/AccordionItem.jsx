@@ -41,7 +41,6 @@ export const AccordionItem = ({id, label, icon, onClickToOpen, onClick, onClickT
                     {label}
                 </Typography>
             </header>
-            <div className={classnames(styles.test)}/>
             {/* Accordion content */}
             {open && (
                 <div className={classnames(styles.accordionItem_content, 'flexFluid')}>
