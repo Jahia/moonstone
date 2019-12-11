@@ -21,7 +21,7 @@ const ComponentsConfig = {
     },
     mode: 'development',
     devtool: 'source-map',
-    externals: [nodeExternals({whitelist: ['re-resizable']})],
+    externals: [nodeExternals({whitelist: ['re-resizable', 'fast-memoize']})],
     resolve: {
         // Add alias to import files easily
         alias: {
