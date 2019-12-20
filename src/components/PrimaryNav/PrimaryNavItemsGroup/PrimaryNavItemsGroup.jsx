@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {PrimaryNavContext} from '../PrimaryNav.context';
 import {Separator} from '../Separator';
 
-// eslint-disable-next-line
 export const PrimaryNavItemsGroup = ({isDisplayedWhenCollapsed, children}) => {
     const primaryNavContext = useContext(PrimaryNavContext);
 
