@@ -14,9 +14,8 @@ export const TypographyVariants = [
     'subtitle'
 ];
 
-const childrenPropType = (props, propName, componentName) => (props.isHtml ? PropTypes.node(props, propName, componentName) : PropTypes.string(props, propName, componentName));
-const filterOutProps = function (props, out = []) {
-    const newProps = Object.assign({}, props);
+const filterOutProps = function (props, out) {
+    const newProps = {...props};
     out.forEach(function (o) {
         delete newProps[o];
     });
@@ -48,6 +47,21 @@ Typography.defaultProps = {
     isHtml: false,
     isNowrap: false
 };
+
+let childrenPropType = () => {};
+if (process.env.NODE_ENV !== 'production') {
+    const {isElement} = require('react-is');
+
+    childrenPropType = (props, propName, componentName) => {
+        if (props.isHtml && !isElement(props[propName])) {
+            return new Error(`Invalid prop ${propName} supplied to ${componentName}. ${propName} should be rederable.`);
+        }
+
+        if (!props.isHtml && typeof props[propName] !== 'string') {
+            return new Error(`Invalid prop ${propName} supplied to ${componentName}. ${propName} should be a string.`);
+        }
+    };
+}
 
 Typography.propTypes = {
     /**
