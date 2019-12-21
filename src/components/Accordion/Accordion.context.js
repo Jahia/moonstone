@@ -1,10 +1,7 @@
 import {createContext} from 'react';
 
-const state = {
+const intialState = {
     currentItem: null,
-    isReversed: false,
-    setCurrentItem: () => {}
+    isReversed: false
 };
-const AccordionContext = createContext(state);
-
-export {AccordionContext};
+export const AccordionContext = createContext(intialState);

@@ -32,6 +32,32 @@ describe('AccordionItem', () => {
         expect(wrapper.html()).toContain('Icon');
     });
 
+    it('should accept reversed accordion', () => {
+        const Icon = () => <svg/>;
+        const wrapper = shallow(
+            <AccordionItem
+                id="007"
+                label="my label label"
+                icon={<Icon/>}
+            >
+                content here
+            </AccordionItem>, {
+                externals: {
+                    contexts: [{
+                        id: AccordionContext,
+                        value: {
+                            defineCurrentItem: jest.fn(),
+                            currentItem: 'not correspond',
+                            reversed: true
+                        }
+                    }]
+                }
+            }
+        );
+
+        expect(wrapper.html()).toContain('accordionItem_reversed');
+    });
+
     it('should not display children when id in context not correspond', () => {
         const clickToOpenHandler = jest.fn();
         const wrapper = shallow(
@@ -110,6 +136,31 @@ describe('AccordionItem', () => {
         expect(clickToOpenHandler).toHaveBeenCalled();
     });
 
+    it('should not throw error when there is no onClickToOpen defined', () => {
+        const wrapper = shallow(
+            <AccordionItem
+                id="007"
+                label="my label label"
+            >
+                content here
+            </AccordionItem>
+            , {
+                externals: {
+                    contexts: [{
+                        id: AccordionContext,
+                        value: {
+                            defineCurrentItem: jest.fn(),
+                            currentItem: 'not correspond'
+                        }
+                    }]
+                }
+            },
+        );
+
+        // No error should occur when there is no onClickToOpen defined
+        wrapper.querySelector('header').dispatchEvent('click');
+    });
+
     it('should call onClickToClose when click on opened item', () => {
         const clickToCloseHandler = jest.fn();
         const wrapper = shallow(
@@ -136,5 +187,30 @@ describe('AccordionItem', () => {
         wrapper.querySelector('header').dispatchEvent('click');
 
         expect(clickToCloseHandler).toHaveBeenCalled();
+    });
+
+    it('should not throw error when there is no onClickToClose defined', () => {
+        const wrapper = shallow(
+            <AccordionItem
+                id="007"
+                label="my label label"
+            >
+                content here
+            </AccordionItem>
+            , {
+                externals: {
+                    contexts: [{
+                        id: AccordionContext,
+                        value: {
+                            defineCurrentItem: jest.fn(),
+                            currentItem: '007'
+                        }
+                    }]
+                }
+            },
+        );
+
+        // No error should occur when there is no onClickToClose defined
+        wrapper.querySelector('header').dispatchEvent('click');
     });
 });

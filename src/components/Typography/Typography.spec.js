@@ -76,7 +76,7 @@ describe('Typography', () => {
         delete global.console.originalError;
     });
 
-    it('should not validate propTypes when on produciton environement', () => {
+    it('should not validate propTypes when on production environment', () => {
         global.console.originalError = console.error;
         global.console.error = jest.fn();
 

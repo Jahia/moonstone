@@ -67,7 +67,7 @@
         "babel-eslint": "^10.0.3",
         "babel-jest": "^24.9.0",
         "babel-loader": "^8.0.6",
-        "component-test-utils-react": "^1.0.0-alpha.11",
+        "component-test-utils-react": "^1.0.0-alpha.14",
         "create-index": "^2.5.0",
         "css-loader": "^3.2.0",
         "eslint": "5.16.0",

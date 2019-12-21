@@ -48,7 +48,7 @@ Typography.defaultProps = {
     isNowrap: false
 };
 
-let childrenPropType = () => {};
+let childrenPropType;
 if (process.env.NODE_ENV !== 'production') {
     const {isElement} = require('react-is');
 

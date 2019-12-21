@@ -5,7 +5,7 @@ import {SecondaryNav} from './index';
 describe('SecondaryNav', () => {
     it('should display children content', () => {
         const wrapper = shallow(
-            <SecondaryNav>
+            <SecondaryNav header="">
                 content here
             </SecondaryNav>
         );
@@ -13,7 +13,7 @@ describe('SecondaryNav', () => {
         expect(wrapper.html()).toContain('content here');
     });
     it('should display a string in the header', () => {
-        const wrapper = shallow(<SecondaryNav header="my header"/>);
+        const wrapper = shallow(<SecondaryNav header="my header">hello</SecondaryNav>);
 
         expect(wrapper.html()).toContain('my header');
     });
