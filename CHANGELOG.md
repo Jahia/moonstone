@@ -1,3 +1,15 @@
+# v0.4.1 (Mon Jan 06 2020)
+
+#### 🐛  Bug Fix
+
+- MOON-26 : fixed dependency [#46](https://github.com/Jahia/moonstone/pull/46) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v0.4.0 (Mon Jan 06 2020)
 
 #### 🚀  Enhancement
