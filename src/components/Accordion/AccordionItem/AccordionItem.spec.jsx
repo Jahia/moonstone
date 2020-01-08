@@ -154,7 +154,7 @@ describe('AccordionItem', () => {
                         }
                     }]
                 }
-            },
+            }
         );
 
         // No error should occur when there is no onClickToOpen defined
@@ -207,7 +207,7 @@ describe('AccordionItem', () => {
                         }
                     }]
                 }
-            },
+            }
         );
 
         // No error should occur when there is no onClickToClose defined
