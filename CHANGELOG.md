@@ -1,3 +1,36 @@
+# v0.4.1 (Mon Jan 06 2020)
+
+#### 🐛  Bug Fix
+
+- MOON-26 : fixed dependency [#46](https://github.com/Jahia/moonstone/pull/46) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
+# v0.4.0 (Mon Jan 06 2020)
+
+#### 🚀  Enhancement
+
+- Moon-22 : UI improvempents [#35](https://github.com/Jahia/moonstone/pull/35) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🐛  Bug Fix
+
+- Moon 19 : Create Accordion component [#39](https://github.com/Jahia/moonstone/pull/39) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-26 : SecondaryNav is resizable [#38](https://github.com/Jahia/moonstone/pull/38) ([@ffffffelix](https://github.com/ffffffelix) [@AKarmanov](https://github.com/AKarmanov))
+- MOON-29 : Add a11y addon to storybook [#40](https://github.com/Jahia/moonstone/pull/40) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-11 : Create SecondaryNav [#36](https://github.com/Jahia/moonstone/pull/36) ([@ffffffelix](https://github.com/ffffffelix) [@AKarmanov](https://github.com/AKarmanov))
+- MOON-25 : Create Resizable [#37](https://github.com/Jahia/moonstone/pull/37) ([@ffffffelix](https://github.com/ffffffelix))
+- Update README.md [#34](https://github.com/Jahia/moonstone/pull/34) ([@Fgerthoffert](https://github.com/Fgerthoffert))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v0.3.0 (Thu Nov 21 2019)
 
 #### 🚀  Enhancement

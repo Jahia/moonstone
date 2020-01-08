@@ -1,11 +1,12 @@
 {
     "name": "@jahia/moonstone",
-    "version": "0.3.0",
+    "version": "0.4.1",
     "dependencies": {
         "@svgr/webpack": "^4.3.3",
         "clsx": "^1.0.4",
         "prop-types": "^15.7.2",
-        "react-is": "^16.12.0"
+        "react-is": "^16.12.0",
+        "re-resizable": "^6.1.0"
     },
     "peerDependencies": {
         "react": "^16.11.0"
@@ -82,7 +83,6 @@
         "mini-css-extract-plugin": "^0.8.0",
         "node-sass": "^4.13.0",
         "optimize-css-assets-webpack-plugin": "^5.0.3",
-        "re-resizable": "^6.1.0",
         "react": "^16.11.0",
         "react-dom": "^16.11.0",
         "react-test-renderer": "^16.11.0",
