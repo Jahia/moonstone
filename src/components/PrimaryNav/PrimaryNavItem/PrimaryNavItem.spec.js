@@ -82,7 +82,7 @@ describe('NavItem', () => {
         expect(wrapper.querySelector('a').exists()).toBe(true);
     });
 
-    it('should display subtitle when give a url props', () => {
+    it('should display subtitle when give a subtitle props', () => {
         const Icon = () => <svg/>;
         const wrapper = shallow(
             <PrimaryNavItem isSelected icon={<Icon/>} label="Content children" subtitle="I'm a subtitle" onClick={() => {}}/>,
