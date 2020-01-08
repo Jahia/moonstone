@@ -3,7 +3,6 @@
 .storyWrapper {
     display: flex;
     flex-flow: column wrap;
-
     width: 600px;
     margin: 0 auto;
     padding: spacing('huge');
@@ -40,9 +39,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-
     width: 130px;
     height: 72px;
-
     margin: spacing('big');
 }
