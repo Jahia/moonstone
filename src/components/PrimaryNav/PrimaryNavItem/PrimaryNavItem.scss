@@ -10,11 +10,10 @@
     color: $color-light;
 
     border-radius: 2rem;
-
     cursor: pointer;
-    overflow: hidden; // Hide content when primaryNav is collapsed
 
     transition: color 0.2s, background-color 0.2s;
+    overflow: hidden; // Hide content when primaryNav is collapsed
 
     &.selected {
         color: $color-light;
@@ -50,7 +49,6 @@
 
 .primaryNavItem_label {
     color: inherit;
-
     text-decoration: none;
 }
 

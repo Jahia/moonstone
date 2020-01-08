@@ -31,8 +31,7 @@ export const AccordionItem = ({id, label, icon, onClickToOpen, onClick, onClickT
                 {icon &&
                     <div className={classnames(styles.accordionItem_iconContainer, 'flexRow_center', 'alignCenter')}>
                         {icon}
-                    </div>
-                }
+                    </div>}
                 <Typography
                     isNowrap
                     variant={open ? 'strong' : 'regular'}

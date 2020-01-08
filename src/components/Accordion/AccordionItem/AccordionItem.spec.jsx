@@ -78,7 +78,7 @@ describe('AccordionItem', () => {
                         }
                     }]
                 }
-            },
+            }
         );
         expect(wrapper.html()).not.toContain('content here');
     });
@@ -103,7 +103,7 @@ describe('AccordionItem', () => {
                         }
                     }]
                 }
-            },
+            }
         );
         expect(wrapper.html()).toContain('content here');
     });
@@ -128,7 +128,7 @@ describe('AccordionItem', () => {
                         }
                     }]
                 }
-            },
+            }
         );
 
         wrapper.querySelector('header').dispatchEvent('click');
@@ -181,7 +181,7 @@ describe('AccordionItem', () => {
                         }
                     }]
                 }
-            },
+            }
         );
 
         wrapper.querySelector('header').dispatchEvent('click');
