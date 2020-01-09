@@ -5,7 +5,7 @@
         content: "#{$value}";
 
         position: absolute;
-        bottom: spacing('small');
+        bottom: var(--spacing-small);
         left: 0;
 
         color: $color-gray60;
@@ -20,7 +20,7 @@
     align-items: center;
 
     & + & {
-        margin-top: spacing('medium');
+        margin-top: var(--spacing-medium);
     }
 }
 

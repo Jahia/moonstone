@@ -5,7 +5,7 @@
     flex-flow: column wrap;
     width: 600px;
     margin: 0 auto;
-    padding: spacing('huge');
+    padding: var(--spacing-huge);
 
     &.dark {
         background-color: $color-dark;
@@ -22,7 +22,7 @@
     min-height: 80px;
 
     & + & {
-        margin-top: spacing('medium');
+        margin-top: var(--spacing-medium);
     }
 }
 
@@ -41,5 +41,5 @@
     align-items: center;
     width: 130px;
     height: 72px;
-    margin: spacing('big');
+    margin: var(--spacing-big);
 }

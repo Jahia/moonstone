@@ -20,7 +20,7 @@ $accordionHeader_height: 48px;
 .accordionItem_header {
     width: 100%;
     min-height: $accordionHeader_height;
-    padding: 0 spacing('medium');
+    padding: 0 var(--spacing-medium);
 
     color: $color-gray;
 
@@ -74,7 +74,7 @@ $accordionHeader_height: 48px;
 .accordionItem_content {
     max-width: 100%;
     height: 100%;
-    padding: spacing('medium');
+    padding: var(--spacing-medium);
     overflow-y: auto;
 }
 

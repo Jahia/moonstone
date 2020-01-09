@@ -1,11 +1,30 @@
-@import '../styles/shared/all';
+@import '~/styles/shared/all';
+
+$spacings: (
+    "nano": var(--spacing-nano),
+    "small": var(--spacing-small),
+    "medium": var(--spacing-medium),
+    "large": var(--spacing-large),
+    "big": var(--spacing-big),
+    "huge": ar(--spacing-huge)
+);
+
+@function spacing($spacingName) {
+    @if map-has-key($spacings, $spacingName) {
+        @return map-get($spacings, $spacingName);
+    }
+
+    @warn "The key #{$spacingName} is not in the map ’$spacingName’";
+
+    @return null;
+}
 
 @mixin itemValue($value) {
     &::after {
         content: "#{$value}";
 
         position: absolute;
-        bottom: spacing('small');
+        bottom: var(--spacing-small);
         left: 0;
 
         color: $color-gray60;
