@@ -8,11 +8,11 @@
 
     // Size's Separator
     &.size_medium {
-        width: calc(100% - #{spacing(huge)});
+        width: calc(100% - var(--spacing-huge));
     }
 
     &.size_large {
-        width: calc(100% - #{spacing(medium)});
+        width: calc(100% - var(--spacing-medium));
     }
 
     &.size_full {
@@ -21,14 +21,14 @@
 
     // Spacing's Separator
     &.spacing_small {
-        margin: spacing(small) auto;
+        margin: var(--spacing-small) auto;
     }
 
     &.spacing_medium {
-        margin: spacing(medium) auto;
+        margin: var(--spacing-medium) auto;
     }
 
     &.spacing_big {
-        margin: spacing(big) auto;
+        margin: var(--spacing-big) auto;
     }
 }
