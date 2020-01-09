@@ -3,11 +3,8 @@ export function capitalize(string) {
 }
 
 export function optionsFromArray(array) {
-    let list = {};
-
-    array.forEach(option => {
+    return array.reduce((list, option) => {
         list[capitalize(option)] = option;
-    });
-
-    return list;
+        return list;
+    }, {});
 }
