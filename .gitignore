@@ -264,4 +264,5 @@ storybook-static/
 dist/
 
 yalc.lock
+.yalc
 *.iml

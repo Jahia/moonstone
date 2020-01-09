@@ -12,7 +12,6 @@ describe('Typography', () => {
         const wrapper = shallow(
             <Typography variant="page">Content children</Typography>
         );
-        console.log(wrapper.props);
         expect(wrapper.props.className).toContain('typography page');
     });
 
@@ -45,5 +44,53 @@ describe('Typography', () => {
             <Typography className="yoloooo">Content children</Typography>
         );
         expect(wrapper.props.className).toContain('yoloooo');
+    });
+
+    it('should not bind isHtml prop to the html component', () => {
+        const wrapper = shallow(
+            <Typography isHtml><div>string</div></Typography>
+        );
+        expect(wrapper.html()).not.toContain('isHtml');
+    });
+
+    // Run mutiple tests here as prop-types are staked before calling console.error.
+    it('prop-types', () => {
+        global.console.originalError = console.error;
+        global.console.error = jest.fn();
+
+        // It should display an error message when sending something else than a string when html props is not send
+        shallow(
+            <Typography><div/></Typography>
+        );
+
+        expect(console.error).toHaveBeenCalledTimes(1);
+
+        // It should display an error message when sending a unrenderable children when html props is true
+        shallow(
+            <Typography isHtml>{true}</Typography>
+        );
+
+        expect(global.console.error).toHaveBeenCalledTimes(2);
+
+        global.console.error = global.console.originalError;
+        delete global.console.originalError;
+    });
+
+    it('should not validate propTypes when on production environment', () => {
+        global.console.originalError = console.error;
+        global.console.error = jest.fn();
+
+        jest.resetModules();
+        process.env.NODE_ENV = 'production';
+        const Typography = require('./Typography');
+
+        shallow(
+            <Typography.Typography isHtml>{true}</Typography.Typography>
+        );
+
+        expect(global.console.error).not.toHaveBeenCalled();
+
+        global.console.error = global.console.originalError;
+        delete global.console.originalError;
     });
 });

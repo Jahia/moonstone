@@ -17,6 +17,8 @@ $color-gray_dark: #293136;
 $color-gray_dark40: rgba($color-gray_dark, 0.4);
 $color-gray_dark60: rgba($color-gray_dark, 0.6);
 $color-dark: #131c21;
+$color-dark60: rgba($color-dark, 0.6);
+$color-dark40: rgba($color-dark, 0.4);
 
 // Support
 $color-success: #0ea982;
@@ -42,6 +44,9 @@ $colorsNeutral: (
     "gray_dark":   $color-gray_dark,
     "gray_dark60": $color-gray_dark60,
     "gray_dark40": $color-gray_dark40,
+    "dark":   $color-dark,
+    "dark60": $color-dark60,
+    "dark40": $color-dark40,
 );
 $colorsSupport: (
     "success": $color-success,
