@@ -9,8 +9,6 @@ import Loading from '~/icons/asset/Loading.svg';
 
 export const TreeView = ({data, openedItems, loadingItems, selectedItems, onClick, onDoubleClick, onClickToOpen, isReversed}) => {
     const [openedNodes, setOpenedNodes] = useState(openedItems);
-    const nestedWidth = '24px';
-    const marginLeftIcon = '4px';
 
     function generateLevelJSX(data, deep) {
         return data.map(node => {
@@ -77,7 +75,7 @@ export const TreeView = ({data, openedItems, loadingItems, selectedItems, onClic
             if (hasChild) {
                 return (
                     <li key={`${deep}-${node.id}`} role="treeitem" aria-expanded={isOpen}>
-                        <div className={cssTreeViewItem} style={{paddingLeft: `calc(${nestedWidth} * ${deep}`}}>
+                        <div className={cssTreeViewItem} style={{paddingLeft: `calc(var(--spacing-large) * ${deep}`}}>
                             {/* Icon arrow */}
                             <div className={classnames('flexRow', 'alignCenter', styles.treeViewItem_toggle)} onClick={toggleNode}>
                                 {isOpen ? <ChevronDown/> : <ChevronRight/> }
@@ -106,7 +104,7 @@ export const TreeView = ({data, openedItems, loadingItems, selectedItems, onClic
             return (
                 <li key={`${deep}-${node.id}`}
                     className={classnames(cssTreeViewItem, styles.treeViewItem_label)}
-                    style={{paddingLeft: `calc(${nestedWidth} * ${deep} + ${marginLeftIcon}`}}
+                    style={{paddingLeft: `calc(var(--spacing-large) * ${deep} + var(--spacing-nano)`}}
                     role="treeitem"
                     onClick={handleNodeClick}
                     onDoubleClick={handleNodeDoubleClick}

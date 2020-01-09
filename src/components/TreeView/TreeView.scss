@@ -27,7 +27,7 @@
 .treeViewItem_toggle,
 .treeViewItem_icon {
     display: flex;
-    margin-right: spacing(nano);
+    margin-right: var(--spacing-nano);
 }
 
 .treeViewItem_toggle {
