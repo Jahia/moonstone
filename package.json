@@ -5,6 +5,7 @@
         "@svgr/webpack": "^4.3.3",
         "clsx": "^1.0.4",
         "prop-types": "^15.7.2",
+        "react-is": "^16.12.0",
         "re-resizable": "^6.1.0"
     },
     "peerDependencies": {
@@ -68,7 +69,7 @@
         "babel-eslint": "^10.0.3",
         "babel-jest": "^24.9.0",
         "babel-loader": "^8.0.6",
-        "component-test-utils-react": "^1.0.0-alpha.11",
+        "component-test-utils-react": "^1.0.0-alpha.14",
         "create-index": "^2.5.0",
         "css-loader": "^3.2.0",
         "eslint": "^6.7.2",
