@@ -24,7 +24,7 @@ const ItemContainer = ({title, direction, justify, align}) => {
 
     return (
         <section style={{marginBottom: '48px'}}>
-            <h2 className="flexRow alignCenter"style={{marginBottom: '24px'}}>{title}:
+            <h2 className="flexRow alignCenter" style={{marginBottom: '24px'}}>{title}:
                 <code style={{fontFamily: 'monospace', fontSize: '12px', padding: '4px', marginLeft: '8px', background: '#eee', borderRadius: '4px', color: '#444'}}>
                     {css}
                 </code>
