@@ -33,7 +33,7 @@ storiesOf('Components|PrimaryNav', module)
                         <PrimaryNavItemsGroup>
                             <PrimaryNavItem label="Very very long long name with many characters" icon={<Feather/>}/>
                             <PrimaryNavItem icon={<Person/>} label="My profile" subtitle="username as a subtitle"/>
-                            <PrimaryNavItem icon={<Person/>} label="Very very long long long long label" subtitle="username as a subtitle username as a subtitle username as a subtitle username as a subtitle" button={<Button icon={<Power size="small"/>} label="Sign Out" variant="ghost" color="reverse"/>}/>
+                            <PrimaryNavItem icon={<Person/>} label="Very very long long long long label" subtitle="username as a subtitle username as a subtitle username as a subtitle username as a subtitle" button={<Button icon={<Power size="small"/>} label="Sign Out" variant="ghost" color="reverse" onClick={() => {}}/>}/>
                         </PrimaryNavItemsGroup>
                         <PrimaryNavItemsGroup isDisplayedWhenCollapsed={false}>
                             <PrimaryNavItem url="https://jahia.com" label="Jahia Link"/>
