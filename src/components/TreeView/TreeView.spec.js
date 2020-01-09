@@ -113,6 +113,15 @@ describe('TreeView', () => {
         expect(wrapper.html()).toContain('treeViewItem_selected');
     });
 
+    it('should not throw error when there is no onDoubleClick defined', () => {
+        const wrapper = shallow(
+            <TreeView data={tree}/>
+        );
+
+        // No error should occur when there is no onDoubleClick defined
+        wrapper.querySelector('.treeViewItem_label').dispatchEvent('doubleClick');
+    });
+
     it('should call onDoubleClick when double click on an item', () => {
         const clickHandler = jest.fn();
         const wrapper = shallow(
@@ -122,6 +131,15 @@ describe('TreeView', () => {
         wrapper.querySelector('.treeViewItem_label').dispatchEvent('doubleClick');
 
         expect(clickHandler).toHaveBeenCalled();
+    });
+
+    it('should not throw error when there is no onClick defined', () => {
+        const wrapper = shallow(
+            <TreeView data={tree}/>
+        );
+
+        // No error should occur when there is no onClick defined
+        wrapper.querySelector('.treeViewItem_label').dispatchEvent('click');
     });
 
     it('should call onClick when clicking on label', () => {

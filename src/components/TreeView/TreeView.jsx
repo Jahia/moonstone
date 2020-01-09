@@ -97,8 +97,7 @@ export const TreeView = ({data, openedItems, loadingItems, selectedItems, onClic
                         {isOpen &&
                             <ul role="group">
                                 {generateLevelJSX(node.children, deep + 1)}
-                            </ul>
-                        }
+                            </ul>}
                     </li>
                 );
             }
@@ -145,8 +144,8 @@ TreeView.propTypes = {
     data: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.string.isRequired,
         label: PropTypes.string.isRequired,
-        iconStart: PropTypes.oneOf([PropTypes.string, PropTypes.nodes]),
-        iconEnd: PropTypes.oneOf([PropTypes.string, PropTypes.nodes]),
+        iconStart: PropTypes.nodes,
+        iconEnd: PropTypes.nodes,
         children: PropTypes.arrayOf(PropTypes.object)
     })).isRequired,
 
