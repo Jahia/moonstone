@@ -12,7 +12,7 @@
     @include truncate;
 
     display: block;
-    padding: spacing('large');
+    padding: var(--spacing-large);
 
     text-align: center;
     text-transform: capitalize;
