@@ -9,7 +9,7 @@ import DragHundle from '~/tokens/icons/asset/DragHundle.svg';
 // const zones = ['top', 'right', 'bottom', 'left', 'topRight', 'bottomRight', 'bottomLeft', 'topLeft'];
 const zones = ['right'];
 
-export const ResizableBox = ({enable, minWidth, maxWidth, defaultSize, className, children, ...props}) => {
+export const ResizableBox = ({enable, minWidth, maxWidth, defaultSize, className, size, children, ...props}) => {
     const enableZones = {};
 
     zones.forEach(function (zone) {
@@ -21,6 +21,7 @@ export const ResizableBox = ({enable, minWidth, maxWidth, defaultSize, className
             enable={enableZones}
             minWidth={minWidth}
             maxWidth={maxWidth}
+            size={size}
             defaultSize={defaultSize}
             handleClasses={
                 {
@@ -46,6 +47,7 @@ ResizableBox.defaultProps = {
     enable: ['right'],
     minWidth: 50,
     maxWidth: 200,
+    size: {},
     defaultSize: {
         width: '100%',
         height: 'auto'
@@ -79,6 +81,11 @@ ResizableBox.propTypes = {
      * Set the default size of a resizable component
      */
     defaultSize: PropTypes.shape({
+        width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        height: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    }),
+
+    size: PropTypes.shape({
         width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         height: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     }),
