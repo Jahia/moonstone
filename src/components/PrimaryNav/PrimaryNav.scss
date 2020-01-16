@@ -4,6 +4,11 @@ $primaryNavExpanded: 300px;
 $primaryNav: 56px;
 
 .primaryNav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
     width: $primaryNav;
     height: 100vh;
 
@@ -15,13 +20,9 @@ $primaryNav: 56px;
     transition: width 0.3s;
 
     &.expanded {
-        position: fixed;
-        top: 0;
-        left: 0;
         z-index: 9000;
 
         width: $primaryNavExpanded;
-        height: 100%;
 
         box-shadow: 8px 0 16px 0 rgba($color-dark, 0.6);
     }
