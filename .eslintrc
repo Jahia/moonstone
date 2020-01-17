@@ -1,8 +1,0 @@
-{
-    "extends": ["@jahia"],
-    "plugins": ["json"],
-    "parser": "babel-eslint",
-    "rules": {
-        "react/boolean-prop-naming": ["error", { "rule": "^(is|has)[A-Z]([A-Za-z0-9]?)+"} ]
-    }
-}
