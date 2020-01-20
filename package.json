@@ -23,14 +23,15 @@
         "index-icons": "create-index ./src/icons/asset -r -x svg && eslint --fix src/icons/asset/index.js",
         "build": "yarn index-icons && yarn build:storybook && yarn build:lib",
         "prebuild:lib": "rimraf dist/",
-        "build:lib": "webpack --mode production",
-        "build:lib:dev": "webpack --mode development",
+        "build:lib": "webpack --mode production && yarn babel-icons",
+        "build:lib:dev": "webpack --mode development && yarn babel-icons",
         "build:storybook": "build-storybook",
         "deploy": "rsync -r ./storybook-static/ jahia@design.int.jahia.com:/var/www/vhosts/contenteditor.jahia.design/html/moonstone/",
         "auto": "auto",
         "auto-version": "npm version `auto version` -m 'Bump version to: %s [skip ci]'",
         "auto-publish": "npm publish && git push --follow-tags --set-upstream origin $branch",
-        "auto-release": "auto changelog && yarn run auto-version && yarn run auto-publish && auto release"
+        "auto-release": "auto changelog && yarn run auto-version && yarn run auto-publish && auto release",
+        "babel-icons": "./node_modules/.bin/babel ./dist/icons -d ./dist/icons"
     },
     "main": "dist/main.js",
     "module": "dist/main.js",
@@ -49,6 +50,7 @@
         ]
     },
     "devDependencies": {
+        "@babel/cli": "^7.7.5",
         "@babel/core": "^7.6.4",
         "@babel/preset-env": "^7.6.2",
         "@babel/preset-react": "^7.0.0",
