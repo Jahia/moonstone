@@ -31,7 +31,7 @@
         "auto-version": "npm version `auto version` -m 'Bump version to: %s [skip ci]'",
         "auto-publish": "npm publish && git push --follow-tags --set-upstream origin $branch",
         "auto-release": "auto changelog && yarn run auto-version && yarn run auto-publish && auto release",
-        "babel-icons": "./node_modules/.bin/babel ./dist/icons -d ./dist/icons"
+        "babel-icons": "babel ./dist/icons -d ./dist/icons"
     },
     "main": "dist/main.js",
     "module": "dist/main.js",
