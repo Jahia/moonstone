@@ -1,3 +1,27 @@
+# v0.5.0 (Mon Jan 20 2020)
+
+#### 🚀  Enhancement
+
+- MOON-43 Transpile icons [#50](https://github.com/Jahia/moonstone/pull/50) ([@AKarmanov](https://github.com/AKarmanov))
+- MOON-31 : Update Separator component to become more generic [#41](https://github.com/Jahia/moonstone/pull/41) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-23 : TreeView component [#43](https://github.com/Jahia/moonstone/pull/43) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🐛  Bug Fix
+
+- MOON-42 : Fix transition when collapsing PrimaryNav [#49](https://github.com/Jahia/moonstone/pull/49) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-38 : The children props of PrimaryNavItemGroup should accept one node [#47](https://github.com/Jahia/moonstone/pull/47) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🏠  Internal
+
+- Change the way prop-types are checked and tested [#44](https://github.com/Jahia/moonstone/pull/44) ([@FBerthelot](https://github.com/FBerthelot) [@ffffffelix](https://github.com/ffffffelix))
+- MOON-33 : Use the jahia's stylelint config [#45](https://github.com/Jahia/moonstone/pull/45) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
+
+---
+
 # v0.4.1 (Mon Jan 06 2020)
 
 #### 🐛  Bug Fix
