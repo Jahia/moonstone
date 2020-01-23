@@ -6,12 +6,12 @@ import {ResizableBox} from '~/components/ResizableBox';
 import ChevronDoubleRight from '~/icons/asset/ChevronDoubleRight.svg';
 import ChevronDoubleLeft from '~/icons/asset/ChevronDoubleLeft.svg';
 
-export const SecondaryNav = ({header, children, isVisible, onToggleVisible, className, ...props}) => {
+export const SecondaryNav = ({header, children, isVisible, onToggle, className, ...props}) => {
     const [stateIsVisible, setStateIsVisible] = useState(isVisible);
 
-    const handleToggleVisible = e => {
+    const handleToggle = e => {
         setStateIsVisible(prevState => !prevState);
-        onToggleVisible(e);
+        onToggle(e);
     };
 
     return (
@@ -26,7 +26,7 @@ export const SecondaryNav = ({header, children, isVisible, onToggleVisible, clas
                 )
             }
             enable={['right']}
-            size={stateIsVisible ? null : {width: 0}}
+            size={isVisible ? null : {width: 0}}
             minWidth="120"
             maxWidth="450"
             defaultSize={{
@@ -36,11 +36,11 @@ export const SecondaryNav = ({header, children, isVisible, onToggleVisible, clas
         >
             <button type="button"
                     className={classnames(styles.secondaryNav_buttonToggle)}
-                    onClick={handleToggleVisible}
+                    onClick={handleToggle}
             >
-                {stateIsVisible &&
+                {isVisible &&
                     <ChevronDoubleLeft size="small"/>}
-                {!stateIsVisible &&
+                {!isVisible &&
                     <ChevronDoubleRight size="small"/>}
             </button>
 
@@ -58,7 +58,7 @@ export const SecondaryNav = ({header, children, isVisible, onToggleVisible, clas
 
 SecondaryNav.defaultProps = {
     isVisible: true,
-    onToggleVisible: () => {}
+    onToggle: () => {}
 };
 
 SecondaryNav.propTypes = {
@@ -85,5 +85,5 @@ SecondaryNav.propTypes = {
     /**
      * Triggered when the visibility is toggled
      */
-    onToggleVisible: PropTypes.func
+    onToggle: PropTypes.func
 };
