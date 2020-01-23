@@ -1,9 +1,8 @@
-
-exports.template = (
+module.exports = function (
     {template},
     opts,
     {imports, componentName, jsx, exports}
-) => {
+) {
     return template.ast`
         ${imports}
         import PropTypes from 'prop-types';

@@ -2,7 +2,6 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
-const IconsConfig = require('./webpack.icons.config');
 
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
@@ -88,4 +87,4 @@ const ComponentsConfig = {
     ]
 };
 
-module.exports = [ComponentsConfig, IconsConfig];
+module.exports = [ComponentsConfig];

@@ -1,0 +1,5 @@
+{
+  "icon": true,
+  "dimensions": false,
+  "replaceAttrValues": {"#000": "currentColor"}
+}
