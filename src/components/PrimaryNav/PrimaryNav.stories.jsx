@@ -5,12 +5,12 @@ import markdownNotes from './PrimaryNav.md';
 
 import {PrimaryNav} from './index';
 import {PrimaryNavItemsGroup, PrimaryNavItem, Button} from '~/components';
-import Apps from '~/icons/asset/Apps.svg';
-import Feather from '~/icons/asset/Feather.svg';
-import Setting from '~/icons/asset/Setting.svg';
-import Profile from '~/icons/asset/Profile.svg';
-import Person from '~/icons/asset/Person.svg';
-import Power from '~/icons/asset/Power.svg';
+import Apps from '~/tokens/icons/asset/Apps.svg';
+import Feather from '~/tokens/icons/asset/Feather.svg';
+import Setting from '~/tokens/icons/asset/Setting.svg';
+import Profile from '~/tokens/icons/asset/Profile.svg';
+import Person from '~/tokens/icons/asset/Person.svg';
+import Power from '~/tokens/icons/asset/Power.svg';
 
 storiesOf('Components|PrimaryNav', module)
     .addParameters({

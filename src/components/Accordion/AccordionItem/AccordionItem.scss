@@ -1,12 +1,10 @@
-@import '~/styles/shared/all';
-
 $accordionHeader_height: 48px;
 
 .accordionItem {
     min-height: $accordionHeader_height;
 
-    border-top: 1px solid $color-gray_light;
-    border-bottom: 1px solid $color-gray_light;
+    border-top: 1px solid var(--color-gray_light);
+    border-bottom: 1px solid var(--color-gray_light);
     overflow: hidden;
 
     & + .accordionItem {
@@ -22,7 +20,7 @@ $accordionHeader_height: 48px;
     min-height: $accordionHeader_height;
     padding: 0 var(--spacing-medium);
 
-    color: $color-gray;
+    color: var(--color-gray);
 
     cursor: pointer;
 
@@ -30,36 +28,36 @@ $accordionHeader_height: 48px;
 
     &:focus,
     &:hover {
-        color: $color-dark;
+        color: var(--color-dark);
 
-        background-color: $color-gray_light40;
+        background-color: var(--color-gray_light40);
     }
 
     &:active {
-        color: $color-light;
+        color: var(--color-light);
 
-        background-color: $color-accent;
+        background-color: var(--color-accent);
     }
 }
 
 .accordionItem_header_selected {
     font-weight: bold;
-    color: $color-light;
+    color: var(--color-light);
 
-    border-bottom: 1px solid $color-gray_light;
-    background-color: $color-dark40;
+    border-bottom: 1px solid var(--color-gray_light);
+    background-color: var(--color-dark40);
 
     &:focus,
     &:hover {
-        color: $color-light;
+        color: var(--color-light);
 
-        background-color: $color-dark60;
+        background-color: var(--color-dark60);
     }
 
     &:active {
-        color: $color-light;
+        color: var(--color-light);
 
-        background-color: $color-accent;
+        background-color: var(--color-accent);
     }
 }
 
@@ -79,36 +77,36 @@ $accordionHeader_height: 48px;
 }
 
 .accordionItem_reversed {
-    border-color: $color-gray;
+    border-color: var(--color-gray);
 
     .accordionItem_header {
-        color: $color-light60;
+        color: var(--color-light60);
 
         &:focus,
         &:hover {
-            color: $color-light;
+            color: var(--color-light);
 
-            background-color: $color-gray40;
+            background-color: var(--color-gray40);
         }
 
         &:active {
-            background-color: $color-gray40;
+            background-color: var(--color-gray40);
         }
     }
 
     .accordionItem_header_selected {
-        color: $color-light;
+        color: var(--color-light);
 
-        border-color: $color-gray;
-        background-color: $color-dark;
+        border-color: var(--color-gray);
+        background-color: var(--color-dark);
 
         &:focus,
         &:hover {
-            background-color: $color-dark60;
+            background-color: var(--color-dark60);
         }
 
         &:active {
-            background-color: $color-dark40;
+            background-color: var(--color-dark40);
         }
     }
 }

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import styles from './PrimaryNav.scss';
 import {PrimaryNavContext} from './PrimaryNav.context';
-import ArrowLeft from '~/icons/asset/ArrowLeft.svg';
-import Menu from '~/icons/asset/Menu.svg';
+import ArrowLeft from '~/tokens/icons/asset/ArrowLeft.svg';
+import Menu from '~/tokens/icons/asset/Menu.svg';
 
 const NavButton = ({isExpanded, toggleExpand, modeIcon}) => {
     if (isExpanded) {

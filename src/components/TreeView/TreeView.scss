@@ -1,14 +1,12 @@
-@import '~/styles/shared/all';
-
 .treeViewItem {
     --color-treeItem: inherit;
-    --color-treeItem_hover: #{$color-dark};
-    --color-treeItem_selected: #{$color-light};
-    --color-treeItem_selected_hover: #{$color-light};
+    --color-treeItem_hover: var(--color-dark);
+    --color-treeItem_selected: var(--color-light);
+    --color-treeItem_selected_hover: var(--color-light);
     --background-treeItem: inherit;
-    --background-treeItem_hover: #{$color-gray_light40};
-    --background-treeItem_selected: #{$color-accent};
-    --background-treeItem_selected_hover: #{$color-accent};
+    --background-treeItem_hover: var(--color-gray_light40);
+    --background-treeItem_selected: var(--color-accent);
+    --background-treeItem_selected_hover: var(--color-accent);
 
     height: 32px;
 
@@ -52,7 +50,7 @@
 
 // Theme reversed
 .treeViewItem_reversed {
-    --color-treeItem: #{$color-gray_light};
-    --color-treeItem_hover: #{$color-light};
-    --background-treeItem_hover: #{$color-gray40};
+    --color-treeItem: var(--color-gray_light);
+    --color-treeItem_hover: var(--color-light);
+    --background-treeItem_hover: var(--color-gray40);
 }

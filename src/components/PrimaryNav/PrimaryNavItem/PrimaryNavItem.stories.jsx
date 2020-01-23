@@ -1,9 +1,9 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {PrimaryNavItem} from './index';
-import Edit from '~/icons/asset/Edit.svg';
-import Person from '~/icons/asset/Person.svg';
-import Power from '~/icons/asset/Power.svg';
+import Edit from '~/tokens/icons/asset/Edit.svg';
+import Person from '~/tokens/icons/asset/Person.svg';
+import Power from '~/tokens/icons/asset/Power.svg';
 import markdownNotes from './PrimaryNavItem.md';
 import {boolean, withKnobs} from '@storybook/addon-knobs';
 import {Button} from '~/components';

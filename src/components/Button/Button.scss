@@ -1,5 +1,3 @@
-@import '~/styles/shared/all';
-
 .button {
     display: flex;
     flex-direction: row;
@@ -13,10 +11,10 @@
     }
 
     &.reverse {
-        color: $color-light;
+        color: var(--color-light);
 
         &:hover {
-            color: $color-accent;
+            color: var(--color-accent);
 
             cursor: pointer;
         }

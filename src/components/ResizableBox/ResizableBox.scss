@@ -1,5 +1,3 @@
-@import '~/styles/shared/all';
-
 .resizable_handle {
     display: flex;
     flex-direction: row;
@@ -10,7 +8,7 @@
 
     &:active,
     &:hover {
-        color: $color-accent;
+        color: var(--color-accent);
     }
 }
 

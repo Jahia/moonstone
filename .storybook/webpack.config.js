@@ -53,7 +53,7 @@ module.exports = async ({config, mode}) => {
             {
                 loader: '@svgr/webpack',
                 options: {
-                    template: require('../src/icons/svgrTemplate'),
+                    template: require('../src/tokens/icons/svgrTemplate'),
                     icon: true,
                     dimensions: false,
                     replaceAttrValues: { '#000': 'currentColor' }

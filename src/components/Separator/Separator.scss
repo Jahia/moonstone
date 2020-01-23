@@ -1,10 +1,8 @@
-@import '~/styles/shared/all';
-
 .separator {
     height: 1px;
 
     border: 0;
-    background: $color-gray40;
+    background: var(--color-gray40);
 
     // Size's Separator
     &.size_medium {

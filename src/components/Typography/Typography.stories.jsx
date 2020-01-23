@@ -2,12 +2,12 @@ import React from 'react';
 import classnames from 'classnames';
 import {storiesOf} from '@storybook/react';
 import {select, withKnobs} from '@storybook/addon-knobs';
-import storyStyles from '~/styles/storybook/styles.scss';
+import storyStyles from '~/__storybook__/storybook.scss';
 
 import {Typography, TypographyVariants} from './index';
 import markdownNotes from './Typography.md';
 
-storiesOf('Tokens|Typography', module)
+storiesOf('Components|Typography', module)
     .addParameters({
         component: Typography,
         componentSubtitle: 'Displays text',
