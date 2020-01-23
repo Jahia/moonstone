@@ -1,0 +1,17 @@
+.menu {
+    position: absolute;
+    right: 0;
+    z-index: 9000;
+
+    width: fit-content;
+    min-width: 100%;
+
+    color: var(--color-gray_dark);
+
+    border-radius: 4px;
+
+    list-style: none;
+    background-color: var(--color-light);
+    box-shadow: 0 4px 8px var(--color-gray_dark60);
+    overflow: hidden auto;
+}

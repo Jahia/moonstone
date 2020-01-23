@@ -3,7 +3,7 @@ import {storiesOf} from '@storybook/react';
 import {withKnobs, select} from '@storybook/addon-knobs';
 import {optionsFromArray} from '~/__storybook__/utils';
 
-import {Separator, sizes, spacings} from './index';
+import {Separator, SeparatorSizes, SeparatorSpacings} from '~/components';
 import markdownNotes from './Separator.md';
 
 storiesOf('Components|Separator', module)
@@ -16,8 +16,8 @@ storiesOf('Components|Separator', module)
         <>
             <div>Content before a separator</div>
             <Separator
-                size={select('Size', optionsFromArray(sizes), 'full')}
-                spacing={select('Spacing', optionsFromArray(spacings), 'medium')}
+                size={select('Size', optionsFromArray(SeparatorSizes), 'full')}
+                spacing={select('Spacing', optionsFromArray(SeparatorSpacings), 'medium')}
             />
             <div>Content after a separator</div>
         </>

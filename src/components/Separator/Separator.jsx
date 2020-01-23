@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import styles from './Separator.scss';
 
-export const spacings = ['small', 'medium', 'big'];
-export const sizes = ['medium', 'large', 'full'];
+export const SeparatorSpacings = ['small', 'medium', 'big'];
+export const SeparatorSizes = ['medium', 'large', 'full'];
 
 export const Separator = ({size, spacing, ...props}) => {
     return (
@@ -27,11 +27,11 @@ Separator.propTypes = {
     /**
      * Vertical spacings
      */
-    spacing: PropTypes.oneOf(spacings),
+    spacing: PropTypes.oneOf(SeparatorSpacings),
     /**
      * Size
      */
-    size: PropTypes.oneOf(sizes)
+    size: PropTypes.oneOf(SeparatorSizes)
 };
 
 Separator.displayName = 'Separator';

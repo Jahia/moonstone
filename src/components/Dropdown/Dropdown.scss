@@ -1,0 +1,130 @@
+@import '~/utils/index';
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown_icon {
+    display: flex;
+    margin-right: var(--spacing-nano);
+}
+
+.dropdown_label {
+    padding-right: var(--spacing-small);
+    padding-left: var(--spacing-small);
+
+    border-radius: 2px;
+    cursor: pointer;
+
+    transition: background 0.2s ease-in-out;
+
+    > *::first-letter {
+        text-transform: uppercase;
+    }
+
+    &:hover {
+        color: var(--color-accent);
+    }
+
+    &:active {
+        color: var(--color-light);
+
+        background-color: var(--color-accent);
+    }
+
+    &:focus {
+        outline: none;
+        box-shadow: inset 0 0 0 2px var(--color-accent);
+    }
+}
+
+// ---
+// Dropdown states
+// ---
+.dropdown-opened {
+    .dropdown_label {
+        color: var(--color-light);
+
+        background-color: var(--color-accent);
+    }
+}
+
+.dropdown-disabled {
+    @include is-disabled;
+
+    &:hover {
+        .dropdown_label {
+            pointer-events: none;
+        }
+    }
+
+    > * {
+        pointer-events: none;
+    }
+}
+
+// ---
+// Overlay
+// ---
+.dropdown_overlay {
+    @extend %overlay;
+
+    z-index: 8500;
+}
+
+// ---
+// Manage size variants
+// ---
+.dropdown-small {
+    padding-top: var(--spacing-nano);
+    padding-bottom: var(--spacing-nano);
+}
+
+.dropdown-medium {
+    padding-top: var(--spacing-small);
+    padding-bottom: var(--spacing-small);
+}
+
+// ---
+// Manage Dropdown option
+// ---
+.dropdownOption {
+    cursor: pointer;
+
+    > *::first-letter {
+        text-transform: uppercase;
+    }
+
+    &:hover {
+        color: var(--color-accent);
+
+        background-color: var(--color-gray_light40);
+    }
+}
+
+.dropdownOption_title {
+    color: var(--color-gray60);
+
+    cursor: default;
+
+    pointer-events: none;
+
+    > *::first-letter {
+        text-transform: uppercase;
+    }
+}
+
+.dropdownOption_selected,
+.dropdownOption_selected:hover {
+    color: var(--color-light);
+
+    background-color: var(--color-accent);
+    cursor: default;
+}
+
+.dropdownOption_disabled,
+.dropdownOption_disabled:hover {
+    @include is-disabled;
+
+    background: none;
+}
