@@ -1,17 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {UncontrolledTreeView} from './UncontrolledTreeView';
 import {ControlledTreeView} from './ControlledTreeView';
 
-export const TreeView = ({openedItems, defaultOpenedItems, onOpenItem, onCloseItem, ...others}) => {
-    if (typeof openedItems === 'undefined') {
-        return <UncontrolledTreeView defaultOpenedItems={defaultOpenedItems} {...others}/>;
-    }
+export const UncontrolledTreeView = ({defaultOpenedItems, ...others}) => {
+    const [openedItems, setOpenedItems] = useState(defaultOpenedItems);
+
+    const onOpenItem = node => {
+        setOpenedItems(openedItems => [...openedItems, node.id]);
+    };
+
+    const onCloseItem = node => {
+        setOpenedItems(openedItems => openedItems.filter(item => item !== node.id));
+    };
 
     return <ControlledTreeView openedItems={openedItems} onOpenItem={onOpenItem} onCloseItem={onCloseItem} {...others}/>;
 };
 
-TreeView.propTypes = {
+UncontrolledTreeView.propTypes = {
     /**
      * Data to generate the tree
      */
@@ -26,12 +31,7 @@ TreeView.propTypes = {
     })).isRequired,
 
     /**
-     * Opened items ids. If set, component is controlled
-     */
-    openedItems: PropTypes.array,
-
-    /**
-     * Opened items ids by default, when uncontrolled
+     * Opened items' ids
      */
     defaultOpenedItems: PropTypes.array,
 
@@ -39,16 +39,6 @@ TreeView.propTypes = {
      * Selected items' ids
      */
     selectedItems: PropTypes.array,
-
-    /**
-     * Trigger on opening node
-     */
-    onOpenItem: PropTypes.func,
-
-    /**
-     * Trigger on opening node
-     */
-    onCloseItem: PropTypes.func,
 
     /**
      * Trigger by clicking on node
@@ -66,11 +56,11 @@ TreeView.propTypes = {
     isReversed: PropTypes.bool
 };
 
-TreeView.defaultProps = {
+UncontrolledTreeView.defaultProps = {
     onClickItem: () => {},
     onDoubleClickItem: () => {},
-    openedItems: undefined,
     defaultOpenedItems: [],
     selectedItems: [],
     isReversed: false
 };
+

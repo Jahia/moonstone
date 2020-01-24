@@ -1,6 +1,7 @@
 import React from 'react';
 import {shallow} from 'component-test-utils-react';
-import {TreeView} from './index';
+import {ControlledTreeView} from './ControlledTreeView';
+import {UncontrolledTreeView} from './UncontrolledTreeView';
 import Love from '~/src/asset/Love.svg';
 import Cloud from '~/src/asset/Cloud.svg';
 import ChevronDown from '~/src/asset/ChevronDown.svg';
@@ -20,37 +21,37 @@ const tree = [
 
 describe('TreeView', () => {
     it('should display TreeView', () => {
-        const wrapper = shallow(<TreeView data={tree}/>);
+        const wrapper = shallow(<ControlledTreeView data={tree}/>);
         expect(wrapper.html());
     });
 
     it('should not display icon for items without children', () => {
-        const wrapper = shallow(<TreeView data={[{id: 'A', label: 'A level1'}]}/>);
+        const wrapper = shallow(<ControlledTreeView data={[{id: 'A', label: 'A level1'}]}/>);
 
         expect(wrapper.html()).not.toContain('treeViewItem_icon');
     });
 
     it('should open node set in openItems', () => {
-        const wrapper = shallow(<TreeView data={tree} openedItems={['A']}/>);
+        const wrapper = shallow(<ControlledTreeView data={tree} openedItems={['A']}/>);
 
         expect(wrapper.html()).toContain('A-1 level2');
     });
 
     it('should display ChevronRight when node is closed', () => {
-        const wrapper = shallow(<TreeView data={tree}/>);
+        const wrapper = shallow(<ControlledTreeView data={tree}/>);
 
         expect(wrapper.html()).toContain(<ChevronRight/>);
     });
 
     it('should display ChevronDown when node is opened', () => {
-        const wrapper = shallow(<TreeView data={tree} openedItems={['A']}/>);
+        const wrapper = shallow(<ControlledTreeView data={tree} openedItems={['A']}/>);
 
         expect(wrapper.html()).toContain(<ChevronDown/>);
     });
 
     it('should open a node by clicking on arrow icon', () => {
         const wrapper = shallow(
-            <TreeView data={tree}/>
+            <UncontrolledTreeView data={tree}/>, {mocks: {ControlledTreeView: true}}
         );
 
         wrapper.querySelector('.treeViewItem_toggle').dispatchEvent('click');
@@ -59,7 +60,7 @@ describe('TreeView', () => {
 
     it('should display icon provide by an external source', () => {
         const wrapper = shallow(
-            <TreeView data={tree}/>
+            <ControlledTreeView data={tree}/>
         );
 
         expect(wrapper.html()).toContain('https://image.flaticon.com/icons/svg/1973/1973617.svg');
@@ -67,7 +68,7 @@ describe('TreeView', () => {
 
     it('should display icon provide by moonstone', () => {
         const wrapper = shallow(
-            <TreeView data={tree}/>
+            <ControlledTreeView data={tree}/>
         );
 
         expect(wrapper.html()).toContain(<Love/>);
@@ -75,7 +76,7 @@ describe('TreeView', () => {
 
     it('should display end icon of treeViewItem', () => {
         const wrapper = shallow(
-            <TreeView data={tree}/>
+            <ControlledTreeView data={tree}/>
         );
 
         expect(wrapper.html()).toContain(<Cloud/>);
@@ -83,7 +84,7 @@ describe('TreeView', () => {
 
     it('should display loading icon if node is loading', () => {
         const wrapper = shallow(
-            <TreeView data={tree} loadingItems={['A']}/>
+            <ControlledTreeView data={[{...tree[0], isLoading: true}]}/>
         );
 
         expect(wrapper.html()).toContain('moonstone-icon_isLoading');
@@ -91,7 +92,7 @@ describe('TreeView', () => {
 
     it('should not display iconEnd if node is loading', () => {
         const wrapper = shallow(
-            <TreeView data={[{id: 'A', label: 'A level1', iconEnd: 'fakeURL'}]} loadingItems={['A']}/>
+            <ControlledTreeView data={[{...tree[0], isLoading: true, iconEnd: 'fakeURL'}]}/>
         );
 
         expect(wrapper.html()).not.toContain('fakeURL');
@@ -99,7 +100,7 @@ describe('TreeView', () => {
 
     it('should add specific class if TreeView is reversed', () => {
         const wrapper = shallow(
-            <TreeView isReversed data={tree}/>
+            <ControlledTreeView isReversed data={tree}/>
         );
 
         expect(wrapper.html()).toContain('treeViewItem_reversed');
@@ -107,7 +108,7 @@ describe('TreeView', () => {
 
     it('should add specific class if a node is selected', () => {
         const wrapper = shallow(
-            <TreeView isReversed data={tree} selectedItems={['A']}/>
+            <ControlledTreeView isReversed data={tree} selectedItems={['A']}/>
         );
 
         expect(wrapper.html()).toContain('treeViewItem_selected');
@@ -115,7 +116,7 @@ describe('TreeView', () => {
 
     it('should not throw error when there is no onDoubleClick defined', () => {
         const wrapper = shallow(
-            <TreeView data={tree}/>
+            <ControlledTreeView data={tree}/>
         );
 
         // No error should occur when there is no onDoubleClick defined
@@ -125,7 +126,7 @@ describe('TreeView', () => {
     it('should call onDoubleClick when double click on an item', () => {
         const clickHandler = jest.fn();
         const wrapper = shallow(
-            <TreeView data={tree} onDoubleClick={clickHandler}/>
+            <ControlledTreeView data={tree} onDoubleClickItem={clickHandler}/>
         );
 
         wrapper.querySelector('.treeViewItem_label').dispatchEvent('doubleClick');
@@ -135,7 +136,7 @@ describe('TreeView', () => {
 
     it('should not throw error when there is no onClick defined', () => {
         const wrapper = shallow(
-            <TreeView data={tree}/>
+            <ControlledTreeView data={tree}/>
         );
 
         // No error should occur when there is no onClick defined
@@ -145,7 +146,7 @@ describe('TreeView', () => {
     it('should call onClick when clicking on label', () => {
         const clickHandler = jest.fn();
         const wrapper = shallow(
-            <TreeView data={tree} onClick={clickHandler}/>
+            <ControlledTreeView data={tree} onClickItem={clickHandler}/>
         );
         wrapper.querySelector('.treeViewItem_label').dispatchEvent('click');
         expect(clickHandler).toHaveBeenCalled();
@@ -154,7 +155,7 @@ describe('TreeView', () => {
     it('should call onClickToOpen when the node opens', () => {
         const clickHandler = jest.fn();
         const wrapper = shallow(
-            <TreeView data={tree} onClickToOpen={clickHandler}/>
+            <ControlledTreeView data={tree} onOpenItem={clickHandler}/>
         );
 
         wrapper.querySelector('.treeViewItem_toggle').dispatchEvent('click');
@@ -167,7 +168,7 @@ describe('TreeView', () => {
         const openedItems = ['A'];
 
         const wrapper = shallow(
-            <TreeView data={tree} openedItems={openedItems} onClickToOpen={clickHandler}/>
+            <ControlledTreeView data={tree} openedItems={openedItems} onOpenItem={clickHandler}/>
         );
 
         wrapper.querySelector('.treeViewItem_toggle').dispatchEvent('click');

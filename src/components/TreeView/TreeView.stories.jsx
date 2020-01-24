@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import {storiesOf} from '@storybook/react';
-import {withKnobs, object} from '@storybook/addon-knobs';
+import {object, withKnobs} from '@storybook/addon-knobs';
 import {action} from '@storybook/addon-actions';
 
 import markdownNotes from './TreeView.md';
 import {TreeView} from './index';
 import Love from '~/icons/asset/Love.svg';
 import NoCloud from '~/icons/asset/NoCloud.svg';
+import {ControlledTreeView} from '~/components/TreeView/ControlledTreeView';
 
 const data = [
     {
@@ -16,7 +16,12 @@ const data = [
         iconStart: 'https://image.flaticon.com/icons/svg/1973/1973617.svg',
         iconEnd: <NoCloud size="small"/>,
         children: [
-            {id: 'A1', label: 'A-1 level2 with a very very very long laaaaaaaaaaaaaaaaaaabel with many many words', iconStart: 'https://image.flaticon.com/icons/svg/1973/1973617.svg', iconEnd: <NoCloud size="small"/>},
+            {
+                id: 'A1',
+                label: 'A-1 level2 with a very very very long laaaaaaaaaaaaaaaaaaabel with many many words',
+                iconStart: 'https://image.flaticon.com/icons/svg/1973/1973617.svg',
+                iconEnd: <NoCloud size="small"/>
+            },
             {id: 'A2', label: 'A-2 level2'},
             {id: 'A3', label: 'A-3 level2'},
             {id: 'A4', label: 'A-4 level2'}
@@ -30,12 +35,18 @@ const data = [
             {id: 'B1', label: 'B-1 level2'},
             {id: 'B2', label: 'B-2 level2'},
             {id: 'B3', label: 'B-3 level2'},
-            {id: 'B4', label: 'B-4 level2', children: [
-                {id: 'B11', label: 'B-1-1 level3'},
-                {id: 'B22', label: 'B-2-2 level3', iconStart: 'https://image.flaticon.com/icons/svg/1973/1973617.svg'},
-                {id: 'B33', label: 'B-3-3 level3'},
-                {id: 'B44', label: 'B-4-4 level3'}
-            ]}
+            {
+                id: 'B4', label: 'B-4 level2', children: [
+                    {id: 'B11', label: 'B-1-1 level3'},
+                    {
+                        id: 'B22',
+                        label: 'B-2-2 level3',
+                        iconStart: 'https://image.flaticon.com/icons/svg/1973/1973617.svg'
+                    },
+                    {id: 'B33', label: 'B-3-3 level3'},
+                    {id: 'B44', label: 'B-4-4 level3'}
+                ]
+            }
         ]
     },
     {
@@ -46,41 +57,10 @@ const data = [
     }
 ];
 
-const TreeViewStory = ({isReversed}) => {
-    const [selectedItems, setSelectedItems] = useState([]);
-    const handleClick = node => {
-        if (selectedItems.includes(node.id)) {
-            setSelectedItems(selectedItems.filter(item => item !== node.id));
-        } else {
-            setSelectedItems([node.id]);
-        }
-    };
-
-    let css = {
-        transform: 'scale(1)',
-        height: '100vh'
-    };
-    if (isReversed) {
-        css = {...css, background: '#000'};
-    }
-
-    return (
-        <div style={css}>
-            <TreeView data={data}
-                      isReversed={isReversed}
-                      selectedItems={selectedItems}
-                      onClick={handleClick}
-            />
-        </div>
-    );
-};
-
-TreeViewStory.defaultProps = {
-    isReversed: false
-};
-
-TreeViewStory.propTypes = {
-    isReversed: PropTypes.bool
+const css = {
+    transform: 'scale(1)',
+    width: '300px',
+    height: '100vh'
 };
 
 storiesOf('Components|TreeView', module)
@@ -89,14 +69,14 @@ storiesOf('Components|TreeView', module)
         notes: {markdown: markdownNotes}
     })
     .addDecorator(withKnobs)
+    .addDecorator(storyFn => <div style={css}>{storyFn()}</div>)
     .add('default', () => (
         <TreeView data={data}/>
     ))
-    .add('opened', () => (
-        <TreeView openedItems={['A']} data={data}/>
-    ))
-    .add('loading', () => (
-        <TreeView loadingItems={['A1']} data={data}/>
+    .add('opened by default', () => (
+        <TreeView defaultOpenedItems={['A']}
+                  data={data}
+        />
     ))
     .add('data', () => (
         <TreeView
@@ -104,20 +84,113 @@ storiesOf('Components|TreeView', module)
                 {id: 'A1', label: 'A-1 level1'},
                 {id: 'A2', label: 'A-2 level1', children: [{id: 'B1', label: 'B1 level2'}]},
                 {id: 'A3', label: 'A-3 level1'}
-                ])}
+            ])}
         />
     ))
-    .add('isSelectable', () => (
-        <TreeViewStory isReversed={false}/>
-    ))
-    .add('isReversed', () => (
-        <TreeViewStory isReversed data={data}/>
-    ))
+    .add('selection', () => {
+        const [selectedItems, setSelectedItems] = useState([]);
+        const handleClick = node => {
+            if (selectedItems.includes(node.id)) {
+                setSelectedItems(selectedItems.filter(item => item !== node.id));
+            } else {
+                setSelectedItems([node.id]);
+            }
+        };
+
+        return (
+            <TreeView selectedItems={selectedItems}
+                      loadingItems={['A1']}
+                      data={data}
+                      onClickItem={handleClick}
+            />
+        );
+    })
+    .add('isReversed', () => {
+        return (
+            <div style={{...css, background: '#000'}}>
+                <TreeView isReversed
+                          loadingItems={['A1']}
+                          data={data}
+                />
+            </div>
+        );
+    })
     .add('actions', () => (
         <TreeView
             data={data}
-            onClick={action('on click')}
-            onClickToOpen={action('on click to open')}
-            onDoubleClick={action('on double click')}
+            onClickItem={action('onClickItem')}
+            onDoubleClickItem={action('onDoubleClickItem')}
         />
-    ));
+    ))
+    .add('controlled', () => {
+        const [openedItems, setOpenedItems] = useState([]);
+        const handleOpen = node => {
+            setOpenedItems([node.id, ...openedItems]);
+        };
+
+        const handleClose = node => {
+            setOpenedItems(openedItems.filter(item => item !== node.id));
+        };
+
+        return (
+            <div>
+                <span>Opened items = {openedItems.map(n => <button key={n} type="button" onClick={e => handleClose({id: n}, e)}>{n}</button>)}</span>
+                <ControlledTreeView loadingItems={['A1']}
+                                    data={data}
+                                    openedItems={openedItems}
+                                    onOpenItem={handleOpen}
+                                    onCloseItem={handleClose}
+                />
+            </div>
+        );
+    })
+    .add('controlled with loading', () => {
+        const [openedItems, setOpenedItems] = useState([]);
+        const [data, setData] = useState([
+            {id: 'A1', label: 'A-1', hasChildren: true},
+            {id: 'A2', label: 'A-2', hasChildren: true},
+            {id: 'A3', label: 'A-3', hasChildren: true}
+        ]);
+        const loadChidren = node => {
+            setData(data => data.map(n => {
+                if (n.id === node.id) {
+                    return {
+                        ...n,
+                        isLoading: false,
+                        children: [{id: n.id + '1', label: n.label + '-1'}, {id: n.id + '2', label: n.label + '-2'}]
+                    };
+                }
+
+                return n;
+            }));
+        };
+
+        const handleOpen = node => {
+            setOpenedItems([node.id, ...openedItems]);
+            setData(data => data.map(n => {
+                if (n.id === node.id && !n.isLoading && !n.children) {
+                    setTimeout(() => loadChidren(node), 1000);
+                    return {...n, isLoading: true};
+                }
+
+                return n;
+            }));
+        };
+
+        const handleClose = node => {
+            setOpenedItems(openedItems.filter(item => item !== node.id));
+        };
+
+        return (
+            <div>
+                <span>Opened items = {openedItems.map(n => <button key={n} type="button" onClick={e => handleClose({id: n}, e)}>{n}</button>)}</span>
+                <ControlledTreeView loadingItems={['A1']}
+                                    data={data}
+                                    openedItems={openedItems}
+                                    onOpenItem={handleOpen}
+                                    onCloseItem={handleClose}
+                />
+            </div>
+        );
+    });
+
