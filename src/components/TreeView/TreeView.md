@@ -6,6 +6,6 @@ The treeView is build with the array of object provide by the `data` props.
 | label       | `string` : Node’s label                                   |
 | iconStart   | `string` or `node` : Icon display before the node’s label |
 | iconEnd     | `string` or `node` : Icon display at the end of the node  |
-| children    | `array of object` : children’s node                       |
-| hasChildren | `array of object` : children’s node                       |
-| isLoading   | `array of object` : children’s node                       |
+| children    | `array of object` : children’s node, when available       |
+| hasChildren | `bool` : if the node has children                         |
+| isLoading   | `bool` : is the node loading its children                 |
