@@ -7,3 +7,6 @@ export * from './SecondaryNav';
 export * from './Separator';
 export * from './Typography';
 export * from './ResizableBox';
+export * from './TreeView';
+export * from './Accordion';
+export * from './Accordion/AccordionItem';

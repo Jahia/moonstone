@@ -2,7 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
-const IconsConfig = require('./webpack.icons.config');
+const svgrConfig = require('./src/icons/svgr.config.json');
 
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
@@ -69,10 +69,8 @@ const ComponentsConfig = {
                     {
                         loader: '@svgr/webpack',
                         options: {
-                            template: require('./src/icons/svgrTemplate').template,
-                            icon: true,
-                            dimensions: false,
-                            replaceAttrValues: {'#000': 'currentColor'}
+                            template: require('./src/icons/svgrTemplate'),
+                            ...svgrConfig
                         }
                     }
                 ]
@@ -88,4 +86,4 @@ const ComponentsConfig = {
     ]
 };
 
-module.exports = [ComponentsConfig, IconsConfig];
+module.exports = [ComponentsConfig];
