@@ -7,7 +7,6 @@ import markdownNotes from './TreeView.md';
 import {TreeView} from './index';
 import Love from '~/icons/asset/Love.svg';
 import NoCloud from '~/icons/asset/NoCloud.svg';
-import {ControlledTreeView} from '~/components/TreeView/ControlledTreeView';
 
 const data = [
     {
@@ -133,11 +132,10 @@ storiesOf('Components|TreeView', module)
         return (
             <div>
                 <span>Opened items = {openedItems.map(n => <button key={n} type="button" onClick={e => handleClose({id: n}, e)}>{n}</button>)}</span>
-                <ControlledTreeView loadingItems={['A1']}
-                                    data={data}
-                                    openedItems={openedItems}
-                                    onOpenItem={handleOpen}
-                                    onCloseItem={handleClose}
+                <TreeView data={data}
+                          openedItems={openedItems}
+                          onOpenItem={handleOpen}
+                          onCloseItem={handleClose}
                 />
             </div>
         );
@@ -182,11 +180,10 @@ storiesOf('Components|TreeView', module)
         return (
             <div>
                 <span>Opened items = {openedItems.map(n => <button key={n} type="button" onClick={e => handleClose({id: n}, e)}>{n}</button>)}</span>
-                <ControlledTreeView loadingItems={['A1']}
-                                    data={data}
-                                    openedItems={openedItems}
-                                    onOpenItem={handleOpen}
-                                    onCloseItem={handleClose}
+                <TreeView data={data}
+                          openedItems={openedItems}
+                          onOpenItem={handleOpen}
+                          onCloseItem={handleClose}
                 />
             </div>
         );
