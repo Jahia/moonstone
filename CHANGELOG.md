@@ -1,3 +1,15 @@
+# v0.6.0 (Wed Jan 29 2020)
+
+#### 🚀  Enhancement
+
+- MOON-44 Build icons without webpack, expose them so that they can be … [#51](https://github.com/Jahia/moonstone/pull/51) ([@AKarmanov](https://github.com/AKarmanov))
+
+#### Authors: 1
+
+- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
+
+---
+
 # v0.5.0 (Mon Jan 20 2020)
 
 #### 🚀  Enhancement
