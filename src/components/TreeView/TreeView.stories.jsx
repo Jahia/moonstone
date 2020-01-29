@@ -99,7 +99,6 @@ storiesOf('Components|TreeView', module)
 
         return (
             <TreeView selectedItems={selectedItems}
-                      loadingItems={['A1']}
                       data={data}
                       onClickItem={handleClick}
             />
@@ -193,4 +192,3 @@ storiesOf('Components|TreeView', module)
             </div>
         );
     });
-
