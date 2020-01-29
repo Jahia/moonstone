@@ -108,7 +108,6 @@ storiesOf('Components|TreeView', module)
         return (
             <div style={{...css, background: '#000'}}>
                 <TreeView isReversed
-                          loadingItems={['A1']}
                           data={data}
                 />
             </div>
