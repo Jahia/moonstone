@@ -11,7 +11,7 @@ $color-dark: 19, 28, 33;
     --color-accent_light: #d3e9f3;
 
     // Neutral
-    --color-light: #{$color-light};
+    --color-light: rgb(#{$color-light});
     --color-light60: rgba(#{$color-light}, 0.6);
     --color-light40: rgba(#{$color-light}, 0.4);
     --color-gray_light: rgb(#{$color-gray-light});
