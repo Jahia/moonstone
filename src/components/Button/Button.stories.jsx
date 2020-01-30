@@ -2,8 +2,8 @@ import React from 'react';
 import classnames from 'classnames';
 import {storiesOf} from '@storybook/react';
 import {select, withKnobs} from '@storybook/addon-knobs';
-import storyStyles from '~/styles/storybook/styles.scss';
-import Power from '~/icons/asset/Power.svg';
+import storyStyles from '~/__storybook__/storybook.scss';
+import Power from '~/tokens/icons/asset/Power.svg';
 
 import markdownNotes from './Button.md';
 import {Button} from './index';

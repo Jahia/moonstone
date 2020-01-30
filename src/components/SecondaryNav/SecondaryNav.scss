@@ -1,11 +1,11 @@
-@import '~/styles/shared/all';
+@import '../../utils/truncate';
 
 .secondaryNav {
     height: 100%;
 
-    color: $color-light;
+    color: var(--color-light);
 
-    background: $color-gray_dark;
+    background: var(--color-gray_dark);
 }
 
 .secondaryNav_header {

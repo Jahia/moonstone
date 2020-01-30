@@ -1,15 +1,13 @@
-@import '../shared/all';
-
 @font-face {
     font-weight: 400;
     font-family: 'Nunito';
-    src: url('../../fonts/Nunito/Nunito-Regular.ttf');
+    src: url('./globals/fonts/Nunito/Nunito-Regular.ttf');
 }
 
 @font-face {
     font-weight: 600;
     font-family: 'Nunito';
-    src: url('../../fonts/Nunito/Nunito-Bold.ttf');
+    src: url('./globals/fonts/Nunito/Nunito-Bold.ttf');
 }
 
 html {
@@ -17,7 +15,7 @@ html {
 
     font-size: 16px;
     font-family: 'Nunito', sans-serif;
-    color: $color-dark;
+    color: var(--color-dark);
 }
 
 *,

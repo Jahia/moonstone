@@ -2,8 +2,8 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
-import styles from './colors.scss';
-import storyStyles from '~/styles/storybook/styles.scss';
+import styles from './colors.stories.scss';
+import storyStyles from '~/__storybook__/storybook.scss';
 
 let cx = classnames.bind(styles);
 

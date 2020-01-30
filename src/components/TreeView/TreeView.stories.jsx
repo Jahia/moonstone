@@ -5,8 +5,8 @@ import {action} from '@storybook/addon-actions';
 
 import markdownNotes from './TreeView.md';
 import {TreeView} from './index';
-import Love from '~/icons/asset/Love.svg';
-import NoCloud from '~/icons/asset/NoCloud.svg';
+import Love from '~/tokens/icons/asset/Love.svg';
+import NoCloud from '~/tokens/icons/asset/NoCloud.svg';
 
 const data = [
     {

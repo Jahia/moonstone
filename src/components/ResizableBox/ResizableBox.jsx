@@ -3,7 +3,7 @@ import {Resizable} from 're-resizable';
 import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import styles from './ResizableBox.scss';
-import DragHundle from '~/icons/asset/DragHundle.svg';
+import DragHundle from '~/tokens/icons/asset/DragHundle.svg';
 
 // WIP
 // const zones = ['top', 'right', 'bottom', 'left', 'topRight', 'bottomRight', 'bottomLeft', 'topLeft'];

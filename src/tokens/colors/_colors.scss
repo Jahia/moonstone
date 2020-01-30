@@ -1,0 +1,34 @@
+$color-light: 253, 253, 253;
+$color-gray-light: 218, 218, 218;
+$color-gray: 122, 127, 137;
+$color-gray-dark: 41, 49, 54;
+$color-dark: 19, 28, 33;
+
+:global(:root) {
+    // Accent
+    --color-accent_dark: #003449;
+    --color-accent: #00a0e3;
+    --color-accent_light: #d3e9f3;
+
+    // Neutral
+    --color-light: rgb(#{$color-light});
+    --color-light60: rgba(#{$color-light}, 0.6);
+    --color-light40: rgba(#{$color-light}, 0.4);
+    --color-gray_light: rgb(#{$color-gray-light});
+    --color-gray_light60: rgba(#{$color-gray-light}, 0.6);
+    --color-gray_light40: rgba(#{$color-gray-light}, 0.4);
+    --color-gray: rgb(#{$color-gray});
+    --color-gray40: rgba(#{$color-gray}, 0.4);
+    --color-gray60: rgba(#{$color-gray}, 0.6);
+    --color-gray_dark: rgb(#{$color-gray-dark});
+    --color-gray_dark40: rgba(#{$color-gray-dark}, 0.4);
+    --color-gray_dark60: rgba(#{$color-gray-dark}, 0.6);
+    --color-dark: rgb(#{$color-dark});
+    --color-dark60: rgba(#{$color-dark}, 0.6);
+    --color-dark40: rgba(#{$color-dark}, 0.4);
+
+    // Support
+    --color-success: #0ea982;
+    --color-warning: #e8b606;
+    --color-danger: #e0182d;
+}

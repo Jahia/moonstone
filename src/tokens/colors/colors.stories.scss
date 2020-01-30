@@ -1,0 +1,71 @@
+@mixin colorValue($value) {
+    &::after {
+        content: "#{$value}";
+
+        position: absolute;
+        bottom: var(--spacing-small);
+        left: 0;
+
+        color: var(--color-gray60);
+    }
+}
+
+.colorPalette {
+    position: relative;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & + & {
+        margin-top: var(--spacing-medium);
+    }
+}
+
+.colorShape {
+    width: 160px;
+    height: 80px;
+
+    border: 1px solid var(--color-gray_light);
+}
+
+$colorsAccent: 'accent_dark', 'accent', 'accent_light';
+$colorsNeutral: (
+    'light',
+    'light60',
+    'light40',
+    'gray_light',
+    'gray_light60',
+    'gray_light40',
+    'gray',
+    'gray60',
+    'gray40',
+    'gray_dark',
+    'gray_dark60',
+    'gray_dark40'
+);
+$colorsSupport: 'success', 'warning', 'danger';
+
+@each $name in $colorsAccent {
+    .color-#{$name} {
+        @include colorValue($name);
+
+        background-color: var(--color-#{$name});
+    }
+}
+
+@each $name in $colorsNeutral {
+    .color-#{$name} {
+        @include colorValue($name);
+
+        background-color: var(--color-#{$name});
+    }
+}
+
+@each $name in $colorsSupport {
+    .color-#{$name} {
+        @include colorValue($name);
+
+        background-color: var(--color-#{$name});
+    }
+}

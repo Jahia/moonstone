@@ -20,7 +20,7 @@
         "lint:js:fix": "yarn lint:js --fix .",
         "lint:scss:fix": "yarn lint:scss --fix",
         "lint:fix": "yarn lint:js:fix && yarn lint:scss:fix",
-        "index-icons": "create-index ./src/icons/asset -r -x svg && eslint --fix src/icons/asset/index.js",
+        "index-icons": "create-index ./src/tokens/icons/asset -r -x svg && eslint --fix ./src/tokens/icons/asset/index.js",
         "build": "yarn index-icons && yarn build:storybook && yarn build:lib",
         "prebuild:lib": "rimraf dist/",
         "build:lib": "webpack --mode production && yarn build-icons",
@@ -31,7 +31,7 @@
         "auto-version": "npm version `auto version` -m 'Bump version to: %s [skip ci]'",
         "auto-publish": "npm publish && git push --follow-tags --set-upstream origin $branch",
         "auto-release": "auto changelog && yarn run auto-version && yarn run auto-publish && auto release",
-        "build-icons": "svgr --template ./src/icons/svgrTemplate.js --config-file ./src/icons/svgr.config.json ./src/icons/asset --out-dir ./dist/icons && yarn babel-icons",
+        "build-icons": "svgr --template ./src/tokens/icons/svgrTemplate.js --config-file ./src/tokens/icons/svgr.config.json ./src/tokens/icons/asset --out-dir ./dist/icons && yarn babel-icons",
         "babel-icons": "babel ./dist/icons -d ./dist/icons"
     },
     "main": "dist/main.js",

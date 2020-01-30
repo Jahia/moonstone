@@ -1,7 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {withKnobs, select} from '@storybook/addon-knobs';
-import {optionsFromArray} from '~/utils';
+import {optionsFromArray} from '~/__storybook__/utils';
 
 import {Separator, sizes, spacings} from './index';
 import markdownNotes from './Separator.md';
