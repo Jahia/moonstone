@@ -1,43 +1,21 @@
-==========================================================================================
-= JAHIA'S COMMUNITY DISTRIBUTION =
-==========================================================================================
+MIT License
 
-# JAHIA'S DUAL LICENSING - IMPORTANT INFORMATION
+Copyright (c) 2020 Jahia Forge - Code Repository
 
-                                http://www.jahia.com
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-    Copyright (C) 2002-2019 Jahia Solutions Group SA. All rights reserved.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-    THIS PROGRAM IS AVAILABLE UNDER TWO DIFFERENT LICENSES:
-    1/GPL OR 2/JSEL
-
-    1/ GPL
-    ======================================================================================
-
-    IF YOU DECIDE TO CHOOSE THE GPL LICENSE, YOU MUST COMPLY WITH THE FOLLOWING TERMS:
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-    2/ JSEL - Commercial and Supported Versions of the program
-    ======================================================================================
-
-    IF YOU DECIDE TO CHOOSE THE JSEL LICENSE, YOU MUST COMPLY WITH THE FOLLOWING TERMS:
-
-    Alternatively, commercial and supported versions of the program - as known as
-    Enterprise Distributions - must be used in accordance with the terms and conditions
-    contained in a separate written agreement between you and Jahia Solutions Group SA
-    as well as the Jahia Sustainable Enterprise License (JSEL).
-
-    If you are unsure which license is appropriate for your use,
-    please contact the sales department at sales@jahia.com.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
