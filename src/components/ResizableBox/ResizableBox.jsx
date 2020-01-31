@@ -68,23 +68,26 @@ ResizableBox.propTypes = {
     enable: PropTypes.arrayOf(PropTypes.oneOf(zones)),
 
     /**
-     * Set the minimum width of a resizable component
+     * Set the minimum width
      */
     minWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
-     * Set the maximum width of a resizable component
+     * Set the maximum width
      */
     maxWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
-     * Set the default size of a resizable component
+     * Set the default size
      */
     defaultSize: PropTypes.shape({
         width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         height: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     }),
 
+    /**
+     * Manage the size
+     */
     size: PropTypes.shape({
         width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         height: PropTypes.oneOfType([PropTypes.string, PropTypes.number])

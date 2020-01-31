@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import styles from './SecondaryNav.scss';
 import {ResizableBox} from '~/components/ResizableBox';
-import ChevronDoubleRight from '~/icons/asset/ChevronDoubleRight.svg';
-import ChevronDoubleLeft from '~/icons/asset/ChevronDoubleLeft.svg';
+import ChevronDoubleRight from '~/tokens/icons/asset/ChevronDoubleRight.svg';
+import ChevronDoubleLeft from '~/tokens/icons/asset/ChevronDoubleLeft.svg';
 
-export const SecondaryNav = ({header, children, isVisible, onToggle, className, ...props}) => {
-    const [stateIsVisible, setStateIsVisible] = useState(isVisible);
+export const SecondaryNav = ({header, children, isDefaultVisible, onToggle, className, ...props}) => {
+    const [isVisible, setIsVisible] = useState(isDefaultVisible);
 
     const handleToggle = e => {
-        setStateIsVisible(prevState => !prevState);
+        setIsVisible(prevState => !prevState);
         onToggle(e);
     };
 
@@ -22,7 +22,7 @@ export const SecondaryNav = ({header, children, isVisible, onToggle, className, 
                     'flexFluid',
                     'flexCol_nowrap',
                     styles.secondaryNav,
-                    stateIsVisible ? null : styles.secondaryNav_hidden
+                    isVisible ? null : styles.secondaryNav_hidden
                 )
             }
             enable={['right']}
@@ -57,15 +57,15 @@ export const SecondaryNav = ({header, children, isVisible, onToggle, className, 
 };
 
 SecondaryNav.defaultProps = {
-    isVisible: true,
+    isDefaultVisible: true,
     onToggle: () => {}
 };
 
 SecondaryNav.propTypes = {
     /**
-     * Is visible or hidden
+     * Is visible or hidden by default
      */
-    isVisible: PropTypes.bool,
+    isDefaultVisible: PropTypes.bool,
 
     /**
      * Header of the secondary navigation

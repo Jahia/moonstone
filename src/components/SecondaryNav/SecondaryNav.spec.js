@@ -25,38 +25,38 @@ describe('SecondaryNav', () => {
     });
 
     it('should have .secondaryNav_hidden when the menu is hidden', () => {
-        const wrapper = shallow(<SecondaryNav header="my header" isVisible={false}>hello</SecondaryNav>);
+        const wrapper = shallow(<SecondaryNav header="my header" isDefaultVisible={false}>hello</SecondaryNav>);
 
         expect(wrapper.html()).toContain('secondaryNav_hidden');
     });
 
     it('should not have .secondaryNav_hidden when the menu is visible', () => {
-        const wrapper = shallow(<SecondaryNav isVisible header="my header">hello</SecondaryNav>);
+        const wrapper = shallow(<SecondaryNav header="my header">hello</SecondaryNav>);
 
         expect(wrapper.html()).not.toContain('secondaryNav_hidden');
     });
 
     it('should set width to zero when the menu is hidden', () => {
-        const wrapper = shallow(<SecondaryNav isVisible={false} header="my header">hello</SecondaryNav>);
+        const wrapper = shallow(<SecondaryNav isDefaultVisible={false} header="my header">hello</SecondaryNav>);
 
         expect(wrapper.props.size.width).toEqual(0);
     });
 
     it('should show the navigation by clicking on expand button when the menu is hidden', () => {
-        const wrapper = shallow(<SecondaryNav isVisible={false} header="my header">hello</SecondaryNav>);
+        const wrapper = shallow(<SecondaryNav isDefaultVisible={false} header="my header">hello</SecondaryNav>);
 
         wrapper.querySelector('.secondaryNav_buttonToggle').dispatchEvent('click');
         expect(wrapper.html()).not.toContain('secondaryNav_hidden');
     });
 
     it('should hide the navigation by clicking on expand button when the menu is visible', () => {
-        const wrapper = shallow(<SecondaryNav isVisible header="my header">hello</SecondaryNav>);
+        const wrapper = shallow(<SecondaryNav header="my header">hello</SecondaryNav>);
 
         wrapper.querySelector('.secondaryNav_buttonToggle').dispatchEvent('click');
         expect(wrapper.html()).toContain('secondaryNav_hidden');
     });
 
-    it('should not throw error when there is no onToggleVisible defined', () => {
+    it('should not throw error when there is no onToggle defined', () => {
         const wrapper = shallow(
             <SecondaryNav header="my header">hello</SecondaryNav>
         );
@@ -65,10 +65,10 @@ describe('SecondaryNav', () => {
         wrapper.querySelector('.secondaryNav_buttonToggle').dispatchEvent('click');
     });
 
-    it('should call onToggleVisible when clicking on expand button', () => {
+    it('should call onToggle when clicking on expand button', () => {
         const clickHandler = jest.fn();
         const wrapper = shallow(
-            <SecondaryNav header="my header" onToggleVisible={clickHandler}>hello</SecondaryNav>
+            <SecondaryNav header="my header" onToggle={clickHandler}>hello</SecondaryNav>
         );
 
         wrapper.querySelector('.secondaryNav_buttonToggle').dispatchEvent('click');
