@@ -7,7 +7,7 @@ import {ResizableBox} from '~/components/ResizableBox';
 export const SecondaryNav = ({header, children}) => {
     return (
         <ResizableBox
-            className={classnames(styles.secondaryNav)}
+            className={classnames('flexFluid', 'flexCol', styles.secondaryNav)}
             enable={['right']}
             minWidth="120"
             maxWidth="450"
@@ -19,7 +19,7 @@ export const SecondaryNav = ({header, children}) => {
             <header className={classnames(styles.secondaryNav_header, 'flexRow_center', 'alignCenter')}>
                 {header}
             </header>
-            <div>
+            <div className={classnames('flexFluid', 'flexCol')}>
                 {children}
             </div>
         </ResizableBox>
