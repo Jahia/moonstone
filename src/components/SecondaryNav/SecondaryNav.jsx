@@ -18,7 +18,7 @@ export const SecondaryNav = ({header, className, children}) => {
             <header className={classnames(styles.secondaryNav_header, 'flexRow_center', 'alignCenter')}>
                 {header}
             </header>
-            <div className={classnames('flexFluid', 'flexCol')}>
+            <div className={classnames('flexFluid', 'flexCol_nowrap')}>
                 {children}
             </div>
         </ResizableBox>
