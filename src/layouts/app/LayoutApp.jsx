@@ -6,11 +6,11 @@ import style from './LayoutApp.scss';
 
 export const LayoutApp = ({navigation, content}) => {
     return (
-        <div className={classnames(style.layoutApp, 'flexRow_center', 'flexRow')}>
+        <div className={classnames(style.layoutApp, 'flexRow_center', 'flexRow_nowrap')}>
             <div className={classnames(style.slotNavigation)}>
                 {navigation}
             </div>
-            <div className={classnames('flexFluid', 'flexRow')}>
+            <div className={classnames('flexFluid', 'flexRow_nowrap')}>
                 {content}
             </div>
         </div>

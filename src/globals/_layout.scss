@@ -47,11 +47,14 @@
 // ---
 :global(.flexCol) {
     @extend %flex-column;
+
+    min-height: 0;
 }
 
 :global(.flexCol_nowrap) {
     display: flex;
     flex-direction: column;
+    min-height: 0;
 }
 
 :global(.flexCol_reverse) {
