@@ -12,8 +12,7 @@ export const SecondaryNav = ({header, children}) => {
             minWidth="120"
             maxWidth="450"
             defaultSize={{
-                width: 245,
-                height: '100%'
+                width: 245
             }}
         >
             <header className={classnames(styles.secondaryNav_header, 'flexRow_center', 'alignCenter')}>
