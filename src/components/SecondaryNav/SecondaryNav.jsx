@@ -7,7 +7,7 @@ import {ResizableBox} from '~/components/ResizableBox';
 export const SecondaryNav = ({header, className, children}) => {
     return (
         <ResizableBox
-            className={classnames(className, 'flexCol', styles.secondaryNav)}
+            className={classnames(className, 'flexCol_nowrap', styles.secondaryNav)}
             enable={['right']}
             minWidth="120"
             maxWidth="450"
