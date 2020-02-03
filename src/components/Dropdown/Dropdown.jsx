@@ -20,7 +20,8 @@ export const Dropdown = ({
     variant,
     size,
     icon,
-    onChange
+    onChange,
+    className
 }) => {
     const [isOpened, setIsOpened] = useState(false);
     const [currentOption, setCurrentOption] = useState(defaultOption ? defaultOption : {label: placeholder, value: null});
@@ -128,7 +129,7 @@ export const Dropdown = ({
     };
 
     return (
-        <div className={classnames(cssDropdown)} style={{maxWidth: maxWidth}}>
+        <div className={classnames(cssDropdown, className)} style={{maxWidth: maxWidth}}>
             <div ref={refDropdownLabel}
                  className={classnames(cssDropdownLabel)}
                  tabIndex="0"
@@ -256,6 +257,11 @@ Dropdown.propTypes = {
      * Dropdown is disabled
      */
     isDisabled: PropTypes.bool,
+
+    /**
+     * Additional classname
+     */
+    className: PropTypes.string,
 
     /**
      * Function trigger on change with the current option as param

@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import styles from './Menu.scss';
 
-export const Menu = ({children, isDisplay, maxWidth, position}) => {
+export const Menu = ({children, isDisplay, maxWidth, position, className}) => {
     if (isDisplay) {
         return (
-            <menu style={{maxWidth: maxWidth, ...position}} className={classnames(styles.menu)}>
+            <menu style={{maxWidth: maxWidth, ...position}} className={classnames(styles.menu, className)}>
                 {children}
             </menu>
         );
@@ -44,5 +44,10 @@ Menu.propTypes = {
         right: PropTypes.string,
         bottom: PropTypes.string,
         left: PropTypes.string
-    })
+    }),
+
+    /**
+     * Additional classname
+     */
+    className: PropTypes.string
 };

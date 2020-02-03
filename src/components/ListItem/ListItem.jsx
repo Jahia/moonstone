@@ -46,7 +46,7 @@ ListItem.defaultProps = {
 
 ListItem.propTypes = {
     /**
-     * CSS classes added
+     * Additional classname
      */
     className: PropTypes.string,
 
