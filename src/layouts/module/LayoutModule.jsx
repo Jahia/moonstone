@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 export const LayoutModule = ({navigation, content}) => {
     return (
         <>
-            <div className={classnames('flexRow')}>
+            <div className={classnames('flexCol')}>
                 {navigation}
             </div>
-            <main className={classnames('flexFluid', 'flexRow')}>
+            <main className={classnames('flexFluid', 'flexCol')}>
                 {content}
             </main>
         </>
