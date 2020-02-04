@@ -15,7 +15,7 @@ export const Accordion = ({children, openByDefault, isReversed, className}) => {
 
     return (
         <AccordionContext.Provider value={{currentItem, defineCurrentItem, reversed}}>
-            <div className={classnames(className, styles.accordion, isReversed ? styles.accordion_reversed : null)}>
+            <div className={classnames(className, 'flexFluid', styles.accordion, isReversed ? styles.accordion_reversed : null)}>
                 {children}
             </div>
         </AccordionContext.Provider>
