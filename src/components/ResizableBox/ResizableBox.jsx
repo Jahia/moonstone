@@ -9,7 +9,7 @@ import DragHundle from '~/tokens/icons/asset/DragHundle.svg';
 // const zones = ['top', 'right', 'bottom', 'left', 'topRight', 'bottomRight', 'bottomLeft', 'topLeft'];
 const zones = ['right'];
 
-export const ResizableBox = ({enable, minWidth, maxWidth, defaultSize, className, children}) => {
+export const ResizableBox = ({enable, minWidth, maxWidth, defaultSize, className, children, ...props}) => {
     const enableZones = {};
 
     zones.forEach(function (zone) {
@@ -35,6 +35,7 @@ export const ResizableBox = ({enable, minWidth, maxWidth, defaultSize, className
                 }
             }
             className={classnames(className)}
+            {...props}
         >
             {children}
         </Resizable>

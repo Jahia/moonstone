@@ -17,4 +17,10 @@ describe('SecondaryNav', () => {
 
         expect(wrapper.html()).toContain('my header');
     });
+
+    it('should add extra attribute', () => {
+        const wrapper = shallow(<SecondaryNav data-custom="test" header="my header">hello</SecondaryNav>);
+
+        expect(wrapper.html()).toContain('data-custom="test"');
+    });
 });

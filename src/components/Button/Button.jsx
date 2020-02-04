@@ -7,13 +7,13 @@ export const ButtonSizes = ['small', 'medium', 'big'];
 export const ButtonVariants = ['default', 'primary', 'ghost'];
 export const ButtonColors = ['accent', 'inherit', 'success', 'warning', 'danger', 'reverse'];
 
-// eslint-disable-next-line
-export const Button = ({label, onClick, size, isDisabled, icon, variant, color}) => {
+export const Button = ({label, onClick, size, isDisabled, icon, variant, color, ...props}) => {
     return (
         <button
             className={classnames(styles.button, styles[variant], styles[color], (icon === null) ? null : styles.icon)}
             type="button"
             onClick={onClick}
+            {...props}
         >
             <i>{icon}</i>{label}
         </button>

@@ -175,4 +175,11 @@ describe('TreeView', () => {
 
         expect(clickHandler).not.toHaveBeenCalled();
     });
+
+    it('should add extra attribute', () => {
+        const wrapper = shallow(
+            <ControlledTreeView data-custom="test" data={tree}/>
+        );
+        expect(wrapper.html()).toContain('data-custom="test"');
+    });
 });

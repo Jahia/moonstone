@@ -5,7 +5,7 @@ import styles from './PrimaryNavItemsGroup.scss';
 import {PrimaryNavContext} from '../PrimaryNav.context';
 import {Separator} from '~/components/Separator';
 
-export const PrimaryNavItemsGroup = ({isDisplayedWhenCollapsed, children}) => {
+export const PrimaryNavItemsGroup = ({isDisplayedWhenCollapsed, children, ...props}) => {
     const primaryNavContext = useContext(PrimaryNavContext);
 
     if (!primaryNavContext.isExpanded && !isDisplayedWhenCollapsed) {
@@ -17,7 +17,7 @@ export const PrimaryNavItemsGroup = ({isDisplayedWhenCollapsed, children}) => {
             <li className={classnames(styles.primaryNavItemsGroup)}>
                 <Separator size="large" spacing="small"/>
             </li>
-            <li className={classnames(styles.primaryNavItemsGroup)}>
+            <li className={classnames(styles.primaryNavItemsGroup)} {...props}>
                 <ul>
                     {children}
                 </ul>

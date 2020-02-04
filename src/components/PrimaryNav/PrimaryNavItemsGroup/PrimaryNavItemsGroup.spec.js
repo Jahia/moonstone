@@ -79,4 +79,23 @@ describe('PrimaryNavItemsGroup', () => {
 
         expect(wrapper.html()).toContain('test');
     });
+
+    it('should add extra attribute', () => {
+        const wrapper = shallow(
+            <PrimaryNavItemsGroup data-custom="test">
+                <>test</>
+                <>2</>
+            </PrimaryNavItemsGroup>, {
+                externals: {
+                    contexts: [{
+                        id: PrimaryNavContext,
+                        value: {
+                            isExpanded: true
+                        }
+                    }]
+                }
+            });
+
+        expect(wrapper.html()).toContain('data-custom="test"');
+    });
 });

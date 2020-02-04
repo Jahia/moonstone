@@ -6,13 +6,15 @@ import styles from './Separator.scss';
 export const spacings = ['small', 'medium', 'big'];
 export const sizes = ['medium', 'large', 'full'];
 
-export const Separator = ({size, spacing}) => {
+export const Separator = ({size, spacing, ...props}) => {
     return (
-        <hr className={classnames(
-            styles.separator,
-            styles[`size_${size}`],
-            styles[`spacing_${spacing}`]
-        )}/>
+        <hr {...props}
+            className={classnames(
+                styles.separator,
+                styles[`size_${size}`],
+                styles[`spacing_${spacing}`]
+            )}
+        />
     );
 };
 

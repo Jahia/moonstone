@@ -5,7 +5,7 @@ import {AccordionContext} from './Accordion.context';
 import {AccordionItem} from './AccordionItem';
 import styles from './Accordion.scss';
 
-export const Accordion = ({children, openByDefault, isReversed, className}) => {
+export const Accordion = ({children, openByDefault, isReversed, className, ...props}) => {
     const [currentItem, setCurrentItem] = useState(openByDefault ? openByDefault : null);
     const [reversed] = useState(isReversed);
 
@@ -15,7 +15,7 @@ export const Accordion = ({children, openByDefault, isReversed, className}) => {
 
     return (
         <AccordionContext.Provider value={{currentItem, defineCurrentItem, reversed}}>
-            <div className={classnames(className, 'flexFluid', styles.accordion, isReversed ? styles.accordion_reversed : null)}>
+            <div {...props} className={classnames(className, 'flexFluid', styles.accordion, isReversed ? styles.accordion_reversed : null)}>
                 {children}
             </div>
         </AccordionContext.Provider>
