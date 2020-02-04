@@ -72,6 +72,7 @@ $accordionHeader_height: 48px;
 .accordionItem_content {
     max-width: 100%;
     padding: var(--spacing-medium);
+    overflow-x: hidden;
     overflow-y: auto;
 }
 
