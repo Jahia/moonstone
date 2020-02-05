@@ -21,12 +21,10 @@ storiesOf('Components|SecondaryNav', module)
         </SecondaryNav>
     ))
     .add('with header images', () => (
-        <div style={{transform: 'scale(1)', height: '100vh'}}>
-            <SecondaryNav
-                header={<Love/>}
-            >
-                My content here
-            </SecondaryNav>
-        </div>
+        <SecondaryNav
+            header={<Love/>}
+        >
+            My content here
+        </SecondaryNav>
     ));
 
