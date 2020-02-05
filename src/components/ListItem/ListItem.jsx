@@ -4,7 +4,7 @@ import classnames from 'clsx';
 import styles from './ListItem.scss';
 import {Typography} from '~/components';
 
-export const ListItem = ({label, iconStart, iconEnd, isDisabled, variant, className, ...others}) => {
+export const ListItem = ({label, iconStart, iconEnd, isDisabled, variant, className, onClick, onMouseEnter, onMouseLeave, ...others}) => {
     const cssListItem = classnames(
         className,
         styles.listItem,
@@ -12,10 +12,25 @@ export const ListItem = ({label, iconStart, iconEnd, isDisabled, variant, classN
         'alignCenter'
     );
 
+    const handleClick = e => {
+        onClick(e);
+    };
+
+    const handleMouseEnter = e => {
+        onMouseEnter(e);
+    };
+
+    const handleMouseLeave = e => {
+        onMouseLeave(e);
+    };
+
     return (
         <li tabIndex={isDisabled || variant === 'title' ? null : '0'}
             aria-disabled={isDisabled}
             className={classnames(cssListItem)}
+            onClick={handleClick}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
             {...others}
         >
             {
@@ -73,5 +88,20 @@ ListItem.propTypes = {
     /**
      * ListItem variants
      */
-    variant: PropTypes.oneOf(['default', 'title'])
+    variant: PropTypes.oneOf(['default', 'title']),
+
+    /**
+     * Function triggered on clicking the item
+     */
+    onClick: PropTypes.func,
+
+    /**
+     * Function triggered when the mouse pointer hovering the item
+     */
+    onMouseEnter: PropTypes.func,
+
+    /**
+     * Function triggered when the mouse pointer move off the item
+     */
+    onMouseLeave: PropTypes.func
 };
