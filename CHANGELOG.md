@@ -1,3 +1,26 @@
+# v0.7.0 (Wed Feb 05 2020)
+
+#### 🚀  Enhancement
+
+- MOON-56: Allow all components to add custom attributes [#57](https://github.com/Jahia/moonstone/pull/57) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-46 : Define controlled/uncontrolled TreeView [#53](https://github.com/Jahia/moonstone/pull/53) ([@tdraier](https://github.com/tdraier))
+
+#### 🐛  Bug Fix
+
+- MOON-55: remove undefined height:100% [#55](https://github.com/Jahia/moonstone/pull/55) ([@tdraier](https://github.com/tdraier))
+- OPENCODE-1 - Updated license to MIT as per approval [#54](https://github.com/Jahia/moonstone/pull/54) ([@Fgerthoffert](https://github.com/Fgerthoffert))
+
+#### 🏠  Internal
+
+- BACKLOG-12180: move color into css variables [#52](https://github.com/Jahia/moonstone/pull/52) ([@FBerthelot](https://github.com/FBerthelot) [@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 2
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v0.6.0 (Wed Jan 29 2020)
 
 #### 🚀  Enhancement
