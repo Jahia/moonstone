@@ -21,4 +21,9 @@ describe('PrimaryNav', () => {
     it('should also work when doesn\'t display modeIcon', () => {
         shallow(<PrimaryNav/>, {mocks: {NavHeader: true, NavButton: true}});
     });
+
+    it('should add extra attribute', () => {
+        const wrapper = shallow(<PrimaryNav data-custom="test" {...props}/>, {mocks: {NavHeader: true, NavButton: true}});
+        expect(wrapper.html()).toContain('data-custom="test"');
+    });
 });

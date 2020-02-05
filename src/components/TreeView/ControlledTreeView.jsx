@@ -7,7 +7,7 @@ import {Typography} from '~/components';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export const ControlledTreeView = ({data, openedItems, selectedItems, onClickItem, onDoubleClickItem, onOpenItem, onCloseItem, isReversed}) => {
+export const ControlledTreeView = ({data, openedItems, selectedItems, onClickItem, onDoubleClickItem, onOpenItem, onCloseItem, isReversed, ...props}) => {
     function generateLevelJSX(data, deep) {
         return data.map(node => {
             const hasChild = Boolean(node.hasChildren || (node.children && node.children.length !== 0));
@@ -116,7 +116,7 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
 
     // TreeView component
     return (
-        <ul role="tree" className={classnames(styles.treeView)}>
+        <ul role="tree" className={classnames(styles.treeView)} {...props}>
             {generateLevelJSX(data, 0)}
         </ul>
     );

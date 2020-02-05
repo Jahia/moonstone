@@ -28,6 +28,28 @@ describe('Accordion', () => {
         expect(wrapper.html()).toContain('accordion_reversed');
     });
 
+    it('should add extra attribute on Accordion', () => {
+        const wrapper = shallow(
+            <Accordion data-custom="test">
+                <AccordionItem id="id" label="label">
+                    content here
+                </AccordionItem>
+            </Accordion>
+        );
+        expect(wrapper.html()).toContain('data-custom="test"');
+    });
+
+    it('should add extra attribute on AccordionItem', () => {
+        const wrapper = shallow(
+            <Accordion>
+                <AccordionItem id="id" label="label" data-custom="test">
+                    content here
+                </AccordionItem>
+            </Accordion>
+        );
+        expect(wrapper.html()).toContain('data-custom="test"');
+    });
+
     describe('withAccordionItem Mock', () => {
         // eslint-disable-next-line react/prop-types
         const AccordionItemMock = ({id}) => {

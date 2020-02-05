@@ -32,14 +32,14 @@ describe('Typography', () => {
         expect(wrapper.html()).toContain('h1');
     });
 
-    it('should add extra props ', () => {
+    it('should add extra props', () => {
         const wrapper = shallow(
             <Typography onClick={() => {}}>Content children</Typography>
         );
         expect(wrapper.html()).toContain('onClick');
     });
 
-    it('should add extra className ', () => {
+    it('should add extra className', () => {
         const wrapper = shallow(
             <Typography className="yoloooo">Content children</Typography>
         );

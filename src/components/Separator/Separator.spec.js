@@ -23,4 +23,11 @@ describe('Separator', () => {
         );
         expect(wrapper.props.size).toContain('medium');
     });
+
+    it('should add extra attribute', () => {
+        const wrapper = shallow(
+            <Separator data-custom="test" size="medium"/>
+        );
+        expect(wrapper.html()).toContain('data-custom="test"');
+    });
 });

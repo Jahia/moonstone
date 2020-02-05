@@ -4,7 +4,7 @@ import classnames from 'clsx';
 import styles from './SecondaryNav.scss';
 import {ResizableBox} from '~/components/ResizableBox';
 
-export const SecondaryNav = ({header, className, children}) => {
+export const SecondaryNav = ({header, children, className, ...props}) => {
     return (
         <ResizableBox
             className={classnames(className, 'flexFluid', 'flexCol_nowrap', styles.secondaryNav)}
@@ -14,6 +14,7 @@ export const SecondaryNav = ({header, className, children}) => {
             defaultSize={{
                 width: 245
             }}
+            {...props}
         >
             <header className={classnames(styles.secondaryNav_header, 'flexRow_center', 'alignCenter')}>
                 {header}

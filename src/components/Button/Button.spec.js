@@ -30,9 +30,14 @@ describe('Button', () => {
         expect(wrapper.html()).toContain('button default reverse');
     });
 
-    it('should use the icon, variant,color', () => {
+    it('should use the icon, variant, color', () => {
         const Icon = () => <svg/>;
         const wrapper = shallow(<Button color="reverse" icon={<Icon/>} variant="ghost" onClick={() => {}}/>);
         expect(wrapper.html()).toContain('button ghost reverse icon');
+    });
+
+    it('should add extra attribute', () => {
+        const wrapper = shallow(<Button data-custom="test" onClick={() => {}}/>);
+        expect(wrapper.html()).toContain('data-custom="test"');
     });
 });

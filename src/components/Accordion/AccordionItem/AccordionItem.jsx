@@ -5,7 +5,7 @@ import styles from './AccordionItem.scss';
 import {Typography} from '~/components/Typography';
 import {AccordionContext} from '~/components/Accordion/Accordion.context';
 
-export const AccordionItem = ({id, label, icon, onClickToOpen, onClick, onClickToClose, children}) => {
+export const AccordionItem = ({id, label, icon, onClickToOpen, onClick, onClickToClose, children, ...props}) => {
     const context = useContext(AccordionContext);
     const open = context.currentItem === id;
 
@@ -23,7 +23,7 @@ export const AccordionItem = ({id, label, icon, onClickToOpen, onClick, onClickT
     };
 
     return (
-        <section className={classnames(styles.accordionItem, context.reversed ? styles.accordionItem_reversed : null, 'flexCol', open ? 'flexFluid' : null)}>
+        <section {...props} className={classnames(styles.accordionItem, context.reversed ? styles.accordionItem_reversed : null, 'flexCol', open ? 'flexFluid' : null)}>
             <header
                 className={classnames(styles.accordionItem_header, open ? classnames(styles.accordionItem_header_selected) : null, 'flexRow', 'alignCenter')}
                 onClick={handleClick}

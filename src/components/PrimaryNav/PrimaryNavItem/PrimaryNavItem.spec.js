@@ -13,18 +13,18 @@ describe('NavItem', () => {
         expect(wrapper.html()).toContain('Content children');
     });
 
-    it('should add extra props ', () => {
+    it('should add extra props', () => {
         const wrapper = shallow(
-            <PrimaryNavItem onClick={() => {}}>Content children</PrimaryNavItem>,
+            <PrimaryNavItem data-custom="test" onClick={() => {}}>Content children</PrimaryNavItem>,
             {
                 blackList: true
             }
         );
 
-        expect(wrapper.html()).toContain('onClick');
+        expect(wrapper.html()).toContain('data-custom="test"');
     });
 
-    it('should add extra className ', () => {
+    it('should add extra className', () => {
         const wrapper = shallow(
             <PrimaryNavItem className="yoloooo" label="Content children" onClick={() => {}}/>,
             {

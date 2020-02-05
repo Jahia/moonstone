@@ -62,16 +62,17 @@ ItemTypeResolver.propTypes = {
     button: PropTypes.node
 };
 
-export const PrimaryNavItem = ({label, className, isSelected, icon, ...props}) => (
+export const PrimaryNavItem = ({label, icon, className, subtitle, url, button, isSelected, onClick, ...props}) => (
     <li
         className={classnames(
             styles.primaryNavItem,
             {[styles.selected]: isSelected},
             className
         )}
-        onClick={props.onClick}
+        onClick={onClick}
+        {...props}
     >
-        <ItemTypeResolver icon={icon} label={label} subtitle={props.subtitle} url={props.url} button={props.button}/>
+        <ItemTypeResolver icon={icon} label={label} subtitle={subtitle} url={url} button={button}/>
     </li>
 );
 
