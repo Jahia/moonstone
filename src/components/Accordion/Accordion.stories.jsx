@@ -19,30 +19,29 @@ storiesOf('Components|Accordion', module)
     })
     .addDecorator(withKnobs)
     .add('default', () => (
-        <div style={{transform: 'scale(1)', height: '100vh'}}>
-            <Accordion>
-                <AccordionItem
+        <Accordion>
+            <AccordionItem
                     id={accordionIds[0]}
                     icon={<Love/>}
                     label="test 01"
                     onClick={action(`click on AccordionItem with id : ${accordionIds[0]}`)}
-                >
+            >
                     Accordion Content
-                </AccordionItem>
-                <AccordionItem
+            </AccordionItem>
+            <AccordionItem
                     id={accordionIds[1]}
                     icon={<Bug/>}
                     label="test 02"
                     onClick={action(`click on AccordionItem with id : ${accordionIds[1]}`)}
-                >
+            >
                     Accordion Content
-                </AccordionItem>
-                <AccordionItem
+            </AccordionItem>
+            <AccordionItem
                     id={accordionIds[2]}
                     label="test 03 (with long content)"
                     icon={<BarSquare/>}
                     onClick={action(`click on AccordionItem with id : ${accordionIds[2]}`)}
-                >
+            >
                     Topgallant mutiny spike pressgang interloper transom loaded to the gunwalls hogshead smartly Letter of Marque. Arr belaying pin brigantine rigging warp gibbet maroon blow the man down scurvy fathom. Smartly fire in the hole aye warp sheet Pirate Round spanker squiffy line holystone.
                     Grog blossom marooned hempen halter fire in the hole pressgang square-rigged chantey deadlights no prey, no pay brig. Sheet splice the main brace bounty jack brigantine hogshead scurvy Plate Fleet lass warp. Swab crack Jennys tea cup spike Privateer interloper boom Chain Shot Brethren of the Coast execution dock hang the jib.
                     Snow nipper skysail gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a rig measured fer yer chains Brethren of the Coast marooned ye ballast mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or just lubber poop deck draft interloper main sheet ho.
@@ -64,9 +63,8 @@ storiesOf('Components|Accordion', module)
                     Snow nipper skysail gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a rig measured fer yer chains Brethren of the Coast marooned ye ballast mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or just lubber poop deck draft interloper main sheet ho.
                     Snow nipper skysail gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a rig measured fer yer chains Brethren of the Coast marooned ye ballast mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or just lubber poop deck draft interloper main sheet ho.
                     Snow nipper skysail gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a rig measured fer yer chains Brethren of the Coast marooned ye ballast mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or just lubber poop deck draft interloper main sheet ho.
-                </AccordionItem>
-            </Accordion>
-        </div>
+            </AccordionItem>
+        </Accordion>
     ))
     .add('open', () => (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
