@@ -56,7 +56,7 @@ describe('SecondaryNav', () => {
         expect(wrapper.html()).toContain('secondaryNav_hidden');
     });
 
-    it('should not throw error when there is no onToggle defined', () => {
+    it('should not throw error when there is no onToggled defined', () => {
         const wrapper = shallow(
             <SecondaryNav header="my header">hello</SecondaryNav>
         );
@@ -65,7 +65,7 @@ describe('SecondaryNav', () => {
         wrapper.querySelector('.secondaryNav_buttonToggle').dispatchEvent('click');
     });
 
-    it('should call onToggle when clicking on expand button', () => {
+    it('should call onToggled when clicking on expand button', () => {
         const clickHandler = jest.fn();
         const wrapper = shallow(
             <SecondaryNav header="my header" onToggle={clickHandler}>hello</SecondaryNav>

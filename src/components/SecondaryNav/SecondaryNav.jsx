@@ -6,12 +6,16 @@ import {ResizableBox} from '~/components/ResizableBox';
 import ChevronDoubleRight from '~/tokens/icons/asset/ChevronDoubleRight.svg';
 import ChevronDoubleLeft from '~/tokens/icons/asset/ChevronDoubleLeft.svg';
 
-export const SecondaryNav = ({header, children, isDefaultVisible, onToggle, className, ...props}) => {
+<<<<<<< HEAD
+export const SecondaryNav = ({header, children, isDefaultVisible, onToggled, className, ...props}) => {
+=======
+export const SecondaryNav = ({header, children, isDefaultVisible, onToggled}) => {
+>>>>>>> MOON-41: Rename toggle function onToggle
     const [isVisible, setIsVisible] = useState(isDefaultVisible);
 
     const handleToggle = e => {
         setIsVisible(prevState => !prevState);
-        onToggle(e);
+        onToggled(e);
     };
 
     return (
@@ -58,7 +62,7 @@ export const SecondaryNav = ({header, children, isDefaultVisible, onToggle, clas
 
 SecondaryNav.defaultProps = {
     isDefaultVisible: true,
-    onToggle: () => {}
+    onToggled: () => {}
 };
 
 SecondaryNav.propTypes = {
@@ -85,5 +89,5 @@ SecondaryNav.propTypes = {
     /**
      * Triggered when the visibility is toggled
      */
-    onToggle: PropTypes.func
+    onToggled: PropTypes.func
 };
