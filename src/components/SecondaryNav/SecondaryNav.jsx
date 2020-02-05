@@ -4,22 +4,21 @@ import classnames from 'clsx';
 import styles from './SecondaryNav.scss';
 import {ResizableBox} from '~/components/ResizableBox';
 
-export const SecondaryNav = ({header, children}) => {
+export const SecondaryNav = ({header, className, children}) => {
     return (
         <ResizableBox
-            className={classnames(styles.secondaryNav)}
+            className={classnames(className, 'flexFluid', 'flexCol_nowrap', styles.secondaryNav)}
             enable={['right']}
             minWidth="120"
             maxWidth="450"
             defaultSize={{
-                width: 245,
-                height: '100%'
+                width: 245
             }}
         >
             <header className={classnames(styles.secondaryNav_header, 'flexRow_center', 'alignCenter')}>
                 {header}
             </header>
-            <div>
+            <div className={classnames('flexFluid', 'flexCol_nowrap')}>
                 {children}
             </div>
         </ResizableBox>
@@ -35,5 +34,10 @@ SecondaryNav.propTypes = {
     /**
      * Content of the component
      */
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
+
+    /**
+     * Additional classname
+     */
+    className: PropTypes.string
 };

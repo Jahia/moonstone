@@ -5,11 +5,13 @@
 %flex-column {
     display: flex;
     flex-flow: column wrap;
+    min-height: 0;
 }
 
 %flex-row {
     display: flex;
     flex-flow: row wrap;
+    min-height: 0;
 }
 
 // ---
@@ -20,7 +22,8 @@
 }
 
 :global(.flexRow_nowrap) {
-    display: flex;
+    @extend %flex-row;
+
     flex-flow: row nowrap;
 }
 
@@ -50,8 +53,9 @@
 }
 
 :global(.flexCol_nowrap) {
-    display: flex;
-    flex-direction: column;
+    @extend %flex-column;
+
+    flex-flow: column nowrap;
 }
 
 :global(.flexCol_reverse) {
