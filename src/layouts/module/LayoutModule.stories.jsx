@@ -9,12 +9,12 @@ import markdownNotes from './LayoutModule.md';
 const FakeNavigation = () => {
     return (
         <div style={{
-            width: '100%',
+            width: '245px',
             height: '100%',
             border: '5px solid gray',
             display: 'flex',
-            'align-items': 'center',
-            'justify-content': 'center'
+            alignItems: 'center',
+            justifyContent: 'center'
         }}
         >Nav
         </div>
@@ -28,8 +28,8 @@ const FakeContent = () => {
             height: '100%',
             border: '5px solid lightgray',
             display: 'flex',
-            'align-items': 'center',
-            'justify-content': 'center'
+            alignItems: 'center',
+            justifyContent: 'center'
         }}
         >Content
         </div>

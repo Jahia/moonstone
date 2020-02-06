@@ -9,7 +9,7 @@ import DragHundle from '~/tokens/icons/asset/DragHundle.svg';
 // const zones = ['top', 'right', 'bottom', 'left', 'topRight', 'bottomRight', 'bottomLeft', 'topLeft'];
 const zones = ['right'];
 
-export const ResizableBox = ({enable, minWidth, maxWidth, defaultSize, className, children, ...props}) => {
+export const ResizableBox = ({enable, minWidth, maxWidth, defaultSize, className, size, children, onResizeStart, onResizing, onResizeStop, ...props}) => {
     const enableZones = {};
 
     zones.forEach(function (zone) {
@@ -21,6 +21,7 @@ export const ResizableBox = ({enable, minWidth, maxWidth, defaultSize, className
             enable={enableZones}
             minWidth={minWidth}
             maxWidth={maxWidth}
+            size={size}
             defaultSize={defaultSize}
             handleClasses={
                 {
@@ -35,6 +36,9 @@ export const ResizableBox = ({enable, minWidth, maxWidth, defaultSize, className
                 }
             }
             className={classnames(className)}
+            onResize={onResizing}
+            onResizeStart={onResizeStart}
+            onResizeStop={onResizeStop}
             {...props}
         >
             {children}
@@ -46,6 +50,7 @@ ResizableBox.defaultProps = {
     enable: ['right'],
     minWidth: 50,
     maxWidth: 200,
+    size: {},
     defaultSize: {
         width: '100%',
         height: 'auto'
@@ -66,17 +71,17 @@ ResizableBox.propTypes = {
     enable: PropTypes.arrayOf(PropTypes.oneOf(zones)),
 
     /**
-     * Set the minimum width of a resizable component
+     * Set the minimum width
      */
     minWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
-     * Set the maximum width of a resizable component
+     * Set the maximum width
      */
     maxWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
-     * Set the default size of a resizable component
+     * Set the default size
      */
     defaultSize: PropTypes.shape({
         width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -84,7 +89,38 @@ ResizableBox.propTypes = {
     }),
 
     /**
+     * Manage the size
+     */
+    size: PropTypes.shape({
+        width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        height: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    }),
+
+    /**
      * Additional classname
      */
-    className: PropTypes.string
+    className: PropTypes.string,
+
+    /**
+     * Function triggered when the resize begins
+     * @param {object} e - Mouse event
+     * @param {string} dir - Direction resized
+     * @param {node} ref - HTML element resized
+     */
+    onResizeStart: PropTypes.func,
+
+    /**
+     * Function on resizing
+     * @param {object} e - event
+     */
+    onResizing: PropTypes.func,
+
+    /**
+     * Function triggered when the resize is finished
+     * @param {object} e - Mouse event
+     * @param {string} dir - Direction resized
+     * @param {node} ref - HTML element resized
+     * @param {object} delta - delta between after resize
+     */
+    onResizeStop: PropTypes.func
 };
