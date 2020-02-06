@@ -68,7 +68,7 @@ describe('SecondaryNav', () => {
     it('should call onToggled when clicking on expand button', () => {
         const clickHandler = jest.fn();
         const wrapper = shallow(
-            <SecondaryNav header="my header" onToggle={clickHandler}>hello</SecondaryNav>
+            <SecondaryNav header="my header" onToggled={clickHandler}>hello</SecondaryNav>
         );
 
         wrapper.querySelector('.secondaryNav_buttonToggle').dispatchEvent('click');

@@ -6,11 +6,7 @@ import {ResizableBox} from '~/components/ResizableBox';
 import ChevronDoubleRight from '~/tokens/icons/asset/ChevronDoubleRight.svg';
 import ChevronDoubleLeft from '~/tokens/icons/asset/ChevronDoubleLeft.svg';
 
-<<<<<<< HEAD
 export const SecondaryNav = ({header, children, isDefaultVisible, onToggled, className, ...props}) => {
-=======
-export const SecondaryNav = ({header, children, isDefaultVisible, onToggled}) => {
->>>>>>> MOON-41: Rename toggle function onToggle
     const [isVisible, setIsVisible] = useState(isDefaultVisible);
 
     const handleToggle = e => {

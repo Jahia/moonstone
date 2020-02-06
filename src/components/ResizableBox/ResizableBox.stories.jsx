@@ -1,11 +1,10 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
-import {withKnobs, select, text} from '@storybook/addon-knobs';
+import {withKnobs, number} from '@storybook/addon-knobs';
+import {action} from '@storybook/addon-actions';
 import markdownNotes from './ResizableBox.md';
 
 import {ResizableBox} from './index';
-
-const selectZones = ['top', 'right', 'bottom', 'left', 'topRight', 'bottomRight', 'bottomLeft', 'topLeft'];
 
 storiesOf('Components|ResizableBox', module)
     .addParameters({
@@ -16,9 +15,9 @@ storiesOf('Components|ResizableBox', module)
     .addDecorator(withKnobs)
     .add('default', () => (
         <ResizableBox
-            enable={select('Enable', selectZones, 'right')}
-            minWidth={text('Minimum width', 100)}
-            maxWidth={text('Maximum width', 600)}
+            enable={['right']}
+            minWidth={number('Minimum width', 100)}
+            maxWidth={number('Maximum width', 600)}
             defaultSize={{
                 width: '100%',
                 height: 'auto'
@@ -28,5 +27,22 @@ storiesOf('Components|ResizableBox', module)
                 content resizable
             </div>
         </ResizableBox>
-
+    ))
+    .add('actions', () => (
+        <ResizableBox
+            enable={['right']}
+            minWidth={number('Minimum width', 100)}
+            maxWidth={number('Maximum width', 600)}
+            defaultSize={{
+                width: '100%',
+                height: 'auto'
+            }}
+            onResizeStart={action('onResizeStart')}
+            onResizing={action('onResizing')}
+            onResizeStop={action('onResizeStop')}
+        >
+            <div style={{height: '400px', background: 'yellow'}}>
+                content resizable
+            </div>
+        </ResizableBox>
     ));
