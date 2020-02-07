@@ -7,7 +7,9 @@ import {AccordionContext} from '~/components/Accordion/Accordion.context';
 
 export const AccordionItem = ({id, label, icon, onClickToOpen, onClick, onClickToClose, children, ...props}) => {
     const context = useContext(AccordionContext);
-    const open = context.currentItem === id;
+    console.log('context:');
+    console.log(context.currentItemId);
+    const open = context.currentItemId ? context.currentItemId.includes(id) : false;
 
     const handleClick = e => {
         if (!open) {
@@ -15,7 +17,9 @@ export const AccordionItem = ({id, label, icon, onClickToOpen, onClick, onClickT
         }
 
         onClick(e);
-        context.defineCurrentItem(id);
+        console.log('id');
+        console.log(id);
+        context.setOpenedItemId(id);
 
         if (open) {
             onClickToClose(e);
@@ -23,29 +27,52 @@ export const AccordionItem = ({id, label, icon, onClickToOpen, onClick, onClickT
     };
 
     return (
-        <section {...props} className={classnames(styles.accordionItem, context.reversed ? styles.accordionItem_reversed : null, 'flexCol', open ? 'flexFluid' : null)}>
+        <section
+            {...props}
+            className={classnames(
+                styles.accordionItem,
+                context.isReversed ? styles.accordionItem_reversed : null,
+                'flexCol',
+                open ? 'flexFluid' : null
+            )}
+        >
             <header
-                className={classnames(styles.accordionItem_header, open ? classnames(styles.accordionItem_header_selected) : null, 'flexRow', 'alignCenter')}
-                onClick={handleClick}
+                className={classnames(
+                    styles.accordionItem_header,
+                    open ? classnames(styles.accordionItem_header_selected) : null,
+                    'flexRow',
+                    'alignCenter'
+                )}
+                onClick={e => handleClick(e)}
             >
                 {icon &&
-                    <div className={classnames(styles.accordionItem_iconContainer, 'flexRow_center', 'alignCenter')}>
+                    <div className={classnames(
+                        styles.accordionItem_iconContainer,
+                        'flexRow_center',
+                        'alignCenter'
+                    )}
+                    >
                         {icon}
                     </div>}
                 <Typography
                     isNowrap
-                    variant={open ? 'strong' : 'regular'}
+                    variant="regular"
                     className={classnames('flexFluid')}
                 >
                     {label}
                 </Typography>
             </header>
+
             {/* Accordion content */}
-            {open && (
-                <div className={classnames(styles.accordionItem_content, 'flexFluid')}>
+            {open &&
+                <div className={classnames(
+                        styles.accordionItem_content,
+                        'flexFluid',
+                        open ? null : styles['accordionItem_content-closed']
+                    )}
+                >
                     {children}
-                </div>
-            )}
+                </div>}
         </section>
     );
 };
@@ -61,7 +88,7 @@ AccordionItem.propTypes = {
     /**
      * Id to define AccordionItem
      */
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    id: PropTypes.string.isRequired,
 
     /**
      * Label

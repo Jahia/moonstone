@@ -46,9 +46,9 @@ describe('AccordionItem', () => {
                     contexts: [{
                         id: AccordionContext,
                         value: {
-                            defineCurrentItem: jest.fn(),
-                            currentItem: 'not correspond',
-                            reversed: true
+                            setOpenedItemId: jest.fn(),
+                            currentItemId: 'not correspond',
+                            isReversed: true
                         }
                     }]
                 }
@@ -73,7 +73,7 @@ describe('AccordionItem', () => {
                     contexts: [{
                         id: AccordionContext,
                         value: {
-                            defineCurrentItem: jest.fn(),
+                            setOpenedItemId: jest.fn(),
                             currentItem: 'not correspond'
                         }
                     }]
@@ -98,8 +98,8 @@ describe('AccordionItem', () => {
                     contexts: [{
                         id: AccordionContext,
                         value: {
-                            defineCurrentItem: jest.fn(),
-                            currentItem: '007'
+                            setOpenedItemId: jest.fn(),
+                            currentItemId: '007'
                         }
                     }]
                 }
@@ -123,8 +123,8 @@ describe('AccordionItem', () => {
                     contexts: [{
                         id: AccordionContext,
                         value: {
-                            defineCurrentItem: jest.fn(),
-                            currentItem: 'not correspond'
+                            setOpenedItemId: jest.fn(),
+                            currentItemId: 'not correspond'
                         }
                     }]
                 }
@@ -149,8 +149,8 @@ describe('AccordionItem', () => {
                     contexts: [{
                         id: AccordionContext,
                         value: {
-                            defineCurrentItem: jest.fn(),
-                            currentItem: 'not correspond'
+                            setOpenedItemId: jest.fn(),
+                            currentItemId: 'not correspond'
                         }
                     }]
                 }
@@ -176,8 +176,8 @@ describe('AccordionItem', () => {
                     contexts: [{
                         id: AccordionContext,
                         value: {
-                            defineCurrentItem: jest.fn(),
-                            currentItem: '007'
+                            setOpenedItemId: jest.fn(),
+                            currentItemId: '007'
                         }
                     }]
                 }
@@ -202,8 +202,8 @@ describe('AccordionItem', () => {
                     contexts: [{
                         id: AccordionContext,
                         value: {
-                            defineCurrentItem: jest.fn(),
-                            currentItem: '007'
+                            setOpenedItemId: jest.fn(),
+                            currentItemId: '007'
                         }
                     }]
                 }

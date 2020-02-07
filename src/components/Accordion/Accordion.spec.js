@@ -54,12 +54,13 @@ describe('Accordion', () => {
         // eslint-disable-next-line react/prop-types
         const AccordionItemMock = ({id}) => {
             const context = useContext(AccordionContext);
-            const open = context.currentItem === id;
-            return <button type="button" id={id} onClick={() => context.defineCurrentItem(id)}>{id} - {open ? 'open' : 'close'}</button>;
+            const open = context.currentItemId ? context.currentItemId.includes(id) : false;
+
+            return <button type="button" id={id} onClick={() => context.setOpenedItemId(id)}>{id} - {open ? 'open' : 'close'}</button>;
         };
 
         beforeAll(() => {
-            // As we are mocking, we won't be good enough for propTypes, so ignore them
+            // As we are mocking, []es, so ignore them
             console.oldError = console.error;
             console.error = jest.fn();
         });
@@ -69,7 +70,7 @@ describe('Accordion', () => {
             delete console.oldError;
         });
 
-        it('should select another item when calling defineCurrentItem', () => {
+        it('should select another item when calling setOpenedItemId', () => {
             const wrapper = shallow(
                 <Accordion>
                     <AccordionItemMock id="1"/>
@@ -87,7 +88,7 @@ describe('Accordion', () => {
             expect(wrapper.html()).toContain('2 - close');
         });
 
-        it('should unselect item when calling defineCurrentItem another time', () => {
+        it('should unselect item when calling setOpenedItemId another time', () => {
             const wrapper = shallow(
                 <Accordion>
                     <AccordionItemMock id="1"/>
@@ -106,9 +107,30 @@ describe('Accordion', () => {
             expect(wrapper.html()).toContain('2 - close');
         });
 
+        it('should open multiple items', () => {
+            const wrapper = shallow(
+                <Accordion
+                    isMultipleOpenable
+                >
+                    <AccordionItemMock id="1"/>
+                    <AccordionItemMock id="2"/>
+                </Accordion>
+                , {
+                    mocks: {
+                        AccordionItemMock
+                    }
+                });
+
+            wrapper.querySelector('#1 button').dispatchEvent('click');
+            wrapper.querySelector('#2 button').dispatchEvent('click');
+
+            expect(wrapper.html()).toContain('1 - open');
+            expect(wrapper.html()).toContain('2 - open');
+        });
+
         it('should open item by default when give the props', () => {
             const wrapper = shallow(
-                <Accordion openByDefault="2">
+                <Accordion defaultOpenedItemId={['2']}>
                     <AccordionItemMock id="1"/>
                     <AccordionItemMock id="2"/>
                 </Accordion>

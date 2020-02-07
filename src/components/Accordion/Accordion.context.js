@@ -1,7 +1,7 @@
 import {createContext} from 'react';
 
 const intialState = {
-    currentItem: null,
+    currentItemId: null,
     isReversed: false
 };
 export const AccordionContext = createContext(intialState);

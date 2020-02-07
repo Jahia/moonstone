@@ -1,21 +1,55 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import {AccordionContext} from './Accordion.context';
 import {AccordionItem} from './AccordionItem';
 import styles from './Accordion.scss';
 
-export const Accordion = ({children, openByDefault, isReversed, className, ...props}) => {
-    const [currentItem, setCurrentItem] = useState(openByDefault ? openByDefault : null);
-    const [reversed] = useState(isReversed);
+export const Accordion = ({children, defaultOpenedItemId, openedItemId, isReversed, className, isMultipleOpenable, ...props}) => {
+    const [stateOpenedItemId, setStateOpenedItemId] = useState([]);
 
-    function defineCurrentItem(id) {
-        setCurrentItem(prevState => (prevState === id ? null : id));
-    }
+    const setOpenedItemId = id => {
+        console.log('call setOpenedItemId');
+        setStateOpenedItemId(prevState => {
+            console.log(prevState);
+            console.log('---');
+            if (prevState === null) {
+                return [id];
+            }
+
+            if (isMultipleOpenable) {
+                return prevState.includes(id) ? prevState.filter(i => id !== i) : [...prevState, id];
+            }
+
+            return prevState.includes(id) || id === null ? [] : [id];
+        });
+    };
+
+    useEffect(() => {
+        console.log('call useEffect');
+        console.log(defaultOpenedItemId);
+        console.log(openedItemId);
+        setStateOpenedItemId(defaultOpenedItemId && !openedItemId ? defaultOpenedItemId : openedItemId);
+    }, [defaultOpenedItemId, openedItemId]);
+
+    const provider = {
+        currentItemId: stateOpenedItemId,
+        setOpenedItemId,
+        isReversed: isReversed
+    };
 
     return (
-        <AccordionContext.Provider value={{currentItem, defineCurrentItem, reversed}}>
-            <div {...props} className={classnames(className, 'flexFluid', styles.accordion, isReversed ? styles.accordion_reversed : null)}>
+        <AccordionContext.Provider value={provider}>
+            <div className={
+                    classnames(
+                        className,
+                        'flexFluid',
+                        styles.accordion,
+                        isReversed ? styles.accordion_reversed : null
+                    )
+                }
+                 {...props}
+            >
                 {children}
             </div>
         </AccordionContext.Provider>
@@ -23,7 +57,9 @@ export const Accordion = ({children, openByDefault, isReversed, className, ...pr
 };
 
 Accordion.defaultProps = {
-    isReversed: false
+    isReversed: false,
+    isMultipleOpenable: false,
+    openedItemId: null
 };
 
 Accordion.propTypes = {
@@ -47,9 +83,16 @@ Accordion.propTypes = {
     ]).isRequired,
 
     /**
-     * AccordionItem's id to set an item open by default
+     * AccordionItem's id opened by default
      */
-    openByDefault: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    defaultOpenedItemId: PropTypes.array,
+
+    /**
+     * AccordionItem's id open
+     */
+    openedItemId: PropTypes.array,
+
+    isMultipleOpenable: PropTypes.bool,
 
     /**
      * Additional classname
