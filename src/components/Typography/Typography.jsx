@@ -94,3 +94,5 @@ Typography.propTypes = {
      */
     isNowrap: PropTypes.bool
 };
+
+Typography.displayName = 'Typography';

@@ -93,3 +93,5 @@ AccordionItem.propTypes = {
      */
     children: PropTypes.node.isRequired
 };
+
+AccordionItem.displayName = 'AccordionItem';

@@ -33,3 +33,5 @@ LayoutApp.propTypes = {
      */
     content: PropTypes.node
 };
+
+LayoutApp.displayName = 'LayoutApp';

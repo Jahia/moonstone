@@ -56,3 +56,5 @@ Accordion.propTypes = {
      */
     className: PropTypes.string
 };
+
+Accordion.displayName = 'Accordion';

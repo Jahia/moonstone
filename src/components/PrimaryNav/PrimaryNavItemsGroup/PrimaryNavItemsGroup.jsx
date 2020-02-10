@@ -41,3 +41,5 @@ PrimaryNavItemsGroup.propTypes = {
      */
     children: PropTypes.node.isRequired
 };
+
+PrimaryNavItemsGroup.displayName = 'PrimaryNavItemsGroup';
