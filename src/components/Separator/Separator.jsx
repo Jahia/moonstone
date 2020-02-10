@@ -33,3 +33,5 @@ Separator.propTypes = {
      */
     size: PropTypes.oneOf(sizes)
 };
+
+Separator.displayName = 'Separator';

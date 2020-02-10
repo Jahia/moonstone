@@ -133,3 +133,5 @@ PrimaryNavItem.propTypes = {
      */
     onClick: PropTypes.func
 };
+
+PrimaryNavItem.displayName = 'PrimaryNavItem';

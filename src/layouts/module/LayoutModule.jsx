@@ -31,3 +31,5 @@ LayoutModule.propTypes = {
      */
     content: PropTypes.node
 };
+
+LayoutModule.displayName = 'LayoutModule';

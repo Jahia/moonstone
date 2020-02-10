@@ -124,3 +124,5 @@ ResizableBox.propTypes = {
      */
     onResizeStop: PropTypes.func
 };
+
+ResizableBox.displayName = 'ResizableBox';

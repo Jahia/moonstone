@@ -87,3 +87,5 @@ SecondaryNav.propTypes = {
      */
     onToggled: PropTypes.func
 };
+
+SecondaryNav.displayName = 'SecondaryNav';

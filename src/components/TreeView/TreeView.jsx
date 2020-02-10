@@ -74,3 +74,5 @@ TreeView.defaultProps = {
     selectedItems: [],
     isReversed: false
 };
+
+TreeView.displayName = 'TreeView';

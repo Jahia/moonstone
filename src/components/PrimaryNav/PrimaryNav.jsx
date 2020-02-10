@@ -137,3 +137,5 @@ PrimaryNav.propTypes = {
      */
     bottom: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)])
 };
+
+PrimaryNav.displayName = 'PrimaryNav';

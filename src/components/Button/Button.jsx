@@ -65,3 +65,5 @@ Button.propTypes = {
      */
     onClick: PropTypes.func.isRequired
 };
+
+Button.displayName = 'Button';
