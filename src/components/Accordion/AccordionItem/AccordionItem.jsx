@@ -7,9 +7,13 @@ import {AccordionContext} from '~/components/Accordion/Accordion.context';
 
 export const AccordionItem = ({id, label, icon, onClickToOpen, onClick, onClickToClose, children, ...props}) => {
     const context = useContext(AccordionContext);
-    console.log('context:');
-    console.log(context.currentItemId);
-    const open = context.currentItemId ? context.currentItemId.includes(id) : false;
+    let open;
+
+    if (context.isMultipleOpenable) {
+        open = context.currentItemId ? context.currentItemId.includes(id) : false;
+    } else {
+        open = context.currentItemId === id;
+    }
 
     const handleClick = e => {
         if (!open) {
@@ -17,8 +21,6 @@ export const AccordionItem = ({id, label, icon, onClickToOpen, onClick, onClickT
         }
 
         onClick(e);
-        console.log('id');
-        console.log(id);
         context.setOpenedItemId(id);
 
         if (open) {
@@ -43,6 +45,8 @@ export const AccordionItem = ({id, label, icon, onClickToOpen, onClick, onClickT
                     'flexRow',
                     'alignCenter'
                 )}
+                aria-controls={id}
+                aria-expanded={open}
                 onClick={e => handleClick(e)}
             >
                 {icon &&
@@ -56,7 +60,7 @@ export const AccordionItem = ({id, label, icon, onClickToOpen, onClick, onClickT
                     </div>}
                 <Typography
                     isNowrap
-                    variant="regular"
+                    variant={open ? 'strong' : 'regular'}
                     className={classnames('flexFluid')}
                 >
                     {label}
@@ -67,9 +71,9 @@ export const AccordionItem = ({id, label, icon, onClickToOpen, onClick, onClickT
             {open &&
                 <div className={classnames(
                         styles.accordionItem_content,
-                        'flexFluid',
-                        open ? null : styles['accordionItem_content-closed']
+                        'flexFluid'
                     )}
+                     role="region"
                 >
                     {children}
                 </div>}

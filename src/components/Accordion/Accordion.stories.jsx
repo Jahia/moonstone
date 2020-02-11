@@ -109,10 +109,10 @@ storiesOf('Components|Accordion', module)
             </AccordionItem>
         </Accordion>
     ))
-    .add('open', () => (
+    .add('multiple and open', () => (
         <Accordion
             isMultipleOpenable
-            defaultOpenedItemId={['01', '02']}
+            defaultOpenedItemId={[accordionIds[1]]}
         >
             <AccordionItem
                 id={accordionIds[0]}
@@ -140,42 +140,7 @@ storiesOf('Components|Accordion', module)
             </AccordionItem>
         </Accordion>
     ))
-    .add('Mulitple', () => {
-        return (
-            <>
-                <Accordion
-                    isMultipleOpenable
-                    defaultOpenedItemId={[accordionIds[1]]}
-                >
-                    <AccordionItem
-                        id={accordionIds[0]}
-                        icon={<Love/>}
-                        label="test 01"
-                        onClick={action(`click on AccordionItem with id : ${accordionIds[0]}`)}
-                    >
-                        Accordion Content
-                    </AccordionItem>
-                    <AccordionItem
-                        id={accordionIds[1]}
-                        icon={<Bug/>}
-                        label="test 02 is opened by default"
-                        onClick={action(`click on AccordionItem with id : ${accordionIds[1]}`)}
-                    >
-                        Accordion Content
-                    </AccordionItem>
-                    <AccordionItem
-                        id={accordionIds[2]}
-                        label="test 03 (with long content)"
-                        icon={<BarSquare/>}
-                        onClick={action(`click on AccordionItem with id : ${accordionIds[2]}`)}
-                    >
-                        Accordion Content
-                    </AccordionItem>
-                </Accordion>
-            </>
-        );
-    })
-    .add('Programmatic', () => {
+    .add('programmatic', () => {
         const [openedItems, setOpenedItems] = useState(null);
 
         const openAccordion = id => {
@@ -185,13 +150,13 @@ storiesOf('Components|Accordion', module)
         return (
             <>
                 <span>
-                    <button type="button" onClick={() => openAccordion(['01'])}>Open First</button>
-                    <button type="button" onClick={() => openAccordion(['02'])}>Open Second</button>
-                    <button type="button" onClick={() => openAccordion(['03'])}>Open Third</button>
+                    <button type="button" onClick={() => openAccordion('01')}>Open First</button>
+                    <button type="button" onClick={() => openAccordion('02')}>Open Second</button>
+                    <button type="button" onClick={() => openAccordion('03')}>Open Third</button>
                     <button type="button" onClick={() => openAccordion([])}>Close</button>
                 </span>
                 <Accordion
-                    defaultOpenedItemId={[accordionIds[1]]}
+                    defaultOpenedItemId={accordionIds[1]}
                     openedItemId={openedItems}
                 >
                     <AccordionItem

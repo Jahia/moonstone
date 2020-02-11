@@ -6,36 +6,33 @@ import {AccordionItem} from './AccordionItem';
 import styles from './Accordion.scss';
 
 export const Accordion = ({children, defaultOpenedItemId, openedItemId, isReversed, className, isMultipleOpenable, ...props}) => {
-    const [stateOpenedItemId, setStateOpenedItemId] = useState([]);
+    const [stateOpenedItemId, setStateOpenedItemId] = useState(defaultOpenedItemId);
 
     const setOpenedItemId = id => {
-        console.log('call setOpenedItemId');
         setStateOpenedItemId(prevState => {
-            console.log(prevState);
-            console.log('---');
-            if (prevState === null) {
-                return [id];
+            if (typeof prevState === 'undefined') {
+                return isMultipleOpenable ? [id] : id;
             }
 
             if (isMultipleOpenable) {
                 return prevState.includes(id) ? prevState.filter(i => id !== i) : [...prevState, id];
             }
 
-            return prevState.includes(id) || id === null ? [] : [id];
+            return prevState === id ? null : id;
         });
     };
 
     useEffect(() => {
-        console.log('call useEffect');
-        console.log(defaultOpenedItemId);
-        console.log(openedItemId);
+        // Update the state when the prop openedItemId has changed
+        // Because of the first render with have to check if defaultOpenedItemId is set
         setStateOpenedItemId(defaultOpenedItemId && !openedItemId ? defaultOpenedItemId : openedItemId);
     }, [defaultOpenedItemId, openedItemId]);
 
     const provider = {
         currentItemId: stateOpenedItemId,
         setOpenedItemId,
-        isReversed: isReversed
+        isReversed: isReversed,
+        isMultipleOpenable: isMultipleOpenable
     };
 
     return (
@@ -56,10 +53,22 @@ export const Accordion = ({children, defaultOpenedItemId, openedItemId, isRevers
     );
 };
 
+let idPropType;
+if (process.env.NODE_ENV !== 'production') {
+    idPropType = (props, propName, componentName) => {
+        if (props.isMultipleOpenable && !Array.isArray(props[propName])) {
+            return new Error(`Invalid prop ${propName} supplied to ${componentName}. ${propName} should be an array or null`);
+        }
+
+        if (!props.isMultipleOpenable && (props[propName] === null || typeof props[propName] === 'string')) {
+            return new Error(`Invalid prop ${propName} supplied to ${componentName}. ${propName} should be a string or null.`);
+        }
+    };
+}
+
 Accordion.defaultProps = {
     isReversed: false,
-    isMultipleOpenable: false,
-    openedItemId: null
+    isMultipleOpenable: false
 };
 
 Accordion.propTypes = {
@@ -83,15 +92,18 @@ Accordion.propTypes = {
     ]).isRequired,
 
     /**
-     * AccordionItem's id opened by default
+     * AccordionItem's id opened by default (isMultipleOpenable ? Array : String)
      */
-    defaultOpenedItemId: PropTypes.array,
+    defaultOpenedItemId: idPropType,
 
     /**
-     * AccordionItem's id open
+     * AccordionItem's id open (isMultipleOpenable ? Array : String)
      */
-    openedItemId: PropTypes.array,
+    openedItemId: idPropType,
 
+    /**
+     * Allow multiple accordionItem opened has the same time
+     */
     isMultipleOpenable: PropTypes.bool,
 
     /**
