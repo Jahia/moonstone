@@ -1,74 +1,19 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'clsx';
-import {AccordionContext} from './Accordion.context';
+import {UncontrolledAccordion} from './UncontrolledAccordion';
+import {ControlledAccordion} from './ControlledAccordion';
 import {AccordionItem} from './AccordionItem';
-import styles from './Accordion.scss';
 
-export const Accordion = ({children, defaultOpenedItemId, openedItemId, isReversed, className, isMultipleOpenable, ...props}) => {
-    const [stateOpenedItemId, setStateOpenedItemId] = useState(defaultOpenedItemId);
+export const Accordion = ({children, defaultOpenedItem, openedItem, setOpenedItem, ...props}) => {
+    if (typeof openedItem === 'undefined') {
+        return <UncontrolledAccordion defaultOpenedItem={defaultOpenedItem} {...props}>{children}</UncontrolledAccordion>;
+    }
 
-    const setOpenedItemId = id => {
-        setStateOpenedItemId(prevState => {
-            if (typeof prevState === 'undefined') {
-                return isMultipleOpenable ? [id] : id;
-            }
-
-            if (isMultipleOpenable) {
-                return prevState.includes(id) ? prevState.filter(i => id !== i) : [...prevState, id];
-            }
-
-            return prevState === id ? null : id;
-        });
-    };
-
-    useEffect(() => {
-        // Update the state when the prop openedItemId has changed
-        // Because of the first render with have to check if defaultOpenedItemId is set
-        setStateOpenedItemId(defaultOpenedItemId && !openedItemId ? defaultOpenedItemId : openedItemId);
-    }, [defaultOpenedItemId, openedItemId]);
-
-    const provider = {
-        currentItemId: stateOpenedItemId,
-        setOpenedItemId,
-        isReversed: isReversed,
-        isMultipleOpenable: isMultipleOpenable
-    };
-
-    return (
-        <AccordionContext.Provider value={provider}>
-            <div className={
-                    classnames(
-                        className,
-                        'flexFluid',
-                        styles.accordion,
-                        isReversed ? styles.accordion_reversed : null
-                    )
-                }
-                 {...props}
-            >
-                {children}
-            </div>
-        </AccordionContext.Provider>
-    );
+    return <ControlledAccordion openedItem={openedItem} setOpenedItem={setOpenedItem} {...props}>{children}</ControlledAccordion>;
 };
 
-let idPropType;
-if (process.env.NODE_ENV !== 'production') {
-    idPropType = (props, propName, componentName) => {
-        if (props.isMultipleOpenable && !Array.isArray(props[propName])) {
-            return new Error(`Invalid prop ${propName} supplied to ${componentName}. ${propName} should be an array or null`);
-        }
-
-        if (!props.isMultipleOpenable && (props[propName] === null || typeof props[propName] === 'string')) {
-            return new Error(`Invalid prop ${propName} supplied to ${componentName}. ${propName} should be a string or null.`);
-        }
-    };
-}
-
 Accordion.defaultProps = {
-    isReversed: false,
-    isMultipleOpenable: false
+    isReversed: false
 };
 
 Accordion.propTypes = {
@@ -94,22 +39,18 @@ Accordion.propTypes = {
     /**
      * AccordionItem's id opened by default (isMultipleOpenable ? Array : String)
      */
-    defaultOpenedItemId: idPropType,
+    defaultOpenedItem: PropTypes.string,
 
     /**
      * AccordionItem's id open (isMultipleOpenable ? Array : String)
      */
-    openedItemId: idPropType,
-
-    /**
-     * Allow multiple accordionItem opened has the same time
-     */
-    isMultipleOpenable: PropTypes.bool,
+    openedItem: PropTypes.string,
 
     /**
      * Additional classname
      */
-    className: PropTypes.string
+    className: PropTypes.string,
+    setOpenedItem: PropTypes.func
 };
 
 Accordion.displayName = 'Accordion';

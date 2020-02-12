@@ -21,7 +21,7 @@ export const AccordionItem = ({id, label, icon, onClickToOpen, onClick, onClickT
         }
 
         onClick(e);
-        context.setOpenedItemId(id);
+        context.setOpenedItem(id);
 
         if (open) {
             onClickToClose(e);

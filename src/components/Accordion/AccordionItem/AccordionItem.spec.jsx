@@ -123,7 +123,7 @@ describe('AccordionItem', () => {
                     contexts: [{
                         id: AccordionContext,
                         value: {
-                            setOpenedItemId: jest.fn(),
+                            setOpenedItem: jest.fn(),
                             currentItemId: 'not correspond'
                         }
                     }]
@@ -149,7 +149,7 @@ describe('AccordionItem', () => {
                     contexts: [{
                         id: AccordionContext,
                         value: {
-                            setOpenedItemId: jest.fn(),
+                            setOpenedItem: jest.fn(),
                             currentItemId: 'not correspond'
                         }
                     }]
@@ -176,7 +176,7 @@ describe('AccordionItem', () => {
                     contexts: [{
                         id: AccordionContext,
                         value: {
-                            setOpenedItemId: jest.fn(),
+                            setOpenedItem: jest.fn(),
                             currentItemId: '007'
                         }
                     }]
@@ -202,7 +202,7 @@ describe('AccordionItem', () => {
                     contexts: [{
                         id: AccordionContext,
                         value: {
-                            setOpenedItemId: jest.fn(),
+                            setOpenedItem: jest.fn(),
                             currentItemId: '007'
                         }
                     }]

@@ -109,10 +109,9 @@ storiesOf('Components|Accordion', module)
             </AccordionItem>
         </Accordion>
     ))
-    .add('multiple and open', () => (
+    .add('opened', () => (
         <Accordion
-            isMultipleOpenable
-            defaultOpenedItemId={[accordionIds[1]]}
+            defaultOpenedItem={accordionIds[1]}
         >
             <AccordionItem
                 id={accordionIds[0]}
@@ -140,24 +139,27 @@ storiesOf('Components|Accordion', module)
             </AccordionItem>
         </Accordion>
     ))
-    .add('programmatic', () => {
-        const [openedItems, setOpenedItems] = useState(null);
 
-        const openAccordion = id => {
-            setOpenedItems(id);
+    .add('controlled', () => {
+        const [stateOpenedItems, setStateOpenedItem] = useState(accordionIds[1]);
+
+        const setOpenedItem = id => {
+            setStateOpenedItem(prevState => {
+                return prevState === id ? null : id;
+            });
         };
 
         return (
             <>
                 <span>
-                    <button type="button" onClick={() => openAccordion('01')}>Open First</button>
-                    <button type="button" onClick={() => openAccordion('02')}>Open Second</button>
-                    <button type="button" onClick={() => openAccordion('03')}>Open Third</button>
-                    <button type="button" onClick={() => openAccordion([])}>Close</button>
+                    <button type="button" onClick={() => setOpenedItem('01')}>Open First</button>
+                    <button type="button" onClick={() => setOpenedItem('02')}>Open Second</button>
+                    <button type="button" onClick={() => setOpenedItem('03')}>Open Third</button>
+                    <button type="button" onClick={() => setOpenedItem(null)}>Close</button>
                 </span>
                 <Accordion
-                    defaultOpenedItemId={accordionIds[1]}
-                    openedItemId={openedItems}
+                    openedItem={stateOpenedItems}
+                    setOpenedItem={setOpenedItem}
                 >
                     <AccordionItem
                         id={accordionIds[0]}
