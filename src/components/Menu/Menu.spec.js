@@ -3,10 +3,11 @@ import {shallow} from 'component-test-utils-react';
 import {Menu} from './index';
 
 describe('Menu', () => {
-    it('should display children content', () => {
+    it('should not display the menu if isDisplayed is false', () => {
         const wrapper = shallow(
-            <Menu isDisplay>Here my content</Menu>
+            <Menu isDisplayed={false}>Here my content</Menu>
         );
-        expect(wrapper.html()).toContain('Here my content');
+
+        expect(wrapper.html()).toEqual('');
     });
 });

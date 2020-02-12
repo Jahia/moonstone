@@ -1,4 +1,4 @@
-import React, {useEffect, useState, Fragment} from 'react';
+import React, {useState, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import styles from './Dropdown.scss';
@@ -12,8 +12,8 @@ export const DropdownSizes = ['small', 'medium'];
 
 export const Dropdown = ({
     data,
-    autoFocus,
-    defaultOption,
+    label,
+    value,
     placeholder,
     isDisabled,
     maxWidth,
@@ -21,45 +21,37 @@ export const Dropdown = ({
     size,
     icon,
     onChange,
-    className
+    className,
+    ...props
 }) => {
     const [isOpened, setIsOpened] = useState(false);
-    const [currentOption, setCurrentOption] = useState(defaultOption ? defaultOption : {label: placeholder, value: null});
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [minWidth, setMinWith] = useState(null);
     const isGrouped = typeof data[0].options !== 'undefined';
-    const position = {
-        top: size === 'small' ? '30px' : '38px',
-        left: '0'
+    const anchorPosition = {
+        top: 'var(--spacing-nano)',
+        left: '0px'
     };
-    const refDropdownLabel = React.createRef();
-
-    useEffect(() => {
-        onChange(currentOption);
-
-        if (autoFocus) {
-            refDropdownLabel.current.focus();
-        }
-    }, [autoFocus, currentOption, onChange, refDropdownLabel]);
 
     // ---
     // Functions to handle events
     // ---
-    const handleOpenMenu = () => {
+    const handleOpenMenu = e => {
+        setMinWith(`${e.currentTarget.offsetWidth}px`);
+        setAnchorEl(e.currentTarget);
         setIsOpened(true);
     };
 
-    const handleSelect = e => {
-        const selectOption = e.target.textContent;
-        const options = isGrouped ? data.map(items => items.options).flat() : data;
-        const newItem = options.filter(option => option.label === selectOption)[0];
-
-        if (!newItem.isDisabled) {
-            setCurrentOption(newItem);
+    const handleSelect = (e, item) => {
+        if (!item.isDisabled) {
+            onChange(e, item);
             setIsOpened(false);
         }
     };
 
     const handleCloseMenu = () => {
         setIsOpened(false);
+        setAnchorEl(null);
     };
 
     // ---
@@ -82,8 +74,8 @@ export const Dropdown = ({
     // ---
     // Generate options
     // ---
-    const dropdownOption = (item, currentOption, handleSelect) => {
-        const isSelected = currentOption.value === item.value;
+    const dropdownOption = (item, handleSelect) => {
+        const isSelected = value === item.value;
 
         return (
             <ListItem
@@ -98,10 +90,10 @@ export const Dropdown = ({
                         item.isDisabled ? styles.dropdownOption_disabled : null
                     )
                 }
-                onClick={handleSelect}
-                onKeyPress={e => {
+                onClick={e => handleSelect(e, item)}
+                onKeyPress={(e, item) => {
                     if (e.key === 'Enter') {
-                        handleSelect(e);
+                        handleSelect(e, item);
                     }
                 }}
             />
@@ -122,21 +114,20 @@ export const Dropdown = ({
                 />
 
                 {children.map(item => {
-                    return dropdownOption(item, currentOption, handleSelect);
+                    return dropdownOption(item, handleSelect);
                 })}
             </Fragment>
         );
     };
 
     return (
-        <div className={classnames(cssDropdown, className)} style={{maxWidth: maxWidth}}>
-            <div ref={refDropdownLabel}
-                 className={classnames(cssDropdownLabel)}
+        <div className={classnames(cssDropdown, className)} style={{maxWidth: maxWidth}} {...props}>
+            <div className={classnames(cssDropdownLabel)}
                  tabIndex="0"
-                 onClick={handleOpenMenu}
-                 onKeyPress={e => {
+                 onClick={e => handleOpenMenu(e)}
+                 onKeyPress={(e, item) => {
                     if (e.key === 'Enter') {
-                        handleSelect(e);
+                        handleSelect(e, item);
                     }
                 }}
             >
@@ -148,48 +139,42 @@ export const Dropdown = ({
                     component="span"
                     className={classnames('flexFluid')}
                 >
-                    {currentOption.label}
+                    {label}
                 </Typography>
                 <ChevronDown size="small"/>
             </div>
 
             <Menu
-                isDisplay={isOpened}
-                position={position}
+                isDisplayed={isOpened}
+                anchorPosition={anchorPosition}
                 maxWidth="250px"
+                minWidth={minWidth}
+                anchorEl={anchorEl}
+                onClose={handleCloseMenu}
             >
                 {
                     data.map((item, index) => {
                         if (isGrouped) {
                             item.options.map(o => {
-                                return dropdownOption(o, currentOption, handleSelect);
+                                return dropdownOption(o, handleSelect);
                             });
                             return dropdownGrouped(item.options, item.groupLabel, index);
                         }
 
-                        return dropdownOption(item, currentOption, handleSelect);
+                        return dropdownOption(item, handleSelect);
                     })
                 }
             </Menu>
-
-            {isOpened && (
-                <div
-                    className={classnames(styles.dropdown_overlay)}
-                    onClick={handleCloseMenu}
-                />
-            )}
         </div>
     );
 };
 
 Dropdown.defaultProps = {
-    defaultOption: null,
     icon: null,
     placeholder: '',
     variant: 'default',
     size: 'medium',
     maxWidth: '300px',
-    autoFocus: false,
     isDisabled: false,
     onChange: () => {}
 };
@@ -219,11 +204,6 @@ Dropdown.propTypes = {
     ).isRequired,
 
     /**
-     * Option selected by default
-     */
-    defaultOption: PropTypes.shape({...PropTypesOptions}),
-
-    /**
      * Icon displays before the dropdown's label
      */
     icon: PropTypes.node,
@@ -249,11 +229,6 @@ Dropdown.propTypes = {
     maxWidth: PropTypes.string,
 
     /**
-     * Element is focus on render
-     */
-    autoFocus: PropTypes.bool,
-
-    /**
      * Dropdown is disabled
      */
     isDisabled: PropTypes.bool,
@@ -266,5 +241,13 @@ Dropdown.propTypes = {
     /**
      * Function trigger on change with the current option as param
      */
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+
+    /**
+     * Function trigger on change with the current option as param
+     */
+    label: PropTypes.string,
+    value: PropTypes.string
 };
+
+Dropdown.displayName = 'Dropdown';

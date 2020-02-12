@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {storiesOf} from '@storybook/react';
 import {withKnobs, boolean, select, text} from '@storybook/addon-knobs';
 import {action} from '@storybook/addon-actions';
@@ -85,46 +85,67 @@ storiesOf('Components|Dropdown', module)
     })
     .addDecorator(withKnobs)
     .add('default', () => {
+        const [currentOption, setCurrentOption] = useState({label: 'Select something', value: null});
+
+        const handleOnChange = (e, item) => {
+            setCurrentOption(item);
+            action('onChange');
+        };
+
         return (
-            <div style={{transform: 'scale(1)', height: '100vh'}}>
+            <div style={{transform: 'scale(1)', height: '100vh', padding: '90px'}}>
                 <Dropdown
                     icon={<Love size="small"/>}
-                    placeholder="Select a value"
+                    label={currentOption.label}
+                    value={currentOption.value}
                     size={select('Size', DropdownSizes, DropdownSizes[0])}
-                    autoFocus={boolean('Auto-focus', false)}
                     isDisabled={boolean('Disabled', false)}
                     maxWidth={text('Max width', '120px')}
                     data={data}
-                    onChange={action('on-change')}
+                    onChange={(e, item) => handleOnChange(e, item)}
                 />
             </div>
         );
     })
     .add('with default value', () => {
+        const [currentOption, setCurrentOption] = useState({label: 'Select something', value: null});
+
+        const handleOnChange = (e, item) => {
+            setCurrentOption(item);
+            action('onChange');
+        };
+
         return (
             <div style={{transform: 'scale(1)', height: '100vh'}}>
                 <Dropdown
-                    autoFocus
                     isDisabled={boolean('Disabled', false)}
+                    label={currentOption.label}
+                    value={currentOption.value}
                     size={select('Size', DropdownSizes, DropdownSizes[0])}
-                    DefaultItem={dataLanguages[1]}
-                    placeholder="Set your language"
                     data={dataLanguages}
-                    onChange={action('on-change')}
+                    onChange={(e, item) => handleOnChange(e, item)}
                 />
             </div>
         );
     })
     .add('Grouped', () => {
+        const [currentOption, setCurrentOption] = useState({label: 'Select something', value: null});
+
+        const handleOnChange = (e, item) => {
+            setCurrentOption(item);
+            action('onChange');
+        };
+
         return (
             <div style={{transform: 'scale(1)', height: '100vh'}}>
                 <Dropdown
                     isDisabled={boolean('Disabled', false)}
-                    size={select('Size', DropdownSizes, DropdownSizes[0])}
+                    label={currentOption.label}
+                    value={currentOption.value}
+                    siz={select('Size', DropdownSizes, DropdownSizes[0])}
                     maxWidth={text('Max width', '120px')}
-                    defaultItem={dataGrouped[1].options[0]}
-                    placeholder="Set me"
                     data={dataGrouped}
+                    onChange={(e, item) => handleOnChange(e, item)}
                 />
             </div>
         );

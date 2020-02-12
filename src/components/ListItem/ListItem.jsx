@@ -4,7 +4,7 @@ import classnames from 'clsx';
 import styles from './ListItem.scss';
 import {Typography} from '~/components';
 
-export const ListItem = ({label, iconStart, iconEnd, isDisabled, variant, className, onClick, onMouseEnter, onMouseLeave, ...others}) => {
+export const ListItem = ({label, iconStart, iconEnd, isDisabled, variant, className, onClick, onMouseEnter, onMouseLeave, ...props}) => {
     const cssListItem = classnames(
         className,
         styles.listItem,
@@ -31,7 +31,7 @@ export const ListItem = ({label, iconStart, iconEnd, isDisabled, variant, classN
             onClick={handleClick}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            {...others}
+            {...props}
         >
             {
             iconStart &&
@@ -56,7 +56,9 @@ ListItem.defaultProps = {
     isDisabled: false,
     iconStart: null,
     iconEnd: null,
-    className: ''
+    className: '',
+    onMouseEnter: () => {},
+    onMouseLeave: () => {}
 };
 
 ListItem.propTypes = {
@@ -105,3 +107,5 @@ ListItem.propTypes = {
      */
     onMouseLeave: PropTypes.func
 };
+
+ListItem.displayName = 'ListItem';
