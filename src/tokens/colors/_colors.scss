@@ -8,9 +8,9 @@ $color-black: 0 0 0;
 
 :global(:root) {
     // Accent
-    --color-accent_dark: #0072B1;
-    --color-accent: #00A0E3;
-    --color-accent_light: #63D1FF;
+    --color-accent_dark: #0072b1;
+    --color-accent: #00a0e3;
+    --color-accent_light: #63d1ff;
 
     // Basic
     --color-black: rgb(#{$color-black});
@@ -34,7 +34,7 @@ $color-black: 0 0 0;
     --color-dark40: rgba(#{$color-dark}, 0.4);
 
     // Support
-    --color-success: #43A047;
-    --color-warning: #E8B606;
-    --color-danger: #E0182D;
+    --color-success: #43a047;
+    --color-warning: #e8b606;
+    --color-danger: #e0182d;
 }
