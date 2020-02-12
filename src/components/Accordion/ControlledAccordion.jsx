@@ -55,11 +55,6 @@ ControlledAccordion.propTypes = {
     ]).isRequired,
 
     /**
-     * AccordionItem's id opened by default
-     */
-    defaultOpenedItem: PropTypes.string,
-
-    /**
      * AccordionItem's id open
      */
     openedItem: PropTypes.string,

@@ -47,19 +47,9 @@ UncontrolledAccordion.propTypes = {
     ]).isRequired,
 
     /**
-     * AccordionItem's id opened by default (isMultipleOpenable ? Array : String)
+     * AccordionItem's id opened by default
      */
     defaultOpenedItem: PropTypes.string,
-
-    /**
-     * AccordionItem's id open (isMultipleOpenable ? Array : String)
-     */
-    openedItemId: PropTypes.string,
-
-    /**
-     * Allow multiple accordionItem opened has the same time
-     */
-    isMultipleOpenable: PropTypes.bool,
 
     /**
      * Additional classname

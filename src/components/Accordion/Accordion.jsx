@@ -37,12 +37,12 @@ Accordion.propTypes = {
     ]).isRequired,
 
     /**
-     * AccordionItem's id opened by default (isMultipleOpenable ? Array : String)
+     * AccordionItem's id opened by default
      */
     defaultOpenedItem: PropTypes.string,
 
     /**
-     * AccordionItem's id open (isMultipleOpenable ? Array : String)
+     * AccordionItem's id open
      */
     openedItem: PropTypes.string,
 

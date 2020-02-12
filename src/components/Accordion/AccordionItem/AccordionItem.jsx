@@ -7,13 +7,7 @@ import {AccordionContext} from '~/components/Accordion/Accordion.context';
 
 export const AccordionItem = ({id, label, icon, onClickToOpen, onClick, onClickToClose, children, ...props}) => {
     const context = useContext(AccordionContext);
-    let open;
-
-    if (context.isMultipleOpenable) {
-        open = context.currentItem ? context.currentItem.includes(id) : false;
-    } else {
-        open = context.currentItem === id;
-    }
+    const open = context.currentItem === id;
 
     const handleClick = e => {
         if (!open) {
