@@ -7,7 +7,6 @@ import {ControlledAccordion} from './ControlledAccordion';
 // Import styles from './Accordion.scss';
 
 export const UncontrolledAccordion = ({defaultOpenedItem, children, ...props}) => {
-    console.log(defaultOpenedItem);
     const [stateOpenedItem, setStateOpenedItem] = useState(defaultOpenedItem);
 
     const setOpenedItem = id => {
