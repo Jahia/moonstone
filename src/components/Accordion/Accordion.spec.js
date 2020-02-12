@@ -56,7 +56,7 @@ describe('Accordion', () => {
         // eslint-disable-next-line react/prop-types
         const AccordionItemMock = ({id}) => {
             const context = useContext(AccordionContext);
-            const open = context.currentItemId === id;
+            const open = context.currentItem === id;
 
             return (
                 <button type="button" id={id} onClick={() => context.setOpenedItem(id)}>{id} - {open ? 'open' : 'close'}</button>

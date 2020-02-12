@@ -10,9 +10,9 @@ export const AccordionItem = ({id, label, icon, onClickToOpen, onClick, onClickT
     let open;
 
     if (context.isMultipleOpenable) {
-        open = context.currentItemId ? context.currentItemId.includes(id) : false;
+        open = context.currentItem ? context.currentItem.includes(id) : false;
     } else {
-        open = context.currentItemId === id;
+        open = context.currentItem === id;
     }
 
     const handleClick = e => {

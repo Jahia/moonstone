@@ -7,7 +7,7 @@ import styles from './Accordion.scss';
 
 export const ControlledAccordion = ({children, openedItem, isReversed, className, setOpenedItem, ...props}) => {
     const provider = {
-        currentItemId: openedItem,
+        currentItem: openedItem,
         setOpenedItem,
         isReversed: isReversed
     };

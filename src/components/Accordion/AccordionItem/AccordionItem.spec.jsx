@@ -47,7 +47,7 @@ describe('AccordionItem', () => {
                         id: AccordionContext,
                         value: {
                             setOpenedItemId: jest.fn(),
-                            currentItemId: 'not correspond',
+                            currentItem: 'not correspond',
                             isReversed: true
                         }
                     }]
@@ -99,7 +99,7 @@ describe('AccordionItem', () => {
                         id: AccordionContext,
                         value: {
                             setOpenedItemId: jest.fn(),
-                            currentItemId: '007'
+                            currentItem: '007'
                         }
                     }]
                 }
@@ -124,7 +124,7 @@ describe('AccordionItem', () => {
                         id: AccordionContext,
                         value: {
                             setOpenedItem: jest.fn(),
-                            currentItemId: 'not correspond'
+                            currentItem: 'not correspond'
                         }
                     }]
                 }
@@ -150,7 +150,7 @@ describe('AccordionItem', () => {
                         id: AccordionContext,
                         value: {
                             setOpenedItem: jest.fn(),
-                            currentItemId: 'not correspond'
+                            currentItem: 'not correspond'
                         }
                     }]
                 }
@@ -177,7 +177,7 @@ describe('AccordionItem', () => {
                         id: AccordionContext,
                         value: {
                             setOpenedItem: jest.fn(),
-                            currentItemId: '007'
+                            currentItem: '007'
                         }
                     }]
                 }
@@ -203,7 +203,7 @@ describe('AccordionItem', () => {
                         id: AccordionContext,
                         value: {
                             setOpenedItem: jest.fn(),
-                            currentItemId: '007'
+                            currentItem: '007'
                         }
                     }]
                 }
