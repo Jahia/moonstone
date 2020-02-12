@@ -1,14 +1,20 @@
 $color-light: 253, 253, 253;
 $color-gray-light: 218, 218, 218;
-$color-gray: 122, 127, 137;
+$color-gray: 122, 127, 136;
 $color-gray-dark: 41, 49, 54;
 $color-dark: 19, 28, 33;
+$color-white: 255 255 255;
+$color-black: 0 0 0;
 
 :global(:root) {
     // Accent
-    --color-accent_dark: #003449;
-    --color-accent: #00a0e3;
-    --color-accent_light: #d3e9f3;
+    --color-accent_dark: #0072B1;
+    --color-accent: #00A0E3;
+    --color-accent_light: #63D1FF;
+
+    // Basic
+    --color-black: rgb(#{$color-black});
+    --color-white: rgb(#{$color-white});
 
     // Neutral
     --color-light: rgb(#{$color-light});
@@ -28,7 +34,7 @@ $color-dark: 19, 28, 33;
     --color-dark40: rgba(#{$color-dark}, 0.4);
 
     // Support
-    --color-success: #0ea982;
-    --color-warning: #e8b606;
-    --color-danger: #e0182d;
+    --color-success: #43A047;
+    --color-warning: #E8B606;
+    --color-danger: #E0182D;
 }

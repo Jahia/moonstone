@@ -19,7 +19,7 @@ Moonstone
   </a>
 </p>
 
-* [Zeroheight](https://zeroheight.com/29db18463) 
+* [Zeroheight](https://zeroheight.com/48f8b5a7d) 
 * [Storybook](https://contenteditor.jahia.design/moonstone)
 
 ## Install
