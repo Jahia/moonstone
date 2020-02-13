@@ -1,3 +1,24 @@
+# v0.8.0 (Thu Feb 13 2020)
+
+#### 🚀  Enhancement
+
+- MOON-41 : Allow SecondaryNav to be hidden [#48](https://github.com/Jahia/moonstone/pull/48) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🐛  Bug Fix
+
+- MOON-62 update colors [#60](https://github.com/Jahia/moonstone/pull/60) ([@DameniMilo](https://github.com/DameniMilo))
+
+#### 🏠  Internal
+
+- MOON-60: Add a displayName [#58](https://github.com/Jahia/moonstone/pull/58) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 2
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- dgaillard ([@DameniMilo](https://github.com/DameniMilo))
+
+---
+
 # v0.7.0 (Wed Feb 05 2020)
 
 #### 🚀  Enhancement
