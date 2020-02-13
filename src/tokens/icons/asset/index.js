@@ -26,6 +26,8 @@ export {default as CheckboxMiddle} from './CheckboxMiddle.svg';
 export {default as CheckboxUnchecked} from './CheckboxUnchecked.svg';
 export {default as ChevronBigLeft} from './ChevronBigLeft.svg';
 export {default as ChevronBigRight} from './ChevronBigRight.svg';
+export {default as ChevronDoubleLeft} from './ChevronDoubleLeft.svg';
+export {default as ChevronDoubleRight} from './ChevronDoubleRight.svg';
 export {default as ChevronDown} from './ChevronDown.svg';
 export {default as ChevronLeft} from './ChevronLeft.svg';
 export {default as ChevronRight} from './ChevronRight.svg';
