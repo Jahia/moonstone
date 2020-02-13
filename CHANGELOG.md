@@ -1,3 +1,15 @@
+# v0.8.1 (Thu Feb 13 2020)
+
+#### ⚠️  Pushed to master
+
+- MOON-41 export missing icons  (dgaillard@jahia.com)
+
+#### Authors: 1
+
+- dgaillard (dgaillard@jahia.com)
+
+---
+
 # v0.8.0 (Thu Feb 13 2020)
 
 #### 🚀  Enhancement
