@@ -1,3 +1,15 @@
+# v0.8.2 (Fri Feb 14 2020)
+
+#### 🐛  Bug Fix
+
+- MOON-62 fix issue with basic colors [#61](https://github.com/Jahia/moonstone/pull/61) ([@DameniMilo](https://github.com/DameniMilo))
+
+#### Authors: 1
+
+- dgaillard ([@DameniMilo](https://github.com/DameniMilo))
+
+---
+
 # v0.8.1 (Thu Feb 13 2020)
 
 #### ⚠️  Pushed to master
