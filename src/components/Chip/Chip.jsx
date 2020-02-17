@@ -8,7 +8,7 @@ export const colors = ['default', 'accent', 'success', 'warning', 'danger'];
 
 export const Chip = ({label, color, icon}) => (
     <div className={classnames(styles.chip, styles[`color_${color}`])}>
-        {icon && <>{icon}</>}<Typography isNowrap component="span">{label}</Typography>
+        {icon && <>{icon}</>}{label && <Typography isNowrap component="span">{label}</Typography>}
     </div>
 );
 
