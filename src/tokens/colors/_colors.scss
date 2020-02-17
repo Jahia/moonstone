@@ -5,12 +5,21 @@ $color-gray-dark: 41, 49, 54;
 $color-dark: 19, 28, 33;
 $color-white: 255, 255, 255;
 $color-black: 0, 0, 0;
+$color-blue: 0, 160, 227;
+$color-blue-contrast: 0, 71, 129;
+$color-blue-dark: 0, 114, 177;
+$color-blue-light: 99, 209, 255;
+$color-green: 67, 160, 71;
+$color-red: 224, 24, 45;
+$color-yellow: 232, 182, 6;
 
 :global(:root) {
     // Accent
-    --color-accent_dark: #0072b1;
-    --color-accent: #00a0e3;
-    --color-accent_light: #63d1ff;
+    --color-accent: rgb(#{$color-blue});
+    --color-accent_dark: rgb(#{$color-blue-dark});
+    --color-accent_dark_contrast: rgb(#{$color-blue-contrast});
+    --color-accent_light: rgb(#{$color-blue-light});
+    --color-accent_light40: rgb(#{$color-blue-light, 0.4});
 
     // Basic
     --color-black: rgb(#{$color-black});
@@ -34,7 +43,10 @@ $color-black: 0, 0, 0;
     --color-dark40: rgba(#{$color-dark}, 0.4);
 
     // Support
-    --color-success: #43a047;
-    --color-warning: #e8b606;
-    --color-danger: #e0182d;
+    --color-success: rgba(#{$color-green});
+    --color-success40: rgba(#{$color-green, 0.4});
+    --color-warning: rgba(#{$color-yellow});
+    --color-warning40: rgba(#{$color-yellow}, 0.4);
+    --color-danger: rgba(#{$color-red});
+    --color-danger40: rgba(#{$color-red, 0.4});
 }
