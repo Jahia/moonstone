@@ -19,6 +19,13 @@ storiesOf('Components|Menu', module)
             </Menu>
         </div>
     ))
+    .add('default', () => (
+        <div style={{transform: 'scale(1)', height: '100vh'}}>
+            <Menu isDisplayed={boolean('display', true)}>
+                Content here
+            </Menu>
+        </div>
+    ))
     .add('onClick', () => {
         const [isDisplayed, setIsDisplayed] = useState(false);
         const [menuPosition, setMenuPosition] = useState();

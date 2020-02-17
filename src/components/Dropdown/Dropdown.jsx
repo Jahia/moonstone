@@ -14,7 +14,6 @@ export const Dropdown = ({
     data,
     label,
     value,
-    placeholder,
     isDisabled,
     maxWidth,
     variant,
@@ -43,8 +42,11 @@ export const Dropdown = ({
     };
 
     const handleSelect = (e, item) => {
-        if (!item.isDisabled) {
+        if (!item.isDisabled && item.value !== value) {
             onChange(e, item);
+        }
+
+        if (!item.isDisabled) {
             setIsOpened(false);
         }
     };
@@ -52,6 +54,12 @@ export const Dropdown = ({
     const handleCloseMenu = () => {
         setIsOpened(false);
         setAnchorEl(null);
+    };
+
+    const handleKeyPress = (e, item) => {
+        if (e.key === 'Enter' && item.value !== value) {
+            handleSelect(e, item);
+        }
     };
 
     // ---
@@ -91,11 +99,7 @@ export const Dropdown = ({
                     )
                 }
                 onClick={e => handleSelect(e, item)}
-                onKeyPress={(e, item) => {
-                    if (e.key === 'Enter') {
-                        handleSelect(e, item);
-                    }
-                }}
+                onKeyPress={e => handleKeyPress(e, item)}
             />
         );
     };
@@ -171,7 +175,6 @@ export const Dropdown = ({
 
 Dropdown.defaultProps = {
     icon: null,
-    placeholder: '',
     variant: 'default',
     size: 'medium',
     maxWidth: '300px',
@@ -204,14 +207,19 @@ Dropdown.propTypes = {
     ).isRequired,
 
     /**
+     * Label of the dropdown
+     */
+    label: PropTypes.string,
+
+    /**
+     * Value of the dropdown
+     */
+    value: PropTypes.string,
+
+    /**
      * Icon displays before the dropdown's label
      */
     icon: PropTypes.node,
-
-    /**
-     * Placeholder displays when there is no `defaultOption`
-     */
-    placeholder: PropTypes.string,
 
     /**
      * Dropdown's variants
@@ -240,14 +248,10 @@ Dropdown.propTypes = {
 
     /**
      * Function trigger on change with the current option as param
+     * @param {object} event - Mouse event
+     * @param {object} item - The current item selected
      */
-    onChange: PropTypes.func,
-
-    /**
-     * Function trigger on change with the current option as param
-     */
-    label: PropTypes.string,
-    value: PropTypes.string
+    onChange: PropTypes.func
 };
 
 Dropdown.displayName = 'Dropdown';

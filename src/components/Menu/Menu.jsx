@@ -116,7 +116,7 @@ Menu.propTypes = {
     isDisplayed: PropTypes.bool.isRequired,
 
     /**
-     * Coordinate to position the menu
+     * Position of the menu
      */
     anchorPosition: PropTypes.shape({
         top: PropTypes.string,
