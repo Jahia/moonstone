@@ -3,9 +3,9 @@
     flex-direction: row;
     align-items: center;
 
-    padding: 0 8px;
+    padding: 0 var(--spacing-small);
 
-    border-radius: 48px;
+    border-radius: 40px;
 
     &.color_accent {
         color: var(--color-accent_dark_contrast);

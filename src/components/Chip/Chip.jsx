@@ -7,9 +7,9 @@ import classnames from 'clsx';
 export const colors = ['default', 'accent', 'success', 'warning', 'danger'];
 
 export const Chip = ({label, color, icon}) => (
-    <span className={classnames(styles.chip, styles[`color_${color}`])}>
-        {icon && <i>{icon}</i>}<Typography isNowrap component="span">{label}</Typography>
-    </span>
+    <div className={classnames(styles.chip, styles[`color_${color}`])}>
+        {icon && <>{icon}</>}<Typography isNowrap component="span">{label}</Typography>
+    </div>
 );
 
 Chip.defaultProps = {
