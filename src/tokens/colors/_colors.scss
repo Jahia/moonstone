@@ -45,8 +45,8 @@ $color-yellow: 232, 182, 6;
     // Support
     --color-success: rgba(#{$color-green});
     --color-success40: rgba(#{$color-green, 0.4});
-    --color-warning: rgba(#{$color-green});
-    --color-warning40: rgba(#{$color-green}, 0.4);
+    --color-warning: rgba(#{$color-yellow});
+    --color-warning40: rgba(#{$color-yellow}, 0.4);
     --color-danger: rgba(#{$color-red});
     --color-danger40: rgba(#{$color-red, 0.4});
 }
