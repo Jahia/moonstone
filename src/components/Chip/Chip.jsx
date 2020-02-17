@@ -1,24 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Badge.scss';
+import styles from './Chip.scss';
 import {Typography} from '~/components/Typography';
 import classnames from 'clsx';
 
 export const colors = ['default', 'accent', 'success', 'warning', 'danger'];
 
-export const Badge = ({label, color, icon}) => (
-    <span className={classnames(styles.badge, styles[`color_${color}`])}>
+export const Chip = ({label, color, icon}) => (
+    <span className={classnames(styles.chip, styles[`color_${color}`])}>
         {icon && <i>{icon}</i>}<Typography isNowrap component="span">{label}</Typography>
     </span>
 );
 
-Badge.defaultProps = {
+Chip.defaultProps = {
     label: '',
     color: 'default',
     icon: null
 };
 
-Badge.propTypes = {
+Chip.propTypes = {
     /**
      * Badge label
      */
@@ -35,4 +35,4 @@ Badge.propTypes = {
     icon: PropTypes.node
 };
 
-Badge.displayName = 'Badge';
+Chip.displayName = 'Chip';
