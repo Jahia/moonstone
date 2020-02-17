@@ -14,5 +14,8 @@ storiesOf('Components|Chip', module)
     .addDecorator(withKnobs)
     .addDecorator(storyFn => <div style={{padding: '20px'}}>{storyFn()}</div>)
     .add('Chip', () => (
-        <Chip label={text('Label', 'Chip')} icon={<DefaultIcon size="small"/>} color={select('Color', colors, 'default')}/>
+        <Chip label={text('Label', 'Chip')}
+              icon={<DefaultIcon size="small"/>}
+              color={select('Color', colors, 'default')}
+        />
     ));
