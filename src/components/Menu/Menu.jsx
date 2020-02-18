@@ -3,7 +3,20 @@ import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import styles from './Menu.scss';
 
-export const Menu = ({children, isDisplayed, minWidth, maxWidth, className, onMouseEnter, onMouseLeave, anchorEl, anchorPosition, onClose, ...props}) => {
+export const Menu = ({
+    children,
+    isDisplayed,
+    minWidth,
+    maxWidth,
+    className,
+    onMouseEnter,
+    onMouseLeave,
+    anchorEl,
+    anchorPosition,
+    onClose,
+    hasOverlay,
+    ...props
+}) => {
     const [stylePosition, setStylePosition] = useState();
 
     useEffect(() => {
@@ -13,29 +26,28 @@ export const Menu = ({children, isDisplayed, minWidth, maxWidth, className, onMo
     }, [anchorEl, isDisplayed, setPositioningStyles]);
 
     const setPositioningStyles = useCallback(() => {
-        const positioning = getPositioningStyle(anchorEl);
+        let positioning;
+
+        if (anchorEl) {
+            let el = anchorEl.getBoundingClientRect();
+            positioning = {
+                top: el.top + el.height,
+                left: el.left
+            };
+        } else {
+            positioning = {
+                top: 0,
+                left: 0
+            };
+        }
+
         const positioningStyles = {
             top: `calc(${positioning.top}px + ${anchorPosition.top})`,
             left: `calc(${positioning.left}px + ${anchorPosition.left})`
         };
 
         setStylePosition(positioningStyles);
-    }, [getPositioningStyle, anchorEl, anchorPosition]);
-
-    const getPositioningStyle = useCallback(() => {
-        if (!anchorEl) {
-            return {
-                top: 0,
-                left: 0
-            };
-        }
-
-        let el = anchorEl.getBoundingClientRect();
-        return {
-            top: el.top + el.height,
-            left: el.left
-        };
-    }, [anchorEl]);
+    }, [anchorEl, anchorPosition]);
 
     // ---
     // Styling
@@ -67,11 +79,14 @@ export const Menu = ({children, isDisplayed, minWidth, maxWidth, className, onMo
                 >
                     {children}
                 </menu>
-                <div
-                    aria-hidden="true"
-                    className={classnames(styles.menu_overlay)}
-                    onClick={onClose}
-                />
+                {
+                    hasOverlay &&
+                    <div
+                        aria-hidden="true"
+                        className={classnames(styles.menu_overlay)}
+                        onClick={onClose}
+                    />
+                }
             </div>
         );
     }
@@ -83,6 +98,7 @@ Menu.defaultProps = {
     onMouseEnter: () => {},
     onMouseLeave: () => {},
     onClose: () => {},
+    hasOverlay: true,
     anchorPosition: {
         top: '0px',
         left: '0px'
@@ -141,7 +157,9 @@ Menu.propTypes = {
     /**
      * Function triggered when the menu close
      */
-    onClose: PropTypes.func
+    onClose: PropTypes.func,
+
+    hasOverlay: PropTypes.bool
 };
 
 Menu.displayName = 'Menu';

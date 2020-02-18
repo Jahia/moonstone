@@ -25,4 +25,25 @@ describe('Dropdown', () => {
         );
         expect(wrapper.html());
     });
+
+    it('should add additional classname', () => {
+        const wrapper = shallow(
+            <Dropdown className="hello" data={data}/>
+        );
+        expect(wrapper.html()).toContain('hello');
+    });
+
+    it('should add additional attributes', () => {
+        const wrapper = shallow(
+            <Dropdown data-custom="test" data={data}/>
+        );
+        expect(wrapper.html()).toContain('data-custom="test"');
+    });
+
+    it('should add dropdown-disabled classe if the dropdowon is disabled', () => {
+        const wrapper = shallow(
+            <Dropdown isDisabled data={data}/>
+        );
+        expect(wrapper.html()).toContain('dropdown-disabled');
+    });
 });

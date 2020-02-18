@@ -57,7 +57,7 @@ export const Dropdown = ({
     };
 
     const handleKeyPress = (e, item) => {
-        if (e.key === 'Enter' && item.value !== value) {
+        if (e.key === 'Enter') {
             handleSelect(e, item);
         }
     };

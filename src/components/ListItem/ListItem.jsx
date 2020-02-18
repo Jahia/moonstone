@@ -12,25 +12,13 @@ export const ListItem = ({label, iconStart, iconEnd, isDisabled, variant, classN
         'alignCenter'
     );
 
-    const handleClick = e => {
-        onClick(e);
-    };
-
-    const handleMouseEnter = e => {
-        onMouseEnter(e);
-    };
-
-    const handleMouseLeave = e => {
-        onMouseLeave(e);
-    };
-
     return (
         <li tabIndex={isDisabled || variant === 'title' ? null : '0'}
             aria-disabled={isDisabled}
             className={classnames(cssListItem)}
-            onClick={handleClick}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
+            onClick={e => onClick(e)}
+            onMouseEnter={e => onMouseEnter(e)}
+            onMouseLeave={e => onMouseLeave(e)}
             {...props}
         >
             {
@@ -57,6 +45,7 @@ ListItem.defaultProps = {
     iconStart: null,
     iconEnd: null,
     className: '',
+    onClick: () => {},
     onMouseEnter: () => {},
     onMouseLeave: () => {}
 };
