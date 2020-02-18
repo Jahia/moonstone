@@ -6,8 +6,8 @@ import classnames from 'clsx';
 
 export const colors = ['default', 'accent', 'success', 'warning', 'danger'];
 
-export const Chip = ({label, color, icon, ...props}) => (
-    <div className={classnames(styles.chip, styles[`color_${color}`])} {...props}>
+export const Chip = ({label, color, icon, className, ...props}) => (
+    <div className={classnames(styles.chip, styles[`color_${color}`], className)} {...props}>
         {icon && <>{icon}</>}{label && <Typography isNowrap component="span">{label}</Typography>}
     </div>
 );
@@ -32,7 +32,12 @@ Chip.propTypes = {
     /**
      * Badge icon
      */
-    icon: PropTypes.node
+    icon: PropTypes.node,
+
+    /**
+     * Additional classname
+     */
+    className: PropTypes.string
 };
 
 Chip.displayName = 'Chip';
