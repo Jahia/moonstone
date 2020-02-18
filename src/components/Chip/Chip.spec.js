@@ -20,4 +20,9 @@ describe('Chip', () => {
         expect(wrapper.html()).toContain('Icon');
         expect(wrapper.html()).toContain('MyChip');
     });
+
+    it('should render custom attributes', () => {
+        const wrapper = shallow(<Chip label="test" role="myRole"/>);
+        expect(wrapper.querySelector('[role="myRole"]').exists()).toBeTruthy();
+    });
 });

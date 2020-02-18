@@ -6,8 +6,8 @@ import classnames from 'clsx';
 
 export const colors = ['default', 'accent', 'success', 'warning', 'danger'];
 
-export const Chip = ({label, color, icon}) => (
-    <div className={classnames(styles.chip, styles[`color_${color}`])}>
+export const Chip = ({label, color, icon, ...props}) => (
+    <div className={classnames(styles.chip, styles[`color_${color}`])} {...props}>
         {icon && <>{icon}</>}{label && <Typography isNowrap component="span">{label}</Typography>}
     </div>
 );

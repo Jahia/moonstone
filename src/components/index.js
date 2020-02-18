@@ -1,4 +1,5 @@
 export * from './Button';
+export * from './Chip';
 export * from './GlobalStyle';
 export * from './PrimaryNav';
 export * from './PrimaryNav/PrimaryNavItem';
