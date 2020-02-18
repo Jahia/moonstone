@@ -5,21 +5,13 @@ import styles from './AccordionItem.scss';
 import {Typography} from '~/components/Typography';
 import {AccordionContext} from '~/components/Accordion/Accordion.context';
 
-export const AccordionItem = ({id, label, icon, onClickToOpen, onClick, onClickToClose, children, ...props}) => {
+export const AccordionItem = ({id, label, icon, onClick, children, className, ...props}) => {
     const context = useContext(AccordionContext);
     const open = context.currentItem === id;
 
-    const handleClick = e => {
-        if (!open) {
-            onClickToOpen(e);
-        }
-
-        onClick(e);
-        context.setOpenedItem(id);
-
-        if (open) {
-            onClickToClose(e);
-        }
+    const handleClick = (e, open) => {
+        onClick(e, !open);
+        context.onSetOpenedItem(id);
     };
 
     return (
@@ -29,7 +21,8 @@ export const AccordionItem = ({id, label, icon, onClickToOpen, onClick, onClickT
                 styles.accordionItem,
                 context.isReversed ? styles.accordionItem_reversed : null,
                 'flexCol',
-                open ? 'flexFluid' : null
+                open ? 'flexFluid' : null,
+                className
             )}
         >
             <header
@@ -41,7 +34,7 @@ export const AccordionItem = ({id, label, icon, onClickToOpen, onClick, onClickT
                 )}
                 aria-controls={id}
                 aria-expanded={open}
-                onClick={e => handleClick(e)}
+                onClick={e => handleClick(e, open)}
             >
                 {icon &&
                     <div className={classnames(
@@ -77,9 +70,7 @@ export const AccordionItem = ({id, label, icon, onClickToOpen, onClick, onClickT
 
 AccordionItem.defaultProps = {
     icon: null,
-    onClick: () => {},
-    onClickToOpen: () => {},
-    onClickToClose: () => {}
+    onClick: () => {}
 };
 
 AccordionItem.propTypes = {
@@ -94,19 +85,9 @@ AccordionItem.propTypes = {
     label: PropTypes.string.isRequired,
 
     /**
-     * Function triggered on every click
+     * Function triggered on click
      */
     onClick: PropTypes.func,
-
-    /**
-     * Function only triggered on click before accordion open
-     */
-    onClickToOpen: PropTypes.func,
-
-    /**
-     * Function only triggered on click before accordion close
-     */
-    onClickToClose: PropTypes.func,
 
     /**
      * Icon
@@ -116,7 +97,12 @@ AccordionItem.propTypes = {
     /**
      * Content of the component
      */
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
+
+    /**
+     * Additional classname
+     */
+    className: PropTypes.string
 };
 
 AccordionItem.displayName = 'AccordionItem';

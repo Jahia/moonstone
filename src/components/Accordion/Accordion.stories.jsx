@@ -143,7 +143,7 @@ storiesOf('Components|Accordion', module)
     .add('controlled', () => {
         const [stateOpenedItems, setStateOpenedItem] = useState(accordionIds[1]);
 
-        const setOpenedItem = id => {
+        const onSetOpenedItem = id => {
             setStateOpenedItem(prevState => {
                 return prevState === id ? null : id;
             });
@@ -152,14 +152,14 @@ storiesOf('Components|Accordion', module)
         return (
             <>
                 <span>
-                    <button type="button" onClick={() => setOpenedItem('01')}>Open First</button>
-                    <button type="button" onClick={() => setOpenedItem('02')}>Open Second</button>
-                    <button type="button" onClick={() => setOpenedItem('03')}>Open Third</button>
-                    <button type="button" onClick={() => setOpenedItem(null)}>Close</button>
+                    <button type="button" onClick={() => onSetOpenedItem('01')}>Open First</button>
+                    <button type="button" onClick={() => onSetOpenedItem('02')}>Open Second</button>
+                    <button type="button" onClick={() => onSetOpenedItem('03')}>Open Third</button>
+                    <button type="button" onClick={() => onSetOpenedItem(null)}>Close</button>
                 </span>
                 <Accordion
                     openedItem={stateOpenedItems}
-                    setOpenedItem={setOpenedItem}
+                    onSetOpenedItem={onSetOpenedItem}
                 >
                     <AccordionItem
                         id={accordionIds[0]}

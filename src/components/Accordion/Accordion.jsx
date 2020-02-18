@@ -4,12 +4,12 @@ import {UncontrolledAccordion} from './UncontrolledAccordion';
 import {ControlledAccordion} from './ControlledAccordion';
 import {AccordionItem} from './AccordionItem';
 
-export const Accordion = ({children, defaultOpenedItem, openedItem, setOpenedItem, ...props}) => {
+export const Accordion = ({children, defaultOpenedItem, openedItem, onSetOpenedItem, ...props}) => {
     if (typeof openedItem === 'undefined') {
         return <UncontrolledAccordion defaultOpenedItem={defaultOpenedItem} {...props}>{children}</UncontrolledAccordion>;
     }
 
-    return <ControlledAccordion openedItem={openedItem} setOpenedItem={setOpenedItem} {...props}>{children}</ControlledAccordion>;
+    return <ControlledAccordion openedItem={openedItem} onSetOpenedItem={onSetOpenedItem} {...props}>{children}</ControlledAccordion>;
 };
 
 Accordion.defaultProps = {
@@ -50,7 +50,11 @@ Accordion.propTypes = {
      * Additional classname
      */
     className: PropTypes.string,
-    setOpenedItem: PropTypes.func
+
+    /**
+     * Function to set accoridonItem opened
+     */
+    onSetOpenedItem: PropTypes.func
 };
 
 Accordion.displayName = 'Accordion';

@@ -32,6 +32,20 @@ describe('AccordionItem', () => {
         expect(wrapper.html()).toContain('Icon');
     });
 
+    it('should display additional className', () => {
+        const wrapper = shallow(
+            <AccordionItem
+                id="007"
+                label="my label label"
+                className="extra"
+            >
+                content here
+            </AccordionItem>
+        );
+
+        expect(wrapper.html()).toContain('extra');
+    });
+
     it('should accept reversed accordion', () => {
         const Icon = () => <svg/>;
         const wrapper = shallow(
@@ -59,12 +73,12 @@ describe('AccordionItem', () => {
     });
 
     it('should not display children when id in context not correspond', () => {
-        const clickToOpenHandler = jest.fn();
+        const handleOnclick = jest.fn();
         const wrapper = shallow(
             <AccordionItem
                 id="007"
                 label="my label label"
-                onClickToOpen={clickToOpenHandler}
+                onClick={handleOnclick}
             >
                 content here
             </AccordionItem>
@@ -73,7 +87,7 @@ describe('AccordionItem', () => {
                     contexts: [{
                         id: AccordionContext,
                         value: {
-                            setOpenedItemId: jest.fn(),
+                            onSetOpenedItemId: jest.fn(),
                             currentItem: 'not correspond'
                         }
                     }]
@@ -84,12 +98,12 @@ describe('AccordionItem', () => {
     });
 
     it('should display children when id in context correspond', () => {
-        const clickToOpenHandler = jest.fn();
+        const handleOnClick = jest.fn();
         const wrapper = shallow(
             <AccordionItem
                 id="007"
                 label="my label label"
-                onClickToOpen={clickToOpenHandler}
+                onClick={handleOnClick}
             >
                 content here
             </AccordionItem>
@@ -107,14 +121,14 @@ describe('AccordionItem', () => {
         );
         expect(wrapper.html()).toContain('content here');
     });
+    it('should call onClick when click on item', () => {
+        const handleOnClick = jest.fn();
 
-    it('should call onClickToOpen when click on closed item', () => {
-        const clickToOpenHandler = jest.fn();
         const wrapper = shallow(
             <AccordionItem
                 id="007"
                 label="my label label"
-                onClickToOpen={clickToOpenHandler}
+                onClick={handleOnClick}
             >
                 content here
             </AccordionItem>
@@ -123,7 +137,7 @@ describe('AccordionItem', () => {
                     contexts: [{
                         id: AccordionContext,
                         value: {
-                            setOpenedItem: jest.fn(),
+                            onSetOpenedItem: jest.fn(),
                             currentItem: 'not correspond'
                         }
                     }]
@@ -133,14 +147,20 @@ describe('AccordionItem', () => {
 
         wrapper.querySelector('header').dispatchEvent('click');
 
-        expect(clickToOpenHandler).toHaveBeenCalled();
+        expect(handleOnClick).toHaveBeenCalled();
     });
 
-    it('should not throw error when there is no onClickToOpen defined', () => {
+    it('should onClick callback return true if item has been opened', () => {
+        let isOpen;
+        const handleOnClick = (e, open) => {
+            isOpen = open;
+        };
+
         const wrapper = shallow(
             <AccordionItem
                 id="007"
                 label="my label label"
+                onClick={handleOnClick}
             >
                 content here
             </AccordionItem>
@@ -149,7 +169,7 @@ describe('AccordionItem', () => {
                     contexts: [{
                         id: AccordionContext,
                         value: {
-                            setOpenedItem: jest.fn(),
+                            onSetOpenedItem: jest.fn(),
                             currentItem: 'not correspond'
                         }
                     }]
@@ -157,17 +177,22 @@ describe('AccordionItem', () => {
             }
         );
 
-        // No error should occur when there is no onClickToOpen defined
         wrapper.querySelector('header').dispatchEvent('click');
+
+        expect(isOpen).toBe(true);
     });
 
-    it('should call onClickToClose when click on opened item', () => {
-        const clickToCloseHandler = jest.fn();
+    it('should onClick callback return false if item has been closed', () => {
+        let isOpen;
+        const handleOnClick = (e, open) => {
+            isOpen = open;
+        };
+
         const wrapper = shallow(
             <AccordionItem
                 id="007"
                 label="my label label"
-                onClickToClose={clickToCloseHandler}
+                onClick={handleOnClick}
             >
                 content here
             </AccordionItem>
@@ -176,7 +201,7 @@ describe('AccordionItem', () => {
                     contexts: [{
                         id: AccordionContext,
                         value: {
-                            setOpenedItem: jest.fn(),
+                            onSetOpenedItem: jest.fn(),
                             currentItem: '007'
                         }
                     }]
@@ -186,10 +211,10 @@ describe('AccordionItem', () => {
 
         wrapper.querySelector('header').dispatchEvent('click');
 
-        expect(clickToCloseHandler).toHaveBeenCalled();
+        expect(isOpen).toBe(false);
     });
 
-    it('should not throw error when there is no onClickToClose defined', () => {
+    it('should not throw error when there is no onClick defined', () => {
         const wrapper = shallow(
             <AccordionItem
                 id="007"
@@ -202,7 +227,7 @@ describe('AccordionItem', () => {
                     contexts: [{
                         id: AccordionContext,
                         value: {
-                            setOpenedItem: jest.fn(),
+                            onSetOpenedItem: jest.fn(),
                             currentItem: '007'
                         }
                     }]

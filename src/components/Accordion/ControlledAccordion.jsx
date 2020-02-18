@@ -5,10 +5,10 @@ import {AccordionContext} from './Accordion.context';
 import {AccordionItem} from './AccordionItem';
 import styles from './Accordion.scss';
 
-export const ControlledAccordion = ({children, openedItem, isReversed, className, setOpenedItem, ...props}) => {
+export const ControlledAccordion = ({children, openedItem, isReversed, className, onSetOpenedItem, ...props}) => {
     const provider = {
         currentItem: openedItem,
-        setOpenedItem,
+        onSetOpenedItem,
         isReversed: isReversed
     };
 
@@ -67,5 +67,5 @@ ControlledAccordion.propTypes = {
     /**
      * Function to set accoridonItem opened
      */
-    setOpenedItem: PropTypes.func
+    onSetOpenedItem: PropTypes.func
 };

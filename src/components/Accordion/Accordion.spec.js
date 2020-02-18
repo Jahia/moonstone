@@ -59,7 +59,7 @@ describe('Accordion', () => {
             const open = context.currentItem === id;
 
             return (
-                <button type="button" id={id} onClick={() => context.setOpenedItem(id)}>{id} - {open ? 'open' : 'close'}</button>
+                <button type="button" id={id} onClick={() => context.onSetOpenedItem(id)}>{id} - {open ? 'open' : 'close'}</button>
             );
         };
 
@@ -74,7 +74,7 @@ describe('Accordion', () => {
             delete console.oldError;
         });
 
-        it('should select another item when calling setOpenedItem', () => {
+        it('should select another item when calling onSetOpenedItem', () => {
             const wrapper = shallow(
                 <UncontrolledAccordion>
                     <AccordionItemMock id="1"/>
@@ -113,7 +113,7 @@ describe('Accordion', () => {
             expect(wrapper.html()).toContain('2 - open');
         });
 
-        it('should unselect item when calling setOpenedItem another time', () => {
+        it('should unselect item when calling onSetOpenedItem another time', () => {
             const wrapper = shallow(
                 <UncontrolledAccordion>
                     <AccordionItemMock id="1"/>

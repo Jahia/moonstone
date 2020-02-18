@@ -1,22 +1,19 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-// Import classnames from 'clsx';
-// import {AccordionContext} from './Accordion.context';
 import {AccordionItem} from './AccordionItem';
 import {ControlledAccordion} from './ControlledAccordion';
-// Import styles from './Accordion.scss';
 
 export const UncontrolledAccordion = ({defaultOpenedItem, children, ...props}) => {
-    const [stateOpenedItem, setStateOpenedItem] = useState(defaultOpenedItem);
+    const [openedItem, setOpenedItem] = useState(defaultOpenedItem);
 
-    const setOpenedItem = id => {
-        setStateOpenedItem(prevState => {
+    const onSetOpenedItem = id => {
+        setOpenedItem(prevState => {
             return prevState === id ? null : id;
         });
     };
 
     return (
-        <ControlledAccordion openedItem={stateOpenedItem} setOpenedItem={setOpenedItem} {...props}>
+        <ControlledAccordion openedItem={openedItem} onSetOpenedItem={onSetOpenedItem} {...props}>
             {children}
         </ControlledAccordion>
     );
