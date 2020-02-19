@@ -3,18 +3,18 @@
 }
 
 :global(.moonstone-icon_small) {
+    width: 0.75rem;
+    height: 0.75rem;
+}
+
+:global(.moonstone-icon_default) {
     width: 1rem;
     height: 1rem;
 }
 
-:global(.moonstone-icon_default) {
+:global(.moonstone-icon_big) {
     width: 1.5rem;
     height: 1.5rem;
-}
-
-:global(.moonstone-icon_big) {
-    width: 3rem;
-    height: 3rem;
 }
 
 :global(.moonstone-icon_isLoading) {

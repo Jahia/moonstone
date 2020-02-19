@@ -27,13 +27,13 @@ storiesOf('Components|PrimaryNav', module)
                 top={
                     <>
                         <PrimaryNavItemsGroup>
-                            <PrimaryNavItem label="NavItem not selected" icon={<Feather/>}/>
-                            <PrimaryNavItem isSelected label="NavItem selected" icon={<Apps/>}/>
+                            <PrimaryNavItem label="NavItem not selected" icon={<Feather size="big"/>}/>
+                            <PrimaryNavItem isSelected label="NavItem selected" icon={<Apps size="big"/>}/>
                         </PrimaryNavItemsGroup>
                         <PrimaryNavItemsGroup>
-                            <PrimaryNavItem label="Very very long long name with many characters" icon={<Feather/>}/>
-                            <PrimaryNavItem icon={<Person/>} label="My profile" subtitle="username as a subtitle"/>
-                            <PrimaryNavItem icon={<Person/>} label="Very very long long long long label" subtitle="username as a subtitle username as a subtitle username as a subtitle username as a subtitle" button={<Button icon={<Power size="small"/>} label="Sign Out" variant="ghost" color="reverse" onClick={() => {}}/>}/>
+                            <PrimaryNavItem label="Very very long long name with many characters" icon={<Feather size="big"/>}/>
+                            <PrimaryNavItem icon={<Person size="big"/>} label="My profile" subtitle="username as a subtitle"/>
+                            <PrimaryNavItem icon={<Person size="big"/>} label="Very very long long long long label" subtitle="username as a subtitle username as a subtitle username as a subtitle username as a subtitle" button={<Button icon={<Power/>} label="Sign Out" variant="ghost" color="reverse" onClick={() => {}}/>}/>
                         </PrimaryNavItemsGroup>
                         <PrimaryNavItemsGroup isDisplayedWhenCollapsed={false}>
                             <PrimaryNavItem url="https://jahia.com" label="Jahia Link"/>
@@ -43,10 +43,10 @@ storiesOf('Components|PrimaryNav', module)
                 bottom={
                     <>
                         <PrimaryNavItemsGroup>
-                            <PrimaryNavItem label="Another bottom item" icon={<Profile/>}/>
+                            <PrimaryNavItem label="Another bottom item" icon={<Profile size="big"/>}/>
                         </PrimaryNavItemsGroup>
                         <PrimaryNavItemsGroup>
-                            <PrimaryNavItem label="Bottom item" icon={<Setting/>}/>
+                            <PrimaryNavItem label="Bottom item" icon={<Setting size="big"/>}/>
                         </PrimaryNavItemsGroup>
                     </>
                 }

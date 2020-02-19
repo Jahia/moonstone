@@ -18,7 +18,7 @@ storiesOf('Components|Accordion/AccordionItem', module)
             <AccordionItem
                 id="id"
                 label={text('Label', 'AccordionItem Label')}
-                icon={<Love/>}
+                icon={<Love size="big"/>}
             >
                 {text('Content', 'My content here')}
             </AccordionItem>
