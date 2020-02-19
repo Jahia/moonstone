@@ -63,7 +63,7 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
 
             // Manage if we display icon or loading
             const displayIconOrLoading = icon => {
-                const i = isLoading ? <Loading size="small" className="moonstone-icon_isLoading"/> : icon;
+                const i = isLoading ? <Loading className="moonstone-icon_isLoading"/> : icon;
 
                 return displayIcon(i);
             };
@@ -75,7 +75,7 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
                         <div className={cssTreeViewItem} style={{paddingLeft: `calc(var(--spacing-large) * ${deep}`}}>
                             {/* Icon arrow */}
                             <div className={classnames('flexRow', 'alignCenter', styles.treeViewItem_toggle)} onClick={toggleNode}>
-                                {isOpen ? <ChevronDown/> : <ChevronRight/> }
+                                {isOpen ? <ChevronDown size="big"/> : <ChevronRight size="big"/> }
                             </div>
 
                             {/* TreeViewItem */}

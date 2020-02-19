@@ -22,7 +22,7 @@ storiesOf('Components|SecondaryNav', module)
     ))
     .add('with header images', () => (
         <SecondaryNav
-            header={<Love/>}
+            header={<Love size="big"/>}
         >
             My content here
         </SecondaryNav>

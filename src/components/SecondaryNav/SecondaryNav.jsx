@@ -39,9 +39,9 @@ export const SecondaryNav = ({header, children, isDefaultVisible, onToggled, cla
                     onClick={handleToggle}
             >
                 {isVisible &&
-                    <ChevronDoubleLeft size="small"/>}
+                    <ChevronDoubleLeft/>}
                 {!isVisible &&
-                    <ChevronDoubleRight size="small"/>}
+                    <ChevronDoubleRight/>}
             </button>
 
             <div className={classnames(styles.secondaryNav_wrapper, 'flexFluid', 'flexCol_nowrap')}>

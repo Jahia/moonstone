@@ -10,7 +10,7 @@ const NavButton = ({isExpanded, toggleExpand, modeIcon}) => {
     if (isExpanded) {
         return (
             <button type="button" onClick={toggleExpand}>
-                <ArrowLeft/>
+                <ArrowLeft size="big"/>
             </button>
         );
     }
@@ -27,7 +27,7 @@ const NavButton = ({isExpanded, toggleExpand, modeIcon}) => {
         <>
             {icon}
             <button type="button" onClick={toggleExpand}>
-                <Menu/>
+                <Menu size="big"/>
             </button>
         </>
     );

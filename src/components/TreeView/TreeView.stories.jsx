@@ -13,13 +13,13 @@ const data = [
         id: 'A',
         label: 'A level 1',
         iconStart: 'https://image.flaticon.com/icons/svg/1973/1973617.svg',
-        iconEnd: <NoCloud size="small"/>,
+        iconEnd: <NoCloud/>,
         children: [
             {
                 id: 'A1',
                 label: 'A-1 level2 with a very very very long laaaaaaaaaaaaaaaaaaabel with many many words',
                 iconStart: 'https://image.flaticon.com/icons/svg/1973/1973617.svg',
-                iconEnd: <NoCloud size="small"/>
+                iconEnd: <NoCloud/>
             },
             {id: 'A2', label: 'A-2 level2'},
             {id: 'A3', label: 'A-3 level2'},
@@ -29,7 +29,7 @@ const data = [
     {
         id: 'B',
         label: 'B level1',
-        iconStart: <Love size="small"/>,
+        iconStart: <Love/>,
         children: [
             {id: 'B1', label: 'B-1 level2'},
             {id: 'B2', label: 'B-2 level2'},
