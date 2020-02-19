@@ -23,18 +23,14 @@ export const ListItem = ({label, iconStart, iconEnd, isDisabled, variant, classN
         >
             {
             iconStart &&
-                <i className={classnames(styles.listItem_iconStart)}>
-                    {iconStart}
-                </i>
+                <iconStart.type size="small" className={classnames(styles.listItem_iconStart)}/>
             }
 
             <Typography isNowrap className={classnames('flexFluid')} component="span">{label}</Typography>
 
             {
             iconEnd &&
-                <i className={classnames(styles.listItem_iconEnd)}>
-                    {iconEnd}
-                </i>
+                <iconEnd.type size="small" className={classnames(styles.listItem_iconEnd)}/>
             }
         </li>
     );

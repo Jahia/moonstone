@@ -30,20 +30,24 @@ const data = [
 const dataLanguages = [
     {
         label: 'FR',
-        value: 'fr'
+        value: 'fr',
+        iconStart: <Love/>
     },
     {
         label: 'EN-US',
-        value: 'en'
+        value: 'en',
+        iconStart: <Love/>
     },
     {
         label: 'DE',
-        value: '3'
+        value: '3',
+        iconStart: <Love/>
     },
     {
         label: 'ES',
         value: '4',
-        isDisabled: true
+        isDisabled: true,
+        iconEnd: <Love/>
     }
 ];
 
@@ -95,7 +99,7 @@ storiesOf('Components|Dropdown', module)
         return (
             <div style={{transform: 'scale(1)', height: '100vh', padding: '90px'}}>
                 <Dropdown
-                    icon={<Love size="small"/>}
+                    icon={<Love/>}
                     label={currentOption.label}
                     value={currentOption.value}
                     size={select('Size', DropdownSizes, DropdownSizes[0])}
@@ -108,7 +112,7 @@ storiesOf('Components|Dropdown', module)
         );
     })
     .add('with default value', () => {
-        const [currentOption, setCurrentOption] = useState({label: 'Select something', value: null});
+        const [currentOption, setCurrentOption] = useState({label: dataLanguages[1].label, value: dataLanguages[1].value});
 
         const handleOnChange = (e, item) => {
             setCurrentOption(item);
@@ -142,7 +146,7 @@ storiesOf('Components|Dropdown', module)
                     isDisabled={boolean('Disabled', false)}
                     label={currentOption.label}
                     value={currentOption.value}
-                    siz={select('Size', DropdownSizes, DropdownSizes[0])}
+                    size={select('Size', DropdownSizes, DropdownSizes[0])}
                     maxWidth={text('Max width', '120px')}
                     data={dataGrouped}
                     onChange={(e, item) => handleOnChange(e, item)}

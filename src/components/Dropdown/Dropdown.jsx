@@ -88,8 +88,9 @@ export const Dropdown = ({
         return (
             <ListItem
                 key={item.value}
-                iconStart={item.icon}
+                iconStart={item.iconStart}
                 label={item.label}
+                iconEnd={item.iconEnd}
                 isDisabled={item.isDisabled}
                 className={
                     classnames(
@@ -135,9 +136,11 @@ export const Dropdown = ({
                     }
                 }}
             >
-                <i className={classnames(styles.dropdown_icon)}>
-                    {icon}
-                </i>
+                {
+                icon &&
+                    <icon.type size="small" className={classnames(styles.dropdown_icon)}/>
+                }
+
                 <Typography
                     isNowrap
                     component="span"
@@ -145,7 +148,7 @@ export const Dropdown = ({
                 >
                     {label}
                 </Typography>
-                <ChevronDown size="small"/>
+                <ChevronDown/>
             </div>
 
             <Menu

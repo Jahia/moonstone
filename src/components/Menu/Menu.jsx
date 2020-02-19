@@ -12,6 +12,7 @@ export const Menu = ({
     onMouseEnter,
     onMouseLeave,
     anchorEl,
+    anchorElOrigin,
     anchorPosition,
     onClose,
     hasOverlay,
@@ -21,33 +22,40 @@ export const Menu = ({
 
     useEffect(() => {
         if (isDisplayed) {
-            setPositioningStyles(anchorEl);
+            definePositioning(anchorEl);
         }
-    }, [anchorEl, isDisplayed, setPositioningStyles]);
+    }, [anchorEl, isDisplayed, definePositioning]);
 
-    const setPositioningStyles = useCallback(() => {
-        let positioning;
+    const definePositioning = useCallback(() => {
+        const resolvedAnchorEl = anchorEl && anchorEl.current ? anchorEl.current : anchorEl;
+        let top = 0;
+        let left = 0;
 
-        if (anchorEl) {
-            let el = anchorEl.getBoundingClientRect();
-            positioning = {
-                top: el.top + el.height,
-                left: el.left
-            };
-        } else {
-            positioning = {
-                top: 0,
-                left: 0
-            };
+        if (resolvedAnchorEl) {
+            // Set vertical origin position
+            if (anchorElOrigin.vertical === 'top') {
+                top = resolvedAnchorEl.offsetTop;
+            } else if (anchorElOrigin.vertical === 'center') {
+                top = resolvedAnchorEl.offsetTop / 2;
+            } else if (anchorElOrigin.vertical === 'bottom') {
+                top = resolvedAnchorEl.offsetTop + resolvedAnchorEl.offsetHeight;
+            }
+
+            // Set horizontal origin position
+            if (anchorElOrigin.horizontal === 'left') {
+                left = resolvedAnchorEl.offsetLeft;
+            } else if (anchorElOrigin.horizontal === 'center') {
+                left = resolvedAnchorEl.offsetLeft / 2;
+            } else if (anchorElOrigin.horizontal === 'right') {
+                left = resolvedAnchorEl.offsetLeft + resolvedAnchorEl.offsetWidth;
+            }
         }
 
-        const positioningStyles = {
-            top: `calc(${positioning.top}px + ${anchorPosition.top})`,
-            left: `calc(${positioning.left}px + ${anchorPosition.left})`
-        };
-
-        setStylePosition(positioningStyles);
-    }, [anchorEl, anchorPosition]);
+        setStylePosition({
+            top: `calc(${top}px + ${anchorPosition.top})`,
+            left: `calc(${left}px + ${anchorPosition.left})`
+        });
+    }, [anchorEl, anchorPosition, anchorElOrigin.vertical, anchorElOrigin.horizontal]);
 
     // ---
     // Styling
@@ -64,7 +72,7 @@ export const Menu = ({
     // ---
     // Render
     // ---
-    if (isDisplayed) {
+    if (isDisplayed && stylePosition) {
         return (
             <div className={classnames(styles.menu_wrapper)}>
                 <menu
@@ -99,9 +107,14 @@ Menu.defaultProps = {
     onMouseLeave: () => {},
     onClose: () => {},
     hasOverlay: true,
+    anchorEl: null,
     anchorPosition: {
         top: '0px',
         left: '0px'
+    },
+    anchorElOrigin: {
+        vertical: 'bottom',
+        horizontal: 'left'
     }
 };
 
@@ -119,7 +132,7 @@ Menu.propTypes = {
     /**
      * Reference element to positioning the menu
      */
-    anchorEl: PropTypes.any,
+    anchorEl: PropTypes.object,
 
     /**
      * Content of the dropdown
@@ -132,11 +145,16 @@ Menu.propTypes = {
     isDisplayed: PropTypes.bool.isRequired,
 
     /**
-     * Position of the menu
+     * Position of the menu in px
      */
     anchorPosition: PropTypes.shape({
-        top: PropTypes.string,
-        left: PropTypes.string
+        top: PropTypes.string.isRequired,
+        left: PropTypes.string.isRequired
+    }),
+
+    anchorElOrigin: PropTypes.shape({
+        horizontal: PropTypes.oneOf(['left', 'center', 'right']).isRequired,
+        vertical: PropTypes.oneOf(['top', 'center', 'bottom']).isRequired
     }),
 
     /**
@@ -159,6 +177,9 @@ Menu.propTypes = {
      */
     onClose: PropTypes.func,
 
+    /**
+     * The menu has overlay or not
+     */
     hasOverlay: PropTypes.bool
 };
 
