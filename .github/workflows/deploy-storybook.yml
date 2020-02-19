@@ -1,0 +1,26 @@
+name: CI Deploy storybook
+
+on:
+  release:
+    types: [published, unpublished]
+
+jobs:
+  build-storybook:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Install
+      run: yarn install --frozen-lockfile
+
+    - name: Build
+      run: yarn build:storybook
+
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v2
+      env:
+        ACTIONS_DEPLOY_KEY: ${{ secrets.DEPLOY_STORYBOOK }}
+        PUBLISH_BRANCH: gh-pages
+        PUBLISH_DIR: 'storybook-static'
