@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {storiesOf} from '@storybook/react';
 import {withKnobs} from '@storybook/addon-knobs';
 import {action} from '@storybook/addon-actions';
@@ -109,9 +109,9 @@ storiesOf('Components|Accordion', module)
             </AccordionItem>
         </Accordion>
     ))
-    .add('open', () => (
+    .add('opened', () => (
         <Accordion
-            openByDefault={accordionIds[1]}
+            defaultOpenedItem={accordionIds[1]}
         >
             <AccordionItem
                 id={accordionIds[0]}
@@ -139,6 +139,56 @@ storiesOf('Components|Accordion', module)
             </AccordionItem>
         </Accordion>
     ))
+
+    .add('controlled', () => {
+        const [stateOpenedItems, setStateOpenedItem] = useState(accordionIds[1]);
+
+        const onSetOpenedItem = id => {
+            setStateOpenedItem(prevState => {
+                return prevState === id ? null : id;
+            });
+        };
+
+        return (
+            <>
+                <span>
+                    <button type="button" onClick={() => onSetOpenedItem('01')}>Open First</button>
+                    <button type="button" onClick={() => onSetOpenedItem('02')}>Open Second</button>
+                    <button type="button" onClick={() => onSetOpenedItem('03')}>Open Third</button>
+                    <button type="button" onClick={() => onSetOpenedItem(null)}>Close</button>
+                </span>
+                <Accordion
+                    openedItem={stateOpenedItems}
+                    onSetOpenedItem={onSetOpenedItem}
+                >
+                    <AccordionItem
+                        id={accordionIds[0]}
+                        icon={<Love/>}
+                        label="test 01"
+                        onClick={action(`click on AccordionItem with id : ${accordionIds[0]}`)}
+                    >
+                        Accordion Content
+                    </AccordionItem>
+                    <AccordionItem
+                        id={accordionIds[1]}
+                        icon={<Bug/>}
+                        label="test 02 is opened by default"
+                        onClick={action(`click on AccordionItem with id : ${accordionIds[1]}`)}
+                    >
+                        Accordion Content
+                    </AccordionItem>
+                    <AccordionItem
+                        id={accordionIds[2]}
+                        label="test 03 (with long content)"
+                        icon={<BarSquare/>}
+                        onClick={action(`click on AccordionItem with id : ${accordionIds[2]}`)}
+                    >
+                        Accordion Content
+                    </AccordionItem>
+                </Accordion>
+            </>
+        );
+    })
     .add('reversed', () => (
         <div style={{flex: '1', display: 'flex', backgroundColor: '#293136'}}>
             <Accordion isReversed>

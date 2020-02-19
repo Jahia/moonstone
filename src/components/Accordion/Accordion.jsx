@@ -1,25 +1,15 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'clsx';
-import {AccordionContext} from './Accordion.context';
+import {UncontrolledAccordion} from './UncontrolledAccordion';
+import {ControlledAccordion} from './ControlledAccordion';
 import {AccordionItem} from './AccordionItem';
-import styles from './Accordion.scss';
 
-export const Accordion = ({children, openByDefault, isReversed, className, ...props}) => {
-    const [currentItem, setCurrentItem] = useState(openByDefault ? openByDefault : null);
-    const [reversed] = useState(isReversed);
-
-    function defineCurrentItem(id) {
-        setCurrentItem(prevState => (prevState === id ? null : id));
+export const Accordion = ({children, defaultOpenedItem, openedItem, onSetOpenedItem, ...props}) => {
+    if (typeof openedItem === 'undefined') {
+        return <UncontrolledAccordion defaultOpenedItem={defaultOpenedItem} {...props}>{children}</UncontrolledAccordion>;
     }
 
-    return (
-        <AccordionContext.Provider value={{currentItem, defineCurrentItem, reversed}}>
-            <div {...props} className={classnames(className, 'flexFluid', styles.accordion, isReversed ? styles.accordion_reversed : null)}>
-                {children}
-            </div>
-        </AccordionContext.Provider>
-    );
+    return <ControlledAccordion openedItem={openedItem} onSetOpenedItem={onSetOpenedItem} {...props}>{children}</ControlledAccordion>;
 };
 
 Accordion.defaultProps = {
@@ -47,14 +37,24 @@ Accordion.propTypes = {
     ]).isRequired,
 
     /**
-     * AccordionItem's id to set an item open by default
+     * AccordionItem's id opened by default
      */
-    openByDefault: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    defaultOpenedItem: PropTypes.string,
+
+    /**
+     * AccordionItem's id open
+     */
+    openedItem: PropTypes.string,
 
     /**
      * Additional classname
      */
-    className: PropTypes.string
+    className: PropTypes.string,
+
+    /**
+     * Function to set accoridonItem opened
+     */
+    onSetOpenedItem: PropTypes.func
 };
 
 Accordion.displayName = 'Accordion';

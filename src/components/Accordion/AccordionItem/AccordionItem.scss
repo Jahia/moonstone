@@ -71,13 +71,13 @@ $accordionHeader_height: 48px;
 //---
 .accordionItem_content {
     max-width: 100%;
-    padding: var(--spacing-medium);
+
     overflow-x: hidden;
     overflow-y: auto;
 }
 
 .accordionItem_reversed {
-    border-color: var(--color-gray);
+    border-color: var(--color-gray40);
 
     .accordionItem_header {
         color: var(--color-light60);
@@ -97,7 +97,7 @@ $accordionHeader_height: 48px;
     .accordionItem_header_selected {
         color: var(--color-light);
 
-        border-color: var(--color-gray);
+        border-color: var(--color-gray40);
         background-color: var(--color-dark);
 
         &:focus,

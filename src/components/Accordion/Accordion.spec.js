@@ -1,28 +1,30 @@
 import React, {useContext} from 'react';
 import {shallow} from 'component-test-utils-react';
 import {Accordion} from './index';
+import {ControlledAccordion} from './ControlledAccordion';
+import {UncontrolledAccordion} from './UncontrolledAccordion';
 import {AccordionItem} from './AccordionItem/';
 import {AccordionContext} from './Accordion.context';
 
 describe('Accordion', () => {
     it('should display children content', () => {
         const wrapper = shallow(
-            <Accordion>
+            <ControlledAccordion>
                 <AccordionItem id="id" label="label">
                     content here
                 </AccordionItem>
-            </Accordion>
+            </ControlledAccordion>
         );
         expect(wrapper.querySelector('#id').exists()).toBe(true);
     });
 
     it('should add reversed class when component is reversed', () => {
         const wrapper = shallow(
-            <Accordion isReversed>
+            <ControlledAccordion isReversed>
                 <AccordionItem id="id" label="label">
                     content here
                 </AccordionItem>
-            </Accordion>
+            </ControlledAccordion>
         );
 
         expect(wrapper.html()).toContain('accordion_reversed');
@@ -30,11 +32,11 @@ describe('Accordion', () => {
 
     it('should add extra attribute on Accordion', () => {
         const wrapper = shallow(
-            <Accordion data-custom="test">
+            <ControlledAccordion data-custom="test">
                 <AccordionItem id="id" label="label">
                     content here
                 </AccordionItem>
-            </Accordion>
+            </ControlledAccordion>
         );
         expect(wrapper.html()).toContain('data-custom="test"');
     });
@@ -55,7 +57,10 @@ describe('Accordion', () => {
         const AccordionItemMock = ({id}) => {
             const context = useContext(AccordionContext);
             const open = context.currentItem === id;
-            return <button type="button" id={id} onClick={() => context.defineCurrentItem(id)}>{id} - {open ? 'open' : 'close'}</button>;
+
+            return (
+                <button type="button" id={id} onClick={() => context.onSetOpenedItem(id)}>{id} - {open ? 'open' : 'close'}</button>
+            );
         };
 
         beforeAll(() => {
@@ -69,15 +74,16 @@ describe('Accordion', () => {
             delete console.oldError;
         });
 
-        it('should select another item when calling defineCurrentItem', () => {
+        it('should select another item when calling onSetOpenedItem', () => {
             const wrapper = shallow(
-                <Accordion>
+                <UncontrolledAccordion>
                     <AccordionItemMock id="1"/>
                     <AccordionItemMock id="2"/>
-                </Accordion>
+                </UncontrolledAccordion>
                 , {
                     mocks: {
-                        AccordionItemMock
+                        AccordionItemMock: true,
+                        ControlledAccordion: true
                     }
                 });
 
@@ -87,15 +93,36 @@ describe('Accordion', () => {
             expect(wrapper.html()).toContain('2 - close');
         });
 
-        it('should unselect item when calling defineCurrentItem another time', () => {
+        it('should open just one item', () => {
             const wrapper = shallow(
-                <Accordion>
+                <UncontrolledAccordion>
                     <AccordionItemMock id="1"/>
                     <AccordionItemMock id="2"/>
-                </Accordion>
+                </UncontrolledAccordion>
                 , {
                     mocks: {
-                        AccordionItemMock
+                        AccordionItemMock: true,
+                        ControlledAccordion: true
+                    }
+                });
+
+            wrapper.querySelector('#1 button').dispatchEvent('click');
+            wrapper.querySelector('#2 button').dispatchEvent('click');
+
+            expect(wrapper.html()).toContain('1 - close');
+            expect(wrapper.html()).toContain('2 - open');
+        });
+
+        it('should unselect item when calling onSetOpenedItem another time', () => {
+            const wrapper = shallow(
+                <UncontrolledAccordion>
+                    <AccordionItemMock id="1"/>
+                    <AccordionItemMock id="2"/>
+                </UncontrolledAccordion>
+                , {
+                    mocks: {
+                        AccordionItemMock: true,
+                        ControlledAccordion: true
                     }
                 });
 
@@ -108,13 +135,14 @@ describe('Accordion', () => {
 
         it('should open item by default when give the props', () => {
             const wrapper = shallow(
-                <Accordion openByDefault="2">
+                <UncontrolledAccordion defaultOpenedItem="2">
                     <AccordionItemMock id="1"/>
                     <AccordionItemMock id="2"/>
-                </Accordion>
+                </UncontrolledAccordion>
                 , {
                     mocks: {
-                        AccordionItemMock
+                        AccordionItemMock: true,
+                        ControlledAccordion: true
                     }
                 });
 
