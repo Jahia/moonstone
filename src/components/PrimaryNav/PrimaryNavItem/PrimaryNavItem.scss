@@ -48,6 +48,10 @@
 .primaryNavItem_label {
     color: inherit;
     text-decoration: none;
+
+    &.subtitle {
+        color: var(--color-light60);
+    }
 }
 
 .primaryNavItem_textContainer {
