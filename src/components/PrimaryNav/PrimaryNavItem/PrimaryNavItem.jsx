@@ -72,6 +72,7 @@ export const PrimaryNavItem = ({label, icon, className, subtitle, url, button, i
         onClick={onClick}
         {...props}
     >
+        {props.badge && <span className={styles.primaryNavItem_badge}>{props.badge}</span>}
         <ItemTypeResolver icon={icon} label={label} subtitle={subtitle} url={url} button={button}/>
     </li>
 );

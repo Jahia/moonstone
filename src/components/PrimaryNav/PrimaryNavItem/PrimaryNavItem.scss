@@ -1,4 +1,6 @@
 .primaryNavItem {
+    position: relative;
+
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -11,7 +13,8 @@
     cursor: pointer;
 
     transition: color 0.2s, background-color 0.2s;
-    overflow: hidden; // Hide content when primaryNav is collapsed
+
+    // overflow: hidden; // Hide content when primaryNav is collapsed
 
     &.selected {
         color: var(--color-light);
@@ -67,4 +70,23 @@
 .primaryNavItem_linkItem {
     width: 100%;
     margin: 0;
+}
+
+.primaryNavItem_badge {
+    position: absolute;
+    top: 0.1rem;
+    right: -0.1rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 1rem;
+    min-height: 1rem;
+
+    font-size: 8px;
+
+    border: solid var(--color-danger) 0.2rem;
+
+    border-radius: 2rem;
+    background-color: var(--color-danger);
 }
