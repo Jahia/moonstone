@@ -1,45 +1,62 @@
 @import '../../utils/index';
 
 .typography {
-    &.page {
-        font-weight: 400;
-        font-size: 28px;
-        line-height: 28px;
+    &.variant_title {
+        font-weight: 300;
+        font-size: 1.75rem; //28px
+        font-feature-settings: 'ordn' on, 'liga' off;
+        line-height: 2rem; //32px;
+        text-transform: capitalize;
     }
 
-    &.section {
+    &.variant_heading {
         font-weight: 600;
-        font-size: 20px;
-        line-height: 20px;
+        font-size: 1.25rem; //20px;
+        line-height: 1.5rem; //24px;
     }
 
-    &.regular {
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 18px;
+    &.variant_subheading {
+        font-size: 1rem; //16px;
+        line-height: 1.125rem; //18px;
     }
 
-    &.caption {
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 18px;
+    &.variant_body {
+        font-size: 0.875rem; //14px;
+        line-height: 1.1875rem; //19px;
     }
 
-    &.strong {
-        font-weight: 700;
-        font-size: 16px;
-        line-height: 18px;
+    &.variant_caption {
+        font-size: 0.75rem; //12px;
+        line-height: 1rem; //16px;
     }
 
-    &.subtitle {
-        font-weight: 400;
-        font-size: 11px;
-        line-height: 15px;
+    &.variant_button {
+        font-weight: 600;
+        font-size: 0.75rem; //12px;
+        line-height: 1rem; //16px;
+    }
 
-        opacity: 0.6;
+    &.weight_bold {
+        font-weight: bold;
+    }
+
+    &.weight_semiBold {
+        font-weight: 600;
+    }
+
+    &.weight_light {
+        font-weight: 300;
     }
 
     &.nowrap {
         @include truncate;
+    }
+
+    &.italic {
+        font-style: italic;
+    }
+
+    &.lineThrough {
+        text-decoration-line: line-through;
     }
 }

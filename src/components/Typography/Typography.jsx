@@ -1,18 +1,10 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
 import styles from './Typography.scss';
 import classnames from 'clsx';
 
-export const TypographyVariants = [
-    'page',
-    'section',
-    'regular',
-    'caption',
-    'strong',
-    'button',
-    'subtitle'
-];
+export const variants = ['title', 'heading', 'subheading', 'body', 'caption', 'button'];
+export const weights = ['default', 'bold', 'semiBold', 'light'];
 
 const filterOutProps = function (props, out) {
     const newProps = {...props};
@@ -26,7 +18,10 @@ export const Typography = ({
     children,
     component,
     variant,
+    weight,
     className,
+    hasLineThrough,
+    isItalic,
     isNowrap,
     ...props
 }) =>
@@ -34,7 +29,14 @@ export const Typography = ({
         component,
         {
             ...filterOutProps(props, ['isHtml']),
-            className: classnames(styles.typography, styles[variant], className, {[styles.nowrap]: isNowrap})
+            className: classnames(
+                styles.typography,
+                styles[`variant_${variant}`],
+                styles[`weight_${weight}`],
+                className,
+                {[styles.nowrap]: isNowrap},
+                {[styles.italic]: isItalic},
+                {[styles.lineThrough]: hasLineThrough})
         },
         children
     );
@@ -43,7 +45,10 @@ Typography.defaultProps = {
     children: '',
     className: '',
     component: 'p',
-    variant: 'regular',
+    variant: 'body',
+    weight: 'default',
+    isItalic: false,
+    hasLineThrough: false,
     isHtml: false,
     isNowrap: false
 };
@@ -82,7 +87,22 @@ Typography.propTypes = {
     /**
      * Variant to use
      */
-    variant: PropTypes.oneOf(TypographyVariants),
+    variant: PropTypes.oneOf(variants),
+
+    /**
+     * The weight of the font to use
+     */
+    weight: PropTypes.oneOf(weights),
+
+    /**
+     * Should the text be displayed in italic
+     */
+    isItalic: PropTypes.bool,
+
+    /**
+     * Should the text be displayed with a line-through
+     */
+    hasLineThrough: PropTypes.bool,
 
     /**
      * Does the children contain HTML markup
