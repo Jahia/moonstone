@@ -2,7 +2,7 @@ name: CI Deploy storybook
 
 on:
   release:
-    types: [published, unpublished]
+    types: [published]
 
 jobs:
   build-storybook:
