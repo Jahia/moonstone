@@ -84,7 +84,7 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
                                  onDoubleClick={handleNodeDoubleClick}
                             >
                                 {displayIcon(node.iconStart)}
-                                <Typography isNowrap className={classnames('flexFluid')} component="span">{node.label}</Typography>
+                                <Typography isNowrap variant="body" className={classnames('flexFluid')} component="span">{node.label}</Typography>
                                 {displayIconOrLoading(node.iconEnd)}
                             </div>
                         </div>
@@ -107,7 +107,7 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
                     onDoubleClick={handleNodeDoubleClick}
                 >
                     {displayIcon(node.iconStart)}
-                    <Typography isNowrap className={classnames('flexFluid')} component="span">{node.label}</Typography>
+                    <Typography isNowrap variant="body" className={classnames('flexFluid')} component="span">{node.label}</Typography>
                     {displayIconOrLoading(node.iconEnd)}
                 </li>
             );
