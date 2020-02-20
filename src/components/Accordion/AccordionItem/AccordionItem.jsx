@@ -43,7 +43,7 @@ export const AccordionItem = ({id, label, icon, onClick, children, className, ..
                         'alignCenter'
                     )}
                     >
-                        {icon}
+                        {icon && <icon.type {...icon.props} size="big"/>}
                     </div>}
                 <Typography
                     isNowrap

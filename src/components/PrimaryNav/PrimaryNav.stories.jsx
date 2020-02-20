@@ -27,13 +27,13 @@ storiesOf('Components|PrimaryNav', module)
                 top={
                     <>
                         <PrimaryNavItemsGroup>
-                            <PrimaryNavItem label="NavItem not selected" icon={<Feather size="big"/>}/>
-                            <PrimaryNavItem isSelected label="NavItem selected" icon={<Apps size="big"/>}/>
+                            <PrimaryNavItem label="NavItem not selected" icon={<Feather/>}/>
+                            <PrimaryNavItem isSelected label="NavItem selected" icon={<Apps/>}/>
                         </PrimaryNavItemsGroup>
                         <PrimaryNavItemsGroup>
-                            <PrimaryNavItem label="Very very long long name with many characters" icon={<Feather size="big"/>}/>
-                            <PrimaryNavItem icon={<Person size="big"/>} label="My profile" subtitle="username as a subtitle"/>
-                            <PrimaryNavItem icon={<Person size="big"/>} label="Very very long long long long label" subtitle="username as a subtitle username as a subtitle username as a subtitle username as a subtitle" button={<Button icon={<Power/>} label="Sign Out" variant="ghost" color="reverse" onClick={() => {}}/>}/>
+                            <PrimaryNavItem label="Very very long long name with many characters" icon={<Feather/>}/>
+                            <PrimaryNavItem icon={<Person/>} label="My profile" subtitle="username as a subtitle"/>
+                            <PrimaryNavItem icon={<Person/>} label="Very very long long long long label" subtitle="username as a subtitle username as a subtitle username as a subtitle username as a subtitle" button={<Button icon={<Power/>} label="Sign Out" variant="ghost" color="reverse" onClick={() => {}}/>}/>
                         </PrimaryNavItemsGroup>
                         <PrimaryNavItemsGroup isDisplayedWhenCollapsed={false}>
                             <PrimaryNavItem url="https://jahia.com" label="Jahia Link"/>
