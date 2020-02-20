@@ -25,10 +25,10 @@
     &.round_small {
         @include round;
 
-        padding-right: 0.3rem;
-        padding-left: 0.3rem;
+        padding-right: 0.1rem;
+        padding-left: 0.1rem;
 
-        font-size: 0.75rem;
+        font-size: 0.4rem;
     }
 
     &.round_big {

@@ -118,7 +118,7 @@ PrimaryNavItem.propTypes = {
     /**
      * Badge
      */
-    badge: PropTypes.instanceOf(Badge),
+    badge: PropTypes.element,
 
     /**
      * URL to navigate to. If this is used <a> element will be returned with target set to _blank.

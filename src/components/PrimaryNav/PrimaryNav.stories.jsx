@@ -4,7 +4,7 @@ import {withKnobs} from '@storybook/addon-knobs';
 import markdownNotes from './PrimaryNav.md';
 
 import {PrimaryNav} from './index';
-import {PrimaryNavItemsGroup, PrimaryNavItem, Button} from '~/components';
+import {PrimaryNavItemsGroup, PrimaryNavItem, Button, Badge} from '~/components';
 import Apps from '~/tokens/icons/asset/Apps.svg';
 import Feather from '~/tokens/icons/asset/Feather.svg';
 import Setting from '~/tokens/icons/asset/Setting.svg';
@@ -34,8 +34,8 @@ storiesOf('Components|PrimaryNav', module)
                             <PrimaryNavItem label="Very very long long name with many characters" icon={<Feather size="big"/>}/>
                             <PrimaryNavItem icon={<Person size="big"/>} label="My profile" subtitle="username as a subtitle"/>
                             <PrimaryNavItem icon={<Person size="big"/>} label="Very very long long long long label" subtitle="username as a subtitle username as a subtitle username as a subtitle username as a subtitle" button={<Button icon={<Power/>} label="Sign Out" variant="ghost" color="reverse" onClick={() => {}}/>}/>
-                            <PrimaryNavItem icon={<Person size="big"/>} label="With badge" badge="3"/>
-                            <PrimaryNavItem icon={<Person size="big"/>} label="With badge" badge="333"/>
+                            <PrimaryNavItem icon={<Person size="big"/>} label="With badge" badge={<Badge size="small" type="round" color="danger" label="3" style={{position: 'absolute', top: '0.1rem', right: '-0.1rem'}}/>}/>
+                            <PrimaryNavItem icon={<Person size="big"/>} label="With badge" badge={<Badge size="small" type="round" color="danger" label="333" style={{position: 'absolute', top: '0.1rem', right: '-0.1rem'}}/>}/>
                         </PrimaryNavItemsGroup>
                         <PrimaryNavItemsGroup isDisplayedWhenCollapsed={false}>
                             <PrimaryNavItem url="https://jahia.com" label="Jahia Link"/>
