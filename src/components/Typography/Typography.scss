@@ -59,4 +59,8 @@
     &.lineThrough {
         text-decoration-line: line-through;
     }
+
+    &.upperCase {
+        text-transform: uppercase;
+    }
 }

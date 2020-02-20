@@ -22,6 +22,7 @@ export const Typography = ({
     className,
     hasLineThrough,
     isItalic,
+    isUpperCase,
     isNowrap,
     ...props
 }) =>
@@ -36,6 +37,7 @@ export const Typography = ({
                 className,
                 {[styles.nowrap]: isNowrap},
                 {[styles.italic]: isItalic},
+                {[styles.upperCase]: isUpperCase},
                 {[styles.lineThrough]: hasLineThrough})
         },
         children
@@ -48,6 +50,7 @@ Typography.defaultProps = {
     variant: 'body',
     weight: 'default',
     isItalic: false,
+    isUpperCase: false,
     hasLineThrough: false,
     isHtml: false,
     isNowrap: false
@@ -98,6 +101,11 @@ Typography.propTypes = {
      * Should the text be displayed in italic
      */
     isItalic: PropTypes.bool,
+
+    /**
+     * Should the text be displayed in upper case
+     */
+    isUpperCase: PropTypes.bool,
 
     /**
      * Should the text be displayed with a line-through

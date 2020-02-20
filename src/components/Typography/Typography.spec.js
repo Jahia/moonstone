@@ -42,6 +42,16 @@ describe('Typography', () => {
         expect(wrapper.props.className).not.toContain('italic');
     });
 
+    it('should display a text in upper case', () => {
+        const wrapper = shallow(<Typography isUpperCase>Test</Typography>);
+        expect(wrapper.props.className).toContain('upperCase');
+    });
+
+    it('should not display a text in upper case', () => {
+        const wrapper = shallow(<Typography>Test</Typography>);
+        expect(wrapper.props.className).not.toContain('upperCase');
+    });
+
     it('should display a text with a line-through', () => {
         const wrapper = shallow(<Typography hasLineThrough>Test</Typography>);
         expect(wrapper.props.className).toContain('lineThrough');
