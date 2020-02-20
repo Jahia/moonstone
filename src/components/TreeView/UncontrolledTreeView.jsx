@@ -26,8 +26,11 @@ UncontrolledTreeView.propTypes = {
         iconStart: PropTypes.nodes,
         iconEnd: PropTypes.nodes,
         hasChildren: PropTypes.bool,
+        isClosable: PropTypes.bool,
         children: PropTypes.arrayOf(PropTypes.object),
-        isLoading: PropTypes.bool
+        isLoading: PropTypes.bool,
+        className: PropTypes.string,
+        typographyOptions: PropTypes.object
     })).isRequired,
 
     /**
@@ -51,6 +54,11 @@ UncontrolledTreeView.propTypes = {
     onDoubleClickItem: PropTypes.func,
 
     /**
+     * Trigger by right clicking on node
+     */
+    onContextMenuItem: PropTypes.func,
+
+    /**
      * Reverse color usefull for context with dark background
      */
     isReversed: PropTypes.bool
@@ -59,6 +67,7 @@ UncontrolledTreeView.propTypes = {
 UncontrolledTreeView.defaultProps = {
     onClickItem: () => {},
     onDoubleClickItem: () => {},
+    onContextMenuItem: () => {},
     defaultOpenedItems: [],
     selectedItems: [],
     isReversed: false

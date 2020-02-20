@@ -27,8 +27,7 @@ describe('TreeView', () => {
 
     it('should not display icon for items without children', () => {
         const wrapper = shallow(<ControlledTreeView data={[{id: 'A', label: 'A level1'}]}/>);
-
-        expect(wrapper.html()).not.toContain('treeViewItem_icon');
+        expect(wrapper.querySelector('.treeView_itemToggle svg')).toHaveProperty('nodeNotExistError');
     });
 
     it('should open node set in openItems', () => {
@@ -54,7 +53,7 @@ describe('TreeView', () => {
             <UncontrolledTreeView data={tree}/>, {mocks: {ControlledTreeView: true}}
         );
 
-        wrapper.querySelector('.treeViewItem_toggle').dispatchEvent('click');
+        wrapper.querySelector('.treeView_itemToggle').dispatchEvent('click');
         expect(wrapper.html()).toContain('A-1 level2');
     });
 
@@ -74,7 +73,7 @@ describe('TreeView', () => {
         expect(wrapper.html()).toContain(<Love/>);
     });
 
-    it('should display end icon of treeViewItem', () => {
+    it('should display end icon of treeView_item', () => {
         const wrapper = shallow(
             <ControlledTreeView data={tree}/>
         );
@@ -103,7 +102,7 @@ describe('TreeView', () => {
             <ControlledTreeView isReversed data={tree}/>
         );
 
-        expect(wrapper.html()).toContain('treeViewItem_reversed');
+        expect(wrapper.html()).toContain('reversed');
     });
 
     it('should add specific class if a node is selected', () => {
@@ -111,7 +110,7 @@ describe('TreeView', () => {
             <ControlledTreeView isReversed data={tree} selectedItems={['A']}/>
         );
 
-        expect(wrapper.html()).toContain('treeViewItem_selected');
+        expect(wrapper.html()).toContain('selected');
     });
 
     it('should not throw error when there is no onDoubleClick defined', () => {
@@ -120,7 +119,7 @@ describe('TreeView', () => {
         );
 
         // No error should occur when there is no onDoubleClick defined
-        wrapper.querySelector('.treeViewItem_label').dispatchEvent('doubleClick');
+        wrapper.querySelector('.treeView_itemLabel').dispatchEvent('doubleClick');
     });
 
     it('should call onDoubleClick when double click on an item', () => {
@@ -129,7 +128,7 @@ describe('TreeView', () => {
             <ControlledTreeView data={tree} onDoubleClickItem={clickHandler}/>
         );
 
-        wrapper.querySelector('.treeViewItem_label').dispatchEvent('doubleClick');
+        wrapper.querySelector('.treeView_itemLabel').dispatchEvent('doubleClick');
 
         expect(clickHandler).toHaveBeenCalled();
     });
@@ -140,7 +139,7 @@ describe('TreeView', () => {
         );
 
         // No error should occur when there is no onClick defined
-        wrapper.querySelector('.treeViewItem_label').dispatchEvent('click');
+        wrapper.querySelector('.treeView_itemLabel').dispatchEvent('click');
     });
 
     it('should call onClick when clicking on label', () => {
@@ -148,7 +147,7 @@ describe('TreeView', () => {
         const wrapper = shallow(
             <ControlledTreeView data={tree} onClickItem={clickHandler}/>
         );
-        wrapper.querySelector('.treeViewItem_label').dispatchEvent('click');
+        wrapper.querySelector('.treeView_itemLabel').dispatchEvent('click');
         expect(clickHandler).toHaveBeenCalled();
     });
 
@@ -158,7 +157,7 @@ describe('TreeView', () => {
             <ControlledTreeView data={tree} onOpenItem={clickHandler}/>
         );
 
-        wrapper.querySelector('.treeViewItem_toggle').dispatchEvent('click');
+        wrapper.querySelector('.treeView_itemToggle').dispatchEvent('click');
 
         expect(clickHandler).toHaveBeenCalled();
     });
@@ -171,7 +170,7 @@ describe('TreeView', () => {
             <ControlledTreeView data={tree} openedItems={openedItems} onOpenItem={clickHandler}/>
         );
 
-        wrapper.querySelector('.treeViewItem_toggle').dispatchEvent('click');
+        wrapper.querySelector('.treeView_itemToggle').dispatchEvent('click');
 
         expect(clickHandler).not.toHaveBeenCalled();
     });

@@ -36,4 +36,8 @@
 
         background-color: var(--color-warning40);
     }
+
+    & > svg:not(:last-child) {
+        margin-right: 6px;
+    }
 }
