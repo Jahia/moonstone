@@ -6,8 +6,14 @@ import classnames from 'clsx';
 
 export const colors = ['default', 'accent', 'success', 'warning', 'danger'];
 
-export const Chip = ({label, color, icon, className, ...props}) => (
-    <div className={classnames(styles.chip, styles[`color_${color}`], className)} {...props}>
+export const Chip = ({label, color, icon, className, isDisabled, ...props}) => (
+    <div className={classnames(
+        styles.chip,
+        styles[`color_${color}`],
+        {[styles.disabled]: isDisabled},
+        className)}
+         {...props}
+    >
         {icon && <icon.type size="small"/>}
         {label && <Typography isNowrap component="span" variant="caption" weight="semiBold">{label}</Typography>}
     </div>
@@ -16,7 +22,8 @@ export const Chip = ({label, color, icon, className, ...props}) => (
 Chip.defaultProps = {
     label: '',
     color: 'default',
-    icon: null
+    icon: null,
+    isDisabled: false
 };
 
 Chip.propTypes = {
@@ -38,7 +45,12 @@ Chip.propTypes = {
     /**
      * Additional classname
      */
-    className: PropTypes.string
+    className: PropTypes.string,
+
+    /**
+     * Is this component disabled
+     */
+    isDisabled: PropTypes.bool
 };
 
 Chip.displayName = 'Chip';
