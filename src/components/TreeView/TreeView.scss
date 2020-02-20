@@ -1,4 +1,4 @@
-.treeViewItem {
+.treeView_item {
     --color-treeItem: inherit;
     --color-treeItem_hover: var(--color-dark);
     --color-treeItem_selected: var(--color-light);
@@ -20,37 +20,51 @@
 
         background-color: var(--background-treeItem_hover);
     }
-}
 
-.treeViewItem_toggle,
-.treeViewItem_icon {
-    display: flex;
-    margin-right: var(--spacing-nano);
-}
+    &.selected {
+        color: var(--color-treeItem_selected);
 
-.treeViewItem_toggle {
-    cursor: pointer;
-}
+        background-color: var(--background-treeItem_selected);
 
-.treeViewItem_selected {
-    color: var(--color-treeItem_selected);
+        &:hover {
+            color: var(--color-treeItem_selected_hover);
 
-    background-color: var(--background-treeItem_selected);
+            background-color: var(--background-treeItem_selected_hover);
+        }
+    }
 
-    &:hover {
-        color: var(--color-treeItem_selected_hover);
-
-        background-color: var(--background-treeItem_selected_hover);
+    // Theme reversed
+    &.reversed {
+        --color-treeItem: var(--color-gray_light);
+        --color-treeItem_hover: var(--color-light);
+        --background-treeItem_hover: var(--color-gray40);
     }
 }
 
-.treeViewItem_label {
-    align-self: stretch;
+.treeView_itemIcon {
+    display: flex;
+    width: 16px;
+    height: 16px;
 }
 
-// Theme reversed
-.treeViewItem_reversed {
-    --color-treeItem: var(--color-gray_light);
-    --color-treeItem_hover: var(--color-light);
-    --background-treeItem_hover: var(--color-gray40);
+.treeView_itemIconStart,
+.treeView_itemToggle {
+    margin-right: var(--spacing-nano);
+}
+
+.treeView_itemIconStart {
+    padding: 2px;
+}
+
+.treeView_itemIconEnd {
+    margin-left: var(--spacing-nano);
+}
+
+.treeView_itemToggle {
+    cursor: pointer;
+}
+
+.treeView_itemLabel {
+    align-self: stretch;
+    min-width: 0;
 }
