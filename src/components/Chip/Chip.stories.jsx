@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import {storiesOf} from '@storybook/react';
-import {select, text, withKnobs} from '@storybook/addon-knobs';
+import {boolean, select, text, withKnobs} from '@storybook/addon-knobs';
 
 import markdownNotes from './Chip.md';
 import {Chip, colors} from './index';
@@ -32,9 +32,18 @@ storiesOf('Components|Chip', module)
         </section>
     ))
     .add('icon + text', () => (
-        colors.map(color => (
-            <Chip key={color} label={capitalize(color)} icon={<DefaultIcon/>} color={color}/>
-        ))
+        <section style={{display: 'flex', flexDirection: 'flow'}}>
+            <section className={classnames(storyStyles.storyColumn)}>
+                {colors.map(color => (
+                    <Chip key={color} label={capitalize(color)} icon={<DefaultIcon/>} color={color}/>
+                ))}
+            </section>
+            <section className={classnames(storyStyles.storyColumn)}>
+                {colors.map(color => (
+                    <Chip key={color} isDisabled label={capitalize(color)} icon={<DefaultIcon/>} color={color}/>
+                ))}
+            </section>
+        </section>
     ))
     .add('text only', () => (
         colors.map(color => (
@@ -59,5 +68,9 @@ storiesOf('Components|Chip', module)
         </>
     ))
     .add('playground', () => (
-        <Chip label={labelValue('Playground')} icon={<DefaultIcon/>} color={colorValues()}/>
+        <Chip label={labelValue('Playground')}
+              icon={<DefaultIcon/>}
+              color={colorValues()}
+              isDisabled={boolean('Is disabled', false)}
+        />
     ));
