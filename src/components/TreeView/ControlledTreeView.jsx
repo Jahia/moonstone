@@ -12,7 +12,7 @@ const imgSizes = {
     default: '16px'
 };
 
-export const ControlledTreeView = ({data, openedItems, selectedItems, onClickItem, onDoubleClickItem, onOpenItem, onCloseItem, isReversed, ...props}) => {
+export const ControlledTreeView = ({data, openedItems, selectedItems, onClickItem, onDoubleClickItem, onContextMenuItem, onOpenItem, onCloseItem, isReversed, ...props}) => {
     function generateLevelJSX(data, deep) {
         return data.map(node => {
             const hasChild = Boolean(node.hasChildren || (node.children && node.children.length !== 0));
@@ -40,6 +40,10 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
                 onDoubleClickItem(node, e);
             };
 
+            const handleNodeContextMenu = e => {
+                onContextMenuItem(node, e);
+            };
+
             // ---
             // Define CSS treeView_item classes
             // ---
@@ -55,7 +59,7 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
 
             // Manage treeView_item's icon
             const displayIcon = (icon, size, className) => {
-                if (typeof icon === 'undefined') {
+                if (!icon) {
                     return;
                 }
 
@@ -105,15 +109,17 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
 
                             {/* TreeViewItem */}
                             <div
-                                className={classnames('flexRow', 'alignCenter', 'flexFluid', styles.treeView_itemLabel)}
+                                className={classnames('flexRow', 'alignCenter', 'flexFluid', styles.treeView_itemLabel, node.className)}
                                 onClick={handleNodeClick}
                                 onDoubleClick={handleNodeDoubleClick}
+                                onContextMenu={handleNodeContextMenu}
                             >
                                 {displayIcon(node.iconStart, 'small', styles.treeView_itemIconStart)}
                                 <Typography isNowrap
                                             className={classnames('flexFluid')}
                                             component="span"
                                             variant="body"
+                                            {...node.typographyOptions}
                                 >
                                     {node.label}
                                 </Typography>
@@ -147,7 +153,9 @@ ControlledTreeView.propTypes = {
         hasChildren: PropTypes.bool,
         isClosable: PropTypes.bool,
         children: PropTypes.arrayOf(PropTypes.object),
-        isLoading: PropTypes.bool
+        isLoading: PropTypes.bool,
+        className: PropTypes.string,
+        typographyOptions: PropTypes.object
     })).isRequired,
 
     /**
@@ -181,6 +189,11 @@ ControlledTreeView.propTypes = {
     onDoubleClickItem: PropTypes.func,
 
     /**
+     * Trigger by right clicking on node
+     */
+    onContextMenuItem: PropTypes.func,
+
+    /**
      * Reverse color usefull for context with dark background
      */
     isReversed: PropTypes.bool
@@ -189,6 +202,7 @@ ControlledTreeView.propTypes = {
 ControlledTreeView.defaultProps = {
     onClickItem: () => {},
     onDoubleClickItem: () => {},
+    onContextMenuItem: () => {},
     onOpenItem: () => {},
     onCloseItem: () => {},
     openedItems: [],
