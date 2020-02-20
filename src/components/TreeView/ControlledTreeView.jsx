@@ -59,7 +59,7 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
 
             // Manage treeView_item's icon
             const displayIcon = (icon, size, className) => {
-                if (typeof icon === 'undefined') {
+                if (!icon) {
                     return;
                 }
 
