@@ -21,15 +21,19 @@ describe('Chip', () => {
         expect(wrapper.html()).toContain('MyChip');
     });
 
+    it('should have an icon whose size is always small', () => {
+        const Icon = () => <svg/>;
+        const wrapper = shallow(<Chip icon={<Icon size="big"/>}/>);
+        expect(wrapper.html()).toContain('<Icon size="small"/>');
+    });
+
     it('should render custom attributes', () => {
         const wrapper = shallow(<Chip label="test" role="myRole"/>);
         expect(wrapper.querySelector('[role="myRole"]').exists()).toBeTruthy();
     });
 
-    it('should support custom CSS class', () => {
+    it('should add extra className', () => {
         const wrapper = shallow(<Chip label="test" className="stuff"/>);
-        const found = wrapper.html().match(/ class="([^"]*)"/);
-        const classNames = found ? found[1] : '';
-        expect(classNames.split(' ').includes('stuff')).toBeTruthy();
+        expect(wrapper.props.className).toContain('stuff');
     });
 });
