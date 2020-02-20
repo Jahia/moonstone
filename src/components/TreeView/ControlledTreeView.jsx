@@ -110,14 +110,13 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
                                 onDoubleClick={handleNodeDoubleClick}
                             >
                                 {displayIcon(node.iconStart, 'small', styles.treeView_itemIconStart)}
-
                                 <Typography isNowrap
                                             className={classnames('flexFluid')}
                                             component="span"
+                                            variant="body"
                                 >
                                     {node.label}
                                 </Typography>
-
                                 {displayIconOrLoading(node.iconEnd)}
                             </div>
                         </div>

@@ -47,7 +47,8 @@ export const AccordionItem = ({id, label, icon, onClick, children, className, ..
                     </div>}
                 <Typography
                     isNowrap
-                    variant={open ? 'strong' : 'regular'}
+                    variant="subheading"
+                    weight={open ? 'bold' : 'default'}
                     className={classnames('flexFluid')}
                 >
                     {label}

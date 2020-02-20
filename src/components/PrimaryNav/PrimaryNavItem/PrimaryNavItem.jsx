@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './PrimaryNavItem.scss';
 import classnames from 'clsx';
-import {Typography, TypographyVariants} from '~/components/Typography';
+import {Typography, variants as typographyVariants} from '~/components/Typography';
 
 // Internal component
 const Item = ({icon, label, textVariant, subtitle, button}) => (
@@ -19,7 +19,7 @@ const Item = ({icon, label, textVariant, subtitle, button}) => (
                     {label}
                 </Typography>
                 {subtitle &&
-                <Typography isNowrap component="div" variant="subtitle" className={classnames(styles.primaryNavItem_label)}>
+                <Typography isNowrap component="div" variant="caption" className={classnames(styles.primaryNavItem_label, styles.subtitle)}>
                     {subtitle}
                 </Typography>}
             </div>
@@ -34,7 +34,7 @@ const Item = ({icon, label, textVariant, subtitle, button}) => (
 Item.propTypes = {
     label: PropTypes.string,
     icon: PropTypes.element,
-    textVariant: PropTypes.oneOf(TypographyVariants),
+    textVariant: PropTypes.oneOf(typographyVariants),
     subtitle: PropTypes.string,
     button: PropTypes.node
 };
@@ -44,13 +44,13 @@ const ItemTypeResolver = ({url, icon, label, subtitle, button}) => {
     if (url) {
         return (
             <a className={classnames(styles.primaryNavItem, styles.primaryNavItem_linkItem)} href={url} target="_blank" rel="noopener noreferrer">
-                <Item icon={icon} label={label} subtitle={subtitle} textVariant="caption" button={button}/>
+                <Item icon={icon} label={label} subtitle={subtitle} textVariant="body" button={button}/>
             </a>
         );
     }
 
     return (
-        <Item icon={icon} label={label} subtitle={subtitle} textVariant="regular" button={button}/>
+        <Item icon={icon} label={label} subtitle={subtitle} textVariant="subheading" weight="bold" button={button}/>
     );
 };
 
