@@ -8,7 +8,7 @@ import {Typography, TypographyVariants} from '~/components/Typography';
 const Item = ({icon, label, textVariant, subtitle, button}) => (
     <>
         <div className={classnames(styles.primaryNavItem_content)}>
-            <div className={classnames(styles.primaryNavItem_iconContainer)}>{ icon && <icon.type size="big"/> }</div>
+            <div className={classnames(styles.primaryNavItem_iconContainer)}>{ icon && <icon.type {...icon.props} size="big"/> }</div>
 
             <div className={classnames(styles.primaryNavItem_textContainer)}>
                 <Typography isNowrap
