@@ -8,7 +8,7 @@ export const colors = ['default', 'accent', 'success', 'warning', 'danger'];
 
 export const Chip = ({label, color, icon, className, ...props}) => (
     <div className={classnames(styles.chip, styles[`color_${color}`], className)} {...props}>
-        {icon && <>{icon}</>}
+        {icon && <icon.type size="small"/>}
         {label && <Typography isNowrap component="span" variant="caption" weight="semiBold">{label}</Typography>}
     </div>
 );
