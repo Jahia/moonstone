@@ -24,10 +24,16 @@ const data = [
                     {
                         id: 'A1',
                         label: 'A-1 level2 with a very very very long laaaaaaaaaaaaaaaaaaabel with many many words',
+                        typographyOptions: {hasLineThrough: true},
                         iconStart: 'https://image.flaticon.com/icons/svg/1973/1973617.svg',
                         iconEnd: <NoCloud/>,
                         children: [
-                            {id: 'A11', label: 'A-2 level2', iconStart: 'https://image.flaticon.com/icons/svg/1973/1973617.svg'},
+                            {
+                                id: 'A11',
+                                label: 'A-2 level2',
+                                typographyOptions: {isItalic: true},
+                                iconStart: 'https://image.flaticon.com/icons/svg/1973/1973617.svg'
+                            },
                             {id: 'A12', label: 'A-3 level2', iconStart: <Love/>},
                             {id: 'A13', label: 'A-4 level2'}
                         ]
@@ -130,6 +136,7 @@ storiesOf('Components|TreeView', module)
             data={data}
             onClickItem={action('onClickItem')}
             onDoubleClickItem={action('onDoubleClickItem')}
+            onContextMenuItem={action('onContextMenuItem')}
         />
     ))
     .add('controlled', () => {
@@ -150,7 +157,7 @@ storiesOf('Components|TreeView', module)
                             onClick={e => handleClose({id: n}, e)}
                     >{n}
                     </button>
-))}
+                ))}
                 </span>
                 <TreeView data={data}
                           openedItems={openedItems}
@@ -205,7 +212,7 @@ storiesOf('Components|TreeView', module)
                             onClick={e => handleClose({id: n}, e)}
                     >{n}
                     </button>
-))}
+                ))}
                 </span>
                 <TreeView data={data}
                           openedItems={openedItems}

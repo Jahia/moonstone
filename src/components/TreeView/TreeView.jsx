@@ -23,7 +23,8 @@ TreeView.propTypes = {
         hasChildren: PropTypes.bool,
         isClosable: PropTypes.bool,
         children: PropTypes.arrayOf(PropTypes.object),
-        isLoading: PropTypes.bool
+        isLoading: PropTypes.bool,
+        typographyOptions: PropTypes.object
     })).isRequired,
 
     /**
@@ -62,6 +63,11 @@ TreeView.propTypes = {
     onDoubleClickItem: PropTypes.func,
 
     /**
+     * Trigger by right clicking on node
+     */
+    onContextMenuItem: PropTypes.func,
+
+    /**
      * Reverse color usefull for context with dark background
      */
     isReversed: PropTypes.bool
@@ -70,6 +76,7 @@ TreeView.propTypes = {
 TreeView.defaultProps = {
     onClickItem: () => {},
     onDoubleClickItem: () => {},
+    onContextMenuItem: () => {},
     openedItems: undefined,
     defaultOpenedItems: [],
     selectedItems: [],
