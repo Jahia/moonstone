@@ -36,4 +36,14 @@ describe('Chip', () => {
         const wrapper = shallow(<Chip label="test" className="stuff"/>);
         expect(wrapper.props.className).toContain('stuff');
     });
+
+    it('should be enabled', () => {
+        const wrapper = shallow(<Chip label="test"/>);
+        expect(wrapper.props.className).not.toContain('disabled');
+    });
+
+    it('should be disabled', () => {
+        const wrapper = shallow(<Chip isDisabled label="test"/>);
+        expect(wrapper.props.className).toContain('disabled');
+    });
 });

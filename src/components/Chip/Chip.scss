@@ -37,6 +37,10 @@
         background-color: var(--color-warning40);
     }
 
+    &.disabled {
+        opacity: 0.3;
+    }
+
     & > svg:not(:last-child) {
         margin-right: 6px;
     }
