@@ -62,6 +62,24 @@ To ensure consistency throughout the source code, keep these rules in mind as yo
 -   Code must be consistent with the rest of the code of the repository (big refactoring must be in a specific commit)
 -   Code should be reviewed by someone from Jahia
 
+### CSS rules
+
+Each component may have a single scss file associated to a component, named like the component, which need to be imported as a classnames mapping object into the component : `import styles from './[Component].scss';
+`. You should always takes the classnames from this object as the names will be modified at compilation time.
+
+List of classes applied on an element is generated with [clsx](https://www.npmjs.com/package/clsx).
+
+CSS files follow BEM like rules, with some syntactic modification : A class must follow the following convention : `[Block]_[Element].[Modifier]`, (with `_[Element]` and `.[Modifier]` being optional). 
+Note that using `.` as separator for [Modifier] actually declares a separate class, but you should not use a `.[Modifier]` rule directly.
+
+- [Block] is always the component name - so all classes inside a component scss file must start with the same [Block] prefix. The `[Block]` class is unconditionnaly set on the root element of the component.
+- [Element] is a name describing an internal element of the component. `[Block]_[Element]` class is unconditionnally set on this (these) element(s). 
+- [Modifier] is the name variant, that can be conditionnaly applied or not on an element. A `[Modifier]` class is added based on internal conditions on any element, along with the `[Block]` or `[Block]_[Element]` class.
+
+Global classes are available for flexbox layout, and can be found in `globals` folder. 
+
+Colors and spacings should be defined using only the variables defined in `tokens` folder. 
+
 ## <a name="commit"></a> Commit Message Guidelines
 
 Jahia rely a lot on Jira for development process.
