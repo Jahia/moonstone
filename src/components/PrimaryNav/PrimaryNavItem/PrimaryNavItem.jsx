@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './PrimaryNavItem.scss';
 import classnames from 'clsx';
 import {Typography, variants as typographyVariants} from '~/components/Typography';
+import {Badge} from '~/components';
 
 // Internal component
 const Item = ({icon, label, textVariant, subtitle, button}) => (
@@ -72,7 +73,7 @@ export const PrimaryNavItem = ({label, icon, className, subtitle, url, button, i
         onClick={onClick}
         {...props}
     >
-        {props.badge && <span className={styles.primaryNavItem_badge}>{props.badge}</span>}
+        {props.badge}
         <ItemTypeResolver icon={icon} label={label} subtitle={subtitle} url={url} button={button}/>
     </li>
 );
@@ -115,9 +116,9 @@ PrimaryNavItem.propTypes = {
     isSelected: PropTypes.bool,
 
     /**
-     * Element has badge
+     * Badge
      */
-    badge: PropTypes.string,
+    badge: PropTypes.instanceOf(Badge),
 
     /**
      * URL to navigate to. If this is used <a> element will be returned with target set to _blank.

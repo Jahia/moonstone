@@ -75,24 +75,3 @@
     width: 100%;
     margin: 0;
 }
-
-.primaryNavItem_badge {
-    position: absolute;
-    top: 0.1rem;
-    right: -0.1rem;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 1rem;
-    min-height: 1rem;
-
-    font-size: 8px;
-
-    border: solid var(--color-danger) 0.2rem;
-
-    border-radius: 2rem;
-    background-color: var(--color-danger);
-
-    pointer-events: none;
-}
