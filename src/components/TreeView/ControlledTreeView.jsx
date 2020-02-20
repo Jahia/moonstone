@@ -109,7 +109,7 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
 
                             {/* TreeViewItem */}
                             <div
-                                className={classnames('flexRow', 'alignCenter', 'flexFluid', styles.treeView_itemLabel)}
+                                className={classnames('flexRow', 'alignCenter', 'flexFluid', styles.treeView_itemLabel, node.className)}
                                 onClick={handleNodeClick}
                                 onDoubleClick={handleNodeDoubleClick}
                                 onContextMenu={handleNodeContextMenu}
@@ -154,6 +154,7 @@ ControlledTreeView.propTypes = {
         isClosable: PropTypes.bool,
         children: PropTypes.arrayOf(PropTypes.object),
         isLoading: PropTypes.bool,
+        className: PropTypes.string,
         typographyOptions: PropTypes.object
     })).isRequired,
 
