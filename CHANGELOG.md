@@ -1,3 +1,27 @@
+# v0.9.0 (Wed Feb 19 2020)
+
+#### 🚀  Enhancement
+
+- Moon 58: Improve accordion - makes it controllable [#59](https://github.com/Jahia/moonstone/pull/59) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🐛  Bug Fix
+
+- MOON-51 update icon api [#67](https://github.com/Jahia/moonstone/pull/67) ([@DameniMilo](https://github.com/DameniMilo))
+- MOON-50: Allow CSS customization of Chip component [#65](https://github.com/Jahia/moonstone/pull/65) ([@cedricmoitrier](https://github.com/cedricmoitrier))
+- MOON-50: Allow custom attributes in Chip component [#63](https://github.com/Jahia/moonstone/pull/63) ([@cedricmoitrier](https://github.com/cedricmoitrier))
+- MOON-50: Create Chip component [#62](https://github.com/Jahia/moonstone/pull/62) ([@cedricmoitrier](https://github.com/cedricmoitrier))
+
+#### 🏠  Internal
+
+- MOON-30: Add github workflow to deploy storybook on github pages [#66](https://github.com/Jahia/moonstone/pull/66) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 2
+
+- Cedric Moitrier ([@cedricmoitrier](https://github.com/cedricmoitrier))
+- dgaillard ([@DameniMilo](https://github.com/DameniMilo))
+
+---
+
 # v0.8.2 (Fri Feb 14 2020)
 
 #### 🐛  Bug Fix

@@ -24,10 +24,10 @@ storiesOf('Components|PrimaryNavItem', module)
             height: '100vh'
             }}
         >
-            <PrimaryNavItem icon={<Edit/>} label="NavItem not selected (default)"/>
-            <PrimaryNavItem isSelected icon={<Edit/>} label="NavItem Selected"/>
-            <PrimaryNavItem isSelected={boolean('selected')} icon={<Edit/>} label="Another NavItem"/>
-            <PrimaryNavItem icon={<Person/>} label="My profile" subtitle="username as a subtitle"/>
-            <PrimaryNavItem icon={<Person/>} label="My profile" subtitle="username as a subtitle" button={<Button icon={<Power size="small"/>} label="Sign Out" variant="ghost" color="reverse" onClick={() => {}}/>}/>
+            <PrimaryNavItem icon={<Edit size="big"/>} label="NavItem not selected (default)"/>
+            <PrimaryNavItem isSelected icon={<Edit size="big"/>} label="NavItem Selected"/>
+            <PrimaryNavItem isSelected={boolean('selected')} icon={<Edit size="big"/>} label="Another NavItem"/>
+            <PrimaryNavItem icon={<Person size="big"/>} label="My profile" subtitle="username as a subtitle"/>
+            <PrimaryNavItem icon={<Person size="big"/>} label="My profile" subtitle="username as a subtitle" button={<Button icon={<Power/>} label="Sign Out" variant="ghost" color="reverse" onClick={() => {}}/>}/>
         </ul>
     ));

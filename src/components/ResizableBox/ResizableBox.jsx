@@ -31,8 +31,8 @@ export const ResizableBox = ({enable, minWidth, maxWidth, defaultSize, className
             }
             handleComponent={
                 {
-                    right: <DragHundle className={classnames(styles.resizable_handle_icon)}/>,
-                    left: <DragHundle className={classnames(styles.resizable_handle_icon)}/>
+                    right: <DragHundle className={classnames(styles.resizable_handle_icon)} size="big"/>,
+                    left: <DragHundle className={classnames(styles.resizable_handle_icon)} size="big"/>
                 }
             }
             className={classnames(className)}

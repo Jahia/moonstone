@@ -22,7 +22,7 @@ storiesOf('Components|Accordion', module)
         <Accordion>
             <AccordionItem
                 id={accordionIds[0]}
-                icon={<Love/>}
+                icon={<Love size="big"/>}
                 label="test 01"
                 onClick={action(`click on AccordionItem with id : ${accordionIds[0]}`)}
             >
@@ -30,7 +30,7 @@ storiesOf('Components|Accordion', module)
             </AccordionItem>
             <AccordionItem
                 id={accordionIds[1]}
-                icon={<Bug/>}
+                icon={<Bug size="big"/>}
                 label="test 02"
                 onClick={action(`click on AccordionItem with id : ${accordionIds[1]}`)}
             >
@@ -39,7 +39,7 @@ storiesOf('Components|Accordion', module)
             <AccordionItem
                 id={accordionIds[2]}
                 label="test 03 (with long content)"
-                icon={<BarSquare/>}
+                icon={<BarSquare size="big"/>}
                 onClick={action(`click on AccordionItem with id : ${accordionIds[2]}`)}
             >
                 Topgallant mutiny spike pressgang interloper transom loaded to the gunwalls hogshead smartly Letter of
@@ -115,7 +115,7 @@ storiesOf('Components|Accordion', module)
         >
             <AccordionItem
                 id={accordionIds[0]}
-                icon={<Love/>}
+                icon={<Love size="big"/>}
                 label="test 01"
                 onClick={action(`click on AccordionItem with id : ${accordionIds[0]}`)}
             >
@@ -123,7 +123,7 @@ storiesOf('Components|Accordion', module)
             </AccordionItem>
             <AccordionItem
                 id={accordionIds[1]}
-                icon={<Bug/>}
+                icon={<Bug size="big"/>}
                 label="test 02 is opened by default"
                 onClick={action(`click on AccordionItem with id : ${accordionIds[1]}`)}
             >
@@ -132,7 +132,7 @@ storiesOf('Components|Accordion', module)
             <AccordionItem
                 id={accordionIds[2]}
                 label="test 03 (with long content)"
-                icon={<BarSquare/>}
+                icon={<BarSquare size="big"/>}
                 onClick={action(`click on AccordionItem with id : ${accordionIds[2]}`)}
             >
                 Accordion Content
@@ -163,7 +163,7 @@ storiesOf('Components|Accordion', module)
                 >
                     <AccordionItem
                         id={accordionIds[0]}
-                        icon={<Love/>}
+                        icon={<Love size="big"/>}
                         label="test 01"
                         onClick={action(`click on AccordionItem with id : ${accordionIds[0]}`)}
                     >
@@ -171,7 +171,7 @@ storiesOf('Components|Accordion', module)
                     </AccordionItem>
                     <AccordionItem
                         id={accordionIds[1]}
-                        icon={<Bug/>}
+                        icon={<Bug size="big"/>}
                         label="test 02 is opened by default"
                         onClick={action(`click on AccordionItem with id : ${accordionIds[1]}`)}
                     >
@@ -180,7 +180,7 @@ storiesOf('Components|Accordion', module)
                     <AccordionItem
                         id={accordionIds[2]}
                         label="test 03 (with long content)"
-                        icon={<BarSquare/>}
+                        icon={<BarSquare size="big"/>}
                         onClick={action(`click on AccordionItem with id : ${accordionIds[2]}`)}
                     >
                         Accordion Content
@@ -194,7 +194,7 @@ storiesOf('Components|Accordion', module)
             <Accordion isReversed>
                 <AccordionItem
                     id={accordionIds[0]}
-                    icon={<Love/>}
+                    icon={<Love size="big"/>}
                     label="test 01"
                     onClick={action(`click on AccordionItem with id : ${accordionIds[0]}`)}
                 >
@@ -202,7 +202,7 @@ storiesOf('Components|Accordion', module)
                 </AccordionItem>
                 <AccordionItem
                     id={accordionIds[1]}
-                    icon={<Bug/>}
+                    icon={<Bug size="big"/>}
                     label="test 02 is opened by default"
                     onClick={action(`click on AccordionItem with id : ${accordionIds[1]}`)}
                 >
@@ -211,7 +211,7 @@ storiesOf('Components|Accordion', module)
                 <AccordionItem
                     id={accordionIds[2]}
                     label="test 03 (with long content)"
-                    icon={<BarSquare/>}
+                    icon={<BarSquare size="big"/>}
                     onClick={action(`click on AccordionItem with id : ${accordionIds[2]}`)}
                 >
                     Accordion Content
