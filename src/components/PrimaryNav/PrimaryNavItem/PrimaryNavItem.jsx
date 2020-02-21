@@ -72,6 +72,7 @@ export const PrimaryNavItem = ({label, icon, className, subtitle, url, button, i
         onClick={onClick}
         {...props}
     >
+        {props.badge}
         <ItemTypeResolver icon={icon} label={label} subtitle={subtitle} url={url} button={button}/>
     </li>
 );
@@ -114,9 +115,9 @@ PrimaryNavItem.propTypes = {
     isSelected: PropTypes.bool,
 
     /**
-     * Element has badge
+     * Badge
      */
-    badge: PropTypes.string,
+    badge: PropTypes.element,
 
     /**
      * URL to navigate to. If this is used <a> element will be returned with target set to _blank.

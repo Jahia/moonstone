@@ -1,4 +1,6 @@
 .primaryNavItem {
+    position: relative;
+
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -11,7 +13,8 @@
     cursor: pointer;
 
     transition: color 0.2s, background-color 0.2s;
-    overflow: hidden; // Hide content when primaryNav is collapsed
+
+    // overflow: hidden; // Hide content when primaryNav is collapsed
 
     &.selected {
         color: var(--color-light);
