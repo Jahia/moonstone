@@ -9,3 +9,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+@mixin is-disabled() {
+    color: var(--color-gray40);
+
+    cursor: not-allowed;
+}

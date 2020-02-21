@@ -1,5 +1,5 @@
 $shadows: (
-    'level1': 0 4px 8px rgba($color-dark, 0.2)
+    'level1': 0 4px 8px var(--color-dark40) ;
 );
 
 @function shadow($shadowName) {

@@ -1,0 +1,20 @@
+.listItem {
+    padding: 4px 8px;
+
+    list-style: none;
+
+    &:focus {
+        outline: none;
+        box-shadow: inset 0 0 0 2px var(--color-accent);
+    }
+}
+
+.listItem_iconStart {
+    display: flex;
+    margin-right: var(--spacing-nano);
+}
+
+.listItem_iconEnd {
+    display: flex;
+    margin-left: var(--spacing-nano);
+}
