@@ -1,0 +1,37 @@
+@import '~/utils/index';
+
+.menu {
+    position: absolute;
+
+    z-index: 9000;
+
+    width: fit-content;
+
+    color: var(--color-gray_dark);
+
+    border-radius: 4px;
+
+    list-style: none;
+    background-color: var(--color-light);
+    box-shadow: 0 4px 8px var(--color-gray_dark60);
+    overflow: hidden auto;
+}
+
+.menu_wrapper {
+    position: fixed;
+
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9000;
+}
+
+// ---
+// Overlay
+// ---
+.menu_overlay {
+    @extend %overlay;
+
+    z-index: 8500;
+}
