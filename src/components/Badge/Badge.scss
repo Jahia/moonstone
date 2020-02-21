@@ -20,6 +20,8 @@
         padding-left: 0.4rem;
 
         font-size: 1rem;
+
+        line-height: normal;
     }
 
     &.round_small {
@@ -29,6 +31,8 @@
         padding-left: 0.1rem;
 
         font-size: 0.4rem;
+
+        line-height: normal; // Override typography setting for this parameter when size is smaller than line height
     }
 
     &.round_big {
@@ -38,6 +42,8 @@
         padding-left: 0.5rem;
 
         font-size: 1.5rem;
+
+        line-height: normal;
     }
 
     &.diamond_default {
