@@ -130,11 +130,6 @@ Menu.propTypes = {
     minWidth: PropTypes.string,
 
     /**
-     * Reference element to positioning the menu
-     */
-    anchorEl: PropTypes.object,
-
-    /**
      * Content of the dropdown
      */
     children: PropTypes.node.isRequired,
@@ -145,13 +140,21 @@ Menu.propTypes = {
     isDisplayed: PropTypes.bool.isRequired,
 
     /**
-     * Position of the menu in px
+     * Reference element to positioning the menu
+     */
+    anchorEl: PropTypes.object,
+
+    /**
+     * Position of the menu in px relative to anchorEl or the document
      */
     anchorPosition: PropTypes.shape({
         top: PropTypes.string.isRequired,
         left: PropTypes.string.isRequired
     }),
 
+    /**
+     * Point on the anchor where the menu's anchorEl will attach to
+     */
     anchorElOrigin: PropTypes.shape({
         horizontal: PropTypes.oneOf(['left', 'center', 'right']).isRequired,
         vertical: PropTypes.oneOf(['top', 'center', 'bottom']).isRequired

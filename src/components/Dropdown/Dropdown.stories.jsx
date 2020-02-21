@@ -31,23 +31,35 @@ const dataLanguages = [
     {
         label: 'FR',
         value: 'fr',
-        iconStart: <Love/>
+        iconStart: <Love/>,
+        attributes: {
+            id: 'option-fr'
+        }
     },
     {
         label: 'EN-US',
         value: 'en',
-        iconStart: <Love/>
+        iconStart: <Love/>,
+        attributes: {
+            id: 'option-en'
+        }
     },
     {
         label: 'DE',
         value: '3',
-        iconStart: <Love/>
+        iconStart: <Love/>,
+        attributes: {
+            id: 'option-de'
+        }
     },
     {
         label: 'ES',
         value: '4',
         isDisabled: true,
-        iconEnd: <Love/>
+        iconEnd: <Love/>,
+        attributes: {
+            id: 'option-es'
+        }
     }
 ];
 

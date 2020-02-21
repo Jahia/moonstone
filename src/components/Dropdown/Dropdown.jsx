@@ -88,6 +88,7 @@ export const Dropdown = ({
         return (
             <ListItem
                 key={item.value}
+                role="option"
                 iconStart={item.iconStart}
                 label={item.label}
                 iconEnd={item.iconEnd}
@@ -101,6 +102,7 @@ export const Dropdown = ({
                 }
                 onClick={e => handleSelect(e, item)}
                 onKeyPress={e => handleKeyPress(e, item)}
+                {...item.attributes}
             />
         );
     };
@@ -190,7 +192,8 @@ const PropTypesOptions = {
     value: PropTypes.string,
     isDisabled: PropTypes.bool,
     iconStart: PropTypes.node,
-    iconEnd: PropTypes.node
+    iconEnd: PropTypes.node,
+    attributes: PropTypes.object
 };
 
 Dropdown.propTypes = {
