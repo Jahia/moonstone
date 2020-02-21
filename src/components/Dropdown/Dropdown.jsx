@@ -42,11 +42,12 @@ export const Dropdown = ({
     };
 
     const handleSelect = (e, item) => {
+        let canClose = !item.isDisabled;
         if (!item.isDisabled && item.value !== value) {
-            onChange(e, item);
+            canClose = onChange(e, item);
         }
 
-        if (!item.isDisabled) {
+        if (canClose) {
             setIsOpened(false);
         }
     };
