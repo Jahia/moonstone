@@ -1,3 +1,33 @@
+# v0.10.0 (Fri Feb 21 2020)
+
+#### 🚀  Enhancement
+
+- MOON-12: Create dropdown component [#56](https://github.com/Jahia/moonstone/pull/56) ([@ffffffelix](https://github.com/ffffffelix) [@tdraier](https://github.com/tdraier))
+- MOON-48: Update API of Typography component [#72](https://github.com/Jahia/moonstone/pull/72) ([@cedricmoitrier](https://github.com/cedricmoitrier))
+
+#### 🐛  Bug Fix
+
+- MOON-12: fixed onchange in storybook [#80](https://github.com/Jahia/moonstone/pull/80) ([@tdraier](https://github.com/tdraier))
+- MOON-51 implement buttons, update API and sass, implement storybook, implement test, make all icons available in all tests [#78](https://github.com/Jahia/moonstone/pull/78) ([@DameniMilo](https://github.com/DameniMilo))
+- MOON-69 : Fixed secondary nav width [#77](https://github.com/Jahia/moonstone/pull/77) ([@tdraier](https://github.com/tdraier))
+- MOON-50: Add isDisabled property to Chip component [#76](https://github.com/Jahia/moonstone/pull/76) ([@cedricmoitrier](https://github.com/cedricmoitrier))
+- BACKLOG-12480 : Add possibility to pass typography options, add onCon… [#75](https://github.com/Jahia/moonstone/pull/75) ([@tdraier](https://github.com/tdraier))
+- MOON-50: Enforce icon size in Chip component [#74](https://github.com/Jahia/moonstone/pull/74) ([@cedricmoitrier](https://github.com/cedricmoitrier))
+- MOON-51 : Fixed icon size in PrimaryNavItem [#73](https://github.com/Jahia/moonstone/pull/73) ([@tdraier](https://github.com/tdraier))
+- MOON-67 : Fixed styling, handle root node [#69](https://github.com/Jahia/moonstone/pull/69) ([@tdraier](https://github.com/tdraier))
+
+#### 🏠  Internal
+
+- Updated css guidelines [#70](https://github.com/Jahia/moonstone/pull/70) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 3
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+- dgaillard ([@DameniMilo](https://github.com/DameniMilo))
+
+---
+
 # v0.9.0 (Wed Feb 19 2020)
 
 #### 🚀  Enhancement
