@@ -6,16 +6,16 @@ import classnames from 'clsx';
 
 const DEFAULT_OPTION_INDEX = 0;
 
-export const colors = ['default', 'accent', 'success', 'warning', 'danger'];
+export const badgeColors = ['default', 'accent', 'success', 'warning', 'danger'];
 
-export const sizes = ['default', 'small', 'big'];
+export const badgeSizes = ['default', 'small', 'big'];
 
-export const types = ['round', 'diamond'];
+export const badgeTypes = ['round', 'diamond'];
 
 export const Badge = ({label, color, type, size, className, ...props}) => {
     const classNameProps = classnames(styles.badge, styles[`${type}_${size}`], styles[`color_${color}`], className);
 
-    if (type === types[DEFAULT_OPTION_INDEX]) {
+    if (type === badgeTypes[DEFAULT_OPTION_INDEX]) {
         return (
             <Typography isNowrap component="span" className={classNameProps} {...props}>
                 {label}
@@ -30,9 +30,9 @@ export const Badge = ({label, color, type, size, className, ...props}) => {
 
 Badge.defaultProps = {
     label: null,
-    color: colors[DEFAULT_OPTION_INDEX],
-    type: types[DEFAULT_OPTION_INDEX],
-    size: types[DEFAULT_OPTION_INDEX]
+    color: badgeColors[DEFAULT_OPTION_INDEX],
+    type: badgeTypes[DEFAULT_OPTION_INDEX],
+    size: badgeTypes[DEFAULT_OPTION_INDEX]
 };
 
 Badge.propTypes = {
@@ -44,17 +44,17 @@ Badge.propTypes = {
     /**
      * Badge color
      */
-    color: PropTypes.oneOf(colors),
+    color: PropTypes.oneOf(badgeColors),
 
     /**
      * Badge type
      */
-    type: PropTypes.oneOf(types),
+    type: PropTypes.oneOf(badgeTypes),
 
     /**
      * Badge size
      */
-    size: PropTypes.oneOf(sizes),
+    size: PropTypes.oneOf(badgeSizes),
 
     /**
      * Additional classname
