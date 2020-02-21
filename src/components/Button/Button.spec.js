@@ -1,6 +1,6 @@
 import React from 'react';
 import {shallow} from 'component-test-utils-react';
-import {Button, ButtonColors, ButtonSizes, ButtonVariants} from './index';
+import {Button, buttonColors, buttonSizes, buttonVariants} from './index';
 import Love from '~/src/asset/Love.svg';
 
 describe('Button', () => {
@@ -40,8 +40,7 @@ describe('Button', () => {
     });
 
     it('should use the specified variant', () => {
-        // eslint-disable-next-line array-callback-return
-        ButtonVariants.map(variant => {
+        buttonVariants.forEach(variant => {
             const button = shallow(<Button variant={variant} onClick={() => {}}/>);
             expect(button.querySelector(`.variant_${variant}`).exists()).toBeTruthy();
         });
@@ -74,8 +73,7 @@ describe('Button', () => {
     });
 
     it('should use the specified color', () => {
-        // eslint-disable-next-line array-callback-return
-        ButtonColors.map(color => {
+        buttonColors.forEach(color => {
             const button = shallow(<Button color={color} onClick={() => {}}/>);
             expect(button.querySelector(`.color_${color}`).exists()).toBeTruthy();
         });
@@ -94,8 +92,7 @@ describe('Button', () => {
     });
 
     it('should use the specified size', () => {
-        // eslint-disable-next-line array-callback-return
-        ButtonSizes.map(size => {
+        buttonSizes.forEach(size => {
             const button = shallow(<Button size={size} onClick={() => {}}/>);
             expect(button.querySelector(`.size_${size}`).exists()).toBeTruthy();
         });

@@ -7,12 +7,12 @@ import IconWrapper from '~/__storybook__/IconWrapper';
 import {iconsName} from '~/__storybook__/utils';
 
 import markdownNotes from './Button.md';
-import {Button, ButtonColors, ButtonSizes, ButtonVariants} from './index';
+import {Button, buttonColors, buttonSizes, buttonVariants} from './index';
 
 const labelValue = () => text('Label', 'Button');
-const colorValues = () => select('Color', ButtonColors, 'default');
-const sizeValues = () => select('Size', ButtonSizes, 'default');
-const variantValues = () => select('Variant', ButtonVariants, 'default');
+const colorValues = () => select('Color', buttonColors, 'default');
+const sizeValues = () => select('Size', buttonSizes, 'default');
+const variantValues = () => select('Variant', buttonVariants, 'default');
 const isReversed = () => boolean('Is reversed', false);
 const isDisabled = () => boolean('Is disabled', false);
 const selectIcon = () => select('Icon', iconsName, 'Apps');
@@ -31,7 +31,7 @@ storiesOf('Components|Button', module)
                     <h3>Variant</h3>
                 </div>
                 {
-                    ButtonColors.map(color => (
+                    buttonColors.map(color => (
                         <div key={color} className={classnames(storyStyles.storyGridItem)}>
                             <h3>{color}</h3>
                         </div>
@@ -43,7 +43,7 @@ storiesOf('Components|Button', module)
                     <h3>default</h3>
                 </div>
                 {
-                    ButtonColors.map(color => (
+                    buttonColors.map(color => (
                         <div key={color} className={classnames(storyStyles.storyGridItem)}>
                             <Button icon={<IconWrapper iconName={selectIcon()}/>}
                                     label="Button"
@@ -61,7 +61,7 @@ storiesOf('Components|Button', module)
                     <h3>outlined</h3>
                 </div>
                 {
-                    ButtonColors.map(color => (
+                    buttonColors.map(color => (
                         <div key={color} className={classnames(storyStyles.storyGridItem)}>
                             <Button icon={<IconWrapper iconName={selectIcon()}/>}
                                     label="Button"
@@ -79,7 +79,7 @@ storiesOf('Components|Button', module)
                     <h3>ghost</h3>
                 </div>
                 {
-                    ButtonColors.map(color => (
+                    buttonColors.map(color => (
                         <div key={color} className={classnames(storyStyles.storyGridItem)}>
                             <Button icon={<IconWrapper iconName={selectIcon()}/>}
                                     label="Button"
@@ -101,7 +101,7 @@ storiesOf('Components|Button', module)
                     <h3>Variant</h3>
                 </div>
                 {
-                    ButtonColors.map(color => (
+                    buttonColors.map(color => (
                         <div key={color} className={classnames(storyStyles.storyGridItem)}>
                             <h3>{color}</h3>
                         </div>
@@ -113,7 +113,7 @@ storiesOf('Components|Button', module)
                     <h3>default</h3>
                 </div>
                 {
-                    ButtonColors.map(color => (
+                    buttonColors.map(color => (
                         <div key={color} className={classnames(storyStyles.storyGridItem)}>
                             <Button label={labelValue()}
                                     color={color}
@@ -130,7 +130,7 @@ storiesOf('Components|Button', module)
                     <h3>outlined</h3>
                 </div>
                 {
-                    ButtonColors.map(color => (
+                    buttonColors.map(color => (
                         <div key={color} className={classnames(storyStyles.storyGridItem)}>
                             <Button label={labelValue()}
                                     color={color}
@@ -147,7 +147,7 @@ storiesOf('Components|Button', module)
                     <h3>ghost</h3>
                 </div>
                 {
-                    ButtonColors.map(color => (
+                    buttonColors.map(color => (
                         <div key={color} className={classnames(storyStyles.storyGridItem)}>
                             <Button label={labelValue()}
                                     color={color}
@@ -168,7 +168,7 @@ storiesOf('Components|Button', module)
                     <h3>Variant</h3>
                 </div>
                 {
-                    ButtonColors.map(color => (
+                    buttonColors.map(color => (
                         <div key={color} className={classnames(storyStyles.storyGridItem)}>
                             <h3>{color}</h3>
                         </div>
@@ -180,7 +180,7 @@ storiesOf('Components|Button', module)
                     <h3>default</h3>
                 </div>
                 {
-                    ButtonColors.map(color => (
+                    buttonColors.map(color => (
                         <div key={color} className={classnames(storyStyles.storyGridItem)}>
                             <Button icon={<IconWrapper iconName={selectIcon()}/>}
                                     color={color}
@@ -197,7 +197,7 @@ storiesOf('Components|Button', module)
                     <h3>outlined</h3>
                 </div>
                 {
-                    ButtonColors.map(color => (
+                    buttonColors.map(color => (
                         <div key={color} className={classnames(storyStyles.storyGridItem)}>
                             <Button icon={<IconWrapper iconName={selectIcon()}/>}
                                     color={color}
@@ -214,7 +214,7 @@ storiesOf('Components|Button', module)
                     <h3>ghost</h3>
                 </div>
                 {
-                    ButtonColors.map(color => (
+                    buttonColors.map(color => (
                         <div key={color} className={classnames(storyStyles.storyGridItem)}>
                             <Button icon={<IconWrapper iconName={selectIcon()}/>}
                                     color={color}

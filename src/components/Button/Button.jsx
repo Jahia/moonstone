@@ -4,9 +4,9 @@ import styles from './Button.scss';
 import classnames from 'clsx';
 import {Typography} from '../Typography';
 
-export const ButtonSizes = ['small', 'default', 'big'];
-export const ButtonVariants = ['default', 'ghost', 'outlined'];
-export const ButtonColors = ['default', 'accent', 'success', 'warning', 'danger'];
+export const buttonSizes = ['small', 'default', 'big'];
+export const buttonVariants = ['default', 'ghost', 'outlined'];
+export const buttonColors = ['default', 'accent', 'success', 'warning', 'danger'];
 
 export const Button = ({label, onClick, size, isReversed, isDisabled, icon, variant, color, className, ...props}) => {
     return (
@@ -57,7 +57,7 @@ Button.propTypes = {
     /**
      * Icon size
      */
-    size: PropTypes.oneOf(ButtonSizes),
+    size: PropTypes.oneOf(buttonSizes),
 
     /**
      * Icon name, if it's empty the button has no icon
@@ -67,12 +67,12 @@ Button.propTypes = {
     /**
      * Button style
      */
-    variant: PropTypes.oneOf(ButtonVariants),
+    variant: PropTypes.oneOf(buttonVariants),
 
     /**
      * Button color
      */
-    color: PropTypes.oneOf(ButtonColors),
+    color: PropTypes.oneOf(buttonColors),
 
     /**
      * Is button disabled
