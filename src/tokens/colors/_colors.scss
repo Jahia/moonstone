@@ -16,7 +16,10 @@ $color-yellow: 232, 182, 6;
 :global(:root) {
     // Accent
     --color-accent: rgb(#{$color-blue});
+    --color-accent40: rgba(#{$color-blue}, 0.4);
+    --color-accent60: rgba(#{$color-blue}, 0.6);
     --color-accent_dark: rgb(#{$color-blue-dark});
+    --color-accent_dark60: rgba(#{$color-blue-dark}, 0.6);
     --color-accent_dark_contrast: rgb(#{$color-blue-contrast});
     --color-accent_light: rgb(#{$color-blue-light});
     --color-accent_light40: rgb(#{$color-blue-light, 0.4});
@@ -27,11 +30,11 @@ $color-yellow: 232, 182, 6;
 
     // Neutral
     --color-light: rgb(#{$color-light});
-    --color-light60: rgba(#{$color-light}, 0.6);
     --color-light40: rgba(#{$color-light}, 0.4);
+    --color-light60: rgba(#{$color-light}, 0.6);
     --color-gray_light: rgb(#{$color-gray-light});
-    --color-gray_light60: rgba(#{$color-gray-light}, 0.6);
     --color-gray_light40: rgba(#{$color-gray-light}, 0.4);
+    --color-gray_light60: rgba(#{$color-gray-light}, 0.6);
     --color-gray: rgb(#{$color-gray});
     --color-gray40: rgba(#{$color-gray}, 0.4);
     --color-gray60: rgba(#{$color-gray}, 0.6);
@@ -39,14 +42,18 @@ $color-yellow: 232, 182, 6;
     --color-gray_dark40: rgba(#{$color-gray-dark}, 0.4);
     --color-gray_dark60: rgba(#{$color-gray-dark}, 0.6);
     --color-dark: rgb(#{$color-dark});
-    --color-dark60: rgba(#{$color-dark}, 0.6);
+    --color-dark20: rgba(#{$color-dark}, 0.2);
     --color-dark40: rgba(#{$color-dark}, 0.4);
+    --color-dark60: rgba(#{$color-dark}, 0.6);
 
     // Support
     --color-success: rgba(#{$color-green});
     --color-success40: rgba(#{$color-green, 0.4});
+    --color-success60: rgba(#{$color-green, 0.6});
     --color-warning: rgba(#{$color-yellow});
     --color-warning40: rgba(#{$color-yellow}, 0.4);
+    --color-warning60: rgba(#{$color-yellow}, 0.6);
     --color-danger: rgba(#{$color-red});
     --color-danger40: rgba(#{$color-red, 0.4});
+    --color-danger60: rgba(#{$color-red, 0.6});
 }

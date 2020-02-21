@@ -1,0 +1,66 @@
+%variant_default {
+    color: var(--color-white);
+
+    border: 0;
+    background-color: var(--color-accent);
+
+    &.color_default {
+        color: var(--color-gray);
+
+        border: 1px solid var(--color-gray);
+        background-color: var(--color-white);
+
+        &:hover {
+            color: var(--color-accent);
+
+            border-color: var(--color-accent);
+        }
+
+        &:focus,
+        &:active {
+            color: var(--color-accent_dark);
+
+            border-color: var(--color-accent_dark);
+        }
+
+        &:disabled {
+            color: var(--color-gray);
+
+            border-color: var(--color-gray);
+            background-color: var(--color-white);
+
+            &.reverse {
+                color: var(--color-white);
+
+                background-color: var(--color-gray);
+            }
+        }
+    }
+
+    &.color_accent {
+        background-color: var(--color-accent);
+    }
+
+    &.color_success {
+        background-color: var(--color-success);
+    }
+
+    &.color_warning {
+        background-color: var(--color-warning);
+    }
+
+    &.color_danger {
+        background-color: var(--color-danger);
+    }
+
+    &:hover,
+    &:focus {
+        color: var(--color-white);
+    }
+
+    &:disabled {
+        color: var(--color-white);
+
+        background-color: var(--color-gray);
+    }
+}

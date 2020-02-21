@@ -1,3 +1,6 @@
+import * as Icons from '~/tokens/icons/asset';
+export const iconsName = Object.keys(Icons);
+
 export function capitalize(string) {
     return string.replace(/^\w/, c => c.toUpperCase());
 }
