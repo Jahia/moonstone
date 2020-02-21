@@ -27,7 +27,7 @@ export const SecondaryNav = ({header, children, isDefaultVisible, onToggled, cla
             }
             enable={['right']}
             size={isVisible ? null : {width: 0}}
-            minWidth="120"
+            minWidth={isVisible ? 120 : 0}
             maxWidth="450"
             defaultSize={{
                 width: 245
