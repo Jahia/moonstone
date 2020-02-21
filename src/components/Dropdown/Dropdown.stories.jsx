@@ -106,6 +106,7 @@ storiesOf('Components|Dropdown', module)
         const handleOnChange = (e, item) => {
             setCurrentOption(item);
             action('onChange');
+            return true;
         };
 
         return (
@@ -129,6 +130,7 @@ storiesOf('Components|Dropdown', module)
         const handleOnChange = (e, item) => {
             setCurrentOption(item);
             action('onChange');
+            return true;
         };
 
         return (
@@ -150,6 +152,7 @@ storiesOf('Components|Dropdown', module)
         const handleOnChange = (e, item) => {
             setCurrentOption(item);
             action('onChange');
+            return true;
         };
 
         return (
