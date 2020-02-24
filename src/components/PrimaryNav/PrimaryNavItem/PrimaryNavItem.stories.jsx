@@ -6,7 +6,7 @@ import Person from '~/tokens/icons/asset/Person.svg';
 import Power from '~/tokens/icons/asset/Power.svg';
 import markdownNotes from './PrimaryNavItem.md';
 import {boolean, withKnobs} from '@storybook/addon-knobs';
-import {Button} from '~/components';
+import {Badge, Button} from '~/components';
 
 storiesOf('Components|PrimaryNavItem', module)
     .addParameters({
@@ -24,10 +24,10 @@ storiesOf('Components|PrimaryNavItem', module)
             height: '100vh'
             }}
         >
-            <PrimaryNavItem icon={<Edit size="big"/>} label="NavItem not selected (default)"/>
-            <PrimaryNavItem isSelected icon={<Edit size="big"/>} label="NavItem Selected"/>
-            <PrimaryNavItem isSelected={boolean('selected')} icon={<Edit size="big"/>} label="Another NavItem"/>
-            <PrimaryNavItem icon={<Person size="big"/>} label="My profile" subtitle="username as a subtitle"/>
-            <PrimaryNavItem icon={<Person size="big"/>} label="My profile" subtitle="username as a subtitle" button={<Button icon={<Power/>} label="Sign Out" variant="ghost" color="reverse" onClick={() => {}}/>}/>
+            <PrimaryNavItem icon={<Edit/>} label="NavItem not selected (default)"/>
+            <PrimaryNavItem isSelected icon={<Edit/>} label="NavItem Selected"/>
+            <PrimaryNavItem isSelected={boolean('selected')} icon={<Edit/>} label="Another NavItem" badge={<Badge label="9"/>}/>
+            <PrimaryNavItem icon={<Person/>} label="My profile" subtitle="username as a subtitle"/>
+            <PrimaryNavItem icon={<Person/>} label="My profile" subtitle="username as a subtitle" button={<Button isReversed icon={<Power/>} label="Sign Out" variant="ghost" onClick={() => {}}/>}/>
         </ul>
     ));
