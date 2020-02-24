@@ -28,17 +28,17 @@ Chip.defaultProps = {
 
 Chip.propTypes = {
     /**
-     * Badge label
+     * Chip label
      */
     label: PropTypes.string,
 
     /**
-     * Badge color
+     * Chip color
      */
     color: PropTypes.oneOf(colors),
 
     /**
-     * Badge icon
+     * Chip icon
      */
     icon: PropTypes.node,
 
