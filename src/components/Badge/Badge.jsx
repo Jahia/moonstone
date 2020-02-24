@@ -15,7 +15,7 @@ export const Badge = ({label, color, type, className, ...props}) => {
         className
     );
 
-    if (type === 'round' && label) {
+    if (type === 'round') {
         return (
             <Typography isNowrap component="span" variant="caption" weight="bold" className={classNameProps} {...props}>
                 {label}
