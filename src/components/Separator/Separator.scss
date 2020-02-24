@@ -1,8 +1,10 @@
 .separator {
-    height: 1px;
-
     border: 0;
     background: var(--color-gray40);
+}
+
+.separator_horizontal {
+    height: 1px;
 
     // Size's Separator
     &.size_medium {
@@ -28,5 +30,35 @@
 
     &.spacing_big {
         margin: var(--spacing-big) auto;
+    }
+}
+
+.separator_vertical {
+    width: 1px;
+
+    // Size's Separator
+    &.size_medium {
+        height: calc(100% - var(--spacing-huge));
+    }
+
+    &.size_large {
+        height: calc(100% - var(--spacing-medium));
+    }
+
+    &.size_full {
+        height: 100%;
+    }
+
+    // Spacing's Separator
+    &.spacing_small {
+        margin: auto var(--spacing-small);
+    }
+
+    &.spacing_medium {
+        margin: auto var(--spacing-medium);
+    }
+
+    &.spacing_big {
+        margin: auto var(--spacing-big);
     }
 }
