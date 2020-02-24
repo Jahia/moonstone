@@ -62,7 +62,7 @@ ItemTypeResolver.propTypes = {
     button: PropTypes.node
 };
 
-export const PrimaryNavItem = ({label, icon, className, subtitle, url, button, isSelected, onClick, ...props}) => (
+export const PrimaryNavItem = ({label, icon, className, subtitle, url, button, isSelected, onClick, badge, ...props}) => (
     <li
         className={classnames(
             styles.primaryNavItem,
@@ -72,8 +72,10 @@ export const PrimaryNavItem = ({label, icon, className, subtitle, url, button, i
         onClick={onClick}
         {...props}
     >
-        {props.badge}
         <ItemTypeResolver icon={icon} label={label} subtitle={subtitle} url={url} button={button}/>
+
+        {badge &&
+            <badge.type className={classnames(styles.primaryNavItem_badge)} color="danger" type="round" label={badge.props.label}/>}
     </li>
 );
 

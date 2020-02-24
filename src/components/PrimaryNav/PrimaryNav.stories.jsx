@@ -31,12 +31,12 @@ storiesOf('Components|PrimaryNav', module)
                             <PrimaryNavItem isSelected label="NavItem selected" icon={<Apps/>}/>
                         </PrimaryNavItemsGroup>
                         <PrimaryNavItemsGroup>
-                            <PrimaryNavItem label="Very very long long name with many characters" icon={<Feather size="big"/>}/>
-                            <PrimaryNavItem icon={<Person size="big"/>} label="My profile" subtitle="username as a subtitle"/>
-                            <PrimaryNavItem icon={<Person size="big"/>} label="Very very long long long long label" subtitle="username as a subtitle username as a subtitle username as a subtitle username as a subtitle" button={<Button icon={<Power/>} label="Sign Out" variant="ghost" color="reverse" onClick={() => {}}/>}/>
-                            <PrimaryNavItem icon={<Person size="big"/>} label="With badge" badge={<Badge size="small" type="round" color="danger" label="3" style={{position: 'absolute', top: '0.1rem', right: '-0.1rem'}}/>}/>
-                            <PrimaryNavItem icon={<Person size="big"/>} label="With badge" badge={<Badge size="small" type="round" color="danger" label="333" style={{position: 'absolute', top: '0.1rem', right: '-0.1rem'}}/>}/>
-                            <PrimaryNavItem icon={<Person size="big"/>} label="With badge" badge={<Badge size="small" type="diamond" color="success" style={{position: 'absolute', top: '0.1rem', right: '-0.1rem'}}/>}/>
+                            <PrimaryNavItem label="Very very long long name with many characters" icon={<Feather/>}/>
+                            <PrimaryNavItem icon={<Person/>} label="My profile" subtitle="username as a subtitle"/>
+                            <PrimaryNavItem icon={<Person/>} label="Very very long long long long label" subtitle="username as a subtitle username as a subtitle username as a subtitle username as a subtitle" button={<Button isReversed icon={<Power/>} label="Sign Out" variant="ghost" onClick={() => {}}/>}/>
+                            <PrimaryNavItem icon={<Person/>} label="With badge" badge={<Badge label="3"/>}/>
+                            <PrimaryNavItem icon={<Person/>} label="With badge" badge={<Badge label="333"/>}/>
+                            <PrimaryNavItem icon={<Person/>} label="With badge"/>
                         </PrimaryNavItemsGroup>
                         <PrimaryNavItemsGroup isDisplayedWhenCollapsed={false}>
                             <PrimaryNavItem url="https://jahia.com" label="Jahia Link"/>
@@ -46,10 +46,10 @@ storiesOf('Components|PrimaryNav', module)
                 bottom={
                     <>
                         <PrimaryNavItemsGroup>
-                            <PrimaryNavItem label="Another bottom item" icon={<Profile size="big"/>}/>
+                            <PrimaryNavItem label="Another bottom item" icon={<Profile/>}/>
                         </PrimaryNavItemsGroup>
                         <PrimaryNavItemsGroup>
-                            <PrimaryNavItem label="Bottom item" icon={<Setting size="big"/>}/>
+                            <PrimaryNavItem label="Bottom item" icon={<Setting/>}/>
                         </PrimaryNavItemsGroup>
                     </>
                 }
