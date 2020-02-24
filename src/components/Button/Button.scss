@@ -12,6 +12,9 @@
 
     border-radius: 4px;
 
+    outline: none;
+    cursor: pointer;
+
     &:hover,
     &:focus,
     &:active {
@@ -64,6 +67,7 @@
 
     &:disabled {
         box-shadow: none;
+        cursor: not-allowed;
         opacity: 0.3;
     }
 }
