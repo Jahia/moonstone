@@ -36,7 +36,7 @@ Badge.defaultProps = {
 
 Badge.propTypes = {
     /**
-     * Badge label, only for type default
+     * Badge label, only for type round
      */
     label: PropTypes.string,
 
