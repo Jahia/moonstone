@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import {storiesOf} from '@storybook/react';
 import {withKnobs, boolean, object} from '@storybook/addon-knobs';
 import markdownNotes from './Menu.md';
-import {Menu} from './index';
+import {Menu, MenuItem} from './index';
+import {Separator} from '~/components';
 
 storiesOf('Components|Menu', module)
     .addParameters({
@@ -13,7 +14,15 @@ storiesOf('Components|Menu', module)
     .add('default', () => (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <Menu isDisplayed={boolean('display', true)}>
-                Content here
+                <MenuItem label="Base items" variant="title"/>
+                <MenuItem label="Item1"/>
+                <MenuItem label="Item2"/>
+                <MenuItem label="Item3"/>
+                <Separator/>
+                <MenuItem label="Variants" variant="title"/>
+                <MenuItem isHover label="Item3 - Hover"/>
+                <MenuItem isDisabled label="Item3 - Disabled"/>
+                <MenuItem isSelected label="Item3 - Selected"/>
             </Menu>
         </div>
     ))
@@ -45,7 +54,9 @@ storiesOf('Components|Menu', module)
                     anchorPosition={menuPosition}
                     onClose={handleClose}
                 >
-                    Content here
+                    <MenuItem label="Item1"/>
+                    <MenuItem label="Item2"/>
+                    <MenuItem label="Item3"/>
                 </Menu>
             </div>
         );
@@ -85,7 +96,9 @@ storiesOf('Components|Menu', module)
                     anchorElOrigin={object('anchorElOrigin', {vertical: 'top', horizontal: 'right'})}
                     onClose={handleClose}
                 >
-                    Content here
+                    <MenuItem label="Item1"/>
+                    <MenuItem label="Item2"/>
+                    <MenuItem label="Item3"/>
                 </Menu>
             </div>
         );
