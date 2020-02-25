@@ -1,7 +1,7 @@
 @import '~/utils/index';
 
 .menu {
-    position: absolute;
+    position: fixed;
 
     z-index: 9000;
 
@@ -15,16 +15,12 @@
     background-color: var(--color-light);
     box-shadow: 0 4px 8px var(--color-gray_dark60);
     overflow: hidden auto;
-}
 
-.menu_wrapper {
-    position: fixed;
+    &.hidden {
+        opacity: 0;
 
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 9000;
+        pointer-events: none;
+    }
 }
 
 // ---

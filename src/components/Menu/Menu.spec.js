@@ -8,6 +8,6 @@ describe('Menu', () => {
             <Menu isDisplayed={false}>Here my content</Menu>
         );
 
-        expect(wrapper.html()).toEqual('');
+        expect(wrapper.html()).toContain('hidden');
     });
 });
