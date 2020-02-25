@@ -1,8 +1,9 @@
-import React, {useCallback, useEffect, useState, useRef} from 'react';
+import React from 'react';
+import {usePositioning} from '~/hooks/usePositioning';
+import {useEnterExitCallbacks} from '~/hooks/useEnterExitCallbacks';
 import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import styles from './Menu.scss';
-import toPX from 'to-px';
 
 export const Menu = (
     {
@@ -11,6 +12,7 @@ export const Menu = (
         minWidth,
         maxWidth,
         className,
+        style,
         onMouseEnter,
         onMouseLeave,
         anchorEl,
@@ -24,98 +26,14 @@ export const Menu = (
         hasOverlay,
         ...props
     }) => {
-    const [stylePosition, setStylePosition] = useState({bottom: 0, right: 0});
+    const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin);
+    useEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);
 
-    const menuRef = useRef();
-
-    const definePositioning = useCallback(() => {
-        let menuRectangle = menuRef.current.getBoundingClientRect();
-
-        const resolvedAnchorEl = anchorEl && anchorEl.current ? anchorEl.current : anchorEl;
-
-        let stylePosition = {
-            top: typeof anchorPosition.top === 'string' ? toPX(anchorPosition.top) : anchorPosition.top,
-            left: typeof anchorPosition.left === 'string' ? toPX(anchorPosition.left) : anchorPosition.left
-        };
-
-        if (!isDisplayed) {
-            stylePosition = {
-                bottom: 0,
-                right: 0
-            };
-        } else if (resolvedAnchorEl) {
-            let anchorElRectangle = resolvedAnchorEl.getBoundingClientRect();
-
-            // Set vertical origin position
-            if (anchorElOrigin.vertical === 'top') {
-                stylePosition.top += anchorElRectangle.top;
-            } else if (anchorElOrigin.vertical === 'center') {
-                stylePosition.top += anchorElRectangle.top + (anchorElRectangle.height / 2);
-            } else if (anchorElOrigin.vertical === 'bottom') {
-                stylePosition.top += anchorElRectangle.bottom;
-            }
-
-            // Set horizontal origin position
-            if (anchorElOrigin.horizontal === 'left') {
-                stylePosition.left += anchorElRectangle.left;
-            } else if (anchorElOrigin.horizontal === 'center') {
-                stylePosition.left += anchorElRectangle.left + (anchorElRectangle.width / 2);
-            } else if (anchorElOrigin.horizontal === 'right') {
-                stylePosition.left += anchorElRectangle.right;
-            }
-        }
-
-        if (stylePosition.left && (stylePosition.left + menuRectangle.width) > window.document.body.clientWidth) {
-            stylePosition.left = window.document.body.clientWidth - menuRectangle.width;
-        }
-
-        if (stylePosition.top && (stylePosition.top + menuRectangle.height) > window.document.body.clientHeight) {
-            stylePosition.top = window.document.body.clientHeight - menuRectangle.height;
-        }
-
-        setStylePosition(stylePosition);
-    }, [anchorEl, anchorPosition, anchorElOrigin.vertical, anchorElOrigin.horizontal, isDisplayed, menuRef]);
-
-    useEffect(() => {
-        if (isDisplayed) {
-            definePositioning(anchorEl);
-        }
-    }, [anchorEl, isDisplayed, definePositioning]);
-
-    const previousIsDisplayed = useRef();
-    useEffect(() => {
-        if (typeof previousIsDisplayed.current !== 'undefined') {
-            if (!isDisplayed && previousIsDisplayed.current) {
-                if (onExiting) {
-                    onExiting();
-                }
-
-                if (onExited) {
-                    onExited();
-                }
-
-                // Reset position
-                definePositioning();
-            }
-
-            if (isDisplayed && !previousIsDisplayed.current) {
-                if (onEntering) {
-                    onEntering();
-                }
-
-                if (onEntered) {
-                    onEntered();
-                }
-            }
-        }
-
-        previousIsDisplayed.current = isDisplayed;
-    }, [isDisplayed, onEntered, onEntering, onExited, onExiting, previousIsDisplayed, definePositioning]);
-
+    console.log(style);
     // ---
     // Styling
     // ---
-    const styleMenu = {...stylePosition};
+    const styleMenu = {...stylePosition, ...style};
     if (minWidth) {
         styleMenu.minWidth = minWidth;
     }
@@ -130,7 +48,7 @@ export const Menu = (
     return (
         <>
             <menu
-                ref={menuRef}
+                ref={itemRef}
                 style={styleMenu}
                 className={classnames(
                     styles.menu,
@@ -216,6 +134,11 @@ Menu.propTypes = {
      * Additional classname
      */
     className: PropTypes.string,
+
+    /**
+     * Additional styles
+     */
+    style: PropTypes.object,
 
     /**
      * Function triggered when the mouse pointer hovering the menu
