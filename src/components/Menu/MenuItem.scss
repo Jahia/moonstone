@@ -3,10 +3,6 @@
 .menuItem {
     cursor: pointer;
 
-    > *::first-letter {
-        text-transform: uppercase;
-    }
-
     &:hover,
     &.hover {
         color: var(--color-accent);
@@ -20,10 +16,6 @@
         cursor: default;
 
         pointer-events: none;
-
-        > *::first-letter {
-            text-transform: uppercase;
-        }
     }
 
     &.selected,
