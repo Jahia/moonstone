@@ -28,6 +28,19 @@
         outline: none;
         box-shadow: inset 0 0 0 2px var(--color-accent);
     }
+
+    // ---
+    // Manage size variants
+    // ---
+    &.small {
+        padding-top: var(--spacing-nano);
+        padding-bottom: var(--spacing-nano);
+    }
+
+    &.medium {
+        padding-top: var(--spacing-small);
+        padding-bottom: var(--spacing-small);
+    }
 }
 
 // ---
@@ -54,18 +67,5 @@
         > * {
             pointer-events: none;
         }
-    }
-
-    // ---
-    // Manage size variants
-    // ---
-    &.small {
-        padding-top: var(--spacing-nano);
-        padding-bottom: var(--spacing-nano);
-    }
-
-    &.medium {
-        padding-top: var(--spacing-small);
-        padding-bottom: var(--spacing-small);
     }
 }
