@@ -57,6 +57,12 @@
     }
 }
 
+.primaryNavItem_badge {
+    position: absolute;
+    top: calc(var(--spacing-nano) * -1);
+    right: calc(var(--spacing-nano) * -1);
+}
+
 .primaryNavItem_textContainer {
     display: flex;
     flex-direction: column;

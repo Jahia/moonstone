@@ -15,12 +15,6 @@
 
 .secondaryNav_header {
     @include truncate;
-
-    display: block;
-    padding: var(--spacing-large);
-
-    text-align: center;
-    text-transform: capitalize;
 }
 
 .secondaryNav_buttonToggle {

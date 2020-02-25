@@ -1,6 +1,5 @@
 %variant_ghost {
-    border: 0;
-    outline: none;
+    border: 1px solid transparent;
     background-color: transparent;
 
     &.color_default {
@@ -9,19 +8,21 @@
         &:hover {
             color: var(--color-accent);
 
-            background-color: var(--color-gray_light);
+            border-color: var(--color-gray_light40);
+            background-color: var(--color-gray_light40);
         }
 
         &:focus {
-            color: var(--color-accent);
+            color: var(--color-accent_dark);
 
-            border: 1px solid var(--color-accent);
+            border-color: var(--color-accent_dark);
             background-color: var(--color-white);
         }
 
         &:active {
             color: var(--color-white);
 
+            border-color: var(--color-accent);
             background-color: var(--color-accent);
         }
 
@@ -29,15 +30,17 @@
             color: var(--color-white);
 
             &:hover {
+                border-color: var(--color-accent_dark60);
                 background-color: var(--color-accent_dark60);
             }
 
             &:focus {
-                border: 1px solid var(--color-white);
+                border-color: var(--color-white);
                 background-color: transparent;
             }
 
             &:active {
+                border-color: var(--color-accent);
                 background-color: var(--color-accent);
             }
         }
@@ -49,19 +52,21 @@
         &:hover {
             color: var(--color-accent_dark);
 
+            border-color: var(--color-gray_light);
             background-color: var(--color-gray_light);
         }
 
         &:focus {
             color: var(--color-accent_dark);
 
-            border: 1px solid var(--color-accent_dark);
+            border-color: var(--color-accent_dark);
             background-color: var(--color-white);
         }
 
         &:active {
             color: var(--color-white);
 
+            border-color: var(--color-accent_dark);
             background-color: var(--color-accent_dark);
         }
 
@@ -69,108 +74,22 @@
             &:hover {
                 color: var(--color-white);
 
+                border-color: var(--color-accent40);
                 background-color: var(--color-accent40);
             }
 
             &:focus {
                 color: var(--color-white);
 
-                border: 1px solid var(--color-white);
+                border-color: var(--color-white);
                 background-color: var(--color-accent60);
             }
 
             &:active {
                 color: var(--color-white);
 
+                border-color: var(--color-accent_dark);
                 background-color: var(--color-accent_dark);
-            }
-        }
-    }
-
-    &.color_success {
-        color: var(--color-success);
-
-        &:hover {
-            color: var(--color-success);
-
-            background-color: var(--color-gray_light);
-        }
-
-        &:focus {
-            color: var(--color-success);
-
-            border: 1px solid var(--color-success);
-            background-color: var(--color-white);
-        }
-
-        &:active {
-            color: var(--color-white);
-
-            background-color: var(--color-success);
-        }
-
-        &.reverse {
-            &:hover {
-                color: var(--color-white);
-
-                background-color: var(--color-success40);
-            }
-
-            &:focus {
-                color: var(--color-white);
-
-                border: 1px solid var(--color-white);
-                background-color: var(--color-success60);
-            }
-
-            &:active {
-                color: var(--color-white);
-
-                background-color: var(--color-success);
-            }
-        }
-    }
-
-    &.color_warning {
-        color: var(--color-warning);
-
-        &:hover {
-            color: var(--color-warning);
-
-            background-color: var(--color-gray_light);
-        }
-
-        &:focus {
-            color: var(--color-warning);
-
-            border: 1px solid var(--color-warning);
-            background-color: var(--color-white);
-        }
-
-        &:active {
-            color: var(--color-white);
-
-            background-color: var(--color-warning);
-        }
-
-        &.reverse {
-            &:hover {
-                color: var(--color-white);
-
-                background-color: var(--color-warning40);
-            }
-
-            &:focus {
-                color: var(--color-white);
-
-                border: 1px solid var(--color-white);
-                background-color: var(--color-warning60);
-            }
-
-            &:active {
-                color: var(--color-white);
-
-                background-color: var(--color-warning);
             }
         }
     }
@@ -187,11 +106,13 @@
         &:focus {
             color: var(--color-danger);
 
-            border: 1px solid var(--color-danger);
+            border-color: var(--color-danger);
             background-color: var(--color-white);
         }
 
         &:active {
+            color: var(--color-white);
+
             background-color: var(--color-danger);
         }
 
@@ -205,7 +126,7 @@
             &:focus {
                 color: var(--color-white);
 
-                border: 1px solid var(--color-white);
+                border-color: var(--color-white);
                 background-color: var(--color-danger60);
             }
 
@@ -230,10 +151,14 @@
     &:active:disabled {
         color: var(--color-gray);
 
+        border-color: transparent;
         background-color: transparent;
 
         &.reverse {
             color: var(--color-gray_light);
+
+            border-color: transparent;
+            background-color: transparent;
         }
     }
 }
