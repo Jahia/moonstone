@@ -1,3 +1,32 @@
+# v0.11.0 (Tue Feb 25 2020)
+
+#### 🚀  Enhancement
+
+- Moon 68 Badge component [#79](https://github.com/Jahia/moonstone/pull/79) ([@AKarmanov](https://github.com/AKarmanov))
+
+#### 🐛  Bug Fix
+
+- MOON-73: Add vertical variant to the Separator component [#84](https://github.com/Jahia/moonstone/pull/84) ([@ffffffelix](https://github.com/ffffffelix) [@tdraier](https://github.com/tdraier))
+- MOON-36 : Menu positioning [#87](https://github.com/Jahia/moonstone/pull/87) ([@tdraier](https://github.com/tdraier))
+- MOON-51 update button css to reflect latest changes [#86](https://github.com/Jahia/moonstone/pull/86) ([@DameniMilo](https://github.com/DameniMilo))
+- BACKLOG-12517 : remove unecessary and specific css in the header of secondaryNav [#85](https://github.com/Jahia/moonstone/pull/85) ([@Yousria](https://github.com/Yousria))
+- Moon 70: Update Badge design [#81](https://github.com/Jahia/moonstone/pull/81) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-72: UI/UX button improvement [#82](https://github.com/Jahia/moonstone/pull/82) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🏠  Internal
+
+- MOON-40: Remove the deploy script [#83](https://github.com/Jahia/moonstone/pull/83) ([@ffffffelix](https://github.com/ffffffelix) [@tdraier](https://github.com/tdraier))
+
+#### Authors: 5
+
+- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+- dgaillard ([@DameniMilo](https://github.com/DameniMilo))
+- Yousria ([@Yousria](https://github.com/Yousria))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v0.10.0 (Fri Feb 21 2020)
 
 #### 🚀  Enhancement
