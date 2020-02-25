@@ -12,13 +12,25 @@ storiesOf('Components|Separator', module)
         notes: {markdown: markdownNotes}
     })
     .addDecorator(withKnobs)
-    .add('default', () => (
+    .add('Horizontal', () => (
         <>
             <div>Content before a separator</div>
             <Separator
+                variant="horizontal"
                 size={select('Size', optionsFromArray(SeparatorSizes), 'full')}
                 spacing={select('Spacing', optionsFromArray(SeparatorSpacings), 'medium')}
             />
             <div>Content after a separator</div>
         </>
+    ))
+    .add('Vertical', () => (
+        <div className="flexRow alignCenter" style={{height: '80px'}}>
+            <div>Before</div>
+            <Separator
+                variant="vertical"
+                size={select('Size', optionsFromArray(SeparatorSizes), 'full')}
+                spacing={select('Spacing', optionsFromArray(SeparatorSpacings), 'medium')}
+            />
+            <div>After</div>
+        </div>
     ));

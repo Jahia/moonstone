@@ -9,6 +9,18 @@ describe('Separator', () => {
         );
         expect(wrapper.html());
     });
+    it('should display horizontal separator by default', () => {
+        const wrapper = shallow(
+            <Separator size="medium"/>
+        );
+        expect(wrapper.html()).toContain('separator_horizontal');
+    });
+    it('should display vertical separator', () => {
+        const wrapper = shallow(
+            <Separator variant="vertical" size="medium"/>
+        );
+        expect(wrapper.html()).toContain('separator_vertical');
+    });
 
     it('should set size props', () => {
         const wrapper = shallow(
@@ -29,5 +41,12 @@ describe('Separator', () => {
             <Separator data-custom="test" size="medium"/>
         );
         expect(wrapper.html()).toContain('data-custom="test"');
+    });
+
+    it('should add addition classname', () => {
+        const wrapper = shallow(
+            <Separator className="test" size="medium"/>
+        );
+        expect(wrapper.html()).toContain('test');
     });
 });
