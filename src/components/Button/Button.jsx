@@ -9,13 +9,13 @@ export const buttonVariants = ['default', 'ghost', 'outlined'];
 export const buttonColors = ['default', 'accent', 'danger'];
 
 export const Button = ({label, onClick, size, isReversed, isDisabled, icon, variant, color, className, ...props}) => {
-    let typoSize = 'default';
+    let typoWeight = 'default';
     if (size === 'small') {
-        typoSize = 'light';
+        typoWeight = 'light';
     }
 
     if (size === 'big') {
-        typoSize = 'semiBold';
+        typoWeight = 'semiBold';
     }
 
     return (
@@ -43,7 +43,7 @@ export const Button = ({label, onClick, size, isReversed, isDisabled, icon, vari
                             component="span"
                             variant="button"
                             isUpperCase={size === 'big'}
-                            weight={typoSize}
+                            weight={typoWeight}
                 >
                     {label}
                 </Typography>}
