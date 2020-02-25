@@ -14,10 +14,6 @@
 
     transition: background 0.2s ease-in-out;
 
-    > *::first-letter {
-        text-transform: uppercase;
-    }
-
     &:hover {
         color: var(--color-accent);
     }
@@ -37,81 +33,39 @@
 // ---
 // Dropdown states
 // ---
-.dropdown-opened {
-    .dropdown_label {
-        color: var(--color-light);
-
-        background-color: var(--color-accent);
-    }
-}
-
-.dropdown-disabled {
-    @include is-disabled;
-
-    &:hover {
+.dropdown {
+    &.opened {
         .dropdown_label {
+            color: var(--color-light);
+
+            background-color: var(--color-accent);
+        }
+    }
+
+    &.disabled {
+        @include is-disabled;
+
+        &:hover {
+            .dropdown_label {
+                pointer-events: none;
+            }
+        }
+
+        > * {
             pointer-events: none;
         }
     }
 
-    > * {
-        pointer-events: none;
-    }
-}
-
-// ---
-// Manage size variants
-// ---
-.dropdown-small {
-    padding-top: var(--spacing-nano);
-    padding-bottom: var(--spacing-nano);
-}
-
-.dropdown-medium {
-    padding-top: var(--spacing-small);
-    padding-bottom: var(--spacing-small);
-}
-
-// ---
-// Manage Dropdown option
-// ---
-.dropdownOption {
-    cursor: pointer;
-
-    > *::first-letter {
-        text-transform: uppercase;
+    // ---
+    // Manage size variants
+    // ---
+    &.small {
+        padding-top: var(--spacing-nano);
+        padding-bottom: var(--spacing-nano);
     }
 
-    &:hover {
-        color: var(--color-accent);
-
-        background-color: var(--color-gray_light40);
+    &.medium {
+        padding-top: var(--spacing-small);
+        padding-bottom: var(--spacing-small);
     }
-}
-
-.dropdownOption_title {
-    color: var(--color-gray60);
-
-    cursor: default;
-
-    pointer-events: none;
-
-    > *::first-letter {
-        text-transform: uppercase;
-    }
-}
-
-.dropdownOption_selected,
-.dropdownOption_selected:hover {
-    color: var(--color-light);
-
-    background-color: var(--color-accent);
-    cursor: default;
-}
-
-.dropdownOption_disabled,
-.dropdownOption_disabled:hover {
-    @include is-disabled;
-
-    background: none;
 }

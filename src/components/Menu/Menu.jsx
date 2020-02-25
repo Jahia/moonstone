@@ -1,24 +1,80 @@
-import React, {useCallback, useState, useEffect} from 'react';
+import React, {useCallback, useEffect, useState, useRef} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import styles from './Menu.scss';
+import toPX from 'to-px';
 
-export const Menu = ({
-    children,
-    isDisplayed,
-    minWidth,
-    maxWidth,
-    className,
-    onMouseEnter,
-    onMouseLeave,
-    anchorEl,
-    anchorElOrigin,
-    anchorPosition,
-    onClose,
-    hasOverlay,
-    ...props
-}) => {
-    const [stylePosition, setStylePosition] = useState();
+export const Menu = (
+    {
+        children,
+        isDisplayed,
+        minWidth,
+        maxWidth,
+        className,
+        onMouseEnter,
+        onMouseLeave,
+        anchorEl,
+        anchorElOrigin,
+        anchorPosition,
+        onClose,
+        onEntering,
+        onEntered,
+        onExiting,
+        onExited,
+        hasOverlay,
+        ...props
+    }) => {
+    const [stylePosition, setStylePosition] = useState({bottom: 0, right: 0});
+
+    const menuRef = useRef();
+
+    const definePositioning = useCallback(() => {
+        let menuRectangle = menuRef.current.getBoundingClientRect();
+
+        const resolvedAnchorEl = anchorEl && anchorEl.current ? anchorEl.current : anchorEl;
+
+        let stylePosition = {
+            top: typeof anchorPosition.top === 'string' ? toPX(anchorPosition.top) : anchorPosition.top,
+            left: typeof anchorPosition.left === 'string' ? toPX(anchorPosition.left) : anchorPosition.left
+        };
+
+        if (!isDisplayed) {
+            stylePosition = {
+                bottom: 0,
+                right: 0
+            };
+        } else if (resolvedAnchorEl) {
+            let anchorElRectangle = resolvedAnchorEl.getBoundingClientRect();
+
+            // Set vertical origin position
+            if (anchorElOrigin.vertical === 'top') {
+                stylePosition.top += anchorElRectangle.top;
+            } else if (anchorElOrigin.vertical === 'center') {
+                stylePosition.top += anchorElRectangle.top + (anchorElRectangle.height / 2);
+            } else if (anchorElOrigin.vertical === 'bottom') {
+                stylePosition.top += anchorElRectangle.bottom;
+            }
+
+            // Set horizontal origin position
+            if (anchorElOrigin.horizontal === 'left') {
+                stylePosition.left += anchorElRectangle.left;
+            } else if (anchorElOrigin.horizontal === 'center') {
+                stylePosition.left += anchorElRectangle.left + (anchorElRectangle.width / 2);
+            } else if (anchorElOrigin.horizontal === 'right') {
+                stylePosition.left += anchorElRectangle.right;
+            }
+        }
+
+        if (stylePosition.left && (stylePosition.left + menuRectangle.width) > window.document.body.clientWidth) {
+            stylePosition.left = window.document.body.clientWidth - menuRectangle.width;
+        }
+
+        if (stylePosition.top && (stylePosition.top + menuRectangle.height) > window.document.body.clientHeight) {
+            stylePosition.top = window.document.body.clientHeight - menuRectangle.height;
+        }
+
+        setStylePosition(stylePosition);
+    }, [anchorEl, anchorPosition, anchorElOrigin.vertical, anchorElOrigin.horizontal, isDisplayed, menuRef]);
 
     useEffect(() => {
         if (isDisplayed) {
@@ -26,36 +82,35 @@ export const Menu = ({
         }
     }, [anchorEl, isDisplayed, definePositioning]);
 
-    const definePositioning = useCallback(() => {
-        const resolvedAnchorEl = anchorEl && anchorEl.current ? anchorEl.current : anchorEl;
-        let top = 0;
-        let left = 0;
+    const previousIsDisplayed = useRef();
+    useEffect(() => {
+        if (typeof previousIsDisplayed.current !== 'undefined') {
+            if (!isDisplayed && previousIsDisplayed.current) {
+                if (onExiting) {
+                    onExiting();
+                }
 
-        if (resolvedAnchorEl) {
-            // Set vertical origin position
-            if (anchorElOrigin.vertical === 'top') {
-                top = resolvedAnchorEl.offsetTop;
-            } else if (anchorElOrigin.vertical === 'center') {
-                top = resolvedAnchorEl.offsetTop / 2;
-            } else if (anchorElOrigin.vertical === 'bottom') {
-                top = resolvedAnchorEl.offsetTop + resolvedAnchorEl.offsetHeight;
+                if (onExited) {
+                    onExited();
+                }
+
+                // Reset position
+                definePositioning();
             }
 
-            // Set horizontal origin position
-            if (anchorElOrigin.horizontal === 'left') {
-                left = resolvedAnchorEl.offsetLeft;
-            } else if (anchorElOrigin.horizontal === 'center') {
-                left = resolvedAnchorEl.offsetLeft / 2;
-            } else if (anchorElOrigin.horizontal === 'right') {
-                left = resolvedAnchorEl.offsetLeft + resolvedAnchorEl.offsetWidth;
+            if (isDisplayed && !previousIsDisplayed.current) {
+                if (onEntering) {
+                    onEntering();
+                }
+
+                if (onEntered) {
+                    onEntered();
+                }
             }
         }
 
-        setStylePosition({
-            top: `calc(${top}px + ${anchorPosition.top})`,
-            left: `calc(${left}px + ${anchorPosition.left})`
-        });
-    }, [anchorEl, anchorPosition, anchorElOrigin.vertical, anchorElOrigin.horizontal]);
+        previousIsDisplayed.current = isDisplayed;
+    }, [isDisplayed, onEntered, onEntering, onExited, onExiting, previousIsDisplayed, definePositioning]);
 
     // ---
     // Styling
@@ -72,45 +127,42 @@ export const Menu = ({
     // ---
     // Render
     // ---
-    if (isDisplayed && stylePosition) {
-        return (
-            <div className={classnames(styles.menu_wrapper)}>
-                <menu
-                    style={styleMenu}
-                    className={classnames(
-                        styles.menu,
-                        className
-                    )}
-                    onMouseEnter={onMouseEnter}
-                    onMouseLeave={onMouseLeave}
-                    {...props}
-                >
-                    {children}
-                </menu>
-                {
-                    hasOverlay &&
-                    <div
-                        aria-hidden="true"
-                        className={classnames(styles.menu_overlay)}
-                        onClick={onClose}
-                    />
-                }
-            </div>
-        );
-    }
-
-    return null;
+    return (
+        <>
+            <menu
+                ref={menuRef}
+                style={styleMenu}
+                className={classnames(
+                    styles.menu,
+                    className,
+                    {
+                        [styles.hidden]: !isDisplayed || !stylePosition
+                    }
+                )}
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeave}
+                {...props}
+            >
+                {children}
+            </menu>
+            {
+                hasOverlay && isDisplayed &&
+                <div
+                    aria-hidden="true"
+                    className={classnames(styles.menu_overlay)}
+                    onClick={onClose}
+                />
+            }
+        </>
+    );
 };
 
 Menu.defaultProps = {
-    onMouseEnter: () => {},
-    onMouseLeave: () => {},
-    onClose: () => {},
     hasOverlay: true,
     anchorEl: null,
     anchorPosition: {
-        top: '0px',
-        left: '0px'
+        top: 0,
+        left: 0
     },
     anchorElOrigin: {
         vertical: 'bottom',
@@ -148,8 +200,8 @@ Menu.propTypes = {
      * Position of the menu in px relative to anchorEl or the document
      */
     anchorPosition: PropTypes.shape({
-        top: PropTypes.string.isRequired,
-        left: PropTypes.string.isRequired
+        top: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        left: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     }),
 
     /**
@@ -179,6 +231,26 @@ Menu.propTypes = {
      * Function triggered when the menu close
      */
     onClose: PropTypes.func,
+
+    /**
+     * Function triggered when the menu is going to be opened (before open)
+     */
+    onEntering: PropTypes.func,
+
+    /**
+     * Function triggered when the menu has been opened (after open)
+     */
+    onEntered: PropTypes.func,
+
+    /**
+     * Function triggered when the menu is going to be closed (before exit)
+     */
+    onExiting: PropTypes.func,
+
+    /**
+     * Function triggered when the menu has been closed (after exit)
+     */
+    onExited: PropTypes.func,
 
     /**
      * The menu has overlay or not

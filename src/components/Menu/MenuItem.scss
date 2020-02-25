@@ -1,0 +1,34 @@
+@import '~/utils/index';
+
+.menuItem {
+    cursor: pointer;
+
+    &:hover,
+    &.hover {
+        color: var(--color-accent);
+
+        background-color: var(--color-gray_light40);
+    }
+
+    &.title {
+        color: var(--color-gray60);
+
+        cursor: default;
+
+        pointer-events: none;
+    }
+
+    &.selected,
+    &.selected:hover {
+        color: var(--color-light);
+
+        background-color: var(--color-accent);
+    }
+
+    &.disabled,
+    &.disabled:hover {
+        @include is-disabled;
+
+        background: none;
+    }
+}

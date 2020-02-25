@@ -1,0 +1,88 @@
+import React from 'react';
+import {ListItem} from '~/components';
+import PropTypes from 'prop-types';
+import classnames from 'clsx';
+import styles from './MenuItem.scss';
+
+export const MenuItem = ({isHover, isSelected, isDisabled, variant, className, ...props}) => (
+    <ListItem
+        className={classnames(styles.menuItem, className, {
+            [styles.hover]: isHover,
+            [styles.selected]: isSelected,
+            [styles.disabled]: isDisabled,
+            [styles.title]: variant === 'title'
+        })}
+        variant={variant}
+        isDisabled={isDisabled}
+        {...props}
+       />
+);
+
+MenuItem.defaultProps = {
+    isDisabled: false,
+    iconStart: null,
+    iconEnd: null,
+    className: '',
+    onClick: () => {},
+    onMouseEnter: () => {},
+    onMouseLeave: () => {}
+};
+
+MenuItem.propTypes = {
+    /**
+     * Additional classname
+     */
+    className: PropTypes.string,
+
+    /**
+     * Is item disabled
+     */
+    isHover: PropTypes.bool,
+
+    /**
+     * Is item disabled
+     */
+    isSelected: PropTypes.bool,
+
+    /**
+     * Is item disabled
+     */
+    isDisabled: PropTypes.bool,
+
+    /**
+     * ListItem label
+     */
+    label: PropTypes.string.isRequired,
+
+    /**
+     * Icon display before the label
+     */
+    iconStart: PropTypes.node,
+
+    /**
+     * Icon display at the end of ListItem
+     */
+    iconEnd: PropTypes.node,
+
+    /**
+     * ListItem variants
+     */
+    variant: PropTypes.oneOf(['default', 'title']),
+
+    /**
+     * Function triggered on clicking the item
+     */
+    onClick: PropTypes.func,
+
+    /**
+     * Function triggered when the mouse pointer hovering the item
+     */
+    onMouseEnter: PropTypes.func,
+
+    /**
+     * Function triggered when the mouse pointer move off the item
+     */
+    onMouseLeave: PropTypes.func
+};
+
+MenuItem.displayName = 'MenuItem';
