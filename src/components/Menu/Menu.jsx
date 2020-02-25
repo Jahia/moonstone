@@ -128,7 +128,7 @@ export const Menu = (
     // Render
     // ---
     return (
-        <div className={classnames(styles.menu_wrapper)}>
+        <>
             <menu
                 ref={menuRef}
                 style={styleMenu}
@@ -153,7 +153,7 @@ export const Menu = (
                     onClick={onClose}
                 />
             }
-        </div>
+        </>
     );
 };
 

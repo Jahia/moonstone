@@ -1,7 +1,7 @@
 @import '~/utils/index';
 
 .menu {
-    position: absolute;
+    position: fixed;
 
     z-index: 9000;
 
@@ -21,17 +21,6 @@
 
         pointer-events: none;
     }
-}
-
-.menu_wrapper {
-    position: fixed;
-
-    top: 0;
-    left: 0;
-    z-index: 9000;
-
-    max-width: 0;
-    max-height: 0;
 }
 
 // ---
