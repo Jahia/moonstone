@@ -29,7 +29,6 @@ export const Menu = (
     const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin);
     useEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);
 
-    console.log(style);
     // ---
     // Styling
     // ---
