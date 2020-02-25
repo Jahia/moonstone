@@ -11,6 +11,7 @@ $color-blue-dark: 0, 114, 177;
 $color-blue-light: 99, 209, 255;
 $color-green: 67, 160, 71;
 $color-red: 224, 24, 45;
+$color-red-dark: 194, 23, 41;
 $color-yellow: 232, 182, 6;
 
 :global(:root) {
@@ -56,4 +57,5 @@ $color-yellow: 232, 182, 6;
     --color-danger: rgba(#{$color-red});
     --color-danger40: rgba(#{$color-red, 0.4});
     --color-danger60: rgba(#{$color-red, 0.6});
+    --color-danger_dark: rgba(#{$color-red-dark});
 }

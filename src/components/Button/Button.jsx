@@ -6,9 +6,18 @@ import {Typography} from '../Typography';
 
 export const buttonSizes = ['small', 'default', 'big'];
 export const buttonVariants = ['default', 'ghost', 'outlined'];
-export const buttonColors = ['default', 'accent', 'success', 'warning', 'danger'];
+export const buttonColors = ['default', 'accent', 'danger'];
 
 export const Button = ({label, onClick, size, isReversed, isDisabled, icon, variant, color, className, ...props}) => {
+    let typoWeight = 'default';
+    if (size === 'small') {
+        typoWeight = 'light';
+    }
+
+    if (size === 'big') {
+        typoWeight = 'semiBold';
+    }
+
     return (
         <button
             className={
@@ -30,7 +39,12 @@ export const Button = ({label, onClick, size, isReversed, isDisabled, icon, vari
         >
             {icon && <icon.type {...icon.props} size={(size === 'big') ? 'default' : size}/>}
             {label &&
-                <Typography isNowrap component="span" variant="button" isUpperCase={size === 'big'} weight={(size === 'small') ? 'light' : 'default'}>
+                <Typography isNowrap
+                            component="span"
+                            variant="button"
+                            isUpperCase={size === 'big'}
+                            weight={typoWeight}
+                >
                     {label}
                 </Typography>}
         </button>
