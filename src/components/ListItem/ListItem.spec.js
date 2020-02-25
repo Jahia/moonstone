@@ -47,15 +47,6 @@ describe('ListItem', () => {
         expect(wrapper.html()).toContain('hello');
     });
 
-    it('should not throw error when there is no onClick defined', () => {
-        const wrapper = shallow(
-            <ListItem label="my label"/>
-        );
-
-        // No error should occur when there is no onDoubleClick defined
-        wrapper.querySelector('li').dispatchEvent('click');
-    });
-
     it('should call onClick when click on an item', () => {
         const handleClick = jest.fn();
         const wrapper = shallow(
@@ -65,45 +56,5 @@ describe('ListItem', () => {
         wrapper.querySelector('li').dispatchEvent('click');
 
         expect(handleClick).toHaveBeenCalled();
-    });
-
-    it('should not throw error when there is no onMouseEnter defined', () => {
-        const wrapper = shallow(
-            <ListItem label="my label"/>
-        );
-
-        // No error should occur when there is no onDoubleClick defined
-        wrapper.querySelector('li').dispatchEvent('mouseEnter');
-    });
-
-    it('should not throw error when there is no onMouseEnter defined', () => {
-        const handleMouseEnter = jest.fn();
-        const wrapper = shallow(
-            <ListItem label="my label" onMouseEnter={handleMouseEnter}/>
-        );
-
-        wrapper.querySelector('li').dispatchEvent('mouseEnter');
-
-        expect(handleMouseEnter).toHaveBeenCalled();
-    });
-
-    it('should not throw error when there is no onMouseLeave defined', () => {
-        const wrapper = shallow(
-            <ListItem label="my label"/>
-        );
-
-        // No error should occur when there is no onDoubleClick defined
-        wrapper.querySelector('li').dispatchEvent('mouseLeave');
-    });
-
-    it('should not throw error when there is no onMouseEnter defined', () => {
-        const handleMouseLeave = jest.fn();
-        const wrapper = shallow(
-            <ListItem label="my label" onMouseLeave={handleMouseLeave}/>
-        );
-
-        wrapper.querySelector('li').dispatchEvent('mouseLeave');
-
-        expect(handleMouseLeave).toHaveBeenCalled();
     });
 });
