@@ -2,6 +2,7 @@ import React, {Fragment, useState} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import styles from './Dropdown.scss';
+import spacings from '~/tokens/spacings/_spacings.scss';
 
 import {Menu, MenuItem, Typography} from '~/components';
 import {Separator} from '~/components/Separator';
@@ -28,8 +29,9 @@ export const Dropdown = (
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
     const isGrouped = typeof data[0].options !== 'undefined';
+
     const anchorPosition = {
-        top: 'var(--spacing-nano)',
+        top: spacings.spacingnano,
         left: 0
     };
 

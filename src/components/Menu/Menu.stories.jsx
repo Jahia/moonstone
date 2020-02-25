@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {storiesOf} from '@storybook/react';
-import {withKnobs, boolean, object} from '@storybook/addon-knobs';
+import {boolean, number, select, withKnobs} from '@storybook/addon-knobs';
 import markdownNotes from './Menu.md';
 import {Menu, MenuItem} from './index';
 import {Separator} from '~/components';
@@ -36,8 +36,8 @@ storiesOf('Components|Menu', module)
             } else {
                 setIsDisplayed(true);
                 setMenuPosition({
-                    top: String(`${e.clientY}px`),
-                    left: String(`${e.clientX}px`)
+                    top: e.clientY,
+                    left: e.clientX
                 });
             }
         };
@@ -87,13 +87,16 @@ storiesOf('Components|Menu', module)
                     style={{margin: '90px', width: '100px', height: '100px'}}
                     onClick={handleOnClick}
                 >
-                        Display menu
+                    Display menu
                 </button>
                 <Menu
                     isDisplayed={isDisplayed}
                     anchorEl={anchorEl}
-                    anchorPosition={object('anchorPosition', {top: '10px', left: '10px'})}
-                    anchorElOrigin={object('anchorElOrigin', {vertical: 'top', horizontal: 'right'})}
+                    anchorPosition={{top: number('top', 0), left: number('left', 0)}}
+                    anchorElOrigin={{
+                        vertical: select('vertical', ['top', 'bottom', 'center'], 'bottom'),
+                        horizontal: select('horizontal', ['left', 'right', 'center'], 'left')
+                    }}
                     onClose={handleClose}
                 >
                     <MenuItem label="Item1"/>

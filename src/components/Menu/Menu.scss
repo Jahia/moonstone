@@ -15,6 +15,12 @@
     background-color: var(--color-light);
     box-shadow: 0 4px 8px var(--color-gray_dark60);
     overflow: hidden auto;
+
+    &.hidden {
+        opacity: 0;
+
+        pointer-events: none;
+    }
 }
 
 .menu_wrapper {

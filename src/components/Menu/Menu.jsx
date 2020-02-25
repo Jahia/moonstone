@@ -1,7 +1,8 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState, useRef} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import styles from './Menu.scss';
+import toPX from 'to-px';
 
 export const Menu = (
     {
@@ -23,46 +24,57 @@ export const Menu = (
         hasOverlay,
         ...props
     }) => {
-    const [stylePosition, setStylePosition] = useState();
+    const [stylePosition, setStylePosition] = useState({bottom: 0, right: 0});
+
+    const menuRef = useRef();
 
     const definePositioning = useCallback(() => {
+        let menuRectangle = menuRef.current.getBoundingClientRect();
+
         const resolvedAnchorEl = anchorEl && anchorEl.current ? anchorEl.current : anchorEl;
 
-        if (resolvedAnchorEl) {
-            let top = 0;
-            let left = 0;
+        let stylePosition = {
+            top: typeof anchorPosition.top === 'string' ? toPX(anchorPosition.top) : anchorPosition.top,
+            left: typeof anchorPosition.left === 'string' ? toPX(anchorPosition.left) : anchorPosition.left
+        };
 
-            let rect = resolvedAnchorEl.getBoundingClientRect();
+        if (!isDisplayed) {
+            stylePosition = {
+                bottom: 0,
+                right: 0
+            };
+        } else if (resolvedAnchorEl) {
+            let anchorElRectangle = resolvedAnchorEl.getBoundingClientRect();
 
             // Set vertical origin position
             if (anchorElOrigin.vertical === 'top') {
-                top = rect.top;
+                stylePosition.top += anchorElRectangle.top;
             } else if (anchorElOrigin.vertical === 'center') {
-                top = rect.top + (rect.height / 2);
+                stylePosition.top += anchorElRectangle.top + (anchorElRectangle.height / 2);
             } else if (anchorElOrigin.vertical === 'bottom') {
-                top = rect.top + rect.height;
+                stylePosition.top += anchorElRectangle.bottom;
             }
 
             // Set horizontal origin position
             if (anchorElOrigin.horizontal === 'left') {
-                left = rect.left;
+                stylePosition.left += anchorElRectangle.left;
             } else if (anchorElOrigin.horizontal === 'center') {
-                left = rect.left + (rect.width / 2);
+                stylePosition.left += anchorElRectangle.left + (anchorElRectangle.width / 2);
             } else if (anchorElOrigin.horizontal === 'right') {
-                left = rect.left + rect.width;
+                stylePosition.left += anchorElRectangle.right;
             }
-
-            setStylePosition({
-                top: (typeof anchorPosition.top === 'number') ? (top + anchorPosition.top) + 'px' : `calc(${top}px + ${anchorPosition.top})`,
-                left: (typeof anchorPosition.left === 'number') ? (left + anchorPosition.left) + 'px' : `calc(${left}px + ${anchorPosition.left})`
-            });
-        } else {
-            setStylePosition({
-                top: (typeof anchorPosition.top === 'number') ? (anchorPosition.top + 'px') : anchorPosition.top,
-                left: (typeof anchorPosition.left === 'number') ? (anchorPosition.left + 'px') : anchorPosition.left
-            });
         }
-    }, [anchorEl, anchorPosition, anchorElOrigin.vertical, anchorElOrigin.horizontal]);
+
+        if (stylePosition.left && (stylePosition.left + menuRectangle.width) > window.document.body.clientWidth) {
+            stylePosition.left = window.document.body.clientWidth - menuRectangle.width;
+        }
+
+        if (stylePosition.top && (stylePosition.top + menuRectangle.height) > window.document.body.clientHeight) {
+            stylePosition.top = window.document.body.clientHeight - menuRectangle.height;
+        }
+
+        setStylePosition(stylePosition);
+    }, [anchorEl, anchorPosition, anchorElOrigin.vertical, anchorElOrigin.horizontal, isDisplayed, menuRef]);
 
     useEffect(() => {
         if (isDisplayed) {
@@ -70,27 +82,35 @@ export const Menu = (
         }
     }, [anchorEl, isDisplayed, definePositioning]);
 
+    const previousIsDisplayed = useRef();
     useEffect(() => {
-        if (stylePosition && !isDisplayed) {
-            if (onExiting) {
-                onExiting();
+        if (typeof previousIsDisplayed.current !== 'undefined') {
+            if (!isDisplayed && previousIsDisplayed.current) {
+                if (onExiting) {
+                    onExiting();
+                }
+
+                if (onExited) {
+                    onExited();
+                }
+
+                // Reset position
+                definePositioning();
             }
 
-            if (onExited) {
-                onExited();
+            if (isDisplayed && !previousIsDisplayed.current) {
+                if (onEntering) {
+                    onEntering();
+                }
+
+                if (onEntered) {
+                    onEntered();
+                }
             }
         }
 
-        if (isDisplayed) {
-            if (onEntering) {
-                onEntering();
-            }
-
-            if (onEntered) {
-                onEntered();
-            }
-        }
-    }, [isDisplayed, onEntered, onEntering, onExited, onExiting]); // eslint-disable-line react-hooks/exhaustive-deps
+        previousIsDisplayed.current = isDisplayed;
+    }, [isDisplayed, onEntered, onEntering, onExited, onExiting, previousIsDisplayed, definePositioning]);
 
     // ---
     // Styling
@@ -107,42 +127,42 @@ export const Menu = (
     // ---
     // Render
     // ---
-    if (isDisplayed && stylePosition) {
-        return (
-            <div className={classnames(styles.menu_wrapper)}>
-                <menu
-                    style={styleMenu}
-                    className={classnames(
-                        styles.menu,
-                        className
-                    )}
-                    onMouseEnter={onMouseEnter}
-                    onMouseLeave={onMouseLeave}
-                    {...props}
-                >
-                    {children}
-                </menu>
-                {
-                    hasOverlay &&
-                    <div
-                        aria-hidden="true"
-                        className={classnames(styles.menu_overlay)}
-                        onClick={onClose}
-                    />
-                }
-            </div>
-        );
-    }
-
-    return null;
+    return (
+        <div className={classnames(styles.menu_wrapper)}>
+            <menu
+                ref={menuRef}
+                style={styleMenu}
+                className={classnames(
+                    styles.menu,
+                    className,
+                    {
+                        [styles.hidden]: !isDisplayed || !stylePosition
+                    }
+                )}
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeave}
+                {...props}
+            >
+                {children}
+            </menu>
+            {
+                hasOverlay && isDisplayed &&
+                <div
+                    aria-hidden="true"
+                    className={classnames(styles.menu_overlay)}
+                    onClick={onClose}
+                />
+            }
+        </div>
+    );
 };
 
 Menu.defaultProps = {
     hasOverlay: true,
     anchorEl: null,
     anchorPosition: {
-        top: '0px',
-        left: '0px'
+        top: 0,
+        left: 0
     },
     anchorElOrigin: {
         vertical: 'bottom',
@@ -180,8 +200,8 @@ Menu.propTypes = {
      * Position of the menu in px relative to anchorEl or the document
      */
     anchorPosition: PropTypes.shape({
-        top: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-        left: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
+        top: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        left: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     }),
 
     /**
