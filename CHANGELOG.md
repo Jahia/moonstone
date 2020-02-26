@@ -1,3 +1,19 @@
+# v0.11.1 (Wed Feb 26 2020)
+
+#### 🐛  Bug Fix
+
+- MOON-12 : Fixed styling [#88](https://github.com/Jahia/moonstone/pull/88) ([@tdraier](https://github.com/tdraier))
+
+#### 🏠  Internal
+
+- MOON-36 : split code with custom hooks [#89](https://github.com/Jahia/moonstone/pull/89) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v0.11.0 (Tue Feb 25 2020)
 
 #### 🚀  Enhancement
