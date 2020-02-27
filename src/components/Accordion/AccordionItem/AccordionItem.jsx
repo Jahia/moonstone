@@ -32,6 +32,7 @@ export const AccordionItem = ({id, label, icon, onClick, children, className, ..
                     'flexRow',
                     'alignCenter'
                 )}
+                role="accordion-item"
                 aria-controls={id}
                 aria-expanded={open}
                 onClick={e => handleClick(e, open)}

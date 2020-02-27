@@ -18,6 +18,7 @@ export const ResizableBox = ({enable, minWidth, maxWidth, defaultSize, className
 
     return (
         <Resizable
+            role="resizable-panel"
             enable={enableZones}
             minWidth={minWidth}
             maxWidth={maxWidth}
