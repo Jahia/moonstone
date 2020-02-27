@@ -3,7 +3,7 @@ import {Resizable} from 're-resizable';
 import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import styles from './ResizableBox.scss';
-import DragHundle from '~/tokens/icons/asset/DragHundle.svg';
+import HandleResize from '~/tokens/icons/asset/HandleResize.svg';
 
 // WIP
 // const zones = ['top', 'right', 'bottom', 'left', 'topRight', 'bottomRight', 'bottomLeft', 'topLeft'];
@@ -31,8 +31,8 @@ export const ResizableBox = ({enable, minWidth, maxWidth, defaultSize, className
             }
             handleComponent={
                 {
-                    right: <DragHundle className={classnames(styles.resizable_handle_icon)} size="big"/>,
-                    left: <DragHundle className={classnames(styles.resizable_handle_icon)} size="big"/>
+                    right: <HandleResize className={classnames(styles.resizable_handle_icon)} size="big"/>,
+                    left: <HandleResize className={classnames(styles.resizable_handle_icon)} size="big"/>
                 }
             }
             className={classnames(className)}
