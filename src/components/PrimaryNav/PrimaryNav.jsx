@@ -9,7 +9,7 @@ import Menu from '~/tokens/icons/asset/Menu.svg';
 const NavButton = ({isExpanded, toggleExpand, modeIcon}) => {
     if (isExpanded) {
         return (
-            <button type="button" onClick={toggleExpand}>
+            <button type="button" role="primary-nav-control" onClick={toggleExpand}>
                 <ArrowLeft size="big"/>
             </button>
         );
@@ -26,7 +26,7 @@ const NavButton = ({isExpanded, toggleExpand, modeIcon}) => {
     return (
         <>
             {icon}
-            <button type="button" onClick={toggleExpand}>
+            <button type="button" role="primary-nav-control" onClick={toggleExpand}>
                 <Menu size="big"/>
             </button>
         </>
@@ -74,6 +74,7 @@ export const PrimaryNav = ({headerLogo, top, bottom, headerCaption, modeIcon, ..
     return (
         <PrimaryNavContext.Provider value={{isExpanded: isExpanded}}>
             <nav {...props}
+                 aria-expanded={isExpanded}
                  className={classnames(
                     styles.primaryNav,
                     {[styles.expanded]: isExpanded},
