@@ -9,13 +9,14 @@ describe('PrimaryNav', () => {
 
     it('should not be expended initialy', () => {
         const wrapper = shallow(<PrimaryNav {...props}/>, {mocks: {NavHeader: true, NavButton: true}});
-        expect(wrapper.html()).not.toContain('expanded');
+        expect(wrapper.html()).toContain('aria-expanded="false"');
     });
 
     it('should expended when click on NavButton', () => {
         const wrapper = shallow(<PrimaryNav {...props}/>, {mocks: {NavHeader: true, NavButton: true}});
         wrapper.querySelector('NavButton button').dispatchEvent('click');
-        expect(wrapper.html()).toContain('expanded');
+        expect(wrapper.html()).toContain('aria-expanded');
+        expect(wrapper.html()).not.toContain('aria-expanded="false"');
     });
 
     it('should also work when doesn\'t display modeIcon', () => {
