@@ -1,3 +1,23 @@
+# v0.11.2 (Fri Feb 28 2020)
+
+#### 🐛  Bug Fix
+
+- MOON-61: Create ButtonGroup component [#94](https://github.com/Jahia/moonstone/pull/94) ([@ffffffelix](https://github.com/ffffffelix))
+- BACKLOG-12496 : Added transformElOrigin to inverse positioning, use it when component goes too far on the right [#93](https://github.com/Jahia/moonstone/pull/93) ([@tdraier](https://github.com/tdraier))
+- BACKLOG-12479 Add roles to resizable and accordion item [#91](https://github.com/Jahia/moonstone/pull/91) ([@AKarmanov](https://github.com/AKarmanov))
+- MOON-76: Add icons [#90](https://github.com/Jahia/moonstone/pull/90) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🏠  Internal
+
+- Fix warning issue when using mixed prod/dev [#92](https://github.com/Jahia/moonstone/pull/92) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 2
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v0.11.1 (Wed Feb 26 2020)
 
 #### 🐛  Bug Fix
