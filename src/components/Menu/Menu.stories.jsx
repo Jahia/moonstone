@@ -94,8 +94,12 @@ storiesOf('Components|Menu', module)
                     anchorEl={anchorEl}
                     anchorPosition={{top: number('top', 0), left: number('left', 0)}}
                     anchorElOrigin={{
-                        vertical: select('vertical', ['top', 'bottom', 'center'], 'bottom'),
-                        horizontal: select('horizontal', ['left', 'right', 'center'], 'left')
+                        vertical: select('anchor-vertical', ['top', 'bottom', 'center'], 'bottom'),
+                        horizontal: select('anchor-horizontal', ['left', 'right', 'center'], 'left')
+                    }}
+                    transformElOrigin={{
+                        vertical: select('transform-vertical', ['top', 'bottom'], 'top'),
+                        horizontal: select('transform-horizontal', ['left', 'right'], 'left')
                     }}
                     onClose={handleClose}
                 >
