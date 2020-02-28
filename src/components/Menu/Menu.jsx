@@ -17,6 +17,7 @@ export const Menu = (
         onMouseLeave,
         anchorEl,
         anchorElOrigin,
+        transformElOrigin,
         anchorPosition,
         onClose,
         onEntering,
@@ -26,7 +27,7 @@ export const Menu = (
         hasOverlay,
         ...props
     }) => {
-    const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin);
+    const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin);
     useEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);
 
     // ---
@@ -84,6 +85,10 @@ Menu.defaultProps = {
     anchorElOrigin: {
         vertical: 'bottom',
         horizontal: 'left'
+    },
+    transformElOrigin: {
+        vertical: 'top',
+        horizontal: 'left'
     }
 };
 
@@ -127,6 +132,14 @@ Menu.propTypes = {
     anchorElOrigin: PropTypes.shape({
         horizontal: PropTypes.oneOf(['left', 'center', 'right']).isRequired,
         vertical: PropTypes.oneOf(['top', 'center', 'bottom']).isRequired
+    }),
+
+    /**
+     * This is the point on the menu which will attach to the anchor's origin
+     */
+    transformElOrigin: PropTypes.shape({
+        horizontal: PropTypes.oneOf(['left', 'right']).isRequired,
+        vertical: PropTypes.oneOf(['top', 'bottom']).isRequired
     }),
 
     /**
