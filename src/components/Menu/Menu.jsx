@@ -11,6 +11,7 @@ export const Menu = (
         isDisplayed,
         minWidth,
         maxWidth,
+        maxHeight,
         className,
         style,
         onMouseEnter,
@@ -40,6 +41,10 @@ export const Menu = (
 
     if (maxWidth) {
         styleMenu.maxWidth = maxWidth;
+    }
+
+    if (maxHeight) {
+        styleMenu.maxHeight = maxHeight;
     }
 
     // ---
@@ -93,6 +98,11 @@ Menu.defaultProps = {
 };
 
 Menu.propTypes = {
+    /**
+     * Max-width available
+     */
+    maxHeight: PropTypes.string,
+
     /**
      * Max-width available
      */

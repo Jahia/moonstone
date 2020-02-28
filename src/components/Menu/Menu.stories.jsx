@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {storiesOf} from '@storybook/react';
-import {boolean, number, select, withKnobs} from '@storybook/addon-knobs';
+import {boolean, number, select, text, withKnobs} from '@storybook/addon-knobs';
 import markdownNotes from './Menu.md';
 import {Menu, MenuItem} from './index';
 import {Separator} from '~/components';
@@ -13,7 +13,11 @@ storiesOf('Components|Menu', module)
     .addDecorator(withKnobs)
     .add('default', () => (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
-            <Menu isDisplayed={boolean('display', true)} style={{zIndex: 10000}}>
+            <Menu
+                isDisplayed={boolean('display', true)}
+                maxHeight={text('Max-height', '250px')}
+                style={{zIndex: 10000}}
+            >
                 <MenuItem label="Base items" variant="title"/>
                 <MenuItem label="Item1"/>
                 <MenuItem label="Item2"/>
