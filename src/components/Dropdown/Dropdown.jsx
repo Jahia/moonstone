@@ -147,6 +147,7 @@ export const Dropdown = (
             <Menu
                 isDisplayed={isOpened}
                 anchorPosition={anchorPosition}
+                maxHeight="270px"
                 maxWidth="250px"
                 minWidth={minWidth}
                 anchorEl={anchorEl}
