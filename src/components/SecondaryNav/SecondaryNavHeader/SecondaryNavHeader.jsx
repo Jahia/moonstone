@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import styles from './SecondaryNavHeader.scss';
 
-const SecondaryNavHeader = ({children}) => {
-    return (
-        <div className={classnames('flexRow_center', 'alignCenter', styles.secondaryNavHeader)}>
-            {children}
-        </div>
-    );
-};
+const SecondaryNavHeader = ({children}) => (
+    <header className={classnames(styles.secondaryNavHeader, 'flexRow_center', 'alignCenter')}>
+        {children}
+    </header>
+);
 
 SecondaryNavHeader.propTypes = {
 

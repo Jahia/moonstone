@@ -33,5 +33,12 @@ storiesOf('Components|SecondaryNav', module)
         >
             My content here
         </SecondaryNav>
+    ))
+    .add('with text in header component', () => (
+        <SecondaryNav
+            header={<SecondaryNavHeader>Secondary Header</SecondaryNavHeader>}
+        >
+            My content here
+        </SecondaryNav>
     ));
 

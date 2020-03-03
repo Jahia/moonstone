@@ -45,9 +45,7 @@ export const SecondaryNav = ({header, children, isDefaultVisible, onToggled, cla
             </button>
 
             <div className={classnames(styles.secondaryNav_wrapper, 'flexFluid', 'flexCol_nowrap')}>
-                <header className={classnames(styles.secondaryNav_header, 'flexRow_center', 'alignCenter')}>
-                    {header}
-                </header>
+                {header}
                 <div className={classnames('flexFluid', 'flexCol_nowrap')}>
                     {children}
                 </div>
