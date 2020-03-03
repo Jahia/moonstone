@@ -45,13 +45,15 @@ export const Dropdown = (
     };
 
     const handleSelect = (e, item) => {
-        let canClose = !item.isDisabled;
-        if (!item.isDisabled && item.value !== value) {
-            canClose = onChange(e, item);
-        }
+        if (item) {
+            let canClose = !item.isDisabled;
+            if (!item.isDisabled && item.value !== value) {
+                canClose = onChange(e, item);
+            }
 
-        if (canClose !== false) {
-            setIsOpened(false);
+            if (canClose !== false) {
+                setIsOpened(false);
+            }
         }
     };
 
@@ -119,7 +121,15 @@ export const Dropdown = (
     };
 
     return (
-        <div className={classnames(cssDropdown, className)} style={{maxWidth: maxWidth}} {...props}>
+        <div className={classnames(cssDropdown, className)}
+             style={{maxWidth: maxWidth}}
+             {...props}
+             onKeyPress={e => {
+                if (e.key === 'Enter') {
+                    handleOpenMenu(e);
+                }
+            }}
+        >
             <div className={classnames(cssDropdownLabel)}
                  tabIndex="0"
                  onClick={e => handleOpenMenu(e)}

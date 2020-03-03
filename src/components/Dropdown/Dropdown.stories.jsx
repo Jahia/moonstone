@@ -132,6 +132,7 @@ storiesOf('Components|Dropdown', module)
         const [currentOption, setCurrentOption] = useState({label: 'Select something', value: null});
 
         const handleOnChange = (e, item) => {
+            e.stopPropagation();
             setCurrentOption(item);
             action('onChange');
             return true;
@@ -156,6 +157,7 @@ storiesOf('Components|Dropdown', module)
         const [currentOption, setCurrentOption] = useState({label: dataLanguages[1].label, value: dataLanguages[1].value});
 
         const handleOnChange = (e, item) => {
+            e.stopPropagation();
             setCurrentOption(item);
             action('onChange');
             return true;
@@ -178,6 +180,7 @@ storiesOf('Components|Dropdown', module)
         const [currentOption, setCurrentOption] = useState({label: 'Select something', value: null});
 
         const handleOnChange = (e, item) => {
+            e.stopPropagation();
             setCurrentOption(item);
             action('onChange');
             return true;
