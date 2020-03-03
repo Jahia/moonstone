@@ -6,6 +6,8 @@ import styles from './MenuItem.scss';
 
 export const MenuItem = ({isHover, isSelected, isDisabled, variant, className, ...props}) => (
     <ListItem
+        tabIndex={isDisabled || variant === 'title' || isSelected ? null : '0'}
+        aria-disabled={isDisabled}
         className={classnames(styles.menuItem, className, {
             [styles.hover]: isHover,
             [styles.selected]: isSelected,
@@ -13,7 +15,6 @@ export const MenuItem = ({isHover, isSelected, isDisabled, variant, className, .
             [styles.title]: variant === 'title'
         })}
         variant={variant}
-        isDisabled={isDisabled}
         {...props}
        />
 );
