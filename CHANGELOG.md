@@ -1,3 +1,18 @@
+# v0.11.3 (Tue Mar 03 2020)
+
+#### 🐛  Bug Fix
+
+- MOON-61  : Export component [#97](https://github.com/Jahia/moonstone/pull/97) ([@tdraier](https://github.com/tdraier))
+- MOON-79: Menu should be scrollable [#96](https://github.com/Jahia/moonstone/pull/96) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-78: Fix PrimaryNavItem button when it's selected [#95](https://github.com/Jahia/moonstone/pull/95) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 2
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v0.11.2 (Fri Feb 28 2020)
 
 #### 🐛  Bug Fix
