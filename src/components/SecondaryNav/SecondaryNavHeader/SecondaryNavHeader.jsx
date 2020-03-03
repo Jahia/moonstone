@@ -5,7 +5,7 @@ import styles from './SecondaryNavHeader.scss';
 
 const SecondaryNavHeader = ({children}) => {
     return (
-        <div className={classnames('.flexCol_center', '.alignCenter', styles.secondaryNavHeader)}>
+        <div className={classnames('flexRow_center', 'alignCenter', styles.secondaryNavHeader)}>
             {children}
         </div>
     );
