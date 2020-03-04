@@ -1,3 +1,25 @@
+# v0.12.0 (Wed Mar 04 2020)
+
+#### 🚀  Enhancement
+
+- BACKLOG-12504 add Img and Svg wrapper to return icon sized image [#104](https://github.com/Jahia/moonstone/pull/104) ([@DameniMilo](https://github.com/DameniMilo))
+
+#### 🐛  Bug Fix
+
+- Moon 71: Update min/max width of SecondaryNav expanded [#103](https://github.com/Jahia/moonstone/pull/103) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-82 Header for secondary nav [#98](https://github.com/Jahia/moonstone/pull/98) ([@AKarmanov](https://github.com/AKarmanov) [@tdraier](https://github.com/tdraier))
+- Moon 36: Add active state to MenuItem [#99](https://github.com/Jahia/moonstone/pull/99) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-83: Fix PrimaryNav's icon alignment [#100](https://github.com/Jahia/moonstone/pull/100) ([@ffffffelix](https://github.com/ffffffelix))
+- BACKLOG-12327 - cleaned reset, improved usePositioning [#101](https://github.com/Jahia/moonstone/pull/101) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 3
+
+- dgaillard ([@DameniMilo](https://github.com/DameniMilo))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v0.11.3 (Tue Mar 03 2020)
 
 #### 🐛  Bug Fix
