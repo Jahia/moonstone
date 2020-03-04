@@ -22,12 +22,13 @@ storiesOf('Components|ButtonGroup', module)
     })
     .addDecorator(withKnobs)
     .add('Default', () => (
-        <section className={classnames(storyStyles.storyWrapper)}>
+        <section className={classnames(storyStyles.storyWrapper, {[storyStyles.dark]: isReversed()})}>
             <ButtonGroup
                 variant={variantValues()}
                 color={colorValues()}
                 size={sizeValues()}
                 isReversed={isReversed()}
+                isDisabled={boolean('Is disabled', false)}
             >
                 <Button label="one" onClick={() => {}}/>
                 <Button label="two" onClick={() => {}}/>

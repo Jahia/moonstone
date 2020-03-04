@@ -4,7 +4,7 @@ import styles from './ButtonGroup.scss';
 import classnames from 'clsx';
 import {buttonSizes, buttonVariants, buttonColors} from '~/components/Button';
 
-export const ButtonGroup = ({size, isReversed, variant, color, className, children, ...props}) => {
+export const ButtonGroup = ({size, isReversed, isDisabled, variant, color, className, children, ...props}) => {
     return (
         <div role="group"
              className={classnames(
@@ -27,6 +27,7 @@ export const ButtonGroup = ({size, isReversed, variant, color, className, childr
                             size={size}
                             variant={variant}
                             isReversed={isReversed}
+                            isDisabled={isDisabled}
                             color={color}
                             className={classnames(
                                 styles[`variant_${variant}`],
@@ -73,6 +74,11 @@ ButtonGroup.propTypes = {
      * Is button color reversed
      */
     isReversed: PropTypes.bool,
+
+    /**
+     * Is button disabled
+     */
+    isDisabled: PropTypes.bool,
 
     /**
      * Additional classname
