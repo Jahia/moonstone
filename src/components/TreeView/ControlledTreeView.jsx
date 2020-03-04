@@ -109,7 +109,7 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
 
                             {/* TreeViewItem */}
                             <div
-                                className={classnames('flexRow', 'alignCenter', 'flexFluid', styles.treeView_itemLabel, node.className)}
+                                className={classnames('flexRow_nowrap', 'alignCenter', 'flexFluid', styles.treeView_itemLabel, node.className)}
                                 onClick={handleNodeClick}
                                 onDoubleClick={handleNodeDoubleClick}
                                 onContextMenu={handleNodeContextMenu}
