@@ -4,7 +4,7 @@ import classnames from 'clsx';
 import styles from './ListItem.scss';
 import {Typography} from '~/components';
 
-export const ListItem = ({label, iconStart, iconEnd, isDisabled, variant, className, ...props}) => {
+export const ListItem = ({label, iconStart, iconEnd, className, ...props}) => {
     const cssListItem = classnames(
         className,
         styles.listItem,
@@ -13,9 +13,7 @@ export const ListItem = ({label, iconStart, iconEnd, isDisabled, variant, classN
     );
 
     return (
-        <li tabIndex={isDisabled || variant === 'title' ? null : '0'}
-            aria-disabled={isDisabled}
-            className={classnames(cssListItem)}
+        <li className={classnames(cssListItem)}
             {...props}
         >
             {
@@ -34,7 +32,6 @@ export const ListItem = ({label, iconStart, iconEnd, isDisabled, variant, classN
 };
 
 ListItem.defaultProps = {
-    isDisabled: false,
     iconStart: null,
     iconEnd: null,
     className: ''
@@ -45,11 +42,6 @@ ListItem.propTypes = {
      * Additional classname
      */
     className: PropTypes.string,
-
-    /**
-     * Is item disabled
-     */
-    isDisabled: PropTypes.bool,
 
     /**
      * ListItem label
@@ -64,12 +56,7 @@ ListItem.propTypes = {
     /**
      * Icon display at the end of ListItem
      */
-    iconEnd: PropTypes.node,
-
-    /**
-     * ListItem variants
-     */
-    variant: PropTypes.oneOf(['default', 'title'])
+    iconEnd: PropTypes.node
 };
 
 ListItem.displayName = 'ListItem';
