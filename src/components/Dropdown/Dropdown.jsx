@@ -48,6 +48,7 @@ export const Dropdown = (
         if (item) {
             let canClose = !item.isDisabled;
             if (!item.isDisabled && item.value !== value) {
+                e.stopPropagation();
                 canClose = onChange(e, item);
             }
 

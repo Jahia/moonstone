@@ -9,8 +9,3 @@ Allow user to validate a value by pressing `Enter`
 To hide the menu click on an item of the list or click outside to it
 The selected item has a specific design
 Items can be grouped with a title
-
-
-## Implementation
-
-To allow to use the dropdown with keyboard don't forget to add `e.stopPropagation();` on the onChange callback
