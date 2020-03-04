@@ -68,8 +68,12 @@ export const usePositioning = (isDisplayed, anchorPosition, anchorEl, anchorElOr
             let stylePosition;
             if (resolvedAnchorEl) {
                 stylePosition = getPositionRelativeToEl(resolvedAnchorEl, anchorElOrigin, transformElOrigin, anchorPosition);
-                if (stylePosition.left && (stylePosition.left + menuRectangle.width) > window.document.body.clientWidth) {
+                if (stylePosition.left && (stylePosition.left + menuRectangle.width) > window.document.body.clientWidth && anchorElOrigin.horizontal === 'right') {
                     stylePosition = getPositionRelativeToEl(resolvedAnchorEl, {...anchorElOrigin, horizontal: 'left'}, {...transformElOrigin, horizontal: 'right'}, anchorPosition);
+                }
+
+                if (stylePosition.top && (stylePosition.top + menuRectangle.height) > window.document.body.clientHeight && anchorElOrigin.vertical === 'bottom') {
+                    stylePosition = getPositionRelativeToEl(resolvedAnchorEl, {...anchorElOrigin, vertical: 'top'}, {...transformElOrigin, vertical: 'bottom'}, anchorPosition);
                 }
             } else {
                 stylePosition = getPosition(anchorPosition);
