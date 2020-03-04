@@ -35,16 +35,6 @@ storiesOf('Components|ButtonGroup', module)
             </ButtonGroup>
         </section>
     ))
-    .add('test', () => (
-        <section className={classnames(storyStyles.storyWrapper)}>
-            <ButtonGroup
-                color="accent"
-                size="big"
-            >
-                test
-            </ButtonGroup>
-        </section>
-    ))
     .add('Button with actions', () => (
         <section className={classnames(storyStyles.storyWrapper)}>
             <ButtonGroup
