@@ -3,7 +3,7 @@ import {storiesOf} from '@storybook/react';
 import {text, withKnobs} from '@storybook/addon-knobs';
 import markdownNotes from './SecondaryNav.md';
 
-import {SecondaryNav} from './index';
+import {SecondaryNav, SecondaryNavHeader} from './index';
 import Love from '~/tokens/icons/asset/Love.svg';
 
 storiesOf('Components|SecondaryNav', module)
@@ -23,6 +23,20 @@ storiesOf('Components|SecondaryNav', module)
     .add('with header images', () => (
         <SecondaryNav
             header={<Love size="big"/>}
+        >
+            My content here
+        </SecondaryNav>
+    ))
+    .add('with header component', () => (
+        <SecondaryNav
+            header={<SecondaryNavHeader><Love size="big"/></SecondaryNavHeader>}
+        >
+            My content here
+        </SecondaryNav>
+    ))
+    .add('with text in header component', () => (
+        <SecondaryNav
+            header={<SecondaryNavHeader>Secondary Header</SecondaryNavHeader>}
         >
             My content here
         </SecondaryNav>

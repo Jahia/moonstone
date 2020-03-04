@@ -1,0 +1,10 @@
+@import '~/utils/index';
+
+.secondaryNavHeader {
+    @include truncate;
+
+    width: 100%;
+    min-height: 3em;
+
+    padding: var(--spacing-nano);
+}
