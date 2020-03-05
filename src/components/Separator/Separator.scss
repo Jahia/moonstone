@@ -34,31 +34,38 @@
 }
 
 .separator_vertical {
+    align-self: stretch;
     width: 1px;
 
     // Size's Separator
     &.size_medium {
-        height: calc(100% - var(--spacing-huge));
+        margin-top: var(--spacing-small);
+        margin-bottom: var(--spacing-small);
     }
 
     &.size_large {
-        height: calc(100% - var(--spacing-medium));
+        margin-top: var(--spacing-nano);
+        margin-bottom: var(--spacing-nano);
     }
 
     &.size_full {
-        height: 100%;
+        margin-top: 0;
+        margin-bottom: 0;
     }
 
     // Spacing's Separator
     &.spacing_small {
-        margin: auto var(--spacing-small);
+        margin-right: var(--spacing-small);
+        margin-left: var(--spacing-small);
     }
 
     &.spacing_medium {
-        margin: auto var(--spacing-medium);
+        margin-right: var(--spacing-medium);
+        margin-left: var(--spacing-medium);
     }
 
     &.spacing_big {
-        margin: auto var(--spacing-big);
+        margin-right: var(--spacing-big);
+        margin-left: var(--spacing-big);
     }
 }

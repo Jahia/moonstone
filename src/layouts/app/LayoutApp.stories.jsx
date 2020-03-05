@@ -10,7 +10,7 @@ const FakeNavigation = () => {
     return (
         <div style={{
             width: '100%',
-            height: '100%',
+            height: '100vh',
             border: '5px solid gray',
             display: 'flex',
             alignItems: 'center',
@@ -25,7 +25,7 @@ const FakeContent = () => {
     return (
         <div style={{
             width: '100%',
-            height: '100%',
+            height: '100vh',
             border: '5px solid lightgray',
             display: 'flex',
             alignItems: 'center',

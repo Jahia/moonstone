@@ -1,3 +1,8 @@
 {
-    "extends": ["@jahia/stylelint-config"]
+    "extends": ["@jahia/stylelint-config"],
+    "rules": {
+        "declaration-property-unit-blacklist": {
+            "height": ["%"]
+        }
+    }
 }
