@@ -3,6 +3,7 @@ export * from './Accordion/AccordionItem';
 export * from './Badge';
 export * from './Button';
 export * from './ButtonGroup';
+export * from './Breadcrumb';
 export * from './Chip';
 export * from './Dropdown';
 export * from './GlobalStyle';

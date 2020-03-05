@@ -44,6 +44,7 @@ export const Button = ({label, onClick, size, isReversed, isDisabled, icon, vari
                             variant="button"
                             isUpperCase={size === 'big'}
                             weight={typoWeight}
+                            className={classnames('flexFluid')}
                 >
                     {label}
                 </Typography>}

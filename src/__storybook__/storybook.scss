@@ -1,7 +1,7 @@
 .storyWrapper {
     display: flex;
     flex-flow: column wrap;
-    width: 600px;
+    min-width: 600px;
     margin: 0 auto;
     padding: var(--spacing-huge);
 
