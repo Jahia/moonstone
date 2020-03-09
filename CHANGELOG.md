@@ -1,3 +1,23 @@
+# v0.13.0 (Mon Mar 09 2020)
+
+#### 🚀  Enhancement
+
+- MOON-49: Add Breadcrumb component [#108](https://github.com/Jahia/moonstone/pull/108) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🐛  Bug Fix
+
+- MOON-93: Update icons [#109](https://github.com/Jahia/moonstone/pull/109) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-90 add tab component [#107](https://github.com/Jahia/moonstone/pull/107) ([@Taybou](https://github.com/Taybou))
+- QA-12658: Remove height:100% to the vertical separator [#106](https://github.com/Jahia/moonstone/pull/106) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-88: Fix flex layout [#105](https://github.com/Jahia/moonstone/pull/105) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 2
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- MT BENTERKI ([@Taybou](https://github.com/Taybou))
+
+---
+
 # v0.12.0 (Wed Mar 04 2020)
 
 #### 🚀  Enhancement
