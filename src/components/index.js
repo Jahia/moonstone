@@ -17,5 +17,7 @@ export * from './ResizableBox';
 export * from './SecondaryNav';
 export * from './Separator';
 export * from './SvgWrapper';
+export * from './Tab';
+export * from './TabItem';
 export * from './TreeView';
 export * from './Typography';
