@@ -8,4 +8,9 @@ describe('LayoutModule', () => {
 
         expect(wrapper.html()).toContain('test-navigation');
     });
+
+    it('should display a specific HTML markup', () => {
+        const wrapper = shallow(<LayoutModule component="h1"/>);
+        expect(wrapper.html()).toContain('h1');
+    });
 });
