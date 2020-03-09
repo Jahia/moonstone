@@ -22,7 +22,7 @@ storiesOf('Components|PrimaryNav', module)
     .add('default', () => (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <PrimaryNav
-                headerLogo={<img src="logo.gif"/>}
+                headerLogo={<img src="https://via.placeholder.com/100x40"/>}
                 headerCaption="development"
                 top={
                     <>
