@@ -1,0 +1,9 @@
+.breadcrumbItem {
+    & + & {
+        margin-left: var(--spacing-small);
+    }
+
+    > * {
+        max-width: 100%;
+    }
+}
