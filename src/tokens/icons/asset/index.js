@@ -1,6 +1,7 @@
 // @create-index
 
 export {default as Add} from './Add.svg';
+export {default as AddCircle} from './AddCircle.svg';
 export {default as AddComment} from './AddComment.svg';
 export {default as AddFile} from './AddFile.svg';
 export {default as AddFolder} from './AddFolder.svg';
@@ -94,8 +95,7 @@ export {default as NotificationsActive} from './NotificationsActive.svg';
 export {default as OpenInBrowser} from './OpenInBrowser.svg';
 export {default as OpenInNew} from './OpenInNew.svg';
 export {default as Palette} from './Palette.svg';
-export {default as PanelFixed} from './PanelFixed.svg';
-export {default as PanelOverlay} from './PanelOverlay.svg';
+export {default as Paste} from './Paste.svg';
 export {default as Pdf} from './Pdf.svg';
 export {default as Person} from './Person.svg';
 export {default as PhotoLibrary} from './PhotoLibrary.svg';
