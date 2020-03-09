@@ -1,3 +1,15 @@
+# v0.13.1 (Mon Mar 09 2020)
+
+#### 🐛  Bug Fix
+
+- MOON-90 export tab & tabItem [#112](https://github.com/Jahia/moonstone/pull/112) ([@Taybou](https://github.com/Taybou))
+
+#### Authors: 1
+
+- MT BENTERKI ([@Taybou](https://github.com/Taybou))
+
+---
+
 # v0.13.0 (Mon Mar 09 2020)
 
 #### 🚀  Enhancement
