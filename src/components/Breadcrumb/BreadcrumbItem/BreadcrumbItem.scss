@@ -1,4 +1,6 @@
 .breadcrumbItem {
+    min-width: 0;
+
     & + & {
         margin-left: var(--spacing-small);
     }

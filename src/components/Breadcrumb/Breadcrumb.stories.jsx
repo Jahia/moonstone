@@ -29,6 +29,19 @@ storiesOf('Components|Breadcrumb', module)
             </Breadcrumb>
         </section>
     ))
+    .add('Long labels', () => (
+        <section className={classnames(storyStyles.storyWrapper)}>
+            <div style={{maxWidth: '100%'}}>
+                <Breadcrumb>
+                    <BreadcrumbItem label="Very long long long long long long long long long long label 1" onClick={action('onClick')}/>
+                    <BreadcrumbItem label="Very long long long long long long long long long long label 2" onClick={action('onClick')}/>
+                    <BreadcrumbItem label="Very long long long long long long long long long long label 3" onClick={action('onClick')}/>
+                    <BreadcrumbItem label="Very long long long long long long long long long long label 4" onClick={action('onClick')}/>
+                    <BreadcrumbItem label="Very long long long long long long long long long long label 5" onClick={action('onClick')}/>
+                </Breadcrumb>
+            </div>
+        </section>
+    ))
     .add('With icons', () => (
         <section className={classnames(storyStyles.storyWrapper)}>
             <Breadcrumb>
