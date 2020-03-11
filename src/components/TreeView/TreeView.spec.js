@@ -6,12 +6,13 @@ import Love from '~/src/asset/Love.svg';
 import Cloud from '~/src/asset/Cloud.svg';
 import ChevronDown from '~/src/asset/ChevronDown.svg';
 import ChevronRight from '~/src/asset/ChevronRight.svg';
+import {toIconComponent} from '~/icons';
 
 const tree = [
     {
         id: 'A',
         label: 'A level1',
-        iconStart: 'https://image.flaticon.com/icons/svg/1973/1973617.svg',
+        iconStart: toIconComponent('https://image.flaticon.com/icons/svg/1973/1973617.svg'),
         iconEnd: <Cloud/>,
         children: [
             {id: 'A1', label: 'A-1 level2', icon: <Love/>}
