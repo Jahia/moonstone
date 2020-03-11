@@ -66,4 +66,9 @@ describe('Separator', () => {
         const wrapper = shallow(<Separator variant="vertical" size="medium" invisible="onlyChild"/>);
         expect(wrapper.html()).toContain('invisible_onlyChild');
     });
+
+    it('should have the class invisible_firstOrLastChild', () => {
+        const wrapper = shallow(<Separator variant="vertical" size="medium" invisible="firstOrLastChild"/>);
+        expect(wrapper.html()).toContain('invisible_firstOrLastChild');
+    });
 });
