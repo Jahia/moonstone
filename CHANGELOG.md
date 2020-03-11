@@ -1,3 +1,15 @@
+# v0.14.1 (Wed Mar 11 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12710 add fourth option to hide the separator if it's the first OR last child [#117](https://github.com/Jahia/moonstone/pull/117) ([@DameniMilo](https://github.com/DameniMilo))
+
+#### Authors: 1
+
+- dgaillard ([@DameniMilo](https://github.com/DameniMilo))
+
+---
+
 # v0.14.0 (Wed Mar 11 2020)
 
 #### 🚀  Enhancement
