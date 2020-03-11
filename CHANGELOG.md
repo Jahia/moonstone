@@ -1,3 +1,25 @@
+# v0.14.0 (Wed Mar 11 2020)
+
+#### 🚀  Enhancement
+
+- BACKLOG-12710 add property invisible to the Separator so that we can hide it it is the first-child, last-child or only-child [#116](https://github.com/Jahia/moonstone/pull/116) ([@DameniMilo](https://github.com/DameniMilo))
+
+#### 🐛  Bug Fix
+
+- MOON-96: Fix displaying one button inside a ButtonGroup [#115](https://github.com/Jahia/moonstone/pull/115) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-95: Add component props to LayoutModule [#111](https://github.com/Jahia/moonstone/pull/111) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-89: Fix error 404 with image from PrimaryNav in a story [#110](https://github.com/Jahia/moonstone/pull/110) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-71: Fixed resizable secondary nav : force flexBasis to 0 [#113](https://github.com/Jahia/moonstone/pull/113) ([@tdraier](https://github.com/tdraier))
+- MOON-49: Fixed min-width [#114](https://github.com/Jahia/moonstone/pull/114) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 3
+
+- dgaillard ([@DameniMilo](https://github.com/DameniMilo))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v0.13.1 (Mon Mar 09 2020)
 
 #### 🐛  Bug Fix
