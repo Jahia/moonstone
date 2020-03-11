@@ -89,14 +89,14 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
                             {isClosable && (
                                 (hasChild &&
                                     <div
-                                        className={classnames('flexRow', 'alignCenter', styles.treeView_itemIcon, styles.treeView_itemToggle)}
+                                        className={classnames('flexRow', 'alignCenter', styles.treeView_itemToggle)}
                                         onClick={toggleNode}
                                     >
                                         {isOpen ? <ChevronDown/> : <ChevronRight/>}
                                     </div>
                                 ) || (
                                     <div
-                                        className={classnames('flexRow', 'alignCenter', styles.treeView_itemIcon, styles.treeView_itemToggle)}/>
+                                        className={classnames('flexRow', 'alignCenter', styles.treeView_itemToggle)}/>
                                 )
                             )}
 
