@@ -45,4 +45,14 @@ storiesOf('Components|ButtonGroup', module)
                 <Button icon={<ChevronDown/>} onClick={() => {}}/>
             </ButtonGroup>
         </section>
+    ))
+    .add('ButtonGroup with 1 button', () => (
+        <section className={classnames(storyStyles.storyWrapper)}>
+            <ButtonGroup
+                color="accent"
+                size="big"
+            >
+                <Button label="Actions" onClick={() => {}}/>
+            </ButtonGroup>
+        </section>
     ));
