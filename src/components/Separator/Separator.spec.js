@@ -9,12 +9,14 @@ describe('Separator', () => {
         );
         expect(wrapper.html());
     });
+
     it('should display horizontal separator by default', () => {
         const wrapper = shallow(
             <Separator size="medium"/>
         );
         expect(wrapper.html()).toContain('separator_horizontal');
     });
+
     it('should display vertical separator', () => {
         const wrapper = shallow(
             <Separator variant="vertical" size="medium"/>
@@ -48,5 +50,20 @@ describe('Separator', () => {
             <Separator className="test" size="medium"/>
         );
         expect(wrapper.html()).toContain('test');
+    });
+
+    it('should have the class invisible_first-child', () => {
+        const wrapper = shallow(<Separator variant="vertical" size="medium" invisible="first-child"/>);
+        expect(wrapper.html()).toContain('invisible_first-child');
+    });
+
+    it('should have the class invisible_last-child', () => {
+        const wrapper = shallow(<Separator variant="vertical" size="medium" invisible="last-child"/>);
+        expect(wrapper.html()).toContain('invisible_last-child');
+    });
+
+    it('should have the class invisible_only-child', () => {
+        const wrapper = shallow(<Separator variant="vertical" size="medium" invisible="only-child"/>);
+        expect(wrapper.html()).toContain('invisible_only-child');
     });
 });

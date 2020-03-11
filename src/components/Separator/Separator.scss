@@ -1,6 +1,18 @@
 .separator {
     border: 0;
     background: var(--color-gray40);
+
+    &.invisible_first-child:first-child {
+        display: none;
+    }
+
+    &.invisible_last-child:last-child {
+        display: none;
+    }
+
+    &.invisible_only-child:only-child {
+        display: none;
+    }
 }
 
 .separator_horizontal {
