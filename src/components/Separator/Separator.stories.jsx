@@ -39,7 +39,7 @@ storiesOf('Components|Separator', module)
             <Typography variant="heading">After</Typography>
         </div>
     ))
-    .add('Hide', () => (
+    .add('Invisible', () => (
         <section className={classnames(storyStyles.storyColumn)}>
             <div className={classnames(storyStyles.storyItem)}>
                 <Typography variant="heading">Before</Typography>
