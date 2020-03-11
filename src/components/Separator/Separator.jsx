@@ -6,7 +6,7 @@ import styles from './Separator.scss';
 export const SeparatorSpacings = ['small', 'medium', 'big'];
 export const SeparatorSizes = ['medium', 'large', 'full'];
 export const SeparatorVariants = ['horizontal', 'vertical'];
-export const SeparatorInvisible = ['first-child', 'last-child', 'only-child'];
+export const SeparatorInvisible = ['firstChild', 'lastChild', 'onlyChild'];
 
 export const Separator = ({size, spacing, variant, className, invisible, ...props}) => {
     return (
@@ -47,7 +47,7 @@ Separator.propTypes = {
     size: PropTypes.oneOf(SeparatorSizes),
 
     /**
-     * Hide the separator if it is the first-child, last-child or only-child
+     * Hide the separator if it is the firstChild, lastChild or onlyChild
      * If you don't pass this property then the separator will always be visible
      */
     invisible: PropTypes.oneOf(SeparatorInvisible),

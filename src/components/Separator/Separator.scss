@@ -2,15 +2,15 @@
     border: 0;
     background: var(--color-gray40);
 
-    &.invisible_first-child:first-child {
+    &.invisible_firstChild:first-child {
         display: none;
     }
 
-    &.invisible_last-child:last-child {
+    &.invisible_lastChild:last-child {
         display: none;
     }
 
-    &.invisible_only-child:only-child {
+    &.invisible_onlyChild:only-child {
         display: none;
     }
 }

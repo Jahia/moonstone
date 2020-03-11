@@ -52,18 +52,18 @@ describe('Separator', () => {
         expect(wrapper.html()).toContain('test');
     });
 
-    it('should have the class invisible_first-child', () => {
-        const wrapper = shallow(<Separator variant="vertical" size="medium" invisible="first-child"/>);
-        expect(wrapper.html()).toContain('invisible_first-child');
+    it('should have the class invisible_firstChild', () => {
+        const wrapper = shallow(<Separator variant="vertical" size="medium" invisible="firstChild"/>);
+        expect(wrapper.html()).toContain('invisible_firstChild');
     });
 
-    it('should have the class invisible_last-child', () => {
-        const wrapper = shallow(<Separator variant="vertical" size="medium" invisible="last-child"/>);
-        expect(wrapper.html()).toContain('invisible_last-child');
+    it('should have the class invisible_lastChild', () => {
+        const wrapper = shallow(<Separator variant="vertical" size="medium" invisible="lastChild"/>);
+        expect(wrapper.html()).toContain('invisible_lastChild');
     });
 
-    it('should have the class invisible_only-child', () => {
-        const wrapper = shallow(<Separator variant="vertical" size="medium" invisible="only-child"/>);
-        expect(wrapper.html()).toContain('invisible_only-child');
+    it('should have the class invisible_onlyChild', () => {
+        const wrapper = shallow(<Separator variant="vertical" size="medium" invisible="onlyChild"/>);
+        expect(wrapper.html()).toContain('invisible_onlyChild');
     });
 });

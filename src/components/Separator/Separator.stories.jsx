@@ -8,7 +8,7 @@ import storyStyles from '~/__storybook__/storybook.scss';
 import {Separator, SeparatorSizes, SeparatorSpacings, SeparatorInvisible, Typography} from '~/components';
 import markdownNotes from './Separator.md';
 
-const separatorInvisibleValue = () => select('invisible', optionsFromArray(SeparatorInvisible), 'first-child');
+const separatorInvisibleValue = () => select('invisible', optionsFromArray(SeparatorInvisible), 'firstChild');
 
 storiesOf('Components|Separator', module)
     .addParameters({
