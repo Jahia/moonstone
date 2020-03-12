@@ -24,6 +24,7 @@ MenuItem.defaultProps = {
     iconStart: null,
     iconEnd: null,
     className: '',
+    isHtml: false,
     onClick: () => {},
     onMouseEnter: () => {},
     onMouseLeave: () => {}
@@ -53,7 +54,12 @@ MenuItem.propTypes = {
     /**
      * ListItem label
      */
-    label: PropTypes.string.isRequired,
+    label: PropTypes.node.isRequired,
+
+    /**
+     * Does the label contain HTML markup
+     */
+    isHtml: PropTypes.bool,
 
     /**
      * Icon display before the label

@@ -8,7 +8,7 @@ export const buttonSizes = ['small', 'default', 'big'];
 export const buttonVariants = ['default', 'ghost', 'outlined'];
 export const buttonColors = ['default', 'accent', 'danger'];
 
-export const Button = ({label, onClick, size, isReversed, isDisabled, icon, variant, color, className, ...props}) => {
+export const Button = ({label, onClick, size, isReversed, isDisabled, icon, variant, color, className, isHtml, ...props}) => {
     let typoWeight = 'default';
     if (size === 'small') {
         typoWeight = 'light';
@@ -45,6 +45,7 @@ export const Button = ({label, onClick, size, isReversed, isDisabled, icon, vari
                             isUpperCase={size === 'big'}
                             weight={typoWeight}
                             className={classnames('flexFluid')}
+                            isHtml={isHtml}
                 >
                     {label}
                 </Typography>}
@@ -60,14 +61,20 @@ Button.defaultProps = {
     isDisabled: false,
     color: 'default',
     isReversed: false,
-    className: null
+    className: null,
+    isHtml: false
 };
 
 Button.propTypes = {
     /**
      * Button label
      */
-    label: PropTypes.string,
+    label: PropTypes.node,
+
+    /**
+     * Does the label contain HTML markup
+     */
+    isHtml: PropTypes.bool,
 
     /**
      * Icon size
