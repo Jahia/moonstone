@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import styles from './ListItem.scss';
-import {Typography} from '~/components';
+import {Typography} from '../Typography/Typography';
 
-export const ListItem = ({label, iconStart, iconEnd, className, ...props}) => {
+export const ListItem = ({label, isHtml, iconStart, iconEnd, className, ...props}) => {
     const cssListItem = classnames(
         className,
         styles.listItem,
@@ -21,7 +21,7 @@ export const ListItem = ({label, iconStart, iconEnd, className, ...props}) => {
                 <iconStart.type size="small" className={classnames(styles.listItem_iconStart)}/>
             }
 
-            <Typography isNowrap className={classnames('flexFluid')} component="span">{label}</Typography>
+            <Typography isNowrap isHtml={isHtml} className={classnames('flexFluid')} component="span">{label}</Typography>
 
             {
             iconEnd &&
@@ -34,7 +34,8 @@ export const ListItem = ({label, iconStart, iconEnd, className, ...props}) => {
 ListItem.defaultProps = {
     iconStart: null,
     iconEnd: null,
-    className: ''
+    className: '',
+    isHtml: false
 };
 
 ListItem.propTypes = {
@@ -46,7 +47,12 @@ ListItem.propTypes = {
     /**
      * ListItem label
      */
-    label: PropTypes.string.isRequired,
+    label: PropTypes.node.isRequired,
+
+    /**
+     * Does the label contain HTML markup
+     */
+    isHtml: PropTypes.bool,
 
     /**
      * Icon display before the label
