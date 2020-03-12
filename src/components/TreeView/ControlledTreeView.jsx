@@ -7,11 +7,6 @@ import {Typography} from '~/components';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const imgSizes = {
-    small: '12px',
-    default: '16px'
-};
-
 export const ControlledTreeView = ({data, openedItems, selectedItems, onClickItem, onDoubleClickItem, onContextMenuItem, onOpenItem, onCloseItem, isReversed, ...props}) => {
     function generateLevelJSX(data, deep) {
         return data.map(node => {
@@ -64,12 +59,10 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
                 }
 
                 // Manage url image and icon component
-                const i = (typeof icon === 'string') ?
-                    <img alt={`icon for ${node.label}`} width={imgSizes[size]} height={imgSizes[size]} src={icon}/> :
-                    <icon.type {...icon.props} size={size}/>;
+                const i = <icon.type {...icon.props} size={size}/>;
 
                 return (
-                    <i className={classnames('flexRow', 'alignCenter', styles.treeView_itemIcon, className)}>
+                    <i className={classnames('flexRow', 'alignCenter', className)}>
                         {i}
                     </i>
                 );
@@ -88,7 +81,7 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
                     <li role="treeitem" aria-expanded={isOpen}>
                         <div className={cssTreeViewItem}
                              style={{
-                                 paddingRight: 'var(--spacing-small)',
+                                 paddingRight: 'var(--spacing-nano)',
                                  paddingLeft: `calc(var(--spacing-medium) + var(--spacing-medium) * ${deep}`
                              }}
                         >
@@ -96,14 +89,14 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
                             {isClosable && (
                                 (hasChild &&
                                     <div
-                                        className={classnames('flexRow', 'alignCenter', styles.treeView_itemIcon, styles.treeView_itemToggle)}
+                                        className={classnames('flexRow', 'alignCenter', styles.treeView_itemToggle)}
                                         onClick={toggleNode}
                                     >
                                         {isOpen ? <ChevronDown/> : <ChevronRight/>}
                                     </div>
                                 ) || (
                                     <div
-                                        className={classnames('flexRow', 'alignCenter', styles.treeView_itemIcon, styles.treeView_itemToggle)}/>
+                                        className={classnames('flexRow', 'alignCenter', styles.treeView_itemToggle)}/>
                                 )
                             )}
 
