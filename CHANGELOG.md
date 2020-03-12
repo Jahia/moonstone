@@ -1,3 +1,19 @@
+# v0.15.0 (Thu Mar 12 2020)
+
+#### 🚀  Enhancement
+
+- BACKLOG-12278 : do not transform icon, remove icon wrapper size and reduced padding, fixed SecondaryNav resizing [#118](https://github.com/Jahia/moonstone/pull/118) ([@tdraier](https://github.com/tdraier))
+
+#### 🐛  Bug Fix
+
+- MOON-100 : Added isHtml prop on Button / ListItem / MenuItem [#119](https://github.com/Jahia/moonstone/pull/119) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v0.14.2 (Wed Mar 11 2020)
 
 
