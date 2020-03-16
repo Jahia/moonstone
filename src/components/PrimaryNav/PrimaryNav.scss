@@ -63,11 +63,8 @@ $primaryNav: 56px;
 
 .modeIcon {
     position: absolute;
-    top: 18px;
-    left: 28px;
-
-    width: 10px;
-    height: 10px;
+    top: calc(var(--spacing-nano) * 3);
+    right: calc(var(--spacing-nano) * 2);
 
     color: var(--color-accent);
 

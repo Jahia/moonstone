@@ -11,6 +11,7 @@ import Setting from '~/tokens/icons/asset/Setting.svg';
 import Profile from '~/tokens/icons/asset/Profile.svg';
 import Person from '~/tokens/icons/asset/Person.svg';
 import Power from '~/tokens/icons/asset/Power.svg';
+import Star from '~/tokens/icons/asset/Star.svg';
 
 storiesOf('Components|PrimaryNav', module)
     .addParameters({
@@ -24,6 +25,7 @@ storiesOf('Components|PrimaryNav', module)
             <PrimaryNav
                 headerLogo={<img src="https://via.placeholder.com/100x40"/>}
                 headerCaption="development"
+                modeIcon={<Star/>}
                 top={
                     <>
                         <PrimaryNavItemsGroup>
