@@ -1,3 +1,15 @@
+# v0.15.2 (Mon Mar 16 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12798 pass icon props to the icons so if we are using some mandatory attribute like src, the icon will be displayed correctly [#123](https://github.com/Jahia/moonstone/pull/123) ([@DameniMilo](https://github.com/DameniMilo))
+
+#### Authors: 1
+
+- dgaillard ([@DameniMilo](https://github.com/DameniMilo))
+
+---
+
 # v0.15.1 (Mon Mar 16 2020)
 
 #### 🐛  Bug Fix
