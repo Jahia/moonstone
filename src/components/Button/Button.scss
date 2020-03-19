@@ -47,7 +47,10 @@
         border-radius: 40px;
 
         &.size_small {
-            padding: var(--spacing-nano);
+            width: 18px;
+            height: 18px;
+
+            padding: 0;
         }
 
         &.size_default {
