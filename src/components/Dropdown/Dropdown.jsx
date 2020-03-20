@@ -142,7 +142,7 @@ export const Dropdown = (
             >
                 {
                     icon &&
-                    <icon.type size="small" className={classnames(styles.dropdown_icon)}/>
+                    <icon.type {...icon.props} size="small" className={classnames(styles.dropdown_icon)}/>
                 }
 
                 <Typography

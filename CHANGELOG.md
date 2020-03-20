@@ -1,3 +1,30 @@
+# v0.15.2 (Mon Mar 16 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12798 pass icon props to the icons so if we are using some mandatory attribute like src, the icon will be displayed correctly [#123](https://github.com/Jahia/moonstone/pull/123) ([@DameniMilo](https://github.com/DameniMilo))
+
+#### Authors: 1
+
+- dgaillard ([@DameniMilo](https://github.com/DameniMilo))
+
+---
+
+# v0.15.1 (Mon Mar 16 2020)
+
+#### 🐛  Bug Fix
+
+- MOON-103: Fix error on Layout/Demo story [#122](https://github.com/Jahia/moonstone/pull/122) ([@ffffffelix](https://github.com/ffffffelix))
+- BACKLOG-12798 pass icon props to the icons so if we are using some mandatory attribute like src, the icon will be displayed correctly [#121](https://github.com/Jahia/moonstone/pull/121) ([@DameniMilo](https://github.com/DameniMilo))
+- MOON-101 Align mode icon to be a bit more consistent with figma [#120](https://github.com/Jahia/moonstone/pull/120) ([@AKarmanov](https://github.com/AKarmanov))
+
+#### Authors: 2
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- dgaillard ([@DameniMilo](https://github.com/DameniMilo))
+
+---
+
 # v0.15.0 (Thu Mar 12 2020)
 
 #### 🚀  Enhancement
