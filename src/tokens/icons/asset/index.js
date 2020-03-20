@@ -66,6 +66,7 @@ export {default as Folder} from './Folder.svg';
 export {default as FolderOpen} from './FolderOpen.svg';
 export {default as FolderSpecial} from './FolderSpecial.svg';
 export {default as FolderUser} from './FolderUser.svg';
+export {default as Grain} from './Grain.svg';
 export {default as Group} from './Group.svg';
 export {default as GroupWork} from './GroupWork.svg';
 export {default as HandleDrag} from './HandleDrag.svg';
