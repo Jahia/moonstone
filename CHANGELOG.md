@@ -1,3 +1,19 @@
+# v0.15.3 (Fri Mar 20 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12865 : Added icon [#127](https://github.com/Jahia/moonstone/pull/127) ([@tdraier](https://github.com/tdraier))
+- MOON-104: Fix menu overflow with Safari [#125](https://github.com/Jahia/moonstone/pull/125) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-105: Unify button height for the small variant [#126](https://github.com/Jahia/moonstone/pull/126) ([@ffffffelix](https://github.com/ffffffelix))
+- BACKLOG-12813 Make header font size as on figma [#124](https://github.com/Jahia/moonstone/pull/124) ([@AKarmanov](https://github.com/AKarmanov))
+
+#### Authors: 2
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v0.15.2 (Mon Mar 16 2020)
 
 #### 🐛  Bug Fix
