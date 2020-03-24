@@ -20,10 +20,12 @@ $color-yellow: 232, 182, 6;
     --color-accent40: rgba(#{$color-blue}, 0.4);
     --color-accent60: rgba(#{$color-blue}, 0.6);
     --color-accent_dark: rgb(#{$color-blue-dark});
+    --color-accent_dark40: rgba(#{$color-blue-dark}, 0.4);
     --color-accent_dark60: rgba(#{$color-blue-dark}, 0.6);
     --color-accent_dark_contrast: rgb(#{$color-blue-contrast});
     --color-accent_light: rgb(#{$color-blue-light});
     --color-accent_light40: rgb(#{$color-blue-light, 0.4});
+    --color-accent_light60: rgb(#{$color-blue-light, 0.6});
 
     // Basic
     --color-black: rgb(#{$color-black});

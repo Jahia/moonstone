@@ -19,8 +19,30 @@ const paletteNeutral = ['light',
     'gray_dark',
     'gray_dark60',
     'gray_dark40'];
-const paletteAccent = ['accent_dark', 'accent', 'accent_light'];
-const paletteSupport = ['success', 'warning', 'danger'];
+const paletteAccent = [
+    'accent_dark_contrast',
+    'accent_dark',
+    'accent_dark40',
+    'accent_dark60',
+    'accent',
+    'accent40',
+    'accent60',
+    'accent_light',
+    'accent_light40',
+    'accent_light60'
+];
+const paletteSupport = [
+    'success',
+    'success40',
+    'success60',
+    'warning',
+    'warning40',
+    'warning60',
+    'danger',
+    'danger40',
+    'danger60',
+    'danger_dark'
+];
 
 export const Color = ({color, name}) => {
     return (
