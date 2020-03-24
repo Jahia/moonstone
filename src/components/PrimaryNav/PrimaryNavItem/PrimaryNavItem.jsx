@@ -69,6 +69,7 @@ export const PrimaryNavItem = ({label, icon, className, subtitle, url, button, i
             {[styles.selected]: isSelected},
             className
         )}
+        title={label}
         onClick={onClick}
         {...props}
     >
