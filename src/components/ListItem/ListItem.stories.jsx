@@ -1,10 +1,11 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
-import {withKnobs} from '@storybook/addon-knobs';
-import {action} from '@storybook/addon-actions';
+import {withKnobs, select, text} from '@storybook/addon-knobs';
 import markdownNotes from './ListItem.md';
 
 import {ListItem} from './index';
+import IconWrapper from '~/__storybook__/IconWrapper';
+import {iconsName} from '~/__storybook__/utils';
 
 storiesOf('Components|ListItem', module)
     .addParameters({
@@ -14,16 +15,23 @@ storiesOf('Components|ListItem', module)
     .addDecorator(withKnobs)
     .add('default', () => (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
-            <ListItem label="test"/>
+            <ListItem label={text('Label', 'label')}/>
         </div>
     ))
-    .add('actions', () => (
+    .add('Icon + text', () => (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <ListItem
-                label="I'm interactive"
-                onClick={action('Clicked')}
-                onMouseEnter={action('Mouse entered')}
-                onMouseLeave={action('Mouse leave')}
+                label={text('Label', 'label')}
+                iconStart={<IconWrapper iconName={select('IconStart', iconsName, 'Love')}/>}
+            />
+        </div>
+    ))
+    .add('Icon + text + icon', () => (
+        <div style={{transform: 'scale(1)', height: '100vh'}}>
+            <ListItem
+                label={text('Label', 'label')}
+                iconStart={<IconWrapper iconName={select('IconStart', iconsName, 'Love')}/>}
+                iconEnd={<IconWrapper iconName={select('IconEnd', iconsName, 'Close')}/>}
             />
         </div>
     ));

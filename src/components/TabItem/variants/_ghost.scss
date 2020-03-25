@@ -27,12 +27,25 @@
         }
 
         &.selected {
+            position: relative;
+
             color: var(--color-accent);
 
-            border: 0;
-            border-bottom: 2px solid var(--color-accent);
-            border-radius: 0;
+            border-color: transparent;
+
             background-color: var(--color-white);
+            cursor: default;
+
+            &::after {
+                position: absolute;
+                bottom: -2px;
+
+                width: 100%;
+                height: 2px;
+
+                background-color: var(--color-accent);
+                content: "";
+            }
         }
 
         &.reverse {
@@ -77,6 +90,10 @@
 
         border-color: transparent;
         background-color: transparent;
+
+        &::after {
+            background-color: var(--color-gray);
+        }
 
         &.reverse {
             color: var(--color-gray_light);

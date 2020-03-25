@@ -1,6 +1,9 @@
 @import '~/utils/index';
 
 .menuItem {
+    padding-right: var(--spacing-medium);
+    padding-left: var(--spacing-medium);
+
     cursor: pointer;
 
     &:hover,

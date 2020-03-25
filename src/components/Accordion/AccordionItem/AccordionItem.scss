@@ -24,19 +24,17 @@ $accordionHeader_height: 48px;
 
     cursor: pointer;
 
-    transition: background 0.3s ease;
-
-    &:focus,
-    &:hover {
-        color: var(--color-dark);
-
-        background-color: var(--color-gray_light40);
-    }
-
     &:active {
         color: var(--color-light);
 
         background-color: var(--color-accent);
+    }
+
+    &:focus,
+    &:not(.accordionItem_header_selected):hover {
+        color: var(--color-dark);
+
+        background-color: var(--color-gray_light40);
     }
 }
 
@@ -46,9 +44,9 @@ $accordionHeader_height: 48px;
 
     border-bottom: 1px solid var(--color-gray_light);
     background-color: var(--color-dark40);
+    cursor: default;
 
-    &:focus,
-    &:hover {
+    &:focus {
         color: var(--color-light);
 
         background-color: var(--color-dark60);
@@ -79,11 +77,12 @@ $accordionHeader_height: 48px;
 .accordionItem_reversed {
     border-color: var(--color-gray40);
 
+    /* stylelint-disable no-descending-specificity */
     .accordionItem_header {
         color: var(--color-light60);
 
         &:focus,
-        &:hover {
+        &:not(.accordionItem_header_selected):hover {
             color: var(--color-light);
 
             background-color: var(--color-gray40);
@@ -99,11 +98,6 @@ $accordionHeader_height: 48px;
 
         border-color: var(--color-gray40);
         background-color: var(--color-dark);
-
-        &:focus,
-        &:hover {
-            background-color: var(--color-dark60);
-        }
 
         &:active {
             background-color: var(--color-dark40);
