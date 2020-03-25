@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import PropTypes from 'prop-types';
 import styles from './Button.scss';
 import classnames from 'clsx';
@@ -10,6 +10,8 @@ export const buttonColors = ['default', 'accent', 'danger'];
 
 export const Button = ({label, onClick, size, isReversed, isDisabled, icon, variant, color, className, isHtml, ...props}) => {
     let typoWeight = 'default';
+    const ButtonEl = useRef(null);
+
     if (size === 'small') {
         typoWeight = 'light';
     }
@@ -18,8 +20,14 @@ export const Button = ({label, onClick, size, isReversed, isDisabled, icon, vari
         typoWeight = 'semiBold';
     }
 
+    const handleOnClick = e => {
+        onClick(e);
+        ButtonEl.current.blur();
+    };
+
     return (
         <button
+            ref={ButtonEl}
             className={
                 classnames(
                     styles.button,
@@ -34,7 +42,7 @@ export const Button = ({label, onClick, size, isReversed, isDisabled, icon, vari
             }
             type="button"
             disabled={isDisabled}
-            onClick={onClick}
+            onClick={e => handleOnClick(e)}
             {...props}
         >
             {icon && <icon.type {...icon.props} size={(size === 'big') ? 'default' : size}/>}
