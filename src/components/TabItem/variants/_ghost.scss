@@ -8,7 +8,7 @@
         &:hover {
             color: var(--color-accent);
 
-            border-color: var(--color-gray_light40);
+            border-color: transparent;
             background-color: var(--color-gray_light40);
         }
 
@@ -52,7 +52,7 @@
             color: var(--color-white);
 
             &:hover {
-                border-color: var(--color-accent_dark60);
+                border-color: transparent;
                 background-color: var(--color-accent_dark60);
             }
 
