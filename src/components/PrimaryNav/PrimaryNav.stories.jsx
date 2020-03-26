@@ -5,13 +5,7 @@ import markdownNotes from './PrimaryNav.md';
 
 import {PrimaryNav} from './index';
 import {PrimaryNavItemsGroup, PrimaryNavItem, Button, Badge} from '~/components';
-import Apps from '~/tokens/icons/asset/Apps.svg';
-import Feather from '~/tokens/icons/asset/Feather.svg';
-import Setting from '~/tokens/icons/asset/Setting.svg';
-import Profile from '~/tokens/icons/asset/Profile.svg';
-import Person from '~/tokens/icons/asset/Person.svg';
-import Power from '~/tokens/icons/asset/Power.svg';
-import Star from '~/tokens/icons/asset/Star.svg';
+import {Apps, Feather, Setting, Profile, Person, Power, Star, Workflow} from '~/tokens/icons/asset';
 
 storiesOf('Components|PrimaryNav', module)
     .addParameters({
@@ -23,7 +17,7 @@ storiesOf('Components|PrimaryNav', module)
     .add('default', () => (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <PrimaryNav
-                headerLogo={<img src="https://via.placeholder.com/100x40"/>}
+                headerLogo={<img src="https://via.placeholder.com/100x40?text=Logo"/>}
                 headerCaption="development"
                 modeIcon={<Star/>}
                 top={
@@ -36,7 +30,7 @@ storiesOf('Components|PrimaryNav', module)
                             <PrimaryNavItem label="Very very long long name with many characters" icon={<Feather/>}/>
                             <PrimaryNavItem icon={<Person/>} label="My profile" subtitle="username as a subtitle"/>
                             <PrimaryNavItem icon={<Person/>} label="Very very long long long long label" subtitle="username as a subtitle username as a subtitle username as a subtitle username as a subtitle" button={<Button isReversed icon={<Power/>} label="Sign Out" variant="ghost" onClick={() => {}}/>}/>
-                            <PrimaryNavItem icon={<Person/>} label="With badge" badge={<Badge label="3"/>}/>
+                            <PrimaryNavItem icon={<Workflow/>} label="With badge" badge={<Badge label="3"/>}/>
                             <PrimaryNavItem icon={<Person/>} label="With badge" badge={<Badge label="333"/>}/>
                             <PrimaryNavItem icon={<Person/>} label="With badge"/>
                         </PrimaryNavItemsGroup>
