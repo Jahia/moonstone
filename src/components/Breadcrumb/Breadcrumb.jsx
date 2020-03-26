@@ -17,13 +17,13 @@ export const Breadcrumb = ({children, className, ...props}) => {
             <ol className={classnames('flexRow_nowrap', 'alignCenter')}>
                 {
                     allItems.map((item, index) => (
-                        <Fragment key={`child-${item.props.label}`}>
+                        <Fragment key={item.key}>
                             {item}
 
                             {index < allItems.length - 1 &&
-                                <li className={classnames(styles.breadcrumb_separator, 'flexRow_center', 'alignCenter')}>
-                                    <ChevronRight aria-hidden/>
-                                </li>}
+                            <li className={classnames(styles.breadcrumb_separator, 'flexRow_center', 'alignCenter')}>
+                                <ChevronRight aria-hidden/>
+                            </li>}
                         </Fragment>
                     ))
                 }
