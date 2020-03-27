@@ -1,3 +1,20 @@
+# v0.15.4 (Fri Mar 27 2020)
+
+#### 🐛  Bug Fix
+
+- MOON-111: Remove focus after clicking on a button [#131](https://github.com/Jahia/moonstone/pull/131) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-112: Design improvements [#133](https://github.com/Jahia/moonstone/pull/133) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-113: Fix the key of Breadcrumb [#132](https://github.com/Jahia/moonstone/pull/132) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-109: Add icons [#130](https://github.com/Jahia/moonstone/pull/130) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-106: Design improvements [#129](https://github.com/Jahia/moonstone/pull/129) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-110: Add title attribute on PrimaryNavItem [#128](https://github.com/Jahia/moonstone/pull/128) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v0.15.3 (Fri Mar 20 2020)
 
 #### 🐛  Bug Fix
