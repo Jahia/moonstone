@@ -50,14 +50,25 @@ $primaryNav: 56px;
 .navButtonContainer {
     width: $primaryNav;
     min-width: $primaryNav;
+}
 
-    & > button {
-        color: var(--color-light);
+.navButton {
+    width: 40px;
+    height: 40px;
+    padding: 0;
 
-        border: none;
-        outline: none;
-        background: inherit;
-        cursor: pointer;
+    color: var(--color-light);
+
+    border: none;
+    border-radius: 40px;
+    outline: none;
+    background: inherit;
+    cursor: pointer;
+
+    &:hover {
+        color: var(--color-accent);
+
+        background-color: var(--color-gray_dark60);
     }
 }
 

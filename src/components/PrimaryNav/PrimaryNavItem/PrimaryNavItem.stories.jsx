@@ -1,9 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {PrimaryNavItem} from './index';
-import Edit from '~/tokens/icons/asset/Edit.svg';
-import Person from '~/tokens/icons/asset/Person.svg';
-import Power from '~/tokens/icons/asset/Power.svg';
+import {Edit, Person, Power, Workflow} from '~/tokens/icons/asset';
 import markdownNotes from './PrimaryNavItem.md';
 import {boolean, withKnobs} from '@storybook/addon-knobs';
 import {Badge, Button} from '~/components';
@@ -26,7 +24,7 @@ storiesOf('Components|PrimaryNavItem', module)
         >
             <PrimaryNavItem icon={<Edit/>} label="NavItem not selected (default)"/>
             <PrimaryNavItem isSelected icon={<Edit/>} label="NavItem Selected"/>
-            <PrimaryNavItem isSelected={boolean('selected')} icon={<Edit/>} label="Another NavItem" badge={<Badge label="9"/>}/>
+            <PrimaryNavItem isSelected={boolean('selected')} icon={<Workflow/>} label="Another NavItem" badge={<Badge label="9"/>}/>
             <PrimaryNavItem isSelected={boolean('selected')} icon={<Person/>} label="My profile" subtitle="username as a subtitle"/>
             <PrimaryNavItem isSelected={boolean('selected')} icon={<Person/>} label="My profile" subtitle="username as a subtitle" button={<Button isReversed icon={<Power/>} label="Sign Out" variant="ghost" onClick={() => {}}/>}/>
         </ul>

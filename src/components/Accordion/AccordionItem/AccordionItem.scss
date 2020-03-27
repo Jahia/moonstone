@@ -4,8 +4,13 @@ $accordionHeader_height: 48px;
     min-height: $accordionHeader_height;
 
     border-top: 1px solid var(--color-gray_light);
-    border-bottom: 1px solid var(--color-gray_light);
+
     overflow: hidden;
+    border-bottom: 1px solid var(--color-gray_light);
+
+    &:only-child {
+        border-bottom: none;
+    }
 
     & + .accordionItem {
         border-top: 0;
@@ -17,7 +22,7 @@ $accordionHeader_height: 48px;
 //---
 .accordionItem_header {
     width: 100%;
-    min-height: $accordionHeader_height;
+    height: $accordionHeader_height;
     padding: 0 var(--spacing-medium);
 
     color: var(--color-gray);
@@ -60,8 +65,7 @@ $accordionHeader_height: 48px;
 }
 
 .accordionItem_iconContainer {
-    width: 40px;
-    height: 40px;
+    margin-right: var(--spacing-small);
 }
 
 //---

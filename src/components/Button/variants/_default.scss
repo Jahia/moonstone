@@ -48,9 +48,14 @@
         background-color: var(--color-accent);
 
         &:hover,
-        &:focus,
-        &:active {
+        &:focus {
+            border-color: var(--color-accent_dark);
             background-color: var(--color-accent_dark);
+        }
+
+        &:active {
+            border-color: var(--color-accent_dark_contrast);
+            background-color: var(--color-accent_dark_contrast);
         }
 
         &:disabled {
@@ -66,6 +71,7 @@
         &:hover,
         &:focus,
         &:active {
+            border-color: var(--color-danger_dark);
             background-color: var(--color-danger_dark);
         }
 

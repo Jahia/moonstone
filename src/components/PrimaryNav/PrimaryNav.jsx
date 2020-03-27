@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import styles from './PrimaryNav.scss';
 import {PrimaryNavContext} from './PrimaryNav.context';
-import ArrowLeft from '~/tokens/icons/asset/ArrowLeft.svg';
-import Menu from '~/tokens/icons/asset/Menu.svg';
+import {Menu, ArrowLeft} from '~/tokens/icons';
 
 const NavButton = ({isExpanded, toggleExpand, modeIcon}) => {
     if (isExpanded) {
         return (
-            <button type="button" role="primary-nav-control" onClick={toggleExpand}>
+            <button className={classnames(styles.navButton)} type="button" role="primary-nav-control" onClick={toggleExpand}>
                 <ArrowLeft size="big"/>
             </button>
         );
@@ -26,7 +25,7 @@ const NavButton = ({isExpanded, toggleExpand, modeIcon}) => {
     return (
         <>
             {icon}
-            <button type="button" role="primary-nav-control" onClick={toggleExpand}>
+            <button className={classnames(styles.navButton)} type="button" role="primary-nav-control" onClick={toggleExpand}>
                 <Menu size="big"/>
             </button>
         </>
@@ -82,11 +81,11 @@ export const PrimaryNav = ({headerLogo, top, bottom, headerCaption, modeIcon, ..
                 )}
             >
                 <div className={classnames('flexRow_nowrap', styles.navHeader)}>
-                    <div className={classnames(styles.navButtonContainer, 'flexRow', 'flexRow_center')}>
+                    <div className={classnames(styles.navButtonContainer, 'flexRow_center', 'alignCenter')}>
                         <NavButton isExpanded={isExpanded} toggleExpand={toggleExpand} modeIcon={modeIcon}/>
                     </div>
                     <div
-                        className={classnames('flexCol', 'flexCol_center', 'alignCenter', 'flexFluid', styles.logoCaptionGroup)}
+                        className={classnames('flexCol_center', 'alignCenter', 'flexFluid', styles.logoCaptionGroup)}
                     >
                         <NavHeader headerCaption={headerCaption} modeIcon={modeIcon} headerLogo={headerLogo}/>
                     </div>

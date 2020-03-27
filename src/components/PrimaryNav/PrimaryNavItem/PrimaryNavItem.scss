@@ -20,6 +20,10 @@
         background-color: var(--color-accent);
         cursor: default;
     }
+
+    &:not(.selected):hover {
+        background-color: var(--color-gray_dark60);
+    }
 }
 
 .primaryNavItem_content {
@@ -70,6 +74,7 @@
     flex-direction: column;
     justify-content: center;
     overflow: hidden;
+    margin-left: var(--spacing-nano);
 }
 
 .primaryNavItem_buttonContainer {
