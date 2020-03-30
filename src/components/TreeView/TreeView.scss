@@ -49,7 +49,9 @@
 }
 
 .treeView_itemIconStart {
-    padding: 2px;
+    min-width: 12px;
+    min-height: 12px;
+    margin-right: 8px;
 }
 
 .treeView_itemIconEnd {
@@ -58,6 +60,7 @@
 
 .treeView_itemToggle {
     width: 16px;
+    height: 16px;
 
     cursor: pointer;
 }

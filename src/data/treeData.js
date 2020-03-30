@@ -44,9 +44,9 @@ export const treeData = [
                 iconStart: <Love/>,
                 className: myStyles.colorTest,
                 children: [
-                    {id: 'B1', label: 'B-1 level2', iconStart: <Love/>, className: myStyles.colorTest},
-                    {id: 'B2', label: 'B-2 level2', iconStart: <Love/>, className: myStyles.colorTest},
-                    {id: 'B3', label: 'B-3 level2', iconStart: <Love/>, className: myStyles.colorTest},
+                    {id: 'B1', label: 'B-1 level2', className: myStyles.colorTest},
+                    {id: 'B2', label: 'B-2 level2', className: myStyles.colorTest},
+                    {id: 'B3', label: 'B-3 level2', className: myStyles.colorTest},
                     {
                         id: 'B4', label: 'B-4 level2', iconStart: <Love/>, className: myStyles.colorTest, children: [
                             {id: 'B11', label: 'B-1-1 level3', iconStart: <Love/>, className: myStyles.colorTest},

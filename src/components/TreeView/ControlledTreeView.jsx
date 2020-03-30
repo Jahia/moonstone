@@ -8,9 +8,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export const ControlledTreeView = ({data, openedItems, selectedItems, onClickItem, onDoubleClickItem, onContextMenuItem, onOpenItem, onCloseItem, isReversed, ...props}) => {
-    function generateLevelJSX(data, deep) {
+    function generateLevelJSX(data, deep, parentHasIconStart) {
         return data.map(node => {
             const hasChild = Boolean(node.hasChildren || (node.children && node.children.length !== 0));
+            const hasIconStart = Boolean(node.iconStart);
             const isClosable = Boolean(node.isClosable !== false);
             const isOpen = Boolean(openedItems.includes(node.id)) || !isClosable;
             const isLoading = Boolean(node.isLoading);
@@ -57,17 +58,15 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
             );
 
             // Manage treeView_item's icon
-            const displayIcon = (icon, size, className) => {
-                if (!icon) {
+            const displayIcon = (icon, size, className, parentHasIconStart) => {
+                if (!icon && !parentHasIconStart) {
                     return;
                 }
 
-                // Manage url image and icon component
-                const i = <icon.type {...icon.props} size={size}/>;
-
                 return (
                     <i className={classnames('flexRow', 'alignCenter', className)}>
-                        {i}
+                        {icon &&
+                            <icon.type {...icon.props} size={size}/>}
                     </i>
                 );
             };
@@ -86,23 +85,19 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
                         <div className={cssTreeViewItem}
                              style={{
                                  paddingRight: 'var(--spacing-nano)',
-                                 paddingLeft: `calc(var(--spacing-medium) + var(--spacing-medium) * ${deep}`
+                                 paddingLeft: `calc(var(--spacing-medium) + var(--spacing-medium) * ${deep})`
                              }}
                         >
                             {/* Icon arrow */}
-                            {isClosable && (
-                                (hasChild &&
-                                    <div
-                                        className={classnames('flexRow', 'alignCenter', styles.treeView_itemToggle)}
-                                        onClick={toggleNode}
-                                    >
-                                        {isOpen ? <ChevronDown/> : <ChevronRight/>}
-                                    </div>
-                                ) || (
-                                    <div
-                                        className={classnames('flexRow', 'alignCenter', styles.treeView_itemToggle)}/>
-                                )
-                            )}
+                            {isClosable && hasChild &&
+                                <div
+                                    className={classnames('flexRow', 'alignCenter', styles.treeView_itemToggle)}
+                                    onClick={toggleNode}
+                                >
+                                    {isOpen ? <ChevronDown/> : <ChevronRight/>}
+                                </div>}
+                            {isClosable && !hasChild &&
+                                <div className={classnames('flexRow', 'alignCenter', styles.treeView_itemToggle)}/>}
 
                             {/* TreeViewItem */}
                             <div
@@ -111,7 +106,7 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
                                 onDoubleClick={handleNodeDoubleClick}
                                 onContextMenu={handleNodeContextMenu}
                             >
-                                {displayIcon(node.iconStart, 'small', styles.treeView_itemIconStart)}
+                                {displayIcon(node.iconStart, 'small', styles.treeView_itemIconStart, parentHasIconStart)}
                                 <Typography isNowrap
                                             className={classnames('flexFluid')}
                                             component="span"
@@ -124,7 +119,7 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
                             </div>
                         </div>
                     </li>
-                    {isOpen && node.children && generateLevelJSX(node.children, isClosable ? (deep + 1) : deep)}
+                    {isOpen && node.children && generateLevelJSX(node.children, isClosable ? (deep + 1) : deep, hasIconStart)}
                 </React.Fragment>
             );
         });
@@ -133,7 +128,7 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
     // TreeView component
     return (
         <ul role="tree" {...props}>
-            {generateLevelJSX(data, 0)}
+            {generateLevelJSX(data, 0, false)}
         </ul>
     );
 };
