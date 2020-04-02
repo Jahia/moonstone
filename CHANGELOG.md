@@ -1,3 +1,17 @@
+# v0.15.5 (Thu Apr 02 2020)
+
+#### 🐛  Bug Fix
+
+- MOON-114: Improve TreeView shift [#136](https://github.com/Jahia/moonstone/pull/136) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-98: Allow to expand a tree node by clicking on the label [#134](https://github.com/Jahia/moonstone/pull/134) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-115: Add icons [#135](https://github.com/Jahia/moonstone/pull/135) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v0.15.4 (Fri Mar 27 2020)
 
 #### 🐛  Bug Fix
