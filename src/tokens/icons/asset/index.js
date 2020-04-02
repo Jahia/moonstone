@@ -1,5 +1,6 @@
 // @create-index
 
+export {default as ABTesting} from './ABTesting.svg';
 export {default as Accessibility} from './Accessibility.svg';
 export {default as Add} from './Add.svg';
 export {default as AddBox} from './AddBox.svg';
@@ -154,6 +155,7 @@ export {default as Subdirectory} from './Subdirectory.svg';
 export {default as SwapHoriz} from './SwapHoriz.svg';
 export {default as SwapVert} from './SwapVert.svg';
 export {default as Tag} from './Tag.svg';
+export {default as Target} from './Target.svg';
 export {default as Task} from './Task.svg';
 export {default as Text} from './Text.svg';
 export {default as Tune} from './Tune.svg';
