@@ -48,7 +48,7 @@ storiesOf('Layouts|Demos', module)
                                         <AccordionItem
                                             id={accordionIds[0]}
                                             icon={<Love size="big"/>}
-                                            label="Accordion 01"
+                                            label="Default tree"
                                         >
                                             <TreeView
                                                 isReversed
@@ -60,7 +60,7 @@ storiesOf('Layouts|Demos', module)
                                         <AccordionItem
                                             id={accordionIds[1]}
                                             icon={<Bug size="big"/>}
-                                            label="Accordion 02"
+                                            label="Nested"
                                         >
                                             <TreeView
                                                 isReversed
