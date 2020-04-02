@@ -28,6 +28,10 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
             };
 
             const handleNodeClick = e => {
+                if (onClickItem.length === 0) {
+                    toggleNode(e);
+                }
+
                 onClickItem(node, e);
             };
 

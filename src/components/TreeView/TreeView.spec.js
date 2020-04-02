@@ -58,6 +58,15 @@ describe('TreeView', () => {
         expect(wrapper.html()).toContain('A-1 level2');
     });
 
+    it('should open a node by clicking on an item when no onClickItem is provided', () => {
+        const wrapper = shallow(
+            <UncontrolledTreeView data={tree}/>, {mocks: {ControlledTreeView: true}}
+        );
+
+        wrapper.querySelector('.treeView_itemLabel').dispatchEvent('click');
+        expect(wrapper.html()).toContain('A-1 level2');
+    });
+
     it('should display icon provide by an external source', () => {
         const wrapper = shallow(
             <ControlledTreeView data={tree}/>
