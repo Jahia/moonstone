@@ -20,10 +20,12 @@
 
     // Manage separator
     .variant_default {
-        &:hover,
-        &:active,
-        &:focus {
-            border-left-color: currentColor !important;
+        .color_default {
+            &:hover,
+            &:active,
+            &:focus {
+                border-left-color: currentColor !important;
+            }
         }
 
         & + .variant_default {
