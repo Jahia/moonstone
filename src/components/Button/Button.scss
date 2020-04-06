@@ -2,13 +2,18 @@
 @import "variants/ghost";
 @import "variants/outlined";
 
+$button-size_small: 16px;
+$button-size_medium: 24px;
+$button-size_big: 32px;
+
 .button {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     width: fit-content;
-    padding: var(--spacing-nano) var(--spacing-small);
+    height: $button-size_medium;
+    padding: 0 var(--spacing-small);
 
     border-radius: 4px;
 
@@ -22,10 +27,12 @@
     }
 
     &.size_big {
-        padding: var(--spacing-small) var(--spacing-medium);
+        height: $button-size_big;
+        padding: 0 var(--spacing-medium);
     }
 
     &.size_small {
+        height: $button-size_small;
         padding: 0 var(--spacing-nano);
     }
 
@@ -42,19 +49,20 @@
     }
 
     &.icon-button {
-        padding: var(--spacing-small);
+        padding: 0;
 
         border-radius: 40px;
 
         &.size_small {
-            width: 18px;
-            height: 18px;
-
-            padding: 0;
+            width: $button-size_small;
         }
 
         &.size_default {
-            padding: var(--spacing-nano);
+            width: $button-size_medium;
+        }
+
+        &.size_big {
+            width: $button-size_big;
         }
     }
 
