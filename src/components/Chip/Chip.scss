@@ -37,6 +37,12 @@
         background-color: var(--color-warning40);
     }
 
+    &.color_reassuring {
+        color: var(--color-gray_dark);
+
+        background-color: var(--color-purple40);
+    }
+
     &.disabled {
         opacity: 0.3;
     }

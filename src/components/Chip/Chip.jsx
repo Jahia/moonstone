@@ -4,7 +4,7 @@ import styles from './Chip.scss';
 import {Typography} from '~/components/Typography';
 import classnames from 'clsx';
 
-export const colors = ['default', 'accent', 'success', 'warning', 'danger'];
+export const colors = ['default', 'accent', 'success', 'warning', 'danger', 'reassuring'];
 
 export const Chip = ({label, color, icon, className, isDisabled, ...props}) => (
     <div className={classnames(
