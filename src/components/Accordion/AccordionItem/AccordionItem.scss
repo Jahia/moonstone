@@ -1,12 +1,15 @@
 $accordionHeader_height: 48px;
 
 .accordionItem {
+    display: flex;
+    flex-direction: column;
     min-height: $accordionHeader_height;
 
     border-top: 1px solid var(--color-gray_light);
-
-    overflow: hidden;
     border-bottom: 1px solid var(--color-gray_light);
+
+    transition: all ease-in-out 0.7s;
+    overflow: hidden;
 
     &:only-child {
         border-bottom: none;
@@ -23,6 +26,7 @@ $accordionHeader_height: 48px;
 .accordionItem_header {
     width: 100%;
     height: $accordionHeader_height;
+
     padding: 0 var(--spacing-medium);
 
     background-color: var(--color-gray_light40);
@@ -62,7 +66,6 @@ $accordionHeader_height: 48px;
 //---
 .accordionItem_content {
     max-width: 100%;
-
     overflow-x: hidden;
     overflow-y: auto;
 }
@@ -93,5 +96,20 @@ $accordionHeader_height: 48px;
 
         border-color: var(--color-gray);
         background-color: var(--color-dark60);
+    }
+}
+
+// Animation
+.accordionItem_opened {
+    flex: 1;
+
+    &:last-child {
+        border-bottom: 0;
+    }
+
+    .accordionItem_content {
+        flex: 1;
+
+        height: auto;
     }
 }
