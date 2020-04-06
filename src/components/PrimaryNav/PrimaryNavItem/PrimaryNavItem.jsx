@@ -1,14 +1,17 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import styles from './PrimaryNavItem.scss';
 import classnames from 'clsx';
 import {Typography, variants as typographyVariants} from '~/components/Typography';
+import {PrimaryNavContext} from '~/components';
 
 // Internal component
 const Item = ({icon, label, textVariant, subtitle, button}) => (
     <>
         <div className={classnames(styles.primaryNavItem_content)}>
-            <div className={classnames(styles.primaryNavItem_iconContainer)}>{ icon && <icon.type {...icon.props} size="big"/> }</div>
+            <div className={classnames(styles.primaryNavItem_iconContainer)}>{icon &&
+            <icon.type {...icon.props} size="big"/>}
+            </div>
 
             <div className={classnames(styles.primaryNavItem_textContainer)}>
                 <Typography isNowrap
@@ -19,7 +22,11 @@ const Item = ({icon, label, textVariant, subtitle, button}) => (
                     {label}
                 </Typography>
                 {subtitle &&
-                <Typography isNowrap component="div" variant="caption" className={classnames(styles.primaryNavItem_label, styles.subtitle)}>
+                <Typography isNowrap
+                            component="div"
+                            variant="caption"
+                            className={classnames(styles.primaryNavItem_label, styles.subtitle)}
+                >
                     {subtitle}
                 </Typography>}
             </div>
@@ -43,7 +50,11 @@ Item.propTypes = {
 const ItemTypeResolver = ({url, icon, label, subtitle, button}) => {
     if (url) {
         return (
-            <a className={classnames(styles.primaryNavItem, styles.primaryNavItem_linkItem)} href={url} target="_blank" rel="noopener noreferrer">
+            <a className={classnames(styles.primaryNavItem, styles.primaryNavItem_linkItem)}
+               href={url}
+               target="_blank"
+               rel="noopener noreferrer"
+            >
                 <Item icon={icon} label={label} subtitle={subtitle} textVariant="body" button={button}/>
             </a>
         );
@@ -62,23 +73,35 @@ ItemTypeResolver.propTypes = {
     button: PropTypes.node
 };
 
-export const PrimaryNavItem = ({label, icon, className, subtitle, url, button, isSelected, onClick, badge, ...props}) => (
-    <li
-        className={classnames(
-            styles.primaryNavItem,
-            {[styles.selected]: isSelected},
-            className
-        )}
-        title={label}
-        onClick={onClick}
-        {...props}
-    >
-        <ItemTypeResolver icon={icon} label={label} subtitle={subtitle} url={url} button={button}/>
+export const PrimaryNavItem = ({label, icon, className, subtitle, url, button, isSelected, onClick, badge, ...props}) => {
+    const primaryNavContext = useContext(PrimaryNavContext);
 
-        {badge &&
-            <badge.type className={classnames(styles.primaryNavItem_badge)} color="danger" type="round" label={badge.props.label}/>}
-    </li>
-);
+    return (
+        <li
+            className={classnames(
+                styles.primaryNavItem,
+                {[styles.selected]: isSelected},
+                className
+            )}
+            title={label}
+            onClick={e => {
+                primaryNavContext.collapse();
+                if (onClick) {
+                    onClick(e);
+                }
+            }}
+            {...props}
+        >
+            <ItemTypeResolver icon={icon} label={label} subtitle={subtitle} url={url} button={button}/>
+
+            {badge &&
+            <badge.type className={classnames(styles.primaryNavItem_badge)}
+                        color="danger"
+                        type="round"
+                        label={badge.props.label}/>}
+        </li>
+    );
+};
 
 PrimaryNavItem.defaultProps = {
     label: '',

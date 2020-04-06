@@ -17,6 +17,7 @@ storiesOf('Components|PrimaryNav', module)
     .add('default', () => (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <PrimaryNav
+                isCollapsibleOnCLick
                 headerLogo={<img src="https://via.placeholder.com/100x40?text=Logo"/>}
                 headerCaption="development"
                 modeIcon={<Star/>}
@@ -32,7 +33,6 @@ storiesOf('Components|PrimaryNav', module)
                             <PrimaryNavItem icon={<Person/>} label="Very very long long long long label" subtitle="username as a subtitle username as a subtitle username as a subtitle username as a subtitle" button={<Button isReversed icon={<Power/>} label="Sign Out" variant="ghost" onClick={() => {}}/>}/>
                             <PrimaryNavItem icon={<Workflow/>} label="With badge" badge={<Badge label="3"/>}/>
                             <PrimaryNavItem icon={<Person/>} label="With badge" badge={<Badge label="333"/>}/>
-                            <PrimaryNavItem icon={<Person/>} label="With badge"/>
                         </PrimaryNavItemsGroup>
                         <PrimaryNavItemsGroup isDisplayedWhenCollapsed={false}>
                             <PrimaryNavItem url="https://jahia.com" label="Jahia Link"/>

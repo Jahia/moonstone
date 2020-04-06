@@ -63,15 +63,17 @@ NavHeader.propTypes = {
     headerLogo: PropTypes.node
 };
 
-export const PrimaryNav = ({headerLogo, top, bottom, headerCaption, modeIcon, ...props}) => {
+export const PrimaryNav = ({headerLogo, top, bottom, headerCaption, modeIcon, isCollapsibleOnCLick, ...props}) => {
     const [isExpanded, setExpanded] = useState(false);
 
     function toggleExpand() {
         setExpanded(!isExpanded);
     }
 
+    const collapseFunc = isCollapsibleOnCLick ? () => setExpanded(false) : () => {};
+
     return (
-        <PrimaryNavContext.Provider value={{isExpanded: isExpanded}}>
+        <PrimaryNavContext.Provider value={{isExpanded: isExpanded, collapse: collapseFunc}}>
             <nav {...props}
                  aria-expanded={isExpanded}
                  className={classnames(
@@ -121,6 +123,11 @@ PrimaryNav.propTypes = {
      * Image for application mode
      */
     modeIcon: PropTypes.element,
+
+    /**
+     * Collapse nav menu when an item is clicked
+     */
+    isCollapsibleOnCLick: PropTypes.bool,
 
     /**
      * Application's environment
