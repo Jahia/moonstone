@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import styles from './Tab.scss';
 import classnames from 'clsx';
 
-export const Tab = ({children}) => {
+export const Tab = ({children, className, ...props}) => {
     return (
         <div
+            {...props}
             className={classnames(
                 styles.tab,
                 'flexRow_center',
-                'alignCenter'
+                'alignCenter',
+                className
             )}
         >
             {children}
@@ -17,11 +19,20 @@ export const Tab = ({children}) => {
     );
 };
 
+Tab.defaultProps = {
+    className: ''
+};
+
 Tab.propTypes = {
     /**
      * Content of Tab component
      */
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
+
+    /**
+     * Additional classname
+     */
+    className: PropTypes.string
 };
 
 Tab.displayName = 'Tab';

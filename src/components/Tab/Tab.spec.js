@@ -3,8 +3,18 @@ import {shallow} from 'component-test-utils-react';
 import {Tab} from './index';
 
 describe('Tab', () => {
-    it('should render', () => {
+    it('should render the children', () => {
         const tab = shallow(<Tab>toto</Tab>);
-        expect(tab.html()).toEqual('<div class="tab flexRow_center alignCenter">toto</div>');
+        expect(tab.html()).toContain('toto');
+    });
+
+    it('should pass props to the element', () => {
+        const tab = shallow(<Tab title="tabulation">toto</Tab>);
+        expect(tab.html()).toContain('title="tabulation"');
+    });
+
+    it('should pass className to the element', () => {
+        const tab = shallow(<Tab className="customization">toto</Tab>);
+        expect(tab.html()).toContain('customization');
     });
 });
