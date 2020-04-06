@@ -86,9 +86,7 @@ export const PrimaryNavItem = ({label, icon, className, subtitle, url, button, i
             title={label}
             onClick={e => {
                 primaryNavContext.collapse();
-                if (onClick) {
-                    onClick(e);
-                }
+                onClick(e);
             }}
             {...props}
         >
@@ -111,7 +109,8 @@ PrimaryNavItem.defaultProps = {
     isSelected: false,
     badge: null,
     className: '',
-    url: null
+    url: null,
+    onClick: () => {}
 };
 
 PrimaryNavItem.propTypes = {

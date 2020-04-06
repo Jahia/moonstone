@@ -63,14 +63,14 @@ NavHeader.propTypes = {
     headerLogo: PropTypes.node
 };
 
-export const PrimaryNav = ({headerLogo, top, bottom, headerCaption, modeIcon, isCollapsibleOnCLick, ...props}) => {
+export const PrimaryNav = ({headerLogo, top, bottom, headerCaption, modeIcon, isCollapsibleOnClick, ...props}) => {
     const [isExpanded, setExpanded] = useState(false);
 
     function toggleExpand() {
         setExpanded(!isExpanded);
     }
 
-    const collapseFunc = isCollapsibleOnCLick ? () => setExpanded(false) : () => {};
+    const collapseFunc = isCollapsibleOnClick ? () => setExpanded(false) : () => {};
 
     return (
         <PrimaryNavContext.Provider value={{isExpanded: isExpanded, collapse: collapseFunc}}>
@@ -127,7 +127,7 @@ PrimaryNav.propTypes = {
     /**
      * Collapse nav menu when an item is clicked
      */
-    isCollapsibleOnCLick: PropTypes.bool,
+    isCollapsibleOnClick: PropTypes.bool,
 
     /**
      * Application's environment
