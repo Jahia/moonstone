@@ -13,6 +13,7 @@ $color-green: 67, 160, 71;
 $color-red: 224, 24, 45;
 $color-red-dark: 194, 23, 41;
 $color-yellow: 232, 182, 6;
+$color-purple: 112, 24, 224;
 
 :global(:root) {
     // Accent
@@ -60,4 +61,9 @@ $color-yellow: 232, 182, 6;
     --color-danger40: rgba(#{$color-red, 0.4});
     --color-danger60: rgba(#{$color-red, 0.6});
     --color-danger_dark: rgba(#{$color-red-dark});
+
+    // Palette
+    --color-purple: rgba(#{$color-purple}, 1);
+    --color-purple40: rgba(#{$color-purple}, 0.4);
+    --color-purple60: rgba(#{$color-purple}, 0.6);
 }
