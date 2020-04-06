@@ -44,6 +44,12 @@ const paletteSupport = [
     'danger_dark'
 ];
 
+const paletteColors = [
+    'purple',
+    'purple40',
+    'purple60'
+];
+
 export const Color = ({color, name}) => {
     return (
         <div className={classnames(storyStyles.storyItem)}>
@@ -79,6 +85,11 @@ storiesOf('Tokens|Colors', module)
     .add('Support', () => (
         <section className={classnames(storyStyles.storyWrapper)}>
             {displayColors(paletteSupport)}
+        </section>
+    ))
+    .add('Palette', () => (
+        <section className={classnames(storyStyles.storyWrapper)}>
+            {displayColors(paletteColors)}
         </section>
     ));
 
