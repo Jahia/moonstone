@@ -30,7 +30,7 @@ $accordionHeader_height: 48px;
     cursor: pointer;
 
     &:active {
-        background-color: red;
+        background-color: var(--color-gray40) !important;
     }
 
     &:focus,
@@ -50,12 +50,6 @@ $accordionHeader_height: 48px;
         color: var(--color-light);
 
         background-color: var(--color-dark60);
-    }
-
-    &:active {
-        color: var(--color-light);
-
-        background-color: var(--color-accent);
     }
 }
 
