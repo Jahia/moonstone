@@ -71,7 +71,7 @@ export const PrimaryNav = ({headerLogo, top, bottom, headerCaption, modeIcon, ..
     }
 
     return (
-        <PrimaryNavContext.Provider value={{isExpanded: isExpanded}}>
+        <PrimaryNavContext.Provider value={{isExpanded: isExpanded, collapse: () => setExpanded(false)}}>
             <nav {...props}
                  aria-expanded={isExpanded}
                  className={classnames(
