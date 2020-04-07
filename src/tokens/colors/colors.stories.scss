@@ -67,6 +67,11 @@ $colorsSupport: (
     'danger40',
     'danger_dark'
 );
+$colorsPalette: (
+    'purple',
+    'purple60',
+    'purple40'
+);
 
 @each $name in $colorsAccent {
     .color-#{$name} {
@@ -85,6 +90,14 @@ $colorsSupport: (
 }
 
 @each $name in $colorsSupport {
+    .color-#{$name} {
+        @include colorValue($name);
+
+        background-color: var(--color-#{$name});
+    }
+}
+
+@each $name in $colorsPalette {
     .color-#{$name} {
         @include colorValue($name);
 
