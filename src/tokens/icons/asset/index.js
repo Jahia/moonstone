@@ -77,6 +77,7 @@ export {default as FolderOpen} from './FolderOpen.svg';
 export {default as FolderSpecial} from './FolderSpecial.svg';
 export {default as FolderUser} from './FolderUser.svg';
 export {default as Follow} from './Follow.svg';
+export {default as Form} from './Form.svg';
 export {default as Funnel} from './Funnel.svg';
 export {default as Grain} from './Grain.svg';
 export {default as GraphQL} from './GraphQL.svg';
