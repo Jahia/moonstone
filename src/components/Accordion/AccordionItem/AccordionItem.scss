@@ -25,42 +25,31 @@ $accordionHeader_height: 48px;
     height: $accordionHeader_height;
     padding: 0 var(--spacing-medium);
 
-    color: var(--color-gray);
+    background-color: var(--color-gray_light40);
 
     cursor: pointer;
 
     &:active {
-        color: var(--color-light);
-
-        background-color: var(--color-accent);
+        background-color: var(--color-gray40) !important;
     }
 
     &:focus,
     &:not(.accordionItem_header_selected):hover {
         color: var(--color-dark);
 
-        background-color: var(--color-gray_light40);
+        background-color: var(--color-gray_light);
     }
 }
 
 .accordionItem_header_selected {
-    font-weight: bold;
-    color: var(--color-light);
-
     border-bottom: 1px solid var(--color-gray_light);
-    background-color: var(--color-dark40);
+
     cursor: default;
 
     &:focus {
         color: var(--color-light);
 
         background-color: var(--color-dark60);
-    }
-
-    &:active {
-        color: var(--color-light);
-
-        background-color: var(--color-accent);
     }
 }
 
@@ -79,11 +68,13 @@ $accordionHeader_height: 48px;
 }
 
 .accordionItem_reversed {
-    border-color: var(--color-gray40);
+    border-color: var(--color-gray);
 
     /* stylelint-disable no-descending-specificity */
     .accordionItem_header {
-        color: var(--color-light60);
+        color: var(--color-light);
+
+        background-color: var(--color-dark60);
 
         &:focus,
         &:not(.accordionItem_header_selected):hover {
@@ -93,18 +84,14 @@ $accordionHeader_height: 48px;
         }
 
         &:active {
-            background-color: var(--color-gray40);
+            background-color: var(--color-black) !important;
         }
     }
 
     .accordionItem_header_selected {
         color: var(--color-light);
 
-        border-color: var(--color-gray40);
-        background-color: var(--color-dark);
-
-        &:active {
-            background-color: var(--color-dark40);
-        }
+        border-color: var(--color-gray);
+        background-color: var(--color-dark60);
     }
 }
