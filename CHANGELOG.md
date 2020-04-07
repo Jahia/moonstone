@@ -1,3 +1,22 @@
+# v0.15.6 (Tue Apr 07 2020)
+
+#### 🐛  Bug Fix
+
+- MOON-122: Add icon Form [#144](https://github.com/Jahia/moonstone/pull/144) ([@ffffffelix](https://github.com/ffffffelix))
+- BACKLOG-13003 Collapse primary nav when an item is clicked [#141](https://github.com/Jahia/moonstone/pull/141) ([@AKarmanov](https://github.com/AKarmanov))
+- MOON-121: Add the spacing option 'none' to the Separator component [#143](https://github.com/Jahia/moonstone/pull/143) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-96: Fix styling issue on ButtonGroup hover [#137](https://github.com/Jahia/moonstone/pull/137) ([@ffffffelix](https://github.com/ffffffelix))
+- Moon 118: Update Accordion styling [#139](https://github.com/Jahia/moonstone/pull/139) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-119: Set a height to Button [#140](https://github.com/Jahia/moonstone/pull/140) ([@ffffffelix](https://github.com/ffffffelix))
+- Moon 120: New Chip variant [#142](https://github.com/Jahia/moonstone/pull/142) ([@ffffffelix](https://github.com/ffffffelix))
+- BACKLOG-12940: Add the possibility to extend tab cmp and fix his padding [#138](https://github.com/Jahia/moonstone/pull/138) ([@FBerthelot](https://github.com/FBerthelot))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v0.15.5 (Thu Apr 02 2020)
 
 #### 🐛  Bug Fix
