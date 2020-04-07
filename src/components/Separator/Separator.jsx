@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import styles from './Separator.scss';
 
-export const SeparatorSpacings = ['small', 'medium', 'big'];
+export const SeparatorSpacings = ['none', 'small', 'medium', 'big'];
 export const SeparatorSizes = ['medium', 'large', 'full'];
 export const SeparatorVariants = ['horizontal', 'vertical'];
 export const SeparatorInvisible = ['firstChild', 'lastChild', 'onlyChild', 'firstOrLastChild'];

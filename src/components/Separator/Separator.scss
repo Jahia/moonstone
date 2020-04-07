@@ -28,6 +28,10 @@
     }
 
     // Spacing's Separator
+    &.spacing_none {
+        margin: 0 auto;
+    }
+
     &.spacing_small {
         margin: var(--spacing-small) auto;
     }
@@ -62,6 +66,11 @@
     }
 
     // Spacing's Separator
+    &.spacing_none {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
     &.spacing_small {
         margin-right: var(--spacing-small);
         margin-left: var(--spacing-small);
