@@ -1,3 +1,15 @@
+# v0.15.8 (Tue Apr 07 2020)
+
+#### 🐛  Bug Fix
+
+- MOON-123 add the possibility to add custom properties/attributes to tree items [#145](https://github.com/Jahia/moonstone/pull/145) ([@DameniMilo](https://github.com/DameniMilo))
+
+#### Authors: 1
+
+- dgaillard ([@DameniMilo](https://github.com/DameniMilo))
+
+---
+
 # v0.15.7 (Tue Apr 07 2020)
 
 
