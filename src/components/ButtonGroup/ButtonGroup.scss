@@ -20,14 +20,6 @@
 
     // Manage separator
     .variant_default {
-        .color_default {
-            &:hover,
-            &:active,
-            &:focus {
-                border-left-color: currentColor !important;
-            }
-        }
-
         & + .variant_default {
             border-left-color: transparent;
         }
@@ -42,12 +34,6 @@
     }
 
     .variant_outlined {
-        &:hover,
-        &:active,
-        &:focus {
-            border-left-color: currentColor !important;
-        }
-
         & + .variant_outlined {
             border-left-color: transparent;
         }
