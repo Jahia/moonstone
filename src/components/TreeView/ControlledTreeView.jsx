@@ -81,7 +81,10 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
             // TreeItem has child
             return (
                 <React.Fragment key={`${deep}-${node.id}`}>
-                    <li role="treeitem" aria-expanded={isOpen}>
+                    <li role="treeitem"
+                        aria-expanded={isOpen}
+                        {...node.treeItemProps}
+                    >
                         <div className={cssTreeViewItem}
                              style={{
                                  paddingRight: 'var(--spacing-nano)',
@@ -147,7 +150,8 @@ ControlledTreeView.propTypes = {
         children: PropTypes.arrayOf(PropTypes.object),
         isLoading: PropTypes.bool,
         className: PropTypes.string,
-        typographyOptions: PropTypes.object
+        typographyOptions: PropTypes.object,
+        treeItemProps: PropTypes.object
     })).isRequired,
 
     /**

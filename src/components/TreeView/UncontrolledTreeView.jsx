@@ -30,7 +30,8 @@ UncontrolledTreeView.propTypes = {
         children: PropTypes.arrayOf(PropTypes.object),
         isLoading: PropTypes.bool,
         className: PropTypes.string,
-        typographyOptions: PropTypes.object
+        typographyOptions: PropTypes.object,
+        treeItemProps: PropTypes.object
     })).isRequired,
 
     /**
