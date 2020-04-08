@@ -87,8 +87,7 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
                     >
                         <div className={cssTreeViewItem}
                              style={{
-                                 paddingRight: 'var(--spacing-nano)',
-                                 paddingLeft: `calc(var(--spacing-medium) + var(--spacing-medium) * ${deep})`
+                                 paddingLeft: `calc((var(--spacing-medium) + var(--spacing-nano)) * ${deep} + var(--spacing-medium))`
                              }}
                         >
                             {/* Icon arrow */}
@@ -99,7 +98,7 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
                                 >
                                     {isOpen ? <ChevronDown/> : <ChevronRight/>}
                                 </div>}
-                            {isClosable && !hasChild &&
+                            {isClosable && !hasChild && parentHasIconStart &&
                                 <div className={classnames('flexRow', 'alignCenter', styles.treeView_itemToggle)}/>}
 
                             {/* TreeViewItem */}

@@ -11,6 +11,7 @@
     flex-wrap: nowrap;
 
     height: 32px;
+    padding-right: var(--spacing-small);
 
     color: var(--color-treeItem);
 
@@ -51,7 +52,6 @@
 .treeView_itemIconStart {
     min-width: 12px;
     min-height: 12px;
-    margin-right: 8px;
 }
 
 .treeView_itemIconEnd {
