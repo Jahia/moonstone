@@ -6,7 +6,10 @@
         font-size: 1.75rem; //28px
         font-feature-settings: 'ordn' on, 'liga' off;
         line-height: 2rem; //32px;
-        text-transform: capitalize;
+
+        &::first-letter {
+            text-transform: capitalize;
+        }
     }
 
     &.variant_heading {
