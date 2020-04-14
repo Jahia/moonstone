@@ -144,6 +144,7 @@ export {default as SDLreport} from './SDLreport.svg';
 export {default as Save} from './Save.svg';
 export {default as School} from './School.svg';
 export {default as Search} from './Search.svg';
+export {default as Section} from './Section.svg';
 export {default as Security} from './Security.svg';
 export {default as Server} from './Server.svg';
 export {default as Setting} from './Setting.svg';
