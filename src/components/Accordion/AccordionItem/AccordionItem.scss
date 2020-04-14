@@ -15,6 +15,10 @@ $accordionHeader_height: 48px;
     & + .accordionItem {
         border-top: 0;
     }
+
+    &.reversed {
+        border-color: var(--color-gray);
+    }
 }
 
 //---
@@ -29,27 +33,51 @@ $accordionHeader_height: 48px;
 
     cursor: pointer;
 
+    &.selected {
+        border-bottom: 1px solid var(--color-gray_light);
+
+        cursor: default;
+
+        &:focus {
+            color: var(--color-light);
+
+            background-color: var(--color-dark60);
+        }
+    }
+
     &:active {
-        background-color: var(--color-gray40) !important;
+        background-color: var(--color-gray40);
     }
 
     &:focus,
-    &:not(.accordionItem_header_selected):hover {
+    &:not(.selected):not(:active):hover {
         color: var(--color-dark);
 
         background-color: var(--color-gray_light);
     }
-}
 
-.accordionItem_header_selected {
-    border-bottom: 1px solid var(--color-gray_light);
-
-    cursor: default;
-
-    &:focus {
+    &.reversed {
         color: var(--color-light);
 
         background-color: var(--color-dark60);
+
+        &.selected {
+            color: var(--color-light);
+
+            border-color: var(--color-gray);
+            background-color: var(--color-dark60);
+        }
+
+        &:active {
+            background-color: var(--color-black);
+        }
+
+        &:focus,
+        &:not(.selected):not(:active):hover {
+            color: var(--color-light);
+
+            background-color: var(--color-gray40);
+        }
     }
 }
 
@@ -65,33 +93,4 @@ $accordionHeader_height: 48px;
 
     overflow-x: hidden;
     overflow-y: auto;
-}
-
-.accordionItem_reversed {
-    border-color: var(--color-gray);
-
-    /* stylelint-disable no-descending-specificity */
-    .accordionItem_header {
-        color: var(--color-light);
-
-        background-color: var(--color-dark60);
-
-        &:focus,
-        &:not(.accordionItem_header_selected):hover {
-            color: var(--color-light);
-
-            background-color: var(--color-gray40);
-        }
-
-        &:active {
-            background-color: var(--color-black) !important;
-        }
-    }
-
-    .accordionItem_header_selected {
-        color: var(--color-light);
-
-        border-color: var(--color-gray);
-        background-color: var(--color-dark60);
-    }
 }

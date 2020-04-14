@@ -19,7 +19,7 @@ export const AccordionItem = ({id, label, icon, onClick, children, className, ..
             {...props}
             className={classnames(
                 styles.accordionItem,
-                context.isReversed ? styles.accordionItem_reversed : null,
+                {[styles.reversed]: context.isReversed},
                 'flexCol',
                 open ? 'flexFluid' : null,
                 className
@@ -28,7 +28,10 @@ export const AccordionItem = ({id, label, icon, onClick, children, className, ..
             <header
                 className={classnames(
                     styles.accordionItem_header,
-                    open ? classnames(styles.accordionItem_header_selected) : null,
+                    {
+                        [styles.selected]: open,
+                        [styles.reversed]: context.isReversed
+                    },
                     'flexRow',
                     'alignCenter'
                 )}
