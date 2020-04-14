@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+
+    /* stylelint-disable-next-line declaration-no-important */
     width: 18px !important;
 
     transition: color 0.2s ease-in;

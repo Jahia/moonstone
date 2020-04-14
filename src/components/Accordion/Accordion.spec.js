@@ -27,7 +27,7 @@ describe('Accordion', () => {
             </ControlledAccordion>
         );
 
-        expect(wrapper.html()).toContain('accordion_reversed');
+        expect(wrapper.html()).toContain('reversed');
     });
 
     it('should add extra attribute on Accordion', () => {

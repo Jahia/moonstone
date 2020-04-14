@@ -33,7 +33,7 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
                     toggleNode(e);
                 }
 
-                onClickItem(node, e);
+                onClickItem(node, e, toggleNode);
             };
 
             const handleNodeDoubleClick = e => {
