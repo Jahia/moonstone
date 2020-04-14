@@ -69,7 +69,7 @@ describe('AccordionItem', () => {
             }
         );
 
-        expect(wrapper.html()).toContain('accordionItem_reversed');
+        expect(wrapper.html()).toContain('reversed');
     });
 
     it('should not display children when id in context not correspond', () => {
