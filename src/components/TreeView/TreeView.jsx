@@ -55,7 +55,8 @@ TreeView.propTypes = {
     onCloseItem: PropTypes.func,
 
     /**
-     * Trigger by clicking on node
+     * Trigger by clicking on node.
+     * In the parameters, access to the current node, event, and a method to toggle the node open/close is given.
      */
     onClickItem: PropTypes.func,
 
