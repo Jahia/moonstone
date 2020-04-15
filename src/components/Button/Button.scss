@@ -34,6 +34,10 @@ $button-size_big: 32px;
     &.size_small {
         height: $button-size_small;
         padding: 0 var(--spacing-nano);
+
+        > * {
+            line-height: $button-size_small - 2px;
+        }
     }
 
     &.variant_default {
