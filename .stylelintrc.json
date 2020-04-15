@@ -3,6 +3,7 @@
     "rules": {
         "declaration-property-unit-blacklist": {
             "height": ["%"]
-        }
+        },
+        "declaration-no-important": true
     }
 }

@@ -2,8 +2,8 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-}
 
-.accordion_reversed {
-    color: var(--color-light);
+    &.reversed {
+        color: var(--color-light);
+    }
 }

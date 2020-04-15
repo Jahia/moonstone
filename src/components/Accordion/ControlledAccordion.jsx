@@ -19,7 +19,7 @@ export const ControlledAccordion = ({children, openedItem, isReversed, className
                         className,
                         'flexFluid',
                         styles.accordion,
-                        isReversed ? styles.accordion_reversed : null
+                        {[styles.reversed]: isReversed}
                     )
                 }
                  {...props}
