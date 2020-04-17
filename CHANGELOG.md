@@ -1,3 +1,19 @@
+# v0.15.9 (Fri Apr 17 2020)
+
+#### 🐛  Bug Fix
+
+- Moon 127: Design improvements [#146](https://github.com/Jahia/moonstone/pull/146) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-130: Add Section icon [#148](https://github.com/Jahia/moonstone/pull/148) ([@ffffffelix](https://github.com/ffffffelix))
+- Cleaned css naming between element/modifiers, removed nesting and important [#150](https://github.com/Jahia/moonstone/pull/150) ([@tdraier](https://github.com/tdraier))
+- MOON-131: Add toggleNode to TreeView onClickItem [#149](https://github.com/Jahia/moonstone/pull/149) ([@vindhya](https://github.com/vindhya))
+
+#### Authors: 2
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v0.15.8 (Tue Apr 07 2020)
 
 #### 🐛  Bug Fix
