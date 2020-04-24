@@ -8,7 +8,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export const ControlledTreeView = ({data, openedItems, selectedItems, onClickItem, onDoubleClickItem, onContextMenuItem, onOpenItem, onCloseItem, isReversed, ...props}) => {
-    function generateLevelJSX(data, deep, parentHasIconStart) {
+    const isFlatData = data.filter(item => item.children && item.children.length > 0).length === 0;
+
+    function generateLevelJSX(data, deep, parentHasIconStart, isFlatData) {
         return data.map(node => {
             const hasChild = Boolean(node.hasChildren || (node.children && node.children.length !== 0));
             const hasIconStart = Boolean(node.iconStart);
@@ -98,7 +100,7 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
                                 >
                                     {isOpen ? <ChevronDown/> : <ChevronRight/>}
                                 </div>}
-                            {isClosable && !hasChild && parentHasIconStart &&
+                            {!isFlatData && !hasChild &&
                                 <div className={classnames('flexRow', 'alignCenter', styles.treeView_itemToggle)}/>}
 
                             {/* TreeViewItem */}
@@ -121,7 +123,7 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
                             </div>
                         </div>
                     </li>
-                    {isOpen && node.children && generateLevelJSX(node.children, isClosable ? (deep + 1) : deep, hasIconStart)}
+                    {isOpen && node.children && generateLevelJSX(node.children, isClosable ? (deep + 1) : deep, hasIconStart, isFlatData)}
                 </React.Fragment>
             );
         });
@@ -130,7 +132,7 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
     // TreeView component
     return (
         <ul role="tree" {...props}>
-            {generateLevelJSX(data, 0, false)}
+            {generateLevelJSX(data, 0, false, isFlatData)}
         </ul>
     );
 };
