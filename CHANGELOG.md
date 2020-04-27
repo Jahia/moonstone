@@ -1,3 +1,16 @@
+# v0.15.10 (Mon Apr 27 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12731: Fix for overlapping logo in PrimarNav in Safari [#152](https://github.com/Jahia/moonstone/pull/152) ([@vindhya](https://github.com/vindhya))
+- MOON-132: Fix TreeView alignement [#151](https://github.com/Jahia/moonstone/pull/151) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Vindhya ([@vindhya](https://github.com/vindhya))
+
+---
+
 # v0.15.9 (Fri Apr 17 2020)
 
 #### 🐛  Bug Fix
