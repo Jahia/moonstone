@@ -1,3 +1,15 @@
+# v0.15.11 (Mon Apr 27 2020)
+
+#### 🐛  Bug Fix
+
+- Add icons [#153](https://github.com/Jahia/moonstone/pull/153) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v0.15.10 (Mon Apr 27 2020)
 
 #### 🐛  Bug Fix
