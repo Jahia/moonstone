@@ -23,7 +23,7 @@
         "lint:fix": "yarn lint:js:fix && yarn lint:scss:fix",
         "compilejs": "./compile.js",
         "tsc": "tsc",
-        "build-icons": "svgr --template ./src/tokens/icons/svgrTemplate.js --config-file ./src/tokens/icons/svgr.config.json ./src/tokens/icons/assets --out-dir ./src/icons/assets",
+        "build-icons": "svgr --template ./src/tokens/icons/svgrTemplate.js --index-template ./src/tokens/icons/indexTemplate.js --config-file ./src/tokens/icons/svgr.config.json ./src/tokens/icons/assets --out-dir ./src/icons",
         "index-icons": "create-index ./src/icons/assets -r -x svg && eslint --fix ./src/icons/assets/index.js",
         "build": "yarn build:storybook && yarn build:lib && yarn webpack",
         "prebuild:lib": "rimraf dist/",
