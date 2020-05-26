@@ -5,7 +5,7 @@ import markdownNotes from './PrimaryNav.md';
 
 import {PrimaryNav} from './index';
 import {PrimaryNavItemsGroup, PrimaryNavItem, Button, Badge} from '~/components';
-import {Apps, Feather, Setting, Profile, Person, Power, Star, Workflow} from '~/tokens/icons/asset';
+import {Apps, Feather, Setting, Profile, Person, Power, Star, Workflow} from '~/icons/assets';
 
 storiesOf('Components|PrimaryNav', module)
     .addParameters({

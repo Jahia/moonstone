@@ -1,5 +1,5 @@
 import React from 'react';
-import * as Icons from '~/tokens/icons/asset';
+import * as Icons from '~/icons/assets';
 import {SvgWrapper} from '~/components/SvgWrapper';
 import {ImgWrapper} from '~/components/ImgWrapper';
 
@@ -8,7 +8,7 @@ const toIconComponent = (icon, props) => {
         return React.createElement(Icons[icon], props);
     }
 
-    if (icon.startsWith('<svg')) {
+    if (icon.startsWith('')) {
         return <SvgWrapper svg={icon} {...props}/>;
     }
 

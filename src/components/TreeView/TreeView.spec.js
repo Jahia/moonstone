@@ -2,17 +2,17 @@ import React from 'react';
 import {shallow} from 'component-test-utils-react';
 import {ControlledTreeView} from './ControlledTreeView';
 import {UncontrolledTreeView} from './UncontrolledTreeView';
-import Love from '~/src/asset/Love.svg';
-import Cloud from '~/src/asset/Cloud.svg';
-import ChevronDown from '~/src/asset/ChevronDown.svg';
-import ChevronRight from '~/src/asset/ChevronRight.svg';
+import Love from '~/src/asset/Love';
+import Cloud from '~/src/asset/Cloud';
+import ChevronDown from '~/src/asset/ChevronDown';
+import ChevronRight from '~/src/asset/ChevronRight';
 import {toIconComponent} from '~/icons';
 
 const tree = [
     {
         id: 'A',
         label: 'A level1',
-        iconStart: toIconComponent('https://image.flaticon.com/icons/svg/1973/1973617.svg'),
+        iconStart: toIconComponent('https://image.flaticon.com/icons/svg/1973/1973617'),
         iconEnd: <Cloud/>,
         children: [
             {id: 'A1', label: 'A-1 level2', icon: <Love/>}
@@ -28,7 +28,7 @@ describe('TreeView', () => {
 
     it('should not display icon for items without children', () => {
         const wrapper = shallow(<ControlledTreeView data={[{id: 'A', label: 'A level1'}]}/>);
-        expect(wrapper.querySelector('.treeView_itemToggle svg')).toHaveProperty('nodeNotExistError');
+        expect(wrapper.querySelector('.treeView_itemToggle')).toHaveProperty('nodeNotExistError');
     });
 
     it('should open node set in openItems', () => {
@@ -72,7 +72,7 @@ describe('TreeView', () => {
             <ControlledTreeView data={tree}/>
         );
 
-        expect(wrapper.html()).toContain('https://image.flaticon.com/icons/svg/1973/1973617.svg');
+        expect(wrapper.html()).toContain('https://image.flaticon.com/icons/svg/1973/1973617');
     });
 
     it('should display icon provide by moonstone', () => {

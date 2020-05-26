@@ -5,7 +5,7 @@ import {action} from '@storybook/addon-actions';
 import markdownNotes from './Dropdown.md';
 
 import {Dropdown, DropdownSizes} from './index';
-import {Love} from '~/tokens/icons';
+import {Love} from '~/icons';
 
 const data = [
     {

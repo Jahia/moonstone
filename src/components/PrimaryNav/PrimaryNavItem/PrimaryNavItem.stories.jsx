@@ -1,7 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {PrimaryNavItem} from './index';
-import {Edit, Person, Power, Workflow} from '~/tokens/icons/asset';
+import {Edit, Person, Power, Workflow} from '~/icons/assets';
 import markdownNotes from './PrimaryNavItem.md';
 import {boolean, withKnobs} from '@storybook/addon-knobs';
 import {Badge, Button} from '~/components';

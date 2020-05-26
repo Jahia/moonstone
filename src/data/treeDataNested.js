@@ -1,12 +1,12 @@
 import React from 'react';
-import {Folder, File, NoCloud} from '~/tokens/icons';
+import {Folder, File, NoCloud} from '~/icons';
 import {toIconComponent} from '~/icons/utils';
 
 export const treeDataNested = [
     {
         id: 'ROOT',
         label: 'Root',
-        iconStart: toIconComponent('https://image.flaticon.com/icons/svg/1973/1973617.svg'),
+        iconStart: toIconComponent('https://image.flaticon.com/icons/svg/1973/1973617'),
         isClosable: false,
         children: [
             {

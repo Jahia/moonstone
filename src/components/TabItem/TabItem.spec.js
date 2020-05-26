@@ -1,7 +1,7 @@
 import React from 'react';
 import {shallow} from 'component-test-utils-react';
 import {TabItem, tabItemColors, tabItemSizes, tabItemVariants} from './index';
-import Love from '~/src/asset/Love.svg';
+import Love from '~/src/asset/Love';
 
 describe('TabItem', () => {
     it('should render', () => {
