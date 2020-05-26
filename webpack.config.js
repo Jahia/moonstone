@@ -12,10 +12,10 @@ const productionPlugins =
       [];
 
 const ComponentsConfig = {
-    entry: './src/index.js',
+    entry: './dist/index.js',
     output: {
         filename: 'main.js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'dist/lib'),
         library: '',
         libraryTarget: 'commonjs'
     },
@@ -23,21 +23,10 @@ const ComponentsConfig = {
     devtool: 'source-map',
     externals: [nodeExternals()],
     resolve: {
-        // Add alias to import files easily
-        alias: {
-            '~': path.resolve(__dirname, 'src/')
-        },
         extensions: ['.js', '.json', '.jsx', '.scss']
     },
     module: {
         rules: [
-            {
-                test: /\.jsx$/,
-                exclude: /(node_modules|bower_components)/,
-                use: {
-                    loader: 'babel-loader'
-                }
-            },
             {
                 test: /\.scss$/i,
                 sideEffects: true,
@@ -59,21 +48,6 @@ const ComponentsConfig = {
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
                 use: ['file-loader']
-            },
-            {
-                test: /\.svg$/,
-                issuer: {
-                    test: /\.jsx?$/
-                },
-                use: [
-                    {
-                        loader: '@svgr/webpack',
-                        options: {
-                            template: require('./src/tokens/icons/svgrTemplate'),
-                            ...svgrConfig
-                        }
-                    }
-                ]
             }
         ]
     },

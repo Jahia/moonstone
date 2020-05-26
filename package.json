@@ -25,7 +25,7 @@
         "tsc": "tsc",
         "build-icons": "svgr --template ./src/tokens/icons/svgrTemplate.js --config-file ./src/tokens/icons/svgr.config.json ./src/tokens/icons/assets --out-dir ./src/icons/assets",
         "index-icons": "create-index ./src/icons/assets -r -x svg && eslint --fix ./src/icons/assets/index.js",
-        "build": "yarn build:storybook && yarn build:lib",
+        "build": "yarn build:storybook && yarn build:lib && yarn webpack",
         "prebuild:lib": "rimraf dist/",
         "build:lib": "yarn build-icons && yarn compilejs && yarn tsc",
         "build:storybook": "build-storybook",
@@ -34,7 +34,7 @@
         "auto-publish": "npm publish && git push --follow-tags --set-upstream origin $branch",
         "auto-release": "auto changelog && yarn run auto-version && yarn run auto-publish && auto release"
     },
-    "main": "dist/index.js",
+    "main": "dist/lib/main.js",
     "module": "dist/index.js",
     "repository": "https://github.com/Jahia/moonstone.git",
     "sideEffects": false,
@@ -102,6 +102,8 @@
         "stylelint": "^12.0.0",
         "terser-webpack-plugin": "^2.2.1",
         "typescript": "^3.9.3",
+        "webpack": "^4.43.0",
+        "webpack-cli": "^3.3.11",
         "webpack-node-externals": "^1.7.2"
     }
 }
