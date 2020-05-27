@@ -3,7 +3,7 @@ import {Resizable} from 're-resizable';
 import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import styles from './ResizableBox.scss';
-import HandleResize from '~/icons/assets/HandleResize';
+import HandleResize from '~/icons/HandleResize';
 
 // WIP
 // const zones = ['top', 'right', 'bottom', 'left', 'topRight', 'bottomRight', 'bottomLeft', 'topLeft'];

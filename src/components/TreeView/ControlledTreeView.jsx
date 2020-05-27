@@ -1,9 +1,9 @@
 import classnames from 'clsx';
 import styles from './TreeView.scss';
-import Loading from '~/icons/assets/Loading';
-import ChevronDown from '~/icons/assets/ChevronDown';
-import ChevronRight from '~/icons/assets/ChevronRight';
-import {Typography} from '~/components';
+import Loading from '~/icons/Loading';
+import ChevronDown from '~/icons/ChevronDown';
+import ChevronRight from '~/icons/ChevronRight';
+import {Typography} from '~/components/Typography';
 import PropTypes from 'prop-types';
 import React from 'react';
 

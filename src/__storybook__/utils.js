@@ -1,4 +1,4 @@
-import * as Icons from '~/icons/assets';
+import * as Icons from '~/icons';
 export const iconsName = Object.keys(Icons);
 
 export function capitalize(string) {

@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import styles from './Breadcrumb.scss';
 import classnames from 'clsx';
-import {ChevronRight} from '~/icons/assets';
+import {ChevronRight} from '~/icons';
 
 export const Breadcrumb = ({children, className, ...props}) => {
     const classNames = classnames(

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Icons from '~/icons/assets';
+import * as Icons from '~/icons';
 
 // Create a component to display in storybook
 export const IconWrapper = ({iconName, size}) => {

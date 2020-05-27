@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import styles from './SecondaryNav.scss';
 import {ResizableBox} from '~/components/ResizableBox';
-import ChevronDoubleRight from '~/icons/assets/ChevronDoubleRight';
-import ChevronDoubleLeft from '~/icons/assets/ChevronDoubleLeft';
+import ChevronDoubleRight from '~/icons/ChevronDoubleRight';
+import ChevronDoubleLeft from '~/icons/ChevronDoubleLeft';
 
 export const SecondaryNav = ({header, children, isDefaultVisible, onToggled, className, ...props}) => {
     const [isVisible, setIsVisible] = useState(isDefaultVisible);
