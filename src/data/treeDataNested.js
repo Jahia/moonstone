@@ -6,7 +6,7 @@ export const treeDataNested = [
     {
         id: 'ROOT',
         label: 'Root',
-        iconStart: toIconComponent('https://image.flaticon.com/icons/svg/1973/1973617'),
+        iconStart: toIconComponent('https://image.flaticon.com/icons/svg/1973/1973617.svg'),
         isClosable: false,
         children: [
             {
