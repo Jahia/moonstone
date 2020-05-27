@@ -30,6 +30,8 @@ files.filter(file => (
         fx.mkdirSync(folder);
     }
 
+    result.code += '\n' + result.map.sources.map(m => '//# sourceMappingURL=' + m + '.map\n');
+
     fs.writeFileSync(target, result.code);
     fs.writeFileSync(target + '.map', JSON.stringify(result.map));
 
