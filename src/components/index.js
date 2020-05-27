@@ -21,4 +21,3 @@ export * from './Tab';
 export * from './TabItem';
 export * from './TreeView';
 export * from './Typography';
-export * from './Card';
