@@ -2,10 +2,10 @@ import React from 'react';
 import {shallow} from 'component-test-utils-react';
 import {ControlledTreeView} from './ControlledTreeView';
 import {UncontrolledTreeView} from './UncontrolledTreeView';
-import Love from '~/src/asset/Love';
-import Cloud from '~/src/asset/Cloud';
-import ChevronDown from '~/src/asset/ChevronDown';
-import ChevronRight from '~/src/asset/ChevronRight';
+import Love from '~/icons/Love';
+import Cloud from '~/icons/Cloud';
+import ChevronDown from '~/icons/ChevronDown';
+import ChevronRight from '~/icons/ChevronRight';
 import {toIconComponent} from '~/icons';
 
 const tree = [

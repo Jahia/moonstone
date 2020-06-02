@@ -1,7 +1,7 @@
 import React from 'react';
 import {shallow} from 'component-test-utils-react';
 import {Button, buttonColors, buttonSizes, buttonVariants} from './index';
-import Love from '~/src/asset/Love';
+import Love from '~/icons/Love';
 
 describe('Button', () => {
     it('should render', () => {
@@ -17,14 +17,14 @@ describe('Button', () => {
 
     it('should display the icon', () => {
         const button = shallow(<Button icon={<Love/>} onClick={() => {}}/>);
-        expect(button.querySelector('Svg').exists()).toBeTruthy();
+        expect(button.querySelector('SvgLove').exists()).toBeTruthy();
     });
 
     it('should have the specified label and an icon', () => {
         const label = 'Button Toto';
         const button = shallow(<Button label={label} icon={<Love/>} onClick={() => {}}/>);
         expect(button.html()).toContain(label);
-        expect(button.querySelector('Svg').exists()).toBeTruthy();
+        expect(button.querySelector('SvgLove').exists()).toBeTruthy();
     });
 
     it('should use the variant default', () => {

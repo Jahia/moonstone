@@ -1,7 +1,7 @@
 import React from 'react';
 import {shallow} from 'component-test-utils-react';
 import {TabItem, tabItemColors, tabItemSizes, tabItemVariants} from './index';
-import Love from '~/src/asset/Love';
+import Love from '~/icons/Love';
 
 describe('TabItem', () => {
     it('should render', () => {
@@ -17,14 +17,14 @@ describe('TabItem', () => {
 
     it('should display the icon', () => {
         const tabItem = shallow(<TabItem icon={<Love/>} onClick={() => {}}/>);
-        expect(tabItem.querySelector('Svg').exists()).toBeTruthy();
+        expect(tabItem.querySelector('SvgLove').exists()).toBeTruthy();
     });
 
     it('should have the specified label and an icon', () => {
         const label = 'tabItem Toto';
         const tabItem = shallow(<TabItem label={label} icon={<Love/>} onClick={() => {}}/>);
         expect(tabItem.html()).toContain(label);
-        expect(tabItem.querySelector('Svg').exists()).toBeTruthy();
+        expect(tabItem.querySelector('SvgLove').exists()).toBeTruthy();
     });
 
     it('should use the variant ghost', () => {
