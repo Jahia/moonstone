@@ -2,7 +2,8 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
-const svgrConfig = require('./src/tokens/icons/svgr.config.json');
+// The below isn't required anymore?
+// const svgrConfig = require('./src/tokens/icons/svgr.config.json');
 
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
