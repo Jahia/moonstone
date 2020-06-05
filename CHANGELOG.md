@@ -11,6 +11,19 @@
 
 ---
 
+# v0.16.0 (Fri Jun 05 2020)
+
+#### 🚀  Enhancement
+
+- MOON-53: Code Completion [#154](https://github.com/Jahia/moonstone/pull/154) ([@tdraier](https://github.com/tdraier) [@vindhya](https://github.com/vindhya))
+
+#### Authors: 2
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+- Vindhya ([@vindhya](https://github.com/vindhya))
+
+---
+
 # v0.15.11 (Mon Apr 27 2020)
 
 #### 🐛  Bug Fix
