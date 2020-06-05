@@ -5,7 +5,7 @@ import markdownNotes from './PrimaryNavItemsGroup.md';
 
 import {PrimaryNavItemsGroup} from './index';
 import {PrimaryNavItem} from '~/components/PrimaryNav/PrimaryNavItem';
-import Edit from '~/tokens/icons/asset/Edit.svg';
+import Edit from '~/icons/Edit';
 
 storiesOf('Components|PrimaryNavItemsGroup', module)
     .addParameters({

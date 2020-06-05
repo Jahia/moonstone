@@ -6,7 +6,7 @@ import storyStyles from '~/__storybook__/storybook.scss';
 
 import markdownNotes from './ButtonGroup.md';
 import {Button, buttonColors, buttonSizes, buttonVariants} from '~/components/Button';
-import {ChevronDown} from '~/tokens/icons';
+import {ChevronDown} from '~/icons';
 import {ButtonGroup} from './index';
 
 const colorValues = () => select('Color', buttonColors, 'default');

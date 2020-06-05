@@ -7,7 +7,7 @@ import storyStyles from '~/__storybook__/storybook.scss';
 import markdownNotes from './Breadcrumb.md';
 
 import {Breadcrumb, BreadcrumbItem} from '~/components';
-import {Love} from '~/tokens/icons';
+import {Love} from '~/icons';
 
 const numberItems = () => number('Number of items', 5);
 const label = () => text('Label', 'item');

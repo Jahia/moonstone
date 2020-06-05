@@ -4,9 +4,10 @@ import classnames from 'clsx';
 import styles from './Dropdown.scss';
 import spacings from '~/tokens/spacings/_spacings.scss';
 
-import {Menu, MenuItem, Typography} from '~/components';
+import {Menu, MenuItem} from '~/components/Menu';
+import {Typography} from '~/components/Typography';
 import {Separator} from '~/components/Separator';
-import {ChevronDown} from '~/tokens/icons';
+import {ChevronDown} from '~/icons';
 
 export const DropdownVariants = ['default', 'ghost'];
 export const DropdownSizes = ['small', 'medium'];

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Love, NoCloud} from '~/tokens/icons';
+import {Love, NoCloud} from '~/icons';
 import myStyles from '~/components/TreeView/TreeView.stories.scss';
 import {toIconComponent} from '~/icons/utils';
 

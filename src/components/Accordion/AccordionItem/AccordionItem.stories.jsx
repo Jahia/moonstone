@@ -5,7 +5,7 @@ import markdownNotes from './AccordionItem.md';
 
 import {Accordion} from '~/components/Accordion';
 import {AccordionItem} from './index';
-import Love from '~/tokens/icons/asset/Love.svg';
+import Love from '~/icons/Love';
 
 storiesOf('Components|Accordion/AccordionItem', module)
     .addParameters({

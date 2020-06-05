@@ -1,5 +1,5 @@
 import React from 'react';
-import {ListItem} from '~/components';
+import {ListItem} from '~/components/ListItem';
 import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import styles from './MenuItem.scss';

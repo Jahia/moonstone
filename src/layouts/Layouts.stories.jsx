@@ -6,7 +6,7 @@ import {LayoutApp} from './app';
 import {LayoutModule} from './module';
 import {treeData, treeDataNested} from '~/data';
 import {PrimaryNav, SecondaryNav, SecondaryNavHeader, Accordion, AccordionItem, TreeView} from '~/components';
-import {Bug, Love} from '~/tokens/icons';
+import {Bug, Love} from '~/icons';
 
 const accordionIds = ['01', '02', '03'];
 

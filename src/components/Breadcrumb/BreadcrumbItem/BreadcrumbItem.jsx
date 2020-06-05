@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './BreadcrumbItem.scss';
 import classnames from 'clsx';
-import {Button} from '~/components';
+import {Button} from '~/components/Button';
 
 export const BreadcrumbItem = ({className, ...props}) => (
     <li className={classnames(styles.breadcrumbItem, 'flexRow_center')}>

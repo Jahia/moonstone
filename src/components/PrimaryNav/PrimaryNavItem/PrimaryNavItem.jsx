@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './PrimaryNavItem.scss';
 import classnames from 'clsx';
 import {Typography, variants as typographyVariants} from '~/components/Typography';
-import {PrimaryNavContext} from '~/components';
+import {PrimaryNavContext} from '../PrimaryNav.context';
 
 // Internal component
 const Item = ({icon, label, textVariant, subtitle, button}) => (

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Folder, File, NoCloud} from '~/tokens/icons';
+import {Folder, File, NoCloud} from '~/icons';
 import {toIconComponent} from '~/icons/utils';
 
 export const treeDataNested = [

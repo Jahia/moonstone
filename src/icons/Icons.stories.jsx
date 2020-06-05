@@ -6,7 +6,7 @@ import {withKnobs, select, color} from '@storybook/addon-knobs';
 import storyStyles from '~/__storybook__/storybook.scss';
 
 import markdownNotes from './Icons.md';
-import * as Icons from './asset';
+import * as Icons from './assets';
 
 // Storybook knobs
 const iconsName = Object.keys(Icons);
