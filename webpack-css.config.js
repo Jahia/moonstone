@@ -2,6 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
+const svgrConfig = require('./src/tokens/icons/svgr.config.json');
 
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
@@ -13,10 +14,7 @@ const productionPlugins =
 const ComponentsConfig = {
     entry: './dist/index.js',
     output: {
-        filename: 'main.js',
-        path: path.resolve(__dirname, 'dist/lib'),
-        library: '',
-        libraryTarget: 'commonjs'
+        path: path.resolve(__dirname, 'tmp')
     },
     mode: 'development',
     devtool: 'source-map',
@@ -30,15 +28,10 @@ const ComponentsConfig = {
                 test: /\.scss$/i,
                 sideEffects: true,
                 use: [
-                    'style-loader',
+                    MiniCssExtractPlugin.loader,
                     // Translates CSS into CommonJS
                     {
-                        loader: 'css-loader',
-                        options: {
-                            modules: {
-                                mode: 'local'
-                            }
-                        }
+                        loader: 'css-loader'
                     },
                     // Compiles Sass to CSS
                     'sass-loader'
@@ -51,7 +44,10 @@ const ComponentsConfig = {
         ]
     },
     plugins: [
-        ...productionPlugins
+        ...productionPlugins,
+        new MiniCssExtractPlugin({
+            filename: '../dist/moonstone.css'
+        })
     ]
 };
 
