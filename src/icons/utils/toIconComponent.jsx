@@ -8,7 +8,7 @@ const toIconComponent = (icon, props) => {
         return React.createElement(Icons[icon], props);
     }
 
-    if (icon.startsWith('')) {
+    if (icon.startsWith('<svg')) {
         return <SvgWrapper svg={icon} {...props}/>;
     }
 
