@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './Breadcrumb.scss';
 import classnames from 'clsx';
 import {ChevronRight} from '~/icons';
+import {Separator} from '../Separator';
 
 export const Breadcrumb = ({children, className, ...props}) => {
     const classNames = classnames(
@@ -20,10 +21,11 @@ export const Breadcrumb = ({children, className, ...props}) => {
                         <Fragment key={item.key}>
                             {item}
 
-                            {index < allItems.length - 1 &&
-                            <li className={classnames(styles.breadcrumb_separator, 'flexRow_center', 'alignCenter')}>
-                                <ChevronRight aria-hidden/>
-                            </li>}
+                            {index < allItems.length - 2 ?
+                                <li className={classnames(styles.breadcrumb_separator, 'flexRow_center', 'alignCenter')}>
+                                    <ChevronRight aria-hidden/>
+                                </li> :
+                                index < allItems.length - 1 && <Separator variant="vertical"/>}
                         </Fragment>
                     ))
                 }
