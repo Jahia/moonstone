@@ -1,7 +1,7 @@
 const isTest = String(process.env.NODE_ENV) === 'test';
 
 module.exports = {
-    presets: [['@babel/preset-env', {modules: isTest ? 'commonjs' : false}], '@babel/preset-react'],
+    presets: [['@babel/preset-env', {modules: isTest ? 'commonjs' : false}], '@babel/preset-react', '@babel/preset-typescript'],
     sourceMaps: true,
     plugins: [
         ['module-resolver', {
@@ -10,6 +10,9 @@ module.exports = {
             alias: {
                 '~': './src'
             }
+        }],
+        ['babel-plugin-typescript-to-proptypes', {
+            comments: true
         }]
     ]
 };

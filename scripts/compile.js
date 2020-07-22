@@ -6,10 +6,7 @@ const glob = require('glob');
 const fx = require('mkdir-recursive');
 
 const files = [
-    ...glob.sync('**/*.js', {
-        cwd: 'src'
-    }),
-    ...glob.sync('**/*.jsx', {
+    ...glob.sync('**/*.[tj]s?(x)', {
         cwd: 'src'
     })
 ];
@@ -23,7 +20,7 @@ files.filter(file => (
 ).forEach(file => {
     let result = babel.transformFileSync(path.resolve('src', file));
 
-    let target = path.resolve('dist', file);
+    let target = path.resolve('dist', file).replace(/\.[tj]sx?$/, '.js');
     let folder = path.resolve(target, '..');
 
     if (!fs.existsSync(folder)) {
