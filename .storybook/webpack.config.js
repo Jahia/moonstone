@@ -5,6 +5,7 @@ const createCompiler = require('@storybook/addon-docs/mdx-compiler-plugin');
 module.exports = async ({config, mode}) => {
     // Add alias to import files easily
     config.resolve.alias['~'] = path.resolve(__dirname, '../src/');
+    config.resolve.extensions.push('.ts');
     config.resolve.extensions.push('.tsx');
     config.module.rules.push({
         test: /\.stories\.jsx?$/,
@@ -26,7 +27,7 @@ module.exports = async ({config, mode}) => {
         ],
     });
     config.module.rules.push({
-        test: /\.tsx$/,
+        test: /\.tsx?$/,
         sideEffects: true,
         use: [
             {
