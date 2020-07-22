@@ -16,10 +16,12 @@
         "test": "jest --ci --runInBand --coverage",
         "tdd": "jest --watch",
         "lint:js": "eslint --ext js,jsx,json .",
+        "lint:ts": "tslint 'src/**/*.ts?(x)'",
         "lint:scss": "stylelint './src/**/*.scss'",
         "lint:js:fix": "yarn lint:js --fix .",
         "lint:scss:fix": "yarn lint:scss --fix",
-        "lint:fix": "yarn lint:js:fix && yarn lint:scss:fix",
+        "lint:ts:fix": "tslint 'src/**/*.ts?(x)' --fix",
+        "lint:fix": "yarn lint:js:fix && yarn lint:scss:fix && yarn lint:ts:fix",
         "compilejs": "node ./scripts/compile.js",
         "tsc": "tsc --build tsconfig.json",
         "prebuild-icons": "node ./scripts/rename.js ./src/icons/index.js ./src/icons/tmp.js",
@@ -27,7 +29,7 @@
         "postbuild-icons": "node ./scripts/rename.js ./src/icons/index.js ./src/icons/assets.js && node ./scripts/rename.js ./src/icons/tmp.js ./src/icons/index.js",
         "build": "yarn build:storybook && yarn build:lib && yarn webpack",
         "prebuild:lib": "rimraf dist/",
-        "build:lib": "yarn compilejs && yarn tsc",
+        "build:lib": "yarn tsc && yarn compilejs",
         "build:storybook": "build-storybook",
         "auto": "auto",
         "auto-version": "npm version `auto version` -m 'Bump version to: %s [skip ci]'",
@@ -45,7 +47,7 @@
         }
     },
     "lint-staged": {
-        "src/**/*.{js,jsx,scss}": [
+        "src/**/*.{js,jsx,ts,tsx,scss}": [
             "yarn lint:fix",
             "git add"
         ]
@@ -55,6 +57,7 @@
         "@babel/core": "^7.6.4",
         "@babel/preset-env": "^7.6.2",
         "@babel/preset-react": "^7.0.0",
+        "@babel/preset-typescript": "^7.10.4",
         "@jahia/eslint-config": "^1.1.0",
         "@jahia/stylelint-config": "^0.0.2",
         "@storybook/addon-a11y": "^5.2.8",
@@ -76,6 +79,7 @@
         "babel-jest": "^24.9.0",
         "babel-loader": "^8.0.6",
         "babel-plugin-module-resolver": "^4.0.0",
+        "babel-plugin-typescript-to-proptypes": "^1.4.0",
         "component-test-utils-react": "^1.0.0-alpha.14",
         "css-loader": "^3.2.0",
         "eslint": "^6.7.2",
@@ -92,6 +96,7 @@
         "node-sass": "^4.13.0",
         "optimize-css-assets-webpack-plugin": "^5.0.3",
         "react": "^16.11.0",
+        "react-docgen-typescript-loader": "^3.7.2",
         "react-dom": "^16.11.0",
         "react-test-renderer": "^16.11.0",
         "rimraf": "^3.0.0",
@@ -101,6 +106,9 @@
         "style-loader": "^1.0.0",
         "stylelint": "^12.0.0",
         "terser-webpack-plugin": "^2.2.1",
+        "ts-loader": "^8.0.1",
+        "tslint": "^6.1.2",
+        "tslint-react": "^5.0.0",
         "typescript": "^3.9.3",
         "webpack": "^4.43.0",
         "webpack-cli": "^3.3.11",
