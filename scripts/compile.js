@@ -50,10 +50,6 @@ function copyFile(srcFolder, destFolder, file) {
     }
 }
 
-// Glob.sync('**/*.scss', {cwd: 'src'}).forEach(file => {
-//     copyFile('src', 'dist', file, file.slice(0, -3) + '.d.ts');
-// });
-
 glob.sync('**/*.ttf', {cwd: 'src'}).forEach(file => {
     copyFile('src', 'dist', file, file.slice(0, -3) + '.d.ts');
 });
