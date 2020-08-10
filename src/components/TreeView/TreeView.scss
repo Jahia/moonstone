@@ -13,26 +13,26 @@
     height: 32px;
     padding-right: var(--spacing-small);
 
-    color: var(--color-treeitem);
+    color: var(--color-treeItem);
 
-    background-color: var(--background-treeitem);
+    background-color: var(--background-treeItem);
     cursor: pointer;
 
     &:hover {
-        color: var(--color-treeitem_hover);
+        color: var(--color-treeItem_hover);
 
-        background-color: var(--background-treeitem_hover);
+        background-color: var(--background-treeItem_hover);
     }
 
     &.selected {
-        color: var(--color-treeitem_selected);
+        color: var(--color-treeItem_selected);
 
-        background-color: var(--background-treeitem_selected);
+        background-color: var(--background-treeItem_selected);
 
         &:hover {
-            color: var(--color-treeitem_selected_hover);
+            color: var(--color-treeItem_selected_hover);
 
-            background-color: var(--background-treeitem_selected_hover);
+            background-color: var(--background-treeItem_selected_hover);
         }
     }
 
