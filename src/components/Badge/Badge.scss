@@ -1,5 +1,5 @@
 .moonstone-badge {
-    color: let(--color-light);
+    color: var(--color-light);
 
     pointer-events: none;
 
@@ -10,7 +10,7 @@
         min-width: 20px;
         max-width: fit-content;
         height: 20px;
-        padding: let(--spacing-nano);
+        padding: var(--spacing-nano);
 
         border-radius: 2rem;
     }
@@ -23,14 +23,14 @@
     }
 
     &.color_accent {
-        background-color: let(--color-accent);
+        background-color: var(--color-accent);
     }
 
     &.color_danger {
-        background-color: let(--color-danger);
+        background-color: var(--color-danger);
     }
 
     &.color_success {
-        background-color: let(--color-success);
+        background-color: var(--color-success);
     }
 }

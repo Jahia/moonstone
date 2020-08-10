@@ -4,6 +4,6 @@
     overflow: hidden;
 
     &.reversed {
-        color: let(--color-light);
+        color: var(--color-light);
     }
 }

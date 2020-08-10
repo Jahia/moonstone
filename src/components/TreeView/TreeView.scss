@@ -1,52 +1,52 @@
 .moonstone-treeView_item {
     --color-treeItem: inherit;
-    --color-treeItem_hover: let(--color-dark);
-    --color-treeItem_selected: let(--color-light);
-    --color-treeItem_selected_hover: let(--color-light);
+    --color-treeItem_hover: var(--color-dark);
+    --color-treeItem_selected: var(--color-light);
+    --color-treeItem_selected_hover: var(--color-light);
     --background-treeItem: inherit;
-    --background-treeItem_hover: let(--color-gray_light40);
-    --background-treeItem_selected: let(--color-accent);
-    --background-treeItem_selected_hover: let(--color-accent);
+    --background-treeItem_hover: var(--color-gray_light40);
+    --background-treeItem_selected: var(--color-accent);
+    --background-treeItem_selected_hover: var(--color-accent);
 
     flex-wrap: nowrap;
 
     height: 32px;
-    padding-right: let(--spacing-small);
+    padding-right: var(--spacing-small);
 
-    color: let(--color-treeitem);
+    color: var(--color-treeitem);
 
-    background-color: let(--background-treeitem);
+    background-color: var(--background-treeitem);
     cursor: pointer;
 
     &:hover {
-        color: let(--color-treeitem_hover);
+        color: var(--color-treeitem_hover);
 
-        background-color: let(--background-treeitem_hover);
+        background-color: var(--background-treeitem_hover);
     }
 
     &.selected {
-        color: let(--color-treeitem_selected);
+        color: var(--color-treeitem_selected);
 
-        background-color: let(--background-treeitem_selected);
+        background-color: var(--background-treeitem_selected);
 
         &:hover {
-            color: let(--color-treeitem_selected_hover);
+            color: var(--color-treeitem_selected_hover);
 
-            background-color: let(--background-treeitem_selected_hover);
+            background-color: var(--background-treeitem_selected_hover);
         }
     }
 
     // Theme reversed
     &.reversed {
-        --color-treeItem: let(--color-gray_light);
-        --color-treeItem_hover: let(--color-light);
-        --background-treeItem_hover: let(--color-gray40);
+        --color-treeItem: var(--color-gray_light);
+        --color-treeItem_hover: var(--color-light);
+        --background-treeItem_hover: var(--color-gray40);
     }
 }
 
 .moonstone-treeView_itemIconStart,
 .moonstone-treeView_itemToggle {
-    margin-right: let(--spacing-nano);
+    margin-right: var(--spacing-nano);
 }
 
 .moonstone-treeView_itemIconStart {
@@ -55,7 +55,7 @@
 }
 
 .moonstone-treeView_itemIconEnd {
-    margin-left: let(--spacing-nano);
+    margin-left: var(--spacing-nano);
 }
 
 .moonstone-treeView_itemToggle {

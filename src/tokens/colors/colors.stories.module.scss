@@ -3,10 +3,10 @@
         content: "#{$value}";
 
         position: absolute;
-        bottom: let(--spacing-small);
+        bottom: var(--spacing-small);
         left: 0;
 
-        color: let(--color-gray60);
+        color: var(--color-gray60);
     }
 }
 
@@ -18,7 +18,7 @@
     align-items: center;
 
     & + & {
-        margin-top: let(--spacing-medium);
+        margin-top: var(--spacing-medium);
     }
 }
 
@@ -26,7 +26,7 @@
     width: 160px;
     height: 80px;
 
-    border: 1px solid let(--color-gray_light);
+    border: 1px solid var(--color-gray_light);
 }
 
 $colorsAccent: (
@@ -77,7 +77,7 @@ $colorsPalette: (
     .color-#{$name} {
         @include colorValue($name);
 
-        background-color: let(--color-#{$name});
+        background-color: var(--color-#{$name});
     }
 }
 
@@ -85,7 +85,7 @@ $colorsPalette: (
     .color-#{$name} {
         @include colorValue($name);
 
-        background-color: let(--color-#{$name});
+        background-color: var(--color-#{$name});
     }
 }
 
@@ -93,7 +93,7 @@ $colorsPalette: (
     .color-#{$name} {
         @include colorValue($name);
 
-        background-color: let(--color-#{$name});
+        background-color: var(--color-#{$name});
     }
 }
 
@@ -101,6 +101,6 @@ $colorsPalette: (
     .color-#{$name} {
         @include colorValue($name);
 
-        background-color: let(--color-#{$name});
+        background-color: var(--color-#{$name});
     }
 }

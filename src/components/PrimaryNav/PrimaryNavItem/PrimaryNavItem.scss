@@ -7,7 +7,7 @@
     height: 2.5rem;
     margin: 0.5rem;
 
-    color: let(--color-light);
+    color: var(--color-light);
 
     border-radius: 2rem;
     cursor: pointer;
@@ -15,14 +15,14 @@
     transition: color 0.2s, background-color 0.2s;
 
     &.selected {
-        color: let(--color-light);
+        color: var(--color-light);
 
-        background-color: let(--color-accent);
+        background-color: var(--color-accent);
         cursor: default;
     }
 
     &:not(.selected):hover {
-        background-color: let(--color-gray_dark60);
+        background-color: var(--color-gray_dark60);
     }
 }
 
@@ -35,7 +35,7 @@
     max-width: 100%; // Necessery to truncate text inside it
 
     &:hover {
-        color: let(--color-accent);
+        color: var(--color-accent);
     }
 }
 
@@ -59,14 +59,14 @@
     text-decoration: none;
 
     &.subtitle {
-        color: let(--color-light60);
+        color: var(--color-light60);
     }
 }
 
 .moonstone-primaryNavItem_badge {
     position: absolute;
-    top: calc(let(--spacing-nano) * -1);
-    right: calc(let(--spacing-nano) * -1);
+    top: calc(var(--spacing-nano) * -1);
+    right: calc(var(--spacing-nano) * -1);
 }
 
 .moonstone-primaryNavItem_textContainer {
@@ -74,7 +74,7 @@
     flex-direction: column;
     justify-content: center;
     overflow: hidden;
-    margin-left: let(--spacing-nano);
+    margin-left: var(--spacing-nano);
 }
 
 .moonstone-primaryNavItem_buttonContainer {
@@ -82,7 +82,7 @@
     flex-direction: column;
     justify-content: right;
     overflow: hidden;
-    margin: 0 let(--spacing-nano);
+    margin: 0 var(--spacing-nano);
 }
 
 .moonstone-primaryNavItem_linkItem {

@@ -6,10 +6,10 @@
 
 .moonstone-listItem_iconStart {
     display: flex;
-    margin-right: let(--spacing-nano);
+    margin-right: var(--spacing-nano);
 }
 
 .moonstone-listItem_iconEnd {
     display: flex;
-    margin-left: let(--spacing-nano);
+    margin-left: var(--spacing-nano);
 }

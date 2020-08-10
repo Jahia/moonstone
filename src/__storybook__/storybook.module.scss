@@ -4,10 +4,10 @@
     min-width: 600px;
     max-width: 100%;
     margin: 0 auto;
-    padding: let(--spacing-huge);
+    padding: var(--spacing-huge);
 
     &.dark {
-        background-color: let(--color-dark);
+        background-color: var(--color-dark);
     }
 }
 
@@ -21,7 +21,7 @@
     min-height: 80px;
 
     & + & {
-        margin-top: let(--spacing-medium);
+        margin-top: var(--spacing-medium);
     }
 }
 
@@ -40,7 +40,7 @@
     align-items: center;
     width: 130px;
     height: 72px;
-    margin: let(--spacing-big);
+    margin: var(--spacing-big);
 }
 
 .storyColumn {

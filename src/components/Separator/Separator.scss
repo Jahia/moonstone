@@ -1,6 +1,6 @@
 .moonstone-separator {
     border: 0;
-    background: let(--color-gray40);
+    background: var(--color-gray40);
 
     &.invisible_firstChild:first-child,
     &.invisible_lastChild:last-child,
@@ -16,11 +16,11 @@
 
     // Size's Separator
     &.size_medium {
-        width: calc(100% - let(--spacing-huge));
+        width: calc(100% - var(--spacing-huge));
     }
 
     &.size_large {
-        width: calc(100% - let(--spacing-medium));
+        width: calc(100% - var(--spacing-medium));
     }
 
     &.size_full {
@@ -33,15 +33,15 @@
     }
 
     &.spacing_small {
-        margin: let(--spacing-small) auto;
+        margin: var(--spacing-small) auto;
     }
 
     &.spacing_medium {
-        margin: let(--spacing-medium) auto;
+        margin: var(--spacing-medium) auto;
     }
 
     &.spacing_big {
-        margin: let(--spacing-big) auto;
+        margin: var(--spacing-big) auto;
     }
 }
 
@@ -51,13 +51,13 @@
 
     // Size's Separator
     &.size_medium {
-        margin-top: let(--spacing-small);
-        margin-bottom: let(--spacing-small);
+        margin-top: var(--spacing-small);
+        margin-bottom: var(--spacing-small);
     }
 
     &.size_large {
-        margin-top: let(--spacing-nano);
-        margin-bottom: let(--spacing-nano);
+        margin-top: var(--spacing-nano);
+        margin-bottom: var(--spacing-nano);
     }
 
     &.size_full {
@@ -72,17 +72,17 @@
     }
 
     &.spacing_small {
-        margin-right: let(--spacing-small);
-        margin-left: let(--spacing-small);
+        margin-right: var(--spacing-small);
+        margin-left: var(--spacing-small);
     }
 
     &.spacing_medium {
-        margin-right: let(--spacing-medium);
-        margin-left: let(--spacing-medium);
+        margin-right: var(--spacing-medium);
+        margin-left: var(--spacing-medium);
     }
 
     &.spacing_big {
-        margin-right: let(--spacing-big);
-        margin-left: let(--spacing-big);
+        margin-right: var(--spacing-big);
+        margin-left: var(--spacing-big);
     }
 }

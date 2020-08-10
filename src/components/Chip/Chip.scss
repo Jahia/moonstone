@@ -4,44 +4,44 @@
     align-items: center;
 
     height: 16px;
-    padding: 0 let(--spacing-small);
+    padding: 0 var(--spacing-small);
 
     border-radius: 40px;
 
     &.color_accent {
-        color: let(--color-accent_dark_contrast);
+        color: var(--color-accent_dark_contrast);
 
-        background-color: let(--color-accent_light40);
+        background-color: var(--color-accent_light40);
     }
 
     &.color_danger {
-        color: let(--color-gray_dark);
+        color: var(--color-gray_dark);
 
-        background-color: let(--color-danger40);
+        background-color: var(--color-danger40);
     }
 
     &.color_default {
-        color: let(--color-accent_dark);
+        color: var(--color-accent_dark);
 
-        background-color: let(--color-gray_light40);
+        background-color: var(--color-gray_light40);
     }
 
     &.color_success {
-        color: let(--color-gray_dark);
+        color: var(--color-gray_dark);
 
-        background-color: let(--color-success40);
+        background-color: var(--color-success40);
     }
 
     &.color_warning {
-        color: let(--color-gray_dark);
+        color: var(--color-gray_dark);
 
-        background-color: let(--color-warning40);
+        background-color: var(--color-warning40);
     }
 
     &.color_reassuring {
-        color: let(--color-gray_dark);
+        color: var(--color-gray_dark);
 
-        background-color: let(--color-purple40);
+        background-color: var(--color-purple40);
     }
 
     &.disabled {

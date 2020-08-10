@@ -3,10 +3,10 @@ $accordionHeader_height: 48px;
 .moonstone-accordionItem {
     min-height: $accordionHeader_height;
 
-    border-top: 1px solid let(--color-gray_light);
+    border-top: 1px solid var(--color-gray_light);
 
     overflow: hidden;
-    border-bottom: 1px solid let(--color-gray_light);
+    border-bottom: 1px solid var(--color-gray_light);
 
     &:only-child {
         border-bottom: none;
@@ -17,7 +17,7 @@ $accordionHeader_height: 48px;
     }
 
     &.reversed {
-        border-color: let(--color-gray);
+        border-color: var(--color-gray);
     }
 }
 
@@ -27,62 +27,62 @@ $accordionHeader_height: 48px;
 .moonstone-accordionItem_header {
     width: 100%;
     height: $accordionHeader_height;
-    padding: 0 let(--spacing-medium);
+    padding: 0 var(--spacing-medium);
 
-    background-color: let(--color-gray_light40);
+    background-color: var(--color-gray_light40);
 
     cursor: pointer;
 
     &.selected {
-        border-bottom: 1px solid let(--color-gray_light);
+        border-bottom: 1px solid var(--color-gray_light);
 
         cursor: default;
 
         &:focus {
-            color: let(--color-light);
+            color: var(--color-light);
 
-            background-color: let(--color-dark60);
+            background-color: var(--color-dark60);
         }
     }
 
     &:active {
-        background-color: let(--color-gray40);
+        background-color: var(--color-gray40);
     }
 
     &:focus,
     &:not(.selected):not(:active):hover {
-        color: let(--color-dark);
+        color: var(--color-dark);
 
-        background-color: let(--color-gray_light);
+        background-color: var(--color-gray_light);
     }
 
     &.reversed {
-        color: let(--color-light);
+        color: var(--color-light);
 
-        background-color: let(--color-dark60);
+        background-color: var(--color-dark60);
 
         &.selected {
-            color: let(--color-light);
+            color: var(--color-light);
 
-            border-color: let(--color-gray);
-            background-color: let(--color-dark60);
+            border-color: var(--color-gray);
+            background-color: var(--color-dark60);
         }
 
         &:active {
-            background-color: let(--color-black);
+            background-color: var(--color-black);
         }
 
         &:focus,
         &:not(.selected):not(:active):hover {
-            color: let(--color-light);
+            color: var(--color-light);
 
-            background-color: let(--color-gray40);
+            background-color: var(--color-gray40);
         }
     }
 }
 
 .moonstone-accordionItem_iconContainer {
-    margin-right: let(--spacing-small);
+    margin-right: var(--spacing-small);
 }
 
 // ---

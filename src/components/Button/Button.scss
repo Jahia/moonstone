@@ -13,7 +13,7 @@ $button-size_big: 32px;
     align-items: center;
     width: fit-content;
     height: $button-size_medium;
-    padding: 0 let(--spacing-small);
+    padding: 0 var(--spacing-small);
 
     font-family: inherit;
 
@@ -25,17 +25,17 @@ $button-size_big: 32px;
     &:hover,
     &:focus,
     &:active {
-        box-shadow: 0 let(--spacing-nano) let(--spacing-small) let(--color-dark20);
+        box-shadow: 0 var(--spacing-nano) var(--spacing-small) var(--color-dark20);
     }
 
     &.size_big {
         height: $button-size_big;
-        padding: 0 let(--spacing-medium);
+        padding: 0 var(--spacing-medium);
     }
 
     &.size_small {
         height: $button-size_small;
-        padding: 0 let(--spacing-nano);
+        padding: 0 var(--spacing-nano);
 
         > * {
             line-height: $button-size_small - 2px;
@@ -74,11 +74,11 @@ $button-size_big: 32px;
 
     &.icon {
         svg {
-            margin-right: let(--spacing-nano);
+            margin-right: var(--spacing-nano);
         }
 
         &.size_big svg {
-            margin-right: let(--spacing-small);
+            margin-right: var(--spacing-small);
         }
     }
 

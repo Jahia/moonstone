@@ -1,13 +1,13 @@
 @import '../../utils/index';
 
 .moonstone-secondaryNav {
-    color: let(--color-light);
+    color: var(--color-light);
 }
 
 .moonstone-secondaryNav_wrapper {
     position: relative;
 
-    background: let(--color-gray_dark);
+    background: var(--color-gray_dark);
 
     // Transition when it's expanding
     transition: max-width 0.4s ease-out;
@@ -15,8 +15,8 @@
 
 .moonstone-secondaryNav_buttonToggle {
     position: absolute;
-    top: let(--spacing-small);
-    right: let(--spacing-small);
+    top: var(--spacing-small);
+    right: var(--spacing-small);
     z-index: 1;
 
     display: flex;
@@ -28,7 +28,7 @@
     height: 24px;
     padding: 0;
 
-    color: let(--color-light);
+    color: var(--color-light);
 
     border: 0;
     border-radius: 24px;
@@ -38,7 +38,7 @@
     cursor: pointer;
 
     &:hover {
-        background-color: let(--color-accent);
+        background-color: var(--color-accent);
     }
 }
 
@@ -59,10 +59,10 @@
         position: fixed;
         left: 44px;
 
-        background-color: let(--color-dark);
+        background-color: var(--color-dark);
 
         &:hover {
-            background-color: let(--color-accent);
+            background-color: var(--color-accent);
         }
     }
 }

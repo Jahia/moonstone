@@ -10,7 +10,7 @@
 
     &:active,
     &:hover {
-        color: let(--color-accent);
+        color: var(--color-accent);
     }
 }
 

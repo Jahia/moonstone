@@ -7,13 +7,13 @@
 
     width: fit-content;
 
-    color: let(--color-gray_dark);
+    color: var(--color-gray_dark);
 
     border-radius: 4px;
 
     list-style: none;
-    background-color: let(--color-light);
-    box-shadow: 0 4px 8px let(--color-gray_dark60);
+    background-color: var(--color-light);
+    box-shadow: 0 4px 8px var(--color-gray_dark60);
     overflow-x: hidden; // Shorten property doesn't work with Safari
     overflow-y: auto;
 
