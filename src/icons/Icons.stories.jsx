@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import {storiesOf} from '@storybook/react';
 import {withKnobs, select, color} from '@storybook/addon-knobs';
-import storyStyles from '~/__storybook__/storybook.scss';
+import storyStyles from '~/__storybook__/storybook.module.scss';
 
 import markdownNotes from './Icons.md';
 import * as Icons from './assets';

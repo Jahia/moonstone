@@ -3,7 +3,7 @@ import {storiesOf} from '@storybook/react';
 import {withKnobs, select} from '@storybook/addon-knobs';
 import {optionsFromArray} from '~/__storybook__/utils';
 import classnames from 'classnames';
-import storyStyles from '~/__storybook__/storybook.scss';
+import storyStyles from '~/__storybook__/storybook.module.scss';
 
 import {Separator, SeparatorSizes, SeparatorSpacings, SeparatorInvisible, Typography} from '~/components';
 import markdownNotes from './Separator.md';

@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import styles from './PrimaryNavItem.scss';
+import './PrimaryNavItem.scss';
 import classnames from 'clsx';
 import {Typography, variants as typographyVariants} from '~/components/Typography';
 import {PrimaryNavContext} from '../PrimaryNav.context';
@@ -8,16 +8,16 @@ import {PrimaryNavContext} from '../PrimaryNav.context';
 // Internal component
 const Item = ({icon, label, textVariant, subtitle, button}) => (
     <>
-        <div className={classnames(styles.primaryNavItem_content)}>
-            <div className={classnames(styles.primaryNavItem_iconContainer)}>{icon &&
-            <icon.type {...icon.props} size="big"/>}
+        <div className={classnames('moonstone-primaryNavItem_content')}>
+            <div className={classnames('moonstone-primaryNavItem_iconContainer')}>
+                {icon && <icon.type {...icon.props} size="big"/>}
             </div>
 
-            <div className={classnames(styles.primaryNavItem_textContainer)}>
+            <div className={classnames('moonstone-primaryNavItem_textContainer')}>
                 <Typography isNowrap
                             variant={textVariant}
                             component="span"
-                            className={classnames(styles.primaryNavItem_label)}
+                            className={classnames('moonstone-primaryNavItem_label')}
                 >
                     {label}
                 </Typography>
@@ -25,14 +25,14 @@ const Item = ({icon, label, textVariant, subtitle, button}) => (
                 <Typography isNowrap
                             component="div"
                             variant="caption"
-                            className={classnames(styles.primaryNavItem_label, styles.subtitle)}
+                            className={classnames('moonstone-primaryNavItem_label', 'subtitle')}
                 >
                     {subtitle}
                 </Typography>}
             </div>
         </div>
         {button &&
-        <div className={classnames(styles.primaryNavItem_buttonContainer)}>
+        <div className={classnames('moonstone-primaryNavItem_buttonContainer')}>
             {button}
         </div>}
     </>
@@ -50,7 +50,7 @@ Item.propTypes = {
 const ItemTypeResolver = ({url, icon, label, subtitle, button}) => {
     if (url) {
         return (
-            <a className={classnames(styles.primaryNavItem, styles.primaryNavItem_linkItem)}
+            <a className={classnames('moonstone-primaryNavItem', 'moonstone-primaryNavItem_linkItem')}
                href={url}
                target="_blank"
                rel="noopener noreferrer"
@@ -79,8 +79,8 @@ export const PrimaryNavItem = ({label, icon, className, subtitle, url, button, i
     return (
         <li
             className={classnames(
-                styles.primaryNavItem,
-                {[styles.selected]: isSelected},
+                'moonstone-primaryNavItem',
+                {selected: isSelected},
                 className
             )}
             title={label}
@@ -93,7 +93,7 @@ export const PrimaryNavItem = ({label, icon, className, subtitle, url, button, i
             <ItemTypeResolver icon={icon} label={label} subtitle={subtitle} url={url} button={button}/>
 
             {badge &&
-            <badge.type className={classnames(styles.primaryNavItem_badge)}
+            <badge.type className={classnames('moonstone-primaryNavItem_badge')}
                         color="danger"
                         type="round"
                         label={badge.props.label}/>}

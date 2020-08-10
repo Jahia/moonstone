@@ -1,13 +1,13 @@
 @import 'variants/ghost';
 
-.tab-item {
+.moonstone-tab-item {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     width: fit-content;
-    margin: 0 var(--spacing-nano);
-    padding: var(--spacing-nano) var(--spacing-small);
+    margin: 0 let(--spacing-nano);
+    padding: let(--spacing-nano) let(--spacing-small);
 
     font-family: inherit;
 
@@ -19,15 +19,15 @@
     &:hover,
     &:focus,
     &:active {
-        box-shadow: 0 var(--spacing-nano) var(--spacing-small) var(--color-dark20);
+        box-shadow: 0 let(--spacing-nano) let(--spacing-small) let(--color-dark20);
     }
 
     &.size_big {
-        padding: var(--spacing-small) var(--spacing-medium);
+        padding: let(--spacing-small) let(--spacing-medium);
     }
 
     &.size_small {
-        padding: 0 var(--spacing-nano);
+        padding: 0 let(--spacing-nano);
     }
 
     &.variant_ghost {
@@ -35,26 +35,26 @@
     }
 
     &.icon-tab-item {
-        padding: var(--spacing-small);
+        padding: let(--spacing-small);
 
         border-radius: 40px;
 
         &.size_small {
-            padding: var(--spacing-nano);
+            padding: let(--spacing-nano);
         }
 
         &.size_default {
-            padding: var(--spacing-nano);
+            padding: let(--spacing-nano);
         }
     }
 
     &.icon {
         svg {
-            margin-right: var(--spacing-nano);
+            margin-right: let(--spacing-nano);
         }
 
         &.size_big svg {
-            margin-right: var(--spacing-small);
+            margin-right: let(--spacing-small);
         }
     }
 

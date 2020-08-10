@@ -6,7 +6,7 @@ import Love from '~/icons/Love';
 describe('TabItem', () => {
     it('should render', () => {
         const tabItem = shallow(<TabItem onClick={() => {}}/>);
-        expect(tabItem.html()).toEqual('<button class="tab-item size_default variant_ghost color_default icon-tab-item" disabled="false" onClick="[onClick]"><></></button>');
+        expect(tabItem.html()).toEqual('<button class="moonstone-tab-item size_default variant_ghost color_default icon-tab-item" disabled="false" onClick="[onClick]"><></></button>');
     });
 
     it('should have the specified label', () => {

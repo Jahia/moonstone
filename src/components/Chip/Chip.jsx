@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Chip.scss';
+import './Chip.scss';
 import {Typography} from '~/components/Typography';
 import classnames from 'clsx';
 
@@ -8,9 +8,9 @@ export const colors = ['default', 'accent', 'success', 'warning', 'danger', 'rea
 
 export const Chip = ({label, color, icon, className, isDisabled, ...props}) => (
     <div className={classnames(
-        styles.chip,
-        styles[`color_${color}`],
-        {[styles.disabled]: isDisabled},
+        'moonstone-chip',
+        `color_${color}`,
+        {disabled: isDisabled},
         className)}
          {...props}
     >

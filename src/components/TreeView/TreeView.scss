@@ -1,71 +1,71 @@
-.treeView_item {
+.moonstone-treeView_item {
     --color-treeItem: inherit;
-    --color-treeItem_hover: var(--color-dark);
-    --color-treeItem_selected: var(--color-light);
-    --color-treeItem_selected_hover: var(--color-light);
+    --color-treeItem_hover: let(--color-dark);
+    --color-treeItem_selected: let(--color-light);
+    --color-treeItem_selected_hover: let(--color-light);
     --background-treeItem: inherit;
-    --background-treeItem_hover: var(--color-gray_light40);
-    --background-treeItem_selected: var(--color-accent);
-    --background-treeItem_selected_hover: var(--color-accent);
+    --background-treeItem_hover: let(--color-gray_light40);
+    --background-treeItem_selected: let(--color-accent);
+    --background-treeItem_selected_hover: let(--color-accent);
 
     flex-wrap: nowrap;
 
     height: 32px;
-    padding-right: var(--spacing-small);
+    padding-right: let(--spacing-small);
 
-    color: var(--color-treeItem);
+    color: let(--color-treeitem);
 
-    background-color: var(--background-treeItem);
+    background-color: let(--background-treeitem);
     cursor: pointer;
 
     &:hover {
-        color: var(--color-treeItem_hover);
+        color: let(--color-treeitem_hover);
 
-        background-color: var(--background-treeItem_hover);
+        background-color: let(--background-treeitem_hover);
     }
 
     &.selected {
-        color: var(--color-treeItem_selected);
+        color: let(--color-treeitem_selected);
 
-        background-color: var(--background-treeItem_selected);
+        background-color: let(--background-treeitem_selected);
 
         &:hover {
-            color: var(--color-treeItem_selected_hover);
+            color: let(--color-treeitem_selected_hover);
 
-            background-color: var(--background-treeItem_selected_hover);
+            background-color: let(--background-treeitem_selected_hover);
         }
     }
 
     // Theme reversed
     &.reversed {
-        --color-treeItem: var(--color-gray_light);
-        --color-treeItem_hover: var(--color-light);
-        --background-treeItem_hover: var(--color-gray40);
+        --color-treeItem: let(--color-gray_light);
+        --color-treeItem_hover: let(--color-light);
+        --background-treeItem_hover: let(--color-gray40);
     }
 }
 
-.treeView_itemIconStart,
-.treeView_itemToggle {
-    margin-right: var(--spacing-nano);
+.moonstone-treeView_itemIconStart,
+.moonstone-treeView_itemToggle {
+    margin-right: let(--spacing-nano);
 }
 
-.treeView_itemIconStart {
+.moonstone-treeView_itemIconStart {
     min-width: 12px;
     min-height: 12px;
 }
 
-.treeView_itemIconEnd {
-    margin-left: var(--spacing-nano);
+.moonstone-treeView_itemIconEnd {
+    margin-left: let(--spacing-nano);
 }
 
-.treeView_itemToggle {
+.moonstone-treeView_itemToggle {
     width: 16px;
     height: 16px;
 
     cursor: pointer;
 }
 
-.treeView_itemLabel {
+.moonstone-treeView_itemLabel {
     align-self: stretch;
     min-width: 0;
 }

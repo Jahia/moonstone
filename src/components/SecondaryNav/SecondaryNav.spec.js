@@ -45,15 +45,15 @@ describe('SecondaryNav', () => {
     it('should show the navigation by clicking on expand button when the menu is hidden', () => {
         const wrapper = shallow(<SecondaryNav isDefaultVisible={false} header="my header">hello</SecondaryNav>);
 
-        wrapper.querySelector('.secondaryNav_buttonToggle').dispatchEvent('click');
-        expect(wrapper.html()).not.toContain('secondaryNav_hidden');
+        wrapper.querySelector('.moonstone-secondaryNav_buttonToggle').dispatchEvent('click');
+        expect(wrapper.html()).not.toContain('moonstone-secondaryNav_hidden');
     });
 
     it('should hide the navigation by clicking on expand button when the menu is visible', () => {
         const wrapper = shallow(<SecondaryNav header="my header">hello</SecondaryNav>);
 
-        wrapper.querySelector('.secondaryNav_buttonToggle').dispatchEvent('click');
-        expect(wrapper.html()).toContain('secondaryNav_hidden');
+        wrapper.querySelector('.moonstone-secondaryNav_buttonToggle').dispatchEvent('click');
+        expect(wrapper.html()).toContain('moonstone-secondaryNav_hidden');
     });
 
     it('should not throw error when there is no onToggled defined', () => {
@@ -62,7 +62,7 @@ describe('SecondaryNav', () => {
         );
 
         // No error should occur when there is no onClick defined
-        wrapper.querySelector('.secondaryNav_buttonToggle').dispatchEvent('click');
+        wrapper.querySelector('.moonstone-secondaryNav_buttonToggle').dispatchEvent('click');
     });
 
     it('should call onToggled when clicking on expand button', () => {
@@ -71,7 +71,7 @@ describe('SecondaryNav', () => {
             <SecondaryNav header="my header" onToggled={clickHandler}>hello</SecondaryNav>
         );
 
-        wrapper.querySelector('.secondaryNav_buttonToggle').dispatchEvent('click');
+        wrapper.querySelector('.moonstone-secondaryNav_buttonToggle').dispatchEvent('click');
         expect(clickHandler).toHaveBeenCalled();
     });
 });

@@ -3,7 +3,7 @@ import {storiesOf} from '@storybook/react';
 import {ImgWrapper, ImgWrapperSize} from './ImgWrapper';
 import markdownNotes from './ImgWrapper.md';
 import {select, text, withKnobs} from '@storybook/addon-knobs';
-import storyStyles from '~/__storybook__/storybook.scss';
+import storyStyles from '~/__storybook__/storybook.module.scss';
 
 const sizeValues = () => select('Size', ImgWrapperSize, 'default');
 const urlValue = () => text('URL to an image', 'https://www.jahia.com/modules/jahiacom-templates/images/favicon/favicon.ico');

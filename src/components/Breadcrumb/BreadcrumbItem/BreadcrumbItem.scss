@@ -1,8 +1,8 @@
-.breadcrumbItem {
+.moonstone-breadcrumbItem {
     min-width: 0;
 
     & + & {
-        margin-left: var(--spacing-small);
+        margin-left: let(--spacing-small);
     }
 
     > * {

@@ -3,7 +3,7 @@
 $primaryNavExpanded: 300px;
 $primaryNav: 56px;
 
-.logoCaptionGroup {
+.moonstone-logoCaptionGroup {
     padding-right: 2.5rem;
 
     visibility: hidden;
@@ -12,7 +12,7 @@ $primaryNav: 56px;
     transition: visibility 0.15s, opacity 0.2s;
 }
 
-.primaryNav {
+.moonstone-primaryNav {
     position: fixed;
     top: 0;
     left: 0;
@@ -21,9 +21,9 @@ $primaryNav: 56px;
     width: $primaryNav;
     height: 100vh;
 
-    color: var(--color-light);
+    color: let(--color-light);
 
-    background: var(--color-dark);
+    background: let(--color-dark);
     overflow: hidden;
 
     transition: width 0.3s;
@@ -33,43 +33,43 @@ $primaryNav: 56px;
 
         width: $primaryNavExpanded;
 
-        box-shadow: 8px 0 16px 0 var(--color-gray_dark60);
+        box-shadow: 8px 0 16px 0 let(--color-gray_dark60);
 
-        .logoCaptionGroup {
+        .moonstone-logoCaptionGroup {
             visibility: visible;
             opacity: 1;
         }
     }
 }
 
-.overlay {
+.moonstone-overlay {
     position: fixed;
     z-index: 800;
 
     width: 100vw;
     height: 100vh;
 
-    background-color: var(--color-dark);
+    background-color: let(--color-dark);
     opacity: 0.6;
 }
 
-.navHeader {
+.moonstone-navHeader {
     height: $primaryNav;
 }
 
-.navButtonContainer {
+.moonstone-navButtonContainer {
     width: $primaryNav;
     min-width: $primaryNav;
 }
 
-.navButton {
+.moonstone-navButton {
     z-index: 9000;
 
     width: 40px;
     height: 40px;
     padding: 0;
 
-    color: var(--color-light);
+    color: let(--color-light);
 
     border: none;
     border-radius: 40px;
@@ -78,36 +78,36 @@ $primaryNav: 56px;
     cursor: pointer;
 
     &:hover {
-        color: var(--color-accent);
+        color: let(--color-accent);
 
-        background-color: var(--color-gray_dark60);
+        background-color: let(--color-gray_dark60);
     }
 }
 
-.modeIcon {
+.moonstone-modeIcon {
     position: absolute;
-    top: calc(var(--spacing-nano) * 3);
-    right: calc(var(--spacing-nano) * 2);
+    top: calc(let(--spacing-nano) * 3);
+    right: calc(let(--spacing-nano) * 2);
 
-    color: var(--color-accent);
+    color: let(--color-accent);
 
     pointer-events: none;
 }
 
-.modeIconHeader {
+.moonstone-modeIconHeader {
     width: 15px;
     height: 15px;
 
-    color: var(--color-accent);
+    color: let(--color-accent);
 
     pointer-events: none;
 }
 
-.headerCaption {
+.moonstone-headerCaption {
     @include truncate;
 
     margin-left: 40px;
 
     font-size: 8pt;
-    color: var(--color-light);
+    color: let(--color-light);
 }

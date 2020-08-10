@@ -1,6 +1,6 @@
 import React from 'react';
 import {Love, NoCloud} from '~/icons';
-import myStyles from '~/components/TreeView/TreeView.stories.scss';
+import myStyles from '~/components/TreeView/TreeView.stories.module.scss';
 import {toIconComponent} from '~/icons/utils';
 
 export const treeData = [

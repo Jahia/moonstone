@@ -1,11 +1,11 @@
 @import '../../utils/index';
 
-.typography {
+.moonstone-typography {
     &.variant_title {
         font-weight: 300;
-        font-size: 1.75rem; //28px
+        font-size: 1.75rem; // 28px
         font-feature-settings: 'ordn' on, 'liga' off;
-        line-height: 2rem; //32px;
+        line-height: 2rem; // 32px;
 
         &::first-letter {
             text-transform: capitalize;
@@ -14,28 +14,28 @@
 
     &.variant_heading {
         font-weight: 600;
-        font-size: 1.25rem; //20px;
-        line-height: 1.5rem; //24px;
+        font-size: 1.25rem; // 20px;
+        line-height: 1.5rem; // 24px;
     }
 
     &.variant_subheading {
-        font-size: 1rem; //16px;
-        line-height: 1.125rem; //18px;
+        font-size: 1rem; // 16px;
+        line-height: 1.125rem; // 18px;
     }
 
     &.variant_body {
-        font-size: 0.875rem; //14px;
-        line-height: 1.1875rem; //19px;
+        font-size: 0.875rem; // 14px;
+        line-height: 1.1875rem; // 19px;
     }
 
     &.variant_caption {
-        font-size: 0.75rem; //12px;
-        line-height: 1rem; //16px;
+        font-size: 0.75rem; // 12px;
+        line-height: 1rem; // 16px;
     }
 
     &.variant_button {
-        font-size: 0.75rem; //12px;
-        line-height: 1rem; //16px;
+        font-size: 0.75rem; // 12px;
+        line-height: 1rem; // 16px;
     }
 
     &.weight_bold {

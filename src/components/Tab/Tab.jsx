@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Tab.scss';
+import './Tab.scss';
 import classnames from 'clsx';
 
 export const Tab = ({children, className, ...props}) => {
@@ -8,7 +8,7 @@ export const Tab = ({children, className, ...props}) => {
         <div
             {...props}
             className={classnames(
-                styles.tab,
+                'moonstone-tab',
                 'flexRow_center',
                 'alignCenter',
                 className

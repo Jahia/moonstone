@@ -1,0 +1,11 @@
+@import "./spacing.json";
+
+:root {
+    // Spacings
+    --spacing-nano: #{$spacing-nano};
+    --spacing-small: #{$spacing-small}; // 8px
+    --spacing-medium: #{$spacing-medium}; // 16px
+    --spacing-large: #{$spacing-large}; // 24px
+    --spacing-big: #{$spacing-big}; // 40px
+    --spacing-huge: #{$spacing-huge}; // 56px
+}

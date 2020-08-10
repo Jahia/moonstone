@@ -1,13 +1,13 @@
 @import '../../utils/index';
 
-.dropdown_icon {
+.moonstone-dropdown_icon {
     display: flex;
-    margin-right: var(--spacing-nano);
+    margin-right: let(--spacing-nano);
 }
 
-.dropdown_label {
-    padding-right: var(--spacing-small);
-    padding-left: var(--spacing-small);
+.moonstone-dropdown_label {
+    padding-right: let(--spacing-small);
+    padding-left: let(--spacing-small);
 
     border-radius: 2px;
     cursor: pointer;
@@ -15,43 +15,43 @@
     transition: background 0.2s ease-in-out;
 
     &:hover {
-        color: var(--color-accent);
+        color: let(--color-accent);
     }
 
     &:active {
-        color: var(--color-light);
+        color: let(--color-light);
 
-        background-color: var(--color-accent);
+        background-color: let(--color-accent);
     }
 
     &:focus {
         outline: none;
-        box-shadow: inset 0 0 0 2px var(--color-accent);
+        box-shadow: inset 0 0 0 2px let(--color-accent);
     }
 
     // ---
     // Manage size variants
     // ---
     &.small {
-        padding-top: var(--spacing-nano);
-        padding-bottom: var(--spacing-nano);
+        padding-top: let(--spacing-nano);
+        padding-bottom: let(--spacing-nano);
     }
 
     &.medium {
-        padding-top: var(--spacing-small);
-        padding-bottom: var(--spacing-small);
+        padding-top: let(--spacing-small);
+        padding-bottom: let(--spacing-small);
     }
 }
 
 // ---
 // Dropdown states
 // ---
-.dropdown {
+.moonstone-dropdown {
     &.opened {
-        .dropdown_label {
-            color: var(--color-light);
+        .moonstone-dropdown_label {
+            color: let(--color-light);
 
-            background-color: var(--color-accent);
+            background-color: let(--color-accent);
         }
     }
 
@@ -59,7 +59,7 @@
         @include is-disabled;
 
         &:hover {
-            .dropdown_label {
+            .moonstone-dropdown_label {
                 pointer-events: none;
             }
         }

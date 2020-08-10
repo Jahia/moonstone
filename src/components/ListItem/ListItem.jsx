@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'clsx';
-import styles from './ListItem.scss';
-import {Typography} from '../Typography/Typography';
+import './ListItem.scss';
+import {Typography} from '~/components/Typography';
 
 export const ListItem = ({label, isHtml, iconStart, iconEnd, className, ...props}) => {
     const cssListItem = classnames(
         className,
-        styles.listItem,
+        'moonstone-listItem',
         'flexRow',
         'alignCenter'
     );
@@ -18,14 +18,14 @@ export const ListItem = ({label, isHtml, iconStart, iconEnd, className, ...props
         >
             {
             iconStart &&
-                <iconStart.type {...iconStart.props} size="small" className={classnames(styles.listItem_iconStart)}/>
+                <iconStart.type {...iconStart.props} size="small" className={classnames('moonstone-listItem_iconStart')}/>
             }
 
             <Typography isNowrap isHtml={isHtml} className={classnames('flexFluid')} component="span">{label}</Typography>
 
             {
             iconEnd &&
-                <iconEnd.type {...iconEnd.props} size="small" className={classnames(styles.listItem_iconEnd)}/>
+                <iconEnd.type {...iconEnd.props} size="small" className={classnames('moonstone-listItem_iconEnd')}/>
             }
         </li>
     );

@@ -15,7 +15,7 @@ $color-red-dark: 194, 23, 41;
 $color-yellow: 232, 182, 6;
 $color-purple: 112, 24, 224;
 
-:global(:root) {
+:root {
     // Accent
     --color-accent: rgb(#{$color-blue});
     --color-accent40: rgba(#{$color-blue}, 0.4);

@@ -3,7 +3,7 @@ import {storiesOf} from '@storybook/react';
 import {withKnobs, number, text} from '@storybook/addon-knobs';
 import {action} from '@storybook/addon-actions';
 import classnames from 'clsx';
-import storyStyles from '~/__storybook__/storybook.scss';
+import storyStyles from '~/__storybook__/storybook.module.scss';
 import markdownNotes from './Breadcrumb.md';
 
 import {Breadcrumb, BreadcrumbItem} from '~/components';
@@ -75,4 +75,3 @@ storiesOf('Components|Breadcrumb', module)
             </section>
         );
     });
-

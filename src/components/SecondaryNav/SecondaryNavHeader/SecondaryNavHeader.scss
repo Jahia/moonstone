@@ -1,12 +1,12 @@
 @import '../../../utils/index';
 
-.secondaryNavHeader {
+.moonstone-secondaryNavHeader {
     @include truncate;
 
     width: 100%;
     min-height: 3em;
 
-    padding: var(--spacing-nano);
+    padding: let(--spacing-nano);
 
     font-size: 20px;
 }

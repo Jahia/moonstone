@@ -6,7 +6,7 @@ import Love from '~/icons/Love';
 describe('Button', () => {
     it('should render', () => {
         const button = shallow(<Button onClick={() => {}}/>);
-        expect(button.html()).toEqual('<button class="button size_default variant_default color_default icon-button" type="button" disabled="false" onClick="[onClick]"></button>');
+        expect(button.html()).toEqual('<button class="moonstone-button size_default variant_default color_default icon-button" type="button" disabled="false" onClick="[onClick]"></button>');
     });
 
     it('should have the specified label', () => {

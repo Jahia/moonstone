@@ -1,5 +1,5 @@
 import classnames from 'clsx';
-import styles from './TreeView.scss';
+import './TreeView.scss';
 import Loading from '~/icons/Loading';
 import ChevronDown from '~/icons/ChevronDown';
 import ChevronRight from '~/icons/ChevronRight';
@@ -52,10 +52,10 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
             const cssTreeViewItem = classnames(
                 'flexRow_between',
                 'alignCenter',
-                styles.treeView_item,
+                'moonstone-treeView_item',
                 {
-                    [styles.selected]: isSelected,
-                    [styles.reversed]: isReversed
+                    selected: isSelected,
+                    reversed: isReversed
                 }
             );
 
@@ -77,7 +77,7 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
             const displayIconOrLoading = icon => {
                 const i = isLoading ? <Loading size="big" className="moonstone-icon_isLoading"/> : icon;
 
-                return displayIcon(i, 'default', styles.treeView_itemIconEnd);
+                return displayIcon(i, 'default', 'moonstone-treeView_itemIconEnd');
             };
 
             // TreeItem has child
@@ -95,22 +95,22 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
                             {/* Icon arrow */}
                             {isClosable && hasChild &&
                                 <div
-                                    className={classnames('flexRow', 'alignCenter', styles.treeView_itemToggle)}
+                                    className={classnames('flexRow', 'alignCenter', 'moonstone-treeView_itemToggle')}
                                     onClick={toggleNode}
                                 >
                                     {isOpen ? <ChevronDown/> : <ChevronRight/>}
                                 </div>}
                             {!isFlatData && !hasChild &&
-                                <div className={classnames('flexRow', 'alignCenter', styles.treeView_itemToggle)}/>}
+                                <div className={classnames('flexRow', 'alignCenter', 'moonstone-treeView_itemToggle')}/>}
 
                             {/* TreeViewItem */}
                             <div
-                                className={classnames('flexRow_nowrap', 'alignCenter', 'flexFluid', styles.treeView_itemLabel, node.className)}
+                                className={classnames('flexRow_nowrap', 'alignCenter', 'flexFluid', 'moonstone-treeView_itemLabel', node.className)}
                                 onClick={handleNodeClick}
                                 onDoubleClick={handleNodeDoubleClick}
                                 onContextMenu={handleNodeContextMenu}
                             >
-                                {displayIcon(node.iconStart, 'small', styles.treeView_itemIconStart, parentHasIconStart)}
+                                {displayIcon(node.iconStart, 'small', 'moonstone-treeView_itemIconStart', parentHasIconStart)}
                                 <Typography isNowrap
                                             className={classnames('flexFluid')}
                                             component="span"
@@ -206,4 +206,3 @@ ControlledTreeView.defaultProps = {
     selectedItems: [],
     isReversed: false
 };
-

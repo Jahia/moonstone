@@ -1,4 +1,4 @@
-.primaryNavItem {
+.moonstone-primaryNavItem {
     position: relative;
 
     display: flex;
@@ -7,7 +7,7 @@
     height: 2.5rem;
     margin: 0.5rem;
 
-    color: var(--color-light);
+    color: let(--color-light);
 
     border-radius: 2rem;
     cursor: pointer;
@@ -15,18 +15,18 @@
     transition: color 0.2s, background-color 0.2s;
 
     &.selected {
-        color: var(--color-light);
+        color: let(--color-light);
 
-        background-color: var(--color-accent);
+        background-color: let(--color-accent);
         cursor: default;
     }
 
     &:not(.selected):hover {
-        background-color: var(--color-gray_dark60);
+        background-color: let(--color-gray_dark60);
     }
 }
 
-.primaryNavItem_content {
+.moonstone-primaryNavItem_content {
     display: flex;
     flex: 1;
     justify-content: flex-start;
@@ -35,17 +35,17 @@
     max-width: 100%; // Necessery to truncate text inside it
 
     &:hover {
-        color: var(--color-accent);
+        color: let(--color-accent);
     }
 }
 
-.selected {
+.moonstone-selected {
     .primaryNavItem_content:hover {
         color: currentColor;
     }
 }
 
-.primaryNavItem_iconContainer {
+.moonstone-primaryNavItem_iconContainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -54,38 +54,38 @@
     height: 2.5rem;
 }
 
-.primaryNavItem_label {
+.moonstone-primaryNavItem_label {
     color: inherit;
     text-decoration: none;
 
     &.subtitle {
-        color: var(--color-light60);
+        color: let(--color-light60);
     }
 }
 
-.primaryNavItem_badge {
+.moonstone-primaryNavItem_badge {
     position: absolute;
-    top: calc(var(--spacing-nano) * -1);
-    right: calc(var(--spacing-nano) * -1);
+    top: calc(let(--spacing-nano) * -1);
+    right: calc(let(--spacing-nano) * -1);
 }
 
-.primaryNavItem_textContainer {
+.moonstone-primaryNavItem_textContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
     overflow: hidden;
-    margin-left: var(--spacing-nano);
+    margin-left: let(--spacing-nano);
 }
 
-.primaryNavItem_buttonContainer {
+.moonstone-primaryNavItem_buttonContainer {
     display: flex;
     flex-direction: column;
     justify-content: right;
     overflow: hidden;
-    margin: 0 var(--spacing-nano);
+    margin: 0 let(--spacing-nano);
 }
 
-.primaryNavItem_linkItem {
+.moonstone-primaryNavItem_linkItem {
     width: 100%;
     margin: 0;
 }

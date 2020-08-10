@@ -1,94 +1,94 @@
 $accordionHeader_height: 48px;
 
-.accordionItem {
+.moonstone-accordionItem {
     min-height: $accordionHeader_height;
 
-    border-top: 1px solid var(--color-gray_light);
+    border-top: 1px solid let(--color-gray_light);
 
     overflow: hidden;
-    border-bottom: 1px solid var(--color-gray_light);
+    border-bottom: 1px solid let(--color-gray_light);
 
     &:only-child {
         border-bottom: none;
     }
 
-    & + .accordionItem {
+    & + .moonstone-accordionItem {
         border-top: 0;
     }
 
     &.reversed {
-        border-color: var(--color-gray);
+        border-color: let(--color-gray);
     }
 }
 
-//---
+// ---
 // Header
-//---
-.accordionItem_header {
+// ---
+.moonstone-accordionItem_header {
     width: 100%;
     height: $accordionHeader_height;
-    padding: 0 var(--spacing-medium);
+    padding: 0 let(--spacing-medium);
 
-    background-color: var(--color-gray_light40);
+    background-color: let(--color-gray_light40);
 
     cursor: pointer;
 
     &.selected {
-        border-bottom: 1px solid var(--color-gray_light);
+        border-bottom: 1px solid let(--color-gray_light);
 
         cursor: default;
 
         &:focus {
-            color: var(--color-light);
+            color: let(--color-light);
 
-            background-color: var(--color-dark60);
+            background-color: let(--color-dark60);
         }
     }
 
     &:active {
-        background-color: var(--color-gray40);
+        background-color: let(--color-gray40);
     }
 
     &:focus,
     &:not(.selected):not(:active):hover {
-        color: var(--color-dark);
+        color: let(--color-dark);
 
-        background-color: var(--color-gray_light);
+        background-color: let(--color-gray_light);
     }
 
     &.reversed {
-        color: var(--color-light);
+        color: let(--color-light);
 
-        background-color: var(--color-dark60);
+        background-color: let(--color-dark60);
 
         &.selected {
-            color: var(--color-light);
+            color: let(--color-light);
 
-            border-color: var(--color-gray);
-            background-color: var(--color-dark60);
+            border-color: let(--color-gray);
+            background-color: let(--color-dark60);
         }
 
         &:active {
-            background-color: var(--color-black);
+            background-color: let(--color-black);
         }
 
         &:focus,
         &:not(.selected):not(:active):hover {
-            color: var(--color-light);
+            color: let(--color-light);
 
-            background-color: var(--color-gray40);
+            background-color: let(--color-gray40);
         }
     }
 }
 
-.accordionItem_iconContainer {
-    margin-right: var(--spacing-small);
+.moonstone-accordionItem_iconContainer {
+    margin-right: let(--spacing-small);
 }
 
-//---
+// ---
 // Content
-//---
-.accordionItem_content {
+// ---
+.moonstone-accordionItem_content {
     max-width: 100%;
 
     overflow-x: hidden;

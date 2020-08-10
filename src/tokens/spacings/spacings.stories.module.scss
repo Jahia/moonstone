@@ -1,10 +1,10 @@
 $spacings: (
-    "nano": var(--spacing-nano),
-    "small": var(--spacing-small),
-    "medium": var(--spacing-medium),
-    "large": var(--spacing-large),
-    "big": var(--spacing-big),
-    "huge": var(--spacing-huge)
+    "nano": let(--spacing-nano),
+    "small": let(--spacing-small),
+    "medium": let(--spacing-medium),
+    "large": let(--spacing-large),
+    "big": let(--spacing-big),
+    "huge": let(--spacing-huge)
 );
 
 @function spacing($spacingName) {
@@ -22,10 +22,10 @@ $spacings: (
         content: "#{$value}";
 
         position: absolute;
-        bottom: var(--spacing-small);
+        bottom: let(--spacing-small);
         left: 0;
 
-        color: var(--color-gray60);
+        color: let(--color-gray60);
     }
 }
 
@@ -36,6 +36,6 @@ $spacings: (
         width: $spacingValue;
         height: $spacingValue;
 
-        background-color: var(--color-accent);
+        background-color: let(--color-accent);
     }
 }

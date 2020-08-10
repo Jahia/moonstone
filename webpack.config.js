@@ -2,8 +2,8 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
-
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const jsonImporter = require('node-sass-json-importer');
 
 const productionPlugins =
   process.env.WEBPACK_MODE === 'production' ?
@@ -27,21 +27,22 @@ const ComponentsConfig = {
     module: {
         rules: [
             {
-                test: /\.scss$/i,
+                test: /\.css$/i,
+                exclude: /\.module\.scss$/i,
                 sideEffects: true,
                 use: [
                     'style-loader',
-                    // Translates CSS into CommonJS
+                    'css-loader',
                     {
-                        loader: 'css-loader',
+                        loader: 'sass-loader',
                         options: {
-                            modules: {
-                                mode: 'local'
+                            sassOptions: {
+                                importer: jsonImporter({
+                                    convertCase: true
+                                })
                             }
                         }
-                    },
-                    // Compiles Sass to CSS
-                    'sass-loader'
+                    }
                 ]
             },
             {

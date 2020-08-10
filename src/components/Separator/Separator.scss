@@ -1,6 +1,6 @@
-.separator {
+.moonstone-separator {
     border: 0;
-    background: var(--color-gray40);
+    background: let(--color-gray40);
 
     &.invisible_firstChild:first-child,
     &.invisible_lastChild:last-child,
@@ -11,16 +11,16 @@
     }
 }
 
-.separator_horizontal {
+.moonstone-separator_horizontal {
     height: 1px;
 
     // Size's Separator
     &.size_medium {
-        width: calc(100% - var(--spacing-huge));
+        width: calc(100% - let(--spacing-huge));
     }
 
     &.size_large {
-        width: calc(100% - var(--spacing-medium));
+        width: calc(100% - let(--spacing-medium));
     }
 
     &.size_full {
@@ -33,31 +33,31 @@
     }
 
     &.spacing_small {
-        margin: var(--spacing-small) auto;
+        margin: let(--spacing-small) auto;
     }
 
     &.spacing_medium {
-        margin: var(--spacing-medium) auto;
+        margin: let(--spacing-medium) auto;
     }
 
     &.spacing_big {
-        margin: var(--spacing-big) auto;
+        margin: let(--spacing-big) auto;
     }
 }
 
-.separator_vertical {
+.moonstone-separator_vertical {
     align-self: stretch;
     width: 1px;
 
     // Size's Separator
     &.size_medium {
-        margin-top: var(--spacing-small);
-        margin-bottom: var(--spacing-small);
+        margin-top: let(--spacing-small);
+        margin-bottom: let(--spacing-small);
     }
 
     &.size_large {
-        margin-top: var(--spacing-nano);
-        margin-bottom: var(--spacing-nano);
+        margin-top: let(--spacing-nano);
+        margin-bottom: let(--spacing-nano);
     }
 
     &.size_full {
@@ -72,17 +72,17 @@
     }
 
     &.spacing_small {
-        margin-right: var(--spacing-small);
-        margin-left: var(--spacing-small);
+        margin-right: let(--spacing-small);
+        margin-left: let(--spacing-small);
     }
 
     &.spacing_medium {
-        margin-right: var(--spacing-medium);
-        margin-left: var(--spacing-medium);
+        margin-right: let(--spacing-medium);
+        margin-left: let(--spacing-medium);
     }
 
     &.spacing_big {
-        margin-right: var(--spacing-big);
-        margin-left: var(--spacing-big);
+        margin-right: let(--spacing-big);
+        margin-left: let(--spacing-big);
     }
 }

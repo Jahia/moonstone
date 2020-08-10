@@ -1,6 +1,6 @@
-//---
+// ---
 // Flex class wrapper
-//---
+// ---
 
 %flex-column {
     display: flex;
@@ -17,29 +17,29 @@
 // ---
 // Horizontal
 // ---
-:global(.flexRow) {
+.flexRow {
     @extend %flex-row;
 }
 
-:global(.flexRow_nowrap) {
+.flexRow_nowrap {
     @extend %flex-row;
 
     flex-flow: row nowrap;
 }
 
-:global(.flexRow_reverse) {
+.flexRow_reverse {
     @extend %flex-row;
 
     justify-content: flex-end;
 }
 
-:global(.flexRow_center) {
+.flexRow_center {
     @extend %flex-row;
 
     justify-content: center;
 }
 
-:global(.flexRow_between) {
+.flexRow_between {
     @extend %flex-row;
 
     justify-content: space-between;
@@ -48,29 +48,29 @@
 // ---
 // Vertical
 // ---
-:global(.flexCol) {
+.flexCol {
     @extend %flex-column;
 }
 
-:global(.flexCol_nowrap) {
+.flexCol_nowrap {
     @extend %flex-column;
 
     flex-flow: column nowrap;
 }
 
-:global(.flexCol_reverse) {
+.flexCol_reverse {
     @extend %flex-column;
 
     justify-content: flex-end;
 }
 
-:global(.flexCol_center) {
+.flexCol_center {
     @extend %flex-column;
 
     justify-content: center;
 }
 
-:global(.flexCol_between) {
+.flexCol_between {
     @extend %flex-column;
 
     justify-content: space-between;
@@ -79,22 +79,22 @@
 // ---
 // Alignment
 // ---
-:global(.alignCenter) {
+.alignCenter {
     align-items: center;
 }
 
-:global(.alignStart) {
+.alignStart {
     align-items: flex-start;
 }
 
-:global(.alignEnd) {
+.alignEnd {
     align-items: flex-end;
 }
 
 // ---
 // Helpers
 // ---
-:global(.flexFluid) {
+.flexFluid {
     flex: 1;
 
     min-width: 0;
