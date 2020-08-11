@@ -4,7 +4,7 @@
     border: 1px solid var(--color-accent);
     background-color: var(--color-accent);
 
-    &.color_default {
+    &.moonstone-color_default {
         color: var(--color-gray);
 
         border-color: var(--color-gray);
@@ -35,7 +35,7 @@
             border-color: var(--color-gray);
             background-color: var(--color-white);
 
-            &.reverse {
+            &.moonstone-reverse {
                 color: var(--color-white);
 
                 background-color: var(--color-gray);
@@ -43,7 +43,7 @@
         }
     }
 
-    &.color_accent {
+    &.moonstone-color_accent {
         border-color: var(--color-accent);
         background-color: var(--color-accent);
 
@@ -64,7 +64,7 @@
         }
     }
 
-    &.color_danger {
+    &.moonstone-color_danger {
         border-color: var(--color-danger);
         background-color: var(--color-danger);
 

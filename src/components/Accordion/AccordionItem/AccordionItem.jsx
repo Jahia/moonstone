@@ -19,7 +19,7 @@ export const AccordionItem = ({id, label, icon, onClick, children, className, ..
             {...props}
             className={classnames(
                 'moonstone-accordionItem',
-                {reversed: context.isReversed},
+                {'moonstone-reversed': context.isReversed},
                 'flexCol',
                 open ? 'flexFluid' : null,
                 className
@@ -29,8 +29,8 @@ export const AccordionItem = ({id, label, icon, onClick, children, className, ..
                 className={classnames(
                     'moonstone-accordionItem_header',
                     {
-                        selected: open,
-                        reversed: context.isReversed
+                        'moonstone-selected': open,
+                        'moonstone-reversed': context.isReversed
                     },
                     'flexRow',
                     'alignCenter'

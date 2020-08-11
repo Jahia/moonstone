@@ -58,7 +58,7 @@ export const Menu = (
                 className={classnames(
                     'moonstone-menu',
                     className,
-                    {hidden: !isDisplayed || !stylePosition}
+                    {'moonstone-hidden': !isDisplayed || !stylePosition}
                 )}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}

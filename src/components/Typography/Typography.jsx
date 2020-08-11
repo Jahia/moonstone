@@ -32,13 +32,13 @@ export const Typography = ({
             ...filterOutProps(props, ['isHtml']),
             className: classnames(
                 'moonstone-typography',
-                `variant_${variant}`,
-                `weight_${weight}`,
+                `moonstone-variant_${variant}`,
+                `moonstone-weight_${weight}`,
                 className,
-                {nowrap: isNowrap},
-                {italic: isItalic},
-                {upperCase: isUpperCase},
-                {lineThrough: hasLineThrough})
+                {'moonstone-nowrap': isNowrap},
+                {'moonstone-italic': isItalic},
+                {'moonstone-upperCase': isUpperCase},
+                {'moonstone-lineThrough': hasLineThrough})
         },
         children
     );

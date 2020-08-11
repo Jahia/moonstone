@@ -18,7 +18,15 @@ export const Breadcrumb = ({children, className, ...props}) => {
                             {item}
 
                             {index < allItems.length - 1 &&
-                            <li className={classnames('moonstone-breadcrumb_separator', 'flexRow_center', 'alignCenter')}>
+                            <li
+                                className={
+                                    classnames(
+                                        'moonstone-breadcrumb_separator',
+                                        'flexRow_center',
+                                        'alignCenter'
+                                    )
+                                }
+                            >
                                 <ChevronRight aria-hidden/>
                             </li>}
                         </Fragment>

@@ -19,7 +19,7 @@ export const ControlledAccordion = ({children, openedItem, isReversed, className
                         className,
                         'flexFluid',
                         'moonstone-accordion',
-                        {reversed: isReversed}
+                        {'moonstone-reversed': isReversed}
                     )
                 }
                  {...props}

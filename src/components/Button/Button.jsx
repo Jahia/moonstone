@@ -31,12 +31,12 @@ export const Button = ({label, onClick, size, isReversed, isDisabled, icon, vari
             className={
                 classnames(
                     'moonstone-button',
-                    `size_${size}`,
-                    `variant_${variant}`,
-                    `color_${color}`,
-                    {icon: (icon && label)},
-                    {'icon-button': !label},
-                    {reverse: isReversed},
+                    `moonstone-size_${size}`,
+                    `moonstone-variant_${variant}`,
+                    `moonstone-color_${color}`,
+                    {'moonstone-icon': (icon && label)},
+                    {'moonstone-icon-button': !label},
+                    {'moonstone-reverse': isReversed},
                     className
                 )
             }

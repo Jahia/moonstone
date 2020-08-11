@@ -28,12 +28,12 @@ $button-size_big: 32px;
         box-shadow: 0 var(--spacing-nano) var(--spacing-small) var(--color-dark20);
     }
 
-    &.size_big {
+    &.moonstone-size_big {
         height: $button-size_big;
         padding: 0 var(--spacing-medium);
     }
 
-    &.size_small {
+    &.moonstone-size_small {
         height: $button-size_small;
         padding: 0 var(--spacing-nano);
 
@@ -42,42 +42,42 @@ $button-size_big: 32px;
         }
     }
 
-    &.variant_default {
+    &.moonstone-variant_default {
         @extend %variant_default;
     }
 
-    &.variant_outlined {
+    &.moonstone-variant_outlined {
         @extend %variant_outlined;
     }
 
-    &.variant_ghost {
+    &.moonstone-variant_ghost {
         @extend %variant_ghost;
     }
 
-    &.icon-button {
+    &.moonstone-icon-button {
         padding: 0;
 
         border-radius: 40px;
 
-        &.size_small {
+        &.moonstone-size_small {
             width: $button-size_small;
         }
 
-        &.size_default {
+        &.moonstone-size_default {
             width: $button-size_medium;
         }
 
-        &.size_big {
+        &.moonstone-size_big {
             width: $button-size_big;
         }
     }
 
-    &.icon {
+    &.moonstone-icon {
         svg {
             margin-right: var(--spacing-nano);
         }
 
-        &.size_big svg {
+        &.moonstone-size_big svg {
             margin-right: var(--spacing-small);
         }
     }

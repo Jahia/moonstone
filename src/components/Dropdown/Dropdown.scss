@@ -32,12 +32,12 @@
     // ---
     // Manage size variants
     // ---
-    &.small {
+    &.moonstone-small {
         padding-top: var(--spacing-nano);
         padding-bottom: var(--spacing-nano);
     }
 
-    &.medium {
+    &.moonstone-medium {
         padding-top: var(--spacing-small);
         padding-bottom: var(--spacing-small);
     }
@@ -47,7 +47,7 @@
 // Dropdown states
 // ---
 .moonstone-dropdown {
-    &.opened {
+    &.moonstone-opened {
         .moonstone-dropdown_label {
             color: var(--color-light);
 
@@ -55,7 +55,7 @@
         }
     }
 
-    &.disabled {
+    &.moonstone-disabled {
         @include is-disabled;
 
         &:hover {

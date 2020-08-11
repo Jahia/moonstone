@@ -14,9 +14,9 @@ export const Separator = ({size, spacing, variant, className, invisible, ...prop
             className={classnames(
                 'moonstone-separator',
                 `moonstone-separator_${variant}`,
-                `size_${size}`,
-                `spacing_${spacing}`,
-                invisible && `invisible_${invisible}`,
+                `moonstone-size_${size}`,
+                `moonstone-spacing_${spacing}`,
+                invisible && `moonstone-invisible_${invisible}`,
                 className
             )}
         />

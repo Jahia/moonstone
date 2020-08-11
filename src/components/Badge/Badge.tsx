@@ -41,8 +41,8 @@ export const Badge: FunctionComponent<BadgeProps> =
          type = BadgeType.round, className, ...other}) => {
         const classNameProps = classnames(
             'moonstone-badge',
-            `color_${color}`,
-            type,
+            `moonstone-color_${color}`,
+            `moonstone-${type}`,
             className
         );
         if (type === BadgeType.round) {

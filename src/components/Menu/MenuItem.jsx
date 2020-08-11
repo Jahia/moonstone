@@ -12,10 +12,10 @@ export const MenuItem = ({isHover, isSelected, isDisabled, variant, className, .
             'moonstone-menuItem',
             className,
             {
-                hover: isHover,
-                selected: isSelected,
-                disabled: isDisabled,
-                title: variant === 'title'
+                'moonstone-hover': isHover,
+                'moonstone-selected': isSelected,
+                'moonstone-disabled': isDisabled,
+                'moonstone-title': variant === 'title'
             }
         )}
         variant={variant}

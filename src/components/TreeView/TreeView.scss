@@ -24,7 +24,7 @@
         background-color: var(--background-treeItem_hover);
     }
 
-    &.selected {
+    &.moonstone-selected {
         color: var(--color-treeItem_selected);
 
         background-color: var(--background-treeItem_selected);
@@ -37,7 +37,7 @@
     }
 
     // Theme reversed
-    &.reversed {
+    &.moonstone-reversed {
         --color-treeItem: var(--color-gray_light);
         --color-treeItem_hover: var(--color-light);
         --background-treeItem_hover: var(--color-gray40);

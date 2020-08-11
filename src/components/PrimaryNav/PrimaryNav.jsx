@@ -86,7 +86,7 @@ export const PrimaryNav = ({headerLogo, top, bottom, headerCaption, modeIcon, ..
                  aria-expanded={isExpanded}
                  className={classnames(
                      'moonstone-primaryNav',
-                     {expanded: isExpanded},
+                     {'moonstone-expanded': isExpanded},
                     'flexCol_nowrap'
                 )}
             >

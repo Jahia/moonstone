@@ -9,8 +9,8 @@ export const colors = ['default', 'accent', 'success', 'warning', 'danger', 'rea
 export const Chip = ({label, color, icon, className, isDisabled, ...props}) => (
     <div className={classnames(
         'moonstone-chip',
-        `color_${color}`,
-        {disabled: isDisabled},
+        `moonstone-color_${color}`,
+        {'moonstone-disabled': isDisabled},
         className)}
          {...props}
     >

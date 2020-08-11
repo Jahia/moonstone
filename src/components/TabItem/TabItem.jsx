@@ -14,13 +14,13 @@ export const TabItem = ({component, label, size, isReversed, isDisabled, icon, v
         {
             className: classnames(
                 'moonstone-tab-item',
-                `size_${size}`,
-                `variant_${variant}`,
-                `color_${color}`,
-                {icon: (icon && label)},
-                {'icon-tab-item': !label},
-                {selected: isSelected},
-                {reverse: isReversed},
+                `moonstone-size_${size}`,
+                `moonstone-variant_${variant}`,
+                `moonstone-color_${color}`,
+                {'moonstone-icon': (icon && label)},
+                {'moonstone-icon-tab-item': !label},
+                {'moonstone-selected': isSelected},
+                {'moonstone-reverse': isReversed},
                 className
             ),
             disabled: isDisabled,

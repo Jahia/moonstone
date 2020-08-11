@@ -54,8 +54,8 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
                 'alignCenter',
                 'moonstone-treeView_item',
                 {
-                    selected: isSelected,
-                    reversed: isReversed
+                    'moonstone-selected': isSelected,
+                    'moonstone-reversed': isReversed
                 }
             );
 

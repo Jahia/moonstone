@@ -29,8 +29,8 @@ export const ButtonGroup = ({size, isReversed, variant, color, className, childr
                             isReversed={isReversed}
                             color={color}
                             className={classnames(
-                                `variant_${variant}`,
-                                `color_${color}`
+                                `moonstone-variant_${variant}`,
+                                `moonstone-color_${color}`
                             )}
                         />
                     );

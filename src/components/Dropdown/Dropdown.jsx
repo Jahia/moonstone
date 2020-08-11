@@ -76,8 +76,8 @@ export const Dropdown = (
     const cssDropdown = classnames(
         'moonstone-dropdown',
         {
-            disabled: isDisabled,
-            opened: isOpened
+            'moonstone-disabled': isDisabled,
+            'moonstone-opened': isOpened
         }
     );
 
@@ -85,7 +85,7 @@ export const Dropdown = (
         'flexRow',
         'alignCenter',
         'moonstone-dropdown_label',
-        size,
+        `moonstone-${size}`,
         variant
     );
 

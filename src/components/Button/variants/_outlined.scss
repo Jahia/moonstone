@@ -4,7 +4,7 @@
     border: 1px solid var(--color-gray);
     background-color: var(--color-white);
 
-    &.color_default {
+    &.moonstone-color_default {
         &:hover {
             color: var(--color-accent);
 
@@ -25,7 +25,7 @@
         }
     }
 
-    &.color_accent {
+    &.moonstone-color_accent {
         color: var(--color-accent);
 
         border-color: var(--color-accent);
@@ -45,7 +45,7 @@
         }
     }
 
-    &.color_danger {
+    &.moonstone-color_danger {
         color: var(--color-danger);
 
         border-color: var(--color-danger);
@@ -74,7 +74,7 @@
         border-color: var(--color-gray);
         background-color: var(--color-white);
 
-        &.reverse {
+        &.moonstone-reverse {
             color: var(--color-gray_light);
 
             border-color: var(--color-gray_light);

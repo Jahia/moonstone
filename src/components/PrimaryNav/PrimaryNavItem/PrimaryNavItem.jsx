@@ -25,7 +25,7 @@ const Item = ({icon, label, textVariant, subtitle, button}) => (
                 <Typography isNowrap
                             component="div"
                             variant="caption"
-                            className={classnames('moonstone-primaryNavItem_label', 'subtitle')}
+                            className={classnames('moonstone-primaryNavItem_label', 'moonstone-subtitle')}
                 >
                     {subtitle}
                 </Typography>}
@@ -80,7 +80,7 @@ export const PrimaryNavItem = ({label, icon, className, subtitle, url, button, i
         <li
             className={classnames(
                 'moonstone-primaryNavItem',
-                {selected: isSelected},
+                {'moonstone-selected': isSelected},
                 className
             )}
             title={label}
