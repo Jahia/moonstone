@@ -10,31 +10,31 @@ describe('Typography', () => {
 
     it('should display a body variant by default', () => {
         const wrapper = shallow(<Typography>Content children</Typography>);
-        expect(wrapper.props.className).toContain('typography variant_body');
+        expect(wrapper.props.className).toContain('typography moonstone-variant_body');
     });
 
     it('should display the specified variant', () => {
         variants.forEach(variant => {
             const wrapper = shallow(<Typography variant={variant}>Content children</Typography>);
-            expect(wrapper.props.className).toContain(`variant_${variant}`);
+            expect(wrapper.props.className).toContain(`moonstone-variant_${variant}`);
         });
     });
 
     it('should use the default weight', () => {
         const wrapper = shallow(<Typography>Test</Typography>);
-        expect(wrapper.props.className).toContain('weight_default');
+        expect(wrapper.props.className).toContain('moonstone-weight_default');
     });
 
     it('should use the specified weight', () => {
         weights.forEach(weight => {
             const wrapper = shallow(<Typography weight={weight}>Test</Typography>);
-            expect(wrapper.props.className).toContain(`weight_${weight}`);
+            expect(wrapper.props.className).toContain(`moonstone-weight_${weight}`);
         });
     });
 
     it('should display a text in italic', () => {
         const wrapper = shallow(<Typography isItalic>Test</Typography>);
-        expect(wrapper.props.className).toContain('italic');
+        expect(wrapper.props.className).toContain('moonstone-italic');
     });
 
     it('should not display a text in italic', () => {
@@ -44,22 +44,22 @@ describe('Typography', () => {
 
     it('should display a text in upper case', () => {
         const wrapper = shallow(<Typography isUpperCase>Test</Typography>);
-        expect(wrapper.props.className).toContain('upperCase');
+        expect(wrapper.props.className).toContain('moonstone-upperCase');
     });
 
     it('should not display a text in upper case', () => {
         const wrapper = shallow(<Typography>Test</Typography>);
-        expect(wrapper.props.className).not.toContain('upperCase');
+        expect(wrapper.props.className).not.toContain('moonstone-upperCase');
     });
 
     it('should display a text with a line-through', () => {
         const wrapper = shallow(<Typography hasLineThrough>Test</Typography>);
-        expect(wrapper.props.className).toContain('lineThrough');
+        expect(wrapper.props.className).toContain('moonstone-lineThrough');
     });
 
     it('should not display a text with a line-through', () => {
         const wrapper = shallow(<Typography>Test</Typography>);
-        expect(wrapper.props.className).not.toContain('lineThrough');
+        expect(wrapper.props.className).not.toContain('moonstone-lineThrough');
     });
 
     it('should display a tag html p by default', () => {
