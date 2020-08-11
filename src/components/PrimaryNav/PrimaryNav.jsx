@@ -8,7 +8,12 @@ import {Menu, ArrowLeft} from '~/icons';
 const NavButton = ({isExpanded, toggleExpand, modeIcon}) => {
     if (isExpanded) {
         return (
-            <button className={classnames('moonstone-navButton')} type="button" role="primary-nav-control" onClick={toggleExpand}>
+            <button
+                className={classnames('moonstone-primaryNav_button')}
+                type="button"
+                role="primary-nav-control"
+                onClick={toggleExpand}
+            >
                 <ArrowLeft size="big"/>
             </button>
         );
@@ -18,14 +23,19 @@ const NavButton = ({isExpanded, toggleExpand, modeIcon}) => {
 
     if (modeIcon) {
         icon = React.cloneElement(modeIcon, {
-            className: classnames('moonstone-modeIcon')
+            className: classnames('moonstone-primaryNav_modeIcon')
         });
     }
 
     return (
         <>
             {icon}
-            <button className={classnames('moonstone-navButton')} type="button" role="primary-nav-control" onClick={toggleExpand}>
+            <button
+                className={classnames('moonstone-primaryNav_button')}
+                type="button"
+                role="primary-nav-control"
+                onClick={toggleExpand}
+            >
                 <Menu size="big"/>
             </button>
         </>
@@ -43,14 +53,14 @@ const NavHeader = ({headerCaption, modeIcon, headerLogo}) => {
 
     if (modeIcon) {
         icon = React.cloneElement(modeIcon, {
-            className: classnames('moonstone-modeIconHeader')
+            className: classnames('moonstone-primaryNav_modeIconHeader')
         });
     }
 
     return (
         <>
             {headerLogo}
-            <div className={classnames('flexRow_nowrap', 'alignCenter', 'moonstone-headerCaption')}>
+            <div className={classnames('flexRow_nowrap', 'alignCenter', 'moonstone-primaryNav_headerCaption')}>
                 {icon}{headerCaption}
             </div>
         </>
@@ -80,8 +90,8 @@ export const PrimaryNav = ({headerLogo, top, bottom, headerCaption, modeIcon, ..
                     'flexCol_nowrap'
                 )}
             >
-                <div className={classnames('flexRow_nowrap', 'moonstone-navHeader')}>
-                    <div className={classnames('moonstone-navButtonContainer', 'flexRow_center', 'alignCenter')}>
+                <div className={classnames('flexRow_nowrap', 'moonstone-primaryNav_header')}>
+                    <div className={classnames('moonstone-primaryNav_buttonContainer', 'flexRow_center', 'alignCenter')}>
                         <NavButton isExpanded={isExpanded} toggleExpand={toggleExpand} modeIcon={modeIcon}/>
                     </div>
                     <div
@@ -89,7 +99,7 @@ export const PrimaryNav = ({headerLogo, top, bottom, headerCaption, modeIcon, ..
                             'flexCol_center',
                             'alignCenter',
                             'flexFluid',
-                            'moonstone-logoCaptionGroup'
+                            'moonstone-primaryNav_logoCaptionGroup'
                         )}
                     >
                         <NavHeader headerCaption={headerCaption} modeIcon={modeIcon} headerLogo={headerLogo}/>
@@ -104,7 +114,7 @@ export const PrimaryNav = ({headerLogo, top, bottom, headerCaption, modeIcon, ..
                     {bottom}
                 </ul>
             </nav>
-            {isExpanded && <div className="moonstone-overlay" onClick={toggleExpand}/>}
+            {isExpanded && <div className="moonstone-primaryNav_overlay" onClick={toggleExpand}/>}
         </PrimaryNavContext.Provider>
     );
 };

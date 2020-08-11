@@ -5,10 +5,7 @@ import classnames from 'clsx';
 import {ChevronRight} from '~/icons';
 
 export const Breadcrumb = ({children, className, ...props}) => {
-    const classNames = classnames(
-        'breadcrumb',
-        className
-    );
+    const classNames = classnames(className);
 
     const allItems = React.Children.toArray(children);
 

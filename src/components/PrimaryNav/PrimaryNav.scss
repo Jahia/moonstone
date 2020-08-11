@@ -3,7 +3,7 @@
 $primaryNavExpanded: 300px;
 $primaryNav: 56px;
 
-.moonstone-logoCaptionGroup {
+.moonstone-primaryNav_logoCaptionGroup {
     padding-right: 2.5rem;
 
     visibility: hidden;
@@ -35,14 +35,14 @@ $primaryNav: 56px;
 
         box-shadow: 8px 0 16px 0 var(--color-gray_dark60);
 
-        .moonstone-logoCaptionGroup {
+        .moonstone-primaryNav_logoCaptionGroup {
             visibility: visible;
             opacity: 1;
         }
     }
 }
 
-.moonstone-overlay {
+.moonstone-primaryNav_overlay {
     position: fixed;
     z-index: 800;
 
@@ -53,16 +53,16 @@ $primaryNav: 56px;
     opacity: 0.6;
 }
 
-.moonstone-navHeader {
+.moonstone-primaryNav_header {
     height: $primaryNav;
 }
 
-.moonstone-navButtonContainer {
+.moonstone-primaryNav_buttonContainer {
     width: $primaryNav;
     min-width: $primaryNav;
 }
 
-.moonstone-navButton {
+.moonstone-primaryNav_button {
     z-index: 9000;
 
     width: 40px;
@@ -84,7 +84,7 @@ $primaryNav: 56px;
     }
 }
 
-.moonstone-modeIcon {
+.moonstone-primaryNav_modeIcon {
     position: absolute;
     top: calc(var(--spacing-nano) * 3);
     right: calc(var(--spacing-nano) * 2);
@@ -94,7 +94,7 @@ $primaryNav: 56px;
     pointer-events: none;
 }
 
-.moonstone-modeIconHeader {
+.moonstone-primaryNav_modeIconHeader {
     width: 15px;
     height: 15px;
 
@@ -103,7 +103,7 @@ $primaryNav: 56px;
     pointer-events: none;
 }
 
-.moonstone-headerCaption {
+.moonstone-primaryNav_headerCaption {
     @include truncate;
 
     margin-left: 40px;
