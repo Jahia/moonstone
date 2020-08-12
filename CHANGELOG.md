@@ -1,3 +1,20 @@
+# v0.16.1 (Wed Aug 12 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-14310: Fixes font bug issue for Button, ButtonGroup, Breadcrumb, TabItem [#162](https://github.com/Jahia/moonstone/pull/162) ([@vindhya](https://github.com/vindhya))
+- BACKLOG-14311: Changes font from Nunito to Nunito Sans [#161](https://github.com/Jahia/moonstone/pull/161) ([@vindhya](https://github.com/vindhya))
+- Fixed map links [#160](https://github.com/Jahia/moonstone/pull/160) ([@tdraier](https://github.com/tdraier))
+- Typescript compilation and example [#159](https://github.com/Jahia/moonstone/pull/159) ([@tdraier](https://github.com/tdraier))
+- Fixed toIconComponent when using an image path [#157](https://github.com/Jahia/moonstone/pull/157) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 2
+
+- Vindhya ([@vindhya](https://github.com/vindhya))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v0.16.0 (Mon Jun 08 2020)
 
 #### 🚀  Enhancement
