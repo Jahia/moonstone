@@ -3,49 +3,54 @@ import './Badge.scss';
 import {Typography} from '~/components/Typography';
 import classnames from 'clsx';
 
+type TBadgeColor = 'accent' | 'success' | 'danger';
+
 export enum BadgeColor {
-    'accent' = 'accent',
-    'success' = 'success',
-    'danger' = 'danger'
+    ACCENT = 'accent',
+    SUCCESS = 'success',
+    DANGER = 'danger'
 }
+
+type TBadgeType = 'round' | 'diamond';
 
 export enum BadgeType {
-    'round' = 'round',
-    'diamond' = 'diamond'
+    ROUND = 'round',
+    DIAMOND = 'diamond'
 }
 
-type BadgeProps = {
+interface IBadgeProps {
     /**
      * Badge label, only for type round
      */
-    label?: string,
+    label?: string;
 
     /**
      * Badge color
      */
-    color?: BadgeColor,
+    color?: TBadgeColor;
 
     /**
      * Badge type
      */
-    type?: BadgeType,
+    type?: TBadgeType;
 
     /**
      * Additional classname
      */
-    className?: string
+    className?: string;
 }
 
-export const Badge: FunctionComponent<BadgeProps> =
-    ({label = null, color = BadgeColor.accent,
-         type = BadgeType.round, className, ...other}) => {
+
+export const Badge: FunctionComponent<IBadgeProps> =
+    ({label = null, color = BadgeColor.ACCENT,
+         type = BadgeType.ROUND, className, ...other}) => {
         const classNameProps = classnames(
             'moonstone-badge',
             `moonstone-color_${color}`,
             `moonstone-${type}`,
             className
         );
-        if (type === BadgeType.round) {
+        if (type === BadgeType.ROUND) {
             return (
                 <Typography isNowrap component="span" variant="caption" weight="bold" className={classNameProps} {...other}>
                     {label}
