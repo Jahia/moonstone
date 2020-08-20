@@ -4,9 +4,9 @@ import classnames from 'clsx';
 
 export const variants = ['title', 'heading', 'subheading', 'body', 'caption', 'button'];
 
-export const weights = ['default', 'bold', 'semiBold', 'light'];
-
 type TTypographyVariant = 'title' | 'heading' | 'subheading' | 'body' | 'caption' | 'button';
+
+export const weights = ['default', 'bold', 'semiBold', 'light'];
 
 type TTypographyWeight = 'default' | 'bold' | 'semiBold' | 'light';
 
@@ -53,6 +53,17 @@ interface ITypographyProps {
     isNowrap?: boolean;
 }
 
+// IsHtml prop should eventually be removed (along with this function) as children supports all React Node types
+// including strings and HTML markup
+const filterOutIsHtml = (props: ITypographyProps) => {
+    const newProps = {...props};
+    if (newProps.isHtml) {
+        delete newProps.isHtml;
+    }
+
+    return newProps;
+};
+
 export const Typography: React.FunctionComponent<ITypographyProps> = ({
     children = '',
     component = 'p',
@@ -68,7 +79,7 @@ export const Typography: React.FunctionComponent<ITypographyProps> = ({
     React.createElement(
         component,
         {
-            ...props,
+            ...filterOutIsHtml(props),
             className: classnames(
                 styles.typography,
                 styles[`variant_${variant}`],
