@@ -16,14 +16,14 @@ storiesOf('Components|Badge', module)
     .add('Round', () => (
         <section className={classnames(storyStyles.storyWrapper)}>
             <Badge label={text('Label', '3')}
-                   color={select('Color', BadgeColor, BadgeColor.accent)}
+                   color={select('Color', BadgeColor, BadgeColor.ACCENT)}
             />
         </section>
 
     ))
     .add('Diamond', () => (
         <section className={classnames(storyStyles.storyWrapper)}>
-            <Badge color={select('Color', BadgeColor, BadgeColor.accent)}
+            <Badge color={select('Color', BadgeColor, BadgeColor.ACCENT)}
                    type="diamond"
             />
         </section>
@@ -31,8 +31,8 @@ storiesOf('Components|Badge', module)
     .add('Playground', () => (
         <section className={classnames(storyStyles.storyWrapper)}>
             <Badge label={text('Label', '3')}
-                   color={select('Color', BadgeColor, BadgeColor.accent)}
-                   type={select('Type', BadgeType, BadgeType.round)}
+                   color={select('Color', BadgeColor, BadgeColor.ACCENT)}
+                   type={select('Type', BadgeType, BadgeType.ROUND)}
             />
         </section>
     ));
