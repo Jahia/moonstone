@@ -2,13 +2,15 @@ import React from 'react';
 import styles from './Typography.scss';
 import classnames from 'clsx';
 
-export const variants = ['title', 'heading', 'subheading', 'body', 'caption', 'button'];
-
 type TTypographyVariant = 'title' | 'heading' | 'subheading' | 'body' | 'caption' | 'button';
 
-export const weights = ['default', 'bold', 'semiBold', 'light'];
+// Change this to an enum when PrimaryNavItem is converted to typescript
+export const variants = ['title', 'heading', 'subheading', 'body', 'caption', 'button'];
 
 type TTypographyWeight = 'default' | 'bold' | 'semiBold' | 'light';
+
+// Change this to an enum when PrimaryNavItem is converted to typescript
+export const weights = ['default', 'bold', 'semiBold', 'light'];
 
 interface ITypographyProps {
     /**
