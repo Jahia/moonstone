@@ -1,5 +1,5 @@
 import React from 'react';
-import {Typography, variants, weights} from './index';
+import {Typography, variants, weights} from './index.ts';
 import {shallow} from 'component-test-utils-react';
 
 describe('Typography', () => {
@@ -74,7 +74,7 @@ describe('Typography', () => {
 
     it('should add extra props', () => {
         const wrapper = shallow(
-            <Typography onClick={() => {}}>Content children</Typography>
+            <Typography onClick={() => 'test'}>Content children</Typography>
         );
         expect(wrapper.html()).toContain('onClick');
     });
@@ -93,39 +93,18 @@ describe('Typography', () => {
         expect(wrapper.html()).not.toContain('isHtml');
     });
 
-    // Run mutiple tests here as prop-types are staked before calling console.error.
-    it('prop-types', () => {
-        global.console.originalError = console.error;
-        global.console.error = jest.fn();
-
-        // It should display an error message when sending something else than a string when html props is not send
-        shallow(
-            <Typography><div/></Typography>
-        );
-
-        expect(console.error).toHaveBeenCalledTimes(1);
-
-        // It should display an error message when sending a unrenderable children when html props is true
-        shallow(
-            <Typography isHtml>{true}</Typography>
-        );
-
-        expect(global.console.error).toHaveBeenCalledTimes(2);
-
-        global.console.error = global.console.originalError;
-        delete global.console.originalError;
-    });
-
     it('should not validate propTypes when on production environment', () => {
+        // eslint-disable-next-line
+        // tslint:disable-next-line
         global.console.originalError = console.error;
         global.console.error = jest.fn();
 
         jest.resetModules();
         process.env.NODE_ENV = 'production';
-        const Typography = require('./Typography');
+        const TypographyComponent = require('./Typography');
 
         shallow(
-            <Typography.Typography isHtml>{true}</Typography.Typography>
+            <TypographyComponent.Typography isHtml>{true}</TypographyComponent.Typography>
         );
 
         expect(global.console.error).not.toHaveBeenCalled();
