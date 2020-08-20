@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
 import PropTypes from 'prop-types';
-import styles from './Button.scss';
+import './Button.scss';
 import classnames from 'clsx';
 import {Typography} from '../Typography';
 
@@ -30,13 +30,13 @@ export const Button = ({label, onClick, size, isReversed, isDisabled, icon, vari
             ref={ButtonEl}
             className={
                 classnames(
-                    styles.button,
-                    styles[`size_${size}`],
-                    styles[`variant_${variant}`],
-                    styles[`color_${color}`],
-                    {[styles.icon]: (icon && label)},
-                    {[styles['icon-button']]: !label},
-                    {[styles.reverse]: isReversed},
+                    'moonstone-button',
+                    `moonstone-size_${size}`,
+                    `moonstone-variant_${variant}`,
+                    `moonstone-color_${color}`,
+                    {'moonstone-icon': (icon && label)},
+                    {'moonstone-icon-button': !label},
+                    {'moonstone-reverse': isReversed},
                     className
                 )
             }

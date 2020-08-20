@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'clsx';
-import styles from './SecondaryNavHeader.scss';
+import './SecondaryNavHeader.scss';
 import {Typography} from '../../Typography';
 
 const SecondaryNavHeader = ({children}) => (
     <Typography component="header"
-                className={classnames(styles.secondaryNavHeader, 'flexCol_center', 'alignCenter')}
+                className={classnames('moonstone-secondaryNavHeader', 'flexCol_center', 'alignCenter')}
                 variant="heading"
     >
         {children}

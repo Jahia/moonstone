@@ -1,10 +1,10 @@
 @import '../../utils/index';
 
-.secondaryNav {
+.moonstone-secondaryNav {
     color: var(--color-light);
 }
 
-.secondaryNav_wrapper {
+.moonstone-secondaryNav_wrapper {
     position: relative;
 
     background: var(--color-gray_dark);
@@ -13,7 +13,7 @@
     transition: max-width 0.4s ease-out;
 }
 
-.secondaryNav_buttonToggle {
+.moonstone-secondaryNav_buttonToggle {
     position: absolute;
     top: var(--spacing-small);
     right: var(--spacing-small);
@@ -42,20 +42,20 @@
     }
 }
 
-.secondaryNav_hidden {
+.moonstone-secondaryNav_hidden {
     overflow: hidden;
 
     // Transition when it's collapsing
     // it's triggered on change of the resizableBox size
     transition: width 0.2s ease-out;
 
-    .secondaryNav_wrapper {
+    .moonstone-secondaryNav_wrapper {
         max-width: 0;
 
         pointer-events: none;
     }
 
-    .secondaryNav_buttonToggle {
+    .moonstone-secondaryNav_buttonToggle {
         position: fixed;
         left: 44px;
 

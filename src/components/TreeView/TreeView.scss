@@ -1,4 +1,4 @@
-.treeView_item {
+.moonstone-treeView_item {
     --color-treeItem: inherit;
     --color-treeItem_hover: var(--color-dark);
     --color-treeItem_selected: var(--color-light);
@@ -24,7 +24,7 @@
         background-color: var(--background-treeItem_hover);
     }
 
-    &.selected {
+    &.moonstone-selected {
         color: var(--color-treeItem_selected);
 
         background-color: var(--background-treeItem_selected);
@@ -37,35 +37,35 @@
     }
 
     // Theme reversed
-    &.reversed {
+    &.moonstone-reversed {
         --color-treeItem: var(--color-gray_light);
         --color-treeItem_hover: var(--color-light);
         --background-treeItem_hover: var(--color-gray40);
     }
 }
 
-.treeView_itemIconStart,
-.treeView_itemToggle {
+.moonstone-treeView_itemIconStart,
+.moonstone-treeView_itemToggle {
     margin-right: var(--spacing-nano);
 }
 
-.treeView_itemIconStart {
+.moonstone-treeView_itemIconStart {
     min-width: 12px;
     min-height: 12px;
 }
 
-.treeView_itemIconEnd {
+.moonstone-treeView_itemIconEnd {
     margin-left: var(--spacing-nano);
 }
 
-.treeView_itemToggle {
+.moonstone-treeView_itemToggle {
     width: 16px;
     height: 16px;
 
     cursor: pointer;
 }
 
-.treeView_itemLabel {
+.moonstone-treeView_itemLabel {
     align-self: stretch;
     min-width: 0;
 }

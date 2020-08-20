@@ -3,7 +3,7 @@ import {usePositioning} from '~/hooks/usePositioning';
 import {useEnterExitCallbacks} from '~/hooks/useEnterExitCallbacks';
 import PropTypes from 'prop-types';
 import classnames from 'clsx';
-import styles from './Menu.scss';
+import './Menu.scss';
 
 export const Menu = (
     {
@@ -56,11 +56,9 @@ export const Menu = (
                 ref={itemRef}
                 style={styleMenu}
                 className={classnames(
-                    styles.menu,
+                    'moonstone-menu',
                     className,
-                    {
-                        [styles.hidden]: !isDisplayed || !stylePosition
-                    }
+                    {'moonstone-hidden': !isDisplayed || !stylePosition}
                 )}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
@@ -72,7 +70,7 @@ export const Menu = (
                 hasOverlay && isDisplayed &&
                 <div
                     aria-hidden="true"
-                    className={classnames(styles.menu_overlay)}
+                    className={classnames('moonstone-menu_overlay')}
                     onClick={onClose}
                 />
             }

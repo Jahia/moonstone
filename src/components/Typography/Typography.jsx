@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Typography.scss';
+import './Typography.scss';
 import classnames from 'clsx';
 
 export const variants = ['title', 'heading', 'subheading', 'body', 'caption', 'button'];
@@ -31,14 +31,14 @@ export const Typography = ({
         {
             ...filterOutProps(props, ['isHtml']),
             className: classnames(
-                styles.typography,
-                styles[`variant_${variant}`],
-                styles[`weight_${weight}`],
+                'moonstone-typography',
+                `moonstone-variant_${variant}`,
+                `moonstone-weight_${weight}`,
                 className,
-                {[styles.nowrap]: isNowrap},
-                {[styles.italic]: isItalic},
-                {[styles.upperCase]: isUpperCase},
-                {[styles.lineThrough]: hasLineThrough})
+                {'moonstone-nowrap': isNowrap},
+                {'moonstone-italic': isItalic},
+                {'moonstone-upperCase': isUpperCase},
+                {'moonstone-lineThrough': hasLineThrough})
         },
         children
     );

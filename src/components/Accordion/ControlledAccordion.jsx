@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import {AccordionContext} from './Accordion.context';
 import {AccordionItem} from './AccordionItem';
-import styles from './Accordion.scss';
+import './Accordion.scss';
 
 export const ControlledAccordion = ({children, openedItem, isReversed, className, onSetOpenedItem, ...props}) => {
     const provider = {
@@ -18,8 +18,8 @@ export const ControlledAccordion = ({children, openedItem, isReversed, className
                     classnames(
                         className,
                         'flexFluid',
-                        styles.accordion,
-                        {[styles.reversed]: isReversed}
+                        'moonstone-accordion',
+                        {'moonstone-reversed': isReversed}
                     )
                 }
                  {...props}

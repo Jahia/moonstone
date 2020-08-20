@@ -2,7 +2,7 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {select, text, withKnobs} from '@storybook/addon-knobs';
 import classnames from 'clsx';
-import storyStyles from '~/__storybook__/storybook.scss';
+import storyStyles from '~/__storybook__/storybook.module.scss';
 
 import markdownNotes from './Badge.md';
 import {Badge, BadgeColor, BadgeType} from './index';
@@ -36,4 +36,3 @@ storiesOf('Components|Badge', module)
             />
         </section>
     ));
-

@@ -13,7 +13,7 @@ import FileContentIcon from '~/icons/FileContent';
 import LockIcon from '~/icons/Lock';
 import NoCloudIcon from '~/icons/NoCloud';
 import WarningIcon from '~/icons/Warning';
-import storyStyles from '~/__storybook__/storybook.scss';
+import storyStyles from '~/__storybook__/storybook.module.scss';
 
 const labelValue = (defaultValue = 'Chip') => text('Label', defaultValue);
 const colorValues = () => select('Color', colors, 'default');

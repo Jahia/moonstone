@@ -2,7 +2,7 @@
     border: 1px solid transparent;
     background-color: transparent;
 
-    &.color_default {
+    &.moonstone-color_default {
         color: var(--color-gray);
 
         &:hover {
@@ -26,7 +26,7 @@
             background-color: var(--color-accent);
         }
 
-        &.reverse {
+        &.moonstone-reverse {
             color: var(--color-white);
 
             &:hover {
@@ -46,7 +46,7 @@
         }
     }
 
-    &.color_accent {
+    &.moonstone-color_accent {
         color: var(--color-accent);
 
         &:hover {
@@ -70,7 +70,7 @@
             background-color: var(--color-accent_dark);
         }
 
-        &.reverse {
+        &.moonstone-reverse {
             &:hover {
                 color: var(--color-white);
 
@@ -94,7 +94,7 @@
         }
     }
 
-    &.color_danger {
+    &.moonstone-color_danger {
         color: var(--color-danger);
 
         &:hover {
@@ -116,7 +116,7 @@
             background-color: var(--color-danger);
         }
 
-        &.reverse {
+        &.moonstone-reverse {
             &:hover {
                 color: var(--color-white);
 
@@ -138,7 +138,7 @@
         }
     }
 
-    &.reverse,
+    &.moonstone-reverse,
     &:hover,
     &:focus,
     &:active {
@@ -154,7 +154,7 @@
         border-color: transparent;
         background-color: transparent;
 
-        &.reverse {
+        &.moonstone-reverse {
             color: var(--color-gray_light);
 
             border-color: transparent;

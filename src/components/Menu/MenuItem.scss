@@ -1,19 +1,19 @@
 @import '../../utils/index';
 
-.menuItem {
+.moonstone-menuItem {
     padding-right: var(--spacing-medium);
     padding-left: var(--spacing-medium);
 
     cursor: pointer;
 
     &:hover,
-    &.hover {
+    &.moonstone-hover {
         color: var(--color-accent_dark);
 
         background-color: var(--color-gray_light40);
     }
 
-    &.title {
+    &.moonstone-title {
         color: var(--color-gray60);
 
         cursor: default;
@@ -21,7 +21,7 @@
         pointer-events: none;
     }
 
-    &.selected {
+    &.moonstone-selected {
         color: var(--color-light);
 
         background-color: var(--color-accent);
@@ -39,8 +39,8 @@
         box-shadow: none;
     }
 
-    &.disabled,
-    &.disabled:hover {
+    &.moonstone-disabled,
+    &.moonstone-disabled:hover {
         @include is-disabled;
 
         background: none;

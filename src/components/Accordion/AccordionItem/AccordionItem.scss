@@ -1,6 +1,6 @@
 $accordionHeader_height: 48px;
 
-.accordionItem {
+.moonstone-accordionItem {
     min-height: $accordionHeader_height;
 
     border-top: 1px solid var(--color-gray_light);
@@ -12,19 +12,19 @@ $accordionHeader_height: 48px;
         border-bottom: none;
     }
 
-    & + .accordionItem {
+    & + .moonstone-accordionItem {
         border-top: 0;
     }
 
-    &.reversed {
+    &.moonstone-reversed {
         border-color: var(--color-gray);
     }
 }
 
-//---
+// ---
 // Header
-//---
-.accordionItem_header {
+// ---
+.moonstone-accordionItem_header {
     width: 100%;
     height: $accordionHeader_height;
     padding: 0 var(--spacing-medium);
@@ -33,7 +33,7 @@ $accordionHeader_height: 48px;
 
     cursor: pointer;
 
-    &.selected {
+    &.moonstone-selected {
         border-bottom: 1px solid var(--color-gray_light);
 
         cursor: default;
@@ -50,18 +50,18 @@ $accordionHeader_height: 48px;
     }
 
     &:focus,
-    &:not(.selected):not(:active):hover {
+    &:not(.moonstone-selected):not(:active):hover {
         color: var(--color-dark);
 
         background-color: var(--color-gray_light);
     }
 
-    &.reversed {
+    &.moonstone-reversed {
         color: var(--color-light);
 
         background-color: var(--color-dark60);
 
-        &.selected {
+        &.moonstone-selected {
             color: var(--color-light);
 
             border-color: var(--color-gray);
@@ -73,7 +73,7 @@ $accordionHeader_height: 48px;
         }
 
         &:focus,
-        &:not(.selected):not(:active):hover {
+        &:not(.moonstone-selected):not(:active):hover {
             color: var(--color-light);
 
             background-color: var(--color-gray40);
@@ -81,14 +81,14 @@ $accordionHeader_height: 48px;
     }
 }
 
-.accordionItem_iconContainer {
+.moonstone-accordionItem_iconContainer {
     margin-right: var(--spacing-small);
 }
 
-//---
+// ---
 // Content
-//---
-.accordionItem_content {
+// ---
+.moonstone-accordionItem_content {
     max-width: 100%;
 
     overflow-x: hidden;

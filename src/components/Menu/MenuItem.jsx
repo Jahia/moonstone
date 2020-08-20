@@ -2,18 +2,22 @@ import React from 'react';
 import {ListItem} from '~/components/ListItem';
 import PropTypes from 'prop-types';
 import classnames from 'clsx';
-import styles from './MenuItem.scss';
+import './MenuItem.scss';
 
 export const MenuItem = ({isHover, isSelected, isDisabled, variant, className, ...props}) => (
     <ListItem
         tabIndex={isDisabled || variant === 'title' || isSelected ? null : '0'}
         aria-disabled={isDisabled}
-        className={classnames(styles.menuItem, className, {
-            [styles.hover]: isHover,
-            [styles.selected]: isSelected,
-            [styles.disabled]: isDisabled,
-            [styles.title]: variant === 'title'
-        })}
+        className={classnames(
+            'moonstone-menuItem',
+            className,
+            {
+                'moonstone-hover': isHover,
+                'moonstone-selected': isSelected,
+                'moonstone-disabled': isDisabled,
+                'moonstone-title': variant === 'title'
+            }
+        )}
         variant={variant}
         {...props}
        />

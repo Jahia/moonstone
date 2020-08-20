@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './ButtonGroup.scss';
+import './ButtonGroup.scss';
 import classnames from 'clsx';
 import {buttonSizes, buttonVariants, buttonColors} from '~/components/Button';
 
@@ -8,7 +8,7 @@ export const ButtonGroup = ({size, isReversed, variant, color, className, childr
     return (
         <div role="group"
              className={classnames(
-                styles.buttonGroup,
+                'moonstone-buttonGroup',
                 className,
                 'flexRow',
                 'alignCenter'
@@ -29,8 +29,8 @@ export const ButtonGroup = ({size, isReversed, variant, color, className, childr
                             isReversed={isReversed}
                             color={color}
                             className={classnames(
-                                styles[`variant_${variant}`],
-                                styles[`color_${color}`]
+                                `moonstone-variant_${variant}`,
+                                `moonstone-color_${color}`
                             )}
                         />
                     );

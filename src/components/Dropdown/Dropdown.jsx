@@ -1,8 +1,8 @@
 import React, {Fragment, useState} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'clsx';
-import styles from './Dropdown.scss';
-import spacings from '~/tokens/spacings/_spacings.scss';
+import './Dropdown.scss';
+import spacings from '~/tokens/spacings/spacing.json';
 
 import {Menu, MenuItem} from '~/components/Menu';
 import {Typography} from '~/components/Typography';
@@ -32,7 +32,7 @@ export const Dropdown = (
     const isGrouped = typeof data[0].options !== 'undefined';
 
     const anchorPosition = {
-        top: spacings.spacingnano,
+        top: spacings.spacingNano,
         left: 0
     };
 
@@ -73,19 +73,20 @@ export const Dropdown = (
     // ---
     // CSS classes
     // ---
-    const cssDropdown = classnames(styles.dropdown,
+    const cssDropdown = classnames(
+        'moonstone-dropdown',
         {
-            [styles.disabled]: isDisabled,
-            [styles.opened]: isOpened
+            'moonstone-disabled': isDisabled,
+            'moonstone-opened': isOpened
         }
     );
 
     const cssDropdownLabel = classnames(
         'flexRow',
         'alignCenter',
-        styles.dropdown_label,
-        styles[size],
-        styles[variant]
+        'moonstone-dropdown_label',
+        `moonstone-${size}`,
+        variant
     );
 
     // ---
@@ -143,7 +144,7 @@ export const Dropdown = (
             >
                 {
                     icon &&
-                    <icon.type {...icon.props} size="small" className={classnames(styles.dropdown_icon)}/>
+                    <icon.type {...icon.props} size="small" className={classnames('moonstone-dropdown_icon')}/>
                 }
 
                 <Typography

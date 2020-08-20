@@ -3,8 +3,8 @@ import {storiesOf} from '@storybook/react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 
-import styles from './spacings.stories.scss';
-import storyStyles from '~/__storybook__/storybook.scss';
+import styles from './spacings.stories.module.scss';
+import storyStyles from '~/__storybook__/storybook.module.scss';
 
 let cx = classnames.bind(styles);
 

@@ -1,9 +1,9 @@
-.accordion {
+.moonstone-accordion {
     display: flex;
     flex-direction: column;
     overflow: hidden;
 
-    &.reversed {
+    &.moonstone-reversed {
         color: var(--color-light);
     }
 }

@@ -1,9 +1,9 @@
-.badge {
+.moonstone-badge {
     color: var(--color-light);
 
     pointer-events: none;
 
-    &.round {
+    &.moonstone-round {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -15,22 +15,22 @@
         border-radius: 2rem;
     }
 
-    &.diamond {
+    &.moonstone-diamond {
         width: 12px;
         height: 12px;
 
         transform: rotate(45deg);
     }
 
-    &.color_accent {
+    &.moonstone-color_accent {
         background-color: var(--color-accent);
     }
 
-    &.color_danger {
+    &.moonstone-color_danger {
         background-color: var(--color-danger);
     }
 
-    &.color_success {
+    &.moonstone-color_success {
         background-color: var(--color-success);
     }
 }

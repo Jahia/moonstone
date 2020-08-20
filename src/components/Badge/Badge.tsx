@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from 'react';
-import styles from './Badge.scss';
+import './Badge.scss';
 import {Typography} from '~/components/Typography';
 import classnames from 'clsx';
 
@@ -40,9 +40,9 @@ export const Badge: FunctionComponent<BadgeProps> =
     ({label = null, color = BadgeColor.accent,
          type = BadgeType.round, className, ...other}) => {
         const classNameProps = classnames(
-            styles.badge,
-            styles[`color_${color}`],
-            styles[type],
+            'moonstone-badge',
+            `moonstone-color_${color}`,
+            `moonstone-${type}`,
             className
         );
         if (type === BadgeType.round) {

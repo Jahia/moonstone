@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import {storiesOf} from '@storybook/react';
 import {boolean, select, withKnobs} from '@storybook/addon-knobs';
-import storyStyles from '~/__storybook__/storybook.scss';
+import storyStyles from '~/__storybook__/storybook.module.scss';
 
 import {Typography, variants, weights} from './index';
 import markdownNotes from './Typography.md';

@@ -1,68 +1,68 @@
 @import '../../utils/index';
 
-.typography {
-    &.variant_title {
+.moonstone-typography {
+    &.moonstone-variant_title {
         font-weight: 300;
-        font-size: 1.75rem; //28px
+        font-size: 1.75rem; // 28px
         font-feature-settings: 'ordn' on, 'liga' off;
-        line-height: 2rem; //32px;
+        line-height: 2rem; // 32px;
 
         &::first-letter {
             text-transform: capitalize;
         }
     }
 
-    &.variant_heading {
+    &.moonstone-variant_heading {
         font-weight: 600;
-        font-size: 1.25rem; //20px;
-        line-height: 1.5rem; //24px;
+        font-size: 1.25rem; // 20px;
+        line-height: 1.5rem; // 24px;
     }
 
-    &.variant_subheading {
-        font-size: 1rem; //16px;
-        line-height: 1.125rem; //18px;
+    &.moonstone-variant_subheading {
+        font-size: 1rem; // 16px;
+        line-height: 1.125rem; // 18px;
     }
 
-    &.variant_body {
-        font-size: 0.875rem; //14px;
-        line-height: 1.1875rem; //19px;
+    &.moonstone-variant_body {
+        font-size: 0.875rem; // 14px;
+        line-height: 1.1875rem; // 19px;
     }
 
-    &.variant_caption {
-        font-size: 0.75rem; //12px;
-        line-height: 1rem; //16px;
+    &.moonstone-variant_caption {
+        font-size: 0.75rem; // 12px;
+        line-height: 1rem; // 16px;
     }
 
-    &.variant_button {
-        font-size: 0.75rem; //12px;
-        line-height: 1rem; //16px;
+    &.moonstone-variant_button {
+        font-size: 0.75rem; // 12px;
+        line-height: 1rem; // 16px;
     }
 
-    &.weight_bold {
+    &.moonstone-weight_bold {
         font-weight: bold;
     }
 
-    &.weight_semiBold {
+    &.moonstone-weight_semiBold {
         font-weight: 500;
     }
 
-    &.weight_light {
+    &.moonstone-weight_light {
         font-weight: 300;
     }
 
-    &.nowrap {
+    &.moonstone-nowrap {
         @include truncate(100%, inline-block);
     }
 
-    &.italic {
+    &.moonstone-italic {
         font-style: italic;
     }
 
-    &.lineThrough {
+    &.moonstone-lineThrough {
         text-decoration-line: line-through;
     }
 
-    &.upperCase {
+    &.moonstone-upperCase {
         text-transform: uppercase;
     }
 }

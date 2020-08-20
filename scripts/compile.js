@@ -5,11 +5,16 @@ const fs = require('fs');
 const glob = require('glob');
 const fx = require('mkdir-recursive');
 
+const compileSass = require('./compile-sass');
+
 const files = [
     ...glob.sync('**/*.[tj]s?(x)', {
         cwd: 'src'
     })
 ];
+const BABEL_BUILD_CONFIG = path.resolve('babel.build.config.js');
+
+compileSass();
 
 files.filter(file => (
     file.indexOf('.spec.') === -1 &&
@@ -18,7 +23,7 @@ files.filter(file => (
     file.indexOf('/__mocks__/') === -1 &&
     file.indexOf('/__storybook__/') === -1
 ).forEach(file => {
-    let result = babel.transformFileSync(path.resolve('src', file));
+    let result = babel.transformFileSync(path.resolve('src', file), {configFile: BABEL_BUILD_CONFIG});
 
     let target = path.resolve('dist', file).replace(/\.[tj]sx?$/, '.js');
     let folder = path.resolve(target, '..');
@@ -32,7 +37,7 @@ files.filter(file => (
     fs.writeFileSync(target, result.code);
     fs.writeFileSync(target + '.map', JSON.stringify(result.map));
 
-    console.log('Transpiled file ', target);
+    console.log('Transpiled file:', target);
 });
 
 function copyFile(srcFolder, destFolder, file) {
@@ -45,10 +50,10 @@ function copyFile(srcFolder, destFolder, file) {
     }
 }
 
-glob.sync('**/*.scss', {cwd: 'src'}).forEach(file => {
+glob.sync('**/*.ttf', {cwd: 'src'}).forEach(file => {
     copyFile('src', 'dist', file, file.slice(0, -3) + '.d.ts');
 });
 
-glob.sync('**/*.ttf', {cwd: 'src'}).forEach(file => {
+glob.sync('**/*.json', {cwd: 'src'}).forEach(file => {
     copyFile('src', 'dist', file, file.slice(0, -3) + '.d.ts');
 });

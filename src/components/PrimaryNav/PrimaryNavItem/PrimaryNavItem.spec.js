@@ -55,7 +55,7 @@ describe('NavItem', () => {
             }
         );
 
-        expect(wrapper.html()).toContain('primaryNavItem selected');
+        expect(wrapper.html()).toContain('primaryNavItem moonstone-selected');
     });
 
     it('should not set selected the item when not giving selected property', () => {

@@ -1,4 +1,4 @@
-.chip {
+.moonstone-chip {
     display: inline-flex;
     flex-direction: row;
     align-items: center;
@@ -8,43 +8,43 @@
 
     border-radius: 40px;
 
-    &.color_accent {
+    &.moonstone-color_accent {
         color: var(--color-accent_dark_contrast);
 
         background-color: var(--color-accent_light40);
     }
 
-    &.color_danger {
+    &.moonstone-color_danger {
         color: var(--color-gray_dark);
 
         background-color: var(--color-danger40);
     }
 
-    &.color_default {
+    &.moonstone-color_default {
         color: var(--color-accent_dark);
 
         background-color: var(--color-gray_light40);
     }
 
-    &.color_success {
+    &.moonstone-color_success {
         color: var(--color-gray_dark);
 
         background-color: var(--color-success40);
     }
 
-    &.color_warning {
+    &.moonstone-color_warning {
         color: var(--color-gray_dark);
 
         background-color: var(--color-warning40);
     }
 
-    &.color_reassuring {
+    &.moonstone-color_reassuring {
         color: var(--color-gray_dark);
 
         background-color: var(--color-purple40);
     }
 
-    &.disabled {
+    &.moonstone-disabled {
         opacity: 0.3;
     }
 

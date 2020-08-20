@@ -1,0 +1,9 @@
+{
+  "baseSpaceUnit": "8px",
+  "spacingNano": "4px",
+  "spacingSmall": "8px",
+  "spacingMedium": "16px",
+  "spacingLarge": "24px",
+  "spacingBig": "40px",
+  "spacingHuge": "56px"
+}

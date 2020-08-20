@@ -28,7 +28,7 @@ describe('TreeView', () => {
 
     it('should not display icon for items without children', () => {
         const wrapper = shallow(<ControlledTreeView data={[{id: 'A', label: 'A level1'}]}/>);
-        expect(wrapper.querySelector('.treeView_itemToggle')).toHaveProperty('nodeNotExistError');
+        expect(wrapper.querySelector('.moonstone-treeView_itemToggle')).toHaveProperty('nodeNotExistError');
     });
 
     it('should open node set in openItems', () => {
@@ -54,7 +54,7 @@ describe('TreeView', () => {
             <UncontrolledTreeView data={tree}/>, {mocks: {ControlledTreeView: true}}
         );
 
-        wrapper.querySelector('.treeView_itemToggle').dispatchEvent('click');
+        wrapper.querySelector('.moonstone-treeView_itemToggle').dispatchEvent('click');
         expect(wrapper.html()).toContain('A-1 level2');
     });
 
@@ -63,7 +63,7 @@ describe('TreeView', () => {
             <UncontrolledTreeView data={tree}/>, {mocks: {ControlledTreeView: true}}
         );
 
-        wrapper.querySelector('.treeView_itemLabel').dispatchEvent('click');
+        wrapper.querySelector('.moonstone-treeView_itemLabel').dispatchEvent('click');
         expect(wrapper.html()).toContain('A-1 level2');
     });
 
@@ -129,7 +129,7 @@ describe('TreeView', () => {
         );
 
         // No error should occur when there is no onDoubleClick defined
-        wrapper.querySelector('.treeView_itemLabel').dispatchEvent('doubleClick');
+        wrapper.querySelector('.moonstone-treeView_itemLabel').dispatchEvent('doubleClick');
     });
 
     it('should call onDoubleClick when double click on an item', () => {
@@ -138,7 +138,7 @@ describe('TreeView', () => {
             <ControlledTreeView data={tree} onDoubleClickItem={clickHandler}/>
         );
 
-        wrapper.querySelector('.treeView_itemLabel').dispatchEvent('doubleClick');
+        wrapper.querySelector('.moonstone-treeView_itemLabel').dispatchEvent('doubleClick');
 
         expect(clickHandler).toHaveBeenCalled();
     });
@@ -149,7 +149,7 @@ describe('TreeView', () => {
         );
 
         // No error should occur when there is no onClick defined
-        wrapper.querySelector('.treeView_itemLabel').dispatchEvent('click');
+        wrapper.querySelector('.moonstone-treeView_itemLabel').dispatchEvent('click');
     });
 
     it('should call onClick when clicking on label', () => {
@@ -157,7 +157,7 @@ describe('TreeView', () => {
         const wrapper = shallow(
             <ControlledTreeView data={tree} onClickItem={clickHandler}/>
         );
-        wrapper.querySelector('.treeView_itemLabel').dispatchEvent('click');
+        wrapper.querySelector('.moonstone-treeView_itemLabel').dispatchEvent('click');
         expect(clickHandler).toHaveBeenCalled();
     });
 
@@ -167,7 +167,7 @@ describe('TreeView', () => {
             <ControlledTreeView data={tree} onOpenItem={clickHandler}/>
         );
 
-        wrapper.querySelector('.treeView_itemToggle').dispatchEvent('click');
+        wrapper.querySelector('.moonstone-treeView_itemToggle').dispatchEvent('click');
 
         expect(clickHandler).toHaveBeenCalled();
     });
@@ -180,7 +180,7 @@ describe('TreeView', () => {
             <ControlledTreeView data={tree} openedItems={openedItems} onOpenItem={clickHandler}/>
         );
 
-        wrapper.querySelector('.treeView_itemToggle').dispatchEvent('click');
+        wrapper.querySelector('.moonstone-treeView_itemToggle').dispatchEvent('click');
 
         expect(clickHandler).not.toHaveBeenCalled();
     });

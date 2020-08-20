@@ -1,14 +1,11 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
-import styles from './Breadcrumb.scss';
+import './Breadcrumb.scss';
 import classnames from 'clsx';
 import {ChevronRight} from '~/icons';
 
 export const Breadcrumb = ({children, className, ...props}) => {
-    const classNames = classnames(
-        styles.breadcrumb,
-        className
-    );
+    const classNames = classnames(className);
 
     const allItems = React.Children.toArray(children);
 
@@ -21,7 +18,15 @@ export const Breadcrumb = ({children, className, ...props}) => {
                             {item}
 
                             {index < allItems.length - 1 &&
-                            <li className={classnames(styles.breadcrumb_separator, 'flexRow_center', 'alignCenter')}>
+                            <li
+                                className={
+                                    classnames(
+                                        'moonstone-breadcrumb_separator',
+                                        'flexRow_center',
+                                        'alignCenter'
+                                    )
+                                }
+                            >
                                 <ChevronRight aria-hidden/>
                             </li>}
                         </Fragment>

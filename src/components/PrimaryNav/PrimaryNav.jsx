@@ -1,14 +1,19 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'clsx';
-import styles from './PrimaryNav.scss';
+import './PrimaryNav.scss';
 import {PrimaryNavContext} from './PrimaryNav.context';
 import {Menu, ArrowLeft} from '~/icons';
 
 const NavButton = ({isExpanded, toggleExpand, modeIcon}) => {
     if (isExpanded) {
         return (
-            <button className={classnames(styles.navButton)} type="button" role="primary-nav-control" onClick={toggleExpand}>
+            <button
+                className={classnames('moonstone-primaryNav_button')}
+                type="button"
+                role="primary-nav-control"
+                onClick={toggleExpand}
+            >
                 <ArrowLeft size="big"/>
             </button>
         );
@@ -18,14 +23,19 @@ const NavButton = ({isExpanded, toggleExpand, modeIcon}) => {
 
     if (modeIcon) {
         icon = React.cloneElement(modeIcon, {
-            className: classnames(styles.modeIcon)
+            className: classnames('moonstone-primaryNav_modeIcon')
         });
     }
 
     return (
         <>
             {icon}
-            <button className={classnames(styles.navButton)} type="button" role="primary-nav-control" onClick={toggleExpand}>
+            <button
+                className={classnames('moonstone-primaryNav_button')}
+                type="button"
+                role="primary-nav-control"
+                onClick={toggleExpand}
+            >
                 <Menu size="big"/>
             </button>
         </>
@@ -43,14 +53,14 @@ const NavHeader = ({headerCaption, modeIcon, headerLogo}) => {
 
     if (modeIcon) {
         icon = React.cloneElement(modeIcon, {
-            className: classnames(styles.modeIconHeader)
+            className: classnames('moonstone-primaryNav_modeIconHeader')
         });
     }
 
     return (
         <>
             {headerLogo}
-            <div className={classnames('flexRow_nowrap', 'alignCenter', styles.headerCaption)}>
+            <div className={classnames('flexRow_nowrap', 'alignCenter', 'moonstone-primaryNav_headerCaption')}>
                 {icon}{headerCaption}
             </div>
         </>
@@ -75,17 +85,22 @@ export const PrimaryNav = ({headerLogo, top, bottom, headerCaption, modeIcon, ..
             <nav {...props}
                  aria-expanded={isExpanded}
                  className={classnames(
-                    styles.primaryNav,
-                    {[styles.expanded]: isExpanded},
+                     'moonstone-primaryNav',
+                     {'moonstone-expanded': isExpanded},
                     'flexCol_nowrap'
                 )}
             >
-                <div className={classnames('flexRow_nowrap', styles.navHeader)}>
-                    <div className={classnames(styles.navButtonContainer, 'flexRow_center', 'alignCenter')}>
+                <div className={classnames('flexRow_nowrap', 'moonstone-primaryNav_header')}>
+                    <div className={classnames('moonstone-primaryNav_buttonContainer', 'flexRow_center', 'alignCenter')}>
                         <NavButton isExpanded={isExpanded} toggleExpand={toggleExpand} modeIcon={modeIcon}/>
                     </div>
                     <div
-                        className={classnames('flexCol_center', 'alignCenter', 'flexFluid', styles.logoCaptionGroup)}
+                        className={classnames(
+                            'flexCol_center',
+                            'alignCenter',
+                            'flexFluid',
+                            'moonstone-primaryNav_logoCaptionGroup'
+                        )}
                     >
                         <NavHeader headerCaption={headerCaption} modeIcon={modeIcon} headerLogo={headerLogo}/>
                     </div>
@@ -99,7 +114,7 @@ export const PrimaryNav = ({headerLogo, top, bottom, headerCaption, modeIcon, ..
                     {bottom}
                 </ul>
             </nav>
-            {isExpanded && <div className={(styles.overlay)} onClick={toggleExpand}/>}
+            {isExpanded && <div className="moonstone-primaryNav_overlay" onClick={toggleExpand}/>}
         </PrimaryNavContext.Provider>
     );
 };

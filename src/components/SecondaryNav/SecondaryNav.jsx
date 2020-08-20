@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'clsx';
-import styles from './SecondaryNav.scss';
+import './SecondaryNav.scss';
 import {ResizableBox} from '~/components/ResizableBox';
 import ChevronDoubleRight from '~/icons/ChevronDoubleRight';
 import ChevronDoubleLeft from '~/icons/ChevronDoubleLeft';
@@ -21,8 +21,8 @@ export const SecondaryNav = ({header, children, isDefaultVisible, onToggled, cla
                     className,
                     'flexFluid',
                     'flexCol_nowrap',
-                    styles.secondaryNav,
-                    isVisible ? null : styles.secondaryNav_hidden
+                    'moonstone-secondaryNav',
+                    isVisible ? null : 'moonstone-secondaryNav_hidden'
                 )
             }
             enable={['right']}
@@ -36,7 +36,7 @@ export const SecondaryNav = ({header, children, isDefaultVisible, onToggled, cla
             {...props}
         >
             <button type="button"
-                    className={classnames(styles.secondaryNav_buttonToggle)}
+                    className={classnames('moonstone-secondaryNav_buttonToggle')}
                     onClick={handleToggle}
             >
                 {isVisible &&
@@ -45,7 +45,7 @@ export const SecondaryNav = ({header, children, isDefaultVisible, onToggled, cla
                     <ChevronDoubleRight/>}
             </button>
 
-            <div className={classnames(styles.secondaryNav_wrapper, 'flexFluid', 'flexCol_nowrap')}>
+            <div className={classnames('moonstone-secondaryNav_wrapper', 'flexFluid', 'flexCol_nowrap')}>
                 {header}
                 <div className={classnames('flexFluid', 'flexCol_nowrap')}>
                     {children}

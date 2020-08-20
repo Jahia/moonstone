@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'clsx';
-import styles from './Separator.scss';
+import './Separator.scss';
 
 export const SeparatorSpacings = ['none', 'small', 'medium', 'big'];
 export const SeparatorSizes = ['medium', 'large', 'full'];
@@ -12,11 +12,11 @@ export const Separator = ({size, spacing, variant, className, invisible, ...prop
     return (
         <hr {...props}
             className={classnames(
-                styles.separator,
-                styles[`separator_${variant}`],
-                styles[`size_${size}`],
-                styles[`spacing_${spacing}`],
-                invisible && styles[`invisible_${invisible}`],
+                'moonstone-separator',
+                `moonstone-separator_${variant}`,
+                `moonstone-size_${size}`,
+                `moonstone-spacing_${spacing}`,
+                invisible && `moonstone-invisible_${invisible}`,
                 className
             )}
         />

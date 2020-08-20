@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'clsx';
-import styles from './AccordionItem.scss';
+import './AccordionItem.scss';
 import {Typography} from '~/components/Typography';
 import {AccordionContext} from '~/components/Accordion/Accordion.context';
 
@@ -18,8 +18,8 @@ export const AccordionItem = ({id, label, icon, onClick, children, className, ..
         <section
             {...props}
             className={classnames(
-                styles.accordionItem,
-                {[styles.reversed]: context.isReversed},
+                'moonstone-accordionItem',
+                {'moonstone-reversed': context.isReversed},
                 'flexCol',
                 open ? 'flexFluid' : null,
                 className
@@ -27,10 +27,10 @@ export const AccordionItem = ({id, label, icon, onClick, children, className, ..
         >
             <header
                 className={classnames(
-                    styles.accordionItem_header,
+                    'moonstone-accordionItem_header',
                     {
-                        [styles.selected]: open,
-                        [styles.reversed]: context.isReversed
+                        'moonstone-selected': open,
+                        'moonstone-reversed': context.isReversed
                     },
                     'flexRow',
                     'alignCenter'
@@ -42,7 +42,7 @@ export const AccordionItem = ({id, label, icon, onClick, children, className, ..
             >
                 {icon &&
                     <div className={classnames(
-                        styles.accordionItem_iconContainer,
+                        'moonstone-accordionItem_iconContainer',
                         'flexRow_center',
                         'alignCenter'
                     )}
@@ -62,7 +62,7 @@ export const AccordionItem = ({id, label, icon, onClick, children, className, ..
             {/* Accordion content */}
             {open &&
                 <div className={classnames(
-                        styles.accordionItem_content,
+                        'moonstone-accordionItem_content',
                         'flexFluid'
                     )}
                      role="region"

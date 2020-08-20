@@ -1,5 +1,6 @@
 const path = require('path');
 const createCompiler = require('@storybook/addon-docs/mdx-compiler-plugin');
+const jsonImporter = require('node-sass-json-importer');
 
 // Export a function. Accept the base config as the only param.
 module.exports = async ({config, mode}) => {
@@ -7,11 +8,13 @@ module.exports = async ({config, mode}) => {
     config.resolve.alias['~'] = path.resolve(__dirname, '../src/');
     config.resolve.extensions.push('.ts');
     config.resolve.extensions.push('.tsx');
+    
     config.module.rules.push({
         test: /\.stories\.jsx?$/,
         loaders: [require.resolve('@storybook/source-loader')],
         enforce: 'pre',
     });
+
     config.module.rules.push({
         test: /\.(stories|story)\.mdx$/,
         use: [
@@ -26,6 +29,7 @@ module.exports = async ({config, mode}) => {
             },
         ],
     });
+
     config.module.rules.push({
         test: /\.tsx?$/,
         sideEffects: true,
@@ -42,8 +46,32 @@ module.exports = async ({config, mode}) => {
         ],
         include: path.resolve(__dirname, '../')
     });
+
+    // This rule is for non-css module files
     config.module.rules.push({
         test: /\.scss$/,
+        exclude: /\.module\.scss$/,
+        use: [
+            'style-loader',
+            'css-loader',
+            {
+                loader: 'sass-loader',
+                // Apply the JSON importer via sass-loader's options.
+                options: {
+                    sassOptions: {
+                        importer: jsonImporter({
+                            convertCase: true
+                        })
+                    }
+                }
+            }
+        ],
+        include: path.resolve(__dirname, '../')
+    });
+
+    // This rule is for scss files that will be used with css modules
+    config.module.rules.push({
+        test: /\.module\.scss$/,
         sideEffects: true,
         use: [
             'style-loader',

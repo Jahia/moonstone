@@ -2,7 +2,6 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
-
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const productionPlugins =
@@ -27,21 +26,11 @@ const ComponentsConfig = {
     module: {
         rules: [
             {
-                test: /\.scss$/i,
+                test: /\.css$/i,
                 sideEffects: true,
                 use: [
                     'style-loader',
-                    // Translates CSS into CommonJS
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            modules: {
-                                mode: 'local'
-                            }
-                        }
-                    },
-                    // Compiles Sass to CSS
-                    'sass-loader'
+                    'css-loader'
                 ]
             },
             {

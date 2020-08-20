@@ -2,7 +2,7 @@ import React from 'react';
 import {Resizable} from 're-resizable';
 import PropTypes from 'prop-types';
 import classnames from 'clsx';
-import styles from './ResizableBox.scss';
+import './ResizableBox.scss';
 import HandleResize from '~/icons/HandleResize';
 
 // WIP
@@ -26,14 +26,14 @@ export const ResizableBox = ({enable, minWidth, maxWidth, defaultSize, className
             defaultSize={defaultSize}
             handleClasses={
                 {
-                    right: classnames(styles.resizable_handle),
-                    left: classnames(styles.resizable_handle)
+                    right: classnames('moonstone-resizable_handle'),
+                    left: classnames('moonstone-resizable_handle')
                 }
             }
             handleComponent={
                 {
-                    right: <HandleResize className={classnames(styles.resizable_handle_icon)} size="big"/>,
-                    left: <HandleResize className={classnames(styles.resizable_handle_icon)} size="big"/>
+                    right: <HandleResize className={classnames('moonstone-resizable_handle_icon')} size="big"/>,
+                    left: <HandleResize className={classnames('moonstone-resizable_handle_icon')} size="big"/>
                 }
             }
             className={classnames(className)}

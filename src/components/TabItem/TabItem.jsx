@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './TabItem.scss';
+import './TabItem.scss';
 import classnames from 'clsx';
 import {Typography} from '../Typography';
 
@@ -13,14 +13,14 @@ export const TabItem = ({component, label, size, isReversed, isDisabled, icon, v
         component,
         {
             className: classnames(
-                styles['tab-item'],
-                styles[`size_${size}`],
-                styles[`variant_${variant}`],
-                styles[`color_${color}`],
-                {[styles.icon]: (icon && label)},
-                {[styles['icon-tab-item']]: !label},
-                {[styles.selected]: isSelected},
-                {[styles.reverse]: isReversed},
+                'moonstone-tab-item',
+                `moonstone-size_${size}`,
+                `moonstone-variant_${variant}`,
+                `moonstone-color_${color}`,
+                {'moonstone-icon': (icon && label)},
+                {'moonstone-icon-tab-item': !label},
+                {'moonstone-selected': isSelected},
+                {'moonstone-reverse': isReversed},
                 className
             ),
             disabled: isDisabled,
