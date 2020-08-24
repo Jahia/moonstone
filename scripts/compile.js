@@ -16,13 +16,19 @@ const BABEL_BUILD_CONFIG = path.resolve('babel.build.config.js');
 
 compileSass();
 
-files.filter(file => (
+const newFiles = files.filter(file => (
     file.indexOf('.spec.') === -1 &&
     file.indexOf('.stories.') === -1) &&
-    file.indexOf('/tokens/') === -1 &&
-    file.indexOf('/__mocks__/') === -1 &&
-    file.indexOf('/__storybook__/') === -1
-).forEach(file => {
+    file.indexOf('__mocks__/') === -1 &&
+    file.indexOf('__storybook__/') === -1 &&
+    file.indexOf('tokens/colors') === -1 &&
+    file.indexOf('tokens/icons') === -1 &&
+    file.indexOf('tokens/shadows') === -1 &&
+    !file.startsWith('data/')
+);
+console.log('newFiles', newFiles);
+
+newFiles.forEach(file => {
     let result = babel.transformFileSync(path.resolve('src', file), {configFile: BABEL_BUILD_CONFIG});
 
     let target = path.resolve('dist', file).replace(/\.[tj]sx?$/, '.js');
