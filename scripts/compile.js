@@ -19,9 +19,12 @@ compileSass();
 files.filter(file => (
     file.indexOf('.spec.') === -1 &&
     file.indexOf('.stories.') === -1) &&
-    file.indexOf('/tokens/') === -1 &&
-    file.indexOf('/__mocks__/') === -1 &&
-    file.indexOf('/__storybook__/') === -1
+    file.indexOf('__mocks__/') === -1 &&
+    file.indexOf('__storybook__/') === -1 &&
+    file.indexOf('tokens/colors') === -1 &&
+    file.indexOf('tokens/icons') === -1 &&
+    file.indexOf('tokens/shadows') === -1 &&
+    !file.startsWith('data/')
 ).forEach(file => {
     let result = babel.transformFileSync(path.resolve('src', file), {configFile: BABEL_BUILD_CONFIG});
 
