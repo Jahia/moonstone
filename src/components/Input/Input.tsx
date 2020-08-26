@@ -1,19 +1,71 @@
-import React, {ChangeEvent, FunctionComponent, useState} from 'react';
+import React, {FunctionComponent} from 'react';
+import classnames from "clsx";
 
-// Create an interface for Input component
-// props include: defaultValue, ...
+type TInputVariant = 'text' | 'number' | 'search';
 
-export const Input: FunctionComponent = () => {
-    const [inputValue, setInputValue] = useState('');
+export enum InputVariant {
+    TEXT = 'text',
+    SEARCH = 'search'
+}
 
-    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => setInputValue(event.target.value)
+type TInputHeight = 'default' | 'dense';
 
-    // Console.log('inputValue:', inputValue);
+export enum InputHeight {
+    DEFAULT = 'default',
+    DENSE = 'dense'
+}
+
+interface IInputProps {
+    variant?: TInputVariant;
+    value?: string;
+    id?: string,
+    placeholder?: string;
+    disabled?: boolean;
+    readOnly?: boolean;
+    className?: string;
+    height?: TInputHeight;
+    iconStart?: React.ReactElement;
+    iconEnd?: React.ReactElement;
+    width?: number;
+    fullWidth?: boolean;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+    onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+}
+
+export const Input: FunctionComponent<IInputProps> =
+    ({
+        variant = 'text',
+        value = '',
+        id,
+        placeholder = '',
+        disabled = false,
+        readOnly = false,
+        className,
+        height = InputHeight.DEFAULT,
+        iconStart = '',
+        iconEnd = '',
+        width,
+        fullWidth = true,
+        onChange,
+        onBlur,
+        onFocus,
+    }) => {
+    const classNameProps = classnames(className);
 
     return (
         <input
-            value={inputValue}
-            onChange={handleInputChange}
+            type={variant}
+            value={value}
+            id={id}
+            placeholder={placeholder}
+            disabled={disabled}
+            readOnly={readOnly}
+            className={classNameProps}
+            height={height}
+            onChange={onChange}
+            onBlur={onBlur}
+            onFocus={onFocus}
         />
     );
 };
