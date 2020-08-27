@@ -8,7 +8,7 @@ export enum InputVariant {
     SEARCH = 'search'
 }
 
-type TInputHeight = 'default' | 'dense';
+type TInputHeight = 'default' | 'tall';
 
 export enum InputHeight {
     DEFAULT = 'default',
