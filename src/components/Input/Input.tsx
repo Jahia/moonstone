@@ -12,7 +12,7 @@ type TInputHeight = 'default' | 'dense';
 
 export enum InputHeight {
     DEFAULT = 'default',
-    DENSE = 'dense'
+    TALL = 'tall'
 }
 
 interface IInputProps {
@@ -50,6 +50,7 @@ export const Input: FunctionComponent<IInputProps> =
         onChange,
         onBlur,
         onFocus,
+        ...props
     }) => {
     const classNameProps = classnames(className);
 
@@ -62,10 +63,10 @@ export const Input: FunctionComponent<IInputProps> =
             disabled={disabled}
             readOnly={readOnly}
             className={classNameProps}
-            height={height}
             onChange={onChange}
             onBlur={onBlur}
             onFocus={onFocus}
+            {...props}
         />
     );
 };
