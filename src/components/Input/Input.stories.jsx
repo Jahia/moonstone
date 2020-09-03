@@ -40,12 +40,8 @@ storiesOf('Components|Input', module)
                             placeholder="a placeholder!"
                             value={state}
                             onChange={e => setState(e.target.value)}
-                            onBlur={() => {
-                                // Console.log('the input was blurred!');
-                            }}
-                            onFocus={() => {
-                                // Console.log('the input was focused!');
-                            }}
+                            onBlur={() => {}}
+                            onFocus={() => {}}
                         />
                     )}
                 </Parent>
@@ -127,12 +123,8 @@ storiesOf('Components|Input', module)
                         placeholder="a placeholder!"
                         value={state}
                         onChange={e => setState(e.target.value)}
-                        onBlur={() => {
-                            // Console.log('the input was blurred!');
-                        }}
-                        onFocus={() => {
-                            // Console.log('the input was focused!');
-                        }}
+                        onBlur={() => {}}
+                        onFocus={() => {}}
                     />
                 )}
                 </Parent>
