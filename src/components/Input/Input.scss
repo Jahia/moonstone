@@ -1,1 +1,131 @@
-// keep file
+$default-height: 24px;
+$tall-height: 32px;
+$min-width: 40px;
+$border-width: 0.5px;
+$focus-border-width: 1px;
+$border-style: solid;
+$border-radius: 2px;
+
+.moonstone-input {
+    // box-sizing: border-box;
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    min-width: $min-width;
+    height: $default-height;
+
+    line-height: 23px;
+
+    border: $border-width $border-style var(--color-gray60);
+    border-radius: $border-radius;
+
+    background-color: var(--color-light);
+
+    cursor: text;
+
+    &:hover,
+    &:active {
+        border: $border-width $border-style var(--color-gray);
+        border-radius: $border-radius;
+    }
+
+    input {
+        display: block;
+        box-sizing: content-box;
+        width: 100%; // Fix IE 11 width issue
+        // Make the flex item shrink with Firefox
+        min-width: 0;
+        height: 24px;
+        margin: 0; // Reset for Safari
+        padding: 0 8px;
+
+        font: inherit;
+        color: currentColor;
+        letter-spacing: inherit;
+
+        border: 0;
+        background: none;
+
+        -webkit-tap-highlight-color: transparent;
+
+        // Reset Firefox invalid required input style
+        &:invalid {
+            box-shadow: none;
+        }
+
+        &::placeholder {
+            font-style: italic;
+        }
+
+        &:focus {
+            border: $focus-border-width $border-style var(--color-accent);
+            border-radius: $border-radius;
+            outline: none;
+        }
+    }
+
+    &.moonstone-height_tall {
+        height: $tall-height;
+
+        input {
+            height: $tall-height;
+        }
+    }
+
+    &.moonstone-disabled,
+    &.moonstone-disabled:hover {
+        color: var(--color-gray);
+
+        border: $border-width $border-style var(--color-gray_light40);
+        border-radius: $border-radius;
+        outline: none;
+        background-color: var(--color-gray_light40);
+        cursor: default;
+        opacity: 1; // Reset iOS opacity
+    }
+
+    &.moonstone-readOnly {
+        border: 0;
+        background-color: transparent;
+    }
+
+    .start-icon-wrap {
+        position: absolute;
+        left: var(--spacing-small);
+
+        display: flex;
+        align-items: center;
+        height: 0.01em;
+        max-height: 2em;
+
+        white-space: nowrap;
+
+        pointer-events: none;
+
+        & ~ input {
+            padding-left: 28px;
+        }
+    }
+
+    .end-icon-wrap {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: calc(100% - 28px);
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        white-space: nowrap;
+
+        cursor: pointer;
+
+        & ~ input {
+            padding-right: 28px;
+        }
+    }
+}
