@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {storiesOf} from '@storybook/react';
 import {boolean, select, withKnobs} from '@storybook/addon-knobs';
-// Import {select, text, withKnobs} from '@storybook/addon-knobs';
 import classnames from 'clsx';
 import storyStyles from '~/__storybook__/storybook.module.scss';
 import PropTypes from 'prop-types';
@@ -65,7 +64,7 @@ storiesOf('Components|Input', module)
                             value={state}
                             placeholder="this is a placeholder!"
                             variant="search"
-                            onClear={e => setState(e.target.value)}
+                            onClear={() => setState('')}
                             onChange={e => setState(e.target.value)}
                         />
                     )}
@@ -92,7 +91,7 @@ storiesOf('Components|Input', module)
                             value={state}
                             placeholder="this is a placeholder!"
                             icon={<IconWrapper iconName={select('Icon', iconsName, 'Love')}/>}
-                            onClear={e => setState(e.target.value)}
+                            onClear={() => setState('')}
                             onChange={e => setState(e.target.value)}
                         />
                     )}

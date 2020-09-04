@@ -93,7 +93,6 @@ export const Input: FunctionComponent<IInputProps> =
     const classNameProps = classnames(
         'moonstone-input',
         {'moonstone-size_big': size === 'big'},
-        {'moonstone-readOnly': isReadOnly},
         {'moonstone-disabled': isDisabled},
         className
     );

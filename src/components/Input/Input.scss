@@ -62,7 +62,7 @@ $border-radius: 2px;
         }
 
         &:disabled {
-            color: var(--color-gray);
+            //color: var(--color-gray);
 
             border: transparent;
             background-color: var(--color-gray_light40);
@@ -77,6 +77,10 @@ $border-radius: 2px;
         input {
             height: $big-size;
         }
+    }
+
+    &.moonstone-disabled {
+        color: var(--color-gray);
     }
 
     %icon-shared {
