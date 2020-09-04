@@ -31,9 +31,9 @@ describe('Input', () => {
         expect(input.html()).toContain(placeholder);
     });
 
-    it('should display height class for tall', () => {
-        const input = shallow(<Input heightType="tall"/>);
-        expect(input.querySelector('.moonstone-height_tall').exists()).toBeTruthy();
+    it('should display size class for big input', () => {
+        const input = shallow(<Input size="big"/>);
+        expect(input.querySelector('.moonstone-size_big').exists()).toBeTruthy();
     });
 
     it('should have an extra css class', () => {
@@ -58,14 +58,14 @@ describe('Input', () => {
         expect(input.querySelector('SvgLove').exists()).toBeTruthy();
     });
 
-    it('should display the close icon', () => {
+    it('should display the cancel icon', () => {
         const input = shallow(<Input onClear={() => ''}/>);
-        expect(input.querySelector('SvgClose').exists()).toBeTruthy();
+        expect(input.querySelector('SvgCancel').exists()).toBeTruthy();
     });
 
     it('should display the search variant', () => {
         const input = shallow(<Input variant="search" onClear={() => 'test!'}/>);
         expect(input.querySelector('SvgSearch').exists()).toBeTruthy();
-        expect(input.querySelector('SvgClose').exists()).toBeTruthy();
+        expect(input.querySelector('SvgCancel').exists()).toBeTruthy();
     });
 });

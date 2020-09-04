@@ -1,7 +1,7 @@
 import React, {FunctionComponent, InputHTMLAttributes, useState} from 'react';
 import classnames from "clsx";
 
-import {Close, Search} from '~/icons';
+import {Cancel, Search} from '~/icons';
 import './Input.scss';
 
 type TInputVariant = 'text' | 'search';
@@ -11,11 +11,11 @@ export enum InputVariant {
     SEARCH = 'search'
 }
 
-type TInputHeight = 'default' | 'tall';
+type TInputSize = 'default' | 'big';
 
-export enum InputHeight {
+export enum InputSize {
     DEFAULT = 'default',
-    TALL = 'tall'
+    BIG = 'big'
 }
 
 interface IInputProps {
@@ -48,15 +48,15 @@ interface IInputProps {
      */
     className?: string;
     /**
-     * Whether the height of the input should be default or tall
+     * Whether the size of the input should be default or big
      */
-    heightType?: TInputHeight;
+    size?: TInputSize;
     /**
      * Which icon to use at the beginning of the input
      */
     icon?: React.ReactElement;
     /**
-     * Function - when passed in, the close icon appears at the end of the input and its click event is passed back when the close icon is clicked
+     * Function - when passed in, the Cancel icon appears at the end of the input and its click event is passed back when the Cancel icon is clicked
      */
     onClear?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
     /**
@@ -82,7 +82,7 @@ export const Input: FunctionComponent<IInputProps> =
         isDisabled = false,
         isReadOnly = false,
         className,
-        heightType = InputHeight.DEFAULT,
+        size = InputSize.DEFAULT,
         icon,
         onClear,
         onChange,
@@ -92,7 +92,7 @@ export const Input: FunctionComponent<IInputProps> =
     }) => {
     const classNameProps = classnames(
         'moonstone-input',
-        {'moonstone-height_tall': heightType === 'tall'},
+        {'moonstone-size_big': size === 'big'},
         {'moonstone-readOnly': isReadOnly},
         {'moonstone-disabled': isDisabled},
         className
@@ -101,18 +101,18 @@ export const Input: FunctionComponent<IInputProps> =
     return (
         <div className={classNameProps}>
             {(icon && variant === "text") && (
-                <div className="start-icon-wrap">
-                  <icon.type {...icon.props} className="moonstone-input-icon_start" focusable="false" viewBox-="0 0 16 16"/>
+                <div className="start-icon-wrap flexRow_nowrap alignCenter">
+                    <icon.type {...icon.props} className="moonstone-input-icon_start" focusable="false"/>
                 </div>
             )}
             {variant === "search" && (
-                <div className="start-icon-wrap">
-                  <Search focusable="false" viewBox-="0 0 16 16" />
+                <div className="start-icon-wrap flexRow_nowrap alignCenter">
+                    <Search focusable="false" />
                 </div>
             )}
-            {onClear && (
-                <div className="end-icon-wrap" onClick={onClear}>
-                  <Close focusable="false" viewBox-="0 0 16 16" />
+            {onClear && !isDisabled && (
+                <div className="end-icon-wrap flexRow_center alignCenter" onClick={onClear}>
+                    <Cancel />
                 </div>
             )}
             <input

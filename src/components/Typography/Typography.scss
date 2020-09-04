@@ -2,67 +2,54 @@
 
 .moonstone-typography {
     &.moonstone-variant_title {
-        font-weight: 300;
-        font-size: 1.75rem; // 28px
-        font-feature-settings: 'ordn' on, 'liga' off;
-        line-height: 2rem; // 32px;
-
-        &::first-letter {
-            text-transform: capitalize;
-        }
+        @extend %variant-title;
     }
 
     &.moonstone-variant_heading {
-        font-weight: 600;
-        font-size: 1.25rem; // 20px;
-        line-height: 1.5rem; // 24px;
+        @extend %variant-heading;
     }
 
     &.moonstone-variant_subheading {
-        font-size: 1rem; // 16px;
-        line-height: 1.125rem; // 18px;
+        @extend %variant-subheading;
     }
 
     &.moonstone-variant_body {
-        font-size: 0.875rem; // 14px;
-        line-height: 1.1875rem; // 19px;
+        @extend %variant-body;
     }
 
     &.moonstone-variant_caption {
-        font-size: 0.75rem; // 12px;
-        line-height: 1rem; // 16px;
+        @extend %variant-caption;
     }
 
     &.moonstone-variant_button {
-        font-size: 0.75rem; // 12px;
-        line-height: 1rem; // 16px;
+        @extend %variant-button;
     }
 
     &.moonstone-weight_bold {
-        font-weight: bold;
+        @extend %weight-bold;
     }
 
     &.moonstone-weight_semiBold {
-        font-weight: 500;
+        @extend %weight-semiBold;
     }
 
     &.moonstone-weight_light {
-        font-weight: 300;
+        @extend %weight-light;
     }
 
     &.moonstone-nowrap {
-        @include truncate(100%, inline-block);
+        @extend %nowrap;
     }
 
     &.moonstone-italic {
-        font-style: italic;
+        @extend %italic;
     }
 
     &.moonstone-lineThrough {
-        text-decoration-line: line-through;
+        @extend %lineThrough;
     }
 
     &.moonstone-upperCase {
-        text-transform: uppercase;
+        @extend %upperCase;
     }
 }

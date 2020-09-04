@@ -7,12 +7,12 @@ import storyStyles from '~/__storybook__/storybook.module.scss';
 import PropTypes from 'prop-types';
 
 import markdownNotes from './Input.md';
-import {Input, InputVariant, InputHeight} from './index';
+import {Input, InputVariant, InputSize} from './index';
 import IconWrapper from '~/__storybook__/IconWrapper';
 import {iconsName} from '~/__storybook__/utils';
 
 const variant = () => select('Variant', InputVariant, 'text');
-const inputHeightType = () => select('Height Type', InputHeight, 'default');
+const inputSize = () => select('Size', InputSize, 'default');
 const isDisabled = () => boolean('Is disabled', false);
 const isReadonly = () => boolean('Is readonly', false);
 
@@ -63,7 +63,6 @@ storiesOf('Components|Input', module)
                     {(state, setState) => (
                         <Input
                             value={state}
-                            height="tall"
                             placeholder="this is a placeholder!"
                             variant="search"
                             onClear={e => setState(e.target.value)}
@@ -89,8 +88,8 @@ storiesOf('Components|Input', module)
                 <Parent>
                     {(state, setState) => (
                         <Input
+                            // IsDisabled
                             value={state}
-                            height="tall"
                             placeholder="this is a placeholder!"
                             icon={<IconWrapper iconName={select('Icon', iconsName, 'Love')}/>}
                             onClear={e => setState(e.target.value)}
@@ -117,7 +116,7 @@ storiesOf('Components|Input', module)
                     {(state, setState) => (
                         <Input
                         variant={variant()}
-                        heightType={inputHeightType()}
+                        size={inputSize()}
                         isDisabled={isDisabled()}
                         isReadOnly={isReadonly()}
                         placeholder="a placeholder!"

@@ -1,8 +1,9 @@
-$default-height: 24px;
-$tall-height: 32px;
+@import '../../utils/index';
+
+$default-size: 24px;
+$big-size: 32px;
 $min-width: 40px;
-$border-width: 0.5px;
-$focus-border-width: 1px;
+$border-width: 1px;
 $border-style: solid;
 $border-radius: 2px;
 
@@ -13,39 +14,27 @@ $border-radius: 2px;
     align-items: center;
     width: 100%;
     min-width: $min-width;
-    height: $default-height;
+    height: $default-size;
 
+    color: var(--color-gray_dark);
     line-height: 23px;
-
-    border: $border-width $border-style var(--color-gray60);
-    border-radius: $border-radius;
-
-    background-color: var(--color-light);
 
     cursor: text;
 
-    &:hover,
-    &:active {
-        border: $border-width $border-style var(--color-gray);
-        border-radius: $border-radius;
-    }
-
     input {
+        @extend %variant-caption;
+
         display: block;
         box-sizing: content-box;
         width: 100%; // Fix IE 11 width issue
         // Make the flex item shrink with Firefox
         min-width: 0;
-        height: 24px;
+        height: $default-size;
         margin: 0; // Reset for Safari
-        padding: 0 8px;
+        padding: 0 var(--spacing-small);
 
-        font: inherit;
-        color: currentColor;
-        letter-spacing: inherit;
-
-        border: 0;
-        background: none;
+        border: $border-width $border-style var(--color-gray60);
+        border-radius: $border-radius;
 
         -webkit-tap-highlight-color: transparent;
 
@@ -58,48 +47,50 @@ $border-radius: 2px;
             font-style: italic;
         }
 
+        &:hover,
+        &:active {
+            border-color: var(--color-gray);
+        }
+
         &:focus {
-            border: $focus-border-width $border-style var(--color-accent);
-            border-radius: $border-radius;
+            border-color: var(--color-accent);
             outline: none;
         }
-    }
 
-    &.moonstone-height_tall {
-        height: $tall-height;
+        &:read-only {
+            border: transparent;
+        }
 
-        input {
-            height: $tall-height;
+        &:disabled {
+            color: var(--color-gray);
+
+            border: transparent;
+            background-color: var(--color-gray_light40);
+            cursor: default;
+            opacity: 1; // Reset iOS opacity
         }
     }
 
-    &.moonstone-disabled,
-    &.moonstone-disabled:hover {
-        color: var(--color-gray);
+    &.moonstone-size_big {
+        height: $big-size;
 
-        border: $border-width $border-style var(--color-gray_light40);
-        border-radius: $border-radius;
-        outline: none;
-        background-color: var(--color-gray_light40);
-        cursor: default;
-        opacity: 1; // Reset iOS opacity
+        input {
+            height: $big-size;
+        }
     }
 
-    &.moonstone-readOnly {
-        border: 0;
-        background-color: transparent;
+    %icon-shared {
+        white-space: nowrap;
     }
 
     .start-icon-wrap {
+        @extend %icon-shared;
+
         position: absolute;
         left: var(--spacing-small);
 
-        display: flex;
-        align-items: center;
         height: 0.01em;
         max-height: 2em;
-
-        white-space: nowrap;
 
         pointer-events: none;
 
@@ -109,17 +100,13 @@ $border-radius: 2px;
     }
 
     .end-icon-wrap {
+        @extend %icon-shared;
+
         position: absolute;
         top: 0;
         right: 0;
         bottom: 0;
         left: calc(100% - 28px);
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        white-space: nowrap;
 
         cursor: pointer;
 
