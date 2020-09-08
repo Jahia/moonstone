@@ -3,7 +3,7 @@ name: CI Linting & Unit Tests
 on:
   pull_request:
     branches:
-      - master
+      - develop
 
 jobs:
   build:
