@@ -149,6 +149,7 @@ export const Dropdown = (
 
                 <Typography
                     isNowrap
+                    variant="caption"
                     component="span"
                     className={classnames('flexFluid')}
                 >

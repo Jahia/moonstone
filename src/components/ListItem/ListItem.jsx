@@ -21,7 +21,15 @@ export const ListItem = ({label, isHtml, iconStart, iconEnd, className, ...props
                 <iconStart.type {...iconStart.props} size="small" className={classnames('moonstone-listItem_iconStart')}/>
             }
 
-            <Typography isNowrap isHtml={isHtml} className={classnames('flexFluid')} component="span">{label}</Typography>
+            <Typography
+                isNowrap
+                isHtml={isHtml}
+                className={classnames('flexFluid')}
+                variant="caption"
+                component="span"
+            >
+                {label}
+            </Typography>
 
             {
             iconEnd &&
