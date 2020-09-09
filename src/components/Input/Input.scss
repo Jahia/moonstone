@@ -58,13 +58,11 @@ $border-radius: 2px;
         }
 
         &:read-only {
-            border: transparent;
+            border-color: transparent;
         }
 
         &:disabled {
-            //color: var(--color-gray);
-
-            border: transparent;
+            border-color: transparent;
             background-color: var(--color-gray_light40);
             cursor: default;
             opacity: 1; // Reset iOS opacity
