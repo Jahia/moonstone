@@ -1,3 +1,22 @@
+# v0.16.2 (Thu Sep 10 2020)
+
+#### 🐛  Bug Fix
+
+- Release 0.16.2 [#173](https://github.com/Jahia/moonstone/pull/173) ([@vindhya](https://github.com/vindhya))
+- MOON-53: Excludes unnecessary files from build [#167](https://github.com/Jahia/moonstone/pull/167) ([@vindhya](https://github.com/vindhya))
+- MOON-140: Rebases master [#165](https://github.com/Jahia/moonstone/pull/165) ([@vindhya](https://github.com/vindhya))
+- MOON-53: Build Changes [#163](https://github.com/Jahia/moonstone/pull/163) ([@vindhya](https://github.com/vindhya))
+
+#### 📝  Documentation
+
+- MOON-148: Remove the link to zeroHeight [#166](https://github.com/Jahia/moonstone/pull/166) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Vindhya ([@vindhya](https://github.com/vindhya))
+
+---
+
 # v0.16.1 (Wed Aug 12 2020)
 
 #### 🐛  Bug Fix
