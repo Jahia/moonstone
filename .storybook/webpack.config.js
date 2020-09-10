@@ -8,7 +8,7 @@ module.exports = async ({config, mode}) => {
     config.resolve.alias['~'] = path.resolve(__dirname, '../src/');
     config.resolve.extensions.push('.ts');
     config.resolve.extensions.push('.tsx');
-    
+
     config.module.rules.push({
         test: /\.stories\.jsx?$/,
         loaders: [require.resolve('@storybook/source-loader')],
@@ -51,6 +51,7 @@ module.exports = async ({config, mode}) => {
     config.module.rules.push({
         test: /\.scss$/,
         exclude: /\.module\.scss$/,
+        sideEffects: true,
         use: [
             'style-loader',
             'css-loader',
