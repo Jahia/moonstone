@@ -7,7 +7,7 @@ $button-size_medium: 24px;
 $button-size_big: 32px;
 
 .moonstone-button {
-    display: flex;
+    display: inline-flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
