@@ -3,24 +3,28 @@ module.exports = function (
     opts,
     {imports, componentName, jsx, exports}
 ) {
-    return template.ast`
+    const plugins = ['jsx'];
+    if (opts.typescript) {
+        plugins.push('typescript');
+    }
+
+    const typeScriptTpl = template.smart({plugins});
+    const SVGProps = 'React.SVGProps<SVGSVGElement>';
+
+    return typeScriptTpl.ast`
         ${imports}
-        import PropTypes from 'prop-types';
+        
+        type TIconSize = 'small' | 'default' | 'big';
+        
+        interface IIconProps extends ${SVGProps} {
+            size?: TIconSize;
+            className?: string;
+        }
 
-        const ${componentName} = initialProps => {
-            const props = Object.assign({}, initialProps);
-            props.className = initialProps.className + ' moonstone-icon moonstone-icon_' + props.size;
+        const ${componentName} = ({size = 'default', className, ...otherProps}: IIconProps) => {
+            const props = Object.assign({}, {size, className, ...otherProps});
+            props.className = className + ' moonstone-icon moonstone-icon_' + size;
             return ${jsx};
-        };
-
-        ${componentName}.defaultProps = {
-            size: 'default',
-            className: ''
-        };
-
-        ${componentName}.propTypes = {
-            size: PropTypes.oneOf(['small', 'default', 'big']),
-            className: PropTypes.string
         };
 
         ${exports}
