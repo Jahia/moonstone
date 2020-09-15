@@ -1,0 +1,70 @@
+@import './mixins';
+
+// ---
+// Typography Styles
+// ---
+
+%variant-title {
+    font-weight: 300;
+    font-size: 1.75rem; // 28px
+    font-feature-settings: 'ordn' on, 'liga' off;
+    line-height: 2rem; // 32px;
+
+    &::first-letter {
+        text-transform: capitalize;
+    }
+}
+
+%variant-heading {
+    font-weight: 600;
+    font-size: 1.25rem; // 20px;
+    line-height: 1.5rem; // 24px;
+}
+
+%variant-subheading {
+    font-size: 1rem; // 16px;
+    line-height: 1.125rem; // 18px;
+}
+
+%variant-body {
+    font-size: 0.875rem; // 14px;
+    line-height: 1.1875rem; // 19px;
+}
+
+%variant-caption {
+    font-size: 0.75rem; // 12px;
+    line-height: 1rem; // 16px;
+}
+
+%variant-button {
+    font-size: 0.75rem; // 12px;
+    line-height: 1rem; // 16px;
+}
+
+%weight-bold {
+    font-weight: bold;
+}
+
+%weight-semiBold {
+    font-weight: 500;
+}
+
+%weight-light {
+    font-weight: 300;
+}
+
+%nowrap {
+    @include truncate(100%, inline-block);
+}
+
+%italic {
+    font-style: italic;
+}
+
+%lineThrough {
+    text-decoration-line: line-through;
+}
+
+%upperCase {
+    text-transform: uppercase;
+}
