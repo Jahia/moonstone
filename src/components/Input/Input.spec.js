@@ -58,14 +58,18 @@ describe('Input', () => {
         expect(input.querySelector('SvgLove').exists()).toBeTruthy();
     });
 
-    it('should display the cancel icon', () => {
-        const input = shallow(<Input onClear={() => ''}/>);
+    it('should display the cancel icon when the input is filled', () => {
+        const input = shallow(<Input value="testing" onClear={() => ''}/>);
         expect(input.querySelector('SvgCancel').exists()).toBeTruthy();
     });
 
+    it('should not display the cancel icon when the input is empty', () => {
+        const input = shallow(<Input onClear={() => ''}/>);
+        expect(input.querySelector('SvgCancel').exists()).toBeFalsy();
+    });
+
     it('should display the search variant', () => {
-        const input = shallow(<Input variant="search" onClear={() => 'test!'}/>);
+        const input = shallow(<Input variant="search"/>);
         expect(input.querySelector('SvgSearch').exists()).toBeTruthy();
-        expect(input.querySelector('SvgCancel').exists()).toBeTruthy();
     });
 });

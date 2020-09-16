@@ -25,7 +25,6 @@ $border-radius: 2px;
         @extend %variant-caption;
 
         display: block;
-        box-sizing: content-box;
         width: 100%; // Fix IE 11 width issue
         // Make the flex item shrink with Firefox
         min-width: 0;
@@ -33,7 +32,7 @@ $border-radius: 2px;
         margin: 0; // Reset for Safari
         padding: 0 var(--spacing-small);
 
-        border: $border-width $border-style var(--color-gray60);
+        border: $border-width $border-style var(--color-gray40);
         border-radius: $border-radius;
 
         -webkit-tap-highlight-color: transparent;
@@ -49,7 +48,7 @@ $border-radius: 2px;
 
         &:hover,
         &:active {
-            border-color: var(--color-gray);
+            border-color: var(--color-gray_dark60);
         }
 
         &:focus {
@@ -95,10 +94,19 @@ $border-radius: 2px;
         max-height: 2em;
 
         pointer-events: none;
+    }
 
-        & ~ input {
-            padding-left: 28px;
-        }
+    input:hover ~ .start-icon-wrap,
+    input:active ~ .start-icon-wrap {
+        color: var(--color-gray_dark);
+    }
+
+    input:focus ~ .start-icon-wrap {
+        color: var(--color-accent);
+    }
+
+    input:disabled ~ .start-icon-wrap {
+        color: var(--color-gray);
     }
 
     .end-icon-wrap {
@@ -110,10 +118,24 @@ $border-radius: 2px;
         bottom: 0;
         left: calc(100% - 28px);
 
-        cursor: pointer;
+        color: var(--color-gray);
 
-        & ~ input {
-            padding-right: 28px;
-        }
+        cursor: pointer;
+    }
+
+    .start-icon-padding {
+        padding-left: 28px;
+    }
+
+    .end-icon-padding {
+        padding-right: 28px;
+    }
+
+    .icon_input-filled {
+        color: var(--color-gray_dark);
+    }
+
+    .icon_input-empty {
+        color: var(--color-gray60);
     }
 }
