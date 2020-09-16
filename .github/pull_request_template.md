@@ -33,9 +33,11 @@ If you need to provide more details, please use the description section.
 -->
 
 - [ ] All files present ( component - md - scss - spec - stories )
-- [ ] Are all props ok and documented
+- [ ] Are all props ok and documented (propTypes)
 - [ ] Required props and default values
 - [ ] Example in storybook
+- [ ] Reversed style (light/dark mode)
+- [ ] Allows custom props
 
 ## Documentation
 
@@ -43,4 +45,5 @@ If you need to provide more details, please use the description section.
 Indicate if you have been writing documentation has part of this change.
 -->
 
-- [ ] README documentation
+- [ ] README documentation (Where/when and how the component should be used, structure, responsiveness, dependencies on other components, states, behaviours, animations, accessibility)
+- [ ] Design mockups (figma)
