@@ -14,6 +14,7 @@ const variant = () => select('Variant', InputVariant, 'text');
 const inputSize = () => select('Size', InputSize, 'default');
 const isDisabled = () => boolean('Is disabled', false);
 const isReadonly = () => boolean('Is readonly', false);
+const selectIcon = () => select('Icon', iconsName, 'Love');
 
 storiesOf('Components|Input', module)
     .addParameters({
@@ -116,10 +117,12 @@ storiesOf('Components|Input', module)
                         <Input
                         variant={variant()}
                         size={inputSize()}
+                        icon={<IconWrapper iconName={selectIcon()}/>}
                         isDisabled={isDisabled()}
                         isReadOnly={isReadonly()}
                         placeholder="a placeholder!"
                         value={state}
+                        onClear={() => setState('')}
                         onChange={e => setState(e.target.value)}
                         onBlur={() => {}}
                         onFocus={() => {}}
