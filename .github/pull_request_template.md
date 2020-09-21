@@ -33,8 +33,8 @@ If you need to provide more details, please use the description section.
 -->
 
 - [ ] All files present ( component - md - scss - spec - stories )
-- [ ] Are all props ok and documented (propTypes)
-- [ ] Required props and default values
+- [ ] All props ok and documented (propTypes)
+- [ ] Required props, default values, variants and colors
 - [ ] Example in storybook
 - [ ] Reversed style (light/dark mode)
 - [ ] Allows custom props
