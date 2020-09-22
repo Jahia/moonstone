@@ -1,5 +1,5 @@
 import React, {FunctionComponent, InputHTMLAttributes, useState} from 'react';
-import classnames from "clsx";
+import classnames from 'clsx';
 
 import {Cancel, Search} from '~/icons';
 import './Input.scss';
@@ -92,30 +92,23 @@ export const Input: FunctionComponent<IInputProps> =
     }) => {
     const classNameProps = classnames(
         'moonstone-input',
-        {'moonstone-size_big': size === 'big'},
+        {'moonstone-size_big': size === InputSize.BIG},
         {'moonstone-disabled': isDisabled},
         className
     );
+    const inputFilled = value !== '';
+    const inputEmpty = value === '';
 
     return (
         <div className={classNameProps}>
-            {(icon && variant === "text") && (
-                <div className="start-icon-wrap flexRow_nowrap alignCenter">
-                    <icon.type {...icon.props} className="moonstone-input-icon_start" focusable="false"/>
-                </div>
-            )}
-            {variant === "search" && (
-                <div className="start-icon-wrap flexRow_nowrap alignCenter">
-                    <Search focusable="false" />
-                </div>
-            )}
-            {onClear && !isDisabled && (
-                <div className="end-icon-wrap flexRow_center alignCenter" onClick={onClear}>
-                    <Cancel />
-                </div>
-            )}
             <input
-                className={classnames("moonstone-input-element")}
+                className={
+                    classnames(
+                        'moonstone-input-element',
+                        {'start-icon-padding': icon || variant === InputVariant.SEARCH},
+                        {'end-icon-padding': onClear}
+                    )
+                }
                 type="text"
                 value={value}
                 id={id}
@@ -127,6 +120,27 @@ export const Input: FunctionComponent<IInputProps> =
                 onFocus={onFocus}
                 {...props}
             />
+            {(icon || variant === InputVariant.SEARCH) && (
+                <div
+                    className={classnames(
+                        'start-icon-wrap',
+                        'flexRow_nowrap',
+                        'alignCenter',
+                        {'icon_input-filled': inputFilled},
+                        {'icon_input-empty': inputEmpty}
+                    )}
+                >
+                    {variant === InputVariant.SEARCH
+                        ? <Search focusable="false" />
+                        : <icon.type {...icon.props} focusable="false"/>
+                    }
+                </div>
+            )}
+            {onClear && inputFilled && !isDisabled && !isReadOnly && (
+                <div className="end-icon-wrap flexRow_center alignCenter" onClick={onClear}>
+                    <Cancel />
+                </div>
+            )}
         </div>
     );
 };
