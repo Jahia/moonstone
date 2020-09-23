@@ -3,7 +3,7 @@ import classnames from 'clsx';
 import './ListItem.scss';
 import {Typography} from '~/components/Typography';
 
-interface ILisItemProps {
+interface IListItemProps {
     /**
      * Additional classname
      */
@@ -30,7 +30,7 @@ interface ILisItemProps {
     iconEnd?: React.ReactElement
 }
 
-export const ListItem: React.FC<ILisItemProps> = ({
+export const ListItem: React.FC<IListItemProps> = ({
     label,
     isHtml = false,
     iconStart = null,
