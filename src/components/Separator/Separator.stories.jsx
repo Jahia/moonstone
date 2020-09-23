@@ -1,14 +1,13 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {withKnobs, select} from '@storybook/addon-knobs';
-import {optionsFromArray} from '~/__storybook__/utils';
 import classnames from 'classnames';
 import storyStyles from '~/__storybook__/storybook.module.scss';
 
 import {Separator, SeparatorSizes, SeparatorSpacings, SeparatorInvisible, Typography} from '~/components';
 import markdownNotes from './Separator.md';
 
-const separatorInvisibleValue = () => select('invisible', optionsFromArray(SeparatorInvisible), 'firstChild');
+const separatorInvisibleValue = () => select('invisible', SeparatorInvisible, SeparatorInvisible.FIRST_CHILD);
 
 storiesOf('Components|Separator', module)
     .addParameters({
@@ -21,8 +20,8 @@ storiesOf('Components|Separator', module)
             <Typography variant="heading">Content before a separator</Typography>
             <Separator
                 variant="horizontal"
-                size={select('Size', optionsFromArray(SeparatorSizes), 'full')}
-                spacing={select('Spacing', optionsFromArray(SeparatorSpacings), 'medium')}
+                size={select('Size', SeparatorSizes, SeparatorSizes.FULL)}
+                spacing={select('Spacing', SeparatorSpacings, SeparatorSpacings.MEDIUM)}
             />
             <Typography variant="heading">Content after a separator</Typography>
         </>
@@ -33,8 +32,8 @@ storiesOf('Components|Separator', module)
 
             <Separator
                 variant="vertical"
-                size={select('Size', optionsFromArray(SeparatorSizes), 'full')}
-                spacing={select('Spacing', optionsFromArray(SeparatorSpacings), 'medium')}
+                size={select('Size', SeparatorSizes, SeparatorSizes.FULL)}
+                spacing={select('Spacing', SeparatorSpacings, SeparatorSpacings.MEDIUM)}
             />
             <Typography variant="heading">After</Typography>
         </div>
