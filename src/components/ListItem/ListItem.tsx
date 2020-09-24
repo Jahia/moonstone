@@ -27,7 +27,11 @@ interface IListItemProps {
     /**
      * Icon display at the end of ListItem
      */
-    iconEnd?: React.ReactElement
+    iconEnd?: React.ReactElement,
+    /**
+     * Tab index for the element
+     */
+    tabIndex?: number
 }
 
 export const ListItem: React.FC<IListItemProps> = ({
@@ -35,6 +39,7 @@ export const ListItem: React.FC<IListItemProps> = ({
     isHtml = false,
     iconStart = null,
     iconEnd = null,
+    tabIndex,
     className = '',
     ...props
 }) => {
@@ -46,7 +51,9 @@ export const ListItem: React.FC<IListItemProps> = ({
     );
 
     return (
-        <li className={classnames(cssListItem)}
+        <li
+            className={classnames(cssListItem)}
+            tabIndex={tabIndex}
             {...props}
         >
             {
