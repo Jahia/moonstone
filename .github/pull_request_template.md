@@ -32,7 +32,7 @@ If some are not applicable they could simply be deleted deleted.
 If you need to provide more details, please use the description section.
 -->
 
-- [ ] All files present ( component - md - scss - spec - stories )
+- [ ] All files present (component - md - scss - spec - stories)
 - [ ] All props ok and documented (propTypes or typescript types)
 - [ ] Required props, default values, variants and colors
 - [ ] Example in storybook
@@ -45,5 +45,5 @@ If you need to provide more details, please use the description section.
 Indicate if you have been writing documentation has part of this change.
 -->
 
-- [ ] README documentation (Where/when and how the component should be used, structure, responsiveness, dependencies on other components, states, behaviours, animations, accessibility)
-- [ ] Design mockups (figma)
+- [ ] README documentation (specification of the component, responsiveness, dependencies on other components, states, behaviours, animations, accessibility)
+- [ ] Design mockups (figma - where/when/how the component should be used)
