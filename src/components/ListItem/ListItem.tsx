@@ -1,10 +1,43 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import './ListItem.scss';
 import {Typography} from '~/components/Typography';
 
-export const ListItem = ({label, isHtml, iconStart, iconEnd, className, ...props}) => {
+interface IListItemProps {
+    /**
+     * Additional classname
+     */
+    className?: string,
+
+    /**
+     * ListItem label
+     */
+    label: React.ReactNode,
+
+    /**
+     * Does the label contain HTML markup
+     */
+    isHtml?: boolean,
+
+    /**
+     * Icon display before the label
+     */
+    iconStart?: React.ReactElement,
+
+    /**
+     * Icon display at the end of ListItem
+     */
+    iconEnd?: React.ReactElement
+}
+
+export const ListItem: React.FC<IListItemProps> = ({
+    label,
+    isHtml = false,
+    iconStart = null,
+    iconEnd = null,
+    className = '',
+    ...props
+}) => {
     const cssListItem = classnames(
         className,
         'moonstone-listItem',
@@ -37,40 +70,6 @@ export const ListItem = ({label, isHtml, iconStart, iconEnd, className, ...props
             }
         </li>
     );
-};
-
-ListItem.defaultProps = {
-    iconStart: null,
-    iconEnd: null,
-    className: '',
-    isHtml: false
-};
-
-ListItem.propTypes = {
-    /**
-     * Additional classname
-     */
-    className: PropTypes.string,
-
-    /**
-     * ListItem label
-     */
-    label: PropTypes.node.isRequired,
-
-    /**
-     * Does the label contain HTML markup
-     */
-    isHtml: PropTypes.bool,
-
-    /**
-     * Icon display before the label
-     */
-    iconStart: PropTypes.node,
-
-    /**
-     * Icon display at the end of ListItem
-     */
-    iconEnd: PropTypes.node
 };
 
 ListItem.displayName = 'ListItem';
