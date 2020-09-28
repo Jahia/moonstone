@@ -11,7 +11,7 @@ storiesOf('Components|Menu', module)
         notes: {markdown: markdownNotes}
     })
     .addDecorator(withKnobs)
-    .add('default', () => (
+    .add('Default', () => (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <Menu
                 isDisplayed={boolean('display', true)}
@@ -113,4 +113,70 @@ storiesOf('Components|Menu', module)
                 </Menu>
             </div>
         );
-    });
+    })
+    .add('Big Image MenuItems', () => (
+        <div style={{transform: 'scale(1)', height: '100vh'}}>
+            <Menu
+                isDisplayed={boolean('display', true)}
+                maxHeight={text('Max-height', '500px')}
+                maxWidth={text('Max-width', '400px')}
+                style={{zIndex: 10000}}
+            >
+                <MenuItem label="Menu Items with Big Images" variant="title"/>
+                <MenuItem
+                    label="Big image MenuItem"
+                    image={<img src="https://via.placeholder.com/500x500?text=MenuItemImage"/>}
+                    imageSize="big"
+                />
+                <MenuItem
+                    label="Big image MenuItem"
+                    image={<img src="https://via.placeholder.com/500x500?text=MenuItemImage"/>}
+                    imageSize="big"
+                />
+                <MenuItem
+                    isSelected
+                    label="Big image MenuItem - selected"
+                    image={<img src="https://via.placeholder.com/500x500?text=MenuItemImage"/>}
+                    imageSize="big"
+                />
+                <MenuItem
+                    label="Big image MenuItem - lots of words lots of words lots of words"
+                    image={<img src="https://via.placeholder.com/500x500?text=MenuItemImage"/>}
+                    imageSize="big"
+                />
+            </Menu>
+        </div>
+    ))
+    .add('Small Image MenuItems', () => (
+        <div style={{transform: 'scale(1)', height: '100vh'}}>
+            <Menu
+                isDisplayed={boolean('display', true)}
+                maxHeight={text('Max-height', '500px')}
+                maxWidth={text('Max-width', '400px')}
+                style={{zIndex: 10000}}
+            >
+                <MenuItem label="Menu Items with Small Images" variant="title"/>
+                <MenuItem
+                    label="Small image MenuItem"
+                    image={<img src="https://via.placeholder.com/500x500?text=MenuItemImage"/>}
+                    imageSize="small"
+                />
+                <MenuItem
+                    label="Small image MenuItem"
+                    image={<img src="https://via.placeholder.com/500x500?text=MenuItemImage"/>}
+                    imageSize="small"
+                />
+                <MenuItem
+                    isSelected
+                    label="Small image MenuItem - selected"
+                    image={<img src="https://via.placeholder.com/500x500?text=MenuItemImage"/>}
+                    imageSize="small"
+                />
+                <MenuItem
+                    label="Small image MenuItem - lots of words lots of words lots of words"
+                    image={<img src="https://via.placeholder.com/500x500?text=MenuItemImage"/>}
+                    imageSize="small"
+                />
+            </Menu>
+        </div>
+    ));

@@ -9,6 +9,12 @@ enum MenuItemVariant {
     TITLE = 'title'
 }
 
+type TMenuItemImageSize = 'small' | 'big';
+enum MenuItemImageSize {
+    SMALL = 'small',
+    BIG = 'big'
+}
+
 interface IMenuItemProps {
     /**
      * Additional classname
@@ -31,7 +37,7 @@ interface IMenuItemProps {
     isDisabled?: boolean,
 
     /**
-     * ListItem label
+     * MenuItem label
      */
     label: React.ReactNode,
 
@@ -46,14 +52,24 @@ interface IMenuItemProps {
     iconStart?: React.ReactElement,
 
     /**
-     * Icon display at the end of ListItem
+     * Icon display at the end of MenuItem
      */
     iconEnd?: React.ReactElement,
 
     /**
-     * ListItem variants
+     * MenuItem variants
      */
     variant?: TMenuItemVariant,
+
+    /**
+     * Optional image to display to describe the menu item
+     */
+    image?: HTMLImageElement,
+
+    /**
+     * If there's an image, it should be this size
+     */
+    imageSize?: TMenuItemImageSize,
 
     /**
      * Function triggered on clicking the item
@@ -78,24 +94,35 @@ export const MenuItem: React.FC<IMenuItemProps> = ({
     isDisabled = false,
     iconStart = null,
     iconEnd = null,
+    image,
+    imageSize,
     className = '',
     ...props
 }) => (
-    <ListItem
+    <div
         tabIndex={isDisabled || variant === MenuItemVariant.TITLE || isSelected ? null : 0}
         aria-disabled={isDisabled}
         className={classnames(
             'moonstone-menuItem',
-            className,
             {
                 'moonstone-hover': isHover,
                 'moonstone-selected': isSelected,
                 'moonstone-disabled': isDisabled,
                 'moonstone-title': variant === MenuItemVariant.TITLE
-            }
+            },
+            'flexRow_nowrap',
+            'alignCenter',
+            imageSize && `moonstone-menuItem-withImage_${imageSize}`
         )}
-        {...props}
-    />
+    >
+        <div className={`moonstone-menuItem-image_${imageSize}`}>{image}</div>
+        <ListItem
+            className={className}
+            iconStart={iconStart}
+            iconEnd={iconEnd}
+            {...props}
+        />
+    </div>
 );
 
 MenuItem.displayName = 'MenuItem';
