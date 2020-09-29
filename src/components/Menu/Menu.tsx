@@ -141,7 +141,7 @@ export const Menu: React.FC<IMenuProps> = (
         onEntered,
         onExiting,
         onExited,
-        hasOverlay = true,
+        hasOverlay,
         ...props
     }) => {
     const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin);
