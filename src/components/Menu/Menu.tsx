@@ -195,7 +195,7 @@ export const Menu: React.FC<IMenuProps> = (
     );
 };
 
-// Kept defaultProps here because of unnecessary re-rendered when provided as default parameters to the function component
+// Kept defaultProps here because of unnecessary re-rendering when provided as default parameters to the function component
 Menu.defaultProps = {
     hasOverlay: true,
     anchorEl: null,
