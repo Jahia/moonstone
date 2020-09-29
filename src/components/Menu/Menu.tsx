@@ -5,16 +5,23 @@ import classnames from 'clsx';
 import './Menu.scss';
 
 type TAnchorPosition = {
-    top: string | number,
-    left: string | number
+    top: number;
+    left: number;
 };
 type TAnchorElOrigin = {
-    horizontal: 'left' | 'center' | 'right',
-    vertical: 'top' | 'center' | 'bottom'
+    horizontal: 'left' | 'center' | 'right';
+    vertical: 'top' | 'center' | 'bottom';
 };
 type TTransformElOrigin = {
-    horizontal: 'left' | 'right',
-    vertical: 'top' | 'bottom'
+    horizontal: 'left' | 'right';
+    vertical: 'top' | 'bottom';
+};
+type TStyleMenu =  {
+    top?: string | number;
+    left?: string | number;
+    minWidth?: string;
+    maxWidth?: string;
+    maxHeight?: string;
 };
 
 interface IMenuProps {
@@ -46,7 +53,7 @@ interface IMenuProps {
     /**
      * Reference element to positioning the menu
      */
-    anchorEl?: {};
+    anchorEl?: React.MutableRefObject<HTMLDivElement>;
 
     /**
      * Position of the menu in px relative to anchorEl or the document
@@ -125,10 +132,10 @@ export const Menu: React.FC<IMenuProps> = (
         style,
         onMouseEnter,
         onMouseLeave,
-        anchorEl = null,
-        anchorElOrigin = {vertical: 'bottom', horizontal: 'left'},
-        transformElOrigin = {vertical: 'top', horizontal: 'left'},
-        anchorPosition = {top: 0, left: 0},
+        anchorEl,
+        anchorElOrigin,
+        transformElOrigin,
+        anchorPosition,
         onClose,
         onEntering,
         onEntered,
@@ -143,7 +150,7 @@ export const Menu: React.FC<IMenuProps> = (
     // ---
     // Styling
     // ---
-    const styleMenu = {...stylePosition, ...style};
+    const styleMenu: TStyleMenu = {...stylePosition as TStyleMenu, ...style};
     if (minWidth) {
         styleMenu.minWidth = minWidth;
     }
@@ -186,6 +193,23 @@ export const Menu: React.FC<IMenuProps> = (
             }
         </>
     );
+};
+
+Menu.defaultProps = {
+    hasOverlay: true,
+    anchorEl: null,
+    anchorPosition: {
+        top: 0,
+        left: 0
+    },
+    anchorElOrigin: {
+        vertical: 'bottom',
+        horizontal: 'left'
+    },
+    transformElOrigin: {
+        vertical: 'top',
+        horizontal: 'left'
+    }
 };
 
 Menu.displayName = 'Menu';
