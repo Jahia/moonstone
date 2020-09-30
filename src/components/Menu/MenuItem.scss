@@ -53,12 +53,12 @@ $big-image-size: 96px;
 
     &.moonstone-menuItem-withImage_small {
         height: $menuItem-withImage-height_default;
-        padding-left: 16px;
+        padding-left: var(--spacing-medium);
     }
 
     &.moonstone-menuItem-withImage_big {
         height: $menuItem-withImage-height_big;
-        padding-left: 16px;
+        padding-left: var(--spacing-medium);
     }
 
     .moonstone-menuItem-image_small,
