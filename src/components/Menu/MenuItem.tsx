@@ -115,7 +115,7 @@ export const MenuItem: React.FC<IMenuItemProps> = ({
             imageSize && `moonstone-menuItem-withImage_${imageSize}`
         )}
     >
-        <div className={`moonstone-menuItem-image_${imageSize}`}>{image}</div>
+        <figure className={`moonstone-menuItem-image_${imageSize} flexRow`}>{image}</figure>
         <ListItem
             className={className}
             iconStart={iconStart}

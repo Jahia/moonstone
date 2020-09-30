@@ -141,7 +141,12 @@ storiesOf('Components|Menu', module)
                 />
                 <MenuItem
                     label="Big image MenuItem - lots of words lots of words lots of words"
-                    image={<img src="https://via.placeholder.com/500x500?text=MenuItemImage"/>}
+                    image={<img src="https://via.placeholder.com/300x500?text=MenuItemImage"/>}
+                    imageSize="big"
+                />
+                <MenuItem
+                    label="Big image MenuItem - lots of words lots of words lots of words"
+                    image={<img src="https://via.placeholder.com/500x300?text=MenuItemImage"/>}
                     imageSize="big"
                 />
             </Menu>
@@ -174,7 +179,12 @@ storiesOf('Components|Menu', module)
                 />
                 <MenuItem
                     label="Small image MenuItem - lots of words lots of words lots of words"
-                    image={<img src="https://via.placeholder.com/500x500?text=MenuItemImage"/>}
+                    image={<img src="https://via.placeholder.com/300x500?text=MenuItemImage"/>}
+                    imageSize="small"
+                />
+                <MenuItem
+                    label="Small image MenuItem - lots of words lots of words lots of words"
+                    image={<img src="https://via.placeholder.com/500x300?text=MenuItemImage"/>}
                     imageSize="small"
                 />
             </Menu>

@@ -2,7 +2,7 @@
 
 $menuItem-withImage-height_default: 72px;
 $menuItem-withImage-height_big: 112px;
-$default-image-size: 56px;
+$small-image-size: 56px;
 $big-image-size: 96px;
 
 .moonstone-menuItem {
@@ -61,15 +61,25 @@ $big-image-size: 96px;
         padding-left: var(--spacing-medium);
     }
 
-    .moonstone-menuItem-image_small,
-    .moonstone-menuItem-image_small img {
-        width: $default-image-size;
-        height: $default-image-size;
+    .moonstone-menuItem-image_small {
+        flex: 0 0 $small-image-size;
+        height: $small-image-size;
+
+        img {
+            max-width: $small-image-size;
+            max-height: 100%;
+            margin: auto;
+        }
     }
 
-    .moonstone-menuItem-image_big,
-    .moonstone-menuItem-image_big img {
-        width: $big-image-size;
+    .moonstone-menuItem-image_big {
+        flex: 0 0 $big-image-size;
         height: $big-image-size;
+
+        img {
+            max-width: $big-image-size;
+            max-height: 100%;
+            margin: auto;
+        }
     }
 }
