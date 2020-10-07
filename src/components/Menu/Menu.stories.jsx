@@ -157,7 +157,7 @@ storiesOf('Components|Menu', module)
             <Menu
                 isDisplayed={boolean('display', true)}
                 maxHeight={text('Max-height', '500px')}
-                maxWidth={text('Max-width', '400px')}
+                maxWidth={text('Max-width', '264px')}
                 style={{zIndex: 10000}}
             >
                 <MenuItem label="Menu Items with Small Images" variant="title"/>

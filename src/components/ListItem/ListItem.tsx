@@ -3,6 +3,12 @@ import classnames from 'clsx';
 import './ListItem.scss';
 import {Typography} from '~/components/Typography';
 
+type TListItemImageSize = 'small' | 'big';
+enum ListItemImageSize {
+    SMALL = 'small',
+    BIG = 'big'
+}
+
 interface IListItemProps {
     /**
      * Additional classname
@@ -32,6 +38,16 @@ interface IListItemProps {
      * Tab index for the element
      */
     tabIndex?: number
+
+    /**
+     * Optional image to display to describe the menu item
+     */
+    image?: HTMLImageElement,
+
+    /**
+     * If there's an image, it should be this size
+     */
+    imageSize?: TListItemImageSize,
 }
 
 export const ListItem: React.FC<IListItemProps> = ({
@@ -40,6 +56,8 @@ export const ListItem: React.FC<IListItemProps> = ({
     iconStart = null,
     iconEnd = null,
     tabIndex,
+    image,
+    imageSize,
     className = '',
     ...props
 }) => {
@@ -57,8 +75,13 @@ export const ListItem: React.FC<IListItemProps> = ({
             {...props}
         >
             {
-            iconStart &&
+                iconStart &&
                 <iconStart.type {...iconStart.props} size="small" className={classnames('moonstone-listItem_iconStart')}/>
+            }
+
+            {
+                image &&
+                <figure className={`moonstone-listItem-image_${imageSize} flexRow`}>{image}</figure>
             }
 
             <Typography
@@ -72,7 +95,7 @@ export const ListItem: React.FC<IListItemProps> = ({
             </Typography>
 
             {
-            iconEnd &&
+                iconEnd &&
                 <iconEnd.type {...iconEnd.props} size="small" className={classnames('moonstone-listItem_iconEnd')}/>
             }
         </li>

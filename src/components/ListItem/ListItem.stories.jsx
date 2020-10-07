@@ -13,12 +13,12 @@ storiesOf('Components|ListItem', module)
         notes: {markdown: markdownNotes}
     })
     .addDecorator(withKnobs)
-    .add('default', () => (
+    .add('Default', () => (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <ListItem label={text('Label', 'label')}/>
         </div>
     ))
-    .add('Icon + text', () => (
+    .add('Icon + Text', () => (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <ListItem
                 label={text('Label', 'label')}
@@ -26,12 +26,30 @@ storiesOf('Components|ListItem', module)
             />
         </div>
     ))
-    .add('Icon + text + icon', () => (
+    .add('Icon + Text + Icon', () => (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <ListItem
                 label={text('Label', 'label')}
                 iconStart={<IconWrapper iconName={select('IconStart', iconsName, 'Love')}/>}
                 iconEnd={<IconWrapper iconName={select('IconEnd', iconsName, 'Close')}/>}
+            />
+        </div>
+    ))
+    .add('With Big Image', () => (
+        <div style={{transform: 'scale(1)', height: '100vh'}}>
+            <ListItem
+                label={text('Label', 'label')}
+                image={<img src="https://via.placeholder.com/500x500?text=ListItemImage"/>}
+                imageSize="big"
+            />
+        </div>
+    ))
+    .add('With Small Image', () => (
+        <div style={{transform: 'scale(1)', height: '100vh'}}>
+            <ListItem
+                label={text('Label', 'label')}
+                image={<img src="https://via.placeholder.com/500x500?text=ListItemImage"/>}
+                imageSize="small"
             />
         </div>
     ));

@@ -99,7 +99,7 @@ export const MenuItem: React.FC<IMenuItemProps> = ({
     className = '',
     ...props
 }) => (
-    <div
+    <ListItem
         tabIndex={isDisabled || variant === MenuItemVariant.TITLE || isSelected ? null : 0}
         aria-disabled={isDisabled}
         className={classnames(
@@ -110,19 +110,12 @@ export const MenuItem: React.FC<IMenuItemProps> = ({
                 'moonstone-disabled': isDisabled,
                 'moonstone-title': variant === MenuItemVariant.TITLE
             },
-            'flexRow_nowrap',
-            'alignCenter',
-            imageSize && `moonstone-menuItem-withImage_${imageSize}`
+            image && 'moonstone-menuItem-image'
         )}
-    >
-        <figure className={`moonstone-menuItem-image_${imageSize} flexRow`}>{image}</figure>
-        <ListItem
-            className={className}
-            iconStart={iconStart}
-            iconEnd={iconEnd}
-            {...props}
-        />
-    </div>
+        image={image}
+        imageSize={imageSize}
+        {...props}
+    />
 );
 
 MenuItem.displayName = 'MenuItem';

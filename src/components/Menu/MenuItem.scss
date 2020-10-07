@@ -1,13 +1,7 @@
 @import '../../utils/index';
 
-$menuItem-withImage-height_default: 72px;
-$menuItem-withImage-height_big: 112px;
-$small-image-size: 56px;
-$big-image-size: 96px;
-
 .moonstone-menuItem {
-    padding-right: var(--spacing-small);
-    padding-left: var(--spacing-small);
+    padding: var(--spacing-nano) var(--spacing-medium);
 
     cursor: pointer;
 
@@ -51,35 +45,8 @@ $big-image-size: 96px;
         background: none;
     }
 
-    &.moonstone-menuItem-withImage_small {
-        height: $menuItem-withImage-height_default;
-        padding-left: var(--spacing-medium);
-    }
-
-    &.moonstone-menuItem-withImage_big {
-        height: $menuItem-withImage-height_big;
-        padding-left: var(--spacing-medium);
-    }
-
-    .moonstone-menuItem-image_small {
-        flex: 0 0 $small-image-size;
-        height: $small-image-size;
-
-        img {
-            max-width: $small-image-size;
-            max-height: 100%;
-            margin: auto;
-        }
-    }
-
-    .moonstone-menuItem-image_big {
-        flex: 0 0 $big-image-size;
-        height: $big-image-size;
-
-        img {
-            max-width: $big-image-size;
-            max-height: 100%;
-            margin: auto;
-        }
+    &.moonstone-menuItem-image {
+        padding-top: var(--spacing-small);
+        padding-bottom: var(--spacing-small);
     }
 }

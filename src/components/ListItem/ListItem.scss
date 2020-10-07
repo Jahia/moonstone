@@ -1,12 +1,38 @@
 @import '../../utils/index';
 
+$small-image-size: 56px;
+$big-image-size: 96px;
+
 .moonstone-listItem {
     @include truncate;
 
     width: 100%;
-    padding: var(--spacing-nano) var(--spacing-small);
 
     list-style: none;
+
+    .moonstone-listItem-image_small {
+        flex: 0 0 $small-image-size;
+        height: $small-image-size;
+        margin-right: var(--spacing-small);
+
+        img {
+            max-width: $small-image-size;
+            max-height: 100%;
+            margin: auto;
+        }
+    }
+
+    .moonstone-listItem-image_big {
+        flex: 0 0 $big-image-size;
+        height: $big-image-size;
+        margin-right: var(--spacing-small);
+
+        img {
+            max-width: $big-image-size;
+            max-height: 100%;
+            margin: auto;
+        }
+    }
 }
 
 .moonstone-listItem_iconStart {
