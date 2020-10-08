@@ -14,29 +14,29 @@ storiesOf('Components|ListItem', module)
     })
     .addDecorator(withKnobs)
     .add('Default', () => (
-        <div style={{transform: 'scale(1)', height: '100vh'}}>
+        <ul style={{transform: 'scale(1)', height: '100vh'}}>
             <ListItem label={text('Label', 'label')}/>
-        </div>
+        </ul>
     ))
     .add('Icon + Text', () => (
-        <div style={{transform: 'scale(1)', height: '100vh'}}>
+        <ul style={{transform: 'scale(1)', height: '100vh'}}>
             <ListItem
                 label={text('Label', 'label')}
                 iconStart={<IconWrapper iconName={select('IconStart', iconsName, 'Love')}/>}
             />
-        </div>
+        </ul>
     ))
     .add('Icon + Text + Icon', () => (
-        <div style={{transform: 'scale(1)', height: '100vh'}}>
+        <ul style={{transform: 'scale(1)', height: '100vh'}}>
             <ListItem
                 label={text('Label', 'label')}
                 iconStart={<IconWrapper iconName={select('IconStart', iconsName, 'Love')}/>}
                 iconEnd={<IconWrapper iconName={select('IconEnd', iconsName, 'Close')}/>}
             />
-        </div>
+        </ul>
     ))
     .add('With Big Image', () => (
-        <div style={{transform: 'scale(1)', height: '100vh'}}>
+        <ul style={{transform: 'scale(1)', height: '100vh'}}>
             <ListItem
                 label={text('Label', 'label')}
                 image={<img src="https://via.placeholder.com/500x500?text=ListItemImage"/>}
@@ -52,10 +52,10 @@ storiesOf('Components|ListItem', module)
                 image={<img src="https://via.placeholder.com/500x200?text=ListItemImage"/>}
                 imageSize="big"
             />
-        </div>
+        </ul>
     ))
     .add('With Small Image', () => (
-        <div style={{transform: 'scale(1)', height: '100vh'}}>
+        <ul style={{transform: 'scale(1)', height: '100vh'}}>
             <ListItem
                 label={text('Label', 'label')}
                 image={<img src="https://via.placeholder.com/500x500?text=ListItemImage"/>}
@@ -71,5 +71,5 @@ storiesOf('Components|ListItem', module)
                 image={<img src="https://via.placeholder.com/500x200?text=ListItemImage"/>}
                 imageSize="small"
             />
-        </div>
+        </ul>
     ));

@@ -76,7 +76,7 @@ export const ListItem: React.FC<IListItemProps> = ({
         >
             {
                 iconStart && !image &&
-                <iconStart.type {...iconStart.props} size="small" className={classnames('moonstone-listItem_iconStart')}/>
+                <div className="moonstone-listItem_iconStart"><iconStart.type {...iconStart.props} size="small"/></div>
             }
 
             {
@@ -96,7 +96,7 @@ export const ListItem: React.FC<IListItemProps> = ({
 
             {
                 iconEnd &&
-                <iconEnd.type {...iconEnd.props} size="small" className={classnames('moonstone-listItem_iconEnd')}/>
+                <div className="moonstone-listItem_iconStart"><iconEnd.type {...iconEnd.props} size="small"/></div>
             }
         </li>
     );
