@@ -26,7 +26,7 @@ interface IListItemProps {
     isHtml?: boolean,
 
     /**
-     * Icon display before the label
+     * Icon display before the label. Cannot be used in conjunction with the image property.
      */
     iconStart?: React.ReactElement,
 
@@ -40,7 +40,7 @@ interface IListItemProps {
     tabIndex?: number
 
     /**
-     * Optional image to display to describe the menu item
+     * Optional image to display to describe the menu item. Cannot be used in conjunction with the iconStart property.
      */
     image?: HTMLImageElement,
 
@@ -75,12 +75,12 @@ export const ListItem: React.FC<IListItemProps> = ({
             {...props}
         >
             {
-                iconStart &&
+                iconStart && !image &&
                 <iconStart.type {...iconStart.props} size="small" className={classnames('moonstone-listItem_iconStart')}/>
             }
 
             {
-                image &&
+                image && !iconStart &&
                 <figure className={`moonstone-listItem-image_${imageSize} flexRow`}>{image}</figure>
             }
 
