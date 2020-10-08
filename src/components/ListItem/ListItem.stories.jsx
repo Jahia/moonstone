@@ -42,6 +42,16 @@ storiesOf('Components|ListItem', module)
                 image={<img src="https://via.placeholder.com/500x500?text=ListItemImage"/>}
                 imageSize="big"
             />
+            <ListItem
+                label={text('Label', 'label')}
+                image={<img src="https://via.placeholder.com/200x500?text=ListItemImage"/>}
+                imageSize="big"
+            />
+            <ListItem
+                label={text('Label', 'label')}
+                image={<img src="https://via.placeholder.com/500x200?text=ListItemImage"/>}
+                imageSize="big"
+            />
         </div>
     ))
     .add('With Small Image', () => (
@@ -49,6 +59,16 @@ storiesOf('Components|ListItem', module)
             <ListItem
                 label={text('Label', 'label')}
                 image={<img src="https://via.placeholder.com/500x500?text=ListItemImage"/>}
+                imageSize="small"
+            />
+            <ListItem
+                label={text('Label', 'label')}
+                image={<img src="https://via.placeholder.com/200x500?text=ListItemImage"/>}
+                imageSize="small"
+            />
+            <ListItem
+                label={text('Label', 'label')}
+                image={<img src="https://via.placeholder.com/500x200?text=ListItemImage"/>}
                 imageSize="small"
             />
         </div>
