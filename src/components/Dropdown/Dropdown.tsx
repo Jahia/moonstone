@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react';
+import React, {DOMAttributes, Fragment, useState} from 'react';
 import classnames from 'clsx';
 import './Dropdown.scss';
 import spacings from '~/tokens/spacings/spacing.json';
@@ -38,21 +38,12 @@ type TDropdownData = {
     options?: [TDropdownDataOptions];
 }
 
+type THandleSelect = (e: React.MouseEvent | React.KeyboardEvent, item?: TDropdownDataOptions) => void;
+
 interface IDropdownProps {
     /**
      * Content of the dropdown
      */
-    // data: PropTypes.arrayOf(
-    //     PropTypes.shape({
-    //         ...PropTypesOptions,
-    //         groupLabel: PropTypes.string,
-    //         options: PropTypes.arrayOf(
-    //             PropTypes.shape({
-    //                 ...PropTypesOptions
-    //             })
-    //         )
-    //     })
-    // ).isRequired,
     data: [TDropdownDataOptions & TDropdownData];
 
     /**
@@ -131,18 +122,18 @@ export const Dropdown: React.FC<IDropdownProps> = (
     // ---
     // Functions to handle events
     // ---
-    const handleOpenMenu = e => {
-        setMinWith(`${e.currentTarget.offsetWidth}px`);
+    const handleOpenMenu = (e: React.MouseEvent | React.KeyboardEvent) => {
+        setMinWith(`${(e.currentTarget as HTMLElement).offsetWidth}px`);
         setAnchorEl(e.currentTarget);
         setIsOpened(true);
     };
 
-    const handleSelect = (e, item) => {
+    const handleSelect: THandleSelect = (e, item) => {
         if (item) {
-            let canClose = !item.isDisabled;
+            let canClose: boolean | void = !item.isDisabled;
             if (!item.isDisabled && item.value !== value) {
                 e.stopPropagation();
-                canClose = onChange(e, item);
+                canClose = (onChange as (e: React.MouseEvent | React.KeyboardEvent, item: TDropdownDataOptions) => void)(e, item);
             }
 
             if (canClose !== false) {
@@ -156,7 +147,7 @@ export const Dropdown: React.FC<IDropdownProps> = (
         setAnchorEl(null);
     };
 
-    const handleKeyPress = (e: React.KeyboardEvent, item) => {
+    const handleKeyPress = (e: React.KeyboardEvent, item: TDropdownDataOptions) => {
         if (e.key === 'Enter') {
             handleSelect(e, item);
         }
@@ -184,7 +175,8 @@ export const Dropdown: React.FC<IDropdownProps> = (
     // ---
     // Generate options
     // ---
-    const dropdownOption = (item: TDropdownDataOptions, handleSelect) => (
+    // const dropdownOption = (item: TDropdownDataOptions, handleSelect: THandleSelect) => (
+    const dropdownOption = (item: TDropdownDataOptions) => (
         <MenuItem
             key={item.value}
             role="option"
@@ -194,7 +186,7 @@ export const Dropdown: React.FC<IDropdownProps> = (
             isDisabled={item.isDisabled}
             isSelected={value === item.value}
             onClick={e => handleSelect(e, item)}
-            onKeyPress={(e: React.KeyboardEvent) => handleKeyPress(e, item)}
+            onKeyPress={e => handleKeyPress(e, item)}
             {...item.attributes}
         />
     );
@@ -209,7 +201,7 @@ export const Dropdown: React.FC<IDropdownProps> = (
                 <MenuItem variant="title" label={groupLabel}/>
 
                 {children.map(item => {
-                    return dropdownOption(item, handleSelect);
+                    return dropdownOption(item);
                 })}
             </Fragment>
         );
@@ -229,10 +221,10 @@ export const Dropdown: React.FC<IDropdownProps> = (
             <div
                 className={classnames(cssDropdownLabel)}
                 tabIndex={0}
-                onClick={e => handleOpenMenu(e)}
-                onKeyPress={(e: React.KeyboardEvent, item) => {
+                onClick={handleOpenMenu}
+                onKeyPress={(e: React.KeyboardEvent) => {
                     if (e.key === 'Enter') {
-                        handleSelect(e, item);
+                        handleSelect(e);
                     }
                 }}
             >
@@ -265,12 +257,12 @@ export const Dropdown: React.FC<IDropdownProps> = (
                     data.map((item, index) => {
                         if (isGrouped) {
                             item.options.map(o => {
-                                return dropdownOption(o, handleSelect);
+                                return dropdownOption(o);
                             });
                             return dropdownGrouped(item.options, item.groupLabel, index);
                         }
 
-                        return dropdownOption(item, handleSelect);
+                        return dropdownOption(item);
                     })
                 }
             </Menu>
