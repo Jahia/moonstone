@@ -1,8 +1,7 @@
 @import '../../utils/index';
 
 .moonstone-menuItem {
-    padding-right: var(--spacing-medium);
-    padding-left: var(--spacing-medium);
+    padding: var(--spacing-nano) var(--spacing-medium);
 
     cursor: pointer;
 
@@ -44,5 +43,10 @@
         @include is-disabled;
 
         background: none;
+    }
+
+    &.moonstone-menuItem-image {
+        padding-top: var(--spacing-small);
+        padding-bottom: var(--spacing-small);
     }
 }
