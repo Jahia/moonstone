@@ -1,5 +1,4 @@
 import React, {Fragment, useState} from 'react';
-// import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import './Dropdown.scss';
 import spacings from '~/tokens/spacings/spacing.json';
@@ -285,15 +284,6 @@ Dropdown.defaultProps = {
     size: 'medium',
     maxWidth: '300px',
     isDisabled: false
-};
-
-const PropTypesOptions = {
-    label: PropTypes.string,
-    value: PropTypes.string,
-    isDisabled: PropTypes.bool,
-    iconStart: PropTypes.node,
-    iconEnd: PropTypes.node,
-    attributes: PropTypes.object
 };
 
 Dropdown.displayName = 'Dropdown';
