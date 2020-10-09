@@ -114,15 +114,14 @@ storiesOf('Components|Menu', module)
             </div>
         );
     })
-    .add('Big Image MenuItems', () => (
+    .add('Big Image Menu Items', () => (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <Menu
+                variant="bigImages"
                 isDisplayed={boolean('display', true)}
-                maxHeight={text('Max-height', '500px')}
-                maxWidth={text('Max-width', '400px')}
                 style={{zIndex: 10000}}
             >
-                <MenuItem label="Menu Items with Big Images" variant="title"/>
+                <MenuItem label="Menu Items with Big Images Title" variant="title"/>
                 <MenuItem
                     label="Big image MenuItem"
                     image={<img src="https://via.placeholder.com/500x500?text=MenuItemImage"/>}
@@ -152,15 +151,14 @@ storiesOf('Components|Menu', module)
             </Menu>
         </div>
     ))
-    .add('Small Image MenuItems', () => (
+    .add('Small Image Menu Items', () => (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <Menu
+                variant="smallImages"
                 isDisplayed={boolean('display', true)}
-                maxHeight={text('Max-height', '500px')}
-                maxWidth={text('Max-width', '264px')}
                 style={{zIndex: 10000}}
             >
-                <MenuItem label="Menu Items with Small Images" variant="title"/>
+                <MenuItem label="Menu Items with Small Images Title" variant="title"/>
                 <MenuItem
                     label="Small image MenuItem"
                     image={<img src="https://via.placeholder.com/500x500?text=MenuItemImage"/>}
