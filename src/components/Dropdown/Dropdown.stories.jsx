@@ -128,7 +128,7 @@ storiesOf('Components|Dropdown', module)
         notes: {markdown: markdownNotes}
     })
     .addDecorator(withKnobs)
-    .add('default', () => {
+    .add('Default', () => {
         const [currentOption, setCurrentOption] = useState({label: 'Select something', value: null});
 
         const handleOnChange = (e, item) => {
@@ -143,7 +143,7 @@ storiesOf('Components|Dropdown', module)
                     icon={<Love/>}
                     label={currentOption.label}
                     value={currentOption.value}
-                    size={select('Size', DropdownSizes, DropdownSizes[0])}
+                    size={select('Size', DropdownSizes, DropdownSizes.SMALL)}
                     isDisabled={boolean('Disabled', false)}
                     maxWidth={text('Max width', '120px')}
                     data={data}
@@ -167,7 +167,7 @@ storiesOf('Components|Dropdown', module)
                     isDisabled={boolean('Disabled', false)}
                     label={currentOption.label}
                     value={currentOption.value}
-                    size={select('Size', DropdownSizes, DropdownSizes[0])}
+                    size={select('Size', DropdownSizes, DropdownSizes.SMALL)}
                     data={dataLanguages}
                     onChange={(e, item) => handleOnChange(e, item)}
                 />
@@ -189,7 +189,7 @@ storiesOf('Components|Dropdown', module)
                     isDisabled={boolean('Disabled', false)}
                     label={currentOption.label}
                     value={currentOption.value}
-                    size={select('Size', DropdownSizes, DropdownSizes[0])}
+                    size={select('Size', DropdownSizes, DropdownSizes.SMALL)}
                     maxWidth={text('Max width', '120px')}
                     data={dataGrouped}
                     onChange={(e, item) => handleOnChange(e, item)}

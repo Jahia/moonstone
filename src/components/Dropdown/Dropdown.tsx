@@ -9,20 +9,16 @@ import {Separator} from '~/components/Separator';
 import {ChevronDown} from '~/icons';
 
 type TDropdownVariant = 'default' | 'ghost';
-// change this enum name
-export enum TDropdownVariants {
+enum DropdownVariants {
     DEFAULT = 'default',
     GHOST = 'ghost'
 }
-export const DropdownVariants = ['default', 'ghost'];
 
 type TDropdownSize = 'small' | 'medium';
-// change this enum name
-export enum TDropdownSizes {
+export enum DropdownSizes {
     SMALL = 'small',
-    GHOST = 'ghost'
+    MEDIUM = 'medium'
 }
-export const DropdownSizes = ['small', 'medium'];
 
 type TDropdownDataOptions = {
     label?: string;
@@ -91,7 +87,7 @@ interface IDropdownProps {
      * @param {object} event - Mouse event
      * @param {object} item - The current item selected
      */
-    onChange: () => {};
+    onChange?: () => {};
 }
 
 
@@ -175,7 +171,6 @@ export const Dropdown: React.FC<IDropdownProps> = (
     // ---
     // Generate options
     // ---
-    // const dropdownOption = (item: TDropdownDataOptions, handleSelect: THandleSelect) => (
     const dropdownOption = (item: TDropdownDataOptions) => (
         <MenuItem
             key={item.value}
