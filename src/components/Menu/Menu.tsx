@@ -94,17 +94,17 @@ interface IMenuProps {
     /**
      * Function triggered when the mouse pointer hovering the menu
      */
-    onMouseEnter?: () => {};
+    onMouseEnter?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 
     /**
      * Function triggered when the mouse pointer move off the menu
      */
-    onMouseLeave?: () => {};
+    onMouseLeave?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 
     /**
      * Function triggered when the menu close
      */
-    onClose?: () => {};
+    onClose?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 
     /**
      * Function triggered when the menu is going to be opened (before open)

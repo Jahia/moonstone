@@ -1,5 +1,4 @@
 import React, {Fragment, useState} from 'react';
-import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import './Dropdown.scss';
 import spacings from '~/tokens/spacings/spacing.json';
@@ -9,10 +8,90 @@ import {Typography} from '~/components/Typography';
 import {Separator} from '~/components/Separator';
 import {ChevronDown} from '~/icons';
 
-export const DropdownVariants = ['default', 'ghost'];
-export const DropdownSizes = ['small', 'medium'];
+type TDropdownVariant = 'default' | 'ghost';
+enum DropdownVariants {
+    DEFAULT = 'default',
+    GHOST = 'ghost'
+}
 
-export const Dropdown = (
+type TDropdownSize = 'small' | 'medium';
+export enum DropdownSizes {
+    SMALL = 'small',
+    MEDIUM = 'medium'
+}
+
+type TDropdownDataOptions = {
+    label?: string;
+    value?: string;
+    isDisabled?: boolean;
+    iconStart?: React.ReactElement;
+    iconEnd?: React.ReactElement;
+    attributes?: {};
+}
+
+type TDropdownData = {
+    groupLabel?: string;
+    options?: [TDropdownDataOptions];
+}
+
+type THandleSelect = (e: React.MouseEvent | React.KeyboardEvent, item?: TDropdownDataOptions) => void;
+
+interface IDropdownProps {
+    /**
+     * Content of the dropdown
+     */
+    data: [TDropdownDataOptions & TDropdownData];
+
+    /**
+     * Label of the dropdown
+     */
+    label?: string;
+
+    /**
+     * Value of the dropdown
+     */
+    value?: string;
+
+    /**
+     * Icon displays before the dropdown's label
+     */
+    icon?: React.ReactElement;
+
+    /**
+     * Dropdown's variants
+     */
+    variant?: TDropdownVariant;
+
+    /**
+     * Dropdown's sizes
+     */
+    size?: TDropdownSize;
+
+    /**
+     * Max width of the dropdown
+     */
+    maxWidth?: string;
+
+    /**
+     * Dropdown is disabled
+     */
+    isDisabled?: boolean;
+
+    /**
+     * Additional classname
+     */
+    className?: string;
+
+    /**
+     * Function trigger on change with the current option as param
+     * @param {object} event - Mouse event
+     * @param {object} item - The current item selected
+     */
+    onChange?: () => {};
+}
+
+
+export const Dropdown: React.FC<IDropdownProps> = (
     {
         data,
         label,
@@ -32,25 +111,25 @@ export const Dropdown = (
     const isGrouped = typeof data[0].options !== 'undefined';
 
     const anchorPosition = {
-        top: spacings.spacingNano,
+        top: Number(spacings.spacingNano.slice(0, -2)),
         left: 0
     };
 
     // ---
     // Functions to handle events
     // ---
-    const handleOpenMenu = e => {
-        setMinWith(`${e.currentTarget.offsetWidth}px`);
+    const handleOpenMenu = (e: React.MouseEvent | React.KeyboardEvent) => {
+        setMinWith(`${(e.currentTarget as HTMLElement).offsetWidth}px`);
         setAnchorEl(e.currentTarget);
         setIsOpened(true);
     };
 
-    const handleSelect = (e, item) => {
+    const handleSelect: THandleSelect = (e, item) => {
         if (item) {
-            let canClose = !item.isDisabled;
+            let canClose: boolean | void = !item.isDisabled;
             if (!item.isDisabled && item.value !== value) {
                 e.stopPropagation();
-                canClose = onChange(e, item);
+                canClose = (onChange as (e: React.MouseEvent | React.KeyboardEvent, item: TDropdownDataOptions) => void)(e, item);
             }
 
             if (canClose !== false) {
@@ -64,7 +143,7 @@ export const Dropdown = (
         setAnchorEl(null);
     };
 
-    const handleKeyPress = (e, item) => {
+    const handleKeyPress = (e: React.KeyboardEvent, item: TDropdownDataOptions) => {
         if (e.key === 'Enter') {
             handleSelect(e, item);
         }
@@ -92,7 +171,7 @@ export const Dropdown = (
     // ---
     // Generate options
     // ---
-    const dropdownOption = (item, handleSelect) => (
+    const dropdownOption = (item: TDropdownDataOptions) => (
         <MenuItem
             key={item.value}
             role="option"
@@ -107,7 +186,7 @@ export const Dropdown = (
         />
     );
 
-    const dropdownGrouped = (children, groupLabel, index) => {
+    const dropdownGrouped = (children: [TDropdownDataOptions], groupLabel: string, index: number) => {
         return (
             <Fragment key={`${groupLabel}-${index}`}>
                 {index > 0 && (
@@ -117,30 +196,32 @@ export const Dropdown = (
                 <MenuItem variant="title" label={groupLabel}/>
 
                 {children.map(item => {
-                    return dropdownOption(item, handleSelect);
+                    return dropdownOption(item);
                 })}
             </Fragment>
         );
     };
 
     return (
-        <div className={classnames(cssDropdown, className)}
-             style={{maxWidth: maxWidth}}
-             {...props}
-             onKeyPress={e => {
+        <div
+            className={classnames(cssDropdown, className)}
+            style={{maxWidth}}
+            {...props}
+            onKeyPress={e => {
                 if (e.key === 'Enter') {
                     handleOpenMenu(e);
                 }
             }}
         >
-            <div className={classnames(cssDropdownLabel)}
-                 tabIndex="0"
-                 onClick={e => handleOpenMenu(e)}
-                 onKeyPress={(e, item) => {
-                     if (e.key === 'Enter') {
-                         handleSelect(e, item);
-                     }
-                 }}
+            <div
+                className={classnames(cssDropdownLabel)}
+                tabIndex={0}
+                onClick={handleOpenMenu}
+                onKeyPress={(e: React.KeyboardEvent) => {
+                    if (e.key === 'Enter') {
+                        handleSelect(e);
+                    }
+                }}
             >
                 {
                     icon &&
@@ -171,12 +252,12 @@ export const Dropdown = (
                     data.map((item, index) => {
                         if (isGrouped) {
                             item.options.map(o => {
-                                return dropdownOption(o, handleSelect);
+                                return dropdownOption(o);
                             });
                             return dropdownGrouped(item.options, item.groupLabel, index);
                         }
 
-                        return dropdownOption(item, handleSelect);
+                        return dropdownOption(item);
                     })
                 }
             </Menu>
@@ -190,79 +271,6 @@ Dropdown.defaultProps = {
     size: 'medium',
     maxWidth: '300px',
     isDisabled: false
-};
-
-const PropTypesOptions = {
-    label: PropTypes.string,
-    value: PropTypes.string,
-    isDisabled: PropTypes.bool,
-    iconStart: PropTypes.node,
-    iconEnd: PropTypes.node,
-    attributes: PropTypes.object
-};
-
-Dropdown.propTypes = {
-    /**
-     * Content of the dropdown
-     */
-    data: PropTypes.arrayOf(
-        PropTypes.shape({
-            ...PropTypesOptions,
-            groupLabel: PropTypes.string,
-            options: PropTypes.arrayOf(
-                PropTypes.shape({
-                    ...PropTypesOptions
-                })
-            )
-        })
-    ).isRequired,
-
-    /**
-     * Label of the dropdown
-     */
-    label: PropTypes.string,
-
-    /**
-     * Value of the dropdown
-     */
-    value: PropTypes.string,
-
-    /**
-     * Icon displays before the dropdown's label
-     */
-    icon: PropTypes.node,
-
-    /**
-     * Dropdown's variants
-     */
-    variant: PropTypes.oneOf(DropdownVariants),
-
-    /**
-     * Dropdown's sizes
-     */
-    size: PropTypes.oneOf(DropdownSizes),
-
-    /**
-     * Max width of the dropdown
-     */
-    maxWidth: PropTypes.string,
-
-    /**
-     * Dropdown is disabled
-     */
-    isDisabled: PropTypes.bool,
-
-    /**
-     * Additional classname
-     */
-    className: PropTypes.string,
-
-    /**
-     * Function trigger on change with the current option as param
-     * @param {object} event - Mouse event
-     * @param {object} item - The current item selected
-     */
-    onChange: PropTypes.func.isRequired
 };
 
 Dropdown.displayName = 'Dropdown';

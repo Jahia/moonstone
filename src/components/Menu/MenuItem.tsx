@@ -72,6 +72,16 @@ interface IMenuItemProps {
     imageSize?: TMenuItemImageSize,
 
     /**
+     * Optional role for accessibility (e.g., if being used as an option in Dropdown)
+     */
+    role?: string,
+
+    /**
+     * Optional value which can be returned when being used in user input elements such as Dropdown
+     */
+    value?: any,
+
+    /**
      * Function triggered on clicking the item
      */
     onClick?: (event: React.MouseEvent) => void,
@@ -84,7 +94,12 @@ interface IMenuItemProps {
     /**
      * Function triggered when the mouse pointer move off the item
      */
-    onMouseLeave?: (event: React.MouseEvent) => void
+    onMouseLeave?: (event: React.MouseEvent) => void,
+
+    /**
+     * Function triggered when a key is pressed
+     */
+    onKeyPress?: (event: React.KeyboardEvent) => void
 };
 
 export const MenuItem: React.FC<IMenuItemProps> = ({
