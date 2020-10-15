@@ -13,7 +13,7 @@
 
     list-style: none;
     background-color: var(--color-light);
-    box-shadow: 0 4px 8px var(--color-gray_dark60);
+    box-shadow: 0 var(--spacing-nano) var(--spacing-small) var(--color-gray_dark60);
     overflow-x: hidden; // Shorten property doesn't work with Safari
     overflow-y: auto;
 
@@ -21,6 +21,16 @@
         opacity: 0;
 
         pointer-events: none;
+    }
+
+    &.moonstone-menu_smallImages {
+        width: 264px;
+        max-height: 320px;
+    }
+
+    &.moonstone-menu_bigImages {
+        width: 400px;
+        max-height: 440px;
     }
 }
 
