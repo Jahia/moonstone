@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {usePositioning} from '~/hooks/usePositioning';
 import {useEnterExitCallbacks} from '~/hooks/useEnterExitCallbacks';
 import classnames from 'clsx';
 import './Menu.scss';
+import {Input} from '~/components/Input';
+import {Typography} from '~/components/Typography';
 
 type TAnchorPosition = {
     top: number;
@@ -92,6 +94,16 @@ interface IMenuProps {
     style?: {};
 
     /**
+     * Whether the Menu displays a search input at the top
+     */
+    hasSearch?: boolean;
+
+    /**
+     * Text to display when the search doesn't show any results
+     */
+    searchEmptyText?: string;
+
+    /**
      * Function triggered when the mouse pointer hovering the menu
      */
     onMouseEnter?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
@@ -154,10 +166,37 @@ export const Menu: React.FC<IMenuProps> = (
         onExiting,
         onExited,
         hasOverlay,
+        hasSearch,
+        searchEmptyText,
         ...props
     }) => {
     const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin);
     useEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);
+    const [inputValue, setInputValue] = useState('');
+    const [filteredChildren, setFilteredChildren] = useState(children);
+    const [isEmptySearch, setIsEmptySearch] = useState(false);
+
+    useEffect(() => {
+        if (inputValue !== '') {
+            const _filtered = Array.isArray(children)
+                ? children.filter((child: React.ReactElement) => {
+                    const startsWith = child.props.label.toLowerCase().startsWith(inputValue.toLowerCase());
+                    return startsWith && child.props.variant !== 'title';
+                    })
+                : children;
+            setFilteredChildren(_filtered);
+
+            if (Array.isArray(_filtered) && _filtered.length === 0) {
+                setIsEmptySearch(true);
+            } else {
+                setIsEmptySearch(false);
+            }
+
+        } else {
+            setFilteredChildren(children);
+            setIsEmptySearch(false);
+        }
+    }, [inputValue]);
 
     // ---
     // Styling
@@ -196,13 +235,28 @@ export const Menu: React.FC<IMenuProps> = (
                 onMouseLeave={onMouseLeave}
                 {...props}
             >
-                {children}
+                { hasSearch && (
+                    <div className="moonstone-menu_searchInput">
+                        <Input
+                            variant="search"
+                            value={inputValue}
+                            onChange={e => setInputValue(e.target.value)}
+                            onClear={() => setInputValue('')}
+                        />
+                    </div>
+                )}
+                {filteredChildren}
+                {isEmptySearch && (
+                    <div className="moonstone-menu_emptySearchText">
+                        <Typography variant="caption">{searchEmptyText}</Typography>
+                    </div>
+                )}
             </menu>
             {
                 hasOverlay && isDisplayed && (
                     <div
                         aria-hidden="true"
-                        className={classnames('moonstone-menu_overlay')}
+                        className="moonstone-menu_overlay"
                         onClick={onClose}
                     />
                 )
@@ -215,6 +269,8 @@ export const Menu: React.FC<IMenuProps> = (
 Menu.defaultProps = {
     variant: MenuVariant.DEFAULT,
     hasOverlay: true,
+    hasSearch: false,
+    searchEmptyText: '',
     anchorEl: null,
     anchorPosition: {
         top: 0,

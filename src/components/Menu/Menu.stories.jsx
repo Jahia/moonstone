@@ -187,4 +187,111 @@ storiesOf('Components|Menu', module)
                 />
             </Menu>
         </div>
+    ))
+    .add('With Search', () => (
+        <div style={{transform: 'scale(1)', height: '100vh'}}>
+            <Menu
+                hasSearch
+                isDisplayed={boolean('display', true)}
+                searchEmptyText="Oh no! It seems like that doesn't exist."
+                maxHeight={text('Max-height', '250px')}
+                style={{zIndex: 10000}}
+            >
+                <MenuItem label="Base items" variant="title"/>
+                <MenuItem label="Item1"/>
+                <MenuItem label="Item2"/>
+                <MenuItem label="Item3"/>
+                <MenuItem label="Item4"/>
+                <MenuItem label="Item5"/>
+                <MenuItem label="Item6"/>
+                <MenuItem label="Item7"/>
+                <MenuItem label="Item8"/>
+                <MenuItem label="Item9"/>
+            </Menu>
+            <Menu
+                hasSearch
+                isDisplayed={boolean('display', true)}
+                searchEmptyText="Oh no! It seems like that doesn't exist."
+                maxHeight={text('Max-height', '250px')}
+                style={{zIndex: 10000}}
+                anchorPosition={{top: 0, left: 300}}
+            >
+                <MenuItem label="Base items" variant="title"/>
+                <MenuItem label="Item1"/>
+                <MenuItem label="Item2"/>
+                <MenuItem label="Item3"/>
+            </Menu>
+            <Menu
+                hasSearch
+                searchEmptyText="Oh no! It seems like that doesn't exist."
+                variant="smallImages"
+                isDisplayed={boolean('display', true)}
+                style={{zIndex: 10000}}
+                anchorPosition={{top: 300, left: 0}}
+            >
+                <MenuItem label="Menu Items with Small Images Title" variant="title"/>
+                <MenuItem
+                    label="Small image MenuItem"
+                    image={<img src="https://via.placeholder.com/500x500?text=MenuItemImage"/>}
+                    imageSize="small"
+                />
+                <MenuItem
+                    label="Small image MenuItem"
+                    image={<img src="https://via.placeholder.com/500x500?text=MenuItemImage"/>}
+                    imageSize="small"
+                />
+                <MenuItem
+                    isSelected
+                    label="Small image MenuItem - selected"
+                    image={<img src="https://via.placeholder.com/500x500?text=MenuItemImage"/>}
+                    imageSize="small"
+                />
+                <MenuItem
+                    label="Small image MenuItem - lots of words lots of words lots of words"
+                    image={<img src="https://via.placeholder.com/300x500?text=MenuItemImage"/>}
+                    imageSize="small"
+                />
+                <MenuItem
+                    label="Small image MenuItem - lots of words lots of words lots of words"
+                    image={<img src="https://via.placeholder.com/500x300?text=MenuItemImage"/>}
+                    imageSize="small"
+                />
+            </Menu>
+            <Menu
+                hasSearch
+                searchEmptyText="Oh no! It seems like that doesn't exist."
+                variant="bigImages"
+                isDisplayed={boolean('display', true)}
+                style={{zIndex: 10000}}
+                anchorPosition={{top: 300, left: 300}}
+            >
+                <MenuItem label="Menu Items with Big Images Title" variant="title"/>
+                <MenuItem
+                    label="Big image MenuItem"
+                    image={<img src="https://via.placeholder.com/500x500?text=MenuItemImage"/>}
+                    imageSize="big"
+                />
+                <MenuItem
+                    label="Big image MenuItem"
+                    image={<img src="https://via.placeholder.com/500x500?text=MenuItemImage"/>}
+                    imageSize="big"
+                />
+                <MenuItem
+                    isSelected
+                    label="Big image MenuItem - selected"
+                    image={<img src="https://via.placeholder.com/500x500?text=MenuItemImage"/>}
+                    imageSize="big"
+                />
+                <MenuItem
+                    label="Big image MenuItem - lots of words lots of words lots of words"
+                    image={<img src="https://via.placeholder.com/300x500?text=MenuItemImage"/>}
+                    imageSize="big"
+                />
+                <MenuItem
+                    label="Big image MenuItem - lots of words lots of words lots of words"
+                    image={<img src="https://via.placeholder.com/500x300?text=MenuItemImage"/>}
+                    imageSize="big"
+                />
+            </Menu>
+        </div>
     ));
