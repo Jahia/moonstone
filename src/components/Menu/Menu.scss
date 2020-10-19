@@ -32,6 +32,17 @@
         width: 400px;
         max-height: 440px;
     }
+
+    .moonstone-menu_searchInput {
+        margin: var(--spacing-small) var(--spacing-medium);
+    }
+
+    .moonstone-menu_emptySearchText {
+        margin: var(--spacing-medium) var(--spacing-medium);
+
+        color: var(--color-gray);
+        text-align: center;
+    }
 }
 
 // ---

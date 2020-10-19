@@ -187,4 +187,26 @@ storiesOf('Components|Menu', module)
                 />
             </Menu>
         </div>
+    ))
+    .add('With Search', () => (
+        <div style={{transform: 'scale(1)', height: '100vh'}}>
+            <Menu
+                hasSearch
+                isDisplayed={boolean('display', true)}
+                searchEmptyText="Oh no! It seems like that doesn't exist."
+                maxHeight={text('Max-height', '250px')}
+                style={{zIndex: 10000}}
+            >
+                <MenuItem label="Base items" variant="title"/>
+                <MenuItem label="Item1"/>
+                <MenuItem label="Item2"/>
+                <MenuItem label="Item3"/>
+                <MenuItem label="Item4"/>
+                <MenuItem label="Item5"/>
+                <MenuItem label="Item6"/>
+                <MenuItem label="Item7"/>
+                <MenuItem label="Item8"/>
+                <MenuItem label="Item9"/>
+            </Menu>
+        </div>
     ));
