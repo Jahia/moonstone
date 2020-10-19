@@ -247,9 +247,12 @@ export const Menu: React.FC<IMenuProps> = (
                 )}
                 {filteredChildren}
                 {isEmptySearch && (
-                    <div className="moonstone-menu_emptySearchText">
-                        <Typography variant="caption">{searchEmptyText}</Typography>
-                    </div>
+                    <Typography
+                        className="moonstone-menu_emptySearchText"
+                        variant="caption"
+                    >
+                        {searchEmptyText}
+                    </Typography>
                 )}
             </menu>
             {
