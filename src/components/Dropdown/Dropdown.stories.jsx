@@ -152,7 +152,7 @@ storiesOf('Components|Dropdown', module)
             </div>
         );
     })
-    .add('with default value', () => {
+    .add('With Default Value', () => {
         const [currentOption, setCurrentOption] = useState({label: dataLanguages[1].label, value: dataLanguages[1].value});
 
         const handleOnChange = (e, item) => {
@@ -192,6 +192,29 @@ storiesOf('Components|Dropdown', module)
                     size={select('Size', DropdownSizes, DropdownSizes.SMALL)}
                     maxWidth={text('Max width', '120px')}
                     data={dataGrouped}
+                    onChange={(e, item) => handleOnChange(e, item)}
+                />
+            </div>
+        );
+    })
+    .add('Outlined Variant', () => {
+        const [currentOption, setCurrentOption] = useState({label: 'Select something', value: null});
+
+        const handleOnChange = (e, item) => {
+            setCurrentOption(item);
+            action('onChange');
+            return true;
+        };
+
+        return (
+            <div style={{transform: 'scale(1)', height: '100vh', padding: '90px'}}>
+                <Dropdown
+                    variant="outlined"
+                    label={currentOption.label}
+                    value={currentOption.value}
+                    size="medium"
+                    isDisabled={false}
+                    data={data}
                     onChange={(e, item) => handleOnChange(e, item)}
                 />
             </div>

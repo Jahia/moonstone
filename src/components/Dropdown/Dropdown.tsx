@@ -8,10 +8,11 @@ import {Typography} from '~/components/Typography';
 import {Separator} from '~/components/Separator';
 import {ChevronDown} from '~/icons';
 
-type TDropdownVariant = 'default' | 'ghost';
+type TDropdownVariant = 'default' | 'ghost' | 'outlined';
 enum DropdownVariants {
     DEFAULT = 'default',
-    GHOST = 'ghost'
+    GHOST = 'ghost',
+    OUTLINED = 'outlined'
 }
 
 type TDropdownSize = 'small' | 'medium';
@@ -78,6 +79,16 @@ interface IDropdownProps {
     isDisabled?: boolean;
 
     /**
+     * Whether the Menu within the Dropdown has a search input
+     */
+    hasSearch?: boolean;
+
+    /**
+     * The text to display if the Dropdown Menu has a search input and the search doesn't have any results
+     */
+    searchEmptyText?: string;
+
+    /**
      * Additional classname
      */
     className?: string;
@@ -101,6 +112,8 @@ export const Dropdown: React.FC<IDropdownProps> = (
         variant,
         size,
         icon,
+        hasSearch,
+        searchEmptyText,
         onChange,
         className,
         ...props
@@ -165,7 +178,7 @@ export const Dropdown: React.FC<IDropdownProps> = (
         'alignCenter',
         'moonstone-dropdown_label',
         `moonstone-${size}`,
-        variant
+        `moonstone-${variant}`
     );
 
     // ---
@@ -180,6 +193,8 @@ export const Dropdown: React.FC<IDropdownProps> = (
             iconEnd={item.iconEnd}
             isDisabled={item.isDisabled}
             isSelected={value === item.value}
+            hasSearch={hasSearch}
+            searchEmptyText={searchEmptyText}
             onClick={e => handleSelect(e, item)}
             onKeyPress={e => handleKeyPress(e, item)}
             {...item.attributes}
@@ -270,7 +285,9 @@ Dropdown.defaultProps = {
     variant: 'default',
     size: 'medium',
     maxWidth: '300px',
-    isDisabled: false
+    isDisabled: false,
+    hasSearch: false,
+    searchEmptyText: ''
 };
 
 Dropdown.displayName = 'Dropdown';

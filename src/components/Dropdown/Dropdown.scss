@@ -30,7 +30,14 @@
     }
 
     // ---
-    // Manage size variants
+    // Manage variants
+    // ---
+    &.moonstone-outlined {
+        border: 0.5px solid var(--color-gray40);
+    }
+
+    // ---
+    // Manage sizes
     // ---
     &.moonstone-small {
         padding-top: var(--spacing-nano);
