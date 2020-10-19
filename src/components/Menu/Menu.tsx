@@ -273,7 +273,7 @@ Menu.defaultProps = {
     variant: MenuVariant.DEFAULT,
     hasOverlay: true,
     hasSearch: false,
-    searchEmptyText: '',
+    searchEmptyText: 'No results found.',
     anchorEl: null,
     anchorPosition: {
         top: 0,
