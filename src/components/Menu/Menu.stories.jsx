@@ -119,7 +119,7 @@ storiesOf('Components|Menu', module)
             <Menu
                 variant="bigImages"
                 isDisplayed={boolean('display', true)}
-                width="400px"
+                maxWidth="400px"
                 maxHeight="440px"
                 style={{zIndex: 10000}}
             >
@@ -158,7 +158,7 @@ storiesOf('Components|Menu', module)
             <Menu
                 variant="smallImages"
                 isDisplayed={boolean('display', true)}
-                width="264px"
+                maxWidth="264px"
                 maxHeight="320px"
                 style={{zIndex: 10000}}
             >
