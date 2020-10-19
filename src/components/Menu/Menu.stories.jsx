@@ -119,6 +119,8 @@ storiesOf('Components|Menu', module)
             <Menu
                 variant="bigImages"
                 isDisplayed={boolean('display', true)}
+                width="400px"
+                maxHeight="440px"
                 style={{zIndex: 10000}}
             >
                 <MenuItem label="Menu Items with Big Images Title" variant="title"/>
@@ -156,6 +158,8 @@ storiesOf('Components|Menu', module)
             <Menu
                 variant="smallImages"
                 isDisplayed={boolean('display', true)}
+                width="264px"
+                maxHeight="320px"
                 style={{zIndex: 10000}}
             >
                 <MenuItem label="Menu Items with Small Images Title" variant="title"/>
@@ -194,7 +198,7 @@ storiesOf('Components|Menu', module)
                 hasSearch
                 isDisplayed={boolean('display', true)}
                 searchEmptyText="Oh no! It seems like that doesn't exist."
-                maxHeight={text('Max-height', '250px')}
+                maxHeight="250px"
                 style={{zIndex: 10000}}
             >
                 <MenuItem label="Base items" variant="title"/>
