@@ -22,7 +22,6 @@ type TStyleMenu =  {
     top?: string | number;
     left?: string | number;
     minWidth?: string;
-    width?: string;
     maxWidth?: string;
     maxHeight?: string;
 };
@@ -37,11 +36,6 @@ interface IMenuProps {
      * Maximum width of the Menu
      */
     maxWidth?: string;
-
-    /**
-     * Explicit width of the Menu
-     */
-    width?: string;
 
     /**
      * Minimum width of the Menu
@@ -144,7 +138,6 @@ export const Menu: React.FC<IMenuProps> = (
         children,
         isDisplayed,
         minWidth,
-        width,
         maxWidth,
         maxHeight,
         className,
@@ -199,10 +192,6 @@ export const Menu: React.FC<IMenuProps> = (
     const styleMenu: TStyleMenu = {...stylePosition as TStyleMenu, ...style};
     if (minWidth) {
         styleMenu.minWidth = minWidth;
-    }
-
-    if (width) {
-        styleMenu.width = width;
     }
 
     if (maxWidth) {
