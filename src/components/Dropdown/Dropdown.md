@@ -11,6 +11,6 @@ The selected item has a specific design
 Items can be grouped with a title
 
 ## Dropdown Options with Images
-To use image dropdown options, ensure that the data has an `image` property and `imageSize` property in addition to the `label` and any other properties you which to pass in.
+To use image dropdown options, ensure that the data passed into the Dropdown has an `image` property and `imageSize` property in addition to the `label` and any other properties you wish.
 
 The value of the `image` property should be an `img` HTML element.
