@@ -199,6 +199,7 @@ export const Dropdown: React.FC<IDropdownProps> = (
         'moonstone-dropdown',
         {
             'moonstone-disabled': isDisabled,
+            'moonstone-filled': value,
             'moonstone-opened': isOpened
         }
     );
@@ -208,7 +209,7 @@ export const Dropdown: React.FC<IDropdownProps> = (
         'alignCenter',
         'moonstone-dropdown_label',
         `moonstone-${size}`,
-        `moonstone-${variant}`
+        `moonstone-variant_${variant}`
     );
 
     // ---
