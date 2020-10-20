@@ -122,6 +122,146 @@ const dataGrouped = [
     }
 ];
 
+const dataBigImages = [
+    {
+        label: 'option 1',
+        value: '1',
+        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+        imageSize: 'big'
+    },
+    {
+        label: 'option 2',
+        value: '2',
+        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+        imageSize: 'big'
+    },
+    {
+        label: 'option 3 with very long long label label label label label label label label',
+        value: '3',
+        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+        imageSize: 'big'
+    },
+    {
+        label: 'option 4',
+        value: '4',
+        isDisabled: true,
+        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+        imageSize: 'big'
+    },
+    {
+        label: 'option 5',
+        value: '5',
+        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+        imageSize: 'big'
+    },
+    {
+        label: 'option 6',
+        value: '6',
+        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+        imageSize: 'big'
+    },
+    {
+        label: 'option 7',
+        value: '7',
+        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+        imageSize: 'big'
+    },
+    {
+        label: 'option 8',
+        value: '8',
+        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+        imageSize: 'big'
+    },
+    {
+        label: 'option 9',
+        value: '9',
+        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+        imageSize: 'big'
+    },
+    {
+        label: 'option 10',
+        value: '10',
+        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+        imageSize: 'big'
+    },
+    {
+        label: 'option 11',
+        value: '11',
+        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+        imageSize: 'big'
+    }
+];
+
+const dataSmallImages = [
+    {
+        label: 'option 1',
+        value: '1',
+        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+        imageSize: 'small'
+    },
+    {
+        label: 'option 2',
+        value: '2',
+        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+        imageSize: 'small'
+    },
+    {
+        label: 'option 3 with very long long label label label label label label label label',
+        value: '3',
+        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+        imageSize: 'small'
+    },
+    {
+        label: 'option 4',
+        value: '4',
+        isDisabled: true,
+        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+        imageSize: 'small'
+    },
+    {
+        label: 'option 5',
+        value: '5',
+        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+        imageSize: 'small'
+    },
+    {
+        label: 'option 6',
+        value: '6',
+        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+        imageSize: 'small'
+    },
+    {
+        label: 'option 7',
+        value: '7',
+        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+        imageSize: 'small'
+    },
+    {
+        label: 'option 8',
+        value: '8',
+        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+        imageSize: 'small'
+    },
+    {
+        label: 'option 9',
+        value: '9',
+        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+        imageSize: 'small'
+    },
+    {
+        label: 'option 10',
+        value: '10',
+        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+        imageSize: 'small'
+    },
+    {
+        label: 'option 11',
+        value: '11',
+        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+        imageSize: 'small'
+    }
+];
+
 storiesOf('Components|Dropdown', module)
     .addParameters({
         component: Dropdown,
@@ -197,7 +337,7 @@ storiesOf('Components|Dropdown', module)
             </div>
         );
     })
-    .add('Outlined Variant', () => {
+    .add('Outlined Variant with Search', () => {
         const [currentOption, setCurrentOption] = useState({label: 'Select something', value: null});
 
         const handleOnChange = (e, item) => {
@@ -209,12 +349,60 @@ storiesOf('Components|Dropdown', module)
         return (
             <div style={{transform: 'scale(1)', height: '100vh', padding: '90px'}}>
                 <Dropdown
+                    hasSearch
                     variant="outlined"
                     label={currentOption.label}
                     value={currentOption.value}
                     size="medium"
-                    isDisabled={false}
                     data={data}
+                    onChange={(e, item) => handleOnChange(e, item)}
+                />
+            </div>
+        );
+    })
+    .add('Outlined Variant with Search and Big Images', () => {
+        const [currentOption, setCurrentOption] = useState({label: 'Select something', value: null});
+
+        const handleOnChange = (e, item) => {
+            setCurrentOption(item);
+            action('onChange');
+            return true;
+        };
+
+        return (
+            <div style={{transform: 'scale(1)', height: '100vh', padding: '90px'}}>
+                <Dropdown
+                    hasSearch
+                    variant="outlined"
+                    imageSize="big"
+                    label={currentOption.label}
+                    value={currentOption.value}
+                    size="medium"
+                    data={dataBigImages}
+                    onChange={(e, item) => handleOnChange(e, item)}
+                />
+            </div>
+        );
+    })
+    .add('Outlined Variant with Search and Small Images', () => {
+        const [currentOption, setCurrentOption] = useState({label: 'Select something', value: null});
+
+        const handleOnChange = (e, item) => {
+            setCurrentOption(item);
+            action('onChange');
+            return true;
+        };
+
+        return (
+            <div style={{transform: 'scale(1)', height: '100vh', padding: '90px'}}>
+                <Dropdown
+                    hasSearch
+                    variant="outlined"
+                    imageSize="small"
+                    label={currentOption.label}
+                    value={currentOption.value}
+                    size="medium"
+                    data={dataSmallImages}
                     onChange={(e, item) => handleOnChange(e, item)}
                 />
             </div>
