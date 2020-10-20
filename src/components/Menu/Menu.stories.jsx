@@ -117,7 +117,6 @@ storiesOf('Components|Menu', module)
     .add('Big Image Menu Items', () => (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <Menu
-                variant="bigImages"
                 isDisplayed={boolean('display', true)}
                 maxWidth="400px"
                 maxHeight="440px"
@@ -156,7 +155,6 @@ storiesOf('Components|Menu', module)
     .add('Small Image Menu Items', () => (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <Menu
-                variant="smallImages"
                 isDisplayed={boolean('display', true)}
                 maxWidth="264px"
                 maxHeight="320px"
