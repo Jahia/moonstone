@@ -25,31 +25,20 @@ type TStyleMenu =  {
     maxWidth?: string;
     maxHeight?: string;
 };
-type TMenuVariant = 'default' | 'smallImages' | 'bigImages';
-enum MenuVariant {
-    DEFAULT = 'default',
-    SMALL_IMAGES = 'smallImages',
-    BIG_IMAGES = 'bigImages'
-}
 
 interface IMenuProps {
     /**
-     * Variant of the Menu
-     */
-    variant?: TMenuVariant;
-
-    /**
-     * Max-width available
+     * Maximum height of the Menu
      */
     maxHeight?: string;
 
     /**
-     * Max-width available
+     * Maximum width of the Menu
      */
     maxWidth?: string;
 
     /**
-     * Min-width available
+     * Minimum width of the Menu
      */
     minWidth?: string;
 
@@ -147,7 +136,6 @@ interface IMenuProps {
 export const Menu: React.FC<IMenuProps> = (
     {
         children,
-        variant,
         isDisplayed,
         minWidth,
         maxWidth,
@@ -224,10 +212,6 @@ export const Menu: React.FC<IMenuProps> = (
                 style={styleMenu}
                 className={classnames(
                     'moonstone-menu',
-                    {
-                        'moonstone-menu_smallImages': variant === MenuVariant.SMALL_IMAGES,
-                        'moonstone-menu_bigImages': variant === MenuVariant.BIG_IMAGES
-                    },
                     className,
                     {'moonstone-hidden': !isDisplayed || !stylePosition}
                 )}
@@ -270,7 +254,6 @@ export const Menu: React.FC<IMenuProps> = (
 
 // Kept defaultProps here because of unnecessary re-rendering when provided as default parameters to the function component
 Menu.defaultProps = {
-    variant: MenuVariant.DEFAULT,
     hasOverlay: true,
     hasSearch: false,
     searchEmptyText: 'No results found.',

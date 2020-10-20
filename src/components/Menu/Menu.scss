@@ -23,16 +23,6 @@
         pointer-events: none;
     }
 
-    &.moonstone-menu_smallImages {
-        width: 264px;
-        max-height: 320px;
-    }
-
-    &.moonstone-menu_bigImages {
-        width: 400px;
-        max-height: 440px;
-    }
-
     .moonstone-menu_searchInput {
         margin: var(--spacing-small) var(--spacing-medium);
     }

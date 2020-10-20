@@ -8,16 +8,22 @@ import {Typography} from '~/components/Typography';
 import {Separator} from '~/components/Separator';
 import {ChevronDown} from '~/icons';
 
-type TDropdownVariant = 'default' | 'ghost';
+type TDropdownVariant = 'ghost' | 'outlined';
 enum DropdownVariants {
-    DEFAULT = 'default',
-    GHOST = 'ghost'
+    GHOST = 'ghost',
+    OUTLINED = 'outlined'
 }
 
 type TDropdownSize = 'small' | 'medium';
 export enum DropdownSizes {
     SMALL = 'small',
     MEDIUM = 'medium'
+}
+
+type TDropdownImageSize = 'small' | 'big';
+enum DropdownImageSize {
+    SMALL = 'small',
+    BIG = 'big'
 }
 
 type TDropdownDataOptions = {
@@ -27,6 +33,8 @@ type TDropdownDataOptions = {
     iconStart?: React.ReactElement;
     iconEnd?: React.ReactElement;
     attributes?: {};
+    image?: HTMLImageElement;
+    imageSize?: TDropdownImageSize;
 }
 
 type TDropdownData = {
@@ -68,6 +76,11 @@ interface IDropdownProps {
     size?: TDropdownSize;
 
     /**
+     * Size of images to show in the Dropdown
+     */
+    imageSize?: TDropdownImageSize;
+
+    /**
      * Max width of the dropdown
      */
     maxWidth?: string;
@@ -76,6 +89,16 @@ interface IDropdownProps {
      * Dropdown is disabled
      */
     isDisabled?: boolean;
+
+    /**
+     * Whether the Menu within the Dropdown has a search input
+     */
+    hasSearch?: boolean;
+
+    /**
+     * The text to display if the Dropdown Menu has a search input and the search doesn't have any results
+     */
+    searchEmptyText?: string;
 
     /**
      * Additional classname
@@ -101,6 +124,9 @@ export const Dropdown: React.FC<IDropdownProps> = (
         variant,
         size,
         icon,
+        hasSearch,
+        searchEmptyText,
+        imageSize,
         onChange,
         className,
         ...props
@@ -109,11 +135,28 @@ export const Dropdown: React.FC<IDropdownProps> = (
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
     const isGrouped = typeof data[0].options !== 'undefined';
+    let menuMaxWidth;
+    let menuMaxHeight;
 
     const anchorPosition = {
         top: Number(spacings.spacingNano.slice(0, -2)),
         left: 0
     };
+
+    switch (imageSize) {
+        case DropdownImageSize.BIG:
+            menuMaxWidth = '400px';
+            menuMaxHeight = '440px';
+            break;
+        case DropdownImageSize.SMALL:
+            menuMaxWidth = '264px';
+            menuMaxHeight = '320px';
+            break;
+        default:
+            // Default menu size for the dropdown when no image size is provided
+            menuMaxWidth = '250px';
+            menuMaxHeight = '270px';
+    }
 
     // ---
     // Functions to handle events
@@ -165,7 +208,7 @@ export const Dropdown: React.FC<IDropdownProps> = (
         'alignCenter',
         'moonstone-dropdown_label',
         `moonstone-${size}`,
-        variant
+        `moonstone-${variant}`
     );
 
     // ---
@@ -180,6 +223,8 @@ export const Dropdown: React.FC<IDropdownProps> = (
             iconEnd={item.iconEnd}
             isDisabled={item.isDisabled}
             isSelected={value === item.value}
+            image={item.image}
+            imageSize={item.imageSize}
             onClick={e => handleSelect(e, item)}
             onKeyPress={e => handleKeyPress(e, item)}
             {...item.attributes}
@@ -242,10 +287,12 @@ export const Dropdown: React.FC<IDropdownProps> = (
             <Menu
                 isDisplayed={isOpened}
                 anchorPosition={anchorPosition}
-                maxHeight="270px"
-                maxWidth="250px"
                 minWidth={minWidth}
+                maxWidth={menuMaxWidth}
+                maxHeight={menuMaxHeight}
                 anchorEl={anchorEl}
+                hasSearch={hasSearch}
+                searchEmptyText={searchEmptyText}
                 onClose={handleCloseMenu}
             >
                 {
@@ -267,10 +314,12 @@ export const Dropdown: React.FC<IDropdownProps> = (
 
 Dropdown.defaultProps = {
     icon: null,
-    variant: 'default',
-    size: 'medium',
+    variant: DropdownVariants.GHOST,
+    size: DropdownSizes.MEDIUM,
     maxWidth: '300px',
-    isDisabled: false
+    isDisabled: false,
+    hasSearch: false,
+    searchEmptyText: 'No results found.'
 };
 
 Dropdown.displayName = 'Dropdown';
