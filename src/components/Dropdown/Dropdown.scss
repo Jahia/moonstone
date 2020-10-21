@@ -2,49 +2,40 @@
 
 $border-width: 0.5px;
 
+%dropdown-opened {
+    color: var(--color-light);
+
+    background-color: var(--color-accent);
+}
+
+%dropdown-focus {
+    outline: none;
+    box-shadow: inset 0 0 0 2px var(--color-accent);
+}
+
 .moonstone-dropdown_icon {
     display: flex;
     margin-right: var(--spacing-nano);
 }
 
-.moonstone-dropdown_label {
+.moonstone-dropdown {
     padding-right: var(--spacing-small);
     padding-left: var(--spacing-small);
 
     border-radius: 2px;
     cursor: pointer;
 
-    transition: background 0.2s ease-in-out;
+    // Don't know if we want to keep this animation, it's adding a weird flash on hover/active
+    // transition: background 0.2s ease-in-out;
 
-    &.moonstone-variant_outlined {
-        color: var(--color-gray);
+    &.moonstone-disabled {
+        @include is-disabled;
 
-        border: $border-width solid var(--color-gray40);
-    }
+        pointer-events: none;
 
-    &:hover {
-        color: var(--color-accent);
-
-        &.moonstone-variant_outlined {
-            color: var(--color-gray_dark);
-
-            border-color: var(--color_gray60);
-
-            svg {
-                color: var(--color-gray_dark);
-            }
+        &:hover {
+            pointer-events: none;
         }
-    }
-
-    &:active {
-        color: var(--color-light);
-
-        background-color: var(--color-accent);
-    }
-
-    &:focus {
-        outline: none;
-        box-shadow: inset 0 0 0 2px var(--color-accent);
     }
 
     // ---
@@ -62,50 +53,70 @@ $border-width: 0.5px;
 }
 
 // ---
-// Dropdown states
+// Ghost variant
 // ---
-.moonstone-dropdown {
-    &.moonstone-filled {
-        .moonstone-variant_outlined {
-            color: var(--color-gray_dark);
-        }
+.moonstone-dropdown_ghost {
+    &:hover {
+        color: var(--color-accent);
+    }
+
+    &:focus {
+        @extend %dropdown-focus;
+    }
+
+    &:active {
+        color: var(--color-light);
+
+        background-color: var(--color-accent);
     }
 
     &.moonstone-opened {
-        .moonstone-dropdown_label {
-            color: var(--color-light);
+        @extend %dropdown-opened;
+    }
+}
 
-            background-color: var(--color-accent);
+// ---
+// Outlined variant
+// ---
+.moonstone-dropdown_outlined {
+    color: var(--color-gray);
 
-            &.moonstone-variant_outlined {
-                border: $border-width solid var(--color-accent);
-            }
+    border: $border-width solid var(--color-gray40);
 
-            // Had to move this out of the above block due to stylelint nesting rule (no more than 3)
-            &.moonstone-variant_outlined svg {
-                color: var(--color-light);
-            }
-        }
+    &:hover {
+        color: var(--color-gray_dark);
+
+        border-color: var(--color_gray60);
+    }
+
+    &:focus {
+        @extend %dropdown-focus;
+
+        border-color: var(--color-accent);
+    }
+
+    &:active {
+        color: var(--color-light);
+
+        border-color: var(--color-accent);
+
+        background-color: var(--color-accent);
+    }
+
+    &.moonstone-filled {
+        color: var(--color-gray_dark);
+    }
+
+    &.moonstone-opened {
+        @extend %dropdown-opened;
+
+        border-color: var(--color-accent);
     }
 
     &.moonstone-disabled {
-        @include is-disabled;
+        color: var(--color-gray);
 
-        &:hover {
-            .moonstone-dropdown_label {
-                pointer-events: none;
-            }
-        }
-
-        > * {
-            pointer-events: none;
-        }
-
-        .moonstone-variant_outlined {
-            color: var(--color-gray);
-
-            border-color: var(--color-gray_light40);
-            background-color: var(--color-gray_light40);
-        }
+        border-color: var(--color-gray_light40);
+        background-color: var(--color-gray_light40);
     }
 }
