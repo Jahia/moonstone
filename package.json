@@ -24,7 +24,7 @@
         "lint:fix": "yarn lint:js:fix && yarn lint:scss:fix && yarn lint:ts:fix",
         "compilejs": "node ./scripts/compile.js",
         "tsc": "tsc --build tsconfig.json",
-        "prebuild-icons": "node ./scripts/rename.js ./src/icons/index.js ./src/icons/tmp.js",
+        "prebuild-icons": "node ./scripts/rename.js ./src/icons/index.ts ./src/icons/tmp.js",
         "build-icons": "svgr --typescript --template ./src/tokens/icons/svgrTemplate.js --config-file ./src/tokens/icons/svgr.config.json ./src/tokens/icons/assets --out-dir ./src/icons && tslint --fix ./src/icons",
         "postbuild-icons": "node ./scripts/rename.js ./src/icons/index.tsx ./src/icons/assets.ts && node ./scripts/rename.js ./src/icons/tmp.js ./src/icons/index.ts",
         "build": "NODE_OPTIONS=--max_old_space_size=4096 yarn build:storybook && yarn build:lib && yarn webpack",
