@@ -1,12 +1,12 @@
-import * as React from "react";
-type TIconSize = "small" | "default" | "big";
+import * as React from 'react';
+type TIconSize = 'small' | 'default' | 'big';
 interface IIconProps extends React.SVGProps<SVGSVGElement> {
   size?: TIconSize;
   className?: string;
 }
 
 const SvgTips = ({
-  size = "default",
+  size = 'default',
   className,
   ...otherProps
 }: IIconProps) => {
@@ -15,10 +15,10 @@ const SvgTips = ({
     {
       size,
       className,
-      ...otherProps,
+      ...otherProps
     }
   );
-  props.className = className + " moonstone-icon moonstone-icon_" + size;
+  props.className = className + ' moonstone-icon moonstone-icon_' + size;
   return (
     <svg viewBox="0 0 24 24" fill="none" {...props}>
       <path
