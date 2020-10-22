@@ -1,5 +1,10 @@
 {
   "icon": true,
   "dimensions": false,
-  "replaceAttrValues": {"#000": "currentColor"}
+  "typescript": true,
+  "replaceAttrValues": {"#000": "currentColor"},
+  "prettierConfig": {
+    "singleQuote": true,
+    "trailingComma": "none"
+  }
 }

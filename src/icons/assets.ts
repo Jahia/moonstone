@@ -160,6 +160,7 @@ export {default as Tag} from './Tag';
 export {default as Target} from './Target';
 export {default as Task} from './Task';
 export {default as Text} from './Text';
+export {default as Tips} from './Tips';
 export {default as Tune} from './Tune';
 export {default as Undelete} from './Undelete';
 export {default as Undo} from './Undo';
