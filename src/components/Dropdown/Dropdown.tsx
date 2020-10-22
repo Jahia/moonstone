@@ -195,20 +195,21 @@ export const Dropdown: React.FC<IDropdownProps> = (
     // ---
     // CSS classes
     // ---
-    const cssDropdown = classnames(
-        'moonstone-dropdown',
-        {
-            'moonstone-disabled': isDisabled,
-            'moonstone-opened': isOpened
-        }
-    );
+    // const cssDropdown = classnames(
+    //     'moonstone-dropdown'
+    // );
 
-    const cssDropdownLabel = classnames(
+    const cssDropdown = classnames(
         'flexRow',
         'alignCenter',
-        'moonstone-dropdown_label',
+        'moonstone-dropdown',
         `moonstone-${size}`,
-        `moonstone-${variant}`
+        `moonstone-dropdown_${variant}`,
+        {
+            'moonstone-disabled': isDisabled,
+            'moonstone-filled': value,
+            'moonstone-opened': isOpened
+        }
     );
 
     // ---
@@ -249,7 +250,7 @@ export const Dropdown: React.FC<IDropdownProps> = (
 
     return (
         <div
-            className={classnames(cssDropdown, className)}
+            className={classnames(className)}
             style={{maxWidth}}
             {...props}
             onKeyPress={e => {
@@ -259,7 +260,7 @@ export const Dropdown: React.FC<IDropdownProps> = (
             }}
         >
             <div
-                className={classnames(cssDropdownLabel)}
+                className={classnames(cssDropdown)}
                 tabIndex={0}
                 onClick={handleOpenMenu}
                 onKeyPress={(e: React.KeyboardEvent) => {

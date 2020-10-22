@@ -124,141 +124,161 @@ const dataGrouped = [
 
 const dataBigImages = [
     {
-        label: 'option 1',
-        value: '1',
-        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
-        imageSize: 'big'
+        groupLabel: 'Options 1-3',
+        options: [
+            {
+                label: 'option 1',
+                value: '1',
+                image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+                imageSize: 'big'
+            },
+            {
+                label: 'option 2',
+                value: '2',
+                image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+                imageSize: 'big'
+            },
+            {
+                label: 'option 3 with very long long label label label label label label label label',
+                value: '3',
+                image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+                imageSize: 'big'
+            }
+        ]
     },
     {
-        label: 'option 2',
-        value: '2',
-        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
-        imageSize: 'big'
-    },
-    {
-        label: 'option 3 with very long long label label label label label label label label',
-        value: '3',
-        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
-        imageSize: 'big'
-    },
-    {
-        label: 'option 4',
-        value: '4',
-        isDisabled: true,
-        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
-        imageSize: 'big'
-    },
-    {
-        label: 'option 5',
-        value: '5',
-        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
-        imageSize: 'big'
-    },
-    {
-        label: 'option 6',
-        value: '6',
-        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
-        imageSize: 'big'
-    },
-    {
-        label: 'option 7',
-        value: '7',
-        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
-        imageSize: 'big'
-    },
-    {
-        label: 'option 8',
-        value: '8',
-        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
-        imageSize: 'big'
-    },
-    {
-        label: 'option 9',
-        value: '9',
-        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
-        imageSize: 'big'
-    },
-    {
-        label: 'option 10',
-        value: '10',
-        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
-        imageSize: 'big'
-    },
-    {
-        label: 'option 11',
-        value: '11',
-        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
-        imageSize: 'big'
+        groupLabel: 'Options 4-11',
+        options: [
+            {
+                label: 'option 4',
+                value: '4',
+                isDisabled: true,
+                image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+                imageSize: 'big'
+            },
+            {
+                label: 'option 5',
+                value: '5',
+                image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+                imageSize: 'big'
+            },
+            {
+                label: 'option 6',
+                value: '6',
+                image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+                imageSize: 'big'
+            },
+            {
+                label: 'option 7',
+                value: '7',
+                image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+                imageSize: 'big'
+            },
+            {
+                label: 'option 8',
+                value: '8',
+                image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+                imageSize: 'big'
+            },
+            {
+                label: 'option 9',
+                value: '9',
+                image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+                imageSize: 'big'
+            },
+            {
+                label: 'option 10',
+                value: '10',
+                image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+                imageSize: 'big'
+            },
+            {
+                label: 'option 11',
+                value: '11',
+                image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+                imageSize: 'big'
+            }
+        ]
     }
 ];
 
 const dataSmallImages = [
     {
-        label: 'option 1',
-        value: '1',
-        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
-        imageSize: 'small'
+        groupLabel: 'Options 1-3',
+        options: [
+            {
+                label: 'option 1',
+                value: '1',
+                image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+                imageSize: 'small'
+            },
+            {
+                label: 'option 2',
+                value: '2',
+                image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+                imageSize: 'small'
+            },
+            {
+                label: 'option 3 with very long long label label label label label label label label',
+                value: '3',
+                image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+                imageSize: 'small'
+            }
+        ]
     },
     {
-        label: 'option 2',
-        value: '2',
-        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
-        imageSize: 'small'
-    },
-    {
-        label: 'option 3 with very long long label label label label label label label label',
-        value: '3',
-        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
-        imageSize: 'small'
-    },
-    {
-        label: 'option 4',
-        value: '4',
-        isDisabled: true,
-        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
-        imageSize: 'small'
-    },
-    {
-        label: 'option 5',
-        value: '5',
-        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
-        imageSize: 'small'
-    },
-    {
-        label: 'option 6',
-        value: '6',
-        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
-        imageSize: 'small'
-    },
-    {
-        label: 'option 7',
-        value: '7',
-        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
-        imageSize: 'small'
-    },
-    {
-        label: 'option 8',
-        value: '8',
-        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
-        imageSize: 'small'
-    },
-    {
-        label: 'option 9',
-        value: '9',
-        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
-        imageSize: 'small'
-    },
-    {
-        label: 'option 10',
-        value: '10',
-        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
-        imageSize: 'small'
-    },
-    {
-        label: 'option 11',
-        value: '11',
-        image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
-        imageSize: 'small'
+        groupLabel: 'Options 4-11',
+        options: [
+            {
+                label: 'option 4',
+                value: '4',
+                isDisabled: true,
+                image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+                imageSize: 'small'
+            },
+            {
+                label: 'option 5',
+                value: '5',
+                image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+                imageSize: 'small'
+            },
+            {
+                label: 'option 6',
+                value: '6',
+                image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+                imageSize: 'small'
+            },
+            {
+                label: 'option 7',
+                value: '7',
+                image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+                imageSize: 'small'
+            },
+            {
+                label: 'option 8',
+                value: '8',
+                image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+                imageSize: 'small'
+            },
+            {
+                label: 'option 9',
+                value: '9',
+                image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+                imageSize: 'small'
+            },
+            {
+                label: 'option 10',
+                value: '10',
+                image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+                imageSize: 'small'
+            },
+            {
+                label: 'option 11',
+                value: '11',
+                image: <img src="https://via.placeholder.com/500x500?text=DropdownOptionImage"/>,
+                imageSize: 'small'
+            }
+        ]
     }
 ];
 
@@ -353,7 +373,7 @@ storiesOf('Components|Dropdown', module)
                     variant="outlined"
                     label={currentOption.label}
                     value={currentOption.value}
-                    size="medium"
+                    size="small"
                     data={data}
                     onChange={(e, item) => handleOnChange(e, item)}
                 />
