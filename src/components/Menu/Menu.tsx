@@ -186,6 +186,10 @@ export const Menu: React.FC<IMenuProps> = (
                     return false;
                 });
                 setFilteredChildren(_filtered);
+
+                if (_filtered.length === 0) {
+                    setIsEmptySearch(true);
+                }
             }
         } else {
             setFilteredChildren(children);
