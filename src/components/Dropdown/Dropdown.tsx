@@ -234,7 +234,7 @@ export const Dropdown: React.FC<IDropdownProps> = (
 
     const dropdownGrouped = (children: [TDropdownDataOptions], groupLabel: string, index: number) => {
         return (
-            <Fragment key={`${groupLabel}-${index}`}>
+            <div key={`${groupLabel}-${index}`} data-option-type="group">
                 {index > 0 && (
                     <Separator/>
                 )}
@@ -244,7 +244,7 @@ export const Dropdown: React.FC<IDropdownProps> = (
                 {children.map(item => {
                     return dropdownOption(item);
                 })}
-            </Fragment>
+            </div>
         );
     };
 

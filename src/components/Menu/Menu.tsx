@@ -133,6 +133,16 @@ interface IMenuProps {
     hasOverlay?: boolean;
 }
 
+const getChildrenToFilter = (children: [React.ReactElement]) => {
+    if (children[0].props['data-option-type'] === 'group') {
+        const childrenToFilter = children.reduce((acc, curr) => {
+            return [...acc, ...curr.props.children[2]];
+        }, []);
+        return childrenToFilter;
+    }
+    return children;
+};
+
 export const Menu: React.FC<IMenuProps> = (
     {
         children,
@@ -166,20 +176,21 @@ export const Menu: React.FC<IMenuProps> = (
 
     useEffect(() => {
         if (inputValue !== '') {
-            const _filtered = Array.isArray(children)
-                ? children.filter((child: React.ReactElement) => {
-                    const startsWith = child.props.label.toLowerCase().startsWith(inputValue.toLowerCase());
-                    return startsWith && child.props.variant !== 'title';
-                    })
-                : children;
-            setFilteredChildren(_filtered);
+            if (Array.isArray(children)) {
+                const _childrenToFilter = getChildrenToFilter(children as [React.ReactElement]);
+                const _filtered = _childrenToFilter.filter((child: React.ReactElement) => {
+                    if (child.props && child.props.label) {
+                        const startsWith = child.props.label.toLowerCase().startsWith(inputValue.toLowerCase());
+                        return startsWith && child.props.variant !== 'title';
+                    }
+                    return false;
+                });
+                setFilteredChildren(_filtered);
 
-            if (Array.isArray(_filtered) && _filtered.length === 0) {
-                setIsEmptySearch(true);
-            } else {
-                setIsEmptySearch(false);
+                if (_filtered.length === 0) {
+                    setIsEmptySearch(true);
+                }
             }
-
         } else {
             setFilteredChildren(children);
             setIsEmptySearch(false);
