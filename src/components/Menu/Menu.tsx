@@ -189,6 +189,8 @@ export const Menu: React.FC<IMenuProps> = (
 
                 if (_filtered.length === 0) {
                     setIsEmptySearch(true);
+                } else {
+                    setIsEmptySearch(false);
                 }
             }
         } else {
