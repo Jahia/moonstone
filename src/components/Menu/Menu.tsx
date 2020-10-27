@@ -228,6 +228,7 @@ export const Menu: React.FC<IMenuProps> = (
                 )}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
+                data-testid="moonstone-menu"
                 {...props}
             >
                 { hasSearch && (
