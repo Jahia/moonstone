@@ -76,6 +76,7 @@ export const Typography: FunctionComponent<ITypographyProps> = ({
     isItalic = false,
     isUpperCase = false,
     isNowrap = false,
+    isHtml = false,
     ...props
 }: ITypographyProps) =>
     React.createElement(
