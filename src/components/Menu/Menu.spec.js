@@ -6,13 +6,13 @@ import {MenuItem} from './MenuItem';
 
 describe('Menu', () => {
     it('should not display the menu if isDisplayed is false', () => {
-        render(<Menu isDisplayed={false}>Here is my content</Menu>);
+        render(<Menu isDisplayed={false} data-testid="moonstone-menu">Here is my content</Menu>);
         expect(screen.getByTestId('moonstone-menu')).toHaveClass('moonstone-hidden');
     });
 
     it('should show the correct search results', () => {
         render(
-            <Menu isDisplayed hasSearch>
+            <Menu isDisplayed hasSearch data-testid="moonstone-menu">
                 <MenuItem label="Item1"/>
                 <MenuItem label="Item2"/>
                 <MenuItem label="Item3"/>
@@ -28,7 +28,7 @@ describe('Menu', () => {
     it('should show the empty search text if there are no search results', () => {
         const searchEmptyText = 'No search results';
         render(
-            <Menu isDisplayed hasSearch searchEmptyText={searchEmptyText}>
+            <Menu isDisplayed hasSearch searchEmptyText={searchEmptyText} data-testid="moonstone-menu">
                 <MenuItem label="Item1"/>
                 <MenuItem label="Item2"/>
                 <MenuItem label="Item3"/>

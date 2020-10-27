@@ -252,7 +252,6 @@ export const Dropdown: React.FC<IDropdownProps> = (
         <div
             className={classnames(className)}
             style={{maxWidth}}
-            data-testid="moonstone-dropdown"
             {...props}
             onKeyPress={e => {
                 if (e.key === 'Enter') {
