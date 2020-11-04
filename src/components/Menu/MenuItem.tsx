@@ -47,12 +47,12 @@ interface IMenuItemProps {
     isHtml?: boolean,
 
     /**
-     * Icon display before the label
+     * A leading icon display before the label
      */
     iconStart?: React.ReactElement,
 
     /**
-     * Icon display at the end of MenuItem
+     * A trailing icon display at the end of MenuItem
      */
     iconEnd?: React.ReactElement,
 

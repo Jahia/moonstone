@@ -26,12 +26,12 @@ interface IListItemProps {
     isHtml?: boolean,
 
     /**
-     * Icon display before the label. Cannot be used in conjunction with the image property.
+     * A leading icon display before the label. Cannot be used in conjunction with the image property.
      */
     iconStart?: React.ReactElement,
 
     /**
-     * Icon display at the end of ListItem
+     * A trailing icon display at the end of ListItem
      */
     iconEnd?: React.ReactElement,
     /**
