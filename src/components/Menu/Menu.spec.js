@@ -38,4 +38,14 @@ describe('Menu', () => {
 
         expect(screen.getByText(searchEmptyText)).toBeInTheDocument();
     });
+
+    it('should show an icon if the iconStart props is passed in', () => {
+        const Icon = () => <svg/>;
+        render(
+            <Menu isDisplayed data-testid="moonstone-menu">
+                <MenuItem iconStart={<Icon/>} label="test" value="test"/>
+            </Menu>
+        );
+        expect(screen.getByTestId('moonstone-menu').querySelector('svg')).toBeInTheDocument();
+    });
 });
