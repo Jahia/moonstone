@@ -20,8 +20,8 @@ const SvgDropRight = ({
   );
   props.className = className + ' moonstone-icon moonstone-icon_' + size;
   return (
-    <svg viewBox="0 0 24 24" fill="none" {...props}>
-      <path d="M10 17l5-5-5-5v10z" fill="currentColor" />
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M10 17l5-5-5-5v10z" />
     </svg>
   );
 };

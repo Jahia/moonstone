@@ -20,11 +20,8 @@ const SvgChevronBigRight = ({
   );
   props.className = className + ' moonstone-icon moonstone-icon_' + size;
   return (
-    <svg viewBox="0 0 24 24" fill="none" {...props}>
-      <path
-        d="M5.88 4.12L13.76 12l-7.88 7.88L8 22l10-10L8 2 5.88 4.12z"
-        fill="currentColor"
-      />
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M5.88 4.12L13.76 12l-7.88 7.88L8 22l10-10L8 2 5.88 4.12z" />
     </svg>
   );
 };

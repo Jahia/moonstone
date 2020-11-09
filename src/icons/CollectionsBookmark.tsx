@@ -20,14 +20,13 @@ const SvgCollectionsBookmark = ({
   );
   props.className = className + ' moonstone-icon moonstone-icon_' + size;
   return (
-    <svg viewBox="0 0 24 24" fill="none" {...props}>
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
       <path
         fillRule="evenodd"
         clipRule="evenodd"
         d="M8 2h12c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H8c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2zm9.5 8.5L20 12V4h-5v8l2.5-1.5z"
-        fill="currentColor"
       />
-      <path d="M2 6h2v14h14v2H4c-1.1 0-2-.9-2-2V6z" fill="currentColor" />
+      <path d="M2 6h2v14h14v2H4c-1.1 0-2-.9-2-2V6z" />
     </svg>
   );
 };
