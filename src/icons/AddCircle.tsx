@@ -30,5 +30,4 @@ const SvgAddCircle = ({
   );
 };
 
-const MemoSvgAddCircle = React.memo(SvgAddCircle);
-export default MemoSvgAddCircle;
+export default SvgAddCircle;

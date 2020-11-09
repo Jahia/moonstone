@@ -26,5 +26,4 @@ const SvgUndo = ({
   );
 };
 
-const MemoSvgUndo = React.memo(SvgUndo);
-export default MemoSvgUndo;
+export default SvgUndo;

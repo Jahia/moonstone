@@ -26,5 +26,4 @@ const SvgSave = ({
   );
 };
 
-const MemoSvgSave = React.memo(SvgSave);
-export default MemoSvgSave;
+export default SvgSave;

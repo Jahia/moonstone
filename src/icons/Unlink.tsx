@@ -26,5 +26,4 @@ const SvgUnlink = ({
   );
 };
 
-const MemoSvgUnlink = React.memo(SvgUnlink);
-export default MemoSvgUnlink;
+export default SvgUnlink;

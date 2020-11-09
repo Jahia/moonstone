@@ -30,5 +30,4 @@ const SvgGraphQl = ({
   );
 };
 
-const MemoSvgGraphQl = React.memo(SvgGraphQl);
-export default MemoSvgGraphQl;
+export default SvgGraphQl;

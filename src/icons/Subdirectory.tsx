@@ -26,5 +26,4 @@ const SvgSubdirectory = ({
   );
 };
 
-const MemoSvgSubdirectory = React.memo(SvgSubdirectory);
-export default MemoSvgSubdirectory;
+export default SvgSubdirectory;

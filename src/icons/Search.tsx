@@ -26,5 +26,4 @@ const SvgSearch = ({
   );
 };
 
-const MemoSvgSearch = React.memo(SvgSearch);
-export default MemoSvgSearch;
+export default SvgSearch;

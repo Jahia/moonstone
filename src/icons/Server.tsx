@@ -26,5 +26,4 @@ const SvgServer = ({
   );
 };
 
-const MemoSvgServer = React.memo(SvgServer);
-export default MemoSvgServer;
+export default SvgServer;

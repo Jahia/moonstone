@@ -26,5 +26,4 @@ const SvgVisibility = ({
   );
 };
 
-const MemoSvgVisibility = React.memo(SvgVisibility);
-export default MemoSvgVisibility;
+export default SvgVisibility;

@@ -26,5 +26,4 @@ const SvgCloudCheck = ({
   );
 };
 
-const MemoSvgCloudCheck = React.memo(SvgCloudCheck);
-export default MemoSvgCloudCheck;
+export default SvgCloudCheck;

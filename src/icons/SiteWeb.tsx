@@ -26,5 +26,4 @@ const SvgSiteWeb = ({
   );
 };
 
-const MemoSvgSiteWeb = React.memo(SvgSiteWeb);
-export default MemoSvgSiteWeb;
+export default SvgSiteWeb;

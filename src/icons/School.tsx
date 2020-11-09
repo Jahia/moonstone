@@ -26,5 +26,4 @@ const SvgSchool = ({
   );
 };
 
-const MemoSvgSchool = React.memo(SvgSchool);
-export default MemoSvgSchool;
+export default SvgSchool;

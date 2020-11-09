@@ -26,5 +26,4 @@ const SvgApps = ({
   );
 };
 
-const MemoSvgApps = React.memo(SvgApps);
-export default MemoSvgApps;
+export default SvgApps;

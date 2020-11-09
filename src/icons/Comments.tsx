@@ -26,5 +26,4 @@ const SvgComments = ({
   );
 };
 
-const MemoSvgComments = React.memo(SvgComments);
-export default MemoSvgComments;
+export default SvgComments;

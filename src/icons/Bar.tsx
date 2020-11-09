@@ -22,5 +22,4 @@ const SvgBar = ({ size = 'default', className, ...otherProps }: IIconProps) => {
   );
 };
 
-const MemoSvgBar = React.memo(SvgBar);
-export default MemoSvgBar;
+export default SvgBar;

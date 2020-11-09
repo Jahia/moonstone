@@ -30,5 +30,4 @@ const SvgGravel = ({
   );
 };
 
-const MemoSvgGravel = React.memo(SvgGravel);
-export default MemoSvgGravel;
+export default SvgGravel;

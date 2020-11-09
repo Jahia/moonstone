@@ -26,5 +26,4 @@ const SvgGroup = ({
   );
 };
 
-const MemoSvgGroup = React.memo(SvgGroup);
-export default MemoSvgGroup;
+export default SvgGroup;

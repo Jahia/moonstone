@@ -26,5 +26,4 @@ const SvgEdit = ({
   );
 };
 
-const MemoSvgEdit = React.memo(SvgEdit);
-export default MemoSvgEdit;
+export default SvgEdit;

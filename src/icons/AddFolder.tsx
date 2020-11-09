@@ -26,5 +26,4 @@ const SvgAddFolder = ({
   );
 };
 
-const MemoSvgAddFolder = React.memo(SvgAddFolder);
-export default MemoSvgAddFolder;
+export default SvgAddFolder;

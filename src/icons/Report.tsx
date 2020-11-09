@@ -26,5 +26,4 @@ const SvgReport = ({
   );
 };
 
-const MemoSvgReport = React.memo(SvgReport);
-export default MemoSvgReport;
+export default SvgReport;

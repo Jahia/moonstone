@@ -26,5 +26,4 @@ const SvgSecurity = ({
   );
 };
 
-const MemoSvgSecurity = React.memo(SvgSecurity);
-export default MemoSvgSecurity;
+export default SvgSecurity;

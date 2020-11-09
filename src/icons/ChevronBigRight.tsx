@@ -26,5 +26,4 @@ const SvgChevronBigRight = ({
   );
 };
 
-const MemoSvgChevronBigRight = React.memo(SvgChevronBigRight);
-export default MemoSvgChevronBigRight;
+export default SvgChevronBigRight;

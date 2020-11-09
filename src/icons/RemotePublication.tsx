@@ -26,5 +26,4 @@ const SvgRemotePublication = ({
   );
 };
 
-const MemoSvgRemotePublication = React.memo(SvgRemotePublication);
-export default MemoSvgRemotePublication;
+export default SvgRemotePublication;

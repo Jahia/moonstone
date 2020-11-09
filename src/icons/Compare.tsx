@@ -26,5 +26,4 @@ const SvgCompare = ({
   );
 };
 
-const MemoSvgCompare = React.memo(SvgCompare);
-export default MemoSvgCompare;
+export default SvgCompare;

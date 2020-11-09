@@ -26,5 +26,4 @@ const SvgHandleResize = ({
   );
 };
 
-const MemoSvgHandleResize = React.memo(SvgHandleResize);
-export default MemoSvgHandleResize;
+export default SvgHandleResize;

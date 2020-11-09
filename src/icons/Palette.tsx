@@ -26,5 +26,4 @@ const SvgPalette = ({
   );
 };
 
-const MemoSvgPalette = React.memo(SvgPalette);
-export default MemoSvgPalette;
+export default SvgPalette;

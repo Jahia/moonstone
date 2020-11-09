@@ -26,5 +26,4 @@ const SvgReload = ({
   );
 };
 
-const MemoSvgReload = React.memo(SvgReload);
-export default MemoSvgReload;
+export default SvgReload;

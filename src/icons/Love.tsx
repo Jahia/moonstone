@@ -26,5 +26,4 @@ const SvgLove = ({
   );
 };
 
-const MemoSvgLove = React.memo(SvgLove);
-export default MemoSvgLove;
+export default SvgLove;

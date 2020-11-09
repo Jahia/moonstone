@@ -26,5 +26,4 @@ const SvgNotificationsActive = ({
   );
 };
 
-const MemoSvgNotificationsActive = React.memo(SvgNotificationsActive);
-export default MemoSvgNotificationsActive;
+export default SvgNotificationsActive;

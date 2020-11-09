@@ -22,5 +22,4 @@ const SvgDns = ({ size = 'default', className, ...otherProps }: IIconProps) => {
   );
 };
 
-const MemoSvgDns = React.memo(SvgDns);
-export default MemoSvgDns;
+export default SvgDns;

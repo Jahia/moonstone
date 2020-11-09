@@ -26,5 +26,4 @@ const SvgUnlock = ({
   );
 };
 
-const MemoSvgUnlock = React.memo(SvgUnlock);
-export default MemoSvgUnlock;
+export default SvgUnlock;

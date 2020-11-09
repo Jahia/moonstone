@@ -26,5 +26,4 @@ const SvgLine = ({
   );
 };
 
-const MemoSvgLine = React.memo(SvgLine);
-export default MemoSvgLine;
+export default SvgLine;

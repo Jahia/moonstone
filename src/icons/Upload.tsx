@@ -26,5 +26,4 @@ const SvgUpload = ({
   );
 };
 
-const MemoSvgUpload = React.memo(SvgUpload);
-export default MemoSvgUpload;
+export default SvgUpload;

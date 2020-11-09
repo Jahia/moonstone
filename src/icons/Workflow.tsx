@@ -26,5 +26,4 @@ const SvgWorkflow = ({
   );
 };
 
-const MemoSvgWorkflow = React.memo(SvgWorkflow);
-export default MemoSvgWorkflow;
+export default SvgWorkflow;

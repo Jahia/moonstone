@@ -26,5 +26,4 @@ const SvgFunnel = ({
   );
 };
 
-const MemoSvgFunnel = React.memo(SvgFunnel);
-export default MemoSvgFunnel;
+export default SvgFunnel;

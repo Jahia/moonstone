@@ -26,5 +26,4 @@ const SvgDelete = ({
   );
 };
 
-const MemoSvgDelete = React.memo(SvgDelete);
-export default MemoSvgDelete;
+export default SvgDelete;

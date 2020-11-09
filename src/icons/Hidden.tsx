@@ -26,5 +26,4 @@ const SvgHidden = ({
   );
 };
 
-const MemoSvgHidden = React.memo(SvgHidden);
-export default MemoSvgHidden;
+export default SvgHidden;

@@ -30,5 +30,4 @@ const SvgTask = ({
   );
 };
 
-const MemoSvgTask = React.memo(SvgTask);
-export default MemoSvgTask;
+export default SvgTask;

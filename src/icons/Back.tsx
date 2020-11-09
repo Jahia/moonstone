@@ -30,5 +30,4 @@ const SvgBack = ({
   );
 };
 
-const MemoSvgBack = React.memo(SvgBack);
-export default MemoSvgBack;
+export default SvgBack;

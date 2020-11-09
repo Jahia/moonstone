@@ -26,5 +26,4 @@ const SvgDeletePermanently = ({
   );
 };
 
-const MemoSvgDeletePermanently = React.memo(SvgDeletePermanently);
-export default MemoSvgDeletePermanently;
+export default SvgDeletePermanently;

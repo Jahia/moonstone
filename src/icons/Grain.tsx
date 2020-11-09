@@ -30,5 +30,4 @@ const SvgGrain = ({
   );
 };
 
-const MemoSvgGrain = React.memo(SvgGrain);
-export default MemoSvgGrain;
+export default SvgGrain;

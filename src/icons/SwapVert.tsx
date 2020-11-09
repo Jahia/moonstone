@@ -26,5 +26,4 @@ const SvgSwapVert = ({
   );
 };
 
-const MemoSvgSwapVert = React.memo(SvgSwapVert);
-export default MemoSvgSwapVert;
+export default SvgSwapVert;

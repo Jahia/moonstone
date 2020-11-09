@@ -26,5 +26,4 @@ const SvgCrown = ({
   );
 };
 
-const MemoSvgCrown = React.memo(SvgCrown);
-export default MemoSvgCrown;
+export default SvgCrown;

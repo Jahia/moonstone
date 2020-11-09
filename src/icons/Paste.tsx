@@ -30,5 +30,4 @@ const SvgPaste = ({
   );
 };
 
-const MemoSvgPaste = React.memo(SvgPaste);
-export default MemoSvgPaste;
+export default SvgPaste;

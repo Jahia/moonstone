@@ -26,5 +26,4 @@ const SvgPower = ({
   );
 };
 
-const MemoSvgPower = React.memo(SvgPower);
-export default MemoSvgPower;
+export default SvgPower;

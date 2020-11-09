@@ -26,5 +26,4 @@ const SvgHeal = ({
   );
 };
 
-const MemoSvgHeal = React.memo(SvgHeal);
-export default MemoSvgHeal;
+export default SvgHeal;

@@ -31,5 +31,4 @@ const SvgClock = ({
   );
 };
 
-const MemoSvgClock = React.memo(SvgClock);
-export default MemoSvgClock;
+export default SvgClock;

@@ -26,5 +26,4 @@ const SvgBarSquare = ({
   );
 };
 
-const MemoSvgBarSquare = React.memo(SvgBarSquare);
-export default MemoSvgBarSquare;
+export default SvgBarSquare;

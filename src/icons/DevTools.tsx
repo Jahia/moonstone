@@ -26,5 +26,4 @@ const SvgDevTools = ({
   );
 };
 
-const MemoSvgDevTools = React.memo(SvgDevTools);
-export default MemoSvgDevTools;
+export default SvgDevTools;

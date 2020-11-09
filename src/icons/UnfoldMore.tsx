@@ -26,5 +26,4 @@ const SvgUnfoldMore = ({
   );
 };
 
-const MemoSvgUnfoldMore = React.memo(SvgUnfoldMore);
-export default MemoSvgUnfoldMore;
+export default SvgUnfoldMore;

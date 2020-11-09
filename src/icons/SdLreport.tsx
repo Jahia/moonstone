@@ -31,5 +31,4 @@ const SvgSdLreport = ({
   );
 };
 
-const MemoSvgSdLreport = React.memo(SvgSdLreport);
-export default MemoSvgSdLreport;
+export default SvgSdLreport;

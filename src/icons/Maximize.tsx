@@ -26,5 +26,4 @@ const SvgMaximize = ({
   );
 };
 
-const MemoSvgMaximize = React.memo(SvgMaximize);
-export default MemoSvgMaximize;
+export default SvgMaximize;

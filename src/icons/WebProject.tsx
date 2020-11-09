@@ -27,5 +27,4 @@ const SvgWebProject = ({
   );
 };
 
-const MemoSvgWebProject = React.memo(SvgWebProject);
-export default MemoSvgWebProject;
+export default SvgWebProject;

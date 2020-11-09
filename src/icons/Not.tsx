@@ -22,5 +22,4 @@ const SvgNot = ({ size = 'default', className, ...otherProps }: IIconProps) => {
   );
 };
 
-const MemoSvgNot = React.memo(SvgNot);
-export default MemoSvgNot;
+export default SvgNot;

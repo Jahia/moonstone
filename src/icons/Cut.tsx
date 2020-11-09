@@ -26,5 +26,4 @@ const SvgCut = ({ size = 'default', className, ...otherProps }: IIconProps) => {
   );
 };
 
-const MemoSvgCut = React.memo(SvgCut);
-export default MemoSvgCut;
+export default SvgCut;

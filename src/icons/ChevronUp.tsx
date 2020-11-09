@@ -26,5 +26,4 @@ const SvgChevronUp = ({
   );
 };
 
-const MemoSvgChevronUp = React.memo(SvgChevronUp);
-export default MemoSvgChevronUp;
+export default SvgChevronUp;

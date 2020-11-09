@@ -26,5 +26,4 @@ const SvgPrint = ({
   );
 };
 
-const MemoSvgPrint = React.memo(SvgPrint);
-export default MemoSvgPrint;
+export default SvgPrint;

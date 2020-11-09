@@ -26,5 +26,4 @@ const SvgViewQuilt = ({
   );
 };
 
-const MemoSvgViewQuilt = React.memo(SvgViewQuilt);
-export default MemoSvgViewQuilt;
+export default SvgViewQuilt;

@@ -22,5 +22,4 @@ const SvgBug = ({ size = 'default', className, ...otherProps }: IIconProps) => {
   );
 };
 
-const MemoSvgBug = React.memo(SvgBug);
-export default MemoSvgBug;
+export default SvgBug;

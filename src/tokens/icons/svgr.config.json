@@ -2,7 +2,6 @@
   "icon": true,
   "dimensions": false,
   "typescript": true,
-  "memo": true,
   "prettierConfig": {
     "singleQuote": true,
     "trailingComma": "none"

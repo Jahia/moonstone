@@ -26,5 +26,4 @@ const SvgCancel = ({
   );
 };
 
-const MemoSvgCancel = React.memo(SvgCancel);
-export default MemoSvgCancel;
+export default SvgCancel;

@@ -26,5 +26,4 @@ const SvgImage = ({
   );
 };
 
-const MemoSvgImage = React.memo(SvgImage);
-export default MemoSvgImage;
+export default SvgImage;

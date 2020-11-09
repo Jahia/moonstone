@@ -26,5 +26,4 @@ const SvgHelp = ({
   );
 };
 
-const MemoSvgHelp = React.memo(SvgHelp);
-export default MemoSvgHelp;
+export default SvgHelp;

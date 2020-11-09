@@ -26,5 +26,4 @@ const SvgAbTesting = ({
   );
 };
 
-const MemoSvgAbTesting = React.memo(SvgAbTesting);
-export default MemoSvgAbTesting;
+export default SvgAbTesting;

@@ -26,5 +26,4 @@ const SvgBook = ({
   );
 };
 
-const MemoSvgBook = React.memo(SvgBook);
-export default MemoSvgBook;
+export default SvgBook;

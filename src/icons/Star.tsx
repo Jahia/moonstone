@@ -26,5 +26,4 @@ const SvgStar = ({
   );
 };
 
-const MemoSvgStar = React.memo(SvgStar);
-export default MemoSvgStar;
+export default SvgStar;

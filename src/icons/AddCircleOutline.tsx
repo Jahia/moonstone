@@ -30,5 +30,4 @@ const SvgAddCircleOutline = ({
   );
 };
 
-const MemoSvgAddCircleOutline = React.memo(SvgAddCircleOutline);
-export default MemoSvgAddCircleOutline;
+export default SvgAddCircleOutline;

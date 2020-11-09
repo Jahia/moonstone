@@ -26,5 +26,4 @@ const SvgLayers = ({
   );
 };
 
-const MemoSvgLayers = React.memo(SvgLayers);
-export default MemoSvgLayers;
+export default SvgLayers;

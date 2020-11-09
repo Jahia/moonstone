@@ -22,5 +22,4 @@ const SvgTag = ({ size = 'default', className, ...otherProps }: IIconProps) => {
   );
 };
 
-const MemoSvgTag = React.memo(SvgTag);
-export default MemoSvgTag;
+export default SvgTag;

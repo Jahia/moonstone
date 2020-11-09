@@ -26,5 +26,4 @@ const SvgAccessibility = ({
   );
 };
 
-const MemoSvgAccessibility = React.memo(SvgAccessibility);
-export default MemoSvgAccessibility;
+export default SvgAccessibility;

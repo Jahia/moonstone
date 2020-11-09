@@ -26,5 +26,4 @@ const SvgReply = ({
   );
 };
 
-const MemoSvgReply = React.memo(SvgReply);
-export default MemoSvgReply;
+export default SvgReply;

@@ -30,5 +30,4 @@ const SvgWork = ({
   );
 };
 
-const MemoSvgWork = React.memo(SvgWork);
-export default MemoSvgWork;
+export default SvgWork;

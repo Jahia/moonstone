@@ -26,5 +26,4 @@ const SvgStudio = ({
   );
 };
 
-const MemoSvgStudio = React.memo(SvgStudio);
-export default MemoSvgStudio;
+export default SvgStudio;

@@ -26,5 +26,4 @@ const SvgMoreVert = ({
   );
 };
 
-const MemoSvgMoreVert = React.memo(SvgMoreVert);
-export default MemoSvgMoreVert;
+export default SvgMoreVert;

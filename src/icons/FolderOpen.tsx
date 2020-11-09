@@ -26,5 +26,4 @@ const SvgFolderOpen = ({
   );
 };
 
-const MemoSvgFolderOpen = React.memo(SvgFolderOpen);
-export default MemoSvgFolderOpen;
+export default SvgFolderOpen;

@@ -26,5 +26,4 @@ const SvgDropRight = ({
   );
 };
 
-const MemoSvgDropRight = React.memo(SvgDropRight);
-export default MemoSvgDropRight;
+export default SvgDropRight;

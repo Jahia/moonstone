@@ -26,5 +26,4 @@ const SvgOpenInNew = ({
   );
 };
 
-const MemoSvgOpenInNew = React.memo(SvgOpenInNew);
-export default MemoSvgOpenInNew;
+export default SvgOpenInNew;

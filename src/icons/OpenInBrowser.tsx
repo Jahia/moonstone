@@ -26,5 +26,4 @@ const SvgOpenInBrowser = ({
   );
 };
 
-const MemoSvgOpenInBrowser = React.memo(SvgOpenInBrowser);
-export default MemoSvgOpenInBrowser;
+export default SvgOpenInBrowser;

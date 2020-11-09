@@ -30,5 +30,4 @@ const SvgAddBox = ({
   );
 };
 
-const MemoSvgAddBox = React.memo(SvgAddBox);
-export default MemoSvgAddBox;
+export default SvgAddBox;

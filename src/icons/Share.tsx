@@ -26,5 +26,4 @@ const SvgShare = ({
   );
 };
 
-const MemoSvgShare = React.memo(SvgShare);
-export default MemoSvgShare;
+export default SvgShare;

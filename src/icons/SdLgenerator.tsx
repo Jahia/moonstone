@@ -31,5 +31,4 @@ const SvgSdLgenerator = ({
   );
 };
 
-const MemoSvgSdLgenerator = React.memo(SvgSdLgenerator);
-export default MemoSvgSdLgenerator;
+export default SvgSdLgenerator;

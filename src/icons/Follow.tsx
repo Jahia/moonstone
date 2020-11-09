@@ -26,5 +26,4 @@ const SvgFollow = ({
   );
 };
 
-const MemoSvgFollow = React.memo(SvgFollow);
-export default MemoSvgFollow;
+export default SvgFollow;

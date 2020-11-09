@@ -26,5 +26,4 @@ const SvgReplay = ({
   );
 };
 
-const MemoSvgReplay = React.memo(SvgReplay);
-export default MemoSvgReplay;
+export default SvgReplay;

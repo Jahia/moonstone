@@ -37,5 +37,4 @@ const SvgNoCloud = ({
   );
 };
 
-const MemoSvgNoCloud = React.memo(SvgNoCloud);
-export default MemoSvgNoCloud;
+export default SvgNoCloud;

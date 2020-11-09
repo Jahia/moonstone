@@ -26,5 +26,4 @@ const SvgHandleDrag = ({
   );
 };
 
-const MemoSvgHandleDrag = React.memo(SvgHandleDrag);
-export default MemoSvgHandleDrag;
+export default SvgHandleDrag;

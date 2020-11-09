@@ -26,5 +26,4 @@ const SvgDashboard = ({
   );
 };
 
-const MemoSvgDashboard = React.memo(SvgDashboard);
-export default MemoSvgDashboard;
+export default SvgDashboard;

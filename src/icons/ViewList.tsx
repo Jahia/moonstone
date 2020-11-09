@@ -26,5 +26,4 @@ const SvgViewList = ({
   );
 };
 
-const MemoSvgViewList = React.memo(SvgViewList);
-export default MemoSvgViewList;
+export default SvgViewList;

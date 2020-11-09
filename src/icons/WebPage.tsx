@@ -26,5 +26,4 @@ const SvgWebPage = ({
   );
 };
 
-const MemoSvgWebPage = React.memo(SvgWebPage);
-export default MemoSvgWebPage;
+export default SvgWebPage;

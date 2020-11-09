@@ -26,5 +26,4 @@ const SvgDropLeft = ({
   );
 };
 
-const MemoSvgDropLeft = React.memo(SvgDropLeft);
-export default MemoSvgDropLeft;
+export default SvgDropLeft;

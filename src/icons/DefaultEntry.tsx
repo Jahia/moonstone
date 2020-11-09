@@ -26,5 +26,4 @@ const SvgDefaultEntry = ({
   );
 };
 
-const MemoSvgDefaultEntry = React.memo(SvgDefaultEntry);
-export default MemoSvgDefaultEntry;
+export default SvgDefaultEntry;

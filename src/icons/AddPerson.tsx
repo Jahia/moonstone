@@ -26,5 +26,4 @@ const SvgAddPerson = ({
   );
 };
 
-const MemoSvgAddPerson = React.memo(SvgAddPerson);
-export default MemoSvgAddPerson;
+export default SvgAddPerson;
