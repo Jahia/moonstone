@@ -20,8 +20,8 @@ const SvgLosange = ({
   );
   props.className = className + ' moonstone-icon moonstone-icon_' + size;
   return (
-    <svg viewBox="0 0 24 24" fill="none" {...props}>
-      <path fill="currentColor" d="M12 2l9.9 9.9-9.9 9.899-9.9-9.9z" />
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M12 2l9.9 9.9-9.9 9.899-9.9-9.9z" />
     </svg>
   );
 };

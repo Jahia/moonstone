@@ -20,11 +20,8 @@ const SvgSiteSettingsPublication = ({
   );
   props.className = className + ' moonstone-icon moonstone-icon_' + size;
   return (
-    <svg viewBox="0 0 24 24" fill="none" {...props}>
-      <path
-        d="M6 8.385h3V13h5V8.385h3L11.5 3 6 8.385zM9 14h1v3H9v-3zM11 14h1v5h-1v-5zM13 14h1v7h-1v-7z"
-        fill="currentColor"
-      />
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M6 8.385h3V13h5V8.385h3L11.5 3 6 8.385zM9 14h1v3H9v-3zM11 14h1v5h-1v-5zM13 14h1v7h-1v-7z" />
     </svg>
   );
 };

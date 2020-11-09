@@ -20,8 +20,8 @@ const SvgDefaultEntry = ({
   );
   props.className = className + ' moonstone-icon moonstone-icon_' + size;
   return (
-    <svg viewBox="0 0 24 24" fill="none" {...props}>
-      <circle cx={12} cy={12} r={8} fill="currentColor" />
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <circle cx={12} cy={12} r={8} />
     </svg>
   );
 };
