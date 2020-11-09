@@ -135,10 +135,9 @@ interface IMenuProps {
 
 const getChildrenToFilter = (children: [React.ReactElement]) => {
     if (children[0].props['data-option-type'] === 'group') {
-        const childrenToFilter = children.reduce((acc, curr) => {
+        return children.reduce((acc, curr) => {
             return [...acc, ...curr.props.children[2]];
         }, []);
-        return childrenToFilter;
     }
     return children;
 };
@@ -197,7 +196,7 @@ export const Menu: React.FC<IMenuProps> = (
             setFilteredChildren(children);
             setIsEmptySearch(false);
         }
-    }, [inputValue]);
+    }, [inputValue, children]);
 
     // ---
     // Styling

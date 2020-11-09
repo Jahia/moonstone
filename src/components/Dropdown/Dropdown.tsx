@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react';
+import React, {useState} from 'react';
 import classnames from 'clsx';
 import './Dropdown.scss';
 import spacings from '~/tokens/spacings/spacing.json';
@@ -9,7 +9,7 @@ import {Separator} from '~/components/Separator';
 import {ChevronDown} from '~/icons';
 
 type TDropdownVariant = 'ghost' | 'outlined';
-enum DropdownVariants {
+export enum DropdownVariants {
     GHOST = 'ghost',
     OUTLINED = 'outlined'
 }
@@ -21,7 +21,7 @@ export enum DropdownSizes {
 }
 
 type TDropdownImageSize = 'small' | 'big';
-enum DropdownImageSize {
+export enum DropdownImageSizes {
     SMALL = 'small',
     BIG = 'big'
 }
@@ -144,11 +144,11 @@ export const Dropdown: React.FC<IDropdownProps> = (
     };
 
     switch (imageSize) {
-        case DropdownImageSize.BIG:
+        case DropdownImageSizes.BIG:
             menuMaxWidth = '400px';
             menuMaxHeight = '440px';
             break;
-        case DropdownImageSize.SMALL:
+        case DropdownImageSizes.SMALL:
             menuMaxWidth = '264px';
             menuMaxHeight = '320px';
             break;
@@ -195,9 +195,6 @@ export const Dropdown: React.FC<IDropdownProps> = (
     // ---
     // CSS classes
     // ---
-    // const cssDropdown = classnames(
-    //     'moonstone-dropdown'
-    // );
 
     const cssDropdown = classnames(
         'flexRow',
@@ -225,7 +222,7 @@ export const Dropdown: React.FC<IDropdownProps> = (
             isDisabled={item.isDisabled}
             isSelected={value === item.value}
             image={item.image}
-            imageSize={item.imageSize}
+            imageSize={imageSize}
             onClick={e => handleSelect(e, item)}
             onKeyPress={e => handleKeyPress(e, item)}
             {...item.attributes}
@@ -282,7 +279,7 @@ export const Dropdown: React.FC<IDropdownProps> = (
                 >
                     {label}
                 </Typography>
-                <ChevronDown/>
+                <ChevronDown className="moonstone-dropdown_chevronDown"/>
             </div>
 
             <Menu
