@@ -9,5 +9,8 @@ module.exports = {
         '\\.svg$': '<rootDir>/src/__mocks__/svgMock.js',
         '\\.(css|scss)$': 'identity-obj-proxy',
         '^~/(.*)$': '<rootDir>/src/$1'
-    }
+    },
+    setupFilesAfterEnv: [
+        '@testing-library/jest-dom/extend-expect'
+    ]
 };

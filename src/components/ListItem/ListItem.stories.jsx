@@ -13,25 +13,63 @@ storiesOf('Components|ListItem', module)
         notes: {markdown: markdownNotes}
     })
     .addDecorator(withKnobs)
-    .add('default', () => (
-        <div style={{transform: 'scale(1)', height: '100vh'}}>
+    .add('Default', () => (
+        <ul style={{transform: 'scale(1)', height: '100vh'}}>
             <ListItem label={text('Label', 'label')}/>
-        </div>
+        </ul>
     ))
-    .add('Icon + text', () => (
-        <div style={{transform: 'scale(1)', height: '100vh'}}>
+    .add('Icon + Text', () => (
+        <ul style={{transform: 'scale(1)', height: '100vh'}}>
             <ListItem
                 label={text('Label', 'label')}
                 iconStart={<IconWrapper iconName={select('IconStart', iconsName, 'Love')}/>}
             />
-        </div>
+        </ul>
     ))
-    .add('Icon + text + icon', () => (
-        <div style={{transform: 'scale(1)', height: '100vh'}}>
+    .add('Icon + Text + Icon', () => (
+        <ul style={{transform: 'scale(1)', height: '100vh'}}>
             <ListItem
                 label={text('Label', 'label')}
                 iconStart={<IconWrapper iconName={select('IconStart', iconsName, 'Love')}/>}
                 iconEnd={<IconWrapper iconName={select('IconEnd', iconsName, 'Close')}/>}
             />
-        </div>
+        </ul>
+    ))
+    .add('With Big Image', () => (
+        <ul style={{transform: 'scale(1)', height: '100vh'}}>
+            <ListItem
+                label={text('Label', 'label')}
+                image={<img src="https://via.placeholder.com/500x500?text=ListItemImage"/>}
+                imageSize="big"
+            />
+            <ListItem
+                label={text('Label', 'label')}
+                image={<img src="https://via.placeholder.com/200x500?text=ListItemImage"/>}
+                imageSize="big"
+            />
+            <ListItem
+                label={text('Label', 'label')}
+                image={<img src="https://via.placeholder.com/500x200?text=ListItemImage"/>}
+                imageSize="big"
+            />
+        </ul>
+    ))
+    .add('With Small Image', () => (
+        <ul style={{transform: 'scale(1)', height: '100vh'}}>
+            <ListItem
+                label={text('Label', 'label')}
+                image={<img src="https://via.placeholder.com/500x500?text=ListItemImage"/>}
+                imageSize="small"
+            />
+            <ListItem
+                label={text('Label', 'label')}
+                image={<img src="https://via.placeholder.com/200x500?text=ListItemImage"/>}
+                imageSize="small"
+            />
+            <ListItem
+                label={text('Label', 'label')}
+                image={<img src="https://via.placeholder.com/500x200?text=ListItemImage"/>}
+                imageSize="small"
+            />
+        </ul>
     ));

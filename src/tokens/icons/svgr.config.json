@@ -1,5 +1,15 @@
 {
   "icon": true,
   "dimensions": false,
-  "replaceAttrValues": {"#000": "currentColor"}
+  "typescript": true,
+  "prettierConfig": {
+    "singleQuote": true,
+    "trailingComma": "none"
+  },
+  "svgoConfig": {
+    "plugins": [
+      { "removeAttrs": {"attrs": "fill"} },
+      { "addAttributesToSVGElement": {"attribute": {"fill": "currentColor"}}}
+    ]
+  }
 }

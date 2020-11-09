@@ -1,15 +1,44 @@
+@import '../../utils/index';
+
+$small-image-size: 56px;
+$big-image-size: 96px;
+
 .moonstone-listItem {
-    padding: 4px 8px;
+    @include truncate;
+
+    width: 100%;
 
     list-style: none;
+
+    .moonstone-listItem-image_small {
+        flex: 0 0 $small-image-size;
+        height: $small-image-size;
+        margin-right: var(--spacing-small);
+
+        img {
+            max-width: $small-image-size;
+            max-height: 100%;
+            margin: auto;
+        }
+    }
+
+    .moonstone-listItem-image_big {
+        flex: 0 0 $big-image-size;
+        height: $big-image-size;
+        margin-right: var(--spacing-small);
+
+        img {
+            max-width: $big-image-size;
+            max-height: 100%;
+            margin: auto;
+        }
+    }
 }
 
 .moonstone-listItem_iconStart {
-    display: flex;
     margin-right: var(--spacing-nano);
 }
 
 .moonstone-listItem_iconEnd {
-    display: flex;
     margin-left: var(--spacing-nano);
 }

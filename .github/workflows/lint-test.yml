@@ -16,6 +16,8 @@ jobs:
       run: yarn install --frozen-lockfile
     - name: Lint Javascript
       run: yarn lint:js
+    - name: Lint Typescript
+      run: yarn lint:ts
     - name: Lint SCSS
       run: yarn lint:scss
     - name: Unit tests
