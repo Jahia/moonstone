@@ -129,6 +129,8 @@ export const MenuItem: React.FC<IMenuItemProps> = ({
         )}
         image={image}
         imageSize={imageSize}
+        iconStart={iconStart}
+        iconEnd={iconEnd}
         {...props}
     />
 );

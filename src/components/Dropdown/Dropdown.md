@@ -16,9 +16,9 @@ The selected item has a specific design.
 
 ## Grouping Items
 Items can be grouped with a title.
-If item groups are being used, all items must be within a group.
+If you are using item groups then all items must be within a group.
 
 ## Dropdown Options with Images
-To use image dropdown options, ensure that the data passed into the Dropdown has an `image` property and `imageSize` property in addition to the `label` and any other properties you wish.
+To use image dropdown options, ensure that the data passed into the Dropdown has an `image` property in addition to the `label` and any other properties you wish.
 
 The value of the `image` property should be an `img` HTML element.
