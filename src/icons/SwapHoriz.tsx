@@ -26,4 +26,5 @@ const SvgSwapHoriz = ({
   );
 };
 
-export default SvgSwapHoriz;
+const MemoSvgSwapHoriz = React.memo(SvgSwapHoriz);
+export default MemoSvgSwapHoriz;

@@ -27,4 +27,5 @@ const SvgManageSiteWeb = ({
   );
 };
 
-export default SvgManageSiteWeb;
+const MemoSvgManageSiteWeb = React.memo(SvgManageSiteWeb);
+export default MemoSvgManageSiteWeb;

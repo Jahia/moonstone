@@ -26,4 +26,5 @@ const SvgMoreHoriz = ({
   );
 };
 
-export default SvgMoreHoriz;
+const MemoSvgMoreHoriz = React.memo(SvgMoreHoriz);
+export default MemoSvgMoreHoriz;

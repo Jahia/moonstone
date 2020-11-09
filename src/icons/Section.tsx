@@ -26,4 +26,5 @@ const SvgSection = ({
   );
 };
 
-export default SvgSection;
+const MemoSvgSection = React.memo(SvgSection);
+export default MemoSvgSection;

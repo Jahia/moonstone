@@ -26,4 +26,5 @@ const SvgExit = ({
   );
 };
 
-export default SvgExit;
+const MemoSvgExit = React.memo(SvgExit);
+export default MemoSvgExit;

@@ -26,4 +26,5 @@ const SvgPuzzle = ({
   );
 };
 
-export default SvgPuzzle;
+const MemoSvgPuzzle = React.memo(SvgPuzzle);
+export default MemoSvgPuzzle;

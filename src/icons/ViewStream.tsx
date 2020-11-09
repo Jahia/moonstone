@@ -26,4 +26,5 @@ const SvgViewStream = ({
   );
 };
 
-export default SvgViewStream;
+const MemoSvgViewStream = React.memo(SvgViewStream);
+export default MemoSvgViewStream;

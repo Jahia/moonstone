@@ -26,4 +26,5 @@ const SvgExplore = ({
   );
 };
 
-export default SvgExplore;
+const MemoSvgExplore = React.memo(SvgExplore);
+export default MemoSvgExplore;

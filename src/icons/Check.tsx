@@ -26,4 +26,5 @@ const SvgCheck = ({
   );
 };
 
-export default SvgCheck;
+const MemoSvgCheck = React.memo(SvgCheck);
+export default MemoSvgCheck;

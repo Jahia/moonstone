@@ -26,4 +26,5 @@ const SvgCode = ({
   );
 };
 
-export default SvgCode;
+const MemoSvgCode = React.memo(SvgCode);
+export default MemoSvgCode;

@@ -26,4 +26,5 @@ const SvgViewGrid = ({
   );
 };
 
-export default SvgViewGrid;
+const MemoSvgViewGrid = React.memo(SvgViewGrid);
+export default MemoSvgViewGrid;

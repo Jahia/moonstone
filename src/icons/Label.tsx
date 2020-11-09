@@ -26,4 +26,5 @@ const SvgLabel = ({
   );
 };
 
-export default SvgLabel;
+const MemoSvgLabel = React.memo(SvgLabel);
+export default MemoSvgLabel;

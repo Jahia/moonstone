@@ -26,4 +26,5 @@ const SvgDiagram = ({
   );
 };
 
-export default SvgDiagram;
+const MemoSvgDiagram = React.memo(SvgDiagram);
+export default MemoSvgDiagram;

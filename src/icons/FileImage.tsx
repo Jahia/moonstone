@@ -30,4 +30,5 @@ const SvgFileImage = ({
   );
 };
 
-export default SvgFileImage;
+const MemoSvgFileImage = React.memo(SvgFileImage);
+export default MemoSvgFileImage;

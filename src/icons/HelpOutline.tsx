@@ -26,4 +26,5 @@ const SvgHelpOutline = ({
   );
 };
 
-export default SvgHelpOutline;
+const MemoSvgHelpOutline = React.memo(SvgHelpOutline);
+export default MemoSvgHelpOutline;

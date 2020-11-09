@@ -26,4 +26,5 @@ const SvgChevronRight = ({
   );
 };
 
-export default SvgChevronRight;
+const MemoSvgChevronRight = React.memo(SvgChevronRight);
+export default MemoSvgChevronRight;

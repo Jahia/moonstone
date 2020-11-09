@@ -26,4 +26,5 @@ const SvgLosange = ({
   );
 };
 
-export default SvgLosange;
+const MemoSvgLosange = React.memo(SvgLosange);
+export default MemoSvgLosange;

@@ -26,4 +26,5 @@ const SvgCheckboxMiddle = ({
   );
 };
 
-export default SvgCheckboxMiddle;
+const MemoSvgCheckboxMiddle = React.memo(SvgCheckboxMiddle);
+export default MemoSvgCheckboxMiddle;

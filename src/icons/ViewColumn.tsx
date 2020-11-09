@@ -26,4 +26,5 @@ const SvgViewColumn = ({
   );
 };
 
-export default SvgViewColumn;
+const MemoSvgViewColumn = React.memo(SvgViewColumn);
+export default MemoSvgViewColumn;

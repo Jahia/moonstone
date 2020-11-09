@@ -26,4 +26,5 @@ const SvgRadioUnchecked = ({
   );
 };
 
-export default SvgRadioUnchecked;
+const MemoSvgRadioUnchecked = React.memo(SvgRadioUnchecked);
+export default MemoSvgRadioUnchecked;

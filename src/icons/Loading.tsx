@@ -26,4 +26,5 @@ const SvgLoading = ({
   );
 };
 
-export default SvgLoading;
+const MemoSvgLoading = React.memo(SvgLoading);
+export default MemoSvgLoading;

@@ -26,4 +26,5 @@ const SvgPublish = ({
   );
 };
 
-export default SvgPublish;
+const MemoSvgPublish = React.memo(SvgPublish);
+export default MemoSvgPublish;

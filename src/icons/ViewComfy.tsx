@@ -30,4 +30,5 @@ const SvgViewComfy = ({
   );
 };
 
-export default SvgViewComfy;
+const MemoSvgViewComfy = React.memo(SvgViewComfy);
+export default MemoSvgViewComfy;

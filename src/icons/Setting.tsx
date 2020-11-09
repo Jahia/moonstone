@@ -30,4 +30,5 @@ const SvgSetting = ({
   );
 };
 
-export default SvgSetting;
+const MemoSvgSetting = React.memo(SvgSetting);
+export default MemoSvgSetting;

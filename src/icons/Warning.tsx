@@ -26,4 +26,5 @@ const SvgWarning = ({
   );
 };
 
-export default SvgWarning;
+const MemoSvgWarning = React.memo(SvgWarning);
+export default MemoSvgWarning;

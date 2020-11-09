@@ -26,4 +26,5 @@ const SvgProfile = ({
   );
 };
 
-export default SvgProfile;
+const MemoSvgProfile = React.memo(SvgProfile);
+export default MemoSvgProfile;

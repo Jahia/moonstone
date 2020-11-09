@@ -26,4 +26,5 @@ const SvgSiteSettingsPublication = ({
   );
 };
 
-export default SvgSiteSettingsPublication;
+const MemoSvgSiteSettingsPublication = React.memo(SvgSiteSettingsPublication);
+export default MemoSvgSiteSettingsPublication;

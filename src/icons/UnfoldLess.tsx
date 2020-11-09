@@ -26,4 +26,5 @@ const SvgUnfoldLess = ({
   );
 };
 
-export default SvgUnfoldLess;
+const MemoSvgUnfoldLess = React.memo(SvgUnfoldLess);
+export default MemoSvgUnfoldLess;

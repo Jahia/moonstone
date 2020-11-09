@@ -26,4 +26,5 @@ const SvgMenu = ({
   );
 };
 
-export default SvgMenu;
+const MemoSvgMenu = React.memo(SvgMenu);
+export default MemoSvgMenu;

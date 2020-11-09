@@ -26,4 +26,5 @@ const SvgLocalSiteManager = ({
   );
 };
 
-export default SvgLocalSiteManager;
+const MemoSvgLocalSiteManager = React.memo(SvgLocalSiteManager);
+export default MemoSvgLocalSiteManager;

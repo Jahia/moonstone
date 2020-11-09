@@ -26,4 +26,5 @@ const SvgFolderUser = ({
   );
 };
 
-export default SvgFolderUser;
+const MemoSvgFolderUser = React.memo(SvgFolderUser);
+export default MemoSvgFolderUser;

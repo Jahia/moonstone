@@ -27,4 +27,5 @@ const SvgChevronDoubleLeft = ({
   );
 };
 
-export default SvgChevronDoubleLeft;
+const MemoSvgChevronDoubleLeft = React.memo(SvgChevronDoubleLeft);
+export default MemoSvgChevronDoubleLeft;

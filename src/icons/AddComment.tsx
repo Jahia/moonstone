@@ -26,4 +26,5 @@ const SvgAddComment = ({
   );
 };
 
-export default SvgAddComment;
+const MemoSvgAddComment = React.memo(SvgAddComment);
+export default MemoSvgAddComment;

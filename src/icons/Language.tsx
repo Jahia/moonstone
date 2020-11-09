@@ -26,4 +26,5 @@ const SvgLanguage = ({
   );
 };
 
-export default SvgLanguage;
+const MemoSvgLanguage = React.memo(SvgLanguage);
+export default MemoSvgLanguage;

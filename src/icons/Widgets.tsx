@@ -26,4 +26,5 @@ const SvgWidgets = ({
   );
 };
 
-export default SvgWidgets;
+const MemoSvgWidgets = React.memo(SvgWidgets);
+export default MemoSvgWidgets;

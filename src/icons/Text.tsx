@@ -26,4 +26,5 @@ const SvgText = ({
   );
 };
 
-export default SvgText;
+const MemoSvgText = React.memo(SvgText);
+export default MemoSvgText;

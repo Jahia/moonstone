@@ -22,4 +22,5 @@ const SvgAdd = ({ size = 'default', className, ...otherProps }: IIconProps) => {
   );
 };
 
-export default SvgAdd;
+const MemoSvgAdd = React.memo(SvgAdd);
+export default MemoSvgAdd;

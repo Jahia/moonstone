@@ -30,4 +30,5 @@ const SvgForm = ({
   );
 };
 
-export default SvgForm;
+const MemoSvgForm = React.memo(SvgForm);
+export default MemoSvgForm;

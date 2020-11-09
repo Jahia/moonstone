@@ -26,4 +26,5 @@ const SvgMinimize = ({
   );
 };
 
-export default SvgMinimize;
+const MemoSvgMinimize = React.memo(SvgMinimize);
+export default MemoSvgMinimize;

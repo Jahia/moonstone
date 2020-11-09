@@ -31,4 +31,5 @@ const SvgNotices = ({
   );
 };
 
-export default SvgNotices;
+const MemoSvgNotices = React.memo(SvgNotices);
+export default MemoSvgNotices;

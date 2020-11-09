@@ -31,4 +31,5 @@ const SvgCollectionsBookmark = ({
   );
 };
 
-export default SvgCollectionsBookmark;
+const MemoSvgCollectionsBookmark = React.memo(SvgCollectionsBookmark);
+export default MemoSvgCollectionsBookmark;

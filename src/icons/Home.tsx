@@ -26,4 +26,5 @@ const SvgHome = ({
   );
 };
 
-export default SvgHome;
+const MemoSvgHome = React.memo(SvgHome);
+export default MemoSvgHome;

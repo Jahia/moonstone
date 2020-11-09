@@ -26,4 +26,5 @@ const SvgInfo = ({
   );
 };
 
-export default SvgInfo;
+const MemoSvgInfo = React.memo(SvgInfo);
+export default MemoSvgInfo;

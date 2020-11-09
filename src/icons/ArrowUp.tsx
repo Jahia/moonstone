@@ -26,4 +26,5 @@ const SvgArrowUp = ({
   );
 };
 
-export default SvgArrowUp;
+const MemoSvgArrowUp = React.memo(SvgArrowUp);
+export default MemoSvgArrowUp;

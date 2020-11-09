@@ -31,4 +31,5 @@ const SvgFileZip = ({
   );
 };
 
-export default SvgFileZip;
+const MemoSvgFileZip = React.memo(SvgFileZip);
+export default MemoSvgFileZip;

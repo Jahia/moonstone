@@ -31,4 +31,5 @@ const SvgFileCompresed = ({
   );
 };
 
-export default SvgFileCompresed;
+const MemoSvgFileCompresed = React.memo(SvgFileCompresed);
+export default MemoSvgFileCompresed;

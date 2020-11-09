@@ -30,4 +30,5 @@ const SvgTune = ({
   );
 };
 
-export default SvgTune;
+const MemoSvgTune = React.memo(SvgTune);
+export default MemoSvgTune;

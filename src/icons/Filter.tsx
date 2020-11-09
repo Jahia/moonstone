@@ -26,4 +26,5 @@ const SvgFilter = ({
   );
 };
 
-export default SvgFilter;
+const MemoSvgFilter = React.memo(SvgFilter);
+export default MemoSvgFilter;

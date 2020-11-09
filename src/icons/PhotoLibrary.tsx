@@ -26,4 +26,5 @@ const SvgPhotoLibrary = ({
   );
 };
 
-export default SvgPhotoLibrary;
+const MemoSvgPhotoLibrary = React.memo(SvgPhotoLibrary);
+export default MemoSvgPhotoLibrary;

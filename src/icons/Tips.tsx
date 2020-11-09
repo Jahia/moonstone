@@ -26,4 +26,5 @@ const SvgTips = ({
   );
 };
 
-export default SvgTips;
+const MemoSvgTips = React.memo(SvgTips);
+export default MemoSvgTips;

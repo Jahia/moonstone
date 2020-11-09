@@ -26,4 +26,5 @@ const SvgEvent = ({
   );
 };
 
-export default SvgEvent;
+const MemoSvgEvent = React.memo(SvgEvent);
+export default MemoSvgEvent;

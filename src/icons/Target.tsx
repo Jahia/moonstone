@@ -26,4 +26,5 @@ const SvgTarget = ({
   );
 };
 
-export default SvgTarget;
+const MemoSvgTarget = React.memo(SvgTarget);
+export default MemoSvgTarget;

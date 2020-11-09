@@ -23,4 +23,5 @@ const SvgPie = ({ size = 'default', className, ...otherProps }: IIconProps) => {
   );
 };
 
-export default SvgPie;
+const MemoSvgPie = React.memo(SvgPie);
+export default MemoSvgPie;

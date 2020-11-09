@@ -26,4 +26,5 @@ const SvgDownload = ({
   );
 };
 
-export default SvgDownload;
+const MemoSvgDownload = React.memo(SvgDownload);
+export default MemoSvgDownload;

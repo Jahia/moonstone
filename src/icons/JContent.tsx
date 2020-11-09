@@ -33,4 +33,5 @@ const SvgJContent = ({
   );
 };
 
-export default SvgJContent;
+const MemoSvgJContent = React.memo(SvgJContent);
+export default MemoSvgJContent;

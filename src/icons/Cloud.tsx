@@ -26,4 +26,5 @@ const SvgCloud = ({
   );
 };
 
-export default SvgCloud;
+const MemoSvgCloud = React.memo(SvgCloud);
+export default MemoSvgCloud;

@@ -22,4 +22,5 @@ const SvgKey = ({ size = 'default', className, ...otherProps }: IIconProps) => {
   );
 };
 
-export default SvgKey;
+const MemoSvgKey = React.memo(SvgKey);
+export default MemoSvgKey;

@@ -22,4 +22,5 @@ const SvgPdf = ({ size = 'default', className, ...otherProps }: IIconProps) => {
   );
 };
 
-export default SvgPdf;
+const MemoSvgPdf = React.memo(SvgPdf);
+export default MemoSvgPdf;

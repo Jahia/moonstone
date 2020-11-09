@@ -26,4 +26,5 @@ const SvgFeather = ({
   );
 };
 
-export default SvgFeather;
+const MemoSvgFeather = React.memo(SvgFeather);
+export default MemoSvgFeather;

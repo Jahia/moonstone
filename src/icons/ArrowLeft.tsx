@@ -26,4 +26,5 @@ const SvgArrowLeft = ({
   );
 };
 
-export default SvgArrowLeft;
+const MemoSvgArrowLeft = React.memo(SvgArrowLeft);
+export default MemoSvgArrowLeft;

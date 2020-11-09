@@ -26,4 +26,5 @@ const SvgClose = ({
   );
 };
 
-export default SvgClose;
+const MemoSvgClose = React.memo(SvgClose);
+export default MemoSvgClose;

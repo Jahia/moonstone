@@ -26,4 +26,5 @@ const SvgGlobalLink = ({
   );
 };
 
-export default SvgGlobalLink;
+const MemoSvgGlobalLink = React.memo(SvgGlobalLink);
+export default MemoSvgGlobalLink;

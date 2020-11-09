@@ -26,4 +26,5 @@ const SvgRadioChecked = ({
   );
 };
 
-export default SvgRadioChecked;
+const MemoSvgRadioChecked = React.memo(SvgRadioChecked);
+export default MemoSvgRadioChecked;

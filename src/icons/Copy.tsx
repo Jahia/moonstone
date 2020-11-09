@@ -26,4 +26,5 @@ const SvgCopy = ({
   );
 };
 
-export default SvgCopy;
+const MemoSvgCopy = React.memo(SvgCopy);
+export default MemoSvgCopy;

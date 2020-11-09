@@ -26,4 +26,5 @@ const SvgCalendar = ({
   );
 };
 
-export default SvgCalendar;
+const MemoSvgCalendar = React.memo(SvgCalendar);
+export default MemoSvgCalendar;

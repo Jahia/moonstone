@@ -26,4 +26,5 @@ const SvgCheckboxChecked = ({
   );
 };
 
-export default SvgCheckboxChecked;
+const MemoSvgCheckboxChecked = React.memo(SvgCheckboxChecked);
+export default MemoSvgCheckboxChecked;

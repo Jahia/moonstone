@@ -23,4 +23,5 @@ const SvgJwt = ({ size = 'default', className, ...otherProps }: IIconProps) => {
   );
 };
 
-export default SvgJwt;
+const MemoSvgJwt = React.memo(SvgJwt);
+export default MemoSvgJwt;

@@ -26,4 +26,5 @@ const SvgCollections = ({
   );
 };
 
-export default SvgCollections;
+const MemoSvgCollections = React.memo(SvgCollections);
+export default MemoSvgCollections;
