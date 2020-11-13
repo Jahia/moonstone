@@ -1,3 +1,47 @@
+# v0.17.0 (Mon Nov 09 2020)
+
+#### 🚀  Enhancement
+
+- Release 0.17.0 [#199](https://github.com/Jahia/moonstone/pull/199) ([@vindhya](https://github.com/vindhya) [@tdraier](https://github.com/tdraier) [@Yousria](https://github.com/Yousria) [@ffffffelix](https://github.com/ffffffelix))
+
+#### 🐛  Bug Fix
+
+- MOON-205: All icons must have fill=currentColor [#197](https://github.com/Jahia/moonstone/pull/197) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-170: Outlined Dropdown Changes After Design Review [#196](https://github.com/Jahia/moonstone/pull/196) ([@vindhya](https://github.com/vindhya))
+- Add new icon 'Key' [#195](https://github.com/Jahia/moonstone/pull/195) ([@ffffffelix](https://github.com/ffffffelix))
+- Adds wording to icon prop documentation [#194](https://github.com/Jahia/moonstone/pull/194) ([@vindhya](https://github.com/vindhya))
+- Removes .npmrc to remove connection to Jahia npm registry [#193](https://github.com/Jahia/moonstone/pull/193) ([@vindhya](https://github.com/vindhya))
+- MOON-164: Adds tests for new Dropdown and Menu features [#192](https://github.com/Jahia/moonstone/pull/192) ([@vindhya](https://github.com/vindhya))
+- MOON-201: Fixes issue with searching when Dropdown Menu has groups [#191](https://github.com/Jahia/moonstone/pull/191) ([@vindhya](https://github.com/vindhya))
+- MOON-200: Add the new icon Tips [#190](https://github.com/Jahia/moonstone/pull/190) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-161: Styling for outlined Dropdown variant [#189](https://github.com/Jahia/moonstone/pull/189) ([@vindhya](https://github.com/vindhya) [@ffffffelix](https://github.com/ffffffelix))
+- MOON-160: Adds ability to have image dropdown options [#188](https://github.com/Jahia/moonstone/pull/188) ([@vindhya](https://github.com/vindhya))
+- MOON-199: Run typescript lint script for PRs [#187](https://github.com/Jahia/moonstone/pull/187) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-198: Adds ability to search in Menu [#186](https://github.com/Jahia/moonstone/pull/186) ([@vindhya](https://github.com/vindhya))
+- MOON-159: Migrates Dropdown to Typescript [#185](https://github.com/Jahia/moonstone/pull/185) ([@vindhya](https://github.com/vindhya))
+- MOON-169: Adds Menu variants for small images and big images which controls width and height [#184](https://github.com/Jahia/moonstone/pull/184) ([@vindhya](https://github.com/vindhya))
+- MOON-156: Migrates MenuItem to Typescript and Adds Image Support for MenuItem and ListItem [#182](https://github.com/Jahia/moonstone/pull/182) ([@vindhya](https://github.com/vindhya))
+- MOON-158: Migrates Menu component and custom hooks to typescript [#183](https://github.com/Jahia/moonstone/pull/183) ([@vindhya](https://github.com/vindhya))
+- TECH-248: Removes unused js icon files [#181](https://github.com/Jahia/moonstone/pull/181) ([@vindhya](https://github.com/vindhya))
+- Improved template to match the definition of ready of a component [#177](https://github.com/Jahia/moonstone/pull/177) ([@Yousria](https://github.com/Yousria) [@rknj](https://github.com/rknj))
+- MOON-157: Migrates ListItem component to typescript [#180](https://github.com/Jahia/moonstone/pull/180) ([@vindhya](https://github.com/vindhya))
+- MOON-168: Migrates Separator component to typescript [#179](https://github.com/Jahia/moonstone/pull/179) ([@vindhya](https://github.com/vindhya))
+- MOON-135: Design updates to Input component [#178](https://github.com/Jahia/moonstone/pull/178) ([@vindhya](https://github.com/vindhya))
+- MOON-135: Input Component [#169](https://github.com/Jahia/moonstone/pull/169) ([@vindhya](https://github.com/vindhya))
+- Changed button style to inline-flex [#176](https://github.com/Jahia/moonstone/pull/176) ([@tdraier](https://github.com/tdraier))
+- Release v0.16.2 [#175](https://github.com/Jahia/moonstone/pull/175) ([@vindhya](https://github.com/vindhya))
+- MOON-150: Dropdown and List Item now use Caption Typography Variant; Increases spacing within Tab Item [#172](https://github.com/Jahia/moonstone/pull/172) ([@vindhya](https://github.com/vindhya))
+- Changes lint test to run on develop branch instead of master [#171](https://github.com/Jahia/moonstone/pull/171) ([@vindhya](https://github.com/vindhya))
+- MOON-53: Fix for scss not loading properly in storybook build [#170](https://github.com/Jahia/moonstone/pull/170) ([@vindhya](https://github.com/vindhya))
+
+#### Authors: 3
+
+- Vindhya ([@vindhya](https://github.com/vindhya))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+- Yousria ([@Yousria](https://github.com/Yousria))
+
+---
+
 # v0.16.2 (Thu Sep 10 2020)
 
 #### 🐛  Bug Fix
