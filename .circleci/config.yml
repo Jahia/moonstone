@@ -31,8 +31,6 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      # below line is for testing. remove before committing.
-      - run: echo -e "GH_TOKEN=${env.CIRCLECI_MOONSTONE_RELEASE_TOKEN}\nNPM_TOKEN=${NPMJS_TOKEN}" > ~/source/.env
       - run:
           name: Install yarn
           command: npm install -g yarn
