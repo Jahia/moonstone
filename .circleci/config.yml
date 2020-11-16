@@ -32,7 +32,7 @@ jobs:
             - v1-dependencies-
 
       # remove below before merging
-      - run: echo -e "GH_TOKEN=${env.CIRCLECI_MOONSTONE_RELEASE_TOKEN}\nNPM_TOKEN=${NPMJS_TOKEN}" > ~/source/.env
+      # - run: echo -e "GH_TOKEN=${env.CIRCLECI_MOONSTONE_RELEASE_TOKEN}\nNPM_TOKEN=${NPMJS_TOKEN}" > ~/source/.env
       # - run:
       #     name: Install yarn
       #     command: npm install -g yarn
@@ -67,7 +67,8 @@ jobs:
       - run: yarn install
       - run:
           name: Run build
-          command: yarn build:lib && yarn webpack
+          # command: yarn build:lib && yarn webpack
+          command: yarn build
 
       - *persist-workspace
   release-publish:
@@ -117,8 +118,7 @@ workflows:
   version: 2
   on-code-change:
     jobs:
-      - lint-test:
-          context: QA_ENVIRONMENT
+      - lint-test
       - build:
           requires:
             - lint-test
