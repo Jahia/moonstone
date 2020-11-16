@@ -18,6 +18,7 @@
         "lint:js": "eslint --ext js,jsx,json .",
         "lint:ts": "tslint 'src/**/*.ts?(x)'",
         "lint:scss": "stylelint './src/**/*.scss'",
+        "lint": "yarn lint:js && yarn lint:ts && yarn lint:scss",
         "lint:js:fix": "yarn lint:js --fix .",
         "lint:scss:fix": "yarn lint:scss --fix",
         "lint:ts:fix": "tslint 'src/**/*.ts?(x)' --fix",
