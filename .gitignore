@@ -164,6 +164,9 @@ typings/
 # Optional npm cache directory
 .npm
 
+# npm registry/login information - no longer necessary locally
+.npmrc
+
 # Optional eslint cache
 .eslintcache
 
