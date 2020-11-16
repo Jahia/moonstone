@@ -31,9 +31,11 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run:
-          name: Install yarn
-          command: npm install -g yarn
+      # remove below before merging
+      - run: echo -e "GH_TOKEN=${env.CIRCLECI_MOONSTONE_RELEASE_TOKEN}\nNPM_TOKEN=${NPMJS_TOKEN}" > ~/source/.env
+      # - run:
+      #     name: Install yarn
+      #     command: npm install -g yarn
       - run:
           name: Install dependencies
           command: yarn install
