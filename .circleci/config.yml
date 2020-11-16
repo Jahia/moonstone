@@ -15,10 +15,10 @@ references:
 
 defaults: &defaults
   working_directory: ~/source
-  docker:
-    - image: circleci/node:latest
-  # machine:
-  #   image: ubuntu-1604:202007-01
+  # docker:
+  #   - image: circleci/node:latest
+  machine:
+    image: ubuntu-1604:202007-01
 
 jobs:
   lint-test:
