@@ -61,14 +61,15 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run:
-          name: Install yarn
-          command: npm install -g yarn
+      # - run:
+      #     name: Install yarn
+      #     command: npm install -g yarn
       - run: yarn install
       - run:
           name: Run build
           # command: yarn build:lib && yarn webpack
           command: yarn build
+          no_output_timeout: 20m
 
       - *persist-workspace
   release-publish:
