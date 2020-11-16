@@ -117,7 +117,8 @@ workflows:
   version: 2
   on-code-change:
     jobs:
-      - lint-test
+      - lint-test:
+          context: QA_ENVIRONMENT
       - build:
           requires:
             - lint-test
