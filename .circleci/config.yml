@@ -30,9 +30,6 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      # - run:
-      #     name: Install yarn
-      #     command: npm install -g yarn
       - run:
           name: Install dependencies
           command: yarn install
@@ -58,9 +55,6 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      # - run:
-      #     name: Install yarn
-      #     command: npm install -g yarn
       - run: yarn install
       - run:
           name: Run build
@@ -86,9 +80,6 @@ jobs:
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPMJS_TOKEN" > ~/source/.npmrc
-      # - run:
-      #     name: Install yarn
-      #     command: npm install -g yarn
       - run: yarn install
       - run:
           name: Run build
