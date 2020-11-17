@@ -15,10 +15,11 @@ references:
 
 defaults: &defaults
   working_directory: ~/source
-  # docker:
-  #   - image: circleci/node:latest
-  machine:
-    image: ubuntu-1604:202007-01
+  docker:
+    - image: circleci/node:latest
+  # machine:
+  #   image: ubuntu-1604:202007-01
+  resource_class: large
 
 jobs:
   lint-test:
@@ -31,11 +32,9 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      # remove below before merging
-      # - run: echo -e "GH_TOKEN=${env.CIRCLECI_MOONSTONE_RELEASE_TOKEN}\nNPM_TOKEN=${NPMJS_TOKEN}" > ~/source/.env
-      - run:
-          name: Install yarn
-          command: npm install -g yarn
+      # - run:
+      #     name: Install yarn
+      #     command: npm install -g yarn
       - run:
           name: Install dependencies
           command: yarn install
@@ -61,9 +60,9 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run:
-          name: Install yarn
-          command: npm install -g yarn
+      # - run:
+      #     name: Install yarn
+      #     command: npm install -g yarn
       - run: yarn install
       - run:
           name: Run build
@@ -89,9 +88,9 @@ jobs:
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPMJS_TOKEN" > ~/source/.npmrc
-      - run:
-          name: Install yarn
-          command: npm install -g yarn
+      # - run:
+      #     name: Install yarn
+      #     command: npm install -g yarn
       - run: yarn install
       - run:
           name: Run build
