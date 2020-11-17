@@ -16,7 +16,7 @@ references:
 defaults: &defaults
   working_directory: ~/source
   docker:
-    - image: cimg/node:14.15
+    - image: cimg/node:14.15-browsers
   resource_class: medium+
 
 jobs:
