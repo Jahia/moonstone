@@ -16,10 +16,8 @@ references:
 defaults: &defaults
   working_directory: ~/source
   docker:
-    - image: circleci/node:latest
-  # machine:
-  #   image: ubuntu-1604:202007-01
-  resource_class: large
+    - image: cimg/node:latest
+  resource_class: medium+
 
 jobs:
   lint-test:
