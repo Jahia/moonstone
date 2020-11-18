@@ -55,7 +55,6 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: yarn install
       - run:
           name: Run build
           command: yarn build
@@ -75,15 +74,12 @@ jobs:
       
       - run:
           name: Setup .env
-          command: echo -e "GH_TOKEN=${CIRCLECI_MOONSTONE_RELEASE_TOKEN}\nNPM_TOKEN=${NPMJS_TOKEN}" > ~/source/.env
+          command: |
+            echo "GH_TOKEN=${CIRCLECI_MOONSTONE_RELEASE_TOKEN}" > ~/source/.env
+            echo "NPM_TOKEN=${NPMJS_TOKEN}" >> ~/source/.env
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPMJS_TOKEN" > ~/source/.npmrc
-      - run: yarn install
-      - run:
-          name: Run build
-          command: yarn build
-          no_output_timeout: 20m
       - run:
           name: Release and publish
           command: |
