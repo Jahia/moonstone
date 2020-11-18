@@ -18,6 +18,7 @@
         "lint:js": "eslint --ext js,jsx,json .",
         "lint:ts": "tslint 'src/**/*.ts?(x)'",
         "lint:scss": "stylelint './src/**/*.scss'",
+        "lint": "yarn lint:js && yarn lint:ts && yarn lint:scss",
         "lint:js:fix": "yarn lint:js --fix .",
         "lint:scss:fix": "yarn lint:scss --fix",
         "lint:ts:fix": "tslint 'src/**/*.ts?(x)' --fix",
@@ -32,8 +33,10 @@
         "build:lib": "yarn tsc && yarn compilejs",
         "build:storybook": "build-storybook",
         "auto": "auto",
+        "auto-changelog": "auto changelog",
         "auto-version": "npm version `auto version` -m 'Bump version to: %s [skip ci]'",
         "auto-publish": "npm publish && git push --follow-tags --set-upstream origin $branch",
+        "auto-release-only": "auto release",
         "auto-release": "auto changelog && yarn run auto-version && yarn run auto-publish && auto release"
     },
     "main": "dist/lib/main.js",
