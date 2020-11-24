@@ -43,20 +43,31 @@ files.filter(file => (
     console.log('Transpiled file:', target);
 });
 
-function copyFile(srcFolder, destFolder, file) {
+function copyFile(srcFolder, destFolder, file, newFile) {
+    if (typeof newFile === 'undefined') {
+        newFile = file;
+    }
+
     let source = path.resolve(srcFolder, file);
     if (fs.lstatSync(source).isFile()) {
-        let target = path.resolve(destFolder, file);
+        let target = path.resolve(destFolder, newFile);
         fx.mkdirSync(path.resolve(target, '..'));
         fs.createReadStream(source).pipe(fs.createWriteStream(target));
         console.log(`Copied ${source} to ${target}`);
     }
 }
 
+// Copy index files to .d.ts files to support typescript declaration
+copyFile('src/components', 'dist/components', 'index.js', 'index.d.ts');
+copyFile('dist', 'dist', 'index.js', 'index.d.ts');
+copyFile('dist', 'dist', 'main.js', 'main.d.ts');
+
+// Copy font files to dist
 glob.sync('**/*.ttf', {cwd: 'src'}).forEach(file => {
-    copyFile('src', 'dist', file, file.slice(0, -3) + '.d.ts');
+    copyFile('src', 'dist', file);
 });
 
+// Copy json files to dist
 glob.sync('**/*.json', {cwd: 'src'}).forEach(file => {
-    copyFile('src', 'dist', file, file.slice(0, -3) + '.d.ts');
+    copyFile('src', 'dist', file);
 });

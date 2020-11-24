@@ -2922,6 +2922,11 @@
   dependencies:
     "@types/jest" "*"
 
+"@types/to-px@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@types/to-px/-/to-px-1.1.0.tgz#e0a168020ae2c8171c7d8601056aa18d6661b17b"
+  integrity sha512-g+ZzCBzTuKbW43Ct7kIBecLVNAjau/Tcf+6eS/oy7HLB02CJKdlzaEhxMPLKXkzTSnUBGvvd5YEjlw6oB+2dkw==
+
 "@types/unist@*", "@types/unist@^2.0.0", "@types/unist@^2.0.2", "@types/unist@^2.0.3":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@types/unist/-/unist-2.0.3.tgz#9c088679876f374eb5983f150d4787aa6fb32d7e"
