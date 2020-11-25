@@ -24,6 +24,7 @@ files.filter(file => (
     file.indexOf('tokens/colors') === -1 &&
     file.indexOf('tokens/icons') === -1 &&
     file.indexOf('tokens/shadows') === -1 &&
+    file.indexOf('.d.ts') === -1 &&
     !file.startsWith('data/')
 ).forEach(file => {
     let result = babel.transformFileSync(path.resolve('src', file), {configFile: BABEL_BUILD_CONFIG});
@@ -61,6 +62,12 @@ function copyFile(srcFolder, destFolder, file, newFile) {
 copyFile('src/components', 'dist/components', 'index.js', 'index.d.ts');
 copyFile('dist', 'dist', 'index.js', 'index.d.ts');
 copyFile('dist', 'dist', 'main.js', 'main.d.ts');
+
+files.filter(file => (file.indexOf('/index.js') !== -1))
+    .forEach(file => copyFile('src', 'dist', file, file.replace('/index.js', '/index.d.ts')));
+
+files.filter(file => (file.indexOf('.d.ts') !== -1))
+    .forEach(file => copyFile('src', 'dist', file, file));
 
 // Copy font files to dist
 glob.sync('**/*.ttf', {cwd: 'src'}).forEach(file => {
