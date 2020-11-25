@@ -58,14 +58,6 @@ function copyFile(srcFolder, destFolder, file, newFile) {
     }
 }
 
-// Copy index files to .d.ts files to support typescript declaration
-copyFile('src/components', 'dist/components', 'index.js', 'index.d.ts');
-copyFile('dist', 'dist', 'index.js', 'index.d.ts');
-copyFile('dist', 'dist', 'main.js', 'main.d.ts');
-
-files.filter(file => (file.indexOf('/index.js') !== -1))
-    .forEach(file => copyFile('src', 'dist', file, file.replace('/index.js', '/index.d.ts')));
-
 files.filter(file => (file.indexOf('.d.ts') !== -1))
     .forEach(file => copyFile('src', 'dist', file, file));
 
