@@ -16,7 +16,7 @@ jobs:
       run: yarn install --frozen-lockfile
 
     - name: Build
-      run: NODE_OPTIONS=--max_old_space_size=4096 yarn build:storybook
+      run: NODE_OPTIONS=--max_old_space_size=6144 yarn build:storybook
 
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v2

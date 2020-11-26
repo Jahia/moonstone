@@ -1,6 +1,10 @@
 {
     "name": "@jahia/moonstone",
     "version": "0.17.0",
+    "main": "dist/lib/main.js",
+    "module": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "sideEffects": false,
     "dependencies": {
         "clsx": "^1.0.4",
         "prop-types": "^15.7.2",
@@ -20,15 +24,15 @@
         "lint:scss": "stylelint './src/**/*.scss'",
         "lint": "yarn lint:js && yarn lint:ts && yarn lint:scss",
         "lint:js:fix": "yarn lint:js --fix .",
-        "lint:scss:fix": "yarn lint:scss --fix",
         "lint:ts:fix": "tslint 'src/**/*.ts?(x)' --fix",
-        "lint:fix": "yarn lint:js:fix && yarn lint:scss:fix && yarn lint:ts:fix",
+        "lint:scss:fix": "yarn lint:scss --fix",
+        "lint:fix": "yarn lint:js:fix && yarn lint:ts:fix && yarn lint:scss:fix",
         "compilejs": "node ./scripts/compile.js",
         "tsc": "tsc --build tsconfig.json",
         "prebuild-icons": "node ./scripts/rename.js ./src/icons/index.ts ./src/icons/tmp.js",
         "build-icons": "svgr --typescript --template ./src/tokens/icons/svgrTemplate.js --config-file ./src/tokens/icons/svgr.config.json ./src/tokens/icons/assets --out-dir ./src/icons && tslint --fix ./src/icons",
         "postbuild-icons": "node ./scripts/rename.js ./src/icons/index.tsx ./src/icons/assets.ts && node ./scripts/rename.js ./src/icons/tmp.js ./src/icons/index.ts && eslint --fix ./src/icons/assets.ts",
-        "build": "NODE_OPTIONS=--max_old_space_size=4096 yarn build:storybook && yarn build:lib && yarn webpack",
+        "build": "NODE_OPTIONS=--max_old_space_size=6144 yarn build:storybook && yarn build:lib && yarn webpack",
         "prebuild:lib": "rimraf dist/",
         "build:lib": "yarn tsc && yarn compilejs",
         "build:storybook": "build-storybook",
@@ -39,10 +43,7 @@
         "auto-release-only": "auto release",
         "auto-release": "auto changelog && yarn run auto-version && yarn run auto-publish && auto release"
     },
-    "main": "dist/lib/main.js",
-    "module": "dist/index.js",
     "repository": "https://github.com/Jahia/moonstone.git",
-    "sideEffects": false,
     "husky": {
         "hooks": {
             "pre-commit": "lint-staged",
@@ -81,6 +82,7 @@
         "@testing-library/user-event": "^12.1.10",
         "@types/react": "^16.9.35",
         "@types/react-dom": "^16.9.0",
+        "@types/to-px": "^1.1.0",
         "auto": "^7.12.3",
         "babel-eslint": "^10.0.3",
         "babel-jest": "^24.9.0",

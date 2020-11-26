@@ -3,7 +3,7 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {withKnobs} from '@storybook/addon-knobs';
 
-import {LayoutApp} from './index.js';
+import {LayoutApp} from './index';
 import markdownNotes from './LayoutApp.md';
 
 const FakeNavigation = () => {
