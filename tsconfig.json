@@ -6,7 +6,7 @@
     "allowJs": false,
     "noImplicitAny": true,
     "module": "esnext",
-    "target": "esnext",
+    "target": "es6",
     "jsx": "react",
     "declaration": true,
     "emitDeclarationOnly": true,
