@@ -15,24 +15,27 @@ storiesOf('Components|Badge', module)
     .addDecorator(withKnobs)
     .add('Round', () => (
         <section className={classnames(storyStyles.storyWrapper)}>
-            <Badge label={text('Label', '3')}
-                   color={select('Color', BadgeColor, BadgeColor.ACCENT)}
+            <Badge
+                label={text('Label', '3')}
+                color={select('Color', BadgeColor, BadgeColor.Accent)}
             />
         </section>
 
     ))
     .add('Diamond', () => (
         <section className={classnames(storyStyles.storyWrapper)}>
-            <Badge color={select('Color', BadgeColor, BadgeColor.ACCENT)}
-                   type="diamond"
+            <Badge
+                color={select('Color', BadgeColor, BadgeColor.Accent)}
+                type="diamond"
             />
         </section>
     ))
     .add('Playground', () => (
         <section className={classnames(storyStyles.storyWrapper)}>
-            <Badge label={text('Label', '3')}
-                   color={select('Color', BadgeColor, BadgeColor.ACCENT)}
-                   type={select('Type', BadgeType, BadgeType.ROUND)}
+            <Badge
+                label={text('Label', '3')}
+                color={select('Color', BadgeColor, BadgeColor.Accent)}
+                type={select('Type', BadgeType, BadgeType.Round)}
             />
         </section>
     ));

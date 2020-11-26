@@ -4,34 +4,34 @@ import './Separator.scss';
 
 type TSeparatorSpacings = 'none' | 'small' | 'medium' | 'big';
 export enum SeparatorSpacings {
-    NONE = 'none',
-    SMALL = 'small',
-    MEDIUM = 'medium',
-    BIG = 'big'
+    None = 'none',
+    Small = 'small',
+    Medium = 'medium',
+    Big = 'big'
 }
 
 type TSeparatorSizes = 'medium' | 'large' | 'full';
 export enum SeparatorSizes {
-    MEDIUM = 'medium',
-    LARGE = 'large',
-    FULL = 'full'
+    Medium = 'medium',
+    Large = 'large',
+    Full = 'full'
 }
 
 type TSeparatorVariants = 'horizontal' | 'vertical';
 export enum SeparatorVariants {
-    HORIZONTAL = 'horizontal',
-    VERTICAL = 'vertical'
+    Horizontal = 'horizontal',
+    Vertical = 'vertical'
 }
 
 type TSeparatorInvisible = 'firstChild' | 'lastChild' | 'onlyChild' | 'firstOrLastChild';
 export enum SeparatorInvisible {
-    FIRST_CHILD = 'firstChild',
-    LAST_CHILD = 'lastChild',
-    ONLY_CHILD = 'onlyChild',
-    FIRST_OR_LAST_CHILD = 'firstOrLastChild'
+    FirstChild = 'firstChild',
+    LastChild = 'lastChild',
+    OnlyChild = 'onlyChild',
+    FirstOrLastChild = 'firstOrLastChild'
 }
 
-interface ISeparatorProps {
+interface SeparatorProps {
     /**
      * Variants: Horizontal or Vertical
      */
@@ -59,10 +59,10 @@ interface ISeparatorProps {
     className?: string
 }
 
-export const Separator: React.FC<ISeparatorProps> = ({
-    size = SeparatorSizes.FULL,
-    spacing = SeparatorSpacings.SMALL,
-    variant = SeparatorVariants.HORIZONTAL,
+export const Separator: React.FC<SeparatorProps> = ({
+    size = SeparatorSizes.Full,
+    spacing = SeparatorSpacings.Small,
+    variant = SeparatorVariants.Horizontal,
     invisible = null,
     className,
     ...props

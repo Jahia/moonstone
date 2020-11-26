@@ -5,11 +5,11 @@ import {Typography} from '~/components/Typography';
 
 type TListItemImageSize = 'small' | 'big';
 enum ListItemImageSize {
-    SMALL = 'small',
-    BIG = 'big'
+    Small = 'small',
+    Big = 'big'
 }
 
-interface IListItemProps {
+interface ListItemProps {
     /**
      * Additional classname
      */
@@ -50,7 +50,7 @@ interface IListItemProps {
     imageSize?: TListItemImageSize,
 }
 
-export const ListItem: React.FC<IListItemProps> = ({
+export const ListItem: React.FC<ListItemProps> = ({
     label,
     isHtml = false,
     iconStart = null,

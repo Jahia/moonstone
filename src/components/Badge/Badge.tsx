@@ -4,21 +4,19 @@ import {Typography} from '~/components/Typography';
 import classnames from 'clsx';
 
 type TBadgeColor = 'accent' | 'success' | 'danger';
-
 export enum BadgeColor {
-    ACCENT = 'accent',
-    SUCCESS = 'success',
-    DANGER = 'danger'
+    Accent = 'accent',
+    Success = 'success',
+    Danger = 'danger'
 }
 
 type TBadgeType = 'round' | 'diamond';
-
 export enum BadgeType {
-    ROUND = 'round',
-    DIAMOND = 'diamond'
+    Round = 'round',
+    Diamond = 'diamond'
 }
 
-interface IBadgeProps {
+interface BadgeProps {
     /**
      * Badge label, only for type round
      */
@@ -40,25 +38,29 @@ interface IBadgeProps {
     className?: string;
 }
 
-export const Badge: FunctionComponent<IBadgeProps> =
-    ({label = null, color = BadgeColor.ACCENT,
-         type = BadgeType.ROUND, className, ...other}) => {
-        const classNameProps = classnames(
-            'moonstone-badge',
-            `moonstone-color_${color}`,
-            `moonstone-${type}`,
-            className
-        );
-        if (type === BadgeType.ROUND) {
-            return (
-                <Typography isNowrap component="span" variant="caption" weight="bold" className={classNameProps} {...other}>
-                    {label}
-                </Typography>
-            );
-        }
+export const Badge: FunctionComponent<BadgeProps> = ({
+    label = null,
+    color = BadgeColor.Accent,
+    type = BadgeType.Round,
+    className,
+    ...other
+}) => {
+    const classNameProps = classnames(
+        'moonstone-badge',
+        `moonstone-color_${color}`,
+        `moonstone-${type}`,
+        className
+    );
+    if (type === BadgeType.Round) {
         return (
-            <div className={classNameProps} {...other}/>
+            <Typography isNowrap component="span" variant="caption" weight="bold" className={classNameProps} {...other}>
+                {label}
+            </Typography>
         );
-    };
+    }
+    return (
+        <div className={classNameProps} {...other}/>
+    );
+};
 
 Badge.displayName = 'Badge';

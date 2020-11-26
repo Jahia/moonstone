@@ -10,8 +10,8 @@ import {Input, InputVariant, InputSize} from './index';
 import IconWrapper from '~/__storybook__/IconWrapper';
 import {iconsName} from '~/__storybook__/utils';
 
-const variant = () => select('Variant', InputVariant, 'text');
-const inputSize = () => select('Size', InputSize, 'default');
+const variant = () => select('Variant', InputVariant, InputVariant.Text);
+const inputSize = () => select('Size', InputSize, InputSize.Default);
 const isDisabled = () => boolean('Is disabled', false);
 const isReadonly = () => boolean('Is readonly', false);
 const selectIcon = () => select('Icon', iconsName, 'Love');
@@ -88,7 +88,6 @@ storiesOf('Components|Input', module)
                 <Parent>
                     {(state, setState) => (
                         <Input
-                            // IsDisabled
                             value={state}
                             placeholder="this is a placeholder!"
                             icon={<IconWrapper iconName={select('Icon', iconsName, 'Love')}/>}

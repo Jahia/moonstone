@@ -214,7 +214,7 @@ storiesOf('Components|Dropdown', module)
                     icon={<Love/>}
                     label={currentOption.label}
                     value={currentOption.value}
-                    size={select('Size', DropdownSizes, DropdownSizes.SMALL)}
+                    size={select('Size', DropdownSizes, DropdownSizes.Small)}
                     isDisabled={boolean('Disabled', false)}
                     maxWidth={text('Max width', '120px')}
                     data={data}
@@ -238,7 +238,7 @@ storiesOf('Components|Dropdown', module)
                     isDisabled={boolean('Disabled', false)}
                     label={currentOption.label}
                     value={currentOption.value}
-                    size={select('Size', DropdownSizes, DropdownSizes.SMALL)}
+                    size={select('Size', DropdownSizes, DropdownSizes.Small)}
                     data={dataLanguages}
                     onChange={(e, item) => handleOnChange(e, item)}
                 />
@@ -260,7 +260,7 @@ storiesOf('Components|Dropdown', module)
                     isDisabled={boolean('Disabled', false)}
                     label={currentOption.label}
                     value={currentOption.value}
-                    size={select('Size', DropdownSizes, DropdownSizes.SMALL)}
+                    size={select('Size', DropdownSizes, DropdownSizes.Small)}
                     maxWidth={text('Max width', '120px')}
                     data={dataGrouped}
                     onChange={(e, item) => handleOnChange(e, item)}
@@ -354,8 +354,8 @@ storiesOf('Components|Dropdown', module)
                 <Dropdown
                     isDisabled={boolean('Disabled', false)}
                     hasSearch={boolean('Has Search', true)}
-                    variant={select('Variant', DropdownVariants, DropdownVariants.OUTLINED)}
-                    size={select('Size', DropdownSizes, DropdownSizes.SMALL)}
+                    variant={select('Variant', DropdownVariants, DropdownVariants.Outlined)}
+                    size={select('Size', DropdownSizes, DropdownSizes.Small)}
                     icon={<IconWrapper iconName={select('Icon', iconsName, 'Love')}/>}
                     label={currentOption.label}
                     value={currentOption.value}
