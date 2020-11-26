@@ -17,7 +17,7 @@ defaults: &defaults
   working_directory: ~/source
   docker:
     - image: circleci/node:latest
-  resource_class: medium+
+  resource_class: large
 
 jobs:
   lint-test:
