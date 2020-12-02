@@ -83,6 +83,8 @@ jobs:
       - run:
           name: Release and publish
           command: |
+            if [ ! -f ~/.ssh/known_hosts ]; then mkdir -p ~/.ssh && touch ~/.ssh/known_hosts; fi
+            ssh-keyscan -p 443 ssh.github.com >> ~/.ssh/known_hosts
             git config user.email "jahia-ci@jahia.com"
             git config user.name "Jahia CI"
             git fetch --tags

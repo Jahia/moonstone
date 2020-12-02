@@ -5,17 +5,17 @@ import './MenuItem.scss';
 
 type TMenuItemVariant = 'default' | 'title';
 enum MenuItemVariant {
-    DEFAULT = 'default',
-    TITLE = 'title'
+    Default = 'default',
+    Title = 'title'
 }
 
 type TMenuItemImageSize = 'small' | 'big';
 enum MenuItemImageSize {
-    SMALL = 'small',
-    BIG = 'big'
+    Small = 'small',
+    Big = 'big'
 }
 
-interface IMenuItemProps {
+interface MenuItemProps {
     /**
      * Additional classname
      */
@@ -102,8 +102,8 @@ interface IMenuItemProps {
     onKeyPress?: (event: React.KeyboardEvent) => void
 };
 
-export const MenuItem: React.FC<IMenuItemProps> = ({
-    variant = MenuItemVariant.DEFAULT,
+export const MenuItem: React.FC<MenuItemProps> = ({
+    variant = MenuItemVariant.Default,
     isHover,
     isSelected,
     isDisabled = false,
@@ -115,7 +115,7 @@ export const MenuItem: React.FC<IMenuItemProps> = ({
     ...props
 }) => (
     <ListItem
-        tabIndex={isDisabled || variant === MenuItemVariant.TITLE || isSelected ? null : 0}
+        tabIndex={isDisabled || variant === MenuItemVariant.Title || isSelected ? null : 0}
         aria-disabled={isDisabled}
         className={classnames(
             'moonstone-menuItem',
@@ -123,7 +123,7 @@ export const MenuItem: React.FC<IMenuItemProps> = ({
                 'moonstone-hover': isHover,
                 'moonstone-selected': isSelected,
                 'moonstone-disabled': isDisabled,
-                'moonstone-title': variant === MenuItemVariant.TITLE
+                'moonstone-title': variant === MenuItemVariant.Title
             },
             image && 'moonstone-menuItem-image'
         )}

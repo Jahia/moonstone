@@ -6,19 +6,19 @@ import './Menu.scss';
 import {Input} from '~/components/Input';
 import {Typography} from '~/components/Typography';
 
-type TAnchorPosition = {
+type AnchorPosition = {
     top: number;
     left: number;
 };
-type TAnchorElOrigin = {
+type AnchorElOrigin = {
     horizontal: 'left' | 'center' | 'right';
     vertical: 'top' | 'center' | 'bottom';
 };
-type TTransformElOrigin = {
+type TransformElOrigin = {
     horizontal: 'left' | 'right';
     vertical: 'top' | 'bottom';
 };
-type TStyleMenu =  {
+type StyleMenu =  {
     top?: string | number;
     left?: string | number;
     minWidth?: string;
@@ -26,7 +26,7 @@ type TStyleMenu =  {
     maxHeight?: string;
 };
 
-interface IMenuProps {
+interface MenuProps {
     /**
      * Maximum height of the Menu
      */
@@ -60,17 +60,17 @@ interface IMenuProps {
     /**
      * Position of the menu in px relative to anchorEl or the document
      */
-    anchorPosition?: TAnchorPosition;
+    anchorPosition?: AnchorPosition;
 
     /**
      * Point on the anchor where the menu's anchorEl will attach to
      */
-    anchorElOrigin?: TAnchorElOrigin;
+    anchorElOrigin?: AnchorElOrigin;
 
     /**
      * This is the point on the menu which will attach to the anchor's origin
      */
-    transformElOrigin?: TTransformElOrigin;
+    transformElOrigin?: TransformElOrigin;
 
     /**
      * Additional classname
@@ -142,7 +142,7 @@ const getChildrenToFilter = (children: [React.ReactElement]) => {
     return children;
 };
 
-export const Menu: React.FC<IMenuProps> = (
+export const Menu: React.FC<MenuProps> = (
     {
         children,
         isDisplayed,
@@ -201,7 +201,7 @@ export const Menu: React.FC<IMenuProps> = (
     // ---
     // Styling
     // ---
-    const styleMenu: TStyleMenu = {...stylePosition as TStyleMenu, ...style};
+    const styleMenu: StyleMenu = {...stylePosition as StyleMenu, ...style};
     if (minWidth) {
         styleMenu.minWidth = minWidth;
     }

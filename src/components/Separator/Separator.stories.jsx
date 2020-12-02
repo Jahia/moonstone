@@ -7,7 +7,7 @@ import storyStyles from '~/__storybook__/storybook.module.scss';
 import {Separator, SeparatorSizes, SeparatorSpacings, SeparatorInvisible, Typography} from '~/components';
 import markdownNotes from './Separator.md';
 
-const separatorInvisibleValue = () => select('invisible', SeparatorInvisible, SeparatorInvisible.FIRST_CHILD);
+const separatorInvisibleValue = () => select('invisible', SeparatorInvisible, SeparatorInvisible.FirstChild);
 
 storiesOf('Components|Separator', module)
     .addParameters({
@@ -21,7 +21,7 @@ storiesOf('Components|Separator', module)
             <Separator
                 variant="horizontal"
                 size={select('Size', SeparatorSizes, SeparatorSizes.FULL)}
-                spacing={select('Spacing', SeparatorSpacings, SeparatorSpacings.MEDIUM)}
+                spacing={select('Spacing', SeparatorSpacings, SeparatorSpacings.Medium)}
             />
             <Typography variant="heading">Content after a separator</Typography>
         </>
@@ -32,8 +32,8 @@ storiesOf('Components|Separator', module)
 
             <Separator
                 variant="vertical"
-                size={select('Size', SeparatorSizes, SeparatorSizes.FULL)}
-                spacing={select('Spacing', SeparatorSpacings, SeparatorSpacings.MEDIUM)}
+                size={select('Size', SeparatorSizes, SeparatorSizes.Full)}
+                spacing={select('Spacing', SeparatorSpacings, SeparatorSpacings.Medium)}
             />
             <Typography variant="heading">After</Typography>
         </div>

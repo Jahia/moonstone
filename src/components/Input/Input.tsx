@@ -1,24 +1,23 @@
-import React, {FunctionComponent, InputHTMLAttributes, useState} from 'react';
+import React from 'react';
 import classnames from 'clsx';
 
 import {Cancel, Search} from '~/icons';
 import './Input.scss';
 
 type TInputVariant = 'text' | 'search';
-
 export enum InputVariant {
-    TEXT = 'text',
-    SEARCH = 'search'
+    Text = 'text',
+    Search = 'search'
 }
 
 type TInputSize = 'default' | 'big';
 
 export enum InputSize {
-    DEFAULT = 'default',
-    BIG = 'big'
+    Default = 'default',
+    Big = 'big'
 }
 
-interface IInputProps {
+interface InputProps {
     /**
      * Variant of the input to use
      */
@@ -73,7 +72,7 @@ interface IInputProps {
     onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
 
-export const Input: FunctionComponent<IInputProps> =
+export const Input: React.FC<InputProps> =
     ({
         variant = 'text',
         value = '',
@@ -82,7 +81,7 @@ export const Input: FunctionComponent<IInputProps> =
         isDisabled = false,
         isReadOnly = false,
         className,
-        size = InputSize.DEFAULT,
+        size = InputSize.Default,
         icon,
         onClear,
         onChange,
@@ -92,7 +91,7 @@ export const Input: FunctionComponent<IInputProps> =
     }) => {
     const classNameProps = classnames(
         'moonstone-input',
-        {'moonstone-size_big': size === InputSize.BIG},
+        {'moonstone-size_big': size === InputSize.Big},
         {'moonstone-disabled': isDisabled},
         className
     );
@@ -105,7 +104,7 @@ export const Input: FunctionComponent<IInputProps> =
                 className={
                     classnames(
                         'moonstone-input-element',
-                        {'start-icon-padding': icon || variant === InputVariant.SEARCH},
+                        {'start-icon-padding': icon || variant === InputVariant.Search},
                         {'end-icon-padding': onClear}
                     )
                 }
@@ -120,7 +119,7 @@ export const Input: FunctionComponent<IInputProps> =
                 onFocus={onFocus}
                 {...props}
             />
-            {(icon || variant === InputVariant.SEARCH) && (
+            {(icon || variant === InputVariant.Search) && (
                 <div
                     className={classnames(
                         'start-icon-wrap',
@@ -130,7 +129,7 @@ export const Input: FunctionComponent<IInputProps> =
                         {'icon_input-empty': inputEmpty}
                     )}
                 >
-                    {variant === InputVariant.SEARCH
+                    {variant === InputVariant.Search
                         ? <Search focusable="false" />
                         : <icon.type {...icon.props} focusable="false"/>
                     }

@@ -3,16 +3,14 @@ import './Typography.scss';
 import classnames from 'clsx';
 
 type TTypographyVariant = 'title' | 'heading' | 'subheading' | 'body' | 'caption' | 'button';
-
 // Change this to an enum when PrimaryNavItem is converted to typescript
 export const variants = ['title', 'heading', 'subheading', 'body', 'caption', 'button'];
 
 type TTypographyWeight = 'default' | 'bold' | 'semiBold' | 'light';
-
 // Change this to an enum when PrimaryNavItem is converted to typescript
 export const weights = ['default', 'bold', 'semiBold', 'light'];
 
-interface ITypographyProps {
+interface TypographyProps {
     /**
      * Content of the component
      */
@@ -57,7 +55,7 @@ interface ITypographyProps {
 
 // IsHtml prop should eventually be removed (along with this function) as children supports all React Node types
 // including strings and HTML markup
-const filterOutIsHtml = (props: ITypographyProps) => {
+const filterOutIsHtml = (props: TypographyProps) => {
     const newProps = {...props};
     if (newProps.isHtml) {
         delete newProps.isHtml;
@@ -66,7 +64,7 @@ const filterOutIsHtml = (props: ITypographyProps) => {
     return newProps;
 };
 
-export const Typography: FunctionComponent<ITypographyProps> = ({
+export const Typography: FunctionComponent<TypographyProps> = ({
     children = '',
     component = 'p',
     variant = 'body',
@@ -78,7 +76,7 @@ export const Typography: FunctionComponent<ITypographyProps> = ({
     isNowrap = false,
     isHtml = false,
     ...props
-}: ITypographyProps) =>
+}: TypographyProps) =>
     React.createElement(
         component,
         {

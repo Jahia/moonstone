@@ -10,23 +10,23 @@ import {ChevronDown} from '~/icons';
 
 type TDropdownVariant = 'ghost' | 'outlined';
 export enum DropdownVariants {
-    GHOST = 'ghost',
-    OUTLINED = 'outlined'
+    Ghost = 'ghost',
+    Outlined = 'outlined'
 }
 
 type TDropdownSize = 'small' | 'medium';
 export enum DropdownSizes {
-    SMALL = 'small',
-    MEDIUM = 'medium'
+    Small = 'small',
+    Medium = 'medium'
 }
 
 type TDropdownImageSize = 'small' | 'big';
 export enum DropdownImageSizes {
-    SMALL = 'small',
-    BIG = 'big'
+    Small = 'small',
+    Big = 'big'
 }
 
-type TDropdownDataOptions = {
+type DropdownDataOptions = {
     label?: string;
     value?: string;
     isDisabled?: boolean;
@@ -37,18 +37,18 @@ type TDropdownDataOptions = {
     imageSize?: TDropdownImageSize;
 }
 
-type TDropdownData = {
+type DropdownData = {
     groupLabel?: string;
-    options?: [TDropdownDataOptions];
+    options?: [DropdownDataOptions];
 }
 
-type THandleSelect = (e: React.MouseEvent | React.KeyboardEvent, item?: TDropdownDataOptions) => void;
+type HandleSelect = (e: React.MouseEvent | React.KeyboardEvent, item?: DropdownDataOptions) => void;
 
-interface IDropdownProps {
+interface DropdownProps {
     /**
      * Content of the dropdown
      */
-    data: [TDropdownDataOptions & TDropdownData];
+    data: [DropdownDataOptions & DropdownData];
 
     /**
      * Label of the dropdown
@@ -114,7 +114,7 @@ interface IDropdownProps {
 }
 
 
-export const Dropdown: React.FC<IDropdownProps> = (
+export const Dropdown: React.FC<DropdownProps> = (
     {
         data,
         label,
@@ -144,11 +144,11 @@ export const Dropdown: React.FC<IDropdownProps> = (
     };
 
     switch (imageSize) {
-        case DropdownImageSizes.BIG:
+        case DropdownImageSizes.Big:
             menuMaxWidth = '400px';
             menuMaxHeight = '440px';
             break;
-        case DropdownImageSizes.SMALL:
+        case DropdownImageSizes.Small:
             menuMaxWidth = '264px';
             menuMaxHeight = '320px';
             break;
@@ -167,12 +167,12 @@ export const Dropdown: React.FC<IDropdownProps> = (
         setIsOpened(true);
     };
 
-    const handleSelect: THandleSelect = (e, item) => {
+    const handleSelect: HandleSelect = (e, item) => {
         if (item) {
             let canClose: boolean | void = !item.isDisabled;
             if (!item.isDisabled && item.value !== value) {
                 e.stopPropagation();
-                canClose = (onChange as (e: React.MouseEvent | React.KeyboardEvent, item: TDropdownDataOptions) => void)(e, item);
+                canClose = (onChange as (e: React.MouseEvent | React.KeyboardEvent, item: DropdownDataOptions) => void)(e, item);
             }
 
             if (canClose !== false) {
@@ -186,7 +186,7 @@ export const Dropdown: React.FC<IDropdownProps> = (
         setAnchorEl(null);
     };
 
-    const handleKeyPress = (e: React.KeyboardEvent, item: TDropdownDataOptions) => {
+    const handleKeyPress = (e: React.KeyboardEvent, item: DropdownDataOptions) => {
         if (e.key === 'Enter') {
             handleSelect(e, item);
         }
@@ -212,7 +212,7 @@ export const Dropdown: React.FC<IDropdownProps> = (
     // ---
     // Generate options
     // ---
-    const dropdownOption = (item: TDropdownDataOptions) => (
+    const dropdownOption = (item: DropdownDataOptions) => (
         <MenuItem
             key={item.value}
             role="option"
@@ -229,7 +229,7 @@ export const Dropdown: React.FC<IDropdownProps> = (
         />
     );
 
-    const dropdownGrouped = (children: [TDropdownDataOptions], groupLabel: string, index: number) => {
+    const dropdownGrouped = (children: [DropdownDataOptions], groupLabel: string, index: number) => {
         return (
             <div key={`${groupLabel}-${index}`} data-option-type="group">
                 {index > 0 && (
@@ -312,8 +312,8 @@ export const Dropdown: React.FC<IDropdownProps> = (
 
 Dropdown.defaultProps = {
     icon: null,
-    variant: DropdownVariants.GHOST,
-    size: DropdownSizes.MEDIUM,
+    variant: DropdownVariants.Ghost,
+    size: DropdownSizes.Medium,
     maxWidth: '300px',
     isDisabled: false,
     hasSearch: false,
