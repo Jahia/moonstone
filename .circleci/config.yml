@@ -104,7 +104,11 @@ workflows:
   version: 2
   on-code-change:
     jobs:
-      - lint-test
+      - lint-test:
+          filters:
+            branches:
+              ignore:
+                - gh-pages
       - build:
           requires:
             - lint-test
