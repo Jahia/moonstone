@@ -1,3 +1,21 @@
+# v0.17.1 (Wed Dec 02 2020)
+
+#### 🐛  Bug Fix
+
+- MOON-212: Small updates to CircleCI config and typescript naming convention [#205](https://github.com/Jahia/moonstone/pull/205) ([@vindhya](https://github.com/vindhya))
+- MOON-211: Fix for images not appearing with ListItem component [#204](https://github.com/Jahia/moonstone/pull/204) ([@vindhya](https://github.com/vindhya))
+- TECH-282: Fix for Typescript export and various other fixes [#203](https://github.com/Jahia/moonstone/pull/203) ([@vindhya](https://github.com/vindhya) [@tdraier](https://github.com/tdraier))
+- MOON-153: Set up CI/CD with CircleCI [#202](https://github.com/Jahia/moonstone/pull/202) ([@vindhya](https://github.com/vindhya))
+- Adds NODE_OPTIONS so that storybook build has enough memory [#201](https://github.com/Jahia/moonstone/pull/201) ([@vindhya](https://github.com/vindhya))
+- Release 0.17.0 [#200](https://github.com/Jahia/moonstone/pull/200) ([@vindhya](https://github.com/vindhya))
+
+#### Authors: 2
+
+- Vindhya ([@vindhya](https://github.com/vindhya))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v0.17.0 (Mon Nov 09 2020)
 
 #### 🚀  Enhancement
