@@ -71,7 +71,7 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
-      
+
       - run:
           name: Setup .env
           command: |
@@ -83,8 +83,8 @@ jobs:
       - run:
           name: Release and publish
           command: |
-            if [ ! -f ~/.ssh/known_hosts ]; then mkdir -p ~/.ssh && touch ~/.ssh/known_hosts; fi
-            ssh-keyscan -p 443 ssh.github.com >> ~/.ssh/known_hosts
+            mkdir ~/.ssh
+            ssh-keyscan github.com >> ~/.ssh/known_hosts
             git config user.email "jahia-ci@jahia.com"
             git config user.name "Jahia CI"
             git fetch --tags
@@ -104,7 +104,11 @@ workflows:
   version: 2
   on-code-change:
     jobs:
-      - lint-test
+      - lint-test:
+          filters:
+            branches:
+              ignore:
+                - gh-pages
       - build:
           requires:
             - lint-test
@@ -116,4 +120,3 @@ workflows:
             branches:
               only:
                 - master
-
