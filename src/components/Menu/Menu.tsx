@@ -93,6 +93,13 @@ interface MenuProps {
     searchEmptyText?: string;
 
     /**
+     * Use this property if you notice that the text within the menu is getting truncated.
+     * When true, the size of the Menu will be increased so that the scrollbar is added to the minimum width.
+     * This is to solve for issues with rendering in Firefox and Safari (Chrome automatically makes the fix)
+     */
+    alignSmallSpaceBrowserScrollbarRendering?: boolean;
+
+    /**
      * Function triggered when the mouse pointer hovering the menu
      */
     onMouseEnter?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
@@ -165,6 +172,7 @@ export const Menu: React.FC<MenuProps> = (
         hasOverlay,
         hasSearch,
         searchEmptyText,
+        alignSmallSpaceBrowserScrollbarRendering,
         ...props
     }) => {
     const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin);
@@ -172,6 +180,7 @@ export const Menu: React.FC<MenuProps> = (
     const [inputValue, setInputValue] = useState('');
     const [filteredChildren, setFilteredChildren] = useState(children);
     const [isEmptySearch, setIsEmptySearch] = useState(false);
+    const [browserAlignedMinWidth, setBrowserAlignedMinWidth] = useState(minWidth);
 
     useEffect(() => {
         if (inputValue !== '') {
@@ -198,12 +207,18 @@ export const Menu: React.FC<MenuProps> = (
         }
     }, [inputValue, children]);
 
+    useEffect(() => {
+        // Add the min width + the width of the scrollbar
+        const widthInclScrollbar = parseInt(minWidth, 10) + (itemRef.current.offsetWidth - itemRef.current.clientWidth) + 'px';
+        setBrowserAlignedMinWidth(widthInclScrollbar);
+    }, [minWidth])
+
     // ---
     // Styling
     // ---
     const styleMenu: StyleMenu = {...stylePosition as StyleMenu, ...style};
     if (minWidth) {
-        styleMenu.minWidth = minWidth;
+        styleMenu.minWidth = alignSmallSpaceBrowserScrollbarRendering ? browserAlignedMinWidth : minWidth;
     }
 
     if (maxWidth) {
