@@ -256,7 +256,7 @@ export const Dropdown: React.FC<DropdownProps> = (
     return (
         <div
             className={classnames(className)}
-            style={{maxWidth: maxWidth}}
+            style={{maxWidth}}
             {...props}
             onKeyPress={e => {
                 if (e.key === 'Enter') {
