@@ -94,7 +94,7 @@ describe('Typography', () => {
     });
 
     it('should not validate propTypes when on production environment', () => {
-        // eslint-disable-next-line:q
+        // eslint-disable-next-line
         // tslint:disable-next-line
         global.console.originalError = console.error;
         global.console.error = jest.fn();

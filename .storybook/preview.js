@@ -1,6 +1,5 @@
 import React from 'react';
 import {addDecorator} from '@storybook/react';
-// import {DocsContainer, DocsPage} from '@storybook/addon-docs/blocks';
 import {GlobalStyle} from '../src';
 import {MDXContext} from '@mdx-js/react';
 
@@ -17,13 +16,6 @@ addDecorator(story => {
         </div>
     </>
 });
-
-// addParameters({
-//     docs: {
-//         container: DocsContainer,
-//         page: DocsPage,
-//     },
-// });
 
 export const parameters = {
     layout: 'fullscreen',
