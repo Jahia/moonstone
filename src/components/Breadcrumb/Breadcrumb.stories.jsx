@@ -12,7 +12,7 @@ import {Love} from '~/icons';
 const numberItems = () => number('Number of items', 5);
 const label = () => text('Label', 'item');
 
-storiesOf('Components|Breadcrumb', module)
+storiesOf('Components/Breadcrumb', module)
     .addParameters({
         component: Breadcrumb,
         notes: {markdown: markdownNotes}

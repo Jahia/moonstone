@@ -14,7 +14,7 @@ const sizeValues = () => select('Size', buttonSizes, 'default');
 const variantValues = () => select('Variant', buttonVariants, 'default');
 const isReversed = () => boolean('Is reversed', false);
 
-storiesOf('Components|ButtonGroup', module)
+storiesOf('Components/ButtonGroup', module)
     .addParameters({
         component: Button,
         componentSubtitle: 'ButtonGroup',

@@ -16,7 +16,7 @@ const isDisabled = () => boolean('Is disabled', false);
 const isReadonly = () => boolean('Is readonly', false);
 const selectIcon = () => select('Icon', iconsName, 'Love');
 
-storiesOf('Components|Input', module)
+storiesOf('Components/Input', module)
     .addParameters({
         component: Input,
         notes: {markdown: markdownNotes}

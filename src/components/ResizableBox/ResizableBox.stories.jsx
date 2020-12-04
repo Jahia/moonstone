@@ -6,7 +6,7 @@ import markdownNotes from './ResizableBox.md';
 
 import {ResizableBox} from './index';
 
-storiesOf('Components|ResizableBox', module)
+storiesOf('Components/ResizableBox', module)
     .addParameters({
         component: ResizableBox,
         componentSubtitle: 'ResizableBox',

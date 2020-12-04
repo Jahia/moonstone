@@ -7,7 +7,7 @@ import {PrimaryNav} from './index';
 import {PrimaryNavItemsGroup, PrimaryNavItem, Button, Badge} from '~/components';
 import {Apps, Feather, Setting, Profile, Person, Power, Star, Workflow} from '~/icons';
 
-storiesOf('Components|PrimaryNav', module)
+storiesOf('Components/PrimaryNav', module)
     .addParameters({
         component: PrimaryNav,
         componentSubtitle: 'PrimaryNav',

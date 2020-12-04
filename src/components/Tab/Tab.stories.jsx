@@ -13,7 +13,7 @@ import {TabItem} from '../TabItem';
 const selectIcon = () => select('Icon', iconsName, 'Apps');
 const isSelected = () => boolean('Is selected', true);
 
-storiesOf('Components|Tab', module)
+storiesOf('Components/Tab', module)
     .addParameters({
         component: Tab,
         componentSubtitle: 'Tab',

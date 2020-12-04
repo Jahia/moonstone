@@ -6,7 +6,7 @@ import markdownNotes from './PrimaryNavItem.md';
 import {boolean, withKnobs} from '@storybook/addon-knobs';
 import {Badge, Button} from '~/components';
 
-storiesOf('Components|PrimaryNavItem', module)
+storiesOf('Components/PrimaryNavItem', module)
     .addParameters({
         component: PrimaryNavItem,
         componentSubtitle: 'PrimaryNavItem',

@@ -17,7 +17,7 @@ const isReversed = () => boolean('Is reversed', false);
 const isDisabled = () => boolean('Is disabled', false);
 const selectIcon = () => select('Icon', iconsName, 'Apps');
 
-storiesOf('Components|Button', module)
+storiesOf('Components/Button', module)
     .addParameters({
         component: Button,
         componentSubtitle: 'Button',

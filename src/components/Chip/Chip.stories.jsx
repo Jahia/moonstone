@@ -18,7 +18,7 @@ import storyStyles from '~/__storybook__/storybook.module.scss';
 const labelValue = (defaultValue = 'Chip') => text('Label', defaultValue);
 const colorValues = () => select('Color', colors, 'default');
 
-storiesOf('Components|Chip', module)
+storiesOf('Components/Chip', module)
     .addParameters({
         component: Chip,
         notes: {markdown: markdownNotes}

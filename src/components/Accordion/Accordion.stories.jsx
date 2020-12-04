@@ -12,7 +12,7 @@ import Bug from '~/icons/Bug';
 
 const accordionIds = ['01', '02', '03'];
 
-storiesOf('Components|Accordion', module)
+storiesOf('Components/Accordion', module)
     .addParameters({
         component: Accordion,
         notes: {markdown: markdownNotes}

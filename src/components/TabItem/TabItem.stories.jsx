@@ -18,7 +18,7 @@ const isDisabled = () => boolean('Is disabled', false);
 const isSelected = () => boolean('Is selected', false);
 const selectIcon = () => select('Icon', iconsName, 'Apps');
 
-storiesOf('Components|TabItem', module)
+storiesOf('Components/Tab/TabItem', module)
     .addParameters({
         component: TabItem,
         componentSubtitle: 'TabItem',

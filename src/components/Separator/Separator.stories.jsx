@@ -9,7 +9,7 @@ import markdownNotes from './Separator.md';
 
 const separatorInvisibleValue = () => select('invisible', SeparatorInvisible, SeparatorInvisible.FirstChild);
 
-storiesOf('Components|Separator', module)
+storiesOf('Components/Separator', module)
     .addParameters({
         component: Separator,
         notes: {markdown: markdownNotes}

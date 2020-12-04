@@ -90,7 +90,7 @@ function displayItems(direction, type) {
     return display;
 }
 
-storiesOf('Global CSS|Layout', module)
+storiesOf('Utilities/Layout', module)
     .addDecorator(withKnobs)
     .addParameters({
         componentSubtitle: 'Layout',

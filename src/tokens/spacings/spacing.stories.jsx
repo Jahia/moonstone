@@ -17,7 +17,7 @@ export const Spacing = ({name}) => {
     );
 };
 
-storiesOf('Tokens|Spacings', module)
+storiesOf('Tokens/Spacings', module)
     .add('Default', () => (
         <section className={classnames(storyStyles.storyWrapper)}>
             <Spacing name="nano"/>

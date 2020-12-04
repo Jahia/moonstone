@@ -7,7 +7,7 @@ import storyStyles from '~/__storybook__/storybook.module.scss';
 import markdownNotes from './Badge.md';
 import {Badge, BadgeColor, BadgeType} from './index';
 
-storiesOf('Components|Badge', module)
+storiesOf('Components/Badge', module)
     .addParameters({
         component: Badge,
         notes: {markdown: markdownNotes}
