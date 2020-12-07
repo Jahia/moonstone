@@ -7,7 +7,7 @@ import {ListItem} from './index';
 import IconWrapper from '~/__storybook__/IconWrapper';
 import {iconsName} from '~/__storybook__/utils';
 
-storiesOf('Components|ListItem', module)
+storiesOf('Components/ListItem', module)
     .addParameters({
         component: ListItem,
         notes: {markdown: markdownNotes}

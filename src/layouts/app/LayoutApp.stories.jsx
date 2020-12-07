@@ -36,7 +36,7 @@ const FakeContent = () => {
     );
 };
 
-storiesOf('Layouts|LayoutApp', module)
+storiesOf('Layouts/LayoutApp', module)
     .addParameters({
         component: LayoutApp,
         componentSubtitle: 'How to use our root application layout',

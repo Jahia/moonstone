@@ -13,7 +13,7 @@ const css = {
     height: '100vh'
 };
 
-storiesOf('Components|TreeView', module)
+storiesOf('Components/TreeView', module)
     .addParameters({
         component: TreeView,
         notes: {markdown: markdownNotes}

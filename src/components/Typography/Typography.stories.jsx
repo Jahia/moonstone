@@ -7,7 +7,7 @@ import storyStyles from '~/__storybook__/storybook.module.scss';
 import {Typography, variants, weights} from './index';
 import markdownNotes from './Typography.md';
 
-storiesOf('Tokens|Typography', module)
+storiesOf('Tokens/Typography', module)
     .addParameters({
         component: Typography,
         componentSubtitle: 'Displays text',

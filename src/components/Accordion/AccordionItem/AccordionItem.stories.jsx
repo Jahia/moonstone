@@ -7,7 +7,7 @@ import {Accordion} from '~/components/Accordion';
 import {AccordionItem} from './index';
 import Love from '~/icons/Love';
 
-storiesOf('Components|Accordion/AccordionItem', module)
+storiesOf('Components/Accordion/AccordionItem', module)
     .addParameters({
         component: AccordionItem,
         notes: {markdown: markdownNotes}

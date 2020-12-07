@@ -193,7 +193,7 @@ const dataImages = [
     }
 ];
 
-storiesOf('Components|Dropdown', module)
+storiesOf('Components/Dropdown', module)
     .addParameters({
         component: Dropdown,
         notes: {markdown: markdownNotes}

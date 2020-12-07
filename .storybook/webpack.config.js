@@ -1,51 +1,10 @@
 const path = require('path');
-const createCompiler = require('@storybook/addon-docs/mdx-compiler-plugin');
 const jsonImporter = require('node-sass-json-importer');
 
 // Export a function. Accept the base config as the only param.
 module.exports = async ({config, mode}) => {
     // Add alias to import files easily
     config.resolve.alias['~'] = path.resolve(__dirname, '../src/');
-    config.resolve.extensions.push('.ts');
-    config.resolve.extensions.push('.tsx');
-
-    config.module.rules.push({
-        test: /\.stories\.jsx?$/,
-        loaders: [require.resolve('@storybook/source-loader')],
-        enforce: 'pre',
-    });
-
-    config.module.rules.push({
-        test: /\.(stories|story)\.mdx$/,
-        use: [
-            {
-                loader: 'babel-loader',
-            },
-            {
-                loader: '@mdx-js/loader',
-                options: {
-                    compilers: [createCompiler({})],
-                },
-            },
-        ],
-    });
-
-    config.module.rules.push({
-        test: /\.tsx?$/,
-        sideEffects: true,
-        use: [
-            {
-                loader: 'babel-loader'
-            },
-            {
-                loader: require.resolve("react-docgen-typescript-loader"),
-                options: {
-                    tsconfigPath: path.resolve(__dirname, "../tsconfig.json"),
-                }
-            },
-        ],
-        include: path.resolve(__dirname, '../')
-    });
 
     // This rule is for non-css module files
     config.module.rules.push({
@@ -89,34 +48,6 @@ module.exports = async ({config, mode}) => {
         ],
         include: path.resolve(__dirname, '../')
     });
-
-    config.module.rules.push({
-        test: /\.svg$/,
-        issuer: {
-            test: /\.jsx?$/
-        },
-        use: [
-            {
-                loader: '@svgr/webpack',
-                options: {
-                    template: require('../src/tokens/icons/svgrTemplate'),
-                    icon: true,
-                    dimensions: false,
-                    replaceAttrValues: { '#000': 'currentColor' }
-                }
-            }
-        ],
-        include: path.resolve(__dirname, '../')
-    });
-
-    // removing the file-loader for svg
-    const baseSvgRuleIndex = config.module.rules.findIndex(r => r.test.toString().includes('svg'));
-    config.module.rules[baseSvgRuleIndex].test = new RegExp(
-        config.module.rules[baseSvgRuleIndex].test.toString()
-            .replace('svg|', '')
-            .replace(/^\//, '')
-            .replace(/\/$/, '')
-    );
 
     // Return the altered config
     return config;

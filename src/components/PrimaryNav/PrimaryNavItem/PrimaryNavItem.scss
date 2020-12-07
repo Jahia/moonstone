@@ -31,6 +31,7 @@
     flex: 1;
     justify-content: flex-start;
     overflow: hidden;
+
     min-width: 2.5rem;
     max-width: 100%; // Necessery to truncate text inside it
 
@@ -74,6 +75,7 @@
     flex-direction: column;
     justify-content: center;
     overflow: hidden;
+
     margin-left: var(--spacing-nano);
 }
 
@@ -82,6 +84,7 @@
     flex-direction: column;
     justify-content: right;
     overflow: hidden;
+
     margin: 0 var(--spacing-nano);
 }
 

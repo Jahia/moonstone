@@ -6,7 +6,7 @@ import markdownNotes from './SecondaryNav.md';
 import {SecondaryNav, SecondaryNavHeader} from './index';
 import Love from '~/icons/Love';
 
-storiesOf('Components|SecondaryNav', module)
+storiesOf('Components/SecondaryNav', module)
     .addParameters({
         component: SecondaryNav,
         componentSubtitle: 'SecondaryNav',

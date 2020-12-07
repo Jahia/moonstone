@@ -36,7 +36,7 @@ const FakeContent = () => {
     );
 };
 
-storiesOf('Layouts|LayoutModule', module)
+storiesOf('Layouts/LayoutModule', module)
     .addParameters({
         component: LayoutModule,
         componentSubtitle: 'How to use our layout for modules',

@@ -8,7 +8,7 @@ import storyStyles from '~/__storybook__/storybook.module.scss';
 const sizeValues = () => select('Size', ImgWrapperSize, 'default');
 const urlValue = () => text('URL to an image', 'https://www.jahia.com/modules/jahiacom-templates/images/favicon/favicon.ico');
 
-storiesOf('ImgWrapper', module)
+storiesOf('Utilities/ImgWrapper', module)
     .addParameters({
         component: ImgWrapper,
         componentSubtitle: 'Image wrapper',

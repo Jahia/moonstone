@@ -1,7 +1,7 @@
 {
     "extends": ["@jahia/stylelint-config"],
     "rules": {
-        "declaration-property-unit-blacklist": {
+        "declaration-property-unit-disallowed-list": {
             "height": ["%"]
         },
         "declaration-no-important": true

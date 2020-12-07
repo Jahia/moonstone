@@ -7,7 +7,7 @@ import {PrimaryNavItemsGroup} from './index';
 import {PrimaryNavItem} from '~/components/PrimaryNav/PrimaryNavItem';
 import Edit from '~/icons/Edit';
 
-storiesOf('Components|PrimaryNavItemsGroup', module)
+storiesOf('Components/PrimaryNavItemsGroup', module)
     .addParameters({
         component: PrimaryNavItemsGroup,
         componentSubtitle: 'PrimaryNavItemsGroup',

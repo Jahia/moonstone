@@ -5,7 +5,7 @@ import markdownNotes from './Menu.md';
 import {Menu, MenuItem} from './index';
 import {Separator} from '~/components';
 
-storiesOf('Components|Menu', module)
+storiesOf('Components/Menu', module)
     .addParameters({
         component: Menu,
         notes: {markdown: markdownNotes}

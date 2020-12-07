@@ -10,7 +10,7 @@ import {Bug, Love} from '~/icons';
 
 const accordionIds = ['01', '02', '03'];
 
-storiesOf('Layouts|Demos', module)
+storiesOf('Layouts/Demos', module)
     .addDecorator(withKnobs)
     .add('Default', () => {
         const [selectedItems1, setSelectedItems1] = useState([]);

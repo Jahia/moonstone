@@ -35,7 +35,7 @@ function displayIcons() {
     return allIcons;
 }
 
-storiesOf('Tokens|Icons', module)
+storiesOf('Tokens/Icons', module)
     .addParameters({
         component: Icons,
         componentSubtitle: 'Icons',
