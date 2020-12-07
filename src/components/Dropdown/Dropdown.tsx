@@ -135,6 +135,7 @@ export const Dropdown: React.FC<DropdownProps> = (
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
     const isGrouped = typeof data[0].options !== 'undefined';
+    const menuMinWidth = 70;
     let menuMaxWidth;
     let menuMaxHeight;
 
@@ -162,7 +163,8 @@ export const Dropdown: React.FC<DropdownProps> = (
     // Functions to handle events
     // ---
     const handleOpenMenu = (e: React.MouseEvent | React.KeyboardEvent) => {
-        setMinWith(`${(e.currentTarget as HTMLElement).offsetWidth}px`);
+        const dropdownWidth = (e.currentTarget as HTMLElement).offsetWidth;
+        setMinWith(`${dropdownWidth < menuMinWidth ? menuMinWidth : dropdownWidth}px`);
         setAnchorEl(e.currentTarget);
         setIsOpened(true);
     };
