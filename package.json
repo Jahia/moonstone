@@ -16,7 +16,7 @@
         "react": "^16.11.0"
     },
     "scripts": {
-        "start": "NODE_OPTIONS=--max_old_space_size=4096 start-storybook -p 6006",
+        "start": "start-storybook -p 6006",
         "test": "jest --ci --runInBand --coverage",
         "tdd": "jest --watch",
         "lint:js": "eslint --ext js,jsx,json .",
@@ -35,7 +35,7 @@
         "build": "yarn build:storybook && yarn build:lib && yarn webpack",
         "prebuild:lib": "rimraf dist/",
         "build:lib": "yarn tsc && yarn compilejs",
-        "build:storybook": "NODE_OPTIONS=--max_old_space_size=6144 build-storybook",
+        "build:storybook": "build-storybook",
         "auto": "auto",
         "auto-changelog": "auto changelog",
         "auto-version": "npm version `auto version` -m 'Bump version to: %s [skip ci]'",
