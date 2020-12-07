@@ -101,13 +101,6 @@ interface DropdownProps {
     searchEmptyText?: string;
 
     /**
-     * Use this property if you notice that the text within the menu that opens is getting truncated.
-     * When true, the size of the Menu will be increased so that the scrollbar is added to the minimum width.
-     * This is to solve for issues with rendering in Firefox and Safari (Chrome automatically makes the fix)
-     */
-    alignSmallSpaceBrowserScrollbarRendering?: boolean;
-
-    /**
      * Additional classname
      */
     className?: string;
@@ -134,7 +127,6 @@ export const Dropdown: React.FC<DropdownProps> = (
         hasSearch,
         searchEmptyText,
         imageSize,
-        alignSmallSpaceBrowserScrollbarRendering,
         onChange,
         className,
         ...props
@@ -143,6 +135,7 @@ export const Dropdown: React.FC<DropdownProps> = (
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
     const isGrouped = typeof data[0].options !== 'undefined';
+    const menuMinWidth = 70;
     let menuMaxWidth;
     let menuMaxHeight;
 
@@ -170,7 +163,8 @@ export const Dropdown: React.FC<DropdownProps> = (
     // Functions to handle events
     // ---
     const handleOpenMenu = (e: React.MouseEvent | React.KeyboardEvent) => {
-        setMinWith(`${(e.currentTarget as HTMLElement).offsetWidth}px`);
+        const dropdownWidth = (e.currentTarget as HTMLElement).offsetWidth;
+        setMinWith(`${dropdownWidth < menuMinWidth ? menuMinWidth : dropdownWidth}px`);
         setAnchorEl(e.currentTarget);
         setIsOpened(true);
     };
@@ -299,7 +293,6 @@ export const Dropdown: React.FC<DropdownProps> = (
                 anchorEl={anchorEl}
                 hasSearch={hasSearch}
                 searchEmptyText={searchEmptyText}
-                alignSmallSpaceBrowserScrollbarRendering={alignSmallSpaceBrowserScrollbarRendering}
                 onClose={handleCloseMenu}
             >
                 {
