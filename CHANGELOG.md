@@ -1,3 +1,15 @@
+# v0.17.4 (Tue Dec 08 2020)
+
+#### 🐛 Bug Fix
+
+- MOON-216: Adds webpack publicPath to fix test issues [#212](https://github.com/Jahia/moonstone/pull/212) ([@vindhya](https://github.com/vindhya))
+
+#### Authors: 1
+
+- Vindhya ([@vindhya](https://github.com/vindhya))
+
+---
+
 # v0.17.3 (Tue Dec 08 2020)
 
 #### 🐛 Bug Fix
