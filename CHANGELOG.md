@@ -1,3 +1,19 @@
+# v0.17.3 (Tue Dec 08 2020)
+
+#### 🐛 Bug Fix
+
+- MOON-216: Increase minimum width for dropdown menu to 80px [#210](https://github.com/Jahia/moonstone/pull/210) ([@vindhya](https://github.com/vindhya))
+
+#### 🏠 Internal
+
+- MOON-218: Skip CI for gh-pages branch [#211](https://github.com/Jahia/moonstone/pull/211) ([@vindhya](https://github.com/vindhya))
+
+#### Authors: 1
+
+- Vindhya ([@vindhya](https://github.com/vindhya))
+
+---
+
 # v0.17.2 (Tue Dec 08 2020)
 
 #### 🐛 Bug Fix
