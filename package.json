@@ -1,6 +1,6 @@
 {
     "name": "@jahia/moonstone",
-    "version": "0.17.2",
+    "version": "0.17.3",
     "main": "dist/lib/main.js",
     "module": "dist/index.js",
     "types": "dist/index.d.ts",
