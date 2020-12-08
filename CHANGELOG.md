@@ -1,3 +1,21 @@
+# v0.17.2 (Tue Dec 08 2020)
+
+#### 🐛 Bug Fix
+
+- MOON-216: Fixes menu truncation issue in Firefox and Safari [#207](https://github.com/Jahia/moonstone/pull/207) ([@vindhya](https://github.com/vindhya))
+- MOON-212: Adjustment to commands adding github.com to ssh known hosts [#206](https://github.com/Jahia/moonstone/pull/206) ([@vindhya](https://github.com/vindhya))
+
+#### 🏠 Internal
+
+- MOON-217:  Update dependencies [#208](https://github.com/Jahia/moonstone/pull/208) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 2
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Vindhya ([@vindhya](https://github.com/vindhya))
+
+---
+
 # v0.17.1 (Wed Dec 02 2020)
 
 #### 🐛  Bug Fix
