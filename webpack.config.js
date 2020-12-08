@@ -14,7 +14,8 @@ const ComponentsConfig = {
     output: {
         filename: 'main.js',
         path: path.resolve(__dirname, 'dist/lib'),
-        libraryTarget: 'commonjs'
+        libraryTarget: 'commonjs',
+        publicPath: '/'
     },
     mode: 'development',
     devtool: 'source-map',
