@@ -135,7 +135,7 @@ export const Dropdown: React.FC<DropdownProps> = (
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
     const isGrouped = typeof data[0].options !== 'undefined';
-    const menuMinWidth = 70;
+    const menuMinWidth = 80;
     let menuMaxWidth;
     let menuMaxHeight;
 
