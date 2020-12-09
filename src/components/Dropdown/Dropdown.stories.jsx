@@ -217,7 +217,7 @@ storiesOf('Components/Dropdown', module)
                     size={select('Size', DropdownSizes, DropdownSizes.Small)}
                     isDisabled={boolean('Disabled', false)}
                     maxWidth={text('Max width', '120px')}
-                    data={data}
+                    data="test"
                     onChange={(e, item) => handleOnChange(e, item)}
                 />
             </div>
