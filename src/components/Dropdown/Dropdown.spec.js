@@ -88,4 +88,14 @@ describe('Dropdown', () => {
         expect(screen.queryByText('option 3')).not.toBeInTheDocument();
         expect(screen.getByText('option 4')).toBeInTheDocument();
     });
+
+    it('shouldn\'t display if data isn\'t an array', () => {
+        const {queryByTestId} = render(<Dropdown data="test" data-testid="moonstone-dropdown" onChange={() => 'testing'}/>);
+        expect(queryByTestId('moonstone-dropdown')).not.toBeInTheDocument();
+    });
+
+    it('shouldn\'t display if data is empty', () => {
+        const {queryByTestId} = render(<Dropdown data={[]} data-testid="moonstone-dropdown" onChange={() => 'testing'}/>);
+        expect(queryByTestId('moonstone-dropdown')).not.toBeInTheDocument();
+    });
 });

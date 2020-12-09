@@ -131,6 +131,12 @@ export const Dropdown: React.FC<DropdownProps> = (
         className,
         ...props
     }) => {
+
+    // Return nothing if `data` isn't an array or data is empty
+    if (!Array.isArray(data) || data.length < 1) {
+        return null;
+    }
+
     const [isOpened, setIsOpened] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
