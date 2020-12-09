@@ -150,7 +150,7 @@ export const Dropdown: React.FC<DropdownProps> = (
         left: 0
     };
 
-    switch(imageSize) {
+    switch (imageSize) {
         case DropdownImageSizes.Big:
             menuMaxWidth = '400px';
             menuMaxHeight = '440px';
@@ -176,14 +176,14 @@ export const Dropdown: React.FC<DropdownProps> = (
     };
 
     const handleSelect: HandleSelect = (e, item) => {
-        if(item) {
+        if (item) {
             let canClose: boolean | void = !item.isDisabled;
-            if(!item.isDisabled && item.value !== value) {
+            if (!item.isDisabled && item.value !== value) {
                 e.stopPropagation();
                 canClose = (onChange as (e: React.MouseEvent | React.KeyboardEvent, item: DropdownDataOptions) => void)(e, item);
             }
 
-            if(canClose !== false) {
+            if (canClose !== false) {
                 setIsOpened(false);
             }
         }
@@ -195,7 +195,7 @@ export const Dropdown: React.FC<DropdownProps> = (
     };
 
     const handleKeyPress = (e: React.KeyboardEvent, item: DropdownDataOptions) => {
-        if(e.key === 'Enter') {
+        if (e.key === 'Enter') {
             handleSelect(e, item);
         }
     };
@@ -241,10 +241,10 @@ export const Dropdown: React.FC<DropdownProps> = (
         return (
             <div key={`${groupLabel}-${index}`} data-option-type="group">
                 {index > 0 && (
-                    <Separator />
+                    <Separator/>
                 )}
 
-                <MenuItem variant="title" label={groupLabel} />
+                <MenuItem variant="title" label={groupLabel}/>
 
                 {children.map(item => {
                     return dropdownOption(item);
@@ -259,7 +259,7 @@ export const Dropdown: React.FC<DropdownProps> = (
             style={{maxWidth}}
             {...props}
             onKeyPress={e => {
-                if(e.key === 'Enter') {
+                if (e.key === 'Enter') {
                     handleOpenMenu(e);
                 }
             }}
@@ -269,14 +269,14 @@ export const Dropdown: React.FC<DropdownProps> = (
                 tabIndex={0}
                 onClick={handleOpenMenu}
                 onKeyPress={(e: React.KeyboardEvent) => {
-                    if(e.key === 'Enter') {
+                    if (e.key === 'Enter') {
                         handleSelect(e);
                     }
                 }}
             >
                 {
                     icon &&
-                    <icon.type {...icon.props} size="small" className={classnames('moonstone-dropdown_icon')} />
+                    <icon.type {...icon.props} size="small" className={classnames('moonstone-dropdown_icon')}/>
                 }
 
                 <Typography
@@ -287,7 +287,7 @@ export const Dropdown: React.FC<DropdownProps> = (
                 >
                     {label}
                 </Typography>
-                <ChevronDown className="moonstone-dropdown_chevronDown" />
+                <ChevronDown className="moonstone-dropdown_chevronDown"/>
             </div>
 
             <Menu
@@ -303,7 +303,7 @@ export const Dropdown: React.FC<DropdownProps> = (
             >
                 {
                     data.map((item, index) => {
-                        if(isGrouped) {
+                        if (isGrouped) {
                             item.options.map(o => {
                                 return dropdownOption(o);
                             });
