@@ -10,6 +10,7 @@ module.exports = {
                 '~': './src'
             }
         }],
-        ['transform-rename-import', {original: '^(.+?)\\.scss$', replacement: '$1.css'}]
+        ['transform-rename-import', {original: '^(.+?)\\.scss$', replacement: '$1.css'}],
+        ['@babel/plugin-transform-runtime']
     ]
 };
