@@ -132,15 +132,16 @@ export const Dropdown: React.FC<DropdownProps> = (
         ...props
     }) => {
 
-    // Return nothing if `data` isn't an array or data is empty
-    if (!Array.isArray(data) || data.length < 1) {
+    // Return nothing if `data` isn't an array
+    if (!Array.isArray(data)) {
         return null;
     }
 
     const [isOpened, setIsOpened] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
-    const isGrouped = typeof data[0].options !== 'undefined';
+    const isEmpty = data.length < 1;
+    const isGrouped = !isEmpty && typeof data[0].options !== 'undefined';
     const menuMinWidth = 80;
     let menuMaxWidth;
     let menuMaxHeight;
@@ -211,7 +212,7 @@ export const Dropdown: React.FC<DropdownProps> = (
         `moonstone-${size}`,
         `moonstone-dropdown_${variant}`,
         {
-            'moonstone-disabled': isDisabled,
+            'moonstone-disabled': (typeof isDisabled === 'undefined' && isEmpty) ? true : isDisabled,
             'moonstone-filled': value,
             'moonstone-opened': isOpened
         }
@@ -323,7 +324,6 @@ Dropdown.defaultProps = {
     variant: DropdownVariants.Ghost,
     size: DropdownSizes.Medium,
     maxWidth: '300px',
-    isDisabled: false,
     hasSearch: false,
     searchEmptyText: 'No results found.'
 };
