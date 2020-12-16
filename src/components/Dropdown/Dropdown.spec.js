@@ -89,13 +89,18 @@ describe('Dropdown', () => {
         expect(screen.getByText('option 4')).toBeInTheDocument();
     });
 
-    it('shouldn\'t display if data isn\'t an array', () => {
-        const {queryByTestId} = render(<Dropdown data="test" data-testid="moonstone-dropdown" onChange={() => 'testing'}/>);
-        expect(queryByTestId('moonstone-dropdown')).not.toBeInTheDocument();
+    it('should display nothing if data is not an array', () => {
+        render(<Dropdown data="not an array" data-testid="moonstone-dropdown" onChange={() => 'testing'}/>);
+        expect(screen.queryByTestId('moonstone-dropdown')).not.toBeInTheDocument();
     });
 
-    it('shouldn\'t display if data is empty', () => {
-        const {queryByTestId} = render(<Dropdown data={[]} data-testid="moonstone-dropdown" onChange={() => 'testing'}/>);
-        expect(queryByTestId('moonstone-dropdown')).not.toBeInTheDocument();
+    it('should add "dropdown-disabled" class if data is empty', () => {
+        render(<Dropdown data={[]} data-testid="moonstone-dropdown" onChange={() => 'testing'}/>);
+        expect(screen.queryByTestId('moonstone-dropdown').firstChild).toHaveClass('moonstone-disabled');
+    });
+
+    it('should not add "dropdown-disabled" class if data is empty when "isDisabled=false" ', () => {
+        render(<Dropdown data={[]} isDisabled={false} data-testid="moonstone-dropdown" onChange={() => 'testing'}/>);
+        expect(screen.queryByTestId('moonstone-dropdown').firstChild).not.toHaveClass('moonstone-disabled');
     });
 });
