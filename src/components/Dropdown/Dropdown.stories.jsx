@@ -223,6 +223,27 @@ storiesOf('Components/Dropdown', module)
             </div>
         );
     })
+    .add('Empty', () => {
+        const [currentOption, setCurrentOption] = useState({label: 'Select something', value: null});
+
+        const handleOnChange = (e, item) => {
+            setCurrentOption(item);
+            action('onChange');
+            return true;
+        };
+
+        return (
+            <div style={{transform: 'scale(1)', height: '100vh', padding: '90px'}}>
+                <Dropdown
+                    icon={<Love/>}
+                    label={currentOption.label}
+                    value={currentOption.value}
+                    data={[]}
+                    onChange={(e, item) => handleOnChange(e, item)}
+                />
+            </div>
+        );
+    })
     .add('With Default Value', () => {
         const [currentOption, setCurrentOption] = useState({label: dataLanguages[1].label, value: dataLanguages[1].value});
 
