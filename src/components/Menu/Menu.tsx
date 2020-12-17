@@ -93,6 +93,11 @@ interface MenuProps {
     searchEmptyText?: string;
 
     /**
+     * Use this prop when the parent element has position: relative so that the appropriate method of positioning is used
+     */
+    relativelyPositionedParent?: boolean;
+
+    /**
      * Function triggered when the mouse pointer hovering the menu
      */
     onMouseEnter?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
@@ -165,14 +170,16 @@ export const Menu: React.FC<MenuProps> = (
         hasOverlay,
         hasSearch,
         searchEmptyText,
+        relativelyPositionedParent,
         ...props
     }) => {
-    const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin);
+    const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, relativelyPositionedParent);
     useEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);
     const [inputValue, setInputValue] = useState('');
     const [filteredChildren, setFilteredChildren] = useState(children);
     const [isEmptySearch, setIsEmptySearch] = useState(false);
 
+    // useEffect hook to filter the search results and determine whether to show the no search results text
     useEffect(() => {
         if (inputValue !== '') {
             if (Array.isArray(children)) {
@@ -269,6 +276,7 @@ Menu.defaultProps = {
     hasOverlay: true,
     hasSearch: false,
     searchEmptyText: 'No results found.',
+    relativelyPositionedParent: false,
     anchorEl: null,
     anchorPosition: {
         top: 0,

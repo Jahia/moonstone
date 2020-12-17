@@ -147,7 +147,7 @@ export const Dropdown: React.FC<DropdownProps> = (
     let menuMaxHeight;
 
     const anchorPosition = {
-        top: Number(spacings.spacingNano.slice(0, -2)),
+        top: parseInt(spacings.spacingNano, 10),
         left: 0
     };
 
@@ -256,7 +256,7 @@ export const Dropdown: React.FC<DropdownProps> = (
 
     return (
         <div
-            className={classnames(className)}
+            className={classnames('moonstone-dropdown_container', className)}
             style={{maxWidth}}
             {...props}
             onKeyPress={e => {
@@ -292,6 +292,7 @@ export const Dropdown: React.FC<DropdownProps> = (
             </div>
 
             <Menu
+                relativelyPositionedParent
                 isDisplayed={isOpened}
                 anchorPosition={anchorPosition}
                 minWidth={minWidth}
