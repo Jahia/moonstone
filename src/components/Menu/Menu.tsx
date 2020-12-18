@@ -25,6 +25,7 @@ type StyleMenu =  {
     maxWidth?: string;
     maxHeight?: string;
 };
+type PositioningType = 'fixed' | 'absolute';
 
 interface MenuProps {
     /**
@@ -93,9 +94,10 @@ interface MenuProps {
     searchEmptyText?: string;
 
     /**
-     * Use this prop when the parent element has position: relative so that the appropriate method of positioning is used
+     * If 'absolute' is passed in for the position, the component will checked for the closest relatively
+     * positioned parent to position against. Position is 'fixed' by default
      */
-    relativelyPositionedParent?: boolean;
+    position?: PositioningType;
 
     /**
      * Function triggered when the mouse pointer hovering the menu
@@ -155,6 +157,7 @@ export const Menu: React.FC<MenuProps> = (
         maxWidth,
         maxHeight,
         className,
+        position,
         style,
         onMouseEnter,
         onMouseLeave,
@@ -170,10 +173,9 @@ export const Menu: React.FC<MenuProps> = (
         hasOverlay,
         hasSearch,
         searchEmptyText,
-        relativelyPositionedParent,
         ...props
     }) => {
-    const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, relativelyPositionedParent);
+    const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, position);
     useEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);
     const [inputValue, setInputValue] = useState('');
     const [filteredChildren, setFilteredChildren] = useState(children);
@@ -208,7 +210,7 @@ export const Menu: React.FC<MenuProps> = (
     // ---
     // Styling
     // ---
-    const styleMenu: StyleMenu = {...stylePosition as StyleMenu, ...style};
+    const styleMenu = {position, ...stylePosition as StyleMenu, ...style};
     if (minWidth) {
         styleMenu.minWidth = minWidth;
     }
@@ -276,7 +278,7 @@ Menu.defaultProps = {
     hasOverlay: true,
     hasSearch: false,
     searchEmptyText: 'No results found.',
-    relativelyPositionedParent: false,
+    position: 'fixed',
     anchorEl: null,
     anchorPosition: {
         top: 0,

@@ -292,8 +292,8 @@ export const Dropdown: React.FC<DropdownProps> = (
             </div>
 
             <Menu
-                relativelyPositionedParent
                 isDisplayed={isOpened}
+                position="absolute"
                 anchorPosition={anchorPosition}
                 minWidth={minWidth}
                 maxWidth={menuMaxWidth}

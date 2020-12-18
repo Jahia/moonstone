@@ -1,63 +1,80 @@
 import {MutableRefObject, useEffect, useRef, useState} from 'react';
 import toPX from 'to-px';
 
-type TPosition = {
+type Position = {
     top?: number;
     left?: number;
     bottom?: number;
     right?: number;
 }
-type TAnchorElOrigin = {
+type AnchorElOrigin = {
     horizontal: 'left' | 'center' | 'right';
     vertical: 'top' | 'center' | 'bottom';
 };
-type TTransformElOrigin = {
+type TransformElOrigin = {
     horizontal: 'left' | 'right';
     vertical: 'top' | 'bottom';
 };
 
-const initialPosition: TPosition = {
+const initialPosition: Position = {
     top: -1000,
     left: -1000
 };
 
-function getPosition(anchorPosition: TPosition): TPosition {
+function getPosition(anchorPosition: Position): Position {
     return {
         top: typeof anchorPosition.top === 'string' ? toPX(anchorPosition.top) : anchorPosition.top,
         left: typeof anchorPosition.left === 'string' ? toPX(anchorPosition.left) : anchorPosition.left
     };
 }
 
+function getClosestRelativeAncestor(el: HTMLElement) {
+    while (el.parentElement) {
+        if (window.getComputedStyle(el).position === 'relative') {
+            return el;
+        }
+        el = el.parentElement;
+    }
+    return el;
+}
+
 function getPositionRelativeToEl(
     resolvedAnchorEl: HTMLDivElement,
-    anchorElOrigin: TAnchorElOrigin,
-    transformElOrigin: TTransformElOrigin,
-    anchorPosition: TPosition,
-    relativelyPositionedParent: boolean = false
+    anchorElOrigin: AnchorElOrigin,
+    transformElOrigin: TransformElOrigin,
+    anchorPosition: Position,
+    position: string
 ) {
     const anchorElRectangle = resolvedAnchorEl.getBoundingClientRect();
-    const point: TPosition = {};
+    const point: Position = {};
+    const isPositionAbsolute = position === 'absolute';
 
-    // Set vertical origin position
-    if (anchorElOrigin.vertical === 'top') {
-        point.top = relativelyPositionedParent ? 0 : anchorElRectangle.top;
-    } else if (anchorElOrigin.vertical === 'center') {
-        point.top = relativelyPositionedParent
-            ? anchorElRectangle.height / 2
-            : anchorElRectangle.top + (anchorElRectangle.height / 2);
-    } else if (anchorElOrigin.vertical === 'bottom') {
-        point.top = relativelyPositionedParent ? anchorElRectangle.height : anchorElRectangle.bottom;
+    switch (anchorElOrigin.vertical) {
+        case 'top':
+            point.top = isPositionAbsolute ? 0 : anchorElRectangle.top;
+            break;
+        case 'center':
+            point.top = isPositionAbsolute
+                ? anchorElRectangle.height / 2
+                : anchorElRectangle.top + (anchorElRectangle.height / 2);
+            break;
+        case 'bottom':
+            point.top = isPositionAbsolute ? anchorElRectangle.height : anchorElRectangle.bottom;
+            break;
     }
 
-    // Set horizontal origin position
-    if (anchorElOrigin.horizontal === 'left') {
-        point.left = relativelyPositionedParent ? 0 : anchorElRectangle.left;
-    } else if (anchorElOrigin.horizontal === 'center') {
-        point.left = relativelyPositionedParent
-            ? anchorElRectangle.width / 2
-            : anchorElRectangle.left + (anchorElRectangle.width / 2);
-    } else if (anchorElOrigin.horizontal === 'right') {
-        point.left = relativelyPositionedParent ? anchorElRectangle.width : anchorElRectangle.right;
+    switch (anchorElOrigin.horizontal) {
+        case 'left':
+            point.left = isPositionAbsolute ? 0 : anchorElRectangle.left;
+            break;
+        case 'center':
+            point.left = isPositionAbsolute
+                ? anchorElRectangle.width / 2
+                : anchorElRectangle.left + (anchorElRectangle.width / 2);
+            break;
+        case 'right':
+            point.left = isPositionAbsolute ? anchorElRectangle.width : anchorElRectangle.right;
+            break;
     }
 
     const stylePosition = getPosition(anchorPosition);
@@ -65,8 +82,8 @@ function getPositionRelativeToEl(
     if (!transformElOrigin || transformElOrigin.vertical === 'top') {
         stylePosition.top += point.top;
     } else if (transformElOrigin.vertical === 'bottom') {
-        stylePosition.bottom = relativelyPositionedParent
-            ? stylePosition.top
+        stylePosition.bottom = isPositionAbsolute
+            ? -(point.top - anchorElRectangle.height)
             : window.document.body.clientHeight - point.top - stylePosition.top;
         delete stylePosition.top;
     }
@@ -74,8 +91,8 @@ function getPositionRelativeToEl(
     if (!transformElOrigin || transformElOrigin.horizontal === 'left') {
         stylePosition.left += point.left;
     } else if (transformElOrigin.horizontal === 'right') {
-        stylePosition.right = relativelyPositionedParent
-            ? anchorElRectangle.width + point.left
+        stylePosition.right = isPositionAbsolute
+            ? -(point.left - anchorElRectangle.width)
             : window.document.body.clientWidth - point.left - stylePosition.left;
         delete stylePosition.left;
     }
@@ -85,19 +102,27 @@ function getPositionRelativeToEl(
 
 export const usePositioning = (
     isDisplayed: boolean,
-    anchorPosition: TPosition,
+    anchorPosition: Position,
     anchorEl: React.MutableRefObject<HTMLDivElement>,
-    anchorElOrigin: TAnchorElOrigin,
-    transformElOrigin: TTransformElOrigin,
-    relativelyPositionedParent: boolean = false
-): [TPosition, React.MutableRefObject<HTMLDivElement>] => {
+    anchorElOrigin: AnchorElOrigin,
+    transformElOrigin: TransformElOrigin,
+    position: string
+): [Position, React.MutableRefObject<HTMLDivElement>] => {
     const [stylePosition, setStylePosition] = useState(initialPosition);
     const itemRef = useRef(null);
 
     useEffect(() => {
         if (isDisplayed) {
             const menuRectangle = itemRef.current.getBoundingClientRect();
-            const resolvedAnchorEl = anchorEl && anchorEl.current ? anchorEl.current : anchorEl;
+
+            let resolvedAnchorEl;
+            if (position === 'absolute') {
+                resolvedAnchorEl = getClosestRelativeAncestor(itemRef.current);
+            } else if (anchorEl && anchorEl.current) {
+                resolvedAnchorEl = anchorEl.current;
+            } else {
+                resolvedAnchorEl = anchorEl;
+            }
 
             let _stylePosition;
             if (resolvedAnchorEl) {
@@ -106,7 +131,7 @@ export const usePositioning = (
                     anchorElOrigin,
                     transformElOrigin,
                     anchorPosition,
-                    relativelyPositionedParent
+                    position
                 );
                 if (
                     _stylePosition.left &&
@@ -118,7 +143,7 @@ export const usePositioning = (
                         {...anchorElOrigin, horizontal: 'left'},
                         {...transformElOrigin, horizontal: 'right'},
                         anchorPosition,
-                        relativelyPositionedParent
+                        position
                     );
                 }
 
@@ -132,7 +157,7 @@ export const usePositioning = (
                         {...anchorElOrigin, vertical: 'top'},
                         {...transformElOrigin, vertical: 'bottom'},
                         anchorPosition,
-                        relativelyPositionedParent
+                        position
                     );
                 }
             } else {
@@ -160,7 +185,7 @@ export const usePositioning = (
         itemRef,
         anchorElOrigin,
         transformElOrigin,
-        relativelyPositionedParent
+        position
     ]);
 
     return [stylePosition, itemRef];
