@@ -66,6 +66,29 @@ function App() {
 export default App
 ```
 
+## Test changes with Jahia using yalc
+First, build moonstone:
+```sh
+yarn build
+```
+
+Then, publish locally:
+```sh
+yalc publish
+```
+
+Next, add the local package to app-shell:
+```sh
+yalc add @jahia/moonstone
+```
+
+Install any additional dependencies that may now be required:
+```sh
+yarn
+```
+
+Now, you can deploy app-shell via docker or to the local installation as you usually do.
+
 ## Author
 
 👤 **Jahia**
