@@ -18,13 +18,6 @@ type TransformElOrigin = {
     horizontal: 'left' | 'right';
     vertical: 'top' | 'bottom';
 };
-type StyleMenu =  {
-    top?: string | number;
-    left?: string | number;
-    minWidth?: string;
-    maxWidth?: string;
-    maxHeight?: string;
-};
 type PositioningType = 'fixed' | 'absolute';
 
 interface MenuProps {
@@ -94,8 +87,8 @@ interface MenuProps {
     searchEmptyText?: string;
 
     /**
-     * If 'absolute' is passed in for the position, the component will checked for the closest relatively
-     * positioned parent to position against. Position is 'fixed' by default
+     * If 'absolute' is passed in for the position, the component will be positioned as per normal
+     * CSS rules (i.e., positioned against the closest positioned ancestor). Position is 'fixed' by default
      */
     position?: PositioningType;
 
@@ -153,11 +146,11 @@ export const Menu: React.FC<MenuProps> = (
     {
         children,
         isDisplayed,
+        position,
         minWidth,
         maxWidth,
         maxHeight,
         className,
-        position,
         style,
         onMouseEnter,
         onMouseLeave,
@@ -175,11 +168,11 @@ export const Menu: React.FC<MenuProps> = (
         searchEmptyText,
         ...props
     }) => {
-    const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, position);
-    useEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);
-    const [inputValue, setInputValue] = useState('');
-    const [filteredChildren, setFilteredChildren] = useState(children);
-    const [isEmptySearch, setIsEmptySearch] = useState(false);
+        const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, position);
+        useEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);
+        const [inputValue, setInputValue] = useState('');
+        const [filteredChildren, setFilteredChildren] = useState(children);
+        const [isEmptySearch, setIsEmptySearch] = useState(false);
 
     // useEffect hook to filter the search results and determine whether to show the no search results text
     useEffect(() => {
@@ -210,15 +203,18 @@ export const Menu: React.FC<MenuProps> = (
     // ---
     // Styling
     // ---
-    const styleMenu = {position, ...stylePosition as StyleMenu, ...style};
+    const styleMenu: React.CSSProperties = {
+        position,
+        ...stylePosition as React.CSSProperties,
+        ...style
+    };
+
     if (minWidth) {
         styleMenu.minWidth = minWidth;
     }
-
     if (maxWidth) {
         styleMenu.maxWidth = maxWidth;
     }
-
     if (maxHeight) {
         styleMenu.maxHeight = maxHeight;
     }
