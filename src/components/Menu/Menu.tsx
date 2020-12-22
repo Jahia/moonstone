@@ -74,7 +74,7 @@ interface MenuProps {
     /**
      * Additional styles
      */
-    style?: {};
+    style?: React.CSSProperties;
 
     /**
      * Whether the Menu displays a search input at the top
@@ -142,37 +142,36 @@ const getChildrenToFilter = (children: [React.ReactElement]) => {
     return children;
 };
 
-export const Menu: React.FC<MenuProps> = (
-    {
-        children,
-        isDisplayed,
-        position,
-        minWidth,
-        maxWidth,
-        maxHeight,
-        className,
-        style,
-        onMouseEnter,
-        onMouseLeave,
-        anchorEl,
-        anchorElOrigin,
-        transformElOrigin,
-        anchorPosition,
-        onClose,
-        onEntering,
-        onEntered,
-        onExiting,
-        onExited,
-        hasOverlay,
-        hasSearch,
-        searchEmptyText,
-        ...props
-    }) => {
-        const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, position);
-        useEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);
-        const [inputValue, setInputValue] = useState('');
-        const [filteredChildren, setFilteredChildren] = useState(children);
-        const [isEmptySearch, setIsEmptySearch] = useState(false);
+export const Menu: React.FC<MenuProps> = ({
+    children,
+    isDisplayed,
+    position,
+    minWidth,
+    maxWidth,
+    maxHeight,
+    className,
+    style,
+    onMouseEnter,
+    onMouseLeave,
+    anchorEl,
+    anchorElOrigin,
+    transformElOrigin,
+    anchorPosition,
+    onClose,
+    onEntering,
+    onEntered,
+    onExiting,
+    onExited,
+    hasOverlay,
+    hasSearch,
+    searchEmptyText,
+    ...props
+}) => {
+    const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, position);
+    useEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);
+    const [inputValue, setInputValue] = useState('');
+    const [filteredChildren, setFilteredChildren] = useState(children);
+    const [isEmptySearch, setIsEmptySearch] = useState(false);
 
     // useEffect hook to filter the search results and determine whether to show the no search results text
     useEffect(() => {
