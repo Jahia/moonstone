@@ -1,59 +1,157 @@
-import {ElementRef, MutableRefObject, useEffect, useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import toPX from 'to-px';
 
-type TPosition = {
+type Position = {
     top?: number;
     left?: number;
     bottom?: number;
     right?: number;
 }
-type TAnchorElOrigin = {
+type AnchorElOrigin = {
     horizontal: 'left' | 'center' | 'right';
     vertical: 'top' | 'center' | 'bottom';
 };
-type TTransformElOrigin = {
+type TransformElOrigin = {
     horizontal: 'left' | 'right';
     vertical: 'top' | 'bottom';
 };
+type PositioningType = 'absolute' | 'fixed';
 
-const initialPosition: TPosition = {
+const initialPosition: Position = {
     top: -1000,
     left: -1000
 };
 
-function getPosition(anchorPosition: TPosition): TPosition {
+const getPosition = (anchorPosition: Position): Position => {
     return {
         top: typeof anchorPosition.top === 'string' ? toPX(anchorPosition.top) : anchorPosition.top,
         left: typeof anchorPosition.left === 'string' ? toPX(anchorPosition.left) : anchorPosition.left
     };
-}
+};
 
-function getPositionRelativeToEl(
-    resolvedAnchorEl: HTMLDivElement,
-    anchorElOrigin: TAnchorElOrigin,
-    transformElOrigin: TTransformElOrigin,
-    anchorPosition: TPosition
-) {
-    const anchorElRectangle = resolvedAnchorEl.getBoundingClientRect();
+const getClosestRelativeAncestor = (el: HTMLElement) => {
+    el = el.parentElement;
+    while (el.parentElement) {
+        if (window.getComputedStyle(el).position !== 'static') {
+            return el;
+        }
+        el = el.parentElement;
+    }
+    return el;
+};
 
-    const point: {top?: number, left?: number} = {};
+const getAbsolutePositionCSS = (
+    anchorElOrigin: AnchorElOrigin,
+    transformElOrigin: TransformElOrigin,
+    anchorPosition: Position
+): React.CSSProperties => {
+    const style: React.CSSProperties = {};
 
-    // Set vertical origin position
-    if (anchorElOrigin.vertical === 'top') {
-        point.top = anchorElRectangle.top;
-    } else if (anchorElOrigin.vertical === 'center') {
-        point.top = anchorElRectangle.top + (anchorElRectangle.height / 2);
-    } else if (anchorElOrigin.vertical === 'bottom') {
-        point.top = anchorElRectangle.bottom;
+    switch (anchorElOrigin.vertical) {
+        case 'bottom':
+            style.top = `calc(100% + ${anchorPosition.top}px)`;
+            break;
+        case 'center':
+            style.top = `calc(50% + ${anchorPosition.top}px)`;
+            break;
+        case 'top':
+            style.top = anchorPosition.top;
+            break;
     }
 
-    // Set horizontal origin position
-    if (anchorElOrigin.horizontal === 'left') {
-        point.left = anchorElRectangle.left;
-    } else if (anchorElOrigin.horizontal === 'center') {
-        point.left = anchorElRectangle.left + (anchorElRectangle.width / 2);
-    } else if (anchorElOrigin.horizontal === 'right') {
-        point.left = anchorElRectangle.right;
+    switch (anchorElOrigin.horizontal) {
+        case 'left':
+            style.left = anchorPosition.left;
+            break;
+        case 'center':
+            style.left = `calc(50% + ${anchorPosition.left}px)`;
+            break;
+        case 'right':
+            style.left = `calc(100% + ${anchorPosition.left}px)`;
+            break;
+    }
+
+    if (transformElOrigin.vertical === 'bottom') {
+        style.transform = 'translateY(-100%)';
+    }
+
+    if (transformElOrigin.horizontal === 'right') {
+        style.transform = style.transform || '';
+        style.transform += 'translateX(-100%)';
+    }
+
+    return style;
+};
+
+const getAbsolutePosition = (
+    itemRef: React.MutableRefObject<HTMLElement>,
+    anchorElOrigin: AnchorElOrigin,
+    transformElOrigin: TransformElOrigin,
+    anchorPosition: Position
+) => {
+    const menuRectangle = itemRef.current.getBoundingClientRect();
+    const closestRelativeAncestorRect = getClosestRelativeAncestor(itemRef.current).getBoundingClientRect();
+    let _style = getAbsolutePositionCSS(anchorElOrigin, transformElOrigin, anchorPosition);
+
+    if (
+        _style.left &&
+        (closestRelativeAncestorRect.left + anchorPosition.left + menuRectangle.width) > window.document.body.clientWidth &&
+        anchorElOrigin.horizontal === 'right'
+    ) {
+        _style = getAbsolutePositionCSS(
+            {...anchorElOrigin, horizontal: 'left'},
+            {...transformElOrigin, horizontal: 'right'},
+            anchorPosition
+        );
+    }
+
+    if (
+        _style.top &&
+        (closestRelativeAncestorRect.top + closestRelativeAncestorRect.height + anchorPosition.top + menuRectangle.height) >
+            window.document.body.clientHeight &&
+        anchorElOrigin.vertical === 'bottom'
+    ) {
+        _style = getAbsolutePositionCSS(
+            {...anchorElOrigin, vertical: 'top'},
+            {...transformElOrigin, vertical: 'bottom'},
+            anchorPosition
+        );
+    }
+
+    return _style;
+};
+
+const getPositionRelativeToEl = (
+    resolvedAnchorEl: HTMLDivElement,
+    anchorElOrigin: AnchorElOrigin,
+    transformElOrigin: TransformElOrigin,
+    anchorPosition: Position
+) => {
+    const anchorElRectangle = resolvedAnchorEl.getBoundingClientRect();
+    const point: Position = {};
+
+    switch (anchorElOrigin.vertical) {
+        case 'top':
+            point.top = anchorElRectangle.top;
+            break;
+        case 'center':
+            point.top = anchorElRectangle.top + (anchorElRectangle.height / 2);
+            break;
+        case 'bottom':
+            point.top = anchorElRectangle.bottom;
+            break;
+    }
+
+    switch (anchorElOrigin.horizontal) {
+        case 'left':
+            point.left = anchorElRectangle.left;
+            break;
+        case 'center':
+            point.left = anchorElRectangle.left + (anchorElRectangle.width / 2);
+            break;
+        case 'right':
+            point.left = anchorElRectangle.right;
+            break;
     }
 
     const stylePosition = getPosition(anchorPosition);
@@ -73,74 +171,97 @@ function getPositionRelativeToEl(
     }
 
     return stylePosition;
-}
+};
+
+const getFixedPosition = (
+    itemRef: React.MutableRefObject<HTMLElement>,
+    anchorEl: React.MutableRefObject<HTMLElement>,
+    anchorElOrigin: AnchorElOrigin,
+    transformElOrigin: TransformElOrigin,
+    anchorPosition: Position
+) => {
+    const menuRectangle = itemRef.current.getBoundingClientRect();
+    const resolvedAnchorEl = anchorEl && anchorEl.current ? anchorEl.current : anchorEl;
+
+    let stylePosition;
+    if (resolvedAnchorEl) {
+        stylePosition = getPositionRelativeToEl(
+            resolvedAnchorEl as HTMLDivElement,
+            anchorElOrigin,
+            transformElOrigin,
+            anchorPosition
+        );
+        if (
+            stylePosition.left &&
+            (stylePosition.left + menuRectangle.width) > window.document.body.clientWidth &&
+            anchorElOrigin.horizontal === 'right'
+        ) {
+            stylePosition = getPositionRelativeToEl(
+                resolvedAnchorEl as HTMLDivElement,
+                {...anchorElOrigin, horizontal: 'left'},
+                {...transformElOrigin, horizontal: 'right'},
+                anchorPosition
+            );
+        }
+
+        if (
+            stylePosition.top &&
+            (stylePosition.top + menuRectangle.height) > window.document.body.clientHeight &&
+            anchorElOrigin.vertical === 'bottom'
+        ) {
+            stylePosition = getPositionRelativeToEl(
+                resolvedAnchorEl as HTMLDivElement,
+                {...anchorElOrigin, vertical: 'top'},
+                {...transformElOrigin, vertical: 'bottom'},
+                anchorPosition
+            );
+        }
+    } else {
+        stylePosition = getPosition(anchorPosition);
+    }
+
+    if (stylePosition.left && (stylePosition.left + menuRectangle.width) > window.document.body.clientWidth) {
+        stylePosition.left = window.document.body.clientWidth - menuRectangle.width;
+    }
+
+    if (stylePosition.top && (stylePosition.top + menuRectangle.height) > window.document.body.clientHeight) {
+        stylePosition.top = window.document.body.clientHeight - menuRectangle.height;
+    }
+
+    return stylePosition;
+};
 
 export const usePositioning = (
     isDisplayed: boolean,
-    anchorPosition: TPosition,
-    anchorEl: React.MutableRefObject<HTMLDivElement>,
-    anchorElOrigin: TAnchorElOrigin,
-    transformElOrigin: TTransformElOrigin
-): [TPosition, React.MutableRefObject<HTMLDivElement>] => {
-    const [stylePosition, setStylePosition] = useState(initialPosition);
+    anchorPosition: Position,
+    anchorEl: React.MutableRefObject<HTMLElement>,
+    anchorElOrigin: AnchorElOrigin,
+    transformElOrigin: TransformElOrigin,
+    position: PositioningType
+): [React.CSSProperties, React.MutableRefObject<HTMLDivElement>] => {
+    const [stylePosition, setStylePosition] = useState(initialPosition as React.CSSProperties);
     const itemRef = useRef(null);
 
     useEffect(() => {
         if (isDisplayed) {
-            const menuRectangle = itemRef.current.getBoundingClientRect();
-
-            const resolvedAnchorEl = anchorEl && anchorEl.current ? anchorEl.current : anchorEl;
-
-            let _stylePosition;
-            if (resolvedAnchorEl) {
-                _stylePosition = getPositionRelativeToEl(
-                    resolvedAnchorEl as HTMLDivElement,
-                    anchorElOrigin,
-                    transformElOrigin,
-                    anchorPosition
-                );
-                if (
-                    _stylePosition.left &&
-                    (_stylePosition.left + menuRectangle.width) > window.document.body.clientWidth &&
-                    anchorElOrigin.horizontal === 'right'
-                ) {
-                    _stylePosition = getPositionRelativeToEl(
-                        resolvedAnchorEl as HTMLDivElement,
-                        {...anchorElOrigin, horizontal: 'left'},
-                        {...transformElOrigin, horizontal: 'right'},
-                        anchorPosition
-                    );
-                }
-
-                if (
-                    _stylePosition.top &&
-                    (_stylePosition.top + menuRectangle.height) > window.document.body.clientHeight &&
-                    anchorElOrigin.vertical === 'bottom'
-                ) {
-                    _stylePosition = getPositionRelativeToEl(
-                        resolvedAnchorEl as HTMLDivElement,
-                        {...anchorElOrigin, vertical: 'top'},
-                        {...transformElOrigin, vertical: 'bottom'},
-                        anchorPosition
-                    );
-                }
-            } else {
-                _stylePosition = getPosition(anchorPosition);
-            }
-
-            if (_stylePosition.left && (_stylePosition.left + menuRectangle.width) > window.document.body.clientWidth) {
-                _stylePosition.left = window.document.body.clientWidth - menuRectangle.width;
-            }
-
-            if (_stylePosition.top && (_stylePosition.top + menuRectangle.height) > window.document.body.clientHeight) {
-                _stylePosition.top = window.document.body.clientHeight - menuRectangle.height;
-            }
-
+            const _stylePosition = position === 'absolute'
+                ? getAbsolutePosition(itemRef, anchorElOrigin, transformElOrigin, anchorPosition)
+                : getFixedPosition(itemRef, anchorEl, anchorElOrigin, transformElOrigin, anchorPosition);
             setStylePosition(_stylePosition);
         } else {
             setStylePosition(initialPosition);
         }
-    }, [anchorEl, anchorPosition, anchorElOrigin.vertical, anchorElOrigin.horizontal, isDisplayed, itemRef, anchorElOrigin, transformElOrigin]);
+    }, [
+        anchorEl,
+        anchorPosition,
+        anchorElOrigin.vertical,
+        anchorElOrigin.horizontal,
+        isDisplayed,
+        itemRef,
+        anchorElOrigin,
+        transformElOrigin,
+        position
+    ]);
 
     return [stylePosition, itemRef];
 };

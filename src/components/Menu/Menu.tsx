@@ -18,13 +18,7 @@ type TransformElOrigin = {
     horizontal: 'left' | 'right';
     vertical: 'top' | 'bottom';
 };
-type StyleMenu =  {
-    top?: string | number;
-    left?: string | number;
-    minWidth?: string;
-    maxWidth?: string;
-    maxHeight?: string;
-};
+type PositioningType = 'fixed' | 'absolute';
 
 interface MenuProps {
     /**
@@ -80,7 +74,7 @@ interface MenuProps {
     /**
      * Additional styles
      */
-    style?: {};
+    style?: React.CSSProperties;
 
     /**
      * Whether the Menu displays a search input at the top
@@ -91,6 +85,12 @@ interface MenuProps {
      * Text to display when the search doesn't show any results
      */
     searchEmptyText?: string;
+
+    /**
+     * If 'absolute' is passed in for the position, the component will be positioned as per normal
+     * CSS rules (i.e., positioned against the closest positioned ancestor). Position is 'fixed' by default
+     */
+    position?: PositioningType;
 
     /**
      * Function triggered when the mouse pointer hovering the menu
@@ -142,37 +142,38 @@ const getChildrenToFilter = (children: [React.ReactElement]) => {
     return children;
 };
 
-export const Menu: React.FC<MenuProps> = (
-    {
-        children,
-        isDisplayed,
-        minWidth,
-        maxWidth,
-        maxHeight,
-        className,
-        style,
-        onMouseEnter,
-        onMouseLeave,
-        anchorEl,
-        anchorElOrigin,
-        transformElOrigin,
-        anchorPosition,
-        onClose,
-        onEntering,
-        onEntered,
-        onExiting,
-        onExited,
-        hasOverlay,
-        hasSearch,
-        searchEmptyText,
-        ...props
-    }) => {
-    const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin);
+export const Menu: React.FC<MenuProps> = ({
+    children,
+    isDisplayed,
+    position,
+    minWidth,
+    maxWidth,
+    maxHeight,
+    className,
+    style,
+    onMouseEnter,
+    onMouseLeave,
+    anchorEl,
+    anchorElOrigin,
+    transformElOrigin,
+    anchorPosition,
+    onClose,
+    onEntering,
+    onEntered,
+    onExiting,
+    onExited,
+    hasOverlay,
+    hasSearch,
+    searchEmptyText,
+    ...props
+}) => {
+    const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, position);
     useEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);
     const [inputValue, setInputValue] = useState('');
     const [filteredChildren, setFilteredChildren] = useState(children);
     const [isEmptySearch, setIsEmptySearch] = useState(false);
 
+    // useEffect hook to filter the search results and determine whether to show the no search results text
     useEffect(() => {
         if (inputValue !== '') {
             if (Array.isArray(children)) {
@@ -201,15 +202,18 @@ export const Menu: React.FC<MenuProps> = (
     // ---
     // Styling
     // ---
-    const styleMenu: StyleMenu = {...stylePosition as StyleMenu, ...style};
+    const styleMenu: React.CSSProperties = {
+        position,
+        ...stylePosition as React.CSSProperties,
+        ...style
+    };
+
     if (minWidth) {
         styleMenu.minWidth = minWidth;
     }
-
     if (maxWidth) {
         styleMenu.maxWidth = maxWidth;
     }
-
     if (maxHeight) {
         styleMenu.maxHeight = maxHeight;
     }
@@ -269,6 +273,7 @@ Menu.defaultProps = {
     hasOverlay: true,
     hasSearch: false,
     searchEmptyText: 'No results found.',
+    position: 'fixed',
     anchorEl: null,
     anchorPosition: {
         top: 0,

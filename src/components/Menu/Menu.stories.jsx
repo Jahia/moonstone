@@ -114,6 +114,36 @@ storiesOf('Components/Menu', module)
             </div>
         );
     })
+    .add('Position Absolute', () => {
+        return (
+            <div style={{transform: 'scale(1)', height: '100vh'}}>
+                <div style={{position: 'relative', transform: 'translate(90px, 90px)', width: '100px', height: '100px'}}>
+                    <div
+                        style={{height: '100%', width: '100%', backgroundColor: 'var(--color-accent)', cursor: 'pointer', padding: '10px'}}
+                    >
+                        Parent div is position: relative.
+                    </div>
+                    <Menu
+                        isDisplayed={boolean('display', true)}
+                        position={select('position', ['absolute', 'fixed'], 'absolute')}
+                        anchorPosition={{top: number('top', 4), left: number('left', 0)}}
+                        anchorElOrigin={{
+                            vertical: select('anchor-vertical', ['top', 'bottom', 'center'], 'bottom'),
+                            horizontal: select('anchor-horizontal', ['left', 'right', 'center'], 'left')
+                        }}
+                        transformElOrigin={{
+                            vertical: select('transform-vertical', ['top', 'bottom'], 'top'),
+                            horizontal: select('transform-horizontal', ['left', 'right'], 'left')
+                        }}
+                    >
+                        <MenuItem label="Item1"/>
+                        <MenuItem label="Item2"/>
+                        <MenuItem label="Item3"/>
+                    </Menu>
+                </div>
+            </div>
+        );
+    })
     .add('Big Image Menu Items', () => (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <Menu

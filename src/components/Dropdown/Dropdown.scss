@@ -8,6 +8,10 @@ $border-width: 1px;
     background-color: var(--color-accent);
 }
 
+.moonstone-dropdown_container {
+    position: relative;
+}
+
 .moonstone-dropdown_icon {
     display: flex;
     margin-right: var(--spacing-nano);
