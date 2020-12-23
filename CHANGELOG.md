@@ -1,3 +1,27 @@
+# v1.0.0 (Wed Dec 23 2020)
+
+#### 💥 Breaking Change
+
+- MOON-223: Fix Dropdown Menu positioning in modals [#216](https://github.com/Jahia/moonstone/pull/216) ([@vindhya](https://github.com/vindhya))
+
+#### 🐛 Bug Fix
+
+- MOON-228: Allow displaying dropdown with an empty array [#215](https://github.com/Jahia/moonstone/pull/215) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-219: Fix error when an empty array is used as data on dropdown [#213](https://github.com/Jahia/moonstone/pull/213) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🏠 Internal
+
+- MOON-229: Revert changes to Github action to deploy Storybook to Github pages [#217](https://github.com/Jahia/moonstone/pull/217) ([@vindhya](https://github.com/vindhya))
+- Add babel-helpers [#214](https://github.com/Jahia/moonstone/pull/214) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 3
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+- Vindhya ([@vindhya](https://github.com/vindhya))
+
+---
+
 # v0.17.4 (Tue Dec 08 2020)
 
 #### 🐛 Bug Fix
