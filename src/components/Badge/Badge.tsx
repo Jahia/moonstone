@@ -51,6 +51,11 @@ export const Badge: FunctionComponent<BadgeProps> = ({
         `moonstone-${type}`,
         className
     );
+
+    if (!label || label.length < 1) {
+        return null
+    }
+
     if (type === BadgeType.Round) {
         return (
             <Typography isNowrap component="span" variant="caption" weight="bold" className={classNameProps} {...other}>
@@ -58,6 +63,7 @@ export const Badge: FunctionComponent<BadgeProps> = ({
             </Typography>
         );
     }
+
     return (
         <div className={classNameProps} {...other}/>
     );

@@ -52,6 +52,11 @@ describe('Accordion', () => {
         expect(wrapper.html()).toContain('data-custom="test"');
     });
 
+    it('should display nothing when the component has no children', () => {
+        const wrapper = shallow(<Accordion/>);
+        expect(wrapper.html()).toEqual('');
+    });
+
     describe('withAccordionItem Mock', () => {
         // eslint-disable-next-line react/prop-types
         const AccordionItemMock = ({id}) => {

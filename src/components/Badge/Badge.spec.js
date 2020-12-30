@@ -42,4 +42,14 @@ describe('Badge', () => {
         const wrapper = shallow(<Badge label="3" type="round" color="success"/>);
         expect(wrapper.html()).toContain('color_success');
     });
+
+    it('should display nothing when no label is provided', () => {
+        const wrapper = shallow(<Badge/>);
+        expect(wrapper.html()).toEqual('');
+    });
+
+    it('should display nothing when label is an empty string', () => {
+        const wrapper = shallow(<Badge label=""/>);
+        expect(wrapper.html()).toEqual('');
+    });
 });

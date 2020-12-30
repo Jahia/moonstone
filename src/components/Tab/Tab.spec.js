@@ -17,4 +17,9 @@ describe('Tab', () => {
         const tab = shallow(<Tab className="customization">toto</Tab>);
         expect(tab.html()).toContain('customization');
     });
+
+    it('should not display the menu when children is empty', () => {
+        const tab = shallow(<Tab className="customization">{[]}</Tab>);
+        expect(tab.html()).toContain('');
+    });
 });

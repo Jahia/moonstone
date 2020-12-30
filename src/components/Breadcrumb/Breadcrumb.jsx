@@ -9,6 +9,10 @@ export const Breadcrumb = ({children, className, ...props}) => {
 
     const allItems = React.Children.toArray(children);
 
+    if (!children || allItems.length < 1) {
+        return null;
+    }
+
     return (
         <nav className={classNames} aria-label="breadcrumb" {...props}>
             <ol className={classnames('flexRow_nowrap', 'alignCenter')}>

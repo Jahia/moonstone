@@ -3,6 +3,11 @@ import {shallow} from 'component-test-utils-react';
 import {Typography, variants, weights} from './index';
 
 describe('Typography', () => {
+    it('should display nothing when no children', () => {
+        const wrapper = shallow(<Typography/>);
+        expect(wrapper.html()).toEqual('');
+    });
+
     it('should display a text children', () => {
         const wrapper = shallow(<Typography>Content children</Typography>);
         expect(wrapper.html()).toContain('Content children');

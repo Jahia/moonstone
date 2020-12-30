@@ -12,6 +12,11 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
     children,
     ...props
 }: ButtonGroupProps) => {
+
+    if (!children || React.Children.count(children) < 1) {
+        return null;
+    }
+
     return (
         <div
             role="group"

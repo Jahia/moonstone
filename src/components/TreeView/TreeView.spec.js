@@ -2,6 +2,7 @@ import React from 'react';
 import {shallow} from 'component-test-utils-react';
 import {ControlledTreeView} from './ControlledTreeView';
 import {UncontrolledTreeView} from './UncontrolledTreeView';
+import {TreeView} from './TreeView';
 import Love from '~/icons/Love';
 import Cloud from '~/icons/Cloud';
 import ChevronDown from '~/icons/ChevronDown';
@@ -21,6 +22,16 @@ const tree = [
 ];
 
 describe('TreeView', () => {
+    it('should not display TreeView when data is not an array', () => {
+        const wrapper = shallow(<TreeView data="toto"/>);
+        expect(wrapper.html()).toEqual('');
+    });
+
+    it('should not display TreeView when data is empty', () => {
+        const wrapper = shallow(<TreeView data={[]}/>);
+        expect(wrapper.html()).toEqual('');
+    });
+
     it('should display TreeView', () => {
         const wrapper = shallow(<ControlledTreeView data={tree}/>);
         expect(wrapper.html());

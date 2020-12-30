@@ -167,6 +167,10 @@ export const Menu: React.FC<MenuProps> = ({
     searchEmptyText,
     ...props
 }) => {
+    if (!children || React.Children.count(children) < 1) {
+        return null;
+    }
+
     const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, position);
     useEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);
     const [inputValue, setInputValue] = useState('');
