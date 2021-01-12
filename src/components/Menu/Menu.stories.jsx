@@ -8,7 +8,8 @@ import {Separator} from '~/components';
 storiesOf('Components/Menu', module)
     .addParameters({
         component: Menu,
-        notes: {markdown: markdownNotes}
+        notes: {markdown: markdownNotes},
+        subcomponents: {'Menu Item': MenuItem}
     })
     .addDecorator(withKnobs)
     .add('Default', () => (
