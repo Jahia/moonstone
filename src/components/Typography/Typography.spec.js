@@ -1,6 +1,7 @@
 import React from 'react';
-import {Typography, variants, weights} from './index.ts';
 import {shallow} from 'component-test-utils-react';
+import {Typography} from './index.ts';
+import {variants, weights} from '~/shared-types/typography.types';
 
 describe('Typography', () => {
     it('should display a text children', () => {
