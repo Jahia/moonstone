@@ -1,6 +1,7 @@
 import * as React from 'react';
+import {ButtonSize, ButtonColor, ButtonVariant} from '~/components/Button/Button.types';
 
-export interface ButtonGroupProps {
+export type ButtonGroupProps = {
     /**
      * Buttons grouped
      */
@@ -8,15 +9,15 @@ export interface ButtonGroupProps {
     /**
      * Buttons size
      */
-    size?: any;
+    size?: ButtonSize;
     /**
      * Button style
      */
-    variant?: any;
+    variant?: ButtonVariant;
     /**
      * Button color
      */
-    color?: any;
+    color?: ButtonColor;
     /**
      * Is button color reversed
      */
@@ -26,6 +27,3 @@ export interface ButtonGroupProps {
      */
     className?: string;
 }
-
-export const ButtonGroup: React.SFC<ButtonGroupProps>;
-
