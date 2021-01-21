@@ -1,53 +1,54 @@
-import * as React from 'react';
+import React from 'react';
+import {ButtonSize, ButtonVariant, ButtonColor} from '~/shared-types/button.types';
 
-export type ButtonSize = "small" | "default" | "big";
-
-export type ButtonVariant = "default" | "ghost" | "outlined";
-
-export type ButtonColor = "default" | "accent" | "danger";
-
-export interface ButtonProps {
+export type ButtonProps = {
     /**
      * Button label
      */
     label?: React.ReactNode;
+
     /**
      * Does the label contain HTML markup
      */
     isHtml?: boolean;
+
     /**
      * Icon size
      */
     size?: ButtonSize;
+
     /**
-     * Icon name, if it's empty the button has no icon
+     * Icon component, if it's empty the button has no icon
      */
-    icon?: React.ReactElement<any>;
+    icon?: React.ReactElement;
+
     /**
      * Button style
      */
     variant?: ButtonVariant;
+
     /**
      * Button color
      */
     color?: ButtonColor;
+
     /**
      * Is button disabled
      */
     isDisabled?: boolean;
-    /**
-     * Function trigger on click
-     */
-    onClick: (...args: any[])=>any;
+
     /**
      * Is button color reversed
      */
     isReversed?: boolean;
+
     /**
      * Additional classname
      */
     className?: string;
+
+    /**
+     * Function trigger on click
+     */
+    onClick: React.MouseEventHandler;
 }
-
-export const Button: React.SFC<ButtonProps>;
-

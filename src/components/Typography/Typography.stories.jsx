@@ -4,7 +4,8 @@ import {storiesOf} from '@storybook/react';
 import {boolean, select, withKnobs} from '@storybook/addon-knobs';
 import storyStyles from '~/__storybook__/storybook.module.scss';
 
-import {Typography, variants, weights} from './index';
+import {Typography} from './index';
+import {variants, weights} from '~/shared-types/typography.types';
 import markdownNotes from './Typography.md';
 
 storiesOf('Tokens/Typography', module)

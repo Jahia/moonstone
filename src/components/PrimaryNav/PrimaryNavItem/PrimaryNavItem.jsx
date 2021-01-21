@@ -2,7 +2,8 @@ import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import './PrimaryNavItem.scss';
 import classnames from 'clsx';
-import {Typography, variants as typographyVariants} from '~/components/Typography';
+import {Typography} from '~/components/Typography';
+import {variants as typographyVariants} from '~/shared-types/typography.types';
 import {PrimaryNavContext} from '../PrimaryNav.context';
 
 // Internal component
