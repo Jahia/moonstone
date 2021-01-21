@@ -4,7 +4,8 @@ import {storiesOf} from '@storybook/react';
 import {boolean, select, text, withKnobs} from '@storybook/addon-knobs';
 
 import markdownNotes from './Chip.md';
-import {Chip, colors} from './index';
+import {Chip} from './index';
+import {colors} from './Chip.types';
 import {capitalize} from '~/__storybook__/utils';
 import CloudIcon from '~/icons/Cloud';
 import DefaultIcon from '~/icons/Apps';
@@ -68,9 +69,10 @@ storiesOf('Components/Chip', module)
         </>
     ))
     .add('playground', () => (
-        <Chip label={labelValue('Playground')}
-              icon={<DefaultIcon/>}
-              color={colorValues()}
-              isDisabled={boolean('Is disabled', false)}
+        <Chip
+            label={labelValue('Playground')}
+            icon={<DefaultIcon/>}
+            color={colorValues()}
+            isDisabled={boolean('Is disabled', false)}
         />
     ));
