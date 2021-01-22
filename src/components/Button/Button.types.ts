@@ -1,5 +1,13 @@
 import React from 'react';
-import {ButtonSize, ButtonVariant, ButtonColor} from '~/shared-types/button.types';
+
+export type ButtonSize = 'small' | 'default' | 'big';
+export const buttonSizes = ['small', 'default', 'big'];
+
+export type ButtonVariant = 'default' | 'ghost' | 'outlined';
+export const buttonVariants = ['default', 'ghost', 'outlined'];
+
+export type ButtonColor = 'default' | 'accent' | 'danger';
+export const buttonColors = ['default', 'accent', 'danger'];
 
 export type ButtonProps = {
     /**

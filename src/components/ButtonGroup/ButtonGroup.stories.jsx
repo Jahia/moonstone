@@ -6,7 +6,7 @@ import storyStyles from '~/__storybook__/storybook.module.scss';
 
 import markdownNotes from './ButtonGroup.md';
 import {Button} from '~/components/Button';
-import {buttonColors, buttonSizes, buttonVariants} from '~/shared-types/button.types';
+import {buttonColors, buttonSizes, buttonVariants} from '~/components/Button/Button.types';
 import {ChevronDown} from '~/icons';
 import {ButtonGroup} from './index';
 

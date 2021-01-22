@@ -8,7 +8,7 @@ import {iconsName} from '~/__storybook__/utils';
 
 import markdownNotes from './Button.md';
 import {Button} from './index';
-import {buttonColors, buttonSizes, buttonVariants} from '~/shared-types/button.types';
+import {buttonColors, buttonSizes, buttonVariants} from './Button.types';
 
 const labelValue = () => text('Label', 'Button');
 const colorValues = () => select('Color', buttonColors, 'default');

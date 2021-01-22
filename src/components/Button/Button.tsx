@@ -1,9 +1,8 @@
 import React, {useRef} from 'react';
 import classnames from 'clsx';
 import './Button.scss';
-import {Typography} from '../Typography';
+import {Typography, TypographyWeight} from '../Typography';
 import {ButtonProps} from './Button.types';
-import {TypographyWeight} from '~/shared-types/typography.types';
 
 export const Button: React.FC<ButtonProps> = ({
     label = '',
