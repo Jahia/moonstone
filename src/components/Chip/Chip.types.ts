@@ -1,8 +1,9 @@
 import * as React from 'react';
 
-export type ChipColor = "default" | "accent" | "success" | "warning" | "danger" | "reassuring";
+export type ChipColor = 'default' | 'accent' | 'success' | 'warning' | 'danger' | 'reassuring';
+export const colors = ['default', 'accent', 'success', 'warning', 'danger', 'reassuring'];
 
-export interface ChipProps {
+export type ChipProps = {
     /**
      * Chip label
      */
@@ -14,7 +15,7 @@ export interface ChipProps {
     /**
      * Chip icon
      */
-    icon?: React.ReactNode;
+    icon?: React.ReactElement;
     /**
      * Additional classname
      */
@@ -24,6 +25,4 @@ export interface ChipProps {
      */
     isDisabled?: boolean;
 }
-
-export const Chip: React.SFC<ChipProps>;
 
