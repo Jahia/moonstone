@@ -1,13 +1,11 @@
 import React, {FunctionComponent} from 'react';
-import './Typography.scss';
 import classnames from 'clsx';
+import './Typography.scss';
 
-type TTypographyVariant = 'title' | 'heading' | 'subheading' | 'body' | 'caption' | 'button';
-// Change this to an enum when PrimaryNavItem is converted to typescript
+export type TypographyVariant = 'title' | 'heading' | 'subheading' | 'body' | 'caption' | 'button';
 export const variants = ['title', 'heading', 'subheading', 'body', 'caption', 'button'];
 
-type TTypographyWeight = 'default' | 'bold' | 'semiBold' | 'light';
-// Change this to an enum when PrimaryNavItem is converted to typescript
+export type TypographyWeight = 'default' | 'bold' | 'semiBold' | 'light';
 export const weights = ['default', 'bold', 'semiBold', 'light'];
 
 interface TypographyProps {
@@ -26,11 +24,11 @@ interface TypographyProps {
     /**
      * Variant to use
      */
-    variant?: TTypographyVariant;
+    variant?: TypographyVariant;
     /**
      * The weight of the font to use
      */
-    weight?: TTypographyWeight;
+    weight?: TypographyWeight;
     /**
      * Should the text be displayed in italic
      */

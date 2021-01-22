@@ -10,6 +10,9 @@ module.exports = {
                 '~': './src'
             }
         }],
+        ['babel-plugin-typescript-to-proptypes', {
+            comments: true
+        }],
         ['transform-rename-import', {original: '^(.+?)\\.scss$', replacement: '$1.css'}],
         ['@babel/plugin-transform-runtime']
     ]

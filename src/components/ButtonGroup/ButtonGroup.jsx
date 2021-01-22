@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './ButtonGroup.scss';
 import classnames from 'clsx';
-import {buttonSizes, buttonVariants, buttonColors} from '~/components/Button';
+import {buttonSizes, buttonVariants, buttonColors} from '~/components/Button/Button.types';
 
 export const ButtonGroup = ({size, isReversed, variant, color, className, children, ...props}) => {
     return (

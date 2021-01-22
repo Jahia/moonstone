@@ -1,6 +1,7 @@
 import React from 'react';
 import {shallow} from 'component-test-utils-react';
-import {Button, buttonColors, buttonSizes, buttonVariants} from './index';
+import {Button} from './index';
+import {buttonColors, buttonSizes, buttonVariants} from './Button.types.ts';
 import Love from '~/icons/Love';
 
 describe('Button', () => {

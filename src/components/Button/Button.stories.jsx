@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'classnames';
+import classnames from 'clsx';
 import {storiesOf} from '@storybook/react';
 import {boolean, select, text, withKnobs} from '@storybook/addon-knobs';
 import storyStyles from '~/__storybook__/storybook.module.scss';
@@ -7,7 +7,8 @@ import IconWrapper from '~/__storybook__/IconWrapper';
 import {iconsName} from '~/__storybook__/utils';
 
 import markdownNotes from './Button.md';
-import {Button, buttonColors, buttonSizes, buttonVariants} from './index';
+import {Button} from './index';
+import {buttonColors, buttonSizes, buttonVariants} from './Button.types';
 
 const labelValue = () => text('Label', 'Button');
 const colorValues = () => select('Color', buttonColors, 'default');
