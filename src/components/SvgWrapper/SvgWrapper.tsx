@@ -1,28 +1,26 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {SvgWrapperProps} from './SvgWrapper.types';
 
-export const SvgWrapperSize = ['small', 'default', 'big'];
-
-const camelCased = s => s.replace(/-([a-z])/g, function (g) {
+const camelCased = (s: string) => s.replace(/-([a-z])/g, g => {
     return g[1].toUpperCase();
 });
 
-const toComp = (node, idx) => {
+const toComp = (node: HTMLElement, idx: number) => {
     if (node.nodeType === 1) {
-        let props = {key: idx};
-        Array.prototype.slice.call(node.attributes).forEach(attr => {
+        const props = {key: idx};
+        Array.prototype.slice.call(node.attributes).forEach((attr: any) => {
             props[camelCased(attr.name)] = attr.value;
         });
-        let children = Array.prototype.slice.call(node.childNodes).map((child, idxChild) => toComp(child, idxChild));
+        const children = Array.prototype.slice.call(node.childNodes).map((child: HTMLElement, idxChild: number) => toComp(child, idxChild));
         return React.createElement(node.tagName, props, children);
     }
 };
 
-export const SvgWrapper = initialProps => {
-    let {svg, size, ...props} = initialProps;
+export const SvgWrapper: React.FC<SvgWrapperProps> = initialProps => {
+    const {svg, size, ...props} = initialProps;
     const parser = new DOMParser();
 
-    const doc = parser.parseFromString(svg, 'image/svg+xml');
+    const doc: Document = parser.parseFromString(svg, 'image/svg+xml');
     const viewBox = doc.documentElement.attributes.viewBox ? doc.documentElement.attributes.viewBox.value : null;
     const fill = doc.documentElement.attributes.fill ? doc.documentElement.attributes.fill.value : null;
     const children = Array.prototype.slice.call(doc.documentElement.childNodes).map((child, idx) => toComp(child, idx));
@@ -37,21 +35,4 @@ export const SvgWrapper = initialProps => {
 SvgWrapper.defaultProps = {
     size: 'default',
     className: ''
-};
-
-SvgWrapper.propTypes = {
-    /**
-     * Svg as a string
-     */
-    svg: PropTypes.string.isRequired,
-
-    /**
-     * Svg size
-     */
-    size: PropTypes.oneOf(SvgWrapperSize),
-
-    /**
-     * Extra CSS class
-     */
-    className: PropTypes.string
 };
