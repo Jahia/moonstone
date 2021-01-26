@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export type BreadcrumbItemProps {
+export type BreadcrumbItemProps = {
     /**
      * Additional classname
      */
