@@ -1,19 +1,27 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './ButtonGroup.scss';
 import classnames from 'clsx';
-import {buttonSizes, buttonVariants, buttonColors} from '~/components/Button/Button.types';
+import {ButtonGroupProps} from './ButtonGroup.types';
 
-export const ButtonGroup = ({size, isReversed, variant, color, className, children, ...props}) => {
+export const ButtonGroup: React.FC<ButtonGroupProps> = ({
+    size = 'default',
+    isReversed = false,
+    variant = 'default',
+    color = 'default',
+    className = null,
+    children,
+    ...props
+}: ButtonGroupProps) => {
     return (
-        <div role="group"
-             className={classnames(
+        <div
+            role="group"
+            className={classnames(
                 'moonstone-buttonGroup',
                 className,
                 'flexRow',
                 'alignCenter'
             )}
-             {...props}
+            {...props}
         >
             {
                 React.Children.map(children, button => {
@@ -38,46 +46,6 @@ export const ButtonGroup = ({size, isReversed, variant, color, className, childr
             }
         </div>
     );
-};
-
-ButtonGroup.defaultProps = {
-    size: 'default',
-    variant: 'default',
-    color: 'default',
-    isReversed: false,
-    className: null
-};
-
-ButtonGroup.propTypes = {
-    /**
-     * Buttons grouped
-     */
-    children: PropTypes.node.isRequired,
-
-    /**
-     * Buttons size
-     */
-    size: PropTypes.oneOf(buttonSizes),
-
-    /**
-     * Button style
-     */
-    variant: PropTypes.oneOf(buttonVariants),
-
-    /**
-     * Button color
-     */
-    color: PropTypes.oneOf(buttonColors),
-
-    /**
-     * Is button color reversed
-     */
-    isReversed: PropTypes.bool,
-
-    /**
-     * Additional classname
-     */
-    className: PropTypes.string
 };
 
 ButtonGroup.displayName = 'ButtonGroup';
