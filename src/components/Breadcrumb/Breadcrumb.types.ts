@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export interface BreadcrumbProps {
+export type BreadcrumbProps = {
     /**
      * Additional classname
      */
@@ -10,6 +10,4 @@ export interface BreadcrumbProps {
      */
     children?: React.ReactNode;
 }
-
-export const Breadcrumb: React.SFC<BreadcrumbProps>;
 

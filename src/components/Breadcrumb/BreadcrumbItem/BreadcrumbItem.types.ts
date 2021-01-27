@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export interface BreadcrumbItemProps {
+export type BreadcrumbItemProps = {
     /**
      * Additional classname
      */
@@ -16,8 +16,6 @@ export interface BreadcrumbItemProps {
     /**
      * Function trigger on click
      */
-    onClick: (...args: any[])=>any;
+    onClick: React.MouseEventHandler;
 }
-
-export const BreadcrumbItem: React.SFC<BreadcrumbItemProps>;
 
