@@ -5,6 +5,10 @@ import {ControlledAccordion} from './ControlledAccordion';
 import {AccordionItem} from './AccordionItem';
 
 export const Accordion = ({children, defaultOpenedItem, openedItem, onSetOpenedItem, ...props}) => {
+    if (!children) {
+        return null;
+    }
+
     if (typeof openedItem === 'undefined') {
         return <UncontrolledAccordion defaultOpenedItem={defaultOpenedItem} {...props}>{children}</UncontrolledAccordion>;
     }

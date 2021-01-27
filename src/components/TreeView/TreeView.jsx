@@ -3,12 +3,17 @@ import PropTypes from 'prop-types';
 import {UncontrolledTreeView} from './UncontrolledTreeView';
 import {ControlledTreeView} from './ControlledTreeView';
 
-export const TreeView = ({openedItems, defaultOpenedItems, onOpenItem, onCloseItem, ...others}) => {
-    if (typeof openedItems === 'undefined') {
-        return <UncontrolledTreeView defaultOpenedItems={defaultOpenedItems} {...others}/>;
+export const TreeView = ({openedItems, defaultOpenedItems, onOpenItem, onCloseItem, data, ...others}) => {
+    // If no data render nothing
+    if (!Array.isArray(data) || data.length < 1) {
+        return null;
     }
 
-    return <ControlledTreeView openedItems={openedItems} onOpenItem={onOpenItem} onCloseItem={onCloseItem} {...others}/>;
+    if (typeof openedItems === 'undefined') {
+        return <UncontrolledTreeView defaultOpenedItems={defaultOpenedItems} data={data} {...others}/>;
+    }
+
+    return <ControlledTreeView openedItems={openedItems} data={data} onOpenItem={onOpenItem} onCloseItem={onCloseItem} {...others}/>;
 };
 
 TreeView.propTypes = {

@@ -74,8 +74,12 @@ export const Typography: FunctionComponent<TypographyProps> = ({
     isNowrap = false,
     isHtml = false,
     ...props
-}: TypographyProps) =>
-    React.createElement(
+}: TypographyProps) => {
+    if (!children) {
+        return null
+    }
+
+    return React.createElement(
         component,
         {
             ...filterOutIsHtml(props),
@@ -91,5 +95,6 @@ export const Typography: FunctionComponent<TypographyProps> = ({
         },
         children
     );
+}
 
 Typography.displayName = 'Typography';

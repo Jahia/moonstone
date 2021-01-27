@@ -4,6 +4,10 @@ import './Tab.scss';
 import classnames from 'clsx';
 
 export const Tab = ({children, className, ...props}) => {
+    if (!children || React.Children.count(children) < 1) {
+        return null;
+    }
+
     return (
         <div
             {...props}

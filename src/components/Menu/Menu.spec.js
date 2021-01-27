@@ -10,6 +10,11 @@ describe('Menu', () => {
         expect(screen.getByTestId('moonstone-menu')).toHaveClass('moonstone-hidden');
     });
 
+    it('should not display the menu when children is empty', () => {
+        const {queryByTestId} = render(<Menu isDisplayed data-testid="moonstone-menu">{[]}</Menu>);
+        expect(queryByTestId('moonstone-menu')).not.toBeInTheDocument();
+    });
+
     it('should show the correct search results', () => {
         render(
             <Menu isDisplayed hasSearch data-testid="moonstone-menu">

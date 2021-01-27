@@ -23,6 +23,20 @@ describe('ButtonGroup', () => {
         expect(buttonGroup.html());
     });
 
+    it('should display nothing when no children is provided', () => {
+        const buttonGroup = shallow(
+            <ButtonGroup/>
+        );
+        expect(buttonGroup.html()).toEqual('');
+    });
+
+    it('should display nothing when children is empty', () => {
+        const buttonGroup = shallow(
+            <ButtonGroup>{[]}</ButtonGroup>
+        );
+        expect(buttonGroup.html()).toEqual('');
+    });
+
     it('should pass color variant to buttons', () => {
         const buttonGroup = shallow(
             <ButtonGroup color="accent">
