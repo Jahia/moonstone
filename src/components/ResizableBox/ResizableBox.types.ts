@@ -6,17 +6,17 @@ export type ResizableBoxMinWidth = string | number;
 
 export type ResizableBoxMaxWidth = string | number;
 
-export interface ResizableBoxDefaultSize {
+export type ResizableBoxDefaultSize = {
     width?: string | number;
     height?: string | number;
 }
 
-export interface ResizableBoxSize {
+export type ResizableBoxSize = {
     width?: string | number;
     height?: string | number;
 }
 
-export interface ResizableBoxProps {
+export type ResizableBoxProps = {
     /**
      * Content of the component
      */
@@ -66,6 +66,4 @@ export interface ResizableBoxProps {
      */
     onResizeStop?: (...args: any[])=>any;
 }
-
-export const ResizableBox: React.SFC<ResizableBoxProps>;
 
