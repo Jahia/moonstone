@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import './Tab.scss';
 import classnames from 'clsx';
+import './Tab.scss';
+import {TabProps} from './Tab.types';
 
-export const Tab = ({children, className, ...props}) => {
+export const Tab: React.FC<TabProps> = ({children, className = '', ...props}: TabProps) => {
     if (!children || React.Children.count(children) < 1) {
         return null;
     }
@@ -21,22 +21,6 @@ export const Tab = ({children, className, ...props}) => {
             {children}
         </div>
     );
-};
-
-Tab.defaultProps = {
-    className: ''
-};
-
-Tab.propTypes = {
-    /**
-     * Content of Tab component
-     */
-    children: PropTypes.node.isRequired,
-
-    /**
-     * Additional classname
-     */
-    className: PropTypes.string
 };
 
 Tab.displayName = 'Tab';

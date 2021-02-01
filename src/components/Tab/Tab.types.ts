@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export interface TabProps {
+export type TabProps = {
     /**
      * Content of Tab component
      */
@@ -10,6 +10,4 @@ export interface TabProps {
      */
     className?: string;
 }
-
-export const Tab: React.SFC<TabProps>;
 
