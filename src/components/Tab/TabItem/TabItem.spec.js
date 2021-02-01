@@ -1,6 +1,7 @@
 import React from 'react';
 import {shallow} from 'component-test-utils-react';
-import {TabItem, tabItemColors, tabItemSizes, tabItemVariants} from './index';
+import {TabItem} from './index';
+import {tabItemColors, tabItemSizes, tabItemVariants} from './TabItem.types';
 import Love from '~/icons/Love';
 
 describe('TabItem', () => {
