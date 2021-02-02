@@ -7,7 +7,8 @@ import IconWrapper from '~/__storybook__/IconWrapper';
 import {iconsName} from '~/__storybook__/utils';
 
 import markdownNotes from './TabItem.md';
-import {TabItem, tabItemColors, tabItemSizes, tabItemVariants} from './index';
+import {TabItem} from './index';
+import {tabItemColors, tabItemSizes, tabItemVariants} from './TabItem.types';
 
 const labelValue = () => text('Label', 'TabItem');
 const colorValues = () => select('Color', tabItemColors, 'default');

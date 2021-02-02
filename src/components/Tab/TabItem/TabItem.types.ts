@@ -1,12 +1,15 @@
 import * as React from 'react';
 
-export type TabItemSize = "default";
+export type TabItemSize = 'default' | 'big';
+export const tabItemSizes = ['default', 'big'];
 
-export type TabItemVariant = "ghost";
+export type TabItemVariant = 'ghost';
+export const tabItemVariants = ['ghost'];
 
-export type TabItemColor = "default";
+export type TabItemColor = 'default';
+export const tabItemColors = ['default'];
 
-export interface TabItemProps {
+export type TabItemProps = {
     /**
      * The component used for the root node
      */
@@ -22,7 +25,7 @@ export interface TabItemProps {
     /**
      * Icon name, if it's empty the tabItem has no icon
      */
-    icon?: React.ReactElement<any>;
+    icon?: React.ReactElement;
     /**
      * TabItem style
      */
@@ -42,7 +45,7 @@ export interface TabItemProps {
     /**
      * Function trigger on click
      */
-    onClick: (...args: any[])=>any;
+    onClick: React.MouseEventHandler;
     /**
      * Is tabItem color reversed
      */
@@ -52,6 +55,4 @@ export interface TabItemProps {
      */
     className?: string;
 }
-
-export const TabItem: React.SFC<TabItemProps>;
 

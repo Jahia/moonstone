@@ -8,7 +8,7 @@ import {iconsName} from '~/__storybook__/utils';
 
 import markdownNotes from './Tab.md';
 import {Tab} from './index';
-import {TabItem} from '../TabItem';
+import {TabItem} from './TabItem';
 
 const selectIcon = () => select('Icon', iconsName, 'Apps');
 const isSelected = () => boolean('Is selected', true);
