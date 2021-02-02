@@ -1,10 +1,9 @@
 import React from 'react';
 import classnames from 'clsx';
-import PropTypes from 'prop-types';
-
 import './LayoutApp.scss';
+import {LayoutAppProps} from './LayoutApp.types';
 
-export const LayoutApp = ({navigation, content}) => {
+export const LayoutApp: React.FC<LayoutAppProps> = ({navigation = null, content = null}) => {
     return (
         <div className={classnames('moonstone-layoutApp', 'flexRow_center', 'flexRow_nowrap')}>
             <div className={classnames('moonstone-slotNavigation')}>
@@ -15,23 +14,6 @@ export const LayoutApp = ({navigation, content}) => {
             </div>
         </div>
     );
-};
-
-LayoutApp.defaultProps = {
-    navigation: null,
-    content: null
-};
-
-LayoutApp.propTypes = {
-    /**
-     * Slot for the application's navigation
-     */
-    navigation: PropTypes.node,
-
-    /**
-     * Slot for the application's content
-     */
-    content: PropTypes.node
 };
 
 LayoutApp.displayName = 'LayoutApp';

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export interface LayoutModuleProps {
+export type LayoutModuleProps = {
     /**
      * Slot for the module's navigation
      */
@@ -14,6 +14,4 @@ export interface LayoutModuleProps {
      */
     component?: string;
 }
-
-export const LayoutModule: React.SFC<LayoutModuleProps>;
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export interface LayoutAppProps {
+export type LayoutAppProps = {
     /**
      * Slot for the application's navigation
      */
@@ -10,6 +10,3 @@ export interface LayoutAppProps {
      */
     content?: React.ReactNode;
 }
-
-export const LayoutApp: React.SFC<LayoutAppProps>;
-
