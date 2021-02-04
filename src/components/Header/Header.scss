@@ -1,0 +1,70 @@
+$header-minHeight: 64px;
+$header-toolbar-minheight: 35px;
+
+.moonstone-header {
+    min-height: $header-minHeight;
+    padding: var(--spacing-medium) var(--spacing-large) 0 var(--spacing-large);
+
+    box-shadow: 0 1px 8px var(--color-gray60);
+}
+
+// Set the same spacing between each elements (buttons, chips, ...)
+.moonstone-header_actions {
+    > * + * {
+        margin-left: var(--spacing-small);
+    }
+}
+
+//---
+// Main
+//---
+.moonstone-header_main {
+    margin-bottom: var(--spacing-small);
+}
+
+.moonstone-header_back {
+    margin-right: var(--spacing-small);
+}
+
+.moonstone-header_title {
+    color: var(--color-gray_dark);
+}
+
+// Set the spacing between the search and main actions
+.moonstone-header_search + .moonstone-header_mainActions {
+    margin-left: var(--spacing-large);
+}
+
+.moonstone-header_search {
+    margin-left: var(--spacing-big);
+}
+
+//---
+// Information Section
+//---
+.moonstone-header_information {
+    width: 100%;
+
+    padding: var(--spacing-small) 0;
+
+    // If there is no toolbar set a margin-bottom to get more space
+    &:last-child {
+        margin-bottom: var(--spacing-medium);
+    }
+}
+
+.moonstone-header_informationLeft,
+.moonstone-header_informationRight {
+    overflow: hidden;
+}
+
+.moonstone-header_informationLeft {
+    margin-right: var(--spacing-big);
+}
+
+//---
+// Toolbar Section
+//---
+.moonstone-header_toolbar {
+    height: $header-toolbar-minheight;
+}

@@ -7,6 +7,7 @@ export * from './Breadcrumb';
 export * from './Chip';
 export * from './Dropdown';
 export * from './GlobalStyle';
+export * from './Header';
 export * from './ImgWrapper';
 export * from './Input';
 export * from './ListItem';
