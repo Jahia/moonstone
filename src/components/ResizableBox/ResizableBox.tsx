@@ -17,7 +17,7 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
     onResizing,
     onResizeStop,
     ...props
-}: ResizableBoxProps) => {
+}) => {
     const enableZones: EnableZones = {};
 
     zones.forEach(zone => {
