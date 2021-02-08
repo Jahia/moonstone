@@ -3,11 +3,7 @@ import {Resizable} from 're-resizable';
 import classnames from 'clsx';
 import './ResizableBox.scss';
 import HandleResize from '~/icons/HandleResize';
-import {ResizableBoxProps} from './ResizableBox.types';
-
-// WIP
-// const zones = ['top', 'right', 'bottom', 'left', 'topRight', 'bottomRight', 'bottomLeft', 'topLeft'];
-const zones = ['right'];
+import {zones, EnableZones, ResizableBoxProps} from './ResizableBox.types';
 
 export const ResizableBox: React.FC<ResizableBoxProps> = ({
     enable = ['right'],
@@ -15,22 +11,22 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
     maxWidth = 200,
     defaultSize = {width: '100%', height: 'auto'},
     className = '',
-    size = {},
+    size,
     children = null,
     onResizeStart,
     onResizing,
     onResizeStop,
     ...props
 }: ResizableBoxProps) => {
-    const enableZones = {};
+    const enableZones: EnableZones = {};
 
     zones.forEach(zone => {
-        enableZones[zone] = enable.indexOf(zone) > -1;
+        enableZones[zone] = enable.indexOf(zone as any) > -1;
     });
 
     return (
         <Resizable
-            role="resizable-panel"
+            data-role="resizable-panel"
             enable={enableZones}
             minWidth={minWidth}
             maxWidth={maxWidth}
