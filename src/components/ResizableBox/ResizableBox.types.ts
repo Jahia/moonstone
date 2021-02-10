@@ -54,6 +54,10 @@ export type ResizableBoxProps = {
      */
     className?: string;
     /**
+     * Role
+     */
+    role?: string;
+    /**
      * Function triggered when the resize begins
      * @param {object} e - Mouse event
      * @param {string} dir - Direction resized

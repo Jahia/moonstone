@@ -26,7 +26,7 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
 
     return (
         <Resizable
-            data-role="resizable-panel"
+            role="resizable-panel"
             enable={enableZones}
             minWidth={minWidth}
             maxWidth={maxWidth}
