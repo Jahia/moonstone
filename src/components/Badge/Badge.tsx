@@ -2,34 +2,11 @@ import React, {FunctionComponent} from 'react';
 import './Badge.scss';
 import {Typography} from '~/components/Typography';
 import classnames from 'clsx';
-
-type TBadgeColor = 'accent' | 'success' | 'danger';
-export enum BadgeColor {
-    Accent = 'accent',
-    Success = 'success',
-    Danger = 'danger'
-}
-
-interface BadgeProps {
-    /**
-     * Badge label, only for type round
-     */
-    label?: string;
-
-    /**
-     * Badge color
-     */
-    color?: TBadgeColor;
-
-    /**
-     * Additional classname
-     */
-    className?: string;
-}
+import {BadgeProps} from './Badge.types';
 
 export const Badge: FunctionComponent<BadgeProps> = ({
     label = null,
-    color = BadgeColor.Accent,
+    color = 'accent',
     className,
     ...other
 }) => {

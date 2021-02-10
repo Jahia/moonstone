@@ -5,7 +5,8 @@ import classnames from 'clsx';
 import storyStyles from '~/__storybook__/storybook.module.scss';
 
 import markdownNotes from './Badge.md';
-import {Badge, BadgeColor} from './index';
+import {Badge} from './index';
+import {badgeColors} from './Badge.types';
 
 storiesOf('Components/Badge', module)
     .addParameters({
@@ -44,7 +45,7 @@ storiesOf('Components/Badge', module)
         <section className={classnames(storyStyles.storyWrapper)}>
             <Badge
                 label={text('Label', '3')}
-                color={select('Color', BadgeColor, BadgeColor.Accent)}
+                color={select('Color', badgeColors, 'accent')}
             />
         </section>
     ));
