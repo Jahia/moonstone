@@ -5,7 +5,7 @@ import classnames from 'clsx';
 import storyStyles from '~/__storybook__/storybook.module.scss';
 
 import markdownNotes from './Badge.md';
-import {Badge, BadgeColor, BadgeType} from './index';
+import {Badge, BadgeColor} from './index';
 
 storiesOf('Components/Badge', module)
     .addParameters({
@@ -13,29 +13,38 @@ storiesOf('Components/Badge', module)
         notes: {markdown: markdownNotes}
     })
     .addDecorator(withKnobs)
-    .add('Round', () => (
+    .add('Accent', () => (
         <section className={classnames(storyStyles.storyWrapper)}>
             <Badge
                 label={text('Label', '3')}
-                color={select('Color', BadgeColor, BadgeColor.Accent)}
+                color="accent"
             />
         </section>
 
     ))
-    .add('Diamond', () => (
+    .add('Success', () => (
         <section className={classnames(storyStyles.storyWrapper)}>
             <Badge
-                color={select('Color', BadgeColor, BadgeColor.Accent)}
-                type="diamond"
+                label={text('Label', '3')}
+                color="success"
             />
         </section>
+
+    ))
+    .add('Danger', () => (
+        <section className={classnames(storyStyles.storyWrapper)}>
+            <Badge
+                label={text('Label', '3')}
+                color="danger"
+            />
+        </section>
+
     ))
     .add('Playground', () => (
         <section className={classnames(storyStyles.storyWrapper)}>
             <Badge
                 label={text('Label', '3')}
                 color={select('Color', BadgeColor, BadgeColor.Accent)}
-                type={select('Type', BadgeType, BadgeType.Round)}
             />
         </section>
     ));

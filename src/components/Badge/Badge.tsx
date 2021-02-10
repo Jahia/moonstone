@@ -10,12 +10,6 @@ export enum BadgeColor {
     Danger = 'danger'
 }
 
-type TBadgeType = 'round' | 'diamond';
-export enum BadgeType {
-    Round = 'round',
-    Diamond = 'diamond'
-}
-
 interface BadgeProps {
     /**
      * Badge label, only for type round
@@ -28,11 +22,6 @@ interface BadgeProps {
     color?: TBadgeColor;
 
     /**
-     * Badge type
-     */
-    type?: TBadgeType;
-
-    /**
      * Additional classname
      */
     className?: string;
@@ -41,31 +30,24 @@ interface BadgeProps {
 export const Badge: FunctionComponent<BadgeProps> = ({
     label = null,
     color = BadgeColor.Accent,
-    type = BadgeType.Round,
     className,
     ...other
 }) => {
     const classNameProps = classnames(
         'moonstone-badge',
-        `moonstone-color_${color}`,
-        `moonstone-${type}`,
+        `moonstone-badge_round`,
+        `moonstone-badge_${color}`,
         className
     );
 
-    if (type === BadgeType.Round) {
-        if (!label || label.length < 1) {
-            return null
-        }
-
-        return (
-            <Typography isNowrap component="span" variant="caption" weight="bold" className={classNameProps} {...other}>
-                {label}
-            </Typography>
-        );
+    if (!label || label.length < 1) {
+        return null
     }
 
     return (
-        <div className={classNameProps} {...other}/>
+        <Typography isNowrap component="span" variant="caption" weight="bold" className={classNameProps} {...other}>
+            {label}
+        </Typography>
     );
 };
 
