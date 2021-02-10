@@ -1,0 +1,69 @@
+$pi: 3.14159;
+$loader-sizes: (
+    "small": 14px,
+    "medium": 50px,
+    "big": 80px
+);
+
+.moonstone-loader {
+    position: relative;
+}
+
+.moonstone-loader_circle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    fill: none;
+
+    stroke: var(--color-accent);
+    stroke-linecap: round;
+}
+
+.moonstone-loader_background {
+    stroke-width: 0.1rem;
+
+    stroke: var(--color-gray_light40);
+}
+
+@each $sizeName, $sizeValue in $loader-sizes {
+    $radius: $sizeValue * 0.4;
+    $const: $radius / $pi;
+    $circumference: 2 * $pi * $radius;
+
+    // stylelint-disable-next-line order/order
+    @keyframes animation-loader_#{$sizeName} {
+        0% {
+            stroke-dasharray: $const ($circumference - $const);
+            stroke-dashoffset: 0;
+        }
+
+        50% {
+            stroke-dasharray: $circumference / 2;
+            stroke-dashoffset: $circumference / 2;
+        }
+
+        100% {
+            stroke-dasharray: $const ($circumference - $const);
+            stroke-dashoffset: $circumference;
+        }
+    }
+
+    .moonstone-loader_#{$sizeName} {
+        width: $sizeValue;
+        height: $sizeValue;
+
+        .moonstone-loader_animation {
+            stroke-dasharray: $circumference;
+            stroke-width: 0.1rem;
+
+            animation: animation-loader_#{$sizeName} 1s cubic-bezier(1, 1, 1, 1) 0s infinite;
+        }
+
+        .moonstone-loader_circle {
+            r: $radius;
+        }
+    }
+}

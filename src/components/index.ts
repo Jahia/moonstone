@@ -10,6 +10,7 @@ export * from './GlobalStyle';
 export * from './ImgWrapper';
 export * from './Input';
 export * from './ListItem';
+export * from './Loader';
 export * from './Menu';
 export * from './PrimaryNav';
 export * from './PrimaryNav/PrimaryNavItem';
