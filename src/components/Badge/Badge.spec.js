@@ -1,55 +1,45 @@
 import React from 'react';
+import {render, screen} from '@testing-library/react';
 import {Badge} from './index';
-import {shallow} from 'component-test-utils-react';
 
 describe('Badge', () => {
     it('should display additional className', () => {
-        const wrapper = shallow(<Badge label="3" type="round" className="extra"/>);
-        expect(wrapper.html()).toContain('extra');
+        render(<Badge data-testid="moonstone-badge" label="3" className="extra"/>);
+        expect(screen.getByTestId('moonstone-badge')).toHaveClass('extra');
     });
 
-    it('should display additional attributes', () => {
-        const wrapper = shallow(<Badge label="3" type="round" data-custom="test"/>);
-        expect(wrapper.html()).toContain('data-custom="test"');
+    it('should add additional attributes', () => {
+        render(<Badge data-testid="moonstone-badge" label="3" data-custom="test"/>);
+        expect(screen.getByTestId('moonstone-badge')).toHaveAttribute('data-custom', 'test');
     });
 
     it('should display a label', () => {
-        const wrapper = shallow(<Badge label="3"/>);
-        expect(wrapper.html()).toContain('3');
-    });
-
-    it('should display a diamond Badge', () => {
-        const wrapper = shallow(<Badge label="3" type="diamond"/>);
-        expect(wrapper.html()).toContain('diamond');
-    });
-
-    it('should display a rounded Badge', () => {
-        const wrapper = shallow(<Badge label="3" type="round"/>);
-        expect(wrapper.html()).toContain('round');
+        render(<Badge label="test-label"/>);
+        expect(screen.getByText('test-label')).toBeTruthy();
     });
 
     it('should have accent color', () => {
-        const wrapper = shallow(<Badge label="3" type="round" color="accent"/>);
-        expect(wrapper.html()).toContain('color_accent');
+        render(<Badge data-testid="moonstone-badge" color="accent" label="test-label"/>);
+        expect(screen.getByTestId('moonstone-badge')).toHaveClass('moonstone-badge_accent');
     });
 
     it('should have danger color', () => {
-        const wrapper = shallow(<Badge label="3" type="round" color="danger"/>);
-        expect(wrapper.html()).toContain('color_danger');
+        render(<Badge data-testid="moonstone-badge" color="danger" label="test-label"/>);
+        expect(screen.getByTestId('moonstone-badge')).toHaveClass('moonstone-badge_danger');
     });
 
     it('should have success color', () => {
-        const wrapper = shallow(<Badge label="3" type="round" color="success"/>);
-        expect(wrapper.html()).toContain('color_success');
+        render(<Badge data-testid="moonstone-badge" color="success" label="test-label"/>);
+        expect(screen.getByTestId('moonstone-badge')).toHaveClass('moonstone-badge_success');
     });
 
     it('should display nothing when no label is provided', () => {
-        const wrapper = shallow(<Badge/>);
-        expect(wrapper.html()).toEqual('');
+        render(<Badge data-testid="moonstone-badge"/>);
+        expect(screen.queryByTestId('moonstone-badge')).not.toBeInTheDocument();
     });
 
     it('should display nothing when label is an empty string', () => {
-        const wrapper = shallow(<Badge label=""/>);
-        expect(wrapper.html()).toEqual('');
+        render(<Badge data-testid="moonstone-badge" label=""/>);
+        expect(screen.queryByTestId('moonstone-badge')).not.toBeInTheDocument();
     });
 });

@@ -3,34 +3,27 @@
 
     pointer-events: none;
 
-    &.moonstone-round {
+    &.moonstone-badge_round {
         display: flex;
         justify-content: center;
         align-items: center;
         min-width: 20px;
-        max-width: fit-content;
+        max-width: max-content;
         height: 20px;
         padding: var(--spacing-nano);
 
         border-radius: 2rem;
     }
 
-    &.moonstone-diamond {
-        width: 12px;
-        height: 12px;
-
-        transform: rotate(45deg);
-    }
-
-    &.moonstone-color_accent {
+    &.moonstone-badge_accent {
         background-color: var(--color-accent);
     }
 
-    &.moonstone-color_danger {
+    &.moonstone-badge_danger {
         background-color: var(--color-danger);
     }
 
-    &.moonstone-color_success {
+    &.moonstone-badge_success {
         background-color: var(--color-success);
     }
 }
