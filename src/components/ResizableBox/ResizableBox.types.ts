@@ -1,22 +1,30 @@
 import * as React from 'react';
+import {Size} from 're-resizable';
 
-export type ResizableBoxEnable = "right";
+export type EnableZones = {
+    // top?: boolean;
+    right?: boolean;
+    // bottom?: boolean;
+    // left?: boolean;
+    // topRight?: boolean;
+    // bottomRight?: boolean;
+    // bottomLeft?: boolean;
+    // topLeft?: boolean;
+};
+
+// WIP
+// const zones = ['top', 'right', 'bottom', 'left', 'topRight', 'bottomRight', 'bottomLeft', 'topLeft'];
+export const zones: Zones[] = ['right'];
+
+export type Zones = keyof EnableZones;
+
+export type ResizableBoxEnable = 'right';
 
 export type ResizableBoxMinWidth = string | number;
 
 export type ResizableBoxMaxWidth = string | number;
 
-export interface ResizableBoxDefaultSize {
-    width?: string | number;
-    height?: string | number;
-}
-
-export interface ResizableBoxSize {
-    width?: string | number;
-    height?: string | number;
-}
-
-export interface ResizableBoxProps {
+export type ResizableBoxProps = {
     /**
      * Content of the component
      */
@@ -36,15 +44,19 @@ export interface ResizableBoxProps {
     /**
      * Set the default size
      */
-    defaultSize?: ResizableBoxDefaultSize;
+    defaultSize?: Size;
     /**
      * Manage the size
      */
-    size?: ResizableBoxSize;
+    size?: Size;
     /**
      * Additional classname
      */
     className?: string;
+    /**
+     * Role
+     */
+    role?: string;
     /**
      * Function triggered when the resize begins
      * @param {object} e - Mouse event
@@ -66,6 +78,4 @@ export interface ResizableBoxProps {
      */
     onResizeStop?: (...args: any[])=>any;
 }
-
-export const ResizableBox: React.SFC<ResizableBoxProps>;
 
