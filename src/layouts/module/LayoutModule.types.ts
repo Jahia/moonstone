@@ -2,23 +2,37 @@ import * as React from 'react';
 
 export type LayoutModuleProps = {
     /**
-     * Slot for the module's navigation
+     * Module's navigation (SecondaryNavigation)
      */
     navigation?: React.ReactNode;
 
     /**
-     * Slot for the module's content
+     * The header element of the page
      */
-    content?: React.ReactNode;
+    header?: React.ReactElement,
 
     /**
-     * Replace the content by a loader
+     * Content of the page
      */
-    isLoading?: boolean;
+     content?: React.ReactNode;
 
     /**
      * The HTML markup used for the content node
      */
-    component?: string;
-}
+     component?: string;
 
+    /**
+     * Define if the content is centered
+     */
+    isCentered?: boolean;
+
+    /**
+     * Define if the content has padding
+     */
+    hasPadding?: boolean;
+
+    /**
+     * Replace the content by a loader
+     */
+     isLoading?: boolean;
+}
