@@ -1,16 +1,16 @@
 import React from 'react';
 import {Story} from '@storybook/react'
-import {Loader} from './index';
+import {Loader as LoaderCmp} from './index';
 import {LoaderProps} from './Loader.types';
 
 export default {
-    title: 'Components/Loading',
-    component: Loader
+    title: 'Components/Loader',
+    component: LoaderCmp
 };
 
-const Template: Story<LoaderProps> = args => <Loader {...args}/>;
+const Template: Story<LoaderProps> = args => <LoaderCmp {...args}/>;
 
-export const Loading = Template.bind({});
-Loading.args = {
+export const Loader = Template.bind({});
+Loader.args = {
     size: 'small'
 };
