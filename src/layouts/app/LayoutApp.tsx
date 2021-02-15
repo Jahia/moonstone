@@ -16,7 +16,7 @@ export const LayoutApp: React.FC<LayoutAppProps> = ({
 
     return (
         <div className={clsx('moonstone-layoutApp', 'flexRow_center', 'flexRow_nowrap')}>
-            <div className={clsx('moonstone-slotNavigation')}>
+            <div className={clsx('moonstone-layoutApp_navigation')}>
                 {navigation}
             </div>
             <div className={classNameProps}>
