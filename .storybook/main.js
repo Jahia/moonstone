@@ -9,6 +9,7 @@ module.exports = {
         '@storybook/addon-viewport',
         '@storybook/addon-storysource',
         '@storybook/addon-knobs',
+        '@storybook/addon-controls',
         '@storybook/addon-a11y'
     ]
 };
