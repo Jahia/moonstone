@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import {storiesOf} from '@storybook/react';
 import {boolean, select, text, withKnobs} from '@storybook/addon-knobs';
 import storyStyles from '~/__storybook__/storybook.module.scss';
@@ -28,24 +28,24 @@ storiesOf('Components/Tab/TabItem', module)
     .addDecorator(withKnobs)
     .add('TabItem with icon and label', () => (
         <div style={isReversed() ? {backgroundColor: 'var(--color-gray_dark)'} : null}>
-            <section className={classnames(storyStyles.storyGrid)}>
-                <div className={classnames(storyStyles.storyGridItem)}>
+            <section className={clsx(storyStyles.storyGrid)}>
+                <div className={clsx(storyStyles.storyGridItem)}>
                     <h3>Variant</h3>
                 </div>
                 {
                     tabItemColors.map(color => (
-                        <div key={color} className={classnames(storyStyles.storyGridItem)}>
+                        <div key={color} className={clsx(storyStyles.storyGridItem)}>
                             <h3>{color}</h3>
                         </div>
                     ))
                 }
             </section>
-            <section className={classnames(storyStyles.storyGrid)}>
-                <div className={classnames(storyStyles.storyGridItem)}>
+            <section className={clsx(storyStyles.storyGrid)}>
+                <div className={clsx(storyStyles.storyGridItem)}>
                     <h3>default</h3>
                 </div>
 
-                <div className={classnames(storyStyles.storyGridItem)}>
+                <div className={clsx(storyStyles.storyGridItem)}>
                     <TabItem icon={<IconWrapper iconName={selectIcon()}/>}
                              label={labelValue()}
                              color={colorValues()}

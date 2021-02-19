@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import './SecondaryNav.scss';
 import {ResizableBox} from '~/components/ResizableBox';
 import ChevronDoubleRight from '~/icons/ChevronDoubleRight';
@@ -17,7 +17,7 @@ export const SecondaryNav = ({header, children, isDefaultVisible, onToggled, cla
     return (
         <ResizableBox
             className={
-                classnames(
+                clsx(
                     className,
                     'flexFluid',
                     'flexCol_nowrap',
@@ -36,7 +36,7 @@ export const SecondaryNav = ({header, children, isDefaultVisible, onToggled, cla
             {...props}
         >
             <button type="button"
-                    className={classnames('moonstone-secondaryNav_buttonToggle')}
+                    className={clsx('moonstone-secondaryNav_buttonToggle')}
                     onClick={handleToggle}
             >
                 {isVisible &&
@@ -45,9 +45,9 @@ export const SecondaryNav = ({header, children, isDefaultVisible, onToggled, cla
                     <ChevronDoubleRight/>}
             </button>
 
-            <div className={classnames('moonstone-secondaryNav_wrapper', 'flexFluid', 'flexCol_nowrap')}>
+            <div className={clsx('moonstone-secondaryNav_wrapper', 'flexFluid', 'flexCol_nowrap')}>
                 {header}
-                <div className={classnames('flexFluid', 'flexCol_nowrap')}>
+                <div className={clsx('flexFluid', 'flexCol_nowrap')}>
                     {children}
                 </div>
             </div>

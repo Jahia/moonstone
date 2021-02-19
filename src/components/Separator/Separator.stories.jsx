@@ -1,7 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {withKnobs, select} from '@storybook/addon-knobs';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import storyStyles from '~/__storybook__/storybook.module.scss';
 
 import {Separator, SeparatorSizes, SeparatorSpacings, SeparatorInvisible, Typography} from '~/components';
@@ -39,8 +39,8 @@ storiesOf('Components/Separator', module)
         </div>
     ))
     .add('Invisible', () => (
-        <section className={classnames(storyStyles.storyColumn)}>
-            <div className={classnames(storyStyles.storyItem)}>
+        <section className={clsx(storyStyles.storyColumn)}>
+            <div className={clsx(storyStyles.storyItem)}>
                 <Typography variant="heading">Before</Typography>
                 <Separator
                     variant="vertical"
@@ -51,7 +51,7 @@ storiesOf('Components/Separator', module)
                 <Typography variant="heading">After</Typography>
             </div>
             <Separator variant="horizontal"/>
-            <div className={classnames(storyStyles.storyItem)}>
+            <div className={clsx(storyStyles.storyItem)}>
                 <Typography variant="heading">Before</Typography>
                 <Separator
                     variant="vertical"
@@ -61,7 +61,7 @@ storiesOf('Components/Separator', module)
                 />
             </div>
             <Separator variant="horizontal"/>
-            <div className={classnames(storyStyles.storyItem)}>
+            <div className={clsx(storyStyles.storyItem)}>
                 <Separator
                     variant="vertical"
                     size="full"
@@ -71,7 +71,7 @@ storiesOf('Components/Separator', module)
                 <Typography variant="heading">After</Typography>
             </div>
             <Separator variant="horizontal"/>
-            <div className={classnames(storyStyles.storyItem)}>
+            <div className={clsx(storyStyles.storyItem)}>
                 <Separator
                     variant="vertical"
                     size="full"

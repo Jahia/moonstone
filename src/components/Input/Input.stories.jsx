@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {storiesOf} from '@storybook/react';
 import {boolean, select, withKnobs} from '@storybook/addon-knobs';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import storyStyles from '~/__storybook__/storybook.module.scss';
 import PropTypes from 'prop-types';
 
@@ -33,7 +33,7 @@ storiesOf('Components/Input', module)
         };
 
         return (
-            <section className={classnames(storyStyles.storyWrapper)}>
+            <section className={clsx(storyStyles.storyWrapper)}>
                 <Parent>
                     {(state, setState) => (
                         <Input
@@ -58,7 +58,7 @@ storiesOf('Components/Input', module)
             children: PropTypes.node
         };
         return (
-            <section className={classnames(storyStyles.storyWrapper)}>
+            <section className={clsx(storyStyles.storyWrapper)}>
                 <Parent>
                     {(state, setState) => (
                         <Input
@@ -84,7 +84,7 @@ storiesOf('Components/Input', module)
         };
 
         return (
-            <section className={classnames(storyStyles.storyWrapper)}>
+            <section className={clsx(storyStyles.storyWrapper)}>
                 <Parent>
                     {(state, setState) => (
                         <Input
@@ -110,7 +110,7 @@ storiesOf('Components/Input', module)
         };
 
         return (
-            <section className={classnames(storyStyles.storyWrapper)}>
+            <section className={clsx(storyStyles.storyWrapper)}>
                 <Parent>
                     {(state, setState) => (
                         <Input

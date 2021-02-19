@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {withKnobs, select} from '@storybook/addon-knobs';
 import {storiesOf} from '@storybook/react';
 import markdownNotes from './GlobalStyle_layout.md';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 const justifyOptions = [null, 'center', 'reverse', 'between', 'nowrap'];
 const alignOptions = ['start', 'center', 'end'];
@@ -19,7 +19,7 @@ const ItemContainer = ({title, direction, justify, align}) => {
     const cssDirection = direction === 'row' ? 'flexRow' : 'flexCol';
     const cssJustify = justify ? `${cssDirection}_${justify}` : cssDirection;
     const cssAlign = align ? `align${align.charAt(0).toUpperCase() + align.slice(1)}` : null;
-    let css = classnames(cssJustify, cssAlign);
+    let css = clsx(cssJustify, cssAlign);
 
     return (
         <section style={{marginBottom: '48px'}}>
@@ -28,7 +28,7 @@ const ItemContainer = ({title, direction, justify, align}) => {
                     {css}
                 </code>
             </h2>
-            <div className={classnames(cssJustify, cssAlign)} style={cssWrap}>
+            <div className={clsx(cssJustify, cssAlign)} style={cssWrap}>
                 <Item/>
                 <Item/>
                 <Item/>
@@ -79,7 +79,7 @@ function displayItems(direction, type) {
     for (let option of arrayOptions) {
         display.push(
             <ItemContainer
-                title={`${type} ${classnames(option)}`}
+                title={`${type} ${clsx(option)}`}
                 direction={direction}
                 justify={type === 'justify' ? option : 'center'}
                 align={type === 'align' ? option : 'center'}

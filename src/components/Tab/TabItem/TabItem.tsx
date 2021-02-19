@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import './TabItem.scss';
 import {TabItemProps} from './TabItem.types';
 import {Typography} from '~/components/Typography';
@@ -20,7 +20,7 @@ export const TabItem: React.FC<TabItemProps> = ({
     React.createElement(
         component,
         {
-            className: classnames(
+            className: clsx(
                 'moonstone-tab-item',
                 `moonstone-size_${size}`,
                 `moonstone-variant_${variant}`,

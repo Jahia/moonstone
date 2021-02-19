@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'clsx';
+import clsx from 'clsx';
 
 import {Cancel, Search} from '~/icons';
 import './Input.scss';
@@ -89,7 +89,7 @@ export const Input: React.FC<InputProps> =
         onFocus,
         ...props
     }) => {
-    const classNameProps = classnames(
+    const classNameProps = clsx(
         'moonstone-input',
         {'moonstone-size_big': size === InputSize.Big},
         {'moonstone-disabled': isDisabled},
@@ -102,7 +102,7 @@ export const Input: React.FC<InputProps> =
         <div className={classNameProps}>
             <input
                 className={
-                    classnames(
+                    clsx(
                         'moonstone-input-element',
                         {'start-icon-padding': icon || variant === InputVariant.Search},
                         {'end-icon-padding': onClear}
@@ -121,7 +121,7 @@ export const Input: React.FC<InputProps> =
             />
             {(icon || variant === InputVariant.Search) && (
                 <div
-                    className={classnames(
+                    className={clsx(
                         'start-icon-wrap',
                         'flexRow_nowrap',
                         'alignCenter',

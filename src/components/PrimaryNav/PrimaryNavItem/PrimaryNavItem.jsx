@@ -1,23 +1,23 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import './PrimaryNavItem.scss';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import {Typography, variants as typographyVariants} from '~/components/Typography';
 import {PrimaryNavContext} from '../PrimaryNav.context';
 
 // Internal component
 const Item = ({icon, label, textVariant, subtitle, button}) => (
     <>
-        <div className={classnames('moonstone-primaryNavItem_content')}>
-            <div className={classnames('moonstone-primaryNavItem_iconContainer')}>
+        <div className={clsx('moonstone-primaryNavItem_content')}>
+            <div className={clsx('moonstone-primaryNavItem_iconContainer')}>
                 {icon && <icon.type {...icon.props} size="big"/>}
             </div>
 
-            <div className={classnames('moonstone-primaryNavItem_textContainer')}>
+            <div className={clsx('moonstone-primaryNavItem_textContainer')}>
                 <Typography isNowrap
                             variant={textVariant}
                             component="span"
-                            className={classnames('moonstone-primaryNavItem_label')}
+                            className={clsx('moonstone-primaryNavItem_label')}
                 >
                     {label}
                 </Typography>
@@ -25,14 +25,14 @@ const Item = ({icon, label, textVariant, subtitle, button}) => (
                 <Typography isNowrap
                             component="div"
                             variant="caption"
-                            className={classnames('moonstone-primaryNavItem_label', 'moonstone-subtitle')}
+                            className={clsx('moonstone-primaryNavItem_label', 'moonstone-subtitle')}
                 >
                     {subtitle}
                 </Typography>}
             </div>
         </div>
         {button &&
-        <div className={classnames('moonstone-primaryNavItem_buttonContainer')}>
+        <div className={clsx('moonstone-primaryNavItem_buttonContainer')}>
             {button}
         </div>}
     </>
@@ -50,7 +50,7 @@ Item.propTypes = {
 const ItemTypeResolver = ({url, icon, label, subtitle, button}) => {
     if (url) {
         return (
-            <a className={classnames('moonstone-primaryNavItem', 'moonstone-primaryNavItem_linkItem')}
+            <a className={clsx('moonstone-primaryNavItem', 'moonstone-primaryNavItem_linkItem')}
                href={url}
                target="_blank"
                rel="noopener noreferrer"
@@ -78,7 +78,7 @@ export const PrimaryNavItem = ({label, icon, className, subtitle, url, button, i
 
     return (
         <li
-            className={classnames(
+            className={clsx(
                 'moonstone-primaryNavItem',
                 {'moonstone-selected': isSelected},
                 className
@@ -93,7 +93,7 @@ export const PrimaryNavItem = ({label, icon, className, subtitle, url, button, i
             <ItemTypeResolver icon={icon} label={label} subtitle={subtitle} url={url} button={button}/>
 
             {badge &&
-            <badge.type className={classnames('moonstone-primaryNavItem_badge')}
+            <badge.type className={clsx('moonstone-primaryNavItem_badge')}
                         color="danger"
                         type="round"
                         label={badge.props.label}/>}

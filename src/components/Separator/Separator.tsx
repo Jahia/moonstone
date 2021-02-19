@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import './Separator.scss';
 
 type TSeparatorSpacings = 'none' | 'small' | 'medium' | 'big';
@@ -69,7 +69,7 @@ export const Separator: React.FC<SeparatorProps> = ({
 }) => {
     return (
         <hr {...props}
-            className={classnames(
+            className={clsx(
                 'moonstone-separator',
                 `moonstone-separator_${variant}`,
                 `moonstone-size_${size}`,

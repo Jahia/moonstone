@@ -1,6 +1,6 @@
 import React from 'react';
 import {ListItem} from '~/components/ListItem';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import './MenuItem.scss';
 
 type TMenuItemVariant = 'default' | 'title';
@@ -117,7 +117,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
     <ListItem
         tabIndex={isDisabled || variant === MenuItemVariant.Title || isSelected ? null : 0}
         aria-disabled={isDisabled}
-        className={classnames(
+        className={clsx(
             'moonstone-menuItem',
             {
                 'moonstone-hover': isHover,

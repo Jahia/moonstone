@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import {storiesOf} from '@storybook/react';
 import {withKnobs, select, color} from '@storybook/addon-knobs';
 import storyStyles from '~/__storybook__/storybook.module.scss';
@@ -15,7 +15,7 @@ const iconsSize = () => select('Set icon size', {Big: 'big', Default: 'default',
 // Create a component to display in storybook
 export const IconWrapper = ({iconName, size, color}) => {
     return (
-        <div className={classnames(storyStyles.storyGridItem)} style={{color: color}}>
+        <div className={clsx(storyStyles.storyGridItem)} style={{color: color}}>
             {React.createElement(Icons[iconName], {size: size})}
             <span>{iconName}</span>
         </div>
@@ -43,7 +43,7 @@ storiesOf('Tokens/Icons', module)
     })
     .addDecorator(withKnobs)
     .add('Default', () => (
-        <section className={classnames(storyStyles.storyGrid)}>
+        <section className={clsx(storyStyles.storyGrid)}>
             {displayIcons()}
         </section>
     ))

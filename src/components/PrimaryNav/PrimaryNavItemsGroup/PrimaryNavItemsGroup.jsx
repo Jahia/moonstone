@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import './PrimaryNavItemsGroup.scss';
 import {PrimaryNavContext} from '../PrimaryNav.context';
 import {Separator} from '~/components/Separator';
@@ -14,10 +14,10 @@ export const PrimaryNavItemsGroup = ({isDisplayedWhenCollapsed, children, ...pro
 
     return (
         <>
-            <li className={classnames('moonstone-primaryNavItemsGroup')}>
+            <li className={clsx('moonstone-primaryNavItemsGroup')}>
                 <Separator size="large" spacing="small"/>
             </li>
-            <li className={classnames('moonstone-primaryNavItemsGroup')} {...props}>
+            <li className={clsx('moonstone-primaryNavItemsGroup')} {...props}>
                 <ul>
                     {children}
                 </ul>

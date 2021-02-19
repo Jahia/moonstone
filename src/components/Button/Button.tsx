@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import './Button.scss';
 import {Typography, TypographyWeight} from '../Typography';
 import {ButtonProps} from './Button.types';
@@ -36,7 +36,7 @@ export const Button: React.FC<ButtonProps> = ({
     return (
         <button
             ref={ButtonEl}
-            className={classnames(
+            className={clsx(
                 'moonstone-button',
                 `moonstone-size_${size}`,
                 `moonstone-variant_${variant}`,
@@ -59,7 +59,7 @@ export const Button: React.FC<ButtonProps> = ({
                     variant="button"
                     isUpperCase={size === 'big'}
                     weight={typoWeight}
-                    className={classnames('flexFluid')}
+                    className={clsx('flexFluid')}
                     isHtml={isHtml}
                 >
                     {label}

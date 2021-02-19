@@ -2,7 +2,7 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {withKnobs, number, text} from '@storybook/addon-knobs';
 import {action} from '@storybook/addon-actions';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import storyStyles from '~/__storybook__/storybook.module.scss';
 import markdownNotes from './Breadcrumb.md';
 
@@ -19,7 +19,7 @@ storiesOf('Components/Breadcrumb', module)
     })
     .addDecorator(withKnobs)
     .add('Default', () => (
-        <section className={classnames(storyStyles.storyWrapper)}>
+        <section className={clsx(storyStyles.storyWrapper)}>
             <Breadcrumb>
                 <BreadcrumbItem label={label()} onClick={action('onClick')}/>
                 <BreadcrumbItem label={label()} onClick={action('onClick')}/>
@@ -30,7 +30,7 @@ storiesOf('Components/Breadcrumb', module)
         </section>
     ))
     .add('Long labels', () => (
-        <section className={classnames(storyStyles.storyWrapper)}>
+        <section className={clsx(storyStyles.storyWrapper)}>
             <div style={{maxWidth: '100%'}}>
                 <Breadcrumb>
                     <BreadcrumbItem label="Very long long long long long long long long long long label 1" onClick={action('onClick')}/>
@@ -43,7 +43,7 @@ storiesOf('Components/Breadcrumb', module)
         </section>
     ))
     .add('With icons', () => (
-        <section className={classnames(storyStyles.storyWrapper)}>
+        <section className={clsx(storyStyles.storyWrapper)}>
             <Breadcrumb>
                 <BreadcrumbItem icon={<Love/>} label="item 1" onClick={action('onClick')}/>
                 <BreadcrumbItem icon={<Love/>} label="item 2" onClick={action('onClick')}/>
@@ -68,7 +68,7 @@ storiesOf('Components/Breadcrumb', module)
         };
 
         return (
-            <section className={classnames(storyStyles.storyWrapper)}>
+            <section className={clsx(storyStyles.storyWrapper)}>
                 <Breadcrumb>
                     {items(numberItems)}
                 </Breadcrumb>

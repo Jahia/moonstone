@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import {LayoutModuleProps} from './LayoutModule.types';
 import {Loader} from '~/components/Loader';
 
@@ -10,20 +10,20 @@ export const LayoutModule: React.FC<LayoutModuleProps> = ({
     component = 'main'
 }) => {
 
-    const classNameProps = classnames(
+    const classNameProps = clsx(
         'flexFluid',
         isLoading ? ['flexCol_center', 'alignCenter'] : 'flexCol'
     );
 
     return (
         <>
-            <div className={classnames('flexCol')}>
+            <div className={clsx('flexCol')}>
                 {navigation}
             </div>
             {
                 React.createElement(
                     component,
-                    {className: classnames(classNameProps), 'role-busy': isLoading},
+                    {className: clsx(classNameProps), 'role-busy': isLoading},
                     isLoading ? <Loader size="big"/> : content
                 )
             }

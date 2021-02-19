@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import './Dropdown.scss';
 import spacings from '~/tokens/spacings/spacing.json';
 
@@ -205,7 +205,7 @@ export const Dropdown: React.FC<DropdownProps> = (
     // CSS classes
     // ---
 
-    const cssDropdown = classnames(
+    const cssDropdown = clsx(
         'flexRow',
         'alignCenter',
         'moonstone-dropdown',
@@ -256,7 +256,7 @@ export const Dropdown: React.FC<DropdownProps> = (
 
     return (
         <div
-            className={classnames('moonstone-dropdown_container', className)}
+            className={clsx('moonstone-dropdown_container', className)}
             style={{maxWidth}}
             {...props}
             onKeyPress={e => {
@@ -266,7 +266,7 @@ export const Dropdown: React.FC<DropdownProps> = (
             }}
         >
             <div
-                className={classnames(cssDropdown)}
+                className={clsx(cssDropdown)}
                 tabIndex={0}
                 onClick={handleOpenMenu}
                 onKeyPress={(e: React.KeyboardEvent) => {
@@ -277,14 +277,14 @@ export const Dropdown: React.FC<DropdownProps> = (
             >
                 {
                     icon &&
-                    <icon.type {...icon.props} size="small" className={classnames('moonstone-dropdown_icon')}/>
+                    <icon.type {...icon.props} size="small" className={clsx('moonstone-dropdown_icon')}/>
                 }
 
                 <Typography
                     isNowrap
                     variant="caption"
                     component="span"
-                    className={classnames('flexFluid')}
+                    className={clsx('flexFluid')}
                 >
                     {label}
                 </Typography>

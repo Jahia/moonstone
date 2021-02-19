@@ -1,4 +1,4 @@
-import classnames from 'clsx';
+import clsx from 'clsx';
 import './TreeView.scss';
 import Loading from '~/icons/Loading';
 import ChevronDown from '~/icons/ChevronDown';
@@ -49,7 +49,7 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
             // ---
             // Define CSS treeView_item classes
             // ---
-            const cssTreeViewItem = classnames(
+            const cssTreeViewItem = clsx(
                 'flexRow_between',
                 'alignCenter',
                 'moonstone-treeView_item',
@@ -66,7 +66,7 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
                 }
 
                 return (
-                    <i className={classnames('flexRow', 'alignCenter', className)}>
+                    <i className={clsx('flexRow', 'alignCenter', className)}>
                         {icon &&
                             <icon.type {...icon.props} size={size}/>}
                     </i>
@@ -95,24 +95,24 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
                             {/* Icon arrow */}
                             {isClosable && hasChild &&
                                 <div
-                                    className={classnames('flexRow', 'alignCenter', 'moonstone-treeView_itemToggle')}
+                                    className={clsx('flexRow', 'alignCenter', 'moonstone-treeView_itemToggle')}
                                     onClick={toggleNode}
                                 >
                                     {isOpen ? <ChevronDown/> : <ChevronRight/>}
                                 </div>}
                             {!isFlatData && !hasChild &&
-                                <div className={classnames('flexRow', 'alignCenter', 'moonstone-treeView_itemToggle')}/>}
+                                <div className={clsx('flexRow', 'alignCenter', 'moonstone-treeView_itemToggle')}/>}
 
                             {/* TreeViewItem */}
                             <div
-                                className={classnames('flexRow_nowrap', 'alignCenter', 'flexFluid', 'moonstone-treeView_itemLabel', node.className)}
+                                className={clsx('flexRow_nowrap', 'alignCenter', 'flexFluid', 'moonstone-treeView_itemLabel', node.className)}
                                 onClick={handleNodeClick}
                                 onDoubleClick={handleNodeDoubleClick}
                                 onContextMenu={handleNodeContextMenu}
                             >
                                 {displayIcon(node.iconStart, 'small', 'moonstone-treeView_itemIconStart', parentHasIconStart)}
                                 <Typography isNowrap
-                                            className={classnames('flexFluid')}
+                                            className={clsx('flexFluid')}
                                             component="span"
                                             variant="body"
                                             {...node.typographyOptions}
