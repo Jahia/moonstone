@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import {storiesOf} from '@storybook/react';
 import {boolean, select, withKnobs} from '@storybook/addon-knobs';
 import storyStyles from '~/__storybook__/storybook.module.scss';
@@ -23,7 +23,7 @@ storiesOf('Components/ButtonGroup', module)
     })
     .addDecorator(withKnobs)
     .add('Default', () => (
-        <section className={classnames(storyStyles.storyWrapper)}>
+        <section className={clsx(storyStyles.storyWrapper)}>
             <ButtonGroup
                 variant={variantValues()}
                 color={colorValues()}
@@ -37,7 +37,7 @@ storiesOf('Components/ButtonGroup', module)
         </section>
     ))
     .add('Button with actions', () => (
-        <section className={classnames(storyStyles.storyWrapper)}>
+        <section className={clsx(storyStyles.storyWrapper)}>
             <ButtonGroup
                 color="accent"
                 size="big"
@@ -48,7 +48,7 @@ storiesOf('Components/ButtonGroup', module)
         </section>
     ))
     .add('ButtonGroup with 1 button', () => (
-        <section className={classnames(storyStyles.storyWrapper)}>
+        <section className={clsx(storyStyles.storyWrapper)}>
             <ButtonGroup
                 color="accent"
                 size="big"

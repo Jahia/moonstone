@@ -1,11 +1,9 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames/bind';
+import clsx from 'clsx';
 import styles from './colors.stories.module.scss';
 import storyStyles from '~/__storybook__/storybook.module.scss';
-
-let cx = classnames.bind(styles);
 
 const paletteNeutral = ['light',
     'light60',
@@ -52,9 +50,9 @@ const paletteColors = [
 
 export const Color = ({color, name}) => {
     return (
-        <div className={classnames(storyStyles.storyItem)}>
+        <div className={clsx(storyStyles.storyItem)}>
             <p>{name}</p>
-            <div className={classnames(styles.colorShape, cx([`color-${color}`]))}/>
+            <div className={clsx(styles.colorShape, styles[`color-${color}`])}/>
         </div>
     );
 };
@@ -73,22 +71,22 @@ function displayColors(palette) {
 
 storiesOf('Tokens/Colors', module)
     .add('Accent', () => (
-        <section className={classnames(storyStyles.storyWrapper)}>
+        <section className={clsx(storyStyles.storyWrapper)}>
             {displayColors(paletteAccent)}
         </section>
     ))
     .add('Neutral', () => (
-        <section className={classnames(storyStyles.storyWrapper)}>
+        <section className={clsx(storyStyles.storyWrapper)}>
             {displayColors(paletteNeutral)}
         </section>
     ))
     .add('Support', () => (
-        <section className={classnames(storyStyles.storyWrapper)}>
+        <section className={clsx(storyStyles.storyWrapper)}>
             {displayColors(paletteSupport)}
         </section>
     ))
     .add('Palette', () => (
-        <section className={classnames(storyStyles.storyWrapper)}>
+        <section className={clsx(storyStyles.storyWrapper)}>
             {displayColors(paletteColors)}
         </section>
     ));

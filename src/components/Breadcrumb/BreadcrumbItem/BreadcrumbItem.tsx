@@ -1,15 +1,15 @@
 import React from 'react';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import './BreadcrumbItem.scss';
 import {Button} from '~/components/Button';
 import {BreadcrumbItemProps} from './BreadcrumbItem.types';
 
 export const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({className = '', ...props}: BreadcrumbItemProps) => (
-    <li className={classnames('moonstone-breadcrumbItem', 'flexRow_center')}>
+    <li className={clsx('moonstone-breadcrumbItem', 'flexRow_center')}>
         <Button {...props}
                 variant="ghost"
                 size="small"
-                className={classnames(className)}
+                className={clsx(className)}
         />
     </li>
 );

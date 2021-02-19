@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {usePositioning} from '~/hooks/usePositioning';
 import {useEnterExitCallbacks} from '~/hooks/useEnterExitCallbacks';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import './Menu.scss';
 import {Input} from '~/components/Input';
 import {Typography} from '~/components/Typography';
@@ -230,7 +230,7 @@ export const Menu: React.FC<MenuProps> = ({
             <menu
                 ref={itemRef}
                 style={styleMenu}
-                className={classnames(
+                className={clsx(
                     'moonstone-menu',
                     className,
                     {'moonstone-hidden': !isDisplayed || !stylePosition}

@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import './Chip.scss';
 import {ChipProps} from './Chip.types';
 import {Typography} from '~/components/Typography';
@@ -13,7 +13,7 @@ export const Chip: React.FC<ChipProps> = ({
     ...props
 }: ChipProps) => (
     <div
-        className={classnames(
+        className={clsx(
             'moonstone-chip',
             `moonstone-color_${color}`,
             {'moonstone-disabled': isDisabled},

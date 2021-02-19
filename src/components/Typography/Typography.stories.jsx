@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import {storiesOf} from '@storybook/react';
 import {boolean, select, withKnobs} from '@storybook/addon-knobs';
 import storyStyles from '~/__storybook__/storybook.module.scss';
@@ -14,25 +14,25 @@ storiesOf('Tokens/Typography', module)
         notes: {markdown: markdownNotes}
     })
     .addDecorator(withKnobs)
-    .addDecorator(storyFn => <section className={classnames(storyStyles.storyWrapper)}>{storyFn()}</section>)
+    .addDecorator(storyFn => <section className={clsx(storyStyles.storyWrapper)}>{storyFn()}</section>)
     .add('Variants', () => (
         <>
-            <div className={classnames(storyStyles.storyItem)}>
+            <div className={clsx(storyStyles.storyItem)}>
                 <Typography variant="title">Title</Typography>
             </div>
-            <div className={classnames(storyStyles.storyItem)}>
+            <div className={clsx(storyStyles.storyItem)}>
                 <Typography variant="heading">Heading</Typography>
             </div>
-            <div className={classnames(storyStyles.storyItem)}>
+            <div className={clsx(storyStyles.storyItem)}>
                 <Typography variant="subheading">Subheading</Typography>
             </div>
-            <div className={classnames(storyStyles.storyItem)}>
+            <div className={clsx(storyStyles.storyItem)}>
                 <Typography>Body (default)</Typography>
             </div>
-            <div className={classnames(storyStyles.storyItem)}>
+            <div className={clsx(storyStyles.storyItem)}>
                 <Typography variant="caption">Caption</Typography>
             </div>
-            <div className={classnames(storyStyles.storyItem)}>
+            <div className={clsx(storyStyles.storyItem)}>
                 <Typography variant="button">Button</Typography>
             </div>
         </>

@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import './AccordionItem.scss';
 import {Typography} from '~/components/Typography';
 import {AccordionContext} from '~/components/Accordion/Accordion.context';
@@ -17,7 +17,7 @@ export const AccordionItem = ({id, label, icon, onClick, children, className, ..
     return (
         <section
             {...props}
-            className={classnames(
+            className={clsx(
                 'moonstone-accordionItem',
                 {'moonstone-reversed': context.isReversed},
                 'flexCol',
@@ -26,7 +26,7 @@ export const AccordionItem = ({id, label, icon, onClick, children, className, ..
             )}
         >
             <header
-                className={classnames(
+                className={clsx(
                     'moonstone-accordionItem_header',
                     {
                         'moonstone-selected': open,
@@ -41,7 +41,7 @@ export const AccordionItem = ({id, label, icon, onClick, children, className, ..
                 onClick={e => handleClick(e, open)}
             >
                 {icon &&
-                    <div className={classnames(
+                    <div className={clsx(
                         'moonstone-accordionItem_iconContainer',
                         'flexRow_center',
                         'alignCenter'
@@ -53,7 +53,7 @@ export const AccordionItem = ({id, label, icon, onClick, children, className, ..
                     isNowrap
                     variant="subheading"
                     weight={open ? 'bold' : 'default'}
-                    className={classnames('flexFluid')}
+                    className={clsx('flexFluid')}
                 >
                     {label}
                 </Typography>
@@ -61,7 +61,7 @@ export const AccordionItem = ({id, label, icon, onClick, children, className, ..
 
             {/* Accordion content */}
             {open &&
-                <div className={classnames(
+                <div className={clsx(
                         'moonstone-accordionItem_content',
                         'flexFluid'
                     )}

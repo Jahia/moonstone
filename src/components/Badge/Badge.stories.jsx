@@ -1,7 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {select, text, withKnobs} from '@storybook/addon-knobs';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import storyStyles from '~/__storybook__/storybook.module.scss';
 
 import markdownNotes from './Badge.md';
@@ -15,7 +15,7 @@ storiesOf('Components/Badge', module)
     })
     .addDecorator(withKnobs)
     .add('Accent', () => (
-        <section className={classnames(storyStyles.storyWrapper)}>
+        <section className={clsx(storyStyles.storyWrapper)}>
             <Badge
                 label={text('Label', '3')}
                 color="accent"
@@ -24,7 +24,7 @@ storiesOf('Components/Badge', module)
 
     ))
     .add('Success', () => (
-        <section className={classnames(storyStyles.storyWrapper)}>
+        <section className={clsx(storyStyles.storyWrapper)}>
             <Badge
                 label={text('Label', '3')}
                 color="success"
@@ -33,7 +33,7 @@ storiesOf('Components/Badge', module)
 
     ))
     .add('Danger', () => (
-        <section className={classnames(storyStyles.storyWrapper)}>
+        <section className={clsx(storyStyles.storyWrapper)}>
             <Badge
                 label={text('Label', '3')}
                 color="danger"
@@ -42,7 +42,7 @@ storiesOf('Components/Badge', module)
 
     ))
     .add('Playground', () => (
-        <section className={classnames(storyStyles.storyWrapper)}>
+        <section className={clsx(storyStyles.storyWrapper)}>
             <Badge
                 label={text('Label', '3')}
                 color={select('Color', badgeColors, 'accent')}

@@ -1,7 +1,7 @@
 import React, {FunctionComponent} from 'react';
 import './Badge.scss';
 import {Typography} from '~/components/Typography';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import {BadgeProps} from './Badge.types';
 
 export const Badge: FunctionComponent<BadgeProps> = ({
@@ -10,7 +10,7 @@ export const Badge: FunctionComponent<BadgeProps> = ({
     className,
     ...other
 }) => {
-    const classNameProps = classnames(
+    const classNameProps = clsx(
         'moonstone-badge',
         `moonstone-badge_round`,
         `moonstone-badge_${color}`,

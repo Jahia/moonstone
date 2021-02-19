@@ -1,6 +1,6 @@
 import React from 'react';
 import './ButtonGroup.scss';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import {ButtonGroupProps} from './ButtonGroup.types';
 
 export const ButtonGroup: React.FC<ButtonGroupProps> = ({
@@ -20,7 +20,7 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
     return (
         <div
             role="group"
-            className={classnames(
+            className={clsx(
                 'moonstone-buttonGroup',
                 className,
                 'flexRow',
@@ -41,7 +41,7 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
                             variant={variant}
                             isReversed={isReversed}
                             color={color}
-                            className={classnames(
+                            className={clsx(
                                 `moonstone-variant_${variant}`,
                                 `moonstone-color_${color}`
                             )}

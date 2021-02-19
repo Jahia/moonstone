@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import {AccordionContext} from './Accordion.context';
 import {AccordionItem} from './AccordionItem';
 import './Accordion.scss';
@@ -15,7 +15,7 @@ export const ControlledAccordion = ({children, openedItem, isReversed, className
     return (
         <AccordionContext.Provider value={provider}>
             <div className={
-                    classnames(
+                    clsx(
                         className,
                         'flexFluid',
                         'moonstone-accordion',

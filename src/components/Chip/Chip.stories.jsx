@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import {storiesOf} from '@storybook/react';
 import {boolean, select, text, withKnobs} from '@storybook/addon-knobs';
 
@@ -26,20 +26,20 @@ storiesOf('Components/Chip', module)
     })
     .addDecorator(withKnobs)
     .addDecorator(storyFn => (
-        <section className={classnames(storyStyles.storyWrapper)}>
-            <section className={classnames(storyStyles.storyColumn)}>
+        <section className={clsx(storyStyles.storyWrapper)}>
+            <section className={clsx(storyStyles.storyColumn)}>
                 {storyFn()}
             </section>
         </section>
     ))
     .add('icon + text', () => (
         <section style={{display: 'flex', flexDirection: 'flow'}}>
-            <section className={classnames(storyStyles.storyColumn)}>
+            <section className={clsx(storyStyles.storyColumn)}>
                 {colors.map(color => (
                     <Chip key={color} label={capitalize(color)} icon={<DefaultIcon/>} color={color}/>
                 ))}
             </section>
-            <section className={classnames(storyStyles.storyColumn)}>
+            <section className={clsx(storyStyles.storyColumn)}>
                 {colors.map(color => (
                     <Chip key={color} isDisabled label={capitalize(color)} icon={<DefaultIcon/>} color={color}/>
                 ))}

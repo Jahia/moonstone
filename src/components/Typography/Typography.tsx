@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from 'react';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import './Typography.scss';
 
 export type TypographyVariant = 'title' | 'heading' | 'subheading' | 'body' | 'caption' | 'button';
@@ -83,7 +83,7 @@ export const Typography: FunctionComponent<TypographyProps> = ({
         component,
         {
             ...filterOutIsHtml(props),
-            className: classnames(
+            className: clsx(
                 'moonstone-typography',
                 `moonstone-variant_${variant}`,
                 `moonstone-weight_${weight}`,

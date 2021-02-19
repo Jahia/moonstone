@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import './PrimaryNav.scss';
 import {PrimaryNavContext} from './PrimaryNav.context';
 import {MenuIcon, ArrowLeft} from '~/icons';
@@ -9,7 +9,7 @@ const NavButton = ({isExpanded, toggleExpand, modeIcon}) => {
     if (isExpanded) {
         return (
             <button
-                className={classnames('moonstone-primaryNav_button')}
+                className={clsx('moonstone-primaryNav_button')}
                 type="button"
                 role="primary-nav-control"
                 onClick={toggleExpand}
@@ -23,7 +23,7 @@ const NavButton = ({isExpanded, toggleExpand, modeIcon}) => {
 
     if (modeIcon) {
         icon = React.cloneElement(modeIcon, {
-            className: classnames('moonstone-primaryNav_modeIcon')
+            className: clsx('moonstone-primaryNav_modeIcon')
         });
     }
 
@@ -31,7 +31,7 @@ const NavButton = ({isExpanded, toggleExpand, modeIcon}) => {
         <>
             {icon}
             <button
-                className={classnames('moonstone-primaryNav_button')}
+                className={clsx('moonstone-primaryNav_button')}
                 type="button"
                 role="primary-nav-control"
                 onClick={toggleExpand}
@@ -53,14 +53,14 @@ const NavHeader = ({headerCaption, modeIcon, headerLogo}) => {
 
     if (modeIcon) {
         icon = React.cloneElement(modeIcon, {
-            className: classnames('moonstone-primaryNav_modeIconHeader')
+            className: clsx('moonstone-primaryNav_modeIconHeader')
         });
     }
 
     return (
         <>
             {headerLogo}
-            <div className={classnames('flexRow_nowrap', 'alignCenter', 'moonstone-primaryNav_headerCaption')}>
+            <div className={clsx('flexRow_nowrap', 'alignCenter', 'moonstone-primaryNav_headerCaption')}>
                 {icon}{headerCaption}
             </div>
         </>
@@ -84,18 +84,18 @@ export const PrimaryNav = ({headerLogo, top, bottom, headerCaption, modeIcon, ..
         <PrimaryNavContext.Provider value={{isExpanded: isExpanded, collapse: () => setExpanded(false)}}>
             <nav {...props}
                  aria-expanded={isExpanded}
-                 className={classnames(
+                 className={clsx(
                      'moonstone-primaryNav',
                      {'moonstone-expanded': isExpanded},
                     'flexCol_nowrap'
                 )}
             >
-                <div className={classnames('flexRow_nowrap', 'moonstone-primaryNav_header')}>
-                    <div className={classnames('moonstone-primaryNav_buttonContainer', 'flexRow_center', 'alignCenter')}>
+                <div className={clsx('flexRow_nowrap', 'moonstone-primaryNav_header')}>
+                    <div className={clsx('moonstone-primaryNav_buttonContainer', 'flexRow_center', 'alignCenter')}>
                         <NavButton isExpanded={isExpanded} toggleExpand={toggleExpand} modeIcon={modeIcon}/>
                     </div>
                     <div
-                        className={classnames(
+                        className={clsx(
                             'flexCol_center',
                             'alignCenter',
                             'flexFluid',
@@ -106,7 +106,7 @@ export const PrimaryNav = ({headerLogo, top, bottom, headerCaption, modeIcon, ..
                     </div>
                 </div>
 
-                <ul className={classnames('flexCol', 'flexFluid')}>
+                <ul className={clsx('flexCol', 'flexFluid')}>
                     {top}
                 </ul>
 

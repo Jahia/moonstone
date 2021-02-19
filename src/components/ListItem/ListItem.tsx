@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'clsx';
+import clsx from 'clsx';
 import './ListItem.scss';
 import {Typography} from '~/components/Typography';
 
@@ -61,7 +61,7 @@ export const ListItem: React.FC<ListItemProps> = ({
     className = '',
     ...props
 }) => {
-    const cssListItem = classnames(
+    const cssListItem = clsx(
         className,
         'moonstone-listItem',
         'flexRow',
@@ -70,7 +70,7 @@ export const ListItem: React.FC<ListItemProps> = ({
 
     return (
         <li
-            className={classnames(cssListItem)}
+            className={clsx(cssListItem)}
             tabIndex={tabIndex}
             {...props}
         >
@@ -87,7 +87,7 @@ export const ListItem: React.FC<ListItemProps> = ({
             <Typography
                 isNowrap
                 isHtml={isHtml}
-                className={classnames('flexFluid')}
+                className={clsx('flexFluid')}
                 variant="caption"
                 component="span"
             >
