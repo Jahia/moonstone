@@ -55,4 +55,18 @@ storiesOf('Layouts/LayoutModule', module)
                 content={<FakeContent/>}
             />
         </div>
+    ))
+    .add('Loading', () => (
+        <div style={{
+            width: '100vw',
+            height: '100vh',
+            display: 'flex'
+        }}
+        >
+            <LayoutModule
+                isLoading
+                navigation={<FakeNavigation/>}
+                content={<FakeContent/>}
+            />
+        </div>
     ));

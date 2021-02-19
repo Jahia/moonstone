@@ -1,12 +1,20 @@
 import React from 'react';
 import classnames from 'clsx';
 import {LayoutModuleProps} from './LayoutModule.types';
+import {Loader} from '~/components/Loader';
 
 export const LayoutModule: React.FC<LayoutModuleProps> = ({
     navigation = null,
     content = null,
+    isLoading = false,
     component = 'main'
 }) => {
+
+    const classNameProps = classnames(
+        'flexFluid',
+        isLoading ? ['flexCol_center', 'alignCenter'] : 'flexCol'
+    );
+
     return (
         <>
             <div className={classnames('flexCol')}>
@@ -15,8 +23,8 @@ export const LayoutModule: React.FC<LayoutModuleProps> = ({
             {
                 React.createElement(
                     component,
-                    {className: classnames('flexFluid', 'flexCol')},
-                    content
+                    {className: classnames(classNameProps), 'role-busy': isLoading},
+                    isLoading ? <Loader size="big"/> : content
                 )
             }
         </>
