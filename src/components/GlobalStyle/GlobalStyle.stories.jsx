@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {withKnobs, select} from '@storybook/addon-knobs';
 import {storiesOf} from '@storybook/react';
 import markdownNotes from './GlobalStyle_layout.md';
-import classnames from 'classnames';
+import classnames from 'clsx';
 
 const justifyOptions = [null, 'center', 'reverse', 'between', 'nowrap'];
 const alignOptions = ['start', 'center', 'end'];

@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'classnames';
+import classnames from 'clsx';
 import {storiesOf} from '@storybook/react';
 import {boolean, select, text, withKnobs} from '@storybook/addon-knobs';
 

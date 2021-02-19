@@ -1,7 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {withKnobs, select} from '@storybook/addon-knobs';
-import classnames from 'classnames';
+import classnames from 'clsx';
 import storyStyles from '~/__storybook__/storybook.module.scss';
 
 import {Separator, SeparatorSizes, SeparatorSpacings, SeparatorInvisible, Typography} from '~/components';
