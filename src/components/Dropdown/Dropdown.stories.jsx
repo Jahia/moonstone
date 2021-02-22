@@ -4,7 +4,8 @@ import {withKnobs, boolean, select, text} from '@storybook/addon-knobs';
 import {action} from '@storybook/addon-actions';
 import markdownNotes from './Dropdown.md';
 
-import {Dropdown, DropdownVariants, DropdownSizes} from './index';
+import {Dropdown} from './index';
+import {DropdownVariants, DropdownSizes} from './Dropdown.types';
 import {Love} from '~/icons';
 import IconWrapper from '~/__storybook__/IconWrapper';
 import {iconsName} from '~/__storybook__/utils';
@@ -212,7 +213,7 @@ storiesOf('Components/Dropdown', module)
             <div style={{transform: 'scale(1)', height: '100vh', padding: '90px'}}>
                 <Dropdown
                     icon={<Love/>}
-                    label={currentOption.label}
+                    // Label={currentOption.label}
                     value={currentOption.value}
                     size={select('Size', DropdownSizes, DropdownSizes.Small)}
                     isDisabled={boolean('Disabled', false)}
