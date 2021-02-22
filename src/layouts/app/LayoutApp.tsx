@@ -2,15 +2,25 @@ import React from 'react';
 import clsx from 'clsx';
 import './LayoutApp.scss';
 import {LayoutAppProps} from './LayoutApp.types';
+import {Loader} from '~/components/Loader';
 
-export const LayoutApp: React.FC<LayoutAppProps> = ({navigation = null, content = null}) => {
+export const LayoutApp: React.FC<LayoutAppProps> = ({
+    navigation = null,
+    content = null,
+    isLoading = false
+}) => {
+    const classNameProps = clsx(
+        'flexFluid',
+        isLoading ? ['flexCol_center', 'alignCenter'] : 'flexRow_nowrap'
+    );
+
     return (
         <div className={clsx('moonstone-layoutApp', 'flexRow_center', 'flexRow_nowrap')}>
             <div className={clsx('moonstone-slotNavigation')}>
                 {navigation}
             </div>
-            <div className={clsx('flexFluid', 'flexRow_nowrap')}>
-                {content}
+            <div className={classNameProps}>
+                {isLoading ? <Loader size="big"/> : content}
             </div>
         </div>
     );

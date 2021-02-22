@@ -1,12 +1,17 @@
 import React from 'react';
-import {shallow} from 'component-test-utils-react';
+import {render, screen} from '@testing-library/react';
 import {LayoutApp} from './index';
 
 describe('LayoutApp', () => {
-    it('should display navigation in the right slot', () => {
-        const wrapper = shallow(<LayoutApp navigation="test-navigation"/>);
+    it('should display navigation', () => {
+        render(<LayoutApp navigation="test-navigation"/>);
+        expect(screen.getByText('test-navigation')).toBeInTheDocument();
+    });
 
-        expect(wrapper.html()).toContain('test-navigation');
+    it('should display the loader and not the content when LayoutModule is loading', () => {
+        render(<LayoutApp isLoading content="my content"/>);
+        expect(screen.getByRole('status')).toBeInTheDocument();
+        expect(screen.queryByText('my content')).not.toBeInTheDocument();
     });
 });
 

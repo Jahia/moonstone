@@ -48,4 +48,11 @@ storiesOf('Layouts/LayoutApp', module)
             navigation={<FakeNavigation/>}
             content={<FakeContent/>}
         />
+    ))
+    .add('Loading', () => (
+        <LayoutApp
+            isLoading
+            navigation={<FakeNavigation/>}
+            content={<FakeContent/>}
+        />
     ));
