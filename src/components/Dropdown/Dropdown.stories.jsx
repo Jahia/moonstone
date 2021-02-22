@@ -213,7 +213,7 @@ storiesOf('Components/Dropdown', module)
             <div style={{transform: 'scale(1)', height: '100vh', padding: '90px'}}>
                 <Dropdown
                     icon={<Love/>}
-                    // Label={currentOption.label}
+                    label={currentOption.label}
                     value={currentOption.value}
                     size={select('Size', DropdownSizes, DropdownSizes.Small)}
                     isDisabled={boolean('Disabled', false)}

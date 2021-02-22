@@ -108,7 +108,7 @@ export const Dropdown: React.FC<DropdownProps> = (
     // ---
 
     const cssDropdown = clsx(
-        'flexRow',
+        !label && !icon ? 'flexRow_reverse' : 'flexRow_between',
         'alignCenter',
         'moonstone-dropdown',
         `moonstone-${size}`,
