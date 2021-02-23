@@ -1,18 +1,18 @@
 import React from 'react';
 
-export type TDropdownVariant = 'ghost' | 'outlined';
+export type DropdownVariant = 'ghost' | 'outlined';
 export enum DropdownVariants {
     Ghost = 'ghost',
     Outlined = 'outlined'
 }
 
-export type TDropdownSize = 'small' | 'medium';
+export type DropdownSize = 'small' | 'medium';
 export enum DropdownSizes {
     Small = 'small',
     Medium = 'medium'
 }
 
-export type TDropdownImageSize = 'small' | 'big';
+export type DropdownImageSize = 'small' | 'big';
 export enum DropdownImageSizes {
     Small = 'small',
     Big = 'big'
@@ -26,7 +26,7 @@ export type DropdownDataOptions = {
     iconEnd?: React.ReactElement;
     attributes?: {};
     image?: HTMLImageElement;
-    imageSize?: TDropdownImageSize;
+    imageSize?: DropdownImageSize;
 }
 
 export type DropdownData = {
@@ -60,17 +60,17 @@ export type DropdownProps = {
     /**
      * Dropdown's variants
      */
-    variant?: TDropdownVariant;
+    variant?: DropdownVariant;
 
     /**
      * Dropdown's sizes
      */
-    size?: TDropdownSize;
+    size?: DropdownSize;
 
     /**
      * Size of images to show in the Dropdown
      */
-    imageSize?: TDropdownImageSize;
+    imageSize?: DropdownImageSize;
 
     /**
      * Max width of the dropdown
