@@ -1,3 +1,39 @@
+# v1.1.0 (Wed Feb 24 2021)
+
+#### 🚀 Enhancement
+
+- MOON-271: Add a loading state to LayoutApp [#231](https://github.com/Jahia/moonstone/pull/231) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-268: Add a loading state to LayoutModule [#229](https://github.com/Jahia/moonstone/pull/229) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-264: Create the Loader components [#227](https://github.com/Jahia/moonstone/pull/227) ([@ffffffelix](https://github.com/ffffffelix))
+- TECH-342: Migrate ResizableBox to Typescript [#226](https://github.com/Jahia/moonstone/pull/226) ([@vindhya](https://github.com/vindhya))
+- MOON-266: Remove the diamond variant for the Badge component [#228](https://github.com/Jahia/moonstone/pull/228) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-220: Avoid to render something when the component is empty [#218](https://github.com/Jahia/moonstone/pull/218) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🐛 Bug Fix
+
+- MOON-272: Fix Dropdown Arrow Alignment [#232](https://github.com/Jahia/moonstone/pull/232) ([@vindhya](https://github.com/vindhya))
+
+#### 🏠 Internal
+
+- MOON-270: Rename classnames to clsx [#230](https://github.com/Jahia/moonstone/pull/230) ([@ffffffelix](https://github.com/ffffffelix))
+- TECH-347: Migrate LayoutApp & LayoutModule to Typescript [#225](https://github.com/Jahia/moonstone/pull/225) ([@vindhya](https://github.com/vindhya))
+- TECH-345: Migrate Tab & TabItem to Typescript [#224](https://github.com/Jahia/moonstone/pull/224) ([@vindhya](https://github.com/vindhya))
+- TECH-334: Convert Breadcrumb & BreadcrumbItem to Typescript [#223](https://github.com/Jahia/moonstone/pull/223) ([@vindhya](https://github.com/vindhya))
+- TECH-337: Convert ButtonGroup component to typescript [#222](https://github.com/Jahia/moonstone/pull/222) ([@vindhya](https://github.com/vindhya))
+- TECH-336: Migrate Button component to TS and other refactors [#220](https://github.com/Jahia/moonstone/pull/220) ([@vindhya](https://github.com/vindhya))
+- TECH-338: Convert Chip component to typescript [#221](https://github.com/Jahia/moonstone/pull/221) ([@vindhya](https://github.com/vindhya))
+
+#### 📝 Documentation
+
+- MOON-233: Fix for component description not appearing in Docs tab [#219](https://github.com/Jahia/moonstone/pull/219) ([@vindhya](https://github.com/vindhya))
+
+#### Authors: 2
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Vindhya ([@vindhya](https://github.com/vindhya))
+
+---
+
 # v1.0.0 (Wed Dec 23 2020)
 
 #### 💥 Breaking Change
