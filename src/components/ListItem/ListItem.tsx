@@ -96,7 +96,7 @@ export const ListItem: React.FC<ListItemProps> = ({
 
             {
                 iconEnd &&
-                <div className="moonstone-listItem_iconStart"><iconEnd.type {...iconEnd.props} size="small"/></div>
+                <div className="moonstone-listItem_iconEnd"><iconEnd.type {...iconEnd.props} size="small"/></div>
             }
         </li>
     );

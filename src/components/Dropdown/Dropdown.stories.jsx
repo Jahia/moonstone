@@ -4,7 +4,8 @@ import {withKnobs, boolean, select, text} from '@storybook/addon-knobs';
 import {action} from '@storybook/addon-actions';
 import markdownNotes from './Dropdown.md';
 
-import {Dropdown, DropdownVariants, DropdownSizes} from './index';
+import {Dropdown} from './index';
+import {DropdownVariants, DropdownSizes} from './Dropdown.types';
 import {Love} from '~/icons';
 import IconWrapper from '~/__storybook__/IconWrapper';
 import {iconsName} from '~/__storybook__/utils';
