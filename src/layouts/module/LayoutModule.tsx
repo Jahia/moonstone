@@ -23,7 +23,7 @@ export const LayoutModule: React.FC<LayoutModuleProps> = ({
             {
                 React.createElement(
                     component,
-                    {className: clsx(classNameProps), 'role-busy': isLoading},
+                    {className: clsx(classNameProps), 'role-busy': isLoading ? 'true' : undefined},
                     isLoading ? <Loader size="big"/> : content
                 )
             }
