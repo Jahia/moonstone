@@ -1,5 +1,4 @@
 import {createContext} from 'react';
+import {PrimaryNavContextProps} from './PrimaryNav.types';
 
-const PrimaryNavContext = createContext({});
-
-export {PrimaryNavContext};
+export const PrimaryNavContext = createContext<Partial<PrimaryNavContextProps>>({});
