@@ -7,7 +7,8 @@
     "rules": {
         "jsx-boolean-value": [true, "never"],
         "jsx-wrap-multiline": true,
-        "jsx-no-lambda": false
+        "jsx-no-lambda": false,
+        "no-empty": false
     },
     "rulesDirectory": []
 }

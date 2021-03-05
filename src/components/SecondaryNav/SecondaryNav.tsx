@@ -1,15 +1,22 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import './SecondaryNav.scss';
+import {SecondaryNavProps} from './SecondaryNav.types';
 import {ResizableBox} from '~/components/ResizableBox';
 import ChevronDoubleRight from '~/icons/ChevronDoubleRight';
 import ChevronDoubleLeft from '~/icons/ChevronDoubleLeft';
 
-export const SecondaryNav = ({header, children, isDefaultVisible, onToggled, className, ...props}) => {
+export const SecondaryNav: React.FC<SecondaryNavProps> = ({
+    header,
+    children,
+    isDefaultVisible = true,
+    onToggled = () => {},
+    className,
+    ...props
+}) => {
     const [isVisible, setIsVisible] = useState(isDefaultVisible);
 
-    const handleToggle = e => {
+    const handleToggle = (e: React.MouseEvent) => {
         setIsVisible(prevState => !prevState);
         onToggled(e);
     };
@@ -53,38 +60,6 @@ export const SecondaryNav = ({header, children, isDefaultVisible, onToggled, cla
             </div>
         </ResizableBox>
     );
-};
-
-SecondaryNav.defaultProps = {
-    isDefaultVisible: true,
-    onToggled: () => {}
-};
-
-SecondaryNav.propTypes = {
-    /**
-     * Is visible or hidden by default
-     */
-    isDefaultVisible: PropTypes.bool,
-
-    /**
-     * Header of the secondary navigation
-     */
-    header: PropTypes.node.isRequired,
-
-    /**
-     * Content of the component
-     */
-    children: PropTypes.node.isRequired,
-
-    /**
-     * Additional classname
-     */
-    className: PropTypes.string,
-
-    /**
-     * Triggered when the visibility is toggled
-     */
-    onToggled: PropTypes.func
 };
 
 SecondaryNav.displayName = 'SecondaryNav';
