@@ -1,4 +1,4 @@
-import React, { SVGAttributes } from 'react';
+import React from 'react';
 import {ToCompProps, SvgWrapperProps} from './SvgWrapper.types';
 
 const camelCased = (s: string) => s.replace(/-([a-z])/g, g => {
