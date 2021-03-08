@@ -1,6 +1,6 @@
 import {TreeViewData} from './TreeView.types';
 
-export type ControlledTreeViewProps = {
+export type UncontrolledTreeViewProps = {
     /**
      * Data to generate the tree
      */
@@ -9,22 +9,12 @@ export type ControlledTreeViewProps = {
     /**
      * Opened items' ids
      */
-    openedItems?: string[];
+    defaultOpenedItems?: string[];
 
     /**
      * Selected items' ids
      */
     selectedItems?: string[];
-
-    /**
-     * Trigger on opening node
-     */
-    onOpenItem?: (...args: any[]) => void;
-
-    /**
-     * Trigger on opening node
-     */
-    onCloseItem?: (...args: any[]) => void;
 
     /**
      * Trigger by clicking on node
@@ -42,7 +32,7 @@ export type ControlledTreeViewProps = {
     onContextMenuItem?: (...args: any[]) => void;
 
     /**
-     * Reverse color usefull for context with dark background
+     * Reverse color useful for context with dark background
      */
     isReversed?: boolean;
 };
