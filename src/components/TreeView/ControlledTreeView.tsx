@@ -154,14 +154,3 @@ export const ControlledTreeView: React.FC<ControlledTreeViewProps> = ({
         </ul>
     );
 };
-
-// ControlledTreeView.defaultProps = {
-//     onClickItem: () => {},
-//     onDoubleClickItem: () => {},
-//     onContextMenuItem: () => {},
-//     onOpenItem: () => {},
-//     onCloseItem: () => {},
-//     openedItems: [],
-//     selectedItems: [],
-//     isReversed: false
-// };
