@@ -1,16 +1,30 @@
+import React from 'react';
 import clsx from 'clsx';
 import './TreeView.scss';
+import {ControlledTreeViewProps} from './ControlledTreeView.types';
+import {TreeViewData} from './TreeView.types';
 import Loading from '~/icons/Loading';
 import ChevronDown from '~/icons/ChevronDown';
 import ChevronRight from '~/icons/ChevronRight';
 import {Typography} from '~/components/Typography';
-import PropTypes from 'prop-types';
-import React from 'react';
 
-export const ControlledTreeView = ({data, openedItems, selectedItems, onClickItem, onDoubleClickItem, onContextMenuItem, onOpenItem, onCloseItem, isReversed, ...props}) => {
+export const ControlledTreeView: React.FC<ControlledTreeViewProps> = ({
+    data,
+    openedItems = [],
+    selectedItems = [],
+    onClickItem = (...args: any[]) => {},
+    onDoubleClickItem = (...args: any[]) => {},
+    onContextMenuItem = (...args: any[]) => {},
+    onOpenItem = (...args: any[]) => {},
+    onCloseItem = (...args: any[]) => {},
+    isReversed = false,
+    ...props
+}) => {
     const isFlatData = data.filter(item => item.children && item.children.length > 0).length === 0;
 
-    function generateLevelJSX(data, deep, parentHasIconStart, isFlatData) {
+    // TODO: Shadowed variables `deep` and `isFlatData` need to be renamed
+    // tslint:disable-next-line:no-shadowed-variable
+    function generateLevelJSX(data: TreeViewData[], deep: number, parentHasIconStart: boolean, isFlatData: boolean) {
         return data.map(node => {
             const hasChild = Boolean(node.hasChildren || (node.children && node.children.length !== 0));
             const hasIconStart = Boolean(node.iconStart);
@@ -22,7 +36,7 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
             // ---
             // Manage clicks events
             // ---
-            const toggleNode = e => {
+            const toggleNode = (e: React.SyntheticEvent) => {
                 if (isOpen) {
                     onCloseItem(node, e);
                 } else {
@@ -30,7 +44,7 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
                 }
             };
 
-            const handleNodeClick = e => {
+            const handleNodeClick = (e: React.MouseEvent) => {
                 if (onClickItem.length === 0) {
                     toggleNode(e);
                 }
@@ -38,11 +52,11 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
                 onClickItem(node, e, toggleNode);
             };
 
-            const handleNodeDoubleClick = e => {
+            const handleNodeDoubleClick = (e: React.MouseEvent) => {
                 onDoubleClickItem(node, e);
             };
 
-            const handleNodeContextMenu = e => {
+            const handleNodeContextMenu = (e: React.MouseEvent) => {
                 onContextMenuItem(node, e);
             };
 
@@ -60,7 +74,9 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
             );
 
             // Manage treeView_item's icon
-            const displayIcon = (icon, size, className, parentHasIconStart) => {
+            // TODO: Shadowed variable `parentHasIconStart` needs to be renamed
+            // tslint:disable-next-line:no-shadowed-variable
+            const displayIcon = (icon: React.ReactElement, size: string, className: string, parentHasIconStart: boolean = false) => {
                 if (!icon && !parentHasIconStart) {
                     return;
                 }
@@ -74,7 +90,7 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
             };
 
             // Manage if we display icon or loading
-            const displayIconOrLoading = icon => {
+            const displayIconOrLoading = (icon: React.ReactElement) => {
                 const i = isLoading ? <Loading size="big" className="moonstone-icon_isLoading"/> : icon;
 
                 return displayIcon(i, 'default', 'moonstone-treeView_itemIconEnd');
@@ -87,19 +103,21 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
                         aria-expanded={isOpen}
                         {...node.treeItemProps}
                     >
-                        <div className={cssTreeViewItem}
-                             style={{
-                                 paddingLeft: `calc((var(--spacing-medium) + var(--spacing-nano)) * ${deep} + var(--spacing-medium))`
-                             }}
+                        <div
+                            className={cssTreeViewItem}
+                            style={{
+                                paddingLeft: `calc((var(--spacing-medium) + var(--spacing-nano)) * ${deep} + var(--spacing-medium))`
+                            }}
                         >
                             {/* Icon arrow */}
-                            {isClosable && hasChild &&
+                            {isClosable && hasChild && (
                                 <div
                                     className={clsx('flexRow', 'alignCenter', 'moonstone-treeView_itemToggle')}
                                     onClick={toggleNode}
                                 >
                                     {isOpen ? <ChevronDown/> : <ChevronRight/>}
-                                </div>}
+                                </div>
+                            )}
                             {!isFlatData && !hasChild &&
                                 <div className={clsx('flexRow', 'alignCenter', 'moonstone-treeView_itemToggle')}/>}
 
@@ -137,72 +155,13 @@ export const ControlledTreeView = ({data, openedItems, selectedItems, onClickIte
     );
 };
 
-ControlledTreeView.propTypes = {
-    /**
-     * Data to generate the tree
-     */
-    data: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
-        iconStart: PropTypes.nodes,
-        iconEnd: PropTypes.nodes,
-        hasChildren: PropTypes.bool,
-        isClosable: PropTypes.bool,
-        children: PropTypes.arrayOf(PropTypes.object),
-        isLoading: PropTypes.bool,
-        className: PropTypes.string,
-        typographyOptions: PropTypes.object,
-        treeItemProps: PropTypes.object
-    })).isRequired,
-
-    /**
-     * Opened items' ids
-     */
-    openedItems: PropTypes.array,
-
-    /**
-     * Selected items' ids
-     */
-    selectedItems: PropTypes.array,
-
-    /**
-     * Trigger on opening node
-     */
-    onOpenItem: PropTypes.func,
-
-    /**
-     * Trigger on opening node
-     */
-    onCloseItem: PropTypes.func,
-
-    /**
-     * Trigger by clicking on node
-     */
-    onClickItem: PropTypes.func,
-
-    /**
-     * Trigger by double clicking on node
-     */
-    onDoubleClickItem: PropTypes.func,
-
-    /**
-     * Trigger by right clicking on node
-     */
-    onContextMenuItem: PropTypes.func,
-
-    /**
-     * Reverse color usefull for context with dark background
-     */
-    isReversed: PropTypes.bool
-};
-
-ControlledTreeView.defaultProps = {
-    onClickItem: () => {},
-    onDoubleClickItem: () => {},
-    onContextMenuItem: () => {},
-    onOpenItem: () => {},
-    onCloseItem: () => {},
-    openedItems: [],
-    selectedItems: [],
-    isReversed: false
-};
+// ControlledTreeView.defaultProps = {
+//     onClickItem: () => {},
+//     onDoubleClickItem: () => {},
+//     onContextMenuItem: () => {},
+//     onOpenItem: () => {},
+//     onCloseItem: () => {},
+//     openedItems: [],
+//     selectedItems: [],
+//     isReversed: false
+// };

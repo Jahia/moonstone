@@ -1,18 +1,18 @@
 import * as React from 'react';
 
-export interface TreeViewData {
+export type TreeViewData = {
     id: string;
     label: string;
-    iconStart?: any;
-    iconEnd?: any;
+    iconStart?: React.ReactElement;
+    iconEnd?: React.ReactElement;
     hasChildren?: boolean;
     isClosable?: boolean;
     children?: TreeViewData[];
     isLoading?: boolean;
     className?: string;
-    typographyOptions?: object;
-    treeItemProps?: object;
-}
+    typographyOptions?: object; // try to make this more type specific
+    treeItemProps?: object; // try to make this more type specific
+};
 
 export interface TreeViewProps {
     /**
@@ -56,7 +56,5 @@ export interface TreeViewProps {
      * Reverse color usefull for context with dark background
      */
     isReversed?: boolean;
-}
-
-export const TreeView: React.SFC<TreeViewProps>;
+};
 
