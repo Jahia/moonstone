@@ -102,5 +102,5 @@ export type DropdownProps = {
      * @param {object} event - Mouse event
      * @param {object} item - The current item selected
      */
-    onChange?: () => {};
+    onChange?: () => void;
 }
