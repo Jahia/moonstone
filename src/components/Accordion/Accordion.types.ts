@@ -1,14 +1,11 @@
 import * as React from 'react';
+import { AccordionItemProps } from './AccordionItem/AccordionItem.types';
 
-export interface AccordionProps {
+export type AccordionProps = {
     /**
      * Reversed style for dark background with light text
      */
     isReversed?: boolean;
-    /**
-     * Content of the content
-     */
-    children: React.ReactNode;
     /**
      * AccordionItem's id opened by default
      */
@@ -18,14 +15,11 @@ export interface AccordionProps {
      */
     openedItem?: string;
     /**
-     * Additional classname
-     */
-    className?: string;
-    /**
      * Function to set accoridonItem opened
      */
-    onSetOpenedItem?: (...args: any[])=>any;
+    onSetOpenedItem?: () => {};
+    /**
+     * Content of the component
+     */
+     children?: React.ReactElement<AccordionItemProps> | React.ReactElement<AccordionItemProps>[];
 }
-
-export const Accordion: React.SFC<AccordionProps>;
-

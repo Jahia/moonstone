@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import './AccordionItem.scss';
 import {Typography} from '~/components/Typography';
-import {AccordionContext} from '~/components/Accordion/Accordion.context';
+import { AccordionContext } from '~/components/Accordion/Accordion.context';
+import { AccordionItemProps } from './AccordionItem.types';
 
-export const AccordionItem = ({id, label, icon, onClick, children, className, ...props}) => {
-    const context = useContext(AccordionContext);
+export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon, onClick, children, className, ...props}) => {
+    const context = React.useContext(AccordionContext);
     const open = context.currentItem === id;
 
-    const handleClick = (e, open) => {
-        onClick(e, !open);
+    const handleClick = (e: React.MouseEvent | React.KeyboardEvent, isOpen: boolean) => {
+        onClick(e, !isOpen);
         context.onSetOpenedItem(id);
     };
 
@@ -41,6 +42,7 @@ export const AccordionItem = ({id, label, icon, onClick, children, className, ..
                 onClick={e => handleClick(e, open)}
             >
                 {icon &&
+                    (
                     <div className={clsx(
                         'moonstone-accordionItem_iconContainer',
                         'flexRow_center',
@@ -48,7 +50,8 @@ export const AccordionItem = ({id, label, icon, onClick, children, className, ..
                     )}
                     >
                         {icon && <icon.type {...icon.props} size="big"/>}
-                    </div>}
+                    </div>
+                    )}
                 <Typography
                     isNowrap
                     variant="subheading"
@@ -61,6 +64,7 @@ export const AccordionItem = ({id, label, icon, onClick, children, className, ..
 
             {/* Accordion content */}
             {open &&
+                (
                 <div className={clsx(
                         'moonstone-accordionItem_content',
                         'flexFluid'
@@ -68,46 +72,14 @@ export const AccordionItem = ({id, label, icon, onClick, children, className, ..
                      role="region"
                 >
                     {children}
-                </div>}
+                </div>
+                )}
         </section>
     );
 };
 
 AccordionItem.defaultProps = {
     icon: null,
-    onClick: () => {}
+    onClick: () => undefined
 };
-
-AccordionItem.propTypes = {
-    /**
-     * Id to define AccordionItem
-     */
-    id: PropTypes.string.isRequired,
-
-    /**
-     * Label
-     */
-    label: PropTypes.string.isRequired,
-
-    /**
-     * Function triggered on click
-     */
-    onClick: PropTypes.func,
-
-    /**
-     * Icon
-     */
-    icon: PropTypes.node,
-
-    /**
-     * Content of the component
-     */
-    children: PropTypes.node.isRequired,
-
-    /**
-     * Additional classname
-     */
-    className: PropTypes.string
-};
-
 AccordionItem.displayName = 'AccordionItem';
