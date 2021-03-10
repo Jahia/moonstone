@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export interface PrimaryNavItemsGroupProps {
+export type PrimaryNavItemsGroupProps = {
     /**
      * Group is visible when the navigation is collapsed
      */
@@ -9,7 +9,4 @@ export interface PrimaryNavItemsGroupProps {
      * Items displayed inside the group
      */
     children: React.ReactNode;
-}
-
-export const PrimaryNavItemsGroup: React.SFC<PrimaryNavItemsGroupProps>;
-
+};
