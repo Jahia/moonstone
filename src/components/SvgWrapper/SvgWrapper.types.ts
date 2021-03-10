@@ -1,5 +1,5 @@
 export type SvgWrapperSize = 'small' | 'default' | 'big';
-export const svgWrapperSize = ['small', 'default', 'big'];
+export const svgWrapperSizes = ['small', 'default', 'big'];
 
 export type ToCompProps = {
     [key: string]: number;
