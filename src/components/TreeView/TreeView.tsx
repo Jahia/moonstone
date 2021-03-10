@@ -17,9 +17,9 @@ export const TreeView: React.FC<TreeViewProps> = ({openedItems, defaultOpenedIte
 };
 
 TreeView.defaultProps = {
-    onClickItem: () => {},
-    onDoubleClickItem: () => {},
-    onContextMenuItem: () => {},
+    onClickItem: () => undefined,
+    onDoubleClickItem: () => undefined,
+    onContextMenuItem: () => undefined,
     openedItems: undefined,
     defaultOpenedItems: [],
     selectedItems: [],

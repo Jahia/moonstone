@@ -1,3 +1,4 @@
+import React from 'react';
 import {TreeViewData} from './TreeView.types';
 
 export type ControlledTreeViewProps = {

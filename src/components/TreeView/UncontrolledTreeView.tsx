@@ -22,9 +22,9 @@ export const UncontrolledTreeView: React.FC<UncontrolledTreeViewProps> = ({defau
 };
 
 UncontrolledTreeView.defaultProps = {
-    onClickItem: () => {},
-    onDoubleClickItem: () => {},
-    onContextMenuItem: () => {},
+    onClickItem: () => undefined,
+    onDoubleClickItem: () => undefined,
+    onContextMenuItem: () => undefined,
     defaultOpenedItems: [],
     selectedItems: [],
     isReversed: false

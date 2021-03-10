@@ -12,11 +12,11 @@ export const ControlledTreeView: React.FC<ControlledTreeViewProps> = ({
     data,
     openedItems = [],
     selectedItems = [],
-    onClickItem = (...args: any[]) => {},
-    onDoubleClickItem = (...args: any[]) => {},
-    onContextMenuItem = (...args: any[]) => {},
-    onOpenItem = (...args: any[]) => {},
-    onCloseItem = (...args: any[]) => {},
+    onClickItem = () => undefined,
+    onDoubleClickItem = () => undefined,
+    onContextMenuItem = () => undefined,
+    onOpenItem = () => undefined,
+    onCloseItem = () => undefined,
     isReversed = false,
     ...props
 }) => {
