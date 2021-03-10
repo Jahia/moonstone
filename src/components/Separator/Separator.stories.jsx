@@ -4,7 +4,8 @@ import {withKnobs, select} from '@storybook/addon-knobs';
 import clsx from 'clsx';
 import storyStyles from '~/__storybook__/storybook.module.scss';
 
-import {Separator, SeparatorSizes, SeparatorSpacings, SeparatorInvisible, Typography} from '~/components';
+import {Separator, Typography} from '~/components';
+import {SeparatorSizes, SeparatorSpacings, SeparatorInvisible} from './Separator.types';
 import markdownNotes from './Separator.md';
 
 const separatorInvisibleValue = () => select('invisible', SeparatorInvisible, SeparatorInvisible.FirstChild);
