@@ -68,7 +68,7 @@ export const PrimaryNavItem: React.FC<PrimaryNavItemProps> = ({
     url = null,
     button = null,
     isSelected = false,
-    onClick = () => {},
+    onClick = () => undefined,
     badge = null,
     ...props
 }) => {

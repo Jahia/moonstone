@@ -54,5 +54,5 @@ export type PrimaryNavItemProps = {
     /**
      * Function triggered on click
      */
-    onClick?: (...args: any[])=>any;
+    onClick?: React.MouseEventHandler;
 };
