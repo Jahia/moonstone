@@ -63,12 +63,12 @@ export type ResizableBoxProps = {
      * @param {string} dir - Direction resized
      * @param {node} ref - HTML element resized
      */
-    onResizeStart?: (...args: any[])=>any;
+    onResizeStart?: (...args: any[]) => void;
     /**
      * Function on resizing
      * @param {object} e - event
      */
-    onResizing?: (...args: any[])=>any;
+    onResizing?: (...args: any[]) => void;
     /**
      * Function triggered when the resize is finished
      * @param {object} e - Mouse event
@@ -76,6 +76,6 @@ export type ResizableBoxProps = {
      * @param {node} ref - HTML element resized
      * @param {object} delta - delta between after resize
      */
-    onResizeStop?: (...args: any[])=>any;
+    onResizeStop?: (...args: any[]) => void;
 }
 
