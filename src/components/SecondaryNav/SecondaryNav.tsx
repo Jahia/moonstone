@@ -10,7 +10,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
     header,
     children,
     isDefaultVisible = true,
-    onToggled = () => {},
+    onToggled = () => undefined,
     className,
     ...props
 }) => {
