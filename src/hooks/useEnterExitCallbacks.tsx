@@ -2,10 +2,10 @@ import {useEffect, useRef} from 'react';
 
 export const useEnterExitCallbacks = (
     isDisplayed: boolean,
-    onExiting: () => {},
-    onExited: () => {},
-    onEntering: () => {},
-    onEntered: () => {}
+    onExiting: () => void,
+    onExited: () => void,
+    onEntering: () => void,
+    onEntered: () => void
 ) => {
     const previousIsDisplayed = useRef(null);
     useEffect(() => {
