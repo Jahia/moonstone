@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export interface SecondaryNavProps {
+export type SecondaryNavProps = {
     /**
      * Is visible or hidden by default
      */
@@ -20,8 +20,6 @@ export interface SecondaryNavProps {
     /**
      * Triggered when the visibility is toggled
      */
-    onToggled?: (...args: any[])=>any;
-}
-
-export const SecondaryNav: React.SFC<SecondaryNavProps>;
+    onToggled?: (...args: any[]) => void;
+};
 
