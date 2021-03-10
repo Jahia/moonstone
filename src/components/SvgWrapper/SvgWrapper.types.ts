@@ -5,7 +5,7 @@ export type ToCompProps = {
     [key: string]: number;
 }
 
-export interface SvgWrapperProps {
+export type SvgWrapperProps = {
     /**
      * Svg as a string
      */
