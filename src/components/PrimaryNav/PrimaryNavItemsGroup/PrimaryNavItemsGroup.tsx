@@ -1,11 +1,15 @@
 import React, {useContext} from 'react';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import './PrimaryNavItemsGroup.scss';
+import {PrimaryNavItemsGroupProps} from './PrimaryNavItemsGroup.types';
 import {PrimaryNavContext} from '../PrimaryNav.context';
 import {Separator} from '~/components/Separator';
 
-export const PrimaryNavItemsGroup = ({isDisplayedWhenCollapsed, children, ...props}) => {
+export const PrimaryNavItemsGroup: React.FC<PrimaryNavItemsGroupProps> = ({
+    isDisplayedWhenCollapsed = true,
+    children,
+    ...props
+}) => {
     const primaryNavContext = useContext(PrimaryNavContext);
 
     if (!primaryNavContext.isExpanded && !isDisplayedWhenCollapsed) {
@@ -24,22 +28,6 @@ export const PrimaryNavItemsGroup = ({isDisplayedWhenCollapsed, children, ...pro
             </li>
         </>
     );
-};
-
-PrimaryNavItemsGroup.defaultProps = {
-    isDisplayedWhenCollapsed: true
-};
-
-PrimaryNavItemsGroup.propTypes = {
-    /**
-     * Group is visible when the navigation is collapsed
-     */
-    isDisplayedWhenCollapsed: PropTypes.bool,
-
-    /**
-     * Items displayed inside the group
-     */
-    children: PropTypes.node.isRequired
 };
 
 PrimaryNavItemsGroup.displayName = 'PrimaryNavItemsGroup';

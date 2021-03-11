@@ -1,10 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import './SecondaryNavHeader.scss';
-import {Typography} from '../../Typography';
+import {Typography} from '~/components/Typography';
+import {SecondaryNavHeaderProps} from './SecondaryNavHeader.types';
 
-const SecondaryNavHeader = ({children}) => (
+export const SecondaryNavHeader: React.FC<SecondaryNavHeaderProps> = ({children}) => (
     <Typography component="header"
                 className={clsx('moonstone-secondaryNavHeader', 'flexCol_center', 'alignCenter')}
                 variant="heading"
@@ -13,14 +13,4 @@ const SecondaryNavHeader = ({children}) => (
     </Typography>
 );
 
-SecondaryNavHeader.propTypes = {
-
-    /**
-     * Content of the component
-     */
-    children: PropTypes.node.isRequired
-};
-
 SecondaryNavHeader.displayName = 'SecondaryNavHeader';
-
-export {SecondaryNavHeader};

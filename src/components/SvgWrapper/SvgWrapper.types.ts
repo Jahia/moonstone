@@ -1,6 +1,9 @@
-import * as React from 'react';
+export type SvgWrapperSize = 'small' | 'default' | 'big';
+export const svgWrapperSizes = ['small', 'default', 'big'];
 
-export type SvgWrapperSize = "small" | "default" | "big";
+export type ToCompProps = {
+    [key: string]: number;
+}
 
 export interface SvgWrapperProps {
     /**
@@ -16,6 +19,4 @@ export interface SvgWrapperProps {
      */
     className?: string;
 }
-
-export const SvgWrapper: React.SFC<SvgWrapperProps>;
 

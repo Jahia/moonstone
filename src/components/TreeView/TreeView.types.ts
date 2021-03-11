@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-export interface TreeViewData {
+export type TreeViewData = {
     id: string;
     label: string;
-    iconStart?: any;
-    iconEnd?: any;
+    iconStart?: React.ReactElement;
+    iconEnd?: React.ReactElement;
     hasChildren?: boolean;
     isClosable?: boolean;
     children?: TreeViewData[];
@@ -12,9 +12,9 @@ export interface TreeViewData {
     className?: string;
     typographyOptions?: object;
     treeItemProps?: object;
-}
+};
 
-export interface TreeViewProps {
+export type TreeViewProps = {
     /**
      * Data to generate the tree
      */
@@ -22,41 +22,39 @@ export interface TreeViewProps {
     /**
      * Opened items ids. If set, component is controlled
      */
-    openedItems?: any[];
+    openedItems?: string[];
     /**
      * Opened items ids by default, when uncontrolled
      */
-    defaultOpenedItems?: any[];
+    defaultOpenedItems?: string[];
     /**
      * Selected items' ids
      */
-    selectedItems?: any[];
+    selectedItems?: string[];
     /**
      * Trigger on opening node
      */
-    onOpenItem?: (...args: any[])=>any;
+    onOpenItem?: (...args: any[]) => void;
     /**
      * Trigger on opening node
      */
-    onCloseItem?: (...args: any[])=>any;
+    onCloseItem?: (...args: any[]) => void;
     /**
      * Trigger by clicking on node.
      * In the parameters, access to the current node, event, and a method to toggle the node open/close is given.
      */
-    onClickItem?: (...args: any[])=>any;
+    onClickItem?: (...args: any[]) => void;
     /**
      * Trigger by double clicking on node
      */
-    onDoubleClickItem?: (...args: any[])=>any;
+    onDoubleClickItem?: (...args: any[]) => void;
     /**
      * Trigger by right clicking on node
      */
-    onContextMenuItem?: (...args: any[])=>any;
+    onContextMenuItem?: (...args: any[]) => void;
     /**
      * Reverse color usefull for context with dark background
      */
     isReversed?: boolean;
-}
-
-export const TreeView: React.SFC<TreeViewProps>;
+};
 

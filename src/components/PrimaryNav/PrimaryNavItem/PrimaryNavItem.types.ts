@@ -1,6 +1,24 @@
 import * as React from 'react';
+import {BadgeProps} from '~/components/Badge/Badge.types'
+import {TypographyVariant} from '~/components/Typography/Typography';
 
-export interface PrimaryNavItemProps {
+export type ItemProps = {
+    label?: string;
+    icon?: React.ReactElement;
+    textVariant?: TypographyVariant;
+    subtitle?: string;
+    button?: React.ReactNode;
+};
+
+export type ItemTypeResolverProps = {
+    url?: string;
+    label?: string;
+    icon?: React.ReactElement;
+    subtitle?: string;
+    button?: React.ReactNode;
+};
+
+export type PrimaryNavItemProps = {
     /**
      * Label
      */
@@ -24,7 +42,7 @@ export interface PrimaryNavItemProps {
     /**
      * Badge
      */
-    badge?: React.ReactElement<any>;
+    badge?: React.ReactElement<BadgeProps>;
     /**
      * URL to navigate to. If this is used <a> element will be returned with target set to _blank.
      */
@@ -36,8 +54,5 @@ export interface PrimaryNavItemProps {
     /**
      * Function triggered on click
      */
-    onClick?: (...args: any[])=>any;
-}
-
-export const PrimaryNavItem: React.SFC<PrimaryNavItemProps>;
-
+    onClick?: React.MouseEventHandler;
+};
