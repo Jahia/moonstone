@@ -1,9 +1,9 @@
 import React from 'react';
 
-type TypographyVariant = 'title' | 'heading' | 'subheading' | 'body' | 'caption' | 'button';
+export type TypographyVariant = 'title' | 'heading' | 'subheading' | 'body' | 'caption' | 'button';
 export const variants = ['title', 'heading', 'subheading', 'body', 'caption', 'button'];
 
-type TypographyWeight = 'default' | 'bold' | 'semiBold' | 'light';
+export type TypographyWeight = 'default' | 'bold' | 'semiBold' | 'light';
 export const weights = ['default', 'bold', 'semiBold', 'light'];
 
 export type TypographyProps = {

@@ -1,7 +1,8 @@
 import React, {useRef} from 'react';
 import clsx from 'clsx';
 import './Button.scss';
-import {Typography, TypographyWeight} from '../Typography';
+import {Typography} from '../Typography';
+import {TypographyWeight} from '~/components/Typography/Typography.types';
 import {ButtonProps} from './Button.types';
 
 export const Button: React.FC<ButtonProps> = ({
