@@ -1,16 +1,17 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import './AccordionItem.scss';
-import {Typography} from '~/components/Typography';
-import {AccordionContext} from '~/components/Accordion/Accordion.context';
+import { Typography } from '~/components/Typography';
+import { AccordionContext } from '~/components/Accordion/Accordion.context';
+import { AccordionItemProps } from './AccordionItem.types';
 
-export const AccordionItem = ({id, label, icon, onClick, children, className, ...props}) => {
-    const context = useContext(AccordionContext);
+export const AccordionItem: React.FC<AccordionItemProps> = ({ id, label, icon = null, onClick = () => undefined, className, children, ...props }) => {
+    const context = React.useContext(AccordionContext);
     const open = context.currentItem === id;
 
-    const handleClick = (e, open) => {
-        onClick(e, !open);
+    const handleClick = (e: React.MouseEvent | React.KeyboardEvent, isOpen: boolean) => {
+        onClick(e, !isOpen);
         context.onSetOpenedItem(id);
     };
 
@@ -19,7 +20,7 @@ export const AccordionItem = ({id, label, icon, onClick, children, className, ..
             {...props}
             className={clsx(
                 'moonstone-accordionItem',
-                {'moonstone-reversed': context.isReversed},
+                { 'moonstone-reversed': context.isReversed },
                 'flexCol',
                 open ? 'flexFluid' : null,
                 className
@@ -41,14 +42,16 @@ export const AccordionItem = ({id, label, icon, onClick, children, className, ..
                 onClick={e => handleClick(e, open)}
             >
                 {icon &&
-                    <div className={clsx(
-                        'moonstone-accordionItem_iconContainer',
-                        'flexRow_center',
-                        'alignCenter'
+                    (
+                        <div className={clsx(
+                            'moonstone-accordionItem_iconContainer',
+                            'flexRow_center',
+                            'alignCenter'
+                        )}
+                        >
+                            {icon && <icon.type {...icon.props} size="big" />}
+                        </div>
                     )}
-                    >
-                        {icon && <icon.type {...icon.props} size="big"/>}
-                    </div>}
                 <Typography
                     isNowrap
                     variant="subheading"
@@ -61,53 +64,18 @@ export const AccordionItem = ({id, label, icon, onClick, children, className, ..
 
             {/* Accordion content */}
             {open &&
-                <div className={clsx(
+                (
+                    <div className={clsx(
                         'moonstone-accordionItem_content',
                         'flexFluid'
                     )}
-                     role="region"
-                >
-                    {children}
-                </div>}
+                        role="region"
+                    >
+                        {children}
+                    </div>
+                )}
         </section>
     );
-};
-
-AccordionItem.defaultProps = {
-    icon: null,
-    onClick: () => {}
-};
-
-AccordionItem.propTypes = {
-    /**
-     * Id to define AccordionItem
-     */
-    id: PropTypes.string.isRequired,
-
-    /**
-     * Label
-     */
-    label: PropTypes.string.isRequired,
-
-    /**
-     * Function triggered on click
-     */
-    onClick: PropTypes.func,
-
-    /**
-     * Icon
-     */
-    icon: PropTypes.node,
-
-    /**
-     * Content of the component
-     */
-    children: PropTypes.node.isRequired,
-
-    /**
-     * Additional classname
-     */
-    className: PropTypes.string
 };
 
 AccordionItem.displayName = 'AccordionItem';

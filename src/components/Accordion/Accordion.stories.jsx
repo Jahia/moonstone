@@ -191,7 +191,10 @@ storiesOf('Components/Accordion', module)
     })
     .add('reversed', () => (
         <div style={{flex: '1', display: 'flex', backgroundColor: '#293136'}}>
-            <Accordion isReversed>
+            <Accordion
+                isReversed
+                defaultOpenedItem={accordionIds[1]}
+            >
                 <AccordionItem
                     id={accordionIds[0]}
                     icon={<Love size="big"/>}
