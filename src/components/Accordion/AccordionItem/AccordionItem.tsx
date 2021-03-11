@@ -1,12 +1,12 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import './AccordionItem.scss';
-import {Typography} from '~/components/Typography';
+import { Typography } from '~/components/Typography';
 import { AccordionContext } from '~/components/Accordion/Accordion.context';
 import { AccordionItemProps } from './AccordionItem.types';
 
-export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon, onClick, children, className, ...props}) => {
+export const AccordionItem: React.FC<AccordionItemProps> = ({ id, label, icon = null, onClick = () => undefined, className, children, ...props }) => {
     const context = React.useContext(AccordionContext);
     const open = context.currentItem === id;
 
@@ -20,7 +20,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon, on
             {...props}
             className={clsx(
                 'moonstone-accordionItem',
-                {'moonstone-reversed': context.isReversed},
+                { 'moonstone-reversed': context.isReversed },
                 'flexCol',
                 open ? 'flexFluid' : null,
                 className
@@ -43,14 +43,14 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon, on
             >
                 {icon &&
                     (
-                    <div className={clsx(
-                        'moonstone-accordionItem_iconContainer',
-                        'flexRow_center',
-                        'alignCenter'
-                    )}
-                    >
-                        {icon && <icon.type {...icon.props} size="big"/>}
-                    </div>
+                        <div className={clsx(
+                            'moonstone-accordionItem_iconContainer',
+                            'flexRow_center',
+                            'alignCenter'
+                        )}
+                        >
+                            {icon && <icon.type {...icon.props} size="big" />}
+                        </div>
                     )}
                 <Typography
                     isNowrap
@@ -65,21 +65,17 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon, on
             {/* Accordion content */}
             {open &&
                 (
-                <div className={clsx(
+                    <div className={clsx(
                         'moonstone-accordionItem_content',
                         'flexFluid'
                     )}
-                     role="region"
-                >
-                    {children}
-                </div>
+                        role="region"
+                    >
+                        {children}
+                    </div>
                 )}
         </section>
     );
 };
 
-AccordionItem.defaultProps = {
-    icon: null,
-    onClick: () => undefined
-};
 AccordionItem.displayName = 'AccordionItem';

@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
-import {ControlledAccordion} from './ControlledAccordion';
-import { UncontrolledAccordionProps } from './UncontrolledAccordion types';
+import React, { useState } from 'react';
+import { ControlledAccordion } from './ControlledAccordion';
+import { UncontrolledAccordionProps } from './UncontrolledAccordion.types';
 
-export const UncontrolledAccordion: React.FC<UncontrolledAccordionProps> = ({defaultOpenedItem, children, ...props}) => {
+export const UncontrolledAccordion: React.FC<UncontrolledAccordionProps> = ({ defaultOpenedItem, children, ...props }) => {
     const [openedItem, setOpenedItem] = useState(defaultOpenedItem);
 
     const onSetOpenedItem = (id: string) => {
@@ -19,5 +19,6 @@ export const UncontrolledAccordion: React.FC<UncontrolledAccordionProps> = ({def
 };
 
 UncontrolledAccordion.defaultProps = {
-    isReversed: false
+    isReversed: false,
+    className: undefined
 };

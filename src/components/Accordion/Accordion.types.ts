@@ -15,11 +15,15 @@ export type AccordionProps = {
      */
     openedItem?: string;
     /**
+     * Additional classname
+     */
+    className?: string;
+    /**
      * Function to set accoridonItem opened
      */
-    onSetOpenedItem?: () => {};
+    onSetOpenedItem?: () => undefined;
     /**
      * Content of the component
      */
-     children?: React.ReactElement<AccordionItemProps> | React.ReactElement<AccordionItemProps>[];
+    children?: React.ReactElement<AccordionItemProps> | React.ReactElement<AccordionItemProps>[];
 }
