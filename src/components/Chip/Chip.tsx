@@ -11,7 +11,7 @@ export const Chip: React.FC<ChipProps> = ({
     isDisabled = false,
     className,
     ...props
-}: ChipProps) => (
+}) => (
     <div
         className={clsx(
             'moonstone-chip',

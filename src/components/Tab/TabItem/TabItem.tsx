@@ -16,7 +16,7 @@ export const TabItem: React.FC<TabItemProps> = ({
     className = null,
     isSelected = false,
     ...props
-}: TabItemProps) =>
+}) =>
     React.createElement(
         component,
         {

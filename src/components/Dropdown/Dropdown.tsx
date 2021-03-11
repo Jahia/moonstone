@@ -16,23 +16,22 @@ import {Typography} from '~/components/Typography';
 import {Separator} from '~/components/Separator';
 import {ChevronDown} from '~/icons';
 
-export const Dropdown: React.FC<DropdownProps> = (
-    {
-        data,
-        label,
-        value,
-        isDisabled,
-        maxWidth,
-        variant,
-        size,
-        icon,
-        hasSearch,
-        searchEmptyText,
-        imageSize,
-        onChange,
-        className,
-        ...props
-    }) => {
+export const Dropdown: React.FC<DropdownProps> = ({
+    data,
+    label,
+    value,
+    isDisabled,
+    maxWidth,
+    variant,
+    size,
+    icon,
+    hasSearch,
+    searchEmptyText,
+    imageSize,
+    onChange,
+    className,
+    ...props
+}) => {
 
     // Return nothing if `data` isn't an array
     if (!Array.isArray(data)) {

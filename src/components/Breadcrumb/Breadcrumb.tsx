@@ -4,7 +4,7 @@ import './Breadcrumb.scss';
 import {BreadcrumbProps} from './Breadcrumb.types';
 import {ChevronRight} from '~/icons';
 
-export const Breadcrumb: React.FC<BreadcrumbProps> = ({children, className, ...props}: BreadcrumbProps) => {
+export const Breadcrumb: React.FC<BreadcrumbProps> = ({children, className, ...props}) => {
     const classNames = clsx(className);
 
     const allItems = React.Children.toArray(children);

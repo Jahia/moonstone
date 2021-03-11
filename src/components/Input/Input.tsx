@@ -4,23 +4,22 @@ import {Cancel, Search} from '~/icons';
 import './Input.scss';
 import {InputProps, InputSizes, InputVariants} from './Input.types';
 
-export const Input: React.FC<InputProps> =
-    ({
-        variant = 'text',
-        value = '',
-        id,
-        placeholder,
-        isDisabled = false,
-        isReadOnly = false,
-        className,
-        size = InputSizes.Default,
-        icon,
-        onClear,
-        onChange,
-        onBlur,
-        onFocus,
-        ...props
-    }) => {
+export const Input: React.FC<InputProps> = ({
+    variant = 'text',
+    value = '',
+    id,
+    placeholder,
+    isDisabled = false,
+    isReadOnly = false,
+    className,
+    size = InputSizes.Default,
+    icon,
+    onClear,
+    onChange,
+    onBlur,
+    onFocus,
+    ...props
+}) => {
     const classNameProps = clsx(
         'moonstone-input',
         {'moonstone-size_big': size === InputSizes.Big},

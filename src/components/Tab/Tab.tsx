@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import './Tab.scss';
 import {TabProps} from './Tab.types';
 
-export const Tab: React.FC<TabProps> = ({children, className = '', ...props}: TabProps) => {
+export const Tab: React.FC<TabProps> = ({children, className = '', ...props}) => {
     if (!children || React.Children.count(children) < 1) {
         return null;
     }

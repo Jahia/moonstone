@@ -17,7 +17,7 @@ export const Button: React.FC<ButtonProps> = ({
     isHtml = false,
     onClick,
     ...props
-}: ButtonProps) => {
+}) => {
     let typoWeight: TypographyWeight = 'default';
     const ButtonEl = useRef(null);
 

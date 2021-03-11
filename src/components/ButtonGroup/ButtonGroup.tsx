@@ -11,7 +11,7 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
     className = null,
     children,
     ...props
-}: ButtonGroupProps) => {
+}) => {
 
     if (!children || React.Children.count(children) < 1) {
         return null;
