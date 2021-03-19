@@ -27,24 +27,19 @@ $header-toolbar-minheight: 35px;
 }
 
 .moonstone-header_title {
+    margin-right: var(--spacing-big);
+
     color: var(--color-gray_dark);
 }
 
-// Set the spacing between the search and main actions
-.moonstone-header_search + .moonstone-header_mainActions {
-    margin-left: var(--spacing-large);
-}
-
 .moonstone-header_search {
-    margin-left: var(--spacing-big);
+    margin-right: var(--spacing-large);
 }
 
 //---
 // Information Section
 //---
 .moonstone-header_information {
-    width: 100%;
-
     padding: var(--spacing-small) 0;
 
     // If there is no toolbar set a margin-bottom to get more space
