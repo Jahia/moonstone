@@ -102,25 +102,4 @@ storiesOf('Layouts/Demos', module)
                 }
             />
         </div>
-    ))
-    .add('Version 02', () => (
-        <div style={{transform: 'scale(1)'}}>
-            <LayoutApp
-                navigation={
-                    <PrimaryNav isExpanded={boolean('Expand', false, 'Level 1')}>
-                        level 1
-                    </PrimaryNav>
-                }
-                content={
-                    <LayoutModule
-                        header={<header>Header</header>}
-                        content={
-                            <div style={{padding: '20px'}}>
-                                {text('Content', 'My module content', 'Content')}
-                            </div>
-                        }
-                    />
-                }
-            />
-        </div>
     ));
