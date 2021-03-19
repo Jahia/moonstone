@@ -85,8 +85,8 @@ storiesOf('Layouts/LayoutApp', module)
     .addDecorator(withKnobs)
     .add('Default', () => (
         <LayoutApp
-            navigation={<FakeNavigation className="toto"/>}
-            content={<FakeContent className="toto"/>}
+            navigation={<FakeNavigation/>}
+            content={<FakeContent/>}
         />
     ))
     .add('Loading', () => (
