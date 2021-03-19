@@ -17,14 +17,13 @@ export const Header: React.FC<HeaderProps> = ({
     backButton = null,
     breadcrumb,
     className,
-    ...other
+    ...props
 }: HeaderProps) => {
     const hasInformationArea = Boolean(breadcrumb || contentType || status);
     const hasToolbar = Boolean(toolbarLeft || toolbarRight);
 
     return (
-        <header className={clsx('moonstone-header', className)} {...other}>
-
+        <header className={clsx('moonstone-header', className)} {...props}>
             {/* Main area */}
             <div className={clsx('moonstone-header_main', 'flexRow', 'alignCenter', 'flexFluid')}>
                 { backButton && (
