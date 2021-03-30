@@ -1,3 +1,25 @@
+# v1.1.1 (Tue Mar 16 2021)
+
+#### 🐛 Bug Fix
+
+- MOON-273: Fix LayoutModule role-busy error [#233](https://github.com/Jahia/moonstone/pull/233) ([@vindhya](https://github.com/vindhya))
+
+#### 🏠 Internal
+
+- TECH-349: Typescript format cleanup [#239](https://github.com/Jahia/moonstone/pull/239) ([@vindhya](https://github.com/vindhya))
+- TECH-333 : move Accordion components to typeScript [#238](https://github.com/Jahia/moonstone/pull/238) ([@dgriffon](https://github.com/dgriffon))
+- TECH-346: Migrate TreeView and related components to Typescript [#237](https://github.com/Jahia/moonstone/pull/237) ([@vindhya](https://github.com/vindhya))
+- TECH-341: Migrate PrimaryNav, PrimaryNavItem, and PrimaryNavItemsGroup to Typescript [#236](https://github.com/Jahia/moonstone/pull/236) ([@vindhya](https://github.com/vindhya))
+- TECH-343: Migrate SecondaryNav and SecondaryNavHeader to Typescript [#235](https://github.com/Jahia/moonstone/pull/235) ([@vindhya](https://github.com/vindhya))
+- TECH-339: Migrate GlobalStyle, ImgWrapper, and SvgWrapper components to Typescript [#234](https://github.com/Jahia/moonstone/pull/234) ([@vindhya](https://github.com/vindhya))
+
+#### Authors: 2
+
+- David Griffon ([@dgriffon](https://github.com/dgriffon))
+- Vindhya ([@vindhya](https://github.com/vindhya))
+
+---
+
 # v1.1.0 (Wed Feb 24 2021)
 
 #### 🚀 Enhancement
