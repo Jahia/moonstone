@@ -1,3 +1,15 @@
+# v1.2.0 (Tue Mar 30 2021)
+
+#### 🚀 Enhancement
+
+- MOON-256: Create the Header component [#240](https://github.com/Jahia/moonstone/pull/240) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v1.1.1 (Tue Mar 16 2021)
 
 #### 🐛 Bug Fix
