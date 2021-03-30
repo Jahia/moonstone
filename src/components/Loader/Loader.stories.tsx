@@ -5,7 +5,12 @@ import {LoaderProps} from './Loader.types';
 
 export default {
     title: 'Components/Loader',
-    component: LoaderCmp
+    component: LoaderCmp,
+    parameters: {
+        knobs: {
+            disabled: true
+        }
+    },
 };
 
 const Template: Story<LoaderProps> = args => <LoaderCmp {...args}/>;
