@@ -15,7 +15,7 @@ export const Button: React.FC<ButtonProps> = ({
     color = 'default',
     className = null,
     isHtml = false,
-    onClick,
+    onClick = () => undefined,
     ...props
 }) => {
     let typoWeight: TypographyWeight = 'default';

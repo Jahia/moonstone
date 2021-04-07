@@ -58,5 +58,5 @@ export type ButtonProps = {
     /**
      * Function trigger on click
      */
-    onClick: React.MouseEventHandler;
+    onClick?: React.MouseEventHandler;
 }
