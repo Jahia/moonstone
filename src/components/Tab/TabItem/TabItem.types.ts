@@ -45,7 +45,7 @@ export type TabItemProps = {
     /**
      * Function trigger on click
      */
-    onClick: React.MouseEventHandler;
+    onClick?: React.MouseEventHandler;
     /**
      * Is tabItem color reversed
      */
