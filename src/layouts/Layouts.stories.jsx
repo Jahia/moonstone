@@ -3,8 +3,8 @@ import {storiesOf} from '@storybook/react';
 import {withKnobs, text, boolean} from '@storybook/addon-knobs';
 
 import {treeData, treeDataNested} from '~/data';
-import {LayoutApp, LayoutModule} from '~/layouts';
-import {PrimaryNav, SecondaryNav, SecondaryNavHeader, Accordion, AccordionItem, TreeView} from '~/components';
+import {LayoutApp, LayoutModule, LayoutContent} from '~/layouts';
+import {Header, PrimaryNav, SecondaryNav, SecondaryNavHeader, Accordion, AccordionItem, TreeView} from '~/components';
 import {Bug, Love} from '~/icons';
 
 const accordionIds = ['01', '02', '03'];
@@ -72,9 +72,11 @@ storiesOf('Layouts/Demos', module)
                                 </SecondaryNav>
                             }
                             content={
-                                <div style={{padding: '20px'}}>
-                                    {text('Content', 'My module content', 'Content')}
-                                </div>
+                                <LayoutContent
+                                    hasPadding
+                                    header={<Header title="Page title"/>}
+                                    content="placeholder for the page content"
+                                />
                             }
                         />
                     }

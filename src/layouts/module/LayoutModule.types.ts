@@ -6,10 +6,10 @@ export type LayoutModuleProps = {
      */
     navigation?: React.ReactNode;
 
-    /**
-     * The header element of the page
-     */
-    header?: React.ReactElement,
+    // /**
+    //  * The header element of the page
+    //  */
+    // header?: React.ReactElement,
 
     /**
      * Content of the page
@@ -21,16 +21,14 @@ export type LayoutModuleProps = {
      */
      component?: string;
 
-    /**
-     * Define if the content is centered
-     */
-    isCentered?: boolean;
-
-    /**
-     * Define if the content has padding
-     */
-    hasPadding?: boolean;
-
+    // /**
+    //  * Define if the content is centered
+    //  */
+    // isCentered?: boolean;
+    // /**
+    //  * Define if the content has padding
+    //  */
+    //  hasPadding?: boolean;
     /**
      * Replace the content by a loader
      */
