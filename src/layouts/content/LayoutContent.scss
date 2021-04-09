@@ -1,0 +1,15 @@
+.moonstone-layoutContent {
+    padding: var(--spacing-medium);
+
+    background-color: var(--color-light);
+    overflow: auto;
+}
+
+.moonstone-layoutContent_centered {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.moonstone-layoutContent_withNoPadding {
+    padding: 0;
+}

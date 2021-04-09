@@ -14,18 +14,18 @@ describe('LayoutModule', () => {
         expect(screen.queryByText('my content')).not.toBeInTheDocument();
     });
 
-    it('should display a specific HTML markup', () => {
+    it('should display a specific HTML markup when component prop is provided', () => {
         const {container} = render(<LayoutModule component="section"/>);
         expect(container.querySelector('section')).toBeInTheDocument();
     });
 
-    it('should have the class `moonstone-layoutModule_content_centered` when `isCentered` set to true', () => {
-        const {container} = render(<LayoutModule isCentered content="my content"/>);
-        expect(container.querySelector('.moonstone-layoutModule_content_centered')).toBeInTheDocument();
-    });
+    // It('should have the class `moonstone-layoutModule_content_centered` when `isCentered` set to true', () => {
+    //     const {container} = render(<LayoutModule isCentered content="my content"/>);
+    //     expect(container.querySelector('.moonstone-layoutModule_content_centered')).toBeInTheDocument();
+    // });
 
-    it('should have the class `moonstone-layoutModule_content_withNoPadding` when `hasPadding` set to false', () => {
-        const {container} = render(<LayoutModule hasPadding={false} content="my content"/>);
-        expect(container.querySelector('.moonstone-layoutModule_content_withNoPadding')).toBeInTheDocument();
-    });
+    // it('should have the class `moonstone-layoutModule_content_withNoPadding` when `hasPadding` set to false', () => {
+    //     const {container} = render(<LayoutModule hasPadding={false} content="my content"/>);
+    //     expect(container.querySelector('.moonstone-layoutModule_content_withNoPadding')).toBeInTheDocument();
+    // });
 });
