@@ -1,21 +1,39 @@
 import React from 'react';
 
 export type CheckboxProps = {
-    isDefaultChecked?: boolean;
+    /**
+     * 	Whether the checkbox should be checked by default (uncontrolled)
+     */
+    defaultSelected?: boolean;
+
+    /**
+     * Whether the checkbox should be checked (controlled)
+     */
+    isSelected?: boolean;
+
+    /**
+     * Indeterminism is for presentation only. It's to show the user that some other checkboxes
+     * in the same group have been selected, but not all
+     */
     isIndeterminate?: boolean;
 
     /**
-     * Identifiant added to the input element
+     * Identifier added to the input element
      */
     id?: string;
 
     /**
-     * Value to exist in the input field
+     * The value of the input element, used when submitting an HTML form
      */
     value?: string;
 
     /**
-     * Additional classname
+     * The name of the input element, used when submitting an HTML form
+     */
+    name?: string;
+
+    /**
+     * Additional classname(s)
      */
     className?: string;
 
@@ -25,12 +43,23 @@ export type CheckboxProps = {
     isDisabled?: boolean;
 
     /**
-     * Function trigger on click
+     * Whether the checkbox can be selected but not changed by the user
      */
-    onClick?: React.MouseEventHandler;
+    isReadOnly?: boolean;
 
     /**
      * Function triggered on change of the checkbox value
      */
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>, {}) => void;
+    // onChange?: (event: React.ChangeEvent<HTMLInputElement>, {}) => void;
+    onChange?: (isSelected: boolean) => void;
+
+    /**
+     * Function triggered on focus of the checkbox value
+     */
+    onFocus?: React.FocusEventHandler;
+
+    /**
+     * Function triggered when the checkbox value loses focus
+     */
+    onBlur?: React.FocusEventHandler;
 }

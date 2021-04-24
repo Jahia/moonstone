@@ -7,26 +7,40 @@ export default {
     title: 'Components/Checkbox',
     component: Checkbox,
     parameters: {
-        layout: 'centered'
+        layout: 'centered',
+        knobs: {disabled: true},
+        storysource: {disabled: true}
     }
 };
 
-
 const Template: Story<CheckboxProps> = args => <Checkbox {...args}/>;
+const FieldTemplate: Story = ({checkboxArgs, typographyArgs}) => (
+    <>
+        <Checkbox {...checkboxArgs}/>
+        <Typography {...typographyArgs}/>
+    </>
+);
+
 export const Checked = Template.bind({});
 Checked.args = {
-    isChecked: true
+    defaultSelected: true
 };
 
 export const Indeterminate = Template.bind({});
 Indeterminate.args = {
-    isMixedState: true
+    defaultSelected: true,
+    isIndeterminate: true
 };
 
-export const Field = () => (
-    <>
-        <Checkbox id="test"/>
-        <Typography component="label">Select something</Typography>
-        {/* <Typography htmlFor="test" component="label">Select something</Typography> */}
-    </>
-)
+// The controls look bit funky for this one...
+export const Field = FieldTemplate.bind({});
+Field.args = {
+    checkboxArgs: {
+        name: 'test'
+    },
+    typographyArgs: {
+        component: 'label',
+        htmlFor: 'test',
+        children: 'Select something'
+    }
+};

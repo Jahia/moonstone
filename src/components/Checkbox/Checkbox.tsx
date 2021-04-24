@@ -1,67 +1,26 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React from 'react';
 import clsx from 'clsx';
+import {useCheckbox} from '@react-aria/checkbox';
+import {useToggleState} from '@react-stately/toggle';
 
 import {CheckboxProps} from './Checkbox.types';
 import './Checkbox.scss';
 
-export const Checkbox: React.FC<CheckboxProps> = ({
-    className,
-    isDefaultChecked = false,
-    isIndeterminate = false,
-    isDisabled,
-    id,
-    value = '',
-    onClick,
-    onChange,
-    ...props
-}: CheckboxProps) => {
-    const CheckboxEl = useRef(null);
-    const [checked, setChecked] = useState(isDefaultChecked);
-
-
-    // ---
-    // How to manage the indeterminate state ?
-    // ---
-
-    // if (hasMixedState) {
-    //     CheckboxEl.indeterminate = true;
-    // }
-
-    // useEffect(() => {
-    //     if (isMixedState) {
-    //         CheckboxEl.current.indeterminate = true;
-    //         console.log(CheckboxEl.current);
-    //     }
-    // }, [isMixedState]);
-
-    // console.log(`isMixedState: ${isIndeterminate}`);
-
-    // const handleOnChange = (e, item) => {
-    //     setCurrentOption(item);
-    //     action('onChange');
-    //     return true;
-    // };
-
-    const handleOnChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        setChecked(prevState => !prevState);
-        onChange(e, {'state': 'checked'})
-    }
+export const Checkbox: React.FC<CheckboxProps> = props => {
+    const {
+        className,
+        isIndeterminate = false,
+        children
+    } = props;
+    const inputRef = React.useRef<HTMLInputElement>(null);
+    const {inputProps} = useCheckbox(props, useToggleState(props), inputRef);
 
     return (
-        <div
-            className={clsx('moonstone-checkbox', className)}
-            {...props}
-        >
+        <div className={clsx('moonstone-checkbox', className)}>
             <input
-                ref={CheckboxEl}
-                id={id}
-                aria-checked={isIndeterminate ? 'mixed' : checked}
                 className={clsx('moonstone-checkbox_input')}
-                type="checkbox"
-                defaultChecked={isIndeterminate ? true : checked}
-                value={value}
-                onClick={onClick}
-                onChange={handleOnChange}
+                ref={inputRef}
+                {...inputProps}
             />
             <svg className={clsx('moonstone-checkbox_icon')} viewBox="0 0 21 21">
                 { isIndeterminate
@@ -69,8 +28,9 @@ export const Checkbox: React.FC<CheckboxProps> = ({
                     : <path d="M5 10.75L8.5 14.25L16 6" strokeLinecap="round"/>
                 }
             </svg>
+            {children}
         </div>
-    )
+    );
 };
 
 Checkbox.displayName = 'Checkbox';

@@ -1,16 +1,46 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import {Checkbox} from './index';
 
 describe('Checkbox', () => {
-    // TODO: test the component
-    it('should display additional className', () => {
-        render(<Checkbox data-testid="moonstone-checkbox" className="test"/>);
-        expect(screen.getByTestId('moonstone-checkbox')).toHaveClass('test');
+    it('should display additional class names', () => {
+        const className = 'test';
+        render(<Checkbox aria-label="checkbox" className={className}/>);
+        // Checking the parent element because additional classes are applied to the
+        // wrapping div whereas custom attributes are applied to the inner input
+        // element
+        expect(screen.getByRole('checkbox').parentElement).toHaveClass(className);
     });
 
     it('should add additional attributes', () => {
-        render(<Checkbox data-testid="moonstone-checkbox" data-custom="test"/>);
-        expect(screen.getByTestId('moonstone-checkbox')).toHaveAttribute('data-custom', 'test');
+        const customAttribute = 'test';
+        render(<Checkbox aria-label="checkbox" data-custom={customAttribute}/>);
+        expect(screen.getByRole('checkbox')).toHaveAttribute('data-custom', customAttribute);
+    });
+
+    it('should check off when clicked on', () => {
+        render(<Checkbox aria-label="checkbox"/>);
+        const checkbox = screen.getByRole('checkbox');
+        userEvent.click(checkbox);
+        expect(checkbox).toBeChecked();
+    });
+
+    it('should un-check when clicked on twice', () => {
+        render(<Checkbox aria-label="checkbox"/>);
+        const checkbox = screen.getByRole('checkbox');
+        userEvent.click(checkbox);
+        userEvent.click(checkbox);
+        expect(checkbox).not.toBeChecked();
+    });
+
+    it('should initially be checked off when the defaultSelected prop is set', () => {
+        render(<Checkbox defaultSelected aria-label="checkbox"/>);
+        expect(screen.getByRole('checkbox')).toBeChecked();
+    });
+
+    it('should have mixed state when specified with the isIndeterminate prop', () => {
+        render(<Checkbox isIndeterminate aria-label="checkbox"/>);
+        expect(screen.getByRole('checkbox')).toBePartiallyChecked();
     });
 });
