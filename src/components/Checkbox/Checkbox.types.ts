@@ -2,7 +2,7 @@ import React from 'react';
 
 export type CheckboxProps = {
     /**
-     * 	Whether the checkbox should be checked by default (uncontrolled)
+     * Whether the checkbox should be checked by default (uncontrolled)
      */
     defaultSelected?: boolean;
 
@@ -50,7 +50,6 @@ export type CheckboxProps = {
     /**
      * Function triggered on change of the checkbox value
      */
-    // onChange?: (event: React.ChangeEvent<HTMLInputElement>, {}) => void;
     onChange?: (isSelected: boolean) => void;
 
     /**

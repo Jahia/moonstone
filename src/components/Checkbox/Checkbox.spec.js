@@ -6,11 +6,8 @@ import {Checkbox} from './index';
 describe('Checkbox', () => {
     it('should display additional class names', () => {
         const className = 'test';
-        render(<Checkbox aria-label="checkbox" className={className}/>);
-        // Checking the parent element because additional classes are applied to the
-        // wrapping div whereas custom attributes are applied to the inner input
-        // element
-        expect(screen.getByRole('checkbox').parentElement).toHaveClass(className);
+        const {container} = render(<Checkbox aria-label="checkbox" className={className}/>);
+        expect(container.getElementsByClassName(className)).toBeTruthy();
     });
 
     it('should add additional attributes', () => {

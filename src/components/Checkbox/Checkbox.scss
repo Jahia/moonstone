@@ -51,14 +51,16 @@ $checkbox-size: 20px;
         --border: var(--color-gray60);
     }
 
+    &:focus {
+        outline: auto;
+    }
+
     &:checked {
         --shadow-size: 12px;
         --border: var(--color-accent);
 
         &:hover {
             border: 2px solid var(--color-accent_dark);
-
-            // --border: var(--color-accent60);
         }
 
         & ~ .moonstone-checkbox_icon {
