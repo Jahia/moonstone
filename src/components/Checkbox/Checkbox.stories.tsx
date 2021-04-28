@@ -9,7 +9,8 @@ export default {
     parameters: {
         layout: 'centered',
         knobs: {disable: true},
-        storysource: {disable: true}
+        storysource: {disable: true},
+        actions: { argTypesRegex: '^on.*' }
     }
 };
 
@@ -32,12 +33,3 @@ Indeterminate.args = {
     isIndeterminate: true,
     'aria-label': 'indeterminate example checkbox'
 };
-
-export const onChange = Template.bind({});
-onChange.args = {
-    onChange: (isSelected: boolean) => isSelected
-        ? alert('checked! :D')
-        : alert('unchecked :('),
-    'aria-label': 'onChange example checkbox'
-};
-
