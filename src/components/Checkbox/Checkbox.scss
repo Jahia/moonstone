@@ -1,0 +1,95 @@
+$checkbox-size: 20px;
+
+.moonstone-checkbox {
+    position: relative;
+}
+
+.moonstone-checkbox_input,
+.moonstone-checkbox_icon {
+    display: block;
+    width: $checkbox-size;
+    height: $checkbox-size;
+}
+
+.moonstone-checkbox_icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: $checkbox-size;
+    height: $checkbox-size;
+
+    fill: none;
+    stroke: var(--color-light);
+
+    transform: scale(0) translateZ(0);
+
+    pointer-events: none;
+    stroke-width: 2px;
+}
+
+.moonstone-checkbox_input {
+    position: relative;
+
+    margin: 0;
+    padding: 0;
+
+    appearance: none;
+
+    border: none;
+    border-radius: 4px;
+    outline: none;
+    background: transparent;
+
+    box-shadow: inset 0 0 0 var(--shadow-size, 1px) var(--shadow-color, var(--color-gray));
+    cursor: pointer;
+
+    transition: box-shadow 0.2s;
+
+    &:hover {
+        --shadow-color: var(--color-gray60);
+        --shadow-size: 2px;
+    }
+
+    // Only triggered when the input is focus with tab
+    &.hasFocus {
+        border: 2px solid var(--color-accent_dark_contrast);
+    }
+
+    &[aria-checked="true"],
+    &[aria-checked="mixed"] {
+        --shadow-size: 12px;
+        --shadow-color: var(--color-accent);
+
+        &:hover {
+            border: 2px solid var(--color-accent_dark);
+        }
+
+        & ~ .moonstone-checkbox_icon {
+            animation: checkboxBounce 0.4s linear forwards 0.2s;
+        }
+    }
+
+    &[disabled],
+    &[aria-readonly="true"] {
+        cursor: default;
+        opacity: 0.4;
+
+        // Prevent :hover on disabled and read-only
+        pointer-events: none;
+    }
+}
+
+@keyframes checkboxBounce {
+    50% {
+        transform: scale(1.2);
+    }
+
+    75% {
+        transform: scale(0.9);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
