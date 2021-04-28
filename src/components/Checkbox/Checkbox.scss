@@ -53,7 +53,7 @@ $checkbox-size: 20px;
 
     // Only triggered when the input is focus with tab
     &.hasFocus {
-        border: 2px solid var(--color-accent_dark);
+        border: 2px solid var(--color-accent_dark_contrast);
     }
 
     &[aria-checked="true"],
