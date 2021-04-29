@@ -26,5 +26,12 @@ export const parameters = {
             }
             return null;
         },
+    },
+    options: {
+        storySort: {
+            method: 'alphabetical',
+            order: [],
+            locales: ''
+        }
     }
 };
