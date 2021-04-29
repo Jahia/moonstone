@@ -1,0 +1,32 @@
+import {Meta, Story, Canvas, ArgsTable} from '@storybook/addon-docs/blocks';
+import * as stories from './Checkbox.stories';
+import {Loader, Checkbox} from '~/components';
+
+[comment]: # (no auto-complete in mdx files in vs code)
+
+<Meta
+	title="MDX/Checkbox"
+	component="Checkbox"
+/>
+
+# Checkbox
+
+Here is some documentation for the default checkbox!
+<Canvas>
+	<h2>Unchecked</h2>
+	<Story story={stories.Default}/>
+</Canvas>
+
+---
+
+Here's a Loader beside a checkbox checked by default!
+<Loader size="medium" style={{display: 'inlineBlock'}}/>
+
+<Canvas>
+	<Story story={stories.CheckedByDefault}/>
+	<Story story={stories.Indeterminate}/>
+</Canvas>
+
+---
+
+<ArgsTable of={Checkbox}/>

@@ -3,16 +3,16 @@ import {Story} from '@storybook/react'
 import {CheckboxProps} from './Checkbox.types';
 import {Checkbox} from '~/components';
 
-export default {
-    title: 'Components/Checkbox',
-    component: Checkbox,
-    parameters: {
-        layout: 'centered',
-        knobs: {disable: true},
-        storysource: {disable: true},
-        actions: { argTypesRegex: '^on.*' }
-    }
-};
+// export default {
+//     title: 'Components/Checkbox',
+//     component: Checkbox,
+//     parameters: {
+//         layout: 'centered',
+//         knobs: {disable: true},
+//         storysource: {disable: true},
+//         actions: { argTypesRegex: '^on.*' }
+//     }
+// };
 
 const Template: Story<CheckboxProps> = args => <Checkbox {...args}/>;
 
