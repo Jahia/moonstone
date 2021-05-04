@@ -15,7 +15,7 @@ export type TableRowProps = {
      * If true, then the row is selected
      */
     isSelected?: boolean;
-    
+
     /**
      * The children elements
      */

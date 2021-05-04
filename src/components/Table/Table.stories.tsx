@@ -1,9 +1,6 @@
 import React from 'react';
-import {Story} from '@storybook/react';
 import {useTable} from 'react-table';
-import clsx from 'clsx';
 
-import {TableProps} from './Table.types';
 import {
     Table,
     TableHead,
@@ -13,6 +10,7 @@ import {
 } from '~/components';
 import {tableDataFlat} from '~/data/tableDataFlat';
 import './Table.scss';
+import {Typography} from '~/components/Typography';
 
 export default {
     title: 'AAA/Table',
@@ -24,34 +22,30 @@ export default {
     }
 };
 
-const Template: Story<TableProps> = args => (
-    <Table {...args}></Table>
-);
-
 export const Basic = () => (
     <Table>
     <TableHead>
         <TableRow>
-            <TableCell component="th">first row</TableCell>
-            <TableCell component="th">second row</TableCell>
-            <TableCell component="th">third row</TableCell>
+            <TableCell component="th">first column</TableCell>
+            <TableCell component="th">second column</TableCell>
+            <TableCell component="th">third column</TableCell>
         </TableRow>
     </TableHead>
     <TableBody>
         <TableRow>
-            <TableCell>cell 1</TableCell>
-            <TableCell>cell 2</TableCell>
-            <TableCell>cell 3</TableCell>
+            <TableCell><Typography>cell 1</Typography></TableCell>
+            <TableCell><Typography>cell 2</Typography></TableCell>
+            <TableCell><Typography>cell 3</Typography></TableCell>
         </TableRow>
         <TableRow>
-            <TableCell>cell 4</TableCell>
-            <TableCell>cell 5</TableCell>
-            <TableCell>cell 6</TableCell>
+            <TableCell><Typography>cell 4</Typography></TableCell>
+            <TableCell><Typography>cell 5</Typography></TableCell>
+            <TableCell><Typography>cell 6</Typography></TableCell>
         </TableRow>
         <TableRow>
-            <TableCell>cell 7</TableCell>
-            <TableCell>cell 8</TableCell>
-            <TableCell>cell 9</TableCell>
+            <TableCell><Typography>cell 7</Typography></TableCell>
+            <TableCell><Typography>cell 8</Typography></TableCell>
+            <TableCell><Typography>cell 9</Typography></TableCell>
         </TableRow>
     </TableBody>
     </Table>
@@ -59,7 +53,9 @@ export const Basic = () => (
 
 export const BasicReactTable = () => {
     const data = React.useMemo(() => tableDataFlat, []);
-    const columns = React.useMemo(() => [
+    // TODO: figure out why there's a type mis-match with columns when it's used below to
+    // TODO: instantiate the table
+    const columns: any = React.useMemo(() => [
         {Header: 'Name', accessor: 'name'},
         {Header: 'Type', accessor: 'type'},
         {Header: 'Created By', accessor: 'createdBy'},
@@ -76,14 +72,13 @@ export const BasicReactTable = () => {
         {data, columns}
     );
 
-    // TODO: add keys for looped components
     return (
         <Table {...getTableProps()}>
             <TableHead className="moonstone-table_head">
                 {headerGroups.map(headerGroup => (
-                    <TableRow {...headerGroup.getHeaderGroupProps()}>
+                    <TableRow key={'headerGroup' + headerGroup.id} {...headerGroup.getHeaderGroupProps()}>
                         {headerGroup.headers.map(column => (
-                            <TableCell component="th" {...column.getHeaderProps()}>
+                            <TableCell key={column.id} component="th" {...column.getHeaderProps()}>
                                 {column.render('Header')}
                             </TableCell>
                         ))}
@@ -93,11 +88,13 @@ export const BasicReactTable = () => {
             <TableBody {...getTableBodyProps()}>
                 {rows.map(row => {
                     prepareRow(row);
-                    return (    
-                        <TableRow {...row.getRowProps()}>
+                    return (
+                        <TableRow key={'row' + row.id} {...row.getRowProps()}>
                             {row.cells.map(cell => (
+                                // TODO: Figure out a key value for these TableCell instances
+                                // tslint:disable-next-line
                                 <TableCell {...cell.getCellProps()}>
-                                    {cell.render('Cell')}
+                                    <Typography>{cell.render('Cell')}</Typography>
                                 </TableCell>
                             ))}
                         </TableRow>
@@ -107,14 +104,19 @@ export const BasicReactTable = () => {
         </Table>
     );
 };
-BasicReactTable.storyName = 'Basic Table Using React Table';
+BasicReactTable.storyName = 'Basic Table with React-Table';
 
-export const SelectableRows = Template.bind({});
-
-export const SortingByColumn = Template.bind({});
-
-export const Pagination = Template.bind({});
-
-export const StructuredView = Template.bind({});
-
-export const KitchenSink = Template.bind({});
+// export const SelectableRows = () => {};
+// SelectableRows.storyName = 'Selectable Rows with React-Table';
+//
+// export const SortingByColumn = () => {};
+// SortingByColumn.storyName = 'Sorting by Column with React-Table';
+//
+// export const Pagination = () => {};
+// Pagination.storyName = 'Pagination with React-Table';
+//
+// export const StructuredView = () => {};
+// StructuredView.storyName = 'Structured View with React-Table';
+//
+// export const KitchenSink = () => {};
+// KitchenSink.storyName = 'Everything and the Kitchen Sink with React-Table';

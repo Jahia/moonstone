@@ -31,7 +31,7 @@ export const TableCell: React.FC<TableCellProps> = ({
             // Not sure if we should wrap children in a Typography component here
             // Need a way for user to easily get the styling for th element
             // Could conditionally apply a class for bold text for the Table head cells here too
-            ? <Typography variant="heading">{children}</Typography>
+            ? <Typography weight="bold">{children}</Typography>
             : children
     );
 };

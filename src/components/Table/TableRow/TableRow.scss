@@ -6,8 +6,9 @@
     }
 
     &.moonstone-table_row-selected {
-        background-color: var(--color-accent);
         color: var(--color-light);
+
+        background-color: var(--color-accent);
     }
 }
 

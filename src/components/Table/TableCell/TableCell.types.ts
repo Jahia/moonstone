@@ -5,7 +5,7 @@ export type TableCellProps = {
      * Any additional class names to apply to the component
      */
     className?: string;
-    
+
     /**
      * Name of the cell HTML element to render in the DOM
      */
