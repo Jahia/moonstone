@@ -1,0 +1,30 @@
+.moonstone-table_cell {
+    padding: 0 var(--spacing-medium);
+}
+
+// is there a better place to put these utility classes? maybe somewhere in the global scss
+// will text align be okay for all types of content in the cell?
+// refactor into scss @mixin or @function or something
+.horizontalAlignLeft {
+    text-align: left;
+}
+
+.horizontalAlignCenter {
+    text-align: center;
+}
+
+.horizontalAlignRight {
+    text-align: right;
+}
+
+.verticalAlignTop {
+    vertical-align: top;
+}
+
+.verticalAlignCenter {
+    vertical-align: middle;
+}
+
+.verticalAlignBottom {
+    vertical-align: bottom;
+}

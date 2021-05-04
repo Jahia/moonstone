@@ -23,5 +23,6 @@ export * from './Separator';
 export * from './SvgWrapper';
 export * from './Tab';
 export * from './Tab/TabItem';
+export * from './Table';
 export * from './TreeView';
 export * from './Typography';
