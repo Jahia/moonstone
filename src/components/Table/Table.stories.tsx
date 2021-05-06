@@ -25,25 +25,27 @@ export default {
 export const Basic = () => (
     <Table>
     <TableHead>
-        <TableHeadCell>first column</TableHeadCell>
-        <TableHeadCell>second column</TableHeadCell>
-        <TableHeadCell>third column</TableHeadCell>
+        <TableRow>
+            <TableHeadCell>first column</TableHeadCell>
+            <TableHeadCell>second column</TableHeadCell>
+            <TableHeadCell>third column</TableHeadCell>
+        </TableRow>
     </TableHead>
     <TableBody>
         <TableRow>
-            <TableBodyCell><Typography>cell 1</Typography></TableBodyCell>
-            <TableBodyCell><Typography>cell 2</Typography></TableBodyCell>
-            <TableBodyCell><Typography>cell 3</Typography></TableBodyCell>
+            <TableBodyCell>cell 1</TableBodyCell>
+            <TableBodyCell>cell 2</TableBodyCell>
+            <TableBodyCell>cell 3</TableBodyCell>
         </TableRow>
         <TableRow>
-            <TableBodyCell><Typography>cell 4</Typography></TableBodyCell>
-            <TableBodyCell><Typography>cell 5</Typography></TableBodyCell>
-            <TableBodyCell><Typography>cell 6</Typography></TableBodyCell>
+            <TableBodyCell>cell 4</TableBodyCell>
+            <TableBodyCell>cell 5</TableBodyCell>
+            <TableBodyCell>cell 6</TableBodyCell>
         </TableRow>
         <TableRow>
-            <TableBodyCell><Typography>cell 7</Typography></TableBodyCell>
-            <TableBodyCell><Typography>cell 8</Typography></TableBodyCell>
-            <TableBodyCell><Typography>cell 9</Typography></TableBodyCell>
+            <TableBodyCell>cell 7</TableBodyCell>
+            <TableBodyCell>cell 8</TableBodyCell>
+            <TableBodyCell>cell 9</TableBodyCell>
         </TableRow>
     </TableBody>
     </Table>

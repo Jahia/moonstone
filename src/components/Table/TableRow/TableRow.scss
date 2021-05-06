@@ -1,21 +1,24 @@
-.moonstone-table_row {
+$row-regular-height: 48px;
+$row-multiple-line-height: 64px;
+
+.moonstone-tableRow {
+    height: $row-regular-height;
+
     border-bottom: 1px solid var(--color-gray40);
 
-    &:hover {
+    transition: background-color 0.3s ease-in-out;
+
+    .moonstone-tableBody &:hover {
         background-color: var(--color-gray_light40);
     }
 
-    &.moonstone-table_row-selected {
+    &.moonstone-tableRow-selected {
         color: var(--color-light);
 
         background-color: var(--color-accent);
     }
-}
 
-.moonstone-table_row-regular {
-    height: 48px;
-}
-
-.moonstone-table_row-relaxed {
-    height: 64px;
+    &.moonstone-tableRow-multipleLines {
+        height: $row-multiple-line-height;
+    }
 }

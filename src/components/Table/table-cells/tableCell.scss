@@ -1,4 +1,4 @@
-.moonstone-table_cell {
+@mixin tableCell-padding {
     padding: 0 var(--spacing-medium);
 }
 

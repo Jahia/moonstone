@@ -7,9 +7,9 @@ export type TableRowProps = {
     className?: React.ReactNode;
 
     /**
-     * What type of spacing the cell should have
+     * Whether the cell height should be increased to show more than 1 line
      */
-    height?: 'regular' | 'relaxed';
+    isMultipleLines?: boolean;
 
     /**
      * If true, then the row is selected

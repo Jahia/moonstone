@@ -6,7 +6,7 @@ import clsx from 'clsx';
 
 export const TableHead: React.FC<TableHeadProps> = ({children, className, ...props}) => (
     <thead
-        className={clsx('moonstone-table_head', className)}
+        className={clsx('moonstone-tableHead', className)}
         {...props}
     >
         {children}

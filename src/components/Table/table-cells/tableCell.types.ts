@@ -1,5 +1,7 @@
 import React from 'react';
 
+// Shared types used by both TableHeadCell and TableBodyCell
+
 export type TableCellProps = {
     /**
      * Any additional class names to apply to the component
