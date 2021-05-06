@@ -6,7 +6,7 @@ $row-multiple-line-height: 64px;
 
     border-bottom: 1px solid var(--color-gray40);
 
-    transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.2s ease-in-out;
 
     .moonstone-tableBody &:hover {
         background-color: var(--color-gray_light40);
@@ -16,6 +16,10 @@ $row-multiple-line-height: 64px;
         color: var(--color-light);
 
         background-color: var(--color-accent);
+
+        &:hover {
+            background-color: var(--color-accent);
+        }
     }
 
     &.moonstone-tableRow-multipleLines {
