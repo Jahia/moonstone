@@ -14,7 +14,7 @@ export type TableCellProps = {
     /**
      * How to align content horizontally within the table cell
      */
-    horizontalAlign?: 'left' | 'center' | 'right';
+    textAlign?: 'left' | 'center' | 'right';
 
     /**
      * How to align content vertically within the table cell

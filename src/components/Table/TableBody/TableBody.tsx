@@ -2,8 +2,8 @@ import React from 'react';
 
 import {TableBodyProps} from './TableBody.types';
 
-export const TableBody: React.FC<TableBodyProps> = ({children}) => (
-    <tbody>
+export const TableBody: React.FC<TableBodyProps> = ({children, ...props}) => (
+    <tbody {...props}>
         {children}
     </tbody>
 );

@@ -2,9 +2,13 @@ import React from 'react';
 
 import {TableHeadProps} from './TableHead.types';
 import './TableHead.scss';
+import clsx from 'clsx';
 
 export const TableHead: React.FC<TableHeadProps> = ({children, className, ...props}) => (
-    <thead className={className} {...props}>
+    <thead
+        className={clsx('moonstone-table_head', className)}
+        {...props}
+    >
         {children}
     </thead>
 );

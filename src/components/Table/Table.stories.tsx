@@ -4,12 +4,12 @@ import {useTable} from 'react-table';
 import {
     Table,
     TableHead,
+    TableHeadCell,
     TableRow,
     TableBody,
-    TableCell
+    TableBodyCell
 } from '~/components';
 import {tableDataFlat} from '~/data/tableDataFlat';
-import './Table.scss';
 import {Typography} from '~/components/Typography';
 
 export default {
@@ -25,27 +25,25 @@ export default {
 export const Basic = () => (
     <Table>
     <TableHead>
-        <TableRow>
-            <TableCell component="th">first column</TableCell>
-            <TableCell component="th">second column</TableCell>
-            <TableCell component="th">third column</TableCell>
-        </TableRow>
+        <TableHeadCell>first column</TableHeadCell>
+        <TableHeadCell>second column</TableHeadCell>
+        <TableHeadCell>third column</TableHeadCell>
     </TableHead>
     <TableBody>
         <TableRow>
-            <TableCell><Typography>cell 1</Typography></TableCell>
-            <TableCell><Typography>cell 2</Typography></TableCell>
-            <TableCell><Typography>cell 3</Typography></TableCell>
+            <TableBodyCell><Typography>cell 1</Typography></TableBodyCell>
+            <TableBodyCell><Typography>cell 2</Typography></TableBodyCell>
+            <TableBodyCell><Typography>cell 3</Typography></TableBodyCell>
         </TableRow>
         <TableRow>
-            <TableCell><Typography>cell 4</Typography></TableCell>
-            <TableCell><Typography>cell 5</Typography></TableCell>
-            <TableCell><Typography>cell 6</Typography></TableCell>
+            <TableBodyCell><Typography>cell 4</Typography></TableBodyCell>
+            <TableBodyCell><Typography>cell 5</Typography></TableBodyCell>
+            <TableBodyCell><Typography>cell 6</Typography></TableBodyCell>
         </TableRow>
         <TableRow>
-            <TableCell><Typography>cell 7</Typography></TableCell>
-            <TableCell><Typography>cell 8</Typography></TableCell>
-            <TableCell><Typography>cell 9</Typography></TableCell>
+            <TableBodyCell><Typography>cell 7</Typography></TableBodyCell>
+            <TableBodyCell><Typography>cell 8</Typography></TableBodyCell>
+            <TableBodyCell><Typography>cell 9</Typography></TableBodyCell>
         </TableRow>
     </TableBody>
     </Table>
@@ -74,13 +72,13 @@ export const BasicReactTable = () => {
 
     return (
         <Table {...getTableProps()}>
-            <TableHead className="moonstone-table_head">
+            <TableHead>
                 {headerGroups.map(headerGroup => (
                     <TableRow key={'headerGroup' + headerGroup.id} {...headerGroup.getHeaderGroupProps()}>
                         {headerGroup.headers.map(column => (
-                            <TableCell key={column.id} component="th" {...column.getHeaderProps()}>
+                            <TableHeadCell key={column.id} {...column.getHeaderProps()}>
                                 {column.render('Header')}
-                            </TableCell>
+                            </TableHeadCell>
                         ))}
                     </TableRow>
                 ))}
@@ -93,9 +91,9 @@ export const BasicReactTable = () => {
                             {row.cells.map(cell => (
                                 // TODO: Figure out a key value for these TableCell instances
                                 // tslint:disable-next-line
-                                <TableCell {...cell.getCellProps()}>
+                                <TableBodyCell {...cell.getCellProps()}>
                                     <Typography>{cell.render('Cell')}</Typography>
-                                </TableCell>
+                                </TableBodyCell>
                             ))}
                         </TableRow>
                     );
