@@ -1,0 +1,26 @@
+[
+  {
+    "id": "name",
+    "label": "jcontent:label.contentManager.listColumns.name",
+    "sortable": true,
+    "property": "displayName"
+  },
+  {
+    "id": "type",
+    "label": "jcontent:label.contentManager.listColumns.type",
+    "sortable": true,
+    "property": "primaryNodeType.displayName"
+  },
+  {
+    "id": "createdBy",
+    "label": "jcontent:label.contentManager.listColumns.createdBy",
+    "sortable": true,
+    "property": "createdBy.value"
+  },
+  {
+    "id": "lastModified",
+    "label": "jcontent:label.contentManager.listColumns.lastModified",
+    "sortable": true,
+    "property": "lastModified.value"
+  }
+]

@@ -1,0 +1,1808 @@
+[
+  {
+    "name": "demo-roles-and-users",
+    "displayName": "Demo Roles and Users",
+    "createdBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "created": {
+      "value": "2016-08-10T21:04:54.216-04:00",
+      "__typename": "JCRProperty"
+    },
+    "primaryNodeType": {
+      "name": "jnt:page",
+      "displayName": "Page",
+      "icon": "/modules/assets/icons/jnt_page",
+      "__typename": "JCRNodeType"
+    },
+    "mixinTypes": [
+      {
+        "name": "jdmix:hidePage",
+        "__typename": "JCRNodeType"
+      }
+    ],
+    "operationsSupport": {
+      "lock": true,
+      "markForDeletion": true,
+      "publication": true,
+      "__typename": "GqlOperationsSupport"
+    },
+    "aggregatedPublicationInfo": {
+      "publicationStatus": "PUBLISHED",
+      "__typename": "GqlPublicationInfo"
+    },
+    "lockOwner": null,
+    "lastPublished": {
+      "value": "2016-12-13T16:37:31.058-05:00",
+      "__typename": "JCRProperty"
+    },
+    "lastPublishedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModifiedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModified": {
+      "value": "2016-08-11T12:19:16.537-04:00",
+      "__typename": "JCRProperty"
+    },
+    "deletedBy": null,
+    "deleted": null,
+    "wipStatus": null,
+    "wipLangs": null,
+    "ancestors": [],
+    "notSelectableForPreview": true,
+    "site": {
+      "uuid": "11a0f7a8-2691-40fa-9107-94e1d5d44423",
+      "workspace": "EDIT",
+      "path": "/sites/digitall",
+      "__typename": "JCRSite"
+    },
+    "uuid": "b8fc92fd-23d8-48e8-bf48-66e53808d42f",
+    "workspace": "EDIT",
+    "path": "/sites/digitall/home/demo-roles-and-users",
+    "__typename": "GenericJCRNode",
+    "subNodes": {
+      "pageInfo": {
+        "totalCount": 2,
+        "__typename": "PageInfo"
+      },
+      "__typename": "JCRNodeConnection"
+    }
+  },
+  {
+    "name": "search-results",
+    "displayName": "Search Results",
+    "createdBy": {
+      "value": "system",
+      "__typename": "JCRProperty"
+    },
+    "created": {
+      "value": "2021-05-04T11:45:14.814Z",
+      "__typename": "JCRProperty"
+    },
+    "primaryNodeType": {
+      "name": "jnt:page",
+      "displayName": "Page",
+      "icon": "/modules/assets/icons/jnt_page",
+      "__typename": "JCRNodeType"
+    },
+    "mixinTypes": [
+      {
+        "name": "jdmix:hidePage",
+        "__typename": "JCRNodeType"
+      }
+    ],
+    "operationsSupport": {
+      "lock": true,
+      "markForDeletion": true,
+      "publication": true,
+      "__typename": "GqlOperationsSupport"
+    },
+    "aggregatedPublicationInfo": {
+      "publicationStatus": "PUBLISHED",
+      "__typename": "GqlPublicationInfo"
+    },
+    "lockOwner": null,
+    "lastPublished": {
+      "value": "2016-12-13T16:37:31.058-05:00",
+      "__typename": "JCRProperty"
+    },
+    "lastPublishedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModifiedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModified": {
+      "value": "2016-02-29T18:15:16.340+01:00",
+      "__typename": "JCRProperty"
+    },
+    "deletedBy": null,
+    "deleted": null,
+    "wipStatus": null,
+    "wipLangs": null,
+    "ancestors": [],
+    "notSelectableForPreview": true,
+    "site": {
+      "uuid": "11a0f7a8-2691-40fa-9107-94e1d5d44423",
+      "workspace": "EDIT",
+      "path": "/sites/digitall",
+      "__typename": "JCRSite"
+    },
+    "uuid": "27d12f18-cff6-4e6f-b486-253799ae17ee",
+    "workspace": "EDIT",
+    "path": "/sites/digitall/home/search-results",
+    "__typename": "GenericJCRNode",
+    "subNodes": {
+      "pageInfo": {
+        "totalCount": 2,
+        "__typename": "PageInfo"
+      },
+      "__typename": "JCRNodeConnection"
+    }
+  },
+  {
+    "name": "corporate-responsibility",
+    "displayName": "Corporate Responsibility",
+    "createdBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "created": {
+      "value": "2016-01-06T18:49:45.308+01:00",
+      "__typename": "JCRProperty"
+    },
+    "primaryNodeType": {
+      "name": "jnt:page",
+      "displayName": "Page",
+      "icon": "/modules/assets/icons/jnt_page",
+      "__typename": "JCRNodeType"
+    },
+    "mixinTypes": [],
+    "operationsSupport": {
+      "lock": true,
+      "markForDeletion": true,
+      "publication": true,
+      "__typename": "GqlOperationsSupport"
+    },
+    "aggregatedPublicationInfo": {
+      "publicationStatus": "PUBLISHED",
+      "__typename": "GqlPublicationInfo"
+    },
+    "lockOwner": null,
+    "lastPublished": {
+      "value": "2016-12-13T16:37:26.877-05:00",
+      "__typename": "JCRProperty"
+    },
+    "lastPublishedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModifiedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModified": {
+      "value": "2016-01-26T19:14:19.678-05:00",
+      "__typename": "JCRProperty"
+    },
+    "deletedBy": null,
+    "deleted": null,
+    "wipStatus": null,
+    "wipLangs": null,
+    "ancestors": [],
+    "notSelectableForPreview": true,
+    "site": {
+      "uuid": "11a0f7a8-2691-40fa-9107-94e1d5d44423",
+      "workspace": "EDIT",
+      "path": "/sites/digitall",
+      "__typename": "JCRSite"
+    },
+    "uuid": "b2327a67-464d-466b-96de-563b3e937883",
+    "workspace": "EDIT",
+    "path": "/sites/digitall/home/corporate-responsibility",
+    "__typename": "GenericJCRNode",
+    "subNodes": {
+      "pageInfo": {
+        "totalCount": 1,
+        "__typename": "PageInfo"
+      },
+      "__typename": "JCRNodeConnection"
+    }
+  },
+  {
+    "name": "investors",
+    "displayName": "Investors",
+    "createdBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "created": {
+      "value": "2016-01-06T18:51:21.187+01:00",
+      "__typename": "JCRProperty"
+    },
+    "primaryNodeType": {
+      "name": "jnt:page",
+      "displayName": "Page",
+      "icon": "/modules/assets/icons/jnt_page",
+      "__typename": "JCRNodeType"
+    },
+    "mixinTypes": [],
+    "operationsSupport": {
+      "lock": true,
+      "markForDeletion": true,
+      "publication": true,
+      "__typename": "GqlOperationsSupport"
+    },
+    "aggregatedPublicationInfo": {
+      "publicationStatus": "PUBLISHED",
+      "__typename": "GqlPublicationInfo"
+    },
+    "lockOwner": null,
+    "lastPublished": {
+      "value": "2016-12-13T16:37:26.877-05:00",
+      "__typename": "JCRProperty"
+    },
+    "lastPublishedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModifiedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModified": {
+      "value": "2016-01-21T20:13:47.342-05:00",
+      "__typename": "JCRProperty"
+    },
+    "deletedBy": null,
+    "deleted": null,
+    "wipStatus": null,
+    "wipLangs": null,
+    "ancestors": [],
+    "notSelectableForPreview": true,
+    "site": {
+      "uuid": "11a0f7a8-2691-40fa-9107-94e1d5d44423",
+      "workspace": "EDIT",
+      "path": "/sites/digitall",
+      "__typename": "JCRSite"
+    },
+    "uuid": "f1a96d42-49aa-4fe3-ba44-319a49edc7da",
+    "workspace": "EDIT",
+    "path": "/sites/digitall/home/investors",
+    "__typename": "GenericJCRNode",
+    "subNodes": {
+      "pageInfo": {
+        "totalCount": 3,
+        "__typename": "PageInfo"
+      },
+      "__typename": "JCRNodeConnection"
+    }
+  },
+  {
+    "name": "newsroom",
+    "displayName": "Newsroom",
+    "createdBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "created": {
+      "value": "2016-01-08T00:46:37.268+01:00",
+      "__typename": "JCRProperty"
+    },
+    "primaryNodeType": {
+      "name": "jnt:page",
+      "displayName": "Page",
+      "icon": "/modules/assets/icons/jnt_page",
+      "__typename": "JCRNodeType"
+    },
+    "mixinTypes": [],
+    "operationsSupport": {
+      "lock": true,
+      "markForDeletion": true,
+      "publication": true,
+      "__typename": "GqlOperationsSupport"
+    },
+    "aggregatedPublicationInfo": {
+      "publicationStatus": "PUBLISHED",
+      "__typename": "GqlPublicationInfo"
+    },
+    "lockOwner": null,
+    "lastPublished": {
+      "value": "2016-12-13T16:37:26.877-05:00",
+      "__typename": "JCRProperty"
+    },
+    "lastPublishedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModifiedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModified": {
+      "value": "2016-01-13T18:10:39.807+01:00",
+      "__typename": "JCRProperty"
+    },
+    "deletedBy": null,
+    "deleted": null,
+    "wipStatus": null,
+    "wipLangs": null,
+    "ancestors": [],
+    "notSelectableForPreview": true,
+    "site": {
+      "uuid": "11a0f7a8-2691-40fa-9107-94e1d5d44423",
+      "workspace": "EDIT",
+      "path": "/sites/digitall",
+      "__typename": "JCRSite"
+    },
+    "uuid": "f8ec2ffa-7ef5-46ce-875f-04a3d8c95056",
+    "workspace": "EDIT",
+    "path": "/sites/digitall/home/newsroom",
+    "__typename": "GenericJCRNode",
+    "subNodes": {
+      "pageInfo": {
+        "totalCount": 1,
+        "__typename": "PageInfo"
+      },
+      "__typename": "JCRNodeConnection"
+    }
+  },
+  {
+    "name": "our-companies",
+    "displayName": "Our Companies",
+    "createdBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "created": {
+      "value": "2016-01-06T18:50:14.491+01:00",
+      "__typename": "JCRProperty"
+    },
+    "primaryNodeType": {
+      "name": "jnt:page",
+      "displayName": "Page",
+      "icon": "/modules/assets/icons/jnt_page",
+      "__typename": "JCRNodeType"
+    },
+    "mixinTypes": [],
+    "operationsSupport": {
+      "lock": true,
+      "markForDeletion": true,
+      "publication": true,
+      "__typename": "GqlOperationsSupport"
+    },
+    "aggregatedPublicationInfo": {
+      "publicationStatus": "PUBLISHED",
+      "__typename": "GqlPublicationInfo"
+    },
+    "lockOwner": null,
+    "lastPublished": {
+      "value": "2016-12-13T16:37:26.877-05:00",
+      "__typename": "JCRProperty"
+    },
+    "lastPublishedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModifiedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModified": {
+      "value": "2016-01-06T19:19:54.934+01:00",
+      "__typename": "JCRProperty"
+    },
+    "deletedBy": null,
+    "deleted": null,
+    "wipStatus": null,
+    "wipLangs": null,
+    "ancestors": [],
+    "notSelectableForPreview": true,
+    "site": {
+      "uuid": "11a0f7a8-2691-40fa-9107-94e1d5d44423",
+      "workspace": "EDIT",
+      "path": "/sites/digitall",
+      "__typename": "JCRSite"
+    },
+    "uuid": "19d3f2d8-6250-4a81-8f4e-abe6c61c7a91",
+    "workspace": "EDIT",
+    "path": "/sites/digitall/home/our-companies",
+    "__typename": "GenericJCRNode",
+    "subNodes": {
+      "pageInfo": {
+        "totalCount": 2,
+        "__typename": "PageInfo"
+      },
+      "__typename": "JCRNodeConnection"
+    }
+  },
+  {
+    "name": "about",
+    "displayName": "About",
+    "createdBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "created": {
+      "value": "2016-01-06T18:47:36.255+01:00",
+      "__typename": "JCRProperty"
+    },
+    "primaryNodeType": {
+      "name": "jnt:page",
+      "displayName": "Page",
+      "icon": "/modules/assets/icons/jnt_page",
+      "__typename": "JCRNodeType"
+    },
+    "mixinTypes": [],
+    "operationsSupport": {
+      "lock": true,
+      "markForDeletion": true,
+      "publication": true,
+      "__typename": "GqlOperationsSupport"
+    },
+    "aggregatedPublicationInfo": {
+      "publicationStatus": "PUBLISHED",
+      "__typename": "GqlPublicationInfo"
+    },
+    "lockOwner": null,
+    "lastPublished": {
+      "value": "2016-12-13T16:37:26.877-05:00",
+      "__typename": "JCRProperty"
+    },
+    "lastPublishedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModifiedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModified": {
+      "value": "2016-01-06T18:47:36.339+01:00",
+      "__typename": "JCRProperty"
+    },
+    "deletedBy": null,
+    "deleted": null,
+    "wipStatus": null,
+    "wipLangs": null,
+    "ancestors": [],
+    "notSelectableForPreview": true,
+    "site": {
+      "uuid": "11a0f7a8-2691-40fa-9107-94e1d5d44423",
+      "workspace": "EDIT",
+      "path": "/sites/digitall",
+      "__typename": "JCRSite"
+    },
+    "uuid": "b5c56caf-c1ef-4ae2-88e3-298afe2c2a59",
+    "workspace": "EDIT",
+    "path": "/sites/digitall/home/about",
+    "__typename": "GenericJCRNode",
+    "subNodes": {
+      "pageInfo": {
+        "totalCount": 2,
+        "__typename": "PageInfo"
+      },
+      "__typename": "JCRNodeConnection"
+    }
+  },
+  {
+    "name": "how-to-use-this-demo",
+    "displayName": "How to Use This Demo",
+    "createdBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "created": {
+      "value": "2016-08-10T21:51:34.778-04:00",
+      "__typename": "JCRProperty"
+    },
+    "primaryNodeType": {
+      "name": "jdnt:highlight",
+      "displayName": "Highlight",
+      "icon": "/modules/dx-base-demo-components/icons/jdnt_highlight",
+      "__typename": "JCRNodeType"
+    },
+    "mixinTypes": [
+      {
+        "name": "jdmix:hasLink",
+        "__typename": "JCRNodeType"
+      }
+    ],
+    "operationsSupport": {
+      "lock": true,
+      "markForDeletion": true,
+      "publication": true,
+      "__typename": "GqlOperationsSupport"
+    },
+    "aggregatedPublicationInfo": {
+      "publicationStatus": "PUBLISHED",
+      "__typename": "GqlPublicationInfo"
+    },
+    "lockOwner": null,
+    "lastPublished": {
+      "value": "2016-12-13T16:37:26.877-05:00",
+      "__typename": "JCRProperty"
+    },
+    "lastPublishedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModifiedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModified": {
+      "value": "2016-08-11T14:18:34.611-04:00",
+      "__typename": "JCRProperty"
+    },
+    "deletedBy": null,
+    "deleted": null,
+    "wipStatus": null,
+    "wipLangs": null,
+    "ancestors": [],
+    "notSelectableForPreview": false,
+    "site": {
+      "uuid": "11a0f7a8-2691-40fa-9107-94e1d5d44423",
+      "workspace": "EDIT",
+      "path": "/sites/digitall",
+      "__typename": "JCRSite"
+    },
+    "uuid": "5fea8e10-2f5d-4800-99ab-429fda932a73",
+    "workspace": "EDIT",
+    "path": "/sites/digitall/home/area-main/how-to-use-this-demo",
+    "__typename": "GenericJCRNode",
+    "subNodes": {
+      "pageInfo": {
+        "totalCount": 0,
+        "__typename": "PageInfo"
+      },
+      "__typename": "JCRNodeConnection"
+    }
+  },
+  {
+    "name": "highlights",
+    "displayName": "highlights",
+    "createdBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "created": {
+      "value": "2016-01-06T18:54:19.304+01:00",
+      "__typename": "JCRProperty"
+    },
+    "primaryNodeType": {
+      "name": "jdnt:highlights",
+      "displayName": "Highlights",
+      "icon": "/modules/dx-base-demo-components/icons/jdnt_highlights",
+      "__typename": "JCRNodeType"
+    },
+    "mixinTypes": [],
+    "operationsSupport": {
+      "lock": true,
+      "markForDeletion": true,
+      "publication": true,
+      "__typename": "GqlOperationsSupport"
+    },
+    "aggregatedPublicationInfo": {
+      "publicationStatus": "PUBLISHED",
+      "__typename": "GqlPublicationInfo"
+    },
+    "lockOwner": null,
+    "lastPublished": {
+      "value": "2016-12-02T17:19:49.090-05:00",
+      "__typename": "JCRProperty"
+    },
+    "lastPublishedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModifiedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModified": {
+      "value": "2016-05-03T22:41:57.204Z",
+      "__typename": "JCRProperty"
+    },
+    "deletedBy": null,
+    "deleted": null,
+    "wipStatus": null,
+    "wipLangs": null,
+    "ancestors": [],
+    "notSelectableForPreview": false,
+    "site": {
+      "uuid": "11a0f7a8-2691-40fa-9107-94e1d5d44423",
+      "workspace": "EDIT",
+      "path": "/sites/digitall",
+      "__typename": "JCRSite"
+    },
+    "uuid": "688d2dd3-5a5a-4a44-98ec-2a3abdffa283",
+    "workspace": "EDIT",
+    "path": "/sites/digitall/home/area-main/highlights",
+    "__typename": "GenericJCRNode",
+    "subNodes": {
+      "pageInfo": {
+        "totalCount": 3,
+        "__typename": "PageInfo"
+      },
+      "__typename": "JCRNodeConnection"
+    }
+  },
+  {
+    "name": "our-companies",
+    "displayName": "Our Companies",
+    "createdBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "created": {
+      "value": "2016-01-06T19:34:39.553+01:00",
+      "__typename": "JCRProperty"
+    },
+    "primaryNodeType": {
+      "name": "jdnt:highlight",
+      "displayName": "Highlight",
+      "icon": "/modules/dx-base-demo-components/icons/jdnt_highlight",
+      "__typename": "JCRNodeType"
+    },
+    "mixinTypes": [
+      {
+        "name": "jmix:renderable",
+        "__typename": "JCRNodeType"
+      },
+      {
+        "name": "jdmix:hasLink",
+        "__typename": "JCRNodeType"
+      },
+      {
+        "name": "jdmix:imgView",
+        "__typename": "JCRNodeType"
+      }
+    ],
+    "operationsSupport": {
+      "lock": true,
+      "markForDeletion": true,
+      "publication": true,
+      "__typename": "GqlOperationsSupport"
+    },
+    "aggregatedPublicationInfo": {
+      "publicationStatus": "PUBLISHED",
+      "__typename": "GqlPublicationInfo"
+    },
+    "lockOwner": null,
+    "lastPublished": {
+      "value": "2016-12-13T16:37:26.877-05:00",
+      "__typename": "JCRProperty"
+    },
+    "lastPublishedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModifiedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModified": {
+      "value": "2016-05-03T22:41:57.204Z",
+      "__typename": "JCRProperty"
+    },
+    "deletedBy": null,
+    "deleted": null,
+    "wipStatus": null,
+    "wipLangs": null,
+    "ancestors": [],
+    "notSelectableForPreview": false,
+    "site": {
+      "uuid": "11a0f7a8-2691-40fa-9107-94e1d5d44423",
+      "workspace": "EDIT",
+      "path": "/sites/digitall",
+      "__typename": "JCRSite"
+    },
+    "uuid": "bdba5078-81e4-4409-9025-1d707c466609",
+    "workspace": "EDIT",
+    "path": "/sites/digitall/home/area-main/highlights/our-companies",
+    "__typename": "GenericJCRNode",
+    "subNodes": {
+      "pageInfo": {
+        "totalCount": 0,
+        "__typename": "PageInfo"
+      },
+      "__typename": "JCRNodeConnection"
+    }
+  },
+  {
+    "name": "people-first",
+    "displayName": "People First",
+    "createdBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "created": {
+      "value": "2016-01-06T19:35:21.872+01:00",
+      "__typename": "JCRProperty"
+    },
+    "primaryNodeType": {
+      "name": "jdnt:highlight",
+      "displayName": "Highlight",
+      "icon": "/modules/dx-base-demo-components/icons/jdnt_highlight",
+      "__typename": "JCRNodeType"
+    },
+    "mixinTypes": [
+      {
+        "name": "jmix:renderable",
+        "__typename": "JCRNodeType"
+      },
+      {
+        "name": "jdmix:hasLink",
+        "__typename": "JCRNodeType"
+      },
+      {
+        "name": "jdmix:imgView",
+        "__typename": "JCRNodeType"
+      }
+    ],
+    "operationsSupport": {
+      "lock": true,
+      "markForDeletion": true,
+      "publication": true,
+      "__typename": "GqlOperationsSupport"
+    },
+    "aggregatedPublicationInfo": {
+      "publicationStatus": "PUBLISHED",
+      "__typename": "GqlPublicationInfo"
+    },
+    "lockOwner": null,
+    "lastPublished": {
+      "value": "2016-12-13T16:37:26.877-05:00",
+      "__typename": "JCRProperty"
+    },
+    "lastPublishedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModifiedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModified": {
+      "value": "2016-05-03T22:41:42.394Z",
+      "__typename": "JCRProperty"
+    },
+    "deletedBy": null,
+    "deleted": null,
+    "wipStatus": null,
+    "wipLangs": null,
+    "ancestors": [],
+    "notSelectableForPreview": false,
+    "site": {
+      "uuid": "11a0f7a8-2691-40fa-9107-94e1d5d44423",
+      "workspace": "EDIT",
+      "path": "/sites/digitall",
+      "__typename": "JCRSite"
+    },
+    "uuid": "17cd0257-ea05-479f-b197-8d801e50ffd2",
+    "workspace": "EDIT",
+    "path": "/sites/digitall/home/area-main/highlights/people-first",
+    "__typename": "GenericJCRNode",
+    "subNodes": {
+      "pageInfo": {
+        "totalCount": 0,
+        "__typename": "PageInfo"
+      },
+      "__typename": "JCRNodeConnection"
+    }
+  },
+  {
+    "name": "global-presence-rich-text",
+    "displayName": "Digitall?s global network of companies gives us a unique perspective on the state of business today. To meet the needs of consumers in the market, it is vital to leverage technology both to optimize your people power and to reduce time to consumer for deliverables. Any company that does not heed the pace of business will be left behind. Even more, the economy is based on trust for sustainable relationships. We at Digitall stand behind our relationships with integrity, respect and loyalty. After all, every business transaction occurs from one human to another. We know our customers are individual people who are looking to solve their problems or meet a need - and we are there to support them in that moment. And we can help you to do that too. ",
+    "createdBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "created": {
+      "value": "2016-01-28T17:28:55.939+01:00",
+      "__typename": "JCRProperty"
+    },
+    "primaryNodeType": {
+      "name": "jnt:bigText",
+      "displayName": "Rich text",
+      "icon": "/modules/assets/icons/jnt_bigText",
+      "__typename": "JCRNodeType"
+    },
+    "mixinTypes": [],
+    "operationsSupport": {
+      "lock": true,
+      "markForDeletion": true,
+      "publication": true,
+      "__typename": "GqlOperationsSupport"
+    },
+    "aggregatedPublicationInfo": {
+      "publicationStatus": "PUBLISHED",
+      "__typename": "GqlPublicationInfo"
+    },
+    "lockOwner": null,
+    "lastPublished": {
+      "value": "2016-12-13T16:37:26.877-05:00",
+      "__typename": "JCRProperty"
+    },
+    "lastPublishedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModifiedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModified": {
+      "value": "2016-05-03T22:11:25.144Z",
+      "__typename": "JCRProperty"
+    },
+    "deletedBy": null,
+    "deleted": null,
+    "wipStatus": null,
+    "wipLangs": null,
+    "ancestors": [],
+    "notSelectableForPreview": false,
+    "site": {
+      "uuid": "11a0f7a8-2691-40fa-9107-94e1d5d44423",
+      "workspace": "EDIT",
+      "path": "/sites/digitall",
+      "__typename": "JCRSite"
+    },
+    "uuid": "d6f7302a-fd84-4300-8c69-d256aafd3de8",
+    "workspace": "EDIT",
+    "path": "/sites/digitall/home/area-main/area-1/area-1-side/global-presence-rich-text",
+    "__typename": "GenericJCRNode",
+    "subNodes": {
+      "pageInfo": {
+        "totalCount": 0,
+        "__typename": "PageInfo"
+      },
+      "__typename": "JCRNodeConnection"
+    }
+  },
+  {
+    "name": "global-network-rich-text-p2",
+    "displayName": "People are at the heart of everything we do. As a result, we take our business personally and get involved with initiatives that are making the world a better place. Digitall is a Healthy Planet Advocate and develops green housing in local communities, as well as participating in the Food For Change, Clean Air Now and Healthy Families initiatives. The future is in our hands starting right now. Whether we agree or not, technology IS the economy. Our lives depend on various technologies in nearly every aspect of our lives today. The generations who came before us, with a few notable exceptions like Galileo or Nikola Tesla, could have foreseen the role of technology in daily living. Likewise, we today are only seeing a small part of the potential that is waiting for us as the ?new normal? of tomorrow. Honing the leading edge of technology in every industry gives us an unparalleled advantage in living better today and tomorrow. Too often the price of technology is a bigger carbon footprint, exhausting natural resources and leaving the most basic elements of humanity behind. When people at the end of life are asked about what really mattered, the answer is inevitably love, family, relationships and good health. Clean air, fresh water, healthy homes and families - these are the essentials of living well. We at Digitall are committed to helping you have more of it.",
+    "createdBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "created": {
+      "value": "2016-01-28T17:32:16.789+01:00",
+      "__typename": "JCRProperty"
+    },
+    "primaryNodeType": {
+      "name": "jnt:bigText",
+      "displayName": "Rich text",
+      "icon": "/modules/assets/icons/jnt_bigText",
+      "__typename": "JCRNodeType"
+    },
+    "mixinTypes": [],
+    "operationsSupport": {
+      "lock": true,
+      "markForDeletion": true,
+      "publication": true,
+      "__typename": "GqlOperationsSupport"
+    },
+    "aggregatedPublicationInfo": {
+      "publicationStatus": "PUBLISHED",
+      "__typename": "GqlPublicationInfo"
+    },
+    "lockOwner": null,
+    "lastPublished": {
+      "value": "2016-12-13T16:37:26.877-05:00",
+      "__typename": "JCRProperty"
+    },
+    "lastPublishedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModifiedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModified": {
+      "value": "2016-05-03T22:09:58.973Z",
+      "__typename": "JCRProperty"
+    },
+    "deletedBy": null,
+    "deleted": null,
+    "wipStatus": null,
+    "wipLangs": null,
+    "ancestors": [],
+    "notSelectableForPreview": false,
+    "site": {
+      "uuid": "11a0f7a8-2691-40fa-9107-94e1d5d44423",
+      "workspace": "EDIT",
+      "path": "/sites/digitall",
+      "__typename": "JCRSite"
+    },
+    "uuid": "6eb6e5eb-d282-42f0-adf9-4973b9bce21a",
+    "workspace": "EDIT",
+    "path": "/sites/digitall/home/area-main/area/area/area-1/area-1-main/global-network-rich-text-p2",
+    "__typename": "GenericJCRNode",
+    "subNodes": {
+      "pageInfo": {
+        "totalCount": 0,
+        "__typename": "PageInfo"
+      },
+      "__typename": "JCRNodeConnection"
+    }
+  },
+  {
+    "name": "global-network-rich-text",
+    "displayName": "We are a global network of leading companies Digitall is a global network of leading companies with a united focus on improving everyday living through ?clean? technology. Digitall's branded networks and numerous companies provide alternative energy, eco-friendly real estate, transportation and media. We also hold a diverse group of companies across numerous disciplines that are using digital technology to innovate their industries, including clean manufacturing, next generation fuels, healthcare innovations, invention prototyping and dry cleaning. We serve thousands of people every day in more than 20 countries around the world. Expand",
+    "createdBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "created": {
+      "value": "2016-01-28T15:17:55.130+01:00",
+      "__typename": "JCRProperty"
+    },
+    "primaryNodeType": {
+      "name": "jnt:bigText",
+      "displayName": "Rich text",
+      "icon": "/modules/assets/icons/jnt_bigText",
+      "__typename": "JCRNodeType"
+    },
+    "mixinTypes": [
+      {
+        "name": "jmix:referencesInField",
+        "__typename": "JCRNodeType"
+      }
+    ],
+    "operationsSupport": {
+      "lock": true,
+      "markForDeletion": true,
+      "publication": true,
+      "__typename": "GqlOperationsSupport"
+    },
+    "aggregatedPublicationInfo": {
+      "publicationStatus": "PUBLISHED",
+      "__typename": "GqlPublicationInfo"
+    },
+    "lockOwner": null,
+    "lastPublished": {
+      "value": "2016-12-13T16:37:26.877-05:00",
+      "__typename": "JCRProperty"
+    },
+    "lastPublishedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModifiedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModified": {
+      "value": "2016-05-03T22:09:22.730Z",
+      "__typename": "JCRProperty"
+    },
+    "deletedBy": null,
+    "deleted": null,
+    "wipStatus": null,
+    "wipLangs": null,
+    "ancestors": [],
+    "notSelectableForPreview": false,
+    "site": {
+      "uuid": "11a0f7a8-2691-40fa-9107-94e1d5d44423",
+      "workspace": "EDIT",
+      "path": "/sites/digitall",
+      "__typename": "JCRSite"
+    },
+    "uuid": "800bef6f-31f6-46da-a158-a5266005f6c9",
+    "workspace": "EDIT",
+    "path": "/sites/digitall/home/area-main/area/area/area/area-main/global-network-rich-text",
+    "__typename": "GenericJCRNode",
+    "subNodes": {
+      "pageInfo": {
+        "totalCount": 0,
+        "__typename": "PageInfo"
+      },
+      "__typename": "JCRNodeConnection"
+    }
+  },
+  {
+    "name": "slider",
+    "displayName": "slider",
+    "createdBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "created": {
+      "value": "2016-01-06T18:52:44.345+01:00",
+      "__typename": "JCRProperty"
+    },
+    "primaryNodeType": {
+      "name": "jdnt:slider",
+      "displayName": "Slider",
+      "icon": "/modules/dx-base-demo-components/icons/jdnt_slider",
+      "__typename": "JCRNodeType"
+    },
+    "mixinTypes": [],
+    "operationsSupport": {
+      "lock": true,
+      "markForDeletion": true,
+      "publication": true,
+      "__typename": "GqlOperationsSupport"
+    },
+    "aggregatedPublicationInfo": {
+      "publicationStatus": "PUBLISHED",
+      "__typename": "GqlPublicationInfo"
+    },
+    "lockOwner": null,
+    "lastPublished": {
+      "value": "2016-12-02T17:19:49.090-05:00",
+      "__typename": "JCRProperty"
+    },
+    "lastPublishedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModifiedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModified": {
+      "value": "2016-05-03T22:07:42.923Z",
+      "__typename": "JCRProperty"
+    },
+    "deletedBy": null,
+    "deleted": null,
+    "wipStatus": null,
+    "wipLangs": null,
+    "ancestors": [],
+    "notSelectableForPreview": false,
+    "site": {
+      "uuid": "11a0f7a8-2691-40fa-9107-94e1d5d44423",
+      "workspace": "EDIT",
+      "path": "/sites/digitall",
+      "__typename": "JCRSite"
+    },
+    "uuid": "c5e21d1c-7c98-416a-888c-1361be54574c",
+    "workspace": "EDIT",
+    "path": "/sites/digitall/home/landing/slider",
+    "__typename": "GenericJCRNode",
+    "subNodes": {
+      "pageInfo": {
+        "totalCount": 4,
+        "__typename": "PageInfo"
+      },
+      "__typename": "JCRNodeConnection"
+    }
+  },
+  {
+    "name": "event-tab-query",
+    "displayName": "Events",
+    "createdBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "created": {
+      "value": "2016-01-21T10:50:26.952-05:00",
+      "__typename": "JCRProperty"
+    },
+    "primaryNodeType": {
+      "name": "jdnt:eventTabs",
+      "displayName": "Event Tab Query",
+      "icon": "/modules/dx-base-demo-components/icons/jdnt_eventTabs",
+      "__typename": "JCRNodeType"
+    },
+    "mixinTypes": [],
+    "operationsSupport": {
+      "lock": true,
+      "markForDeletion": true,
+      "publication": true,
+      "__typename": "GqlOperationsSupport"
+    },
+    "aggregatedPublicationInfo": {
+      "publicationStatus": "PUBLISHED",
+      "__typename": "GqlPublicationInfo"
+    },
+    "lockOwner": null,
+    "lastPublished": {
+      "value": "2016-12-13T16:37:20.780-05:00",
+      "__typename": "JCRProperty"
+    },
+    "lastPublishedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModifiedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModified": {
+      "value": "2016-04-29T22:03:01.731Z",
+      "__typename": "JCRProperty"
+    },
+    "deletedBy": null,
+    "deleted": null,
+    "wipStatus": null,
+    "wipLangs": null,
+    "ancestors": [],
+    "notSelectableForPreview": false,
+    "site": {
+      "uuid": "11a0f7a8-2691-40fa-9107-94e1d5d44423",
+      "workspace": "EDIT",
+      "path": "/sites/digitall",
+      "__typename": "JCRSite"
+    },
+    "uuid": "406ac5d4-5246-42e4-90ee-a7240306b09f",
+    "workspace": "EDIT",
+    "path": "/sites/digitall/home/area-main/area-2/area-2-side/event-tab-query",
+    "__typename": "GenericJCRNode",
+    "subNodes": {
+      "pageInfo": {
+        "totalCount": 0,
+        "__typename": "PageInfo"
+      },
+      "__typename": "JCRNodeConnection"
+    }
+  },
+  {
+    "name": "latest-press-releases",
+    "displayName": "Latest Press Releases",
+    "createdBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "created": {
+      "value": "2016-01-13T18:15:41.211+01:00",
+      "__typename": "JCRProperty"
+    },
+    "primaryNodeType": {
+      "name": "jdnt:pressSearch",
+      "displayName": "Press Release Search",
+      "icon": "/modules/dx-base-demo-components/icons/jdnt_pressSearch",
+      "__typename": "JCRNodeType"
+    },
+    "mixinTypes": [],
+    "operationsSupport": {
+      "lock": true,
+      "markForDeletion": true,
+      "publication": true,
+      "__typename": "GqlOperationsSupport"
+    },
+    "aggregatedPublicationInfo": {
+      "publicationStatus": "PUBLISHED",
+      "__typename": "GqlPublicationInfo"
+    },
+    "lockOwner": null,
+    "lastPublished": {
+      "value": "2016-12-13T16:37:20.780-05:00",
+      "__typename": "JCRProperty"
+    },
+    "lastPublishedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModifiedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModified": {
+      "value": "2016-03-25T15:44:51.539+01:00",
+      "__typename": "JCRProperty"
+    },
+    "deletedBy": null,
+    "deleted": null,
+    "wipStatus": null,
+    "wipLangs": null,
+    "ancestors": [],
+    "notSelectableForPreview": false,
+    "site": {
+      "uuid": "11a0f7a8-2691-40fa-9107-94e1d5d44423",
+      "workspace": "EDIT",
+      "path": "/sites/digitall",
+      "__typename": "JCRSite"
+    },
+    "uuid": "4d4cc327-79ca-4a60-8f49-3f46611ddc17",
+    "workspace": "EDIT",
+    "path": "/sites/digitall/home/area-main/area-2/area-2-extra/latest-press-releases",
+    "__typename": "GenericJCRNode",
+    "subNodes": {
+      "pageInfo": {
+        "totalCount": 0,
+        "__typename": "PageInfo"
+      },
+      "__typename": "JCRNodeConnection"
+    }
+  },
+  {
+    "name": "area-2",
+    "displayName": "area-2",
+    "createdBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "created": {
+      "value": "2016-03-25T15:40:53.427+01:00",
+      "__typename": "JCRProperty"
+    },
+    "primaryNodeType": {
+      "name": "bootstrap3nt:columns",
+      "displayName": "Section / Container / Row / Grid",
+      "icon": "/modules/bootstrap3-components/icons/bootstrap3nt_columns",
+      "__typename": "JCRNodeType"
+    },
+    "mixinTypes": [
+      {
+        "name": "bootstrap3mix:createRow",
+        "__typename": "JCRNodeType"
+      },
+      {
+        "name": "bootstrap3mix:createContainer",
+        "__typename": "JCRNodeType"
+      },
+      {
+        "name": "bootstrap3mix:predefinedColumns",
+        "__typename": "JCRNodeType"
+      }
+    ],
+    "operationsSupport": {
+      "lock": true,
+      "markForDeletion": true,
+      "publication": true,
+      "__typename": "GqlOperationsSupport"
+    },
+    "aggregatedPublicationInfo": {
+      "publicationStatus": "PUBLISHED",
+      "__typename": "GqlPublicationInfo"
+    },
+    "lockOwner": null,
+    "lastPublished": {
+      "value": "2016-12-02T17:19:49.090-05:00",
+      "__typename": "JCRProperty"
+    },
+    "lastPublishedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModifiedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModified": {
+      "value": "2016-03-25T15:40:53.448+01:00",
+      "__typename": "JCRProperty"
+    },
+    "deletedBy": null,
+    "deleted": null,
+    "wipStatus": null,
+    "wipLangs": null,
+    "ancestors": [],
+    "notSelectableForPreview": false,
+    "site": {
+      "uuid": "11a0f7a8-2691-40fa-9107-94e1d5d44423",
+      "workspace": "EDIT",
+      "path": "/sites/digitall",
+      "__typename": "JCRSite"
+    },
+    "uuid": "9abdf711-6e8a-4e8e-bb9f-dbb843fbeb8d",
+    "workspace": "EDIT",
+    "path": "/sites/digitall/home/area-main/area-2",
+    "__typename": "GenericJCRNode",
+    "subNodes": {
+      "pageInfo": {
+        "totalCount": 3,
+        "__typename": "PageInfo"
+      },
+      "__typename": "JCRNodeConnection"
+    }
+  },
+  {
+    "name": "spacer",
+    "displayName": "spacer",
+    "createdBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "created": {
+      "value": "2016-02-04T13:54:16.284+01:00",
+      "__typename": "JCRProperty"
+    },
+    "primaryNodeType": {
+      "name": "jdnt:spacer",
+      "displayName": "Spacer",
+      "icon": "/modules/dx-base-demo-components/icons/jdnt_spacer",
+      "__typename": "JCRNodeType"
+    },
+    "mixinTypes": [],
+    "operationsSupport": {
+      "lock": true,
+      "markForDeletion": true,
+      "publication": true,
+      "__typename": "GqlOperationsSupport"
+    },
+    "aggregatedPublicationInfo": {
+      "publicationStatus": "PUBLISHED",
+      "__typename": "GqlPublicationInfo"
+    },
+    "lockOwner": null,
+    "lastPublished": {
+      "value": "2016-12-02T17:19:49.090-05:00",
+      "__typename": "JCRProperty"
+    },
+    "lastPublishedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModifiedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModified": {
+      "value": "2016-03-25T15:37:43.479+01:00",
+      "__typename": "JCRProperty"
+    },
+    "deletedBy": null,
+    "deleted": null,
+    "wipStatus": null,
+    "wipLangs": null,
+    "ancestors": [],
+    "notSelectableForPreview": false,
+    "site": {
+      "uuid": "11a0f7a8-2691-40fa-9107-94e1d5d44423",
+      "workspace": "EDIT",
+      "path": "/sites/digitall",
+      "__typename": "JCRSite"
+    },
+    "uuid": "5980ee4e-c23b-42bf-86f7-f43b174ba336",
+    "workspace": "EDIT",
+    "path": "/sites/digitall/home/area-main/spacer",
+    "__typename": "GenericJCRNode",
+    "subNodes": {
+      "pageInfo": {
+        "totalCount": 0,
+        "__typename": "PageInfo"
+      },
+      "__typename": "JCRNodeConnection"
+    }
+  },
+  {
+    "name": "rich-text",
+    "displayName": "rich-text",
+    "createdBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "created": {
+      "value": "2016-01-06T18:53:35.123+01:00",
+      "__typename": "JCRProperty"
+    },
+    "primaryNodeType": {
+      "name": "jnt:bigText",
+      "displayName": "Rich text",
+      "icon": "/modules/assets/icons/jnt_bigText",
+      "__typename": "JCRNodeType"
+    },
+    "mixinTypes": [],
+    "operationsSupport": {
+      "lock": true,
+      "markForDeletion": true,
+      "publication": true,
+      "__typename": "GqlOperationsSupport"
+    },
+    "aggregatedPublicationInfo": {
+      "publicationStatus": "PUBLISHED",
+      "__typename": "GqlPublicationInfo"
+    },
+    "lockOwner": null,
+    "lastPublished": {
+      "value": "2016-12-02T17:19:53.106-05:00",
+      "__typename": "JCRProperty"
+    },
+    "lastPublishedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModifiedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModified": {
+      "value": "2016-03-25T15:35:42.507+01:00",
+      "__typename": "JCRProperty"
+    },
+    "deletedBy": null,
+    "deleted": null,
+    "wipStatus": null,
+    "wipLangs": null,
+    "ancestors": [],
+    "notSelectableForPreview": false,
+    "site": {
+      "uuid": "11a0f7a8-2691-40fa-9107-94e1d5d44423",
+      "workspace": "EDIT",
+      "path": "/sites/digitall",
+      "__typename": "JCRSite"
+    },
+    "uuid": "2415b655-c6e8-4848-9c91-cfa8ff996dc5",
+    "workspace": "EDIT",
+    "path": "/sites/digitall/home/area-main/rich-text",
+    "__typename": "GenericJCRNode",
+    "subNodes": {
+      "pageInfo": {
+        "totalCount": 0,
+        "__typename": "PageInfo"
+      },
+      "__typename": "JCRNodeConnection"
+    }
+  },
+  {
+    "name": "our-companies",
+    "displayName": "Our Companies",
+    "createdBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "created": {
+      "value": "2016-02-29T17:47:56.272+01:00",
+      "__typename": "JCRProperty"
+    },
+    "primaryNodeType": {
+      "name": "jdnt:compCarousel",
+      "displayName": "Company Carousel Query",
+      "icon": "/modules/dx-base-demo-components/icons/jdnt_compCarousel",
+      "__typename": "JCRNodeType"
+    },
+    "mixinTypes": [],
+    "operationsSupport": {
+      "lock": true,
+      "markForDeletion": true,
+      "publication": true,
+      "__typename": "GqlOperationsSupport"
+    },
+    "aggregatedPublicationInfo": {
+      "publicationStatus": "PUBLISHED",
+      "__typename": "GqlPublicationInfo"
+    },
+    "lockOwner": null,
+    "lastPublished": {
+      "value": "2016-12-13T16:37:26.877-05:00",
+      "__typename": "JCRProperty"
+    },
+    "lastPublishedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModifiedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModified": {
+      "value": "2016-03-25T15:35:34.068+01:00",
+      "__typename": "JCRProperty"
+    },
+    "deletedBy": null,
+    "deleted": null,
+    "wipStatus": null,
+    "wipLangs": null,
+    "ancestors": [],
+    "notSelectableForPreview": false,
+    "site": {
+      "uuid": "11a0f7a8-2691-40fa-9107-94e1d5d44423",
+      "workspace": "EDIT",
+      "path": "/sites/digitall",
+      "__typename": "JCRSite"
+    },
+    "uuid": "bee20ae5-e27b-46ec-a008-cdcc7dc5a45f",
+    "workspace": "EDIT",
+    "path": "/sites/digitall/home/area-main/our-companies",
+    "__typename": "GenericJCRNode",
+    "subNodes": {
+      "pageInfo": {
+        "totalCount": 0,
+        "__typename": "PageInfo"
+      },
+      "__typename": "JCRNodeConnection"
+    }
+  },
+  {
+    "name": "global-presence",
+    "displayName": "Global Presence",
+    "createdBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "created": {
+      "value": "2016-01-21T00:32:40.497+01:00",
+      "__typename": "JCRProperty"
+    },
+    "primaryNodeType": {
+      "name": "jdnt:headline",
+      "displayName": "Headline",
+      "icon": "/modules/dx-base-demo-components/icons/jdnt_headline",
+      "__typename": "JCRNodeType"
+    },
+    "mixinTypes": [],
+    "operationsSupport": {
+      "lock": true,
+      "markForDeletion": true,
+      "publication": true,
+      "__typename": "GqlOperationsSupport"
+    },
+    "aggregatedPublicationInfo": {
+      "publicationStatus": "PUBLISHED",
+      "__typename": "GqlPublicationInfo"
+    },
+    "lockOwner": null,
+    "lastPublished": {
+      "value": "2016-12-13T16:37:26.877-05:00",
+      "__typename": "JCRProperty"
+    },
+    "lastPublishedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModifiedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModified": {
+      "value": "2016-03-25T15:35:26.108+01:00",
+      "__typename": "JCRProperty"
+    },
+    "deletedBy": null,
+    "deleted": null,
+    "wipStatus": null,
+    "wipLangs": null,
+    "ancestors": [],
+    "notSelectableForPreview": false,
+    "site": {
+      "uuid": "11a0f7a8-2691-40fa-9107-94e1d5d44423",
+      "workspace": "EDIT",
+      "path": "/sites/digitall",
+      "__typename": "JCRSite"
+    },
+    "uuid": "49e2f641-9dc4-443f-b7e6-840c3d75207c",
+    "workspace": "EDIT",
+    "path": "/sites/digitall/home/area-main/global-presence",
+    "__typename": "GenericJCRNode",
+    "subNodes": {
+      "pageInfo": {
+        "totalCount": 0,
+        "__typename": "PageInfo"
+      },
+      "__typename": "JCRNodeConnection"
+    }
+  },
+  {
+    "name": "area-1",
+    "displayName": "area-1",
+    "createdBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "created": {
+      "value": "2016-03-25T15:32:41.768+01:00",
+      "__typename": "JCRProperty"
+    },
+    "primaryNodeType": {
+      "name": "bootstrap3nt:columns",
+      "displayName": "Section / Container / Row / Grid",
+      "icon": "/modules/bootstrap3-components/icons/bootstrap3nt_columns",
+      "__typename": "JCRNodeType"
+    },
+    "mixinTypes": [
+      {
+        "name": "bootstrap3mix:createRow",
+        "__typename": "JCRNodeType"
+      },
+      {
+        "name": "bootstrap3mix:createContainer",
+        "__typename": "JCRNodeType"
+      },
+      {
+        "name": "bootstrap3mix:predefinedColumns",
+        "__typename": "JCRNodeType"
+      }
+    ],
+    "operationsSupport": {
+      "lock": true,
+      "markForDeletion": true,
+      "publication": true,
+      "__typename": "GqlOperationsSupport"
+    },
+    "aggregatedPublicationInfo": {
+      "publicationStatus": "PUBLISHED",
+      "__typename": "GqlPublicationInfo"
+    },
+    "lockOwner": null,
+    "lastPublished": {
+      "value": "2016-12-02T17:19:53.106-05:00",
+      "__typename": "JCRProperty"
+    },
+    "lastPublishedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModifiedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModified": {
+      "value": "2016-03-25T15:34:01.019+01:00",
+      "__typename": "JCRProperty"
+    },
+    "deletedBy": null,
+    "deleted": null,
+    "wipStatus": null,
+    "wipLangs": null,
+    "ancestors": [],
+    "notSelectableForPreview": false,
+    "site": {
+      "uuid": "11a0f7a8-2691-40fa-9107-94e1d5d44423",
+      "workspace": "EDIT",
+      "path": "/sites/digitall",
+      "__typename": "JCRSite"
+    },
+    "uuid": "7c44f4d2-91df-4dce-9f54-94e38ff4abec",
+    "workspace": "EDIT",
+    "path": "/sites/digitall/home/area-main/area-1",
+    "__typename": "GenericJCRNode",
+    "subNodes": {
+      "pageInfo": {
+        "totalCount": 2,
+        "__typename": "PageInfo"
+      },
+      "__typename": "JCRNodeConnection"
+    }
+  },
+  {
+    "name": "image-from-the-document-manager",
+    "displayName": "image-from-the-document-manager",
+    "createdBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "created": {
+      "value": "2016-01-28T17:31:30.330+01:00",
+      "__typename": "JCRProperty"
+    },
+    "primaryNodeType": {
+      "name": "jnt:imageReferenceLink",
+      "displayName": "Image (from the Document Manager)",
+      "icon": "/modules/assets/icons/jnt_imageReferenceLink",
+      "__typename": "JCRNodeType"
+    },
+    "mixinTypes": [],
+    "operationsSupport": {
+      "lock": true,
+      "markForDeletion": true,
+      "publication": true,
+      "__typename": "GqlOperationsSupport"
+    },
+    "aggregatedPublicationInfo": {
+      "publicationStatus": "PUBLISHED",
+      "__typename": "GqlPublicationInfo"
+    },
+    "lockOwner": null,
+    "lastPublished": {
+      "value": "2016-12-13T16:37:26.877-05:00",
+      "__typename": "JCRProperty"
+    },
+    "lastPublishedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModifiedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModified": {
+      "value": "2016-03-25T15:07:33.534+01:00",
+      "__typename": "JCRProperty"
+    },
+    "deletedBy": null,
+    "deleted": null,
+    "wipStatus": null,
+    "wipLangs": null,
+    "ancestors": [],
+    "notSelectableForPreview": false,
+    "site": {
+      "uuid": "11a0f7a8-2691-40fa-9107-94e1d5d44423",
+      "workspace": "EDIT",
+      "path": "/sites/digitall",
+      "__typename": "JCRSite"
+    },
+    "uuid": "9fe98435-f103-461f-b016-16ca71767f08",
+    "workspace": "EDIT",
+    "path": "/sites/digitall/home/area-main/area/area/area/area-side/image-from-the-document-manager",
+    "__typename": "GenericJCRNode",
+    "subNodes": {
+      "pageInfo": {
+        "totalCount": 0,
+        "__typename": "PageInfo"
+      },
+      "__typename": "JCRNodeConnection"
+    }
+  },
+  {
+    "name": "area-1",
+    "displayName": "area-1",
+    "createdBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "created": {
+      "value": "2016-03-25T15:00:14.601+01:00",
+      "__typename": "JCRProperty"
+    },
+    "primaryNodeType": {
+      "name": "bootstrap3nt:columns",
+      "displayName": "Section / Container / Row / Grid",
+      "icon": "/modules/bootstrap3-components/icons/bootstrap3nt_columns",
+      "__typename": "JCRNodeType"
+    },
+    "mixinTypes": [
+      {
+        "name": "bootstrap3mix:predefinedColumns",
+        "__typename": "JCRNodeType"
+      },
+      {
+        "name": "bootstrap3mix:createRow",
+        "__typename": "JCRNodeType"
+      }
+    ],
+    "operationsSupport": {
+      "lock": true,
+      "markForDeletion": true,
+      "publication": true,
+      "__typename": "GqlOperationsSupport"
+    },
+    "aggregatedPublicationInfo": {
+      "publicationStatus": "PUBLISHED",
+      "__typename": "GqlPublicationInfo"
+    },
+    "lockOwner": null,
+    "lastPublished": {
+      "value": "2016-12-02T17:19:49.090-05:00",
+      "__typename": "JCRProperty"
+    },
+    "lastPublishedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModifiedBy": {
+      "value": "root",
+      "__typename": "JCRProperty"
+    },
+    "lastModified": {
+      "value": "2016-03-25T15:00:14.619+01:00",
+      "__typename": "JCRProperty"
+    },
+    "deletedBy": null,
+    "deleted": null,
+    "wipStatus": null,
+    "wipLangs": null,
+    "ancestors": [],
+    "notSelectableForPreview": false,
+    "site": {
+      "uuid": "11a0f7a8-2691-40fa-9107-94e1d5d44423",
+      "workspace": "EDIT",
+      "path": "/sites/digitall",
+      "__typename": "JCRSite"
+    },
+    "uuid": "e94c5d18-c4b3-4dd8-b749-be61a17b92fd",
+    "workspace": "EDIT",
+    "path": "/sites/digitall/home/area-main/area/area/area-1",
+    "__typename": "GenericJCRNode",
+    "subNodes": {
+      "pageInfo": {
+        "totalCount": 1,
+        "__typename": "PageInfo"
+      },
+      "__typename": "JCRNodeConnection"
+    }
+  }
+]
