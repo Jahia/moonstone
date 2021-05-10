@@ -1,0 +1,17 @@
+.tableRow {
+    &:hover .replacementCell {
+        display: block;
+    }
+
+    &:hover .tableCell {
+        display: none;
+    }
+}
+
+.tableCell {
+
+}
+
+.replacementCell {
+    display: none;
+}

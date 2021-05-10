@@ -1,5 +1,6 @@
 import React, {useState, useCallback, useMemo} from 'react';
 import {useTable, usePagination, useRowState} from 'react-table';
+import {Love} from '~/icons';
 
 import {
     Table,
@@ -7,7 +8,7 @@ import {
     TableHeadCell,
     TableRow,
     TableBody,
-    TableBodyCell
+    TableBodyCell, Dropdown
 } from '~/components';
 
 import {Typography} from '~/components/Typography';
@@ -15,6 +16,8 @@ import {Typography} from '~/components/Typography';
 // Real jContent data for digitall site
 import cols from './columns.json';
 import rs from './data.json';
+
+import './JContentTable.scss';
 
 // Adapt columns and rows so that react-table can understand it
 const adaptedColumns = cols.map(c => {
@@ -32,6 +35,7 @@ const adaptedRows = rs.map(r => ({
     lastModified: r.lastModified.value
 }));
 
+// This type of implementation (with useEffect on pageIndex) will update page before data load
 const Pagination = ({table}) => (
     <div>
     <button onClick={() => table.gotoPage(0)} disabled={!table.canPreviousPage}>
@@ -65,6 +69,7 @@ const PaginationSupport = {
     }
 };
 
+
 const useSupport = (pagination) => {
     const supports = [];
 
@@ -73,7 +78,7 @@ const useSupport = (pagination) => {
     return supports;
 };
 
-const JContentTable = ({columns, data, pagination}) => {
+const JContentTable = ({columns, data, pagination, cellReplacement}) => {
     const support = useSupport(pagination);
 
     const table = useTable(
@@ -104,14 +109,18 @@ const JContentTable = ({columns, data, pagination}) => {
                         console.log(row);
                         return (
                             // This rerenders all the rows :(
-                            <TableRow key={'row' + row.id} {...row.getRowProps()} onMouseEnter={() => table.setRowState(row.id, {over: true})} onMouseLeave={() => table.setRowState(row.id, {over: false})}>
-                                {row.cells.map(cell => (
-                                    // TODO: Figure out a key value for these TableCell instances
-                                    // tslint:disable-next-line
-                                    <TableBodyCell {...cell.getCellProps()}>
-                                        <Typography>{row.state.over && 'over'}{cell.render('Cell')}</Typography>
-                                    </TableBodyCell>
-                                ))}
+                            // <TableRow key={'row' + row.id} {...row.getRowProps()} onMouseEnter={() => table.setRowState(row.id, {over: true})} onMouseLeave={() => table.setRowState(row.id, {over: false})}>
+                            <TableRow key={'row' + row.id} {...row.getRowProps()} className="tableRow">
+                                {row.cells.map((cell, index) => {
+                                    const replaceCell = cellReplacement && cellReplacement.targetColumnId === cell.column.id;
+                                    return (
+                                        // tslint:disable-next-line
+                                        <TableBodyCell key={row.id + index}{...cell.getCellProps()}>
+                                            <Typography className={replaceCell ? 'tableCell' : ''}>{cell.render('Cell')}</Typography>
+                                            {replaceCell && <div className="replacementCell"><cellReplacement.component/></div>}
+                                        </TableBodyCell>
+                                    )
+                                })}
                             </TableRow>
                         );
                     })}
@@ -141,6 +150,16 @@ export const TableComponent = () => {
                                   }, 1000)
                               }
                           }}
+                          cellReplacement={{
+                              targetColumnId: 'lastModified',
+                              component: () => <Dropdown
+                                  icon={<Love/>}
+                                  label={ddData[5].label}
+                                  value={ddData[5].value}
+                                  data={ddData}
+                                  onChange={(e, item) => console.log('Change is coming...')}
+                              />
+                          }}
     />
 };
 
@@ -155,3 +174,51 @@ export default {
         actions: {argTypesRegex: '^on.*'}
     }
 };
+
+const ddData = [
+    {
+        label: 'option 1',
+        value: '1'
+    },
+    {
+        label: 'option 2',
+        value: '2'
+    },
+    {
+        label: 'option 3 with very long long label label label label label label label label',
+        value: '3'
+    },
+    {
+        label: 'option 4',
+        value: '4',
+        isDisabled: true
+    },
+    {
+        label: 'option 5',
+        value: '5'
+    },
+    {
+        label: 'option 6',
+        value: '6'
+    },
+    {
+        label: 'option 7',
+        value: '7'
+    },
+    {
+        label: 'option 8',
+        value: '8'
+    },
+    {
+        label: 'option 9',
+        value: '9'
+    },
+    {
+        label: 'option 10',
+        value: '10'
+    },
+    {
+        label: 'option 11',
+        value: '11'
+    }
+];
