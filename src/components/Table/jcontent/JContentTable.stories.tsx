@@ -1,5 +1,5 @@
 import React, {useState, useCallback, useMemo} from 'react';
-import {useTable, usePagination, useRowState} from 'react-table';
+import {useTable, usePagination, useRowState, useExpanded} from 'react-table';
 import {Love} from '~/icons';
 
 import {
@@ -12,6 +12,7 @@ import {
 } from '~/components';
 
 import {Typography} from '~/components/Typography';
+import {SubRows, SubRowAsync} from './SubComponents';
 
 // Real jContent data for digitall site
 import cols from './columns.json';
@@ -59,7 +60,7 @@ const PaginationSupport = {
     Component: Pagination,
     plugin: usePagination,
     // note I'm overriding initialState
-    optionsMaker: (options, vars) => ({...options, initialState: {pageIndex: 0}, manualPagination: true, pageCount: vars.pageCount}),
+    optionsMaker: (options, vars) => ({...options, initialState: {...options.initialState, pageIndex: 0}, manualPagination: true, pageCount: vars.pageCount}),
     // Not a fan of how effect is used to fetch data, can't they use an onclick or something to avoid second render? There is no onclick :(
     effect: (table, pagination) => {
         React.useEffect(() => {
@@ -78,17 +79,19 @@ const useSupport = (pagination) => {
     return supports;
 };
 
-const JContentTable = ({columns, data, pagination, cellReplacement}) => {
+const JContentTable = ({columns, data, pagination, cellReplacement, subRowsGetter}) => {
     const support = useSupport(pagination);
 
     const table = useTable(
         support.reduce((acc, val) => (val.optionsMaker(acc, pagination)), {data, columns}),
+        useExpanded, // Must be before pagination
         ...support.reduce((acc, val) => {acc.push(val.plugin); return acc}, []),
         useRowState
     );
 
     support.forEach(s => s.effect(table, pagination));
 
+    console.log(table)
     return (
         <>
             <Table {...table.getTableProps()}>
@@ -106,22 +109,27 @@ const JContentTable = ({columns, data, pagination, cellReplacement}) => {
                 <TableBody {...table.getTableBodyProps()}>
                     {table.rows.map(row => {
                         table.prepareRow(row);
+                        const rowProps = row.getRowProps();
+                        const visibleColumns = table.visibleColumns;
                         console.log(row);
                         return (
                             // This rerenders all the rows :(
                             // <TableRow key={'row' + row.id} {...row.getRowProps()} onMouseEnter={() => table.setRowState(row.id, {over: true})} onMouseLeave={() => table.setRowState(row.id, {over: false})}>
-                            <TableRow key={'row' + row.id} {...row.getRowProps()} className="tableRow">
-                                {row.cells.map((cell, index) => {
-                                    const replaceCell = cellReplacement && cellReplacement.targetColumnId === cell.column.id;
-                                    return (
-                                        // tslint:disable-next-line
-                                        <TableBodyCell key={row.id + index}{...cell.getCellProps()}>
-                                            <Typography className={replaceCell ? 'tableCell' : ''}>{cell.render('Cell')}</Typography>
-                                            {replaceCell && <div className="replacementCell"><cellReplacement.component/></div>}
-                                        </TableBodyCell>
-                                    )
-                                })}
-                            </TableRow>
+                            <>
+                                <TableRow key={'row' + row.id} {...rowProps} className="tableRow">
+                                        {row.cells.map((cell, index) => {
+                                            const replaceCell = cellReplacement && cellReplacement.targetColumnId === cell.column.id;
+                                            return (
+                                                // tslint:disable-next-line
+                                                <TableBodyCell key={row.id + index}{...cell.getCellProps()}>
+                                                    <Typography className={replaceCell ? 'tableCell' : ''}>{cell.render('Cell')}</Typography>
+                                                    {replaceCell && <div className="replacementCell"><cellReplacement.component/></div>}
+                                                </TableBodyCell>
+                                            )
+                                        })}
+                                </TableRow>
+                                 {row.isExpanded && subRowsGetter({ row, rowProps, visibleColumns, table })}
+                            </>
                         );
                     })}
                 </TableBody>
@@ -135,6 +143,35 @@ const JContentTable = ({columns, data, pagination, cellReplacement}) => {
 export const TableComponent = () => {
     const [data, setData] = useState([]);
     const [pageCount, setPageCount] = useState(0);
+
+    // For expander
+    adaptedColumns[0] = {
+        ...adaptedColumns[0],
+        Header: () => null,
+        Cell: ({ row }) => (
+            <span {...row.getToggleRowExpandedProps()}>
+            {row.isExpanded ? "Expanded" : "Collapsed"}
+          </span>
+        ),
+        SubCell: ({ row }) => (
+            <span {...row.getToggleRowExpandedProps()}>
+            {row.isExpanded ? "Expanded" : "Collapsed"}
+          </span>
+        )
+    };
+
+    const renderRowSubComponent = React.useCallback(
+        ({ row, rowProps, visibleColumns, table }) => (
+            <SubRowAsync
+                row={row}
+                rowProps={rowProps}
+                visibleColumns={visibleColumns}
+                getter={() => adaptedRows.slice(10, 15)}
+                table={table}
+            />
+        ),
+        []
+    );
 
     return <JContentTable columns={adaptedColumns}
                           data={data}
@@ -160,6 +197,7 @@ export const TableComponent = () => {
                                   onChange={(e, item) => console.log('Change is coming...')}
                               />
                           }}
+                          subRowsGetter={renderRowSubComponent}
     />
 };
 

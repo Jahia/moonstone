@@ -1,5 +1,11 @@
 [
   {
+    "id": "expander",
+    "label": "jcontent:label.contentManager.listColumns.expander",
+    "sortable": true,
+    "property": "expander"
+  },
+  {
     "id": "name",
     "label": "jcontent:label.contentManager.listColumns.name",
     "sortable": true,
