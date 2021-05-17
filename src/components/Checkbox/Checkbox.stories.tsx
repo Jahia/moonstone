@@ -22,8 +22,6 @@ DefaultControlled.args = {
 };
 DefaultControlled.storyName = 'Default and Controlled';
 
-// export const Test = <Checkbox aria-label="hello"/>;
-
 export const Indeterminate = Template.bind({});
 Indeterminate.args = {
     isIndeterminate: true,

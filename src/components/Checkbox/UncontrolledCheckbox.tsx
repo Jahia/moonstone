@@ -52,5 +52,3 @@ export const UncontrolledCheckbox = React.forwardRef<HTMLInputElement, Uncontrol
 );
 
 UncontrolledCheckbox.displayName = 'UncontrolledCheckbox';
-
-
