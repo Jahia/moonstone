@@ -5,16 +5,12 @@ const fs = require('fs');
 const glob = require('glob');
 const fx = require('mkdir-recursive');
 
-const compileSass = require('./compile-sass');
-
 const files = [
     ...glob.sync('**/*.[tj]s?(x)', {
         cwd: 'src'
     })
 ];
 const BABEL_BUILD_CONFIG = path.resolve('babel.build.config.js');
-
-compileSass();
 
 files.filter(file => (
     file.indexOf('.spec.') === -1 &&
