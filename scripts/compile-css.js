@@ -42,7 +42,6 @@ scssFiles
             fx.mkdirSync(folder);
         }
 
-        // Fs.writeFileSync(target, result.css);
         postcssPresetEnv.process(preCss.css)
             .then(postCss => {
                 console.log(postCss.css);
