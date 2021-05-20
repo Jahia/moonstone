@@ -15,6 +15,14 @@ module.exports = async ({config, mode}) => {
             'style-loader',
             'css-loader',
             {
+                loader: 'postcss-loader',
+                options: {
+                    postcssOptions: {
+                        plugins: [['postcss-preset-env']]
+                    }
+                }
+            },
+            {
                 loader: 'sass-loader',
                 // Apply the JSON importer via sass-loader's options.
                 options: {
@@ -42,6 +50,14 @@ module.exports = async ({config, mode}) => {
                         mode: 'local',
                         localIdentName: '[name]__[local]'
                     },
+                }
+            },
+            {
+                loader: 'postcss-loader',
+                options: {
+                    postcssOptions: {
+                        plugins: [['postcss-preset-env']]
+                    }
                 }
             },
             'sass-loader'

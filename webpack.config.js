@@ -5,9 +5,9 @@ const nodeExternals = require('webpack-node-externals');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const productionPlugins =
-  process.env.WEBPACK_MODE === 'production' ?
-      [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})] :
-      [];
+    process.env.WEBPACK_MODE === 'production' ?
+        [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})] :
+        [];
 
 const ComponentsConfig = {
     entry: './dist/index.js',
@@ -30,7 +30,15 @@ const ComponentsConfig = {
                 sideEffects: true,
                 use: [
                     'style-loader',
-                    'css-loader'
+                    'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            postcssOptions: {
+                                plugins: [['postcss-preset-env']]
+                            }
+                        }
+                    }
                 ]
             },
             {
