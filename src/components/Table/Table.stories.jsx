@@ -137,6 +137,7 @@ export const SelectableRows = () => {
             Cell: cellSelection
         },
         {Header: 'Name', accessor: 'name'},
+        {Header: 'Status', accessor: 'status'},
         {Header: 'Type', accessor: 'type'},
         {Header: 'Created By', accessor: 'createdBy'},
         {Header: 'Last Modified On', accessor: 'lastModifiedOn'}
@@ -177,12 +178,16 @@ export const SelectableRows = () => {
                     ))}
                 </TableHead>
                 <TableBody {...getTableBodyProps()}>
-                    {rows.map(row => {
+                    {rows.map((row, id) => {
                         prepareRow(row);
                         return (
                             // A key is included in row.getRowProps
                             // eslint-disable-next-line react/jsx-key
-                            <TableRow isSelected={row.isSelected} {...row.getRowProps()}>
+                            <TableRow
+                                isSelected={row.isSelected}
+                                isHighlighted={id === 1}
+                                {...row.getRowProps()}
+                            >
                                 {row.cells.map(cell => (
                                     // A key is included in cell.getCellProps
                                     // eslint-disable-next-line react/jsx-key
