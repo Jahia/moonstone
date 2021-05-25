@@ -1,3 +1,23 @@
+# (Tue May 25 2021)
+
+#### 🚀 Enhancement
+
+- MOON-283: Set up postcss-preset-env (includes autoprefixer) [#246](https://github.com/Jahia/moonstone/pull/246) ([@vindhya](https://github.com/vindhya))
+- MOON-280: Make onClick Handlers Optional [#242](https://github.com/Jahia/moonstone/pull/242) ([@vindhya](https://github.com/vindhya))
+
+#### 🐛 Bug Fix
+
+- MOON-285: Table row selection with react-table [#245](https://github.com/Jahia/moonstone/pull/245) ([@vindhya](https://github.com/vindhya))
+- MOON-190: WIP - Table Components [#244](https://github.com/Jahia/moonstone/pull/244) ([@vindhya](https://github.com/vindhya))
+- MOON-185: Checkbox Component [#243](https://github.com/Jahia/moonstone/pull/243) ([@ffffffelix](https://github.com/ffffffelix) [@vindhya](https://github.com/vindhya))
+
+#### Authors: 2
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Vindhya ([@vindhya](https://github.com/vindhya))
+
+---
+
 # v1.2.0 (Tue Mar 30 2021)
 
 #### 🚀 Enhancement
