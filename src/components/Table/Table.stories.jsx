@@ -123,10 +123,10 @@ export const SelectableRows = () => {
     // These components were pulled out of the columns definition below so that prop-type
     // eslint errors can be avoided
     const headerSelection = ({getToggleAllRowsSelectedProps}) => (
-        <Checkbox variant="uncontrolled" {...getToggleAllRowsSelectedProps()}/>
+        <Checkbox isUncontrolled {...getToggleAllRowsSelectedProps()}/>
     );
     const cellSelection = ({row}) => (
-        <Checkbox variant="uncontrolled" {...row.getToggleRowSelectedProps()}/>
+        <Checkbox isUncontrolled {...row.getToggleRowSelectedProps()}/>
     );
 
     const data = React.useMemo(() => tableDataFlat, []);

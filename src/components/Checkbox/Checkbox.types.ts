@@ -3,7 +3,7 @@ import {UncontrolledCheckboxProps} from './UncontrolledCheckbox.types';
 
 export type CheckboxProps = {
     /**
-     * Variant of the checkbox
+     * False by default; controls whether the Checkbox is uncontrolled
      */
-    variant?: 'controlled' | 'uncontrolled';
+    isUncontrolled?: boolean;
 } & (UncontrolledCheckboxProps | ControlledCheckboxProps);
