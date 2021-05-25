@@ -44,7 +44,6 @@ scssFiles
 
         postcssPresetEnv.process(preCss.css)
             .then(postCss => {
-                console.log(postCss.css);
                 fs.writeFileSync(target, postCss.css);
             });
     });
