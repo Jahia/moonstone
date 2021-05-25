@@ -16,20 +16,19 @@ export default {
 
 const Template: Story<CheckboxProps> = args => <Checkbox {...args}/>;
 
-export const Default = Template.bind({});
-Default.args = {
-    'aria-label': 'default example checkbox'
-}
-
-export const CheckedByDefault = Template.bind({});
-CheckedByDefault.args = {
-    defaultSelected: true,
-    'aria-label': 'checked by default example checkbox'
+export const DefaultControlled = Template.bind({});
+DefaultControlled.args = {
+    'aria-label': 'default example checkbox',
 };
+DefaultControlled.storyName = 'Default and Controlled';
 
 export const Indeterminate = Template.bind({});
 Indeterminate.args = {
-    defaultSelected: true,
     isIndeterminate: true,
     'aria-label': 'indeterminate example checkbox'
+};
+
+export const Uncontrolled = Template.bind({});
+Uncontrolled.args = {
+    variant: 'uncontrolled'
 };

@@ -6,8 +6,9 @@ import './TableRow.scss';
 
 export const TableRow: React.FC<TableRowProps> = ({
     className,
-    isMultipleLines = false,
+    hasMultipleLines = false,
     isSelected = false,
+    isHighlighted = false,
     children,
     ...props
 }) => (
@@ -15,8 +16,9 @@ export const TableRow: React.FC<TableRowProps> = ({
         className={
             clsx(
                 'moonstone-tableRow',
-                isMultipleLines && 'moonstone-tableRow-multipleLines',
+                hasMultipleLines && 'moonstone-tableRow-multipleLines',
                 isSelected && 'moonstone-tableRow-selected',
+                isHighlighted && 'moonstone-tableRow-highlighted',
                 className
             )
         }
