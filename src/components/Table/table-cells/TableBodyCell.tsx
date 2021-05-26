@@ -5,12 +5,15 @@ import {TableCellProps} from './tableCell.types';
 import './TableBodyCell.scss';
 import {Typography} from '~/components';
 import {capitalize} from '~/utils/helpers';
+import {TableCell} from './TableCell';
 
 export const TableBodyCell: React.FC<TableCellProps> = ({
-    className,
     component = 'td',
     textAlign = 'left',
     verticalAlign = 'center',
+    className,
+    iconStart,
+    iconEnd,
     children,
     ...props
 }) => {
@@ -28,7 +31,9 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
             variant="body"
             {...props}
         >
-            {children}
+            <TableCell iconStart={iconStart} iconEnd={iconEnd}>
+                {children}
+            </TableCell>
         </Typography>
     );
 };
