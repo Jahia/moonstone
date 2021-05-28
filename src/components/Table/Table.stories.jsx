@@ -259,19 +259,8 @@ export const SortingByColumn = () => {
     );
 
     const renderSortIndicator = (isSorted, isSortedDesc) => {
-        if (isSorted) {
-            if (isSortedDesc) {
-                return <SortIndicator direction="descending"/>;
-            }
-
-            // If the column is sorted AND its order is not descending,
-            // then its order must be ascending
-            return <SortIndicator direction="ascending"/>;
-        }
-
-        // If the column is not sorted, then render the default sort
-        // indicator
-        return <SortIndicator/>;
+        const direction = isSortedDesc ? 'descending' : 'ascending';
+        return <SortIndicator isSorted={isSorted} direction={direction}/>;
     };
 
     return (

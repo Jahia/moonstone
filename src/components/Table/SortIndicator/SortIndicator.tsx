@@ -3,16 +3,26 @@ import React from 'react';
 import {SortIndicatorProps} from './SortIndicator.types';
 import './SortIndicator.scss';
 import {ArrowDown, ArrowUp} from '~/icons';
+import clsx from 'clsx';
 
-export const SortIndicator: React.FC<SortIndicatorProps> = ({direction, ...props}) => {
+export const SortIndicator: React.FC<SortIndicatorProps> = ({
+    direction = 'descending',
+    isSorted = false,
+    className,
+    ...props
+}) => {
+    const classNameProps = clsx(
+        'moonstone-SortIndicator',
+        {'moonstone-SortIndicator-sorted': isSorted},
+        className
+    );
+
     if (direction === 'descending') {
-        return <div className="flexRow moonstone-SortIndicator-descending"><ArrowDown {...props}/></div>;
+        return <ArrowDown {...props} className={classNameProps} />;
     }
     if (direction === 'ascending') {
-        return <div className="flexRow moonstone-SortIndicator-ascending"><ArrowUp {...props}/></div>
+        return <ArrowUp {...props} className={classNameProps} />;
     }
-    // Default direction to show SortIndicator is with the arrow downwards
-    return <div className="flexRow moonstone-SortIndicator-default"><ArrowDown {...props}/></div>;
 };
 
 SortIndicator.displayName = 'SortIndicator';
