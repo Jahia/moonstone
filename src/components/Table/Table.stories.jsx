@@ -252,7 +252,8 @@ export const SortingByColumn = () => {
                 sortBy: [
                     {id: 'lastModifiedOn', desc: true}
                 ]
-            }
+            },
+            disableSortRemove: true
         },
         useSortBy
     );
