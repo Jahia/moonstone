@@ -1,16 +1,16 @@
 export type SortIndicatorProps = {
     /**
-     * Whether to render the sort indicator upwards/ascending or downwards/descending
+     * Whether to render the sort indicator ascending/up arrow or descending/down arrow
      */
     direction?: 'ascending' | 'descending';
 
     /**
-     * Define if the element is sorted
+     * Define if the column is currently sorted
      */
-     isSorted?: boolean;
+    isSorted?: boolean;
 
     /**
-     * Additional classname
+     * Additional classname(s)
      */
     className?: string;
 };

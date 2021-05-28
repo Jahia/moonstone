@@ -10,6 +10,7 @@
     color: var(--color-accent);
 
     &:hover {
+        // at the moment, this is not being applied
         color: var(--color-accentDark);
     }
 }
