@@ -3,11 +3,12 @@
 // these issues should be resolved.
 
 import React from 'react';
-import {useRowSelect, useTable} from 'react-table';
+import {useRowSelect, useSortBy, useTable} from 'react-table';
 import storyStyles from '~/__storybook__/storybook.module.scss';
 
 import {
     Checkbox,
+    SortIndicator,
     Table,
     TableHead,
     TableHeadCell,
@@ -59,7 +60,7 @@ export const Basic = () => (
 export const BasicReactTable = () => {
     const data = React.useMemo(() => tableDataFlat, []);
     const columns = React.useMemo(() => [
-        {Header: 'Name', accessor: 'name'},
+        {Header: 'Name', id: 'name', accessor: row => row.name.value},
         {Header: 'Type', accessor: 'type'},
         {Header: 'Created By', accessor: 'createdBy'},
         {Header: 'Last Modified On', accessor: 'lastModifiedOn'}
@@ -105,7 +106,10 @@ export const BasicReactTable = () => {
                             {row.cells.map(cell => (
                                 // A key is included in cell.getCellProps
                                 // eslint-disable-next-line react/jsx-key
-                                <TableBodyCell {...cell.getCellProps()}>
+                                <TableBodyCell
+                                    {...cell.getCellProps()}
+                                    iconStart={cell.column.id === 'name' && row.original.name.icon}
+                                >
                                     {cell.render('Cell')}
                                 </TableBodyCell>
                             ))}
@@ -136,7 +140,7 @@ export const SelectableRows = () => {
             Header: headerSelection,
             Cell: cellSelection
         },
-        {Header: 'Name', accessor: 'name'},
+        {Header: 'Name', id: 'name', accessor: row => row.name.value},
         {Header: 'Status', accessor: 'status'},
         {Header: 'Type', accessor: 'type'},
         {Header: 'Created By', accessor: 'createdBy'},
@@ -191,7 +195,10 @@ export const SelectableRows = () => {
                                 {row.cells.map(cell => (
                                     // A key is included in cell.getCellProps
                                     // eslint-disable-next-line react/jsx-key
-                                    <TableBodyCell {...cell.getCellProps()}>
+                                    <TableBodyCell
+                                        {...cell.getCellProps()}
+                                        iconStart={cell.column.id === 'name' && row.original.name.icon}
+                                    >
                                         {cell.render('Cell')}
                                     </TableBodyCell>
                                 ))}
@@ -221,8 +228,87 @@ export const SelectableRows = () => {
 
 SelectableRows.storyName = 'Selectable Rows with React-Table';
 
-// Export const SortingByColumn = () => {};
-// SortingByColumn.storyName = 'Sorting by Column with React-Table';
+export const SortingByColumn = () => {
+    const data = React.useMemo(() => tableDataFlat, []);
+    const columns = React.useMemo(() => [
+        {Header: 'Name', id: 'name', accessor: row => row.name.value},
+        {Header: 'Status', accessor: 'status', disableSortBy: true},
+        {Header: 'Type', accessor: 'type'},
+        {Header: 'Created By', accessor: 'createdBy'},
+        {Header: 'Last Modified On', accessor: 'lastModifiedOn'}
+    ], []);
+
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        rows,
+        prepareRow
+    } = useTable(
+        {
+            data,
+            columns,
+            initialState: {
+                sortBy: [
+                    {id: 'lastModifiedOn', desc: true}
+                ]
+            },
+            disableSortRemove: true
+        },
+        useSortBy
+    );
+
+    const renderSortIndicator = (isSorted, isSortedDesc) => {
+        const direction = isSortedDesc ? 'descending' : 'ascending';
+        return <SortIndicator isSorted={isSorted} direction={direction}/>;
+    };
+
+    return (
+        <Table {...getTableProps()}>
+            <TableHead>
+                {headerGroups.map(headerGroup => (
+                    // A key is included in headerGroup.getHeaderGroupProps
+                    // eslint-disable-next-line react/jsx-key
+                    <TableRow {...headerGroup.getHeaderGroupProps()}>
+                        {headerGroup.headers.map(column => (
+                            // A key is included in column.getHeaderProps
+                            // eslint-disable-next-line react/jsx-key
+                            <TableHeadCell
+                                {...column.getHeaderProps(column.getSortByToggleProps())}
+                                iconEnd={column.canSort ? renderSortIndicator(column.isSorted, column.isSortedDesc) : null}
+                            >
+                                {column.render('Header')}
+                            </TableHeadCell>
+                        ))}
+                    </TableRow>
+                ))}
+            </TableHead>
+            <TableBody {...getTableBodyProps()}>
+                {rows.map(row => {
+                    prepareRow(row);
+                    return (
+                        // A key is included in row.getRowProps
+                        // eslint-disable-next-line react/jsx-key
+                        <TableRow {...row.getRowProps()} isHighlighted={row.values.name === 'Highlight Row'}>
+                            {row.cells.map(cell => (
+                                // A key is included in cell.getCellProps
+                                // eslint-disable-next-line react/jsx-key
+                                <TableBodyCell
+                                        {...cell.getCellProps()}
+                                        iconStart={cell.column.id === 'name' && row.original.name.icon}
+                                >
+                                    {cell.render('Cell')}
+                                </TableBodyCell>
+                            ))}
+                        </TableRow>
+                    );
+                })}
+            </TableBody>
+        </Table>
+    );
+};
+
+SortingByColumn.storyName = 'Sorting by Column with React-Table';
 //
 // export const Pagination = () => {};
 // Pagination.storyName = 'Pagination with React-Table';

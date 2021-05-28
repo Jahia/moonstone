@@ -4,42 +4,42 @@ import {FileContent, Edit, Lock} from '~/icons';
 
 export const tableDataFlat = [
     {
-        name: <><FileContent/> Demo Roles and Users</>,
+        name: {value: 'Demo Roles and Users', icon: <FileContent/>},
         status: <Chip color="warning" icon={<Edit/>}/>,
         type: 'Page',
         createdBy: 'root',
         lastModifiedOn: 'Aug. 12, 2016',
     },
     {
-        name: <><FileContent/> Highlighted Row</>,
+        name: {value: 'Highlight Row', icon: <FileContent/>},
         status: <><Chip color="danger" icon={<Lock/>}/> <Chip color="warning" icon={<Edit/>}/></>,
         type: 'Page',
         createdBy: 'root',
         lastModifiedOn: 'Jan. 6, 2016',
     },
     {
-        name: <><FileContent/> Search Results</>,
+        name: {value: 'Search Results', icon: <FileContent/>},
         status: <><Chip color="danger" icon={<Lock/>}/> <Chip color="warning" icon={<Edit/>}/></>,
         type: 'Page',
         createdBy: 'system',
         lastModifiedOn: 'Feb. 29, 2016',
     },
     {
-        name: <><FileContent/> Corporate Responsibility</>,
+        name: {value: 'Corporate Responsibility', icon: <FileContent/>},
         status: <Chip color="warning" icon={<Edit/>}/>,
         type: 'Page',
         createdBy: 'root',
         lastModifiedOn: 'Jan. 26, 2016',
     },
     {
-        name: <><FileContent/> How to Use This Demo</>,
+        name: {value: 'How to Use This Demo', icon: <FileContent/>},
         status: <Chip color="warning" icon={<Edit/>}/>,
         type: 'Page',
         createdBy: 'root',
         lastModifiedOn: 'Jan. 26, 2016',
     },
     {
-        name: <><FileContent/> Our Companies</>,
+        name: {value: 'Our Companies', icon: <FileContent/>},
         status: <Chip color="warning" icon={<Edit/>}/>,
         type: 'Page',
         createdBy: 'root',

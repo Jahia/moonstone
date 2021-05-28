@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  node: circleci/node@4.1.0
+  node: circleci/node@4.4.0
 
 references:
   persist-workspace: &persist-workspace
@@ -16,8 +16,8 @@ references:
 defaults: &defaults
   working_directory: ~/source
   docker:
-    - image: circleci/node:latest
-  resource_class: large
+    - image: cimg/node:14.17
+  resource_class: medium
 
 jobs:
   lint-test:
