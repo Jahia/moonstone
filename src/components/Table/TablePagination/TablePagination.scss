@@ -1,0 +1,16 @@
+.moonstone-tablePagination {
+    display: flex;
+    flex-direction: row;
+
+    justify-content: flex-end;
+    align-items: center;
+    height: 48px;
+
+    &.moonstone-marginRight32 {
+        margin-right: 32px;
+    }
+
+    &.moonstone-marginRight16 {
+        margin-right: 16px;
+    }
+}

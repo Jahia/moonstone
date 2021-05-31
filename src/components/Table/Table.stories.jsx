@@ -17,6 +17,7 @@ import {
     TableBodyCell
 } from '~/components';
 import {tableDataFlat} from '~/data/tableDataFlat';
+import {TablePagination} from './TablePagination';
 
 export default {
     title: 'Components/Table',
@@ -309,11 +310,77 @@ export const SortingByColumn = () => {
 };
 
 SortingByColumn.storyName = 'Sorting by Column with React-Table';
-//
-// export const Pagination = () => {};
-// Pagination.storyName = 'Pagination with React-Table';
-//
-// export const StructuredView = () => {};
+
+export const Pagination = () => {
+    const data = React.useMemo(() => tableDataFlat, []);
+    const columns = React.useMemo(() => [
+        {Header: 'Name', id: 'name', accessor: row => row.name.value},
+        {Header: 'Type', accessor: 'type'},
+        {Header: 'Created By', accessor: 'createdBy'},
+        {Header: 'Last Modified On', accessor: 'lastModifiedOn'}
+    ], []);
+
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        rows,
+        prepareRow
+    } = useTable(
+        {
+            data,
+            columns
+        }
+    );
+
+    return (
+        <>
+            <Table {...getTableProps()}>
+                <TableHead>
+                    {headerGroups.map(headerGroup => (
+                        // A key is included in headerGroup.getHeaderGroupProps
+                        // eslint-disable-next-line react/jsx-key
+                        <TableRow {...headerGroup.getHeaderGroupProps()}>
+                            {headerGroup.headers.map(column => (
+                                // A key is included in column.getHeaderProps
+                                // eslint-disable-next-line react/jsx-key
+                                <TableHeadCell {...column.getHeaderProps()}>
+                                    {column.render('Header')}
+                                </TableHeadCell>
+                            ))}
+                        </TableRow>
+                    ))}
+                </TableHead>
+                <TableBody {...getTableBodyProps()}>
+                    {rows.map(row => {
+                        prepareRow(row);
+                        return (
+                            // A key is included in row.getRowProps
+                            // eslint-disable-next-line react/jsx-key
+                            <TableRow {...row.getRowProps()}>
+                                {row.cells.map(cell => (
+                                    // A key is included in cell.getCellProps
+                                    // eslint-disable-next-line react/jsx-key
+                                    <TableBodyCell
+                                        {...cell.getCellProps()}
+                                        iconStart={cell.column.id === 'name' && row.original.name.icon}
+                                    >
+                                        {cell.render('Cell')}
+                                    </TableBodyCell>
+                                ))}
+                            </TableRow>
+                        );
+                    })}
+                </TableBody>
+            </Table>
+            <TablePagination currentPage={1} totalNumberOfRows={50} onRowsPerPageChange={rowsPerPage => console.log(rowsPerPage)} onPageChange={page => console.log(page)}/>
+        </>
+    );
+};
+
+Pagination.storyName = 'Pagination with React-Table';
+
+// Export const StructuredView = () => {};
 // StructuredView.storyName = 'Structured View with React-Table';
 //
 // export const KitchenSink = () => {};
