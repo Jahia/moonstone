@@ -2,7 +2,7 @@
 // typescript with react-table. When react-table v8 is released in 2021,
 // these issues should be resolved.
 
-import React from 'react';
+import React, {useState} from 'react';
 import {useRowSelect, useSortBy, useTable} from 'react-table';
 import storyStyles from '~/__storybook__/storybook.module.scss';
 
@@ -17,6 +17,7 @@ import {
     TableBodyCell
 } from '~/components';
 import {tableDataFlat} from '~/data/tableDataFlat';
+import {tablePaginationDataFlat} from '~/data/tablePaginationDataFlat';
 import {TablePagination} from './TablePagination';
 
 export default {
@@ -312,7 +313,9 @@ export const SortingByColumn = () => {
 SortingByColumn.storyName = 'Sorting by Column with React-Table';
 
 export const Pagination = () => {
-    const data = React.useMemo(() => tableDataFlat, []);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [currentPage, setCurrentPage] = useState(1);
+    const data = React.useMemo(() => tablePaginationDataFlat.slice((currentPage - 1) * rowsPerPage, Math.min(tablePaginationDataFlat.length, currentPage * rowsPerPage)), [currentPage, rowsPerPage]);
     const columns = React.useMemo(() => [
         {Header: 'Name', id: 'name', accessor: row => row.name.value},
         {Header: 'Type', accessor: 'type'},
@@ -373,7 +376,11 @@ export const Pagination = () => {
                     })}
                 </TableBody>
             </Table>
-            <TablePagination currentPage={1} totalNumberOfRows={50} onRowsPerPageChange={rowsPerPage => console.log(rowsPerPage)} onPageChange={page => console.log(page)}/>
+            <TablePagination currentPage={currentPage}
+                             totalNumberOfRows={tablePaginationDataFlat.length}
+                             rowsPerPage={rowsPerPage}
+                             onRowsPerPageChange={rowsPerPage => setRowsPerPage(rowsPerPage)}
+                             onPageChange={page => setCurrentPage(page)}/>
         </>
     );
 };
