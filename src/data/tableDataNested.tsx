@@ -1,31 +1,37 @@
 import React from 'react';
 import {Chip} from '~/components';
-import {Bookmark, Build, FileContent, FolderUser, Edit, Lock, Person, Puzzle} from '~/icons';
+import {Bookmark, Build, FileImage, FolderUser, Edit, Lock, Person, Puzzle, AbTesting} from '~/icons';
 
 export const tableDataNested = [
     {
-        name: {value: 'Demo Roles and Users', icon: <FileContent/>},
+        name: {value: 'Demo Roles and Users', icon: <FileImage/>},
         status: <Chip color="warning" icon={<Edit/>}/>,
         type: 'Page',
         createdBy: 'root',
         lastModifiedOn: 'Aug. 12, 2016'
     },
     {
-        name: {value: 'Highlight Row', icon: <FileContent/>},
+        name: {value: 'Highlight Row', icon: <FileImage/>},
         status: <><Chip color="danger" icon={<Lock/>}/> <Chip color="warning" icon={<Edit/>}/></>,
         type: 'Page',
         createdBy: 'root',
         lastModifiedOn: 'Jan. 6, 2016'
     },
     {
-        name: {value: 'About', icon: <FileContent/>},
+        name: {value: 'About', icon: <FileImage/>},
         type: 'Page',
         status: <Chip icon={<Build/>}/>,
         createdBy: 'root',
         lastModifiedOn: 'Jan. 6, 2016',
         subRows: [
             {
-                name: {value: 'History', icon: <FileContent/>},
+                name: {value: 'Testing', icon: <AbTesting/>},
+                type: 'Page',
+                createdBy: 'root',
+                lastModifiedOn: 'Jan. 1, 2021'
+            },
+            {
+                name: {value: 'History', icon: <FileImage/>},
                 type: 'Page',
                 createdBy: 'root',
                 lastModifiedOn: 'Jan. 6, 2016',
@@ -37,7 +43,7 @@ export const tableDataNested = [
                         lastModifiedOn: 'Feb. 4, 2016'
                     },
                     {
-                        name: {value: 'Baumquist Joins Digitall As Controller', icon: <Puzzle/>},
+                        name: {value: 'Baumquist Joins Digitall As Controller and This is a Super, Super, Super Long Name', icon: <Puzzle/>},
                         type: 'News Entry',
                         createdBy: 'root',
                         lastModifiedOn: 'Jan. 21, 2016'
@@ -45,7 +51,7 @@ export const tableDataNested = [
                 ]
             },
             {
-                name: {value: 'Leadership', icon: <FileContent/>},
+                name: {value: 'Leadership', icon: <FileImage/>},
                 type: 'Page',
                 createdBy: 'root',
                 lastModifiedOn: 'Jan. 6, 2016',
@@ -91,14 +97,14 @@ export const tableDataNested = [
         ]
     },
     {
-        name: {value: 'Search Results', icon: <FileContent/>},
+        name: {value: 'Search Results', icon: <FileImage/>},
         status: <><Chip color="danger" icon={<Lock/>}/> <Chip color="warning" icon={<Edit/>}/></>,
         type: 'Page',
         createdBy: 'system',
         lastModifiedOn: 'Feb. 29, 2016'
     },
     {
-        name: {value: 'Corporate Responsibility', icon: <FileContent/>},
+        name: {value: 'Corporate Responsibility', icon: <FileImage/>},
         status: <Chip color="warning" icon={<Edit/>}/>,
         type: 'Page',
         createdBy: 'root',
@@ -132,13 +138,13 @@ export const tableDataNested = [
         ]
     },
     {
-        name: {value: 'highlights', icon: <FileContent/>},
+        name: {value: 'highlights', icon: <FileImage/>},
         type: 'Highlight',
         createdBy: 'root',
         lastModifiedOn: 'Jan. 26, 2016'
     },
     {
-        name: {value: 'Our Companies', icon: <FileContent/>},
+        name: {value: 'Our Companies', icon: <FileImage/>},
         status: <Chip color="warning" icon={<Edit/>}/>,
         type: 'Highlight',
         createdBy: 'root',
@@ -151,7 +157,7 @@ export const tableDataNested = [
                 lastModifiedOn: 'Jan. 26, 2016',
                 subRows: [
                     {
-                        name: {value: 'Events', icon: <Puzzle/>},
+                        name: {value: 'Events'},
                         type: 'Event Tab Query',
                         createdBy: 'root',
                         lastModifiedOn: 'Jan. 26, 2016',

@@ -1,5 +1,24 @@
-@mixin tableCell-padding {
-    padding: 0 var(--spacing-medium);
+.moonstone-TableCell {
+    padding-right: var(--spacing-medium);
+
+    &:first-child {
+        padding-left: var(--spacing-medium);
+    }
+
+    .moonstone-TableCell_children {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;  
+        overflow: hidden;
+    }
+
+    // .moonstone-TableCell_iconStart {
+    //     margin-right: var(--spacing-nano);
+    // }
+    
+    // .moonstone-TableCell_iconEnd {
+    //     margin-left: var(--spacing-nano);
+    // }
 }
 
 .moonstone-verticalAlignTop {
@@ -14,10 +33,3 @@
     vertical-align: bottom;
 }
 
-.moonstone-TableCell_iconStart {
-    margin-right: var(--spacing-nano);
-}
-
-.moonstone-TableCell_iconEnd {
-    margin-left: var(--spacing-nano);
-}

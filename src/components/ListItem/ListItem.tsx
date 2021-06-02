@@ -13,13 +13,15 @@ export const ListItem: React.FC<ListItemProps> = ({
     image,
     imageSize,
     className = '',
+    typographyVariant = 'caption',
+    iconSize = 'small',
     ...props
 }) => {
     const cssListItem = clsx(
-        className,
         'moonstone-listItem',
         'flexRow',
-        'alignCenter'
+        'alignCenter',
+        className
     );
 
     return (
@@ -30,7 +32,9 @@ export const ListItem: React.FC<ListItemProps> = ({
         >
             {
                 iconStart && !image &&
-                <div className="moonstone-listItem_iconStart"><iconStart.type {...iconStart.props} size="small"/></div>
+                <div className="moonstone-listItem_iconStart">
+                    <iconStart.type {...iconStart.props} size={iconSize}/>
+                </div>
             }
 
             {
@@ -42,7 +46,7 @@ export const ListItem: React.FC<ListItemProps> = ({
                 isNowrap
                 isHtml={isHtml}
                 className={clsx('flexFluid')}
-                variant="caption"
+                variant={typographyVariant}
                 component="span"
             >
                 {label}
@@ -50,7 +54,9 @@ export const ListItem: React.FC<ListItemProps> = ({
 
             {
                 iconEnd &&
-                <div className="moonstone-listItem_iconEnd"><iconEnd.type {...iconEnd.props} size="small"/></div>
+                <div className="moonstone-listItem_iconEnd">
+                    <iconEnd.type {...iconEnd.props} size={iconSize}/>
+                </div>
             }
         </li>
     );

@@ -2,7 +2,6 @@ import React from 'react';
 import clsx from 'clsx';
 
 import {TableCellProps} from './tableCell.types';
-import './TableBodyCell.scss';
 import {Typography} from '~/components';
 import {capitalize} from '~/utils/helpers';
 import {TableCell} from './TableCell';
@@ -22,7 +21,6 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
     return (
         <Typography
             className={clsx(
-                'moonstone-tableBodyCell',
                 'textAlign' + capitalize(textAlign),
                 'moonstone-verticalAlign' + capitalize(verticalAlign),
                 className

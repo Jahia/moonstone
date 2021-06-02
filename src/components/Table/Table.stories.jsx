@@ -2,11 +2,12 @@
 // typescript with react-table. When react-table v8 is released in 2021,
 // these issues should be resolved.
 
-import React, {useState} from 'react';
-import {useRowSelect, useSortBy, useTable} from 'react-table';
+import React, {useEffect, useState} from 'react';
+import {useExpanded, useRowSelect, useSortBy, useTable} from 'react-table';
 import storyStyles from '~/__storybook__/storybook.module.scss';
 
 import {
+    ListItem,
     Checkbox,
     SortIndicator,
     Table,
@@ -18,6 +19,8 @@ import {
     TablePagination
 } from '~/components';
 import {tableDataFlat, tableDataNested, tablePaginationDataFlat} from '~/data';
+import {ChevronDown, ChevronRight} from '~/icons';
+import clsx from 'clsx';
 
 export default {
     title: 'Components/Table',
@@ -394,15 +397,49 @@ export const StructuredView = () => {
             Header: 'Name',
             id: 'name',
             accessor: row => row.name.value,
-            // TODO: figure out why no row expansion stuff is showing up
-            Cell: ({row}) => (
-                row.canExpand ? (
-                    <span {...row.getToggleRowExpandedProps()}>
-                        {row.isExpanded ? 'x' : 'o'}
-                        {row.values.name}
-                    </span>
-                ) : row.values.name
-            )
+            Cell: cellInfo => {
+                const {row} = cellInfo;
+                if (row.canExpand) {
+                    // TODO: figure out a new way to center the icon and text vertically with icon and
+                    // TODO: expansion in the same cell children?
+                    // maybe with an expander component that is the div with necessary thingamabobs
+                    return (
+                        <div
+                            {...row.getToggleRowExpandedProps({style: {paddingLeft: `${row.depth * 1.5}rem`}})}
+                            className={clsx('flexRow_nowrap', 'alignCenter')}
+                        >
+                            {row.isExpanded ?
+                                <ChevronDown style={{marginRight: '8px'}}/> :
+                                <ChevronRight style={{marginRight: '8px'}}/>}
+                            <ListItem
+                                iconSize="default"
+                                typographyVariant="body"
+                                iconStart={row.original.name.icon}
+                                label={row.values.name}
+                            />
+                            {/* {row.original.name.icon}
+                            {row.values.name} */}
+
+                        </div>
+                    );
+                }
+
+                return (
+                    <div
+                        style={{marginLeft: '24px', paddingLeft: `${row.depth * 1.5}rem`}}
+                        // ClassName={clsx('flexRow_nowrap', 'alignCenter')}
+                    >
+                        {/* <span style={{marginLeft: '8px'}}> */}
+                        <ListItem
+                            iconSize="default"
+                            typographyVariant="body"
+                            iconStart={row.original.name.icon}
+                            label={row.values.name}
+                        />
+                        {/* </span> */}
+                    </div>
+                );
+            }
         },
         {Header: 'Status', accessor: 'status'},
         {Header: 'Type', accessor: 'type'},
@@ -415,13 +452,19 @@ export const StructuredView = () => {
         getTableBodyProps,
         headerGroups,
         rows,
-        prepareRow
+        prepareRow,
+        toggleAllRowsExpanded
     } = useTable(
         {
             data,
             columns
-        }
+        },
+        useExpanded
     );
+
+    useEffect(() => {
+        toggleAllRowsExpanded();
+    }, [toggleAllRowsExpanded]);
 
     return (
         <Table {...getTableProps()}>
@@ -447,16 +490,26 @@ export const StructuredView = () => {
                         // A key is included in row.getRowProps
                         // eslint-disable-next-line react/jsx-key
                         <TableRow {...row.getRowProps()}>
-                            {row.cells.map(cell => (
+                            {row.cells.map(cell => {
                                 // A key is included in cell.getCellProps
+                                return (
                                 // eslint-disable-next-line react/jsx-key
-                                <TableBodyCell
-                                    {...cell.getCellProps()}
-                                    iconStart={cell.column.id === 'name' && row.original.name.icon}
-                                >
-                                    {cell.render('Cell')}
-                                </TableBodyCell>
-                            ))}
+                                    <TableBodyCell
+                                        {...cell.getCellProps()}
+                                    >
+                                        {cell.render('Cell')}
+                                        {/* {console.log('the object!', cell.row.original[cell.column.id])} */}
+                                        {/* <ListItem
+                                            iconStart={cell.row.original[cell.column.id]?.icon}
+                                            label={cell.render('Cell')}
+                                        /> */}
+                                        {/* <ListItem
+                                            iconStart={cell.row.original[cell.column.id]?.icon}
+                                            label={cell.value}
+                                        /> */}
+                                    </TableBodyCell>
+                                );
+                            })}
                         </TableRow>
                     );
                 })}
