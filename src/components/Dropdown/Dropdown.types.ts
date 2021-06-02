@@ -40,7 +40,7 @@ export type DropdownProps = {
     /**
      * Content of the dropdown
      */
-    data: [DropdownDataOptions | DropdownData] | any;
+    data: [DropdownDataOptions & DropdownData] | any;
 
     /**
      * Label of the dropdown
