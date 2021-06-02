@@ -20,7 +20,12 @@ const SvgSdLgenerator = ({
   );
   props.className = className + ' moonstone-icon moonstone-icon_' + size;
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+    <svg
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      {...props}
+    >
       <path d="M12 9c-.07 0-.137-.005-.204-.014L9.16 13.55a1.52 1.52 0 01.235.4h5.208a1.524 1.524 0 01.238-.406L12.21 8.985c-.069.01-.139.015-.21.015zM13.221 15.628l1.175-.678H9.752l1.071.619c.275-.347.7-.569 1.177-.569.504 0 .95.248 1.221.628zM14.7 10.25a1.496 1.496 0 01-.198-.831l-1.322-.763 2.32 4.018v-1.76a1.489 1.489 0 01-.8-.664zM9.3 10.25a1.49 1.49 0 01-.9.696v1.929l2.477-4.29-1.382.797c.024.293-.038.595-.195.868z" />
       <path
         fillRule="evenodd"
