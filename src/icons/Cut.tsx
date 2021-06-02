@@ -16,7 +16,12 @@ const SvgCut = ({ size = 'default', className, ...otherProps }: IIconProps) => {
   );
   props.className = className + ' moonstone-icon moonstone-icon_' + size;
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+    <svg
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      {...props}
+    >
       <path
         fillRule="evenodd"
         clipRule="evenodd"

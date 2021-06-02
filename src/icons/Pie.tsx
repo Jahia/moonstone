@@ -16,7 +16,12 @@ const SvgPie = ({ size = 'default', className, ...otherProps }: IIconProps) => {
   );
   props.className = className + ' moonstone-icon moonstone-icon_' + size;
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+    <svg
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      {...props}
+    >
       <path d="M11 21a8 8 0 008-8h-8V5a8 8 0 100 16z" />
       <path d="M21 11a8 8 0 00-8-8v8h8z" />
     </svg>

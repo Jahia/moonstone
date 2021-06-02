@@ -5,7 +5,7 @@ interface IIconProps extends React.SVGProps<SVGSVGElement> {
   className?: string;
 }
 
-const SvgInfo = ({
+const SvgWorkInProgress = ({
   size = 'default',
   className,
   ...otherProps
@@ -26,9 +26,9 @@ const SvgInfo = ({
       fill="currentColor"
       {...props}
     >
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z" />
+      <path d="M20.872 17.712l-7.48-7.479c.74-1.89.33-4.11-1.232-5.671-1.644-1.644-4.11-1.973-6.082-1.069l3.534 3.534-2.466 2.466L3.53 5.96c-.987 1.973-.576 4.438 1.068 6.082 1.562 1.562 3.78 1.973 5.671 1.233l7.48 7.48a.794.794 0 001.15 0l1.89-1.891c.412-.329.412-.904.083-1.15z" />
     </svg>
   );
 };
 
-export default SvgInfo;
+export default SvgWorkInProgress;

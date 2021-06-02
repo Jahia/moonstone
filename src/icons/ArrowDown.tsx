@@ -20,7 +20,12 @@ const SvgArrowDown = ({
   );
   props.className = className + ' moonstone-icon moonstone-icon_' + size;
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+    <svg
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      {...props}
+    >
       <path d="M11 3v14.17l-3.59-3.58L6 15l6 6 6-6-1.41-1.41L13 17.17V3h-2z" />
     </svg>
   );

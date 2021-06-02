@@ -20,7 +20,12 @@ const SvgNotices = ({
   );
   props.className = className + ' moonstone-icon moonstone-icon_' + size;
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+    <svg
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      {...props}
+    >
       <path d="M20 10.76c-.77-.17-1.62-.26-2.5-.26-1.8 0-3.37.35-4.5.99V9.83c1.26-.54 2.8-.83 4.5-.83.86 0 1.71.09 2.5.24v1.52zM13 12.49v1.66c1.13-.64 2.7-.99 4.5-.99.88 0 1.73.09 2.5.26V11.9c-.79-.15-1.64-.24-2.5-.24-1.7 0-3.24.3-4.5.83zM13 15.16c1.26-.54 2.8-.83 4.5-.83.86 0 1.71.08 2.5.24v1.52c-.77-.17-1.62-.26-2.5-.26-1.8 0-3.37.35-4.5.99v-1.66z" />
       <path
         fillRule="evenodd"
