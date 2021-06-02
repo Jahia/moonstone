@@ -18,7 +18,8 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
     totalNumberOfRows,
     currentPage,
     onRowsPerPageChange,
-    onPageChange
+    onPageChange,
+    ...props
 }) => {
 
     if (currentPage < 1) {
@@ -34,7 +35,7 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
     const visibleRowsRangeRight = Math.min(totalNumberOfRows, currentPage * rowsPerPage);
 
     return (
-        <div className={clsx(cssClass, className)}>
+        <div className={clsx(cssClass, className)} {...props}>
             <Typography>{label.rowsPerPage}</Typography>
             <Dropdown className={clsx(cssClass, cssClass32)}
                       data={rowsPerPageOptions.map(opt => ({label: opt.toString(), value: opt.toString()}))}
