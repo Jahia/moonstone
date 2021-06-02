@@ -40,7 +40,7 @@ export type DropdownProps = {
     /**
      * Content of the dropdown
      */
-    data: [DropdownDataOptions & DropdownData];
+    data: [DropdownDataOptions | DropdownData] | any;
 
     /**
      * Label of the dropdown
@@ -102,5 +102,5 @@ export type DropdownProps = {
      * @param {object} event - Mouse event
      * @param {object} item - The current item selected
      */
-    onChange?: () => void;
+    onChange?: (event: React.MouseEvent, item :DropdownDataOptions) => void;
 }
