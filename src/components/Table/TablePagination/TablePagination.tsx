@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import {TablePaginationProps} from './TablePagination.types';
 import {Dropdown, Typography, Button} from '~/components';
-import {ChevronBigLeft, ChevronBigRight, ChevronDoubleLeft, ChevronDoubleRight} from '~/icons';
+import {ChevronLeft, ChevronRight, ChevronDoubleLeft, ChevronDoubleRight} from '~/icons';
 import './TablePagination.scss';
 
 const cssClass = 'moonstone-tablePagination';
@@ -36,16 +36,16 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
 
     return (
         <div className={clsx(cssClass, className)} {...props}>
-            <Typography>{label.rowsPerPage}</Typography>
+            <Typography variant='caption'>{label.rowsPerPage}</Typography>
             <Dropdown className={clsx(cssClass, cssClass32)}
                       data={rowsPerPageOptions.map(opt => ({label: opt.toString(), value: opt.toString()}))}
                       value={rowsPerPage.toString()}
                       label={rowsPerPage.toString()}
                       onChange={(event: any, item: any) => onRowsPerPageChange(parseInt(item.value, 0))}/>
-            <Typography className={clsx(cssClass, cssClass32)}>{`${visibleRowsRangeLeft}-${visibleRowsRangeRight} ${label.of} ${totalNumberOfRows}`}</Typography>
+            <Typography variant='caption' className={clsx(cssClass, cssClass32)}>{`${visibleRowsRangeLeft}-${visibleRowsRangeRight} ${label.of} ${totalNumberOfRows}`}</Typography>
             <Button className={clsx(cssClass, cssClass32)} icon={<ChevronDoubleLeft/>} variant="ghost" isDisabled={currentPage === 1} onClick={() => onPageChange(1)}/>
-            <Button className={clsx(cssClass, cssClass32)} icon={<ChevronBigLeft/>} variant="ghost" isDisabled={currentPage === 1} onClick={() => onPageChange(currentPage - 1)}/>
-            <Button className={clsx(cssClass, cssClass32)} icon={<ChevronBigRight/>} variant="ghost" isDisabled={lastPage === currentPage} onClick={() => onPageChange(currentPage + 1)}/>
+            <Button className={clsx(cssClass, cssClass32)} icon={<ChevronLeft/>} variant="ghost" isDisabled={currentPage === 1} onClick={() => onPageChange(currentPage - 1)}/>
+            <Button className={clsx(cssClass, cssClass32)} icon={<ChevronRight/>} variant="ghost" isDisabled={lastPage === currentPage} onClick={() => onPageChange(currentPage + 1)}/>
             <Button className={clsx(cssClass, cssClass16)} icon={<ChevronDoubleRight/>} variant="ghost" isDisabled={lastPage === currentPage} onClick={() => onPageChange(lastPage)}/>
         </div>
     )
