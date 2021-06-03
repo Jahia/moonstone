@@ -37,16 +37,16 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
     return (
         <div className={clsx(cssClass, 'flexRow_reverse', 'alignCenter', className)} {...props}>
             <Typography variant='caption'>{label.rowsPerPage}</Typography>
-            <Dropdown className={clsx(cssClass, 'flexRow_reverse', 'alignCenter', cssClass32)}
+            <Dropdown className={clsx('alignCenter', cssClass16)}
                       data={rowsPerPageOptions.map(opt => ({label: opt.toString(), value: opt.toString()}))}
                       value={rowsPerPage.toString()}
                       label={rowsPerPage.toString()}
                       onChange={(event: any, item: any) => onRowsPerPageChange(parseInt(item.value, 0))}/>
             <Typography variant='caption' className={clsx(cssClass, 'flexRow_reverse', 'alignCenter', cssClass32)}>{`${visibleRowsRangeLeft}-${visibleRowsRangeRight} ${label.of} ${totalNumberOfRows}`}</Typography>
-            <Button className={clsx(cssClass, cssClass32)} icon={<ChevronFirstPage/>} variant="ghost" isDisabled={currentPage === 1} onClick={() => onPageChange(1)}/>
-            <Button className={clsx(cssClass, cssClass32)} icon={<ChevronLeft/>} variant="ghost" isDisabled={currentPage === 1} onClick={() => onPageChange(currentPage - 1)}/>
-            <Button className={clsx(cssClass, cssClass32)} icon={<ChevronRight/>} variant="ghost" isDisabled={lastPage === currentPage} onClick={() => onPageChange(currentPage + 1)}/>
-            <Button className={clsx(cssClass, cssClass16)} icon={<ChevronLastPage/>} variant="ghost" isDisabled={lastPage === currentPage} onClick={() => onPageChange(lastPage)}/>
+            <Button className={clsx(cssClass32)} icon={<ChevronFirstPage/>} variant="ghost" isDisabled={currentPage === 1} onClick={() => onPageChange(1)}/>
+            <Button className={clsx(cssClass32)} icon={<ChevronLeft/>} variant="ghost" isDisabled={currentPage === 1} onClick={() => onPageChange(currentPage - 1)}/>
+            <Button className={clsx(cssClass32)} icon={<ChevronRight/>} variant="ghost" isDisabled={lastPage === currentPage} onClick={() => onPageChange(currentPage + 1)}/>
+            <Button className={clsx(cssClass16)} icon={<ChevronLastPage/>} variant="ghost" isDisabled={lastPage === currentPage} onClick={() => onPageChange(lastPage)}/>
         </div>
     )
 };
