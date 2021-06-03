@@ -35,14 +35,14 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
     const visibleRowsRangeRight = Math.min(totalNumberOfRows, currentPage * rowsPerPage);
 
     return (
-        <div className={clsx(cssClass, className)} {...props}>
+        <div className={clsx(cssClass, 'flexRow_reverse', 'alignCenter', className)} {...props}>
             <Typography variant='caption'>{label.rowsPerPage}</Typography>
-            <Dropdown className={clsx(cssClass, cssClass32)}
+            <Dropdown className={clsx(cssClass, 'flexRow_reverse', 'alignCenter', cssClass32)}
                       data={rowsPerPageOptions.map(opt => ({label: opt.toString(), value: opt.toString()}))}
                       value={rowsPerPage.toString()}
                       label={rowsPerPage.toString()}
                       onChange={(event: any, item: any) => onRowsPerPageChange(parseInt(item.value, 0))}/>
-            <Typography variant='caption' className={clsx(cssClass, cssClass32)}>{`${visibleRowsRangeLeft}-${visibleRowsRangeRight} ${label.of} ${totalNumberOfRows}`}</Typography>
+            <Typography variant='caption' className={clsx(cssClass, 'flexRow_reverse', 'alignCenter', cssClass32)}>{`${visibleRowsRangeLeft}-${visibleRowsRangeRight} ${label.of} ${totalNumberOfRows}`}</Typography>
             <Button className={clsx(cssClass, cssClass32)} icon={<ChevronFirstPage/>} variant="ghost" isDisabled={currentPage === 1} onClick={() => onPageChange(1)}/>
             <Button className={clsx(cssClass, cssClass32)} icon={<ChevronLeft/>} variant="ghost" isDisabled={currentPage === 1} onClick={() => onPageChange(currentPage - 1)}/>
             <Button className={clsx(cssClass, cssClass32)} icon={<ChevronRight/>} variant="ghost" isDisabled={lastPage === currentPage} onClick={() => onPageChange(currentPage + 1)}/>
