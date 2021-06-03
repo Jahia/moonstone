@@ -1,3 +1,19 @@
+# v1.3.1 (Thu Jun 03 2021)
+
+#### 🐛 Bug Fix
+
+- Moon 189 pagination [#250](https://github.com/Jahia/moonstone/pull/250) ([@AKarmanov](https://github.com/AKarmanov))
+- MOON-294: Fix the icons ChevronBig and add new icons [#248](https://github.com/Jahia/moonstone/pull/248) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-286: WIP Table - Set up table sorting styling and example story [#247](https://github.com/Jahia/moonstone/pull/247) ([@vindhya](https://github.com/vindhya) [@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 3
+
+- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Vindhya ([@vindhya](https://github.com/vindhya))
+
+---
+
 # (Tue May 25 2021)
 
 #### 🚀 Enhancement
