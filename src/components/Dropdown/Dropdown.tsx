@@ -207,7 +207,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 {
                     data.map((item, index) => {
                         if (isGrouped) {
-                            item.options.map(o => {
+                            item.options.map((o: DropdownDataOptions) => {
                                 return dropdownOption(o);
                             });
                             return dropdownGrouped(item.options, item.groupLabel, index);
