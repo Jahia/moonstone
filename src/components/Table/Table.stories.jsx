@@ -137,7 +137,7 @@ export const BasicReactTable = () => {
     );
 };
 
-BasicReactTable.storyName = 'Basic Table with react-table';
+BasicReactTable.storyName = 'Basic Table with React-Table';
 
 export const SelectableRows = () => {
     const data = React.useMemo(() => tableDataFlat, []);
@@ -245,7 +245,7 @@ export const SelectableRows = () => {
     );
 };
 
-SelectableRows.storyName = 'Selectable Rows with react-table';
+SelectableRows.storyName = 'Selectable Rows with React-Table';
 
 export const SortingByColumn = () => {
     const data = React.useMemo(() => tableDataFlat, []);
@@ -506,7 +506,7 @@ export const StructuredView = () => {
     );
 };
 
-StructuredView.storyName = 'Structured View with react-table';
+StructuredView.storyName = 'Structured View with React-Table';
 
 // Export const KitchenSink = () => {};
-// KitchenSink.storyName = 'Everything and the Kitchen Sink with react-table';
+// KitchenSink.storyName = 'Everything and the Kitchen Sink with React-Table';
