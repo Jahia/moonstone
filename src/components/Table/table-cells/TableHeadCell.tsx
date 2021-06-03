@@ -30,9 +30,11 @@ export const TableHeadCell: React.FC<TableCellProps> = ({
             variant="body"
             {...props}
         >
+
             <TableCell iconStart={iconStart} iconEnd={iconEnd}>
                 {children}
             </TableCell>
+
         </Typography>
     );
 };

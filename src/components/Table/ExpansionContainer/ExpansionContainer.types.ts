@@ -29,5 +29,5 @@ export type ExpansionContainerProps = {
     /**
      * Props to expand/collapse the row (exposed by react-table)
      */
-    getToggleRowExpandedProps: ({}) => any;
+    getToggleRowExpandedProps?: ({}) => any;
 };

@@ -63,7 +63,22 @@ export const Basic = () => (
 export const BasicReactTable = () => {
     const data = React.useMemo(() => tableDataFlat, []);
     const columns = React.useMemo(() => [
-        {Header: 'Name', id: 'name', accessor: row => row.name.value},
+        {
+            Header: 'Name',
+            id: 'name',
+            accessor: row => row.name.value,
+            Cell: cellInfo => {
+                const {row} = cellInfo;
+                return (
+                    <ListItem
+                        iconSize="default"
+                        typographyVariant="body"
+                        iconStart={row.original.name.icon}
+                        label={row.values.name}
+                    />
+                );
+            }
+        },
         {Header: 'Status', accessor: 'status'},
         {Header: 'Type', accessor: 'type'},
         {Header: 'Created By', accessor: 'createdBy'},
@@ -110,10 +125,7 @@ export const BasicReactTable = () => {
                             {row.cells.map(cell => (
                                 // A key is included in cell.getCellProps
                                 // eslint-disable-next-line react/jsx-key
-                                <TableBodyCell
-                                    {...cell.getCellProps()}
-                                    iconStart={cell.column.id === 'name' && row.original.name.icon}
-                                >
+                                <TableBodyCell {...cell.getCellProps()}>
                                     {cell.render('Cell')}
                                 </TableBodyCell>
                             ))}
@@ -128,23 +140,29 @@ export const BasicReactTable = () => {
 BasicReactTable.storyName = 'Basic Table with react-table';
 
 export const SelectableRows = () => {
-    // These components were pulled out of the columns definition below so that prop-type
-    // eslint errors can be avoided
-    const headerSelection = ({getToggleAllRowsSelectedProps}) => (
-        <Checkbox isUncontrolled {...getToggleAllRowsSelectedProps()}/>
-    );
-    const cellSelection = ({row}) => (
-        <Checkbox isUncontrolled {...row.getToggleRowSelectedProps()}/>
-    );
-
     const data = React.useMemo(() => tableDataFlat, []);
     const columns = React.useMemo(() => [
         {
             id: 'selection',
-            Header: headerSelection,
-            Cell: cellSelection
+            Header: header => <Checkbox isUncontrolled {...header.getToggleAllRowsSelectedProps()}/>,
+            Cell: cellInfo => <Checkbox isUncontrolled {...cellInfo.row.getToggleRowSelectedProps()}/>
         },
-        {Header: 'Name', id: 'name', accessor: row => row.name.value},
+        {
+            Header: 'Name',
+            id: 'name',
+            accessor: row => row.name.value,
+            Cell: cellInfo => {
+                const {row} = cellInfo;
+                return (
+                    <ListItem
+                        iconSize="default"
+                        typographyVariant="body"
+                        iconStart={row.original.name.icon}
+                        label={row.values.name}
+                    />
+                );
+            }
+        },
         {Header: 'Status', accessor: 'status'},
         {Header: 'Type', accessor: 'type'},
         {Header: 'Created By', accessor: 'createdBy'},
@@ -199,10 +217,7 @@ export const SelectableRows = () => {
                                 {row.cells.map(cell => (
                                     // A key is included in cell.getCellProps
                                     // eslint-disable-next-line react/jsx-key
-                                    <TableBodyCell
-                                        {...cell.getCellProps()}
-                                        iconStart={cell.column.id === 'name' && row.original.name.icon}
-                                    >
+                                    <TableBodyCell {...cell.getCellProps()}>
                                         {cell.render('Cell')}
                                     </TableBodyCell>
                                 ))}
@@ -235,7 +250,22 @@ SelectableRows.storyName = 'Selectable Rows with react-table';
 export const SortingByColumn = () => {
     const data = React.useMemo(() => tableDataFlat, []);
     const columns = React.useMemo(() => [
-        {Header: 'Name', id: 'name', accessor: row => row.name.value},
+        {
+            Header: 'Name',
+            id: 'name',
+            accessor: row => row.name.value,
+            Cell: cellInfo => {
+                const {row} = cellInfo;
+                return (
+                    <ListItem
+                        iconSize="default"
+                        typographyVariant="body"
+                        iconStart={row.original.name.icon}
+                        label={row.values.name}
+                    />
+                );
+            }
+        },
         {Header: 'Status', accessor: 'status', disableSortBy: true},
         {Header: 'Type', accessor: 'type'},
         {Header: 'Created By', accessor: 'createdBy'},
@@ -279,7 +309,7 @@ export const SortingByColumn = () => {
                             // eslint-disable-next-line react/jsx-key
                             <TableHeadCell
                                 {...column.getHeaderProps(column.getSortByToggleProps())}
-                                iconEnd={column.canSort ? renderSortIndicator(column.isSorted, column.isSortedDesc) : null}
+                                iconEnd={column.canSort && renderSortIndicator(column.isSorted, column.isSortedDesc)}
                             >
                                 {column.render('Header')}
                             </TableHeadCell>
@@ -297,10 +327,7 @@ export const SortingByColumn = () => {
                             {row.cells.map(cell => (
                                 // A key is included in cell.getCellProps
                                 // eslint-disable-next-line react/jsx-key
-                                <TableBodyCell
-                                        {...cell.getCellProps()}
-                                        iconStart={cell.column.id === 'name' && row.original.name.icon}
-                                >
+                                <TableBodyCell {...cell.getCellProps()}>
                                     {cell.render('Cell')}
                                 </TableBodyCell>
                             ))}
@@ -464,26 +491,13 @@ export const StructuredView = () => {
                         // A key is included in row.getRowProps
                         // eslint-disable-next-line react/jsx-key
                         <TableRow {...row.getRowProps()}>
-                            {row.cells.map(cell => {
+                            {row.cells.map(cell => (
                                 // A key is included in cell.getCellProps
-                                return (
                                 // eslint-disable-next-line react/jsx-key
-                                    <TableBodyCell
-                                        {...cell.getCellProps()}
-                                    >
-                                        {cell.render('Cell')}
-                                        {/* {console.log('the object!', cell.row.original[cell.column.id])} */}
-                                        {/* <ListItem
-                                            iconStart={cell.row.original[cell.column.id]?.icon}
-                                            label={cell.render('Cell')}
-                                        /> */}
-                                        {/* <ListItem
-                                            iconStart={cell.row.original[cell.column.id]?.icon}
-                                            label={cell.value}
-                                        /> */}
-                                    </TableBodyCell>
-                                );
-                            })}
+                                <TableBodyCell {...cell.getCellProps()}>
+                                    {cell.render('Cell')}
+                                </TableBodyCell>
+                            ))}
                         </TableRow>
                     );
                 })}
