@@ -7,8 +7,9 @@ import {useExpanded, useRowSelect, useSortBy, useTable} from 'react-table';
 import storyStyles from '~/__storybook__/storybook.module.scss';
 
 import {
-    ListItem,
     Checkbox,
+    ExpansionContainer,
+    ListItem,
     SortIndicator,
     Table,
     TableHead,
@@ -19,8 +20,6 @@ import {
     TablePagination
 } from '~/components';
 import {tableDataFlat, tableDataNested, tablePaginationDataFlat} from '~/data';
-import {ChevronDown, ChevronRight} from '~/icons';
-import clsx from 'clsx';
 
 export default {
     title: 'Components/Table',
@@ -399,45 +398,20 @@ export const StructuredView = () => {
             accessor: row => row.name.value,
             Cell: cellInfo => {
                 const {row} = cellInfo;
-                if (row.canExpand) {
-                    // TODO: figure out a new way to center the icon and text vertically with icon and
-                    // TODO: expansion in the same cell children?
-                    // maybe with an expander component that is the div with necessary thingamabobs
-                    return (
-                        <div
-                            {...row.getToggleRowExpandedProps({style: {paddingLeft: `${row.depth * 1.5}rem`}})}
-                            className={clsx('flexRow_nowrap', 'alignCenter')}
-                        >
-                            {row.isExpanded ?
-                                <ChevronDown style={{marginRight: '8px'}}/> :
-                                <ChevronRight style={{marginRight: '8px'}}/>}
-                            <ListItem
-                                iconSize="default"
-                                typographyVariant="body"
-                                iconStart={row.original.name.icon}
-                                label={row.values.name}
-                            />
-                            {/* {row.original.name.icon}
-                            {row.values.name} */}
-
-                        </div>
-                    );
-                }
-
                 return (
-                    <div
-                        style={{marginLeft: '24px', paddingLeft: `${row.depth * 1.5}rem`}}
-                        // ClassName={clsx('flexRow_nowrap', 'alignCenter')}
+                    <ExpansionContainer
+                        canExpand={row.canExpand}
+                        isExpanded={row.isExpanded}
+                        depth={row.depth}
+                        getToggleRowExpandedProps={row.getToggleRowExpandedProps}
                     >
-                        {/* <span style={{marginLeft: '8px'}}> */}
                         <ListItem
                             iconSize="default"
                             typographyVariant="body"
                             iconStart={row.original.name.icon}
                             label={row.values.name}
                         />
-                        {/* </span> */}
-                    </div>
+                    </ExpansionContainer>
                 );
             }
         },

@@ -31,10 +31,11 @@ export const ListItem: React.FC<ListItemProps> = ({
             {...props}
         >
             {
-                iconStart && !image &&
-                <div className="moonstone-listItem_iconStart">
-                    <iconStart.type {...iconStart.props} size={iconSize}/>
-                </div>
+                iconStart && !image && (
+                    <div className="moonstone-listItem_iconStart">
+                        <iconStart.type {...iconStart.props} size={iconSize}/>
+                    </div>
+                )
             }
 
             {
@@ -53,10 +54,11 @@ export const ListItem: React.FC<ListItemProps> = ({
             </Typography>
 
             {
-                iconEnd &&
-                <div className="moonstone-listItem_iconEnd">
-                    <iconEnd.type {...iconEnd.props} size={iconSize}/>
-                </div>
+                iconEnd && (
+                    <div className="moonstone-listItem_iconEnd">
+                        <iconEnd.type {...iconEnd.props} size={iconSize}/>
+                    </div>
+                )
             }
         </li>
     );

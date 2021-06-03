@@ -8,17 +8,9 @@
     .moonstone-TableCell_children {
         display: -webkit-box;
         -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;  
+        -webkit-box-orient: vertical;
         overflow: hidden;
     }
-
-    // .moonstone-TableCell_iconStart {
-    //     margin-right: var(--spacing-nano);
-    // }
-    
-    // .moonstone-TableCell_iconEnd {
-    //     margin-left: var(--spacing-nano);
-    // }
 }
 
 .moonstone-verticalAlignTop {
@@ -32,4 +24,3 @@
 .moonstone-verticalAlignBottom {
     vertical-align: bottom;
 }
-

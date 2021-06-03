@@ -9,9 +9,9 @@ export const TableBody: React.FC<TableBodyProps> = ({
     ...props
 }) => (
     <tbody
-        // 'moonstone-tableBody' class is used to target only rows within the table body
+        // 'moonstone-TableBody' class is used to target only rows within the table body
         // to apply the hover effect
-        className={clsx('moonstone-tableBody', className)}
+        className={clsx('moonstone-TableBody', className)}
         {...props}
     >
         {children}
