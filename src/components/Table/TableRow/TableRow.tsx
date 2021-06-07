@@ -16,6 +16,7 @@ export const TableRow: React.FC<TableRowProps> = ({
         className={
             clsx(
                 'moonstone-TableRow',
+                'alignCenter', // necessary for useFlexLayout react-table plugin
                 hasMultipleLines && 'moonstone-TableRow-multipleLines',
                 isSelected && 'moonstone-TableRow-selected',
                 isHighlighted && 'moonstone-TableRow-highlighted',
