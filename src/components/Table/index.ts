@@ -1,4 +1,3 @@
-export * from './ExpansionContainer';
 export * from './SortIndicator';
 export * from './Table';
 export * from './TableBody';

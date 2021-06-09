@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import {TableCellProps} from './tableCell.types';
+import {TableCellProps} from './TableCell.types';
 import './TableCell.scss';
 
 export const TableCell: React.FC<Partial<TableCellProps>> = ({
@@ -29,7 +29,7 @@ export const TableCell: React.FC<Partial<TableCellProps>> = ({
                 />
             )}
 
-            <div className="moonstone-TableCell_children">{children}</div>
+            {children}
 
             {iconEnd && (
                 <iconEnd.type

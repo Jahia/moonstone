@@ -5,11 +5,8 @@
         padding-left: var(--spacing-medium);
     }
 
-    .moonstone-TableCell_children {
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
+    .moonstone-marginRightNano {
+        margin-right: var(--spacing-nano);
     }
 }
 

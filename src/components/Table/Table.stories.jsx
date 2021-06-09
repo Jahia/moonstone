@@ -8,7 +8,6 @@ import storyStyles from '~/__storybook__/storybook.module.scss';
 
 import {
     Checkbox,
-    ExpansionContainer,
     ListItem,
     SortIndicator,
     Table,
@@ -419,29 +418,7 @@ Pagination.storyName = 'Pagination with React-Table';
 export const StructuredView = () => {
     const data = React.useMemo(() => tableDataNested, []);
     const columns = React.useMemo(() => [
-        {
-            Header: 'Name',
-            id: 'name',
-            accessor: row => row.name.value,
-            Cell: cellInfo => {
-                const {row} = cellInfo;
-                return (
-                    <ExpansionContainer
-                        canExpand={row.canExpand}
-                        isExpanded={row.isExpanded}
-                        depth={row.depth}
-                        getToggleRowExpandedProps={row.getToggleRowExpandedProps}
-                    >
-                        <ListItem
-                            iconSize="default"
-                            typographyVariant="body"
-                            iconStart={row.original.name.icon}
-                            label={row.values.name}
-                        />
-                    </ExpansionContainer>
-                );
-            }
-        },
+        {Header: 'Name', id: 'name', accessor: row => row.name.value},
         {Header: 'Status', accessor: 'status'},
         {Header: 'Type', accessor: 'type'},
         {Header: 'Created By', accessor: 'createdBy'},
@@ -494,7 +471,15 @@ export const StructuredView = () => {
                             {row.cells.map(cell => (
                                 // A key is included in cell.getCellProps
                                 // eslint-disable-next-line react/jsx-key
-                                <TableBodyCell {...cell.getCellProps()}>
+                                <TableBodyCell
+                                    {...cell.getCellProps()}
+                                    isFirstColumn={row.cells[0].value === cell.value}
+                                    iconStart={row.original[cell.column.id]?.icon}
+                                    canExpand={row.canExpand}
+                                    isExpanded={row.isExpanded}
+                                    depth={row.depth}
+                                    getToggleRowExpandedProps={row.getToggleRowExpandedProps}
+                                >
                                     {cell.render('Cell')}
                                 </TableBodyCell>
                             ))}

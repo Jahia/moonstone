@@ -33,6 +33,36 @@ export type TableCellProps = {
     verticalAlign?: 'top' | 'middle' | 'bottom';
 
     /**
+     * Whether this cell is in the first column of the table
+     */
+    isFirstColumn?: boolean;
+
+    /**
+     * Whether this cell is in the first column of the table
+     */
+    canExpand?: boolean;
+
+    /**
+     * Whether the cell is currently expanded
+     */
+    isExpanded?: boolean;
+
+    /**
+     * Depth of the nesting of the current row
+     */
+    depth?: number;
+
+    /**
+     * react-table utility that gets the expansion props when invoked
+     */
+    getToggleRowExpandedProps?: ({}) => any;
+
+    /**
+     * Any styles to render inline
+     */
+    style?: React.CSSProperties;
+
+    /**
      * Children elements
      */
     children?: React.ReactNode;

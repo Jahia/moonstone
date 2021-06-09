@@ -1,10 +1,12 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import {TableCellProps} from './tableCell.types';
-import {Typography} from '~/components';
+import {TableCellProps} from './TableCell.types';
+import {IconTextIcon, Typography} from '~/components';
+import {ChevronRight, ChevronDown} from '~/icons';
 import {capitalize} from '~/utils/helpers';
 import {TableCell} from './TableCell';
+import spacings from '~/tokens/spacings/spacing.json';
 
 export const TableBodyCell: React.FC<TableCellProps> = ({
     component = 'td',
@@ -13,11 +15,17 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
     className,
     iconStart,
     iconEnd,
+    isFirstColumn,
+    canExpand,
+    isExpanded,
+    depth,
+    getToggleRowExpandedProps,
     children,
     ...props
 }) => {
+    const paddingLeft = `${depth * 0.75}rem`;
+    const marginLeft = spacings.spacingMedium;
 
-    // what's the correct naming convention for these cell scss classes?
     return (
         <Typography
             className={clsx(
@@ -30,8 +38,36 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
             {...props}
         >
 
-            <TableCell iconStart={iconStart} iconEnd={iconEnd}>
-                {children}
+            <TableCell style={isFirstColumn ? {marginLeft, paddingLeft} : {}}>
+
+                {canExpand && isFirstColumn ? (
+                    <div
+                        {...getToggleRowExpandedProps({style: {paddingLeft}})}
+                        className={clsx('flexRow', 'alignCenter')}
+                        {...props}
+                    >
+                        {isExpanded ? <ChevronDown className="moonstone-marginRightNano"/> : <ChevronRight className="moonstone-marginRightNano"/>}
+                        <IconTextIcon
+                            component="div"
+                            iconStart={iconStart}
+                            typographyProps={{isNowrap: true}}
+                        >
+                            {children}
+                        </IconTextIcon>
+                    </div>
+
+                // Render this if the row cannot expand
+                ) : (
+                        <IconTextIcon
+                            component="div"
+                            iconStart={iconStart}
+                            typographyProps={{isNowrap: true}}
+                            style={isFirstColumn ? {marginLeft: '20px', paddingLeft} : {}}>
+                                {children}
+                        </IconTextIcon>
+                    )
+                }
+
             </TableCell>
 
         </Typography>

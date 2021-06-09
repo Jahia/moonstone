@@ -39,8 +39,15 @@ export const ListItem: React.FC<ListItemProps> = ({
             }
 
             {
-                image && !iconStart &&
-                <figure className={`moonstone-listItem-image_${imageSize} flexRow`}>{image}</figure>
+                image && !iconStart && (
+                    <figure className={clsx(
+                        `moonstone-listItem-image_${imageSize}`,
+                        'flexRow',
+                        'alignCenter'
+                    )}>
+                        {image}
+                    </figure>
+                )
             }
 
             <Typography
