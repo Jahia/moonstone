@@ -1,3 +1,19 @@
+# v1.4.0 (Thu Jun 10 2021)
+
+#### 🚀 Enhancement
+
+- MOON-287: Table Component Structured View [#251](https://github.com/Jahia/moonstone/pull/251) ([@vindhya](https://github.com/vindhya))
+
+#### 🐛 Bug Fix
+
+- MOON-196: useFlexLayout react-table plugin example [#252](https://github.com/Jahia/moonstone/pull/252) ([@vindhya](https://github.com/vindhya))
+
+#### Authors: 1
+
+- Vindhya ([@vindhya](https://github.com/vindhya))
+
+---
+
 # v1.3.1 (Thu Jun 03 2021)
 
 #### 🐛 Bug Fix
