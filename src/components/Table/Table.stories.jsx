@@ -8,7 +8,7 @@ import storyStyles from '~/__storybook__/storybook.module.scss';
 
 import {
     Checkbox,
-    ListItem,
+    IconTextIcon,
     SortIndicator,
     Table,
     TableHead,
@@ -68,14 +68,7 @@ export const BasicReactTable = () => {
             accessor: row => row.name.value,
             Cell: cellInfo => {
                 const {row} = cellInfo;
-                return (
-                    <ListItem
-                        iconSize="default"
-                        typographyVariant="body"
-                        iconStart={row.original.name.icon}
-                        label={row.values.name}
-                    />
-                );
+                return <IconTextIcon iconStart={row.original.name.icon}>{row.values.name}</IconTextIcon>;
             }
         },
         {Header: 'Status', accessor: 'status'},
@@ -152,14 +145,7 @@ export const SelectableRows = () => {
             accessor: row => row.name.value,
             Cell: cellInfo => {
                 const {row} = cellInfo;
-                return (
-                    <ListItem
-                        iconSize="default"
-                        typographyVariant="body"
-                        iconStart={row.original.name.icon}
-                        label={row.values.name}
-                    />
-                );
+                return <IconTextIcon iconStart={row.original.name.icon}>{row.values.name}</IconTextIcon>;
             }
         },
         {Header: 'Status', accessor: 'status'},
@@ -255,14 +241,7 @@ export const SortingByColumn = () => {
             accessor: row => row.name.value,
             Cell: cellInfo => {
                 const {row} = cellInfo;
-                return (
-                    <ListItem
-                        iconSize="default"
-                        typographyVariant="body"
-                        iconStart={row.original.name.icon}
-                        label={row.values.name}
-                    />
-                );
+                return <IconTextIcon iconStart={row.original.name.icon}>{row.values.name}</IconTextIcon>;
             }
         },
         {Header: 'Status', accessor: 'status', disableSortBy: true},
@@ -345,7 +324,15 @@ export const Pagination = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const data = React.useMemo(() => tablePaginationDataFlat.slice((currentPage - 1) * rowsPerPage, Math.min(tablePaginationDataFlat.length, currentPage * rowsPerPage)), [currentPage, rowsPerPage]);
     const columns = React.useMemo(() => [
-        {Header: 'Name', id: 'name', accessor: row => row.name.value},
+        {
+            Header: 'Name',
+            id: 'name',
+            accessor: row => row.name.value,
+            Cell: cellInfo => {
+                const {row} = cellInfo;
+                return <IconTextIcon iconStart={row.original.name.icon}>{row.values.name}</IconTextIcon>;
+            }
+        },
         {Header: 'Type', accessor: 'type'},
         {Header: 'Created By', accessor: 'createdBy'},
         {Header: 'Last Modified On', accessor: 'lastModifiedOn'}
@@ -392,10 +379,7 @@ export const Pagination = () => {
                                 {row.cells.map(cell => (
                                     // A key is included in cell.getCellProps
                                     // eslint-disable-next-line react/jsx-key
-                                    <TableBodyCell
-                                        {...cell.getCellProps()}
-                                        iconStart={cell.column.id === 'name' && row.original.name.icon}
-                                    >
+                                    <TableBodyCell {...cell.getCellProps()}>
                                         {cell.render('Cell')}
                                     </TableBodyCell>
                                 ))}
