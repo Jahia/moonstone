@@ -15,10 +15,10 @@ export const TableRow: React.FC<TableRowProps> = ({
     <tr
         className={
             clsx(
-                'moonstone-tableRow',
-                hasMultipleLines && 'moonstone-tableRow-multipleLines',
-                isSelected && 'moonstone-tableRow-selected',
-                isHighlighted && 'moonstone-tableRow-highlighted',
+                'moonstone-TableRow',
+                hasMultipleLines && 'moonstone-TableRow-multipleLines',
+                isSelected && 'moonstone-TableRow-selected',
+                isHighlighted && 'moonstone-TableRow-highlighted',
                 className
             )
         }

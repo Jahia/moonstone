@@ -2,23 +2,23 @@
 // typescript with react-table. When react-table v8 is released in 2021,
 // these issues should be resolved.
 
-import React, {useState} from 'react';
-import {useRowSelect, useSortBy, useTable} from 'react-table';
+import React, {useEffect, useState} from 'react';
+import {useExpanded, useRowSelect, useSortBy, useTable} from 'react-table';
 import storyStyles from '~/__storybook__/storybook.module.scss';
 
 import {
     Checkbox,
+    IconTextIcon,
     SortIndicator,
     Table,
     TableHead,
     TableHeadCell,
     TableRow,
     TableBody,
-    TableBodyCell
+    TableBodyCell,
+    TablePagination
 } from '~/components';
-import {tableDataFlat} from '~/data/tableDataFlat';
-import {tablePaginationDataFlat} from '~/data/tablePaginationDataFlat';
-import {TablePagination} from './TablePagination';
+import {tableDataFlat, tableDataNested, tablePaginationDataFlat} from '~/data';
 
 export default {
     title: 'Components/Table',
@@ -62,7 +62,16 @@ export const Basic = () => (
 export const BasicReactTable = () => {
     const data = React.useMemo(() => tableDataFlat, []);
     const columns = React.useMemo(() => [
-        {Header: 'Name', id: 'name', accessor: row => row.name.value},
+        {
+            Header: 'Name',
+            id: 'name',
+            accessor: row => row.name.value,
+            Cell: cellInfo => {
+                const {row} = cellInfo;
+                return <IconTextIcon iconStart={row.original.name.icon}>{row.values.name}</IconTextIcon>;
+            }
+        },
+        {Header: 'Status', accessor: 'status'},
         {Header: 'Type', accessor: 'type'},
         {Header: 'Created By', accessor: 'createdBy'},
         {Header: 'Last Modified On', accessor: 'lastModifiedOn'}
@@ -108,10 +117,7 @@ export const BasicReactTable = () => {
                             {row.cells.map(cell => (
                                 // A key is included in cell.getCellProps
                                 // eslint-disable-next-line react/jsx-key
-                                <TableBodyCell
-                                    {...cell.getCellProps()}
-                                    iconStart={cell.column.id === 'name' && row.original.name.icon}
-                                >
+                                <TableBodyCell {...cell.getCellProps()}>
                                     {cell.render('Cell')}
                                 </TableBodyCell>
                             ))}
@@ -126,23 +132,22 @@ export const BasicReactTable = () => {
 BasicReactTable.storyName = 'Basic Table with React-Table';
 
 export const SelectableRows = () => {
-    // These components were pulled out of the columns definition below so that prop-type
-    // eslint errors can be avoided
-    const headerSelection = ({getToggleAllRowsSelectedProps}) => (
-        <Checkbox isUncontrolled {...getToggleAllRowsSelectedProps()}/>
-    );
-    const cellSelection = ({row}) => (
-        <Checkbox isUncontrolled {...row.getToggleRowSelectedProps()}/>
-    );
-
     const data = React.useMemo(() => tableDataFlat, []);
     const columns = React.useMemo(() => [
         {
             id: 'selection',
-            Header: headerSelection,
-            Cell: cellSelection
+            Header: header => <Checkbox isUncontrolled {...header.getToggleAllRowsSelectedProps()}/>,
+            Cell: cellInfo => <Checkbox isUncontrolled {...cellInfo.row.getToggleRowSelectedProps()}/>
         },
-        {Header: 'Name', id: 'name', accessor: row => row.name.value},
+        {
+            Header: 'Name',
+            id: 'name',
+            accessor: row => row.name.value,
+            Cell: cellInfo => {
+                const {row} = cellInfo;
+                return <IconTextIcon iconStart={row.original.name.icon}>{row.values.name}</IconTextIcon>;
+            }
+        },
         {Header: 'Status', accessor: 'status'},
         {Header: 'Type', accessor: 'type'},
         {Header: 'Created By', accessor: 'createdBy'},
@@ -197,10 +202,7 @@ export const SelectableRows = () => {
                                 {row.cells.map(cell => (
                                     // A key is included in cell.getCellProps
                                     // eslint-disable-next-line react/jsx-key
-                                    <TableBodyCell
-                                        {...cell.getCellProps()}
-                                        iconStart={cell.column.id === 'name' && row.original.name.icon}
-                                    >
+                                    <TableBodyCell {...cell.getCellProps()}>
                                         {cell.render('Cell')}
                                     </TableBodyCell>
                                 ))}
@@ -233,7 +235,15 @@ SelectableRows.storyName = 'Selectable Rows with React-Table';
 export const SortingByColumn = () => {
     const data = React.useMemo(() => tableDataFlat, []);
     const columns = React.useMemo(() => [
-        {Header: 'Name', id: 'name', accessor: row => row.name.value},
+        {
+            Header: 'Name',
+            id: 'name',
+            accessor: row => row.name.value,
+            Cell: cellInfo => {
+                const {row} = cellInfo;
+                return <IconTextIcon iconStart={row.original.name.icon}>{row.values.name}</IconTextIcon>;
+            }
+        },
         {Header: 'Status', accessor: 'status', disableSortBy: true},
         {Header: 'Type', accessor: 'type'},
         {Header: 'Created By', accessor: 'createdBy'},
@@ -277,7 +287,7 @@ export const SortingByColumn = () => {
                             // eslint-disable-next-line react/jsx-key
                             <TableHeadCell
                                 {...column.getHeaderProps(column.getSortByToggleProps())}
-                                iconEnd={column.canSort ? renderSortIndicator(column.isSorted, column.isSortedDesc) : null}
+                                iconEnd={column.canSort && renderSortIndicator(column.isSorted, column.isSortedDesc)}
                             >
                                 {column.render('Header')}
                             </TableHeadCell>
@@ -295,10 +305,7 @@ export const SortingByColumn = () => {
                             {row.cells.map(cell => (
                                 // A key is included in cell.getCellProps
                                 // eslint-disable-next-line react/jsx-key
-                                <TableBodyCell
-                                        {...cell.getCellProps()}
-                                        iconStart={cell.column.id === 'name' && row.original.name.icon}
-                                >
+                                <TableBodyCell {...cell.getCellProps()}>
                                     {cell.render('Cell')}
                                 </TableBodyCell>
                             ))}
@@ -317,7 +324,15 @@ export const Pagination = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const data = React.useMemo(() => tablePaginationDataFlat.slice((currentPage - 1) * rowsPerPage, Math.min(tablePaginationDataFlat.length, currentPage * rowsPerPage)), [currentPage, rowsPerPage]);
     const columns = React.useMemo(() => [
-        {Header: 'Name', id: 'name', accessor: row => row.name.value},
+        {
+            Header: 'Name',
+            id: 'name',
+            accessor: row => row.name.value,
+            Cell: cellInfo => {
+                const {row} = cellInfo;
+                return <IconTextIcon iconStart={row.original.name.icon}>{row.values.name}</IconTextIcon>;
+            }
+        },
         {Header: 'Type', accessor: 'type'},
         {Header: 'Created By', accessor: 'createdBy'},
         {Header: 'Last Modified On', accessor: 'lastModifiedOn'}
@@ -364,10 +379,7 @@ export const Pagination = () => {
                                 {row.cells.map(cell => (
                                     // A key is included in cell.getCellProps
                                     // eslint-disable-next-line react/jsx-key
-                                    <TableBodyCell
-                                        {...cell.getCellProps()}
-                                        iconStart={cell.column.id === 'name' && row.original.name.icon}
-                                    >
+                                    <TableBodyCell {...cell.getCellProps()}>
                                         {cell.render('Cell')}
                                     </TableBodyCell>
                                 ))}
@@ -387,8 +399,83 @@ export const Pagination = () => {
 
 Pagination.storyName = 'Pagination with React-Table';
 
-// Export const StructuredView = () => {};
-// StructuredView.storyName = 'Structured View with React-Table';
-//
-// export const KitchenSink = () => {};
+export const StructuredView = () => {
+    const data = React.useMemo(() => tableDataNested, []);
+    const columns = React.useMemo(() => [
+        {Header: 'Name', id: 'name', accessor: row => row.name.value},
+        {Header: 'Status', accessor: 'status'},
+        {Header: 'Type', accessor: 'type'},
+        {Header: 'Created By', accessor: 'createdBy'},
+        {Header: 'Last Modified On', accessor: 'lastModifiedOn'}
+    ], []);
+
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        rows,
+        prepareRow,
+        toggleAllRowsExpanded
+    } = useTable(
+        {
+            data,
+            columns
+        },
+        useExpanded
+    );
+
+    useEffect(() => {
+        toggleAllRowsExpanded();
+    }, [toggleAllRowsExpanded]);
+
+    return (
+        <Table {...getTableProps()}>
+            <TableHead>
+                {headerGroups.map(headerGroup => (
+                    // A key is included in headerGroup.getHeaderGroupProps
+                    // eslint-disable-next-line react/jsx-key
+                    <TableRow {...headerGroup.getHeaderGroupProps()}>
+                        {headerGroup.headers.map(column => (
+                            // A key is included in column.getHeaderProps
+                            // eslint-disable-next-line react/jsx-key
+                            <TableHeadCell {...column.getHeaderProps()}>
+                                {column.render('Header')}
+                            </TableHeadCell>
+                        ))}
+                    </TableRow>
+                ))}
+            </TableHead>
+            <TableBody {...getTableBodyProps()}>
+                {rows.map(row => {
+                    prepareRow(row);
+                    return (
+                        // A key is included in row.getRowProps
+                        // eslint-disable-next-line react/jsx-key
+                        <TableRow {...row.getRowProps()}>
+                            {row.cells.map(cell => (
+                                // A key is included in cell.getCellProps
+                                // eslint-disable-next-line react/jsx-key
+                                <TableBodyCell
+                                    {...cell.getCellProps()}
+                                    isFirstColumn={row.cells[0].value === cell.value}
+                                    iconStart={row.original[cell.column.id]?.icon}
+                                    canExpand={row.canExpand}
+                                    isExpanded={row.isExpanded}
+                                    depth={row.depth}
+                                    getToggleRowExpandedProps={row.getToggleRowExpandedProps}
+                                >
+                                    {cell.render('Cell')}
+                                </TableBodyCell>
+                            ))}
+                        </TableRow>
+                    );
+                })}
+            </TableBody>
+        </Table>
+    );
+};
+
+StructuredView.storyName = 'Structured View with React-Table';
+
+// Export const KitchenSink = () => {};
 // KitchenSink.storyName = 'Everything and the Kitchen Sink with React-Table';

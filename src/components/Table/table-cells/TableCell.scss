@@ -1,0 +1,23 @@
+.moonstone-TableCell {
+    padding-right: var(--spacing-medium);
+
+    &:first-child {
+        padding-left: var(--spacing-medium);
+    }
+
+    .moonstone-marginRightNano {
+        margin-right: var(--spacing-nano);
+    }
+}
+
+.moonstone-verticalAlignTop {
+    vertical-align: top;
+}
+
+.moonstone-verticalAlignCenter {
+    vertical-align: middle;
+}
+
+.moonstone-verticalAlignBottom {
+    vertical-align: bottom;
+}

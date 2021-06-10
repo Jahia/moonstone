@@ -1,8 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import {TableCellProps} from './tableCell.types';
-import './TableHeadCell.scss';
+import {TableCellProps} from './TableCell.types';
 import {Typography} from '~/components';
 import {capitalize} from '~/utils/helpers';
 import {TableCell} from './TableCell';
@@ -22,7 +21,6 @@ export const TableHeadCell: React.FC<TableCellProps> = ({
     return (
         <Typography
             className={clsx(
-                'moonstone-tableHeadCell',
                 'textAlign' + capitalize(textAlign),
                 'moonstone-verticalAlign' + capitalize(verticalAlign),
                 className
@@ -32,9 +30,11 @@ export const TableHeadCell: React.FC<TableCellProps> = ({
             variant="body"
             {...props}
         >
+
             <TableCell iconStart={iconStart} iconEnd={iconEnd}>
                 {children}
             </TableCell>
+
         </Typography>
     );
 };
