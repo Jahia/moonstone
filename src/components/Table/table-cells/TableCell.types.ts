@@ -1,4 +1,5 @@
 import React from 'react';
+import {UseExpandedRowProps, Row, Cell} from 'react-table';
 
 // Shared types used by both TableHeadCell and TableBodyCell
 export type TableCellProps = {
@@ -33,29 +34,20 @@ export type TableCellProps = {
     verticalAlign?: 'top' | 'middle' | 'bottom';
 
     /**
-     * Whether this cell is in the first column of the table
+     * The index of the column which should display the tree-like view with
+     * expandable and collapsible elements
      */
-    isFirstColumn?: boolean;
+    expandableColumnIndex?: number;
 
     /**
-     * Whether this cell is in the first column of the table
+     * Row object returned by react-table instance
      */
-    canExpand?: boolean;
+    row?: UseExpandedRowProps<Row>;
 
     /**
-     * Whether the cell is currently expanded
+     * Cell object returned by react-table instace
      */
-    isExpanded?: boolean;
-
-    /**
-     * Depth of the nesting of the current row
-     */
-    depth?: number;
-
-    /**
-     * react-table utility that gets the expansion props when invoked
-     */
-    getToggleRowExpandedProps?: ({}) => any;
+    cell?: Cell;
 
     /**
      * Any styles to render inline
