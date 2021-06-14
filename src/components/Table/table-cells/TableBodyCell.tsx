@@ -29,7 +29,6 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
         <IconTextIcon
             component="div"
             iconStart={iconStart}
-            typographyProps={{isNowrap: true}}
         >
             {children}
         </IconTextIcon>
@@ -38,7 +37,7 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
     const renderTableCell = () => {
         // These are cells that are in the expandable row (canExpand) and it is the column in
         // which the cells show the chevron icon to expand and collapse sub-rows (isExpandableColumn)
-        if (isExpandableColumn && row?.canExpand) {
+        if (isExpandableColumn && row?.canExpand && row?.depth > 1) {
             return (
                 <TableCell
                     {...

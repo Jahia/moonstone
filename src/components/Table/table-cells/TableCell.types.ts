@@ -45,7 +45,7 @@ export type TableCellProps = {
     row?: UseExpandedRowProps<Row>;
 
     /**
-     * Cell object returned by react-table instace
+     * Cell object returned by react-table instance
      */
     cell?: Cell;
 
