@@ -6,7 +6,6 @@ import {IconTextIcon, Typography} from '~/components';
 import {ChevronRight, ChevronDown} from '~/icons';
 import {capitalize} from '~/utils/helpers';
 import {TableCell} from './TableCell';
-import spacings from '~/tokens/spacings/spacing.json';
 
 export const TableBodyCell: React.FC<TableCellProps> = ({
     component = 'td',
@@ -15,16 +14,59 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
     className,
     iconStart,
     iconEnd,
-    isFirstColumn,
-    canExpand,
-    isExpanded,
-    depth,
-    getToggleRowExpandedProps,
+    isExpandableColumn,
+    row,
+    cell,
     children,
     ...props
 }) => {
-    const paddingLeft = `${depth * 0.75}rem`;
-    const marginLeft = spacings.spacingMedium;
+    const leftMarginBuffer = 20; // px
+    const leftMarginIndentDepth = row?.depth * 20; // px
+
+    const renderCellContent = () => (
+        <IconTextIcon
+            component="div"
+            iconStart={iconStart}
+        >
+            {children}
+        </IconTextIcon>
+    );
+
+    const renderTableCell = () => {
+        // These are cells that are in the expandable row (canExpand) and it is the column in
+        // which the cells show the chevron icon to expand and collapse sub-rows (isExpandableColumn)
+        if (isExpandableColumn && row?.canExpand) {
+            return (
+                <TableCell
+                    {...row?.getToggleRowExpandedProps({style: {marginLeft: `${leftMarginIndentDepth}px`}})}
+                >
+                    {row?.isExpanded
+                        ? <ChevronDown className="moonstone-marginRightNano"/>
+                        : <ChevronRight className="moonstone-marginRightNano"/>
+                    }
+                    {renderCellContent()}
+                </TableCell>
+            );
+        }
+
+        // These are cells which are in the expandable column (isExpandableColumn), but themselves
+        // do now have sub-rows. Therefore, they need to have the appropriate nested indentation,
+        // but do not have the chevron to expand/collapse rows underneath them.
+        // Also, a buffer of 20px is added so that they are aligned with the cells that do have
+        // the chevron icons for expand/collapse
+        if (isExpandableColumn && !row?.canExpand) {
+            return (
+                <TableCell style={{marginLeft: `${leftMarginIndentDepth + leftMarginBuffer}px`}}>
+                    {renderCellContent()}
+                </TableCell>
+            );
+        }
+
+        // These are just the normal cells in the other columns which don't display anything with
+        // relation to the row expansion feature
+        return <TableCell>{renderCellContent()}</TableCell>;
+    };
+
 
     return (
         <Typography
@@ -37,39 +79,7 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
             variant="body"
             {...props}
         >
-
-            <TableCell style={isFirstColumn ? {marginLeft, paddingLeft} : {}}>
-
-                {canExpand && isFirstColumn ? (
-                    <div
-                        {...getToggleRowExpandedProps({style: {paddingLeft}})}
-                        className={clsx('flexRow', 'alignCenter')}
-                        {...props}
-                    >
-                        {isExpanded ? <ChevronDown className="moonstone-marginRightNano"/> : <ChevronRight className="moonstone-marginRightNano"/>}
-                        <IconTextIcon
-                            component="div"
-                            iconStart={iconStart}
-                            typographyProps={{isNowrap: true}}
-                        >
-                            {children}
-                        </IconTextIcon>
-                    </div>
-
-                // Render this if the row cannot expand
-                ) : (
-                        <IconTextIcon
-                            component="div"
-                            iconStart={iconStart}
-                            typographyProps={{isNowrap: true}}
-                            style={isFirstColumn ? {marginLeft: '20px', paddingLeft} : {}}>
-                                {children}
-                        </IconTextIcon>
-                    )
-                }
-
-            </TableCell>
-
+            {renderTableCell()}
         </Typography>
     );
 };

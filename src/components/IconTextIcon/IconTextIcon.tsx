@@ -22,7 +22,7 @@ export const IconTextIcon: React.FC<IconTextIconProps> = ({
     return React.createElement(
         component,
         {
-            className: clsx('flexRow', 'alignCenter'),
+            className: clsx('moonstone-IconTextIcon', 'flexRow_nowrap', 'alignCenter', className),
             ...props
         },
         (
@@ -34,7 +34,13 @@ export const IconTextIcon: React.FC<IconTextIconProps> = ({
                     />
                 )}
 
-                <Typography className="flexFluid" {...typoProps}>{children}</Typography>
+                <Typography
+                    isNowrap
+                    className={clsx('flexFluid')}
+                    {...typoProps}
+                >
+                    {children}
+                </Typography>
 
                 {iconEnd && (
                     <iconEnd.type
