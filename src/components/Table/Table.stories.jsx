@@ -463,7 +463,7 @@ export const StructuredView = () => {
                                     {...cell.getCellProps()}
                                     row={row}
                                     cell={cell}
-                                    expandableColumnIndex={0}
+                                    isExpandableColumn={cell.column.id === 'name'}
                                     iconStart={row.original[cell.column.id]?.icon}
                                 >
                                     {cell.render('Cell')}
@@ -754,7 +754,7 @@ export const KitchenSinkNested = () => {
                                     {...cell.getCellProps()}
                                     row={row}
                                     cell={cell}
-                                    expandableColumnIndex={1}
+                                    isExpandableColumn={cell.column.id === 'name'}
                                     iconStart={row.original[cell.column.id]?.icon}
                                 >
                                     {cell.render('Cell')}

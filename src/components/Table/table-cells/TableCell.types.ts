@@ -34,10 +34,10 @@ export type TableCellProps = {
     verticalAlign?: 'top' | 'middle' | 'bottom';
 
     /**
-     * The index of the column which should display the tree-like view with
-     * expandable and collapsible elements
+     * If true, it indicates that the rows in this column have nested sub-rows and
+     * that they should be displayed in a tree-like view
      */
-    expandableColumnIndex?: number;
+    isExpandableColumn?: boolean;
 
     /**
      * Row object returned by react-table instance

@@ -14,18 +14,16 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
     className,
     iconStart,
     iconEnd,
-    expandableColumnIndex,
+    isExpandableColumn,
     row,
     cell,
     children,
     ...props
 }) => {
-    // Fix this type definition of any
-    const isExpandableColumn = (row as any)?.cells[expandableColumnIndex].value === cell?.value;
     const leftMarginBuffer = 20; // px
     const leftMarginIndentDepth = row?.depth * 20; // px
 
-    const renderIconTextIcon = () => (
+    const renderCellContent = () => (
         <IconTextIcon
             component="div"
             iconStart={iconStart}
@@ -37,21 +35,16 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
     const renderTableCell = () => {
         // These are cells that are in the expandable row (canExpand) and it is the column in
         // which the cells show the chevron icon to expand and collapse sub-rows (isExpandableColumn)
-        if (isExpandableColumn && row?.canExpand && row?.depth > 1) {
+        if (isExpandableColumn && row?.canExpand) {
             return (
                 <TableCell
-                    {...
-                        (row?.canExpand && isExpandableColumn
-                            ? row?.getToggleRowExpandedProps({style: {marginLeft: `${leftMarginIndentDepth}px`}})
-                            : {}
-                        )
-                    }
+                    {...row?.getToggleRowExpandedProps({style: {marginLeft: `${leftMarginIndentDepth}px`}})}
                 >
                     {row?.isExpanded
                         ? <ChevronDown className="moonstone-marginRightNano"/>
                         : <ChevronRight className="moonstone-marginRightNano"/>
                     }
-                    {renderIconTextIcon()}
+                    {renderCellContent()}
                 </TableCell>
             );
         }
@@ -64,14 +57,14 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
         if (isExpandableColumn && !row?.canExpand) {
             return (
                 <TableCell style={{marginLeft: `${leftMarginIndentDepth + leftMarginBuffer}px`}}>
-                    {renderIconTextIcon()}
+                    {renderCellContent()}
                 </TableCell>
             );
         }
 
         // These are just the normal cells in the other columns which don't display anything with
         // relation to the row expansion feature
-        return <TableCell>{renderIconTextIcon()}</TableCell>;
+        return <TableCell>{renderCellContent()}</TableCell>;
     };
 
 
