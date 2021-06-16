@@ -1,3 +1,15 @@
+# v1.4.1 (Wed Jun 16 2021)
+
+#### 🐛 Bug Fix
+
+- MOON-297: Create "kitchen sink" story examples with all Table component features [#253](https://github.com/Jahia/moonstone/pull/253) ([@vindhya](https://github.com/vindhya))
+
+#### Authors: 1
+
+- Vindhya ([@vindhya](https://github.com/vindhya))
+
+---
+
 # v1.4.0 (Thu Jun 10 2021)
 
 #### 🚀 Enhancement
