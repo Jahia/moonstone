@@ -46,15 +46,16 @@ storiesOf('Components/Tab/TabItem', module)
                 </div>
 
                 <div className={clsx(storyStyles.storyGridItem)}>
-                    <TabItem icon={<IconWrapper iconName={selectIcon()}/>}
-                             label={labelValue()}
-                             color={colorValues()}
-                             size={sizeValues()}
-                             variant={variantValues()}
-                             isSelected={isSelected()}
-                             isReversed={isReversed()}
-                             isDisabled={isDisabled()}
-                             onClick={() => {}}
+                    <TabItem
+                        icon={<IconWrapper iconName={selectIcon()}/>}
+                        label={labelValue()}
+                        color={colorValues()}
+                        size={sizeValues()}
+                        variant={variantValues()}
+                        isSelected={isSelected()}
+                        isReversed={isReversed()}
+                        isDisabled={isDisabled()}
+                        onClick={() => {}}
                         />
                 </div>
             </section>

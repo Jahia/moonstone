@@ -41,11 +41,11 @@ export const TabItem: React.FC<TabItemProps> = ({
                 {icon && <icon.type {...icon.props} size={(size === 'big') ? 'default' : size}/>}
 
                 {label && (
-                    <Typography isNowrap
-                                component="span"
-                                variant="button"
-                                isUpperCase={size === 'big'}
-                                weight="default"
+                    <Typography
+                        isNowrap
+                        component="span"
+                        variant={size === 'big' ? 'heading' : 'button'}
+                        weight={size === 'big' ? 'light' : 'default'}
                     >
                         {label}
                     </Typography>
