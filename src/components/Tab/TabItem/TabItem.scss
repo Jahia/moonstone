@@ -1,5 +1,7 @@
 @import 'variants/ghost';
 
+$big-tab-height: 32px;
+
 .moonstone-tab-item {
     display: flex;
     flex-direction: row;
@@ -23,7 +25,7 @@
     }
 
     &.moonstone-size_big {
-        padding: var(--spacing-small) var(--spacing-medium);
+        height: $big-tab-height;
     }
 
     &.moonstone-size_small {

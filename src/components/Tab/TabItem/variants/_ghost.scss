@@ -1,4 +1,5 @@
 $selected-line-spacing: 6px;
+$selected-line-spacing-big: 20px;
 
 %variant_ghost {
     border: 1px solid transparent;
@@ -47,6 +48,10 @@ $selected-line-spacing: 6px;
 
                 background-color: var(--color-accent);
                 content: "";
+            }
+
+            &.moonstone-size_big::after {
+                bottom: calc(-1 * #{$selected-line-spacing-big});
             }
         }
 
