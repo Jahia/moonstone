@@ -5,6 +5,8 @@ $header-toolbar-minheight: 35px;
     min-height: $header-minHeight;
     padding: var(--spacing-medium) var(--spacing-large) 0 var(--spacing-large);
 
+    background-color: var(--color-white);
+
     box-shadow: 0 1px 8px var(--color-gray60);
 }
 
