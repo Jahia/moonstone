@@ -1,3 +1,21 @@
+# v1.5.0 (Mon Jun 28 2021)
+
+#### 🚀 Enhancement
+
+- MOON-214: Big Tab Size [#254](https://github.com/Jahia/moonstone/pull/254) ([@vindhya](https://github.com/vindhya))
+
+#### 🐛 Bug Fix
+
+- MOON-307: Add a background-color to the Header component [#256](https://github.com/Jahia/moonstone/pull/256) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-306: Add icon ViewTree [#255](https://github.com/Jahia/moonstone/pull/255) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 2
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Vindhya ([@vindhya](https://github.com/vindhya))
+
+---
+
 # v1.4.1 (Wed Jun 16 2021)
 
 #### 🐛 Bug Fix
