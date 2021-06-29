@@ -1,3 +1,10 @@
 .moonstone-tableHead {
     color: var(--color-gray);
+
+    background-color: var(--color-white);
+}
+
+.moonstone-tableHead-sticky {
+    position: sticky;
+    top: 0;
 }

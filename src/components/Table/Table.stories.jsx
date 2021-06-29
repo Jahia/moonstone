@@ -5,7 +5,7 @@
 */
 
 import React, {useEffect, useState} from 'react';
-import {useExpanded, useFlexLayout, useRowSelect, useSortBy, useTable} from 'react-table';
+import {useExpanded, useFlexLayout, useGridLayout, useRowSelect, useSortBy, useTable} from 'react-table';
 import storyStyles from '~/__storybook__/storybook.module.scss';
 
 import {
@@ -490,11 +490,15 @@ export const ColumnWidthReactTable = () => {
                 essentially acts as both the minimum width and flex-ratio of the column."
                 - https://react-table.tanstack.com/docs/api/useFlexLayout
         */
-        {Header: 'Name', id: 'name', accessor: row => row.name.value},
-        {Header: 'Status', accessor: 'status', width: 35},
-        {Header: 'Content Type', accessor: 'type', width: 50},
-        {Header: 'Created By', accessor: 'createdBy', width: 30},
-        {Header: 'Last Modified On', accessor: 'lastModifiedOn', width: 50}
+        {Header: 'Name', id: 'name', accessor: row => row.name.value, width: 50},
+        // {Header: 'Status', accessor: 'status', width: 35},
+        {Header: 'Status', accessor: 'status', width: 50},
+        // {Header: 'Content Type', accessor: 'type', width: 50},
+        {Header: 'Content Type', accessor: 'type'},
+        // {Header: 'Created By', accessor: 'createdBy', width: 30},
+        {Header: 'Created By', accessor: 'createdBy'},
+        // {Header: 'Last Modified On', accessor: 'lastModifiedOn', width: 50}
+        {Header: 'Last Modified On', accessor: 'lastModifiedOn'}
     ], []);
 
     const {
@@ -510,7 +514,8 @@ export const ColumnWidthReactTable = () => {
         },
         // Use the useFlexLayout plugin to render the table elements with flexbox
         // (instead of with table element widths which are calculated by the browser)
-        useFlexLayout
+        // useFlexLayout
+        useGridLayout
     );
 
     return (
@@ -556,6 +561,40 @@ export const ColumnWidthReactTable = () => {
 };
 
 ColumnWidthReactTable.storyName = 'Column Width Management with React-Table';
+
+export const StickyHeader = () => {
+    const colNum = 4;
+    const rowNum = 20;
+    const cols = [];
+    const rows = [];
+
+    for (let i = 1; i <= colNum; i++) {
+        cols.push('column ' + i);
+    }
+
+    for (let i = 1; i <= rowNum; i++) {
+        rows.push('row ' + i);
+    }
+
+    return (
+        <Table>
+            <TableHead sticky>
+                <TableRow>
+                    {cols.map(col => <TableHeadCell key={col}>{col}</TableHeadCell>)}
+                </TableRow>
+            </TableHead>
+            <TableBody>
+                {rows.map(row => (
+                    <TableRow key={row}>
+                        {cols.map(col => (
+                            <TableBodyCell key={row + col}>this is a cell!</TableBodyCell>
+                        ))}
+                    </TableRow>
+                ))}
+            </TableBody>
+        </Table>
+    );
+};
 
 export const KitchenSinkFlat = () => {
     const [rowsPerPage, setRowsPerPage] = useState(5);

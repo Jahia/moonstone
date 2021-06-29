@@ -56,7 +56,7 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
         // the chevron icons for expand/collapse
         if (isExpandableColumn && !row?.canExpand) {
             return (
-                <TableCell style={{marginLeft: `${leftMarginIndentDepth + leftMarginBuffer}px`}}>
+                <TableCell style={{marginLeft: `${leftMarginIndentDepth + leftmarginbuffer}px`}}>
                     {renderCellContent()}
                 </TableCell>
             );
@@ -71,6 +71,7 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
     return (
         <Typography
             className={clsx(
+                'moonstone-TableCell-border',
                 'textAlign' + capitalize(textAlign),
                 'moonstone-verticalAlign' + capitalize(verticalAlign),
                 className
