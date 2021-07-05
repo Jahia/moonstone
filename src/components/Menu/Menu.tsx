@@ -139,6 +139,7 @@ export const Menu: React.FC<MenuProps> = ({
                         aria-hidden="true"
                         className="moonstone-menu_overlay"
                         onClick={onClose}
+                        onContextMenu={onClose}
                     />
                 )
             }
