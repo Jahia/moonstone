@@ -5,7 +5,7 @@
 */
 
 import React, {useEffect, useState} from 'react';
-import {useExpanded, useFlexLayout, useGridLayout, useRowSelect, useSortBy, useTable} from 'react-table';
+import {useExpanded, useFlexLayout, useRowSelect, useSortBy, useTable} from 'react-table';
 import storyStyles from '~/__storybook__/storybook.module.scss';
 
 import {
@@ -490,15 +490,11 @@ export const ColumnWidthReactTable = () => {
                 essentially acts as both the minimum width and flex-ratio of the column."
                 - https://react-table.tanstack.com/docs/api/useFlexLayout
         */
-        {Header: 'Name', id: 'name', accessor: row => row.name.value, width: 50},
-        // {Header: 'Status', accessor: 'status', width: 35},
-        {Header: 'Status', accessor: 'status', width: 50},
-        // {Header: 'Content Type', accessor: 'type', width: 50},
-        {Header: 'Content Type', accessor: 'type'},
-        // {Header: 'Created By', accessor: 'createdBy', width: 30},
-        {Header: 'Created By', accessor: 'createdBy'},
-        // {Header: 'Last Modified On', accessor: 'lastModifiedOn', width: 50}
-        {Header: 'Last Modified On', accessor: 'lastModifiedOn'}
+        {Header: 'Name', id: 'name', accessor: row => row.name.value},
+        {Header: 'Status', accessor: 'status', width: 35},
+        {Header: 'Content Type', accessor: 'type', width: 50},
+        {Header: 'Created By', accessor: 'createdBy', width: 30},
+        {Header: 'Last Modified On', accessor: 'lastModifiedOn', width: 50}
     ], []);
 
     const {
@@ -515,7 +511,7 @@ export const ColumnWidthReactTable = () => {
         // Use the useFlexLayout plugin to render the table elements with flexbox
         // (instead of with table element widths which are calculated by the browser)
         // useFlexLayout
-        useGridLayout
+        useFlexLayout
     );
 
     return (

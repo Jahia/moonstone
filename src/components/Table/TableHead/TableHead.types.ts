@@ -8,6 +8,11 @@ export type TableHeadProps = {
     sticky?: boolean;
 
     /**
+     * Name of HTML element to render in the DOM for this component
+     */
+    component?: string;
+
+    /**
      * Any additional class names to apply to the component
      */
     className?: string;

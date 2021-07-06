@@ -7,6 +7,11 @@ export type TableBodyProps = {
     className?: string;
 
     /**
+     * Name of HTML element to render in the DOM for this component
+     */
+    component?: string;
+
+    /**
      * The children elements provided
      */
     children?: React.ReactNode;

@@ -1,11 +1,11 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import {TableCellProps} from './TableCell.types';
-import {IconTextIcon, Typography} from '~/components';
-import {ChevronRight, ChevronDown} from '~/icons';
-import {capitalize} from '~/utils/helpers';
-import {TableCell} from './TableCell';
+import { TableCellProps } from './TableCell.types';
+import { IconTextIcon, Typography } from '~/components';
+import { ChevronRight, ChevronDown } from '~/icons';
+import { capitalize } from '~/utils/helpers';
+import { TableCell } from './TableCell';
 
 export const TableBodyCell: React.FC<TableCellProps> = ({
     component = 'td',
@@ -24,10 +24,7 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
     const leftMarginIndentDepth = row?.depth * 20; // px
 
     const renderCellContent = () => (
-        <IconTextIcon
-            component="div"
-            iconStart={iconStart}
-        >
+        <IconTextIcon component="div" iconStart={iconStart}>
             {children}
         </IconTextIcon>
     );
@@ -38,12 +35,15 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
         if (isExpandableColumn && row?.canExpand) {
             return (
                 <TableCell
-                    {...row?.getToggleRowExpandedProps({style: {marginLeft: `${leftMarginIndentDepth}px`}})}
+                    {...row?.getToggleRowExpandedProps({
+                        style: { marginLeft: `${leftMarginIndentDepth}px` }
+                    })}
                 >
-                    {row?.isExpanded
-                        ? <ChevronDown className="moonstone-marginRightNano"/>
-                        : <ChevronRight className="moonstone-marginRightNano"/>
-                    }
+                    {row?.isExpanded ? (
+                        <ChevronDown className="moonstone-marginRightNano" />
+                    ) : (
+                        <ChevronRight className="moonstone-marginRightNano" />
+                    )}
                     {renderCellContent()}
                 </TableCell>
             );
@@ -56,7 +56,13 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
         // the chevron icons for expand/collapse
         if (isExpandableColumn && !row?.canExpand) {
             return (
-                <TableCell style={{marginLeft: `${leftMarginIndentDepth + leftmarginbuffer}px`}}>
+                <TableCell
+                    style={{
+                        marginLeft: `${
+                            leftMarginIndentDepth + leftMarginBuffer
+                        }px`
+                    }}
+                >
                     {renderCellContent()}
                 </TableCell>
             );
@@ -66,7 +72,6 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
         // relation to the row expansion feature
         return <TableCell>{renderCellContent()}</TableCell>;
     };
-
 
     return (
         <Typography
