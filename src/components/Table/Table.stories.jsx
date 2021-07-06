@@ -5,7 +5,7 @@
 */
 
 import React, {useEffect, useState} from 'react';
-import {useExpanded, useFlexLayout, useRowSelect, useSortBy, useTable} from 'react-table';
+import {useExpanded, /* useFlexLayout, */ useRowSelect, useSortBy, useTable} from 'react-table';
 import storyStyles from '~/__storybook__/storybook.module.scss';
 
 import {
@@ -507,11 +507,10 @@ export const ColumnWidthReactTable = () => {
         {
             data,
             columns
-        },
+        }
         // Use the useFlexLayout plugin to render the table elements with flexbox
         // (instead of with table element widths which are calculated by the browser)
         // useFlexLayout
-        useFlexLayout
     );
 
     return (
@@ -574,7 +573,7 @@ export const StickyHeader = () => {
 
     return (
         <Table>
-            <TableHead sticky>
+            <TableHead isSticky>
                 <TableRow>
                     {cols.map(col => <TableHeadCell key={col}>{col}</TableHeadCell>)}
                 </TableRow>
@@ -633,8 +632,8 @@ export const KitchenSinkFlat = () => {
             disableSortRemove: true
         },
         useSortBy,
-        useRowSelect,
-        useFlexLayout
+        useRowSelect
+        // UseFlexLayout
     );
 
     const renderSortIndicator = (isSorted, isSortedDesc) => {
@@ -645,7 +644,7 @@ export const KitchenSinkFlat = () => {
     return (
         <>
             <Table {...getTableProps()}>
-                <TableHead>
+                <TableHead isSticky>
                     {headerGroups.map(headerGroup => (
                         // A key is included in headerGroup.getHeaderGroupProps
                         // eslint-disable-next-line react/jsx-key
@@ -738,8 +737,8 @@ export const KitchenSinkNested = () => {
         },
         useSortBy,
         useExpanded,
-        useRowSelect,
-        useFlexLayout
+        useRowSelect
+        // UseFlexLayout
     );
 
     const renderSortIndicator = (isSorted, isSortedDesc) => {
@@ -753,7 +752,7 @@ export const KitchenSinkNested = () => {
 
     return (
         <Table {...getTableProps()}>
-            <TableHead>
+            <TableHead isSticky>
                 {headerGroups.map(headerGroup => (
                     // A key is included in headerGroup.getHeaderGroupProps
                     // eslint-disable-next-line react/jsx-key

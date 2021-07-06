@@ -5,7 +5,7 @@ import './TableHead.scss';
 import clsx from 'clsx';
 
 export const TableHead: React.FC<TableHeadProps> = ({
-    sticky = false,
+    isSticky = false,
     component = 'thead',
     className,
     children,
@@ -13,7 +13,7 @@ export const TableHead: React.FC<TableHeadProps> = ({
 }) => React.createElement(
     component,
     {
-        className: clsx('moonstone-tableHead', sticky && 'moonstone-tableHead-sticky', className),
+        className: clsx('moonstone-tableHead', isSticky && 'moonstone-tableHead-sticky', className),
         ...props
     },
     children
