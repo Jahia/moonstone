@@ -24,10 +24,7 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
     const leftMarginIndentDepth = row?.depth * 20; // px
 
     const renderCellContent = () => (
-        <IconTextIcon
-            component="div"
-            iconStart={iconStart}
-        >
+        <IconTextIcon component="div" iconStart={iconStart}>
             {children}
         </IconTextIcon>
     );
@@ -37,8 +34,7 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
         // which the cells show the chevron icon to expand and collapse sub-rows (isExpandableColumn)
         if (isExpandableColumn && row?.canExpand) {
             return (
-                <TableCell
-                    {...row?.getToggleRowExpandedProps({style: {marginLeft: `${leftMarginIndentDepth}px`}})}
+                <TableCell {...row?.getToggleRowExpandedProps({style: {marginLeft: `${leftMarginIndentDepth}px`}})}
                 >
                     {row?.isExpanded
                         ? <ChevronDown className="moonstone-marginRightNano"/>
@@ -67,10 +63,10 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
         return <TableCell>{renderCellContent()}</TableCell>;
     };
 
-
     return (
         <Typography
             className={clsx(
+                'moonstone-TableCell-border',
                 'textAlign' + capitalize(textAlign),
                 'moonstone-verticalAlign' + capitalize(verticalAlign),
                 className

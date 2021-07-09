@@ -7,6 +7,11 @@ export type TableRowProps = {
     className?: React.ReactNode;
 
     /**
+     * Name of HTML element to render in the DOM for this component
+     */
+    component?: 'string;'
+
+    /**
      * Whether the cell height should be increased to show more than 1 line
      */
     hasMultipleLines?: boolean;

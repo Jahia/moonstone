@@ -21,6 +21,7 @@ export const TableHeadCell: React.FC<TableCellProps> = ({
     return (
         <Typography
             className={clsx(
+                'moonstone-TableCell-border',
                 'textAlign' + capitalize(textAlign),
                 'moonstone-verticalAlign' + capitalize(verticalAlign),
                 className
