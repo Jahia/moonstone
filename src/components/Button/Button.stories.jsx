@@ -15,6 +15,7 @@ const colorValues = () => select('Color', buttonColors, 'default');
 const sizeValues = () => select('Size', buttonSizes, 'default');
 const variantValues = () => select('Variant', buttonVariants, 'default');
 const isReversed = () => boolean('Is reversed', false);
+const isLoading = () => boolean('Is Loading', false);
 const isDisabled = () => boolean('Is disabled', false);
 const selectIcon = () => select('Icon', iconsName, 'Apps');
 
@@ -52,6 +53,7 @@ storiesOf('Components/Button', module)
                                     size={sizeValues()}
                                     variant="default"
                                     isReversed={isReversed()}
+                                    isLoading={isLoading()}
                                     onClick={() => {}}/>
                         </div>
                     ))
@@ -70,6 +72,7 @@ storiesOf('Components/Button', module)
                                     size={sizeValues()}
                                     variant="outlined"
                                     isReversed={isReversed()}
+                                    isLoading={isLoading()}
                                     onClick={() => {}}/>
                         </div>
                     ))
@@ -88,6 +91,7 @@ storiesOf('Components/Button', module)
                                     size={sizeValues()}
                                     variant="ghost"
                                     isReversed={isReversed()}
+                                    isLoading={isLoading()}
                                     onClick={() => {}}/>
                         </div>
                     ))
@@ -121,6 +125,7 @@ storiesOf('Components/Button', module)
                                     size={sizeValues()}
                                     variant="default"
                                     isReversed={isReversed()}
+                                    isLoading={isLoading()}
                                     onClick={() => {}}/>
                         </div>
                     ))
@@ -138,6 +143,7 @@ storiesOf('Components/Button', module)
                                     size={sizeValues()}
                                     variant="outlined"
                                     isReversed={isReversed()}
+                                    isLoading={isLoading()}
                                     onClick={() => {}}/>
                         </div>
                     ))
@@ -155,6 +161,7 @@ storiesOf('Components/Button', module)
                                     size={sizeValues()}
                                     variant="ghost"
                                     isReversed={isReversed()}
+                                    isLoading={isLoading()}
                                     onClick={() => {}}/>
                         </div>
                     ))
@@ -188,6 +195,7 @@ storiesOf('Components/Button', module)
                                     size={sizeValues()}
                                     variant="default"
                                     isReversed={isReversed()}
+                                    isLoading={isLoading()}
                                     onClick={() => {}}/>
                         </div>
                     ))
@@ -205,6 +213,7 @@ storiesOf('Components/Button', module)
                                     size={sizeValues()}
                                     variant="outlined"
                                     isReversed={isReversed()}
+                                    isLoading={isLoading()}
                                     onClick={() => {}}/>
                         </div>
                     ))
@@ -222,6 +231,7 @@ storiesOf('Components/Button', module)
                                     size={sizeValues()}
                                     variant="ghost"
                                     isReversed={isReversed()}
+                                    isLoading={isLoading()}
                                     onClick={() => {}}/>
                         </div>
                     ))
@@ -250,6 +260,7 @@ storiesOf('Components/Button', module)
                             size={sizeValues()}
                             variant={variantValues()}
                             isReversed={isReversed()}
+                            isLoading={isLoading()}
                             isDisabled={isDisabled()}
                             onClick={() => {}}/>
                 </div>
@@ -259,6 +270,7 @@ storiesOf('Components/Button', module)
                             size={sizeValues()}
                             variant={variantValues()}
                             isReversed={isReversed()}
+                            isLoading={isLoading()}
                             isDisabled={isDisabled()}
                             onClick={() => {}}/>
                 </div>
@@ -268,6 +280,7 @@ storiesOf('Components/Button', module)
                             size={sizeValues()}
                             variant={variantValues()}
                             isReversed={isReversed()}
+                            isLoading={isLoading()}
                             isDisabled={isDisabled()}
                             onClick={() => {}}/>
                 </div>

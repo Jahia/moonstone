@@ -88,3 +88,23 @@ $button-size_big: 32px;
         opacity: 0.3;
     }
 }
+
+.moonstone-button_loading {
+    position: relative;
+
+    pointer-events: none;
+
+    > :not(.moonstone-button_loader) {
+        visibility: hidden;
+    }
+}
+
+.moonstone-loader.moonstone-button_loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    fill: white;
+
+    transform: translate(-50%, -50%);
+}

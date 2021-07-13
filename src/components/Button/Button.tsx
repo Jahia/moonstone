@@ -4,12 +4,14 @@ import './Button.scss';
 import {Typography} from '../Typography';
 import {TypographyWeight} from '~/components/Typography/Typography.types';
 import {ButtonProps} from './Button.types';
+import {Loader} from '~/components/Loader';
 
 export const Button: React.FC<ButtonProps> = ({
     label = '',
     size = 'default',
     isReversed = false,
     isDisabled = false,
+    isLoading = false,
     icon = null,
     variant = 'default',
     color = 'default',
@@ -34,6 +36,8 @@ export const Button: React.FC<ButtonProps> = ({
         ButtonEl.current.blur();
     };
 
+    const LoaderReversed = Boolean(variant === 'default' && (color === 'accent' || color === 'danger'));
+
     return (
         <button
             ref={ButtonEl}
@@ -45,6 +49,7 @@ export const Button: React.FC<ButtonProps> = ({
                 {'moonstone-icon': (icon && label)},
                 {'moonstone-icon-button': !label},
                 {'moonstone-reverse': isReversed},
+                {'moonstone-button_loading': isLoading},
                 className
             )}
             type="button"
@@ -52,6 +57,7 @@ export const Button: React.FC<ButtonProps> = ({
             onClick={e => handleOnClick(e)}
             {...props}
         >
+            {isLoading && <Loader size="small" isReversed={LoaderReversed} className={clsx('moonstone-button_loader')}/>}
             {icon && <icon.type {...icon.props} size={(size === 'big') ? 'default' : size}/>}
             {label && (
                 <Typography
