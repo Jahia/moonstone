@@ -51,6 +51,11 @@ export type ButtonProps = {
     isReversed?: boolean;
 
     /**
+     * Is button loading
+     */
+     isLoading?: boolean;
+
+    /**
      * Additional classname
      */
     className?: string;
