@@ -8,6 +8,7 @@ import {TableCell} from './TableCell';
 
 export const TableHeadCell: React.FC<TableCellProps> = ({
     component = 'th',
+    width,
     textAlign = 'left',
     verticalAlign = 'center',
     className,
@@ -16,12 +17,11 @@ export const TableHeadCell: React.FC<TableCellProps> = ({
     children,
     ...props
 }) => {
-
-    // what's the correct naming convention for these cell scss classes?
     return (
         <Typography
+            {...props}
             className={clsx(
-                'moonstone-TableCell-border',
+                {'flexFluid': typeof width === 'undefined'},
                 'textAlign' + capitalize(textAlign),
                 'moonstone-verticalAlign' + capitalize(verticalAlign),
                 className
@@ -29,7 +29,7 @@ export const TableHeadCell: React.FC<TableCellProps> = ({
             component={component}
             weight="bold"
             variant="body"
-            {...props}
+            style={{width, ...props.style}}
         >
 
             <TableCell iconStart={iconStart} iconEnd={iconEnd}>

@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
+import './TableBody.scss';
 import {TableBodyProps} from './TableBody.types';
 
 export const TableBody: React.FC<TableBodyProps> = ({
@@ -11,8 +12,6 @@ export const TableBody: React.FC<TableBodyProps> = ({
 }) => React.createElement(
     component,
     {
-        // 'moonstone-TableBody' class is used to target only rows within the table body
-        // to apply the hover effect
         className: clsx('moonstone-TableBody', className),
         ...props
     },

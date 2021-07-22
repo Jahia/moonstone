@@ -15,6 +15,7 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
     iconStart,
     iconEnd,
     isExpandableColumn,
+    width,
     row,
     cell,
     children,
@@ -23,11 +24,14 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
     const leftMarginBuffer = 20; // px
     const leftMarginIndentDepth = row?.depth * 20; // px
 
+    // TODO: When no iconStart is set we should just render children to avoid too nested HTML elements.
+    // TODO: Add iconEnd somewhere or remove it from the props, it seems we never use it.
     const renderCellContent = () => (
         <IconTextIcon component="div" iconStart={iconStart}>
             {children}
         </IconTextIcon>
     );
+
 
     const renderTableCell = () => {
         // These are cells that are in the expandable row (canExpand) and it is the column in
@@ -52,7 +56,7 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
         // the chevron icons for expand/collapse
         if (isExpandableColumn && !row?.canExpand) {
             return (
-                <TableCell style={{marginLeft: `${leftMarginIndentDepth + leftMarginBuffer}px`}}>
+                <TableCell style={{marginLeft: `${leftMarginIndentDepth + leftmarginbuffer}px`}}>
                     {renderCellContent()}
                 </TableCell>
             );
@@ -66,13 +70,14 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
     return (
         <Typography
             className={clsx(
-                'moonstone-TableCell-border',
                 'textAlign' + capitalize(textAlign),
                 'moonstone-verticalAlign' + capitalize(verticalAlign),
+                {'flexFluid': typeof width === 'undefined'},
                 className
             )}
             component={component}
             variant="body"
+            style={{width}}
             {...props}
         >
             {renderTableCell()}

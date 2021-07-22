@@ -34,6 +34,11 @@ export type TableCellProps = {
     verticalAlign?: 'top' | 'middle' | 'bottom';
 
     /**
+     * Define the width of the cell, if no width is set the column takes all space available. (e.g. '120px')
+     */
+    width?: string;
+
+    /**
      * If true, it indicates that the rows in this column have nested sub-rows and
      * that they should be displayed in a tree-like view
      */
