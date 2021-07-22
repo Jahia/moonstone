@@ -71,4 +71,25 @@ describe('TablePagination', () => {
         expect(buttons[NEXT_PAGE_BUTTON].disabled).toBeTruthy();
         expect(buttons[END_BUTTON].disabled).toBeTruthy();
     });
+
+    it('should have data-sel-role tags', () => {
+        const {container} = render(
+            <TablePagination data-testid="table-pagination"
+                             currentPage={4}
+                             rowsPerPage={10}
+                             totalNumberOfRows={NUMBER_OF_ROWS}/>
+        );
+
+        const testDataRoleTags = tag => {
+            const elem = container.querySelector(`[data-sel-role="${tag}"]`);
+            expect(elem).toBeInTheDocument();
+        };
+
+        testDataRoleTags('table-pagination-dropdown-rows-per-page');
+        testDataRoleTags('table-pagination-total-rows');
+        testDataRoleTags('table-pagination-button-first-page');
+        testDataRoleTags('table-pagination-button-next-page');
+        testDataRoleTags('table-pagination-button-previous-page');
+        testDataRoleTags('table-pagination-button-last-page');
+    });
 });
