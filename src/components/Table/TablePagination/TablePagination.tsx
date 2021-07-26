@@ -38,15 +38,40 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
         <div className={clsx(cssClass, 'flexRow_reverse', 'alignCenter', className)} {...props}>
             <Typography variant='caption'>{label.rowsPerPage}</Typography>
             <Dropdown className={clsx('alignCenter', cssClass16)}
+                      data-sel-role="table-pagination-dropdown-rows-per-page"
                       data={rowsPerPageOptions.map(opt => ({label: opt.toString(), value: opt.toString()}))}
                       value={rowsPerPage.toString()}
                       label={rowsPerPage.toString()}
                       onChange={(event: any, item: any) => onRowsPerPageChange(parseInt(item.value, 0))}/>
-            <Typography variant='caption' className={clsx(cssClass, 'flexRow_reverse', 'alignCenter', cssClass32)}>{`${visibleRowsRangeLeft}-${visibleRowsRangeRight} ${label.of} ${totalNumberOfRows}`}</Typography>
-            <Button className={clsx(cssClass32)} icon={<ChevronFirstPage/>} variant="ghost" isDisabled={currentPage === 1} onClick={() => onPageChange(1)}/>
-            <Button className={clsx(cssClass32)} icon={<ChevronLeft/>} variant="ghost" isDisabled={currentPage === 1} onClick={() => onPageChange(currentPage - 1)}/>
-            <Button className={clsx(cssClass32)} icon={<ChevronRight/>} variant="ghost" isDisabled={lastPage === currentPage} onClick={() => onPageChange(currentPage + 1)}/>
-            <Button className={clsx(cssClass16)} icon={<ChevronLastPage/>} variant="ghost" isDisabled={lastPage === currentPage} onClick={() => onPageChange(lastPage)}/>
+            <Typography variant='caption'
+                className={clsx(cssClass, 'flexRow_reverse', 'alignCenter', cssClass32)}
+                data-sel-role="table-pagination-total-rows">
+                {`${visibleRowsRangeLeft}-${visibleRowsRangeRight} ${label.of} ${totalNumberOfRows}`}
+            </Typography>
+            <Button className={clsx(cssClass32)}
+                icon={<ChevronFirstPage/>}
+                variant="ghost"
+                data-sel-role="table-pagination-button-first-page"
+                isDisabled={currentPage === 1}
+                onClick={() => onPageChange(1)}/>
+            <Button className={clsx(cssClass32)}
+                icon={<ChevronLeft/>}
+                variant="ghost"
+                data-sel-role="table-pagination-button-previous-page"
+                isDisabled={currentPage === 1}
+                onClick={() => onPageChange(currentPage - 1)}/>
+            <Button className={clsx(cssClass32)}
+                icon={<ChevronRight/>}
+                variant="ghost"
+                data-sel-role="table-pagination-button-next-page"
+                isDisabled={lastPage === currentPage}
+                onClick={() => onPageChange(currentPage + 1)}/>
+            <Button className={clsx(cssClass16)}
+                icon={<ChevronLastPage/>}
+                variant="ghost"
+                data-sel-role="table-pagination-button-last-page"
+                isDisabled={lastPage === currentPage}
+                onClick={() => onPageChange(lastPage)}/>
         </div>
     )
 };
