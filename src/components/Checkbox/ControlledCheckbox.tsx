@@ -26,7 +26,7 @@ export const ControlledCheckbox: React.FC<ControlledCheckboxProps> = props => {
                 {...inputProps}
                 {...focusProps}
             />
-            <svg className={clsx('moonstone-checkbox_icon', `moonstone-checkbox_size${capitalize(size)}`)} viewBox={`0 0 21 21`}>
+            <svg className={clsx('moonstone-checkbox_icon', `moonstone-checkbox_size${capitalize(size)}`)} viewBox='0 0 21 21'>
                 { isIndeterminate
                     ? <path d="M4.5 10.5L16.5 10.5" strokeLinecap="round"/>
                     : <path d="M5 10.75L8.5 14.25L16 6" strokeLinecap="round"/>
