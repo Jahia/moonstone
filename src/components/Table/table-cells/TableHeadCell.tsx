@@ -29,7 +29,7 @@ export const TableHeadCell: React.FC<TableCellProps> = ({
             component={component}
             weight="bold"
             variant="body"
-            style={{width, ...props.style}}
+            style={{...props.style, 'width': width}}
         >
 
             <TableCell iconStart={iconStart} iconEnd={iconEnd}>
