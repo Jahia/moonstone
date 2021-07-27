@@ -1,3 +1,22 @@
+# v1.5.1 (Tue Jul 27 2021)
+
+#### 🐛 Bug Fix
+
+- MOON-309: Manage checkbox sizes [#262](https://github.com/Jahia/moonstone/pull/262) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-299: Allow to add a width to each cells [#261](https://github.com/Jahia/moonstone/pull/261) ([@ffffffelix](https://github.com/ffffffelix))
+- BACKLOG-16279: Add data-sel-role tags to table pagination component [#260](https://github.com/Jahia/moonstone/pull/260) ([@gflores-jahia](https://github.com/gflores-jahia))
+- MOON-301: Table Sticky Header [#258](https://github.com/Jahia/moonstone/pull/258) ([@vindhya](https://github.com/vindhya))
+- QA-13381 Close menu when onContextMenu is triggered on overlay [#257](https://github.com/Jahia/moonstone/pull/257) ([@AKarmanov](https://github.com/AKarmanov))
+
+#### Authors: 4
+
+- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Geofrey Flores ([@gflores-jahia](https://github.com/gflores-jahia))
+- Vindhya ([@vindhya](https://github.com/vindhya))
+
+---
+
 # v1.5.0 (Mon Jun 28 2021)
 
 #### 🚀 Enhancement
