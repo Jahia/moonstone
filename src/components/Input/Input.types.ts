@@ -38,6 +38,10 @@ export type InputProps = {
      */
     isReadOnly?: boolean;
     /**
+     * Whether the input should be focused when displayed.
+     */
+    focusOnField?: boolean;
+    /**
      * Any additional custom classes to apply to the component
      */
     className?: string;
