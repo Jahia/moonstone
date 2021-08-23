@@ -1,3 +1,18 @@
+# v1.5.2 (Mon Aug 23 2021)
+
+#### 🐛 Bug Fix
+
+- MOON-313: Allow to add className to MenuItem [#266](https://github.com/Jahia/moonstone/pull/266) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-312: Add Rocket icon [#265](https://github.com/Jahia/moonstone/pull/265) ([@ffffffelix](https://github.com/ffffffelix))
+- DMF-4878 : change search behaviour for dropdown and add focus on the … [#264](https://github.com/Jahia/moonstone/pull/264) ([@jsinovassin](https://github.com/jsinovassin))
+
+#### Authors: 2
+
+- [@jsinovassin](https://github.com/jsinovassin)
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v1.5.1 (Tue Jul 27 2021)
 
 #### 🐛 Bug Fix
