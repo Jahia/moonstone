@@ -53,4 +53,13 @@ describe('Menu', () => {
         );
         expect(screen.getByTestId('moonstone-menu').querySelector('svg')).toBeInTheDocument();
     });
+
+    it('should add extra classnames to MenuItem', () => {
+        render(
+            <Menu isDisplayed>
+                <MenuItem data-testid="moonstone-menuItem" className="test-custom-class" label="test" value="test"/>
+            </Menu>
+        );
+        expect(screen.getByTestId('moonstone-menuItem')).toHaveClass('test-custom-class');
+    });
 });
