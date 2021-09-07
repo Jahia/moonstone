@@ -28,7 +28,7 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
     // TODO: When no iconStart is set we should just render children to avoid too nested HTML elements
     // TODO: Add iconEnd somewhere or remove it from the props, it seems we never use it
     const renderCellContent = () => (
-        <IconTextIcon component="div" iconStart={iconStart}>
+        <IconTextIcon component="div" iconStart={iconStart} typographyProps={{className: clsx('moonstone-tableCellContent', 'flexFluid')}}>
             {children}
         </IconTextIcon>
     );
