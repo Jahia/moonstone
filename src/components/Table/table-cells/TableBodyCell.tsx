@@ -6,6 +6,7 @@ import {IconTextIcon, Typography} from '~/components';
 import {ChevronRight, ChevronDown} from '~/icons';
 import {capitalize} from '~/utils/helpers';
 import {TableCell} from './TableCell';
+import './TableCell.scss';
 
 export const TableBodyCell: React.FC<TableCellProps> = ({
     component = 'td',
@@ -56,7 +57,7 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
         // the chevron icons for expand/collapse
         if (isExpandableColumn && !row?.canExpand) {
             return (
-                <TableCell style={{marginLeft: `${leftMarginIndentDepth + leftMarginBuffer}px`}}>
+                <TableCell style={{marginLeft: `${leftMarginIndentDepth + leftmarginbuffer}px`}}>
                     {renderCellContent()}
                 </TableCell>
             );
@@ -70,6 +71,7 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
     return (
         <Typography
             className={clsx(
+                'moonstone-tableCellComponent',
                 'textAlign' + capitalize(textAlign),
                 'moonstone-verticalAlign' + capitalize(verticalAlign),
                 {'flexFluid': typeof width === 'undefined'},

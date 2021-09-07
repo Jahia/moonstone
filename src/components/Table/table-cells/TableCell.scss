@@ -1,5 +1,23 @@
 @import '../../../utils/index.scss';
 
+.moonstone-tableCellComponent {
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        height: 2px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--color-gray_light);
+    }
+
+    &:hover {
+        div > div > span {
+            overflow: unset;
+        }
+    }
+}
+
 .moonstone-TableCell {
     padding-right: var(--spacing-medium);
     padding-left: var(--spacing-medium);
