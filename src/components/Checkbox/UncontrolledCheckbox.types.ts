@@ -28,6 +28,11 @@ export type UncontrolledCheckboxProps = {
     name?: string;
 
     /**
+     * Checkbox size
+     */
+     size?: 'default' | 'big';
+
+    /**
      * Additional classname(s)
      */
     className?: string;

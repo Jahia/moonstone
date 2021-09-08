@@ -1,17 +1,13 @@
+@import '../../../utils/index.scss';
+
 .moonstone-TableCell {
     padding-right: var(--spacing-medium);
+    padding-left: var(--spacing-medium);
 
-    &:first-child {
-        padding-left: var(--spacing-medium);
-    }
-
+    // Manage the chevron spacing for the structured table
     .moonstone-marginRightNano {
         margin-right: var(--spacing-nano);
     }
-}
-
-.moonstone-TableCell-border {
-    border-bottom: 1px solid var(--color-gray_light);
 }
 
 .moonstone-verticalAlignTop {

@@ -5,7 +5,7 @@
 */
 
 import React, {useEffect, useState} from 'react';
-import {useExpanded, /* useFlexLayout, */ useRowSelect, useSortBy, useTable} from 'react-table';
+import {useExpanded, useRowSelect, useSortBy, useTable} from 'react-table';
 import storyStyles from '~/__storybook__/storybook.module.scss';
 
 import {
@@ -30,6 +30,14 @@ export default {
         knobs: {disable: true},
         actions: {argTypesRegex: '^on.*'}
     }
+};
+
+const columnsWidth = {
+    selection: '52px',
+    status: '120px',
+    type: '120px',
+    createdBy: '120px',
+    lastModifiedOn: '160px'
 };
 
 export const Basic = () => (
@@ -73,10 +81,10 @@ export const BasicReactTable = () => {
                 return <IconTextIcon iconStart={row.original.name.icon}>{row.values.name}</IconTextIcon>;
             }
         },
-        {Header: 'Status', accessor: 'status'},
-        {Header: 'Type', accessor: 'type'},
-        {Header: 'Created By', accessor: 'createdBy'},
-        {Header: 'Last Modified On', accessor: 'lastModifiedOn'}
+        {Header: 'Status', accessor: 'status', customWidth: columnsWidth.status},
+        {Header: 'Type', accessor: 'type', customWidth: columnsWidth.type},
+        {Header: 'Created By', accessor: 'createdBy', customWidth: columnsWidth.createdBy},
+        {Header: 'Last Modified On', accessor: 'lastModifiedOn', customWidth: columnsWidth.lastModifiedOn}
     ], []);
 
     const {
@@ -102,7 +110,7 @@ export const BasicReactTable = () => {
                         {headerGroup.headers.map(column => (
                             // A key is included in column.getHeaderProps
                             // eslint-disable-next-line react/jsx-key
-                            <TableHeadCell {...column.getHeaderProps()}>
+                            <TableHeadCell {...column.getHeaderProps()} width={column.customWidth}>
                                 {column.render('Header')}
                             </TableHeadCell>
                         ))}
@@ -119,7 +127,7 @@ export const BasicReactTable = () => {
                             {row.cells.map(cell => (
                                 // A key is included in cell.getCellProps
                                 // eslint-disable-next-line react/jsx-key
-                                <TableBodyCell {...cell.getCellProps()}>
+                                <TableBodyCell {...cell.getCellProps()} width={cell.column.customWidth}>
                                     {cell.render('Cell')}
                                 </TableBodyCell>
                             ))}
@@ -139,7 +147,8 @@ export const SelectableRows = () => {
         {
             id: 'selection',
             Header: header => <Checkbox isUncontrolled {...header.getToggleAllRowsSelectedProps()}/>,
-            Cell: cellInfo => <Checkbox isUncontrolled {...cellInfo.row.getToggleRowSelectedProps()}/>
+            Cell: cellInfo => <Checkbox isUncontrolled {...cellInfo.row.getToggleRowSelectedProps()}/>,
+            customWidth: columnsWidth.selection
         },
         {
             Header: 'Name',
@@ -150,10 +159,10 @@ export const SelectableRows = () => {
                 return <IconTextIcon iconStart={row.original.name.icon}>{row.values.name}</IconTextIcon>;
             }
         },
-        {Header: 'Status', accessor: 'status'},
-        {Header: 'Type', accessor: 'type'},
-        {Header: 'Created By', accessor: 'createdBy'},
-        {Header: 'Last Modified On', accessor: 'lastModifiedOn'}
+        {Header: 'Status', accessor: 'status', customWidth: columnsWidth.status},
+        {Header: 'Type', accessor: 'type', customWidth: columnsWidth.type},
+        {Header: 'Created By', accessor: 'createdBy', customWidth: columnsWidth.createdBy},
+        {Header: 'Last Modified On', accessor: 'lastModifiedOn', customWidth: columnsWidth.lastModifiedOn}
     ], []);
 
     const {
@@ -183,7 +192,7 @@ export const SelectableRows = () => {
                             {headerGroup.headers.map(column => (
                                 // A key is included in column.getHeaderProps
                                 // eslint-disable-next-line react/jsx-key
-                                <TableHeadCell {...column.getHeaderProps()}>
+                                <TableHeadCell {...column.getHeaderProps()} width={column.customWidth}>
                                     {column.render('Header')}
                                 </TableHeadCell>
                             ))}
@@ -204,7 +213,7 @@ export const SelectableRows = () => {
                                 {row.cells.map(cell => (
                                     // A key is included in cell.getCellProps
                                     // eslint-disable-next-line react/jsx-key
-                                    <TableBodyCell {...cell.getCellProps()}>
+                                    <TableBodyCell {...cell.getCellProps()} width={cell.column.customWidth}>
                                         {cell.render('Cell')}
                                     </TableBodyCell>
                                 ))}
@@ -246,10 +255,10 @@ export const SortingByColumn = () => {
                 return <IconTextIcon iconStart={row.original.name.icon}>{row.values.name}</IconTextIcon>;
             }
         },
-        {Header: 'Status', accessor: 'status', disableSortBy: true},
-        {Header: 'Type', accessor: 'type'},
-        {Header: 'Created By', accessor: 'createdBy'},
-        {Header: 'Last Modified On', accessor: 'lastModifiedOn'}
+        {Header: 'Status', accessor: 'status', disableSortBy: true, customWidth: columnsWidth.status},
+        {Header: 'Type', accessor: 'type', customWidth: columnsWidth.type},
+        {Header: 'Created By', accessor: 'createdBy', customWidth: columnsWidth.createdBy},
+        {Header: 'Last Modified On', accessor: 'lastModifiedOn', customWidth: columnsWidth.lastModifiedOn}
     ], []);
 
     const {
@@ -290,6 +299,7 @@ export const SortingByColumn = () => {
                             <TableHeadCell
                                 {...column.getHeaderProps(column.getSortByToggleProps())}
                                 iconEnd={column.canSort && renderSortIndicator(column.isSorted, column.isSortedDesc)}
+                                width={column.customWidth}
                             >
                                 {column.render('Header')}
                             </TableHeadCell>
@@ -307,7 +317,7 @@ export const SortingByColumn = () => {
                             {row.cells.map(cell => (
                                 // A key is included in cell.getCellProps
                                 // eslint-disable-next-line react/jsx-key
-                                <TableBodyCell {...cell.getCellProps()}>
+                                <TableBodyCell {...cell.getCellProps()} width={cell.column.customWidth}>
                                     {cell.render('Cell')}
                                 </TableBodyCell>
                             ))}
@@ -335,9 +345,9 @@ export const Pagination = () => {
                 return <IconTextIcon iconStart={row.original.name.icon}>{row.values.name}</IconTextIcon>;
             }
         },
-        {Header: 'Type', accessor: 'type'},
-        {Header: 'Created By', accessor: 'createdBy'},
-        {Header: 'Last Modified On', accessor: 'lastModifiedOn'}
+        {Header: 'Type', accessor: 'type', customWidth: columnsWidth.type},
+        {Header: 'Created By', accessor: 'createdBy', customWidth: columnsWidth.createdBy},
+        {Header: 'Last Modified On', accessor: 'lastModifiedOn', customWidth: columnsWidth.lastModifiedOn}
     ], []);
 
     const {
@@ -364,7 +374,7 @@ export const Pagination = () => {
                             {headerGroup.headers.map(column => (
                                 // A key is included in column.getHeaderProps
                                 // eslint-disable-next-line react/jsx-key
-                                <TableHeadCell {...column.getHeaderProps()}>
+                                <TableHeadCell {...column.getHeaderProps()} width={column.customWidth}>
                                     {column.render('Header')}
                                 </TableHeadCell>
                             ))}
@@ -381,7 +391,7 @@ export const Pagination = () => {
                                 {row.cells.map(cell => (
                                     // A key is included in cell.getCellProps
                                     // eslint-disable-next-line react/jsx-key
-                                    <TableBodyCell {...cell.getCellProps()}>
+                                    <TableBodyCell {...cell.getCellProps()} width={cell.column.customWidth}>
                                         {cell.render('Cell')}
                                     </TableBodyCell>
                                 ))}
@@ -407,10 +417,10 @@ export const StructuredView = () => {
     const data = React.useMemo(() => tableDataNested, []);
     const columns = React.useMemo(() => [
         {Header: 'Name', id: 'name', accessor: row => row.name.value},
-        {Header: 'Status', accessor: 'status'},
-        {Header: 'Type', accessor: 'type'},
-        {Header: 'Created By', accessor: 'createdBy'},
-        {Header: 'Last Modified On', accessor: 'lastModifiedOn'}
+        {Header: 'Status', accessor: 'status', customWidth: columnsWidth.status},
+        {Header: 'Type', accessor: 'type', customWidth: columnsWidth.type},
+        {Header: 'Created By', accessor: 'createdBy', customWidth: columnsWidth.createdBy},
+        {Header: 'Last Modified On', accessor: 'lastModifiedOn', customWidth: columnsWidth.lastModifiedOn}
     ], []);
 
     const {
@@ -442,7 +452,7 @@ export const StructuredView = () => {
                         {headerGroup.headers.map(column => (
                             // A key is included in column.getHeaderProps
                             // eslint-disable-next-line react/jsx-key
-                            <TableHeadCell {...column.getHeaderProps()}>
+                            <TableHeadCell {...column.getHeaderProps()} width={column.customWidth}>
                                 {column.render('Header')}
                             </TableHeadCell>
                         ))}
@@ -465,6 +475,7 @@ export const StructuredView = () => {
                                     cell={cell}
                                     isExpandableColumn={cell.column.id === 'name'}
                                     iconStart={row.original[cell.column.id]?.icon}
+                                    width={cell.column.customWidth}
                                 >
                                     {cell.render('Cell')}
                                 </TableBodyCell>
@@ -478,84 +489,6 @@ export const StructuredView = () => {
 };
 
 StructuredView.storyName = 'Structured View with React-Table';
-
-export const ColumnWidthReactTable = () => {
-    const data = React.useMemo(() => tableDataFlat, []);
-    const columns = React.useMemo(() => [
-        /*
-            Use the width property in these column definitions to specify column widths.
-            A column without a width property, such as the column definition immediately
-            below this comment, will expand to fit any remaining space.
-                "`width` is used as both the flex-basis and flex-grow. This means that it
-                essentially acts as both the minimum width and flex-ratio of the column."
-                - https://react-table.tanstack.com/docs/api/useFlexLayout
-        */
-        {Header: 'Name', id: 'name', accessor: row => row.name.value},
-        {Header: 'Status', accessor: 'status', width: 35},
-        {Header: 'Content Type', accessor: 'type', width: 50},
-        {Header: 'Created By', accessor: 'createdBy', width: 30},
-        {Header: 'Last Modified On', accessor: 'lastModifiedOn', width: 50}
-    ], []);
-
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow
-    } = useTable(
-        {
-            data,
-            columns
-        }
-        // Use the useFlexLayout plugin to render the table elements with flexbox
-        // (instead of with table element widths which are calculated by the browser)
-        // useFlexLayout
-    );
-
-    return (
-        <Table {...getTableProps()}>
-            <TableHead>
-                {headerGroups.map(headerGroup => (
-                    // A key is included in headerGroup.getHeaderGroupProps
-                    // eslint-disable-next-line react/jsx-key
-                    <TableRow {...headerGroup.getHeaderGroupProps()}>
-                        {headerGroup.headers.map(column => (
-                            // A key is included in column.getHeaderProps
-                            // eslint-disable-next-line react/jsx-key
-                            <TableHeadCell {...column.getHeaderProps()}>
-                                {column.render('Header')}
-                            </TableHeadCell>
-                        ))}
-                    </TableRow>
-                ))}
-            </TableHead>
-            <TableBody {...getTableBodyProps()}>
-                {rows.map(row => {
-                    prepareRow(row);
-                    return (
-                        // A key is included in row.getRowProps
-                        // eslint-disable-next-line react/jsx-key
-                        <TableRow {...row.getRowProps()}>
-                            {row.cells.map(cell => (
-                                // A key is included in cell.getCellProps
-                                // eslint-disable-next-line react/jsx-key
-                                <TableBodyCell
-                                    {...cell.getCellProps()}
-                                    iconStart={cell.column.id === 'name' && row.original.name.icon}
-                                >
-                                    {cell.render('Cell')}
-                                </TableBodyCell>
-                            ))}
-                        </TableRow>
-                    );
-                })}
-            </TableBody>
-        </Table>
-    );
-};
-
-ColumnWidthReactTable.storyName = 'Column Width Management with React-Table';
 
 export const StickyHeader = () => {
     const colNum = 4;
@@ -603,15 +536,15 @@ export const KitchenSinkFlat = () => {
     const columns = React.useMemo(() => [
         {
             id: 'selection',
-            width: 20,
+            customWidth: columnsWidth.selection,
             Header: header => <Checkbox isUncontrolled {...header.getToggleAllRowsSelectedProps()}/>,
             Cell: cellInfo => <Checkbox isUncontrolled {...cellInfo.row.getToggleRowSelectedProps()}/>
         },
         {Header: 'Name', id: 'name', accessor: row => row.name.value},
-        {Header: 'Status', accessor: 'status', disableSortBy: true, width: 35},
-        {Header: 'Type', accessor: 'type', width: 50},
-        {Header: 'Created By', accessor: 'createdBy', width: 30},
-        {Header: 'Last Modified On', accessor: 'lastModifiedOn', width: 50}
+        {Header: 'Status', accessor: 'status', disableSortBy: true, customWidth: columnsWidth.status},
+        {Header: 'Type', accessor: 'type', customWidth: columnsWidth.type},
+        {Header: 'Created By', accessor: 'createdBy', customWidth: columnsWidth.createdBy},
+        {Header: 'Last Modified On', accessor: 'lastModifiedOn', customWidth: columnsWidth.lastModifiedOn}
     ], []);
 
     const {
@@ -655,6 +588,7 @@ export const KitchenSinkFlat = () => {
                                 <TableHeadCell
                                     {...column.getHeaderProps(column.getSortByToggleProps())}
                                     iconEnd={column.canSort && renderSortIndicator(column.isSorted, column.isSortedDesc)}
+                                    width={column.customWidth}
                                 >
                                     {column.render('Header')}
                                 </TableHeadCell>
@@ -679,6 +613,7 @@ export const KitchenSinkFlat = () => {
                                     <TableBodyCell
                                         {...cell.getCellProps()}
                                         iconStart={row.original[cell.column.id]?.icon}
+                                        width={cell.column.customWidth}
                                     >
                                         {cell.render('Cell')}
                                     </TableBodyCell>
@@ -706,15 +641,15 @@ export const KitchenSinkNested = () => {
     const columns = React.useMemo(() => [
         {
             id: 'selection',
-            width: 20,
+            customWidth: columnsWidth.selection,
             Header: header => <Checkbox isUncontrolled {...header.getToggleAllRowsSelectedProps()}/>,
             Cell: cellInfo => <Checkbox isUncontrolled {...cellInfo.row.getToggleRowSelectedProps()}/>
         },
         {Header: 'Name', id: 'name', accessor: row => row.name.value},
-        {Header: 'Status', accessor: 'status', disableSortBy: true, width: 35},
-        {Header: 'Type', accessor: 'type', width: 50},
-        {Header: 'Created By', accessor: 'createdBy', width: 30},
-        {Header: 'Last Modified On', accessor: 'lastModifiedOn', width: 50}
+        {Header: 'Status', accessor: 'status', disableSortBy: true, customWidth: columnsWidth.status},
+        {Header: 'Type', accessor: 'type', customWidth: columnsWidth.type},
+        {Header: 'Created By', accessor: 'createdBy', customWidth: columnsWidth.createdBy},
+        {Header: 'Last Modified On', accessor: 'lastModifiedOn', customWidth: columnsWidth.lastModifiedOn}
     ], []);
 
     const {
@@ -763,6 +698,7 @@ export const KitchenSinkNested = () => {
                             <TableHeadCell
                                 {...column.getHeaderProps(column.getSortByToggleProps())}
                                 iconEnd={column.canSort && renderSortIndicator(column.isSorted, column.isSortedDesc)}
+                                width={column.customWidth}
                             >
                                 {column.render('Header')}
                             </TableHeadCell>
@@ -790,6 +726,7 @@ export const KitchenSinkNested = () => {
                                     cell={cell}
                                     isExpandableColumn={cell.column.id === 'name'}
                                     iconStart={row.original[cell.column.id]?.icon}
+                                    width={cell.column.customWidth}
                                 >
                                     {cell.render('Cell')}
                                 </TableBodyCell>

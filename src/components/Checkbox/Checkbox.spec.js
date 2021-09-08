@@ -40,4 +40,17 @@ describe('Checkbox', () => {
         render(<Checkbox isIndeterminate aria-label="checkbox"/>);
         expect(screen.getByRole('checkbox')).toBePartiallyChecked();
     });
+
+    it('should have the default size by default', () => {
+        render(<Checkbox aria-label="checkbox"/>);
+        expect(screen.getByRole('checkbox')).toHaveClass('moonstone-checkbox_sizeDefault');
+    });
+
+    it('should use the set size', () => {
+        render(<Checkbox aria-label="checkbox" size="default" data-testid="moonstone-checkboxDefault"/>);
+        expect(screen.getByTestId('moonstone-checkboxDefault')).toHaveClass('moonstone-checkbox_sizeDefault');
+
+        render(<Checkbox aria-label="checkbox" size="big" data-testid="moonstone-checkboxBig"/>);
+        expect(screen.getByTestId('moonstone-checkboxBig')).toHaveClass('moonstone-checkbox_sizeBig');
+    });
 });

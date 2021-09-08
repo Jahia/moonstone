@@ -47,4 +47,8 @@ export type TypographyProps = {
      * No wrapping for text
      */
     isNowrap?: boolean;
+    /**
+     * Custom CSS style
+     */
+    style?: React.CSSProperties
 }

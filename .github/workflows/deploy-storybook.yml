@@ -24,4 +24,5 @@ jobs:
         ACTIONS_DEPLOY_KEY: ${{ secrets.DEPLOY_STORYBOOK }}
         PUBLISH_BRANCH: gh-pages
         PUBLISH_DIR: 'storybook-static'
-        COMMIT_MESSAGE: 'Automated deployment - ${{ github.event.head_commit.message }} - [skip ci]'
+      with:
+        commitMessage: 'Automated deployment - ${{ github.event.head_commit.message }} - [skip ci]' 

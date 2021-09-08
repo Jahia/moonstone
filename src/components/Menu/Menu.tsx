@@ -50,7 +50,6 @@ export const Menu: React.FC<MenuProps> = ({
     const [inputValue, setInputValue] = useState('');
     const [filteredChildren, setFilteredChildren] = useState(children);
     const [isEmptySearch, setIsEmptySearch] = useState(false);
-
     // useEffect hook to filter the search results and determine whether to show the no search results text
     useEffect(() => {
         if (inputValue !== '') {
@@ -58,8 +57,8 @@ export const Menu: React.FC<MenuProps> = ({
                 const _childrenToFilter = getChildrenToFilter(children as [React.ReactElement]);
                 const _filtered = _childrenToFilter.filter((child: React.ReactElement) => {
                     if (child.props && child.props.label) {
-                        const startsWith = child.props.label.toLowerCase().startsWith(inputValue.toLowerCase());
-                        return startsWith && child.props.variant !== 'title';
+                        const contains = child.props.label.toLowerCase().includes(inputValue.toLowerCase());
+                        return contains && child.props.variant !== 'title';
                     }
                     return false;
                 });
@@ -116,6 +115,7 @@ export const Menu: React.FC<MenuProps> = ({
                 { hasSearch && (
                     <div className="moonstone-menu_searchInput">
                         <Input
+                            focusOnField
                             variant="search"
                             value={inputValue}
                             onChange={e => setInputValue(e.target.value)}

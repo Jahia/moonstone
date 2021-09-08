@@ -28,6 +28,11 @@ export type ControlledCheckboxProps = {
     name?: string;
 
     /**
+     * Checkbox size
+     */
+     size?: 'default' | 'big';
+
+    /**
      * Additional classname(s)
      */
     className?: string;

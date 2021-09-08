@@ -4,7 +4,7 @@ $row-multiple-line-height: 64px;
 .moonstone-TableRow {
     height: $row-regular-height;
 
-    transition: background-color 0.2s ease-in-out;
+    border-bottom: 1px solid var(--color-gray_light);
 
     .moonstone-TableBody &:hover {
         background-color: var(--color-gray_light40);

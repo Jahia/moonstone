@@ -12,7 +12,7 @@ export const Table: React.FC<TableProps> = ({
 }) => React.createElement(
     component,
     {
-        className: clsx('moonstone-Table', className),
+        className: clsx('moonstone-Table', 'flexCol_nowrap', className),
         ...props
     },
     children
