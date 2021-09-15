@@ -20,15 +20,17 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
     row,
     cell,
     children,
+    isScrollable,
     ...props
 }) => {
     const leftMarginBuffer = 20; // px
     const leftMarginIndentDepth = row?.depth * 20; // px
+    const scrollableClass = isScrollable ? 'moonstone-tableCellContent' : '';
 
     // TODO: When no iconStart is set we should just render children to avoid too nested HTML elements
     // TODO: Add iconEnd somewhere or remove it from the props, it seems we never use it
     const renderCellContent = () => (
-        <IconTextIcon component="div" iconStart={iconStart} typographyProps={{className: clsx('moonstone-tableCellContent', 'flexFluid')}}>
+        <IconTextIcon component="div" iconStart={iconStart} typographyProps={{className: clsx(scrollableClass, 'flexFluid')}}>
             {children}
         </IconTextIcon>
     );
@@ -71,7 +73,7 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
     return (
         <Typography
             className={clsx(
-                'moonstone-tableCellComponent',
+                'moonstone-tableBodyCell',
                 'textAlign' + capitalize(textAlign),
                 'moonstone-verticalAlign' + capitalize(verticalAlign),
                 {'flexFluid': typeof width === 'undefined'},

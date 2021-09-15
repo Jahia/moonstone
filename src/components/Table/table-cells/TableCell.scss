@@ -1,7 +1,10 @@
 @import '../../../utils/index.scss';
 
-.moonstone-tableCellComponent {
+.moonstone-tableBodyCell {
     overflow-y: auto;
+
+    //noinspection CssUnknownProperty
+    scrollbar-width: thin;
 
     &::-webkit-scrollbar {
         height: 2px;
