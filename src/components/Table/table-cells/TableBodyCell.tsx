@@ -59,7 +59,7 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
         // the chevron icons for expand/collapse
         if (isExpandableColumn && !row?.canExpand) {
             return (
-                <TableCell style={{marginLeft: `${leftMarginIndentDepth + leftmarginbuffer}px`}}>
+                <TableCell style={{marginLeft: `${leftMarginIndentDepth + leftMarginBuffer}px`}}>
                     {renderCellContent()}
                 </TableCell>
             );
