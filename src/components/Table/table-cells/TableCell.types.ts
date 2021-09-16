@@ -63,4 +63,9 @@ export type TableCellProps = {
      * Children elements
      */
     children?: React.ReactNode;
+
+    /**
+     * Indicates if the cell is scrollable on hover
+     */
+    isScrollable?: boolean;
 };
