@@ -1,3 +1,17 @@
+# v1.5.3 (Thu Sep 23 2021)
+
+#### 🐛 Bug Fix
+
+- Release moonstone [#270](https://github.com/Jahia/moonstone/pull/270) ([@Fgerthoffert](https://github.com/Fgerthoffert) [@ffffffelix](https://github.com/ffffffelix) [@AKarmanov](https://github.com/AKarmanov))
+
+#### Authors: 3
+
+- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Francois G. ([@Fgerthoffert](https://github.com/Fgerthoffert))
+
+---
+
 # v1.5.2 (Mon Aug 23 2021)
 
 #### 🐛 Bug Fix
