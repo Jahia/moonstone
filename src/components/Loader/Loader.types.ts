@@ -8,4 +8,9 @@ export type LoaderProps = {
      * Loader size
      */
     size?: 'small' | 'medium' | 'big'
+
+    /**
+     * When it's true the Loader uses the white color instead of the accent color
+     */
+    isReversed?: boolean
 }

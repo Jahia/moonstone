@@ -7,6 +7,7 @@ import './Loader.scss';
 export const Loader: React.FC<LoaderProps> = ({
     size,
     className,
+    isReversed = false,
     ...props
 }) => {
     return (
@@ -19,7 +20,7 @@ export const Loader: React.FC<LoaderProps> = ({
                 cy="50%"
             />
             <circle
-                className={clsx('moonstone-loader_circle', 'moonstone-loader_animation')}
+                className={clsx('moonstone-loader_circle', 'moonstone-loader_animation', {'moonstone-loader_reversed': isReversed})}
                 cx="50%"
                 cy="50%"
             />
