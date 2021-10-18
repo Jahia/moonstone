@@ -7,7 +7,7 @@ interface IIconProps extends React.SVGProps<SVGSVGElement> {
 
 const SvgFeather = ({
   size = 'default',
-  className,
+  className = '',
   ...otherProps
 }: IIconProps) => {
   const props = Object.assign(
