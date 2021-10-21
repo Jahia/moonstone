@@ -33,9 +33,10 @@ export const Input: React.FC<InputProps> = ({
 
     useEffect(() => {
         if (focusOnField) {
-            searchRef.current.focus();
+            searchRef.current.focus({preventScroll: true});
         }
-    });
+    }, [focusOnField]);
+
     return (
         <div className={classNameProps}>
             <input
