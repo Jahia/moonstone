@@ -35,7 +35,8 @@ export const Input: React.FC<InputProps> = ({
         if (focusOnField) {
             searchRef.current.focus({preventScroll: true});
         }
-    });
+    }, [focusOnField]);
+
     return (
         <div className={classNameProps}>
             <input
