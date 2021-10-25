@@ -1,3 +1,28 @@
+# v1.6.0 (Mon Oct 25 2021)
+
+#### 🚀 Enhancement
+
+- MOON-316: Avoid scrolling to top when a dropdown with search is used [#272](https://github.com/Jahia/moonstone/pull/272) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🐛 Bug Fix
+
+- MOON-315: Add new icons RotateRight and RotateLeft and prevent an undefined class on all icons [#271](https://github.com/Jahia/moonstone/pull/271) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### ⚠️ Pushed to `master`
+
+- BACKLOG-16471: Simplified component creation ([@tdraier](https://github.com/tdraier))
+
+#### 🏠 Internal
+
+- BACKLOG-16471, TECH-242 : expose webpack rules and svgr configs [#273](https://github.com/Jahia/moonstone/pull/273) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 2
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v1.5.3 (Thu Sep 23 2021)
 
 #### 🐛 Bug Fix
