@@ -1,7 +1,8 @@
-import React, {FunctionComponent, ReactElement, ReactNode} from 'react';
+import React, {Attributes, FunctionComponent, ReactElement, ReactNode} from 'react';
 import * as Icons from '~/icons/assets';
 import {SvgWrapper} from '~/components/SvgWrapper';
 import {ImgWrapper} from '~/components/ImgWrapper';
+import {SvgWrapperProps} from "~/components/SvgWrapper/SvgWrapper.types";
 
 type ToCompProps = {
     [key: string]: number;
@@ -29,22 +30,25 @@ function extract(svg: string) {
     return toComp(doc.documentElement, 0);
 }
 
-const toIconComponent = (icon: string | ReactElement, props: object) => {
+export const toIconComponentFunction = (icon: string | ReactElement) => {
     if (typeof icon === 'object') {
-        return <SvgWrapper svg={icon} {...props}/>;
+        return (props: SvgWrapperProps & Attributes) => <SvgWrapper svg={icon} {...props}/>;
     }
 
     // @ts-ignore
     const iconFunction:FunctionComponent = Icons[icon];
     if (iconFunction) {
-        return React.createElement(iconFunction, props);
+        return (props: SvgWrapperProps & Attributes) => React.createElement(iconFunction, props);
     }
 
     if (icon.startsWith('<svg')) {
-        return <SvgWrapper svg={extract(icon)} {...props}/>;
+        return (props: SvgWrapperProps & Attributes) => <SvgWrapper svg={extract(icon)} {...props}/>;
     }
 
-    return <ImgWrapper src={icon} {...props}/>;
+    return (props: SvgWrapperProps & Attributes) => <ImgWrapper src={icon} {...props}/>;
 };
 
-export {toIconComponent};
+export const toIconComponent = (icon: string | ReactElement, props: SvgWrapperProps & Attributes) => {
+    return toIconComponentFunction(icon)(props);
+};
+
