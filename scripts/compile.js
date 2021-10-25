@@ -66,3 +66,6 @@ glob.sync('**/*.ttf', {cwd: 'src'}).forEach(file => {
 glob.sync('**/*.json', {cwd: 'src'}).forEach(file => {
     copyFile('src', 'dist', file);
 });
+
+copyFile('src', 'dist', 'tokens/icons/svgrTemplate.js');
+copyFile('src', 'dist', 'tokens/icons/svgrTemplate-ts.js');

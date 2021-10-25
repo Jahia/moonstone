@@ -35,7 +35,7 @@
         "compile:css": "node ./scripts/compile-css.js",
         "tsc": "tsc --build tsconfig.json",
         "prebuild-icons": "node ./scripts/rename.js ./src/icons/index.ts ./src/icons/tmp.js",
-        "build-icons": "rimraf src/icons/*.tsx && svgr --typescript --template ./src/tokens/icons/svgrTemplate.js --config-file ./src/tokens/icons/svgr.config.json ./src/tokens/icons/assets --out-dir ./src/icons && tslint --fix ./src/icons",
+        "build-icons": "rimraf src/icons/*.tsx && svgr --typescript --template ./src/tokens/icons/svgrTemplate-ts.js --config-file ./src/tokens/icons/svgr.config.json ./src/tokens/icons/assets --out-dir ./src/icons && tslint --fix ./src/icons",
         "postbuild-icons": "node ./scripts/rename.js ./src/icons/index.tsx ./src/icons/assets.ts && node ./scripts/rename.js ./src/icons/tmp.js ./src/icons/index.ts && eslint --fix ./src/icons/assets.ts",
         "build": "yarn build:storybook && yarn build:lib && yarn webpack",
         "prebuild:lib": "rimraf dist/",

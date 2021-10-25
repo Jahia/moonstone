@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const rules = require('./dist/rulesconfig-wp');
 
 const productionPlugins =
     process.env.WEBPACK_MODE === 'production' ?
@@ -24,28 +25,7 @@ const ComponentsConfig = {
         extensions: ['.js', '.json', '.jsx', '.scss']
     },
     module: {
-        rules: [
-            {
-                test: /\.css$/i,
-                sideEffects: true,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            postcssOptions: {
-                                plugins: [['postcss-preset-env']]
-                            }
-                        }
-                    }
-                ]
-            },
-            {
-                test: /\.(woff|woff2|eot|ttf|otf)$/,
-                use: ['file-loader']
-            }
-        ]
+        rules
     },
     plugins: [
         ...productionPlugins,
