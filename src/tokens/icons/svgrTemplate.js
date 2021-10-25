@@ -13,9 +13,9 @@ module.exports = function (
 
     return typeScriptTpl.ast`
         ${imports}
-        
+
         type TIconSize = 'small' | 'default' | 'big';
-        
+
         interface IIconProps extends ${SVGProps} {
             size?: TIconSize;
             className?: string;
