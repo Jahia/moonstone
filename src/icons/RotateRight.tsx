@@ -5,9 +5,9 @@ interface IIconProps extends React.SVGProps<SVGSVGElement> {
   className?: string;
 }
 
-const SvgInfo = ({
+const SvgRotateRight = ({
   size = 'default',
-  className,
+  className = '',
   ...otherProps
 }: IIconProps) => {
   const props = Object.assign(
@@ -26,9 +26,9 @@ const SvgInfo = ({
       fill="currentColor"
       {...props}
     >
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z" />
+      <path d="M16.276 6.288L10.849 1v3.568c-4.7.57-8.349 4.474-8.349 9.216 0 4.742 3.638 8.646 8.349 9.216v-2.348c-3.387-.557-5.964-3.416-5.964-6.868 0-3.452 2.577-6.31 5.964-6.869v4.545l5.427-5.172zm5.224 6.334c-.203-1.616-.859-3.173-1.932-4.521l-1.694 1.65a6.654 6.654 0 011.217 2.87H21.5zm-8.265 8.019v2.347a9.588 9.588 0 004.651-1.87l-1.717-1.674a7 7 0 01-2.934 1.197zm4.64-2.813l1.693 1.639c1.073-1.348 1.73-2.905 1.932-4.52h-2.41a6.758 6.758 0 01-1.216 2.881z" />
     </svg>
   );
 };
 
-export default SvgInfo;
+export default SvgRotateRight;

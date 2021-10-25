@@ -21,7 +21,7 @@ module.exports = function (
             className?: string;
         }
 
-        const ${componentName} = ({size = 'default', className, ...otherProps}: IIconProps) => {
+        const ${componentName} = ({size = 'default', className = '', ...otherProps}: IIconProps) => {
             const props = Object.assign({}, {size, className, ...otherProps});
             props.className = className + ' moonstone-icon moonstone-icon_' + size;
             return ${jsx};
