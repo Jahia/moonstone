@@ -1,6 +1,7 @@
 {
   "icon": true,
   "dimensions": false,
+  "typescript": true,
   "prettierConfig": {
     "singleQuote": true,
     "trailingComma": "none"
