@@ -38,7 +38,7 @@ export const toIconComponentFunction = (icon: string | ReactElement) => {
     // @ts-ignore
     const iconFunction:FunctionComponent = Icons[icon];
     if (iconFunction) {
-        return (props: SvgWrapperProps & Attributes) => React.createElement(iconFunction, props);
+        return iconFunction;
     }
 
     if (icon.startsWith('<svg')) {
