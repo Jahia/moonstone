@@ -167,6 +167,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             }}
         >
             <div
+                role="dropdown"
                 className={clsx(cssDropdown)}
                 tabIndex={0}
                 onClick={handleOpenMenu}
@@ -192,31 +193,33 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 <ChevronDown className="moonstone-dropdown_chevronDown"/>
             </div>
 
-            <Menu
-                isDisplayed={isOpened}
-                position="absolute"
-                anchorPosition={anchorPosition}
-                minWidth={minWidth}
-                maxWidth={menuMaxWidth}
-                maxHeight={menuMaxHeight}
-                anchorEl={anchorEl}
-                hasSearch={hasSearch}
-                searchEmptyText={searchEmptyText}
-                onClose={handleCloseMenu}
-            >
-                {
-                    data.map((item, index) => {
-                        if (isGrouped) {
-                            item.options.map((o: DropdownDataOptions) => {
-                                return dropdownOption(o);
-                            });
-                            return dropdownGrouped(item.options, item.groupLabel, index);
-                        }
+            {isOpened && (
+                <Menu
+                    isDisplayed
+                    position="absolute"
+                    anchorPosition={anchorPosition}
+                    minWidth={minWidth}
+                    maxWidth={menuMaxWidth}
+                    maxHeight={menuMaxHeight}
+                    anchorEl={anchorEl}
+                    hasSearch={hasSearch}
+                    searchEmptyText={searchEmptyText}
+                    onClose={handleCloseMenu}
+                >
+                    {
+                        data.map((item, index) => {
+                            if (isGrouped) {
+                                item.options.map((o: DropdownDataOptions) => {
+                                    return dropdownOption(o);
+                                });
+                                return dropdownGrouped(item.options, item.groupLabel, index);
+                            }
 
-                        return dropdownOption(item);
-                    })
-                }
-            </Menu>
+                            return dropdownOption(item);
+                        })
+                    }
+                </Menu>
+            )}
         </div>
     );
 };

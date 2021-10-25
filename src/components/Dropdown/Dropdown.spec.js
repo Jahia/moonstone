@@ -77,16 +77,30 @@ describe('Dropdown', () => {
         expect(screen.getByTestId('moonstone-dropdown').firstChild).toHaveClass('moonstone-disabled');
     });
 
-    it('should display the correct search results', () => {
+    it('should not display the menu dropdown by default', () => {
         render(
-            <Dropdown hasSearch data={dataGrouped} data-testid="moonstone-dropdown" onChange={() => 'testing'}/>
+            <Dropdown data={dataGrouped} data-testid="moonstone-dropdown" onChange={() => 'testing'}/>
         );
-        userEvent.type(screen.getByRole('textbox'), 'option 4');
+        expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+    });
 
-        expect(screen.queryByText('option 1')).not.toBeInTheDocument();
-        expect(screen.queryByText('option 2')).not.toBeInTheDocument();
-        expect(screen.queryByText('option 3')).not.toBeInTheDocument();
-        expect(screen.getByText('option 4')).toBeInTheDocument();
+    it('should display the menu dropdown when I click on the dropdown', () => {
+        render(
+            <Dropdown data={dataGrouped} data-testid="moonstone-dropdown" onChange={() => 'testing'}/>
+        );
+
+        userEvent.click(screen.getByRole('dropdown'));
+        expect(screen.getByRole('listbox')).toBeInTheDocument();
+    });
+
+    it('should close the menu dropdown when I click on an option', () => {
+        render(
+            <Dropdown data={dataGrouped} data-testid="moonstone-dropdown" onChange={() => 'testing'}/>
+        );
+
+        userEvent.click(screen.getByRole('dropdown'));
+        userEvent.click(screen.getAllByRole('option')[1]);
+        expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
     });
 
     it('should display nothing if data is not an array', () => {
