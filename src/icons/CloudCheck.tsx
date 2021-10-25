@@ -7,7 +7,7 @@ interface IIconProps extends React.SVGProps<SVGSVGElement> {
 
 const SvgCloudCheck = ({
   size = 'default',
-  className,
+  className = '',
   ...otherProps
 }: IIconProps) => {
   const props = Object.assign(

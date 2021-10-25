@@ -5,7 +5,11 @@ interface IIconProps extends React.SVGProps<SVGSVGElement> {
   className?: string;
 }
 
-const SvgPie = ({ size = 'default', className, ...otherProps }: IIconProps) => {
+const SvgPie = ({
+  size = 'default',
+  className = '',
+  ...otherProps
+}: IIconProps) => {
   const props = Object.assign(
     {},
     {
