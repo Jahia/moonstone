@@ -1,3 +1,15 @@
+# v1.6.1 (Wed Nov 03 2021)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-16570: Fixed toIconComponent [#274](https://github.com/Jahia/moonstone/pull/274) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v1.6.0 (Mon Oct 25 2021)
 
 #### 🚀 Enhancement
