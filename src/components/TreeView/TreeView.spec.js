@@ -78,14 +78,6 @@ describe('TreeView', () => {
         expect(wrapper.html()).toContain('A-1 level2');
     });
 
-    it('should display icon provide by an external source', () => {
-        const wrapper = shallow(
-            <ControlledTreeView data={tree}/>
-        );
-
-        expect(wrapper.html()).toContain('https://image.flaticon.com/icons/svg/1973/1973617');
-    });
-
     it('should display icon provide by moonstone', () => {
         const wrapper = shallow(
             <ControlledTreeView data={tree}/>
