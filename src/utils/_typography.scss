@@ -55,7 +55,7 @@
 }
 
 %nowrap {
-    @include truncate(100%, inline-block);
+    @include truncate(100%);
 }
 
 %italic {
