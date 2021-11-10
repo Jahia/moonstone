@@ -1,3 +1,15 @@
+# v1.6.2 (Wed Nov 10 2021)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-16571 Do not change display type as it affects how siblings a… [#275](https://github.com/Jahia/moonstone/pull/275) ([@AKarmanov](https://github.com/AKarmanov))
+
+#### Authors: 1
+
+- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
+
+---
+
 # v1.6.1 (Wed Nov 03 2021)
 
 #### 🐛 Bug Fix
