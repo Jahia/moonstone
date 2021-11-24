@@ -3,7 +3,6 @@ import {storiesOf} from '@storybook/react';
 import {boolean, select, withKnobs} from '@storybook/addon-knobs';
 import clsx from 'clsx';
 import storyStyles from '~/__storybook__/storybook.module.scss';
-import PropTypes from 'prop-types';
 
 import markdownNotes from './Input.md';
 import {Input} from './index';
@@ -24,114 +23,84 @@ storiesOf('Components/Input', module)
         notes: {markdown: markdownNotes}
     })
     .addDecorator(withKnobs)
-    .add('Default', () => {
-        const Parent = ({children}) => {
-            const [state, setState] = useState('this is the default!');
-            return <>{children(state, setState)}</>;
-        };
-
-        Parent.propTypes = {
-            children: PropTypes.node
-        };
+    .add('Uncontrolled', () => {
+        const [value, setValue] = useState('this is the default!');
 
         return (
             <section className={clsx(storyStyles.storyWrapper)}>
-                <Parent>
-                    {(state, setState) => (
-                        <Input
-                            placeholder="a placeholder!"
-                            value={state}
-                            onChange={e => setState(e.target.value)}
-                            onBlur={() => {}}
-                            onFocus={() => {}}
-                        />
-                    )}
-                </Parent>
+                <Input
+                    placeholder="a placeholder!"
+                    value={value}
+                    onChange={e => setValue(e.target.value)}
+                    onBlur={() => {}}
+                    onFocus={() => {}}
+                />
+            </section>
+        );
+    })
+    .add('Controlled', () => {
+        return (
+            <section className={clsx(storyStyles.storyWrapper)}>
+                <Input
+                    placeholder="a placeholder!"
+                    defaultValue="default value"
+                    onChange={() => {}}
+                    onBlur={() => {}}
+                    onFocus={() => {}}
+                />
             </section>
         );
     })
     .add('Search', () => {
-        const Parent = ({children}) => {
-            const [state, setState] = useState('search variant!');
-            return <>{children(state, setState)}</>;
-        };
+        const [value, setValue] = useState('this is the default!');
 
-        Parent.propTypes = {
-            children: PropTypes.node
-        };
         return (
             <section className={clsx(storyStyles.storyWrapper)}>
-                <Parent>
-                    {(state, setState) => (
-                        <Input
-                            focusOnField
-                            value={state}
-                            placeholder="this is a placeholder!"
-                            variant="search"
-                            onClear={() => setState('')}
-                            onChange={e => setState(e.target.value)}
-                        />
-                    )}
-                </Parent>
+                <Input
+                    focusOnField
+                    value={value}
+                    placeholder="this is a placeholder!"
+                    variant="search"
+                    onClear={() => setValue('')}
+                    onChange={e => setValue(e.target.value)}
+                />
             </section>
         );
     })
     .add('Icons', () => {
-        const Parent = ({children}) => {
-            const [state, setState] = useState('this input has icons!');
-            return <>{children(state, setState)}</>;
-        };
-
-        Parent.propTypes = {
-            children: PropTypes.node
-        };
+        const [value, setValue] = useState('this is the default!');
 
         return (
             <section className={clsx(storyStyles.storyWrapper)}>
-                <Parent>
-                    {(state, setState) => (
-                        <Input
-                            value={state}
-                            placeholder="this is a placeholder!"
-                            icon={<IconWrapper iconName={select('Icon', iconsName, 'Love')}/>}
-                            onClear={() => setState('')}
-                            onChange={e => setState(e.target.value)}
-                        />
-                    )}
-                </Parent>
+                <Input
+                    value={value}
+                    placeholder="this is a placeholder!"
+                    icon={<IconWrapper iconName={select('Icon', iconsName, 'Love')}/>}
+                    onClear={() => setValue('')}
+                    onChange={e => setValue(e.target.value)}
+                />
             </section>
         );
     })
     .add('Playground', () => {
-        const Parent = ({children}) => {
-            const [state, setState] = useState('this is the default!');
-            return <>{children(state, setState)}</>;
-        };
-
-        Parent.propTypes = {
-            children: PropTypes.node
-        };
+        const [value, setValue] = useState('this is the default!');
 
         return (
             <section className={clsx(storyStyles.storyWrapper)}>
-                <Parent>
-                    {(state, setState) => (
-                        <Input
-                            variant={variant()}
-                            size={inputSize()}
-                            icon={<IconWrapper iconName={selectIcon()}/>}
-                            isDisabled={isDisabled()}
-                            isReadOnly={isReadonly()}
-                            focusOnField={isFocused()}
-                            placeholder="a placeholder!"
-                            value={state}
-                            onClear={() => setState('')}
-                            onChange={e => setState(e.target.value)}
-                            onBlur={() => {}}
-                            onFocus={() => {}}
-                        />
-                )}
-                </Parent>
+                <Input
+                    variant={variant()}
+                    size={inputSize()}
+                    icon={<IconWrapper iconName={selectIcon()}/>}
+                    isDisabled={isDisabled()}
+                    isReadOnly={isReadonly()}
+                    focusOnField={isFocused()}
+                    placeholder="a placeholder!"
+                    value={value}
+                    onClear={() => setValue('')}
+                    onChange={e => setValue(e.target.value)}
+                    onBlur={() => {}}
+                    onFocus={() => {}}
+                />
             </section>
         );
     });
