@@ -23,7 +23,7 @@ describe('Menu', () => {
                 <MenuItem label="Item3"/>
             </Menu>
         );
-        userEvent.type(screen.getByRole('textbox'), 'item2');
+        userEvent.type(screen.getByRole('search'), 'item2');
 
         expect(screen.queryByText(/item1/i)).not.toBeInTheDocument();
         expect(screen.getByText(/item2/i)).toBeInTheDocument();
@@ -39,7 +39,7 @@ describe('Menu', () => {
                 <MenuItem label="Item3"/>
             </Menu>
         );
-        userEvent.type(screen.getByRole('textbox'), 'random search text');
+        userEvent.type(screen.getByRole('search'), 'random search text');
 
         expect(screen.getByText(searchEmptyText)).toBeInTheDocument();
     });
