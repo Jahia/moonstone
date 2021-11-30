@@ -1,89 +1,29 @@
-import React, {useEffect, useRef} from 'react';
-import clsx from 'clsx';
-import {Cancel, Search} from '~/icons';
-import './Input.scss';
-import {InputProps, InputSizes, InputVariants} from './Input.types';
+import React, {useState, ChangeEvent} from 'react';
+import {InputProps} from './Input.types';
+import {ControlledInput} from './ControlledInput';
 
-export const UncontrolledInput: React.FC<InputProps> = ({
-                                                variant = 'text',
-                                                value = '',
-                                                id,
-                                                placeholder,
-                                                isDisabled = false,
-                                                isReadOnly = false,
-                                                className,
-                                                size = InputSizes.Default,
-                                                icon,
-                                                onClear,
-                                                onChange,
-                                                onBlur,
-                                                onFocus,
-                                                focusOnField = false,
-                                                ...props
-                                            }) => {
-    const classNameProps = clsx(
-        'moonstone-input',
-        {'moonstone-size_big': size === InputSizes.Big},
-        {'moonstone-disabled': isDisabled},
-        className
-    );
-    const inputFilled = value !== '';
-    const inputEmpty = value === '';
-    const searchRef = useRef(null);
+export const UncontrolledInput: React.FC<InputProps> = ({defaultValue, variant, onChange, onClear, ...props}) => {
+    const [inputValue, setInputValue] = useState(defaultValue);
 
-    useEffect(() => {
-        if (focusOnField) {
-            searchRef.current.focus({preventScroll: true});
+    const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setInputValue(event.target.value);
+
+        if (typeof onChange !== 'undefined') {
+            onChange(event);
         }
-    }, [focusOnField]);
+    }
 
-    return (
-        <div className={classNameProps}>
-            <input
-                className={
-                    clsx(
-                        'moonstone-input-element',
-                        {'start-icon-padding': icon || variant === InputVariants.Search},
-                        {'end-icon-padding': onClear}
-                    )
-                }
-                type="text"
-                role={variant === 'search' ? 'search' : null}
-                value={value}
-                id={id}
-                placeholder={placeholder}
-                disabled={isDisabled}
-                readOnly={isReadOnly}
-                onChange={onChange}
-                onBlur={onBlur}
-                onFocus={onFocus}
-                ref={searchRef}
+    const handleOnClear = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        if (variant === 'search') {
+            setInputValue('');
+        }
 
-                {...props}
-            />
-            {(icon || variant === InputVariants.Search) && (
-                <div
-                    className={clsx(
-                        'start-icon-wrap',
-                        'flexRow_nowrap',
-                        'alignCenter',
-                        {'icon_input-filled': inputFilled},
-                        {'icon_input-empty': inputEmpty}
-                    )}
-                >
-                    {variant === InputVariants.Search
-                        ? <Search focusable="false"/>
-                        : <icon.type {...icon.props} focusable="false"/>
-                    }
-                </div>
-            )}
-            {onClear && inputFilled && !isDisabled && !isReadOnly && (
-                <div className="end-icon-wrap flexRow_center alignCenter" onClick={onClear}>
-                    <Cancel/>
-                </div>
-            )}
-        </div>
-    );
+        if (typeof onClear !== 'undefined') {
+            onClear(event);
+        }
+    }
+
+    return <ControlledInput value={inputValue} onChange={handleOnChange} onClear={handleOnClear} variant={variant} {...props}/>;
 };
 
 UncontrolledInput.displayName = 'UncontrolledInput';

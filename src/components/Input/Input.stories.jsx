@@ -23,7 +23,7 @@ storiesOf('Components/Input', module)
         notes: {markdown: markdownNotes}
     })
     .addDecorator(withKnobs)
-    .add('Uncontrolled', () => {
+    .add('Controlled', () => {
         const [value, setValue] = useState('this is the default!');
 
         return (
@@ -38,7 +38,7 @@ storiesOf('Components/Input', module)
             </section>
         );
     })
-    .add('Controlled', () => {
+    .add('Uncontrolled', () => {
         return (
             <section className={clsx(storyStyles.storyWrapper)}>
                 <Input
@@ -52,17 +52,13 @@ storiesOf('Components/Input', module)
         );
     })
     .add('Search', () => {
-        const [value, setValue] = useState('this is the default!');
-
         return (
             <section className={clsx(storyStyles.storyWrapper)}>
                 <Input
                     focusOnField
-                    value={value}
+                    defaultValue="value"
                     placeholder="this is a placeholder!"
                     variant="search"
-                    onClear={() => setValue('')}
-                    onChange={e => setValue(e.target.value)}
                 />
             </section>
         );

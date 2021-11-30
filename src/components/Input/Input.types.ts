@@ -19,12 +19,12 @@ export type InputProps = {
      variant?: InputVariant;
 
     /**
-     * Default value when the component is rendered (controlled)
+     * Default value when the component is rendered (Uncontrolled)
      */
      defaultValue?: string;
 
     /**
-     * Value to exist in the input field (uncontrolled)
+     * Value to exist in the input field (Controlled)
      */
      value?: string;
 
@@ -71,12 +71,12 @@ export type InputProps = {
     /**
      * Function - when passed in, the Cancel icon appears at the end of the input and its click event is passed back when the Cancel icon is clicked
      */
-    onClear?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+    onClear?: React.MouseEventHandler;
 
     /**
      * Function triggered on change of the input value
      */
-     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 
     /**
      * Function triggered on blur of the input (i.e., focussing away from the input)

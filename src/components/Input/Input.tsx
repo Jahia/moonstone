@@ -4,11 +4,11 @@ import {UncontrolledInput} from './UncontrolledInput';
 import {ControlledInput} from './ControlledInput';
 
 export const Input: React.FC<InputProps> = ({defaultValue, value, ...props}) => {
-    if (defaultValue) {
-        return <ControlledInput defaultValue={defaultValue} {...props}/>;
+    if (typeof value === 'undefined') {
+        return <UncontrolledInput defaultValue={defaultValue} {...props}/>;
     }
 
-    return <UncontrolledInput value={value} {...props}/>;
+    return <ControlledInput value={value} {...props}/>;
 };
 
 Input.displayName = 'Input';
