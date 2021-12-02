@@ -1,8 +1,7 @@
 import React from 'react';
-import clsx from 'clsx';
 import {storiesOf} from '@storybook/react';
 import {boolean, select, withKnobs} from '@storybook/addon-knobs';
-import storyStyles from '~/__storybook__/storybook.module.scss';
+import '~/__storybook__/storybook.scss';
 import IconWrapper from '~/__storybook__/IconWrapper';
 import {iconsName} from '~/__storybook__/utils';
 
@@ -21,8 +20,8 @@ storiesOf('Components/Tab', module)
     })
     .addDecorator(withKnobs)
     .add('Tab', () => (
-        <section className={clsx(storyStyles.storyGrid)}>
-            <div className={clsx(storyStyles.storyGridItem)}>
+        <section className="storyGrid">
+            <div className="storyGridItem">
                 <Tab>
                     <TabItem icon={<IconWrapper iconName={selectIcon()}/>} label="Tab 1" isSelected={isSelected()}/>
                     <TabItem icon={<IconWrapper iconName={selectIcon()}/>} label="Tab 2" isSelected={!isSelected()}/>

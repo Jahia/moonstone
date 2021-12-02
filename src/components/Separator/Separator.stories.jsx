@@ -1,8 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {withKnobs, select} from '@storybook/addon-knobs';
-import clsx from 'clsx';
-import storyStyles from '~/__storybook__/storybook.module.scss';
+import '~/__storybook__/storybook.scss';
 
 import {Separator, Typography} from '~/components';
 import {SeparatorSizes, SeparatorSpacings, SeparatorInvisible} from './Separator.types';
@@ -40,8 +39,8 @@ storiesOf('Components/Separator', module)
         </div>
     ))
     .add('Invisible', () => (
-        <section className={clsx(storyStyles.storyColumn)}>
-            <div className={clsx(storyStyles.storyItem)}>
+        <section className="storyColumn">
+            <div className="storyItem">
                 <Typography variant="heading">Before</Typography>
                 <Separator
                     variant="vertical"
@@ -52,7 +51,7 @@ storiesOf('Components/Separator', module)
                 <Typography variant="heading">After</Typography>
             </div>
             <Separator variant="horizontal"/>
-            <div className={clsx(storyStyles.storyItem)}>
+            <div className="storyItem">
                 <Typography variant="heading">Before</Typography>
                 <Separator
                     variant="vertical"
@@ -62,7 +61,7 @@ storiesOf('Components/Separator', module)
                 />
             </div>
             <Separator variant="horizontal"/>
-            <div className={clsx(storyStyles.storyItem)}>
+            <div className="storyItem">
                 <Separator
                     variant="vertical"
                     size="full"
@@ -72,7 +71,7 @@ storiesOf('Components/Separator', module)
                 <Typography variant="heading">After</Typography>
             </div>
             <Separator variant="horizontal"/>
-            <div className={clsx(storyStyles.storyItem)}>
+            <div className="storyItem">
                 <Separator
                     variant="vertical"
                     size="full"

@@ -3,21 +3,21 @@ import {storiesOf} from '@storybook/react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
-import styles from './spacings.stories.module.scss';
-import storyStyles from '~/__storybook__/storybook.module.scss';
+import './spacings.stories.scss';
+import '~/__storybook__/storybook.scss';
 
 export const Spacing = ({name}) => {
     return (
-        <div className={clsx(storyStyles.storyItem)}>
+        <div className="storyItem">
             <p>{name}</p>
-            <div className={clsx(styles[`spacing-${name}`])}/>
+            <div className={clsx([`spacing-${name}`])}/>
         </div>
     );
 };
 
 storiesOf('Tokens/Spacings', module)
     .add('Default', () => (
-        <section className={clsx(storyStyles.storyWrapper)}>
+        <section className="storyWrapper">
             <Spacing name="nano"/>
             <Spacing name="small"/>
             <Spacing name="medium"/>

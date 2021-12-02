@@ -1,5 +1,4 @@
 import React from 'react';
-import clsx from 'clsx';
 import {storiesOf} from '@storybook/react';
 import {boolean, select, text, withKnobs} from '@storybook/addon-knobs';
 
@@ -14,7 +13,7 @@ import FileContentIcon from '~/icons/FileContent';
 import LockIcon from '~/icons/Lock';
 import NoCloudIcon from '~/icons/NoCloud';
 import WarningIcon from '~/icons/Warning';
-import storyStyles from '~/__storybook__/storybook.module.scss';
+import '~/__storybook__/storybook.scss';
 
 const labelValue = (defaultValue = 'Chip') => text('Label', defaultValue);
 const colorValues = () => select('Color', colors, 'default');
@@ -26,20 +25,20 @@ storiesOf('Components/Chip', module)
     })
     .addDecorator(withKnobs)
     .addDecorator(storyFn => (
-        <section className={clsx(storyStyles.storyWrapper)}>
-            <section className={clsx(storyStyles.storyColumn)}>
+        <section className="storyWrapper">
+            <section className="storyColumn">
                 {storyFn()}
             </section>
         </section>
     ))
     .add('icon + text', () => (
         <section style={{display: 'flex', flexDirection: 'flow'}}>
-            <section className={clsx(storyStyles.storyColumn)}>
+            <section className="storyColumn">
                 {colors.map(color => (
                     <Chip key={color} label={capitalize(color)} icon={<DefaultIcon/>} color={color}/>
                 ))}
             </section>
-            <section className={clsx(storyStyles.storyColumn)}>
+            <section className="storyColumn">
                 {colors.map(color => (
                     <Chip key={color} isDisabled label={capitalize(color)} icon={<DefaultIcon/>} color={color}/>
                 ))}

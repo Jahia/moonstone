@@ -4,7 +4,7 @@ import {ImgWrapper} from './ImgWrapper';
 import {imgWrapperSizes} from './ImgWrapper.types';
 import markdownNotes from './ImgWrapper.md';
 import {select, text, withKnobs} from '@storybook/addon-knobs';
-import storyStyles from '~/__storybook__/storybook.module.scss';
+import '~/__storybook__/storybook.scss';
 
 const sizeValues = () => select('Size', imgWrapperSizes, 'default');
 const urlValue = () => text('URL to an image', 'https://www.jahia.com/modules/jahiacom-templates/images/favicon/favicon.ico');
@@ -17,8 +17,8 @@ storiesOf('Utilities/ImgWrapper', module)
     })
     .addDecorator(withKnobs)
     .addDecorator(storyFn => (
-        <section className={storyStyles.storyWrapper}>
-            <section className={storyStyles.storyColumn}>
+        <section className="storyWrapper">
+            <section className="storyColumn">
                 {storyFn()}
             </section>
         </section>

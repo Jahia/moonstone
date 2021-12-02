@@ -2,10 +2,11 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import styles from './colors.stories.module.scss';
-import storyStyles from '~/__storybook__/storybook.module.scss';
+import './colors.stories.scss';
+import '~/__storybook__/storybook.scss';
 
-const paletteNeutral = ['light',
+const paletteNeutral = [
+    'light',
     'light60',
     'light40',
     'gray_light',
@@ -16,7 +17,9 @@ const paletteNeutral = ['light',
     'gray40',
     'gray_dark',
     'gray_dark60',
-    'gray_dark40'];
+    'gray_dark40'
+];
+
 const paletteAccent = [
     'accent_dark_contrast',
     'accent_dark',
@@ -29,6 +32,7 @@ const paletteAccent = [
     'accent_light40',
     'accent_light60'
 ];
+
 const paletteSupport = [
     'success',
     'success40',
@@ -50,9 +54,9 @@ const paletteColors = [
 
 export const Color = ({color, name}) => {
     return (
-        <div className={clsx(storyStyles.storyItem)}>
+        <div className="storyItem">
             <p>{name}</p>
-            <div className={clsx(styles.colorShape, styles[`color-${color}`])}/>
+            <div className={clsx('colorShape', [`color-${color}`])}/>
         </div>
     );
 };
@@ -71,22 +75,22 @@ function displayColors(palette) {
 
 storiesOf('Tokens/Colors', module)
     .add('Accent', () => (
-        <section className={clsx(storyStyles.storyWrapper)}>
+        <section className="storyWrapper">
             {displayColors(paletteAccent)}
         </section>
     ))
     .add('Neutral', () => (
-        <section className={clsx(storyStyles.storyWrapper)}>
+        <section className="storyWrapper">
             {displayColors(paletteNeutral)}
         </section>
     ))
     .add('Support', () => (
-        <section className={clsx(storyStyles.storyWrapper)}>
+        <section className="storyWrapper">
             {displayColors(paletteSupport)}
         </section>
     ))
     .add('Palette', () => (
-        <section className={clsx(storyStyles.storyWrapper)}>
+        <section className="storyWrapper">
             {displayColors(paletteColors)}
         </section>
     ));
