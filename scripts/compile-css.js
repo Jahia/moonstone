@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const fx = require('mkdir-recursive');
 const sass = require('sass');
+const postcss = require('postcss');
 const postcssPresetEnv = require('postcss-preset-env');
 
 const includeScssFile = file => (
@@ -38,8 +39,9 @@ scssFiles
             fx.mkdirSync(folder);
         }
 
-        postcssPresetEnv.process(preCss.css)
-            .then(postCss => {
-                fs.writeFileSync(target, postCss.css);
-            });
+        postcss([
+            postcssPresetEnv()
+        ]).process(preCss.css).then(postCss => {
+            fs.writeFileSync(target, postCss.css);
+        });
     });

@@ -3,20 +3,17 @@ import {shallow} from 'component-test-utils-react';
 import {ControlledTreeView} from './ControlledTreeView';
 import {UncontrolledTreeView} from './UncontrolledTreeView';
 import {TreeView} from './TreeView';
-import Love from '~/icons/Love';
-import Cloud from '~/icons/Cloud';
-import ChevronDown from '~/icons/ChevronDown';
-import ChevronRight from '~/icons/ChevronRight';
+import {Love, Cloud} from '~/icons';
 import {toIconComponent} from '~/icons';
 
 const tree = [
     {
         id: 'A',
         label: 'A level1',
-        iconStart: toIconComponent('https://image.flaticon.com/icons/svg/1973/1973617'),
+        iconStart: toIconComponent('http://www.google.com/s2/favicons?domain=www.jahia.com'),
         iconEnd: <Cloud/>,
         children: [
-            {id: 'A1', label: 'A-1 level2', icon: <Love/>}
+            {id: 'A1', label: 'A-1 level2', iconStart: <Love/>}
         ]
     }
 ];
@@ -51,13 +48,13 @@ describe('TreeView', () => {
     it('should display ChevronRight when node is closed', () => {
         const wrapper = shallow(<ControlledTreeView data={tree}/>);
 
-        expect(wrapper.html()).toContain(<ChevronRight/>);
+        expect(wrapper.html()).toContain('ChevronRight');
     });
 
     it('should display ChevronDown when node is opened', () => {
         const wrapper = shallow(<ControlledTreeView data={tree} openedItems={['A']}/>);
 
-        expect(wrapper.html()).toContain(<ChevronDown/>);
+        expect(wrapper.html()).toContain('ChevronDown');
     });
 
     it('should open a node by clicking on arrow icon', () => {
@@ -80,10 +77,10 @@ describe('TreeView', () => {
 
     it('should display icon provide by moonstone', () => {
         const wrapper = shallow(
-            <ControlledTreeView data={tree}/>
+            <ControlledTreeView data={tree} openedItems={['A']}/>
         );
 
-        expect(wrapper.html()).toContain(<Love/>);
+        expect(wrapper.html()).toContain('SvgLove');
     });
 
     it('should display end icon of treeView_item', () => {
@@ -91,7 +88,7 @@ describe('TreeView', () => {
             <ControlledTreeView data={tree}/>
         );
 
-        expect(wrapper.html()).toContain(<Cloud/>);
+        expect(wrapper.html()).toContain('SvgCloud');
     });
 
     it('should display loading icon if node is loading', () => {

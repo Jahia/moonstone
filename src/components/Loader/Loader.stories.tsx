@@ -8,7 +8,7 @@ export default {
     component: LoaderCmp,
     parameters: {
         knobs: {
-            disabled: true
+            disable: true
         }
     },
 };
