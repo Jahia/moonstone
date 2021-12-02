@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $pi: 3.14159;
 $loader-sizes: (
     "small": 14px,
@@ -30,7 +32,7 @@ $loader-sizes: (
 
 @each $sizeName, $sizeValue in $loader-sizes {
     $radius: $sizeValue * 0.4;
-    $const: $radius / $pi;
+    $const: math.div($radius, $pi);
     $circumference: 2 * $pi * $radius;
 
     // stylelint-disable-next-line order/order
@@ -41,8 +43,8 @@ $loader-sizes: (
         }
 
         50% {
-            stroke-dasharray: $circumference / 2;
-            stroke-dashoffset: $circumference / 2;
+            stroke-dasharray: math.div($circumference, 2);
+            stroke-dashoffset: math.div($circumference, 2);
         }
 
         100% {

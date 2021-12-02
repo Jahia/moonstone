@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import clsx from 'clsx';
 import './Dropdown.scss';
-import spacings from '~/tokens/spacings/spacing.json';
+// import spacings from '~/tokens/spacings/spacing.json';
 
 import {
     DropdownProps,
@@ -48,7 +48,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     let menuMaxHeight;
 
     const anchorPosition = {
-        top: parseInt(spacings.spacingNano, 10),
+        top: 4,
         left: 0
     };
 

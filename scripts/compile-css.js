@@ -2,8 +2,7 @@ const glob = require('glob');
 const fs = require('fs');
 const path = require('path');
 const fx = require('mkdir-recursive');
-const sass = require('node-sass');
-const jsonImporter = require('node-sass-json-importer');
+const sass = require('sass');
 const postcssPresetEnv = require('postcss-preset-env');
 
 const includeScssFile = file => (
@@ -27,10 +26,7 @@ scssFiles
         console.log('SCSS -> PostCSS -> CSS:', file);
 
         const preCss = sass.renderSync({
-            file: 'src/' + file,
-            importer: jsonImporter({
-                convertCase: true
-            })
+            file: 'src/' + file
         });
 
         const outputFile = (file.substring(file.lastIndexOf('.'), -1) || file) + '.css';
