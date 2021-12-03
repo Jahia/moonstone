@@ -1,7 +1,7 @@
 import * as React from 'react';
-type TIconSize = 'small' | 'default' | 'big';
-interface IIconProps extends React.SVGProps<SVGSVGElement> {
-  size?: TIconSize;
+import { SVGProps } from 'react';
+interface IconProps extends SVGProps<SVGSVGElement> {
+  size?: 'small' | 'default' | 'big';
   className?: string;
 }
 
@@ -9,7 +9,7 @@ const SvgViewQuilt = ({
   size = 'default',
   className = '',
   ...otherProps
-}: IIconProps) => {
+}: IconProps) => {
   const props = Object.assign(
     {},
     {
@@ -26,7 +26,7 @@ const SvgViewQuilt = ({
       fill="currentColor"
       {...props}
     >
-      <path d="M10 19h5v-6h-5v6zm-6 0h5V6H4v13zm12 0h5v-6h-5v6zM10 6v6h11V6H10z" />
+      <path d="M10 19H15V13H10V19ZM4 19H9V6H4V19ZM16 19H21V13H16V19ZM10 6V12H21V6H10Z" />
     </svg>
   );
 };

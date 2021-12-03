@@ -1,7 +1,7 @@
 import * as React from 'react';
-type TIconSize = 'small' | 'default' | 'big';
-interface IIconProps extends React.SVGProps<SVGSVGElement> {
-  size?: TIconSize;
+import { SVGProps } from 'react';
+interface IconProps extends SVGProps<SVGSVGElement> {
+  size?: 'small' | 'default' | 'big';
   className?: string;
 }
 
@@ -9,7 +9,7 @@ const SvgNoCloud = ({
   size = 'default',
   className = '',
   ...otherProps
-}: IIconProps) => {
+}: IconProps) => {
   const props = Object.assign(
     {},
     {
@@ -26,16 +26,16 @@ const SvgNoCloud = ({
       fill="currentColor"
       {...props}
     >
-      <g clipPath="url(#NoCloud_svg__clip0)">
+      <g clipPath="url(#clip0)">
         <path
           fillRule="evenodd"
           clipRule="evenodd"
-          d="M19.35 10.04A7.49 7.49 0 0012 4c-1.48 0-2.85.43-4.01 1.17l1.46 1.46a5.497 5.497 0 018.05 4.87v.5H19c1.66 0 3 1.34 3 3 0 1.13-.64 2.11-1.56 2.62l1.45 1.45C23.16 18.16 24 16.68 24 15c0-2.64-2.05-4.78-4.65-4.96zM3 5.27l2.75 2.74C2.56 8.15 0 10.77 0 14c0 3.31 2.69 6 6 6h11.73l2 2L21 20.73 4.27 4 3 5.27zM7.73 10l8 8H6c-2.21 0-4-1.79-4-4s1.79-4 4-4h1.73z"
+          d="M19.3501 10.04C18.6701 6.59 15.6401 4 12.0001 4C10.5201 4 9.15015 4.43 7.99016 5.17L9.45015 6.63C10.2101 6.23 11.0801 6 12.0001 6C15.0401 6 17.5001 8.46 17.5001 11.5V12H19.0001C20.66 12 22 13.34 22 15C22 16.13 21.36 17.11 20.44 17.62L21.89 19.07C23.16 18.16 24 16.68 24 15C24 12.36 21.95 10.22 19.3501 10.04ZM2.99997 5.27L5.74994 8.01C2.55997 8.15 0 10.77 0 14C0 17.31 2.68997 20 5.99994 20H17.7298L19.7298 22L20.9998 20.73L4.26996 4L2.99997 5.27ZM7.72998 10L15.7299 18H6C3.79002 18 2.00004 16.21 2.00004 14C2.00004 11.79 3.79002 10 6 10H7.72998Z"
         />
       </g>
       <defs>
-        <clipPath id="NoCloud_svg__clip0">
-          <path d="M0 0h24v24H0V0z" />
+        <clipPath id="clip0">
+          <path d="M0 0H24V24H0V0Z" />
         </clipPath>
       </defs>
     </svg>

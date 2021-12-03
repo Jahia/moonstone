@@ -1,7 +1,7 @@
 import * as React from 'react';
-type TIconSize = 'small' | 'default' | 'big';
-interface IIconProps extends React.SVGProps<SVGSVGElement> {
-  size?: TIconSize;
+import { SVGProps } from 'react';
+interface IconProps extends SVGProps<SVGSVGElement> {
+  size?: 'small' | 'default' | 'big';
   className?: string;
 }
 
@@ -9,7 +9,7 @@ const SvgFileCompresed = ({
   size = 'default',
   className = '',
   ...otherProps
-}: IIconProps) => {
+}: IconProps) => {
   const props = Object.assign(
     {},
     {
@@ -29,9 +29,9 @@ const SvgFileCompresed = ({
       <path
         fillRule="evenodd"
         clipRule="evenodd"
-        d="M4.01 4c0-1.1.89-2 1.99-2v2h2v2H6v2h2v2H6v2h2v2H6v5h4v-7H8v-2h2V8H8V6h2V4H8V2h6l6 6v12c0 1.1-.9 2-2 2H5.99C4.89 22 4 21.1 4 20l.01-16zM13 3.5V9h5.5L13 3.5z"
+        d="M4.01 4C4.01 2.9 4.9 2 6 2V4H8V6H6V8H8V10H6V12H8V14H6V19H10V12H8V10H10V8H8V6H10V4H8V2H14L20 8V20C20 21.1 19.1 22 18 22H5.99C4.89 22 4 21.1 4 20L4.01 4ZM13 3.5V9H18.5L13 3.5Z"
       />
-      <path d="M7 17v1h2v-1H7z" />
+      <path d="M7 17V18H9V17H7Z" />
     </svg>
   );
 };

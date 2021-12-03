@@ -1,7 +1,7 @@
 import * as React from 'react';
-type TIconSize = 'small' | 'default' | 'big';
-interface IIconProps extends React.SVGProps<SVGSVGElement> {
-  size?: TIconSize;
+import { SVGProps } from 'react';
+interface IconProps extends SVGProps<SVGSVGElement> {
+  size?: 'small' | 'default' | 'big';
   className?: string;
 }
 
@@ -9,7 +9,7 @@ const SvgChevronBigLeft = ({
   size = 'default',
   className = '',
   ...otherProps
-}: IIconProps) => {
+}: IconProps) => {
   const props = Object.assign(
     {},
     {
@@ -26,7 +26,7 @@ const SvgChevronBigLeft = ({
       fill="currentColor"
       {...props}
     >
-      <path d="M17.001 3.788L15.181 2 5 12l10.18 10L17 20.212 8.641 12l8.36-8.212z" />
+      <path d="M17.001 3.78788L15.1809 2L5.00098 12L15.1809 22L17.001 20.2121L8.64108 12L17.001 3.78788Z" />
     </svg>
   );
 };

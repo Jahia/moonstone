@@ -1,15 +1,29 @@
 {
-  "icon": true,
   "dimensions": false,
   "typescript": true,
+  "outDir": "src/icons",
   "prettierConfig": {
     "singleQuote": true,
     "trailingComma": "none"
   },
   "svgoConfig": {
     "plugins": [
-      { "removeAttrs": {"attrs": "fill"} },
-      { "addAttributesToSVGElement": {"attribute": {"fill": "currentColor"}}}
+      {
+        "name": "removeAttrs",
+        "params": {
+          "attrs": "fill"
+        }
+      },
+      { "name": "addAttributesToSVGElement",
+        "params": {
+          "attribute": {
+            "fill": "currentColor"
+            }
+          }
+      },
+      {
+        "name": "removeDimensions"
+      }
     ]
   }
 }

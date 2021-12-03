@@ -1,7 +1,7 @@
 import * as React from 'react';
-type TIconSize = 'small' | 'default' | 'big';
-interface IIconProps extends React.SVGProps<SVGSVGElement> {
-  size?: TIconSize;
+import { SVGProps } from 'react';
+interface IconProps extends SVGProps<SVGSVGElement> {
+  size?: 'small' | 'default' | 'big';
   className?: string;
 }
 
@@ -9,7 +9,7 @@ const SvgWebPage = ({
   size = 'default',
   className = '',
   ...otherProps
-}: IIconProps) => {
+}: IconProps) => {
   const props = Object.assign(
     {},
     {
@@ -26,7 +26,7 @@ const SvgWebPage = ({
       fill="currentColor"
       {...props}
     >
-      <path d="M19.2 4H4.8c-.99 0-1.791.9-1.791 2L3 18c0 1.1.81 2 1.8 2h14.4c.99 0 1.8-.9 1.8-2V6c0-1.1-.81-2-1.8-2zM4.8 9h9.45v3.5H4.8V9zm0 5.5h9.45V18H5.7c-.495 0-.9-.45-.9-1v-2.5zM18.3 18h-2.25V9h3.15v8c0 .55-.405 1-.9 1z" />
+      <path d="M19.2 4H4.8C3.81 4 3.009 4.9 3.009 6L3 18C3 19.1 3.81 20 4.8 20H19.2C20.19 20 21 19.1 21 18V6C21 4.9 20.19 4 19.2 4ZM4.8 9H14.25V12.5H4.8V9ZM4.8 14.5H14.25V18H5.7C5.205 18 4.8 17.55 4.8 17V14.5ZM18.3 18H16.05V9H19.2V17C19.2 17.55 18.795 18 18.3 18Z" />
     </svg>
   );
 };

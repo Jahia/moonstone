@@ -1,7 +1,7 @@
 import * as React from 'react';
-type TIconSize = 'small' | 'default' | 'big';
-interface IIconProps extends React.SVGProps<SVGSVGElement> {
-  size?: TIconSize;
+import { SVGProps } from 'react';
+interface IconProps extends SVGProps<SVGSVGElement> {
+  size?: 'small' | 'default' | 'big';
   className?: string;
 }
 
@@ -9,7 +9,7 @@ const SvgGravel = ({
   size = 'default',
   className = '',
   ...otherProps
-}: IIconProps) => {
+}: IconProps) => {
   const props = Object.assign(
     {},
     {
@@ -29,7 +29,7 @@ const SvgGravel = ({
       <path
         fillRule="evenodd"
         clipRule="evenodd"
-        d="M1 21h12v2H1v-2zM5.245 8.07l2.83-2.828 14.14 14.142-2.828 2.828L5.245 8.07zM12.317 1l5.657 5.656-2.83 2.83-5.654-5.66L12.317 1zM3.826 9.484l5.657 5.657-2.828 2.828-5.657-5.657 2.828-2.828z"
+        d="M1 21H13V23H1V21ZM5.24512 8.06919L8.07512 5.24219L22.2151 19.3842L19.3871 22.2122L5.24512 8.06919ZM12.3172 1L17.9742 6.656L15.1442 9.486L9.49023 3.826L12.3172 1ZM3.82556 9.48438L9.48256 15.1414L6.65456 17.9694L0.997559 12.3124L3.82556 9.48438Z"
       />
     </svg>
   );

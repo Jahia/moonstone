@@ -1,7 +1,7 @@
 import * as React from 'react';
-type TIconSize = 'small' | 'default' | 'big';
-interface IIconProps extends React.SVGProps<SVGSVGElement> {
-  size?: TIconSize;
+import { SVGProps } from 'react';
+interface IconProps extends SVGProps<SVGSVGElement> {
+  size?: 'small' | 'default' | 'big';
   className?: string;
 }
 
@@ -9,7 +9,7 @@ const SvgWebProject = ({
   size = 'default',
   className = '',
   ...otherProps
-}: IIconProps) => {
+}: IconProps) => {
   const props = Object.assign(
     {},
     {
@@ -26,8 +26,8 @@ const SvgWebProject = ({
       fill="currentColor"
       {...props}
     >
-      <path d="M20.222 4H7.778C6.79 4 6 4.731 6 5.625v9.75C6 16.269 6.791 17 7.778 17h12.444C21.2 17 22 16.269 22 15.375v-9.75C22 4.731 21.209 4 20.222 4zm0 11.375H7.778V7.25h12.444v8.125z" />
-      <path d="M4 10.532c0-.294-.26-.532-.58-.532h-.84c-.32 0-.58.238-.58.532v9.936c0 .294.26.532.58.532h12.84c.32 0 .58-.238.58-.532v-.77c0-.293-.26-.531-.58-.531H4.58c-.32 0-.58-.239-.58-.533v-8.102z" />
+      <path d="M20.2222 4H7.77778C6.79111 4 6 4.73125 6 5.625V15.375C6 16.2688 6.79111 17 7.77778 17H20.2222C21.2 17 22 16.2688 22 15.375V5.625C22 4.73125 21.2089 4 20.2222 4ZM20.2222 15.375H7.77778V7.25H20.2222V15.375Z" />
+      <path d="M4 10.5323C4 10.2383 3.74004 10 3.41935 10H2.58065C2.25996 10 2 10.2383 2 10.5323V20.4677C2 20.7617 2.25996 21 2.58065 21H15.4194C15.74 21 16 20.7617 16 20.4677V19.6989C16 19.405 15.74 19.1667 15.4194 19.1667H4.58065C4.25996 19.1667 4 18.9284 4 18.6344V10.5323Z" />
     </svg>
   );
 };
