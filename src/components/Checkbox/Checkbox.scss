@@ -55,7 +55,7 @@ $checkbox-sizeBig: 20px;
     }
 
     // Only triggered when the input is focus with tab
-    &.hasFocus {
+    &:focus {
         border: 2px solid var(--color-accent_dark_contrast);
     }
 

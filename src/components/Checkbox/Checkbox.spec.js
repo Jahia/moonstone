@@ -32,12 +32,12 @@ describe('Checkbox', () => {
     });
 
     it('should initially be checked off when the defaultSelected prop is set', () => {
-        render(<Checkbox defaultSelected aria-label="checkbox"/>);
+        render(<Checkbox defaultChecked aria-label="checkbox"/>);
         expect(screen.getByRole('checkbox')).toBeChecked();
     });
 
     it('should have mixed state when specified with the isIndeterminate prop', () => {
-        render(<Checkbox isIndeterminate aria-label="checkbox"/>);
+        render(<Checkbox checked="mixed" aria-label="checkbox"/>);
         expect(screen.getByRole('checkbox')).toBePartiallyChecked();
     });
 
