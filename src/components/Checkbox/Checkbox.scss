@@ -47,7 +47,7 @@ $checkbox-sizeBig: 20px;
     box-shadow: inset 0 0 0 var(--shadow-size, 1px) var(--shadow-color, var(--color-gray));
     cursor: pointer;
 
-    transition: box-shadow 0.2s;
+    transition: box-shadow 0.1s;
 
     &:hover {
         --shadow-color: var(--color-gray60);
@@ -69,7 +69,7 @@ $checkbox-sizeBig: 20px;
         }
 
         & ~ .moonstone-checkbox_icon {
-            animation: checkboxBounce 0.4s linear forwards 0.2s;
+            animation: checkboxBounce 0.1s linear forwards 0.05s;
         }
     }
 
