@@ -20,15 +20,11 @@ export const DefaultControlled = Template.bind({});
 DefaultControlled.args = {
     'aria-label': 'default example checkbox',
 };
-DefaultControlled.storyName = 'Default and Controlled';
+DefaultControlled.storyName = 'Default and uncontrolled';
 
 export const Indeterminate = Template.bind({});
 Indeterminate.args = {
-    isIndeterminate: true,
+    indeterminate: true,
     'aria-label': 'indeterminate example checkbox'
 };
 
-export const Uncontrolled = Template.bind({});
-Uncontrolled.args = {
-    variant: 'uncontrolled'
-};
