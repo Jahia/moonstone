@@ -1,8 +1,6 @@
 import React from "react";
 import {InputProps} from "~/components/Input/Input.types";
 
-export type CheckboxState = boolean | 'mixed';
-
 export type CheckboxProps = {
     /**
      * Identifier added to the input element
@@ -12,12 +10,17 @@ export type CheckboxProps = {
     /**
      * Whether the checkbox should be checked (controlled)
      */
-    checked?: CheckboxState;
+    checked?: boolean;
+
+    /**
+     * Whether the checkbox should be indeterminate (controlled)
+     */
+    indeterminate?: boolean;
 
     /**
      * Whether the checkbox should be checked - default value (uncontrolled)
      */
-    defaultChecked?: CheckboxState
+    defaultChecked?: boolean;
 
     /**
      * The value of the input element, used when submitting an HTML form
@@ -52,7 +55,7 @@ export type CheckboxProps = {
     /**
      * Function triggered on change of the checkbox value
      */
-    onChange?: (previousState: CheckboxState) => void;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 
     /**
      * Function triggered on focus of the checkbox value

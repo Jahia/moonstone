@@ -9,8 +9,8 @@ export const UncontrolledCheckbox: React.FC<CheckboxProps> = ({defaultChecked = 
     return (
         <ControlledCheckbox {...props}
                             checked={checked}
-                            onChange={(previousChecked) => {
-                                setChecked(!previousChecked)
+                            onChange={event => {
+                                setChecked(event.target.checked)
                             }}
         />
     );

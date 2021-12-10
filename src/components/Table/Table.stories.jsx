@@ -146,8 +146,8 @@ export const SelectableRows = () => {
     const columns = React.useMemo(() => [
         {
             id: 'selection',
-            Header: header => <Checkbox isUncontrolled {...header.getToggleAllRowsSelectedProps()}/>,
-            Cell: cellInfo => <Checkbox isUncontrolled {...cellInfo.row.getToggleRowSelectedProps()}/>,
+            Header: header => <Checkbox {...header.getToggleAllRowsSelectedProps()}/>,
+            Cell: cellInfo => <Checkbox {...cellInfo.row.getToggleRowSelectedProps()}/>,
             customWidth: columnsWidth.selection
         },
         {
@@ -537,8 +537,8 @@ export const KitchenSinkFlat = () => {
         {
             id: 'selection',
             customWidth: columnsWidth.selection,
-            Header: header => <Checkbox isUncontrolled {...header.getToggleAllRowsSelectedProps()}/>,
-            Cell: cellInfo => <Checkbox isUncontrolled {...cellInfo.row.getToggleRowSelectedProps()}/>
+            Header: header => <Checkbox {...header.getToggleAllRowsSelectedProps()}/>,
+            Cell: cellInfo => <Checkbox {...cellInfo.row.getToggleRowSelectedProps()}/>
         },
         {Header: 'Name', id: 'name', accessor: row => row.name.value},
         {Header: 'Status', accessor: 'status', disableSortBy: true, customWidth: columnsWidth.status},
@@ -642,8 +642,8 @@ export const KitchenSinkNested = () => {
         {
             id: 'selection',
             customWidth: columnsWidth.selection,
-            Header: header => <Checkbox isUncontrolled {...header.getToggleAllRowsSelectedProps()}/>,
-            Cell: cellInfo => <Checkbox isUncontrolled {...cellInfo.row.getToggleRowSelectedProps()}/>
+            Header: header => <Checkbox {...header.getToggleAllRowsSelectedProps()}/>,
+            Cell: cellInfo => <Checkbox {...cellInfo.row.getToggleRowSelectedProps()}/>
         },
         {Header: 'Name', id: 'name', accessor: row => row.name.value},
         {Header: 'Status', accessor: 'status', disableSortBy: true, customWidth: columnsWidth.status},

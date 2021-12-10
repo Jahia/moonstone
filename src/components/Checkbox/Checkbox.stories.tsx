@@ -24,7 +24,7 @@ DefaultControlled.storyName = 'Default and uncontrolled';
 
 export const Indeterminate = Template.bind({});
 Indeterminate.args = {
-    checked: 'mixed',
+    indeterminate: true,
     'aria-label': 'indeterminate example checkbox'
 };
 
