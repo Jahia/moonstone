@@ -1,3 +1,26 @@
+# v2.0.0 (Fri Dec 10 2021)
+
+#### 💥 Breaking Change
+
+- MOON-293: Refactored checkbox component [#280](https://github.com/Jahia/moonstone/pull/280) ([@tdraier](https://github.com/tdraier))
+
+#### 🐛 Bug Fix
+
+- MOON-321: Add Controlled/Uncontrolled Input [#278](https://github.com/Jahia/moonstone/pull/278) ([@ffffffelix](https://github.com/ffffffelix) [@tdraier](https://github.com/tdraier))
+
+#### 🔩 Dependency Updates
+
+- Bump tmpl from 1.0.4 to 1.0.5 [#276](https://github.com/Jahia/moonstone/pull/276) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@tdraier](https://github.com/tdraier))
+- Bump tar from 6.0.5 to 6.1.11 [#277](https://github.com/Jahia/moonstone/pull/277) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v1.6.2 (Wed Nov 10 2021)
 
 #### 🐛 Bug Fix
