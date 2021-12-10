@@ -69,10 +69,10 @@ storiesOf('Components/Input', module)
         return (
             <section className={clsx(storyStyles.storyWrapper)}>
                 <Input
+                    isShowClearButton
                     value={value}
                     placeholder="this is a placeholder!"
                     icon={<IconWrapper iconName={select('Icon', iconsName, 'Love')}/>}
-                    onClear={() => setValue('')}
                     onChange={e => setValue(e.target.value)}
                 />
             </section>
@@ -84,6 +84,7 @@ storiesOf('Components/Input', module)
         return (
             <section className={clsx(storyStyles.storyWrapper)}>
                 <Input
+                    isShowClearButton
                     variant={variant()}
                     size={inputSize()}
                     icon={<IconWrapper iconName={selectIcon()}/>}
@@ -92,7 +93,6 @@ storiesOf('Components/Input', module)
                     focusOnField={isFocused()}
                     placeholder="a placeholder!"
                     value={value}
-                    onClear={() => setValue('')}
                     onChange={e => setValue(e.target.value)}
                     onBlur={() => {}}
                     onFocus={() => {}}
