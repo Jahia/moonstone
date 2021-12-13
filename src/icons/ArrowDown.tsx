@@ -1,7 +1,7 @@
 import * as React from 'react';
-type TIconSize = 'small' | 'default' | 'big';
-interface IIconProps extends React.SVGProps<SVGSVGElement> {
-  size?: TIconSize;
+import { SVGProps } from 'react';
+interface IconProps extends SVGProps<SVGSVGElement> {
+  size?: 'small' | 'default' | 'big';
   className?: string;
 }
 
@@ -9,7 +9,7 @@ const SvgArrowDown = ({
   size = 'default',
   className = '',
   ...otherProps
-}: IIconProps) => {
+}: IconProps) => {
   const props = Object.assign(
     {},
     {
@@ -26,7 +26,7 @@ const SvgArrowDown = ({
       fill="currentColor"
       {...props}
     >
-      <path d="M11 3v14.17l-3.59-3.58L6 15l6 6 6-6-1.41-1.41L13 17.17V3h-2z" />
+      <path d="M11 3L11 17.17L7.41 13.59L6 15L12 21L18 15L16.59 13.59L13 17.17L13 3L11 3Z" />
     </svg>
   );
 };

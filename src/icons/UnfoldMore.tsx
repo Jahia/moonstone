@@ -1,7 +1,7 @@
 import * as React from 'react';
-type TIconSize = 'small' | 'default' | 'big';
-interface IIconProps extends React.SVGProps<SVGSVGElement> {
-  size?: TIconSize;
+import { SVGProps } from 'react';
+interface IconProps extends SVGProps<SVGSVGElement> {
+  size?: 'small' | 'default' | 'big';
   className?: string;
 }
 
@@ -9,7 +9,7 @@ const SvgUnfoldMore = ({
   size = 'default',
   className = '',
   ...otherProps
-}: IIconProps) => {
+}: IconProps) => {
   const props = Object.assign(
     {},
     {
@@ -26,7 +26,7 @@ const SvgUnfoldMore = ({
       fill="currentColor"
       {...props}
     >
-      <path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15 12 18.17z" />
+      <path d="M11.9999 5.83L15.1699 9L16.5799 7.59L11.9999 3L7.40991 7.59L8.82991 9L11.9999 5.83ZM11.9999 18.17L8.82991 15L7.41991 16.41L11.9999 21L16.5899 16.41L15.1699 15L11.9999 18.17Z" />
     </svg>
   );
 };

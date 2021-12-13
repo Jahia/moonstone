@@ -1,7 +1,7 @@
 import * as React from 'react';
-type TIconSize = 'small' | 'default' | 'big';
-interface IIconProps extends React.SVGProps<SVGSVGElement> {
-  size?: TIconSize;
+import { SVGProps } from 'react';
+interface IconProps extends SVGProps<SVGSVGElement> {
+  size?: 'small' | 'default' | 'big';
   className?: string;
 }
 
@@ -9,7 +9,7 @@ const SvgViewTree = ({
   size = 'default',
   className = '',
   ...otherProps
-}: IIconProps) => {
+}: IconProps) => {
   const props = Object.assign(
     {},
     {
@@ -29,7 +29,7 @@ const SvgViewTree = ({
       <path
         fillRule="evenodd"
         clipRule="evenodd"
-        d="M7.75 9h-1.5V5h4v4h-1.5v2.5h5V10h4v4h-4v-1.5h-5v4h5V15h4v4h-4v-1.5h-6V9z"
+        d="M7.75 9H6.25V5H10.25V9H8.75V11.5L13.75 11.5V10H17.75V11.5V12.5V14H13.75V12.5L8.75 12.5V16.5H13.75V15H17.75V16.5V17.5V19H13.75V17.5H8.75H7.75V16.5V12.5V11.5V9Z"
       />
     </svg>
   );

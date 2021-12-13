@@ -1,7 +1,7 @@
 import * as React from 'react';
-type TIconSize = 'small' | 'default' | 'big';
-interface IIconProps extends React.SVGProps<SVGSVGElement> {
-  size?: TIconSize;
+import { SVGProps } from 'react';
+interface IconProps extends SVGProps<SVGSVGElement> {
+  size?: 'small' | 'default' | 'big';
   className?: string;
 }
 
@@ -9,7 +9,7 @@ const SvgFunnel = ({
   size = 'default',
   className = '',
   ...otherProps
-}: IIconProps) => {
+}: IconProps) => {
   const props = Object.assign(
     {},
     {
@@ -26,7 +26,7 @@ const SvgFunnel = ({
       fill="currentColor"
       {...props}
     >
-      <path d="M10.301 12.474L4.097 4.73C3.852 4.425 4.1 4 4.524 4h14.952c.425 0 .672.425.427.731l-6.204 7.743V18.2c0 .158-.09.305-.24.39l-2.353 1.336c-.348.198-.805-.024-.805-.39v-7.062z" />
+      <path d="M10.301 12.4736L4.0974 4.7312C3.85168 4.42454 4.09918 4 4.52367 4L19.4763 4C19.9008 4 20.1483 4.42454 19.9026 4.73121L13.699 12.4736V18.2002C13.699 18.358 13.6083 18.5049 13.4583 18.5901L11.1059 19.926C10.758 20.1236 10.301 19.9023 10.301 19.5361V12.4736Z" />
     </svg>
   );
 };

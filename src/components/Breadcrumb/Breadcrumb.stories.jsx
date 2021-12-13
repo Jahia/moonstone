@@ -2,8 +2,7 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {withKnobs, number, text} from '@storybook/addon-knobs';
 import {action} from '@storybook/addon-actions';
-import clsx from 'clsx';
-import storyStyles from '~/__storybook__/storybook.module.scss';
+import '~/__storybook__/storybook.scss';
 import markdownNotes from './Breadcrumb.md';
 
 import {Breadcrumb, BreadcrumbItem} from '~/components';
@@ -19,7 +18,7 @@ storiesOf('Components/Breadcrumb', module)
     })
     .addDecorator(withKnobs)
     .add('Default', () => (
-        <section className={clsx(storyStyles.storyWrapper)}>
+        <section className="storyWrapper">
             <Breadcrumb>
                 <BreadcrumbItem label={label()} onClick={action('onClick')}/>
                 <BreadcrumbItem label={label()} onClick={action('onClick')}/>
@@ -30,7 +29,7 @@ storiesOf('Components/Breadcrumb', module)
         </section>
     ))
     .add('Long labels', () => (
-        <section className={clsx(storyStyles.storyWrapper)}>
+        <section className="storyWrapper">
             <div style={{maxWidth: '100%'}}>
                 <Breadcrumb>
                     <BreadcrumbItem label="Very long long long long long long long long long long label 1" onClick={action('onClick')}/>
@@ -43,7 +42,7 @@ storiesOf('Components/Breadcrumb', module)
         </section>
     ))
     .add('With icons', () => (
-        <section className={clsx(storyStyles.storyWrapper)}>
+        <section className="storyWrapper">
             <Breadcrumb>
                 <BreadcrumbItem icon={<Love/>} label="item 1" onClick={action('onClick')}/>
                 <BreadcrumbItem icon={<Love/>} label="item 2" onClick={action('onClick')}/>
@@ -68,7 +67,7 @@ storiesOf('Components/Breadcrumb', module)
         };
 
         return (
-            <section className={clsx(storyStyles.storyWrapper)}>
+            <section className="storyWrapper">
                 <Breadcrumb>
                     {items(numberItems)}
                 </Breadcrumb>

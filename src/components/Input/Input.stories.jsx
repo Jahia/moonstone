@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import {storiesOf} from '@storybook/react';
 import {boolean, select, withKnobs} from '@storybook/addon-knobs';
-import clsx from 'clsx';
-import storyStyles from '~/__storybook__/storybook.module.scss';
+import '~/__storybook__/storybook.scss';
 
 import markdownNotes from './Input.md';
 import {Input} from './index';
@@ -27,7 +26,7 @@ storiesOf('Components/Input', module)
         const [value, setValue] = useState('this is the default!');
 
         return (
-            <section className={clsx(storyStyles.storyWrapper)}>
+            <section className="storyWrapper">
                 <Input
                     placeholder="a placeholder!"
                     value={value}
@@ -40,7 +39,7 @@ storiesOf('Components/Input', module)
     })
     .add('Uncontrolled', () => {
         return (
-            <section className={clsx(storyStyles.storyWrapper)}>
+            <section className="storyWrapper">
                 <Input
                     placeholder="a placeholder!"
                     defaultValue="default value"
@@ -53,7 +52,7 @@ storiesOf('Components/Input', module)
     })
     .add('Search', () => {
         return (
-            <section className={clsx(storyStyles.storyWrapper)}>
+            <section className="storyWrapper">
                 <Input
                     focusOnField
                     defaultValue="value"
@@ -67,7 +66,7 @@ storiesOf('Components/Input', module)
         const [value, setValue] = useState('this is the default!');
 
         return (
-            <section className={clsx(storyStyles.storyWrapper)}>
+            <section className="storyWrapper">
                 <Input
                     isShowClearButton
                     value={value}
@@ -82,7 +81,7 @@ storiesOf('Components/Input', module)
         const [value, setValue] = useState('this is the default!');
 
         return (
-            <section className={clsx(storyStyles.storyWrapper)}>
+            <section className="storyWrapper">
                 <Input
                     isShowClearButton
                     variant={variant()}

@@ -10,7 +10,7 @@ export default {
     component: IconTextIcon,
     parameters: {
         knobs: {
-            disabled: true
+            disable: true
         },
         storysource: {disable: true}
     },

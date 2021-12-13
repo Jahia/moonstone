@@ -6,7 +6,7 @@
 
 import React, {useEffect, useState} from 'react';
 import {useExpanded, useRowSelect, useSortBy, useTable} from 'react-table';
-import storyStyles from '~/__storybook__/storybook.module.scss';
+import '~/__storybook__/storybook.scss';
 
 import {
     Checkbox,
@@ -225,7 +225,7 @@ export const SelectableRows = () => {
 
             <section>
                 <pre>
-                    <code className={storyStyles.storyCode}>
+                    <code className="storyCode">
                         {JSON.stringify(
                             {
                                 selectedRowIds,

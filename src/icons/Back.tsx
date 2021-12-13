@@ -1,7 +1,7 @@
 import * as React from 'react';
-type TIconSize = 'small' | 'default' | 'big';
-interface IIconProps extends React.SVGProps<SVGSVGElement> {
-  size?: TIconSize;
+import { SVGProps } from 'react';
+interface IconProps extends SVGProps<SVGSVGElement> {
+  size?: 'small' | 'default' | 'big';
   className?: string;
 }
 
@@ -9,7 +9,7 @@ const SvgBack = ({
   size = 'default',
   className = '',
   ...otherProps
-}: IIconProps) => {
+}: IconProps) => {
   const props = Object.assign(
     {},
     {
@@ -29,7 +29,7 @@ const SvgBack = ({
       <path
         fillRule="evenodd"
         clipRule="evenodd"
-        d="M21 10.875H7.309l6.288-6.289L12 3l-9 9 9 9 1.586-1.586-6.277-6.289H21v-2.25z"
+        d="M21 10.875H7.30875L13.5975 4.58625L12 3L3 12L12 21L13.5863 19.4137L7.30875 13.125H21V10.875Z"
       />
     </svg>
   );

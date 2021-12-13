@@ -1,7 +1,7 @@
 import * as React from 'react';
-type TIconSize = 'small' | 'default' | 'big';
-interface IIconProps extends React.SVGProps<SVGSVGElement> {
-  size?: TIconSize;
+import { SVGProps } from 'react';
+interface IconProps extends SVGProps<SVGSVGElement> {
+  size?: 'small' | 'default' | 'big';
   className?: string;
 }
 
@@ -9,7 +9,7 @@ const SvgNotificationsActive = ({
   size = 'default',
   className = '',
   ...otherProps
-}: IIconProps) => {
+}: IconProps) => {
   const props = Object.assign(
     {},
     {
@@ -26,7 +26,7 @@ const SvgNotificationsActive = ({
       fill="currentColor"
       {...props}
     >
-      <path d="M7.58 4.08L6.15 2.65C3.75 4.48 2.17 7.3 2.03 10.5h2a8.445 8.445 0 013.55-6.42zm12.39 6.42h2c-.15-3.2-1.73-6.02-4.12-7.85l-1.42 1.43a8.495 8.495 0 013.54 6.42zM18 11c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2v-5zm-6 11c.14 0 .27-.01.4-.04.65-.14 1.18-.58 1.44-1.18.1-.24.15-.5.15-.78h-4c.01 1.1.9 2 2.01 2z" />
+      <path d="M7.58003 4.08L6.15003 2.65C3.75003 4.48 2.17003 7.3 2.03003 10.5H4.03003C4.18003 7.85 5.54003 5.53 7.58003 4.08ZM19.97 10.5H21.97C21.82 7.3 20.24 4.48 17.85 2.65L16.43 4.08C18.45 5.53 19.82 7.85 19.97 10.5ZM18 11C18 7.93 16.36 5.36 13.5 4.68V4C13.5 3.17 12.83 2.5 12 2.5C11.17 2.5 10.5 3.17 10.5 4V4.68C7.63003 5.36 6.00003 7.92 6.00003 11V16L4.00003 18V19H20V18L18 16V11ZM12 22C12.14 22 12.27 21.99 12.4 21.96C13.05 21.82 13.58 21.38 13.84 20.78C13.94 20.54 13.99 20.28 13.99 20H9.99003C10 21.1 10.89 22 12 22Z" />
     </svg>
   );
 };

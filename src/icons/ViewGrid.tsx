@@ -1,7 +1,7 @@
 import * as React from 'react';
-type TIconSize = 'small' | 'default' | 'big';
-interface IIconProps extends React.SVGProps<SVGSVGElement> {
-  size?: TIconSize;
+import { SVGProps } from 'react';
+interface IconProps extends SVGProps<SVGSVGElement> {
+  size?: 'small' | 'default' | 'big';
   className?: string;
 }
 
@@ -9,7 +9,7 @@ const SvgViewGrid = ({
   size = 'default',
   className = '',
   ...otherProps
-}: IIconProps) => {
+}: IconProps) => {
   const props = Object.assign(
     {},
     {
@@ -26,7 +26,7 @@ const SvgViewGrid = ({
       fill="currentColor"
       {...props}
     >
-      <path d="M4 12h5V6H4v6zm0 7h5v-6H4v6zm6 0h5v-6h-5v6zm6 0h5v-6h-5v6zm-6-7h5V6h-5v6zm6-6v6h5V6h-5z" />
+      <path d="M4 12H9V6H4V12ZM4 19H9V13H4V19ZM10 19H15V13H10V19ZM16 19H21V13H16V19ZM10 12H15V6H10V12ZM16 6V12H21V6H16Z" />
     </svg>
   );
 };

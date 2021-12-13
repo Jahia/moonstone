@@ -1,7 +1,7 @@
 import * as React from 'react';
-type TIconSize = 'small' | 'default' | 'big';
-interface IIconProps extends React.SVGProps<SVGSVGElement> {
-  size?: TIconSize;
+import { SVGProps } from 'react';
+interface IconProps extends SVGProps<SVGSVGElement> {
+  size?: 'small' | 'default' | 'big';
   className?: string;
 }
 
@@ -9,7 +9,7 @@ const SvgWorkflow = ({
   size = 'default',
   className = '',
   ...otherProps
-}: IIconProps) => {
+}: IconProps) => {
   const props = Object.assign(
     {},
     {
@@ -26,7 +26,7 @@ const SvgWorkflow = ({
       fill="currentColor"
       {...props}
     >
-      <path d="M4 19h6v-2H4v2zM20 5H4v2h16V5zm-3 6H4v2h13.25c1.1 0 2 .9 2 2s-.9 2-2 2H15v-2l-3 3 3 3v-2h2c2.21 0 4-1.79 4-4s-1.79-4-4-4z" />
+      <path d="M4 19H10V17H4V19ZM20 5H4V7H20V5ZM17 11H4V13H17.25C18.35 13 19.25 13.9 19.25 15C19.25 16.1 18.35 17 17.25 17H15V15L12 18L15 21V19H17C19.21 19 21 17.21 21 15C21 12.79 19.21 11 17 11Z" />
     </svg>
   );
 };

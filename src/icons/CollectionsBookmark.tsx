@@ -1,7 +1,7 @@
 import * as React from 'react';
-type TIconSize = 'small' | 'default' | 'big';
-interface IIconProps extends React.SVGProps<SVGSVGElement> {
-  size?: TIconSize;
+import { SVGProps } from 'react';
+interface IconProps extends SVGProps<SVGSVGElement> {
+  size?: 'small' | 'default' | 'big';
   className?: string;
 }
 
@@ -9,7 +9,7 @@ const SvgCollectionsBookmark = ({
   size = 'default',
   className = '',
   ...otherProps
-}: IIconProps) => {
+}: IconProps) => {
   const props = Object.assign(
     {},
     {
@@ -29,9 +29,9 @@ const SvgCollectionsBookmark = ({
       <path
         fillRule="evenodd"
         clipRule="evenodd"
-        d="M8 2h12c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H8c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2zm9.5 8.5L20 12V4h-5v8l2.5-1.5z"
+        d="M8 2H20C21.1 2 22 2.9 22 4V16C22 17.1 21.1 18 20 18H8C6.9 18 6 17.1 6 16V4C6 2.9 6.9 2 8 2ZM17.5 10.5L20 12V4H15V12L17.5 10.5Z"
       />
-      <path d="M2 6h2v14h14v2H4c-1.1 0-2-.9-2-2V6z" />
+      <path d="M2 6H4V20H18V22H4C2.9 22 2 21.1 2 20V6Z" />
     </svg>
   );
 };

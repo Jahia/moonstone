@@ -1,7 +1,7 @@
 import * as React from 'react';
-type TIconSize = 'small' | 'default' | 'big';
-interface IIconProps extends React.SVGProps<SVGSVGElement> {
-  size?: TIconSize;
+import { SVGProps } from 'react';
+interface IconProps extends SVGProps<SVGSVGElement> {
+  size?: 'small' | 'default' | 'big';
   className?: string;
 }
 
@@ -9,7 +9,7 @@ const SvgTask = ({
   size = 'default',
   className = '',
   ...otherProps
-}: IIconProps) => {
+}: IconProps) => {
   const props = Object.assign(
     {},
     {
@@ -29,7 +29,7 @@ const SvgTask = ({
       <path
         fillRule="evenodd"
         clipRule="evenodd"
-        d="M18.4 4.8h-3.762C14.26 3.756 13.27 3 12.1 3c-1.17 0-2.16.756-2.538 1.8H5.8c-.99 0-1.8.81-1.8 1.8v12.6c0 .99.81 1.8 1.8 1.8h12.6c.99 0 1.8-.81 1.8-1.8V6.6c0-.99-.81-1.8-1.8-1.8zm-6.3 0c.495 0 .9.405.9.9s-.405.9-.9.9a.903.903 0 01-.9-.9c0-.495.405-.9.9-.9zm1.8 12.6H7.6v-1.8h6.3v1.8zm2.7-3.6h-9V12h9v1.8zm0-3.6h-9V8.4h9v1.8z"
+        d="M18.4 4.8H14.638C14.26 3.756 13.27 3 12.1 3C10.93 3 9.94 3.756 9.562 4.8H5.8C4.81 4.8 4 5.61 4 6.6V19.2C4 20.19 4.81 21 5.8 21H18.4C19.39 21 20.2 20.19 20.2 19.2V6.6C20.2 5.61 19.39 4.8 18.4 4.8ZM12.1 4.8C12.595 4.8 13 5.205 13 5.7C13 6.195 12.595 6.6 12.1 6.6C11.605 6.6 11.2 6.195 11.2 5.7C11.2 5.205 11.605 4.8 12.1 4.8ZM13.9 17.4H7.6V15.6H13.9V17.4ZM16.6 13.8H7.6V12H16.6V13.8ZM16.6 10.2H7.6V8.4H16.6V10.2Z"
       />
     </svg>
   );
