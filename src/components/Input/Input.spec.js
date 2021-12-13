@@ -1,75 +1,125 @@
 import React from 'react';
-import {shallow} from 'component-test-utils-react';
+import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import {Input} from './index';
 import {Love} from '~/icons';
 
 describe('Input', () => {
     it('should render', () => {
-        const container = shallow(<Input onChange={() => 'test!'}/>);
-        expect(container.html()).toEqual(
-            '<div class="moonstone-input">' +
-            '<input class="moonstone-input-element" type="text" value="" id="undefined" placeholder="undefined" disabled="false" readOnly="false" onChange="[onChange]" onBlur="undefined" onFocus="undefined"/>' +
-            '</div>'
-        );
+        render(<Input data-testid="moonstone-input"/>);
+        expect(screen.getByTestId('moonstone-input')).toBeInTheDocument();
+    });
+
+    it('should display additional className', () => {
+        const {container} = render(<Input className="test-class"/>);
+        expect(container.querySelector('.test-class')).toBeInTheDocument();
+    });
+
+    it('should display additional attributes', () => {
+        const {container} = render(<Input data-test="test"/>);
+        expect(container.querySelector('[data-test="test"]')).toBeInTheDocument();
     });
 
     it('should have specified id', () => {
-        const id = 'test-id';
-        const input = shallow(<Input id={id}/>);
-        expect(input.html()).toContain(id);
-    });
-
-    it('should have specified value', () => {
-        const value = 'test value';
-        const input = shallow(<Input value={value}/>);
-        expect(input.html()).toContain(value);
+        const {container} = render(<Input id="test-id"/>);
+        expect(container.querySelector('#test-id')).toBeInTheDocument();
     });
 
     it('should have specified placeholder', () => {
-        const placeholder = 'test placeholder';
-        const input = shallow(<Input placeholder={placeholder}/>);
-        expect(input.html()).toContain(placeholder);
+        render(<Input placeholder="test-placeholder"/>);
+        expect(screen.getByPlaceholderText('test-placeholder')).toBeInTheDocument();
     });
 
     it('should display size class for big input', () => {
-        const input = shallow(<Input size="big"/>);
-        expect(input.querySelector('.moonstone-size_big').exists()).toBeTruthy();
-    });
-
-    it('should have an extra css class', () => {
-        const className = 'test-class';
-        const input = shallow(<Input className={className}/>);
-        expect(input.querySelector(`.${className}`).exists()).toBeTruthy();
+        const {container} = render(<Input size="big"/>);
+        expect(container.querySelector('.moonstone-size_big')).toBeInTheDocument();
     });
 
     it('should be disabled', () => {
-        const input = shallow(<Input isDisabled/>);
-        expect(input.html().indexOf('disabled') !== -1).toBeTruthy();
+        render(<Input isDisabled data-testid="moonstone-input"/>);
+        expect(screen.getByTestId('moonstone-input')).toBeDisabled();
     });
 
     it('should be read only', () => {
-        const input = shallow(<Input isReadOnly/>);
-        expect(input.html().indexOf('readOnly') !== -1).toBeTruthy();
+        render(<Input isReadOnly data-testid="moonstone-input"/>);
+        expect(screen.getByTestId('moonstone-input')).toHaveAttribute('readonly');
     });
 
     it('should display the specified icon', () => {
-        const icon = <Love/>;
-        const input = shallow(<Input icon={icon}/>);
-        expect(input.querySelector('SvgLove').exists()).toBeTruthy();
-    });
-
-    it('should display the cancel icon when the input is filled', () => {
-        const input = shallow(<Input value="testing" onClear={() => ''}/>);
-        expect(input.querySelector('SvgCancel').exists()).toBeTruthy();
-    });
-
-    it('should not display the cancel icon when the input is empty', () => {
-        const input = shallow(<Input onClear={() => ''}/>);
-        expect(input.querySelector('SvgCancel').exists()).toBeFalsy();
+        render(<Input icon={<Love data-testid="test-icon"/>}/>);
+        expect(screen.getByTestId('test-icon')).toBeInTheDocument();
     });
 
     it('should display the search variant', () => {
-        const input = shallow(<Input variant="search"/>);
-        expect(input.querySelector('SvgSearch').exists()).toBeTruthy();
+        render(<Input variant="search"/>);
+        expect(screen.getByRole('search')).toBeInTheDocument();
+    });
+
+    it('should work when no value or defaultValue is specified', () => {
+        render(<Input data-testid="moonstone-input"/>);
+        userEvent.type(screen.getByTestId('moonstone-input'), 'type a value');
+        expect(screen.getByDisplayValue('type a value')).toBeInTheDocument();
+    });
+});
+
+describe('UncontrolledInput', () => {
+    it('should have specified defaultValue', () => {
+        render(<Input defaultValue="test-default-value"/>);
+        expect(screen.getByDisplayValue('test-default-value')).toBeInTheDocument();
+    });
+
+    it('should update specified defaultValue', () => {
+        render(<Input data-testid="moonstone-input" defaultValue="test-default-value"/>);
+        userEvent.type(screen.getByTestId('moonstone-input'), '-updated');
+        expect(screen.getByDisplayValue('test-default-value-updated')).toBeInTheDocument();
+    });
+
+    it('should reset field when we click on the reset button of the search input', () => {
+        render(<Input data-testid="moonstone-input" defaultValue="test-default-value" variant="search"/>);
+        userEvent.click(screen.getByLabelText('Reset'));
+        expect(screen.getByTestId('moonstone-input')).toHaveValue('');
+    });
+
+    it('should call specified onChange function', () => {
+        const handleChange = jest.fn();
+
+        render(<Input data-testid="moonstone-input" defaultValue="test-default-value" onChange={handleChange}/>);
+        userEvent.type(screen.getByTestId('moonstone-input'), '1');
+
+        expect(handleChange).toHaveBeenCalledTimes(1);
+    });
+
+    it('should call specified onClear function', () => {
+        const handleClear = jest.fn();
+
+        render(<Input variant="search" defaultValue="test-default-value" onClear={handleClear}/>);
+        userEvent.click(screen.getByLabelText('Reset'));
+
+        expect(handleClear).toHaveBeenCalledTimes(1);
+    });
+});
+
+describe('ControlledInput', () => {
+    it('should display specified value', () => {
+        render(<Input value="test-value" onChange={() => {}}/>);
+        expect(screen.getByDisplayValue('test-value')).toBeInTheDocument();
+    });
+
+    it('should call specified onChange function', () => {
+        const handleChange = jest.fn();
+
+        render(<Input data-testid="moonstone-input" value="test-value" onChange={handleChange}/>);
+        userEvent.type(screen.getByTestId('moonstone-input'), '1');
+
+        expect(handleChange).toHaveBeenCalledTimes(1);
+    });
+
+    it('should call specified onClear function', () => {
+        const handleClear = jest.fn();
+
+        render(<Input variant="search" value="test-value" onChange={() => {}} onClear={handleClear}/>);
+        userEvent.click(screen.getByLabelText('Reset'));
+
+        expect(handleClear).toHaveBeenCalledTimes(1);
     });
 });

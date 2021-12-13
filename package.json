@@ -1,14 +1,12 @@
 {
     "name": "@jahia/moonstone",
-    "version": "1.6.2",
+    "version": "2.0.0",
     "main": "dist/lib/main.js",
     "module": "dist/index.js",
     "types": "dist/index.d.ts",
     "sideEffects": false,
     "dependencies": {
         "@babel/runtime": "^7.12.5",
-        "@react-aria/checkbox": "^3.2.3",
-        "@react-stately/toggle": "^3.2.3",
         "clsx": "^1.1.1",
         "prop-types": "^15.7.2",
         "re-resizable": "^6.9.1",
