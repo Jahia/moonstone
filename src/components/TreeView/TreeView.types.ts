@@ -3,6 +3,7 @@ import * as React from 'react';
 export type TreeViewData = {
     id: string;
     label: string;
+    value?: string;
     iconStart?: React.ReactElement;
     iconEnd?: React.ReactElement;
     hasChildren?: boolean;

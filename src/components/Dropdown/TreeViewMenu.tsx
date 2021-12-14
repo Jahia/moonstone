@@ -6,45 +6,56 @@ import "../Menu/Menu.scss";
 import {TreeViewData} from "~/components/TreeView/TreeView.types";
 import clsx from "clsx";
 
-function filterNodes(text: string, nodes: TreeViewData[]) {
+function filterNodes(text: string, nodes: TreeViewData[], opened: string[]) {
     const filtered: TreeViewData[] = [];
-    const opened: string[] = [];
     nodes.forEach(c => {
-        const filterResult = filterNode(text, c);
+        const filterResult = filterNode(text, c, opened);
         if (filterResult) {
-            filtered.push(filterResult.data);
-            opened.push(...filterResult.opened)
+            filtered.push(filterResult);
         }
     })
-    return {
-        data: filtered, opened
-    };
+    return filtered
 }
 
-const filterNode = (text: string, node: TreeViewData) => {
+const filterNode = (text: string, node: TreeViewData, opened: string[]) => {
     const match = node.label.toLowerCase().includes(text)
     const children: TreeViewData[] = []
-    const opened: string[] = []
     if (node.children) {
-        const {data: filteredChildren, opened: openedChildren} = filterNodes(text, node.children);
+        const filteredChildren = filterNodes(text, node.children, opened);
         if (filteredChildren.length > 0) {
             children.push(...filteredChildren)
-            opened.push(node.id, ...openedChildren)
+            opened.push(node.id)
         }
     }
     if (match || children.length > 0) {
         return {
-            data: {
-                ...node,
-                treeItemProps:{className: clsx({
+            ...node,
+            treeItemProps:{className: clsx({
                     ['moonstone-disabled']: !match
                 })},
-                children
-            },
-            opened
+            children
         }
     }
 }
+
+const find = (value: string, data: TreeViewData, opened: string[]): string => {
+    if (data.value === value) {
+        return data.id
+    }
+    if (data.children) {
+        const res = data.children.reduce((current, child) => {
+            return current || find(value, child, opened)
+        }, "")
+
+        if (res) {
+            opened.push(data.id)
+        }
+
+        return res
+    }
+}
+
+
 
 export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
                                                               isDisplayed,
@@ -60,6 +71,7 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
                                                               hasSearch,
                                                               searchEmptyText,
                                                               data,
+                                                              value,
                                                               handleSelect,
                                                               handleKeyPress,
                                                               onClose,
@@ -79,12 +91,20 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
         setOpenedItems(previousOpenedItems => previousOpenedItems.filter(item => item !== node.id));
     };
 
-    let openedBySearch: string[] = [];
+    const openedBySearch: string[] = [];
+    const selected = [];
 
     if (inputValue !== '') {
-        const filteredResult = filterNodes(inputValue, data)
-        data = filteredResult.data
-        openedBySearch = filteredResult.opened
+        data = filterNodes(inputValue, data, openedBySearch)
+    }
+
+    if (value) {
+        data.forEach(single => {
+            const id = find(value, single, openedBySearch);
+            if (id) {
+                selected.push(id)
+            }
+        })
     }
 
     // ---
@@ -125,6 +145,7 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
                     </div>
                 )}
                 <TreeView data={data}
+                          selectedItems={selected}
                           openedItems={[...openedItems, ...openedBySearch]}
                           onOpenItem={onOpenItem} onCloseItem={onCloseItem}
                           onClickItem={(node, e) => {
