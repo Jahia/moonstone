@@ -4,19 +4,21 @@ import {Menu, MenuItem, Separator} from "~/components";
 import {DropdownMenuProps} from "~/components/Dropdown/DropdownMenu.types";
 
 export const DropdownMenu: React.FC<DropdownMenuProps> = ({
-                                                       isDisplayed,
-                                                       anchorPosition,
-                                                       minWidth,
-                                                       maxWidth,
-                                                       maxHeight,
-                                                       anchorEl,
-                                                       hasSearch,
-                                                       searchEmptyText,
-                                                       data,
-                                                       value,
-                                                       imageSize,
-                                                       handleSelect, handleKeyPress,
-                                                   }) => {
+                                                              isDisplayed,
+                                                              anchorPosition,
+                                                              minWidth,
+                                                              maxWidth,
+                                                              maxHeight,
+                                                              anchorEl,
+                                                              hasSearch,
+                                                              searchEmptyText,
+                                                              data,
+                                                              value,
+                                                              imageSize,
+                                                              handleSelect,
+                                                              handleKeyPress,
+                                                              onClose
+                                                          }) => {
 
     const isEmpty = data.length < 1;
     const isGrouped = !isEmpty && typeof data[0].options !== 'undefined';
@@ -57,31 +59,33 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
         );
     };
 
-    return <Menu
-        isDisplayed={isDisplayed}
-        position="absolute"
-        anchorPosition={anchorPosition}
-        minWidth={minWidth}
-        maxWidth={maxWidth}
-        maxHeight={maxHeight}
-        anchorEl={anchorEl}
-        hasSearch={hasSearch}
-        searchEmptyText={searchEmptyText}
-        onClose={() => {}}
-    >
-        {
-            data.map((item, index) => {
-                if (isGrouped) {
-                    item.options.map((o: DropdownDataOptions) => {
-                        return dropdownOption(o);
-                    });
-                    return dropdownGrouped(item.options, item.groupLabel, index);
-                }
+    return (
+        <Menu
+            isDisplayed={isDisplayed}
+            position="absolute"
+            anchorPosition={anchorPosition}
+            minWidth={minWidth}
+            maxWidth={maxWidth}
+            maxHeight={maxHeight}
+            anchorEl={anchorEl}
+            hasSearch={hasSearch}
+            searchEmptyText={searchEmptyText}
+            onClose={onClose}
+        >
+            {
+                data.map((item, index) => {
+                    if (isGrouped) {
+                        item.options.map((o: DropdownDataOptions) => {
+                            return dropdownOption(o);
+                        });
+                        return dropdownGrouped(item.options, item.groupLabel, index);
+                    }
 
-                return dropdownOption(item);
-            })
-        }
-    </Menu>;
+                    return dropdownOption(item);
+                })
+            }
+        </Menu>
+    );
 }
 
 

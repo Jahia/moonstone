@@ -43,7 +43,7 @@ export type DropdownProps = {
      */
     data: [DropdownDataOptions & DropdownData] | [TreeViewData] | any;
 
-    isTree: boolean,
+    isTree?: boolean,
 
     /**
      * Label of the dropdown

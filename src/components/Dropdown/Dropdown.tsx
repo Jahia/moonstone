@@ -175,6 +175,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                               handleKeyPress={handleKeyPress}
                               handleSelect={handleSelect}
                               imageSize={imageSize}
+                              onClose={handleCloseMenu}
                 />
             ) : (
                 <DropdownMenu isDisplayed
@@ -190,6 +191,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                               handleKeyPress={handleKeyPress}
                               handleSelect={handleSelect}
                               imageSize={imageSize}
+                              onClose={handleCloseMenu}
                 />
             ))}
         </div>

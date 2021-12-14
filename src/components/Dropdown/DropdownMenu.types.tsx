@@ -18,4 +18,5 @@ export type DropdownMenuProps = {
     imageSize?: 'small' | 'big';
     handleSelect: any;
     handleKeyPress: any;
+    onClose: () => void;
 }

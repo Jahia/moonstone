@@ -3,7 +3,48 @@ import {usePositioning} from '~/hooks/usePositioning';
 import {TreeViewMenuProps} from './TreeViewMenu.types';
 import {Input, TreeView} from "~/components";
 import "../Menu/Menu.scss";
+import {TreeViewData} from "~/components/TreeView/TreeView.types";
+import clsx from "clsx";
 
+function filterNodes(text: string, nodes: TreeViewData[]) {
+    const filtered: TreeViewData[] = [];
+    const opened: string[] = [];
+    nodes.forEach(c => {
+        const filterResult = filterNode(text, c);
+        if (filterResult) {
+            filtered.push(filterResult.data);
+            opened.push(...filterResult.opened)
+        }
+    })
+    return {
+        data: filtered, opened
+    };
+}
+
+const filterNode = (text: string, node: TreeViewData) => {
+    const match = node.label.toLowerCase().includes(text)
+    const children: TreeViewData[] = []
+    const opened: string[] = []
+    if (node.children) {
+        const {data: filteredChildren, opened: openedChildren} = filterNodes(text, node.children);
+        if (filteredChildren.length > 0) {
+            children.push(...filteredChildren)
+            opened.push(node.id, ...openedChildren)
+        }
+    }
+    if (match || children.length > 0) {
+        return {
+            data: {
+                ...node,
+                treeItemProps:{className: clsx({
+                    ['moonstone-disabled']: !match
+                })},
+                children
+            },
+            opened
+        }
+    }
+}
 
 export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
                                                               isDisplayed,
@@ -21,40 +62,30 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
                                                               data,
                                                               handleSelect,
                                                               handleKeyPress,
+                                                              onClose,
                                                               ...props
                                                           }) => {
 
     const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, position);
     // useEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);
     const [inputValue, setInputValue] = useState('');
-    // const [filteredChildren, setFilteredChildren] = useState(children);
-    const [isEmptySearch, setIsEmptySearch] = useState(false);
-    //
-    // // useEffect hook to filter the search results and determine whether to show the no search results text
-    // useEffect(() => {
-    //     if (inputValue !== '') {
-    //         if (Array.isArray(children)) {
-    //             const _childrenToFilter = getChildrenToFilter(children as [React.ReactElement]);
-    //             const _filtered = _childrenToFilter.filter((child: React.ReactElement) => {
-    //                 if (child.props && child.props.label) {
-    //                     const startsWith = child.props.label.toLowerCase().startsWith(inputValue.toLowerCase());
-    //                     return startsWith && child.props.variant !== 'title';
-    //                 }
-    //                 return false;
-    //             });
-    //             setFilteredChildren(_filtered);
-    //
-    //             if (_filtered.length === 0) {
-    //                 setIsEmptySearch(true);
-    //             } else {
-    //                 setIsEmptySearch(false);
-    //             }
-    //         }
-    //     } else {
-    //         setFilteredChildren(children);
-    //         setIsEmptySearch(false);
-    //     }
-    // }, [inputValue, children]);
+    const [openedItems, setOpenedItems] = useState([]);
+
+    const onOpenItem = (node: TreeViewData) => {
+        setOpenedItems(previousOpenedItems => [...previousOpenedItems, node.id]);
+    };
+
+    const onCloseItem = (node: TreeViewData) => {
+        setOpenedItems(previousOpenedItems => previousOpenedItems.filter(item => item !== node.id));
+    };
+
+    let openedBySearch: string[] = [];
+
+    if (inputValue !== '') {
+        const filteredResult = filterNodes(inputValue, data)
+        data = filteredResult.data
+        openedBySearch = filteredResult.opened
+    }
 
     // ---
     // Styling
@@ -83,7 +114,7 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
                   ref={itemRef}
                   style={styleMenu}
             >
-                { hasSearch && (
+                {hasSearch && (
                     <div className="moonstone-menu_searchInput">
                         <Input
                             variant="search"
@@ -94,7 +125,9 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
                     </div>
                 )}
                 <TreeView data={data}
-                          onClickItem={(node, e, toggleNode) => {
+                          openedItems={[...openedItems, ...openedBySearch]}
+                          onOpenItem={onOpenItem} onCloseItem={onCloseItem}
+                          onClickItem={(node, e) => {
                               handleSelect(e, node)
                           }}
                 />
@@ -104,6 +137,8 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
                     <div
                         aria-hidden="true"
                         className="moonstone-menu_overlay"
+                        onClick={onClose}
+                        onContextMenu={onClose}
                     />
                 )
             }
