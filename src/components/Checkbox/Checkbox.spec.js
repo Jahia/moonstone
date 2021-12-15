@@ -53,4 +53,14 @@ describe('Checkbox', () => {
         render(<Checkbox aria-label="checkbox" size="big" data-testid="moonstone-checkboxBig"/>);
         expect(screen.getByTestId('moonstone-checkboxBig')).toHaveClass('moonstone-checkbox_sizeBig');
     });
+
+    it('should be disabled when isDisabled is set', () => {
+        render(<Checkbox isDisabled aria-label="checkbox"/>);
+        expect(screen.getByRole('checkbox')).toBeDisabled();
+    });
+
+    it('should be read-only when isReadOnly is set', () => {
+        render(<Checkbox isReadOnly aria-label="checkbox"/>);
+        expect(screen.getByRole('checkbox')).toHaveAttribute('aria-readonly', 'true');
+    });
 });

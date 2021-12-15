@@ -1,11 +1,10 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import clsx from 'clsx';
 import {capitalize} from '~/utils/helpers';
-
 import {CheckboxProps} from './Checkbox.types';
 import './Checkbox.scss';
 
-export const ControlledCheckbox: React.FC<CheckboxProps> = ({className, checked = false, indeterminate = false, defaultChecked, size = 'default', ...props}) => {
+export const ControlledCheckbox: React.FC<CheckboxProps> = ({className, checked = false, indeterminate = false, defaultChecked, size = 'default', isDisabled, isReadOnly, ...props}) => {
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (
@@ -16,6 +15,8 @@ export const ControlledCheckbox: React.FC<CheckboxProps> = ({className, checked 
                 type="checkbox"
                 checked={checked}
                 ref={inputRef}
+                disabled={isDisabled}
+                aria-readonly={isReadOnly}
                 aria-checked={indeterminate ? 'mixed' : checked}
             />
             <svg className={clsx('moonstone-checkbox_icon', `moonstone-checkbox_size${capitalize(size)}`)} viewBox='0 0 21 21'>
