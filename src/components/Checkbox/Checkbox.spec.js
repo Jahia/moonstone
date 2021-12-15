@@ -37,7 +37,7 @@ describe('Checkbox', () => {
     });
 
     it('should have mixed state when specified with the isIndeterminate prop', () => {
-        render(<Checkbox checked="mixed" aria-label="checkbox"/>);
+        render(<Checkbox defaultChecked="mixed" aria-label="checkbox"/>);
         expect(screen.getByRole('checkbox')).toBePartiallyChecked();
     });
 
