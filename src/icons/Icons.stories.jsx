@@ -10,12 +10,13 @@ import * as Icons from './assets';
 // Storybook knobs
 const iconsName = Object.keys(Icons);
 const iconsSize = () => select('Set icon size', {Big: 'big', Default: 'default', Small: 'small'}, 'big');
+const iconsColor = () => select('Set icon color', {Red: 'red', Yellow: 'yellow', Purple: 'purple', Gray: 'gray', Blue: 'blue'}, 'big');
 
 // Create a component to display in storybook
 export const IconWrapper = ({iconName, size, color}) => {
     return (
-        <div className="storyGridItem" style={{color: color}}>
-            {React.createElement(Icons[iconName], {size: size})}
+        <div className="storyGridItem">
+            {React.createElement(Icons[iconName], {size: size}, {color: color})}
             <span>{iconName}</span>
         </div>
     );
@@ -27,7 +28,7 @@ function displayIcons() {
 
     for (const name of iconsName) {
         allIcons.push(
-            <IconWrapper key={`key-${name}`} iconName={name} size="big"/>
+            <IconWrapper key={`key-${name}`} iconName={name} size="big" color={color}/>
         );
     }
 
@@ -50,7 +51,7 @@ storiesOf('Tokens/Icons', module)
         <IconWrapper
             iconName={select('Choose your icon', iconsName, 'Edit')}
             size={iconsSize()}
-            color={color('Change color', '#000')}/>
+            color={iconsColor()}/>
     ));
 
 IconWrapper.propTypes = {
