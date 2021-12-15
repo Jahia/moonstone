@@ -6,7 +6,7 @@ interface IconProps extends SVGProps<SVGSVGElement> {
   className?: string;
 }
 
-const SvgPdf = ({
+const SvgFileText = ({
   size = 'default',
   className = '',
   color,
@@ -30,9 +30,15 @@ const SvgPdf = ({
       fill="currentColor"
       {...props}
     >
-      <path d="M20 2H8C6.9 2 6 2.9 6 4V16C6 17.1 6.9 18 8 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM11.5 9.5C11.5 10.33 10.83 11 10 11H9V13H7.5V7H10C10.83 7 11.5 7.67 11.5 8.5V9.5ZM16.5 11.5C16.5 12.33 15.83 13 15 13H12.5V7H15C15.83 7 16.5 7.67 16.5 8.5V11.5ZM20.5 8.5H19V9.5H20.5V11H19V13H17.5V7H20.5V8.5ZM9 9.5H10V8.5H9V9.5ZM4 6H2V20C2 21.1 2.9 22 4 22H18V20H4V6ZM14 11.5H15V8.5H14V11.5Z" />
+      <path d="M7.875 11H15.875V13H7.875V11Z" />
+      <path d="M7.875 15H15.875V17H7.875V15Z" />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M13.875 2H5.875C4.775 2 3.875 2.9 3.875 4V20C3.875 21.1 4.765 22 5.865 22H17.875C18.975 22 19.875 21.1 19.875 20V8L13.875 2ZM17.875 20H5.875V4H12.875V9H17.875V20ZM14.5024 7.32814V5.10474L16.6084 7.32814H14.5024Z"
+      />
     </svg>
   );
 };
 
-export default SvgPdf;
+export default SvgFileText;

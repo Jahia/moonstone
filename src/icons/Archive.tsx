@@ -6,7 +6,7 @@ interface IconProps extends SVGProps<SVGSVGElement> {
   className?: string;
 }
 
-const SvgFileCompresed = ({
+const SvgArchive = ({
   size = 'default',
   className = '',
   color,
@@ -30,13 +30,9 @@ const SvgFileCompresed = ({
       fill="currentColor"
       {...props}
     >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.89 22 5.99 22H18C19.1 22 20 21.1 20 20V8L14 2ZM9.45654 20H6V4H7.45654V5.99316H9.45654V7.99316H7.45654V9.99316H9.45654V11.9932H7.45654V13.9932H9.45654V15.9932H11.4565V13.9932H9.45654V11.9932H11.4565V9.99316H9.45654V7.99316H11.4565V5.99316H9.45654V4H13V9H18V20H11.4565V18.0068H9.45654V16.0068H7.45654V18.0068H9.45654V20ZM14.6274 7.32814V5.10474L16.7334 7.32814H14.6274Z"
-      />
+      <path d="M20.54 5.23L19.15 3.55C18.88 3.21 18.47 3 18 3H6C5.53 3 5.12 3.21 4.84 3.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V6.5C21 6.02 20.83 5.57 20.54 5.23ZM6.24 5H17.76L18.57 5.97H5.44L6.24 5ZM5 19V8H19V19H5ZM13.45 10H10.55V13H8L12 17L16 13H13.45V10Z" />
     </svg>
   );
 };
 
-export default SvgFileCompresed;
+export default SvgArchive;

@@ -6,7 +6,7 @@ interface IconProps extends SVGProps<SVGSVGElement> {
   className?: string;
 }
 
-const SvgFileCompresed = ({
+const SvgFileVideo = ({
   size = 'default',
   className = '',
   color,
@@ -30,13 +30,14 @@ const SvgFileCompresed = ({
       fill="currentColor"
       {...props}
     >
+      <path d="M14.375 14L9.375 11.25V16.75L14.375 14Z" />
       <path
         fillRule="evenodd"
         clipRule="evenodd"
-        d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.89 22 5.99 22H18C19.1 22 20 21.1 20 20V8L14 2ZM9.45654 20H6V4H7.45654V5.99316H9.45654V7.99316H7.45654V9.99316H9.45654V11.9932H7.45654V13.9932H9.45654V15.9932H11.4565V13.9932H9.45654V11.9932H11.4565V9.99316H9.45654V7.99316H11.4565V5.99316H9.45654V4H13V9H18V20H11.4565V18.0068H9.45654V16.0068H7.45654V18.0068H9.45654V20ZM14.6274 7.32814V5.10474L16.7334 7.32814H14.6274Z"
+        d="M13.875 2H5.875C4.775 2 3.875 2.9 3.875 4V20C3.875 21.1 4.765 22 5.865 22H17.875C18.975 22 19.875 21.1 19.875 20V8L13.875 2ZM17.875 20H5.875V4H12.875V9H17.875V20ZM14.5024 7.32814V5.10474L16.6084 7.32814H14.5024Z"
       />
     </svg>
   );
 };
 
-export default SvgFileCompresed;
+export default SvgFileVideo;

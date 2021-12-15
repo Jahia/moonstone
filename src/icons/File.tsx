@@ -30,7 +30,11 @@ const SvgFile = ({
       fill="currentColor"
       {...props}
     >
-      <path d="M6 2C4.9 2 4.01 2.9 4.01 4L4 20C4 21.1 4.89 22 5.99 22H18C19.1 22 20 21.1 20 20V8L14 2H6ZM13 9V3.5L18.5 9H13Z" />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M6 2H14L20 8V20C20 21.1 19.1 22 18 22H5.99C4.89 22 4 21.1 4 20V4C4 2.9 4.9 2 6 2ZM6 20H18V9H13V4H6V20ZM14.6274 5.10474V7.32814H16.7334L14.6274 5.10474Z"
+      />
     </svg>
   );
 };
