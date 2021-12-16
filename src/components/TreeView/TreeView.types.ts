@@ -10,6 +10,7 @@ export type TreeViewData = {
     isClosable?: boolean;
     children?: TreeViewData[];
     isLoading?: boolean;
+    isDisabled?: boolean;
     className?: string;
     typographyOptions?: object;
     treeItemProps?: object;

@@ -10,3 +10,4 @@ The treeView is build with the array of object provide by the `data` props.
 | hasChildren | `bool` : if the node has children                                |
 | isLoading   | `bool` : is the node loading its children                        |
 | isClosable  | `bool` : the node will be open and will have no icon to close it |
+| isDisabled  | `bool` : the node is fully disabled and cannot be clicked        |
