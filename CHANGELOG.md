@@ -1,3 +1,23 @@
+# v2.0.1 (Thu Dec 16 2021)
+
+#### 🐛 Bug Fix
+
+- MOON-323: Fix disabled and read-only checkbox state [#283](https://github.com/Jahia/moonstone/pull/283) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🔩 Dependency Updates
+
+- TECH-424: Update dependencies [#279](https://github.com/Jahia/moonstone/pull/279) ([@ffffffelix](https://github.com/ffffffelix) [@tdraier](https://github.com/tdraier))
+- Bump path-parse from 1.0.6 to 1.0.7 [#282](https://github.com/Jahia/moonstone/pull/282) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@tdraier](https://github.com/tdraier))
+- Bump color-string from 1.5.4 to 1.9.0 [#281](https://github.com/Jahia/moonstone/pull/281) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v2.0.0 (Fri Dec 10 2021)
 
 #### 💥 Breaking Change
