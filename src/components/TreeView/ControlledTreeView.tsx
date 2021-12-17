@@ -7,7 +7,6 @@ import Loading from '~/icons/Loading';
 import ChevronDown from '~/icons/ChevronDown';
 import ChevronRight from '~/icons/ChevronRight';
 import {Typography} from '~/components/Typography';
-import {isDisabled} from "@testing-library/user-event/dist/utils";
 
 export const ControlledTreeView: React.FC<ControlledTreeViewProps> = ({
     data,
@@ -126,7 +125,7 @@ export const ControlledTreeView: React.FC<ControlledTreeViewProps> = ({
                             {/* TreeViewItem */}
                             <div
                                 className={clsx('flexRow_nowrap', 'alignCenter', 'flexFluid', 'moonstone-treeView_itemLabel', node.className)}
-                                onClick={!node.isDisabled && handleNodeClick}
+                                onClick={!node.isDisabled ? handleNodeClick : undefined}
                                 onDoubleClick={handleNodeDoubleClick}
                                 onContextMenu={handleNodeContextMenu}
                             >
