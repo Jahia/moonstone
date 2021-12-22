@@ -3,12 +3,14 @@ import * as React from 'react';
 export type TreeViewData = {
     id: string;
     label: string;
+    value?: string;
     iconStart?: React.ReactElement;
     iconEnd?: React.ReactElement;
     hasChildren?: boolean;
     isClosable?: boolean;
     children?: TreeViewData[];
     isLoading?: boolean;
+    isDisabled?: boolean;
     className?: string;
     typographyOptions?: object;
     treeItemProps?: object;
