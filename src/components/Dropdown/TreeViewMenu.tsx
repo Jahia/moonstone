@@ -92,7 +92,7 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     };
 
     const openedBySearch: string[] = [];
-    const selected = [];
+    const selected: string[] = [];
 
     if (inputValue !== '') {
         data = filterNodes(inputValue, data, openedBySearch)
