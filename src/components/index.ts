@@ -16,6 +16,7 @@ export * from './Input';
 export * from './ListItem';
 export * from './Loader';
 export * from './Menu';
+export * from './Paper';
 export * from './PrimaryNav';
 export * from './PrimaryNav/PrimaryNavItem';
 export * from './PrimaryNav/PrimaryNavItemsGroup';
