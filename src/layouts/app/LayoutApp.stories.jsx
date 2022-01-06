@@ -1,29 +1,41 @@
 
 import React from 'react';
-import {storiesOf} from '@storybook/react';
-import {withKnobs} from '@storybook/addon-knobs';
-
 import {LayoutApp} from './index';
 import {FakePrimaryNavigation, FakeContent} from '~/__storybook__/FakeComponents';
 import markdownNotes from './LayoutApp.md';
 
-storiesOf('Layouts/LayoutApp', module)
-    .addParameters({
-        component: LayoutApp,
-        componentSubtitle: 'How to use our root application layout',
-        notes: {markdown: markdownNotes}
-    })
-    .addDecorator(withKnobs)
-    .add('Default', () => (
-        <LayoutApp
-            navigation={<FakePrimaryNavigation/>}
-            content={<FakeContent/>}
-        />
-    ))
-    .add('Loading', () => (
-        <LayoutApp
-            isLoading
-            navigation={<FakePrimaryNavigation/>}
-            content={<FakeContent/>}
-        />
-    ));
+export default {
+    title: 'Layouts/LayoutApp',
+    component: LayoutApp,
+    parameters: {
+        layout: 'fullscreen',
+        subtitle: 'How to use our root application layout',
+        notes: {markdown: markdownNotes},
+        knobs: {
+            disable: true
+        }
+    },
+    argTypes: {
+        navigation: {
+            control: false
+        },
+        content: {
+            control: false
+        }
+    }
+};
+
+const Template = args => (
+    <LayoutApp
+        navigation={<FakePrimaryNavigation/>}
+        content={<FakeContent/>}
+        {...args}
+    />
+);
+
+export const Default = Template.bind({});
+
+export const Loading = Template.bind({});
+Loading.args = {
+    isLoading: true
+};
