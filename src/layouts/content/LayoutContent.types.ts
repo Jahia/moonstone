@@ -2,14 +2,14 @@ import * as React from 'react';
 
 export type LayoutContentProps = {
     /**
-     * Slot for the header of the page
+     * Header of the page
      */
     header?: React.ReactNode,
 
     /**
-     * Slot for the content of the page
+     * Content of the page
      */
-    content?: React.ReactNode,
+    content: React.ReactNode,
 
     /**
      * Define if the content is centered
@@ -17,13 +17,7 @@ export type LayoutContentProps = {
     isCentered?: boolean,
 
     /**
-     * Define if the content has padding
-     */
-    hasPadding?: boolean,
-
-
-    /**
-     * Replace thee content by a loading
+     * Replace the content by a loading
      */
     isLoading?: boolean,
 

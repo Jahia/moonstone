@@ -2,12 +2,12 @@ import * as React from 'react';
 
 export type LayoutAppProps = {
     /**
-     * Slot for the application's navigation
+     * Navigation of the application (for PrimaryNavigation)
      */
     navigation?: React.ReactNode;
 
     /**
-     * Slot for the application's content
+     * Content of the application
      */
     content?: React.ReactNode;
 

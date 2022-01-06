@@ -1,6 +1,7 @@
 import React from 'react';
 import {LayoutContent} from '~/layouts';
-import {FakeHeader, FakeContent} from '~/__storybook__/FakeComponents';
+import {Header} from '~/components';
+import {FakeContent} from '~/__storybook__/FakeComponents';
 
 export default {
     title: 'Layouts/LayoutContent',
@@ -8,7 +9,15 @@ export default {
     parameters: {
         layout: 'fullscreen',
         knobs: {
-            disabled: true
+            disable: true
+        }
+    },
+    argTypes: {
+        header: {
+            control: false
+        },
+        content: {
+            control: false
         }
     }
 };
@@ -16,7 +25,7 @@ export default {
 const Template = args => (
     <LayoutContent
         header={(
-            <FakeHeader/>
+            <Header title="Header"/>
         )}
         content={(
             <FakeContent/>
@@ -26,3 +35,13 @@ const Template = args => (
 );
 
 export const Default = Template.bind({});
+
+export const Centered = Template.bind({});
+Centered.args = {
+    isCentered: true
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+    isLoading: true
+};

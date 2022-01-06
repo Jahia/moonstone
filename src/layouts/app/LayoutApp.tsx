@@ -10,6 +10,7 @@ export const LayoutApp: React.FC<LayoutAppProps> = ({
     isLoading = false
 }) => {
     const classNameProps = clsx(
+        'moonstone-layoutApp_content',
         'flexFluid',
         isLoading ? ['flexCol_center', 'alignCenter'] : 'flexRow_nowrap'
     );
