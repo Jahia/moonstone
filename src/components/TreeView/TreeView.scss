@@ -42,6 +42,11 @@
         --color-treeItem_hover: var(--color-light);
         --background-treeItem_hover: var(--color-gray40);
     }
+
+    &.moonstone-disabled {
+        background: none;
+        cursor: not-allowed;
+    }
 }
 
 .moonstone-treeView_itemIconStart,
@@ -68,4 +73,8 @@
 .moonstone-treeView_itemLabel {
     align-self: stretch;
     min-width: 0;
+
+    .moonstone-treeView_item.moonstone-disabled & {
+        color: var(--color-gray40);
+    }
 }

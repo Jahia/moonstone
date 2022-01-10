@@ -17,6 +17,18 @@ $border-width: 1px;
     margin-right: var(--spacing-nano);
 }
 
+.moonstone-disabled {
+    & > .moonstone-treeView_item {
+        @include is-disabled;
+
+        pointer-events: none;
+
+        &:hover {
+            pointer-events: none;
+        }
+    }
+}
+
 .moonstone-dropdown {
     padding-right: var(--spacing-small);
     padding-left: var(--spacing-small);

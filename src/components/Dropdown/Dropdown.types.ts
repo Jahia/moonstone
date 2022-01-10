@@ -1,4 +1,5 @@
 import React from 'react';
+import {TreeViewData} from "~/components/TreeView/TreeView.types";
 
 export type DropdownVariant = 'ghost' | 'outlined';
 export enum DropdownVariants {
@@ -40,7 +41,9 @@ export type DropdownProps = {
     /**
      * Content of the dropdown
      */
-    data: [DropdownDataOptions & DropdownData] | any;
+    data: [DropdownDataOptions & DropdownData] | [TreeViewData] | any;
+
+    isTree?: boolean,
 
     /**
      * Label of the dropdown

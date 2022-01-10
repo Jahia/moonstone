@@ -1,21 +1,21 @@
 import React from 'react';
 
-type AnchorPosition = {
+export type AnchorPosition = {
     top: number;
     left: number;
 };
 
-type AnchorElOrigin = {
+export type AnchorElOrigin = {
     horizontal: 'left' | 'center' | 'right';
     vertical: 'top' | 'center' | 'bottom';
 };
 
-type TransformElOrigin = {
+export type TransformElOrigin = {
     horizontal: 'left' | 'right';
     vertical: 'top' | 'bottom';
 };
 
-type PositioningType = 'fixed' | 'absolute';
+export type PositioningType = 'fixed' | 'absolute';
 
 export type MenuProps = {
     /**

@@ -4,17 +4,20 @@ import './Dropdown.scss';
 // import spacings from '~/tokens/spacings/spacing.json';
 
 import {
-    DropdownProps,
-    DropdownImageSizes,
-    HandleSelect,
+    DropdownData,
     DropdownDataOptions,
+    DropdownImageSizes,
+    DropdownProps,
+    DropdownSizes,
     DropdownVariants,
-    DropdownSizes
+    HandleSelect
 } from './Dropdown.types';
-import {Menu, MenuItem} from '~/components/Menu';
 import {Typography} from '~/components/Typography';
-import {Separator} from '~/components/Separator';
 import {ChevronDown} from '~/icons';
+import {DropdownMenu} from "~/components/Dropdown/DropdownMenu";
+import {TreeViewMenu} from "~/components/Dropdown/TreeViewMenu";
+import {TreeViewData} from "~/components/TreeView/TreeView.types";
+
 
 export const Dropdown: React.FC<DropdownProps> = ({
     data,
@@ -30,6 +33,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     imageSize,
     onChange,
     className,
+    isTree,
     ...props
 }) => {
 
@@ -42,7 +46,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
     const isEmpty = data.length < 1;
-    const isGrouped = !isEmpty && typeof data[0].options !== 'undefined';
+
     const menuMinWidth = 80;
     let menuMaxWidth;
     let menuMaxHeight;
@@ -119,42 +123,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
         }
     );
 
-    // ---
-    // Generate options
-    // ---
-    const dropdownOption = (item: DropdownDataOptions) => (
-        <MenuItem
-            key={item.value}
-            role="option"
-            iconStart={item.iconStart}
-            label={item.label}
-            iconEnd={item.iconEnd}
-            isDisabled={item.isDisabled}
-            isSelected={value === item.value}
-            image={item.image}
-            imageSize={imageSize}
-            onClick={e => handleSelect(e, item)}
-            onKeyPress={e => handleKeyPress(e, item)}
-            {...item.attributes}
-        />
-    );
-
-    const dropdownGrouped = (children: [DropdownDataOptions], groupLabel: string, index: number) => {
-        return (
-            <div key={`${groupLabel}-${index}`} data-option-type="group">
-                {index > 0 && (
-                    <Separator/>
-                )}
-
-                <MenuItem variant="title" label={groupLabel}/>
-
-                {children.map(item => {
-                    return dropdownOption(item);
-                })}
-            </div>
-        );
-    };
-
     return (
         <div
             className={clsx('moonstone-dropdown_container', className)}
@@ -193,33 +161,39 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 <ChevronDown className="moonstone-dropdown_chevronDown"/>
             </div>
 
-            {isOpened && (
-                <Menu
-                    isDisplayed
-                    position="absolute"
-                    anchorPosition={anchorPosition}
-                    minWidth={minWidth}
-                    maxWidth={menuMaxWidth}
-                    maxHeight={menuMaxHeight}
-                    anchorEl={anchorEl}
-                    hasSearch={hasSearch}
-                    searchEmptyText={searchEmptyText}
-                    onClose={handleCloseMenu}
-                >
-                    {
-                        data.map((item, index) => {
-                            if (isGrouped) {
-                                item.options.map((o: DropdownDataOptions) => {
-                                    return dropdownOption(o);
-                                });
-                                return dropdownGrouped(item.options, item.groupLabel, index);
-                            }
-
-                            return dropdownOption(item);
-                        })
-                    }
-                </Menu>
-            )}
+            {isOpened && (isTree ? (
+                <TreeViewMenu isDisplayed
+                              data={data as [TreeViewData]}
+                              value={value}
+                              anchorPosition={anchorPosition}
+                              minWidth={minWidth}
+                              maxWidth={menuMaxWidth}
+                              maxHeight={menuMaxHeight}
+                              anchorEl={anchorEl}
+                              hasSearch={hasSearch}
+                              searchEmptyText={searchEmptyText}
+                              handleKeyPress={handleKeyPress}
+                              handleSelect={handleSelect}
+                              imageSize={imageSize}
+                              onClose={handleCloseMenu}
+                />
+            ) : (
+                <DropdownMenu isDisplayed
+                              data={data as [DropdownDataOptions & DropdownData]}
+                              value={value}
+                              anchorPosition={anchorPosition}
+                              minWidth={minWidth}
+                              maxWidth={menuMaxWidth}
+                              maxHeight={menuMaxHeight}
+                              anchorEl={anchorEl}
+                              hasSearch={hasSearch}
+                              searchEmptyText={searchEmptyText}
+                              handleKeyPress={handleKeyPress}
+                              handleSelect={handleSelect}
+                              imageSize={imageSize}
+                              onClose={handleCloseMenu}
+                />
+            ))}
         </div>
     );
 };

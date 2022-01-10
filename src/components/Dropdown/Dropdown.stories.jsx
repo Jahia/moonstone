@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {storiesOf} from '@storybook/react';
-import {withKnobs, boolean, select, text} from '@storybook/addon-knobs';
+import {boolean, select, text, withKnobs} from '@storybook/addon-knobs';
 import {action} from '@storybook/addon-actions';
 import markdownNotes from './Dropdown.md';
 
 import {Dropdown} from './index';
-import {DropdownVariants, DropdownSizes} from './Dropdown.types';
+import {DropdownSizes, DropdownVariants} from './Dropdown.types';
 import {Love} from '~/icons';
 import IconWrapper from '~/__storybook__/IconWrapper';
 import {iconsName} from '~/__storybook__/utils';
@@ -192,6 +192,12 @@ const dataImages = [
             }
         ]
     }
+];
+
+const treeData = [
+    {id: 'A1', label: 'A-1 level1', value: 'a1'},
+    {id: 'A2', label: 'A-2 level1', value: 'a2', children: [{id: 'B1', label: 'B1 level2', value: 'b1'}]},
+    {id: 'A3', label: 'A-3 level1', value: 'a3', isDisabled: true, children: [{id: 'B2', label: 'B2 level2', value: 'b2'}]}
 ];
 
 storiesOf('Components/Dropdown', module)
@@ -382,6 +388,32 @@ storiesOf('Components/Dropdown', module)
                     label={currentOption.label}
                     value={currentOption.value}
                     data={data}
+                    onChange={(e, item) => handleOnChange(e, item)}
+                />
+            </div>
+        );
+    })
+    .add('Playground (tree)', () => {
+        const [currentOption, setCurrentOption] = useState({label: 'Select something', value: null});
+
+        const handleOnChange = (e, item) => {
+            setCurrentOption(item);
+            action('onChange');
+            return true;
+        };
+
+        return (
+            <div style={{transform: 'scale(1)', height: '100vh', padding: '90px'}}>
+                <Dropdown
+                    isTree
+                    isDisabled={boolean('Disabled', false)}
+                    hasSearch={boolean('Has Search', true)}
+                    variant={select('Variant', DropdownVariants, DropdownVariants.Outlined)}
+                    size={select('Size', DropdownSizes, DropdownSizes.Small)}
+                    icon={<IconWrapper iconName={select('Icon', iconsName, 'Love')}/>}
+                    label={currentOption.label}
+                    value={currentOption.value}
+                    data={treeData}
                     onChange={(e, item) => handleOnChange(e, item)}
                 />
             </div>

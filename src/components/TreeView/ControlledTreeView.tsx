@@ -69,7 +69,8 @@ export const ControlledTreeView: React.FC<ControlledTreeViewProps> = ({
                 'moonstone-treeView_item',
                 {
                     'moonstone-selected': isSelected,
-                    'moonstone-reversed': isReversed
+                    'moonstone-reversed': isReversed,
+                    'moonstone-disabled': node.isDisabled
                 }
             );
 
@@ -124,7 +125,7 @@ export const ControlledTreeView: React.FC<ControlledTreeViewProps> = ({
                             {/* TreeViewItem */}
                             <div
                                 className={clsx('flexRow_nowrap', 'alignCenter', 'flexFluid', 'moonstone-treeView_itemLabel', node.className)}
-                                onClick={handleNodeClick}
+                                onClick={!node.isDisabled ? handleNodeClick : undefined}
                                 onDoubleClick={handleNodeDoubleClick}
                                 onContextMenu={handleNodeContextMenu}
                             >
