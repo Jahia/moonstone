@@ -3,8 +3,7 @@ import clsx from 'clsx';
 import './SecondaryNav.scss';
 import {SecondaryNavProps} from './SecondaryNav.types';
 import {ResizableBox} from '~/components/ResizableBox';
-import ChevronDoubleRight from '~/icons/ChevronDoubleRight';
-import ChevronDoubleLeft from '~/icons/ChevronDoubleLeft';
+import {ChevronDoubleRight, ChevronDoubleLeft}  from '~/icons';
 
 export const SecondaryNav: React.FC<SecondaryNavProps> = ({
     header,

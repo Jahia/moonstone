@@ -3,9 +3,8 @@ import clsx from 'clsx';
 import './TreeView.scss';
 import {ControlledTreeViewProps} from './ControlledTreeView.types';
 import {TreeViewData} from './TreeView.types';
-import Loading from '~/icons/Loading';
-import ChevronDown from '~/icons/ChevronDown';
-import ChevronRight from '~/icons/ChevronRight';
+
+import {Loading,ChevronDown,ChevronRight} from '~/icons';
 import {Typography} from '~/components/Typography';
 
 export const ControlledTreeView: React.FC<ControlledTreeViewProps> = ({

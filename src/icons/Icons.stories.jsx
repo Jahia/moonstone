@@ -5,7 +5,8 @@ import {withKnobs, select, color} from '@storybook/addon-knobs';
 import '~/__storybook__/storybook.scss';
 
 import markdownNotes from './Icons.md';
-import * as Icons from './assets';
+import * as Icons from '~/icons/components';
+import {Love} from '~/icons';
 
 // Storybook knobs
 const iconsName = Object.keys(Icons);
@@ -46,6 +47,9 @@ storiesOf('Tokens/Icons', module)
         <section className="storyGrid">
             {displayIcons()}
         </section>
+    ))
+    .add('Colored', () => (
+        <Love color="red"/>
     ))
     .add('⚽️Playground', () => (
         <IconWrapper

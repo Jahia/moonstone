@@ -1,7 +1,6 @@
 import React, {Attributes, FunctionComponent, PropsWithChildren, ReactElement} from 'react';
-import * as Icons from '~/icons/assets';
-import {SvgWrapper} from '~/components/SvgWrapper';
-import {ImgWrapper} from '~/components/ImgWrapper';
+import * as Icons from '~/icons/components';
+import {ImgWrapper, SvgWrapper} from '~/components';
 import {SvgWrapperProps} from "~/components/SvgWrapper/SvgWrapper.types";
 
 type ToCompProps = {

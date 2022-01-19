@@ -4,7 +4,7 @@ import {text, withKnobs} from '@storybook/addon-knobs';
 import markdownNotes from './SecondaryNav.md';
 
 import {SecondaryNav, SecondaryNavHeader} from './index';
-import Love from '~/icons/Love';
+import {Love} from '~/icons';
 
 storiesOf('Components/SecondaryNav', module)
     .addParameters({

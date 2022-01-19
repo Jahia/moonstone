@@ -30,7 +30,8 @@ export const IconTextIcon: React.FC<IconTextIconProps> = ({
                 {iconStart && (
                     <iconStart.type
                         size={iconSize}
-                        className={clsx('moonstone-IconTextIcon_iconStart')}
+                        className={clsx('moonstone-IconTextIcon_iconStart', iconStart.props.className)}
+                        {...iconStart.props}
                     />
                 )}
 
@@ -45,7 +46,8 @@ export const IconTextIcon: React.FC<IconTextIconProps> = ({
                 {iconEnd && (
                     <iconEnd.type
                         size={iconSize}
-                        className={clsx('moonstone-IconTextIcon_iconEnd')}
+                        className={clsx('moonstone-IconTextIcon_iconEnd', iconEnd.props.className)}
+                        {...iconEnd.props}
                     />
                 )}
             </>
