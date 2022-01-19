@@ -32,7 +32,7 @@
         "compile:js": "node ./scripts/compile.js",
         "compile:css": "node ./scripts/compile-css.js",
         "tsc": "tsc --build tsconfig.json",
-        "build:icons": "rimraf src/icons/components/*.tsx && svgr --template ./src/icons/svgrTemplate.js --config-file ./src/icons/svgr.config.js ./src/icons/assets && tslint --fix ./src/icons/components",
+        "build:icons": "rimraf src/icons/components/*.tsx && svgr --template ./src/icons/svgrTemplate.js --config-file ./src/icons/svgr.config.js ./src/icons/assets && tslint --fix ./src/icons/components/*",
         "build": "yarn build:storybook && yarn build:lib && yarn webpack",
         "prebuild:lib": "rimraf dist/",
         "build:lib": "yarn tsc && yarn compile:js && yarn compile:css",

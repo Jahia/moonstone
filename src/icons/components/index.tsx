@@ -79,6 +79,7 @@ export { default as FileImage } from './FileImage';
 export { default as FilePdf } from './FilePdf';
 export { default as FilePowerPoint } from './FilePowerPoint';
 export { default as FileSound } from './FileSound';
+export { default as FileText } from './FileText';
 export { default as FileVideo } from './FileVideo';
 export { default as FileWord } from './FileWord';
 export { default as FileZip } from './FileZip';
