@@ -1,3 +1,10 @@
+%variant_ghost_disabled {
+    color: var(--color-gray);
+
+    border-color: transparent;
+    background-color: transparent;
+}
+
 %variant_ghost {
     border: 1px solid transparent;
     background-color: transparent;
@@ -5,41 +12,45 @@
     &.moonstone-color_default {
         color: var(--color-gray);
 
-        &:hover {
+        &:hover:not(:disabled) {
             color: var(--color-accent);
 
             border-color: transparent;
             background-color: var(--color-gray_light40);
         }
 
-        &:focus {
+        &:focus:not(:disabled) {
             color: var(--color-accent_dark);
 
             border-color: var(--color-accent_dark);
             background-color: transparent;
         }
 
-        &:active {
+        &:active:not(:disabled) {
             color: var(--color-white);
 
             border-color: var(--color-accent);
             background-color: var(--color-accent);
         }
 
+        &:disabled {
+            @extend %variant_ghost_disabled;
+        }
+
         &.moonstone-reverse {
             color: var(--color-white);
 
-            &:hover {
+            &:hover:not(:disabled) {
                 border-color: transparent;
                 background-color: var(--color-accent_dark60);
             }
 
-            &:focus {
+            &:focus:not(:disabled) {
                 border-color: var(--color-white);
                 background-color: transparent;
             }
 
-            &:active {
+            &:active:not(:disabled) {
                 border-color: transparent;
                 background-color: var(--color-accent);
             }
@@ -49,43 +60,47 @@
     &.moonstone-color_accent {
         color: var(--color-accent);
 
-        &:hover {
+        &:hover:not(:disabled) {
             color: var(--color-accent_dark);
 
             border-color: transparent;
             background-color: var(--color-gray_light40);
         }
 
-        &:focus {
+        &:focus:not(:disabled) {
             color: var(--color-accent_dark);
 
             border-color: var(--color-accent_dark);
             background-color: transparent;
         }
 
-        &:active {
+        &:active:not(:disabled) {
             color: var(--color-white);
 
             border-color: var(--color-accent_dark);
             background-color: var(--color-accent_dark);
         }
 
+        &:disabled {
+            @extend %variant_ghost_disabled;
+        }
+
         &.moonstone-reverse {
-            &:hover {
+            &:hover:not(:disabled) {
                 color: var(--color-white);
 
                 border-color: transparent;
                 background-color: var(--color-accent40);
             }
 
-            &:focus {
+            &:focus:not(:disabled) {
                 color: var(--color-white);
 
                 border-color: var(--color-white);
                 background-color: var(--color-accent60);
             }
 
-            &:active {
+            &:active:not(:disabled) {
                 color: var(--color-white);
 
                 border-color: transparent;
@@ -97,40 +112,44 @@
     &.moonstone-color_danger {
         color: var(--color-danger);
 
-        &:hover {
+        &:hover:not(:disabled) {
             color: var(--color-danger);
 
             border-color: transparent;
             background-color: var(--color-gray_light40);
         }
 
-        &:focus {
+        &:focus:not(:disabled) {
             color: var(--color-danger);
 
             border-color: var(--color-danger);
         }
 
-        &:active {
+        &:active:not(:disabled) {
             color: var(--color-white);
 
             background-color: var(--color-danger);
         }
 
+        &:disabled {
+            @extend %variant_ghost_disabled;
+        }
+
         &.moonstone-reverse {
-            &:hover {
+            &:hover:not(:disabled) {
                 color: var(--color-white);
 
                 background-color: var(--color-danger40);
             }
 
-            &:focus {
+            &:focus:not(:disabled) {
                 color: var(--color-white);
 
                 border-color: var(--color-white);
                 background-color: var(--color-danger60);
             }
 
-            &:active {
+            &:active:not(:disabled) {
                 color: var(--color-white);
 
                 background-color: var(--color-danger);
@@ -145,20 +164,10 @@
         box-shadow: none;
     }
 
-    &:disabled,
-    &:hover:disabled,
-    &:focus:disabled,
-    &:active:disabled {
-        color: var(--color-gray);
+    &.moonstone-reverse:disabled {
+        color: var(--color-gray_light);
 
         border-color: transparent;
         background-color: transparent;
-
-        &.moonstone-reverse {
-            color: var(--color-gray_light);
-
-            border-color: transparent;
-            background-color: transparent;
-        }
     }
 }
