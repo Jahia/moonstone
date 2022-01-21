@@ -21,6 +21,7 @@ import {
     TablePagination
 } from '~/components';
 import {tableDataFlat, tableDataNested, tablePaginationDataFlat} from '~/data';
+import {Love} from '~/icons';
 
 export default {
     title: 'Components/Table',
@@ -50,18 +51,18 @@ export const Basic = () => (
             </TableRow>
         </TableHead>
         <TableBody>
-            <TableRow>
-                <TableBodyCell>cell 1</TableBodyCell>
+            <TableRow isHighlighted>
+                <TableBodyCell iconStart={<Love color="red"/>}>cell 1</TableBodyCell>
                 <TableBodyCell>cell 2</TableBodyCell>
                 <TableBodyCell>cell 3</TableBodyCell>
             </TableRow>
             <TableRow>
-                <TableBodyCell>cell 4</TableBodyCell>
+                <TableBodyCell iconStart={<Love color="red"/>}>cell 4</TableBodyCell>
                 <TableBodyCell>cell 5</TableBodyCell>
                 <TableBodyCell>cell 6</TableBodyCell>
             </TableRow>
             <TableRow>
-                <TableBodyCell>cell 7</TableBodyCell>
+                <TableBodyCell iconStart={<Love color="red"/>}>cell 7</TableBodyCell>
                 <TableBodyCell>cell 8</TableBodyCell>
                 <TableBodyCell>cell 9</TableBodyCell>
             </TableRow>
