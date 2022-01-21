@@ -36,6 +36,10 @@ $row-multiple-line-height: 64px;
 
             background-color: var(--color-accent_light40);
         }
+
+        .moonstone-icon {
+            fill: var(--color-light);
+        }
     }
 
     &.moonstone-TableRow-multipleLines {

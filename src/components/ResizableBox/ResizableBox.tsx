@@ -2,7 +2,7 @@ import React from 'react';
 import {Resizable} from 're-resizable';
 import clsx from 'clsx';
 import './ResizableBox.scss';
-import HandleResize from '~/icons/HandleResize';
+import {HandleResize} from '~/icons';
 import {zones, EnableZones, ResizableBoxProps} from './ResizableBox.types';
 
 export const ResizableBox: React.FC<ResizableBoxProps> = ({

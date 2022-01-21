@@ -6,9 +6,7 @@ import markdownNotes from './Accordion.md';
 
 import {Accordion} from './index';
 import {AccordionItem} from '~/components/Accordion/AccordionItem';
-import Love from '~/icons/Love';
-import BarSquare from '~/icons/BarSquare';
-import Bug from '~/icons/Bug';
+import {Love, BarSquare, Bug} from '~/icons';
 
 const accordionIds = ['01', '02', '03'];
 

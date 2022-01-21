@@ -1,0 +1,49 @@
+.moonstone-icon {
+    fill: currentColor;
+}
+
+// Size
+.moonstone-icon_small {
+    width: 0.75rem;
+    height: 0.75rem;
+}
+
+.moonstone-icon_default {
+    width: 1rem;
+    height: 1rem;
+}
+
+.moonstone-icon_big {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+// Color
+.moonstone-icon_blue {
+    fill: var(--color-accent);
+}
+
+.moonstone-icon_green {
+    fill: var(--color-success);
+}
+
+.moonstone-icon_yellow {
+    fill: var(--color-warning);
+}
+
+.moonstone-icon_red {
+    fill: var(--color-danger);
+}
+
+.moonstone-icon_purple {
+    fill: var(--color-purple);
+}
+
+.moonstone-icon_gray {
+    fill: var(--color-gray);
+}
+
+// Loading
+.moonstone-icon_isLoading {
+    animation: spin 2s linear infinite;
+}
