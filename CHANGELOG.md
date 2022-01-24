@@ -1,3 +1,26 @@
+# v2.1.0 (Mon Jan 24 2022)
+
+#### 🚀 Enhancement
+
+- MOON-305: POC for treeview in dropdown [#263](https://github.com/Jahia/moonstone/pull/263) ([@tdraier](https://github.com/tdraier))
+
+#### 🐛 Bug Fix
+
+- MOON-317: Add the ability to set a color to icons and add more icons [#284](https://github.com/Jahia/moonstone/pull/284) ([@ffffffelix](https://github.com/ffffffelix) [@tdraier](https://github.com/tdraier))
+- MOON-324: Prevent hover style on disabled buttons [#285](https://github.com/Jahia/moonstone/pull/285) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🔩 Dependency Updates
+
+- Bump nanoid from 3.1.30 to 3.2.0 [#286](https://github.com/Jahia/moonstone/pull/286) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v2.0.1 (Thu Dec 16 2021)
 
 #### 🐛 Bug Fix
