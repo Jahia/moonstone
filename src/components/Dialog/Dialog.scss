@@ -1,0 +1,55 @@
+.moonstone-dialog_portal {
+    position: fixed;
+
+    width: 100vw;
+    height: 100vh;
+}
+
+.moonstone-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+
+    width: 50vw;
+    margin: 10vh auto;
+    padding: 2rem;
+
+    outline: none;
+    background: white;
+    transform: translate(-50%, -50%);
+
+    & .moonstone-dialog_header {
+        height: 48px;
+    }
+
+    & .moonstone-dialog_content {
+        min-width: 300px;
+        padding: 30px;
+
+        border-radius: 4px;
+        background: white;
+    }
+
+    & .moonstone-dialog_footer {
+        height: 48px;
+
+        & * {
+            margin: 0 10px;
+        }
+    }
+}
+
+.moonstone-dialog_overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+
+    display: grid;
+
+    background: rgba(0 0 0 / 0.5);
+    place-items: center;
+    overflow-y: auto;
+}

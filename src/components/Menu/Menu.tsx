@@ -74,7 +74,7 @@ export const Menu: React.FC<MenuProps> = ({
             setFilteredChildren(children);
             setIsEmptySearch(false);
         }
-    }, [inputValue, children]);
+    }, [inputValue, children]); /// children is always recreated
 
     // ---
     // Styling
