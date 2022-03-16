@@ -71,7 +71,7 @@ export const Menu: React.FC<MenuProps> = ({
                 }
             }
         } else {
-            setFilteredChildren(children);
+            setFilteredChildren(null);
             setIsEmptySearch(false);
         }
     }, [inputValue, children]);
@@ -124,7 +124,7 @@ export const Menu: React.FC<MenuProps> = ({
                         />
                     </div>
                 )}
-                {filteredChildren}
+                {filteredChildren || children}
                 {isEmptySearch && (
                     <Typography
                         className="moonstone-menu_emptySearchText"
