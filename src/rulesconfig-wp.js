@@ -24,15 +24,10 @@ const rules = [
         include: [
             __dirname
         ],
-        use: [
-            {
-                loader: 'file-loader',
-                options: {
-                    name: '[name].[ext]',
-                    outputPath: 'fonts/'
-                }
-            }
-        ]
+        type: 'asset/resource',
+        dependency: {
+            not: ['url']
+        }
     }
 ];
 
