@@ -1,3 +1,15 @@
+# v2.2.1 (Wed Mar 23 2022)
+
+#### 🐛 Bug Fix
+
+- QA-14185: Use asset type for external files [#288](https://github.com/Jahia/moonstone/pull/288) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v2.2.0 (Wed Mar 16 2022)
 
 #### 🚀 Enhancement
