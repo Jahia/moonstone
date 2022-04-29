@@ -1,21 +1,20 @@
 import React, {useState} from 'react';
 import clsx from 'clsx';
 import './Dropdown.scss';
-// import spacings from '~/tokens/spacings/spacing.json';
 
 import {
     DropdownData,
-    DropdownDataOptions,
+    DropdownDataOption,
     DropdownImageSizes,
     DropdownProps,
     DropdownSizes,
     DropdownVariants,
     HandleSelect
 } from './Dropdown.types';
-import {Typography} from '~/components/Typography';
+import {Typography} from '~/components';
 import {ChevronDown} from '~/icons';
-import {DropdownMenu} from "~/components/Dropdown/DropdownMenu";
-import {TreeViewMenu} from "~/components/Dropdown/TreeViewMenu";
+import {DropdownMenu} from "./DropdownMenu";
+import {TreeViewMenu} from "./TreeViewMenu";
 import {TreeViewData} from "~/components/TreeView/TreeView.types";
 
 
@@ -86,7 +85,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             let canClose: boolean | void = !item.isDisabled;
             if (!item.isDisabled && item.value !== value) {
                 e.stopPropagation();
-                canClose = (onChange as (e: React.MouseEvent | React.KeyboardEvent, item: DropdownDataOptions) => void)(e, item);
+                canClose = (onChange as (e: React.MouseEvent | React.KeyboardEvent, item: DropdownDataOption) => void)(e, item);
             }
 
             if (canClose !== false) {
@@ -100,7 +99,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         setAnchorEl(null);
     };
 
-    const handleKeyPress = (e: React.KeyboardEvent, item: DropdownDataOptions) => {
+    const handleKeyPress = (e: React.KeyboardEvent, item: DropdownDataOption) => {
         if (e.key === 'Enter') {
             handleSelect(e, item);
         }
@@ -155,6 +154,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     variant="caption"
                     component="span"
                     className={clsx('flexFluid')}
+                    data-testid="label"
                 >
                     {label}
                 </Typography>
@@ -163,7 +163,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
             {isOpened && (isTree ? (
                 <TreeViewMenu isDisplayed
-                              data={data as [TreeViewData]}
+                              data={data as TreeViewData[]}
                               value={value}
                               anchorPosition={anchorPosition}
                               minWidth={minWidth}
@@ -179,7 +179,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 />
             ) : (
                 <DropdownMenu isDisplayed
-                              data={data as [DropdownDataOptions & DropdownData]}
+                              data={data as DropdownDataOption[] | DropdownData[]}
                               value={value}
                               anchorPosition={anchorPosition}
                               minWidth={minWidth}

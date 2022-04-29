@@ -37,8 +37,6 @@ export const Menu: React.FC<MenuProps> = ({
     onExiting,
     onExited,
     hasOverlay,
-    hasSearch,
-    searchEmptyText,
     ...props
 }) => {
     if (!children || React.Children.count(children) < 1) {
@@ -47,34 +45,34 @@ export const Menu: React.FC<MenuProps> = ({
 
     const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, position);
     useEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);
-    const [inputValue, setInputValue] = useState('');
-    const [filteredChildren, setFilteredChildren] = useState(children);
-    const [isEmptySearch, setIsEmptySearch] = useState(false);
+    // const [inputValue, setInputValue] = useState('');
+    // const [filteredChildren, setFilteredChildren] = useState(children);
+    // const [isEmptySearch, setIsEmptySearch] = useState(false);
     // useEffect hook to filter the search results and determine whether to show the no search results text
-    useEffect(() => {
-        if (inputValue !== '') {
-            if (Array.isArray(children)) {
-                const _childrenToFilter = getChildrenToFilter(children as [React.ReactElement]);
-                const _filtered = _childrenToFilter.filter((child: React.ReactElement) => {
-                    if (child.props && child.props.label) {
-                        const contains = child.props.label.toLowerCase().includes(inputValue.toLowerCase());
-                        return contains && child.props.variant !== 'title';
-                    }
-                    return false;
-                });
-                setFilteredChildren(_filtered);
+    // useEffect(() => {
+    //     if (inputValue !== '') {
+    //         if (Array.isArray(children)) {
+    //             const _childrenToFilter = getChildrenToFilter(children as [React.ReactElement]);
+    //             const _filtered = _childrenToFilter.filter((child: React.ReactElement) => {
+    //                 if (child.props && child.props.label) {
+    //                     const contains = child.props.label.toLowerCase().includes(inputValue.toLowerCase());
+    //                     return contains && child.props.variant !== 'title';
+    //                 }
+    //                 return false;
+    //             });
+    //             setFilteredChildren(_filtered);
 
-                if (_filtered.length === 0) {
-                    setIsEmptySearch(true);
-                } else {
-                    setIsEmptySearch(false);
-                }
-            }
-        } else {
-            setFilteredChildren(children);
-            setIsEmptySearch(false);
-        }
-    }, [inputValue, children]);
+    //             if (_filtered.length === 0) {
+    //                 setIsEmptySearch(true);
+    //             } else {
+    //                 setIsEmptySearch(false);
+    //             }
+    //         }
+    //     } else {
+    //         setFilteredChildren(children);
+    //         setIsEmptySearch(false);
+    //     }
+    // }, [inputValue, children]);
 
     // ---
     // Styling
@@ -113,26 +111,7 @@ export const Menu: React.FC<MenuProps> = ({
                 onMouseLeave={onMouseLeave}
                 {...props}
             >
-                { hasSearch && (
-                    <div className="moonstone-menu_searchInput">
-                        <Input
-                            focusOnField
-                            variant="search"
-                            value={inputValue}
-                            onChange={e => setInputValue(e.target.value)}
-                            onClear={() => setInputValue('')}
-                        />
-                    </div>
-                )}
-                {filteredChildren}
-                {isEmptySearch && (
-                    <Typography
-                        className="moonstone-menu_emptySearchText"
-                        variant="caption"
-                    >
-                        {searchEmptyText}
-                    </Typography>
-                )}
+                {children}
             </menu>
             {
                 hasOverlay && isDisplayed && (
@@ -151,8 +130,8 @@ export const Menu: React.FC<MenuProps> = ({
 // Kept defaultProps here because of unnecessary re-rendering when provided as default parameters to the function component
 Menu.defaultProps = {
     hasOverlay: true,
-    hasSearch: false,
-    searchEmptyText: 'No results found.',
+    // hasSearch: false,
+    // searchEmptyText: 'No results found.',
     position: 'fixed',
     anchorEl: null,
     anchorPosition: {

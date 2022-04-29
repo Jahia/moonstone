@@ -30,9 +30,11 @@ const filterNode = (text: string, node: TreeViewData, opened: string[]) => {
     if (match || children.length > 0) {
         return {
             ...node,
-            treeItemProps:{className: clsx({
+            treeItemProps:{
+                className: clsx({
                     ['moonstone-disabled']: !match
-                })},
+                })
+            },
             children
         }
     }
@@ -58,25 +60,25 @@ const find = (value: string, data: TreeViewData, opened: string[]): string => {
 
 
 export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
-                                                              isDisplayed,
-                                                              minWidth,
-                                                              maxWidth,
-                                                              maxHeight,
-                                                              anchorEl,
-                                                              anchorPosition,
-                                                              anchorElOrigin,
-                                                              transformElOrigin,
-                                                              position,
-                                                              hasOverlay,
-                                                              hasSearch,
-                                                              searchEmptyText,
-                                                              data,
-                                                              value,
-                                                              handleSelect,
-                                                              handleKeyPress,
-                                                              onClose,
-                                                              ...props
-                                                          }) => {
+        isDisplayed,
+        minWidth,
+        maxWidth,
+        maxHeight,
+        anchorEl,
+        anchorPosition,
+        anchorElOrigin,
+        transformElOrigin,
+        position,
+        hasOverlay,
+        hasSearch,
+        searchEmptyText,
+        data,
+        value,
+        handleSelect,
+        handleKeyPress,
+        onClose,
+        ...props
+    }) => {
 
     const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, position);
     // useEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);

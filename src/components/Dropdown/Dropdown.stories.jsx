@@ -10,6 +10,8 @@ import {Love} from '~/icons';
 import IconWrapper from '~/__storybook__/IconWrapper';
 import {iconsName} from '~/__storybook__/utils';
 
+// Const emptyData = [];
+
 const data = [
     {
         label: 'option 1',
@@ -218,6 +220,7 @@ storiesOf('Components/Dropdown', module)
         return (
             <div style={{transform: 'scale(1)', height: '100vh', padding: '90px'}}>
                 <Dropdown
+                    hasSearch
                     icon={<Love/>}
                     label={currentOption.label}
                     value={currentOption.value}
@@ -285,6 +288,7 @@ storiesOf('Components/Dropdown', module)
         return (
             <div style={{transform: 'scale(1)', height: '100vh'}}>
                 <Dropdown
+                    hasSearch
                     isDisabled={boolean('Disabled', false)}
                     label={currentOption.label}
                     value={currentOption.value}
