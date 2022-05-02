@@ -6,6 +6,7 @@ export * from './ButtonGroup';
 export * from './Breadcrumb';
 export * from './Checkbox';
 export * from './Chip';
+export * from './Collapsible';
 export * from './Dropdown';
 export * from './GlobalStyle';
 export * from './Header';

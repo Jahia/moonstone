@@ -1,0 +1,44 @@
+.moonstone-collapsible {
+    & + .moonstone-collapsible {
+        margin-top: var(--spacing-large);
+    }
+}
+
+.moonstone-collapsible_button {
+    width: 100%;
+    padding: var(--spacing-small);
+
+    border: 0;
+    background: none;
+    cursor: pointer;
+
+    &:hover {
+        color: var(--color-gray_dark);
+    }
+}
+
+// Chevron icon animation
+.moonstone-collapsible_icon {
+    margin-right: var(--spacing-nano);
+
+    transform: rotate(0);
+
+    transition: transform 0.2s ease-in-out;
+}
+
+.moonstone-collapsible_icon_expanded {
+    transform: rotate(90deg);
+}
+
+// Collapsible content
+.moonstone-collapsible_content_collapsed {
+    height: 0;
+    padding: 0 var(--spacing-large);
+    overflow: hidden;
+
+    pointer-events: none;
+}
+
+.moonstone-collapsible_content_expanded {
+    padding: var(--spacing-medium) var(--spacing-big);
+}
