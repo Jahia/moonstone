@@ -1,3 +1,20 @@
+# v2.3.0 (Tue May 03 2022)
+
+#### 🚀 Enhancement
+
+- MOON-329: Create Collapsible component [#290](https://github.com/Jahia/moonstone/pull/290) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🔩 Dependency Updates
+
+- Bump minimist from 1.2.5 to 1.2.6 [#289](https://github.com/Jahia/moonstone/pull/289) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.2.1 (Wed Mar 23 2022)
 
 #### 🐛 Bug Fix
