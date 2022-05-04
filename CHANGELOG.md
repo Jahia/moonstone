@@ -1,3 +1,15 @@
+# v2.3.1 (Wed May 04 2022)
+
+#### 🐛 Bug Fix
+
+- MOON-330: Update typography of Collapsible [#291](https://github.com/Jahia/moonstone/pull/291) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.3.0 (Tue May 03 2022)
 
 #### 🚀 Enhancement
