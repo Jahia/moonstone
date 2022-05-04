@@ -33,14 +33,17 @@ export const ControlledCollapsible: React.FC<CollapsibleProps> = ({
                 <ChevronRight className={clsx('moonstone-collapsible_icon', {'moonstone-collapsible_icon_expanded': isExpanded})} size='big'/>
                 <Typography
                     isNowrap
+                    isUpperCase
                     component="span"
                     variant="heading"
+                    weight='semiBold'
                 >
                     {label}
                 </Typography>
             </button>
             <div id={id}
                 className={clsx([isExpanded ? 'moonstone-collapsible_content_expanded' : 'moonstone-collapsible_content_collapsed'],)}
+                hidden={!isExpanded}
             >
                 {children}
             </div>
