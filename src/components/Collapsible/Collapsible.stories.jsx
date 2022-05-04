@@ -5,7 +5,7 @@ export default {
     title: 'Components/Collapsible',
     component: Collapsible,
     parameters: {
-        layout: 'centered',
+        layout: 'fullscreen',
         knobs: {disable: true},
         storysource: {disable: true},
         actions: {argTypesRegex: '^on.*'}

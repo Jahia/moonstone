@@ -43,6 +43,7 @@ export const ControlledCollapsible: React.FC<CollapsibleProps> = ({
             </button>
             <div id={id}
                 className={clsx([isExpanded ? 'moonstone-collapsible_content_expanded' : 'moonstone-collapsible_content_collapsed'],)}
+                hidden={!isExpanded}
             >
                 {children}
             </div>
