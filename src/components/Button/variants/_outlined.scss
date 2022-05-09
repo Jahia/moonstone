@@ -9,7 +9,7 @@
     color: var(--color-gray);
 
     border: 1px solid var(--color-gray);
-    background-color: var(--color-white);
+    background-color: transparent;
 
     &.moonstone-color_default {
         &:hover:not(:disabled) {
@@ -33,6 +33,12 @@
 
         &:disabled {
             @extend %variant_outlined_disabled;
+        }
+
+        &.moonstone-reverse {
+            color: var(--color-light60);
+
+            border-color: var(--color-light60);
         }
     }
 
