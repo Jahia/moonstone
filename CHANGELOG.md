@@ -1,3 +1,17 @@
+# v2.3.2 (Fri Jun 03 2022)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-17115: Styling adjustements [#293](https://github.com/Jahia/moonstone/pull/293) ([@tdraier](https://github.com/tdraier))
+- MOON-331: Remove white background with outlined button [#292](https://github.com/Jahia/moonstone/pull/292) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 2
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v2.3.1 (Wed May 04 2022)
 
 #### 🐛 Bug Fix
