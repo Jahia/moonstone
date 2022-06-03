@@ -36,7 +36,6 @@ export const ControlledCollapsible: React.FC<CollapsibleProps> = ({
                     isUpperCase
                     component="span"
                     variant="heading"
-                    weight='semiBold'
                 >
                     {label}
                 </Typography>
