@@ -12,7 +12,7 @@ export type HeaderProps = {
     /**
      * BackButton is used to comeback to the previous location
      */
-    backButton?: React.ReactElement<ButtonProps>;
+    backButton?: React.ReactElement;
 
     /**
      * Slot to the search element
@@ -27,7 +27,7 @@ export type HeaderProps = {
     /**
      * Slot to display the breadcrumb
      */
-    breadcrumb?: React.ReactElement<BreadcrumbProps>;
+    breadcrumb?: React.ReactNode;
 
     /**
      * Slot to display the status of the element
@@ -37,7 +37,7 @@ export type HeaderProps = {
     /**
      * Slot to display the content type of the element
      */
-    contentType?: React.ReactElement<ChipProps>;
+    contentType?: React.ReactNode;
 
     /**
      * Slot to display item on the right of the toolbar
