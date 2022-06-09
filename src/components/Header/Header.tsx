@@ -51,7 +51,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <div className={clsx('flexRow_between', 'alignCenter', 'moonstone-header_information')}>
                     <div className={clsx('flexRow_nowrap', 'alignCenter', 'flexFluid', 'moonstone-header_informationLeft')}>
                         { breadcrumb }
-                        { breadcrumb && contentType && <Separator variant="vertical" spacing="medium"/> }
+                        { <Separator variant="vertical" spacing="medium" invisible="firstOrLastChild"/> }
                         { contentType }
                     </div>
                     {status && (
