@@ -1,3 +1,16 @@
+# v2.3.3 (Fri Jun 10 2022)
+
+#### 🐛 Bug Fix
+
+- Fixed header separator [#295](https://github.com/Jahia/moonstone/pull/295) ([@tdraier](https://github.com/tdraier))
+- Simplify header, restore separator [#294](https://github.com/Jahia/moonstone/pull/294) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v2.3.2 (Fri Jun 03 2022)
 
 #### 🐛 Bug Fix
