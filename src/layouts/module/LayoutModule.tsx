@@ -13,8 +13,6 @@ export const LayoutModule: React.FC<LayoutModuleProps> = ({
 
     const classNameProps = clsx(
         'flexFluid',
-        // 'moonstone-layoutModule_content',
-        // {'moonstone-layoutModule_content_withNoPadding': !hasPadding},
         isLoading ? ['flexCol_center', 'alignCenter'] : 'flexCol'
     );
 
