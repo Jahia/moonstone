@@ -1,10 +1,18 @@
 import * as React from 'react';
 
-export type BadgeProps = {
+export type PaperProps = {
     /**
      * Define if the component has padding
      */
     hasPadding?: boolean;
-    className?: string;
+
+    /**
+     * Content of the component
+     */
     children?: React.ReactNode;
+
+    /**
+     * Additional classname
+     */
+    className?: string;
 }
