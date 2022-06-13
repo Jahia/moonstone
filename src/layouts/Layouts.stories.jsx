@@ -5,7 +5,7 @@ import {withKnobs} from '@storybook/addon-knobs';
 import {treeData, treeDataNested} from '~/data';
 import {LayoutApp, LayoutModule, LayoutContent} from '~/layouts';
 import {Header, PrimaryNav, SecondaryNav, SecondaryNavHeader, Accordion, AccordionItem, TreeView, Paper} from '~/components';
-import {FakePrimaryNavigation, FakeSecondaryNavigation} from '~/__storybook__/FakeComponents';
+import {FakePrimaryNavigation, FakeSecondaryNavigation, lorem} from '~/__storybook__/FakeComponents';
 import {Bug, Love} from '~/icons';
 
 const accordionIds = ['01', '02', '03'];
@@ -78,7 +78,7 @@ storiesOf('Layouts/Demos', module)
                                     content={
                                         <>
                                             <Paper>Content</Paper>
-                                            <Paper>Other content</Paper>
+                                            <Paper>{lorem}</Paper>
                                         </>
                                     }
                                 />

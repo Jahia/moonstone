@@ -6,6 +6,7 @@
 }
 
 .moonstone-layoutContent_centered {
-    width: 800px;
+    min-width: 400px;
+    max-width: 800px;
     margin: 0 auto;
 }

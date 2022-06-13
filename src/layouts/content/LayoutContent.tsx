@@ -28,7 +28,7 @@ export const LayoutContent: React.FC<LayoutContentProps> = ({
                     : (
                         isCentered
                         ? (
-                            <div className={clsx('flexCol_nowrap', 'flexFluid', {'moonstone-layoutContent_centered': isCentered})}>
+                            <div className='flexCol_nowrap flexFluid moonstone-layoutContent_centered'>
                                 {content}
                             </div>
                         )
