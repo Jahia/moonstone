@@ -1,18 +1,18 @@
 import React, {useState} from 'react';
 import {storiesOf} from '@storybook/react';
-import {withKnobs, text, boolean} from '@storybook/addon-knobs';
+import {withKnobs} from '@storybook/addon-knobs';
 
-import {LayoutApp} from './app';
-import {LayoutModule} from './module';
 import {treeData, treeDataNested} from '~/data';
-import {PrimaryNav, SecondaryNav, SecondaryNavHeader, Accordion, AccordionItem, TreeView} from '~/components';
+import {LayoutApp, LayoutModule, LayoutContent} from '~/layouts';
+import {Header, PrimaryNav, SecondaryNav, SecondaryNavHeader, Accordion, AccordionItem, TreeView, Paper} from '~/components';
+import {FakePrimaryNavigation, FakeSecondaryNavigation, lorem} from '~/__storybook__/FakeComponents';
 import {Bug, Love} from '~/icons';
 
 const accordionIds = ['01', '02', '03'];
 
 storiesOf('Layouts/Demos', module)
     .addDecorator(withKnobs)
-    .add('Default', () => {
+    .add('Example', () => {
         const [selectedItems1, setSelectedItems1] = useState([]);
         const [selectedItems2, setSelectedItems2] = useState([]);
 
@@ -73,10 +73,17 @@ storiesOf('Layouts/Demos', module)
                                 </SecondaryNav>
                             }
                             content={
-                                <div style={{padding: '20px'}}>
-                                    {text('Content', 'My module content', 'Content')}
-                                </div>
+                                <LayoutContent
+                                    header={<Header title="Page title"/>}
+                                    content={
+                                        <>
+                                            <Paper>Content</Paper>
+                                            <Paper>{lorem}</Paper>
+                                        </>
+                                    }
+                                />
                             }
+
                         />
                     }
                 />
@@ -84,20 +91,41 @@ storiesOf('Layouts/Demos', module)
         );
     })
 
+    .add('Centered', () => (
+        <div style={{transform: 'scale(1)'}}>
+            <LayoutApp
+                navigation={<FakePrimaryNavigation/>}
+                content={
+                    <LayoutModule
+                        navigation={<FakeSecondaryNavigation/>}
+                        content={
+                            <LayoutContent
+                                isCentered
+                                header={<Header title="Header"/>}
+                                content={
+                                    <>
+                                        <Paper>Content</Paper>
+                                    </>
+                                }
+                            />
+                        }
+                    />
+                }
+            />
+        </div>
+    ))
+
     .add('Without level 2', () => (
         <div style={{transform: 'scale(1)'}}>
             <LayoutApp
-                navigation={
-                    <PrimaryNav isExpanded={boolean('Expand', false, 'Level 1')}>
-                        level 1
-                    </PrimaryNav>
-                }
+                navigation={<FakePrimaryNavigation/>}
                 content={
                     <LayoutModule
                         content={
-                            <div style={{padding: '20px'}}>
-                                {text('Content', 'My module content', 'Content')}
-                            </div>
+                            <LayoutContent
+                                header={<Header title="Title"/>}
+                                content={<Paper className="flexFluid">Content</Paper>}
+                            />
                         }
                     />
                 }

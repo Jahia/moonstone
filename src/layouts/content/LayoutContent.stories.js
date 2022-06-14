@@ -1,22 +1,19 @@
-
 import React from 'react';
-import {LayoutApp} from './index';
-import {FakePrimaryNavigation, FakeContent} from '~/__storybook__/FakeComponents';
-import markdownNotes from './LayoutApp.md';
+import {LayoutContent} from '~/layouts';
+import {Header} from '~/components';
+import {FakeContent} from '~/__storybook__/FakeComponents';
 
 export default {
-    title: 'Layouts/LayoutApp',
-    component: LayoutApp,
+    title: 'Layouts/LayoutContent',
+    component: LayoutContent,
     parameters: {
         layout: 'fullscreen',
-        subtitle: 'How to use our root application layout',
-        notes: {markdown: markdownNotes},
         knobs: {
             disable: true
         }
     },
     argTypes: {
-        navigation: {
+        header: {
             control: false
         },
         content: {
@@ -26,14 +23,23 @@ export default {
 };
 
 const Template = args => (
-    <LayoutApp
-        navigation={<FakePrimaryNavigation/>}
-        content={<FakeContent/>}
+    <LayoutContent
+        header={(
+            <Header title="Header"/>
+        )}
+        content={(
+            <FakeContent/>
+        )}
         {...args}
     />
 );
 
 export const Default = Template.bind({});
+
+export const Centered = Template.bind({});
+Centered.args = {
+    isCentered: true
+};
 
 export const Loading = Template.bind({});
 Loading.args = {

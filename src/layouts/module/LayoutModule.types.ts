@@ -2,23 +2,22 @@ import * as React from 'react';
 
 export type LayoutModuleProps = {
     /**
-     * Slot for the module's navigation
+     * Navigation of the module (SecondaryNavigation)
      */
-    navigation?: React.ReactNode;
+     navigation?: React.ReactNode;
 
     /**
-     * Slot for the module's content
+     * Content of the page
      */
-    content?: React.ReactNode;
-
-    /**
-     * Replace the content by a loader
-     */
-    isLoading?: boolean;
+     content?: React.ReactNode;
 
     /**
      * The HTML markup used for the content node
      */
-    component?: string;
-}
+     component?: string;
 
+    /**
+     * Replace the content by a loader
+     */
+     isLoading?: boolean;
+}
