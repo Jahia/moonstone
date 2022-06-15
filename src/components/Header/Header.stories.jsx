@@ -1,8 +1,7 @@
 import React from 'react';
 import {Header} from './index';
-
 import {Button, Breadcrumb, BreadcrumbItem, Chip, Dropdown, Tab, TabItem} from '~/components';
-import {ViewGrid, ViewList} from '~/icons';
+import {ViewGrid, ViewList, ArrowLeft} from '~/icons';
 
 const DropdownData = [
     {
@@ -80,7 +79,7 @@ export const Full = Template.bind({});
 
 Full.args = {
     title: 'Page Title',
-    backButton: <Button onClick={() => undefined}/>,
+    backButton: <Button variant="outlined" icon={<ArrowLeft/>} onClick={() => undefined}/>,
     search: <Button size="big" variant="ghost" label="Search" onClick={() => undefined}/>,
     mainActions: [
         <Button key="1" size="big" label="Secondary" variant="outlined" onClick={() => undefined}/>,

@@ -26,11 +26,11 @@ export const Header: React.FC<HeaderProps> = ({
         <header className={clsx('moonstone-header', className)} {...props}>
             {/* Main area */}
             <div className={clsx('moonstone-header_main', 'flexRow', 'alignCenter', 'flexFluid')}>
-                { backButton && React.cloneElement(backButton, {
-                    className: 'moonstone-header_back',
-                    variant: 'outlined',
-                    icon: <ArrowLeft/>
-                })}
+                { backButton && (
+                    <div className="moonstone-header_back">
+                        {backButton}
+                    </div>
+                )}
 
                 <Typography isNowrap component="h1" variant="title" className={clsx('flexFluid', 'moonstone-header_title')}>{title}</Typography>
 
@@ -62,17 +62,18 @@ export const Header: React.FC<HeaderProps> = ({
                 </div>
             )}
 
-            <Separator invisible="firstOrLastChild"/>
-
             {hasToolbar && (
-                <div role="toolbar" className={clsx('flexRow_between', 'alignCenter', 'moonstone-header_toolbar')}>
-                    <div className={clsx('flexRow', 'alignCenter', 'flexFluid', 'moonstone-header_actions')}>
-                        { toolbarLeft }
+                <>
+                    <Separator/>
+                    <div role="toolbar" className={clsx('flexRow_between', 'alignCenter', 'moonstone-header_toolbar')}>
+                        <div className={clsx('flexRow', 'alignCenter', 'flexFluid', 'moonstone-header_actions')}>
+                            { toolbarLeft }
+                        </div>
+                        <div className={clsx('flexRow', 'alignCenter', 'moonstone-header_actions')}>
+                            { toolbarRight }
+                        </div>
                     </div>
-                    <div className={clsx('flexRow', 'alignCenter', 'moonstone-header_actions')}>
-                        { toolbarRight }
-                    </div>
-                </div>
+                </>
             )}
         </header>
     );
