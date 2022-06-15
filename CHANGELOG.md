@@ -1,3 +1,19 @@
+# v2.4.0 (Wed Jun 15 2022)
+
+#### 🚀 Enhancement
+
+- MOON-236: LayoutContent and Paper component [#296](https://github.com/Jahia/moonstone/pull/296) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🐛 Bug Fix
+
+- MOON-335: Don't use react clone to display the backButton in the Header [#297](https://github.com/Jahia/moonstone/pull/297) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.3.3 (Fri Jun 10 2022)
 
 #### 🐛 Bug Fix
