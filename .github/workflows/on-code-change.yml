@@ -1,0 +1,36 @@
+name: On Code Change
+
+on: [push]
+
+jobs:
+  lint-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@develop
+      - name: Install dependencies
+        shell: bash
+        run: yarn install --frozen-lockfile
+      - name: Run linting
+        shell: bash
+        run: yarn lint
+      - name: Run tests
+        shell: bash
+        run: yarn test
+      - uses: actions/upload-artifacts@v3
+        with:
+          name: lint-artifacts
+          path: /home/runner/.m2/repository
+    
+    build:
+      runs-on: ubuntu-latest
+      needs: lint-tests
+      steps:
+        - uses: actions/checkout@develop
+        - uses: actions/download-artifacts@v3
+          with:
+            name: lint-artifacts
+            path: /home/runner/.m2/repository
+        - name: Run Build
+          shell: bash
+          run: yarn build
+        
