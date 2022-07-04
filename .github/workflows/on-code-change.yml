@@ -16,7 +16,7 @@ jobs:
       - name: Run tests
         shell: bash
         run: yarn test
-      - uses: actions/upload-artifacts@v3
+      - uses: actions/upload-artifact@v3
         with:
           name: lint-artifacts
           path: /home/runner/.m2/repository
@@ -26,7 +26,7 @@ jobs:
     needs: lint-tests
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/download-artifacts@v3
+      - uses: actions/download-artifact@v3
         with:
           name: lint-artifacts
           path: /home/runner/.m2/repository
