@@ -6,8 +6,9 @@ on:
       - master
 
 jobs:
-  build:
+  release-publish:
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
@@ -16,23 +17,11 @@ jobs:
       - name: Run Build
         shell: bash
         run: yarn build
-
-  release-publish:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - uses: actions/checkout@v2
       - uses: webfactory/ssh-agent@v0.5.4
         with:
           ssh-private-key: |
             ${{ secrets.PERF_BASTION_PRIVATE_KEY }}
             ${{ secrets.JAHIA_BASTION_PRIVATE_KEY }}
-      - uses: actions/download-artifact@v3
-        with:
-          name: build-artifacts
-          path: |
-            target/*
-            ./*/target/*
       - name: Setup .env
         shell: bash
         run: |
