@@ -116,6 +116,8 @@ $border-radius: 2px;
         bottom: 0;
         left: calc(100% - 28px);
 
+        margin: auto;
+
         color: var(--color-gray);
 
         cursor: pointer;
@@ -136,4 +138,17 @@ $border-radius: 2px;
     .icon_input-empty {
         color: var(--color-gray60);
     }
+}
+
+.moonstone-input-element_has-search-context {
+    text-indent: 104px;
+}
+
+.moonstone-input_search-context {
+    position: absolute;
+    left: 4px;
+
+    min-width: 100px;
+
+    background-color: var(--color-gray_light40);
 }

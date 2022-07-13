@@ -2,7 +2,9 @@ import React from 'react';
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {Input} from './index';
+import {Dropdown} from '~/components';
 import {Love} from '~/icons';
+import {dropdownData} from '~/data';
 
 describe('Input', () => {
     it('should render', () => {
@@ -60,6 +62,21 @@ describe('Input', () => {
         userEvent.type(screen.getByTestId('moonstone-input'), 'type a value');
         expect(screen.getByDisplayValue('type a value')).toBeInTheDocument();
     });
+
+    it('should display contextSearch when it is provided', () => {
+        render(
+            <Input variant="search"
+                   searchContext={<Dropdown data={dropdownData} data-testid="moonstone-search-context"/>}
+            />
+        );
+        expect(screen.getByTestId('moonstone-search-context')).toBeInTheDocument();
+    });
+
+    // It('should not display search icon when contextSearch is provided', () => {
+    //     render(<Input variant="search" contextSearch={<Dropdown data-id="moonstone-search-context"/>} defaultValue="test-default-value"/>);
+
+    //     expect(screen.getByTestId('moonstone-search-context')).toBeInTheDocument();
+    // });
 });
 
 describe('UncontrolledInput', () => {

@@ -1,4 +1,6 @@
 import React from 'react';
+// import {DropdownProps} from '~/components/Dropdown/Dropdown.types';
+import {Dropdown} from '~/components/Dropdown/';
 
 type InputVariant = 'text' | 'search';
 export enum InputVariants {
@@ -82,6 +84,11 @@ export type InputProps = {
      * Function - when passed in, the Cancel icon appears at the end of the input and its click event is passed back when the Cancel icon is clicked
      */
     onClear?: React.MouseEventHandler;
+
+    /**
+     * Slot to display a dropdown to manage search context, it is only avaiable for the search variant
+     */
+    searchContext?: React.ReactElement;
 
     /**
      * Function triggered on change of the input value

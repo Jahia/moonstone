@@ -8,6 +8,8 @@ import {Input} from './index';
 import {InputVariants, InputSizes} from './Input.types';
 import IconWrapper from '~/__storybook__/IconWrapper';
 import {iconsName} from '~/__storybook__/utils';
+import {Folder, SiteWeb, Collections} from '~/icons';
+import {Dropdown} from '~/components';
 
 const variant = () => select('Variant', InputVariants, InputVariants.Text);
 const inputSize = () => select('Size', InputSizes, InputSizes.Default);
@@ -75,6 +77,50 @@ storiesOf('Components/Input', module)
                     onChange={e => setValue(e.target.value)}
                 />
             </section>
+        );
+    })
+    .add('Search Context', () => {
+        const [value, setValue] = useState('');
+        const searchContextData = [
+            {
+                label: 'Folder',
+                value: 'folder',
+                iconStart: <Folder/>
+            },
+            {
+                label: 'Media',
+                value: 'media',
+                iconStart: <Collections/>
+            },
+            {
+                label: 'Digitall',
+                value: 'site',
+                iconStart: <SiteWeb/>
+            }
+        ];
+        const [currentOption, setCurrentOption] = useState(searchContextData[0]);
+
+        const handleOnChange = (e, item) => {
+            setCurrentOption(item);
+            return true;
+        };
+
+        return (
+            <Input
+                variant="search"
+                searchContext={
+                    <Dropdown data={searchContextData}
+                              label={currentOption.label}
+                              icon={currentOption.iconStart}
+                              value={currentOption.value}
+                              onChange={handleOnChange}
+                    />
+                }
+                value={value}
+                placeholder="this is a placeholder!"
+                icon={<IconWrapper iconName={select('Icon', iconsName, 'Love')}/>}
+                onChange={e => setValue(e.target.value)}
+            />
         );
     })
     .add('Playground', () => {

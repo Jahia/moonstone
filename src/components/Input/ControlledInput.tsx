@@ -1,32 +1,33 @@
 import React, {useEffect, useRef} from 'react';
 import clsx from 'clsx';
 import {Cancel, Search} from '~/icons';
-import {Button} from '~/components';
+import {Button, Separator} from '~/components';
 import './Input.scss';
 import {InputProps, InputSizes, InputVariants} from './Input.types';
 
 export const ControlledInput: React.FC<InputProps> = ({
-                                                          variant = InputVariants.Text,
-                                                          value = '',
-                                                          id,
-                                                                        role,
-                                                          placeholder,
-                                                          isDisabled = false,
-                                                          isReadOnly = false,
-                                                          className,
-                                                          size = InputSizes.Default,
-                                                          icon,
-                                                          isShowClearButton,
-                                                          onClear,
-                                                          onChange,
-                                                          onBlur,
-                                                          onFocus,
-                                                          focusOnField = false,
-                                                          ...props
-                                                      }) => {
+    variant = InputVariants.Text,
+    value = '',
+    id,
+    role,
+    placeholder,
+    isDisabled = false,
+    isReadOnly = false,
+    className,
+    size = InputSizes.Default,
+    icon,
+    isShowClearButton,
+    searchContext,
+    onClear,
+    onChange,
+    onBlur,
+    onFocus,
+    focusOnField = false,
+    ...props
+}) => {
     const classNameProps = clsx(
         'moonstone-input',
-        {'moonstone-size_big': size === InputSizes.Big},
+        {'moonstone-size_big': size === InputSizes.Big || typeof searchContext !== 'undefined'},
         {'moonstone-disabled': isDisabled},
         className
     );
@@ -41,7 +42,7 @@ export const ControlledInput: React.FC<InputProps> = ({
     }, [focusOnField]);
 
     if (variant === InputVariants.Search) {
-        icon = <Search/>
+        icon = typeof searchContext === 'undefined' ? <Search/> : null
         isShowClearButton = true
         role = 'search'
     }
@@ -57,11 +58,24 @@ export const ControlledInput: React.FC<InputProps> = ({
 
     return (
         <div className={classNameProps}>
+            {variant === 'search' && searchContext &&
+                (
+                    <>
+                        <searchContext.type
+                            {...searchContext.props}
+                            variant="ghost"
+                            size="small"
+                            className={clsx(searchContext.props.className, 'moonstone-input_search-context' )}
+                        />
+                    </>
+                )
+            }
             <input
                 className={
                     clsx(
                         'moonstone-input-element',
                         {'start-icon-padding': icon},
+                        {'moonstone-input-element_has-search-context': searchContext},
                         {'end-icon-padding': onClear}
                     )
                 }
@@ -76,7 +90,6 @@ export const ControlledInput: React.FC<InputProps> = ({
                 onBlur={onBlur}
                 onFocus={onFocus}
                 ref={inputRef}
-
                 {...props}
             />
             {icon && (
