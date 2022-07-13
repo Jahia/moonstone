@@ -1,5 +1,4 @@
 import React from 'react';
-// import {DropdownProps} from '~/components/Dropdown/Dropdown.types';
 import {Dropdown} from '~/components/Dropdown/';
 
 type InputVariant = 'text' | 'search';

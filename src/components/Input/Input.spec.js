@@ -71,12 +71,6 @@ describe('Input', () => {
         );
         expect(screen.getByTestId('moonstone-search-context')).toBeInTheDocument();
     });
-
-    // It('should not display search icon when contextSearch is provided', () => {
-    //     render(<Input variant="search" contextSearch={<Dropdown data-id="moonstone-search-context"/>} defaultValue="test-default-value"/>);
-
-    //     expect(screen.getByTestId('moonstone-search-context')).toBeInTheDocument();
-    // });
 });
 
 describe('UncontrolledInput', () => {

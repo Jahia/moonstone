@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import clsx from 'clsx';
 import {Cancel, Search} from '~/icons';
-import {Button, Separator} from '~/components';
+import {Button} from '~/components';
 import './Input.scss';
 import {InputProps, InputSizes, InputVariants} from './Input.types';
 
