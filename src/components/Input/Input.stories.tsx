@@ -89,7 +89,6 @@ export const SearchContext: ComponentStory<typeof Input> = () => {
     return (
         <section className="storyWrapper">
             <Input
-                variant="search"
                 searchContext={(
                     <Dropdown
                         data={searchContextData}

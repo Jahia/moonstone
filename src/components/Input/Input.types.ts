@@ -85,7 +85,7 @@ export type InputProps = {
     onClear?: React.MouseEventHandler;
 
     /**
-     * Slot to display a dropdown to manage search context, it is only avaiable for the search variant
+     * Slot to display a dropdown to manage search context, it will automatically set `variant=search` and `size='big'`
      */
     searchContext?: React.ReactElement;
 

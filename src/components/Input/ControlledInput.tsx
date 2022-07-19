@@ -25,9 +25,11 @@ export const ControlledInput: React.FC<InputProps> = ({
     focusOnField = false,
     ...props
 }) => {
+    const hasSearchContext = typeof searchContext !== 'undefined';
+    const isSearch = variant === 'search' || hasSearchContext;
     const classNameProps = clsx(
         'moonstone-input',
-        {'moonstone-size_big': size === InputSizes.Big || typeof searchContext !== 'undefined'},
+        {'moonstone-size_big': size === InputSizes.Big || hasSearchContext},
         {'moonstone-disabled': isDisabled},
         className
     );
@@ -35,14 +37,15 @@ export const ControlledInput: React.FC<InputProps> = ({
     const inputEmpty = value === '';
     const inputRef = useRef(null);
 
+
     useEffect(() => {
         if (focusOnField) {
             inputRef.current.focus({preventScroll: true});
         }
     }, [focusOnField]);
 
-    if (variant === InputVariants.Search) {
-        icon = typeof searchContext === 'undefined' ? <Search/> : null
+    if (isSearch) {
+        icon = hasSearchContext ? null : <Search/>
         isShowClearButton = true
         role = 'search'
     }
@@ -58,14 +61,14 @@ export const ControlledInput: React.FC<InputProps> = ({
 
     return (
         <div className={classNameProps}>
-            {variant === 'search' && searchContext &&
+            {hasSearchContext &&
                 (
                     <>
                         <searchContext.type
                             {...searchContext.props}
                             variant="ghost"
                             size="small"
-                            className={clsx(searchContext.props.className, 'moonstone-input_search-context' )}
+                            className={clsx(searchContext.props.className, 'moonstone-input_search-context')}
                         />
                     </>
                 )
@@ -75,7 +78,7 @@ export const ControlledInput: React.FC<InputProps> = ({
                     clsx(
                         'moonstone-input-element',
                         {'start-icon-padding': icon},
-                        {'moonstone-input-element_has-search-context': searchContext},
+                        {'moonstone-input-element_has-search-context': hasSearchContext},
                         {'end-icon-padding': onClear}
                     )
                 }
