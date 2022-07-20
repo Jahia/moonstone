@@ -46,7 +46,10 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
             {...props}
         >
             <button type="button"
-                    className={clsx('moonstone-secondaryNav_buttonToggle')}
+                    className={clsx(
+                        'moonstone-secondaryNav_buttonToggle',
+                        {'moonstone-secondaryNav_buttonToggle_reversed': isReversed}
+                    )}
                     onClick={handleToggle}
             >
                 {isVisible &&

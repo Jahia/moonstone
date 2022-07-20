@@ -32,7 +32,7 @@
     height: 24px;
     padding: 0;
 
-    color: var(--color-light);
+    color: var(--color-gray_dark);
 
     border: 0;
     border-radius: 24px;
@@ -40,6 +40,14 @@
 
     background: none;
     cursor: pointer;
+
+    &:hover {
+        background-color: var(--color-gray_light60);
+    }
+}
+
+.moonstone-secondaryNav_buttonToggle_reversed {
+    color: var(--color-light);
 
     &:hover {
         background-color: var(--color-accent);
