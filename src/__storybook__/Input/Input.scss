@@ -139,3 +139,16 @@ $border-radius: 2px;
         color: var(--color-gray60);
     }
 }
+
+.moonstone-input-element_has-search-context {
+    text-indent: 104px;
+}
+
+.moonstone-input_search-context {
+    position: absolute;
+    left: 4px;
+
+    min-width: 100px;
+
+    background-color: var(--color-gray_light40);
+}

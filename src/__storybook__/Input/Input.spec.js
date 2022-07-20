@@ -2,7 +2,9 @@ import React from 'react';
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {Input} from './index';
+import {Dropdown} from '~/components';
 import {Love} from '~/icons';
+import {dropdownData} from '~/data';
 
 describe('Input', () => {
     it('should render', () => {
@@ -59,6 +61,15 @@ describe('Input', () => {
         render(<Input data-testid="moonstone-input"/>);
         userEvent.type(screen.getByTestId('moonstone-input'), 'type a value');
         expect(screen.getByDisplayValue('type a value')).toBeInTheDocument();
+    });
+
+    it('should display contextSearch when it is provided', () => {
+        render(
+            <Input variant="search"
+                   searchContext={<Dropdown data={dropdownData} data-testid="moonstone-search-context"/>}
+            />
+        );
+        expect(screen.getByTestId('moonstone-search-context')).toBeInTheDocument();
     });
 });
 

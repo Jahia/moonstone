@@ -7,7 +7,7 @@ $border-width: 1px;
 $border-style: solid;
 $border-radius: 2px;
 
-.moonstone-input {
+.moonstone-searchContextInput {
     position: relative;
 
     display: inline-flex;
@@ -78,64 +78,35 @@ $border-radius: 2px;
         }
     }
 
-    %icon-shared {
-        white-space: nowrap;
-    }
-
-    .start-icon-wrap {
-        @extend %icon-shared;
-
-        position: absolute;
-        left: var(--spacing-small);
-
-        height: 0.01em;
-        max-height: 2em;
-
-        pointer-events: none;
-    }
-
-    input:hover ~ .start-icon-wrap,
-    input:active ~ .start-icon-wrap {
-        color: var(--color-gray_dark);
-    }
-
-    input:focus ~ .start-icon-wrap {
-        color: var(--color-accent);
-    }
-
-    input:disabled ~ .start-icon-wrap {
-        color: var(--color-gray);
-    }
-
-    .end-icon-wrap {
-        @extend %icon-shared;
-
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: calc(100% - 28px);
-
-        margin: auto;
-
-        color: var(--color-gray);
-
-        cursor: pointer;
-    }
-
-    .start-icon-padding {
-        padding-left: 28px;
-    }
-
     .end-icon-padding {
         padding-right: 28px;
     }
+}
 
-    .icon_input-filled {
-        color: var(--color-gray_dark);
-    }
+.moonstone-searchContextInput_clearButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: calc(100% - 28px);
 
-    .icon_input-empty {
-        color: var(--color-gray60);
-    }
+    margin: auto;
+
+    color: var(--color-gray);
+    white-space: nowrap;
+
+    cursor: pointer;
+}
+
+.moonstone-searchContextInput-with-context {
+    text-indent: 104px;
+}
+
+.moonstone-searchContextInput-context {
+    position: absolute;
+    left: 4px;
+
+    min-width: 100px;
+
+    background-color: var(--color-gray_light40);
 }

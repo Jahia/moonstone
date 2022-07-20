@@ -1,22 +1,10 @@
 import React from 'react';
 
-type InputVariant = 'text' | 'search';
-export enum InputVariants {
-    Text = 'text',
-    Search = 'search'
-}
-
-type InputSize = 'default' | 'big';
-export enum InputSizes {
-    Default = 'default',
-    Big = 'big'
-}
-
-export type InputProps = {
+export type SearchContextInputProps = {
     /**
-     * Variant of the input to use
+     * Slot to display a dropdown to manage search context
      */
-     variant?: InputVariant;
+     searchContext: React.ReactElement;
 
     /**
      * Default value when the component is rendered (Uncontrolled)
@@ -34,24 +22,9 @@ export type InputProps = {
     id?: string,
 
     /**
-     * Role of the input
-     */
-    role?: string,
-
-    /**
      * Initial placeholder text to appear in the input field
      */
     placeholder?: string;
-
-    /**
-     * Whether the input should be disabled
-     */
-    isDisabled?: boolean;
-
-    /**
-     * Whether the input should be read-only. It's still submittable.
-     */
-    isReadOnly?: boolean;
 
     /**
      * Whether the input should be focused when displayed.
@@ -62,21 +35,6 @@ export type InputProps = {
      * Any additional custom classes to apply to the component
      */
     className?: string;
-
-    /**
-     * Whether the size of the input should be default or big
-     */
-    size?: InputSize;
-
-    /**
-     * Which icon to use at the beginning of the input
-     */
-    icon?: React.ReactElement;
-
-    /**
-     * Whether the input should have a clear button. If onClear is not specified, clear button will set the value to empty value
-     */
-    isShowClearButton?: boolean;
 
     /**
      * Function - when passed in, the Cancel icon appears at the end of the input and its click event is passed back when the Cancel icon is clicked

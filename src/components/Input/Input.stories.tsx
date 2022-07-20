@@ -4,21 +4,24 @@ import '~/__storybook__/storybook.scss';
 
 // Import markdownNotes from './Input.md';
 import {Input} from './index';
-import {Love, Folder, SiteWeb, Collections} from '~/icons';
-import {Dropdown} from '~/components';
-import {DropdownDataOptions} from '../Dropdown/Dropdown.types';
+import {Love} from '~/icons';
 
 export default {
     title: 'Components/Input',
     component: Input,
     layout: 'centered',
     parameters: {
-        knobs: {disable: true},
-        actions: {argTypesRegex: '^on.*'}
+        knobs: {disable: true}
     },
     args: {
         placeholder: 'Placeholder text',
         defaultValue: 'Default value'
+    },
+    argTypes: {
+        onChange: { action: 'onChange'},
+        onClick: { action: 'onClick' },
+        onBlur: { action: 'onBlur'},
+        onFocus: { action: 'onFocus'}
     }
 } as ComponentMeta<typeof Input>;
 
@@ -59,49 +62,4 @@ Icon.args = {
     variant: 'search',
     isShowClearButton: true,
     icon: <Love/>
-};
-
-export const SearchContext: ComponentStory<typeof Input> = () => {
-    const [value, setValue] = useState('');
-    const searchContextData: DropdownDataOptions[] = [
-        {
-            label: 'Folder',
-            value: 'folder',
-            iconStart: <Folder/>
-        },
-        {
-            label: 'Media',
-            value: 'media',
-            iconStart: <Collections/>
-        },
-        {
-            label: 'Site',
-            value: 'site',
-            iconStart: <SiteWeb/>
-        }
-    ];
-    const [currentOption, setCurrentOption] = useState(searchContextData[0]);
-
-    const handleOnChange = (e: React.MouseEvent, item: DropdownDataOptions) => {
-        setCurrentOption(item);
-    };
-
-    return (
-        <section className="storyWrapper">
-            <Input
-                searchContext={(
-                    <Dropdown
-                        data={searchContextData}
-                        label={currentOption.label}
-                        icon={currentOption.iconStart}
-                        value={currentOption.value}
-                        onChange={handleOnChange}
-                    />
-                )}
-                value={value}
-                placeholder="Placeholder text"
-                onChange={e => setValue(e.target.value)}
-            />
-        </section>
-    );
 };

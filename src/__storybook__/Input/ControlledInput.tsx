@@ -17,6 +17,7 @@ export const ControlledInput: React.FC<InputProps> = ({
     size = InputSizes.Default,
     icon,
     isShowClearButton,
+    searchContext,
     onClear,
     onChange,
     onBlur,
@@ -24,10 +25,11 @@ export const ControlledInput: React.FC<InputProps> = ({
     focusOnField = false,
     ...props
 }) => {
-    const isSearch = variant === 'search';
+    const hasSearchContext = typeof searchContext !== 'undefined';
+    const isSearch = variant === 'search' || hasSearchContext;
     const classNameProps = clsx(
         'moonstone-input',
-        {'moonstone-size_big': size === InputSizes.Big},
+        {'moonstone-size_big': size === InputSizes.Big || hasSearchContext},
         {'moonstone-disabled': isDisabled},
         className
     );
@@ -43,7 +45,7 @@ export const ControlledInput: React.FC<InputProps> = ({
     }, [focusOnField]);
 
     if (isSearch) {
-        icon = <Search/>
+        icon = hasSearchContext ? null : <Search/>
         isShowClearButton = true
         role = 'search'
     }
@@ -59,11 +61,24 @@ export const ControlledInput: React.FC<InputProps> = ({
 
     return (
         <div className={classNameProps}>
+            {hasSearchContext &&
+                (
+                    <>
+                        <searchContext.type
+                            {...searchContext.props}
+                            variant="ghost"
+                            size="small"
+                            className={clsx(searchContext.props.className, 'moonstone-input_search-context')}
+                        />
+                    </>
+                )
+            }
             <input
                 className={
                     clsx(
                         'moonstone-input-element',
                         {'start-icon-padding': icon},
+                        {'moonstone-input-element_has-search-context': hasSearchContext},
                         {'end-icon-padding': onClear}
                     )
                 }
