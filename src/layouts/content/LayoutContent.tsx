@@ -19,7 +19,7 @@ export const LayoutContent: React.FC<LayoutContentProps> = ({
             isLoading ? ['flexCol_center', 'alignCenter'] : 'flexCol_nowrap',
         );
     return (
-        <div className={clsx('flexCol', 'flexFluid', className)} {...props}>
+        <div className={clsx('flexCol', 'flexFluid', 'moonstone-layoutContent_wrapper', className)} {...props}>
             {header}
             <div className={classNameProps} role-busy={isLoading ? 'true' : undefined}>
                 {

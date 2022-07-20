@@ -1,13 +1,17 @@
 @import '../../utils/index';
 
 .moonstone-secondaryNav {
-    color: var(--color-light);
+    background: var(--color-gray_light40);
+
+    &.moonstone-reversed {
+        color: var(--color-light);
+
+        background: var(--color-gray_dark);
+    }
 }
 
 .moonstone-secondaryNav_wrapper {
     position: relative;
-
-    background: var(--color-gray_dark);
 
     // Transition when it's expanding
     transition: max-width 0.4s ease-out;
