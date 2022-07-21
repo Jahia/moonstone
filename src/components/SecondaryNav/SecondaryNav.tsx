@@ -9,6 +9,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
     header,
     children,
     isDefaultVisible = true,
+    isReversed = true,
     onToggled = () => undefined,
     className,
     ...props
@@ -28,7 +29,10 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
                     'flexFluid',
                     'flexCol_nowrap',
                     'moonstone-secondaryNav',
-                    isVisible ? null : 'moonstone-secondaryNav_hidden'
+                    {
+                        'moonstone-reversed': isReversed,
+                        'moonstone-secondaryNav_hidden': !isVisible
+                    }
                 )
             }
             enable={['right']}
@@ -42,7 +46,10 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
             {...props}
         >
             <button type="button"
-                    className={clsx('moonstone-secondaryNav_buttonToggle')}
+                    className={clsx(
+                        'moonstone-secondaryNav_buttonToggle',
+                        {'moonstone-secondaryNav_buttonToggle_reversed': isReversed}
+                    )}
                     onClick={handleToggle}
             >
                 {isVisible &&
