@@ -18,6 +18,10 @@ export type SecondaryNavProps = {
      */
     className?: string;
     /**
+     * Reversed style for dark background with light text
+     */
+    isReversed?: boolean;
+    /**
      * Triggered when the visibility is toggled
      */
     onToggled?: (...args: any[]) => void;
