@@ -1,0 +1,50 @@
+name: On merge
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release-publish:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        shell: bash
+        run: yarn install --frozen-lockfile
+      - name: Run Build
+        shell: bash
+        run: yarn build
+      - uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: |
+            ${{ secrets.GH_SSH_PRIVATE_KEY_JAHIACI }}
+      - name: Setup .env
+        shell: bash
+        run: |
+          echo "GH_TOKEN=${{ secrets.GH_API_TOKEN }}" > ~/.env
+          echo "NPM_TOKEN=${{ secrets.NPMJS_PUBLISH_TOKEN }}" >> ~/.env
+      - name: Authenticate with registry
+        shell: bash
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPMJS_PUBLISH_TOKEN }}" ~/.npmrc
+      - name: Release and publish
+        shell: bash
+        run: |
+          mkdir ~/.ssh
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          git config user.email "jahia-ci@jahia.com"
+          git config user.name "Jahia CI"
+          git fetch --tags
+          yarn auto-changelog
+          yarn auto-version
+          npm publish --access public
+          git push --follow-tags --set-upstream origin master
+          yarn auto-release-only
+      - name: Merge changes back into develop branch
+        shell: bash
+        run: |
+          git checkout develop
+          git merge master --ff-only
+          git push -u origin develop
