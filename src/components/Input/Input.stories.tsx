@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import '~/__storybook__/storybook.scss';
 
-// Import markdownNotes from './Input.md';
 import {Input} from './index';
 import {Love} from '~/icons';
 
@@ -15,14 +14,13 @@ export default {
     },
     args: {
         placeholder: 'Placeholder text',
-        defaultValue: 'Default value'
     },
     argTypes: {
         onChange: { action: 'onChange'},
         onClick: { action: 'onClick' },
         onBlur: { action: 'onBlur'},
         onFocus: { action: 'onFocus'}
-    }
+    },
 } as ComponentMeta<typeof Input>;
 
 const Template: ComponentStory<typeof Input> = args => (
@@ -31,35 +29,31 @@ const Template: ComponentStory<typeof Input> = args => (
     </section>
 );
 
+
+export const Uncontrolled = Template.bind({});
+
 export const Controlled: ComponentStory<typeof Input> = args => {
-    const [value, setValue] = useState('this is the default!');
+    const [inputValue, setInputValue] = useState('Default value');
 
     return (
         <section className="storyWrapper">
             <Input
+                value={inputValue}
+                onChange={e => setInputValue(e.target.value)}
                 {...args}
-                value={value}
-                onChange={e => setValue(e.target.value)}
             />
         </section>
     );
 };
 
-Controlled.args = {
-    defaultValue: undefined
-};
+export const InputWithIcon = Template.bind({});
 
-export const Uncontrolled = Template.bind({});
-
-export const Search = Template.bind({});
-Search.args = {
-    variant: 'search',
-    focusOnField: true
-};
-
-export const Icon = Template.bind({});
-Icon.args = {
-    variant: 'search',
-    isShowClearButton: true,
+InputWithIcon.args = {
     icon: <Love/>
-};
+}
+
+export const InputWithDefaultValue = Template.bind({});
+
+InputWithDefaultValue.args = {
+    defaultValue: 'Default value'
+}

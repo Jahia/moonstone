@@ -5,10 +5,10 @@ import '~/__storybook__/storybook.scss';
 import {SearchContextInput} from './index';
 import {Folder, SiteWeb, Collections} from '~/icons';
 import {Dropdown} from '~/components';
-import {DropdownDataOptions} from '../Dropdown/Dropdown.types';
+import {DropdownDataOptions} from '~/components/Dropdown/Dropdown.types';
 
 export default {
-    title: 'Components/SearchContextInput',
+    title: 'Components/Input',
     component: SearchContextInput,
     layout: 'centered',
     parameters: {
@@ -44,7 +44,7 @@ const searchContextData: DropdownDataOptions[] = [
     }
 ];
 
-export const Uncontrolled: ComponentStory<typeof SearchContextInput> = args => {
+export const SearchContext: ComponentStory<typeof SearchContextInput> = args => {
     const [contextOption, setContextOption] = useState(searchContextData[0]);
     const handleDropdownOnChange = (e: React.MouseEvent, item: DropdownDataOptions) => {setContextOption(item)};
 
@@ -68,33 +68,33 @@ export const Uncontrolled: ComponentStory<typeof SearchContextInput> = args => {
     )
 };
 
-export const Controlled: ComponentStory<typeof SearchContextInput> = args => {
-    const [inputValue, setInputValue] = useState('Default value');
-    const [contextOption, setContextOption] = useState(searchContextData[0]);
-    const handleDropdownOnChange = (e: React.MouseEvent, item: DropdownDataOptions) => {setContextOption(item)};
+// export const Default: ComponentStory<typeof SearchContextInput> = args => {
+//     const [inputValue, setInputValue] = useState('Default value');
+//     const [contextOption, setContextOption] = useState(searchContextData[0]);
+//     const handleDropdownOnChange = (e: React.MouseEvent, item: DropdownDataOptions) => {setContextOption(item)};
 
-    return (
-        <section className="storyWrapper">
-            <SearchContextInput
-                searchContext={
-                    (
-                        <Dropdown
-                            data={searchContextData}
-                            label={contextOption.label}
-                            icon={contextOption.iconStart}
-                            value={contextOption.value}
-                            onChange={handleDropdownOnChange}
-                        />
-                    )
-                }
-                placeholder="Search and press Enter"
-                value={inputValue}
-                onChange={e => setInputValue(e.target.value)}
-                {...args}
-            />
-        </section>
-    );
-};
+//     return (
+//         <section className="storyWrapper">
+//             <SearchContextInput
+//                 searchContext={
+//                     (
+//                         <Dropdown
+//                             data={searchContextData}
+//                             label={contextOption.label}
+//                             icon={contextOption.iconStart}
+//                             value={contextOption.value}
+//                             onChange={handleDropdownOnChange}
+//                         />
+//                     )
+//                 }
+//                 placeholder="Search and press Enter"
+//                 value={inputValue}
+//                 onChange={e => setInputValue(e.target.value)}
+//                 {...args}
+//             />
+//         </section>
+//     );
+// };
 
 // export const SearchContext: ComponentStory<typeof SearchContextInput> = () => {
 //     const [value, setValue] = useState('');

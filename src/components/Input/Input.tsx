@@ -1,14 +1,14 @@
 import React from 'react';
 import {InputProps} from './Input.types';
-import {UncontrolledInput} from './UncontrolledInput';
-import {ControlledInput} from './ControlledInput';
+import {BaseInput} from './BaseInput';
+import {SearchInput} from './SearchInput';
 
-export const Input: React.FC<InputProps> = ({value, ...props}) => {
-    if (typeof value === 'undefined') {
-        return <UncontrolledInput {...props}/>;
+export const Input: React.FC<InputProps> = ({variant, ...props}) => {
+    if (variant === 'search') {
+        return <SearchInput {...props}/>
     }
 
-    return <ControlledInput value={value} {...props}/>;
+    return <BaseInput {...props}/>;
 };
 
 Input.displayName = 'Input';
