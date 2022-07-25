@@ -91,6 +91,82 @@ storiesOf('Layouts/Demos', module)
         );
     })
 
+    .add('Example Light', () => {
+        const [selectedItems1, setSelectedItems1] = useState([]);
+        const [selectedItems2, setSelectedItems2] = useState([]);
+
+        const handleSelectItem1 = node => {
+            if (selectedItems1.includes(node.id)) {
+                setSelectedItems1(selectedItems1.filter(item => item !== node.id));
+            } else {
+                setSelectedItems1([node.id]);
+            }
+        };
+
+        const handleSelectItem2 = node => {
+            if (selectedItems2.includes(node.id)) {
+                setSelectedItems2(selectedItems2.filter(item => item !== node.id));
+            } else {
+                setSelectedItems2([node.id]);
+            }
+        };
+
+        return (
+            <div style={{transform: 'scale(1)'}}>
+                <LayoutApp
+                    navigation={
+                        <PrimaryNav>
+                            level 1
+                        </PrimaryNav>
+                    }
+                    content={
+                        <LayoutModule
+                            navigation={
+                                <SecondaryNav isReversed={false} header={<SecondaryNavHeader>Header</SecondaryNavHeader>}>
+                                    <Accordion defaultOpenedItem={accordionIds[1]}>
+                                        <AccordionItem
+                                            id={accordionIds[0]}
+                                            icon={<Love size="big"/>}
+                                            label="Default tree"
+                                        >
+                                            <TreeView
+                                                data={treeData}
+                                                selectedItems={selectedItems1}
+                                                onClickItem={handleSelectItem1}
+                                            />
+                                        </AccordionItem>
+                                        <AccordionItem
+                                            id={accordionIds[1]}
+                                            icon={<Bug size="big"/>}
+                                            label="Nested"
+                                        >
+                                            <TreeView
+                                                data={treeDataNested}
+                                                selectedItems={selectedItems2}
+                                                onClickItem={handleSelectItem2}
+                                            />
+                                        </AccordionItem>
+                                    </Accordion>
+                                </SecondaryNav>
+                            }
+                            content={
+                                <LayoutContent
+                                    header={<Header title="Page title"/>}
+                                    content={
+                                        <>
+                                            <Paper>Content</Paper>
+                                            <Paper>{lorem}</Paper>
+                                        </>
+                                    }
+                                />
+                            }
+                        />
+                    }
+                />
+            </div>
+        );
+    })
+
     .add('Centered', () => (
         <div style={{transform: 'scale(1)'}}>
             <LayoutApp
