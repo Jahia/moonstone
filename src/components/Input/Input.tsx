@@ -1,14 +1,16 @@
 import React from 'react';
 import {InputProps} from './Input.types';
-import {UncontrolledInput} from './UncontrolledInput';
-import {ControlledInput} from './ControlledInput';
+import {BaseInput} from './BaseInput';
+import {SearchInput} from './SearchInput';
 
-export const Input: React.FC<InputProps> = ({value, ...props}) => {
-    if (typeof value === 'undefined') {
-        return <UncontrolledInput {...props}/>;
+export const Input: React.FC<InputProps> = ({variant, ...props}) => {
+    if (variant === 'search') {
+        // tslint:disable-next-line:no-console
+        console.warn('The prop `variant` of the Input component is deprecated, and it will be removed in a next release. If you need the `search` variant, please use the dedicated component `SearchInput`');
+        return <SearchInput {...props}/>
     }
 
-    return <ControlledInput value={value} {...props}/>;
+    return <BaseInput {...props}/>;
 };
 
 Input.displayName = 'Input';
