@@ -2,11 +2,6 @@ import React from 'react';
 
 export type BaseInputProps = {
     /**
-     * Slot to display a dropdown to manage search context
-     */
-     searchContext?: React.ReactElement;
-
-    /**
      * Default value when the component is rendered (Uncontrolled)
      */
      defaultValue?: string;

@@ -5,7 +5,7 @@ import {Button} from '~/components';
 import './BaseInput.scss';
 import {BaseInputProps} from './BaseInput.types';
 
-export const ControlledBaseInput: React.FC<BaseInputProps> = ({
+export const ControlledBaseInput: React.FC<BaseInputProps & { searchContext?: React.ReactElement }> = ({
     value = '',
     searchContext,
     id,
