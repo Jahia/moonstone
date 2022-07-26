@@ -42,15 +42,9 @@
         "auto-version": "npm version `auto version` -m 'Bump version to: %s [skip ci]'",
         "auto-publish": "npm publish && git push --follow-tags --set-upstream origin $branch",
         "auto-release-only": "auto release",
-        "auto-release": "auto changelog && yarn run auto-version && yarn run auto-publish && auto release",
-        "prepare": "husky install"
+        "auto-release": "auto changelog && yarn run auto-version && yarn run auto-publish && auto release"
     },
     "repository": "https://github.com/Jahia/moonstone.git",
-    "lint-staged": {
-        "src/**/*.{js,jsx,ts,tsx,scss}": [
-            "yarn lint:fix"
-        ]
-    },
     "devDependencies": {
         "@babel/cli": "^7.12.8",
         "@babel/core": "^7.12.9",
@@ -97,10 +91,8 @@
         "eslint-plugin-react": "^7.14.3",
         "eslint-plugin-react-hooks": "^4.2.0",
         "file-loader": "^6.2.0",
-        "husky": "^7.0.4",
         "identity-obj-proxy": "^3.0.0",
         "jest": "^27.4.3",
-        "lint-staged": "^12.1.2",
         "mini-css-extract-plugin": "^2.4.5",
         "mkdir-recursive": "^0.4.0",
         "optimize-css-assets-webpack-plugin": "^6.0.1",

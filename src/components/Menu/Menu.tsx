@@ -4,7 +4,7 @@ import {useEnterExitCallbacks} from '~/hooks/useEnterExitCallbacks';
 import clsx from 'clsx';
 import './Menu.scss';
 import {MenuProps} from './Menu.types';
-import {Input} from '~/components/Input';
+import {SearchInput} from '~/components/Input';
 import {Typography} from '~/components/Typography';
 
 const getChildrenToFilter = (children: [React.ReactElement]) => {
@@ -115,9 +115,8 @@ export const Menu: React.FC<MenuProps> = ({
             >
                 { hasSearch && (
                     <div className="moonstone-menu_searchInput">
-                        <Input
+                        <SearchInput
                             focusOnField
-                            variant="search"
                             value={inputValue}
                             onChange={e => setInputValue(e.target.value)}
                             onClear={() => setInputValue('')}

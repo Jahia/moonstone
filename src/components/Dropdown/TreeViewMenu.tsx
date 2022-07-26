@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {usePositioning} from '~/hooks/usePositioning';
 import {TreeViewMenuProps} from './TreeViewMenu.types';
-import {Input, TreeView} from "~/components";
+import {SearchInput, TreeView} from "~/components";
 import "../Menu/Menu.scss";
 import {TreeViewData} from "~/components/TreeView/TreeView.types";
 import clsx from "clsx";
@@ -136,8 +136,7 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
             >
                 {hasSearch && (
                     <div className="moonstone-menu_searchInput">
-                        <Input
-                            variant="search"
+                        <SearchInput
                             value={inputValue}
                             onChange={e => setInputValue(e.target.value)}
                             onClear={() => setInputValue('')}
