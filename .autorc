@@ -1,0 +1,5 @@
+{
+    "author": "Jahia CI <jahia-ci@jahia.com>",
+    "prereleaseBranches": ["develop"],
+    "plugins": ["npm"]
+}
