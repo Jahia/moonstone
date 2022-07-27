@@ -1,3 +1,30 @@
+# v2.4.1 (Wed Jul 27 2022)
+
+#### 🐛 Bug Fix
+
+- TECH-568 fix on-merge [#304](https://github.com/Jahia/moonstone/pull/304) ([@Janin-Michel-Mathias](https://github.com/Janin-Michel-Mathias) [@ffffffelix](https://github.com/ffffffelix))
+- MOON-336: Add searchContext for Input [#299](https://github.com/Jahia/moonstone/pull/299) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-341: Manage isReversed to SecondaryNav [#301](https://github.com/Jahia/moonstone/pull/301) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🏠 Internal
+
+- TECH-568: Fix release workflow [#305](https://github.com/Jahia/moonstone/pull/305) ([@ffffffelix](https://github.com/ffffffelix))
+- Tech 568 fix on-merge [#303](https://github.com/Jahia/moonstone/pull/303) ([@Janin-Michel-Mathias](https://github.com/Janin-Michel-Mathias) [@ffffffelix](https://github.com/ffffffelix))
+- MOON-340: Remove husky [#302](https://github.com/Jahia/moonstone/pull/302) ([@ffffffelix](https://github.com/ffffffelix))
+- TECH-568 migrate moonstone to github action [#298](https://github.com/Jahia/moonstone/pull/298) ([@Janin-Michel-Mathias](https://github.com/Janin-Michel-Mathias) [@ffffffelix](https://github.com/ffffffelix))
+
+#### 🔩 Dependency Updates
+
+- Bump terser from 4.8.0 to 4.8.1 [#300](https://github.com/Jahia/moonstone/pull/300) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- [@Janin-Michel-Mathias](https://github.com/Janin-Michel-Mathias)
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.4.0 (Wed Jun 15 2022)
 
 #### 🚀 Enhancement
