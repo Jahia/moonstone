@@ -37,12 +37,7 @@
         "prebuild:lib": "rimraf dist/",
         "build:lib": "yarn tsc && yarn compile:js && yarn compile:css",
         "build:storybook": "build-storybook",
-        "auto": "auto",
-        "auto-changelog": "auto changelog",
-        "auto-version": "npm version `auto version` -m 'Bump version to: %s [skip ci]'",
-        "auto-publish": "npm publish && git push --follow-tags --set-upstream origin $branch",
-        "auto-release-only": "auto release",
-        "auto-release": "auto changelog && yarn run auto-version && yarn run auto-publish && auto release"
+        "release": "auto shipit"
     },
     "repository": "https://github.com/Jahia/moonstone.git",
     "devDependencies": {
