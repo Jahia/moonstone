@@ -37,7 +37,7 @@
         "prebuild:lib": "rimraf dist/",
         "build:lib": "yarn tsc && yarn compile:js && yarn compile:css",
         "build:storybook": "build-storybook",
-        "release": "auto shipit -vv"
+        "release": "auto shipit"
     },
     "repository": "https://github.com/Jahia/moonstone.git",
     "devDependencies": {
