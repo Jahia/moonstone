@@ -1,3 +1,15 @@
+# v2.4.4 (Thu Jul 28 2022)
+
+#### ⚠️ Pushed to `master`
+
+- Add ssh-key to actions/checkout ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.4.3 (Thu Jul 28 2022)
 
 #### ⚠️ Pushed to `master`
