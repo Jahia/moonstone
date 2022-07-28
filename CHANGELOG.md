@@ -1,3 +1,15 @@
+# v2.4.3 (Thu Jul 28 2022)
+
+#### ⚠️ Pushed to `master`
+
+- Remove verbose logs for the release ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.4.2 (Thu Jul 28 2022)
 
 #### ⚠️ Pushed to `master`
