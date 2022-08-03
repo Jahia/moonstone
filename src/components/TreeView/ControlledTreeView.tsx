@@ -34,7 +34,7 @@ export const ControlledTreeView: React.FC<ControlledTreeViewProps> = ({
             // ---
             // Manage clicks events
             // ---
-            const toggleNode = (e: React.SyntheticEvent) => {
+            const toggleNode = (e: React.MouseEvent) => {
                 if (isOpen) {
                     onCloseItem(node, e);
                 } else {

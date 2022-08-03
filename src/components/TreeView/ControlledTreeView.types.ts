@@ -29,7 +29,7 @@ export type ControlledTreeViewProps = {
     /**
      * Trigger by clicking on node
      */
-    onClickItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
+    onClickItem?: (node: TreeViewData, e?: React.MouseEvent, toggleNode?: (e: React.MouseEvent) => void) => void;
 
     /**
      * Trigger by double clicking on node
