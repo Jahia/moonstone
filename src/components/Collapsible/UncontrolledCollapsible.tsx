@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './Collapsible.scss';
 import {CollapsibleProps} from './Collapsible.types';
-import { ControlledCollapsible } from './ControlledCollapsible';
+import {ControlledCollapsible} from './ControlledCollapsible';
 
 export const UncontrolledCollapsible: React.FC<CollapsibleProps> = ({
     children,
@@ -11,13 +11,13 @@ export const UncontrolledCollapsible: React.FC<CollapsibleProps> = ({
 }) => {
     const [isExpanded, setIsExpanded] = useState(isDefaultExpanded);
 
-    const handleOnClick: React.MouseEventHandler = (e) => {
+    const handleOnClick: React.MouseEventHandler = e => {
         setIsExpanded(!isExpanded);
         onClick(e);
     };
 
     return (
-        <ControlledCollapsible onClick={e => handleOnClick(e)} isExpanded={isExpanded} {...other}>
+        <ControlledCollapsible isExpanded={isExpanded} onClick={e => handleOnClick(e)} {...other}>
             {children}
         </ControlledCollapsible>
     );

@@ -1,6 +1,6 @@
-import React from "react";
-import {AnchorPosition} from "~/components/Menu/Menu.types";
-import {DropdownData, DropdownDataOptions} from "~/components/Dropdown/Dropdown.types";
+import React from 'react';
+import {AnchorPosition} from '~/components/Menu/Menu.types';
+import {DropdownData, DropdownDataOptions} from '~/components/Dropdown/Dropdown.types';
 
 export type DropdownMenuProps = {
     maxHeight?: string;
@@ -14,9 +14,9 @@ export type DropdownMenuProps = {
     hasOverlay?: boolean;
     data: [DropdownDataOptions & DropdownData];
     value?: string;
-    children?: any;
+    children?: React.ReactNode;
     imageSize?: 'small' | 'big';
-    handleSelect: any;
-    handleKeyPress: any;
+    handleSelect: (e?: React.MouseEvent | React.KeyboardEvent, item?: DropdownDataOptions) => void;
+    handleKeyPress: (e?: React.KeyboardEvent, item?:DropdownDataOptions) => void;
     onClose: () => void;
 }

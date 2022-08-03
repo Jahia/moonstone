@@ -29,7 +29,7 @@ storiesOf('Components/PrimaryNav', module)
                         <PrimaryNavItemsGroup>
                             <PrimaryNavItem label="Very very long long name with many characters" icon={<Feather/>}/>
                             <PrimaryNavItem icon={<Person/>} label="My profile" subtitle="username as a subtitle"/>
-                            <PrimaryNavItem icon={<Person/>} label="Very very long long long long label" subtitle="username as a subtitle username as a subtitle username as a subtitle username as a subtitle" button={<Button isReversed icon={<Power/>} label="Sign Out" variant="ghost" onClick={() => {}}/>}/>
+                            <PrimaryNavItem icon={<Person/>} label="Very very long long long long label" subtitle="username as a subtitle username as a subtitle username as a subtitle username as a subtitle" button={<Button isReversed icon={<Power/>} label="Sign Out" variant="ghost" onClick={() => null}/>}/>
                             <PrimaryNavItem icon={<Workflow/>} label="With badge" badge={<Badge label="3"/>}/>
                             <PrimaryNavItem icon={<Person/>} label="With badge" badge={<Badge label="333"/>}/>
                         </PrimaryNavItemsGroup>

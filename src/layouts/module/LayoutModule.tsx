@@ -8,9 +8,8 @@ export const LayoutModule: React.FC<LayoutModuleProps> = ({
     navigation,
     content,
     component = 'main',
-    isLoading = false,
+    isLoading = false
 }) => {
-
     const classNameProps = clsx(
         'flexFluid',
         isLoading ? ['flexCol_center', 'alignCenter'] : 'flexCol'
@@ -19,23 +18,22 @@ export const LayoutModule: React.FC<LayoutModuleProps> = ({
     return (
         <>
             { navigation && (
-                <aside className='flexCol'>
+                <aside className="flexCol">
                     {navigation}
                 </aside>
             )}
 
             { React.createElement(
-                    component,
-                    {
-                        className: clsx('moonstone-layoutModule_main', 'flexCol', 'flexFluid'),
-                    },
-                    (
-                        <div className={classNameProps} role-busy={isLoading ? 'true' : undefined}>
-                            {isLoading ? <Loader size="big"/> : content}
-                        </div>
-                    )
+                component,
+                {
+                    className: clsx('moonstone-layoutModule_main', 'flexCol', 'flexFluid')
+                },
+                (
+                    <div className={classNameProps} role-busy={isLoading ? 'true' : undefined}>
+                        {isLoading ? <Loader size="big"/> : content}
+                    </div>
                 )
-            }
+            )}
         </>
     );
 };

@@ -23,30 +23,25 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
     isScrollable,
     ...props
 }) => {
-    const leftMarginBuffer = 20; // px
-    const leftMarginIndentDepth = row?.depth * 20; // px
+    const leftMarginBuffer = 20; // Px
+    const leftMarginIndentDepth = row?.depth * 20; // Px
     const scrollableClass = isScrollable ? 'moonstone-tableCellContent' : '';
 
-    // TODO: When no iconStart is set we should just render children to avoid too nested HTML elements
-    // TODO: Add iconEnd somewhere or remove it from the props, it seems we never use it
     const renderCellContent = () => (
-        <IconTextIcon component="div" iconStart={iconStart} typographyProps={{className: clsx(scrollableClass, 'flexFluid')}}>
+        <IconTextIcon component="div" iconStart={iconStart} iconEnd={iconEnd} typographyProps={{className: clsx(scrollableClass, 'flexFluid')}}>
             {children}
         </IconTextIcon>
     );
-
 
     const renderTableCell = () => {
         // These are cells that are in the expandable row (canExpand) and it is the column in
         // which the cells show the chevron icon to expand and collapse sub-rows (isExpandableColumn)
         if (isExpandableColumn && row?.canExpand) {
             return (
-                <TableCell {...row?.getToggleRowExpandedProps({style: {marginLeft: `${leftMarginIndentDepth}px`}})}
-                >
-                    {row?.isExpanded
-                        ? <ChevronDown className="moonstone-marginRightNano"/>
-                        : <ChevronRight className="moonstone-marginRightNano"/>
-                    }
+                <TableCell {...row?.getToggleRowExpandedProps({style: {marginLeft: `${leftMarginIndentDepth}px`}})}>
+                    {row?.isExpanded ?
+                        <ChevronDown className="moonstone-marginRightNano"/> :
+                        <ChevronRight className="moonstone-marginRightNano"/>}
                     {renderCellContent()}
                 </TableCell>
             );
@@ -76,12 +71,12 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
                 'moonstone-tableBodyCell',
                 'textAlign' + capitalize(textAlign),
                 'moonstone-verticalAlign' + capitalize(verticalAlign),
-                {'flexFluid': typeof width === 'undefined'},
+                {flexFluid: typeof width === 'undefined'},
                 className
             )}
             component={component}
             variant="body"
-            style={{'width': width}}
+            style={{width: width}}
             {...props}
         >
             {renderTableCell()}

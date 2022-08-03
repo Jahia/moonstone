@@ -14,10 +14,10 @@ const iconsSize = () => select('Set icon size', {Big: 'big', Default: 'default',
 const iconsColor = () => select('Set icon color', {Red: 'red', Yellow: 'yellow', Purple: 'purple', Gray: 'gray', Blue: 'blue'}, 'big');
 
 // Create a component to display in storybook
-export const IconWrapper = ({iconName, size, color}) => {
+export const IconWrapper = ({iconName, size, iconColor}) => {
     return (
         <div className="storyGridItem">
-            {React.createElement(Icons[iconName], {size: size}, {color: color})}
+            {React.createElement(Icons[iconName], {size: size}, {color: iconColor})}
             <span>{iconName}</span>
         </div>
     );
@@ -61,5 +61,5 @@ storiesOf('Tokens/Icons', module)
 IconWrapper.propTypes = {
     iconName: PropTypes.string.isRequired,
     size: PropTypes.string,
-    color: PropTypes.string
+    iconColor: PropTypes.string
 };

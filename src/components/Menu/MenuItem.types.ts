@@ -72,7 +72,7 @@ export type MenuItemProps = {
     /**
      * Optional value which can be returned when being used in user input elements such as Dropdown
      */
-    value?: any,
+    value?: unknown,
 
     /**
      * Function triggered on clicking the item

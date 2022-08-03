@@ -22,6 +22,6 @@ The [Link](https://www.figma.com/file/939bW74C3TLW5VAzK23uox/moonstone-component
     isSelected={isSelected()}
     isReversed={isReversed()}
     isDisabled={isDisabled()}
-    onClick={() => {}}
+    onClick={() => null}
 />
 ```

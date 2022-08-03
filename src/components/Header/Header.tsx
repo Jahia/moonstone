@@ -4,21 +4,20 @@ import clsx from 'clsx';
 import {HeaderProps} from './Header.types';
 import './Header.scss';
 import {Separator, Typography} from '~/components';
-import {ArrowLeft} from '~/icons';
 
 export const Header: React.FC<HeaderProps> = ({
-                                                  title,
-                                                  search = null,
-                                                  mainActions,
-                                                  status,
-                                                  contentType,
-                                                  toolbarRight,
-                                                  toolbarLeft,
-                                                  backButton = null,
-                                                  breadcrumb,
-                                                  className,
-                                                  ...props
-                                              }: HeaderProps) => {
+    title,
+    search = null,
+    mainActions,
+    status,
+    contentType,
+    toolbarRight,
+    toolbarLeft,
+    backButton = null,
+    breadcrumb,
+    className,
+    ...props
+}: HeaderProps) => {
     const hasInformationArea = Boolean(breadcrumb || contentType || status);
     const hasToolbar = Boolean(toolbarLeft || toolbarRight);
 
@@ -51,7 +50,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <div className={clsx('flexRow_between', 'alignCenter', 'moonstone-header_information')}>
                     <div className={clsx('flexRow_nowrap', 'alignCenter', 'flexFluid', 'moonstone-header_informationLeft')}>
                         { breadcrumb }
-                        { <Separator variant="vertical" spacing="medium" invisible="firstOrLastChild"/> }
+                        <Separator variant="vertical" spacing="medium" invisible="firstOrLastChild"/>
                         { contentType }
                     </div>
                     {status && (

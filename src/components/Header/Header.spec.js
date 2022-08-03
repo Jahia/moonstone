@@ -39,7 +39,7 @@ describe('Header', () => {
     });
 
     it('should display the backButton when it\'s provided', () => {
-        render(<Header title="title" backButton={<Button data-testid="test-backButton" onClick={() => {}}/>}/>);
+        render(<Header title="title" backButton={<Button data-testid="test-backButton" onClick={() => null}/>}/>);
         expect(screen.queryByTestId('test-backButton')).toBeInTheDocument();
     });
 
@@ -53,7 +53,7 @@ describe('Header', () => {
             <Header title="title"
                     breadcrumb={
                         <Breadcrumb data-testid="test-breadcrumb">
-                            <BreadcrumbItem label="test" onClick={() => {}}/>
+                            <BreadcrumbItem label="test" onClick={() => null}/>
                         </Breadcrumb>
             }/>);
         expect(screen.queryByTestId('test-breadcrumb')).toBeInTheDocument();

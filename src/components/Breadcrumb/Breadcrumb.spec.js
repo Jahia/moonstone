@@ -6,7 +6,7 @@ describe('Breadcrumb', () => {
     it('should display additional className', () => {
         const wrapper = shallow(
             <Breadcrumb className="extra">
-                <BreadcrumbItem label="item 1" onClick={() => {}}/>
+                <BreadcrumbItem label="item 1" onClick={() => null}/>
             </Breadcrumb>
         );
         expect(wrapper.querySelector('.extra').exists()).toBeTruthy();
@@ -15,7 +15,7 @@ describe('Breadcrumb', () => {
     it('should display additional attributes', () => {
         const wrapper = shallow(
             <Breadcrumb data-custom="test">
-                <BreadcrumbItem label="item 1" onClick={() => {}}/>
+                <BreadcrumbItem label="item 1" onClick={() => null}/>
             </Breadcrumb>
         );
         expect(wrapper.querySelector('[data-custom="test"]').exists()).toBeTruthy();
@@ -29,8 +29,8 @@ describe('Breadcrumb', () => {
     it('should display items', () => {
         const wrapper = shallow(
             <Breadcrumb>
-                <BreadcrumbItem label="item 1" onClick={() => {}}/>
-                <BreadcrumbItem label="item 2" onClick={() => {}}/>
+                <BreadcrumbItem label="item 1" onClick={() => null}/>
+                <BreadcrumbItem label="item 2" onClick={() => null}/>
             </Breadcrumb>
         );
         expect(wrapper.html()).toContain('item 1');

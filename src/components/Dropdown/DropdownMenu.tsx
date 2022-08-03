@@ -1,25 +1,24 @@
-import React from "react";
-import {DropdownDataOptions} from "~/components/Dropdown/Dropdown.types";
-import {Menu, MenuItem, Separator} from "~/components";
-import {DropdownMenuProps} from "~/components/Dropdown/DropdownMenu.types";
+import React from 'react';
+import {DropdownDataOptions} from '~/components/Dropdown/Dropdown.types';
+import {Menu, MenuItem, Separator} from '~/components';
+import {DropdownMenuProps} from '~/components/Dropdown/DropdownMenu.types';
 
 export const DropdownMenu: React.FC<DropdownMenuProps> = ({
-                                                              isDisplayed,
-                                                              anchorPosition,
-                                                              minWidth,
-                                                              maxWidth,
-                                                              maxHeight,
-                                                              anchorEl,
-                                                              hasSearch,
-                                                              searchEmptyText,
-                                                              data,
-                                                              value,
-                                                              imageSize,
-                                                              handleSelect,
-                                                              handleKeyPress,
-                                                              onClose
-                                                          }) => {
-
+    isDisplayed,
+    anchorPosition,
+    minWidth,
+    maxWidth,
+    maxHeight,
+    anchorEl,
+    hasSearch,
+    searchEmptyText,
+    data,
+    value,
+    imageSize,
+    handleSelect,
+    handleKeyPress,
+    onClose
+}) => {
     const isEmpty = data.length < 1;
     const isGrouped = !isEmpty && typeof data[0].options !== 'undefined';
 
@@ -86,6 +85,5 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
             }
         </Menu>
     );
-}
-
+};
 

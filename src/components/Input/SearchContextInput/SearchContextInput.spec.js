@@ -69,7 +69,7 @@ describe('ControlledSearchContextInput', () => {
     it('should call specified onClear function', () => {
         const handleClear = jest.fn();
 
-        render(<SearchContextInput value="test-value" onChange={() => {}} onClear={handleClear}/>);
+        render(<SearchContextInput value="test-value" onChange={() => null} onClear={handleClear}/>);
         userEvent.click(screen.getByLabelText('Reset'));
 
         expect(handleClear).toHaveBeenCalledTimes(1);

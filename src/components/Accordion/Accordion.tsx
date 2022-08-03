@@ -1,7 +1,7 @@
-import * as React from "react";
+import * as React from 'react';
 import {UncontrolledAccordion} from './UncontrolledAccordion';
 import {ControlledAccordion} from './ControlledAccordion';
-import { AccordionProps } from "./Accordion.types";
+import {AccordionProps} from './Accordion.types';
 
 export const Accordion: React.FC<AccordionProps> = ({children, defaultOpenedItem, openedItem, onSetOpenedItem, ...props}) => {
     if (!children) {
@@ -13,10 +13,6 @@ export const Accordion: React.FC<AccordionProps> = ({children, defaultOpenedItem
     }
 
     return <ControlledAccordion openedItem={openedItem} onSetOpenedItem={onSetOpenedItem} {...props}>{children}</ControlledAccordion>;
-};
-
-Accordion.defaultProps = {
-    isReversed: false
 };
 
 Accordion.displayName = 'Accordion';

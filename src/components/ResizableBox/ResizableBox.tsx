@@ -3,7 +3,7 @@ import {Resizable} from 're-resizable';
 import clsx from 'clsx';
 import './ResizableBox.scss';
 import {HandleResize} from '~/icons';
-import {zones, EnableZones, ResizableBoxProps} from './ResizableBox.types';
+import {zones, EnableZonesProps, ZonesProps, ResizableBoxProps} from './ResizableBox.types';
 
 export const ResizableBox: React.FC<ResizableBoxProps> = ({
     enable = ['right'],
@@ -18,10 +18,10 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
     onResizeStop,
     ...props
 }) => {
-    const enableZones: EnableZones = {};
+    const enableZones: EnableZonesProps = {};
 
     zones.forEach(zone => {
-        enableZones[zone] = enable.indexOf(zone as any) > -1;
+        enableZones[zone] = enable.indexOf(zone as ZonesProps) > -1;
     });
 
     return (

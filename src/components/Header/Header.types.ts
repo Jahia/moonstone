@@ -1,7 +1,4 @@
 import React from 'react';
-import {ButtonProps} from '~/components/Button/Button.types';
-import {ChipProps} from '~/components/Chip/Chip.types';
-import {BreadcrumbProps} from '~/components/Breadcrumb/Breadcrumb.types';
 
 export type HeaderProps = {
     /**

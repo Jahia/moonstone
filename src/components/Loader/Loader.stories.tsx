@@ -1,5 +1,5 @@
 import React from 'react';
-import {Story} from '@storybook/react'
+import {Story} from '@storybook/react';
 import {Loader as LoaderCmp} from './index';
 import {LoaderProps} from './Loader.types';
 
@@ -10,7 +10,7 @@ export default {
         knobs: {
             disable: true
         }
-    },
+    }
 };
 
 const Template: Story<LoaderProps> = args => <LoaderCmp {...args}/>;

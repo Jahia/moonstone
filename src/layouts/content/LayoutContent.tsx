@@ -14,33 +14,33 @@ export const LayoutContent: React.FC<LayoutContentProps> = ({
     className,
     ...props
 }) => {
-        const classNameProps = clsx(
-            'flexFluid',
-            'moonstone-layoutContent',
-            {'moonstone-layoutContent_withPadding': hasPadding},
-            isLoading ? ['flexCol_center', 'alignCenter'] : 'flexCol_nowrap'
-        );
+    const classNameProps = clsx(
+        'flexFluid',
+        'moonstone-layoutContent',
+        {'moonstone-layoutContent_withPadding': hasPadding},
+        isLoading ? ['flexCol_center', 'alignCenter'] : 'flexCol_nowrap'
+    );
+
     return (
         <div className={clsx('flexCol', 'flexFluid', 'moonstone-layoutContent_wrapper', className)} {...props}>
             {header}
             <div className={classNameProps} role-busy={isLoading ? 'true' : undefined}>
                 {
-                    isLoading
-                    ? <Loader size="big"/>
-                    : (
-                        isCentered
-                        ? (
-                            <div className='flexCol_nowrap flexFluid moonstone-layoutContent_centered'>
+                    isLoading ?
+                        <Loader size="big"/> :
+                    (
+                        isCentered ?
+                        (
+                            <div className="flexCol_nowrap flexFluid moonstone-layoutContent_centered">
                                 {content}
                             </div>
-                        )
-                        : content
+                        ) :
+                        content
                       )
                 }
             </div>
         </div>
     );
-}
-
+};
 
 LayoutContent.displayName = 'LayoutContent';

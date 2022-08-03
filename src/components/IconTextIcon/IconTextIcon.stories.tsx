@@ -1,5 +1,5 @@
 import React from 'react';
-import {Story} from '@storybook/react'
+import {Story} from '@storybook/react';
 
 import {IconTextIcon} from './index';
 import {IconTextIconProps} from './IconTextIcon.types';
@@ -13,7 +13,7 @@ export default {
             disable: true
         },
         storysource: {disable: true}
-    },
+    }
 };
 
 const Template: Story<IconTextIconProps> = args => <IconTextIcon {...args}/>;

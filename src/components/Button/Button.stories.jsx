@@ -53,7 +53,7 @@ storiesOf('Components/Button', module)
                                     variant="default"
                                     isReversed={isReversed()}
                                     isLoading={isLoading()}
-                                    onClick={() => {}}/>
+                                    onClick={() => null}/>
                         </div>
                     ))
                 }
@@ -72,7 +72,7 @@ storiesOf('Components/Button', module)
                                     variant="outlined"
                                     isReversed={isReversed()}
                                     isLoading={isLoading()}
-                                    onClick={() => {}}/>
+                                    onClick={() => null}/>
                         </div>
                     ))
                 }
@@ -91,7 +91,7 @@ storiesOf('Components/Button', module)
                                     variant="ghost"
                                     isReversed={isReversed()}
                                     isLoading={isLoading()}
-                                    onClick={() => {}}/>
+                                    onClick={() => null}/>
                         </div>
                     ))
                 }
@@ -125,7 +125,7 @@ storiesOf('Components/Button', module)
                                     variant="default"
                                     isReversed={isReversed()}
                                     isLoading={isLoading()}
-                                    onClick={() => {}}/>
+                                    onClick={() => null}/>
                         </div>
                     ))
                 }
@@ -143,7 +143,7 @@ storiesOf('Components/Button', module)
                                     variant="outlined"
                                     isReversed={isReversed()}
                                     isLoading={isLoading()}
-                                    onClick={() => {}}/>
+                                    onClick={() => null}/>
                         </div>
                     ))
                 }
@@ -161,7 +161,7 @@ storiesOf('Components/Button', module)
                                     variant="ghost"
                                     isReversed={isReversed()}
                                     isLoading={isLoading()}
-                                    onClick={() => {}}/>
+                                    onClick={() => null}/>
                         </div>
                     ))
                 }
@@ -195,7 +195,7 @@ storiesOf('Components/Button', module)
                                     variant="default"
                                     isReversed={isReversed()}
                                     isLoading={isLoading()}
-                                    onClick={() => {}}/>
+                                    onClick={() => null}/>
                         </div>
                     ))
                 }
@@ -213,7 +213,7 @@ storiesOf('Components/Button', module)
                                     variant="outlined"
                                     isReversed={isReversed()}
                                     isLoading={isLoading()}
-                                    onClick={() => {}}/>
+                                    onClick={() => null}/>
                         </div>
                     ))
                 }
@@ -231,7 +231,7 @@ storiesOf('Components/Button', module)
                                     variant="ghost"
                                     isReversed={isReversed()}
                                     isLoading={isLoading()}
-                                    onClick={() => {}}/>
+                                    onClick={() => null}/>
                         </div>
                     ))
                 }
@@ -261,7 +261,7 @@ storiesOf('Components/Button', module)
                             isReversed={isReversed()}
                             isLoading={isLoading()}
                             isDisabled={isDisabled()}
-                            onClick={() => {}}/>
+                            onClick={() => null}/>
                 </div>
                 <div className="storyGridItem">
                     <Button label={labelValue()}
@@ -271,7 +271,7 @@ storiesOf('Components/Button', module)
                             isReversed={isReversed()}
                             isLoading={isLoading()}
                             isDisabled={isDisabled()}
-                            onClick={() => {}}/>
+                            onClick={() => null}/>
                 </div>
                 <div className="storyGridItem">
                     <Button icon={<IconWrapper iconName={selectIcon()}/>}
@@ -281,7 +281,7 @@ storiesOf('Components/Button', module)
                             isReversed={isReversed()}
                             isLoading={isLoading()}
                             isDisabled={isDisabled()}
-                            onClick={() => {}}/>
+                            onClick={() => null}/>
                 </div>
             </section>
         </div>

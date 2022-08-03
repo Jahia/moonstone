@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import {ComponentStory, ComponentMeta} from '@storybook/react';
 import '~/__storybook__/storybook.scss';
 
 import {Input} from './index';
@@ -13,14 +13,14 @@ export default {
         knobs: {disable: true}
     },
     args: {
-        placeholder: 'Placeholder text',
+        placeholder: 'Placeholder text'
     },
     argTypes: {
-        onChange: { action: 'onChange'},
-        onClick: { action: 'onClick' },
-        onBlur: { action: 'onBlur'},
-        onFocus: { action: 'onFocus'}
-    },
+        onChange: {action: 'onChange'},
+        onClick: {action: 'onClick'},
+        onBlur: {action: 'onBlur'},
+        onFocus: {action: 'onFocus'}
+    }
 } as ComponentMeta<typeof Input>;
 
 const Template: ComponentStory<typeof Input> = args => (
@@ -28,7 +28,6 @@ const Template: ComponentStory<typeof Input> = args => (
         <Input {...args}/>
     </section>
 );
-
 
 export const Uncontrolled = Template.bind({});
 
@@ -50,10 +49,10 @@ export const InputWithIcon = Template.bind({});
 
 InputWithIcon.args = {
     icon: <Love/>
-}
+};
 
 export const InputWithDefaultValue = Template.bind({});
 
 InputWithDefaultValue.args = {
     defaultValue: 'Default value'
-}
+};

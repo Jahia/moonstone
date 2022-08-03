@@ -1,5 +1,5 @@
 import React from 'react';
-import {TreeViewData} from "~/components/TreeView/TreeView.types";
+import {TreeViewData} from '~/components/TreeView/TreeView.types';
 
 export type DropdownVariant = 'ghost' | 'outlined';
 export enum DropdownVariants {
@@ -25,7 +25,7 @@ export type DropdownDataOptions = {
     isDisabled?: boolean;
     iconStart?: React.ReactElement;
     iconEnd?: React.ReactElement;
-    attributes?: {};
+    attributes?: unknown;
     image?: HTMLImageElement;
     imageSize?: DropdownImageSize;
 }

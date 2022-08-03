@@ -19,17 +19,17 @@ export type UncontrolledTreeViewProps = {
     /**
      * Trigger by clicking on node
      */
-    onClickItem?: (...args: any[]) => void;
+    onClickItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
 
     /**
      * Trigger by double clicking on node
      */
-    onDoubleClickItem?: (...args: any[]) => void;
+    onDoubleClickItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
 
     /**
      * Trigger by right clicking on node
      */
-    onContextMenuItem?: (...args: any[]) => void;
+    onContextMenuItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
 
     /**
      * Reverse color useful for context with dark background

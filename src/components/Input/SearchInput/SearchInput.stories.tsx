@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import {ComponentStory, ComponentMeta} from '@storybook/react';
 import '~/__storybook__/storybook.scss';
 
 import {SearchInput} from './index';
@@ -15,10 +15,10 @@ export default {
         placeholder: 'Search and press Enter'
     },
     argTypes: {
-        onChange: { action: 'onChange'},
-        onClick: { action: 'onClick' },
-        onBlur: { action: 'onBlur'},
-        onFocus: { action: 'onFocus'}
+        onChange: {action: 'onChange'},
+        onClick: {action: 'onClick'},
+        onBlur: {action: 'onBlur'},
+        onFocus: {action: 'onFocus'}
     }
 } as ComponentMeta<typeof SearchInput>;
 

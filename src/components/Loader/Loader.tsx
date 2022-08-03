@@ -11,8 +11,9 @@ export const Loader: React.FC<LoaderProps> = ({
     ...props
 }) => {
     return (
-        <svg role="status" className={clsx('moonstone-loader', `moonstone-loader_${size}`, className)}
-            {...props}
+        <svg role="status"
+             className={clsx('moonstone-loader', `moonstone-loader_${size}`, className)}
+             {...props}
         >
             <circle
                 className={clsx('moonstone-loader_circle', 'moonstone-loader_background')}
@@ -25,6 +26,7 @@ export const Loader: React.FC<LoaderProps> = ({
                 cy="50%"
             />
         </svg>
-    )};
+    );
+};
 
 Loader.displayName = 'Loader';
