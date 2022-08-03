@@ -113,13 +113,13 @@ storiesOf('Components/TreeView', module)
     })
     .add('controlled with loading', () => {
         const [openedItems, setOpenedItems] = useState([]);
-        const [treeData, setData] = useState([
+        const [treeDataState, setTreeDataState] = useState([
             {id: 'A1', label: 'A-1', hasChildren: true},
             {id: 'A2', label: 'A-2', hasChildren: true},
             {id: 'A3', label: 'A-3', hasChildren: true}
         ]);
         const loadChidren = node => {
-            setData(data => data.map(n => {
+            setTreeDataState(data => data.map(n => {
                 if (n.id === node.id) {
                     return {
                         ...n,
@@ -134,7 +134,7 @@ storiesOf('Components/TreeView', module)
 
         const handleOpen = node => {
             setOpenedItems([node.id, ...openedItems]);
-            setData(data => data.map(n => {
+            setTreeDataState(data => data.map(n => {
                 if (n.id === node.id && !n.isLoading && !n.children) {
                     setTimeout(() => loadChidren(node), 1000);
                     return {...n, isLoading: true};
@@ -158,7 +158,7 @@ storiesOf('Components/TreeView', module)
                     </button>
                 ))}
                 </span>
-                <TreeView data={treeData}
+                <TreeView data={treeDataState}
                           openedItems={openedItems}
                           onOpenItem={handleOpen}
                           onCloseItem={handleClose}

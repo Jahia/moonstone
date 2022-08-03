@@ -8,7 +8,7 @@ import markdownNotes from './Breadcrumb.md';
 import {Breadcrumb, BreadcrumbItem} from '~/components';
 import {Love} from '~/icons';
 
-const numberItems = () => number('Number of items', 5);
+const numberBreadcrumbItems = () => number('Number of items', 5);
 const label = () => text('Label', 'item');
 
 storiesOf('Components/Breadcrumb', module)
@@ -69,7 +69,7 @@ storiesOf('Components/Breadcrumb', module)
         return (
             <section className="storyWrapper">
                 <Breadcrumb>
-                    {items(numberItems)}
+                    {items(numberBreadcrumbItems)}
                 </Breadcrumb>
             </section>
         );

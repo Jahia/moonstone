@@ -27,7 +27,6 @@ export const TableBodyCell: React.FC<TableCellProps> = ({
     const leftMarginIndentDepth = row?.depth * 20; // Px
     const scrollableClass = isScrollable ? 'moonstone-tableCellContent' : '';
 
-    // TODO: When no iconStart is set we should just render children to avoid too nested HTML elements
     const renderCellContent = () => (
         <IconTextIcon component="div" iconStart={iconStart} iconEnd={iconEnd} typographyProps={{className: clsx(scrollableClass, 'flexFluid')}}>
             {children}

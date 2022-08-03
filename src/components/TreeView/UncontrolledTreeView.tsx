@@ -7,15 +7,11 @@ export const UncontrolledTreeView: React.FC<UncontrolledTreeViewProps> = ({defau
     const [openedItems, setOpenedItems] = useState(defaultOpenedItems);
 
     const onOpenItem = (node: TreeViewData) => {
-        // TODO: need to rename shadowed variable name 'openedItems'
-        // tslint:disable-next-line:no-shadowed-variable
-        setOpenedItems(openedItems => [...openedItems, node.id]);
+        setOpenedItems(prevOpenedItems => [...prevOpenedItems, node.id]);
     };
 
     const onCloseItem = (node: TreeViewData) => {
-        // TODO: need to rename shadowed variable name 'openedItems'
-        // tslint:disable-next-line:no-shadowed-variable
-        setOpenedItems(openedItems => openedItems.filter(item => item !== node.id));
+        setOpenedItems(prevOpenedItems => prevOpenedItems.filter(item => item !== node.id));
     };
 
     return <ControlledTreeView openedItems={openedItems} onOpenItem={onOpenItem} onCloseItem={onCloseItem} {...others}/>;
