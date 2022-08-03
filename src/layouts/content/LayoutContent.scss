@@ -3,10 +3,12 @@
 }
 
 .moonstone-layoutContent {
-    padding: var(--spacing-large);
-
     background-color: var(--color-gray_light40);
     overflow: auto;
+}
+
+.moonstone-layoutContent_withPadding {
+    padding: var(--spacing-large);
 }
 
 .moonstone-layoutContent_centered {

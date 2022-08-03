@@ -41,6 +41,11 @@ Centered.args = {
     isCentered: true
 };
 
+export const WithoutPadding = Template.bind({});
+WithoutPadding.args = {
+    hasPadding: false
+};
+
 export const Loading = Template.bind({});
 Loading.args = {
     isLoading: true
