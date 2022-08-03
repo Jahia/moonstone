@@ -16,14 +16,4 @@ export const TreeView: React.FC<TreeViewProps> = ({openedItems, defaultOpenedIte
     return <ControlledTreeView openedItems={openedItems} data={data} onOpenItem={onOpenItem} onCloseItem={onCloseItem} {...others}/>;
 };
 
-TreeView.defaultProps = {
-    onClickItem: () => undefined,
-    onDoubleClickItem: () => undefined,
-    onContextMenuItem: () => undefined,
-    openedItems: undefined,
-    defaultOpenedItems: [],
-    selectedItems: [],
-    isReversed: false
-};
-
 TreeView.displayName = 'TreeView';

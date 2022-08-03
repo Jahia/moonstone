@@ -1,5 +1,4 @@
-import React from "react";
-import {InputProps} from "~/components/Input/Input.types";
+import React from 'react';
 
 export type CheckboxProps = {
     /**

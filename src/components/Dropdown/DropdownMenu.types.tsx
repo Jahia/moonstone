@@ -1,6 +1,6 @@
-import React from "react";
-import {AnchorPosition} from "~/components/Menu/Menu.types";
-import {DropdownData, DropdownDataOptions} from "~/components/Dropdown/Dropdown.types";
+import React from 'react';
+import {AnchorPosition} from '~/components/Menu/Menu.types';
+import {DropdownData, DropdownDataOptions} from '~/components/Dropdown/Dropdown.types';
 
 export type DropdownMenuProps = {
     maxHeight?: string;

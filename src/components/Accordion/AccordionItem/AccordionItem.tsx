@@ -1,12 +1,11 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import clsx from 'clsx';
 import './AccordionItem.scss';
-import { Typography } from '~/components/Typography';
-import { AccordionContext } from '~/components/Accordion/Accordion.context';
-import { AccordionItemProps } from './AccordionItem.types';
+import {Typography} from '~/components/Typography';
+import {AccordionContext} from '~/components/Accordion/Accordion.context';
+import {AccordionItemProps} from './AccordionItem.types';
 
-export const AccordionItem: React.FC<AccordionItemProps> = ({ id, label, icon = null, onClick = () => undefined, className, children, ...props }) => {
+export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = null, onClick = () => undefined, className, children, ...props}) => {
     const context = React.useContext(AccordionContext);
     const open = context.currentItem === id;
 
@@ -20,7 +19,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({ id, label, icon = 
             {...props}
             className={clsx(
                 'moonstone-accordionItem',
-                { 'moonstone-reversed': context.isReversed },
+                {'moonstone-reversed': context.isReversed},
                 'flexCol',
                 open ? 'flexFluid' : null,
                 className
@@ -49,7 +48,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({ id, label, icon = 
                             'alignCenter'
                         )}
                         >
-                            {icon && <icon.type {...icon.props} size="big" />}
+                            {icon && <icon.type {...icon.props} size="big"/>}
                         </div>
                     )}
                 <Typography
@@ -69,7 +68,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({ id, label, icon = 
                         'moonstone-accordionItem_content',
                         'flexFluid'
                     )}
-                        role="region"
+                         role="region"
                     >
                         {children}
                     </div>

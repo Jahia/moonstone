@@ -2,9 +2,9 @@ import * as React from 'react';
 import {Size} from 're-resizable';
 
 export type EnableZones = {
-    // top?: boolean;
+    // Top?: boolean;
     right?: boolean;
-    // bottom?: boolean;
+    // Bottom?: boolean;
     // left?: boolean;
     // topRight?: boolean;
     // bottomRight?: boolean;

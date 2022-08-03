@@ -71,9 +71,9 @@ export const PrimaryNav: React.FC<PrimaryNavProps> = ({
 }) => {
     const [isExpanded, setExpanded] = useState(false);
 
-    function toggleExpand() {
+    const toggleExpand = () => {
         setExpanded(!isExpanded);
-    }
+    };
 
     return (
         <PrimaryNavContext.Provider value={{isExpanded, collapse: () => setExpanded(false)}}>

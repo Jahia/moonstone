@@ -1,7 +1,7 @@
 import React, {Attributes, FunctionComponent, PropsWithChildren, ReactElement} from 'react';
 import * as Icons from '~/icons/components';
 import {ImgWrapper, SvgWrapper} from '~/components';
-import {SvgWrapperProps} from "~/components/SvgWrapper/SvgWrapper.types";
+import {SvgWrapperProps} from '~/components/SvgWrapper/SvgWrapper.types';
 
 type ToCompProps = {
     [key: string]: number;
@@ -34,8 +34,7 @@ export const toIconComponentFunction = (icon: string | ReactElement): FunctionCo
         return (props: PropsWithChildren<Attributes>) => <SvgWrapper svg={icon} {...props}/>;
     }
 
-    // @ts-ignore
-    const iconFunction:FunctionComponent = Icons[icon];
+    const iconFunction:FunctionComponent = Icons[icon as keyof typeof Icons];
     if (iconFunction) {
         return iconFunction;
     }

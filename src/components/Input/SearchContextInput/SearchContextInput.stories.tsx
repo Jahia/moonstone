@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import {ComponentStory, ComponentMeta} from '@storybook/react';
 import '~/__storybook__/storybook.scss';
 
 import {SearchContextInput} from './index';
@@ -12,18 +12,18 @@ export default {
     component: SearchContextInput,
     layout: 'centered',
     parameters: {
-        knobs: {disable: true},
+        knobs: {disable: true}
     },
     args: {
         placeholder: 'Placeholder text',
         defaultValue: 'Default value'
     },
     argTypes: {
-        onChange: { action: 'onChange'},
-        onClick: { action: 'onClick' },
-        onBlur: { action: 'onBlur'},
-        onFocus: { action: 'onFocus'}
-    },
+        onChange: {action: 'onChange'},
+        onClick: {action: 'onClick'},
+        onBlur: {action: 'onBlur'},
+        onFocus: {action: 'onFocus'}
+    }
 } as ComponentMeta<typeof SearchContextInput>;
 
 const searchContextData: DropdownDataOptions[] = [
@@ -46,9 +46,11 @@ const searchContextData: DropdownDataOptions[] = [
 
 export const SearchContext: ComponentStory<typeof SearchContextInput> = args => {
     const [contextOption, setContextOption] = useState(searchContextData[0]);
-    const handleDropdownOnChange = (e: React.MouseEvent, item: DropdownDataOptions) => {setContextOption(item)};
+    const handleDropdownOnChange = (e: React.MouseEvent, item: DropdownDataOptions) => {
+        setContextOption(item);
+    };
 
-    return(
+    return (
         <section className="storyWrapper">
             <SearchContextInput
                 searchContext={
@@ -65,5 +67,5 @@ export const SearchContext: ComponentStory<typeof SearchContextInput> = args => 
                 placeholder="Search and press Enter"
                 {...args}/>
         </section>
-    )
+    );
 };

@@ -7,8 +7,8 @@ describe('ButtonGroup', () => {
     it('should render ButtonGroup', () => {
         const buttonGroup = shallow(
             <ButtonGroup>
-                <Button label="One" onClick={() => {}}/>
-                <Button label="Two" onClick={() => {}}/>
+                <Button label="One" onClick={() => null}/>
+                <Button label="Two" onClick={() => null}/>
             </ButtonGroup>
         );
         expect(buttonGroup.html());
@@ -40,8 +40,8 @@ describe('ButtonGroup', () => {
     it('should pass color variant to buttons', () => {
         const buttonGroup = shallow(
             <ButtonGroup color="accent">
-                <Button label="One" onClick={() => {}}/>
-                <Button label="One" onClick={() => {}}/>
+                <Button label="One" onClick={() => null}/>
+                <Button label="One" onClick={() => null}/>
             </ButtonGroup>
         );
         expect(buttonGroup.html()).toContain('accent');
@@ -50,8 +50,8 @@ describe('ButtonGroup', () => {
     it('should pass size to buttons', () => {
         const buttonGroup = shallow(
             <ButtonGroup size="big">
-                <Button label="One" onClick={() => {}}/>
-                <Button label="One" onClick={() => {}}/>
+                <Button label="One" onClick={() => null}/>
+                <Button label="One" onClick={() => null}/>
             </ButtonGroup>
         );
 
@@ -61,8 +61,8 @@ describe('ButtonGroup', () => {
     it('should add additional classname', () => {
         const buttonGroup = shallow(
             <ButtonGroup className="test">
-                <Button label="One" onClick={() => {}}/>
-                <Button label="One" onClick={() => {}}/>
+                <Button label="One" onClick={() => null}/>
+                <Button label="One" onClick={() => null}/>
             </ButtonGroup>
         );
         expect(buttonGroup.querySelector('.test').exists()).toBeTruthy();
@@ -71,8 +71,8 @@ describe('ButtonGroup', () => {
     it('should add additional attribute', () => {
         const buttonGroup = shallow(
             <ButtonGroup data-custom="test">
-                <Button label="One" onClick={() => {}}/>
-                <Button label="One" onClick={() => {}}/>
+                <Button label="One" onClick={() => null}/>
+                <Button label="One" onClick={() => null}/>
             </ButtonGroup>
         );
         expect(buttonGroup.querySelector('[data-custom="test"]').exists()).toBeTruthy();

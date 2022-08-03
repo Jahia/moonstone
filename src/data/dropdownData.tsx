@@ -22,12 +22,12 @@ export const dropdownData = [
     {
         label: 'option 5 with iconStart',
         value: '5',
-        iconStart: <Folder/>,
+        iconStart: <Folder/>
     },
     {
         label: 'option 6 with iconEnd',
         value: '6',
-        iconEnd: <Lock/>,
+        iconEnd: <Lock/>
     },
     {
         label: 'option 7 with icons',

@@ -46,9 +46,9 @@ const ItemTypeResolver: React.FC<ItemTypeResolverProps> = ({url, icon, label, su
     if (url) {
         return (
             <a className={clsx('moonstone-primaryNavItem', 'moonstone-primaryNavItem_linkItem')}
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
+               href={url}
+               target="_blank"
+               rel="noopener noreferrer"
             >
                 <Item icon={icon} label={label} subtitle={subtitle} textVariant="body" button={button}/>
             </a>

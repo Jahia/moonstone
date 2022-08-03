@@ -13,6 +13,7 @@ const getChildrenToFilter = (children: [React.ReactElement]) => {
             return [...acc, ...curr.props.children[2]];
         }, []);
     }
+
     return children;
 };
 
@@ -41,40 +42,39 @@ export const Menu: React.FC<MenuProps> = ({
     searchEmptyText,
     ...props
 }) => {
-    if (!children || React.Children.count(children) < 1) {
-        return null;
-    }
-
     const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, position);
     useEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);
     const [inputValue, setInputValue] = useState('');
     const [filteredChildren, setFilteredChildren] = useState(children);
     const [isEmptySearch, setIsEmptySearch] = useState(false);
-    // useEffect hook to filter the search results and determine whether to show the no search results text
+    // UseEffect hook to filter the search results and determine whether to show the no search results text
     useEffect(() => {
-        if (inputValue !== '') {
-            if (Array.isArray(children)) {
-                const _childrenToFilter = getChildrenToFilter(children as [React.ReactElement]);
-                const _filtered = _childrenToFilter.filter((child: React.ReactElement) => {
-                    if (child.props && child.props.label) {
-                        const contains = child.props.label.toLowerCase().includes(inputValue.toLowerCase());
-                        return contains && child.props.variant !== 'title';
-                    }
-                    return false;
-                });
-                setFilteredChildren(_filtered);
-
-                if (_filtered.length === 0) {
-                    setIsEmptySearch(true);
-                } else {
-                    setIsEmptySearch(false);
+        if (inputValue !== '' && Array.isArray(children)) {
+            const _childrenToFilter = getChildrenToFilter(children as [React.ReactElement]);
+            const _filtered = _childrenToFilter.filter((child: React.ReactElement) => {
+                if (child.props && child.props.label) {
+                    const contains = child.props.label.toLowerCase().includes(inputValue.toLowerCase());
+                    return contains && child.props.variant !== 'title';
                 }
+
+                return false;
+            });
+            setFilteredChildren(_filtered);
+
+            if (_filtered.length === 0) {
+                setIsEmptySearch(true);
+            } else {
+                setIsEmptySearch(false);
             }
         } else {
             setFilteredChildren(null);
             setIsEmptySearch(false);
         }
     }, [inputValue, children]);
+
+    if (!children || React.Children.count(children) < 1) {
+        return null;
+    }
 
     // ---
     // Styling
@@ -88,9 +88,11 @@ export const Menu: React.FC<MenuProps> = ({
     if (minWidth) {
         styleMenu.minWidth = minWidth;
     }
+
     if (maxWidth) {
         styleMenu.maxWidth = maxWidth;
     }
+
     if (maxHeight) {
         styleMenu.maxHeight = maxHeight;
     }
@@ -148,6 +150,7 @@ export const Menu: React.FC<MenuProps> = ({
 };
 
 // Kept defaultProps here because of unnecessary re-rendering when provided as default parameters to the function component
+/* eslint-disable react/default-props-match-prop-types */
 Menu.defaultProps = {
     hasOverlay: true,
     hasSearch: false,
@@ -167,5 +170,6 @@ Menu.defaultProps = {
         horizontal: 'left'
     }
 };
+/* eslint-enable react/default-props-match-prop-types */
 
 Menu.displayName = 'Menu';

@@ -1,18 +1,19 @@
 import React from 'react';
+import clsx from 'clsx';
 import {SvgWrapperProps} from './SvgWrapper.types';
 
-export const SvgWrapper: React.FC<SvgWrapperProps> = initialProps => {
-    const {svg, size, ...props} = initialProps;
+export const SvgWrapper: React.FC<SvgWrapperProps> = ({
+    svg,
+    size = 'default',
+    className,
+    ...props
+}) => {
     const {viewBox, fill, children} = svg.props;
-    props.className = initialProps.className + ' moonstone-icon moonstone-icon_' + size;
+    const css = clsx('moonstone-icon moonstone-icon_' + size, svg.props.className, className);
+
     return (
-        <svg viewBox={viewBox && viewBox} fill={fill && fill} {...props}>
+        <svg viewBox={viewBox && viewBox} fill={fill && fill} className={css} {...props}>
             {children}
         </svg>
     );
-};
-
-SvgWrapper.defaultProps = {
-    size: 'default',
-    className: ''
 };

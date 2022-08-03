@@ -1,8 +1,8 @@
 import React from 'react';
-import { ListItem } from '~/components/ListItem';
+import {ListItem} from '~/components/ListItem';
 import clsx from 'clsx';
 import './MenuItem.scss';
-import { MenuItemProps, MenuItemVariants } from './MenuItem.types';
+import {MenuItemProps, MenuItemVariants} from './MenuItem.types';
 
 export const MenuItem: React.FC<MenuItemProps> = ({
     variant = MenuItemVariants.Default,

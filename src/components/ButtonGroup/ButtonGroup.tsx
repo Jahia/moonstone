@@ -12,7 +12,6 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
     children,
     ...props
 }) => {
-
     if (!children || React.Children.count(children) < 1) {
         return null;
     }

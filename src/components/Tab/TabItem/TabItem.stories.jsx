@@ -54,7 +54,7 @@ storiesOf('Components/Tab/TabItem', module)
                         isSelected={isSelected()}
                         isReversed={isReversed()}
                         isDisabled={isDisabled()}
-                        onClick={() => {}}
+                        onClick={() => null}
                         />
                 </div>
             </section>

@@ -1,13 +1,11 @@
 import {
     AnchorElOrigin,
     AnchorPosition,
-    MenuProps,
     PositioningType,
     TransformElOrigin
-} from "~/components/Menu/Menu.types";
-import {TreeViewData} from "~/components/TreeView/TreeView.types";
-import React from "react";
-import {DropdownData, DropdownDataOptions} from "~/components/Dropdown/Dropdown.types";
+} from '~/components/Menu/Menu.types';
+import {TreeViewData} from '~/components/TreeView/TreeView.types';
+import React from 'react';
 
 export type TreeViewMenuProps = {
     /**

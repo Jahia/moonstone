@@ -7,8 +7,8 @@ export const SearchInput: React.FC<SearchInputProps> = ({...props}) => {
     return (
         <BaseInput
             {...props}
-            role="search"
             isShowClearButton
+            role="search"
             icon={<Search aria-hidden/>}
         />
     );

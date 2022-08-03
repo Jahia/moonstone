@@ -12,13 +12,13 @@ export const Badge: FunctionComponent<BadgeProps> = ({
 }) => {
     const classNameProps = clsx(
         'moonstone-badge',
-        `moonstone-badge_round`,
+        'moonstone-badge_round',
         `moonstone-badge_${color}`,
         className
     );
 
     if (!label || label.length < 1) {
-        return null
+        return null;
     }
 
     return (

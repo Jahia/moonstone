@@ -1,5 +1,5 @@
 import React from 'react';
-import { AccordionItemProps } from './AccordionItem/AccordionItem.types';
+import {AccordionItemProps} from './AccordionItem/AccordionItem.types';
 
 export type ControlledAccordionProps = {
     /**

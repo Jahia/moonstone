@@ -16,7 +16,7 @@ export const Paper: FunctionComponent<PaperProps> = ({
     );
 
     if (!children) {
-        return null
+        return null;
     }
 
     return (

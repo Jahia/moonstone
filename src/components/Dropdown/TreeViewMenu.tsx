@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {usePositioning} from '~/hooks/usePositioning';
 import {TreeViewMenuProps} from './TreeViewMenu.types';
-import {SearchInput, TreeView} from "~/components";
-import "../Menu/Menu.scss";
-import {TreeViewData} from "~/components/TreeView/TreeView.types";
-import clsx from "clsx";
+import {SearchInput, TreeView} from '~/components';
+import '../Menu/Menu.scss';
+import {TreeViewData} from '~/components/TreeView/TreeView.types';
+import clsx from 'clsx';
 
 function filterNodes(text: string, nodes: TreeViewData[], opened: string[]) {
     const filtered: TreeViewData[] = [];
@@ -13,73 +13,72 @@ function filterNodes(text: string, nodes: TreeViewData[], opened: string[]) {
         if (filterResult) {
             filtered.push(filterResult);
         }
-    })
-    return filtered
+    });
+    return filtered;
 }
 
 const filterNode = (text: string, node: TreeViewData, opened: string[]) => {
-    const match = node.label.toLowerCase().includes(text)
-    const children: TreeViewData[] = []
+    const match = node.label.toLowerCase().includes(text);
+    const children: TreeViewData[] = [];
     if (node.children) {
         const filteredChildren = filterNodes(text, node.children, opened);
         if (filteredChildren.length > 0) {
-            children.push(...filteredChildren)
-            opened.push(node.id)
+            children.push(...filteredChildren);
+            opened.push(node.id);
         }
     }
+
     if (match || children.length > 0) {
         return {
             ...node,
-            treeItemProps:{className: clsx({
-                    ['moonstone-disabled']: !match
-                })},
+            treeItemProps: {className: clsx({
+                'moonstone-disabled': !match
+            })},
             children
-        }
+        };
     }
-}
+};
 
 const find = (value: string, data: TreeViewData, opened: string[]): string => {
     if (data.value === value) {
-        return data.id
+        return data.id;
     }
+
     if (data.children) {
         const res = data.children.reduce((current, child) => {
-            return current || find(value, child, opened)
-        }, "")
+            return current || find(value, child, opened);
+        }, '');
 
         if (res) {
-            opened.push(data.id)
+            opened.push(data.id);
         }
 
-        return res
+        return res;
     }
-}
-
-
+};
 
 export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
-                                                              isDisplayed,
-                                                              minWidth,
-                                                              maxWidth,
-                                                              maxHeight,
-                                                              anchorEl,
-                                                              anchorPosition,
-                                                              anchorElOrigin,
-                                                              transformElOrigin,
-                                                              position,
-                                                              hasOverlay,
-                                                              hasSearch,
-                                                              searchEmptyText,
-                                                              data,
-                                                              value,
-                                                              handleSelect,
-                                                              handleKeyPress,
-                                                              onClose,
-                                                              ...props
-                                                          }) => {
-
+    isDisplayed,
+    minWidth,
+    maxWidth,
+    maxHeight,
+    anchorEl,
+    anchorPosition,
+    anchorElOrigin,
+    transformElOrigin,
+    position,
+    hasOverlay,
+    hasSearch,
+    // SearchEmptyText,
+    data,
+    value,
+    handleSelect,
+    // HandleKeyPress,
+    onClose,
+    ...props
+}) => {
     const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, position);
-    // useEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);
+    // UseEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);
     const [inputValue, setInputValue] = useState('');
     const [openedItems, setOpenedItems] = useState([]);
 
@@ -95,16 +94,16 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     const selected: string[] = [];
 
     if (inputValue !== '') {
-        data = filterNodes(inputValue, data, openedBySearch)
+        data = filterNodes(inputValue, data, openedBySearch);
     }
 
     if (value) {
         data.forEach(single => {
             const id = find(value, single, openedBySearch);
             if (id) {
-                selected.push(id)
+                selected.push(id);
             }
-        })
+        });
     }
 
     // ---
@@ -112,15 +111,17 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     // ---
     const styleMenu: React.CSSProperties = {
         position,
-        ...stylePosition as React.CSSProperties,
+        ...stylePosition as React.CSSProperties
     };
 
     if (minWidth) {
         styleMenu.minWidth = minWidth;
     }
+
     if (maxWidth) {
         styleMenu.maxWidth = maxWidth;
     }
+
     if (maxHeight) {
         styleMenu.maxHeight = maxHeight;
     }
@@ -130,9 +131,10 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     // ---
     return (
         <>
-            <menu className="moonstone-menu"
-                  ref={itemRef}
+            <menu ref={itemRef}
+                  className="moonstone-menu"
                   style={styleMenu}
+                  {...props}
             >
                 {hasSearch && (
                     <div className="moonstone-menu_searchInput">
@@ -146,9 +148,10 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
                 <TreeView data={data}
                           selectedItems={selected}
                           openedItems={[...openedItems, ...openedBySearch]}
-                          onOpenItem={onOpenItem} onCloseItem={onCloseItem}
+                          onOpenItem={onOpenItem}
+                          onCloseItem={onCloseItem}
                           onClickItem={(node, e) => {
-                              handleSelect(e, node)
+                              handleSelect(e, node);
                           }}
                 />
             </menu>
@@ -167,6 +170,7 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
 };
 
 // Kept defaultProps here because of unnecessary re-rendering when provided as default parameters to the function component
+/* eslint-disable react/default-props-match-prop-types */
 TreeViewMenu.defaultProps = {
     hasOverlay: true,
     hasSearch: false,
@@ -186,5 +190,6 @@ TreeViewMenu.defaultProps = {
         horizontal: 'left'
     }
 };
+/* eslint-enable react/default-props-match-prop-types */
 
 TreeViewMenu.displayName = 'TreeViewMenu';
