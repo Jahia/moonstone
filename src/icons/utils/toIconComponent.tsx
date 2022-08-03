@@ -3,9 +3,7 @@ import * as Icons from '~/icons/components';
 import {ImgWrapper, SvgWrapper} from '~/components';
 import {SvgWrapperProps} from '~/components/SvgWrapper/SvgWrapper.types';
 
-type ToCompProps = {
-    [key: string]: number;
-}
+type SVGProps = React.HTMLProps<SVGElement> & React.HTMLProps<HTMLElement>;
 
 const camelCased = (s: string) => s.replace(/-([a-z])/g, g => {
     return g[1].toUpperCase();
@@ -13,8 +11,8 @@ const camelCased = (s: string) => s.replace(/-([a-z])/g, g => {
 
 const toComp = (node: HTMLElement, idx: number) => {
     if (node.nodeType === 1) {
-        const props: ToCompProps = {key: idx};
-        Array.prototype.slice.call(node.attributes).forEach((attr: any) => {
+        const props: {[key: string]: unknown} = {key: idx};
+        Array.prototype.slice.call(node.attributes).forEach((attr: SVGProps) => {
             props[camelCased(attr.name)] = attr.value;
         });
         const children = Array.prototype.slice.call(node.childNodes).map((child: HTMLElement, idxChild: number) => toComp(child, idxChild));

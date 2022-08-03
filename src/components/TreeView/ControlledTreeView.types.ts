@@ -19,27 +19,27 @@ export type ControlledTreeViewProps = {
     /**
      * Trigger on opening node
      */
-    onOpenItem?: (...args: any[]) => void;
+    onOpenItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
 
     /**
      * Trigger on opening node
      */
-    onCloseItem?: (...args: any[]) => void;
+    onCloseItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
 
     /**
      * Trigger by clicking on node
      */
-    onClickItem?: (...args: any[]) => void;
+    onClickItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
 
     /**
      * Trigger by double clicking on node
      */
-    onDoubleClickItem?: (...args: any[]) => void;
+    onDoubleClickItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
 
     /**
      * Trigger by right clicking on node
      */
-    onContextMenuItem?: (...args: any[]) => void;
+    onContextMenuItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
 
     /**
      * Reverse color usefull for context with dark background

@@ -26,7 +26,7 @@ export type PrimaryNavItemProps = {
     /**
      * Icon node from our icon library
      */
-    icon?: React.ReactElement<any>;
+    icon?: React.ReactElement;
     /**
      * Subtitle
      */

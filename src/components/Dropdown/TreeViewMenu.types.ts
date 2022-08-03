@@ -1,11 +1,12 @@
-import {
+import React from 'react';
+import type {TreeViewData} from '~/components/TreeView/TreeView.types';
+import type {DropdownDataOptions} from './Dropdown.types';
+import type {
     AnchorElOrigin,
     AnchorPosition,
     PositioningType,
     TransformElOrigin
 } from '~/components/Menu/Menu.types';
-import {TreeViewData} from '~/components/TreeView/TreeView.types';
-import React from 'react';
 
 export type TreeViewMenuProps = {
     /**
@@ -26,9 +27,9 @@ export type TreeViewMenuProps = {
     searchEmptyText?: string;
     hasOverlay?: boolean;
     value?: string;
-    children?: any;
+    children?: React.ReactNode;
     imageSize?: 'small' | 'big';
-    handleSelect: any;
-    handleKeyPress: any;
+    handleSelect: (e?: React.MouseEvent | React.KeyboardEvent, item?: DropdownDataOptions) => void;
+    handleKeyPress: (e?: React.KeyboardEvent, item?: DropdownDataOptions) => void;
     onClose: () => void;
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {Size} from 're-resizable';
+import {Size, ResizeStartCallback, ResizeCallback} from 're-resizable';
 
-export type EnableZones = {
+export type EnableZonesProps = {
     // Top?: boolean;
     right?: boolean;
     // Bottom?: boolean;
@@ -14,9 +14,9 @@ export type EnableZones = {
 
 // WIP
 // const zones = ['top', 'right', 'bottom', 'left', 'topRight', 'bottomRight', 'bottomLeft', 'topLeft'];
-export const zones: Zones[] = ['right'];
+export const zones: ZonesProps[] = ['right'];
 
-export type Zones = keyof EnableZones;
+export type ZonesProps = keyof EnableZonesProps;
 
 export type ResizableBoxEnable = 'right';
 
@@ -63,12 +63,12 @@ export type ResizableBoxProps = {
      * @param {string} dir - Direction resized
      * @param {node} ref - HTML element resized
      */
-    onResizeStart?: (...args: any[]) => void;
+    onResizeStart?: ResizeStartCallback;
     /**
      * Function on resizing
      * @param {object} e - event
      */
-    onResizing?: (...args: any[]) => void;
+    onResizing?: ResizeCallback;
     /**
      * Function triggered when the resize is finished
      * @param {object} e - Mouse event
@@ -76,6 +76,6 @@ export type ResizableBoxProps = {
      * @param {node} ref - HTML element resized
      * @param {object} delta - delta between after resize
      */
-    onResizeStop?: (...args: any[]) => void;
+    onResizeStop?: ResizeCallback;
 }
 

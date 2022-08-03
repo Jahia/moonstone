@@ -1,7 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import {TablePaginationProps} from './TablePagination.types';
+import type {TablePaginationProps} from './TablePagination.types';
+import type {DropdownDataOptions} from '~/components/Dropdown/Dropdown.types';
 import {Dropdown, Typography, Button} from '~/components';
 import {ChevronLeft, ChevronRight, ChevronLastPage, ChevronFirstPage} from '~/icons';
 import './TablePagination.scss';
@@ -45,7 +46,7 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
                 data={rowsPerPageOptions.map(opt => ({label: opt.toString(), value: opt.toString()}))}
                 value={rowsPerPage.toString()}
                 label={rowsPerPage.toString()}
-                onChange={(event: any, item: any) => onRowsPerPageChange(parseInt(item.value, 10))}
+                onChange={(event: React.MouseEvent, item: DropdownDataOptions) => onRowsPerPageChange(parseInt(item.value, 10))}
             />
             <Typography
                 variant="caption"

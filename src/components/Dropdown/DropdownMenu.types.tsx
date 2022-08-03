@@ -14,9 +14,9 @@ export type DropdownMenuProps = {
     hasOverlay?: boolean;
     data: [DropdownDataOptions & DropdownData];
     value?: string;
-    children?: any;
+    children?: React.ReactNode;
     imageSize?: 'small' | 'big';
-    handleSelect: any;
-    handleKeyPress: any;
+    handleSelect: (e?: React.MouseEvent | React.KeyboardEvent, item?: DropdownDataOptions) => void;
+    handleKeyPress: (e?: React.KeyboardEvent, item?:DropdownDataOptions) => void;
     onClose: () => void;
 }
