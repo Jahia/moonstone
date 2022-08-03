@@ -8,6 +8,7 @@ import {Loader} from '~/components/Loader';
 export const LayoutContent: React.FC<LayoutContentProps> = ({
     header,
     content,
+    hasPadding = true,
     isLoading = false,
     isCentered = false,
     className,
@@ -16,7 +17,8 @@ export const LayoutContent: React.FC<LayoutContentProps> = ({
         const classNameProps = clsx(
             'flexFluid',
             'moonstone-layoutContent',
-            isLoading ? ['flexCol_center', 'alignCenter'] : 'flexCol_nowrap',
+            {'moonstone-layoutContent_withPadding': hasPadding},
+            isLoading ? ['flexCol_center', 'alignCenter'] : 'flexCol_nowrap'
         );
     return (
         <div className={clsx('flexCol', 'flexFluid', 'moonstone-layoutContent_wrapper', className)} {...props}>

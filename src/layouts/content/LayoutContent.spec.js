@@ -19,8 +19,13 @@ describe('LayoutContent', () => {
         expect(screen.queryByText('my content')).not.toBeInTheDocument();
     });
 
-    it('should have the class `moonstone-layoutContent_centered` when `isCentered` set to true', () => {
+    it('should have the class "moonstone-layoutContent_centered" when "isCentered" set to true', () => {
         const {container} = render(<LayoutContent isCentered content="my content"/>);
         expect(container.querySelector('.moonstone-layoutContent_centered')).toBeInTheDocument();
+    });
+
+    it('should not have the class "moonstone-layoutContent_withPadding" when "hasPadding" set to false', () => {
+        const {container} = render(<LayoutContent hasPadding={false} content="my content"/>);
+        expect(container.querySelector('.moonstone-layoutContent_withPadding')).not.toBeInTheDocument();
     });
 });

@@ -22,6 +22,11 @@ export type LayoutContentProps = {
     isLoading?: boolean,
 
     /**
+     * Define if the layout has padding
+     */
+    hasPadding?: boolean
+
+    /**
      * Additional className
      */
      className?: string,
