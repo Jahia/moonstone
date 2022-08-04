@@ -28,7 +28,7 @@ export const Typography: React.FC<TypographyProps> = ({
     ...props
 }) => {
     if (!children) {
-        return null
+        return null;
     }
 
     return React.createElement(
@@ -47,6 +47,6 @@ export const Typography: React.FC<TypographyProps> = ({
         },
         children
     );
-}
+};
 
 Typography.displayName = 'Typography';

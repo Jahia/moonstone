@@ -29,9 +29,9 @@ storiesOf('Components/ButtonGroup', module)
                 size={sizeValues()}
                 isReversed={isReversed()}
             >
-                <Button label="one" onClick={() => {}}/>
-                <Button label="two" onClick={() => {}}/>
-                <Button label="three" onClick={() => {}}/>
+                <Button label="one" onClick={() => null}/>
+                <Button label="two" onClick={() => null}/>
+                <Button label="three" onClick={() => null}/>
             </ButtonGroup>
         </section>
     ))
@@ -41,8 +41,8 @@ storiesOf('Components/ButtonGroup', module)
                 color="accent"
                 size="big"
             >
-                <Button label="Actions" onClick={() => {}}/>
-                <Button icon={<ChevronDown/>} onClick={() => {}}/>
+                <Button label="Actions" onClick={() => null}/>
+                <Button icon={<ChevronDown/>} onClick={() => null}/>
             </ButtonGroup>
         </section>
     ))
@@ -52,7 +52,7 @@ storiesOf('Components/ButtonGroup', module)
                 color="accent"
                 size="big"
             >
-                <Button label="Actions" onClick={() => {}}/>
+                <Button label="Actions" onClick={() => null}/>
             </ButtonGroup>
         </section>
     ));

@@ -11,9 +11,9 @@ export const UncontrolledBaseInput: React.FC<BaseInputProps> = ({defaultValue, o
         if (typeof onChange !== 'undefined') {
             onChange(event);
         }
-    }
+    };
 
-    return <ControlledBaseInput value={inputValue} onChange={handleOnChange}  {...props}/>;
+    return <ControlledBaseInput value={inputValue} onChange={handleOnChange} {...props}/>;
 };
 
 UncontrolledBaseInput.displayName = 'UncontrolledBaseInput';

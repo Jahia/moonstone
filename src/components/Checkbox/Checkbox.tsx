@@ -6,10 +6,10 @@ import {ControlledCheckbox} from './ControlledCheckbox';
 
 export const Checkbox: React.FC<CheckboxProps> = ({checked, ...props}) => {
     if (typeof checked === 'undefined') {
-        return <UncontrolledCheckbox {...props}/>
+        return <UncontrolledCheckbox {...props}/>;
     }
 
-    return <ControlledCheckbox checked={checked} {...props}/>
+    return <ControlledCheckbox checked={checked} {...props}/>;
 };
 
 Checkbox.displayName = 'Checkbox';

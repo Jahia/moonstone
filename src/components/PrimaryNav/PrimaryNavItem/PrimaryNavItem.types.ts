@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {BadgeProps} from '~/components/Badge/Badge.types'
+import {BadgeProps} from '~/components/Badge/Badge.types';
 import {TypographyVariant} from '~/components/Typography/Typography.types';
 
 export type ItemProps = {
@@ -26,7 +26,7 @@ export type PrimaryNavItemProps = {
     /**
      * Icon node from our icon library
      */
-    icon?: React.ReactElement<any>;
+    icon?: React.ReactElement;
     /**
      * Subtitle
      */

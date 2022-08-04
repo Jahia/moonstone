@@ -44,7 +44,8 @@ export const ListItem: React.FC<ListItemProps> = ({
                         `moonstone-listItem-image_${imageSize}`,
                         'flexRow',
                         'alignCenter'
-                    )}>
+                    )}
+                    >
                         {image}
                     </figure>
                 )

@@ -41,11 +41,11 @@ export const ControlledBaseInput: React.FC<BaseInputProps & { searchContext?: Re
 
     if (isShowClearButton && !onClear) {
         onClear = () => {
-            inputRef.current.value = ""
+            inputRef.current.value = '';
             const inputEvent: unknown = new Event('change');
             inputRef.current.dispatchEvent(inputEvent);
             onChange(inputEvent as React.ChangeEvent<HTMLInputElement>);
-        }
+        };
     }
 
     return (
@@ -60,9 +60,9 @@ export const ControlledBaseInput: React.FC<BaseInputProps & { searchContext?: Re
                             className={clsx(searchContext.props.className, 'moonstone-searchContext-element')}
                         />
                     </>
-                )
-            }
+                )}
             <input
+                ref={inputRef}
                 className={
                     clsx(
                         'moonstone-baseInput-element',
@@ -83,7 +83,6 @@ export const ControlledBaseInput: React.FC<BaseInputProps & { searchContext?: Re
                 onChange={onChange}
                 onBlur={onBlur}
                 onFocus={onFocus}
-                ref={inputRef}
                 {...props}
             />
             {icon && (
@@ -100,10 +99,10 @@ export const ControlledBaseInput: React.FC<BaseInputProps & { searchContext?: Re
             {onClear && isFilled && !isDisabled && !isReadOnly && (
                 <Button
                     className="moonstone-baseInput_clearButton flexRow_center alignCenter"
-                    onClick={onClear}
                     variant="ghost"
                     icon={<Cancel/>}
                     aria-label="Reset"
+                    onClick={onClear}
                 />
             )}
         </div>

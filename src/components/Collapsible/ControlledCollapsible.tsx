@@ -25,12 +25,13 @@ export const ControlledCollapsible: React.FC<CollapsibleProps> = ({
             {...other}
         >
             <button
+                type="button"
                 className="moonstone-collapsible_button flexRow alignCenter"
                 aria-expanded={isExpanded}
-                onClick={e => onClick(e)}
                 aria-controls={id}
+                onClick={e => onClick(e)}
             >
-                <ChevronRight className={clsx('moonstone-collapsible_icon', {'moonstone-collapsible_icon_expanded': isExpanded})} size='big'/>
+                <ChevronRight className={clsx('moonstone-collapsible_icon', {'moonstone-collapsible_icon_expanded': isExpanded})} size="big"/>
                 <Typography
                     isNowrap
                     isUpperCase
@@ -41,8 +42,8 @@ export const ControlledCollapsible: React.FC<CollapsibleProps> = ({
                 </Typography>
             </button>
             <div id={id}
-                className={clsx([isExpanded ? 'moonstone-collapsible_content_expanded' : 'moonstone-collapsible_content_collapsed'],)}
-                hidden={!isExpanded}
+                 className={clsx([isExpanded ? 'moonstone-collapsible_content_expanded' : 'moonstone-collapsible_content_collapsed'])}
+                 hidden={!isExpanded}
             >
                 {children}
             </div>

@@ -4,8 +4,29 @@ import './TreeView.scss';
 import {ControlledTreeViewProps} from './ControlledTreeView.types';
 import {TreeViewData} from './TreeView.types';
 
-import {Loading,ChevronDown,ChevronRight} from '~/icons';
+import {Loading, ChevronDown, ChevronRight} from '~/icons';
 import {Typography} from '~/components/Typography';
+
+// Manage treeView_item's icon
+const displayIcon = (icon: React.ReactElement, size: string, className: string, parentHasIconStart = false) => {
+    if (!icon && !parentHasIconStart) {
+        return;
+    }
+
+    return (
+        <i className={clsx('flexRow', 'alignCenter', className)}>
+            {icon &&
+            <icon.type {...icon.props} size={size}/>}
+        </i>
+    );
+};
+
+// Manage if we display icon or loading
+const displayIconOrLoading = (icon: React.ReactElement, isLoading: boolean) => {
+    const i = isLoading ? <Loading size="big" className="moonstone-icon_isLoading"/> : icon;
+
+    return displayIcon(i, 'default', 'moonstone-treeView_itemIconEnd');
+};
 
 export const ControlledTreeView: React.FC<ControlledTreeViewProps> = ({
     data,
@@ -21,10 +42,8 @@ export const ControlledTreeView: React.FC<ControlledTreeViewProps> = ({
 }) => {
     const isFlatData = data.filter(item => item.children && item.children.length > 0).length === 0;
 
-    // TODO: Shadowed variables `deep` and `isFlatData` need to be renamed
-    // tslint:disable-next-line:no-shadowed-variable
-    function generateLevelJSX(data: TreeViewData[], deep: number, parentHasIconStart: boolean, isFlatData: boolean) {
-        return data.map(node => {
+    function generateLevelJSX(nodeData: TreeViewData[], deep: number, parentHasIconStart: boolean) {
+        return nodeData.map(node => {
             const hasChild = Boolean(node.hasChildren || (node.children && node.children.length !== 0));
             const hasIconStart = Boolean(node.iconStart);
             const isClosable = Boolean(node.isClosable !== false);
@@ -35,7 +54,7 @@ export const ControlledTreeView: React.FC<ControlledTreeViewProps> = ({
             // ---
             // Manage clicks events
             // ---
-            const toggleNode = (e: React.SyntheticEvent) => {
+            const toggleNode = (e: React.MouseEvent) => {
                 if (isOpen) {
                     onCloseItem(node, e);
                 } else {
@@ -73,29 +92,6 @@ export const ControlledTreeView: React.FC<ControlledTreeViewProps> = ({
                 }
             );
 
-            // Manage treeView_item's icon
-            // TODO: Shadowed variable `parentHasIconStart` needs to be renamed
-            // tslint:disable-next-line:no-shadowed-variable
-            const displayIcon = (icon: React.ReactElement, size: string, className: string, parentHasIconStart: boolean = false) => {
-                if (!icon && !parentHasIconStart) {
-                    return;
-                }
-
-                return (
-                    <i className={clsx('flexRow', 'alignCenter', className)}>
-                        {icon &&
-                            <icon.type {...icon.props} size={size}/>}
-                    </i>
-                );
-            };
-
-            // Manage if we display icon or loading
-            const displayIconOrLoading = (icon: React.ReactElement) => {
-                const i = isLoading ? <Loading size="big" className="moonstone-icon_isLoading"/> : icon;
-
-                return displayIcon(i, 'default', 'moonstone-treeView_itemIconEnd');
-            };
-
             // TreeItem has child
             return (
                 <React.Fragment key={`${deep}-${node.id}`}>
@@ -124,7 +120,7 @@ export const ControlledTreeView: React.FC<ControlledTreeViewProps> = ({
                             {/* TreeViewItem */}
                             <div
                                 className={clsx('flexRow_nowrap', 'alignCenter', 'flexFluid', 'moonstone-treeView_itemLabel', node.className)}
-                                onClick={!node.isDisabled ? handleNodeClick : undefined}
+                                onClick={node.isDisabled ? undefined : handleNodeClick}
                                 onDoubleClick={handleNodeDoubleClick}
                                 onContextMenu={handleNodeContextMenu}
                             >
@@ -137,11 +133,11 @@ export const ControlledTreeView: React.FC<ControlledTreeViewProps> = ({
                                 >
                                     {node.label}
                                 </Typography>
-                                {displayIconOrLoading(node.iconEnd)}
+                                {displayIconOrLoading(node.iconEnd, isLoading)}
                             </div>
                         </div>
                     </li>
-                    {isOpen && node.children && generateLevelJSX(node.children, isClosable ? (deep + 1) : deep, hasIconStart, isFlatData)}
+                    {isOpen && node.children && generateLevelJSX(node.children, isClosable ? (deep + 1) : deep, hasIconStart)}
                 </React.Fragment>
             );
         });
@@ -150,7 +146,7 @@ export const ControlledTreeView: React.FC<ControlledTreeViewProps> = ({
     // TreeView component
     return (
         <ul role="tree" {...props}>
-            {generateLevelJSX(data, 0, false, isFlatData)}
+            {generateLevelJSX(data, 0, false)}
         </ul>
     );
 };

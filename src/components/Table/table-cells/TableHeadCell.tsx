@@ -21,7 +21,7 @@ export const TableHeadCell: React.FC<TableCellProps> = ({
         <Typography
             {...props}
             className={clsx(
-                {'flexFluid': typeof width === 'undefined'},
+                {flexFluid: typeof width === 'undefined'},
                 'textAlign' + capitalize(textAlign),
                 'moonstone-verticalAlign' + capitalize(verticalAlign),
                 className
@@ -29,7 +29,7 @@ export const TableHeadCell: React.FC<TableCellProps> = ({
             component={component}
             weight="bold"
             variant="body"
-            style={{...props.style, 'width': width}}
+            style={{...props.style, width: width}}
         >
 
             <TableCell iconStart={iconStart} iconEnd={iconEnd}>

@@ -405,7 +405,7 @@ export const Pagination = () => {
                 currentPage={currentPage}
                 totalNumberOfRows={tablePaginationDataFlat.length}
                 rowsPerPage={rowsPerPage}
-                onRowsPerPageChange={rowsPerPage => setRowsPerPage(rowsPerPage)}
+                onRowsPerPageChange={prevRowsPerPage => setRowsPerPage(prevRowsPerPage)}
                 onPageChange={page => setCurrentPage(page)}
             />
         </>
@@ -628,7 +628,7 @@ export const KitchenSinkFlat = () => {
                 currentPage={currentPage}
                 totalNumberOfRows={tablePaginationDataFlat.length}
                 rowsPerPage={rowsPerPage}
-                onRowsPerPageChange={rowsPerPage => setRowsPerPage(rowsPerPage)}
+                onRowsPerPageChange={prevRowsPerPage => setRowsPerPage(prevRowsPerPage)}
                 onPageChange={page => setCurrentPage(page)}
             />
         </>

@@ -35,8 +35,10 @@ const getClosestRelativeAncestor = (el: HTMLElement) => {
         if (window.getComputedStyle(el).position !== 'static') {
             return el;
         }
+
         el = el.parentElement;
     }
+
     return el;
 };
 
@@ -57,6 +59,8 @@ const getAbsolutePositionCSS = (
         case 'top':
             style.top = anchorPosition.top;
             break;
+        default:
+            // For linter
     }
 
     switch (anchorElOrigin.horizontal) {
@@ -69,6 +73,8 @@ const getAbsolutePositionCSS = (
         case 'right':
             style.left = `calc(100% + ${anchorPosition.left}px)`;
             break;
+        default:
+            // For linter
     }
 
     if (transformElOrigin.vertical === 'bottom') {
@@ -89,8 +95,8 @@ const getAbsolutePosition = (
     transformElOrigin: TransformElOrigin,
     anchorPosition: Position
 ) => {
-    const menuRectangle = itemRef.current.getBoundingClientRect();
-    const closestRelativeAncestorRect = getClosestRelativeAncestor(itemRef.current).getBoundingClientRect();
+    const menuRectangle = itemRef?.current?.getBoundingClientRect();
+    const closestRelativeAncestorRect = getClosestRelativeAncestor(itemRef?.current).getBoundingClientRect();
     let _style = getAbsolutePositionCSS(anchorElOrigin, transformElOrigin, anchorPosition);
 
     if (
@@ -140,6 +146,8 @@ const getPositionRelativeToEl = (
         case 'bottom':
             point.top = anchorElRectangle.bottom;
             break;
+        default:
+            // For linter
     }
 
     switch (anchorElOrigin.horizontal) {
@@ -152,6 +160,8 @@ const getPositionRelativeToEl = (
         case 'right':
             point.left = anchorElRectangle.right;
             break;
+        default:
+                // For linter
     }
 
     const stylePosition = getPosition(anchorPosition);
@@ -180,7 +190,7 @@ const getFixedPosition = (
     transformElOrigin: TransformElOrigin,
     anchorPosition: Position
 ) => {
-    const menuRectangle = itemRef.current.getBoundingClientRect();
+    const menuRectangle = itemRef?.current?.getBoundingClientRect();
     const resolvedAnchorEl = anchorEl && anchorEl.current ? anchorEl.current : anchorEl;
 
     let stylePosition;
@@ -244,9 +254,9 @@ export const usePositioning = (
 
     useEffect(() => {
         if (isDisplayed) {
-            const _stylePosition = position === 'absolute'
-                ? getAbsolutePosition(itemRef, anchorElOrigin, transformElOrigin, anchorPosition)
-                : getFixedPosition(itemRef, anchorEl, anchorElOrigin, transformElOrigin, anchorPosition);
+            const _stylePosition = position === 'absolute' ?
+                getAbsolutePosition(itemRef, anchorElOrigin, transformElOrigin, anchorPosition) :
+                getFixedPosition(itemRef, anchorEl, anchorElOrigin, transformElOrigin, anchorPosition);
             setStylePosition(_stylePosition);
         } else {
             setStylePosition(initialPosition);

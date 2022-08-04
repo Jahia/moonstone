@@ -12,7 +12,7 @@ export type BreadcrumbItemProps = {
     /**
      * Icon name, if it's empty the item has no icon
      */
-    icon?: React.ReactElement<any>;
+    icon?: React.ReactElement;
     /**
      * Function trigger on click
      */
