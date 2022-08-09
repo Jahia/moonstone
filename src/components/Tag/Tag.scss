@@ -1,0 +1,16 @@
+.moonstone-tag {
+    display: flex;
+    width: fit-content;
+    padding: 4px 8px;
+
+    color: var(--color-light);
+
+    border: none;
+    border-radius: 4px;
+    background-color: var(--color-accent_dark);
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--color-accent_dark60);
+    }
+}
