@@ -37,6 +37,50 @@ export const Default: ComponentStory<typeof Dropdown> = args => {
     );
 };
 
+export const Outlined: ComponentStory<typeof Dropdown> = args => {
+    const [currentOption, setCurrentOption] = useState({label: 'Select something', value: null});
+
+    const handleOnChange = (e: React.MouseEvent, item: DropdownDataOption) => {
+        setCurrentOption(item);
+        return true;
+    };
+
+    return (
+        <div style={{padding: '110px'}}>
+            <Dropdown
+                variant="outlined"
+                label={currentOption.label}
+                value={currentOption.value}
+                data={dropdownData}
+                onChange={(e, item) => handleOnChange(e, item)}
+                {...args}
+            />
+        </div>
+    );
+};
+
+export const WithSearch: ComponentStory<typeof Dropdown> = args => {
+    const [currentOption, setCurrentOption] = useState({label: 'Select something', value: null});
+
+    const handleOnChange = (e: React.MouseEvent, item: DropdownDataOption) => {
+        setCurrentOption(item);
+        return true;
+    };
+
+    return (
+        <div style={{padding: '110px'}}>
+            <Dropdown
+                hasSearch
+                label={currentOption.label}
+                value={currentOption.value}
+                data={dropdownData}
+                onChange={(e, item) => handleOnChange(e, item)}
+                {...args}
+            />
+        </div>
+    );
+};
+
 export const WithIcon: ComponentStory<typeof Dropdown> = args => {
     const [currentOption, setCurrentOption] = useState({label: 'Select something', value: null});
 
