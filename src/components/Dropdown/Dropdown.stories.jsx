@@ -8,6 +8,7 @@ import {Dropdown} from './index';
 import {DropdownSizes, DropdownVariants} from './Dropdown.types';
 import {Love} from '~/icons';
 import {dropdownData, dropdownDataGrouped, dropdownDataImages, dropdownDataTree} from '~/data';
+import {treeData} from '~/data';
 import IconWrapper from '~/__storybook__/IconWrapper';
 import {iconsName} from '~/__storybook__/utils';
 
@@ -29,6 +30,7 @@ storiesOf('Components/Dropdown', module)
         return (
             <div style={{transform: 'scale(1)', height: '100vh', padding: '90px'}}>
                 <Dropdown
+                    hasSearch
                     icon={<Love/>}
                     label={currentOption.label}
                     value={currentOption.value}
@@ -96,6 +98,7 @@ storiesOf('Components/Dropdown', module)
         return (
             <div style={{transform: 'scale(1)', height: '100vh'}}>
                 <Dropdown
+                    hasSearch
                     isDisabled={boolean('Disabled', false)}
                     label={currentOption.label}
                     value={currentOption.value}
@@ -180,9 +183,10 @@ storiesOf('Components/Dropdown', module)
         );
     })
     .add('Playground (without Images)', () => {
-        const [currentOption, setCurrentOption] = useState({label: 'Select something', value: null});
+        const [currentOption, setCurrentOption] = useState({label: 'Select something', value: '6'});
 
         const handleOnChange = (e, item) => {
+            console.log(item);
             setCurrentOption(item);
             action('onChange');
             return true;

@@ -144,3 +144,14 @@ $border-width: 1px;
         background-color: var(--color-gray_light40);
     }
 }
+
+.moonstone-menu_searchInput {
+    position: sticky;
+
+    // top: var(--spacing-small);
+    top: 0;
+
+    padding: var(--spacing-small) var(--spacing-medium);
+
+    background-color: var(--color-white);
+}

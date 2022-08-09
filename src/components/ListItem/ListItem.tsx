@@ -32,7 +32,7 @@ export const ListItem: React.FC<ListItemProps> = ({
         >
             {
                 iconStart && !image && (
-                    <div className="moonstone-listItem_iconStart">
+                    <div className="moonstone-listItem_iconStart flexRow_center alignCenter ">
                         <iconStart.type {...iconStart.props} size={iconSize}/>
                     </div>
                 )

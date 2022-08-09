@@ -4,18 +4,38 @@ import './Dropdown.scss';
 
 import {
     DropdownData,
-    DropdownDataOptions,
+    DropdownDataOption,
     DropdownImageSizes,
     DropdownProps,
     DropdownSizes,
     DropdownVariants,
     HandleSelect
 } from './Dropdown.types';
-import {Typography} from '~/components/Typography';
+import {Typography} from '~/components';
 import {ChevronDown} from '~/icons';
 import {DropdownMenu} from '~/components/Dropdown/DropdownMenu';
-import {TreeViewMenu} from '~/components/Dropdown/TreeViewMenu';
-import {TreeViewData} from '~/components/TreeView/TreeView.types';
+import type {TreeViewData} from '~/components/TreeView/TreeView.types';
+
+type Data = DropdownDataOption[] | DropdownData[] | TreeViewData[] | []
+
+const getNodebyValue = (data: Data, value: string, isTree: boolean): TreeViewData[] => {
+    if (isTree && data.length > 0) {
+        for (const item of data as TreeViewData[]) {
+            if (item.value === value) {
+                return [item];
+            }
+
+            if (item.children) {
+                const desiredNodeId = getNodebyValue(item.children, value, isTree);
+                if (desiredNodeId) {
+                    return desiredNodeId;
+                }
+            }
+        }
+    }
+
+    return null;
+};
 
 export const Dropdown: React.FC<DropdownProps> = ({
     data,
@@ -37,6 +57,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const [isOpened, setIsOpened] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
+    const [selectedNodes, setSelectedNodes] = useState(getNodebyValue(data, value, isTree));
     const isEmpty = data.length < 1;
     const menuMinWidth = 80;
     const anchorPosition = {
@@ -79,14 +100,23 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const handleSelect: HandleSelect = (e, item) => {
         if (item) {
             let canClose: boolean | void = !item.isDisabled;
+
             if (!item.isDisabled && item.value !== value) {
                 e.stopPropagation();
-                canClose = (onChange as (e: React.MouseEvent | React.KeyboardEvent, item: DropdownDataOptions) => void)(e, item);
+                canClose = (onChange as (e: React.MouseEvent | React.KeyboardEvent, item: DropdownDataOption) => void)(e, item);
             }
 
             if (canClose !== false) {
                 setIsOpened(false);
             }
+
+            if (isTree) {
+                setSelectedNodes([item] as TreeViewData[]);
+            }
+
+            // If (isTree && isMultiple) {
+            //     setSelectedNodes(previousSelectedNodes => [previousSelectedNode, ...item]);
+            // }
         }
     };
 
@@ -95,7 +125,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         setAnchorEl(null);
     };
 
-    const handleKeyPress = (e: React.KeyboardEvent, item: DropdownDataOptions) => {
+    const handleKeyPress = (e: React.KeyboardEvent, item: DropdownDataOption) => {
         if (e.key === 'Enter') {
             handleSelect(e, item);
         }
@@ -104,7 +134,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
     // ---
     // CSS classes
     // ---
-
     const cssDropdown = clsx(
         !label && !icon ? 'flexRow_reverse' : 'flexRow_between',
         'alignCenter',
@@ -150,33 +179,19 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     variant="caption"
                     component="span"
                     className={clsx('flexFluid')}
+                    data-testid="label"
                 >
                     {label}
                 </Typography>
                 <ChevronDown className="moonstone-dropdown_chevronDown"/>
             </div>
 
-            {isOpened && (isTree ? (
-                <TreeViewMenu
-                    isDisplayed
-                    data={data as [TreeViewData]}
-                    value={value}
-                    anchorPosition={anchorPosition}
-                    minWidth={minWidth}
-                    maxWidth={menuMaxWidth}
-                    maxHeight={menuMaxHeight}
-                    anchorEl={anchorEl}
-                    hasSearch={hasSearch}
-                    searchEmptyText={searchEmptyText}
-                    handleKeyPress={handleKeyPress}
-                    handleSelect={handleSelect}
-                    imageSize={imageSize}
-                    onClose={handleCloseMenu}
-                />
-            ) : (
+            {isOpened &&
                 <DropdownMenu
                     isDisplayed
-                    data={data as [DropdownDataOptions & DropdownData]}
+                    isTree={isTree}
+                    data={data as DropdownDataOption[] | DropdownData[]}
+                    selectedNodes={selectedNodes}
                     value={value}
                     anchorPosition={anchorPosition}
                     minWidth={minWidth}
@@ -189,8 +204,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     handleSelect={handleSelect}
                     imageSize={imageSize}
                     onClose={handleCloseMenu}
-                />
-            ))}
+                />}
         </div>
     );
 };
