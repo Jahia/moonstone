@@ -176,7 +176,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     variant="caption"
                     component="span"
                     className={clsx('flexFluid')}
-                    data-testid="label"
                 >
                     {label}
                 </Typography>

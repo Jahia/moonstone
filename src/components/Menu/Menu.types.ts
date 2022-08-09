@@ -73,16 +73,6 @@ export type MenuProps = {
      */
     style?: React.CSSProperties;
 
-    // /**
-    //  * Whether the Menu displays a search input at the top
-    //  */
-    // hasSearch?: boolean;
-
-    // /**
-    //  * Text to display when the search doesn't show any results
-    //  */
-    // searchEmptyText?: string;
-
     /**
      * If 'absolute' is passed in for the position, the component will be positioned as per normal
      * CSS rules (i.e., positioned against the closest positioned ancestor). Position is 'fixed' by default

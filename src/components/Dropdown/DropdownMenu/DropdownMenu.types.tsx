@@ -1,7 +1,6 @@
 import React from 'react';
 import {AnchorPosition} from '~/components/Menu/Menu.types';
-import type {DropdownData, DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
-import type {TreeViewData} from '~/components/TreeView/TreeView.types';
+import type {DropdownData, DropdownDataOption, DropdownDataTree} from '~/components/Dropdown/Dropdown.types';
 
 export type DropdownMenuProps = {
     maxHeight?: string;
@@ -13,8 +12,8 @@ export type DropdownMenuProps = {
     hasSearch?: boolean;
     searchEmptyText?: string;
     hasOverlay?: boolean;
-    selectedNodes: TreeViewData[];
-    data: DropdownDataOption[] | DropdownData[] | TreeViewData[];
+    selectedNodes: DropdownDataTree[];
+    data: DropdownDataOption[] | DropdownData[] | DropdownDataTree[];
     value?: string;
     isTree?: boolean;
     imageSize?: 'small' | 'big';
