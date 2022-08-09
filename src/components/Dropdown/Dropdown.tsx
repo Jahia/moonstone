@@ -5,10 +5,7 @@ import './Dropdown.scss';
 import {
     DropdownData,
     DropdownDataOption,
-    DropdownImageSizes,
     DropdownProps,
-    DropdownSizes,
-    DropdownVariants,
     HandleSelect
 } from './Dropdown.types';
 import {Typography} from '~/components';
@@ -43,8 +40,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
     value,
     isDisabled,
     maxWidth = '300px',
-    variant = DropdownVariants.Ghost,
-    size = DropdownSizes.Medium,
+    variant = 'ghost',
+    size = 'medium',
     icon,
     hasSearch = false,
     searchEmptyText = 'No results found.',
@@ -73,11 +70,11 @@ export const Dropdown: React.FC<DropdownProps> = ({
     }
 
     switch (imageSize) {
-        case DropdownImageSizes.Big:
+        case 'big':
             menuMaxWidth = '400px';
             menuMaxHeight = '440px';
             break;
-        case DropdownImageSizes.Small:
+        case 'small':
             menuMaxWidth = '264px';
             menuMaxHeight = '320px';
             break;

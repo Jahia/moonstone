@@ -1,9 +1,8 @@
 import clsx from 'clsx';
 
-import type {DropdownDataOption, DropdownData} from './Dropdown.types';
-import type {TreeViewData} from '~/components/TreeView/TreeView.types';
+import type {DropdownDataOption, DropdownData, DropdownDataTree} from './Dropdown.types';
 
-type Data = DropdownDataOption[] | DropdownData[] | TreeViewData[] | []
+type Data = DropdownDataOption[] | DropdownData[] | DropdownDataTree[] | []
 type ListData = DropdownDataOption[] | DropdownData[] | [];
 type GroupedData = DropdownData[];
 type setOpenedBySearchProps = React.Dispatch<React.SetStateAction<string[]>>
@@ -34,9 +33,9 @@ const filterGroupedData = (data: GroupedData, searchedValue: string) => {
 };
 
 // Filter tree dropdown data used with filterNodes
-const filterNode = (data: TreeViewData, searchedValue: string, setOpenedBySearch: setOpenedBySearchProps): TreeViewData => {
+const filterNode = (data: DropdownDataTree, searchedValue: string, setOpenedBySearch: setOpenedBySearchProps): DropdownDataTree => {
     const match = isLabelMatchSearch(data.label, searchedValue);
-    const filteredChildren: TreeViewData[] = [];
+    const filteredChildren: DropdownDataTree[] = [];
 
     if (data.children) {
         const filterResult = filterNodes(data.children, searchedValue, setOpenedBySearch);
@@ -60,8 +59,8 @@ const filterNode = (data: TreeViewData, searchedValue: string, setOpenedBySearch
 };
 
 // Filter tree dropdown
-const filterNodes = (data: TreeViewData[], searchedValue: string, setOpenedBySearch: setOpenedBySearchProps): TreeViewData[] => {
-    const result: TreeViewData[] = [];
+const filterNodes = (data: DropdownDataTree[], searchedValue: string, setOpenedBySearch: setOpenedBySearchProps): DropdownDataTree[] => {
+    const result: DropdownDataTree[] = [];
 
     data.forEach(node => {
         const filterResult = filterNode(node, searchedValue, setOpenedBySearch);
@@ -81,7 +80,7 @@ export const filterData = (data: Data, searchedValue: string, isTree?: boolean, 
         }
 
         if (isTree) {
-            return filterNodes(data as TreeViewData[], searchedValue, setOpenedBySearch);
+            return filterNodes(data as DropdownDataTree[], searchedValue, setOpenedBySearch);
         }
 
         return filterList(data as DropdownDataOption[], searchedValue);

@@ -6,6 +6,5 @@ export type DropdownMenuListProps = {
     handleKeyPress: DropdownMenuProps['handleKeyPress'];
     value?: DropdownMenuProps['value'];
     imageSize?: DropdownMenuProps['imageSize'];
-    // Children?: React.ReactNode;
     multipleValues?: string[];
 }

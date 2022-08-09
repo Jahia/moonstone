@@ -74,8 +74,7 @@ export const treeData = [
             {
                 id: 'C',
                 label: 'C level1',
-                iconStart: toIconComponent('http://www.google.com/s2/favicons?domain=www.jahia.com'),
-                children: []
+                iconStart: toIconComponent('http://www.google.com/s2/favicons?domain=www.jahia.com')
             }
         ]
     }

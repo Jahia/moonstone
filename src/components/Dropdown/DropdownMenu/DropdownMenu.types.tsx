@@ -1,6 +1,6 @@
 import React from 'react';
 import {AnchorPosition} from '~/components/Menu/Menu.types';
-import {DropdownData, DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
+import type {DropdownData, DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
 import type {TreeViewData} from '~/components/TreeView/TreeView.types';
 
 export type DropdownMenuProps = {

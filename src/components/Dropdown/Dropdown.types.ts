@@ -1,23 +1,7 @@
 import React from 'react';
 import {TreeViewData} from '~/components/TreeView/TreeView.types';
 
-export type DropdownVariant = 'ghost' | 'outlined';
-export enum DropdownVariants {
-    Ghost = 'ghost',
-    Outlined = 'outlined'
-}
-
-export type DropdownSize = 'small' | 'medium';
-export enum DropdownSizes {
-    Small = 'small',
-    Medium = 'medium'
-}
-
-export type DropdownImageSize = 'small' | 'big';
-export enum DropdownImageSizes {
-    Small = 'small',
-    Big = 'big'
-}
+export type DropdownDataTree = TreeViewData;
 
 export type DropdownDataOption = {
     label: string;
@@ -26,8 +10,8 @@ export type DropdownDataOption = {
     iconStart?: React.ReactElement;
     iconEnd?: React.ReactElement;
     attributes?: unknown;
-    image?: HTMLImageElement;
-    imageSize?: DropdownImageSize;
+    image?: React.ReactElement<HTMLImageElement>;
+    imageSize?: 'small' | 'big';
 }
 
 export type DropdownData = {
@@ -35,14 +19,17 @@ export type DropdownData = {
     options: DropdownDataOption[];
 }
 
-export type HandleSelect = (e: React.MouseEvent | React.KeyboardEvent, item?: DropdownDataOption | TreeViewData) => void;
+export type HandleSelect = (e: React.MouseEvent | React.KeyboardEvent, item?: DropdownDataOption | DropdownDataTree) => void;
 
 export type DropdownProps = {
     /**
      * Content of the dropdown
      */
-    data: DropdownDataOption[] | DropdownData[] | TreeViewData[] | [];
+    data: DropdownDataOption[] | DropdownData[] | DropdownDataTree[] | [];
 
+    /**
+     * When the dropdown has a tree structure it must be set to true
+     */
     isTree?: boolean,
 
     /**
@@ -63,17 +50,17 @@ export type DropdownProps = {
     /**
      * Dropdown's variants
      */
-    variant?: DropdownVariant;
+    variant?: 'ghost' | 'outlined';
 
     /**
      * Dropdown's sizes
      */
-    size?: DropdownSize;
+    size?: 'small' | 'medium';
 
     /**
      * Size of images to show in the Dropdown
      */
-    imageSize?: DropdownImageSize;
+    imageSize?: 'small' | 'big';
 
     /**
      * Max width of the dropdown
@@ -105,5 +92,5 @@ export type DropdownProps = {
      * @param {object} event - Mouse event
      * @param {object} item - The current item selected
      */
-    onChange?: (event: React.MouseEvent, item: DropdownDataOption | TreeViewData) => void;
+    onChange?: (event: React.MouseEvent, item: DropdownDataOption | DropdownDataTree) => void;
 }

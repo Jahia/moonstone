@@ -1,10 +1,11 @@
 import React from 'react';
 
-import {TreeView} from '~/components';
-import type {TreeViewData} from '~/components/TreeView/TreeView.types';
+import type {DropdownDataTree} from '../Dropdown.types';
 import type {DropdownMenuTreeProps} from './DropdownMenuTree.types';
 
-const getSelectedIds = (selectedNodes: TreeViewData[]): string[] => {
+import {TreeView} from '~/components';
+
+const getSelectedIds = (selectedNodes: DropdownDataTree[]): string[] => {
     const ids: string[] = [];
 
     if (Array.isArray(selectedNodes) && selectedNodes.length > 0) {
@@ -16,7 +17,7 @@ const getSelectedIds = (selectedNodes: TreeViewData[]): string[] => {
     return ids;
 };
 
-function getParents(data: TreeViewData[], id: string): string[] {
+function getParents(data: DropdownDataTree[], id: string): string[] {
     const ids: string[] = [];
 
     if (Array.isArray(data) && id) {
@@ -33,7 +34,7 @@ function getParents(data: TreeViewData[], id: string): string[] {
     return ids;
 }
 
-const findNodes = (data: TreeViewData, value: string, opened?: string[]): string => {
+const findNodes = (data: DropdownDataTree, value: string, opened?: string[]): string => {
     if (data.value === value) {
         return data.id;
     }

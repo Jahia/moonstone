@@ -1,7 +1,9 @@
 import React from 'react';
+import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
+
 import {Folder, Lock} from '~/icons';
 
-export const dropdownData = [
+export const dropdownData: DropdownDataOption[] = [
     {
         label: 'option 1',
         value: '1'
