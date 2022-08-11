@@ -1,3 +1,15 @@
+# v2.4.5 (Thu Aug 11 2022)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-19899: set maxwidth in dropdown [#310](https://github.com/Jahia/moonstone/pull/310) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v2.4.4 (Thu Jul 28 2022)
 
 #### ⚠️ Pushed to `master`
