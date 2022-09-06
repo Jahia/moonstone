@@ -57,6 +57,7 @@ export const ControlledBaseInput: React.FC<BaseInputProps & { searchContext?: Re
                             {...searchContext.props}
                             variant="ghost"
                             size="small"
+                            maxWidth="100px"
                             className={clsx(searchContext.props.className, 'moonstone-searchContext-element')}
                         />
                     </>

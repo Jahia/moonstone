@@ -1,11 +1,22 @@
 import clsx from 'clsx';
 
-import type {DropdownDataOption, DropdownData, DropdownDataTree} from './Dropdown.types';
+import type {DropdownDataOption, DropdownData, DropdownDataTree} from './BaseDropdown/BaseDropdown.types';
 
 type Data = DropdownDataOption[] | DropdownData[] | DropdownDataTree[] | []
 type ListData = DropdownDataOption[] | DropdownData[] | [];
 type GroupedData = DropdownData[];
 type setOpenedBySearchProps = React.Dispatch<React.SetStateAction<string[]>>
+type SelectedNodeKeys<T> = T extends DropdownDataTree[] ? 'label' | 'value' | 'id' : 'label' | 'value'
+type SelectedNodeItem<T> = {[key in SelectedNodeKeys<T>]: string }
+
+// Search function
+const isLabelMatchSearch = (label: string, searchedValue: string) => {
+    if (label !== undefined) {
+        return label.toLowerCase().includes(searchedValue.toLowerCase().trim());
+    }
+
+    return false;
+};
 
 // Filter flat dropdown data
 const filterList = (data: DropdownDataOption[], searchedValue: string) => {
@@ -98,11 +109,48 @@ export const isGrouped = (data: ListData): data is DropdownData[] => {
     return false;
 };
 
-// Search function
-export const isLabelMatchSearch = (label: string, searchedValue: string) => {
-    if (label !== undefined) {
-        return label.toLowerCase().includes(searchedValue.toLowerCase().trim());
+// Get selected items by values, usefull to get label or id of selected items
+export const getSelectedItemsByValues = (data: Data, selectedValues: string[], isTree: boolean) => {
+    const result: SelectedNodeItem<Data>[] = [];
+    if (selectedValues.length === 0) {
+        return result;
     }
 
-    return false;
+    for (const item of data) {
+        if ('value' in item && selectedValues.includes(item.value)) {
+            const r: SelectedNodeItem<Data> = {
+                label: item.label,
+                value: item.value,
+                ...('id' in item && {id: item.id})
+            };
+
+            result.push(r);
+        }
+
+        // For DropdownGrouped
+        if ('options' in item) {
+            const optionsResult = getSelectedItemsByValues(item.options, selectedValues, isTree);
+            if (optionsResult) {
+                result.push(...optionsResult);
+            }
+        }
+
+        // For DropdownTree
+        if (isTree) {
+            if ('children' in item) {
+                const desiredNodeId = getSelectedItemsByValues(item.children, selectedValues, isTree);
+
+                if (desiredNodeId) {
+                    result.push(...desiredNodeId);
+                }
+            }
+        }
+    }
+
+    return result;
+};
+
+// Get selected ids from selectedNodes used by DropdownMenuTree
+export const getSelectedNodesId = (selectedNodes: {[key in 'label' | 'value' | 'id']: string }[]) => {
+    return selectedNodes.map(node => node.id);
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import {DropdownDataOption, DropdownData} from '~/components/Dropdown/Dropdown.types';
+import {DropdownDataOption, DropdownData} from '~/components/Dropdown/BaseDropdown.types';
 import {MenuItem, Separator} from '~/components';
 import {DropdownMenuListProps} from './DropdownMenuList.types';
 
@@ -15,11 +15,14 @@ const isGrouped = (data: Data): data is DropdownData[] => {
 
 export const DropdownMenuList: React.FC<DropdownMenuListProps> = ({
     data,
-    value,
+    selectedValues,
     imageSize,
     handleSelect,
     handleKeyPress
 }) => {
+    console.log('call DropdownMenuList');
+    console.log(selectedValues);
+
     const dropdownOption = (option: DropdownDataOption) => {
         return (
             <MenuItem
@@ -29,7 +32,7 @@ export const DropdownMenuList: React.FC<DropdownMenuListProps> = ({
                 label={option.label}
                 iconEnd={option.iconEnd}
                 isDisabled={option.isDisabled}
-                isSelected={value === option.value}
+                isSelected={selectedValues.includes(option.value)}
                 image={option.image}
                 imageSize={imageSize}
                 onClick={e => handleSelect(e, option)}

@@ -17,7 +17,7 @@ $border-width: 1px;
     margin-right: var(--spacing-nano);
 }
 
-.moonstone-disabled {
+.moonstone-dropdown-disabled {
     & > .moonstone-treeView_item {
         @include is-disabled;
 
@@ -36,10 +36,7 @@ $border-width: 1px;
     border-radius: 2px;
     cursor: pointer;
 
-    // Don't know if we want to keep this animation, it's adding a weird flash on hover/active
-    // transition: background 0.2s ease-in-out;
-
-    &.moonstone-disabled {
+    &.moonstone-dropdown-disabled {
         @include is-disabled;
 
         pointer-events: none;
@@ -48,19 +45,18 @@ $border-width: 1px;
             pointer-events: none;
         }
     }
+}
 
-    // ---
-    // Manage sizes
-    // ---
-    &.moonstone-small {
-        padding-top: var(--spacing-nano);
-        padding-bottom: var(--spacing-nano);
-    }
+.moonstone-dropdown_small {
+    padding-top: var(--spacing-nano);
+    padding-bottom: var(--spacing-nano);
+}
 
-    &.moonstone-medium {
-        padding-top: var(--spacing-small);
-        padding-bottom: var(--spacing-small);
-    }
+.moonstone-dropdown_medium {
+    min-height: 34px;
+
+    // padding-top: var(--spacing-small);
+    // padding-bottom: var(--spacing-small);
 }
 
 // ---
@@ -143,6 +139,11 @@ $border-width: 1px;
         border-color: var(--color-gray_light40);
         background-color: var(--color-gray_light40);
     }
+}
+
+.moonstone-dropdown_multiple {
+    padding-top: var(--spacing-nano);
+    padding-bottom: var(--spacing-nano);
 }
 
 .moonstone-menu_searchInput {

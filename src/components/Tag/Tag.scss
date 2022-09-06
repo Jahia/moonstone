@@ -1,6 +1,7 @@
 .moonstone-tag {
     display: flex;
     width: fit-content;
+    max-width: 100px;
     padding: 4px 8px;
 
     color: var(--color-light);
@@ -12,5 +13,9 @@
 
     &:hover {
         background-color: var(--color-accent_dark60);
+    }
+
+    & + .moonstone-tag {
+        margin-left: var(--spacing-small);
     }
 }

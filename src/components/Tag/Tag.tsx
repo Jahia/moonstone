@@ -19,7 +19,7 @@ export const Tag: React.FC<TagProps> = ({
         onClick={e => onClick(e, {label: label, value: value})}
         {...props}
     >
-        {label && <Typography isNowrap component="span" variant="body">{label}</Typography>}
+        {label && <Typography isNowrap component="span" variant="caption">{label}</Typography>}
     </button>
 );
 

@@ -29,7 +29,7 @@ describe('Dropdown', () => {
         render(
             <Dropdown isDisabled data={dropdownData} data-testid="moonstone-dropdown" onChange={() => 'testing'}/>
         );
-        expect(screen.getByTestId('moonstone-dropdown').firstChild).toHaveClass('moonstone-disabled');
+        expect(screen.getByTestId('moonstone-dropdown').firstChild).toHaveClass('moonstone-dropdown-disabled');
     });
 
     it('should not display the menu dropdown by default', () => {
@@ -108,7 +108,7 @@ describe('Dropdown', () => {
 
     it('should add "dropdown-disabled" class if data is empty', () => {
         render(<Dropdown data={[]} data-testid="moonstone-dropdown" onChange={() => 'testing'}/>);
-        expect(screen.queryByTestId('moonstone-dropdown').firstChild).toHaveClass('moonstone-disabled');
+        expect(screen.queryByTestId('moonstone-dropdown').firstChild).toHaveClass('moonstone-dropdown-disabled');
     });
 
     it('should not add "dropdown-disabled" class if data is empty when "isDisabled=false" ', () => {

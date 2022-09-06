@@ -3,17 +3,17 @@ import React, {useState} from 'react';
 import {Menu, SearchInput, Typography} from '~/components';
 import {DropdownMenuList} from './DropdownMenuList';
 import {DropdownMenuTree} from './DropdownMenuTree';
-import {filterData} from '../dropdownSearch';
+import {filterData} from '../dropdown.utils';
 
 import type {DropdownMenuProps} from './DropdownMenu.types';
-import type {DropdownDataOption, DropdownData} from '~/components/Dropdown/Dropdown.types';
+import type {DropdownDataOption, DropdownData} from '../BaseDropdown/BaseDropdown.types';
 import type {TreeViewData} from '~/components/TreeView/TreeView.types';
 
 export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     isDisplayed,
     isTree,
     anchorPosition,
-    selectedNodes,
+    selectedNodesId,
     minWidth,
     maxWidth,
     maxHeight,
@@ -21,7 +21,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     hasSearch,
     searchEmptyText,
     data,
-    value,
+    selectedValues,
     imageSize,
     handleSelect,
     handleKeyPress,
@@ -33,6 +33,9 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFilteredData(filterData(data, e.target.value, isTree, setOpenedBySearch));
     };
+
+    console.log('call DropdownMenu');
+    console.log(selectedNodesId);
 
     // ---
     // Render the component
@@ -76,16 +79,16 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
                         data={filteredData as TreeViewData[]}
                         handleSelect={handleSelect}
                         openedBySearch={openedBySearch}
-                        selectedNodes={selectedNodes}
+                        selectedNodesId={selectedNodesId}
                         // HandleKeyPress={handleKeyPress}
-                        value={value}
+                        selectedValues={selectedValues}
                     /> :
                     <DropdownMenuList
                         data={filteredData as DropdownDataOption[] | DropdownData[]}
                         handleSelect={handleSelect}
                         handleKeyPress={handleKeyPress}
                         imageSize={imageSize}
-                        value={value}
+                        selectedValues={selectedValues}
                     />}
             </>
         </Menu>

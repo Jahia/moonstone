@@ -5,7 +5,7 @@ import '~/__storybook__/storybook.scss';
 import {SearchContextInput} from './index';
 import {Folder, SiteWeb, Collections} from '~/icons';
 import {Dropdown} from '~/components';
-import {DropdownDataOptions} from '~/components/Dropdown/Dropdown.types';
+import {DropdownDataOption} from '~/components/Dropdown/BaseDropdown/BaseDropdown.types';
 
 export default {
     title: 'Components/Input',
@@ -26,19 +26,19 @@ export default {
     }
 } as ComponentMeta<typeof SearchContextInput>;
 
-const searchContextData: DropdownDataOptions[] = [
+const searchContextData: DropdownDataOption[] = [
     {
         label: 'Folder',
         value: 'folder',
         iconStart: <Folder/>
     },
     {
-        label: 'Media',
+        label: 'global users',
         value: 'media',
         iconStart: <Collections/>
     },
     {
-        label: 'Site',
+        label: 'Site Site SiteSiteSiteSiteSiteSiteSiteSite Site Site Site Site Site Site Site Site',
         value: 'site',
         iconStart: <SiteWeb/>
     }
@@ -46,7 +46,7 @@ const searchContextData: DropdownDataOptions[] = [
 
 export const SearchContext: ComponentStory<typeof SearchContextInput> = args => {
     const [contextOption, setContextOption] = useState(searchContextData[0]);
-    const handleDropdownOnChange = (e: React.MouseEvent, item: DropdownDataOptions) => {
+    const handleDropdownOnChange = (e: React.MouseEvent, item: DropdownDataOption) => {
         setContextOption(item);
     };
 
