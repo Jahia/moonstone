@@ -3,7 +3,7 @@ import {ComponentStory, ComponentMeta} from '@storybook/react';
 import '~/__storybook__/storybook.scss';
 
 import {SearchContextInput} from './index';
-import {Folder, SiteWeb, Collections} from '~/icons';
+import {Person, SiteWeb, Collections} from '~/icons';
 import {Dropdown} from '~/components';
 import {DropdownDataOptions} from '~/components/Dropdown/Dropdown.types';
 
@@ -28,9 +28,9 @@ export default {
 
 const searchContextData: DropdownDataOptions[] = [
     {
-        label: 'Folder',
-        value: 'folder',
-        iconStart: <Folder/>
+        label: 'Global users',
+        value: 'globalUser',
+        iconStart: <Person/>
     },
     {
         label: 'Media',
