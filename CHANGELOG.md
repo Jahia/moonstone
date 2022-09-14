@@ -1,3 +1,15 @@
+# v2.4.6 (Wed Sep 14 2022)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-19942: Fix dropdown menu width and add title attribute to dro… [#311](https://github.com/Jahia/moonstone/pull/311) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.4.5 (Thu Aug 11 2022)
 
 #### 🐛 Bug Fix
