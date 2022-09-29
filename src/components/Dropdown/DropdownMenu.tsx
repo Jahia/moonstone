@@ -61,7 +61,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     return (
         <Menu
             isDisplayed={isDisplayed}
-            position="absolute"
+            position="fixed"
             anchorPosition={anchorPosition}
             minWidth={minWidth}
             maxWidth={maxWidth}
