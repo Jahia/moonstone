@@ -1,3 +1,15 @@
+# v2.4.8 (Mon Oct 03 2022)
+
+#### 🐛 Bug Fix
+
+- MOON-314: safeguard for incomplete anchor objects [#314](https://github.com/Jahia/moonstone/pull/314) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v2.4.7 (Mon Oct 03 2022)
 
 #### 🐛 Bug Fix
