@@ -261,7 +261,7 @@ export const usePositioning = (
     useEffect(() => {
         if (isDisplayed) {
             const resolvedAnchorEl = (anchorEl && anchorEl.current ? anchorEl.current : anchorEl) as HTMLDivElement;
-            const hasTransform = resolvedAnchorEl && resolvedAnchorEl.closest('[style*="transform"]');
+            const hasTransform = resolvedAnchorEl && resolvedAnchorEl.closest && resolvedAnchorEl.closest('[style*="transform"]');
             const _stylePosition = (position === 'absolute' || hasTransform) ?
                 getAbsolutePosition(itemRef, anchorElOrigin, transformElOrigin, anchorPosition) :
                 getFixedPosition(itemRef, anchorEl, anchorElOrigin, transformElOrigin, anchorPosition);
