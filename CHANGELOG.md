@@ -1,3 +1,15 @@
+# v2.4.7 (Mon Oct 03 2022)
+
+#### 🐛 Bug Fix
+
+- MOON-314: Use fixed position [#313](https://github.com/Jahia/moonstone/pull/313) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v2.4.6 (Wed Sep 14 2022)
 
 #### 🐛 Bug Fix
