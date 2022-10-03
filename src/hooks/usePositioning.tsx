@@ -94,17 +94,17 @@ const getAbsolutePosition = (
     anchorElOrigin: AnchorElOrigin,
     transformElOrigin: TransformElOrigin,
     anchorPosition: Position
-) => {
+):React.CSSProperties => {
     const menuRectangle = itemRef?.current?.getBoundingClientRect();
     const closestRelativeAncestorRect = getClosestRelativeAncestor(itemRef?.current).getBoundingClientRect();
-    let _style = getAbsolutePositionCSS(anchorElOrigin, transformElOrigin, anchorPosition);
+    let stylePosition = getAbsolutePositionCSS(anchorElOrigin, transformElOrigin, anchorPosition);
 
     if (
-        _style.left &&
+        stylePosition.left &&
         (closestRelativeAncestorRect.left + anchorPosition.left + menuRectangle.width) > window.document.body.clientWidth &&
         anchorElOrigin.horizontal === 'right'
     ) {
-        _style = getAbsolutePositionCSS(
+        stylePosition = getAbsolutePositionCSS(
             {...anchorElOrigin, horizontal: 'left'},
             {...transformElOrigin, horizontal: 'right'},
             anchorPosition
@@ -112,19 +112,22 @@ const getAbsolutePosition = (
     }
 
     if (
-        _style.top &&
+        stylePosition.top &&
         (closestRelativeAncestorRect.top + closestRelativeAncestorRect.height + anchorPosition.top + menuRectangle.height) >
             window.document.body.clientHeight &&
         anchorElOrigin.vertical === 'bottom'
     ) {
-        _style = getAbsolutePositionCSS(
+        stylePosition = getAbsolutePositionCSS(
             {...anchorElOrigin, vertical: 'top'},
             {...transformElOrigin, vertical: 'bottom'},
             anchorPosition
         );
     }
 
-    return _style;
+    return {
+        ...stylePosition,
+        position: 'absolute'
+    };
 };
 
 const getPositionRelativeToEl = (
@@ -189,7 +192,7 @@ const getFixedPosition = (
     anchorElOrigin: AnchorElOrigin,
     transformElOrigin: TransformElOrigin,
     anchorPosition: Position
-) => {
+):React.CSSProperties => {
     const menuRectangle = itemRef?.current?.getBoundingClientRect();
     const resolvedAnchorEl = anchorEl && anchorEl.current ? anchorEl.current : anchorEl;
 
@@ -238,7 +241,10 @@ const getFixedPosition = (
         stylePosition.top = window.document.body.clientHeight - menuRectangle.height;
     }
 
-    return stylePosition;
+    return {
+        ...stylePosition,
+        position: 'fixed'
+    };
 };
 
 export const usePositioning = (
@@ -249,12 +255,14 @@ export const usePositioning = (
     transformElOrigin: TransformElOrigin,
     position: PositioningType
 ): [React.CSSProperties, React.MutableRefObject<HTMLDivElement>] => {
-    const [stylePosition, setStylePosition] = useState(initialPosition as React.CSSProperties);
+    const [stylePosition, setStylePosition] = useState<React.CSSProperties>(initialPosition as React.CSSProperties);
     const itemRef = useRef(null);
 
     useEffect(() => {
         if (isDisplayed) {
-            const _stylePosition = position === 'absolute' ?
+            const resolvedAnchorEl = (anchorEl && anchorEl.current ? anchorEl.current : anchorEl) as HTMLDivElement;
+            const hasTransform = resolvedAnchorEl && resolvedAnchorEl.closest('[style*="transform"]');
+            const _stylePosition = (position === 'absolute' || hasTransform) ?
                 getAbsolutePosition(itemRef, anchorElOrigin, transformElOrigin, anchorPosition) :
                 getFixedPosition(itemRef, anchorEl, anchorElOrigin, transformElOrigin, anchorPosition);
             setStylePosition(_stylePosition);
