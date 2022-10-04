@@ -110,6 +110,7 @@ export {default as Information} from './Information';
 export {default as JContent} from './JContent';
 export {default as Jwt} from './Jwt';
 export {default as Key} from './Key';
+export {default as KibanaDashboard} from './KibanaDashboard';
 export {default as Label} from './Label';
 export {default as Language} from './Language';
 export {default as Layers} from './Layers';
