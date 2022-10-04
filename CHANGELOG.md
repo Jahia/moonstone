@@ -1,3 +1,15 @@
+# v2.4.9 (Tue Oct 04 2022)
+
+#### 🐛 Bug Fix
+
+- MOON-344: Add KibanaDashboard icon [#315](https://github.com/Jahia/moonstone/pull/315) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.4.8 (Mon Oct 03 2022)
 
 #### 🐛 Bug Fix
