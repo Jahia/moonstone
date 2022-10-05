@@ -26,7 +26,7 @@ export const LayoutModule: React.FC<LayoutModuleProps> = ({
             { React.createElement(
                 component,
                 {
-                    className: clsx('moonstone-layoutModule_main', 'flexCol', 'flexFluid')
+                    className: clsx('moonstone-layoutModule_main', 'flexCol_nowrap', 'flexFluid')
                 },
                 (
                     <div className={classNameProps} role-busy={isLoading ? 'true' : undefined}>
