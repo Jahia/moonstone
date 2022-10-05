@@ -1,3 +1,15 @@
+# v2.4.10 (Wed Oct 05 2022)
+
+#### 🐛 Bug Fix
+
+- MOON-346: Fix layout issue with LayoutModule [#316](https://github.com/Jahia/moonstone/pull/316) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.4.9 (Tue Oct 04 2022)
 
 #### 🐛 Bug Fix
