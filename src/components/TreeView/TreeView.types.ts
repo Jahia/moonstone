@@ -55,8 +55,16 @@ export type TreeViewProps = {
      */
     onContextMenuItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
     /**
-     * Reverse color usefull for context with dark background
+     * Reverse color useful for context with dark background
      */
     isReversed?: boolean;
+    /**
+     * Component used for the list (ul)
+     */
+    component?: string;
+    /**
+     * Component used for every item (li)
+     */
+    itemComponent?: string;
 };
 

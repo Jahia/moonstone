@@ -4,15 +4,16 @@ import clsx from 'clsx';
 import {TableRowProps} from './TableRow.types';
 import './TableRow.scss';
 
-export const TableRow: React.FC<TableRowProps> = ({
-    className,
-    component = 'tr',
-    hasMultipleLines = false,
-    isSelected = false,
-    isHighlighted = false,
-    children,
-    ...props
-}) => React.createElement(
+const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowProps> = (
+    {
+        className,
+        component = 'tr',
+        hasMultipleLines = false,
+        isSelected = false,
+        isHighlighted = false,
+        children,
+        ...props
+    }, ref) => React.createElement(
     component,
     {
         className: clsx(
@@ -24,9 +25,12 @@ export const TableRow: React.FC<TableRowProps> = ({
             isHighlighted && 'moonstone-TableRow-highlighted',
             className
         ),
-        ...props
+        ...props,
+        ref
     },
     children
 );
+
+export const TableRow = React.forwardRef(TableRowForwardRef);
 
 TableRow.displayName = 'TableRow';
