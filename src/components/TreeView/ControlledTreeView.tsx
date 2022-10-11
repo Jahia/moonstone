@@ -98,7 +98,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
             return [
                 React.createElement(
                     itemComponent,
-                    {role: 'treeitem', 'aria-expanded': isOpen, ...node.treeItemProps},
+                    {role: 'treeitem', 'aria-expanded': isOpen, key: `${deep}-${node.id}`, ...node.treeItemProps},
                     <div
                         className={cssTreeViewItem}
                         style={{
