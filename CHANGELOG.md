@@ -1,3 +1,15 @@
+# v2.4.11 (Tue Oct 11 2022)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-11062: Add some forwardRef and customizable component on Tree… [#318](https://github.com/Jahia/moonstone/pull/318) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v2.4.10 (Wed Oct 05 2022)
 
 #### 🐛 Bug Fix
