@@ -98,6 +98,82 @@ storiesOf('Components/Button', module)
             </section>
         </div>
     ))
+    .add('Button disabled', () => (
+        <div style={isReversed() ? {backgroundColor: 'var(--color-gray_dark)'} : null}>
+            <section className="storyGrid">
+                <div className="storyGridItem">
+                    <h3>Variant</h3>
+                </div>
+                {
+                    buttonColors.map(color => (
+                        <div key={color} className="storyGridItem">
+                            <h3>{color}</h3>
+                        </div>
+                    ))
+                }
+            </section>
+            <section className="storyGrid">
+                <div className="storyGridItem">
+                    <h3>default</h3>
+                </div>
+                {
+                    buttonColors.map(color => (
+                        <div key={color} className="storyGridItem">
+                            <Button isDisabled
+                                    icon={<IconWrapper iconName={selectIcon()}/>}
+                                    label="Button"
+                                    color={color}
+                                    size={sizeValues()}
+                                    variant="default"
+                                    isReversed={isReversed()}
+                                    isLoading={isLoading()}
+                                    onClick={() => null}/>
+                        </div>
+                    ))
+                }
+            </section>
+            <section className="storyGrid">
+                <div className="storyGridItem">
+                    <h3>outlined</h3>
+                </div>
+                {
+                    buttonColors.map(color => (
+                        <div key={color} className="storyGridItem">
+                            <Button isDisabled
+                                    icon={<IconWrapper iconName={selectIcon()}/>}
+                                    label="Button"
+                                    color={color}
+                                    size={sizeValues()}
+                                    variant="outlined"
+                                    isReversed={isReversed()}
+                                    isLoading={isLoading()}
+                                    onClick={() => null}/>
+                        </div>
+                    ))
+                }
+            </section>
+            <section className="storyGrid">
+                <div className="storyGridItem">
+                    <h3>ghost</h3>
+                </div>
+                {
+                    buttonColors.map(color => (
+                        <div key={color} className="storyGridItem">
+                            <Button isDisabled
+                                    icon={<IconWrapper iconName={selectIcon()}/>}
+                                    label="Button"
+                                    color={color}
+                                    size={sizeValues()}
+                                    variant="ghost"
+                                    isReversed={isReversed()}
+                                    isLoading={isLoading()}
+                                    onClick={() => null}/>
+                        </div>
+                    ))
+                }
+            </section>
+        </div>
+    ))
     .add('Button with label only', () => (
         <div style={isReversed() ? {backgroundColor: 'var(--color-gray_dark)'} : null}>
             <section className="storyGrid">

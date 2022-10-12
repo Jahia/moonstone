@@ -1,8 +1,9 @@
 %variant_ghost_disabled {
-    color: var(--color-gray);
+    color: var(--color-gray_dark);
 
     border-color: transparent;
     background-color: transparent;
+    opacity: 0.4;
 }
 
 %variant_ghost {
@@ -10,7 +11,7 @@
     background-color: transparent;
 
     &.moonstone-color_default {
-        color: var(--color-gray);
+        color: var(--color-gray_dark);
 
         &:hover:not(:disabled) {
             color: var(--color-accent);
