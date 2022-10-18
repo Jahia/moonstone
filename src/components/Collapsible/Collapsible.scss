@@ -44,3 +44,21 @@
 .moonstone-collapsible_content_expanded {
     padding: var(--spacing-medium) var(--spacing-big);
 }
+
+.moonstone-collapsible_sticky > button {
+    position: fixed;
+    top: calc(var(--sticky-top) - var(--sticky-diff));
+
+    width: var(--sticky-width);
+
+    background: var(--color-white);
+    box-shadow: -4px 4px 4px -4px var(--color-gray60);
+}
+
+.moonstone-collapsible_stickyover > button {
+    z-index: 100;
+}
+
+.moonstone-collapsible_sticky > div {
+    padding-top: 56px;
+}
