@@ -1,4 +1,6 @@
 .moonstone-collapsible {
+    position: relative;
+
     & + .moonstone-collapsible {
         margin-top: var(--spacing-large);
     }
@@ -17,6 +19,26 @@
     &:hover {
         color: var(--color-gray_dark);
     }
+}
+
+.moonstone-collapsible_topdiv {
+    position: absolute;
+
+    height: 1px;
+}
+
+.moonstone-collapsible_button_expanded {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+
+    background: var(--color-white);
+
+    transition: box-shadow 0.2s ease-in-out 0s;
+}
+
+.moonstone-collapsible_button_sticky {
+    box-shadow: -4px 4px 4px -4px var(--color-gray60);
 }
 
 // Chevron icon animation
@@ -43,22 +65,4 @@
 
 .moonstone-collapsible_content_expanded {
     padding: var(--spacing-medium) var(--spacing-big);
-}
-
-.moonstone-collapsible_sticky > button {
-    position: fixed;
-    top: calc(var(--sticky-top) - var(--sticky-diff));
-
-    width: var(--sticky-width);
-
-    background: var(--color-white);
-    box-shadow: -4px 4px 4px -4px var(--color-gray60);
-}
-
-.moonstone-collapsible_stickyover > button {
-    z-index: 100;
-}
-
-.moonstone-collapsible_sticky > div {
-    padding-top: 56px;
 }

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Collapsible} from '~/components';
 import {useStickyCollapsible} from './useStickyCollapsible';
+import {Typography} from '../Typography';
 
 export default {
     title: 'Components/Collapsible',
@@ -76,26 +77,26 @@ export const Controlled = () => {
 };
 
 export const StickyCollapsibles = () => {
-    const {onChange, containerRef, sectionRef} = useStickyCollapsible();
-
-    // Trigger onChange when any collapsible states have changed
-    const onClick = () => setTimeout(onChange);
-
     return (
-        <div ref={containerRef} style={{height: '100%', overflowY: 'auto'}} onScroll={onChange}>
-            <Collapsible ref={sectionRef} label="Collapsible 1" onClick={onClick}>
-                <BodyCollapsible/>
-            </Collapsible>
-            <Collapsible ref={sectionRef} label="Collapsible 2" onClick={onClick}>
-                <BodyCollapsible/>
-            </Collapsible>
-            <Collapsible ref={sectionRef} label="Collapsible 3" onClick={onClick}>
-                <BodyCollapsible/>
-            </Collapsible>
-            <Collapsible ref={sectionRef} label="Collapsible 4" onClick={onClick}>
-                <BodyCollapsible/>
-            </Collapsible>
+        <div style={{height: '100%', overflow: 'hidden'}}>
+            <div>
+                <Typography variant="heading">Sticky headers</Typography>
+            </div>
+            <div style={{height: '100%', overflowY: 'auto'}}>
+                <Collapsible label="Collapsible 1">
+                    <BodyCollapsible/>
+                </Collapsible>
+                <Collapsible label="Collapsible 2">
+                    <BodyCollapsible/>
+                </Collapsible>
+                <Collapsible label="Collapsible 3">
+                    <BodyCollapsible/>
+                </Collapsible>
+                <Collapsible label="Collapsible 4">
+                    <BodyCollapsible/>
+                </Collapsible>
 
+            </div>
         </div>
     );
 };
