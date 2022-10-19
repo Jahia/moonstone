@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Collapsible} from '~/components';
-import {useStickyCollapsible} from './useStickyCollapsible';
 import {Typography} from '../Typography';
 
 export default {
