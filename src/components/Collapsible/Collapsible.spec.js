@@ -3,6 +3,13 @@ import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {Collapsible} from './index';
 
+const intersectionObserverMock = () => ({
+    observe: () => null,
+    unobserve: () => null
+});
+
+window.IntersectionObserver = jest.fn().mockImplementation(intersectionObserverMock);
+
 describe('Collapsible', () => {
     it('should display additional className', () => {
         render(<Collapsible data-testid="moonstone-collapsible" label="test" className="extra"/>);
