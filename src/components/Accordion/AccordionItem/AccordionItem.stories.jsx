@@ -1,5 +1,4 @@
 import React from 'react';
-import {withKnobs, text} from '@storybook/addon-knobs';
 import markdownNotes from './AccordionItem.md';
 
 import {Accordion} from '~/components/Accordion';
@@ -8,10 +7,9 @@ import {Love} from '~/icons';
 
 export default {
     title: 'Components/Accordion/AccordionItem',
-    decorators: [withKnobs],
+    component: AccordionItem,
 
     parameters: {
-        component: AccordionItem,
         notes: {markdown: markdownNotes}
     }
 };
@@ -20,35 +18,27 @@ export const WithIcon = () => (
     <Accordion>
         <AccordionItem
             id="id"
-            label={text('Label', 'AccordionItem Label')}
+            label="AccordionItem"
             icon={<Love size="big"/>}
         >
-            {text('Content', 'My content here')}
+            Content here
         </AccordionItem>
     </Accordion>
 );
-
-WithIcon.story = {
-    name: 'with icon'
-};
 
 export const WithoutIcon = () => (
     <Accordion>
-        <AccordionItem id="id" label={text('Label', 'AccordionItem Label')}>
-            {text('Content', 'My content here')}
+        <AccordionItem id="id" label="AccordionItem">
+            Content here
         </AccordionItem>
     </Accordion>
 );
 
-WithoutIcon.story = {
-    name: 'without icon'
-};
-
-export const ActionsOnClick = () => (
+export const Actions = () => (
     <Accordion>
         <AccordionItem
             id="id"
-            label={text('Label', 'AccordionItem Label')}
+            label="AccordionItem"
             onClickToOpen={() => {
                 console.log('Event before accordion open');
             }}
@@ -59,11 +49,7 @@ export const ActionsOnClick = () => (
                 console.log('Event before accordion close');
             }}
         >
-            {text('Content', 'My content here')}
+            Content here
         </AccordionItem>
     </Accordion>
 );
-
-ActionsOnClick.story = {
-    name: 'actions on click'
-};

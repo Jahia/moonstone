@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-// Import {withKnobs} from '@storybook/addon-knobs';
 import {action} from '@storybook/addon-actions';
 // Import markdownNotes from './Accordion.md';
 

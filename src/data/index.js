@@ -3,6 +3,7 @@ export * from './dropdownDataGrouped';
 export * from './dropdownDataImages';
 export * from './dropdownDataTree';
 export * from './treeData';
+export * from './treeDataFlat';
 export * from './treeDataNested';
 export * from './tableDataFlat';
 export * from './tableDataNested';

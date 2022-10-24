@@ -1,5 +1,4 @@
 import React from 'react';
-import {withKnobs} from '@storybook/addon-knobs';
 import markdownNotes from './PrimaryNav.md';
 
 import {PrimaryNav} from './index';
@@ -17,11 +16,9 @@ import {
 
 export default {
     title: 'Components/PrimaryNav',
-    decorators: [withKnobs],
+    component: PrimaryNav,
 
     parameters: {
-        component: PrimaryNav,
-        componentSubtitle: 'PrimaryNav',
         notes: {markdown: markdownNotes}
     }
 };
@@ -95,7 +92,3 @@ export const Default = () => (
         />
     </div>
 );
-
-Default.story = {
-    name: 'default'
-};

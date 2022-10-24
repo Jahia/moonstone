@@ -2,15 +2,13 @@ import React from 'react';
 import {PrimaryNavItem} from './index';
 import {Edit, Person, Power, Workflow} from '~/icons';
 import markdownNotes from './PrimaryNavItem.md';
-import {boolean, withKnobs} from '@storybook/addon-knobs';
 import {Badge, Button} from '~/components';
 
 export default {
     title: 'Components/PrimaryNavItem',
-    decorators: [withKnobs],
+    component: PrimaryNavItem,
 
     parameters: {
-        component: PrimaryNavItem,
         componentSubtitle: 'PrimaryNavItem',
         notes: {markdown: markdownNotes}
     }
@@ -29,19 +27,19 @@ export const Default = () => (
         <PrimaryNavItem icon={<Edit/>} label="NavItem not selected (default)"/>
         <PrimaryNavItem isSelected icon={<Edit/>} label="NavItem Selected"/>
         <PrimaryNavItem
-            isSelected={boolean('selected')}
+            isSelected={false}
             icon={<Workflow/>}
             label="Another NavItem"
             badge={<Badge label="9"/>}
         />
         <PrimaryNavItem
-            isSelected={boolean('selected')}
+            isSelected={false}
             icon={<Person/>}
             label="My profile"
             subtitle="username as a subtitle"
         />
         <PrimaryNavItem
-            isSelected={boolean('selected')}
+            isSelected={false}
             icon={<Person/>}
             label="My profile"
             subtitle="username as a subtitle"

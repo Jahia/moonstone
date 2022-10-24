@@ -1,5 +1,4 @@
 import React from 'react';
-import {withKnobs} from '@storybook/addon-knobs';
 import markdownNotes from './PrimaryNavItemsGroup.md';
 
 import {PrimaryNavItemsGroup} from './index';
@@ -8,11 +7,9 @@ import {Edit} from '~/icons';
 
 export default {
     title: 'Components/PrimaryNavItemsGroup',
-    decorators: [withKnobs],
+    component: PrimaryNavItemsGroup,
 
     parameters: {
-        component: PrimaryNavItemsGroup,
-        componentSubtitle: 'PrimaryNavItemsGroup',
         notes: {markdown: markdownNotes}
     }
 };

@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {withKnobs} from '@storybook/addon-knobs';
 
 import {treeData, treeDataNested} from '~/data';
 import {LayoutApp, LayoutModule, LayoutContent} from '~/layouts';
@@ -23,8 +22,7 @@ import {Bug, Love} from '~/icons';
 const accordionIds = ['01', '02', '03'];
 
 export default {
-    title: 'Layouts/Demos',
-    decorators: [withKnobs]
+    title: 'Layouts/Demos'
 };
 
 export const Example = () => {
@@ -219,7 +217,3 @@ export const WithoutLevel2 = () => (
         />
     </div>
 );
-
-WithoutLevel2.story = {
-    name: 'Without level 2'
-};

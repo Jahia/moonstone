@@ -1,5 +1,5 @@
 import React from 'react';
-import {boolean, select, text, withKnobs} from '@storybook/addon-knobs';
+// Import {boolean, select, text, withKnobs} from '@storybook/addon-knobs';
 
 import markdownNotes from './Chip.md';
 import {Chip} from './index';
@@ -16,23 +16,23 @@ import {
 } from '~/icons';
 import '~/__storybook__/storybook.scss';
 
-const labelValue = (defaultValue = 'Chip') => text('Label', defaultValue);
-const colorValues = () => select('Color', colors, 'default');
+// Const labelValue = (defaultValue = 'Chip') => text('Label', defaultValue);
+// const colorValues = () => select('Color', colors, 'default');
 
 export default {
     title: 'Components/Chip',
+    component: Chip,
 
-    decorators: [
-        withKnobs,
-        storyFn => (
-            <section className="storyWrapper">
-                <section className="storyColumn">{storyFn()}</section>
-            </section>
-        )
-    ],
+    // Decorators: [
+    //     withKnobs,
+    //     storyFn => (
+    //         <section className="storyWrapper">
+    //             <section className="storyColumn">{storyFn()}</section>
+    //         </section>
+    //     )
+    // ],
 
     parameters: {
-        component: Chip,
         notes: {markdown: markdownNotes}
     }
 };
@@ -46,7 +46,7 @@ export const IconText = () => (
                     label={capitalize(color)}
                     icon={<Apps/>}
                     color={color}
-                    />
+                />
             ))}
         </section>
         <section className="storyColumn">
@@ -57,8 +57,8 @@ export const IconText = () => (
                     label={capitalize(color)}
                     icon={<Apps/>}
                     color={color}
-                    />
-                ))}
+                />
+            ))}
         </section>
     </section>
 );
@@ -72,18 +72,10 @@ export const TextOnly = () =>
         <Chip key={color} label={capitalize(color)} color={color}/>
     ));
 
-TextOnly.story = {
-    name: 'text only'
-};
-
 export const IconOnly = () =>
     colors.map(color => <Chip key={color} icon={<Apps/>} color={color}/>);
 
-IconOnly.story = {
-    name: 'icon only'
-};
-
-export const Status = () => (
+export const StatusExample = () => (
     <>
         <Chip icon={<FileContent/>} label="New" color="success"/>
         <Chip icon={<FileContent/>} label="Modified" color="default"/>
@@ -96,19 +88,15 @@ export const Status = () => (
     </>
 );
 
-Status.story = {
-    name: 'status'
-};
+// Export const Playground = () => (
+//     <Chip
+//         label={labelValue('Playground')}
+//         icon={<Apps/>}
+//         color={colorValues()}
+//         isDisabled={boolean('Is disabled', false)}
+//     />
+// );
 
-export const Playground = () => (
-    <Chip
-        label={labelValue('Playground')}
-        icon={<Apps/>}
-        color={colorValues()}
-        isDisabled={boolean('Is disabled', false)}
-    />
-);
-
-Playground.story = {
-    name: 'playground'
-};
+// Playground.story = {
+//     name: 'playground'
+// };

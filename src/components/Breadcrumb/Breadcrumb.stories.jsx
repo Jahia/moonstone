@@ -1,5 +1,4 @@
 import React from 'react';
-import {withKnobs, number, text} from '@storybook/addon-knobs';
 import {action} from '@storybook/addon-actions';
 import '~/__storybook__/storybook.scss';
 import markdownNotes from './Breadcrumb.md';
@@ -7,15 +6,15 @@ import markdownNotes from './Breadcrumb.md';
 import {Breadcrumb, BreadcrumbItem} from '~/components';
 import {Love} from '~/icons';
 
-const numberBreadcrumbItems = () => number('Number of items', 5);
-const label = () => text('Label', 'item');
+// Const numberBreadcrumbItems = () => number('Number of items', 5);
+// const label = () => text('Label', 'item');
 
 export default {
     title: 'Components/Breadcrumb',
-    decorators: [withKnobs],
+    // Decorators: [withKnobs],
+    component: Breadcrumb,
 
     parameters: {
-        component: Breadcrumb,
         notes: {markdown: markdownNotes}
     }
 };
@@ -23,11 +22,11 @@ export default {
 export const Default = () => (
     <section className="storyWrapper">
         <Breadcrumb>
-            <BreadcrumbItem label={label()} onClick={action('onClick')}/>
-            <BreadcrumbItem label={label()} onClick={action('onClick')}/>
-            <BreadcrumbItem label={label()} onClick={action('onClick')}/>
-            <BreadcrumbItem label={label()} onClick={action('onClick')}/>
-            <BreadcrumbItem label={label()} onClick={action('onClick')}/>
+            <BreadcrumbItem label="item 01" onClick={action('onClick')}/>
+            <BreadcrumbItem label="item 02" onClick={action('onClick')}/>
+            <BreadcrumbItem label="item 03" onClick={action('onClick')}/>
+            <BreadcrumbItem label="item 04" onClick={action('onClick')}/>
+            <BreadcrumbItem label="item 05" onClick={action('onClick')}/>
         </Breadcrumb>
     </section>
 );
@@ -37,23 +36,23 @@ export const LongLabels = () => (
         <div style={{maxWidth: '100%'}}>
             <Breadcrumb>
                 <BreadcrumbItem
-                    label="Very long long long long long long long long long long label 1"
+                    label="Very long long long long long long long long long long label 01"
                     onClick={action('onClick')}
                 />
                 <BreadcrumbItem
-                    label="Very long long long long long long long long long long label 2"
+                    label="Very long long long long long long long long long long label 02"
                     onClick={action('onClick')}
                 />
                 <BreadcrumbItem
-                    label="Very long long long long long long long long long long label 3"
+                    label="Very long long long long long long long long long long label 03"
                     onClick={action('onClick')}
                 />
                 <BreadcrumbItem
-                    label="Very long long long long long long long long long long label 4"
+                    label="Very long long long long long long long long long long label 04"
                     onClick={action('onClick')}
                 />
                 <BreadcrumbItem
-                    label="Very long long long long long long long long long long label 5"
+                    label="Very long long long long long long long long long long label 05"
                     onClick={action('onClick')}
                 />
             </Breadcrumb>
@@ -61,67 +60,34 @@ export const LongLabels = () => (
     </section>
 );
 
-LongLabels.story = {
-    name: 'Long labels'
-};
-
 export const WithIcons = () => (
     <section className="storyWrapper">
         <Breadcrumb>
             <BreadcrumbItem
                 icon={<Love/>}
-                label="item 1"
+                label="item 01"
                 onClick={action('onClick')}
             />
             <BreadcrumbItem
                 icon={<Love/>}
-                label="item 2"
+                label="item 02"
                 onClick={action('onClick')}
             />
             <BreadcrumbItem
                 icon={<Love/>}
-                label="item 3"
+                label="item 03"
                 onClick={action('onClick')}
             />
             <BreadcrumbItem
                 icon={<Love/>}
-                label="item 4"
+                label="item 04"
                 onClick={action('onClick')}
             />
             <BreadcrumbItem
                 icon={<Love/>}
-                label="item 5"
+                label="item 05"
                 onClick={action('onClick')}
             />
         </Breadcrumb>
     </section>
 );
-
-WithIcons.story = {
-    name: 'With icons'
-};
-
-export const Playground = () => {
-    const items = numberItems => {
-        let n = 0;
-        let all = [];
-        while (n < numberItems()) {
-            all.push(
-                <BreadcrumbItem
-                    icon={<Love/>}
-                    label={`item ${n}`}
-                    onClick={action('onClick')}
-                />
-            );
-            n++;
-        }
-
-        return all;
-    };
-
-    return (
-        <section className="storyWrapper">
-            <Breadcrumb>{items(numberBreadcrumbItems)}</Breadcrumb>
-        </section>
-    );
-};

@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {object, withKnobs} from '@storybook/addon-knobs';
+// Import {object, withKnobs} from '@storybook/addon-knobs';
 import {action} from '@storybook/addon-actions';
 
 import markdownNotes from './TreeView.md';
-import {treeData} from '~/data';
+import {treeData, treeDataFlat} from '~/data';
 import {TreeView} from './index';
 
 const css = {
@@ -14,57 +14,24 @@ const css = {
 
 export default {
     title: 'Components/TreeView',
-    decorators: [withKnobs, storyFn => <div style={css}>{storyFn()}</div>],
+    component: TreeView,
+    decorators: [storyFn => <div style={css}>{storyFn()}</div>],
 
     parameters: {
-        component: TreeView,
         notes: {markdown: markdownNotes}
     }
 };
 
-export const Default = () => <TreeView data={treeData}/>;
-
-Default.story = {
-    name: 'default'
-};
+export const Default = () => (
+    <TreeView data={treeData}/>
+);
 
 export const OpenedByDefault = () => (
     <TreeView defaultOpenedItems={['A']} data={treeData}/>
 );
 
-OpenedByDefault.story = {
-    name: 'opened by default'
-};
-
-export const Data = () => (
-    <TreeView
-    data={object('data', [
-      {id: 'A1', label: 'A-1 level1'},
-      {
-        id: 'A2',
-        label: 'A-2 level1',
-        children: [{id: 'B1', label: 'B1 level2'}]
-      },
-      {id: 'A3', label: 'A-3 level1'}
-    ])}
-  />
-);
-
-Data.story = {
-    name: 'data'
-};
-
 export const Flat = () => (
-    <TreeView
-        data={object('data', [
-            {id: 'A1', label: 'A-1 level1'},
-            {id: 'A2', label: 'A-2 level1'},
-            {id: 'A3', label: 'A-3 level1'},
-            {id: 'A4', label: 'A-4 level1'},
-            {id: 'A5', label: 'A-5 level1'},
-            {id: 'A6', label: 'A-6 level1'}
-        ])}
-    />
+    <TreeView data={treeDataFlat}/>
 );
 
 export const Selection = () => {
@@ -86,20 +53,12 @@ export const Selection = () => {
     );
 };
 
-Selection.story = {
-    name: 'selection'
-};
-
 export const IsReversed = () => {
     return (
         <div style={{...css, background: '#000'}}>
             <TreeView isReversed data={treeData}/>
         </div>
     );
-};
-
-IsReversed.story = {
-    name: 'isReversed'
 };
 
 export const Actions = () => (
@@ -110,10 +69,6 @@ export const Actions = () => (
         onContextMenuItem={action('onContextMenuItem')}
     />
 );
-
-Actions.story = {
-    name: 'actions'
-};
 
 export const Controlled = () => {
     const [openedItems, setOpenedItems] = useState([]);
@@ -147,10 +102,6 @@ export const Controlled = () => {
             />
         </div>
     );
-};
-
-Controlled.story = {
-    name: 'controlled'
 };
 
 export const ControlledWithLoading = () => {
@@ -219,8 +170,4 @@ export const ControlledWithLoading = () => {
             />
         </div>
     );
-};
-
-ControlledWithLoading.story = {
-    name: 'controlled with loading'
 };

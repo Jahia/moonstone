@@ -1,5 +1,4 @@
 import React from 'react';
-import {withKnobs, number} from '@storybook/addon-knobs';
 import {action} from '@storybook/addon-actions';
 import markdownNotes from './ResizableBox.md';
 
@@ -7,11 +6,9 @@ import {ResizableBox} from './index';
 
 export default {
     title: 'Components/ResizableBox',
-    decorators: [withKnobs],
+    component: ResizableBox,
 
     parameters: {
-        component: ResizableBox,
-        componentSubtitle: 'ResizableBox',
         notes: {markdown: markdownNotes}
     }
 };
@@ -19,8 +16,8 @@ export default {
 export const Default = () => (
     <ResizableBox
         enable={['right']}
-        minWidth={number('Minimum width', 100)}
-        maxWidth={number('Maximum width', 600)}
+        minWidth="100"
+        maxWidth="600"
         defaultSize={{
             width: '100%',
             height: 'auto'
@@ -32,15 +29,11 @@ export const Default = () => (
     </ResizableBox>
 );
 
-Default.story = {
-    name: 'default'
-};
-
 export const Actions = () => (
     <ResizableBox
         enable={['right']}
-        minWidth={number('Minimum width', 100)}
-        maxWidth={number('Maximum width', 600)}
+        minWidth="100"
+        maxWidth="600"
         defaultSize={{
             width: '100%',
             height: 'auto'
@@ -54,7 +47,3 @@ export const Actions = () => (
         </div>
     </ResizableBox>
 );
-
-Actions.story = {
-    name: 'actions'
-};

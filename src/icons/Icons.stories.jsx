@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withKnobs, select, color} from '@storybook/addon-knobs';
+// Import {withKnobs, select, color} from '@storybook/addon-knobs';
 import '~/__storybook__/storybook.scss';
 
 import markdownNotes from './Icons.md';
@@ -9,24 +9,24 @@ import {Love} from '~/icons';
 
 // Storybook knobs
 const iconsName = Object.keys(Icons);
-const iconsSize = () =>
-    select(
-        'Set icon size',
-        {Big: 'big', Default: 'default', Small: 'small'},
-        'big'
-    );
-const iconsColor = () =>
-    select(
-        'Set icon color',
-        {
-            Red: 'red',
-            Yellow: 'yellow',
-            Purple: 'purple',
-            Gray: 'gray',
-            Blue: 'blue'
-        },
-        'big'
-    );
+// Const iconsSize = () =>
+//     select(
+//         'Set icon size',
+//         {Big: 'big', Default: 'default', Small: 'small'},
+//         'big'
+//     );
+// const iconsColor = () =>
+//     select(
+//         'Set icon color',
+//         {
+//             Red: 'red',
+//             Yellow: 'yellow',
+//             Purple: 'purple',
+//             Gray: 'gray',
+//             Blue: 'blue'
+//         },
+//         'big'
+//     );
 
 // Create a component to display in storybook
 export const IconWrapper = ({iconName, size, iconColor}) => {
@@ -52,7 +52,7 @@ function displayIcons() {
                 key={`key-${name}`}
                 iconName={name}
                 size="big"
-                color={color}
+                // Color={color}
             />
         );
     }
@@ -62,11 +62,11 @@ function displayIcons() {
 
 export default {
     title: 'Tokens/Icons',
-    decorators: [withKnobs],
+    component: Icons,
+    // Decorators: [withKnobs],
 
     parameters: {
-        component: Icons,
-        componentSubtitle: 'Icons',
+        // ComponentSubtitle: 'Icons',
         notes: {markdown: markdownNotes}
     },
 
@@ -79,13 +79,13 @@ export const _Default = () => (
 
 export const Colored = () => <Love color="red"/>;
 
-export const Playground = () => (
-    <IconWrapper
-        iconName={select('Choose your icon', iconsName, 'Edit')}
-        size={iconsSize()}
-        color={iconsColor()}
-  />
-);
+// Export const Playground = () => (
+//     <IconWrapper
+//         iconName={select('Choose your icon', iconsName, 'Edit')}
+//         size={iconsSize()}
+//         // color={iconsColor()}
+//   />
+// );
 
 IconWrapper.propTypes = {
     iconName: PropTypes.string.isRequired,

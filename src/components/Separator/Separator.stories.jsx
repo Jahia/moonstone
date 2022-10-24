@@ -1,24 +1,15 @@
 import React from 'react';
-import {withKnobs, select} from '@storybook/addon-knobs';
+// Import {withKnobs, select} from '@storybook/addon-knobs';
 import '~/__storybook__/storybook.scss';
 
 import {Separator, Typography} from '~/components';
-import {
-    SeparatorSizes,
-    SeparatorSpacings,
-    SeparatorInvisible
-} from './Separator.types';
 import markdownNotes from './Separator.md';
-
-const separatorInvisibleValue = () =>
-    select('invisible', SeparatorInvisible, SeparatorInvisible.FirstChild);
 
 export default {
     title: 'Components/Separator',
-    decorators: [withKnobs],
+    component: Separator,
 
     parameters: {
-        component: Separator,
         notes: {markdown: markdownNotes}
     }
 };
@@ -28,8 +19,8 @@ export const Horizontal = () => (
         <Typography variant="heading">Content before a separator</Typography>
         <Separator
             variant="horizontal"
-            size={select('Size', SeparatorSizes, SeparatorSizes.FULL)}
-            spacing={select('Spacing', SeparatorSpacings, SeparatorSpacings.Medium)}
+            size="full"
+            spacing="medium"
         />
         <Typography variant="heading">Content after a separator</Typography>
     </>
@@ -41,8 +32,8 @@ export const Vertical = () => (
 
         <Separator
             variant="vertical"
-            size={select('Size', SeparatorSizes, SeparatorSizes.Full)}
-            spacing={select('Spacing', SeparatorSpacings, SeparatorSpacings.Medium)}
+            size="full"
+            spacing="medium"
         />
         <Typography variant="heading">After</Typography>
     </div>
@@ -56,7 +47,7 @@ export const Invisible = () => (
                 variant="vertical"
                 size="full"
                 spacing="big"
-                invisible={separatorInvisibleValue()}
+                invisible="lastChild"
             />
             <Typography variant="heading">After</Typography>
         </div>
@@ -67,7 +58,7 @@ export const Invisible = () => (
                 variant="vertical"
                 size="full"
                 spacing="big"
-                invisible={separatorInvisibleValue()}
+                invisible="lastChild"
             />
         </div>
         <Separator variant="horizontal"/>
@@ -76,7 +67,7 @@ export const Invisible = () => (
                 variant="vertical"
                 size="full"
                 spacing="big"
-                invisible={separatorInvisibleValue()}
+                invisible="lastChild"
             />
             <Typography variant="heading">After</Typography>
         </div>
@@ -86,7 +77,7 @@ export const Invisible = () => (
                 variant="vertical"
                 size="full"
                 spacing="big"
-                invisible={separatorInvisibleValue()}
+                invisible="lastChild"
             />
         </div>
     </section>

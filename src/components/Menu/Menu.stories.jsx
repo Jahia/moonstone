@@ -1,21 +1,13 @@
 import React, {useState} from 'react';
-import {
-    boolean,
-    number,
-    select,
-    text,
-    withKnobs
-} from '@storybook/addon-knobs';
 import markdownNotes from './Menu.md';
 import {Menu, MenuItem} from './index';
 import {Separator} from '~/components';
 
 export default {
     title: 'Components/Menu',
-    decorators: [withKnobs],
+    component: Menu,
 
     parameters: {
-        component: Menu,
         notes: {markdown: markdownNotes},
         subcomponents: {'Menu Item': MenuItem}
     }
@@ -24,8 +16,8 @@ export default {
 export const Default = () => (
     <div style={{transform: 'scale(1)', height: '100vh'}}>
         <Menu
-            isDisplayed={boolean('display', true)}
-            maxHeight={text('Max-height', '250px')}
+            isDisplayed
+            maxHeight="250px"
             style={{zIndex: 10000}}
         >
             <MenuItem label="Base items" variant="title"/>
@@ -41,7 +33,7 @@ export const Default = () => (
     </div>
 );
 
-export const OnClick = () => {
+export const ContextualMenu = () => {
     const [isDisplayed, setIsDisplayed] = useState(false);
     const [menuPosition, setMenuPosition] = useState();
 
@@ -80,10 +72,6 @@ export const OnClick = () => {
     );
 };
 
-OnClick.story = {
-    name: 'onClick'
-};
-
 export const AnchorElOrigin = () => {
     const [isDisplayed, setIsDisplayed] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
@@ -115,22 +103,14 @@ export const AnchorElOrigin = () => {
             <Menu
                 isDisplayed={isDisplayed}
                 anchorEl={anchorEl}
-                anchorPosition={{top: number('top', 0), left: number('left', 0)}}
+                anchorPosition={{top: 0, left: 0}}
                 anchorElOrigin={{
-                    vertical: select(
-                        'anchor-vertical',
-                        ['top', 'bottom', 'center'],
-                        'bottom'
-                    ),
-                    horizontal: select(
-                        'anchor-horizontal',
-                        ['left', 'right', 'center'],
-                        'left'
-                    )
+                    vertical: 'bottom',
+                    horizontal: 'left'
                 }}
                 transformElOrigin={{
-                    vertical: select('transform-vertical', ['top', 'bottom'], 'top'),
-                    horizontal: select('transform-horizontal', ['left', 'right'], 'left')
+                    vertical: 'top',
+                    horizontal: 'left'
                 }}
                 onClose={handleClose}
             >
@@ -140,10 +120,6 @@ export const AnchorElOrigin = () => {
             </Menu>
         </div>
     );
-};
-
-AnchorElOrigin.story = {
-    name: 'anchorElOrigin'
 };
 
 export const PositionAbsolute = () => {
@@ -169,28 +145,16 @@ export const PositionAbsolute = () => {
                     Parent div is position: relative.
                 </div>
                 <Menu
-                    isDisplayed={boolean('display', true)}
-                    position={select('position', ['absolute', 'fixed'], 'absolute')}
-                    anchorPosition={{top: number('top', 4), left: number('left', 0)}}
+                    isDisplayed
+                    position="absolute"
+                    anchorPosition={{top: 4, left: 0}}
                     anchorElOrigin={{
-                        vertical: select(
-                            'anchor-vertical',
-                            ['top', 'bottom', 'center'],
-                            'bottom'
-                        ),
-                        horizontal: select(
-                            'anchor-horizontal',
-                            ['left', 'right', 'center'],
-                            'left'
-                        )
+                        vertical: 'bottom',
+                        horizontal: 'left'
                     }}
                     transformElOrigin={{
-                        vertical: select('transform-vertical', ['top', 'bottom'], 'top'),
-                        horizontal: select(
-                            'transform-horizontal',
-                            ['left', 'right'],
-                            'left'
-                        )
+                        vertical: 'top',
+                        horizontal: 'left'
                     }}
                 >
                     <MenuItem label="Item1"/>
@@ -205,7 +169,7 @@ export const PositionAbsolute = () => {
 export const BigImageMenuItems = () => (
     <div style={{transform: 'scale(1)', height: '100vh'}}>
         <Menu
-            isDisplayed={boolean('display', true)}
+            isDisplayed
             maxWidth="400px"
             maxHeight="440px"
             style={{zIndex: 10000}}
@@ -247,7 +211,7 @@ export const BigImageMenuItems = () => (
 export const SmallImageMenuItems = () => (
     <div style={{transform: 'scale(1)', height: '100vh'}}>
         <Menu
-            isDisplayed={boolean('display', true)}
+            isDisplayed
             maxWidth="264px"
             maxHeight="320px"
             style={{zIndex: 10000}}
@@ -290,7 +254,7 @@ export const WithSearch = () => (
     <div style={{transform: 'scale(1)', height: '100vh'}}>
         <Menu
             hasSearch
-            isDisplayed={boolean('display', true)}
+            isDisplayed
             searchEmptyText="Oh no! It seems like that doesn't exist."
             maxHeight="250px"
             style={{zIndex: 10000}}

@@ -1,21 +1,21 @@
 import React from 'react';
-import {boolean, select, withKnobs} from '@storybook/addon-knobs';
+// Import {boolean, select, withKnobs} from '@storybook/addon-knobs';
 import '~/__storybook__/storybook.scss';
 
 import {Typography} from './index';
-import {variants, weights} from './Typography.types';
+// Import {variants, weights} from './Typography.types';
 import markdownNotes from './Typography.md';
 
 export default {
     title: 'Tokens/Typography',
+    component: Typography,
 
     decorators: [
-        withKnobs,
+        // WithKnobs,
         storyFn => <section className="storyWrapper">{storyFn()}</section>
     ],
 
     parameters: {
-        component: Typography,
         componentSubtitle: 'Displays text',
         notes: {markdown: markdownNotes}
     }
@@ -44,14 +44,14 @@ export const Variants = () => (
     </>
 );
 
-export const Playground = () => (
-    <Typography
-        variant={select('Variant', variants, 'body')}
-        weight={select('Weight', weights, 'default')}
-        isItalic={boolean('Italic', false)}
-        isUpperCase={boolean('UpperCase', false)}
-        hasLineThrough={boolean('LineThrough', false)}
-    >
-        Playground
-    </Typography>
-);
+// Export const Playground = () => (
+//     <Typography
+//         variant={select('Variant', variants, 'body')}
+//         weight={select('Weight', weights, 'default')}
+//         isItalic={boolean('Italic', false)}
+//         isUpperCase={boolean('UpperCase', false)}
+//         hasLineThrough={boolean('LineThrough', false)}
+//     >
+//         Playground
+//     </Typography>
+// );

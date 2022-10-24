@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import {boolean, select, text, withKnobs} from '@storybook/addon-knobs';
+// Import {boolean, select, text, withKnobs} from '@storybook/addon-knobs';
 import {action} from '@storybook/addon-actions';
 import markdownNotes from './Dropdown.md';
 
 import {Dropdown} from './index';
-import {DropdownSizes, DropdownVariants} from './Dropdown.types';
+// Import {DropdownSizes, DropdownVariants} from './Dropdown.types';
 import {Love} from '~/icons';
 import {
     dropdownData,
@@ -12,15 +12,15 @@ import {
     dropdownDataImages,
     dropdownDataTree
 } from '~/data';
-import IconWrapper from '~/__storybook__/IconWrapper';
-import {iconsName} from '~/__storybook__/utils';
+// Import IconWrapper from '~/__storybook__/IconWrapper';
+// import {iconsName} from '~/__storybook__/utils';
 
 export default {
     title: 'Components/Dropdown',
-    decorators: [withKnobs],
+    component: Dropdown,
+    // Decorators: [withKnobs],
 
     parameters: {
-        component: Dropdown,
         notes: {markdown: markdownNotes}
     }
 };
@@ -43,9 +43,9 @@ export const Default = () => {
                 icon={<Love/>}
                 label={currentOption.label}
                 value={currentOption.value}
-                size={select('Size', DropdownSizes, DropdownSizes.Small)}
-                isDisabled={boolean('Disabled', false)}
-                maxWidth={text('Max width', '120px')}
+                size="small"
+                isDisabled={false}
+                maxWidth="120px"
                 data={dropdownData}
                 onChange={(e, item) => handleOnChange(e, item)}
             />
@@ -93,10 +93,10 @@ export const WithDefaultValue = () => {
     return (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <Dropdown
-                isDisabled={boolean('Disabled', false)}
+                isDisabled={false}
                 label={currentOption.label}
                 value={currentOption.value}
-                size={select('Size', DropdownSizes, DropdownSizes.Small)}
+                size="small"
                 data={dropdownData}
                 onChange={(e, item) => handleOnChange(e, item)}
             />
@@ -119,11 +119,11 @@ export const Grouped = () => {
     return (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <Dropdown
-                isDisabled={boolean('Disabled', false)}
+                isDisabled={false}
                 label={currentOption.label}
                 value={currentOption.value}
-                size={select('Size', DropdownSizes, DropdownSizes.Small)}
-                maxWidth={text('Max width', '120px')}
+                size="small"
+                maxWidth="120px"
                 data={dropdownDataGrouped}
                 onChange={(e, item) => handleOnChange(e, item)}
             />
@@ -159,11 +159,7 @@ export const OutlinedVariantWithSearch = () => {
     );
 };
 
-OutlinedVariantWithSearch.story = {
-    name: 'Outlined Variant with Search'
-};
-
-export const OutlinedVariantWithSearchAndBigImages = () => {
+export const OutlinedVariantWithBigImages = () => {
     const [currentOption, setCurrentOption] = useState({
         label: 'Select something',
         value: null
@@ -191,11 +187,7 @@ export const OutlinedVariantWithSearchAndBigImages = () => {
     );
 };
 
-OutlinedVariantWithSearchAndBigImages.story = {
-    name: 'Outlined Variant with Search and Big Images'
-};
-
-export const OutlinedVariantWithSearchAndSmallImages = () => {
+export const OutlinedVariantWithSmallImages = () => {
     const [currentOption, setCurrentOption] = useState({
         label: 'Select something',
         value: null
@@ -223,44 +215,40 @@ export const OutlinedVariantWithSearchAndSmallImages = () => {
     );
 };
 
-OutlinedVariantWithSearchAndSmallImages.story = {
-    name: 'Outlined Variant with Search and Small Images'
-};
+// Export const PlaygroundWithoutImages = () => {
+//     const [currentOption, setCurrentOption] = useState({
+//         label: 'Select something',
+//         value: null
+//     });
 
-export const PlaygroundWithoutImages = () => {
-    const [currentOption, setCurrentOption] = useState({
-        label: 'Select something',
-        value: null
-    });
+//     const handleOnChange = (e, item) => {
+//         setCurrentOption(item);
+//         action('onChange');
+//         return true;
+//     };
 
-    const handleOnChange = (e, item) => {
-        setCurrentOption(item);
-        action('onChange');
-        return true;
-    };
+//     return (
+//         <div style={{transform: 'scale(1)', height: '100vh', padding: '90px'}}>
+//             <Dropdown
+//                 hasSearch
+//                 isDisabled={false}
+//                 variant="outlined"
+//                 size="small"
+//                 icon={<Love/>}
+//                 label={currentOption.label}
+//                 value={currentOption.value}
+//                 data={dropdownData}
+//                 onChange={(e, item) => handleOnChange(e, item)}
+//             />
+//         </div>
+//     );
+// };
 
-    return (
-        <div style={{transform: 'scale(1)', height: '100vh', padding: '90px'}}>
-            <Dropdown
-                isDisabled={boolean('Disabled', false)}
-                hasSearch={boolean('Has Search', true)}
-                variant={select('Variant', DropdownVariants, DropdownVariants.Outlined)}
-                size={select('Size', DropdownSizes, DropdownSizes.Small)}
-                icon={<IconWrapper iconName={select('Icon', iconsName, 'Love')}/>}
-                label={currentOption.label}
-                value={currentOption.value}
-                data={dropdownData}
-                onChange={(e, item) => handleOnChange(e, item)}
-            />
-        </div>
-    );
-};
+// PlaygroundWithoutImages.story = {
+//     name: 'Playground (without Images)'
+// };
 
-PlaygroundWithoutImages.story = {
-    name: 'Playground (without Images)'
-};
-
-export const PlaygroundTree = () => {
+export const DropdownWithTree = () => {
     const [currentOption, setCurrentOption] = useState({
         label: 'Select something',
         value: null
@@ -276,11 +264,11 @@ export const PlaygroundTree = () => {
         <div style={{transform: 'scale(1)', height: '100vh', padding: '90px'}}>
             <Dropdown
                 isTree
-                isDisabled={boolean('Disabled', false)}
-                hasSearch={boolean('Has Search', true)}
-                variant={select('Variant', DropdownVariants, DropdownVariants.Outlined)}
-                size={select('Size', DropdownSizes, DropdownSizes.Small)}
-                icon={<IconWrapper iconName={select('Icon', iconsName, 'Love')}/>}
+                hasSearch
+                isDisabled={false}
+                variant="outlined"
+                size="Small"
+                icon={<Love/>}
                 label={currentOption.label}
                 value={currentOption.value}
                 data={dropdownDataTree}
@@ -288,8 +276,4 @@ export const PlaygroundTree = () => {
             />
         </div>
     );
-};
-
-PlaygroundTree.story = {
-    name: 'Playground (tree)'
 };
