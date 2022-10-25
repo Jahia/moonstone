@@ -1,3 +1,15 @@
+# v2.4.13 (Tue Oct 25 2022)
+
+#### 🐛 Bug Fix
+
+- DESIGN-1154: Add sticky headers on collapsible [#320](https://github.com/Jahia/moonstone/pull/320) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v2.4.12 (Wed Oct 12 2022)
 
 #### 🐛 Bug Fix
