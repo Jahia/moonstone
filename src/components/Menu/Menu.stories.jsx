@@ -6,31 +6,34 @@ import {Separator} from '~/components';
 export default {
     title: 'Components/Menu',
     component: Menu,
+    subcomponents: {MenuItem},
 
     parameters: {
         notes: {markdown: markdownNotes},
-        subcomponents: {'Menu Item': MenuItem}
+        docs: {
+            // Fix issues in the doc tab with firefox
+            inlineStories: false,
+            IframeHeight: 500
+        }
     }
 };
 
 export const Default = () => (
-    <div style={{transform: 'scale(1)', height: '100vh'}}>
-        <Menu
-            isDisplayed
-            maxHeight="250px"
-            style={{zIndex: 10000}}
-        >
-            <MenuItem label="Base items" variant="title"/>
-            <MenuItem label="Item1"/>
-            <MenuItem label="Item2"/>
-            <MenuItem label="Item3"/>
-            <Separator/>
-            <MenuItem label="Variants" variant="title"/>
-            <MenuItem isHover label="Item3 - Hover"/>
-            <MenuItem isDisabled label="Item3 - Disabled"/>
-            <MenuItem isSelected label="Item3 - Selected"/>
-        </Menu>
-    </div>
+    <Menu
+        isDisplayed
+        maxHeight="250px"
+        style={{zIndex: 10000}}
+    >
+        <MenuItem label="Base items" variant="title"/>
+        <MenuItem label="Item1"/>
+        <MenuItem label="Item2"/>
+        <MenuItem label="Item3"/>
+        <Separator/>
+        <MenuItem label="Variants" variant="title"/>
+        <MenuItem isHover label="Item3 - Hover"/>
+        <MenuItem isDisabled label="Item3 - Disabled"/>
+        <MenuItem isSelected label="Item3 - Selected"/>
+    </Menu>
 );
 
 export const ContextualMenu = () => {
@@ -55,6 +58,7 @@ export const ContextualMenu = () => {
 
     return (
         <div
+            className="flexRow_center alignCenter"
             style={{transform: 'scale(1)', height: '100vh'}}
             onClick={handleOnClick}
         >
@@ -91,7 +95,7 @@ export const AnchorElOrigin = () => {
     };
 
     return (
-        <div style={{transform: 'scale(1)', height: '100vh'}}>
+        <>
             <button
                 ref={buttonEl}
                 type="button"
@@ -118,7 +122,7 @@ export const AnchorElOrigin = () => {
                 <MenuItem label="Item2"/>
                 <MenuItem label="Item3"/>
             </Menu>
-        </div>
+        </>
     );
 };
 

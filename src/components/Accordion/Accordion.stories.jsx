@@ -10,7 +10,11 @@ const accordionIds = ['01', '02', '03'];
 
 export default {
     title: 'Components/Accordion',
-    component: Accordion
+    component: Accordion,
+    subcomponents: {AccordionItem},
+    docs: {
+        IframeHeight: 800
+    }
 };
 
 export const Default = () => (

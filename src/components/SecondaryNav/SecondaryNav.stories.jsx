@@ -9,6 +9,7 @@ export default {
     component: SecondaryNav,
 
     parameters: {
+        layout: 'fullscreen',
         notes: {markdown: markdownNotes}
     }
 };

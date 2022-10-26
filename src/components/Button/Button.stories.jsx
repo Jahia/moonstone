@@ -1,34 +1,47 @@
 import React from 'react';
-// Import {boolean, select, text, withKnobs} from '@storybook/addon-knobs';
 import '~/__storybook__/storybook.scss';
 import IconWrapper from '~/__storybook__/IconWrapper';
-// Import {iconsName} from '~/__storybook__/utils';
 
 import markdownNotes from './Button.md';
 import {Button} from './index';
 import {buttonColors} from './Button.types';
-
-// Const labelValue = () => text('Label', 'Button');
-// const colorValues = () => select('Color', buttonColors, 'default');
-// const sizeValues = () => select('Size', buttonSizes, 'default');
-// const variantValues = () => select('Variant', buttonVariants, 'default');
-// const isReversed = () => boolean('Is reversed', false);
-// const isLoading = () => boolean('Is Loading', false);
-// const isDisabled = () => boolean('Is disabled', false);
-// const selectIcon = () => select('Icon', iconsName, 'Apps');
+import {Love} from '~/icons';
 
 export default {
     title: 'Components/Button',
     component: Button,
 
     parameters: {
-        componentSubtitle: 'Button',
+        layout: 'centered',
         notes: {markdown: markdownNotes}
     }
 };
 
+export const Default = args => <Button {...args}/>;
+Default.args = {
+    variant: 'default',
+    size: 'default',
+    icon: <Love/>,
+    label: 'Button'
+};
+
+export const Ghost = args => <Button {...args}/>;
+Ghost.args = {
+    variant: 'ghost',
+    size: 'default',
+    icon: <Love/>,
+    label: 'Button'
+};
+
+export const Outlined = args => <Button {...args}/>;
+Outlined.args = {
+    variant: 'outlined',
+    size: 'default',
+    icon: <Love/>,
+    label: 'Button'
+};
+
 export const ButtonWithIconAndLabel = () => (
-    // <div style={isReversed() ? {backgroundColor: 'var(--color-gray_dark)'} : null}>
     <div>
         <section className="storyGrid">
             <div className="storyGridItem">
@@ -100,7 +113,7 @@ export const ButtonWithIconAndLabel = () => (
     </div>
 );
 
-export const ButtonDisabled = () => (
+export const ButtonsDisabled = () => (
     // <div style={isReversed() ? {backgroundColor: 'var(--color-gray_dark)'} : null}>
     <div>
         <section className="storyGrid">
@@ -176,7 +189,7 @@ export const ButtonDisabled = () => (
     </div>
 );
 
-export const ButtonWithLabelOnly = () => (
+export const ButtonsWithLabelOnly = () => (
     // <div style={isReversed() ? {backgroundColor: 'var(--color-gray_dark)'} : null}>
     <div>
         <section className="storyGrid">
@@ -246,7 +259,7 @@ export const ButtonWithLabelOnly = () => (
     </div>
 );
 
-export const ButtonWithIconOnly = () => (
+export const ButtonsWithIconOnly = () => (
     // <div style={isReversed() ? {backgroundColor: 'var(--color-gray_dark)'} : null}>
     <div>
         <section className="storyGrid">
@@ -315,64 +328,3 @@ export const ButtonWithIconOnly = () => (
         </section>
     </div>
 );
-
-// Export const Playground = () => (
-//     <div style={isReversed() ? {backgroundColor: 'var(--color-gray_dark)'} : null}>
-//         <section className="storyGrid">
-//             <div className="storyGridItem">
-//                 <h3 style={isReversed() ? {color: 'var(--color-white)'} : null}>
-//                     Button with icon and label
-//                 </h3>
-//             </div>
-//             <div className="storyGridItem">
-//                 <h3 style={isReversed() ? {color: 'var(--color-white)'} : null}>
-//                     Button with label only
-//                 </h3>
-//             </div>
-//             <div className="storyGridItem">
-//                 <h3 style={isReversed() ? {color: 'var(--color-white)'} : null}>
-//                     Button with icon only
-//                 </h3>
-//             </div>
-//         </section>
-//         <section className="storyGrid">
-//             <div className="storyGridItem">
-//                 <Button
-//                     icon={<IconWrapper iconName={selectIcon()}/>}
-//                     label={labelValue()}
-//                     color={colorValues()}
-//                     size={sizeValues()}
-//                     variant={variantValues()}
-//                     isReversed={isReversed()}
-//                     isLoading={isLoading()}
-//                     isDisabled={isDisabled()}
-//                     onClick={() => null}
-//                 />
-//             </div>
-//             <div className="storyGridItem">
-//                 <Button
-//                     label={labelValue()}
-//                     color={colorValues()}
-//                     size={sizeValues()}
-//                     variant={variantValues()}
-//                     isReversed={isReversed()}
-//                     isLoading={isLoading()}
-//                     isDisabled={isDisabled()}
-//                     onClick={() => null}
-//                 />
-//             </div>
-//             <div className="storyGridItem">
-//                 <Button
-//                     icon={<IconWrapper iconName={selectIcon()}/>}
-//                     color={colorValues()}
-//                     size={sizeValues()}
-//                     variant={variantValues()}
-//                     isReversed={isReversed()}
-//                     isLoading={isLoading()}
-//                     isDisabled={isDisabled()}
-//                     onClick={() => null}
-//                 />
-//             </div>
-//         </section>
-//     </div>
-// );

@@ -13,15 +13,16 @@ export default {
     title: 'Utilities/SvgWrapper',
     component: SvgWrapper,
 
-    decorators: [
-        storyFn => (
-            <section className="storyWrapper">
-                <section className="storyColumn">{storyFn()}</section>
-            </section>
-        )
-    ],
+    // Decorators: [
+    //     storyFn => (
+    //         <section className="storyWrapper">
+    //             <section className="storyColumn">{storyFn()}</section>
+    //         </section>
+    //     )
+    // ],
 
     parameters: {
+        layout: 'centered',
         notes: {markdown: markdownNotes}
     }
 };

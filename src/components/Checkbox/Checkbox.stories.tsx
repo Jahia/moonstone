@@ -8,7 +8,6 @@ export default {
     component: Checkbox,
     parameters: {
         layout: 'centered',
-        knobs: {disable: true},
         storysource: {disable: true},
         actions: {argTypesRegex: '^on.*'}
     }

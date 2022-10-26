@@ -3,12 +3,7 @@ import {Paper} from './index';
 
 export default {
     title: 'Components/Paper',
-    component: Paper,
-    parameters: {
-        knobs: {
-            disabled: true
-        }
-    }
+    component: Paper
 };
 
 export const Default = args => <Paper {...args}>Content here</Paper>;

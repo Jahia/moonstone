@@ -1,91 +1,93 @@
 import React from 'react';
-// Import {withKnobs, select, text} from '@storybook/addon-knobs';
 import markdownNotes from './ListItem.md';
 
 import {ListItem} from './index';
-// Import IconWrapper from '~/__storybook__/IconWrapper';
-// import {iconsName} from '~/__storybook__/utils';
-import {Love, Close} from '~/icons';
+import {Love, Cloud} from '~/icons';
 
 export default {
     title: 'Components/ListItem',
     component: ListItem,
-    // Decorators: [withKnobs],
 
     parameters: {
+        layout: 'centered',
         notes: {markdown: markdownNotes}
     }
 };
 
-export const Default = () => (
-    <ul style={{transform: 'scale(1)', height: '100vh'}}>
-        <ListItem label="label"/>
+export const Default = args => (
+    <ul>
+        <ListItem {...args}/>
     </ul>
 );
+Default.args = {
+    label: 'ListItem label'
+};
 
-export const IconText = () => (
-    <ul style={{transform: 'scale(1)', height: '100vh'}}>
-        <ListItem
-            label="label"
-            iconStart={<Love/>}
-        />
+export const IconText = args => (
+    <ul>
+        <ListItem {...args}/>
     </ul>
 );
-
 IconText.story = {
     name: 'Icon + Text'
 };
+IconText.args = {
+    label: 'ListItem',
+    iconStart: <Love/>
+};
 
-export const IconTextIcon = () => (
-    <ul style={{transform: 'scale(1)', height: '100vh'}}>
-        <ListItem
-            label="label"
-            iconStart={<Love/>}
-            iconEnd={<Close/>}
-        />
+export const IconTextIcon = args => (
+    <ul>
+        <ListItem {...args}/>
     </ul>
 );
-
 IconTextIcon.story = {
     name: 'Icon + Text + Icon'
 };
+IconTextIcon.args = {
+    label: 'ListItem',
+    iconStart: <Love/>,
+    iconEnd: <Cloud/>
+};
 
-export const WithBigImage = () => (
-    <ul style={{transform: 'scale(1)', height: '100vh'}}>
+export const WithBigImage = args => (
+    <ul>
         <ListItem
-            label="label"
             image={<img src="https://via.placeholder.com/500x500?text=ListItemImage"/>}
-            imageSize="big"
+            {...args}
         />
         <ListItem
-            label="label"
             image={<img src="https://via.placeholder.com/200x500?text=ListItemImage"/>}
-            imageSize="big"
+            {...args}
         />
         <ListItem
-            label="label"
             image={<img src="https://via.placeholder.com/500x200?text=ListItemImage"/>}
-            imageSize="big"
+            {...args}
         />
     </ul>
 );
+WithBigImage.args = {
+    label: 'ListItem label',
+    imageSize: 'big'
+};
 
-export const WithSmallImage = () => (
-    <ul style={{transform: 'scale(1)', height: '100vh'}}>
+export const WithSmallImage = args => (
+    <ul>
         <ListItem
-            label="label"
             image={<img src="https://via.placeholder.com/500x500?text=ListItemImage"/>}
-            imageSize="small"
+            {...args}
         />
         <ListItem
-            label="label"
             image={<img src="https://via.placeholder.com/200x500?text=ListItemImage"/>}
-            imageSize="small"
+            {...args}
         />
         <ListItem
-            label="label"
             image={<img src="https://via.placeholder.com/500x200?text=ListItemImage"/>}
-            imageSize="small"
+            {...args}
         />
     </ul>
 );
+WithSmallImage.args = {
+    label: 'ListItem label',
+    imageSize: 'small'
+};

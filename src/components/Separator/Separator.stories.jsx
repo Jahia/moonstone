@@ -10,75 +10,61 @@ export default {
     component: Separator,
 
     parameters: {
+        layout: 'centered',
         notes: {markdown: markdownNotes}
     }
 };
 
-export const Horizontal = () => (
+export const Horizontal = args => (
     <>
         <Typography variant="heading">Content before a separator</Typography>
-        <Separator
-            variant="horizontal"
-            size="full"
-            spacing="medium"
-        />
+        <Separator {...args}/>
         <Typography variant="heading">Content after a separator</Typography>
     </>
 );
+Horizontal.args = {
+    variant: 'horizontal',
+    size: 'full',
+    spacing: 'medium'
+};
 
-export const Vertical = () => (
+export const Vertical = args => (
     <div className="flexRow alignCenter">
         <Typography variant="heading">Before</Typography>
 
-        <Separator
-            variant="vertical"
-            size="full"
-            spacing="medium"
-        />
+        <Separator {...args}/>
         <Typography variant="heading">After</Typography>
     </div>
 );
+Vertical.args = {
+    variant: 'vertical',
+    size: 'full',
+    spacing: 'medium'
+};
 
-export const Invisible = () => (
+export const Invisible = args => (
     <section className="storyColumn">
         <div className="storyItem">
             <Typography variant="heading">Before</Typography>
-            <Separator
-                variant="vertical"
-                size="full"
-                spacing="big"
-                invisible="lastChild"
-            />
+            <Separator variant="vertical" {...args}/>
             <Typography variant="heading">After</Typography>
         </div>
-        <Separator variant="horizontal"/>
         <div className="storyItem">
             <Typography variant="heading">Before</Typography>
-            <Separator
-                variant="vertical"
-                size="full"
-                spacing="big"
-                invisible="lastChild"
-            />
+            <Separator variant="vertical" {...args}/>
         </div>
-        <Separator variant="horizontal"/>
         <div className="storyItem">
-            <Separator
-                variant="vertical"
-                size="full"
-                spacing="big"
-                invisible="lastChild"
-            />
+            <Separator variant="vertical" {...args}/>
             <Typography variant="heading">After</Typography>
         </div>
-        <Separator variant="horizontal"/>
         <div className="storyItem">
-            <Separator
-                variant="vertical"
-                size="full"
-                spacing="big"
-                invisible="lastChild"
-            />
+            <Separator variant="vertical" {...args}/>
         </div>
     </section>
 );
+Invisible.args = {
+    variant: 'vertical',
+    size: 'full',
+    spacing: 'big',
+    invisible: 'lastChild'
+};

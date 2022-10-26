@@ -4,44 +4,34 @@ import '~/__storybook__/storybook.scss';
 
 import markdownNotes from './ButtonGroup.md';
 import {Button} from '~/components/Button';
-// Import {
-//     buttonColors,
-//     buttonSizes,
-//     buttonVariants
-// } from '~/components/Button/Button.types';
 import {ChevronDown} from '~/icons';
 import {ButtonGroup} from './index';
 
-// Const colorValues = () => select('Color', buttonColors, 'default');
-// const sizeValues = () => select('Size', buttonSizes, 'default');
-// const variantValues = () => select('Variant', buttonVariants, 'default');
-// const isReversed = () => boolean('Is reversed', false);
-
 export default {
     title: 'Components/ButtonGroup',
-    component: Button,
-    // Decorators: [withKnobs],
+    component: ButtonGroup,
+    subcomponents: {Button},
 
     parameters: {
+        layout: 'centered',
         componentSubtitle: 'ButtonGroup',
         notes: {markdown: markdownNotes}
     }
 };
 
-export const Default = () => (
-    <section className="storyWrapper">
-        <ButtonGroup
-            variant="default"
-            color="default"
-            size="big"
-            isReversed={false}
-        >
-            <Button label="one" onClick={() => null}/>
-            <Button label="two" onClick={() => null}/>
-            <Button label="three" onClick={() => null}/>
-        </ButtonGroup>
-    </section>
+export const Default = args => (
+    <ButtonGroup {...args}>
+        <Button label="one" onClick={() => null}/>
+        <Button label="two" onClick={() => null}/>
+        <Button label="three" onClick={() => null}/>
+    </ButtonGroup>
 );
+Default.args = {
+    variant: 'default',
+    color: 'default',
+    size: 'big',
+    isReversed: false
+};
 
 export const ButtonWithActions = () => (
     <section className="storyWrapper">

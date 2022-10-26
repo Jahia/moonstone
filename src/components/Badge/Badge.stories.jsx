@@ -8,24 +8,27 @@ export default {
     title: 'Components/Badge',
     component: Badge,
     parameters: {
+        layout: 'centered',
         notes: {markdown: markdownNotes}
     }
 };
 
-export const Accent = () => (
-    <section className="storyWrapper">
-        <Badge label="3" color="accent"/>
-    </section>
-);
+const Template = args => <Badge {...args}/>;
 
-export const Success = () => (
-    <section className="storyWrapper">
-        <Badge label="3" color="success"/>
-    </section>
-);
+export const Accent = Template.bind({});
+Accent.args = {
+    label: '3',
+    color: 'accent'
+};
 
-export const Danger = () => (
-    <section className="storyWrapper">
-        <Badge label="3" color="danger"/>
-    </section>
-);
+export const Success = Template.bind({});
+Success.args = {
+    label: '3',
+    color: 'success'
+};
+
+export const Danger = Template.bind({});
+Danger.args = {
+    label: '3',
+    color: 'danger'
+};

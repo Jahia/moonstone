@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// Import {withKnobs, select} from '@storybook/addon-knobs';
 import markdownNotes from './GlobalStyle_layout.md';
 import clsx from 'clsx';
 
@@ -105,7 +104,6 @@ function displayItems(direction, type) {
 
 export default {
     title: 'Utilities/Layout',
-    // Decorators: [withKnobs],
 
     parameters: {
         componentSubtitle: 'Layout',
@@ -123,12 +121,3 @@ export const Direction = () => (
 export const Justify = () => <>{displayItems('row', 'justify')}</>;
 
 export const Alignment = () => <>{displayItems('row', 'align')}</>;
-
-// Export const Playground = () => (
-//     <ItemContainer
-//         title="CSS Classes"
-//         direction={select('Direction', directionOptions, 'row')}
-//         justify={select('Justify', justifyOptions, 'center')}
-//         align={select('Alignment', alignOptions, 'center')}
-//     />
-// );
