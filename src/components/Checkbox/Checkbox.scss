@@ -32,6 +32,9 @@ $checkbox-sizeBig: 20px;
 }
 
 .moonstone-checkbox_input {
+    --shadow-size: 1px;
+    --shadow-color: var(--color-gray);
+
     position: relative;
 
     margin: 0;
@@ -44,7 +47,7 @@ $checkbox-sizeBig: 20px;
     outline: none;
     background: transparent;
 
-    box-shadow: inset 0 0 0 var(--shadow-size, 1px) var(--shadow-color, var(--color-gray));
+    box-shadow: inset 0 0 0 var(--shadow-size) var(--shadow-color);
     cursor: pointer;
 
     transition: box-shadow 0.1s;
@@ -55,7 +58,7 @@ $checkbox-sizeBig: 20px;
     }
 
     // Only triggered when the input is focus with tab
-    &:focus {
+    &:focus-visible {
         border: 2px solid var(--color-accent_dark_contrast);
     }
 
@@ -80,6 +83,20 @@ $checkbox-sizeBig: 20px;
 
         // Prevent :hover on disabled and read-only
         pointer-events: none;
+
+        // Reset :hover style for disabled and readonly state
+        &:hover {
+            --shadow-color: var(--color-gray);
+            --shadow-size: 1px;
+        }
+
+        &[aria-checked="true"]:hover,
+        &[aria-checked="mixed"]:hover {
+            --shadow-color: var(--color-accent);
+            --shadow-size: 12px;
+
+            border: none;
+        }
     }
 }
 
