@@ -17,7 +17,7 @@ export default {
     }
 };
 
-export const Default = args => <Button {...args}/>;
+export const Default = (args, {globals: {theme}}) => <Button {...args} isReversed={theme === 'dark'}/>;
 Default.args = {
     variant: 'default',
     size: 'default',

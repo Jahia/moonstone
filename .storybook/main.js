@@ -14,9 +14,10 @@ module.exports = {
     addons: [
         '@storybook/addon-actions',
         '@storybook/addon-docs',
-        '@storybook/addon-viewport',
+        // '@storybook/addon-viewport',
+        '@storybook/addon-backgrounds',
         // '@storybook/addon-storysource',
-        '@storybook/addon-knobs',
+        // '@storybook/addon-knobs',
         '@storybook/addon-a11y',
         '@storybook/addon-controls',
         '@storybook/addon-postcss',
