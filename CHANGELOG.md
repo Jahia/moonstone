@@ -1,3 +1,15 @@
+# v2.4.15 (Thu Nov 10 2022)
+
+#### 🐛 Bug Fix
+
+- MOON-354: Add global styles to provide design for drag-and-drop behaviors [#324](https://github.com/Jahia/moonstone/pull/324) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.4.14 (Wed Oct 26 2022)
 
 #### 🐛 Bug Fix
