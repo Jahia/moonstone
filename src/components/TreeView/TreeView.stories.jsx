@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {storiesOf} from '@storybook/react';
-import {object, withKnobs} from '@storybook/addon-knobs';
+import {withKnobs} from '@storybook/addon-knobs';
 import {action} from '@storybook/addon-actions';
 
 import markdownNotes from './TreeView.md';
