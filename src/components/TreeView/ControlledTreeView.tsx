@@ -45,7 +45,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
     }, ref) => {
     const isFlatData = data.filter(item => item.children && item.children.length > 0).length === 0;
 
-    function generateLevelJSX(nodeData: TreeViewData[], deep: number, parentHasIconStart: boolean): React.ReactNode[] {
+    function generateLevelJSX(nodeData: TreeViewData[], depth: number, parentHasIconStart: boolean): React.ReactNode[] {
         return nodeData.map(node => {
             const hasChild = Boolean(node.hasChildren || (node.children && node.children.length !== 0));
             const hasIconStart = Boolean(node.iconStart);
@@ -98,13 +98,14 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
             return [
                 React.createElement(
                     itemComponent,
-                    {role: 'treeitem', 'aria-expanded': isOpen, key: `${deep}-${node.id}`, ...node.treeItemProps},
-                    <div
-                        className={cssTreeViewItem}
-                        style={{
-                            paddingLeft: `calc((var(--spacing-medium) + var(--spacing-nano)) * ${deep} + var(--spacing-medium))`
-                        }}
-                    >
+                    {
+                        role: 'treeitem',
+                        'aria-expanded': isOpen,
+                        key: `${depth}-${node.id}`,
+                        style: {'--treeItem-depth': depth},
+                        ...node.treeItemProps
+                    },
+                    <div className={cssTreeViewItem}>
                         {/* Icon arrow */}
                         {isClosable && hasChild && (
                             <div
@@ -137,7 +138,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                         </div>
                     </div>
                 ),
-                ...((isOpen && node.children) ? generateLevelJSX(node.children, isClosable ? (deep + 1) : deep, hasIconStart) : [])
+                ...((isOpen && node.children) ? generateLevelJSX(node.children, isClosable ? (depth + 1) : depth, hasIconStart) : [])
             ];
         });
     }
