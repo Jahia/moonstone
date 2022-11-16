@@ -1,3 +1,15 @@
+# v2.4.16 (Wed Nov 16 2022)
+
+#### 🐛 Bug Fix
+
+- MOON-355: Update styling of the re-order [#325](https://github.com/Jahia/moonstone/pull/325) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.4.15 (Thu Nov 10 2022)
 
 #### 🐛 Bug Fix
