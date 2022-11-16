@@ -48,7 +48,7 @@ $dnd-highlight: var(--color-accent_light60);
 
 %orderingIndicator {
     width: 100%;
-    height: 1px;
+    height: 2px;
     margin-left: var(--treeItem-indent, 0);
 
     background-color: $dnd-highlight;
