@@ -51,8 +51,4 @@ export type TypographyProps = {
      * Custom CSS style
      */
     style?: React.CSSProperties
-    /**
-     * Should be used only for label
-     */
-    htmlFor?: string;
 } & React.HTMLAttributes<HTMLElement>
