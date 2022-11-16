@@ -20,6 +20,7 @@ export * from './Paper';
 export * from './PrimaryNav';
 export * from './PrimaryNav/PrimaryNavItem';
 export * from './PrimaryNav/PrimaryNavItemsGroup';
+export * from './Radio';
 export * from './ResizableBox';
 export * from './SecondaryNav';
 export * from './Separator';
