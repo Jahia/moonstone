@@ -31,5 +31,9 @@ export const parameters = {
         storySort: {
             method: 'alphabetical'
         }
-    }
+    },
+    controls: {
+        expanded: true,
+        sort: 'requiredFirst'
+    },
 };
