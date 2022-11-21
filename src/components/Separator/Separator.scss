@@ -6,7 +6,8 @@
     &.moonstone-invisible_lastChild:last-child,
     &.moonstone-invisible_onlyChild:only-child,
     &.moonstone-invisible_firstOrLastChild:first-child,
-    &.moonstone-invisible_firstOrLastChild:last-child {
+    &.moonstone-invisible_firstOrLastChild:last-child,
+    & + & {
         display: none;
     }
 }
