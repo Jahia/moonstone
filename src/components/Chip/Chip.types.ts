@@ -1,8 +1,5 @@
 import * as React from 'react';
 
-export type ChipColor = 'default' | 'accent' | 'success' | 'warning' | 'danger' | 'reassuring' | 'light';
-export const colors = ['default', 'accent', 'success', 'warning', 'danger', 'reassuring', 'light'];
-
 export type ChipProps = {
     /**
      * Chip label
@@ -11,7 +8,7 @@ export type ChipProps = {
     /**
      * Chip color
      */
-    color?: ChipColor;
+    color?: 'default' | 'accent' | 'success' | 'warning' | 'danger' | 'reassuring' | 'light';
     /**
      * Chip icon
      */
