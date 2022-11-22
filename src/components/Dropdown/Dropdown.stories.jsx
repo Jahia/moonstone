@@ -10,6 +10,7 @@ import {Love} from '~/icons';
 import {dropdownData, dropdownDataGrouped, dropdownDataImages, dropdownDataTree} from '~/data';
 import IconWrapper from '~/__storybook__/IconWrapper';
 import {iconsName} from '~/__storybook__/utils';
+import {Folder, Lock} from '../../icons';
 
 storiesOf('Components/Dropdown', module)
     .addParameters({
@@ -225,6 +226,108 @@ storiesOf('Components/Dropdown', module)
                     label={currentOption.label}
                     value={currentOption.value}
                     data={dropdownDataTree}
+                    onChange={(e, item) => handleOnChange(e, item)}
+                />
+            </div>
+        );
+    })
+    .add('With Item Description', () => {
+        const [currentOption, setCurrentOption] = useState({label: 'Select something', value: null});
+        const handleOnChange = (e, item) => {
+            setCurrentOption(item);
+            action('onChange');
+            return true;
+        };
+
+        return (
+            <div style={{transform: 'scale(1)', height: '100vh', padding: '90px'}}>
+                <Dropdown
+                    icon={<Love/>}
+                    label={currentOption.label}
+                    value={currentOption.value}
+                    size={select('Size', DropdownSizes, DropdownSizes.Small)}
+                    isDisabled={boolean('Disabled', false)}
+                    maxWidth={text('Max width', '320px')}
+                    data={[
+                    {
+                        groupLabel: 'test for item list with image',
+                        options: [
+                            {
+                                label: 'label image 1',
+                                value: 'image-1',
+                                description: 'very long description for image 1 very long description for image 1 very long description for image 1',
+                                attributes: {
+                                    id: 'custom-id-1',
+                                    imageSize: 'small'
+                                },
+                                image: <img src="https://via.placeholder.com/50?text=ListItemImag"/>
+                            },
+                            {
+                                label: 'label image 2',
+                                value: 'image-2',
+                                description: 'description for image 2',
+                                attributes: {
+                                    id: 'custom-id',
+                                    imageSize: 'small'
+                                },
+                                image: <img src="https://via.placeholder.com/50?text=ListItemImag"/>
+                            }
+                        ]
+                    },
+                    {
+                        groupLabel: 'test for item list with icon start',
+                        options: [
+                            {
+                                label: 'option 1',
+                                description: 'very long description for option 1 very long description for option 1 very long description for option 1',
+                                value: '1',
+                                iconStart: <Folder/>
+                            },
+                            {
+                                label: 'option 2',
+                                value: '2',
+                                description: 'description for option 2',
+                                iconStart: <Folder/>
+                            }
+                        ]
+                    },
+                    {
+                        groupLabel: 'test for item list with icon end',
+                        options: [
+                            {
+                                label: 'option 1 with icon end',
+                                value: '1',
+                                description: 'very long description for option 1 very long description for option 1 very long description for option 1',
+                                iconEnd: <Lock/>
+                            },
+                            {
+                                label: 'option 2 with icon end',
+                                value: '2',
+                                description: 'description for option 2',
+                                iconEnd: <Lock/>
+                            }
+                        ]
+                    },
+                    {
+                        groupLabel: 'test for item list with icon start and icon end',
+                        options: [
+                            {
+                                label: 'option 1 with icon end',
+                                value: '1',
+                                description: 'very long description for option 1 very long description for option 1 very long description for option 1',
+                                iconStart: <Folder/>,
+                                iconEnd: <Lock/>
+                            },
+                            {
+                                label: 'option 2 with icon end',
+                                value: '2',
+                                description: 'description for option 2',
+                                iconStart: <Folder/>,
+                                iconEnd: <Lock/>
+                            }
+                        ]
+                    }
+                    ]}
                     onChange={(e, item) => handleOnChange(e, item)}
                 />
             </div>

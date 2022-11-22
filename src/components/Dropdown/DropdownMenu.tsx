@@ -31,6 +31,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
             role="option"
             iconStart={item.iconStart}
             label={item.label}
+            description={item.description}
             iconEnd={item.iconEnd}
             isDisabled={item.isDisabled}
             isSelected={value === item.value}

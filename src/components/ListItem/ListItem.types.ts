@@ -14,6 +14,11 @@ export type ListItemProps = {
     label: React.ReactNode;
 
     /**
+     * ListItem description
+     */
+    description?: string;
+
+    /**
      * Does the label contain HTML markup
      */
     isHtml?: boolean;
