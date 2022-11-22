@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-export type ChipColor = 'default' | 'accent' | 'success' | 'warning' | 'danger' | 'reassuring';
-export const colors = ['default', 'accent', 'success', 'warning', 'danger', 'reassuring'];
+export type ChipColor = 'default' | 'accent' | 'success' | 'warning' | 'danger' | 'reassuring' | 'light';
+export const colors = ['default', 'accent', 'success', 'warning', 'danger', 'reassuring', 'light'];
 
 export type ChipProps = {
     /**
