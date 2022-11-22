@@ -9,6 +9,8 @@ $loader-sizes: (
 
 .moonstone-loader {
     position: relative;
+
+    transform: scaleX(-1);
 }
 
 .moonstone-loader_circle {
