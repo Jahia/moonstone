@@ -28,21 +28,24 @@ const displayIconOrLoading = (icon: React.ReactElement, isLoading: boolean) => {
     return displayIcon(i, 'default', 'moonstone-treeView_itemIconEnd');
 };
 
-export const ControlledTreeView: React.FC<ControlledTreeViewProps> = ({
-    data,
-    openedItems = [],
-    selectedItems = [],
-    onClickItem = () => undefined,
-    onDoubleClickItem = () => undefined,
-    onContextMenuItem = () => undefined,
-    onOpenItem = () => undefined,
-    onCloseItem = () => undefined,
-    isReversed = false,
-    ...props
-}) => {
+const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElement, ControlledTreeViewProps> = (
+    {
+        data,
+        openedItems = [],
+        selectedItems = [],
+        onClickItem = () => undefined,
+        onDoubleClickItem = () => undefined,
+        onContextMenuItem = () => undefined,
+        onOpenItem = () => undefined,
+        onCloseItem = () => undefined,
+        isReversed = false,
+        component = 'ul',
+        itemComponent = 'li',
+        ...props
+    }, ref) => {
     const isFlatData = data.filter(item => item.children && item.children.length > 0).length === 0;
 
-    function generateLevelJSX(nodeData: TreeViewData[], deep: number, parentHasIconStart: boolean) {
+    function generateLevelJSX(nodeData: TreeViewData[], depth: number, parentHasIconStart: boolean): React.ReactNode[] {
         return nodeData.map(node => {
             const hasChild = Boolean(node.hasChildren || (node.children && node.children.length !== 0));
             const hasIconStart = Boolean(node.iconStart);
@@ -92,61 +95,56 @@ export const ControlledTreeView: React.FC<ControlledTreeViewProps> = ({
                 }
             );
 
-            // TreeItem has child
-            return (
-                <React.Fragment key={`${deep}-${node.id}`}>
-                    <li role="treeitem"
-                        aria-expanded={isOpen}
-                        {...node.treeItemProps}
-                    >
-                        <div
-                            className={cssTreeViewItem}
-                            style={{
-                                paddingLeft: `calc((var(--spacing-medium) + var(--spacing-nano)) * ${deep} + var(--spacing-medium))`
-                            }}
-                        >
-                            {/* Icon arrow */}
-                            {isClosable && hasChild && (
-                                <div
-                                    className={clsx('flexRow', 'alignCenter', 'moonstone-treeView_itemToggle')}
-                                    onClick={toggleNode}
-                                >
-                                    {isOpen ? <ChevronDown/> : <ChevronRight/>}
-                                </div>
-                            )}
-                            {!isFlatData && !hasChild &&
-                                <div className={clsx('flexRow', 'alignCenter', 'moonstone-treeView_itemToggle')}/>}
-
-                            {/* TreeViewItem */}
+            return [
+                React.createElement(
+                    itemComponent,
+                    {
+                        role: 'treeitem',
+                        'aria-expanded': isOpen,
+                        key: `${depth}-${node.id}`,
+                        style: {'--treeItem-depth': depth},
+                        ...node.treeItemProps
+                    },
+                    <div className={cssTreeViewItem}>
+                        {/* Icon arrow */}
+                        {isClosable && hasChild && (
                             <div
-                                className={clsx('flexRow_nowrap', 'alignCenter', 'flexFluid', 'moonstone-treeView_itemLabel', node.className)}
-                                onClick={node.isDisabled ? undefined : handleNodeClick}
-                                onDoubleClick={handleNodeDoubleClick}
-                                onContextMenu={handleNodeContextMenu}
+                                className={clsx('flexRow', 'alignCenter', 'moonstone-treeView_itemToggle')}
+                                onClick={toggleNode}
                             >
-                                {displayIcon(node.iconStart, 'small', 'moonstone-treeView_itemIconStart', parentHasIconStart)}
-                                <Typography isNowrap
-                                            className={clsx('flexFluid')}
-                                            component="span"
-                                            variant="body"
-                                            {...node.typographyOptions}
-                                >
-                                    {node.label}
-                                </Typography>
-                                {displayIconOrLoading(node.iconEnd, isLoading)}
+                                {isOpen ? <ChevronDown/> : <ChevronRight/>}
                             </div>
+                        )}
+                        {!isFlatData && !hasChild &&
+                            <div className={clsx('flexRow', 'alignCenter', 'moonstone-treeView_itemToggle')}/>}
+
+                        {/* TreeViewItem */}
+                        <div
+                            className={clsx('flexRow_nowrap', 'alignCenter', 'flexFluid', 'moonstone-treeView_itemLabel', node.className)}
+                            onClick={node.isDisabled ? undefined : handleNodeClick}
+                            onDoubleClick={handleNodeDoubleClick}
+                            onContextMenu={handleNodeContextMenu}
+                        >
+                            {displayIcon(node.iconStart, 'small', 'moonstone-treeView_itemIconStart', parentHasIconStart)}
+                            <Typography isNowrap
+                                        className={clsx('flexFluid')}
+                                        component="span"
+                                        variant="body"
+                                        {...node.typographyOptions}
+                            >
+                                {node.label}
+                            </Typography>
+                            {displayIconOrLoading(node.iconEnd, isLoading)}
                         </div>
-                    </li>
-                    {isOpen && node.children && generateLevelJSX(node.children, isClosable ? (deep + 1) : deep, hasIconStart)}
-                </React.Fragment>
-            );
+                    </div>
+                ),
+                ...((isOpen && node.children) ? generateLevelJSX(node.children, isClosable ? (depth + 1) : depth, hasIconStart) : [])
+            ];
         });
     }
 
     // TreeView component
-    return (
-        <ul role="tree" {...props}>
-            {generateLevelJSX(data, 0, false)}
-        </ul>
-    );
+    return React.createElement(component, {ref, role: 'tree', ...props}, generateLevelJSX(data, 0, false));
 };
+
+export const ControlledTreeView = React.forwardRef(ControlledTreeViewForwardRef);

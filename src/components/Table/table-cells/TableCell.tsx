@@ -4,22 +4,23 @@ import clsx from 'clsx';
 import {TableCellProps} from './TableCell.types';
 import './TableCell.scss';
 
-export const TableCell: React.FC<Partial<TableCellProps>> = ({
-    iconStart,
-    iconEnd,
-    className,
-    children,
-    ...props
-}) => {
+const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, TableCellProps> = (
+    {
+        iconStart,
+        iconEnd,
+        className,
+        children,
+        ...props
+    }, ref) => {
     return (
-        <div
-            className={clsx(
-                'moonstone-TableCell',
-                'flexRow_nowrap',
-                'alignCenter',
-                className
-            )}
-            {...props}
+        <div ref={ref}
+             className={clsx(
+                 'moonstone-TableCell',
+                 'flexRow_nowrap',
+                 'alignCenter',
+                 className
+             )}
+             {...props}
         >
 
             {iconStart && (
@@ -41,5 +42,7 @@ export const TableCell: React.FC<Partial<TableCellProps>> = ({
         </div>
     );
 };
+
+export const TableCell = React.forwardRef(TableCellForwardRef);
 
 TableCell.displayName = 'FoundationTableCell';

@@ -51,4 +51,4 @@ export type TypographyProps = {
      * Custom CSS style
      */
     style?: React.CSSProperties
-}
+} & React.HTMLAttributes<HTMLElement>

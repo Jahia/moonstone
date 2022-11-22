@@ -3,7 +3,7 @@ import {UncontrolledTreeViewProps} from './UncontrolledTreeView.types';
 import {TreeViewData} from './TreeView.types';
 import {ControlledTreeView} from './ControlledTreeView';
 
-export const UncontrolledTreeView: React.FC<UncontrolledTreeViewProps> = ({defaultOpenedItems = [], ...others}) => {
+const UncontrolledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElement, UncontrolledTreeViewProps> = ({defaultOpenedItems = [], ...others}, ref) => {
     const [openedItems, setOpenedItems] = useState(defaultOpenedItems);
 
     const onOpenItem = (node: TreeViewData) => {
@@ -14,5 +14,7 @@ export const UncontrolledTreeView: React.FC<UncontrolledTreeViewProps> = ({defau
         setOpenedItems(prevOpenedItems => prevOpenedItems.filter(item => item !== node.id));
     };
 
-    return <ControlledTreeView openedItems={openedItems} onOpenItem={onOpenItem} onCloseItem={onCloseItem} {...others}/>;
+    return <ControlledTreeView ref={ref} openedItems={openedItems} onOpenItem={onOpenItem} onCloseItem={onCloseItem} {...others}/>;
 };
+
+export const UncontrolledTreeView = React.forwardRef(UncontrolledTreeViewForwardRef);

@@ -1,3 +1,147 @@
+# v2.4.16 (Wed Nov 16 2022)
+
+#### 🐛 Bug Fix
+
+- MOON-355: Update styling of the re-order [#325](https://github.com/Jahia/moonstone/pull/325) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
+# v2.4.15 (Thu Nov 10 2022)
+
+#### 🐛 Bug Fix
+
+- MOON-354: Add global styles to provide design for drag-and-drop behaviors [#324](https://github.com/Jahia/moonstone/pull/324) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
+# v2.4.14 (Wed Oct 26 2022)
+
+#### 🐛 Bug Fix
+
+- MOON-349: Remove z-index from Header component [#321](https://github.com/Jahia/moonstone/pull/321) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
+# v2.4.13 (Tue Oct 25 2022)
+
+#### 🐛 Bug Fix
+
+- DESIGN-1154: Add sticky headers on collapsible [#320](https://github.com/Jahia/moonstone/pull/320) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
+# v2.4.12 (Wed Oct 12 2022)
+
+#### 🐛 Bug Fix
+
+- MOON-347: Improve color contrast [#319](https://github.com/Jahia/moonstone/pull/319) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
+# v2.4.11 (Tue Oct 11 2022)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-11062: Add some forwardRef and customizable component on Tree… [#318](https://github.com/Jahia/moonstone/pull/318) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
+# v2.4.10 (Wed Oct 05 2022)
+
+#### 🐛 Bug Fix
+
+- MOON-346: Fix layout issue with LayoutModule [#316](https://github.com/Jahia/moonstone/pull/316) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
+# v2.4.9 (Tue Oct 04 2022)
+
+#### 🐛 Bug Fix
+
+- MOON-344: Add KibanaDashboard icon [#315](https://github.com/Jahia/moonstone/pull/315) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
+# v2.4.8 (Mon Oct 03 2022)
+
+#### 🐛 Bug Fix
+
+- MOON-314: safeguard for incomplete anchor objects [#314](https://github.com/Jahia/moonstone/pull/314) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
+# v2.4.7 (Mon Oct 03 2022)
+
+#### 🐛 Bug Fix
+
+- MOON-314: Use fixed position [#313](https://github.com/Jahia/moonstone/pull/313) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
+# v2.4.6 (Wed Sep 14 2022)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-19942: Fix dropdown menu width and add title attribute to dro… [#311](https://github.com/Jahia/moonstone/pull/311) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
+# v2.4.5 (Thu Aug 11 2022)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-19899: set maxwidth in dropdown [#310](https://github.com/Jahia/moonstone/pull/310) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v2.4.4 (Thu Jul 28 2022)
 
 #### ⚠️ Pushed to `master`

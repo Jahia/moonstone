@@ -3,12 +3,14 @@ import {CollapsibleProps} from './Collapsible.types';
 import {UncontrolledCollapsible} from './UncontrolledCollapsible';
 import {ControlledCollapsible} from './ControlledCollapsible';
 
-export const Collapsible: React.FC<CollapsibleProps> = ({isExpanded, ...props}) => {
+const CollapsibleForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, CollapsibleProps> = ({isExpanded, ...props}, ref) => {
     if (typeof isExpanded === 'undefined') {
-        return <UncontrolledCollapsible {...props}/>;
+        return <UncontrolledCollapsible ref={ref} {...props}/>;
     }
 
-    return <ControlledCollapsible isExpanded={isExpanded} {...props}/>;
+    return <ControlledCollapsible ref={ref} isExpanded={isExpanded} {...props}/>;
 };
+
+export const Collapsible = React.forwardRef(CollapsibleForwardRef);
 
 Collapsible.displayName = 'Collapsible';
