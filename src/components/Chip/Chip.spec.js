@@ -1,49 +1,49 @@
 import React from 'react';
+import {render, screen} from '@testing-library/react';
 import {Chip} from './index';
-import {shallow} from 'component-test-utils-react';
 
 describe('Chip', () => {
-    it('should display a label', () => {
-        const wrapper = shallow(<Chip label="MyChip"/>);
-        expect(wrapper.html()).toContain('MyChip');
+    it('should render', () => {
+        render(<Chip data-testid="moonstone-chip"/>);
+        expect(screen.getByTestId('moonstone-chip')).toBeInTheDocument();
     });
 
-    it('should display an icon', () => {
-        const Icon = () => <svg/>;
-        const wrapper = shallow(<Chip icon={<Icon/>}/>);
-        expect(wrapper.html()).toContain('Icon');
+    it('should display additional className', () => {
+        const className = 'test';
+
+        render(<Chip data-testid="moonstone-chip" className={className}/>);
+        expect(screen.getByTestId('moonstone-chip')).toHaveClass(className);
     });
 
-    it('should display both an icon and a label', () => {
-        const Icon = () => <svg/>;
-        const wrapper = shallow(<Chip icon={<Icon/>} label="MyChip"/>);
-        expect(wrapper.html()).toContain('Icon');
-        expect(wrapper.html()).toContain('MyChip');
+    it('should display the label', () => {
+        render(<Chip label="chip label"/>);
+        expect(screen.getByText('chip label')).toBeInTheDocument();
     });
 
-    it('should have an icon whose size is always small', () => {
-        const Icon = () => <svg/>;
-        const wrapper = shallow(<Chip icon={<Icon size="big"/>}/>);
-        expect(wrapper.html()).toContain('<Icon size="small"/>');
+    it('should display the icon', () => {
+        const Icon = () => <svg data-testid="moonstone-chip-icon"/>;
+
+        render(<Chip icon={<Icon/>}/>);
+
+        expect(screen.getByTestId('moonstone-chip-icon')).toBeInTheDocument();
     });
 
-    it('should render custom attributes', () => {
-        const wrapper = shallow(<Chip label="test" role="myRole"/>);
-        expect(wrapper.querySelector('[role="myRole"]').exists()).toBeTruthy();
+    it('should display both the icon and the label', () => {
+        const Icon = () => <svg data-testid="moonstone-chip-icon"/>;
+
+        render(<Chip icon={<Icon/>} label="chip label"/>);
+
+        expect(screen.getByTestId('moonstone-chip-icon')).toBeInTheDocument();
+        expect(screen.getByText('chip label')).toBeInTheDocument();
     });
 
-    it('should add extra className', () => {
-        const wrapper = shallow(<Chip label="test" className="stuff"/>);
-        expect(wrapper.props.className).toContain('stuff');
-    });
-
-    it('should be enabled', () => {
-        const wrapper = shallow(<Chip label="test"/>);
-        expect(wrapper.props.className).not.toContain('disabled');
+    it('should be enabled by default', () => {
+        render(<Chip data-testid="moonstone-chip"/>);
+        expect(screen.getByTestId('moonstone-chip')).not.toHaveClass('moonstone-disabled');
     });
 
     it('should be disabled', () => {
-        const wrapper = shallow(<Chip isDisabled label="test"/>);
-        expect(wrapper.props.className).toContain('disabled');
+        render(<Chip isDisabled data-testid="moonstone-chip"/>);
+        expect(screen.getByTestId('moonstone-chip')).toHaveClass('moonstone-disabled');
     });
 });
