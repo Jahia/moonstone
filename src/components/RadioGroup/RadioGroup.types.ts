@@ -18,12 +18,12 @@ export type RadioGroupProps = {
     className?: string;
 
     /**
-     * RadioItem's default value
+     * The default value of the selected RadioItem (Controlled)
      */
     defaultValue?: string;
 
     /**
-     * RadioItem's value
+     * The value of selected RadioItem (Uncontrolled)
      */
     value?: string;
 
@@ -33,7 +33,7 @@ export type RadioGroupProps = {
     onChange?: (event: React.ChangeEvent<HTMLInputElement>, value: string) => void;
 
     /**
-     * Whether the radio should be disabled
+     * Whether the radio group should be disabled
      */
     isDisabled?: boolean;
 
@@ -60,12 +60,12 @@ export type RadioGroupContextProps = {
     value: string;
 
     /**
-     * Whether the radio should be disabled
+     * Whether all radio items should be disabled
      */
     isDisabled?: boolean;
 
     /**
-     * Whether the radio can be selected but not changed by the user
+     * Whether all radio items should be read-only
      */
     isReadOnly?: boolean;
 }

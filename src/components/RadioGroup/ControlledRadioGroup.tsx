@@ -1,7 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
 import {RadioGroupContext} from './RadioGroup.context';
-import './RadioGroup.scss';
 import {RadioGroupProps} from './RadioGroup.types';
 
 export const ControlledRadioGroup: React.FC<RadioGroupProps> = ({children, name, value, isDisabled, isReadOnly, onChange, className, ...props}) => {
@@ -22,7 +21,6 @@ export const ControlledRadioGroup: React.FC<RadioGroupProps> = ({children, name,
             <div
                 {...props}
                 className={clsx(
-                    'moonstone-radioGroup',
                     'flexCol',
                     className
                 )}

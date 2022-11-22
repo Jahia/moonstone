@@ -1,5 +1,4 @@
 import React from 'react';
-import './RadioGroup.scss';
 import {UncontrolledRadioGroup} from '~/components/RadioGroup/UncontrolledRadioGroup';
 import {ControlledRadioGroup} from '~/components/RadioGroup/ControlledRadioGroup';
 import {RadioGroupProps} from '~/components/RadioGroup/RadioGroup.types';
