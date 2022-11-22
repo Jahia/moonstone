@@ -1,3 +1,16 @@
+# v2.4.18 (Tue Nov 22 2022)
+
+#### 🐛 Bug Fix
+
+- MOON 357 create radio group component [#330](https://github.com/Jahia/moonstone/pull/330) ([@jahia-carp](https://github.com/jahia-carp) [@tdraier](https://github.com/tdraier))
+
+#### Authors: 2
+
+- [@jahia-carp](https://github.com/jahia-carp)
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v2.4.16 (Wed Nov 16 2022)
 
 #### 🐛 Bug Fix
