@@ -48,12 +48,19 @@ $big-image-size: 96px;
 }
 
 .moonstone-listItem_description {
-    color: var(--color-gray60);
-    max-width: inherit;
-    white-space: normal;
     display: -webkit-box;
-    overflow: hidden !important;
+
+    max-width: inherit;
+
+    color: var(--color-gray60);
+
+    white-space: normal;
+
+    overflow: hidden;
+
     text-overflow: ellipsis;
+
     -webkit-box-orient: vertical;
+
     -webkit-line-clamp: 2;
 }
