@@ -25,7 +25,7 @@ export const RadioItem: React.FC<RadioItemProps> = ({className, id, value, label
                         id={id}
                         value={value}
                         aria-labelledby={`${id}-label`}
-                        aria-describedby={`${id}-description`}
+                        aria-describedby={description ? `${id}-description` : null}
                         onChange={event => {
                             context.onChange(event, value);
                         }}
