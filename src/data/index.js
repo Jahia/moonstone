@@ -2,6 +2,7 @@ export * from './dropdownData';
 export * from './dropdownDataGrouped';
 export * from './dropdownDataImages';
 export * from './dropdownDataTree';
+export * from './dropdownDataDescriptions';
 export * from './treeData';
 export * from './treeDataNested';
 export * from './tableDataFlat';

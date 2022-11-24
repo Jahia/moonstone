@@ -14,7 +14,7 @@ export type ListItemProps = {
     label: React.ReactNode;
 
     /**
-     * ListItem description
+     * Optional description to display to describe the item
      */
     description?: string;
 

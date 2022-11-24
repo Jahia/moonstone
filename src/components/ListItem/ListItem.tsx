@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import './ListItem.scss';
 import {Typography} from '~/components/Typography';
 import {ListItemProps} from './ListItem.types';
-import {ConditionalWrapper} from '~/utils/conditionalWrapper';
 
 export const ListItem: React.FC<ListItemProps> = ({
     label,
@@ -31,10 +30,7 @@ export const ListItem: React.FC<ListItemProps> = ({
             tabIndex={tabIndex}
             {...props}
         >
-            <ConditionalWrapper
-                condition={Boolean(description)}
-                wrapper={children => <div className="flexRow flexRow_nowrap alignCenter">{children}</div>}
-            >
+            <div className="flexRow flexRow_nowrap alignCenter widthInherit">
 
                 {
                     iconStart && !image && (
@@ -106,8 +102,7 @@ export const ListItem: React.FC<ListItemProps> = ({
                         </div>
                     )
                 }
-
-            </ConditionalWrapper>
+            </div>
 
             {
                 description && !image && (
@@ -121,7 +116,6 @@ export const ListItem: React.FC<ListItemProps> = ({
                     </Typography>
                 )
             }
-
         </li>
     );
 };
