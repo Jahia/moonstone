@@ -84,12 +84,16 @@ export const dropdownDataDescriptions = [
         groupLabel: 'test for item list sans description',
         options: [
             {
-                label: 'option 1 with icon end',
+                label: 'item with only a label',
+                value: '101'
+            },
+            {
+                label: 'option 1 with icon start',
                 value: '100',
                 iconStart: <Folder/>
             },
             {
-                label: 'option 2 with icon end',
+                label: 'option 2 with  icon start and icon end',
                 value: '200',
                 iconStart: <Folder/>,
                 iconEnd: <Lock/>
