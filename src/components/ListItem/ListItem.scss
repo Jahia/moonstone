@@ -35,6 +35,14 @@ $big-image-size: 96px;
     }
 }
 
+.moonstone-listItem_iconStart,
+.moonstone-listItem_iconEnd {
+    display: flex;
+    align-items: center;
+    width: 16px;
+    height: 16px;
+}
+
 .moonstone-listItem_iconStart {
     margin-right: var(--spacing-nano);
 }
@@ -63,8 +71,4 @@ $big-image-size: 96px;
     -webkit-box-orient: vertical;
 
     -webkit-line-clamp: 2;
-}
-
-.widthInherit {
-    width: inherit;
 }
