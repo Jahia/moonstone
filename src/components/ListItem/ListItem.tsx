@@ -6,6 +6,7 @@ import {ListItemProps} from './ListItem.types';
 
 export const ListItem: React.FC<ListItemProps> = ({
     label,
+    description,
     isHtml = false,
     iconStart = null,
     iconEnd = null,
@@ -20,9 +21,10 @@ export const ListItem: React.FC<ListItemProps> = ({
     const cssListItem = clsx(
         'moonstone-listItem',
         'flexRow',
-        'alignCenter',
         className
     );
+    // When an image and an iconStart is provided we display the icon
+    const isDisplayImage = image && !iconStart;
 
     return (
         <li
@@ -30,44 +32,48 @@ export const ListItem: React.FC<ListItemProps> = ({
             tabIndex={tabIndex}
             {...props}
         >
-            {
-                iconStart && !image && (
-                    <div className="moonstone-listItem_iconStart">
-                        <iconStart.type {...iconStart.props} size={iconSize}/>
-                    </div>
-                )
-            }
+            {isDisplayImage && (
+                <figure className={clsx(`moonstone-listItem-image_${imageSize}`, 'flexRow', 'alignCenter')}>
+                    {image}
+                </figure>
+            )}
+            {iconStart && (
+                <div className="moonstone-listItem_iconStart">
+                    <iconStart.type {...iconStart.props} size={iconSize}/>
+                </div>
+            )}
 
-            {
-                image && !iconStart && (
-                    <figure className={clsx(
-                        `moonstone-listItem-image_${imageSize}`,
-                        'flexRow',
-                        'alignCenter'
-                    )}
-                    >
-                        {image}
-                    </figure>
-                )
-            }
-
-            <Typography
-                isNowrap
-                isHtml={isHtml}
-                className={clsx('flexFluid')}
-                variant={typographyVariant}
-                component="span"
+            <div className={clsx(
+                isDisplayImage ? 'flexCol_center' : 'flexCol',
+                'flexFluid'
+                )}
             >
-                {label}
-            </Typography>
+                <Typography
+                    isNowrap
+                    isHtml={isHtml}
+                    className={clsx(isDisplayImage ? null : 'flexFluid')}
+                    variant={typographyVariant}
+                    component="span"
+                >
+                    {label}
+                </Typography>
+                {description && (
+                    <Typography
+                        variant="caption"
+                        weight="default"
+                        component="span"
+                        className={clsx('moonstone-listItem_description')}
+                    >
+                        {description}
+                    </Typography>
+                )}
+            </div>
 
-            {
-                iconEnd && (
-                    <div className="moonstone-listItem_iconEnd">
-                        <iconEnd.type {...iconEnd.props} size={iconSize}/>
-                    </div>
-                )
-            }
+            {iconEnd && (
+                <div className="moonstone-listItem_iconEnd">
+                    <iconEnd.type {...iconEnd.props} size={iconSize}/>
+                </div>
+            )}
         </li>
     );
 };

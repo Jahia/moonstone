@@ -14,6 +14,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
     image,
     imageSize,
     className,
+    description,
     ...props
 }) => (
     <ListItem
@@ -34,6 +35,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
         imageSize={imageSize}
         iconStart={iconStart}
         iconEnd={iconEnd}
+        description={description}
         {...props}
     />
 );

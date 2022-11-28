@@ -39,7 +39,7 @@ storiesOf('Components/ListItem', module)
         <ul style={{transform: 'scale(1)', height: '100vh'}}>
             <ListItem
                 label={text('Label', 'label')}
-                image={<img src="https://via.placeholder.com/500x500?text=ListItemImage"/>}
+                image={<img src="https://via.placeholder.com/500?text=ListItemImage"/>}
                 imageSize="big"
             />
             <ListItem
@@ -58,7 +58,7 @@ storiesOf('Components/ListItem', module)
         <ul style={{transform: 'scale(1)', height: '100vh'}}>
             <ListItem
                 label={text('Label', 'label')}
-                image={<img src="https://via.placeholder.com/500x500?text=ListItemImage"/>}
+                image={<img src="https://via.placeholder.com/500?text=ListItemImage"/>}
                 imageSize="small"
             />
             <ListItem
