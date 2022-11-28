@@ -7,7 +7,7 @@ import markdownNotes from './Dropdown.md';
 import {Dropdown} from './index';
 import {DropdownSizes, DropdownVariants} from './Dropdown.types';
 import {Love} from '~/icons';
-import {dropdownData, dropdownDataGrouped, dropdownDataImages, dropdownDataTree} from '~/data';
+import {dropdownData, dropdownDataGrouped, dropdownDataImages, dropdownDataTree, dropdownDataDescriptions} from '~/data';
 import IconWrapper from '~/__storybook__/IconWrapper';
 import {iconsName} from '~/__storybook__/utils';
 
@@ -225,6 +225,29 @@ storiesOf('Components/Dropdown', module)
                     label={currentOption.label}
                     value={currentOption.value}
                     data={dropdownDataTree}
+                    onChange={(e, item) => handleOnChange(e, item)}
+                />
+            </div>
+        );
+    })
+    .add('With Item Description', () => {
+        const [currentOption, setCurrentOption] = useState({label: 'Select something', value: null});
+        const handleOnChange = (e, item) => {
+            setCurrentOption(item);
+            action('onChange');
+            return true;
+        };
+
+        return (
+            <div style={{transform: 'scale(1)', height: '100vh', padding: '90px'}}>
+                <Dropdown
+                    icon={<Love/>}
+                    label={currentOption.label}
+                    value={currentOption.value}
+                    size={select('Size', DropdownSizes, DropdownSizes.Small)}
+                    isDisabled={boolean('Disabled', false)}
+                    maxWidth={text('Max width', '320px')}
+                    data={dropdownDataDescriptions}
                     onChange={(e, item) => handleOnChange(e, item)}
                 />
             </div>

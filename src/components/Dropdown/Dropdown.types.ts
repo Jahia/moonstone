@@ -21,6 +21,7 @@ export enum DropdownImageSizes {
 
 export type DropdownDataOptions = {
     label?: string;
+    description?: string;
     value?: string;
     isDisabled?: boolean;
     iconStart?: React.ReactElement;
