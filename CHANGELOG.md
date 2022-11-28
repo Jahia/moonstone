@@ -1,3 +1,22 @@
+# v2.4.19 (Mon Nov 28 2022)
+
+#### 🐛 Bug Fix
+
+- MOON-353: support description on values in dropdown [#332](https://github.com/Jahia/moonstone/pull/332) ([@jahia-carp](https://github.com/jahia-carp) [@ffffffelix](https://github.com/ffffffelix))
+- MOON-358: Add a light color variant for Chip [#331](https://github.com/Jahia/moonstone/pull/331) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-339: Make Loading rotate clockwise [#307](https://github.com/Jahia/moonstone/pull/307) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🏠 Internal
+
+- MOON-356: Add tests to RadioGroup and RadioItem [#333](https://github.com/Jahia/moonstone/pull/333) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 2
+
+- [@jahia-carp](https://github.com/jahia-carp)
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.4.18 (Tue Nov 22 2022)
 
 #### 🐛 Bug Fix
