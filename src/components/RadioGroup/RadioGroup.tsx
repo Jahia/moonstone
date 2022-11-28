@@ -4,7 +4,7 @@ import {ControlledRadioGroup} from '~/components/RadioGroup/ControlledRadioGroup
 import {RadioGroupProps} from '~/components/RadioGroup/RadioGroup.types';
 
 export const RadioGroup: React.FC<RadioGroupProps> = ({children, defaultValue, value, ...props}) => {
-    if (!children || React.Children.count(children) < 1) {
+    if (!children || React.Children.count(children) < 2) {
         return null;
     }
 
