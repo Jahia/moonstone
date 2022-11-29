@@ -1,0 +1,17 @@
+.multipleSelector {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.buttonSection {
+    display: flex;
+    align-items: center;
+    width: var(--spacing-big);
+    padding: var(--spacing-small);
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
