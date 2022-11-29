@@ -1,2 +1,1 @@
-export * from './registerMultipleLeftRightSelector';
-export {default as MultipleLeftRightSelector} from './MultipleLeftRightSelector';
+export * from './MultipleLeftRightSelector';
