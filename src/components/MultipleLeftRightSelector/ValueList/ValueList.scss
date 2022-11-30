@@ -10,18 +10,20 @@
     margin-top: var(--spacing-small);
 }
 
-.displayNone {
-    display: none;
-}
-
-.iconContainer {
+.moonstone-iconContainer {
     min-width: var(--spacing-large);
+
+    .moonstone-displayNone {
+        display: none;
+    }
 }
 
-.valueListItem {
+.moonstone-valueListItem {
     padding: var(--spacing-small);
 
     cursor: pointer;
+
+    align-items: center;
 
     &.selected {
         color: var(--color-white);
@@ -35,40 +37,40 @@
         background-color: var(--color-gray_light60);
     }
 
-    &:hover > div > div > .displayNone {
+    &:hover > div > div > .moonstone-displayNone {
         display: block;
     }
 }
 
-.wrapper {
+.moonstone-wrapper {
     display: flex;
     flex-grow: 1;
     flex-direction: column;
     gap: var(--spacing-small);
-}
 
-.listHolder {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-    gap: var(--spacing-small);
-    padding: var(--spacing-small);
+    .moonstone-listHolder {
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+        gap: var(--spacing-small);
+        padding: var(--spacing-small);
 
-    border: 1px solid var(--color-gray40);
-}
-
-.noHoveEffect {
-    &:hover {
-        color: inherit;
-
-        background-color: inherit;
+        border: 1px solid var(--color-gray40);
     }
 
-    &:hover > div > div > .displayNone {
-        display: none;
-    }
-}
+    .moonstone-noHoveEffect {
+        &:hover {
+            color: inherit;
 
-.noOpacity {
-    opacity: 0;
+            background-color: inherit;
+        }
+
+        &:hover > div > div > .moonstone-displayNone {
+            display: none;
+        }
+    }
+
+    .moonstone-noOpacity {
+        opacity: 0;
+    }
 }

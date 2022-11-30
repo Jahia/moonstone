@@ -1,9 +1,12 @@
+/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
+
 import React, {useState, useCallback, useRef} from 'react';
 import {ValueList} from './ValueList';
 import {Button} from '~/components';
 import {ChevronDoubleLeft, ChevronDoubleRight} from '~/icons';
-import styles from './MultipleLeftRightSlector.scss';
 import {MultipleLeftRightSelectorProps, Option} from './MultipleLeftRightSelector.types';
+import './MultipleLeftRightSlector.scss';
 
 const DATA_TYPES = {
     MLRS_DRAG_TO_REORDER: 'MLRS_DRAG_TO_REORDER',
@@ -12,7 +15,14 @@ const DATA_TYPES = {
 
 export const FAKE_VALUE = 'dnd_move_in_progress';
 
-export const MultipleLeftRightSelector: React.FC<MultipleLeftRightSelectorProps> = ({options, onChange, arrayValue, readOnly}) => {
+export const MultipleLeftRightSelector: React.FC<MultipleLeftRightSelectorProps> = ({
+    addAllTitle = 'Add all',
+    removeAllTitle = 'Remove all',
+    options = [],
+    arrayValue = [],
+    readOnly,
+    onChange
+}) => {
     const [draggedId, setDraggedId] = useState(null);
     // Value for temporary fake move
     const [moved, setMoved] = useState(null);
@@ -26,18 +36,26 @@ export const MultipleLeftRightSelector: React.FC<MultipleLeftRightSelectorProps>
         onDragStart: (e: React.DragEvent) => {
             const ct = e.currentTarget;
             setTimeout(() => {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 ct.parentNode.parentNode.style.opacity = '0';
             }, 10);
             e.dataTransfer.setData(DATA_TYPES.MLRS_DRAG_TO_MOVE, JSON.stringify({type: DATA_TYPES.MLRS_DRAG_TO_MOVE, value: value}));
             e.dataTransfer.effectAllowed = 'move';
-            e.dataTransfer.setDragImage(e.currentTarget.parentNode.parentNode, 10, 10);
+            e.dataTransfer.setDragImage(e.currentTarget.parentNode.parentNode as Element, 10, 10);
             dnd.current.dragging = value;
         },
         onDragEnd: (e: React.DragEvent) => {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             e.currentTarget.parentNode.parentNode.style.opacity = '1';
             setMoved(null);
             dnd.current.dragging = null;
         }
+    }), []);
+
+    const leftListItemProps = useCallback(() => ({
+        role: 'left-list'
     }), []);
 
     // Drag handle for the right list
@@ -46,15 +64,19 @@ export const MultipleLeftRightSelector: React.FC<MultipleLeftRightSelectorProps>
         onDragStart: (e: React.DragEvent) => {
             const ct = e.currentTarget;
             setTimeout(() => {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 ct.parentNode.parentNode.style.opacity = '0';
             }, 10);
             e.dataTransfer.setData(DATA_TYPES.MLRS_DRAG_TO_REORDER, JSON.stringify({type: DATA_TYPES.MLRS_DRAG_TO_REORDER, value: value}));
             e.dataTransfer.effectAllowed = 'move';
-            e.dataTransfer.setDragImage(e.currentTarget.parentNode.parentNode, 10, 10);
+            e.dataTransfer.setDragImage(e.currentTarget.parentNode.parentNode as Element, 10, 10);
             dnd.current.dragging = value;
             setDraggedId(value.value);
         },
         onDragEnd: (e: React.DragEvent) => {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             e.currentTarget.parentNode.parentNode.style.opacity = '1';
             // Did not drop on required target, restore original state
             if (dnd.current.dragging !== null && dnd.current.dragging.originalIndex) {
@@ -71,6 +93,7 @@ export const MultipleLeftRightSelector: React.FC<MultipleLeftRightSelectorProps>
 
     // Right list item drag props
     const rightListListItemProps = useCallback(value => ({
+        role: 'right-list',
         onDragOver: (e: React.DragEvent) => {
             e.preventDefault();
             e.dataTransfer.dropEffect = 'move';
@@ -158,22 +181,28 @@ export const MultipleLeftRightSelector: React.FC<MultipleLeftRightSelectorProps>
         valuesRight.splice(moved.index, 0, moved);
     }
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     return (
-        <div className={styles.multipleSelector}>
+        <div className="moonstone-multipleSelector">
             <ValueList orientation="left"
+                       readOnly={readOnly}
                        values={valuesLeft}
                        iconStartProps={arrayValue.length > 0 ? leftListIconStartProps : null}
+                       listItemProps={leftListItemProps}
                        onMove={v => onChange(arrayValue.concat(v))}
             />
-            <div className={styles.buttonSection}>
-                <div className={styles.buttons}>
-                    <Button title="Add all"
+            <div className="moonstone-buttonSection">
+                <div className="moonstone-buttons">
+                    <Button title={addAllTitle}
+                            role="add-all"
                             variant="ghost"
                             isDisabled={readOnly}
                             icon={<ChevronDoubleRight/>}
                             onClick={() => onChange(options.map(o => o.value))}
                     />
-                    <Button title="Remove all"
+                    <Button title={removeAllTitle}
+                            role="remove-all"
                             variant="ghost"
                             isDisabled={readOnly}
                             icon={<ChevronDoubleLeft/>}
@@ -182,6 +211,7 @@ export const MultipleLeftRightSelector: React.FC<MultipleLeftRightSelectorProps>
                 </div>
             </div>
             <ValueList orientation="right"
+                       readOnly={readOnly}
                        values={valuesRight}
                        iconStartProps={rightListIconStartProps}
                        listItemProps={rightListListItemProps}

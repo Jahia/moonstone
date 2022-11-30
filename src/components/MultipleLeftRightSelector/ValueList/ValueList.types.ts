@@ -22,6 +22,10 @@ export type ValueListProps = {
      */
     draggedId?: string
     /**
+     * Read only
+     */
+    readOnly?: boolean
+    /**
      * Props for list item
      */
     listItemProps?: (value: any) => React.AllHTMLAttributes<any>,
