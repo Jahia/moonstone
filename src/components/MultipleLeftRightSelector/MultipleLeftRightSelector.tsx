@@ -1,3 +1,4 @@
+/* Disabled lint due to incompatibility of Button with regular props, work on this is in progress */
 /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 
