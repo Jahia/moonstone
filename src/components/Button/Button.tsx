@@ -31,7 +31,7 @@ export const Button: React.FC<ButtonProps> = ({
         typoWeight = 'semiBold';
     }
 
-    const handleOnClick: React.MouseEventHandler = e => {
+    const handleOnClick: React.MouseEventHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
         onClick(e);
         ButtonEl.current.blur();
     };
@@ -75,5 +75,7 @@ export const Button: React.FC<ButtonProps> = ({
         </button>
     );
 };
+
+    <Button>test</Button>;
 
 Button.displayName = 'Button';

@@ -37,6 +37,18 @@ storiesOf('Tokens/Typography', module)
             </div>
         </>
     ))
+    .add('dev', () => (
+        <Typography
+            component="toto"
+            variant={select('Variant', variants, 'body')}
+            weight={select('Weight', weights, 'default')}
+            isItalic={boolean('Italic', false)}
+            isUpperCase={boolean('UpperCase', false)}
+            hasLineThrough={boolean('LineThrough', false)}
+        >
+            Playground
+        </Typography>
+    ))
     .add('Playground', () => (
         <Typography variant={select('Variant', variants, 'body')}
                     weight={select('Weight', weights, 'default')}

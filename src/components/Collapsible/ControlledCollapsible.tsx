@@ -5,15 +5,16 @@ import {CollapsibleProps} from './Collapsible.types';
 import {Typography} from '~/components';
 import {ChevronRight} from '~/icons/components';
 
-const ControlledCollapsibleForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, CollapsibleProps> = ({
+export const ControlledCollapsible: React.FC<CollapsibleProps> = ({
     label,
     className,
     children,
     onClick = () => undefined,
     id = null,
     isExpanded = false,
+    ref,
     ...other
-}, ref) => {
+}) => {
     const classNameProps = clsx(
         'moonstone-collapsible',
         className
@@ -79,7 +80,5 @@ const ControlledCollapsibleForwardRef: React.ForwardRefRenderFunction<HTMLDivEle
         </div>
     );
 };
-
-export const ControlledCollapsible = React.forwardRef(ControlledCollapsibleForwardRef);
 
 ControlledCollapsible.displayName = 'ControlledCollapsible';

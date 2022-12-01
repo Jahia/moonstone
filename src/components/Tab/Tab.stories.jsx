@@ -7,6 +7,7 @@ import {iconsName} from '~/__storybook__/utils';
 
 import markdownNotes from './Tab.md';
 import {Tab} from './index';
+import {Button} from '~/components';
 import {TabItem} from './TabItem';
 
 const selectIcon = () => select('Icon', iconsName, 'Apps');
@@ -23,6 +24,7 @@ storiesOf('Components/Tab', module)
         <section className="storyGrid">
             <div className="storyGridItem">
                 <Tab>
+                    <Button/>
                     <TabItem icon={<IconWrapper iconName={selectIcon()}/>} label="Tab 1" isSelected={isSelected()}/>
                     <TabItem icon={<IconWrapper iconName={selectIcon()}/>} label="Tab 2" isSelected={!isSelected()}/>
                 </Tab>

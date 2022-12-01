@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-export type AccordionItemProps = {
+export type AccordionItemProps = React.ComponentPropsWithoutRef<'div'> & {
     /**
      * Id to define AccordionItem
      */
-    id: string;
+    // id: string;
 
     /**
      * Label
@@ -24,12 +24,12 @@ export type AccordionItemProps = {
     /**
      * Content of the component
      */
-    children: React.ReactNode;
+    // children: React.ReactNode;
 
     /**
      * Additional classname
      */
-    className?: string;
+    // className?: string;
 }
 
 export type AccordionContextType = {

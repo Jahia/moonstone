@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {AccordionItemProps} from './AccordionItem/AccordionItem.types';
 
-export type AccordionProps = {
+export type AccordionProps = React.ComponentPropsWithoutRef<'div'> & {
     /**
      * Reversed style for dark background with light text
      */
@@ -17,7 +17,8 @@ export type AccordionProps = {
     /**
      * Additional classname
      */
-    className?: string;
+    // className?: string;
+
     /**
      * Function to set accoridonItem opened
      */

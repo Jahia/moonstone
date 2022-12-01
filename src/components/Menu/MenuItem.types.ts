@@ -8,7 +8,7 @@ export enum MenuItemVariants {
 
 type MenuItemImageSize = 'small' | 'big';
 
-export type MenuItemProps = {
+export type MenuItemProps = React.ComponentPropsWithoutRef<'li'> & {
     /**
      * Additional classname
      */

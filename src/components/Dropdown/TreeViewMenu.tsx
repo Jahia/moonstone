@@ -140,7 +140,7 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
                     <div className="moonstone-menu_searchInput">
                         <SearchInput
                             value={inputValue}
-                            onChange={e => setInputValue(e.target.value)}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
                             onClear={() => setInputValue('')}
                         />
                     </div>
@@ -150,7 +150,7 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
                           openedItems={[...openedItems, ...openedBySearch]}
                           onOpenItem={onOpenItem}
                           onCloseItem={onCloseItem}
-                          onClickItem={(node, e) => {
+                          onClickItem={(node: TreeViewData, e: React.MouseEvent) => {
                               handleSelect(e, node);
                           }}
                 />

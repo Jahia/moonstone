@@ -3,12 +3,12 @@ import './Collapsible.scss';
 import {CollapsibleProps} from './Collapsible.types';
 import {ControlledCollapsible} from './ControlledCollapsible';
 
-const UncontrolledCollapsibleForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, CollapsibleProps> = ({
+export const UncontrolledCollapsible: React.FC<CollapsibleProps> = ({
     children,
     onClick = () => undefined,
     isDefaultExpanded = false,
     ...other
-}, ref) => {
+}) => {
     const [isExpanded, setIsExpanded] = useState(isDefaultExpanded);
 
     const handleOnClick: React.MouseEventHandler = e => {
@@ -17,12 +17,10 @@ const UncontrolledCollapsibleForwardRef: React.ForwardRefRenderFunction<HTMLDivE
     };
 
     return (
-        <ControlledCollapsible ref={ref} isExpanded={isExpanded} onClick={e => handleOnClick(e)} {...other}>
+        <ControlledCollapsible isExpanded={isExpanded} onClick={e => handleOnClick(e)} {...other}>
             {children}
         </ControlledCollapsible>
     );
 };
-
-export const UncontrolledCollapsible = React.forwardRef(UncontrolledCollapsibleForwardRef);
 
 UncontrolledCollapsible.displayName = 'UncontrolledCollapsible';

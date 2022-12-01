@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export type PaperProps = {
+export type PaperProps = React.ComponentPropsWithoutRef<'section'> & {
     /**
      * Define if the component has padding
      */

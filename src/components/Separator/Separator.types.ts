@@ -27,7 +27,7 @@ export enum SeparatorInvisible {
     FirstOrLastChild = 'firstOrLastChild'
 }
 
-export type SeparatorProps = {
+export type SeparatorProps = React.ComponentPropsWithoutRef<'hr'> & {
     /**
      * Variants: Horizontal or Vertical
      */

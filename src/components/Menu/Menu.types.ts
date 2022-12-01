@@ -17,7 +17,7 @@ export type TransformElOrigin = {
 
 export type PositioningType = 'fixed' | 'absolute';
 
-export type MenuProps = {
+export type MenuProps = React.ComponentPropsWithoutRef<'div'> & {
     /**
      * Maximum height of the Menu
      */

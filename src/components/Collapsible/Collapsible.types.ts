@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type CollapsibleProps = {
+export type CollapsibleProps = React.ComponentPropsWithRef<'div'> & {
     /**
      * Label of collapse section
      */
@@ -9,7 +9,7 @@ export type CollapsibleProps = {
     /**
      * Identifies the element for accessibility purpose
      */
-    id?: string;
+    // id?: string;
 
     /**
      * Content of the collapsible
@@ -19,7 +19,7 @@ export type CollapsibleProps = {
     /**
      * Additional classname
      */
-    className?: string;
+    // className?: string;
 
     /**
      * Function trigger on click

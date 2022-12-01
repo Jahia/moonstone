@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type HeaderProps = {
+export type HeaderProps = React.ComponentPropsWithoutRef<'header'> & {
     /**
      * Page Title
      */

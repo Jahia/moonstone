@@ -18,7 +18,7 @@ export type NavHeaderProps = {
     headerLogo?: React.ReactNode;
 };
 
-export type PrimaryNavProps = {
+export type PrimaryNavProps = React.ComponentPropsWithoutRef<'div'> & {
     /**
      * Image of logo application
      */

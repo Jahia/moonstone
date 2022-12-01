@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-export type BreadcrumbProps = {
+export type BreadcrumbProps = React.ComponentPropsWithoutRef<'div'> & {
     /**
      * Additional classname
      */
-    className?: string;
+    // className?: string;
     /**
      * Content of the component
      */

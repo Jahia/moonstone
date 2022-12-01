@@ -18,6 +18,8 @@ const isLoading = () => boolean('Is Loading', false);
 const isDisabled = () => boolean('Is disabled', false);
 const selectIcon = () => select('Icon', iconsName, 'Apps');
 
+const buttonRef = React.createRef();
+
 storiesOf('Components/Button', module)
     .addParameters({
         component: Button,
@@ -46,14 +48,16 @@ storiesOf('Components/Button', module)
                 {
                     buttonColors.map(color => (
                         <div key={color} className="storyGridItem">
-                            <Button icon={<IconWrapper iconName={selectIcon()}/>}
+                            <Button ref={buttonRef}
+                                    icon={<IconWrapper iconName={selectIcon()}/>}
                                     label="Button"
                                     color={color}
                                     size={sizeValues()}
                                     variant="default"
                                     isReversed={isReversed()}
                                     isLoading={isLoading()}
-                                    onClick={() => null}/>
+                                    onClick={() => null}
+                            />
                         </div>
                     ))
                 }

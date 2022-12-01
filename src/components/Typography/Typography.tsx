@@ -5,18 +5,18 @@ import {TypographyProps} from './Typography.types';
 
 // IsHtml prop should eventually be removed (along with this function) as children supports all React Node types
 // including strings and HTML markup
-const filterOutIsHtml = (props: TypographyProps) => {
-    const newProps = {...props};
-    if (newProps.isHtml) {
-        delete newProps.isHtml;
-    }
+// const filterOutIsHtml = (props: TypographyProps) => {
+//     const newProps = {...props};
+//     if (newProps.isHtml) {
+//         delete newProps.isHtml;
+//     }
 
-    return newProps;
-};
+//     return newProps;
+// };
 
-export const Typography: React.FC<TypographyProps> = ({
+export const Typography = <C extends React.ElementType = 'p'> ({
     children = '',
-    component = 'p',
+    component,
     variant = 'body',
     weight = 'default',
     className = '',
@@ -26,16 +26,16 @@ export const Typography: React.FC<TypographyProps> = ({
     isNowrap = false,
     isHtml = false,
     ...props
-}) => {
+}: TypographyProps<C>) => {
     if (!children) {
         return null;
     }
 
-    return React.createElement(
-        component,
-        {
-            ...filterOutIsHtml(props),
-            className: clsx(
+    const Component = component || 'span';
+
+    return (
+        <Component
+            className={clsx(
                 'moonstone-typography',
                 `moonstone-variant_${variant}`,
                 `moonstone-weight_${weight}`,
@@ -43,10 +43,29 @@ export const Typography: React.FC<TypographyProps> = ({
                 {'moonstone-nowrap': isNowrap},
                 {'moonstone-italic': isItalic},
                 {'moonstone-upperCase': isUpperCase},
-                {'moonstone-lineThrough': hasLineThrough})
-        },
-        children
+                {'moonstone-lineThrough': hasLineThrough}
+            )}
+            {...props}
+        >
+            {children}
+        </Component>
     );
+    // Return React.createElement(
+    //     component,
+    //     {
+    //         ...filterOutIsHtml(props),
+    //         className: clsx(
+    //             'moonstone-typography',
+    //             `moonstone-variant_${variant}`,
+    //             `moonstone-weight_${weight}`,
+    //             className,
+    //             {'moonstone-nowrap': isNowrap},
+    //             {'moonstone-italic': isItalic},
+    //             {'moonstone-upperCase': isUpperCase},
+    //             {'moonstone-lineThrough': hasLineThrough})
+    //     },
+    //     children
+    // );
 };
 
 Typography.displayName = 'Typography';

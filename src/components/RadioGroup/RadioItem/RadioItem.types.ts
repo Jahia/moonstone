@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type RadioItemProps = {
+export type RadioItemProps = React.ComponentPropsWithoutRef<'label'> & {
     /**
      * Identifier added to the input element
      */

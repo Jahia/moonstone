@@ -1,4 +1,4 @@
-export type LoaderProps = {
+export type LoaderProps = React.ComponentPropsWithoutRef<'svg'> & {
     /**
      * Additional className
      */

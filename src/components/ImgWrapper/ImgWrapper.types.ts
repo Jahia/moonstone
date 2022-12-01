@@ -1,7 +1,7 @@
 export type ImgWrapperSize = 'small' | 'default' | 'big';
 export const imgWrapperSizes = ['small', 'default', 'big'];
 
-export type ImgWrapperProps = {
+export type ImgWrapperProps = React.ComponentPropsWithoutRef<'div'> &{
     /**
      * Image URL
      */

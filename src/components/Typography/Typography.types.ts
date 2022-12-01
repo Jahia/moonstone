@@ -6,7 +6,63 @@ export const variants = ['title', 'heading', 'subheading', 'body', 'caption', 'b
 export type TypographyWeight = 'default' | 'bold' | 'semiBold' | 'light';
 export const weights = ['default', 'bold', 'semiBold', 'light'];
 
-export type TypographyProps = {
+export enum TypographyTags {
+    'a',
+    'abbr',
+    'address',
+    'article',
+    'b',
+    'bdi',
+    'bdo',
+    'big',
+    'blockquote',
+    'button',
+    'caption',
+    'cite',
+    'code',
+    'col',
+    'data',
+    'dd',
+    'del',
+    'dfn',
+    'div',
+    'dt',
+    'em',
+    'figcaption',
+    'h1',
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+    'h6',
+    'i',
+    'input',
+    'ins',
+    'kbd',
+    'label',
+    'legend',
+    'li',
+    'mark',
+    'menuitem',
+    'option',
+    'p',
+    'pre',
+    'q',
+    'rp',
+    'rt',
+    's',
+    'samp',
+    'small',
+    'span',
+    'strong',
+    'sub',
+    'summary',
+    'sup',
+    'th',
+    'time'
+}
+
+export type Props<C extends React.ElementType> = {
     /**
      * Content of the component
      */
@@ -18,7 +74,7 @@ export type TypographyProps = {
     /**
      * The component used for the root node
      */
-    component?: string;
+    component?: C;
     /**
      * Variant to use
      */
@@ -41,6 +97,7 @@ export type TypographyProps = {
     hasLineThrough?: boolean;
     /**
      * Does the children contain HTML markup
+     * @deprecated
      */
     isHtml?: boolean;
     /**
@@ -51,4 +108,8 @@ export type TypographyProps = {
      * Custom CSS style
      */
     style?: React.CSSProperties
-} & React.HTMLAttributes<HTMLElement>
+// } & React.HTMLAttributes<HTMLElement>
+}
+
+export type TypographyProps<C extends React.ElementType> = Props<C> &
+  Omit<React.ComponentPropsWithoutRef<C>, keyof Props<C>>

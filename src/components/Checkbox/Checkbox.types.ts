@@ -1,10 +1,10 @@
 import React from 'react';
 
-export type CheckboxProps = {
+export type CheckboxProps = React.ComponentPropsWithRef<'input'> & {
     /**
      * Identifier added to the input element
      */
-    id?: string;
+    // id?: string;
 
     /**
      * Whether the checkbox should be checked (controlled)
@@ -29,7 +29,7 @@ export type CheckboxProps = {
     /**
      * The name of the input element, used when submitting an HTML form
      */
-    name?: string;
+    // name?: string;
 
     /**
      * Checkbox size
@@ -39,7 +39,7 @@ export type CheckboxProps = {
     /**
      * Additional classname(s)
      */
-    className?: string;
+    // className?: string;
 
     /**
      * Whether the checkbox should be disabled
@@ -54,15 +54,15 @@ export type CheckboxProps = {
     /**
      * Function triggered on change of the checkbox value
      */
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    // onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 
     /**
      * Function triggered on focus of the checkbox value
      */
-    onFocus?: React.FocusEventHandler;
+    // onFocus?: React.FocusEventHandler;
 
     /**
      * Function triggered when the checkbox value loses focus
      */
-    onBlur?: React.FocusEventHandler;
+    // onBlur?: React.FocusEventHandler;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 
 import {TypographyVariant} from '~/components/Typography/Typography.types';
 
-export type ListItemProps = {
+export type ListItemProps = React.ComponentPropsWithoutRef<'li'> & {
     /**
      * Additional classname
      */

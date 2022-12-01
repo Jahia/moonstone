@@ -1,6 +1,8 @@
 import React from 'react';
 
-export type BaseInputProps = {
+type HTMLInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size'>;
+
+export type BaseInputProps = HTMLInputProps & {
     /**
      * Default value when the component is rendered (Uncontrolled)
      */
@@ -47,7 +49,7 @@ export type BaseInputProps = {
     className?: string;
 
     /**
-     * Whether the size of the input should be default or big
+     * Size of the input
      */
     size?: 'default' | 'big';
 

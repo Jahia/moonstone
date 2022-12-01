@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export type BreadcrumbItemProps = {
+export type BreadcrumbItemProps = React.ComponentPropsWithoutRef<'button'> & {
     /**
      * Additional classname
      */
@@ -8,7 +8,7 @@ export type BreadcrumbItemProps = {
     /**
      * Additional classname
      */
-    label?: string;
+    label: string;
     /**
      * Icon name, if it's empty the item has no icon
      */

@@ -73,12 +73,12 @@ Disabled.args = {
 export const Controlled: ComponentStory<typeof RadioGroup> = args => {
     const [value, setValue] = useState('cat');
 
-    const handleChange = (event :React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value);
     };
 
     return (
-        <RadioGroup {...args} name="controlled" value={value} onChange={(event => handleChange(event))}>
+        <RadioGroup {...args} name="controlled" value={value} onChange={((event: React.ChangeEvent<HTMLInputElement>) => handleChange(event))}>
             <RadioItem
                 id="dog1"
                 label="Dog"

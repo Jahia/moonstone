@@ -8,6 +8,7 @@ export const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({className = '', .
     <li className={clsx('moonstone-breadcrumbItem', 'flexRow_center')}>
         <Button {...props}
                 variant="ghost"
+                color="default"
                 size="small"
                 className={clsx(className)}
         />

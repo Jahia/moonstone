@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {RadioItemProps} from '~/components/RadioGroup/RadioItem/RadioItem.types';
 
-export type RadioGroupProps = {
+export type RadioGroupProps = React.ComponentPropsWithoutRef<'div'> & {
     /**
      * RadioItem's input name
      */

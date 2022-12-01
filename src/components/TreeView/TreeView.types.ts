@@ -16,7 +16,7 @@ export type TreeViewData = {
     treeItemProps?: object;
 };
 
-export type TreeViewProps = {
+export type TreeViewProps = React.ComponentPropsWithRef<'ul'> & {
     /**
      * Data to generate the tree
      */
