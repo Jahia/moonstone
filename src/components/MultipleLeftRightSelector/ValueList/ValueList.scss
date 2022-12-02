@@ -19,11 +19,10 @@
 }
 
 .moonstone-valueListItem {
+    align-items: center;
     padding: var(--spacing-small);
 
     cursor: pointer;
-
-    align-items: center;
 
     &.selected {
         color: var(--color-white);
