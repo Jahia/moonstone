@@ -1,21 +1,23 @@
 import React from 'react';
-// Import {withKnobs, select} from '@storybook/addon-knobs';
+import {Story} from '@storybook/react';
 import '~/__storybook__/storybook.scss';
 
-import {Separator, Typography} from '~/components';
+import {Separator} from './index';
+import {SeparatorProps} from './Separator.types';
+
+import {Typography} from '~/components';
 import markdownNotes from './Separator.md';
 
 export default {
     title: 'Components/Separator',
     component: Separator,
-
     parameters: {
         layout: 'centered',
         notes: {markdown: markdownNotes}
     }
 };
 
-export const Horizontal = args => (
+export const Horizontal: Story<SeparatorProps> = args => (
     <>
         <Typography variant="heading">Content before a separator</Typography>
         <Separator {...args}/>
@@ -28,7 +30,7 @@ Horizontal.args = {
     spacing: 'medium'
 };
 
-export const Vertical = args => (
+export const Vertical: Story<SeparatorProps> = args => (
     <div className="flexRow alignCenter">
         <Typography variant="heading">Before</Typography>
 
@@ -42,7 +44,7 @@ Vertical.args = {
     spacing: 'medium'
 };
 
-export const Invisible = args => (
+export const Invisible: Story<SeparatorProps> = args => (
     <section className="storyColumn">
         <div className="storyItem">
             <Typography variant="heading">Before</Typography>

@@ -21,7 +21,7 @@ export type AccordionProps = {
     /**
      * Function to set accoridonItem opened
      */
-    onSetOpenedItem?: () => undefined;
+    onSetOpenedItem?: (id: string) => void;
     /**
      * Content of the component
      */

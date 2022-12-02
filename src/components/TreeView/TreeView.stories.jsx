@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
-// Import {object, withKnobs} from '@storybook/addon-knobs';
-import {action} from '@storybook/addon-actions';
+
+import {TreeView} from './index';
+import {treeData, treeDataFlat} from '~/data';
 
 import markdownNotes from './TreeView.md';
-import {treeData, treeDataFlat} from '~/data';
-import {TreeView} from './index';
 
 const css = {
     transform: 'scale(1)',
@@ -16,25 +15,25 @@ export default {
     title: 'Components/TreeView',
     component: TreeView,
     decorators: [storyFn => <div style={css}>{storyFn()}</div>],
-
     parameters: {
+        layout: 'centered',
         notes: {markdown: markdownNotes}
     }
 };
 
-export const Default = () => (
-    <TreeView data={treeData}/>
+export const Default = (args, {globals: {theme}}) => (
+    <TreeView {...args} data={treeData} isReversed={theme === 'dark'}/>
 );
 
-export const OpenedByDefault = () => (
-    <TreeView defaultOpenedItems={['A']} data={treeData}/>
+export const OpenedByDefault = (args, {globals: {theme}}) => (
+    <TreeView {...args} defaultOpenedItems={['A']} data={treeData} isReversed={theme === 'dark'}/>
 );
 
-export const Flat = () => (
-    <TreeView data={treeDataFlat}/>
+export const Flat = (args, {globals: {theme}}) => (
+    <TreeView {...args} data={treeDataFlat} isReversed={theme === 'dark'}/>
 );
 
-export const Selection = () => {
+export const Selection = (args, {globals: {theme}}) => {
     const [selectedItems, setSelectedItems] = useState([]);
     const handleClick = node => {
         if (selectedItems.includes(node.id)) {
@@ -46,6 +45,8 @@ export const Selection = () => {
 
     return (
         <TreeView
+            {...args}
+            isReversed={theme === 'dark'}
             selectedItems={selectedItems}
             data={treeData}
             onClickItem={handleClick}
@@ -53,24 +54,7 @@ export const Selection = () => {
     );
 };
 
-export const IsReversed = () => {
-    return (
-        <div style={{...css, background: '#000'}}>
-            <TreeView isReversed data={treeData}/>
-        </div>
-    );
-};
-
-export const Actions = () => (
-    <TreeView
-        data={treeData}
-        onClickItem={action('onClickItem')}
-        onDoubleClickItem={action('onDoubleClickItem')}
-        onContextMenuItem={action('onContextMenuItem')}
-    />
-);
-
-export const Controlled = () => {
+export const Controlled = (args, {globals: {theme}}) => {
     const [openedItems, setOpenedItems] = useState([]);
     const handleOpen = node => {
         setOpenedItems([node.id, ...openedItems]);
@@ -88,15 +72,17 @@ export const Controlled = () => {
                     <button
                         key={n}
                         type="button"
-                        onClick={e => handleClose({id: n}, e)}
+                        onClick={() => handleClose({id: n})}
                     >
                         {n}
                     </button>
                 ))}
             </span>
             <TreeView
+                {...args}
                 data={treeData}
                 openedItems={openedItems}
+                isReversed={theme === 'dark'}
                 onOpenItem={handleOpen}
                 onCloseItem={handleClose}
             />
@@ -156,7 +142,7 @@ export const ControlledWithLoading = () => {
                     <button
                         key={n}
                         type="button"
-                        onClick={e => handleClose({id: n}, e)}
+                        onClick={() => handleClose({id: n})}
                     >
                         {n}
                     </button>

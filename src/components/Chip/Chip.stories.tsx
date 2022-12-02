@@ -1,16 +1,12 @@
 import React from 'react';
-
-import markdownNotes from './Chip.md';
-import {Chip} from './index';
-import {
-    Cloud,
-    Delete,
-    FileContent,
-    Lock,
-    NoCloud,
-    Warning
-} from '~/icons';
+import {Story} from '@storybook/react';
 import '~/__storybook__/storybook.scss';
+
+import {Chip} from './index';
+import type {ChipProps} from './Chip.types';
+
+import {Cloud, Delete, FileContent, Lock, NoCloud, Warning} from '~/icons';
+import markdownNotes from './Chip.md';
 
 export default {
     title: 'Components/Chip',
@@ -21,7 +17,8 @@ export default {
         notes: {markdown: markdownNotes}
     }
 };
-export const Default = args => (
+
+export const Default: Story<ChipProps> = args => (
     <Chip {...args}/>
 );
 Default.args = {
@@ -30,7 +27,7 @@ Default.args = {
     color: 'default'
 };
 
-export const TextOnly = args => (
+export const TextOnly: Story<ChipProps> = args => (
     <Chip {...args}/>
 );
 TextOnly.args = {
@@ -38,7 +35,7 @@ TextOnly.args = {
     color: 'default'
 };
 
-export const IconOnly = args => (
+export const IconOnly: Story<ChipProps> = args => (
     <Chip {...args}/>
 );
 IconOnly.args = {

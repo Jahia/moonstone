@@ -1,13 +1,16 @@
 import React, {useState} from 'react';
-import markdownNotes from './Menu.md';
+import {Story} from '@storybook/react';
+
 import {Menu, MenuItem} from './index';
+import type {MenuProps, AnchorPosition} from './Menu.types';
+
+import markdownNotes from './Menu.md';
 import {Separator} from '~/components';
 
 export default {
     title: 'Components/Menu',
     component: Menu,
     subcomponents: {MenuItem},
-
     parameters: {
         notes: {markdown: markdownNotes},
         docs: {
@@ -18,12 +21,8 @@ export default {
     }
 };
 
-export const Default = () => (
-    <Menu
-        isDisplayed
-        maxHeight="250px"
-        style={{zIndex: 10000}}
-    >
+export const Default: Story<MenuProps> = args => (
+    <Menu {...args}>
         <MenuItem label="Base items" variant="title"/>
         <MenuItem label="Item1"/>
         <MenuItem label="Item2"/>
@@ -35,12 +34,17 @@ export const Default = () => (
         <MenuItem isSelected label="Item3 - Selected"/>
     </Menu>
 );
+Default.args = {
+    isDisplayed: true,
+    maxHeight: '250px',
+    style: {zIndex: 10000}
+};
 
 export const ContextualMenu = () => {
-    const [isDisplayed, setIsDisplayed] = useState(false);
-    const [menuPosition, setMenuPosition] = useState();
+    const [isDisplayed, setIsDisplayed] = useState<boolean>(false);
+    const [menuPosition, setMenuPosition] = useState<AnchorPosition>();
 
-    const handleOnClick = e => {
+    const handleOnClick = (e: React.MouseEvent) => {
         if (isDisplayed) {
             handleClose();
         } else {
@@ -128,16 +132,16 @@ export const AnchorElOrigin = () => {
 
 export const PositionAbsolute = () => {
     return (
-        <div style={{transform: 'scale(1)', height: '100vh'}}>
-            <div
+    // <div style={{transform: 'scale(1)', height: '100vh'}}>
+        <div
                 style={{
                     position: 'relative',
                     transform: 'translate(90px, 90px)',
                     width: '100px',
                     height: '100px'
                 }}
-            >
-                <div
+        >
+            <div
                     style={{
                         height: '100%',
                         width: '100%',
@@ -145,10 +149,10 @@ export const PositionAbsolute = () => {
                         cursor: 'pointer',
                         padding: '10px'
                     }}
-                >
-                    Parent div is position: relative.
-                </div>
-                <Menu
+            >
+                Parent div is position: relative.
+            </div>
+            <Menu
                     isDisplayed
                     position="absolute"
                     anchorPosition={{top: 4, left: 0}}
@@ -160,13 +164,13 @@ export const PositionAbsolute = () => {
                         vertical: 'top',
                         horizontal: 'left'
                     }}
-                >
-                    <MenuItem label="Item1"/>
-                    <MenuItem label="Item2"/>
-                    <MenuItem label="Item3"/>
-                </Menu>
-            </div>
+            >
+                <MenuItem label="Item1"/>
+                <MenuItem label="Item2"/>
+                <MenuItem label="Item3"/>
+            </Menu>
         </div>
+    // </div>
     );
 };
 

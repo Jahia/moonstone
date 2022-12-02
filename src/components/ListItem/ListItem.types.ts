@@ -35,7 +35,7 @@ export type ListItemProps = {
     /**
      * Optional image to display to describe the menu item. Cannot be used in conjunction with the iconStart property.
      */
-    image?: HTMLImageElement;
+    image?: React.ReactElement;
 
     /**
      * If there's an image, it should be this size

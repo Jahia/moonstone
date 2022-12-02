@@ -9,8 +9,7 @@ export default {
     title: 'Components/IconTextIcon',
     component: IconTextIcon,
     parameters: {
-        layout: 'centered',
-        storysource: {disable: true}
+        layout: 'centered'
     }
 };
 

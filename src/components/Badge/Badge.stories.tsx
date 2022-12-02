@@ -1,8 +1,10 @@
 import React from 'react';
-import '~/__storybook__/storybook.scss';
+import {Story, ComponentMeta} from '@storybook/react';
+
+import {Badge} from './index';
+import type {BadgeProps} from './Badge.types';
 
 import markdownNotes from './Badge.md';
-import {Badge} from './index';
 
 export default {
     title: 'Components/Badge',
@@ -11,9 +13,9 @@ export default {
         layout: 'centered',
         notes: {markdown: markdownNotes}
     }
-};
+} as ComponentMeta<typeof Badge>;
 
-const Template = args => <Badge {...args}/>;
+const Template: Story<BadgeProps> = args => <Badge {...args}/>;
 
 export const Accent = Template.bind({});
 Accent.args = {

@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
-import {action} from '@storybook/addon-actions';
-// Import markdownNotes from './Accordion.md';
+import {Story, ComponentMeta} from '@storybook/react';
 
 import {Accordion} from './index';
 import {AccordionItem} from '~/components/Accordion/AccordionItem';
+import type {AccordionProps} from './Accordion.types';
+
+import markdownNotes from './Accordion.md';
 import {Love, BarSquare, Bug} from '~/icons';
 
 const accordionIds = ['01', '02', '03'];
@@ -14,32 +16,40 @@ export default {
     subcomponents: {AccordionItem},
     docs: {
         IframeHeight: 800
+    },
+    decorators: [
+        StoryCmp => (
+            <div style={{display: 'flex', flexDirection: 'column', height: '100vh'}}>
+                <StoryCmp/>
+            </div>
+        )
+    ],
+    parameters: {
+        notes: {markdown: markdownNotes},
+        actions: {argTypesRegex: '^on.*'}
     }
-};
+} as ComponentMeta<typeof Accordion>;
 
-export const Default = () => (
-    <Accordion>
+const Template: Story<AccordionProps> = args => (
+    <Accordion {...args}>
         <AccordionItem
             id={accordionIds[0]}
             icon={<Love size="big"/>}
             label="test 01"
-            onClick={action(`click on AccordionItem with id : ${accordionIds[0]}`)}
         >
-            Accordion Content
+            Accordion Content 01
         </AccordionItem>
         <AccordionItem
             id={accordionIds[1]}
             icon={<Bug size="big"/>}
             label="test 02"
-            onClick={action(`click on AccordionItem with id : ${accordionIds[1]}`)}
         >
-            Accordion Content
+            Accordion Content 02
         </AccordionItem>
         <AccordionItem
             id={accordionIds[2]}
             label="test 03 (with long content)"
             icon={<BarSquare size="big"/>}
-            onClick={action(`click on AccordionItem with id : ${accordionIds[2]}`)}
         >
             Topgallant mutiny spike pressgang interloper transom loaded to the
             gunwalls hogshead smartly Letter of Marque. Arr belaying pin brigantine
@@ -130,39 +140,17 @@ export const Default = () => (
     </Accordion>
 );
 
-export const Opened = () => (
-    <Accordion defaultOpenedItem={accordionIds[1]}>
-        <AccordionItem
-            id={accordionIds[0]}
-            icon={<Love size="big"/>}
-            label="test 01"
-            onClick={action(`click on AccordionItem with id : ${accordionIds[0]}`)}
-        >
-            Accordion Content
-        </AccordionItem>
-        <AccordionItem
-            id={accordionIds[1]}
-            icon={<Bug size="big"/>}
-            label="test 02 is opened by default"
-            onClick={action(`click on AccordionItem with id : ${accordionIds[1]}`)}
-        >
-            Accordion Content
-        </AccordionItem>
-        <AccordionItem
-            id={accordionIds[2]}
-            label="test 03 (with long content)"
-            icon={<BarSquare size="big"/>}
-            onClick={action(`click on AccordionItem with id : ${accordionIds[2]}`)}
-        >
-            Accordion Content
-        </AccordionItem>
-    </Accordion>
-);
+export const Default = Template.bind({});
+
+export const DefaultOpened = Template.bind({});
+DefaultOpened.args = {
+    defaultOpenedItem: accordionIds[1]
+};
 
 export const Controlled = () => {
     const [stateOpenedItems, setStateOpenedItem] = useState(accordionIds[1]);
 
-    const onSetOpenedItem = id => {
+    const onSetOpenedItem = (id: string) => {
         setStateOpenedItem(prevState => {
             return prevState === id ? null : id;
         });
@@ -192,7 +180,6 @@ export const Controlled = () => {
                     id={accordionIds[0]}
                     icon={<Love size="big"/>}
                     label="test 01"
-                    onClick={action(`click on AccordionItem with id : ${accordionIds[0]}`)}
                 >
                     Accordion Content
                 </AccordionItem>
@@ -200,7 +187,6 @@ export const Controlled = () => {
                     id={accordionIds[1]}
                     icon={<Bug size="big"/>}
                     label="test 02 is opened by default"
-                    onClick={action(`click on AccordionItem with id : ${accordionIds[1]}`)}
                 >
                     Accordion Content
                 </AccordionItem>
@@ -208,7 +194,6 @@ export const Controlled = () => {
                     id={accordionIds[2]}
                     label="test 03 (with long content)"
                     icon={<BarSquare size="big"/>}
-                    onClick={action(`click on AccordionItem with id : ${accordionIds[2]}`)}
                 >
                     Accordion Content
                 </AccordionItem>
@@ -217,33 +202,8 @@ export const Controlled = () => {
     );
 };
 
-export const Reversed = () => (
-    <div style={{flex: '1', display: 'flex', backgroundColor: '#293136'}}>
-        <Accordion isReversed defaultOpenedItem={accordionIds[1]}>
-            <AccordionItem
-                id={accordionIds[0]}
-                icon={<Love size="big"/>}
-                label="test 01"
-                onClick={action(`click on AccordionItem with id : ${accordionIds[0]}`)}
-            >
-                Accordion Content
-            </AccordionItem>
-            <AccordionItem
-                id={accordionIds[1]}
-                icon={<Bug size="big"/>}
-                label="test 02 is opened by default"
-                onClick={action(`click on AccordionItem with id : ${accordionIds[1]}`)}
-            >
-                Accordion Content
-            </AccordionItem>
-            <AccordionItem
-                id={accordionIds[2]}
-                label="test 03 (with long content)"
-                icon={<BarSquare size="big"/>}
-                onClick={action(`click on AccordionItem with id : ${accordionIds[2]}`)}
-            >
-                Accordion Content
-            </AccordionItem>
-        </Accordion>
-    </div>
-);
+export const Reversed = Template.bind({});
+Reversed.args = {
+    isReversed: true,
+    defaultOpenedItem: accordionIds[1]
+};

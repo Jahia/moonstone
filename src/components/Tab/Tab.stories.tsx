@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
-import '~/__storybook__/storybook.scss';
+import {Story} from '@storybook/react';
 
-import markdownNotes from './Tab.md';
 import {Tab} from './index';
+import type {TabProps} from './Tab.types';
+
 import {TabItem} from './TabItem';
 import {Apps} from '~/icons';
+import markdownNotes from './Tab.md';
 
 export default {
     title: 'Components/Tab',
@@ -17,14 +19,14 @@ export default {
     }
 };
 
-export const _Tab = () => {
+export const _Tab: Story<TabProps> = args => {
     const [selectedTabItemLabel, setSelectedTabItemLabel] = useState('Tab 1');
-    const handleClick = label => {
+    const handleClick = (label: string) => {
         setSelectedTabItemLabel(label);
     };
 
     return (
-        <Tab>
+        <Tab {...args}>
             <TabItem
                 isSelected={selectedTabItemLabel === 'Tab 1'}
                 icon={<Apps/>}

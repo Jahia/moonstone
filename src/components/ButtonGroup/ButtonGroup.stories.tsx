@@ -1,11 +1,11 @@
 import React from 'react';
-// Import {boolean, select, withKnobs} from '@storybook/addon-knobs';
-import '~/__storybook__/storybook.scss';
+import {Story, ComponentMeta} from '@storybook/react';
 
 import markdownNotes from './ButtonGroup.md';
+import {ButtonGroup} from './index';
+import type {ButtonGroupProps} from './ButtonGroup.types';
 import {Button} from '~/components/Button';
 import {ChevronDown} from '~/icons';
-import {ButtonGroup} from './index';
 
 export default {
     title: 'Components/ButtonGroup',
@@ -15,11 +15,12 @@ export default {
     parameters: {
         layout: 'centered',
         componentSubtitle: 'ButtonGroup',
-        notes: {markdown: markdownNotes}
+        notes: {markdown: markdownNotes},
+        actions: {argTypesRegex: '^on.*'}
     }
-};
+} as ComponentMeta<typeof Button>;
 
-export const Default = args => (
+export const Default: Story<ButtonGroupProps> = args => (
     <ButtonGroup {...args}>
         <Button label="one" onClick={() => null}/>
         <Button label="two" onClick={() => null}/>
@@ -34,18 +35,14 @@ Default.args = {
 };
 
 export const ButtonWithActions = () => (
-    <section className="storyWrapper">
-        <ButtonGroup color="accent" size="big">
-            <Button label="Actions" onClick={() => null}/>
-            <Button icon={<ChevronDown/>} onClick={() => null}/>
-        </ButtonGroup>
-    </section>
+    <ButtonGroup color="accent" size="big">
+        <Button label="Actions" onClick={() => null}/>
+        <Button icon={<ChevronDown/>} onClick={() => null}/>
+    </ButtonGroup>
 );
 
 export const ButtonGroupWith1Button = () => (
-    <section className="storyWrapper">
-        <ButtonGroup color="accent" size="big">
-            <Button label="Actions" onClick={() => null}/>
-        </ButtonGroup>
-    </section>
+    <ButtonGroup color="accent" size="big">
+        <Button label="Actions" onClick={() => null}/>
+    </ButtonGroup>
 );
