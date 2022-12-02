@@ -1,46 +1,50 @@
-.moonstone-treeView_item {
-    --color-treeItem: inherit;
-    --color-treeItem_hover: var(--color-dark);
-    --color-treeItem_selected: var(--color-light);
-    --color-treeItem_selected_hover: var(--color-light);
-    --background-treeItem: inherit;
-    --background-treeItem_hover: var(--color-gray_light40);
-    --background-treeItem_selected: var(--color-accent);
-    --background-treeItem_selected_hover: var(--color-accent);
+[role='treeitem'] {
+    --treeItem-indent: calc((var(--spacing-medium) + var(--spacing-nano)) * var(--treeItem-depth, 0) + var(--spacing-medium));
+    --treeItem-color: inherit;
+    --treeItem-color_hover: var(--color-dark);
+    --treeItem-color_selected: var(--color-light);
+    --treeItem-color_selected_hover: var(--color-light);
+    --treeItem-background: inherit;
+    --treeItem-background_hover: var(--color-gray_light40);
+    --treeItem-background_selected: var(--color-accent);
+    --treeItem-background_selected_hover: var(--color-accent);
+}
 
+.moonstone-treeView_item {
     flex-wrap: nowrap;
 
     height: 32px;
     padding-right: var(--spacing-small);
+    padding-left: var(--treeItem-indent);
 
-    color: var(--color-treeItem);
+    color: var(--treeItem-color);
 
-    background-color: var(--background-treeItem);
+    background-color: var(--treeItem-background);
     cursor: pointer;
 
     &:hover {
-        color: var(--color-treeItem_hover);
+        color: var(--treeItem-color_hover);
 
-        background-color: var(--background-treeItem_hover);
+        background-color: var(--treeItem-background_hover);
     }
 
     &.moonstone-selected {
-        color: var(--color-treeItem_selected);
+        color: var(--treeItem-color_selected);
 
-        background-color: var(--background-treeItem_selected);
+        background-color: var(--treeItem-background_selected);
 
         &:hover {
-            color: var(--color-treeItem_selected_hover);
+            color: var(--treeItem-color_selected_hover);
 
-            background-color: var(--background-treeItem_selected_hover);
+            background-color: var(--treeItem-background_selected_hover);
         }
     }
 
     // Theme reversed
     &.moonstone-reversed {
-        --color-treeItem: var(--color-gray_light);
-        --color-treeItem_hover: var(--color-light);
-        --background-treeItem_hover: var(--color-gray40);
+        --treeItem-color: var(--color-gray_light);
+        --treeItem-color_hover: var(--color-light);
+        --treeItem-background_hover: var(--color-gray40);
     }
 
     &.moonstone-disabled {

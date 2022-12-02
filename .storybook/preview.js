@@ -3,7 +3,6 @@ import {addDecorator} from '@storybook/react';
 import {GlobalStyle} from '../src';
 import { addons } from "@storybook/addons";
 import { UPDATE_GLOBALS, STORY_ARGS_UPDATED } from "@storybook/core-events";
-import {MDXContext} from '@mdx-js/react';
 
 let channel = addons.getChannel();
 const storyListener = (args) => {
@@ -25,16 +24,9 @@ function setupBackgroundListener() {
 
 
 addDecorator(story => {
-    // let contextComponents = React.useContext(MDXContext);
-    // const isInDocs = Boolean(contextComponents.h1);
-    // const style = isInDocs ?
-    //     {display: 'flex', flexDirection: 'column', height: '400px'} :
-    //     {display: 'flex', flexDirection: 'column', height: '100vh'}
     return <>
         <GlobalStyle/>
-        {/* <div style={style}> */}
-            {story()}
-        {/* </div> */}
+        {story()}
     </>
 });
 
@@ -55,10 +47,14 @@ export const parameters = {
     },
     backgrounds: {
         values: [
-          { name: "light", value: "#fdfdfd" },
-          { name: "dark", value: "#293136" }
+            { name: "light", value: "#fdfdfd" },
+            { name: "dark", value: "#293136" }
         ]
-      }
+    },
+    controls: {
+        expanded: true,
+        sort: 'requiredFirst'
+    },
 };
 
 setupBackgroundListener();

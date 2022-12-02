@@ -1,3 +1,83 @@
+# v2.4.19 (Mon Nov 28 2022)
+
+#### 🐛 Bug Fix
+
+- MOON-353: support description on values in dropdown [#332](https://github.com/Jahia/moonstone/pull/332) ([@jahia-carp](https://github.com/jahia-carp) [@ffffffelix](https://github.com/ffffffelix))
+- MOON-358: Add a light color variant for Chip [#331](https://github.com/Jahia/moonstone/pull/331) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-339: Make Loading rotate clockwise [#307](https://github.com/Jahia/moonstone/pull/307) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🏠 Internal
+
+- MOON-356: Add tests to RadioGroup and RadioItem [#333](https://github.com/Jahia/moonstone/pull/333) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 2
+
+- [@jahia-carp](https://github.com/jahia-carp)
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
+# v2.4.18 (Tue Nov 22 2022)
+
+#### 🐛 Bug Fix
+
+- MOON 357 create radio group component [#330](https://github.com/Jahia/moonstone/pull/330) ([@jahia-carp](https://github.com/jahia-carp) [@tdraier](https://github.com/tdraier))
+
+#### Authors: 2
+
+- [@jahia-carp](https://github.com/jahia-carp)
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
+# v2.4.16 (Wed Nov 16 2022)
+
+#### 🐛 Bug Fix
+
+- MOON-355: Update styling of the re-order [#325](https://github.com/Jahia/moonstone/pull/325) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
+# v2.4.15 (Thu Nov 10 2022)
+
+#### 🐛 Bug Fix
+
+- MOON-354: Add global styles to provide design for drag-and-drop behaviors [#324](https://github.com/Jahia/moonstone/pull/324) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
+# v2.4.14 (Wed Oct 26 2022)
+
+#### 🐛 Bug Fix
+
+- MOON-349: Remove z-index from Header component [#321](https://github.com/Jahia/moonstone/pull/321) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
+# v2.4.13 (Tue Oct 25 2022)
+
+#### 🐛 Bug Fix
+
+- DESIGN-1154: Add sticky headers on collapsible [#320](https://github.com/Jahia/moonstone/pull/320) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v2.4.12 (Wed Oct 12 2022)
 
 #### 🐛 Bug Fix

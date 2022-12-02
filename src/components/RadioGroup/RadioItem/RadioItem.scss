@@ -1,0 +1,102 @@
+$radio-sizeDefault: 16px;
+
+.moonstone-radio-container + .moonstone-radio-container {
+    margin-top: var(--spacing-medium);
+}
+
+.moonstone-radio-container[aria-disabled="true"],
+.moonstone-radio-container[aria-readonly="true"] {
+    cursor: default;
+    opacity: 0.4;
+
+    // Prevent :hover on disabled and read-only
+    pointer-events: none;
+}
+
+.moonstone-radio-label {
+    margin-left: var(--spacing-small);
+
+    color: var(--color-gray-dark);
+}
+
+.moonstone-radio-description {
+    margin-left: var(--spacing-large);
+
+    color: var(--color-gray60);
+}
+
+.moonstone-radio {
+    position: relative;
+
+    width: $radio-sizeDefault;
+    height: $radio-sizeDefault;
+}
+
+.moonstone-radio_icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    fill: var(--color-gray);
+    stroke: none;
+
+    transform: scale(0) translateZ(0);
+
+    animation: radioBounce 0.1s linear forwards 0.05s;
+
+    pointer-events: none;
+    stroke-width: 0;
+}
+
+.moonstone-radio_input {
+    position: relative;
+
+    width: $radio-sizeDefault;
+    height: $radio-sizeDefault;
+    margin: 0;
+    padding: 0;
+
+    appearance: none;
+
+    border: none;
+    outline: none;
+    background: transparent;
+
+    cursor: pointer;
+
+    &:checked ~ .moonstone-radio_iconUnchecked,
+    &:not(:checked) ~ .moonstone-radio_iconChecked {
+        visibility: hidden;
+    }
+
+    &:checked ~ .moonstone-radio_iconChecked,
+    &:not(:checked) ~ .moonstone-radio_iconUnchecked {
+        visibility: visible;
+    }
+
+    &:checked ~ .moonstone-radio_icon {
+        fill: var(--color-accent);
+    }
+
+    &:hover ~ .moonstone-radio_icon {
+        fill: var(--color-accent_dark);
+    }
+
+    &:focus ~ .moonstone-radio_icon {
+        fill: var(--color-accent_dark_contrast);
+    }
+}
+
+@keyframes radioBounce {
+    50% {
+        transform: scale(1.2);
+    }
+
+    75% {
+        transform: scale(0.9);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
