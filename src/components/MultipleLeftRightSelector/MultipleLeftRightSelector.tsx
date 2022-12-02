@@ -6,7 +6,7 @@ import React, {useState, useCallback, useRef} from 'react';
 import {ValueList} from './ValueList';
 import {Button} from '~/components';
 import {ChevronDoubleLeft, ChevronDoubleRight} from '~/icons';
-import {MultipleLeftRightSelectorProps, Option} from './MultipleLeftRightSelector.types';
+import type {MultipleLeftRightSelectorProps, Option} from './MultipleLeftRightSelector.types';
 import './MultipleLeftRightSlector.scss';
 
 const DATA_TYPES = {
