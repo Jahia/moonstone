@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import {ListItem, Typography, Input, FAKE_VALUE} from '~/components';
+import {ListItem, Typography, SearchInput, FAKE_VALUE} from '~/components';
 import {ChevronRight, Close, HandleDrag} from '~/icons';
 import cslx from 'clsx';
 import {ValueListProps, Value} from './ValueList.types';
 import './ValueList.scss';
+import clsx from 'clsx';
 
 export const ValueList: React.FC<ValueListProps> = ({
     values,
@@ -11,34 +12,31 @@ export const ValueList: React.FC<ValueListProps> = ({
     orientation,
     draggedId,
     readOnly,
-    iconStartProps,
+    iconStartProps = () => ({}),
     listItemProps = () => ({})
 }) => {
     const [filter, setFilter] = useState(null);
 
     const iconProp = (v: Value) => {
+        const filterProp = filter ? {} : iconStartProps(v);
+
         if (orientation === 'left') {
             return {
-                iconEnd: readOnly ? <div className="moonstone-iconContainer"/> : (
+                iconEnd: readOnly ? null : (
                     <div className="moonstone-iconContainer">
-                        <ChevronRight className="moonstone-displayNone"
-                                      onClick={e => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        onMove([v.value]);
-                                           }}/>
+                        <ChevronRight className="moonstone-displayNone"/>
                     </div>
                 ),
-                iconStart: iconStartProps && !readOnly ? (
-                    <div className="moonstone-iconContainer" {...iconStartProps(v)}>
+                iconStart: readOnly ? null : (
+                    <div className="moonstone-iconContainer" {...filterProp}>
                         <HandleDrag/>
                     </div>
-                ) : <div className="moonstone-iconContainer"/>
+                )
             };
         }
 
         return {
-            iconEnd: readOnly ? <div className="moonstone-iconContainer"/> : (
+            iconEnd: readOnly ? null : (
                 <div className="moonstone-iconContainer">
                     <Close className="moonstone-displayNone"
                            onClick={e => {
@@ -48,20 +46,18 @@ export const ValueList: React.FC<ValueListProps> = ({
                     }}/>
                 </div>
             ),
-            iconStart: iconStartProps && !readOnly ? (
-                <div className="moonstone-iconContainer" {...iconStartProps(v)}>
+            iconStart: readOnly ? null : (
+                <div className="moonstone-iconContainer" {...filterProp}>
                     <HandleDrag/>
                 </div>
-            ) : <div className="moonstone-iconContainer"/>
+            )
         };
     };
 
     return (
-        <div className="moonstone-wrapper">
-            <div className="moonstone-listHolder">
-                <Input variant="search"
-                       onChange={e => setFilter(e.target.value.trim())}
-                />
+        <div className={cslx('flexCol', 'moonstone-wrapper')}>
+            <div className={clsx('flexCol', 'moonstone-listHolder')}>
+                <SearchInput onChange={e => setFilter(e.target.value.trim())}/>
                 <ul className="valueList">
                     {values.filter(v => ((!filter || filter === '') || v.label.toLowerCase().indexOf(filter.toLowerCase()) !== -1)).map((v, index) => {
                         let className;

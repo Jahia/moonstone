@@ -8,6 +8,7 @@ import {Button} from '~/components';
 import {ChevronDoubleLeft, ChevronDoubleRight} from '~/icons';
 import type {MultipleLeftRightSelectorProps, Option} from './MultipleLeftRightSelector.types';
 import './MultipleLeftRightSlector.scss';
+import clsx from 'clsx';
 
 const DATA_TYPES = {
     MLRS_DRAG_TO_REORDER: 'MLRS_DRAG_TO_REORDER',
@@ -55,9 +56,14 @@ export const MultipleLeftRightSelector: React.FC<MultipleLeftRightSelectorProps>
         }
     }), []);
 
-    const leftListItemProps = useCallback(() => ({
-        role: 'left-list'
-    }), []);
+    const leftListItemProps = useCallback(value => ({
+        role: 'left-list',
+        onClick: (e: React.MouseEvent) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onChange(arrayValue.concat(value.value));
+        }
+    }), [arrayValue]);
 
     // Drag handle for the right list
     const rightListIconStartProps = useCallback(value => ({
@@ -185,11 +191,11 @@ export const MultipleLeftRightSelector: React.FC<MultipleLeftRightSelectorProps>
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return (
-        <div className="moonstone-multipleSelector">
+        <div className={clsx('flexRow_nowrap', 'moonstone-multipleSelector')}>
             <ValueList orientation="left"
                        readOnly={readOnly}
                        values={valuesLeft}
-                       iconStartProps={arrayValue.length > 0 ? leftListIconStartProps : null}
+                       iconStartProps={arrayValue.length > 0 ? leftListIconStartProps : () => ({})}
                        listItemProps={leftListItemProps}
                        onMove={v => onChange(arrayValue.concat(v))}
             />

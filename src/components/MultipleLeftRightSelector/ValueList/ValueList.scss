@@ -41,15 +41,11 @@
 }
 
 .moonstone-wrapper {
-    display: flex;
     flex-grow: 1;
-    flex-direction: column;
     gap: var(--spacing-small);
 
     .moonstone-listHolder {
-        display: flex;
         flex-grow: 1;
-        flex-direction: column;
         gap: var(--spacing-small);
         padding: var(--spacing-small);
 
