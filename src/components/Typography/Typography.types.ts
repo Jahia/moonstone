@@ -62,11 +62,9 @@ export enum TypographyTags {
     'time'
 }
 
+// Article to read to handle polymorphic component:
+// https://blog.ohansemmanuel.com/build-strongly-typed-polymorphic-components-with-react-and-typescript/
 export type Props<C extends React.ElementType> = {
-    /**
-     * Content of the component
-     */
-    children?: React.ReactNode;
     /**
      * Custom classname to use
      */
@@ -104,12 +102,8 @@ export type Props<C extends React.ElementType> = {
      * No wrapping for text
      */
     isNowrap?: boolean;
-    /**
-     * Custom CSS style
-     */
-    style?: React.CSSProperties
-// } & React.HTMLAttributes<HTMLElement>
-}
+};
 
-export type TypographyProps<C extends React.ElementType> = Props<C> &
-  Omit<React.ComponentPropsWithoutRef<C>, keyof Props<C>>
+export type TypographyProps<C extends React.ElementType> =
+    React.PropsWithChildren<Props<C>>
+    & Omit<React.ComponentPropsWithoutRef<C>, keyof Props<C>>;

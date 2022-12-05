@@ -13,7 +13,6 @@ import {TypographyProps} from './Typography.types';
 
 //     return newProps;
 // };
-
 export const Typography = <C extends React.ElementType = 'p'> ({
     children = '',
     component,
@@ -31,7 +30,7 @@ export const Typography = <C extends React.ElementType = 'p'> ({
         return null;
     }
 
-    const Component = component || 'span';
+    const Component = component || 'p';
 
     return (
         <Component
@@ -67,5 +66,9 @@ export const Typography = <C extends React.ElementType = 'p'> ({
     //     children
     // );
 };
+
+export const Test = () => (
+    <Typography component="span">yolo</Typography>
+);
 
 Typography.displayName = 'Typography';
