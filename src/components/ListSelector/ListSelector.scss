@@ -1,0 +1,14 @@
+.moonstone-multipleSelector {
+    .moonstone-buttonSection {
+        display: flex;
+        align-items: center;
+        width: var(--spacing-big);
+        padding: var(--spacing-small);
+
+        .moonstone-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+    }
+}
