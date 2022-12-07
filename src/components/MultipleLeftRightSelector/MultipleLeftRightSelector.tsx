@@ -23,7 +23,8 @@ export const MultipleLeftRightSelector: React.FC<MultipleLeftRightSelectorProps>
     options = [],
     arrayValue = [],
     readOnly,
-    onChange
+    onChange,
+    ...props
 }) => {
     const [draggedId, setDraggedId] = useState(null);
     // Value for temporary fake move
