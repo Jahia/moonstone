@@ -4,7 +4,22 @@ export type Value = {
     index?: number
 }
 
+export type Label = {
+    /**
+     * Label for number of items selected, before the number
+     */
+    selected?: string,
+    /**
+     * Label for number of items selected, after the number
+     */
+    items?: string
+}
+
 export type ValueListProps = {
+    /**
+     * Component labels
+     */
+    label?: Label
     /**
      * List values
      */
@@ -24,7 +39,7 @@ export type ValueListProps = {
     /**
      * Read only
      */
-    readOnly?: boolean
+    isReadOnly?: boolean
     /**
      * Props for list item
      */

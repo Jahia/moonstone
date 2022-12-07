@@ -7,11 +7,15 @@ import './ValueList.scss';
 import clsx from 'clsx';
 
 export const ValueList: React.FC<ValueListProps> = ({
+    label = {
+        selected: 'Selected',
+        items: 'items'
+    },
     values,
     onMove,
     orientation,
     draggedId,
-    readOnly,
+    isReadOnly,
     iconStartProps = () => ({}),
     listItemProps = () => ({})
 }) => {
@@ -22,21 +26,21 @@ export const ValueList: React.FC<ValueListProps> = ({
 
         if (orientation === 'left') {
             return {
-                iconEnd: readOnly ? null : (
+                iconEnd: isReadOnly ? null : (
                     <div className="moonstone-iconContainer">
                         <ChevronRight className="moonstone-displayNone"/>
                     </div>
                 ),
-                iconStart: readOnly ? null : (
+                iconStart: isReadOnly ? null : (
                     <div className="moonstone-iconContainer" {...filterProp}>
-                        <HandleDrag/>
+                        {!filter && <HandleDrag/>}
                     </div>
                 )
             };
         }
 
         return {
-            iconEnd: readOnly ? null : (
+            iconEnd: isReadOnly ? null : (
                 <div className="moonstone-iconContainer">
                     <Close className="moonstone-displayNone"
                            onClick={e => {
@@ -46,9 +50,9 @@ export const ValueList: React.FC<ValueListProps> = ({
                     }}/>
                 </div>
             ),
-            iconStart: readOnly ? null : (
+            iconStart: isReadOnly ? null : (
                 <div className="moonstone-iconContainer" {...filterProp}>
-                    <HandleDrag/>
+                    {!filter && <HandleDrag/>}
                 </div>
             )
         };
@@ -83,7 +87,7 @@ export const ValueList: React.FC<ValueListProps> = ({
             <div className="captionContainer">
                 {orientation === 'right' &&
                     <Typography variant="caption" weight="semiBold">
-                        {values.length > 0 && `Selected ${values.length} items`}
+                        {values.length > 0 && `${label.selected} ${values.length} ${label.items}`}
                     </Typography>}
             </div>
         </div>

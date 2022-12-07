@@ -1,30 +1,30 @@
 import React from 'react';
 import {render, fireEvent} from '@testing-library/react';
-import {MultipleLeftRightSelector} from './index';
+import {ListSelector} from './index';
 
 describe('MultipleLeftRightSelector', () => {
     const options = [{label: 'One', value: '1'}, {label: 'Two', value: '2'}, {label: 'Three', value: '3'}];
 
     it('should display empty list', () => {
-        const {container} = render(<MultipleLeftRightSelector onChange={() => ({})}/>);
+        const {container} = render(<ListSelector onChange={() => ({})}/>);
         expect(container.querySelectorAll('li')).toHaveLength(0);
     });
 
     it('should display options in left list', () => {
-        const {container} = render(<MultipleLeftRightSelector options={options} onChange={() => ({})}/>);
+        const {container} = render(<ListSelector options={options} onChange={() => ({})}/>);
         expect(container.querySelectorAll('li[role="left-list"]')).toHaveLength(options.length);
     });
 
     it('should display selection in right list', () => {
         const selection = ['1', '3'];
-        const {container} = render(<MultipleLeftRightSelector options={options} arrayValue={selection} onChange={() => ({})}/>);
+        const {container} = render(<ListSelector options={options} values={selection} onChange={() => ({})}/>);
         expect(container.querySelectorAll('li[role="left-list"]')).toHaveLength(options.length - selection.length);
         expect(container.querySelectorAll('li[role="right-list"]')).toHaveLength(selection.length);
     });
 
     it('should display in readonly mode', () => {
         const selection = ['1', '3'];
-        const {container} = render(<MultipleLeftRightSelector readOnly options={options} arrayValue={selection} onChange={() => ({})}/>);
+        const {container} = render(<ListSelector isReadOnly options={options} values={selection} onChange={() => ({})}/>);
         expect(container.querySelectorAll('li[role="left-list"]')).toHaveLength(options.length - selection.length);
         expect(container.querySelectorAll('li[role="right-list"]')).toHaveLength(selection.length);
 
@@ -43,7 +43,7 @@ describe('MultipleLeftRightSelector', () => {
     it('should display selection in right list', () => {
         const mockOnChange = jest.fn(v => console.log(v));
         const selection = ['1', '3'];
-        const {container} = render(<MultipleLeftRightSelector options={options} arrayValue={selection} onChange={mockOnChange}/>);
+        const {container} = render(<ListSelector options={options} values={selection} onChange={mockOnChange}/>);
         expect(container.querySelectorAll('li[role="left-list"]')).toHaveLength(options.length - selection.length);
         expect(container.querySelectorAll('li[role="right-list"]')).toHaveLength(selection.length);
     });
@@ -51,7 +51,7 @@ describe('MultipleLeftRightSelector', () => {
     it('should pass all items when addAll button clicked', () => {
         const mockOnChange = jest.fn(v => console.log(v));
         const selection = ['1', '3'];
-        const {container} = render(<MultipleLeftRightSelector options={options} arrayValue={selection} onChange={mockOnChange}/>);
+        const {container} = render(<ListSelector options={options} values={selection} onChange={mockOnChange}/>);
 
         const button = container.querySelector('button[title="Add all"]');
 
@@ -64,7 +64,7 @@ describe('MultipleLeftRightSelector', () => {
 
     it('should filter items', () => {
         const mockOnChange = jest.fn(v => console.log(v));
-        const {container} = render(<MultipleLeftRightSelector options={options} onChange={mockOnChange}/>);
+        const {container} = render(<ListSelector options={options} onChange={mockOnChange}/>);
         expect(container.querySelectorAll('li[role="left-list"]')).toHaveLength(options.length);
 
         const search = container.querySelector('input[role="search"]');

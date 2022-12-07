@@ -6,8 +6,8 @@ import React, {useState, useCallback, useRef} from 'react';
 import {ValueList} from './ValueList';
 import {Button} from '~/components';
 import {ChevronDoubleLeft, ChevronDoubleRight} from '~/icons';
-import type {MultipleLeftRightSelectorProps, Option} from './MultipleLeftRightSelector.types';
-import './MultipleLeftRightSlector.scss';
+import type {ListSelectorSelectorProps, Option} from './ListSelector.types';
+import './ListSelector.scss';
 import clsx from 'clsx';
 
 const DATA_TYPES = {
@@ -17,12 +17,16 @@ const DATA_TYPES = {
 
 export const FAKE_VALUE = 'dnd_move_in_progress';
 
-export const MultipleLeftRightSelector: React.FC<MultipleLeftRightSelectorProps> = ({
-    addAllTitle = 'Add all',
-    removeAllTitle = 'Remove all',
+export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
+    label = {
+        addAllTitle: 'Add all',
+        removeAllTitle: 'Remove all',
+        selected: 'Selected',
+        items: 'items'
+    },
     options = [],
-    arrayValue = [],
-    readOnly,
+    values = [],
+    isReadOnly,
     onChange,
     ...props
 }) => {
@@ -62,9 +66,9 @@ export const MultipleLeftRightSelector: React.FC<MultipleLeftRightSelectorProps>
         onClick: (e: React.MouseEvent) => {
             e.preventDefault();
             e.stopPropagation();
-            onChange(arrayValue.concat(value.value));
+            onChange(values.concat(value.value));
         }
-    }), [arrayValue]);
+    }), [values]);
 
     // Drag handle for the right list
     const rightListIconStartProps = useCallback(value => ({
@@ -88,16 +92,16 @@ export const MultipleLeftRightSelector: React.FC<MultipleLeftRightSelectorProps>
             e.currentTarget.parentNode.parentNode.style.opacity = '1';
             // Did not drop on required target, restore original state
             if (dnd.current.dragging !== null && dnd.current.dragging.originalIndex) {
-                const current = arrayValue[dnd.current.dragging.index];
-                arrayValue.splice(dnd.current.dragging.index, 1);
-                arrayValue.splice(dnd.current.dragging.originalIndex, 0, current);
-                onChange([...arrayValue]);
+                const current = values[dnd.current.dragging.index];
+                values.splice(dnd.current.dragging.index, 1);
+                values.splice(dnd.current.dragging.originalIndex, 0, current);
+                onChange([...values]);
             }
 
             setDraggedId(null);
             dnd.current.dragging = null;
         }
-    }), [arrayValue, onChange]);
+    }), [values, onChange]);
 
     // Right list item drag props
     const rightListListItemProps = useCallback(value => ({
@@ -123,16 +127,16 @@ export const MultipleLeftRightSelector: React.FC<MultipleLeftRightSelectorProps>
                         return;
                     }
 
-                    const m = arrayValue[value.index];
+                    const m = values[value.index];
 
                     if (!dnd.current.dragging.originalIndex) {
                         dnd.current.dragging.originalIndex = dnd.current.dragging.index;
                     }
 
-                    arrayValue[value.index] = arrayValue[dnd.current.dragging.index];
-                    arrayValue[dnd.current.dragging.index] = m;
+                    values[value.index] = values[dnd.current.dragging.index];
+                    values[dnd.current.dragging.index] = m;
                     dnd.current.dragging.index = value.index;
-                    onChange([...arrayValue]);
+                    onChange([...values]);
                 }
             }
 
@@ -176,14 +180,14 @@ export const MultipleLeftRightSelector: React.FC<MultipleLeftRightSelectorProps>
             }
 
             if (e.dataTransfer.types.includes(DATA_TYPES.MLRS_DRAG_TO_MOVE.toLowerCase()) && dnd.current.dragging && dnd.current.dragging.moved) {
-                arrayValue.splice(dnd.current.dragging.index, 0, dnd.current.dragging.value);
+                values.splice(dnd.current.dragging.index, 0, dnd.current.dragging.value);
                 dnd.current.dragging = null;
             }
         }
-    }), [arrayValue, moved, onChange]);
+    }), [values, moved, onChange]);
 
-    const valuesLeft = options.filter(o => !arrayValue.includes(o.value));
-    const valuesRight = arrayValue.map(v => options.find(o => o.value === v));
+    const valuesLeft = options.filter(o => !values.includes(o.value));
+    const valuesRight = values.map(v => options.find(o => o.value === v));
 
     if (moved) {
         valuesRight.splice(moved.index, 0, moved);
@@ -192,42 +196,43 @@ export const MultipleLeftRightSelector: React.FC<MultipleLeftRightSelectorProps>
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return (
-        <div className={clsx('flexRow_nowrap', 'moonstone-multipleSelector')}>
+        <div className={clsx('flexRow_nowrap', 'moonstone-multipleSelector')} {...props}>
             <ValueList orientation="left"
-                       readOnly={readOnly}
+                       isReadOnly={isReadOnly}
                        values={valuesLeft}
-                       iconStartProps={arrayValue.length > 0 ? leftListIconStartProps : () => ({})}
+                       iconStartProps={values.length > 0 ? leftListIconStartProps : () => ({})}
                        listItemProps={leftListItemProps}
-                       onMove={v => onChange(arrayValue.concat(v))}
+                       onMove={v => onChange(values.concat(v))}
             />
             <div className="moonstone-buttonSection">
                 <div className="moonstone-buttons">
-                    <Button title={addAllTitle}
+                    <Button title={label.addAllTitle}
                             role="add-all"
                             variant="ghost"
-                            isDisabled={readOnly}
+                            isDisabled={isReadOnly}
                             icon={<ChevronDoubleRight/>}
                             onClick={() => onChange(options.map(o => o.value))}
                     />
-                    <Button title={removeAllTitle}
+                    <Button title={label.removeAllTitle}
                             role="remove-all"
                             variant="ghost"
-                            isDisabled={readOnly}
+                            isDisabled={isReadOnly}
                             icon={<ChevronDoubleLeft/>}
                             onClick={() => onChange([])}
                     />
                 </div>
             </div>
             <ValueList orientation="right"
-                       readOnly={readOnly}
+                       isReadOnly={isReadOnly}
+                       label={label}
                        values={valuesRight}
                        iconStartProps={rightListIconStartProps}
                        listItemProps={rightListListItemProps}
                        draggedId={draggedId}
-                       onMove={v => onChange(arrayValue.filter(val => !v.includes(val)))}
+                       onMove={v => onChange(values.filter(val => !v.includes(val)))}
             />
         </div>
     );
 };
 
-MultipleLeftRightSelector.displayName = 'MultipleLeftRightSelector';
+ListSelector.displayName = 'MultipleLeftRightSelector';

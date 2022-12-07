@@ -31,4 +31,4 @@ export * from './Tab/TabItem';
 export * from './Table';
 export * from './TreeView';
 export * from './Typography';
-export * from './MultipleLeftRightSelector';
+export * from './ListSelector';

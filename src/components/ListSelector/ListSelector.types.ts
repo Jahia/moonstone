@@ -9,7 +9,8 @@ export type Option = {
     value: string
 
 }
-export type MultipleLeftRightSelectorProps = {
+
+export type Label = {
     /**
      * Add all button title
      */
@@ -19,17 +20,32 @@ export type MultipleLeftRightSelectorProps = {
      */
     removeAllTitle?: string,
     /**
+     * Label for number of items selected, before the number
+     */
+    selected?: string,
+    /**
+     * Label for number of items selected, after the number
+     */
+    items?: string
+}
+
+export type ListSelectorSelectorProps = {
+    /**
+     * Labels for component
+     */
+    label?: Label
+    /**
      * Options for left list
      */
     options?: Option[],
     /**
      * Picked values, these are option values which should be recorded in onChange
      */
-    arrayValue?: string[],
+    values?: string[],
     /**
      * Read only flag
      */
-    readOnly?: boolean,
+    isReadOnly?: boolean,
     /**
      * Function, called everytime the use picks an option, receives array of string values as parameter
      * @param v
