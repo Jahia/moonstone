@@ -7,13 +7,8 @@ import markdownNotes from './LayoutModule.md';
 export default {
     title: 'Layouts/LayoutModule',
     component: LayoutModule,
-
     parameters: {
-        layout: 'fullscreen',
-        notes: {markdown: markdownNotes},
-        knobs: {
-            disable: true
-        }
+        notes: {markdown: markdownNotes}
     },
     argTypes: {
         navigation: {

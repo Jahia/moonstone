@@ -1,5 +1,4 @@
 import React from 'react';
-import {storiesOf} from '@storybook/react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import './colors.stories.scss';
@@ -46,11 +45,7 @@ const paletteSupport = [
     'danger_dark'
 ];
 
-const paletteColors = [
-    'purple',
-    'purple40',
-    'purple60'
-];
+const paletteColors = ['purple', 'purple40', 'purple60'];
 
 export const Color = ({color, name}) => {
     return (
@@ -65,35 +60,32 @@ function displayColors(palette) {
     let colors = [];
 
     for (const [key, color] of palette.entries()) {
-        colors.push(
-            <Color key={key} color={color} name={`$color-${color}`}/>
-        );
+        colors.push(<Color key={key} color={color} name={`$color-${color}`}/>);
     }
 
     return colors;
 }
 
-storiesOf('Tokens/Colors', module)
-    .add('Accent', () => (
-        <section className="storyWrapper">
-            {displayColors(paletteAccent)}
-        </section>
-    ))
-    .add('Neutral', () => (
-        <section className="storyWrapper">
-            {displayColors(paletteNeutral)}
-        </section>
-    ))
-    .add('Support', () => (
-        <section className="storyWrapper">
-            {displayColors(paletteSupport)}
-        </section>
-    ))
-    .add('Palette', () => (
-        <section className="storyWrapper">
-            {displayColors(paletteColors)}
-        </section>
-    ));
+export default {
+    title: 'Tokens/Colors',
+    excludeStories: ['Color']
+};
+
+export const Accent = () => (
+    <section className="storyWrapper">{displayColors(paletteAccent)}</section>
+);
+
+export const Neutral = () => (
+    <section className="storyWrapper">{displayColors(paletteNeutral)}</section>
+);
+
+export const Support = () => (
+    <section className="storyWrapper">{displayColors(paletteSupport)}</section>
+);
+
+export const Palette = () => (
+    <section className="storyWrapper">{displayColors(paletteColors)}</section>
+);
 
 Color.propTypes = {
     color: PropTypes.string.isRequired,

@@ -17,11 +17,6 @@ const DropdownData = [
 export default {
     title: 'Components/Header',
     component: Header,
-    parameters: {
-        knobs: {
-            disable: true
-        }
-    },
     argTypes: {
         title: {
             table: {

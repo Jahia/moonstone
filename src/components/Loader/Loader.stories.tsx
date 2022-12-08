@@ -7,9 +7,7 @@ export default {
     title: 'Components/Loader',
     component: LoaderCmp,
     parameters: {
-        knobs: {
-            disable: true
-        }
+        layout: 'centered'
     }
 };
 

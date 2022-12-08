@@ -62,7 +62,7 @@ export type MenuItemProps = {
     /**
      * Optional image to display to describe the menu item
      */
-    image?: HTMLImageElement,
+    image?: React.ReactElement,
 
     /**
      * If there's an image, it should be this size
