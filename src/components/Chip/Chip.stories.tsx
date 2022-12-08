@@ -1,42 +1,49 @@
 import React from 'react';
-import {ComponentStory, ComponentMeta} from '@storybook/react';
+import {Story} from '@storybook/react';
 import '~/__storybook__/storybook.scss';
 
 import {Chip} from './index';
-import {Cloud, Delete, FileContent, Lock, Love, NoCloud, Warning} from '~/icons';
+import type {ChipProps} from './Chip.types';
+
+import {Cloud, Delete, FileContent, Lock, NoCloud, Warning} from '~/icons';
+import markdownNotes from './Chip.md';
 
 export default {
     title: 'Components/Chip',
     component: Chip,
-    layout: 'centered',
+
     parameters: {
-        knobs: {disable: true}
+        layout: 'centered',
+        notes: {markdown: markdownNotes}
     }
-} as ComponentMeta<typeof Chip>;
+};
 
-const Template: ComponentStory<typeof Chip> = args => (
-    <section className="storyColumn">
-        <Chip {...args}/>
-    </section>
+export const Default: Story<ChipProps> = args => (
+    <Chip {...args}/>
 );
-
-export const IconAndText = Template.bind({});
-IconAndText.args = {
-    icon: <Love/>,
-    label: 'Chip label'
+Default.args = {
+    label: 'chip label',
+    icon: <Cloud/>,
+    color: 'default'
 };
 
-export const TextOnly = Template.bind({});
+export const TextOnly: Story<ChipProps> = args => (
+    <Chip {...args}/>
+);
 TextOnly.args = {
-    label: 'Chip label'
+    label: 'chip label',
+    color: 'default'
 };
 
-export const IconOnly = Template.bind({});
+export const IconOnly: Story<ChipProps> = args => (
+    <Chip {...args}/>
+);
 IconOnly.args = {
-    icon: <Love/>
+    icon: <Cloud/>,
+    color: 'default'
 };
 
-export const StatusExamples: ComponentStory<typeof Chip> = () => (
+export const StatusExample = () => (
     <section className="storyColumn">
         <Chip icon={<FileContent/>} label="New" color="success"/>
         <Chip icon={<FileContent/>} label="Modified" color="default"/>

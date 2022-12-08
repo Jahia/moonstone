@@ -1,19 +1,32 @@
 import React from 'react';
 import {addDecorator} from '@storybook/react';
 import {GlobalStyle} from '../src';
-import {MDXContext} from '@mdx-js/react';
+import { addons } from "@storybook/addons";
+import { UPDATE_GLOBALS, STORY_ARGS_UPDATED } from "@storybook/core-events";
+
+let channel = addons.getChannel();
+const storyListener = (args) => {
+    if (typeof args.args.isReversed !== 'undefined') {
+        let colorTheme = args.args.isReversed ? 'dark' : 'light';
+        channel.emit(UPDATE_GLOBALS, {
+            globals: {
+                theme: colorTheme,
+                backgrounds: colorTheme === "dark" ? { name: "dark", value: "#293136" } : { name: "light", value: "#fdfdfd" }
+            }
+        });
+    }
+  };
+
+function setupBackgroundListener() {
+    channel.removeListener(STORY_ARGS_UPDATED, storyListener);
+    channel.addListener(STORY_ARGS_UPDATED, storyListener);
+}
+
 
 addDecorator(story => {
-    let contextComponents = React.useContext(MDXContext);
-    const isInDocs = Boolean(contextComponents.h1);
-    const style = isInDocs ?
-        {display: 'flex', flexDirection: 'column', height: '400px'} :
-        {display: 'flex', flexDirection: 'column', height: '100vh'}
     return <>
         <GlobalStyle/>
-        <div style={style}>
-            {story()}
-        </div>
+        {story()}
     </>
 });
 
@@ -32,8 +45,16 @@ export const parameters = {
             method: 'alphabetical'
         }
     },
+    backgrounds: {
+        values: [
+            { name: "light", value: "#fdfdfd" },
+            { name: "dark", value: "#293136" }
+        ]
+    },
     controls: {
         expanded: true,
         sort: 'requiredFirst'
     },
 };
+
+setupBackgroundListener();
