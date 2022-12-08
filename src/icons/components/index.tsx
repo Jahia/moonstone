@@ -69,6 +69,7 @@ export {default as Exit} from './Exit';
 export {default as Explore} from './Explore';
 export {default as Feather} from './Feather';
 export {default as File} from './File';
+export {default as FileBroken} from './FileBroken';
 export {default as FileCode} from './FileCode';
 export {default as FileCompresed} from './FileCompresed';
 export {default as FileContent} from './FileContent';

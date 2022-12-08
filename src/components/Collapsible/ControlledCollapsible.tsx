@@ -34,13 +34,14 @@ const ControlledCollapsibleForwardRef: React.ForwardRefRenderFunction<HTMLDivEle
         }, {threshold: [0, 1]});
 
         if (isExpanded) {
-            observer.observe(topDivRef.current);
+            const htmlDivElement = topDivRef.current;
+            observer.observe(htmlDivElement);
             return () => {
                 if (buttonRef.current) {
                     buttonRef.current.classList.remove('moonstone-collapsible_button_sticky');
                 }
 
-                observer.unobserve(topDivRef.current);
+                observer.unobserve(htmlDivElement);
             };
         }
     }, [isExpanded]);
