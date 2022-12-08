@@ -1,15 +1,14 @@
 import React from 'react';
 import {Story} from '@storybook/react';
-import {CheckboxProps} from './Checkbox.types';
+
 import {Checkbox} from '~/components';
+import type {CheckboxProps} from './Checkbox.types';
 
 export default {
     title: 'Components/Checkbox',
     component: Checkbox,
     parameters: {
         layout: 'centered',
-        knobs: {disable: true},
-        storysource: {disable: true},
         actions: {argTypesRegex: '^on.*'}
     }
 };

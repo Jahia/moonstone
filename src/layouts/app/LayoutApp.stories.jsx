@@ -8,12 +8,8 @@ export default {
     title: 'Layouts/LayoutApp',
     component: LayoutApp,
     parameters: {
-        layout: 'fullscreen',
         subtitle: 'How to use our root application layout',
-        notes: {markdown: markdownNotes},
-        knobs: {
-            disable: true
-        }
+        notes: {markdown: markdownNotes}
     },
     argTypes: {
         navigation: {
