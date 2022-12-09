@@ -18,7 +18,11 @@ const DATA_TYPES = {
 export const FAKE_VALUE = 'dnd_move_in_progress';
 
 export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
-    label,
+    label = {
+        addAllTitle: 'Add all',
+        removeAllTitle: 'Remove all',
+        selected: '0 items selected'
+    },
     options = [],
     values = [],
     isReadOnly,
