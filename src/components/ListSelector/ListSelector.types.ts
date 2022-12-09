@@ -14,26 +14,22 @@ export type Label = {
     /**
      * Add all button title
      */
-    addAllTitle?: string,
+    addAllTitle: string,
     /**
      * Remove all button title
      */
-    removeAllTitle?: string,
+    removeAllTitle: string,
     /**
-     * Label for number of items selected, before the number
+     * Label for number of items selected, use values to determine the number
      */
-    selected?: string,
-    /**
-     * Label for number of items selected, after the number
-     */
-    items?: string
+    selected: string,
 }
 
 export type ListSelectorSelectorProps = {
     /**
      * Labels for component
      */
-    label?: Label
+    label: Label
     /**
      * Options for left list
      */
