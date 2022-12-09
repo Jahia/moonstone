@@ -4,7 +4,7 @@
 
 import React, {useState, useCallback, useRef} from 'react';
 import {ValueList} from './ValueList';
-import {Button} from '~/components';
+import {Button, Typography} from '~/components';
 import {ChevronDoubleLeft, ChevronDoubleRight} from '~/icons';
 import type {ListSelectorSelectorProps, Option} from './ListSelector.types';
 import './ListSelector.scss';
@@ -63,12 +63,22 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
 
     const leftListItemProps = useCallback(value => ({
         role: 'left-list',
+        onDragOver: (e: React.DragEvent) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+        },
+        onDrop: (e: React.DragEvent) => {
+            e.preventDefault();
+            onChange(values.filter(val => val !== dnd.current.dragging.value));
+            setDraggedId(null);
+            dnd.current.dragging = null;
+        },
         onClick: (e: React.MouseEvent) => {
             e.preventDefault();
             e.stopPropagation();
             onChange(values.concat(value.value));
         }
-    }), [values]);
+    }), [values, onChange]);
 
     // Drag handle for the right list
     const rightListIconStartProps = useCallback(value => ({
@@ -104,7 +114,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
     }), [values, onChange]);
 
     // Right list item drag props
-    const rightListListItemProps = useCallback(value => ({
+    const rightListItemProps = useCallback(value => ({
         role: 'right-list',
         onDragOver: (e: React.DragEvent) => {
             e.preventDefault();
@@ -183,11 +193,23 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                 values.splice(dnd.current.dragging.index, 0, dnd.current.dragging.value);
                 dnd.current.dragging = null;
             }
+        },
+        onClick: (e: React.MouseEvent) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onChange(values.filter(val => val !== value.value));
         }
     }), [values, moved, onChange]);
 
-    const valuesLeft = options.filter(o => !values.includes(o.value));
-    const valuesRight = values.map(v => options.find(o => o.value === v));
+    const [filterLeft, setFilterLeft] = useState(null);
+    const [filterRight, setFilterRight] = useState(null);
+
+    const valuesLeft = options
+        .filter(o => !values.includes(o.value))
+        .filter(v => ((!filterLeft || filterLeft === '') || v.label.toLowerCase().indexOf(filterLeft.toLowerCase()) !== -1));
+    const valuesRight = values
+        .map(v => options.find(o => o.value === v))
+        .filter(v => ((!filterRight || filterRight === '') || v.label.toLowerCase().indexOf(filterRight.toLowerCase()) !== -1));
 
     if (moved) {
         valuesRight.splice(moved.index, 0, moved);
@@ -197,13 +219,17 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
     // @ts-ignore
     return (
         <div className={clsx('flexRow_nowrap', 'moonstone-multipleSelector')} {...props}>
-            <ValueList orientation="left"
-                       isReadOnly={isReadOnly}
-                       values={valuesLeft}
-                       iconStartProps={values.length > 0 ? leftListIconStartProps : () => ({})}
-                       listItemProps={leftListItemProps}
-                       onMove={v => onChange(values.concat(v))}
-            />
+            <div>
+                <ValueList orientation="left"
+                           isReadOnly={isReadOnly}
+                           values={valuesLeft}
+                           filter={filterLeft}
+                           setFilter={setFilterLeft}
+                           iconStartProps={leftListIconStartProps}
+                           listItemProps={leftListItemProps}
+                           onMove={v => onChange(values.concat(v))}
+                />
+            </div>
             <div className="moonstone-buttonSection">
                 <div className="moonstone-buttons">
                     <Button title={label.addAllTitle}
@@ -211,26 +237,35 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                             variant="ghost"
                             isDisabled={isReadOnly}
                             icon={<ChevronDoubleRight/>}
-                            onClick={() => onChange(options.map(o => o.value))}
+                            onClick={() => onChange([...valuesRight, ...valuesLeft].map(o => o.value))}
                     />
                     <Button title={label.removeAllTitle}
                             role="remove-all"
                             variant="ghost"
                             isDisabled={isReadOnly}
                             icon={<ChevronDoubleLeft/>}
-                            onClick={() => onChange([])}
+                            onClick={() => onChange(values.filter(v => !valuesRight.find(o => o.value === v)))}
                     />
                 </div>
             </div>
-            <ValueList orientation="right"
-                       isReadOnly={isReadOnly}
-                       label={label}
-                       values={valuesRight}
-                       iconStartProps={rightListIconStartProps}
-                       listItemProps={rightListListItemProps}
-                       draggedId={draggedId}
-                       onMove={v => onChange(values.filter(val => !v.includes(val)))}
-            />
+            <div>
+                <ValueList orientation="right"
+                           isReadOnly={isReadOnly}
+                           label={label}
+                           values={valuesRight}
+                           filter={filterRight}
+                           setFilter={setFilterRight}
+                           iconStartProps={rightListIconStartProps}
+                           listItemProps={rightListItemProps}
+                           draggedId={draggedId}
+                           onMove={v => onChange(values.filter(val => !v.includes(val)))}
+                />
+                <div className="captionContainer">
+                    <Typography variant="caption" weight="semiBold">
+                        {values.length > 0 && `${label.selected} ${values.length} ${label.items}`}
+                    </Typography>
+                </div>
+            </div>
         </div>
     );
 };

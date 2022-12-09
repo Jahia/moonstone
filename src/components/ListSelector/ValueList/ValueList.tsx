@@ -12,6 +12,8 @@ export const ValueList: React.FC<ValueListProps> = ({
         items: 'items'
     },
     values,
+    filter,
+    setFilter,
     onMove,
     orientation,
     draggedId,
@@ -19,10 +21,8 @@ export const ValueList: React.FC<ValueListProps> = ({
     iconStartProps = () => ({}),
     listItemProps = () => ({})
 }) => {
-    const [filter, setFilter] = useState(null);
-
     const iconProp = (v: Value) => {
-        const filterProp = filter ? {} : iconStartProps(v);
+        const filterProp = iconStartProps(v);
 
         if (orientation === 'left') {
             return {
@@ -33,7 +33,7 @@ export const ValueList: React.FC<ValueListProps> = ({
                 ),
                 iconStart: isReadOnly ? null : (
                     <div className="moonstone-iconContainer" {...filterProp}>
-                        {!filter && <HandleDrag/>}
+                        <HandleDrag/>
                     </div>
                 )
             };
@@ -63,7 +63,7 @@ export const ValueList: React.FC<ValueListProps> = ({
             <div className={clsx('flexCol', 'moonstone-listHolder')}>
                 <SearchInput onChange={e => setFilter(e.target.value.trim())}/>
                 <ul className="valueList">
-                    {values.filter(v => ((!filter || filter === '') || v.label.toLowerCase().indexOf(filter.toLowerCase()) !== -1)).map((v, index) => {
+                    {values.map((v, index) => {
                         let className;
 
                         if (v.value === FAKE_VALUE) {
@@ -83,12 +83,6 @@ export const ValueList: React.FC<ValueListProps> = ({
                         );
                     })}
                 </ul>
-            </div>
-            <div className="captionContainer">
-                {orientation === 'right' &&
-                    <Typography variant="caption" weight="semiBold">
-                        {values.length > 0 && `${label.selected} ${values.length} ${label.items}`}
-                    </Typography>}
             </div>
         </div>
     );
