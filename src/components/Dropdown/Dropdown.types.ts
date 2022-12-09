@@ -27,7 +27,7 @@ export type DropdownDataOptions = {
     iconStart?: React.ReactElement;
     iconEnd?: React.ReactElement;
     attributes?: unknown;
-    image?: HTMLImageElement;
+    image?: React.ReactElement;
     imageSize?: DropdownImageSize;
 }
 

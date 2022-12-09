@@ -6,12 +6,13 @@ import {FakeContent} from '~/__storybook__/FakeComponents';
 export default {
     title: 'Layouts/LayoutContent',
     component: LayoutContent,
-    parameters: {
-        layout: 'fullscreen',
-        knobs: {
-            disable: true
-        }
-    },
+    decorators: [
+        StoryCmp => (
+            <div style={{width: '1OOvw', height: '100vh', display: 'flex'}}>
+                <StoryCmp/>
+            </div>
+        )
+    ],
     argTypes: {
         header: {
             control: false

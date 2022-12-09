@@ -28,7 +28,6 @@ export default {
     component: Table,
     parameters: {
         controls: {disable: true},
-        knobs: {disable: true},
         actions: {argTypesRegex: '^on.*'}
     }
 };
