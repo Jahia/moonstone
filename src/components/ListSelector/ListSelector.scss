@@ -18,4 +18,8 @@
 
         color: var(--color-gray60);
     }
+
+    .moonstone-draggedOver {
+        outline: solid 2px var(--color-accent);
+    }
 }

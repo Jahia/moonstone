@@ -98,7 +98,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
             e.dataTransfer.setData(DATA_TYPES.MLRS_DRAG_LEFT_LIST_ITEM, JSON.stringify({type: DATA_TYPES.MLRS_DRAG_LEFT_LIST_ITEM, value: value}));
             e.dataTransfer.effectAllowed = 'move';
             e.dataTransfer.setDragImage(e.currentTarget.parentNode.parentNode as Element, 10, 10);
-            setDragged({...value, tempItem: true, index: valuesRight.length});
+            setDragged({...value, tempItem: true, index: valuesRight.length, type: DATA_TYPES.MLRS_DRAG_LEFT_LIST_ITEM});
         },
         onDragEnd: (e: React.DragEvent) => {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -133,7 +133,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
             e.dataTransfer.setData(DATA_TYPES.MLRS_DRAG_RIGHT_LIST_ITEM, JSON.stringify({type: DATA_TYPES.MLRS_DRAG_RIGHT_LIST_ITEM, value: value}));
             e.dataTransfer.effectAllowed = 'move';
             e.dataTransfer.setDragImage(e.currentTarget.parentNode.parentNode as Element, 10, 10);
-            setDragged({...value, originalIndex: value.index});
+            setDragged({...value, originalIndex: value.index, type: DATA_TYPES.MLRS_DRAG_RIGHT_LIST_ITEM});
         },
         onDragEnd: (e: React.DragEvent) => {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -259,6 +259,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                            values={valuesLeft}
                            filter={filterLeft}
                            setFilter={setFilterLeft}
+                           listClasses={dragged?.type === DATA_TYPES.MLRS_DRAG_RIGHT_LIST_ITEM ? ['moonstone-draggedOver'] : []}
                            iconStartProps={leftListIconStartProps}
                            listItemProps={leftListItemProps}
                            listProps={leftListProps}
@@ -290,6 +291,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                            values={valuesRight}
                            filter={filterRight}
                            setFilter={setFilterRight}
+                           listClasses={dragged?.type === DATA_TYPES.MLRS_DRAG_RIGHT_LIST_ITEM || dragged?.type === DATA_TYPES.MLRS_DRAG_LEFT_LIST_ITEM ? ['moonstone-draggedOver'] : []}
                            iconStartProps={rightListIconStartProps}
                            listItemProps={rightListItemProps}
                            listProps={rightListProps}

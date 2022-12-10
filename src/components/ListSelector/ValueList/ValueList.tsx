@@ -14,6 +14,7 @@ export const ValueList: React.FC<ValueListProps> = ({
     orientation,
     draggedId,
     isReadOnly,
+    listClasses = [],
     iconStartProps = () => ({}),
     listItemProps = () => ({}),
     listProps = () => ({})
@@ -59,7 +60,7 @@ export const ValueList: React.FC<ValueListProps> = ({
         <div className={cslx('flexCol', 'moonstone-wrapper')}>
             <div className={clsx('flexCol', 'moonstone-listHolder')}>
                 <SearchInput onChange={e => setFilter(e.target.value.trim())}/>
-                <ul className={values?.find(v => v.tempItem) ? clsx('moonstone-valueList', 'moonstone-draggedOver') : 'moonstone-valueList'} {...listProps(values)}>
+                <ul className={clsx('moonstone-valueList', ...listClasses)} {...listProps(values)}>
                     {values.map((v, index) => {
                         let className;
 

@@ -47,6 +47,10 @@ export type ValueListProps = {
      */
     isReadOnly?: boolean
     /**
+     * Additional classes for <ul> element
+     */
+    listClasses?: string[],
+    /**
      * Props for list item
      */
     listItemProps?: (value: any) => React.AllHTMLAttributes<any>,
