@@ -4,7 +4,7 @@
     overflow-y: auto;
 
     .moonstone-draggedOver {
-        box-shadow: 0 0 2px, var(--color-accent);
+        outline: solid 2px var(--color-accent);
     }
 }
 

@@ -1,7 +1,20 @@
 export type Value = {
+    /**
+     * Value or id
+     */
     value: string,
+    /**
+     * Value lable
+     */
     label: string,
-    index?: number
+    /**
+     * Index in list
+     */
+    index?: number,
+    /**
+     * Item is temporary
+     */
+    tempItem?: boolean
 }
 
 export type ValueListProps = {

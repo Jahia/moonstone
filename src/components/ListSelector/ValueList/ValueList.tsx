@@ -1,5 +1,5 @@
 import React from 'react';
-import {ListItem, SearchInput, FAKE_VALUE} from '~/components';
+import {ListItem, SearchInput} from '~/components';
 import {ChevronRight, Close, HandleDrag} from '~/icons';
 import cslx from 'clsx';
 import {ValueListProps, Value} from './ValueList.types';
@@ -59,11 +59,11 @@ export const ValueList: React.FC<ValueListProps> = ({
         <div className={cslx('flexCol', 'moonstone-wrapper')}>
             <div className={clsx('flexCol', 'moonstone-listHolder')}>
                 <SearchInput onChange={e => setFilter(e.target.value.trim())}/>
-                <ul className={values?.find(v => v.value === FAKE_VALUE) ? clsx('moonstone-valueList', 'moonstone-draggedOver') : 'moonstone-valueList'} {...listProps(values)}>
+                <ul className={values?.find(v => v.tempItem) ? clsx('moonstone-valueList', 'moonstone-draggedOver') : 'moonstone-valueList'} {...listProps(values)}>
                     {values.map((v, index) => {
                         let className;
 
-                        if (v.value === FAKE_VALUE) {
+                        if (v.tempItem) {
                             className = cslx('moonstone-valueListItem', 'moonstone-noHoveEffect', 'moonstone-noOpacity');
                         } else {
                             className = draggedId && draggedId !== v.value ? cslx('moonstone-valueListItem', 'moonstone-noHoveEffect') : cslx('moonstone-valueListItem');

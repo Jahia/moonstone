@@ -15,8 +15,6 @@ const DATA_TYPES = {
     MLRS_DRAG_LEFT_LIST_ITEM: 'MLRS_DRAG_LEFT_LIST_ITEM'
 };
 
-export const FAKE_VALUE = 'dnd_move_in_progress';
-
 export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
     label = {
         addAllTitle: 'Add all',
@@ -30,6 +28,8 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
     ...props
 }) => {
     const [dragged, setDragged] = useState(null);
+    // This tracks drag operation without delay and prevents NPE, if we ever experience issues with this 'dragged' will need to live in this ref
+    // like it before, but so far state updates are pretty fast and I did not see any issues.
     const dragInProgress = useRef(false);
     const [filterLeft, setFilterLeft] = useState(null);
     const [filterRight, setFilterRight] = useState(null);
@@ -71,7 +71,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                     e.preventDefault();
                     e.stopPropagation();
                     dragInProgress.current = false;
-                    onChange(values.concat([dragged.originalValue]));
+                    onChange(values.concat([dragged.value]));
                     setDragged(null);
                 }
             }
@@ -91,7 +91,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
             e.dataTransfer.setData(DATA_TYPES.MLRS_DRAG_LEFT_LIST_ITEM, JSON.stringify({type: DATA_TYPES.MLRS_DRAG_LEFT_LIST_ITEM, value: value}));
             e.dataTransfer.effectAllowed = 'move';
             e.dataTransfer.setDragImage(e.currentTarget.parentNode.parentNode as Element, 10, 10);
-            setDragged({...value, value: FAKE_VALUE, originalValue: value.value});
+            setDragged({...value, tempItem: true});
         },
         onDragEnd: (e: React.DragEvent) => {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -186,7 +186,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                 e.stopPropagation();
                 e.dataTransfer.dropEffect = 'move';
 
-                if (dragged && value.value !== FAKE_VALUE) {
+                if (dragged && dragged.value !== value.value) {
                     const rect = e.currentTarget.getBoundingClientRect();
                     const clientOffset = {x: e.clientX, y: e.clientY};
                     const targetMidPointY = rect.y + (rect.height / 2);
@@ -216,11 +216,12 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                 setDragged(null);
             }
 
-            if (e.dataTransfer.types.includes(DATA_TYPES.MLRS_DRAG_LEFT_LIST_ITEM.toLowerCase()) && dragged && dragged.value === FAKE_VALUE) {
+            // Makes tempItem permanent by updating onChange with its value
+            if (e.dataTransfer.types.includes(DATA_TYPES.MLRS_DRAG_LEFT_LIST_ITEM.toLowerCase()) && dragged?.tempItem) {
                 e.preventDefault();
                 e.stopPropagation();
                 dragInProgress.current = false;
-                values.splice(dragged.index, 0, dragged.originalValue);
+                values.splice(dragged.index, 0, dragged.value);
                 onChange([...values]);
                 setDragged(null);
             }
@@ -239,8 +240,8 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
         .map(v => options.find(o => o.value === v))
         .filter(v => ((!filterRight || filterRight === '') || v.label.toLowerCase().indexOf(filterRight.toLowerCase()) !== -1));
 
-    // Add left side item to right side
-    if (dragged?.value === FAKE_VALUE) {
+    // Add left side item to right side without triggering on change so its space is kept in the left list but can also exist in right list
+    if (dragged?.tempItem) {
         valuesRight.splice(dragged.index, 0, dragged);
     }
 
