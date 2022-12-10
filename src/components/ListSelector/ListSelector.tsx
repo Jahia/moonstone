@@ -28,8 +28,8 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
     ...props
 }) => {
     const [dragged, setDragged] = useState(null);
-    // This tracks drag operation without delay and prevents NPE, if we ever experience issues with this 'dragged' will need to live in this ref
-    // like it before, but so far state updates are pretty fast and I did not see any issues.
+    // This tracks drag operation without delay and prevents NPE, if we ever experience issues with this, 'dragged' will need to live in this ref
+    // like it did before, but so far state updates are pretty fast and I did not see any issues.
     const dragInProgress = useRef(false);
     const [filterLeft, setFilterLeft] = useState(null);
     const [filterRight, setFilterRight] = useState(null);
