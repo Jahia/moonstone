@@ -106,9 +106,11 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
         onClick: (e: React.MouseEvent) => {
             e.preventDefault();
             e.stopPropagation();
-            onChange(values.concat(value.value));
+            if (!isReadOnly) {
+                onChange(values.concat(value.value));
+            }
         }
-    }), [values, onChange]);
+    }), [values, onChange, isReadOnly]);
 
     // Drag handle for the right list
     const rightListIconStartProps = useCallback(value => ({
@@ -229,9 +231,11 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
         onClick: (e: React.MouseEvent) => {
             e.preventDefault();
             e.stopPropagation();
-            onChange(values.filter(val => val !== value.value));
+            if (!isReadOnly) {
+                onChange(values.filter(val => val !== value.value));
+            }
         }
-    }), [values, dragged, dragInProgress, setDragged, onChange]);
+    }), [isReadOnly, values, dragged, dragInProgress, setDragged, onChange]);
 
     const valuesLeft = options
         .filter(o => !values.includes(o.value))

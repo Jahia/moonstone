@@ -36,7 +36,7 @@ Basic.args = {
         selected: '0 items selected'
     },
     options: [{value: '1', label: 'One'}, {value: '2', label: 'Two'}, {value: '3', label: 'Three'}, {value: '4', label: 'Four'}, {value: '5', label: 'Five'}],
-    arrayValue: ['1', '3', '5'],
+    values: ['1', '3', '5'],
     onChange: (v: string[]) => console.log(v)
 };
 
@@ -49,7 +49,7 @@ ReadOnly.args = {
         selected: '0 items selected'
     },
     options: [{value: '1', label: 'One'}, {value: '2', label: 'Two'}, {value: '3', label: 'Three'}, {value: '4', label: 'Four'}, {value: '5', label: 'Five'}],
-    arrayValue: ['1', '3', '5'],
+    values: ['1', '3', '5'],
     onChange: (v: string[]) => console.log(v)
 };
 
