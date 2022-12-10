@@ -34,6 +34,13 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
     const [filterLeft, setFilterLeft] = useState(null);
     const [filterRight, setFilterRight] = useState(null);
 
+    const valuesLeft = options
+        .filter(o => !values.includes(o.value))
+        .filter(v => ((!filterLeft || filterLeft === '') || v.label.toLowerCase().indexOf(filterLeft.toLowerCase()) !== -1));
+    const valuesRight = values
+        .map(v => options.find(o => o.value === v))
+        .filter(v => ((!filterRight || filterRight === '') || v.label.toLowerCase().indexOf(filterRight.toLowerCase()) !== -1));
+
     // Handles drop of right list item into left list
     const leftListProps = useCallback(() => {
         return {
@@ -91,7 +98,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
             e.dataTransfer.setData(DATA_TYPES.MLRS_DRAG_LEFT_LIST_ITEM, JSON.stringify({type: DATA_TYPES.MLRS_DRAG_LEFT_LIST_ITEM, value: value}));
             e.dataTransfer.effectAllowed = 'move';
             e.dataTransfer.setDragImage(e.currentTarget.parentNode.parentNode as Element, 10, 10);
-            setDragged({...value, tempItem: true});
+            setDragged({...value, tempItem: true, index: valuesRight.length});
         },
         onDragEnd: (e: React.DragEvent) => {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -99,7 +106,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
             e.currentTarget.parentNode.parentNode.style.opacity = '1';
             setDragged(null);
         }
-    }), [setDragged]);
+    }), [valuesRight, setDragged]);
 
     const leftListItemProps = useCallback(value => ({
         role: 'left-list',
@@ -236,13 +243,6 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
             }
         }
     }), [isReadOnly, values, dragged, dragInProgress, setDragged, onChange]);
-
-    const valuesLeft = options
-        .filter(o => !values.includes(o.value))
-        .filter(v => ((!filterLeft || filterLeft === '') || v.label.toLowerCase().indexOf(filterLeft.toLowerCase()) !== -1));
-    const valuesRight = values
-        .map(v => options.find(o => o.value === v))
-        .filter(v => ((!filterRight || filterRight === '') || v.label.toLowerCase().indexOf(filterRight.toLowerCase()) !== -1));
 
     // Add left side item to right side without triggering on change so its space is kept in the left list but can also exist in right list
     if (dragged?.tempItem) {
