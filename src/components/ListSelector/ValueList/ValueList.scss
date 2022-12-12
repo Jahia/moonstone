@@ -1,14 +1,7 @@
-.valueList {
+.moonstone-valueList {
     flex-grow: 1;
     height: 300px;
     overflow-y: auto;
-}
-
-.captionContainer {
-    min-height: calc(var(--spacing-medium) * 2);
-    margin-top: var(--spacing-small);
-
-    color: var(--color-gray60);
 }
 
 .moonstone-iconContainer {
@@ -16,6 +9,10 @@
 
     .moonstone-displayNone {
         display: none;
+    }
+
+    .moonstone-dragHandle {
+        cursor: move;
     }
 }
 

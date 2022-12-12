@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {ListItem, Typography, SearchInput, FAKE_VALUE} from '~/components';
+import React from 'react';
+import {ListItem, SearchInput} from '~/components';
 import {ChevronRight, Close, HandleDrag} from '~/icons';
 import cslx from 'clsx';
 import {ValueListProps, Value} from './ValueList.types';
@@ -7,10 +7,6 @@ import './ValueList.scss';
 import clsx from 'clsx';
 
 export const ValueList: React.FC<ValueListProps> = ({
-    label = {
-        selected: 'Selected',
-        items: 'items'
-    },
     values,
     filter,
     setFilter,
@@ -18,8 +14,10 @@ export const ValueList: React.FC<ValueListProps> = ({
     orientation,
     draggedId,
     isReadOnly,
+    listClasses = [],
     iconStartProps = () => ({}),
-    listItemProps = () => ({})
+    listItemProps = () => ({}),
+    listProps = () => ({})
 }) => {
     const iconProp = (v: Value) => {
         const filterProp = iconStartProps(v);
@@ -33,7 +31,7 @@ export const ValueList: React.FC<ValueListProps> = ({
                 ),
                 iconStart: isReadOnly ? null : (
                     <div className="moonstone-iconContainer" {...filterProp}>
-                        <HandleDrag/>
+                        <HandleDrag className="moonstone-dragHandle"/>
                     </div>
                 )
             };
@@ -52,7 +50,7 @@ export const ValueList: React.FC<ValueListProps> = ({
             ),
             iconStart: isReadOnly ? null : (
                 <div className="moonstone-iconContainer" {...filterProp}>
-                    {!filter && <HandleDrag/>}
+                    {!filter && <HandleDrag className="moonstone-dragHandle"/>}
                 </div>
             )
         };
@@ -62,11 +60,11 @@ export const ValueList: React.FC<ValueListProps> = ({
         <div className={cslx('flexCol', 'moonstone-wrapper')}>
             <div className={clsx('flexCol', 'moonstone-listHolder')}>
                 <SearchInput onChange={e => setFilter(e.target.value.trim())}/>
-                <ul className="valueList">
+                <ul className={clsx('moonstone-valueList', ...listClasses)} {...listProps(values)}>
                     {values.map((v, index) => {
                         let className;
 
-                        if (v.value === FAKE_VALUE) {
+                        if (v.tempItem) {
                             className = cslx('moonstone-valueListItem', 'moonstone-noHoveEffect', 'moonstone-noOpacity');
                         } else {
                             className = draggedId && draggedId !== v.value ? cslx('moonstone-valueListItem', 'moonstone-noHoveEffect') : cslx('moonstone-valueListItem');

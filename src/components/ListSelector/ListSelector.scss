@@ -11,4 +11,15 @@
             gap: 10px;
         }
     }
+
+    .moonstone-captionContainer {
+        min-height: calc(var(--spacing-medium) * 2);
+        margin-top: var(--spacing-small);
+
+        color: var(--color-gray60);
+    }
+
+    .moonstone-draggedOver {
+        outline: solid 2px var(--color-accent);
+    }
 }

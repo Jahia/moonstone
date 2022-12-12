@@ -1,25 +1,23 @@
 export type Value = {
+    /**
+     * Value or id
+     */
     value: string,
+    /**
+     * Value lable
+     */
     label: string,
-    index?: number
-}
-
-export type Label = {
     /**
-     * Label for number of items selected, before the number
+     * Index in list
      */
-    selected?: string,
+    index?: number,
     /**
-     * Label for number of items selected, after the number
+     * Item is temporary
      */
-    items?: string
+    tempItem?: boolean
 }
 
 export type ValueListProps = {
-    /**
-     * Component labels
-     */
-    label?: Label
     /**
      * List values
      */
@@ -49,6 +47,10 @@ export type ValueListProps = {
      */
     isReadOnly?: boolean
     /**
+     * Additional classes for <ul> element
+     */
+    listClasses?: string[],
+    /**
      * Props for list item
      */
     listItemProps?: (value: any) => React.AllHTMLAttributes<any>,
@@ -56,4 +58,9 @@ export type ValueListProps = {
      * Props for icon at the start of list item
      */
     iconStartProps?: (value: any) => React.AllHTMLAttributes<any>,
+    /**
+     * List props
+     * @param values
+     */
+    listProps?: (values: any) => React.AllHTMLAttributes<any>,
 }
