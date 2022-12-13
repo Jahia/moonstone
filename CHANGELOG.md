@@ -1,3 +1,15 @@
+# v2.4.23 (Tue Dec 13 2022)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-20485: reorganized and fixed dnd [#344](https://github.com/Jahia/moonstone/pull/344) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v2.4.22 (Mon Dec 12 2022)
 
 #### 🐛 Bug Fix
