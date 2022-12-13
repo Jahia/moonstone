@@ -1,3 +1,5 @@
+import React from 'react';
+
 export type Value = {
     /**
      * Value or id
@@ -31,13 +33,9 @@ export type ValueListProps = {
      */
     setFilter: (filter: string) => void,
     /**
-     * Function called on move
-     */
-    onMove: (value: string[]) => void,
-    /**
      * Orientation of the list (left side / right side)
      */
-    orientation: 'left' | 'right',
+    iconEnd: React.ReactElement,
     /**
      * Dragged item value/id
      */
@@ -51,16 +49,27 @@ export type ValueListProps = {
      */
     listClasses?: string[],
     /**
-     * Props for list item
+     * List role
      */
-    listItemProps?: (value: any) => React.AllHTMLAttributes<any>,
+    role: string,
     /**
-     * Props for icon at the start of list item
+     * OnClick callback
      */
-    iconStartProps?: (value: any) => React.AllHTMLAttributes<any>,
+    onClick: (e:React.MouseEvent, value: Value) => void
     /**
-     * List props
-     * @param values
+     * OnDragStart callback
      */
-    listProps?: (values: any) => React.AllHTMLAttributes<any>,
+    onDragStart: (e:React.DragEvent, value: Value) => void
+    /**
+     * OnDragEnd callback
+     */
+    onDragEnd: (e:React.DragEvent, value: Value) => void
+    /**
+     * OnDragOver callback
+     */
+    onDragOver: (e:React.DragEvent, value: Value) => void
+    /**
+     * OnDrop callback
+     */
+    onDrop: (e:React.DragEvent, value: Value) => void
 }

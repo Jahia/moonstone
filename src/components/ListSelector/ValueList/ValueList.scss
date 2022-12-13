@@ -18,6 +18,8 @@
 
 .moonstone-valueListItem {
     align-items: center;
+    width: calc(100% - 2px);
+    margin: 1px;
     padding: var(--spacing-small);
 
     cursor: pointer;
@@ -49,6 +51,15 @@
         padding: var(--spacing-small);
 
         border: 1px solid var(--color-gray40);
+    }
+
+    .moonstone-dragging {
+        background-color: var(--color-light);
+        box-shadow: 0 4px 8px rgba(19, 28, 33, 0.2);
+
+        & > div > div > .moonstone-displayNone {
+            display: none;
+        }
     }
 
     .moonstone-noHoveEffect {

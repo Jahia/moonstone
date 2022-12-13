@@ -1,82 +1,76 @@
 import React from 'react';
 import {ListItem, SearchInput} from '~/components';
-import {ChevronRight, Close, HandleDrag} from '~/icons';
+import {HandleDrag} from '~/icons';
 import cslx from 'clsx';
-import {ValueListProps, Value} from './ValueList.types';
-import './ValueList.scss';
 import clsx from 'clsx';
+import {ValueListProps} from './ValueList.types';
+import './ValueList.scss';
 
 export const ValueList: React.FC<ValueListProps> = ({
     values,
     filter,
     setFilter,
-    onMove,
-    orientation,
+    iconEnd,
     draggedId,
     isReadOnly,
     listClasses = [],
-    iconStartProps = () => ({}),
-    listItemProps = () => ({}),
-    listProps = () => ({})
+    role,
+    onClick,
+    onDragStart,
+    onDragEnd,
+    onDragOver,
+    onDrop
 }) => {
-    const iconProp = (v: Value) => {
-        const filterProp = iconStartProps(v);
-
-        if (orientation === 'left') {
-            return {
-                iconEnd: isReadOnly ? null : (
-                    <div className="moonstone-iconContainer">
-                        <ChevronRight className="moonstone-displayNone"/>
-                    </div>
-                ),
-                iconStart: isReadOnly ? null : (
-                    <div className="moonstone-iconContainer" {...filterProp}>
-                        <HandleDrag className="moonstone-dragHandle"/>
-                    </div>
-                )
-            };
-        }
-
-        return {
-            iconEnd: isReadOnly ? null : (
-                <div className="moonstone-iconContainer">
-                    <Close className="moonstone-displayNone"
-                           onClick={e => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        onMove([v.value]);
-                    }}/>
-                </div>
-            ),
-            iconStart: isReadOnly ? null : (
-                <div className="moonstone-iconContainer" {...filterProp}>
-                    {!filter && <HandleDrag className="moonstone-dragHandle"/>}
-                </div>
-            )
-        };
-    };
-
     return (
         <div className={cslx('flexCol', 'moonstone-wrapper')}>
             <div className={clsx('flexCol', 'moonstone-listHolder')}>
                 <SearchInput onChange={e => setFilter(e.target.value.trim())}/>
-                <ul className={clsx('moonstone-valueList', ...listClasses)} {...listProps(values)}>
-                    {values.map((v, index) => {
-                        let className;
-
-                        if (v.tempItem) {
-                            className = cslx('moonstone-valueListItem', 'moonstone-noHoveEffect', 'moonstone-noOpacity');
-                        } else {
-                            className = draggedId && draggedId !== v.value ? cslx('moonstone-valueListItem', 'moonstone-noHoveEffect') : cslx('moonstone-valueListItem');
+                <ul className={clsx('moonstone-valueList', ...listClasses)} onDragOver={e => onDragOver(e, null)} onDrop={e => onDrop(e, null)}>
+                    {values.map(v => {
+                        const classNames = ['moonstone-valueListItem'];
+                        if (draggedId === v.value && v.tempItem) {
+                            classNames.push('moonstone-noHoveEffect', 'moonstone-noOpacity');
+                        } else if (draggedId && draggedId !== v.value) {
+                            classNames.push('moonstone-noHoveEffect');
+                        } else if (draggedId && draggedId === v.value) {
+                            classNames.push('moonstone-valueListItem', 'moonstone-dragging');
                         }
 
                         return (
                             <ListItem key={v.label}
-                                      className={className}
+                                      role={role}
+                                      iconStart={!isReadOnly && (
+                                          <div className="moonstone-iconContainer"
+                                               draggable="true"
+                                               onDragStart={e => onDragStart(e, v)}
+                                               onDragEnd={e => onDragEnd(e, v)}
+                                          >
+                                              <HandleDrag className="moonstone-dragHandle"/>
+                                          </div>
+                                      )}
+                                      iconEnd={!isReadOnly && (
+                                          <div className="moonstone-iconContainer">
+                                              { iconEnd }
+                                          </div>
+                                      )}
+                                      className={clsx(...classNames)}
                                       typographyVariant="body"
                                       label={v.label}
-                                      {...iconProp({...v, index: index})}
-                                      {...listItemProps({...v, index: index})}
+                                      onClick={(e:React.MouseEvent) => {
+                                          if (!isReadOnly) {
+                                              onClick(e, v);
+                                          }
+                                      }}
+                                      onDragOver={(e:React.DragEvent) => {
+                                          if (!isReadOnly) {
+                                              onDragOver(e, v);
+                                          }
+                                      }}
+                                      onDrop={(e:React.DragEvent) => {
+                                          if (!isReadOnly) {
+                                              onDrop(e, v);
+                                          }
+                                      }}
                             />
                         );
                     })}
