@@ -1,3 +1,28 @@
+# v2.4.22 (Mon Dec 12 2022)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-20485 Get rid of unnecessary vars, add drop targets on lists,… [#343](https://github.com/Jahia/moonstone/pull/343) ([@AKarmanov](https://github.com/AKarmanov))
+- BACKLOG-20481: Fix add/remove and dnd [#341](https://github.com/Jahia/moonstone/pull/341) ([@tdraier](https://github.com/tdraier))
+
+#### 🏠 Internal
+
+- Set fetch depth to 0 (all history) [#340](https://github.com/Jahia/moonstone/pull/340) ([@tdraier](https://github.com/tdraier))
+- MOON-239: Update stories to CSF format [#335](https://github.com/Jahia/moonstone/pull/335) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🔩 Dependency Updates
+
+- Bump express from 4.17.1 to 4.18.2 [#339](https://github.com/Jahia/moonstone/pull/339) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 4
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v2.4.21 (Thu Dec 08 2022)
 
 #### 🐛 Bug Fix
