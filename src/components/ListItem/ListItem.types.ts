@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {HTMLAttributes} from 'react';
 
 import {TypographyVariant} from '~/components/Typography/Typography.types';
 
@@ -56,4 +56,4 @@ export type ListItemProps = {
      * Which icon size to render. The default is small
      */
     iconSize?: 'small' | 'default' | 'big';
-}
+} & HTMLAttributes<HTMLLIElement>
