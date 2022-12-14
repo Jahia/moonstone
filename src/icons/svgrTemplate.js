@@ -7,7 +7,7 @@ const template = ({imports, interfaces, componentName, jsx, exports}, {tpl}) => 
 
     interface IconProps extends SVGProps<SVGSVGElement> {
         size?: 'small' | 'default' | 'big';
-        color?: 'red' | 'yellow' | 'green' | 'blue' | 'deepBlue' | 'purple' | 'gray'
+        color?: 'red' | 'yellow' | 'green' | 'blue' | 'darkBlue' | 'purple' | 'gray'
         className?: string;
     }
 
