@@ -2,11 +2,11 @@ import * as React from 'react';
 import {SVGProps} from 'react';
 interface IconProps extends SVGProps<SVGSVGElement> {
   size?: 'small' | 'default' | 'big';
-  color?: 'red' | 'yellow' | 'green' | 'blue' | 'deepBlue' | 'purple' | 'gray';
+  color?: 'red' | 'yellow' | 'green' | 'blue' | 'darkBlue' | 'purple' | 'gray';
   className?: string;
 }
 
-const SvgMultipleListSelector = ({
+const SvgMultipleListSelection = ({
     size = 'default',
     className = '',
     color,
@@ -40,4 +40,4 @@ const SvgMultipleListSelector = ({
     );
 };
 
-export default SvgMultipleListSelector;
+export default SvgMultipleListSelection;
