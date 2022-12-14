@@ -1,3 +1,16 @@
+# v2.4.24 (Wed Dec 14 2022)
+
+#### 🐛 Bug Fix
+
+- MOON-361: Add new icons [#346](https://github.com/Jahia/moonstone/pull/346) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-362: Add story for Dropdown with description [#345](https://github.com/Jahia/moonstone/pull/345) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.4.23 (Tue Dec 13 2022)
 
 #### 🐛 Bug Fix
