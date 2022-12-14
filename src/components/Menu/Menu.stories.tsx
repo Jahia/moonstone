@@ -188,18 +188,18 @@ export const BigImageMenuItems = () => (
             />
             <MenuItem
                 label="Big image MenuItem"
-                image={<img src="https://via.placeholder.com/500x500?text=MenuItemImage"/>}
+                image={<img src="https://via.placeholder.com/500?text=MenuItemImage"/>}
                 imageSize="big"
             />
             <MenuItem
                 label="Big image MenuItem"
-                image={<img src="https://via.placeholder.com/500x500?text=MenuItemImage"/>}
+                image={<img src="https://via.placeholder.com/500?text=MenuItemImage"/>}
                 imageSize="big"
             />
             <MenuItem
                 isSelected
                 label="Big image MenuItem - selected"
-                image={<img src="https://via.placeholder.com/500x500?text=MenuItemImage"/>}
+                image={<img src="https://via.placeholder.com/500?text=MenuItemImage"/>}
                 imageSize="big"
             />
             <MenuItem
@@ -230,18 +230,18 @@ export const SmallImageMenuItems = () => (
             />
             <MenuItem
                 label="Small image MenuItem"
-                image={<img src="https://via.placeholder.com/500x500?text=MenuItemImage"/>}
+                image={<img src="https://via.placeholder.com/500?text=MenuItemImage"/>}
                 imageSize="small"
             />
             <MenuItem
                 label="Small image MenuItem"
-                image={<img src="https://via.placeholder.com/500x500?text=MenuItemImage"/>}
+                image={<img src="https://via.placeholder.com/500?text=MenuItemImage"/>}
                 imageSize="small"
             />
             <MenuItem
                 isSelected
                 label="Small image MenuItem - selected"
-                image={<img src="https://via.placeholder.com/500x500?text=MenuItemImage"/>}
+                image={<img src="https://via.placeholder.com/500?text=MenuItemImage"/>}
                 imageSize="small"
             />
             <MenuItem
