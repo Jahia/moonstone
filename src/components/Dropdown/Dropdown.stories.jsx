@@ -7,7 +7,8 @@ import {
     dropdownData,
     dropdownDataGrouped,
     dropdownDataImages,
-    dropdownDataTree
+    dropdownDataTree,
+    dropdownDataDescriptions
 } from '~/data';
 
 export default {
@@ -226,4 +227,33 @@ export const DropdownWithTree = () => {
             onChange={(e, item) => handleOnChange(e, item)}
         />
     );
+};
+
+export const WithDescription = args => {
+    const [currentOption, setCurrentOption] = useState({
+        label: 'Select something',
+        value: null
+    });
+
+    const handleOnChange = (e, item) => {
+        setCurrentOption(item);
+        action('onChange');
+        return true;
+    };
+
+    return (
+        <Dropdown
+            {...args}
+            label={currentOption.label}
+            value={currentOption.value}
+            data={dropdownDataDescriptions}
+            onChange={(e, item) => handleOnChange(e, item)}
+        />
+    );
+};
+
+WithDescription.args = {
+    variant: 'outlined',
+    size: 'medium',
+    icon: <Love/>
 };
