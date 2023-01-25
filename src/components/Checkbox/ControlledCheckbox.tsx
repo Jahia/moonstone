@@ -1,10 +1,10 @@
 import React, {useRef} from 'react';
 import clsx from 'clsx';
 import {capitalize} from '~/utils/helpers';
-import {CheckboxProps} from './Checkbox.types';
+import type {ControlledCheckboxProps} from './Checkbox.types';
 import './Checkbox.scss';
 
-export const ControlledCheckbox: React.FC<CheckboxProps> = ({className, checked = false, indeterminate = false, size = 'default', isDisabled, isReadOnly, ...props}) => {
+export const ControlledCheckbox: React.FC<ControlledCheckboxProps> = ({className, checked = false, indeterminate = false, size = 'default', isDisabled, isReadOnly, ...props}) => {
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (

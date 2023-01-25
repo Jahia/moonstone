@@ -12,12 +12,12 @@ export type LayoutModuleProps = {
      content?: React.ReactNode;
 
     /**
-     * The HTML markup used for the content node
+     * The HTML tag used to render the content node
      */
      component?: string;
 
     /**
-     * Replace the content by a loader
+     * Replace the content with a loader
      */
      isLoading?: boolean;
 }

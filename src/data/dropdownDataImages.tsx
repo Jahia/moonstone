@@ -1,6 +1,7 @@
 import React from 'react';
+import type {DropdownData} from '~/components/Dropdown/Dropdown.types';
 
-export const dropdownDataImages = [
+export const dropdownDataImages: DropdownData = [
     {
         groupLabel: 'Options 1-3',
         options: [

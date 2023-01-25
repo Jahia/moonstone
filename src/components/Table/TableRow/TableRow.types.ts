@@ -2,14 +2,14 @@ import React from 'react';
 
 export type TableRowProps = {
     /**
-     * Any additional class names to apply
+     * Additional classnames
      */
-    className?: React.ReactNode;
+    className?: string;
 
     /**
-     * Name of HTML element to render in the DOM for this component
+     * The HTML tag used to render the root node
      */
-    component?: 'string;'
+    component?: string;
 
     /**
      * Whether the cell height should be increased to show more than 1 line
@@ -17,7 +17,7 @@ export type TableRowProps = {
     hasMultipleLines?: boolean;
 
     /**
-     * If true, then the row is selected
+     * Whether the row should be selected
      */
     isSelected?: boolean;
 

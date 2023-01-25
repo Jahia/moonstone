@@ -50,7 +50,7 @@ export type SeparatorProps = React.ComponentPropsWithoutRef<'hr'> & {
     invisible?: SeparatorInvisibleType,
 
     /**
-     * Additional classname
+     * Additional classnames
      */
     className?: string
 }

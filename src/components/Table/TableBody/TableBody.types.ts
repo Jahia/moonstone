@@ -2,12 +2,12 @@ import React from 'react';
 
 export type TableBodyProps = {
     /**
-     * Class names to be applied to the component
+     * Additional classnames
      */
     className?: string;
 
     /**
-     * Name of HTML element to render in the DOM for this component
+     * The HTML tag used to render the root node
      */
     component?: string;
 

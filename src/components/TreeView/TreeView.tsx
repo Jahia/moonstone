@@ -3,7 +3,17 @@ import {TreeViewProps} from './TreeView.types';
 import {UncontrolledTreeView} from './UncontrolledTreeView';
 import {ControlledTreeView} from './ControlledTreeView';
 
-const TreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElement, TreeViewProps> = ({openedItems, defaultOpenedItems, onOpenItem, onCloseItem, data, ...others}, ref) => {
+export const TreeView = React.forwardRef((
+    {
+        openedItems,
+        defaultOpenedItems,
+        onOpenItem,
+        onCloseItem,
+        data,
+        ...others
+    }: TreeViewProps,
+    ref: React.Ref<HTMLUListElement>
+) => {
     // If no data render nothing
     if (!Array.isArray(data) || data.length < 1) {
         return null;
@@ -14,8 +24,6 @@ const TreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElement, TreeV
     }
 
     return <ControlledTreeView ref={ref} openedItems={openedItems} data={data} onOpenItem={onOpenItem} onCloseItem={onCloseItem} {...others}/>;
-};
-
-export const TreeView = React.forwardRef(TreeViewForwardRef);
+});
 
 TreeView.displayName = 'TreeView';

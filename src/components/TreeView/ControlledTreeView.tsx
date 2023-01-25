@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import './TreeView.scss';
-import {ControlledTreeViewProps} from './ControlledTreeView.types';
+import type {ControlledTreeViewProps} from './TreeView.types';
 import {TreeViewData} from './TreeView.types';
 
 import {Loading, ChevronDown, ChevronRight} from '~/icons';
@@ -28,7 +28,7 @@ const displayIconOrLoading = (icon: React.ReactElement, isLoading: boolean) => {
     return displayIcon(i, 'default', 'moonstone-treeView_itemIconEnd');
 };
 
-const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElement, ControlledTreeViewProps> = (
+export const ControlledTreeView = React.forwardRef((
     {
         data,
         openedItems = [],
@@ -42,7 +42,9 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
         component = 'ul',
         itemComponent = 'li',
         ...props
-    }, ref) => {
+    }: ControlledTreeViewProps,
+    ref: React.Ref<HTMLUListElement>
+) => {
     const isFlatData = data.filter(item => item.children && item.children.length > 0).length === 0;
 
     function generateLevelJSX(nodeData: TreeViewData[], depth: number, parentHasIconStart: boolean): React.ReactNode[] {
@@ -145,6 +147,4 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
 
     // TreeView component
     return React.createElement(component, {ref, role: 'tree', ...props}, generateLevelJSX(data, 0, false));
-};
-
-export const ControlledTreeView = React.forwardRef(ControlledTreeViewForwardRef);
+});

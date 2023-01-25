@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import {TableRowProps} from './TableRow.types';
 import './TableRow.scss';
 
-const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowProps> = (
+const TableRow = React.forwardRef((
     {
         className,
         component = 'tr',
@@ -13,7 +13,9 @@ const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowPr
         isHighlighted = false,
         children,
         ...props
-    }, ref) => React.createElement(
+    }: TableRowProps,
+    ref: React.Ref<HTMLElement>
+) => React.createElement(
     component,
     {
         className: clsx(
@@ -29,8 +31,6 @@ const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowPr
         ref
     },
     children
-);
-
-export const TableRow = React.forwardRef(TableRowForwardRef);
+));
 
 TableRow.displayName = 'TableRow';

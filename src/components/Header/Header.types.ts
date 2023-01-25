@@ -47,7 +47,7 @@ export type HeaderProps = React.ComponentPropsWithoutRef<'header'> & {
     toolbarLeft?: React.ReactNode;
 
     /**
-     * Additional classname
+     * Additional classnames
      */
     className?: string;
 }

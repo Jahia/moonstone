@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {ControlledAccordion} from './ControlledAccordion';
-import {UncontrolledAccordionProps} from './UncontrolledAccordion.types';
+import {UncontrolledAccordionProps} from './Accordion.types';
 
 export const UncontrolledAccordion: React.FC<UncontrolledAccordionProps> = ({defaultOpenedItem, children, ...props}) => {
     const [openedItem, setOpenedItem] = useState(defaultOpenedItem);

@@ -4,14 +4,16 @@ import clsx from 'clsx';
 import {TableCellProps} from './TableCell.types';
 import './TableCell.scss';
 
-const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, TableCellProps> = (
+export const TableCell = React.forwardRef((
     {
         iconStart,
         iconEnd,
         className,
         children,
         ...props
-    }, ref) => {
+    }: TableCellProps,
+    ref: React.Ref<HTMLDivElement>
+) => {
     return (
         <div ref={ref}
              className={clsx(
@@ -41,8 +43,6 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, TableC
 
         </div>
     );
-};
-
-export const TableCell = React.forwardRef(TableCellForwardRef);
+});
 
 TableCell.displayName = 'FoundationTableCell';

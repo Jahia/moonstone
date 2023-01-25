@@ -44,7 +44,7 @@ export const toIconComponentFunction = (icon: string | ReactElement): FunctionCo
     return (props: PropsWithChildren<Attributes>) => <ImgWrapper src={icon} {...props}/>;
 };
 
-export const toIconComponent = (icon: string | ReactElement, props: SvgWrapperProps & Attributes) => {
+export const toIconComponent = (icon: string | ReactElement, props?: SvgWrapperProps & Attributes) => {
     return React.createElement(toIconComponentFunction(icon), props);
 };
 

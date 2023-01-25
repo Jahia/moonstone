@@ -5,20 +5,24 @@ export type ChipProps = React.ComponentPropsWithoutRef<'div'> & {
      * Chip label
      */
     label?: string;
+
     /**
      * Chip color
      */
     color?: 'default' | 'accent' | 'success' | 'warning' | 'danger' | 'reassuring' | 'light';
+
     /**
      * Chip icon
      */
     icon?: React.ReactElement;
+
     /**
-     * Additional classname
+     * Additional classnames
      */
-    // className?: string;
+    className?: string;
+
     /**
-     * Is this component disabled
+     * Whether the chip should be disabled
      */
     isDisabled?: boolean;
 }

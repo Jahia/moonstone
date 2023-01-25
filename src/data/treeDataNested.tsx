@@ -1,8 +1,11 @@
 import React from 'react';
+
+import type {TreeViewData} from '~/components/TreeView/TreeView.types';
+
 import {Folder, File, NoCloud} from '~/icons';
 import {toIconComponent} from '~/icons/utils';
 
-export const treeDataNested = [
+export const treeDataNested: TreeViewData[] = [
     {
         id: 'ROOT',
         label: 'Root',

@@ -1,18 +1,22 @@
 import React from 'react';
 
-type HTMLInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size'>;
+type HTMLInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | 'value'>;
 
-export type BaseInputProps = HTMLInputProps & {
+type ControlledProps = {
+    /**
+     * Value to exist in the input field. Define the component as controlled when it set. (Controlled)
+     */
+    value: string;
+}
+
+type UncontrolledProps = {
     /**
      * Default value when the component is rendered (Uncontrolled)
      */
-     defaultValue?: string;
+    defaultValue?: string;
+}
 
-    /**
-     * Value to exist in the input field (Controlled)
-     */
-     value?: string;
-
+type BasicProps = HTMLInputProps & {
     /**
      * ID of the input
      */
@@ -24,7 +28,7 @@ export type BaseInputProps = HTMLInputProps & {
     role?: string,
 
     /**
-     * Initial placeholder text to appear in the input field
+     * Placeholder text when there is no value
      */
     placeholder?: string;
 
@@ -44,7 +48,7 @@ export type BaseInputProps = HTMLInputProps & {
     focusOnField?: boolean;
 
     /**
-     * Any additional custom classes to apply to the component
+     * Additional classnames
      */
     className?: string;
 
@@ -83,3 +87,9 @@ export type BaseInputProps = HTMLInputProps & {
      */
     onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
+
+export type BaseInputProps = BasicProps & Partial<ControlledProps> & Partial<UncontrolledProps>;
+
+export type ControlledBaseInputProps = BasicProps & ControlledProps;
+
+export type UncontrolledBaseInputProps = BasicProps & UncontrolledProps;

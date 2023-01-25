@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {ControlledRadioGroup} from './ControlledRadioGroup';
-import {RadioGroupProps} from './RadioGroup.types';
+import type {UncontrolledRadioGroupProps} from './RadioGroup.types';
 
-export const UncontrolledRadioGroup: React.FC<RadioGroupProps> = ({onChange, defaultValue, children, ...props}) => {
+export const UncontrolledRadioGroup: React.FC<UncontrolledRadioGroupProps> = ({onChange, defaultValue, children, ...props}) => {
     if (typeof defaultValue === 'undefined' || defaultValue === '') {
         defaultValue = (children[0].props.value);
     }

@@ -5,7 +5,7 @@ import '~/__storybook__/storybook.scss';
 import {SearchContextInput} from './index';
 import {Person, SiteWeb, Collections} from '~/icons';
 import {Dropdown} from '~/components';
-import {DropdownDataOptions} from '~/components/Dropdown/Dropdown.types';
+import {DropdownDataOption, DropdownDataOptions} from '~/components/Dropdown/Dropdown.types';
 
 export default {
     title: 'Components/Input',
@@ -26,7 +26,7 @@ export default {
     }
 } as ComponentMeta<typeof SearchContextInput>;
 
-const searchContextData: DropdownDataOptions[] = [
+const searchContextData: DropdownDataOptions = [
     {
         label: 'Global users',
         value: 'globalUser',
@@ -46,7 +46,7 @@ const searchContextData: DropdownDataOptions[] = [
 
 export const SearchContext: ComponentStory<typeof SearchContextInput> = args => {
     const [contextOption, setContextOption] = useState(searchContextData[0]);
-    const handleDropdownOnChange = (e: React.MouseEvent, item: DropdownDataOptions) => {
+    const handleDropdownOnChange = (e: React.MouseEvent, item: DropdownDataOption) => {
         setContextOption(item);
     };
 

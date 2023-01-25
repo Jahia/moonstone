@@ -3,9 +3,9 @@ import clsx from 'clsx';
 import {Cancel} from '~/icons';
 import {Button} from '~/components';
 import './BaseInput.scss';
-import {BaseInputProps} from './BaseInput.types';
+import type {ControlledBaseInputProps} from './BaseInput.types';
 
-export const ControlledBaseInput: React.FC<BaseInputProps & { searchContext?: React.ReactElement }> = ({
+export const ControlledBaseInput: React.FC<ControlledBaseInputProps & { searchContext?: React.ReactElement }> = ({
     value = '',
     searchContext,
     id,

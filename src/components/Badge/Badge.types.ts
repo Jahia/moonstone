@@ -3,17 +3,17 @@ export const badgeColors = ['accent', 'success', 'danger'];
 
 export type BadgeProps = React.ComponentPropsWithoutRef<'div'> & {
     /**
-     * Badge label, only for type round
+     * Label display inside the badge
      */
     label?: string;
 
     /**
-     * Badge color
+     * The color of the component
      */
     color?: BadgeColor;
 
     /**
-     * Additional classname
+     * Additional classnames
      */
     className?: string;
 }

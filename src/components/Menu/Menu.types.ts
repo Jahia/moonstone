@@ -64,7 +64,7 @@ export type MenuProps = React.ComponentPropsWithoutRef<'div'> & {
     transformElOrigin?: TransformElOrigin;
 
     /**
-     * Additional classname
+     * Additional classnames
      */
     className?: string;
 

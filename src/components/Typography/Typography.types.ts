@@ -1,78 +1,17 @@
 import React from 'react';
+import type {PolymorphicComponentProp} from '~/types/Polymorphic.types';
 
-export type TypographyVariant = 'title' | 'heading' | 'subheading' | 'body' | 'caption' | 'button';
-export const variants = ['title', 'heading', 'subheading', 'body', 'caption', 'button'];
+export const variants = ['title', 'heading', 'subheading', 'body', 'caption', 'button'] as const;
+export type TypographyVariant = typeof variants[number];
 
-export type TypographyWeight = 'default' | 'bold' | 'semiBold' | 'light';
-export const weights = ['default', 'bold', 'semiBold', 'light'];
+export const weights = ['default', 'bold', 'semiBold', 'light'] as const;
+export type TypographyWeight = typeof weights[number];
 
-export enum TypographyTags {
-    'a',
-    'abbr',
-    'address',
-    'article',
-    'b',
-    'bdi',
-    'bdo',
-    'big',
-    'blockquote',
-    'button',
-    'caption',
-    'cite',
-    'code',
-    'col',
-    'data',
-    'dd',
-    'del',
-    'dfn',
-    'div',
-    'dt',
-    'em',
-    'figcaption',
-    'h1',
-    'h2',
-    'h3',
-    'h4',
-    'h5',
-    'h6',
-    'i',
-    'input',
-    'ins',
-    'kbd',
-    'label',
-    'legend',
-    'li',
-    'mark',
-    'menuitem',
-    'option',
-    'p',
-    'pre',
-    'q',
-    'rp',
-    'rt',
-    's',
-    'samp',
-    'small',
-    'span',
-    'strong',
-    'sub',
-    'summary',
-    'sup',
-    'th',
-    'time'
-}
-
-// Article to read to handle polymorphic component:
-// https://blog.ohansemmanuel.com/build-strongly-typed-polymorphic-components-with-react-and-typescript/
-export type Props<C extends React.ElementType> = {
+export type TypoProps = {
     /**
-     * Custom classname to use
+     * Additional classnames
      */
     className?: string;
-    /**
-     * The component used for the root node
-     */
-    component?: C;
     /**
      * Variant to use
      */
@@ -104,6 +43,4 @@ export type Props<C extends React.ElementType> = {
     isNowrap?: boolean;
 };
 
-export type TypographyProps<C extends React.ElementType> =
-    React.PropsWithChildren<Props<C>>
-    & Omit<React.ComponentPropsWithoutRef<C>, keyof Props<C>>;
+export type TypographyProps<C extends React.ElementType> = PolymorphicComponentProp<C, TypoProps>;

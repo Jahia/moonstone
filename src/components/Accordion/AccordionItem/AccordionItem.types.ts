@@ -2,12 +2,12 @@ import * as React from 'react';
 
 export type AccordionItemProps = React.ComponentPropsWithoutRef<'div'> & {
     /**
-     * Id to define AccordionItem
+     * Specific identifier to define AccordionItem
      */
-    // id: string;
+    id: string;
 
     /**
-     * Label
+     * Label display as accordion title
      */
     label: string;
 
@@ -17,32 +17,32 @@ export type AccordionItemProps = React.ComponentPropsWithoutRef<'div'> & {
     onClick?: (e: React.MouseEvent | React.KeyboardEvent, isOpen: boolean) => void;
 
     /**
-     * Icon
+     * Icon display before the label
      */
     icon?: React.ReactElement;
 
     /**
      * Content of the component
      */
-    // children: React.ReactNode;
+    children: React.ReactNode;
 
     /**
-     * Additional classname
+     * Additional classnames
      */
-    // className?: string;
+    className?: string;
 }
 
 export type AccordionContextType = {
     /**
-     * Additional classname
+     * Whether the component should use reversed colors, it useful with dark background
      */
     isReversed: boolean;
     /**
-     * Additional classname
+     * Id of the AccordionItem opened
      */
     currentItem?: string;
     /**
-     * Additional classname
+     * Function to set the opened AccordionItem
      */
     onSetOpenedItem?: (id: string) => void;
 }

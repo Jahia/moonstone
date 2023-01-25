@@ -10,7 +10,7 @@ type MenuItemImageSize = 'small' | 'big';
 
 export type MenuItemProps = React.ComponentPropsWithoutRef<'li'> & {
     /**
-     * Additional classname
+     * Additional classnames
      */
     className?: string,
 
@@ -20,12 +20,12 @@ export type MenuItemProps = React.ComponentPropsWithoutRef<'li'> & {
     isHover?: boolean,
 
     /**
-     * Is item selected
+     * Whether the item should be selected
      */
     isSelected?: boolean,
 
     /**
-     * Is item disabled
+     * Whether the item should be disabled
      */
     isDisabled?: boolean,
 
@@ -35,12 +35,13 @@ export type MenuItemProps = React.ComponentPropsWithoutRef<'li'> & {
     label: React.ReactNode,
 
     /**
-     * Optional description to display to describe the item
+     * Description to display to describe the item
      */
     description?: string;
 
     /**
      * Does the label contain HTML markup
+     * @deprecated
      */
     isHtml?: boolean,
 
@@ -62,7 +63,7 @@ export type MenuItemProps = React.ComponentPropsWithoutRef<'li'> & {
     /**
      * Optional image to display to describe the menu item
      */
-    image?: HTMLImageElement,
+    image?: React.ReactElement,
 
     /**
      * If there's an image, it should be this size

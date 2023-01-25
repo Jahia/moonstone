@@ -1,20 +1,32 @@
 import React, {useState} from 'react';
-import {UncontrolledTreeViewProps} from './UncontrolledTreeView.types';
+import type {UncontrolledTreeViewProps} from './TreeView.types';
 import {TreeViewData} from './TreeView.types';
 import {ControlledTreeView} from './ControlledTreeView';
 
-const UncontrolledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElement, UncontrolledTreeViewProps> = ({defaultOpenedItems = [], ...others}, ref) => {
+export const UncontrolledTreeView = React.forwardRef((
+    {
+        defaultOpenedItems = [],
+        onOpenItem,
+        onCloseItem,
+        ...props
+    }: UncontrolledTreeViewProps,
+    ref: React.Ref<HTMLUListElement>
+) => {
     const [openedItems, setOpenedItems] = useState(defaultOpenedItems);
 
-    const onOpenItem = (node: TreeViewData) => {
+    const handleOnOpenItem = (node: TreeViewData, e: React.MouseEvent) => {
         setOpenedItems(prevOpenedItems => [...prevOpenedItems, node.id]);
+        if (typeof onOpenItem !== 'undefined') {
+            onOpenItem(node, e);
+        }
     };
 
-    const onCloseItem = (node: TreeViewData) => {
+    const handleOnCloseItem = (node: TreeViewData, e: React.MouseEvent) => {
         setOpenedItems(prevOpenedItems => prevOpenedItems.filter(item => item !== node.id));
+        if (typeof onOpenItem !== 'undefined') {
+            onCloseItem(node, e);
+        }
     };
 
-    return <ControlledTreeView ref={ref} openedItems={openedItems} onOpenItem={onOpenItem} onCloseItem={onCloseItem} {...others}/>;
-};
-
-export const UncontrolledTreeView = React.forwardRef(UncontrolledTreeViewForwardRef);
+    return <ControlledTreeView ref={ref} openedItems={openedItems} onOpenItem={handleOnOpenItem} onCloseItem={handleOnCloseItem} {...props}/>;
+});

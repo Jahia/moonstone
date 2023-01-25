@@ -1,7 +1,8 @@
 import React from 'react';
 import {Folder, Lock} from '~/icons';
+import type {DropdownData} from '~/components/Dropdown/Dropdown.types';
 
-export const dropdownDataDescriptions = [
+export const dropdownDataDescriptions: DropdownData = [
     {
         groupLabel: 'test for item list with image',
         options: [

@@ -48,7 +48,7 @@ export type PrimaryNavItemProps = {
      */
     url?: string;
     /**
-     * Additional classname
+     * Additional classnames
      */
     className?: string;
     /**

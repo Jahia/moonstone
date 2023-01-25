@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import {AccordionContext} from './Accordion.context';
 import './Accordion.scss';
-import {ControlledAccordionProps} from './ControlledAccordion.types';
+import {ControlledAccordionProps} from './Accordion.types';
 
 export const ControlledAccordion: React.FC<ControlledAccordionProps> = ({children, openedItem, isReversed = false, className, onSetOpenedItem, ...props}) => {
     const provider = {

@@ -1,11 +1,11 @@
 import React, {MutableRefObject, useEffect, useRef} from 'react';
 import clsx from 'clsx';
 import './Collapsible.scss';
-import {CollapsibleProps} from './Collapsible.types';
+import type {ControlledCollapsibleProps} from './Collapsible.types';
 import {Typography} from '~/components';
 import {ChevronRight} from '~/icons/components';
 
-export const ControlledCollapsible: React.FC<CollapsibleProps> = ({
+export const ControlledCollapsible: React.FC<ControlledCollapsibleProps> = ({
     label,
     className,
     children,

@@ -1,9 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
 import {RadioGroupContext} from './RadioGroup.context';
-import {RadioGroupProps} from './RadioGroup.types';
+import type {ControlledRadioGroupProps} from './RadioGroup.types';
 
-export const ControlledRadioGroup: React.FC<RadioGroupProps> = ({children, name, value, isDisabled, isReadOnly, onChange, className, ...props}) => {
+export const ControlledRadioGroup: React.FC<ControlledRadioGroupProps> = ({children, name, value, isDisabled, isReadOnly, onChange, className, ...props}) => {
     if (typeof value === 'undefined' || value === '') {
         value = (children[0].props.value);
     }

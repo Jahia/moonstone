@@ -1,9 +1,12 @@
 import React from 'react';
+
+import type {TreeViewData} from '~/components/TreeView/TreeView.types';
+
 import {Love, NoCloud} from '~/icons';
 import myStyles from '~/components/TreeView/TreeView.stories.module.scss';
 import {toIconComponent} from '~/icons/utils';
 
-export const treeData = [
+export const treeData: TreeViewData[] = [
     {
         id: 'ROOT',
         label: 'Root',

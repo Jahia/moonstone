@@ -2,7 +2,7 @@ import React from 'react';
 
 export type TableProps = {
     /**
-     * Which html element to render the table as
+     * The HTML tag used to render the root node
      */
     component?: string;
 

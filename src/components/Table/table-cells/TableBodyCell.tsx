@@ -8,11 +8,11 @@ import {capitalize} from '~/utils/helpers';
 import {TableCell} from './TableCell';
 import './TableCell.scss';
 
-const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, TableCellProps> = (
+export const TableBodyCell = React.forwardRef((
     {
         component = 'td',
         textAlign = 'left',
-        verticalAlign = 'center',
+        verticalAlign = 'middle',
         className,
         iconStart,
         iconEnd,
@@ -23,7 +23,9 @@ const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, Ta
         children,
         isScrollable,
         ...props
-    }, ref) => {
+    }: TableCellProps,
+    ref: React.Ref<HTMLDivElement>
+) => {
     const leftMarginBuffer = 20; // Px
     const leftMarginIndentDepth = row?.depth * 20; // Px
     const scrollableClass = isScrollable ? 'moonstone-tableCellContent' : '';
@@ -83,8 +85,6 @@ const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, Ta
             {renderTableCell()}
         </Typography>
     );
-};
-
-export const TableBodyCell = React.forwardRef(TableBodyCellForwardRef);
+});
 
 TableBodyCell.displayName = 'TableBodyCell';

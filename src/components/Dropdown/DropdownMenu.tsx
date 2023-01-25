@@ -1,7 +1,9 @@
 import React from 'react';
-import {DropdownDataOptions} from '~/components/Dropdown/Dropdown.types';
+
+import type {DropdownDataOption, DropdownDataOptions} from '~/components/Dropdown/Dropdown.types';
+import type {DropdownMenuProps} from '~/components/Dropdown/DropdownMenu.types';
+
 import {Menu, MenuItem, Separator} from '~/components';
-import {DropdownMenuProps} from '~/components/Dropdown/DropdownMenu.types';
 
 export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     isDisplayed,
@@ -19,13 +21,10 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     handleKeyPress,
     onClose
 }) => {
-    const isEmpty = data.length < 1;
-    const isGrouped = !isEmpty && typeof data[0].options !== 'undefined';
-
     // ---
     // Generate options
     // ---
-    const dropdownOption = (item: DropdownDataOptions) => (
+    const dropdownOption = (item: DropdownDataOption) => (
         <MenuItem
             key={item.value}
             role="option"
@@ -43,7 +42,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
         />
     );
 
-    const dropdownGrouped = (children: [DropdownDataOptions], groupLabel: string, index: number) => {
+    const dropdownGrouped = (children: DropdownDataOptions, groupLabel: string, index: number) => {
         return (
             <div key={`${groupLabel}-${index}`} data-option-type="group">
                 {index > 0 && (
@@ -74,8 +73,8 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
         >
             {
                 data.map((item, index) => {
-                    if (isGrouped) {
-                        item.options.map((o: DropdownDataOptions) => {
+                    if ('options' in item) {
+                        item.options.map((o: DropdownDataOption) => {
                             return dropdownOption(o);
                         });
                         return dropdownGrouped(item.options, item.groupLabel, index);

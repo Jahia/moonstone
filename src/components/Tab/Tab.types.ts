@@ -3,12 +3,12 @@ import type {TabItemProps} from './TabItem/TabItem.types';
 
 export type TabProps = React.ComponentPropsWithRef<'div'> & {
     /**
-     * Content of Tab component
+     * Content of the Tab component
      */
-    // children: React.ReactNode;
-    children: React.ReactElement<TabItemProps>[] | React.ReactElement<TabItemProps>
+    children: React.ReactElement<TabItemProps> | React.ReactElement<TabItemProps>[]
+
     /**
-     * Additional classname
+     * Additional classnames
      */
     className?: string;
 }

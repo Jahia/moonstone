@@ -2,19 +2,22 @@ import * as React from 'react';
 
 export type BreadcrumbItemProps = React.ComponentPropsWithoutRef<'button'> & {
     /**
-     * Additional classname
+     * Additional classnames
      */
     className?: string;
+
     /**
-     * Additional classname
+     * Label of the BreadcrumbItem
      */
     label: string;
+
     /**
-     * Icon name, if it's empty the item has no icon
+     * Icon display before the label
      */
     icon?: React.ReactElement;
+
     /**
-     * Function trigger on click
+     * Function triggered on click
      */
     onClick?: React.MouseEventHandler;
 }

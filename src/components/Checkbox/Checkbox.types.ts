@@ -1,25 +1,29 @@
 import React from 'react';
 
-export type CheckboxProps = React.ComponentPropsWithRef<'input'> & {
+type ControlledProps = {
     /**
-     * Identifier added to the input element
+     * Whether the checkbox should be checked. Must be used in conjunction with onChange. Define the component as controlled when it set (controlled)
      */
-    // id?: string;
-
-    /**
-     * Whether the checkbox should be checked (controlled)
-     */
-    checked?: boolean;
+    checked: boolean;
 
     /**
      * Whether the checkbox should be indeterminate (controlled)
      */
     indeterminate?: boolean;
+};
 
+type UncontrolledProps = {
     /**
      * Whether the checkbox should be checked - default value (uncontrolled)
      */
     defaultChecked?: boolean;
+};
+
+type BasicProps = React.ComponentPropsWithRef<'input'> & {
+    /**
+     * Identifier added to the input element
+     */
+    id?: string;
 
     /**
      * The value of the input element, used when submitting an HTML form
@@ -29,7 +33,7 @@ export type CheckboxProps = React.ComponentPropsWithRef<'input'> & {
     /**
      * The name of the input element, used when submitting an HTML form
      */
-    // name?: string;
+    name?: string;
 
     /**
      * Checkbox size
@@ -37,9 +41,9 @@ export type CheckboxProps = React.ComponentPropsWithRef<'input'> & {
     size?: 'default' | 'big';
 
     /**
-     * Additional classname(s)
+     * Additional classnames
      */
-    // className?: string;
+    className?: string;
 
     /**
      * Whether the checkbox should be disabled
@@ -54,15 +58,21 @@ export type CheckboxProps = React.ComponentPropsWithRef<'input'> & {
     /**
      * Function triggered on change of the checkbox value
      */
-    // onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 
     /**
      * Function triggered on focus of the checkbox value
      */
-    // onFocus?: React.FocusEventHandler;
+    onFocus?: React.FocusEventHandler;
 
     /**
      * Function triggered when the checkbox value loses focus
      */
-    // onBlur?: React.FocusEventHandler;
+    onBlur?: React.FocusEventHandler;
 }
+
+export type CheckboxProps = BasicProps & Partial<ControlledProps> & Partial<UncontrolledProps>;
+
+export type ControlledCheckboxProps = BasicProps & ControlledProps;
+
+export type UncontrolledCheckboxProps = BasicProps & UncontrolledProps;

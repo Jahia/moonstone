@@ -12,7 +12,7 @@ export type PaperProps = React.ComponentPropsWithoutRef<'section'> & {
     children?: React.ReactNode;
 
     /**
-     * Additional classname
+     * Additional classnames
      */
     className?: string;
 }

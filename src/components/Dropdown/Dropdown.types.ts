@@ -19,30 +19,36 @@ export enum DropdownImageSizes {
     Big = 'big'
 }
 
-export type DropdownDataOptions = {
+export type DropdownDataOption = {
     label?: string;
     description?: string;
     value?: string;
     isDisabled?: boolean;
     iconStart?: React.ReactElement;
     iconEnd?: React.ReactElement;
-    attributes?: unknown;
-    image?: HTMLImageElement;
+    attributes?: object;
+    image?: React.ReactElement;
     imageSize?: DropdownImageSize;
 }
 
-export type DropdownData = {
-    groupLabel?: string;
-    options?: [DropdownDataOptions];
-}
+export type DropdownDataOptions = DropdownDataOption[]
 
-export type HandleSelect = (e: React.MouseEvent | React.KeyboardEvent, item?: DropdownDataOptions) => void;
+export type DropdownDataGrouped = {
+    groupLabel?: string;
+    options: DropdownDataOptions;
+}[]
+
+export type DropdownDataTree = TreeViewData[]
+
+export type DropdownData = DropdownDataOptions | DropdownDataGrouped | DropdownDataTree
+
+export type HandleSelect = (e: React.MouseEvent | React.KeyboardEvent, item?: DropdownDataOption) => void;
 
 export type DropdownProps = {
     /**
      * Content of the dropdown
      */
-    data: [DropdownDataOptions & DropdownData] | [TreeViewData] | any;
+    data: DropdownData;
 
     isTree?: boolean,
 
@@ -97,7 +103,7 @@ export type DropdownProps = {
     searchEmptyText?: string;
 
     /**
-     * Additional classname
+     * Additional classnames
      */
     className?: string;
 
@@ -106,5 +112,5 @@ export type DropdownProps = {
      * @param {object} event - Mouse event
      * @param {object} item - The current item selected
      */
-    onChange?: (event: React.MouseEvent, item :DropdownDataOptions) => void;
+    onChange?: (event: React.MouseEvent, item: DropdownDataOption) => void;
 }

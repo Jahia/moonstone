@@ -11,57 +11,58 @@ export const buttonColors = ['default', 'accent', 'danger'];
 
 export type ButtonProps = React.ComponentPropsWithRef<'button'> & {
     /**
-     * Button label
+     * Label inside the button
      */
     label?: React.ReactNode;
 
     /**
      * Does the label contain HTML markup
+     * @deprecated
      */
     isHtml?: boolean;
 
     /**
-     * Icon size
+     * Size of the button
      */
     size?: ButtonSize;
 
     /**
-     * Icon component, if it's empty the button has no icon
+     * Icon component display before the label
      */
     icon?: React.ReactElement;
 
     /**
-     * Button style
+     * Style of the button
      */
     variant?: ButtonVariant;
 
     /**
-     * Button color
+     * Color of the button
      */
     color?: ButtonColor;
 
     /**
-     * Is button disabled
+     * Whether the button should be disabled
      */
     isDisabled?: boolean;
 
     /**
-     * Is button color reversed
+     * Whether the component should use reversed colors, it useful with dark background
      */
     isReversed?: boolean;
 
     /**
-     * Is button loading
+     * Define if the button is loading
      */
      isLoading?: boolean;
 
     /**
-     * Additional classname
+     * Additional classnames
      */
     className?: string;
 
     /**
-     * Function trigger on click
+     * Function triggered on click
      */
     onClick?: React.MouseEventHandler;
 }

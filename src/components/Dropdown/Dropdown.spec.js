@@ -63,6 +63,11 @@ describe('Dropdown', () => {
         expect(screen.queryByTestId('moonstone-dropdown')).not.toBeInTheDocument();
     });
 
+    // It('should display nothing if data is an empty array', () => {
+    //     render(<Dropdown data="not an array" data-testid="moonstone-dropdown" onChange={() => 'testing'}/>);
+    //     expect(screen.queryByTestId('moonstone-dropdown')).not.toBeInTheDocument();
+    // });
+
     it('should add "dropdown-disabled" class if data is empty', () => {
         render(<Dropdown data={[]} data-testid="moonstone-dropdown" onChange={() => 'testing'}/>);
         expect(screen.queryByTestId('moonstone-dropdown').firstChild).toHaveClass('moonstone-disabled');

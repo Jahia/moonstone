@@ -8,12 +8,12 @@ export type TableHeadProps = {
     isSticky?: boolean;
 
     /**
-     * Name of HTML element to render in the DOM for this component
+     * The HTML tag used to render the root node
      */
     component?: string;
 
     /**
-     * Any additional class names to apply to the component
+     * Additional classnamess
      */
     className?: string;
 

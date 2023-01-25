@@ -11,47 +11,59 @@ export const tabItemColors = ['default'];
 
 export type TabItemProps = {
     /**
-     * The component used for the root node
+     * The HTML tag used to render the root node
      */
     component?: string;
+
     /**
      * TabItem label
      */
     label?: string;
+
     /**
      * Icon size
      */
     size?: TabItemSize;
+
     /**
      * Icon name, if it's empty the tabItem has no icon
      */
     icon?: React.ReactElement;
+
     /**
-     * TabItem style
+     * Style of the component
+     * @deprecated As we only have only one variant
      */
     variant?: TabItemVariant;
+
     /**
-     * TabItem color
+     * Color of the component
+     * @deprecated As we only have only one color
      */
     color?: TabItemColor;
+
     /**
-     * Is tabItem disabled
+     * Whether the tab item should be disabled
      */
     isDisabled?: boolean;
+
     /**
-     * Is tabItem selected
+     * Whether the tab item should be selected
      */
     isSelected?: boolean;
+
     /**
      * Function trigger on click
      */
     onClick?: React.MouseEventHandler;
+
     /**
-     * Is tabItem color reversed
+     * Whether the component should use reversed colors, it useful with dark background
      */
     isReversed?: boolean;
+
     /**
-     * Additional classname
+     * Additional classnames
      */
     className?: string;
 }

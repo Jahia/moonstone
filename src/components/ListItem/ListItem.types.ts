@@ -4,7 +4,7 @@ import {TypographyVariant} from '~/components/Typography/Typography.types';
 
 export type ListItemProps = React.ComponentPropsWithoutRef<'li'> & {
     /**
-     * Additional classname
+     * Additional classnames
      */
     className?: string;
 
@@ -20,6 +20,7 @@ export type ListItemProps = React.ComponentPropsWithoutRef<'li'> & {
 
     /**
      * Does the label contain HTML markup
+     * @deprecated
      */
     isHtml?: boolean;
 
@@ -40,7 +41,7 @@ export type ListItemProps = React.ComponentPropsWithoutRef<'li'> & {
     /**
      * Optional image to display to describe the menu item. Cannot be used in conjunction with the iconStart property.
      */
-    image?: HTMLImageElement;
+    image?: React.ReactElement;
 
     /**
      * If there's an image, it should be this size

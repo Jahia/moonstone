@@ -13,6 +13,7 @@ import {TypographyProps} from './Typography.types';
 
 //     return newProps;
 // };
+
 export const Typography = <C extends React.ElementType = 'p'> ({
     children = '',
     component,
@@ -49,26 +50,6 @@ export const Typography = <C extends React.ElementType = 'p'> ({
             {children}
         </Component>
     );
-    // Return React.createElement(
-    //     component,
-    //     {
-    //         ...filterOutIsHtml(props),
-    //         className: clsx(
-    //             'moonstone-typography',
-    //             `moonstone-variant_${variant}`,
-    //             `moonstone-weight_${weight}`,
-    //             className,
-    //             {'moonstone-nowrap': isNowrap},
-    //             {'moonstone-italic': isItalic},
-    //             {'moonstone-upperCase': isUpperCase},
-    //             {'moonstone-lineThrough': hasLineThrough})
-    //     },
-    //     children
-    // );
 };
-
-export const Test = () => (
-    <Typography component="span">yolo</Typography>
-);
 
 Typography.displayName = 'Typography';

@@ -4,12 +4,12 @@ import {UseExpandedRowProps, Row, Cell} from 'react-table';
 // Shared types used by both TableHeadCell and TableBodyCell
 export type TableCellProps = {
     /**
-     * Any additional class names to apply to the component
+     * Additional classnames
      */
     className?: string;
 
     /**
-     * Name of the cell HTML element to render in the DOM
+     * The HTML tag used to render the root node
      */
     component?: 'td' | 'th';
 

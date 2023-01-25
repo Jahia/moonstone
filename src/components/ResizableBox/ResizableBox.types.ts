@@ -50,7 +50,7 @@ export type ResizableBoxProps = {
      */
     size?: Size;
     /**
-     * Additional classname
+     * Additional classnames
      */
     className?: string;
     /**

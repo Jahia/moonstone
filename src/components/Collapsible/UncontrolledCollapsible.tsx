@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import './Collapsible.scss';
-import {CollapsibleProps} from './Collapsible.types';
+import type {UncontrolledCollapsibleProps} from './Collapsible.types';
 import {ControlledCollapsible} from './ControlledCollapsible';
 
-export const UncontrolledCollapsible: React.FC<CollapsibleProps> = ({
+export const UncontrolledCollapsible: React.FC<UncontrolledCollapsibleProps> = ({
     children,
     onClick = () => undefined,
     isDefaultExpanded = false,

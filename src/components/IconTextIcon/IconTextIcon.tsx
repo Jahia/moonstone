@@ -5,8 +5,8 @@ import {IconTextIconProps} from './IconTextIcon.types';
 import './IconTextIcon.scss';
 import {Typography} from '~/components';
 
-export const IconTextIcon: React.FC<IconTextIconProps> = ({
-    component = 'div',
+export const IconTextIcon = <C extends React.ElementType = 'div'> ({
+    component,
     iconStart,
     iconEnd,
     iconSize = 'default',
@@ -14,18 +14,19 @@ export const IconTextIcon: React.FC<IconTextIconProps> = ({
     className,
     children,
     ...props
-}) => {
-    // Default Typography component props to use. Can be overwritten through
-    // the use of the typographyProps property
-    const typoProps = {component: 'span', ...typographyProps};
+}: IconTextIconProps<C>) => {
+    const Component = component || 'div';
 
-    return React.createElement(
-        component,
-        {
-            className: clsx('moonstone-IconTextIcon', 'flexRow_nowrap', 'alignCenter', className),
-            ...props
-        },
-        (
+    return (
+        <Component
+            className={clsx(
+                'moonstone-IconTextIcon',
+                'flexRow_nowrap',
+                'alignCenter',
+                className
+            )}
+            {...props}
+        >
             <>
                 {iconStart && (
                     <iconStart.type
@@ -38,7 +39,7 @@ export const IconTextIcon: React.FC<IconTextIconProps> = ({
                 <Typography
                     isNowrap
                     className={clsx('flexFluid')}
-                    {...typoProps}
+                    {...typographyProps}
                 >
                     {children}
                 </Typography>
@@ -51,6 +52,6 @@ export const IconTextIcon: React.FC<IconTextIconProps> = ({
                     />
                 )}
             </>
-        )
+        </Component>
     );
 };

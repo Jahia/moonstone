@@ -3,7 +3,8 @@ import clsx from 'clsx';
 import './Dropdown.scss';
 
 import {
-    DropdownData,
+    DropdownDataGrouped,
+    DropdownDataOption,
     DropdownDataOptions,
     DropdownImageSizes,
     DropdownProps,
@@ -81,7 +82,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             let canClose: boolean | void = !item.isDisabled;
             if (!item.isDisabled && item.value !== value) {
                 e.stopPropagation();
-                canClose = (onChange as (e: React.MouseEvent | React.KeyboardEvent, item: DropdownDataOptions) => void)(e, item);
+                canClose = (onChange as (e: React.MouseEvent | React.KeyboardEvent, item: DropdownDataOption) => void)(e, item);
             }
 
             if (canClose !== false) {
@@ -95,7 +96,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         setAnchorEl(null);
     };
 
-    const handleKeyPress = (e: React.KeyboardEvent, item: DropdownDataOptions) => {
+    const handleKeyPress = (e: React.KeyboardEvent, item: DropdownDataOption) => {
         if (e.key === 'Enter') {
             handleSelect(e, item);
         }
@@ -177,7 +178,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             ) : (
                 <DropdownMenu
                     isDisplayed
-                    data={data as [DropdownDataOptions & DropdownData]}
+                    data={data as DropdownDataOptions & DropdownDataGrouped}
                     value={value}
                     anchorPosition={anchorPosition}
                     minWidth={minWidth}
