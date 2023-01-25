@@ -1,5 +1,4 @@
 import React from 'react';
-import {storiesOf} from '@storybook/react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
@@ -15,17 +14,21 @@ export const Spacing = ({name}) => {
     );
 };
 
-storiesOf('Tokens/Spacings', module)
-    .add('Default', () => (
-        <section className="storyWrapper">
-            <Spacing name="nano"/>
-            <Spacing name="small"/>
-            <Spacing name="medium"/>
-            <Spacing name="large"/>
-            <Spacing name="big"/>
-            <Spacing name="huge"/>
-        </section>
-    ));
+export default {
+    title: 'Tokens/Spacings',
+    excludeStories: ['Spacing']
+};
+
+export const Default = () => (
+    <section className="storyWrapper">
+        <Spacing name="nano"/>
+        <Spacing name="small"/>
+        <Spacing name="medium"/>
+        <Spacing name="large"/>
+        <Spacing name="big"/>
+        <Spacing name="huge"/>
+    </section>
+);
 
 Spacing.propTypes = {
     name: PropTypes.string.isRequired

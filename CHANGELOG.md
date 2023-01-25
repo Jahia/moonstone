@@ -1,3 +1,85 @@
+# v2.4.24 (Wed Dec 14 2022)
+
+#### 🐛 Bug Fix
+
+- MOON-361: Add new icons [#346](https://github.com/Jahia/moonstone/pull/346) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-362: Add story for Dropdown with description [#345](https://github.com/Jahia/moonstone/pull/345) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
+# v2.4.23 (Tue Dec 13 2022)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-20485: reorganized and fixed dnd [#344](https://github.com/Jahia/moonstone/pull/344) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
+# v2.4.22 (Mon Dec 12 2022)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-20485 Get rid of unnecessary vars, add drop targets on lists,… [#343](https://github.com/Jahia/moonstone/pull/343) ([@AKarmanov](https://github.com/AKarmanov))
+- BACKLOG-20481: Fix add/remove and dnd [#341](https://github.com/Jahia/moonstone/pull/341) ([@tdraier](https://github.com/tdraier))
+
+#### 🏠 Internal
+
+- Set fetch depth to 0 (all history) [#340](https://github.com/Jahia/moonstone/pull/340) ([@tdraier](https://github.com/tdraier))
+- MOON-239: Update stories to CSF format [#335](https://github.com/Jahia/moonstone/pull/335) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🔩 Dependency Updates
+
+- Bump express from 4.17.1 to 4.18.2 [#339](https://github.com/Jahia/moonstone/pull/339) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 4
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
+# v2.4.21 (Thu Dec 08 2022)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-20304 MultipleLeftRightSelector component [#334](https://github.com/Jahia/moonstone/pull/334) ([@AKarmanov](https://github.com/AKarmanov))
+- Fixed observer registration [#338](https://github.com/Jahia/moonstone/pull/338) ([@tdraier](https://github.com/tdraier))
+
+#### 🔩 Dependency Updates
+
+- Bump decode-uri-component from 0.2.0 to 0.2.2 [#337](https://github.com/Jahia/moonstone/pull/337) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 4
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
+# v2.4.20 (Mon Dec 05 2022)
+
+#### 🐛 Bug Fix
+
+- MOON-360: Add icon FileBroken [#336](https://github.com/Jahia/moonstone/pull/336) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.4.19 (Mon Nov 28 2022)
 
 #### 🐛 Bug Fix

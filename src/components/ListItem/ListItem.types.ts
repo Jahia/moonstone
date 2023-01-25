@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {HTMLAttributes} from 'react';
 
 import {TypographyVariant} from '~/components/Typography/Typography.types';
 
@@ -17,12 +17,6 @@ export type ListItemProps = React.ComponentPropsWithoutRef<'li'> & {
      * Optional description to display to describe the item
      */
     description?: string;
-
-    /**
-     * Does the label contain HTML markup
-     * @deprecated
-     */
-    isHtml?: boolean;
 
     /**
      * A leading icon display before the label. Cannot be used in conjunction with the image property.
@@ -57,4 +51,4 @@ export type ListItemProps = React.ComponentPropsWithoutRef<'li'> & {
      * Which icon size to render. The default is small
      */
     iconSize?: 'small' | 'default' | 'big';
-}
+} & HTMLAttributes<HTMLLIElement>

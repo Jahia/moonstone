@@ -33,11 +33,6 @@ export type TypoProps = {
      */
     hasLineThrough?: boolean;
     /**
-     * Does the children contain HTML markup
-     * @deprecated
-     */
-    isHtml?: boolean;
-    /**
      * No wrapping for text
      */
     isNowrap?: boolean;

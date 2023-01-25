@@ -1,16 +1,22 @@
 import React, {useState} from 'react';
-import {ComponentStory, ComponentMeta} from '@storybook/react';
-import '~/__storybook__/storybook.scss';
+import {Story, ComponentMeta} from '@storybook/react';
 
 import {Input} from './index';
+import type {InputProps} from './Input.types';
 import {Love} from '~/icons';
 
 export default {
     title: 'Components/Input',
     component: Input,
-    layout: 'centered',
+    decorators: [
+        StoryCmp => (
+            <div style={{width: '50vw'}}>
+                <StoryCmp/>
+            </div>
+        )
+    ],
     parameters: {
-        knobs: {disable: true}
+        layout: 'centered'
     },
     args: {
         placeholder: 'Placeholder text'
@@ -23,25 +29,21 @@ export default {
     }
 } as ComponentMeta<typeof Input>;
 
-const Template: ComponentStory<typeof Input> = args => (
-    <section className="storyWrapper">
-        <Input {...args}/>
-    </section>
+const Template: Story<InputProps> = args => (
+    <Input {...args}/>
 );
 
 export const Uncontrolled = Template.bind({});
 
-export const Controlled: ComponentStory<typeof Input> = args => {
+export const Controlled: Story<InputProps> = args => {
     const [inputValue, setInputValue] = useState('Default value');
 
     return (
-        <section className="storyWrapper">
-            <Input
-                value={inputValue}
-                onChange={e => setInputValue(e.target.value)}
-                {...args}
-            />
-        </section>
+        <Input
+            value={inputValue}
+            onChange={e => setInputValue(e.target.value)}
+            {...args}
+        />
     );
 };
 

@@ -52,7 +52,7 @@ type BasicProps = React.ComponentPropsWithoutRef<'div'> & {
     isReadOnly?: boolean;
 }
 
-export type RadioGroupProps = (BasicProps & ControlledProps) | (BasicProps & UncontrolledProps);
+export type RadioGroupProps = BasicProps & Partial<ControlledProps> & Partial<UncontrolledProps>;
 
 export type ControlledRadioGroupProps = BasicProps & ControlledProps;
 

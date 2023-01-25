@@ -16,12 +16,6 @@ export type ButtonProps = React.ComponentPropsWithRef<'button'> & {
     label?: React.ReactNode;
 
     /**
-     * Does the label contain HTML markup
-     * @deprecated
-     */
-    isHtml?: boolean;
-
-    /**
      * Size of the button
      */
     size?: ButtonSize;

@@ -3,17 +3,6 @@ import clsx from 'clsx';
 import './Typography.scss';
 import {TypographyProps} from './Typography.types';
 
-// IsHtml prop should eventually be removed (along with this function) as children supports all React Node types
-// including strings and HTML markup
-// const filterOutIsHtml = (props: TypographyProps) => {
-//     const newProps = {...props};
-//     if (newProps.isHtml) {
-//         delete newProps.isHtml;
-//     }
-
-//     return newProps;
-// };
-
 export const Typography = <C extends React.ElementType = 'p'> ({
     children = '',
     component,
@@ -24,7 +13,6 @@ export const Typography = <C extends React.ElementType = 'p'> ({
     isItalic = false,
     isUpperCase = false,
     isNowrap = false,
-    isHtml = false,
     ...props
 }: TypographyProps<C>) => {
     if (!children) {

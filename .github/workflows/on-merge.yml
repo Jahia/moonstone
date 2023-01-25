@@ -13,13 +13,14 @@ jobs:
     steps:
       # Providing the SSH PRIVATE of a user part of an admin group
       # is necessary to bypass PR checks
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ssh-key: ${{ secrets.GH_SSH_PRIVATE_KEY_JAHIACI }}
+          fetch-depth: 0
       - uses: actions/setup-node@v3
       # Setting up the SSH agent to be able to commit back to the repository
       # https://github.com/webfactory/ssh-agent
-      - uses: webfactory/ssh-agent@v0.5.4
+      - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.GH_SSH_PRIVATE_KEY_JAHIACI }}
 

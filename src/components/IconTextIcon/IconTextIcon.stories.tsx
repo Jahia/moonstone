@@ -5,13 +5,10 @@ import {IconTextIcon} from './index';
 import {Apps, Love} from '~/icons';
 
 export default {
-    title: 'Molecules/IconTextIcon',
+    title: 'Components/IconTextIcon',
     component: IconTextIcon,
     parameters: {
-        knobs: {
-            disable: true
-        },
-        storysource: {disable: true}
+        layout: 'centered'
     }
 };
 

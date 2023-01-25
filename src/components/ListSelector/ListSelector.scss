@@ -1,0 +1,25 @@
+.moonstone-multipleSelector {
+    .moonstone-buttonSection {
+        display: flex;
+        align-items: center;
+        width: var(--spacing-big);
+        padding: var(--spacing-small);
+
+        .moonstone-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+    }
+
+    .moonstone-captionContainer {
+        min-height: calc(var(--spacing-medium) * 2);
+        margin-top: var(--spacing-small);
+
+        color: var(--color-gray60);
+    }
+
+    .moonstone-draggedOver {
+        outline: solid 2px var(--color-accent);
+    }
+}

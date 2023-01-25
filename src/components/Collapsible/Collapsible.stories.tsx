@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
-import {Collapsible} from '~/components';
-import {Typography} from '../Typography';
+import {Story} from '@storybook/react';
+
+import {Collapsible} from './index';
+import type {CollapsibleProps} from './Collapsible.types';
 
 export default {
     title: 'Components/Collapsible',
     component: Collapsible,
     parameters: {
-        layout: 'fullscreen',
-        knobs: {disable: true},
-        storysource: {disable: true},
         actions: {argTypesRegex: '^on.*'}
     }
 };
@@ -53,7 +52,7 @@ const BodyCollapsible = () => {
     );
 };
 
-const Template = args => <Collapsible {...args}/>;
+const Template: Story<CollapsibleProps> = args => <Collapsible {...args}/>;
 
 export const Uncontrolled = Template.bind({});
 Uncontrolled.args = {
@@ -62,40 +61,38 @@ Uncontrolled.args = {
     isDefaultExpanded: false
 };
 
-export const Controlled = () => {
+export const Controlled: Story<CollapsibleProps> = args => {
     const [isExpanded, setIsExpanded] = useState(false);
     const handleOnClick = () => {
         setIsExpanded(!isExpanded);
     };
 
     return (
-        <Collapsible isExpanded={isExpanded} label="Collapsible label" onClick={e => handleOnClick(e)}>
+        <Collapsible {...args} isExpanded={isExpanded} onClick={() => handleOnClick()}>
             <BodyCollapsible/>
         </Collapsible>
     );
 };
 
+Controlled.args = {
+    label: 'Collapsible label'
+};
+
 export const StickyCollapsibles = () => {
     return (
-        <div style={{height: '100%', overflow: 'hidden'}}>
-            <div>
-                <Typography variant="heading">Sticky headers</Typography>
-            </div>
-            <div style={{height: '100%', overflowY: 'auto'}}>
-                <Collapsible label="Collapsible 1">
-                    <BodyCollapsible/>
-                </Collapsible>
-                <Collapsible label="Collapsible 2">
-                    <BodyCollapsible/>
-                </Collapsible>
-                <Collapsible label="Collapsible 3">
-                    <BodyCollapsible/>
-                </Collapsible>
-                <Collapsible label="Collapsible 4">
-                    <BodyCollapsible/>
-                </Collapsible>
-
-            </div>
-        </div>
+        <>
+            <Collapsible label="Collapsible 1">
+                <BodyCollapsible/>
+            </Collapsible>
+            <Collapsible label="Collapsible 2">
+                <BodyCollapsible/>
+            </Collapsible>
+            <Collapsible label="Collapsible 3">
+                <BodyCollapsible/>
+            </Collapsible>
+            <Collapsible label="Collapsible 4">
+                <BodyCollapsible/>
+            </Collapsible>
+        </>
     );
 };

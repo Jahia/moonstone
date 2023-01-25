@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import {TableRowProps} from './TableRow.types';
 import './TableRow.scss';
 
-const TableRow = React.forwardRef((
+export const TableRow = React.forwardRef((
     {
         className,
         component = 'tr',

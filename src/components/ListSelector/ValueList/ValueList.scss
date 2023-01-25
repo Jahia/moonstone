@@ -1,0 +1,80 @@
+.moonstone-valueList {
+    flex-grow: 1;
+    height: 300px;
+    overflow-y: auto;
+}
+
+.moonstone-iconContainer {
+    min-width: var(--spacing-large);
+
+    .moonstone-displayNone {
+        display: none;
+    }
+
+    .moonstone-dragHandle {
+        cursor: move;
+    }
+}
+
+.moonstone-valueListItem {
+    align-items: center;
+    width: calc(100% - 2px);
+    margin: 1px;
+    padding: var(--spacing-small);
+
+    cursor: pointer;
+
+    &.selected {
+        color: var(--color-white);
+
+        background-color: var(--color-accent);
+    }
+
+    &:hover {
+        color: var(--color-accent);
+
+        background-color: var(--color-gray_light60);
+    }
+
+    &:hover > div > div > .moonstone-displayNone {
+        display: block;
+    }
+}
+
+.moonstone-wrapper {
+    flex-grow: 1;
+    gap: var(--spacing-small);
+
+    .moonstone-listHolder {
+        flex-grow: 1;
+        gap: var(--spacing-small);
+        padding: var(--spacing-small);
+
+        border: 1px solid var(--color-gray40);
+    }
+
+    .moonstone-dragging {
+        background-color: var(--color-light);
+        box-shadow: 0 4px 8px rgba(19, 28, 33, 0.2);
+
+        & > div > div > .moonstone-displayNone {
+            display: none;
+        }
+    }
+
+    .moonstone-noHoveEffect {
+        &:hover {
+            color: inherit;
+
+            background-color: inherit;
+        }
+
+        &:hover > div > div > .moonstone-displayNone {
+            display: none;
+        }
+    }
+
+    .moonstone-noOpacity {
+        opacity: 0;
+    }
+}

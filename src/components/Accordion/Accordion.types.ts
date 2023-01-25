@@ -30,7 +30,6 @@ type BasicProps = React.ComponentPropsWithoutRef<'div'> & {
      * Additional classnames
     */
     className?: string;
-
     /**
      * Content of the component
      */

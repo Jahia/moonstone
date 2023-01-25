@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
-import {ComponentStory, ComponentMeta} from '@storybook/react';
+import {Story, ComponentMeta} from '@storybook/react';
 import '~/__storybook__/storybook.scss';
 
 import {SearchContextInput} from './index';
+import type {SearchContextInputProps} from './SearchContextInput.types';
+
 import {Person, SiteWeb, Collections} from '~/icons';
 import {Dropdown} from '~/components';
 import {DropdownDataOption, DropdownDataOptions} from '~/components/Dropdown/Dropdown.types';
@@ -10,9 +12,15 @@ import {DropdownDataOption, DropdownDataOptions} from '~/components/Dropdown/Dro
 export default {
     title: 'Components/Input',
     component: SearchContextInput,
-    layout: 'centered',
+    decorators: [
+        StoryCmp => (
+            <div style={{width: '50vw'}}>
+                <StoryCmp/>
+            </div>
+        )
+    ],
     parameters: {
-        knobs: {disable: true}
+        layout: 'centered'
     },
     args: {
         placeholder: 'Placeholder text',
@@ -44,7 +52,7 @@ const searchContextData: DropdownDataOptions = [
     }
 ];
 
-export const SearchContext: ComponentStory<typeof SearchContextInput> = args => {
+export const SearchContext: Story<SearchContextInputProps> = args => {
     const [contextOption, setContextOption] = useState(searchContextData[0]);
     const handleDropdownOnChange = (e: React.MouseEvent, item: DropdownDataOption) => {
         setContextOption(item);

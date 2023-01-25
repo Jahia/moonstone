@@ -5,21 +5,22 @@ import type {ControlledCollapsibleProps} from './Collapsible.types';
 import {Typography} from '~/components';
 import {ChevronRight} from '~/icons/components';
 
-export const ControlledCollapsible: React.FC<ControlledCollapsibleProps> = ({
-    label,
-    className,
-    children,
-    onClick = () => undefined,
-    id = null,
-    isExpanded = false,
-    ref,
-    ...other
-}) => {
+export const ControlledCollapsible = React.forwardRef((
+    {
+        label,
+        className,
+        children,
+        onClick = () => undefined,
+        id = null,
+        isExpanded = false,
+        ...other
+    }: ControlledCollapsibleProps,
+    ref: React.Ref<HTMLDivElement>
+) => {
     const classNameProps = clsx(
         'moonstone-collapsible',
         className
     );
-
     const topDivRef: MutableRefObject<HTMLDivElement> = useRef();
     const buttonRef: MutableRefObject<HTMLButtonElement> = useRef();
 
@@ -35,13 +36,14 @@ export const ControlledCollapsible: React.FC<ControlledCollapsibleProps> = ({
         }, {threshold: [0, 1]});
 
         if (isExpanded) {
-            observer.observe(topDivRef.current);
+            const htmlDivElement = topDivRef.current;
+            observer.observe(htmlDivElement);
             return () => {
                 if (buttonRef.current) {
                     buttonRef.current.classList.remove('moonstone-collapsible_button_sticky');
                 }
 
-                observer.unobserve(topDivRef.current);
+                observer.unobserve(htmlDivElement);
             };
         }
     }, [isExpanded]);
@@ -79,6 +81,6 @@ export const ControlledCollapsible: React.FC<ControlledCollapsibleProps> = ({
             </div>
         </div>
     );
-};
+});
 
 ControlledCollapsible.displayName = 'ControlledCollapsible';

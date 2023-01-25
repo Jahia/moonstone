@@ -40,12 +40,6 @@ export type MenuItemProps = React.ComponentPropsWithoutRef<'li'> & {
     description?: string;
 
     /**
-     * Does the label contain HTML markup
-     * @deprecated
-     */
-    isHtml?: boolean,
-
-    /**
      * A leading icon display before the label
      */
     iconStart?: React.ReactElement,
