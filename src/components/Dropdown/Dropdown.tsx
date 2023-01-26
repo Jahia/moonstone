@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import clsx from 'clsx';
 import './Dropdown.scss';
 
 import {
-    DropdownData,
-    DropdownDataOptions,
+    DropdownDataOption,
     DropdownImageSizes,
     DropdownProps,
     DropdownSizes,
@@ -15,12 +14,29 @@ import {Typography} from '~/components/Typography';
 import {ChevronDown} from '~/icons';
 import {DropdownMenu} from '~/components/Dropdown/DropdownMenu';
 import {TreeViewMenu} from '~/components/Dropdown/TreeViewMenu';
+import {Tag} from '~/components';
 import {TreeViewData} from '~/components/TreeView/TreeView.types';
+
+const flatten = (data: TreeViewData[]): TreeViewData[] => {
+    const res: TreeViewData[] = [];
+
+    const fn = (current: TreeViewData) => {
+        res.push(current);
+        if (current.children) {
+            current.children.forEach(fn);
+        }
+    };
+
+    data.forEach(fn);
+
+    return res;
+};
 
 export const Dropdown: React.FC<DropdownProps> = ({
     data,
     label,
     value,
+    values,
     isDisabled,
     maxWidth = '300px',
     variant = DropdownVariants.Ghost,
@@ -37,6 +53,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const [isOpened, setIsOpened] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
+
+    const flatData = useMemo(() => flatten(data), [data]);
     const isEmpty = data.length < 1;
     const menuMinWidth = 80;
     const anchorPosition = {
@@ -78,14 +96,21 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
     const handleSelect: HandleSelect = (e, item) => {
         if (item) {
-            let canClose: boolean | void = !item.isDisabled;
-            if (!item.isDisabled && item.value !== value) {
-                e.stopPropagation();
-                canClose = (onChange as (e: React.MouseEvent | React.KeyboardEvent, item: DropdownDataOptions) => void)(e, item);
-            }
+            if (values) {
+                if (!item.isDisabled) {
+                    e.stopPropagation();
+                    (onChange as (e: React.MouseEvent | React.KeyboardEvent, item: DropdownDataOption) => void)(e, item);
+                }
+            } else {
+                let canClose: boolean | void = !item.isDisabled;
+                if (!item.isDisabled && item.value !== value) {
+                    e.stopPropagation();
+                    canClose = (onChange as (e: React.MouseEvent | React.KeyboardEvent, item: DropdownDataOption) => void)(e, item);
+                }
 
-            if (canClose !== false) {
-                setIsOpened(false);
+                if (canClose !== false) {
+                    setIsOpened(false);
+                }
             }
         }
     };
@@ -95,7 +120,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         setAnchorEl(null);
     };
 
-    const handleKeyPress = (e: React.KeyboardEvent, item: DropdownDataOptions) => {
+    const handleKeyPress = (e: React.KeyboardEvent, item: DropdownDataOption) => {
         if (e.key === 'Enter') {
             handleSelect(e, item);
         }
@@ -106,17 +131,19 @@ export const Dropdown: React.FC<DropdownProps> = ({
     // ---
 
     const cssDropdown = clsx(
-        !label && !icon ? 'flexRow_reverse' : 'flexRow_between',
+        !label && !icon ? 'flexRow_reverse' : 'flexRow_nowrap',
         'alignCenter',
         'moonstone-dropdown',
         `moonstone-${size}`,
         `moonstone-dropdown_${variant}`,
         {
             'moonstone-disabled': (typeof isDisabled === 'undefined' && isEmpty) ? true : isDisabled,
-            'moonstone-filled': value,
+            'moonstone-filled': value || values?.length > 0,
             'moonstone-opened': isOpened
         }
     );
+
+    const View = isTree ? TreeViewMenu : DropdownMenu;
 
     return (
         <div
@@ -144,24 +171,40 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     icon &&
                     <icon.type {...icon.props} size="small" className={clsx('moonstone-dropdown_icon')}/>
                 }
-
-                <Typography
-                    isNowrap
-                    variant="caption"
-                    component="span"
-                    className={clsx('flexFluid')}
-                    title={label}
-                >
-                    {label}
-                </Typography>
+                {values && values.length > 0 ? (
+                    <div className="moonstone-dropdown_tags">
+                        {values.map(v => {
+                            const item = flatData.find(i => i.value === v);
+                            return (
+                                <Tag key={item.value}
+                                     label={item.label}
+                                     value={item.value}
+                                     size={size}
+                                     onClick={e => handleSelect(e, item)}
+                                />
+                            );
+                        })}
+                    </div>
+                ) : (
+                    <Typography
+                        isNowrap
+                        variant="caption"
+                        component="span"
+                        className={clsx('flexFluid', 'moonstone-dropdown_label')}
+                        title={label}
+                    >
+                        {label || flatData.find(i => i.value === value)?.label}
+                    </Typography>
+                )}
                 <ChevronDown className="moonstone-dropdown_chevronDown"/>
             </div>
 
-            {isOpened && (isTree ? (
-                <TreeViewMenu
+            {isOpened && (
+                <View
                     isDisplayed
-                    data={data as [TreeViewData]}
+                    data={data}
                     value={value}
+                    values={values}
                     anchorPosition={anchorPosition}
                     minWidth={minWidth}
                     maxWidth={menuMaxWidth}
@@ -174,24 +217,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     imageSize={imageSize}
                     onClose={handleCloseMenu}
                 />
-            ) : (
-                <DropdownMenu
-                    isDisplayed
-                    data={data as [DropdownDataOptions & DropdownData]}
-                    value={value}
-                    anchorPosition={anchorPosition}
-                    minWidth={minWidth}
-                    maxWidth={menuMaxWidth}
-                    maxHeight={menuMaxHeight}
-                    anchorEl={anchorEl}
-                    hasSearch={hasSearch}
-                    searchEmptyText={searchEmptyText}
-                    handleKeyPress={handleKeyPress}
-                    handleSelect={handleSelect}
-                    imageSize={imageSize}
-                    onClose={handleCloseMenu}
-                />
-            ))}
+            )}
         </div>
     );
 };

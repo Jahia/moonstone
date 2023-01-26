@@ -72,6 +72,7 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     // SearchEmptyText,
     data,
     value,
+    values,
     handleSelect,
     // HandleKeyPress,
     onClose,
@@ -103,6 +104,17 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
             if (id) {
                 selected.push(id);
             }
+        });
+    }
+
+    if (values) {
+        values.forEach(v => {
+            data.forEach(single => {
+                const id = find(v, single, openedBySearch);
+                if (id) {
+                    selected.push(id);
+                }
+            });
         });
     }
 
@@ -147,6 +159,8 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
                 )}
                 <TreeView data={data}
                           selectedItems={selected}
+                          size="small"
+                          showCheckbox={Boolean(values)}
                           openedItems={[...openedItems, ...openedBySearch]}
                           onOpenItem={onOpenItem}
                           onCloseItem={onCloseItem}

@@ -51,6 +51,28 @@ export const Default = () => {
     );
 };
 
+export const Multiple = () => {
+    const [currentOption, setCurrentOption] = useState([]);
+
+    const handleOnChange = (e, item) => {
+        setCurrentOption(prev => prev.indexOf(item) > -1 ? prev.filter(i => i !== item) : [...prev, item]);
+        action('onChange');
+        return true;
+    };
+
+    return (
+        <Dropdown
+            icon={<Love/>}
+            label="Select something"
+            values={currentOption.map(v => v.value)}
+            size="small"
+            isDisabled={false}
+            data={dropdownData}
+            onChange={(e, item) => handleOnChange(e, item)}
+        />
+    );
+};
+
 export const Empty = () => {
     const [currentOption, setCurrentOption] = useState({
         label: 'Select something',
@@ -219,7 +241,7 @@ export const DropdownWithTree = () => {
             hasSearch
             isDisabled={false}
             variant="outlined"
-            size="Small"
+            size="small"
             icon={<Love/>}
             label={currentOption.label}
             value={currentOption.value}
@@ -257,3 +279,27 @@ WithDescription.args = {
     size: 'medium',
     icon: <Love/>
 };
+
+export const DropdownWithTreeMultiple = () => {
+    const [currentOption, setCurrentOption] = useState([]);
+
+    const handleOnChange = (e, item) => {
+        setCurrentOption(prev => prev.indexOf(item) > -1 ? prev.filter(i => i !== item) : [...prev, item]);
+        action('onChange');
+        return true;
+    };
+
+    return (
+        <Dropdown
+            isTree
+            hasSearch
+            icon={<Love/>}
+            label="Select something"
+            values={currentOption.map(v => v.value)}
+            size="medium"
+            isDisabled={false}
+            data={dropdownDataTree}
+        />
+    );
+};
+

@@ -19,7 +19,7 @@ export enum DropdownImageSizes {
     Big = 'big'
 }
 
-export type DropdownDataOptions = {
+export type DropdownDataOption = {
     label?: string;
     description?: string;
     value?: string;
@@ -33,16 +33,16 @@ export type DropdownDataOptions = {
 
 export type DropdownData = {
     groupLabel?: string;
-    options?: [DropdownDataOptions];
+    options?: [DropdownDataOption];
 }
 
-export type HandleSelect = (e: React.MouseEvent | React.KeyboardEvent, item?: DropdownDataOptions) => void;
+export type HandleSelect = (e: React.MouseEvent | React.KeyboardEvent, item?: DropdownDataOption) => void;
 
 export type DropdownProps = {
     /**
      * Content of the dropdown
      */
-    data: [DropdownDataOptions & DropdownData] | [TreeViewData] | any;
+    data: [DropdownDataOption & DropdownData & TreeViewData];
 
     isTree?: boolean,
 
@@ -55,6 +55,11 @@ export type DropdownProps = {
      * Value of the dropdown
      */
     value?: string;
+
+    /**
+     * Value of the dropdown
+     */
+    values?: string[];
 
     /**
      * Icon displays before the dropdown's label
@@ -106,5 +111,5 @@ export type DropdownProps = {
      * @param {object} event - Mouse event
      * @param {object} item - The current item selected
      */
-    onChange?: (event: React.MouseEvent, item :DropdownDataOptions) => void;
+    onChange?: (event: React.MouseEvent, item :DropdownDataOption) => void;
 }

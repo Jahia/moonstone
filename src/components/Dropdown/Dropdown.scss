@@ -14,7 +14,17 @@ $border-width: 1px;
 
 .moonstone-dropdown_icon {
     display: flex;
+    flex: 0 0 auto;
     margin-right: var(--spacing-nano);
+}
+
+.moonstone-dropdown_chevronDown {
+    flex: 0 0 auto;
+}
+
+.moonstone-dropdown_tags {
+    display: flex;
+    overflow-x: scroll;
 }
 
 .moonstone-disabled {
@@ -30,8 +40,7 @@ $border-width: 1px;
 }
 
 .moonstone-dropdown {
-    padding-right: var(--spacing-small);
-    padding-left: var(--spacing-small);
+    padding: var(--spacing-nano) var(--spacing-small);
 
     border-radius: 2px;
     cursor: pointer;
@@ -49,14 +58,10 @@ $border-width: 1px;
     // ---
     // Manage sizes
     // ---
-    &.moonstone-small {
-        padding-top: var(--spacing-nano);
-        padding-bottom: var(--spacing-nano);
-    }
-
     &.moonstone-medium {
-        padding-top: var(--spacing-small);
-        padding-bottom: var(--spacing-small);
+        & .moonstone-dropdown_label {
+            margin: var(--spacing-nano) 0;
+        }
     }
 }
 

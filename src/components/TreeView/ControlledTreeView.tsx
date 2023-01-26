@@ -4,7 +4,7 @@ import './TreeView.scss';
 import {ControlledTreeViewProps} from './ControlledTreeView.types';
 import {TreeViewData} from './TreeView.types';
 
-import {Loading, ChevronDown, ChevronRight} from '~/icons';
+import {Loading, ChevronDown, ChevronRight, CheckboxChecked, CheckboxUnchecked} from '~/icons';
 import {Typography} from '~/components/Typography';
 
 // Manage treeView_item's icon
@@ -33,6 +33,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
         data,
         openedItems = [],
         selectedItems = [],
+        showCheckbox = false,
         onClickItem = () => undefined,
         onDoubleClickItem = () => undefined,
         onContextMenuItem = () => undefined,
@@ -41,6 +42,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
         isReversed = false,
         component = 'ul',
         itemComponent = 'li',
+        size = 'default',
         ...props
     }, ref) => {
     const isFlatData = data.filter(item => item.children && item.children.length > 0).length === 0;
@@ -89,7 +91,8 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                 'alignCenter',
                 'moonstone-treeView_item',
                 {
-                    'moonstone-selected': isSelected,
+                    'moonstone-small': size === 'small',
+                    'moonstone-selected': isSelected && !showCheckbox,
                     'moonstone-reversed': isReversed,
                     'moonstone-disabled': node.isDisabled
                 }
@@ -112,7 +115,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                                 className={clsx('flexRow', 'alignCenter', 'moonstone-treeView_itemToggle')}
                                 onClick={toggleNode}
                             >
-                                {isOpen ? <ChevronDown/> : <ChevronRight/>}
+                                {isOpen ? <ChevronDown size={size}/> : <ChevronRight size={size}/>}
                             </div>
                         )}
                         {!isFlatData && !hasChild &&
@@ -125,11 +128,13 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                             onDoubleClick={handleNodeDoubleClick}
                             onContextMenu={handleNodeContextMenu}
                         >
-                            {displayIcon(node.iconStart, 'small', 'moonstone-treeView_itemIconStart', parentHasIconStart)}
+                            {showCheckbox ?
+                                (isSelected ? <CheckboxChecked className="moonstone-treeView_itemIconStart" color="blue"/> : <CheckboxUnchecked className="moonstone-treeView_itemIconStart"/>) :
+                                (displayIcon(node.iconStart, 'small', 'moonstone-treeView_itemIconStart', parentHasIconStart))}
                             <Typography isNowrap
                                         className={clsx('flexFluid')}
                                         component="span"
-                                        variant="body"
+                                        variant={size === 'default' ? 'body' : 'caption'}
                                         {...node.typographyOptions}
                             >
                                 {node.label}

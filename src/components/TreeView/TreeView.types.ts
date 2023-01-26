@@ -3,7 +3,7 @@ import * as React from 'react';
 export type TreeViewData = {
     id: string;
     label: string;
-    value?: string;
+    value: string;
     iconStart?: React.ReactElement;
     iconEnd?: React.ReactElement;
     hasChildren?: boolean;
@@ -33,6 +33,10 @@ export type TreeViewProps = {
      * Selected items' ids
      */
     selectedItems?: string[];
+    /**
+     * Show checkbox for selected items
+     */
+    showCheckbox: boolean;
     /**
      * Trigger on opening node
      */
@@ -66,5 +70,9 @@ export type TreeViewProps = {
      * Component used for every item (li)
      */
     itemComponent?: string;
+    /**
+     * TreeView row sizes
+     */
+    size?: 'small' | 'default';
 };
 

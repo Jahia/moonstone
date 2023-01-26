@@ -17,6 +17,11 @@ export type UncontrolledTreeViewProps = {
     selectedItems?: string[];
 
     /**
+     * Show checkbox for selected items
+     */
+    showCheckbox: boolean;
+
+    /**
      * Trigger by clicking on node
      */
     onClickItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
@@ -46,5 +51,9 @@ export type UncontrolledTreeViewProps = {
      */
     itemComponent?: string;
 
+    /**
+     * TreeView row sizes
+     */
+    size?: 'small' | 'default';
 };
 

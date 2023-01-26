@@ -1,0 +1,25 @@
+.moonstone-tag {
+    display: flex;
+    width: fit-content;
+    max-width: 100px;
+    padding: 4px 8px;
+
+    color: var(--color-light);
+
+    border: none;
+    border-radius: 4px;
+    background-color: var(--color-accent_dark);
+    cursor: pointer;
+
+    &.moonstone-small {
+        padding: 0 8px;
+    }
+
+    &:hover {
+        background-color: var(--color-accent_dark60);
+    }
+
+    & + .moonstone-tag {
+        margin-left: var(--spacing-small);
+    }
+}
