@@ -11,6 +11,8 @@ import {
     dropdownDataDescriptions
 } from '~/data';
 
+import * as icons from '../../icons/components';
+
 export default {
     title: 'Components/Dropdown',
     component: Dropdown,
@@ -23,7 +25,62 @@ export default {
             inlineStories: false,
             IframeHeight: 500
         }
+    },
+    argTypes: {
+        icon: {
+            options: Object.keys(icons)
+        },
+        maxWidth: {
+            control: {type: 'range', min: 100, max: 1500, step: 10}
+        }
     }
+};
+
+const TemplateSimple = args => {
+    const {icon, size, variant, label, isDisabled, searchEmptyText, hasSearch, imageSize, isTree, maxWidth, multiple} = args;
+    const [currentOption, setCurrentOption] = useState(null);
+    const [currentOptions, setCurrentOptions] = useState([]);
+
+    const handleOnChange = (e, item) => {
+        if (multiple) {
+            setCurrentOptions(prev => prev.indexOf(item) > -1 ? prev.filter(i => i !== item) : [...prev, item]);
+        } else {
+            setCurrentOption(item);
+        }
+
+        action('onChange');
+        return true;
+    };
+
+    return (
+        <Dropdown
+            icon={icons[icon] && React.createElement(icons[icon])}
+            hasSearch={hasSearch}
+            label={currentOption?.label || label}
+            value={!multiple && currentOption?.value}
+            values={multiple && currentOptions.map(i => i.value)}
+            size={size}
+            isTree={isTree}
+            searchEmptyText={searchEmptyText}
+            maxWidth={maxWidth}
+            imageSize={imageSize}
+            variant={variant}
+            isDisabled={isDisabled}
+            data={isTree ? dropdownDataTree : dropdownData}
+            onChange={(e, item) => handleOnChange(e, item)}
+        />
+    );
+};
+
+export const Playground = TemplateSimple.bind({});
+Playground.args = {
+    icon: 'Love',
+    size: 'small',
+    variant: 'ghost',
+    label: 'Select something',
+    isDisabled: false,
+    multiple: true,
+    searchEmptyText: 'No results found'
 };
 
 export const Default = () => {
