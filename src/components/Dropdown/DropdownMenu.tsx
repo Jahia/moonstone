@@ -1,6 +1,6 @@
 import React from 'react';
 import {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
-import {Checkbox, Menu, MenuItem, Separator} from '~/components';
+import {Menu, MenuItem, Separator} from '~/components';
 import {DropdownMenuProps} from '~/components/Dropdown/DropdownMenu.types';
 import {CheckboxChecked, CheckboxUnchecked} from '~/icons';
 
@@ -24,7 +24,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     const isEmpty = data.length < 1;
     const isGrouped = !isEmpty && typeof data[0].options !== 'undefined';
 
-    const getIcon = (item: DropdownDataOption) => values?.indexOf(item.value) > -1 ? <CheckboxChecked color="blue"/> : <CheckboxUnchecked/>;
+    const getIcon = (item: DropdownDataOption) => values?.indexOf(item.value) > -1 ? <CheckboxChecked role="checkbox" color="blue"/> : <CheckboxUnchecked role="checkbox"/>;
 
     // ---
     // Generate options

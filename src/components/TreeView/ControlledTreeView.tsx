@@ -129,7 +129,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                             onContextMenu={handleNodeContextMenu}
                         >
                             {showCheckbox ?
-                                (isSelected ? <CheckboxChecked className="moonstone-treeView_itemIconStart" color="blue"/> : <CheckboxUnchecked className="moonstone-treeView_itemIconStart"/>) :
+                                (isSelected ? <CheckboxChecked className="moonstone-treeView_itemIconStart" role="checkbox" color="blue"/> : <CheckboxUnchecked className="moonstone-treeView_itemIconStart" role="checkbox"/>) :
                                 (displayIcon(node.iconStart, 'small', 'moonstone-treeView_itemIconStart', parentHasIconStart))}
                             <Typography isNowrap
                                         className={clsx('flexFluid')}
