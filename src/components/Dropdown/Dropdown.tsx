@@ -27,7 +27,7 @@ const flatten = (data: TreeViewData[]): TreeViewData[] => {
         }
     };
 
-    data.forEach(fn);
+    data?.forEach?.(fn);
 
     return res;
 };
