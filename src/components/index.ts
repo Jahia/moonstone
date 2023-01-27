@@ -29,7 +29,6 @@ export * from './SvgWrapper';
 export * from './Tab';
 export * from './Tab/TabItem';
 export * from './Table';
-export * from './Tag';
 export * from './TreeView';
 export * from './Typography';
 export * from './ListSelector';

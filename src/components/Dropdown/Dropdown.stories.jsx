@@ -353,11 +353,12 @@ export const DropdownWithTreeMultiple = () => {
             isTree
             hasSearch
             icon={<Love/>}
-            label="Select something"
+            placeholder="Select something"
             values={currentOption.map(v => v.value)}
             size="medium"
             isDisabled={false}
             data={dropdownDataTree}
+            onChange={(e, item) => handleOnChange(e, item)}
         />
     );
 };

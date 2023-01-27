@@ -14,7 +14,7 @@ import {Typography} from '~/components/Typography';
 import {ChevronDown} from '~/icons';
 import {DropdownMenu} from '~/components/Dropdown/DropdownMenu';
 import {TreeViewMenu} from '~/components/Dropdown/TreeViewMenu';
-import {Tag} from '~/components';
+import {Tag} from '../Tag';
 import {TreeViewData} from '~/components/TreeView/TreeView.types';
 
 const flatten = (data: TreeViewData[]): TreeViewData[] => {
