@@ -1,6 +1,6 @@
 import React from 'react';
 import {AnchorPosition} from '~/components/Menu/Menu.types';
-import {DropdownData, DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
+import {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
 
 export type DropdownMenuProps = {
     maxHeight?: string;
@@ -12,7 +12,7 @@ export type DropdownMenuProps = {
     hasSearch?: boolean;
     searchEmptyText?: string;
     hasOverlay?: boolean;
-    data: [DropdownDataOption & DropdownData];
+    data: DropdownDataOption[];
     value?: string;
     values?: string[];
     children?: React.ReactNode;

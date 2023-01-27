@@ -3,8 +3,8 @@ import clsx from 'clsx';
 
 import type {TablePaginationProps} from './TablePagination.types';
 import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
-import {Dropdown, Typography, Button} from '~/components';
-import {ChevronLeft, ChevronRight, ChevronLastPage, ChevronFirstPage} from '~/icons';
+import {Button, Dropdown, Typography} from '~/components';
+import {ChevronFirstPage, ChevronLastPage, ChevronLeft, ChevronRight} from '~/icons';
 import './TablePagination.scss';
 
 const cssClass = 'moonstone-tablePagination';

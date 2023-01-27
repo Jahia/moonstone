@@ -203,7 +203,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             {isOpened && (
                 <View
                     isDisplayed
-                    data={data}
+                    data={data as any}
                     value={value}
                     values={values}
                     anchorPosition={anchorPosition}

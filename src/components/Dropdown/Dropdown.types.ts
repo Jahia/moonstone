@@ -20,7 +20,7 @@ export enum DropdownImageSizes {
 }
 
 export type DropdownDataOption = {
-    label?: string;
+    label: string;
     description?: string;
     value?: string;
     isDisabled?: boolean;
@@ -29,9 +29,6 @@ export type DropdownDataOption = {
     attributes?: unknown;
     image?: React.ReactElement;
     imageSize?: DropdownImageSize;
-}
-
-export type DropdownData = {
     groupLabel?: string;
     options?: [DropdownDataOption];
 }
@@ -42,7 +39,7 @@ export type DropdownProps = {
     /**
      * Content of the dropdown
      */
-    data: [DropdownDataOption & DropdownData & TreeViewData];
+    data: DropdownDataOption[] | TreeViewData[];
 
     isTree?: boolean,
 
