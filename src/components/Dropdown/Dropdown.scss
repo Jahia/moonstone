@@ -23,8 +23,7 @@ $border-width: 1px;
 }
 
 .moonstone-dropdown_tags {
-    display: flex;
-    overflow-x: scroll;
+    gap: var(--spacing-nano) var(--spacing-small);
 }
 
 .moonstone-disabled {

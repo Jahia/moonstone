@@ -47,6 +47,11 @@ export type DropdownProps = {
     isTree?: boolean,
 
     /**
+     * Text for dropdown, when no value is selected
+     */
+    placeholder?: string;
+
+    /**
      * Label of the dropdown
      */
     label?: string;

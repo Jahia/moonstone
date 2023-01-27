@@ -35,6 +35,7 @@ const flatten = (data: TreeViewData[]): TreeViewData[] => {
 export const Dropdown: React.FC<DropdownProps> = ({
     data,
     label,
+    placeholder,
     value,
     values,
     isDisabled,
@@ -131,7 +132,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     // ---
 
     const cssDropdown = clsx(
-        !label && !icon ? 'flexRow_reverse' : 'flexRow_nowrap',
+        !label && !icon ? 'flexRow_reverse' : 'flexRow_between',
         'alignCenter',
         'moonstone-dropdown',
         `moonstone-${size}`,
@@ -171,8 +172,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     icon &&
                     <icon.type {...icon.props} size="small" className={clsx('moonstone-dropdown_icon')}/>
                 }
-                {values && values.length > 0 ? (
-                    <div className="moonstone-dropdown_tags">
+                {!label && values && values.length > 0 ? (
+                    <div className="moonstone-dropdown_tags flexFluid flexRow">
                         {values.map(v => {
                             const item = flatData.find(i => i.value === v);
                             return (
@@ -193,7 +194,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                         className={clsx('flexFluid', 'moonstone-dropdown_label')}
                         title={label}
                     >
-                        {label || flatData.find(i => i.value === value)?.label}
+                        {label || flatData.find(i => i.value === value)?.label || placeholder}
                     </Typography>
                 )}
                 <ChevronDown className="moonstone-dropdown_chevronDown"/>

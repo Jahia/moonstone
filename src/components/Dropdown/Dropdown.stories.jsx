@@ -37,7 +37,7 @@ export default {
 };
 
 const TemplateSimple = args => {
-    const {icon, size, variant, label, isDisabled, searchEmptyText, hasSearch, imageSize, isTree, maxWidth, multiple} = args;
+    const {icon, size, variant, label, placeholder, isDisabled, className, searchEmptyText, hasSearch, imageSize, isTree, maxWidth, multiple} = args;
     const [currentOption, setCurrentOption] = useState(null);
     const [currentOptions, setCurrentOptions] = useState([]);
 
@@ -56,7 +56,9 @@ const TemplateSimple = args => {
         <Dropdown
             icon={icons[icon] && React.createElement(icons[icon])}
             hasSearch={hasSearch}
-            label={currentOption?.label || label}
+            label={label}
+            placeholder={placeholder}
+            className={className}
             value={!multiple && currentOption?.value}
             values={multiple && currentOptions.map(i => i.value)}
             size={size}
@@ -77,7 +79,7 @@ Playground.args = {
     icon: 'Love',
     size: 'small',
     variant: 'ghost',
-    label: 'Select something',
+    placeholder: 'Select something',
     isDisabled: false,
     multiple: true,
     searchEmptyText: 'No results found'

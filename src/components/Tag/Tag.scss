@@ -18,8 +18,4 @@
     &:hover {
         background-color: var(--color-accent_dark60);
     }
-
-    & + .moonstone-tag {
-        margin-left: var(--spacing-small);
-    }
 }
