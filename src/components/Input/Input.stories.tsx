@@ -10,8 +10,10 @@ export default {
     component: Input,
     decorators: [
         StoryCmp => (
-            <div style={{width: '50vw'}}>
-                <StoryCmp/>
+            <div style={{backgroundColor: 'black', width: '100vw', height: '100vh', display: 'flex', padding: '1rem'}} className="moonstone-reversed">
+                <div style={{width: '50vw', margin: 'auto'}}>
+                    <StoryCmp/>
+                </div>
             </div>
         )
     ],
@@ -29,7 +31,7 @@ export default {
     }
 } as ComponentMeta<typeof Input>;
 
-const Template: Story<InputProps> = args => (
+const Template: Story<InputProps> = (args, {globals: {theme}}) => (
     <Input {...args}/>
 );
 
