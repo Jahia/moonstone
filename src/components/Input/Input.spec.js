@@ -32,7 +32,7 @@ describe('Input', () => {
 
     it('should display size class for big input', () => {
         const {container} = render(<Input size="big"/>);
-        expect(container.querySelector('.moonstone-baseInput_big')).toBeInTheDocument();
+        expect(container.querySelector('.moonstone-big')).toBeInTheDocument();
     });
 
     it('should be disabled', () => {
