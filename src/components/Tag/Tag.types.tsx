@@ -17,7 +17,7 @@ export type TagProps = {
     className?: string;
 
     /**
-     * Is this component disabled
+     * Function triggered on click
      */
     onClick: (event: React.MouseEvent, value: string) => void;
 

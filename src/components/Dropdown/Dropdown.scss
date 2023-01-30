@@ -10,6 +10,12 @@ $border-width: 1px;
 
 .moonstone-dropdown_container {
     position: relative;
+
+    & .moonstone-baseInput-element {
+        padding: 0;
+
+        text-overflow: ellipsis;
+    }
 }
 
 .moonstone-dropdown_icon {

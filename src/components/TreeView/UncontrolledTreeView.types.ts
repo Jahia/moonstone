@@ -19,7 +19,7 @@ export type UncontrolledTreeViewProps = {
     /**
      * Show checkbox for selected items
      */
-    showCheckbox: boolean;
+    showCheckbox?: boolean;
 
     /**
      * Trigger by clicking on node

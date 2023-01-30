@@ -43,7 +43,7 @@ const TemplateSimple = args => {
 
     const handleOnChange = (e, item) => {
         if (multiple) {
-            setCurrentOptions(prev => prev.indexOf(item) > -1 ? prev.filter(i => i !== item) : [...prev, item]);
+            setCurrentOptions(prev => prev.every(p => p.value !== item.value) ? [...prev, item] : prev.filter(i => i.value !== item.value));
         } else {
             setCurrentOption(item);
         }

@@ -64,6 +64,10 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
         );
     };
 
+    if (data.length === 0) {
+        return null;
+    }
+
     return (
         <Menu
             isDisplayed={isDisplayed}

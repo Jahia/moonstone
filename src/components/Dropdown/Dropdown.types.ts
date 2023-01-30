@@ -114,4 +114,14 @@ export type DropdownProps = {
      * @param {object} item - The current item selected
      */
     onChange?: (event: React.MouseEvent, item :DropdownDataOption) => void;
+
+    /**
+     * Function triggered on focus of the checkbox value
+     */
+    onFocus?: React.FocusEventHandler;
+
+    /**
+     * Function triggered when the checkbox value loses focus
+     */
+    onBlur?: React.FocusEventHandler;
 }

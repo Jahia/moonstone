@@ -19,7 +19,7 @@ export type ControlledTreeViewProps = {
     /**
      * Show checkbox for selected items
      */
-    showCheckbox: boolean;
+    showCheckbox?: boolean;
 
     /**
      * Trigger on opening node

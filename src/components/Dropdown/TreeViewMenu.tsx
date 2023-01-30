@@ -153,6 +153,11 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
                         <SearchInput
                             value={inputValue}
                             onChange={e => setInputValue(e.target.value)}
+                            onKeyPress={e => {
+                                if (e.key === 'Enter' && data.length > 0) {
+                                    handleSelect(e, data[0]);
+                                }
+                            }}
                             onClear={() => setInputValue('')}
                         />
                     </div>

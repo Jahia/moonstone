@@ -10,6 +10,7 @@ export type DropdownMenuProps = {
     anchorEl?: React.MutableRefObject<HTMLDivElement>;
     anchorPosition?: AnchorPosition;
     hasSearch?: boolean;
+    searchInput?: string;
     searchEmptyText?: string;
     hasOverlay?: boolean;
     data: DropdownDataOption[];

@@ -10,12 +10,11 @@ import {
     DropdownVariants,
     HandleSelect
 } from './Dropdown.types';
-import {Typography} from '~/components/Typography';
-import {ChevronDown} from '~/icons';
 import {DropdownMenu} from '~/components/Dropdown/DropdownMenu';
 import {TreeViewMenu} from '~/components/Dropdown/TreeViewMenu';
 import {Tag} from '../Tag';
 import {TreeViewData} from '~/components/TreeView/TreeView.types';
+import {ControlledBaseInput} from '~/components/Input/BaseInput/ControlledBaseInput';
 
 const flatten = (data: TreeViewData[]): TreeViewData[] => {
     const res: TreeViewData[] = [];
@@ -47,6 +46,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
     searchEmptyText = 'No results found.',
     imageSize,
     onChange,
+    onBlur,
+    onFocus,
     className,
     isTree,
     ...props
@@ -127,23 +128,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
         }
     };
 
-    // ---
-    // CSS classes
-    // ---
-
-    const cssDropdown = clsx(
-        !label && !icon ? 'flexRow_reverse' : 'flexRow_between',
-        'alignCenter',
-        'moonstone-dropdown',
-        `moonstone-${size}`,
-        `moonstone-dropdown_${variant}`,
-        {
-            'moonstone-disabled': (typeof isDisabled === 'undefined' && isEmpty) ? true : isDisabled,
-            'moonstone-filled': value || values?.length > 0,
-            'moonstone-opened': isOpened
-        }
-    );
-
     const View = isTree ? TreeViewMenu : DropdownMenu;
 
     return (
@@ -157,48 +141,27 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 }
             }}
         >
-            <div
-                role="dropdown"
-                className={clsx(cssDropdown)}
-                tabIndex={0}
-                onClick={handleOpenMenu}
-                onKeyPress={(e: React.KeyboardEvent) => {
-                    if (e.key === 'Enter') {
-                        handleSelect(e);
-                    }
-                }}
-            >
-                {
-                    icon &&
-                    <icon.type {...icon.props} size="small" className={clsx('moonstone-dropdown_icon')}/>
-                }
-                {!label && values && values.length > 0 ? (
-                    <div className="moonstone-dropdown_tags flexFluid flexRow">
-                        {values.map(v => {
-                            const item = flatData.find(i => i.value === v);
-                            return (
-                                <Tag key={item.value}
-                                     label={item.label}
-                                     value={item.value}
-                                     size={size}
-                                     onClick={e => handleSelect(e, item)}
-                                />
-                            );
-                        })}
-                    </div>
-                ) : (
-                    <Typography
-                        isNowrap
-                        variant="caption"
-                        component="span"
-                        className={clsx('flexFluid', 'moonstone-dropdown_label')}
-                        title={label}
-                    >
-                        {label || flatData.find(i => i.value === value)?.label || placeholder}
-                    </Typography>
-                )}
-                <ChevronDown className="moonstone-dropdown_chevronDown"/>
-            </div>
+            <ControlledBaseInput isShowTriggerButton
+                                 isReadOnly
+                                 role="dropdown"
+                                 size={size === 'small' ? 'default' : 'big'}
+                                 placeholder={(!values || values.length === 0) ? placeholder : ''}
+                                 icon={icon}
+                                 variant={variant}
+                                 value={label || flatData.find(i => i.value === value)?.label || ''}
+                                 prefixComponents={!label && values && values.length > 0 && values.map(v => {
+                                     const item = flatData.find(i => i.value === v);
+                                     return (
+                                         <Tag key={item.value}
+                                              label={item.label}
+                                              value={item.value}
+                                              size={size}
+                                              onClick={e => handleSelect(e, item)}
+                                         />
+                                     );
+                                 })}
+                                 onClick={handleOpenMenu}
+            />
 
             {isOpened && (
                 <View
