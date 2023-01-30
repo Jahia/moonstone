@@ -68,7 +68,8 @@ const TemplateSimple = args => {
             imageSize={imageSize}
             variant={variant}
             isDisabled={isDisabled}
-            data={isTree ? dropdownDataTree : dropdownData}
+            data={!isTree && dropdownData}
+            treeData={isTree && dropdownDataTree}
             onChange={(e, item) => handleOnChange(e, item)}
         />
     );
@@ -81,7 +82,8 @@ Playground.args = {
     variant: 'ghost',
     placeholder: 'Select something',
     isDisabled: false,
-    multiple: true,
+    isTree: false,
+    multiple: false,
     searchEmptyText: 'No results found'
 };
 

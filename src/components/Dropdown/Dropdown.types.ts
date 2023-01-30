@@ -35,13 +35,21 @@ export type DropdownDataOption = {
 
 export type HandleSelect = (e: React.MouseEvent | React.KeyboardEvent, item?: DropdownDataOption) => void;
 
+export type BaseData = {
+    label: string
+    value?: string,
+}
+
 export type DropdownProps = {
     /**
      * Content of the dropdown
      */
-    data: DropdownDataOption[] | TreeViewData[];
+    data?: DropdownDataOption[];
 
-    isTree?: boolean,
+    /**
+     * Content of the dropdown, if tree
+     */
+    treeData?: TreeViewData[];
 
     /**
      * Text for dropdown, when no value is selected

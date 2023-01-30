@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import './Dropdown.scss';
 
 import {
+    BaseData,
     DropdownDataOption,
     DropdownImageSizes,
     DropdownProps,
@@ -33,6 +34,7 @@ const flatten = (data: TreeViewData[]): TreeViewData[] => {
 
 export const Dropdown: React.FC<DropdownProps> = ({
     data,
+    treeData,
     label,
     placeholder,
     value,
@@ -49,15 +51,20 @@ export const Dropdown: React.FC<DropdownProps> = ({
     onBlur,
     onFocus,
     className,
-    isTree,
     ...props
 }) => {
     const [isOpened, setIsOpened] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
 
-    const flatData = useMemo(() => flatten(data), [data]);
-    const isEmpty = data.length < 1;
+    const isTree = Array.isArray(treeData);
+    const flatData: BaseData[] = useMemo(() => isTree ? flatten(treeData) : data, [treeData, data, isTree]);
+
+    // Return nothing if `data` isn't an array
+    if (!Array.isArray(flatData)) {
+        return null;
+    }
+
     const menuMinWidth = 80;
     const anchorPosition = {
         top: 4,
@@ -65,11 +72,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
     };
     let menuMaxWidth;
     let menuMaxHeight;
-
-    // Return nothing if `data` isn't an array
-    if (!Array.isArray(data)) {
-        return null;
-    }
 
     switch (imageSize) {
         case DropdownImageSizes.Big:
@@ -148,7 +150,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                  placeholder={(!values || values.length === 0) ? placeholder : ''}
                                  icon={icon}
                                  variant={variant}
-                                 value={label || flatData.find(i => i.value === value)?.label || ''}
+                                 value={label || flatData.find((i: TreeViewData | DropdownDataOption) => i.value === value)?.label || ''}
                                  prefixComponents={!label && values && values.length > 0 && values.map(v => {
                                      const item = flatData.find(i => i.value === v);
                                      return (
@@ -166,7 +168,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
             {isOpened && (
                 <View
                     isDisplayed
-                    data={data as any}
+                    data={data}
+                    treeData={treeData}
                     value={value}
                     values={values}
                     anchorPosition={anchorPosition}

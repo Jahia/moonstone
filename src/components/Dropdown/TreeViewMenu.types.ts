@@ -12,7 +12,7 @@ export type TreeViewMenuProps = {
     /**
      * Data to generate the tree
      */
-    data: TreeViewData[];
+    treeData: TreeViewData[];
 
     maxHeight?: string;
     maxWidth?: string;
