@@ -15,7 +15,8 @@ import {DropdownMenu} from '~/components/Dropdown/DropdownMenu';
 import {TreeViewMenu} from '~/components/Dropdown/TreeViewMenu';
 import {Tag} from '../Tag';
 import {TreeViewData} from '~/components/TreeView/TreeView.types';
-import {ControlledBaseInput} from '~/components/Input/BaseInput/ControlledBaseInput';
+import {Typography} from '~/components';
+import {ChevronDown} from '~/icons';
 
 const flatten = (data: TreeViewData[]): TreeViewData[] => {
     const res: TreeViewData[] = [];
@@ -40,7 +41,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
     value,
     values,
     isDisabled,
-    maxWidth = '300px',
     variant = DropdownVariants.Ghost,
     size = DropdownSizes.Medium,
     icon,
@@ -59,6 +59,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
     const isTree = Array.isArray(treeData);
     const flatData: BaseData[] = useMemo(() => isTree ? flatten(treeData) : data, [treeData, data, isTree]);
+    const isEmpty = flatData.length === 0;
 
     // Return nothing if `data` isn't an array
     if (!Array.isArray(flatData)) {
@@ -130,12 +131,28 @@ export const Dropdown: React.FC<DropdownProps> = ({
         }
     };
 
+    // ---
+    // CSS classes
+    // ---
+
+    const cssDropdown = clsx(
+        !label && !icon ? 'flexRow_reverse' : 'flexRow_between',
+        'alignCenter',
+        'moonstone-dropdown',
+        `moonstone-${size}`,
+        `moonstone-dropdown_${variant}`,
+        {
+            'moonstone-disabled': (typeof isDisabled === 'undefined' && isEmpty) ? true : isDisabled,
+            'moonstone-filled': value || values?.length > 0,
+            'moonstone-opened': isOpened
+        }
+    );
+
     const View = isTree ? TreeViewMenu : DropdownMenu;
 
     return (
         <div
             className={clsx('moonstone-dropdown_container', className)}
-            style={{maxWidth}}
             {...props}
             onKeyPress={e => {
                 if (e.key === 'Enter') {
@@ -143,27 +160,48 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 }
             }}
         >
-            <ControlledBaseInput isShowTriggerButton
-                                 isReadOnly
-                                 role="dropdown"
-                                 size={size === 'small' ? 'default' : 'big'}
-                                 placeholder={(!values || values.length === 0) ? placeholder : ''}
-                                 icon={icon}
-                                 variant={variant}
-                                 value={label || flatData.find((i: TreeViewData | DropdownDataOption) => i.value === value)?.label || ''}
-                                 prefixComponents={!label && values && values.length > 0 && values.map(v => {
-                                     const item = flatData.find(i => i.value === v);
-                                     return (
-                                         <Tag key={item.value}
-                                              label={item.label}
-                                              value={item.value}
-                                              size={size}
-                                              onClick={e => handleSelect(e, item)}
-                                         />
-                                     );
-                                 })}
-                                 onClick={handleOpenMenu}
-            />
+            <div
+                role="dropdown"
+                className={clsx(cssDropdown)}
+                tabIndex={0}
+                onClick={handleOpenMenu}
+                onKeyPress={(e: React.KeyboardEvent) => {
+                    if (e.key === 'Enter') {
+                        handleSelect(e);
+                    }
+                }}
+            >
+                {
+                    icon &&
+                    <icon.type {...icon.props} size="default" className={clsx('moonstone-dropdown_icon')}/>
+                }
+                {!label && values && values.length > 0 ? (
+                    <div className="moonstone-dropdown_tags flexFluid flexRow">
+                        {values.map(v => {
+                            const item = flatData.find(i => i.value === v);
+                            return (
+                                <Tag key={item.value}
+                                     label={item.label}
+                                     value={item.value}
+                                     size={size}
+                                     onClick={e => handleSelect(e, item)}
+                                />
+                            );
+                        })}
+                    </div>
+                ) : (
+                    <Typography
+                        isNowrap
+                        variant="caption"
+                        component="span"
+                        className={clsx('flexFluid', 'moonstone-dropdown_label')}
+                        title={label}
+                    >
+                        {label || flatData.find(i => i.value === value)?.label || placeholder}
+                    </Typography>
+                )}
+                <ChevronDown className="moonstone-dropdown_chevronDown"/>
+            </div>
 
             {isOpened && (
                 <View

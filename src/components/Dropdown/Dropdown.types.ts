@@ -92,11 +92,6 @@ export type DropdownProps = {
     imageSize?: DropdownImageSize;
 
     /**
-     * Max width of the dropdown
-     */
-    maxWidth?: string;
-
-    /**
      * Dropdown is disabled
      */
     isDisabled?: boolean;
