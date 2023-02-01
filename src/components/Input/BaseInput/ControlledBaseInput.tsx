@@ -62,7 +62,7 @@ export const ControlledBaseInput: React.FC<BaseInputProps> = ({
                     <icon.type {...icon.props} focusable="false"/>
                 </div>
             )}
-            <div className="flexRow flexFluid moonstone-baseInput_elementsWrapper">
+            <div className="flexRow alignCenter flexFluid moonstone-baseInput_elementsWrapper">
                 {prefixComponents}
                 <input
                     ref={inputRef}

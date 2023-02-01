@@ -52,25 +52,25 @@ $border-width: 1px;
     // Manage sizes
     // ---
     &.moonstone-medium {
-        min-height: 34px;
-
-        & .moonstone-dropdown_label {
-            margin: var(--spacing-nano) 0;
-        }
+        min-height: 32px;
     }
-}
 
-// ---
-// Ghost variant
-// ---
-.moonstone-dropdown_ghost {
+    &.moonstone-opened {
+        box-shadow: inset 0 0 0 $border-width var(--color-accent);
+    }
+
     &:hover {
         color: var(--color-accent);
     }
 
     &:focus {
         outline: none;
-        box-shadow: inset 0 0 0 2px var(--color-accent);
+        box-shadow: inset 0 0 0 $border-width var(--color-accent);
+    }
+
+    &:not(.moonstone-filled) .moonstone-dropdown_label {
+        font-style: italic;
+        color: var(--color-gray_dark60);
     }
 }
 
@@ -80,48 +80,13 @@ $border-width: 1px;
 .moonstone-dropdown_outlined {
     color: var(--color-gray_dark);
 
-    border: $border-width solid var(--color-gray40);
-
-    .moonstone-dropdown_chevronDown {
-        color: var(--color-gray60);
-    }
-
-    &:hover {
-        color: var(--color-dark);
-
-        border-color: var(--color-gray60);
-    }
-
-    &:focus {
-        border-color: var(--color-accent);
-        outline: none;
-        box-shadow: inset 0 0 0 1px var(--color-accent);
-    }
-
-    &:active {
-        border-color: var(--color-accent);
-
-        .moonstone-dropdown_chevronDown {
-            color: var(--color-light);
-        }
-    }
-
-    &.moonstone-filled:not(.moonstone-opened):not(&:active) {
-        color: var(--color-gray_dark);
-    }
-
-    &.moonstone-opened {
-        border-color: var(--color-accent);
-
-        .moonstone-dropdown_chevronDown {
-            color: var(--color-light);
-        }
-    }
+    box-shadow: inset 0 0 0 $border-width var(--color-gray40);
 
     &.moonstone-disabled {
         color: var(--color-gray);
 
-        border-color: var(--color-gray_light40);
         background-color: var(--color-gray_light40);
+
+        box-shadow: inset 0 0 0 $border-width var(--color-gray40);
     }
 }
