@@ -191,7 +191,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 ) : (
                     <Typography
                         isNowrap
-                        variant="caption"
+                        variant={size === 'small' ? 'caption' : 'body'}
                         component="span"
                         className={clsx('flexFluid', 'moonstone-dropdown_label')}
                         title={label}

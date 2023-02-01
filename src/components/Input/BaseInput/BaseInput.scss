@@ -95,6 +95,9 @@ $border-radius: 2px;
 
     &::placeholder {
         font-style: italic;
+        color: var(--color-gray_dark60);
+
+        opacity: 1;
     }
 
     &:focus {

@@ -29,15 +29,12 @@ export default {
     argTypes: {
         icon: {
             options: Object.keys(icons)
-        },
-        maxWidth: {
-            control: {type: 'range', min: 100, max: 1500, step: 10}
         }
     }
 };
 
 const TemplateSimple = args => {
-    const {icon, size, variant, label, placeholder, isDisabled, className, searchEmptyText, hasSearch, imageSize, isTree, maxWidth, multiple} = args;
+    const {icon, size, variant, label, placeholder, isDisabled, className, searchEmptyText, hasSearch, imageSize, isTree, multiple} = args;
     const [currentOption, setCurrentOption] = useState(null);
     const [currentOptions, setCurrentOptions] = useState([]);
 
@@ -63,7 +60,6 @@ const TemplateSimple = args => {
             values={multiple && currentOptions.map(i => i.value)}
             size={size}
             searchEmptyText={searchEmptyText}
-            maxWidth={maxWidth}
             imageSize={imageSize}
             variant={variant}
             isDisabled={isDisabled}
@@ -198,7 +194,6 @@ export const Grouped = () => {
             label={currentOption.label}
             value={currentOption.value}
             size="small"
-            maxWidth="120px"
             data={dropdownDataGrouped}
             onChange={(e, item) => handleOnChange(e, item)}
         />
