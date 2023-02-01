@@ -245,7 +245,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
                         variant="ghost"
                         icon={<Cancel/>}
                         aria-label="Reset"
-                        onClick={onClear}
+                        onClick={e => {
+                            e.stopPropagation();
+                            onClear(e);
+                        }}
                     />
                 )}
                 <ChevronDown className="moonstone-dropdown_chevronDown"/>

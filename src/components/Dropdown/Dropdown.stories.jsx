@@ -49,8 +49,7 @@ const TemplateSimple = args => {
         return true;
     };
 
-    const onClear = withClear && (e => {
-        e.stopPropagation();
+    const onClear = withClear && (() => {
         if (multiple) {
             setCurrentOptions([]);
         } else {
