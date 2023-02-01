@@ -1,3 +1,30 @@
+# v2.5.0 (Wed Feb 01 2023)
+
+#### 🚀 Enhancement
+
+- MOON-333 : Multiple selection in dropdown [#348](https://github.com/Jahia/moonstone/pull/348) ([@tdraier](https://github.com/tdraier))
+
+#### 🐛 Bug Fix
+
+- TECH-1127 Add dependabot config [#349](https://github.com/Jahia/moonstone/pull/349) ([@Janin-Michel-Mathias](https://github.com/Janin-Michel-Mathias))
+- TECH-1081 Update deprecated steps [#347](https://github.com/Jahia/moonstone/pull/347) ([@Janin-Michel-Mathias](https://github.com/Janin-Michel-Mathias))
+
+#### 🔩 Dependency Updates
+
+- Bump prop-types from 15.7.2 to 15.8.1 [#350](https://github.com/Jahia/moonstone/pull/350) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump clsx from 1.1.1 to 1.2.1 [#351](https://github.com/Jahia/moonstone/pull/351) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @babel/runtime from 7.16.3 to 7.20.13 [#352](https://github.com/Jahia/moonstone/pull/352) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump react-is from 17.0.2 to 18.2.0 [#353](https://github.com/Jahia/moonstone/pull/353) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump re-resizable from 6.9.1 to 6.9.9 [#354](https://github.com/Jahia/moonstone/pull/354) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Janin Michel-Mathias ([@Janin-Michel-Mathias](https://github.com/Janin-Michel-Mathias))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v2.4.24 (Wed Dec 14 2022)
 
 #### 🐛 Bug Fix
