@@ -17,6 +17,11 @@ export type ControlledTreeViewProps = {
     selectedItems?: string[];
 
     /**
+     * Show checkbox for selected items
+     */
+    showCheckbox?: boolean;
+
+    /**
      * Trigger on opening node
      */
     onOpenItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
@@ -55,6 +60,11 @@ export type ControlledTreeViewProps = {
      * Component used for every item (li)
      */
     itemComponent?: string;
+
+    /**
+     * TreeView row sizes
+     */
+    size?: 'small' | 'default';
 
 };
 

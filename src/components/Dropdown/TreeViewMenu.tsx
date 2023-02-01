@@ -70,8 +70,9 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     hasOverlay,
     hasSearch,
     // SearchEmptyText,
-    data,
+    treeData,
     value,
+    values,
     handleSelect,
     // HandleKeyPress,
     onClose,
@@ -94,15 +95,26 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     const selected: string[] = [];
 
     if (inputValue !== '') {
-        data = filterNodes(inputValue, data, openedBySearch);
+        treeData = filterNodes(inputValue, treeData, openedBySearch);
     }
 
     if (value) {
-        data.forEach(single => {
+        treeData.forEach(single => {
             const id = find(value, single, openedBySearch);
             if (id) {
                 selected.push(id);
             }
+        });
+    }
+
+    if (values) {
+        values.forEach(v => {
+            treeData.forEach(single => {
+                const id = find(v, single, openedBySearch);
+                if (id) {
+                    selected.push(id);
+                }
+            });
         });
     }
 
@@ -134,19 +146,25 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
             <menu ref={itemRef}
                   className="moonstone-menu"
                   style={styleMenu}
-                  {...props}
             >
                 {hasSearch && (
                     <div className="moonstone-menu_searchInput">
                         <SearchInput
                             value={inputValue}
                             onChange={e => setInputValue(e.target.value)}
+                            onKeyPress={e => {
+                                if (e.key === 'Enter' && treeData.length > 0) {
+                                    handleSelect(e, treeData[0]);
+                                }
+                            }}
                             onClear={() => setInputValue('')}
                         />
                     </div>
                 )}
-                <TreeView data={data}
+                <TreeView data={treeData}
                           selectedItems={selected}
+                          size="small"
+                          showCheckbox={Boolean(values)}
                           openedItems={[...openedItems, ...openedBySearch]}
                           onOpenItem={onOpenItem}
                           onCloseItem={onCloseItem}

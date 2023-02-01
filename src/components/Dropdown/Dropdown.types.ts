@@ -19,8 +19,8 @@ export enum DropdownImageSizes {
     Big = 'big'
 }
 
-export type DropdownDataOptions = {
-    label?: string;
+export type DropdownDataOption = {
+    label: string;
     description?: string;
     value?: string;
     isDisabled?: boolean;
@@ -29,22 +29,27 @@ export type DropdownDataOptions = {
     attributes?: unknown;
     image?: React.ReactElement;
     imageSize?: DropdownImageSize;
-}
-
-export type DropdownData = {
     groupLabel?: string;
-    options?: [DropdownDataOptions];
+    options?: [DropdownDataOption];
 }
 
-export type HandleSelect = (e: React.MouseEvent | React.KeyboardEvent, item?: DropdownDataOptions) => void;
+export type HandleSelect = (e: React.MouseEvent | React.KeyboardEvent, item?: DropdownDataOption) => void;
 
 export type DropdownProps = {
     /**
      * Content of the dropdown
      */
-    data: [DropdownDataOptions & DropdownData] | [TreeViewData] | any;
+    data?: DropdownDataOption[];
 
-    isTree?: boolean,
+    /**
+     * Content of the dropdown, if tree
+     */
+    treeData?: TreeViewData[];
+
+    /**
+     * Text for dropdown, when no value is selected
+     */
+    placeholder?: string;
 
     /**
      * Label of the dropdown
@@ -55,6 +60,11 @@ export type DropdownProps = {
      * Value of the dropdown
      */
     value?: string;
+
+    /**
+     * Value of the dropdown
+     */
+    values?: string[];
 
     /**
      * Icon displays before the dropdown's label
@@ -77,11 +87,6 @@ export type DropdownProps = {
     imageSize?: DropdownImageSize;
 
     /**
-     * Max width of the dropdown
-     */
-    maxWidth?: string;
-
-    /**
      * Dropdown is disabled
      */
     isDisabled?: boolean;
@@ -102,9 +107,24 @@ export type DropdownProps = {
     className?: string;
 
     /**
+     * Function - when passed in, the Clear icon appears at the end of the input and its click event is passed back when the Clear icon is clicked
+     */
+    onClear?: React.MouseEventHandler;
+
+    /**
      * Function trigger on change with the current option as param
      * @param {object} event - Mouse event
      * @param {object} item - The current item selected
      */
-    onChange?: (event: React.MouseEvent, item :DropdownDataOptions) => void;
+    onChange?: (event: React.MouseEvent, item :DropdownDataOption) => void;
+
+    /**
+     * Function triggered on focus of the checkbox value
+     */
+    onFocus?: React.FocusEventHandler;
+
+    /**
+     * Function triggered when the checkbox value loses focus
+     */
+    onBlur?: React.FocusEventHandler;
 }

@@ -2,9 +2,9 @@ import React from 'react';
 import clsx from 'clsx';
 
 import type {TablePaginationProps} from './TablePagination.types';
-import type {DropdownDataOptions} from '~/components/Dropdown/Dropdown.types';
-import {Dropdown, Typography, Button} from '~/components';
-import {ChevronLeft, ChevronRight, ChevronLastPage, ChevronFirstPage} from '~/icons';
+import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
+import {Button, Dropdown, Typography} from '~/components';
+import {ChevronFirstPage, ChevronLastPage, ChevronLeft, ChevronRight} from '~/icons';
 import './TablePagination.scss';
 
 const cssClass = 'moonstone-tablePagination';
@@ -46,7 +46,7 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
                 data={rowsPerPageOptions.map(opt => ({label: opt.toString(), value: opt.toString()}))}
                 value={rowsPerPage.toString()}
                 label={rowsPerPage.toString()}
-                onChange={(event: React.MouseEvent, item: DropdownDataOptions) => onRowsPerPageChange(parseInt(item.value, 10))}
+                onChange={(event: React.MouseEvent, item: DropdownDataOption) => onRowsPerPageChange(parseInt(item.value, 10))}
             />
             <Typography
                 variant="caption"

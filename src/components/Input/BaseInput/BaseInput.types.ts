@@ -4,12 +4,12 @@ export type BaseInputProps = {
     /**
      * Default value when the component is rendered (Uncontrolled)
      */
-     defaultValue?: string;
+    defaultValue?: string;
 
     /**
      * Value to exist in the input field (Controlled)
      */
-     value?: string;
+    value?: string;
 
     /**
      * ID of the input
@@ -56,15 +56,47 @@ export type BaseInputProps = {
      */
     icon?: React.ReactElement;
 
+    variant?: 'text' | 'search' | 'outlined' | 'ghost';
+
     /**
      * Whether the input should have a clear button. If onClear is not specified, clear button will set the value to empty value
      */
     isShowClearButton?: boolean;
 
     /**
+     * Whether the input should have a trigger button.
+     */
+    isShowTriggerButton?: boolean;
+
+    /**
+     * Trigger button icon
+     */
+    triggerButtonIcon?: React.ReactElement;
+
+    /**
+     * Component
+     */
+    prefixComponents?: React.ReactElement[];
+
+    /**
+     * Function
+     */
+    onClick?: React.MouseEventHandler;
+
+    /**
+     * Function
+     */
+    onKeyPress?: React.KeyboardEventHandler;
+
+    /**
      * Function - when passed in, the Cancel icon appears at the end of the input and its click event is passed back when the Cancel icon is clicked
      */
     onClear?: React.MouseEventHandler;
+
+    /**
+     * Function
+     */
+    onTrigger?: React.MouseEventHandler;
 
     /**
      * Function triggered on change of the input value

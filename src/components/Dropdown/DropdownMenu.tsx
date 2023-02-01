@@ -1,7 +1,8 @@
 import React from 'react';
-import {DropdownDataOptions} from '~/components/Dropdown/Dropdown.types';
+import {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
 import {Menu, MenuItem, Separator} from '~/components';
 import {DropdownMenuProps} from '~/components/Dropdown/DropdownMenu.types';
+import {CheckboxChecked, CheckboxUnchecked} from '~/icons';
 
 export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     isDisplayed,
@@ -14,6 +15,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     searchEmptyText,
     data,
     value,
+    values,
     imageSize,
     handleSelect,
     handleKeyPress,
@@ -22,14 +24,17 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     const isEmpty = data.length < 1;
     const isGrouped = !isEmpty && typeof data[0].options !== 'undefined';
 
+    const getIcon = (item: DropdownDataOption) => values?.indexOf(item.value) > -1 ? <CheckboxChecked role="checkbox" color="blue"/> : <CheckboxUnchecked role="checkbox"/>;
+
     // ---
     // Generate options
     // ---
-    const dropdownOption = (item: DropdownDataOptions) => (
+    const dropdownOption = (item: DropdownDataOption) => (
         <MenuItem
             key={item.value}
             role="option"
-            iconStart={item.iconStart}
+            iconStart={values ? getIcon(item) : item.iconStart}
+            iconSize="default"
             label={item.label}
             description={item.description}
             iconEnd={item.iconEnd}
@@ -43,7 +48,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
         />
     );
 
-    const dropdownGrouped = (children: [DropdownDataOptions], groupLabel: string, index: number) => {
+    const dropdownGrouped = (children: [DropdownDataOption], groupLabel: string, index: number) => {
         return (
             <div key={`${groupLabel}-${index}`} data-option-type="group">
                 {index > 0 && (
@@ -58,6 +63,10 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
             </div>
         );
     };
+
+    if (data.length === 0) {
+        return null;
+    }
 
     return (
         <Menu
@@ -75,7 +84,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
             {
                 data.map((item, index) => {
                     if (isGrouped) {
-                        item.options.map((o: DropdownDataOptions) => {
+                        item.options.map((o: DropdownDataOption) => {
                             return dropdownOption(o);
                         });
                         return dropdownGrouped(item.options, item.groupLabel, index);

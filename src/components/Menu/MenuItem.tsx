@@ -10,6 +10,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
     isSelected,
     isDisabled = false,
     iconStart = null,
+    iconSize = null,
     iconEnd = null,
     image,
     imageSize,
@@ -33,6 +34,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
         )}
         image={image}
         imageSize={imageSize}
+        iconSize={iconSize}
         iconStart={iconStart}
         iconEnd={iconEnd}
         description={description}

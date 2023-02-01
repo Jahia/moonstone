@@ -14,19 +14,23 @@ $border-radius: 2px;
     align-items: center;
     width: 100%;
     min-width: $min-width;
-    height: $default-size;
+    min-height: $default-size;
 
     color: var(--color-gray_dark);
-    line-height: 23px;
 
     cursor: text;
-}
 
-.moonstone-baseInput_big {
-    height: $big-size;
+    &.moonstone-big {
+        min-height: $big-size;
+    }
 
-    input {
-        height: $big-size;
+    &.moonstone-outlined {
+        border-radius: $border-radius;
+        box-shadow: inset 0 0 0 $border-width var(--color-gray40);
+    }
+
+    .moonstone-reversed & {
+        color: var(--color-white);
     }
 }
 
@@ -34,17 +38,24 @@ $border-radius: 2px;
 // Icon
 //--
 .moonstone-baseInput_icon {
-    position: absolute;
-    left: var(--spacing-small);
-
     height: 0.01em;
     max-height: 2em;
+    margin-left: var(--spacing-small);
 
     color: var(--color-gray_dark);
 
     white-space: nowrap;
 
     pointer-events: none;
+
+    .moonstone-reversed & {
+        color: var(--color-white);
+    }
+}
+
+.moonstone-baseInput_elementsWrapper {
+    gap: var(--spacing-nano);
+    margin: 0 var(--spacing-nano);
 }
 
 //--
@@ -54,16 +65,28 @@ $border-radius: 2px;
     @extend %variant-caption;
 
     display: block;
-    width: 100%; // Fix IE 11 width issue
-    min-width: 0; // Make the flex item shrink with Firefox
-    height: $default-size;
+    flex: 1;
+    width: 0; // CSS trick to force element to shrink
+    min-width: 50px;
+    height: calc($default-size - 2px);
     margin: 0; // Reset for Safari
     padding: 0 var(--spacing-small);
 
-    border: $border-width $border-style var(--color-gray40);
-    border-radius: $border-radius;
+    border: 0;
 
     -webkit-tap-highlight-color: transparent;
+
+    .moonstone-reversed & {
+        color: var(--color-white);
+
+        background-color: transparent;
+    }
+
+    &.moonstone-big {
+        @extend %variant-body;
+
+        height: calc($big-size - 2px);
+    }
 
     // Reset Firefox invalid required input style
     &:invalid {
@@ -72,15 +95,12 @@ $border-radius: 2px;
 
     &::placeholder {
         font-style: italic;
-    }
+        color: var(--color-gray_dark60);
 
-    &:hover,
-    &:active {
-        border-color: var(--color-gray_dark60);
+        opacity: 1;
     }
 
     &:focus {
-        border-color: var(--color-accent);
         outline: none;
 
         ~ .moonstone-baseInput_icon {
@@ -89,14 +109,15 @@ $border-radius: 2px;
     }
 
     &:read-only {
-        border-color: transparent;
+        box-shadow: none;
     }
 
     &:disabled {
         color: var(--color-gray);
 
-        border-color: transparent;
         background-color: var(--color-gray_light40);
+
+        box-shadow: none;
         cursor: default;
         opacity: 1; // Reset iOS opacity
 
@@ -113,30 +134,10 @@ $border-radius: 2px;
     }
 }
 
-.moonstone-baseInput-element_hasIcon {
-    padding-left: 28px;
-}
-
-.moonstone-baseInput-element_hasClearButton {
-    padding-right: 28px;
-}
-
-.moonstone-baseInput-element-withContext {
-    text-indent: 104px;
-}
-
 //--
 // Clear Button
 //--
 .moonstone-baseInput_clearButton {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: calc(100% - 28px);
-
-    margin: auto;
-
     color: var(--color-gray);
     white-space: nowrap;
 
@@ -146,10 +147,7 @@ $border-radius: 2px;
 //--
 // Search Context
 //--
-.moonstone-searchContext-element {
-    position: absolute;
-    left: 4px;
-
+.moonstone-searchContextInput_element {
     min-width: 100px;
 
     background-color: var(--color-gray_light40);

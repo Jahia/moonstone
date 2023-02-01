@@ -29,7 +29,7 @@ export default {
     }
 } as ComponentMeta<typeof Input>;
 
-const Template: Story<InputProps> = args => (
+const Template: Story<InputProps> = (args, {globals: {theme}}) => (
     <Input {...args}/>
 );
 
