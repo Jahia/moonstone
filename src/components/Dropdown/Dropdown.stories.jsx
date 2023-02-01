@@ -5,10 +5,10 @@ import {Dropdown} from './index';
 import {Love} from '~/icons';
 import {
     dropdownData,
+    dropdownDataDescriptions,
     dropdownDataGrouped,
     dropdownDataImages,
-    dropdownDataTree,
-    dropdownDataDescriptions
+    dropdownDataTree
 } from '~/data';
 
 import * as icons from '../../icons/components';
@@ -34,7 +34,7 @@ export default {
 };
 
 const TemplateSimple = args => {
-    const {icon, size, variant, label, placeholder, isDisabled, className, searchEmptyText, hasSearch, imageSize, isTree, multiple} = args;
+    const {icon, size, variant, label, placeholder, isDisabled, className, searchEmptyText, hasSearch, imageSize, isTree, multiple, withClear} = args;
     const [currentOption, setCurrentOption] = useState(null);
     const [currentOptions, setCurrentOptions] = useState([]);
 
@@ -48,6 +48,15 @@ const TemplateSimple = args => {
         action('onChange');
         return true;
     };
+
+    const onClear = withClear && (e => {
+        e.stopPropagation();
+        if (multiple) {
+            setCurrentOptions([]);
+        } else {
+            setCurrentOption(null);
+        }
+    });
 
     return (
         <Dropdown
@@ -65,6 +74,8 @@ const TemplateSimple = args => {
             isDisabled={isDisabled}
             data={!isTree && dropdownData}
             treeData={isTree && dropdownDataTree}
+            onClear={onClear}
+            onBlur={action('onblur')}
             onChange={(e, item) => handleOnChange(e, item)}
         />
     );
@@ -79,6 +90,7 @@ Playground.args = {
     isDisabled: false,
     isTree: false,
     multiple: false,
+    withClear: false,
     searchEmptyText: 'No results found'
 };
 

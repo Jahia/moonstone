@@ -14,8 +14,37 @@ import {DropdownMenu} from '~/components/Dropdown/DropdownMenu';
 import {TreeViewMenu} from '~/components/Dropdown/TreeViewMenu';
 import {Tag} from '../Tag';
 import {TreeViewData} from '~/components/TreeView/TreeView.types';
-import {Typography} from '~/components';
-import {ChevronDown} from '~/icons';
+import {Button, Typography} from '~/components';
+import {Cancel, ChevronDown} from '~/icons';
+
+const createEvent: ((type: string) => React.FocusEvent) = (type: string) => ({
+    type,
+    nativeEvent: undefined,
+    relatedTarget: undefined,
+    currentTarget: undefined,
+    target: undefined,
+    bubbles: false,
+    cancelable: false,
+    defaultPrevented: false,
+    eventPhase: 0,
+    isTrusted: false,
+    preventDefault: function (): void {
+        throw new Error('Function not implemented.');
+    },
+    isDefaultPrevented: function (): boolean {
+        throw new Error('Function not implemented.');
+    },
+    stopPropagation: function (): void {
+        throw new Error('Function not implemented.');
+    },
+    isPropagationStopped: function (): boolean {
+        throw new Error('Function not implemented.');
+    },
+    persist: function (): void {
+        throw new Error('Function not implemented.');
+    },
+    timeStamp: 0
+});
 
 const flatten = (data: TreeViewData[]): TreeViewData[] => {
     const res: TreeViewData[] = [];
@@ -46,6 +75,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     hasSearch = false,
     searchEmptyText = 'No results found.',
     imageSize,
+    onClear,
     onChange,
     onBlur,
     onFocus,
@@ -92,6 +122,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
     // Functions to handle events
     // ---
     const handleOpenMenu = (e: React.MouseEvent | React.KeyboardEvent) => {
+        if (onFocus) {
+            onFocus(createEvent('focus'));
+        }
+
         const dropdownWidth = (e.currentTarget as HTMLElement).offsetWidth;
         setMinWith(`${dropdownWidth < menuMinWidth ? menuMinWidth : dropdownWidth}px`);
         setAnchorEl(e.currentTarget);
@@ -122,6 +156,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const handleCloseMenu = () => {
         setIsOpened(false);
         setAnchorEl(null);
+
+        if (onBlur) {
+            onBlur(createEvent('blur'));
+        }
     };
 
     const handleKeyPress = (e: React.KeyboardEvent, item: DropdownDataOption) => {
@@ -134,6 +172,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
     // CSS classes
     // ---
 
+    const isFilled = value || values?.length > 0;
+
     const cssDropdown = clsx(
         !label && !icon ? 'flexRow_reverse' : 'flexRow_between',
         'alignCenter',
@@ -142,7 +182,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         `moonstone-dropdown_${variant}`,
         {
             'moonstone-disabled': (typeof isDisabled === 'undefined' && isEmpty) ? true : isDisabled,
-            'moonstone-filled': value || values?.length > 0,
+            'moonstone-filled': isFilled,
             'moonstone-opened': isOpened
         }
     );
@@ -198,6 +238,15 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     >
                         {label || flatData.find(i => i.value === value)?.label || placeholder}
                     </Typography>
+                )}
+                {onClear && isFilled && !isDisabled && (
+                    <Button
+                        className="moonstone-baseInput_clearButton flexRow_center alignCenter"
+                        variant="ghost"
+                        icon={<Cancel/>}
+                        aria-label="Reset"
+                        onClick={onClear}
+                    />
                 )}
                 <ChevronDown className="moonstone-dropdown_chevronDown"/>
             </div>

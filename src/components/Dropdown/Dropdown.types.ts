@@ -107,6 +107,11 @@ export type DropdownProps = {
     className?: string;
 
     /**
+     * Function - when passed in, the Clear icon appears at the end of the input and its click event is passed back when the Clear icon is clicked
+     */
+    onClear?: React.MouseEventHandler;
+
+    /**
      * Function trigger on change with the current option as param
      * @param {object} event - Mouse event
      * @param {object} item - The current item selected
