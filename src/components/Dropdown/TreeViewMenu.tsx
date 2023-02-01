@@ -146,7 +146,6 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
             <menu ref={itemRef}
                   className="moonstone-menu"
                   style={styleMenu}
-                  {...props}
             >
                 {hasSearch && (
                     <div className="moonstone-menu_searchInput">

@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import clsx from 'clsx';
 import './Dropdown.scss';
 
@@ -16,35 +16,6 @@ import {Tag} from '../Tag';
 import {TreeViewData} from '~/components/TreeView/TreeView.types';
 import {Button, Typography} from '~/components';
 import {Cancel, ChevronDown} from '~/icons';
-
-const createEvent: ((type: string) => React.FocusEvent) = (type: string) => ({
-    type,
-    nativeEvent: undefined,
-    relatedTarget: undefined,
-    currentTarget: undefined,
-    target: undefined,
-    bubbles: false,
-    cancelable: false,
-    defaultPrevented: false,
-    eventPhase: 0,
-    isTrusted: false,
-    preventDefault: function (): void {
-        throw new Error('Function not implemented.');
-    },
-    isDefaultPrevented: function (): boolean {
-        throw new Error('Function not implemented.');
-    },
-    stopPropagation: function (): void {
-        throw new Error('Function not implemented.');
-    },
-    isPropagationStopped: function (): boolean {
-        throw new Error('Function not implemented.');
-    },
-    persist: function (): void {
-        throw new Error('Function not implemented.');
-    },
-    timeStamp: 0
-});
 
 const flatten = (data: TreeViewData[]): TreeViewData[] => {
     const res: TreeViewData[] = [];
@@ -83,12 +54,27 @@ export const Dropdown: React.FC<DropdownProps> = ({
     ...props
 }) => {
     const [isOpened, setIsOpened] = useState(false);
+    const [focusData, setFocusData] = useState({focused: false, event: null, lastSent: false});
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
 
     const isTree = Array.isArray(treeData);
     const flatData: DropdownDataOption[] = useMemo(() => isTree ? flatten(treeData) : data, [treeData, data, isTree]);
     const isEmpty = flatData.length === 0;
+
+    useEffect(() => {
+        if (focusData.focused && focusData.event && !focusData.lastSent && onFocus) {
+            onFocus(focusData.event);
+            setFocusData(p => ({...p, lastSent: true}));
+        }
+    }, [onFocus, focusData]);
+
+    useEffect(() => {
+        if (!focusData.focused && !isOpened && focusData.event && focusData.lastSent && onBlur) {
+            onBlur(focusData.event);
+            setFocusData(p => ({...p, lastSent: false}));
+        }
+    }, [onBlur, isOpened, focusData]);
 
     // Return nothing if `data` isn't an array
     if (!Array.isArray(flatData)) {
@@ -122,10 +108,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
     // Functions to handle events
     // ---
     const handleOpenMenu = (e: React.MouseEvent | React.KeyboardEvent) => {
-        if (onFocus) {
-            onFocus(createEvent('focus'));
-        }
-
         const dropdownWidth = (e.currentTarget as HTMLElement).offsetWidth;
         setMinWith(`${dropdownWidth < menuMinWidth ? menuMinWidth : dropdownWidth}px`);
         setAnchorEl(e.currentTarget);
@@ -156,10 +138,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const handleCloseMenu = () => {
         setIsOpened(false);
         setAnchorEl(null);
-
-        if (onBlur) {
-            onBlur(createEvent('blur'));
-        }
     };
 
     const handleKeyPress = (e: React.KeyboardEvent, item: DropdownDataOption) => {
@@ -207,6 +185,18 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 onKeyPress={(e: React.KeyboardEvent) => {
                     if (e.key === 'Enter') {
                         handleSelect(e);
+                    }
+                }}
+                onBlur={event => {
+                    if (event.currentTarget === event.target) {
+                        console.log('b');
+                        setFocusData(p => ({...p, focused: false, event}));
+                    }
+                }}
+                onFocus={event => {
+                    if (event.currentTarget === event.target) {
+                        console.log('f');
+                        setFocusData(p => ({...p, focused: true, event}));
                     }
                 }}
             >

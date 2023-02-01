@@ -71,9 +71,10 @@ const TemplateSimple = args => {
             imageSize={imageSize}
             variant={variant}
             isDisabled={isDisabled}
-            data={!isTree && dropdownData}
-            treeData={isTree && dropdownDataTree}
+            data={isTree ? null : dropdownData}
+            treeData={isTree ? dropdownDataTree : null}
             onClear={onClear}
+            onFocus={action('onfocus')}
             onBlur={action('onblur')}
             onChange={(e, item) => handleOnChange(e, item)}
         />
