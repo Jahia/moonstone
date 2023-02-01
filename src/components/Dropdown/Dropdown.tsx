@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {MutableRefObject, useEffect, useMemo, useRef, useState} from 'react';
 import clsx from 'clsx';
 import './Dropdown.scss';
 
@@ -57,6 +57,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const [focusData, setFocusData] = useState({focused: false, event: null, lastSent: false});
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
+    const ref: MutableRefObject<HTMLDivElement> = useRef();
 
     const isTree = Array.isArray(treeData);
     const flatData: DropdownDataOption[] = useMemo(() => isTree ? flatten(treeData) : data, [treeData, data, isTree]);
@@ -178,6 +179,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             }}
         >
             <div
+                ref={ref}
                 role="dropdown"
                 className={clsx(cssDropdown)}
                 tabIndex={0}
@@ -188,16 +190,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     }
                 }}
                 onBlur={event => {
-                    if (event.currentTarget === event.target) {
-                        console.log('b');
-                        setFocusData(p => ({...p, focused: false, event}));
-                    }
+                    setFocusData(p => ({...p, focused: false, event}));
                 }}
                 onFocus={event => {
-                    if (event.currentTarget === event.target) {
-                        console.log('f');
-                        setFocusData(p => ({...p, focused: true, event}));
-                    }
+                    setFocusData(p => ({...p, focused: true, event}));
                 }}
             >
                 {
@@ -213,7 +209,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                      label={item.label}
                                      value={item.value}
                                      size={size}
-                                     onClick={e => handleSelect(e, item)}
+                                     onClick={e => {
+                                         ref.current.focus();
+                                         handleSelect(e, item);
+                                     }}
                                 />
                             );
                         })}
@@ -237,6 +236,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                         aria-label="Reset"
                         onClick={e => {
                             e.stopPropagation();
+                            ref.current.focus();
                             onClear(e);
                         }}
                     />
