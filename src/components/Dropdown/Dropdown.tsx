@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import './Dropdown.scss';
 
 import {
-    BaseData,
     DropdownDataOption,
     DropdownImageSizes,
     DropdownProps,
@@ -58,7 +57,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const [minWidth, setMinWith] = useState(null);
 
     const isTree = Array.isArray(treeData);
-    const flatData: BaseData[] = useMemo(() => isTree ? flatten(treeData) : data, [treeData, data, isTree]);
+    const flatData: DropdownDataOption[] = useMemo(() => isTree ? flatten(treeData) : data, [treeData, data, isTree]);
     const isEmpty = flatData.length === 0;
 
     // Return nothing if `data` isn't an array

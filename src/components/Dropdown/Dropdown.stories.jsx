@@ -62,7 +62,6 @@ const TemplateSimple = args => {
             value={!multiple && currentOption?.value}
             values={multiple && currentOptions.map(i => i.value)}
             size={size}
-            isTree={isTree}
             searchEmptyText={searchEmptyText}
             maxWidth={maxWidth}
             imageSize={imageSize}
@@ -298,7 +297,6 @@ export const DropdownWithTree = () => {
 
     return (
         <Dropdown
-            isTree
             hasSearch
             isDisabled={false}
             variant="outlined"
@@ -306,7 +304,7 @@ export const DropdownWithTree = () => {
             icon={<Love/>}
             label={currentOption.label}
             value={currentOption.value}
-            data={dropdownDataTree}
+            treeData={dropdownDataTree}
             onChange={(e, item) => handleOnChange(e, item)}
         />
     );
@@ -352,7 +350,6 @@ export const DropdownWithTreeMultiple = () => {
 
     return (
         <Dropdown
-            isTree
             hasSearch
             icon={<Love/>}
             placeholder="Select something"

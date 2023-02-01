@@ -35,11 +35,6 @@ export type DropdownDataOption = {
 
 export type HandleSelect = (e: React.MouseEvent | React.KeyboardEvent, item?: DropdownDataOption) => void;
 
-export type BaseData = {
-    label: string
-    value?: string,
-}
-
 export type DropdownProps = {
     /**
      * Content of the dropdown
