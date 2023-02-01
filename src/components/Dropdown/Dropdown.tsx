@@ -211,6 +211,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                      size={size}
                                      onClick={e => {
                                          ref.current.focus();
+                                         ref.current.blur();
                                          handleSelect(e, item);
                                      }}
                                 />
@@ -237,6 +238,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                         onClick={e => {
                             e.stopPropagation();
                             ref.current.focus();
+                            ref.current.blur();
                             onClear(e);
                         }}
                     />
