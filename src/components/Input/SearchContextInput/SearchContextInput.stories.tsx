@@ -46,7 +46,7 @@ const searchContextData: DropdownDataOption[] = [
         iconStart: <Collections/>
     },
     {
-        label: 'Site Site|Site|Site|Site|Site|Site|Site| !!!',
+        label: 'Site',
         value: 'site',
         iconStart: <SiteWeb/>
     }
