@@ -67,6 +67,13 @@ type BasicProps = React.ComponentPropsWithRef<'ul'> & {
      * The HTML tag used to render the list items (li)
      */
     itemComponent?: string;
+
+    /**
+     * TreeView row sizes
+     */
+    size?: 'small' | 'default';
+
+    showCheckbox?: boolean;
 };
 
 export type TreeViewData = {

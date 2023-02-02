@@ -62,15 +62,47 @@ type BasicProps = HTMLInputProps & {
      */
     icon?: React.ReactElement;
 
+    variant?: 'text' | 'search' | 'outlined' | 'ghost';
+
     /**
      * Whether the input should have a clear button. If onClear is not specified, clear button will set the value to empty value
      */
     isShowClearButton?: boolean;
 
     /**
+     * Whether the input should have a trigger button.
+     */
+    isShowTriggerButton?: boolean;
+
+    /**
+     * Trigger button icon
+     */
+    triggerButtonIcon?: React.ReactElement;
+
+    /**
+     * Component
+     */
+    prefixComponents?: React.ReactElement[];
+
+    /**
+     * Function
+     */
+    onClick?: React.MouseEventHandler;
+
+    /**
+     * Function
+     */
+    onKeyPress?: React.KeyboardEventHandler;
+
+    /**
      * Function - when passed in, the Cancel icon appears at the end of the input and its click event is passed back when the Cancel icon is clicked
      */
     onClear?: React.MouseEventHandler;
+
+    /**
+     * Function
+     */
+    onTrigger?: React.MouseEventHandler;
 
     /**
      * Function triggered on change of the input value

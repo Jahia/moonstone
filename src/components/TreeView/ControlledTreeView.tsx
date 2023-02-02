@@ -4,7 +4,7 @@ import './TreeView.scss';
 import type {ControlledTreeViewProps} from './TreeView.types';
 import {TreeViewData} from './TreeView.types';
 
-import {Loading, ChevronDown, ChevronRight} from '~/icons';
+import {Loading, ChevronDown, ChevronRight, CheckboxChecked, CheckboxUnchecked} from '~/icons';
 import {Typography} from '~/components/Typography';
 
 // Manage treeView_item's icon
@@ -33,6 +33,7 @@ export const ControlledTreeView = React.forwardRef((
         data,
         openedItems = [],
         selectedItems = [],
+        showCheckbox = false,
         onClickItem = () => undefined,
         onDoubleClickItem = () => undefined,
         onContextMenuItem = () => undefined,
@@ -41,6 +42,7 @@ export const ControlledTreeView = React.forwardRef((
         isReversed = false,
         component = 'ul',
         itemComponent = 'li',
+        size = 'default',
         ...props
     }: ControlledTreeViewProps,
     ref: React.Ref<HTMLUListElement>
@@ -91,7 +93,8 @@ export const ControlledTreeView = React.forwardRef((
                 'alignCenter',
                 'moonstone-treeView_item',
                 {
-                    'moonstone-selected': isSelected,
+                    'moonstone-small': size === 'small',
+                    'moonstone-selected': isSelected && !showCheckbox,
                     'moonstone-reversed': isReversed,
                     'moonstone-disabled': node.isDisabled
                 }
@@ -114,7 +117,7 @@ export const ControlledTreeView = React.forwardRef((
                                 className={clsx('flexRow', 'alignCenter', 'moonstone-treeView_itemToggle')}
                                 onClick={toggleNode}
                             >
-                                {isOpen ? <ChevronDown/> : <ChevronRight/>}
+                                {isOpen ? <ChevronDown size={size}/> : <ChevronRight size={size}/>}
                             </div>
                         )}
                         {!isFlatData && !hasChild &&
@@ -127,11 +130,13 @@ export const ControlledTreeView = React.forwardRef((
                             onDoubleClick={handleNodeDoubleClick}
                             onContextMenu={handleNodeContextMenu}
                         >
-                            {displayIcon(node.iconStart, 'small', 'moonstone-treeView_itemIconStart', parentHasIconStart)}
+                            {showCheckbox ?
+                                (isSelected ? <CheckboxChecked className="moonstone-treeView_itemIconStart" role="checkbox" color="blue"/> : <CheckboxUnchecked className="moonstone-treeView_itemIconStart" role="checkbox"/>) :
+                                (displayIcon(node.iconStart, 'small', 'moonstone-treeView_itemIconStart', parentHasIconStart))}
                             <Typography isNowrap
                                         className={clsx('flexFluid')}
                                         component="span"
-                                        variant="body"
+                                        variant={size === 'default' ? 'body' : 'caption'}
                                         {...node.typographyOptions}
                             >
                                 {node.label}

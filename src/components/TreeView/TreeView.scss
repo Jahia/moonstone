@@ -28,6 +28,10 @@
         background-color: var(--treeItem-background_hover);
     }
 
+    &.moonstone-small {
+        height: 24px;
+    }
+
     &.moonstone-selected {
         color: var(--treeItem-color_selected);
 

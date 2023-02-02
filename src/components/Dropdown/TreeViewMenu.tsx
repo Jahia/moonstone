@@ -6,10 +6,10 @@ import '../Menu/Menu.scss';
 import {TreeViewData} from '~/components/TreeView/TreeView.types';
 import clsx from 'clsx';
 
-function filterNodes(text: string, nodes: TreeViewData[], opened: string[]) {
+function filterNodes(predicate: (data: TreeViewData) => boolean, nodes: TreeViewData[], opened: string[]) {
     const filtered: TreeViewData[] = [];
     nodes.forEach(c => {
-        const filterResult = filterNode(text, c, opened);
+        const filterResult = filterNode(predicate, c, opened);
         if (filterResult) {
             filtered.push(filterResult);
         }
@@ -17,11 +17,11 @@ function filterNodes(text: string, nodes: TreeViewData[], opened: string[]) {
     return filtered;
 }
 
-const filterNode = (text: string, node: TreeViewData, opened: string[]) => {
-    const match = node.label.toLowerCase().includes(text);
+const filterNode = (predicate: (data: TreeViewData) => boolean, node: TreeViewData, opened: string[]) => {
+    const match = predicate(node);
     const children: TreeViewData[] = [];
     if (node.children) {
-        const filteredChildren = filterNodes(text, node.children, opened);
+        const filteredChildren = filterNodes(predicate, node.children, opened);
         if (filteredChildren.length > 0) {
             children.push(...filteredChildren);
             opened.push(node.id);
@@ -34,22 +34,23 @@ const filterNode = (text: string, node: TreeViewData, opened: string[]) => {
             treeItemProps: {className: clsx({
                 'moonstone-disabled': !match
             })},
+            isDisabled: !match,
             children
         };
     }
 };
 
-const find = (value: string, data: TreeViewData, opened: string[]): string => {
-    if (data.value === value) {
-        return data.id;
+const find = (predicate: (data: TreeViewData) => boolean, data: TreeViewData, opened?: string[]): TreeViewData => {
+    if (predicate(data)) {
+        return data;
     }
 
     if (data.children) {
         const res = data.children.reduce((current, child) => {
-            return current || find(value, child, opened);
-        }, '');
+            return current || find(predicate, child, opened);
+        }, null);
 
-        if (res) {
+        if (res && opened) {
             opened.push(data.id);
         }
 
@@ -70,12 +71,12 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     hasOverlay,
     hasSearch,
     // SearchEmptyText,
-    data,
+    treeData,
     value,
+    values,
     handleSelect,
     // HandleKeyPress,
-    onClose,
-    ...props
+    onClose
 }) => {
     const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, position);
     // UseEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);
@@ -94,15 +95,26 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     const selected: string[] = [];
 
     if (inputValue !== '') {
-        data = filterNodes(inputValue, data, openedBySearch);
+        treeData = filterNodes(node => node.label.toLowerCase().includes(inputValue.toLowerCase()), treeData, openedBySearch);
     }
 
     if (value) {
-        data.forEach(single => {
-            const id = find(value, single, openedBySearch);
-            if (id) {
-                selected.push(id);
+        treeData.forEach(single => {
+            const item = find(data => data.value === value, single, openedBySearch);
+            if (item) {
+                selected.push(item.id);
             }
+        });
+    }
+
+    if (values) {
+        values.forEach(v => {
+            treeData.forEach(single => {
+                const item = find(data => data.value === v, single, openedBySearch);
+                if (item) {
+                    selected.push(item.id);
+                }
+            });
         });
     }
 
@@ -134,19 +146,28 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
             <menu ref={itemRef}
                   className="moonstone-menu"
                   style={styleMenu}
-                  {...props}
             >
                 {hasSearch && (
                     <div className="moonstone-menu_searchInput">
                         <SearchInput
                             value={inputValue}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
+                            onChange={e => setInputValue(e.target.value)}
+                            onKeyPress={e => {
+                                if (e.key === 'Enter' && treeData.length > 0) {
+                                    const item = find(data => !data.isDisabled, treeData[0]);
+                                    if (item) {
+                                        handleSelect(e, item);
+                                    }
+                                }
+                            }}
                             onClear={() => setInputValue('')}
                         />
                     </div>
                 )}
-                <TreeView data={data}
+                <TreeView data={treeData}
                           selectedItems={selected}
+                          size="small"
+                          showCheckbox={Boolean(values)}
                           openedItems={[...openedItems, ...openedBySearch]}
                           onOpenItem={onOpenItem}
                           onCloseItem={onCloseItem}

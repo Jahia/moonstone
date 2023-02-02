@@ -5,11 +5,13 @@ import {Dropdown} from './index';
 import {Love} from '~/icons';
 import {
     dropdownData,
+    dropdownDataDescriptions,
     dropdownDataGrouped,
     dropdownDataImages,
-    dropdownDataTree,
-    dropdownDataDescriptions
+    dropdownDataTree
 } from '~/data';
+
+import * as icons from '../../icons/components';
 
 export default {
     title: 'Components/Dropdown',
@@ -23,7 +25,73 @@ export default {
             inlineStories: false,
             IframeHeight: 500
         }
+    },
+    argTypes: {
+        icon: {
+            options: Object.keys(icons)
+        }
     }
+};
+
+const TemplateSimple = args => {
+    const {icon, size, variant, label, placeholder, isDisabled, className, searchEmptyText, hasSearch, imageSize, isTree, multiple, withClear} = args;
+    const [currentOption, setCurrentOption] = useState(null);
+    const [currentOptions, setCurrentOptions] = useState([]);
+
+    const handleOnChange = (e, item) => {
+        if (multiple) {
+            setCurrentOptions(prev => prev.every(p => p.value !== item.value) ? [...prev, item] : prev.filter(i => i.value !== item.value));
+        } else {
+            setCurrentOption(item);
+        }
+
+        action('onChange');
+        return true;
+    };
+
+    const onClear = withClear && (() => {
+        if (multiple) {
+            setCurrentOptions([]);
+        } else {
+            setCurrentOption(null);
+        }
+    });
+
+    return (
+        <Dropdown
+            icon={icons[icon] && React.createElement(icons[icon])}
+            hasSearch={hasSearch}
+            label={label}
+            placeholder={placeholder}
+            className={className}
+            value={!multiple && currentOption?.value}
+            values={multiple && currentOptions.map(i => i.value)}
+            size={size}
+            searchEmptyText={searchEmptyText}
+            imageSize={imageSize}
+            variant={variant}
+            isDisabled={isDisabled}
+            data={isTree ? null : dropdownData}
+            treeData={isTree ? dropdownDataTree : null}
+            onClear={onClear}
+            onFocus={action('onfocus')}
+            onBlur={action('onblur')}
+            onChange={(e, item) => handleOnChange(e, item)}
+        />
+    );
+};
+
+export const Playground = TemplateSimple.bind({});
+Playground.args = {
+    icon: 'Love',
+    size: 'small',
+    variant: 'ghost',
+    placeholder: 'Select something',
+    isDisabled: false,
+    isTree: false,
+    multiple: false,
+    withClear: false,
+    searchEmptyText: 'No results found'
 };
 
 export const Default = () => {
@@ -43,6 +111,28 @@ export const Default = () => {
             icon={<Love/>}
             label={currentOption.label}
             value={currentOption.value}
+            size="small"
+            isDisabled={false}
+            data={dropdownData}
+            onChange={(e, item) => handleOnChange(e, item)}
+        />
+    );
+};
+
+export const Multiple = () => {
+    const [currentOption, setCurrentOption] = useState([]);
+
+    const handleOnChange = (e, item) => {
+        setCurrentOption(prev => prev.indexOf(item) > -1 ? prev.filter(i => i !== item) : [...prev, item]);
+        action('onChange');
+        return true;
+    };
+
+    return (
+        <Dropdown
+            icon={<Love/>}
+            label="Select something"
+            values={currentOption.map(v => v.value)}
             size="small"
             isDisabled={false}
             data={dropdownData}
@@ -116,7 +206,6 @@ export const Grouped = () => {
             label={currentOption.label}
             value={currentOption.value}
             size="small"
-            maxWidth="120px"
             data={dropdownDataGrouped}
             onChange={(e, item) => handleOnChange(e, item)}
         />
@@ -215,15 +304,14 @@ export const DropdownWithTree = () => {
 
     return (
         <Dropdown
-            isTree
             hasSearch
             isDisabled={false}
             variant="outlined"
-            size="Small"
+            size="small"
             icon={<Love/>}
             label={currentOption.label}
             value={currentOption.value}
-            data={dropdownDataTree}
+            treeData={dropdownDataTree}
             onChange={(e, item) => handleOnChange(e, item)}
         />
     );
@@ -257,3 +345,27 @@ WithDescription.args = {
     size: 'medium',
     icon: <Love/>
 };
+
+export const DropdownWithTreeMultiple = () => {
+    const [currentOption, setCurrentOption] = useState([]);
+
+    const handleOnChange = (e, item) => {
+        setCurrentOption(prev => prev.indexOf(item) > -1 ? prev.filter(i => i !== item) : [...prev, item]);
+        action('onChange');
+        return true;
+    };
+
+    return (
+        <Dropdown
+            hasSearch
+            icon={<Love/>}
+            placeholder="Select something"
+            values={currentOption.map(v => v.value)}
+            size="medium"
+            isDisabled={false}
+            data={dropdownDataTree}
+            onChange={(e, item) => handleOnChange(e, item)}
+        />
+    );
+};
+

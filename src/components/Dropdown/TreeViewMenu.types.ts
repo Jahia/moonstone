@@ -1,5 +1,7 @@
 import React from 'react';
 import type {DropdownDataOption, DropdownDataTree} from './Dropdown.types';
+import type {TreeViewData} from '~/components/TreeView/TreeView.types';
+// Import type {DropdownDataOption} from './Dropdown.types';
 import type {
     AnchorElOrigin,
     AnchorPosition,
@@ -11,7 +13,7 @@ export type TreeViewMenuProps = {
     /**
      * Data to generate the tree
      */
-    data: DropdownDataTree;
+    treeData: TreeViewData[];
 
     maxHeight?: string;
     maxWidth?: string;
@@ -23,9 +25,11 @@ export type TreeViewMenuProps = {
     transformElOrigin?: TransformElOrigin;
     position?: PositioningType;
     hasSearch?: boolean;
+    searchInput?: string;
     searchEmptyText?: string;
     hasOverlay?: boolean;
     value?: string;
+    values?: string[];
     children?: React.ReactNode;
     imageSize?: 'small' | 'big';
     handleSelect: (e?: React.MouseEvent | React.KeyboardEvent, item?: DropdownDataOption) => void;

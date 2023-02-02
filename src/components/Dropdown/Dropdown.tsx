@@ -1,44 +1,87 @@
-import React, {useState} from 'react';
+import React, {MutableRefObject, useEffect, useMemo, useRef, useState} from 'react';
 import clsx from 'clsx';
 import './Dropdown.scss';
 
 import {
-    DropdownDataGrouped,
     DropdownDataOption,
-    DropdownDataOptions,
     DropdownImageSizes,
     DropdownProps,
     DropdownSizes,
     DropdownVariants,
     HandleSelect
 } from './Dropdown.types';
-import {Typography} from '~/components/Typography';
-import {ChevronDown} from '~/icons';
 import {DropdownMenu} from '~/components/Dropdown/DropdownMenu';
 import {TreeViewMenu} from '~/components/Dropdown/TreeViewMenu';
+import {Tag} from '../Tag';
 import {TreeViewData} from '~/components/TreeView/TreeView.types';
+import {Button, Typography} from '~/components';
+import {Cancel, ChevronDown} from '~/icons';
+
+const flatten = (data: TreeViewData[]): TreeViewData[] => {
+    const res: TreeViewData[] = [];
+
+    const fn = (current: TreeViewData) => {
+        res.push(current);
+        if (current.children) {
+            current.children.forEach(fn);
+        }
+    };
+
+    data?.forEach?.(fn);
+
+    return res;
+};
 
 export const Dropdown: React.FC<DropdownProps> = ({
     data,
+    treeData,
     label,
+    placeholder,
     value,
+    values,
     isDisabled,
-    maxWidth = '300px',
     variant = DropdownVariants.Ghost,
     size = DropdownSizes.Medium,
     icon,
     hasSearch = false,
     searchEmptyText = 'No results found.',
     imageSize,
+    onClear,
     onChange,
+    onBlur,
+    onFocus,
     className,
-    isTree,
     ...props
 }) => {
     const [isOpened, setIsOpened] = useState(false);
+    const [focusData, setFocusData] = useState({focused: false, event: null, lastSent: false});
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
-    const isEmpty = data.length < 1;
+    const ref: MutableRefObject<HTMLDivElement> = useRef();
+
+    const isTree = Array.isArray(treeData);
+    const flatData: DropdownDataOption[] = useMemo(() => isTree ? flatten(treeData) : data, [treeData, data, isTree]);
+    const isEmpty = flatData.length === 0;
+
+    useEffect(() => {
+        if (focusData.focused && focusData.event && !focusData.lastSent && onFocus) {
+            onFocus(focusData.event);
+            setFocusData(p => ({...p, lastSent: true}));
+        }
+    }, [onFocus, focusData]);
+
+    useEffect(() => {
+        if (!focusData.focused && !isOpened && focusData.event && focusData.lastSent && onBlur) {
+            onBlur(focusData.event);
+            setFocusData(p => ({...p, lastSent: false}));
+        }
+    }, [onBlur, isOpened, focusData]);
+
+    // Return nothing if `data` isn't an array
+    if (!Array.isArray(flatData)) {
+        return null;
+    }
+
     const menuMinWidth = 80;
     const anchorPosition = {
         top: 4,
@@ -46,11 +89,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
     };
     let menuMaxWidth;
     let menuMaxHeight;
-
-    // Return nothing if `data` isn't an array
-    if (!Array.isArray(data)) {
-        return null;
-    }
 
     switch (imageSize) {
         case DropdownImageSizes.Big:
@@ -79,14 +117,21 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
     const handleSelect: HandleSelect = (e, item) => {
         if (item) {
-            let canClose: boolean | void = !item.isDisabled;
-            if (!item.isDisabled && item.value !== value) {
-                e.stopPropagation();
-                canClose = (onChange as (e: React.MouseEvent | React.KeyboardEvent, item: DropdownDataOption) => void)(e, item);
-            }
+            if (values) {
+                if (!item.isDisabled) {
+                    e.stopPropagation();
+                    (onChange as (e: React.MouseEvent | React.KeyboardEvent, item: DropdownDataOption) => void)(e, item);
+                }
+            } else {
+                let canClose: boolean | void = !item.isDisabled;
+                if (!item.isDisabled && item.value !== value) {
+                    e.stopPropagation();
+                    canClose = (onChange as (e: React.MouseEvent | React.KeyboardEvent, item: DropdownDataOption) => void)(e, item);
+                }
 
-            if (canClose !== false) {
-                setIsOpened(false);
+                if (canClose !== false) {
+                    setIsOpened(false);
+                }
             }
         }
     };
@@ -106,6 +151,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
     // CSS classes
     // ---
 
+    const isFilled = value || values?.length > 0;
+
     const cssDropdown = clsx(
         !label && !icon ? 'flexRow_reverse' : 'flexRow_between',
         'alignCenter',
@@ -114,15 +161,16 @@ export const Dropdown: React.FC<DropdownProps> = ({
         `moonstone-dropdown_${variant}`,
         {
             'moonstone-disabled': (typeof isDisabled === 'undefined' && isEmpty) ? true : isDisabled,
-            'moonstone-filled': value,
+            'moonstone-filled': isFilled,
             'moonstone-opened': isOpened
         }
     );
 
+    const View = isTree ? TreeViewMenu : DropdownMenu;
+
     return (
         <div
             className={clsx('moonstone-dropdown_container', className)}
-            style={{maxWidth}}
             {...props}
             onKeyPress={e => {
                 if (e.key === 'Enter') {
@@ -131,6 +179,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             }}
         >
             <div
+                ref={ref}
                 role="dropdown"
                 className={clsx(cssDropdown)}
                 tabIndex={0}
@@ -140,29 +189,70 @@ export const Dropdown: React.FC<DropdownProps> = ({
                         handleSelect(e);
                     }
                 }}
+                onBlur={event => {
+                    setFocusData(p => ({...p, focused: false, event}));
+                }}
+                onFocus={event => {
+                    setFocusData(p => ({...p, focused: true, event}));
+                }}
             >
                 {
                     icon &&
-                    <icon.type {...icon.props} size="small" className={clsx('moonstone-dropdown_icon')}/>
+                    <icon.type {...icon.props} size="default" className={clsx('moonstone-dropdown_icon')}/>
                 }
-
-                <Typography
-                    isNowrap
-                    variant="caption"
-                    component="span"
-                    className={clsx('flexFluid')}
-                    title={label}
-                >
-                    {label}
-                </Typography>
+                {!label && values && values.length > 0 ? (
+                    <div className="moonstone-dropdown_tags flexFluid flexRow">
+                        {values.map(v => {
+                            const item = flatData.find(i => i.value === v);
+                            return item && (
+                                <Tag key={item.value}
+                                     label={item.label}
+                                     value={item.value}
+                                     size={size}
+                                     onClick={e => {
+                                         ref.current.focus();
+                                         ref.current.blur();
+                                         handleSelect(e, item);
+                                     }}
+                                />
+                            );
+                        })}
+                    </div>
+                ) : (
+                    <Typography
+                        isNowrap
+                        variant={size === 'small' ? 'caption' : 'body'}
+                        component="span"
+                        className={clsx('flexFluid', 'moonstone-dropdown_label')}
+                        title={label}
+                    >
+                        {label || flatData.find(i => i.value === value)?.label || placeholder}
+                    </Typography>
+                )}
+                {onClear && isFilled && !isDisabled && (
+                    <Button
+                        className="moonstone-baseInput_clearButton flexRow_center alignCenter"
+                        variant="ghost"
+                        icon={<Cancel/>}
+                        aria-label="Reset"
+                        onClick={e => {
+                            e.stopPropagation();
+                            ref.current.focus();
+                            ref.current.blur();
+                            onClear(e);
+                        }}
+                    />
+                )}
                 <ChevronDown className="moonstone-dropdown_chevronDown"/>
             </div>
 
-            {isOpened && (isTree ? (
-                <TreeViewMenu
+            {isOpened && (
+                <View
                     isDisplayed
-                    data={data as [TreeViewData]}
+                    data={data}
+                    treeData={treeData}
                     value={value}
+                    values={values}
                     anchorPosition={anchorPosition}
                     minWidth={minWidth}
                     maxWidth={menuMaxWidth}
@@ -175,24 +265,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     imageSize={imageSize}
                     onClose={handleCloseMenu}
                 />
-            ) : (
-                <DropdownMenu
-                    isDisplayed
-                    data={data as DropdownDataOptions & DropdownDataGrouped}
-                    value={value}
-                    anchorPosition={anchorPosition}
-                    minWidth={minWidth}
-                    maxWidth={menuMaxWidth}
-                    maxHeight={menuMaxHeight}
-                    anchorEl={anchorEl}
-                    hasSearch={hasSearch}
-                    searchEmptyText={searchEmptyText}
-                    handleKeyPress={handleKeyPress}
-                    handleSelect={handleSelect}
-                    imageSize={imageSize}
-                    onClose={handleCloseMenu}
-                />
-            ))}
+            )}
         </div>
     );
 };

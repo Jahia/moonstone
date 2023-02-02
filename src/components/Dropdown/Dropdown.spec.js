@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react';
+import {getByLabelText, getByText, queryByRole, queryByText, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {Dropdown} from './index';
 import {dropdownData, dropdownDataGrouped} from '~/data';
@@ -76,5 +76,28 @@ describe('Dropdown', () => {
     it('should not add "dropdown-disabled" class if data is empty when "isDisabled=false" ', () => {
         render(<Dropdown data={[]} isDisabled={false} data-testid="moonstone-dropdown" onChange={() => 'testing'}/>);
         expect(screen.queryByTestId('moonstone-dropdown').firstChild).not.toHaveClass('moonstone-disabled');
+    });
+
+    it('should display the value', () => {
+        render(
+            <Dropdown data={dropdownData} value="4"/>
+        );
+        expect(queryByText(document.querySelector('.moonstone-typography'), 'option 4')).toBeInTheDocument();
+    });
+
+    it('should display tags for multiple values', () => {
+        render(
+            <Dropdown data={dropdownData} values={['4']}/>
+        );
+        expect(queryByText(document.querySelector('.moonstone-tag'), 'option 4')).toBeInTheDocument();
+    });
+
+    it('should show checkboxes for multiple select', () => {
+        render(
+            <Dropdown data={dropdownData} values={['4']}/>
+        );
+
+        userEvent.click(screen.getByRole('dropdown'));
+        expect(screen.queryAllByRole('checkbox')).not.toHaveLength(0);
     });
 });

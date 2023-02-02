@@ -1,13 +1,12 @@
 import React, {useEffect, useRef} from 'react';
 import clsx from 'clsx';
-import {Cancel} from '~/icons';
+import {Cancel, ChevronDown} from '~/icons';
 import {Button} from '~/components';
 import './BaseInput.scss';
 import type {ControlledBaseInputProps} from './BaseInput.types';
 
 export const ControlledBaseInput: React.FC<ControlledBaseInputProps & { searchContext?: React.ReactElement }> = ({
     value = '',
-    searchContext,
     id,
     role,
     placeholder,
@@ -16,7 +15,14 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps & { searchCo
     className,
     size = 'default',
     icon,
+    variant = 'outlined',
     isShowClearButton,
+    isShowTriggerButton,
+    triggerButtonIcon = <ChevronDown/>,
+    prefixComponents,
+    onClick,
+    onKeyPress,
+    onTrigger,
     onClear,
     onChange,
     onBlur,
@@ -24,14 +30,9 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps & { searchCo
     focusOnField = false,
     ...props
 }) => {
-    const hasSearchContext = typeof searchContext !== 'undefined';
     const isFilled = value !== '';
     const inputRef = useRef(null);
-    const classNameProps = clsx(
-        'moonstone-baseInput',
-        {'moonstone-baseInput_big': size === 'big'},
-        className
-    );
+    const classNameProps = clsx('moonstone-baseInput', `moonstone-${size}`, `moonstone-${variant}`, className);
 
     useEffect(() => {
         if (focusOnField) {
@@ -49,43 +50,7 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps & { searchCo
     }
 
     return (
-        <div className={classNameProps}>
-            {hasSearchContext &&
-                (
-                    <>
-                        <searchContext.type
-                            {...searchContext.props}
-                            variant="ghost"
-                            size="small"
-                            maxWidth="100px"
-                            className={clsx(searchContext.props.className, 'moonstone-searchContext-element')}
-                        />
-                    </>
-                )}
-            <input
-                ref={inputRef}
-                className={
-                    clsx(
-                        'moonstone-baseInput-element',
-                        {
-                            'moonstone-baseInput-element_hasIcon': icon,
-                            'moonstone-baseInput-element-withContext': hasSearchContext,
-                            'moonstone-baseInput-element_hasClearButton': onClear
-                        }
-                    )
-                }
-                type="text"
-                role={role}
-                value={value}
-                id={id}
-                placeholder={placeholder}
-                disabled={isDisabled}
-                readOnly={isReadOnly}
-                onChange={onChange}
-                onBlur={onBlur}
-                onFocus={onFocus}
-                {...props}
-            />
+        <div className={classNameProps} onClick={onClick}>
             {icon && (
                 <div
                     className={clsx(
@@ -97,6 +62,25 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps & { searchCo
                     <icon.type {...icon.props} focusable="false"/>
                 </div>
             )}
+            <div className="flexRow alignCenter flexFluid moonstone-baseInput_elementsWrapper">
+                {prefixComponents}
+                <input
+                    ref={inputRef}
+                    className={clsx('moonstone-baseInput-element', `moonstone-${size}`)}
+                    type="text"
+                    role={role}
+                    value={value}
+                    id={id}
+                    placeholder={placeholder}
+                    disabled={isDisabled}
+                    readOnly={isReadOnly}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    onFocus={onFocus}
+                    onKeyPress={onKeyPress}
+                    {...props}
+                />
+            </div>
             {onClear && isFilled && !isDisabled && !isReadOnly && (
                 <Button
                     className="moonstone-baseInput_clearButton flexRow_center alignCenter"
@@ -104,6 +88,15 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps & { searchCo
                     icon={<Cancel/>}
                     aria-label="Reset"
                     onClick={onClear}
+                />
+            )}
+            {isShowTriggerButton && (
+                <Button
+                    className="moonstone-baseInput_clearButton flexRow_center alignCenter"
+                    variant="ghost"
+                    icon={triggerButtonIcon}
+                    aria-label="Open"
+                    onClick={onTrigger}
                 />
             )}
         </div>

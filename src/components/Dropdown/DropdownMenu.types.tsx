@@ -3,6 +3,7 @@ import {AnchorPosition} from '~/components/Menu/Menu.types';
 import {DropdownDataGrouped, DropdownDataOptions, DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
 
 export type DropdownMenuData = DropdownDataOptions | DropdownDataGrouped
+// Import {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
 
 export type DropdownMenuProps = {
     maxHeight?: string;
@@ -12,10 +13,12 @@ export type DropdownMenuProps = {
     anchorEl?: React.MutableRefObject<HTMLDivElement>;
     anchorPosition?: AnchorPosition;
     hasSearch?: boolean;
+    searchInput?: string;
     searchEmptyText?: string;
     hasOverlay?: boolean;
-    data: DropdownMenuData;
+    data: DropdownDataOption[];
     value?: string;
+    values?: string[];
     children?: React.ReactNode;
     imageSize?: 'small' | 'big';
     handleSelect: (e?: React.MouseEvent | React.KeyboardEvent, item?: DropdownDataOption) => void;

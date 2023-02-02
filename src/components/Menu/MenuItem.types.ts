@@ -93,4 +93,9 @@ export type MenuItemProps = React.ComponentPropsWithoutRef<'li'> & {
      * Function triggered when a key is pressed
      */
     onKeyPress?: React.KeyboardEventHandler
+
+    /**
+     * Which icon size to render. The default is small
+     */
+    iconSize?: 'small' | 'default' | 'big';
 };
