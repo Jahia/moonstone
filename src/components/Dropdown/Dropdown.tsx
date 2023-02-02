@@ -204,7 +204,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     <div className="moonstone-dropdown_tags flexFluid flexRow">
                         {values.map(v => {
                             const item = flatData.find(i => i.value === v);
-                            return (
+                            return item && (
                                 <Tag key={item.value}
                                      label={item.label}
                                      value={item.value}
