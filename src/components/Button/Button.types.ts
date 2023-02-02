@@ -16,11 +16,6 @@ export type ButtonProps = {
     label?: React.ReactNode;
 
     /**
-     * Does the label contain HTML markup
-     */
-    isHtml?: boolean;
-
-    /**
      * Icon size
      */
     size?: ButtonSize;

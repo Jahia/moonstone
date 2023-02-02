@@ -3,17 +3,6 @@ import clsx from 'clsx';
 import './Typography.scss';
 import {TypographyProps} from './Typography.types';
 
-// IsHtml prop should eventually be removed (along with this function) as children supports all React Node types
-// including strings and HTML markup
-const filterOutIsHtml = (props: TypographyProps) => {
-    const newProps = {...props};
-    if (newProps.isHtml) {
-        delete newProps.isHtml;
-    }
-
-    return newProps;
-};
-
 export const Typography: React.FC<TypographyProps> = ({
     children = '',
     component = 'p',
@@ -24,7 +13,6 @@ export const Typography: React.FC<TypographyProps> = ({
     isItalic = false,
     isUpperCase = false,
     isNowrap = false,
-    isHtml = false,
     ...props
 }) => {
     if (!children) {
@@ -34,7 +22,7 @@ export const Typography: React.FC<TypographyProps> = ({
     return React.createElement(
         component,
         {
-            ...filterOutIsHtml(props),
+            ...props,
             className: clsx(
                 'moonstone-typography',
                 `moonstone-variant_${variant}`,

@@ -10,7 +10,6 @@
         "clsx": "^1.2.1",
         "prop-types": "^15.8.1",
         "re-resizable": "^6.9.9",
-        "react-is": "^18.2.0",
         "to-px": "^1.1.0"
     },
     "peerDependencies": {

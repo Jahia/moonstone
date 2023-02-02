@@ -16,7 +16,6 @@ export const Button: React.FC<ButtonProps> = ({
     variant = 'default',
     color = 'default',
     className = null,
-    isHtml = false,
     onClick = () => undefined,
     ...props
 }) => {
@@ -67,7 +66,6 @@ export const Button: React.FC<ButtonProps> = ({
                     isUpperCase={size === 'big'}
                     weight={typoWeight}
                     className={clsx('flexFluid')}
-                    isHtml={isHtml}
                 >
                     {label}
                 </Typography>

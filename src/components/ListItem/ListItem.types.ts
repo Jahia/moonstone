@@ -19,11 +19,6 @@ export type ListItemProps = {
     description?: string;
 
     /**
-     * Does the label contain HTML markup
-     */
-    isHtml?: boolean;
-
-    /**
      * A leading icon display before the label. Cannot be used in conjunction with the image property.
      */
     iconStart?: React.ReactElement;
