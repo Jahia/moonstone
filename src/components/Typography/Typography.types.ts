@@ -40,10 +40,6 @@ export type TypographyProps = {
      */
     hasLineThrough?: boolean;
     /**
-     * Does the children contain HTML markup
-     */
-    isHtml?: boolean;
-    /**
      * No wrapping for text
      */
     isNowrap?: boolean;

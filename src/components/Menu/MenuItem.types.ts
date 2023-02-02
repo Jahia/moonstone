@@ -40,11 +40,6 @@ export type MenuItemProps = {
     description?: string;
 
     /**
-     * Does the label contain HTML markup
-     */
-    isHtml?: boolean,
-
-    /**
      * A leading icon display before the label
      */
     iconStart?: React.ReactElement,

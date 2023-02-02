@@ -91,11 +91,4 @@ describe('Typography', () => {
         );
         expect(wrapper.props.className).toContain('yoloooo');
     });
-
-    it('should not bind isHtml prop to the html component', () => {
-        const wrapper = shallow(
-            <Typography isHtml><div>string</div></Typography>
-        );
-        expect(wrapper.html()).not.toContain('isHtml');
-    });
 });
