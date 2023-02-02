@@ -36,7 +36,7 @@ export default {
 
 const searchContextData: DropdownDataOption[] = [
     {
-        label: 'Global users',
+        label: 'Global users tototootototoototo',
         value: 'globalUser',
         iconStart: <Person/>
     },
