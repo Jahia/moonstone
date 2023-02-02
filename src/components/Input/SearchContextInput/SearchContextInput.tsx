@@ -11,7 +11,7 @@ export const SearchContextInput: React.FC<SearchContextInputProps> = ({searchCon
             {...searchContext.props}
             variant="ghost"
             size="small"
-            // MaxWidth="100px"
+            maxWidth="100px"
             className={clsx(searchContext.props.className, 'moonstone-searchContextInput_element')}
         />
     );
