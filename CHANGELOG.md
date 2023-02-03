@@ -1,3 +1,23 @@
+# v2.5.1 (Fri Feb 03 2023)
+
+#### 🐛 Bug Fix
+
+- MOON-368: Add icon ClearPaste [#359](https://github.com/Jahia/moonstone/pull/359) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-333: Fixed warnings [#358](https://github.com/Jahia/moonstone/pull/358) ([@tdraier](https://github.com/tdraier))
+- MOON-367: Fix storybook deployment [#357](https://github.com/Jahia/moonstone/pull/357) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-333: test undefined, fixed find in tree [#355](https://github.com/Jahia/moonstone/pull/355) ([@tdraier](https://github.com/tdraier))
+
+#### 🏠 Internal
+
+- MOON-366: Remove is-react dependency and isHtml prop [#356](https://github.com/Jahia/moonstone/pull/356) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 2
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v2.5.0 (Wed Feb 01 2023)
 
 #### 🚀 Enhancement
