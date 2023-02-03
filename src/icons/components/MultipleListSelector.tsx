@@ -6,7 +6,7 @@ interface IconProps extends SVGProps<SVGSVGElement> {
   className?: string;
 }
 
-const SvgMultipleListSelection = ({
+const SvgMultipleListSelector = ({
     size = 'default',
     className = '',
     color,
@@ -40,4 +40,4 @@ const SvgMultipleListSelection = ({
     );
 };
 
-export default SvgMultipleListSelection;
+export default SvgMultipleListSelector;
