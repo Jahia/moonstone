@@ -5,8 +5,8 @@ import {DropdownMenuProps} from '~/components/Dropdown/DropdownMenu.types';
 import {CheckboxChecked, CheckboxUnchecked} from '~/icons';
 
 const flattenData = (groupedData: DropdownDataOption[]): DropdownDataOption[] => {
-    return Array.prototype.concat.apply([], groupedData.map(d => d.options || []))
-}
+    return Array.prototype.concat.apply([], groupedData.map(d => d.options || []));
+};
 
 export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     isDisplayed,
@@ -72,7 +72,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
         );
     };
 
-    const flatData = (isGrouped) ? flattenData(data) : data
+    const flatData = (isGrouped) ? flattenData(data) : data;
     return (
         <Menu
             isDisplayed={isDisplayed}

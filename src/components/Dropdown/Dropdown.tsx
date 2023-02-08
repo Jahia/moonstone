@@ -169,14 +169,15 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
     const View = isTree ? TreeViewMenu : DropdownMenu;
 
-    // fn that calculates whether search input is enabled based on autoSearch settings and data length
+    // Fn that calculates whether search input is enabled based on autoSearch settings and data length
     const autoSearch = (dataLength: number): boolean => {
         if (hasSearch !== undefined) {
             return hasSearch;
         }
-        const limit = autoSearchLimit > 0 ? autoSearchLimit : 7
+
+        const limit = autoSearchLimit > 0 ? autoSearchLimit : 7;
         return dataLength > limit;
-    }
+    };
 
     return (
         <div
