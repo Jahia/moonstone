@@ -95,4 +95,53 @@ describe('Dropdown', () => {
         userEvent.click(screen.getByRole('dropdown'));
         expect(screen.queryAllByRole('checkbox')).not.toHaveLength(0);
     });
+
+    it('should show search input when autoSearch is enabled (hasSearch=undefined) and exceeds limit', () => {
+        let dData = dropdownData;
+        render(
+            <Dropdown data={dData} data-testid="moonstone-dropdown"/>
+        );
+        expect(dropdownData.length).toBeGreaterThan(7); // triggers auto-search
+        userEvent.click(screen.getByRole('dropdown'));
+        expect(screen.queryByRole('search')).toBeInTheDocument();
+    });
+
+    it('should not show search input when autoSearch is enabled (hasSearch=undefined) and does not exceed limit', () => {
+        let dData = dropdownData.slice(0,7);
+        render(
+            <Dropdown data={dData} data-testid="moonstone-dropdown"/>
+        );
+        expect(dData.length).toBeLessThanOrEqual(7); // does not trigger auto-search
+        userEvent.click(screen.getByRole('dropdown'));
+        expect(screen.queryByRole('search')).not.toBeInTheDocument();
+    });
+
+    it('should show search input when autoSearch is enabled (hasSearch=undefined) and exceeds specified limit', () => {
+        let limit = 4
+        let dData = dropdownData.slice(0, limit+1);
+        render(
+            <Dropdown data={dData} data-testid="moonstone-dropdown" autoSearchLimit={limit}/>
+        );
+        expect(dropdownData.length).toBeGreaterThan(limit); // triggers auto-search
+        userEvent.click(screen.getByRole('dropdown'));
+        expect(screen.queryByRole('search')).toBeInTheDocument();
+    });
+
+    it('should show search input when hasSearch is enabled', () => {
+        let dData = dropdownData.slice(0, 3);
+        render(
+            <Dropdown data={dData} data-testid="moonstone-dropdown" hasSearch={true}/>
+        );
+        userEvent.click(screen.getByRole('dropdown'));
+        expect(screen.queryByRole('search')).toBeInTheDocument();
+    });
+
+    it('should not show search input when hasSearch is disabled', () => {
+        let dData = dropdownData;
+        render(
+            <Dropdown data={dData} data-testid="moonstone-dropdown" hasSearch={false}/>
+        );
+        userEvent.click(screen.getByRole('dropdown'));
+        expect(screen.queryByRole('search')).toBeInTheDocument();
+    });
 });

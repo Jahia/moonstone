@@ -10,6 +10,8 @@ export type DropdownMenuProps = {
     anchorEl?: React.MutableRefObject<HTMLDivElement>;
     anchorPosition?: AnchorPosition;
     hasSearch?: boolean;
+    /* Function that returns whether this dropdown menu has search input based on data length */
+    autoSearch: (dataLength: number) => boolean
     searchInput?: string;
     searchEmptyText?: string;
     hasOverlay?: boolean;

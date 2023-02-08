@@ -43,7 +43,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
     variant = DropdownVariants.Ghost,
     size = DropdownSizes.Medium,
     icon,
-    hasSearch = false,
+    hasSearch,
+    autoSearchLimit = 7,
     searchEmptyText = 'No results found.',
     imageSize,
     onClear,
@@ -168,6 +169,15 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
     const View = isTree ? TreeViewMenu : DropdownMenu;
 
+    // fn that calculates whether search input is enabled based on autoSearch settings and data length
+    const autoSearch = (dataLength: number): boolean => {
+        if (hasSearch !== undefined) {
+            return hasSearch;
+        }
+        const limit = autoSearchLimit > 0 ? autoSearchLimit : 7
+        return dataLength > limit;
+    }
+
     return (
         <div
             className={clsx('moonstone-dropdown_container', className)}
@@ -259,6 +269,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     maxHeight={menuMaxHeight}
                     anchorEl={anchorEl}
                     hasSearch={hasSearch}
+                    autoSearch={autoSearch}
                     searchEmptyText={searchEmptyText}
                     handleKeyPress={handleKeyPress}
                     handleSelect={handleSelect}

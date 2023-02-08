@@ -4,6 +4,10 @@ import {Menu, MenuItem, Separator} from '~/components';
 import {DropdownMenuProps} from '~/components/Dropdown/DropdownMenu.types';
 import {CheckboxChecked, CheckboxUnchecked} from '~/icons';
 
+const flattenData = (groupedData: DropdownDataOption[]): DropdownDataOption[] => {
+    return Array.prototype.concat.apply([], groupedData.map(d => d.options || []))
+}
+
 export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     isDisplayed,
     anchorPosition,
@@ -11,7 +15,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     maxWidth,
     maxHeight,
     anchorEl,
-    hasSearch,
+    autoSearch,
     searchEmptyText,
     data,
     value,
@@ -23,6 +27,10 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
 }) => {
     const isEmpty = data.length < 1;
     const isGrouped = !isEmpty && typeof data[0].options !== 'undefined';
+
+    if (data.length === 0) {
+        return null;
+    }
 
     const getIcon = (item: DropdownDataOption) => values?.indexOf(item.value) > -1 ? <CheckboxChecked role="checkbox" color="blue"/> : <CheckboxUnchecked role="checkbox"/>;
 
@@ -64,10 +72,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
         );
     };
 
-    if (data.length === 0) {
-        return null;
-    }
-
+    const flatData = (isGrouped) ? flattenData(data) : data
     return (
         <Menu
             isDisplayed={isDisplayed}
@@ -77,7 +82,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
             maxWidth={maxWidth}
             maxHeight={maxHeight}
             anchorEl={anchorEl}
-            hasSearch={hasSearch}
+            hasSearch={autoSearch(flatData.length)}
             searchEmptyText={searchEmptyText}
             onClose={onClose}
         >
