@@ -43,7 +43,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
     variant = DropdownVariants.Ghost,
     size = DropdownSizes.Medium,
     icon,
-    hasSearch = false,
+    hasSearch,
+    autoAddSearchLimit = 7,
     searchEmptyText = 'No results found.',
     imageSize,
     onClear,
@@ -259,6 +260,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     maxHeight={menuMaxHeight}
                     anchorEl={anchorEl}
                     hasSearch={hasSearch}
+                    autoAddSearchLimit={autoAddSearchLimit}
                     searchEmptyText={searchEmptyText}
                     handleKeyPress={handleKeyPress}
                     handleSelect={handleSelect}
