@@ -1,3 +1,15 @@
+# v2.5.2 (Thu Feb 09 2023)
+
+#### 🐛 Bug Fix
+
+- MOON-326: Add autosearch option for dropdown menus [#363](https://github.com/Jahia/moonstone/pull/363) ([@gflores-jahia](https://github.com/gflores-jahia))
+
+#### Authors: 1
+
+- Geofrey Flores ([@gflores-jahia](https://github.com/gflores-jahia))
+
+---
+
 # v2.5.1 (Fri Feb 03 2023)
 
 #### 🐛 Bug Fix
