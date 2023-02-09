@@ -144,4 +144,13 @@ describe('Dropdown', () => {
         userEvent.click(screen.getByRole('dropdown'));
         expect(screen.queryByRole('search')).not.toBeInTheDocument();
     });
+
+    it('should show auto-add search for grouped data', () => {
+        let dData = dropdownDataGrouped;
+        render(
+            <Dropdown data={dData} data-testid="moonstone-dropdown" autoAddSearchLimit={3}/>
+        );
+        userEvent.click(screen.getByRole('dropdown'));
+        expect(screen.queryByRole('search')).toBeInTheDocument();
+    });
 });
