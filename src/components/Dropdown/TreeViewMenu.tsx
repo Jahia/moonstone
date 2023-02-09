@@ -58,6 +58,21 @@ const find = (predicate: (data: TreeViewData) => boolean, data: TreeViewData, op
     }
 };
 
+const flatten = (data: TreeViewData[]): TreeViewData[] => {
+    const res: TreeViewData[] = [];
+
+    const fn = (current: TreeViewData) => {
+        res.push(current);
+        if (current.children) {
+            current.children.forEach(fn);
+        }
+    };
+
+    data?.forEach?.(fn);
+
+    return res;
+};
+
 export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     isDisplayed,
     minWidth,
@@ -70,6 +85,7 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     position,
     hasOverlay,
     hasSearch,
+    autoAddSearchLimit,
     // SearchEmptyText,
     treeData,
     value,
@@ -139,6 +155,11 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
         styleMenu.maxHeight = maxHeight;
     }
 
+    let hasAutoSearch: boolean = hasSearch;
+    if (typeof hasSearch === 'undefined') {
+        hasAutoSearch = flatten(treeData)?.length > autoAddSearchLimit;
+    }
+
     // ---
     // Render
     // ---
@@ -148,7 +169,7 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
                   className="moonstone-menu"
                   style={styleMenu}
             >
-                {hasSearch && (
+                {hasAutoSearch && (
                     <div className="moonstone-menu_searchInput">
                         <SearchInput
                             value={inputValue}
@@ -195,7 +216,7 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
 /* eslint-disable react/default-props-match-prop-types */
 TreeViewMenu.defaultProps = {
     hasOverlay: true,
-    hasSearch: false,
+    autoAddSearchLimit: 7,
     searchEmptyText: 'No results found.',
     position: 'fixed',
     anchorEl: null,
