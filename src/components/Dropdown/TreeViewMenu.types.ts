@@ -24,6 +24,7 @@ export type TreeViewMenuProps = {
     transformElOrigin?: TransformElOrigin;
     position?: PositioningType;
     hasSearch?: boolean;
+    autoAddSearchLimit: number;
     searchInput?: string;
     searchEmptyText?: string;
     hasOverlay?: boolean;

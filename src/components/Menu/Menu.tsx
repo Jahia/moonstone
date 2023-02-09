@@ -39,6 +39,7 @@ export const Menu: React.FC<MenuProps> = ({
     onExited,
     hasOverlay,
     hasSearch,
+    autoAddSearchLimit = 7,
     searchEmptyText,
     ...props
 }) => {
@@ -74,6 +75,11 @@ export const Menu: React.FC<MenuProps> = ({
 
     if (!children || React.Children.count(children) < 1) {
         return null;
+    }
+
+    let hasAutoSearch = hasSearch;
+    if (typeof hasSearch === 'undefined') {
+        hasAutoSearch = React.Children.count(children) > autoAddSearchLimit;
     }
 
     // ---
@@ -115,7 +121,7 @@ export const Menu: React.FC<MenuProps> = ({
                 onMouseLeave={onMouseLeave}
                 {...props}
             >
-                { hasSearch && (
+                { hasAutoSearch && (
                     <div className="moonstone-menu_searchInput">
                         <SearchInput
                             focusOnField

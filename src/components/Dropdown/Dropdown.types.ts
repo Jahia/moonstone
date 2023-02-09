@@ -93,8 +93,19 @@ export type DropdownProps = {
 
     /**
      * Whether the Menu within the Dropdown has a search input
+     * Autosearch is enabled if undefined
+     * Autosearch is when search input is automatically added in the dropdown when autoAddSearchLimit is reached
+     * @see autoAddSearchLimit
      */
-    hasSearch?: boolean;
+    hasSearch?: boolean | undefined;
+
+    /**
+     * Autosearch is triggered when data items exceed this limit
+     * Applies only when autosearch is enabled (i.e. hasSearch is undefined)
+     * Defaults to 7 if undefined or < 0
+     * Autosearch is when search input is automatically added in the dropdown
+     */
+    autoAddSearchLimit?: number;
 
     /**
      * The text to display if the Dropdown Menu has a search input and the search doesn't have any results

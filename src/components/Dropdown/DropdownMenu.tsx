@@ -12,6 +12,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     maxHeight,
     anchorEl,
     hasSearch,
+    autoAddSearchLimit = 7,
     searchEmptyText,
     data,
     value,
@@ -78,6 +79,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
             maxHeight={maxHeight}
             anchorEl={anchorEl}
             hasSearch={hasSearch}
+            autoAddSearchLimit={autoAddSearchLimit}
             searchEmptyText={searchEmptyText}
             onClose={onClose}
         >

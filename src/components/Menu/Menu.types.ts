@@ -75,8 +75,19 @@ export type MenuProps = {
 
     /**
      * Whether the Menu displays a search input at the top
+     * Autosearch is enabled if undefined
+     * Autosearch is when search input is automatically added in the dropdown when autoAddSearchLimit is reached
+     * @see autoAddSearchLimit
      */
     hasSearch?: boolean;
+
+    /**
+     * Autosearch is triggered when data items exceed this limit
+     * Applies only when autosearch is enabled (i.e. hasSearch is undefined)
+     * Defaults to 7 if undefined or < 0
+     * Autosearch is when search input is automatically added in the dropdown
+     */
+    autoAddSearchLimit?: number;
 
     /**
      * Text to display when the search doesn't show any results
