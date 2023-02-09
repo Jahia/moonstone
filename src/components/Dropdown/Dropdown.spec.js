@@ -142,6 +142,6 @@ describe('Dropdown', () => {
             <Dropdown data={dData} data-testid="moonstone-dropdown" hasSearch={false}/>
         );
         userEvent.click(screen.getByRole('dropdown'));
-        expect(screen.queryByRole('search')).toBeInTheDocument();
+        expect(screen.queryByRole('search')).not.toBeInTheDocument();
     });
 });
