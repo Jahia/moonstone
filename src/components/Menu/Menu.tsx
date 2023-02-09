@@ -79,7 +79,8 @@ export const Menu: React.FC<MenuProps> = ({
 
     let hasAutoSearch = hasSearch;
     if (typeof hasSearch === 'undefined') {
-        hasAutoSearch = React.Children.count(children) > autoAddSearchLimit;
+        const flatChildren = (Array.isArray(children)) ? getChildrenToFilter(children as [React.ReactElement]) : children; // Check for grouped data
+        hasAutoSearch = React.Children.count(flatChildren) > autoAddSearchLimit;
     }
 
     // ---
