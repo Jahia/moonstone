@@ -167,7 +167,6 @@ export const Menu: React.FC<MenuProps> = ({
 /* eslint-disable react/default-props-match-prop-types */
 Menu.defaultProps = {
     hasOverlay: true,
-    hasSearch: false,
     searchEmptyText: 'No results found.',
     position: 'fixed',
     anchorEl: null,

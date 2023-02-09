@@ -43,7 +43,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     variant = DropdownVariants.Ghost,
     size = DropdownSizes.Medium,
     icon,
-    hasSearch = false,
+    hasSearch,
     autoAddSearchLimit = 7,
     searchEmptyText = 'No results found.',
     imageSize,

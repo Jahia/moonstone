@@ -216,7 +216,6 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
 /* eslint-disable react/default-props-match-prop-types */
 TreeViewMenu.defaultProps = {
     hasOverlay: true,
-    hasSearch: false,
     searchEmptyText: 'No results found.',
     position: 'fixed',
     anchorEl: null,

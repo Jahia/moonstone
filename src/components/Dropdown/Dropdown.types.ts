@@ -97,7 +97,7 @@ export type DropdownProps = {
      * Autosearch is when search input is automatically added in the dropdown when autoAddSearchLimit is reached
      * @see autoAddSearchLimit
      */
-    hasSearch?: boolean | undefined;
+    hasSearch?: boolean;
 
     /**
      * Autosearch is triggered when data items exceed this limit
