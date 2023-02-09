@@ -39,7 +39,7 @@ export const Menu: React.FC<MenuProps> = ({
     onExited,
     hasOverlay,
     hasSearch,
-    autoAddSearchLimit = 7,
+    autoAddSearchLimit,
     searchEmptyText,
     ...props
 }) => {
@@ -167,6 +167,7 @@ export const Menu: React.FC<MenuProps> = ({
 /* eslint-disable react/default-props-match-prop-types */
 Menu.defaultProps = {
     hasOverlay: true,
+    autoAddSearchLimit: 7,
     searchEmptyText: 'No results found.',
     position: 'fixed',
     anchorEl: null,

@@ -85,7 +85,7 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     position,
     hasOverlay,
     hasSearch,
-    autoAddSearchLimit = 7,
+    autoAddSearchLimit,
     // SearchEmptyText,
     treeData,
     value,
@@ -216,6 +216,7 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
 /* eslint-disable react/default-props-match-prop-types */
 TreeViewMenu.defaultProps = {
     hasOverlay: true,
+    autoAddSearchLimit: 7,
     searchEmptyText: 'No results found.',
     position: 'fixed',
     anchorEl: null,

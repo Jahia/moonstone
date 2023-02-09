@@ -12,7 +12,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     maxHeight,
     anchorEl,
     hasSearch,
-    autoAddSearchLimit = 7,
+    autoAddSearchLimit,
     searchEmptyText,
     data,
     value,
