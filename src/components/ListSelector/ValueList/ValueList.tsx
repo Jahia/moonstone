@@ -8,7 +8,6 @@ import './ValueList.scss';
 
 export const ValueList: React.FC<ValueListProps> = ({
     values,
-    filter,
     setFilter,
     iconEnd,
     draggedId,
@@ -48,16 +47,20 @@ export const ValueList: React.FC<ValueListProps> = ({
                                               <HandleDrag className="moonstone-dragHandle"/>
                                           </div>
                                       )}
-                                      iconEnd={!isReadOnly && (
+                                      iconEnd={!isReadOnly && (role === 'left-list' ? (
                                           <div className="moonstone-iconContainer">
                                               { iconEnd }
                                           </div>
-                                      )}
+                                      ) : (
+                                          <div className="moonstone-iconContainer" onClick={(e:React.MouseEvent) => onClick(e, v)}>
+                                              { iconEnd }
+                                          </div>
+                                      ))}
                                       className={clsx(...classNames)}
                                       typographyVariant="body"
                                       label={v.label}
                                       onClick={(e:React.MouseEvent) => {
-                                          if (!isReadOnly) {
+                                          if (!isReadOnly && role === 'left-list') {
                                               onClick(e, v);
                                           }
                                       }}

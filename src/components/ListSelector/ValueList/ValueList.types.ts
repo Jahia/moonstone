@@ -25,10 +25,6 @@ export type ValueListProps = {
      */
     values?: Value[]
     /**
-     * Filter
-     */
-    filter?: string
-    /**
      * Set filter
      */
     setFilter: (filter: string) => void,
