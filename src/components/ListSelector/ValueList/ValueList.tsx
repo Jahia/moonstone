@@ -47,7 +47,7 @@ export const ValueList: React.FC<ValueListProps> = ({
                                               <HandleDrag className="moonstone-dragHandle"/>
                                           </div>
                                       )}
-                                      iconEnd={!isReadOnly && role === 'left-list' ? (
+                                      iconEnd={!isReadOnly && (role === 'left-list' ? (
                                           <div className="moonstone-iconContainer">
                                               { iconEnd }
                                           </div>
@@ -55,7 +55,7 @@ export const ValueList: React.FC<ValueListProps> = ({
                                           <div className="moonstone-iconContainer" onClick={(e:React.MouseEvent) => onClick(e, v)}>
                                               { iconEnd }
                                           </div>
-                                      )}
+                                      ))}
                                       className={clsx(...classNames)}
                                       typographyVariant="body"
                                       label={v.label}
