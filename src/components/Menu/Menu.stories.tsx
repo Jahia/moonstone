@@ -280,3 +280,26 @@ export const WithSearch = () => (
         </Menu>
     </div>
 );
+
+export const Reversed = () => (
+    <div className="moonstone-reversed" style={{transform: 'scale(1)', height: '100vh', background: 'var(--color-gray_dark)'}}>
+        <Menu
+            hasSearch
+            isDisplayed
+            searchEmptyText="Oh no! It seems like that doesn't exist."
+            maxHeight="250px"
+            style={{zIndex: 10000}}
+        >
+            <MenuItem label="Base items" variant="title"/>
+            <MenuItem label="Item1"/>
+            <MenuItem label="Item2"/>
+            <MenuItem label="Item3"/>
+            <MenuItem label="Item4"/>
+            <MenuItem label="Item5"/>
+            <MenuItem label="Item6"/>
+            <MenuItem label="Item7"/>
+            <MenuItem label="Item8"/>
+            <MenuItem label="Item9"/>
+        </Menu>
+    </div>
+);

@@ -45,13 +45,6 @@ $border-radius: 2px;
     pointer-events: none;
 }
 
-.moonstone-reversed:not(:has(.moonstone-menu)) {
-    .moonstone-baseInput_icon,
-    .moonstone-baseInput {
-        color: var(--color-white);
-    }
-}
-
 .moonstone-baseInput_elementsWrapper {
     gap: var(--spacing-nano);
     margin: 0 var(--spacing-nano);
@@ -76,7 +69,7 @@ $border-radius: 2px;
     -webkit-tap-highlight-color: transparent;
 
     .moonstone-reversed & {
-        color: var(--color-white);
+        // color: var(--color-white);
 
         background-color: transparent;
     }
@@ -130,6 +123,16 @@ $border-radius: 2px;
         ~ .moonstone-baseInput_icon {
             color: var(--color-gray60);
         }
+    }
+}
+
+//--
+// Reversed style
+//--
+.moonstone-reversed:not(:has(.moonstone-menu)) {
+    .moonstone-baseInput_icon,
+    .moonstone-baseInput {
+        color: var(--color-white);
     }
 }
 
