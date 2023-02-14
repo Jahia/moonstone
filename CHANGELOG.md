@@ -1,3 +1,17 @@
+# v2.5.3 (Tue Feb 14 2023)
+
+#### 🐛 Bug Fix
+
+- MOON-369: Prevent reversed style on input when it used in a Menu [#365](https://github.com/Jahia/moonstone/pull/365) ([@ffffffelix](https://github.com/ffffffelix))
+- QA-14659 Remove item from right-list only via icon click [#364](https://github.com/Jahia/moonstone/pull/364) ([@AKarmanov](https://github.com/AKarmanov))
+
+#### Authors: 2
+
+- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.5.2 (Thu Feb 09 2023)
 
 #### 🐛 Bug Fix
