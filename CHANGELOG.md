@@ -1,3 +1,16 @@
+# v2.5.4 (Fri Mar 03 2023)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-20712 Trigger release [#368](https://github.com/Jahia/moonstone/pull/368) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@AKarmanov](https://github.com/AKarmanov))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
+
+---
+
 # v2.5.3 (Tue Feb 14 2023)
 
 #### 🐛 Bug Fix
