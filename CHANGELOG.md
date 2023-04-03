@@ -1,3 +1,15 @@
+# v2.5.5 (Mon Apr 03 2023)
+
+#### 🐛 Bug Fix
+
+- QA-14444: Show scrollbar [#369](https://github.com/Jahia/moonstone/pull/369) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v2.5.4 (Fri Mar 03 2023)
 
 #### 🐛 Bug Fix
