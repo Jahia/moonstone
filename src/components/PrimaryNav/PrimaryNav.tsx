@@ -102,7 +102,7 @@ export const PrimaryNav: React.FC<PrimaryNavProps> = ({
                     </div>
                 </div>
 
-                <ul className={clsx('flexCol', 'flexFluid')}>
+                <ul className={clsx('flexCol_nowrap', 'flexFluid', 'moonstone-primaryNav_top')}>
                     {top}
                 </ul>
 

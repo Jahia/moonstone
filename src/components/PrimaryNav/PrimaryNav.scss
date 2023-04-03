@@ -57,6 +57,11 @@ $primaryNav: 56px;
     height: $primaryNav;
 }
 
+.moonstone-primaryNav_top {
+    overflow: auto;
+    overflow-y: overlay;
+}
+
 .moonstone-primaryNav_buttonContainer {
     width: $primaryNav;
     min-width: $primaryNav;
