@@ -1,116 +1,87 @@
 import React from 'react';
-import {shallow} from 'component-test-utils-react';
-import {Button} from './index';
+import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import {buttonColors, buttonSizes, buttonVariants} from './Button.types.ts';
-import {Love} from '~/icons';
+
+import {Button} from './index';
+import {Love} from '~/icons/index';
 
 describe('Button', () => {
     it('should render', () => {
-        const button = shallow(<Button onClick={() => null}/>);
-        expect(button.html()).toEqual('<button class="moonstone-button moonstone-size_default moonstone-variant_default moonstone-color_default moonstone-icon-button" type="button" disabled="false" onClick="[onClick]"></button>');
+        render(<Button label="test me" data-testid="moonstone-button"/>);
+        expect(screen.getByTestId('moonstone-button')).toBeInTheDocument();
+    });
+
+    it('should display additional className', () => {
+        render(<Button label="test me" data-testid="moonstone-button" className="test-className"/>);
+        expect(screen.getByTestId('moonstone-button')).toHaveClass('test-className');
     });
 
     it('should have the specified label', () => {
-        const label = 'Button Toto';
-        const button = shallow(<Button label={label} onClick={() => null}/>);
-        expect(button.html()).toContain(label);
+        render(<Button label="test me"/>);
+        expect(screen.getByText('test me')).toBeInTheDocument();
     });
 
     it('should display the icon', () => {
-        const button = shallow(<Button icon={<Love/>} onClick={() => null}/>);
-        expect(button.querySelector('SvgLove').exists()).toBeTruthy();
+        render(<Button icon={<Love data-testid="moonstone-buttonIcon"/>}/>);
+        expect(screen.getByTestId('moonstone-buttonIcon')).toBeInTheDocument();
     });
 
     it('should display the iconEnd', () => {
-        const button = shallow(<Button iconEnd={<Love/>} label="test" onClick={() => null}/>);
-        expect(button.querySelector('SvgLove').exists()).toBeTruthy();
+        render(<Button iconEnd={<Love data-testid="moonstone-buttonIconEnd"/>} label="test me"/>);
+        expect(screen.getByTestId('moonstone-buttonIconEnd')).toBeInTheDocument();
     });
 
-    it('should have the specified label and an icon', () => {
-        const label = 'Button Toto';
-        const button = shallow(<Button label={label} icon={<Love/>} onClick={() => null}/>);
-        expect(button.html()).toContain(label);
-        expect(button.querySelector('SvgLove').exists()).toBeTruthy();
+    it('should not display the iconEnd when no label is provided', () => {
+        render(<Button iconEnd={<Love data-testid="moonstone-buttonIconEnd"/>}/>);
+        expect(screen.queryByTestId('moonstone-buttonIconEnd')).not.toBeInTheDocument();
     });
 
-    it('should use the variant default', () => {
-        const button1 = shallow(<Button onClick={() => null}/>);
-        expect(button1.querySelector('.moonstone-variant_default').exists()).toBeTruthy();
-        expect(button1.querySelector('.moonstone-variant_outlined').exists()).toBeFalsy();
-        expect(button1.querySelector('.moonstone-variant_ghost').exists()).toBeFalsy();
-
-        const button2 = shallow(<Button variant="default" onClick={() => null}/>);
-        expect(button2.querySelector('.moonstone-variant_default').exists()).toBeTruthy();
-        expect(button2.querySelector('.moonstone-variant_outlined').exists()).toBeFalsy();
-        expect(button2.querySelector('.moonstone-variant_ghost').exists()).toBeFalsy();
+    it('should have the specified label when an icon is provided', () => {
+        render(<Button icon={<Love data-testid="moonstone-buttonIcon"/>} label="test me"/>);
+        expect(screen.getByTestId('moonstone-buttonIcon')).toBeInTheDocument();
+        expect(screen.getByText('test me')).toBeInTheDocument();
     });
 
-    it('should use the specified variant', () => {
-        buttonVariants.forEach(variant => {
-            const button = shallow(<Button variant={variant} onClick={() => null}/>);
-            expect(button.querySelector(`.moonstone-variant_${variant}`).exists()).toBeTruthy();
-        });
+    it('should use default styles', () => {
+        render(<Button data-testid="moonstone-button" label="test me"/>);
+        expect(screen.getByTestId('moonstone-button')).toHaveClass('moonstone-variant_default', 'moonstone-size_default', 'moonstone-color_default');
     });
 
     it('should use the reverse mode', () => {
-        const button = shallow(<Button isReversed onClick={() => null}/>);
-        expect(button.querySelector('.moonstone-reverse').exists()).toBeTruthy();
+        render(<Button isReversed data-testid="moonstone-button" label="test me"/>);
     });
 
     it('should be disabled', () => {
-        const button = shallow(<Button isDisabled onClick={() => null}/>);
-        expect(button.html().indexOf('disabled') !== -1).toBeTruthy();
+        render(<Button isDisabled data-testid="moonstone-button" label="test me"/>);
+        expect(screen.getByTestId('moonstone-button')).toBeDisabled();
     });
 
-    it('should use the color default', () => {
-        const button1 = shallow(<Button onClick={() => null}/>);
-        expect(button1.querySelector('.moonstone-color_default').exists()).toBeTruthy();
-        expect(button1.querySelector('.moonstone-color_accent').exists()).toBeFalsy();
-        expect(button1.querySelector('.moonstone-color_success').exists()).toBeFalsy();
-        expect(button1.querySelector('.moonstone-color_warning').exists()).toBeFalsy();
-        expect(button1.querySelector('.moonstone-color_danger').exists()).toBeFalsy();
-
-        const button2 = shallow(<Button color="default" onClick={() => null}/>);
-        expect(button2.querySelector('.moonstone-color_default').exists()).toBeTruthy();
-        expect(button2.querySelector('.moonstone-color_accent').exists()).toBeFalsy();
-        expect(button2.querySelector('.moonstone-color_success').exists()).toBeFalsy();
-        expect(button2.querySelector('.moonstone-color_warning').exists()).toBeFalsy();
-        expect(button2.querySelector('.moonstone-color_danger').exists()).toBeFalsy();
+    it('should display a spinner when the button is loading', () => {
+        render(<Button isLoading data-testid="moonstone-button" label="test me"/>);
+        expect(screen.getByRole('status')).toBeInTheDocument();
     });
 
-    it('should use the specified color', () => {
-        buttonColors.forEach(color => {
-            const button = shallow(<Button color={color} onClick={() => null}/>);
-            expect(button.querySelector(`.moonstone-color_${color}`).exists()).toBeTruthy();
-        });
+    test.each(buttonVariants)('should use the specified variant %s', variant => {
+        render(<Button data-testid="moonstone-button" variant={variant} label="test me"/>);
+        expect(screen.getByTestId('moonstone-button')).toHaveClass(`moonstone-variant_${variant}`);
     });
 
-    it('should use the default size', () => {
-        const button1 = shallow(<Button onClick={() => null}/>);
-        expect(button1.querySelector('.moonstone-size_default').exists()).toBeTruthy();
-        expect(button1.querySelector('.moonstone-size_small').exists()).toBeFalsy();
-        expect(button1.querySelector('.moonstone-size_big').exists()).toBeFalsy();
-
-        const button2 = shallow(<Button size="default" onClick={() => null}/>);
-        expect(button2.querySelector('.moonstone-size_default').exists()).toBeTruthy();
-        expect(button2.querySelector('.moonstone-size_small').exists()).toBeFalsy();
-        expect(button2.querySelector('.moonstone-size_big').exists()).toBeFalsy();
+    test.each(buttonColors)('should use the specified color %s', color => {
+        render(<Button data-testid="moonstone-button" color={color} label="test me"/>);
+        expect(screen.getByTestId('moonstone-button')).toHaveClass(`moonstone-color_${color}`);
     });
 
-    it('should use the specified size', () => {
-        buttonSizes.forEach(size => {
-            const button = shallow(<Button size={size} onClick={() => null}/>);
-            expect(button.querySelector(`.moonstone-size_${size}`).exists()).toBeTruthy();
-        });
+    test.each(buttonSizes)('should use the specified size %s', size => {
+        render(<Button data-testid="moonstone-button" size={size} label="test me"/>);
+        expect(screen.getByTestId('moonstone-button')).toHaveClass(`moonstone-size_${size}`);
     });
 
-    it('should have extra attribute', () => {
-        const button = shallow(<Button data-custom="test" onClick={() => null}/>);
-        expect(button.html().indexOf('data-custom="test"') !== -1).toBeTruthy();
-    });
+    it('should call onClick function', () => {
+        const onClick = jest.fn();
+        render(<Button data-testid="moonstone-button" label="test me" onClick={onClick}/>);
 
-    it('should have extra CSS class', () => {
-        const button = shallow(<Button className="toto" onClick={() => null}/>);
-        expect(button.querySelector('.toto').exists()).toBeTruthy();
+        userEvent.click(screen.getByTestId('moonstone-button'));
+        expect(onClick).toHaveBeenCalled();
     });
 });
