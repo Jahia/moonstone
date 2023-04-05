@@ -4,7 +4,7 @@ import {Story, ComponentMeta} from '@storybook/react';
 import {Button} from './index';
 import type {ButtonProps} from './Button.types';
 
-import {Love} from '~/icons';
+import {Love, OpenInNew} from '~/icons';
 import markdownNotes from './Button.md';
 
 export default {
@@ -59,7 +59,8 @@ export const IconAndLabel: Story<ButtonProps> = (args, {globals: {theme}}) => (
     </section>
 );
 IconAndLabel.args = {
-    icon: <Love/>
+    icon: <Love/>,
+    iconEnd: <OpenInNew/>
 };
 IconAndLabel.parameters = {
     controls: {exclude: ['variant', 'label']}

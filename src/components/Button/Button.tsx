@@ -13,6 +13,7 @@ export const Button: React.FC<ButtonProps> = ({
     isDisabled = false,
     isLoading = false,
     icon = null,
+    iconEnd = null,
     variant = 'default',
     color = 'default',
     className = null,
@@ -45,7 +46,7 @@ export const Button: React.FC<ButtonProps> = ({
                 `moonstone-size_${size}`,
                 `moonstone-variant_${variant}`,
                 `moonstone-color_${color}`,
-                {'moonstone-icon': (icon && label)},
+                {'moonstone-icon': (label && (icon || iconEnd))},
                 {'moonstone-icon-button': !label},
                 {'moonstone-reverse': isReversed},
                 {'moonstone-button_loading': isLoading},
@@ -70,6 +71,7 @@ export const Button: React.FC<ButtonProps> = ({
                     {label}
                 </Typography>
             )}
+            {label && iconEnd && <iconEnd.type {...iconEnd.props} size={(size === 'big') ? 'default' : size}/>}
         </button>
     );
 };
