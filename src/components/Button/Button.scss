@@ -73,12 +73,10 @@ $button-size_big: 32px;
     }
 
     &.moonstone-icon {
-        svg {
-            margin-right: var(--spacing-nano);
-        }
+        gap: var(--spacing-nano);
 
-        &.moonstone-size_big svg {
-            margin-right: var(--spacing-small);
+        &.moonstone-size_big {
+            gap: var(--spacing-small);
         }
     }
 

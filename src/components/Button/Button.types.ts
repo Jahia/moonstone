@@ -21,9 +21,14 @@ export type ButtonProps = {
     size?: ButtonSize;
 
     /**
-     * Icon component, if it's empty the button has no icon
+     * Optional icon element to render on the left of the label or without label
      */
     icon?: React.ReactElement;
+
+    /**
+     * Optional icon element to render on the right of the label, it's only display when a label is provided
+     */
+    iconEnd?: React.ReactElement;
 
     /**
      * Button style

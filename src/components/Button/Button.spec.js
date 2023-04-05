@@ -21,6 +21,11 @@ describe('Button', () => {
         expect(button.querySelector('SvgLove').exists()).toBeTruthy();
     });
 
+    it('should display the iconEnd', () => {
+        const button = shallow(<Button iconEnd={<Love/>} label="test" onClick={() => null}/>);
+        expect(button.querySelector('SvgLove').exists()).toBeTruthy();
+    });
+
     it('should have the specified label and an icon', () => {
         const label = 'Button Toto';
         const button = shallow(<Button label={label} icon={<Love/>} onClick={() => null}/>);
