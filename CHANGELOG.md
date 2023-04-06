@@ -1,3 +1,16 @@
+# v2.5.6 (Thu Apr 06 2023)
+
+#### 🐛 Bug Fix
+
+- MOON-371: Add iconEnd to Button component [#372](https://github.com/Jahia/moonstone/pull/372) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-370: Improve the design of MenuItem variant title [#371](https://github.com/Jahia/moonstone/pull/371) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.5.5 (Mon Apr 03 2023)
 
 #### 🐛 Bug Fix
