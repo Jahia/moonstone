@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {ForwardedRef} from 'react';
 import clsx from 'clsx';
 import {LayoutContentProps} from './LayoutContent.types';
 import './LayoutContent.scss';
 
 import {Loader} from '~/components/Loader';
 
-export const LayoutContent: React.FC<LayoutContentProps> = ({
+export const LayoutContent = React.forwardRef(({
     header,
     content,
     hasPadding = true,
@@ -13,7 +13,7 @@ export const LayoutContent: React.FC<LayoutContentProps> = ({
     isCentered = false,
     className,
     ...props
-}) => {
+}: LayoutContentProps, ref: ForwardedRef<HTMLDivElement>) => {
     const classNameProps = clsx(
         'flexFluid',
         'moonstone-layoutContent',
@@ -22,7 +22,7 @@ export const LayoutContent: React.FC<LayoutContentProps> = ({
     );
 
     return (
-        <div className={clsx('flexCol', 'flexFluid', 'moonstone-layoutContent_wrapper', className)} {...props}>
+        <div ref={ref} className={clsx('flexCol', 'flexFluid', 'moonstone-layoutContent_wrapper', className)} {...props}>
             {header}
             <div className={classNameProps} role-busy={isLoading ? 'true' : undefined}>
                 {
@@ -41,6 +41,6 @@ export const LayoutContent: React.FC<LayoutContentProps> = ({
             </div>
         </div>
     );
-};
+});
 
 LayoutContent.displayName = 'LayoutContent';
