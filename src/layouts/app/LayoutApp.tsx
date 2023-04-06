@@ -1,14 +1,14 @@
-import React from 'react';
+import React, {ForwardedRef} from 'react';
 import clsx from 'clsx';
 import './LayoutApp.scss';
 import {LayoutAppProps} from './LayoutApp.types';
 import {Loader} from '~/components/Loader';
 
-export const LayoutApp: React.FC<LayoutAppProps> = ({
+export const LayoutApp = React.forwardRef(({
     navigation = null,
     content = null,
     isLoading = false
-}) => {
+}: LayoutAppProps, ref: ForwardedRef<HTMLDivElement>) => {
     const classNameProps = clsx(
         'moonstone-layoutApp_content',
         'flexFluid',
@@ -16,7 +16,7 @@ export const LayoutApp: React.FC<LayoutAppProps> = ({
     );
 
     return (
-        <div className={clsx('moonstone-layoutApp', 'flexRow_center', 'flexRow_nowrap')}>
+        <div ref={ref} className={clsx('moonstone-layoutApp', 'flexRow_center', 'flexRow_nowrap')}>
             <div className={clsx('moonstone-layoutApp_navigation')}>
                 {navigation}
             </div>
@@ -25,6 +25,6 @@ export const LayoutApp: React.FC<LayoutAppProps> = ({
             </div>
         </div>
     );
-};
+});
 
 LayoutApp.displayName = 'LayoutApp';

@@ -1,15 +1,15 @@
-import React from 'react';
+import React, {ForwardedRef} from 'react';
 import clsx from 'clsx';
 import {LayoutModuleProps} from './LayoutModule.types';
 import './LayoutModule.scss';
 import {Loader} from '~/components/Loader';
 
-export const LayoutModule: React.FC<LayoutModuleProps> = ({
+export const LayoutModule = React.forwardRef(({
     navigation,
     content,
     component = 'main',
     isLoading = false
-}) => {
+}: LayoutModuleProps, ref: ForwardedRef<unknown>) => {
     const classNameProps = clsx(
         'flexFluid',
         isLoading ? ['flexCol_center', 'alignCenter'] : 'flexCol'
@@ -26,7 +26,8 @@ export const LayoutModule: React.FC<LayoutModuleProps> = ({
             { React.createElement(
                 component,
                 {
-                    className: clsx('moonstone-layoutModule_main', 'flexCol_nowrap', 'flexFluid')
+                    className: clsx('moonstone-layoutModule_main', 'flexCol_nowrap', 'flexFluid'),
+                    ref
                 },
                 (
                     <div className={classNameProps} role-busy={isLoading ? 'true' : undefined}>
@@ -36,6 +37,6 @@ export const LayoutModule: React.FC<LayoutModuleProps> = ({
             )}
         </>
     );
-};
+});
 
 LayoutModule.displayName = 'LayoutModule';

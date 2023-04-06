@@ -42,6 +42,7 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
             <Typography variant="caption">{label.rowsPerPage}</Typography>
             <Dropdown
                 className={clsx('alignCenter', cssClass16)}
+                size="small"
                 data-sel-role="table-pagination-dropdown-rows-per-page"
                 data={rowsPerPageOptions.map(opt => ({label: opt.toString(), value: opt.toString()}))}
                 value={rowsPerPage.toString()}

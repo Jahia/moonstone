@@ -6,7 +6,7 @@ import {TypographyWeight} from '~/components/Typography/Typography.types';
 import {ButtonProps} from './Button.types';
 import {Loader} from '~/components/Loader';
 
-export const Button: React.FC<ButtonProps> = ({
+export const Button = ({
     label = '',
     size = 'default',
     isReversed = false,
@@ -19,7 +19,7 @@ export const Button: React.FC<ButtonProps> = ({
     className = null,
     onClick = () => undefined,
     ...props
-}) => {
+}: ButtonProps) => {
     let typoWeight: TypographyWeight = 'default';
     const ButtonEl = useRef(null);
 
