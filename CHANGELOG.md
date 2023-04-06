@@ -1,3 +1,15 @@
+# v2.5.7 (Thu Apr 06 2023)
+
+#### 🐛 Bug Fix
+
+- Use foward ref [#373](https://github.com/Jahia/moonstone/pull/373) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v2.5.6 (Thu Apr 06 2023)
 
 #### 🐛 Bug Fix
