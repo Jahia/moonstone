@@ -1,3 +1,15 @@
+# v2.5.9 (Fri Apr 28 2023)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-20393: fix typo in class name [#375](https://github.com/Jahia/moonstone/pull/375) ([@cedmail](https://github.com/cedmail))
+
+#### Authors: 1
+
+- Cedric Mailleux ([@cedmail](https://github.com/cedmail))
+
+---
+
 # v2.5.8 (Fri Apr 28 2023)
 
 #### 🐛 Bug Fix
