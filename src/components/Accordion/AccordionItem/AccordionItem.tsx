@@ -67,7 +67,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
                     <div className={clsx(
                         'moonstone-accordionItem_content',
                         'flexFluid',
-                        'flexColumn'
+                        'flexCol'
                     )}
                          role="region"
                     >
