@@ -1,13 +1,13 @@
 import * as React from 'react';
 
-export type TabItemSize = 'default' | 'big';
-export const tabItemSizes = ['default', 'big'];
+export const tabItemSizes = ['default', 'big'] as const;
+export type TabItemSize = typeof tabItemSizes[number];
 
-export type TabItemVariant = 'ghost';
-export const tabItemVariants = ['ghost'];
+export const tabItemVariants = ['ghost'] as const;
+export type TabItemVariant = typeof tabItemVariants[number];
 
-export type TabItemColor = 'default';
-export const tabItemColors = ['default'];
+export const tabItemColors = ['default'] as const;
+export type TabItemColor = typeof tabItemColors[number];
 
 export type TabItemProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'onClick'| 'className'> & {
     /**

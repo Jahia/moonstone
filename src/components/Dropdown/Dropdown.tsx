@@ -1,13 +1,11 @@
+/* eslint-disable complexity */
 import React, {MutableRefObject, useEffect, useMemo, useRef, useState} from 'react';
 import clsx from 'clsx';
 import './Dropdown.scss';
 
-import {
+import type {
     DropdownDataOption,
-    DropdownImageSizes,
     DropdownProps,
-    DropdownSizes,
-    DropdownVariants,
     HandleSelect
 } from './Dropdown.types';
 import {DropdownMenu} from '~/components/Dropdown/DropdownMenu';
@@ -40,8 +38,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
     value,
     values,
     isDisabled,
-    variant = DropdownVariants.Ghost,
-    size = DropdownSizes.Medium,
+    variant = 'ghost',
+    size = 'medium',
     icon,
     hasSearch = false,
     searchEmptyText = 'No results found.',
@@ -91,11 +89,11 @@ export const Dropdown: React.FC<DropdownProps> = ({
     let menuMaxHeight;
 
     switch (imageSize) {
-        case DropdownImageSizes.Big:
+        case 'big':
             menuMaxWidth = '400px';
             menuMaxHeight = '440px';
             break;
-        case DropdownImageSizes.Small:
+        case 'small':
             menuMaxWidth = '264px';
             menuMaxHeight = '320px';
             break;

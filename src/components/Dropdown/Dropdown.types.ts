@@ -2,22 +2,10 @@ import React from 'react';
 import {TreeViewData} from '~/components/TreeView/TreeView.types';
 
 export type DropdownVariant = 'ghost' | 'outlined';
-export enum DropdownVariants {
-    Ghost = 'ghost',
-    Outlined = 'outlined'
-}
 
 export type DropdownSize = 'small' | 'medium';
-export enum DropdownSizes {
-    Small = 'small',
-    Medium = 'medium'
-}
 
 export type DropdownImageSize = 'small' | 'big';
-export enum DropdownImageSizes {
-    Small = 'small',
-    Big = 'big'
-}
 
 export type DropdownDataOption = {
     label: string;

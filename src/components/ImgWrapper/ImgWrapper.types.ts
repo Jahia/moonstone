@@ -1,5 +1,5 @@
-export type ImgWrapperSize = 'small' | 'default' | 'big';
-export const imgWrapperSizes = ['small', 'default', 'big'];
+export const imgWrapperSizes = ['small', 'default', 'big'] as const;
+export type ImgWrapperSize = typeof imgWrapperSizes[number];
 
 export type ImgWrapperProps = React.ComponentPropsWithoutRef<'div'> &{
     /**

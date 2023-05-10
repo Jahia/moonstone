@@ -1,12 +1,12 @@
 import React from 'react';
 import clsx from 'clsx';
 import './Separator.scss';
-import {SeparatorProps, SeparatorSizes, SeparatorSpacings, SeparatorVariants} from './Separator.types';
+import {SeparatorProps} from './Separator.types';
 
 export const Separator: React.FC<SeparatorProps> = ({
-    size = SeparatorSizes.Full,
-    spacing = SeparatorSpacings.Small,
-    variant = SeparatorVariants.Horizontal,
+    size = 'full',
+    spacing = 'small',
+    variant = 'horizontal',
     invisible = null,
     className,
     ...props

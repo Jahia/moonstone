@@ -1,5 +1,5 @@
 import React from 'react';
-import {getByLabelText, getByText, queryByRole, queryByText, render, screen} from '@testing-library/react';
+import {queryByText, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {Dropdown} from './index';
 import {dropdownData, dropdownDataGrouped} from '~/data';
@@ -80,7 +80,7 @@ describe('Dropdown', () => {
 
     it('should display the value', () => {
         render(
-            <Dropdown data={dropdownData} value="4"/>
+            <Dropdown data-testid="moonstone-dropdown" data={dropdownData} value="4"/>
         );
         expect(queryByText(document.querySelector('.moonstone-typography'), 'option 4')).toBeInTheDocument();
     });

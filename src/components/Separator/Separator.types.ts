@@ -1,33 +1,10 @@
-// TODO: Like Typography to avoid to repeat myself
-
 type SeparatorSpacing = 'none' | 'small' | 'medium' | 'big';
-export enum SeparatorSpacings {
-    None = 'none',
-    Small = 'small',
-    Medium = 'medium',
-    Big = 'big'
-}
 
 type SeparatorSize = 'medium' | 'large' | 'full';
-export enum SeparatorSizes {
-    Medium = 'medium',
-    Large = 'large',
-    Full = 'full'
-}
 
 type SeparatorVariant = 'horizontal' | 'vertical';
-export enum SeparatorVariants {
-    Horizontal = 'horizontal',
-    Vertical = 'vertical'
-}
 
 type SeparatorInvisibleType = 'firstChild' | 'lastChild' | 'onlyChild' | 'firstOrLastChild';
-export enum SeparatorInvisible {
-    FirstChild = 'firstChild',
-    LastChild = 'lastChild',
-    OnlyChild = 'onlyChild',
-    FirstOrLastChild = 'firstOrLastChild'
-}
 
 export type SeparatorProps = Omit<React.ComponentPropsWithoutRef<'hr'>, 'className'> & {
     /**

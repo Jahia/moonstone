@@ -1,11 +1,6 @@
 import React from 'react';
 
 type MenuItemVariant = 'default' | 'title';
-export enum MenuItemVariants {
-    Default = 'default',
-    Title = 'title'
-}
-
 type MenuItemImageSize = 'small' | 'big';
 
 export type MenuItemProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'className' | 'role' | 'onClick' | 'onMouseEnter' | 'onMouseLeave' | 'onKeyPress'> & {
