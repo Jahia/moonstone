@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type TableHeadProps = {
+export type TableHeadProps = Omit<React.ComponentPropsWithoutRef<'thead'>, 'children'| 'className'> & {
     /**
      * Determines whether the table header row should stay sticky while the
      * table content is being scrolled through

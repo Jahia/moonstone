@@ -18,7 +18,7 @@ export type ItemTypeResolverProps = {
     button?: React.ReactNode;
 };
 
-export type PrimaryNavItemProps = {
+export type PrimaryNavItemProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'onClick' | 'className'> & {
     /**
      * Label
      */

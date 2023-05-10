@@ -7,7 +7,7 @@ import type {ControlledBaseInputProps} from './BaseInput.types';
 
 export const ControlledBaseInput: React.FC<ControlledBaseInputProps & { searchContext?: React.ReactElement }> = ({
     value = '',
-    id,
+    // Id,
     role,
     placeholder,
     isDisabled = false,
@@ -70,7 +70,7 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps & { searchCo
                     type="text"
                     role={role}
                     value={value}
-                    id={id}
+                    // Id={id}
                     placeholder={placeholder}
                     disabled={isDisabled}
                     readOnly={isReadOnly}

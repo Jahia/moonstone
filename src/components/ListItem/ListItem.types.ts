@@ -1,8 +1,8 @@
 import React, {HTMLAttributes} from 'react';
 
-import {TypographyVariant} from '~/components/Typography/Typography.types';
+import type {TypographyVariant} from '~/components/Typography/Typography.types';
 
-export type ListItemProps = React.ComponentPropsWithoutRef<'li'> & {
+export type ListItemProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'className'> & {
     /**
      * Additional classnames
      */
@@ -30,7 +30,7 @@ export type ListItemProps = React.ComponentPropsWithoutRef<'li'> & {
     /**
      * Tab index for the element
      */
-    tabIndex?: number;
+    // tabIndex?: number;
 
     /**
      * Optional image to display to describe the menu item. Cannot be used in conjunction with the iconStart property.

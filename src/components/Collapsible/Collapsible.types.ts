@@ -14,7 +14,7 @@ type UncontrolledProps = {
     isDefaultExpanded?: boolean;
 };
 
-type BasicProps = React.ComponentPropsWithRef<'div'> & {
+type BasicProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 'children' | 'onClick'> & {
     /**
      * Label of the section
      */

@@ -9,7 +9,7 @@ export const buttonVariants = ['default', 'ghost', 'outlined'];
 export type ButtonColor = 'default' | 'accent' | 'danger';
 export const buttonColors = ['default', 'accent', 'danger'];
 
-export type ButtonProps = React.ComponentPropsWithRef<'button'> & {
+export type ButtonProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'onClick' | 'color'> & {
     /**
      * Label inside the button
      */

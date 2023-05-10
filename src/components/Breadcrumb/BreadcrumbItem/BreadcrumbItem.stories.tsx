@@ -1,11 +1,7 @@
 import React from 'react';
-import {Story, ComponentMeta} from '@storybook/react';
-
-// Import '~/__storybook__/storybook.scss';
+import type {ComponentStory, ComponentMeta} from '@storybook/react';
 
 import {Breadcrumb, BreadcrumbItem} from '~/components';
-import type {BreadcrumbItemProps} from './BreadcrumbItem.types';
-
 import {Love} from '~/icons';
 
 export default {
@@ -24,7 +20,7 @@ export default {
     }
 } as ComponentMeta<typeof BreadcrumbItem>;
 
-const Template: Story<BreadcrumbItemProps> = args => (
+const Template: ComponentStory<typeof BreadcrumbItem> = args => (
     <Breadcrumb>
         <BreadcrumbItem {...args}/>
         <BreadcrumbItem {...args}/>

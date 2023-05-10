@@ -9,7 +9,7 @@ export const tabItemVariants = ['ghost'];
 export type TabItemColor = 'default';
 export const tabItemColors = ['default'];
 
-export type TabItemProps = {
+export type TabItemProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'onClick'| 'className'> & {
     /**
      * The HTML tag used to render the root node
      */

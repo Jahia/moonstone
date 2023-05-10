@@ -1,3 +1,5 @@
+// TODO: Like Typography to avoid to repeat myself
+
 type SeparatorSpacing = 'none' | 'small' | 'medium' | 'big';
 export enum SeparatorSpacings {
     None = 'none',
@@ -27,7 +29,7 @@ export enum SeparatorInvisible {
     FirstOrLastChild = 'firstOrLastChild'
 }
 
-export type SeparatorProps = React.ComponentPropsWithoutRef<'hr'> & {
+export type SeparatorProps = Omit<React.ComponentPropsWithoutRef<'hr'>, 'className'> & {
     /**
      * Variants: Horizontal or Vertical
      */

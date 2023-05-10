@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type TableBodyProps = {
+export type TableBodyProps = Omit<React.ComponentPropsWithoutRef<'tbody'>, 'children'| 'className'> & {
     /**
      * Additional classnames
      */

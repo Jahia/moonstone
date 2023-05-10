@@ -1,7 +1,5 @@
 import React from 'react';
 
-type HTMLInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | 'value'>;
-
 type ControlledProps = {
     /**
      * Value to exist in the input field. Define the component as controlled when it set. (Controlled)
@@ -16,11 +14,11 @@ type UncontrolledProps = {
     defaultValue?: string;
 }
 
-type BasicProps = HTMLInputProps & {
+type BasicProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | 'value' | 'role' | 'placeholder' | 'className'> & {
     /**
      * ID of the input
      */
-    id?: string,
+    // id?: string,
 
     /**
      * Role of the input
@@ -62,6 +60,10 @@ type BasicProps = HTMLInputProps & {
      */
     icon?: React.ReactElement;
 
+    /**
+     * Which icon to use at the beginning of the input
+     * @deprecatedValues 'text' and 'search' use specific component instead
+     */
     variant?: 'text' | 'search' | 'outlined' | 'ghost';
 
     /**

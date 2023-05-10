@@ -20,7 +20,7 @@ type UncontrolledProps = {
     defaultOpenedItem?: string;
 };
 
-type BasicProps = React.ComponentPropsWithoutRef<'div'> & {
+type BasicProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'className' | 'children'> & {
     /**
      * Whether the component should use reversed colors, it useful with dark background
      */

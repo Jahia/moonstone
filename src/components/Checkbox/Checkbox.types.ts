@@ -18,22 +18,12 @@ type UncontrolledProps = {
      */
     defaultChecked?: boolean;
 };
-
-type BasicProps = React.ComponentPropsWithRef<'input'> & {
-    /**
-     * Identifier added to the input element
-     */
-    id?: string;
-
+// Export type ButtonProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'onClick'> & {
+type BasicProps = Omit<React.ComponentPropsWithRef<'input'>, 'value' | 'className' | 'onChange' | 'onFocus' | 'onBlur' | 'checked'> & {
     /**
      * The value of the input element, used when submitting an HTML form
      */
     value?: string;
-
-    /**
-     * The name of the input element, used when submitting an HTML form
-     */
-    name?: string;
 
     /**
      * Checkbox size

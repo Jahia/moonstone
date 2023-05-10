@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type TableProps = {
+export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children'| 'className'> & {
     /**
      * The HTML tag used to render the root node
      */

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type RadioItemProps = React.ComponentPropsWithoutRef<'input'> & {
+export type RadioItemProps = Omit<React.ComponentPropsWithoutRef<'input'>, 'className' | 'id' | 'value' | 'onFocus' | 'onBlur'> & {
     /**
      * Identifier added to the input element
      */

@@ -1,22 +1,14 @@
 import React from 'react';
-import {ImgWrapper} from './ImgWrapper';
-import {imgWrapperSizes} from './ImgWrapper.types';
-import markdownNotes from './ImgWrapper.md';
-// Import {select, text, withKnobs} from '@storybook/addon-knobs';
-import '~/__storybook__/storybook.scss';
+import type {ComponentStory, ComponentMeta} from '@storybook/react';
 
-// Const sizeValues = () => select('Size', imgWrapperSizes, 'default');
-// const urlValue = () =>
-//     text(
-//         'URL to an image',
-//         'https://www.jahia.com/modules/jahiacom-templates/images/favicon/favicon.ico'
-//     );
+import {ImgWrapper} from './ImgWrapper';
+import markdownNotes from './ImgWrapper.md';
+import '~/__storybook__/storybook.scss';
 
 export default {
     title: 'Utilities/ImgWrapper',
-
+    component: ImgWrapper,
     decorators: [
-        // WithKnobs,
         storyFn => (
             <section className="storyWrapper">
                 <section className="storyColumn">{storyFn()}</section>
@@ -29,8 +21,8 @@ export default {
         componentSubtitle: 'Image wrapper',
         notes: {markdown: markdownNotes}
     }
-};
+} as ComponentMeta<typeof ImgWrapper>;
 
-export const Playground = () => (
-    <ImgWrapper src="https://www.jahia.com/modules/jahiacom-templates/images/favicon/favicon.ico" size="default"/>
+export const Playground: ComponentStory<typeof ImgWrapper> = args => (
+    <ImgWrapper {...args} src="https://www.jahia.com/modules/jahiacom-templates/images/favicon/favicon.ico"/>
 );

@@ -9,7 +9,6 @@ export const ListItem: React.FC<ListItemProps> = ({
     description,
     iconStart = null,
     iconEnd = null,
-    tabIndex,
     image,
     imageSize,
     className = '',
@@ -28,7 +27,6 @@ export const ListItem: React.FC<ListItemProps> = ({
     return (
         <li
             className={clsx(cssListItem)}
-            tabIndex={tabIndex}
             {...props}
         >
             {isDisplayImage && (

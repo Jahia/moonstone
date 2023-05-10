@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {PrimaryNavItemsGroupProps} from './PrimaryNavItemsGroup/PrimaryNavItemsGroup.types';
+import type {PrimaryNavItemsGroupProps} from './PrimaryNavItemsGroup/PrimaryNavItemsGroup.types';
 
 export type PrimaryNavContextProps = {
     isExpanded: boolean;

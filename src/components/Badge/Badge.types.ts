@@ -1,7 +1,7 @@
 export type BadgeColor = 'accent' | 'success' | 'danger';
 export const badgeColors = ['accent', 'success', 'danger'];
 
-export type BadgeProps = React.ComponentPropsWithoutRef<'div'> & {
+export type BadgeProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'className'> & {
     /**
      * Label display inside the badge
      */

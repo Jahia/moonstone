@@ -3,7 +3,7 @@ import {ReactElement} from 'react';
 export type SvgWrapperSize = 'small' | 'default' | 'big';
 export const svgWrapperSizes = ['small', 'default', 'big'];
 
-export type SvgWrapperProps = React.ComponentPropsWithoutRef<'svg'> & {
+export type SvgWrapperProps = Omit<React.ComponentPropsWithoutRef<'svg'>, 'className'> & {
     /**
      * Svg as a string
      */

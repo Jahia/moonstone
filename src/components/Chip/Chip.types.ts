@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export type ChipProps = React.ComponentPropsWithoutRef<'div'> & {
+export type ChipProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'className'> & {
     /**
      * Chip label
      */

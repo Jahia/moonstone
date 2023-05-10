@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export type AccordionItemProps = React.ComponentPropsWithoutRef<'div'> & {
+export type AccordionItemProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'className' | 'children' | 'id' | 'onClick'> & {
     /**
      * Specific identifier to define AccordionItem
      */

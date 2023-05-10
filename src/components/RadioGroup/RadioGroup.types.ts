@@ -15,7 +15,7 @@ type UncontrolledProps = {
     defaultValue?: string;
 }
 
-type BasicProps = React.ComponentPropsWithoutRef<'div'> & {
+type BasicProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'children' | 'className' | 'onChange'> & {
     /**
      * RadioItem's input name
      */

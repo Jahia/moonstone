@@ -2,7 +2,7 @@ import React from 'react';
 import {UseExpandedRowProps, Row, Cell} from 'react-table';
 
 // Shared types used by both TableHeadCell and TableBodyCell
-export type TableCellProps = {
+export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'children'| 'className' | 'width'> & {
     /**
      * Additional classnames
      */

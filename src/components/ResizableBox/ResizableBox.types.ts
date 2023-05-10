@@ -24,7 +24,7 @@ export type ResizableBoxMinWidth = string | number;
 
 export type ResizableBoxMaxWidth = string | number;
 
-export type ResizableBoxProps = {
+export type ResizableBoxProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'children'| 'className' | 'role'> & {
     /**
      * Content of the component
      */

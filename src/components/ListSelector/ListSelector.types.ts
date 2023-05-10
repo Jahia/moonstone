@@ -25,7 +25,7 @@ export type Label = {
     selected: string,
 }
 
-export type ListSelectorSelectorProps = {
+export type ListSelectorSelectorProps = React.ComponentPropsWithoutRef<'div'> & {
     /**
      * Labels for component
      */

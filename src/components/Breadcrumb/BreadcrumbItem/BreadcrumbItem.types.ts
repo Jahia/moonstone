@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export type BreadcrumbItemProps = React.ComponentPropsWithoutRef<'button'> & {
+export type BreadcrumbItemProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'className' | 'onClick'> & {
     /**
      * Additional classnames
      */

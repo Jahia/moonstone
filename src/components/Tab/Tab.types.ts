@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type {TabItemProps} from './TabItem/TabItem.types';
 
-export type TabProps = React.ComponentPropsWithRef<'div'> & {
+export type TabProps = Omit<React.ComponentPropsWithRef<'div'>, 'children' | 'className'> & {
     /**
      * Content of the Tab component
      */

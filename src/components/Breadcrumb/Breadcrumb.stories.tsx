@@ -1,8 +1,8 @@
 import React from 'react';
-import {Story, ComponentMeta} from '@storybook/react';
+import type {ComponentStory, ComponentMeta} from '@storybook/react';
 
 import {Breadcrumb, BreadcrumbItem} from '~/components';
-import type {BreadcrumbProps} from './Breadcrumb.types';
+// Import type {BreadcrumbProps} from './Breadcrumb.types';
 
 import markdownNotes from './Breadcrumb.md';
 
@@ -23,7 +23,7 @@ export default {
     }
 } as ComponentMeta<typeof Breadcrumb>;
 
-const Template: Story<BreadcrumbProps> = args => (
+const Template: ComponentStory<typeof Breadcrumb> = args => (
     <Breadcrumb {...args}>
         <BreadcrumbItem label="item 01"/>
         <BreadcrumbItem label="item 02"/>
