@@ -92,8 +92,7 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     values,
     handleSelect,
     // HandleKeyPress,
-    onClose,
-    ...props
+    onClose
 }) => {
     const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, position);
     // UseEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);

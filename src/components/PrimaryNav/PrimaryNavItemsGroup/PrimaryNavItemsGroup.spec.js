@@ -7,8 +7,8 @@ describe('PrimaryNavItemsGroup', () => {
     it('should render nothing when it\'s not expended', () => {
         const wrapper = shallow(
             <PrimaryNavItemsGroup isDisplayedWhenCollapsed={false}>
-                <>test</>
-                <>2</>
+                <span>test</span>
+                <span>2</span>
             </PrimaryNavItemsGroup>, {
                 externals: {
                     contexts: [{
@@ -26,8 +26,8 @@ describe('PrimaryNavItemsGroup', () => {
     it('should render something when it\'s expended but not isDisplayedWhenCollapsed', () => {
         const wrapper = shallow(
             <PrimaryNavItemsGroup>
-                <>test</>
-                <>2</>
+                <span>test</span>
+                <span>2</span>
             </PrimaryNavItemsGroup>, {
                 externals: {
                     contexts: [{
@@ -45,8 +45,8 @@ describe('PrimaryNavItemsGroup', () => {
     it('should render something when it\'s expended and isDisplayedWhenCollapsed', () => {
         const wrapper = shallow(
             <PrimaryNavItemsGroup isDisplayedWhenCollapsed>
-                <>test</>
-                <>2</>
+                <span>test</span>
+                <span>2</span>
             </PrimaryNavItemsGroup>, {
                 externals: {
                     contexts: [{
@@ -64,8 +64,8 @@ describe('PrimaryNavItemsGroup', () => {
     it('should render children when it\'s expended and isDisplayedWhenCollapsed', () => {
         const wrapper = shallow(
             <PrimaryNavItemsGroup>
-                <>test</>
-                <>2</>
+                <span>test</span>
+                <span>2</span>
             </PrimaryNavItemsGroup>, {
                 externals: {
                     contexts: [{
@@ -83,8 +83,8 @@ describe('PrimaryNavItemsGroup', () => {
     it('should add extra attribute', () => {
         const wrapper = shallow(
             <PrimaryNavItemsGroup data-custom="test">
-                <>test</>
-                <>2</>
+                <span>test</span>
+                <span>2</span>
             </PrimaryNavItemsGroup>, {
                 externals: {
                     contexts: [{

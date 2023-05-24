@@ -71,12 +71,12 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                                e.dataTransfer.setDragImage(e.currentTarget.parentNode.parentNode as Element, 10, 10);
                                setDragged({value, from: 'left'});
                            }}
-                           onDragEnd={(e, value) => {
+                           onDragEnd={e => {
                                e.stopPropagation();
                                e.currentTarget.parentNode.parentNode.style.opacity = '1';
                                setDragged(null);
                            }}
-                           onDragOver={(e, value) => {
+                           onDragOver={e => {
                                e.stopPropagation();
                                if (e.dataTransfer.types.includes(MLRS_DRAG)) {
                                    e.preventDefault();
@@ -135,12 +135,12 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                                e.dataTransfer.setDragImage(e.currentTarget.parentNode.parentNode as Element, 10, 10);
                                setDragged({value, originalIndex: valuesRight.indexOf(value), index: valuesRight.indexOf(value), from: 'right'});
                            }}
-                           onDragEnd={(e, value) => {
+                           onDragEnd={e => {
                                e.stopPropagation();
                                e.currentTarget.parentNode.parentNode.style.opacity = '1';
                                setDragged(null);
                            }}
-                           onDragOver={(e, value) => {
+                           onDragOver={e => {
                                e.stopPropagation();
                                // Perform move of the item within the list
                                if (e.dataTransfer.types.includes(MLRS_DRAG) && !filterRight) {
@@ -171,7 +171,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                                    }
                                }
                            }}
-                           onDrop={(e, value) => {
+                           onDrop={e => {
                                // Confirms drop and prevents reordering onDragEnd
                                e.stopPropagation();
                                if (e.dataTransfer.types.includes(MLRS_DRAG)) {

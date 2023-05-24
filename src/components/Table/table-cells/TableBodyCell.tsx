@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import {TableCellProps} from './TableCell.types';
 import {IconTextIcon, Typography} from '~/components';
-import {ChevronRight, ChevronDown} from '~/icons';
+import {ChevronDown, ChevronRight} from '~/icons';
 import {capitalize} from '~/utils/helpers';
 import {TableCell} from './TableCell';
 import './TableCell.scss';
@@ -19,7 +19,6 @@ const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, Ta
         isExpandableColumn,
         width,
         row,
-        cell,
         children,
         isScrollable,
         ...props

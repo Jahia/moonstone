@@ -1,6 +1,5 @@
 import React from 'react';
 import {ImgWrapper} from './ImgWrapper';
-import {imgWrapperSizes} from './ImgWrapper.types';
 import markdownNotes from './ImgWrapper.md';
 // Import {select, text, withKnobs} from '@storybook/addon-knobs';
 import '~/__storybook__/storybook.scss';
