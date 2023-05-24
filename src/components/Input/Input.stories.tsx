@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Story, ComponentMeta} from '@storybook/react';
+import {ComponentMeta, Story} from '@storybook/react';
 
 import {Input} from './index';
 import type {InputProps} from './Input.types';
@@ -29,7 +29,7 @@ export default {
     }
 } as ComponentMeta<typeof Input>;
 
-const Template: Story<InputProps> = (args, {globals: {theme}}) => (
+const Template: Story<InputProps> = args => (
     <Input {...args}/>
 );
 
