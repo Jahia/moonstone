@@ -1,46 +1,41 @@
 const path = require('path');
-
 module.exports = {
-    core: {
-        builder: 'webpack5'
-    },
     features: {
-        postcss: false,
+        postcss: false
     },
     stories: [
         '../src/**/*.stories.mdx',
         '../src/**/*.stories.@(js|jsx|ts|tsx)'
-    ],
+        ],
+//   addons: ['@storybook/addon-actions', '@storybook/addon-docs', '@storybook/addon-backgrounds', '@storybook/addon-a11y', '@storybook/addon-controls', '@storybook/addon-postcss'],
     addons: [
         '@storybook/addon-actions',
         '@storybook/addon-docs',
         '@storybook/addon-backgrounds',
         '@storybook/addon-a11y',
         '@storybook/addon-controls',
-        '@storybook/addon-postcss',
     ],
-    "webpackFinal": async (config) => {
-        config.resolve.alias['~'] = path.resolve(__dirname, '../src')
+    "webpackFinal": async config => {
+        config.resolve.alias['~'] = path.resolve(__dirname, '../src');
         config.module.rules.push({
             test: /\.scss$/,
             sideEffects: true,
-            use: [
-                'style-loader',
-                'css-loader',
-                {
-                    loader: 'postcss-loader',
-                    options: {
-                        postcssOptions: {
-                            plugins: [
-                                ["postcss-preset-env"],
-                            ],
-                        }
+            use: ['style-loader', 'css-loader', {
+                loader: 'postcss-loader',
+                options: {
+                    postcssOptions: {
+                        plugins: [["postcss-preset-env"]]
                     }
-                },
-                'sass-loader'
-            ]
+                }
+        }, 'sass-loader']
         });
-
-        return config
+        return config;
+    },
+    framework: {
+        name: '@storybook/react-webpack5',
+        options: {}
+    },
+    docs: {
+        autodocs: true
     }
 };
