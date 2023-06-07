@@ -15,8 +15,7 @@ export default {
 };
 
 export const Default = () => (
-    <div
-        style={{
+    <div style={{
             backgroundColor: '#131c21',
             width: '18.75rem',
             height: '100vh'

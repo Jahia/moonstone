@@ -3,16 +3,7 @@ import markdownNotes from './PrimaryNav.md';
 
 import {PrimaryNav} from './index';
 import {PrimaryNavItemsGroup, PrimaryNavItem, Button, Badge} from '~/components';
-import {
-    Apps,
-    Feather,
-    Setting,
-    Profile,
-    Person,
-    Power,
-    Star,
-    Workflow
-} from '~/icons';
+import {Apps, Feather, Setting, Profile, Person, Power, Star, Workflow} from '~/icons';
 
 export default {
     title: 'Components/PrimaryNav',
@@ -33,11 +24,7 @@ export const Default = () => (
                 <>
                     <PrimaryNavItemsGroup>
                         <PrimaryNavItem label="NavItem not selected" icon={<Feather/>}/>
-                        <PrimaryNavItem
-                            isSelected
-                            label="NavItem selected"
-                            icon={<Apps/>}
-                        />
+                        <PrimaryNavItem isSelected label="NavItem selected" icon={<Apps/>}/>
                     </PrimaryNavItemsGroup>
                     <PrimaryNavItemsGroup>
                         <PrimaryNavItem
@@ -63,16 +50,8 @@ export const Default = () => (
                                 />
                             }
                         />
-                        <PrimaryNavItem
-                            icon={<Workflow/>}
-                            label="With badge"
-                            badge={<Badge label="3"/>}
-                        />
-                        <PrimaryNavItem
-                            icon={<Person/>}
-                            label="With badge"
-                            badge={<Badge label="333"/>}
-                        />
+                        <PrimaryNavItem icon={<Workflow/>} label="With badge" badge={<Badge label="3"/>}/>
+                        <PrimaryNavItem icon={<Person/>} label="With badge" badge={<Badge label="333"/>}/>
                     </PrimaryNavItemsGroup>
                     <PrimaryNavItemsGroup isDisplayedWhenCollapsed={false}>
                         <PrimaryNavItem url="https://jahia.com" label="Jahia Link"/>

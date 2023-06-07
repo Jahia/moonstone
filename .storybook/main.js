@@ -1,4 +1,5 @@
 const path = require('path');
+
 module.exports = {
     features: {
         postcss: false
@@ -7,7 +8,6 @@ module.exports = {
         '../src/**/*.stories.mdx',
         '../src/**/*.stories.@(js|jsx|ts|tsx)'
         ],
-//   addons: ['@storybook/addon-actions', '@storybook/addon-docs', '@storybook/addon-backgrounds', '@storybook/addon-a11y', '@storybook/addon-controls', '@storybook/addon-postcss'],
     addons: [
         '@storybook/addon-actions',
         '@storybook/addon-docs',

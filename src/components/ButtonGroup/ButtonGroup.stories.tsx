@@ -1,5 +1,5 @@
 import React from 'react';
-import {Story, ComponentMeta} from '@storybook/react';
+import {StoryObj, Meta} from '@storybook/react';
 
 import markdownNotes from './ButtonGroup.md';
 import {ButtonGroup} from './index';
@@ -18,20 +18,23 @@ export default {
         notes: {markdown: markdownNotes},
         actions: {argTypesRegex: '^on.*'}
     }
-} as ComponentMeta<typeof Button>;
+} as Meta<typeof Button>;
 
-export const Default: Story<ButtonGroupProps> = args => (
-    <ButtonGroup {...args}>
-        <Button label="one" onClick={() => null}/>
-        <Button label="two" onClick={() => null}/>
-        <Button label="three" onClick={() => null}/>
-    </ButtonGroup>
-);
-Default.args = {
-    variant: 'default',
-    color: 'default',
-    size: 'big',
-    isReversed: false
+export const Default: StoryObj<ButtonGroupProps> = {
+    render: args => (
+        <ButtonGroup {...args}>
+            <Button label="one" onClick={() => null}/>
+            <Button label="two" onClick={() => null}/>
+            <Button label="three" onClick={() => null}/>
+        </ButtonGroup>
+    ),
+
+    args: {
+        variant: 'default',
+        color: 'default',
+        size: 'big',
+        isReversed: false
+    }
 };
 
 export const ButtonWithActions = () => (

@@ -15,8 +15,7 @@ export default {
 };
 
 export const Default = () => (
-    <ul
-        style={{
+    <ul style={{
             display: 'flex',
             flexDirection: 'column',
             backgroundColor: '#131c21',
@@ -43,15 +42,7 @@ export const Default = () => (
             icon={<Person/>}
             label="My profile"
             subtitle="username as a subtitle"
-            button={
-                <Button
-                    isReversed
-                    icon={<Power/>}
-                    label="Sign Out"
-                    variant="ghost"
-                    onClick={() => null}
-                />
-            }
+            button={<Button isReversed icon={<Power/>} label="Sign Out" variant="ghost" onClick={() => null}/>}
         />
     </ul>
 );

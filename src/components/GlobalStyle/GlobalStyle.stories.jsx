@@ -16,17 +16,14 @@ const cssWrap = {
 const ItemContainer = ({title, direction, justify, align}) => {
     const cssDirection = direction === 'row' ? 'flexRow' : 'flexCol';
     const cssJustify = justify ? `${cssDirection}_${justify}` : cssDirection;
-    const cssAlign = align ?
-        `align${align.charAt(0).toUpperCase() + align.slice(1)}` :
-        null;
+    const cssAlign = align ? `align${align.charAt(0).toUpperCase() + align.slice(1)}` : null;
     let css = clsx(cssJustify, cssAlign);
 
     return (
         <section style={{marginBottom: '48px'}}>
             <h2 className="flexRow alignCenter" style={{marginBottom: '24px'}}>
                 {title}:
-                <code
-                    style={{
+                <code style={{
                         fontFamily: 'monospace',
                         fontSize: '12px',
                         padding: '4px',

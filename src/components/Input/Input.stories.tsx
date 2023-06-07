@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ComponentMeta, Story} from '@storybook/react';
+import {StoryObj, Meta} from '@storybook/react';
 
 import {Input} from './index';
 import type {InputProps} from './Input.types';
@@ -27,34 +27,24 @@ export default {
         onBlur: {action: 'onBlur'},
         onFocus: {action: 'onFocus'}
     }
-} as ComponentMeta<typeof Input>;
+} as Meta<typeof Input>;
 
-const Template: Story<InputProps> = args => (
-    <Input {...args}/>
-);
+export const Uncontrolled = {};
 
-export const Uncontrolled = Template.bind({});
-
-export const Controlled: Story<InputProps> = args => {
+export const Controlled = () => {
     const [inputValue, setInputValue] = useState('Default value');
 
-    return (
-        <Input
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-            {...args}
-        />
-    );
+    return <Input value={inputValue} onChange={e => setInputValue(e.target.value)}/>;
 };
 
-export const InputWithIcon = Template.bind({});
-
-InputWithIcon.args = {
-    icon: <Love/>
+export const InputWithIcon = {
+    args: {
+        icon: <Love/>
+    }
 };
 
-export const InputWithDefaultValue = Template.bind({});
-
-InputWithDefaultValue.args = {
-    defaultValue: 'Default value'
+export const InputWithDefaultValue = {
+    args: {
+        defaultValue: 'Default value'
+    }
 };

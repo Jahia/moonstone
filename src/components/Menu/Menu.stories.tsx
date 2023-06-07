@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Story} from '@storybook/react';
+import {StoryObj} from '@storybook/react';
 
 import {Menu, MenuItem} from './index';
 import type {MenuProps, AnchorPosition} from './Menu.types';
@@ -21,23 +21,27 @@ export default {
     }
 };
 
-export const Default: Story<MenuProps> = args => (
-    <Menu {...args}>
-        <MenuItem label="Base items" variant="title"/>
-        <MenuItem label="Item1"/>
-        <MenuItem label="Item2"/>
-        <MenuItem label="Item3"/>
-        <Separator/>
-        <MenuItem label="Variants" variant="title"/>
-        <MenuItem isHover label="Item3 - Hover"/>
-        <MenuItem isDisabled label="Item3 - Disabled"/>
-        <MenuItem isSelected label="Item3 - Selected"/>
-    </Menu>
-);
-Default.args = {
-    isDisplayed: true,
-    maxHeight: '250px',
-    style: {zIndex: 10000}
+// TODO: Fix menu display on documentation
+export const Default: StoryObj<MenuProps> = {
+    render: args => (
+        <Menu {...args}>
+            <MenuItem label="Base items" variant="title"/>
+            <MenuItem label="Item1"/>
+            <MenuItem label="Item2"/>
+            <MenuItem label="Item3"/>
+            <Separator/>
+            <MenuItem label="Variants" variant="title"/>
+            <MenuItem isHover label="Item3 - Hover"/>
+            <MenuItem isDisabled label="Item3 - Disabled"/>
+            <MenuItem isSelected label="Item3 - Selected"/>
+        </Menu>
+    ),
+
+    args: {
+        isDisplayed: true,
+        maxHeight: '250px',
+        style: {zIndex: 10000}
+    }
 };
 
 export const ContextualMenu = () => {
@@ -67,11 +71,7 @@ export const ContextualMenu = () => {
             onClick={handleOnClick}
         >
             <p>Click somewhere to display the menu, another click close it</p>
-            <Menu
-                isDisplayed={isDisplayed}
-                anchorPosition={menuPosition}
-                onClose={handleClose}
-            >
+            <Menu isDisplayed={isDisplayed} anchorPosition={menuPosition} onClose={handleClose}>
                 <MenuItem label="Item1"/>
                 <MenuItem label="Item2"/>
                 <MenuItem label="Item3"/>
@@ -132,60 +132,48 @@ export const AnchorElOrigin = () => {
 
 export const PositionAbsolute = () => {
     return (
-    // <div style={{transform: 'scale(1)', height: '100vh'}}>
-        <div
-                style={{
-                    position: 'relative',
-                    transform: 'translate(90px, 90px)',
-                    width: '100px',
-                    height: '100px'
-                }}
+        <div style={{
+                position: 'relative',
+                transform: 'translate(90px, 90px)',
+                width: '100px',
+                height: '100px'
+            }}
         >
-            <div
-                    style={{
-                        height: '100%',
-                        width: '100%',
-                        backgroundColor: 'var(--color-accent)',
-                        cursor: 'pointer',
-                        padding: '10px'
-                    }}
+            <div style={{
+                    height: '100%',
+                    width: '100%',
+                    backgroundColor: 'var(--color-accent)',
+                    cursor: 'pointer',
+                    padding: '10px'
+                }}
             >
                 Parent div is position: relative.
             </div>
             <Menu
-                    isDisplayed
-                    position="absolute"
-                    anchorPosition={{top: 4, left: 0}}
-                    anchorElOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'left'
-                    }}
-                    transformElOrigin={{
-                        vertical: 'top',
-                        horizontal: 'left'
-                    }}
+                isDisplayed
+                position="absolute"
+                anchorPosition={{top: 4, left: 0}}
+                anchorElOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left'
+                }}
+                transformElOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left'
+                }}
             >
                 <MenuItem label="Item1"/>
                 <MenuItem label="Item2"/>
                 <MenuItem label="Item3"/>
             </Menu>
         </div>
-    // </div>
     );
 };
 
 export const BigImageMenuItems = () => (
     <div style={{transform: 'scale(1)', height: '100vh'}}>
-        <Menu
-            isDisplayed
-            maxWidth="400px"
-            maxHeight="440px"
-            style={{zIndex: 10000}}
-        >
-            <MenuItem
-                label="Menu Items with Big Images Title"
-                variant="title"
-            />
+        <Menu isDisplayed maxWidth="400px" maxHeight="440px" style={{zIndex: 10000}}>
+            <MenuItem label="Menu Items with Big Images Title" variant="title"/>
             <MenuItem
                 label="Big image MenuItem"
                 image={<img src="https://via.placeholder.com/500?text=MenuItemImage"/>}
@@ -218,12 +206,7 @@ export const BigImageMenuItems = () => (
 
 export const SmallImageMenuItems = () => (
     <div style={{transform: 'scale(1)', height: '100vh'}}>
-        <Menu
-            isDisplayed
-            maxWidth="264px"
-            maxHeight="320px"
-            style={{zIndex: 10000}}
-        >
+        <Menu isDisplayed maxWidth="264px" maxHeight="320px" style={{zIndex: 10000}}>
             <MenuItem
                 label="Menu Items with Small Images Title"
                 variant="title"
@@ -282,7 +265,10 @@ export const WithSearch = () => (
 );
 
 export const Reversed = () => (
-    <div className="moonstone-reversed" style={{transform: 'scale(1)', height: '100vh', background: 'var(--color-gray_dark)'}}>
+    <div
+        className="moonstone-reversed"
+        style={{transform: 'scale(1)', height: '100vh', background: 'var(--color-gray_dark)'}}
+    >
         <Menu
             hasSearch
             isDisplayed

@@ -1,16 +1,19 @@
 import React from 'react';
-import {Story} from '@storybook/react';
+import { StoryObj, StoryFn } from '@storybook/react';
 
-import {Paper} from './index';
-import type {PaperProps} from './Paper.types';
+import { Paper } from './index';
+import type { PaperProps } from './Paper.types';
 
 export default {
-    title: 'Components/Paper',
-    component: Paper
+  title: 'Components/Paper',
+  component: Paper,
 };
 
-export const Default: Story<PaperProps> = args => <Paper {...args}>Content here</Paper>;
+export const Default: StoryObj<PaperProps> = {
+  render: (args) => <Paper {...args}>Content here</Paper>,
+};
 
-export const NoPadding: Story<PaperProps> = args => <Paper {...args}>Content here</Paper>;
-NoPadding.args = {hasPadding: false};
-
+export const NoPadding: StoryObj<PaperProps> = {
+  render: (args) => <Paper {...args}>Content here</Paper>,
+  args: { hasPadding: false },
+};

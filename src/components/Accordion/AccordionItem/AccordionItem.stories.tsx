@@ -1,9 +1,8 @@
 import React from 'react';
-import {Story, ComponentMeta} from '@storybook/react';
+import type {StoryObj, Meta} from '@storybook/react';
 
 import {Accordion} from '~/components/Accordion';
 import {AccordionItem} from './index';
-import type {AccordionItemProps} from './AccordionItem.types';
 
 import markdownNotes from './AccordionItem.md';
 import {Love} from '~/icons';
@@ -22,25 +21,33 @@ export default {
         notes: {markdown: markdownNotes},
         actions: {argTypesRegex: '^on.*'}
     }
-} as ComponentMeta<typeof AccordionItem>;
+} as Meta<typeof AccordionItem>;
 
-const Template: Story<AccordionItemProps> = args => (
-    <Accordion>
-        <AccordionItem {...args}>
-            Content here
-        </AccordionItem>
-    </Accordion>
-);
-
-export const WithIcon = Template.bind({});
-WithIcon.args = {
-    id: 'id',
-    label: 'AccordionItem',
-    icon: <Love size="big"/>
+const Template: StoryObj<typeof AccordionItem> = {
+    render: args => (
+        <Accordion>
+            <AccordionItem {...args}>
+                Content here
+            </AccordionItem>
+        </Accordion>
+    ),
+    args: {
+        id: 'id',
+        label: 'AccordionItem'
+    }
 };
 
-export const WithoutIcon = Template.bind({});
-WithoutIcon.args = {
-    id: 'id',
-    label: 'AccordionItem'
+export const WithIcon = {
+    render: Template.render,
+    args: {
+        ...Template.args,
+        icon: <Love size="big"/>
+    }
+};
+
+export const WithoutIcon: StoryObj<typeof AccordionItem> = {
+    render: Template.render,
+    args: {
+        ...Template.args
+    }
 };

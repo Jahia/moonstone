@@ -40,7 +40,7 @@ const preview = {
                     return typeof notes === 'string' ? notes : notes.markdown || notes.text;
                 }
                 return null;
-            },
+            }
         },
         options: {
             storySort: {

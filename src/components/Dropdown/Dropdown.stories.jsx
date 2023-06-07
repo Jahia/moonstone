@@ -34,13 +34,31 @@ export default {
 };
 
 const TemplateSimple = args => {
-    const {icon, size, variant, label, placeholder, isDisabled, className, searchEmptyText, hasSearch, imageSize, isTree, multiple, withClear} = args;
+    const {
+        icon,
+        size,
+        variant,
+        label,
+        placeholder,
+        isDisabled,
+        className,
+        searchEmptyText,
+        hasSearch,
+        imageSize,
+        isTree,
+        multiple,
+        withClear
+    } = args;
     const [currentOption, setCurrentOption] = useState(null);
     const [currentOptions, setCurrentOptions] = useState([]);
 
     const handleOnChange = (e, item) => {
         if (multiple) {
-            setCurrentOptions(prev => prev.every(p => p.value !== item.value) ? [...prev, item] : prev.filter(i => i.value !== item.value));
+            setCurrentOptions(prev =>
+                prev.every(p => p.value !== item.value) ?
+                    [...prev, item] :
+                    prev.filter(i => i.value !== item.value)
+            );
         } else {
             setCurrentOption(item);
         }
@@ -81,17 +99,20 @@ const TemplateSimple = args => {
     );
 };
 
-export const Playground = TemplateSimple.bind({});
-Playground.args = {
-    icon: 'Love',
-    size: 'small',
-    variant: 'ghost',
-    placeholder: 'Select something',
-    isDisabled: false,
-    isTree: false,
-    multiple: false,
-    withClear: false,
-    searchEmptyText: 'No results found'
+export const Playground = {
+    render: TemplateSimple,
+
+    args: {
+        icon: 'Love',
+        size: 'small',
+        variant: 'ghost',
+        placeholder: 'Select something',
+        isDisabled: false,
+        isTree: false,
+        multiple: false,
+        withClear: false,
+        searchEmptyText: 'No results found'
+    }
 };
 
 export const Default = () => {
@@ -123,7 +144,9 @@ export const Multiple = () => {
     const [currentOption, setCurrentOption] = useState([]);
 
     const handleOnChange = (e, item) => {
-        setCurrentOption(prev => prev.indexOf(item) > -1 ? prev.filter(i => i !== item) : [...prev, item]);
+        setCurrentOption(prev =>
+            prev.indexOf(item) > -1 ? prev.filter(i => i !== item) : [...prev, item]
+        );
         action('onChange');
         return true;
     };
@@ -317,7 +340,7 @@ export const DropdownWithTree = () => {
     );
 };
 
-export const WithDescription = args => {
+export const WithDescription = () => {
     const [currentOption, setCurrentOption] = useState({
         label: 'Select something',
         value: null
@@ -331,7 +354,9 @@ export const WithDescription = args => {
 
     return (
         <Dropdown
-            {...args}
+            variant="outlined"
+            size="medium"
+            icon={<Love/>}
             label={currentOption.label}
             value={currentOption.value}
             data={dropdownDataDescriptions}
@@ -340,17 +365,13 @@ export const WithDescription = args => {
     );
 };
 
-WithDescription.args = {
-    variant: 'outlined',
-    size: 'medium',
-    icon: <Love/>
-};
-
 export const DropdownWithTreeMultiple = () => {
     const [currentOption, setCurrentOption] = useState([]);
 
     const handleOnChange = (e, item) => {
-        setCurrentOption(prev => prev.indexOf(item) > -1 ? prev.filter(i => i !== item) : [...prev, item]);
+        setCurrentOption(prev =>
+            prev.indexOf(item) > -1 ? prev.filter(i => i !== item) : [...prev, item]
+        );
         action('onChange');
         return true;
     };
@@ -368,4 +389,3 @@ export const DropdownWithTreeMultiple = () => {
         />
     );
 };
-

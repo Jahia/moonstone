@@ -13,20 +13,20 @@ export default {
     }
 };
 
-export const Playground = args => {
-    return (
-        <RadioGroup name="playground-name">
-            <RadioItem
-                {...args}
-            />
-            <RadioItem label="Radio" value="radio" id="radio" description="Description of the radio"/>
-        </RadioGroup>
-    );
-};
+export const Playground = {
+    render: args => {
+        return (
+            <RadioGroup name="playground-name">
+                <RadioItem {...args}/>
+                <RadioItem label="Radio" value="radio" id="radio" description="Description of the radio"/>
+            </RadioGroup>
+        );
+    },
 
-Playground.args = {
-    id: 'playground-item',
-    label: 'Play with me',
-    description: 'Use the storybook controls to update this element',
-    value: 'playground-value'
+    args: {
+        id: 'playground-item',
+        label: 'Play with me',
+        description: 'Use the storybook controls to update this element',
+        value: 'playground-value'
+    }
 };

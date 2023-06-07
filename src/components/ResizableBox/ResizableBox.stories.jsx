@@ -20,23 +20,29 @@ export default {
     }
 };
 
-export const Default = args => (
-    <ResizableBox
-        {...args}
-        enable={['right']}
-        defaultSize={{
-            width: '100%',
-            height: 'auto'
-        }}
-    >
-        <div className="flexRow_center alignCenter flexFuild" style={{height: '100vh', background: 'yellow'}}>
-            content resizable
-        </div>
-    </ResizableBox>
-);
-Default.args = {
-    minWidth: 100,
-    maxWidth: 600
+export const Default = {
+    render: args => (
+        <ResizableBox
+            {...args}
+            enable={['right']}
+            defaultSize={{
+                width: '100%',
+                height: 'auto'
+            }}
+        >
+            <div
+                className="flexRow_center alignCenter flexFuild"
+                style={{height: '100vh', background: 'yellow'}}
+            >
+                content resizable
+            </div>
+        </ResizableBox>
+    ),
+
+    args: {
+        minWidth: 100,
+        maxWidth: 600
+    }
 };
 
 export const Actions = () => (
@@ -52,7 +58,10 @@ export const Actions = () => (
         onResizing={action('onResizing')}
         onResizeStop={action('onResizeStop')}
     >
-        <div className="flexRow_center alignCenter flexFuild" style={{height: '100vh', background: 'yellow'}}>
+        <div
+            className="flexRow_center alignCenter flexFuild"
+            style={{height: '100vh', background: 'yellow'}}
+        >
             content resizable
         </div>
     </ResizableBox>

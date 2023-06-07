@@ -21,17 +21,23 @@ export default {
     }
 };
 
-export const Default = (args, {globals: {theme}}) => (
-    <TreeView {...args} data={treeData} isReversed={theme === 'dark'}/>
-);
+export const Default = {
+    render: (args, {globals: {theme}}) => (
+        <TreeView {...args} data={treeData} isReversed={theme === 'dark'}/>
+    )
+};
 
-export const OpenedByDefault = (args, {globals: {theme}}) => (
-    <TreeView {...args} defaultOpenedItems={['A']} data={treeData} isReversed={theme === 'dark'}/>
-);
+export const OpenedByDefault = {
+    render: (args, {globals: {theme}}) => (
+        <TreeView {...args} defaultOpenedItems={['A']} data={treeData} isReversed={theme === 'dark'}/>
+    )
+};
 
-export const Flat = (args, {globals: {theme}}) => (
-    <TreeView {...args} data={treeDataFlat} isReversed={theme === 'dark'}/>
-);
+export const Flat = {
+    render: (args, {globals: {theme}}) => (
+        <TreeView {...args} data={treeDataFlat} isReversed={theme === 'dark'}/>
+    )
+};
 
 export const Selection = (args, {globals: {theme}}) => {
     const [selectedItems, setSelectedItems] = useState([]);
@@ -69,11 +75,7 @@ export const Controlled = (args, {globals: {theme}}) => {
             <span>
                 Opened items ={' '}
                 {openedItems.map(n => (
-                    <button
-                        key={n}
-                        type="button"
-                        onClick={() => handleClose({id: n})}
-                    >
+                    <button key={n} type="button" onClick={() => handleClose({id: n})}>
                         {n}
                     </button>
                 ))}
@@ -139,11 +141,7 @@ export const ControlledWithLoading = () => {
             <span>
                 Opened items ={' '}
                 {openedItems.map(n => (
-                    <button
-                        key={n}
-                        type="button"
-                        onClick={() => handleClose({id: n})}
-                    >
+                    <button key={n} type="button" onClick={() => handleClose({id: n})}>
                         {n}
                     </button>
                 ))}
@@ -153,7 +151,7 @@ export const ControlledWithLoading = () => {
                 openedItems={openedItems}
                 onOpenItem={handleOpen}
                 onCloseItem={handleClose}
-            />
+        />
         </div>
     );
 };
