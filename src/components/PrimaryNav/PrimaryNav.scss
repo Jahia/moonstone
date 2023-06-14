@@ -16,7 +16,7 @@ $primaryNav: 56px;
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: var(--zIndex-1);
 
     width: $primaryNav;
     height: 100vh;
