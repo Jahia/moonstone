@@ -1,7 +1,7 @@
 @import '../../utils/index';
 
 .moonstone-menu {
-    z-index: 9000;
+    z-index: var(--zIndex-9000);
 
     width: max-content;
 
@@ -39,5 +39,5 @@
 .moonstone-menu_overlay {
     @extend %overlay;
 
-    z-index: 8500;
+    z-index: var(--zIndex-8500);
 }
