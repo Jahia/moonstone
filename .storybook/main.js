@@ -1,11 +1,11 @@
 const path = require('path');
 
 module.exports = {
-    features: {
-        postcss: false
+    framework: '@storybook/react-webpack5',
+    docs: {
+        autodocs: true
     },
     stories: [
-        '../src/**/*.stories.mdx',
         '../src/**/*.stories.@(js|jsx|ts|tsx)'
         ],
     addons: [
@@ -13,7 +13,7 @@ module.exports = {
         '@storybook/addon-docs',
         '@storybook/addon-backgrounds',
         '@storybook/addon-a11y',
-        '@storybook/addon-controls',
+        '@storybook/addon-controls'
     ],
     "webpackFinal": async config => {
         config.resolve.alias['~'] = path.resolve(__dirname, '../src');
@@ -30,12 +30,5 @@ module.exports = {
         }, 'sass-loader']
         });
         return config;
-    },
-    framework: {
-        name: '@storybook/react-webpack5',
-        options: {}
-    },
-    docs: {
-        autodocs: true
     }
 };
