@@ -1,3 +1,26 @@
+# v2.5.10 (Mon Jul 03 2023)
+
+#### 🐛 Bug Fix
+
+- Revert "MOON-373 Add z-index tokens (#380)" [#383](https://github.com/Jahia/moonstone/pull/383) ([@ffffffelix](https://github.com/ffffffelix))
+- QA-14618: Handle specific transform with empty translation [#382](https://github.com/Jahia/moonstone/pull/382) ([@tdraier](https://github.com/tdraier))
+- MOON-373 Add z-index tokens [#380](https://github.com/Jahia/moonstone/pull/380) ([@AKarmanov](https://github.com/AKarmanov))
+- TECH-233: use script and lint config from @jahia [#377](https://github.com/Jahia/moonstone/pull/377) ([@tdraier](https://github.com/tdraier))
+
+#### 🔩 Dependency Updates
+
+- Bump @babel/runtime from 7.22.3 to 7.22.5 [#379](https://github.com/Jahia/moonstone/pull/379) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@ffffffelix](https://github.com/ffffffelix))
+- Bump @babel/runtime from 7.21.0 to 7.22.3 [#378](https://github.com/Jahia/moonstone/pull/378) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 4
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # v2.5.9 (Fri Apr 28 2023)
 
 #### 🐛 Bug Fix
