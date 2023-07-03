@@ -187,11 +187,7 @@ export const Centered = () => (
                         <LayoutContent
                             isCentered
                             header={<Header title="Header"/>}
-                            content={
-                                <>
-                                    <Paper>Content</Paper>
-                                </>
-                            }
+                            content={<Paper>Content</Paper>}
                         />
                     }
                 />
