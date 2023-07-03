@@ -1,6 +1,7 @@
 import React from 'react';
 import {queryByText, render, screen} from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import {setup} from '~/utils/tests';
+
 import {Dropdown} from './index';
 import {dropdownData, dropdownDataGrouped} from '~/data';
 
@@ -39,22 +40,24 @@ describe('Dropdown', () => {
         expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
     });
 
-    it('should display the menu dropdown when I click on the dropdown', () => {
-        render(
-            <Dropdown data={dropdownDataGrouped} data-testid="moonstone-dropdown" onChange={() => 'testing'}/>
+    it('should display the menu dropdown when I click on the dropdown', async () => {
+        const {user} = setup(
+            <Dropdown data={dropdownDataGrouped} label="test" onChange={() => 'testing'}/>
         );
 
-        userEvent.click(screen.getByRole('dropdown'));
+        await user.click(screen.getByRole('dropdown'));
+
         expect(screen.getByRole('listbox')).toBeInTheDocument();
     });
 
-    it('should close the menu dropdown when I click on an option', () => {
-        render(
-            <Dropdown data={dropdownDataGrouped} data-testid="moonstone-dropdown" onChange={() => 'testing'}/>
+    it('should close the menu dropdown when I click on an option', async () => {
+        const {user} = setup(
+            <Dropdown data={dropdownDataGrouped} onChange={() => 'testing'}/>
         );
 
-        userEvent.click(screen.getByRole('dropdown'));
-        userEvent.click(screen.getAllByRole('option')[1]);
+        await user.click(screen.getByRole('dropdown'));
+        await user.click(screen.getAllByRole('option')[1]);
+
         expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
     });
 
@@ -87,70 +90,83 @@ describe('Dropdown', () => {
         expect(queryByText(document.querySelector('.moonstone-tag'), 'option 4')).toBeInTheDocument();
     });
 
-    it('should show checkboxes for multiple select', () => {
-        render(
-            <Dropdown data={dropdownData} values={['4']}/>
+    it('should show checkboxes for multiple select', async () => {
+        const {user} = setup(
+            <Dropdown data={dropdownData} values={['2']}/>
         );
 
-        userEvent.click(screen.getByRole('dropdown'));
-        expect(screen.queryAllByRole('checkbox')).not.toHaveLength(0);
+        await user.click(screen.getByRole('dropdown'));
+
+        expect(screen.queryAllByRole('checkbox', {checked: true})).toHaveLength(1);
     });
 
-    it('should show search input when autoSearch is enabled (hasSearch=undefined) and exceeds limit', () => {
-        let dData = dropdownData;
-        render(
-            <Dropdown data={dData} data-testid="moonstone-dropdown"/>
+    it('should show search input when autoSearch is enabled (hasSearch=undefined) and exceeds limit', async () => {
+        const {user} = setup(
+            <Dropdown data={dropdownData}/>
         );
+
         expect(dropdownData.length).toBeGreaterThan(7); // Triggers auto-adding search input
-        userEvent.click(screen.getByRole('dropdown'));
+
+        await user.click(screen.getByRole('dropdown'));
+
         expect(screen.queryByRole('search')).toBeInTheDocument();
     });
 
-    it('should not show search input when autoSearch is enabled (hasSearch=undefined) and does not exceed limit', () => {
-        let dData = dropdownData.slice(0, 7);
-        render(
-            <Dropdown data={dData} data-testid="moonstone-dropdown"/>
+    it('should not show search input when autoSearch is enabled (hasSearch=undefined) and does not exceed limit', async () => {
+        const dData = dropdownData.slice(0, 7);
+        const {user} = setup(
+            <Dropdown data={dData}/>
         );
+
         expect(dData.length).toBeLessThanOrEqual(7); // Does not trigger auto-adding search input
-        userEvent.click(screen.getByRole('dropdown'));
+
+        await user.click(screen.getByRole('dropdown'));
+
         expect(screen.queryByRole('search')).not.toBeInTheDocument();
     });
 
-    it('should show search input when autoSearch is enabled (hasSearch=undefined) and exceeds specified limit', () => {
-        let limit = 4;
-        let dData = dropdownData.slice(0, limit + 1);
-        render(
+    it('should show search input when autoSearch is enabled (hasSearch=undefined) and exceeds specified limit', async () => {
+        const limit = 4;
+        const dData = dropdownData.slice(0, limit + 1);
+        const {user} = setup(
             <Dropdown data={dData} data-testid="moonstone-dropdown" autoAddSearchLimit={limit}/>
         );
+
         expect(dropdownData.length).toBeGreaterThan(limit); // Triggers auto-adding search input
-        userEvent.click(screen.getByRole('dropdown'));
+
+        await user.click(screen.getByRole('dropdown'));
+
         expect(screen.queryByRole('search')).toBeInTheDocument();
     });
 
-    it('should show search input when hasSearch is enabled', () => {
-        let dData = dropdownData.slice(0, 3);
-        render(
-            <Dropdown hasSearch data={dData} data-testid="moonstone-dropdown"/>
+    it('should show search input when hasSearch is enabled', async () => {
+        const dData = dropdownData.slice(0, 3);
+        const {user} = setup(
+            <Dropdown hasSearch data={dData}/>
         );
-        userEvent.click(screen.getByRole('dropdown'));
+
+        await user.click(screen.getByRole('dropdown'));
+
         expect(screen.queryByRole('search')).toBeInTheDocument();
     });
 
-    it('should not show search input when hasSearch is disabled', () => {
-        let dData = dropdownData;
-        render(
-            <Dropdown data={dData} data-testid="moonstone-dropdown" hasSearch={false}/>
+    it('should not show search input when hasSearch is disabled', async () => {
+        const {user} = setup(
+            <Dropdown data={dropdownData} hasSearch={false}/>
         );
-        userEvent.click(screen.getByRole('dropdown'));
+
+        await user.click(screen.getByRole('dropdown'));
+
         expect(screen.queryByRole('search')).not.toBeInTheDocument();
     });
 
-    it('should show auto-add search for grouped data', () => {
-        let dData = dropdownDataGrouped;
-        render(
-            <Dropdown data={dData} data-testid="moonstone-dropdown" autoAddSearchLimit={3}/>
+    it('should show auto-add search for grouped data', async () => {
+        const {user} = setup(
+            <Dropdown data={dropdownDataGrouped} autoAddSearchLimit={1}/>
         );
-        userEvent.click(screen.getByRole('dropdown'));
+
+        await user.click(screen.getByRole('dropdown'));
+
         expect(screen.queryByRole('search')).toBeInTheDocument();
     });
 });

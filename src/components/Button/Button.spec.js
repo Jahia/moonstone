@@ -1,8 +1,9 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {buttonColors, buttonSizes, buttonVariants} from './Button.types.ts';
+import {setup} from '~/utils/tests';
 
+import type {buttonColors, buttonSizes, buttonVariants} from './Button.types.ts';
 import {Button} from './index';
 import {Love} from '~/icons/index';
 
@@ -77,11 +78,13 @@ describe('Button', () => {
         expect(screen.getByTestId('moonstone-button')).toHaveClass(`moonstone-size_${size}`);
     });
 
-    it('should call onClick function', () => {
-        const onClick = jest.fn();
-        render(<Button data-testid="moonstone-button" label="test me" onClick={onClick}/>);
+    it('should call onClick function', async () => {
+        const {user} = setup(
+            <Button data-testid="moonstone-button" label="test me" onClick={onClick}/>
+        );
 
-        userEvent.click(screen.getByTestId('moonstone-button'));
+        await user.click(screen.getByTestId('moonstone-button'));
+
         expect(onClick).toHaveBeenCalled();
     });
 });

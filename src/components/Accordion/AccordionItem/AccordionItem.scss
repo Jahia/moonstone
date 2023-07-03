@@ -9,7 +9,7 @@ $accordionHeader_height: 48px;
     overflow: hidden;
 
     &:only-child {
-        border-bottom: none;
+        border-bottom: none;    
     }
 
     & + .moonstone-accordionItem {

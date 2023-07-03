@@ -25,7 +25,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     const isEmpty = data.length < 1;
     const isGrouped = !isEmpty && typeof data[0].options !== 'undefined';
 
-    const getIcon = (item: DropdownDataOption) => values?.indexOf(item.value) > -1 ? <CheckboxChecked role="checkbox" color="blue"/> : <CheckboxUnchecked role="checkbox"/>;
+    const getIcon = (item: DropdownDataOption) => values?.indexOf(item.value) > -1 ? <CheckboxChecked role="checkbox" color="blue" aria-checked="true"/> : <CheckboxUnchecked role="checkbox" aria-checked="false"/>;
 
     // ---
     // Generate options
