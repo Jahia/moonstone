@@ -247,6 +247,18 @@ const getFixedPosition = (
     };
 };
 
+function hasTransform(resolvedAnchorEl: HTMLDivElement) {
+    if (resolvedAnchorEl &&
+        resolvedAnchorEl.closest &&
+        resolvedAnchorEl.closest('[style*="transform"]')) {
+        const transform = (resolvedAnchorEl.closest('[style*="transform"]') as HTMLElement).style.transform;
+
+        return transform !== 'translate(0px, 0px)';
+    }
+
+    return false;
+}
+
 export const usePositioning = (
     isDisplayed: boolean,
     anchorPosition: Position,
@@ -261,8 +273,7 @@ export const usePositioning = (
     useEffect(() => {
         if (isDisplayed) {
             const resolvedAnchorEl = (anchorEl && anchorEl.current ? anchorEl.current : anchorEl) as HTMLDivElement;
-            const hasTransform = resolvedAnchorEl && resolvedAnchorEl.closest && resolvedAnchorEl.closest('[style*="transform"]');
-            const _stylePosition = (position === 'absolute' || hasTransform) ?
+            const _stylePosition = (position === 'absolute' || hasTransform(resolvedAnchorEl)) ?
                 getAbsolutePosition(itemRef, anchorElOrigin, transformElOrigin, anchorPosition) :
                 getFixedPosition(itemRef, anchorEl, anchorElOrigin, transformElOrigin, anchorPosition);
             setStylePosition(_stylePosition);
