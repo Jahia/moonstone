@@ -183,6 +183,10 @@ const getPositionRelativeToEl = (
         delete stylePosition.left;
     }
 
+    if (hasParentWithTransform(resolvedAnchorEl)) {
+        delete stylePosition.left;
+    }
+
     return stylePosition;
 };
 
@@ -247,17 +251,21 @@ const getFixedPosition = (
     };
 };
 
-function hasTransform(resolvedAnchorEl: HTMLDivElement) {
-    if (resolvedAnchorEl &&
-        resolvedAnchorEl.closest &&
-        resolvedAnchorEl.closest('[style*="transform"]')) {
+const hasTransform = (resolvedAnchorEl: HTMLDivElement) => {
+    if (hasParentWithTransform((resolvedAnchorEl))) {
         const transform = (resolvedAnchorEl.closest('[style*="transform"]') as HTMLElement).style.transform;
 
         return transform !== 'translate(0px, 0px)';
     }
 
     return false;
-}
+};
+
+const hasParentWithTransform = (resolvedAnchorEl: HTMLDivElement) => {
+    return (resolvedAnchorEl &&
+        resolvedAnchorEl.closest &&
+        resolvedAnchorEl.closest('[style*="transform"]'));
+};
 
 export const usePositioning = (
     isDisplayed: boolean,
