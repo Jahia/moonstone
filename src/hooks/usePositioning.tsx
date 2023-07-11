@@ -183,6 +183,7 @@ const getPositionRelativeToEl = (
         delete stylePosition.left;
     }
 
+    // In case of fixed positioning within a transformed parent we need to remove left as it is relative
     if (hasParentWithTransform(resolvedAnchorEl)) {
         delete stylePosition.left;
     }
@@ -255,7 +256,7 @@ const hasTransform = (resolvedAnchorEl: HTMLDivElement) => {
     if (hasParentWithTransform((resolvedAnchorEl))) {
         const transform = (resolvedAnchorEl.closest('[style*="transform"]') as HTMLElement).style.transform;
 
-        return transform !== 'translate(0px, 0px)';
+        return !(transform === 'translate(0px, 0px)' || transform === 'translate(0px)');
     }
 
     return false;
