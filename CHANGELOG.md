@@ -1,3 +1,15 @@
+# v2.5.11 (Tue Jul 11 2023)
+
+#### 🐛 Bug Fix
+
+- QA-14724 Shrink resize handle [#381](https://github.com/Jahia/moonstone/pull/381) ([@AKarmanov](https://github.com/AKarmanov))
+
+#### Authors: 1
+
+- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
+
+---
+
 # v2.5.10 (Mon Jul 03 2023)
 
 #### 🐛 Bug Fix
