@@ -1,3 +1,23 @@
+# v2.5.12 (Wed Jul 12 2023)
+
+#### 🐛 Bug Fix
+
+- QA-14618: delete left position if parent has transform property [#387](https://github.com/Jahia/moonstone/pull/387) ([@cedmail](https://github.com/cedmail))
+
+#### 🔩 Dependency Updates
+
+- Bump @babel/runtime from 7.22.5 to 7.22.6 [#384](https://github.com/Jahia/moonstone/pull/384) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump tough-cookie from 4.0.0 to 4.1.3 [#385](https://github.com/Jahia/moonstone/pull/385) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@ffffffelix](https://github.com/ffffffelix))
+- Bump semver from 5.7.1 to 5.7.2 [#386](https://github.com/Jahia/moonstone/pull/386) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Cedric Mailleux ([@cedmail](https://github.com/cedmail))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.5.11 (Tue Jul 11 2023)
 
 #### 🐛 Bug Fix
