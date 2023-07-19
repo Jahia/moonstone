@@ -8,7 +8,7 @@
     "dependencies": {
         "@babel/runtime": "^7.22.6",
         "@jahia/scripts": "^1.2.0",
-        "clsx": "^1.2.1",
+        "clsx": "^2.0.0",
         "prop-types": "^15.8.1",
         "re-resizable": "^6.9.9",
         "to-px": "^1.1.0"
