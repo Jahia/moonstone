@@ -38,8 +38,6 @@ export const ControlledCheckboxItem: React.FC<CheckboxItemProps> = ({className, 
                         if (typeof onChange !== 'undefined') {
                             onChange(event);
                         }
-
-                        console.log('trigger onChange on checkboxItem');
                     }}
                     {...props}
                 />

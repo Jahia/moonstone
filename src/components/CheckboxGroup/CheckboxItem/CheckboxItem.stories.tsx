@@ -35,7 +35,6 @@ export const Controlled: Story<CheckboxItemProps> = args => {
     const [checked, setChecked] = useState(false);
 
     const handleOnChange = () => {
-        console.log('[story controlled] change storybook');
         setChecked(!checked);
     };
 
