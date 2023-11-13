@@ -7,10 +7,10 @@
     "sideEffects": false,
     "dependencies": {
         "@babel/runtime": "^7.23.2",
-        "@jahia/scripts": "^1.2.0",
+        "@jahia/scripts": "^1.3.3",
         "clsx": "^1.2.1",
         "prop-types": "^15.8.1",
-        "re-resizable": "^6.9.9",
+        "re-resizable": "^6.9.11",
         "to-px": "^1.1.0"
     },
     "peerDependencies": {
