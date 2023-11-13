@@ -4,6 +4,7 @@ import {RadioGroupContext} from './RadioGroup.context';
 import {RadioGroupProps} from './RadioGroup.types';
 
 export const ControlledRadioGroup: React.FC<RadioGroupProps> = ({children, name, value, isDisabled, isReadOnly, onChange, className, ...props}) => {
+    // When no value is set, then the first item will be selected by default
     if (typeof value === 'undefined' || value === '') {
         value = (children[0].props.value);
     }

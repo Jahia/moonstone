@@ -1,6 +1,7 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import {Checkbox} from './index';
 
 describe('Checkbox', () => {
@@ -14,6 +15,15 @@ describe('Checkbox', () => {
         const customAttribute = 'test';
         render(<Checkbox aria-label="checkbox" data-custom={customAttribute}/>);
         expect(screen.getByRole('checkbox')).toHaveAttribute('data-custom', customAttribute);
+    });
+
+    it('should call onChange function', () => {
+        const handleOnChange = jest.fn();
+        render(<Checkbox data-testid="moonstone-checkbox" onChange={event => handleOnChange(event)}/>);
+        const checkbox = screen.getByTestId('moonstone-checkbox');
+
+        userEvent.click(checkbox);
+        expect(handleOnChange).toHaveBeenCalled();
     });
 
     it('should check off when clicked on', () => {
@@ -31,9 +41,24 @@ describe('Checkbox', () => {
         expect(checkbox).not.toBeChecked();
     });
 
-    it('should initially be checked off when the defaultSelected prop is set', () => {
+    it('should be unchecked by default', () => {
+        render(<Checkbox aria-label="checkbox"/>);
+        expect(screen.getByRole('checkbox')).not.toBeChecked();
+    });
+
+    it('should initially be checked on when the defaultChecked prop is set', () => {
         render(<Checkbox defaultChecked aria-label="checkbox"/>);
         expect(screen.getByRole('checkbox')).toBeChecked();
+    });
+
+    it('should initially be checked on when the checked prop is set', () => {
+        render(<Checkbox checked aria-label="checkbox"/>);
+        expect(screen.getByRole('checkbox')).toBeChecked();
+    });
+
+    it('should initially be mixed state on when the indeterminate prop is set', () => {
+        render(<Checkbox indeterminate aria-label="checkbox"/>);
+        expect(screen.getByRole('checkbox')).toBePartiallyChecked();
     });
 
     it('should have mixed state when specified with the isIndeterminate prop', () => {
