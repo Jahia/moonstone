@@ -106,7 +106,10 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                     itemComponent,
                     {
                         role: 'treeitem',
+                        'aria-selected': isSelected,
                         'aria-expanded': isOpen,
+                        'aria-busy': isLoading,
+                        'aria-current': isHighlighted ? 'page' : null,
                         key: `${depth}-${node.id}`,
                         style: {'--treeItem-depth': depth},
                         ...node.treeItemProps
@@ -132,7 +135,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                             onContextMenu={handleNodeContextMenu}
                         >
                             {showCheckbox ?
-                                (isSelected ? <CheckboxChecked className="moonstone-treeView_itemIconStart" role="checkbox" color="blue"/> : <CheckboxUnchecked className="moonstone-treeView_itemIconStart" role="checkbox"/>) :
+                                (isSelected ? <CheckboxChecked className="moonstone-treeView_itemIconStart" role="checkbox" color="blue" aria-checked="true"/> : <CheckboxUnchecked className="moonstone-treeView_itemIconStart" role="checkbox" aria-checked="false"/>) :
                                 (displayIcon(node.iconStart, 'small', 'moonstone-treeView_itemIconStart', parentHasIconStart))}
                             <Typography isNowrap
                                         className={clsx('flexFluid')}
@@ -152,7 +155,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
     }
 
     // TreeView component
-    return React.createElement(component, {ref, role: 'tree', ...props}, generateLevelJSX(data, 0, false));
+    return React.createElement(component, {ref, role: 'tree', 'aria-multiselectable': showCheckbox, ...props}, generateLevelJSX(data, 0, false));
 };
 
 export const ControlledTreeView = React.forwardRef(ControlledTreeViewForwardRef);

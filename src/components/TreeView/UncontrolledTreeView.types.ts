@@ -42,6 +42,16 @@ export type UncontrolledTreeViewProps = {
     onContextMenuItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
 
     /**
+     * Trigger on opening node
+     */
+    onOpenItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
+
+    /**
+     * Trigger on closing node
+     */
+    onCloseItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
+
+    /**
      * Reverse color useful for context with dark background
      */
     isReversed?: boolean;
