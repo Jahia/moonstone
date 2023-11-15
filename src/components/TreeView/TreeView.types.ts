@@ -16,24 +16,15 @@ export type TreeViewData = {
     treeItemProps?: object;
 };
 
-export type TreeViewProps = {
+type BaseTreeViewProps = {
     /**
      * Data to generate the tree
      */
     data: TreeViewData[];
     /**
-     * Opened items ids. If set, component is controlled
-     */
-    openedItems?: string[];
-    /**
-     * Opened items ids by default, when uncontrolled
-     */
-    defaultOpenedItems?: string[];
-    /**
      * Selected items' ids
      */
     selectedItems?: string[];
-
     /**
      * ID of the highlighted item. Cannot have selected items at the same time.
      */
@@ -43,18 +34,10 @@ export type TreeViewProps = {
      */
     showCheckbox?: boolean;
     /**
-     * Trigger on opening node
-     */
-    onOpenItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
-    /**
-     * Trigger on opening node
-     */
-    onCloseItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
-    /**
      * Trigger by clicking on node.
      * In the parameters, access to the current node, event, and a method to toggle the node open/close is given.
      */
-    onClickItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
+    onClickItem?: (node: TreeViewData, e?: React.MouseEvent, toggleNode?: (e: React.MouseEvent) => void) => void;
     /**
      * Trigger by double clicking on node
      */
@@ -81,3 +64,34 @@ export type TreeViewProps = {
     size?: 'small' | 'default';
 };
 
+export type TreeViewProps = BaseTreeViewProps & Partial<ControlledTreeViewProps & UncontrolledTreeViewProps >;
+
+export type ControlledTreeViewProps = BaseTreeViewProps & {
+    /**
+     * Opened items ids. If set, component is controlled
+     */
+    openedItems: string[];
+    /**
+     * Trigger on opening node
+     */
+    onOpenItem: (node: TreeViewData, e?: React.MouseEvent) => void;
+    /**
+     * Trigger on opening node
+     */
+    onCloseItem: (node: TreeViewData, e?: React.MouseEvent) => void;
+}
+
+export type UncontrolledTreeViewProps = BaseTreeViewProps & {
+    /**
+     * Opened items ids by default, when uncontrolled
+     */
+    defaultOpenedItems?: string[];
+    /**
+     * Trigger on opening node
+     */
+    onOpenItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
+    /**
+     * Trigger on opening node
+     */
+    onCloseItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
+}

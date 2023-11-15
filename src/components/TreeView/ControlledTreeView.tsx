@@ -1,8 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import './TreeView.scss';
-import {ControlledTreeViewProps} from './ControlledTreeView.types';
-import {TreeViewData} from './TreeView.types';
+import type {ControlledTreeViewProps, TreeViewData} from './TreeView.types';
 
 import {Loading, ChevronDown, ChevronRight, CheckboxChecked, CheckboxUnchecked} from '~/icons';
 import {Typography} from '~/components/Typography';
