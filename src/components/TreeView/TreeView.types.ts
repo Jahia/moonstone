@@ -33,6 +33,11 @@ export type TreeViewProps = {
      * Selected items' ids
      */
     selectedItems?: string[];
+
+    /**
+     * ID of the highlighted item. Cannot have selected items at the same time.
+     */
+    highlightedItem?: string;
     /**
      * Show checkbox for selected items
      */

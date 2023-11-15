@@ -33,6 +33,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
         data,
         openedItems = [],
         selectedItems = [],
+        highlightedItem,
         showCheckbox = false,
         onClickItem = () => undefined,
         onDoubleClickItem = () => undefined,
@@ -55,6 +56,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
             const isOpen = Boolean(openedItems.includes(node.id)) || !isClosable;
             const isLoading = Boolean(node.isLoading);
             const isSelected = Boolean(selectedItems.includes(node.id));
+            const isHighlighted = Boolean(highlightedItem === node.id && selectedItems.length === 0);
 
             // ---
             // Manage clicks events
@@ -93,6 +95,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                 {
                     'moonstone-small': size === 'small',
                     'moonstone-selected': isSelected && !showCheckbox,
+                    'moonstone-highlighted': isHighlighted,
                     'moonstone-reversed': isReversed,
                     'moonstone-disabled': node.isDisabled
                 }

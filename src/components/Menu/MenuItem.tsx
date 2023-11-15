@@ -7,8 +7,9 @@ import {MenuItemProps, MenuItemVariants} from './MenuItem.types';
 export const MenuItem: React.FC<MenuItemProps> = ({
     variant = MenuItemVariants.Default,
     isHover,
-    isSelected,
+    isSelected = false,
     isDisabled = false,
+    isHighlighted = false,
     iconStart = null,
     iconSize = null,
     iconEnd = null,
@@ -27,6 +28,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
                 'moonstone-hover': isHover,
                 'moonstone-selected': isSelected,
                 'moonstone-disabled': isDisabled,
+                'moonstone-highlighted': isHighlighted && !isSelected,
                 'moonstone-title': variant === MenuItemVariants.Title
             },
             image && 'moonstone-menuItem-image',

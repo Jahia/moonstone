@@ -17,6 +17,11 @@ export type UncontrolledTreeViewProps = {
     selectedItems?: string[];
 
     /**
+     * ID of the highlighted item. Cannot have selected items at the same time.
+     */
+    highlightedItem?: string;
+
+    /**
      * Show checkbox for selected items
      */
     showCheckbox?: boolean;
