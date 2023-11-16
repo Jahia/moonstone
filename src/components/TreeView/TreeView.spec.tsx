@@ -116,9 +116,15 @@ describe('TreeView', () => {
     });
 
     it('should highlight the item set with highltedItem', () => {
-        render(<TreeView highlightedItem="A" data={tree}/>);
+        render(<TreeView highlightedItems={['A']} data={tree}/>);
 
         expect(screen.getByRole('treeitem', {current: 'page'})).toBeInTheDocument();
+    });
+
+    it('should not highlight the item when it is already selected', () => {
+        render(<TreeView highlightedItems={['A']} selectedItems={['A']} data={tree}/>);
+
+        expect(screen.queryByRole('treeitem', {current: 'page'})).not.toBeInTheDocument();
     });
 
     it('should display checkboxes when showCheckbox is set', () => {

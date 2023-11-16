@@ -26,9 +26,9 @@ type BaseTreeViewProps = {
      */
     selectedItems?: string[];
     /**
-     * ID of the highlighted item. Cannot have selected items at the same time.
+     * IDs of the highlighted items
      */
-    highlightedItem?: string;
+    highlightedItems?: string[];
     /**
      * Show checkbox for selected items
      */

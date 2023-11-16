@@ -32,7 +32,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
         data,
         openedItems = [],
         selectedItems = [],
-        highlightedItem,
+        highlightedItems = [],
         showCheckbox = false,
         onClickItem = () => undefined,
         onDoubleClickItem = () => undefined,
@@ -55,7 +55,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
             const isOpen = Boolean(openedItems.includes(node.id)) || !isClosable;
             const isLoading = Boolean(node.isLoading);
             const isSelected = Boolean(selectedItems.includes(node.id));
-            const isHighlighted = Boolean(highlightedItem === node.id && selectedItems.length === 0);
+            const isHighlighted = Boolean(highlightedItems.includes(node.id) && !isSelected);
 
             // ---
             // Manage clicks events
