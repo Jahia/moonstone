@@ -3,11 +3,13 @@
     --treeItem-color: inherit;
     --treeItem-color_hover: var(--color-dark);
     --treeItem-color_selected: var(--color-light);
+    --treeItem-color_highlighted: var(--color-light);
     --treeItem-color_selected_hover: var(--color-light);
     --treeItem-background: inherit;
     --treeItem-background_hover: var(--color-gray_light40);
     --treeItem-background_selected: var(--color-accent);
     --treeItem-background_selected_hover: var(--color-accent);
+    --treeItem-background_highlighted: var(--color-gray60);
 }
 
 .moonstone-treeView_item {
@@ -44,11 +46,18 @@
         }
     }
 
+    &.moonstone-highlighted {
+        color: var(--treeItem-color_highlighted);
+
+        background-color: var(--treeItem-background_highlighted);
+    }
+
     // Theme reversed
     &.moonstone-reversed {
         --treeItem-color: var(--color-gray_light);
         --treeItem-color_hover: var(--color-light);
         --treeItem-background_hover: var(--color-gray40);
+        --treeItem-background_highlighted: var(--color-gray_light40);
     }
 
     &.moonstone-disabled {

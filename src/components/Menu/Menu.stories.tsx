@@ -31,7 +31,8 @@ export const Default: Story<MenuProps> = args => (
         <MenuItem label="Variants" variant="title"/>
         <MenuItem isHover label="Item3 - Hover"/>
         <MenuItem isDisabled label="Item3 - Disabled"/>
-        <MenuItem isSelected label="Item3 - Selected"/>
+        <MenuItem isHighlighted label="Item3 - Highlighted"/>
+        <MenuItem isSelected label="Item4 - Selected"/>
     </Menu>
 );
 Default.args = {

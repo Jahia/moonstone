@@ -30,6 +30,11 @@ export type MenuItemProps = {
     isDisabled?: boolean,
 
     /**
+     * Is item highlighted, cannot be selected at the same time
+     */
+    isHighlighted?: boolean,
+
+    /**
      * MenuItem label
      */
     label: React.ReactNode,
