@@ -26,6 +26,12 @@
         background-color: var(--color-accent);
     }
 
+    &.moonstone-highlighted {
+        color: var(--color-light);
+
+        background-color: var(--color-gray60);
+    }
+
     &:focus {
         outline: none;
         box-shadow: inset 0 0 0 2px var(--color-accent);

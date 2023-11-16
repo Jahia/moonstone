@@ -1,8 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import './TreeView.scss';
-import {ControlledTreeViewProps} from './ControlledTreeView.types';
-import {TreeViewData} from './TreeView.types';
+import type {ControlledTreeViewProps, TreeViewData} from './TreeView.types';
 
 import {Loading, ChevronDown, ChevronRight, CheckboxChecked, CheckboxUnchecked} from '~/icons';
 import {Typography} from '~/components/Typography';
@@ -33,6 +32,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
         data,
         openedItems = [],
         selectedItems = [],
+        highlightedItems = [],
         showCheckbox = false,
         onClickItem = () => undefined,
         onDoubleClickItem = () => undefined,
@@ -55,6 +55,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
             const isOpen = Boolean(openedItems.includes(node.id)) || !isClosable;
             const isLoading = Boolean(node.isLoading);
             const isSelected = Boolean(selectedItems.includes(node.id));
+            const isHighlighted = Boolean(highlightedItems.includes(node.id) && !isSelected);
 
             // ---
             // Manage clicks events
@@ -93,6 +94,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                 {
                     'moonstone-small': size === 'small',
                     'moonstone-selected': isSelected && !showCheckbox,
+                    'moonstone-highlighted': isHighlighted,
                     'moonstone-reversed': isReversed,
                     'moonstone-disabled': node.isDisabled
                 }
@@ -103,7 +105,10 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                     itemComponent,
                     {
                         role: 'treeitem',
+                        'aria-selected': isSelected,
                         'aria-expanded': isOpen,
+                        'aria-busy': isLoading,
+                        'aria-current': isHighlighted ? 'page' : null,
                         key: `${depth}-${node.id}`,
                         style: {'--treeItem-depth': depth},
                         ...node.treeItemProps
@@ -129,7 +134,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                             onContextMenu={handleNodeContextMenu}
                         >
                             {showCheckbox ?
-                                (isSelected ? <CheckboxChecked className="moonstone-treeView_itemIconStart" role="checkbox" color="blue"/> : <CheckboxUnchecked className="moonstone-treeView_itemIconStart" role="checkbox"/>) :
+                                (isSelected ? <CheckboxChecked className="moonstone-treeView_itemIconStart" role="checkbox" color="blue" aria-checked="true"/> : <CheckboxUnchecked className="moonstone-treeView_itemIconStart" role="checkbox" aria-checked="false"/>) :
                                 (displayIcon(node.iconStart, 'small', 'moonstone-treeView_itemIconStart', parentHasIconStart))}
                             <Typography isNowrap
                                         className={clsx('flexFluid')}
@@ -149,7 +154,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
     }
 
     // TreeView component
-    return React.createElement(component, {ref, role: 'tree', ...props}, generateLevelJSX(data, 0, false));
+    return React.createElement(component, {ref, role: 'tree', 'aria-multiselectable': showCheckbox, ...props}, generateLevelJSX(data, 0, false));
 };
 
 export const ControlledTreeView = React.forwardRef(ControlledTreeViewForwardRef);

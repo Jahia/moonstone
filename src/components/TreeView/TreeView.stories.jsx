@@ -54,6 +54,10 @@ export const Selection = (args, {globals: {theme}}) => {
     );
 };
 
+export const Highlight = (args, {globals: {theme}}) => (
+    <TreeView {...args} data={treeData} isReversed={theme === 'dark'} highlightedItem="A"/>
+);
+
 export const Controlled = (args, {globals: {theme}}) => {
     const [openedItems, setOpenedItems] = useState([]);
     const handleOpen = node => {
