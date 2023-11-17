@@ -1,0 +1,27 @@
+.moonstone-checkboxItem[aria-disabled="true"],
+.moonstone-checkboxItem[aria-readonly="true"] {
+    cursor: default;
+    opacity: 0.4;
+
+    pointer-events: none;
+}
+
+.moonstone-checkboxItem {
+    cursor: pointer;
+
+    & + .moonstone-checkboxItem {
+        margin-top: var(--spacing-medium);
+    }
+}
+
+.moonstone-checkboxItem_label {
+    margin-left: var(--spacing-small);
+
+    color: var(--color-gray-dark);
+}
+
+.moonstone-checkboxItem_description {
+    margin-left: var(--spacing-large);
+
+    color: var(--color-gray60);
+}

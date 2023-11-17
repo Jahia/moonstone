@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Story} from '@storybook/react';
 
 import {Checkbox} from '~/components';
@@ -8,18 +8,18 @@ export default {
     title: 'Components/Checkbox',
     component: Checkbox,
     parameters: {
-        layout: 'centered',
-        actions: {argTypesRegex: '^on.*'}
+        layout: 'centered'
+        // When enabled, the controlledCheckbox doesn't work anymore. maybe it's fixed with storybook 7.4 (https://github.com/storybookjs/storybook/pull/23804)
+        // Actions: {argTypesRegex: '^on.*'}
     }
 };
 
 const Template: Story<CheckboxProps> = args => <Checkbox {...args}/>;
 
-export const DefaultControlled = Template.bind({});
-DefaultControlled.args = {
+export const Uncontrolled = Template.bind({});
+Uncontrolled.args = {
     'aria-label': 'default example checkbox'
 };
-DefaultControlled.storyName = 'Default and uncontrolled';
 
 export const Indeterminate = Template.bind({});
 Indeterminate.args = {
@@ -27,3 +27,18 @@ Indeterminate.args = {
     'aria-label': 'indeterminate example checkbox'
 };
 
+export const Controlled: Story<CheckboxProps> = args => {
+    const [checked, setChecked] = useState(false);
+
+    const handleOnChange = () => {
+        setChecked(!checked);
+    };
+
+    return (
+        <Checkbox
+            checked={checked}
+            onChange={() => handleOnChange()}
+            {...args}
+        />
+    );
+};

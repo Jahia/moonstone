@@ -1,7 +1,11 @@
 $radio-sizeDefault: 16px;
 
-.moonstone-radio-container + .moonstone-radio-container {
-    margin-top: var(--spacing-medium);
+.moonstone-radio-container {
+    cursor: pointer;
+
+    & + .moonstone-radio-container {
+        margin-top: var(--spacing-medium);
+    }
 }
 
 .moonstone-radio-container[aria-disabled="true"],
