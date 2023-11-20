@@ -1,3 +1,26 @@
+# v2.6.0 (Mon Nov 20 2023)
+
+#### 🚀 Enhancement
+
+- MOON-404: Add CheckboxItem and CheckboxGroup components [#399](https://github.com/Jahia/moonstone/pull/399) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-351: Add highlight state for TreeView and MenuItem [#401](https://github.com/Jahia/moonstone/pull/401) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🔩 Dependency Updates
+
+- Bump @babel/runtime from 7.22.6 to 7.23.2 [#396](https://github.com/Jahia/moonstone/pull/396) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@ffffffelix](https://github.com/ffffffelix))
+- Bump @babel/traverse from 7.16.3 to 7.23.3 [#400](https://github.com/Jahia/moonstone/pull/400) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@ffffffelix](https://github.com/ffffffelix))
+- Bump re-resizable from 6.9.9 to 6.9.11 [#392](https://github.com/Jahia/moonstone/pull/392) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@ffffffelix](https://github.com/ffffffelix))
+- Bump @jahia/scripts from 1.2.0 to 1.3.3 [#389](https://github.com/Jahia/moonstone/pull/389) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@ffffffelix](https://github.com/ffffffelix))
+- Bump browserify-sign from 4.2.1 to 4.2.2 [#398](https://github.com/Jahia/moonstone/pull/398) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump word-wrap from 1.2.3 to 1.2.4 [#390](https://github.com/Jahia/moonstone/pull/390) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.5.12 (Wed Jul 12 2023)
 
 #### 🐛 Bug Fix
