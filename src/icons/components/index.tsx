@@ -176,6 +176,7 @@ export {default as Setting} from './Setting';
 export {default as Share} from './Share';
 export {default as SiteSettingsPublication} from './SiteSettingsPublication';
 export {default as SiteWeb} from './SiteWeb';
+export {default as Sitemap} from './Sitemap';
 export {default as Star} from './Star';
 export {default as Studio} from './Studio';
 export {default as Subdirectory} from './Subdirectory';
