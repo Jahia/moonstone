@@ -1,3 +1,15 @@
+# v2.6.1 (Fri Nov 24 2023)
+
+#### 🐛 Bug Fix
+
+- MOON-405: Add new icon Sitemap [#403](https://github.com/Jahia/moonstone/pull/403) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.6.0 (Mon Nov 20 2023)
 
 #### 🚀 Enhancement
