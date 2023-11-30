@@ -89,15 +89,9 @@ $button-size_big: 32px;
 
 .moonstone-button_loading {
     position: relative;
-
-    pointer-events: none;
-
-    > :not(.moonstone-button_loader) {
-        visibility: hidden;
-    }
 }
 
-.moonstone-loader.moonstone-button_loader {
+.moonstone-button .moonstone-button_loaderOverlay {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -105,4 +99,9 @@ $button-size_big: 32px;
     fill: var(--color-white);
 
     transform: translate(-50%, -50%);
+
+    // Hide siblings of the loader when it displays as overlay (Typography, iconEnd)
+    ~ * {
+        visibility: hidden;
+    }
 }

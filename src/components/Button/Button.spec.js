@@ -57,9 +57,27 @@ describe('Button', () => {
         expect(screen.getByTestId('moonstone-button')).toBeDisabled();
     });
 
-    it('should display a spinner when the button is loading', () => {
+    it('should display a loader when no icon is provided', () => {
         render(<Button isLoading data-testid="moonstone-button" label="test me"/>);
         expect(screen.getByRole('status')).toBeInTheDocument();
+    });
+
+    it('should display loader when an icon is provided', () => {
+        render(<Button isLoading icon={<Love/>} label="test me"/>);
+        expect(screen.getByRole('status')).toBeInTheDocument();
+    });
+
+    it('should prevent click when the button is loading', () => {
+        const onClick = jest.fn();
+        render(<Button isLoading data-testid="moonstone-button" label="test me" onClick={onClick}/>);
+
+        userEvent.click(screen.getByTestId('moonstone-button'));
+        expect(onClick).not.toHaveBeenCalled();
+    });
+
+    it('should not display icon when the button is loading', () => {
+        render(<Button isLoading icon={<Love data-testid="moonstone-buttonIcon"/>} label="test me"/>);
+        expect(screen.queryByTestId('moonstone-buttonIcon')).not.toBeInTheDocument();
     });
 
     test.each(buttonVariants)('should use the specified variant %s', variant => {
