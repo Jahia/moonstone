@@ -1,3 +1,16 @@
+# v2.6.2 (Thu Nov 30 2023)
+
+#### 🐛 Bug Fix
+
+- MOON-408: Improve button loading state [#406](https://github.com/Jahia/moonstone/pull/406) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-406: Set SecondaryNav min-width to 300px [#404](https://github.com/Jahia/moonstone/pull/404) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.6.1 (Fri Nov 24 2023)
 
 #### 🐛 Bug Fix
