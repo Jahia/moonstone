@@ -53,12 +53,14 @@ export const Button = ({
                 className
             )}
             type="button"
-            disabled={isDisabled}
+            disabled={isDisabled || isLoading}
             onClick={e => handleOnClick(e)}
             {...props}
         >
-            {isLoading && <Loader size="small" isReversed={LoaderReversed} className={clsx('moonstone-button_loader')}/>}
-            {icon && <icon.type {...icon.props} size={(size === 'big') ? 'default' : size}/>}
+            {/* Display icon when an icon is provided */}
+            {icon && !isLoading && <icon.type {...icon.props} size={(size === 'big') ? 'default' : size}/>}
+            {/* When the button has an icon the loader replaces the icon otherwise we display the loader as overlay */}
+            {isLoading && <Loader size="small" isReversed={LoaderReversed} className={clsx({'moonstone-button_loaderOverlay': !icon})}/>}
             {label && (
                 <Typography
                     isNowrap
