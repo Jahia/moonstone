@@ -20,7 +20,7 @@ export type CheckboxGroupProps = {
     /**
      * Function triggered on change of all CheckboxItems. That function is not replaced the onChange function set on a CheckboxItem, In that case both functions will be executed.
      */
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>, value: String, checked: boolean) => void;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>, value: string, checked: boolean) => void;
 
     /**
      * Whether the checkboxes should be disabled
@@ -42,7 +42,7 @@ export type CheckboxGroupContextProps = {
     /**
      * Function triggered on change of the checkboxes
      */
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>, value: String, checked: boolean) => void;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>, value: string, checked: boolean) => void;
 
     /**
      * Whether all CheckboxItems should be disabled
