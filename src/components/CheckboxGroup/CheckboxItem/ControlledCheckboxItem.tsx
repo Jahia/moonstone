@@ -6,7 +6,7 @@ import {Checkbox, Typography} from '~/components';
 import {CheckboxGroupContext} from '../CheckboxGroup.context';
 import type {CheckboxItemProps} from './CheckboxItem.types';
 
-export const ControlledCheckboxItem: React.FC<CheckboxItemProps> = ({className, id, value, label, description, isDisabled, isReadOnly, onChange, name, ...props}) => {
+export const ControlledCheckboxItem: React.FC<CheckboxItemProps> = ({className, id, value, label, description, isDisabled, isReadOnly, onChange, name, checked, ...props}) => {
     const context = React.useContext(CheckboxGroupContext);
 
     const isDisabledItem = (typeof context === 'undefined') ? isDisabled : context.isDisabled;
@@ -30,13 +30,17 @@ export const ControlledCheckboxItem: React.FC<CheckboxItemProps> = ({className, 
                     isReadOnly={isReadOnlyItem}
                     isDisabled={isDisabledItem}
                     name={nameItem}
-                    onChange={event => {
+                    checked={checked}
+                    onChange={(event, val, isChecked) => {
+                        console.log('controlled checkboxItem');
+                        console.log(val);
+
                         if (typeof context?.onChange !== 'undefined') {
-                            context.onChange(event);
+                            context.onChange(event, val, isChecked);
                         }
 
                         if (typeof onChange !== 'undefined') {
-                            onChange(event);
+                            onChange(event, val, isChecked);
                         }
                     }}
                     {...props}

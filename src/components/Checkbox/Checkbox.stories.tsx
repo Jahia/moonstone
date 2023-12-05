@@ -28,16 +28,18 @@ Indeterminate.args = {
 };
 
 export const Controlled: Story<CheckboxProps> = args => {
-    const [checked, setChecked] = useState(false);
+    // Const [checked, setChecked] = useState(false);
 
-    const handleOnChange = () => {
-        setChecked(!checked);
+    const handleOnChange = (e, value?: string, isChecked?: boolean) => {
+        console.log(`value: ${value}`);
+        console.log(`checked: ${isChecked}`);
     };
 
     return (
         <Checkbox
-            checked={checked}
-            onChange={() => handleOnChange()}
+            defaultChecked={false}
+            value="test"
+            onChange={(e, val, isChecked) => handleOnChange(e, val, isChecked)}
             {...args}
         />
     );

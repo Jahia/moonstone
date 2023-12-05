@@ -7,6 +7,8 @@ import './Checkbox.scss';
 export const ControlledCheckbox: React.FC<CheckboxProps> = ({className, checked = false, indeterminate = false, size = 'default', isDisabled, isReadOnly, ...props}) => {
     const inputRef = useRef<HTMLInputElement>(null);
 
+    console.log('test Controlled checkbox');
+
     return (
         <div className={clsx('moonstone-checkbox', className)}>
             <input

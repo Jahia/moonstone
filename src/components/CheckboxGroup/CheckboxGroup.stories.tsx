@@ -23,8 +23,13 @@ export default {
 } as ComponentMeta<typeof CheckboxGroup>;
 
 const Template: ComponentStory<typeof CheckboxGroup> = args => {
+    const handleChange = (e, val, isChecked) => {
+        console.log(val);
+        console.log(isChecked);
+    };
+
     return (
-        <CheckboxGroup {...args}>
+        <CheckboxGroup {...args} onChange={handleChange}>
             <CheckboxItem
                 id="cat"
                 label="Cat"

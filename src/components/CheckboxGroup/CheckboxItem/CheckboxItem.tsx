@@ -6,6 +6,7 @@ import {ControlledCheckboxItem} from './ControlledCheckboxItem';
 
 export const CheckboxItem: React.FC<CheckboxItemProps> = ({checked, ...props}) => {
     if (typeof checked === 'undefined') {
+        console.log('call uncontrolled checkboxItem');
         return <UncontrolledCheckboxItem {...props}/>;
     }
 

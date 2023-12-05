@@ -48,8 +48,13 @@ Controlled.args = {
 };
 
 export const Playground: Story<CheckboxItemProps> = args => {
+    const handleChange = (e, value, isChecked) => {
+        console.log(value);
+        console.log(isChecked);
+    };
+
     return (
-        <CheckboxItem {...args}/>
+        <CheckboxItem {...args} onChange={handleChange}/>
     );
 };
 
