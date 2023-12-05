@@ -11,9 +11,10 @@ export const UncontrolledCheckbox: React.FC<CheckboxProps> = ({defaultChecked = 
             {...props}
             checked={checked}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                setChecked(!checked);
-                if (typeof onChange !== 'undefined') {
-                    onChange(event);
+                const toggleChecked = !checked;
+                setChecked(toggleChecked);
+                if (typeof onChange === 'function') {
+                    onChange(event, toggleChecked);
                 }
             }}
         />

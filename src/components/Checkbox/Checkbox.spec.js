@@ -17,13 +17,24 @@ describe('Checkbox', () => {
         expect(screen.getByRole('checkbox')).toHaveAttribute('data-custom', customAttribute);
     });
 
-    it('should call onChange function', () => {
-        const handleOnChange = jest.fn();
-        render(<Checkbox data-testid="moonstone-checkbox" onChange={event => handleOnChange(event)}/>);
+    it('should call onChange function with checked status', () => {
+        const handleOnChange = jest.fn((_, checked) => checked);
+        render(<Checkbox data-testid="moonstone-checkbox" onChange={handleOnChange}/>);
         const checkbox = screen.getByTestId('moonstone-checkbox');
 
         userEvent.click(checkbox);
         expect(handleOnChange).toHaveBeenCalled();
+        expect(handleOnChange).toHaveReturnedWith(true); // Checkbox has been checked
+    });
+
+    it('should call onChange function with checked status for controlled', () => {
+        const handleOnChange = jest.fn((_, checked) => checked);
+        render(<Checkbox data-testid="moonstone-checkbox" checked onChange={handleOnChange}/>);
+        const checkbox = screen.getByTestId('moonstone-checkbox');
+
+        userEvent.click(checkbox);
+        expect(handleOnChange).toHaveBeenCalled();
+        expect(handleOnChange).toHaveReturnedWith(false); // Checkbox has been unchecked
     });
 
     it('should check off when clicked on', () => {
