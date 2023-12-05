@@ -79,7 +79,7 @@ describe('CheckboxGroup', () => {
         render(
             <CheckboxGroup name="test-grouped-checkboxes" onChange={handleOnChange}>
                 <CheckboxItem id="checkbox-01" label="checkbox 01" value="01"/>
-                <CheckboxItem id="checkbox-02" label="checkbox 02" checked value="02"/>
+                <CheckboxItem checked id="checkbox-02" label="checkbox 02" value="02"/>
             </CheckboxGroup>
         );
         userEvent.click(screen.getByLabelText('checkbox 01'));

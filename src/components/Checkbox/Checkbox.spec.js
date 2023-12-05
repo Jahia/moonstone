@@ -29,7 +29,7 @@ describe('Checkbox', () => {
 
     it('should call onChange function with checked status for controlled', () => {
         const handleOnChange = jest.fn((_, checked) => checked);
-        render(<Checkbox data-testid="moonstone-checkbox" checked onChange={handleOnChange}/>);
+        render(<Checkbox checked data-testid="moonstone-checkbox" onChange={handleOnChange}/>);
         const checkbox = screen.getByTestId('moonstone-checkbox');
 
         userEvent.click(checkbox);
