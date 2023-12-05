@@ -75,15 +75,21 @@ describe('CheckboxGroup', () => {
     });
 
     it('should call onChange function', () => {
-        const handleOnChange = jest.fn();
+        const handleOnChange = jest.fn((ev, value, checked) => [value, checked]);
         render(
-            <CheckboxGroup name="test-grouped-checkboxes" onChange={() => handleOnChange()}>
+            <CheckboxGroup name="test-grouped-checkboxes" onChange={handleOnChange}>
                 <CheckboxItem id="checkbox-01" label="checkbox 01" value="01"/>
-                <CheckboxItem id="checkbox-02" label="checkbox 02" value="02"/>
+                <CheckboxItem id="checkbox-02" label="checkbox 02" checked value="02"/>
             </CheckboxGroup>
         );
         userEvent.click(screen.getByLabelText('checkbox 01'));
+        expect(handleOnChange).toHaveBeenCalled();
+        expect(handleOnChange).toHaveReturnedWith(['01', true]);
+
         userEvent.click(screen.getByLabelText('checkbox 02'));
+        expect(handleOnChange).toHaveBeenCalled();
+        expect(handleOnChange).toHaveReturnedWith(['02', false]);
+
         expect(handleOnChange).toHaveBeenCalledTimes(2);
     });
 });

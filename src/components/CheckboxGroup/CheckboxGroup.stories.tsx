@@ -23,8 +23,12 @@ export default {
 } as ComponentMeta<typeof CheckboxGroup>;
 
 const Template: ComponentStory<typeof CheckboxGroup> = args => {
+    const onChange = (ev: React.ChangeEvent<HTMLInputElement>, value: string, checked: boolean) => {
+        console.log(`${value} - ${checked}`)
+    }
+
     return (
-        <CheckboxGroup {...args}>
+        <CheckboxGroup onChange={onChange} {...args}>
             <CheckboxItem
                 id="cat"
                 label="Cat"

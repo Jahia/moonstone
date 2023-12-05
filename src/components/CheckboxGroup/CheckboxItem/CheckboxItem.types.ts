@@ -64,5 +64,5 @@ export type CheckboxItemProps = {
     /**
      * Function triggered when the CheckboxItem changes state
      */
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>, value: String, checked: boolean) => void;
 }
