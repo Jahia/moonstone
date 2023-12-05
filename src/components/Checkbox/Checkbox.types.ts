@@ -54,7 +54,7 @@ export type CheckboxProps = {
     /**
      * Function triggered on change of the checkbox value
      */
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>, value: string, checked: boolean) => void;
 
     /**
      * Function triggered on focus of the checkbox value

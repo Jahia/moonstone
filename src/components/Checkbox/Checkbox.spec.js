@@ -18,23 +18,23 @@ describe('Checkbox', () => {
     });
 
     it('should call onChange function with checked status', () => {
-        const handleOnChange = jest.fn((_, checked) => checked);
-        render(<Checkbox data-testid="moonstone-checkbox" onChange={handleOnChange}/>);
+        const handleOnChange = jest.fn((_, value, checked) => [value, checked]);
+        render(<Checkbox data-testid="moonstone-checkbox" value="my-value" onChange={handleOnChange}/>);
         const checkbox = screen.getByTestId('moonstone-checkbox');
 
         userEvent.click(checkbox);
         expect(handleOnChange).toHaveBeenCalled();
-        expect(handleOnChange).toHaveReturnedWith(true); // Checkbox has been checked
+        expect(handleOnChange).toHaveReturnedWith(['my-value', true]); // Checkbox has been checked
     });
 
     it('should call onChange function with checked status for controlled', () => {
-        const handleOnChange = jest.fn((_, checked) => checked);
+        const handleOnChange = jest.fn((_, value, checked) => [value, checked]);
         render(<Checkbox checked data-testid="moonstone-checkbox" onChange={handleOnChange}/>);
         const checkbox = screen.getByTestId('moonstone-checkbox');
 
         userEvent.click(checkbox);
         expect(handleOnChange).toHaveBeenCalled();
-        expect(handleOnChange).toHaveReturnedWith(false); // Checkbox has been unchecked
+        expect(handleOnChange).toHaveReturnedWith([undefined, false]); // Checkbox has been unchecked, no value specified
     });
 
     it('should check off when clicked on', () => {
