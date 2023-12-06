@@ -62,7 +62,7 @@ export const Controlled: ComponentStory<typeof ListSelector> = args => {
         <ListSelector {...args}
                       label={{
                         rightListTitle: 'Label for the right list',
-                        // LeftListTitle: 'Label for the left list',
+                        leftListTitle: 'Label for the left list',
                         addAllTitle: 'Add all',
                         removeAllTitle: 'Remove all',
                         selected: `${arrayValue.length} item(s) selected`
