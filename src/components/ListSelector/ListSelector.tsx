@@ -14,6 +14,8 @@ const MLRS_DRAG = 'mlrs_drag_list_item';
 
 export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
     label = {
+        rightListTitle: '',
+        leftListTitle: '',
         addAllTitle: 'Add all',
         removeAllTitle: 'Remove all',
         selected: '0 items selected'
@@ -25,6 +27,8 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
     ...props
 }) => {
     const [dragged, setDragged] = useState(null);
+    const hasTitle = label?.rightListTitle?.length > 0 || label?.leftListTitle?.length > 0;
+
     // This tracks drag operation without delay and prevents NPE, if we ever experience issues with this, 'dragged' will need to live in this ref
     // like it did before, but so far state updates are pretty fast and I did not see any issues.
     const [filterLeft, setFilterLeft] = useState(null);
@@ -47,8 +51,12 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
     }
 
     return (
-        <div className={clsx('flexRow_nowrap', 'moonstone-multipleSelector')} {...props}>
-            <div>
+        <div className={clsx('flexRow_nowrap', 'moonstone-listSelector')} {...props}>
+            <div className="moonstone-listSelector_left flexCol_nowrap flexFluid">
+                {hasTitle &&
+                    <header className="moonstone-listSelector_title flexRow alignCenter">
+                        <Typography isNowrap component="h3" weight="bold">{label?.leftListTitle}</Typography>
+                    </header>}
                 <ValueList values={valuesLeft}
                            role="left-list"
                            iconEnd={<ChevronRight className="moonstone-displayNone"/>}
@@ -93,25 +101,27 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
 
                 />
             </div>
-            <div className="moonstone-buttonSection">
-                <div className="moonstone-buttons">
-                    <Button title={label.addAllTitle}
-                            role="add-all"
-                            variant="ghost"
-                            isDisabled={isReadOnly || valuesLeft.length === 0}
-                            icon={<ChevronDoubleRight/>}
-                            onClick={() => onChange([...valuesRight, ...valuesLeft].map(o => o.value))}
+            <div className="moonstone-listSelector_buttons alignCenter flexCol_center">
+                <Button title={label.addAllTitle}
+                        role="add-all"
+                        variant="ghost"
+                        isDisabled={isReadOnly || valuesLeft.length === 0}
+                        icon={<ChevronDoubleRight/>}
+                        onClick={() => onChange([...valuesRight, ...valuesLeft].map(o => o.value))}
                     />
-                    <Button title={label.removeAllTitle}
-                            role="remove-all"
-                            variant="ghost"
-                            isDisabled={isReadOnly || valuesRight.length === 0}
-                            icon={<ChevronDoubleLeft/>}
-                            onClick={() => onChange(values.filter(v => !valuesRight.find(o => o.value === v)))}
+                <Button title={label.removeAllTitle}
+                        role="remove-all"
+                        variant="ghost"
+                        isDisabled={isReadOnly || valuesRight.length === 0}
+                        icon={<ChevronDoubleLeft/>}
+                        onClick={() => onChange(values.filter(v => !valuesRight.find(o => o.value === v)))}
                     />
-                </div>
             </div>
-            <div>
+            <div className="moonstone-listSelector_right flexCol_nowrap flexFluid">
+                {hasTitle &&
+                <header className="moonstone-listSelector_title flexRow alignCenter">
+                    <Typography isNowrap component="h3" weight="bold">{label?.rightListTitle}</Typography>
+                </header>}
                 <ValueList values={valuesRight}
                            role="right-list"
                            iconEnd={<Close className="moonstone-displayNone"/>}
@@ -150,7 +160,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                                    const clientOffset = {x: e.clientX, y: e.clientY};
                                    const targetMidPointY = rect.y + (rect.height / 2);
                                    let newIndex = -1;
-                                   if (value && dragged.value.value !== value.value) {
+                                   if (typeof value !== 'undefined' && dragged.value.value !== value.value) {
                                        if (clientOffset.y < targetMidPointY) {
                                            newIndex = valuesRight.filter(f => f.value !== dragged.value.value).indexOf(value);
                                        }
@@ -159,7 +169,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                                        if (clientOffset.y > targetMidPointY) {
                                            newIndex = valuesRight.filter(f => f.value !== dragged.value.value).indexOf(value) + 1;
                                        }
-                                   } else if (!value) {
+                                   } else if (typeof value === 'undefined') {
                                        newIndex = valuesRight.length;
                                    }
 
@@ -180,11 +190,9 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                                }
                            }}
                 />
-                <div className="moonstone-captionContainer">
-                    <Typography variant="caption" weight="semiBold">
-                        {values.length > 0 && label.selected}
-                    </Typography>
-                </div>
+                <footer className="moonstone-listSelector_footer flexRow alignCenter">
+                    {values.length > 0 && <Typography variant="caption" weight="semiBold">{label.selected}</Typography>}
+                </footer>
             </div>
         </div>
     );

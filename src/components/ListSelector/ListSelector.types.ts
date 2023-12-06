@@ -12,6 +12,14 @@ export type Option = {
 
 export type Label = {
     /**
+     * Title of the right list
+     */
+    rightListTitle?: string,
+    /**
+     * Title of the left list
+     */
+    leftListTitle?: string,
+    /**
      * Add all button title
      */
     addAllTitle: string,
