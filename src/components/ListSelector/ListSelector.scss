@@ -1,25 +1,34 @@
-.moonstone-multipleSelector {
-    .moonstone-buttonSection {
-        display: flex;
-        align-items: center;
-        width: var(--spacing-big);
-        padding: var(--spacing-small);
+$footerHeight: 24px;
+$gap: 8px;
 
-        .moonstone-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-    }
-
-    .moonstone-captionContainer {
-        min-height: calc(var(--spacing-medium) * 2);
-        margin-top: var(--spacing-small);
-
-        color: var(--color-gray60);
-    }
-
+.moonstone-listSelector {
     .moonstone-draggedOver {
         outline: solid 2px var(--color-accent);
     }
+}
+
+.moonstone-listSelector_buttons {
+    gap: 16px;
+    width: var(--spacing-big);
+    margin-bottom: $footerHeight + $gap;
+    padding: var(--spacing-small);
+}
+
+.moonstone-listSelector_title {
+    height: 24px;
+}
+
+.moonstone-listSelector_left,
+.moonstone-listSelector_right {
+    gap: $gap;
+}
+
+.moonstone-listSelector_left {
+    margin-bottom: $footerHeight + $gap;
+}
+
+.moonstone-listSelector_footer {
+    height: $footerHeight;
+
+    color: var(--color-gray60);
 }
