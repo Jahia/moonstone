@@ -1,7 +1,6 @@
 import React from 'react';
 import {ListItem, SearchInput} from '~/components';
 import {HandleDrag} from '~/icons';
-import cslx from 'clsx';
 import clsx from 'clsx';
 import {ValueListProps} from './ValueList.types';
 import './ValueList.scss';
@@ -21,11 +20,10 @@ export const ValueList: React.FC<ValueListProps> = ({
     onDrop
 }) => {
     return (
-        <div className={cslx('flexCol', 'moonstone-wrapper')}>
-            <div className={clsx('flexCol', 'moonstone-listHolder')}>
-                <SearchInput onChange={e => setFilter(e.target.value.trim())}/>
-                <ul className={clsx('moonstone-valueList', ...listClasses)} onDragOver={e => onDragOver(e, null)} onDrop={e => onDrop(e, null)}>
-                    {values.map(v => {
+        <div className="flexCol moonstone-valueList_wrapper">
+            <SearchInput onChange={e => setFilter(e.target.value.trim())}/>
+            <ul className={clsx('moonstone-valueList', ...listClasses)} onDragOver={e => onDragOver(e, null)} onDrop={e => onDrop(e, null)}>
+                {values.map(v => {
                         const classNames = ['moonstone-valueListItem'];
                         if (draggedId === v.value && v.tempItem) {
                             classNames.push('moonstone-noHoveEffect', 'moonstone-noOpacity');
@@ -77,8 +75,7 @@ export const ValueList: React.FC<ValueListProps> = ({
                             />
                         );
                     })}
-                </ul>
-            </div>
+            </ul>
         </div>
     );
 };

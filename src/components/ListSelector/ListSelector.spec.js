@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, fireEvent} from '@testing-library/react';
+import {render, screen, fireEvent} from '@testing-library/react';
 import {ListSelector} from './index';
 
 describe('MultipleLeftRightSelector', () => {
@@ -72,5 +72,17 @@ describe('MultipleLeftRightSelector', () => {
         fireEvent.change(search, {target: {value: 'On'}});
 
         expect(container.querySelectorAll('li[role="left-list"]')).toHaveLength(1);
+    });
+
+    it('should display label for the list on the right', () => {
+        render(<ListSelector options={options} label={{rightListTitle: 'test right'}}/>);
+
+        expect(screen.getByText('test right')).toBeInTheDocument();
+    });
+
+    it('should display label for the list on the left', () => {
+        render(<ListSelector options={options} label={{leftListTitle: 'test left'}}/>);
+
+        expect(screen.getByText('test left')).toBeInTheDocument();
     });
 });
