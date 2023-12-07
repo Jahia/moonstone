@@ -1,3 +1,21 @@
+# v2.7.0 (Thu Dec 07 2023)
+
+#### 🚀 Enhancement
+
+- MOON-407: Add new component Pill [#409](https://github.com/Jahia/moonstone/pull/409) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-409: Add additional onChange params for Checkbox, CheckboxGroup [#407](https://github.com/Jahia/moonstone/pull/407) ([@gflores-jahia](https://github.com/gflores-jahia))
+
+#### 🐛 Bug Fix
+
+- MOON-402: Add optional titles on ListSelectors [#408](https://github.com/Jahia/moonstone/pull/408) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 2
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Geofrey Flores ([@gflores-jahia](https://github.com/gflores-jahia))
+
+---
+
 # v2.6.2 (Thu Nov 30 2023)
 
 #### 🐛 Bug Fix
