@@ -30,13 +30,13 @@ export const ControlledCheckboxItem: React.FC<CheckboxItemProps> = ({className, 
                     isReadOnly={isReadOnlyItem}
                     isDisabled={isDisabledItem}
                     name={nameItem}
-                    onChange={event => {
-                        if (typeof context?.onChange !== 'undefined') {
-                            context.onChange(event);
+                    onChange={(event, val, checked) => {
+                        if (typeof context?.onChange === 'function') {
+                            context.onChange(event, val, checked);
                         }
 
-                        if (typeof onChange !== 'undefined') {
-                            onChange(event);
+                        if (typeof onChange === 'function') {
+                            onChange(event, val, checked);
                         }
                     }}
                     {...props}
