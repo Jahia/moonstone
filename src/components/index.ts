@@ -15,6 +15,7 @@ export * from './IconTextIcon';
 export * from './ImgWrapper';
 export * from './Input';
 export * from './ListItem';
+export * from './ListItemChip';
 export * from './ListSelector';
 export * from './Loader';
 export * from './Menu';

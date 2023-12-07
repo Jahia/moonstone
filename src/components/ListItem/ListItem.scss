@@ -39,7 +39,7 @@ $big-image-size: 96px;
 .moonstone-listItem_iconEnd {
     display: flex;
     align-items: center;
-    width: 16px;
+    min-width: 16px;
     height: 16px;
 }
 

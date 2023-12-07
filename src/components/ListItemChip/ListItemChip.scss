@@ -1,0 +1,11 @@
+// empty
+.moonstone-listItemChip {
+    padding: 0 var(--spacing-nano);
+
+    border-radius: 2px;
+    background-color: var(--color-gray_light40);
+
+    &.moonstone-listItemChip_reversed {
+        color: var(--color-light);
+    }
+}
