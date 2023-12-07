@@ -1,4 +1,4 @@
-export type ListItemChipProps = {
+export type PillProps = {
     /**
      * ListItem label
      */

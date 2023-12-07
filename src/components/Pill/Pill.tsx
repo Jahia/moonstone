@@ -1,12 +1,12 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import type {ListItemChipProps} from './ListItemChip.types';
+import type {PillProps} from './Pill.types';
 
 import {Typography} from '~/components/Typography';
-import './ListItemChip.scss';
+import './Pill.scss';
 
-export const ListItemChip: React.FC<ListItemChipProps> = ({
+export const Pill: React.FC<PillProps> = ({
     label,
     className,
     isReversed,
@@ -17,7 +17,7 @@ export const ListItemChip: React.FC<ListItemChipProps> = ({
             component="span"
             variant="caption"
             weight="semiBold"
-            className={clsx('moonstone-listItemChip', {'moonstone-listItemChip_reversed': isReversed}, className)}
+            className={clsx('moonstone-pill', {'moonstone-pill_reversed': isReversed}, className)}
             {...props}
         >
             {label}
@@ -25,4 +25,4 @@ export const ListItemChip: React.FC<ListItemChipProps> = ({
     );
 };
 
-ListItemChip.displayName = 'ListItemChip';
+Pill.displayName = 'Pill';

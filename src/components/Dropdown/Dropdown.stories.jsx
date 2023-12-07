@@ -3,7 +3,7 @@ import {action} from '@storybook/addon-actions';
 import markdownNotes from './Dropdown.md';
 import {Dropdown} from './index';
 import {Love} from '~/icons';
-import {ListItemChip, Typography} from '~/components';
+import {Pill, Typography} from '~/components';
 import {
     dropdownData,
     dropdownDataDescriptions,
@@ -370,29 +370,29 @@ export const DropdownWithTreeMultiple = () => {
     );
 };
 
-export const DropdownWithChip = () => {
+export const DropdownWithPill = () => {
     const [currentOption, setCurrentOption] = useState([]);
 
     const dataLanguages = [
         {
             label: 'French',
             value: 'fr',
-            iconEnd: <ListItemChip label="FR"/>
+            iconEnd: <Pill label="FR"/>
         },
         {
             label: <>French <Typography component="span" variant="caption" style={{color: 'darkgray'}}>(Canadian)</Typography></>,
             value: 'fr_ca',
-            iconEnd: <ListItemChip label="FR_CA"/>
+            iconEnd: <Pill label="FR_CA"/>
         },
         {
             label: <>Language with very long long label label label label label label label name <Typography component="span" variant="caption" style={{color: 'darkgray'}}>(country name)</Typography></>,
             value: 'es',
-            iconEnd: <ListItemChip label="ES"/>
+            iconEnd: <Pill label="ES"/>
         },
         {
             label: 'English',
             value: 'en',
-            iconEnd: <ListItemChip label="EN"/>
+            iconEnd: <Pill label="EN"/>
         }
     ];
 
@@ -405,7 +405,7 @@ export const DropdownWithChip = () => {
     return (
         <Dropdown
             isReversed
-            icon={Object.keys(currentOption).length > 0 ? <ListItemChip label={currentOption.value.toUpperCase()}/> : null}
+            icon={Object.keys(currentOption).length > 0 ? <Pill label={currentOption.value.toUpperCase()}/> : null}
             label={currentOption.label}
             placeholder="Select something"
             value={currentOption.value}
