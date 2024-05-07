@@ -38,7 +38,7 @@ export type ListItemProps = {
     image?: React.ReactElement;
 
     /**
-     * If there's an image, it should be this size
+     * Sets pre-defined max height/width to image; defaults to small
      */
     imageSize?: 'small' | 'big';
 

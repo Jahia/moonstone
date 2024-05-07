@@ -10,28 +10,22 @@ $big-image-size: 96px;
 
     list-style: none;
 
-    .moonstone-listItem-image_small {
-        flex: 0 0 $small-image-size;
-        height: $small-image-size;
+    .moonstone-listItem-image {
         margin-right: var(--spacing-small);
 
-        img {
-            max-width: $small-image-size;
-            max-height: 100%;
+        & > * {
             margin: auto;
         }
     }
 
-    .moonstone-listItem-image_big {
-        flex: 0 0 $big-image-size;
-        height: $big-image-size;
-        margin-right: var(--spacing-small);
+    .moonstone-listItem-image_small > * {
+        max-width: $small-image-size;
+        max-height: $small-image-size;
+    }
 
-        img {
-            max-width: $big-image-size;
-            max-height: 100%;
-            margin: auto;
-        }
+    .moonstone-listItem-image_big > * {
+        max-width: $big-image-size;
+        max-height: $big-image-size;
     }
 }
 
