@@ -47,7 +47,7 @@ describe('ListItem', () => {
 
     it('should have default imageSize=small', () => {
         const Image = () => <img/>;
-        const {container} = render(<ListItem image={<Image/>}/>);
+        const {container} = render(<ListItem label="my label" image={<Image/>}/>);
         expect(container.querySelector('.moonstone-listItem-image_small')).toBeInTheDocument();
     });
 });

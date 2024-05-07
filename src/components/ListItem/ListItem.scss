@@ -13,23 +13,19 @@ $big-image-size: 96px;
     .moonstone-listItem-image {
         margin-right: var(--spacing-small);
 
-        img {
+        & > * {
             margin: auto;
         }
     }
 
-    .moonstone-listItem-image_small {
-        img {
-            max-width: $small-image-size;
-            max-height: $small-image-size;
-        }
+    .moonstone-listItem-image_small > * {
+        max-width: $small-image-size;
+        max-height: $small-image-size;
     }
 
-    .moonstone-listItem-image_big {
-        img {
-            max-width: $big-image-size;
-            max-height: $big-image-size;
-        }
+    .moonstone-listItem-image_big > * {
+        max-width: $big-image-size;
+        max-height: $big-image-size;
     }
 }
 
