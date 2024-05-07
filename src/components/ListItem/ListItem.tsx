@@ -32,7 +32,7 @@ export const ListItem: React.FC<ListItemProps> = ({
             {...props}
         >
             {isDisplayImage && (
-                <figure className={clsx(`moonstone-listItem-image_${imageSize}`, 'flexRow', 'alignCenter')}>
+                <figure className={clsx(`moonstone-listItem-image moonstone-listItem-image_${imageSize}`, 'flexRow', 'alignCenter')}>
                     {image}
                 </figure>
             )}
