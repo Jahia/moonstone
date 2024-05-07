@@ -45,8 +45,9 @@ describe('ListItem', () => {
         expect(handleClick).toBeCalled();
     });
 
-    it('should have default imageSize ', () => {
-        const {container} = render(<ListItem data-testid="moonstone-listItem" label="my label"/>);
-        expect(container.querySelector('.moonstone-listItem moonstone-listItem-image_small').exists()).toBeTruthy();
+    it('should have default imageSize=small', () => {
+        const Image = () => <img/>;
+        const {container} = render(<ListItem image={<Image/>}/>);
+        expect(container.querySelector('.moonstone-listItem-image_small')).toBeInTheDocument();
     });
 });
