@@ -11,7 +11,7 @@ export const ListItem: React.FC<ListItemProps> = ({
     iconEnd = null,
     tabIndex,
     image,
-    imageSize,
+    imageSize = 'small',
     className = '',
     typographyVariant = 'caption',
     iconSize = 'small',
