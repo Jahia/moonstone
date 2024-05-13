@@ -1,3 +1,17 @@
+# v2.7.1 (Mon May 13 2024)
+
+#### 🐛 Bug Fix
+
+- MOON-416: Fix release [#417](https://github.com/Jahia/moonstone/pull/417) ([@ffffffelix](https://github.com/ffffffelix))
+- BACKLOG-22393: Allow variable image sizes for Dropdown [#416](https://github.com/Jahia/moonstone/pull/416) ([@gflores-jahia](https://github.com/gflores-jahia))
+
+#### Authors: 2
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Geofrey Flores ([@gflores-jahia](https://github.com/gflores-jahia))
+
+---
+
 # v2.7.0 (Thu Dec 07 2023)
 
 #### 🚀 Enhancement
