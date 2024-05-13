@@ -67,6 +67,14 @@ describe('TreeView', () => {
         expect(container.getElementsByClassName('reversed')).toBeTruthy();
     });
 
+    it('should have aria-level attribute', () => {
+        render(<TreeView openedItems={['A']} data={tree}/>);
+
+        expect(screen.getAllByRole('treeitem').length).toBe(2);
+        expect(screen.getAllByRole('treeitem')[0]).toHaveAttribute('aria-level', '0');
+        expect(screen.getAllByRole('treeitem')[1]).toHaveAttribute('aria-level', '1');
+    });
+
     it('should select item set with selectedItems', () => {
         render(<TreeView data={tree} selectedItems={['A']}/>);
         expect(screen.getByRole('treeitem', {selected: true})).toHaveTextContent('A level1');
