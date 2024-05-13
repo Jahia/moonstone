@@ -71,7 +71,7 @@
         "@types/to-px": "^1.1.2",
         "@typescript-eslint/eslint-plugin": "^5.32.0",
         "@typescript-eslint/parser": "^5.32.0",
-        "auto": "^10.37.4",
+        "auto": "^11.1.6",
         "babel-eslint": "^10.1.0",
         "babel-jest": "^27.4.2",
         "babel-loader": "^8.2.3",
