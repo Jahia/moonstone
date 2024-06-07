@@ -269,3 +269,5 @@ dist/
 yalc.lock
 .yalc
 *.iml
+/.settings/
+/.project
