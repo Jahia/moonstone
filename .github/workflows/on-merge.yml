@@ -50,7 +50,6 @@ jobs:
           git merge master --ff-only
           git push -u origin develop
 
-
   sbom:
     name: SBOM processing
     needs: release-publish
