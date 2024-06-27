@@ -1,3 +1,17 @@
+# v2.7.2 (Thu Jun 27 2024)
+
+#### 🐛 Bug Fix
+
+- TECH-1270: Add SBOM creation [#418](https://github.com/Jahia/moonstone/pull/418) ([@bpapez](https://github.com/bpapez))
+- BACKLOG-21345: Add data attribute for tree item depth [#411](https://github.com/Jahia/moonstone/pull/411) ([@gflores-jahia](https://github.com/gflores-jahia))
+
+#### Authors: 2
+
+- Benjamin Papez ([@bpapez](https://github.com/bpapez))
+- Geofrey Flores ([@gflores-jahia](https://github.com/gflores-jahia))
+
+---
+
 # v2.7.1 (Mon May 13 2024)
 
 #### 🐛 Bug Fix
