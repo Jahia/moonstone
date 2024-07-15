@@ -34,6 +34,15 @@ jobs:
         shell: bash
         run: yarn build
 
+      - name: Archive SBOM
+        uses: actions/upload-artifact@v4
+        if: ${{ github.event_name != 'pull_request' }}
+        with:
+          name: sbom-artifacts
+          path: |
+            ${{ inputs.module_path }}**/bom/*
+          retention-days: ${{ inputs.github_artifact_retention }}
+          
       - name: Release and publish
         env:
           GITHUB_TOKEN: ${{ secrets.GH_API_TOKEN }}
@@ -61,4 +70,3 @@ jobs:
         with:
           dependencytrack_hostname: ${{ vars.DEPENDENCYTRACK_HOSTNAME }}
           dependencytrack_apikey: ${{ secrets.DEPENDENCYTRACK_APIKEY }}
-          sbom_artifacts: 'build-artifacts'
