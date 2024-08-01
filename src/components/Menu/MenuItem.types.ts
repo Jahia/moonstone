@@ -1,13 +1,5 @@
 import React from 'react';
 
-type MenuItemVariant = 'default' | 'title';
-export enum MenuItemVariants {
-    Default = 'default',
-    Title = 'title'
-}
-
-type MenuItemImageSize = 'small' | 'big';
-
 export type MenuItemProps = {
     /**
      * Additional classname
@@ -57,7 +49,7 @@ export type MenuItemProps = {
     /**
      * MenuItem variants
      */
-    variant?: MenuItemVariant,
+    variant?: 'default' | 'title',
 
     /**
      * Optional image to display to describe the menu item
@@ -67,7 +59,7 @@ export type MenuItemProps = {
     /**
      * If there's an image, it should be this size
      */
-    imageSize?: MenuItemImageSize,
+    imageSize?: 'small' | 'big',
 
     /**
      * Optional role for accessibility (e.g., if being used as an option in Dropdown)

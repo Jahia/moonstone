@@ -1,7 +1,6 @@
 import {ReactElement} from 'react';
 
 export type SvgWrapperSize = 'small' | 'default' | 'big';
-export const svgWrapperSizes = ['small', 'default', 'big'];
 
 export type SvgWrapperProps = {
     /**

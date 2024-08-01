@@ -1,5 +1,4 @@
-export type BadgeColor = 'accent' | 'success' | 'danger';
-export const badgeColors = ['accent', 'success', 'danger'];
+export const badgeColors = ['accent', 'success', 'danger'] as const;
 
 export type BadgeProps = {
     /**
@@ -10,7 +9,7 @@ export type BadgeProps = {
     /**
      * Badge color
      */
-    color?: BadgeColor;
+    color?: typeof badgeColors[number];
 
     /**
      * Additional classname

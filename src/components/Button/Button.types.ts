@@ -1,13 +1,13 @@
 import React from 'react';
 
-export type ButtonSize = 'small' | 'default' | 'big';
-export const buttonSizes = ['small', 'default', 'big'];
+export const buttonSizes = ['small', 'default', 'big'] as const;
+export type ButtonSize = typeof buttonSizes[number];
 
-export type ButtonVariant = 'default' | 'ghost' | 'outlined';
-export const buttonVariants = ['default', 'ghost', 'outlined'];
+export const buttonVariants = ['default', 'ghost', 'outlined'] as const;
+export type ButtonVariant = typeof buttonVariants[number];
 
-export type ButtonColor = 'default' | 'accent' | 'danger';
-export const buttonColors = ['default', 'accent', 'danger'];
+export const buttonColors = ['default', 'accent', 'danger'] as const;
+export type ButtonColor = typeof buttonColors[number];
 
 export type ButtonProps = {
     /**

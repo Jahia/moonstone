@@ -1,5 +1,4 @@
-export type ImgWrapperSize = 'small' | 'default' | 'big';
-export const imgWrapperSizes = ['small', 'default', 'big'];
+export const imgWrapperSizes = ['small', 'default', 'big'] as const;
 
 export type ImgWrapperProps = {
     /**
@@ -9,7 +8,7 @@ export type ImgWrapperProps = {
     /**
      * Image size
      */
-    size?: ImgWrapperSize;
+    size?: typeof imgWrapperSizes[number];
     /**
      * Extra CSS class
      */
