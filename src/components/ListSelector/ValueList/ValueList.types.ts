@@ -37,7 +37,7 @@ export type ValueListProps = {
      */
     draggedId?: string
     /**
-     * Read only
+     * Whether the component cannot be modified
      */
     isReadOnly?: boolean
     /**

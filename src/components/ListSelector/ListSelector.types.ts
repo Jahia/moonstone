@@ -46,7 +46,7 @@ export type ListSelectorSelectorProps = React.ComponentPropsWithoutRef<'div'> & 
      */
     values?: string[],
     /**
-     * Read only flag
+     * Whether the component cannot be modified
      */
     isReadOnly?: boolean,
     /**

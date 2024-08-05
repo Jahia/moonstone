@@ -5,7 +5,7 @@ export type PillProps = Omit<React.ComponentPropsWithoutRef<'span'>, 'className'
     label: string;
 
     /**
-     * Reversed style for dark background with light text
+     * Whether the component should use reversed colors, it useful with dark background
      */
     isReversed?: boolean;
 

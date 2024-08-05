@@ -16,7 +16,7 @@ export type MenuItemProps = Omit<ListItemProps, 'onClick' | 'onMouseEnter' | 'on
     isSelected?: boolean,
 
     /**
-     * Is item disabled
+     * Whether the component should be disabled
      */
     isDisabled?: boolean,
 

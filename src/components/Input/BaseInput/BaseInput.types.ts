@@ -17,7 +17,7 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
     placeholder?: string;
 
     /**
-     * Whether the input should be disabled
+     * Whether the component should be disabled
      */
     isDisabled?: boolean;
 

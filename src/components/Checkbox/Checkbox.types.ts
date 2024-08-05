@@ -7,7 +7,7 @@ export type BasicCheckboxProps = Omit<React.ComponentPropsWithRef<'input'>, 'val
     value?: string;
 
     /**
-     * Checkbox size
+     * Size of the Checkbox
      */
     size?: 'default' | 'big';
 
@@ -17,7 +17,7 @@ export type BasicCheckboxProps = Omit<React.ComponentPropsWithRef<'input'>, 'val
     className?: string;
 
     /**
-     * Whether the checkbox should be disabled
+     * Whether the component should be disabled
      */
     isDisabled?: boolean;
 

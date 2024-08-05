@@ -31,7 +31,7 @@ export default {
 
 const Template: Story<SearchInputProps> = args => (
     <section className="storyWrapper">
-        <SearchInput {...args}/>
+        <SearchInput {...args} />
     </section>
 );
 

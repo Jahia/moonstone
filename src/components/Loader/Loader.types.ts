@@ -10,7 +10,7 @@ export type LoaderProps = Omit<React.ComponentPropsWithoutRef<'svg'>, 'className
     size?: 'small' | 'medium' | 'big'
 
     /**
-     * When it's true the Loader uses the white color instead of the accent color
+     * Whether the component should use reversed colors, it useful with dark background
      */
     isReversed?: boolean
 }

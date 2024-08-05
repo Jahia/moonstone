@@ -35,7 +35,7 @@ export type TabItemProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'onCli
      */
     color?: TabItemColor;
     /**
-     * Is tabItem disabled
+     * Whether the component should be disabled
      */
     isDisabled?: boolean;
     /**
@@ -47,7 +47,7 @@ export type TabItemProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'onCli
      */
     onClick?: React.MouseEventHandler;
     /**
-     * Is tabItem color reversed
+     * Whether the component should use reversed colors, it useful with dark background
      */
     isReversed?: boolean;
     /**

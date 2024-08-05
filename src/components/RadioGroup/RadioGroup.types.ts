@@ -23,7 +23,7 @@ type BasicRadioGroupProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'childre
     onChange?: (event: React.ChangeEvent<HTMLInputElement>, value: string) => void;
 
     /**
-     * Whether the radio group should be disabled
+     * Whether the component should be disabled
      */
     isDisabled?: boolean;
 

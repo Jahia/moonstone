@@ -1,7 +1,9 @@
 import React from 'react';
-import {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
+import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
+import type {DropdownMenuProps} from '~/components/Dropdown/DropdownMenu.types';
+import type {MenuItemProps} from '~/components/Menu/MenuItem.types';
+
 import {Menu, MenuItem, Separator} from '~/components';
-import {DropdownMenuProps} from '~/components/Dropdown/DropdownMenu.types';
 import {CheckboxChecked, CheckboxUnchecked} from '~/icons';
 
 export const DropdownMenu: React.FC<DropdownMenuProps> = ({
@@ -45,7 +47,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
             imageSize={imageSize}
             onClick={e => handleSelect(e, item)}
             onKeyPress={e => handleKeyPress(e, item)}
-            {...item.attributes as MenuItem}
+            {...item.attributes as MenuItemProps}
         />
     );
 

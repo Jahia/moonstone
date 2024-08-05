@@ -1,22 +1,10 @@
 import * as React from 'react';
 import type {ButtonProps} from '~/components/Button/Button.types';
 
-export type BreadcrumbItemProps = Omit<ButtonProps, 'variant' | 'size'> & {
+export type BreadcrumbItemProps = Omit<ButtonProps, 'variant' | 'size' | 'label'> & {
     /**
-     * Additional classname
-     */
-    className?: string;
-    /**
-     * Additional classname
+     * Label of the BreadcrumbItem
      */
     label?: string;
-    /**
-     * Icon name, if it's empty the item has no icon
-     */
-    icon?: React.ReactElement;
-    /**
-     * Function trigger on click
-     */
-    onClick?: React.MouseEventHandler;
 }
 

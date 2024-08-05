@@ -27,7 +27,7 @@ export type RadioItemProps = Omit<React.ComponentPropsWithoutRef<'input'>, 'clas
     className?: string;
 
     /**
-     * Whether the radio should be disabled
+     * Whether the component should be disabled
      */
     isDisabled?: boolean;
 

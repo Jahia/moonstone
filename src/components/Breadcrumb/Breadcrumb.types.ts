@@ -1,4 +1,5 @@
 import * as React from 'react';
+import type {BreadcrumbItemProps} from './BreadcrumbItem/BreadcrumbItem.types';
 
 export type BreadcrumbProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'children'| 'className'> & {
     /**
@@ -6,8 +7,8 @@ export type BreadcrumbProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'child
      */
     className?: string;
     /**
-     * Content of the component
+     * BreadcrumbItems children
      */
-    children?: React.ReactNode;
+    children?: React.ReactElement<BreadcrumbItemProps> | React.ReactElement<BreadcrumbItemProps>[];
 }
 

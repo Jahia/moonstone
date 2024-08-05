@@ -75,7 +75,7 @@ export type DropdownProps = {
     imageSize?: DropdownImageSize;
 
     /**
-     * Dropdown is disabled
+     * Whether the component should be disabled
      */
     isDisabled?: boolean;
 

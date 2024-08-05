@@ -47,7 +47,7 @@ type BasicTreeViewProps = {
      */
     onContextMenuItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
     /**
-     * Reverse color useful for context with dark background
+     * Whether the component should use reversed colors, it useful with dark background
      */
     isReversed?: boolean;
     /**
