@@ -1,8 +1,8 @@
 import React, {useState, ChangeEvent} from 'react';
-import {BaseInputProps} from './BaseInput.types';
+import type {UncontrolledBaseInputProps} from './BaseInput.types';
 import {ControlledBaseInput} from './ControlledBaseInput';
 
-export const UncontrolledBaseInput: React.FC<BaseInputProps> = ({defaultValue, onChange, ...props}) => {
+export const UncontrolledBaseInput: React.FC<UncontrolledBaseInputProps> = ({defaultValue, onChange, ...props}) => {
     const [inputValue, setBaseInputValue] = useState(defaultValue);
 
     const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {

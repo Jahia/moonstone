@@ -1,4 +1,4 @@
-export type PillProps = {
+export type PillProps = Omit<React.ComponentPropsWithoutRef<'span'>, 'className'> & {
     /**
      * ListItem label
      */

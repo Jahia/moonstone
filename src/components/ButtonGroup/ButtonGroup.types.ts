@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {ButtonSize, ButtonColor, ButtonVariant} from '~/components/Button/Button.types';
+import type {ButtonSize, ButtonColor, ButtonVariant} from '~/components/Button/Button.types';
 
-export type ButtonGroupProps = {
+export type ButtonGroupProps = Omit<React.ComponentPropsWithRef<'div'>, 'children' | 'className'> & {
     /**
      * Buttons grouped
      */

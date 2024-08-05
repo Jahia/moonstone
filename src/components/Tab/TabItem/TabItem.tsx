@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import './TabItem.scss';
-import {TabItemProps} from './TabItem.types';
+import type {TabItemProps} from './TabItem.types';
 import {Typography} from '~/components/Typography';
 
 export const TabItem: React.FC<TabItemProps> = ({

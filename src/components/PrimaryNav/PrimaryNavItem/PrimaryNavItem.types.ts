@@ -1,6 +1,7 @@
 import * as React from 'react';
-import {BadgeProps} from '~/components/Badge/Badge.types';
-import {TypographyVariant} from '~/components/Typography/Typography.types';
+
+import type {BadgeProps} from '~/components/Badge/Badge.types';
+import type {TypographyVariant} from '~/components/Typography/Typography.types';
 
 export type ItemProps = {
     label?: string;
@@ -18,7 +19,7 @@ export type ItemTypeResolverProps = {
     button?: React.ReactNode;
 };
 
-export type PrimaryNavItemProps = {
+export type PrimaryNavItemProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'onClick' | 'className'> & {
     /**
      * Label
      */

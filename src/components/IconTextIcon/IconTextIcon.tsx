@@ -1,12 +1,12 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import {IconTextIconProps} from './IconTextIcon.types';
+import type {IconTextIconProps} from './IconTextIcon.types';
 import './IconTextIcon.scss';
 import {Typography} from '~/components';
 
-export const IconTextIcon: React.FC<IconTextIconProps> = ({
-    component = 'div',
+export const IconTextIcon = <C extends React.ElementType = 'div'> ({
+    component,
     iconStart,
     iconEnd,
     iconSize = 'default',
@@ -14,43 +14,40 @@ export const IconTextIcon: React.FC<IconTextIconProps> = ({
     className,
     children,
     ...props
-}) => {
-    // Default Typography component props to use. Can be overwritten through
-    // the use of the typographyProps property
-    const typoProps = {component: 'span', ...typographyProps};
+}:IconTextIconProps<C>) => {
+    const Component = component || 'div';
 
-    return React.createElement(
-        component,
-        {
-            className: clsx('moonstone-IconTextIcon', 'flexRow_nowrap', 'alignCenter', className),
-            ...props
-        },
-        (
+    return (
+        <Component
+            className={clsx('moonstone-IconTextIcon', 'flexRow_nowrap', 'alignCenter', className)}
+            {...props}
+        >
             <>
                 {iconStart && (
                     <iconStart.type
-                        size={iconSize}
-                        className={clsx('moonstone-IconTextIcon_iconStart', iconStart.props.className)}
-                        {...iconStart.props}
+                    size={iconSize}
+                    className={clsx('moonstone-IconTextIcon_iconStart', iconStart.props.className)}
+                    {...iconStart.props}
                     />
                 )}
 
                 <Typography
                     isNowrap
-                    className={clsx('flexFluid')}
-                    {...typoProps}
-                >
+                    component="span"
+                    className={clsx('flexFluid', typographyProps?.className)}
+                    {...typographyProps}
+                    >
                     {children}
                 </Typography>
 
                 {iconEnd && (
                     <iconEnd.type
-                        size={iconSize}
-                        className={clsx('moonstone-IconTextIcon_iconEnd', iconEnd.props.className)}
-                        {...iconEnd.props}
+                    size={iconSize}
+                    className={clsx('moonstone-IconTextIcon_iconEnd', iconEnd.props.className)}
+                    {...iconEnd.props}
                     />
                 )}
             </>
-        )
-    );
+        </Component>
+    )
 };

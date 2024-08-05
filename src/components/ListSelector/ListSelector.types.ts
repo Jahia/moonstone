@@ -1,16 +1,4 @@
-export type Option = {
-    /**
-     * Option label
-     */
-    label: string,
-    /**
-     * Option value
-     */
-    value: string
-
-}
-
-export type Label = {
+type Label = {
     /**
      * Title of the right list
      */
@@ -33,7 +21,18 @@ export type Label = {
     selected: string,
 }
 
-export type ListSelectorSelectorProps = {
+type Option = {
+    /**
+     * Option label
+     */
+    label: string,
+    /**
+     * Option value
+     */
+    value: string
+}
+
+export type ListSelectorSelectorProps = React.ComponentPropsWithoutRef<'div'> & {
     /**
      * Labels for component
      */

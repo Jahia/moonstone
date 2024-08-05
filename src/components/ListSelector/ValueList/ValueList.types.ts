@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type Value = {
+type Value = {
     /**
      * Value or id
      */

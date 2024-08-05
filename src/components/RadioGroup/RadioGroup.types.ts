@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {RadioItemProps} from '~/components/RadioGroup/RadioItem/RadioItem.types';
 
-export type RadioGroupProps = {
+type BasicRadioGroupProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'children' | 'className' | 'onChange'> & {
     /**
      * RadioItem's input name
      */
@@ -18,16 +18,6 @@ export type RadioGroupProps = {
     className?: string;
 
     /**
-     * The default value of the selected RadioItem (Controlled)
-     */
-    defaultValue?: string;
-
-    /**
-     * The value of selected RadioItem (Uncontrolled)
-     */
-    value?: string;
-
-    /**
      * Function triggered on change of the RadioItem value
      */
     onChange?: (event: React.ChangeEvent<HTMLInputElement>, value: string) => void;
@@ -42,6 +32,24 @@ export type RadioGroupProps = {
      */
     isReadOnly?: boolean;
 }
+
+type ControlledProps = {
+    /**
+     * The value of selected RadioItem. Define the component as controlled when it set (Controlled)
+     */
+    value?: string;
+}
+
+type UncontrolledProps = {
+    /**
+     * The default value of the selected RadioItem (Uncontrolled)
+     */
+    defaultValue?: string;
+}
+
+export type RadioGroupProps = BasicRadioGroupProps & Partial<ControlledProps> & Partial<UncontrolledProps>;
+export type ControlledRadioGroupProps = BasicRadioGroupProps & ControlledProps;
+export type UncontrolledRadioGroupProps = BasicRadioGroupProps & UncontrolledProps;
 
 export type RadioGroupContextProps = {
     /**

@@ -1,35 +1,13 @@
 import React from 'react';
+import type {BasicCheckboxProps} from "~/components/Checkbox/Checkbox.types";
 
-export type CheckboxItemProps = {
+
+
+type BasicCheckboxItemProps = Omit<BasicCheckboxProps,  'size' | 'id'> & {
     /**
      * Identifier added to the input element
      */
     id: string;
-
-    /**
-     * The name of the input element, used to group values and on submitting HTML form
-     */
-    name?: string;
-
-    /**
-     * Checkbox label
-     */
-    label: string;
-
-    /**
-     * Whether the checkbox should be checked by default. (uncontrolled)
-     */
-    defaultChecked?: boolean;
-
-    /**
-     * Whether the checkbox should be checked. Must be used with onChange function to update the checked state (controlled)
-     */
-    checked?: boolean;
-
-    /**
-     * The value of the input element, used when submitting an HTML form
-     */
-    value: string;
 
     /**
      * Checkbox description
@@ -37,32 +15,25 @@ export type CheckboxItemProps = {
     description?: string;
 
     /**
-     * Additional classname(s)
+     * Checkbox label
      */
-    className?: string;
-
-    /**
-     * Whether the CheckboxItem should be disabled
-     */
-    isDisabled?: boolean;
-
-    /**
-     * Whether the CheckboxItem can be selected but not changed by the user
-     */
-    isReadOnly?: boolean;
-
-    /**
-     * Function triggered on focus of the CheckboxItem
-     */
-    onFocus?: React.FocusEventHandler;
-
-    /**
-     * Function triggered when the CheckboxItem loses focus
-     */
-    onBlur?: React.FocusEventHandler;
-
-    /**
-     * Function triggered when the CheckboxItem changes state
-     */
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>, value: string, checked: boolean) => void;
+    label: string;
 }
+
+type ControlledProps = {
+    /**
+     * Whether the checkbox should be checked. Must be used with onChange function to update the checked state (controlled)
+     */
+    checked?: boolean;
+}
+
+type UncontrolledProps = {
+    /**
+     * Whether the checkbox should be checked by default. (uncontrolled)
+     */
+    defaultChecked?: boolean;
+}
+
+export type CheckboxItemProps = BasicCheckboxItemProps & Partial<ControlledProps> & Partial<UncontrolledProps>;
+export type ControlledCheckboxItemProps = BasicCheckboxItemProps & ControlledProps;
+export type UncontrolledCheckboxItemProps = BasicCheckboxItemProps & UncontrolledProps;

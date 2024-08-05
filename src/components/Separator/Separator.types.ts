@@ -1,4 +1,4 @@
-export type SeparatorProps = {
+export type SeparatorProps = Omit<React.ComponentPropsWithoutRef<'hr'>, 'className'> & {
     /**
      * Variants: Horizontal or Vertical
      */

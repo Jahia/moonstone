@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export type BreadcrumbProps = {
+export type BreadcrumbProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'children'| 'className'> & {
     /**
      * Additional classname
      */

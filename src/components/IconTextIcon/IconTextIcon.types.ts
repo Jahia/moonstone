@@ -1,12 +1,12 @@
 import React from 'react';
+import type  {PolymorphicComponentProps} from '~/types/Polymorphic.types';
+import type {BasicTypographyProps} from '~/components/Typography/Typography.types';
 
-import {TypographyProps} from '~/components/Typography/Typography.types';
-
-export type IconTextIconProps = {
+export type BasicIconTextIconProps = {
     /**
      * Which element to render as the root wrapping element
      */
-    component?: string;
+    // component?: string;
 
     /**
      * Optional icon element to render on the left/before children
@@ -26,10 +26,10 @@ export type IconTextIconProps = {
     /**
      * Any Typography props to pass to the Typography component within
      */
-    typographyProps?: TypographyProps;
+    typographyProps?: BasicTypographyProps;
 
     /**
-     * Any additional class name(s) to render
+     * Additional classname
      */
     className?: string;
 
@@ -43,3 +43,5 @@ export type IconTextIconProps = {
      */
     children?: React.ReactNode;
 };
+
+export type IconTextIconProps<C extends React.ElementType> = PolymorphicComponentProps<C, BasicIconTextIconProps>;

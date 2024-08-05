@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export type TagProps = {
+export type TagProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'className'> & {
     /**
      * Label display in the tag
      */

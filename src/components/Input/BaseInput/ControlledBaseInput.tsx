@@ -3,9 +3,9 @@ import clsx from 'clsx';
 import {Cancel, ChevronDown} from '~/icons';
 import {Button} from '~/components';
 import './BaseInput.scss';
-import {BaseInputProps} from './BaseInput.types';
+import type {ControlledBaseInputProps} from './BaseInput.types';
 
-export const ControlledBaseInput: React.FC<BaseInputProps> = ({
+export const ControlledBaseInput: React.FC<ControlledBaseInputProps> = ({
     value = '',
     id,
     role,

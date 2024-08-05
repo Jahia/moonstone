@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {TableHeadProps} from './TableHead.types';
+import type {TableHeadProps} from './TableHead.types';
 import './TableHead.scss';
 import clsx from 'clsx';
 

@@ -9,7 +9,7 @@ type TabItemVariant = typeof tabItemVariants[number];
 export const tabItemColors = ['default'] as const;
 type TabItemColor = typeof tabItemColors[number];
 
-export type TabItemProps = {
+export type TabItemProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'onClick'| 'className'> & {
     /**
      * The component used for the root node
      */
@@ -55,4 +55,3 @@ export type TabItemProps = {
      */
     className?: string;
 }
-

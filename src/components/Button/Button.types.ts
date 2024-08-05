@@ -9,7 +9,7 @@ export type ButtonVariant = typeof buttonVariants[number];
 export const buttonColors = ['default', 'accent', 'danger'] as const;
 export type ButtonColor = typeof buttonColors[number];
 
-export type ButtonProps = {
+export type ButtonProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'onClick' | 'color'> & {
     /**
      * Button label
      */

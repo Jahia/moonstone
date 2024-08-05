@@ -16,7 +16,7 @@ export type TreeViewData = {
     treeItemProps?: object;
 };
 
-type BaseTreeViewProps = {
+type BasicTreeViewProps = {
     /**
      * Data to generate the tree
      */
@@ -64,9 +64,7 @@ type BaseTreeViewProps = {
     size?: 'small' | 'default';
 };
 
-export type TreeViewProps = BaseTreeViewProps & Partial<ControlledTreeViewProps & UncontrolledTreeViewProps >;
-
-export type ControlledTreeViewProps = BaseTreeViewProps & {
+type ControlledProps = {
     /**
      * Opened items ids. If set, component is controlled
      */
@@ -81,7 +79,7 @@ export type ControlledTreeViewProps = BaseTreeViewProps & {
     onCloseItem: (node: TreeViewData, e?: React.MouseEvent) => void;
 }
 
-export type UncontrolledTreeViewProps = BaseTreeViewProps & {
+type UncontrolledProps = {
     /**
      * Opened items ids by default, when uncontrolled
      */
@@ -95,3 +93,7 @@ export type UncontrolledTreeViewProps = BaseTreeViewProps & {
      */
     onCloseItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
 }
+
+export type TreeViewProps = BasicTreeViewProps & Partial<ControlledProps> & Partial<UncontrolledProps>;
+export type ControlledTreeViewProps = BasicTreeViewProps & ControlledProps;
+export type UncontrolledTreeViewProps = BasicTreeViewProps & UncontrolledProps;

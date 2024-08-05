@@ -1,4 +1,4 @@
-export type SortIndicatorProps = {
+export type SortIndicatorProps =  {
     /**
      * Whether to render the sort indicator ascending/up arrow or descending/down arrow
      */
@@ -10,7 +10,7 @@ export type SortIndicatorProps = {
     isSorted?: boolean;
 
     /**
-     * Additional classname(s)
+     * Additional classname
      */
     className?: string;
 };
