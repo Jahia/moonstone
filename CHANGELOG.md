@@ -1,3 +1,19 @@
+# v2.7.3 (Mon Aug 05 2024)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-22873 Stop propagation menu is opened [#421](https://github.com/Jahia/moonstone/pull/421) ([@AKarmanov](https://github.com/AKarmanov))
+- TECH-1639 Upgrade actions [#420](https://github.com/Jahia/moonstone/pull/420) ([@Janin-Michel-Mathias](https://github.com/Janin-Michel-Mathias))
+- TECH-1270: Add step to upload the created bom files [#419](https://github.com/Jahia/moonstone/pull/419) ([@bpapez](https://github.com/bpapez))
+
+#### Authors: 3
+
+- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
+- Benjamin Papez ([@bpapez](https://github.com/bpapez))
+- Janin Michel-Mathias ([@Janin-Michel-Mathias](https://github.com/Janin-Michel-Mathias))
+
+---
+
 # v2.7.2 (Thu Jun 27 2024)
 
 #### 🐛 Bug Fix
