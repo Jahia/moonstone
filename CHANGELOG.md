@@ -1,3 +1,15 @@
+# v2.7.4 (Tue Aug 20 2024)
+
+#### 🐛 Bug Fix
+
+- QA-15250: Fix rendering of AccordionItem content by using nowrap columns instead of wrapping ones [#422](https://github.com/Jahia/moonstone/pull/422) ([@cedmail](https://github.com/cedmail))
+
+#### Authors: 1
+
+- Cedric Mailleux ([@cedmail](https://github.com/cedmail))
+
+---
+
 # v2.7.3 (Mon Aug 05 2024)
 
 #### 🐛 Bug Fix
