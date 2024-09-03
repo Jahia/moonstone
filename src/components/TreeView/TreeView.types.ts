@@ -62,6 +62,10 @@ type BaseTreeViewProps = {
      * TreeView row sizes
      */
     size?: 'small' | 'default';
+    /**
+     * Prefix for page title
+     */
+    pageTitlePrefix?: string;
 };
 
 export type TreeViewProps = BaseTreeViewProps & Partial<ControlledTreeViewProps & UncontrolledTreeViewProps >;
