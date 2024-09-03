@@ -66,6 +66,10 @@ type BaseTreeViewProps = {
      * Prefix for page title
      */
     pageTitlePrefix?: string;
+    /**
+     * Should show page title when selected
+     */
+    isPageTitleShown?: boolean
 };
 
 export type TreeViewProps = BaseTreeViewProps & Partial<ControlledTreeViewProps & UncontrolledTreeViewProps >;

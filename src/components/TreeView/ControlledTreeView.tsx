@@ -57,8 +57,8 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
             const isSelected = Boolean(selectedItems.includes(node.id));
             const isHighlighted = Boolean(highlightedItems.includes(node.id) && !isSelected);
 
-            if (Boolean(props.pageTitlePrefix) && isSelected) {
-                window.top.document.title = `${props.pageTitlePrefix} - ${node.label}`;
+            if (Boolean(props.isPageTitleShown) && isSelected) {
+                window.top.document.title = props.pageTitlePrefix ? `${props.pageTitlePrefix} - ${node.label}` : node.label;
             }
 
             // ---
