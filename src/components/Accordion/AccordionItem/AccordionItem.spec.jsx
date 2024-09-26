@@ -1,152 +1,106 @@
 import React from 'react';
-import {shallow} from 'component-test-utils-react';
+import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import {AccordionContext} from '~/components/Accordion';
 import {AccordionItem} from './index';
 
 describe('AccordionItem', () => {
     it('should display label', () => {
-        const wrapper = shallow(
-            <AccordionItem
-                id="007"
-                label="my label label"
-            >
-                content here
-            </AccordionItem>
-        );
-
-        expect(wrapper.html()).toContain('my label label');
+        render(<AccordionItem label="my label label"/>);
+        expect(screen.getByText('my label label')).toBeInTheDocument();
     });
 
     it('should display icon', () => {
-        const Icon = () => <svg/>;
-        const wrapper = shallow(
-            <AccordionItem
-                id="007"
-                label="my label label"
-                icon={<Icon/>}
-            >
-                content here
-            </AccordionItem>
-        );
-
-        expect(wrapper.html()).toContain('Icon');
+        const Icon = () => <svg data-testid="svg"/>;
+        render(<AccordionItem icon={<Icon/>}/>);
+        expect(screen.getByTestId('svg')).toBeInTheDocument();
     });
 
     it('should display additional className', () => {
-        const wrapper = shallow(
-            <AccordionItem
-                id="007"
-                label="my label label"
-                className="extra"
-            >
-                content here
-            </AccordionItem>
-        );
-
-        expect(wrapper.html()).toContain('extra');
+        render(<AccordionItem data-testid="accordion-item" className="extra"/>);
+        expect(screen.getByTestId('accordion-item')).toHaveClass('extra');
     });
 
     it('should accept reversed accordion', () => {
-        const Icon = () => <svg/>;
-        const wrapper = shallow(
-            <AccordionItem
-                id="007"
-                label="my label label"
-                icon={<Icon/>}
+        render(
+            <AccordionContext.Provider value={{
+                onSetOpenedItemId: jest.fn(),
+                currentItem: 'not correspond',
+                isReversed: true
+            }}
             >
-                content here
-            </AccordionItem>, {
-                externals: {
-                    contexts: [{
-                        id: AccordionContext,
-                        value: {
-                            setOpenedItemId: jest.fn(),
-                            currentItem: 'not correspond',
-                            isReversed: true
-                        }
-                    }]
-                }
-            }
+                <AccordionItem
+                    data-testid="accordion-item"
+                >
+                    content here
+                </AccordionItem>
+            </AccordionContext.Provider>
         );
-
-        expect(wrapper.html()).toContain('reversed');
+        expect(screen.getByTestId('accordion-item')).toHaveClass('moonstone-reversed');
     });
 
     it('should not display children when id in context not correspond', () => {
-        const handleOnclick = jest.fn();
-        const wrapper = shallow(
-            <AccordionItem
-                id="007"
-                label="my label label"
-                onClick={handleOnclick}
+        const handleOnClick = jest.fn();
+
+        render(
+            <AccordionContext.Provider value={{
+                onSetOpenedItemId: jest.fn(),
+                currentItem: 'not correspond'
+            }}
             >
-                content here
-            </AccordionItem>
-            , {
-                externals: {
-                    contexts: [{
-                        id: AccordionContext,
-                        value: {
-                            onSetOpenedItemId: jest.fn(),
-                            currentItem: 'not correspond'
-                        }
-                    }]
-                }
-            }
+                <AccordionItem
+                    data-testid="accordion-item"
+                    label="my label label"
+                    onClick={handleOnClick}
+                >
+                    content here
+                </AccordionItem>
+            </AccordionContext.Provider>
         );
-        expect(wrapper.html()).not.toContain('content here');
+        expect(screen.getByTestId('accordion-item')).not.toHaveTextContent('content here');
     });
 
     it('should display children when id in context correspond', () => {
         const handleOnClick = jest.fn();
-        const wrapper = shallow(
-            <AccordionItem
-                id="007"
-                label="my label label"
-                onClick={handleOnClick}
+
+        render(
+            <AccordionContext.Provider value={{
+                onSetOpenedItemId: jest.fn(),
+                currentItem: 'id'
+            }}
             >
-                content here
-            </AccordionItem>
-            , {
-                externals: {
-                    contexts: [{
-                        id: AccordionContext,
-                        value: {
-                            setOpenedItemId: jest.fn(),
-                            currentItem: '007'
-                        }
-                    }]
-                }
-            }
+                <AccordionItem
+                    id="id"
+                    data-testid="accordion-item"
+                    label="my label label"
+                    onClick={handleOnClick}
+                >
+                    content here
+                </AccordionItem>
+            </AccordionContext.Provider>
         );
-        expect(wrapper.html()).toContain('content here');
+
+        expect(screen.getByTestId('accordion-item')).toHaveTextContent('content here');
     });
+
     it('should call onClick when click on item', () => {
         const handleOnClick = jest.fn();
-
-        const wrapper = shallow(
-            <AccordionItem
-                id="007"
-                label="my label label"
-                onClick={handleOnClick}
+        render(
+            <AccordionContext.Provider value={{
+                onSetOpenedItem: jest.fn(),
+                currentItem: 'not correspond'
+            }}
             >
-                content here
-            </AccordionItem>
-            , {
-                externals: {
-                    contexts: [{
-                        id: AccordionContext,
-                        value: {
-                            onSetOpenedItem: jest.fn(),
-                            currentItem: 'not correspond'
-                        }
-                    }]
-                }
-            }
+                <AccordionItem
+                    id="id"
+                    label="my label label"
+                    onClick={handleOnClick}
+                >
+                    content here
+                </AccordionItem>
+            </AccordionContext.Provider>
         );
-
-        wrapper.querySelector('header').dispatchEvent('click');
-
+        userEvent.click(screen.getByText('my label label'));
         expect(handleOnClick).toHaveBeenCalled();
     });
 
@@ -156,29 +110,22 @@ describe('AccordionItem', () => {
             isOpen = open;
         };
 
-        const wrapper = shallow(
-            <AccordionItem
-                id="007"
-                label="my label label"
-                onClick={handleOnClick}
+        render(
+            <AccordionContext.Provider value={{
+                onSetOpenedItem: jest.fn(),
+                currentItem: 'not correspond'
+            }}
             >
-                content here
-            </AccordionItem>
-            , {
-                externals: {
-                    contexts: [{
-                        id: AccordionContext,
-                        value: {
-                            onSetOpenedItem: jest.fn(),
-                            currentItem: 'not correspond'
-                        }
-                    }]
-                }
-            }
+                <AccordionItem
+                    label="my label label"
+                    onClick={handleOnClick}
+                >
+                    content here
+                </AccordionItem>
+            </AccordionContext.Provider>
         );
 
-        wrapper.querySelector('header').dispatchEvent('click');
-
+        userEvent.click(screen.getByRole('accordion-item'));
         expect(isOpen).toBe(true);
     });
 
@@ -188,54 +135,44 @@ describe('AccordionItem', () => {
             isOpen = open;
         };
 
-        const wrapper = shallow(
-            <AccordionItem
-                id="007"
-                label="my label label"
-                onClick={handleOnClick}
+        render(
+            <AccordionContext.Provider value={{
+                onSetOpenedItem: jest.fn(),
+                currentItem: 'id'
+            }}
             >
-                content here
-            </AccordionItem>
-            , {
-                externals: {
-                    contexts: [{
-                        id: AccordionContext,
-                        value: {
-                            onSetOpenedItem: jest.fn(),
-                            currentItem: '007'
-                        }
-                    }]
-                }
-            }
+                <AccordionItem
+                    id="id"
+                    label="my label label"
+                    onClick={handleOnClick}
+                >
+                    content here
+                </AccordionItem>
+            </AccordionContext.Provider>
         );
 
-        wrapper.querySelector('header').dispatchEvent('click');
+        userEvent.click(screen.getByRole('accordion-item'));
 
         expect(isOpen).toBe(false);
     });
 
     it('should not throw error when there is no onClick defined', () => {
-        const wrapper = shallow(
-            <AccordionItem
-                id="007"
-                label="my label label"
+        render(
+            <AccordionContext.Provider value={{
+                onSetOpenedItem: jest.fn(),
+                currentItem: 'id'
+            }}
             >
-                content here
-            </AccordionItem>
-            , {
-                externals: {
-                    contexts: [{
-                        id: AccordionContext,
-                        value: {
-                            onSetOpenedItem: jest.fn(),
-                            currentItem: '007'
-                        }
-                    }]
-                }
-            }
+                <AccordionItem
+                    id="id"
+                    label="my label label"
+                >
+                    content here
+                </AccordionItem>
+            </AccordionContext.Provider>
         );
 
         // No error should occur when there is no onClickToClose defined
-        wrapper.querySelector('header').dispatchEvent('click');
+        userEvent.click(screen.getByRole('accordion-item'));
     });
 });
