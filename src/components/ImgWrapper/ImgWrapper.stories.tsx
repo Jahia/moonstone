@@ -20,7 +20,7 @@ const Template: Story<ImgWrapperProps> = args => <ImgWrapper {...args}/>;
 
 export const Default = Template.bind({});
 Default.args = {
-    src: "https://www.jahia.com/modules/jahiacom-templates/images/favicon/favicon.ico",
-    alt: "imgWrapper",
-    size: "default"
+    src: 'https://www.jahia.com/modules/jahiacom-templates/images/favicon/favicon.ico',
+    alt: 'imgWrapper',
+    size: 'default'
 };
