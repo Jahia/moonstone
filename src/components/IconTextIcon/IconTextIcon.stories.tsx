@@ -1,8 +1,6 @@
 import React from 'react';
-import {Story} from '@storybook/react';
-
+import {ComponentStory} from '@storybook/react';
 import {IconTextIcon} from './index';
-import {IconTextIconProps} from './IconTextIcon.types';
 import {Apps, Love} from '~/icons';
 
 export default {
@@ -13,7 +11,7 @@ export default {
     }
 };
 
-const Template: Story<IconTextIconProps> = args => <IconTextIcon {...args}/>;
+const Template: ComponentStory<typeof IconTextIcon> = args => <IconTextIcon {...args}/>;
 
 export const Default = Template.bind({});
 Default.storyName = 'Icon + Text + Icon';
