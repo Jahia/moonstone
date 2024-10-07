@@ -34,43 +34,54 @@ $colorsAccent: (
     'accent_dark',
     'accent_dark60',
     'accent_dark40',
+    'accent_dark20',
     'accent',
     'accent60',
     'accent40',
+    'accent20',
     'accent_light',
     'accent_light60',
-    'accent_light40'
+    'accent_light40',
+    'accent_light20'
 );
 $colorsNeutral: (
     'light',
     'light60',
     'light40',
+    'light20',
     'gray_light',
     'gray_light60',
     'gray_light40',
+    'gray_light20',
     'gray',
     'gray60',
     'gray40',
+    'gray20',
     'gray_dark',
     'gray_dark60',
-    'gray_dark40'
+    'gray_dark40',
+    'gray_dark20'
 );
 $colorsSupport: (
     'success',
     'success60',
     'success40',
+    'success20',
     'warning',
     'warning60',
     'warning40',
+    'warning20',
     'danger',
     'danger60',
     'danger40',
+    'danger20',
     'danger_dark'
 );
 $colorsPalette: (
     'purple',
     'purple60',
-    'purple40'
+    'purple40',
+    'purple20'
 );
 
 @each $name in $colorsAccent {
