@@ -8,44 +8,54 @@ const paletteNeutral = [
     'light',
     'light60',
     'light40',
+    'light20',
     'gray_light',
     'gray_light60',
     'gray_light40',
+    'gray_light20',
     'gray',
     'gray60',
     'gray40',
+    'gray20',
     'gray_dark',
     'gray_dark60',
-    'gray_dark40'
+    'gray_dark40',
+    'gray_dark20'
 ];
 
 const paletteAccent = [
     'accent_dark_contrast',
     'accent_dark',
+    'accent_dark20',
     'accent_dark40',
     'accent_dark60',
     'accent',
+    'accent20',
     'accent40',
     'accent60',
     'accent_light',
+    'accent_light20',
     'accent_light40',
     'accent_light60'
 ];
 
 const paletteSupport = [
     'success',
+    'success20',
     'success40',
     'success60',
     'warning',
+    'warning20',
     'warning40',
     'warning60',
     'danger',
+    'danger20',
     'danger40',
     'danger60',
     'danger_dark'
 ];
 
-const paletteColors = ['purple', 'purple40', 'purple60'];
+const paletteColors = ['purple', 'purple20', 'purple40', 'purple60'];
 
 export const Color = ({color, name}) => {
     return (
