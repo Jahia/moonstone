@@ -1,60 +1,52 @@
 import React, {useContext} from 'react';
-import {shallow} from 'component-test-utils-react';
+import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import {Accordion} from './index';
-import {ControlledAccordion} from './ControlledAccordion';
-import {UncontrolledAccordion} from './UncontrolledAccordion';
 import {AccordionItem} from './AccordionItem/';
 import {AccordionContext} from './Accordion.context';
 
 describe('Accordion', () => {
     it('should display children content', () => {
-        const wrapper = shallow(
-            <ControlledAccordion>
-                <AccordionItem id="id" label="label">
-                    content here
-                </AccordionItem>
-            </ControlledAccordion>
+        render(
+            <Accordion>
+                <p data-testid="test"/>
+            </Accordion>
         );
-        expect(wrapper.querySelector('#id').exists()).toBe(true);
+        expect(screen.getByTestId('test')).toBeInTheDocument();
     });
 
     it('should add reversed class when component is reversed', () => {
-        const wrapper = shallow(
-            <ControlledAccordion isReversed>
-                <AccordionItem id="id" label="label">
-                    content here
-                </AccordionItem>
-            </ControlledAccordion>
+        render(
+            <Accordion isReversed data-testid="id">
+                content
+            </Accordion>
         );
-
-        expect(wrapper.html()).toContain('reversed');
+        expect(screen.getByTestId('id')).toHaveClass('moonstone-reversed');
     });
 
     it('should add extra attribute on Accordion', () => {
-        const wrapper = shallow(
-            <ControlledAccordion data-custom="test">
-                <AccordionItem id="id" label="label">
-                    content here
-                </AccordionItem>
-            </ControlledAccordion>
+        render(
+            <Accordion data-testid="id" data-custom="extra">
+                content
+            </Accordion>
         );
-        expect(wrapper.html()).toContain('data-custom="test"');
+        expect(screen.getByTestId('id')).toHaveAttribute('data-custom', 'extra');
     });
 
     it('should add extra attribute on AccordionItem', () => {
-        const wrapper = shallow(
+        render(
             <Accordion>
-                <AccordionItem id="id" label="label" data-custom="test">
-                    content here
+                <AccordionItem data-testid="id" data-custom="extra">
+                    content
                 </AccordionItem>
             </Accordion>
         );
-        expect(wrapper.html()).toContain('data-custom="test"');
+        expect(screen.getByTestId('id')).toHaveAttribute('data-custom', 'extra');
     });
 
     it('should display nothing when the component has no children', () => {
-        const wrapper = shallow(<Accordion/>);
-        expect(wrapper.html()).toEqual('');
+        render(<Accordion data-testid="id"/>);
+        expect(screen.queryByRole('accordion-item')).not.toBeInTheDocument();
     });
 
     describe('withAccordionItem Mock', () => {
@@ -80,79 +72,71 @@ describe('Accordion', () => {
         });
 
         it('should select another item when calling onSetOpenedItem', () => {
-            const wrapper = shallow(
-                <UncontrolledAccordion>
+            render(
+                <Accordion>
                     <AccordionItemMock id="1"/>
                     <AccordionItemMock id="2"/>
-                </UncontrolledAccordion>
-                , {
-                    mocks: {
-                        AccordionItemMock: true,
-                        ControlledAccordion: true
-                    }
-                });
+                </Accordion>
+            );
 
-            wrapper.querySelector('button').dispatchEvent('click');
+            userEvent.click(screen.getByRole('button', {name: '1 - close'}));
 
-            expect(wrapper.html()).toContain('1 - open');
-            expect(wrapper.html()).toContain('2 - close');
+            expect(screen.getByText('1 - open')).toBeInTheDocument();
+            expect(screen.getByText('2 - close')).toBeInTheDocument();
         });
 
         it('should open just one item', () => {
-            const wrapper = shallow(
-                <UncontrolledAccordion>
+            render(
+                <Accordion>
                     <AccordionItemMock id="1"/>
                     <AccordionItemMock id="2"/>
-                </UncontrolledAccordion>
-                , {
-                    mocks: {
-                        AccordionItemMock: true,
-                        ControlledAccordion: true
-                    }
-                });
+                </Accordion>
+            );
 
-            wrapper.querySelector('#1 button').dispatchEvent('click');
-            wrapper.querySelector('#2 button').dispatchEvent('click');
+            userEvent.click(screen.getByRole('button', {name: /1/i}));
+            userEvent.click(screen.getByRole('button', {name: /2/i}));
 
-            expect(wrapper.html()).toContain('1 - close');
-            expect(wrapper.html()).toContain('2 - open');
+            expect(screen.getByText('1 - close')).toBeInTheDocument();
+            expect(screen.getByText('2 - open')).toBeInTheDocument();
         });
 
         it('should unselect item when calling onSetOpenedItem another time', () => {
-            const wrapper = shallow(
-                <UncontrolledAccordion>
+            render(
+                <Accordion>
                     <AccordionItemMock id="1"/>
                     <AccordionItemMock id="2"/>
-                </UncontrolledAccordion>
-                , {
-                    mocks: {
-                        AccordionItemMock: true,
-                        ControlledAccordion: true
-                    }
-                });
+                </Accordion>
+            );
 
-            wrapper.querySelector('button').dispatchEvent('click');
-            wrapper.querySelector('button').dispatchEvent('click');
+            userEvent.click(screen.getByRole('button', {name: /1/i}));
+            userEvent.click(screen.getByRole('button', {name: /1/i}));
 
-            expect(wrapper.html()).toContain('1 - close');
-            expect(wrapper.html()).toContain('2 - close');
+            expect(screen.getByText('1 - close')).toBeInTheDocument();
+            expect(screen.getByText('2 - close')).toBeInTheDocument();
         });
 
-        it('should open item by default when give the props', () => {
-            const wrapper = shallow(
-                <UncontrolledAccordion defaultOpenedItem="2">
+        it('should open item by default when given the props', () => {
+            render(
+                <Accordion defaultOpenedItem="2">
                     <AccordionItemMock id="1"/>
                     <AccordionItemMock id="2"/>
-                </UncontrolledAccordion>
-                , {
-                    mocks: {
-                        AccordionItemMock: true,
-                        ControlledAccordion: true
-                    }
-                });
+                </Accordion>
+            );
 
-            expect(wrapper.html()).toContain('1 - close');
-            expect(wrapper.html()).toContain('2 - open');
+            expect(screen.getByText('1 - close')).toBeInTheDocument();
+            expect(screen.getByText('2 - open')).toBeInTheDocument();
+        });
+
+        it('should open item when given the props', () => {
+            render(
+                <Accordion openedItem="2">
+                    <AccordionItemMock id="1"/>
+                    <AccordionItemMock id="2"/>
+                </Accordion>
+            );
+
+            expect(screen.getByText('1 - close')).toBeInTheDocument();
+            expect(screen.getByText('2 - open')).toBeInTheDocument();
         });
     });
 });

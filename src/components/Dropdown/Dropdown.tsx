@@ -107,6 +107,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     // Functions to handle events
     // ---
     const handleOpenMenu = (e: React.MouseEvent | React.KeyboardEvent) => {
+        e.stopPropagation();
         const dropdownWidth = (e.currentTarget as HTMLElement).offsetWidth;
         setMinWith(`${dropdownWidth < menuMinWidth ? menuMinWidth : dropdownWidth}px`);
         setAnchorEl(e.currentTarget);
