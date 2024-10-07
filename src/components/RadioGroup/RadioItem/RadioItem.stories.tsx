@@ -1,6 +1,9 @@
 import React from 'react';
-import {RadioItem} from './RadioItem';
-import {RadioGroup} from '../RadioGroup';
+import {Story} from '@storybook/react';
+
+import {RadioItem} from './index';
+import type {RadioItemProps} from './RadioItem.types';
+import {RadioGroup} from '../index';
 
 export default {
     title: 'Components/RadioGroup/RadioItem',
@@ -13,11 +16,11 @@ export default {
     }
 };
 
-export const Playground = args => {
+export const Playground: Story<RadioItemProps> = args => {
     return (
         <RadioGroup name="playground-name">
             <RadioItem
-                {...args}
+               {...args}
             />
             <RadioItem label="Radio" value="radio" id="radio" description="Description of the radio"/>
         </RadioGroup>
