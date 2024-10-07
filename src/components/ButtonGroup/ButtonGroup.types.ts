@@ -5,7 +5,7 @@ export type ButtonGroupProps = Omit<React.ComponentPropsWithRef<'div'>, 'childre
     /**
      * Buttons grouped
      */
-    children:  React.ReactElement<ButtonProps>[];
+    children: React.ReactElement<ButtonProps>[];
     /**
      * Size of the button
      */

@@ -36,7 +36,7 @@ export const IconTextIcon = <C extends React.ElementType = 'div'> ({
                     component="span"
                     className={clsx('flexFluid', typographyProps?.className)}
                     {...typographyProps}
-                    >
+                >
                     {children}
                 </Typography>
 
@@ -49,5 +49,5 @@ export const IconTextIcon = <C extends React.ElementType = 'div'> ({
                 )}
             </>
         </Component>
-    )
+    );
 };

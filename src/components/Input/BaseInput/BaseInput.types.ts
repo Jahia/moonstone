@@ -108,7 +108,6 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
     onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
 
-
 type ControlledProps = {
     /**
      * Value to exist in the input field. Define the component as controlled when it set. (Controlled)
@@ -122,7 +121,6 @@ type UncontrolledProps = {
      */
     defaultValue?: string;
 }
-
 
 export type BaseInputProps = BasicBaseInputProps & Partial<ControlledProps> & Partial<UncontrolledProps>;
 export type ControlledBaseInputProps = BasicBaseInputProps & ControlledProps;

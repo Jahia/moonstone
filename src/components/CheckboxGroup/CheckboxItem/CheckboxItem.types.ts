@@ -1,9 +1,7 @@
 import React from 'react';
-import type {BasicCheckboxProps} from "~/components/Checkbox/Checkbox.types";
+import type {BasicCheckboxProps} from '~/components/Checkbox/Checkbox.types';
 
-
-
-type BasicCheckboxItemProps = Omit<BasicCheckboxProps,  'size' | 'id'> & {
+type BasicCheckboxItemProps = Omit<BasicCheckboxProps, 'size' | 'id'> & {
     /**
      * Identifier added to the input element
      */

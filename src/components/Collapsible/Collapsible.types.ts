@@ -34,7 +34,6 @@ type ControlledProps = {
     isExpanded: boolean;
 };
 
-
 type UncontrolledProps = {
     /**
      * The expanded state of the collapsible when it is initially rendered. (uncontrolled)

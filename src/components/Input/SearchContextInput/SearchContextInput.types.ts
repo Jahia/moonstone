@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type {BaseInputProps} from '../BaseInput/BaseInput.types';
-import type {AccordionItemProps} from '~/components/Accordion/AccordionItem/AccordionItem.types'
+import type {AccordionItemProps} from '~/components/Accordion/AccordionItem/AccordionItem.types';
 
 export type SearchContextInputProps = Omit<BaseInputProps, 'isShowClearButton' | 'icon' | 'role' | 'size' | 'prefixComponents'> & {
     /**

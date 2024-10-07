@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import './Typography.scss';
 import type {TypographyProps} from './Typography.types';
 
-
 export const Typography = <C extends React.ElementType = 'p'> ({
     children = '',
     component,
@@ -16,7 +15,6 @@ export const Typography = <C extends React.ElementType = 'p'> ({
     isNowrap = false,
     ...props
 }:TypographyProps<C>) => {
-
     if (!children) {
         return null;
     }

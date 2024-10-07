@@ -1,4 +1,4 @@
-export type SortIndicatorProps =  {
+export type SortIndicatorProps = {
     /**
      * Whether to render the sort indicator ascending/up arrow or descending/down arrow
      */
