@@ -1,79 +1,20 @@
-.moonstone-switch {
-    display: inline-block;
-    position: relative;
-    width: 38px;
-    height: 20px;
-
-    &>.moonstone-switch_icon {
-        animation: switchSlide 0.1s linear reverse 0.05s;
-    }
-
-    &:hover {
-        &>.moonstone-switch_icon {
-            background-color: var(--color-gray_dark);
-        }
-    }
-
-    &_disabled {
-        opacity: 50%;
-        pointer-events: none;
-    }
-
-    &_checked {
-        &>.moonstone-switch_input {
-            background-color: var(--color-accent_light20);
-        }
-
-        &>.moonstone-switch_icon {
-            background-color: var(--color-accent_dark);
-            animation: switchSlide 0.1s linear forwards 0.05s;
-        }
-
-        &:hover {
-            &>.moonstone-switch_icon {
-                background-color: var(--color-accent_dark_contrast);
-            }
-        }
-
-        &.moonstone-switch_disabled {
-            opacity: 50%;
-            pointer-events: none;
-
-            &>.moonstone-switch_input {
-                background-color: var(--color-accent_light40);
-            }
-
-            &>.moonstone-switch_icon {
-                background-color: var(--color-accent_dark);
-            }
-        }
-    }
-
-    @keyframes switchSlide {
-        to {
-            -webkit-transform: translateX(18px);
-            -ms-transform: translateX(18px);
-            transform: translateX(18px);
-        }
-    }
-}
-
 .moonstone-switch_input {
     position: absolute;
-    width: 35px;
-    height: 16px;
-    border-radius: 40px;
     top: 2px;
 
-    cursor: pointer;
+    width: 35px;
+    height: 16px;
+    margin: 0;
+    padding: 0;
 
     appearance: none;
 
     border: none;
+    border-radius: 40px;
     outline: none;
-    margin: 0;
-    padding: 0;
     background-color: var(--color-gray_light);
+
+    cursor: pointer;
 
     // Only triggered when the input is focus with tab
     &:focus-visible {
@@ -83,9 +24,75 @@
 
 .moonstone-switch_icon {
     position: absolute;
+
     width: 20px;
     height: 20px;
+
     border-radius: 100%;
     background-color: var(--color-gray);
+
     pointer-events: none;
+}
+
+.moonstone-switch {
+    @keyframes switchSlide {
+        to {
+            -webkit-transform: translateX(18px);
+            -ms-transform: translateX(18px);
+            transform: translateX(18px);
+        }
+    }
+
+    position: relative;
+
+    width: 38px;
+    height: 20px;
+
+    .moonstone-switch_icon {
+        animation: switchSlide 0.1s linear reverse 0.05s;
+    }
+}
+
+.moonstone-switch_checked {
+    .moonstone-switch_input {
+        background-color: var(--color-accent_light20);
+    }
+
+    .moonstone-switch_icon {
+        background-color: var(--color-accent_dark);
+
+        animation: switchSlide 0.1s linear forwards 0.05s;
+    }
+
+    &.moonstone-switch_disabled {
+        opacity: 50%;
+
+        pointer-events: none;
+
+        .moonstone-switch_input {
+            background-color: var(--color-accent_light40);
+        }
+
+        .moonstone-switch_icon {
+            background-color: var(--color-accent_dark);
+        }
+    }
+}
+
+.moonstone-switch_disabled {
+    opacity: 50%;
+
+    pointer-events: none;
+}
+
+.moonstone-switch:hover {
+    .moonstone-switch_icon {
+        background-color: var(--color-gray_dark);
+    }
+}
+
+.moonstone-switch_checked:hover {
+    .moonstone-switch_icon {
+        background-color: var(--color-accent_dark_contrast);
+    }
 }
