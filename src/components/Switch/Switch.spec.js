@@ -18,9 +18,9 @@ describe('Switch', () => {
     it('should call onChange function with checked status', () => {
         const handleOnChange = jest.fn((_, value, checked) => [value, checked]);
         render(<Switch data-testid="moonstone-switch" value="my-value" onChange={handleOnChange}/>);
-        const checkbox = screen.getByTestId('moonstone-switch');
+        const switchItem = screen.getByTestId('moonstone-switch');
 
-        userEvent.click(checkbox);
+        userEvent.click(switchItem);
         expect(handleOnChange).toHaveBeenCalled();
         expect(handleOnChange).toHaveReturnedWith(['my-value', true]); // Switch has been checked
     });
@@ -28,26 +28,26 @@ describe('Switch', () => {
     it('should call onChange function with checked status for controlled', () => {
         const handleOnChange = jest.fn((_, value, checked) => [value, checked]);
         render(<Switch checked data-testid="moonstone-switch" onChange={handleOnChange}/>);
-        const checkbox = screen.getByTestId('moonstone-switch');
+        const switchItem = screen.getByTestId('moonstone-switch');
 
-        userEvent.click(checkbox);
+        userEvent.click(switchItem);
         expect(handleOnChange).toHaveBeenCalled();
         expect(handleOnChange).toHaveReturnedWith([undefined, false]); // Switch has been unchecked, no value specified
     });
 
     it('should check off when clicked on', () => {
         render(<Switch aria-label="switch"/>);
-        const checkbox = screen.getByRole('checkbox');
-        userEvent.click(checkbox);
-        expect(checkbox).toBeChecked();
+        const switchItem = screen.getByRole('checkbox');
+        userEvent.click(switchItem);
+        expect(switchItem).toBeChecked();
     });
 
     it('should un-check when clicked on twice', () => {
         render(<Switch aria-label="switch"/>);
-        const checkbox = screen.getByRole('checkbox');
-        userEvent.click(checkbox);
-        userEvent.click(checkbox);
-        expect(checkbox).not.toBeChecked();
+        const switchItem = screen.getByRole('checkbox');
+        userEvent.click(switchItem);
+        userEvent.click(switchItem);
+        expect(switchItem).not.toBeChecked();
     });
 
     it('should be unchecked by default', () => {

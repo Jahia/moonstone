@@ -32,17 +32,17 @@ export type SwitchProps = {
     isDisabled?: boolean;
 
     /**
-     * Function triggered on change of the checkbox value
+     * Function triggered on change
      */
     onChange?: (event: React.ChangeEvent<HTMLInputElement>, value: string, checked: boolean) => void;
 
     /**
-     * Function triggered on focus of the checkbox value
+     * Function triggered when the component gets focused
      */
     onFocus?: React.FocusEventHandler;
 
     /**
-     * Function triggered when the checkbox value loses focus
+     * Function triggered when the component loses focus
      */
     onBlur?: React.FocusEventHandler;
 }
