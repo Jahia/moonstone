@@ -27,7 +27,7 @@ export type LayoutContentProps = {
     hasPadding?: boolean
 
     /**
-     * Additional className
+     * Additional classname
      */
      className?: string,
 }

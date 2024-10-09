@@ -1,18 +1,9 @@
 import React from 'react';
 
-type MenuItemVariant = 'default' | 'title';
-export enum MenuItemVariants {
-    Default = 'default',
-    Title = 'title'
-}
+import type {ListItemProps} from '~/components/ListItem/ListItem.types';
 
-type MenuItemImageSize = 'small' | 'big';
-
-export type MenuItemProps = {
-    /**
-     * Additional classname
-     */
-    className?: string,
+export type MenuItemProps = Omit<ListItemProps, 'onClick' | 'onMouseEnter' | 'onMouseLeave' | 'onKeyPress' | 'typographyVariant'> & {
+// Export type MenuItemProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'className' | 'role' | 'onClick' | 'onMouseEnter' | 'onMouseLeave' | 'onKeyPress'> & {
 
     /**
      * Is item being hovered
@@ -25,7 +16,7 @@ export type MenuItemProps = {
     isSelected?: boolean,
 
     /**
-     * Is item disabled
+     * Whether the component should be disabled
      */
     isDisabled?: boolean,
 
@@ -35,44 +26,9 @@ export type MenuItemProps = {
     isHighlighted?: boolean,
 
     /**
-     * MenuItem label
-     */
-    label: React.ReactNode,
-
-    /**
-     * Optional description to display to describe the item
-     */
-    description?: string;
-
-    /**
-     * A leading icon display before the label
-     */
-    iconStart?: React.ReactElement,
-
-    /**
-     * A trailing icon display at the end of MenuItem
-     */
-    iconEnd?: React.ReactElement,
-
-    /**
      * MenuItem variants
      */
-    variant?: MenuItemVariant,
-
-    /**
-     * Optional image to display to describe the menu item
-     */
-    image?: React.ReactElement,
-
-    /**
-     * If there's an image, it should be this size
-     */
-    imageSize?: MenuItemImageSize,
-
-    /**
-     * Optional role for accessibility (e.g., if being used as an option in Dropdown)
-     */
-    role?: string,
+    variant?: 'default' | 'title',
 
     /**
      * Optional value which can be returned when being used in user input elements such as Dropdown
@@ -98,9 +54,4 @@ export type MenuItemProps = {
      * Function triggered when a key is pressed
      */
     onKeyPress?: React.KeyboardEventHandler
-
-    /**
-     * Which icon size to render. The default is small
-     */
-    iconSize?: 'small' | 'default' | 'big';
 };

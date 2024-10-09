@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import clsx from 'clsx';
 import './SecondaryNav.scss';
-import {SecondaryNavProps} from './SecondaryNav.types';
+import type {SecondaryNavProps} from './SecondaryNav.types';
 import {ResizableBox} from '~/components/ResizableBox';
 import {ChevronDoubleRight, ChevronDoubleLeft} from '~/icons';
 

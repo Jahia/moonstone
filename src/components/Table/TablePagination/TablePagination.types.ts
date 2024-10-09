@@ -1,10 +1,10 @@
 import React from 'react';
 
-export type TablePaginationProps = {
+export type TablePaginationProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'className'> & {
     /**
-     * Any additional class names to apply
+     * Additional classname
      */
-    className?: React.ReactNode;
+    className?: string;
 
     /**
      * Current rows per page

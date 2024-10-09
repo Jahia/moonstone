@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import {SortIndicatorProps} from './SortIndicator.types';
+import type {SortIndicatorProps} from './SortIndicator.types';
 import './SortIndicator.scss';
 import {ArrowDown, ArrowUp} from '~/icons';
 

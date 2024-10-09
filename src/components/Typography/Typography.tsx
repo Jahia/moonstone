@@ -1,11 +1,11 @@
 import React from 'react';
 import clsx from 'clsx';
 import './Typography.scss';
-import {TypographyProps} from './Typography.types';
+import type {TypographyProps} from './Typography.types';
 
-export const Typography: React.FC<TypographyProps> = ({
+export const Typography = <C extends React.ElementType = 'p'> ({
     children = '',
-    component = 'p',
+    component,
     variant = 'body',
     weight = 'default',
     className = '',
@@ -14,16 +14,16 @@ export const Typography: React.FC<TypographyProps> = ({
     isUpperCase = false,
     isNowrap = false,
     ...props
-}) => {
+}:TypographyProps<C>) => {
     if (!children) {
         return null;
     }
 
-    return React.createElement(
-        component,
-        {
-            ...props,
-            className: clsx(
+    const Component = component || 'p';
+
+    return (
+        <Component
+            className={clsx(
                 'moonstone-typography',
                 `moonstone-variant_${variant}`,
                 `moonstone-weight_${weight}`,
@@ -31,9 +31,12 @@ export const Typography: React.FC<TypographyProps> = ({
                 {'moonstone-nowrap': isNowrap},
                 {'moonstone-italic': isItalic},
                 {'moonstone-upperCase': isUpperCase},
-                {'moonstone-lineThrough': hasLineThrough})
-        },
-        children
+                {'moonstone-lineThrough': hasLineThrough}
+            )}
+            {...props}
+        >
+            {children}
+        </Component>
     );
 };
 
