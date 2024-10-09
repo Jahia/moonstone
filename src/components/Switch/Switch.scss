@@ -34,8 +34,8 @@
     --switch-icon_bg: var(--color-accent_dark);
     --switch-input_bg: var(--color-accent_light20);
 
-    .moonstone-switch_icon {
-        transform: translateX(18px);
+    &:hover {
+        --switch-icon_bg: var(--color-accent_dark_contrast);
     }
 
     &.moonstone-switch_disabled {
@@ -47,8 +47,8 @@
         pointer-events: none;
     }
 
-    &:hover {
-        --switch-icon_bg: var(--color-accent_dark_contrast);
+    .moonstone-switch_icon {
+        transform: translateX(18px);
     }
 }
 
