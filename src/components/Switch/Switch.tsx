@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {SwitchProps} from './Switch.types';
+import type {SwitchProps} from './Switch.types';
 import {UncontrolledSwitch} from './UncontrolledSwitch';
 import {ControlledSwitch} from './ControlledSwitch';
 

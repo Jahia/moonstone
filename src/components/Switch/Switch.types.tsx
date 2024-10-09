@@ -1,33 +1,19 @@
 import * as React from 'react';
 
-export type SwitchProps = {
-    /**
-     * Whether the switch should be checked (controlled)
-     */
-    checked?: boolean;
-
-    /**
-     * Whether the switch should be checked - default value (uncontrolled)
-     */
-    defaultChecked?: boolean;
-
+type BasicProps =
+Omit<React.ComponentPropsWithRef<'input'>, 'onChange' | 'value' | 'className'> & {
     /**
      * The value of the input element, used when submitting an HTML form
      */
     value?: string;
 
     /**
-     * The name of the input element, used when submitting an HTML form
-     */
-    name?: string;
-
-    /**
-     * Additional classname(s)
+     * Additional classname
      */
     className?: string;
 
     /**
-     * Whether the switch should be disabled
+     * Whether the component should be disabled
      */
     isDisabled?: boolean;
 
@@ -35,14 +21,22 @@ export type SwitchProps = {
      * Function triggered on change
      */
     onChange?: (event: React.ChangeEvent<HTMLInputElement>, value: string, checked: boolean) => void;
-
-    /**
-     * Function triggered when the component gets focused
-     */
-    onFocus?: React.FocusEventHandler;
-
-    /**
-     * Function triggered when the component loses focus
-     */
-    onBlur?: React.FocusEventHandler;
 }
+
+type ControlledProps = {
+    /**
+     * Whether the component should be checked (controlled)
+     */
+    checked?: boolean;
+}
+
+type UncontrolledProps = {
+    /**
+     * Whether the component should be checked - default value (uncontrolled)
+     */
+    defaultChecked?: boolean;
+}
+
+export type SwitchProps = BasicProps & Partial<ControlledProps> & Partial<UncontrolledProps>;
+export type ControlledSwitchProps = BasicProps & ControlledProps;
+export type UncontrolledSwitchProps = BasicProps & UncontrolledProps;

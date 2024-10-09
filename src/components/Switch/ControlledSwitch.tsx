@@ -1,15 +1,22 @@
-import React, {useRef} from 'react';
+import React, {MutableRefObject, useRef} from 'react';
 import clsx from 'clsx';
-import {SwitchProps} from './Switch.types';
+import type {ControlledSwitchProps} from './Switch.types';
 import './Switch.scss';
 
-export const ControlledSwitch: React.FC<SwitchProps> = ({className, checked = false, isDisabled, onChange, value, ...props}) => {
-    const inputRef = useRef<HTMLInputElement>(null);
+const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ControlledSwitchProps> = ({
+    className,
+    checked = false,
+    value,
+    onChange = () => undefined,
+    isDisabled,
+    ...other
+}, ref) => {
+    const inputRef: MutableRefObject<HTMLInputElement> = useRef();
 
     return (
-        <div className={clsx('moonstone-switch', {'moonstone-switch_checked': checked, 'moonstone-switch_disabled': isDisabled}, className)}>
+        <div ref={ref} className={clsx('moonstone-switch', {'moonstone-switch_checked': checked, 'moonstone-switch_disabled': isDisabled}, className)}>
             <input
-                {...props}
+                {...other}
                 ref={inputRef}
                 className={clsx('moonstone-switch_input')}
                 type="checkbox"
@@ -23,5 +30,7 @@ export const ControlledSwitch: React.FC<SwitchProps> = ({className, checked = fa
         </div>
     );
 };
+
+export const ControlledSwitch = React.forwardRef(ControlledSwitchForwardRef);
 
 ControlledSwitch.displayName = 'ControlledSwitch';

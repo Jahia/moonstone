@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import './Switch.scss';
-import {SwitchProps} from './Switch.types';
+import type {UncontrolledSwitchProps} from './Switch.types';
 import {ControlledSwitch} from '~/components/Switch/ControlledSwitch';
 
-export const UncontrolledSwitch: React.FC<SwitchProps> = ({defaultChecked = false, onChange, value, ...props}) => {
+export const UncontrolledSwitch: React.FC<UncontrolledSwitchProps> = ({defaultChecked = false, onChange, value, ...props}) => {
     const [checked, setChecked] = useState(defaultChecked);
 
     return (

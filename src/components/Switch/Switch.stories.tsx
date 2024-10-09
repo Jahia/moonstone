@@ -14,12 +14,7 @@ export default {
     }
 };
 
-const Template: Story<SwitchProps> = args => <Switch {...args}/>;
-
-export const Uncontrolled = Template.bind({});
-Uncontrolled.args = {
-    'aria-label': 'default example checkbox'
-};
+export const Uncontrolled: Story<SwitchProps> = args => <Switch {...args}/>;
 
 export const Controlled: Story<SwitchProps> = args => {
     const [checked, setChecked] = useState(false);
