@@ -34,6 +34,10 @@
     --switch-icon_bg: var(--color-accent_dark);
     --switch-input_bg: var(--color-accent_light20);
 
+    &:hover {
+        --switch-icon_bg: var(--color-accent_dark_contrast);
+    }
+
     .moonstone-switch_icon {
         transform: translateX(18px);
     }
@@ -45,10 +49,6 @@
         opacity: 50%;
 
         pointer-events: none;
-    }
-
-    &:hover {
-        --switch-icon_bg: var(--color-accent_dark_contrast);
     }
 }
 
