@@ -22,7 +22,7 @@
         "test": "jest --ci --runInBand --coverage",
         "tdd": "jest --watch",
         "lint:js": "eslint --ext js,jsx,ts,tsx,json .",
-        "lint:scss": "stylelint './src/**/*.scss'",
+        "lint:scss": "stylelint ./src/**/*.scss",
         "lint": "yarn lint:js && yarn lint:scss",
         "lint:js:fix": "yarn lint:js --fix .",
         "lint:scss:fix": "yarn lint:scss --fix",
