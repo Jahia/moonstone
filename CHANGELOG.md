@@ -1,3 +1,27 @@
+# v2.8.0 (Wed Oct 09 2024)
+
+#### 🚀 Enhancement
+
+- MOON-410: Add component Switch [#430](https://github.com/Jahia/moonstone/pull/430) ([@Eevolee](https://github.com/Eevolee))
+
+#### 🐛 Bug Fix
+
+- MOON-447: Fix lint:scss error on windows [#431](https://github.com/Jahia/moonstone/pull/431) ([@Eevolee](https://github.com/Eevolee))
+- MOON-443: Add 20% opacity tint on all colors [#429](https://github.com/Jahia/moonstone/pull/429) ([@Eevolee](https://github.com/Eevolee))
+- MOON-444: Add new icon Area [#426](https://github.com/Jahia/moonstone/pull/426) ([@Eevolee](https://github.com/Eevolee))
+
+#### 🏠 Internal
+
+- MOON-388: Migrate RadioItem story to Typescript [#427](https://github.com/Jahia/moonstone/pull/427) ([@Eevolee](https://github.com/Eevolee))
+- MOON-384: Migrate ImgWrapper story to Typescript [#425](https://github.com/Jahia/moonstone/pull/425) ([@Eevolee](https://github.com/Eevolee))
+- MOON-259: Migrated tests of Accordion & AccordionItem to testing-library [#424](https://github.com/Jahia/moonstone/pull/424) ([@Eevolee](https://github.com/Eevolee))
+
+#### Authors: 1
+
+- Alessia Bourgoin ([@Eevolee](https://github.com/Eevolee))
+
+---
+
 # v2.7.4 (Tue Aug 20 2024)
 
 #### 🐛 Bug Fix
