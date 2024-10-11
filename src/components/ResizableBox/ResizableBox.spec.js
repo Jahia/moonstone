@@ -9,12 +9,12 @@ describe('ResizableBox', () => {
     });
 
     it('should add extra className', () => {
-        render(<ResizableBox data-testid="resizable-box" className="fancy">My content here</ResizableBox>);
-        expect(screen.getByTestId('resizable-box')).toHaveClass('fancy');
+        render(<ResizableBox data-testid="resizable-box" className="extra">My content here</ResizableBox>);
+        expect(screen.getByTestId('resizable-box')).toHaveClass('extra');
     });
 
     it('should add extra attribute', () => {
-        render(<ResizableBox data-testid="resizable-box" data-custom="test">My content here</ResizableBox>);
-        expect(screen.getByTestId('resizable-box')).toHaveAttribute('data-custom', 'test');
+        render(<ResizableBox data-testid="resizable-box" data-custom="extra">My content here</ResizableBox>);
+        expect(screen.getByTestId('resizable-box')).toHaveAttribute('data-custom', 'extra');
     });
 });
