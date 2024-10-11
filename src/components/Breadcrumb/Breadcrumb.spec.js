@@ -1,38 +1,38 @@
 import React from 'react';
 import {Breadcrumb, BreadcrumbItem} from '~/components';
-import {shallow} from 'component-test-utils-react';
+import {render, screen} from '@testing-library/react';
 
 describe('Breadcrumb', () => {
     it('should display additional className', () => {
-        const wrapper = shallow(
-            <Breadcrumb className="extra">
+        render(
+            <Breadcrumb data-testid="breadcrumb" className="extra">
                 <BreadcrumbItem label="item 1" onClick={() => null}/>
             </Breadcrumb>
         );
-        expect(wrapper.querySelector('.extra').exists()).toBeTruthy();
+        expect(screen.getByTestId('breadcrumb')).toHaveClass('extra');
     });
 
     it('should display additional attributes', () => {
-        const wrapper = shallow(
-            <Breadcrumb data-custom="test">
+        render(
+            <Breadcrumb data-testid="breadcrumb" data-custom="test">
                 <BreadcrumbItem label="item 1" onClick={() => null}/>
             </Breadcrumb>
         );
-        expect(wrapper.querySelector('[data-custom="test"]').exists()).toBeTruthy();
+        expect(screen.getByTestId('breadcrumb')).toHaveAttribute('data-custom', 'test');
     });
 
     it('should display nothing when the component has no children', () => {
-        const wrapper = shallow(<Breadcrumb/>);
-        expect(wrapper.html()).toEqual('');
+        render(<Breadcrumb/>);
+        expect(screen.queryByRole('breadcrumb-item')).not.toBeInTheDocument();
     });
 
     it('should display items', () => {
-        const wrapper = shallow(
+        render(
             <Breadcrumb>
                 <BreadcrumbItem label="item 1" onClick={() => null}/>
                 <BreadcrumbItem label="item 2" onClick={() => null}/>
             </Breadcrumb>
         );
-        expect(wrapper.html()).toContain('item 1');
+        expect(screen.getByText('item 1')).toBeInTheDocument();
     });
 });
