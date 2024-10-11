@@ -9,8 +9,8 @@ describe('BreadcrumbItem', () => {
     });
 
     it('should display additional attributes', () => {
-        render(<BreadcrumbItem data-testid="breadcrumb-item" data-custom="test" onClick={() => null}/>);
-        expect(screen.getByTestId('breadcrumb-item')).toHaveAttribute('data-custom', 'test');
+        render(<BreadcrumbItem data-testid="breadcrumb-item" data-custom="extra" onClick={() => null}/>);
+        expect(screen.getByTestId('breadcrumb-item')).toHaveAttribute('data-custom', 'extra');
     });
 
     it('should enforce the ghost button\'s variant', () => {
