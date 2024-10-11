@@ -1,29 +1,20 @@
 import React from 'react';
-import {shallow} from 'component-test-utils-react';
+import {render, screen} from '@testing-library/react';
 import {ResizableBox} from './index';
 
 describe('ResizableBox', () => {
     it('should display content', () => {
-        const wrapper = shallow(
-            <ResizableBox>My content here</ResizableBox>
-        );
-
-        expect(wrapper.html()).toContain('My content here');
+        render(<ResizableBox>My content here</ResizableBox>);
+        expect(screen.getByText('My content here')).toBeInTheDocument();
     });
 
     it('should add extra className', () => {
-        const wrapper = shallow(
-            <ResizableBox className="fancy">My content here</ResizableBox>
-        );
-
-        expect(wrapper.html()).toContain('fancy');
+        render(<ResizableBox data-testid="resizable-box" className="fancy">My content here</ResizableBox>);
+        expect(screen.getByTestId('resizable-box')).toHaveClass('fancy');
     });
 
     it('should add extra attribute', () => {
-        const wrapper = shallow(
-            <ResizableBox data-custom="test">My content here</ResizableBox>
-        );
-
-        expect(wrapper.html()).toContain('data-custom="test"');
+        render(<ResizableBox data-testid="resizable-box" data-custom="test">My content here</ResizableBox>);
+        expect(screen.getByTestId('resizable-box')).toHaveAttribute('data-custom', 'test');
     });
 });
