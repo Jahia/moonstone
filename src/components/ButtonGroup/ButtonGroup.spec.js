@@ -1,80 +1,73 @@
 import React from 'react';
-import {shallow} from 'component-test-utils-react';
+import {render, screen} from '@testing-library/react';
 import {ButtonGroup} from './index';
 import {Button} from '~/components/Button';
 
 describe('ButtonGroup', () => {
     it('should render ButtonGroup', () => {
-        const buttonGroup = shallow(
+        render(
             <ButtonGroup>
                 <Button label="One" onClick={() => null}/>
                 <Button label="Two" onClick={() => null}/>
             </ButtonGroup>
         );
-        expect(buttonGroup.html());
+        expect(screen.queryByRole('group')).toBeInTheDocument();
     });
 
-    it('should no render error', () => {
-        const buttonGroup = shallow(
-            <ButtonGroup>
-                test
-            </ButtonGroup>
-        );
-        expect(buttonGroup.html());
+    it('should not render error', () => {
+        render(<ButtonGroup>test</ButtonGroup>);
+        expect(screen.queryByRole('group')).toBeInTheDocument();
     });
 
     it('should display nothing when no children is provided', () => {
-        const buttonGroup = shallow(
-            <ButtonGroup/>
-        );
-        expect(buttonGroup.html()).toEqual('');
+        render(<ButtonGroup/>);
+        expect(screen.queryByRole('group')).not.toBeInTheDocument();
     });
 
     it('should display nothing when children is empty', () => {
-        const buttonGroup = shallow(
-            <ButtonGroup>{[]}</ButtonGroup>
-        );
-        expect(buttonGroup.html()).toEqual('');
+        render(<ButtonGroup>{[]}</ButtonGroup>);
+        expect(screen.queryByRole('group')).not.toBeInTheDocument();
     });
 
     it('should pass color variant to buttons', () => {
-        const buttonGroup = shallow(
+        render(
             <ButtonGroup color="accent">
                 <Button label="One" onClick={() => null}/>
                 <Button label="One" onClick={() => null}/>
             </ButtonGroup>
         );
-        expect(buttonGroup.html()).toContain('accent');
+        expect(screen.getByRole('group').firstChild).toHaveClass('moonstone-color_accent');
+        expect(screen.getByRole('group').lastChild).toHaveClass('moonstone-color_accent');
     });
 
     it('should pass size to buttons', () => {
-        const buttonGroup = shallow(
+        render(
             <ButtonGroup size="big">
                 <Button label="One" onClick={() => null}/>
                 <Button label="One" onClick={() => null}/>
             </ButtonGroup>
         );
-
-        expect(buttonGroup.html()).toContain('big');
+        expect(screen.getByRole('group').firstChild).toHaveClass('moonstone-size_big');
+        expect(screen.getByRole('group').lastChild).toHaveClass('moonstone-size_big');
     });
 
     it('should add additional classname', () => {
-        const buttonGroup = shallow(
-            <ButtonGroup className="test">
+        render(
+            <ButtonGroup className="extra">
                 <Button label="One" onClick={() => null}/>
                 <Button label="One" onClick={() => null}/>
             </ButtonGroup>
         );
-        expect(buttonGroup.querySelector('.test').exists()).toBeTruthy();
+        expect(screen.getByRole('group')).toHaveClass('extra');
     });
 
     it('should add additional attribute', () => {
-        const buttonGroup = shallow(
-            <ButtonGroup data-custom="test">
+        render(
+            <ButtonGroup data-custom="extra">
                 <Button label="One" onClick={() => null}/>
                 <Button label="One" onClick={() => null}/>
             </ButtonGroup>
         );
-        expect(buttonGroup.querySelector('[data-custom="test"]').exists()).toBeTruthy();
+        expect(screen.getByRole('group')).toHaveAttribute('data-custom', 'extra');
     });
 });
