@@ -1,10 +1,10 @@
 import React from 'react';
-import {shallow} from 'component-test-utils-react';
+import {render, screen} from '@testing-library/react';
 import {GlobalStyle} from './index';
 
 describe('GlobalStyle', () => {
     it('should not render anything', () => {
-        const wrapper = shallow(<GlobalStyle/>);
-        expect(wrapper.html()).toEqual('</>');
+        render(<GlobalStyle data-testid="global-style"/>);
+        expect(screen.queryByTestId('global-style')).not.toBeInTheDocument();
     });
 });
