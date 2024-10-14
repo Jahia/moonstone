@@ -1,25 +1,25 @@
 import React from 'react';
-import {shallow} from 'component-test-utils-react';
+import {render, screen} from '@testing-library/react';
 import {Tab} from './index';
 
 describe('Tab', () => {
     it('should render the children', () => {
-        const tab = shallow(<Tab>toto</Tab>);
-        expect(tab.html()).toContain('toto');
+        render(<Tab>toto</Tab>);
+        expect(screen.queryByText('toto')).toBeInTheDocument();
     });
 
     it('should pass props to the element', () => {
-        const tab = shallow(<Tab title="tabulation">toto</Tab>);
-        expect(tab.html()).toContain('title="tabulation"');
+        render(<Tab title="tabulation">toto</Tab>);
+        expect(screen.queryByTitle('tabulation')).toBeInTheDocument();
     });
 
-    it('should pass className to the element', () => {
-        const tab = shallow(<Tab className="customization">toto</Tab>);
-        expect(tab.html()).toContain('customization');
+    it('should add extra className', () => {
+        render(<Tab data-testid="tabulation" className="extra">toto</Tab>);
+        expect(screen.getByTestId('tabulation')).toHaveClass('extra');
     });
 
     it('should not display the menu when children is empty', () => {
-        const tab = shallow(<Tab className="customization">{[]}</Tab>);
-        expect(tab.html()).toContain('');
+        render(<Tab data-testid="tabulation">{[]}</Tab>);
+        expect(screen.queryByTestId('tabulation')).not.toBeInTheDocument();
     });
 });
