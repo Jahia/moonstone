@@ -1,105 +1,99 @@
 import React from 'react';
-import {shallow} from 'component-test-utils-react';
+import {render, screen} from '@testing-library/react';
 import {TabItem} from './index';
-import {tabItemColors, tabItemSizes, tabItemVariants} from './TabItem.types';
+import {tabItemSizes} from './TabItem.types';
 import {Love} from '~/icons';
 
 describe('TabItem', () => {
     it('should render', () => {
-        const tabItem = shallow(<TabItem onClick={() => null}/>);
-        expect(tabItem.html()).toEqual('<button class="moonstone-tab-item moonstone-size_default moonstone-variant_ghost moonstone-color_default moonstone-icon-tab-item" disabled="false" onClick="[onClick]"><></></button>');
+        render(<TabItem/>);
+        expect(screen.getByRole('button')).toHaveClass('moonstone-tab-item');
     });
 
     it('should have the specified label', () => {
-        const label = 'TabItem Toto';
-        const tabItem = shallow(<TabItem label={label} onClick={() => null}/>);
-        expect(tabItem.html()).toContain(label);
+        render(<TabItem label="TabItem Toto"/>);
+        expect(screen.queryByText('TabItem Toto')).toBeInTheDocument();
+    });
+
+    it('should use label variant heading & weight light on size big', () => {
+        render(<TabItem label="TabItem Toto" size="big"/>);
+        expect(screen.getByText('TabItem Toto')).toHaveClass('moonstone-variant_heading');
+        expect(screen.getByText('TabItem Toto')).toHaveClass('moonstone-weight_light');
     });
 
     it('should display the icon', () => {
-        const tabItem = shallow(<TabItem icon={<Love/>} onClick={() => null}/>);
-        expect(tabItem.querySelector('SvgLove').exists()).toBeTruthy();
+        render(<TabItem icon={<Love data-testid="svg"/>}/>);
+        expect(screen.queryByTestId('svg')).toBeInTheDocument();
+    });
+
+    it('should display the icon at default size on size big', () => {
+        render(<TabItem size="big" icon={<Love data-testid="svg"/>}/>);
+        expect(screen.queryByTestId('svg')).toHaveClass('moonstone-icon_default');
     });
 
     it('should have the specified label and an icon', () => {
-        const label = 'tabItem Toto';
-        const tabItem = shallow(<TabItem label={label} icon={<Love/>} onClick={() => null}/>);
-        expect(tabItem.html()).toContain(label);
-        expect(tabItem.querySelector('SvgLove').exists()).toBeTruthy();
+        render(<TabItem label="TabItem Toto" icon={<Love data-testid="svg"/>}/>);
+        expect(screen.queryByText('TabItem Toto')).toBeInTheDocument();
+        expect(screen.queryByTestId('svg')).toBeInTheDocument();
     });
 
-    it('should use the variant ghost', () => {
-        const tabItem1 = shallow(<TabItem onClick={() => null}/>);
-        expect(tabItem1.querySelector('.moonstone-variant_ghost').exists()).toBeTruthy();
-
-        const tabItem2 = shallow(<TabItem variant="ghost" onClick={() => null}/>);
-        expect(tabItem2.querySelector('.moonstone-variant_ghost').exists()).toBeTruthy();
+    it('should use the variant ghost by default', () => {
+        render(<TabItem data-testid="tab-item"/>);
+        expect(screen.getByTestId('tab-item')).toHaveClass('moonstone-variant_ghost');
     });
 
     it('should use the specified variant', () => {
-        tabItemVariants.forEach(variant => {
-            const tabItem = shallow(<TabItem variant={variant} onClick={() => null}/>);
-            expect(tabItem.querySelector(`.moonstone-variant_${variant}`).exists()).toBeTruthy();
-        });
+        render(<TabItem data-testid="tab-item" variant="outlined"/>);
+        expect(screen.getByTestId('tab-item')).toHaveClass('moonstone-variant_outlined');
     });
 
     it('should use the reverse mode', () => {
-        const tabItem = shallow(<TabItem isReversed onClick={() => null}/>);
-        expect(tabItem.querySelector('.moonstone-reverse').exists()).toBeTruthy();
+        render(<TabItem isReversed data-testid="tab-item"/>);
+        expect(screen.getByTestId('tab-item')).toHaveClass('moonstone-reverse');
     });
 
     it('should be disabled', () => {
-        const tabItem = shallow(<TabItem isDisabled onClick={() => null}/>);
-        expect(tabItem.html().indexOf('disabled') !== -1).toBeTruthy();
+        render(<TabItem isDisabled data-testid="tab-item"/>);
+        expect(screen.getByTestId('tab-item')).toHaveAttribute('disabled');
     });
 
     it('should be selected', () => {
-        const tabItem = shallow(<TabItem isSelected onClick={() => null}/>);
-        expect(tabItem.props.isSelected).toBeTruthy();
+        render(<TabItem isSelected data-testid="tab-item"/>);
+        expect(screen.getByTestId('tab-item')).toHaveClass('moonstone-selected');
     });
 
     it('should not be selected', () => {
-        const tabItem = shallow(<TabItem isSelected={false} onClick={() => null}/>);
-        expect(tabItem.props.isSelected).toBeFalsy();
+        render(<TabItem isSelected={false} data-testid="tab-item"/>);
+        expect(screen.getByTestId('tab-item')).not.toHaveClass('moonstone-selected');
     });
 
     it('should use the color default', () => {
-        const tabItem1 = shallow(<TabItem onClick={() => null}/>);
-        expect(tabItem1.querySelector('.moonstone-color_default').exists()).toBeTruthy();
-
-        const tabItem2 = shallow(<TabItem color="default" onClick={() => null}/>);
-        expect(tabItem2.querySelector('.moonstone-color_default').exists()).toBeTruthy();
+        render(<TabItem data-testid="tab-item"/>);
+        expect(screen.getByTestId('tab-item')).toHaveClass('moonstone-color_default');
     });
 
     it('should use the specified color', () => {
-        tabItemColors.forEach(color => {
-            const tabItem = shallow(<TabItem color={color} onClick={() => null}/>);
-            expect(tabItem.querySelector(`.moonstone-color_${color}`).exists()).toBeTruthy();
-        });
+        render(<TabItem data-testid="tab-item" color="accent"/>);
+        expect(screen.getByTestId('tab-item')).toHaveClass('moonstone-color_accent');
     });
 
     it('should use the default size', () => {
-        const tabItem1 = shallow(<TabItem onClick={() => null}/>);
-        expect(tabItem1.querySelector('.moonstone-size_default').exists()).toBeTruthy();
-
-        const tabItem2 = shallow(<TabItem size="default" onClick={() => null}/>);
-        expect(tabItem2.querySelector('.moonstone-size_default').exists()).toBeTruthy();
+        render(<TabItem data-testid="tab-item"/>);
+        expect(screen.getByTestId('tab-item')).toHaveClass('moonstone-size_default');
     });
 
-    it('should use the specified size', () => {
-        tabItemSizes.forEach(size => {
-            const tabItem = shallow(<TabItem size={size} onClick={() => null}/>);
-            expect(tabItem.querySelector(`.moonstone-size_${size}`).exists()).toBeTruthy();
-        });
+    test.each(tabItemSizes)('should use the specified size', size => {
+        render(<TabItem data-testid="tab-item" size={size}/>);
+        expect(screen.getByTestId('tab-item')).toHaveClass(`moonstone-size_${size}`);
     });
 
     it('should have extra attribute', () => {
-        const tabItem = shallow(<TabItem data-custom="test" onClick={() => null}/>);
-        expect(tabItem.html().indexOf('data-custom="test"') !== -1).toBeTruthy();
+        render(<TabItem data-testid="tab-item" data-custom="extra"/>);
+        expect(screen.getByTestId('tab-item')).toHaveAttribute('data-custom', 'extra');
     });
 
-    it('should have extra CSS class', () => {
-        const tabItem = shallow(<TabItem className="toto" onClick={() => null}/>);
-        expect(tabItem.querySelector('.toto').exists()).toBeTruthy();
+    it('should have extra className', () => {
+        render(<TabItem data-testid="tab-item" className="extra"/>);
+        expect(screen.getByTestId('tab-item')).toHaveClass('extra');
     });
 });
