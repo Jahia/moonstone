@@ -28,12 +28,12 @@ describe('NavItem', () => {
 
     it('should set selected when given selected property', () => {
         render(<PrimaryNavItem isSelected data-testid="primaryNav-item"/>);
-        expect(screen.getByTestId('primaryNav-item')).toHaveAttribute('aria-selected', 'true');
+        expect(screen.getByTestId('primaryNav-item')).toHaveAttribute('aria-current', 'true');
     });
 
     it('should not set selected when not given selected property', () => {
         render(<PrimaryNavItem data-testid="primaryNav-item"/>);
-        expect(screen.getByTestId('primaryNav-item')).toHaveAttribute('aria-selected', 'false');
+        expect(screen.getByTestId('primaryNav-item')).toHaveAttribute('aria-current', 'false');
     });
 
     it('should display a link when given a url props', () => {

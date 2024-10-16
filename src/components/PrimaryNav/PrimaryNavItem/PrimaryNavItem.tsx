@@ -76,7 +76,7 @@ export const PrimaryNavItem: React.FC<PrimaryNavItemProps> = ({
 
     return (
         <li
-            aria-selected={isSelected}
+            aria-current={isSelected}
             className={clsx(
                 'moonstone-primaryNavItem',
                 {'moonstone-selected': isSelected},
