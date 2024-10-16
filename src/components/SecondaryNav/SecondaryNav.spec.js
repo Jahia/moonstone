@@ -20,7 +20,6 @@ describe('SecondaryNav', () => {
 
     it('should not be expanded when the menu is hidden', () => {
         render(<SecondaryNav data-testid="secondary-nav" isDefaultVisible={false}>content here</SecondaryNav>);
-        screen.debug();
         expect(screen.getByTestId('secondary-nav')).toHaveAttribute('aria-expanded', 'false');
     });
 
@@ -35,27 +34,27 @@ describe('SecondaryNav', () => {
     });
 
     it('should show the navigation by clicking on expand button when the menu is hidden', () => {
-        render(<SecondaryNav data-testid="secondary-nav" isDefaultVisible={false}>content here</SecondaryNav>);
-        userEvent.click(screen.getByRole('button', {class: /moonstone-secondaryNav_buttonToggle/i}));
+        render(<SecondaryNav data-testid="secondary-nav" id="test" isDefaultVisible={false}>content here</SecondaryNav>);
+        userEvent.click(screen.getByRole('secondary-nav-control'));
         expect(screen.getByTestId('secondary-nav')).toHaveAttribute('aria-expanded', 'true');
     });
 
     it('should hide the navigation by clicking on expand button when the menu is visible', () => {
         render(<SecondaryNav data-testid="secondary-nav">content here</SecondaryNav>);
-        userEvent.click(screen.getByRole('button', {class: /moonstone-secondaryNav_buttonToggle/i}));
+        userEvent.click(screen.getByRole('secondary-nav-control'));
         expect(screen.getByTestId('secondary-nav')).toHaveAttribute('aria-expanded', 'false');
     });
 
     it('should not throw error when there is no onToggled defined', () => {
         render(<SecondaryNav data-testid="secondary-nav">content here</SecondaryNav>);
         // No error should occur when there is no onClick defined
-        userEvent.click(screen.getByRole('button', {class: /moonstone-secondaryNav_buttonToggle/i}));
+        userEvent.click(screen.getByRole('secondary-nav-control'));
     });
 
     it('should call onToggled when clicking on expand button', () => {
         const clickHandler = jest.fn();
         render(<SecondaryNav onToggled={clickHandler}>content here</SecondaryNav>);
-        userEvent.click(screen.getByRole('button', {class: /moonstone-secondaryNav_buttonToggle/i}));
+        userEvent.click(screen.getByRole('secondary-nav-control'));
         expect(clickHandler).toHaveBeenCalled();
     });
 });
