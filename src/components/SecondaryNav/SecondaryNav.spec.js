@@ -18,14 +18,15 @@ describe('SecondaryNav', () => {
         expect(screen.getByTestId('secondary-nav')).toHaveAttribute('data-custom', 'extra');
     });
 
-    it('should have .secondaryNav_hidden when the menu is hidden', () => {
+    it('should not be expanded when the menu is hidden', () => {
         render(<SecondaryNav data-testid="secondary-nav" isDefaultVisible={false}>content here</SecondaryNav>);
-        expect(screen.getByTestId('secondary-nav')).toHaveClass('moonstone-secondaryNav_hidden');
+        screen.debug();
+        expect(screen.getByTestId('secondary-nav')).toHaveAttribute('aria-expanded', 'false');
     });
 
-    it('should not have .secondaryNav_hidden when the menu is visible', () => {
+    it('should be expanded when the menu is visible', () => {
         render(<SecondaryNav data-testid="secondary-nav">content here</SecondaryNav>);
-        expect(screen.getByTestId('secondary-nav')).not.toHaveClass('moonstone-secondaryNav_hidden');
+        expect(screen.getByTestId('secondary-nav')).toHaveAttribute('aria-expanded', 'true');
     });
 
     it('should set width to zero when the menu is hidden', () => {
@@ -36,13 +37,13 @@ describe('SecondaryNav', () => {
     it('should show the navigation by clicking on expand button when the menu is hidden', () => {
         render(<SecondaryNav data-testid="secondary-nav" isDefaultVisible={false}>content here</SecondaryNav>);
         userEvent.click(screen.getByRole('button', {class: /moonstone-secondaryNav_buttonToggle/i}));
-        expect(screen.getByTestId('secondary-nav')).not.toHaveClass('moonstone-secondaryNav_hidden');
+        expect(screen.getByTestId('secondary-nav')).toHaveAttribute('aria-expanded', 'true');
     });
 
     it('should hide the navigation by clicking on expand button when the menu is visible', () => {
         render(<SecondaryNav data-testid="secondary-nav">content here</SecondaryNav>);
         userEvent.click(screen.getByRole('button', {class: /moonstone-secondaryNav_buttonToggle/i}));
-        expect(screen.getByTestId('secondary-nav')).toHaveClass('moonstone-secondaryNav_hidden');
+        expect(screen.getByTestId('secondary-nav')).toHaveAttribute('aria-expanded', 'false');
     });
 
     it('should not throw error when there is no onToggled defined', () => {

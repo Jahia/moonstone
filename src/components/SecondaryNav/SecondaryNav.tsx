@@ -23,6 +23,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
 
     return (
         <ResizableBox
+            aria-expanded={isVisible}
             className={
                 clsx(
                     className,
