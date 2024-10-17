@@ -4641,10 +4641,10 @@
   dependencies:
     "@types/jest" "*"
 
-"@types/to-px@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@types/to-px/-/to-px-1.1.2.tgz#1c7cd540bb3d6402f33e9e7cac560ed6243d9a2d"
-  integrity sha512-O3OkxRVcfcrAW2wH8bCVDhs1RCGwHI77l+wDNQ8KlX0HCCwBtShKkqQByKlzIirR72D36JHNgJhYb9B69iJ2PA==
+"@types/to-px@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@types/to-px/-/to-px-1.1.4.tgz#f8b4812c533b18fd211eefb8b4dc6ab2ce4ddbe4"
+  integrity sha512-t8imv37xCZ5yS7ff9g8/3iRwfqx6ro8h3qkI1F1gjqdeu7q5/CxyjDs/EIHbdoEH89SdGuUC+SU27CWUZQ/Jtg==
 
 "@types/uglify-js@*":
   version "3.13.1"
