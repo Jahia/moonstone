@@ -2255,10 +2255,10 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
-"@cyclonedx/cyclonedx-library@^6.6.0":
-  version "6.8.0"
-  resolved "https://registry.yarnpkg.com/@cyclonedx/cyclonedx-library/-/cyclonedx-library-6.8.0.tgz#a2117e80482c4eddc91619060b2570cf35413505"
-  integrity sha512-fs4YnLS6zkYq4YX4/ijgML+7/8IAJVAfJb0XXNpE52OXFnSr5sHY9KfezGCuFnXyt4KISvvEOZxi7TyxEI+HKQ==
+"@cyclonedx/cyclonedx-library@^6.11.0":
+  version "6.11.0"
+  resolved "https://registry.yarnpkg.com/@cyclonedx/cyclonedx-library/-/cyclonedx-library-6.11.0.tgz#1d8f4caede27918b1f793333e7c3b3ae97b171f2"
+  integrity sha512-T2R49+ia3NmluV+56Ev1NSIjG7DKUFM3EzzhHwJqWRUMuFK3Z8AIKIbNezAxoyl+4kJ6MzT8lke7t8mkZom+/A==
   dependencies:
     packageurl-js ">=0.0.6 <0.0.8 || ^1"
     spdx-expression-parse "^3.0.1 || ^4"
@@ -2269,12 +2269,12 @@
     libxmljs2 "^0.31 || ^0.32 || ^0.33"
     xmlbuilder2 "^3.0.2"
 
-"@cyclonedx/webpack-plugin@^3.11.0":
-  version "3.11.0"
-  resolved "https://registry.yarnpkg.com/@cyclonedx/webpack-plugin/-/webpack-plugin-3.11.0.tgz#6fdc1bfc32cc5f47e326790d4001aea1a80dbb5d"
-  integrity sha512-mZW66ZZFxfJc2jinBEoSIT2L9bvtL6KmNE5lXgvDp6oGlrXyDcSCXapjHG+9V/xqP/WIRPFEgEFLKDhWWEyfUQ==
+"@cyclonedx/webpack-plugin@^3.14.0":
+  version "3.14.0"
+  resolved "https://registry.yarnpkg.com/@cyclonedx/webpack-plugin/-/webpack-plugin-3.14.0.tgz#03f28ce89612103d9ab5c105477d5319641a5e28"
+  integrity sha512-mJcEy2RvhEi3uL0DQtKWIXAUC1emj6U7uuHrtB5Ss+sMCrRmN8exhhqWBv7JdTYideSHHMaToykGlkW9IvPuHQ==
   dependencies:
-    "@cyclonedx/cyclonedx-library" "^6.6.0"
+    "@cyclonedx/cyclonedx-library" "^6.11.0"
     normalize-package-data "^3||^4||^5||^6"
     xmlbuilder2 "^3.0.2"
 
