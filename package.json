@@ -78,7 +78,7 @@
         "babel-loader": "^8.2.3",
         "babel-plugin-module-resolver": "^4.0.0",
         "babel-plugin-transform-rename-import": "^2.3.0",
-        "babel-plugin-typescript-to-proptypes": "^2.0.0",
+        "babel-plugin-typescript-to-proptypes": "^2.1.0",
         "css-loader": "^6.5.1",
         "eslint": "^7.15.0",
         "eslint-plugin-jest": "^24.1.3",
