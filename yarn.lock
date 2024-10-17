@@ -2112,7 +2112,7 @@
     "@babel/helper-validator-option" "^7.14.5"
     "@babel/plugin-transform-typescript" "^7.16.0"
 
-"@babel/preset-typescript@^7.21.5":
+"@babel/preset-typescript@^7.21.5", "@babel/preset-typescript@^7.25.7":
   version "7.25.7"
   resolved "https://registry.yarnpkg.com/@babel/preset-typescript/-/preset-typescript-7.25.7.tgz#43c5b68eccb856ae5b52274b77b1c3c413cde1b7"
   integrity sha512-rkkpaXJZOFN45Fb+Gki0c+KMIglk4+zZXOoMJuyEK8y8Kkc8Jd3BDmP7qPsz0zQMJj+UD7EprF+AqAXcILnexw==
