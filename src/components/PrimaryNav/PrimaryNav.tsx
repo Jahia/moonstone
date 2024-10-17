@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import clsx from 'clsx';
 import './PrimaryNav.scss';
-import {NavButtonProps, NavHeaderProps, PrimaryNavProps} from './PrimaryNav.types';
+import type {PrimaryNavButtonProps, PrimaryNavHeaderProps, PrimaryNavProps} from './PrimaryNav.types';
 import {PrimaryNavContext} from './PrimaryNav.context';
 import {MenuIcon, ArrowLeft} from '~/icons';
 
-const NavButton: React.FC<NavButtonProps> = ({isExpanded, toggleExpand, modeIcon}) => {
+const NavButton: React.FC<PrimaryNavButtonProps> = ({isExpanded, toggleExpand, modeIcon}) => {
     if (isExpanded) {
         return (
             <button
@@ -42,7 +42,7 @@ const NavButton: React.FC<NavButtonProps> = ({isExpanded, toggleExpand, modeIcon
     );
 };
 
-const NavHeader: React.FC<NavHeaderProps> = ({headerCaption, modeIcon, headerLogo}) => {
+const NavHeader: React.FC<PrimaryNavHeaderProps> = ({headerCaption, modeIcon, headerLogo}) => {
     let icon;
 
     if (modeIcon) {

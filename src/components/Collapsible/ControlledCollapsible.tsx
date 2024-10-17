@@ -1,11 +1,11 @@
 import React, {MutableRefObject, useEffect, useRef} from 'react';
 import clsx from 'clsx';
 import './Collapsible.scss';
-import {CollapsibleProps} from './Collapsible.types';
+import type {ControlledCollapsibleProps} from './Collapsible.types';
 import {Typography} from '~/components';
 import {ChevronRight} from '~/icons/components';
 
-const ControlledCollapsibleForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, CollapsibleProps> = ({
+const ControlledCollapsibleForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ControlledCollapsibleProps> = ({
     label,
     className,
     children,

@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import {TableCellProps} from './TableCell.types';
+import type {TableCellProps} from './TableCell.types';
 import {IconTextIcon, Typography} from '~/components';
 import {ChevronDown, ChevronRight} from '~/icons';
 import {capitalize} from '~/utils/helpers';

@@ -1,57 +1,57 @@
 import React from 'react';
 
-export type ButtonSize = 'small' | 'default' | 'big';
-export const buttonSizes = ['small', 'default', 'big'];
+export const buttonSizes = ['small', 'default', 'big'] as const;
+export type ButtonSize = typeof buttonSizes[number];
 
-export type ButtonVariant = 'default' | 'ghost' | 'outlined';
-export const buttonVariants = ['default', 'ghost', 'outlined'];
+export const buttonVariants = ['default', 'ghost', 'outlined'] as const;
+export type ButtonVariant = typeof buttonVariants[number];
 
-export type ButtonColor = 'default' | 'accent' | 'danger';
-export const buttonColors = ['default', 'accent', 'danger'];
+export const buttonColors = ['default', 'accent', 'danger'] as const;
+export type ButtonColor = typeof buttonColors[number];
 
-export type ButtonProps = {
+export type ButtonProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'onClick' | 'color'> & {
     /**
-     * Button label
+     * Text displays inside the button
      */
     label?: React.ReactNode;
 
     /**
-     * Icon size
+     * Size of the button
      */
     size?: ButtonSize;
 
     /**
-     * Optional icon element to render on the left of the label or without label
+     * Icon component displays before the label
      */
     icon?: React.ReactElement;
 
     /**
-     * Optional icon element to render on the right of the label, it's only display when a label is provided
+     * Icon component displays after the label
      */
     iconEnd?: React.ReactElement;
 
     /**
-     * Button style
+     * Style of the button
      */
     variant?: ButtonVariant;
 
     /**
-     * Button color
+     * Color of the button
      */
     color?: ButtonColor;
 
     /**
-     * Is button disabled
+     * Whether the component should be disabled
      */
     isDisabled?: boolean;
 
     /**
-     * Is button color reversed
+     * Whether the component should use reversed colors, it useful with dark background
      */
     isReversed?: boolean;
 
     /**
-     * Is button loading
+     * Whether the button is loading
      */
      isLoading?: boolean;
 
@@ -61,7 +61,7 @@ export type ButtonProps = {
     className?: string;
 
     /**
-     * Function trigger on click
+     * Function triggered on click
      */
     onClick?: React.MouseEventHandler;
 }

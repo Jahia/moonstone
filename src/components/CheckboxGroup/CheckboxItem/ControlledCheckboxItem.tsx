@@ -4,9 +4,9 @@ import clsx from 'clsx';
 import './CheckboxItem.scss';
 import {Checkbox, Typography} from '~/components';
 import {CheckboxGroupContext} from '../CheckboxGroup.context';
-import type {CheckboxItemProps} from './CheckboxItem.types';
+import type {ControlledCheckboxItemProps} from './CheckboxItem.types';
 
-export const ControlledCheckboxItem: React.FC<CheckboxItemProps> = ({className, id, value, label, description, isDisabled, isReadOnly, onChange, name, ...props}) => {
+export const ControlledCheckboxItem: React.FC<ControlledCheckboxItemProps> = ({className, id, value, label, description, isDisabled, isReadOnly, onChange, name, ...props}) => {
     const context = React.useContext(CheckboxGroupContext);
 
     const isDisabledItem = (typeof context === 'undefined') ? isDisabled : context.isDisabled;

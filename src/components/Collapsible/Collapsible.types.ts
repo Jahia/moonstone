@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type CollapsibleProps = {
+type BasicCollapsibleProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 'children' | 'onClick'> & {
     /**
      * Label of collapse section
      */
@@ -25,14 +25,22 @@ export type CollapsibleProps = {
      * Function trigger on click
      */
     onClick?: React.MouseEventHandler;
+}
 
+type ControlledProps = {
     /**
-     * The expanded state of the collapsible when it is initially rendered.
+     * The controlled open state of the collapsible. Must be used in conjunction with onClick. Define the component as controlled when it set
+     */
+    isExpanded: boolean;
+};
+
+type UncontrolledProps = {
+    /**
+     * The expanded state of the collapsible when it is initially rendered. (uncontrolled)
      */
     isDefaultExpanded?: boolean;
+};
 
-    /**
-     * The controlled open state of the collapsible. Must be used in conjunction with onClick.
-     */
-    isExpanded?: boolean;
-}
+export type CollapsibleProps = BasicCollapsibleProps & Partial<ControlledProps> & Partial<UncontrolledProps>;
+export type ControlledCollapsibleProps = BasicCollapsibleProps & ControlledProps;
+export type UncontrolledCollapsibleProps = BasicCollapsibleProps & UncontrolledProps;
