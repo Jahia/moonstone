@@ -1,16 +1,12 @@
 const path = require('path');
 
 module.exports = {
-    core: {
-        builder: 'webpack5'
-    },
     features: {
         postcss: false,
     },
-    stories: [
-        '../src/**/*.stories.mdx',
-        '../src/**/*.stories.@(js|jsx|ts|tsx)'
-    ],
+
+    stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+
     addons: [
         '@storybook/addon-actions',
         '@storybook/addon-docs',
@@ -18,7 +14,10 @@ module.exports = {
         '@storybook/addon-a11y',
         '@storybook/addon-controls',
         '@storybook/addon-postcss',
+        '@storybook/addon-webpack5-compiler-babel',
+        '@chromatic-com/storybook'
     ],
+
     "webpackFinal": async (config) => {
         config.resolve.alias['~'] = path.resolve(__dirname, '../src')
         config.module.rules.push({
@@ -42,5 +41,12 @@ module.exports = {
         });
 
         return config
-    }
+    },
+
+    framework: {
+        name: '@storybook/react-webpack5',
+        options: {}
+    },
+
+    docs: {}
 };

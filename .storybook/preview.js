@@ -1,5 +1,4 @@
 import React from 'react';
-import {addDecorator} from '@storybook/react';
 import {GlobalStyle} from '../src';
 import { addons } from "@storybook/addons";
 import { UPDATE_GLOBALS, STORY_ARGS_UPDATED } from "@storybook/core-events";
@@ -21,14 +20,6 @@ function setupBackgroundListener() {
     channel.removeListener(STORY_ARGS_UPDATED, storyListener);
     channel.addListener(STORY_ARGS_UPDATED, storyListener);
 }
-
-
-addDecorator(story => {
-    return <>
-        <GlobalStyle/>
-        {story()}
-    </>
-});
 
 export const parameters = {
     layout: 'fullscreen',
@@ -58,3 +49,4 @@ export const parameters = {
 };
 
 setupBackgroundListener();
+export const tags = ['autodocs'];
