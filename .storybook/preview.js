@@ -1,7 +1,7 @@
 import React from 'react';
 import {GlobalStyle} from '../src';
-import { addons } from "@storybook/addons";
-import { UPDATE_GLOBALS, STORY_ARGS_UPDATED } from "@storybook/core-events";
+import {addons} from '@storybook/preview-api';
+import {UPDATE_GLOBALS, STORY_ARGS_UPDATED} from "@storybook/core-events";
 
 let channel = addons.getChannel();
 const storyListener = (args) => {
@@ -20,6 +20,13 @@ function setupBackgroundListener() {
     channel.removeListener(STORY_ARGS_UPDATED, storyListener);
     channel.addListener(STORY_ARGS_UPDATED, storyListener);
 }
+
+export const decorators = (story => {
+    return <>
+        <GlobalStyle/>
+        {story()}
+    </>
+});
 
 export const parameters = {
     layout: 'fullscreen',
