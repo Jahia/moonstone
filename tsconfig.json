@@ -18,7 +18,7 @@
     "paths": {
       "~/*": ["*"]
     },
-    "typeRoots": ["types", "node_modules/@testing-library"],
+    "typeRoots": ["types", "node_modules/@types", "node_modules/@testing-library"],
     "resolveJsonModule": true
   },
   "include": ["src"],
