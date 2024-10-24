@@ -1,4 +1,4 @@
-@import '../../utils/index';
+@use '../../utils/index' as *;
 
 .moonstone-secondaryNav {
     background: var(--color-gray_light40);

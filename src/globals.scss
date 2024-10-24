@@ -1,11 +1,11 @@
-@import './globals/animations';
-@import './globals/reset';
-@import './globals/init';
-@import './globals/layout';
-@import './globals/alignment';
-@import './globals/dnd';
+@forward 'globals/animations';
+@forward 'globals/reset';
+@forward 'globals/init';
+@forward 'globals/layout';
+@forward 'globals/alignment';
+@forward 'globals/dnd';
 
-@import './tokens/spacings/spacings';
-@import './tokens/colors/colors';
+@forward 'tokens/spacings/spacings';
+@forward 'tokens/colors/colors';
 
-@import './icons/icons';
+@forward 'icons/icons';

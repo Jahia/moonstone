@@ -1,4 +1,4 @@
-@import '../../utils/index';
+@use '../../utils/index' as *;
 
 .moonstone-menuItem {
     padding: var(--spacing-nano) var(--spacing-medium);

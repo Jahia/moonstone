@@ -1,4 +1,4 @@
-@import '../../utils/index';
+@use '../../utils/index' as *;
 
 $small-image-size: 56px;
 $big-image-size: 96px;
