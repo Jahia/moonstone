@@ -26,7 +26,7 @@ export type DropdownDataOption = {
     isDisabled?: boolean;
     iconStart?: React.ReactElement;
     iconEnd?: React.ReactElement;
-    attributes?: unknown;
+    attributes?: React.HTMLAttributes<HTMLElement>;
     image?: React.ReactElement;
     imageSize?: DropdownImageSize;
     groupLabel?: string;

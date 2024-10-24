@@ -50,9 +50,12 @@ describe('BaseInput', () => {
         expect(screen.getByTestId('test-icon')).toBeInTheDocument();
     });
 
-    it('should work when no value or defaultValue is specified', () => {
+    it('should work when no value or defaultValue is specified', async () => {
+        const user = userEvent.setup();
+
         render(<BaseInput data-testid="moonstone-input"/>);
-        userEvent.type(screen.getByTestId('moonstone-input'), 'type a value');
+        await user.type(screen.getByTestId('moonstone-input'), 'type a value');
+
         expect(screen.getByDisplayValue('type a value')).toBeInTheDocument();
     });
 });
@@ -63,26 +66,31 @@ describe('UncontrolledBaseInput', () => {
         expect(screen.getByDisplayValue('test-default-value')).toBeInTheDocument();
     });
 
-    it('should update specified defaultValue', () => {
+    it('should update specified defaultValue', async () => {
+        const user = userEvent.setup();
+
         render(<BaseInput data-testid="moonstone-input" defaultValue="test-default-value"/>);
-        userEvent.type(screen.getByTestId('moonstone-input'), '-updated');
+        await user.type(screen.getByTestId('moonstone-input'), '-updated');
+
         expect(screen.getByDisplayValue('test-default-value-updated')).toBeInTheDocument();
     });
 
-    it('should call specified onChange function', () => {
+    it('should call specified onChange function', async () => {
+        const user = userEvent.setup();
         const handleChange = jest.fn();
 
         render(<BaseInput data-testid="moonstone-input" defaultValue="test-default-value" onChange={handleChange}/>);
-        userEvent.type(screen.getByTestId('moonstone-input'), '1');
+        await user.type(screen.getByTestId('moonstone-input'), '1');
 
         expect(handleChange).toHaveBeenCalledTimes(1);
     });
 
-    it('should call specified onClear function', () => {
+    it('should call specified onClear function', async () => {
+        const user = userEvent.setup();
         const handleClear = jest.fn();
 
         render(<BaseInput variant="search" defaultValue="test-default-value" onClear={handleClear}/>);
-        userEvent.click(screen.getByLabelText('Reset'));
+        await user.click(screen.getByLabelText('Reset'));
 
         expect(handleClear).toHaveBeenCalledTimes(1);
     });
@@ -94,20 +102,22 @@ describe('ControlledBaseInput', () => {
         expect(screen.getByDisplayValue('test-value')).toBeInTheDocument();
     });
 
-    it('should call specified onChange function', () => {
+    it('should call specified onChange function', async () => {
+        const user = userEvent.setup();
         const handleChange = jest.fn();
 
         render(<BaseInput data-testid="moonstone-input" value="test-value" onChange={handleChange}/>);
-        userEvent.type(screen.getByTestId('moonstone-input'), '1');
+        await user.type(screen.getByTestId('moonstone-input'), '1');
 
         expect(handleChange).toHaveBeenCalledTimes(1);
     });
 
-    it('should call specified onClear function', () => {
+    it('should call specified onClear function', async () => {
+        const user = userEvent.setup();
         const handleClear = jest.fn();
 
         render(<BaseInput variant="search" value="test-value" onChange={() => null} onClear={handleClear}/>);
-        userEvent.click(screen.getByLabelText('Reset'));
+        await user.click(screen.getByLabelText('Reset'));
 
         expect(handleClear).toHaveBeenCalledTimes(1);
     });

@@ -51,10 +51,13 @@ describe('NavItem', () => {
         expect(screen.queryByText('hello')).toBeInTheDocument();
     });
 
-    it('should call onClick function', () => {
+    it('should call onClick function', async () => {
+        const user = userEvent.setup();
         const onClick = jest.fn();
+
         render(<PrimaryNav top={<PrimaryNavItem label="test me" onClick={onClick}/>}/>);
-        userEvent.click(screen.getByText('test me'));
+        await user.click(screen.getByText('test me'));
+
         expect(onClick).toHaveBeenCalled();
     });
 });

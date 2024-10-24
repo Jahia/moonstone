@@ -40,14 +40,15 @@ describe('CheckboxItem', () => {
         expect(screen.getByText('test description')).toBeInTheDocument();
     });
 
-    it('should call onChange function', () => {
+    it('should call onChange function', async () => {
+        const user = userEvent.setup();
         const handleOnChange = jest.fn();
+
         render(
             <CheckboxItem {...initProps} data-testid="moonstone-checkboxItem" onChange={() => handleOnChange()}/>
         );
-        const checkbox = screen.getByTestId('moonstone-checkboxItem');
+        await user.click(screen.getByTestId('moonstone-checkboxItem'));
 
-        userEvent.click(checkbox);
         expect(handleOnChange).toHaveBeenCalled();
     });
 });

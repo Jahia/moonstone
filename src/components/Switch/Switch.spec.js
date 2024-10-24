@@ -15,38 +15,46 @@ describe('Switch', () => {
         expect(screen.getByRole('checkbox')).toHaveAttribute('data-custom', 'test');
     });
 
-    it('should call onChange function with checked status', () => {
+    it('should call onChange function with checked status', async () => {
+        const user = userEvent.setup();
         const handleOnChange = jest.fn((_, value, checked) => [value, checked]);
-        render(<Switch data-testid="moonstone-switch" value="my-value" onChange={handleOnChange}/>);
-        const switchItem = screen.getByTestId('moonstone-switch');
 
-        userEvent.click(switchItem);
+        render(<Switch data-testid="moonstone-switch" value="my-value" onChange={handleOnChange}/>);
+        await user.click(screen.getByTestId('moonstone-switch'));
+
         expect(handleOnChange).toHaveBeenCalled();
         expect(handleOnChange).toHaveReturnedWith(['my-value', true]); // Switch has been checked
     });
 
-    it('should call onChange function with checked status for controlled', () => {
+    it('should call onChange function with checked status for controlled', async () => {
+        const user = userEvent.setup();
         const handleOnChange = jest.fn((_, value, checked) => [value, checked]);
-        render(<Switch checked data-testid="moonstone-switch" onChange={handleOnChange}/>);
-        const switchItem = screen.getByTestId('moonstone-switch');
 
-        userEvent.click(switchItem);
+        render(<Switch checked data-testid="moonstone-switch" onChange={handleOnChange}/>);
+        await user.click(screen.getByTestId('moonstone-switch'));
+
         expect(handleOnChange).toHaveBeenCalled();
         expect(handleOnChange).toHaveReturnedWith([undefined, false]); // Switch has been unchecked, no value specified
     });
 
-    it('should check off when clicked on', () => {
+    it('should check off when clicked on', async () => {
+        const user = userEvent.setup();
+
         render(<Switch aria-label="switch"/>);
         const switchItem = screen.getByRole('checkbox');
-        userEvent.click(switchItem);
+        await user.click(switchItem);
+
         expect(switchItem).toBeChecked();
     });
 
-    it('should un-check when clicked on twice', () => {
+    it('should un-check when clicked on twice', async () => {
+        const user = userEvent.setup();
+
         render(<Switch aria-label="switch"/>);
         const switchItem = screen.getByRole('checkbox');
-        userEvent.click(switchItem);
-        userEvent.click(switchItem);
+        await user.click(switchItem);
+        await user.click(switchItem);
+
         expect(switchItem).not.toBeChecked();
     });
 

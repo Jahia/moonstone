@@ -15,7 +15,9 @@ describe('Menu', () => {
         expect(queryByTestId('moonstone-menu')).not.toBeInTheDocument();
     });
 
-    it('should show the correct search results', () => {
+    it('should show the correct search results', async () => {
+        const user = userEvent.setup();
+
         render(
             <Menu isDisplayed hasSearch data-testid="moonstone-menu">
                 <MenuItem label="Item1"/>
@@ -23,15 +25,17 @@ describe('Menu', () => {
                 <MenuItem label="Item3"/>
             </Menu>
         );
-        userEvent.type(screen.getByRole('search'), 'item2');
+        await user.type(screen.getByRole('search'), 'item2');
 
         expect(screen.queryByText(/item1/i)).not.toBeInTheDocument();
         expect(screen.getByText(/item2/i)).toBeInTheDocument();
         expect(screen.queryByText(/item3/i)).not.toBeInTheDocument();
     });
 
-    it('should show the empty search text if there are no search results', () => {
+    it('should show the empty search text if there are no search results', async () => {
+        const user = userEvent.setup();
         const searchEmptyText = 'No search results';
+
         render(
             <Menu isDisplayed hasSearch searchEmptyText={searchEmptyText} data-testid="moonstone-menu">
                 <MenuItem label="Item1"/>
@@ -39,7 +43,7 @@ describe('Menu', () => {
                 <MenuItem label="Item3"/>
             </Menu>
         );
-        userEvent.type(screen.getByRole('search'), 'random search text');
+        await user.type(screen.getByRole('search'), 'random search text');
 
         expect(screen.getByText(searchEmptyText)).toBeInTheDocument();
     });
