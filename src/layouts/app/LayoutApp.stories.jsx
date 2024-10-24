@@ -1,7 +1,9 @@
-
 import React from 'react';
 import {LayoutApp} from './index';
-import {FakePrimaryNavigation, FakeContent} from '~/__storybook__/FakeComponents';
+import {
+    FakePrimaryNavigation,
+    FakeContent
+} from '~/__storybook__/FakeComponents';
 import markdownNotes from './LayoutApp.md';
 
 export default {
@@ -23,15 +25,20 @@ export default {
 
 const Template = args => (
     <LayoutApp
-        navigation={<FakePrimaryNavigation/>}
-        content={<FakeContent/>}
-        {...args}
-    />
+    navigation={<FakePrimaryNavigation/>}
+    content={<FakeContent/>}
+    {...args}
+  />
 );
 
-export const Default = Template.bind({});
+export const Default = {
+    render: Template
+};
 
-export const Loading = Template.bind({});
-Loading.args = {
-    isLoading: true
+export const Loading = {
+    render: Template,
+
+    args: {
+        isLoading: true
+    }
 };

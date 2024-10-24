@@ -1,5 +1,5 @@
 import React from 'react';
-import {Story} from '@storybook/react';
+import {StoryObj, StoryFn} from '@storybook/react';
 import markdownNotes from './Pill.md';
 
 import {Pill} from './index';
@@ -15,9 +15,8 @@ export default {
     }
 };
 
-export const Default: Story<PillProps> = args => (
-    <Pill {...args}/>
-);
-Default.args = {
-    label: 'ListItem label'
+export const Default: StoryObj<PillProps> = {
+    args: {
+        label: 'ListItem label'
+    }
 };

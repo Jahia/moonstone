@@ -48,55 +48,55 @@ export const Example = () => {
     return (
         <div style={{transform: 'scale(1)'}}>
             <LayoutApp
-                navigation={<PrimaryNav>level 1</PrimaryNav>}
-                content={
-                    <LayoutModule
-                        navigation={
-                            <SecondaryNav
-                                header={<SecondaryNavHeader>Header</SecondaryNavHeader>}
-                            >
-                                <Accordion isReversed defaultOpenedItem={accordionIds[1]}>
-                                    <AccordionItem
-                                        id={accordionIds[0]}
-                                        icon={<Love size="big"/>}
-                                        label="Default tree"
-                                    >
-                                        <TreeView
-                                            isReversed
-                                            data={treeData}
-                                            selectedItems={selectedItems1}
-                                            onClickItem={handleSelectItem1}
-                                        />
-                                    </AccordionItem>
-                                    <AccordionItem
-                                        id={accordionIds[1]}
-                                        icon={<Bug size="big"/>}
-                                        label="Nested"
-                                    >
-                                        <TreeView
-                                            isReversed
-                                            data={treeDataNested}
-                                            selectedItems={selectedItems2}
-                                            onClickItem={handleSelectItem2}
-                                        />
-                                    </AccordionItem>
-                                </Accordion>
-                            </SecondaryNav>
-                        }
-                        content={
-                            <LayoutContent
-                                header={<Header title="Page title"/>}
-                                content={
-                                    <>
-                                        <Paper>Content</Paper>
-                                        <Paper>{lorem}</Paper>
-                                    </>
-                                }
-                            />
-                        }
+        navigation={<PrimaryNav>level 1</PrimaryNav>}
+        content={
+            <LayoutModule
+            navigation={
+                <SecondaryNav
+                header={<SecondaryNavHeader>Header</SecondaryNavHeader>}
+                >
+                    <Accordion isReversed defaultOpenedItem={accordionIds[1]}>
+                        <AccordionItem
+                    id={accordionIds[0]}
+                    icon={<Love size="big"/>}
+                    label="Default tree"
+                        >
+                            <TreeView
+                      isReversed
+                      data={treeData}
+                      selectedItems={selectedItems1}
+                      onClickItem={handleSelectItem1}
                     />
+                        </AccordionItem>
+                        <AccordionItem
+                    id={accordionIds[1]}
+                    icon={<Bug size="big"/>}
+                    label="Nested"
+                        >
+                            <TreeView
+                      isReversed
+                      data={treeDataNested}
+                      selectedItems={selectedItems2}
+                      onClickItem={handleSelectItem2}
+                    />
+                        </AccordionItem>
+                    </Accordion>
+                </SecondaryNav>
+            }
+            content={
+                <LayoutContent
+                header={<Header title="Page title"/>}
+                content={
+                    <>
+                        <Paper>Content</Paper>
+                        <Paper>{lorem}</Paper>
+                    </>
                 }
-            />
+              />
+            }
+          />
+        }
+      />
         </div>
     );
 };
@@ -124,54 +124,54 @@ export const ExampleLight = () => {
     return (
         <div style={{transform: 'scale(1)'}}>
             <LayoutApp
-                navigation={<PrimaryNav>level 1</PrimaryNav>}
-                content={
-                    <LayoutModule
-                        navigation={
-                            <SecondaryNav
-                                isReversed={false}
-                                header={<SecondaryNavHeader>Header</SecondaryNavHeader>}
-                            >
-                                <Accordion defaultOpenedItem={accordionIds[1]}>
-                                    <AccordionItem
-                                        id={accordionIds[0]}
-                                        icon={<Love size="big"/>}
-                                        label="Default tree"
-                                    >
-                                        <TreeView
-                                            data={treeData}
-                                            selectedItems={selectedItems1}
-                                            onClickItem={handleSelectItem1}
-                                        />
-                                    </AccordionItem>
-                                    <AccordionItem
-                                        id={accordionIds[1]}
-                                        icon={<Bug size="big"/>}
-                                        label="Nested"
-                                    >
-                                        <TreeView
-                                            data={treeDataNested}
-                                            selectedItems={selectedItems2}
-                                            onClickItem={handleSelectItem2}
-                                        />
-                                    </AccordionItem>
-                                </Accordion>
-                            </SecondaryNav>
-                        }
-                        content={
-                            <LayoutContent
-                                header={<Header title="Page title"/>}
-                                content={
-                                    <>
-                                        <Paper>Content</Paper>
-                                        <Paper>{lorem}</Paper>
-                                    </>
-                                }
-                            />
-                        }
+        navigation={<PrimaryNav>level 1</PrimaryNav>}
+        content={
+            <LayoutModule
+            navigation={
+                <SecondaryNav
+                isReversed={false}
+                header={<SecondaryNavHeader>Header</SecondaryNavHeader>}
+                >
+                    <Accordion defaultOpenedItem={accordionIds[1]}>
+                        <AccordionItem
+                    id={accordionIds[0]}
+                    icon={<Love size="big"/>}
+                    label="Default tree"
+                        >
+                            <TreeView
+                      data={treeData}
+                      selectedItems={selectedItems1}
+                      onClickItem={handleSelectItem1}
                     />
+                        </AccordionItem>
+                        <AccordionItem
+                    id={accordionIds[1]}
+                    icon={<Bug size="big"/>}
+                    label="Nested"
+                        >
+                            <TreeView
+                      data={treeDataNested}
+                      selectedItems={selectedItems2}
+                      onClickItem={handleSelectItem2}
+                    />
+                        </AccordionItem>
+                    </Accordion>
+                </SecondaryNav>
+            }
+            content={
+                <LayoutContent
+                header={<Header title="Page title"/>}
+                content={
+                    <>
+                        <Paper>Content</Paper>
+                        <Paper>{lorem}</Paper>
+                    </>
                 }
-            />
+              />
+            }
+          />
+        }
+      />
         </div>
     );
 };
@@ -179,37 +179,37 @@ export const ExampleLight = () => {
 export const Centered = () => (
     <div style={{transform: 'scale(1)'}}>
         <LayoutApp
-            navigation={<FakePrimaryNavigation/>}
-            content={
-                <LayoutModule
-                    navigation={<FakeSecondaryNavigation/>}
-                    content={
-                        <LayoutContent
-                            isCentered
-                            header={<Header title="Header"/>}
-                            content={<Paper>Content</Paper>}
-                        />
-                    }
-                />
-            }
+      navigation={<FakePrimaryNavigation/>}
+      content={
+          <LayoutModule
+          navigation={<FakeSecondaryNavigation/>}
+          content={
+              <LayoutContent
+              isCentered
+              header={<Header title="Header"/>}
+              content={<Paper>Content</Paper>}
+            />
+          }
         />
+      }
+    />
     </div>
 );
 
 export const WithoutLevel2 = () => (
     <div style={{transform: 'scale(1)'}}>
         <LayoutApp
-            navigation={<FakePrimaryNavigation/>}
-            content={
-                <LayoutModule
-                    content={
-                        <LayoutContent
-                            header={<Header title="Title"/>}
-                            content={<Paper className="flexFluid">Content</Paper>}
-                        />
-                    }
-                />
-            }
+      navigation={<FakePrimaryNavigation/>}
+      content={
+          <LayoutModule
+          content={
+              <LayoutContent
+              header={<Header title="Title"/>}
+              content={<Paper className="flexFluid">Content</Paper>}
+            />
+          }
         />
+      }
+    />
     </div>
 );

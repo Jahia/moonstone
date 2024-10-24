@@ -1,5 +1,5 @@
 import React from 'react';
-import {Story} from '@storybook/react';
+import {StoryObj, StoryFn} from '@storybook/react';
 import markdownNotes from './ListItem.md';
 
 import {ListItem} from './index';
@@ -16,80 +16,93 @@ export default {
     }
 };
 
-export const Default: Story<ListItemProps> = args => (
-    <ul>
-        <ListItem {...args}/>
-    </ul>
-);
-Default.args = {
-    label: 'ListItem label'
+export const Default: StoryObj<ListItemProps> = {
+    render: args => (
+        <ul>
+            <ListItem {...args}/>
+        </ul>
+    ),
+
+    args: {
+        label: 'ListItem label'
+    }
 };
 
-export const IconText: Story<ListItemProps> = args => (
-    <ul>
-        <ListItem {...args}/>
-    </ul>
-);
-IconText.story = {
-    name: 'Icon + Text'
-};
-IconText.args = {
-    label: 'ListItem',
-    iconStart: <Love/>
+export const IconText: StoryObj<ListItemProps> = {
+    render: args => (
+        <ul>
+            <ListItem {...args}/>
+        </ul>
+    ),
+
+    name: 'Icon + Text',
+
+    args: {
+        label: 'ListItem',
+        iconStart: <Love/>
+    }
 };
 
-export const IconTextIcon: Story<ListItemProps> = args => (
-    <ul>
-        <ListItem {...args}/>
-    </ul>
-);
-IconTextIcon.story = {
-    name: 'Icon + Text + Icon'
-};
-IconTextIcon.args = {
-    label: 'ListItem',
-    iconStart: <Love/>,
-    iconEnd: <Cloud/>
+export const IconTextIcon: StoryObj<ListItemProps> = {
+    render: args => (
+        <ul>
+            <ListItem {...args}/>
+        </ul>
+    ),
+
+    name: 'Icon + Text + Icon',
+
+    args: {
+        label: 'ListItem',
+        iconStart: <Love/>,
+        iconEnd: <Cloud/>
+    }
 };
 
-export const WithBigImage: Story<ListItemProps> = args => (
-    <ul>
-        <ListItem
-            image={<img src="https://via.placeholder.com/500?text=ListItemImage"/>}
-            {...args}
-        />
-        <ListItem
-            image={<img src="https://via.placeholder.com/200x500?text=ListItemImage"/>}
-            {...args}
-        />
-        <ListItem
-            image={<img src="https://via.placeholder.com/500x200?text=ListItemImage"/>}
-            {...args}
-        />
-    </ul>
-);
-WithBigImage.args = {
-    label: 'ListItem label',
-    imageSize: 'big'
+export const WithBigImage: StoryObj<ListItemProps> = {
+    render: args => (
+        <ul>
+            <ListItem
+        image={<img src="https://via.placeholder.com/500?text=ListItemImage"/>}
+        {...args}
+      />
+            <ListItem
+        image={<img src="https://via.placeholder.com/200x500?text=ListItemImage"/>}
+        {...args}
+      />
+            <ListItem
+        image={<img src="https://via.placeholder.com/500x200?text=ListItemImage"/>}
+        {...args}
+      />
+        </ul>
+    ),
+
+    args: {
+        label: 'ListItem label',
+        imageSize: 'big'
+    }
 };
 
-export const WithSmallImage: Story<ListItemProps> = args => (
-    <ul>
-        <ListItem
-            image={<img src="https://via.placeholder.com/500?text=ListItemImage"/>}
-            {...args}
-        />
-        <ListItem
-            image={<img src="https://via.placeholder.com/200x500?text=ListItemImage"/>}
-            {...args}
-        />
-        <ListItem
-            image={<img src="https://via.placeholder.com/500x200?text=ListItemImage"/>}
-            {...args}
-        />
-    </ul>
-);
-WithSmallImage.args = {
-    label: 'ListItem label',
-    imageSize: 'small'
+export const WithSmallImage: StoryObj<ListItemProps> = {
+    render: args => (
+        <ul>
+            <ListItem
+        image={<img src="https://via.placeholder.com/500?text=ListItemImage"/>}
+        {...args}
+      />
+            <ListItem
+        image={<img src="https://via.placeholder.com/200x500?text=ListItemImage"/>}
+        {...args}
+      />
+            <ListItem
+        image={<img src="https://via.placeholder.com/500x200?text=ListItemImage"/>}
+        {...args}
+      />
+        </ul>
+    ),
+
+    args: {
+        label: 'ListItem label',
+        imageSize: 'small'
+    }
 };

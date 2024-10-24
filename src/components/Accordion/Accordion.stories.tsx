@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Story, ComponentMeta} from '@storybook/react';
+import {StoryFn, Meta} from '@storybook/react';
 
 import {Accordion} from './index';
 import {AccordionItem} from '~/components/Accordion/AccordionItem';
@@ -19,7 +19,9 @@ export default {
     },
     decorators: [
         StoryCmp => (
-            <div style={{display: 'flex', flexDirection: 'column', height: '100vh'}}>
+            <div
+        style={{display: 'flex', flexDirection: 'column', height: '100vh'}}
+            >
                 <StoryCmp/>
             </div>
         )
@@ -28,28 +30,28 @@ export default {
         notes: {markdown: markdownNotes},
         actions: {argTypesRegex: '^on.*'}
     }
-} as ComponentMeta<typeof Accordion>;
+} as Meta<typeof Accordion>;
 
-const Template: Story<AccordionProps> = args => (
+const Template: StoryFn<AccordionProps> = args => (
     <Accordion {...args}>
         <AccordionItem
-            id={accordionIds[0]}
-            icon={<Love size="big"/>}
-            label="test 01"
+      id={accordionIds[0]}
+      icon={<Love size="big"/>}
+      label="test 01"
         >
             Accordion Content 01
         </AccordionItem>
         <AccordionItem
-            id={accordionIds[1]}
-            icon={<Bug size="big"/>}
-            label="test 02"
+      id={accordionIds[1]}
+      icon={<Bug size="big"/>}
+      label="test 02"
         >
             Accordion Content 02
         </AccordionItem>
         <AccordionItem
-            id={accordionIds[2]}
-            label="test 03 (with long content)"
-            icon={<BarSquare size="big"/>}
+      id={accordionIds[2]}
+      label="test 03 (with long content)"
+      icon={<BarSquare size="big"/>}
         >
             Topgallant mutiny spike pressgang interloper transom loaded to the
             gunwalls hogshead smartly Letter of Marque. Arr belaying pin brigantine
@@ -140,11 +142,16 @@ const Template: Story<AccordionProps> = args => (
     </Accordion>
 );
 
-export const Default = Template.bind({});
+export const Default = {
+    render: Template
+};
 
-export const DefaultOpened = Template.bind({});
-DefaultOpened.args = {
-    defaultOpenedItem: accordionIds[1]
+export const DefaultOpened = {
+    render: Template,
+
+    args: {
+        defaultOpenedItem: accordionIds[1]
+    }
 };
 
 export const Controlled = () => {
@@ -173,27 +180,27 @@ export const Controlled = () => {
                 </button>
             </span>
             <Accordion
-                openedItem={stateOpenedItems}
-                onSetOpenedItem={onSetOpenedItem}
+        openedItem={stateOpenedItems}
+        onSetOpenedItem={onSetOpenedItem}
             >
                 <AccordionItem
-                    id={accordionIds[0]}
-                    icon={<Love size="big"/>}
-                    label="test 01"
+          id={accordionIds[0]}
+          icon={<Love size="big"/>}
+          label="test 01"
                 >
                     Accordion Content
                 </AccordionItem>
                 <AccordionItem
-                    id={accordionIds[1]}
-                    icon={<Bug size="big"/>}
-                    label="test 02 is opened by default"
+          id={accordionIds[1]}
+          icon={<Bug size="big"/>}
+          label="test 02 is opened by default"
                 >
                     Accordion Content
                 </AccordionItem>
                 <AccordionItem
-                    id={accordionIds[2]}
-                    label="test 03 (with long content)"
-                    icon={<BarSquare size="big"/>}
+          id={accordionIds[2]}
+          label="test 03 (with long content)"
+          icon={<BarSquare size="big"/>}
                 >
                     Accordion Content
                 </AccordionItem>
@@ -202,8 +209,11 @@ export const Controlled = () => {
     );
 };
 
-export const Reversed = Template.bind({});
-Reversed.args = {
-    isReversed: true,
-    defaultOpenedItem: accordionIds[1]
+export const Reversed = {
+    render: Template,
+
+    args: {
+        isReversed: true,
+        defaultOpenedItem: accordionIds[1]
+    }
 };

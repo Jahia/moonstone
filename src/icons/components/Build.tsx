@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {SVGProps} from 'react';
 interface IconProps extends SVGProps<SVGSVGElement> {
-  size?: 'small' | 'default' | 'big';
-  color?: 'red' | 'yellow' | 'green' | 'blue' | 'darkBlue' | 'purple' | 'gray';
-  className?: string;
+  readonly size?: 'small' | 'default' | 'big';
+  readonly color?: 'red' | 'yellow' | 'green' | 'blue' | 'darkBlue' | 'purple' | 'gray';
+  readonly className?: string;
 }
 
 const SvgBuild = ({

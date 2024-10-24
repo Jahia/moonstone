@@ -1,7 +1,9 @@
-
 import React from 'react';
 import {LayoutModule} from './index';
-import {FakeSecondaryNavigation, FakeContent} from '~/__storybook__/FakeComponents';
+import {
+    FakeSecondaryNavigation,
+    FakeContent
+} from '~/__storybook__/FakeComponents';
 import markdownNotes from './LayoutModule.md';
 
 export default {
@@ -21,23 +23,29 @@ export default {
 };
 
 const Template = args => (
-    <div style={{
-        width: '100vw',
-        height: '100vh',
-        display: 'flex'
+    <div
+    style={{
+      width: '100vw',
+      height: '100vh',
+      display: 'flex'
     }}
     >
         <LayoutModule
-            navigation={<FakeSecondaryNavigation/>}
-            content={<FakeContent/>}
-            {...args}
-        />
+      navigation={<FakeSecondaryNavigation/>}
+      content={<FakeContent/>}
+      {...args}
+    />
     </div>
 );
 
-export const Default = Template.bind({});
+export const Default = {
+    render: Template
+};
 
-export const Loading = Template.bind({});
-Loading.args = {
-    isLoading: true
+export const Loading = {
+    render: Template,
+
+    args: {
+        isLoading: true
+    }
 };

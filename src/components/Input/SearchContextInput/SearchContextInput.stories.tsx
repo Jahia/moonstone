@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Story, ComponentMeta} from '@storybook/react';
+import {StoryObj, StoryFn, Meta} from '@storybook/react';
 import '~/__storybook__/storybook.scss';
 
 import {SearchContextInput} from './index';
@@ -32,7 +32,7 @@ export default {
         onBlur: {action: 'onBlur'},
         onFocus: {action: 'onFocus'}
     }
-} as ComponentMeta<typeof SearchContextInput>;
+} as Meta<typeof SearchContextInput>;
 
 const searchContextData: DropdownDataOption[] = [
     {
@@ -52,28 +52,32 @@ const searchContextData: DropdownDataOption[] = [
     }
 ];
 
-export const SearchContext: Story<SearchContextInputProps> = args => {
-    const [contextOption, setContextOption] = useState(searchContextData[0]);
-    const handleDropdownOnChange = (e: React.MouseEvent, item: DropdownDataOption) => {
-        setContextOption(item);
-    };
+export const SearchContext: StoryObj<SearchContextInputProps> = {
+    render: args => {
+        const [contextOption, setContextOption] = useState(searchContextData[0]);
+        const handleDropdownOnChange = (
+            e: React.MouseEvent,
+            item: DropdownDataOption
+        ) => {
+            setContextOption(item);
+        };
 
-    return (
-        <section className="storyWrapper">
-            <SearchContextInput
-                searchContext={
-                    (
-                        <Dropdown
-                            data={searchContextData}
-                            label={contextOption.label}
-                            icon={contextOption.iconStart}
-                            value={contextOption.value}
-                            onChange={handleDropdownOnChange}
-                        />
-                    )
-                }
-                placeholder="Search and press Enter"
-                {...args}/>
-        </section>
-    );
+        return (
+            <section className="storyWrapper">
+                <SearchContextInput
+          searchContext={
+              <Dropdown
+              data={searchContextData}
+              label={contextOption.label}
+              icon={contextOption.iconStart}
+              value={contextOption.value}
+              onChange={handleDropdownOnChange}
+            />
+          }
+          placeholder="Search and press Enter"
+          {...args}
+        />
+            </section>
+        );
+    }
 };
