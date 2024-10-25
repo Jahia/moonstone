@@ -1,8 +1,6 @@
 import React from 'react';
-import {StoryFn} from '@storybook/react';
 
 import {IconTextIcon} from './index';
-import {IconTextIconProps} from './IconTextIcon.types';
 import {Apps, Love} from '~/icons';
 
 export default {

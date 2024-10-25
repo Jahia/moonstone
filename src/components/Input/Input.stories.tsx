@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StoryObj, Meta, StoryFn} from '@storybook/react';
+import {StoryObj, Meta} from '@storybook/react';
 
 import {Input} from './index';
 import type {InputProps} from './Input.types';

@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
-import type {StoryObj, StoryFn} from '@storybook/react';
+import React from 'react';
+import {useArgs} from '@storybook/preview-api';
+import type {StoryObj} from '@storybook/react';
 import type {CheckboxItemProps} from './CheckboxItem.types';
 
 import {CheckboxItem} from './CheckboxItem';
 
-export default {
+const meta: Meta<typeof CheckboxItem> = {
     title: 'Components/CheckboxGroup/CheckboxItem',
     component: CheckboxItem,
     parameters: {
@@ -20,6 +21,7 @@ export default {
         onFocus: {action: 'onFocus'}
     }
 };
+export default meta;
 
 export const Uncontrolled: StoryObj<CheckboxItemProps> = {
     render: args => {
@@ -31,12 +33,13 @@ export const Uncontrolled: StoryObj<CheckboxItemProps> = {
     }
 };
 
-export const Controlled: StoryObj<CheckboxItemProps> = {
-    render: args => {
-        const [checked, setChecked] = useState(false);
+type Story = StoryObj<typeof CheckboxItem>;
+export const Controlled: Story = {
+    Render: (args:CheckboxItemProps) => {
+        const [{checked}, updateArgs] = useArgs();
 
         const handleOnChange = () => {
-            setChecked(!checked);
+            updateArgs({isChecked: !checked});
         };
 
         return (

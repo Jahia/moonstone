@@ -1,5 +1,5 @@
 import React from 'react';
-import {StoryObj, StoryFn, Meta} from '@storybook/react';
+import {StoryObj, Meta} from '@storybook/react';
 
 import markdownNotes from './ButtonGroup.md';
 import {ButtonGroup} from './index';

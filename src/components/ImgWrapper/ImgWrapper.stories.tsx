@@ -1,8 +1,4 @@
-import React from 'react';
-import {StoryFn} from '@storybook/react';
-
 import {ImgWrapper} from './index';
-import {ImgWrapperProps} from './ImgWrapper.types';
 
 import markdownNotes from './ImgWrapper.md';
 

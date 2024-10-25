@@ -43,7 +43,7 @@ describe('Checkbox', () => {
         const user = userEvent.setup();
 
         render(<Checkbox aria-label="checkbox"/>);
-        const checkbox = screen.getByRole('checkbox')
+        const checkbox = screen.getByRole('checkbox');
         await user.click(checkbox);
 
         expect(checkbox).toBeChecked();
@@ -51,7 +51,7 @@ describe('Checkbox', () => {
 
     it('should un-check when clicked on twice', async () => {
         const user = userEvent.setup();
-        
+
         render(<Checkbox aria-label="checkbox"/>);
         const checkbox = screen.getByRole('checkbox');
         await user.click(checkbox);

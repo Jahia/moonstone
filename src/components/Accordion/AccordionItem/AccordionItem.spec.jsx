@@ -112,6 +112,7 @@ describe('AccordionItem', () => {
         const handleOnClick = (e, open) => {
             isOpen = open;
         };
+
         let isOpen;
 
         render(
@@ -138,6 +139,7 @@ describe('AccordionItem', () => {
         const handleOnClick = (e, open) => {
             isOpen = open;
         };
+
         let isOpen;
 
         render(

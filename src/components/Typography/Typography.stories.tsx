@@ -1,5 +1,5 @@
 import React from 'react';
-import {StoryObj, StoryFn} from '@storybook/react';
+import {StoryObj} from '@storybook/react';
 
 import {Typography} from './index';
 import type {TypographyProps} from './Typography.types';

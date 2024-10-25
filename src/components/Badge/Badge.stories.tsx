@@ -1,8 +1,6 @@
-import React from 'react';
-import {StoryFn, Meta} from '@storybook/react';
+import {Meta} from '@storybook/react';
 
 import {Badge} from './index';
-import type {BadgeProps} from './Badge.types';
 
 import markdownNotes from './Badge.md';
 

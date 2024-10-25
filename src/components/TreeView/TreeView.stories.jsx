@@ -22,13 +22,13 @@ export default {
 };
 
 export const Default = {
-    render: (args, {globals: {theme}}) => (
+    Render: (args, {globals: {theme}}) => (
         <TreeView {...args} data={treeData} isReversed={theme === 'dark'}/>
     )
 };
 
 export const OpenedByDefault = {
-    render: (args, {globals: {theme}}) => (
+    Render: (args, {globals: {theme}}) => (
         <TreeView
       {...args}
       defaultOpenedItems={['A']}
@@ -39,13 +39,13 @@ export const OpenedByDefault = {
 };
 
 export const Flat = {
-    render: (args, {globals: {theme}}) => (
+    Render: (args, {globals: {theme}}) => (
         <TreeView {...args} data={treeDataFlat} isReversed={theme === 'dark'}/>
     )
 };
 
 export const Selection = {
-    render: (args, {globals: {theme}}) => {
+    Render: (args, {globals: {theme}}) => {
         const [selectedItems, setSelectedItems] = useState([]);
         const handleClick = node => {
             if (selectedItems.includes(node.id)) {
@@ -68,7 +68,7 @@ export const Selection = {
 };
 
 export const Highlight = {
-    render: (args, {globals: {theme}}) => (
+    Render: (args, {globals: {theme}}) => (
         <TreeView
       {...args}
       data={treeData}
@@ -79,7 +79,7 @@ export const Highlight = {
 };
 
 export const Controlled = {
-    render: (args, {globals: {theme}}) => {
+    Render: (args, {globals: {theme}}) => {
         const [openedItems, setOpenedItems] = useState([]);
         const handleOpen = node => {
             setOpenedItems([node.id, ...openedItems]);

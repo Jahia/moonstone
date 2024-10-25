@@ -1,5 +1,5 @@
 import React from 'react';
-import {StoryObj, StoryFn} from '@storybook/react';
+import {StoryObj} from '@storybook/react';
 
 import {Paper} from './index';
 import type {PaperProps} from './Paper.types';
