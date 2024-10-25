@@ -5,7 +5,7 @@ module.exports = {
         postcss: false,
     },
 
-    stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+    stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
 
     addons: [
         '@storybook/addon-actions',
@@ -13,9 +13,7 @@ module.exports = {
         '@storybook/addon-backgrounds',
         '@storybook/addon-a11y',
         '@storybook/addon-controls',
-        '@storybook/addon-postcss',
-        '@storybook/addon-webpack5-compiler-babel',
-        '@chromatic-com/storybook'
+        '@storybook/addon-webpack5-compiler-babel'
     ],
 
     "webpackFinal": async (config) => {
