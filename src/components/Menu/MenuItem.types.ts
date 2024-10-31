@@ -3,8 +3,6 @@ import React from 'react';
 import type {ListItemProps} from '~/components/ListItem/ListItem.types';
 
 export type MenuItemProps = Omit<ListItemProps, 'onClick' | 'onMouseEnter' | 'onMouseLeave' | 'onKeyPress' | 'typographyVariant'> & {
-// Export type MenuItemProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'className' | 'role' | 'onClick' | 'onMouseEnter' | 'onMouseLeave' | 'onKeyPress'> & {
-
     /**
      * Is item being hovered
      */
