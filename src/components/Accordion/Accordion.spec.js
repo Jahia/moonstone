@@ -71,45 +71,48 @@ describe('Accordion', () => {
             delete console.oldError;
         });
 
-        it('should select another item when calling onSetOpenedItem', () => {
+        it('should select another item when calling onSetOpenedItem', async () => {
+            const user = userEvent.setup();
+
             render(
                 <Accordion>
                     <AccordionItemMock id="1"/>
                     <AccordionItemMock id="2"/>
                 </Accordion>
             );
-
-            userEvent.click(screen.getByRole('button', {name: '1 - close'}));
+            await user.click(screen.getByRole('button', {name: '1 - close'}));
 
             expect(screen.getByText('1 - open')).toBeInTheDocument();
             expect(screen.getByText('2 - close')).toBeInTheDocument();
         });
 
-        it('should open just one item', () => {
+        it('should open just one item', async () => {
+            const user = userEvent.setup();
+
             render(
                 <Accordion>
                     <AccordionItemMock id="1"/>
                     <AccordionItemMock id="2"/>
                 </Accordion>
             );
-
-            userEvent.click(screen.getByRole('button', {name: /1/i}));
-            userEvent.click(screen.getByRole('button', {name: /2/i}));
+            await user.click(screen.getByRole('button', {name: /1/i}));
+            await user.click(screen.getByRole('button', {name: /2/i}));
 
             expect(screen.getByText('1 - close')).toBeInTheDocument();
             expect(screen.getByText('2 - open')).toBeInTheDocument();
         });
 
-        it('should unselect item when calling onSetOpenedItem another time', () => {
+        it('should unselect item when calling onSetOpenedItem another time', async () => {
+            const user = userEvent.setup();
+
             render(
                 <Accordion>
                     <AccordionItemMock id="1"/>
                     <AccordionItemMock id="2"/>
                 </Accordion>
             );
-
-            userEvent.click(screen.getByRole('button', {name: /1/i}));
-            userEvent.click(screen.getByRole('button', {name: /1/i}));
+            await user.click(screen.getByRole('button', {name: /1/i}));
+            await user.click(screen.getByRole('button', {name: /1/i}));
 
             expect(screen.getByText('1 - close')).toBeInTheDocument();
             expect(screen.getByText('2 - close')).toBeInTheDocument();

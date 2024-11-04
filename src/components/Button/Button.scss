@@ -1,6 +1,6 @@
-@import "variants/default";
-@import "variants/ghost";
-@import "variants/outlined";
+@use "variants/default";
+@use "variants/ghost";
+@use "variants/outlined";
 
 $button-size_small: 16px;
 $button-size_medium: 24px;

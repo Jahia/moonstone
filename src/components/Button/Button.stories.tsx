@@ -1,5 +1,5 @@
 import React from 'react';
-import {Story, ComponentMeta} from '@storybook/react';
+import {StoryObj, Meta, StoryContext} from '@storybook/react';
 
 import {Button} from './index';
 import type {ButtonProps} from './Button.types';
@@ -7,7 +7,7 @@ import type {ButtonProps} from './Button.types';
 import {Love, OpenInNew} from '~/icons';
 import markdownNotes from './Button.md';
 
-export default {
+const meta: Meta<typeof Button> = {
     title: 'Components/Button',
     component: Button,
 
@@ -16,110 +16,187 @@ export default {
         actions: {argTypesRegex: '^on.*'},
         notes: {markdown: markdownNotes}
     }
-} as ComponentMeta<typeof Button>;
+};
+export default meta;
 
-const Template: Story<ButtonProps> = (args, {globals: {theme}}) => (
-    <Button {...args} isReversed={theme === 'dark'}/>
-);
-export const Default = Template.bind({});
-Default.args = {
-    variant: 'default',
-    size: 'default',
-    icon: <Love/>,
-    label: 'Button'
+type Story = StoryObj<ButtonProps>;
+const Template = (args: ButtonProps, globals: StoryContext) => {
+    const theme = globals.theme;
+    return <Button {...args} isReversed={theme === 'dark'}/>;
 };
 
-export const Ghost = Template.bind({});
-Ghost.args = {
-    variant: 'ghost',
-    size: 'default',
-    icon: <Love/>,
-    label: 'Button'
+export const Default: Story = {
+    args: {
+        variant: 'default',
+        size: 'default',
+        icon: <Love/>,
+        label: 'Button'
+    },
+    render: Template
 };
 
-export const Outlined = Template.bind({});
-Outlined.args = {
-    variant: 'outlined',
-    size: 'default',
-    icon: <Love/>,
-    label: 'Button'
+export const Ghost: Story = {
+    args: {variant: 'ghost', size: 'default', icon: <Love/>, label: 'Button'},
+    render: Template
 };
 
-export const IconAndLabel: Story<ButtonProps> = (args, {globals: {theme}}) => (
-    <section className="storyGrid">
-        <div className="storyGridItem">
-            <Button {...args} variant="default" label="default" isReversed={theme === 'dark'}/>
-        </div>
-        <div className="storyGridItem">
-            <Button {...args} variant="ghost" label="ghost" isReversed={theme === 'dark'}/>
-        </div>
-        <div className="storyGridItem">
-            <Button {...args} variant="outlined" label="outlined" isReversed={theme === 'dark'}/>
-        </div>
-    </section>
-);
-IconAndLabel.args = {
-    icon: <Love/>,
-    iconEnd: <OpenInNew/>
-};
-IconAndLabel.parameters = {
-    controls: {exclude: ['variant', 'label']}
+export const Outlined: Story = {
+    args: {
+        variant: 'outlined',
+        size: 'default',
+        icon: <Love/>,
+        label: 'Button'
+    },
+    render: Template
 };
 
-export const OnlyLabel: Story<ButtonProps> = (args, {globals: {theme}}) => (
-    <section className="storyGrid">
-        <div className="storyGridItem">
-            <Button {...args} variant="default" label="default" isReversed={theme === 'dark'}/>
-        </div>
-        <div className="storyGridItem">
-            <Button {...args} variant="ghost" label="ghost" isReversed={theme === 'dark'}/>
-        </div>
-        <div className="storyGridItem">
-            <Button {...args} variant="outlined" label="outlined" isReversed={theme === 'dark'}/>
-        </div>
-    </section>
-);
-OnlyLabel.parameters = {
-    controls: {exclude: ['variant', 'label']}
+const IconAndLabelTemplate = (args: ButtonProps, globals: StoryContext) => {
+    const theme = globals.theme;
+    return (
+        <section className="storyGrid">
+            <div className="storyGridItem">
+                <Button
+          {...args}
+          variant="default"
+          label="default"
+          isReversed={theme === 'dark'}
+        />
+            </div>
+            <div className="storyGridItem">
+                <Button
+          {...args}
+          variant="ghost"
+          label="ghost"
+          isReversed={theme === 'dark'}
+        />
+            </div>
+            <div className="storyGridItem">
+                <Button
+          {...args}
+          variant="outlined"
+          label="outlined"
+          isReversed={theme === 'dark'}
+        />
+            </div>
+        </section>
+    );
 };
 
-export const OnlyIcon: Story<ButtonProps> = (args, {globals: {theme}}) => (
-    <section className="storyGrid">
-        <div className="storyGridItem">
-            <Button {...args} variant="default" isReversed={theme === 'dark'}/>
-        </div>
-        <div className="storyGridItem">
-            <Button {...args} variant="ghost" isReversed={theme === 'dark'}/>
-        </div>
-        <div className="storyGridItem">
-            <Button {...args} variant="outlined" isReversed={theme === 'dark'}/>
-        </div>
-    </section>
-);
-OnlyIcon.args = {
-    icon: <Love/>
-};
-OnlyIcon.parameters = {
-    controls: {exclude: ['variant', 'label']}
+export const IconAndLabel: Story = {
+    args: {
+        icon: <Love/>,
+        iconEnd: <OpenInNew/>
+    },
+    parameters: {
+        controls: {exclude: ['variant', 'label']}
+    },
+    render: IconAndLabelTemplate
 };
 
-export const Disabled: Story<ButtonProps> = (args, {globals: {theme}}) => (
-    <section className="storyGrid">
-        <div className="storyGridItem">
-            <Button {...args} variant="default" label="default" isReversed={theme === 'dark'}/>
-        </div>
-        <div className="storyGridItem">
-            <Button {...args} variant="ghost" label="ghost" isReversed={theme === 'dark'}/>
-        </div>
-        <div className="storyGridItem">
-            <Button {...args} variant="outlined" label="outlined" isReversed={theme === 'dark'}/>
-        </div>
-    </section>
-);
-Disabled.args = {
-    icon: <Love/>,
-    isDisabled: true
+export const OnlyLabel = {
+    render: (args: ButtonProps, globals: StoryContext) => {
+        const theme = globals.theme;
+        return (
+            <section className="storyGrid">
+                <div className="storyGridItem">
+                    <Button
+            {...args}
+            variant="default"
+            label="default"
+            isReversed={theme === 'dark'}
+          />
+                </div>
+                <div className="storyGridItem">
+                    <Button
+            {...args}
+            variant="ghost"
+            label="ghost"
+            isReversed={theme === 'dark'}
+          />
+                </div>
+                <div className="storyGridItem">
+                    <Button
+            {...args}
+            variant="outlined"
+            label="outlined"
+            isReversed={theme === 'dark'}
+          />
+                </div>
+            </section>
+        );
+    },
+
+    parameters: {
+        controls: {exclude: ['variant', 'label']}
+    }
 };
-Disabled.parameters = {
-    controls: {exclude: ['variant', 'label']}
+
+export const OnlyIcon = {
+    render: (args: ButtonProps, globals: StoryContext) => {
+        const theme = globals.theme;
+        return (
+            <section className="storyGrid">
+                <div className="storyGridItem">
+                    <Button {...args} variant="default" isReversed={theme === 'dark'}/>
+                </div>
+                <div className="storyGridItem">
+                    <Button {...args} variant="ghost" isReversed={theme === 'dark'}/>
+                </div>
+                <div className="storyGridItem">
+                    <Button {...args} variant="outlined" isReversed={theme === 'dark'}/>
+                </div>
+            </section>
+        );
+    },
+
+    args: {
+        icon: <Love/>
+    },
+
+    parameters: {
+        controls: {exclude: ['variant', 'label']}
+    }
+};
+
+export const Disabled = {
+    render: (args: ButtonProps, globals: StoryContext) => {
+        const theme = globals.theme;
+        return (
+            <section className="storyGrid">
+                <div className="storyGridItem">
+                    <Button
+            {...args}
+            variant="default"
+            label="default"
+            isReversed={theme === 'dark'}
+          />
+                </div>
+                <div className="storyGridItem">
+                    <Button
+            {...args}
+            variant="ghost"
+            label="ghost"
+            isReversed={theme === 'dark'}
+          />
+                </div>
+                <div className="storyGridItem">
+                    <Button
+            {...args}
+            variant="outlined"
+            label="outlined"
+            isReversed={theme === 'dark'}
+          />
+                </div>
+            </section>
+        );
+    },
+
+    args: {
+        icon: <Love/>,
+        isDisabled: true
+    },
+
+    parameters: {
+        controls: {exclude: ['variant', 'label']}
+    }
 };

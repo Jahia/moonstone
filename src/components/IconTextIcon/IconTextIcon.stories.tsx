@@ -1,5 +1,4 @@
 import React from 'react';
-import {ComponentStory} from '@storybook/react';
 import {IconTextIcon} from './index';
 import {Apps, Love} from '~/icons';
 
@@ -11,12 +10,12 @@ export default {
     }
 };
 
-const Template: ComponentStory<typeof IconTextIcon> = args => <IconTextIcon {...args}/>;
+export const Default = {
+    name: 'Icon + Text + Icon',
 
-export const Default = Template.bind({});
-Default.storyName = 'Icon + Text + Icon';
-Default.args = {
-    iconStart: <Love/>,
-    iconEnd: <Apps/>,
-    children: 'This is text sandwiched by icons'
+    args: {
+        iconStart: <Love/>,
+        iconEnd: <Apps/>,
+        children: 'This is text sandwiched by icons'
+    }
 };

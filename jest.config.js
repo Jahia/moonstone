@@ -12,6 +12,6 @@ module.exports = {
         '^~/(.*)$': '<rootDir>/src/$1'
     },
     setupFilesAfterEnv: [
-        '@testing-library/jest-dom/extend-expect'
+        '@testing-library/jest-dom'
     ]
 };

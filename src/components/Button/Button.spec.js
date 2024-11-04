@@ -67,11 +67,13 @@ describe('Button', () => {
         expect(screen.getByRole('status')).toBeInTheDocument();
     });
 
-    it('should prevent click when the button is loading', () => {
+    it('should prevent click when the button is loading', async () => {
+        const user = userEvent.setup();
         const onClick = jest.fn();
-        render(<Button isLoading data-testid="moonstone-button" label="test me" onClick={onClick}/>);
 
-        userEvent.click(screen.getByTestId('moonstone-button'));
+        render(<Button isLoading data-testid="moonstone-button" label="test me" onClick={onClick}/>);
+        await user.click(screen.getByTestId('moonstone-button'));
+
         expect(onClick).not.toHaveBeenCalled();
     });
 
@@ -95,11 +97,13 @@ describe('Button', () => {
         expect(screen.getByTestId('moonstone-button')).toHaveClass(`moonstone-size_${size}`);
     });
 
-    it('should call onClick function', () => {
+    it('should call onClick function', async () => {
+        const user = userEvent.setup();
         const onClick = jest.fn();
-        render(<Button data-testid="moonstone-button" label="test me" onClick={onClick}/>);
 
-        userEvent.click(screen.getByTestId('moonstone-button'));
+        render(<Button data-testid="moonstone-button" label="test me" onClick={onClick}/>);
+        await user.click(screen.getByTestId('moonstone-button'));
+
         expect(onClick).toHaveBeenCalled();
     });
 });

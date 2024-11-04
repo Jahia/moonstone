@@ -23,6 +23,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
 
     return (
         <ResizableBox
+            aria-expanded={isVisible}
             className={
                 clsx(
                     className,
@@ -45,7 +46,10 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
             }}
             {...props}
         >
-            <button type="button"
+            <button
+                    aria-controls="moonstone-secondaryNav_wrapper"
+                    type="button"
+                    role="secondary-nav-control"
                     className={clsx(
                         'moonstone-secondaryNav_buttonToggle',
                         {'moonstone-secondaryNav_buttonToggle_reversed': isReversed}
@@ -58,7 +62,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
                     <ChevronDoubleRight/>}
             </button>
 
-            <div className={clsx('moonstone-secondaryNav_wrapper', 'flexFluid', 'flexCol_nowrap')}>
+            <div id="moonstone-secondaryNav_wrapper" className={clsx('moonstone-secondaryNav_wrapper', 'flexFluid', 'flexCol_nowrap')}>
                 {header}
                 <div className={clsx('flexFluid', 'flexCol_nowrap')}>
                     {children}

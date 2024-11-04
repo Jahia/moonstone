@@ -1,8 +1,7 @@
 import React from 'react';
-import {addDecorator} from '@storybook/react';
 import {GlobalStyle} from '../src';
-import { addons } from "@storybook/addons";
-import { UPDATE_GLOBALS, STORY_ARGS_UPDATED } from "@storybook/core-events";
+import {addons} from '@storybook/preview-api';
+import {UPDATE_GLOBALS, STORY_ARGS_UPDATED} from "@storybook/core-events";
 
 let channel = addons.getChannel();
 const storyListener = (args) => {
@@ -22,8 +21,7 @@ function setupBackgroundListener() {
     channel.addListener(STORY_ARGS_UPDATED, storyListener);
 }
 
-
-addDecorator(story => {
+export const decorators = (story => {
     return <>
         <GlobalStyle/>
         {story()}
@@ -58,3 +56,4 @@ export const parameters = {
 };
 
 setupBackgroundListener();
+export const tags = ['autodocs'];

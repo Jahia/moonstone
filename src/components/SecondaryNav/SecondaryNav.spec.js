@@ -1,77 +1,70 @@
 import React from 'react';
-import {shallow} from 'component-test-utils-react';
+import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import {SecondaryNav} from './index';
 
 describe('SecondaryNav', () => {
     it('should display children content', () => {
-        const wrapper = shallow(
-            <SecondaryNav header="">
-                content here
-            </SecondaryNav>
-        );
-
-        expect(wrapper.html()).toContain('content here');
+        render(<SecondaryNav header="">content here</SecondaryNav>);
+        expect(screen.queryByText('content here')).toBeInTheDocument();
     });
     it('should display a string in the header', () => {
-        const wrapper = shallow(<SecondaryNav header="my header">hello</SecondaryNav>);
-
-        expect(wrapper.html()).toContain('my header');
+        render(<SecondaryNav header="my header">content here</SecondaryNav>);
+        expect(screen.queryByText('my header')).toBeInTheDocument();
     });
 
     it('should add extra attribute', () => {
-        const wrapper = shallow(<SecondaryNav data-custom="test" header="my header">hello</SecondaryNav>);
-
-        expect(wrapper.html()).toContain('data-custom="test"');
+        render(<SecondaryNav data-testid="secondary-nav" data-custom="extra">content here</SecondaryNav>);
+        expect(screen.getByTestId('secondary-nav')).toHaveAttribute('data-custom', 'extra');
     });
 
-    it('should have .secondaryNav_hidden when the menu is hidden', () => {
-        const wrapper = shallow(<SecondaryNav header="my header" isDefaultVisible={false}>hello</SecondaryNav>);
-
-        expect(wrapper.html()).toContain('secondaryNav_hidden');
+    it('should not be expanded when the menu is hidden', () => {
+        render(<SecondaryNav data-testid="secondary-nav" isDefaultVisible={false}>content here</SecondaryNav>);
+        expect(screen.getByTestId('secondary-nav')).toHaveAttribute('aria-expanded', 'false');
     });
 
-    it('should not have .secondaryNav_hidden when the menu is visible', () => {
-        const wrapper = shallow(<SecondaryNav header="my header">hello</SecondaryNav>);
-
-        expect(wrapper.html()).not.toContain('secondaryNav_hidden');
+    it('should be expanded when the menu is visible', () => {
+        render(<SecondaryNav data-testid="secondary-nav">content here</SecondaryNav>);
+        expect(screen.getByTestId('secondary-nav')).toHaveAttribute('aria-expanded', 'true');
     });
 
     it('should set width to zero when the menu is hidden', () => {
-        const wrapper = shallow(<SecondaryNav isDefaultVisible={false} header="my header">hello</SecondaryNav>);
-
-        expect(wrapper.props.size.width).toEqual(0);
+        render(<SecondaryNav data-testid="secondary-nav" isDefaultVisible={false}>content here</SecondaryNav>);
+        expect(screen.getByTestId('secondary-nav').style.width).toBe('0px');
     });
 
-    it('should show the navigation by clicking on expand button when the menu is hidden', () => {
-        const wrapper = shallow(<SecondaryNav isDefaultVisible={false} header="my header">hello</SecondaryNav>);
+    it('should show the navigation by clicking on expand button when the menu is hidden', async () => {
+        const user = userEvent.setup();
 
-        wrapper.querySelector('.moonstone-secondaryNav_buttonToggle').dispatchEvent('click');
-        expect(wrapper.html()).not.toContain('moonstone-secondaryNav_hidden');
+        render(<SecondaryNav data-testid="secondary-nav" id="test" isDefaultVisible={false}>content here</SecondaryNav>);
+        await user.click(screen.getByRole('secondary-nav-control'));
+
+        expect(screen.getByTestId('secondary-nav')).toHaveAttribute('aria-expanded', 'true');
     });
 
-    it('should hide the navigation by clicking on expand button when the menu is visible', () => {
-        const wrapper = shallow(<SecondaryNav header="my header">hello</SecondaryNav>);
+    it('should hide the navigation by clicking on expand button when the menu is visible', async () => {
+        const user = userEvent.setup();
 
-        wrapper.querySelector('.moonstone-secondaryNav_buttonToggle').dispatchEvent('click');
-        expect(wrapper.html()).toContain('moonstone-secondaryNav_hidden');
+        render(<SecondaryNav data-testid="secondary-nav">content here</SecondaryNav>);
+        await user.click(screen.getByRole('secondary-nav-control'));
+
+        expect(screen.getByTestId('secondary-nav')).toHaveAttribute('aria-expanded', 'false');
     });
 
-    it('should not throw error when there is no onToggled defined', () => {
-        const wrapper = shallow(
-            <SecondaryNav header="my header">hello</SecondaryNav>
-        );
-
+    it('should not throw error when there is no onToggled defined', async () => {
+        const user = userEvent.setup();
+        render(<SecondaryNav data-testid="secondary-nav">content here</SecondaryNav>);
         // No error should occur when there is no onClick defined
-        wrapper.querySelector('.moonstone-secondaryNav_buttonToggle').dispatchEvent('click');
+        await user.click(screen.getByRole('secondary-nav-control'));
     });
 
-    it('should call onToggled when clicking on expand button', () => {
+    it('should call onToggled when clicking on expand button', async () => {
+        const user = userEvent.setup();
         const clickHandler = jest.fn();
-        const wrapper = shallow(
-            <SecondaryNav header="my header" onToggled={clickHandler}>hello</SecondaryNav>
-        );
 
-        wrapper.querySelector('.moonstone-secondaryNav_buttonToggle').dispatchEvent('click');
+        render(<SecondaryNav onToggled={clickHandler}>content here</SecondaryNav>);
+        await user.click(screen.getByRole('secondary-nav-control'));
+
         expect(clickHandler).toHaveBeenCalled();
     });
 });

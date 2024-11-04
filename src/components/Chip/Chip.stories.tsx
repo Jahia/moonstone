@@ -1,5 +1,5 @@
 import React from 'react';
-import {Story} from '@storybook/react';
+import {StoryObj} from '@storybook/react';
 import '~/__storybook__/storybook.scss';
 
 import {Chip} from './index';
@@ -18,29 +18,26 @@ export default {
     }
 };
 
-export const Default: Story<ChipProps> = args => (
-    <Chip {...args}/>
-);
-Default.args = {
-    label: 'chip label',
-    icon: <Cloud/>,
-    color: 'default'
+export const Default: StoryObj<ChipProps> = {
+    args: {
+        label: 'chip label',
+        icon: <Cloud/>,
+        color: 'default'
+    }
 };
 
-export const TextOnly: Story<ChipProps> = args => (
-    <Chip {...args}/>
-);
-TextOnly.args = {
-    label: 'chip label',
-    color: 'default'
+export const TextOnly: StoryObj<ChipProps> = {
+    args: {
+        label: 'chip label',
+        color: 'default'
+    }
 };
 
-export const IconOnly: Story<ChipProps> = args => (
-    <Chip {...args}/>
-);
-IconOnly.args = {
-    icon: <Cloud/>,
-    color: 'default'
+export const IconOnly: StoryObj<ChipProps> = {
+    args: {
+        icon: <Cloud/>,
+        color: 'default'
+    }
 };
 
 export const StatusExample = () => (
@@ -55,4 +52,3 @@ export const StatusExample = () => (
         <Chip icon={<Warning/>} label="Warning" color="warning"/>
     </section>
 );
-

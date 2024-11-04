@@ -1,5 +1,5 @@
 import React from 'react';
-import {Story, ComponentMeta} from '@storybook/react';
+import {StoryFn, Meta} from '@storybook/react';
 
 // Import '~/__storybook__/storybook.scss';
 
@@ -22,26 +22,36 @@ export default {
         layout: 'centered',
         actions: {argTypesRegex: '^on.*'}
     }
-} as ComponentMeta<typeof BreadcrumbItem>;
+} as Meta<typeof BreadcrumbItem>;
 
-const Template: Story<BreadcrumbItemProps> = args => (
+const Template: StoryFn<BreadcrumbItemProps> = args => (
     <Breadcrumb>
         <BreadcrumbItem {...args}/>
         <BreadcrumbItem {...args}/>
     </Breadcrumb>
 );
-export const Basic = Template.bind({});
-Basic.args = {
-    label: 'beadcrumbItem'
+
+export const Basic = {
+    render: Template,
+
+    args: {
+        label: 'beadcrumbItem'
+    }
 };
 
-export const LongLabels = Template.bind({});
-LongLabels.args = {
-    label: 'Very long long long long long long long long long long label'
+export const LongLabels = {
+    render: Template,
+
+    args: {
+        label: 'Very long long long long long long long long long long label'
+    }
 };
 
-export const WithIcons = Template.bind({});
-WithIcons.args = {
-    icon: <Love/>,
-    label: 'beadcrumbItem'
+export const WithIcons = {
+    render: Template,
+
+    args: {
+        icon: <Love/>,
+        label: 'beadcrumbItem'
+    }
 };

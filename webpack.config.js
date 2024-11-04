@@ -1,8 +1,8 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserJSPlugin = require('terser-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const rules = require('./dist/rulesconfig-wp');
 const {CycloneDxWebpackPlugin} = require('@cyclonedx/webpack-plugin');
 
@@ -15,7 +15,7 @@ const cycloneDxWebpackPluginOptions = {
 
 const productionPlugins =
     process.env.WEBPACK_MODE === 'production' ?
-        [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})] :
+        [new TerserJSPlugin({}), new CssMinimizerPlugin()] :
         [];
 
 const ComponentsConfig = {

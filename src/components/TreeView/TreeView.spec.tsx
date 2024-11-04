@@ -80,39 +80,45 @@ describe('TreeView', () => {
         expect(screen.getByRole('treeitem', {selected: true})).toHaveTextContent('A level1');
     });
 
-    it('should call onClick when clicking on an item', () => {
+    it('should call onClick when clicking on an item', async () => {
+        const user = userEvent.setup();
         const clickHandler = jest.fn();
+
         render(<TreeView data={tree} onClickItem={clickHandler}/>);
-        userEvent.click(screen.getByText('A level1'));
+        await user.click(screen.getByText('A level1'));
 
         expect(clickHandler).toHaveBeenCalled();
     });
 
-    it('should not call onClick when clicking on an disabled item', () => {
+    it('should not call onClick when clicking on an disabled item', async () => {
+        const user = userEvent.setup();
         const clickHandler = jest.fn();
+
         render(<TreeView data={[{...tree[0], isDisabled: true}]} onClickItem={clickHandler}/>);
-        userEvent.click(screen.getByText('A level1'));
+        await user.click(screen.getByText('A level1'));
 
         expect(clickHandler).not.toHaveBeenCalled();
     });
 
-    it('should call onOpenItem when the node opens', () => {
+    it('should call onOpenItem when the node opens', async () => {
+        const user = userEvent.setup();
         const openHandler = jest.fn();
         const closeHandler = jest.fn();
         const {container} = render(<TreeView data={tree} onOpenItem={openHandler} onCloseItem={closeHandler}/>);
 
-        userEvent.click(container.querySelector('.moonstone-treeView_itemToggle'));
+        await user.click(container.querySelector('.moonstone-treeView_itemToggle'));
 
         expect(closeHandler).not.toHaveBeenCalled();
         expect(openHandler).toHaveBeenCalled();
     });
 
-    it('should call onCloseItem when the node closes', () => {
+    it('should call onCloseItem when the node closes', async () => {
+        const user = userEvent.setup();
         const openHandler = jest.fn();
         const closeHandler = jest.fn();
         const {container} = render(<TreeView data={tree} openedItems={['A']} onOpenItem={openHandler} onCloseItem={closeHandler}/>);
 
-        userEvent.click(container.querySelector('.moonstone-treeView_itemToggle'));
+        await user.click(container.querySelector('.moonstone-treeView_itemToggle'));
 
         expect(closeHandler).toHaveBeenCalled();
         expect(openHandler).not.toHaveBeenCalled();
@@ -161,46 +167,51 @@ describe('Uncontrolled TreeView', () => {
         expect(screen.getByRole('treeitem', {expanded: true})).toHaveTextContent('A level1');
     });
 
-    it('should open a node by clicking on arrow icon when onClickItem function is provided', () => {
+    it('should open a node by clicking on arrow icon when onClickItem function is provided', async () => {
+        const user = userEvent.setup();
         const clickHandler = jest.fn();
         const {container} = render(<TreeView data={tree} onClickItem={clickHandler}/>);
 
-        userEvent.click(container.querySelector('.moonstone-treeView_itemToggle'));
+        await user.click(container.querySelector('.moonstone-treeView_itemToggle'));
 
         expect(screen.queryByRole('treeitem', {expanded: true})).toBeInTheDocument();
     });
 
-    it('should open a node by clicking on the item when no onClickItem function is provided', () => {
+    it('should open a node by clicking on the item when no onClickItem function is provided', async () => {
+        const user = userEvent.setup();
         render(<TreeView data={tree}/>);
 
-        userEvent.click(screen.getByText('A level1'));
+        await user.click(screen.getByText('A level1'));
 
         expect(screen.getByRole('treeitem', {expanded: true})).toBeInTheDocument();
     });
 
-    it('should close a node by clicking on arrow icon when onClickItem function is provided', () => {
+    it('should close a node by clicking on arrow icon when onClickItem function is provided', async () => {
+        const user = userEvent.setup();
         const clickHandler = jest.fn();
         const {container} = render(<TreeView data={tree} defaultOpenedItems={['A']} onClickItem={clickHandler}/>);
 
-        userEvent.click(container.querySelector('.moonstone-treeView_itemToggle'));
+        await user.click(container.querySelector('.moonstone-treeView_itemToggle'));
 
         expect(screen.queryByRole('treeitem', {expanded: true})).not.toBeInTheDocument();
     });
 
-    it('should close a node by clicking on the item when no onClickItem function is provided', () => {
+    it('should close a node by clicking on the item when no onClickItem function is provided', async () => {
+        const user = userEvent.setup();
         render(<TreeView defaultOpenedItems={['A']} data={tree}/>);
 
-        userEvent.click(screen.getByText('A level1'));
+        await user.click(screen.getByText('A level1'));
 
         expect(screen.queryByRole('treeitem', {expanded: true})).not.toBeInTheDocument();
     });
 
-    it('should call onCloseItem when the node closes', () => {
+    it('should call onCloseItem when the node closes', async () => {
+        const user = userEvent.setup();
         const openHandler = jest.fn();
         const closeHandler = jest.fn();
         const {container} = render(<TreeView data={tree} defaultOpenedItems={['A']} onOpenItem={openHandler} onCloseItem={closeHandler}/>);
 
-        userEvent.click(container.querySelector('.moonstone-treeView_itemToggle'));
+        await user.click(container.querySelector('.moonstone-treeView_itemToggle'));
 
         expect(closeHandler).toHaveBeenCalled();
         expect(openHandler).not.toHaveBeenCalled();

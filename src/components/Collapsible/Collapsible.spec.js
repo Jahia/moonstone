@@ -27,10 +27,12 @@ describe('UncontrolledCollapsible', () => {
         expect(screen.getByRole('button', {expanded: true})).toBeInTheDocument();
     });
 
-    it('should be collpased when I click on it when it is expanded', () => {
+    it('should be collpased when I click on it when it is expanded', async () => {
+        const user = userEvent.setup();
+
         render(<Collapsible isDefaultExpanded label="test"/>);
-        const collapsibleButton = screen.getByRole('button');
-        userEvent.click(collapsibleButton);
+        await user.click(screen.getByRole('button'));
+
         expect(screen.getByRole('button', {expanded: false})).toBeInTheDocument();
     });
 
@@ -39,17 +41,22 @@ describe('UncontrolledCollapsible', () => {
         expect(screen.getByRole('button', {expanded: false})).toBeInTheDocument();
     });
 
-    it('should be expanded when I click on it when it is collapsed', () => {
+    it('should be expanded when I click on it when it is collapsed', async () => {
+        const user = userEvent.setup();
+
         render(<Collapsible isDefaultExpanded={false} label="test"/>);
-        const collapsibleButton = screen.getByRole('button');
-        userEvent.click(collapsibleButton);
+        await user.click(screen.getByRole('button'));
+
         expect(screen.getByRole('button', {expanded: true})).toBeInTheDocument();
     });
 
-    it('should call the onClick function', () => {
+    it('should call the onClick function', async () => {
+        const user = userEvent.setup();
         const onClick = jest.fn();
+
         render(<Collapsible label="test" onClick={onClick}/>);
-        userEvent.click(screen.getByRole('button'));
+        await user.click(screen.getByRole('button'));
+
         expect(onClick).toHaveBeenCalled();
     });
 });
@@ -70,10 +77,13 @@ describe('ControlledCollapsible', () => {
         expect(screen.getByRole('button', {expanded: false})).toBeInTheDocument();
     });
 
-    it('should call the onClick function', () => {
+    it('should call the onClick function', async () => {
+        const user = userEvent.setup();
         const onClick = jest.fn();
+
         render(<Collapsible isExpanded label="test" onClick={onClick}/>);
-        userEvent.click(screen.getByRole('button'));
+        await user.click(screen.getByRole('button'));
+
         expect(onClick).toHaveBeenCalled();
     });
 });

@@ -35,13 +35,31 @@ export default {
 };
 
 const TemplateSimple = args => {
-    const {icon, size, variant, label, placeholder, isDisabled, className, searchEmptyText, hasSearch, imageSize, isTree, multiple, withClear} = args;
+    const {
+        icon,
+        size,
+        variant,
+        label,
+        placeholder,
+        isDisabled,
+        className,
+        searchEmptyText,
+        hasSearch,
+        imageSize,
+        isTree,
+        multiple,
+        withClear
+    } = args;
     const [currentOption, setCurrentOption] = useState(null);
     const [currentOptions, setCurrentOptions] = useState([]);
 
     const handleOnChange = (e, item) => {
         if (multiple) {
-            setCurrentOptions(prev => prev.every(p => p.value !== item.value) ? [...prev, item] : prev.filter(i => i.value !== item.value));
+            setCurrentOptions(prev =>
+                prev.every(p => p.value !== item.value) ?
+                    [...prev, item] :
+                    prev.filter(i => i.value !== item.value)
+            );
         } else {
             setCurrentOption(item);
         }
@@ -50,7 +68,9 @@ const TemplateSimple = args => {
         return true;
     };
 
-    const onClear = withClear && (() => {
+    const onClear =
+    withClear &&
+    (() => {
         if (multiple) {
             setCurrentOptions([]);
         } else {
@@ -60,39 +80,42 @@ const TemplateSimple = args => {
 
     return (
         <Dropdown
-            icon={icons[icon] && React.createElement(icons[icon])}
-            hasSearch={hasSearch}
-            label={label}
-            placeholder={placeholder}
-            className={className}
-            value={!multiple && currentOption?.value}
-            values={multiple && currentOptions.map(i => i.value)}
-            size={size}
-            searchEmptyText={searchEmptyText}
-            imageSize={imageSize}
-            variant={variant}
-            isDisabled={isDisabled}
-            data={isTree ? null : dropdownData}
-            treeData={isTree ? dropdownDataTree : null}
-            onClear={onClear}
-            onFocus={action('onfocus')}
-            onBlur={action('onblur')}
-            onChange={(e, item) => handleOnChange(e, item)}
-        />
+      icon={icons[icon] && React.createElement(icons[icon])}
+      hasSearch={hasSearch}
+      label={label}
+      placeholder={placeholder}
+      className={className}
+      value={!multiple && currentOption?.value}
+      values={multiple && currentOptions.map(i => i.value)}
+      size={size}
+      searchEmptyText={searchEmptyText}
+      imageSize={imageSize}
+      variant={variant}
+      isDisabled={isDisabled}
+      data={isTree ? null : dropdownData}
+      treeData={isTree ? dropdownDataTree : null}
+      onClear={onClear}
+      onFocus={action('onfocus')}
+      onBlur={action('onblur')}
+      onChange={(e, item) => handleOnChange(e, item)}
+    />
     );
 };
 
-export const Playground = TemplateSimple.bind({});
-Playground.args = {
-    icon: 'Love',
-    size: 'small',
-    variant: 'ghost',
-    placeholder: 'Select something',
-    isDisabled: false,
-    isTree: false,
-    multiple: false,
-    withClear: false,
-    searchEmptyText: 'No results found'
+export const Playground = {
+    render: TemplateSimple,
+
+    args: {
+        icon: 'Love',
+        size: 'small',
+        variant: 'ghost',
+        placeholder: 'Select something',
+        isDisabled: false,
+        isTree: false,
+        multiple: false,
+        withClear: false,
+        searchEmptyText: 'No results found'
+    }
 };
 
 export const Default = () => {
@@ -109,14 +132,14 @@ export const Default = () => {
 
     return (
         <Dropdown
-            icon={<Love/>}
-            label={currentOption.label}
-            value={currentOption.value}
-            size="small"
-            isDisabled={false}
-            data={dropdownData}
-            onChange={(e, item) => handleOnChange(e, item)}
-        />
+      icon={<Love/>}
+      label={currentOption.label}
+      value={currentOption.value}
+      size="small"
+      isDisabled={false}
+      data={dropdownData}
+      onChange={(e, item) => handleOnChange(e, item)}
+    />
     );
 };
 
@@ -124,21 +147,25 @@ export const Multiple = () => {
     const [currentOption, setCurrentOption] = useState([]);
 
     const handleOnChange = (e, item) => {
-        setCurrentOption(prev => prev.indexOf(item) > -1 ? prev.filter(i => i !== item) : [...prev, item]);
+        setCurrentOption(prev =>
+            prev.indexOf(item) > -1 ?
+                prev.filter(i => i !== item) :
+                [...prev, item]
+        );
         action('onChange');
         return true;
     };
 
     return (
         <Dropdown
-            icon={<Love/>}
-            label="Select something"
-            values={currentOption.map(v => v.value)}
-            size="small"
-            isDisabled={false}
-            data={dropdownData}
-            onChange={(e, item) => handleOnChange(e, item)}
-        />
+      icon={<Love/>}
+      label="Select something"
+      values={currentOption.map(v => v.value)}
+      size="small"
+      isDisabled={false}
+      data={dropdownData}
+      onChange={(e, item) => handleOnChange(e, item)}
+    />
     );
 };
 
@@ -156,12 +183,12 @@ export const Empty = () => {
 
     return (
         <Dropdown
-            icon={<Love/>}
-            label={currentOption.label}
-            value={currentOption.value}
-            data={[]}
-            onChange={(e, item) => handleOnChange(e, item)}
-        />
+      icon={<Love/>}
+      label={currentOption.label}
+      value={currentOption.value}
+      data={[]}
+      onChange={(e, item) => handleOnChange(e, item)}
+    />
     );
 };
 
@@ -179,13 +206,13 @@ export const WithDefaultValue = () => {
 
     return (
         <Dropdown
-            isDisabled={false}
-            label={currentOption.label}
-            value={currentOption.value}
-            size="small"
-            data={dropdownData}
-            onChange={(e, item) => handleOnChange(e, item)}
-        />
+      isDisabled={false}
+      label={currentOption.label}
+      value={currentOption.value}
+      size="small"
+      data={dropdownData}
+      onChange={(e, item) => handleOnChange(e, item)}
+    />
     );
 };
 
@@ -203,13 +230,13 @@ export const Grouped = () => {
 
     return (
         <Dropdown
-            isDisabled={false}
-            label={currentOption.label}
-            value={currentOption.value}
-            size="small"
-            data={dropdownDataGrouped}
-            onChange={(e, item) => handleOnChange(e, item)}
-        />
+      isDisabled={false}
+      label={currentOption.label}
+      value={currentOption.value}
+      size="small"
+      data={dropdownDataGrouped}
+      onChange={(e, item) => handleOnChange(e, item)}
+    />
     );
 };
 
@@ -227,15 +254,15 @@ export const OutlinedVariantWithSearch = () => {
 
     return (
         <Dropdown
-            hasSearch
-            variant="outlined"
-            label={currentOption.label}
-            value={currentOption.value}
-            icon={<Love/>}
-            size="small"
-            data={dropdownDataGrouped}
-            onChange={(e, item) => handleOnChange(e, item)}
-        />
+      hasSearch
+      variant="outlined"
+      label={currentOption.label}
+      value={currentOption.value}
+      icon={<Love/>}
+      size="small"
+      data={dropdownDataGrouped}
+      onChange={(e, item) => handleOnChange(e, item)}
+    />
     );
 };
 
@@ -253,15 +280,15 @@ export const OutlinedVariantWithBigImages = () => {
 
     return (
         <Dropdown
-            hasSearch
-            variant="outlined"
-            imageSize="big"
-            label={currentOption.label}
-            value={currentOption.value}
-            size="medium"
-            data={dropdownDataImages}
-            onChange={(e, item) => handleOnChange(e, item)}
-        />
+      hasSearch
+      variant="outlined"
+      imageSize="big"
+      label={currentOption.label}
+      value={currentOption.value}
+      size="medium"
+      data={dropdownDataImages}
+      onChange={(e, item) => handleOnChange(e, item)}
+    />
     );
 };
 
@@ -279,15 +306,15 @@ export const OutlinedVariantWithSmallImages = () => {
 
     return (
         <Dropdown
-            hasSearch
-            variant="outlined"
-            imageSize="small"
-            label={currentOption.label}
-            value={currentOption.value}
-            data={dropdownDataImages}
-            size="medium"
-            onChange={(e, item) => handleOnChange(e, item)}
-        />
+      hasSearch
+      variant="outlined"
+      imageSize="small"
+      label={currentOption.label}
+      value={currentOption.value}
+      data={dropdownDataImages}
+      size="medium"
+      onChange={(e, item) => handleOnChange(e, item)}
+    />
     );
 };
 
@@ -305,68 +332,74 @@ export const DropdownWithTree = () => {
 
     return (
         <Dropdown
-            hasSearch
-            isDisabled={false}
-            variant="outlined"
-            size="small"
-            icon={<Love/>}
-            label={currentOption.label}
-            value={currentOption.value}
-            treeData={dropdownDataTree}
-            onChange={(e, item) => handleOnChange(e, item)}
-        />
+      hasSearch
+      isDisabled={false}
+      variant="outlined"
+      size="small"
+      icon={<Love/>}
+      label={currentOption.label}
+      value={currentOption.value}
+      treeData={dropdownDataTree}
+      onChange={(e, item) => handleOnChange(e, item)}
+    />
     );
 };
 
-export const WithDescription = args => {
-    const [currentOption, setCurrentOption] = useState({
-        label: 'Select something',
-        value: null
-    });
+export const WithDescription = {
+    Render: args => {
+        const [currentOption, setCurrentOption] = useState({
+            label: 'Select something',
+            value: null
+        });
 
-    const handleOnChange = (e, item) => {
-        setCurrentOption(item);
-        action('onChange');
-        return true;
-    };
+        const handleOnChange = (e, item) => {
+            setCurrentOption(item);
+            action('onChange');
+            return true;
+        };
 
-    return (
-        <Dropdown
-            {...args}
-            label={currentOption.label}
-            value={currentOption.value}
-            data={dropdownDataDescriptions}
-            onChange={(e, item) => handleOnChange(e, item)}
-        />
-    );
-};
+        return (
+            <Dropdown
+        {...args}
+        label={currentOption.label}
+        value={currentOption.value}
+        data={dropdownDataDescriptions}
+        onChange={(e, item) => handleOnChange(e, item)}
+      />
+        );
+    },
 
-WithDescription.args = {
-    variant: 'outlined',
-    size: 'medium',
-    icon: <Love/>
+    args: {
+        variant: 'outlined',
+        size: 'medium',
+        icon: <Love/>
+    }
 };
 
 export const DropdownWithTreeMultiple = () => {
     const [currentOption, setCurrentOption] = useState([]);
 
     const handleOnChange = (e, item) => {
-        setCurrentOption(prev => prev.indexOf(item) > -1 ? prev.filter(i => i !== item) : [...prev, item]);
+        setCurrentOption(prev =>
+            prev.indexOf(item) > -1 ?
+                prev.filter(i => i !== item) :
+                [...prev, item]
+        );
         action('onChange');
         return true;
     };
 
     return (
         <Dropdown
-            hasSearch
-            icon={<Love/>}
-            placeholder="Select something"
-            values={currentOption.map(v => v.value)}
-            size="medium"
-            isDisabled={false}
-            data={dropdownDataTree}
-            onChange={(e, item) => handleOnChange(e, item)}
-        />
+      hasSearch
+      icon={<Love/>}
+      placeholder="Select something"
+      values={currentOption.map(v => v.value)}
+      size="medium"
+      isDisabled={false}
+      data={dropdownDataTree}
+      onChange={(e, item) => handleOnChange(e, item)}
+    />
     );
 };
 
@@ -380,12 +413,35 @@ export const DropdownWithPill = () => {
             iconEnd: <Pill label="FR"/>
         },
         {
-            label: <>French <Typography component="span" variant="caption" style={{color: 'darkgray'}}>(Canadian)</Typography></>,
+            label: (
+                <>
+                    French{' '}
+                    <Typography
+            component="span"
+            variant="caption"
+            style={{color: 'darkgray'}}
+                    >
+                        (Canadian)
+                    </Typography>
+                </>
+            ),
             value: 'fr_ca',
             iconEnd: <Pill label="FR_CA"/>
         },
         {
-            label: <>Language with very long long label label label label label label label name <Typography component="span" variant="caption" style={{color: 'darkgray'}}>(country name)</Typography></>,
+            label: (
+                <>
+                    Language with very long long label label label label label label label
+                    name{' '}
+                    <Typography
+            component="span"
+            variant="caption"
+            style={{color: 'darkgray'}}
+                    >
+                        (country name)
+                    </Typography>
+                </>
+            ),
             value: 'es',
             iconEnd: <Pill label="ES"/>
         },
@@ -404,15 +460,19 @@ export const DropdownWithPill = () => {
 
     return (
         <Dropdown
-            isReversed
-            icon={Object.keys(currentOption).length > 0 ? <Pill label={currentOption.value.toUpperCase()}/> : null}
-            label={currentOption.label}
-            placeholder="Select something"
-            value={currentOption.value}
-            size="small"
-            isDisabled={false}
-            data={dataLanguages}
-            onChange={(e, item) => handleOnChange(e, item)}
-        />
+      isReversed
+      icon={
+        Object.keys(currentOption).length > 0 ? (
+            <Pill label={currentOption.value.toUpperCase()}/>
+        ) : null
+      }
+      label={currentOption.label}
+      placeholder="Select something"
+      value={currentOption.value}
+      size="small"
+      isDisabled={false}
+      data={dataLanguages}
+      onChange={(e, item) => handleOnChange(e, item)}
+    />
     );
 };

@@ -25,29 +25,36 @@ export default {
 
 const Template = args => (
     <LayoutContent
-        header={(
-            <Header title="Header"/>
-        )}
-        content={(
-            <FakeContent/>
-        )}
-        {...args}
-    />
+    header={<Header title="Header"/>}
+    content={<FakeContent/>}
+    {...args}
+  />
 );
 
-export const Default = Template.bind({});
-
-export const Centered = Template.bind({});
-Centered.args = {
-    isCentered: true
+export const Default = {
+    render: Template
 };
 
-export const WithoutPadding = Template.bind({});
-WithoutPadding.args = {
-    hasPadding: false
+export const Centered = {
+    render: Template,
+
+    args: {
+        isCentered: true
+    }
 };
 
-export const Loading = Template.bind({});
-Loading.args = {
-    isLoading: true
+export const WithoutPadding = {
+    render: Template,
+
+    args: {
+        hasPadding: false
+    }
+};
+
+export const Loading = {
+    render: Template,
+
+    args: {
+        isLoading: true
+    }
 };

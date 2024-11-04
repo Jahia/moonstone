@@ -1,4 +1,4 @@
-@import '../../utils/index';
+@use '../../utils/index' as *;
 
 $small-image-size: 56px;
 $big-image-size: 96px;
@@ -50,13 +50,13 @@ $big-image-size: 96px;
 
     max-width: inherit;
 
-    color: var(--color-gray60);
-
     white-space: normal;
 
-    overflow: hidden;
-
     text-overflow: ellipsis;
+
+    opacity: 0.6;
+
+    overflow: hidden;
 
     -webkit-box-orient: vertical;
 

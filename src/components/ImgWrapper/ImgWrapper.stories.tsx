@@ -1,8 +1,4 @@
-import React from 'react';
-import {Story} from '@storybook/react';
-
 import {ImgWrapper} from './index';
-import {ImgWrapperProps} from './ImgWrapper.types';
 
 import markdownNotes from './ImgWrapper.md';
 
@@ -16,11 +12,10 @@ export default {
     }
 };
 
-const Template: Story<ImgWrapperProps> = args => <ImgWrapper {...args}/>;
-
-export const Default = Template.bind({});
-Default.args = {
-    src: 'https://www.jahia.com/modules/jahiacom-templates/images/favicon/favicon.ico',
-    alt: 'imgWrapper',
-    size: 'default'
+export const Default = {
+    args: {
+        src: 'https://www.jahia.com/modules/jahiacom-templates/images/favicon/favicon.ico',
+        alt: 'imgWrapper',
+        size: 'default'
+    }
 };

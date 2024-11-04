@@ -24,7 +24,7 @@ export const LayoutContent = React.forwardRef(({
     return (
         <div ref={ref} className={clsx('flexCol', 'flexFluid', 'moonstone-layoutContent_wrapper', className)} {...props}>
             {header}
-            <div className={classNameProps} role-busy={isLoading ? 'true' : undefined}>
+            <div className={classNameProps} aria-busy={isLoading ? 'true' : undefined}>
                 {
                     isLoading ?
                         <Loader size="big"/> :

@@ -1,4 +1,4 @@
-@import './mixins';
+@use 'mixins';
 
 // ---
 // Typography Styles
@@ -55,7 +55,7 @@
 }
 
 %nowrap {
-    @include truncate(100%);
+    @include mixins.truncate(100%);
 }
 
 %italic {
