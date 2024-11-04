@@ -18,6 +18,9 @@ jobs:
       - name: Run tests
         shell: bash
         run: yarn test
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
     
   build:
     runs-on: ubuntu-latest
@@ -30,4 +33,5 @@ jobs:
       - name: Run Build
         shell: bash
         run: yarn build
+
         
