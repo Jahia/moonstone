@@ -74,19 +74,22 @@ describe('CheckboxGroup', () => {
         expect(screen.getByLabelText('checkbox 02')).toHaveAttribute('aria-readonly', 'true');
     });
 
-    it('should call onChange function', () => {
+    it('should call onChange function', async () => {
+        const user = userEvent.setup();
         const handleOnChange = jest.fn((ev, value, checked) => [value, checked]);
+
         render(
             <CheckboxGroup name="test-grouped-checkboxes" onChange={handleOnChange}>
                 <CheckboxItem id="checkbox-01" label="checkbox 01" value="01"/>
                 <CheckboxItem checked id="checkbox-02" label="checkbox 02" value="02"/>
             </CheckboxGroup>
         );
-        userEvent.click(screen.getByLabelText('checkbox 01'));
+
+        await user.click(screen.getByLabelText('checkbox 01'));
         expect(handleOnChange).toHaveBeenCalled();
         expect(handleOnChange).toHaveReturnedWith(['01', true]);
 
-        userEvent.click(screen.getByLabelText('checkbox 02'));
+        await user.click(screen.getByLabelText('checkbox 02'));
         expect(handleOnChange).toHaveBeenCalled();
         expect(handleOnChange).toHaveReturnedWith(['02', false]);
 

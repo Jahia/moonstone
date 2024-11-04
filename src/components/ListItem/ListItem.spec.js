@@ -37,11 +37,13 @@ describe('ListItem', () => {
         expect(screen.getByTestId('moonstone-listItem')).toHaveClass(testClassName);
     });
 
-    it('should call onClick when click on an item', () => {
+    it('should call onClick when click on an item', async () => {
+        const user = userEvent.setup();
         const handleClick = jest.fn();
+
         render(<ListItem label="my label" onClick={handleClick}/>);
-        const item = screen.getByText('my label');
-        userEvent.click(item);
+        await user.click(screen.getByText('my label'));
+
         expect(handleClick).toBeCalled();
     });
 

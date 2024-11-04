@@ -1,5 +1,5 @@
 import React from 'react';
-import {Story, ComponentMeta} from '@storybook/react';
+import {StoryFn, Meta} from '@storybook/react';
 import '~/__storybook__/storybook.scss';
 
 import {SearchInput} from './index';
@@ -27,12 +27,14 @@ export default {
         onBlur: {action: 'onBlur'},
         onFocus: {action: 'onFocus'}
     }
-} as ComponentMeta<typeof SearchInput>;
+} as Meta<typeof SearchInput>;
 
-const Template: Story<SearchInputProps> = args => (
+const Template: StoryFn<SearchInputProps> = args => (
     <section className="storyWrapper">
         <SearchInput {...args}/>
     </section>
 );
 
-export const Search = Template.bind({});
+export const Search = {
+    render: Template
+};

@@ -17,38 +17,46 @@ describe('Checkbox', () => {
         expect(screen.getByRole('checkbox')).toHaveAttribute('data-custom', customAttribute);
     });
 
-    it('should call onChange function with checked status', () => {
+    it('should call onChange function with checked status', async () => {
+        const user = userEvent.setup();
         const handleOnChange = jest.fn((_, value, checked) => [value, checked]);
-        render(<Checkbox data-testid="moonstone-checkbox" value="my-value" onChange={handleOnChange}/>);
-        const checkbox = screen.getByTestId('moonstone-checkbox');
 
-        userEvent.click(checkbox);
+        render(<Checkbox data-testid="moonstone-checkbox" value="my-value" onChange={handleOnChange}/>);
+        await user.click(screen.getByTestId('moonstone-checkbox'));
+
         expect(handleOnChange).toHaveBeenCalled();
         expect(handleOnChange).toHaveReturnedWith(['my-value', true]); // Checkbox has been checked
     });
 
-    it('should call onChange function with checked status for controlled', () => {
+    it('should call onChange function with checked status for controlled', async () => {
+        const user = userEvent.setup();
         const handleOnChange = jest.fn((_, value, checked) => [value, checked]);
-        render(<Checkbox checked data-testid="moonstone-checkbox" onChange={handleOnChange}/>);
-        const checkbox = screen.getByTestId('moonstone-checkbox');
 
-        userEvent.click(checkbox);
+        render(<Checkbox checked data-testid="moonstone-checkbox" onChange={handleOnChange}/>);
+        await user.click(screen.getByTestId('moonstone-checkbox'));
+
         expect(handleOnChange).toHaveBeenCalled();
         expect(handleOnChange).toHaveReturnedWith([undefined, false]); // Checkbox has been unchecked, no value specified
     });
 
-    it('should check off when clicked on', () => {
+    it('should check off when clicked on', async () => {
+        const user = userEvent.setup();
+
         render(<Checkbox aria-label="checkbox"/>);
         const checkbox = screen.getByRole('checkbox');
-        userEvent.click(checkbox);
+        await user.click(checkbox);
+
         expect(checkbox).toBeChecked();
     });
 
-    it('should un-check when clicked on twice', () => {
+    it('should un-check when clicked on twice', async () => {
+        const user = userEvent.setup();
+
         render(<Checkbox aria-label="checkbox"/>);
         const checkbox = screen.getByRole('checkbox');
-        userEvent.click(checkbox);
-        userEvent.click(checkbox);
+        await user.click(checkbox);
+        await user.click(checkbox);
+
         expect(checkbox).not.toBeChecked();
     });
 

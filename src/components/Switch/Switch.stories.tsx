@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, {useState} from 'react';
-import {Story} from '@storybook/react';
+import {StoryObj} from '@storybook/react';
 
 import {Switch} from './index';
 import type {SwitchProps} from './Switch.types';
@@ -9,25 +10,23 @@ export default {
     component: Switch,
     parameters: {
         layout: 'centered'
-        // When enabled, the controlledSwitch doesn't work anymore. maybe it's fixed with storybook 7.4 (https://github.com/storybookjs/storybook/pull/23804)
-        // Actions: {argTypesRegex: '^on.*'}
+    // When enabled, the controlledSwitch doesn't work anymore. maybe it's fixed with storybook 7.4 (https://github.com/storybookjs/storybook/pull/23804)
+    // Actions: {argTypesRegex: '^on.*'}
     }
 };
 
-export const Uncontrolled: Story<SwitchProps> = args => <Switch {...args}/>;
+export const Uncontrolled: StoryObj<SwitchProps> = {};
 
-export const Controlled: Story<SwitchProps> = args => {
-    const [checked, setChecked] = useState(false);
+export const Controlled: StoryObj<SwitchProps> = {
+    render: args => {
+        const [checked, setChecked] = useState(false);
 
-    const handleOnChange = () => {
-        setChecked(!checked);
-    };
+        const handleOnChange = () => {
+            setChecked(!checked);
+        };
 
-    return (
-        <Switch
-            checked={checked}
-            onChange={() => handleOnChange()}
-            {...args}
-        />
-    );
+        return (
+            <Switch checked={checked} onChange={() => handleOnChange()} {...args}/>
+        );
+    }
 };

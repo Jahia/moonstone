@@ -83,8 +83,10 @@ describe('AccordionItem', () => {
         expect(screen.getByTestId('accordion-item')).toHaveTextContent('content here');
     });
 
-    it('should call onClick when click on item', () => {
+    it('should call onClick when click on item', async () => {
+        const user = userEvent.setup();
         const handleOnClick = jest.fn();
+
         render(
             <AccordionContext.Provider value={{
                 onSetOpenedItem: jest.fn(),
@@ -100,15 +102,18 @@ describe('AccordionItem', () => {
                 </AccordionItem>
             </AccordionContext.Provider>
         );
-        userEvent.click(screen.getByText('my label label'));
+        await user.click(screen.getByText('my label label'));
+
         expect(handleOnClick).toHaveBeenCalled();
     });
 
-    it('should onClick callback return true if item has been opened', () => {
-        let isOpen;
+    it('should onClick callback return true if item has been opened', async () => {
+        const user = userEvent.setup();
         const handleOnClick = (e, open) => {
             isOpen = open;
         };
+
+        let isOpen;
 
         render(
             <AccordionContext.Provider value={{
@@ -124,16 +129,18 @@ describe('AccordionItem', () => {
                 </AccordionItem>
             </AccordionContext.Provider>
         );
+        await user.click(screen.getByRole('accordion-item'));
 
-        userEvent.click(screen.getByRole('accordion-item'));
         expect(isOpen).toBe(true);
     });
 
-    it('should onClick callback return false if item has been closed', () => {
-        let isOpen;
+    it('should onClick callback return false if item has been closed', async () => {
+        const user = userEvent.setup();
         const handleOnClick = (e, open) => {
             isOpen = open;
         };
+
+        let isOpen;
 
         render(
             <AccordionContext.Provider value={{
@@ -150,13 +157,14 @@ describe('AccordionItem', () => {
                 </AccordionItem>
             </AccordionContext.Provider>
         );
-
-        userEvent.click(screen.getByRole('accordion-item'));
+        await user.click(screen.getByRole('accordion-item'));
 
         expect(isOpen).toBe(false);
     });
 
-    it('should not throw error when there is no onClick defined', () => {
+    it('should not throw error when there is no onClick defined', async () => {
+        const user = userEvent.setup();
+
         render(
             <AccordionContext.Provider value={{
                 onSetOpenedItem: jest.fn(),
@@ -173,6 +181,6 @@ describe('AccordionItem', () => {
         );
 
         // No error should occur when there is no onClickToClose defined
-        userEvent.click(screen.getByRole('accordion-item'));
+        await user.click(screen.getByRole('accordion-item'));
     });
 });

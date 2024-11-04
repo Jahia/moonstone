@@ -1,5 +1,5 @@
 import React from 'react';
-import {ComponentStory, ComponentMeta} from '@storybook/react';
+import {StoryFn, Meta} from '@storybook/react';
 
 import {Tag} from './index';
 
@@ -12,10 +12,12 @@ export default {
         storysource: {disable: true},
         actions: {argTypesRegex: '^on.*'}
     }
-} as ComponentMeta<typeof Tag>;
+} as Meta<typeof Tag>;
 
-const Template: ComponentStory<typeof Tag> = args => (
+const Template: StoryFn<typeof Tag> = args => (
     <Tag label="Tag" value="tag01" {...args}/>
 );
 
-export const Default = Template.bind({});
+export const Default = {
+    render: Template
+};

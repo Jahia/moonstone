@@ -1,5 +1,5 @@
 import React from 'react';
-import {Story} from '@storybook/react';
+import {StoryObj} from '@storybook/react';
 
 import {Typography} from './index';
 import type {TypographyProps} from './Typography.types';
@@ -39,8 +39,6 @@ export const Variants = () => (
     </section>
 );
 
-export const Playground: Story<TypographyProps> = args => (
-    <Typography {...args}>
-        Playground
-    </Typography>
-);
+export const Playground: StoryObj<TypographyProps> = {
+    render: args => <Typography {...args}>Playground</Typography>
+};

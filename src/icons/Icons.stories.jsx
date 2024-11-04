@@ -33,10 +33,10 @@ export const IconWrapper = ({iconName, size, iconColor}) => {
     return (
         <div className="storyGridItem">
             {React.createElement(
-                Icons[iconName],
-                {size: size},
-                {color: iconColor}
-            )}
+        Icons[iconName],
+        {size: size},
+        {color: iconColor}
+      )}
             <span>{iconName}</span>
         </div>
     );
@@ -49,11 +49,11 @@ function displayIcons() {
     for (const name of iconsName) {
         allIcons.push(
             <IconWrapper
-                key={`key-${name}`}
-                iconName={name}
-                size="big"
-                // Color={color}
-            />
+        key={`key-${name}`}
+        iconName={name}
+        size="big"
+        // Color={color}
+      />
         );
     }
 
@@ -66,7 +66,7 @@ export default {
     // Decorators: [withKnobs],
 
     parameters: {
-        // ComponentSubtitle: 'Icons',
+    // ComponentSubtitle: 'Icons',
         notes: {markdown: markdownNotes}
     },
 

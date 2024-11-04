@@ -97,20 +97,23 @@ describe('UnControlledRadioGroup', () => {
         expect(screen.getByLabelText('radio 02')).toBeChecked();
     });
 
-    it('should update specified defaultValue', () => {
+    it('should update specified defaultValue', async () => {
+        const user = userEvent.setup();
+
         render(
             <RadioGroup defaultValue="02" name="test-name">
                 <RadioItem id="radio-01" label="radio 01" value="01"/>
                 <RadioItem id="radio-02" label="radio 02" value="02"/>
             </RadioGroup>
         );
-        userEvent.click(screen.getByLabelText('radio 01'));
+        await user.click(screen.getByLabelText('radio 01'));
 
         expect(screen.getByLabelText('radio 01')).toBeChecked();
         expect(screen.getByLabelText('radio 02')).not.toBeChecked();
     });
 
-    it('should call specified onChange function', () => {
+    it('should call specified onChange function', async () => {
+        const user = userEvent.setup();
         const handleChange = jest.fn();
 
         render(
@@ -119,7 +122,7 @@ describe('UnControlledRadioGroup', () => {
                 <RadioItem id="radio-02" label="radio 02" value="02"/>
             </RadioGroup>
         );
-        userEvent.click(screen.getByLabelText('radio 01'));
+        await user.click(screen.getByLabelText('radio 01'));
 
         expect(handleChange).toHaveBeenCalledTimes(1);
     });

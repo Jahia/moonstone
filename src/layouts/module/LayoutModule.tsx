@@ -30,7 +30,7 @@ export const LayoutModule = React.forwardRef(({
                     ref
                 },
                 (
-                    <div className={classNameProps} role-busy={isLoading ? 'true' : undefined}>
+                    <div className={classNameProps} aria-busy={isLoading ? 'true' : undefined}>
                         {isLoading ? <Loader size="big"/> : content}
                     </div>
                 )

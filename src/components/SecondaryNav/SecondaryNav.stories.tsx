@@ -1,5 +1,5 @@
 import React from 'react';
-import {Story, ComponentMeta} from '@storybook/react';
+import {StoryFn, Meta} from '@storybook/react';
 
 import {SecondaryNav, SecondaryNavHeader} from './index';
 import type {SecondaryNavProps} from './SecondaryNav.types';
@@ -12,7 +12,9 @@ export default {
     component: SecondaryNav,
     decorators: [
         StoryCmp => (
-            <div style={{display: 'flex', flexDirection: 'column', height: '100vh'}}>
+            <div
+        style={{display: 'flex', flexDirection: 'column', height: '100vh'}}
+            >
                 <StoryCmp/>
             </div>
         )
@@ -20,31 +22,44 @@ export default {
     parameters: {
         notes: {markdown: markdownNotes}
     }
-} as ComponentMeta<typeof SecondaryNav>;
+} as Meta<typeof SecondaryNav>;
 
-const Template: Story<SecondaryNavProps> = args => (
-    <SecondaryNav {...args}>
-        My content here
-    </SecondaryNav>
+const Template: StoryFn<SecondaryNavProps> = args => (
+    <SecondaryNav {...args}>My content here</SecondaryNav>
 );
 
-export const TextTitle = Template.bind({});
-TextTitle.args = {
-    header: 'Header here'
+export const TextTitle = {
+    render: Template,
+
+    args: {
+        header: 'Header here'
+    }
 };
 
-export const WithHeaderImage = Template.bind({});
-WithHeaderImage.args = {
-    header: <Love size="big"/>
+export const WithHeaderImage = {
+    render: Template,
+
+    args: {
+        header: <Love size="big"/>
+    }
 };
 
-export const WithTextInHeaderComponent = Template.bind({});
-WithTextInHeaderComponent.args = {
-    header: <SecondaryNavHeader>Secondary Header</SecondaryNavHeader>
+export const WithTextInHeaderComponent = {
+    render: Template,
+
+    args: {
+        header: <SecondaryNavHeader>Secondary Header</SecondaryNavHeader>
+    }
 };
 
-export const WithHeaderComponent = Template.bind({});
-WithHeaderComponent.args = {
-    header: <SecondaryNavHeader><Love size="big"/></SecondaryNavHeader>
-};
+export const WithHeaderComponent = {
+    render: Template,
 
+    args: {
+        header: (
+            <SecondaryNavHeader>
+                <Love size="big"/>
+            </SecondaryNavHeader>
+        )
+    }
+};

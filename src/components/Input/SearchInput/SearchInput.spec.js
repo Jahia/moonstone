@@ -22,28 +22,33 @@ describe('SearchInput', () => {
 });
 
 describe('UncontrolledInput', () => {
-    it('should reset field when we click on the reset button of the search input', () => {
+    it('should reset field when we click on the reset button of the search input', async () => {
+        const user = userEvent.setup();
+
         render(<SearchInput data-testid="moonstone-input" defaultValue="test-default-value" variant="search"/>);
-        userEvent.click(screen.getByLabelText('Reset'));
+        await user.click(screen.getByLabelText('Reset'));
+
         expect(screen.getByTestId('moonstone-input')).toHaveValue('');
     });
 
-    it('should call specified onClear function', () => {
+    it('should call specified onClear function', async () => {
+        const user = userEvent.setup();
         const handleClear = jest.fn();
 
         render(<SearchInput variant="search" defaultValue="test-default-value" onClear={handleClear}/>);
-        userEvent.click(screen.getByLabelText('Reset'));
+        await user.click(screen.getByLabelText('Reset'));
 
         expect(handleClear).toHaveBeenCalledTimes(1);
     });
 });
 
 describe('ControlledInput', () => {
-    it('should call specified onClear function', () => {
+    it('should call specified onClear function', async () => {
+        const user = userEvent.setup();
         const handleClear = jest.fn();
 
         render(<SearchInput variant="search" value="test-value" onChange={() => null} onClear={handleClear}/>);
-        userEvent.click(screen.getByLabelText('Reset'));
+        await user.click(screen.getByLabelText('Reset'));
 
         expect(handleClear).toHaveBeenCalledTimes(1);
     });

@@ -1,8 +1,6 @@
-import React from 'react';
-import {Story, ComponentMeta} from '@storybook/react';
+import {Meta} from '@storybook/react';
 
 import {Badge} from './index';
-import type {BadgeProps} from './Badge.types';
 
 import markdownNotes from './Badge.md';
 
@@ -13,24 +11,25 @@ export default {
         layout: 'centered',
         notes: {markdown: markdownNotes}
     }
-} as ComponentMeta<typeof Badge>;
+} as Meta<typeof Badge>;
 
-const Template: Story<BadgeProps> = args => <Badge {...args}/>;
-
-export const Accent = Template.bind({});
-Accent.args = {
-    label: '3',
-    color: 'accent'
+export const Accent = {
+    args: {
+        label: '3',
+        color: 'accent'
+    }
 };
 
-export const Success = Template.bind({});
-Success.args = {
-    label: '3',
-    color: 'success'
+export const Success = {
+    args: {
+        label: '3',
+        color: 'success'
+    }
 };
 
-export const Danger = Template.bind({});
-Danger.args = {
-    label: '3',
-    color: 'danger'
+export const Danger = {
+    args: {
+        label: '3',
+        color: 'danger'
+    }
 };

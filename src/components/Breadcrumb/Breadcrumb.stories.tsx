@@ -1,5 +1,5 @@
 import React from 'react';
-import {Story, ComponentMeta} from '@storybook/react';
+import {StoryFn, Meta} from '@storybook/react';
 
 import {Breadcrumb, BreadcrumbItem} from '~/components';
 import type {BreadcrumbProps} from './Breadcrumb.types';
@@ -21,9 +21,9 @@ export default {
         layout: 'centered',
         notes: {markdown: markdownNotes}
     }
-} as ComponentMeta<typeof Breadcrumb>;
+} as Meta<typeof Breadcrumb>;
 
-const Template: Story<BreadcrumbProps> = args => (
+const Template: StoryFn<BreadcrumbProps> = args => (
     <Breadcrumb {...args}>
         <BreadcrumbItem label="item 01"/>
         <BreadcrumbItem label="item 02"/>
@@ -32,4 +32,6 @@ const Template: Story<BreadcrumbProps> = args => (
     </Breadcrumb>
 );
 
-export const Default = Template.bind({});
+export const Default = {
+    render: Template
+};

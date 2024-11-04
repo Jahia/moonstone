@@ -13,9 +13,11 @@ describe('PrimaryNav', () => {
         expect(screen.getByRole('navigation')).toHaveAttribute('aria-expanded', 'false');
     });
 
-    it('should expand when click on NavButton', () => {
+    it('should expand when click on NavButton', async () => {
+        const user = userEvent.setup();
         render(<PrimaryNav {...props}/>);
-        userEvent.click(screen.getByRole('primary-nav-control'));
+
+        await user.click(screen.getByRole('primary-nav-control'));
         expect(screen.getByRole('navigation')).toHaveAttribute('aria-expanded', 'true');
     });
 
