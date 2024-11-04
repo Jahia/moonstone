@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, {useState} from 'react';
 import {StoryObj, StoryFn, Meta} from '@storybook/react';
 

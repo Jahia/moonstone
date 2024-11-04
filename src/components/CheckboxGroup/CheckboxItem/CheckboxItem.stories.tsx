@@ -1,11 +1,12 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 import {useArgs} from '@storybook/preview-api';
-import type {StoryObj} from '@storybook/react';
+import type {StoryObj, Meta} from '@storybook/react';
 import type {CheckboxItemProps} from './CheckboxItem.types';
 
 import {CheckboxItem} from './CheckboxItem';
 
-const meta: Meta<typeof CheckboxItem> = {
+export default {
     title: 'Components/CheckboxGroup/CheckboxItem',
     component: CheckboxItem,
     parameters: {
@@ -20,8 +21,7 @@ const meta: Meta<typeof CheckboxItem> = {
         onBlur: {action: 'onBlur'},
         onFocus: {action: 'onFocus'}
     }
-};
-export default meta;
+} as Meta<typeof CheckboxItem>;
 
 export const Uncontrolled: StoryObj<CheckboxItemProps> = {
     render: args => {
@@ -35,7 +35,7 @@ export const Uncontrolled: StoryObj<CheckboxItemProps> = {
 
 type Story = StoryObj<typeof CheckboxItem>;
 export const Controlled: Story = {
-    Render: (args:CheckboxItemProps) => {
+    render: (args:CheckboxItemProps) => {
         const [{checked}, updateArgs] = useArgs();
 
         const handleOnChange = () => {

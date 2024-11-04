@@ -35,23 +35,23 @@ export default {
 const Template: StoryFn<AccordionProps> = args => (
     <Accordion {...args}>
         <AccordionItem
-      id={accordionIds[0]}
-      icon={<Love size="big"/>}
-      label="test 01"
+            id={accordionIds[0]}
+            icon={<Love size="big"/>}
+            label="test 01"
         >
             Accordion Content 01
         </AccordionItem>
         <AccordionItem
-      id={accordionIds[1]}
-      icon={<Bug size="big"/>}
-      label="test 02"
+            id={accordionIds[1]}
+            icon={<Bug size="big"/>}
+            label="test 02"
         >
             Accordion Content 02
         </AccordionItem>
         <AccordionItem
-      id={accordionIds[2]}
-      label="test 03 (with long content)"
-      icon={<BarSquare size="big"/>}
+            id={accordionIds[2]}
+            label="test 03 (with long content)"
+            icon={<BarSquare size="big"/>}
         >
             Topgallant mutiny spike pressgang interloper transom loaded to the
             gunwalls hogshead smartly Letter of Marque. Arr belaying pin brigantine
