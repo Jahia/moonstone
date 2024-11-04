@@ -11,4 +11,3 @@ export type BreadcrumbProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'child
      */
     children?: React.ReactElement<BreadcrumbItemProps> | React.ReactElement<BreadcrumbItemProps>[];
 }
-

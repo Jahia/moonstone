@@ -1,4 +1,3 @@
-import * as React from 'react';
 import type {ButtonProps} from '~/components/Button/Button.types';
 
 export type BreadcrumbItemProps = Omit<ButtonProps, 'variant' | 'size' | 'label'> & {
