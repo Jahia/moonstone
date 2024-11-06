@@ -179,7 +179,7 @@ typings/
 # Yarn
 .yarn-integrity
 .yarn/unplugged
-.yarn/install-state.yml
+.yarn/install-state.gz
 
 # dotenv environment variables file
 .env
