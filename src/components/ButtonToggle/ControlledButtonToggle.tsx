@@ -3,10 +3,10 @@ import clsx from 'clsx';
 import './ButtonToggle.scss';
 import '../Button/Button.scss';
 import {Typography} from '../Typography';
-import {TypographyWeight} from '~/components/Typography/Typography.types';
-import {ControlledButtonToggleProps} from './ButtonToggle.types';
 import {Loader} from '~/components/Loader';
+import type {ControlledButtonToggleProps} from './ButtonToggle.types';
 
+// TODO: use React.ForwardRefRenderFunction (ex: Collapsible)
 export const ControlledButtonToggle: React.FC<ControlledButtonToggleProps> = ({
     label = '',
     size = 'default',
@@ -21,19 +21,13 @@ export const ControlledButtonToggle: React.FC<ControlledButtonToggleProps> = ({
     onClick = () => undefined,
     ...props
 }) => {
-    let typoWeight: TypographyWeight = 'default';
     const ButtonToggleRef: MutableRefObject<HTMLButtonElement> = useRef();
-
-    if (size === 'big') {
-        typoWeight = 'semiBold';
-    }
-
     const handleOnClick: React.MouseEventHandler = e => {
         onClick(e);
-    };
-
-    const handleOnChange: React.ChangeEventHandler = e => {
-        onChange(e);
+        if (!isDisabled && !isLoading) {
+            // TODO: Fix onChange return the previous state
+            (onChange as (e: React.MouseEvent, isPressed: boolean) => void)(e, isPressed);
+        }
     };
 
     return (
@@ -51,10 +45,10 @@ export const ControlledButtonToggle: React.FC<ControlledButtonToggleProps> = ({
                 className
             )}
             aria-pressed={isPressed}
+            data-loading= {isLoading}
             type="button"
             disabled={isDisabled || isLoading}
             onClick={e => handleOnClick(e)}
-            onChange={e => handleOnChange(e.target)}
             {...props}
         >
             {/* Display icon when an icon is provided */}
@@ -67,7 +61,7 @@ export const ControlledButtonToggle: React.FC<ControlledButtonToggleProps> = ({
                     component="span"
                     variant="button"
                     isUpperCase={size === 'big'}
-                    weight={typoWeight}
+                    weight={size === 'big' ? 'semiBold' : 'default'}
                     className={clsx('flexFluid')}
                 >
                     {label}

@@ -11,8 +11,7 @@ export const UncontrolledButtonToggle: React.FC<UncontrolledButtonToggleProps> =
             {...props}
             isPressed={pressed}
             onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
-                const togglePressed = !pressed;
-                setPressed(togglePressed);
+                setPressed(prevPressed => !prevPressed);
                 if (typeof onClick === 'function') {
                     onClick(event);
                 }
