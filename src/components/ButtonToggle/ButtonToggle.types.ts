@@ -47,7 +47,7 @@ type BasicProps = {
     /**
      * Function trigger on change
      */
-    onChange?: (event: React.MouseEvent, isPressed: boolean ) => void;
+    onChange?: (event: React.MouseEvent, isPressed: boolean) => void;
 
     /**
      * Function trigger on click

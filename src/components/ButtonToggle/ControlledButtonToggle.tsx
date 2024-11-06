@@ -6,8 +6,7 @@ import {Typography} from '../Typography';
 import {Loader} from '~/components/Loader';
 import type {ControlledButtonToggleProps} from './ButtonToggle.types';
 
-// TODO: use React.ForwardRefRenderFunction (ex: Collapsible)
-export const ControlledButtonToggle: React.FC<ControlledButtonToggleProps> = ({
+export const ControlledButtonToggle: React.ForwardRefRenderFunction<HTMLDivElement, ControlledButtonToggleProps> = ({
     label = '',
     size = 'default',
     isReversed = false,
@@ -25,8 +24,7 @@ export const ControlledButtonToggle: React.FC<ControlledButtonToggleProps> = ({
     const handleOnClick: React.MouseEventHandler = e => {
         onClick(e);
         if (!isDisabled && !isLoading) {
-            // TODO: Fix onChange return the previous state
-            (onChange as (e: React.MouseEvent, isPressed: boolean) => void)(e, isPressed);
+            onChange(e, !isPressed);
         }
     };
 
@@ -45,7 +43,7 @@ export const ControlledButtonToggle: React.FC<ControlledButtonToggleProps> = ({
                 className
             )}
             aria-pressed={isPressed}
-            data-loading= {isLoading}
+            data-loading={isLoading}
             type="button"
             disabled={isDisabled || isLoading}
             onClick={e => handleOnClick(e)}

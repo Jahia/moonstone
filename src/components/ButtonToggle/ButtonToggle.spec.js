@@ -119,11 +119,11 @@ describe('ButtonToggle', () => {
 
     it('should call onChange function', async () => {
         const user = userEvent.setup();
-        const onChange = jest.fn();
+        const handleOnChange = jest.fn();
 
-        render(<ButtonToggle data-testid="moonstone-button-toggle" label="test me" onChange={onChange}/>);
+        render(<ButtonToggle data-testid="moonstone-button-toggle" label="test me" onChange={handleOnChange}/>);
         await user.click(screen.getByTestId('moonstone-button-toggle'));
 
-        expect(onChange).toHaveBeenCalled();
+        expect(handleOnChange).toHaveBeenCalled();
     });
 });
