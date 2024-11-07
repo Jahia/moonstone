@@ -7,7 +7,7 @@ import {Loader} from '~/components/Loader';
 import type {ControlledButtonToggleProps} from './ButtonToggle.types';
 
 const ControlledButtonToggleForwardRef: React.ForwardRefRenderFunction<HTMLButtonElement, ControlledButtonToggleProps> = ({
-    label = null,
+    label,
     size = 'default',
     isReversed = false,
     isDisabled = false,
