@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import './Collapsible.scss';
-import {CollapsibleProps} from './Collapsible.types';
+import type {UncontrolledCollapsibleProps} from './Collapsible.types';
 import {ControlledCollapsible} from './ControlledCollapsible';
 
-const UncontrolledCollapsibleForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, CollapsibleProps> = ({
+const UncontrolledCollapsibleForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, UncontrolledCollapsibleProps> = ({
     children,
     onClick = () => undefined,
     isDefaultExpanded = false,

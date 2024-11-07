@@ -1,24 +1,24 @@
 import * as React from 'react';
-import {PrimaryNavItemsGroupProps} from './PrimaryNavItemsGroup/PrimaryNavItemsGroup.types';
+import type {PrimaryNavItemsGroupProps} from './PrimaryNavItemsGroup/PrimaryNavItemsGroup.types';
 
 export type PrimaryNavContextProps = {
     isExpanded: boolean;
     collapse: () => void;
 };
 
-export type NavButtonProps = {
+export type PrimaryNavButtonProps = {
     isExpanded: boolean;
     toggleExpand: () => void;
     modeIcon?: React.ReactElement;
 };
 
-export type NavHeaderProps = {
+export type PrimaryNavHeaderProps = {
     headerCaption: string;
     modeIcon?: React.ReactElement;
     headerLogo?: React.ReactNode;
 };
 
-export type PrimaryNavProps = {
+export type PrimaryNavProps = React.ComponentPropsWithoutRef<'nav'> & {
     /**
      * Image of logo application
      */

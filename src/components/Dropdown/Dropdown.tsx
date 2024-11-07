@@ -2,18 +2,15 @@ import React, {MutableRefObject, useEffect, useMemo, useRef, useState} from 'rea
 import clsx from 'clsx';
 import './Dropdown.scss';
 
-import {
+import type {
     DropdownDataOption,
-    DropdownImageSizes,
     DropdownProps,
-    DropdownSizes,
-    DropdownVariants,
     HandleSelect
 } from './Dropdown.types';
 import {DropdownMenu} from '~/components/Dropdown/DropdownMenu';
 import {TreeViewMenu} from '~/components/Dropdown/TreeViewMenu';
 import {Tag} from '../Tag';
-import {TreeViewData} from '~/components/TreeView/TreeView.types';
+import type {TreeViewData} from '~/components/TreeView/TreeView.types';
 import {Button, Typography} from '~/components';
 import {Cancel, ChevronDown} from '~/icons';
 
@@ -40,8 +37,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
     value,
     values,
     isDisabled,
-    variant = DropdownVariants.Ghost,
-    size = DropdownSizes.Medium,
+    variant = 'ghost',
+    size = 'medium',
     icon,
     hasSearch,
     autoAddSearchLimit = 7,
@@ -92,11 +89,11 @@ export const Dropdown: React.FC<DropdownProps> = ({
     let menuMaxHeight;
 
     switch (imageSize) {
-        case DropdownImageSizes.Big:
+        case 'big':
             menuMaxWidth = '400px';
             menuMaxHeight = '440px';
             break;
-        case DropdownImageSizes.Small:
+        case 'small':
             menuMaxWidth = '264px';
             menuMaxHeight = '320px';
             break;

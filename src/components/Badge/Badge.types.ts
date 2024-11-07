@@ -1,16 +1,15 @@
-export type BadgeColor = 'accent' | 'success' | 'danger';
-export const badgeColors = ['accent', 'success', 'danger'];
+export const badgeColors = ['accent', 'success', 'danger'] as const;
 
-export type BadgeProps = {
+export type BadgeProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'className'> & {
     /**
-     * Badge label, only for type round
+     * Label displays inside the badge
      */
     label?: string;
 
     /**
-     * Badge color
+     * Define the background color of the badge
      */
-    color?: BadgeColor;
+    color?: typeof badgeColors[number];
 
     /**
      * Additional classname

@@ -1,25 +1,25 @@
 import * as React from 'react';
-import {ButtonSize, ButtonColor, ButtonVariant} from '~/components/Button/Button.types';
+import type {ButtonProps, ButtonSize, ButtonColor, ButtonVariant} from '~/components/Button/Button.types';
 
-export type ButtonGroupProps = {
+export type ButtonGroupProps = Omit<React.ComponentPropsWithRef<'div'>, 'children' | 'className'> & {
     /**
      * Buttons grouped
      */
-    children: React.ReactNode;
+    children: React.ReactElement<ButtonProps> | React.ReactElement<ButtonProps>[];
     /**
-     * Buttons size
+     * Size of the button
      */
     size?: ButtonSize;
     /**
-     * Button style
+     * Style of the button
      */
     variant?: ButtonVariant;
     /**
-     * Button color
+     * Color of the button
      */
     color?: ButtonColor;
     /**
-     * Is button color reversed
+     * Whether the component should use reversed colors, it useful with dark background
      */
     isReversed?: boolean;
     /**

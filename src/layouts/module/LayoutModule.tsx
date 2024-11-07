@@ -1,6 +1,6 @@
 import React, {ForwardedRef} from 'react';
 import clsx from 'clsx';
-import {LayoutModuleProps} from './LayoutModule.types';
+import type {LayoutModuleProps} from './LayoutModule.types';
 import './LayoutModule.scss';
 import {Loader} from '~/components/Loader';
 

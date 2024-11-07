@@ -1,5 +1,5 @@
 import React from 'react';
-import {CollapsibleProps} from './Collapsible.types';
+import type {CollapsibleProps} from './Collapsible.types';
 import {UncontrolledCollapsible} from './UncontrolledCollapsible';
 import {ControlledCollapsible} from './ControlledCollapsible';
 

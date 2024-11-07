@@ -23,7 +23,7 @@ export type CheckboxGroupProps = {
     onChange?: (event: React.ChangeEvent<HTMLInputElement>, value: string, checked: boolean) => void;
 
     /**
-     * Whether the checkboxes should be disabled
+     * Whether the component should be disabled
      */
     isDisabled?: boolean;
 
@@ -45,7 +45,7 @@ export type CheckboxGroupContextProps = {
     onChange?: (event: React.ChangeEvent<HTMLInputElement>, value: string, checked: boolean) => void;
 
     /**
-     * Whether all CheckboxItems should be disabled
+     * Whether the component should be disabled
      */
     isDisabled?: boolean;
 
