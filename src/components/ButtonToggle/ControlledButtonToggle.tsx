@@ -1,4 +1,4 @@
-import React, {MutableRefObject, useRef} from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import './ButtonToggle.scss';
 import '../Button/Button.scss';
@@ -6,8 +6,8 @@ import {Typography} from '../Typography';
 import {Loader} from '~/components/Loader';
 import type {ControlledButtonToggleProps} from './ButtonToggle.types';
 
-export const ControlledButtonToggle: React.ForwardRefRenderFunction<HTMLDivElement, ControlledButtonToggleProps> = ({
-    label = '',
+const ControlledButtonToggleForwardRef: React.ForwardRefRenderFunction<HTMLButtonElement, ControlledButtonToggleProps> = ({
+    label = null,
     size = 'default',
     isReversed = false,
     isDisabled = false,
@@ -19,10 +19,10 @@ export const ControlledButtonToggle: React.ForwardRefRenderFunction<HTMLDivEleme
     onChange = () => undefined,
     onClick = () => undefined,
     ...props
-}) => {
-    const ButtonToggleRef: MutableRefObject<HTMLButtonElement> = useRef();
+}, ref) => {
     const handleOnClick: React.MouseEventHandler = e => {
         onClick(e);
+        (e.currentTarget as HTMLElement).blur();
         if (!isDisabled && !isLoading) {
             onChange(e, !isPressed);
         }
@@ -30,7 +30,7 @@ export const ControlledButtonToggle: React.ForwardRefRenderFunction<HTMLDivEleme
 
     return (
         <button
-            ref={ButtonToggleRef}
+            ref={ref}
             className={clsx(
                 'moonstone-button-toggle',
                 'moonstone-button',
@@ -70,4 +70,5 @@ export const ControlledButtonToggle: React.ForwardRefRenderFunction<HTMLDivEleme
     );
 };
 
+export const ControlledButtonToggle = React.forwardRef(ControlledButtonToggleForwardRef);
 ControlledButtonToggle.displayName = 'ControlledButtonToggle';

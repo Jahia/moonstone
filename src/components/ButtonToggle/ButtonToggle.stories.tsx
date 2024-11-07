@@ -27,10 +27,8 @@ const Template = (args: ButtonToggleProps, globals: StoryContext) => {
 
 export const Default: Story = {
     args: {
-        size: 'default',
         iconStart: <Apps/>,
-        label: 'ButtonToggle',
-        defaultPressed: false
+        label: 'ButtonToggle'
     },
     render: Template
 };
