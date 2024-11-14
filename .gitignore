@@ -176,10 +176,14 @@ typings/
 # Output of 'npm pack'
 *.tgz
 
-# Yarn
+# Yarn Integrity file
 .yarn-integrity
-.yarn/unplugged
-.yarn/install-state.gz
+
+# Yarn 4
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+.pnp.*
 
 # dotenv environment variables file
 .env
