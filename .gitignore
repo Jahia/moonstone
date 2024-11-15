@@ -179,6 +179,12 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
+# Yarn 4
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+.pnp.*
+
 # dotenv environment variables file
 .env
 .env.test
