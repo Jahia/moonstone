@@ -26,14 +26,13 @@ const Template = (args: CardSelectorProps) => {
 
 export const Default: Story = {
     args: {
-        thumbnail: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSU3DPpncF_UoP6ru_o-b7laRl39IrRPUPXDrlxewYgKZ8ur9Sh',
+        image: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSU3DPpncF_UoP6ru_o-b7laRl39IrRPUPXDrlxewYgKZ8ur9Sh',
         displayName: 'Item name',
         systemName: 'system name',
         information: 'more information',
         chips: [<Chip key="chip" label="image" icon={<FileImage/>} color="accent"/>, <Chip key="chip2" label="marked for deletion" icon={<Lock/>} color="danger"/>],
         isDraggable: false,
-        isDisabled: false,
-        cardActions: []
+        isDisabled: false
     },
     render: Template
 };

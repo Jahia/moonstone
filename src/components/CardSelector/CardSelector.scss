@@ -2,12 +2,12 @@
     gap: var(--spacing-small);
     width: 100%;
     padding: var(--spacing-small) var(--spacing-medium) var(--spacing-small) var(--spacing-nano);
-
     border: 1px solid var(--color-gray_light);
     border-radius: 2px;
     list-style-type: none;
     background-color: var(--color-white);
     cursor: pointer;
+    justify-content: flex-start;
 
     &:hover {
         border-color: var(--color-gray_dark60);
@@ -25,6 +25,11 @@
     pointer-events: none;
 }
 
+.moonstone-card-selector-body{
+    white-space: nowrap;
+    width: 50%;
+}
+
 .moonstone-card-selector-body,
 .moonstone-card-selector-actions {
     gap: var(--spacing-small);
@@ -35,9 +40,10 @@
 }
 
 .moonstone-card-selector-displayName {
-    max-width: 70%;
-
+    white-space: nowrap;
     text-overflow: ellipsis;
+    max-width: 50%;
+    overflow: clip;
 }
 
 .moonstone-card-selector-systemName,
@@ -63,4 +69,8 @@
 .moonstone-card-selector-thumbnail svg {
     width: 32px;
     height: 32px;
+}
+
+.moonstone-card-selector-actions{
+    margin-left: auto;
 }

@@ -29,7 +29,7 @@ export type CardSelectorProps = {
     /**
      * Possible actions to add to the item e.g orderable with arrows, closeable with X icon...
      */
-    cardActions?: [];
+    cardAction?: React.ReactElement;
 
     /**
      * Define if the dragging icon will be displayed
@@ -42,9 +42,14 @@ export type CardSelectorProps = {
     isDisabled?: boolean;
 
     /**
-     * Image url or icon name
+     * Image url as thumbnail
      */
-    thumbnail?: string;
+    image?: string;
+
+    /**
+     * Icon as thumbnail
+     */
+    icon?: React.ReactElement;
 
     /**
      * Function trigger on click
