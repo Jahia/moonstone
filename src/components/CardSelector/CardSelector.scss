@@ -1,0 +1,66 @@
+.moonstone-card-selector {
+    gap: var(--spacing-small);
+    width: 100%;
+    padding: var(--spacing-small) var(--spacing-medium) var(--spacing-small) var(--spacing-nano);
+
+    border: 1px solid var(--color-gray_light);
+    border-radius: 2px;
+    list-style-type: none;
+    background-color: var(--color-white);
+    cursor: pointer;
+
+    &:hover {
+        border-color: var(--color-gray_dark60);
+        box-shadow: 0 1px 6px var(--color-dark20);
+    }
+
+    &:focus {
+        border-color: var(--color-accent);
+    }
+}
+
+.moonstone-card-selector_disabled {
+    opacity: 60%;
+
+    pointer-events: none;
+}
+
+.moonstone-card-selector-body,
+.moonstone-card-selector-actions {
+    gap: var(--spacing-small);
+
+    & > * {
+        gap: var(--spacing-small);
+    }
+}
+
+.moonstone-card-selector-displayName {
+    max-width: 70%;
+
+    text-overflow: ellipsis;
+}
+
+.moonstone-card-selector-systemName,
+.moonstone-card-selector-information {
+    color: var(--color-gray_dark60);
+}
+
+.moonstone-card-selector-thumbnail {
+    width: 60px;
+    height: 60px;
+
+    border-radius: 2px;
+    background-color: var(--color-gray_light40);
+    overflow: hidden;
+}
+
+.moonstone-card-selector-thumbnail img {
+    width: 100%;
+    height: inherit;
+    object-fit: cover;
+}
+
+.moonstone-card-selector-thumbnail svg {
+    width: 32px;
+    height: 32px;
+}
