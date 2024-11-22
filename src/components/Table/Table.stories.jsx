@@ -74,7 +74,7 @@ export const Basic = () => (
 );
 
 export const BasicReactTable = {
-    Render: () => {
+    render: () => {
         const data = React.useMemo(() => tableDataFlat, []);
         const columns = React.useMemo(
             () => [
@@ -166,7 +166,7 @@ export const BasicReactTable = {
 };
 
 export const SelectableRows = {
-    Render: () => {
+    render: () => {
         const data = React.useMemo(() => tableDataFlat, []);
         const columns = React.useMemo(
             () => [
@@ -300,7 +300,7 @@ export const SelectableRows = {
 };
 
 export const SortingByColumn = {
-    Render: () => {
+    render: () => {
         const data = React.useMemo(() => tableDataFlat, []);
         const columns = React.useMemo(
             () => [
@@ -412,7 +412,7 @@ export const SortingByColumn = {
 };
 
 export const Pagination = {
-    Render: () => {
+    render: () => {
         const [rowsPerPage, setRowsPerPage] = useState(5);
         const [currentPage, setCurrentPage] = useState(1);
         const data = React.useMemo(
@@ -518,7 +518,7 @@ export const Pagination = {
 };
 
 export const StructuredView = {
-    Render: () => {
+    render: () => {
         const data = React.useMemo(() => tableDataNested, []);
         const columns = React.useMemo(
             () => [
@@ -651,7 +651,7 @@ export const StickyHeader = () => {
 };
 
 export const KitchenSinkFlat = {
-    Render: () => {
+    render: () => {
         const [rowsPerPage, setRowsPerPage] = useState(5);
         const [currentPage, setCurrentPage] = useState(1);
         const data = React.useMemo(
@@ -784,7 +784,7 @@ export const KitchenSinkFlat = {
 };
 
 export const KitchenSinkNested = {
-    Render: () => {
+    render: () => {
         const data = React.useMemo(() => tableDataNested, []);
         const columns = React.useMemo(
             () => [

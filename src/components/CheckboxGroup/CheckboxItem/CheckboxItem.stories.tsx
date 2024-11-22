@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 import {useArgs} from '@storybook/preview-api';
 import type {StoryObj, Meta} from '@storybook/react';
