@@ -22,30 +22,30 @@ export default {
 };
 
 export const Default = {
-    Render: (args, {globals: {theme}}) => (
+    render: (args, {globals: {theme}}) => (
         <TreeView {...args} data={treeData} isReversed={theme === 'dark'}/>
     )
 };
 
 export const OpenedByDefault = {
-    Render: (args, {globals: {theme}}) => (
+    render: (args, {globals: {theme}}) => (
         <TreeView
-      {...args}
-      defaultOpenedItems={['A']}
-      data={treeData}
-      isReversed={theme === 'dark'}
-    />
+            {...args}
+            defaultOpenedItems={['A']}
+            data={treeData}
+            isReversed={theme === 'dark'}
+        />
     )
 };
 
 export const Flat = {
-    Render: (args, {globals: {theme}}) => (
+    render: (args, {globals: {theme}}) => (
         <TreeView {...args} data={treeDataFlat} isReversed={theme === 'dark'}/>
     )
 };
 
 export const Selection = {
-    Render: (args, {globals: {theme}}) => {
+    render: (args, {globals: {theme}}) => {
         const [selectedItems, setSelectedItems] = useState([]);
         const handleClick = node => {
             if (selectedItems.includes(node.id)) {
@@ -57,29 +57,29 @@ export const Selection = {
 
         return (
             <TreeView
-        {...args}
-        isReversed={theme === 'dark'}
-        selectedItems={selectedItems}
-        data={treeData}
-        onClickItem={handleClick}
-      />
+                isReversed={theme === 'dark'}
+                selectedItems={selectedItems}
+                data={treeData}
+                onClickItem={handleClick}
+                {...args}
+            />
         );
     }
 };
 
 export const Highlight = {
-    Render: (args, {globals: {theme}}) => (
+    render: (args, {globals: {theme}}) => (
         <TreeView
-      {...args}
-      data={treeData}
-      isReversed={theme === 'dark'}
-      highlightedItem="A"
-    />
+            data={treeData}
+            isReversed={theme === 'dark'}
+            highlightedItem="A"
+            {...args}
+        />
     )
 };
 
 export const Controlled = {
-    Render: (args, {globals: {theme}}) => {
+    render: (args, {globals: {theme}}) => {
         const [openedItems, setOpenedItems] = useState([]);
         const handleOpen = node => {
             setOpenedItems([node.id, ...openedItems]);
@@ -95,22 +95,22 @@ export const Controlled = {
                     Opened items ={' '}
                     {openedItems.map(n => (
                         <button
-              key={n}
-              type="button"
-              onClick={() => handleClose({id: n})}
+                            key={n}
+                            type="button"
+                            onClick={() => handleClose({id: n})}
                         >
                             {n}
                         </button>
-          ))}
+                    ))}
                 </span>
                 <TreeView
-          {...args}
-          data={treeData}
-          openedItems={openedItems}
-          isReversed={theme === 'dark'}
-          onOpenItem={handleOpen}
-          onCloseItem={handleClose}
-        />
+                    {...args}
+                    data={treeData}
+                    openedItems={openedItems}
+                    isReversed={theme === 'dark'}
+                    onOpenItem={handleOpen}
+                    onCloseItem={handleClose}
+                />
             </div>
         );
     }
@@ -168,14 +168,14 @@ export const ControlledWithLoading = () => {
                     <button key={n} type="button" onClick={() => handleClose({id: n})}>
                         {n}
                     </button>
-        ))}
+                ))}
             </span>
             <TreeView
-        data={treeDataState}
-        openedItems={openedItems}
-        onOpenItem={handleOpen}
-        onCloseItem={handleClose}
-      />
+                data={treeDataState}
+                openedItems={openedItems}
+                onOpenItem={handleOpen}
+                onCloseItem={handleClose}
+            />
         </div>
     );
 };
