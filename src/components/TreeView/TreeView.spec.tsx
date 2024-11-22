@@ -100,6 +100,16 @@ describe('TreeView', () => {
         expect(clickHandler).not.toHaveBeenCalled();
     });
 
+    it('should not call onClick when clicking on an readonly item', async () => {
+        const user = userEvent.setup();
+        const clickHandler = jest.fn();
+
+        render(<TreeView data={[{...tree[0], isReadonly: true}]} onClickItem={clickHandler}/>);
+        await user.click(screen.getByText('A level1'));
+
+        expect(clickHandler).not.toHaveBeenCalled();
+    });
+
     it('should call onOpenItem when the node opens', async () => {
         const user = userEvent.setup();
         const openHandler = jest.fn();

@@ -45,6 +45,17 @@ export const treeData = [
                                 label: 'A-4 level1'
                             }
                         ]
+                    },
+                    {
+                        id: 'A5',
+                        label: 'A-5 level2 (read-only)',
+                        isReadonly: true,
+                        children: [
+                            {
+                                id: 'A51',
+                                label: 'A-5 level1'
+                            }
+                        ]
                     }
                 ]
             },
