@@ -1,3 +1,20 @@
+# v2.9.1 (Fri Nov 22 2024)
+
+#### 🐛 Bug Fix
+
+- MOON-460: Add readonly state to TreeView item [#457](https://github.com/Jahia/moonstone/pull/457) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🔩 Dependency Updates
+
+- Bump @jahia/scripts from 1.3.5 to 1.3.6 [#454](https://github.com/Jahia/moonstone/pull/454) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.9.0 (Wed Nov 20 2024)
 
 #### 🚀 Enhancement
