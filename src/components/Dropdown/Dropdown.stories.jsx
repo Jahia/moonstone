@@ -346,7 +346,7 @@ export const DropdownWithTree = () => {
 };
 
 export const WithDescription = {
-    Render: args => {
+    render: args => {
         const [currentOption, setCurrentOption] = useState({
             label: 'Select something',
             value: null
