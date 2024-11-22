@@ -2428,7 +2428,7 @@ __metadata:
     "@babel/runtime": "npm:^7.26.0"
     "@cyclonedx/webpack-plugin": "npm:^3.14.0"
     "@jahia/eslint-config": "npm:^2.1.2"
-    "@jahia/scripts": "npm:^1.3.5"
+    "@jahia/scripts": "npm:^1.3.6"
     "@jahia/stylelint-config": "npm:^0.0.3"
     "@storybook/addon-a11y": "npm:^8.4.2"
     "@storybook/addon-actions": "npm:^8.4.2"
@@ -2506,9 +2506,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@jahia/scripts@npm:^1.3.5":
-  version: 1.3.5
-  resolution: "@jahia/scripts@npm:1.3.5"
+"@jahia/scripts@npm:^1.3.6":
+  version: 1.3.6
+  resolution: "@jahia/scripts@npm:1.3.6"
   dependencies:
     cross-spawn: "npm:^7.0.1"
     dotenv: "npm:^8.2.0"
@@ -2528,7 +2528,7 @@ __metadata:
     jahia-prepare-build: prepare-build.js
     jahia-publish: publish.js
     jahia-react2dts: react2dts.js
-  checksum: 10c0/f3eae494b667cb528adf38616f7895dce96d8f01b2ab9290694233d9caa44b78fd0116f1b6369123b898e8910608a5fff3a468251753ef023977fdf9df98c21e
+  checksum: 10c0/2d3e766cf8b4add99c65df2d8089d6052d75cecfee363f86d2a041e880c81df8fb0cd465c8957f258d0c63443da86693e8843f1f33f59251ecc6ddd5b46e5541
   languageName: node
   linkType: hard
 
