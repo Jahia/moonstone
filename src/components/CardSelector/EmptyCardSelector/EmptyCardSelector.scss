@@ -1,0 +1,27 @@
+.moonstone-empty-card-selector{
+    gap: var(--spacing-small);
+    padding: var(--spacing-medium) 0;
+    width: 100%;
+    border: 1px dashed var(--color-gray_light);
+    border-radius: 4px;
+    background-color: var(--color-white);
+    cursor: pointer;
+
+    &:hover {
+        border: 1px solid var(--color-accent);
+    }
+
+    &:focus {
+        border: 1px solid var(--color-accent);
+    }
+}
+
+.moonstone-empty-card-selector_disabled {
+    opacity: 60%;
+    background: none;
+    pointer-events: none;
+}
+
+.moonstone-empty-card-selector-label{
+    color: var(--color-gray_dark60);
+}

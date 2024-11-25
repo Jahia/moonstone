@@ -1,6 +1,14 @@
 import React, {HTMLAttributes} from 'react';
 
+export type ThumbnailTypes = 'icon' | 'preview';
+export const thumbnailTypes = ['icon', 'preview'];
+
 export type CardSelectorProps = {
+    /**
+     * Required id
+     */
+    id: string;
+
     /**
      * Additional classname
      */
@@ -42,18 +50,28 @@ export type CardSelectorProps = {
     isDisabled?: boolean;
 
     /**
-     * Image url as thumbnail
+     * Define if the item is readOnly
      */
-    image?: string;
+    isReadOnly?: boolean;
 
     /**
-     * Icon as thumbnail
+     * Image url as thumbnail
      */
-    icon?: React.ReactElement;
+    thumbnailURL?: string;
+
+    /**
+     * Alt attribute for thumbnail
+     */
+    thumbnailAlt: string;
+
+    /**
+     * Thumbnail type
+     */
+    thumbnailType: 'icon' | 'preview';
 
     /**
      * Function trigger on click
      */
     onClick?: React.MouseEventHandler;
 
-} & HTMLAttributes<HTMLDivElement>
+} & HTMLAttributes<HTMLButtonElement>
