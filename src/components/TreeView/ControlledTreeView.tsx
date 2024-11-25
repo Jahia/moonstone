@@ -56,6 +56,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
             const isLoading = Boolean(node.isLoading);
             const isSelected = Boolean(selectedItems.includes(node.id));
             const isHighlighted = Boolean(highlightedItems.includes(node.id) && !isSelected);
+            const isClickable = Boolean(!node.isDisabled && !node.isReadonly);
 
             // ---
             // Manage clicks events
@@ -96,6 +97,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                     'moonstone-selected': isSelected && !showCheckbox,
                     'moonstone-highlighted': isHighlighted,
                     'moonstone-reversed': isReversed,
+                    'moonstone-readonly': node.isReadonly,
                     'moonstone-disabled': node.isDisabled
                 }
             );
@@ -130,7 +132,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                         {/* TreeViewItem */}
                         <div
                             className={clsx('flexRow_nowrap', 'alignCenter', 'flexFluid', 'moonstone-treeView_itemLabel', node.className)}
-                            onClick={node.isDisabled ? undefined : handleNodeClick}
+                            onClick={isClickable ? handleNodeClick : undefined}
                             onDoubleClick={handleNodeDoubleClick}
                             onContextMenu={handleNodeContextMenu}
                         >

@@ -2428,14 +2428,13 @@ __metadata:
     "@babel/runtime": "npm:^7.26.0"
     "@cyclonedx/webpack-plugin": "npm:^3.14.0"
     "@jahia/eslint-config": "npm:^2.1.2"
-    "@jahia/scripts": "npm:^1.3.5"
+    "@jahia/scripts": "npm:^1.3.6"
     "@jahia/stylelint-config": "npm:^0.0.3"
     "@storybook/addon-a11y": "npm:^8.4.2"
     "@storybook/addon-actions": "npm:^8.4.2"
     "@storybook/addon-backgrounds": "npm:^8.4.2"
     "@storybook/addon-controls": "npm:^8.4.2"
     "@storybook/addon-docs": "npm:^8.4.2"
-    "@storybook/addon-styling-webpack": "npm:^1.0.0"
     "@storybook/addon-viewport": "npm:^8.4.2"
     "@storybook/addon-webpack5-compiler-babel": "npm:3.0.3"
     "@storybook/core-events": "npm:^8.4.2"
@@ -2507,9 +2506,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@jahia/scripts@npm:^1.3.5":
-  version: 1.3.5
-  resolution: "@jahia/scripts@npm:1.3.5"
+"@jahia/scripts@npm:^1.3.6":
+  version: 1.3.6
+  resolution: "@jahia/scripts@npm:1.3.6"
   dependencies:
     cross-spawn: "npm:^7.0.1"
     dotenv: "npm:^8.2.0"
@@ -2529,7 +2528,7 @@ __metadata:
     jahia-prepare-build: prepare-build.js
     jahia-publish: publish.js
     jahia-react2dts: react2dts.js
-  checksum: 10c0/f3eae494b667cb528adf38616f7895dce96d8f01b2ab9290694233d9caa44b78fd0116f1b6369123b898e8910608a5fff3a468251753ef023977fdf9df98c21e
+  checksum: 10c0/2d3e766cf8b4add99c65df2d8089d6052d75cecfee363f86d2a041e880c81df8fb0cd465c8957f258d0c63443da86693e8843f1f33f59251ecc6ddd5b46e5541
   languageName: node
   linkType: hard
 
@@ -3399,17 +3398,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-styling-webpack@npm:^1.0.0":
-  version: 1.0.1
-  resolution: "@storybook/addon-styling-webpack@npm:1.0.1"
-  dependencies:
-    "@storybook/node-logger": "npm:^8.0.0-alpha.10"
-  peerDependencies:
-    webpack: ^5.0.0
-  checksum: 10c0/6b36162fa9c1d2f7a14ca12402dfc7115ae6ca17916291d0298fe60be7e3d04cc1eb7c6a010f7d0cc50fcc7f1af5b3faf85fecfc66456251417f4c7a5e769621
-  languageName: node
-  linkType: hard
-
 "@storybook/addon-viewport@npm:^8.4.2":
   version: 8.4.2
   resolution: "@storybook/addon-viewport@npm:8.4.2"
@@ -3586,15 +3574,6 @@ __metadata:
   peerDependencies:
     storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
   checksum: 10c0/306e16af4a4babf18d7b32335f974ac969a3f9139534f37e3ce238462f69f1ad52e3091a45bf76b1cbdd8f3cf989836c8433cad6cbb2c3eb4dcbc7ccb0f8ae82
-  languageName: node
-  linkType: hard
-
-"@storybook/node-logger@npm:^8.0.0-alpha.10":
-  version: 8.4.2
-  resolution: "@storybook/node-logger@npm:8.4.2"
-  peerDependencies:
-    storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
-  checksum: 10c0/f44977d5c637617602882c4b5a7ab986aab63eaa3527f629b2e59cdb6c0025dd56c3aef2c4526f4058985606b147221f30397f59bd7f4e076f9cc44696f91ca6
   languageName: node
   linkType: hard
 
@@ -6488,13 +6467,13 @@ __metadata:
   linkType: hard
 
 "cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.1, cross-spawn@npm:^7.0.2, cross-spawn@npm:^7.0.3":
-  version: 7.0.3
-  resolution: "cross-spawn@npm:7.0.3"
+  version: 7.0.6
+  resolution: "cross-spawn@npm:7.0.6"
   dependencies:
     path-key: "npm:^3.1.0"
     shebang-command: "npm:^2.0.0"
     which: "npm:^2.0.1"
-  checksum: 10c0/5738c312387081c98d69c98e105b6327b069197f864a60593245d64c8089c8a0a744e16349281210d56835bb9274130d825a78b2ad6853ca13cfbeffc0c31750
+  checksum: 10c0/053ea8b2135caff68a9e81470e845613e374e7309a47731e81639de3eaeb90c3d01af0e0b44d2ab9d50b43467223b88567dfeb3262db942dc063b9976718ffc1
   languageName: node
   linkType: hard
 
