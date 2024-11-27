@@ -37,7 +37,7 @@ describe('CardSelector', () => {
     });
 
     it('should display img as img when thumbnailType is preview', () => {
-        const {container} = render(<CardSelector thumbnailType="preview"thumbnailURL="thumbnail.png" />);
+        const {container} = render(<CardSelector thumbnailType="preview" thumbnailURL="thumbnail.png"/>);
         expect(container.querySelector('.moonstone-cardSelector_thumbnail_preview')).toBeInTheDocument();
     });
 
@@ -46,9 +46,9 @@ describe('CardSelector', () => {
         expect(screen.getByRole('img', {alt: 'thumbnail-alt'})).toBeInTheDocument();
     });
 
-    it('should display handleDrag icon when isDraggable', () => {
-        const {container} = render(<CardSelector isDraggable/>);
-        expect(container.querySelector('.moonstone-icon_gray')).toBeInTheDocument();
+    it('should have attribute draggable when isDraggable', () => {
+        render(<CardSelector isDraggable data-testid="card-selector"/>);
+        expect(screen.getByTestId('card-selector')).toHaveAttribute('draggable', 'true');
     });
 
     it('should display chips', () => {
@@ -76,9 +76,9 @@ describe('CardSelector', () => {
         expect(screen.getByTestId('card-selector')).toHaveClass('moonstone-cardSelector_disabled');
     });
 
-    it('should be readOnly', () => {
+    it('should be disabled when isReadOnly', () => {
         render(<CardSelector isReadOnly data-testid="card-selector"/>);
-        expect(screen.getByTestId('card-selector')).toHaveAttribute('aria-readonly', 'true');
+        expect(screen.getByTestId('card-selector')).toHaveClass('moonstone-cardSelector_disabled');
     });
 
     it('should not call onClick when disabled', async () => {
@@ -89,5 +89,10 @@ describe('CardSelector', () => {
         await user.click(screen.getByTestId('card-selector'));
 
         expect(onClick).not.toHaveBeenCalled();
+    });
+
+    it('should display errorCardSelector if hasError', () => {
+        render(<CardSelector hasError data-testid="card-selector"/>);
+        expect(screen.getByTestId('card-selector')).toHaveClass('moonstone-cardSelector_error');
     });
 });

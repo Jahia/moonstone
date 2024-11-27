@@ -34,8 +34,7 @@ const EmptyCardSelectorForwardRef: React.ForwardRefRenderFunction<HTMLButtonElem
                 'alignCenter',
                 className
             )}
-            aria-disabled={isDisabled}
-            aria-readonly={isReadOnly}
+            aria-disabled={isDisabled || isReadOnly}
             onClick={e => handleOnClick(e)}
             {...props}
         >

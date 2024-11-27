@@ -17,7 +17,7 @@ const meta: Meta<typeof EmptyCardSelector> = {
 };
 export default meta;
 
-type Story = StoryObj<EmptyCardSelectorProps>;
+type Story = StoryObj<typeof EmptyCardSelector>;
 const Template = (args: EmptyCardSelectorProps) => {
     return <div><EmptyCardSelector {...args}/></div>;
 };

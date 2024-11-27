@@ -1,9 +1,6 @@
 import React, {HTMLAttributes} from 'react';
 
-export type ThumbnailTypes = 'icon' | 'preview';
-export const thumbnailTypes = ['icon', 'preview'];
-
-export type CardSelectorProps = {
+type BasicProps = {
     /**
      * Required id
      */
@@ -62,7 +59,7 @@ export type CardSelectorProps = {
     /**
      * Alt attribute for thumbnail
      */
-    thumbnailAlt: string;
+    thumbnailAlt?: string;
 
     /**
      * Thumbnail type
@@ -70,8 +67,20 @@ export type CardSelectorProps = {
     thumbnailType: 'icon' | 'preview';
 
     /**
+     * Error cardSelector variant
+     */
+    hasError?: boolean;
+
+    /**
+     * Error cardSelector message
+     */
+    errorMessage?: string;
+
+    /**
      * Function trigger on click
      */
     onClick?: React.MouseEventHandler;
 
-} & HTMLAttributes<HTMLButtonElement>
+} & HTMLAttributes<HTMLDivElement>
+
+export type CardSelectorProps = (BasicProps & {hasError: true; errorMessage: string;}) | (BasicProps & {hasError: false; errorMessage: never;});

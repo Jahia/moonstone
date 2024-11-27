@@ -2,8 +2,8 @@ import React from 'react';
 import {StoryObj, Meta} from '@storybook/react';
 
 import {CardSelector} from './index';
-import {Chip} from '~/main';
-import {FileImage, Lock} from '~/icons';
+import {Button, Chip} from '~/main';
+import {Close, FileImage, Lock} from '~/icons';
 import type {CardSelectorProps} from './CardSelector.types';
 
 const meta: Meta<typeof CardSelector> = {
@@ -17,17 +17,16 @@ const meta: Meta<typeof CardSelector> = {
 };
 export default meta;
 
-type Story = StoryObj<CardSelectorProps>;
+type Story = StoryObj<typeof CardSelector>;
 const Template = (args: CardSelectorProps) => {
     return <div style={{maxWidth: '100vw'}}><CardSelector {...args}/></div>;
 };
 
 export const Default: Story = {
     args: {
+        id: 'cardSelector',
         displayName: 'Item name',
-        systemName: 'system name',
-        information: 'more information',
-        isDraggable: false,
+        systemName: 'system name'
     },
     render: Template
 };
@@ -38,7 +37,8 @@ export const Image: Story = {
         thumbnailURL: 'https://picsum.photos/100/300',
         thumbnailAlt: 'preview-img',
         thumbnailType: 'preview',
-        chips: [<Chip key="chip" label="image" icon={<FileImage/>} color="accent"/>, <Chip key="chip2" label="marked for deletion" icon={<Lock/>} color="danger"/>],
+        information: 'more information',
+        chips: [<Chip key="chip" label="image" icon={<FileImage/>} color="accent"/>, <Chip key="chip2" label="marked for deletion" icon={<Lock/>} color="danger"/>]
     },
     render: Template
 };
@@ -47,6 +47,15 @@ export const Icon: Story = {
     args: {
         ...Image.args,
         thumbnailURL: 'http://www.google.com/s2/favicons?domain=www.jahia.com',
+        thumbnailType: 'icon'
+    },
+    render: Template
+};
+
+export const Actions: Story = {
+    args: {
+        ...Image.args,
+        cardAction: <Button key="btn" variant="ghost" icon={<Close/>}/>
     },
     render: Template
 };
@@ -54,7 +63,15 @@ export const Icon: Story = {
 export const NoChips: Story = {
     args: {
         ...Image.args,
-        chips: []
+        chips: null
+    },
+    render: Template
+};
+
+export const Error: Story = {
+    args: {
+        hasError: true,
+        errorMessage: 'Broken reference'
     },
     render: Template
 };

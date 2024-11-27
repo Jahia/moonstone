@@ -4,9 +4,9 @@ import clsx from 'clsx';
 import './CardSelector.scss';
 import type {CardSelectorProps} from './CardSelector.types';
 import {Typography} from '~/components';
-import {HandleDrag, Image} from '~/icons/components';
+import {FileBroken, HandleDrag, Image} from '~/icons/components';
 
-const CardSelectorForwardRef: React.ForwardRefRenderFunction<HTMLButtonElement, CardSelectorProps> = ({
+export const CardSelector = React.forwardRef<HTMLDivElement, CardSelectorProps>(({
     displayName,
     systemName,
     chips,
@@ -20,6 +20,8 @@ const CardSelectorForwardRef: React.ForwardRefRenderFunction<HTMLButtonElement, 
     isDisabled = false,
     isReadOnly = false,
     cardAction,
+    hasError = false,
+    errorMessage,
     onClick = () => undefined,
     ...props
 }, ref) => {
@@ -41,15 +43,35 @@ const CardSelectorForwardRef: React.ForwardRefRenderFunction<HTMLButtonElement, 
         (e.currentTarget as HTMLElement).blur();
     };
 
+    if (hasError) {
+        return (
+            <div
+                ref={ref}
+                id={id}
+                className={clsx('moonstone-cardSelector_error', 'flexRow_center', 'alignCenter')}
+                {...props}
+            >
+                <FileBroken color="yellow"/>
+                <Typography
+                    isNowrap
+                    variant="caption"
+                    component="span"
+                    className={clsx('moonstone-cardSelector_errorMessage')}
+                >
+                    {errorMessage}
+                </Typography>
+            </div>
+        );
+    }
+
     return (
-        <button
+        <div
             ref={ref}
-            type="button"
             id={id}
             className={classNameProps}
-            aria-labelledby={displayName}
-            aria-disabled={isDisabled}
-            aria-readonly={isReadOnly}
+            aria-labelledby={`${id}-displayName`}
+            aria-disabled={isDisabled || isReadOnly}
+            draggable={isDraggable}
             onClick={e => handleOnClick(e)}
             {...props}
         >
@@ -58,7 +80,7 @@ const CardSelectorForwardRef: React.ForwardRefRenderFunction<HTMLButtonElement, 
             <figure className={clsx('moonstone-cardSelector_thumbnail', 'flexRow_center', 'alignCenter')}>
                 {thumbnailURL ? (
                     <img className={clsx(`moonstone-cardSelector_thumbnail_${thumbnailType}`)} src={thumbnailURL} alt={thumbnailAlt} aria-labelledby={thumbnailAlt}/>
-                ): <Image size="big" color="gray"/>}
+                ) : <Image size="big" color="gray"/>}
             </figure>
 
             <div className={clsx('moonstone-cardSelector_body', 'flexCol_nowrap')}>
@@ -112,10 +134,8 @@ const CardSelectorForwardRef: React.ForwardRefRenderFunction<HTMLButtonElement, 
                     {cardAction}
                 </div>
             )}
-        </button>
+        </div>
     );
-};
-
-export const CardSelector = React.forwardRef(CardSelectorForwardRef);
+});
 
 CardSelector.displayName = 'CardSelector';
