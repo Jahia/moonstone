@@ -10,6 +10,10 @@ export type ChipProps = {
      */
     color?: 'default' | 'accent' | 'success' | 'warning' | 'danger' | 'reassuring' | 'light';
     /**
+     * Color variant
+     */
+    variant?: 'default' | 'bright';
+    /**
      * Chip icon
      */
     icon?: React.ReactElement;
