@@ -1,15 +1,16 @@
-.moonstone-card-selector {
-    gap: var(--spacing-small);
+.moonstone-cardSelector {
     width: 100%;
-    padding: var(--spacing-small) var(--spacing-medium) var(--spacing-small) var(--spacing-nano);
-    border: 1px solid var(--color-gray_light);
+    padding: var(--spacing-small);
+
+    border: 1px solid var(--color-gray40);
     border-radius: 2px;
     background-color: var(--color-white);
     cursor: pointer;
-    justify-content: flex-start;
+
+    transition: all 0.2s ease-in-out;
 
     &:hover {
-        border-color: var(--color-gray_dark60);
+        border-color: var(--color-gray60);
         box-shadow: 0 1px 6px var(--color-dark20);
     }
 
@@ -18,20 +19,22 @@
     }
 }
 
-.moonstone-card-selector_disabled {
+.moonstone-cardSelector_disabled {
     opacity: 60%;
 
     pointer-events: none;
 }
 
-.moonstone-card-selector-body{
-    white-space: nowrap;
-    max-width: 50%;
+.moonstone-cardSelector_dragIcon {
+    margin-left: calc(-1 * var(--spacing-small));
 }
 
-.moonstone-card-selector-body,
-.moonstone-card-selector-actions {
-    //needs to be removed when only one child
+.moonstone-cardSelector_body {
+    overflow: hidden;
+}
+
+.moonstone-cardSelector_body,
+.moonstone-cardSelector_actions {
     gap: var(--spacing-small);
 
     & > * {
@@ -39,37 +42,34 @@
     }
 }
 
-.moonstone-card-selector-displayName {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: clip;
-}
-
-.moonstone-card-selector-systemName,
-.moonstone-card-selector-information {
+.moonstone-cardSelector_systemName,
+.moonstone-cardSelector_information {
     color: var(--color-gray_dark60);
 }
 
-.moonstone-card-selector-thumbnail {
+.moonstone-cardSelector_thumbnail {
     width: 60px;
+    min-width: 60px;
     height: 60px;
+
+    margin-right: var(--spacing-small);
+    overflow: hidden;
 
     border-radius: 2px;
     background-color: var(--color-gray_light40);
-    overflow: hidden;
 }
 
-.moonstone-card-selector-thumbnail-preview {
+.moonstone-cardSelector_thumbnail_preview {
     width: 100%;
     height: inherit;
     object-fit: cover;
 }
 
-.moonstone-card-selector-thumbnail-icon {
+.moonstone-cardSelector_thumbnail_icon {
     width: 32px;
     height: 32px;
 }
 
-.moonstone-card-selector-actions{
+.moonstone-cardSelector_actions {
     margin-left: auto;
 }

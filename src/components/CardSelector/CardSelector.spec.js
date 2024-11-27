@@ -32,17 +32,17 @@ describe('CardSelector', () => {
     });
 
     it('should display img as icon when thumbnailType is icon', () => {
-        const {container} = render(<CardSelector thumbnailType="icon"/>);
-        expect(container.querySelector('.moonstone-card-selector-thumbnail-icon')).toBeInTheDocument();
+        const {container} = render(<CardSelector thumbnailType="icon" thumbnailURL="thumbnail.png"/>);
+        expect(container.querySelector('.moonstone-cardSelector_thumbnail_icon')).toBeInTheDocument();
     });
 
     it('should display img as img when thumbnailType is preview', () => {
-        const {container} = render(<CardSelector thumbnailType="preview"/>);
-        expect(container.querySelector('.moonstone-card-selector-thumbnail-preview')).toBeInTheDocument();
+        const {container} = render(<CardSelector thumbnailType="preview"thumbnailURL="thumbnail.png" />);
+        expect(container.querySelector('.moonstone-cardSelector_thumbnail_preview')).toBeInTheDocument();
     });
 
     it('should use thumbnailAlt as img alt attribute', () => {
-        render(<CardSelector thumbnailAlt="thumbnail-alt"/>);
+        render(<CardSelector thumbnailAlt="thumbnail-alt" thumbnailURL="thumbnail.png"/>);
         expect(screen.getByRole('img', {alt: 'thumbnail-alt'})).toBeInTheDocument();
     });
 
@@ -72,8 +72,8 @@ describe('CardSelector', () => {
     });
 
     it('should be disabled', () => {
-        render(<CardSelector isDisabled data-testid="card-selector"/>)
-        expect(screen.getByTestId('card-selector')).toHaveClass('moonstone-card-selector_disabled');
+        render(<CardSelector isDisabled data-testid="card-selector"/>);
+        expect(screen.getByTestId('card-selector')).toHaveClass('moonstone-cardSelector_disabled');
     });
 
     it('should be readOnly', () => {

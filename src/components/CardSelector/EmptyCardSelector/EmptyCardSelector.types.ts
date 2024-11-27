@@ -2,7 +2,7 @@ import React, {HTMLAttributes} from 'react';
 
 export type EmptyCardSelectorProps = {
     /**
-    * Required id
+    * Id of the component
     */
     id?: string;
 
@@ -15,11 +15,6 @@ export type EmptyCardSelectorProps = {
     * EmptyCardSelector label
     */
     label?: string;
-
-    /**
-    * EmptyCardSelector buttonLabel
-    */
-    buttonLabel?: string;
 
     /**
     * Disabled state

@@ -11,7 +11,7 @@ const EmptyCardSelectorForwardRef: React.ForwardRefRenderFunction<HTMLButtonElem
     isDisabled = false,
     isReadOnly = false,
     onClick = () => undefined,
-    ...other
+    ...props
 }, ref) => {
     const handleOnClick: React.MouseEventHandler = e => {
         if (isDisabled || isReadOnly) {
@@ -24,20 +24,22 @@ const EmptyCardSelectorForwardRef: React.ForwardRefRenderFunction<HTMLButtonElem
 
     return (
         <button
-        ref={ref}
-        id={id}
-        type="button"
-        className={clsx('moonstone-empty-card-selector',
-            (isDisabled || isReadOnly) && 'moonstone-empty-card-selector_disabled',
-            'flexCol_center',
-            'alignCenter',
-            className)}
-        aria-disabled={isDisabled}
-        aria-readonly={isReadOnly}
-        onClick={e => handleOnClick(e)}
-        {...other}
+            ref={ref}
+            id={id}
+            type="button"
+            className={clsx('moonstone-emptyCardSelector',
+                (isDisabled || isReadOnly) && 'moonstone-emptyCardSelector_disabled',
+                'flexCol_center',
+                'flexFluid',
+                'alignCenter',
+                className
+            )}
+            aria-disabled={isDisabled}
+            aria-readonly={isReadOnly}
+            onClick={e => handleOnClick(e)}
+            {...props}
         >
-            {label && <Typography className={clsx('moonstone-empty-card-selector-label')}>{label}</Typography>}
+            {label && <Typography className={clsx('moonstone-emptyCardSelector_label')}>{label}</Typography>}
         </button>
     );
 };

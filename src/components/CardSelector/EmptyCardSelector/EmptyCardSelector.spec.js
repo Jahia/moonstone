@@ -27,7 +27,7 @@ describe('EmptyCardSelector', () => {
 
     it('should be disabled', () => {
         render(<EmptyCardSelector isDisabled data-testid="card-selector"/>);
-        expect(screen.getByTestId('card-selector')).toHaveClass('moonstone-empty-card-selector_disabled');
+        expect(screen.getByTestId('card-selector')).toHaveClass('moonstone-emptyCardSelector_disabled');
     });
 
     it('should be readOnly', () => {

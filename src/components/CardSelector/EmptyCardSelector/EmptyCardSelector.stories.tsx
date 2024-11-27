@@ -6,7 +6,7 @@ import type {EmptyCardSelectorProps} from './EmptyCardSelector.types';
 import markdownNotes from './EmptyCardSelector.md';
 
 const meta: Meta<typeof EmptyCardSelector> = {
-    title: 'Components/EmptyCardSelector',
+    title: 'Components/CardSelector/EmptyCardSelector',
     component: EmptyCardSelector,
 
     parameters: {

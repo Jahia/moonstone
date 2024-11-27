@@ -1,14 +1,17 @@
-.moonstone-empty-card-selector{
+.moonstone-emptyCardSelector {
     gap: var(--spacing-small);
-    padding: var(--spacing-medium) 0;
     width: 100%;
-    border: 1px dashed var(--color-gray_light);
+    padding: var(--spacing-medium) 0;
+
+    border: 1px dashed var(--color-gray40);
     border-radius: 4px;
     background-color: var(--color-white);
     cursor: pointer;
 
+    transition: all 0.2s ease-in-out;
+
     &:hover {
-        border: 1px solid var(--color-accent);
+        border: 1px solid var(--color-gray60);
     }
 
     &:focus {
@@ -16,12 +19,13 @@
     }
 }
 
-.moonstone-empty-card-selector_disabled {
-    opacity: 60%;
+.moonstone-emptyCardSelector_disabled {
     background: none;
+    opacity: 60%;
+
     pointer-events: none;
 }
 
-.moonstone-empty-card-selector-label{
+.moonstone-emptyCardSelector_label {
     color: var(--color-gray_dark60);
 }
