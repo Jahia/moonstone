@@ -1,3 +1,16 @@
+# v2.9.2 (Wed Dec 04 2024)
+
+#### 🐛 Bug Fix
+
+- MOON-458: Add new colors & variants to Chip component [#459](https://github.com/Jahia/moonstone/pull/459) ([@Eevolee](https://github.com/Eevolee))
+- MOON-457: Update colors [#458](https://github.com/Jahia/moonstone/pull/458) ([@Eevolee](https://github.com/Eevolee))
+
+#### Authors: 1
+
+- Alessia Bourgoin ([@Eevolee](https://github.com/Eevolee))
+
+---
+
 # v2.9.1 (Fri Nov 22 2024)
 
 #### 🐛 Bug Fix
