@@ -6,6 +6,7 @@ import {Typography} from '~/components';
 
 const EmptyCardSelectorForwardRef: React.ForwardRefRenderFunction<HTMLButtonElement, EmptyCardSelectorProps> = ({
     label,
+    iconStart,
     id,
     className,
     isDisabled = false,
@@ -29,7 +30,7 @@ const EmptyCardSelectorForwardRef: React.ForwardRefRenderFunction<HTMLButtonElem
             type="button"
             className={clsx('moonstone-emptyCardSelector',
                 (isDisabled || isReadOnly) && 'moonstone-emptyCardSelector_disabled',
-                'flexCol_center',
+                'flexRow_center',
                 'flexFluid',
                 'alignCenter',
                 className
@@ -38,6 +39,7 @@ const EmptyCardSelectorForwardRef: React.ForwardRefRenderFunction<HTMLButtonElem
             onClick={e => handleOnClick(e)}
             {...props}
         >
+            {iconStart && iconStart}
             {label && <Typography className={clsx('moonstone-emptyCardSelector_label')}>{label}</Typography>}
         </button>
     );

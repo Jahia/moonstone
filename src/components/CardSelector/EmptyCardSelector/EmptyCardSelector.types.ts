@@ -17,6 +17,11 @@ export type EmptyCardSelectorProps = {
     label?: string;
 
     /**
+    * EmptyCardSelector iconStart
+    */
+    iconStart?: React.ReactElement;
+
+    /**
     * Disabled state
     */
     isDisabled?: boolean;

@@ -1,5 +1,5 @@
 .moonstone-emptyCardSelector {
-    gap: var(--spacing-small);
+    gap: var(--spacing-nano);
     width: 100%;
     min-height: 78px;
     padding: var(--spacing-medium) 0;
@@ -27,6 +27,7 @@
     pointer-events: none;
 }
 
-.moonstone-emptyCardSelector_label {
+.moonstone-emptyCardSelector_label,
+.moonstone-emptyCardSelector .moonstone-icon {
     color: var(--color-dark_plain60);
 }

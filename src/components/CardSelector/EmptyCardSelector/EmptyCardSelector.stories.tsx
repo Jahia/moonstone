@@ -4,6 +4,7 @@ import {StoryObj, Meta} from '@storybook/react';
 import {EmptyCardSelector} from './index';
 import type {EmptyCardSelectorProps} from './EmptyCardSelector.types';
 import markdownNotes from './EmptyCardSelector.md';
+import {File} from '~/icons';
 
 const meta: Meta<typeof EmptyCardSelector> = {
     title: 'Components/CardSelector/EmptyCardSelector',
@@ -27,6 +28,14 @@ export const Default: Story = {
         label: 'No item selected',
         isReadOnly: false,
         isDisabled: false
+    },
+    render: Template
+};
+
+export const Icon: Story = {
+    args: {
+        ...Default.args,
+        iconStart: <File/>
     },
     render: Template
 };
