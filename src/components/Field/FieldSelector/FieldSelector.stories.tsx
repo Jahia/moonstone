@@ -2,6 +2,7 @@ import React from 'react';
 import {StoryObj, Meta} from '@storybook/react';
 
 import {FieldSelector} from './index';
+import markdownNotes from './FieldSelector.md';
 import {Button, Input, Dropdown, RadioGroup, RadioItem} from '~/components';
 import {Close, MoreVert} from '~/icons';
 
@@ -11,7 +12,8 @@ const meta: Meta<typeof FieldSelector> = {
 
     parameters: {
         layout: 'padded',
-        actions: {argTypesRegex: '^on.*'}
+        actions: {argTypesRegex: '^on.*'},
+        notes: {markdown: markdownNotes}
     },
     argTypes: {
 

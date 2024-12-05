@@ -2,6 +2,7 @@ import React from 'react';
 import {StoryObj, Meta} from '@storybook/react';
 
 import {FieldBoolean} from './index';
+import markdownNotes from './FieldBoolean.md';
 import {Button, Chip} from '~/components';
 import {Language, MoreVert} from '~/icons';
 
@@ -11,7 +12,8 @@ const meta: Meta<typeof FieldBoolean> = {
 
     parameters: {
         layout: 'padded',
-        actions: {argTypesRegex: '^on.*'}
+        actions: {argTypesRegex: '^on.*'},
+        notes: {markdown: markdownNotes}
     },
     argTypes: {
         buttons: {
