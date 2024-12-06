@@ -1,0 +1,30 @@
+.moonstone-emptyCardSelector {
+    gap: var(--spacing-nano);
+    width: 100%;
+    min-height: 78px;
+    padding: var(--spacing-medium) 0;
+
+    color: var(--color-dark_plain60);
+
+    border: 1px dashed var(--color-gray40);
+    border-radius: 4px;
+    background-color: var(--color-white);
+    cursor: pointer;
+
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        border: 1px solid var(--color-gray60);
+    }
+
+    &:focus {
+        border: 1px solid var(--color-accent);
+    }
+}
+
+.moonstone-emptyCardSelector_disabled {
+    background: none;
+    opacity: 60%;
+
+    pointer-events: none;
+}
