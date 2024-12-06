@@ -3,6 +3,7 @@ import '~/__storybook__/storybook.scss';
 import {StoryObj, Meta} from '@storybook/react';
 
 import {ListSelector} from './index';
+import {listSelectorData} from '~/data/listSelectorData';
 
 export default {
     title: 'Components/ListSelector',
@@ -31,13 +32,7 @@ export const Basic = {
             removeAllTitle: 'Remove all',
             selected: '0 items selected'
         },
-        options: [
-            {value: '1', label: 'One'},
-            {value: '2', label: 'Two'},
-            {value: '3', label: 'Three'},
-            {value: '4', label: 'Four'},
-            {value: '5', label: 'Five'}
-        ],
+        options: listSelectorData,
         values: ['1', '3', '5'],
         onChange: (v: string[]) => console.log(v)
     }
@@ -51,13 +46,7 @@ export const ReadOnly = {
             removeAllTitle: 'Remove all',
             selected: '0 items selected'
         },
-        options: [
-            {value: '1', label: 'One'},
-            {value: '2', label: 'Two'},
-            {value: '3', label: 'Three'},
-            {value: '4', label: 'Four'},
-            {value: '5', label: 'Five'}
-        ],
+        options: listSelectorData,
         values: ['1', '3', '5'],
         onChange: (v: string[]) => console.log(v)
     }
@@ -67,13 +56,7 @@ export const Controlled: StoryObj<typeof ListSelector> = {
     render: args => {
         const [arrayValue, setArrayValue] = useState([]);
 
-        const options = [
-            {value: '1', label: 'One'},
-            {value: '2', label: 'Two'},
-            {value: '3', label: 'Three'},
-            {value: '4', label: 'Four'},
-            {value: '5', label: 'Five'}
-        ];
+        const options = listSelectorData;
 
         return (
             <ListSelector
