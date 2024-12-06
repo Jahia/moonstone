@@ -48,7 +48,13 @@ export const CardSelector = React.forwardRef<HTMLDivElement, CardSelectorProps>(
             <div
                 ref={ref}
                 id={id}
-                className={clsx('moonstone-cardSelector_error', 'flexRow_center', 'alignCenter')}
+                className={clsx(
+                    'moonstone-cardSelector_error',
+                    (isDisabled || isReadOnly) && 'moonstone-cardSelector_disabled',
+                    'flexRow_center',
+                    'alignCenter')}
+                aria-disabled={isDisabled || isReadOnly}
+                onClick={e => handleOnClick(e)}
                 {...props}
             >
                 <FileBroken color="yellow"/>
@@ -56,7 +62,6 @@ export const CardSelector = React.forwardRef<HTMLDivElement, CardSelectorProps>(
                     isNowrap
                     variant="caption"
                     component="span"
-                    className={clsx('moonstone-cardSelector_errorMessage')}
                 >
                     {errorMessage}
                 </Typography>
@@ -69,7 +74,7 @@ export const CardSelector = React.forwardRef<HTMLDivElement, CardSelectorProps>(
             ref={ref}
             id={id}
             className={classNameProps}
-            aria-labelledby={`${id}-displayName`}
+            aria-labelledby={`${id}-${displayName}`}
             aria-disabled={isDisabled || isReadOnly}
             draggable={isDraggable}
             onClick={e => handleOnClick(e)}

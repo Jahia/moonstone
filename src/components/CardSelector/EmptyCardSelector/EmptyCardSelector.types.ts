@@ -4,7 +4,7 @@ export type EmptyCardSelectorProps = {
     /**
     * Id of the component
     */
-    id?: string;
+    id: string;
 
     /**
     * Additional classname
