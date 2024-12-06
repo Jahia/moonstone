@@ -40,7 +40,7 @@ const EmptyCardSelectorForwardRef: React.ForwardRefRenderFunction<HTMLButtonElem
             {...props}
         >
             {iconStart && iconStart}
-            {label && <Typography className={clsx('moonstone-emptyCardSelector_label')}>{label}</Typography>}
+            {label && <Typography>{label}</Typography>}
         </button>
     );
 };

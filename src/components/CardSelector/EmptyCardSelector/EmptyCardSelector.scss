@@ -4,6 +4,8 @@
     min-height: 78px;
     padding: var(--spacing-medium) 0;
 
+    color: var(--color-dark_plain60);
+
     border: 1px dashed var(--color-gray40);
     border-radius: 4px;
     background-color: var(--color-white);
@@ -25,9 +27,4 @@
     opacity: 60%;
 
     pointer-events: none;
-}
-
-.moonstone-emptyCardSelector_label,
-.moonstone-emptyCardSelector .moonstone-icon {
-    color: var(--color-dark_plain60);
 }
