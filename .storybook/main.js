@@ -5,6 +5,10 @@ module.exports = {
         postcss: false,
     },
 
+    typescript: {
+        reactDocgen: "react-docgen-typescript",
+    },
+
     stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
 
     addons: [
