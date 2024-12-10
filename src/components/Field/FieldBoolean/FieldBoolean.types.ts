@@ -2,10 +2,15 @@ import * as React from 'react';
 import type {CheckboxProps} from '~/components/Checkbox/Checkbox.types';
 
 export type FieldBooleanProps = {
-        /**
+    /**
      * FieldBoolean label
      */
     label: string;
+
+    /**
+     * Field's id
+     */
+    id: string;
 
     /**
      * Additional classname

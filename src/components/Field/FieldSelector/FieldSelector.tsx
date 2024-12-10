@@ -26,7 +26,7 @@ export const FieldSelector = React.forwardRef<HTMLDivElement, FieldSelectorProps
             <div className={clsx('moonstone-cardSelector_dragIcon', 'flexRow_between', 'alignCenter')}>
                 {isDraggable && <HandleDrag color="gray" size="big"/>}
             </div>
-            <div className={clsx('moonstone-fieldSelector_selector', 'flexCol_nowrap', 'alignStart')}>
+            <div className={clsx('moonstone-fieldSelector_selector', 'flexCol_nowrap', 'alignStart', 'flexFluid')}>
                 {selector}
             </div>
             <div className={clsx('moonstone-fieldSelector_buttons', 'flexRow_nowrap')}>
