@@ -27,7 +27,7 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
         >
             <div className={clsx('flexRow_between', 'alignCenter')}>
                 <div className={clsx('moonstone-field_label', 'flexRow')}>
-                    <Typography isNowrap variant="subheading" weight="bold">{label}</Typography>
+                    <Typography isNowrap weight="bold">{label}</Typography>
                     {chips}
                 </div>
                 {buttons &&
@@ -43,7 +43,7 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
                 )}
                 </div>}
             </div>
-            <Typography className={clsx('moonstone-field_helper')}>{helper}</Typography>
+            <Typography variant="caption" className={clsx('moonstone-field_helper')}>{helper}</Typography>
             <div className={clsx('moonstone-field_children', 'flexCol_nowrap')}>
                 {children}
                 {hasError && errorMessage && <Typography className={clsx('moonstome-field_errorMessage')} variant="caption">{errorMessage}</Typography>}

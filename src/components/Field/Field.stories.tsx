@@ -3,8 +3,8 @@ import {StoryObj, Meta} from '@storybook/react';
 
 import {Field} from './index';
 import markdownNotes from './Field.md';
-import {Button, Chip, Input, Dropdown, RadioGroup, RadioItem, CheckboxItem, ListSelector} from '~/components';
-import {Add, Close, Language, MoreVert} from '~/icons';
+import {Button, Chip, Input, Dropdown, RadioGroup, RadioItem, CheckboxItem, ListSelector, CardSelector, EmptyCardSelector} from '~/components';
+import {Add, Close, Language, MoreVert, File} from '~/icons';
 import {FieldSelector} from './FieldSelector';
 import {listSelectorData} from '~/data/listSelectorData';
 
@@ -106,6 +106,20 @@ export const WithListSelector: Story = {
         ...Default.args,
         children:
     <FieldSelector selector={<ListSelector options={listSelectorData} label={{addAllTitle: 'add', removeAllTitle: 'remove', selected: 'selected'}} onChange={(v: string[]) => console.log(v)}/>}/>
+    }
+};
+
+export const WithCardSelector: Story = {
+    args: {
+        ...Default.args,
+        children: <FieldSelector selector={<CardSelector id="cardSelector" displayName="Item name" systemName="system name" information="information" thumbnailType="icon"/>}/>
+    }
+};
+
+export const WithEmptyCardSelector: Story = {
+    args: {
+        ...Default.args,
+        children: <FieldSelector selector={<EmptyCardSelector iconStart={<File/>} id="emptyCardSelector" label="Add item"/>}/>
     }
 };
 
