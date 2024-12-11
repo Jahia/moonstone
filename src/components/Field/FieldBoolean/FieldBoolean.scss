@@ -1,11 +1,9 @@
 .moonstone-fieldBoolean {
     position: relative;
-
-    gap: var(--spacing-nano);
 }
 
-.moonstone-fieldBoolean_checkbox {
+.moonstone-fieldBoolean_children {
     position: absolute;
-    top: var(--spacing-nano);
-    left: var(--spacing-small);
+    top: var(--spacing-small);
+    left: var(--spacing-nano);
 }

@@ -1,7 +1,9 @@
 .moonstone-field {
-    padding-left: 32px;
+    padding-top: var(--spacing-nano);
+    padding-left: var(--spacing-large);
 
     border-left: 3px solid transparent;
+    border-radius: 0 2px 2px 0;
 }
 
 .moonstone-field_error {
@@ -9,28 +11,26 @@
     border-color: var(--color-warning);
 }
 
-.moonstone-field_chips {
-    gap: var(--spacing-nano);
-    margin-right: var(--spacing-medium);
-    margin-left: var(--spacing-small);
+.moonstone-field_label {
+    display: flex;
+    gap: var(--spacing-small);
+    max-width: inherit;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .moonstone-field_helper {
-    margin-top: 2px;
-    padding-right: calc(var(--spacing-large) + var(--spacing-nano));
-
     color: var(--color-gray_dark_plain60);
+    line-clamp: 2;
 }
 
 .moonstone-field_children {
     gap: var(--spacing-small);
-    margin-top: var(--spacing-small);
+    width: 100%;
+    padding: var(--spacing-small) 0;
 }
 
 .moonstome-field_errorMessage {
     color: var(--color-warning_dark);
-}
-
-.moonstone-field_buttons {
-    gap: var(--spacing-nano);
 }

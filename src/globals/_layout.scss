@@ -21,10 +21,6 @@
     @extend %flex-row;
 }
 
-.flex_nowrap {
-    flex-wrap: nowrap;
-}
-
 .flexRow_nowrap {
     @extend %flex-row;
 

@@ -7,11 +7,6 @@ export type FieldProps = {
     label: string;
 
     /**
-     * Field's id
-     */
-    id: string;
-
-    /**
      * Additional classname
      */
     className?: string;
