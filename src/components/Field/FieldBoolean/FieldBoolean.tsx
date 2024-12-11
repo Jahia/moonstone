@@ -20,6 +20,7 @@ export const FieldBoolean = React.forwardRef<HTMLDivElement, FieldBooleanProps>(
     return (
         <div
             ref={ref}
+            id={id}
             className={clsx(
                 'moonstone-field',
                 'moonstone-fieldBoolean',
@@ -31,10 +32,10 @@ export const FieldBoolean = React.forwardRef<HTMLDivElement, FieldBooleanProps>(
         >
             <div className={clsx('flexRow_nowrap', 'flexFluid', 'alignCenter')}>
                 <div className="flexRow_nowrap flexFluid">
-                    <div className='moonstone-fieldBoolean_checkbox'>
+                    <div className="moonstone-fieldBoolean_checkbox">
                         <Checkbox {...checkboxAttributes}/>
                     </div>
-                    <Typography component="label" isNowrap weight="bold">{label}</Typography>
+                    <Typography isNowrap component="label" weight="bold">{label}</Typography>
                     {chips &&
                         <div className={clsx('moonstone-field_chips', 'flexRow_nowrap')}>
                             {chips}
@@ -55,8 +56,9 @@ export const FieldBoolean = React.forwardRef<HTMLDivElement, FieldBooleanProps>(
                     </div>
                 }
             </div>
-
-            <Typography className={clsx('moonstone-field_helper')} variant="caption">{helper}</Typography>
+            {helper &&
+                <Typography className={clsx('moonstone-field_helper')} variant="caption">{helper}</Typography>
+            }
             {hasError && errorMessage &&
                 <Typography className={clsx('moonstome-field_errorMessage')} variant="caption">{errorMessage}</Typography>
             }

@@ -5,6 +5,7 @@ import type {FieldProps} from './Field.types';
 import {Typography} from '~/components';
 
 export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
+    id,
     label,
     helper,
     chips,
@@ -18,6 +19,7 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
     return (
         <div
             ref={ref}
+            id={id}
             className={clsx(
                 'moonstone-field',
                 'flexCol_nowrap',
@@ -28,7 +30,7 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
         >
             <div className={clsx('flexRow_nowrap', 'flexFluid', 'alignCenter')}>
                 <div className="flexRow_nowrap flexFluid alignCenter">
-                    <Typography component="label" isNowrap weight="bold">{label}</Typography>
+                    <Typography isNowrap component="label" weight="bold">{label}</Typography>
                     {chips &&
                         <div className={clsx('moonstone-field_chips', 'flexRow_nowrap')}>
                             {chips}
@@ -46,11 +48,12 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
                                 )) :
                                 (buttons && <buttons.type size="default" {...buttons.props}/>)
                         )}
-                    </div>}
+                    </div>
+                }
             </div>
-
-            <Typography variant="caption" className={clsx('moonstone-field_helper')}>{helper}</Typography>
-
+            {helper &&
+                <Typography variant="caption" className={clsx('moonstone-field_helper')}>{helper}</Typography>
+            }
             <div className={clsx('moonstone-field_children', 'flexCol_nowrap')}>
                 {children}
                 {hasError && errorMessage &&
