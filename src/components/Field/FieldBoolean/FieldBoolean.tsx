@@ -39,8 +39,7 @@ export const FieldBoolean = React.forwardRef<HTMLDivElement, FieldBooleanProps>(
                     {chips &&
                         <div className={clsx('moonstone-field_chips', 'flexRow_nowrap')}>
                             {chips}
-                        </div>
-                    }
+                        </div>}
                 </div>
                 {buttons &&
                     <div className={clsx('moonstone-field_buttons', 'flexRow_nowrap')}>
@@ -53,15 +52,12 @@ export const FieldBoolean = React.forwardRef<HTMLDivElement, FieldBooleanProps>(
                             )) :
                             (buttons && <buttons.type size="default" {...buttons.props}/>)
                         )}
-                    </div>
-                }
+                    </div>}
             </div>
             {helper &&
-                <Typography className={clsx('moonstone-field_helper')} variant="caption">{helper}</Typography>
-            }
+                <Typography className={clsx('moonstone-field_helper')} variant="caption">{helper}</Typography>}
             {hasError && errorMessage &&
-                <Typography className={clsx('moonstome-field_errorMessage')} variant="caption">{errorMessage}</Typography>
-            }
+                <Typography className={clsx('moonstome-field_errorMessage')} variant="caption">{errorMessage}</Typography>}
         </div>
     );
 });

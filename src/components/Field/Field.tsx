@@ -34,8 +34,7 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
                     {chips &&
                         <div className={clsx('moonstone-field_chips', 'flexRow_nowrap')}>
                             {chips}
-                        </div>
-                    }
+                        </div>}
                 </div>
                 {buttons &&
                     <div className={clsx('moonstone-field_buttons', 'flexRow_nowrap')}>
@@ -48,17 +47,14 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
                                 )) :
                                 (buttons && <buttons.type size="default" {...buttons.props}/>)
                         )}
-                    </div>
-                }
+                    </div>}
             </div>
             {helper &&
-                <Typography variant="caption" className={clsx('moonstone-field_helper')}>{helper}</Typography>
-            }
+                <Typography variant="caption" className={clsx('moonstone-field_helper')}>{helper}</Typography>}
             <div className={clsx('moonstone-field_children', 'flexCol_nowrap')}>
                 {children}
                 {hasError && errorMessage &&
-                    <Typography className={clsx('moonstome-field_errorMessage')} variant="caption">{errorMessage}</Typography>
-                }
+                    <Typography className={clsx('moonstome-field_errorMessage')} variant="caption">{errorMessage}</Typography>}
             </div>
         </div>
     );
