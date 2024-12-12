@@ -1,0 +1,34 @@
+.moonstone-fieldSelector {
+    position: relative;
+
+    gap: var(--spacing-nano);
+
+    width: 100%;
+}
+
+.moonstone-cardSelector_dragIcon {
+    position: absolute;
+    left: calc(var(--spacing-medium) / -1);
+}
+
+// .moonstone-fieldSelector_selector {
+//     width: 100%;
+
+//     & > .moonstone-dropdown_container {
+//         width: 100%;
+//     }
+// }
+
+.moonstone-dropdown_container {
+    width: 100%;
+}
+
+.moonstome-fieldSelector_errorMessage {
+    color: var(--color-warning);
+}
+
+.moonstone-fieldSelector_buttons {
+    gap: var(--spacing-nano);
+    width: fit-content;
+    min-width: var(--spacing-large);
+}
