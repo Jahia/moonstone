@@ -1,4 +1,5 @@
 @use '../../utils/index' as *;
+@use "../../tokens/spacings/spacings" as *;
 
 $border-width: 1px;
 
@@ -9,11 +10,11 @@ $border-width: 1px;
 .moonstone-dropdown_icon {
     display: flex;
     flex: 0 0 auto;
-    margin-right: var(--spacing-nano);
 }
 
 .moonstone-dropdown_chevronDown {
     flex: 0 0 auto;
+    margin-left: var(--spacing-nano);
 }
 
 .moonstone-dropdown_tags {
@@ -34,6 +35,7 @@ $border-width: 1px;
 
 .moonstone-dropdown {
     padding: var(--spacing-nano) var(--spacing-small);
+    gap: $spacing-icon;
 
     border-radius: 2px;
     cursor: pointer;
