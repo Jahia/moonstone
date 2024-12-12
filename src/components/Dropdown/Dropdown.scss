@@ -34,8 +34,8 @@ $border-width: 1px;
 }
 
 .moonstone-dropdown {
-    padding: var(--spacing-nano) var(--spacing-small);
     gap: $spacing-icon;
+    padding: var(--spacing-nano) var(--spacing-small);
 
     border-radius: 2px;
     cursor: pointer;
