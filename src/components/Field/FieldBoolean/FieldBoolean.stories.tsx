@@ -9,6 +9,7 @@ import {Language, MoreVert} from '~/icons';
 const meta: Meta<typeof FieldBoolean> = {
     title: 'Components/Field/FieldBoolean',
     component: FieldBoolean,
+    tags: ['beta'],
 
     parameters: {
         layout: 'padded',

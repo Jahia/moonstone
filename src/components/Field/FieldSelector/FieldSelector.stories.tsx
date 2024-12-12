@@ -9,6 +9,7 @@ import {Close, MoreVert} from '~/icons';
 const meta: Meta<typeof FieldSelector> = {
     title: 'Components/Field/FieldSelector',
     component: FieldSelector,
+    tags: ['beta'],
 
     parameters: {
         layout: 'padded',
