@@ -83,4 +83,4 @@ type BasicProps = {
 
 } & HTMLAttributes<HTMLDivElement>
 
-export type CardSelectorProps = (BasicProps & {hasError: true; errorMessage: string;}) | (BasicProps & {hasError: false; errorMessage: never;});
+export type CardSelectorProps = (BasicProps & {hasError: true; errorMessage: string;}) | (BasicProps & {hasError?: false; errorMessage?: never;});

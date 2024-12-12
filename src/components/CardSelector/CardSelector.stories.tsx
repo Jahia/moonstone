@@ -9,6 +9,7 @@ import type {CardSelectorProps} from './CardSelector.types';
 const meta: Meta<typeof CardSelector> = {
     title: 'Components/CardSelector',
     component: CardSelector,
+    tags: ['new'],
 
     parameters: {
         layout: 'padded',
