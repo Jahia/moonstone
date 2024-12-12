@@ -1,3 +1,5 @@
+@use "../../tokens/spacings/spacings" as *;
+
 .moonstone-chip {
     display: inline-flex;
     flex-direction: row;
@@ -13,7 +15,7 @@
     }
 
     & > svg:not(:last-child) {
-        margin-right: 6px;
+        margin-right: $spacing-icon;
     }
 }
 

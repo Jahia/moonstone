@@ -1,4 +1,8 @@
+$spacing-icon: var(--spacing-pico);
+$spacing-icon_big: var(--spacing-nano);
+
 :root {
+    --spacing-pico: 2px;
     --spacing-nano: 4px;
     --spacing-small: 8px;
     --spacing-medium: 16px;
