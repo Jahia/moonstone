@@ -9,6 +9,7 @@ import {File} from '~/icons';
 const meta: Meta<typeof EmptyCardSelector> = {
     title: 'Components/CardSelector/EmptyCardSelector',
     component: EmptyCardSelector,
+    tags: ['new'],
 
     parameters: {
         layout: 'padded',

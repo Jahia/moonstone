@@ -11,6 +11,7 @@ import markdownNotes from './Chip.md';
 export default {
     title: 'Components/Chip',
     component: Chip,
+    tags: ['updated'],
 
     parameters: {
         layout: 'centered',

@@ -11,6 +11,7 @@ import {listSelectorData} from '~/data/listSelectorData';
 const meta: Meta<typeof Field> = {
     title: 'Components/Field',
     component: Field,
+    tags: ['beta'],
 
     parameters: {
         layout: 'padded',
