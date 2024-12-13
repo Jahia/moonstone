@@ -1,3 +1,5 @@
+@use "../../tokens/spacings/spacings" as *;
+
 [role='treeitem'] {
     --treeItem-indent: calc((var(--spacing-medium) + var(--spacing-nano)) * var(--treeItem-depth, 0) + var(--spacing-medium));
     --treeItem-color: inherit;
@@ -71,28 +73,21 @@
     }
 }
 
-.moonstone-treeView_itemIconStart,
-.moonstone-treeView_itemToggle {
-    margin-right: var(--spacing-nano);
-}
-
 .moonstone-treeView_itemIconStart {
     min-width: 12px;
     min-height: 12px;
 }
 
-.moonstone-treeView_itemIconEnd {
-    margin-left: var(--spacing-nano);
-}
-
 .moonstone-treeView_itemToggle {
     width: 16px;
     height: 16px;
+    margin-right: var(--spacing-nano);
 
     cursor: pointer;
 }
 
 .moonstone-treeView_itemLabel {
+    gap: $spacing-icon;
     align-self: stretch;
     min-width: 0;
 

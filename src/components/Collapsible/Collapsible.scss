@@ -1,3 +1,5 @@
+@use "../../tokens/spacings/spacings" as *;
+
 .moonstone-collapsible {
     position: relative;
 
@@ -43,7 +45,7 @@
 
 // Chevron icon animation
 .moonstone-collapsible_icon {
-    margin-right: var(--spacing-nano);
+    margin-right: $spacing-icon_big;
 
     transform: rotate(0);
 
