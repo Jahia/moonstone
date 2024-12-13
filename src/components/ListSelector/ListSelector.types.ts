@@ -21,7 +21,7 @@ type Label = {
     selected: string,
 }
 
-type Option = {
+export type Option = {
     /**
      * Option label
      */

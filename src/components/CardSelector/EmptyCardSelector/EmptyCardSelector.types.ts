@@ -1,6 +1,6 @@
 import React, {HTMLAttributes} from 'react';
 
-export type EmptyCardSelectorProps = {
+export type EmptyCardSelectorProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'id' | 'onClick'> & {
     /**
     * Id of the component
     */
@@ -35,5 +35,4 @@ export type EmptyCardSelectorProps = {
      * Function trigger on click
      */
     onClick?: React.MouseEventHandler;
-
-} & HTMLAttributes<HTMLButtonElement>
+}

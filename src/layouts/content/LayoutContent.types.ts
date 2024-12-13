@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export type LayoutContentProps = {
+export type LayoutContentProps = Omit<React.ComponentPropsWithRef<'div'>, 'className'> & {
     /**
      * Header of the page
      */

@@ -1,9 +1,9 @@
 import React from 'react';
 
-export type ButtonToggleSize = 'default' | 'big';
-export const buttonToggleSizes = ['default', 'big'];
+export const buttonToggleSizes = ['default', 'big'] as const;
+export type ButtonToggleSize = typeof buttonToggleSizes[number];
 
-type BasicProps = {
+type BasicProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'onClick'> & {
     /**
      * Button label
      */

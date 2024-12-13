@@ -1,6 +1,6 @@
 import React, {HTMLAttributes} from 'react';
 
-type BasicProps = {
+type BasicProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 'id' | 'onClick'> & {
     /**
      * Required id
      */
@@ -81,6 +81,6 @@ type BasicProps = {
      */
     onClick?: React.MouseEventHandler;
 
-} & HTMLAttributes<HTMLDivElement>
+}
 
 export type CardSelectorProps = (BasicProps & {hasError: true; errorMessage: string;}) | (BasicProps & {hasError?: false; errorMessage?: never;});
