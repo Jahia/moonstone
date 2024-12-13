@@ -54,6 +54,7 @@ $border-width: 1px;
     // Manage sizes
     // ---
     &.moonstone-medium {
+        gap: $spacing-icon_big;
         min-height: 32px;
     }
 
