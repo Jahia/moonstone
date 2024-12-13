@@ -64,6 +64,11 @@
         background: none;
         cursor: not-allowed;
     }
+
+    &.moonstone-readonly {
+        background: none;
+        cursor: default;
+    }
 }
 
 .moonstone-treeView_itemIconStart,

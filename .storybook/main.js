@@ -5,6 +5,10 @@ module.exports = {
         postcss: false,
     },
 
+    typescript: {
+        reactDocgen: "react-docgen-typescript",
+    },
+
     stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
 
     addons: [
@@ -13,7 +17,8 @@ module.exports = {
         '@storybook/addon-backgrounds',
         '@storybook/addon-a11y',
         '@storybook/addon-controls',
-        '@storybook/addon-webpack5-compiler-babel'
+        '@storybook/addon-webpack5-compiler-babel',
+        'storybook-addon-tag-badges'
     ],
 
     "webpackFinal": async (config) => {
@@ -44,10 +49,6 @@ module.exports = {
     framework: {
         name: '@storybook/react-webpack5',
         options: {}
-    },
-
-    typescript: {
-        reactDocgen: 'react-docgen-typescript'
     },
 
     docs: {}

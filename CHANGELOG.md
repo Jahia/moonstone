@@ -1,3 +1,78 @@
+# v2.9.2 (Wed Dec 04 2024)
+
+#### 🐛 Bug Fix
+
+- MOON-458: Add new colors & variants to Chip component [#459](https://github.com/Jahia/moonstone/pull/459) ([@Eevolee](https://github.com/Eevolee))
+- MOON-457: Update colors [#458](https://github.com/Jahia/moonstone/pull/458) ([@Eevolee](https://github.com/Eevolee))
+
+#### Authors: 1
+
+- Alessia Bourgoin ([@Eevolee](https://github.com/Eevolee))
+
+---
+
+# v2.9.1 (Fri Nov 22 2024)
+
+#### 🐛 Bug Fix
+
+- MOON-460: Add readonly state to TreeView item [#457](https://github.com/Jahia/moonstone/pull/457) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🔩 Dependency Updates
+
+- Bump @jahia/scripts from 1.3.5 to 1.3.6 [#454](https://github.com/Jahia/moonstone/pull/454) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
+# v2.9.0 (Wed Nov 20 2024)
+
+#### 🚀 Enhancement
+
+- MOON-451: Add component ButtonToggle [#451](https://github.com/Jahia/moonstone/pull/451) ([@Eevolee](https://github.com/Eevolee) [@ffffffelix](https://github.com/ffffffelix))
+
+#### 🐛 Bug Fix
+
+- MOON-456: Add new icon ResponsiveDevices [#456](https://github.com/Jahia/moonstone/pull/456) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-422: Remove triggerButtonIcon and isShowTriggerButton [#452](https://github.com/Jahia/moonstone/pull/452) ([@Eevolee](https://github.com/Eevolee))
+- MOON-417: Update dependencies versions [#444](https://github.com/Jahia/moonstone/pull/444) ([@Eevolee](https://github.com/Eevolee) [@ffffffelix](https://github.com/ffffffelix))
+- MOON-454: Update .github with more recent node version [#445](https://github.com/Jahia/moonstone/pull/445) ([@Eevolee](https://github.com/Eevolee))
+- MOON-364: Fix contrast issue with dropdown description [#432](https://github.com/Jahia/moonstone/pull/432) ([@Eevolee](https://github.com/Eevolee))
+
+#### 🏠 Internal
+
+- MOON-449: Upgrade to yarn 4 [#453](https://github.com/Jahia/moonstone/pull/453) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-436: Migrate tests of PrimaryNav, PrimaryNavItem & PrimaryNavItemsGroup [#443](https://github.com/Jahia/moonstone/pull/443) ([@Eevolee](https://github.com/Eevolee))
+- MOON-438: Migrate tests of SecondaryNav [#442](https://github.com/Jahia/moonstone/pull/442) ([@Eevolee](https://github.com/Eevolee))
+- MOON-434: Migrate tests of GlobalStyle [#441](https://github.com/Jahia/moonstone/pull/441) ([@Eevolee](https://github.com/Eevolee))
+- MOON-433: Migrate tests of ButtonGroup [#440](https://github.com/Jahia/moonstone/pull/440) ([@Eevolee](https://github.com/Eevolee))
+- MOON-442: Migrate tests of Typography [#439](https://github.com/Jahia/moonstone/pull/439) ([@Eevolee](https://github.com/Eevolee))
+- MOON-441: Migrate tests of Tab & TabItem [#438](https://github.com/Jahia/moonstone/pull/438) ([@Eevolee](https://github.com/Eevolee))
+- MOON-440: Migrate tests of SvgWrapper [#437](https://github.com/Jahia/moonstone/pull/437) ([@Eevolee](https://github.com/Eevolee))
+- MOON-439: Migrate tests of Separator [#436](https://github.com/Jahia/moonstone/pull/436) ([@Eevolee](https://github.com/Eevolee))
+- MOON-435: Migrate tests of ImgWrapper [#435](https://github.com/Jahia/moonstone/pull/435) ([@Eevolee](https://github.com/Eevolee))
+- MOON-432: Migrate tests of Breadcrumb and BreadcrumbItem [#433](https://github.com/Jahia/moonstone/pull/433) ([@Eevolee](https://github.com/Eevolee))
+- MOON-437: Migrate tests of ResizableBox [#434](https://github.com/Jahia/moonstone/pull/434) ([@Eevolee](https://github.com/Eevolee))
+
+#### 🔩 Dependency Updates
+
+- Bump cross-spawn from 7.0.3 to 7.0.6 [#455](https://github.com/Jahia/moonstone/pull/455) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- MOON-455: Remove react-docgen-typescript-loader [#449](https://github.com/Jahia/moonstone/pull/449) ([@ffffffelix](https://github.com/ffffffelix))
+- Bump re-resizable from 6.10.0 to 6.10.1 [#448](https://github.com/Jahia/moonstone/pull/448) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump es5-ext from 0.10.53 to 0.10.64 [#447](https://github.com/Jahia/moonstone/pull/447) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @babel/runtime from 7.25.9 to 7.26.0 [#446](https://github.com/Jahia/moonstone/pull/446) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Alessia Bourgoin ([@Eevolee](https://github.com/Eevolee))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.8.0 (Wed Oct 09 2024)
 
 #### 🚀 Enhancement

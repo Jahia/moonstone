@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import clsx from 'clsx';
-import {Cancel, ChevronDown} from '~/icons';
+import {Cancel} from '~/icons';
 import {Button} from '~/components';
 import './BaseInput.scss';
 import type {ControlledBaseInputProps} from './BaseInput.types';
@@ -17,12 +17,9 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps> = ({
     icon,
     variant = 'outlined',
     isShowClearButton,
-    isShowTriggerButton,
-    triggerButtonIcon = <ChevronDown/>,
     prefixComponents,
     onClick,
     onKeyPress,
-    onTrigger,
     onClear,
     onChange,
     onBlur,
@@ -88,15 +85,6 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps> = ({
                     icon={<Cancel/>}
                     aria-label="Reset"
                     onClick={onClear}
-                />
-            )}
-            {isShowTriggerButton && (
-                <Button
-                    className="moonstone-baseInput_clearButton flexRow_center alignCenter"
-                    variant="ghost"
-                    icon={triggerButtonIcon}
-                    aria-label="Open"
-                    onClick={onTrigger}
                 />
             )}
         </div>

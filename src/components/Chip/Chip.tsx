@@ -7,6 +7,7 @@ import {Typography} from '~/components/Typography';
 export const Chip: React.FC<ChipProps> = ({
     label = '',
     color = 'default',
+    variant = 'default',
     icon = null,
     isDisabled = false,
     className,
@@ -16,6 +17,7 @@ export const Chip: React.FC<ChipProps> = ({
         className={clsx(
             'moonstone-chip',
             `moonstone-color_${color}`,
+            `moonstone-chip_${variant}`,
             {'moonstone-disabled': isDisabled},
             className
         )}

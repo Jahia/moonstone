@@ -58,16 +58,6 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
     isShowClearButton?: boolean;
 
     /**
-     * Whether the input should have a trigger button.
-     */
-    isShowTriggerButton?: boolean;
-
-    /**
-     * Trigger button icon
-     */
-    triggerButtonIcon?: React.ReactElement;
-
-    /**
      * Component
      */
     prefixComponents?: React.ReactElement[];
@@ -86,11 +76,6 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
      * Function - when passed in, the Cancel icon appears at the end of the input and its click event is passed back when the Cancel icon is clicked
      */
     onClear?: React.MouseEventHandler;
-
-    /**
-     * Function
-     */
-    onTrigger?: React.MouseEventHandler;
 
     /**
      * Function triggered on change of the input value
