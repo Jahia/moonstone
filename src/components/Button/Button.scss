@@ -1,6 +1,7 @@
 @use "variants/default";
 @use "variants/ghost";
 @use "variants/outlined";
+@use "../../tokens/spacings/spacings" as *;
 
 $button-size_small: 16px;
 $button-size_medium: 24px;
@@ -73,10 +74,10 @@ $button-size_big: 32px;
     }
 
     &.moonstone-icon {
-        gap: var(--spacing-nano);
+        gap: $spacing-icon;
 
         &.moonstone-size_big {
-            gap: var(--spacing-small);
+            gap: $spacing-icon_big;
         }
     }
 

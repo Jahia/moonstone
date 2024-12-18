@@ -1,11 +1,6 @@
+@use "../../tokens/spacings/spacings" as *;
+
 .moonstone-IconTextIcon {
+    gap: $spacing-icon;
     width: 100%;
-}
-
-.moonstone-IconTextIcon_iconStart {
-    margin-right: var(--spacing-nano);
-}
-
-.moonstone-IconTextIcon_iconEnd {
-    margin-left: var(--spacing-nano);
 }

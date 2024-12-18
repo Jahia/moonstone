@@ -1,3 +1,5 @@
+@use "../../../tokens/spacings/spacings" as *;
+
 $accordionHeader_height: 48px;
 
 .moonstone-accordionItem {
@@ -82,7 +84,7 @@ $accordionHeader_height: 48px;
 }
 
 .moonstone-accordionItem_iconContainer {
-    margin-right: var(--spacing-small);
+    margin-right: $spacing-icon_big;
 }
 
 // ---
