@@ -1,4 +1,4 @@
-import React, {HTMLAttributes} from 'react';
+import React from 'react';
 
 export type EmptyCardSelectorProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'id' | 'onClick'> & {
     /**

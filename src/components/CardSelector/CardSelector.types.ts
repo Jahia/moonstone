@@ -1,4 +1,4 @@
-import React, {HTMLAttributes} from 'react';
+import React from 'react';
 
 type BasicProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 'id' | 'onClick'> & {
     /**
