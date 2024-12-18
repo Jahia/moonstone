@@ -2,17 +2,16 @@ import React from 'react';
 import {StoryObj} from '@storybook/react';
 
 import {Typography} from './index';
-import type {TypographyProps} from './Typography.types';
 
-import markdownNotes from './Typography.md';
+// Import markdownNotes from './Typography.md';
 
 export default {
     title: 'Tokens/Typography',
     component: Typography,
     parameters: {
         layout: 'centered',
-        componentSubtitle: 'Displays text',
-        notes: {markdown: markdownNotes}
+        knobs: {disable: true},
+        storysource: {disable: true}
     }
 };
 
@@ -39,6 +38,6 @@ export const Variants = () => (
     </section>
 );
 
-export const Playground: StoryObj<TypographyProps> = {
+export const Playground: StoryObj<typeof Typography> = {
     render: args => <Typography {...args}>Playground</Typography>
 };

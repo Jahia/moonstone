@@ -1,24 +1,17 @@
 import React from 'react';
+import type {PolymorphicComponentProps} from '~/types/Polymorphic.types';
 
-export type TypographyVariant = 'title' | 'heading' | 'subheading' | 'body' | 'caption' | 'button';
-export const variants = ['title', 'heading', 'subheading', 'body', 'caption', 'button'];
+export const variants = ['title', 'heading', 'subheading', 'body', 'caption', 'button'] as const;
+export type TypographyVariant = typeof variants[number];
 
-export type TypographyWeight = 'default' | 'bold' | 'semiBold' | 'light';
-export const weights = ['default', 'bold', 'semiBold', 'light'];
+export const weights = ['default', 'bold', 'semiBold', 'light'] as const;
+export type TypographyWeight = typeof weights[number];
 
-export type TypographyProps = {
+export type BasicTypographyProps = {
     /**
-     * Content of the component
-     */
-    children?: React.ReactNode;
-    /**
-     * Custom classname to use
+     * Additional classname
      */
     className?: string;
-    /**
-     * The component used for the root node
-     */
-    component?: string;
     /**
      * Variant to use
      */
@@ -43,8 +36,6 @@ export type TypographyProps = {
      * No wrapping for text
      */
     isNowrap?: boolean;
-    /**
-     * Custom CSS style
-     */
-    style?: React.CSSProperties
-} & React.HTMLAttributes<HTMLElement>
+};
+
+export type TypographyProps<C extends React.ElementType> = PolymorphicComponentProps<C, BasicTypographyProps>;

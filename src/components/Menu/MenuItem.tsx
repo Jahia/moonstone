@@ -2,10 +2,11 @@ import React from 'react';
 import {ListItem} from '~/components/ListItem';
 import clsx from 'clsx';
 import './MenuItem.scss';
-import {MenuItemProps, MenuItemVariants} from './MenuItem.types';
+
+import type {MenuItemProps} from './MenuItem.types';
 
 export const MenuItem: React.FC<MenuItemProps> = ({
-    variant = MenuItemVariants.Default,
+    variant = 'default',
     isHover,
     isSelected = false,
     isDisabled = false,
@@ -20,7 +21,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
     ...props
 }) => (
     <ListItem
-        tabIndex={isDisabled || variant === MenuItemVariants.Title || isSelected ? null : 0}
+        tabIndex={isDisabled || variant === 'title' || isSelected ? null : 0}
         aria-disabled={isDisabled}
         className={clsx(
             'moonstone-menuItem',
@@ -29,7 +30,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
                 'moonstone-selected': isSelected,
                 'moonstone-disabled': isDisabled,
                 'moonstone-highlighted': isHighlighted && !isSelected,
-                'moonstone-title': variant === MenuItemVariants.Title
+                'moonstone-title': variant === 'title'
             },
             image && 'moonstone-menuItem-image',
             className

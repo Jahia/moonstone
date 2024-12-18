@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type Value = {
+type Value = {
     /**
      * Value or id
      */
@@ -37,7 +37,7 @@ export type ValueListProps = {
      */
     draggedId?: string
     /**
-     * Read only
+     * Whether the component cannot be modified
      */
     isReadOnly?: boolean
     /**

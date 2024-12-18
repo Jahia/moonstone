@@ -1,16 +1,4 @@
-export type Option = {
-    /**
-     * Option label
-     */
-    label: string,
-    /**
-     * Option value
-     */
-    value: string
-
-}
-
-export type Label = {
+type Label = {
     /**
      * Title of the right list
      */
@@ -33,7 +21,18 @@ export type Label = {
     selected: string,
 }
 
-export type ListSelectorSelectorProps = {
+export type Option = {
+    /**
+     * Option label
+     */
+    label: string,
+    /**
+     * Option value
+     */
+    value: string
+}
+
+export type ListSelectorSelectorProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'onChange'> & {
     /**
      * Labels for component
      */
@@ -47,11 +46,11 @@ export type ListSelectorSelectorProps = {
      */
     values?: string[],
     /**
-     * Read only flag
+     * Whether the component cannot be modified
      */
     isReadOnly?: boolean,
     /**
-     * Function, called everytime the use picks an option, receives array of string values as parameter
+     * Function, called everytime the user picks an option, receives array of string values as parameter
      * @param v
      */
     onChange: (v: string[]) => void

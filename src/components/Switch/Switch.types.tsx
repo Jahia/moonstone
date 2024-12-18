@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-type BasicProps =
-Omit<React.ComponentPropsWithRef<'input'>, 'onChange' | 'value' | 'className'> & {
+type BasicProps = Omit<React.ComponentPropsWithRef<'input'>, 'onChange' | 'value' | 'className'> & {
     /**
      * The value of the input element, used when submitting an HTML form
      */

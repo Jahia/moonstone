@@ -10,7 +10,7 @@ export type SortIndicatorProps = {
     isSorted?: boolean;
 
     /**
-     * Additional classname(s)
+     * Additional classname
      */
     className?: string;
 };
