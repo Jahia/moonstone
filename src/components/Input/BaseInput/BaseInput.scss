@@ -1,5 +1,4 @@
 @use '../../../utils/index';
-@use "../../../tokens/borders/borders" as *;
 
 $default-size: 24px;
 $big-size: 32px;
@@ -82,6 +81,7 @@ $border-radius: 2px;
     // Reset Firefox invalid required input style
     &:invalid {
         border: none;
+        box-shadow: none;
     }
 
     &::placeholder {

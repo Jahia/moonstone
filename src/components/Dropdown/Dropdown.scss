@@ -1,6 +1,5 @@
 @use '../../utils/index' as *;
 @use "../../tokens/spacings/spacings" as *;
-@use "../../tokens/borders/borders" as *;
 
 .moonstone-dropdown_container {
     position: relative;
@@ -58,7 +57,7 @@
     }
 
     &.moonstone-opened {
-        border: var(--selector-border);
+        border: var(--selector-border_active);
     }
 
     &:hover {
@@ -86,8 +85,6 @@
 
     &.moonstone-disabled {
         color: var(--color-gray);
-
-        border: var(--selector-border);
 
         background-color: var(--color-gray_light40);
     }
