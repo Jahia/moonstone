@@ -35,7 +35,7 @@
     gap: $spacing-icon;
     padding: var(--spacing-nano) var(--spacing-small);
 
-    border-radius: 2px;
+    border-radius: var(--selector-border-radius);
     cursor: pointer;
 
     &.moonstone-disabled {

@@ -3,7 +3,6 @@
 $default-size: 24px;
 $big-size: 32px;
 $min-width: 40px;
-$border-radius: 2px;
 
 .moonstone-baseInput {
     position: relative;
@@ -24,7 +23,7 @@ $border-radius: 2px;
 
     &.moonstone-outlined {
         border: var(--selector-border);
-        border-radius: $border-radius;
+        border-radius: var(--selector-border-radius);
     }
 }
 

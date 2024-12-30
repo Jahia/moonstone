@@ -1,6 +1,8 @@
 @forward '../colors/colors';
 
 :root {
+    --selector-border-radius: 2px;
+    --selector-border-radius_big: 4px;
     --selector-border: solid 1px var(--color-gray40);
     --selector-border_hover: solid 1px var(--color-accent);
     --selector-border_focus: solid 1px var(--color-accent);
