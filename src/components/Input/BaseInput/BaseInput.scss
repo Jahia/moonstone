@@ -3,8 +3,6 @@
 $default-size: 24px;
 $big-size: 32px;
 $min-width: 40px;
-$border-width: 1px;
-$border-style: solid;
 $border-radius: 2px;
 
 .moonstone-baseInput {
@@ -25,8 +23,8 @@ $border-radius: 2px;
     }
 
     &.moonstone-outlined {
+        border: var(--selector-border);
         border-radius: $border-radius;
-        box-shadow: inset 0 0 0 $border-width var(--color-gray40);
     }
 }
 
@@ -82,6 +80,7 @@ $border-radius: 2px;
 
     // Reset Firefox invalid required input style
     &:invalid {
+        border: none;
         box-shadow: none;
     }
 
@@ -101,15 +100,15 @@ $border-radius: 2px;
     }
 
     &:read-only {
-        box-shadow: none;
+        border: none;
     }
 
     &:disabled {
         color: var(--color-gray);
 
-        background-color: var(--color-gray_light40);
+        border: none;
 
-        box-shadow: none;
+        background-color: var(--color-gray_light40);
         cursor: default;
         opacity: 1; // Reset iOS opacity
 
