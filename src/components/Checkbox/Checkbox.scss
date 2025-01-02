@@ -43,7 +43,7 @@ $checkbox-sizeBig: 20px;
     appearance: none;
 
     border: none;
-    border-radius: 2px;
+    border-radius: var(--radius_small);
     outline: none;
     background: transparent;
 

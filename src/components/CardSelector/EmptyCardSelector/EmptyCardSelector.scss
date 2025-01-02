@@ -7,18 +7,18 @@
     color: var(--color-dark_plain60);
 
     border: 1px dashed var(--color-gray40);
-    border-radius: 4px;
+    border-radius: var(--radius_small);
     background-color: var(--color-white);
     cursor: pointer;
 
     transition: all 0.2s ease-in-out;
 
     &:hover {
-        border: var(--selector-border_hover);
+        border: var(--border-selector_hover);
     }
 
     &:focus {
-        border: var(--selector-border_focus);
+        border: var(--border-selector_focus);
     }
 }
 

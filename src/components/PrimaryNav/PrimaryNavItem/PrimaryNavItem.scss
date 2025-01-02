@@ -9,7 +9,7 @@
 
     color: var(--color-light);
 
-    border-radius: 2rem;
+    border-radius: var(--radius_rounded);
     cursor: pointer;
 
     transition: color 0.2s, background-color 0.2s;
