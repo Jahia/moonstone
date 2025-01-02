@@ -12,7 +12,7 @@
         height: 20px;
         padding: var(--spacing-nano);
 
-        border-radius: 2rem;
+        border-radius: var(--radius_rounded);
     }
 
     &.moonstone-badge_accent {

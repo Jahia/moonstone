@@ -22,8 +22,8 @@ $min-width: 40px;
     }
 
     &.moonstone-outlined {
-        border: var(--selector-border);
-        border-radius: var(--selector-border-radius);
+        border: var(--border-selector);
+        border-radius: var(--radius_small);
     }
 }
 

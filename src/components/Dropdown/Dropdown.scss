@@ -35,7 +35,7 @@
     gap: $spacing-icon;
     padding: var(--spacing-nano) var(--spacing-small);
 
-    border-radius: var(--selector-border-radius);
+    border-radius: var(--radius_small);
     cursor: pointer;
 
     &.moonstone-disabled {
@@ -57,7 +57,7 @@
     }
 
     &.moonstone-opened {
-        border: var(--selector-border_active);
+        border: var(--border-selector_active);
     }
 
     &:hover {
@@ -65,7 +65,7 @@
     }
 
     &:focus {
-        border: var(--selector-border_focus);
+        border: var(--border-selector_focus);
         outline: none;
     }
 
@@ -81,7 +81,7 @@
 .moonstone-dropdown_outlined {
     color: var(--color-gray_dark);
 
-    border: var(--selector-border);
+    border: var(--border-selector);
 
     &.moonstone-disabled {
         color: var(--color-gray);
