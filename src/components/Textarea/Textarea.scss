@@ -1,0 +1,74 @@
+@use '../../utils/index';
+
+$height-size: 50px;
+$width-size: 40px;
+
+.moonstone-textarea-container {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    min-width: $width-size;
+    min-height: $height-size;
+
+    color: var(--color-gray_dark);
+
+    cursor: text;
+}
+
+.moonstone-textarea {
+    @extend %variant-caption;
+
+    display: block;
+    width: 100%; // CSS trick to force element to shrink
+    min-width: 50px;
+    min-height: $height-size;
+    margin: 0; // Reset for Safari
+
+    border: var(--border-selector);
+    border-radius: var(--radius_small);
+    outline: none;
+    resize: none;
+
+    -webkit-tap-highlight-color: transparent;
+
+    &.moonstone-textarea_resizable {
+        resize: auto;
+    }
+
+    // Reset Firefox invalid required input style
+    &:invalid {
+        border: none;
+        box-shadow: none;
+    }
+
+    &::placeholder {
+        font-style: italic;
+        color: var(--color-gray_dark60);
+
+        opacity: 1;
+    }
+
+    &:hover {
+        border: var(--border-selector_hover);
+    }
+
+    &:focus {
+        border: var(--border-selector_focus);
+    }
+
+    &:read-only {
+        border: none;
+    }
+
+    &:disabled {
+        color: var(--color-gray);
+
+        border: none;
+
+        background-color: var(--color-gray_light40);
+        cursor: default;
+        opacity: 1; // Reset iOS opacity
+    }
+}

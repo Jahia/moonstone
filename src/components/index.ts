@@ -39,5 +39,6 @@ export * from './Switch';
 export * from './Tab';
 export * from './Tab/TabItem';
 export * from './Table';
+export * from './Textarea';
 export * from './TreeView';
 export * from './Typography';
