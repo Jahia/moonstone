@@ -14,7 +14,7 @@ $big-tab-height: 32px;
 
     font-family: inherit;
 
-    border-radius: 4px;
+    border-radius: var(--radius);
 
     outline: none;
     cursor: pointer;

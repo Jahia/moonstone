@@ -1,8 +1,6 @@
 @use '../../utils/index' as *;
 @use "../../tokens/spacings/spacings" as *;
 
-$border-width: 1px;
-
 .moonstone-dropdown_container {
     position: relative;
 }
@@ -37,7 +35,7 @@ $border-width: 1px;
     gap: $spacing-icon;
     padding: var(--spacing-nano) var(--spacing-small);
 
-    border-radius: 2px;
+    border-radius: var(--radius_small);
     cursor: pointer;
 
     &.moonstone-disabled {
@@ -59,7 +57,7 @@ $border-width: 1px;
     }
 
     &.moonstone-opened {
-        box-shadow: inset 0 0 0 $border-width var(--color-accent);
+        border: var(--border-selector_active);
     }
 
     &:hover {
@@ -67,8 +65,8 @@ $border-width: 1px;
     }
 
     &:focus {
+        border: var(--border-selector_focus);
         outline: none;
-        box-shadow: inset 0 0 0 $border-width var(--color-accent);
     }
 
     &:not(.moonstone-filled) .moonstone-dropdown_label {
@@ -83,13 +81,11 @@ $border-width: 1px;
 .moonstone-dropdown_outlined {
     color: var(--color-gray_dark);
 
-    box-shadow: inset 0 0 0 $border-width var(--color-gray40);
+    border: var(--border-selector);
 
     &.moonstone-disabled {
         color: var(--color-gray);
 
         background-color: var(--color-gray_light40);
-
-        box-shadow: inset 0 0 0 $border-width var(--color-gray40);
     }
 }

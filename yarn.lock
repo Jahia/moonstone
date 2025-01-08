@@ -2428,7 +2428,7 @@ __metadata:
     "@babel/runtime": "npm:^7.26.0"
     "@cyclonedx/webpack-plugin": "npm:^3.14.0"
     "@jahia/eslint-config": "npm:^2.1.2"
-    "@jahia/scripts": "npm:^1.3.6"
+    "@jahia/scripts": "npm:^1.3.7"
     "@jahia/stylelint-config": "npm:^0.0.3"
     "@storybook/addon-a11y": "npm:^8.4.7"
     "@storybook/addon-actions": "npm:^8.4.7"
@@ -2482,7 +2482,7 @@ __metadata:
     postcss-loader: "npm:^8.1.1"
     postcss-preset-env: "npm:^10.0.7"
     prop-types: "npm:^15.8.1"
-    re-resizable: "npm:^6.10.1"
+    re-resizable: "npm:^6.10.3"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     react-table: "npm:^7.7.0"
@@ -2507,9 +2507,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@jahia/scripts@npm:^1.3.6":
-  version: 1.3.6
-  resolution: "@jahia/scripts@npm:1.3.6"
+"@jahia/scripts@npm:^1.3.7":
+  version: 1.3.7
+  resolution: "@jahia/scripts@npm:1.3.7"
   dependencies:
     cross-spawn: "npm:^7.0.1"
     dotenv: "npm:^8.2.0"
@@ -2529,7 +2529,7 @@ __metadata:
     jahia-prepare-build: prepare-build.js
     jahia-publish: publish.js
     jahia-react2dts: react2dts.js
-  checksum: 10c0/2d3e766cf8b4add99c65df2d8089d6052d75cecfee363f86d2a041e880c81df8fb0cd465c8957f258d0c63443da86693e8843f1f33f59251ecc6ddd5b46e5541
+  checksum: 10c0/21da2a89e1b5c6c7c12704f5e9970da034a5aa3abcd55f8a9c7698a76f2a15985b3ff4fae8d4615c8e65a6cc4bc216b84827c3c24b948f0b8e1baba0e76015ee
   languageName: node
   linkType: hard
 
@@ -11802,11 +11802,11 @@ __metadata:
   linkType: hard
 
 "nanoid@npm:^3.3.7":
-  version: 3.3.7
-  resolution: "nanoid@npm:3.3.7"
+  version: 3.3.8
+  resolution: "nanoid@npm:3.3.8"
   bin:
     nanoid: bin/nanoid.cjs
-  checksum: 10c0/e3fb661aa083454f40500473bb69eedb85dc160e763150b9a2c567c7e9ff560ce028a9f833123b618a6ea742e311138b591910e795614a629029e86e180660f3
+  checksum: 10c0/4b1bb29f6cfebf3be3bc4ad1f1296fb0a10a3043a79f34fbffe75d1621b4318319211cd420549459018ea3592f0d2f159247a6f874911d6d26eaaadda2478120
   languageName: node
   linkType: hard
 
@@ -13806,13 +13806,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"re-resizable@npm:^6.10.1":
-  version: 6.10.1
-  resolution: "re-resizable@npm:6.10.1"
+"re-resizable@npm:^6.10.3":
+  version: 6.10.3
+  resolution: "re-resizable@npm:6.10.3"
   peerDependencies:
-    react: ^16.13.1 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
-  checksum: 10c0/923cc46802b50d4198ea164e5be26aacf87050354769a41c3829dfa8fdafb07c418c6dfd0973597ea447122deb3b0fa14b29fc59a9e0a8553159b9bc89dac1b6
+    react: ^16.13.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 10c0/f1ac57c8ffa5136ea55e9b8430ac34e287f2d1b6795a59b1c8f30bd3b2d7240d3155c10ad712fa1bb981556f418e8614ac2f6561c00831c404eca3ca4d856d54
   languageName: node
   linkType: hard
 
