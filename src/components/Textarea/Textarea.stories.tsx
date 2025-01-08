@@ -30,11 +30,7 @@ export default meta;
 
 type Story = StoryObj<typeof Textarea>;
 
-export const Uncontrolled: Story = {
-    args: {
-        placeholder: 'Uncontrolled textarea'
-    }
-};
+export const Uncontrolled: Story = {};
 
 export const Controlled: Story = {
 

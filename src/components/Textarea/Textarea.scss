@@ -3,8 +3,6 @@
 $minHeight-size: 50px;
 
 .moonstone-textarea {
-    @extend %variant-caption;
-
     display: block;
     width: 100%; // CSS trick to force element to shrink
     min-height: $minHeight-size;
