@@ -46,6 +46,9 @@
     padding: var(--spacing-small);
 
     border: var(--border-selector);
+    border-radius: var(--radius-selector);
+
+    background-color: var(--background-selector);
 
     .moonstone-dragging {
         background-color: var(--color-light);

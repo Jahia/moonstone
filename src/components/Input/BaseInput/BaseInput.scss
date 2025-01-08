@@ -15,10 +15,16 @@ $min-width: 40px;
 
     color: var(--color-gray_dark);
 
-    background-color: var(--color-white);
+    background-color: var(--background-selector);
 
     cursor: text;
 
+    &:has(input:hover) {
+        border: var(--border-selector_hover);
+    }
+    &:has(input:focus) {
+        border: var(--border-selector_focus);
+    }
     &:has(input:disabled) {
         background-color: var(--color-gray_light40);
     }
@@ -29,7 +35,7 @@ $min-width: 40px;
 
     &.moonstone-outlined {
         border: var(--border-selector);
-        border-radius: var(--radius_small);
+        border-radius: var(--radius-selector);
     }
 
     .moonstone-reversed & {
@@ -69,7 +75,6 @@ $min-width: 40px;
     min-width: 50px;
     height: calc($default-size - 2px);
     margin: 0; // Reset for Safari
-    padding: 0 var(--spacing-small);
 
     border: 0;
     background: none;
