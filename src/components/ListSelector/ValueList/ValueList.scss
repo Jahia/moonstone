@@ -45,7 +45,7 @@
     min-width: 200px;
     padding: var(--spacing-small);
 
-    border: 1px solid var(--color-gray40);
+    border: var(--border-selector);
 
     .moonstone-dragging {
         background-color: var(--color-light);

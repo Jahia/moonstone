@@ -1,4 +1,5 @@
 @use 'variants/ghost' as *;
+@use "../../../tokens/spacings/spacings" as *;
 
 $big-tab-height: 32px;
 
@@ -13,7 +14,7 @@ $big-tab-height: 32px;
 
     font-family: inherit;
 
-    border-radius: 4px;
+    border-radius: var(--radius);
 
     outline: none;
     cursor: pointer;
@@ -42,21 +43,21 @@ $big-tab-height: 32px;
         border-radius: 40px;
 
         &.moonstone-size_small {
-            padding: var(--spacing-nano);
+            padding: $spacing-icon;
         }
 
         &.moonstone-size_default {
-            padding: var(--spacing-nano);
+            padding: $spacing-icon;
         }
     }
 
     &.moonstone-icon {
         svg {
-            margin-right: var(--spacing-nano);
+            margin-right: $spacing-icon;
         }
 
         &.moonstone-size_big svg {
-            margin-right: var(--spacing-small);
+            margin-right: $spacing-icon_big;
         }
     }
 

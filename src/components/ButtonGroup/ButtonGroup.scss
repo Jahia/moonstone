@@ -7,15 +7,15 @@
     }
 
     > *:first-child {
-        border-radius: 4px 0 0 4px;
+        border-radius: var(--radius) 0 0 var(--radius);
     }
 
     > *:last-child {
-        border-radius: 0 4px 4px 0;
+        border-radius: 0 var(--radius) var(--radius) 0;
     }
 
     > *:only-child {
-        border-radius: 4px;
+        border-radius: var(--radius);
     }
 
     // Manage separator

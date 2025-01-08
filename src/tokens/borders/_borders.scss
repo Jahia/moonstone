@@ -1,0 +1,9 @@
+:root {
+    --radius: 4px;
+    --radius_small: 2px;
+    --radius_rounded: 2rem;
+    --border-selector: solid 1px var(--color-gray40);
+    --border-selector_hover: solid 1px var(--color-accent);
+    --border-selector_focus: solid 1px var(--color-accent);
+    --border-selector_active: solid 1px var(--color-accent);
+}
