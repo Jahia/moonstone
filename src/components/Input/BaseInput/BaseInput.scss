@@ -15,7 +15,13 @@ $min-width: 40px;
 
     color: var(--color-gray_dark);
 
+    background-color: var(--color-white);
+
     cursor: text;
+
+    &:has(input:disabled) {
+        background-color: var(--color-gray_light40);
+    }
 
     &.moonstone-big {
         min-height: $big-size;
@@ -24,6 +30,10 @@ $min-width: 40px;
     &.moonstone-outlined {
         border: var(--border-selector);
         border-radius: var(--radius_small);
+    }
+
+    .moonstone-reversed & {
+        background-color: transparent;
     }
 }
 
@@ -62,14 +72,9 @@ $min-width: 40px;
     padding: 0 var(--spacing-small);
 
     border: 0;
+    background: none;
 
     -webkit-tap-highlight-color: transparent;
-
-    .moonstone-reversed & {
-        // color: var(--color-white);
-
-        background-color: transparent;
-    }
 
     &.moonstone-big {
         @extend %variant-body;
@@ -107,7 +112,6 @@ $min-width: 40px;
 
         border: none;
 
-        background-color: var(--color-gray_light40);
         cursor: default;
         opacity: 1; // Reset iOS opacity
 
@@ -116,7 +120,7 @@ $min-width: 40px;
         }
     }
 
-    // Check if the nput is empty
+    // Check if the input is empty
     &:placeholder-shown {
         ~ .moonstone-baseInput_icon {
             color: var(--color-gray60);
