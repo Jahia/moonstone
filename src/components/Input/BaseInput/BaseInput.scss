@@ -22,6 +22,7 @@ $min-width: 40px;
     &:has(input:hover) {
         border: var(--border-selector_hover);
     }
+
     &:has(input:focus) {
         border: var(--border-selector_focus);
     }
@@ -37,10 +38,6 @@ $min-width: 40px;
     &.moonstone-outlined {
         border: var(--border-selector);
         border-radius: var(--radius-selector);
-    }
-
-    .moonstone-reversed & {
-        background-color: transparent;
     }
 
     .moonstone-reversed & {
