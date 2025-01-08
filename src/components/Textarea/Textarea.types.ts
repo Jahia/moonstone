@@ -1,14 +1,10 @@
 import * as React from 'react';
 
-export type BaseTextareaProps = Omit<React.ComponentPropsWithRef<'textarea'>, 'value' | 'defaultValue' | 'onChange' | 'onFocus' | 'onBlur' | 'className'> & {
+export type BaseTextareaProps = Omit<React.ComponentPropsWithRef<'textarea'>, 'id' | 'value' | 'defaultValue' | 'onChange' | 'onFocus' | 'onBlur' | 'className'> & {
     /**
      * Required id
      */
     id: string
-    /**
-     * Textarea's function onChange
-     */
-    onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
     /**
      * Textarea's function onFocus
      */
@@ -44,6 +40,10 @@ export type ControlledProps = {
      * Textarea's value
      */
     value: string
+    /**
+     * Textarea's function onChange
+     */
+    onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 export type UncontrolledProps = {
@@ -51,6 +51,10 @@ export type UncontrolledProps = {
      * Textarea's default value
      */
     defaultValue?: string
+    /**
+     * Textarea's function onChange
+     */
+    onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 export type TextareaProps = BaseTextareaProps & Partial<ControlledProps> & Partial<UncontrolledProps>;

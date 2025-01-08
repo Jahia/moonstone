@@ -1,29 +1,13 @@
 @use '../../utils/index';
 
-$height-size: 50px;
-$width-size: 40px;
-
-.moonstone-textarea-container {
-    position: relative;
-
-    display: inline-flex;
-    align-items: center;
-    width: 100%;
-    min-width: $width-size;
-    min-height: $height-size;
-
-    color: var(--color-gray_dark);
-
-    cursor: text;
-}
+$minHeight-size: 50px;
 
 .moonstone-textarea {
     @extend %variant-caption;
 
     display: block;
     width: 100%; // CSS trick to force element to shrink
-    min-width: 50px;
-    min-height: $height-size;
+    min-height: $minHeight-size;
     margin: 0; // Reset for Safari
 
     border: var(--border-selector);
@@ -34,7 +18,7 @@ $width-size: 40px;
     -webkit-tap-highlight-color: transparent;
 
     &.moonstone-textarea_resizable {
-        resize: auto;
+        resize: vertical;
     }
 
     // Reset Firefox invalid required input style

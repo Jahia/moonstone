@@ -39,6 +39,11 @@ describe('Textarea', () => {
         expect(screen.getByTestId('moonstone-textarea')).toHaveAttribute('readonly');
     });
 
+    it('should be resizeable', () => {
+        render(<Textarea isResizable data-testid="moonstone-textarea"/>);
+        expect(screen.getByTestId('moonstone-textarea')).toHaveClass('moonstone-textarea_resizable');
+    });
+
     it('should work when no value or defaultValue is specified', async () => {
         const user = userEvent.setup();
 
@@ -53,13 +58,6 @@ describe('UncontrolledTextarea', () => {
     it('should have specified defaultValue', () => {
         render(<Textarea defaultValue="test-default-value"/>);
         expect(screen.getByDisplayValue('test-default-value')).toBeInTheDocument();
-    });
-
-    it('should not update when value is specified', async () => {
-        const user = userEvent.setup();
-        render(<Textarea data-testid="moonstone-textarea" value="test-value"/>);
-        await user.type(screen.getByTestId('moonstone-textarea'), '-updated');
-        expect(screen.queryByDisplayValue('test-value-updated')).not.toBeInTheDocument();
     });
 
     it('should update specified defaultValue', async () => {
@@ -83,6 +81,13 @@ describe('UncontrolledTextarea', () => {
         it('should display specified value', () => {
             render(<Textarea value="test-value" onChange={() => null}/>);
             expect(screen.getByDisplayValue('test-value')).toBeInTheDocument();
+        });
+
+        it('should not update when value is specified', async () => {
+            const user = userEvent.setup();
+            render(<Textarea data-testid="moonstone-textarea" value="test-value"/>);
+            await user.type(screen.getByTestId('moonstone-textarea'), '-updated');
+            expect(screen.queryByDisplayValue('test-value-updated')).not.toBeInTheDocument();
         });
 
         it('should call specified onChange function', async () => {

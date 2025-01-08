@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StoryObj, Meta} from '@storybook/react';
 
 import {Textarea} from './index';
@@ -32,12 +32,21 @@ type Story = StoryObj<typeof Textarea>;
 
 export const Uncontrolled: Story = {
     args: {
-        value: 'Uncontrolled textarea'
+        placeholder: 'Uncontrolled textarea'
     }
 };
 
 export const Controlled: Story = {
-    args: {
-        placeholder: 'Controlled textarea'
+
+    render: args => {
+        const [textareaValue, setTextareaValue] = useState('Default value');
+
+        return (
+            <Textarea
+                value={textareaValue}
+                onChange={e => setTextareaValue(e.target.value)}
+                {...args}
+            />
+        );
     }
 };
