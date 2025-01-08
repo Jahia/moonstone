@@ -12,9 +12,10 @@ $min-width: 40px;
     width: 100%;
     min-width: $min-width;
     min-height: $default-size;
-    background-color: white;
 
     color: var(--color-gray_dark);
+
+    background-color: var(--color-white);
 
     cursor: text;
 
@@ -32,8 +33,6 @@ $min-width: 40px;
     }
 
     .moonstone-reversed & {
-        // color: var(--color-white);
-
         background-color: transparent;
     }
 }
@@ -71,8 +70,9 @@ $min-width: 40px;
     height: calc($default-size - 2px);
     margin: 0; // Reset for Safari
     padding: 0 var(--spacing-small);
-    background: none;
+
     border: 0;
+    background: none;
 
     -webkit-tap-highlight-color: transparent;
 
