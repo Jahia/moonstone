@@ -5,7 +5,7 @@ interface IconProps extends SVGProps<SVGSVGElement> {
   readonly color?: 'red' | 'yellow' | 'green' | 'blue' | 'darkBlue' | 'purple' | 'gray';
   readonly className?: string;
 }
-const SvgTextarea = ({
+const SvgParagraph = ({
     size = 'default',
     className = '',
     color,
@@ -38,4 +38,4 @@ const SvgTextarea = ({
     );
 };
 
-export default SvgTextarea;
+export default SvgParagraph;
