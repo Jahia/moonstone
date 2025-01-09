@@ -84,7 +84,7 @@
     color: var(--color-gray_dark);
 
     border: var(--border-selector);
-    background-color: white;
+    background-color: var(--background-selector);
 
     &.moonstone-disabled {
         color: var(--color-gray);
