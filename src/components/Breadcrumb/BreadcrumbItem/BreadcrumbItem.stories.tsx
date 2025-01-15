@@ -52,6 +52,6 @@ export const WithIcons = {
 
     args: {
         icon: <Love/>,
-        label: 'beadcrumbItem'
+        label: 'breadcrumbItem'
     }
 };
