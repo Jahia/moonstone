@@ -33,12 +33,14 @@ $minHeight-size: 50px;
         opacity: 1;
     }
 
-    &:hover {
-        border: var(--border-selector_hover);
-    }
-
-    &:focus {
-        border: var(--border-selector_focus);
+    &:not(:disabled, :read-only) {
+        &:hover {
+            border: var(--border-selector_hover);
+        }
+        
+        &:focus {
+            border: var(--border-selector_focus);
+        }
     }
 
     &:disabled {
