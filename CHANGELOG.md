@@ -1,3 +1,39 @@
+# v2.10.0 (Wed Jan 15 2025)
+
+#### 🚀 Enhancement
+
+- MOON-471: Create Textarea component [#472](https://github.com/Jahia/moonstone/pull/472) ([@Eevolee](https://github.com/Eevolee))
+- MOON-246: Add Field component [#461](https://github.com/Jahia/moonstone/pull/461) ([@Eevolee](https://github.com/Eevolee) [@ffffffelix](https://github.com/ffffffelix))
+- MOON-338: Add component CardSelector [#460](https://github.com/Jahia/moonstone/pull/460) ([@Eevolee](https://github.com/Eevolee) [@ffffffelix](https://github.com/ffffffelix))
+
+#### 🐛 Bug Fix
+
+- MOON-478: Fix issue with long text in Header and Breadcrumb [#480](https://github.com/Jahia/moonstone/pull/480) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-476: Unify the styling of selectors [#477](https://github.com/Jahia/moonstone/pull/477) ([@Eevolee](https://github.com/Eevolee))
+- MOON-463: Set background color to parent div of input [#476](https://github.com/Jahia/moonstone/pull/476) ([@Eevolee](https://github.com/Eevolee))
+- MOON-472: Add border radius variables for selectors [#470](https://github.com/Jahia/moonstone/pull/470) ([@Eevolee](https://github.com/Eevolee))
+- MOON-377: Add border variables for selectors [#469](https://github.com/Jahia/moonstone/pull/469) ([@Eevolee](https://github.com/Eevolee))
+- MOON-459: Add Spacing pico and update some spacings components [#468](https://github.com/Jahia/moonstone/pull/468) ([@Eevolee](https://github.com/Eevolee))
+- MOON-469: Add badges to storybook to indicate the statuses of the components [#467](https://github.com/Jahia/moonstone/pull/467) ([@Eevolee](https://github.com/Eevolee))
+
+#### 🏠 Internal
+
+- MOON-470: Replace yarn install --frozen-lockfile with --immutable [#464](https://github.com/Jahia/moonstone/pull/464) ([@Eevolee](https://github.com/Eevolee))
+
+#### 🔩 Dependency Updates
+
+- Bump re-resizable from 6.10.1 to 6.10.3 [#463](https://github.com/Jahia/moonstone/pull/463) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@ffffffelix](https://github.com/ffffffelix))
+- Bump nanoid from 3.3.7 to 3.3.8 [#465](https://github.com/Jahia/moonstone/pull/465) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@ffffffelix](https://github.com/ffffffelix))
+- Bump @jahia/scripts from 1.3.6 to 1.3.7 [#471](https://github.com/Jahia/moonstone/pull/471) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Alessia Bourgoin ([@Eevolee](https://github.com/Eevolee))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.9.2 (Wed Dec 04 2024)
 
 #### 🐛 Bug Fix
