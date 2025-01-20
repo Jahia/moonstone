@@ -4,7 +4,7 @@ import './Fieldset.scss';
 import type {FieldsetProps} from './Fieldset.types';
 import {Typography} from '~/components';
 
-export const Fieldset = React.forwardRef<HTMLDivElement, FieldsetProps>(({
+export const Fieldset = React.forwardRef<HTMLFieldSetElement, FieldsetProps>(({
     id,
     label,
     helper,
@@ -14,7 +14,7 @@ export const Fieldset = React.forwardRef<HTMLDivElement, FieldsetProps>(({
     ...props
 }, ref) => {
     return (
-        <div
+        <fieldset
             ref={ref}
             id={id}
             className={clsx(
@@ -25,9 +25,7 @@ export const Fieldset = React.forwardRef<HTMLDivElement, FieldsetProps>(({
             {...props}
         >
             <div className={clsx('flexRow_nowrap', 'flexFluid', 'alignCenter')}>
-                <div className="flexRow_nowrap flexFluid alignCenter">
-                    <Typography isNowrap component="label" variant="heading" weight="bold">{label}</Typography>
-                </div>
+                <Typography isNowrap className="flexRow_nowrap flexFluid alignCenter" component="legend" variant="heading" weight="bold">{label}</Typography>
                 {buttons && buttons}
             </div>
             {helper &&
@@ -35,7 +33,7 @@ export const Fieldset = React.forwardRef<HTMLDivElement, FieldsetProps>(({
             <div className={clsx('moonstone-fieldset_children', 'flexCol_nowrap')}>
                 {children}
             </div>
-        </div>
+        </fieldset>
     );
 });
 

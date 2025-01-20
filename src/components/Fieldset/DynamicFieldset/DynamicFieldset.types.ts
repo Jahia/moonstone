@@ -1,42 +1,18 @@
 import * as React from 'react';
+import type {FieldsetProps} from '../Fieldset.types';
 
-type BaseProps = {
-    /**
-     * Dynamic fieldset label
-     */
-    label: string;
-
-    /**
-     * Dynamic fieldset's id
-     */
-    id: string;
-
-    /**
-     * Additional classname
-     */
-    className?: string;
-
-    /**
-     * Dynamic fieldset helper
-     */
-    helper?: string;
-
+type BaseProps = Omit<FieldsetProps, 'children'> & {
     /**
      * Define fieldset field(s)
      */
-    children: React.ReactElement;
-
-    /**
-     * Dynamic fieldset action(s)
-    */
-   buttons?: React.ReactElement;
+    children?: React.ReactElement;
 };
 
 type ControlledProps = {
     /**
-     * Whether dynamic fieldset is open or not
+     * Whether dynamic fieldset is checked or not
      */
-    isOpen: boolean;
+    checked: boolean;
 
     /**
      * Dynamic fieldset's function onChange
@@ -46,9 +22,9 @@ type ControlledProps = {
 
 type UncontrolledProps = {
     /**
-     * Whether dynamic fieldset is open by default
+     * Whether dynamic fieldset is checked by default
      */
-    defaultOpen?: boolean;
+    defaultChecked?: boolean;
 
     /**
      * Dynamic fieldset's function onChange

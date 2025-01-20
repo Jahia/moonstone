@@ -8,7 +8,7 @@ import {Button, Chip, Input} from '~/components';
 import {Add, Language, MoreVert} from '~/icons';
 
 const meta: Meta<typeof DynamicFieldset> = {
-    title: 'Components/DynamicFieldset',
+    title: 'Components/Fieldset/DynamicFieldset',
     component: DynamicFieldset,
     tags: ['beta'],
 
@@ -41,11 +41,11 @@ export const Uncontrolled: Story = {};
 
 export const Controlled: Story = {
     render: args => {
-        const [open, setOpen] = useState(false);
+        const [checked, setChecked] = useState(false);
         return (
             <DynamicFieldset
-                isOpen={open}
-                onChange={e => setOpen(e.currentTarget.checked)}
+                checked={checked}
+                onChange={e => setChecked(e.currentTarget.checked)}
                 {...args}
             />
         );

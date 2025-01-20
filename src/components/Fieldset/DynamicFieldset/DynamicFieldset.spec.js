@@ -43,8 +43,8 @@ describe('DynamicFieldset', () => {
 });
 
 describe('UncontrolledDynamicFieldset', () => {
-    it('should display children when defaultOpen is set', () => {
-        render(<DynamicFieldset defaultOpen><Field id="field" label="Field" helper="information"><FieldSelector selector={<Input size="big" value="Input value"/>}/></Field></DynamicFieldset>);
+    it('should display children when defaultChecked is set', () => {
+        render(<DynamicFieldset defaultChecked><Field id="field" label="Field" helper="information"><FieldSelector selector={<Input size="big" value="Input value"/>}/></Field></DynamicFieldset>);
         expect(screen.queryByDisplayValue('Input value')).toBeInTheDocument();
     });
 
@@ -52,7 +52,7 @@ describe('UncontrolledDynamicFieldset', () => {
         const user = userEvent.setup();
         const handleChange = jest.fn();
 
-        render(<DynamicFieldset defaultOpen data-testid="dynamic-fieldset" onChange={handleChange}/>);
+        render(<DynamicFieldset defaultChecked data-testid="dynamic-fieldset" onChange={handleChange}/>);
         await user.click(screen.getByRole('checkbox'), '1');
 
         expect(handleChange).toHaveBeenCalledTimes(1);
@@ -60,8 +60,8 @@ describe('UncontrolledDynamicFieldset', () => {
 });
 
 describe('ControlledDynamicFieldset', () => {
-    it('should display children when isOpen is true', () => {
-        render(<DynamicFieldset isOpen><Field id="field" label="Field" helper="information"><FieldSelector selector={<Input size="big" value="Input value"/>}/></Field></DynamicFieldset>);
+    it('should display children when checked', () => {
+        render(<DynamicFieldset checked><Field id="field" label="Field" helper="information"><FieldSelector selector={<Input size="big" value="Input value"/>}/></Field></DynamicFieldset>);
         expect(screen.queryByDisplayValue('Input value')).toBeInTheDocument();
     });
 
@@ -69,7 +69,7 @@ describe('ControlledDynamicFieldset', () => {
         const user = userEvent.setup();
         const handleChange = jest.fn();
 
-        render(<DynamicFieldset isOpen data-testid="dynamic-fieldset" onChange={handleChange}/>);
+        render(<DynamicFieldset checked data-testid="dynamic-fieldset" onChange={handleChange}/>);
         await user.click(screen.getByRole('checkbox'), '1');
 
         expect(handleChange).toHaveBeenCalledTimes(1);
