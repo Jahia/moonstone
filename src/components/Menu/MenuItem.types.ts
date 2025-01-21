@@ -51,5 +51,10 @@ export type MenuItemProps = Omit<ListItemProps, 'onClick' | 'onMouseEnter' | 'on
     /**
      * Function triggered when a key is pressed
      */
-    onKeyPress?: React.KeyboardEventHandler
+    onKeyUp?: React.KeyboardEventHandler
+
+    /**
+     * Which icon size to render. The default is small
+     */
+    iconSize?: 'small' | 'default' | 'big';
 };

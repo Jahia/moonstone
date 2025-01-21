@@ -19,7 +19,7 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps> = ({
     isShowClearButton,
     prefixComponents,
     onClick,
-    onKeyPress,
+    onKeyUp,
     onClear,
     onChange,
     onBlur,
@@ -74,7 +74,7 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps> = ({
                     onChange={onChange}
                     onBlur={onBlur}
                     onFocus={onFocus}
-                    onKeyPress={onKeyPress}
+                    onKeyUp={onKeyUp}
                     {...props}
                 />
             </div>
