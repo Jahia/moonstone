@@ -143,7 +143,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         setAnchorEl(null);
     };
 
-    const handleKeyPress = (e: React.KeyboardEvent, item: DropdownDataOption) => {
+    const handleKeyUp = (e: React.KeyboardEvent, item: DropdownDataOption) => {
         if (e.key === 'Enter') {
             handleSelect(e, item);
         }
@@ -174,7 +174,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         <div
             className={clsx('moonstone-dropdown_container', className)}
             {...props}
-            onKeyPress={e => {
+            onKeyUp={e => {
                 if (e.key === 'Enter') {
                     handleOpenMenu(e);
                 }
@@ -186,7 +186,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 className={clsx(cssDropdown)}
                 tabIndex={0}
                 onClick={handleOpenMenu}
-                onKeyPress={(e: React.KeyboardEvent) => {
+                onKeyUp={(e: React.KeyboardEvent) => {
                     if (e.key === 'Enter') {
                         handleSelect(e);
                     }
@@ -263,7 +263,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     hasSearch={hasSearch}
                     autoAddSearchLimit={autoAddSearchLimit}
                     searchEmptyText={searchEmptyText}
-                    handleKeyPress={handleKeyPress}
+                    handleKeyUp={handleKeyUp}
                     handleSelect={handleSelect}
                     imageSize={imageSize}
                     onClose={handleCloseMenu}
