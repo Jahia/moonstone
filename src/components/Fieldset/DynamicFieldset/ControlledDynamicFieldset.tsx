@@ -35,9 +35,10 @@ export const ControlledDynamicFieldset = React.forwardRef<HTMLFieldSetElement, C
             </legend>
             {helper &&
                 <Typography variant="caption" className={clsx('moonstone-fieldset_helper')}>{helper}</Typography>}
+            {(checked && children) &&
             <div className={clsx('moonstone-fieldset_children', 'flexCol_nowrap')}>
-                {(checked && children) && children}
-            </div>
+                {children}
+            </div>}
         </fieldset>
     );
 });
