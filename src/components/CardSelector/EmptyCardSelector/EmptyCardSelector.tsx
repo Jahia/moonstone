@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import './EmptyCardSelector.scss';
-import {EmptyCardSelectorProps} from './EmptyCardSelector.types';
+import type {EmptyCardSelectorProps} from './EmptyCardSelector.types';
 import {Typography} from '~/components';
 
 export const EmptyCardSelector = React.forwardRef<HTMLButtonElement, EmptyCardSelectorProps>(({
