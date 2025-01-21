@@ -3,8 +3,8 @@
     padding: var(--spacing-small);
 
     border: var(--border-selector);
-    border-radius: var(--radius_small);
-    background-color: var(--color-white);
+    border-radius: var(--radius-selector);
+    background-color: var(--background-selector);
     cursor: pointer;
 
     transition: all 0.2s ease-in-out;
@@ -83,8 +83,8 @@
     color: var(--color-warning);
 
     border: 1px solid var(--color-warning);
-    border-radius: var(--radius_small);
-    background-color: var(--color-white);
+    border-radius: var(--radius-selector);
+    background-color: var(--background-selector);
 
     pointer-events: none;
 }

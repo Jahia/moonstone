@@ -2,10 +2,11 @@ $header-minHeight: 64px;
 $header-toolbar-minheight: 35px;
 
 .moonstone-header {
+    width: 100%;
     min-height: $header-minHeight;
     padding: var(--spacing-medium) var(--spacing-large) 0 var(--spacing-large);
 
-    background-color: var(--color-white);
+    background-color: var(--background-selector);
     box-shadow: 0 1px 8px var(--color-gray60);
 }
 

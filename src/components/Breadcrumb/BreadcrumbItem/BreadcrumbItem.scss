@@ -1,5 +1,6 @@
 .moonstone-breadcrumbItem {
     min-width: 0;
+    max-width: 150px;
 
     & + & {
         margin-left: var(--spacing-small);

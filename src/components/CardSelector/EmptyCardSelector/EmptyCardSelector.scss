@@ -7,8 +7,8 @@
     color: var(--color-dark_plain60);
 
     border: 1px dashed var(--color-gray40);
-    border-radius: var(--radius_small);
-    background-color: var(--color-white);
+    border-radius: var(--radius-selector);
+    background-color: var(--background-selector);
     cursor: pointer;
 
     transition: all 0.2s ease-in-out;

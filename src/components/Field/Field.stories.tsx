@@ -3,7 +3,7 @@ import {StoryObj, Meta} from '@storybook/react';
 
 import {Field} from './index';
 import markdownNotes from './Field.md';
-import {Button, Chip, Input, Dropdown, RadioGroup, RadioItem, CheckboxItem, ListSelector, CardSelector, EmptyCardSelector} from '~/components';
+import {Button, Chip, Input, Dropdown, RadioGroup, RadioItem, CheckboxItem, ListSelector, CardSelector, EmptyCardSelector, Textarea} from '~/components';
 import {Add, Close, Language, MoreVert, File} from '~/icons';
 import {FieldSelector} from './FieldSelector';
 import {listSelectorData} from '~/data/listSelectorData';
@@ -91,7 +91,7 @@ export const WithDropdown: Story = {
 export const WithTextarea: Story = {
     args: {
         ...Default.args,
-        children: <FieldSelector selector={<textarea style={{width: '100%'}} placeholder="Input value"/>}/>
+        children: <FieldSelector selector={<Textarea id="moonstone-textarea" placeholder="Input value"/>}/>
     }
 };
 

@@ -7,9 +7,10 @@ $minHeight-size: 50px;
     width: 100%; // CSS trick to force element to shrink
     min-height: $minHeight-size;
     margin: 0; // Reset for Safari
+    padding: var(--spacing-nano) var(--spacing-small);
 
     border: var(--border-selector);
-    border-radius: var(--radius_small);
+    border-radius: var(--radius-selector);
     outline: none;
     resize: none;
 
@@ -32,22 +33,18 @@ $minHeight-size: 50px;
         opacity: 1;
     }
 
-    &:hover {
-        border: var(--border-selector_hover);
-    }
+    &:not(:disabled, :read-only) {
+        &:hover {
+            border: var(--border-selector_hover);
+        }
 
-    &:focus {
-        border: var(--border-selector_focus);
-    }
-
-    &:read-only {
-        border: none;
+        &:focus {
+            border: var(--border-selector_focus);
+        }
     }
 
     &:disabled {
         color: var(--color-gray);
-
-        border: none;
 
         background-color: var(--color-gray_light40);
         cursor: default;

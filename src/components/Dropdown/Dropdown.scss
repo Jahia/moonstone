@@ -35,7 +35,8 @@
     gap: $spacing-icon;
     padding: var(--spacing-nano) var(--spacing-small);
 
-    border-radius: var(--radius_small);
+    border: var(--border-selector_invisible);
+    border-radius: var(--radius-selector);
     cursor: pointer;
 
     &.moonstone-disabled {
@@ -82,6 +83,11 @@
     color: var(--color-gray_dark);
 
     border: var(--border-selector);
+    background-color: var(--background-selector);
+
+    &:hover {
+        border: var(--border-selector_hover);
+    }
 
     &.moonstone-disabled {
         color: var(--color-gray);
