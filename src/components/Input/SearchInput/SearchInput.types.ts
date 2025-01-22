@@ -1,3 +1,4 @@
 import type {BaseInputProps} from '../BaseInput/BaseInput.types';
 
-export type SearchInputProps = BaseInputProps;
+export type SearchInputProps = Omit<BaseInputProps, 'isShowClearButton' | 'role' | 'role' | 'icon'>
+

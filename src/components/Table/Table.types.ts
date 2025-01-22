@@ -1,13 +1,13 @@
 import React from 'react';
 
-export type TableProps = {
+export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children'| 'className'> & {
     /**
      * Which html element to render the table as
      */
     component?: string;
 
     /**
-     * Any additional class names to apply to the Table
+     * Additional classname
      */
     className?: string;
 

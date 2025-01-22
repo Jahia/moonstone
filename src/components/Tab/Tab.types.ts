@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export type TabProps = {
+export type TabProps = Omit<React.ComponentPropsWithRef<'div'>, 'children' | 'className'> & {
     /**
      * Content of Tab component
      */
@@ -10,4 +10,3 @@ export type TabProps = {
      */
     className?: string;
 }
-

@@ -1,8 +1,8 @@
-import React, {HTMLAttributes} from 'react';
+import React from 'react';
 
-import {TypographyVariant} from '~/components/Typography/Typography.types';
+import type {TypographyVariant} from '~/components/Typography/Typography.types';
 
-export type ListItemProps = {
+export type ListItemProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'className'> & {
     /**
      * Additional classname
      */
@@ -27,10 +27,6 @@ export type ListItemProps = {
      * A trailing icon display at the end of ListItem
      */
     iconEnd?: React.ReactElement;
-    /**
-     * Tab index for the element
-     */
-    tabIndex?: number;
 
     /**
      * Optional image to display to describe the menu item. Cannot be used in conjunction with the iconStart property.
@@ -51,4 +47,4 @@ export type ListItemProps = {
      * Which icon size to render. The default is small
      */
     iconSize?: 'small' | 'default' | 'big';
-} & HTMLAttributes<HTMLLIElement>
+}

@@ -1,11 +1,11 @@
-export type PillProps = {
+export type PillProps = Omit<React.ComponentPropsWithoutRef<'span'>, 'className'> & {
     /**
      * ListItem label
      */
     label: string;
 
     /**
-     * Reversed style for dark background with light text
+     * Whether the component should use reversed colors, it useful with dark background
      */
     isReversed?: boolean;
 

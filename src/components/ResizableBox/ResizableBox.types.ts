@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Size, ResizeStartCallback, ResizeCallback} from 're-resizable';
+import type {Size, ResizeStartCallback, ResizeCallback} from 're-resizable';
 
 export type EnableZonesProps = {
     // Top?: boolean;

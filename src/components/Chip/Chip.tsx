@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import './Chip.scss';
-import {ChipProps} from './Chip.types';
+import type {ChipProps} from './Chip.types';
 import {Typography} from '~/components/Typography';
 
 export const Chip: React.FC<ChipProps> = ({

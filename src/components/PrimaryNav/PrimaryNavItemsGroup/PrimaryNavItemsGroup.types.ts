@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export type PrimaryNavItemsGroupProps = {
+export type PrimaryNavItemsGroupProps = React.ComponentPropsWithoutRef<'li'> & {
     /**
      * Group is visible when the navigation is collapsed
      */

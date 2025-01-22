@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import {LoaderProps} from './Loader.types';
+import type {LoaderProps} from './Loader.types';
 import './Loader.scss';
 
 export const Loader: React.FC<LoaderProps> = ({

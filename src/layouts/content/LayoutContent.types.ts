@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export type LayoutContentProps = {
+export type LayoutContentProps = Omit<React.ComponentPropsWithRef<'div'>, 'className'> & {
     /**
      * Header of the page
      */
@@ -27,7 +27,7 @@ export type LayoutContentProps = {
     hasPadding?: boolean
 
     /**
-     * Additional className
+     * Additional classname
      */
      className?: string,
 }
