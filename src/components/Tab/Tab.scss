@@ -3,4 +3,5 @@
     flex-direction: row;
     width: max-content;
     padding: var(--spacing-nano) var(--spacing-small) 0 var(--spacing-small);
+    flex-wrap: nowrap;
 }
