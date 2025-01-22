@@ -3,6 +3,7 @@ import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import {EmptyCardSelector} from './index';
+import {Love} from '~/icons/index';
 
 describe('EmptyCardSelector', () => {
     it('should display additional class names', () => {
@@ -13,6 +14,11 @@ describe('EmptyCardSelector', () => {
     it('should display label', () => {
         render(<EmptyCardSelector label="this label"/>);
         expect(screen.queryByText('this label')).toBeInTheDocument();
+    });
+
+    it('should display iconStart', () => {
+        render(<EmptyCardSelector iconStart={<Love data-testid="emptyCardSelector-startIcon"/>}/>);
+        expect(screen.getByTestId('emptyCardSelector-startIcon')).toBeInTheDocument();
     });
 
     it('should call onClick when clicked', async () => {
