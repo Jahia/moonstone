@@ -29,7 +29,7 @@ export const ControlledDynamicFieldset = React.forwardRef<HTMLFieldSetElement, C
             {...props}
         >
             <legend className={clsx('flexRow_nowrap', 'flexFluid', 'alignCenter')}>
-                <Typography isNowrap className="flexRow_nowrap flexFluid alignCenter" component="label" variant="heading" weight="bold">{label}</Typography>
+                <Typography isNowrap className="flexRow_nowrap flexFluid alignCenter" component="label" htmlFor="moonstone-dynamic-fieldset-switch" variant="heading" weight="bold">{label}</Typography>
                 <Switch id="moonstone-dynamic-fieldset-switch" checked={checked} onChange={onChange}/>
                 {buttons && buttons}
             </legend>
