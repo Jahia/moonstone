@@ -17,7 +17,7 @@ export const Button = ({
     variant = 'default',
     color = 'default',
     className = null,
-    onClick = () => undefined,
+    onClick,
     ...props
 }: ButtonProps) => {
     let typoWeight: TypographyWeight = 'default';
