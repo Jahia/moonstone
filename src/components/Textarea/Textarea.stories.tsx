@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {StoryObj, Meta} from '@storybook/react';
 
 import {Textarea} from './index';
+import {useArgs} from '@storybook/preview-api';
 
 const meta: Meta<typeof Textarea> = {
     title: 'Components/Textarea',
@@ -33,16 +34,14 @@ type Story = StoryObj<typeof Textarea>;
 export const Uncontrolled: Story = {};
 
 export const Controlled: Story = {
-
     render: args => {
-        const [textareaValue, setTextareaValue] = useState('Default value');
+        const [, setArgs] = useArgs();
 
-        return (
-            <Textarea
-                value={textareaValue}
-                onChange={e => setTextareaValue(e.target.value)}
-                {...args}
-            />
-        );
+        const onChange = (e : React.ChangeEvent<HTMLTextAreaElement>) => {
+            args.onChange(e);
+            setArgs({value: e.target.value});
+        };
+
+        return <Textarea value="Default value" {...args} onChange={onChange}/>;
     }
 };
