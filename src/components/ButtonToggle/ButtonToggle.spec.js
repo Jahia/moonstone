@@ -129,6 +129,6 @@ describe('ButtonToggle', () => {
 
     it('should be pressed if isPressed is set', () => {
         render(<ButtonToggle isPressed data-testid="moonstone-button-toggle"/>);
-        expect(screen.getByTestId('moonstone-button-toggle')).toBeInTheDocument();
+        expect(screen.getByTestId('moonstone-button-toggle')).toHaveAttribute('aria-pressed', 'true');
     });
 });
