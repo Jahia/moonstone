@@ -33,9 +33,9 @@ export const FieldBoolean = React.forwardRef<HTMLDivElement, FieldBooleanProps>(
             <div className={clsx('flexRow_nowrap', 'flexFluid', 'alignCenter')}>
                 <div className="flexRow_nowrap flexFluid">
                     <div className="moonstone-fieldBoolean_checkbox">
-                        <Checkbox {...checkboxAttributes}/>
+                        <Checkbox id="moonstone-fieldBoolean-checkbox" {...checkboxAttributes}/>
                     </div>
-                    <Typography isNowrap component="label" weight="bold">{label}</Typography>
+                    <Typography isNowrap component="label" htmlFor="moonstone-fieldBoolean-checkbox" weight="bold">{label}</Typography>
                     {chips &&
                         <div className={clsx('moonstone-field_chips', 'flexRow_nowrap')}>
                             {chips}
