@@ -47,7 +47,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
             imageSize={imageSize}
             onClick={e => handleSelect(e, item)}
             onKeyUp={e => handleKeyUp(e, item)}
-            {...item.attributes}
+            {...item.attributes as MenuItemProps}
         />
     );
 
