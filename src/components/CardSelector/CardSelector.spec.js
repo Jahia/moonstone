@@ -95,4 +95,14 @@ describe('CardSelector', () => {
         render(<CardSelector hasError data-testid="card-selector"/>);
         expect(screen.getByTestId('card-selector')).toHaveClass('moonstone-cardSelector_error');
     });
+
+    it('should be disabled if hasError', () => {
+        render(<CardSelector isDisabled hasError data-testid="card-selector"/>);
+        expect(screen.getByTestId('card-selector')).toHaveClass('moonstone-cardSelector_disabled');
+    });
+
+    it('should be disabled when isReadOnly if hasError', () => {
+        render(<CardSelector isReadOnly hasError data-testid="card-selector"/>);
+        expect(screen.getByTestId('card-selector')).toHaveClass('moonstone-cardSelector_disabled');
+    });
 });
