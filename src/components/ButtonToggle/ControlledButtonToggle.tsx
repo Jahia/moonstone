@@ -17,7 +17,7 @@ const ControlledButtonToggleForwardRef: React.ForwardRefRenderFunction<HTMLButto
     iconEnd = null,
     className = null,
     onChange = () => undefined,
-    onClick = () => undefined,
+    onClick,
     ...props
 }, ref) => {
     const handleOnClick: React.MouseEventHandler = e => {
