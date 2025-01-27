@@ -3,11 +3,17 @@ import {queryByText, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {Dropdown} from './index';
 import {dropdownData, dropdownDataGrouped} from '~/data';
+import {Love} from '~/icons/index';
 
 describe('Dropdown', () => {
     it('should display', () => {
         render(<Dropdown data={dropdownData} data-testid="moonstone-dropdown" onChange={() => 'testing'}/>);
         expect(screen.getByTestId('moonstone-dropdown')).toBeInTheDocument();
+    });
+
+    it('should display icon', () => {
+        render(<Dropdown data={dropdownData} icon={<Love data-testid="dropdown-icon"/>}/>);
+        expect(screen.queryByTestId('dropdown-icon')).toBeInTheDocument();
     });
 
     it('should add additional class names', () => {
@@ -49,6 +55,25 @@ describe('Dropdown', () => {
         expect(screen.getByRole('listbox')).toBeInTheDocument();
     });
 
+    it('should update searchbar when I click on the dropdown and start typing', async () => {
+        const user = userEvent.setup();
+        render(<Dropdown hasSearch data={dropdownDataGrouped} onChange={() => 'testing'}/>);
+
+        await user.click(screen.getByRole('dropdown'));
+        await user.type(screen.getByRole('search'), 'test');
+        expect(screen.getByRole('search')).toHaveValue('test');
+    });
+
+    it('should call onChange when I select a value', async () => {
+        const user = userEvent.setup();
+        const onChange = jest.fn();
+        render(<Dropdown hasSearch label="select something" data={dropdownDataGrouped} values={['4']} onChange={onChange}/>);
+
+        await user.click(screen.getByRole('dropdown'));
+        await user.click(screen.getByText(/1/));
+        expect(onChange).toHaveBeenCalled();
+    });
+
     it('should close the menu dropdown when I click on an option', async () => {
         const user = userEvent.setup();
         render(
@@ -82,6 +107,22 @@ describe('Dropdown', () => {
         expect(queryByText(document.querySelector('.moonstone-typography'), 'option 4')).toBeInTheDocument();
     });
 
+    it('should display the images as small', async () => {
+        const user = userEvent.setup();
+
+        render(<Dropdown data={dropdownData} imageSize="small"/>);
+        await user.click(screen.getByRole('dropdown'));
+        expect(screen.getByRole('listbox')).toHaveStyle('max-width: 264px');
+    });
+
+    it('should display the images as big', async () => {
+        const user = userEvent.setup();
+
+        render(<Dropdown data={dropdownData} imageSize="big"/>);
+        await user.click(screen.getByRole('dropdown'));
+        expect(screen.getByRole('listbox')).toHaveStyle('max-width: 400px');
+    });
+
     it('should display tags for multiple values', () => {
         render(
             <Dropdown data={dropdownData} values={['4']}/>
@@ -97,6 +138,20 @@ describe('Dropdown', () => {
 
         await user.click(screen.getByRole('dropdown'));
         expect(screen.queryAllByRole('checkbox')).not.toHaveLength(0);
+    });
+
+    it('should display the reset button', () => {
+        const onClear = jest.fn();
+        render(<Dropdown data={dropdownData} values={['4']} onClear={onClear}/>);
+        expect(screen.getByRole('button', {name: /reset/i})).toHaveAttribute('aria-label', 'Reset');
+    });
+
+    it('should call onClear when the reset button is clicked', async () => {
+        const user = userEvent.setup();
+        const onClear = jest.fn();
+        render(<Dropdown data={dropdownData} values={['4']} onClear={onClear}/>);
+        await user.click(screen.getByRole('button', {name: /reset/i}));
+        expect(onClear).toHaveBeenCalled();
     });
 
     it('should show search input when autoSearch is enabled (hasSearch=undefined) and exceeds limit', async () => {
