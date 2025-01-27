@@ -7,9 +7,9 @@
 
     &:hover,
     &.moonstone-hover {
-        color: var(--color-accent_dark);
+        color: var(--color-accent_dark_contrast);
 
-        background-color: var(--color-gray_light40);
+        background-color: var(--color-accent_light_plain20);
     }
 
     &.moonstone-title {
@@ -24,23 +24,29 @@
         color: var(--color-light);
 
         background-color: var(--color-accent);
+
+        &:active {
+            background-color: var(--color-accent_dark);
+        }
     }
 
     &.moonstone-highlighted {
-        color: var(--color-light);
+        color: var(--color-black);
 
-        background-color: var(--color-gray60);
+        background-color: var(--color-gray_dark20);
+
+        &:active {
+            background-color: var(--color-gray_dark40);
+        }
     }
 
-    &:focus {
+    &:focus-visible {
         outline: none;
         box-shadow: inset 0 0 0 2px var(--color-accent);
     }
 
     &:active {
-        color: var(--color-light);
-
-        background-color: var(--color-accent_dark);
+        background-color: var(--color-accent_light40);
         box-shadow: none;
     }
 

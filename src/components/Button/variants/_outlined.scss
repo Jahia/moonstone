@@ -7,27 +7,21 @@
 %variant_outlined {
     color: var(--color-gray_dark);
 
-    border: 1px solid var(--color-gray_dark);
+    border: 1px solid var(--color-gray_plain60);
     background-color: transparent;
 
     &.moonstone-color_default {
         &:hover:not(:disabled) {
-            color: var(--color-accent);
-
-            border-color: var(--color-accent);
-        }
-
-        &:focus:not(:disabled) {
             color: var(--color-accent_dark);
 
             border-color: var(--color-accent_dark);
         }
 
         &:active:not(:disabled) {
-            color: var(--color-white);
+            border-color: var(--color-accent);
+            background-color: var(--color-gray_light_plain20);
 
-            border-color: var(--color-white);
-            background-color: var(--color-accent);
+            // background-color: var(--background-interaction_active);
         }
 
         &:disabled {
@@ -35,64 +29,109 @@
         }
 
         &.moonstone-reverse {
-            color: var(--color-light60);
+            color: var(--color-light);
 
             border-color: var(--color-light60);
+
+            &:hover:not(:disabled) {
+                color: var(--color-white);
+
+                border-color: var(--color-light);
+            }
+
+            &:active:not(:disabled) {
+                color: var(--color-white);
+
+                background-color: var(--color-gray_light20);
+            }
         }
     }
 
     &.moonstone-color_accent {
         color: var(--color-accent);
 
-        border-color: var(--color-accent);
+        border-color: var(--color-accent_plain60);
 
-        &:hover:not(:disabled),
-        &:focus:not(:disabled) {
+        &:hover:not(:disabled) {
             color: var(--color-accent_dark);
 
-            border-color: var(--color-accent_dark);
+            border-color: var(--color-accent_dark60);
         }
 
         &:active:not(:disabled) {
-            color: var(--color-white);
+            color: var(--color-accent_dark);
 
-            border-color: var(--color-white);
-            background-color: var(--color-accent_dark);
+            background-color: var(--color-accent_plain20);
         }
 
         &:disabled {
             @extend %variant_outlined_disabled;
+        }
+
+        &.moonstone-reverse {
+            color: var(--color-accent_light_plain60);
+
+            border-color: var(--color-accent_light60);
+
+            &:hover:not(:disabled) {
+                color: var(--color-accent_plain60);
+
+                border-color: var(--color-accent_plain60);
+            }
+
+            &:active:not(:disabled) {
+                color: var(--color-accent_plain40);
+
+                background-color: var(--color-accent20);
+            }
         }
     }
 
     &.moonstone-color_danger {
         color: var(--color-danger);
 
-        border-color: var(--color-danger);
+        border-color: var(--color-danger_plain60);
 
-        &:hover:not(:disabled),
-        &:focus:not(:disabled) {
-            color: var(--color-danger);
+        &:hover:not(:disabled) {
+            color: var(--color-danger_dark);
 
-            border-color: var(--color-danger);
+            border-color: var(--color-danger_dark);
         }
 
         &:active:not(:disabled) {
-            color: var(--color-white);
+            color: var(--color-danger_dark);
 
-            border-color: var(--color-white);
-            background-color: var(--color-danger);
+            background-color: var(--color-danger_plain20);
         }
 
         &:disabled {
             @extend %variant_outlined_disabled;
         }
-    }
 
-    &.moonstone-reverse:disabled {
-        color: var(--color-gray_light);
+        &.moonstone-reverse {
+            color: var(--color-danger_plain60);
 
-        border-color: var(--color-gray_light);
-        background-color: transparent;
+            border-color: var(--color-danger_plain60);
+
+            &:hover:not(:disabled) {
+                color: var(--color-danger_plain40);
+
+                border-color: var(--color-danger_plain40);
+            }
+
+            &:active:not(:disabled) {
+                color: var(--color-danger_plain40);
+
+                border-color: var(--color-danger_plain40);
+                background-color: var(--color-danger20);
+            }
+
+            &:disabled {
+                color: var(--color-gray_light);
+
+                border-color: var(--color-gray_light);
+                background-color: transparent;
+            }
+        }
     }
 }

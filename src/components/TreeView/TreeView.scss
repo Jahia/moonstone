@@ -3,15 +3,15 @@
 [role='treeitem'] {
     --treeItem-indent: calc((var(--spacing-medium) + var(--spacing-nano)) * var(--treeItem-depth, 0) + var(--spacing-medium));
     --treeItem-color: inherit;
-    --treeItem-color_hover: var(--color-dark);
+    --treeItem-color_hover: var(--color-accent_dark_contrast);
     --treeItem-color_selected: var(--color-light);
-    --treeItem-color_highlighted: var(--color-light);
+    --treeItem-color_highlighted: var(--color-black);
     --treeItem-color_selected_hover: var(--color-light);
     --treeItem-background: inherit;
-    --treeItem-background_hover: var(--color-gray_light40);
+    --treeItem-background_hover: var(--color-accent_light20);
     --treeItem-background_selected: var(--color-accent);
     --treeItem-background_selected_hover: var(--color-accent);
-    --treeItem-background_highlighted: var(--color-gray60);
+    --treeItem-background_highlighted: var(--color-gray_dark20);
 }
 
 .moonstone-treeView_item {
