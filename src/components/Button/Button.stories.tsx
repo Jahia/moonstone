@@ -26,7 +26,7 @@ const Template = (args: ButtonProps, globals: StoryContext) => {
     return <Button isReversed={theme === 'dark'} {...args}/>;
 };
 
-export const Overview: Story  = {
+export const Overview: Story = {
     render: args => (
         <>
             <section className="storyGrid">
@@ -35,13 +35,13 @@ export const Overview: Story  = {
                 <Button label="ghost" {...args} variant="ghost"/>
             </section>
             <section className="storyGrid" style={{backgroundColor: 'var(--color-gray_dark)'}}>
-                <Button label="default" isReversed {...args} variant="default"/>
-                <Button label="outlined" isReversed {...args} variant="outlined"/>
-                <Button label="ghost" isReversed {...args} variant="ghost"/>
+                <Button isReversed label="default" {...args} variant="default"/>
+                <Button isReversed label="outlined" {...args} variant="outlined"/>
+                <Button isReversed label="ghost" {...args} variant="ghost"/>
             </section>
         </>
     )
-}
+};
 
 export const Default: Story = {
     args: {
