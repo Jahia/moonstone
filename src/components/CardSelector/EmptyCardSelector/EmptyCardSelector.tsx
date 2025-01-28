@@ -1,10 +1,10 @@
 import React from 'react';
 import clsx from 'clsx';
 import './EmptyCardSelector.scss';
-import {EmptyCardSelectorProps} from './EmptyCardSelector.types';
+import type {EmptyCardSelectorProps} from './EmptyCardSelector.types';
 import {Typography} from '~/components';
 
-const EmptyCardSelectorForwardRef: React.ForwardRefRenderFunction<HTMLButtonElement, EmptyCardSelectorProps> = ({
+export const EmptyCardSelector = React.forwardRef<HTMLButtonElement, EmptyCardSelectorProps>(({
     label,
     iconStart,
     id,
@@ -43,8 +43,6 @@ const EmptyCardSelectorForwardRef: React.ForwardRefRenderFunction<HTMLButtonElem
             {label && <Typography>{label}</Typography>}
         </button>
     );
-};
-
-export const EmptyCardSelector = React.forwardRef(EmptyCardSelectorForwardRef);
+});
 
 EmptyCardSelector.displayName = 'EmptyCardSelector';

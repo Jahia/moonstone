@@ -1,15 +1,15 @@
 import * as React from 'react';
 
-export type TabItemSize = 'default' | 'big';
-export const tabItemSizes = ['default', 'big'];
+export const tabItemSizes = ['default', 'big'] as const;
+type TabItemSize = typeof tabItemSizes[number];
 
-export type TabItemVariant = 'ghost';
-export const tabItemVariants = ['ghost'];
+export const tabItemVariants = ['ghost'] as const;
+type TabItemVariant = typeof tabItemVariants[number];
 
-export type TabItemColor = 'default';
-export const tabItemColors = ['default'];
+export const tabItemColors = ['default'] as const;
+type TabItemColor = typeof tabItemColors[number];
 
-export type TabItemProps = {
+export type TabItemProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'onClick'| 'className'> & {
     /**
      * The component used for the root node
      */
@@ -35,7 +35,7 @@ export type TabItemProps = {
      */
     color?: TabItemColor;
     /**
-     * Is tabItem disabled
+     * Whether the component should be disabled
      */
     isDisabled?: boolean;
     /**
@@ -47,7 +47,7 @@ export type TabItemProps = {
      */
     onClick?: React.MouseEventHandler;
     /**
-     * Is tabItem color reversed
+     * Whether the component should use reversed colors, it useful with dark background
      */
     isReversed?: boolean;
     /**
@@ -55,4 +55,3 @@ export type TabItemProps = {
      */
     className?: string;
 }
-

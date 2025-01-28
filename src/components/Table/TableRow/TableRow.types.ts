@@ -1,10 +1,10 @@
 import React from 'react';
 
-export type TableRowProps = {
+export type TableRowProps = Omit<React.ComponentPropsWithoutRef<'tr'>, 'children'| 'className'> & {
     /**
-     * Any additional class names to apply
+     * Additional classname
      */
-    className?: React.ReactNode;
+    className?: string;
 
     /**
      * Name of HTML element to render in the DOM for this component

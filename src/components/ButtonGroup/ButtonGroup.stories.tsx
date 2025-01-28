@@ -18,7 +18,7 @@ export default {
         notes: {markdown: markdownNotes},
         actions: {argTypesRegex: '^on.*'}
     }
-} as Meta<typeof Button>;
+} as Meta<typeof ButtonGroup>;
 
 export const Default: StoryObj<ButtonGroupProps> = {
     render: args => (

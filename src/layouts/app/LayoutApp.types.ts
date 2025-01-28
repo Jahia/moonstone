@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export type LayoutAppProps = {
+export type LayoutAppProps = React.ComponentPropsWithRef<'div'> & {
     /**
      * Navigation of the application (for PrimaryNavigation)
      */

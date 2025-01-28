@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export type FieldProps = {
+export type FieldProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 'id' | 'children'> & {
     /**
      * Field label
      */

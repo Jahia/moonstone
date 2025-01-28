@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export type ChipProps = {
+export type ChipProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'className'> & {
     /**
      * Chip label
      */
@@ -22,7 +22,7 @@ export type ChipProps = {
      */
     className?: string;
     /**
-     * Is this component disabled
+     * Whether the component should be disabled
      */
     isDisabled?: boolean;
 }

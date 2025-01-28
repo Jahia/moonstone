@@ -19,12 +19,14 @@ $min-width: 40px;
 
     cursor: text;
 
-    &:has(input:hover) {
-        border: var(--border-selector_hover);
-    }
+    &:not(:has(input:disabled), :has(input:read-only)) {
+        &:has(input:hover) {
+            border: var(--border-selector_hover);
+        }
 
-    &:has(input:focus) {
-        border: var(--border-selector_focus);
+        &:has(input:focus) {
+            border: var(--border-selector_focus);
+        }
     }
 
     &:has(input:disabled) {

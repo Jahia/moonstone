@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import {RadioItemProps} from './RadioItem.types';
+import type {RadioItemProps} from './RadioItem.types';
 import './RadioItem.scss';
 import {RadioChecked, RadioUnchecked} from '~/icons';
 import {Typography} from '~/components';

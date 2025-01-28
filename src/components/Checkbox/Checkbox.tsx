@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {CheckboxProps} from './Checkbox.types';
+import type {CheckboxProps} from './Checkbox.types';
 import {UncontrolledCheckbox} from './UncontrolledCheckbox';
 import {ControlledCheckbox} from './ControlledCheckbox';
 
