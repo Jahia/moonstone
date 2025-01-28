@@ -18,11 +18,11 @@ export const SortIndicator: React.FC<SortIndicatorProps> = ({
     );
 
     if (direction === 'descending') {
-        return <ArrowDown {...props} className={classNameProps}/>;
+        return <ArrowDown {...props} aria-label="arrowDown-icon" className={classNameProps}/>;
     }
 
     if (direction === 'ascending') {
-        return <ArrowUp {...props} className={classNameProps}/>;
+        return <ArrowUp {...props} aria-label="arrowUp-icon" className={classNameProps}/>;
     }
 };
 
