@@ -1,3 +1,35 @@
+# v2.11.0 (Tue Jan 28 2025)
+
+#### 🚀 Enhancement
+
+- MOON-475: Add components Fieldset & DynamicFieldset [#478](https://github.com/Jahia/moonstone/pull/478) ([@Eevolee](https://github.com/Eevolee))
+
+#### 🐛 Bug Fix
+
+- MOON-481: Fix color with the ghost Button [#491](https://github.com/Jahia/moonstone/pull/491) ([@ffffffelix](https://github.com/ffffffelix))
+- Revert "MOON-462: replace function onKeyPress with onKeyUp (#484)" [#489](https://github.com/Jahia/moonstone/pull/489) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON- 474: Fix controlled component story [#488](https://github.com/Jahia/moonstone/pull/488) ([@Eevolee](https://github.com/Eevolee))
+- MOON-482: Add htmlFor on FieldBoolean & DynamicField's labels [#486](https://github.com/Jahia/moonstone/pull/486) ([@Eevolee](https://github.com/Eevolee))
+- MOON-479: Fix border styling [#482](https://github.com/Jahia/moonstone/pull/482) ([@ffffffelix](https://github.com/ffffffelix))
+- MOON-480: Fix issue with Dropdown width [#483](https://github.com/Jahia/moonstone/pull/483) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🏠 Internal
+
+- MOON-267: Improve components typings [#428](https://github.com/Jahia/moonstone/pull/428) ([@ffffffelix](https://github.com/ffffffelix) [@Eevolee](https://github.com/Eevolee))
+- MOON-462: replace function onKeyPress with onKeyUp [#484](https://github.com/Jahia/moonstone/pull/484) ([@Eevolee](https://github.com/Eevolee))
+
+#### 🔩 Dependency Updates
+
+- Bump @babel/runtime from 7.26.0 to 7.26.7 [#490](https://github.com/Jahia/moonstone/pull/490) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Alessia Bourgoin ([@Eevolee](https://github.com/Eevolee))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.10.0 (Wed Jan 15 2025)
 
 #### 🚀 Enhancement
