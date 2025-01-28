@@ -60,6 +60,7 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
                 className={clsx(cssClass32)}
                 icon={<ChevronFirstPage/>}
                 variant="ghost"
+                aria-label="go-to-first-page"
                 data-sel-role="table-pagination-button-first-page"
                 isDisabled={currentPage === 1}
                 onClick={() => onPageChange(1)}
@@ -68,6 +69,7 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
                 className={clsx(cssClass32)}
                 icon={<ChevronLeft/>}
                 variant="ghost"
+                aria-label="go-to-previous-page"
                 data-sel-role="table-pagination-button-previous-page"
                 isDisabled={currentPage === 1}
                 onClick={() => onPageChange(currentPage - 1)}
@@ -76,6 +78,7 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
                 className={clsx(cssClass32)}
                 icon={<ChevronRight/>}
                 variant="ghost"
+                aria-label="go-to-next-page"
                 data-sel-role="table-pagination-button-next-page"
                 isDisabled={lastPage === currentPage}
                 onClick={() => onPageChange(currentPage + 1)}
@@ -84,6 +87,7 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
                 className={clsx(cssClass16)}
                 icon={<ChevronLastPage/>}
                 variant="ghost"
+                aria-label="go-to-last-page"
                 data-sel-role="table-pagination-button-last-page"
                 isDisabled={lastPage === currentPage}
                 onClick={() => onPageChange(lastPage)}

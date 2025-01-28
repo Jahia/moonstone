@@ -1,5 +1,6 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import {TablePagination} from './TablePagination';
 
 describe('TablePagination', () => {
@@ -91,5 +92,37 @@ describe('TablePagination', () => {
         testDataRoleTags('table-pagination-button-next-page');
         testDataRoleTags('table-pagination-button-previous-page');
         testDataRoleTags('table-pagination-button-last-page');
+    });
+
+    it('should call onPageChange when first page button is clicked', async () => {
+        const user = userEvent.setup();
+        const onPageChange = jest.fn();
+        render(<TablePagination data-testid="table-pagination" currentPage={3} onPageChange={onPageChange}/>);
+        await user.click(screen.getByLabelText('go-to-first-page'));
+        expect(onPageChange).toHaveBeenCalled();
+    });
+
+    it('should call onPageChange when previous page button is clicked', async () => {
+        const user = userEvent.setup();
+        const onPageChange = jest.fn();
+        render(<TablePagination data-testid="table-pagination" currentPage={3} onPageChange={onPageChange}/>);
+        await user.click(screen.getByLabelText('go-to-previous-page'));
+        expect(onPageChange).toHaveBeenCalled();
+    });
+
+    it('should call onPageChange when next page button is clicked', async () => {
+        const user = userEvent.setup();
+        const onPageChange = jest.fn();
+        render(<TablePagination data-testid="table-pagination" currentPage={3} onPageChange={onPageChange}/>);
+        await user.click(screen.getByLabelText('go-to-next-page'));
+        expect(onPageChange).toHaveBeenCalled();
+    });
+
+    it('should call onPageChange when last page button is clicked', async () => {
+        const user = userEvent.setup();
+        const onPageChange = jest.fn();
+        render(<TablePagination data-testid="table-pagination" currentPage={3} onPageChange={onPageChange}/>);
+        await user.click(screen.getByLabelText('go-to-last-page'));
+        expect(onPageChange).toHaveBeenCalled();
     });
 });
