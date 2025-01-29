@@ -10,12 +10,12 @@ describe('SortIndicator', () => {
 
     it('should display arrowDown on direction descending', () => {
         render(<SortIndicator direction="descending"/>);
-        expect(screen.getByLabelText('arrowDown-icon')).toBeInTheDocument();
+        expect(screen.getByLabelText('Icon for sorting in descending order')).toBeInTheDocument();
     });
 
     it('should display arrowUp on direction ascending', () => {
         render(<SortIndicator direction="ascending"/>);
-        expect(screen.getByLabelText('arrowUp-icon')).toBeInTheDocument();
+        expect(screen.getByLabelText('Icon for sorting in ascending order')).toBeInTheDocument();
     });
 
     it('should be sorted', () => {
