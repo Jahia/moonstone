@@ -2,6 +2,8 @@ import React from 'react';
 import {render, screen} from '@testing-library/react';
 import {Table} from './index';
 import {TableHead, TableHeadCell, TableBody, TableBodyCell, TableRow} from './index';
+import {TableCell} from './table-cells/TableCell';
+import {Love} from '../../icons/components';
 
 describe('Table', () => {
     it('should display', () => {
@@ -57,5 +59,17 @@ describe('TableRow', () => {
     it('should be highlighted', () => {
         render(<TableRow isHighlighted data-testid="moonstone-TableRow"/>);
         expect(screen.getByTestId('moonstone-TableRow')).toHaveClass('moonstone-TableRow-highlighted');
+    });
+});
+
+describe('TableCell', () => {
+    it('should display iconStart', () => {
+        render(<TableCell iconStart={<Love data-testid="moonstone-TableCell-iconStart"/>}/>);
+        expect(screen.getByTestId('moonstone-TableCell-iconStart')).toBeInTheDocument();
+    });
+
+    it('should display iconEnd', () => {
+        render(<TableCell iconEnd={<Love data-testid="moonstone-TableCell-iconEnd"/>}/>);
+        expect(screen.getByTestId('moonstone-TableCell-iconEnd')).toBeInTheDocument();
     });
 });
