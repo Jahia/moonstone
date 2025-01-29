@@ -1,6 +1,6 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
-import {Breadcrumb, BreadcrumbItem, Button, Chip, Header} from '~/components';
+import {Breadcrumb, BreadcrumbItem, Button, Chip, Header, SearchInput} from '~/components';
 
 describe('Header', () => {
     it('should display', () => {
@@ -64,5 +64,20 @@ describe('Header', () => {
             <Header title="title"
                     contentType={<Chip data-testid="test-chip" label="test"/>}/>);
         expect(screen.queryByTestId('test-chip')).toBeInTheDocument();
+    });
+
+    it('should display the search element', () => {
+        render(<Header title="title" search={<SearchInput/>}/>);
+        expect(screen.queryByRole('search')).toBeInTheDocument();
+    });
+
+    it('should display the main actions', () => {
+        render(<Header title="title" mainActions={[<Button key="1" label="Secondary"/>, <Button key="2" label="Primary"/>]}/>);
+        expect(screen.queryAllByRole('button')).toHaveLength(2);
+    });
+
+    it('should display the status', () => {
+        const {container} = render(<Header title="title" status={[<Chip key="1" label="status A"/>, <Chip key="2" label="status B"/>]}/>);
+        expect(container.querySelectorAll('.moonstone-chip')).toHaveLength(2);
     });
 });
