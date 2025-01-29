@@ -1,8 +1,8 @@
 import React from 'react';
 import {queryByText, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {Dropdown} from './index';
-import {dropdownData, dropdownDataGrouped} from '~/data';
+import {Dropdown, DropdownMenu, TreeViewMenu} from './index';
+import {dropdownData, dropdownDataGrouped, dropdownDataTree} from '~/data';
 import {Love} from '~/icons/index';
 
 describe('Dropdown', () => {
@@ -53,6 +53,16 @@ describe('Dropdown', () => {
 
         await user.click(screen.getByRole('dropdown'));
         expect(screen.getByRole('listbox')).toBeInTheDocument();
+    });
+
+    it('should display the treeview menu dropdown when I click on the dropdown', async () => {
+        const user = userEvent.setup();
+        render(
+            <Dropdown treeData={dropdownDataTree} data-testid="moonstone-dropdown" onChange={() => 'testing'}/>
+        );
+
+        await user.click(screen.getByRole('dropdown'));
+        expect(screen.getByRole('tree')).toBeInTheDocument();
     });
 
     it('should update searchbar when I click on the dropdown and start typing', async () => {
@@ -227,5 +237,56 @@ describe('Dropdown', () => {
         );
         await user.click(screen.getByRole('dropdown'));
         expect(screen.queryByRole('search')).toBeInTheDocument();
+    });
+});
+
+describe('DropdownMenu', () => {
+    it('should not display if there is no data', () => {
+        render(<DropdownMenu isDisplayed data={[]} data-testid="moonstone-dropdownMenu"/>);
+        expect(screen.queryByTestId('moonstone-dropdownMenu')).not.toBeInTheDocument();
+    });
+
+    it('should call handleKeyUp', async () => {
+        let dData = dropdownDataGrouped;
+        const user = userEvent.setup();
+        const handleKeyUp = jest.fn();
+
+        render(<DropdownMenu isDisplayed hasSearch data={dData} handleKeyUp={handleKeyUp}/>);
+        await user.keyboard('{Tab}');
+        screen.debug();
+        expect(handleKeyUp).toHaveBeenCalled();
+    });
+});
+
+const TreeViewMenuSizes = ['minWidth', 'maxWidth', 'maxHeight'];
+
+describe('TreeViewMenu', () => {
+    it('should display', () => {
+        render(<TreeViewMenu isDisplayed treeData={dropdownDataTree}/>);
+        expect(screen.getByRole('list')).toBeInTheDocument();
+    });
+
+    it('should have a selected value', () => {
+        render(<TreeViewMenu isDisplayed treeData={dropdownDataTree} value="a2"/>);
+        expect(screen.getByRole('treeitem', {name: 'A-2 level1'})).toHaveAttribute('aria-selected', 'true');
+    });
+
+    it('should have selected values', () => {
+        render(<TreeViewMenu isDisplayed treeData={dropdownDataTree} values={['a2', 'a1']}/>);
+        expect(screen.getByRole('treeitem', {name: 'A-2 level1'})).toHaveAttribute('aria-selected', 'true');
+        expect(screen.getByRole('treeitem', {name: 'A-1 level1'})).toHaveAttribute('aria-selected', 'true');
+    });
+
+    it('should have working search bar', async () => {
+        const user = userEvent.setup();
+        render(<TreeViewMenu isDisplayed hasSearch treeData={dropdownDataTree}/>);
+        await user.type(screen.getByRole('search'), 'test');
+        expect(screen.getByRole('search')).toHaveValue('test');
+    });
+
+    test.each(TreeViewMenuSizes)('should have the right size', size => {
+        const props = {[size]: '50px'};
+        render(<TreeViewMenu isDisplayed treeData={dropdownDataTree} {...props}/>);
+        expect(screen.getByRole('list')).toHaveStyle(props);
     });
 });
