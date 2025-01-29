@@ -70,7 +70,7 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
     /**
      * Function
      */
-    onKeyUp?: React.KeyboardEventHandler;
+    onKeyPress?: React.KeyboardEventHandler;
 
     /**
      * Function - when passed in, the Cancel icon appears at the end of the input and its click event is passed back when the Cancel icon is clicked

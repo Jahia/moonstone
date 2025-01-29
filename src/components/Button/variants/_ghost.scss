@@ -14,10 +14,9 @@
         color: var(--color-gray_dark);
 
         &:hover:not(:disabled) {
-            color: var(--color-accent);
+            color: var(--color-accent_dark);
 
-            border-color: transparent;
-            background-color: var(--color-gray_light40);
+            background-color: var(--color-gray_light_plain20);
         }
 
         &:focus:not(:disabled) {
@@ -28,10 +27,8 @@
         }
 
         &:active:not(:disabled) {
-            color: var(--color-white);
-
-            border-color: var(--color-accent);
-            background-color: var(--color-accent);
+            border-color: transparent;
+            background-color: var(--color-gray_light_plain60);
         }
 
         &:disabled {
@@ -39,21 +36,21 @@
         }
 
         &.moonstone-reverse {
-            color: var(--color-white);
+            color: var(--color-light);
 
+            &:focus:not(:disabled),
             &:hover:not(:disabled) {
-                border-color: transparent;
-                background-color: var(--color-accent_dark60);
-            }
+                color: var(--color-accent_light);
 
-            &:focus:not(:disabled) {
-                border-color: var(--color-white);
-                background-color: transparent;
+                border-color: transparent;
+                background-color: var(--color-gray_light20);
             }
 
             &:active:not(:disabled) {
+                color: var(--color-white);
+
                 border-color: transparent;
-                background-color: var(--color-accent);
+                background-color: var(--color-gray_light40);
             }
         }
     }

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {StoryObj, Meta} from '@storybook/react';
 
 import {DynamicFieldset} from './index';
@@ -6,6 +6,7 @@ import {Field, FieldSelector} from '~/components';
 import markdownNotes from './DynamicFieldset.md';
 import {Button, Chip, Input} from '~/components';
 import {Add, Language, MoreVert} from '~/icons';
+import {useArgs} from '@storybook/preview-api';
 
 const meta: Meta<typeof DynamicFieldset> = {
     title: 'Components/Fieldset/DynamicFieldset',
@@ -41,13 +42,13 @@ export const Uncontrolled: Story = {};
 
 export const Controlled: Story = {
     render: args => {
-        const [checked, setChecked] = useState(false);
-        return (
-            <DynamicFieldset
-                checked={checked}
-                onChange={e => setChecked(e.currentTarget.checked)}
-                {...args}
-            />
-        );
+        const [, setArgs] = useArgs();
+
+        const onChange = (e : React.ChangeEvent<HTMLInputElement>) => {
+            args.onChange(e);
+            setArgs({value: e.target.value});
+        };
+
+        return <DynamicFieldset {...args} onChange={onChange}/>;
     }
 };

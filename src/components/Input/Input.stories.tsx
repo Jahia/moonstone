@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {StoryObj, Meta} from '@storybook/react';
 
 import {Input} from './index';
-import type {InputProps} from './Input.types';
 import {Love} from '~/icons';
+import {useArgs} from '@storybook/preview-api';
 
 export default {
     title: 'Components/Input',
@@ -29,29 +29,30 @@ export default {
     }
 } as Meta<typeof Input>;
 
-export const Uncontrolled = {};
+type Story = StoryObj<typeof Input>;
 
-export const Controlled: StoryObj<InputProps> = {
+export const Uncontrolled: Story = {};
+
+export const Controlled: Story = {
     render: args => {
-        const [inputValue, setInputValue] = useState('Default value');
+        const [, setArgs] = useArgs();
 
-        return (
-            <Input
-        value={inputValue}
-        onChange={e => setInputValue(e.target.value)}
-        {...args}
-      />
-        );
+        const onChange = (e : React.ChangeEvent<HTMLInputElement>) => {
+            args.onChange(e);
+            setArgs({value: e.target.value});
+        };
+
+        return <Input value="Default value" {...args} onChange={onChange}/>;
     }
 };
 
-export const InputWithIcon = {
+export const InputWithIcon: Story = {
     args: {
         icon: <Love/>
     }
 };
 
-export const InputWithDefaultValue = {
+export const InputWithDefaultValue: Story = {
     args: {
         defaultValue: 'Default value'
     }
