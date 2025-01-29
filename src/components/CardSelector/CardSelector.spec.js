@@ -91,17 +91,27 @@ describe('CardSelector', () => {
         expect(onClick).not.toHaveBeenCalled();
     });
 
+    it('should call onClick when hasError', async () => {
+        const user = userEvent.setup();
+        const onClick = jest.fn();
+
+        render(<CardSelector hasError data-testid="card-selector" onClick={onClick}/>);
+        await user.click(screen.getByTestId('card-selector'));
+
+        expect(onClick).toHaveBeenCalled();
+    });
+
     it('should display errorCardSelector if hasError', () => {
         render(<CardSelector hasError data-testid="card-selector"/>);
         expect(screen.getByTestId('card-selector')).toHaveClass('moonstone-cardSelector_error');
     });
 
-    it('should be disabled if hasError', () => {
+    it('should be disabled even if hasError', () => {
         render(<CardSelector isDisabled hasError data-testid="card-selector"/>);
         expect(screen.getByTestId('card-selector')).toHaveClass('moonstone-cardSelector_disabled');
     });
 
-    it('should be disabled when isReadOnly if hasError', () => {
+    it('should be disabled when isReadOnly even if hasError', () => {
         render(<CardSelector isReadOnly hasError data-testid="card-selector"/>);
         expect(screen.getByTestId('card-selector')).toHaveClass('moonstone-cardSelector_disabled');
     });
