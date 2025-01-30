@@ -13,9 +13,9 @@ const ControlledButtonToggleForwardRef: React.ForwardRefRenderFunction<HTMLButto
     isDisabled = false,
     isLoading = false,
     isPressed = false,
-    iconStart = null,
-    iconEnd = null,
-    className = null,
+    iconStart,
+    iconEnd,
+    className,
     onChange = () => undefined,
     onClick = () => undefined,
     ...props

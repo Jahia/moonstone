@@ -7,13 +7,13 @@ import {ListItemProps} from './ListItem.types';
 export const ListItem: React.FC<ListItemProps> = ({
     label,
     description,
-    iconStart = null,
-    iconEnd = null,
+    iconStart,
+    iconEnd,
     image,
     imageSize = 'small',
     className = '',
     typographyVariant = 'caption',
-    iconSize = 'small',
+    iconSize = 'default',
     ...props
 }) => {
     const cssListItem = clsx(
