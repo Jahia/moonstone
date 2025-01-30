@@ -169,7 +169,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                                        if (clientOffset.y > targetMidPointY) {
                                            newIndex = valuesRight.filter(f => f.value !== dragged.value.value).indexOf(value) + 1;
                                        }
-                                   } else if (value) {
+                                   } else if (!value) {
                                        newIndex = valuesRight.length;
                                    }
 
