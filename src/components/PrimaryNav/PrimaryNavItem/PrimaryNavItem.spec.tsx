@@ -3,6 +3,7 @@ import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {PrimaryNavItem} from './index';
 import {PrimaryNav} from '../PrimaryNav';
+import {Badge} from '~/components';
 
 describe('NavItem', () => {
     it('should display a text children', () => {
@@ -24,6 +25,11 @@ describe('NavItem', () => {
         const Icon = () => <svg data-testid="primaryNav-icon"/>;
         render(<PrimaryNavItem icon={<Icon/>}/>);
         expect(screen.queryByTestId('primaryNav-icon')).toBeInTheDocument();
+    });
+
+    it('should display the badge', () => {
+        render(<PrimaryNavItem badge={<Badge label="primaryNavItem-badge"/>}/>);
+        expect(screen.getByText('primaryNavItem-badge')).toHaveClass('moonstone-primaryNavItem_badge');
     });
 
     it('should set selected when given selected property', () => {

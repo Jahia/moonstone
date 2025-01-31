@@ -15,7 +15,7 @@ export const TabItem: React.FC<TabItemProps> = ({
     color = 'default',
     className = null,
     isSelected = false,
-    onClick = () => undefined,
+    onClick,
     ...props
 }) =>
     React.createElement(
