@@ -1,3 +1,23 @@
+# v2.11.1 (Fri Jan 31 2025)
+
+#### 🐛 Bug Fix
+
+- feat: add new icon modified [#926](https://github.com/Jahia/moonstone/pull/926) ([@ffffffelix](https://github.com/ffffffelix))
+- QA-15352: Fix dnd issue for ListSelector [#493](https://github.com/Jahia/moonstone/pull/493) ([@gflores-jahia](https://github.com/gflores-jahia))
+- MOON-485: Fix default size icon on MenuItem [#494](https://github.com/Jahia/moonstone/pull/494) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🏠 Internal
+
+- MOON-483: Improve tests coverage [#492](https://github.com/Jahia/moonstone/pull/492) ([@Eevolee](https://github.com/Eevolee))
+
+#### Authors: 3
+
+- Alessia Bourgoin ([@Eevolee](https://github.com/Eevolee))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Geofrey Flores ([@gflores-jahia](https://github.com/gflores-jahia))
+
+---
+
 # v2.11.0 (Tue Jan 28 2025)
 
 #### 🚀 Enhancement
