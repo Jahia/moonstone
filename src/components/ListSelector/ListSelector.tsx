@@ -150,7 +150,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                                e.currentTarget.parentNode.parentNode.style.opacity = '1';
                                setDragged(null);
                            }}
-                           onDragOver={e => {
+                           onDragOver={(e, value) => {
                                e.stopPropagation();
                                // Perform move of the item within the list
                                if (e.dataTransfer.types.includes(MLRS_DRAG) && !filterRight) {
@@ -160,7 +160,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                                    const clientOffset = {x: e.clientX, y: e.clientY};
                                    const targetMidPointY = rect.y + (rect.height / 2);
                                    let newIndex = -1;
-                                   if (typeof value !== 'undefined' && dragged.value.value !== value.value) {
+                                   if (value && dragged?.value?.value !== value.value) {
                                        if (clientOffset.y < targetMidPointY) {
                                            newIndex = valuesRight.filter(f => f.value !== dragged.value.value).indexOf(value);
                                        }
@@ -169,7 +169,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                                        if (clientOffset.y > targetMidPointY) {
                                            newIndex = valuesRight.filter(f => f.value !== dragged.value.value).indexOf(value) + 1;
                                        }
-                                   } else if (typeof value === 'undefined') {
+                                   } else if (!value) {
                                        newIndex = valuesRight.length;
                                    }
 

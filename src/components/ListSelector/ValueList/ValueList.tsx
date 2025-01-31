@@ -20,7 +20,7 @@ export const ValueList: React.FC<ValueListProps> = ({
     onDrop
 }) => {
     return (
-        <div className="flexCol moonstone-valueList_wrapper">
+        <div className="flexCol_nowrap moonstone-valueList_wrapper">
             <SearchInput onChange={e => setFilter(e.target.value.trim())}/>
             <ul className={clsx('moonstone-valueList', ...listClasses)} onDragOver={e => onDragOver(e, null)} onDrop={e => onDrop(e, null)}>
                 {values.map(v => {
