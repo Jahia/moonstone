@@ -9,7 +9,7 @@ const ControlledCollapsibleForwardRef: React.ForwardRefRenderFunction<HTMLDivEle
     label,
     className,
     children,
-    onClick = () => undefined,
+    onClick,
     id = null,
     isExpanded = false,
     ...other

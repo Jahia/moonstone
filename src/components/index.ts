@@ -11,7 +11,7 @@ export * from './Checkbox';
 export * from './CheckboxGroup';
 export * from './Chip';
 export * from './Collapsible';
-export * from './Dropdown';
+export * from './Dropdown/Dropdown';
 export * from './Field';
 export * from './Field/FieldBoolean';
 export * from './Field/FieldSelector';

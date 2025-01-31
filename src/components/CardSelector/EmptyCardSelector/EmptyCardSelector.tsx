@@ -11,7 +11,7 @@ export const EmptyCardSelector = React.forwardRef<HTMLButtonElement, EmptyCardSe
     className,
     isDisabled = false,
     isReadOnly = false,
-    onClick = () => undefined,
+    onClick,
     ...props
 }, ref) => {
     const handleOnClick: React.MouseEventHandler = e => {

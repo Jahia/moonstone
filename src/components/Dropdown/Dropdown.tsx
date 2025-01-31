@@ -7,8 +7,7 @@ import type {
     DropdownProps,
     HandleSelect
 } from './Dropdown.types';
-import {DropdownMenu} from '~/components/Dropdown/DropdownMenu';
-import {TreeViewMenu} from '~/components/Dropdown/TreeViewMenu';
+import {DropdownMenu, TreeViewMenu} from '~/components/Dropdown';
 import {Tag} from '../Tag';
 import type {TreeViewData} from '~/components/TreeView/TreeView.types';
 import {Button, Typography} from '~/components';

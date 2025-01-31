@@ -1,7 +1,7 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {SecondaryNav} from './index';
+import {SecondaryNav, SecondaryNavHeader} from './index';
 
 describe('SecondaryNav', () => {
     it('should display children content', () => {
@@ -66,5 +66,12 @@ describe('SecondaryNav', () => {
         await user.click(screen.getByRole('secondary-nav-control'));
 
         expect(clickHandler).toHaveBeenCalled();
+    });
+});
+
+describe('SecondaryNavHeader', () => {
+    it('should display', () => {
+        render(<SecondaryNavHeader data-testid="moonstone-SecondaryNavHeader"><span>required children</span></SecondaryNavHeader>);
+        expect(screen.queryByRole('banner')).toBeInTheDocument();
     });
 });

@@ -22,7 +22,7 @@ export const CardSelector = React.forwardRef<HTMLDivElement, CardSelectorProps>(
     cardAction,
     hasError = false,
     errorMessage,
-    onClick = () => undefined,
+    onClick,
     ...props
 }, ref) => {
     const classNameProps = clsx(
