@@ -3,7 +3,7 @@ import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {PrimaryNavItem} from './index';
 import {PrimaryNav} from '../PrimaryNav';
-import {Badge} from '~/main';
+import {Badge} from '~/components';
 
 describe('NavItem', () => {
     it('should display a text children', () => {
