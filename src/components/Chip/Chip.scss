@@ -14,7 +14,7 @@
         opacity: 0.3;
     }
 
-    & > svg:not(:last-child) {
+    & > .moonstone-icon:not(:last-child) {
         margin-right: $spacing-icon;
     }
 }
