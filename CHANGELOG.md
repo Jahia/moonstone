@@ -1,3 +1,16 @@
+# v2.11.2 (Fri Feb 07 2025)
+
+#### 🐛 Bug Fix
+
+- fix: spacing icon in the Chip component [#957](https://github.com/Jahia/moonstone/pull/957) ([@ffffffelix](https://github.com/ffffffelix))
+- feat: new icon PasteAsReference [#956](https://github.com/Jahia/moonstone/pull/956) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.11.1 (Fri Jan 31 2025)
 
 #### 🐛 Bug Fix
