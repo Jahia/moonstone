@@ -148,6 +148,7 @@ export {default as Palette} from './Palette';
 export {default as Paragraph} from './Paragraph';
 export {default as Password} from './Password';
 export {default as Paste} from './Paste';
+export {default as PasteAsReference} from './PasteAsReference';
 export {default as Person} from './Person';
 export {default as PhotoLibrary} from './PhotoLibrary';
 export {default as Pie} from './Pie';
