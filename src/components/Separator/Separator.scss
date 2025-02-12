@@ -7,7 +7,7 @@
     &.moonstone-invisible_onlyChild:only-child,
     &.moonstone-invisible_firstOrLastChild:first-child,
     &.moonstone-invisible_firstOrLastChild:last-child,
-    & + & {
+    &:has(+ &) {
         display: none;
     }
 }
