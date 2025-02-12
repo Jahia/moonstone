@@ -1,3 +1,15 @@
+# v2.11.3 (Wed Feb 12 2025)
+
+#### 🐛 Bug Fix
+
+- fix: hide consecutive separators [#958](https://github.com/Jahia/moonstone/pull/958) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.11.2 (Fri Feb 07 2025)
 
 #### 🐛 Bug Fix
