@@ -24,6 +24,8 @@ export * from './ListItem';
 export * from './ListSelector';
 export * from './Loader';
 export * from './Menu';
+export * from './Modal';
+export * from './NestedContextualMenu';
 export * from './Paper';
 export * from './Pill';
 export * from './PrimaryNav';

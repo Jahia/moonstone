@@ -1,0 +1,43 @@
+@use '../../../utils/index';
+
+.moonstone-menu {
+    z-index: 9000;
+
+    width: max-content;
+
+    color: var(--color-gray_dark);
+
+    border-radius: var(--radius);
+
+    list-style: none;
+    background-color: var(--color-light);
+    box-shadow: 0 var(--spacing-nano) var(--spacing-small) var(--color-gray_dark60);
+    overflow-x: hidden; // Shorten property doesn't work with Safari
+    overflow-y: auto;
+
+    &.moonstone-hidden {
+        opacity: 0;
+
+        pointer-events: none;
+    }
+
+    .moonstone-menu_searchInput {
+        margin: var(--spacing-small) var(--spacing-medium);
+    }
+
+    .moonstone-menu_emptySearchText {
+        margin: var(--spacing-medium) var(--spacing-medium);
+
+        color: var(--color-gray);
+        text-align: center;
+    }
+}
+
+// ---
+// Overlay
+// ---
+.moonstone-menu_overlay {
+    @extend %overlay;
+
+    z-index: 8500;
+}

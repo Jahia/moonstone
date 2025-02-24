@@ -1,0 +1,21 @@
+.moonstone-nestedContextualMenu {
+    overflow: visible;
+
+    z-index: 9000;
+
+    width: max-content;
+
+    color: var(--color-gray_dark);
+
+    border-radius: var(--radius);
+
+    list-style: none;
+    background-color: var(--color-light);
+    box-shadow: 0 var(--spacing-nano) var(--spacing-small) var(--color-gray_dark60);
+
+    &.moonstone-hidden {
+        opacity: 0;
+
+        pointer-events: none;
+    }
+}
