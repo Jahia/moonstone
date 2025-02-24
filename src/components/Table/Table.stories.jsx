@@ -686,7 +686,7 @@ export const KitchenSinkFlat = {
                     (currentPage - 1) * rowsPerPage,
                     Math.min(tablePaginationDataFlat.length, currentPage * rowsPerPage)
                 ),
-                [currentPage, rowsPerPage]
+            [currentPage, rowsPerPage]
         );
         const columns = React.useMemo(
             () => [
