@@ -63,6 +63,10 @@ type BasicTreeViewProps = {
      * TreeView row sizes
      */
     size?: 'small' | 'default';
+    /**
+     * Adds toggle padding even if data is flat
+     */
+    padFlatData?: boolean
 };
 
 type ControlledProps = {
