@@ -2491,7 +2491,7 @@ __metadata:
     postcss-loader: "npm:^8.1.1"
     postcss-preset-env: "npm:^10.0.7"
     prop-types: "npm:^15.8.1"
-    re-resizable: "npm:^6.10.3"
+    re-resizable: "npm:^6.11.0"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     react-table: "npm:^7.7.0"
@@ -13815,13 +13815,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"re-resizable@npm:^6.10.3":
-  version: 6.10.3
-  resolution: "re-resizable@npm:6.10.3"
+"re-resizable@npm:^6.11.0":
+  version: 6.11.0
+  resolution: "re-resizable@npm:6.11.0"
   peerDependencies:
     react: ^16.13.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10c0/f1ac57c8ffa5136ea55e9b8430ac34e287f2d1b6795a59b1c8f30bd3b2d7240d3155c10ad712fa1bb981556f418e8614ac2f6561c00831c404eca3ca4d856d54
+  checksum: 10c0/9dcab823fecdae6a02d11b95ad211fa101dfbf1d2d20b6ed5b75ac56b5497979085aea503ae352f1cec132bee040b2edc851be4e10c57af89ed5ef25fba991bf
   languageName: node
   linkType: hard
 
