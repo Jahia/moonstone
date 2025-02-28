@@ -13,6 +13,11 @@ export default defineConfig({
     },
     test: {
         globals: true,
+        coverage: {
+            provider: 'v8', // or 'v8'
+            include: ['src/**/*.tsx'], // Optional: If you want to include files in coverage
+            exclude: ['src/__mocks__', 'src/__storybook__', 'src/data', '**/*.stories.*'],
+        },
         environment: 'jsdom', // Simulates a browser-like environment
         setupFiles: './vitest.setup.ts', // Optional: If you need global test setup
         exclude: [...configDefaults.exclude, 'storybook-static/**'], // Exclude Storybook-generated files
