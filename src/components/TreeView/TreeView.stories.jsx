@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {TreeView} from './index';
 import {treeData, treeDataFlat} from '~/data';
 
-import markdownNotes from './TreeView.md';
+import markdownNotes from './TreeView.md?raw';
 
 const css = {
     transform: 'scale(1)',

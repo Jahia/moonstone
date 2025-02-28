@@ -1,10 +1,12 @@
 import React from 'react';
+import type { Meta, StoryFn } from '@storybook/react';
+import type { LayoutModuleProps } from './LayoutModule.types';
 import {LayoutModule} from './index';
 import {
     FakeSecondaryNavigation,
     FakeContent
 } from '~/__storybook__/FakeComponents';
-import markdownNotes from './LayoutModule.md';
+import markdownNotes from './LayoutModule.md?raw';
 
 export default {
     title: 'Layouts/LayoutModule',
@@ -20,21 +22,21 @@ export default {
             control: false
         }
     }
-};
+} as Meta<typeof LayoutModule>;
 
-const Template = args => (
+const Template: StoryFn<LayoutModuleProps> = args => (
     <div
-    style={{
-      width: '100vw',
-      height: '100vh',
-      display: 'flex'
-    }}
+        style={{
+            width: '100vw',
+            height: '100vh',
+            display: 'flex'
+        }}
     >
         <LayoutModule
-      navigation={<FakeSecondaryNavigation/>}
-      content={<FakeContent/>}
-      {...args}
-    />
+            navigation={<FakeSecondaryNavigation/>}
+            content={<FakeContent/>}
+            {...args}
+        />
     </div>
 );
 

@@ -6,7 +6,7 @@ import {Separator} from './index';
 import {SeparatorProps} from './Separator.types';
 
 import {Typography} from '~/components';
-import markdownNotes from './Separator.md';
+import markdownNotes from './Separator.md?raw';
 
 export default {
     title: 'Components/Separator',

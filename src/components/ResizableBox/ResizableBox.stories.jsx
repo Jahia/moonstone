@@ -1,6 +1,6 @@
 import React from 'react';
 import {action} from '@storybook/addon-actions';
-import markdownNotes from './ResizableBox.md';
+import markdownNotes from './ResizableBox.md?raw';
 
 import {ResizableBox} from './index';
 

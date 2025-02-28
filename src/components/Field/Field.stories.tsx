@@ -2,7 +2,7 @@ import React from 'react';
 import {StoryObj, Meta} from '@storybook/react';
 
 import {Field} from './index';
-import markdownNotes from './Field.md';
+import markdownNotes from './Field.md?raw';
 import {Button, Chip, Input, Dropdown, RadioGroup, RadioItem, CheckboxItem, ListSelector, CardSelector, EmptyCardSelector, Textarea} from '~/components';
 import {Add, Close, Language, MoreVert, File} from '~/icons';
 import {FieldSelector} from './FieldSelector';

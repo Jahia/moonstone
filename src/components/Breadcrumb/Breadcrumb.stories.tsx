@@ -4,7 +4,7 @@ import {StoryFn, Meta} from '@storybook/react';
 import {Breadcrumb, BreadcrumbItem} from '~/components';
 import type {BreadcrumbProps} from './Breadcrumb.types';
 
-import markdownNotes from './Breadcrumb.md';
+import markdownNotes from './Breadcrumb.md?raw';
 
 export default {
     title: 'Components/Breadcrumb',

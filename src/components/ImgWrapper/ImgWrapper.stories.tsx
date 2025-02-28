@@ -1,6 +1,6 @@
 import {ImgWrapper} from './index';
 
-import markdownNotes from './ImgWrapper.md';
+import markdownNotes from './ImgWrapper.md?raw';
 
 export default {
     title: 'Utilities/ImgWrapper',

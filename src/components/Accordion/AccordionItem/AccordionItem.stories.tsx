@@ -5,7 +5,7 @@ import {Accordion} from '~/components/Accordion';
 import {AccordionItem} from './index';
 import type {AccordionItemProps} from './AccordionItem.types';
 
-import markdownNotes from './AccordionItem.md';
+import markdownNotes from './AccordionItem.md?raw';
 import {Love} from '~/icons';
 
 export default {

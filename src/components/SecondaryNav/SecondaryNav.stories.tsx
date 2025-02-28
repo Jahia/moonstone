@@ -4,7 +4,7 @@ import {StoryFn, Meta} from '@storybook/react';
 import {SecondaryNav, SecondaryNavHeader} from './index';
 import type {SecondaryNavProps} from './SecondaryNav.types';
 
-import markdownNotes from './SecondaryNav.md';
+import markdownNotes from './SecondaryNav.md?raw';
 import {Love} from '~/icons';
 
 export default {

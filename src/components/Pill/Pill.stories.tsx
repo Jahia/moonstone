@@ -1,5 +1,5 @@
 import {StoryObj} from '@storybook/react';
-import markdownNotes from './Pill.md';
+import markdownNotes from './Pill.md?raw';
 
 import {Pill} from './index';
 import type {PillProps} from './Pill.types';

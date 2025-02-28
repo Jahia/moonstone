@@ -1,9 +1,12 @@
-import React from 'react';
-import {GlobalStyle} from '../src';
+// import React from 'react';
+// import {GlobalStyle} from '../src/components';
 import {addons} from '@storybook/preview-api';
 import {UPDATE_GLOBALS, STORY_ARGS_UPDATED} from "@storybook/core-events";
 
-let channel = addons.getChannel();
+import '../src/globals.scss';
+
+const channel = addons.getChannel();
+
 const storyListener = (args) => {
     if (typeof args.args.isReversed !== 'undefined') {
         let colorTheme = args.args.isReversed ? 'dark' : 'light';
@@ -21,12 +24,23 @@ function setupBackgroundListener() {
     channel.addListener(STORY_ARGS_UPDATED, storyListener);
 }
 
-export const decorators = (story => {
-    return <>
-        <GlobalStyle/>
-        {story()}
-    </>
-});
+// export const decorators = (story => {
+//     return (
+//         <>
+//             <GlobalStyle/>
+//             {story()}
+//         </>
+//     )
+// });
+
+// export const decorators = [
+//     (Story) => (
+//         <>
+//             <GlobalStyle />
+//             <Story />
+//         </>
+//     ),
+// ];
 
 export const parameters = {
     layout: 'fullscreen',

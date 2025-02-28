@@ -1,7 +1,7 @@
 import React from 'react';
 import {PrimaryNavItem} from './index';
 import {Edit, Person, Power, Workflow} from '~/icons';
-import markdownNotes from './PrimaryNavItem.md';
+import markdownNotes from './PrimaryNavItem.md?raw';
 import {Badge, Button} from '~/components';
 
 export default {

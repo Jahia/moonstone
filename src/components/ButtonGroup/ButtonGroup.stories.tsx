@@ -1,7 +1,7 @@
 import React from 'react';
 import {StoryObj, Meta} from '@storybook/react';
 
-import markdownNotes from './ButtonGroup.md';
+import markdownNotes from './ButtonGroup.md?raw';
 import {ButtonGroup} from './index';
 import type {ButtonGroupProps} from './ButtonGroup.types';
 import {Button} from '~/components/Button';

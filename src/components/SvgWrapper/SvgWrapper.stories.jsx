@@ -1,6 +1,6 @@
 import React from 'react';
 import {SvgWrapper} from './index';
-import markdownNotes from './SvgWrapper.md';
+import markdownNotes from './SvgWrapper.md?raw';
 import '~/__storybook__/storybook.scss';
 
 const svg = (

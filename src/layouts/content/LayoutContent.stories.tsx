@@ -1,4 +1,7 @@
 import React from 'react';
+import type { Meta, StoryFn } from '@storybook/react';
+import type {LayoutContentProps} from './LayoutContent.types';
+
 import {LayoutContent} from '~/layouts';
 import {Header} from '~/components';
 import {FakeContent} from '~/__storybook__/FakeComponents';
@@ -21,14 +24,14 @@ export default {
             control: false
         }
     }
-};
+} as Meta<typeof LayoutContent>;
 
-const Template = args => (
+const Template: StoryFn<LayoutContentProps> = args => (
     <LayoutContent
-    header={<Header title="Header"/>}
-    content={<FakeContent/>}
-    {...args}
-  />
+        header={<Header title="Header"/>}
+        content={<FakeContent/>}
+        {...args}
+    />
 );
 
 export const Default = {

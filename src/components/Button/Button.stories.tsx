@@ -6,7 +6,7 @@ import {Button} from './index';
 import type {ButtonProps} from './Button.types';
 
 import {Love, OpenInNew} from '~/icons';
-import markdownNotes from './Button.md';
+import markdownNotes from './Button.md?raw';
 
 const meta: Meta<typeof Button> = {
     title: 'Components/Button',

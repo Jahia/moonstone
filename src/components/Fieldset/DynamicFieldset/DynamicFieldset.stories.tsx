@@ -3,7 +3,7 @@ import {StoryObj, Meta} from '@storybook/react';
 
 import {DynamicFieldset} from './index';
 import {Field, FieldSelector} from '~/components';
-import markdownNotes from './DynamicFieldset.md';
+import markdownNotes from './DynamicFieldset.md?raw';
 import {Button, Chip, Input} from '~/components';
 import {Add, Language, MoreVert} from '~/icons';
 import {useArgs} from '@storybook/preview-api';

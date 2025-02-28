@@ -3,7 +3,7 @@ import {StoryObj, Meta} from '@storybook/react';
 
 import {EmptyCardSelector} from './index';
 import type {EmptyCardSelectorProps} from './EmptyCardSelector.types';
-import markdownNotes from './EmptyCardSelector.md';
+import markdownNotes from './EmptyCardSelector.md?raw';
 import {File} from '~/icons';
 
 const meta: Meta<typeof EmptyCardSelector> = {

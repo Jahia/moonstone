@@ -1,4 +1,6 @@
-export const treeDataFlat = [
+import type {TreeViewData} from '~/components/TreeView/TreeView.types';
+
+export const treeDataFlat: TreeViewData[] = [
     {id: 'A1', label: 'A-1 level1'},
     {id: 'A2', label: 'A-2 level1'},
     {id: 'A3', label: 'A-3 level1'},

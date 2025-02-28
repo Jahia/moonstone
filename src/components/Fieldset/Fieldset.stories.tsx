@@ -3,7 +3,7 @@ import {StoryObj, Meta} from '@storybook/react';
 
 import {Fieldset} from './index';
 import {Field, FieldBoolean, FieldSelector} from '~/components';
-import markdownNotes from './Fieldset.md';
+import markdownNotes from './Fieldset.md?raw';
 import {Button, Chip, Input, Dropdown, RadioGroup, RadioItem, CardSelector, EmptyCardSelector, Textarea} from '~/components';
 import {Add, Close, Language, MoreVert, File} from '~/icons';
 

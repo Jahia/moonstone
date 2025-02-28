@@ -1,10 +1,13 @@
 import React from 'react';
+import type { Meta, StoryFn } from '@storybook/react';
+import type {LayoutAppProps} from './LayoutApp.types';
 import {LayoutApp} from './index';
 import {
     FakePrimaryNavigation,
     FakeContent
 } from '~/__storybook__/FakeComponents';
-import markdownNotes from './LayoutApp.md';
+import markdownNotes from './LayoutApp.md?raw';
+
 
 export default {
     title: 'Layouts/LayoutApp',
@@ -21,14 +24,14 @@ export default {
             control: false
         }
     }
-};
+} as Meta<typeof LayoutApp>;
 
-const Template = args => (
+const Template: StoryFn<LayoutAppProps> = args => (
     <LayoutApp
-    navigation={<FakePrimaryNavigation/>}
-    content={<FakeContent/>}
-    {...args}
-  />
+        navigation={<FakePrimaryNavigation/>}
+        content={<FakeContent/>}
+        {...args}
+    />
 );
 
 export const Default = {

@@ -2,7 +2,7 @@ import React from 'react';
 import {StoryObj, Meta} from '@storybook/react';
 
 import {FieldBoolean} from './index';
-import markdownNotes from './FieldBoolean.md';
+import markdownNotes from './FieldBoolean.md?raw';
 import {Button, Chip} from '~/components';
 import {Language, MoreVert} from '~/icons';
 

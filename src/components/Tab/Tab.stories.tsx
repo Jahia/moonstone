@@ -6,7 +6,7 @@ import type {TabProps} from './Tab.types';
 
 import {TabItem} from './TabItem';
 import {Apps} from '~/icons';
-import markdownNotes from './Tab.md';
+import markdownNotes from './Tab.md?raw';
 
 export default {
     title: 'Components/Tab',
@@ -29,6 +29,7 @@ export const _Tab: StoryObj<TabProps> = {
         return (
             <Tab {...args}>
                 <TabItem
+                    isReversed
           isSelected={selectedTabItemLabel === 'Tab 1'}
           icon={<Apps/>}
           label="Tab 1"

@@ -2,7 +2,7 @@ import {Meta} from '@storybook/react';
 
 import {Badge} from './index';
 
-import markdownNotes from './Badge.md';
+import markdownNotes from './Badge.md?raw';
 
 export default {
     title: 'Components/Badge',

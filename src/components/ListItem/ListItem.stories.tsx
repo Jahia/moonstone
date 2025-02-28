@@ -1,6 +1,6 @@
 import React from 'react';
 import {StoryObj} from '@storybook/react';
-import markdownNotes from './ListItem.md';
+import markdownNotes from './ListItem.md?raw';
 
 import {ListItem} from './index';
 import type {ListItemProps} from './ListItem.types';

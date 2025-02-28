@@ -5,7 +5,7 @@ import {Accordion} from './index';
 import {AccordionItem} from '~/components/Accordion/AccordionItem';
 import type {AccordionProps} from './Accordion.types';
 
-import markdownNotes from './Accordion.md';
+import markdownNotes from './Accordion.md?raw';
 import {Love, BarSquare, Bug} from '~/icons';
 
 const accordionIds = ['01', '02', '03'];

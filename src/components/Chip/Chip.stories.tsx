@@ -6,7 +6,7 @@ import {Chip} from './index';
 import type {ChipProps} from './Chip.types';
 
 import {Cloud, Delete, File, Lock, NoCloud, Warning, CloudCheck, Build, Edit, Subdirectory} from '~/icons';
-import markdownNotes from './Chip.md';
+import markdownNotes from './Chip.md?raw';
 
 export default {
     title: 'Components/Chip',

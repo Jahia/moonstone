@@ -40,9 +40,7 @@ export const FakeSecondaryNavigation = ({...props}) => {
     );
 };
 
-export const FakeContent = ({
-    ...props
-}) => {
+export const FakeContent = ({...props}) => {
     return (
         <p
             style={{

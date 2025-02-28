@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 // Import {withKnobs, select, color} from '@storybook/addon-knobs';
 import '~/__storybook__/storybook.scss';
 
-import markdownNotes from './Icons.md';
+import markdownNotes from './Icons.md?raw';
 import * as Icons from '~/icons/components';
 import {Love} from '~/icons';
 

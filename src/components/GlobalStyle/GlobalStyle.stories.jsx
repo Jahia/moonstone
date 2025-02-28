@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import markdownNotes from './GlobalStyle_layout.md';
+import markdownNotes from './GlobalStyle_layout.md?raw';
 import clsx from 'clsx';
 
 const justifyOptions = [null, 'center', 'reverse', 'between', 'nowrap'];
