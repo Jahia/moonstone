@@ -59,7 +59,7 @@ describe('NavItem', () => {
 
     it('should call onClick function', async () => {
         const user = userEvent.setup();
-        const onClick = jest.fn();
+        const onClick = vi.fn();
 
         render(<PrimaryNav top={<PrimaryNavItem label="test me" onClick={onClick}/>}/>);
         await user.click(screen.getByText('test me'));

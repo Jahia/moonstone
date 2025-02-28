@@ -24,7 +24,7 @@ describe('AccordionItem', () => {
     it('should accept reversed accordion', () => {
         render(
             <AccordionContext.Provider value={{
-                onSetOpenedItemId: jest.fn(),
+                onSetOpenedItemId: vi.fn(),
                 currentItem: 'not correspond',
                 isReversed: true
             }}
@@ -40,11 +40,11 @@ describe('AccordionItem', () => {
     });
 
     it('should not display children when id in context not correspond', () => {
-        const handleOnClick = jest.fn();
+        const handleOnClick = vi.fn();
 
         render(
             <AccordionContext.Provider value={{
-                onSetOpenedItemId: jest.fn(),
+                onSetOpenedItemId: vi.fn(),
                 currentItem: 'not correspond'
             }}
             >
@@ -61,11 +61,11 @@ describe('AccordionItem', () => {
     });
 
     it('should display children when id in context correspond', () => {
-        const handleOnClick = jest.fn();
+        const handleOnClick = vi.fn();
 
         render(
             <AccordionContext.Provider value={{
-                onSetOpenedItemId: jest.fn(),
+                onSetOpenedItemId: vi.fn(),
                 currentItem: 'id'
             }}
             >
@@ -85,11 +85,11 @@ describe('AccordionItem', () => {
 
     it('should call onClick when click on item', async () => {
         const user = userEvent.setup();
-        const handleOnClick = jest.fn();
+        const handleOnClick = vi.fn();
 
         render(
             <AccordionContext.Provider value={{
-                onSetOpenedItem: jest.fn(),
+                onSetOpenedItem: vi.fn(),
                 currentItem: 'not correspond'
             }}
             >
@@ -117,7 +117,7 @@ describe('AccordionItem', () => {
 
         render(
             <AccordionContext.Provider value={{
-                onSetOpenedItem: jest.fn(),
+                onSetOpenedItem: vi.fn(),
                 currentItem: 'not correspond'
             }}
             >
@@ -144,7 +144,7 @@ describe('AccordionItem', () => {
 
         render(
             <AccordionContext.Provider value={{
-                onSetOpenedItem: jest.fn(),
+                onSetOpenedItem: vi.fn(),
                 currentItem: 'id'
             }}
             >
@@ -167,7 +167,7 @@ describe('AccordionItem', () => {
 
         render(
             <AccordionContext.Provider value={{
-                onSetOpenedItem: jest.fn(),
+                onSetOpenedItem: vi.fn(),
                 currentItem: 'id'
             }}
             >

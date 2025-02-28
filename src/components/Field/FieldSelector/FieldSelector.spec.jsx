@@ -33,7 +33,7 @@ describe('FieldSelector', () => {
     });
 
     it('should call onClick when button is clicked', async () => {
-        const onClick = jest.fn();
+        const onClick = vi.fn();
         render(<FieldSelector buttons={<Button label="Click me" onClick={onClick}/>} selector={<textarea placeholder="Input value"/>}/>);
         await userEvent.click(screen.getByRole('button', {label: /Click me/i}));
         expect(onClick).toHaveBeenCalled();

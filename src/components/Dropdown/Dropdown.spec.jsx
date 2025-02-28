@@ -76,7 +76,7 @@ describe('Dropdown', () => {
 
     it('should call onChange when I select a value', async () => {
         const user = userEvent.setup();
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         render(<Dropdown hasSearch label="select something" data={dropdownDataGrouped} values={['4']} onChange={onChange}/>);
 
         await user.click(screen.getByRole('dropdown'));
@@ -151,14 +151,14 @@ describe('Dropdown', () => {
     });
 
     it('should display the reset button', () => {
-        const onClear = jest.fn();
+        const onClear = vi.fn();
         render(<Dropdown data={dropdownData} values={['4']} onClear={onClear}/>);
         expect(screen.getByRole('button', {name: /reset/i})).toHaveAttribute('aria-label', 'Reset');
     });
 
     it('should call onClear when the reset button is clicked', async () => {
         const user = userEvent.setup();
-        const onClear = jest.fn();
+        const onClear = vi.fn();
         render(<Dropdown data={dropdownData} values={['4']} onClear={onClear}/>);
         await user.click(screen.getByRole('button', {name: /reset/i}));
         expect(onClear).toHaveBeenCalled();
@@ -250,7 +250,7 @@ describe('DropdownMenu', () => {
     // it('should call handleKeyUp', async () => {
     //     let dData = dropdownDataGrouped;
     //     const user = userEvent.setup();
-    //     const handleKeyUp = jest.fn();
+    //     const handleKeyUp = vi.fn();
 
     //     render(<DropdownMenu isDisplayed hasSearch data={dData} handleKeyUp={handleKeyUp}/>);
     //     await user.keyboard('{Tab}');

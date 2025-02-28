@@ -33,7 +33,7 @@ describe('UncontrolledInput', () => {
 
     it('should call specified onClear function', async () => {
         const user = userEvent.setup();
-        const handleClear = jest.fn();
+        const handleClear = vi.fn();
 
         render(<SearchInput variant="search" defaultValue="test-default-value" onClear={handleClear}/>);
         await user.click(screen.getByLabelText('Reset'));
@@ -45,7 +45,7 @@ describe('UncontrolledInput', () => {
 describe('ControlledInput', () => {
     it('should call specified onClear function', async () => {
         const user = userEvent.setup();
-        const handleClear = jest.fn();
+        const handleClear = vi.fn();
 
         render(<SearchInput variant="search" value="test-value" onChange={() => null} onClear={handleClear}/>);
         await user.click(screen.getByLabelText('Reset'));

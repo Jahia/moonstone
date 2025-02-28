@@ -76,7 +76,7 @@ describe('CheckboxGroup', () => {
 
     it('should call onChange function', async () => {
         const user = userEvent.setup();
-        const handleOnChange = jest.fn((ev, value, checked) => [value, checked]);
+        const handleOnChange = vi.fn((ev, value, checked) => [value, checked]);
 
         render(
             <CheckboxGroup name="test-grouped-checkboxes" onChange={handleOnChange}>

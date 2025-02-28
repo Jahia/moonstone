@@ -19,7 +19,7 @@ describe('Checkbox', () => {
 
     it('should call onChange function with checked status', async () => {
         const user = userEvent.setup();
-        const handleOnChange = jest.fn((_, value, checked) => [value, checked]);
+        const handleOnChange = vi.fn((_, value, checked) => [value, checked]);
 
         render(<Checkbox data-testid="moonstone-checkbox" value="my-value" onChange={handleOnChange}/>);
         await user.click(screen.getByTestId('moonstone-checkbox'));
@@ -30,7 +30,7 @@ describe('Checkbox', () => {
 
     it('should call onChange function with checked status for controlled', async () => {
         const user = userEvent.setup();
-        const handleOnChange = jest.fn((_, value, checked) => [value, checked]);
+        const handleOnChange = vi.fn((_, value, checked) => [value, checked]);
 
         render(<Checkbox checked data-testid="moonstone-checkbox" onChange={handleOnChange}/>);
         await user.click(screen.getByTestId('moonstone-checkbox'));

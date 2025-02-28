@@ -8,7 +8,7 @@ const intersectionObserverMock = () => ({
     unobserve: () => null
 });
 
-window.IntersectionObserver = jest.fn().mockImplementation(intersectionObserverMock);
+window.IntersectionObserver = vi.fn().mockImplementation(intersectionObserverMock);
 
 describe('Collapsible', () => {
     it('should display additional className', () => {
@@ -52,7 +52,7 @@ describe('UncontrolledCollapsible', () => {
 
     it('should call the onClick function', async () => {
         const user = userEvent.setup();
-        const onClick = jest.fn();
+        const onClick = vi.fn();
 
         render(<Collapsible label="test" onClick={onClick}/>);
         await user.click(screen.getByRole('button'));
@@ -79,7 +79,7 @@ describe('ControlledCollapsible', () => {
 
     it('should call the onClick function', async () => {
         const user = userEvent.setup();
-        const onClick = jest.fn();
+        const onClick = vi.fn();
 
         render(<Collapsible isExpanded label="test" onClick={onClick}/>);
         await user.click(screen.getByRole('button'));

@@ -41,7 +41,7 @@ describe('MultipleLeftRightSelector', () => {
     });
 
     it('should display selection in right list', () => {
-        const mockOnChange = jest.fn(v => console.log(v));
+        const mockOnChange = vi.fn(v => console.log(v));
         const selection = ['1', '3'];
         const {container} = render(<ListSelector options={options} values={selection} onChange={mockOnChange}/>);
         expect(container.querySelectorAll('li[role="left-list"]')).toHaveLength(options.length - selection.length);
@@ -49,7 +49,7 @@ describe('MultipleLeftRightSelector', () => {
     });
 
     it('should pass all items when addAll button clicked', () => {
-        const mockOnChange = jest.fn(v => console.log(v));
+        const mockOnChange = vi.fn(v => console.log(v));
         const selection = ['1', '3'];
         const {container} = render(<ListSelector options={options} values={selection} onChange={mockOnChange}/>);
 
@@ -63,7 +63,7 @@ describe('MultipleLeftRightSelector', () => {
     });
 
     it('should filter items', () => {
-        const mockOnChange = jest.fn(v => console.log(v));
+        const mockOnChange = vi.fn(v => console.log(v));
         const {container} = render(<ListSelector options={options} onChange={mockOnChange}/>);
         expect(container.querySelectorAll('li[role="left-list"]')).toHaveLength(options.length);
 

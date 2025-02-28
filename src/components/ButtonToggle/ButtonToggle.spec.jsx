@@ -73,7 +73,7 @@ describe('ButtonToggle', () => {
 
     it('should prevent click when the button is loading', async () => {
         const user = userEvent.setup();
-        const onClick = jest.fn();
+        const onClick = vi.fn();
 
         render(<ButtonToggle isLoading data-testid="moonstone-button-toggle" label="test me" onClick={onClick}/>);
         await user.click(screen.getByTestId('moonstone-button-toggle'));
@@ -88,7 +88,7 @@ describe('ButtonToggle', () => {
 
     it('should call onClick function', async () => {
         const user = userEvent.setup();
-        const onClick = jest.fn();
+        const onClick = vi.fn();
 
         render(<ButtonToggle data-testid="moonstone-button-toggle" label="test me" onClick={onClick}/>);
         await user.click(screen.getByTestId('moonstone-button-toggle'));
@@ -98,7 +98,7 @@ describe('ButtonToggle', () => {
 
     it('should display as pressed when clicked', async () => {
         const user = userEvent.setup();
-        const onClick = jest.fn();
+        const onClick = vi.fn();
 
         render(<ButtonToggle data-testid="moonstone-button-toggle" label="test me" onClick={onClick}/>);
         await user.click(screen.getByTestId('moonstone-button-toggle'));
@@ -108,7 +108,7 @@ describe('ButtonToggle', () => {
 
     it('should display as default when clicked twice', async () => {
         const user = userEvent.setup();
-        const onClick = jest.fn();
+        const onClick = vi.fn();
 
         render(<ButtonToggle data-testid="moonstone-button-toggle" label="test me" onClick={onClick}/>);
         await user.click(screen.getByTestId('moonstone-button-toggle'));
@@ -119,7 +119,7 @@ describe('ButtonToggle', () => {
 
     it('should call onChange function', async () => {
         const user = userEvent.setup();
-        const handleOnChange = jest.fn();
+        const handleOnChange = vi.fn();
 
         render(<ButtonToggle data-testid="moonstone-button-toggle" label="test me" onChange={handleOnChange}/>);
         await user.click(screen.getByTestId('moonstone-button-toggle'));

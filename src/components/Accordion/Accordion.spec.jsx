@@ -63,7 +63,7 @@ describe('Accordion', () => {
         beforeAll(() => {
             // As we are mocking, we won't be good enough for propTypes, so ignore them
             console.oldError = console.error;
-            console.error = jest.fn();
+            console.error = vi.fn();
         });
 
         afterAll(() => {

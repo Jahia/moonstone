@@ -17,7 +17,7 @@ describe('Switch', () => {
 
     it('should call onChange function with checked status', async () => {
         const user = userEvent.setup();
-        const handleOnChange = jest.fn((_, value, checked) => [value, checked]);
+        const handleOnChange = vi.fn((_, value, checked) => [value, checked]);
 
         render(<Switch data-testid="moonstone-switch" value="my-value" onChange={handleOnChange}/>);
         await user.click(screen.getByTestId('moonstone-switch'));
@@ -28,7 +28,7 @@ describe('Switch', () => {
 
     it('should call onChange function with checked status for controlled', async () => {
         const user = userEvent.setup();
-        const handleOnChange = jest.fn((_, value, checked) => [value, checked]);
+        const handleOnChange = vi.fn((_, value, checked) => [value, checked]);
 
         render(<Switch checked data-testid="moonstone-switch" onChange={handleOnChange}/>);
         await user.click(screen.getByTestId('moonstone-switch'));

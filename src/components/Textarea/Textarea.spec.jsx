@@ -69,7 +69,7 @@ describe('UncontrolledTextarea', () => {
 
     it('should call specified onChange function', async () => {
         const user = userEvent.setup();
-        const handleChange = jest.fn();
+        const handleChange = vi.fn();
 
         render(<Textarea data-testid="moonstone-textarea" defaultValue="test-default-value" onChange={handleChange}/>);
         await user.type(screen.getByTestId('moonstone-textarea'), '1');
@@ -92,7 +92,7 @@ describe('UncontrolledTextarea', () => {
 
         it('should call specified onChange function', async () => {
             const user = userEvent.setup();
-            const handleChange = jest.fn();
+            const handleChange = vi.fn();
 
             render(<Textarea data-testid="moonstone-textarea" value="test-value" onChange={handleChange}/>);
             await user.type(screen.getByTestId('moonstone-textarea'), '1');

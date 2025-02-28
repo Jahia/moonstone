@@ -69,7 +69,7 @@ describe('Button', () => {
 
     it('should prevent click when the button is loading', async () => {
         const user = userEvent.setup();
-        const onClick = jest.fn();
+        const onClick = vi.fn();
 
         render(<Button isLoading data-testid="moonstone-button" label="test me" onClick={onClick}/>);
         await user.click(screen.getByTestId('moonstone-button'));
@@ -99,7 +99,7 @@ describe('Button', () => {
 
     it('should call onClick function', async () => {
         const user = userEvent.setup();
-        const onClick = jest.fn();
+        const onClick = vi.fn();
 
         render(<Button data-testid="moonstone-button" label="test me" onClick={onClick}/>);
         await user.click(screen.getByTestId('moonstone-button'));

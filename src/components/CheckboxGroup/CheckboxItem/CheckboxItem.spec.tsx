@@ -42,7 +42,7 @@ describe('CheckboxItem', () => {
 
     it('should call onChange function', async () => {
         const user = userEvent.setup();
-        const handleOnChange = jest.fn();
+        const handleOnChange = vi.fn();
 
         render(
             <CheckboxItem {...initProps} data-testid="moonstone-checkboxItem" onChange={() => handleOnChange()}/>

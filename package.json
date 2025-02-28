@@ -97,6 +97,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "jsdom": "^26.0.0",
     "mini-css-extract-plugin": "^2.9.2",
     "mkdir-recursive": "^0.4.0",
     "postcss": "^8.5.3",
@@ -119,6 +120,7 @@
     "typescript": "^5.7.3",
     "vite": "^6.2.0",
     "vite-plugin-md": "^0.21.5",
+    "vitest": "^3.0.7",
     "webpack": "^5.98.0",
     "webpack-cli": "^6.0.1",
     "webpack-node-externals": "^3.0.0"

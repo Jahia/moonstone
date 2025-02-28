@@ -60,7 +60,7 @@ describe('SecondaryNav', () => {
 
     it('should call onToggled when clicking on expand button', async () => {
         const user = userEvent.setup();
-        const clickHandler = jest.fn();
+        const clickHandler = vi.fn();
 
         render(<SecondaryNav onToggled={clickHandler}>content here</SecondaryNav>);
         await user.click(screen.getByRole('secondary-nav-control'));

@@ -96,7 +96,7 @@ describe('TablePagination', () => {
 
     it('should call onPageChange when first page button is clicked', async () => {
         const user = userEvent.setup();
-        const onPageChange = jest.fn();
+        const onPageChange = vi.fn();
         const {container} = render(<TablePagination data-testid="table-pagination" currentPage={3} onPageChange={onPageChange}/>);
         await user.click(container.querySelector('[data-sel-role="table-pagination-button-first-page"]'));
         expect(onPageChange).toHaveBeenCalled();
@@ -104,7 +104,7 @@ describe('TablePagination', () => {
 
     it('should call onPageChange when previous page button is clicked', async () => {
         const user = userEvent.setup();
-        const onPageChange = jest.fn();
+        const onPageChange = vi.fn();
         const {container} = render(<TablePagination data-testid="table-pagination" currentPage={3} onPageChange={onPageChange}/>);
         await user.click(container.querySelector('[data-sel-role="table-pagination-button-previous-page"]'));
         expect(onPageChange).toHaveBeenCalled();
@@ -112,7 +112,7 @@ describe('TablePagination', () => {
 
     it('should call onPageChange when next page button is clicked', async () => {
         const user = userEvent.setup();
-        const onPageChange = jest.fn();
+        const onPageChange = vi.fn();
         const {container} = render(<TablePagination data-testid="table-pagination" currentPage={3} onPageChange={onPageChange}/>);
         await user.click(container.querySelector('[data-sel-role="table-pagination-button-next-page"]'));
         expect(onPageChange).toHaveBeenCalled();
@@ -120,7 +120,7 @@ describe('TablePagination', () => {
 
     it('should call onPageChange when last page button is clicked', async () => {
         const user = userEvent.setup();
-        const onPageChange = jest.fn();
+        const onPageChange = vi.fn();
         const {container} = render(<TablePagination data-testid="table-pagination" currentPage={3} onPageChange={onPageChange}/>);
         await user.click(container.querySelector('[data-sel-role="table-pagination-button-last-page"]'));
         expect(onPageChange).toHaveBeenCalled();

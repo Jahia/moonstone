@@ -11,7 +11,7 @@ describe('Tag', () => {
 
     it('should call the onClick function', async () => {
         const user = userEvent.setup();
-        const onClick = jest.fn();
+        const onClick = vi.fn();
 
         render(<Tag label="tag" onClick={onClick}/>);
         await user.click(screen.getByText('tag'));

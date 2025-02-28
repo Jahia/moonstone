@@ -50,7 +50,7 @@ describe('UncontrolledDynamicFieldset', () => {
 
     it('should call specified onChange function', async () => {
         const user = userEvent.setup();
-        const handleChange = jest.fn();
+        const handleChange = vi.fn();
 
         render(<DynamicFieldset defaultChecked data-testid="dynamic-fieldset" onChange={handleChange}/>);
         await user.click(screen.getByRole('checkbox'), '1');
@@ -67,7 +67,7 @@ describe('ControlledDynamicFieldset', () => {
 
     it('should call specified onChange function', async () => {
         const user = userEvent.setup();
-        const handleChange = jest.fn();
+        const handleChange = vi.fn();
 
         render(<DynamicFieldset checked data-testid="dynamic-fieldset" onChange={handleChange}/>);
         await user.click(screen.getByRole('checkbox'), '1');

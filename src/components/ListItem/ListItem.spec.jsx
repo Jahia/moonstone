@@ -39,7 +39,7 @@ describe('ListItem', () => {
 
     it('should call onClick when click on an item', async () => {
         const user = userEvent.setup();
-        const handleClick = jest.fn();
+        const handleClick = vi.fn();
 
         render(<ListItem label="my label" onClick={handleClick}/>);
         await user.click(screen.getByText('my label'));

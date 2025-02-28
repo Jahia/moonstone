@@ -45,7 +45,7 @@ describe('UncontrolledSearchContextInput', () => {
 
     it('should call specified onChange function', async () => {
         const user = userEvent.setup();
-        const handleChange = jest.fn();
+        const handleChange = vi.fn();
 
         render(<SearchContextInput data-testid="moonstone-input" defaultValue="test-default-value" onChange={handleChange}/>);
         await user.type(screen.getByTestId('moonstone-input'), '1');
@@ -55,7 +55,7 @@ describe('UncontrolledSearchContextInput', () => {
 
     it('should call specified onClear function', async () => {
         const user = userEvent.setup();
-        const handleClear = jest.fn();
+        const handleClear = vi.fn();
 
         render(<SearchContextInput defaultValue="test-default-value" onClear={handleClear}/>);
         await user.click(screen.getByLabelText('Reset'));
@@ -67,7 +67,7 @@ describe('UncontrolledSearchContextInput', () => {
 describe('ControlledSearchContextInput', () => {
     it('should call specified onChange function', async () => {
         const user = userEvent.setup();
-        const handleChange = jest.fn();
+        const handleChange = vi.fn();
 
         render(<SearchContextInput data-testid="moonstone-input" value="test-value" onChange={handleChange}/>);
         await user.type(screen.getByTestId('moonstone-input'), '1');
@@ -77,7 +77,7 @@ describe('ControlledSearchContextInput', () => {
 
     it('should call specified onClear function', async () => {
         const user = userEvent.setup();
-        const handleClear = jest.fn();
+        const handleClear = vi.fn();
 
         render(<SearchContextInput value="test-value" onChange={() => null} onClear={handleClear}/>);
         await user.click(screen.getByLabelText('Reset'));

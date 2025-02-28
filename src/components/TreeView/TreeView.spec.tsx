@@ -82,7 +82,7 @@ describe('TreeView', () => {
 
     it('should call onClick when clicking on an item', async () => {
         const user = userEvent.setup();
-        const clickHandler = jest.fn();
+        const clickHandler = vi.fn();
 
         render(<TreeView data={tree} onClickItem={clickHandler}/>);
         await user.click(screen.getByText('A level1'));
@@ -92,7 +92,7 @@ describe('TreeView', () => {
 
     it('should not call onClick when clicking on an disabled item', async () => {
         const user = userEvent.setup();
-        const clickHandler = jest.fn();
+        const clickHandler = vi.fn();
 
         render(<TreeView data={[{...tree[0], isDisabled: true}]} onClickItem={clickHandler}/>);
         await user.click(screen.getByText('A level1'));
@@ -102,7 +102,7 @@ describe('TreeView', () => {
 
     it('should not call onClick when clicking on an readonly item', async () => {
         const user = userEvent.setup();
-        const clickHandler = jest.fn();
+        const clickHandler = vi.fn();
 
         render(<TreeView data={[{...tree[0], isReadonly: true}]} onClickItem={clickHandler}/>);
         await user.click(screen.getByText('A level1'));
@@ -112,8 +112,8 @@ describe('TreeView', () => {
 
     it('should call onOpenItem when the node opens', async () => {
         const user = userEvent.setup();
-        const openHandler = jest.fn();
-        const closeHandler = jest.fn();
+        const openHandler = vi.fn();
+        const closeHandler = vi.fn();
         const {container} = render(<TreeView data={tree} onOpenItem={openHandler} onCloseItem={closeHandler}/>);
 
         await user.click(container.querySelector('.moonstone-treeView_itemToggle'));
@@ -124,8 +124,8 @@ describe('TreeView', () => {
 
     it('should call onCloseItem when the node closes', async () => {
         const user = userEvent.setup();
-        const openHandler = jest.fn();
-        const closeHandler = jest.fn();
+        const openHandler = vi.fn();
+        const closeHandler = vi.fn();
         const {container} = render(<TreeView data={tree} openedItems={['A']} onOpenItem={openHandler} onCloseItem={closeHandler}/>);
 
         await user.click(container.querySelector('.moonstone-treeView_itemToggle'));
@@ -179,7 +179,7 @@ describe('Uncontrolled TreeView', () => {
 
     it('should open a node by clicking on arrow icon when onClickItem function is provided', async () => {
         const user = userEvent.setup();
-        const clickHandler = jest.fn();
+        const clickHandler = vi.fn();
         const {container} = render(<TreeView data={tree} onClickItem={clickHandler}/>);
 
         await user.click(container.querySelector('.moonstone-treeView_itemToggle'));
@@ -198,7 +198,7 @@ describe('Uncontrolled TreeView', () => {
 
     it('should close a node by clicking on arrow icon when onClickItem function is provided', async () => {
         const user = userEvent.setup();
-        const clickHandler = jest.fn();
+        const clickHandler = vi.fn();
         const {container} = render(<TreeView data={tree} defaultOpenedItems={['A']} onClickItem={clickHandler}/>);
 
         await user.click(container.querySelector('.moonstone-treeView_itemToggle'));
@@ -217,8 +217,8 @@ describe('Uncontrolled TreeView', () => {
 
     it('should call onCloseItem when the node closes', async () => {
         const user = userEvent.setup();
-        const openHandler = jest.fn();
-        const closeHandler = jest.fn();
+        const openHandler = vi.fn();
+        const closeHandler = vi.fn();
         const {container} = render(<TreeView data={tree} defaultOpenedItems={['A']} onOpenItem={openHandler} onCloseItem={closeHandler}/>);
 
         await user.click(container.querySelector('.moonstone-treeView_itemToggle'));

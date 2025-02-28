@@ -114,7 +114,7 @@ describe('UnControlledRadioGroup', () => {
 
     it('should call specified onChange function', async () => {
         const user = userEvent.setup();
-        const handleChange = jest.fn();
+        const handleChange = vi.fn();
 
         render(
             <RadioGroup defaultValue="02" name="test-name" onChange={handleChange}>

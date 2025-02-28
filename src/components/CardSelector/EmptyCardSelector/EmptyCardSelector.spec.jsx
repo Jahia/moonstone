@@ -23,7 +23,7 @@ describe('EmptyCardSelector', () => {
 
     it('should call onClick when clicked', async () => {
         const user = userEvent.setup();
-        const onClick = jest.fn();
+        const onClick = vi.fn();
 
         render(<EmptyCardSelector data-testid="card-selector" onClick={onClick}/>);
         await user.click(screen.getByTestId('card-selector'));
@@ -43,7 +43,7 @@ describe('EmptyCardSelector', () => {
 
     it('should not call onClick when disabled', async () => {
         const user = userEvent.setup();
-        const onClick = jest.fn();
+        const onClick = vi.fn();
 
         render(<EmptyCardSelector isDisabled data-testid="card-selector" onClick={onClick}/>);
         await user.click(screen.getByTestId('card-selector'));
