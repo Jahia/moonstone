@@ -21,13 +21,13 @@
 
 .moonstone-disabled {
     & > .moonstone-treeView_item {
-        @include is-disabled;
+        @extend %is-disabled;
 
-        pointer-events: none;
+        // pointer-events: none;
 
-        &:hover {
-            pointer-events: none;
-        }
+        // &:hover {
+        //     pointer-events: none;
+        // }
     }
 }
 
@@ -40,13 +40,7 @@
     cursor: pointer;
 
     &.moonstone-disabled {
-        @include is-disabled;
-
-        pointer-events: none;
-
-        &:hover {
-            pointer-events: none;
-        }
+        @extend %is-disabled;
     }
 
     // ---

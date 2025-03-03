@@ -43,11 +43,8 @@ $minHeight-size: 50px;
         }
     }
 
-    &:disabled {
-        color: var(--color-gray);
-
-        background-color: var(--color-gray_light40);
-        cursor: default;
-        opacity: 1; // Reset iOS opacity
+    &:disabled,
+    &:read-only {
+        @extend %is-disabled;
     }
 }
