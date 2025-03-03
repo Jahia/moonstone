@@ -7,7 +7,7 @@ import {Love} from '~/icons';
 describe('TabItem', () => {
     it('should render', () => {
         render(<TabItem/>);
-        expect(screen.getByRole('button')).toHaveClass('moonstone-tab-item');
+        expect(screen.getByRole('button')).toHaveClass('moonstone-tabItem');
     });
 
     it('should have the specified label', () => {
@@ -37,16 +37,6 @@ describe('TabItem', () => {
         expect(screen.queryByTestId('svg')).toBeInTheDocument();
     });
 
-    it('should use the variant ghost by default', () => {
-        render(<TabItem data-testid="tab-item"/>);
-        expect(screen.getByTestId('tab-item')).toHaveClass('moonstone-variant_ghost');
-    });
-
-    it('should use the specified variant', () => {
-        render(<TabItem data-testid="tab-item" variant="outlined"/>);
-        expect(screen.getByTestId('tab-item')).toHaveClass('moonstone-variant_outlined');
-    });
-
     it('should use the reverse mode', () => {
         render(<TabItem isReversed data-testid="tab-item"/>);
         expect(screen.getByTestId('tab-item')).toHaveClass('moonstone-reverse');
@@ -59,32 +49,22 @@ describe('TabItem', () => {
 
     it('should be selected', () => {
         render(<TabItem isSelected data-testid="tab-item"/>);
-        expect(screen.getByTestId('tab-item')).toHaveClass('moonstone-selected');
+        expect(screen.getByTestId('tab-item')).toHaveClass('moonstone-tabItem_selected');
     });
 
     it('should not be selected', () => {
         render(<TabItem isSelected={false} data-testid="tab-item"/>);
-        expect(screen.getByTestId('tab-item')).not.toHaveClass('moonstone-selected');
-    });
-
-    it('should use the color default', () => {
-        render(<TabItem data-testid="tab-item"/>);
-        expect(screen.getByTestId('tab-item')).toHaveClass('moonstone-color_default');
-    });
-
-    it('should use the specified color', () => {
-        render(<TabItem data-testid="tab-item" color="accent"/>);
-        expect(screen.getByTestId('tab-item')).toHaveClass('moonstone-color_accent');
+        expect(screen.getByTestId('tab-item')).not.toHaveClass('moonstone-tabItem_selected');
     });
 
     it('should use the default size', () => {
         render(<TabItem data-testid="tab-item"/>);
-        expect(screen.getByTestId('tab-item')).toHaveClass('moonstone-size_default');
+        expect(screen.getByTestId('tab-item')).toHaveClass('moonstone-tabItem_default');
     });
 
     test.each(tabItemSizes)('should use the specified size', size => {
         render(<TabItem data-testid="tab-item" size={size}/>);
-        expect(screen.getByTestId('tab-item')).toHaveClass(`moonstone-size_${size}`);
+        expect(screen.getByTestId('tab-item')).toHaveClass(`moonstone-tabItem_${size}`);
     });
 
     it('should have extra attribute', () => {
