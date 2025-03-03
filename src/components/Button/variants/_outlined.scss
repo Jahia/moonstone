@@ -10,7 +10,7 @@
     border: 1px solid var(--color-gray_dark);
     background-color: transparent;
 
-    &.moonstone-color_default {
+    &.moonstone-button_outlined {
         &:hover:not(:disabled) {
             color: var(--color-accent);
 
@@ -41,7 +41,7 @@
         }
     }
 
-    &.moonstone-color_accent {
+    &.moonstone-button_outlined_accent {
         color: var(--color-accent);
 
         border-color: var(--color-accent);
@@ -65,7 +65,7 @@
         }
     }
 
-    &.moonstone-color_danger {
+    &.moonstone-button_outlined_danger {
         color: var(--color-danger);
 
         border-color: var(--color-danger);

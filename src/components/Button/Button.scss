@@ -1,58 +1,81 @@
 @use "variants/default";
-@use "variants/ghost";
 @use "variants/outlined";
 @use "../../tokens/spacings/spacings" as *;
+@use "../../globals/variants";
 
+$colors: "default", "accent", "danger";
 $button-size_small: 16px;
 $button-size_medium: 24px;
 $button-size_big: 32px;
 
 .moonstone-button {
-    display: inline-flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    @extend %variant_default;
+
     width: fit-content;
     height: $button-size_medium;
     padding: 0 var(--spacing-small);
 
     font-family: inherit;
 
+    border: solid 1px var(--color-gray_dark);
+
     border-radius: var(--radius);
 
     outline: none;
     cursor: pointer;
 
-    &:hover,
-    &:focus,
+    &:hover {
+        color: var(--color-accent);
+
+        border-color: var(--color-accent);
+    }
+
+    &:focus {
+        color: var(--color-accent_dark);
+
+        border-color: var(--color-accent_dark);
+    }
+
     &:active {
-        box-shadow: 0 var(--spacing-nano) var(--spacing-small) var(--color-dark20);
+        color: var(--color-white);
+
+        border-color: var(--color-white);
+        background-color: var(--color-accent);
     }
 
-    &.moonstone-size_big {
-        height: $button-size_big;
-        padding: 0 var(--spacing-medium);
-    }
+    &:disabled {
+        color: var(--color-gray_dark);
 
-    &.moonstone-size_small {
-        height: $button-size_small;
-        padding: 0 var(--spacing-nano);
+        border-color: var(--color-gray_light);
+        background-color: var(--color-gray_light);
 
-        > * {
-            line-height: $button-size_small - 2px;
+        box-shadow: none;
+        cursor: not-allowed;
+        opacity: 0.4;
+
+        &.moonstone-reverse {
+            color: var(--color-white);
+
+            background-color: var(--color-gray);
         }
     }
 
-    &.moonstone-variant_default {
-        @extend %variant_default;
-    }
-
-    &.moonstone-variant_outlined {
+    &.moonstone-button_outlined,
+    &.moonstone-button_outlined_accent,
+    &.moonstone-button_outlined_danger {
         @extend %variant_outlined;
     }
 
-    &.moonstone-variant_ghost {
+    &.moonstone-button_ghost {
         @extend %variant_ghost;
+    }
+
+    &.moonstone-button_ghost_accent {
+        @extend %variant_ghost_accent;
+    }
+
+    &.moonstone-button_ghost_danger {
+        @extend %variant_ghost_danger;
     }
 
     &.moonstone-icon-button {
@@ -80,11 +103,19 @@ $button-size_big: 32px;
             gap: $spacing-icon_big;
         }
     }
+}
 
-    &:disabled {
-        box-shadow: none;
-        cursor: not-allowed;
-        opacity: 0.4;
+.moonstone-button_big {
+    height: $button-size_big;
+    padding: 0 var(--spacing-medium);
+}
+
+.moonstone-button_small {
+    height: $button-size_small;
+    padding: 0 var(--spacing-nano);
+
+    > * {
+        line-height: $button-size_small - 2px;
     }
 }
 

@@ -42,14 +42,15 @@ export const Button = ({
         <button
             ref={ButtonEl}
             className={clsx(
-                'moonstone-button',
-                `moonstone-size_${size}`,
-                `moonstone-variant_${variant}`,
-                `moonstone-color_${color}`,
+                {'moonstone-button': (variant !== 'default' || color !== 'default')},
+                `moonstone-button_${size}`,
+                `moonstone-button${variant === 'default' ? '' : `_${variant}`}${color === 'default' ? '' : `_${color}`}`,
                 {'moonstone-icon': (label && (icon || iconEnd))},
                 {'moonstone-icon-button': !label},
                 {'moonstone-reverse': isReversed},
                 {'moonstone-button_loading': isLoading},
+                'flexRow_center',
+                'alignCenter',
                 className
             )}
             type="button"

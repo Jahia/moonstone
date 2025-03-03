@@ -47,8 +47,8 @@ describe('ButtonGroup', () => {
                 <Button label="One" onClick={() => null}/>
             </ButtonGroup>
         );
-        expect(screen.getByRole('group').firstChild).toHaveClass('moonstone-size_big');
-        expect(screen.getByRole('group').lastChild).toHaveClass('moonstone-size_big');
+        expect(screen.getByRole('group').firstChild).toHaveClass('moonstone-button_big');
+        expect(screen.getByRole('group').lastChild).toHaveClass('moonstone-button_big');
     });
 
     it('should add additional classname', () => {
