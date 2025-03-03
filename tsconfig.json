@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "rootDir": "src",
+    "skipLibCheck": true,
     "outDir": "dist",
     "sourceMap": true,
     "allowJs": false,
@@ -18,9 +19,9 @@
     "paths": {
       "~/*": ["*"]
     },
-    "typeRoots": ["types", "node_modules/@types", "node_modules/@testing-library"],
+    "types": ["vitest/globals", "@testing-library/jest-dom"],
     "resolveJsonModule": true
   },
-  "include": ["src"],
+  "include": ["src/**/*", "test/**/*", "vitest/globals.d.ts"],
   "exclude": ["node_modules", "build", "dist", "types"]
 }
