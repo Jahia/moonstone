@@ -25,9 +25,9 @@ export const ControlledTextarea = React.forwardRef<HTMLTextAreaElement, Controll
             placeholder={placeholder}
             disabled={isDisabled}
             readOnly={isReadOnly}
-            onChange={onChange}
-            onBlur={onBlur}
-            onFocus={onFocus}
+            onChange={(!isDisabled || !isReadOnly) && onChange}
+            onBlur={(!isDisabled || !isReadOnly) && onBlur}
+            onFocus={(!isDisabled || !isReadOnly) && onFocus}
             {...props}
         />
     );

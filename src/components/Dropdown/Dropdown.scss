@@ -22,12 +22,6 @@
 .moonstone-disabled {
     & > .moonstone-treeView_item {
         @extend %is-disabled;
-
-        // pointer-events: none;
-
-        // &:hover {
-        //     pointer-events: none;
-        // }
     }
 }
 
@@ -55,13 +49,13 @@
         border: var(--border-selector_active);
     }
 
-    &:hover {
-        color: var(--color-accent);
-    }
-
-    &:focus {
+    &:focus-visible {
         border: var(--border-selector_focus);
         outline: none;
+    }
+
+    &:hover:not(.moonstone-disabled) {
+        color: var(--color-accent);
     }
 
     &:not(.moonstone-filled) .moonstone-dropdown_label {
@@ -79,7 +73,7 @@
     border: var(--border-selector);
     background-color: var(--background-selector);
 
-    &:hover {
+    &:hover:not(.moonstone-disabled) {
         border: var(--border-selector_hover);
     }
 

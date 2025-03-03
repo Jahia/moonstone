@@ -171,7 +171,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             className={clsx('moonstone-dropdown_container', className)}
             {...props}
             onKeyPress={e => {
-                if (e.key === 'Enter') {
+                if (e.key === 'Enter' && !isDisabled) {
                     handleOpenMenu(e);
                 }
             }}
@@ -181,7 +181,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 role="dropdown"
                 className={clsx(cssDropdown)}
                 tabIndex={0}
-                onClick={handleOpenMenu}
+                onClick={!isDisabled && handleOpenMenu}
                 onKeyPress={(e: React.KeyboardEvent) => {
                     if (e.key === 'Enter') {
                         handleSelect(e);

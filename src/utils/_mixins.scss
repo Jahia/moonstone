@@ -16,9 +16,6 @@
 
     background-color: var(--color-gray_light40);
 
-    //won't work bc of pointer events none
     cursor: not-allowed;
     opacity: 0.6;
-
-    pointer-events: none;
 }
