@@ -27,7 +27,7 @@
     &.moonstone-reverse {
         color: var(--color-light);
 
-        &:focus:not(:disabled),
+        &:focus-visible:not(:disabled),
         &:hover:not(:disabled) {
             color: var(--color-accent_light);
 
@@ -58,7 +58,9 @@
 }
 
 %variant_ghost_accent {
-    @extend %variant_ghost;
+    border: 1px solid transparent;
+
+    background-color: transparent;
 
     color: var(--color-accent);
 
@@ -66,7 +68,7 @@
         color: var(--color-accent_dark);
     }
 
-    &:focus:not(:disabled) {
+    &:focus-visible:not(:disabled) {
         color: var(--color-accent_dark);
 
         border-color: var(--color-accent_dark);
@@ -85,7 +87,7 @@
             background-color: var(--color-accent40);
         }
 
-        &:focus:not(:disabled) {
+        &:focus-visible:not(:disabled) {
             color: var(--color-white);
 
             border-color: var(--color-white);
@@ -102,7 +104,10 @@
 }
 
 %variant_ghost_danger {
-    @extend %variant_ghost;
+
+    border: 1px solid transparent;
+
+    background-color: transparent;
 
     color: var(--color-danger);
 
@@ -110,7 +115,7 @@
         color: var(--color-danger);
     }
 
-    &:focus:not(:disabled) {
+    &:focus-visible:not(:disabled) {
         color: var(--color-danger);
 
         border-color: var(--color-danger);
@@ -129,7 +134,7 @@
             background-color: var(--color-danger40);
         }
 
-        &:focus:not(:disabled) {
+        &:focus-visible:not(:disabled) {
             color: var(--color-white);
 
             border-color: var(--color-white);
