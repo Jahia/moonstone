@@ -1,5 +1,6 @@
 @use '../../utils/index' as *;
 @use "../../tokens/spacings/spacings" as *;
+@use "../../globals/variants";
 
 .moonstone-dropdown_container {
     position: relative;
@@ -32,10 +33,11 @@
 }
 
 .moonstone-dropdown {
+    @extend %variant_ghost;
+
     gap: $spacing-icon;
     padding: var(--spacing-nano) var(--spacing-small);
 
-    border: var(--border-selector_invisible);
     border-radius: var(--radius-selector);
     cursor: pointer;
 
@@ -59,15 +61,6 @@
 
     &.moonstone-opened {
         border: var(--border-selector_active);
-    }
-
-    &:hover {
-        color: var(--color-accent);
-    }
-
-    &:focus {
-        border: var(--border-selector_focus);
-        outline: none;
     }
 
     &:not(.moonstone-filled) .moonstone-dropdown_label {

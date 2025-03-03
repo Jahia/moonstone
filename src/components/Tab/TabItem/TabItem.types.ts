@@ -3,12 +3,6 @@ import * as React from 'react';
 export const tabItemSizes = ['default', 'big'] as const;
 type TabItemSize = typeof tabItemSizes[number];
 
-export const tabItemVariants = ['ghost'] as const;
-type TabItemVariant = typeof tabItemVariants[number];
-
-export const tabItemColors = ['default'] as const;
-type TabItemColor = typeof tabItemColors[number];
-
 export type TabItemProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'onClick'| 'className'> & {
     /**
      * The component used for the root node
@@ -26,14 +20,6 @@ export type TabItemProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'onCli
      * Icon name, if it's empty the tabItem has no icon
      */
     icon?: React.ReactElement;
-    /**
-     * TabItem style
-     */
-    variant?: TabItemVariant;
-    /**
-     * TabItem color
-     */
-    color?: TabItemColor;
     /**
      * Whether the component should be disabled
      */

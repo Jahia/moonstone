@@ -45,7 +45,7 @@ describe('Button', () => {
 
     it('should use default styles', () => {
         render(<Button data-testid="moonstone-button" label="test me"/>);
-        expect(screen.getByTestId('moonstone-button')).toHaveClass('moonstone-variant_default', 'moonstone-size_default', 'moonstone-color_default');
+        expect(screen.getByTestId('moonstone-button')).toHaveClass('moonstone-button');
     });
 
     it('should use the reverse mode', () => {
@@ -84,17 +84,17 @@ describe('Button', () => {
 
     test.each(buttonVariants)('should use the specified variant %s', variant => {
         render(<Button data-testid="moonstone-button" variant={variant} label="test me"/>);
-        expect(screen.getByTestId('moonstone-button')).toHaveClass(`moonstone-variant_${variant}`);
+        expect(screen.getByTestId('moonstone-button')).toHaveClass(`moonstone-button_${variant}`);
     });
 
     test.each(buttonColors)('should use the specified color %s', color => {
         render(<Button data-testid="moonstone-button" color={color} label="test me"/>);
-        expect(screen.getByTestId('moonstone-button')).toHaveClass(`moonstone-color_${color}`);
+        expect(screen.getByTestId('moonstone-button')).toHaveClass(`moonstone-button_${color}`);
     });
 
     test.each(buttonSizes)('should use the specified size %s', size => {
         render(<Button data-testid="moonstone-button" size={size} label="test me"/>);
-        expect(screen.getByTestId('moonstone-button')).toHaveClass(`moonstone-size_${size}`);
+        expect(screen.getByTestId('moonstone-button')).toHaveClass(`moonstone-button_${size}`);
     });
 
     it('should call onClick function', async () => {

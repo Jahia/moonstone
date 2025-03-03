@@ -1,69 +1,64 @@
-@use 'variants/ghost' as *;
+@use "../../../globals/variants";
 @use "../../../tokens/spacings/spacings" as *;
 
 $big-tab-height: 32px;
+$selected-line-spacing: 6px;
+$selected-line-spacing-big: 20px;
 
-.moonstone-tab-item {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+.moonstone-tabItem {
+    @extend %variant_ghost;
+
     width: fit-content;
     margin: 0 var(--spacing-nano) calc(#{$selected-line-spacing} - 1px);
     padding: var(--spacing-nano) var(--spacing-small);
-
-    font-family: inherit;
 
     border-radius: var(--radius);
 
     outline: none;
     cursor: pointer;
+}
 
-    &:hover,
-    &:focus,
-    &:active {
-        box-shadow: 0 var(--spacing-nano) var(--spacing-small) var(--color-dark20);
+.moonstone-tabItem_icon {
+    margin-right: $spacing-icon;
+}
+
+.moonstone-tabItem_big {
+    height: $big-tab-height;
+
+    .moonstone-tabItem_icon {
+        margin-right: $spacing-icon_big;
     }
 
-    &.moonstone-size_big {
-        height: $big-tab-height;
+    &.moonstone-tabItem_selected::after {
+        bottom: calc(-1 * #{$selected-line-spacing-big});
     }
+}
 
-    &.moonstone-size_small {
-        padding: 0 var(--spacing-nano);
+.moonstone-tabItem_noLabel {
+    padding: var(--spacing-small);
+
+    &.moonstone-tabItem_default {
+        padding: $spacing-icon;
     }
+}
 
-    &.moonstone-variant_ghost {
-        @extend %variant_ghost;
-    }
+.moonstone-tabItem_selected {
+    position: relative;
 
-    &.moonstone-icon-tab-item {
-        padding: var(--spacing-small);
+    color: var(--color-accent);
 
-        border-radius: 40px;
+    border-color: transparent;
 
-        &.moonstone-size_small {
-            padding: $spacing-icon;
-        }
+    cursor: default;
 
-        &.moonstone-size_default {
-            padding: $spacing-icon;
-        }
-    }
+    &::after {
+        position: absolute;
+        bottom: calc(-1 * #{$selected-line-spacing});
 
-    &.moonstone-icon {
-        svg {
-            margin-right: $spacing-icon;
-        }
+        width: 100%;
+        height: 2px;
 
-        &.moonstone-size_big svg {
-            margin-right: $spacing-icon_big;
-        }
-    }
-
-    &:disabled {
-        box-shadow: none;
-        cursor: not-allowed;
-        opacity: 0.3;
+        background-color: var(--color-accent);
+        content: "";
     }
 }

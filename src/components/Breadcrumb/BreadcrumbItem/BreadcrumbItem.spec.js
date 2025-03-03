@@ -15,11 +15,11 @@ describe('BreadcrumbItem', () => {
 
     it('should enforce the ghost button\'s variant', () => {
         render(<BreadcrumbItem data-testid="breadcrumb-item" variant="outlined" onClick={() => null}/>);
-        expect(screen.getByRole('button')).toHaveClass('moonstone-variant_ghost');
+        expect(screen.getByRole('button')).toHaveClass('moonstone-button_ghost');
     });
 
     it('should enforce the small button\'s size', () => {
         render(<BreadcrumbItem data-testid="breadcrumb-item" size="big" onClick={() => null}/>);
-        expect(screen.getByRole('button')).toHaveClass('moonstone-size_small');
+        expect(screen.getByRole('button')).toHaveClass('moonstone-button_small');
     });
 });

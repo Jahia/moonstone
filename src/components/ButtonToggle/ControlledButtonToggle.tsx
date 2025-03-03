@@ -32,14 +32,16 @@ const ControlledButtonToggleForwardRef: React.ForwardRefRenderFunction<HTMLButto
         <button
             ref={ref}
             className={clsx(
-                'moonstone-button-toggle',
+                'moonstone-buttonToggle',
                 'moonstone-button',
-                `moonstone-size_${size}`,
+                `moonstone-button_${size}`,
                 {'moonstone-icon': (label && (iconStart || iconEnd))},
                 {'moonstone-icon-button': !label},
                 {'moonstone-reverse': isReversed},
                 {'moonstone-button_loading': isLoading},
-                {'moonstone-button-toggle_pressed': isPressed},
+                {'moonstone-buttonToggle_pressed': isPressed},
+                'flexRow_center',
+                'alignCenter',
                 className
             )}
             aria-pressed={isPressed}
