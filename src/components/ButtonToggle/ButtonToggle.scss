@@ -1,4 +1,4 @@
-.moonstone-button-toggle {
+.moonstone-buttonToggle {
     --shadow: none;
 
     border: 1px solid transparent;
@@ -24,7 +24,7 @@
     }
 }
 
-.moonstone-button-toggle_pressed {
+.moonstone-buttonToggle_pressed {
     --shadow: inset 0 1px 2px var(--color-accent_dark20);
 
     color: var(--color-accent_dark);
@@ -48,7 +48,7 @@
     }
 }
 
-.moonstone-button.moonstone-button-toggle {
+.moonstone-button.moonstone-buttonToggle {
     box-shadow: var(--shadow);
 
     &:hover,
