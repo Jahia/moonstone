@@ -1,0 +1,146 @@
+// Default style
+%variant_ghost {
+    color: var(--color-gray_dark);
+
+    border: 1px solid transparent;
+
+    background-color: transparent;
+
+    &:hover:not(:disabled) {
+        color: var(--color-accent_dark);
+
+        background-color: var(--color-gray_light_plain20);
+    }
+
+    &:focus-visible:not(:disabled) {
+        color: var(--color-accent_dark);
+
+        border-color: var(--color-accent_dark);
+        background-color: transparent;
+    }
+
+    &:active:not(:disabled) {
+        border-color: transparent;
+        background-color: var(--color-gray_light_plain60);
+    }
+
+    &.moonstone-reverse {
+        color: var(--color-light);
+
+        &:focus:not(:disabled),
+        &:hover:not(:disabled) {
+            color: var(--color-accent_light);
+
+            border-color: transparent;
+            background-color: var(--color-gray_light20);
+        }
+
+        &:active:not(:disabled) {
+            color: var(--color-white);
+
+            border-color: transparent;
+            background-color: var(--color-gray_light40);
+        }
+
+        &:disabled {
+            color: var(--color-gray_light);
+        }
+    }
+
+    &:disabled {
+        color: var(--color-gray_dark);
+
+        border-color: transparent;
+        background-color: transparent;
+        cursor: not-allowed;
+        opacity: 0.4;
+    }
+}
+
+%variant_ghost_accent {
+    @extend %variant_ghost;
+
+    color: var(--color-accent);
+
+    &:hover:not(:disabled) {
+        color: var(--color-accent_dark);
+    }
+
+    &:focus:not(:disabled) {
+        color: var(--color-accent_dark);
+
+        border-color: var(--color-accent_dark);
+    }
+
+    &:active:not(:disabled) {
+        color: var(--color-white);
+
+        background-color: var(--color-accent_dark);
+    }
+
+    &.moonstone-reverse {
+        &:hover:not(:disabled) {
+            color: var(--color-white);
+
+            background-color: var(--color-accent40);
+        }
+
+        &:focus:not(:disabled) {
+            color: var(--color-white);
+
+            border-color: var(--color-white);
+            background-color: var(--color-accent60);
+        }
+
+        &:active:not(:disabled) {
+            color: var(--color-white);
+
+            border-color: transparent;
+            background-color: var(--color-accent_dark);
+        }
+    }
+}
+
+%variant_ghost_danger {
+    @extend %variant_ghost;
+
+    color: var(--color-danger);
+
+    &:hover:not(:disabled) {
+        color: var(--color-danger);
+    }
+
+    &:focus:not(:disabled) {
+        color: var(--color-danger);
+
+        border-color: var(--color-danger);
+    }
+
+    &:active:not(:disabled) {
+        color: var(--color-white);
+
+        background-color: var(--color-danger);
+    }
+
+    &.moonstone-reverse {
+        &:hover:not(:disabled) {
+            color: var(--color-white);
+
+            background-color: var(--color-danger40);
+        }
+
+        &:focus:not(:disabled) {
+            color: var(--color-white);
+
+            border-color: var(--color-white);
+            background-color: var(--color-danger60);
+        }
+
+        &:active:not(:disabled) {
+            color: var(--color-white);
+
+            border-color: transparent;
+            background-color: var(--color-danger);
+        }
+    }
+}
