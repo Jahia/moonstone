@@ -4,6 +4,42 @@
     border: 1px solid var(--color-accent);
     background-color: var(--color-white);
 
+    &:hover {
+        color: var(--color-accent);
+
+        border-color: var(--color-accent);
+    }
+
+    &:focus {
+        color: var(--color-accent_dark);
+
+        border-color: var(--color-accent_dark);
+    }
+
+    &:active {
+        color: var(--color-white);
+
+        border-color: var(--color-white);
+        background-color: var(--color-accent);
+    }
+
+    &:disabled {
+        color: var(--color-gray_dark);
+
+        border-color: var(--color-gray_light);
+        background-color: var(--color-gray_light);
+
+        box-shadow: none;
+        cursor: not-allowed;
+        opacity: 0.4;
+
+        &.moonstone-reverse {
+            color: var(--color-white);
+
+            background-color: var(--color-gray);
+        }
+    }
+
     &.moonstone-button_accent {
         color: var(--color-white);
 
@@ -55,11 +91,4 @@
             background-color: var(--color-gray_light);
         }
     }
-
-    // &:disabled {
-    //     color: var(--color-gray_dark);
-
-    //     border-color: var(--color-gray_light);
-    //     background-color: var(--color-gray_light);
-    // }
 }
