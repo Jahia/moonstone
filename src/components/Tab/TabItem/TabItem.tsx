@@ -11,8 +11,6 @@ export const TabItem: React.FC<TabItemProps> = ({
     isReversed = false,
     isDisabled = false,
     icon = null,
-    variant = 'ghost',
-    color = 'default',
     className = null,
     isSelected = false,
     onClick,
@@ -22,14 +20,13 @@ export const TabItem: React.FC<TabItemProps> = ({
         component,
         {
             className: clsx(
-                'moonstone-tab-item',
-                `moonstone-size_${size}`,
-                `moonstone-variant_${variant}`,
-                `moonstone-color_${color}`,
-                {'moonstone-icon': (icon && label)},
-                {'moonstone-icon-tab-item': !label},
-                {'moonstone-selected': isSelected},
+                'moonstone-tabItem',
+                `moonstone-tabItem_${size}`,
+                {'moonstone-tabItem_noLabel': !label},
+                {'moonstone-tabItem_selected': isSelected},
                 {'moonstone-reverse': isReversed},
+                'flexRow_center',
+                'alignCenter',
                 className
             ),
             disabled: isDisabled,
@@ -38,7 +35,7 @@ export const TabItem: React.FC<TabItemProps> = ({
         },
         (
             <>
-                {icon && <icon.type {...icon.props} size={(size === 'big') ? 'default' : size}/>}
+                {icon && <icon.type {...icon.props} className={clsx('moonstone-tabItem_icon', icon.props.className)} size={(size === 'big') ? 'default' : size}/>}
 
                 {label && (
                     <Typography
