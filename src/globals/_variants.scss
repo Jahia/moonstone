@@ -58,11 +58,11 @@
 }
 
 %variant_ghost_accent {
+    color: var(--color-accent);
+
     border: 1px solid transparent;
 
     background-color: transparent;
-
-    color: var(--color-accent);
 
     &:hover:not(:disabled) {
         color: var(--color-accent_dark);
@@ -104,12 +104,11 @@
 }
 
 %variant_ghost_danger {
+    color: var(--color-danger);
 
     border: 1px solid transparent;
 
     background-color: transparent;
-
-    color: var(--color-danger);
 
     &:hover:not(:disabled) {
         color: var(--color-danger);
