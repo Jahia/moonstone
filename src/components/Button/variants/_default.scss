@@ -10,7 +10,7 @@
         border-color: var(--color-accent);
     }
 
-    &:focus {
+    &:focus-visible {
         color: var(--color-accent_dark);
 
         border-color: var(--color-accent_dark);
@@ -51,7 +51,7 @@
             background-color: var(--color-accent_dark);
         }
 
-        &:focus {
+        &:focus-visible {
             color: var(--color-white);
 
             border-color: transparent;
@@ -78,7 +78,7 @@
         background-color: var(--color-danger);
 
         &:hover,
-        &:focus,
+        &:focus-visible,
         &:active {
             color: var(--color-white);
 

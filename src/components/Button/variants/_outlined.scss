@@ -17,7 +17,7 @@
             border-color: var(--color-accent);
         }
 
-        &:focus:not(:disabled) {
+        &:focus-visible:not(:disabled) {
             color: var(--color-accent_dark);
 
             border-color: var(--color-accent_dark);
@@ -47,7 +47,7 @@
         border-color: var(--color-accent);
 
         &:hover:not(:disabled),
-        &:focus:not(:disabled) {
+        &:focus-visible:not(:disabled) {
             color: var(--color-accent_dark);
 
             border-color: var(--color-accent_dark);
@@ -71,7 +71,7 @@
         border-color: var(--color-danger);
 
         &:hover:not(:disabled),
-        &:focus:not(:disabled) {
+        &:focus-visible:not(:disabled) {
             color: var(--color-danger);
 
             border-color: var(--color-danger);
