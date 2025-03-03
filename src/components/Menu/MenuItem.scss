@@ -47,6 +47,8 @@
     &.moonstone-disabled,
     &.moonstone-disabled:hover {
         @extend %is-disabled;
+
+        background: none;
     }
 
     &.moonstone-menuItem-image {
