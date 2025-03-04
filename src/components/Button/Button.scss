@@ -46,15 +46,15 @@ $button-size_big: 32px;
 
         border-radius: 40px;
 
-        &.moonstone-size_small {
+        &.moonstone-btton_small {
             width: $button-size_small;
         }
 
-        &.moonstone-size_default {
+        &.moonstone-button_default {
             width: $button-size_medium;
         }
 
-        &.moonstone-size_big {
+        &.moonstone-button_big {
             width: $button-size_big;
         }
     }
@@ -62,7 +62,7 @@ $button-size_big: 32px;
     &.moonstone-icon {
         gap: $spacing-icon;
 
-        &.moonstone-size_big {
+        &.moonstone-button_big {
             gap: $spacing-icon_big;
         }
     }
