@@ -2491,6 +2491,7 @@ __metadata:
     postcss-loader: "npm:^8.1.1"
     postcss-preset-env: "npm:^10.1.5"
     prop-types: "npm:^15.8.1"
+    publint: "npm:^0.3.8"
     re-resizable: "npm:^6.11.2"
     react: "npm:18.3.1"
     react-dom: "npm:18.3.1"
@@ -3273,6 +3274,13 @@ __metadata:
   version: 0.11.0
   resolution: "@pkgjs/parseargs@npm:0.11.0"
   checksum: 10c0/5bd7576bb1b38a47a7fc7b51ac9f38748e772beebc56200450c4a817d712232b8f1d3ef70532c80840243c657d491cf6a6be1e3a214cff907645819fdc34aadd
+  languageName: node
+  linkType: hard
+
+"@publint/pack@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "@publint/pack@npm:0.1.2"
+  checksum: 10c0/4647158cd3a27816ecaf139327662d31820d61e89eb970b318fd0f7c30715baaedf27d294d31772f3a6ad71f84c42509b90328aa5b6301b706322eb7c35ddb3f
   languageName: node
   linkType: hard
 
@@ -11959,6 +11967,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mri@npm:^1.1.0":
+  version: 1.2.0
+  resolution: "mri@npm:1.2.0"
+  checksum: 10c0/a3d32379c2554cf7351db6237ddc18dc9e54e4214953f3da105b97dc3babe0deb3ffe99cf409b38ea47cc29f9430561ba6b53b24ab8f9ce97a4b50409e4a50e7
+  languageName: node
+  linkType: hard
+
 "ms@npm:2.0.0":
   version: 2.0.0
   resolution: "ms@npm:2.0.0"
@@ -12571,6 +12586,15 @@ __metadata:
   version: 1.0.1
   resolution: "package-json-from-dist@npm:1.0.1"
   checksum: 10c0/62ba2785eb655fec084a257af34dbe24292ab74516d6aecef97ef72d4897310bc6898f6c85b5cd22770eaa1ce60d55a0230e150fb6a966e3ecd6c511e23d164b
+  languageName: node
+  linkType: hard
+
+"package-manager-detector@npm:^0.2.9":
+  version: 0.2.11
+  resolution: "package-manager-detector@npm:0.2.11"
+  dependencies:
+    quansync: "npm:^0.2.7"
+  checksum: 10c0/247991de461b9e731f3463b7dae9ce187e53095b7b94d7d96eec039abf418b61ccf74464bec1d0c11d97311f33472e77baccd4c5898f77358da4b5b33395e0b1
   languageName: node
   linkType: hard
 
@@ -13933,6 +13957,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"publint@npm:^0.3.8":
+  version: 0.3.8
+  resolution: "publint@npm:0.3.8"
+  dependencies:
+    "@publint/pack": "npm:^0.1.2"
+    package-manager-detector: "npm:^0.2.9"
+    picocolors: "npm:^1.1.1"
+    sade: "npm:^1.8.1"
+  bin:
+    publint: src/cli.js
+  checksum: 10c0/7e37915c40e118b98e3660648a8e232cd0c77f6d5b7781b4dc469dca34b91e91b70f062689d86e10b65eac863d6008a103659378faa63a7b75835e94666d942f
+  languageName: node
+  linkType: hard
+
 "pump@npm:^3.0.0":
   version: 3.0.2
   resolution: "pump@npm:3.0.2"
@@ -13970,6 +14008,13 @@ __metadata:
   dependencies:
     side-channel: "npm:^1.0.6"
   checksum: 10c0/62372cdeec24dc83a9fb240b7533c0fdcf0c5f7e0b83343edd7310f0ab4c8205a5e7c56406531f2e47e1b4878a3821d652be4192c841de5b032ca83619d8f860
+  languageName: node
+  linkType: hard
+
+"quansync@npm:^0.2.7":
+  version: 0.2.8
+  resolution: "quansync@npm:0.2.8"
+  checksum: 10c0/7dae50c11dab2f94ae841183dd79a920a085e01961f9aeb594dd4793ad7b2e6e39ae106051c91f7175c5897de98800cfd52fe6836e32670c3c220fad2ec4598d
   languageName: node
   linkType: hard
 
@@ -14728,6 +14773,15 @@ __metadata:
   dependencies:
     queue-microtask: "npm:^1.2.2"
   checksum: 10c0/200b5ab25b5b8b7113f9901bfe3afc347e19bb7475b267d55ad0eb86a62a46d77510cb0f232507c9e5d497ebda569a08a9867d0d14f57a82ad5564d991588b39
+  languageName: node
+  linkType: hard
+
+"sade@npm:^1.8.1":
+  version: 1.8.1
+  resolution: "sade@npm:1.8.1"
+  dependencies:
+    mri: "npm:^1.1.0"
+  checksum: 10c0/da8a3a5d667ad5ce3bf6d4f054bbb9f711103e5df21003c5a5c1a8a77ce12b640ed4017dd423b13c2307ea7e645adee7c2ae3afe8051b9db16a6f6d3da3f90b1
   languageName: node
   linkType: hard
 
