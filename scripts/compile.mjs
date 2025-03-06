@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import babel from '@jahia/scripts/babel.js';
-import config from '../babel.build.config.js';
+import config from '../babel.build.config.cjs';
 import copyFile from "@jahia/scripts/copy-file.js";
 import glob from 'glob';
 
