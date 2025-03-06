@@ -40,5 +40,6 @@ export * from './Tab';
 export * from './Tab/TabItem';
 export * from './Table';
 export * from './Textarea';
+export * from './Tooltip';
 export * from './TreeView';
 export * from './Typography';
