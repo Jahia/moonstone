@@ -63,15 +63,15 @@ export const WithBigImage: StoryObj<ListItemProps> = {
     render: args => (
         <ul>
             <ListItem
-        image={<img src="https://via.placeholder.com/500?text=ListItemImage"/>}
+        image={<img src="https://via.placeholder.com/500?text=ListItemImage" alt="big image"/>}
         {...args}
       />
             <ListItem
-        image={<img src="https://via.placeholder.com/200x500?text=ListItemImage"/>}
+        image={<img src="https://via.placeholder.com/200x500?text=ListItemImage" alt="big image"/>}
         {...args}
       />
             <ListItem
-        image={<img src="https://via.placeholder.com/500x200?text=ListItemImage"/>}
+        image={<img src="https://via.placeholder.com/500x200?text=ListItemImage" alt="big image"/>}
         {...args}
       />
         </ul>
@@ -87,15 +87,15 @@ export const WithSmallImage: StoryObj<ListItemProps> = {
     render: args => (
         <ul>
             <ListItem
-        image={<img src="https://via.placeholder.com/500?text=ListItemImage"/>}
+        image={<img src="https://via.placeholder.com/500?text=ListItemImage" alt="small image"/>}
         {...args}
       />
             <ListItem
-        image={<img src="https://via.placeholder.com/200x500?text=ListItemImage"/>}
+        image={<img src="https://via.placeholder.com/200x500?text=ListItemImage" alt="small image"/>}
         {...args}
       />
             <ListItem
-        image={<img src="https://via.placeholder.com/500x200?text=ListItemImage"/>}
+        image={<img src="https://via.placeholder.com/500x200?text=ListItemImage" alt="small image"/>}
         {...args}
       />
         </ul>
