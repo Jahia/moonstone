@@ -71,8 +71,8 @@ describe('TreeView', () => {
         render(<TreeView openedItems={['A']} data={tree}/>);
 
         expect(screen.getAllByRole('treeitem').length).toBe(2);
-        expect(screen.getAllByRole('treeitem')[0]).toHaveAttribute('aria-level', '0');
-        expect(screen.getAllByRole('treeitem')[1]).toHaveAttribute('aria-level', '1');
+        expect(screen.getAllByRole('treeitem')[0]).toHaveAttribute('aria-level', '1');
+        expect(screen.getAllByRole('treeitem')[1]).toHaveAttribute('aria-level', '2');
     });
 
     it('should select item set with selectedItems', () => {

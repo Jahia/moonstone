@@ -15,7 +15,7 @@ const displayIcon = (icon: React.ReactElement, size: string, className: string, 
     return (
         <i className={clsx('flexRow', 'alignCenter', className)}>
             {icon &&
-            <icon.type {...icon.props} size={size}/>}
+            <icon.type {...icon.props} size={size} aria-label={(icon.type as React.ComponentType).name || 'moonstone-treeView-icon'}/>}
         </i>
     );
 };
@@ -111,7 +111,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                         'aria-expanded': isOpen,
                         'aria-busy': isLoading,
                         'aria-current': isHighlighted ? 'page' : null,
-                        'aria-level': depth,
+                        'aria-level': depth + 1,
                         key: `${depth}-${node.id}`,
                         style: {'--treeItem-depth': depth},
                         ...node.treeItemProps
