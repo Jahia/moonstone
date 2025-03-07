@@ -49,7 +49,8 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
             <button
                     aria-controls="moonstone-secondaryNav_wrapper"
                     type="button"
-                    role="secondary-nav-control"
+                    role="button"
+                    aria-label="secondary-nav-control"
                     className={clsx(
                         'moonstone-secondaryNav_buttonToggle',
                         {'moonstone-secondaryNav_buttonToggle_reversed': isReversed}

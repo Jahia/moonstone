@@ -37,7 +37,7 @@ describe('SecondaryNav', () => {
         const user = userEvent.setup();
 
         render(<SecondaryNav data-testid="secondary-nav" id="test" isDefaultVisible={false}>content here</SecondaryNav>);
-        await user.click(screen.getByRole('secondary-nav-control'));
+        await user.click(screen.getByLabelText('secondary-nav-control'));
 
         expect(screen.getByTestId('secondary-nav')).toHaveAttribute('aria-expanded', 'true');
     });
@@ -46,7 +46,7 @@ describe('SecondaryNav', () => {
         const user = userEvent.setup();
 
         render(<SecondaryNav data-testid="secondary-nav">content here</SecondaryNav>);
-        await user.click(screen.getByRole('secondary-nav-control'));
+        await user.click(screen.getByLabelText('secondary-nav-control'));
 
         expect(screen.getByTestId('secondary-nav')).toHaveAttribute('aria-expanded', 'false');
     });
@@ -55,7 +55,7 @@ describe('SecondaryNav', () => {
         const user = userEvent.setup();
         render(<SecondaryNav data-testid="secondary-nav">content here</SecondaryNav>);
         // No error should occur when there is no onClick defined
-        await user.click(screen.getByRole('secondary-nav-control'));
+        await user.click(screen.getByLabelText('secondary-nav-control'));
     });
 
     it('should call onToggled when clicking on expand button', async () => {
@@ -63,7 +63,7 @@ describe('SecondaryNav', () => {
         const clickHandler = jest.fn();
 
         render(<SecondaryNav onToggled={clickHandler}>content here</SecondaryNav>);
-        await user.click(screen.getByRole('secondary-nav-control'));
+        await user.click(screen.getByLabelText('secondary-nav-control'));
 
         expect(clickHandler).toHaveBeenCalled();
     });
@@ -72,6 +72,6 @@ describe('SecondaryNav', () => {
 describe('SecondaryNavHeader', () => {
     it('should display', () => {
         render(<SecondaryNavHeader data-testid="moonstone-SecondaryNavHeader"><span>required children</span></SecondaryNavHeader>);
-        expect(screen.queryByRole('banner')).toBeInTheDocument();
+        expect(screen.queryByLabelText('moonstone-secondaryNavHeader')).toBeInTheDocument();
     });
 });
