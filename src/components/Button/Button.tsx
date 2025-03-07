@@ -53,6 +53,7 @@ export const Button = ({
                 'alignCenter',
                 className
             )}
+            aria-label={icon ? (icon.type as React.ComponentType).name : 'moonstone-iconButton'}
             type="button"
             disabled={isDisabled || isLoading}
             onClick={e => handleOnClick(e)}
