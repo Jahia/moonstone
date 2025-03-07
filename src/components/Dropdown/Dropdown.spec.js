@@ -42,7 +42,7 @@ describe('Dropdown', () => {
         render(
             <Dropdown data={dropdownDataGrouped} data-testid="moonstone-dropdown" onChange={() => 'testing'}/>
         );
-        expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+        expect(screen.queryByRole('list')).not.toBeInTheDocument();
     });
 
     it('should display the menu dropdown when I click on the dropdown', async () => {
@@ -52,7 +52,7 @@ describe('Dropdown', () => {
         );
 
         await user.click(screen.getByRole('dropdown'));
-        expect(screen.getByRole('listbox')).toBeInTheDocument();
+        expect(screen.getByRole('list')).toBeInTheDocument();
     });
 
     it('should display the treeview menu dropdown when I click on the dropdown', async () => {
@@ -70,8 +70,8 @@ describe('Dropdown', () => {
         render(<Dropdown hasSearch data={dropdownDataGrouped} onChange={() => 'testing'}/>);
 
         await user.click(screen.getByRole('dropdown'));
-        await user.type(screen.getByRole('search'), 'test');
-        expect(screen.getByRole('search')).toHaveValue('test');
+        await user.type(screen.getByRole('search').querySelector('input'), 'test');
+        expect(screen.getByRole('search').querySelector('input')).toHaveValue('test');
     });
 
     it('should call onChange when I select a value', async () => {
@@ -122,7 +122,7 @@ describe('Dropdown', () => {
 
         render(<Dropdown data={dropdownData} imageSize="small"/>);
         await user.click(screen.getByRole('dropdown'));
-        expect(screen.getByRole('listbox')).toHaveStyle('max-width: 264px');
+        expect(screen.getByRole('list')).toHaveStyle('max-width: 264px');
     });
 
     it('should display the images as big', async () => {
@@ -130,7 +130,7 @@ describe('Dropdown', () => {
 
         render(<Dropdown data={dropdownData} imageSize="big"/>);
         await user.click(screen.getByRole('dropdown'));
-        expect(screen.getByRole('listbox')).toHaveStyle('max-width: 400px');
+        expect(screen.getByRole('list')).toHaveStyle('max-width: 400px');
     });
 
     it('should display tags for multiple values', () => {
@@ -280,8 +280,8 @@ describe('TreeViewMenu', () => {
     it('should have working search bar', async () => {
         const user = userEvent.setup();
         render(<TreeViewMenu isDisplayed hasSearch treeData={dropdownDataTree}/>);
-        await user.type(screen.getByRole('search'), 'test');
-        expect(screen.getByRole('search')).toHaveValue('test');
+        await user.type(screen.getByRole('search').querySelector('input'), 'test');
+        expect(screen.getByRole('search').querySelector('input')).toHaveValue('test');
     });
 
     test.each(TreeViewMenuSizes)('should have the right size', size => {

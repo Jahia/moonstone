@@ -112,12 +112,13 @@ export const Menu: React.FC<MenuProps> = ({
             <menu
                 ref={itemRef}
                 style={styleMenu}
-                role="listbox"
+                role="list"
                 className={clsx(
                     'moonstone-menu',
                     className,
                     {'moonstone-hidden': !isDisplayed || !stylePosition}
                 )}
+                aria-label="moonstone-menu"
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
                 {...props}

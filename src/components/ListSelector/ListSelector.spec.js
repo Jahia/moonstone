@@ -67,7 +67,7 @@ describe('MultipleLeftRightSelector', () => {
         const {container} = render(<ListSelector options={options} onChange={mockOnChange}/>);
         expect(container.querySelectorAll('li[role="left-list"]')).toHaveLength(options.length);
 
-        const search = container.querySelector('input[role="search"]');
+        const search = container.querySelector('div[role="search"] input');
 
         fireEvent.change(search, {target: {value: 'On'}});
 
