@@ -5,7 +5,8 @@ import {Typography} from '~/components/Typography';
 import {SecondaryNavHeaderProps} from './SecondaryNavHeader.types';
 
 export const SecondaryNavHeader: React.FC<SecondaryNavHeaderProps> = ({children}) => (
-    <Typography component="header"
+    <Typography component="div"
+                aria-label="moonstone-secondaryNavHeader"
                 className={clsx('moonstone-secondaryNavHeader', 'flexCol_center', 'alignCenter')}
                 variant="heading"
     >
