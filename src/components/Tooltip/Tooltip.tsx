@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import './Tooltip.scss';
 import type {TooltipProps} from './Tooltip.types';
 import {useHover, useFloating, useInteractions, arrow, offset, FloatingArrow, flip, shift, useFocus} from '@floating-ui/react';
+import {Typography} from '../Typography';
 
 export const Tooltip = ({
     label,
@@ -51,7 +52,7 @@ export const Tooltip = ({
                 'aria-describedby': 'moonstone-tooltip_label'
                 })}
                 {isOpen &&
-                <span
+                <div
                     ref={refs.setFloating}
                     id="moonstone-tooltip_label"
                     className={clsx('moonstone-tooltip_label')}
@@ -60,8 +61,10 @@ export const Tooltip = ({
                     {...getFloatingProps()}
                 >
                     <FloatingArrow ref={arrowRef} className="moonstone-tooltip_arrow" context={context}/>
-                    {label}
-                </span>}
+                    <Typography>
+                        {label}
+                    </Typography>
+                </div>}
             </div>
         );
     }

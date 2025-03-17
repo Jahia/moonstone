@@ -4,11 +4,10 @@ $bgColor: var(--color-gray_dark);
     z-index: 1;
 
     width: inherit;
+    max-width: 450px;
     padding: var(--spacing-nano) var(--spacing-small);
 
-    font-size: 90%;
     color: var(--color-white);
-    text-overflow: clip;
 
     border-radius: var(--radius);
     background-color: $bgColor;
