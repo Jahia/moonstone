@@ -108,7 +108,6 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                         'aria-current': isHighlighted ? 'page' : null,
                         'aria-level': depth,
                         key: `${depth}-${node.id}`,
-                        // @ts-ignore
                         style: {'--treeItem-depth': depth, ...node?.treeItemProps?.style},
                         ...node.treeItemProps
                     },

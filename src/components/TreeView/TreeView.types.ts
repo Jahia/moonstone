@@ -64,7 +64,7 @@ type BasicTreeViewProps = {
      */
     size?: 'small' | 'default';
     /**
-     * Adds toggle padding even if data is flat
+     * Adds padding even if data is flat
      */
     padFlatData?: boolean
 };
