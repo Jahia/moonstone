@@ -14,12 +14,8 @@ export type TreeViewData = {
     isDisabled?: boolean;
     className?: string;
     typographyOptions?: object;
-    treeItemProps?: TreeItemProps;
+    treeItemProps?: any;
 };
-
-type TreeItemProps = {
-    style: object
-}
 
 type BasicTreeViewProps = {
     /**
