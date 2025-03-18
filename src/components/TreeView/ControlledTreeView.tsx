@@ -3,11 +3,11 @@ import clsx from 'clsx';
 import './TreeView.scss';
 import type {ControlledTreeViewProps, TreeViewData} from './TreeView.types';
 
-import {Loading, ChevronDown, ChevronRight, CheckboxChecked, CheckboxUnchecked} from '~/icons';
-import {Typography} from '~/components/Typography';
+import {ChevronDown, ChevronRight, CheckboxChecked, CheckboxUnchecked} from '~/icons';
+import {Typography, Loader} from '~/components';
 
 // Manage treeView_item's icon
-const displayIcon = (icon: React.ReactElement, size: string, className: string, parentHasIconStart = false) => {
+const displayIcon = (icon: React.ReactElement, size: string, className?: string, parentHasIconStart = false) => {
     if (!icon && !parentHasIconStart) {
         return;
     }
@@ -18,13 +18,6 @@ const displayIcon = (icon: React.ReactElement, size: string, className: string, 
             <icon.type {...icon.props} size={size}/>}
         </i>
     );
-};
-
-// Manage if we display icon or loading
-const displayIconOrLoading = (icon: React.ReactElement, isLoading: boolean) => {
-    const i = isLoading ? <Loading size="big" className="moonstone-icon_isLoading"/> : icon;
-
-    return displayIcon(i, 'default', 'moonstone-treeView_itemIconEnd');
 };
 
 const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElement, ControlledTreeViewProps> = (
@@ -51,6 +44,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
         return nodeData.map(node => {
             const hasChild = Boolean(node.hasChildren || (node.children && node.children.length !== 0));
             const hasIconStart = Boolean(node.iconStart);
+            const hasIconEnd = Boolean(node.iconEnd);
             const isClosable = Boolean(node.isClosable !== false);
             const isOpen = Boolean(openedItems.includes(node.id)) || !isClosable;
             const isLoading = Boolean(node.isLoading);
@@ -123,7 +117,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                                 className={clsx('flexRow', 'alignCenter', 'moonstone-treeView_itemToggle')}
                                 onClick={toggleNode}
                             >
-                                {isOpen ? <ChevronDown size={size}/> : <ChevronRight size={size}/>}
+                                {isLoading ? <Loader isReversed={isReversed} size="small"/> : isOpen ? <ChevronDown size={size}/> : <ChevronRight size={size}/>}
                             </div>
                         )}
                         {!isFlatData && !hasChild &&
@@ -147,7 +141,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                             >
                                 {node.label}
                             </Typography>
-                            {displayIconOrLoading(node.iconEnd, isLoading)}
+                            {hasIconEnd && displayIcon(node.iconEnd, 'small')}
                         </div>
                     </div>
                 ),

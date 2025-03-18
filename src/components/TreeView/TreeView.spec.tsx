@@ -57,11 +57,6 @@ describe('TreeView', () => {
         expect(screen.getAllByRole('treeitem')[0]).toHaveAttribute('aria-busy', 'true');
     });
 
-    it('should not display iconEnd if node is loading', () => {
-        render(<TreeView data={[{...tree[0], isLoading: true}]}/>);
-        expect(screen.queryByTestId('test-iconEnd')).not.toBeInTheDocument();
-    });
-
     it('should add specific class if TreeView is reversed', () => {
         const {container} = render(<TreeView isReversed data={tree}/>);
         expect(container.getElementsByClassName('reversed')).toBeTruthy();

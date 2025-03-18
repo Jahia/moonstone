@@ -78,7 +78,7 @@ export const Highlight = {
         <TreeView
             data={treeData}
             isReversed={theme === 'dark'}
-            highlightedItem="A"
+            highlightedItems={['A']}
             {...args}
         />
     )
