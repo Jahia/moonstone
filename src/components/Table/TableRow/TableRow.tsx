@@ -14,20 +14,21 @@ const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowPr
         children,
         ...props
     }, ref) => React.createElement(
-    component,
-    {
-        className: clsx(
-            'flexRow',
-            'moonstone-TableRow',
-            'alignCenter',
-            hasMultipleLines && 'moonstone-TableRow-multipleLines',
-            isSelected && 'moonstone-TableRow-selected',
-            isHighlighted && 'moonstone-TableRow-highlighted',
-            className
-        ),
-        ...props,
-        ref
-    },
+        component,
+        {
+            className: clsx(
+                'flexRow',
+                'moonstone-TableRow',
+                'alignCenter',
+                hasMultipleLines && 'moonstone-TableRow-multipleLines',
+                isSelected && 'moonstone-TableRow-selected',
+                isHighlighted && 'moonstone-TableRow-highlighted',
+                className
+            ),
+            tabIndex: 1,
+            ...props,
+            ref
+        },
     children
 );
 

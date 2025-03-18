@@ -10,6 +10,10 @@ $row-multiple-line-height: 64px;
         background-color: var(--color-gray_light40);
     }
 
+    .moonstone-TableBody &:focus-within {
+        background-color: var(--color-gray_light40);
+    }
+
     &.moonstone-TableRow-highlighted {
         color: var(--color-light);
 
