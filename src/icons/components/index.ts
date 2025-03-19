@@ -209,6 +209,7 @@ export {default as ViewQuilt} from './ViewQuilt';
 export {default as ViewStream} from './ViewStream';
 export {default as ViewTree} from './ViewTree';
 export {default as Visibility} from './Visibility';
+export {default as VisibilityCondition} from './VisibilityCondition';
 export {default as Warning} from './Warning';
 export {default as WeakReference} from './WeakReference';
 export {default as WebPage} from './WebPage';
