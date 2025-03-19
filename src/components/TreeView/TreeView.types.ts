@@ -14,8 +14,13 @@ export type TreeViewData = {
     isDisabled?: boolean;
     className?: string;
     typographyOptions?: object;
-    treeItemProps?: object;
+    treeItemProps?: TreeItemProps;
 };
+
+type TreeItemProps = {
+    style?: object,
+    className?: string
+}
 
 type BasicTreeViewProps = {
     /**
@@ -63,6 +68,10 @@ type BasicTreeViewProps = {
      * TreeView row sizes
      */
     size?: 'small' | 'default';
+    /**
+     * When using virtualization row may require padding if they become detached from its parent
+     */
+    isPadVirtualizedRow?: boolean
 };
 
 type ControlledProps = {

@@ -36,6 +36,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
         component = 'ul',
         itemComponent = 'li',
         size = 'default',
+        isPadVirtualizedRow = false,
         ...props
     }, ref) => {
     const isFlatData = data.filter(item => item.children && item.children.length > 0).length === 0;
@@ -107,7 +108,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                         'aria-current': isHighlighted ? 'page' : null,
                         'aria-level': depth,
                         key: `${depth}-${node.id}`,
-                        style: {'--treeItem-depth': depth},
+                        style: {'--treeItem-depth': depth, ...node?.treeItemProps?.style},
                         ...node.treeItemProps
                     },
                     <div className={cssTreeViewItem}>
@@ -121,6 +122,9 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                             </div>
                         )}
                         {!isFlatData && !hasChild &&
+                            <div className={clsx('flexRow', 'alignCenter', 'moonstone-treeView_itemToggle')}/>}
+
+                        {isPadVirtualizedRow && isFlatData && !isClosable &&
                             <div className={clsx('flexRow', 'alignCenter', 'moonstone-treeView_itemToggle')}/>}
 
                         {/* TreeViewItem */}
