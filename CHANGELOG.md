@@ -1,3 +1,38 @@
+# v2.12.0 (Wed Mar 19 2025)
+
+#### 🚀 Enhancement
+
+- feat(component): add Tooltip with new dependency react floating UI [#979](https://github.com/Jahia/moonstone/pull/979) ([@Eevolee](https://github.com/Eevolee))
+
+#### 🐛 Bug Fix
+
+- feat: Adjust padding depending on flatness of data and flag value [#984](https://github.com/Jahia/moonstone/pull/984) ([@AKarmanov](https://github.com/AKarmanov))
+- fix: keep hover style when I right-click on a row [#987](https://github.com/Jahia/moonstone/pull/987) ([@ffffffelix](https://github.com/ffffffelix))
+- feat: new icon named VisibilityCondition [#986](https://github.com/Jahia/moonstone/pull/986) ([@ffffffelix](https://github.com/ffffffelix))
+- feat: improve the loading of tree items [#983](https://github.com/Jahia/moonstone/pull/983) ([@ffffffelix](https://github.com/ffffffelix))
+- fix: fix classnames on icon button style [#975](https://github.com/Jahia/moonstone/pull/975) ([@Eevolee](https://github.com/Eevolee))
+- chore: unify disabled & read-only styling [#974](https://github.com/Jahia/moonstone/pull/974) ([@Eevolee](https://github.com/Eevolee))
+- chore: unify ghost variant styling [#973](https://github.com/Jahia/moonstone/pull/973) ([@Eevolee](https://github.com/Eevolee))
+- feat: re-design the AB Testing icon to be bigger [#968](https://github.com/Jahia/moonstone/pull/968) ([@ffffffelix](https://github.com/ffffffelix))
+- fix: contrast issue when a button is on a highlighted row [#966](https://github.com/Jahia/moonstone/pull/966) ([@ffffffelix](https://github.com/ffffffelix))
+- chore: modify dependabot configuration to fit conventional commit [#963](https://github.com/Jahia/moonstone/pull/963) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🏠 Internal
+
+- chore: improve pull request template [#967](https://github.com/Jahia/moonstone/pull/967) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🔩 Dependency Updates
+
+- chore: update dependencies and yarn version [#971](https://github.com/Jahia/moonstone/pull/971) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 3
+
+- Alessia Bourgoin ([@Eevolee](https://github.com/Eevolee))
+- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.11.3 (Wed Feb 12 2025)
 
 #### 🐛 Bug Fix
