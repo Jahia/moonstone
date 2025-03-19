@@ -33,7 +33,6 @@ export const Button = ({
 
     const handleOnClick: React.MouseEventHandler = e => {
         onClick(e);
-        // ButtonEl.current.blur();
     };
 
     const LoaderReversed = Boolean(variant === 'default' && (color === 'accent' || color === 'danger'));
