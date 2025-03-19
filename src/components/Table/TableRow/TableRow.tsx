@@ -25,6 +25,7 @@ const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowPr
             isHighlighted && 'moonstone-TableRow-highlighted',
             className
         ),
+        tabIndex: 0,
         ...props,
         ref
     },
