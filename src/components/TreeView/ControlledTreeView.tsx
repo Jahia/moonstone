@@ -36,7 +36,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
         component = 'ul',
         itemComponent = 'li',
         size = 'default',
-        padFlatData = false,
+        isPadVirtualizedRow = false,
         ...props
     }, ref) => {
     const isFlatData = data.filter(item => item.children && item.children.length > 0).length === 0;
@@ -124,7 +124,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                         {!isFlatData && !hasChild &&
                             <div className={clsx('flexRow', 'alignCenter', 'moonstone-treeView_itemToggle')}/>}
 
-                        {padFlatData && isFlatData && !isClosable &&
+                        {isPadVirtualizedRow && isFlatData && !isClosable &&
                             <div className={clsx('flexRow', 'alignCenter', 'moonstone-treeView_itemToggle')}/>}
 
                         {/* TreeViewItem */}

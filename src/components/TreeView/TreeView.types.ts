@@ -69,9 +69,9 @@ type BasicTreeViewProps = {
      */
     size?: 'small' | 'default';
     /**
-     * Adds padding even if data is flat
+     * When using virtualization row may require padding if they become detached from its parent
      */
-    padFlatData?: boolean
+    isPadVirtualizedRow?: boolean
 };
 
 type ControlledProps = {
