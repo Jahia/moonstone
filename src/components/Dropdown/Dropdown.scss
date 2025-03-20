@@ -56,9 +56,9 @@
         outline: none;
     }
 
-    &:hover:not(.moonstone-disabled) {
-        color: var(--color-accent);
-    }
+    // &:hover:not(.moonstone-disabled) {
+    //     color: var(--color-accent);
+    // }
 
     &:not(.moonstone-filled) .moonstone-dropdown_label {
         font-style: italic;

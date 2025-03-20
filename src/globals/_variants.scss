@@ -1,6 +1,6 @@
 // Default style
 %variant_ghost {
-    color: var(--color-gray_dark);
+    // color: var(--color-gray_dark);
 
     border: 1px solid transparent;
 
@@ -80,6 +80,10 @@
         background-color: var(--color-accent_dark);
     }
 
+    &:disabled {
+        color: inherit;
+    }
+
     &.moonstone-reverse {
         &:hover:not(:disabled) {
             color: var(--color-white);
@@ -124,6 +128,10 @@
         color: var(--color-white);
 
         background-color: var(--color-danger);
+    }
+
+    &:disabled {
+        color: inherit;
     }
 
     &.moonstone-reverse {
