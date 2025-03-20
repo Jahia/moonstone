@@ -30,10 +30,7 @@ export const Default: StoryObj<ButtonGroupProps> = {
     ),
 
     args: {
-        variant: 'default',
-        color: 'default',
-        size: 'big',
-        isReversed: false
+        size: 'big'
     }
 };
 
