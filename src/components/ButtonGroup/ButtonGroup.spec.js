@@ -36,8 +36,8 @@ describe('ButtonGroup', () => {
                 <Button label="One" onClick={() => null}/>
             </ButtonGroup>
         );
-        expect(screen.getByRole('group').firstChild).toHaveClass('moonstone-color_accent');
-        expect(screen.getByRole('group').lastChild).toHaveClass('moonstone-color_accent');
+        expect(screen.getByRole('group').firstChild).toHaveClass('moonstone-button_accent');
+        expect(screen.getByRole('group').lastChild).toHaveClass('moonstone-button_accent');
     });
 
     it('should pass size to buttons', () => {

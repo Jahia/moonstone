@@ -19,22 +19,22 @@
     }
 
     // Manage separator
-    .moonstone-variant_default {
-        & + .moonstone-variant_default {
+    .moonstone-button {
+        & + .moonstone-button {
             border-left-color: transparent;
         }
 
-        &.moonstone-color_accent,
-        &.moonstone-color_danger {
-            + .moonstone-color_accent,
-            + .moonstone-color_danger {
+        &.moonstone-button_accent,
+        &.moonstone-button_danger {
+            + .moonstone-button_accent,
+            + .moonstone-button_danger {
                 margin-left: 1px;
             }
         }
     }
 
-    .moonstone-variant_outlined {
-        & + .moonstone-variant_outlined {
+    .moonstone-button_outlined {
+        & + .moonstone-button_outlined {
             border-left-color: transparent;
         }
     }
