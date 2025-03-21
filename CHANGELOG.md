@@ -1,3 +1,15 @@
+# v2.12.1 (Fri Mar 21 2025)
+
+#### 🐛 Bug Fix
+
+- fix: color issues with last moonstone release [#991](https://github.com/Jahia/moonstone/pull/991) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.12.0 (Wed Mar 19 2025)
 
 #### 🚀 Enhancement
