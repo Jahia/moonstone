@@ -66,6 +66,14 @@
     }
 }
 
+.moonstone-reversed {
+    .moonstone-dropdown_ghost:hover {
+        color: var(--color-accent);
+
+        background-color: transparent;
+    }
+}
+
 // ---
 // Outlined variant
 // ---
