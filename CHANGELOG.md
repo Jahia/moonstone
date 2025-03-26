@@ -1,3 +1,17 @@
+# v2.12.2 (Wed Mar 26 2025)
+
+#### 🐛 Bug Fix
+
+- feat: new icons AdvancedEdit, Rename, EditImage [#995](https://github.com/Jahia/moonstone/pull/995) ([@ffffffelix](https://github.com/ffffffelix))
+- feat: new icons ChevronFirstList and ChevronLastList [#996](https://github.com/Jahia/moonstone/pull/996) ([@ffffffelix](https://github.com/ffffffelix))
+- fix: background color of ghost dropdown on hover [#994](https://github.com/Jahia/moonstone/pull/994) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.12.1 (Fri Mar 21 2025)
 
 #### 🐛 Bug Fix
