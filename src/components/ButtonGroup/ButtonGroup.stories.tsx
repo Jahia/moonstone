@@ -41,6 +41,13 @@ export const ButtonWithActions = () => (
     </ButtonGroup>
 );
 
+export const ButtonOutlinedWithActions = () => (
+    <ButtonGroup color="accent" size="big" variant="outlined">
+        <Button label="Actions" onClick={() => null}/>
+        <Button icon={<ChevronDown/>} onClick={() => null}/>
+    </ButtonGroup>
+);
+
 export const ButtonGroupWith1Button = () => (
     <ButtonGroup color="accent" size="big">
         <Button label="Actions" onClick={() => null}/>
