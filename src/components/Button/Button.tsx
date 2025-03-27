@@ -48,7 +48,6 @@ export const Button = ({
                 {'moonstone-icon-button': !label},
                 {'moonstone-reverse': isReversed},
                 {'moonstone-button_loading': isLoading},
-                'flexRow_center',
                 'alignCenter',
                 className
             )}
