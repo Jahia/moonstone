@@ -42,7 +42,7 @@ export const TabItem: React.FC<TabItemProps> = ({
                         isNowrap
                         component="span"
                         variant={size === 'big' ? 'heading' : 'button'}
-                        weight={size === 'big' ? 'light' : 'default'}
+                        weight={size === 'big' ? 'semiBold' : 'default'}
                     >
                         {label}
                     </Typography>

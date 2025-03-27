@@ -15,10 +15,10 @@ describe('TabItem', () => {
         expect(screen.queryByText('TabItem Toto')).toBeInTheDocument();
     });
 
-    it('should use label variant heading & weight light on size big', () => {
+    it('should use label variant heading & weight semiBold on size big', () => {
         render(<TabItem label="TabItem Toto" size="big"/>);
         expect(screen.getByText('TabItem Toto')).toHaveClass('moonstone-variant_heading');
-        expect(screen.getByText('TabItem Toto')).toHaveClass('moonstone-weight_light');
+        expect(screen.getByText('TabItem Toto')).toHaveClass('moonstone-weight_semiBold');
     });
 
     it('should display the icon', () => {

@@ -12,8 +12,9 @@ $selected-line-spacing-big: 20px;
     margin: 0 var(--spacing-nano) calc(#{$selected-line-spacing} - 1px);
     padding: var(--spacing-nano) var(--spacing-small);
 
-    border-radius: var(--radius);
+    color: var(--color-gray);
 
+    border-radius: var(--radius);
     outline: none;
     cursor: pointer;
 }
@@ -48,8 +49,9 @@ $selected-line-spacing-big: 20px;
     color: var(--color-accent);
 
     border-color: transparent;
-
     cursor: default;
+
+    pointer-events: none;
 
     &::after {
         position: absolute;
