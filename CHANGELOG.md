@@ -1,3 +1,16 @@
+# v2.12.3 (Thu Mar 27 2025)
+
+#### 🐛 Bug Fix
+
+- fix: css classes order of ButtonGroup [#998](https://github.com/Jahia/moonstone/pull/998) ([@ffffffelix](https://github.com/ffffffelix))
+- fix: TabItem color text returns to gray [#997](https://github.com/Jahia/moonstone/pull/997) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.12.2 (Wed Mar 26 2025)
 
 #### 🐛 Bug Fix
