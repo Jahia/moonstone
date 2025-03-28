@@ -1,3 +1,16 @@
+# v2.12.4 (Fri Mar 28 2025)
+
+#### 🐛 Bug Fix
+
+- fix: background color on highlighted table row on hover [#1000](https://github.com/Jahia/moonstone/pull/1000) ([@ffffffelix](https://github.com/ffffffelix))
+- fix: set Button with display inline-flex [#999](https://github.com/Jahia/moonstone/pull/999) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.12.3 (Thu Mar 27 2025)
 
 #### 🐛 Bug Fix
