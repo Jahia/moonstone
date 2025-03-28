@@ -16,6 +16,7 @@ $row-multiple-line-height: 64px;
 
         background-color: var(--color-accent);
 
+        &:focus-within,
         &:hover {
             background-color: var(--color-accent);
         }
