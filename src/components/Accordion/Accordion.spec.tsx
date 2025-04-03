@@ -30,7 +30,10 @@ describe('Accordion', () => {
                 content
             </Accordion>
         );
-        expect(screen.getByTestId('id')).toHaveAttribute('data-custom', 'extra');
+        expect(screen.getByTestId('id')).toHaveAttribute(
+            'data-custom',
+            'extra'
+        );
     });
 
     it('should add extra attribute on AccordionItem', () => {
@@ -41,7 +44,10 @@ describe('Accordion', () => {
                 </AccordionItem>
             </Accordion>
         );
-        expect(screen.getByTestId('id')).toHaveAttribute('data-custom', 'extra');
+        expect(screen.getByTestId('id')).toHaveAttribute(
+            'data-custom',
+            'extra'
+        );
     });
 
     it('should display nothing when the component has no children', () => {
@@ -56,14 +62,20 @@ describe('Accordion', () => {
             const open = context.currentItem === id;
 
             return (
-                <button type="button" id={id} onClick={() => context.onSetOpenedItem(id)}>{id} - {open ? 'open' : 'close'}</button>
+                <button
+                    type="button"
+                    id={id}
+                    onClick={() => context.onSetOpenedItem(id)}
+                >
+                    {id} - {open ? 'open' : 'close'}
+                </button>
             );
         };
 
         beforeAll(() => {
             // As we are mocking, we won't be good enough for propTypes, so ignore them
             console.oldError = console.error;
-            console.error = jest.fn();
+            console.error = vi.fn();
         });
 
         afterAll(() => {

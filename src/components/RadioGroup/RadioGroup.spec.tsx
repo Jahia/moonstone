@@ -11,13 +11,18 @@ describe('RadioGroup', () => {
             <RadioGroup name="test-name" value="01">
                 <RadioItem id="radio-01" label="radio 01" value="01"/>
                 <RadioItem id="radio-02" label="radio 02" value="02"/>
-            </RadioGroup>);
+            </RadioGroup>
+        );
         expect(screen.getAllByRole('radio')).toHaveLength(2);
     });
 
     it('should display additional attributes', () => {
         render(
-            <RadioGroup data-testid="moonstone-radioGroup" name="test-name" value="01">
+            <RadioGroup
+                data-testid="moonstone-radioGroup"
+                name="test-name"
+                value="01"
+            >
                 <RadioItem id="radio-01" label="radio 01" value="01"/>
                 <RadioItem id="radio-02" label="radio 02" value="02"/>
             </RadioGroup>
@@ -28,17 +33,28 @@ describe('RadioGroup', () => {
     it('should display additional className', () => {
         const className = 'test-class';
         render(
-            <RadioGroup data-testid="moonstone-radioGroup" name="test-name" value="01" className={className}>
+            <RadioGroup
+                data-testid="moonstone-radioGroup"
+                name="test-name"
+                value="01"
+                className={className}
+            >
                 <RadioItem id="radio-01" label="radio 01" value="01"/>
                 <RadioItem id="radio-02" label="radio 02" value="02"/>
             </RadioGroup>
         );
-        expect(screen.getByTestId('moonstone-radioGroup')).toHaveClass(className);
+        expect(screen.getByTestId('moonstone-radioGroup')).toHaveClass(
+            className
+        );
     });
 
     it('should not display the RadioGroup when children is empty', () => {
-        render(<RadioGroup data-testid="moonstone-radioGroup">{[]}</RadioGroup>);
-        expect(screen.queryByTestId('moonstone-radioGroup')).not.toBeInTheDocument();
+        render(
+            <RadioGroup data-testid="moonstone-radioGroup">{[]}</RadioGroup>
+        );
+        expect(
+            screen.queryByTestId('moonstone-radioGroup')
+        ).not.toBeInTheDocument();
     });
 
     it('should not display the RadioGroup when children is only one element', () => {
@@ -47,7 +63,9 @@ describe('RadioGroup', () => {
                 <RadioItem id="radio-01" label="radio 01" value="01"/>
             </RadioGroup>
         );
-        expect(screen.queryByTestId('moonstone-radioGroup')).not.toBeInTheDocument();
+        expect(
+            screen.queryByTestId('moonstone-radioGroup')
+        ).not.toBeInTheDocument();
     });
 
     it('should set the first item as selected when no value or defaultValue is provided', () => {
@@ -79,8 +97,14 @@ describe('RadioGroup', () => {
                 <RadioItem id="radio-02" label="radio 02" value="02"/>
             </RadioGroup>
         );
-        expect(screen.getByLabelText('radio 01')).toHaveAttribute('aria-readonly', 'true');
-        expect(screen.getByLabelText('radio 02')).toHaveAttribute('aria-readonly', 'true');
+        expect(screen.getByLabelText('radio 01')).toHaveAttribute(
+            'aria-readonly',
+            'true'
+        );
+        expect(screen.getByLabelText('radio 02')).toHaveAttribute(
+            'aria-readonly',
+            'true'
+        );
     });
 });
 
@@ -114,10 +138,14 @@ describe('UnControlledRadioGroup', () => {
 
     it('should call specified onChange function', async () => {
         const user = userEvent.setup();
-        const handleChange = jest.fn();
+        const handleChange = vi.fn();
 
         render(
-            <RadioGroup defaultValue="02" name="test-name" onChange={handleChange}>
+            <RadioGroup
+                defaultValue="02"
+                name="test-name"
+                onChange={handleChange}
+            >
                 <RadioItem id="radio-01" label="radio 01" value="01"/>
                 <RadioItem id="radio-02" label="radio 02" value="02"/>
             </RadioGroup>

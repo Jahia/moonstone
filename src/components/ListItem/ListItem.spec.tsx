@@ -15,31 +15,52 @@ describe('ListItem', () => {
     });
 
     it('should add additional attributes', () => {
-        render(<ListItem data-testid="moonstone-listItem" label="my label" data-custom="test"/>);
-        expect(screen.getByTestId('moonstone-listItem')).toHaveAttribute('data-custom', 'test');
+        render(
+            <ListItem
+                data-testid="moonstone-listItem"
+                label="my label"
+                data-custom="test"
+            />
+        );
+        expect(screen.getByTestId('moonstone-listItem')).toHaveAttribute(
+            'data-custom',
+            'test'
+        );
     });
 
     it('should display iconStart', () => {
         const Icon = () => <svg/>;
-        const {container} = render(<ListItem label="Say my name" iconStart={<Icon/>}/>);
+        const {container} = render(
+            <ListItem label="Say my name" iconStart={<Icon/>}/>
+        );
         expect(container.querySelector('svg')).toBeInTheDocument();
     });
 
     it('should display iconEnd', () => {
         const Icon = () => <svg/>;
-        const {container} = render(<ListItem label="Say my name" iconEnd={<Icon/>}/>);
+        const {container} = render(
+            <ListItem label="Say my name" iconEnd={<Icon/>}/>
+        );
         expect(container.querySelector('svg')).toBeInTheDocument();
     });
 
     it('should add additional class names', () => {
         const testClassName = 'hello';
-        render(<ListItem data-testid="moonstone-listItem" className={testClassName} label="my label"/>);
-        expect(screen.getByTestId('moonstone-listItem')).toHaveClass(testClassName);
+        render(
+            <ListItem
+                data-testid="moonstone-listItem"
+                className={testClassName}
+                label="my label"
+            />
+        );
+        expect(screen.getByTestId('moonstone-listItem')).toHaveClass(
+            testClassName
+        );
     });
 
     it('should call onClick when click on an item', async () => {
         const user = userEvent.setup();
-        const handleClick = jest.fn();
+        const handleClick = vi.fn();
 
         render(<ListItem label="my label" onClick={handleClick}/>);
         await user.click(screen.getByText('my label'));
@@ -49,7 +70,11 @@ describe('ListItem', () => {
 
     it('should have default imageSize=small', () => {
         const Image = () => <img/>;
-        const {container} = render(<ListItem label="my label" image={<Image/>}/>);
-        expect(container.querySelector('.moonstone-listItem-image_small')).toBeInTheDocument();
+        const {container} = render(
+            <ListItem label="my label" image={<Image/>}/>
+        );
+        expect(
+            container.querySelector('.moonstone-listItem-image_small')
+        ).toBeInTheDocument();
     });
 });

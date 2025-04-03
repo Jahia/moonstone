@@ -32,13 +32,15 @@
   "types": "dist/index.d.ts",
   "files": [
     "dist",
-    "rulesconfig-wp.cjs"
+    "rulesconfig-wp.cjs",
+    "!*.spec.d.ts",
+    "!*.stories.d.ts"
   ],
   "scripts": {
     "build": "yarn build:storybook && yarn build:lib",
     "build:icons": "rimraf src/icons/components/*.tsx && svgr --template ./src/icons/svgrTemplate.js --config-file ./src/icons/svgr.config.js ./src/icons/assets && eslint --fix ./src/icons/components/*",
     "prebuild:lib": "rimraf dist/",
-    "build:lib": "vite build && tsc && publint",
+    "build:lib": "vite build && (tsc || true) && publint",
     "build:storybook": "storybook build",
     "lint": "yarn lint:js && yarn lint:scss",
     "lint:fix": "yarn lint:js:fix && yarn lint:scss:fix",

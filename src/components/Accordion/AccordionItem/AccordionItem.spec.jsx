@@ -17,36 +17,40 @@ describe('AccordionItem', () => {
     });
 
     it('should display additional className', () => {
-        render(<AccordionItem data-testid="accordion-item" className="extra"/>);
+        render(
+            <AccordionItem data-testid="accordion-item" className="extra"/>
+        );
         expect(screen.getByTestId('accordion-item')).toHaveClass('extra');
     });
 
     it('should accept reversed accordion', () => {
         render(
-            <AccordionContext.Provider value={{
-                onSetOpenedItemId: jest.fn(),
-                currentItem: 'not correspond',
-                isReversed: true
-            }}
+            <AccordionContext.Provider
+                value={{
+                    onSetOpenedItemId: vi.fn(),
+                    currentItem: 'not correspond',
+                    isReversed: true
+                }}
             >
-                <AccordionItem
-                    data-testid="accordion-item"
-                >
+                <AccordionItem data-testid="accordion-item">
                     content here
                 </AccordionItem>
             </AccordionContext.Provider>
         );
-        expect(screen.getByTestId('accordion-item')).toHaveClass('moonstone-reversed');
+        expect(screen.getByTestId('accordion-item')).toHaveClass(
+            'moonstone-reversed'
+        );
     });
 
     it('should not display children when id in context not correspond', () => {
-        const handleOnClick = jest.fn();
+        const handleOnClick = vi.fn();
 
         render(
-            <AccordionContext.Provider value={{
-                onSetOpenedItemId: jest.fn(),
-                currentItem: 'not correspond'
-            }}
+            <AccordionContext.Provider
+                value={{
+                    onSetOpenedItemId: vi.fn(),
+                    currentItem: 'not correspond'
+                }}
             >
                 <AccordionItem
                     data-testid="accordion-item"
@@ -57,17 +61,20 @@ describe('AccordionItem', () => {
                 </AccordionItem>
             </AccordionContext.Provider>
         );
-        expect(screen.getByTestId('accordion-item')).not.toHaveTextContent('content here');
+        expect(screen.getByTestId('accordion-item')).not.toHaveTextContent(
+            'content here'
+        );
     });
 
     it('should display children when id in context correspond', () => {
-        const handleOnClick = jest.fn();
+        const handleOnClick = vi.fn();
 
         render(
-            <AccordionContext.Provider value={{
-                onSetOpenedItemId: jest.fn(),
-                currentItem: 'id'
-            }}
+            <AccordionContext.Provider
+                value={{
+                    onSetOpenedItemId: vi.fn(),
+                    currentItem: 'id'
+                }}
             >
                 <AccordionItem
                     id="id"
@@ -80,18 +87,21 @@ describe('AccordionItem', () => {
             </AccordionContext.Provider>
         );
 
-        expect(screen.getByTestId('accordion-item')).toHaveTextContent('content here');
+        expect(screen.getByTestId('accordion-item')).toHaveTextContent(
+            'content here'
+        );
     });
 
     it('should call onClick when click on item', async () => {
         const user = userEvent.setup();
-        const handleOnClick = jest.fn();
+        const handleOnClick = vi.fn();
 
         render(
-            <AccordionContext.Provider value={{
-                onSetOpenedItem: jest.fn(),
-                currentItem: 'not correspond'
-            }}
+            <AccordionContext.Provider
+                value={{
+                    onSetOpenedItem: vi.fn(),
+                    currentItem: 'not correspond'
+                }}
             >
                 <AccordionItem
                     id="id"
@@ -116,15 +126,13 @@ describe('AccordionItem', () => {
         let isOpen;
 
         render(
-            <AccordionContext.Provider value={{
-                onSetOpenedItem: jest.fn(),
-                currentItem: 'not correspond'
-            }}
+            <AccordionContext.Provider
+                value={{
+                    onSetOpenedItem: vi.fn(),
+                    currentItem: 'not correspond'
+                }}
             >
-                <AccordionItem
-                    label="my label label"
-                    onClick={handleOnClick}
-                >
+                <AccordionItem label="my label label" onClick={handleOnClick}>
                     content here
                 </AccordionItem>
             </AccordionContext.Provider>
@@ -143,10 +151,11 @@ describe('AccordionItem', () => {
         let isOpen;
 
         render(
-            <AccordionContext.Provider value={{
-                onSetOpenedItem: jest.fn(),
-                currentItem: 'id'
-            }}
+            <AccordionContext.Provider
+                value={{
+                    onSetOpenedItem: vi.fn(),
+                    currentItem: 'id'
+                }}
             >
                 <AccordionItem
                     id="id"
@@ -166,15 +175,13 @@ describe('AccordionItem', () => {
         const user = userEvent.setup();
 
         render(
-            <AccordionContext.Provider value={{
-                onSetOpenedItem: jest.fn(),
-                currentItem: 'id'
-            }}
+            <AccordionContext.Provider
+                value={{
+                    onSetOpenedItem: vi.fn(),
+                    currentItem: 'id'
+                }}
             >
-                <AccordionItem
-                    id="id"
-                    label="my label label"
-                >
+                <AccordionItem id="id" label="my label label">
                     content here
                 </AccordionItem>
             </AccordionContext.Provider>
