@@ -1,3 +1,4 @@
+// Legacy shared Webpack config for consumers
 const rules = [
     {
         test: /\.css$/,

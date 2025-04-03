@@ -2,7 +2,7 @@ import React from 'react';
 import {StoryObj, Meta} from '@storybook/react';
 
 import {CardSelector} from './index';
-import {Button, Chip} from '~/main';
+import {Button, Chip} from '~/index';
 import {Close, FileImage, Lock} from '~/icons';
 import type {CardSelectorProps} from './CardSelector.types';
 
