@@ -37,11 +37,6 @@ type BasicProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 'id' | 
     cardAction?: React.ReactElement;
 
     /**
-     * Define if the dragging icon will be displayed
-     */
-    isDraggable?: boolean;
-
-    /**
      * Define if the item is disabled
      */
     isDisabled?: boolean;
