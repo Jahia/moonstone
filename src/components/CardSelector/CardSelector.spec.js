@@ -46,11 +46,6 @@ describe('CardSelector', () => {
         expect(screen.getByRole('img', {alt: 'thumbnail-alt'})).toBeInTheDocument();
     });
 
-    it('should have attribute draggable when isDraggable', () => {
-        render(<CardSelector isDraggable data-testid="card-selector"/>);
-        expect(screen.getByTestId('card-selector')).toHaveAttribute('draggable', 'true');
-    });
-
     it('should display chips', () => {
         render(<CardSelector chips={[<Chip key="chip" label="chip"/>]}/>);
         expect(screen.queryByText('chip')).toBeInTheDocument();

@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import './CardSelector.scss';
 import type {CardSelectorProps} from './CardSelector.types';
 import {Typography} from '~/components';
-import {FileBroken, HandleDrag, Image} from '~/icons/components';
+import {FileBroken, Image} from '~/icons/components';
 
 export const CardSelector = React.forwardRef<HTMLDivElement, CardSelectorProps>(({
     displayName,
@@ -16,7 +16,6 @@ export const CardSelector = React.forwardRef<HTMLDivElement, CardSelectorProps>(
     thumbnailAlt,
     id,
     className,
-    isDraggable = false,
     isDisabled = false,
     isReadOnly = false,
     cardAction,
@@ -76,12 +75,9 @@ export const CardSelector = React.forwardRef<HTMLDivElement, CardSelectorProps>(
             className={classNameProps}
             aria-labelledby={`${id}-${displayName}`}
             aria-disabled={isDisabled || isReadOnly}
-            draggable={isDraggable}
             onClick={e => handleOnClick(e)}
             {...props}
         >
-            {isDraggable && <HandleDrag color="gray" size="big" className="moonstone-cardSelector_dragIcon"/>}
-
             <figure className={clsx('moonstone-cardSelector_thumbnail', 'flexRow_center', 'alignCenter')}>
                 {thumbnailURL ? (
                     <img className={clsx(`moonstone-cardSelector_thumbnail_${thumbnailType}`)} src={thumbnailURL} alt={thumbnailAlt} aria-labelledby={thumbnailAlt}/>
@@ -95,7 +91,7 @@ export const CardSelector = React.forwardRef<HTMLDivElement, CardSelectorProps>(
                             isNowrap
                             id={`${id}-displayName`}
                             className={clsx('moonstone-cardSelector_displayName')}
-                            variant="subheading"
+                            variant="body"
                             component="span"
                         >
                             {displayName}
