@@ -12,6 +12,12 @@
             "rules": {
                 "react-hooks/rules-of-hooks": "off"
             }
+        },
+        {
+            "files": ["**/*.cjs"],
+            "rules": {
+                "@typescript-eslint/no-require-imports": "off"
+            }
         }
     ]
 }

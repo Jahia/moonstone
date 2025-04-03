@@ -1,10 +1,58 @@
 {
   "name": "@jahia/moonstone",
   "version": "2.12.4",
-  "main": "dist/lib/main.js",
+  "repository": {
+    "url": "https://github.com/Jahia/moonstone.git"
+  },
+  "license": "MIT",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./dist/rulesconfig-wp": {
+      "require": "./rulesconfig-wp.cjs"
+    },
+    "./dist/icons": {
+      "import": "./dist/icons/index.js"
+    },
+    "./dist/components/CheckboxGroup/CheckboxItem": {
+      "import": "./dist/components/CheckboxGroup/CheckboxItem/index.js"
+    },
+    "./dist/icons/components/DefaultEntry": {
+      "import": "./dist/icons/components/DefaultEntry.js"
+    },
+    "./dist/icons/components/Information": {
+      "import": "./dist/icons/components/Information.js"
+    }
+  },
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
-  "sideEffects": false,
+  "files": [
+    "dist",
+    "rulesconfig-wp.cjs"
+  ],
+  "scripts": {
+    "build": "yarn build:storybook && yarn build:lib && publint",
+    "build:icons": "rimraf src/icons/components/*.tsx && svgr --template ./src/icons/svgrTemplate.js --config-file ./src/icons/svgr.config.js ./src/icons/assets && eslint --fix ./src/icons/components/*",
+    "prebuild:lib": "rimraf dist/",
+    "build:lib": "yarn tsc && yarn compile:css",
+    "build:storybook": "storybook build",
+    "compile:css": "node ./scripts/compile-css.cjs",
+    "lint": "yarn lint:js && yarn lint:scss",
+    "lint:fix": "yarn lint:js:fix && yarn lint:scss:fix",
+    "lint:js": "eslint --ext js,jsx,ts,tsx,json,cjs,mjs .",
+    "lint:js:fix": "yarn lint:js --fix .",
+    "lint:scss": "stylelint ./src/**/*.scss",
+    "lint:scss:fix": "yarn lint:scss --fix",
+    "release": "auto shipit",
+    "start": "storybook dev -p 6006",
+    "tdd": "jest --watch",
+    "test": "jest --ci --runInBand --coverage",
+    "tsc": "tsc --build tsconfig.json"
+  },
   "dependencies": {
     "@babel/runtime": "^7.26.9",
     "@floating-ui/react": "^0.27.5",
@@ -14,31 +62,6 @@
     "re-resizable": "^6.11.2",
     "to-px": "^1.1.0"
   },
-  "peerDependencies": {
-    "react": "^18.3.1",
-    "react-table": "^7.8.0"
-  },
-  "scripts": {
-    "start": "storybook dev -p 6006",
-    "test": "jest --ci --runInBand --coverage",
-    "tdd": "jest --watch",
-    "lint:js": "eslint --ext js,jsx,ts,tsx,json .",
-    "lint:scss": "stylelint ./src/**/*.scss",
-    "lint": "yarn lint:js && yarn lint:scss",
-    "lint:js:fix": "yarn lint:js --fix .",
-    "lint:scss:fix": "yarn lint:scss --fix",
-    "lint:fix": "yarn lint:js:fix && yarn lint:scss:fix",
-    "compile:js": "node ./scripts/compile.mjs",
-    "compile:css": "node ./scripts/compile-css.js",
-    "tsc": "tsc --build tsconfig.json",
-    "build:icons": "rimraf src/icons/components/*.tsx && svgr --template ./src/icons/svgrTemplate.js --config-file ./src/icons/svgr.config.js ./src/icons/assets && eslint --fix ./src/icons/components/*",
-    "build": "yarn build:storybook && yarn build:lib && yarn webpack",
-    "prebuild:lib": "rimraf dist/",
-    "build:lib": "yarn tsc && yarn compile:js && yarn compile:css",
-    "build:storybook": "storybook build",
-    "release": "auto shipit"
-  },
-  "repository": "https://github.com/Jahia/moonstone.git",
   "devDependencies": {
     "@babel/cli": "^7.26.4",
     "@babel/core": "^7.26.9",
@@ -97,6 +120,7 @@
     "postcss": "^8.5.3",
     "postcss-loader": "^8.1.1",
     "postcss-preset-env": "^10.1.5",
+    "publint": "^0.3.10",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-table": "^7.8.0",
@@ -112,11 +136,14 @@
     "ts-loader": "^9.5.2",
     "typescript": "^5.7.3",
     "webpack": "^5.98.0",
-    "webpack-cli": "^6.0.1",
     "webpack-node-externals": "^3.0.0"
   },
+  "peerDependencies": {
+    "react": "^18.3.1",
+    "react-table": "^7.8.0"
+  },
+  "packageManager": "yarn@4.6.0",
   "publishConfig": {
     "access": "public"
-  },
-  "packageManager": "yarn@4.6.0"
+  }
 }

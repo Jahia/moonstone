@@ -1,9 +1,9 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
-const rules = require('./dist/rulesconfig-wp');
+const rules = require('./rulesconfig-wp.cjs');
 const {CycloneDxWebpackPlugin} = require('@cyclonedx/webpack-plugin');
 
 /** @type {import('@cyclonedx/webpack-plugin').CycloneDxWebpackPluginOptions} */
@@ -14,9 +14,9 @@ const cycloneDxWebpackPluginOptions = {
 };
 
 const productionPlugins =
-    process.env.WEBPACK_MODE === 'production' ?
-        [new TerserJSPlugin({}), new CssMinimizerPlugin()] :
-        [];
+  process.env.WEBPACK_MODE === 'production' ?
+      [new TerserJSPlugin({}), new CssMinimizerPlugin()] :
+      [];
 
 const ComponentsConfig = {
     entry: './dist/index.js',
