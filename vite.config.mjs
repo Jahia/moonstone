@@ -28,5 +28,15 @@ export default defineConfig({
         },
         assetsInlineLimit: 0
     },
-    assetsInclude: ['**/*.md']
+    assetsInclude: ['**/*.md'],
+    test: {
+        globals: true,
+        environment: 'jsdom',
+        setupFiles: ['./vitest.setup.js'],
+        coverage: {
+            provider: 'v8',
+            include: ['src/**/*.tsx'],
+            exclude: ['src/__mocks__', 'src/__storybook__', 'src/data', '**/*.stories.*']
+        }
+    }
 });
