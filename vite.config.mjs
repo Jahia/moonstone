@@ -2,9 +2,10 @@
 import {defineConfig} from 'vite';
 import path from 'node:path';
 import {libInjectCss} from 'vite-plugin-lib-inject-css';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-    plugins: [libInjectCss()],
+    plugins: [react(), libInjectCss()],
     resolve: {
         alias: {
             '~': path.resolve('./src')
@@ -26,5 +27,6 @@ export default defineConfig({
             external: ['react', 'react-dom', 'react/jsx-runtime']
         },
         assetsInlineLimit: 0
-    }
+    },
+    assetsInclude: ['**/*.md']
 });
