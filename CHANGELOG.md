@@ -1,3 +1,20 @@
+# v2.13.0 (Fri Apr 04 2025)
+
+#### 🚀 Enhancement
+
+- refactor: build Moonstone as clean ESM [#1003](https://github.com/Jahia/moonstone/pull/1003) ([@GauBen](https://github.com/GauBen))
+
+#### 🐛 Bug Fix
+
+- feat: Improve cardSelector [#1002](https://github.com/Jahia/moonstone/pull/1002) ([@Eevolee](https://github.com/Eevolee))
+
+#### Authors: 2
+
+- Alessia Bourgoin ([@Eevolee](https://github.com/Eevolee))
+- Gautier Ben Aïm ([@GauBen](https://github.com/GauBen))
+
+---
+
 # v2.12.4 (Fri Mar 28 2025)
 
 #### 🐛 Bug Fix
