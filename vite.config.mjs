@@ -3,9 +3,10 @@ import {defineConfig} from 'vite';
 import path from 'node:path';
 import {libInjectCss} from 'vite-plugin-lib-inject-css';
 import react from '@vitejs/plugin-react';
+import sbom from 'rollup-plugin-sbom';
 
 export default defineConfig({
-    plugins: [react(), libInjectCss()],
+    plugins: [react(), libInjectCss(), sbom({specVersion: '1.4'})],
     resolve: {
         alias: {
             '~': path.resolve('./src')
