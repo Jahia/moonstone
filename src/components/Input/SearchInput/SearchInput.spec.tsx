@@ -25,7 +25,13 @@ describe('UncontrolledInput', () => {
     it('should reset field when we click on the reset button of the search input', async () => {
         const user = userEvent.setup();
 
-        render(<SearchInput data-testid="moonstone-input" defaultValue="test-default-value" variant="search"/>);
+        render(
+            <SearchInput
+                data-testid="moonstone-input"
+                defaultValue="test-default-value"
+                variant="search"
+            />
+        );
         await user.click(screen.getByLabelText('Reset'));
 
         expect(screen.getByTestId('moonstone-input')).toHaveValue('');
@@ -33,9 +39,15 @@ describe('UncontrolledInput', () => {
 
     it('should call specified onClear function', async () => {
         const user = userEvent.setup();
-        const handleClear = jest.fn();
+        const handleClear = vi.fn();
 
-        render(<SearchInput variant="search" defaultValue="test-default-value" onClear={handleClear}/>);
+        render(
+            <SearchInput
+                variant="search"
+                defaultValue="test-default-value"
+                onClear={handleClear}
+            />
+        );
         await user.click(screen.getByLabelText('Reset'));
 
         expect(handleClear).toHaveBeenCalledTimes(1);
@@ -45,9 +57,16 @@ describe('UncontrolledInput', () => {
 describe('ControlledInput', () => {
     it('should call specified onClear function', async () => {
         const user = userEvent.setup();
-        const handleClear = jest.fn();
+        const handleClear = vi.fn();
 
-        render(<SearchInput variant="search" value="test-value" onChange={() => null} onClear={handleClear}/>);
+        render(
+            <SearchInput
+                variant="search"
+                value="test-value"
+                onChange={() => null}
+                onClear={handleClear}
+            />
+        );
         await user.click(screen.getByLabelText('Reset'));
 
         expect(handleClear).toHaveBeenCalledTimes(1);

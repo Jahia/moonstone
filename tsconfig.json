@@ -6,8 +6,8 @@
     "allowJs": false,
     "noImplicitAny": true,
     "module": "esnext",
-    "target": "es6",
-    "jsx": "react",
+    "target": "esnext",
+    "jsx": "react-jsx",
     "declaration": true,
     "emitDeclarationOnly": true,
     "moduleResolution": "node",
@@ -18,8 +18,13 @@
     "paths": {
       "~/*": ["*"]
     },
-    "typeRoots": ["types", "node_modules/@types", "node_modules/@testing-library"],
-    "resolveJsonModule": true
+    "typeRoots": [
+      "types",
+      "node_modules/@types",
+      "node_modules/@testing-library"
+    ],
+    "resolveJsonModule": true,
+    "skipLibCheck": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "build", "dist", "types"]

@@ -21,31 +21,44 @@ describe('CheckboxItem', () => {
 
     it('should be disabled when isDisabled is set', () => {
         render(
-            <CheckboxItem {...initProps} isDisabled data-testid="moonstone-checkboxItem"/>
+            <CheckboxItem
+                {...initProps}
+                isDisabled
+                data-testid="moonstone-checkboxItem"
+            />
         );
         expect(screen.getByTestId('moonstone-checkboxItem')).toBeDisabled();
     });
 
     it('should be read-only when isReadOnly is set', () => {
         render(
-            <CheckboxItem {...initProps} isReadOnly data-testid="moonstone-checkboxItem"/>
+            <CheckboxItem
+                {...initProps}
+                isReadOnly
+                data-testid="moonstone-checkboxItem"
+            />
         );
-        expect(screen.getByTestId('moonstone-checkboxItem')).toHaveAttribute('aria-readonly', 'true');
+        expect(screen.getByTestId('moonstone-checkboxItem')).toHaveAttribute(
+            'aria-readonly',
+            'true'
+        );
     });
 
     it('should display the description', () => {
-        render(
-            <CheckboxItem {...initProps} description="test description"/>
-        );
+        render(<CheckboxItem {...initProps} description="test description"/>);
         expect(screen.getByText('test description')).toBeInTheDocument();
     });
 
     it('should call onChange function', async () => {
         const user = userEvent.setup();
-        const handleOnChange = jest.fn();
+        const handleOnChange = vi.fn();
 
         render(
-            <CheckboxItem {...initProps} data-testid="moonstone-checkboxItem" onChange={() => handleOnChange()}/>
+            <CheckboxItem
+                {...initProps}
+                data-testid="moonstone-checkboxItem"
+                onChange={() => handleOnChange()}
+            />
         );
         await user.click(screen.getByTestId('moonstone-checkboxItem'));
 

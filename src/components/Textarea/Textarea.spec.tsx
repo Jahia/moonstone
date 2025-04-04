@@ -16,7 +16,9 @@ describe('Textarea', () => {
 
     it('should display additional attributes', () => {
         const {container} = render(<Textarea data-test="test"/>);
-        expect(container.querySelector('[data-test="test"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-test="test"]')
+        ).toBeInTheDocument();
     });
 
     it('should have specified id', () => {
@@ -26,7 +28,9 @@ describe('Textarea', () => {
 
     it('should have specified placeholder', () => {
         render(<Textarea placeholder="test-placeholder"/>);
-        expect(screen.getByPlaceholderText('test-placeholder')).toBeInTheDocument();
+        expect(
+            screen.getByPlaceholderText('test-placeholder')
+        ).toBeInTheDocument();
     });
 
     it('should be disabled', () => {
@@ -36,19 +40,26 @@ describe('Textarea', () => {
 
     it('should be read only', () => {
         render(<Textarea isReadOnly data-testid="moonstone-textarea"/>);
-        expect(screen.getByTestId('moonstone-textarea')).toHaveAttribute('readonly');
+        expect(screen.getByTestId('moonstone-textarea')).toHaveAttribute(
+            'readonly'
+        );
     });
 
     it('should be resizeable', () => {
         render(<Textarea isResizable data-testid="moonstone-textarea"/>);
-        expect(screen.getByTestId('moonstone-textarea')).toHaveClass('moonstone-textarea_resizable');
+        expect(screen.getByTestId('moonstone-textarea')).toHaveClass(
+            'moonstone-textarea_resizable'
+        );
     });
 
     it('should work when no value or defaultValue is specified', async () => {
         const user = userEvent.setup();
 
         render(<Textarea data-testid="moonstone-textarea"/>);
-        await user.type(screen.getByTestId('moonstone-textarea'), 'type a value');
+        await user.type(
+            screen.getByTestId('moonstone-textarea'),
+            'type a value'
+        );
 
         expect(screen.getByDisplayValue('type a value')).toBeInTheDocument();
     });
@@ -57,21 +68,36 @@ describe('Textarea', () => {
 describe('UncontrolledTextarea', () => {
     it('should have specified defaultValue', () => {
         render(<Textarea defaultValue="test-default-value"/>);
-        expect(screen.getByDisplayValue('test-default-value')).toBeInTheDocument();
+        expect(
+            screen.getByDisplayValue('test-default-value')
+        ).toBeInTheDocument();
     });
 
     it('should update specified defaultValue', async () => {
         const user = userEvent.setup();
-        render(<Textarea data-testid="moonstone-textarea" defaultValue="test-default-value"/>);
+        render(
+            <Textarea
+                data-testid="moonstone-textarea"
+                defaultValue="test-default-value"
+            />
+        );
         await user.type(screen.getByTestId('moonstone-textarea'), '-updated');
-        expect(screen.getByDisplayValue('test-default-value-updated')).toBeInTheDocument();
+        expect(
+            screen.getByDisplayValue('test-default-value-updated')
+        ).toBeInTheDocument();
     });
 
     it('should call specified onChange function', async () => {
         const user = userEvent.setup();
-        const handleChange = jest.fn();
+        const handleChange = vi.fn();
 
-        render(<Textarea data-testid="moonstone-textarea" defaultValue="test-default-value" onChange={handleChange}/>);
+        render(
+            <Textarea
+                data-testid="moonstone-textarea"
+                defaultValue="test-default-value"
+                onChange={handleChange}
+            />
+        );
         await user.type(screen.getByTestId('moonstone-textarea'), '1');
 
         expect(handleChange).toHaveBeenCalledTimes(1);
@@ -85,16 +111,29 @@ describe('UncontrolledTextarea', () => {
 
         it('should not update when value is specified', async () => {
             const user = userEvent.setup();
-            render(<Textarea data-testid="moonstone-textarea" value="test-value"/>);
-            await user.type(screen.getByTestId('moonstone-textarea'), '-updated');
-            expect(screen.queryByDisplayValue('test-value-updated')).not.toBeInTheDocument();
+            render(
+                <Textarea data-testid="moonstone-textarea" value="test-value"/>
+            );
+            await user.type(
+                screen.getByTestId('moonstone-textarea'),
+                '-updated'
+            );
+            expect(
+                screen.queryByDisplayValue('test-value-updated')
+            ).not.toBeInTheDocument();
         });
 
         it('should call specified onChange function', async () => {
             const user = userEvent.setup();
-            const handleChange = jest.fn();
+            const handleChange = vi.fn();
 
-            render(<Textarea data-testid="moonstone-textarea" value="test-value" onChange={handleChange}/>);
+            render(
+                <Textarea
+                    data-testid="moonstone-textarea"
+                    value="test-value"
+                    onChange={handleChange}
+                />
+            );
             await user.type(screen.getByTestId('moonstone-textarea'), '1');
 
             expect(handleChange).toHaveBeenCalledTimes(1);

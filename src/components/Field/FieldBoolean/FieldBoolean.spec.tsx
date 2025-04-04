@@ -3,7 +3,7 @@ import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import {FieldBoolean} from './index';
-import {Button, Chip} from '~/main';
+import {Button, Chip} from '~/index';
 import {Add, Love} from '~/icons';
 
 describe('FieldBoolean', () => {
@@ -28,12 +28,22 @@ describe('FieldBoolean', () => {
     });
 
     it('should display checkbox', () => {
-        render(<FieldBoolean className="extra" checkboxAttributes={{value: 'checkbox'}}/>);
+        render(
+            <FieldBoolean
+                className="extra"
+                checkboxAttributes={{value: 'checkbox'}}
+            />
+        );
         expect(screen.getByRole('checkbox')).toBeInTheDocument();
     });
 
     it('should be checked when clicked', async () => {
-        render(<FieldBoolean className="extra" checkboxAttributes={{value: 'checkbox'}}/>);
+        render(
+            <FieldBoolean
+                className="extra"
+                checkboxAttributes={{value: 'checkbox'}}
+            />
+        );
         await userEvent.click(screen.getByRole('checkbox'));
         expect(screen.getByRole('checkbox')).toBeChecked();
     });
@@ -44,24 +54,45 @@ describe('FieldBoolean', () => {
     });
 
     it('should display multiple buttons', () => {
-        render(<FieldBoolean buttons={<><Button icon={<Add/>} label="Click me"/><Button icon={<Love/>} label="Click me"/></>}/>);
+        render(
+            <FieldBoolean
+                buttons={
+                    <>
+                        <Button icon={<Add/>} label="Click me"/>
+                        <Button icon={<Love/>} label="Click me"/>
+                    </>
+                }
+            />
+        );
         expect(screen.getAllByText('Click me')).toHaveLength(2);
     });
 
     it('should call onClick when button is clicked', async () => {
-        const onClick = jest.fn();
-        render(<FieldBoolean buttons={<Button label="Click me" onClick={onClick}/>}/>);
-        await userEvent.click(screen.getByRole('button', {label: /Click me/i}));
+        const onClick = vi.fn();
+        render(
+            <FieldBoolean
+                buttons={<Button label="Click me" onClick={onClick}/>}
+            />
+        );
+        await userEvent.click(
+            screen.getByRole('button', {label: /Click me/i})
+        );
         expect(onClick).toHaveBeenCalled();
     });
 
     it('should display as error variant', () => {
         render(<FieldBoolean hasError data-testid="fieldBoolean"/>);
-        expect(screen.getByTestId('fieldBoolean')).toHaveClass('moonstone-field_error');
+        expect(screen.getByTestId('fieldBoolean')).toHaveClass(
+            'moonstone-field_error'
+        );
     });
 
     it('should display errorMessage', () => {
-        render(<FieldBoolean hasError errorMessage="FieldBoolean errorMessage"/>);
-        expect(screen.queryByText('FieldBoolean errorMessage')).toBeInTheDocument();
+        render(
+            <FieldBoolean hasError errorMessage="FieldBoolean errorMessage"/>
+        );
+        expect(
+            screen.queryByText('FieldBoolean errorMessage')
+        ).toBeInTheDocument();
     });
 });

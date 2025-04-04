@@ -7,7 +7,12 @@ import {Love} from '~/icons/index';
 
 describe('EmptyCardSelector', () => {
     it('should display additional class names', () => {
-        render(<EmptyCardSelector data-testid="empty-card-selector" className="extra"/>);
+        render(
+            <EmptyCardSelector
+                data-testid="empty-card-selector"
+                className="extra"
+            />
+        );
         expect(screen.getByTestId('empty-card-selector')).toHaveClass('extra');
     });
 
@@ -17,15 +22,23 @@ describe('EmptyCardSelector', () => {
     });
 
     it('should display iconStart', () => {
-        render(<EmptyCardSelector iconStart={<Love data-testid="emptyCardSelector-startIcon"/>}/>);
-        expect(screen.getByTestId('emptyCardSelector-startIcon')).toBeInTheDocument();
+        render(
+            <EmptyCardSelector
+                iconStart={<Love data-testid="emptyCardSelector-startIcon"/>}
+            />
+        );
+        expect(
+            screen.getByTestId('emptyCardSelector-startIcon')
+        ).toBeInTheDocument();
     });
 
     it('should call onClick when clicked', async () => {
         const user = userEvent.setup();
-        const onClick = jest.fn();
+        const onClick = vi.fn();
 
-        render(<EmptyCardSelector data-testid="card-selector" onClick={onClick}/>);
+        render(
+            <EmptyCardSelector data-testid="card-selector" onClick={onClick}/>
+        );
         await user.click(screen.getByTestId('card-selector'));
 
         expect(onClick).toHaveBeenCalled();
@@ -33,19 +46,29 @@ describe('EmptyCardSelector', () => {
 
     it('should be disabled', () => {
         render(<EmptyCardSelector isDisabled data-testid="card-selector"/>);
-        expect(screen.getByTestId('card-selector')).toHaveClass('moonstone-emptyCardSelector_disabled');
+        expect(screen.getByTestId('card-selector')).toHaveClass(
+            'moonstone-emptyCardSelector_disabled'
+        );
     });
 
     it('should be disabled when isReadOnly', () => {
         render(<EmptyCardSelector isReadOnly data-testid="card-selector"/>);
-        expect(screen.getByTestId('card-selector')).toHaveClass('moonstone-emptyCardSelector_disabled');
+        expect(screen.getByTestId('card-selector')).toHaveClass(
+            'moonstone-emptyCardSelector_disabled'
+        );
     });
 
     it('should not call onClick when disabled', async () => {
         const user = userEvent.setup();
-        const onClick = jest.fn();
+        const onClick = vi.fn();
 
-        render(<EmptyCardSelector isDisabled data-testid="card-selector" onClick={onClick}/>);
+        render(
+            <EmptyCardSelector
+                isDisabled
+                data-testid="card-selector"
+                onClick={onClick}
+            />
+        );
         await user.click(screen.getByTestId('card-selector'));
 
         expect(onClick).not.toHaveBeenCalled();
