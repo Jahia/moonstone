@@ -7,7 +7,7 @@ export const dropdownDataDescriptions = [
         options: [
             {
                 label: 'label image 1',
-                value: 'image-1',
+                value: 'group01-item01',
                 description: 'very long description for image 1 very long description for image 1 very long description for image 1',
                 attributes: {
                     id: 'custom-id-1',
@@ -17,7 +17,7 @@ export const dropdownDataDescriptions = [
             },
             {
                 label: 'label image 2',
-                value: 'image-2',
+                value: 'group01-item0',
                 description: 'description for image 2',
                 attributes: {
                     id: 'custom-id',
@@ -33,12 +33,12 @@ export const dropdownDataDescriptions = [
             {
                 label: 'option 1',
                 description: 'very long description for option 1 very long description for option 1 very long description for option 1',
-                value: '1',
+                value: 'group02-item01',
                 iconStart: <Folder/>
             },
             {
                 label: 'option 2',
-                value: '2',
+                value: 'group02-item02',
                 description: 'description for option 2',
                 iconStart: <Folder/>
             }
@@ -49,13 +49,13 @@ export const dropdownDataDescriptions = [
         options: [
             {
                 label: 'option 1 with icon end',
-                value: '1',
+                value: 'group03-item01',
                 description: 'very long description for option 1 very long description for option 1 very long description for option 1',
                 iconEnd: <Lock/>
             },
             {
                 label: 'option 2 with icon end',
-                value: '2',
+                value: 'group03-item02',
                 description: 'description for option 2',
                 iconEnd: <Lock/>
             }
@@ -66,14 +66,14 @@ export const dropdownDataDescriptions = [
         options: [
             {
                 label: 'option 1 with icon end',
-                value: '1',
+                value: 'group04-item01',
                 description: 'very long description for option 1 very long description for option 1 very long description for option 1',
                 iconStart: <Folder/>,
                 iconEnd: <Lock/>
             },
             {
                 label: 'option 2 with icon end',
-                value: '2',
+                value: 'group04-item02',
                 description: 'description for option 2',
                 iconStart: <Folder/>,
                 iconEnd: <Lock/>
@@ -85,27 +85,27 @@ export const dropdownDataDescriptions = [
         options: [
             {
                 label: 'item with only a label',
-                value: '101'
+                value: 'group05-item01'
             },
             {
                 label: 'option 1 with icon start',
-                value: '100',
+                value: 'group05-item02',
                 iconStart: <Folder/>
             },
             {
                 label: 'option 2 with  icon start and icon end',
-                value: '200',
+                value: 'group05-item03',
                 iconStart: <Folder/>,
                 iconEnd: <Lock/>
             },
             {
                 label: 'option 2 with icon end',
-                value: '300',
+                value: 'group05-item04',
                 iconEnd: <Lock/>
             },
             {
                 label: 'label image',
-                value: '400',
+                value: 'group05-item05',
                 attributes: {
                     id: 'custom-id-100',
                     imageSize: 'small'

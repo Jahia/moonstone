@@ -1,26 +1,14 @@
 import React from 'react';
-import {AnchorPosition} from '~/components/Menu/Menu.types';
-import {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
+import type {DropdownData, DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
+import type {MenuProps} from '~/components/Menu/Menu.types';
 
-export type DropdownMenuProps = {
-    maxHeight?: string;
-    maxWidth?: string;
-    minWidth?: string;
-    isDisplayed: boolean;
-    anchorEl?: React.MutableRefObject<HTMLDivElement>;
-    anchorPosition?: AnchorPosition;
-    // TransformElOrigin?: TransformElOrigin;
-    hasSearch?: boolean;
-    autoAddSearchLimit?: number;
+export type DropdownMenuProps = Omit<MenuProps, 'children'> & {
     searchInput?: string;
     searchEmptyText?: string;
-    hasOverlay?: boolean;
-    data: DropdownDataOption[];
+    data: DropdownData;
     value?: string;
     values?: string[];
-    children?: React.ReactNode;
     imageSize?: 'small' | 'big';
     handleSelect: (e?: React.MouseEvent | React.KeyboardEvent, item?: DropdownDataOption) => void;
     handleKeyPress: (e?: React.KeyboardEvent, item?:DropdownDataOption) => void;
-    onClose: () => void;
 }
