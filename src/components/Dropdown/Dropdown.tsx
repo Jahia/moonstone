@@ -3,7 +3,9 @@ import clsx from 'clsx';
 import './Dropdown.scss';
 
 import type {
+    DropdownData,
     DropdownDataOption,
+    DropdownDataGrouped,
     DropdownProps,
     HandleSelect
 } from './Dropdown.types';
@@ -27,6 +29,23 @@ const flatten = (data: TreeViewData[]): TreeViewData[] => {
 
     return res;
 };
+
+const isGroupedData = (data: DropdownData): data is DropdownDataGrouped[] => {
+    if (!Array.isArray(data)) {
+        return false;
+    }
+    return data.every(item => 'options' in item && 'groupLabel' in item);
+};
+
+const getDataItem = (data: DropdownData, value: string): DropdownDataOption | undefined => {
+    if (isGroupedData(data)) {
+        const group = data.find(group => group.options.some(item => item.value === value));
+
+        console.log('group', group);
+        return group?.options.find(item => item.value === value);
+    }
+    return data.find(item => item.value === value);
+}
 
 export const Dropdown: React.FC<DropdownProps> = ({
     data,
@@ -57,7 +76,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const ref: MutableRefObject<HTMLDivElement> = useRef();
 
     const isTree = Array.isArray(treeData);
-    const flatData: DropdownDataOption[] = useMemo(() => isTree ? flatten(treeData) : data, [treeData, data, isTree]);
+    const flatData = useMemo(() => isTree ? flatten(treeData) : data, [treeData, data, isTree]);
     const isEmpty = flatData.length === 0;
 
     useEffect(() => {
@@ -201,7 +220,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 {!label && values && values.length > 0 ? (
                     <div className="moonstone-dropdown_tags flexFluid flexRow">
                         {values.map(v => {
-                            const item = flatData.find(i => i.value === v);
+                            const item = getDataItem(flatData, v);
                             return item && (
                                 <Tag key={item.value}
                                      label={item.label}
@@ -224,7 +243,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                         className={clsx('flexFluid', 'moonstone-dropdown_label')}
                         title={label}
                     >
-                        {label || flatData.find(i => i.value === value)?.label || placeholder}
+                        {label || getDataItem(flatData, value)?.label || placeholder}
                     </Typography>
                 )}
                 {onClear && isFilled && !isDisabled && (

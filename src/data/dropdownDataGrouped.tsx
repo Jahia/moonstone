@@ -1,6 +1,6 @@
-import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
+import type {DropdownDataGrouped} from '~/components/Dropdown/Dropdown.types';
 
-export const dropdownDataGrouped: DropdownDataOption[] = [
+export const dropdownDataGrouped: DropdownDataGrouped[] = [
     {
         groupLabel: 'test',
         options: [
