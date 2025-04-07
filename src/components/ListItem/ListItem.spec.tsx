@@ -67,7 +67,7 @@ describe('ListItem', () => {
         const handleClick = vi.fn();
 
         render(<ListItem {...requiredProps} onClick={handleClick}/>);
-        await user.click(screen.getByText('my label'));
+        await user.click(screen.getByText(requiredProps.label));
 
         expect(handleClick).toBeCalled();
     });

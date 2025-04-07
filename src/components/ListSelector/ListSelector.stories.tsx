@@ -26,12 +26,6 @@ export default {
 
 export const Basic = {
     args: {
-        isReadOnly: false,
-        label: {
-            addAllTitle: 'Add all',
-            removeAllTitle: 'Remove all',
-            selected: '0 items selected'
-        },
         options: listSelectorData,
         values: ['1', '3', '5'],
         onChange: (v: string[]) => console.log(v)
@@ -41,11 +35,6 @@ export const Basic = {
 export const ReadOnly = {
     args: {
         isReadOnly: true,
-        label: {
-            addAllTitle: 'Add all',
-            removeAllTitle: 'Remove all',
-            selected: '0 items selected'
-        },
         options: listSelectorData,
         values: ['1', '3', '5'],
         onChange: (v: string[]) => console.log(v)

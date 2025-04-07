@@ -44,16 +44,15 @@ describe('Accordion', () => {
                 <Accordion>
                     <AccordionItem id="1" label="item 01">content 01</AccordionItem>
                     <AccordionItem id="2" label="item 02">content 02</AccordionItem>
-                    <AccordionItem id="3" label="item 03">content 03</AccordionItem>
                 </Accordion>
             );
-            await user.click(screen.getByDisplayValue('item 01'));
+            await user.click(screen.getByText('item 01'));
 
-            expect(screen.getByText('1 - open')).toBeInTheDocument();
-            expect(screen.getByText('2 - close')).toBeInTheDocument();
+            expect(screen.getByText('content 01')).toBeInTheDocument();
+            expect(screen.queryByText('content 02')).not.toBeInTheDocument();
         });
 
-        it('should open just one item', async () => {
+        it('should open just one item after clicking on two accordions', async () => {
             const user = userEvent.setup();
 
             render(
@@ -62,14 +61,14 @@ describe('Accordion', () => {
                     <AccordionItem id="2" label="item 02">content 02</AccordionItem>
                 </Accordion>
             );
-            await user.click(screen.getByRole('button', {name: /1/i}));
-            await user.click(screen.getByRole('button', {name: /2/i}));
+            await user.click(screen.getByText('item 01'));
+            await user.click(screen.getByText('item 02'));
 
-            expect(screen.getByText('1 - close')).toBeInTheDocument();
-            expect(screen.getByText('2 - open')).toBeInTheDocument();
+            expect(screen.queryByText('content 01')).not.toBeInTheDocument();
+            expect(screen.getByText('content 02')).toBeInTheDocument();
         });
 
-        it('should unselect item when calling onSetOpenedItem another time', async () => {
+        it('should close all accordions when I click twice on the same accordion item', async () => {
             const user = userEvent.setup();
 
             render(
@@ -78,14 +77,15 @@ describe('Accordion', () => {
                     <AccordionItem id="2" label="item 02">content 02</AccordionItem>
                 </Accordion>
             );
-            await user.click(screen.getByRole('button', {name: /1/i}));
-            await user.click(screen.getByRole('button', {name: /1/i}));
+            
+            await user.click(screen.getByText('item 02'));
+            await user.click(screen.getByText('item 02'));
 
-            expect(screen.getByText('1 - close')).toBeInTheDocument();
-            expect(screen.getByText('2 - close')).toBeInTheDocument();
+            expect(screen.queryByText('content 01')).not.toBeInTheDocument();
+            expect(screen.queryByText('content 01')).not.toBeInTheDocument();
         });
 
-        it('should open item by default when given the props', () => {
+        it('should open item by default when given the prop `defaultOpenedItem`', () => {
             render(
                 <Accordion defaultOpenedItem="2">
                     <AccordionItem id="1" label="item 01">content 01</AccordionItem>
@@ -93,11 +93,11 @@ describe('Accordion', () => {
                 </Accordion>
             );
 
-            expect(screen.getByText('1 - close')).toBeInTheDocument();
-            expect(screen.getByText('2 - open')).toBeInTheDocument();
+            expect(screen.queryByText('content 01')).not.toBeInTheDocument();
+            expect(screen.getByText('content 02')).toBeInTheDocument();
         });
 
-        it('should open item when given the props', () => {
+        it('should open item when given the prop `openedItem`', () => {
             render(
                 <Accordion openedItem="2">
                     <AccordionItem id="1" label="item 01">content 01</AccordionItem>
@@ -105,8 +105,8 @@ describe('Accordion', () => {
                 </Accordion>
             );
 
-            expect(screen.getByText('1 - close')).toBeInTheDocument();
-            expect(screen.getByText('2 - open')).toBeInTheDocument();
+            expect(screen.queryByText('content 01')).not.toBeInTheDocument();
+            expect(screen.getByText('content 02')).toBeInTheDocument();
         });
     });
 });

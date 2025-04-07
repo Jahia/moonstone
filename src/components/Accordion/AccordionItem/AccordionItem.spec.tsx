@@ -86,7 +86,7 @@ describe('AccordionItem', () => {
             <AccordionContext.Provider
                 value={{
                     onSetOpenedItem: vi.fn(),
-                    currentItem: 'id'
+                    currentItem: 'test-id'
                 }}
             >
                 <AccordionItem
@@ -165,7 +165,7 @@ describe('AccordionItem', () => {
             <AccordionContext.Provider
                 value={{
                     onSetOpenedItem: vi.fn(),
-                    currentItem: 'id'
+                    currentItem: 'test-id'
                 }}
             >
                 <AccordionItem
@@ -188,7 +188,7 @@ describe('AccordionItem', () => {
             <AccordionContext.Provider
                 value={{
                     onSetOpenedItem: vi.fn(),
-                    currentItem: 'id'
+                    currentItem: 'test-id'
                 }}
             >
                 <AccordionItem {...requiredProps}>
