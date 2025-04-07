@@ -14,8 +14,8 @@ export default {
         storysource: {disable: true}
     },
     argTypes: {
-    // When enabled, the controlledCheckbox doesn't work anymore. maybe it's fixed with storybook 7.4 (https://github.com/storybookjs/storybook/pull/23804)
-    // OnChange: {action: 'onChange'},
+        // When enabled, the controlledCheckbox doesn't work anymore. maybe it's fixed with storybook 7.4 (https://github.com/storybookjs/storybook/pull/23804)
+        // OnChange: {action: 'onChange'},
         onClick: {action: 'onClick'},
         onBlur: {action: 'onBlur'},
         onFocus: {action: 'onFocus'}
@@ -43,10 +43,10 @@ export const Controlled: Story = {
 
         return (
             <CheckboxItem
-        checked={checked}
-        onChange={() => handleOnChange()}
-        {...args}
-      />
+                checked={checked}
+                onChange={() => handleOnChange()}
+                {...args}
+            />
         );
     },
 

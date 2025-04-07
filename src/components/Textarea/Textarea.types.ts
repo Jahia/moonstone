@@ -4,7 +4,7 @@ export type BaseTextareaProps = Omit<React.ComponentPropsWithRef<'textarea'>, 'i
     /**
      * Required id
      */
-    id: string
+    id?: string
     /**
      * Textarea's function onFocus
      */

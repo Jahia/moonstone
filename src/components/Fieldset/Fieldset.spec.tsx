@@ -5,39 +5,44 @@ import {Fieldset} from './index';
 import {Button, Input, Field, FieldSelector} from '~/components';
 import {Add, Love} from '~/icons';
 
+const requiredProps = {
+    id: 'test',
+    label: 'Fieldset label'
+};
+
 describe('Fieldset', () => {
     it('should display additional class names', () => {
-        render(<Fieldset data-testid="fieldset" className="extra"><FieldSelector selector={<textarea placeholder="Input value"/>}/></Fieldset>);
+        render(<Fieldset {...requiredProps} data-testid="fieldset" className="extra"><FieldSelector selector={<textarea placeholder="Input value"/>}/></Fieldset>);
         expect(screen.getByTestId('fieldset')).toHaveClass('extra');
     });
 
     it('should display label', () => {
-        render(<Fieldset label="Fieldset label"/>);
+        render(<Fieldset {...requiredProps}><div/></Fieldset>);
         expect(screen.queryByText('Fieldset label')).toBeInTheDocument();
     });
 
     it('should display helper', () => {
-        render(<Fieldset helper="Fieldset helper"/>);
+        render(<Fieldset {...requiredProps} helper="Fieldset helper"><div/></Fieldset>);
         expect(screen.queryByText('Fieldset helper')).toBeInTheDocument();
     });
 
     it('should display children', () => {
-        render(<Fieldset><Field id="field" label="Field" helper="information"><FieldSelector selector={<Input size="big" value="Input value"/>}/></Field></Fieldset>);
+        render(<Fieldset {...requiredProps}><Field id="field" label="Field" helper="information"><FieldSelector selector={<Input size="big" value="Input value"/>}/></Field></Fieldset>);
         expect(screen.queryByDisplayValue('Input value')).toBeInTheDocument();
     });
 
     it('should display multiple children', () => {
-        render(<Fieldset><Field id="field" label="Field" helper="information"><FieldSelector selector={<Input size="big" value="Input value"/>}/></Field><Field id="field" label="Field" helper="information"><FieldSelector selector={<Input size="big" value="Input value"/>}/></Field></Fieldset>);
+        render(<Fieldset {...requiredProps}><Field id="field" label="Field" helper="information"><FieldSelector selector={<Input size="big" value="Input value"/>}/></Field><Field id="field" label="Field" helper="information"><FieldSelector selector={<Input size="big" value="Input value"/>}/></Field></Fieldset>);
         expect(screen.getAllByDisplayValue('Input value')).toHaveLength(2);
     });
 
     it('should display buttons', () => {
-        render(<Fieldset buttons={<Button label="Click me"/>}/>);
+        render(<Fieldset {...requiredProps} buttons={<Button label="Click me"/>}><div/></Fieldset>);
         expect(screen.queryByText('Click me')).toBeInTheDocument();
     });
 
     it('should display multiple buttons', () => {
-        render(<Fieldset buttons={<><Button icon={<Add/>} label="Click me"/><Button icon={<Love/>} label="Click me"/></>}/>);
+        render(<Fieldset {...requiredProps} buttons={<><Button icon={<Add/>} label="Click me"/><Button icon={<Love/>} label="Click me"/></>}><div/></Fieldset>);
         expect(screen.getAllByText('Click me')).toHaveLength(2);
     });
 });

@@ -41,7 +41,7 @@ export type TablePaginationProps = Omit<React.ComponentPropsWithoutRef<'div'>, '
     /**
      * Pagination labels
      */
-    label: {
+    label?: {
         rowsPerPage: string,
         of: string
     }

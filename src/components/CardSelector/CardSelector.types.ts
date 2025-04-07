@@ -59,7 +59,7 @@ type BasicProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 'id' | 
     /**
      * Thumbnail type
      */
-    thumbnailType: 'icon' | 'preview';
+    thumbnailType?: 'icon' | 'preview';
 
     /**
      * Error cardSelector variant

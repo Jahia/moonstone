@@ -1,7 +1,7 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {buttonColors, buttonSizes, buttonVariants} from './Button.types.ts';
+import {buttonColors, buttonSizes, buttonVariants} from './Button.types';
 
 import {Button} from './index';
 import {Love} from '~/icons/index';
