@@ -1,4 +1,4 @@
-import {ReactElement} from 'react';
+import React from 'react';
 
 type SvgWrapperSize = 'small' | 'default' | 'big';
 
@@ -6,7 +6,7 @@ export type SvgWrapperProps = Omit<React.ComponentPropsWithoutRef<'svg'>, 'class
     /**
      * Svg as a string
      */
-    svg: ReactElement;
+    svg: React.ReactElement;
     /**
      * Svg size
      */

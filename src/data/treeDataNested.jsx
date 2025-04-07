@@ -1,4 +1,3 @@
-import React from 'react';
 import {Folder, File, NoCloud} from '~/icons';
 import {toIconComponent} from '~/icons/utils';
 

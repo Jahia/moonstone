@@ -1,4 +1,3 @@
-import React from 'react';
 import {Love, NoCloud} from '~/icons';
 import '~/components/TreeView/TreeView.stories.scss';
 import {toIconComponent} from '~/icons/utils';

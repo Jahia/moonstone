@@ -1,4 +1,3 @@
-import React from 'react';
 import {useArgs} from '@storybook/preview-api';
 import type {StoryObj, Meta} from '@storybook/react';
 import type {CheckboxItemProps} from './CheckboxItem.types';

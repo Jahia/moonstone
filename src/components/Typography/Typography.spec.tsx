@@ -1,4 +1,3 @@
-import React from 'react';
 import {render, screen} from '@testing-library/react';
 import {Typography} from './index';
 import {variants, weights} from './Typography.types';

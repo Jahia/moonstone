@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import {StoryObj} from '@storybook/react';
 
 import {Checkbox} from '~/components';

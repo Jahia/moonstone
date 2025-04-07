@@ -1,4 +1,3 @@
-import React from 'react';
 import {Chip} from '~/components';
 import {FileContent, Edit, Lock} from '~/icons';
 

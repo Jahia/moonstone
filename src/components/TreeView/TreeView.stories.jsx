@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 
 import {TreeView} from './index';
 import {treeData, treeDataFlat} from '~/data';
