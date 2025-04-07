@@ -69,7 +69,7 @@ describe('FieldSelector', () => {
             />
         );
         await userEvent.click(
-            screen.getByRole('button', {label: /Click me/i})
+            screen.getByRole('button', {name: /Click me/i})
         );
         expect(onClick).toHaveBeenCalled();
     });

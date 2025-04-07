@@ -9,8 +9,9 @@ export type DropdownMenuProps = {
     isDisplayed: boolean;
     anchorEl?: React.MutableRefObject<HTMLDivElement>;
     anchorPosition?: AnchorPosition;
+    // TransformElOrigin?: TransformElOrigin;
     hasSearch?: boolean;
-    autoAddSearchLimit: number;
+    autoAddSearchLimit?: number;
     searchInput?: string;
     searchEmptyText?: string;
     hasOverlay?: boolean;

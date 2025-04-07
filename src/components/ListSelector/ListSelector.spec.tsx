@@ -2,21 +2,28 @@ import React from 'react';
 import {render, screen, fireEvent} from '@testing-library/react';
 import {ListSelector} from './index';
 
-describe('MultipleLeftRightSelector', () => {
-    const options = [
-        {label: 'One', value: '1'},
-        {label: 'Two', value: '2'},
-        {label: 'Three', value: '3'}
-    ];
+const requiredProps = {
+    label: {
+        selected: '0 item selected'
+    },
+    onChange: () => ({})
+};
 
+const options = [
+    {label: 'One', value: '1'},
+    {label: 'Two', value: '2'},
+    {label: 'Three', value: '3'}
+];
+
+describe('MultipleLeftRightSelector', () => {
     it('should display empty list', () => {
-        const {container} = render(<ListSelector onChange={() => ({})}/>);
+        const {container} = render(<ListSelector {...requiredProps}/>);
         expect(container.querySelectorAll('li')).toHaveLength(0);
     });
 
     it('should display options in left list', () => {
         const {container} = render(
-            <ListSelector options={options} onChange={() => ({})}/>
+            <ListSelector {...requiredProps} options={options}/>
         );
         expect(container.querySelectorAll('li[role="left-list"]')).toHaveLength(
             options.length
@@ -27,9 +34,9 @@ describe('MultipleLeftRightSelector', () => {
         const selection = ['1', '3'];
         const {container} = render(
             <ListSelector
+                {...requiredProps}
                 options={options}
                 values={selection}
-                onChange={() => ({})}
             />
         );
         expect(container.querySelectorAll('li[role="left-list"]')).toHaveLength(
@@ -44,10 +51,10 @@ describe('MultipleLeftRightSelector', () => {
         const selection = ['1', '3'];
         const {container} = render(
             <ListSelector
+                {...requiredProps}
                 isReadOnly
                 options={options}
                 values={selection}
-                onChange={() => ({})}
             />
         );
         expect(container.querySelectorAll('li[role="left-list"]')).toHaveLength(
@@ -78,6 +85,7 @@ describe('MultipleLeftRightSelector', () => {
         const selection = ['1', '3'];
         const {container} = render(
             <ListSelector
+                {...requiredProps}
                 options={options}
                 values={selection}
                 onChange={mockOnChange}
@@ -96,6 +104,7 @@ describe('MultipleLeftRightSelector', () => {
         const selection = ['1', '3'];
         const {container} = render(
             <ListSelector
+                {...requiredProps}
                 options={options}
                 values={selection}
                 onChange={mockOnChange}
@@ -114,7 +123,7 @@ describe('MultipleLeftRightSelector', () => {
     it('should filter items', () => {
         const mockOnChange = vi.fn(v => console.log(v));
         const {container} = render(
-            <ListSelector options={options} onChange={mockOnChange}/>
+            <ListSelector {...requiredProps} options={options} onChange={mockOnChange}/>
         );
         expect(container.querySelectorAll('li[role="left-list"]')).toHaveLength(
             options.length
@@ -133,7 +142,8 @@ describe('MultipleLeftRightSelector', () => {
         render(
             <ListSelector
                 options={options}
-                label={{rightListTitle: 'test right'}}
+                label={{...requiredProps.label, rightListTitle: 'test right'}}
+                onChange={requiredProps.onChange}
             />
         );
 
@@ -144,7 +154,8 @@ describe('MultipleLeftRightSelector', () => {
         render(
             <ListSelector
                 options={options}
-                label={{leftListTitle: 'test left'}}
+                label={{...requiredProps.label, leftListTitle: 'test left'}}
+                onChange={requiredProps.onChange}
             />
         );
 

@@ -3,22 +3,26 @@ import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {ListItem} from './index';
 
+const requiredProps = {
+    label: 'list item label'
+};
+
 describe('ListItem', () => {
     it('should display label', () => {
-        render(<ListItem label="Say my name"/>);
-        expect(screen.getByText('Say my name')).toBeTruthy();
+        render(<ListItem {...requiredProps}/>);
+        expect(screen.getByText(requiredProps.label)).toBeTruthy();
     });
 
     it('should display description', () => {
-        render(<ListItem description="Description of item"/>);
+        render(<ListItem {...requiredProps} description="Description of item"/>);
         expect(screen.getByText('Description of item')).toBeTruthy();
     });
 
     it('should add additional attributes', () => {
         render(
             <ListItem
+                {...requiredProps}
                 data-testid="moonstone-listItem"
-                label="my label"
                 data-custom="test"
             />
         );
@@ -31,7 +35,7 @@ describe('ListItem', () => {
     it('should display iconStart', () => {
         const Icon = () => <svg/>;
         const {container} = render(
-            <ListItem label="Say my name" iconStart={<Icon/>}/>
+            <ListItem {...requiredProps} iconStart={<Icon/>}/>
         );
         expect(container.querySelector('svg')).toBeInTheDocument();
     });
@@ -39,7 +43,7 @@ describe('ListItem', () => {
     it('should display iconEnd', () => {
         const Icon = () => <svg/>;
         const {container} = render(
-            <ListItem label="Say my name" iconEnd={<Icon/>}/>
+            <ListItem {...requiredProps} iconEnd={<Icon/>}/>
         );
         expect(container.querySelector('svg')).toBeInTheDocument();
     });
@@ -48,9 +52,9 @@ describe('ListItem', () => {
         const testClassName = 'hello';
         render(
             <ListItem
+                {...requiredProps}
                 data-testid="moonstone-listItem"
                 className={testClassName}
-                label="my label"
             />
         );
         expect(screen.getByTestId('moonstone-listItem')).toHaveClass(
@@ -62,7 +66,7 @@ describe('ListItem', () => {
         const user = userEvent.setup();
         const handleClick = vi.fn();
 
-        render(<ListItem label="my label" onClick={handleClick}/>);
+        render(<ListItem {...requiredProps} onClick={handleClick}/>);
         await user.click(screen.getByText('my label'));
 
         expect(handleClick).toBeCalled();
@@ -71,7 +75,7 @@ describe('ListItem', () => {
     it('should have default imageSize=small', () => {
         const Image = () => <img/>;
         const {container} = render(
-            <ListItem label="my label" image={<Image/>}/>
+            <ListItem {...requiredProps} image={<Image/>}/>
         );
         expect(
             container.querySelector('.moonstone-listItem-image_small')

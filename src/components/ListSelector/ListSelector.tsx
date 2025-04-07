@@ -18,7 +18,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
         leftListTitle: '',
         addAllTitle: 'Add all',
         removeAllTitle: 'Remove all',
-        selected: '0 items selected'
+        selected: '0 item selected'
     },
     options = [],
     values = [],

@@ -2,7 +2,9 @@ import React from 'react';
 import {queryByText, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {Dropdown, DropdownMenu, TreeViewMenu} from './index';
-import {dropdownData, dropdownDataGrouped, dropdownDataTree} from '~/data';
+import {dropdownData} from '~/data/dropdownData';
+import {dropdownDataGrouped} from '~/data/dropdownDataGrouped';
+import {dropdownDataTree} from '~/data/dropdownDataTree';
 import {Love} from '~/icons/index';
 
 describe('Dropdown', () => {
@@ -161,6 +163,7 @@ describe('Dropdown', () => {
     it('should display nothing if data is not an array', () => {
         render(
             <Dropdown
+                // @ts-expect-error testing invalid data
                 data="not an array"
                 data-testid="moonstone-dropdown"
                 onChange={() => 'testing'}
@@ -347,6 +350,7 @@ describe('Dropdown', () => {
 describe('DropdownMenu', () => {
     it('should not display if there is no data', () => {
         render(
+            // @ts-expect-error testing empty data
             <DropdownMenu
                 isDisplayed
                 data={[]}
@@ -373,14 +377,17 @@ describe('DropdownMenu', () => {
 const TreeViewMenuSizes = ['minWidth', 'maxWidth', 'maxHeight'];
 
 describe('TreeViewMenu', () => {
+    const handleSelect = vi.fn();
+    const onClose = vi.fn();
+
     it('should display', () => {
-        render(<TreeViewMenu isDisplayed treeData={dropdownDataTree}/>);
+        render(<TreeViewMenu isDisplayed handleSelect={handleSelect} treeData={dropdownDataTree} onClose={onClose}/>);
         expect(screen.getByRole('list')).toBeInTheDocument();
     });
 
     it('should have a selected value', () => {
         render(
-            <TreeViewMenu isDisplayed treeData={dropdownDataTree} value="a2"/>
+            <TreeViewMenu isDisplayed handleSelect={handleSelect} treeData={dropdownDataTree} value="a2" onClose={onClose}/>
         );
         expect(
             screen.getByRole('treeitem', {name: 'A-2 level1'})
@@ -391,8 +398,10 @@ describe('TreeViewMenu', () => {
         render(
             <TreeViewMenu
                 isDisplayed
+                handleSelect={handleSelect}
                 treeData={dropdownDataTree}
                 values={['a2', 'a1']}
+                onClose={onClose}
             />
         );
         expect(
@@ -406,7 +415,7 @@ describe('TreeViewMenu', () => {
     it('should have working search bar', async () => {
         const user = userEvent.setup();
         render(
-            <TreeViewMenu isDisplayed hasSearch treeData={dropdownDataTree}/>
+            <TreeViewMenu isDisplayed hasSearch handleSelect={handleSelect} treeData={dropdownDataTree} onClose={onClose}/>
         );
         await user.type(screen.getByRole('search'), 'test');
         expect(screen.getByRole('search')).toHaveValue('test');
@@ -415,7 +424,7 @@ describe('TreeViewMenu', () => {
     test.each(TreeViewMenuSizes)('should have the right size', size => {
         const props = {[size]: '50px'};
         render(
-            <TreeViewMenu isDisplayed treeData={dropdownDataTree} {...props}/>
+            <TreeViewMenu isDisplayed handleSelect={handleSelect} treeData={dropdownDataTree} onClose={onClose} {...props}/>
         );
         expect(screen.getByRole('list')).toHaveStyle(props);
     });

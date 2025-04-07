@@ -24,7 +24,7 @@ export type TreeViewMenuProps = {
     transformElOrigin?: TransformElOrigin;
     position?: PositioningType;
     hasSearch?: boolean;
-    autoAddSearchLimit: number;
+    autoAddSearchLimit?: number;
     searchInput?: string;
     searchEmptyText?: string;
     hasOverlay?: boolean;
@@ -33,6 +33,6 @@ export type TreeViewMenuProps = {
     children?: React.ReactNode;
     imageSize?: 'small' | 'big';
     handleSelect: (e?: React.MouseEvent | React.KeyboardEvent, item?: DropdownDataOption) => void;
-    handleKeyPress: (e?: React.KeyboardEvent, item?: DropdownDataOption) => void;
+    // HandleKeyPress: (e?: React.KeyboardEvent, item?: DropdownDataOption) => void;
     onClose: () => void;
 }

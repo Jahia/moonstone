@@ -24,7 +24,7 @@ export type FieldsetProps = {
     /**
      * Define fieldset field(s)
      */
-    children: React.ReactElement;
+    children: React.ReactElement | React.ReactElement[];
 
     /**
      * Fieldset action(s)

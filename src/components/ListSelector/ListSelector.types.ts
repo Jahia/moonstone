@@ -10,11 +10,11 @@ type Label = {
     /**
      * Add all button title
      */
-    addAllTitle: string,
+    addAllTitle?: string,
     /**
      * Remove all button title
      */
-    removeAllTitle: string,
+    removeAllTitle?: string,
     /**
      * Label for number of items selected, use values to determine the number
      */
