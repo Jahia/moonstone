@@ -1,4 +1,3 @@
-import React from 'react';
 import {Folder, Lock} from '~/icons';
 
 export const dropdownDataDescriptions = [

@@ -1,4 +1,3 @@
-import React from 'react';
 import {LayoutApp} from './index';
 import {
     FakePrimaryNavigation,

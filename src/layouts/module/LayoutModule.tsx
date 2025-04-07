@@ -1,4 +1,4 @@
-import React, {ForwardedRef} from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import type {LayoutModuleProps} from './LayoutModule.types';
 import './LayoutModule.scss';
@@ -9,7 +9,7 @@ export const LayoutModule = React.forwardRef(({
     content,
     component = 'main',
     isLoading = false
-}: LayoutModuleProps, ref: ForwardedRef<unknown>) => {
+}: LayoutModuleProps, ref: React.ForwardedRef<unknown>) => {
     const classNameProps = clsx(
         'flexFluid',
         isLoading ? ['flexCol_center', 'alignCenter'] : 'flexCol'

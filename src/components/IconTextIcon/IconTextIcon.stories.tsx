@@ -1,4 +1,3 @@
-import React from 'react';
 import {IconTextIcon} from './index';
 import {Apps, Love} from '~/icons';
 

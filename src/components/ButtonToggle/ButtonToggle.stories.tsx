@@ -1,4 +1,3 @@
-import React from 'react';
 import {StoryObj, Meta, StoryContext} from '@storybook/react';
 
 import {ButtonToggle} from './index';

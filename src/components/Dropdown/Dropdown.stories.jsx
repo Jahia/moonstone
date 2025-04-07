@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import {action} from '@storybook/addon-actions';
 import markdownNotes from './Dropdown.md';
 import {Dropdown} from './index';

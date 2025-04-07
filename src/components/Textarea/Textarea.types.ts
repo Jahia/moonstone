@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 export type BaseTextareaProps = Omit<React.ComponentPropsWithRef<'textarea'>, 'id' | 'value' | 'defaultValue' | 'onChange' | 'onFocus' | 'onBlur' | 'className'> & {
     /**

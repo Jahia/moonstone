@@ -1,4 +1,3 @@
-import React from 'react';
 import {LayoutModule} from './index';
 import {
     FakeSecondaryNavigation,
