@@ -15,12 +15,14 @@ describe('Tooltip', () => {
     });
 
     it('should not render if no children', () => {
-        render(<Tooltip {...requiredProps} data-testid="moonstone-tooltip"><div/></Tooltip>);
+        // @ts-expect-error testing no children
+        render(<Tooltip {...requiredProps} data-testid="moonstone-tooltip"></Tooltip>);
         expect(screen.queryByTestId('moonstone-tooltip')).not.toBeInTheDocument();
     });
 
     it('should not render if no label', () => {
-        render(<Tooltip {...requiredProps} data-testid="moonstone-tooltip"><Button label="Button"/></Tooltip>);
+        // @ts-expect-error testing no label
+        render(<Tooltip data-testid="moonstone-tooltip"><Button label="Button"/></Tooltip>);
         expect(screen.queryByTestId('moonstone-tooltip')).not.toBeInTheDocument();
     });
 

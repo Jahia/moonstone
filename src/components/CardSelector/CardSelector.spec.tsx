@@ -34,7 +34,7 @@ describe('CardSelector', () => {
     it('should display the image with thumbnailURL', () => {
         const {container} = render(<CardSelector {...requiredProps} thumbnailURL="thumbnail.png"/>);
         expect(
-            container.querySelector('img[src=thumbnail.png]')
+            container.querySelector('img[src="thumbnail.png"]')
         ).toBeInTheDocument();
     });
 
