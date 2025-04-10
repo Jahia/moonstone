@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {action} from '@storybook/addon-actions';
 import markdownNotes from './Dropdown.md';
 import {Dropdown} from './index';
@@ -153,6 +153,7 @@ export const Multiple = () => {
     return (
         <Dropdown
             icon={<Love/>}
+            placeholder="Select something"
             values={currentOption.map(v => v.value)}
             size="big"
             isDisabled={false}
@@ -233,7 +234,6 @@ export const Grouped = () => {
     );
 };
 
-
 export const GroupedMultiple = () => {
     const [currentOption, setCurrentOption] = useState([]);
 
@@ -250,7 +250,7 @@ export const GroupedMultiple = () => {
     return (
         <Dropdown
             isDisabled={false}
-            placeholder='Select something'
+            placeholder="Select something"
             values={currentOption.map(v => v.value)}
             size="big"
             data={dropdownDataGrouped}

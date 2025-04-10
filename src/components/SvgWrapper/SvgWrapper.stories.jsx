@@ -1,4 +1,3 @@
-import React from 'react';
 import {SvgWrapper} from './index';
 import markdownNotes from './SvgWrapper.md';
 import '~/__storybook__/storybook.scss';

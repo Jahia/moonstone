@@ -15,7 +15,7 @@ describe('Tooltip', () => {
 
     it('should not render if no children', () => {
         // @ts-expect-error testing no children
-        render(<Tooltip {...requiredProps} data-testid="moonstone-tooltip"></Tooltip>);
+        render(<Tooltip {...requiredProps} data-testid="moonstone-tooltip"/>);
         expect(screen.queryByTestId('moonstone-tooltip')).not.toBeInTheDocument();
     });
 

@@ -76,7 +76,7 @@ describe('Accordion', () => {
                     <AccordionItem id="2" label="item 02">content 02</AccordionItem>
                 </Accordion>
             );
-            
+
             await user.click(screen.getByText('item 02'));
             await user.click(screen.getByText('item 02'));
 

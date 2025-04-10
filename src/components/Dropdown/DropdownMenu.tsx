@@ -24,7 +24,6 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     handleKeyPress,
     onClose
 }) => {
-
     const getIcon = (item: DropdownDataOption) => values?.indexOf(item.value) > -1 ? <CheckboxChecked role="checkbox" color="blue"/> : <CheckboxUnchecked role="checkbox"/>;
 
     // ---
