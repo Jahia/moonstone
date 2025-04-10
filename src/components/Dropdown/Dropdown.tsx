@@ -34,18 +34,20 @@ const isGroupedData = (data: DropdownData): data is DropdownDataGrouped[] => {
     if (!Array.isArray(data)) {
         return false;
     }
+
     return data.every(item => 'options' in item && 'groupLabel' in item);
 };
 
 const getDataItem = (data: DropdownData, value: string): DropdownDataOption | undefined => {
     if (isGroupedData(data)) {
-        const group = data.find(group => group.options.some(item => item.value === value));
-
-        console.log('group', group);
-        return group?.options.find(item => item.value === value);
+        return data.reduce((
+            acc: DropdownDataOption[],
+            group: DropdownDataGrouped) => acc.concat(group.options), [])
+            .find((item: DropdownDataOption) => item.value === value);
     }
-    return data.find(item => item.value === value);
-}
+
+    return data.find((item: DropdownDataOption) => item.value === value);
+};
 
 export const Dropdown: React.FC<DropdownProps> = ({
     data,
