@@ -1,6 +1,7 @@
 module.exports = {
     dimensions: false,
     typescript: true,
+    jsxRuntime: 'automatic',
     prettierConfig: {
         parser: 'babel',
         singleQuote: true,
