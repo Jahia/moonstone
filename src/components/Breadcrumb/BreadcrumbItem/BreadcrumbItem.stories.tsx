@@ -1,4 +1,3 @@
-import React from 'react';
 import {StoryFn, Meta} from '@storybook/react';
 
 // Import '~/__storybook__/storybook.scss';

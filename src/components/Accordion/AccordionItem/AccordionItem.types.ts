@@ -36,7 +36,7 @@ export type AccordionContextType = {
     /**
      * Whether the component should use reversed colors, it useful with dark background
      */
-    isReversed: boolean;
+    isReversed?: boolean;
     /**
      * Id of the AccordionItem opened
      */

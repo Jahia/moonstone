@@ -1,10 +1,15 @@
-import React from 'react';
-import {render, screen} from '@testing-library/react';
+import {render, screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {TablePagination} from './TablePagination';
 
+const requiredProps = {
+    totalNumberOfRows: 33,
+    currentPage: 1,
+    onPageChange: () => {},
+    onRowsPerPageChange: () => {}
+};
+
 describe('TablePagination', () => {
-    const NUMBER_OF_ROWS = 33;
     const TOTAL_BUTTONS = 4;
     const BEGINNING_BUTTON = 0;
     const PREV_PAGE_BUTTON = 1;
@@ -13,53 +18,35 @@ describe('TablePagination', () => {
 
     it('should display', () => {
         render(
-            <TablePagination data-testid="table-pagination" currentPage={1}/>
+            <TablePagination {...requiredProps} data-testid="table-pagination"/>
         );
         expect(screen.getByTestId('table-pagination')).toBeInTheDocument();
     });
 
-    it('should error on invalid currentPage', () => {
-        try {
-            render(
-                <TablePagination
-                    data-testid="table-pagination"
-                    currentPage={0}
-                />
-            );
-        } catch (e) {
-            expect(e.message).toContain('currentPage must always be >= 1');
-            return;
-        }
-
-        fail('Failed currentPage invariant');
+    it('should error on invalid currentPage', async () => {
+        vi.spyOn(console, 'error').mockImplementation(() => vi.fn());
+        await waitFor(() => expect(
+            () => render(<TablePagination {...requiredProps} currentPage={0}/>))
+            .toThrow('currentPage must always be >= 1')
+        );
+        vi.restoreAllMocks();
     });
 
-    it('should error on invalid rowsPerPage', () => {
-        try {
-            render(
-                <TablePagination
-                    data-testid="table-pagination"
-                    currentPage={1}
-                    rowsPerPage={35}
-                />
-            );
-        } catch (e) {
-            expect(e.message).toContain(
-                'rowsPerPage must exist in rowsPerPageOptions'
-            );
-            return;
-        }
-
-        fail('Failed rowsPerPage invariant');
+    it('should error on invalid rowsPerPage', async () => {
+        vi.spyOn(console, 'error').mockImplementation(() => vi.fn());
+        await waitFor(() => expect(
+            () => render(<TablePagination {...requiredProps} rowsPerPage={35}/>))
+            .toThrow('rowsPerPage must exist in rowsPerPageOptions')
+        );
+        vi.restoreAllMocks();
     });
 
     it('should be correctly displayed for beginning of rows', () => {
         const {container} = render(
             <TablePagination
+                {...requiredProps}
                 data-testid="table-pagination"
-                currentPage={1}
                 rowsPerPage={5}
-                totalNumberOfRows={NUMBER_OF_ROWS}
             />
         );
         expect(screen.getByText('1-5 of 33')).toBeDefined();
@@ -74,10 +61,10 @@ describe('TablePagination', () => {
     it('should be correctly displayed for middle of rows', () => {
         const {container} = render(
             <TablePagination
+                {...requiredProps}
                 data-testid="table-pagination"
                 currentPage={3}
                 rowsPerPage={5}
-                totalNumberOfRows={NUMBER_OF_ROWS}
             />
         );
         expect(screen.getByText('11-15 of 33')).toBeDefined();
@@ -92,10 +79,10 @@ describe('TablePagination', () => {
     it('should be correctly displayed for end of rows', () => {
         const {container} = render(
             <TablePagination
+                {...requiredProps}
                 data-testid="table-pagination"
                 currentPage={7}
                 rowsPerPage={5}
-                totalNumberOfRows={NUMBER_OF_ROWS}
             />
         );
         expect(screen.getByText('31-33 of 33')).toBeDefined();
@@ -110,14 +97,14 @@ describe('TablePagination', () => {
     it('should have data-sel-role tags', () => {
         const {container} = render(
             <TablePagination
+                {...requiredProps}
                 data-testid="table-pagination"
                 currentPage={4}
                 rowsPerPage={10}
-                totalNumberOfRows={NUMBER_OF_ROWS}
             />
         );
 
-        const testDataRoleTags = tag => {
+        const testDataRoleTags = (tag:string) => {
             const elem = container.querySelector(`[data-sel-role="${tag}"]`);
             expect(elem).toBeInTheDocument();
         };
@@ -135,6 +122,7 @@ describe('TablePagination', () => {
         const onPageChange = vi.fn();
         const {container} = render(
             <TablePagination
+                {...requiredProps}
                 data-testid="table-pagination"
                 currentPage={3}
                 onPageChange={onPageChange}
@@ -153,6 +141,7 @@ describe('TablePagination', () => {
         const onPageChange = vi.fn();
         const {container} = render(
             <TablePagination
+                {...requiredProps}
                 data-testid="table-pagination"
                 currentPage={3}
                 onPageChange={onPageChange}
@@ -171,6 +160,7 @@ describe('TablePagination', () => {
         const onPageChange = vi.fn();
         const {container} = render(
             <TablePagination
+                {...requiredProps}
                 data-testid="table-pagination"
                 currentPage={3}
                 onPageChange={onPageChange}
@@ -189,6 +179,7 @@ describe('TablePagination', () => {
         const onPageChange = vi.fn();
         const {container} = render(
             <TablePagination
+                {...requiredProps}
                 data-testid="table-pagination"
                 currentPage={3}
                 onPageChange={onPageChange}

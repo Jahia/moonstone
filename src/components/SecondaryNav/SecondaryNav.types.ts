@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 
-export type SecondaryNavProps = {
+export type SecondaryNavProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'children' | 'className' | 'onChange'> & {
     /**
      * Is visible or hidden by default
      */

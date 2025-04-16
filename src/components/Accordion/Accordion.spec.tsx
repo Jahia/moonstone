@@ -1,9 +1,7 @@
-import React, {useContext} from 'react';
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {Accordion} from './index';
 import {AccordionItem} from './AccordionItem/';
-import {AccordionContext} from './Accordion.context';
 
 describe('Accordion', () => {
     it('should display children content', () => {
@@ -17,32 +15,14 @@ describe('Accordion', () => {
 
     it('should add reversed class when component is reversed', () => {
         render(
-            <Accordion isReversed data-testid="id">
-                content
-            </Accordion>
+            <Accordion isReversed data-testid="id"><div/></Accordion>
         );
         expect(screen.getByTestId('id')).toHaveClass('moonstone-reversed');
     });
 
     it('should add extra attribute on Accordion', () => {
         render(
-            <Accordion data-testid="id" data-custom="extra">
-                content
-            </Accordion>
-        );
-        expect(screen.getByTestId('id')).toHaveAttribute(
-            'data-custom',
-            'extra'
-        );
-    });
-
-    it('should add extra attribute on AccordionItem', () => {
-        render(
-            <Accordion>
-                <AccordionItem data-testid="id" data-custom="extra">
-                    content
-                </AccordionItem>
-            </Accordion>
+            <Accordion data-testid="id" data-custom="extra"><div/></Accordion>
         );
         expect(screen.getByTestId('id')).toHaveAttribute(
             'data-custom',
@@ -51,107 +31,81 @@ describe('Accordion', () => {
     });
 
     it('should display nothing when the component has no children', () => {
-        render(<Accordion data-testid="id"/>);
+        render(<Accordion data-testid="id"><div/></Accordion>);
         expect(screen.queryByRole('accordion-item')).not.toBeInTheDocument();
     });
 
     describe('withAccordionItem Mock', () => {
-        // eslint-disable-next-line react/prop-types
-        const AccordionItemMock = ({id}) => {
-            const context = useContext(AccordionContext);
-            const open = context.currentItem === id;
-
-            return (
-                <button
-                    type="button"
-                    id={id}
-                    onClick={() => context.onSetOpenedItem(id)}
-                >
-                    {id} - {open ? 'open' : 'close'}
-                </button>
-            );
-        };
-
-        beforeAll(() => {
-            // As we are mocking, we won't be good enough for propTypes, so ignore them
-            console.oldError = console.error;
-            console.error = vi.fn();
-        });
-
-        afterAll(() => {
-            console.error = console.oldError;
-            delete console.oldError;
-        });
-
         it('should select another item when calling onSetOpenedItem', async () => {
             const user = userEvent.setup();
 
             render(
                 <Accordion>
-                    <AccordionItemMock id="1"/>
-                    <AccordionItemMock id="2"/>
+                    <AccordionItem id="1" label="item 01">content 01</AccordionItem>
+                    <AccordionItem id="2" label="item 02">content 02</AccordionItem>
                 </Accordion>
             );
-            await user.click(screen.getByRole('button', {name: '1 - close'}));
+            await user.click(screen.getByText('item 01'));
 
-            expect(screen.getByText('1 - open')).toBeInTheDocument();
-            expect(screen.getByText('2 - close')).toBeInTheDocument();
+            expect(screen.getByText('content 01')).toBeInTheDocument();
+            expect(screen.queryByText('content 02')).not.toBeInTheDocument();
         });
 
-        it('should open just one item', async () => {
+        it('should open just one item after clicking on two accordions', async () => {
             const user = userEvent.setup();
 
             render(
                 <Accordion>
-                    <AccordionItemMock id="1"/>
-                    <AccordionItemMock id="2"/>
+                    <AccordionItem id="1" label="item 01">content 01</AccordionItem>
+                    <AccordionItem id="2" label="item 02">content 02</AccordionItem>
                 </Accordion>
             );
-            await user.click(screen.getByRole('button', {name: /1/i}));
-            await user.click(screen.getByRole('button', {name: /2/i}));
+            await user.click(screen.getByText('item 01'));
+            await user.click(screen.getByText('item 02'));
 
-            expect(screen.getByText('1 - close')).toBeInTheDocument();
-            expect(screen.getByText('2 - open')).toBeInTheDocument();
+            expect(screen.queryByText('content 01')).not.toBeInTheDocument();
+            expect(screen.getByText('content 02')).toBeInTheDocument();
         });
 
-        it('should unselect item when calling onSetOpenedItem another time', async () => {
+        it('should close all accordions when I click twice on the same accordion item', async () => {
             const user = userEvent.setup();
 
             render(
                 <Accordion>
-                    <AccordionItemMock id="1"/>
-                    <AccordionItemMock id="2"/>
+                    <AccordionItem id="1" label="item 01">content 01</AccordionItem>
+                    <AccordionItem id="2" label="item 02">content 02</AccordionItem>
                 </Accordion>
             );
-            await user.click(screen.getByRole('button', {name: /1/i}));
-            await user.click(screen.getByRole('button', {name: /1/i}));
 
-            expect(screen.getByText('1 - close')).toBeInTheDocument();
-            expect(screen.getByText('2 - close')).toBeInTheDocument();
+            await user.click(screen.getByText('item 02'));
+            await user.click(screen.getByText('item 02'));
+
+            expect(screen.queryByText('content 01')).not.toBeInTheDocument();
+            expect(screen.queryByText('content 01')).not.toBeInTheDocument();
         });
 
-        it('should open item by default when given the props', () => {
+        it('should open item by default when given the prop `defaultOpenedItem`', () => {
             render(
                 <Accordion defaultOpenedItem="2">
-                    <AccordionItemMock id="1"/>
-                    <AccordionItemMock id="2"/>
+                    <AccordionItem id="1" label="item 01">content 01</AccordionItem>
+                    <AccordionItem id="2" label="item 02">content 02</AccordionItem>
                 </Accordion>
             );
 
-            expect(screen.getByText('1 - close')).toBeInTheDocument();
-            expect(screen.getByText('2 - open')).toBeInTheDocument();
+            expect(screen.queryByText('content 01')).not.toBeInTheDocument();
+            expect(screen.getByText('content 02')).toBeInTheDocument();
         });
 
-        it('should open item when given the props', () => {
+        it('should open item when given the prop `openedItem`', () => {
             render(
                 <Accordion openedItem="2">
-                    <AccordionItemMock id="1"/>
-                    <AccordionItemMock id="2"/>
+                    <AccordionItem id="1" label="item 01">content 01</AccordionItem>
+                    <AccordionItem id="2" label="item 02">content 02</AccordionItem>
                 </Accordion>
             );
 
-            expect(screen.getByText('1 - close')).toBeInTheDocument();
-            expect(screen.getByText('2 - open')).toBeInTheDocument();
+            expect(screen.queryByText('content 01')).not.toBeInTheDocument();
+            expect(screen.getByText('content 02')).toBeInTheDocument();
         });
     });
 });

@@ -1,4 +1,3 @@
-import React from 'react';
 import markdownNotes from './PrimaryNav.md';
 
 import {PrimaryNav} from './index';

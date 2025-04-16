@@ -1,4 +1,3 @@
-import React from 'react';
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -102,7 +101,7 @@ describe('Checkbox', () => {
     it('should have mixed state when specified with the isIndeterminate prop', () => {
         render(
             <Checkbox
-                checked="mixed"
+                indeterminate
                 aria-label="checkbox"
                 onChange={() => null}
             />

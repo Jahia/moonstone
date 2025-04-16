@@ -16,9 +16,9 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
     label = {
         rightListTitle: '',
         leftListTitle: '',
-        addAllTitle: 'Add all',
-        removeAllTitle: 'Remove all',
-        selected: '0 items selected'
+        addAllTitle: '',
+        removeAllTitle: '',
+        selected: ''
     },
     options = [],
     values = [],
@@ -102,14 +102,14 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                 />
             </div>
             <div className="moonstone-listSelector_buttons alignCenter flexCol_center">
-                <Button title={label.addAllTitle}
+                <Button title={label.addAllTitle || 'Add all'}
                         role="add-all"
                         variant="ghost"
                         isDisabled={isReadOnly || valuesLeft.length === 0}
                         icon={<ChevronDoubleRight/>}
                         onClick={() => onChange([...valuesRight, ...valuesLeft].map(o => o.value))}
                     />
-                <Button title={label.removeAllTitle}
+                <Button title={label.removeAllTitle || 'Remove all'}
                         role="remove-all"
                         variant="ghost"
                         isDisabled={isReadOnly || valuesRight.length === 0}
@@ -191,7 +191,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                            }}
                 />
                 <footer className="moonstone-listSelector_footer flexRow alignCenter">
-                    {values.length > 0 && <Typography variant="caption" weight="semiBold">{label.selected}</Typography>}
+                    {values.length > 0 && <Typography variant="caption" weight="semiBold">{label.selected || '0 item selected'}</Typography>}
                 </footer>
             </div>
         </div>

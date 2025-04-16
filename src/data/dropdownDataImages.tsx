@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const dropdownDataImages = [
     {
         groupLabel: 'Options 1-3',

@@ -21,7 +21,12 @@ type ControlledProps = {
     /**
      * Whether the checkbox should be checked. Must be used with onChange function to update the checked state (controlled)
      */
-    checked?: boolean;
+    checked: boolean;
+
+    /**
+     * Function triggered on change of the checkboxItem value
+     */
+    onChange: (event: React.ChangeEvent<HTMLInputElement>, value: string, checked: boolean) => void;
 }
 
 type UncontrolledProps = {
@@ -29,6 +34,11 @@ type UncontrolledProps = {
      * Whether the checkbox should be checked by default. (uncontrolled)
      */
     defaultChecked?: boolean;
+
+    /**
+     * Function triggered on change of the checkboxItem value
+     */
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>, value: string, checked: boolean) => void;
 }
 
 export type CheckboxItemProps = BasicCheckboxItemProps & Partial<ControlledProps> & Partial<UncontrolledProps>;

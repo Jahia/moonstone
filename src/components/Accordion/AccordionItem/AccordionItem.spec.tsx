@@ -4,35 +4,48 @@ import userEvent from '@testing-library/user-event';
 import {AccordionContext} from '~/components/Accordion';
 import {AccordionItem} from './index';
 
+const requiredProps = {
+    label: 'accordion label',
+    id: 'test-id'
+};
+
 describe('AccordionItem', () => {
     it('should display label', () => {
-        render(<AccordionItem label="my label label"/>);
-        expect(screen.getByText('my label label')).toBeInTheDocument();
+        render(<AccordionItem {...requiredProps}><div/></AccordionItem>);
+        expect(screen.getByText(requiredProps.label)).toBeInTheDocument();
     });
 
     it('should display icon', () => {
         const Icon = () => <svg data-testid="svg"/>;
-        render(<AccordionItem icon={<Icon/>}/>);
+        render(<AccordionItem {...requiredProps} icon={<Icon/>}><div/></AccordionItem>);
         expect(screen.getByTestId('svg')).toBeInTheDocument();
     });
 
     it('should display additional className', () => {
         render(
-            <AccordionItem data-testid="accordion-item" className="extra"/>
+            <AccordionItem {...requiredProps} data-testid="accordion-item" className="extra"><div/></AccordionItem>
         );
         expect(screen.getByTestId('accordion-item')).toHaveClass('extra');
+    });
+
+    it('should add extra attribute on AccordionItem', () => {
+        render(<AccordionItem {...requiredProps} data-testid="id" data-custom="extra"><div/></AccordionItem>);
+        expect(screen.getByTestId('id')).toHaveAttribute(
+            'data-custom',
+            'extra'
+        );
     });
 
     it('should accept reversed accordion', () => {
         render(
             <AccordionContext.Provider
                 value={{
-                    onSetOpenedItemId: vi.fn(),
+                    onSetOpenedItem: vi.fn(),
                     currentItem: 'not correspond',
                     isReversed: true
                 }}
             >
-                <AccordionItem data-testid="accordion-item">
+                <AccordionItem {...requiredProps} data-testid="accordion-item">
                     content here
                 </AccordionItem>
             </AccordionContext.Provider>
@@ -48,13 +61,13 @@ describe('AccordionItem', () => {
         render(
             <AccordionContext.Provider
                 value={{
-                    onSetOpenedItemId: vi.fn(),
+                    onSetOpenedItem: vi.fn(),
                     currentItem: 'not correspond'
                 }}
             >
                 <AccordionItem
+                    {...requiredProps}
                     data-testid="accordion-item"
-                    label="my label label"
                     onClick={handleOnClick}
                 >
                     content here
@@ -72,14 +85,13 @@ describe('AccordionItem', () => {
         render(
             <AccordionContext.Provider
                 value={{
-                    onSetOpenedItemId: vi.fn(),
-                    currentItem: 'id'
+                    onSetOpenedItem: vi.fn(),
+                    currentItem: 'test-id'
                 }}
             >
                 <AccordionItem
-                    id="id"
+                    {...requiredProps}
                     data-testid="accordion-item"
-                    label="my label label"
                     onClick={handleOnClick}
                 >
                     content here
@@ -104,22 +116,21 @@ describe('AccordionItem', () => {
                 }}
             >
                 <AccordionItem
-                    id="id"
-                    label="my label label"
+                    {...requiredProps}
                     onClick={handleOnClick}
                 >
                     content here
                 </AccordionItem>
             </AccordionContext.Provider>
         );
-        await user.click(screen.getByText('my label label'));
+        await user.click(screen.getByText(requiredProps.label));
 
         expect(handleOnClick).toHaveBeenCalled();
     });
 
     it('should onClick callback return true if item has been opened', async () => {
         const user = userEvent.setup();
-        const handleOnClick = (e, open) => {
+        const handleOnClick = (e: React.MouseEvent, open: boolean) => {
             isOpen = open;
         };
 
@@ -132,7 +143,7 @@ describe('AccordionItem', () => {
                     currentItem: 'not correspond'
                 }}
             >
-                <AccordionItem label="my label label" onClick={handleOnClick}>
+                <AccordionItem {...requiredProps} onClick={handleOnClick}>
                     content here
                 </AccordionItem>
             </AccordionContext.Provider>
@@ -144,7 +155,7 @@ describe('AccordionItem', () => {
 
     it('should onClick callback return false if item has been closed', async () => {
         const user = userEvent.setup();
-        const handleOnClick = (e, open) => {
+        const handleOnClick = (e: React.MouseEvent, open:boolean) => {
             isOpen = open;
         };
 
@@ -154,12 +165,11 @@ describe('AccordionItem', () => {
             <AccordionContext.Provider
                 value={{
                     onSetOpenedItem: vi.fn(),
-                    currentItem: 'id'
+                    currentItem: 'test-id'
                 }}
             >
                 <AccordionItem
-                    id="id"
-                    label="my label label"
+                    {...requiredProps}
                     onClick={handleOnClick}
                 >
                     content here
@@ -178,10 +188,10 @@ describe('AccordionItem', () => {
             <AccordionContext.Provider
                 value={{
                     onSetOpenedItem: vi.fn(),
-                    currentItem: 'id'
+                    currentItem: 'test-id'
                 }}
             >
-                <AccordionItem id="id" label="my label label">
+                <AccordionItem {...requiredProps}>
                     content here
                 </AccordionItem>
             </AccordionContext.Provider>

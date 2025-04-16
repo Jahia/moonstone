@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import type {CheckboxProps} from '~/components/Checkbox/Checkbox.types';
 
 export type FieldBooleanProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 'id'> & {

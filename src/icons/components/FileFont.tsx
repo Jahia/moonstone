@@ -1,4 +1,3 @@
-import * as React from 'react';
 import type {SVGProps} from 'react';
 interface IconProps extends SVGProps<SVGSVGElement> {
   readonly size?: 'small' | 'default' | 'big';

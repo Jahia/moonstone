@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import markdownNotes from './GlobalStyle_layout.md';
 import clsx from 'clsx';

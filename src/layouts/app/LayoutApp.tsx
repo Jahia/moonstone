@@ -1,4 +1,4 @@
-import React, {ForwardedRef} from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import './LayoutApp.scss';
 import {LayoutAppProps} from './LayoutApp.types';
@@ -8,7 +8,7 @@ export const LayoutApp = React.forwardRef(({
     navigation = null,
     content = null,
     isLoading = false
-}: LayoutAppProps, ref: ForwardedRef<HTMLDivElement>) => {
+}: LayoutAppProps, ref: React.ForwardedRef<HTMLDivElement>) => {
     const classNameProps = clsx(
         'moonstone-layoutApp_content',
         'flexFluid',

@@ -1,6 +1,6 @@
 {
   "globals": { "vi": "readonly" },
-  "extends": ["@jahia", "plugin:@typescript-eslint/recommended"],
+  "extends": ["@jahia", "plugin:@typescript-eslint/recommended", "plugin:react/jsx-runtime"],
   "plugins": ["json"],
   "parser": "@typescript-eslint/parser",
   "rules": {

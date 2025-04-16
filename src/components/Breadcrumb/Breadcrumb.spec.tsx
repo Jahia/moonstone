@@ -1,4 +1,3 @@
-import React from 'react';
 import {Breadcrumb, BreadcrumbItem} from '~/components';
 import {render, screen} from '@testing-library/react';
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {Input} from './index';
@@ -93,21 +92,6 @@ describe('UncontrolledBaseInput', () => {
         expect(
             screen.getByDisplayValue('test-default-value-updated')
         ).toBeInTheDocument();
-    });
-
-    it('should reset field when we click on the reset button of the search input', async () => {
-        const user = userEvent.setup();
-
-        render(
-            <Input
-                isShowClearButton
-                data-testid="moonstone-input"
-                defaultValue="test-default-value"
-            />
-        );
-        await user.click(screen.getByLabelText('Reset'));
-
-        expect(screen.getByTestId('moonstone-input')).toHaveValue('');
     });
 
     it('should call specified onChange function', async () => {

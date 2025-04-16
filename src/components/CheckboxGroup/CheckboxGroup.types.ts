@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {CheckboxItemProps} from './CheckboxItem/CheckboxItem.types';
 
 export type CheckboxGroupProps = {

@@ -1,25 +1,31 @@
-import React from 'react';
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {SearchContextInput} from './index';
 import {Dropdown} from '~/components';
-import {dropdownData} from '~/data';
+import {dropdownData} from '~/data/dropdownData';
+
+const requiredProps = {
+    searchContext: <Dropdown
+                data-testid="test-searchContext"
+                data={dropdownData}
+            />
+};
 
 describe('SearchContextInput', () => {
     it('should render', () => {
-        render(<SearchContextInput data-testid="moonstone-input"/>);
+        render(<SearchContextInput {...requiredProps} data-testid="moonstone-input"/>);
         expect(screen.getByTestId('moonstone-input')).toBeInTheDocument();
     });
 
     it('should have the role search', () => {
-        render(<SearchContextInput/>);
+        render(<SearchContextInput {...requiredProps}/>);
         expect(screen.getByRole('search')).toBeInTheDocument();
     });
 
     it('should always have big size', async () => {
         const user = userEvent.setup();
 
-        render(<SearchContextInput data-testid="moonstone-input"/>);
+        render(<SearchContextInput {...requiredProps} data-testid="moonstone-input"/>);
         await user.type(screen.getByTestId('moonstone-input'), 'type a value');
 
         expect(screen.getByDisplayValue('type a value')).toBeInTheDocument();
@@ -27,14 +33,7 @@ describe('SearchContextInput', () => {
 
     it('should display search context', () => {
         render(
-            <SearchContextInput
-                searchContext={
-                    <Dropdown
-                        data={dropdownData}
-                        data-testid="test-searchContext"
-                    />
-                }
-            />
+            <SearchContextInput {...requiredProps}/>
         );
         expect(screen.getByTestId('test-searchContext')).toBeInTheDocument();
     });
@@ -46,6 +45,7 @@ describe('UncontrolledSearchContextInput', () => {
 
         render(
             <SearchContextInput
+                {...requiredProps}
                 data-testid="moonstone-input"
                 defaultValue="test-default-value"
             />
@@ -61,6 +61,7 @@ describe('UncontrolledSearchContextInput', () => {
 
         render(
             <SearchContextInput
+                {...requiredProps}
                 data-testid="moonstone-input"
                 defaultValue="test-default-value"
                 onChange={handleChange}
@@ -77,6 +78,7 @@ describe('UncontrolledSearchContextInput', () => {
 
         render(
             <SearchContextInput
+                {...requiredProps}
                 defaultValue="test-default-value"
                 onClear={handleClear}
             />
@@ -94,6 +96,7 @@ describe('ControlledSearchContextInput', () => {
 
         render(
             <SearchContextInput
+                {...requiredProps}
                 data-testid="moonstone-input"
                 value="test-value"
                 onChange={handleChange}
@@ -110,6 +113,7 @@ describe('ControlledSearchContextInput', () => {
 
         render(
             <SearchContextInput
+                {...requiredProps}
                 value="test-value"
                 onChange={() => null}
                 onClear={handleClear}

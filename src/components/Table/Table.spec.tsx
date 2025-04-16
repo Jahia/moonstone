@@ -1,4 +1,3 @@
-import React from 'react';
 import {render, screen} from '@testing-library/react';
 import {Table} from './index';
 import {TableHead, TableHeadCell, TableBody, TableBodyCell, TableRow} from './index';

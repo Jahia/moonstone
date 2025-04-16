@@ -1,4 +1,3 @@
-import React from 'react';
 import markdownNotes from './PrimaryNavItemsGroup.md';
 
 import {PrimaryNavItemsGroup} from './index';

@@ -1,21 +1,24 @@
-import React from 'react';
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {SecondaryNav, SecondaryNavHeader} from './index';
 
+const requiredProps = {
+    header: 'test header'
+};
+
 describe('SecondaryNav', () => {
     it('should display children content', () => {
-        render(<SecondaryNav header="">content here</SecondaryNav>);
+        render(<SecondaryNav {...requiredProps}>content here</SecondaryNav>);
         expect(screen.queryByText('content here')).toBeInTheDocument();
     });
     it('should display a string in the header', () => {
-        render(<SecondaryNav header="my header">content here</SecondaryNav>);
-        expect(screen.queryByText('my header')).toBeInTheDocument();
+        render(<SecondaryNav {...requiredProps}>content here</SecondaryNav>);
+        expect(screen.queryByText(requiredProps.header)).toBeInTheDocument();
     });
 
     it('should add extra attribute', () => {
         render(
-            <SecondaryNav data-testid="secondary-nav" data-custom="extra">
+            <SecondaryNav {...requiredProps} data-testid="secondary-nav" data-custom="extra">
                 content here
             </SecondaryNav>
         );
@@ -27,7 +30,7 @@ describe('SecondaryNav', () => {
 
     it('should not be expanded when the menu is hidden', () => {
         render(
-            <SecondaryNav data-testid="secondary-nav" isDefaultVisible={false}>
+            <SecondaryNav {...requiredProps} data-testid="secondary-nav" isDefaultVisible={false}>
                 content here
             </SecondaryNav>
         );
@@ -39,7 +42,7 @@ describe('SecondaryNav', () => {
 
     it('should be expanded when the menu is visible', () => {
         render(
-            <SecondaryNav data-testid="secondary-nav">
+            <SecondaryNav {...requiredProps} data-testid="secondary-nav">
                 content here
             </SecondaryNav>
         );
@@ -51,7 +54,7 @@ describe('SecondaryNav', () => {
 
     it('should set width to zero when the menu is hidden', () => {
         render(
-            <SecondaryNav data-testid="secondary-nav" isDefaultVisible={false}>
+            <SecondaryNav {...requiredProps} data-testid="secondary-nav" isDefaultVisible={false}>
                 content here
             </SecondaryNav>
         );
@@ -63,6 +66,7 @@ describe('SecondaryNav', () => {
 
         render(
             <SecondaryNav
+                {...requiredProps}
                 data-testid="secondary-nav"
                 id="test"
                 isDefaultVisible={false}
@@ -82,7 +86,7 @@ describe('SecondaryNav', () => {
         const user = userEvent.setup();
 
         render(
-            <SecondaryNav data-testid="secondary-nav">
+            <SecondaryNav {...requiredProps} data-testid="secondary-nav">
                 content here
             </SecondaryNav>
         );
@@ -97,7 +101,7 @@ describe('SecondaryNav', () => {
     it('should not throw error when there is no onToggled defined', async () => {
         const user = userEvent.setup();
         render(
-            <SecondaryNav data-testid="secondary-nav">
+            <SecondaryNav {...requiredProps} data-testid="secondary-nav">
                 content here
             </SecondaryNav>
         );
@@ -110,7 +114,7 @@ describe('SecondaryNav', () => {
         const clickHandler = vi.fn();
 
         render(
-            <SecondaryNav onToggled={clickHandler}>content here</SecondaryNav>
+            <SecondaryNav {...requiredProps} onToggled={clickHandler}>content here</SecondaryNav>
         );
         await user.click(screen.getByRole('secondary-nav-control'));
 

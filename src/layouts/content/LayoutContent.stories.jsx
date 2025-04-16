@@ -1,4 +1,3 @@
-import React from 'react';
 import {LayoutContent} from '~/layouts';
 import {Header} from '~/components';
 import {FakeContent} from '~/__storybook__/FakeComponents';

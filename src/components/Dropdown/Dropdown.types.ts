@@ -17,9 +17,15 @@ export type DropdownDataOption = {
     attributes?: React.HTMLAttributes<HTMLElement>;
     image?: React.ReactElement;
     imageSize?: DropdownImageSize;
-    groupLabel?: string;
-    options?: [DropdownDataOption];
 }
+
+export type DropdownDataGrouped = {
+    groupLabel: string;
+    options: DropdownDataOption[];
+}
+
+export type DropdownData = DropdownDataOption[] | DropdownDataGrouped[];
+export type DropdownDataTree = TreeViewData[]
 
 export type HandleSelect = (e: React.MouseEvent | React.KeyboardEvent, item?: DropdownDataOption) => void;
 
@@ -27,12 +33,12 @@ export type DropdownProps = {
     /**
      * Content of the dropdown
      */
-    data?: DropdownDataOption[];
+    data?: DropdownData;
 
     /**
      * Content of the dropdown, if tree
      */
-    treeData?: TreeViewData[];
+    treeData?: DropdownDataTree;
 
     /**
      * Text for dropdown, when no value is selected

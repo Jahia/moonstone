@@ -1,4 +1,3 @@
-import React from 'react';
 import {render, screen} from '@testing-library/react';
 import {ButtonGroup} from './index';
 import {Button} from '~/components/Button';
@@ -15,11 +14,13 @@ describe('ButtonGroup', () => {
     });
 
     it('should not render error', () => {
+        // @ts-expect-error testing invalid children
         render(<ButtonGroup>test</ButtonGroup>);
         expect(screen.queryByRole('group')).toBeInTheDocument();
     });
 
     it('should display nothing when no children is provided', () => {
+        // @ts-expect-error testing with no children
         render(<ButtonGroup/>);
         expect(screen.queryByRole('group')).not.toBeInTheDocument();
     });

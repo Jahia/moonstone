@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type BasicCheckboxProps = Omit<React.ComponentPropsWithRef<'input'>, 'value' | 'onChange' | 'onFocus' | 'onBlur' | 'checked' | 'className'> & {
+export type BasicCheckboxProps = Omit<React.ComponentPropsWithRef<'input'>, 'value' | 'onChange' | 'onFocus' | 'onBlur' | 'checked' | 'className' | 'size'> & {
     /**
      * The value of the input element, used when submitting an HTML form
      */
@@ -27,11 +27,6 @@ export type BasicCheckboxProps = Omit<React.ComponentPropsWithRef<'input'>, 'val
     isReadOnly?: boolean;
 
     /**
-     * Function triggered on change of the checkbox value
-     */
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>, value: string, checked: boolean) => void;
-
-    /**
      * Function triggered on focus of the checkbox value
      */
     onFocus?: React.FocusEventHandler;
@@ -47,6 +42,12 @@ type ControlledProps = {
      * Whether the checkbox should be checked. Must be used in conjunction with onChange. Define the component as controlled when it set (controlled)
      */
     checked: boolean;
+
+    /**
+     * Function triggered on change of the checkbox value
+     */
+    onChange: (event: React.ChangeEvent<HTMLInputElement>, value: string, checked: boolean) => void;
+
     /**
      * Whether the checkbox should be indeterminate (controlled)
      */
@@ -58,6 +59,11 @@ type UncontrolledProps = {
      * Whether the checkbox should be checked - default value (uncontrolled)
      */
     defaultChecked?: boolean;
+
+    /**
+     * Function triggered on change of the checkbox value
+     */
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>, value: string, checked: boolean) => void;
 };
 
 export type CheckboxProps = BasicCheckboxProps & Partial<ControlledProps> & Partial<UncontrolledProps>;
