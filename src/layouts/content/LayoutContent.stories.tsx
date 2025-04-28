@@ -1,6 +1,8 @@
+import {Meta, StoryObj} from '@storybook/react';
 import {LayoutContent} from '~/layouts';
 import {Header} from '~/components';
 import {FakeContent} from '~/__storybook__/FakeComponents';
+import type {LayoutContentProps} from './LayoutContent.types';
 
 export default {
     title: 'Layouts/LayoutContent',
@@ -20,9 +22,11 @@ export default {
             control: false
         }
     }
-};
+} as Meta<typeof LayoutContent>;
 
-const Template = args => (
+type Story = StoryObj<typeof LayoutContent>;
+
+const Template = (args: LayoutContentProps) => (
     <LayoutContent
     header={<Header title="Header"/>}
     content={<FakeContent/>}
@@ -30,11 +34,11 @@ const Template = args => (
   />
 );
 
-export const Default = {
+export const Default: Story = {
     render: Template
 };
 
-export const Centered = {
+export const Centered: Story = {
     render: Template,
 
     args: {
@@ -42,7 +46,7 @@ export const Centered = {
     }
 };
 
-export const WithoutPadding = {
+export const WithoutPadding: Story = {
     render: Template,
 
     args: {
@@ -50,7 +54,7 @@ export const WithoutPadding = {
     }
 };
 
-export const Loading = {
+export const Loading: Story = {
     render: Template,
 
     args: {
