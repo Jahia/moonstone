@@ -85,6 +85,7 @@
 
     &:hover:not(.moonstone-disabled) {
         border: var(--border-selector_hover);
+        background: none;
     }
 
     &.moonstone-disabled {
