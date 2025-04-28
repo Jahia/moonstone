@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type LayoutAppProps = React.ComponentPropsWithRef<'div'> & {
+export type LayoutAppProps = Omit<React.ComponentPropsWithRef<'div'>, 'content'> & {
     /**
      * Navigation of the application (for PrimaryNavigation)
      */
