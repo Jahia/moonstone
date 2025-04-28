@@ -1,4 +1,6 @@
+import {Meta, StoryObj} from '@storybook/react';
 import {LayoutApp} from './index';
+import type {LayoutAppProps} from './LayoutApp.types';
 import {
     FakePrimaryNavigation,
     FakeContent
@@ -20,23 +22,23 @@ export default {
             control: false
         }
     }
-};
+} as Meta<typeof LayoutApp>;
 
-const Template = args => (
+type Story = StoryObj<typeof LayoutApp>
+
+const Template = (args: LayoutAppProps) => (
     <LayoutApp
     navigation={<FakePrimaryNavigation/>}
     content={<FakeContent/>}
     {...args}
   />
 );
-
-export const Default = {
+export const Default: Story = {
     render: Template
 };
 
-export const Loading = {
+export const Loading: Story = {
     render: Template,
-
     args: {
         isLoading: true
     }
