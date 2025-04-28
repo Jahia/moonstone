@@ -1,3 +1,4 @@
+import {Meta, StoryObj} from '@storybook/react';
 import {SvgWrapper} from './index';
 import markdownNotes from './SvgWrapper.md';
 import '~/__storybook__/storybook.scss';
@@ -27,6 +28,6 @@ export default {
         layout: 'centered',
         notes: {markdown: markdownNotes}
     }
-};
+}as Meta<typeof SvgWrapper>;
 
-export const Playground = () => <SvgWrapper svg={svg} size="default"/>;
+export const Playground: StoryObj<typeof SvgWrapper> = {render: () => <SvgWrapper svg={svg} size="default"/>};
