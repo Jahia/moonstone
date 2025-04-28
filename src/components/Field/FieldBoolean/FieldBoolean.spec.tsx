@@ -79,11 +79,11 @@ describe('FieldBoolean', () => {
         render(
             <FieldBoolean
                 {...requiredProps}
-                buttons={<Button label="Click me" onClick={onClick}/>}
+                buttons={<Button data-testid="testButton" label="Click me" onClick={onClick}/>}
             />
         );
         await userEvent.click(
-            screen.getByRole('button', {name: /Click me/i})
+            screen.getByTestId('testButton')
         );
         expect(onClick).toHaveBeenCalled();
     });
