@@ -40,7 +40,6 @@ export const Default: Story = {
 export const Loading: Story = {
     render: Template,
     args: {
-        ...Default.args,
         isLoading: true
     }
 };
