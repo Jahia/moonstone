@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import type {RadioItemProps} from '~/components/RadioGroup/RadioItem/RadioItem.types';
 
 type BasicRadioGroupProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'children' | 'className' | 'onChange'> & {

@@ -1,4 +1,3 @@
-import React from 'react';
 import {PrimaryNavItem} from './index';
 import {Edit, Person, Power, Workflow} from '~/icons';
 import markdownNotes from './PrimaryNavItem.md';

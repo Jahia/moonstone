@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import {StoryFn, Meta} from '@storybook/react';
 
 import {Accordion} from './index';

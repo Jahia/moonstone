@@ -26,29 +26,36 @@ Desired Jahia Version: 8.X.X.X
 
 <h2 id="testing-matrix">:scroll: Testing matrix</h2>
 
+<h3> Notes for release testing:</h3>
+
+Please add all relevant hints which can help QA when testing the release - for module releases on the main branch, this might be obsolete. For releases on the maintenance branch consider the following topics:
+
+- expected automated tests 
+- scope of the release (simple backport vs. different implementation of a fix)
+
+<h3>Version matrix</h3>
+
 > We aim at clearly documenting the possible deployment scenarios in a matrix and specify which ones are expected to be tested or not.
 In the testing matrix, always use the latest patch version of a particular release
 
-|To Test (YES/NO)|Jahia Version|Dependency A|Dependency B|PASS / FAIL|
-|---|---|---|---|---|
-|YES / NO|8.1.1.2|1.0.0|3.0.0| |
-|YES / NO|8.1.7.1|2.0.0|3.0.0| |
+The following combinations should be validated:
+ - minimum Jahia version (according to the pom.xml)
 
 :information_source: If you are releasing for the main branch of a module, make sure to complete the checklist below when working on the ticket.
 
 <h2 id="prepare-checklist">:pencil2: Prepare checklist</h2>
 
-- [ ] All other tickets with that fixVersion are closed
+- [ ] All other tickets within that milestone are are closed
 - [ ] Testing matrix and Minimum Jahia version are detailed
 - [ ] Jahia-parent (minimum Jahia version) was updated if requested in the ticket
 - [ ] The release workflow will [publish](https://github.com/Jahia/sandbox/commit/9a6ab10c8fbe5e11eb7fe3c6b391be2be776319b) a slack notification
-- [ ] Release creation has been triggered from the Github Release UI (https://github.com/Jahia/[module-repo]/releases/new)
+- [ ] Release creation has been triggered from the Github Release UI ([detailed documentation](https://jahia-confluence.atlassian.net/wiki/spaces/PR/pages/2064804/Releasing+a+module#Releasingamodule-ReleasingwithGithub))
 
 <h2 id="tests-checklist">:vertical_traffic_light: Tests checklist</h2>
 
 General
 - [ ] Manual tests detailing testing steps for validating the release of this module are present on Testrail
-- [ ] Automated tests using the release artifacts were executed
+- [ ] Automated tests using the release artifacts were executed against the oldest and newest release of Jahia
 
 Module migration
 - [ ] Upgrade from the previous released version of the module was tested
@@ -57,7 +64,7 @@ Module migration
 While Testing
 - [ ] No warnings or errors are present in the browser console when testing the module
 - [ ] No warnings or errors are present in Jahia logs when testing the module (incl. migration)
-- [ ] Verified tickets present in the release are actually included in the release artifact
+- [ ] Select a random set of fixes from the release and verify them on the minimum jahia-version
 
 After Testing
 - [ ] Tested combinations (Jahia versions, modules versions) are listed in this released ticket
@@ -73,3 +80,4 @@ After Testing
 - [ ] The module was published on the store
 - [ ] The [modules releases log page](https://edit.jahia.com/jahia/page-composer/default/en/sites/academy/home/customer-center/modules-releases-log.html) on the Academy was updated
 - [ ] A message was published on slack #releases channel
+- [ ] The milestone on GitHub was closed

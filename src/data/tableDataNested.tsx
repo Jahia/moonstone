@@ -1,4 +1,3 @@
-import React from 'react';
 import {Chip} from '~/components';
 import {Bookmark, Build, FileImage, FolderUser, Edit, Lock, Person, Puzzle, AbTesting} from '~/icons';
 

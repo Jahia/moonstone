@@ -1,10 +1,10 @@
-import React, {FunctionComponent} from 'react';
+import type React from 'react';
 import './Badge.scss';
 import {Typography} from '~/components/Typography';
 import clsx from 'clsx';
 import {BadgeProps} from './Badge.types';
 
-export const Badge: FunctionComponent<BadgeProps> = ({
+export const Badge: React.FC<BadgeProps> = ({
     label = null,
     color = 'accent',
     className,

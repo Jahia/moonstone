@@ -40,10 +40,6 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
                             variant={variant}
                             isReversed={isReversed}
                             color={color}
-                            className={clsx(
-                                `moonstone-variant_${variant}`,
-                                `moonstone-color_${color}`
-                            )}
                         />
                     );
                 })

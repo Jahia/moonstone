@@ -5,8 +5,9 @@ import {SearchInput} from './SearchInput';
 
 export const Input: React.FC<InputProps> = props => {
     if (props.variant === 'search') {
-        // Tslint:disable-next-line:no-console
-        console.warn('The prop `variant` of the Input component is deprecated, and it will be removed in a next release. If you need the `search` variant, please use the dedicated component `SearchInput`');
+        console.warn(
+            'The prop `variant` of the Input component is deprecated, and it will be removed in a next release. If you need the `search` variant, please use the dedicated component `SearchInput`'
+        );
         return <SearchInput {...props} variant="outlined"/>;
     }
 

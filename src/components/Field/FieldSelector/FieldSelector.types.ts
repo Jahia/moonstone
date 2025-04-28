@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 export type FieldSelectorProps = Omit<React.ComponentPropsWithRef<'div'>, 'className'> & {
     /**

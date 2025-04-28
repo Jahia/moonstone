@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 
 import {treeData, treeDataNested} from '~/data';
 import {LayoutApp, LayoutModule, LayoutContent} from '~/layouts';

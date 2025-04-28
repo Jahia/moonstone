@@ -1,0 +1,20 @@
+$bgColor: var(--color-gray_dark);
+
+.moonstone-tooltip_label {
+    z-index: 1;
+
+    width: inherit;
+    max-width: 450px;
+    padding: var(--spacing-nano) var(--spacing-small);
+
+    color: var(--color-white);
+
+    border-radius: var(--radius);
+    background-color: $bgColor;
+}
+
+.moonstone-tooltip_arrow {
+    z-index: 1;
+
+    fill: $bgColor;
+}

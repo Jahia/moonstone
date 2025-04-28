@@ -1,4 +1,3 @@
-import React from 'react';
 import {StoryObj, Meta} from '@storybook/react';
 
 import markdownNotes from './ButtonGroup.md';
@@ -30,15 +29,19 @@ export const Default: StoryObj<ButtonGroupProps> = {
     ),
 
     args: {
-        variant: 'default',
-        color: 'default',
-        size: 'big',
-        isReversed: false
+        size: 'big'
     }
 };
 
 export const ButtonWithActions = () => (
     <ButtonGroup color="accent" size="big">
+        <Button label="Actions" onClick={() => null}/>
+        <Button icon={<ChevronDown/>} onClick={() => null}/>
+    </ButtonGroup>
+);
+
+export const ButtonOutlinedWithActions = () => (
+    <ButtonGroup color="accent" size="big" variant="outlined">
         <Button label="Actions" onClick={() => null}/>
         <Button icon={<ChevronDown/>} onClick={() => null}/>
     </ButtonGroup>

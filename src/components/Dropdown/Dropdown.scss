@@ -56,13 +56,21 @@
         outline: none;
     }
 
-    &:hover:not(.moonstone-disabled) {
-        color: var(--color-accent);
-    }
+    // &:hover:not(.moonstone-disabled) {
+    //     color: var(--color-accent);
+    // }
 
     &:not(.moonstone-filled) .moonstone-dropdown_label {
         font-style: italic;
         color: var(--color-gray_dark60);
+    }
+}
+
+.moonstone-reversed {
+    .moonstone-dropdown_ghost:hover {
+        color: var(--color-accent);
+
+        background-color: transparent;
     }
 }
 

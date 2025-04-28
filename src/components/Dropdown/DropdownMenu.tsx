@@ -24,9 +24,6 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     handleKeyPress,
     onClose
 }) => {
-    const isEmpty = data.length < 1;
-    const isGrouped = !isEmpty && typeof data[0].options !== 'undefined';
-
     const getIcon = (item: DropdownDataOption) => values?.indexOf(item.value) > -1 ? <CheckboxChecked role="checkbox" color="blue"/> : <CheckboxUnchecked role="checkbox"/>;
 
     // ---
@@ -51,7 +48,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
         />
     );
 
-    const dropdownGrouped = (children: [DropdownDataOption], groupLabel: string, index: number) => {
+    const dropdownGrouped = (options: DropdownDataOption[], groupLabel: string, index: number) => {
         return (
             <div key={`${groupLabel}-${index}`} data-option-type="group">
                 {index > 0 && (
@@ -60,8 +57,8 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
 
                 <MenuItem variant="title" label={groupLabel}/>
 
-                {children.map(item => {
-                    return dropdownOption(item);
+                {options.map(option => {
+                    return dropdownOption(option);
                 })}
             </div>
         );
@@ -87,7 +84,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
         >
             {
                 data.map((item, index) => {
-                    if (isGrouped) {
+                    if ('options' in item && 'groupLabel' in item) {
                         item.options.map((o: DropdownDataOption) => {
                             return dropdownOption(o);
                         });

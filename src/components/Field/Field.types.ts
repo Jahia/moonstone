@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 export type FieldProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 'id' | 'children'> & {
     /**
@@ -29,7 +29,7 @@ export type FieldProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 
     /**
      * Define field selector(s)
      */
-    children: React.ReactElement;
+    children: React.ReactElement | React.ReactElement[];
 
     /**
      * Field action(s)

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 
 import {TreeView} from './index';
 import {treeData, treeDataFlat} from '~/data';
@@ -78,7 +78,7 @@ export const Highlight = {
         <TreeView
             data={treeData}
             isReversed={theme === 'dark'}
-            highlightedItem="A"
+            highlightedItems={['A']}
             {...args}
         />
     )

@@ -1,6 +1,5 @@
 .moonstone-cardSelector {
     width: 100%;
-    padding: var(--spacing-small);
 
     border: var(--border-selector);
     border-radius: var(--radius-selector);
@@ -25,20 +24,16 @@
     pointer-events: none;
 }
 
-.moonstone-cardSelector_dragIcon {
-    margin-left: calc(-1 * var(--spacing-small));
-}
-
 .moonstone-cardSelector_body {
     overflow: hidden;
 }
 
 .moonstone-cardSelector_body,
 .moonstone-cardSelector_actions {
-    gap: var(--spacing-small);
+    gap: var(--spacing-nano);
 
     & > * {
-        gap: var(--spacing-small);
+        gap: var(--spacing-nano);
     }
 }
 
@@ -48,9 +43,9 @@
 }
 
 .moonstone-cardSelector_thumbnail {
-    width: 60px;
-    min-width: 60px;
-    height: 60px;
+    width: 46px;
+    min-width: 46px;
+    height: 46px;
 
     margin-right: var(--spacing-small);
     overflow: hidden;
@@ -77,8 +72,7 @@
 .moonstone-cardSelector_error {
     gap: var(--spacing-nano);
     width: 100%;
-    min-height: 78px;
-    padding: var(--spacing-medium) 0;
+    min-height: 48px;
 
     color: var(--color-warning);
 

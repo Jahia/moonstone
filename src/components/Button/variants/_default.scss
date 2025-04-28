@@ -66,6 +66,8 @@
         }
 
         &:disabled {
+            color: inherit;
+
             border-color: var(--color-gray_light);
             background-color: var(--color-gray_light);
         }
@@ -87,6 +89,8 @@
         }
 
         &:disabled {
+            color: inherit;
+
             border-color: var(--color-gray_light);
             background-color: var(--color-gray_light);
         }

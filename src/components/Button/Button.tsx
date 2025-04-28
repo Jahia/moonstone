@@ -33,7 +33,6 @@ export const Button = ({
 
     const handleOnClick: React.MouseEventHandler = e => {
         onClick(e);
-        ButtonEl.current.blur();
     };
 
     const LoaderReversed = Boolean(variant === 'default' && (color === 'accent' || color === 'danger'));
@@ -49,7 +48,6 @@ export const Button = ({
                 {'moonstone-icon-button': !label},
                 {'moonstone-reverse': isReversed},
                 {'moonstone-button_loading': isLoading},
-                'flexRow_center',
                 'alignCenter',
                 className
             )}

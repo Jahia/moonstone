@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 export type LayoutContentProps = Omit<React.ComponentPropsWithRef<'div'>, 'className'> & {
     /**

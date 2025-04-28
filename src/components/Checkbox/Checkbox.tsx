@@ -9,7 +9,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({checked, ...props}) => {
         return <UncontrolledCheckbox {...props}/>;
     }
 
-    return <ControlledCheckbox checked={checked} {...props}/>;
+    return <ControlledCheckbox checked={checked} onChange={props.onChange} {...props}/>;
 };
 
 Checkbox.displayName = 'Checkbox';

@@ -1,4 +1,3 @@
-import React from 'react';
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {PrimaryNavItem} from './index';
@@ -12,12 +11,19 @@ describe('NavItem', () => {
     });
 
     it('should add extra attribute', () => {
-        render(<PrimaryNavItem data-testid="primaryNav-item" data-custom="extra"/>);
-        expect(screen.getByTestId('primaryNav-item')).toHaveAttribute('data-custom', 'extra');
+        render(
+            <PrimaryNavItem data-testid="primaryNav-item" data-custom="extra"/>
+        );
+        expect(screen.getByTestId('primaryNav-item')).toHaveAttribute(
+            'data-custom',
+            'extra'
+        );
     });
 
     it('should add extra className', () => {
-        render(<PrimaryNavItem data-testid="primaryNav-item" className="extra"/>);
+        render(
+            <PrimaryNavItem data-testid="primaryNav-item" className="extra"/>
+        );
         expect(screen.getByTestId('primaryNav-item')).toHaveClass('extra');
     });
 
@@ -28,18 +34,28 @@ describe('NavItem', () => {
     });
 
     it('should display the badge', () => {
-        render(<PrimaryNavItem badge={<Badge label="primaryNavItem-badge"/>}/>);
-        expect(screen.getByText('primaryNavItem-badge')).toHaveClass('moonstone-primaryNavItem_badge');
+        render(
+            <PrimaryNavItem badge={<Badge label="primaryNavItem-badge"/>}/>
+        );
+        expect(screen.getByText('primaryNavItem-badge')).toHaveClass(
+            'moonstone-primaryNavItem_badge'
+        );
     });
 
     it('should set selected when given selected property', () => {
         render(<PrimaryNavItem isSelected data-testid="primaryNav-item"/>);
-        expect(screen.getByTestId('primaryNav-item')).toHaveAttribute('aria-current', 'true');
+        expect(screen.getByTestId('primaryNav-item')).toHaveAttribute(
+            'aria-current',
+            'true'
+        );
     });
 
     it('should not set selected when not given selected property', () => {
         render(<PrimaryNavItem data-testid="primaryNav-item"/>);
-        expect(screen.getByTestId('primaryNav-item')).toHaveAttribute('aria-current', 'false');
+        expect(screen.getByTestId('primaryNav-item')).toHaveAttribute(
+            'aria-current',
+            'false'
+        );
     });
 
     it('should display a link when given a url props', () => {
@@ -59,9 +75,13 @@ describe('NavItem', () => {
 
     it('should call onClick function', async () => {
         const user = userEvent.setup();
-        const onClick = jest.fn();
+        const onClick = vi.fn();
 
-        render(<PrimaryNav top={<PrimaryNavItem label="test me" onClick={onClick}/>}/>);
+        render(
+            <PrimaryNav
+                top={<PrimaryNavItem label="test me" onClick={onClick}/>}
+            />
+        );
         await user.click(screen.getByText('test me'));
 
         expect(onClick).toHaveBeenCalled();

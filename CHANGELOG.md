@@ -1,3 +1,107 @@
+# v2.13.0 (Fri Apr 04 2025)
+
+#### 🚀 Enhancement
+
+- refactor: build Moonstone as clean ESM [#1003](https://github.com/Jahia/moonstone/pull/1003) ([@GauBen](https://github.com/GauBen))
+
+#### 🐛 Bug Fix
+
+- feat: Improve cardSelector [#1002](https://github.com/Jahia/moonstone/pull/1002) ([@Eevolee](https://github.com/Eevolee))
+
+#### Authors: 2
+
+- Alessia Bourgoin ([@Eevolee](https://github.com/Eevolee))
+- Gautier Ben Aïm ([@GauBen](https://github.com/GauBen))
+
+---
+
+# v2.12.4 (Fri Mar 28 2025)
+
+#### 🐛 Bug Fix
+
+- fix: background color on highlighted table row on hover [#1000](https://github.com/Jahia/moonstone/pull/1000) ([@ffffffelix](https://github.com/ffffffelix))
+- fix: set Button with display inline-flex [#999](https://github.com/Jahia/moonstone/pull/999) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
+# v2.12.3 (Thu Mar 27 2025)
+
+#### 🐛 Bug Fix
+
+- fix: css classes order of ButtonGroup [#998](https://github.com/Jahia/moonstone/pull/998) ([@ffffffelix](https://github.com/ffffffelix))
+- fix: TabItem color text returns to gray [#997](https://github.com/Jahia/moonstone/pull/997) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
+# v2.12.2 (Wed Mar 26 2025)
+
+#### 🐛 Bug Fix
+
+- feat: new icons AdvancedEdit, Rename, EditImage [#995](https://github.com/Jahia/moonstone/pull/995) ([@ffffffelix](https://github.com/ffffffelix))
+- feat: new icons ChevronFirstList and ChevronLastList [#996](https://github.com/Jahia/moonstone/pull/996) ([@ffffffelix](https://github.com/ffffffelix))
+- fix: background color of ghost dropdown on hover [#994](https://github.com/Jahia/moonstone/pull/994) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
+# v2.12.1 (Fri Mar 21 2025)
+
+#### 🐛 Bug Fix
+
+- fix: color issues with last moonstone release [#991](https://github.com/Jahia/moonstone/pull/991) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
+# v2.12.0 (Wed Mar 19 2025)
+
+#### 🚀 Enhancement
+
+- feat(component): add Tooltip with new dependency react floating UI [#979](https://github.com/Jahia/moonstone/pull/979) ([@Eevolee](https://github.com/Eevolee))
+
+#### 🐛 Bug Fix
+
+- feat: Adjust padding depending on flatness of data and flag value [#984](https://github.com/Jahia/moonstone/pull/984) ([@AKarmanov](https://github.com/AKarmanov))
+- fix: keep hover style when I right-click on a row [#987](https://github.com/Jahia/moonstone/pull/987) ([@ffffffelix](https://github.com/ffffffelix))
+- feat: new icon named VisibilityCondition [#986](https://github.com/Jahia/moonstone/pull/986) ([@ffffffelix](https://github.com/ffffffelix))
+- feat: improve the loading of tree items [#983](https://github.com/Jahia/moonstone/pull/983) ([@ffffffelix](https://github.com/ffffffelix))
+- fix: fix classnames on icon button style [#975](https://github.com/Jahia/moonstone/pull/975) ([@Eevolee](https://github.com/Eevolee))
+- chore: unify disabled & read-only styling [#974](https://github.com/Jahia/moonstone/pull/974) ([@Eevolee](https://github.com/Eevolee))
+- chore: unify ghost variant styling [#973](https://github.com/Jahia/moonstone/pull/973) ([@Eevolee](https://github.com/Eevolee))
+- feat: re-design the AB Testing icon to be bigger [#968](https://github.com/Jahia/moonstone/pull/968) ([@ffffffelix](https://github.com/ffffffelix))
+- fix: contrast issue when a button is on a highlighted row [#966](https://github.com/Jahia/moonstone/pull/966) ([@ffffffelix](https://github.com/ffffffelix))
+- chore: modify dependabot configuration to fit conventional commit [#963](https://github.com/Jahia/moonstone/pull/963) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🏠 Internal
+
+- chore: improve pull request template [#967](https://github.com/Jahia/moonstone/pull/967) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🔩 Dependency Updates
+
+- chore: update dependencies and yarn version [#971](https://github.com/Jahia/moonstone/pull/971) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 3
+
+- Alessia Bourgoin ([@Eevolee](https://github.com/Eevolee))
+- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.11.3 (Wed Feb 12 2025)
 
 #### 🐛 Bug Fix

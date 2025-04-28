@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 export const tabItemSizes = ['default', 'big'] as const;
 type TabItemSize = typeof tabItemSizes[number];

@@ -1,40 +1,36 @@
 .moonstone-buttonGroup {
-    // Manage border-radius
-    > * + * {
-        &:not(:last-child) {
-            border-radius: 0;
+    .moonstone-button {
+        &:first-child {
+            border-radius: var(--radius) 0 0 var(--radius);
         }
-    }
 
-    > *:first-child {
-        border-radius: var(--radius) 0 0 var(--radius);
-    }
+        &:last-child {
+            border-radius: 0 var(--radius) var(--radius) 0;
+        }
 
-    > *:last-child {
-        border-radius: 0 var(--radius) var(--radius) 0;
-    }
+        &:only-child {
+            border-radius: var(--radius);
+        }
 
-    > *:only-child {
-        border-radius: var(--radius);
-    }
-
-    // Manage separator
-    .moonstone-variant_default {
-        & + .moonstone-variant_default {
+        & + .moonstone-button {
             border-left-color: transparent;
+
+            &:not(:last-child) {
+                border-radius: 0;
+            }
         }
 
-        &.moonstone-color_accent,
-        &.moonstone-color_danger {
-            + .moonstone-color_accent,
-            + .moonstone-color_danger {
+        &.moonstone-button_accent,
+        &.moonstone-button_danger {
+            + .moonstone-button_accent,
+            + .moonstone-button_danger {
                 margin-left: 1px;
             }
         }
     }
 
-    .moonstone-variant_outlined {
-        & + .moonstone-variant_outlined {
+    .moonstone-button_outlined {
+        & + .moonstone-button_outlined {
             border-left-color: transparent;
         }
     }
