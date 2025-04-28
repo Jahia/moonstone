@@ -1,9 +1,11 @@
+import {Meta, StoryObj} from '@storybook/react';
 import {LayoutModule} from './index';
 import {
     FakeSecondaryNavigation,
     FakeContent
 } from '~/__storybook__/FakeComponents';
 import markdownNotes from './LayoutModule.md';
+import type {LayoutModuleProps} from './LayoutModule.types';
 
 export default {
     title: 'Layouts/LayoutModule',
@@ -19,9 +21,11 @@ export default {
             control: false
         }
     }
-};
+} as Meta<typeof LayoutModule>;
 
-const Template = args => (
+type Story = StoryObj<typeof LayoutModule>
+
+const Template = (args: LayoutModuleProps) => (
     <div
     style={{
       width: '100vw',
@@ -37,11 +41,11 @@ const Template = args => (
     </div>
 );
 
-export const Default = {
+export const Default: Story = {
     render: Template
 };
 
-export const Loading = {
+export const Loading: Story = {
     render: Template,
 
     args: {
