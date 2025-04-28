@@ -122,8 +122,8 @@ describe('Dropdown', () => {
         );
 
         await user.click(screen.getByRole('dropdown'));
-        await user.type(screen.getByRole('search').querySelector('input'), 'test');
-        expect(screen.getByRole('search').querySelector('input')).toHaveValue('test');
+        await user.type(screen.getByRole('searchbox'), 'test');
+        expect(screen.getByRole('searchbox')).toHaveValue('test');
     });
 
     it('should call onChange when I select a value', async () => {
@@ -414,8 +414,8 @@ describe('TreeViewMenu', () => {
     it('should have working search bar', async () => {
         const user = userEvent.setup();
         render(<TreeViewMenu isDisplayed hasSearch treeData={dropdownDataTree} handleSelect={handleSelect}/>);
-        await user.type(screen.getByRole('search').querySelector('input'), 'test');
-        expect(screen.getByRole('search').querySelector('input')).toHaveValue('test');
+        await user.type(screen.getByRole('searchbox'), 'test');
+        expect(screen.getByRole('searchbox')).toHaveValue('test');
     });
 
     test.each(TreeViewMenuSizes)('should have the right size', size => {

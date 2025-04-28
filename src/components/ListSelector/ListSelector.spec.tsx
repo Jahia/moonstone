@@ -128,7 +128,7 @@ describe('MultipleLeftRightSelector', () => {
             options.length
         );
 
-        const search = container.querySelector('div[role="search"] input');
+        const search = container.querySelector('input[role="searchbox"]');
 
         fireEvent.change(search, {target: {value: 'On'}});
 

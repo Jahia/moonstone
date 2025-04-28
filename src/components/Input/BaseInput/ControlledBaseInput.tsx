@@ -66,6 +66,7 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps> = ({
                     className={clsx('moonstone-baseInput-element', `moonstone-${size}`)}
                     type="text"
                     value={value}
+                    role={role === 'search' && 'searchbox'}
                     id={id}
                     placeholder={placeholder}
                     aria-label={id || placeholder || 'moonstone-baseInput-element'}
