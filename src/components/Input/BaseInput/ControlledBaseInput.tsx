@@ -47,7 +47,7 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps> = ({
     }
 
     return (
-        <div className={classNameProps} onClick={onClick}>
+        <div className={classNameProps} role={role} onClick={onClick}>
             {icon && (
                 <div
                     className={clsx(
@@ -65,8 +65,8 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps> = ({
                     ref={inputRef}
                     className={clsx('moonstone-baseInput-element', `moonstone-${size}`)}
                     type="text"
-                    role={role}
                     value={value}
+                    role={role === 'search' && 'searchbox'}
                     id={id}
                     placeholder={placeholder}
                     disabled={isDisabled}

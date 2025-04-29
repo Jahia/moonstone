@@ -24,7 +24,7 @@ describe('Menu', () => {
                 <MenuItem label="Item3"/>
             </Menu>
         );
-        await user.type(screen.getByRole('search'), 'item2');
+        await user.type(screen.getByRole('searchbox'), 'item2');
 
         expect(screen.queryByText(/item1/i)).not.toBeInTheDocument();
         expect(screen.getByText(/item2/i)).toBeInTheDocument();
@@ -42,7 +42,7 @@ describe('Menu', () => {
                 <MenuItem label="Item3"/>
             </Menu>
         );
-        await user.type(screen.getByRole('search'), 'random search text');
+        await user.type(screen.getByRole('searchbox'), 'random search text');
 
         expect(screen.getByText(searchEmptyText)).toBeInTheDocument();
     });

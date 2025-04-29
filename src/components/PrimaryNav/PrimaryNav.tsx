@@ -11,7 +11,7 @@ const NavButton: React.FC<PrimaryNavButtonProps> = ({isExpanded, toggleExpand, m
             <button
                 className={clsx('moonstone-primaryNav_button')}
                 type="button"
-                role="primary-nav-control"
+                aria-label="Toggle primary navigation"
                 onClick={toggleExpand}
             >
                 <ArrowLeft size="big"/>
@@ -33,7 +33,8 @@ const NavButton: React.FC<PrimaryNavButtonProps> = ({isExpanded, toggleExpand, m
             <button
                 className={clsx('moonstone-primaryNav_button')}
                 type="button"
-                role="primary-nav-control"
+                role="button"
+                aria-label="primary-nav-control"
                 onClick={toggleExpand}
             >
                 <MenuIcon size="big"/>

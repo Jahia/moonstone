@@ -36,7 +36,7 @@ export const Controlled: StoryObj<CheckboxProps> = {
         };
 
         return (
-            <Checkbox checked={checked} onChange={() => handleOnChange()} {...args}/>
+            <Checkbox checked={checked} aria-label="controlled checkbox" onChange={() => handleOnChange()} {...args}/>
         );
     }
 };

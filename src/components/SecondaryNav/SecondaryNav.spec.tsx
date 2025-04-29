@@ -74,7 +74,7 @@ describe('SecondaryNav', () => {
                 content here
             </SecondaryNav>
         );
-        await user.click(screen.getByRole('secondary-nav-control'));
+        await user.click(screen.getByLabelText('Toggle secondary navigation'));
 
         expect(screen.getByTestId('secondary-nav')).toHaveAttribute(
             'aria-expanded',
@@ -90,7 +90,7 @@ describe('SecondaryNav', () => {
                 content here
             </SecondaryNav>
         );
-        await user.click(screen.getByRole('secondary-nav-control'));
+        await user.click(screen.getByLabelText('Toggle secondary navigation'));
 
         expect(screen.getByTestId('secondary-nav')).toHaveAttribute(
             'aria-expanded',
@@ -106,7 +106,7 @@ describe('SecondaryNav', () => {
             </SecondaryNav>
         );
         // No error should occur when there is no onClick defined
-        await user.click(screen.getByRole('secondary-nav-control'));
+        await user.click(screen.getByLabelText('Toggle secondary navigation'));
     });
 
     it('should call onToggled when clicking on expand button', async () => {
@@ -116,7 +116,7 @@ describe('SecondaryNav', () => {
         render(
             <SecondaryNav {...requiredProps} onToggled={clickHandler}>content here</SecondaryNav>
         );
-        await user.click(screen.getByRole('secondary-nav-control'));
+        await user.click(screen.getByLabelText('Toggle secondary navigation'));
 
         expect(clickHandler).toHaveBeenCalled();
     });
@@ -129,6 +129,6 @@ describe('SecondaryNavHeader', () => {
                 <span>required children</span>
             </SecondaryNavHeader>
         );
-        expect(screen.queryByRole('banner')).toBeInTheDocument();
+        expect(screen.queryByLabelText('moonstone-secondaryNavHeader')).toBeInTheDocument();
     });
 });

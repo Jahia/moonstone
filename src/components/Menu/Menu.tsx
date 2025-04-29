@@ -112,7 +112,7 @@ export const Menu: React.FC<MenuProps> = ({
             <menu
                 ref={itemRef}
                 style={styleMenu}
-                role="listbox"
+                role="list"
                 className={clsx(
                     'moonstone-menu',
                     className,

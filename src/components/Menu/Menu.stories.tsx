@@ -189,28 +189,28 @@ export const BigImageMenuItems = () => (
             <MenuItem label="Menu Items with Big Images Title" variant="title"/>
             <MenuItem
         label="Big image MenuItem"
-        image={<img src="https://via.placeholder.com/500?text=MenuItemImage"/>}
+        image={<img src="https://via.placeholder.com/500?text=MenuItemImage" alt="big image"/>}
         imageSize="big"
       />
             <MenuItem
         label="Big image MenuItem"
-        image={<img src="https://via.placeholder.com/500?text=MenuItemImage"/>}
+        image={<img src="https://via.placeholder.com/500?text=MenuItemImage" alt="big image"/>}
         imageSize="big"
       />
             <MenuItem
         isSelected
         label="Big image MenuItem - selected"
-        image={<img src="https://via.placeholder.com/500?text=MenuItemImage"/>}
+        image={<img src="https://via.placeholder.com/500?text=MenuItemImage" alt="big image"/>}
         imageSize="big"
       />
             <MenuItem
         label="Big image MenuItem - lots of words lots of words lots of words"
-        image={<img src="https://via.placeholder.com/300x500?text=MenuItemImage"/>}
+        image={<img src="https://via.placeholder.com/300x500?text=MenuItemImage" alt="big image"/>}
         imageSize="big"
       />
             <MenuItem
         label="Big image MenuItem - lots of words lots of words lots of words"
-        image={<img src="https://via.placeholder.com/500x300?text=MenuItemImage"/>}
+        image={<img src="https://via.placeholder.com/500x300?text=MenuItemImage" alt="big image"/>}
         imageSize="big"
       />
         </Menu>
@@ -228,28 +228,28 @@ export const SmallImageMenuItems = () => (
             <MenuItem label="Menu Items with Small Images Title" variant="title"/>
             <MenuItem
         label="Small image MenuItem"
-        image={<img src="https://via.placeholder.com/500?text=MenuItemImage"/>}
+        image={<img src="https://via.placeholder.com/500?text=MenuItemImage" alt="small image"/>}
         imageSize="small"
       />
             <MenuItem
         label="Small image MenuItem"
-        image={<img src="https://via.placeholder.com/500?text=MenuItemImage"/>}
+        image={<img src="https://via.placeholder.com/500?text=MenuItemImage" alt="small image"/>}
         imageSize="small"
       />
             <MenuItem
         isSelected
         label="Small image MenuItem - selected"
-        image={<img src="https://via.placeholder.com/500?text=MenuItemImage"/>}
+        image={<img src="https://via.placeholder.com/500?text=MenuItemImage" alt="small image"/>}
         imageSize="small"
       />
             <MenuItem
         label="Small image MenuItem - lots of words lots of words lots of words"
-        image={<img src="https://via.placeholder.com/300x500?text=MenuItemImage"/>}
+        image={<img src="https://via.placeholder.com/300x500?text=MenuItemImage" alt="small image"/>}
         imageSize="small"
       />
             <MenuItem
         label="Small image MenuItem - lots of words lots of words lots of words"
-        image={<img src="https://via.placeholder.com/500x300?text=MenuItemImage"/>}
+        image={<img src="https://via.placeholder.com/500x300?text=MenuItemImage" alt="small image"/>}
         imageSize="small"
       />
         </Menu>

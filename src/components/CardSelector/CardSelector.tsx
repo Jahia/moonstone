@@ -73,7 +73,8 @@ export const CardSelector = React.forwardRef<HTMLDivElement, CardSelectorProps>(
             ref={ref}
             id={id}
             className={classNameProps}
-            aria-labelledby={`${id}-${displayName}`}
+            role="button"
+            aria-label={displayName}
             aria-disabled={isDisabled || isReadOnly}
             onClick={e => handleOnClick(e)}
             {...props}

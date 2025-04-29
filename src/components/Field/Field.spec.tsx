@@ -81,10 +81,10 @@ describe('Field', () => {
     it('should call onClick when button is clicked', async () => {
         const onClick = vi.fn();
         render(
-            <Field {...requiredProps} buttons={<Button label="Click me" onClick={onClick}/>}><div/></Field>
+            <Field {...requiredProps} buttons={<Button data-testid="testButton" label="Click me" onClick={onClick}/>}><div/></Field>
         );
         await userEvent.click(
-            screen.getByRole('button', {name: /Click me/i})
+            screen.getByTestId('testButton')
         );
         expect(onClick).toHaveBeenCalled();
     });
