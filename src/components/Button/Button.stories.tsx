@@ -150,7 +150,8 @@ export const OnlyIcon = {
     },
 
     args: {
-        icon: <Love/>
+        icon: <Love/>,
+        'aria-label': 'Button with Love icon'
     },
 
     parameters: {

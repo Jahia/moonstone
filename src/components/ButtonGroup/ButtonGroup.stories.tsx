@@ -36,14 +36,14 @@ export const Default: StoryObj<ButtonGroupProps> = {
 export const ButtonWithActions = () => (
     <ButtonGroup color="accent" size="big">
         <Button label="Actions" onClick={() => null}/>
-        <Button icon={<ChevronDown/>} onClick={() => null}/>
+        <Button icon={<ChevronDown/>} aria-label="button with down arrow icon" onClick={() => null}/>
     </ButtonGroup>
 );
 
 export const ButtonOutlinedWithActions = () => (
     <ButtonGroup color="accent" size="big" variant="outlined">
         <Button label="Actions" onClick={() => null}/>
-        <Button icon={<ChevronDown/>} onClick={() => null}/>
+        <Button icon={<ChevronDown/>} aria-label="button with down arrow icon" onClick={() => null}/>
     </ButtonGroup>
 );
 
