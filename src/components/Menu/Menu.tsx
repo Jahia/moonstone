@@ -118,7 +118,6 @@ export const Menu: React.FC<MenuProps> = ({
                     className,
                     {'moonstone-hidden': !isDisplayed || !stylePosition}
                 )}
-                aria-label="moonstone-menu"
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
                 {...props}

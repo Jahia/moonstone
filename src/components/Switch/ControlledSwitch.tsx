@@ -21,7 +21,6 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLDivElement,
                 className={clsx('moonstone-switch_input')}
                 type="checkbox"
                 value={value}
-                aria-label={value || 'moonstone-switch'}
                 checked={checked}
                 disabled={isDisabled}
                 aria-checked={checked}

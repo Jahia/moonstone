@@ -15,7 +15,6 @@ export const ControlledCheckbox: React.FC<ControlledCheckboxProps> = ({className
                 className={clsx('moonstone-checkbox_input', `moonstone-checkbox_size${capitalize(size)}`)}
                 type="checkbox"
                 value={value}
-                aria-label={value ? value : 'moonstone-checkbox_input'}
                 checked={checked}
                 disabled={isDisabled}
                 aria-readonly={isReadOnly}
