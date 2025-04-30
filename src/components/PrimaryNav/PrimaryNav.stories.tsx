@@ -1,5 +1,5 @@
 import markdownNotes from './PrimaryNav.md';
-
+import {Meta, StoryObj} from '@storybook/react';
 import {PrimaryNav} from './index';
 import {
     PrimaryNavItemsGroup,
@@ -25,9 +25,11 @@ export default {
     parameters: {
         notes: {markdown: markdownNotes}
     }
-};
+}as Meta<typeof PrimaryNav>;
 
-export const Default = () => (
+type Story = StoryObj<typeof PrimaryNavItem>
+
+export const Default: Story = {render: () => (
     <div style={{transform: 'scale(1)', height: '100vh'}}>
         <PrimaryNav
       headerLogo={<img src="https://via.placeholder.com/100x40?text=Logo"/>}
@@ -95,4 +97,4 @@ export const Default = () => (
       }
     />
     </div>
-);
+)};
