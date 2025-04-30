@@ -1,3 +1,4 @@
+import {Meta, StoryObj} from '@storybook/react';
 import {Header} from './index';
 import {
     Button,
@@ -74,9 +75,11 @@ export default {
         toolbarLeft: {control: {disable: true}},
         toolbarRight: {control: {disable: true}}
     }
-};
+} as Meta<typeof Header>;
 
-export const Full = {
+type Story = StoryObj<typeof Header>
+
+export const Full: Story = {
     args: {
         title: 'Page Title',
         backButton: (
@@ -166,7 +169,7 @@ export const Full = {
     }
 };
 
-export const WithoutToolbar = {
+export const WithoutToolbar: Story = {
     args: {
         ...Full.args,
         toolbarLeft: null,
@@ -174,7 +177,7 @@ export const WithoutToolbar = {
     }
 };
 
-export const WithoutInformation = {
+export const WithoutInformation: Story = {
     args: {
         ...Full.args,
         breadcrumb: null,
@@ -183,7 +186,7 @@ export const WithoutInformation = {
     }
 };
 
-export const Simple = {
+export const Simple: Story = {
     args: {
         title: 'Application title'
     }
