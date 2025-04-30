@@ -1,3 +1,4 @@
+import {Meta, StoryObj} from '@storybook/react';
 import {PrimaryNavItem} from './index';
 import {Edit, Person, Power, Workflow} from '~/icons';
 import markdownNotes from './PrimaryNavItem.md';
@@ -11,9 +12,11 @@ export default {
         componentSubtitle: 'PrimaryNavItem',
         notes: {markdown: markdownNotes}
     }
-};
+} as Meta<typeof PrimaryNavItem>;
 
-export const Default = () => (
+type Story = StoryObj<typeof PrimaryNavItem>
+
+export const Default: Story = {render: () => (
     <ul
     style={{
       display: 'flex',
@@ -53,4 +56,4 @@ export const Default = () => (
       }
     />
     </ul>
-);
+)};
