@@ -1,5 +1,6 @@
 .moonstone-cardSelector {
     width: 100%;
+    padding: var(--spacing-nano);
 
     border: var(--border-selector);
     border-radius: var(--radius-selector);
@@ -72,11 +73,15 @@
 .moonstone-cardSelector_error {
     gap: var(--spacing-nano);
     width: 100%;
-    min-height: 48px;
+    height: 56px;
 
     color: var(--color-warning);
 
     border: 1px solid var(--color-warning);
     border-radius: var(--radius-selector);
     background-color: var(--background-selector);
+
+    &:hover {
+        border-color: var(--color-warning_plain40);
+    }
 }

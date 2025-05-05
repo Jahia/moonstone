@@ -90,7 +90,7 @@ export const CardSelector = React.forwardRef<HTMLDivElement, CardSelectorProps>(
                     {displayName && (
                         <Typography
                             isNowrap
-                            id={`${id}-displayName`}
+                            id={id && `${id}-displayName`}
                             className={clsx('moonstone-cardSelector_displayName')}
                             variant="body"
                             component="span"
@@ -102,7 +102,7 @@ export const CardSelector = React.forwardRef<HTMLDivElement, CardSelectorProps>(
                     {systemName && (
                         <Typography
                             isNowrap
-                            id={`${id}-systemName`}
+                            id={id && `${id}-systemName`}
                             className={clsx('moonstone-cardSelector_systemName')}
                             aria-description={systemName}
                             variant="body"
