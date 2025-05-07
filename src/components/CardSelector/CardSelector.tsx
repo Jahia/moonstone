@@ -47,6 +47,7 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
             <button
                 ref={ref}
                 id={id}
+                type="button"
                 className={clsx(
                     'moonstone-cardSelector_error',
                     (isDisabled || isReadOnly) && 'moonstone-cardSelector_disabled',
@@ -72,6 +73,7 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
         <button
             ref={ref}
             id={id}
+            type="button"
             className={classNameProps}
             aria-label={displayName}
             aria-disabled={isDisabled || isReadOnly}
