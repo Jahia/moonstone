@@ -1,6 +1,6 @@
 import React from 'react';
 
-type BasicProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 'id' | 'onClick'> & {
+type BasicProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'id' | 'onClick'> & {
     /**
      * Required id
      */

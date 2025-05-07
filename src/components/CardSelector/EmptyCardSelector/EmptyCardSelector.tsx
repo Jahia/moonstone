@@ -40,7 +40,7 @@ export const EmptyCardSelector = React.forwardRef<HTMLButtonElement, EmptyCardSe
             {...props}
         >
             {iconStart && iconStart}
-            {label && <Typography>{label}</Typography>}
+            {label && <Typography data-testid="emptyCardSelector-label">{label}</Typography>}
         </button>
     );
 });

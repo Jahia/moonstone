@@ -9,11 +9,14 @@
     transition: all 0.2s ease-in-out;
 
     &:hover {
-        border: var(--border-selector_hover);
         box-shadow: 0 1px 6px var(--color-gray20);
     }
 
-    &:focus {
+    &:active {
+        border: var(--border-selector_hover);
+    }
+
+    &:focus-visible {
         border: var(--border-selector_focus);
     }
 }
