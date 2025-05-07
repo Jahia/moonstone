@@ -5,13 +5,12 @@
     border: var(--border-selector);
     border-radius: var(--radius-selector);
     background-color: var(--background-selector);
-    cursor: pointer;
 
     transition: all 0.2s ease-in-out;
 
     &:hover {
         border: var(--border-selector_hover);
-        box-shadow: 0 1px 6px var(--color-dark20);
+        box-shadow: 0 1px 6px var(--color-gray20);
     }
 
     &:focus {
@@ -35,6 +34,13 @@
 
     & > * {
         gap: var(--spacing-nano);
+    }
+}
+
+.moonstone-typography {
+    &.moonstone-cardSelector_displayName,
+    &.moonstone-cardSelector_systemName {
+        max-width: 50%;
     }
 }
 
@@ -62,8 +68,8 @@
 }
 
 .moonstone-cardSelector_thumbnail_icon {
-    width: 32px;
-    height: 32px;
+    width: 16px;
+    height: 16px;
 }
 
 .moonstone-cardSelector_actions {
@@ -77,11 +83,14 @@
 
     color: var(--color-warning);
 
-    border: 1px solid var(--color-warning);
+    border: 1px solid var(--color-warning_plain60);
     border-radius: var(--radius-selector);
     background-color: var(--background-selector);
+    cursor: pointer;
+
+    transition: all 0.2s ease-in-out;
 
     &:hover {
-        border-color: var(--color-warning_plain40);
+        border-color: var(--color-warning);
     }
 }

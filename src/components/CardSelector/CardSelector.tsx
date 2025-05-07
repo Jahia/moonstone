@@ -99,7 +99,7 @@ export const CardSelector = React.forwardRef<HTMLDivElement, CardSelectorProps>(
                         </Typography>
                     )}
 
-                    {systemName && (
+                    {systemName && (systemName !== displayName) && (
                         <Typography
                             isNowrap
                             id={id && `${id}-systemName`}
@@ -114,9 +114,7 @@ export const CardSelector = React.forwardRef<HTMLDivElement, CardSelectorProps>(
                 </div>
                 {(chips || information) && (
                     <div className={clsx('flexRow_nowrap')}>
-                        {chips && (
-                            chips.map(chip => (chip))
-                        )}
+                        {chips?.map(chip => (chip))}
 
                         {information && (
                             <Typography
