@@ -24,7 +24,7 @@ type BasicProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'id'
     /**
      * CardSelector chips
      */
-    chips?: React.ReactNode[];
+    chips?: React.ReactNode | React.ReactNode[];
 
     /**
      * Optional information to display to describe the item

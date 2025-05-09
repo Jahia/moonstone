@@ -116,8 +116,7 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
                 </div>
                 {(chips || information) && (
                     <div className={clsx('flexRow_nowrap')}>
-                        {chips?.map(chip => (chip))}
-
+                        {chips}
                         {information && (
                             <Typography
                                 isNowrap
