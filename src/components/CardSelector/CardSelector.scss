@@ -1,19 +1,22 @@
 .moonstone-cardSelector {
     width: 100%;
+    padding: var(--spacing-nano);
 
     border: var(--border-selector);
     border-radius: var(--radius-selector);
     background-color: var(--background-selector);
-    cursor: pointer;
 
     transition: all 0.2s ease-in-out;
 
     &:hover {
-        border: var(--border-selector_hover);
-        box-shadow: 0 1px 6px var(--color-dark20);
+        box-shadow: 0 1px 6px var(--color-gray20);
     }
 
-    &:focus {
+    &:active {
+        border: var(--border-selector_hover);
+    }
+
+    &:focus-visible {
         border: var(--border-selector_focus);
     }
 }
@@ -34,6 +37,13 @@
 
     & > * {
         gap: var(--spacing-nano);
+    }
+}
+
+.moonstone-typography {
+    &.moonstone-cardSelector_displayName,
+    &.moonstone-cardSelector_systemName {
+        max-width: 50%;
     }
 }
 
@@ -61,8 +71,8 @@
 }
 
 .moonstone-cardSelector_thumbnail_icon {
-    width: 32px;
-    height: 32px;
+    width: 16px;
+    height: 16px;
 }
 
 .moonstone-cardSelector_actions {
@@ -72,11 +82,18 @@
 .moonstone-cardSelector_error {
     gap: var(--spacing-nano);
     width: 100%;
-    min-height: 48px;
+    height: 56px;
 
     color: var(--color-warning);
 
-    border: 1px solid var(--color-warning);
+    border: 1px solid var(--color-warning_plain60);
     border-radius: var(--radius-selector);
     background-color: var(--background-selector);
+    cursor: pointer;
+
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        border-color: var(--color-warning);
+    }
 }

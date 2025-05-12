@@ -6,7 +6,7 @@ import type {CardSelectorProps} from './CardSelector.types';
 import {Typography} from '~/components';
 import {FileBroken, Image} from '~/icons/components';
 
-export const CardSelector = React.forwardRef<HTMLDivElement, CardSelectorProps>(({
+export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProps>(({
     displayName,
     systemName,
     chips,
@@ -44,9 +44,10 @@ export const CardSelector = React.forwardRef<HTMLDivElement, CardSelectorProps>(
 
     if (hasError) {
         return (
-            <div
+            <button
                 ref={ref}
                 id={id}
+                type="button"
                 className={clsx(
                     'moonstone-cardSelector_error',
                     (isDisabled || isReadOnly) && 'moonstone-cardSelector_disabled',
@@ -64,16 +65,16 @@ export const CardSelector = React.forwardRef<HTMLDivElement, CardSelectorProps>(
                 >
                     {errorMessage}
                 </Typography>
-            </div>
+            </button>
         );
     }
 
     return (
-        <div
+        <button
             ref={ref}
             id={id}
+            type="button"
             className={classNameProps}
-            role="button"
             aria-label={displayName}
             aria-disabled={isDisabled || isReadOnly}
             onClick={e => handleOnClick(e)}
@@ -81,7 +82,7 @@ export const CardSelector = React.forwardRef<HTMLDivElement, CardSelectorProps>(
         >
             <figure className={clsx('moonstone-cardSelector_thumbnail', 'flexRow_center', 'alignCenter')}>
                 {thumbnailURL ? (
-                    <img className={clsx(`moonstone-cardSelector_thumbnail_${thumbnailType}`)} src={thumbnailURL} alt={thumbnailAlt} aria-labelledby={thumbnailAlt}/>
+                    <img className={clsx(`moonstone-cardSelector_thumbnail_${thumbnailType}`)} src={thumbnailURL} alt={thumbnailAlt} data-testid="cardSelector-thumbnail"/>
                 ) : <Image size="big" color="gray"/>}
             </figure>
 
@@ -90,7 +91,8 @@ export const CardSelector = React.forwardRef<HTMLDivElement, CardSelectorProps>(
                     {displayName && (
                         <Typography
                             isNowrap
-                            id={`${id}-displayName`}
+                            data-testid="cardSelector-displayName"
+                            id={id && `${id}-displayName`}
                             className={clsx('moonstone-cardSelector_displayName')}
                             variant="body"
                             component="span"
@@ -99,12 +101,12 @@ export const CardSelector = React.forwardRef<HTMLDivElement, CardSelectorProps>(
                         </Typography>
                     )}
 
-                    {systemName && (
+                    {systemName && (systemName !== displayName) && (
                         <Typography
                             isNowrap
-                            id={`${id}-systemName`}
+                            id={id && `${id}-systemName`}
                             className={clsx('moonstone-cardSelector_systemName')}
-                            aria-description={systemName}
+                            data-testid="cardSelector-systemName"
                             variant="body"
                             component="span"
                         >
@@ -114,16 +116,14 @@ export const CardSelector = React.forwardRef<HTMLDivElement, CardSelectorProps>(
                 </div>
                 {(chips || information) && (
                     <div className={clsx('flexRow_nowrap')}>
-                        {chips && (
-                            chips.map(chip => (chip))
-                        )}
-
+                        {chips}
                         {information && (
                             <Typography
                                 isNowrap
                                 variant="caption"
                                 component="span"
                                 className={clsx('moonstone-cardSelector_information')}
+                                data-testid="cardSelector-information"
                             >
                                 {information}
                             </Typography>
@@ -136,7 +136,7 @@ export const CardSelector = React.forwardRef<HTMLDivElement, CardSelectorProps>(
                     {cardAction}
                 </div>
             )}
-        </div>
+        </button>
     );
 });
 

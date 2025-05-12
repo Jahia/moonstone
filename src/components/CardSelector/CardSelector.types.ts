@@ -1,6 +1,6 @@
 import React from 'react';
 
-type BasicProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 'id' | 'onClick'> & {
+type BasicProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'id' | 'onClick'> & {
     /**
      * Required id
      */
@@ -24,7 +24,7 @@ type BasicProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 'id' | 
     /**
      * CardSelector chips
      */
-    chips?: React.ReactNode[];
+    chips?: React.ReactNode | React.ReactNode[];
 
     /**
      * Optional information to display to describe the item
