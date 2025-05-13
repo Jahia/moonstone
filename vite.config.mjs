@@ -22,7 +22,7 @@ export default defineConfig({
                 'icons/components/DefaultEntry': './src/icons/components/DefaultEntry.tsx',
                 'icons/components/Information': 'src/icons/components/Information.tsx'
             },
-            formats: ['es']
+            formats: ['es', 'cjs']
         },
         rollupOptions: {
             external: ['react', 'react-dom', 'react/jsx-runtime']
