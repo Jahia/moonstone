@@ -50,7 +50,7 @@
     "build": "yarn build:storybook && yarn build:lib",
     "build:icons": "rimraf src/icons/components/*.tsx && svgr --template ./src/icons/svgrTemplate.cjs --config-file ./src/icons/svgr.config.cjs ./src/icons/assets && eslint --fix ./src/icons/components/*",
     "prebuild:lib": "rimraf dist/",
-    "build:lib": "yarn vite build && (yarn tsc || true) && yarn publint",
+    "build:lib": "yarn vite build && yarn tsc && yarn publint",
     "build:storybook": "storybook build",
     "lint": "yarn lint:js && yarn lint:scss",
     "lint:fix": "yarn lint:js:fix && yarn lint:scss:fix",
