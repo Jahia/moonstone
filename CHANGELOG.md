@@ -1,3 +1,33 @@
+# v2.13.1 (Mon May 12 2025)
+
+#### 🐛 Bug Fix
+
+- feat: CardSelector improvements [#1033](https://github.com/Jahia/moonstone/pull/1033) ([@ffffffelix](https://github.com/ffffffelix))
+- chore: Migrate primaryNav & primaryNavItem stories to Typescript [#1030](https://github.com/Jahia/moonstone/pull/1030) ([@Eevolee](https://github.com/Eevolee))
+- fix: Storybook accessibility fix [#1024](https://github.com/Jahia/moonstone/pull/1024) ([@Eevolee](https://github.com/Eevolee))
+- chore: Migrate LayoutModule & LayoutContent stories to Typescript [#1027](https://github.com/Jahia/moonstone/pull/1027) ([@Eevolee](https://github.com/Eevolee))
+- chore: Migrate SvgWrapper story to Typescript [#1028](https://github.com/Jahia/moonstone/pull/1028) ([@Eevolee](https://github.com/Eevolee))
+- chore: Migrate LayoutApp story to Typescript [#1026](https://github.com/Jahia/moonstone/pull/1026) ([@Eevolee](https://github.com/Eevolee))
+- fix: outlined dropdown background on hover [#1025](https://github.com/Jahia/moonstone/pull/1025) ([@Eevolee](https://github.com/Eevolee))
+- fix: typing issues and React import [#1012](https://github.com/Jahia/moonstone/pull/1012) ([@ffffffelix](https://github.com/ffffffelix))
+- build: produce sbom [#1007](https://github.com/Jahia/moonstone/pull/1007) ([@GauBen](https://github.com/GauBen))
+
+#### 🏠 Internal
+
+- chore: Migrate Header stories to Typescript [#1029](https://github.com/Jahia/moonstone/pull/1029) ([@Eevolee](https://github.com/Eevolee))
+
+#### 🔩 Dependency Updates
+
+- chore: update dependencies [#1016](https://github.com/Jahia/moonstone/pull/1016) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 3
+
+- Alessia Bourgoin ([@Eevolee](https://github.com/Eevolee))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Gautier Ben Aïm ([@GauBen](https://github.com/GauBen))
+
+---
+
 # v2.13.0 (Fri Apr 04 2025)
 
 #### 🚀 Enhancement
