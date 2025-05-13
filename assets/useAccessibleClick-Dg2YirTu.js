@@ -1,0 +1,1 @@
+const p=(o,e)=>{(o.code==="Space"||o.code==="Enter")&&(o.preventDefault(),e(o))},r=(o,e=!1,n="button",t=0)=>({onClick:e?void 0:o,onKeyUp:e?void 0:c=>p(c,o),disabled:e,role:n,tabIndex:e?-1:t});export{r as o};
