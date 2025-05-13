@@ -76,7 +76,7 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
             type="button"
             className={classNameProps}
             aria-label={displayName}
-            aria-disabled={isDisabled || isReadOnly}
+            disabled={isDisabled || isReadOnly}
             onClick={e => handleOnClick(e)}
             {...props}
         >
@@ -86,7 +86,7 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
                 ) : <Image size="big" color="gray"/>}
             </figure>
 
-            <div className={clsx('moonstone-cardSelector_body', 'flexCol_nowrap')}>
+            <div className={clsx('moonstone-cardSelector_body', 'flexFluid', 'flexCol_nowrap')}>
                 <div className={clsx('flexRow_nowrap flexFluid')}>
                     {displayName && (
                         <Typography
@@ -105,7 +105,7 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
                         <Typography
                             isNowrap
                             id={id && `${id}-systemName`}
-                            className={clsx('moonstone-cardSelector_systemName')}
+                            className="moonstone-cardSelector_systemName"
                             data-testid="cardSelector-systemName"
                             variant="body"
                             component="span"
