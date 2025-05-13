@@ -4,6 +4,7 @@ import './PrimaryNavItem.scss';
 import {ItemProps, ItemTypeResolverProps, PrimaryNavItemProps} from './PrimaryNavItem.types';
 import {Typography} from '~/components/Typography';
 import {PrimaryNavContext} from '../PrimaryNav.context';
+import {onAccessibleClick} from '~/hooks/useAccessibleClick';
 
 // Internal component
 const Item: React.FC<ItemProps> = ({icon, label, textVariant, subtitle, button}) => (
@@ -68,7 +69,7 @@ export const PrimaryNavItem: React.FC<PrimaryNavItemProps> = ({
     url = null,
     button = null,
     isSelected = false,
-    onClick,
+    onClick = () => undefined,
     badge = null,
     ...props
 }) => {
@@ -83,10 +84,13 @@ export const PrimaryNavItem: React.FC<PrimaryNavItemProps> = ({
                 className
             )}
             title={label}
-            onClick={e => {
-                primaryNavContext.collapse();
+            {...onAccessibleClick((e: React.MouseEvent) => {
+                if (typeof primaryNavContext.collapse === 'function') {
+                    primaryNavContext.collapse();
+                }
+
                 onClick(e);
-            }}
+            })}
             {...props}
         >
             <ItemTypeResolver icon={icon} label={label} subtitle={subtitle} url={url} button={button}/>

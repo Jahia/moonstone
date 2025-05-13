@@ -2,6 +2,7 @@ import React from 'react';
 import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
 import type {DropdownMenuProps} from '~/components/Dropdown/DropdownMenu.types';
 import type {MenuItemProps} from '~/components/Menu/MenuItem.types';
+import {onAccessibleClick} from '~/hooks/useAccessibleClick';
 
 import {Menu, MenuItem, Separator} from '~/components';
 import {CheckboxChecked, CheckboxUnchecked} from '~/icons';
@@ -21,7 +22,6 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     values,
     imageSize,
     handleSelect,
-    handleKeyPress,
     onClose
 }) => {
     const getIcon = (item: DropdownDataOption) => values?.indexOf(item.value) > -1 ? <CheckboxChecked role="checkbox" color="blue"/> : <CheckboxUnchecked role="checkbox"/>;
@@ -32,7 +32,6 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     const dropdownOption = (item: DropdownDataOption) => (
         <MenuItem
             key={item.value}
-            role="option"
             iconStart={values ? getIcon(item) : item.iconStart}
             iconSize="default"
             label={item.label}
@@ -42,8 +41,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
             isSelected={value === item.value}
             image={item.image}
             imageSize={imageSize}
-            onClick={e => handleSelect(e, item)}
-            onKeyPress={e => handleKeyPress(e, item)}
+            {...onAccessibleClick(e => handleSelect(e, item), item.isDisabled, 'option')}
             {...item.attributes as MenuItemProps}
         />
     );

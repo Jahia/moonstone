@@ -4,6 +4,7 @@ import './AccordionItem.scss';
 import {Typography} from '~/components/Typography';
 import {AccordionContext} from '~/components/Accordion/Accordion.context';
 import type {AccordionItemProps} from './AccordionItem.types';
+import {onAccessibleClick} from '~/hooks/useAccessibleClick';
 
 export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = null, onClick = () => undefined, className, children, ...props}) => {
     const context = React.useContext(AccordionContext);
@@ -35,10 +36,10 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
                     'flexRow',
                     'alignCenter'
                 )}
-                role="accordion-item"
                 aria-controls={id}
                 aria-expanded={open}
-                onClick={e => handleClick(e, open)}
+                {...onAccessibleClick(e => handleClick(e, open))}
+                role="accordion-item"
             >
                 {icon &&
                     (

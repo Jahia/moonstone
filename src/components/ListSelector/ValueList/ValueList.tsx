@@ -4,6 +4,7 @@ import {HandleDrag} from '~/icons';
 import clsx from 'clsx';
 import {ValueListProps} from './ValueList.types';
 import './ValueList.scss';
+import {onAccessibleClick} from '~/hooks/useAccessibleClick';
 
 export const ValueList: React.FC<ValueListProps> = ({
     values,
@@ -57,11 +58,11 @@ export const ValueList: React.FC<ValueListProps> = ({
                                       className={clsx(...classNames)}
                                       typographyVariant="body"
                                       label={v.label}
-                                      onClick={(e:React.MouseEvent) => {
-                                          if (!isReadOnly && role === 'left-list') {
-                                              onClick(e, v);
-                                          }
-                                      }}
+                                      {...onAccessibleClick((e:React.MouseEvent) => {
+                                        if (!isReadOnly && role === 'left-list') {
+                                            onClick(e, v);
+                                        }
+                                    }, isReadOnly, role)}
                                       onDragOver={(e:React.DragEvent) => {
                                           if (!isReadOnly) {
                                               onDragOver(e, v);
