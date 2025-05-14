@@ -1,16 +1,11 @@
-const path = require('path');
+import type { StorybookConfig } from '@storybook/react-vite';
 
-module.exports = {
-    features: {
-        postcss: false,
-    },
-
+const config: StorybookConfig = {
+    framework: '@storybook/react-vite',
     typescript: {
         reactDocgen: "react-docgen-typescript",
     },
-
     stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
-
     addons: [
         '@storybook/addon-actions',
         '@storybook/addon-docs',
@@ -19,13 +14,9 @@ module.exports = {
         '@storybook/addon-controls',
         'storybook-addon-tag-badges'
     ],
-
     docs: {
         autodocs: true
-    },
-
-    framework: {
-        name: '@storybook/react-vite',
-        options: {}
     }
 };
+
+export default config;
