@@ -1,8 +1,8 @@
-$cardSelectorHeight: 58px;
+$cardSelector-height: 58px;
 
 .moonstone-cardSelector {
     width: 100%;
-    height: $cardSelectorHeight;
+    height: $cardSelector-height;
     padding: var(--spacing-nano);
 
     border: var(--border-selector);
@@ -90,7 +90,7 @@ $cardSelectorHeight: 58px;
 .moonstone-cardSelector_error {
     gap: var(--spacing-nano);
     width: 100%;
-    height: $cardSelectorHeight;
+    height: $cardSelector-height;
 
     color: var(--color-warning);
 
