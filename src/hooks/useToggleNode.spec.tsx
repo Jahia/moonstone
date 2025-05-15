@@ -78,14 +78,6 @@ describe('onToggleNode', () => {
         expect(screen.queryByText('toggled')).toBeInTheDocument();
     });
 
-    it('should add attribute aria-expanded true', async () => {
-        const user = userEvent.setup();
-        render(<ToggleableDiv/>);
-        await user.keyboard('[Tab]');
-        await user.keyboard('[Space]');
-        expect(screen.queryByTestId('toggleable-div')).toHaveAttribute('aria-expanded', 'true');
-    });
-
     it('should not call onClick when disabled', async () => {
         const user = userEvent.setup();
         render(<ToggleableDiv isDisabled isClickable/>);

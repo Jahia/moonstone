@@ -29,8 +29,8 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
         highlightedItems = [],
         showCheckbox = false,
         onClickItem,
-        onDoubleClickItem = () => undefined,
-        onContextMenuItem = () => undefined,
+        onDoubleClickItem,
+        onContextMenuItem,
         onOpenItem,
         onCloseItem,
         isReversed = false,
@@ -66,11 +66,11 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
             };
 
             const handleNodeClick = (e: React.MouseEvent) => {
-                if (!onClickItem) {
+                if (onClickItem) {
+                    onClickItem(node, e, toggleNode);
+                } else {
                     toggleNode(e);
                 }
-
-                onClickItem(node, e, toggleNode);
             };
 
             const handleNodeDoubleClick = (e: React.MouseEvent) => {
@@ -110,6 +110,8 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                         'aria-level': depth + 1,
                         key: `${depth}-${node.id}`,
                         style: {'--treeItem-depth': depth, ...node?.treeItemProps?.style},
+                        onDoubleClick: handleNodeDoubleClick,
+                        onContextMenu: handleNodeContextMenu,
                         ...onToggleNode(toggleNode, handleNodeClick, !isClickable),
                         ...node.treeItemProps
                     },
@@ -132,8 +134,6 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                         {/* TreeViewItem */}
                         <div
                             className={clsx('flexRow_nowrap', 'alignCenter', 'flexFluid', 'moonstone-treeView_itemLabel', node.className)}
-                            onDoubleClick={handleNodeDoubleClick}
-                            onContextMenu={handleNodeContextMenu}
                         >
                             {showCheckbox ?
                                 (isSelected ? <CheckboxChecked className="moonstone-treeView_itemIconStart" role="checkbox" color="blue" aria-checked="true"/> : <CheckboxUnchecked className="moonstone-treeView_itemIconStart" role="checkbox" aria-checked="false"/>) :

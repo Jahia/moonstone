@@ -7,7 +7,6 @@ type onToggleNodeProps = {
     onClick?: onClickProp;
     onKeyUp?: React.KeyboardEventHandler;
     disabled?: boolean;
-    ariaSelected?: boolean;
     tabIndex?: number;
 };
 
@@ -24,7 +23,7 @@ export const onToggleNode = (
 
         if (e.code === 'Enter') {
             e.preventDefault();
-            if (onClick && typeof onClick === 'function' && !isDisabled) {
+            if (onClick && !isDisabled) {
                 onClick(e);
             } else {
                 onToggle(e);
