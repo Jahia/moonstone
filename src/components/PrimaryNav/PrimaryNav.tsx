@@ -6,57 +6,39 @@ import {PrimaryNavContext} from './PrimaryNav.context';
 import {MenuIcon, ArrowLeft} from '~/icons';
 
 const NavButton: React.FC<PrimaryNavButtonProps> = ({isExpanded, toggleExpand, modeIcon}) => {
-    if (isExpanded) {
-        return (
+    return (
+        <>
+            {!isExpanded && modeIcon && (
+                <modeIcon.type
+                    {...modeIcon.props}
+                    className={clsx(modeIcon.props.className, 'moonstone-primaryNav_modeIcon')}
+                />
+            )}
             <button
                 className={clsx('moonstone-primaryNav_button')}
                 type="button"
+                data-testid="primaryNavMenuButton"
                 aria-label="Toggle primary navigation"
                 onClick={toggleExpand}
             >
-                <ArrowLeft size="big"/>
-            </button>
-        );
-    }
-
-    let icon;
-
-    if (modeIcon) {
-        icon = React.cloneElement(modeIcon, {
-            className: clsx('moonstone-primaryNav_modeIcon')
-        });
-    }
-
-    return (
-        <>
-            {icon}
-            <button
-                className={clsx('moonstone-primaryNav_button')}
-                type="button"
-                role="button"
-                aria-label="primary-nav-control"
-                onClick={toggleExpand}
-            >
-                <MenuIcon size="big"/>
+                {isExpanded ? <ArrowLeft size="big"/> : <MenuIcon size="big"/>}
             </button>
         </>
-    );
-};
+    )
+}
 
 const NavHeader: React.FC<PrimaryNavHeaderProps> = ({headerCaption, modeIcon, headerLogo}) => {
-    let icon;
-
-    if (modeIcon) {
-        icon = React.cloneElement(modeIcon, {
-            className: clsx('moonstone-primaryNav_modeIconHeader')
-        });
-    }
-
     return (
         <>
             {headerLogo}
             <div className={clsx('flexRow_nowrap', 'alignCenter', 'moonstone-primaryNav_headerCaption')}>
-                {icon}{headerCaption}
+                {modeIcon && (
+                    <modeIcon.type
+                        {...modeIcon.props}
+                        className={clsx(modeIcon.props.className, 'moonstone-primaryNav_modeIconHeader')}
+                    />
+                )}
+                {headerCaption}
             </div>
         </>
     );
