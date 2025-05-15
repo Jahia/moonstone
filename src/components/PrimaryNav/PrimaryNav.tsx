@@ -24,8 +24,8 @@ const NavButton: React.FC<PrimaryNavButtonProps> = ({isExpanded, toggleExpand, m
                 {isExpanded ? <ArrowLeft size="big"/> : <MenuIcon size="big"/>}
             </button>
         </>
-    )
-}
+    );
+};
 
 const NavHeader: React.FC<PrimaryNavHeaderProps> = ({headerCaption, modeIcon, headerLogo}) => {
     return (
