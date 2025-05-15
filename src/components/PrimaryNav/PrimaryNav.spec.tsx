@@ -16,8 +16,18 @@ describe('PrimaryNav', () => {
         const user = userEvent.setup();
         render(<PrimaryNav {...props}/>);
 
-        await user.click(screen.getByLabelText('primary-nav-control'));
+        await user.click(screen.getByLabelText('Toggle primary navigation'));
         expect(screen.getByRole('navigation')).toHaveAttribute('aria-expanded', 'true');
+    });
+
+    it('should collapse when click twice on NavButton', async () => {
+        const user = userEvent.setup();
+        render(<PrimaryNav {...props}/>);
+
+        await user.click(screen.getByLabelText('Toggle primary navigation'));
+        await user.click(screen.getByLabelText('Toggle primary navigation'));
+
+        expect(screen.getByRole('navigation')).toHaveAttribute('aria-expanded', 'false');
     });
 
     it('should also work when not displaying modeIcon', () => {
