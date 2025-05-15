@@ -1,3 +1,23 @@
+# v2.14.0 (Tue May 13 2025)
+
+#### 🚀 Enhancement
+
+- build: Create hybrid package, provide esm, cjs artifacts [#1036](https://github.com/Jahia/moonstone/pull/1036) ([@gflores-jahia](https://github.com/gflores-jahia) [@GauBen](https://github.com/GauBen))
+
+#### 🐛 Bug Fix
+
+- fix: cardSelector disabled style [#1038](https://github.com/Jahia/moonstone/pull/1038) ([@ffffffelix](https://github.com/ffffffelix))
+- feat: Create useAccessibleClick to manage accessibility with onClick function [#1039](https://github.com/Jahia/moonstone/pull/1039) ([@Eevolee](https://github.com/Eevolee))
+
+#### Authors: 4
+
+- Alessia Bourgoin ([@Eevolee](https://github.com/Eevolee))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Gautier Ben Aïm ([@GauBen](https://github.com/GauBen))
+- Geofrey Flores ([@gflores-jahia](https://github.com/gflores-jahia))
+
+---
+
 # v2.13.1 (Mon May 12 2025)
 
 #### 🐛 Bug Fix

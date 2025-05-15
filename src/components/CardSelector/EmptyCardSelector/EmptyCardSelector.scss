@@ -1,7 +1,9 @@
+@use '../CardSelector.scss' as *;
+
 .moonstone-emptyCardSelector {
     gap: var(--spacing-nano);
     width: 100%;
-    height: 56px;
+    height: $cardSelector-height;
 
     color: var(--color-dark_plain60);
 

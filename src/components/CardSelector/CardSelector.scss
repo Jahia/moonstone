@@ -1,5 +1,8 @@
+$cardSelector-height: 58px;
+
 .moonstone-cardSelector {
     width: 100%;
+    height: $cardSelector-height;
     padding: var(--spacing-nano);
 
     border: var(--border-selector);
@@ -8,20 +11,25 @@
 
     transition: all 0.2s ease-in-out;
 
-    &:hover {
-        box-shadow: 0 1px 6px var(--color-gray20);
-    }
+    &:not([disabled]) {
+        &:hover {
+            border: var(--border-selector_hover);
+            box-shadow: 0 1px 6px var(--color-gray20);
+        }
 
-    &:active {
-        border: var(--border-selector_hover);
-    }
+        &:active {
+            border: var(--border-selector_active);
+        }
 
-    &:focus-visible {
-        border: var(--border-selector_focus);
+        &:focus-visible {
+            border: var(--border-selector_focus);
+        }
     }
 }
 
 .moonstone-cardSelector_disabled {
+    color: var(--color-dark_plain60);
+
     opacity: 60%;
 
     pointer-events: none;
@@ -82,7 +90,7 @@
 .moonstone-cardSelector_error {
     gap: var(--spacing-nano);
     width: 100%;
-    height: 56px;
+    height: $cardSelector-height;
 
     color: var(--color-warning);
 
@@ -93,7 +101,7 @@
 
     transition: all 0.2s ease-in-out;
 
-    &:hover {
+    &:not[disabled]:hover {
         border-color: var(--color-warning);
     }
 }

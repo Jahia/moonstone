@@ -1,6 +1,6 @@
 {
   "name": "@jahia/moonstone",
-  "version": "2.13.1",
+  "version": "2.14.0",
   "repository": {
     "url": "https://github.com/Jahia/moonstone.git"
   },
@@ -9,23 +9,33 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./dist/rulesconfig-wp": {
       "require": "./rulesconfig-wp.cjs"
     },
     "./dist/icons": {
-      "import": "./dist/icons/index.js"
+      "import": "./dist/icons/index.js",
+      "require": "./dist/icons/index.cjs"
     },
     "./dist/components/CheckboxGroup/CheckboxItem": {
-      "import": "./dist/components/CheckboxGroup/CheckboxItem.js"
+      "import": "./dist/components/CheckboxGroup/CheckboxItem.js",
+      "require": "./dist/components/CheckboxGroup/CheckboxItem.cjs"
     },
     "./dist/icons/components/DefaultEntry": {
-      "import": "./dist/icons/components/DefaultEntry.js"
+      "import": "./dist/icons/components/DefaultEntry.js",
+      "require": "./dist/icons/components/DefaultEntry.cjs"
     },
     "./dist/icons/components/Information": {
-      "import": "./dist/icons/components/Information.js"
+      "import": "./dist/icons/components/Information.js",
+      "require": "./dist/icons/components/Information.cjs"
     }
   },
   "module": "dist/index.js",
@@ -40,7 +50,7 @@
     "build": "yarn build:storybook && yarn build:lib",
     "build:icons": "rimraf src/icons/components/*.tsx && svgr --template ./src/icons/svgrTemplate.cjs --config-file ./src/icons/svgr.config.cjs ./src/icons/assets && eslint --fix ./src/icons/components/*",
     "prebuild:lib": "rimraf dist/",
-    "build:lib": "vite build && (tsc || true) && publint",
+    "build:lib": "yarn vite build && yarn tsc && yarn publint",
     "build:storybook": "storybook build",
     "lint": "yarn lint:js && yarn lint:scss",
     "lint:fix": "yarn lint:js:fix && yarn lint:scss:fix",
@@ -52,7 +62,7 @@
     "start": "storybook dev -p 6006",
     "tdd": "vitest watch",
     "test": "vitest run --coverage",
-    "tsc": "tsc --build tsconfig.json"
+    "tsc": "tsc --build tsconfig.json && cp ./dist/index.d.ts ./dist/index.d.cts"
   },
   "dependencies": {
     "@floating-ui/react": "^0.27.7",
