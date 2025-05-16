@@ -74,11 +74,15 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
             };
 
             const handleNodeDoubleClick = (e: React.MouseEvent) => {
-                onDoubleClickItem(node, e);
+                if (onDoubleClickItem) {
+                    onDoubleClickItem(node, e);
+                }
             };
 
             const handleNodeContextMenu = (e: React.MouseEvent) => {
-                onContextMenuItem(node, e);
+                if (onContextMenuItem) {
+                    onContextMenuItem(node, e);
+                }
             };
 
             // ---
