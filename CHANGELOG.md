@@ -1,3 +1,22 @@
+# v2.14.1 (Fri May 16 2025)
+
+#### 🐛 Bug Fix
+
+- feat: Create useToggleNode hook to manage opening / closing node [#1045](https://github.com/Jahia/moonstone/pull/1045) ([@Eevolee](https://github.com/Eevolee))
+- fix: aria-label on button that toggle the PrimaryNav [#1046](https://github.com/Jahia/moonstone/pull/1046) ([@ffffffelix](https://github.com/ffffffelix))
+- fix: use the same height for CardSelector and EmptyCardSelector [#1041](https://github.com/Jahia/moonstone/pull/1041) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🏠 Internal
+
+- fix: storybook config [#1042](https://github.com/Jahia/moonstone/pull/1042) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 2
+
+- Alessia Bourgoin ([@Eevolee](https://github.com/Eevolee))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.14.0 (Tue May 13 2025)
 
 #### 🚀 Enhancement
