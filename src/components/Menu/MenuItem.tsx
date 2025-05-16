@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {ListItem} from '~/components/ListItem';
 import clsx from 'clsx';
 import './MenuItem.scss';
 
 import type {MenuItemProps} from './MenuItem.types';
+import {onArrowNavigation} from '~/hooks/onArrowNavigation';
 
 export const MenuItem: React.FC<MenuItemProps> = ({
     variant = 'default',
@@ -19,8 +20,11 @@ export const MenuItem: React.FC<MenuItemProps> = ({
     className,
     description,
     ...props
-}) => (
-    <ListItem
+}) => {
+    const containerRef = useRef(null);
+    return (
+        <ListItem
+        ref={containerRef}
         tabIndex={isDisabled || variant === 'title' || isSelected ? null : 0}
         aria-disabled={isDisabled}
         className={clsx(
@@ -41,8 +45,10 @@ export const MenuItem: React.FC<MenuItemProps> = ({
         iconStart={iconStart}
         iconEnd={iconEnd}
         description={description}
+        {... onArrowNavigation(containerRef)}
         {...props}
     />
-);
+    );
+};
 
 MenuItem.displayName = 'MenuItem';
