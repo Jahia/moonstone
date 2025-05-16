@@ -4,7 +4,7 @@
 	"specVersion": "1.4",
 	"version": 1,
 	"metadata": {
-		"timestamp": "2025-05-13T13:33:37.183Z",
+		"timestamp": "2025-05-16T12:49:52.126Z",
 		"tools": [
 			{
 				"name": "rollup-plugin-sbom",
@@ -74,8 +74,8 @@
 			"type": "application",
 			"name": "moonstone",
 			"group": "@jahia",
-			"version": "2.14.0",
-			"bom-ref": "pkg:npm/%40jahia/moonstone@2.14.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FJahia%2Fmoonstone.git",
+			"version": "2.14.1",
+			"bom-ref": "pkg:npm/%40jahia/moonstone@2.14.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FJahia%2Fmoonstone.git",
 			"licenses": [
 				{
 					"license": {
@@ -83,7 +83,7 @@
 					}
 				}
 			],
-			"purl": "pkg:npm/%40jahia/moonstone@2.14.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FJahia%2Fmoonstone.git",
+			"purl": "pkg:npm/%40jahia/moonstone@2.14.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FJahia%2Fmoonstone.git",
 			"externalReferences": [
 				{
 					"url": "git+https://github.com/Jahia/moonstone.git",
@@ -368,38 +368,6 @@
 		},
 		{
 			"type": "library",
-			"name": "react",
-			"version": "18.3.1",
-			"bom-ref": "pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react",
-			"description": "React is a JavaScript library for building user interfaces.",
-			"licenses": [
-				{
-					"license": {
-						"id": "MIT"
-					}
-				}
-			],
-			"purl": "pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react",
-			"externalReferences": [
-				{
-					"url": "git+https://github.com/facebook/react.git#packages/react",
-					"type": "vcs",
-					"comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
-				},
-				{
-					"url": "https://reactjs.org/",
-					"type": "website",
-					"comment": "as detected from PackageJson property \"homepage\""
-				},
-				{
-					"url": "https://github.com/facebook/react/issues",
-					"type": "issue-tracker",
-					"comment": "as detected from PackageJson property \"bugs.url\""
-				}
-			]
-		},
-		{
-			"type": "library",
 			"name": "axe-core",
 			"version": "4.10.2",
 			"bom-ref": "pkg:npm/axe-core@4.10.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fdequelabs%2Faxe-core.git",
@@ -457,6 +425,38 @@
 				},
 				{
 					"url": "https://github.com/storybookjs/storybook/issues",
+					"type": "issue-tracker",
+					"comment": "as detected from PackageJson property \"bugs.url\""
+				}
+			]
+		},
+		{
+			"type": "library",
+			"name": "react",
+			"version": "18.3.1",
+			"bom-ref": "pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react",
+			"description": "React is a JavaScript library for building user interfaces.",
+			"licenses": [
+				{
+					"license": {
+						"id": "MIT"
+					}
+				}
+			],
+			"purl": "pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react",
+			"externalReferences": [
+				{
+					"url": "git+https://github.com/facebook/react.git#packages/react",
+					"type": "vcs",
+					"comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
+				},
+				{
+					"url": "https://reactjs.org/",
+					"type": "website",
+					"comment": "as detected from PackageJson property \"homepage\""
+				},
+				{
+					"url": "https://github.com/facebook/react/issues",
 					"type": "issue-tracker",
 					"comment": "as detected from PackageJson property \"bugs.url\""
 				}
@@ -626,39 +626,6 @@
 		},
 		{
 			"type": "library",
-			"name": "re-resizable",
-			"version": "6.11.2",
-			"bom-ref": "pkg:npm/re-resizable@6.11.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fbokuweb%2Freact-resizable-box.git",
-			"author": "bokuweb",
-			"description": "Resizable component for React.",
-			"licenses": [
-				{
-					"license": {
-						"id": "MIT"
-					}
-				}
-			],
-			"purl": "pkg:npm/re-resizable@6.11.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fbokuweb%2Freact-resizable-box.git",
-			"externalReferences": [
-				{
-					"url": "git+https://github.com/bokuweb/react-resizable-box.git",
-					"type": "vcs",
-					"comment": "as detected from PackageJson property \"repository.url\""
-				},
-				{
-					"url": "https://github.com/bokuweb/react-resizable-box",
-					"type": "website",
-					"comment": "as detected from PackageJson property \"homepage\""
-				},
-				{
-					"url": "https://github.com/bokuweb/react-resizable-box/issues",
-					"type": "issue-tracker",
-					"comment": "as detected from PackageJson property \"bugs.url\""
-				}
-			]
-		},
-		{
-			"type": "library",
 			"name": "react",
 			"group": "@floating-ui",
 			"version": "0.27.7",
@@ -686,6 +653,39 @@
 				},
 				{
 					"url": "https://github.com/floating-ui/floating-ui",
+					"type": "issue-tracker",
+					"comment": "as detected from PackageJson property \"bugs.url\""
+				}
+			]
+		},
+		{
+			"type": "library",
+			"name": "re-resizable",
+			"version": "6.11.2",
+			"bom-ref": "pkg:npm/re-resizable@6.11.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fbokuweb%2Freact-resizable-box.git",
+			"author": "bokuweb",
+			"description": "Resizable component for React.",
+			"licenses": [
+				{
+					"license": {
+						"id": "MIT"
+					}
+				}
+			],
+			"purl": "pkg:npm/re-resizable@6.11.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fbokuweb%2Freact-resizable-box.git",
+			"externalReferences": [
+				{
+					"url": "git+https://github.com/bokuweb/react-resizable-box.git",
+					"type": "vcs",
+					"comment": "as detected from PackageJson property \"repository.url\""
+				},
+				{
+					"url": "https://github.com/bokuweb/react-resizable-box",
+					"type": "website",
+					"comment": "as detected from PackageJson property \"homepage\""
+				},
+				{
+					"url": "https://github.com/bokuweb/react-resizable-box/issues",
 					"type": "issue-tracker",
 					"comment": "as detected from PackageJson property \"bugs.url\""
 				}
@@ -793,39 +793,6 @@
 		},
 		{
 			"type": "library",
-			"name": "parse-unit",
-			"version": "1.0.1",
-			"bom-ref": "pkg:npm/parse-unit@1.0.1?vcs_url=git%3A%2F%2Fgithub.com%2Fmattdesl%2Fparse-unit.git",
-			"author": "Matt DesLauriers",
-			"description": "parses number and unit, '20px' into [20, 'px']",
-			"licenses": [
-				{
-					"license": {
-						"id": "MIT"
-					}
-				}
-			],
-			"purl": "pkg:npm/parse-unit@1.0.1?vcs_url=git%3A%2F%2Fgithub.com%2Fmattdesl%2Fparse-unit.git",
-			"externalReferences": [
-				{
-					"url": "git://github.com/mattdesl/parse-unit.git",
-					"type": "vcs",
-					"comment": "as detected from PackageJson property \"repository.url\""
-				},
-				{
-					"url": "https://github.com/mattdesl/parse-unit",
-					"type": "website",
-					"comment": "as detected from PackageJson property \"homepage\""
-				},
-				{
-					"url": "https://github.com/mattdesl/parse-unit/issues",
-					"type": "issue-tracker",
-					"comment": "as detected from PackageJson property \"bugs.url\""
-				}
-			]
-		},
-		{
-			"type": "library",
 			"name": "utils",
 			"group": "@floating-ui",
 			"version": "0.2.9",
@@ -860,11 +827,11 @@
 		},
 		{
 			"type": "library",
-			"name": "to-px",
-			"version": "1.1.0",
-			"bom-ref": "pkg:npm/to-px@1.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmikolalysenko%2Fto-px.git",
-			"author": "Mikola Lysenko",
-			"description": "Convert any CSS unit to logical pixels (\"px\")",
+			"name": "parse-unit",
+			"version": "1.0.1",
+			"bom-ref": "pkg:npm/parse-unit@1.0.1?vcs_url=git%3A%2F%2Fgithub.com%2Fmattdesl%2Fparse-unit.git",
+			"author": "Matt DesLauriers",
+			"description": "parses number and unit, '20px' into [20, 'px']",
 			"licenses": [
 				{
 					"license": {
@@ -872,20 +839,20 @@
 					}
 				}
 			],
-			"purl": "pkg:npm/to-px@1.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmikolalysenko%2Fto-px.git",
+			"purl": "pkg:npm/parse-unit@1.0.1?vcs_url=git%3A%2F%2Fgithub.com%2Fmattdesl%2Fparse-unit.git",
 			"externalReferences": [
 				{
-					"url": "git+https://github.com/mikolalysenko/to-px.git",
+					"url": "git://github.com/mattdesl/parse-unit.git",
 					"type": "vcs",
 					"comment": "as detected from PackageJson property \"repository.url\""
 				},
 				{
-					"url": "https://github.com/mikolalysenko/to-px",
+					"url": "https://github.com/mattdesl/parse-unit",
 					"type": "website",
 					"comment": "as detected from PackageJson property \"homepage\""
 				},
 				{
-					"url": "https://github.com/mikolalysenko/to-px/issues",
+					"url": "https://github.com/mattdesl/parse-unit/issues",
 					"type": "issue-tracker",
 					"comment": "as detected from PackageJson property \"bugs.url\""
 				}
@@ -918,6 +885,39 @@
 				},
 				{
 					"url": "https://github.com/facebook/react/issues",
+					"type": "issue-tracker",
+					"comment": "as detected from PackageJson property \"bugs.url\""
+				}
+			]
+		},
+		{
+			"type": "library",
+			"name": "to-px",
+			"version": "1.1.0",
+			"bom-ref": "pkg:npm/to-px@1.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmikolalysenko%2Fto-px.git",
+			"author": "Mikola Lysenko",
+			"description": "Convert any CSS unit to logical pixels (\"px\")",
+			"licenses": [
+				{
+					"license": {
+						"id": "MIT"
+					}
+				}
+			],
+			"purl": "pkg:npm/to-px@1.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmikolalysenko%2Fto-px.git",
+			"externalReferences": [
+				{
+					"url": "git+https://github.com/mikolalysenko/to-px.git",
+					"type": "vcs",
+					"comment": "as detected from PackageJson property \"repository.url\""
+				},
+				{
+					"url": "https://github.com/mikolalysenko/to-px",
+					"type": "website",
+					"comment": "as detected from PackageJson property \"homepage\""
+				},
+				{
+					"url": "https://github.com/mikolalysenko/to-px/issues",
 					"type": "issue-tracker",
 					"comment": "as detected from PackageJson property \"bugs.url\""
 				}
@@ -1093,7 +1093,7 @@
 	],
 	"dependencies": [
 		{
-			"ref": "pkg:npm/%40jahia/moonstone@2.14.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FJahia%2Fmoonstone.git"
+			"ref": "pkg:npm/%40jahia/moonstone@2.14.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FJahia%2Fmoonstone.git"
 		},
 		{
 			"ref": "pkg:npm/storybook@8.6.12?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/lib/cli"
@@ -1120,13 +1120,13 @@
 			"ref": "pkg:npm/%40storybook/addon-actions@8.6.12?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/addons/actions"
 		},
 		{
-			"ref": "pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react"
-		},
-		{
 			"ref": "pkg:npm/axe-core@4.10.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fdequelabs%2Faxe-core.git"
 		},
 		{
 			"ref": "pkg:npm/%40storybook/instrumenter@8.6.12?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/lib/instrumenter"
+		},
+		{
+			"ref": "pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react"
 		},
 		{
 			"ref": "pkg:npm/clsx@2.1.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Flukeed%2Fclsx.git"
@@ -1144,10 +1144,10 @@
 			"ref": "pkg:npm/prop-types@15.8.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Fprop-types.git"
 		},
 		{
-			"ref": "pkg:npm/re-resizable@6.11.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fbokuweb%2Freact-resizable-box.git"
+			"ref": "pkg:npm/%40floating-ui/react@0.27.7?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/react"
 		},
 		{
-			"ref": "pkg:npm/%40floating-ui/react@0.27.7?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/react"
+			"ref": "pkg:npm/re-resizable@6.11.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fbokuweb%2Freact-resizable-box.git"
 		},
 		{
 			"ref": "pkg:npm/jsdoc-type-pratt-parser@4.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fjsdoc-type-pratt-parser%2Fjsdoc-type-pratt-parser.git"
@@ -1159,16 +1159,16 @@
 			"ref": "pkg:npm/%40storybook/icons@1.3.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Ficons.git"
 		},
 		{
-			"ref": "pkg:npm/parse-unit@1.0.1?vcs_url=git%3A%2F%2Fgithub.com%2Fmattdesl%2Fparse-unit.git"
-		},
-		{
 			"ref": "pkg:npm/%40floating-ui/utils@0.2.9?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/utils"
 		},
 		{
-			"ref": "pkg:npm/to-px@1.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmikolalysenko%2Fto-px.git"
+			"ref": "pkg:npm/parse-unit@1.0.1?vcs_url=git%3A%2F%2Fgithub.com%2Fmattdesl%2Fparse-unit.git"
 		},
 		{
 			"ref": "pkg:npm/scheduler@0.23.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/scheduler"
+		},
+		{
+			"ref": "pkg:npm/to-px@1.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmikolalysenko%2Fto-px.git"
 		},
 		{
 			"ref": "pkg:npm/react-dom@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react-dom"
