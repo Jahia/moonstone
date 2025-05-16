@@ -5,6 +5,7 @@ import type {ControlledTreeViewProps, TreeViewData} from './TreeView.types';
 
 import {ChevronDown, ChevronRight, CheckboxChecked, CheckboxUnchecked} from '~/icons';
 import {Typography, Loader} from '~/components';
+import {onToggleNode} from '~/hooks/useToggleNode';
 
 // Manage treeView_item's icon
 const displayIcon = (icon: React.ReactElement, size: string, className?: string, parentHasIconStart = false) => {
@@ -27,11 +28,11 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
         selectedItems = [],
         highlightedItems = [],
         showCheckbox = false,
-        onClickItem = () => undefined,
-        onDoubleClickItem = () => undefined,
-        onContextMenuItem = () => undefined,
-        onOpenItem = () => undefined,
-        onCloseItem = () => undefined,
+        onClickItem,
+        onDoubleClickItem,
+        onContextMenuItem,
+        onOpenItem,
+        onCloseItem,
         isReversed = false,
         component = 'ul',
         itemComponent = 'li',
@@ -65,19 +66,23 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
             };
 
             const handleNodeClick = (e: React.MouseEvent) => {
-                if (onClickItem.length === 0) {
+                if (onClickItem) {
+                    onClickItem(node, e, toggleNode);
+                } else {
                     toggleNode(e);
                 }
-
-                onClickItem(node, e, toggleNode);
             };
 
             const handleNodeDoubleClick = (e: React.MouseEvent) => {
-                onDoubleClickItem(node, e);
+                if (onDoubleClickItem) {
+                    onDoubleClickItem(node, e);
+                }
             };
 
             const handleNodeContextMenu = (e: React.MouseEvent) => {
-                onContextMenuItem(node, e);
+                if (onContextMenuItem) {
+                    onContextMenuItem(node, e);
+                }
             };
 
             // ---
@@ -109,6 +114,9 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                         'aria-level': depth + 1,
                         key: `${depth}-${node.id}`,
                         style: {'--treeItem-depth': depth, ...node?.treeItemProps?.style},
+                        onDoubleClick: handleNodeDoubleClick,
+                        onContextMenu: handleNodeContextMenu,
+                        ...onToggleNode(toggleNode, handleNodeClick, !isClickable),
                         ...node.treeItemProps
                     },
                     <div className={cssTreeViewItem}>
@@ -130,9 +138,6 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                         {/* TreeViewItem */}
                         <div
                             className={clsx('flexRow_nowrap', 'alignCenter', 'flexFluid', 'moonstone-treeView_itemLabel', node.className)}
-                            onClick={isClickable ? handleNodeClick : undefined}
-                            onDoubleClick={handleNodeDoubleClick}
-                            onContextMenu={handleNodeContextMenu}
                         >
                             {showCheckbox ?
                                 (isSelected ? <CheckboxChecked className="moonstone-treeView_itemIconStart" role="checkbox" color="blue" aria-checked="true"/> : <CheckboxUnchecked className="moonstone-treeView_itemIconStart" role="checkbox" aria-checked="false"/>) :
