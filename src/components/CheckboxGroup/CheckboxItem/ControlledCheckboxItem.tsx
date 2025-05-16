@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import clsx from 'clsx';
 
 import './CheckboxItem.scss';
 import {Checkbox, Typography} from '~/components';
 import {CheckboxGroupContext} from '../CheckboxGroup.context';
 import type {ControlledCheckboxItemProps} from './CheckboxItem.types';
+import {onArrowNavigation} from '~/hooks/onArrowNavigation';
 
 export const ControlledCheckboxItem: React.FC<ControlledCheckboxItemProps> = ({className, id, value, label, description, isDisabled, isReadOnly, onChange, name, ...props}) => {
     const context = React.useContext(CheckboxGroupContext);
@@ -12,15 +13,19 @@ export const ControlledCheckboxItem: React.FC<ControlledCheckboxItemProps> = ({c
     const isDisabledItem = (typeof context === 'undefined') ? isDisabled : context.isDisabled;
     const isReadOnlyItem = (typeof context === 'undefined') ? isReadOnly : context.isReadOnly;
     const nameItem = (typeof context === 'undefined') ? name : context.name;
+    const containerRef = useRef(null);
 
+    // FIX: Typography doesn't accept refs
     return (
-        <Typography
+        <label
+            ref={containerRef}
             className={clsx('moonstone-checkboxItem flexCol', className)}
             aria-readonly={isReadOnlyItem}
             aria-disabled={isDisabledItem}
-            variant="body"
-            weight="default"
-            component="label"
+            // Variant="body"
+            // weight="default"
+            // component="label"
+            {... onArrowNavigation(containerRef)}
         >
             <div className={clsx('flexRow alignCenter')}>
                 <Checkbox
@@ -61,7 +66,7 @@ export const ControlledCheckboxItem: React.FC<ControlledCheckboxItemProps> = ({c
                     {description}
                 </Typography>
             )}
-        </Typography>
+        </label>
     );
 };
 
