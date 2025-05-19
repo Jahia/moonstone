@@ -132,7 +132,7 @@ describe('TreeView', () => {
         const user = userEvent.setup();
 
         // Create a wrapper component to use hooks
-        function Wrapper() {
+        const Wrapper = () => {
             const [selectedItems, setSelectedItems] = useState<string[]>([]);
             const handleClick = (node: TreeViewData) => {
                 if (selectedItems.includes(node.id)) {
@@ -141,20 +141,21 @@ describe('TreeView', () => {
                     setSelectedItems([node.id]);
                 }
             };
+
             return (
                 <TreeView
                     openedItems={['A']}
                     data={tree}
-                    onClickItem={handleClick}
                     selectedItems={selectedItems}
+                    onClickItem={handleClick}
                 />
             );
-        }
+        };
 
-        render(<Wrapper />);
-        
+        render(<Wrapper/>);
+
         await user.click(screen.getByTestId('treeitem-toggle-icon'));
-        
+
         expect(screen.queryAllByRole('treeitem', {selected: true})).toHaveLength(0);
     });
 
