@@ -16,7 +16,11 @@ const displayIcon = (icon: React.ReactElement, size: string, className?: string,
     return (
         <i className={clsx('flexRow', 'alignCenter', className)}>
             {icon &&
-            <icon.type {...icon.props} size={size} aria-label={(icon.type as React.ComponentType).name || 'moonstone-treeView-icon'}/>}
+            <icon.type
+                aria-label={(icon.type as React.ComponentType).name || 'moonstone-treeView-icon'}
+                {...icon.props}
+                size={size}
+            />}
         </i>
     );
 };
@@ -58,10 +62,12 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
             // Manage clicks events
             // ---
             const toggleNode = (e: React.MouseEvent) => {
-                if (isOpen) {
-                    onCloseItem(node, e);
-                } else {
-                    onOpenItem(node, e);
+                if (onOpenItem && onCloseItem) {
+                    if (isOpen) {
+                        onCloseItem(node, e);
+                    } else {
+                        onOpenItem(node, e);
+                    }
                 }
             };
 
@@ -124,6 +130,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                         {isClosable && hasChild && (
                             <div
                                 className={clsx('flexRow', 'alignCenter', 'moonstone-treeView_itemToggle')}
+                                data-testid="treeitem-toggle-icon"
                                 onClick={toggleNode}
                             >
                                 {isLoading ? <Loader isReversed={isReversed} size="small"/> : isOpen ? <ChevronDown size={size}/> : <ChevronRight size={size}/>}
@@ -138,6 +145,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                         {/* TreeViewItem */}
                         <div
                             className={clsx('flexRow_nowrap', 'alignCenter', 'flexFluid', 'moonstone-treeView_itemLabel', node.className)}
+                            onClick={isClickable ? handleNodeClick : undefined}
                         >
                             {showCheckbox ?
                                 (isSelected ? <CheckboxChecked className="moonstone-treeView_itemIconStart" role="checkbox" color="blue" aria-checked="true"/> : <CheckboxUnchecked className="moonstone-treeView_itemIconStart" role="checkbox" aria-checked="false"/>) :
