@@ -4,7 +4,7 @@
     border: 1px solid transparent;
     background: none;
 
-    &:focus {
+    &:focus-visible {
         color: var(--color-accent_dark);
 
         border-color: var(--color-accent_dark);
@@ -31,7 +31,7 @@
 
     background-color: var(--color-accent_light20);
 
-    &:focus {
+    &:focus-visible {
         background-color: var(--color-accent_light20);
     }
 
@@ -53,7 +53,7 @@
 
     &:hover,
     &:active,
-    &:focus,
+    &:focus-visible,
     &:disabled {
         box-shadow: var(--shadow);
     }

@@ -97,7 +97,7 @@ $min-width: 40px;
         opacity: 1;
     }
 
-    &:focus {
+    &:focus-visible {
         outline: none;
 
         ~ .moonstone-baseInput_icon {
