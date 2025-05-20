@@ -40,7 +40,7 @@ $accordionHeader_height: 48px;
 
         cursor: default;
 
-        &:focus {
+        &:focus-visible {
             color: var(--color-light);
 
             background-color: var(--color-dark60);
@@ -51,7 +51,7 @@ $accordionHeader_height: 48px;
         background-color: var(--color-gray40);
     }
 
-    &:focus,
+    &:focus-visible,
     &:not(.moonstone-selected):not(:active):hover {
         color: var(--color-dark);
 
@@ -74,7 +74,7 @@ $accordionHeader_height: 48px;
             background-color: var(--color-black);
         }
 
-        &:focus,
+        &:focus-visible,
         &:not(.moonstone-selected):not(:active):hover {
             color: var(--color-light);
 
