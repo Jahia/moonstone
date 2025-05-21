@@ -4,7 +4,7 @@ import './ListItem.scss';
 import {Typography} from '~/components/Typography';
 import {ListItemProps} from './ListItem.types';
 
-export const ListItem: React.FC<ListItemProps> = ({
+const ListItemForwardRef: React.ForwardRefRenderFunction<HTMLLIElement, ListItemProps> = ({
     label,
     description,
     iconStart,
@@ -15,7 +15,7 @@ export const ListItem: React.FC<ListItemProps> = ({
     typographyVariant = 'caption',
     iconSize = 'default',
     ...props
-}) => {
+}, ref) => {
     const cssListItem = clsx(
         'moonstone-listItem',
         'flexRow',
@@ -26,6 +26,7 @@ export const ListItem: React.FC<ListItemProps> = ({
 
     return (
         <li
+            ref={ref}
             className={clsx(cssListItem)}
             {...props}
         >
@@ -74,4 +75,5 @@ export const ListItem: React.FC<ListItemProps> = ({
     );
 };
 
+export const ListItem = React.forwardRef(ListItemForwardRef);
 ListItem.displayName = 'ListItem';
