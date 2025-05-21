@@ -31,13 +31,6 @@ describe('onToggleNode', () => {
         );
     };
 
-    it('should call onClick', async () => {
-        const user = userEvent.setup();
-        render(<ToggleableDiv isClickable/>);
-        await user.click(screen.getByTestId('toggleable-div'));
-        expect(screen.queryByText('clicked')).toBeInTheDocument();
-    });
-
     it('should call onToggle when spacebar is pressed', async () => {
         const user = userEvent.setup();
         render(<ToggleableDiv isClickable/>);

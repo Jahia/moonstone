@@ -40,7 +40,6 @@ export const onToggleNode = (
     };
 
     return {
-        onClick: isDisabled ? undefined : onClick,
         onKeyUp: handleKeyUp,
         disabled: isDisabled,
         tabIndex: tabIndex
