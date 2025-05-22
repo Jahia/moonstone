@@ -7,7 +7,6 @@ import {Typography} from '~/components';
 import {FileBroken, Image} from '~/icons/components';
 
 const ThumbnailCmp: React.FC<ThumbnailProps> = ({thumbnail, thumbnailType, thumbnailAlt}) => {
-    console.log(thumbnail);
     if (!thumbnail) {
         return <Image size="big" color="gray" data-testid="cardSelector-thumbnail"/>;
     }
