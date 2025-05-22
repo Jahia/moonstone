@@ -2,7 +2,7 @@ import {StoryObj, Meta} from '@storybook/react';
 
 import {CardSelector} from './index';
 import {Button, Chip} from '~/index';
-import {Close, FileImage, Lock} from '~/icons';
+import {Close, FileImage, Lock, Love} from '~/icons';
 import type {CardSelectorProps} from './CardSelector.types';
 
 const meta: Meta<typeof CardSelector> = {
@@ -34,7 +34,7 @@ export const Default: Story = {
 export const Image: Story = {
     args: {
         ...Default.args,
-        thumbnailURL: 'https://picsum.photos/100/300',
+        thumbnail: 'https://picsum.photos/100/300',
         thumbnailAlt: 'preview-img',
         thumbnailType: 'preview',
         information: 'more information',
@@ -46,7 +46,16 @@ export const Image: Story = {
 export const Icon: Story = {
     args: {
         ...Image.args,
-        thumbnailURL: 'http://www.google.com/s2/favicons?domain=www.jahia.com',
+        thumbnail: 'http://www.google.com/s2/favicons?domain=www.jahia.com',
+        thumbnailType: 'icon'
+    },
+    render: Template
+};
+
+export const IconComponent: Story = {
+    args: {
+        ...Image.args,
+        thumbnail: <Love id="test" className="test"/>,
         thumbnailType: 'icon'
     },
     render: Template
