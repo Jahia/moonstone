@@ -1,6 +1,7 @@
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {Chip} from '~/index';
+import {Love} from '~/icons';
 
 import {CardSelector} from './index';
 
@@ -30,16 +31,25 @@ describe('CardSelector', () => {
         expect(screen.queryByText('this information')).toBeInTheDocument();
     });
 
-    it('should display the image with thumbnailURL', () => {
-        const {container} = render(<CardSelector {...requiredProps} thumbnailURL="thumbnail.png"/>);
+    it('should display the image with thumbnail', () => {
+        const {container} = render(<CardSelector {...requiredProps} thumbnail="thumbnail.png"/>);
         expect(
             container.querySelector('img[src="thumbnail.png"]')
         ).toBeInTheDocument();
     });
 
+    it('should display the icon passed with thumbnail', () => {
+        const {container} = render(
+            <CardSelector {...requiredProps} thumbnail={<Love id="thumbnail-icon"/>}/>
+        );
+        expect(
+            container.querySelector('#thumbnail-icon')
+        ).toBeInTheDocument();
+    });
+
     it('should display img as icon when thumbnailType is icon', () => {
         const {container} = render(
-            <CardSelector {...requiredProps} thumbnailType="icon" thumbnailURL="thumbnail.png"/>
+            <CardSelector {...requiredProps} thumbnailType="icon" thumbnail="thumbnail.png"/>
         );
         expect(
             container.querySelector('.moonstone-cardSelector_thumbnail_icon')
@@ -51,7 +61,7 @@ describe('CardSelector', () => {
             <CardSelector
                 {...requiredProps}
                 thumbnailType="preview"
-                thumbnailURL="thumbnail.png"
+                thumbnail="thumbnail.png"
             />
         );
         expect(
@@ -64,7 +74,7 @@ describe('CardSelector', () => {
             <CardSelector
                 {...requiredProps}
                 thumbnailAlt="thumbnail-alt"
-                thumbnailURL="thumbnail.png"
+                thumbnail="thumbnail.png"
             />
         );
         expect(
