@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import clsx from 'clsx';
 import type {RadioItemProps} from './RadioItem.types';
 import './RadioItem.scss';
@@ -10,8 +10,18 @@ export const RadioItem: React.FC<RadioItemProps> = ({className, id, value, label
     const context = React.useContext(RadioGroupContext);
     const isDisabledItem = (typeof context.isDisabled === 'undefined') ? isDisabled : context.isDisabled;
     const isReadOnlyItem = (typeof context.isReadOnly === 'undefined') ? isReadOnly : context.isReadOnly;
+    const containerRef = useRef(null);
+
     return (
-        <Typography className={clsx('moonstone-radio-container flexCol', className)} aria-readonly={isReadOnlyItem} aria-disabled={isDisabledItem} variant="body" weight="default" component="label">
+        <Typography
+            ref={containerRef}
+            className={clsx('moonstone-radio-container flexCol', className)}
+            aria-readonly={isReadOnlyItem}
+            aria-disabled={isDisabledItem}
+            variant="body"
+            weight="default"
+            component="label"
+        >
             <div className={clsx('flexRow alignCenter')}>
                 <div className={clsx('moonstone-radio')}>
                     <input

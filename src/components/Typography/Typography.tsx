@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import './Typography.scss';
 import type {TypographyProps} from './Typography.types';
 
-export const Typography = <C extends React.ElementType = 'p'> ({
+export const Typography = React.forwardRef(<C extends React.ElementType = 'p'> ({
     children = '',
     component,
     variant = 'body',
@@ -14,7 +14,8 @@ export const Typography = <C extends React.ElementType = 'p'> ({
     isUpperCase = false,
     isNowrap = false,
     ...props
-}:TypographyProps<C>) => {
+}:TypographyProps<C>,
+    ref: React.Ref<Element>) => {
     if (!children) {
         return null;
     }
@@ -23,6 +24,7 @@ export const Typography = <C extends React.ElementType = 'p'> ({
 
     return (
         <Component
+            ref={ref}
             className={clsx(
                 'moonstone-typography',
                 `moonstone-variant_${variant}`,
@@ -38,6 +40,6 @@ export const Typography = <C extends React.ElementType = 'p'> ({
             {children}
         </Component>
     );
-};
+});
 
 Typography.displayName = 'Typography';
