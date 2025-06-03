@@ -42,10 +42,16 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
         ...props
     }, ref) => {
     const isFlatData = data.filter(item => item.children && item.children.length > 0).length === 0;
-    const containerRef = useRef(null);
+    const refs = useRef(new Map<string, React.RefObject<HTMLElement>>());
 
     function generateLevelJSX(nodeData: TreeViewData[], depth: number, parentHasIconStart: boolean): React.ReactNode[] {
         return nodeData.map(node => {
+            let containerRef = refs.current.get(node.id);
+            if (!containerRef) {
+                containerRef = React.createRef<HTMLElement>();
+                refs.current.set(node.id, containerRef);
+            }
+
             const hasChild = Boolean(node.hasChildren || (node.children && node.children.length !== 0));
             const hasIconStart = Boolean(node.iconStart);
             const hasIconEnd = Boolean(node.iconEnd);

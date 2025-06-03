@@ -11,27 +11,27 @@ export const onArrowNavigation = (
 ): onArrowNavigationProps => {
     const handleKeyUp = (e: React.KeyboardEvent) => {
         const element = ref.current;
-        if (element) {
-            if (e.code === 'ArrowDown') {
-                e.preventDefault();
-                let next = element.nextSibling as HTMLElement;
-                // Loops through dom elements until it finds another item with the hook
-                while (next && !(next instanceof HTMLElement && next.tabIndex >= 0)) {
-                    next = next.nextSibling as HTMLElement;
-                }
 
-                next?.focus();
-            }
+        if (!element) {
+            return;
+        }
 
-            if (e.code === 'ArrowUp') {
-                e.preventDefault();
-                let prev = element.previousSibling as HTMLElement;
-                while (prev && !(prev instanceof HTMLElement && prev.tabIndex >= 0)) {
-                    prev = prev.previousSibling as HTMLElement;
-                }
+        const container = element.parentElement;
+        if (!container) {
+            return;
+        }
 
-                prev?.focus();
-            }
+        const items = Array.from(container.querySelectorAll<HTMLElement>('[tabindex]')).filter(el => el.tabIndex >= 0);
+        const currentIndex = items.indexOf(element);
+
+        if (e.key === 'ArrowDown' && currentIndex !== -1) {
+            e.preventDefault();
+            items[currentIndex + 1]?.focus();
+        }
+
+        if (e.key === 'ArrowUp' && currentIndex !== -1) {
+            e.preventDefault();
+            items[currentIndex - 1]?.focus();
         }
     };
 
