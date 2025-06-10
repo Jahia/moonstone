@@ -1,5 +1,5 @@
 import React from 'react';
-import type {PolymorphicComponentProps} from '~/types/Polymorphic.types';
+import type {PolymorphicComponentWithRefProps} from '~/types/Polymorphic.types';
 
 export const variants = ['title', 'heading', 'subheading', 'body', 'caption', 'button'] as const;
 export type TypographyVariant = typeof variants[number];
@@ -38,4 +38,4 @@ export type BasicTypographyProps = {
     isNowrap?: boolean;
 };
 
-export type TypographyProps<C extends React.ElementType> = PolymorphicComponentProps<C, BasicTypographyProps>;
+export type TypographyProps<C extends React.ElementType> = PolymorphicComponentWithRefProps<C, BasicTypographyProps>;

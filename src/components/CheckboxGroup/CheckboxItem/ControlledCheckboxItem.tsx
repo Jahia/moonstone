@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import clsx from 'clsx';
 
 import './CheckboxItem.scss';
@@ -8,6 +8,7 @@ import type {ControlledCheckboxItemProps} from './CheckboxItem.types';
 
 export const ControlledCheckboxItem: React.FC<ControlledCheckboxItemProps> = ({className, id, value, label, description, isDisabled, isReadOnly, onChange, name, ...props}) => {
     const context = React.useContext(CheckboxGroupContext);
+    const containerRef = useRef(null);
 
     const isDisabledItem = (typeof context === 'undefined') ? isDisabled : context.isDisabled;
     const isReadOnlyItem = (typeof context === 'undefined') ? isReadOnly : context.isReadOnly;
@@ -15,6 +16,7 @@ export const ControlledCheckboxItem: React.FC<ControlledCheckboxItemProps> = ({c
 
     return (
         <Typography
+            ref={containerRef}
             className={clsx('moonstone-checkboxItem flexCol', className)}
             aria-readonly={isReadOnlyItem}
             aria-disabled={isDisabledItem}
