@@ -5,9 +5,7 @@ import type {ControlledTreeViewProps, TreeViewData} from './TreeView.types';
 
 import {ChevronDown, ChevronRight, CheckboxChecked, CheckboxUnchecked} from '~/icons';
 import {Typography, Loader} from '~/components';
-import {onToggleNode} from '~/hooks/useToggleNode';
-import {onArrowNavigation} from '~/hooks/onArrowNavigation';
-import {mergeHandlers} from '~/hooks/mergeHandlers';
+import {onToggleNode, onArrowNavigation, mergeHandlers} from '~/hooks';
 
 // Manage treeView_item's icon
 const displayIcon = (icon: React.ReactElement, size: string, className?: string, parentHasIconStart = false) => {

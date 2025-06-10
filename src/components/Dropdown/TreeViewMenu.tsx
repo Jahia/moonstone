@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {usePositioning} from '~/hooks/usePositioning';
+import {usePositioning} from '~/hooks';
 import {TreeViewMenuProps} from './TreeViewMenu.types';
 import {SearchInput, TreeView} from '~/components';
 import '../Menu/Menu.scss';

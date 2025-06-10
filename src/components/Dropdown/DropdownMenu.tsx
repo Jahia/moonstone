@@ -2,7 +2,7 @@ import React from 'react';
 import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
 import type {DropdownMenuProps} from '~/components/Dropdown/DropdownMenu.types';
 import type {MenuItemProps} from '~/components/Menu/MenuItem.types';
-import {onAccessibleClick} from '~/hooks/useAccessibleClick';
+import {onAccessibleClick} from '~/hooks';
 
 import {Menu, MenuItem, Separator} from '~/components';
 import {CheckboxChecked, CheckboxUnchecked} from '~/icons';
