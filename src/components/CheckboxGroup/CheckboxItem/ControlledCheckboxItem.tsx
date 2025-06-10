@@ -15,16 +15,15 @@ export const ControlledCheckboxItem: React.FC<ControlledCheckboxItemProps> = ({c
     const nameItem = (typeof context === 'undefined') ? name : context.name;
     const containerRef = useRef(null);
 
-    // FIX: Typography doesn't accept refs
     return (
-        <label
+        <Typography
             ref={containerRef}
             className={clsx('moonstone-checkboxItem flexCol', className)}
             aria-readonly={isReadOnlyItem}
             aria-disabled={isDisabledItem}
-            // Variant="body"
-            // weight="default"
-            // component="label"
+            variant="body"
+            weight="default"
+            component="label"
             {... onArrowNavigation(containerRef)}
         >
             <div className={clsx('flexRow alignCenter')}>
@@ -66,7 +65,7 @@ export const ControlledCheckboxItem: React.FC<ControlledCheckboxItemProps> = ({c
                     {description}
                 </Typography>
             )}
-        </label>
+        </Typography>
     );
 };
 

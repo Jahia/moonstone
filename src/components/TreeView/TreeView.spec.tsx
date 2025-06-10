@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -125,6 +126,37 @@ describe('TreeView', () => {
         await user.click(screen.getByText('A level1'));
 
         expect(clickHandler).not.toHaveBeenCalled();
+    });
+
+    it('should not select the item when clicking on the toggle icon', async () => {
+        const user = userEvent.setup();
+
+        // Create a wrapper component to use hooks
+        const Wrapper = () => {
+            const [selectedItems, setSelectedItems] = useState<string[]>([]);
+            const handleClick = (node: TreeViewData) => {
+                if (selectedItems.includes(node.id)) {
+                    setSelectedItems(selectedItems.filter(item => item !== node.id));
+                } else {
+                    setSelectedItems([node.id]);
+                }
+            };
+
+            return (
+                <TreeView
+                    openedItems={['A']}
+                    data={tree}
+                    selectedItems={selectedItems}
+                    onClickItem={handleClick}
+                />
+            );
+        };
+
+        render(<Wrapper/>);
+
+        await user.click(screen.getByTestId('treeitem-toggle-icon'));
+
+        expect(screen.queryAllByRole('treeitem', {selected: true})).toHaveLength(0);
     });
 
     it('should not call onClick when clicking on an readonly item', async () => {

@@ -1,6 +1,26 @@
 import React from 'react';
 
-type BasicProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'id' | 'onClick'> & {
+export type ThumbnailProps = {
+    /**
+     * Url of the thumbnail or icon component
+     * If a string is provided, it will be used as the src of an img element.
+     * If a React element is provided, it will be rendered as the thumbnail.
+     */
+    thumbnail?: string | React.ReactElement;
+
+    /**
+     * Alt attribute for thumbnail
+     */
+    thumbnailAlt?: string;
+
+    /**
+     * Thumbnail type
+     * @default 'preview'
+     */
+    thumbnailType?: 'preview' | 'icon';
+}
+
+type BasicProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'id' | 'onClick'> & ThumbnailProps & {
     /**
      * Required id
      */
@@ -45,21 +65,6 @@ type BasicProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'id'
      * Define if the item is readOnly
      */
     isReadOnly?: boolean;
-
-    /**
-     * Image url as thumbnail
-     */
-    thumbnailURL?: string;
-
-    /**
-     * Alt attribute for thumbnail
-     */
-    thumbnailAlt?: string;
-
-    /**
-     * Thumbnail type
-     */
-    thumbnailType?: 'icon' | 'preview';
 
     /**
      * Error cardSelector variant

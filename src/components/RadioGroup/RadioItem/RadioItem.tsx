@@ -13,16 +13,15 @@ export const RadioItem: React.FC<RadioItemProps> = ({className, id, value, label
     const isReadOnlyItem = (typeof context.isReadOnly === 'undefined') ? isReadOnly : context.isReadOnly;
     const containerRef = useRef(null);
 
-    // FIX: Typography doesn't accept refs
     return (
-        <label
+        <Typography
             ref={containerRef}
             className={clsx('moonstone-radio-container flexCol', className)}
             aria-readonly={isReadOnlyItem}
             aria-disabled={isDisabledItem}
-            // Variant="body"
-            // weight="default"
-            // component="label"
+            variant="body"
+            weight="default"
+            component="label"
             {... onArrowNavigation(containerRef)}
         >
             <div className={clsx('flexRow alignCenter')}>
@@ -51,7 +50,7 @@ export const RadioItem: React.FC<RadioItemProps> = ({className, id, value, label
             {description && (
                 <Typography id={`${id}-description`} variant="caption" weight="default" component="span" className={clsx('moonstone-radio-description flexRow')}>{description}</Typography>
             )}
-        </label>
+        </Typography>
     );
 };
 

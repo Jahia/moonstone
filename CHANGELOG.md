@@ -1,3 +1,28 @@
+# v2.15.0 (Thu May 22 2025)
+
+#### 🚀 Enhancement
+
+- feat: allow icon component as thumbnail [#1051](https://github.com/Jahia/moonstone/pull/1051) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
+# v2.14.2 (Wed May 21 2025)
+
+#### 🐛 Bug Fix
+
+- fix: prevent selection on TreeView item when clicking on the chevron [#1048](https://github.com/Jahia/moonstone/pull/1048) ([@ffffffelix](https://github.com/ffffffelix))
+- fix: Prevent focus style after clicking or selecting an item [#1049](https://github.com/Jahia/moonstone/pull/1049) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.14.1 (Fri May 16 2025)
 
 #### 🐛 Bug Fix

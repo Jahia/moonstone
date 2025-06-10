@@ -38,7 +38,7 @@ $minHeight-size: 50px;
             border: var(--border-selector_hover);
         }
 
-        &:focus {
+        &:focus-visible {
             border: var(--border-selector_focus);
         }
     }
