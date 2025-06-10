@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import clsx from 'clsx';
 import './TreeView.scss';
 import type {ControlledTreeViewProps, TreeViewData} from './TreeView.types';
@@ -6,6 +6,8 @@ import type {ControlledTreeViewProps, TreeViewData} from './TreeView.types';
 import {ChevronDown, ChevronRight, CheckboxChecked, CheckboxUnchecked} from '~/icons';
 import {Typography, Loader} from '~/components';
 import {onToggleNode} from '~/hooks/useToggleNode';
+import {onArrowNavigation} from '~/hooks/onArrowNavigation';
+import {mergeHandlers} from '~/hooks/mergeHandlers';
 
 // Manage treeView_item's icon
 const displayIcon = (icon: React.ReactElement, size: string, className?: string, parentHasIconStart = false) => {
@@ -45,9 +47,16 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
         ...props
     }, ref) => {
     const isFlatData = data.filter(item => item.children && item.children.length > 0).length === 0;
+    const refs = useRef(new Map<string, React.RefObject<HTMLElement>>());
 
     function generateLevelJSX(nodeData: TreeViewData[], depth: number, parentHasIconStart: boolean): React.ReactNode[] {
         return nodeData.map(node => {
+            let containerRef = refs.current.get(node.id);
+            if (!containerRef) {
+                containerRef = React.createRef<HTMLElement>();
+                refs.current.set(node.id, containerRef);
+            }
+
             const hasChild = Boolean(node.hasChildren || (node.children && node.children.length !== 0));
             const hasIconStart = Boolean(node.iconStart);
             const hasIconEnd = Boolean(node.iconEnd);
@@ -112,6 +121,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                 React.createElement(
                     itemComponent,
                     {
+                        ref: containerRef,
                         role: 'treeitem',
                         'aria-selected': isSelected,
                         'aria-expanded': isOpen,
@@ -122,7 +132,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                         style: {'--treeItem-depth': depth, ...node?.treeItemProps?.style},
                         onDoubleClick: handleNodeDoubleClick,
                         onContextMenu: handleNodeContextMenu,
-                        ...onToggleNode(toggleNode, handleNodeClick, !isClickable),
+                        ...mergeHandlers(onArrowNavigation(containerRef), onToggleNode(toggleNode, handleNodeClick, !isClickable)),
                         ...node.treeItemProps
                     },
                     <div className={cssTreeViewItem}>

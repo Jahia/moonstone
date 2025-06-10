@@ -5,14 +5,15 @@ import './CheckboxItem.scss';
 import {Checkbox, Typography} from '~/components';
 import {CheckboxGroupContext} from '../CheckboxGroup.context';
 import type {ControlledCheckboxItemProps} from './CheckboxItem.types';
+import {onArrowNavigation} from '~/hooks/onArrowNavigation';
 
 export const ControlledCheckboxItem: React.FC<ControlledCheckboxItemProps> = ({className, id, value, label, description, isDisabled, isReadOnly, onChange, name, ...props}) => {
     const context = React.useContext(CheckboxGroupContext);
-    const containerRef = useRef(null);
 
     const isDisabledItem = (typeof context === 'undefined') ? isDisabled : context.isDisabled;
     const isReadOnlyItem = (typeof context === 'undefined') ? isReadOnly : context.isReadOnly;
     const nameItem = (typeof context === 'undefined') ? name : context.name;
+    const containerRef = useRef(null);
 
     return (
         <Typography
@@ -23,6 +24,7 @@ export const ControlledCheckboxItem: React.FC<ControlledCheckboxItemProps> = ({c
             variant="body"
             weight="default"
             component="label"
+            {... onArrowNavigation(containerRef)}
         >
             <div className={clsx('flexRow alignCenter')}>
                 <Checkbox

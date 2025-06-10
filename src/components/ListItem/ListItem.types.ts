@@ -2,7 +2,7 @@ import React from 'react';
 
 import type {TypographyVariant} from '~/components/Typography/Typography.types';
 
-export type ListItemProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'className'> & {
+export type ListItemProps = Omit<React.ComponentPropsWithRef<'li'>, 'className'> & {
     /**
      * Additional classname
      */
