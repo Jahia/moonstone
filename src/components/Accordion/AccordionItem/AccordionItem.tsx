@@ -4,7 +4,7 @@ import './AccordionItem.scss';
 import {Typography} from '~/components/Typography';
 import {AccordionContext} from '~/components/Accordion/Accordion.context';
 import type {AccordionItemProps} from './AccordionItem.types';
-import {onAccessibleClick} from '~/hooks/useAccessibleClick';
+import {onAccessibleClick} from '~/hooks';
 
 export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = null, onClick = () => undefined, className, children, ...props}) => {
     const context = React.useContext(AccordionContext);

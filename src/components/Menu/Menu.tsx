@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {usePositioning} from '~/hooks/usePositioning';
-import {useEnterExitCallbacks} from '~/hooks/useEnterExitCallbacks';
+import {usePositioning, useEnterExitCallbacks} from '~/hooks';
 import clsx from 'clsx';
 import './Menu.scss';
 import {MenuProps} from './Menu.types';

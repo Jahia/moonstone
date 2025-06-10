@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import './MenuItem.scss';
 
 import type {MenuItemProps} from './MenuItem.types';
-import {onArrowNavigation} from '~/hooks/onArrowNavigation';
+import {onArrowNavigation} from '~/hooks';
 
 export const MenuItem: React.FC<MenuItemProps> = ({
     variant = 'default',
