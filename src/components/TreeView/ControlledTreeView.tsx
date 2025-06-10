@@ -7,6 +7,7 @@ import {ChevronDown, ChevronRight, CheckboxChecked, CheckboxUnchecked} from '~/i
 import {Typography, Loader} from '~/components';
 import {onToggleNode} from '~/hooks/useToggleNode';
 import {onArrowNavigation} from '~/hooks/onArrowNavigation';
+import {mergeHandlers} from '~/hooks/mergeHandlers';
 
 // Manage treeView_item's icon
 const displayIcon = (icon: React.ReactElement, size: string, className?: string, parentHasIconStart = false) => {
@@ -131,8 +132,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                         style: {'--treeItem-depth': depth, ...node?.treeItemProps?.style},
                         onDoubleClick: handleNodeDoubleClick,
                         onContextMenu: handleNodeContextMenu,
-                        ...onArrowNavigation(containerRef),
-                        ...onToggleNode(toggleNode, handleNodeClick, !isClickable),
+                        ...mergeHandlers(onArrowNavigation(containerRef), onToggleNode(toggleNode, handleNodeClick, !isClickable)),
                         ...node.treeItemProps
                     },
                     <div className={cssTreeViewItem}>
