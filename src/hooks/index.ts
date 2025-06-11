@@ -1,4 +1,5 @@
 export * from './mergeHandlers';
+export * from './onAccessibleLink';
 export * from './onArrowNavigation';
 export * from './useAccessibleClick';
 export * from './useEnterExitCallbacks';
