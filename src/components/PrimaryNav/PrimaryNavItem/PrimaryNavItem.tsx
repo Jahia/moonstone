@@ -4,7 +4,7 @@ import './PrimaryNavItem.scss';
 import {ItemProps, ItemTypeResolverProps, PrimaryNavItemProps} from './PrimaryNavItem.types';
 import {Typography} from '~/components/Typography';
 import {PrimaryNavContext} from '../PrimaryNav.context';
-import {onAccessibleClick} from '~/hooks';
+import {mergeHandlers, onAccessibleClick, onAccessibleLink} from '~/hooks';
 
 // Internal component
 const Item: React.FC<ItemProps> = ({icon, label, textVariant, subtitle, button}) => (
@@ -84,13 +84,13 @@ export const PrimaryNavItem: React.FC<PrimaryNavItemProps> = ({
                 className
             )}
             title={label}
-            {...onAccessibleClick((e: React.MouseEvent) => {
+            {...mergeHandlers(onAccessibleClick((e: React.MouseEvent) => {
                 if (typeof primaryNavContext.collapse === 'function') {
                     primaryNavContext.collapse();
                 }
 
                 onClick(e);
-            })}
+            }), onAccessibleLink(onClick))}
             {...props}
         >
             <ItemTypeResolver icon={icon} label={label} subtitle={subtitle} url={url} button={button}/>
