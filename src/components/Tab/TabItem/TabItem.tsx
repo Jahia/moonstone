@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import clsx from 'clsx';
 import './TabItem.scss';
 import type {TabItemProps} from './TabItem.types';
 import {Typography} from '~/components/Typography';
+import {onArrowNavigation} from '~/hooks';
 
 export const TabItem: React.FC<TabItemProps> = ({
     component = 'button',
@@ -15,29 +16,35 @@ export const TabItem: React.FC<TabItemProps> = ({
     isSelected = false,
     onClick,
     ...props
-}) =>
-    React.createElement(
-        component,
-        {
-            className: clsx(
-                'moonstone-tabItem',
-                `moonstone-tabItem_${size}`,
-                {'moonstone-tabItem_noLabel': !label},
-                {'moonstone-tabItem_selected': isSelected},
-                {'moonstone-reverse': isReversed},
-                'flexRow_center',
-                'alignCenter',
-                className
-            ),
-            disabled: isDisabled,
-            onClick,
-            ...props
-        },
-        (
-            <>
-                {icon && <icon.type {...icon.props} className={clsx('moonstone-tabItem_icon', icon.props.className)} size={(size === 'big') ? 'default' : size}/>}
+}) => {
+    const ref = useRef(null);
+    return (
+        React.createElement(
+            component,
+            {
+                className: clsx(
+                    'moonstone-tabItem',
+                    `moonstone-tabItem_${size}`,
+                    {'moonstone-tabItem_noLabel': !label},
+                    {'moonstone-tabItem_selected': isSelected},
+                    {'moonstone-reverse': isReversed},
+                    'flexRow_center',
+                    'alignCenter',
+                    className
+                ),
+                ref: ref,
+                role: 'tab',
+                'aria-selected': isSelected,
+                disabled: isDisabled,
+                onClick,
+                ...props,
+                ...onArrowNavigation({ref: ref, direction: 'horizontal'})
+            },
+            (
+                <>
+                    {icon && <icon.type {...icon.props} className={clsx('moonstone-tabItem_icon', icon.props.className)} size={(size === 'big') ? 'default' : size}/>}
 
-                {label && (
+                    {label && (
                     <Typography
                         isNowrap
                         component="span"
@@ -46,9 +53,10 @@ export const TabItem: React.FC<TabItemProps> = ({
                     >
                         {label}
                     </Typography>
-                )}
-            </>
-        )
-    );
+                    )}
+                </>
+            )
+        ));
+};
 
 TabItem.displayName = 'TabItem';
