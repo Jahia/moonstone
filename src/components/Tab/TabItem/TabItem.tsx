@@ -37,8 +37,8 @@ export const TabItem: React.FC<TabItemProps> = ({
                 'aria-selected': isSelected,
                 disabled: isDisabled,
                 onClick,
-                ...props,
-                ...onArrowNavigation({ref: ref, direction: 'horizontal'})
+                ...onArrowNavigation({ref: ref, direction: 'horizontal'}),
+                ...props
             },
             (
                 <>
