@@ -14,13 +14,13 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({children, className, ...p
     return (
         <nav className={clsx('moonstone-breadcrumb', className)} aria-label="breadcrumb" {...props}>
             <ol className={clsx('flexRow_nowrap', 'alignCenter')}>
-                {
-                    allItems.map((item: React.ReactElement, index) => (
-                        <Fragment key={item.key}>
-                            {item}
+                {allItems.map((item: React.ReactElement, index) => (
+                            index < allItems.length - 1 ? (
+                                <Fragment key={item.key}>
 
-                            {index < allItems.length - 1 && (
-                                <li
+                                    {item}
+
+                                    <li
                                     className={
                                         clsx(
                                             'moonstone-breadcrumb_separator',
@@ -28,13 +28,17 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({children, className, ...p
                                             'alignCenter'
                                         )
                                     }
-                                >
-                                    <ChevronRight aria-hidden/>
-                                </li>
-                            )}
-                        </Fragment>
-                    ))
-                }
+                                    >
+                                        <ChevronRight aria-hidden/>
+                                    </li>
+                                </Fragment>
+                            ) : (
+                                <Fragment key={item.key}>
+                                    {React.cloneElement(item, {'aria-current': 'page'})}
+                                </Fragment>
+                            )
+                ))}
+
             </ol>
         </nav>
     );
