@@ -130,7 +130,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                         style: {'--treeItem-depth': depth, ...node?.treeItemProps?.style},
                         onDoubleClick: handleNodeDoubleClick,
                         onContextMenu: handleNodeContextMenu,
-                        ...mergeHandlers(onArrowNavigation(containerRef), onToggleNode(toggleNode, handleNodeClick, !isClickable)),
+                        ...mergeHandlers(onArrowNavigation({ref: containerRef}), onToggleNode(toggleNode, handleNodeClick, !isClickable)),
                         ...node.treeItemProps
                     },
                     <div className={cssTreeViewItem}>

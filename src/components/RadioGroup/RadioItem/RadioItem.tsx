@@ -22,7 +22,7 @@ export const RadioItem: React.FC<RadioItemProps> = ({className, id, value, label
             variant="body"
             weight="default"
             component="label"
-            {... onArrowNavigation(containerRef)}
+            {... onArrowNavigation({ref: containerRef})}
         >
             <div className={clsx('flexRow alignCenter')}>
                 <div className={clsx('moonstone-radio')}>
