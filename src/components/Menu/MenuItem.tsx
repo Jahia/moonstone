@@ -45,7 +45,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
         iconStart={iconStart}
         iconEnd={iconEnd}
         description={description}
-        {... onArrowNavigation(containerRef)}
+        {... onArrowNavigation({ref: containerRef})}
         {...props}
     />
     );
