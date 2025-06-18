@@ -4,11 +4,12 @@ import './AccordionItem.scss';
 import {Typography} from '~/components/Typography';
 import {AccordionContext} from '~/components/Accordion/Accordion.context';
 import type {AccordionItemProps} from './AccordionItem.types';
-import {onAccessibleClick} from '~/hooks';
+import {onAccessibleClick, mergeHandlers, onArrowNavigation} from '~/hooks';
 
 export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = null, onClick = () => undefined, className, children, ...props}) => {
     const context = React.useContext(AccordionContext);
     const open = context.currentItem === id;
+    const ref = React.useRef(null);
 
     const handleClick = (e: React.MouseEvent | React.KeyboardEvent, isOpen: boolean) => {
         onClick(e, !isOpen);
@@ -17,7 +18,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
 
     return (
         <section
-            {...props}
+            ref={ref}
             className={clsx(
                 'moonstone-accordionItem',
                 {'moonstone-reversed': context.isReversed},
@@ -25,8 +26,11 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
                 open ? 'flexFluid' : null,
                 className
             )}
+            {...mergeHandlers(onArrowNavigation({ref: ref}), onAccessibleClick({onClick: e => handleClick(e, open)}))}
+            role="none"
+            {...props}
         >
-            <header
+            <h3
                 className={clsx(
                     'moonstone-accordionItem_header',
                     {
@@ -38,8 +42,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
                 )}
                 aria-controls={id}
                 aria-expanded={open}
-                {...onAccessibleClick(e => handleClick(e, open))}
-                role="accordion-item"
+                data-testid="accordion-item"
             >
                 {icon &&
                     (
@@ -60,7 +63,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
                 >
                     {label}
                 </Typography>
-            </header>
+            </h3>
 
             {/* Accordion content */}
             {open &&
