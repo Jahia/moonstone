@@ -6,7 +6,7 @@ import {Love} from '~/icons';
 describe('TabItem', () => {
     it('should render', () => {
         render(<TabItem/>);
-        expect(screen.getByRole('button')).toHaveClass('moonstone-tabItem');
+        expect(screen.getByRole('tab')).toHaveClass('moonstone-tabItem');
     });
 
     it('should have the specified label', () => {

@@ -24,7 +24,7 @@ export const ControlledCheckboxItem: React.FC<ControlledCheckboxItemProps> = ({c
             variant="body"
             weight="default"
             component="label"
-            {... onArrowNavigation(containerRef)}
+            {... onArrowNavigation({ref: containerRef})}
         >
             <div className={clsx('flexRow alignCenter')}>
                 <Checkbox
