@@ -17,6 +17,7 @@ export const Tab: React.FC<TabProps> = ({children, className = '', ...props}) =>
                 'alignCenter',
                 className
             )}
+            role="tablist"
         >
             {children}
         </div>
