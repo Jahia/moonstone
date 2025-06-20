@@ -41,7 +41,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
             isSelected={value === item.value}
             image={item.image}
             imageSize={imageSize}
-            {...onAccessibleClick(e => handleSelect(e, item), item.isDisabled, 'option')}
+            {...onAccessibleClick({onClick: e => handleSelect(e, item), disabled: item.isDisabled, role: 'option'})}
             {...item.attributes as MenuItemProps}
         />
     );

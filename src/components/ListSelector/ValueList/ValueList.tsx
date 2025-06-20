@@ -58,11 +58,12 @@ export const ValueList: React.FC<ValueListProps> = ({
                                       className={clsx(...classNames)}
                                       typographyVariant="body"
                                       label={v.label}
-                                      {...onAccessibleClick((e:React.MouseEvent) => {
+                                      {...onAccessibleClick({onClick: (e:React.MouseEvent) => {
                                         if (!isReadOnly && role === 'left-list') {
                                             onClick(e, v);
                                         }
-                                    }, isReadOnly, role)}
+                                    }, disabled: isReadOnly,
+                                    role: role})}
                                       onDragOver={(e:React.DragEvent) => {
                                           if (!isReadOnly) {
                                               onDragOver(e, v);

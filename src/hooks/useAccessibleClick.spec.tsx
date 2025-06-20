@@ -14,7 +14,7 @@ describe('useAccessibleClick', () => {
             <div
                 data-testid="clickable-div"
                 aria-disabled={isDisabled}
-                {...onAccessibleClick(() => setLabel('clicked'), isDisabled)}
+                {...onAccessibleClick({onClick: () => setLabel('clicked'), disabled: isDisabled})}
             >
                 {label}
             </div>

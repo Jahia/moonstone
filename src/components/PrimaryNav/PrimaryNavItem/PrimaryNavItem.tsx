@@ -84,13 +84,13 @@ export const PrimaryNavItem: React.FC<PrimaryNavItemProps> = ({
                 className
             )}
             title={label}
-            {...onAccessibleClick((e: React.MouseEvent) => {
+            {...onAccessibleClick({onClick: (e: React.MouseEvent) => {
                 if (typeof primaryNavContext.collapse === 'function') {
                     primaryNavContext.collapse();
                 }
 
                 onClick(e);
-            })}
+            }})}
             {...props}
         >
             <ItemTypeResolver icon={icon} label={label} subtitle={subtitle} url={url} button={button}/>
