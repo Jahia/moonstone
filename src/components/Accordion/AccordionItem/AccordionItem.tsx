@@ -38,7 +38,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
                 )}
                 aria-controls={id}
                 aria-expanded={open}
-                {...onAccessibleClick(e => handleClick(e, open))}
+                {...onAccessibleClick({onClick: e => handleClick(e, open)})}
                 role="accordion-item"
             >
                 {icon &&

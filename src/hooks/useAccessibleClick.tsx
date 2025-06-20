@@ -15,15 +15,15 @@ const handleKeyUp = (e: React.KeyboardEvent, onClick: onClickProp) => {
     }
 };
 
-export const onAccessibleClick = (
-    onClick: onClickProp,
+export const onAccessibleClick = ({
+    onClick,
     disabled = false,
     role = 'button',
     tabIndex = 0
-): onAccessibleClickProps => {
+}: onAccessibleClickProps) => {
     return {
         onClick: disabled ? undefined : onClick,
-        onKeyUp: disabled ? undefined : e => handleKeyUp(e, onClick),
+        onKeyUp: disabled ? undefined : (e: React.KeyboardEvent) => handleKeyUp(e, onClick),
         disabled: disabled,
         role: role,
         tabIndex: disabled ? -1 : tabIndex};
