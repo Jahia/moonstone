@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 import clsx from 'clsx';
 import './Tooltip.scss';
 import type {TooltipProps} from './Tooltip.types';
-import {useHover, useFloating, useInteractions, arrow, offset, FloatingArrow, flip, shift, useFocus} from '@floating-ui/react';
+import {useHover, useFloating, useInteractions, arrow, offset, FloatingArrow, flip, shift, useFocus, useDismiss} from '@floating-ui/react';
 import {Typography} from '../Typography';
 
 export const Tooltip = ({
@@ -33,10 +33,12 @@ export const Tooltip = ({
 
     const hover = useHover(context);
     const focus = useFocus(context);
+    const dismiss = useDismiss(context);
 
     const {getReferenceProps, getFloatingProps} = useInteractions([
         hover,
-        focus
+        focus,
+        dismiss
     ]);
 
     if (children && label) {
