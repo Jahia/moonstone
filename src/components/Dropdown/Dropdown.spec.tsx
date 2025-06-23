@@ -93,7 +93,7 @@ describe('Dropdown', () => {
             />
         );
 
-        await user.click(screen.getByRole('dropdown'));
+        await user.click(screen.getByRole('listbox'));
         expect(screen.getByRole('list')).toBeInTheDocument();
     });
 
@@ -107,7 +107,7 @@ describe('Dropdown', () => {
             />
         );
 
-        await user.click(screen.getByRole('dropdown'));
+        await user.click(screen.getByRole('listbox'));
         expect(screen.getByRole('tree')).toBeInTheDocument();
     });
 
@@ -121,7 +121,7 @@ describe('Dropdown', () => {
             />
         );
 
-        await user.click(screen.getByRole('dropdown'));
+        await user.click(screen.getByRole('listbox'));
         await user.type(screen.getByRole('searchbox'), 'test');
         expect(screen.getByRole('searchbox')).toHaveValue('test');
     });
@@ -139,7 +139,7 @@ describe('Dropdown', () => {
             />
         );
 
-        await user.click(screen.getByRole('dropdown'));
+        await user.click(screen.getByRole('listbox'));
         await user.click(screen.getByText(/1/));
         expect(onChange).toHaveBeenCalled();
     });
@@ -154,7 +154,7 @@ describe('Dropdown', () => {
             />
         );
 
-        await user.click(screen.getByRole('dropdown'));
+        await user.click(screen.getByRole('listbox'));
         await user.click(screen.getAllByRole('option')[1]);
         expect(screen.queryByRole('list')).not.toBeInTheDocument();
     });
@@ -214,7 +214,7 @@ describe('Dropdown', () => {
         const user = userEvent.setup();
 
         render(<Dropdown data={dropdownData} imageSize="small"/>);
-        await user.click(screen.getByRole('dropdown'));
+        await user.click(screen.getByRole('listbox'));
         expect(screen.getByRole('list')).toHaveStyle('max-width: 264px');
     });
 
@@ -222,7 +222,7 @@ describe('Dropdown', () => {
         const user = userEvent.setup();
 
         render(<Dropdown data={dropdownData} imageSize="big"/>);
-        await user.click(screen.getByRole('dropdown'));
+        await user.click(screen.getByRole('listbox'));
         expect(screen.getByRole('list')).toHaveStyle('max-width: 400px');
     });
 
@@ -237,7 +237,7 @@ describe('Dropdown', () => {
         const user = userEvent.setup();
         render(<Dropdown data={dropdownData} values={['4']}/>);
 
-        await user.click(screen.getByRole('dropdown'));
+        await user.click(screen.getByRole('listbox'));
         expect(screen.queryAllByRole('checkbox')).not.toHaveLength(0);
     });
 
@@ -269,7 +269,7 @@ describe('Dropdown', () => {
         render(<Dropdown data={dData} data-testid="moonstone-dropdown"/>);
 
         expect(dropdownData.length).toBeGreaterThan(7); // Triggers auto-adding search input
-        await user.click(screen.getByRole('dropdown'));
+        await user.click(screen.getByRole('listbox'));
         expect(screen.queryByRole('search')).toBeInTheDocument();
     });
 
@@ -280,7 +280,7 @@ describe('Dropdown', () => {
         render(<Dropdown data={dData} data-testid="moonstone-dropdown"/>);
 
         expect(dData.length).toBeLessThanOrEqual(7); // Does not trigger auto-adding search input
-        await user.click(screen.getByRole('dropdown'));
+        await user.click(screen.getByRole('listbox'));
         expect(screen.queryByRole('search')).not.toBeInTheDocument();
     });
 
@@ -298,7 +298,7 @@ describe('Dropdown', () => {
         );
 
         expect(dropdownData.length).toBeGreaterThan(limit); // Triggers auto-adding search input
-        await user.click(screen.getByRole('dropdown'));
+        await user.click(screen.getByRole('listbox'));
         expect(screen.queryByRole('search')).toBeInTheDocument();
     });
 
@@ -310,7 +310,7 @@ describe('Dropdown', () => {
             <Dropdown hasSearch data={dData} data-testid="moonstone-dropdown"/>
         );
 
-        await user.click(screen.getByRole('dropdown'));
+        await user.click(screen.getByRole('listbox'));
         expect(screen.queryByRole('search')).toBeInTheDocument();
     });
 
@@ -326,7 +326,7 @@ describe('Dropdown', () => {
             />
         );
 
-        await user.click(screen.getByRole('dropdown'));
+        await user.click(screen.getByRole('listbox'));
         expect(screen.queryByRole('search')).not.toBeInTheDocument();
     });
 
@@ -341,7 +341,7 @@ describe('Dropdown', () => {
                 autoAddSearchLimit={3}
             />
         );
-        await user.click(screen.getByRole('dropdown'));
+        await user.click(screen.getByRole('listbox'));
         expect(screen.queryByRole('search')).toBeInTheDocument();
     });
 });
