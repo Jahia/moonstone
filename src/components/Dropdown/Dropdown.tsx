@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, {MutableRefObject, useEffect, useMemo, useRef, useState} from 'react';
 import clsx from 'clsx';
 import './Dropdown.scss';
@@ -213,7 +214,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             >
                 {
                     icon &&
-                    <icon.type {...icon.props} size="default" className={clsx('moonstone-dropdown_icon')} role="option"/>
+                    <icon.type {...icon.props} size="default" className={clsx('moonstone-dropdown_icon')} role="presentation"/>
                 }
                 {!label && values && values.length > 0 ? (
                     <div className="moonstone-dropdown_tags flexFluid flexRow">
@@ -260,7 +261,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                         }}
                     />
                 )}
-                <ChevronDown className="moonstone-dropdown_chevronDown" role="option"/>
+                <ChevronDown className="moonstone-dropdown_chevronDown" role="presentation"/>
             </div>
 
             {isOpened && (
