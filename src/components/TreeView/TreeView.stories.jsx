@@ -1,7 +1,7 @@
 import {useState} from 'react';
 
 import {TreeView} from './index';
-import {treeData, treeDataFlat} from '~/data';
+import {treeData, treeDataFlat, treeDataRootClosable} from '~/data';
 
 import markdownNotes from './TreeView.md';
 
@@ -26,6 +26,14 @@ export const Default = {
         const theme = globals.theme;
 
         return <TreeView {...args} data={treeData} isReversed={theme === 'dark'}/>;
+    }
+};
+
+export const ClosableRoot = {
+    render: (args, globals) => {
+        const theme = globals.theme;
+
+        return <TreeView {...args} data={treeDataRootClosable} isReversed={theme === 'dark'}/>;
     }
 };
 

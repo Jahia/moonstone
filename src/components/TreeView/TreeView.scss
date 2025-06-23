@@ -1,7 +1,7 @@
 @use "../../tokens/spacings/spacings" as *;
 
 [role='treeitem'] {
-    --treeItem-indent: calc((var(--spacing-medium) + var(--spacing-nano)) * var(--treeItem-depth, 0) + var(--spacing-medium));
+    --treeItem-indent: calc((var(--spacing-medium) + var(--spacing-nano)) * var(--treeItem-depth, 0) + var(--spacing-small));
     --treeItem-color: inherit;
     --treeItem-color_hover: var(--color-dark);
     --treeItem-color_selected: var(--color-light);
@@ -81,7 +81,6 @@
 .moonstone-treeView_itemToggle {
     width: 16px;
     height: 16px;
-    margin-right: var(--spacing-nano);
 
     cursor: pointer;
 }
