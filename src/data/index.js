@@ -7,6 +7,7 @@ export * from './listSelectorData';
 export * from './treeData';
 export * from './treeDataFlat';
 export * from './treeDataNested';
+export * from './treeDataRootClosable';
 export * from './tableDataFlat';
 export * from './tableDataNested';
 export * from './tablePaginationDataFlat';
