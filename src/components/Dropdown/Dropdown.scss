@@ -1,6 +1,7 @@
 @use '../../utils/index' as *;
 @use "../../tokens/spacings/spacings" as *;
 @use "../../globals/variants";
+@use "../../utils/mixins" as *;
 
 .moonstone-dropdown_container {
     position: relative;
@@ -52,8 +53,7 @@
     }
 
     &:focus-visible {
-        border: var(--border-selector_focus);
-        outline: none;
+        @extend %is-focused;
     }
 
     // &:hover:not(.moonstone-disabled) {

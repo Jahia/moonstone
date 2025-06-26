@@ -1,3 +1,5 @@
+@use "../../../utils/mixins" as *;
+
 .moonstone-primaryNavItem {
     position: relative;
 
@@ -19,6 +21,12 @@
 
         background-color: var(--color-accent);
         cursor: default;
+    }
+
+    &:focus-visible {
+        @extend %is-focused;
+
+        border-radius: var(--radius_rounded);
     }
 
     &:not(.moonstone-selected):hover {

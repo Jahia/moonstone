@@ -1,3 +1,5 @@
+@use "../../../utils/mixins" as *;
+
 %variant_default {
     color: var(--color-gray_dark);
 
@@ -11,9 +13,7 @@
     }
 
     &:focus-visible {
-        color: var(--color-accent_dark);
-
-        border-color: var(--color-accent_dark);
+        @extend %is-focused;
     }
 
     &:active {
@@ -52,10 +52,7 @@
         }
 
         &:focus-visible {
-            color: var(--color-white);
-
-            border-color: transparent;
-            background-color: var(--color-accent_dark);
+            @extend %is-focused;
         }
 
         &:active {

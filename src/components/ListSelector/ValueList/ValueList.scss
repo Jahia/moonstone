@@ -1,3 +1,5 @@
+@use "../../../utils/mixins" as *;
+
 .moonstone-valueList {
     flex-grow: 1;
     height: 300px;
@@ -36,6 +38,12 @@
 
     &:hover > div > div > .moonstone-displayNone {
         display: block;
+    }
+
+    &:focus-visible {
+        @extend %is-focused;
+
+        outline-offset: -1px;
     }
 }
 

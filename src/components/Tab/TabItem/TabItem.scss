@@ -1,5 +1,6 @@
 @use "../../../globals/variants";
 @use "../../../tokens/spacings/spacings" as *;
+@use "../../../utils/mixins" as *;
 
 $big-tab-height: 32px;
 $selected-line-spacing: 6px;
@@ -17,6 +18,10 @@ $selected-line-spacing-big: 20px;
     border-radius: var(--radius);
     outline: none;
     cursor: pointer;
+
+    &:focus-visible {
+        @extend %is-focused;
+    }
 }
 
 .moonstone-tabItem_icon {

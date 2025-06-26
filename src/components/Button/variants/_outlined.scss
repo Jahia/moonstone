@@ -1,3 +1,5 @@
+@use "../../../utils/mixins" as *;
+
 %variant_outlined_disabled {
     color: var(--color-gray_dark);
 
@@ -18,9 +20,7 @@
         }
 
         &:focus-visible:not(:disabled) {
-            color: var(--color-accent_dark);
-
-            border-color: var(--color-accent_dark);
+            @extend %is-focused;
         }
 
         &:active:not(:disabled) {
@@ -48,9 +48,7 @@
 
         &:hover:not(:disabled),
         &:focus-visible:not(:disabled) {
-            color: var(--color-accent_dark);
-
-            border-color: var(--color-accent_dark);
+            @extend %is-focused;
         }
 
         &:active:not(:disabled) {
@@ -72,9 +70,7 @@
 
         &:hover:not(:disabled),
         &:focus-visible:not(:disabled) {
-            color: var(--color-danger);
-
-            border-color: var(--color-danger);
+            @extend %is-focused;
         }
 
         &:active:not(:disabled) {

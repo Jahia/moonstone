@@ -1,4 +1,5 @@
 @use "../../../tokens/spacings/spacings" as *;
+@use "../../../utils/mixins" as *;
 
 $accordionHeader_height: 48px;
 
@@ -21,6 +22,10 @@ $accordionHeader_height: 48px;
     &.moonstone-reversed {
         border-color: var(--color-gray);
     }
+
+    &:has(.moonstone-accordionItem_header:focus-visible) {
+        @extend %is-focused;
+    }
 }
 
 // ---
@@ -39,23 +44,14 @@ $accordionHeader_height: 48px;
         border-bottom: 1px solid var(--color-gray_light);
 
         cursor: default;
-
-        &:focus-visible {
-            color: var(--color-light);
-
-            background-color: var(--color-dark60);
-        }
     }
 
     &:active {
         background-color: var(--color-gray40);
     }
 
-    &:focus-visible,
-    &:not(.moonstone-selected):not(:active):hover {
-        color: var(--color-dark);
-
-        background-color: var(--color-gray_light);
+    &:focus-visible {
+        outline: none;
     }
 
     &.moonstone-reversed {
@@ -72,13 +68,6 @@ $accordionHeader_height: 48px;
 
         &:active {
             background-color: var(--color-black);
-        }
-
-        &:focus-visible,
-        &:not(.moonstone-selected):not(:active):hover {
-            color: var(--color-light);
-
-            background-color: var(--color-gray40);
         }
     }
 }

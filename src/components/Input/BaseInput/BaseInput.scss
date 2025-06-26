@@ -1,4 +1,5 @@
 @use '../../../utils/index';
+@use "../../../utils/mixins" as *;
 
 $default-size: 24px;
 $big-size: 32px;
@@ -35,6 +36,10 @@ $min-width: 40px;
 
     .moonstone-reversed & {
         background-color: transparent;
+    }
+
+    &:has(input:focus-visible) {
+        @extend %is-focused;
     }
 }
 
