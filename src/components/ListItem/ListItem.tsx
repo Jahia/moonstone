@@ -37,7 +37,7 @@ const ListItemForwardRef: React.ForwardRefRenderFunction<HTMLLIElement, ListItem
             )}
             {iconStart && (
                 <div className="moonstone-listItem_iconStart flexRow_center alignCenter">
-                    <iconStart.type {...iconStart.props} size={iconSize}/>
+                    <iconStart.type {...iconStart.props} size={iconSize} className={clsx(`moonstone-icon_${iconSize}`, iconStart.props.className)} />
                 </div>
             )}
 
@@ -68,7 +68,7 @@ const ListItemForwardRef: React.ForwardRefRenderFunction<HTMLLIElement, ListItem
 
             {iconEnd && (
                 <div className="moonstone-listItem_iconEnd">
-                    <iconEnd.type {...iconEnd.props} size={iconSize}/>
+                    <iconEnd.type {...iconEnd.props} size={iconSize} className={clsx(`moonstone-icon_${iconSize}`, iconEnd.props.className)}/>
                 </div>
             )}
         </li>

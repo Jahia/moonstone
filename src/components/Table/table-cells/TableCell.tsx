@@ -26,7 +26,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, TableC
             {iconStart && (
                 <iconStart.type
                     {...iconStart.props}
-                    className="moonstone-TableCell_iconStart"
+                    className={clsx('moonstone-icon_default', iconStart.props.className)}
                 />
             )}
 
@@ -35,7 +35,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, TableC
             {iconEnd && (
                 <iconEnd.type
                     {...iconEnd.props}
-                    className="moonstone-TableCell_iconEnd"
+                    className={clsx('moonstone-icon_default', iconEnd.props.className)}
                 />
             )}
 

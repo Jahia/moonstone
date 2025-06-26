@@ -1,4 +1,5 @@
 import {Folder, Lock} from '~/icons';
+import { ImgWrapper } from '~/components';
 
 export const dropdownData = [
     {
@@ -7,7 +8,8 @@ export const dropdownData = [
     },
     {
         label: 'option 2',
-        value: '2'
+        value: '2',
+        iconStart: <img src='https://picsum.photos/200/300'/>
     },
     {
         label: 'option 3 with very long long label label label label label label label label',

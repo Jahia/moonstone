@@ -23,7 +23,7 @@ export const Chip: React.FC<ChipProps> = ({
         )}
         {...props}
     >
-        {icon && <icon.type size="small"/>}
+        {icon && <icon.type {...icon.props} size="small" className={clsx("moonstone-icon_small", icon.props.className)}/>}
         {label && <Typography isNowrap component="span" variant="caption" weight="semiBold">{label}</Typography>}
     </div>
 );
