@@ -20,6 +20,7 @@ const displayIcon = (icon: React.ReactElement, size: string, className?: string,
                 aria-label={(icon.type as React.ComponentType).name || 'moonstone-treeView-icon'}
                 {...icon.props}
                 size={size}
+                className={clsx(`moonstone-icon_${size}`, icon.props.className)}
             />}
         </i>
     );
