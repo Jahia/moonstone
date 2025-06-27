@@ -360,17 +360,6 @@ describe('DropdownMenu', () => {
             screen.queryByTestId('moonstone-dropdownMenu')
         ).not.toBeInTheDocument();
     });
-
-    // Should be uncomment when components' attribute onKeyPress is replaced with onKeyUp
-    // it('should call handleKeyUp', async () => {
-    //     let dData = dropdownDataGrouped;
-    //     const user = userEvent.setup();
-    //     const handleKeyUp = vi.fn();
-
-    //     render(<DropdownMenu isDisplayed hasSearch data={dData} handleKeyUp={handleKeyUp}/>);
-    //     await user.keyboard('{Tab}');
-    //     expect(handleKeyUp).toHaveBeenCalled();
-    // });
 });
 
 const TreeViewMenuSizes = ['minWidth', 'maxWidth', 'maxHeight'];

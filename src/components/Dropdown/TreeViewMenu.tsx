@@ -173,7 +173,7 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
                         <SearchInput
                             value={inputValue}
                             onChange={e => setInputValue(e.target.value)}
-                            onKeyPress={e => {
+                            onKeyUp={e => {
                                 if (e.key === 'Enter' && treeData.length > 0) {
                                     const item = find(data => !data.isDisabled, treeData[0]);
                                     if (item) {
