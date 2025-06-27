@@ -25,6 +25,10 @@ $min-width: 40px;
         @extend %is-disabled;
     }
 
+    &:has(input:focus-visible) {
+        @extend %is-focused;
+    }
+
     &.moonstone-big {
         min-height: $big-size;
     }
@@ -36,10 +40,6 @@ $min-width: 40px;
 
     .moonstone-reversed & {
         background-color: transparent;
-    }
-
-    &:has(input:focus-visible) {
-        @extend %is-focused;
     }
 }
 

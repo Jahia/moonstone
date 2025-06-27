@@ -46,7 +46,12 @@
 
         border-color: var(--color-accent);
 
-        &:hover:not(:disabled),
+        &:hover:not(:disabled) {
+            color: var(--color-accent_dark);
+
+            border-color: var(--color-accent_dark);
+        }
+
         &:focus-visible:not(:disabled) {
             @extend %is-focused;
         }
@@ -68,7 +73,12 @@
 
         border-color: var(--color-danger);
 
-        &:hover:not(:disabled),
+        &:hover:not(:disabled) {
+            color: var(--color-danger);
+
+            border-color: var(--color-danger);
+        }
+
         &:focus-visible:not(:disabled) {
             @extend %is-focused;
         }

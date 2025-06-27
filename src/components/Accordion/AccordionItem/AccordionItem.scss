@@ -22,10 +22,6 @@ $accordionHeader_height: 48px;
     &.moonstone-reversed {
         border-color: var(--color-gray);
     }
-
-    &:has(.moonstone-accordionItem_header:focus-visible) {
-        @extend %is-focused;
-    }
 }
 
 // ---
@@ -46,12 +42,20 @@ $accordionHeader_height: 48px;
         cursor: default;
     }
 
+    &:focus-visible {
+        @extend %is-focused;
+
+        outline-offset: -2px;
+    }
+
     &:active {
         background-color: var(--color-gray40);
     }
 
-    &:focus-visible {
-        outline: none;
+    &:not(.moonstone-selected):not(:active):hover {
+        color: var(--color-dark);
+
+        background-color: var(--color-gray_light);
     }
 
     &.moonstone-reversed {
@@ -68,6 +72,12 @@ $accordionHeader_height: 48px;
 
         &:active {
             background-color: var(--color-black);
+        }
+
+        &:not(.moonstone-selected):not(:active):hover {
+            color: var(--color-light);
+
+            background-color: var(--color-gray40);
         }
     }
 }

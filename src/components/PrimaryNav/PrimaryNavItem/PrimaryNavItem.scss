@@ -25,8 +25,6 @@
 
     &:focus-visible {
         @extend %is-focused;
-
-        border-radius: var(--radius_rounded);
     }
 
     &:not(.moonstone-selected):hover {
