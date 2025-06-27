@@ -44,7 +44,7 @@ export type ListItemProps = Omit<React.ComponentPropsWithRef<'li'>, 'className'>
     typographyVariant?: TypographyVariant;
 
     /**
-     * Which icon size to render. The default is small
+     * Which icon size to render.
      */
     iconSize?: 'small' | 'default' | 'big';
 }
