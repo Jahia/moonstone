@@ -25,9 +25,9 @@ export const IconTextIcon = <C extends React.ElementType = 'div'> ({
             <>
                 {iconStart && (
                     <iconStart.type
-                    size={iconSize}
-                    className={clsx('moonstone-IconTextIcon_iconStart', iconStart.props.className)}
-                    {...iconStart.props}
+                        {...iconStart.props}
+                        size={iconSize}
+                        className={clsx(`moonstone-icon_${iconSize}`, iconStart.props.className)}
                     />
                 )}
 
@@ -42,9 +42,9 @@ export const IconTextIcon = <C extends React.ElementType = 'div'> ({
 
                 {iconEnd && (
                     <iconEnd.type
-                    size={iconSize}
-                    className={clsx('moonstone-IconTextIcon_iconEnd', iconEnd.props.className)}
-                    {...iconEnd.props}
+                        {...iconEnd.props}
+                        size={iconSize}
+                        className={clsx(`moonstone-icon_${iconSize}`, iconEnd.props.className)}
                     />
                 )}
             </>
