@@ -17,7 +17,7 @@
         padding: 0 8px;
     }
 
-    &:not([disabled]:hover) {
+    &:not([disabled]):hover {
         background-color: var(--color-accent60);
     }
 
