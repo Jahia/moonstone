@@ -10,8 +10,8 @@ export const Tag: React.FC<TagProps> = ({label, value, size = 'medium', onClick,
     <button
         type="button"
         className={clsx('moonstone-tag', className, {'moonstone-small': size === 'small'})}
-        onClick={e => onClick(e, value)}
         disabled={isDisabled}
+        onClick={e => onClick(e, value)}
         {...props}
     >
         {label && <Typography isNowrap component="span" variant="caption">{label}</Typography>}
