@@ -197,6 +197,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 ref={ref}
                 role="listbox"
                 aria-label={label || getDataItem(flatData, value)?.label || placeholder}
+                aria-disabled={isDisabled || isEmpty}
                 className={clsx(cssDropdown)}
                 tabIndex={0}
                 onClick={!isDisabled && handleOpenMenu}
@@ -225,11 +226,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                      label={item.label}
                                      value={item.value}
                                      size={size}
+                                     isDisabled={isDisabled}
                                      role="option"
                                      onClick={e => {
                                          ref.current.focus();
                                          ref.current.blur();
-                                         handleSelect(e, item);
+                                         if (!isDisabled) {
+                                             handleSelect(e, item);
+                                         }
                                      }}
                                 />
                             );

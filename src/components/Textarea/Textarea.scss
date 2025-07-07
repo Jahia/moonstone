@@ -1,4 +1,4 @@
-@use '../../utils/index';
+@use '../../utils';
 
 $minHeight-size: 50px;
 
@@ -45,6 +45,6 @@ $minHeight-size: 50px;
 
     &:disabled,
     &:read-only {
-        @extend %is-disabled;
+        @extend %selector_disabled;
     }
 }

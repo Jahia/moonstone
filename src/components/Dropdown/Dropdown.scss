@@ -22,7 +22,7 @@
 
 .moonstone-disabled {
     & > .moonstone-treeView_item {
-        @extend %is-disabled;
+        @extend %selector_disabled;
     }
 }
 
@@ -36,7 +36,7 @@
     cursor: pointer;
 
     &.moonstone-disabled {
-        @extend %is-disabled;
+        @extend %selector_disabled;
     }
 
     // ---
@@ -55,10 +55,6 @@
         border: var(--border-selector_focus);
         outline: none;
     }
-
-    // &:hover:not(.moonstone-disabled) {
-    //     color: var(--color-accent);
-    // }
 
     &:not(.moonstone-filled) .moonstone-dropdown_label {
         font-style: italic;
@@ -83,14 +79,8 @@
     border: var(--border-selector);
     background-color: var(--background-selector);
 
-    &:hover:not(.moonstone-disabled) {
+    &:hover:not(.moonstone-disabled, [aria-disabled="true"]) {
         border: var(--border-selector_hover);
         background: none;
-    }
-
-    &.moonstone-disabled {
-        color: var(--color-gray);
-
-        background-color: var(--color-gray_light40);
     }
 }

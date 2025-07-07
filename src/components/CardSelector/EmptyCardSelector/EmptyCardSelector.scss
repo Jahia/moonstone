@@ -14,18 +14,17 @@
 
     transition: all 0.2s ease-in-out;
 
-    &:hover {
-        border: var(--border-selector_hover);
-    }
-
     &:focus-visible {
         border: var(--border-selector_focus);
+    }
+
+    &:hover:not([aria-disabled="true"]) {
+        border: var(--border-selector_hover);
     }
 }
 
 .moonstone-emptyCardSelector_disabled {
     background: none;
+    cursor: not-allowed;
     opacity: 60%;
-
-    pointer-events: none;
 }

@@ -1,4 +1,4 @@
-@use '../../../utils/index';
+@use '../../../utils';
 
 $default-size: 24px;
 $big-size: 32px;
@@ -21,7 +21,7 @@ $min-width: 40px;
 
     &:has(input:disabled),
     &:has(input:read-only) {
-        @extend %is-disabled;
+        @extend %selector_disabled;
     }
 
     &.moonstone-big {
