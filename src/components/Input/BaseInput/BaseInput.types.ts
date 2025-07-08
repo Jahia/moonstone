@@ -68,9 +68,14 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
     onClick?: React.MouseEventHandler;
 
     /**
-     * Function
+     * @deprecated onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.
      */
     onKeyPress?: React.KeyboardEventHandler;
+
+    /**
+     * Function
+     */
+    onKeyUp?: React.KeyboardEventHandler;
 
     /**
      * Function - when passed in, the Cancel icon appears at the end of the input and its click event is passed back when the Cancel icon is clicked

@@ -19,6 +19,8 @@ export const MenuItem: React.FC<MenuItemProps> = ({
     imageSize,
     className,
     description,
+    onKeyPress,
+    onKeyUp,
     ...props
 }) => {
     const containerRef = useRef(null);
@@ -45,6 +47,11 @@ export const MenuItem: React.FC<MenuItemProps> = ({
         iconStart={iconStart}
         iconEnd={iconEnd}
         description={description}
+        onKeyPress={e => {
+                        console.warn('onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
+                        onKeyPress(e);
+                    }}
+        onKeyUp={onKeyUp}
         {... onArrowNavigation({ref: containerRef})}
         {...props}
     />
