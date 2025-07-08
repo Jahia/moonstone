@@ -29,10 +29,10 @@
 
         &:focus-visible:not(:disabled),
         &:hover:not(:disabled) {
-            color: var(--color-accent_light);
+            color: var(--color-light);
 
             border-color: transparent;
-            background-color: var(--color-gray_light20);
+            background-color: var(--color-gray40);
         }
 
         &:active:not(:disabled) {

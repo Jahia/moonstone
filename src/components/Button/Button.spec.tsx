@@ -75,7 +75,16 @@ describe('Button', () => {
 
     it('should use the reverse mode', () => {
         render(
-            <Button isReversed data-testid="moonstone-button" label="test me"/>
+            <>
+                <Button isReversed data-testid="moonstone-button" label="test me"/>
+                <Button isReversed data-testid="moonstone-button-icononly" icon={<Love/>}/>
+            </>
+        );
+        expect(screen.getByTestId('moonstone-button')).toHaveClass(
+            'moonstone-reverse'
+        );
+        expect(screen.getByTestId('moonstone-button-icononly')).toHaveClass(
+            'moonstone-reverse'
         );
     });
 
