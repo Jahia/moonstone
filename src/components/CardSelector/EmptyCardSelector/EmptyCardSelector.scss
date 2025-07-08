@@ -19,7 +19,7 @@
     }
 
     &:focus-visible {
-        border: var(--border-selector_focus);
+        @extend %is-focused;
     }
 }
 
