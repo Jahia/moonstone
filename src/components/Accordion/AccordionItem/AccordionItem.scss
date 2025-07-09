@@ -1,4 +1,5 @@
 @use "../../../tokens/spacings/spacings" as *;
+@use "../../../utils/mixins" as *;
 
 $accordionHeader_height: 48px;
 
@@ -39,19 +40,18 @@ $accordionHeader_height: 48px;
         border-bottom: 1px solid var(--color-gray_light);
 
         cursor: default;
+    }
 
-        &:focus-visible {
-            color: var(--color-light);
+    &:focus-visible {
+        @extend %is-focused;
 
-            background-color: var(--color-dark60);
-        }
+        outline-offset: -2px;
     }
 
     &:active {
         background-color: var(--color-gray40);
     }
 
-    &:focus-visible,
     &:not(.moonstone-selected):not(:active):hover {
         color: var(--color-dark);
 
@@ -74,7 +74,6 @@ $accordionHeader_height: 48px;
             background-color: var(--color-black);
         }
 
-        &:focus-visible,
         &:not(.moonstone-selected):not(:active):hover {
             color: var(--color-light);
 

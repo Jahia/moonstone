@@ -1,3 +1,5 @@
+@use "../utils/mixins" as *;
+
 // Default style
 %variant_ghost {
     // color: var(--color-gray_dark);
@@ -13,10 +15,7 @@
     }
 
     &:focus-visible:not(:disabled) {
-        color: var(--color-accent_dark);
-
-        border-color: var(--color-accent_dark);
-        background-color: transparent;
+        @extend %is-focused;
     }
 
     &:active:not(:disabled) {
@@ -27,7 +26,10 @@
     &.moonstone-reverse {
         color: var(--color-light);
 
-        &:focus-visible:not(:disabled),
+        &:focus-visible:not(:disabled) {
+            @extend %is-focused;
+        }
+
         &:hover:not(:disabled) {
             color: var(--color-light);
 
@@ -69,9 +71,7 @@
     }
 
     &:focus-visible:not(:disabled) {
-        color: var(--color-accent_dark);
-
-        border-color: var(--color-accent_dark);
+        @extend %is-focused;
     }
 
     &:active:not(:disabled) {
@@ -92,10 +92,7 @@
         }
 
         &:focus-visible:not(:disabled) {
-            color: var(--color-white);
-
-            border-color: var(--color-white);
-            background-color: var(--color-accent60);
+            @extend %is-focused;
         }
 
         &:active:not(:disabled) {
@@ -119,9 +116,7 @@
     }
 
     &:focus-visible:not(:disabled) {
-        color: var(--color-danger);
-
-        border-color: var(--color-danger);
+        @extend %is-focused;
     }
 
     &:active:not(:disabled) {
@@ -142,10 +137,7 @@
         }
 
         &:focus-visible:not(:disabled) {
-            color: var(--color-white);
-
-            border-color: var(--color-white);
-            background-color: var(--color-danger60);
+            @extend %is-focused;
         }
 
         &:active:not(:disabled) {

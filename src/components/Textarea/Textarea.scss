@@ -1,4 +1,5 @@
 @use '../../utils/index';
+@use "../../utils/mixins" as *;
 
 $minHeight-size: 50px;
 
@@ -39,7 +40,7 @@ $minHeight-size: 50px;
         }
 
         &:focus-visible {
-            border: var(--border-selector_focus);
+            @extend %is-focused;
         }
     }
 
