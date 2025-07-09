@@ -1,0 +1,39 @@
+.moonstone-banner {
+    gap: var(--spacing-small);
+    width: 100%;
+    padding: var(--spacing-medium);
+
+    border-radius: var(--spacing-nano);
+}
+
+.moonstone-banner_neutral {
+    color: var(--color-gray-dark);
+
+    border: 2px solid var(--color-gray_plain40);
+    background-color: var(--color-gray_light_plain20);
+}
+
+.moonstone-banner_info {
+    color: var(--color-accent_dark_contrast);
+
+    border: 2px solid var(--color-accent_light);
+    background-color: var(--color-accent_light_plain20);
+}
+
+.moonstone-banner_warning {
+    color: var(--color-warning_dark);
+
+    border: 2px solid var(--color-warning);
+    background-color: var(--color-warning_plain20);
+}
+
+.moonstone-banner_danger {
+    color: var(--color-danger_dark);
+
+    border: 2px solid var(--color-danger);
+    background-color: var(--color-danger_plain20);
+}
+
+.moonstone-banner_title {
+    gap: var(--spacing-nano);
+}
