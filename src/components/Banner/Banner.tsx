@@ -8,14 +8,27 @@ import {HelpOutline, Information, Warning, Report} from '~/icons';
 const BannerForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, BannerProps> = ({
     className,
     variant = 'neutral',
-    iconStart = variant === 'info' ? <Information/> :
-        variant === 'warning' ? <Warning/> :
-            variant === 'danger' ? <Report/> :
-            <HelpOutline/>,
+    iconStart,
     title,
     children,
     ...props
 }, ref) => {
+    const getDefaultIcon = (bannerVariant : BannerProps['variant']) => {
+        switch (bannerVariant) {
+            case 'info':
+                return <Information/>;
+            case 'warning':
+                return <Warning/>;
+            case 'danger':
+                return <Report/>;
+            case 'neutral':
+            default:
+                return <HelpOutline/>;
+        }
+    };
+
+    const effectiveIcon = iconStart ?? getDefaultIcon(variant);
+
     return (
         <div
             ref={ref}
@@ -24,7 +37,7 @@ const BannerForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, BannerPro
             {...props}
         >
             <div className="moonstone-banner_title alignCenter flexRow">
-                {iconStart && <iconStart.type {...iconStart.props} size="default"/>}
+                {effectiveIcon && <effectiveIcon.type {...effectiveIcon.props} size="default"/>}
                 <Typography variant="subheading" weight="bold">
                     {title}
                 </Typography>
