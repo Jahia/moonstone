@@ -39,7 +39,7 @@ $minHeight-size: 50px;
         }
 
         &:focus-visible {
-            border: var(--border-selector_focus);
+            @extend %is-focused;
         }
     }
 

@@ -15,7 +15,7 @@
     transition: all 0.2s ease-in-out;
 
     &:focus-visible {
-        border: var(--border-selector_focus);
+        @extend %is-focused;
     }
 
     &:hover:not([aria-disabled="true"]) {

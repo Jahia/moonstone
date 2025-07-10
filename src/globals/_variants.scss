@@ -1,3 +1,5 @@
+@use "../utils/mixins" as *;
+
 // Default style
 %variant_ghost {
     border: 1px solid transparent;
@@ -11,10 +13,7 @@
     }
 
     &:focus-visible:not(:disabled, [aria-disabled="true"]) {
-        color: var(--color-accent_dark);
-
-        border-color: var(--color-accent_dark);
-        background-color: transparent;
+        @extend %is-focused;
     }
 
     &:active:not(:disabled, [aria-disabled="true"]) {
@@ -25,12 +24,15 @@
     &.moonstone-reverse {
         color: var(--color-light);
 
-        &:focus-visible:not(:disabled, [aria-disabled="true"]),
+        &:focus-visible:not(:disabled, [aria-disabled="true"]) {
+            @extend %is-focused;
+        }
+
         &:hover:not(:disabled, [aria-disabled="true"]) {
-            color: var(--color-accent_light);
+            color: var(--color-light);
 
             border-color: transparent;
-            background-color: var(--color-gray_light20);
+            background-color: var(--color-gray40);
         }
 
         &:active:not(:disabled, [aria-disabled="true"]) {
@@ -54,9 +56,7 @@
     }
 
     &:focus-visible:not(:disabled, [aria-disabled="true"]) {
-        color: var(--color-accent_dark);
-
-        border-color: var(--color-accent_dark);
+        @extend %is-focused;
     }
 
     &:active:not(:disabled, [aria-disabled="true"]) {
@@ -78,10 +78,7 @@
         }
 
         &:focus-visible:not(:disabled, [aria-disabled="true"]) {
-            color: var(--color-white);
-
-            border-color: var(--color-white);
-            background-color: var(--color-accent60);
+            @extend %is-focused;
         }
 
         &:active:not(:disabled, [aria-disabled="true"]) {
@@ -105,9 +102,7 @@
     }
 
     &:focus-visible:not(:disabled, [aria-disabled="true"]) {
-        color: var(--color-danger);
-
-        border-color: var(--color-danger);
+        @extend %is-focused;
     }
 
     &:active:not(:disabled, [aria-disabled="true"]) {
@@ -129,10 +124,7 @@
         }
 
         &:focus-visible:not(:disabled, [aria-disabled="true"]) {
-            color: var(--color-white);
-
-            border-color: var(--color-white);
-            background-color: var(--color-danger60);
+            @extend %is-focused;
         }
 
         &:active:not(:disabled, [aria-disabled="true"]) {

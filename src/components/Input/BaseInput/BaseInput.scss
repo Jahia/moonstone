@@ -24,6 +24,10 @@ $min-width: 40px;
         @extend %selector_disabled;
     }
 
+    &:has(input:focus-visible) {
+        @extend %is-focused;
+    }
+
     &.moonstone-big {
         min-height: $big-size;
     }

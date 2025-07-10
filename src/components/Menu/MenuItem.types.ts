@@ -49,9 +49,14 @@ export type MenuItemProps = Omit<ListItemProps, 'onClick' | 'onMouseEnter' | 'on
     onMouseLeave?: React.MouseEventHandler,
 
     /**
-     * Function triggered when a key is pressed
+     * @deprecated onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.
      */
     onKeyPress?: React.KeyboardEventHandler
+
+    /**
+     * Function triggered when a key is pressed
+     */
+    onKeyUp?: React.KeyboardEventHandler
 
     /**
      * Which icon size to render. The default is small

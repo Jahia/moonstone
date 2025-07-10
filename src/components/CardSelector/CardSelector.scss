@@ -24,7 +24,7 @@ $cardSelector-height: 58px;
         }
 
         &:focus-visible {
-            border: var(--border-selector_focus);
+            @extend %is-focused;
         }
     }
 
@@ -103,7 +103,13 @@ $cardSelector-height: 58px;
 
     transition: all 0.2s ease-in-out;
 
-    &:not[disabled]:hover {
-        border-color: var(--color-warning);
+    &:not([disabled]) {
+        &:hover {
+            border-color: var(--color-warning);
+        }
+
+        &:focus-visible {
+            @extend %is-focused;
+        }
     }
 }

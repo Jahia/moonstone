@@ -201,7 +201,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 className={clsx(cssDropdown)}
                 tabIndex={0}
                 onClick={!isDisabled && handleOpenMenu}
-                onKeyPress={e => {
+                onKeyUp={e => {
                     if (e.key === 'Enter' && !isDisabled) {
                         handleOpenMenu(e);
                     }

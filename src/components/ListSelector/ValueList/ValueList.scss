@@ -43,6 +43,12 @@
     &:hover > div > div > .moonstone-displayNone {
         display: block;
     }
+
+    &:focus-visible {
+        @extend %is-focused;
+
+        outline-offset: -1px;
+    }
 }
 
 .moonstone-valueList_wrapper {

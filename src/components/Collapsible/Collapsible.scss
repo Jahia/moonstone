@@ -1,4 +1,5 @@
 @use "../../tokens/spacings/spacings" as *;
+@use "../../utils/mixins" as *;
 
 .moonstone-collapsible {
     position: relative;
@@ -20,6 +21,10 @@
 
     &:hover {
         color: var(--color-gray_dark);
+    }
+
+    &:focus-visible {
+        @extend %is-focused;
     }
 }
 

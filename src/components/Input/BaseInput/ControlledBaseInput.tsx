@@ -20,6 +20,7 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps> = ({
     prefixComponents,
     onClick,
     onKeyPress,
+    onKeyUp,
     onClear,
     onChange,
     onBlur,
@@ -74,7 +75,13 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps> = ({
                     onChange={onChange}
                     onBlur={onBlur}
                     onFocus={onFocus}
-                    onKeyPress={onKeyPress}
+                    onKeyPress={e => {
+                        console.warn('onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
+                        if (typeof onKeyPress === 'function') {
+                            onKeyPress(e);
+                        }
+                    }}
+                    onKeyUp={onKeyUp}
                     {...props}
                 />
             </div>
