@@ -21,7 +21,7 @@ $header-toolbar-minheight: 35px;
 // Main
 //---
 .moonstone-header_main {
-    margin-bottom: var(--spacing-small);
+    margin-bottom: var(--spacing-nano);
 }
 
 .moonstone-header_back {
@@ -42,12 +42,7 @@ $header-toolbar-minheight: 35px;
 // Information Section
 //---
 .moonstone-header_information {
-    padding: var(--spacing-small) 0;
-
-    // If there is no toolbar set a margin-bottom to get more space
-    &:last-child {
-        margin-bottom: var(--spacing-medium);
-    }
+    padding: var(--spacing-medium) 0;
 }
 
 .moonstone-header_informationLeft,

@@ -131,6 +131,7 @@ export const Full: Story = {
             <Dropdown
         key="1"
         label="Dropdown"
+        size="small"
         value={DropdownData[0].value}
         variant="ghost"
         data={DropdownData}
