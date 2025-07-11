@@ -40,7 +40,7 @@ export const Header: React.FC<HeaderProps> = ({
                 )}
 
                 { mainActions && (
-                    <div className={clsx('moonstone-header_mainActions', 'moonstone-header_actions')}>
+                    <div className={clsx('moonstone-header_mainActions', 'moonstone-header_actions', 'flexRow', 'alignCenter')}>
                         { mainActions }
                     </div>
                 )}
@@ -50,7 +50,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <div className={clsx('flexRow_between', 'alignCenter', 'moonstone-header_information')}>
                     <div className={clsx('flexRow_nowrap', 'alignCenter', 'flexFluid', 'moonstone-header_informationLeft')}>
                         { breadcrumb }
-                        <Separator variant="vertical" spacing="medium" invisible="firstOrLastChild"/>
+                        <Separator variant="vertical" spacing="small" invisible="firstOrLastChild"/>
                         { contentType }
                     </div>
                     {status && (
@@ -63,7 +63,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             {hasToolbar && (
                 <>
-                    <Separator/>
+                    {hasInformationArea && <Separator spacing="none"/>}
                     <div role="toolbar" className={clsx('flexRow_between', 'alignCenter', 'moonstone-header_toolbar')}>
                         <div className={clsx('flexRow', 'alignCenter', 'flexFluid', 'moonstone-header_actions')}>
                             { toolbarLeft }
