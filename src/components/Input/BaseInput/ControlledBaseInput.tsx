@@ -18,6 +18,7 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps> = ({
     variant = 'outlined',
     isShowClearButton,
     prefixComponents,
+    postfixComponents,
     onClick,
     onKeyPress,
     onKeyUp,
@@ -84,6 +85,7 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps> = ({
                     onKeyUp={onKeyUp}
                     {...props}
                 />
+                {postfixComponents}
             </div>
             {onClear && isFilled && !isDisabled && !isReadOnly && (
                 <Button
