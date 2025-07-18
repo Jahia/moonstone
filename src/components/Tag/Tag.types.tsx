@@ -26,4 +26,8 @@ export type TagProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'className
      */
     size?: 'small' | 'medium';
 
+    /**
+     * Whether the component should be disabled
+     */
+    isDisabled?: boolean;
 }

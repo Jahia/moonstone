@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, {MutableRefObject, useEffect, useMemo, useRef, useState} from 'react';
 import clsx from 'clsx';
 import './Dropdown.scss';
@@ -194,11 +195,13 @@ export const Dropdown: React.FC<DropdownProps> = ({
         >
             <div
                 ref={ref}
-                role="dropdown"
+                role="listbox"
+                aria-label={label || getDataItem(flatData, value)?.label || placeholder}
+                aria-disabled={isDisabled || isEmpty}
                 className={clsx(cssDropdown)}
                 tabIndex={0}
                 onClick={!isDisabled && handleOpenMenu}
-                onKeyPress={e => {
+                onKeyUp={e => {
                     if (e.key === 'Enter' && !isDisabled) {
                         handleOpenMenu(e);
                     }
@@ -212,7 +215,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             >
                 {
                     icon &&
-                    <icon.type {...icon.props} size="default" className={clsx('moonstone-dropdown_icon')}/>
+                    <icon.type {...icon.props} size="default" className={clsx('moonstone-dropdown_icon')} role="presentation"/>
                 }
                 {!label && values && values.length > 0 ? (
                     <div className="moonstone-dropdown_tags flexFluid flexRow">
@@ -223,10 +226,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                      label={item.label}
                                      value={item.value}
                                      size={size}
+                                     isDisabled={isDisabled}
+                                     role="option"
                                      onClick={e => {
                                          ref.current.focus();
                                          ref.current.blur();
-                                         handleSelect(e, item);
+                                         if (!isDisabled) {
+                                             handleSelect(e, item);
+                                         }
                                      }}
                                 />
                             );
@@ -239,6 +246,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                         component="span"
                         className={clsx('flexFluid', 'moonstone-dropdown_label')}
                         title={label}
+                        role="option"
                     >
                         {label || getDataItem(flatData, value)?.label || placeholder}
                     </Typography>
@@ -257,7 +265,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                         }}
                     />
                 )}
-                <ChevronDown className="moonstone-dropdown_chevronDown"/>
+                <ChevronDown className="moonstone-dropdown_chevronDown" role="presentation"/>
             </div>
 
             {isOpened && (

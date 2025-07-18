@@ -138,7 +138,7 @@ export const Default = () => {
 };
 
 export const Multiple = () => {
-    const [currentOption, setCurrentOption] = useState([]);
+    const [currentOption, setCurrentOption] = useState(dropdownData.slice(0, 2));
 
     const handleOnChange = (e, item) => {
         setCurrentOption(prev =>

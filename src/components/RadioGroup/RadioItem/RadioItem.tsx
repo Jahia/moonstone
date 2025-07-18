@@ -5,7 +5,6 @@ import './RadioItem.scss';
 import {RadioChecked, RadioUnchecked} from '~/icons';
 import {Typography} from '~/components';
 import {RadioGroupContext} from '~/components/RadioGroup/RadioGroup.context';
-import {onArrowNavigation} from '~/hooks';
 
 export const RadioItem: React.FC<RadioItemProps> = ({className, id, value, label, description, isDisabled, isReadOnly, ...props}) => {
     const context = React.useContext(RadioGroupContext);
@@ -22,7 +21,6 @@ export const RadioItem: React.FC<RadioItemProps> = ({className, id, value, label
             variant="body"
             weight="default"
             component="label"
-            {... onArrowNavigation({ref: containerRef})}
         >
             <div className={clsx('flexRow alignCenter')}>
                 <div className={clsx('moonstone-radio')}>

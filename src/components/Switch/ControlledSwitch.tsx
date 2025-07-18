@@ -2,6 +2,7 @@ import React, {MutableRefObject, useRef} from 'react';
 import clsx from 'clsx';
 import type {ControlledSwitchProps} from './Switch.types';
 import './Switch.scss';
+import {onAccessibleClick} from '~/hooks';
 
 const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ControlledSwitchProps> = ({
     className,
@@ -22,9 +23,12 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLDivElement,
                 type="checkbox"
                 value={value}
                 checked={checked}
-                disabled={isDisabled}
                 aria-checked={checked}
-                onChange={ev => (typeof onChange === 'function') && onChange(ev, value, inputRef.current?.checked)}
+                disabled={isDisabled}
+                {...onAccessibleClick({
+                    onClick: (ev: React.KeyboardEvent | React.MouseEvent) => onChange(ev as unknown as React.ChangeEvent<HTMLInputElement>, value, inputRef.current?.checked),
+                    disabled: isDisabled,
+                    role: 'checkbox'})}
             />
             <span className={clsx('moonstone-switch_icon')}/>
         </div>

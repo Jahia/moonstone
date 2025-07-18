@@ -1,3 +1,5 @@
+@use "../../utils/mixins" as *;
+
 $checkbox-sizeDefault: 16px;
 $checkbox-sizeBig: 20px;
 
@@ -59,7 +61,7 @@ $checkbox-sizeBig: 20px;
 
     // Only triggered when the input is focus with tab
     &:focus-visible {
-        border: 2px solid var(--color-accent_dark_contrast);
+        @extend %is-focused;
     }
 
     &[aria-checked="true"],

@@ -1,7 +1,8 @@
 @use "../../tokens/spacings/spacings" as *;
+@use "../../utils/mixins" as *;
 
 [role='treeitem'] {
-    --treeItem-indent: calc((var(--spacing-medium) + var(--spacing-nano)) * var(--treeItem-depth, 0) + var(--spacing-medium));
+    --treeItem-indent: calc((var(--spacing-medium) + var(--spacing-nano)) * var(--treeItem-depth, 0) + var(--spacing-small));
     --treeItem-color: inherit;
     --treeItem-color_hover: var(--color-dark);
     --treeItem-color_selected: var(--color-light);
@@ -12,6 +13,10 @@
     --treeItem-background_selected: var(--color-accent);
     --treeItem-background_selected_hover: var(--color-accent);
     --treeItem-background_highlighted: var(--color-gray60);
+
+    &:focus-visible {
+        @extend %is-focused;
+    }
 }
 
 .moonstone-treeView_item {
@@ -81,7 +86,6 @@
 .moonstone-treeView_itemToggle {
     width: 16px;
     height: 16px;
-    margin-right: var(--spacing-nano);
 
     cursor: pointer;
 }

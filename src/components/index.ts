@@ -1,6 +1,7 @@
 export * from './Accordion';
 export * from './Accordion/AccordionItem';
 export * from './Badge';
+export * from './Banner';
 export * from './Button';
 export * from './ButtonGroup';
 export * from './ButtonToggle';

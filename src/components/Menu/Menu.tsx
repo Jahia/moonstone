@@ -127,7 +127,7 @@ export const Menu: React.FC<MenuProps> = ({
                             focusOnField
                             value={inputValue}
                             onChange={e => setInputValue(e.target.value)}
-                            onKeyPress={e => {
+                            onKeyUp={e => {
                                 if (e.key === 'Enter') {
                                     const list = React.Children.toArray(filteredChildren);
                                     if (list.length > 0) {

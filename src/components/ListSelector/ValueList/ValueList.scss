@@ -1,3 +1,5 @@
+@use "../../../utils";
+
 .moonstone-valueList {
     flex-grow: 1;
     height: 300px;
@@ -22,13 +24,23 @@
 
     cursor: pointer;
 
+    &[disabled] {
+        cursor: default;
+    }
+
+    &:focus-visible {
+        @extend %is-focused;
+
+        outline-offset: -1px;
+    }
+
     &.selected {
         color: var(--color-white);
 
         background-color: var(--color-accent);
     }
 
-    &:hover {
+    &:not([disabled]):hover {
         color: var(--color-accent);
 
         background-color: var(--color-gray_light60);
@@ -73,5 +85,9 @@
 
     .moonstone-noOpacity {
         opacity: 0;
+    }
+
+    &.moonstone-valueList_wrapper_readOnly {
+        @extend %selector_disabled;
     }
 }

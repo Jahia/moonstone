@@ -1,25 +1,22 @@
+@use "../utils/mixins" as *;
+
 // Default style
 %variant_ghost {
-    // color: var(--color-gray_dark);
-
     border: 1px solid transparent;
 
     background-color: transparent;
 
-    &:hover:not(:disabled) {
+    &:hover:not(:disabled, [aria-disabled="true"]) {
         color: var(--color-accent_dark);
 
         background-color: var(--color-gray_light_plain20);
     }
 
-    &:focus-visible:not(:disabled) {
-        color: var(--color-accent_dark);
-
-        border-color: var(--color-accent_dark);
-        background-color: transparent;
+    &:focus-visible:not(:disabled, [aria-disabled="true"]) {
+        @extend %is-focused;
     }
 
-    &:active:not(:disabled) {
+    &:active:not(:disabled, [aria-disabled="true"]) {
         border-color: transparent;
         background-color: var(--color-gray_light_plain60);
     }
@@ -27,33 +24,23 @@
     &.moonstone-reverse {
         color: var(--color-light);
 
-        &:focus-visible:not(:disabled),
-        &:hover:not(:disabled) {
-            color: var(--color-accent_light);
-
-            border-color: transparent;
-            background-color: var(--color-gray_light20);
+        &:focus-visible:not(:disabled, [aria-disabled="true"]) {
+            @extend %is-focused;
         }
 
-        &:active:not(:disabled) {
+        &:hover:not(:disabled, [aria-disabled="true"]) {
+            color: var(--color-light);
+
+            border-color: transparent;
+            background-color: var(--color-gray40);
+        }
+
+        &:active:not(:disabled, [aria-disabled="true"]) {
             color: var(--color-white);
 
             border-color: transparent;
             background-color: var(--color-gray_light40);
         }
-
-        &:disabled {
-            color: var(--color-gray_light);
-        }
-    }
-
-    &:disabled {
-        color: var(--color-gray_dark);
-
-        border-color: transparent;
-        background-color: transparent;
-        cursor: not-allowed;
-        opacity: 0.4;
     }
 }
 
@@ -64,41 +51,37 @@
 
     background-color: transparent;
 
-    &:hover:not(:disabled) {
+    &:hover:not(:disabled, [aria-disabled="true"]) {
         color: var(--color-accent_dark);
     }
 
-    &:focus-visible:not(:disabled) {
-        color: var(--color-accent_dark);
-
-        border-color: var(--color-accent_dark);
+    &:focus-visible:not(:disabled, [aria-disabled="true"]) {
+        @extend %is-focused;
     }
 
-    &:active:not(:disabled) {
+    &:active:not(:disabled, [aria-disabled="true"]) {
         color: var(--color-white);
 
         background-color: var(--color-accent_dark);
     }
 
+    &[aria-disabled="true"],
     &:disabled {
         color: inherit;
     }
 
     &.moonstone-reverse {
-        &:hover:not(:disabled) {
+        &:hover:not(:disabled, [aria-disabled="true"]) {
             color: var(--color-white);
 
             background-color: var(--color-accent40);
         }
 
-        &:focus-visible:not(:disabled) {
-            color: var(--color-white);
-
-            border-color: var(--color-white);
-            background-color: var(--color-accent60);
+        &:focus-visible:not(:disabled, [aria-disabled="true"]) {
+            @extend %is-focused;
         }
 
-        &:active:not(:disabled) {
+        &:active:not(:disabled, [aria-disabled="true"]) {
             color: var(--color-white);
 
             border-color: transparent;
@@ -114,41 +97,37 @@
 
     background-color: transparent;
 
-    &:hover:not(:disabled) {
+    &:hover:not(:disabled, [aria-disabled="true"]) {
         color: var(--color-danger);
     }
 
-    &:focus-visible:not(:disabled) {
-        color: var(--color-danger);
-
-        border-color: var(--color-danger);
+    &:focus-visible:not(:disabled, [aria-disabled="true"]) {
+        @extend %is-focused;
     }
 
-    &:active:not(:disabled) {
+    &:active:not(:disabled, [aria-disabled="true"]) {
         color: var(--color-white);
 
         background-color: var(--color-danger);
     }
 
+    &[aria-disabled="true"],
     &:disabled {
         color: inherit;
     }
 
     &.moonstone-reverse {
-        &:hover:not(:disabled) {
+        &:hover:not(:disabled, [aria-disabled="true"]) {
             color: var(--color-white);
 
             background-color: var(--color-danger40);
         }
 
-        &:focus-visible:not(:disabled) {
-            color: var(--color-white);
-
-            border-color: var(--color-white);
-            background-color: var(--color-danger60);
+        &:focus-visible:not(:disabled, [aria-disabled="true"]) {
+            @extend %is-focused;
         }
 
-        &:active:not(:disabled) {
+        &:active:not(:disabled, [aria-disabled="true"]) {
             color: var(--color-white);
 
             border-color: transparent;

@@ -1,3 +1,5 @@
+@use '../../utils' as *;
+
 $cardSelector-height: 58px;
 
 .moonstone-cardSelector {
@@ -22,17 +24,17 @@ $cardSelector-height: 58px;
         }
 
         &:focus-visible {
-            border: var(--border-selector_focus);
+            @extend %is-focused;
         }
     }
-}
 
-.moonstone-cardSelector_disabled {
-    color: var(--color-dark_plain60);
+    &.moonstone-cardSelector_disabled {
+        @extend %selector_disabled;
 
-    opacity: 60%;
+        color: var(--color-dark_plain60);
 
-    pointer-events: none;
+        cursor: not-allowed;
+    }
 }
 
 .moonstone-cardSelector_body {
@@ -101,7 +103,13 @@ $cardSelector-height: 58px;
 
     transition: all 0.2s ease-in-out;
 
-    &:not[disabled]:hover {
-        border-color: var(--color-warning);
+    &:not([disabled]) {
+        &:hover {
+            border-color: var(--color-warning);
+        }
+
+        &:focus-visible {
+            @extend %is-focused;
+        }
     }
 }

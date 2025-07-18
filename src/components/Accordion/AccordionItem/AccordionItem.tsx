@@ -57,7 +57,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
                             'alignCenter'
                         )}
                         >
-                            {icon && <icon.type {...icon.props} size="big"/>}
+                            {icon && <icon.type {...icon.props} size="big" className={clsx('moonstone-icon_big', icon.props.className)}/>}
                         </div>
                     )}
                     <Typography
