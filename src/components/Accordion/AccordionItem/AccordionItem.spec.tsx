@@ -23,9 +23,9 @@ describe('AccordionItem', () => {
 
     it('should display additional className', () => {
         render(
-            <AccordionItem {...requiredProps} data-testid="accordion-item" className="extra"><div/></AccordionItem>
+            <AccordionItem {...requiredProps} data-testid="accordion-item-section" className="extra"><div/></AccordionItem>
         );
-        expect(screen.getByTestId('accordion-item')).toHaveClass('extra');
+        expect(screen.getByTestId('accordion-item-section')).toHaveClass('extra');
     });
 
     it('should add extra attribute on AccordionItem', () => {
@@ -45,12 +45,12 @@ describe('AccordionItem', () => {
                     isReversed: true
                 }}
             >
-                <AccordionItem {...requiredProps} data-testid="accordion-item">
+                <AccordionItem {...requiredProps} data-testid="accordion-item-section">
                     content here
                 </AccordionItem>
             </AccordionContext.Provider>
         );
-        expect(screen.getByTestId('accordion-item')).toHaveClass(
+        expect(screen.getByTestId('accordion-item-section')).toHaveClass(
             'moonstone-reversed'
         );
     });
@@ -67,14 +67,14 @@ describe('AccordionItem', () => {
             >
                 <AccordionItem
                     {...requiredProps}
-                    data-testid="accordion-item"
+                    data-testid="accordion-item-section"
                     onClick={handleOnClick}
                 >
                     content here
                 </AccordionItem>
             </AccordionContext.Provider>
         );
-        expect(screen.getByTestId('accordion-item')).not.toHaveTextContent(
+        expect(screen.getByTestId('accordion-item-section')).not.toHaveTextContent(
             'content here'
         );
     });
@@ -91,7 +91,7 @@ describe('AccordionItem', () => {
             >
                 <AccordionItem
                     {...requiredProps}
-                    data-testid="accordion-item"
+                    data-testid="accordion-item-section"
                     onClick={handleOnClick}
                 >
                     content here
@@ -99,7 +99,7 @@ describe('AccordionItem', () => {
             </AccordionContext.Provider>
         );
 
-        expect(screen.getByTestId('accordion-item')).toHaveTextContent(
+        expect(screen.getByTestId('accordion-item-section')).toHaveTextContent(
             'content here'
         );
     });
@@ -148,7 +148,7 @@ describe('AccordionItem', () => {
                 </AccordionItem>
             </AccordionContext.Provider>
         );
-        await user.click(screen.getByRole('accordion-item'));
+        await user.click(screen.getByRole('heading'));
 
         expect(isOpen).toBe(true);
     });
@@ -176,7 +176,7 @@ describe('AccordionItem', () => {
                 </AccordionItem>
             </AccordionContext.Provider>
         );
-        await user.click(screen.getByRole('accordion-item'));
+        await user.click(screen.getByRole('heading'));
 
         expect(isOpen).toBe(false);
     });
@@ -198,6 +198,6 @@ describe('AccordionItem', () => {
         );
 
         // No error should occur when there is no onClickToClose defined
-        await user.click(screen.getByRole('accordion-item'));
+        await user.click(screen.getByRole('heading'));
     });
 });
