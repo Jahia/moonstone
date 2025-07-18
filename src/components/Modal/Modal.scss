@@ -1,0 +1,49 @@
+.moonstone-modal-container {
+    display: grid;
+
+    background: var(--color-dark60);
+    place-items: center;
+}
+
+.moonstone-modal {
+    position: inherit;
+    top: 10vh;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 450px;
+    max-height: 90vh;
+    padding: var(--spacing-small);
+
+    border-radius: var(--spacing-small);
+    background-color: var(--color-light);
+
+    // Dropdown menu's fixed position prevented menu from displaying inside the modal
+    & [role="list"] {
+        position: static !important;
+    }
+
+    // Menu overlay covers the whole screen, preventing from inspecting elements & selecting/hovering dropdown options
+    // Needs to be displayed & clickable in order to close the dropdown
+    // Adding 'position: static' to menu nullified its z-index attribute, causing the overlay to always be on top of it
+    & .moonstone-menu_overlay {
+        z-index: -1;
+    }
+}
+
+.moonstone-modal_small {
+    width: 300px;
+}
+
+.moonstone-modal_large {
+    top: auto;
+
+    width: 600px;
+}
+
+.moonstone-modal_full {
+    top: auto;
+
+    width: 100%;
+}
