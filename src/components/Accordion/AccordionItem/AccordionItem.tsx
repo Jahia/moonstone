@@ -44,7 +44,12 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
                 aria-expanded={open}
                 data-testid="accordion-item"
             >
-                {icon &&
+                <div
+                className={clsx('flexRow', 'alignCenter')}
+                role="button"
+                aria-expanded={open}
+                >
+                    {icon &&
                     (
                         <div className={clsx(
                             'moonstone-accordionItem_iconContainer',
@@ -55,14 +60,15 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
                             {icon && <icon.type {...icon.props} size="big"/>}
                         </div>
                     )}
-                <Typography
+                    <Typography
                     isNowrap
                     variant="subheading"
                     weight={open ? 'bold' : 'default'}
                     className={clsx('flexFluid')}
-                >
-                    {label}
-                </Typography>
+                    >
+                        {label}
+                    </Typography>
+                </div>
             </h3>
 
             {/* Accordion content */}
