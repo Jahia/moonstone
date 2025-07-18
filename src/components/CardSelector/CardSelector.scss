@@ -1,4 +1,4 @@
-@use "../../utils/mixins" as *;
+@use '../../utils' as *;
 
 $cardSelector-height: 58px;
 
@@ -27,14 +27,14 @@ $cardSelector-height: 58px;
             @extend %is-focused;
         }
     }
-}
 
-.moonstone-cardSelector_disabled {
-    color: var(--color-dark_plain60);
+    &.moonstone-cardSelector_disabled {
+        @extend %selector_disabled;
 
-    opacity: 60%;
+        color: var(--color-dark_plain60);
 
-    pointer-events: none;
+        cursor: not-allowed;
+    }
 }
 
 .moonstone-cardSelector_body {

@@ -46,7 +46,7 @@
 
     &.moonstone-disabled,
     &.moonstone-disabled:hover {
-        @extend %is-disabled;
+        @extend %selector_disabled;
 
         background: none;
     }
