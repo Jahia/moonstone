@@ -73,20 +73,35 @@ const flatten = (data: TreeViewData[]): TreeViewData[] => {
     return res;
 };
 
+const defaultAnchorElOrigin = {
+    horizontal: 'left',
+    vertical: 'bottom'
+}as const;
+
+const defaultTransformElOrigin = {
+    vertical: 'top',
+    horizontal: 'left'
+}as const;
+
+const defaultAnchorPosition = {
+    top: 0,
+    left: 0
+}as const;
+
 export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     isDisplayed,
     minWidth,
     maxWidth,
     maxHeight,
-    anchorEl,
-    anchorPosition,
-    anchorElOrigin,
-    transformElOrigin,
-    position,
-    hasOverlay,
+    anchorEl = null,
+    anchorElOrigin = defaultAnchorElOrigin,
+    transformElOrigin = defaultTransformElOrigin,
+    anchorPosition = defaultAnchorPosition,
+    position = 'fixed',
+    hasOverlay = true,
     hasSearch,
-    autoAddSearchLimit,
-    // SearchEmptyText,
+    autoAddSearchLimit = 7,
+    // SearchEmptyText = 'No results found.',
     treeData,
     value,
     values,
