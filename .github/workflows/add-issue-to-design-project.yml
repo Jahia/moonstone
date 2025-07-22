@@ -1,0 +1,23 @@
+---
+name: Add Issue to Design Project
+
+"on":
+  issues:
+    types: [opened]
+
+permissions:
+  issues: read
+
+jobs:
+  add-to-project:
+    name: Add issue to design project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add Issue to Project
+        uses: actions/add-to-project@v1.0.2
+        with:
+          project-url: https://github.com/orgs/Jahia/projects/45
+          # For organization projects, a PAT with 'project' and
+          # 'read:org' scopes is required. This should be added as a
+          # repository secret named 'ADD_TO_PROJECT_PAT'
+          github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
