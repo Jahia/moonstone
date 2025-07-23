@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {StoryObj} from '@storybook/react';
+import {StoryObj} from '@storybook/react-vite';
 
 import {Switch} from './index';
 import type {SwitchProps} from './Switch.types';

@@ -1,4 +1,4 @@
-import {StoryObj, Meta} from '@storybook/react';
+import {StoryObj, Meta} from '@storybook/react-vite';
 
 import {CardSelector} from './index';
 import {Button, Chip} from '~/index';

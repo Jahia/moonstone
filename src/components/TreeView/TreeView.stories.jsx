@@ -38,7 +38,7 @@ export const ClosableRoot = {
 };
 
 // Export const OpenedByDefault = {
-//     render: (args, {globals: {theme}}) => {
+//     render: (args, {initialGlobals: {theme}}) => {
 //         const theme = globals.theme;
 //         return (
 //             <TreeView
@@ -52,7 +52,7 @@ export const ClosableRoot = {
 // };
 
 export const Flat = {
-    render: (args, {globals: {theme}}) => (
+    render: (args, {initialGlobals: {theme}}) => (
         <TreeView {...args} data={treeDataFlat} isReversed={theme === 'dark'}/>
     )
 };
@@ -82,7 +82,7 @@ export const Selection = {
 };
 
 export const Highlight = {
-    render: (args, {globals: {theme}}) => (
+    render: (args, {initialGlobals: {theme}}) => (
         <TreeView
             data={treeData}
             isReversed={theme === 'dark'}

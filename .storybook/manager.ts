@@ -1,4 +1,4 @@
-import { addons } from '@storybook/manager-api'
+import { addons } from 'storybook/manager-api'
 import {
   defaultConfig,
   type TagBadgeParameters,
@@ -10,14 +10,19 @@ addons.setConfig({
       tags: 'updated',
       badge: {
         text: 'Updated',
-        bgColor: '#caeaf8',
-        fgColor: '#004781',
+        style: {
+            backgroundColor: '#caeaf8',
+            color: '#004781',
+        },
         tooltip: 'This component has been updated since last version',
       },
-      display: {
-        sidebar: ['component', 'group'],
-        toolbar: true,
-      },
+    //   display: {
+    //     sidebar: [
+    //         {type: 'component', skipInherited: false},
+    //         {type: 'group', skipInherited: false},
+    //     ],
+    //     toolbar: true,
+    //   },
     },
     ...defaultConfig,
   ] satisfies TagBadgeParameters,
