@@ -31,7 +31,7 @@ export default defineConfig({
     },
     assetsInclude: ['**/*.md'],
     test: {
-        initialGlobals: true,
+        globals: true,
         environment: 'jsdom',
         setupFiles: ['./vitest.setup.js'],
         coverage: {
