@@ -7,16 +7,10 @@ const config: StorybookConfig = {
     },
     stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
     addons: [
-        '@storybook/addon-actions',
         '@storybook/addon-docs',
-        '@storybook/addon-backgrounds',
         '@storybook/addon-a11y',
-        '@storybook/addon-controls',
         'storybook-addon-tag-badges'
-    ],
-    docs: {
-        autodocs: true
-    }
+    ]
 };
 
 export default config;

@@ -1,4 +1,4 @@
-import {Meta, StoryObj} from '@storybook/react';
+import {Meta, StoryObj} from '@storybook/react-vite';
 import {LayoutContent} from '~/layouts';
 import {Header} from '~/components';
 import {FakeContent} from '~/__storybook__/FakeComponents';

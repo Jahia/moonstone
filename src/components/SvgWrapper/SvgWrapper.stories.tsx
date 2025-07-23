@@ -1,4 +1,4 @@
-import {Meta, StoryObj} from '@storybook/react';
+import {Meta, StoryObj} from '@storybook/react-vite';
 import {SvgWrapper} from './index';
 import markdownNotes from './SvgWrapper.md';
 import '~/__storybook__/storybook.scss';

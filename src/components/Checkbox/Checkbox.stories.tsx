@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {StoryObj} from '@storybook/react';
+import {StoryObj} from '@storybook/react-vite';
 
 import {Checkbox} from '~/components';
 import type {CheckboxProps} from './Checkbox.types';

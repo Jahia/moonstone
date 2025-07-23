@@ -1,4 +1,4 @@
-import {StoryFn, Meta} from '@storybook/react';
+import {StoryFn, Meta} from '@storybook/react-vite';
 
 import {SecondaryNav, SecondaryNavHeader} from './index';
 import type {SecondaryNavProps} from './SecondaryNav.types';

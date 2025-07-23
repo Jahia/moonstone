@@ -1,4 +1,4 @@
-import {StoryObj, Meta} from '@storybook/react';
+import {StoryObj, Meta} from '@storybook/react-vite';
 
 import {Fieldset} from './index';
 import {Field, FieldBoolean, FieldSelector} from '~/components';

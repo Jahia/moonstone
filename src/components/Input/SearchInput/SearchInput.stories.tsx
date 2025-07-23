@@ -1,4 +1,4 @@
-import {StoryFn, Meta} from '@storybook/react';
+import {StoryFn, Meta} from '@storybook/react-vite';
 import '~/__storybook__/storybook.scss';
 
 import {SearchInput} from './index';

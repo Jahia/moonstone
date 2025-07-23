@@ -1,4 +1,4 @@
-import {Meta, StoryObj} from '@storybook/react';
+import {Meta, StoryObj} from '@storybook/react-vite';
 import {LayoutApp} from './index';
 import type {LayoutAppProps} from './LayoutApp.types';
 import {

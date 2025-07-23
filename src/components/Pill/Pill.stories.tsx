@@ -1,4 +1,4 @@
-import {StoryObj} from '@storybook/react';
+import {StoryObj} from '@storybook/react-vite';
 import markdownNotes from './Pill.md';
 
 import {Pill} from './index';

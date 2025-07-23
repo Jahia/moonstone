@@ -1,4 +1,4 @@
-import {StoryFn, Meta} from '@storybook/react';
+import {StoryFn, Meta} from '@storybook/react-vite';
 
 import {Breadcrumb, BreadcrumbItem} from '~/components';
 import type {BreadcrumbProps} from './Breadcrumb.types';

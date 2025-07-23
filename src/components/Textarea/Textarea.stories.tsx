@@ -1,8 +1,8 @@
 import React from 'react';
-import {StoryObj, Meta} from '@storybook/react';
+import {StoryObj, Meta} from '@storybook/react-vite';
 
 import {Textarea} from './index';
-import {useArgs} from '@storybook/preview-api';
+import {useArgs} from 'storybook/preview-api';
 
 const meta: Meta<typeof Textarea> = {
     title: 'Components/Textarea',
