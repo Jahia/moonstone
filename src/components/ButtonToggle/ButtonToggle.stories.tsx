@@ -19,7 +19,7 @@ const meta: Meta<typeof ButtonToggle> = {
 export default meta;
 
 type Story = StoryObj<ButtonToggleProps>;
-const Template = (args: ButtonToggleProps, initialGlobals: StoryContext) => {
+const Template = (args: ButtonToggleProps, globals: StoryContext) => {
     const theme = globals.theme;
     return <ButtonToggle {...args} isReversed={theme === 'dark'}/>;
 };
