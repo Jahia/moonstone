@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {action} from '@storybook/addon-actions';
+import {action} from 'storybook/actions';
 import markdownNotes from './Dropdown.md';
 import {Dropdown} from './index';
 import {Love} from '~/icons';

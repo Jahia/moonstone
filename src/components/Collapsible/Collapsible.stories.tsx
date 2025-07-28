@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {StoryObj} from '@storybook/react';
+import {StoryObj} from '@storybook/react-vite';
 
 import {Collapsible} from './index';
 import type {CollapsibleProps} from './Collapsible.types';

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StoryObj, StoryFn, Meta} from '@storybook/react';
+import {StoryObj, StoryFn, Meta} from '@storybook/react-vite';
 
 import {RadioGroup} from './index';
 import {RadioItem} from './RadioItem';

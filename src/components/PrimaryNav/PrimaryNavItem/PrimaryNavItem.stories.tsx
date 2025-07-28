@@ -1,4 +1,4 @@
-import {Meta, StoryObj} from '@storybook/react';
+import {Meta, StoryObj} from '@storybook/react-vite';
 import {PrimaryNavItem} from './index';
 import {Edit, Person, Power, Workflow} from '~/icons';
 import markdownNotes from './PrimaryNavItem.md';

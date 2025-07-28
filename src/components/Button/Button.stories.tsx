@@ -1,4 +1,4 @@
-import {StoryObj, Meta, StoryContext} from '@storybook/react';
+import {StoryObj, Meta, StoryContext} from '@storybook/react-vite';
 import '~/__storybook__/storybook.scss';
 
 import {Button} from './index';

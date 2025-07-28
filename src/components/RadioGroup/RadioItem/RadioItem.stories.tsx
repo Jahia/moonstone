@@ -1,4 +1,4 @@
-import {StoryObj} from '@storybook/react';
+import {StoryObj} from '@storybook/react-vite';
 
 import {RadioItem} from './index';
 import type {RadioItemProps} from './RadioItem.types';
