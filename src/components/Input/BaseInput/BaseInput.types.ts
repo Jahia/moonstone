@@ -58,9 +58,14 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
     isShowClearButton?: boolean;
 
     /**
-     * Component
+     * Component(s) to render before the input field.
      */
     prefixComponents?: React.ReactElement[];
+
+    /**
+     * Component(s) to render after the input field.
+     */
+    postfixComponents?: React.ReactElement[];
 
     /**
      * Function

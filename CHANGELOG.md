@@ -1,3 +1,43 @@
+# v2.16.0 (Tue Jul 22 2025)
+
+#### 🚀 Enhancement
+
+- feat: fixes and improvements for CE integration [#1097](https://github.com/Jahia/moonstone/pull/1097) ([@r3dm1ke](https://github.com/r3dm1ke))
+- feat: Typography with forwardRef [#1055](https://github.com/Jahia/moonstone/pull/1055) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🐛 Bug Fix
+
+- feat: change separator to a lighter color [#1096](https://github.com/Jahia/moonstone/pull/1096) ([@ffffffelix](https://github.com/ffffffelix))
+- fix: spacing in Header component [#1095](https://github.com/Jahia/moonstone/pull/1095) ([@ffffffelix](https://github.com/ffffffelix))
+- feat: improve disabled styling [#1091](https://github.com/Jahia/moonstone/pull/1091) ([@ffffffelix](https://github.com/ffffffelix))
+- feat: add new component Banner [#1093](https://github.com/Jahia/moonstone/pull/1093) ([@Eevolee](https://github.com/Eevolee))
+- feat: add is-focused mixin to unify focusable components style [#1084](https://github.com/Jahia/moonstone/pull/1084) ([@Eevolee](https://github.com/Eevolee))
+- fix:  contrast issue on ghost button in reverse [#1092](https://github.com/Jahia/moonstone/pull/1092) ([@Eevolee](https://github.com/Eevolee))
+- chore: deprecate onKeyPress with onKeyUp [#1086](https://github.com/Jahia/moonstone/pull/1086) ([@Eevolee](https://github.com/Eevolee))
+- fix: Manage icon size even if the icon is not provided by the library [#1085](https://github.com/Jahia/moonstone/pull/1085) ([@ffffffelix](https://github.com/ffffffelix))
+- fix: fixes on treeView spacings [#1083](https://github.com/Jahia/moonstone/pull/1083) ([@Eevolee](https://github.com/Eevolee))
+- chore: update Dropdown to meet W3C standards [#1082](https://github.com/Jahia/moonstone/pull/1082) ([@Eevolee](https://github.com/Eevolee))
+- chore: update CheckboxItem & RadioItem to meet W3C standards [#1080](https://github.com/Jahia/moonstone/pull/1080) ([@Eevolee](https://github.com/Eevolee))
+- chore: update TreeView to meet W3C standards [#1078](https://github.com/Jahia/moonstone/pull/1078) ([@Eevolee](https://github.com/Eevolee))
+- chore: update Tooltip to meet W3C standards [#1077](https://github.com/Jahia/moonstone/pull/1077) ([@Eevolee](https://github.com/Eevolee))
+- chore: update Switch to meet W3C standards [#1076](https://github.com/Jahia/moonstone/pull/1076) ([@Eevolee](https://github.com/Eevolee))
+- chore: update Breadcrumbs to meet W3C standards [#1073](https://github.com/Jahia/moonstone/pull/1073) ([@Eevolee](https://github.com/Eevolee))
+- chore: update Tabs to meet W3C standards [#1072](https://github.com/Jahia/moonstone/pull/1072) ([@Eevolee](https://github.com/Eevolee))
+- feat: add onArrowNavigation to manage navigation with ArrowDown and ArrowUp [#1047](https://github.com/Jahia/moonstone/pull/1047) ([@Eevolee](https://github.com/Eevolee) [@ffffffelix](https://github.com/ffffffelix))
+
+#### 🏠 Internal
+
+- chore: add index file in hooks directory & update hooks imports [#1060](https://github.com/Jahia/moonstone/pull/1060) ([@Eevolee](https://github.com/Eevolee))
+- feat: Add new utils function to merge all handlers [#1054](https://github.com/Jahia/moonstone/pull/1054) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 3
+
+- Alessia Bourgoin ([@Eevolee](https://github.com/Eevolee))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Michael Krasnov ([@r3dm1ke](https://github.com/r3dm1ke))
+
+---
+
 # v2.15.0 (Thu May 22 2025)
 
 #### 🚀 Enhancement
