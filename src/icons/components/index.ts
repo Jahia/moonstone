@@ -197,6 +197,7 @@ export {default as Target} from './Target';
 export {default as Task} from './Task';
 export {default as Text} from './Text';
 export {default as Tips} from './Tips';
+export {default as Translate} from './Translate';
 export {default as Tune} from './Tune';
 export {default as Unarchive} from './Unarchive';
 export {default as Undelete} from './Undelete';
