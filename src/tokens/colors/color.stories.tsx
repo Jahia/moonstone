@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import React from 'react';
 import clsx from 'clsx';
 import './colors.stories.scss';
 import '~/__storybook__/storybook.scss';
@@ -100,7 +100,13 @@ const paletteColors = [
     'purple_dark'
 ];
 
-export const Color = ({color, name}) => {
+type Palettes = typeof paletteAccent | typeof paletteColors | typeof paletteNeutral | typeof paletteSupport;
+type ColorProps = {
+    readonly color: string,
+    readonly name: string
+};
+
+export const Color : React.FC<ColorProps> = ({color, name}) => {
     return (
         <div className="storyItem">
             <p>{name}</p>
@@ -109,8 +115,8 @@ export const Color = ({color, name}) => {
     );
 };
 
-function displayColors(palette) {
-    let colors = [];
+function displayColors(palette: Palettes) {
+    const colors = [];
 
     for (const [key, color] of palette.entries()) {
         colors.push(<Color key={key} color={color} name={`$color-${color}`}/>);
@@ -139,8 +145,3 @@ export const Support = () => (
 export const Palette = () => (
     <section className="storyWrapper">{displayColors(paletteColors)}</section>
 );
-
-Color.propTypes = {
-    color: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired
-};

@@ -226,27 +226,4 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     );
 };
 
-// Kept defaultProps here because of unnecessary re-rendering when provided as default parameters to the function component
-/* eslint-disable react/default-props-match-prop-types */
-TreeViewMenu.defaultProps = {
-    hasOverlay: true,
-    autoAddSearchLimit: 7,
-    searchEmptyText: 'No results found.',
-    position: 'fixed',
-    anchorEl: null,
-    anchorPosition: {
-        top: 0,
-        left: 0
-    },
-    anchorElOrigin: {
-        vertical: 'bottom',
-        horizontal: 'left'
-    },
-    transformElOrigin: {
-        vertical: 'top',
-        horizontal: 'left'
-    }
-};
-/* eslint-enable react/default-props-match-prop-types */
-
 TreeViewMenu.displayName = 'TreeViewMenu';

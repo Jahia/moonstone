@@ -1,10 +1,21 @@
-import PropTypes from 'prop-types';
+import React from 'react';
 import markdownNotes from './GlobalStyle_layout.md';
 import clsx from 'clsx';
 
 const justifyOptions = [null, 'center', 'reverse', 'between', 'nowrap'];
+type JustifyOption = typeof justifyOptions[number];
+
 const alignOptions = ['start', 'center', 'end'];
-// Const directionOptions = ['row', 'column'];
+type AlignOption = typeof alignOptions[number];
+
+type Direction = 'row' | 'col';
+
+type ItemContainerProps = {
+    readonly title?: string,
+    readonly justify?: JustifyOption,
+    readonly align?: AlignOption,
+    readonly direction?: Direction
+};
 
 const cssWrap = {
     border: '2px solid red',
@@ -12,13 +23,13 @@ const cssWrap = {
 };
 
 // Define an item container to provide flex context and play with positioning
-const ItemContainer = ({title, direction, justify, align}) => {
+const ItemContainer : React.FC<ItemContainerProps> = ({title, direction, justify, align}) => {
     const cssDirection = direction === 'row' ? 'flexRow' : 'flexCol';
     const cssJustify = justify ? `${cssDirection}_${justify}` : cssDirection;
     const cssAlign = align ?
         `align${align.charAt(0).toUpperCase() + align.slice(1)}` :
         null;
-    let css = clsx(cssJustify, cssAlign);
+    const css = clsx(cssJustify, cssAlign);
 
     return (
         <section style={{marginBottom: '48px'}}>
@@ -70,16 +81,9 @@ const Item = () => {
     );
 };
 
-ItemContainer.propTypes = {
-    title: PropTypes.string,
-    justify: PropTypes.oneOf(justifyOptions),
-    align: PropTypes.oneOf(alignOptions),
-    direction: PropTypes.oneOf(['row', 'col'])
-};
-
-function displayItems(direction, type) {
-    let display = [];
-    let arrayOptions = [];
+function displayItems(direction: Direction, type: 'justify' | 'align') {
+    const display = [];
+    let arrayOptions: JustifyOption[] | AlignOption[] | [] = [];
 
     if (type === 'justify') {
         arrayOptions = justifyOptions;
@@ -87,7 +91,7 @@ function displayItems(direction, type) {
         arrayOptions = alignOptions;
     }
 
-    for (let option of arrayOptions) {
+    for (const option of arrayOptions) {
         display.push(
             <ItemContainer
         title={`${type} ${clsx(option)}`}
