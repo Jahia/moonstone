@@ -1,4 +1,4 @@
-import {StoryObj, Meta} from '@storybook/react';
+import {StoryObj, Meta} from '@storybook/react-vite';
 
 import {FieldSelector} from './index';
 import markdownNotes from './FieldSelector.md';

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StoryObj} from '@storybook/react';
+import {StoryObj} from '@storybook/react-vite';
 
 import {Menu, MenuItem} from './index';
 import type {MenuProps, AnchorPosition} from './Menu.types';

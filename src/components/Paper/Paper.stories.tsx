@@ -1,4 +1,4 @@
-import {StoryObj} from '@storybook/react';
+import {StoryObj} from '@storybook/react-vite';
 
 import {Paper} from './index';
 import type {PaperProps} from './Paper.types';

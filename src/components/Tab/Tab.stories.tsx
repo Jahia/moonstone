@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {StoryObj} from '@storybook/react';
+import {StoryObj} from '@storybook/react-vite';
 
 import {Tab} from './index';
 import type {TabProps} from './Tab.types';

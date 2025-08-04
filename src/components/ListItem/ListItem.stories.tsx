@@ -1,4 +1,4 @@
-import {StoryObj} from '@storybook/react';
+import {StoryObj} from '@storybook/react-vite';
 import markdownNotes from './ListItem.md';
 
 import {ListItem} from './index';
