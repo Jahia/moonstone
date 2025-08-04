@@ -24,17 +24,21 @@ $min-width: 40px;
         @extend %selector_disabled;
     }
 
-    &:has(input:focus-visible) {
-        @extend %is-focused;
-    }
-
     &.moonstone-big {
         min-height: $big-size;
+    }
+
+    &:has(input:focus-visible) {
+        @extend %is-focused;
     }
 
     &.moonstone-outlined {
         border: var(--border-selector);
         border-radius: var(--radius-selector);
+
+        &:hover {
+            border: var(--border-selector_hover);
+        }
     }
 
     .moonstone-reversed & {
