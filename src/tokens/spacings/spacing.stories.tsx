@@ -1,10 +1,12 @@
-import PropTypes from 'prop-types';
+import React from 'react';
 import clsx from 'clsx';
-
 import './spacings.stories.scss';
 import '~/__storybook__/storybook.scss';
 
-export const Spacing = ({name}) => {
+type SpacingProps = {
+    readonly name: string
+}
+export const Spacing: React.FC<SpacingProps> = ({name}) => {
     return (
         <div className="storyItem">
             <p>{name}</p>
@@ -28,7 +30,3 @@ export const Default = () => (
         <Spacing name="huge"/>
     </section>
 );
-
-Spacing.propTypes = {
-    name: PropTypes.string.isRequired
-};
