@@ -3,6 +3,11 @@
 
 $accordionHeader_height: 48px;
 
+button {
+    border: none;
+    background: none;
+}
+
 .moonstone-accordionItem {
     min-height: $accordionHeader_height;
 

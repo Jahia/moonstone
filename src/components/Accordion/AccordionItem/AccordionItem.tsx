@@ -22,12 +22,12 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
             className={clsx(
                 'moonstone-accordionItem',
                 {'moonstone-reversed': context.isReversed},
-                'flexCol',
-                open ? 'flexFluid' : null,
-                className
-            )}
-            {...mergeHandlers(onArrowNavigation({ref: ref}), onAccessibleClick({onClick: e => handleClick(e, open)}))}
-            role="none"
+                    'flexCol',
+                    open ? 'flexFluid' : null,
+                    className
+                )}
+            data-testid="accordion"
+            {...mergeHandlers(onArrowNavigation({ref: ref}), onAccessibleClick({onClick: e => handleClick(e, open), role: null}))}
             {...props}
         >
             <h3
@@ -40,35 +40,36 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
                     'flexRow',
                     'alignCenter'
                 )}
-                aria-controls={id}
-                aria-expanded={open}
-                data-testid="accordion-item"
             >
-                <div
-                className={clsx('flexRow', 'alignCenter')}
-                role="button"
-                aria-expanded={open}
+                <button
+                    className={clsx('flexRow', 'alignCenter')}
+                    type="button"
+                    tabIndex={-1}
+                    aria-controls={id}
+                    aria-expanded={open}
                 >
                     {icon &&
                     (
-                        <div className={clsx(
-                            'moonstone-accordionItem_iconContainer',
-                            'flexRow_center',
-                            'alignCenter'
-                        )}
+                        <div
+                            className={clsx(
+                                'moonstone-accordionItem_iconContainer',
+                                'flexRow_center',
+                                'alignCenter'
+                            )}
                         >
                             {icon && <icon.type {...icon.props} size="big" className={clsx('moonstone-icon_big', icon.props.className)}/>}
                         </div>
                     )}
                     <Typography
-                    isNowrap
-                    variant="subheading"
-                    weight={open ? 'bold' : 'default'}
-                    className={clsx('flexFluid')}
+                        isNowrap
+                        data-testid="accordion-label"
+                        variant="subheading"
+                        weight={open ? 'bold' : 'default'}
+                        className={clsx('flexFluid')}
                     >
                         {label}
                     </Typography>
-                </div>
+                </button>
             </h3>
 
             {/* Accordion content */}
@@ -79,6 +80,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
                         'flexFluid',
                         'flexCol_nowrap'
                     )}
+                         id={id}
                          role="region"
                     >
                         {children}
