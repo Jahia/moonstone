@@ -19,6 +19,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
     return (
         <section
             ref={ref}
+            id={id}
             className={clsx(
                 'moonstone-accordionItem',
                 {'moonstone-reversed': context.isReversed},
@@ -26,13 +27,12 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
                     open ? 'flexFluid' : null,
                     className
                 )}
-            data-testid="accordion"
             {...mergeHandlers(onArrowNavigation({ref: ref}), useKeyUp({onKeyUp: e => handleClick(e, open), role: null}))}
             {...props}
         >
             <h3>
                 <button
-                    data-testid="accordion_button"
+                    data-testid="accordion-button"
                     className={clsx(
                         'flexRow',
                         'alignCenter',
@@ -44,7 +44,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
                     )}
                     type="button"
                     tabIndex={-1}
-                    aria-controls={id}
+                    aria-controls={id && `${id}_content`}
                     aria-expanded={open}
                     onClick={e => handleClick(e, open)}
                 >
@@ -79,7 +79,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
                         'flexFluid',
                         'flexCol_nowrap'
                     )}
-                         id={id}
+                         id={id && `${id}_content`}
                          role="region"
                     >
                         {children}
