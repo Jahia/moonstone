@@ -148,7 +148,7 @@ describe('AccordionItem', () => {
                 </AccordionItem>
             </AccordionContext.Provider>
         );
-        await user.click(screen.getByRole('heading'));
+        await user.click(screen.getByRole('button'));
 
         expect(isOpen).toBe(true);
     });
@@ -176,7 +176,7 @@ describe('AccordionItem', () => {
                 </AccordionItem>
             </AccordionContext.Provider>
         );
-        await user.click(screen.getByRole('heading'));
+        await user.click(screen.getByRole('button'));
 
         expect(isOpen).toBe(false);
     });
@@ -198,6 +198,6 @@ describe('AccordionItem', () => {
         );
 
         // No error should occur when there is no onClickToClose defined
-        await user.click(screen.getByRole('heading'));
+        await user.click(screen.getByRole('button'));
     });
 });
