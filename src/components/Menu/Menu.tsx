@@ -16,10 +16,25 @@ const getChildrenToFilter = (children: [React.ReactElement]) => {
     return children;
 };
 
+const defaultAnchorElOrigin = {
+    horizontal: 'left',
+    vertical: 'bottom'
+}as const;
+
+const defaultTransformElOrigin = {
+    vertical: 'top',
+    horizontal: 'left'
+}as const;
+
+const defaultAnchorPosition = {
+    top: 0,
+    left: 0
+}as const;
+
 export const Menu: React.FC<MenuProps> = ({
     children,
     isDisplayed,
-    position,
+    position = 'fixed',
     minWidth,
     maxWidth,
     maxHeight,
@@ -27,19 +42,19 @@ export const Menu: React.FC<MenuProps> = ({
     style,
     onMouseEnter,
     onMouseLeave,
-    anchorEl,
-    anchorElOrigin,
-    transformElOrigin,
-    anchorPosition,
+    anchorEl = null,
+    anchorElOrigin = defaultAnchorElOrigin,
+    transformElOrigin = defaultTransformElOrigin,
+    anchorPosition = defaultAnchorPosition,
     onClose,
     onEntering,
     onEntered,
     onExiting,
     onExited,
-    hasOverlay,
+    hasOverlay = true,
     hasSearch,
-    autoAddSearchLimit,
-    searchEmptyText,
+    autoAddSearchLimit = 7,
+    searchEmptyText = 'No results found.',
     ...props
 }) => {
     const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, position);
@@ -162,28 +177,5 @@ export const Menu: React.FC<MenuProps> = ({
         </>
     );
 };
-
-// Kept defaultProps here because of unnecessary re-rendering when provided as default parameters to the function component
-/* eslint-disable react/default-props-match-prop-types */
-Menu.defaultProps = {
-    hasOverlay: true,
-    autoAddSearchLimit: 7,
-    searchEmptyText: 'No results found.',
-    position: 'fixed',
-    anchorEl: null,
-    anchorPosition: {
-        top: 0,
-        left: 0
-    },
-    anchorElOrigin: {
-        vertical: 'bottom',
-        horizontal: 'left'
-    },
-    transformElOrigin: {
-        vertical: 'top',
-        horizontal: 'left'
-    }
-};
-/* eslint-enable react/default-props-match-prop-types */
 
 Menu.displayName = 'Menu';
