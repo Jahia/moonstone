@@ -36,7 +36,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
                     className={clsx(
                         'flexRow',
                         'alignCenter',
-                        'moonstone-accordionItem_header',
+                        'moonstone-accordionItem_button',
                         {
                             'moonstone-selected': open,
                             'moonstone-reversed': context.isReversed

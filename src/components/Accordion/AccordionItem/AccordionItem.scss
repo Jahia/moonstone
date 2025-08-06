@@ -20,6 +20,12 @@ button {
         border-bottom: none;
     }
 
+    &:focus-visible {
+        @extend %is-focused;
+
+        outline-offset: -2px;
+    }
+
     & + .moonstone-accordionItem {
         border-top: 0;
     }
@@ -32,7 +38,7 @@ button {
 // ---
 // Header
 // ---
-.moonstone-accordionItem_header {
+.moonstone-accordionItem_button {
     width: 100%;
     height: $accordionHeader_height;
     padding: 0 var(--spacing-medium);
@@ -45,12 +51,6 @@ button {
         border-bottom: 1px solid var(--color-gray_light);
 
         cursor: default;
-    }
-
-    &:focus-visible {
-        @extend %is-focused;
-
-        outline-offset: -2px;
     }
 
     &:active {
