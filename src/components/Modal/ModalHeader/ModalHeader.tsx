@@ -15,7 +15,7 @@ const ModalHeaderForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, Moda
             className={clsx('moonstone-modal-header')}
             {...props}
         >
-            <Typography variant="heading" weight="bold">
+            <Typography variant="heading" weight="bold" aria-label={title} role="heading" aria-level={4}>
                 {title}
             </Typography>
             {children &&
