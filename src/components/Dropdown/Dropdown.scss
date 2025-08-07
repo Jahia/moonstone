@@ -22,7 +22,7 @@
 }
 
 .moonstone-disabled,
-.moonstone-button_loading {
+.moonstone-dropdown_loading {
     & > .moonstone-treeView_item {
         @extend %selector_disabled;
     }
@@ -38,7 +38,7 @@
     cursor: pointer;
 
     &.moonstone-disabled,
-    &.moonstone-button_loading {
+    &.moonstone-dropdown_loading {
         @extend %selector_disabled;
     }
 
