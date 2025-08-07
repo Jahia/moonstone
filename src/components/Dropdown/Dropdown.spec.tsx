@@ -72,7 +72,7 @@ describe('Dropdown', () => {
         );
     });
 
-    it('should add dropdown-disabled class if the dropdown is loading', () => {
+    it('should add dropdown_loading class if the dropdown is loading', () => {
         render(
             <Dropdown
                 isLoading
@@ -82,7 +82,21 @@ describe('Dropdown', () => {
             />
         );
         expect(screen.getByTestId('moonstone-dropdown').firstChild).toHaveClass(
-            'moonstone-disabled'
+            'moonstone-dropdown_loading'
+        );
+    });
+
+    it('should add aria-busy attribute if the dropdown is loading', () => {
+        render(
+            <Dropdown
+                isLoading
+                data={dropdownData}
+                data-testid="moonstone-dropdown"
+                onChange={() => 'testing'}
+            />
+        );
+        expect(screen.getByTestId('moonstone-dropdown').firstChild).toHaveAttribute(
+            'aria-busy'
         );
     });
 

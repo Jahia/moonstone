@@ -21,7 +21,8 @@
     gap: var(--spacing-nano) var(--spacing-small);
 }
 
-.moonstone-disabled {
+.moonstone-disabled,
+.moonstone-button_loading {
     & > .moonstone-treeView_item {
         @extend %selector_disabled;
     }
@@ -36,7 +37,8 @@
     border-radius: var(--radius-selector);
     cursor: pointer;
 
-    &.moonstone-disabled {
+    &.moonstone-disabled,
+    &.moonstone-button_loading {
         @extend %selector_disabled;
     }
 
@@ -79,7 +81,7 @@
     border: var(--border-selector);
     background-color: var(--background-selector);
 
-    &:hover:not(.moonstone-disabled, [aria-disabled="true"]) {
+    &:hover:not(.moonstone-disabled, [aria-disabled="true"]):not(.moonstone-button_loading) {
         border: var(--border-selector_hover);
         background: none;
     }

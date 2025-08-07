@@ -181,7 +181,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
         `moonstone-${size}`,
         `moonstone-dropdown_${variant}`,
         {
-            'moonstone-disabled': isLoading || ((typeof isDisabled === 'undefined' && isEmpty) ? true : isDisabled),
+            'moonstone-disabled': (typeof isDisabled === 'undefined' && isEmpty) ? true : isDisabled,
+            'moonstone-dropdown_loading': isLoading,
             'moonstone-filled': isFilled,
             'moonstone-opened': isOpened
         }
@@ -198,7 +199,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 ref={ref}
                 role="listbox"
                 aria-label={label || getDataItem(flatData, value)?.label || placeholder}
-                aria-disabled={isDisabled || isLoading || isEmpty}
+                aria-disabled={isDisabled || isEmpty}
                 aria-busy={isLoading ? true : undefined}
                 className={clsx(cssDropdown)}
                 tabIndex={0}
