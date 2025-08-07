@@ -72,6 +72,20 @@ describe('Dropdown', () => {
         );
     });
 
+    it('should add dropdown-disabled class if the dropdown is loading', () => {
+        render(
+            <Dropdown
+                isLoading
+                data={dropdownData}
+                data-testid="moonstone-dropdown"
+                onChange={() => 'testing'}
+            />
+        );
+        expect(screen.getByTestId('moonstone-dropdown').firstChild).toHaveClass(
+            'moonstone-disabled'
+        );
+    });
+
     it('should not display the menu dropdown by default', () => {
         render(
             <Dropdown
