@@ -36,7 +36,7 @@ $min-width: 40px;
         border: var(--border-selector);
         border-radius: var(--radius-selector);
 
-        &:hover {
+        &:hover:not(:has(input:disabled)) {
             border: var(--border-selector_hover);
         }
     }
