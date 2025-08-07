@@ -81,7 +81,7 @@
     border: var(--border-selector);
     background-color: var(--background-selector);
 
-    &:hover:not(.moonstone-disabled):not([aria-disabled="true"]):not(.moonstone-dropdown_loading){
+    &:hover:not(.moonstone-disabled):not([aria-disabled="true"]):not(.moonstone-dropdown_loading) {
         border: var(--border-selector_hover);
         background: none;
     }

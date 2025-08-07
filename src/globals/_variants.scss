@@ -65,7 +65,8 @@
         background-color: var(--color-accent_dark);
     }
 
-    &[aria-disabled="true"], [aria-busy="true"],
+    &[aria-disabled="true"],
+    [aria-busy="true"],
     &:disabled {
         color: inherit;
     }
@@ -111,7 +112,8 @@
         background-color: var(--color-danger);
     }
 
-    &[aria-disabled="true"], [aria-busy="true"],
+    &[aria-disabled="true"],
+    [aria-busy="true"],
     &:disabled {
         color: inherit;
     }
