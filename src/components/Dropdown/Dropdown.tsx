@@ -203,7 +203,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 aria-busy={isLoading ? true : undefined}
                 className={clsx(cssDropdown)}
                 tabIndex={0}
-                onClick={!isDisabled && handleOpenMenu}
+                onClick={!isDisabled && !isLoading && handleOpenMenu}
                 onKeyUp={e => {
                     if (e.key === 'Enter' && !isDisabled && !isLoading) {
                         handleOpenMenu(e);

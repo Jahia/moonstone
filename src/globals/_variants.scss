@@ -66,7 +66,7 @@
     }
 
     &[aria-disabled="true"],
-    [aria-busy="true"],
+    &[aria-busy="true"],
     &:disabled {
         color: inherit;
     }
@@ -113,7 +113,7 @@
     }
 
     &[aria-disabled="true"],
-    [aria-busy="true"],
+    &[aria-busy="true"],
     &:disabled {
         color: inherit;
     }

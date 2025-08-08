@@ -21,8 +21,7 @@
     gap: var(--spacing-nano) var(--spacing-small);
 }
 
-.moonstone-disabled,
-.moonstone-dropdown_loading {
+.moonstone-disabled {
     & > .moonstone-treeView_item {
         @extend %selector_disabled;
     }
@@ -37,9 +36,12 @@
     border-radius: var(--radius-selector);
     cursor: pointer;
 
-    &.moonstone-disabled,
-    &.moonstone-dropdown_loading {
+    &.moonstone-disabled {
         @extend %selector_disabled;
+    }
+
+    &.moonstone-dropdown_loading {
+        cursor: default;
     }
 
     // ---
@@ -81,7 +83,7 @@
     border: var(--border-selector);
     background-color: var(--background-selector);
 
-    &:hover:not(.moonstone-disabled):not([aria-disabled="true"]):not(.moonstone-dropdown_loading) {
+    &:hover:not(.moonstone-disabled, [aria-disabled="true"], [aria-busy="true"]) {
         border: var(--border-selector_hover);
         background: none;
     }
