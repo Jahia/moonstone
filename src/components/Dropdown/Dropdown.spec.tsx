@@ -72,6 +72,34 @@ describe('Dropdown', () => {
         );
     });
 
+    it('should add dropdown_loading class if the dropdown is loading', () => {
+        render(
+            <Dropdown
+                isLoading
+                data={dropdownData}
+                data-testid="moonstone-dropdown"
+                onChange={() => 'testing'}
+            />
+        );
+        expect(screen.getByTestId('moonstone-dropdown').firstChild).toHaveClass(
+            'moonstone-dropdown_loading'
+        );
+    });
+
+    it('should add aria-busy attribute if the dropdown is loading', () => {
+        render(
+            <Dropdown
+                isLoading
+                data={dropdownData}
+                data-testid="moonstone-dropdown"
+                onChange={() => 'testing'}
+            />
+        );
+        expect(screen.getByTestId('moonstone-dropdown').firstChild).toHaveAttribute(
+            'aria-busy'
+        );
+    });
+
     it('should not display the menu dropdown by default', () => {
         render(
             <Dropdown

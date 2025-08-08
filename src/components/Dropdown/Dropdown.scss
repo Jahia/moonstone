@@ -40,6 +40,10 @@
         @extend %selector_disabled;
     }
 
+    &.moonstone-dropdown_loading {
+        cursor: default;
+    }
+
     // ---
     // Manage sizes
     // ---
@@ -79,7 +83,7 @@
     border: var(--border-selector);
     background-color: var(--background-selector);
 
-    &:hover:not(.moonstone-disabled, [aria-disabled="true"]) {
+    &:hover:not(.moonstone-disabled, [aria-disabled="true"], [aria-busy="true"]) {
         border: var(--border-selector_hover);
         background: none;
     }
