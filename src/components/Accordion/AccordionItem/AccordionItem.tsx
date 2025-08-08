@@ -4,11 +4,12 @@ import './AccordionItem.scss';
 import {Typography} from '~/components/Typography';
 import {AccordionContext} from '~/components/Accordion/Accordion.context';
 import type {AccordionItemProps} from './AccordionItem.types';
-import {onAccessibleClick} from '~/hooks';
+import {mergeHandlers, onArrowNavigation, useKeyUp} from '~/hooks';
 
 export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = null, onClick = () => undefined, className, children, ...props}) => {
     const context = React.useContext(AccordionContext);
     const open = context.currentItem === id;
+    const ref = React.useRef(null);
 
     const handleClick = (e: React.MouseEvent | React.KeyboardEvent, isOpen: boolean) => {
         onClick(e, !isOpen);
@@ -17,50 +18,58 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
 
     return (
         <section
-            {...props}
+            ref={ref}
+            id={id}
             className={clsx(
                 'moonstone-accordionItem',
                 {'moonstone-reversed': context.isReversed},
-                'flexCol',
-                open ? 'flexFluid' : null,
-                className
-            )}
-        >
-            <header
-                className={clsx(
-                    'moonstone-accordionItem_header',
-                    {
-                        'moonstone-selected': open,
-                        'moonstone-reversed': context.isReversed
-                    },
-                    'flexRow',
-                    'alignCenter'
+                    'flexCol',
+                    open ? 'flexFluid' : null,
+                    className
                 )}
-                aria-controls={id}
-                aria-expanded={open}
-                {...onAccessibleClick({onClick: e => handleClick(e, open)})}
-                role="accordion-item"
-            >
-                {icon &&
+            {...mergeHandlers(onArrowNavigation({ref: ref}), useKeyUp({onKeyUp: e => handleClick(e, open), role: null}))}
+            {...props}
+        >
+            <h3>
+                <button
+                    data-testid="accordion-button"
+                    className={clsx(
+                        'flexRow',
+                        'alignCenter',
+                        'moonstone-accordionItem_button',
+                        {
+                            'moonstone-selected': open,
+                            'moonstone-reversed': context.isReversed
+                        }
+                    )}
+                    type="button"
+                    tabIndex={-1}
+                    aria-controls={id && `${id}_content`}
+                    aria-expanded={open}
+                    onClick={e => handleClick(e, open)}
+                >
+                    {icon &&
                     (
-                        <div className={clsx(
-                            'moonstone-accordionItem_iconContainer',
-                            'flexRow_center',
-                            'alignCenter'
-                        )}
+                        <div
+                            className={clsx(
+                                'moonstone-accordionItem_iconContainer',
+                                'flexRow_center',
+                                'alignCenter'
+                            )}
                         >
                             {icon && <icon.type {...icon.props} size="big" className={clsx('moonstone-icon_big', icon.props.className)}/>}
                         </div>
                     )}
-                <Typography
-                    isNowrap
-                    variant="subheading"
-                    weight={open ? 'bold' : 'default'}
-                    className={clsx('flexFluid')}
-                >
-                    {label}
-                </Typography>
-            </header>
+                    <Typography
+                        isNowrap
+                        data-testid="accordion-label"
+                        variant="subheading"
+                        weight={open ? 'bold' : 'default'}
+                    >
+                        {label}
+                    </Typography>
+                </button>
+            </h3>
 
             {/* Accordion content */}
             {open &&
@@ -70,6 +79,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
                         'flexFluid',
                         'flexCol_nowrap'
                     )}
+                         id={id && `${id}_content`}
                          role="region"
                     >
                         {children}
