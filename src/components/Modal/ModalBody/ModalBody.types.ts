@@ -5,4 +5,9 @@ export type ModalBodyProps = Omit<React.ComponentPropsWithRef<'div'>, 'className
      * Children of the Modal
      */
     children: ReactNode;
+
+    /**
+     * Additional classname
+     */
+    className?: string;
 }

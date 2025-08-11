@@ -42,16 +42,20 @@ const ModalForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalProps
 
     const headingId = useId();
 
+    if (!children) {
+        return null;
+    }
+
     return (
         isOpen && (
         <FloatingPortal>
-            <FloatingOverlay lockScroll className="moonstone-modal-container">
+            <FloatingOverlay lockScroll className="moonstone-modal_overlay">
                 {/* FloatingFocusManager handles context to allow each modal to be treated separately
                 (e.g if a modal is inside a modal: pressing esc will only close the last one open) */}
                 <FloatingFocusManager context={context}>
                     <div
                         ref={modalRef}
-                        className={clsx('moonstone-modal', `moonstone-modal_${size}`, className)}
+                        className={clsx('moonstone-modal', `moonstone-modal_${size}`, 'flexCol_nowrap', className)}
                         aria-labelledby={`moonstone-modal_${headingId}`}
                         aria-modal="true"
                         {...getFloatingProps()}

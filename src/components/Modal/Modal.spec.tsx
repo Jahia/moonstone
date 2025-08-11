@@ -10,6 +10,11 @@ describe('Modal', () => {
         expect(screen.getByText('Modal content')).toBeInTheDocument();
     });
 
+    it('should add extra classname', () => {
+        render(<Modal isOpen data-testid="moonstone-modal" className="extra"><ModalBody>Modal content</ModalBody></Modal>);
+        expect(screen.getByTestId('moonstone-modal')).toHaveClass('extra');
+    });
+
     it('should display footer', () => {
         render(<Modal isOpen data-testid="moonstone-modal"><ModalFooter>Modal content</ModalFooter></Modal>);
         expect(screen.getByText('Modal content')).toBeInTheDocument();

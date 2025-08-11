@@ -1,9 +1,5 @@
-.moonstone-modal-footer {
-    display: flex;
+.moonstone-modalFooter {
     gap: var(--spacing-medium);
-    justify-content: end;
-    align-items: center;
-    height: min-content;
     padding: var(--spacing-medium);
 
     border-top: 1px solid var(--color-gray_plain20);

@@ -1,4 +1,4 @@
-.moonstone-modal-container {
+.moonstone-modal_overlay {
     display: grid;
 
     background: var(--color-dark60);
@@ -8,8 +8,6 @@
 .moonstone-modal {
     position: inherit;
 
-    display: flex;
-    flex-direction: column;
     max-height: 80vh;
 
     background-color: var(--color-light);

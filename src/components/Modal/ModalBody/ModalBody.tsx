@@ -5,12 +5,13 @@ import './ModalBody.scss';
 
 const ModalBodyForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalBodyProps> = ({
     children,
+    className,
     ...props
 }, ref) => {
     return (
         <div
             ref={ref}
-            className={clsx('moonstone-modal-body')}
+            className={clsx('moonstone-modalBody', className)}
             {...props}
         >
             {children && children}

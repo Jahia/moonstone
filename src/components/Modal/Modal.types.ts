@@ -10,7 +10,7 @@ export type ModalProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 
     /**
      * Modal's visibility
      */
-    isOpen?: boolean;
+    isOpen: boolean;
 
     /**
      * Modal's onChange function

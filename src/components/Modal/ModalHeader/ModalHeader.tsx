@@ -7,22 +7,24 @@ import {Typography} from '~/components';
 const ModalHeaderForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalHeaderProps> = ({
     title,
     children,
+    className,
     ...props
 }, ref) => {
     return (
-        <div
+        <header
             ref={ref}
-            className={clsx('moonstone-modal-header')}
+            className={clsx('moonstone-modalHeader', 'flexCol_nowrap', className)}
             {...props}
         >
-            <Typography variant="heading" weight="bold" aria-label={title} role="heading" aria-level={4}>
+            {title &&
+            <Typography variant="heading" weight="bold" component="h4">
                 {title}
-            </Typography>
+            </Typography>}
             {children &&
             <Typography variant="body" component="div" className={clsx('moonstone-banner_content')}>
                 {children}
             </Typography>}
-        </div>
+        </header>
     );
 };
 
