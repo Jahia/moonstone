@@ -8,6 +8,7 @@ export type HeaderProps = Omit<React.ComponentPropsWithoutRef<'header'>, 'classN
 
     /**
      * BackButton is used to comeback to the previous location
+     * @deprecated backButton is deprecated and will be removed in a future release.
      */
     backButton?: React.ReactElement;
 

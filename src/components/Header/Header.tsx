@@ -21,6 +21,10 @@ export const Header: React.FC<HeaderProps> = ({
     const hasInformationArea = Boolean(breadcrumb || contentType || status);
     const hasToolbar = Boolean(toolbarLeft || toolbarRight);
 
+    if (backButton !== null) {
+        console.warn('backButton is deprecated and will be removed in a future release.');
+    }
+
     return (
         <header className={clsx('moonstone-header', className)} {...props}>
             {/* Main area */}
