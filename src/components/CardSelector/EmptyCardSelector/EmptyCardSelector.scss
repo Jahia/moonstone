@@ -14,17 +14,19 @@
 
     transition: all 0.2s ease-in-out;
 
-    &:focus-visible {
+    &[aria-disabled="true"]{
+        @extend %selector_disabled;
+
+        color: var(--color-dark_plain60);
+
+        cursor: not-allowed;
+    }
+
+    &:focus-visible:not([aria-disabled="true"]) {
         @extend %is-focused;
     }
 
     &:hover:not([aria-disabled="true"]) {
         border: var(--border-selector_hover);
     }
-}
-
-.moonstone-emptyCardSelector_disabled {
-    background: none;
-    cursor: not-allowed;
-    opacity: 60%;
 }

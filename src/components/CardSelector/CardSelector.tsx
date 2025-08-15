@@ -82,7 +82,7 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
                 onClick={e => handleOnClick(e)}
                 {...props}
             >
-                <FileBroken color="yellow"/>
+                <FileBroken color={isDisabled || isReadOnly ? 'gray' : 'yellow'}/>
                 <Typography
                     isNowrap
                     variant="caption"

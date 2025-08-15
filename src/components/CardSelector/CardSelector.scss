@@ -103,7 +103,15 @@ $cardSelector-height: 58px;
 
     transition: all 0.2s ease-in-out;
 
-    &:not([disabled]) {
+    &.moonstone-cardSelector_disabled {
+        @extend %selector_disabled;
+
+        color: var(--color-dark_plain60);
+
+        cursor: not-allowed;
+    }
+
+    &:not([aria-disabled="true"]) {
         &:hover {
             border-color: var(--color-warning);
         }
