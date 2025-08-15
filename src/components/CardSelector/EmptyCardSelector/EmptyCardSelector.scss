@@ -14,7 +14,7 @@
 
     transition: all 0.2s ease-in-out;
 
-    &[aria-disabled="true"]{
+    &[aria-disabled="true"] {
         @extend %selector_disabled;
 
         color: var(--color-dark_plain60);
