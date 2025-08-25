@@ -35,7 +35,7 @@ export const EmptyCardSelector = React.forwardRef<HTMLButtonElement, EmptyCardSe
                 'alignCenter',
                 className
             )}
-            aria-disabled={isDisabled || isReadOnly}
+            disabled={isDisabled || isReadOnly}
             onClick={e => handleOnClick(e)}
             {...props}
         >

@@ -14,11 +14,19 @@
 
     transition: all 0.2s ease-in-out;
 
-    &:focus-visible {
+    &[disabled] {
+        @extend %selector_disabled;
+
+        color: var(--color-dark_plain60);
+
+        cursor: not-allowed;
+    }
+
+    &:focus-visible:not([disabled]) {
         @extend %is-focused;
     }
 
-    &:hover:not([aria-disabled="true"]) {
+    &:hover:not([disabled]) {
         border: var(--border-selector_hover);
     }
 }

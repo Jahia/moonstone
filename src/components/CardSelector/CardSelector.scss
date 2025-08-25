@@ -103,6 +103,14 @@ $cardSelector-height: 58px;
 
     transition: all 0.2s ease-in-out;
 
+    &[disabled] {
+        @extend %selector_disabled;
+
+        color: var(--color-dark_plain60);
+
+        cursor: not-allowed;
+    }
+
     &:not([disabled]) {
         &:hover {
             border-color: var(--color-warning);
