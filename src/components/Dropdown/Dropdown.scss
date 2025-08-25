@@ -44,6 +44,14 @@
         cursor: default;
     }
 
+    //Would have browser default outline otherwise
+    &[aria-disabled="true"],
+    &[aria-busy="true"] {
+        &:focus-visible {
+            outline: none;
+        }
+    }
+
     // ---
     // Manage sizes
     // ---
@@ -56,7 +64,7 @@
         border: var(--border-selector_active);
     }
 
-    &:focus-visible {
+    &:focus-visible:not([aria-disabled="true"], [aria-busy="true"]) {
         @extend %is-focused;
     }
 

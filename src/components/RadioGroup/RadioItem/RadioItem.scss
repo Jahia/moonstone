@@ -86,7 +86,7 @@ $radio-sizeDefault: 16px;
         fill: var(--color-accent_dark);
     }
 
-    &:focus-visible ~ .moonstone-radio_icon {
+    &:focus-visible:not([aria-disabled="true"], [aria-readonly="true"]) ~ .moonstone-radio_icon {
         fill: var(--color-accent_dark_contrast);
     }
 }
