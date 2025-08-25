@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bom xmlns="http://cyclonedx.org/schema/bom/1.4" version="1">
 	<metadata>
-		<timestamp>2025-07-31T14:34:31.198Z</timestamp>
+		<timestamp>2025-08-25T14:41:01.169Z</timestamp>
 		<tools>
 			<tool>
 				<name>rollup-plugin-sbom</name>
@@ -58,16 +58,16 @@
 				</externalReferences>
 			</tool>
 		</tools>
-		<component type="application" bom-ref="pkg:npm/%40jahia/moonstone@2.16.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FJahia%2Fmoonstone.git">
+		<component type="application" bom-ref="pkg:npm/%40jahia/moonstone@2.16.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FJahia%2Fmoonstone.git">
 			<group>@jahia</group>
 			<name>moonstone</name>
-			<version>2.16.1</version>
+			<version>2.16.2</version>
 			<licenses>
 				<license>
 					<id>MIT</id>
 				</license>
 			</licenses>
-			<purl>pkg:npm/%40jahia/moonstone@2.16.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FJahia%2Fmoonstone.git</purl>
+			<purl>pkg:npm/%40jahia/moonstone@2.16.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FJahia%2Fmoonstone.git</purl>
 			<externalReferences>
 				<reference type="vcs">
 					<url>git+https://github.com/Jahia/moonstone.git</url>
@@ -291,31 +291,6 @@
 				</reference>
 			</externalReferences>
 		</component>
-		<component type="library" bom-ref="pkg:npm/%40storybook/instrumenter@8.6.12?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/lib/instrumenter">
-			<group>@storybook</group>
-			<name>instrumenter</name>
-			<version>8.6.12</version>
-			<licenses>
-				<license>
-					<id>MIT</id>
-				</license>
-			</licenses>
-			<purl>pkg:npm/%40storybook/instrumenter@8.6.12?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/lib/instrumenter</purl>
-			<externalReferences>
-				<reference type="vcs">
-					<url>git+https://github.com/storybookjs/storybook.git#code/lib/instrumenter</url>
-					<comment>as detected from PackageJson property "repository.url" and "repository.directory"</comment>
-				</reference>
-				<reference type="website">
-					<url>https://github.com/storybookjs/storybook/tree/next/code/lib/instrumenter</url>
-					<comment>as detected from PackageJson property "homepage"</comment>
-				</reference>
-				<reference type="issue-tracker">
-					<url>https://github.com/storybookjs/storybook/issues</url>
-					<comment>as detected from PackageJson property "bugs.url"</comment>
-				</reference>
-			</externalReferences>
-		</component>
 		<component type="library" bom-ref="pkg:npm/axe-core@4.10.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fdequelabs%2Faxe-core.git">
 			<name>axe-core</name>
 			<version>4.10.2</version>
@@ -388,6 +363,31 @@
 				</reference>
 				<reference type="issue-tracker">
 					<url>https://github.com/lukeed/clsx/issues</url>
+					<comment>as detected from PackageJson property "bugs.url"</comment>
+				</reference>
+			</externalReferences>
+		</component>
+		<component type="library" bom-ref="pkg:npm/%40storybook/instrumenter@8.6.12?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/lib/instrumenter">
+			<group>@storybook</group>
+			<name>instrumenter</name>
+			<version>8.6.12</version>
+			<licenses>
+				<license>
+					<id>MIT</id>
+				</license>
+			</licenses>
+			<purl>pkg:npm/%40storybook/instrumenter@8.6.12?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/lib/instrumenter</purl>
+			<externalReferences>
+				<reference type="vcs">
+					<url>git+https://github.com/storybookjs/storybook.git#code/lib/instrumenter</url>
+					<comment>as detected from PackageJson property "repository.url" and "repository.directory"</comment>
+				</reference>
+				<reference type="website">
+					<url>https://github.com/storybookjs/storybook/tree/next/code/lib/instrumenter</url>
+					<comment>as detected from PackageJson property "homepage"</comment>
+				</reference>
+				<reference type="issue-tracker">
+					<url>https://github.com/storybookjs/storybook/issues</url>
 					<comment>as detected from PackageJson property "bugs.url"</comment>
 				</reference>
 			</externalReferences>
@@ -468,31 +468,6 @@
 				</reference>
 			</externalReferences>
 		</component>
-		<component type="library" bom-ref="pkg:npm/prop-types@15.8.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Fprop-types.git">
-			<name>prop-types</name>
-			<version>15.8.1</version>
-			<description>Runtime type checking for React props and similar objects.</description>
-			<licenses>
-				<license>
-					<id>MIT</id>
-				</license>
-			</licenses>
-			<purl>pkg:npm/prop-types@15.8.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Fprop-types.git</purl>
-			<externalReferences>
-				<reference type="vcs">
-					<url>git+https://github.com/facebook/prop-types.git</url>
-					<comment>as detected from PackageJson property "repository.url"</comment>
-				</reference>
-				<reference type="website">
-					<url>https://facebook.github.io/react/</url>
-					<comment>as detected from PackageJson property "homepage"</comment>
-				</reference>
-				<reference type="issue-tracker">
-					<url>https://github.com/facebook/prop-types/issues</url>
-					<comment>as detected from PackageJson property "bugs.url"</comment>
-				</reference>
-			</externalReferences>
-		</component>
 		<component type="library" bom-ref="pkg:npm/%40floating-ui/react@0.27.7?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/react">
 			<author>atomiks</author>
 			<group>@floating-ui</group>
@@ -545,6 +520,32 @@
 				</reference>
 			</externalReferences>
 		</component>
+		<component type="library" bom-ref="pkg:npm/re-resizable@6.11.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fbokuweb%2Freact-resizable-box.git">
+			<author>bokuweb</author>
+			<name>re-resizable</name>
+			<version>6.11.2</version>
+			<description>Resizable component for React.</description>
+			<licenses>
+				<license>
+					<id>MIT</id>
+				</license>
+			</licenses>
+			<purl>pkg:npm/re-resizable@6.11.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fbokuweb%2Freact-resizable-box.git</purl>
+			<externalReferences>
+				<reference type="vcs">
+					<url>git+https://github.com/bokuweb/react-resizable-box.git</url>
+					<comment>as detected from PackageJson property "repository.url"</comment>
+				</reference>
+				<reference type="website">
+					<url>https://github.com/bokuweb/react-resizable-box</url>
+					<comment>as detected from PackageJson property "homepage"</comment>
+				</reference>
+				<reference type="issue-tracker">
+					<url>https://github.com/bokuweb/react-resizable-box/issues</url>
+					<comment>as detected from PackageJson property "bugs.url"</comment>
+				</reference>
+			</externalReferences>
+		</component>
 		<component type="library" bom-ref="pkg:npm/%40mdx-js/react@3.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmdx-js%2Fmdx.git#packages/react">
 			<author>John Otander</author>
 			<group>@mdx-js</group>
@@ -568,32 +569,6 @@
 				</reference>
 				<reference type="issue-tracker">
 					<url>https://github.com/mdx-js/mdx/issues</url>
-					<comment>as detected from PackageJson property "bugs.url"</comment>
-				</reference>
-			</externalReferences>
-		</component>
-		<component type="library" bom-ref="pkg:npm/re-resizable@6.11.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fbokuweb%2Freact-resizable-box.git">
-			<author>bokuweb</author>
-			<name>re-resizable</name>
-			<version>6.11.2</version>
-			<description>Resizable component for React.</description>
-			<licenses>
-				<license>
-					<id>MIT</id>
-				</license>
-			</licenses>
-			<purl>pkg:npm/re-resizable@6.11.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fbokuweb%2Freact-resizable-box.git</purl>
-			<externalReferences>
-				<reference type="vcs">
-					<url>git+https://github.com/bokuweb/react-resizable-box.git</url>
-					<comment>as detected from PackageJson property "repository.url"</comment>
-				</reference>
-				<reference type="website">
-					<url>https://github.com/bokuweb/react-resizable-box</url>
-					<comment>as detected from PackageJson property "homepage"</comment>
-				</reference>
-				<reference type="issue-tracker">
-					<url>https://github.com/bokuweb/react-resizable-box/issues</url>
 					<comment>as detected from PackageJson property "bugs.url"</comment>
 				</reference>
 			</externalReferences>
@@ -677,6 +652,58 @@
 				</reference>
 			</externalReferences>
 		</component>
+		<component type="library" bom-ref="pkg:npm/parse-unit@1.0.1?vcs_url=git%3A%2F%2Fgithub.com%2Fmattdesl%2Fparse-unit.git">
+			<author>Matt DesLauriers</author>
+			<name>parse-unit</name>
+			<version>1.0.1</version>
+			<description>parses number and unit, '20px' into [20, 'px']</description>
+			<licenses>
+				<license>
+					<id>MIT</id>
+				</license>
+			</licenses>
+			<purl>pkg:npm/parse-unit@1.0.1?vcs_url=git%3A%2F%2Fgithub.com%2Fmattdesl%2Fparse-unit.git</purl>
+			<externalReferences>
+				<reference type="vcs">
+					<url>git://github.com/mattdesl/parse-unit.git</url>
+					<comment>as detected from PackageJson property "repository.url"</comment>
+				</reference>
+				<reference type="website">
+					<url>https://github.com/mattdesl/parse-unit</url>
+					<comment>as detected from PackageJson property "homepage"</comment>
+				</reference>
+				<reference type="issue-tracker">
+					<url>https://github.com/mattdesl/parse-unit/issues</url>
+					<comment>as detected from PackageJson property "bugs.url"</comment>
+				</reference>
+			</externalReferences>
+		</component>
+		<component type="library" bom-ref="pkg:npm/to-px@1.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmikolalysenko%2Fto-px.git">
+			<author>Mikola Lysenko</author>
+			<name>to-px</name>
+			<version>1.1.0</version>
+			<description>Convert any CSS unit to logical pixels ("px")</description>
+			<licenses>
+				<license>
+					<id>MIT</id>
+				</license>
+			</licenses>
+			<purl>pkg:npm/to-px@1.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmikolalysenko%2Fto-px.git</purl>
+			<externalReferences>
+				<reference type="vcs">
+					<url>git+https://github.com/mikolalysenko/to-px.git</url>
+					<comment>as detected from PackageJson property "repository.url"</comment>
+				</reference>
+				<reference type="website">
+					<url>https://github.com/mikolalysenko/to-px</url>
+					<comment>as detected from PackageJson property "homepage"</comment>
+				</reference>
+				<reference type="issue-tracker">
+					<url>https://github.com/mikolalysenko/to-px/issues</url>
+					<comment>as detected from PackageJson property "bugs.url"</comment>
+				</reference>
+			</externalReferences>
+		</component>
 		<component type="library" bom-ref="pkg:npm/%40floating-ui/core@1.6.9?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/core">
 			<author>atomiks</author>
 			<group>@floating-ui</group>
@@ -700,32 +727,6 @@
 				</reference>
 				<reference type="issue-tracker">
 					<url>https://github.com/floating-ui/floating-ui</url>
-					<comment>as detected from PackageJson property "bugs.url"</comment>
-				</reference>
-			</externalReferences>
-		</component>
-		<component type="library" bom-ref="pkg:npm/parse-unit@1.0.1?vcs_url=git%3A%2F%2Fgithub.com%2Fmattdesl%2Fparse-unit.git">
-			<author>Matt DesLauriers</author>
-			<name>parse-unit</name>
-			<version>1.0.1</version>
-			<description>parses number and unit, '20px' into [20, 'px']</description>
-			<licenses>
-				<license>
-					<id>MIT</id>
-				</license>
-			</licenses>
-			<purl>pkg:npm/parse-unit@1.0.1?vcs_url=git%3A%2F%2Fgithub.com%2Fmattdesl%2Fparse-unit.git</purl>
-			<externalReferences>
-				<reference type="vcs">
-					<url>git://github.com/mattdesl/parse-unit.git</url>
-					<comment>as detected from PackageJson property "repository.url"</comment>
-				</reference>
-				<reference type="website">
-					<url>https://github.com/mattdesl/parse-unit</url>
-					<comment>as detected from PackageJson property "homepage"</comment>
-				</reference>
-				<reference type="issue-tracker">
-					<url>https://github.com/mattdesl/parse-unit/issues</url>
 					<comment>as detected from PackageJson property "bugs.url"</comment>
 				</reference>
 			</externalReferences>
@@ -835,35 +836,9 @@
 				</reference>
 			</externalReferences>
 		</component>
-		<component type="library" bom-ref="pkg:npm/to-px@1.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmikolalysenko%2Fto-px.git">
-			<author>Mikola Lysenko</author>
-			<name>to-px</name>
-			<version>1.1.0</version>
-			<description>Convert any CSS unit to logical pixels ("px")</description>
-			<licenses>
-				<license>
-					<id>MIT</id>
-				</license>
-			</licenses>
-			<purl>pkg:npm/to-px@1.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmikolalysenko%2Fto-px.git</purl>
-			<externalReferences>
-				<reference type="vcs">
-					<url>git+https://github.com/mikolalysenko/to-px.git</url>
-					<comment>as detected from PackageJson property "repository.url"</comment>
-				</reference>
-				<reference type="website">
-					<url>https://github.com/mikolalysenko/to-px</url>
-					<comment>as detected from PackageJson property "homepage"</comment>
-				</reference>
-				<reference type="issue-tracker">
-					<url>https://github.com/mikolalysenko/to-px/issues</url>
-					<comment>as detected from PackageJson property "bugs.url"</comment>
-				</reference>
-			</externalReferences>
-		</component>
 	</components>
 	<dependencies>
-		<dependency ref="pkg:npm/%40jahia/moonstone@2.16.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FJahia%2Fmoonstone.git"/>
+		<dependency ref="pkg:npm/%40jahia/moonstone@2.16.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FJahia%2Fmoonstone.git"/>
 		<dependency ref="pkg:npm/storybook@8.6.12?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/lib/cli"/>
 		<dependency ref="pkg:npm/%40storybook/react@8.6.12?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/renderers/react"/>
 		<dependency ref="pkg:npm/%40storybook/addon-docs@8.6.12?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/addons/docs"/>
@@ -872,27 +847,26 @@
 		<dependency ref="pkg:npm/ts-dedent@2.2.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ftamino-martinius%2Fnode-ts-dedent.git"/>
 		<dependency ref="pkg:npm/%40storybook/test@8.6.12?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/lib/test"/>
 		<dependency ref="pkg:npm/%40storybook/addon-actions@8.6.12?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/addons/actions"/>
-		<dependency ref="pkg:npm/%40storybook/instrumenter@8.6.12?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/lib/instrumenter"/>
 		<dependency ref="pkg:npm/axe-core@4.10.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fdequelabs%2Faxe-core.git"/>
 		<dependency ref="pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react"/>
 		<dependency ref="pkg:npm/clsx@2.1.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Flukeed%2Fclsx.git"/>
+		<dependency ref="pkg:npm/%40storybook/instrumenter@8.6.12?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/lib/instrumenter"/>
 		<dependency ref="pkg:npm/react-table@7.8.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ftannerlinsley%2Freact-table.git"/>
 		<dependency ref="pkg:npm/%40storybook/blocks@8.6.12?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/lib/blocks"/>
 		<dependency ref="pkg:npm/%40storybook/react-dom-shim@8.6.12?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/lib/react-dom-shim"/>
-		<dependency ref="pkg:npm/prop-types@15.8.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Fprop-types.git"/>
 		<dependency ref="pkg:npm/%40floating-ui/react@0.27.7?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/react"/>
 		<dependency ref="pkg:npm/jsdoc-type-pratt-parser@4.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fjsdoc-type-pratt-parser%2Fjsdoc-type-pratt-parser.git"/>
-		<dependency ref="pkg:npm/%40mdx-js/react@3.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmdx-js%2Fmdx.git#packages/react"/>
 		<dependency ref="pkg:npm/re-resizable@6.11.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fbokuweb%2Freact-resizable-box.git"/>
+		<dependency ref="pkg:npm/%40mdx-js/react@3.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmdx-js%2Fmdx.git#packages/react"/>
 		<dependency ref="pkg:npm/%40storybook/icons@1.3.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Ficons.git"/>
 		<dependency ref="pkg:npm/%40floating-ui/utils@0.2.9?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/utils"/>
 		<dependency ref="pkg:npm/scheduler@0.23.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/scheduler"/>
-		<dependency ref="pkg:npm/%40floating-ui/core@1.6.9?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/core"/>
 		<dependency ref="pkg:npm/parse-unit@1.0.1?vcs_url=git%3A%2F%2Fgithub.com%2Fmattdesl%2Fparse-unit.git"/>
+		<dependency ref="pkg:npm/to-px@1.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmikolalysenko%2Fto-px.git"/>
+		<dependency ref="pkg:npm/%40floating-ui/core@1.6.9?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/core"/>
 		<dependency ref="pkg:npm/react-dom@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react-dom"/>
 		<dependency ref="pkg:npm/tabbable@6.2.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffocus-trap%2Ftabbable.git"/>
 		<dependency ref="pkg:npm/%40floating-ui/react-dom@2.1.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/react-dom"/>
 		<dependency ref="pkg:npm/%40floating-ui/dom@1.6.13?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/dom"/>
-		<dependency ref="pkg:npm/to-px@1.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmikolalysenko%2Fto-px.git"/>
 	</dependencies>
 </bom>
