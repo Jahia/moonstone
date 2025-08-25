@@ -27,4 +27,8 @@
     background: none;
     cursor: not-allowed;
     opacity: 60%;
+
+    &:focus-visible {
+        outline: none;
+    }
 }

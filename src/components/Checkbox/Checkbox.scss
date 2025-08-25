@@ -60,7 +60,7 @@ $checkbox-sizeBig: 20px;
     }
 
     // Only triggered when the input is focus with tab
-    &:focus-visible {
+    &:focus-visible:not([disabled], [aria-readonly="true"]) {
         @extend %is-focused;
     }
 
