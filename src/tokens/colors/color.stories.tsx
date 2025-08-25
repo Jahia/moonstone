@@ -2,6 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import './colors.stories.scss';
 import '~/__storybook__/storybook.scss';
+import {Meta, StoryObj} from '@storybook/react/*';
 
 const paletteNeutral = [
     'light',
@@ -125,23 +126,35 @@ function displayColors(palette: Palettes) {
     return colors;
 }
 
-export default {
+const meta: Meta = {
     title: 'Tokens/Colors',
     excludeStories: ['Color']
 };
 
-export const Accent = () => (
-    <section className="storyWrapper">{displayColors(paletteAccent)}</section>
-);
+export default meta;
 
-export const Neutral = () => (
-    <section className="storyWrapper">{displayColors(paletteNeutral)}</section>
-);
+type Story = StoryObj;
 
-export const Support = () => (
-    <section className="storyWrapper">{displayColors(paletteSupport)}</section>
-);
+export const Accent: Story = {
+    render: () => (
+        <section className="storyWrapper">{displayColors(paletteAccent)}</section>
+    )
+};
 
-export const Palette = () => (
-    <section className="storyWrapper">{displayColors(paletteColors)}</section>
-);
+export const Neutral: Story = {
+    render: () => (
+        <section className="storyWrapper">{displayColors(paletteNeutral)}</section>
+    )
+};
+
+export const Support: Story = {
+    render: () => (
+        <section className="storyWrapper">{displayColors(paletteSupport)}</section>
+    )
+};
+
+export const Palette: Story = {
+    render: () => (
+        <section className="storyWrapper">{displayColors(paletteColors)}</section>
+    )
+};
