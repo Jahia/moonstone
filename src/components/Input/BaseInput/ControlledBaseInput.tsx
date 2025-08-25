@@ -34,10 +34,10 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps> = ({
     const classNameProps = clsx('moonstone-baseInput', `moonstone-${size}`, `moonstone-${variant}`, className);
 
     useEffect(() => {
-        if (focusOnField) {
+        if (focusOnField && !isDisabled && !isReadOnly) {
             inputRef.current.focus({preventScroll: true});
         }
-    }, [focusOnField]);
+    }, [focusOnField, isDisabled, isReadOnly]);
 
     if (isShowClearButton && !onClear) {
         onClear = () => {
