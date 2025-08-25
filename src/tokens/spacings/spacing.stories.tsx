@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import './spacings.stories.scss';
 import '~/__storybook__/storybook.scss';
-import {Meta, StoryObj} from '@storybook/react/*';
+import {Meta, StoryObj} from '@storybook/react';
 
 type SpacingProps = {
     readonly name: string
