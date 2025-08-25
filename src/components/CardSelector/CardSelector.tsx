@@ -78,11 +78,11 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
                     (isDisabled || isReadOnly) && 'moonstone-cardSelector_disabled',
                     'flexRow_center',
                     'alignCenter')}
-                aria-disabled={isDisabled || isReadOnly}
+                disabled={isDisabled || isReadOnly}
                 onClick={e => handleOnClick(e)}
                 {...props}
             >
-                <FileBroken color={isDisabled || isReadOnly ? 'gray' : 'yellow'}/>
+                <FileBroken/>
                 <Typography
                     isNowrap
                     variant="caption"
