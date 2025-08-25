@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import './colors.stories.scss';
 import '~/__storybook__/storybook.scss';
-import {Meta, StoryObj} from '@storybook/react/*';
+import {Meta, StoryObj} from '@storybook/react';
 
 const paletteNeutral = [
     'light',
