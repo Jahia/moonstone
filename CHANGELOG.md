@@ -1,3 +1,45 @@
+# v2.16.2 (Mon Aug 25 2025)
+
+#### 🐛 Bug Fix
+
+- fix: add disabled style on emptycardselector & error cardselector [#1128](https://github.com/Jahia/moonstone/pull/1128) ([@Eevolee](https://github.com/Eevolee))
+- fix: remove focus style on disabled, readonly & loading components [#1126](https://github.com/Jahia/moonstone/pull/1126) ([@Eevolee](https://github.com/Eevolee))
+- chore: add Dropdown prop isLoading [#1124](https://github.com/Jahia/moonstone/pull/1124) ([@Eevolee](https://github.com/Eevolee))
+- chore: fix hover style on disabled input [#1122](https://github.com/Jahia/moonstone/pull/1122) ([@Eevolee](https://github.com/Eevolee))
+- chore: remove font-feature-settings [#1099](https://github.com/Jahia/moonstone/pull/1099) ([@Eevolee](https://github.com/Eevolee))
+- fix: height of SecondaryNavHeader [#1114](https://github.com/Jahia/moonstone/pull/1114) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🏠 Internal
+
+- chore: deprecate backButton on Header [#1127](https://github.com/Jahia/moonstone/pull/1127) ([@Eevolee](https://github.com/Eevolee))
+- chore: remove defaultProps [#1098](https://github.com/Jahia/moonstone/pull/1098) ([@Eevolee](https://github.com/Eevolee))
+
+#### Authors: 2
+
+- Alessia Bourgoin ([@Eevolee](https://github.com/Eevolee))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
+# v2.16.1 (Thu Jul 31 2025)
+
+#### 🐛 Bug Fix
+
+- feat: new icon Translate [#1117](https://github.com/Jahia/moonstone/pull/1117) ([@ffffffelix](https://github.com/ffffffelix))
+- fix: use `hasChild` to define if the item is a node [#1116](https://github.com/Jahia/moonstone/pull/1116) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🏠 Internal
+
+- ci: create a workflow to add all issues from the moonstone repo to the design project [#1102](https://github.com/Jahia/moonstone/pull/1102) ([@Copilot](https://github.com/Copilot) [@Fgerthoffert](https://github.com/Fgerthoffert) [@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 3
+
+- [@Copilot](https://github.com/Copilot)
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Francois G. ([@Fgerthoffert](https://github.com/Fgerthoffert))
+
+---
+
 # v2.16.0 (Tue Jul 22 2025)
 
 #### 🚀 Enhancement

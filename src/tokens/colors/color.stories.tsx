@@ -1,7 +1,8 @@
-import PropTypes from 'prop-types';
+import React from 'react';
 import clsx from 'clsx';
 import './colors.stories.scss';
 import '~/__storybook__/storybook.scss';
+import {Meta, StoryObj} from '@storybook/react';
 
 const paletteNeutral = [
     'light',
@@ -100,7 +101,13 @@ const paletteColors = [
     'purple_dark'
 ];
 
-export const Color = ({color, name}) => {
+type Palettes = typeof paletteAccent | typeof paletteColors | typeof paletteNeutral | typeof paletteSupport;
+type ColorProps = {
+    readonly color: string,
+    readonly name: string
+};
+
+export const Color : React.FC<ColorProps> = ({color, name}) => {
     return (
         <div className="storyItem">
             <p>{name}</p>
@@ -109,8 +116,8 @@ export const Color = ({color, name}) => {
     );
 };
 
-function displayColors(palette) {
-    let colors = [];
+function displayColors(palette: Palettes) {
+    const colors = [];
 
     for (const [key, color] of palette.entries()) {
         colors.push(<Color key={key} color={color} name={`$color-${color}`}/>);
@@ -119,28 +126,35 @@ function displayColors(palette) {
     return colors;
 }
 
-export default {
+const meta: Meta = {
     title: 'Tokens/Colors',
     excludeStories: ['Color']
 };
 
-export const Accent = () => (
-    <section className="storyWrapper">{displayColors(paletteAccent)}</section>
-);
+export default meta;
 
-export const Neutral = () => (
-    <section className="storyWrapper">{displayColors(paletteNeutral)}</section>
-);
+type Story = StoryObj;
 
-export const Support = () => (
-    <section className="storyWrapper">{displayColors(paletteSupport)}</section>
-);
+export const Accent: Story = {
+    render: () => (
+        <section className="storyWrapper">{displayColors(paletteAccent)}</section>
+    )
+};
 
-export const Palette = () => (
-    <section className="storyWrapper">{displayColors(paletteColors)}</section>
-);
+export const Neutral: Story = {
+    render: () => (
+        <section className="storyWrapper">{displayColors(paletteNeutral)}</section>
+    )
+};
 
-Color.propTypes = {
-    color: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired
+export const Support: Story = {
+    render: () => (
+        <section className="storyWrapper">{displayColors(paletteSupport)}</section>
+    )
+};
+
+export const Palette: Story = {
+    render: () => (
+        <section className="storyWrapper">{displayColors(paletteColors)}</section>
+    )
 };

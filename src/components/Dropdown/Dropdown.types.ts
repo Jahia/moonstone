@@ -86,6 +86,11 @@ export type DropdownProps = {
     isDisabled?: boolean;
 
     /**
+     * Whether the dropdown is loading
+     */
+     isLoading?: boolean;
+
+    /**
      * Whether the Menu within the Dropdown has a search input
      * Autosearch is enabled if undefined
      * Autosearch is when search input is automatically added in the dropdown when autoAddSearchLimit is reached

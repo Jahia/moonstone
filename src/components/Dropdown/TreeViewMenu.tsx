@@ -73,20 +73,35 @@ const flatten = (data: TreeViewData[]): TreeViewData[] => {
     return res;
 };
 
+const defaultAnchorElOrigin = {
+    horizontal: 'left',
+    vertical: 'bottom'
+}as const;
+
+const defaultTransformElOrigin = {
+    vertical: 'top',
+    horizontal: 'left'
+}as const;
+
+const defaultAnchorPosition = {
+    top: 0,
+    left: 0
+}as const;
+
 export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     isDisplayed,
     minWidth,
     maxWidth,
     maxHeight,
-    anchorEl,
-    anchorPosition,
-    anchorElOrigin,
-    transformElOrigin,
-    position,
-    hasOverlay,
+    anchorEl = null,
+    anchorElOrigin = defaultAnchorElOrigin,
+    transformElOrigin = defaultTransformElOrigin,
+    anchorPosition = defaultAnchorPosition,
+    position = 'fixed',
+    hasOverlay = true,
     hasSearch,
-    autoAddSearchLimit,
-    // SearchEmptyText,
+    autoAddSearchLimit = 7,
+    // SearchEmptyText = 'No results found.',
     treeData,
     value,
     values,
@@ -210,28 +225,5 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
         </>
     );
 };
-
-// Kept defaultProps here because of unnecessary re-rendering when provided as default parameters to the function component
-/* eslint-disable react/default-props-match-prop-types */
-TreeViewMenu.defaultProps = {
-    hasOverlay: true,
-    autoAddSearchLimit: 7,
-    searchEmptyText: 'No results found.',
-    position: 'fixed',
-    anchorEl: null,
-    anchorPosition: {
-        top: 0,
-        left: 0
-    },
-    anchorElOrigin: {
-        vertical: 'bottom',
-        horizontal: 'left'
-    },
-    transformElOrigin: {
-        vertical: 'top',
-        horizontal: 'left'
-    }
-};
-/* eslint-enable react/default-props-match-prop-types */
 
 TreeViewMenu.displayName = 'TreeViewMenu';

@@ -123,7 +123,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                         ref: containerRef,
                         role: 'treeitem',
                         'aria-selected': isSelected,
-                        'aria-expanded': node.children?.length > 0 ? isOpen : null,
+                        'aria-expanded': hasChild ? isOpen : null,
                         'aria-busy': isLoading,
                         'aria-current': isHighlighted ? 'page' : null,
                         'aria-level': depth + 1,

@@ -28,7 +28,11 @@ $min-width: 40px;
         min-height: $big-size;
     }
 
-    &:has(input:focus-visible) {
+    .moonstone-reversed & {
+        background-color: transparent;
+    }
+
+    &:has(input:focus-visible):not(:has(input:disabled, input:read-only)) {
         @extend %is-focused;
     }
 
@@ -36,13 +40,9 @@ $min-width: 40px;
         border: var(--border-selector);
         border-radius: var(--radius-selector);
 
-        &:hover {
+        &:hover:not(:has(input:disabled)):not(:has(input:read-only)) {
             border: var(--border-selector_hover);
         }
-    }
-
-    .moonstone-reversed & {
-        background-color: transparent;
     }
 }
 

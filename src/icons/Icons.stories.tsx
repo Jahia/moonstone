@@ -1,42 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-// Import {withKnobs, select, color} from '@storybook/addon-knobs';
 import '~/__storybook__/storybook.scss';
 
 import markdownNotes from './Icons.md';
 import * as Icons from '~/icons/components';
 import {Love} from '~/icons';
 
-// Storybook knobs
-const iconsName = Object.keys(Icons);
-// Const iconsSize = () =>
-//     select(
-//         'Set icon size',
-//         {Big: 'big', Default: 'default', Small: 'small'},
-//         'big'
-//     );
-// const iconsColor = () =>
-//     select(
-//         'Set icon color',
-//         {
-//             Red: 'red',
-//             Yellow: 'yellow',
-//             Purple: 'purple',
-//             Gray: 'gray',
-//             Blue: 'blue'
-//         },
-//         'big'
-//     );
+const iconsName = Object.keys(Icons) as (keyof typeof Icons)[];
+type IconWrapperProps = {
+    readonly iconName: keyof typeof Icons,
+    readonly size?: 'small' | 'default' | 'big',
+};
 
-// Create a component to display in storybook
-export const IconWrapper = ({iconName, size, iconColor}) => {
+export const IconWrapper: React.FC<IconWrapperProps> = ({iconName, size}) => {
     return (
         <div className="storyGridItem">
             {React.createElement(
-        Icons[iconName],
-        {size: size},
-        {color: iconColor}
-      )}
+                Icons[iconName],
+                {size: size}
+            )}
             <span>{iconName}</span>
         </div>
     );
@@ -44,7 +25,7 @@ export const IconWrapper = ({iconName, size, iconColor}) => {
 
 // Display all icons from `icons/asset`
 function displayIcons() {
-    let allIcons = [];
+    const allIcons = [];
 
     for (const name of iconsName) {
         allIcons.push(
@@ -86,9 +67,3 @@ export const Colored = () => <Love color="red"/>;
 //         // color={iconsColor()}
 //   />
 // );
-
-IconWrapper.propTypes = {
-    iconName: PropTypes.string.isRequired,
-    size: PropTypes.string,
-    iconColor: PropTypes.string
-};

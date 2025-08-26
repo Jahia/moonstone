@@ -13,7 +13,7 @@ import type {
 import {DropdownMenu, TreeViewMenu} from '~/components/Dropdown';
 import {Tag} from '../Tag';
 import type {TreeViewData} from '~/components/TreeView/TreeView.types';
-import {Button, Typography} from '~/components';
+import {Button, Loader, Typography} from '~/components';
 import {Cancel, ChevronDown} from '~/icons';
 
 const flatten = (data: TreeViewData[]): TreeViewData[] => {
@@ -58,6 +58,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     value,
     values,
     isDisabled,
+    isLoading = false,
     variant = 'ghost',
     size = 'medium',
     icon,
@@ -181,6 +182,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         `moonstone-dropdown_${variant}`,
         {
             'moonstone-disabled': (typeof isDisabled === 'undefined' && isEmpty) ? true : isDisabled,
+            'moonstone-dropdown_loading': isLoading,
             'moonstone-filled': isFilled,
             'moonstone-opened': isOpened
         }
@@ -198,11 +200,12 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 role="listbox"
                 aria-label={label || getDataItem(flatData, value)?.label || placeholder}
                 aria-disabled={isDisabled || isEmpty}
+                aria-busy={isLoading ? true : undefined}
                 className={clsx(cssDropdown)}
                 tabIndex={0}
-                onClick={!isDisabled && handleOpenMenu}
+                onClick={!isDisabled && !isLoading && handleOpenMenu}
                 onKeyUp={e => {
-                    if (e.key === 'Enter' && !isDisabled) {
+                    if (e.key === 'Enter' && !isDisabled && !isLoading) {
                         handleOpenMenu(e);
                     }
                 }}
@@ -213,10 +216,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     setFocusData(p => ({...p, focused: true, event}));
                 }}
             >
-                {
-                    icon &&
-                    <icon.type {...icon.props} size="default" className={clsx('moonstone-dropdown_icon')} role="presentation"/>
-                }
+                {icon && !isLoading && <icon.type {...icon.props} size="default" className={clsx('moonstone-dropdown_icon')} role="presentation"/>}
+                {isLoading && <Loader size="small" className={clsx({'moonstone-dropdown_loaderOverlay': !icon})}/>}
                 {!label && values && values.length > 0 ? (
                     <div className="moonstone-dropdown_tags flexFluid flexRow">
                         {values.map(v => {
