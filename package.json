@@ -98,7 +98,6 @@
     "react": "18.3.1",
     "react-dom": "^18.3.1",
     "react-table": "^7.8.0",
-    "react-test-renderer": "18.3.1",
     "rimraf": "6.0.1",
     "rollup-plugin-sbom": "^2.1.2",
     "sass": "^1.91.0",
