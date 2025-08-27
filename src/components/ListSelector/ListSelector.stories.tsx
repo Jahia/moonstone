@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import '~/__storybook__/storybook.scss';
-import {StoryObj, Meta} from '@storybook/react';
+import {StoryObj, Meta} from '@storybook/react-vite';
 
 import {ListSelector} from './index';
 import {listSelectorData} from '~/data/listSelectorData';

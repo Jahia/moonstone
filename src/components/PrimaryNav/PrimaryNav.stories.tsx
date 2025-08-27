@@ -1,5 +1,5 @@
 import markdownNotes from './PrimaryNav.md';
-import {Meta, StoryObj} from '@storybook/react';
+import {Meta, StoryObj} from '@storybook/react-vite';
 import {PrimaryNav} from './index';
 import {
     PrimaryNavItemsGroup,

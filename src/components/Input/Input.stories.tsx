@@ -1,9 +1,9 @@
 import React from 'react';
-import {StoryObj, Meta} from '@storybook/react';
+import {StoryObj, Meta} from '@storybook/react-vite';
 
 import {Input} from './index';
 import {Love} from '~/icons';
-import {useArgs} from '@storybook/preview-api';
+import {useArgs} from 'storybook/preview-api';
 
 export default {
     title: 'Components/Input',

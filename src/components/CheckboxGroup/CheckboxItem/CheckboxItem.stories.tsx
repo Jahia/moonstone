@@ -1,5 +1,5 @@
-import {useArgs} from '@storybook/preview-api';
-import type {StoryObj, Meta} from '@storybook/react';
+import {useArgs} from 'storybook/preview-api';
+import type {StoryObj, Meta} from '@storybook/react-vite';
 import type {CheckboxItemProps} from './CheckboxItem.types';
 
 import {CheckboxItem} from './CheckboxItem';
