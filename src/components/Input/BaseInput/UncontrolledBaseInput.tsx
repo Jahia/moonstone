@@ -2,7 +2,7 @@ import React, {useState, ChangeEvent} from 'react';
 import type {UncontrolledBaseInputProps} from './BaseInput.types';
 import {ControlledBaseInput} from './ControlledBaseInput';
 
-export const UncontrolledBaseInput: React.FC<UncontrolledBaseInputProps> = ({defaultValue, onChange, ...props}) => {
+export const UncontrolledBaseInput = React.forwardRef<HTMLInputElement, UncontrolledBaseInputProps>(({defaultValue, onChange, ...props}, ref) => {
     const [inputValue, setBaseInputValue] = useState(defaultValue);
 
     const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -13,7 +13,7 @@ export const UncontrolledBaseInput: React.FC<UncontrolledBaseInputProps> = ({def
         }
     };
 
-    return <ControlledBaseInput value={inputValue} onChange={handleOnChange} {...props}/>;
-};
+    return <ControlledBaseInput ref={ref} value={inputValue} onChange={handleOnChange} {...props}/>;
+});
 
 UncontrolledBaseInput.displayName = 'UncontrolledBaseInput';

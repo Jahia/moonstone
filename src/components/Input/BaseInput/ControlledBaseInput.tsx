@@ -1,11 +1,11 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 import clsx from 'clsx';
 import {Cancel} from '~/icons';
 import {Button} from '~/components';
 import './BaseInput.scss';
 import type {ControlledBaseInputProps} from './BaseInput.types';
 
-export const ControlledBaseInput: React.FC<ControlledBaseInputProps> = ({
+const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInputProps>(({
     value = '',
     id,
     role,
@@ -28,9 +28,9 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps> = ({
     onFocus,
     focusOnField = false,
     ...props
-}) => {
+}, ref) => {
     const isFilled = value !== '';
-    const inputRef = useRef(null);
+    const inputRef = useRef<HTMLInputElement>(null);
     const classNameProps = clsx('moonstone-baseInput', `moonstone-${size}`, `moonstone-${variant}`, className);
 
     useEffect(() => {
@@ -39,13 +39,38 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps> = ({
         }
     }, [focusOnField, isDisabled, isReadOnly]);
 
-    if (isShowClearButton && !onClear) {
+    // Trying to merge refs because SearchInput needs inputRef but NumberInput needs ref
+    const finalRef = useCallback((el: HTMLInputElement | null) => {
+        inputRef.current = el;
+
+        if (typeof ref === 'function') {
+            ref(el);
+        } else if (ref) {
+            (ref as React.MutableRefObject<HTMLInputElement | null>).current = el;
+        }
+    }, [ref]);
+
+    // TO FIX
+    if (!onClear && isShowClearButton && typeof inputRef !== 'function' && inputRef?.current) {
         onClear = () => {
+            console.log('onClear called');
             inputRef.current.value = '';
-            const inputEvent: unknown = new Event('change');
-            inputRef.current.dispatchEvent(inputEvent);
-            onChange(inputEvent as React.ChangeEvent<HTMLInputElement>);
+
+            const newEvent = {
+                target: {
+                    ...inputRef.current,
+                    value: ''
+                }
+            } as unknown as React.ChangeEvent<HTMLInputElement>;
+
+            onChange(newEvent);
         };
+    }
+
+    console.log(inputRef.current?.value);
+
+    if ((isShowClearButton || onClear) && isFilled && !isDisabled && !isReadOnly) {
+        console.log('reset btn should be shown');
     }
 
     return (
@@ -64,7 +89,7 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps> = ({
             <div className="flexRow alignCenter flexFluid moonstone-baseInput_elementsWrapper">
                 {prefixComponents}
                 <input
-                    ref={inputRef}
+                    ref={finalRef}
                     className={clsx('moonstone-baseInput-element', `moonstone-${size}`)}
                     type="text"
                     value={value}
@@ -87,7 +112,7 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps> = ({
                 />
                 {postfixComponents}
             </div>
-            {onClear && isFilled && !isDisabled && !isReadOnly && (
+            {(isShowClearButton || onClear) && isFilled && !isDisabled && !isReadOnly && (
                 <Button
                     className="moonstone-baseInput_clearButton flexRow_center alignCenter"
                     variant="ghost"
@@ -98,6 +123,7 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps> = ({
             )}
         </div>
     );
-};
+});
 
 ControlledBaseInput.displayName = 'ControlledBaseInput';
+export {ControlledBaseInput};
