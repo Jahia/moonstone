@@ -74,12 +74,15 @@ export const onArrowIncrementation = ({
         element.value = Number.isNaN(newValue) ? '' : fixedValue ? fixedValue : newValue.toString();
         // Update uncontrolled input
         element.defaultValue = element.value;
-        const mockEvent = {
-            target: element,
-            currentTarget: element
-        } as React.ChangeEvent<HTMLInputElement>;
 
-        onChange(mockEvent);
+        if (typeof onChange !== 'undefined') {
+            const mockEvent = {
+                target: element,
+                currentTarget: element
+            } as React.ChangeEvent<HTMLInputElement>;
+
+            onChange(mockEvent);
+        }
     };
 
     return {
