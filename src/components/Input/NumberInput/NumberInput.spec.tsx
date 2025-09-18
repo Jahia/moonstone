@@ -18,6 +18,21 @@ describe('NumberInput', () => {
         expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('15');
     });
 
+    it('should have filtered value', () => {
+        render(<NumberInput value="test15" data-testid="moonstone-numberInput"/>);
+        expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('15');
+    });
+
+    it('should have filtered default value', () => {
+        render(<NumberInput defaultValue="test15" data-testid="moonstone-numberInput"/>);
+        expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('15');
+    });
+
+    it('should have attribute inputMode = decimal if allowDecimal', () => {
+        render(<NumberInput allowDecimal data-testid="moonstone-numberInput"/>);
+        expect(screen.getByTestId('moonstone-numberInput')).toHaveAttribute('inputMode', 'decimal');
+    });
+
     it('should call specified onChange function', async () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
@@ -31,6 +46,19 @@ describe('NumberInput', () => {
         await user.type(screen.getByTestId('moonstone-numberInput'), '1');
 
         expect(handleChange).toHaveBeenCalledTimes(1);
+    });
+
+    it('should filter user input', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <NumberInput
+                    data-testid="moonstone-numberInput"
+                />
+        );
+        await user.type(screen.getByTestId('moonstone-numberInput'), 'test1234');
+
+        expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('1234');
     });
 
     it('should allow negative value', async () => {
@@ -47,6 +75,18 @@ describe('NumberInput', () => {
         render(<NumberInput allowNegative={false} data-testid="moonstone-numberInput"/>);
         await user.type(screen.getByTestId('moonstone-numberInput'), '-1');
         expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('1');
+    });
+
+    it('should console warn if min or max is negative but allowNegative is false', () => {
+        const warning = vi.spyOn(console, 'warn');
+        render(<NumberInput allowNegative={false} min={-3}/>);
+        expect(warning).toHaveBeenCalled();
+    });
+
+    it('should console warn if min > max', () => {
+        const warning = vi.spyOn(console, 'warn');
+        render(<NumberInput max={2} min={5}/>);
+        expect(warning).toHaveBeenCalled();
     });
 
     it('should increase value by step on arrowUp', async () => {

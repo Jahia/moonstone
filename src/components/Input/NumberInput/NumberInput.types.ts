@@ -3,9 +3,15 @@ import type {BaseInputProps} from '../BaseInput/BaseInput.types';
 export type BasicNumberInputProps = Omit<BaseInputProps, 'isShowClearButton' | 'value' | 'defaultValue' | 'onChange' | 'role'> & {
     /**
      * Allows input value to be negative
-     * CAUTION: Changing this through a storybook story will break the component
      */
     allowNegative?: boolean;
+
+    /**
+     * Allows input value to be decimal
+     */
+    allowDecimal?: boolean;
+
+    decimalSeparator?: string;
 
     /**
      * Step to increase & decrease the value by

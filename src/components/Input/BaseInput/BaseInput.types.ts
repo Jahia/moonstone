@@ -115,6 +115,21 @@ type UncontrolledProps = {
      * Default value when the component is rendered (Uncontrolled)
      */
     defaultValue?: string;
+
+    /**
+     * Defines input as number only
+     */
+    isNumberInput?: boolean;
+
+    /**
+     * Allows input value to be negative
+     */
+    allowNegative?: boolean;
+
+    /**
+     * Allows input value to be decimal
+     */
+    allowDecimal?: boolean;
 }
 
 export type BaseInputProps = BasicBaseInputProps & Partial<ControlledProps> & Partial<UncontrolledProps>;

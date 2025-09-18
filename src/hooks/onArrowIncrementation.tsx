@@ -20,13 +20,24 @@ export const onArrowIncrementation = ({
 } :
     onArrowIncrementationProps) => {
     const handleKeyUp = (e: React.KeyboardEvent) => {
-        const element = ref.current;
-        console.log(element);
-        let newValue = parseFloat(element.value);
+        const element = ref?.current;
 
         if (!element) {
             return;
         }
+
+        // Counts how many digits after the separator
+        const getDecimalPlaces = (num: number) => {
+            const str = num.toString();
+            return str.includes('.') || str.includes(',') ?
+                str.split(/[.,]/)[1]?.length || 0 : 0;
+        };
+
+        // ParseFloat only works with '.' separator
+        const hasComma = element.value.includes(',');
+        let newValue = parseFloat(element.value.replace(',', '.').split('.')[0]) || parseFloat(element.value);
+        const decimalPlaces = getDecimalPlaces(newValue);
+        const newStep = Number.isInteger(step) ? step : 1;
 
         if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') {
             return;
@@ -35,31 +46,34 @@ export const onArrowIncrementation = ({
         if (e.key === 'ArrowDown' && (newValue > 0 || allowNegative)) {
             e.preventDefault();
             if (min) {
-                if (newValue - step > min) {
-                    newValue -= step;
+                if (newValue - newStep > min) {
+                    newValue -= newStep;
                 } else {
                     newValue = min;
                 }
             } else {
-                newValue -= step;
+                newValue -= newStep;
             }
         }
 
         if (e.key === 'ArrowUp') {
             e.preventDefault();
             if (max) {
-                if (newValue + step < max) {
-                    newValue += step;
+                if (newValue + newStep < max) {
+                    newValue += newStep;
                 } else {
                     newValue = max;
                 }
             } else {
-                newValue += step;
+                newValue += newStep;
             }
         }
 
-        console.log('hook got value: ' + newValue);
-        element.value = Number.isNaN(newValue) ? '' : newValue.toString();
+        // Trim final value to have same number of digits after separator as initial value
+        const fixedValue = decimalPlaces >= 0 ? hasComma ? newValue.toFixed(decimalPlaces).replace('.', ',') : newValue.toFixed(decimalPlaces) : newValue.toString();
+        element.value = Number.isNaN(newValue) ? '' : fixedValue ? fixedValue : newValue.toString();
+        // Update uncontrolled input
+        element.defaultValue = element.value;
         const mockEvent = {
             target: element,
             currentTarget: element

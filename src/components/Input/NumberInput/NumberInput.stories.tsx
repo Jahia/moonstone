@@ -5,7 +5,7 @@ import {NumberInput} from './index';
 import {useArgs} from '@storybook/preview-api';
 
 export default {
-    title: 'Components/Input/NumbersAndDecimals',
+    title: 'Components/Input/Numbers',
     component: NumberInput,
     tags: ['new'],
     decorators: [
@@ -24,17 +24,10 @@ type Story = StoryObj<typeof NumberInput>;
 
 export const UncontrolledNumberInput: Story = {
     args: {
-        allowNegative: false,
-        onChange: e => console.log(e)
+        allowNegative: false
     }
 };
 
-export const NegativeNumberInput: Story = {
-    args: {
-        allowNegative: true,
-        onChange: e => console.log(e)
-    }
-};
 export const ControlledNumberInput: Story = {
     args: {
         max: 10,
@@ -46,7 +39,6 @@ export const ControlledNumberInput: Story = {
         const [, setArgs] = useArgs();
 
         const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-            console.log(e);
             if (args.onChange) {
                 args.onChange(e);
             }
