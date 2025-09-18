@@ -2,7 +2,7 @@ import {StoryObj, Meta} from '@storybook/react';
 import '~/__storybook__/storybook.scss';
 
 import {NumberInput} from './index';
-import {useArgs} from '@storybook/preview-api';
+import {useArgs} from 'storybook/preview-api';
 
 export default {
     title: 'Components/Input/Numbers',
