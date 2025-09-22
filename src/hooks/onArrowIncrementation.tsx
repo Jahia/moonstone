@@ -25,17 +25,17 @@ export const onArrowIncrementation = ({
         }
 
         // Counts how many digits after the separator
-        const getDecimalPlaces = (num: number) => {
-            const str = num.toString();
+        const getDecimalPlaces = (str: string) => {
             return str.includes('.') || str.includes(',') ?
                 str.split(/[.,]/)[1]?.length || 0 : 0;
         };
 
         // ParseFloat only works with '.' separator
         const hasComma = element.value.includes(',');
+        const decimalPlaces = getDecimalPlaces(element.value);
         // Only keep the integer for incrementation to avoid floating point precsion
         let newValue = parseFloat(element.value.replace(',', '.').split('.')[0]) || parseFloat(element.value);
-        const decimalPlaces = getDecimalPlaces(newValue);
+        const decimalsLeft = decimalPlaces > 0 && element.value.replace(',', '.').split('.')[1];
         const newStep = Number.isInteger(step) ? step : 1;
 
         if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') {
@@ -68,8 +68,8 @@ export const onArrowIncrementation = ({
             }
         }
 
-        // Trim final value to have same number of digits after separator as initial value
-        const fixedValue = decimalPlaces >= 0 ? hasComma ? newValue.toFixed(decimalPlaces).replace('.', ',') : newValue.toFixed(decimalPlaces) : newValue.toString();
+        // Trim final value to have same digits after separator as initial value
+        const fixedValue = decimalPlaces > 0 ? hasComma ? `${newValue},${decimalsLeft}` : `${newValue}.${decimalsLeft}` : newValue.toString();
         element.value = Number.isNaN(newValue) ? '' : fixedValue;
         // Update uncontrolled input
         element.defaultValue = element.value;
