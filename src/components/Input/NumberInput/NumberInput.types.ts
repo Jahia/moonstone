@@ -1,6 +1,6 @@
 import type {BaseInputProps} from '../BaseInput/BaseInput.types';
 
-export type BasicNumberInputProps = Omit<BaseInputProps, 'isShowClearButton' | 'value' | 'defaultValue' | 'onChange' | 'role'> & {
+export type BasicNumberInputProps = Omit<BaseInputProps, 'isShowClearButton' | 'value' | 'defaultValue' | 'onChange' | 'role' | 'variant'> & {
     /**
      * Allows input value to be negative
      */
@@ -10,8 +10,6 @@ export type BasicNumberInputProps = Omit<BaseInputProps, 'isShowClearButton' | '
      * Allows input value to be decimal
      */
     allowDecimal?: boolean;
-
-    decimalSeparator?: string;
 
     /**
      * Step to increase & decrease the value by
@@ -32,6 +30,8 @@ export type BasicNumberInputProps = Omit<BaseInputProps, 'isShowClearButton' | '
      * Function triggered on change of the input value
      */
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+
+    variant?: 'ghost' | 'outlined';
 }
 
 type ControlledProps = {

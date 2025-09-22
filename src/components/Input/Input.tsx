@@ -4,7 +4,7 @@ import {BaseInput} from './BaseInput';
 import {SearchInput} from './SearchInput';
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(({...props}, ref) => {
-    const inputRef = useRef<HTMLInputElement>();
+    const inputRef = useRef<HTMLInputElement>(null);
     useImperativeHandle(ref, () => inputRef.current!, []);
 
     if (props.variant === 'search') {

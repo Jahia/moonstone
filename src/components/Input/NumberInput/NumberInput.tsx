@@ -38,6 +38,18 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(({
         }
     }, [allowNegative, allowDecimal]);
 
+    const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const filteredValue = filterInputValue(event.target.value, allowNegative, allowDecimal);
+
+        if (inputRef.current?.value !== filteredValue) {
+            inputRef.current.value = filteredValue;
+        }
+
+        if (typeof onChange !== 'undefined') {
+            onChange(event);
+        }
+    };
+
     return (
         <BaseInput
             ref={inputRef}
@@ -48,8 +60,8 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(({
             allowDecimal={allowDecimal}
             allowNegative={allowNegative}
             {...props}
-            onChange={onChange}
-            {...onArrowIncrementation({ref: inputRef, step: step, allowNegative: allowNegative, min: min, max: max, onChange: onChange})}
+            onChange={handleOnChange}
+            {...onArrowIncrementation({ref: inputRef, step: step, allowNegative: allowNegative, min: min, max: max})}
             />
     );
 });

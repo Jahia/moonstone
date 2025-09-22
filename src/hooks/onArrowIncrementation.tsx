@@ -2,7 +2,6 @@ import React from 'react';
 
 type onArrowIncrementationProps = {
     onKeyUp?: React.KeyboardEventHandler;
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     ref: React.RefObject<HTMLInputElement>;
     step: number;
     allowNegative: boolean;
@@ -11,7 +10,6 @@ type onArrowIncrementationProps = {
 };
 
 export const onArrowIncrementation = ({
-    onChange,
     ref,
     step,
     allowNegative,
@@ -46,7 +44,7 @@ export const onArrowIncrementation = ({
 
         if (e.key === 'ArrowDown' && (newValue > 0 || allowNegative)) {
             e.preventDefault();
-            if (min) {
+            if (Number.isFinite(min)) {
                 if (newValue - newStep > min) {
                     newValue -= newStep;
                 } else {
@@ -59,7 +57,7 @@ export const onArrowIncrementation = ({
 
         if (e.key === 'ArrowUp') {
             e.preventDefault();
-            if (max) {
+            if (Number.isFinite(max)) {
                 if (newValue + newStep < max) {
                     newValue += newStep;
                 } else {
@@ -72,22 +70,12 @@ export const onArrowIncrementation = ({
 
         // Trim final value to have same number of digits after separator as initial value
         const fixedValue = decimalPlaces >= 0 ? hasComma ? newValue.toFixed(decimalPlaces).replace('.', ',') : newValue.toFixed(decimalPlaces) : newValue.toString();
-        element.value = Number.isNaN(newValue) ? '' : fixedValue ? fixedValue : newValue.toString();
+        element.value = Number.isNaN(newValue) ? '' : fixedValue;
         // Update uncontrolled input
         element.defaultValue = element.value;
-
-        if (typeof onChange !== 'undefined') {
-            const mockEvent = {
-                target: element,
-                currentTarget: element
-            } as React.ChangeEvent<HTMLInputElement>;
-
-            onChange(mockEvent);
-        }
     };
 
     return {
-        onKeyUp: handleKeyUp,
-        onChange: onChange
+        onKeyUp: handleKeyUp
     };
 };
