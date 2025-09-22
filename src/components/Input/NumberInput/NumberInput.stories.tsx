@@ -23,15 +23,12 @@ export default {
 type Story = StoryObj<typeof NumberInput>;
 
 export const UncontrolledNumberInput: Story = {
-    args: {
-        allowNegative: false
-    }
 };
 
 export const ControlledNumberInput: Story = {
     args: {
         max: 10,
-        min: -5,
+        min: 1,
         value: '5',
         step: 1
     },

@@ -35,6 +35,7 @@ export const onArrowIncrementation = ({
 
         // ParseFloat only works with '.' separator
         const hasComma = element.value.includes(',');
+        // Only keep the integer for incrementation to avoid floating point precsion
         let newValue = parseFloat(element.value.replace(',', '.').split('.')[0]) || parseFloat(element.value);
         const decimalPlaces = getDecimalPlaces(newValue);
         const newStep = Number.isInteger(step) ? step : 1;

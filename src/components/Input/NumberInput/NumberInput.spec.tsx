@@ -64,7 +64,7 @@ describe('NumberInput', () => {
     it('should allow negative value', async () => {
         const user = userEvent.setup();
 
-        render(<NumberInput data-testid="moonstone-numberInput"/>);
+        render(<NumberInput allowNegative data-testid="moonstone-numberInput"/>);
         await user.type(screen.getByTestId('moonstone-numberInput'), '-1');
         expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('-1');
     });
@@ -72,14 +72,14 @@ describe('NumberInput', () => {
     it('should not allow negative value', async () => {
         const user = userEvent.setup();
 
-        render(<NumberInput allowNegative={false} data-testid="moonstone-numberInput"/>);
+        render(<NumberInput data-testid="moonstone-numberInput"/>);
         await user.type(screen.getByTestId('moonstone-numberInput'), '-1');
         expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('1');
     });
 
     it('should console warn if min or max is negative but allowNegative is false', () => {
         const warning = vi.spyOn(console, 'warn');
-        render(<NumberInput allowNegative={false} min={-3}/>);
+        render(<NumberInput min={-3}/>);
         expect(warning).toHaveBeenCalled();
     });
 

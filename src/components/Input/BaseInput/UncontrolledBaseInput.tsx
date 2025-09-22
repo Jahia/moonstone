@@ -1,14 +1,19 @@
 import React, {useState, ChangeEvent} from 'react';
 import type {UncontrolledBaseInputProps} from './BaseInput.types';
 import {ControlledBaseInput} from './ControlledBaseInput';
-import {filterInput} from '~/utils/inputFilter';
+import {filterInputValue} from '~/utils/filterInputValue';
 
-export const UncontrolledBaseInput = React.forwardRef<HTMLInputElement, UncontrolledBaseInputProps>(({defaultValue, onChange, isNumberInput = false, allowNegative, allowDecimal, ...props}, ref) => {
+export const UncontrolledBaseInput = React.forwardRef<HTMLInputElement, UncontrolledBaseInputProps>(({defaultValue, onChange, hasFilteredValue = false, allowNegative, allowDecimal, ...props}, ref) => {
     const [inputValue, setBaseInputValue] = useState(defaultValue);
 
     const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const filteredValue = filterInput(event.target.value, allowNegative, allowDecimal);
-        setBaseInputValue(isNumberInput ? filteredValue : event.target.value);
+        let value = event.target.value;
+
+        if (hasFilteredValue) {
+            value = filterInputValue(event.target.value, allowNegative, allowDecimal);
+        }
+
+        setBaseInputValue(value);
 
         if (typeof onChange !== 'undefined') {
             onChange(event);

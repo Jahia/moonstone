@@ -119,7 +119,7 @@ type UncontrolledProps = {
     /**
      * Defines input as number only
      */
-    isNumberInput?: boolean;
+    hasFilteredValue?: boolean;
 
     /**
      * Allows input value to be negative
