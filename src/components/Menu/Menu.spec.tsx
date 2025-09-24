@@ -48,6 +48,23 @@ describe('Menu', () => {
         expect(screen.queryByText(/item3/i)).not.toBeInTheDocument();
     });
 
+    it('should show the correct search results with only description', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <Menu isDisplayed hasSearch data-testid="moonstone-menu">
+                <MenuItem label="" description="Description1"/>
+                <MenuItem label="" description="Description2"/>
+                <MenuItem label="" description="Description3"/>
+            </Menu>
+        );
+        await user.type(screen.getByRole('searchbox'), 'description2');
+
+        expect(screen.queryByText(/description1/i)).not.toBeInTheDocument();
+        expect(screen.getByText(/description2/i)).toBeInTheDocument();
+        expect(screen.queryByText(/description3/i)).not.toBeInTheDocument();
+    });
+
     it('should show the empty search text if there are no search results', async () => {
         const user = userEvent.setup();
         const searchEmptyText = 'No search results';
