@@ -1,4 +1,4 @@
-import {Meta, StoryObj} from '@storybook/react';
+import {Meta, StoryObj} from '@storybook/react-vite';
 import {Header} from './index';
 import {
     Button,
@@ -9,7 +9,7 @@ import {
     Tab,
     TabItem
 } from '~/components';
-import {ViewGrid, ViewList, ArrowLeft} from '~/icons';
+import {ViewGrid, ViewList} from '~/icons';
 
 const DropdownData = [
     {
@@ -32,14 +32,6 @@ export default {
                     summary: 'string'
                 }
             }
-        },
-        backButton: {
-            table: {
-                type: {
-                    summary: '<Button/>'
-                }
-            },
-            control: {disable: true}
         },
         search: {
             control: {disable: true}
@@ -82,13 +74,6 @@ type Story = StoryObj<typeof Header>
 export const Full: Story = {
     args: {
         title: 'Page Title',
-        backButton: (
-            <Button
-        variant="outlined"
-        icon={<ArrowLeft/>}
-        onClick={() => undefined}
-      />
-        ),
         search: (
             <Button
         size="big"

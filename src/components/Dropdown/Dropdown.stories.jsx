@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {action} from '@storybook/addon-actions';
+import {action} from 'storybook/actions';
 import markdownNotes from './Dropdown.md';
 import {Dropdown} from './index';
 import {Love} from '~/icons';
@@ -42,6 +42,7 @@ const TemplateSimple = args => {
         label,
         placeholder,
         isDisabled,
+        isLoading,
         className,
         searchEmptyText,
         hasSearch,
@@ -90,6 +91,7 @@ const TemplateSimple = args => {
             imageSize={imageSize}
             variant={variant}
             isDisabled={isDisabled}
+            isLoading={isLoading}
             data={isTree ? null : dropdownData}
             treeData={isTree ? dropdownDataTree : null}
             onClear={onClear}
@@ -109,6 +111,7 @@ export const Playground = {
         variant: 'ghost',
         placeholder: 'Select something',
         isDisabled: false,
+        isLoading: false,
         isTree: false,
         multiple: false,
         withClear: false,

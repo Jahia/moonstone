@@ -1,4 +1,4 @@
-import {StoryObj} from '@storybook/react';
+import {StoryObj} from '@storybook/react-vite';
 import '~/__storybook__/storybook.scss';
 
 import {Chip} from './index';

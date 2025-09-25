@@ -1,14 +1,14 @@
 import React from 'react';
 import {GlobalStyle} from '../src';
-import {addons} from '@storybook/preview-api';
-import {UPDATE_GLOBALS, STORY_ARGS_UPDATED} from "@storybook/core-events";
+import {addons} from 'storybook/preview-api';
+import {UPDATE_GLOBALS, STORY_ARGS_UPDATED} from "storybook/internal/core-events";
 
 let channel = addons.getChannel();
 const storyListener = (args) => {
     if (typeof args.args.isReversed !== 'undefined') {
         let colorTheme = args.args.isReversed ? 'dark' : 'light';
         channel.emit(UPDATE_GLOBALS, {
-            globals: {
+            initialGlobals: {
                 theme: colorTheme,
                 backgrounds: colorTheme === "dark" ? { name: "dark", value: "#293136" } : { name: "light", value: "#fdfdfd" }
             }

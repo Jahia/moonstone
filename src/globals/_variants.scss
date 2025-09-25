@@ -6,17 +6,17 @@
 
     background-color: transparent;
 
-    &:hover:not(:disabled, [aria-disabled="true"]) {
+    &:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
         color: var(--color-accent_dark);
 
         background-color: var(--color-gray_light_plain20);
     }
 
-    &:focus-visible:not(:disabled, [aria-disabled="true"]) {
+    &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
         @extend %is-focused;
     }
 
-    &:active:not(:disabled, [aria-disabled="true"]) {
+    &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
         border-color: transparent;
         background-color: var(--color-gray_light_plain60);
     }
@@ -24,18 +24,18 @@
     &.moonstone-reverse {
         color: var(--color-light);
 
-        &:focus-visible:not(:disabled, [aria-disabled="true"]) {
+        &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
             @extend %is-focused;
         }
 
-        &:hover:not(:disabled, [aria-disabled="true"]) {
+        &:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
             color: var(--color-light);
 
             border-color: transparent;
             background-color: var(--color-gray40);
         }
 
-        &:active:not(:disabled, [aria-disabled="true"]) {
+        &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
             color: var(--color-white);
 
             border-color: transparent;
@@ -51,37 +51,38 @@
 
     background-color: transparent;
 
-    &:hover:not(:disabled, [aria-disabled="true"]) {
+    &:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
         color: var(--color-accent_dark);
     }
 
-    &:focus-visible:not(:disabled, [aria-disabled="true"]) {
+    &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
         @extend %is-focused;
     }
 
-    &:active:not(:disabled, [aria-disabled="true"]) {
+    &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
         color: var(--color-white);
 
         background-color: var(--color-accent_dark);
     }
 
     &[aria-disabled="true"],
+    &[aria-busy="true"],
     &:disabled {
         color: inherit;
     }
 
     &.moonstone-reverse {
-        &:hover:not(:disabled, [aria-disabled="true"]) {
+        &:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
             color: var(--color-white);
 
             background-color: var(--color-accent40);
         }
 
-        &:focus-visible:not(:disabled, [aria-disabled="true"]) {
+        &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
             @extend %is-focused;
         }
 
-        &:active:not(:disabled, [aria-disabled="true"]) {
+        &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
             color: var(--color-white);
 
             border-color: transparent;
@@ -97,37 +98,38 @@
 
     background-color: transparent;
 
-    &:hover:not(:disabled, [aria-disabled="true"]) {
+    &:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
         color: var(--color-danger);
     }
 
-    &:focus-visible:not(:disabled, [aria-disabled="true"]) {
+    &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
         @extend %is-focused;
     }
 
-    &:active:not(:disabled, [aria-disabled="true"]) {
+    &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
         color: var(--color-white);
 
         background-color: var(--color-danger);
     }
 
     &[aria-disabled="true"],
+    &[aria-busy="true"],
     &:disabled {
         color: inherit;
     }
 
     &.moonstone-reverse {
-        &:hover:not(:disabled, [aria-disabled="true"]) {
+        &:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
             color: var(--color-white);
 
             background-color: var(--color-danger40);
         }
 
-        &:focus-visible:not(:disabled, [aria-disabled="true"]) {
+        &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
             @extend %is-focused;
         }
 
-        &:active:not(:disabled, [aria-disabled="true"]) {
+        &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
             color: var(--color-white);
 
             border-color: transparent;

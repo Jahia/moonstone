@@ -1,4 +1,4 @@
-import {StoryObj, Meta, StoryContext} from '@storybook/react';
+import {StoryObj, Meta, StoryContext} from '@storybook/react-vite';
 
 import {ButtonToggle} from './index';
 import type {ButtonToggleProps} from './ButtonToggle.types';

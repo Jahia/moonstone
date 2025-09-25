@@ -40,6 +40,18 @@
         @extend %selector_disabled;
     }
 
+    &.moonstone-dropdown_loading {
+        cursor: default;
+    }
+
+    //Would have browser default outline otherwise
+    &[aria-disabled="true"],
+    &[aria-busy="true"] {
+        &:focus-visible {
+            outline: none;
+        }
+    }
+
     // ---
     // Manage sizes
     // ---
@@ -52,7 +64,7 @@
         border: var(--border-selector_active);
     }
 
-    &:focus-visible {
+    &:focus-visible:not([aria-disabled="true"], [aria-busy="true"]) {
         @extend %is-focused;
     }
 
@@ -79,7 +91,7 @@
     border: var(--border-selector);
     background-color: var(--background-selector);
 
-    &:hover:not(.moonstone-disabled, [aria-disabled="true"]) {
+    &:hover:not(.moonstone-disabled, [aria-disabled="true"], [aria-busy="true"]) {
         border: var(--border-selector_hover);
         background: none;
     }
