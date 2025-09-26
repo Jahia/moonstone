@@ -12,6 +12,11 @@ export type BasicNumberInputProps = Omit<BaseInputProps, 'isShowClearButton' | '
     allowDecimal?: boolean;
 
     /**
+     * Character to use as a separator
+     */
+    separator?: string;
+
+    /**
      * Step to increase & decrease the value by
      */
     step?: number;

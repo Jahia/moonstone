@@ -130,6 +130,11 @@ type UncontrolledProps = {
      * Allows input value to be decimal
      */
     allowDecimal?: boolean;
+
+    /**
+     * Character to use as a separator
+     */
+    separator?: string;
 }
 
 export type BaseInputProps = BasicBaseInputProps & Partial<ControlledProps> & Partial<UncontrolledProps>;

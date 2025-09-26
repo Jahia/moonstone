@@ -7,16 +7,17 @@ type TestInputProps = {readonly step?: number;
     readonly defaultValue?: string;
     readonly isNegative?: boolean;
     readonly isDecimal?: boolean;
+    readonly separator?: string;
     readonly min?: number;
     readonly max?: number;
 };
 
 describe('onArrowIncrementation', () => {
-    const TestInput = ({step = 1, defaultValue = '5', isNegative = false, min = 2, max = 10}: TestInputProps) => {
+    const TestInput = ({step = 1, defaultValue = '5', isNegative = false, min = 2, max = 10, separator = '.'}: TestInputProps) => {
         const inputRef = useRef(null);
 
         return (
-            <input ref={inputRef} type="text" defaultValue={defaultValue} {...onArrowIncrementation({ref: inputRef, step: step, allowNegative: isNegative, min: min, max: max})}/>
+            <input ref={inputRef} type="text" defaultValue={defaultValue} {...onArrowIncrementation({ref: inputRef, step: step, allowNegative: isNegative, min: min, max: max, separator: separator})}/>
         );
     };
 
@@ -49,11 +50,20 @@ describe('onArrowIncrementation', () => {
 
     it('should substract decimal value with comma by step', async () => {
         const user = userEvent.setup();
-        render(<TestInput defaultValue="5,05"/>);
+        render(<TestInput defaultValue="5,05" separator=","/>);
 
         await user.keyboard('[Tab]');
         await user.keyboard('[ArrowDown]');
         expect(screen.getByRole('textbox')).toHaveValue('4,05');
+    });
+
+    it('should substract decimal value with colon by step', async () => {
+        const user = userEvent.setup();
+        render(<TestInput defaultValue="5:05" separator=":"/>);
+
+        await user.keyboard('[Tab]');
+        await user.keyboard('[ArrowDown]');
+        expect(screen.getByRole('textbox')).toHaveValue('4:05');
     });
 
     it('should increment value by step', async () => {
@@ -76,11 +86,20 @@ describe('onArrowIncrementation', () => {
 
     it('should increment decimal value with comma by step', async () => {
         const user = userEvent.setup();
-        render(<TestInput defaultValue="5,05"/>);
+        render(<TestInput defaultValue="5,05" separator=","/>);
 
         await user.keyboard('[Tab]');
         await user.keyboard('[ArrowUp]');
         expect(screen.getByRole('textbox')).toHaveValue('6,05');
+    });
+
+    it('should increment decimal value with colon by step', async () => {
+        const user = userEvent.setup();
+        render(<TestInput defaultValue="5:05" separator=":"/>);
+
+        await user.keyboard('[Tab]');
+        await user.keyboard('[ArrowUp]');
+        expect(screen.getByRole('textbox')).toHaveValue('6:05');
     });
 
     it('should not go lower than min', async () => {

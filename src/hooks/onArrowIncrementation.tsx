@@ -5,6 +5,7 @@ type onArrowIncrementationProps = {
     ref: React.RefObject<HTMLInputElement>;
     step: number;
     allowNegative: boolean;
+    separator?: string,
     min?: number;
     max?: number;
 };
@@ -13,6 +14,7 @@ export const onArrowIncrementation = ({
     ref,
     step,
     allowNegative,
+    separator,
     min,
     max
 } :
@@ -24,18 +26,11 @@ export const onArrowIncrementation = ({
             return;
         }
 
-        // Counts how many digits after the separator
-        const getDecimalPlaces = (str: string) => {
-            return str.includes('.') || str.includes(',') ?
-                str.split(/[.,]/)[1]?.length || 0 : 0;
-        };
-
+        // Keep digits after the separator
+        const decimalsLeft = element.value.split(separator)[1] || null;
         // ParseFloat only works with '.' separator
-        const hasComma = element.value.includes(',');
-        const decimalPlaces = getDecimalPlaces(element.value);
         // Only keep the integer for incrementation to avoid floating point precsion
-        let newValue = parseFloat(element.value.replace(',', '.').split('.')[0]) || parseFloat(element.value);
-        const decimalsLeft = decimalPlaces > 0 && element.value.replace(',', '.').split('.')[1];
+        let newValue = parseFloat(element.value.replace(separator, '.').split('.')[0]) || parseFloat(element.value);
         const newStep = Number.isInteger(step) ? step : 1;
 
         if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') {
@@ -69,7 +64,7 @@ export const onArrowIncrementation = ({
         }
 
         // Trim final value to have same digits after separator as initial value
-        const fixedValue = decimalPlaces > 0 ? hasComma ? `${newValue},${decimalsLeft}` : `${newValue}.${decimalsLeft}` : newValue.toString();
+        const fixedValue = (decimalsLeft && decimalsLeft.length > 0) ? `${newValue}${separator}${decimalsLeft}` : newValue.toString();
         element.value = Number.isNaN(newValue) ? '' : fixedValue;
         // Update uncontrolled input
         element.defaultValue = element.value;
