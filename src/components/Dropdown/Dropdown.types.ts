@@ -39,6 +39,21 @@ export type HandleSelect = (e: React.MouseEvent | React.KeyboardEvent, item?: Dr
 export type DropdownProps = {
 
     /**
+   * Enables multiple selection mode in the dropdown
+   */
+  multiple?: boolean;
+
+  /**
+   * Specifies if the dropdown data should be displayed as a hierarchical tree
+   */
+  isTree?: boolean;
+
+  /**
+   * Enables a clear action to reset/drop the current selection
+   */
+  withClear?: boolean;
+
+    /**
    * Whether the dropdown is reversed
    */
   isReversed?: boolean;

@@ -10,7 +10,7 @@ import {dropdownDataTree} from '~/data/dropdownDataTree';
 import {dropdownDataGrouped} from '~/data/dropdownDataGrouped';
 import {dropdownDataImages} from '~/data/dropdownDataImages';
 import {dropdownDataDescriptions} from '~/data/dropdownDataDescriptions';
-import {DropdownData, DropdownDataOption, DropdownImageSize, DropdownPill, DropdownSize} from './Dropdown.types';
+import {DropdownData, DropdownDataOption, DropdownImageSize, DropdownPill, DropdownProps, DropdownSize} from './Dropdown.types';
 
 export default {
     title: 'Components/Dropdown',
@@ -32,7 +32,7 @@ export default {
     }
 };
 
-const TemplateSimple = args => {
+const TemplateSimple = (args: DropdownProps) => {
     const {
         icon,
         size,
