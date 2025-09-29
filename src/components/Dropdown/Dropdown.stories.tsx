@@ -4,15 +4,13 @@ import markdownNotes from './Dropdown.md';
 import {Dropdown} from './index';
 import {Love} from '~/icons';
 import {Pill, Typography} from '~/components';
-import {
-    dropdownData,
-    dropdownDataDescriptions,
-    dropdownDataGrouped,
-    dropdownDataImages,
-    dropdownDataTree
-} from '~/data';
-
 import * as icons from '../../icons/components';
+import {dropdownData} from '~/data/dropdownData';
+import {dropdownDataTree} from '~/data/dropdownDataTree';
+import {dropdownDataGrouped} from '~/data/dropdownDataGrouped';
+import {dropdownDataImages} from '~/data/dropdownDataImages';
+import {dropdownDataDescriptions} from '~/data/dropdownDataDescriptions';
+import {DropdownData, DropdownDataOption, DropdownImageSize, DropdownPill, DropdownSize} from './Dropdown.types';
 
 export default {
     title: 'Components/Dropdown',
@@ -51,10 +49,11 @@ const TemplateSimple = args => {
         multiple,
         withClear
     } = args;
+
     const [currentOption, setCurrentOption] = useState(null);
     const [currentOptions, setCurrentOptions] = useState([]);
 
-    const handleOnChange = (e, item) => {
+    const handleOnChange = (e: React.MouseEvent, item : DropdownDataOption) => {
         if (multiple) {
             setCurrentOptions(prev =>
                 prev.every(p => p.value !== item.value) ?
@@ -119,31 +118,28 @@ export const Playground = {
     }
 };
 
-export const Default = () => {
-    const [currentOption, setCurrentOption] = useState({
-        label: 'Select something',
-        value: null
-    });
+export const Default = () => { // Fix Default func type issue with Storybook
+    const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
 
-    const handleOnChange = (e, item) => {
+    const handleOnChange = (e: React.MouseEvent, item: DropdownDataOption) => {
         setCurrentOption(item);
     };
 
     return (
         <Dropdown
-            icon={<Love/>}
-            placeholder="Select something"
-            value={currentOption.value}
-            data={dropdownData}
-            onChange={(e, item) => handleOnChange(e, item)}
-        />
+      icon={<Love/>}
+      placeholder="Select something"
+      value={currentOption?.value}
+      data={dropdownData}
+      onChange={handleOnChange}
+    />
     );
 };
 
-export const Multiple = () => {
-    const [currentOption, setCurrentOption] = useState(dropdownData.slice(0, 2));
+export const Multiple = () => { // Fix Multiple func type issue with Storybook
+    const [currentOption, setCurrentOption] = useState<DropdownDataOption[]>(dropdownData.slice(0, 2));
 
-    const handleOnChange = (e, item) => {
+    const handleOnChange = (e: React.MouseEvent, item : DropdownDataOption) => {
         setCurrentOption(prev =>
             prev.indexOf(item) > -1 ?
                 prev.filter(i => i !== item) :
@@ -158,7 +154,7 @@ export const Multiple = () => {
             icon={<Love/>}
             placeholder="Select something"
             values={currentOption.map(v => v.value)}
-            size="big"
+            size={'big' as DropdownImageSize} // Fix issue with Storybook and DropdownSize type
             isDisabled={false}
             data={dropdownData}
             onChange={(e, item) => handleOnChange(e, item)}
@@ -166,13 +162,10 @@ export const Multiple = () => {
     );
 };
 
-export const Empty = () => {
-    const [currentOption, setCurrentOption] = useState({
-        label: 'Select something',
-        value: null
-    });
+export const Empty = () => { // Fix Empty func type issue with Storybook
+    const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
 
-    const handleOnChange = (e, item) => {
+    const handleOnChange = (e:React.MouseEvent, item: DropdownDataOption) => {
         setCurrentOption(item);
         action('onChange');
         return true;
@@ -181,21 +174,21 @@ export const Empty = () => {
     return (
         <Dropdown
             icon={<Love/>}
-            label={currentOption.label}
-            value={currentOption.value}
+            label={currentOption?.label || 'Select something'}
+            value={currentOption?.value || 'Select something'}
             data={[]}
             onChange={(e, item) => handleOnChange(e, item)}
         />
     );
 };
 
-export const WithDefaultValue = () => {
-    const [currentOption, setCurrentOption] = useState({
+export const WithDefaultValue = () => { // Fix WithDefaultValue func type issue with Storybook
+    const [currentOption, setCurrentOption] = useState<DropdownDataOption>({
         label: dropdownData[1].label,
         value: dropdownData[1].value
     });
 
-    const handleOnChange = (e, item) => {
+    const handleOnChange = (e: React.MouseEvent, item: DropdownDataOption) => {
         setCurrentOption(item);
         action('onChange');
         return true;
@@ -206,20 +199,17 @@ export const WithDefaultValue = () => {
             isDisabled={false}
             label={currentOption.label}
             value={currentOption.value}
-            size="big"
+            size={'big' as DropdownImageSize} // Fix issue with Storybook and DropdownSize type
             data={dropdownData}
             onChange={(e, item) => handleOnChange(e, item)}
         />
     );
 };
 
-export const Grouped = () => {
-    const [currentOption, setCurrentOption] = useState({
-        label: 'Select something',
-        value: null
-    });
+export const Grouped = () => { // Fix Grouped func type issue with Storybook
+    const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
 
-    const handleOnChange = (e, item) => {
+    const handleOnChange = (e : React.MouseEvent, item : DropdownDataOption) => {
         setCurrentOption(item);
         action('onChange');
         return true;
@@ -228,19 +218,19 @@ export const Grouped = () => {
     return (
         <Dropdown
             isDisabled={false}
-            label={currentOption.label}
-            value={currentOption.value}
-            size="big"
+            label={currentOption?.label || 'Select something'}
+            value={currentOption?.value || 'Select something'}
+            size={'big' as DropdownImageSize} // Fix issue with Storybook and DropdownSize type
             data={dropdownDataGrouped}
             onChange={(e, item) => handleOnChange(e, item)}
         />
     );
 };
 
-export const GroupedMultiple = () => {
-    const [currentOption, setCurrentOption] = useState([]);
+export const GroupedMultiple = () => { // Fix GroupedMultiple func type issue with Storybook
+    const [currentOption, setCurrentOption] = useState<DropdownDataOption[]>([]);
 
-    const handleOnChange = (e, item) => {
+    const handleOnChange = (e : React.MouseEvent, item: DropdownDataOption) => {
         setCurrentOption(prev =>
             prev.indexOf(item) > -1 ?
                 prev.filter(i => i !== item) :
@@ -255,20 +245,17 @@ export const GroupedMultiple = () => {
             isDisabled={false}
             placeholder="Select something"
             values={currentOption.map(v => v.value)}
-            size="big"
+            size={'big' as DropdownImageSize} // Fix issue with Storybook and DropdownSize type
             data={dropdownDataGrouped}
             onChange={(e, item) => handleOnChange(e, item)}
         />
     );
 };
 
-export const OutlinedVariantWithSearch = () => {
-    const [currentOption, setCurrentOption] = useState({
-        label: 'Select something',
-        value: null
-    });
+export const OutlinedVariantWithSearch = () => { // Fix OutlinedVariantWithSearch func type issue with Storybook
+    const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
 
-    const handleOnChange = (e, item) => {
+    const handleOnChange = (e: React.MouseEvent, item : DropdownDataOption) => {
         setCurrentOption(item);
         action('onChange');
         return true;
@@ -278,23 +265,20 @@ export const OutlinedVariantWithSearch = () => {
         <Dropdown
             hasSearch
             variant="outlined"
-            label={currentOption.label}
-            value={currentOption.value}
+            label={currentOption?.label || 'Select something'}
+            value={currentOption?.value || 'Select something'}
             icon={<Love/>}
-            size="big"
+            size={'big' as DropdownSize} // Fix issue with Storybook and DropdownSize type
             data={dropdownDataGrouped}
             onChange={(e, item) => handleOnChange(e, item)}
     />
     );
 };
 
-export const OutlinedVariantWithBigImages = () => {
-    const [currentOption, setCurrentOption] = useState({
-        label: 'Select something',
-        value: null
-    });
+export const OutlinedVariantWithBigImages = () => { // Fix OutlinedVariantWithBigImages func type issue with Storybook
+    const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
 
-    const handleOnChange = (e, item) => {
+    const handleOnChange = (e : React.MouseEvent, item: DropdownDataOption) => {
         setCurrentOption(item);
         action('onChange');
         return true;
@@ -305,9 +289,9 @@ export const OutlinedVariantWithBigImages = () => {
             hasSearch
             variant="outlined"
             imageSize="big"
-            label={currentOption.label}
-            value={currentOption.value}
-            size="medium"
+            label={currentOption?.label || 'Select something'}
+            value={currentOption?.value || 'Select something'}
+            size={'medium' as DropdownSize} // Fix issue with Storybook and DropdownSize type
             data={dropdownDataImages}
             onChange={(e, item) => handleOnChange(e, item)}
         />
@@ -315,12 +299,9 @@ export const OutlinedVariantWithBigImages = () => {
 };
 
 export const OutlinedVariantWithSmallImages = () => {
-    const [currentOption, setCurrentOption] = useState({
-        label: 'Select something',
-        value: null
-    });
+    const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
 
-    const handleOnChange = (e, item) => {
+    const handleOnChange = (e: React.MouseEvent, item : DropdownDataOption) => {
         setCurrentOption(item);
         action('onChange');
         return true;
@@ -331,8 +312,8 @@ export const OutlinedVariantWithSmallImages = () => {
             hasSearch
             variant="outlined"
             imageSize="small"
-            label={currentOption.label}
-            value={currentOption.value}
+            label={currentOption?.label || 'Select something'}
+            value={currentOption?.value || 'Select something'}
             data={dropdownDataImages}
             size="medium"
             onChange={(e, item) => handleOnChange(e, item)}
@@ -340,13 +321,10 @@ export const OutlinedVariantWithSmallImages = () => {
     );
 };
 
-export const DropdownWithTree = () => {
-    const [currentOption, setCurrentOption] = useState({
-        label: 'Select something',
-        value: null
-    });
+export const DropdownWithTree = () => { // Fix DropdownWithTree func type issue with Storybook
+    const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
 
-    const handleOnChange = (e, item) => {
+    const handleOnChange = (e : React.MouseEvent, item : DropdownDataOption) => {
         setCurrentOption(item);
         action('onChange');
         return true;
@@ -357,10 +335,10 @@ export const DropdownWithTree = () => {
             hasSearch
             isDisabled={false}
             variant="outlined"
-            size="small"
+            size={'small' as DropdownSize} // Fix issue with Storybook and DropdownSize type
             icon={<Love/>}
-            label={currentOption.label}
-            value={currentOption.value}
+            label={currentOption?.label || 'Select something'}
+            value={currentOption?.value || 'Select something'}
             treeData={dropdownDataTree}
             onChange={(e, item) => handleOnChange(e, item)}
         />
@@ -369,12 +347,9 @@ export const DropdownWithTree = () => {
 
 export const WithDescription = {
     render: args => {
-        const [currentOption, setCurrentOption] = useState({
-            label: 'Select something',
-            value: null
-        });
+        const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
 
-        const handleOnChange = (e, item) => {
+        const handleOnChange = (e: React.MouseEvent, item : DropdownDataOption) => {
             setCurrentOption(item);
             action('onChange');
             return true;
@@ -383,8 +358,8 @@ export const WithDescription = {
         return (
             <Dropdown
                 {...args}
-                label={currentOption.label}
-                value={currentOption.value}
+                label={currentOption?.label || 'Select something'}
+                value={currentOption?.value || 'Select something'}
                 data={dropdownDataDescriptions}
                 onChange={(e, item) => handleOnChange(e, item)}
             />
@@ -398,10 +373,10 @@ export const WithDescription = {
     }
 };
 
-export const DropdownWithTreeMultiple = () => {
-    const [currentOption, setCurrentOption] = useState([]);
+export const DropdownWithTreeMultiple = () => { // Fix DropdownWithTreeMultiple func type issue with Storybook
+    const [currentOption, setCurrentOption] = useState<DropdownDataOption[]>([]);
 
-    const handleOnChange = (e, item) => {
+    const handleOnChange = (e : React.MouseEvent, item : DropdownDataOption) => {
         setCurrentOption(prev =>
             prev.indexOf(item) > -1 ?
                 prev.filter(i => i !== item) :
@@ -425,10 +400,12 @@ export const DropdownWithTreeMultiple = () => {
     );
 };
 
-export const DropdownWithPill = () => {
-    const [currentOption, setCurrentOption] = useState([]);
+export const DropdownWithPill = () => { // Fix DropdownWithPill func type issue with Storybook
+    const [currentOption, setCurrentOption] = useState<DropdownDataOption>(
+        {label: 'French', value: 'fr', iconEnd: <Pill label="FR"/>}
+    );
 
-    const dataLanguages = [
+    const dataLanguages : DropdownPill = [
         {
             label: 'French',
             value: 'fr',
@@ -474,7 +451,7 @@ export const DropdownWithPill = () => {
         }
     ];
 
-    const handleOnChange = (e, item) => {
+    const handleOnChange = (e : React.MouseEvent, item: DropdownDataOption) => {
         setCurrentOption(item);
         action('onChange');
         return true;
@@ -493,8 +470,9 @@ export const DropdownWithPill = () => {
             value={currentOption.value}
             size="small"
             isDisabled={false}
-            data={dataLanguages}
+            data={dataLanguages as DropdownData}
             onChange={(e, item) => handleOnChange(e, item)}
         />
     );
 };
+

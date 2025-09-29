@@ -3,9 +3,15 @@ import type {TreeViewData} from '~/components/TreeView/TreeView.types';
 
 type DropdownVariant = 'ghost' | 'outlined';
 
-type DropdownSize = 'small' | 'medium';
+export type DropdownSize = 'small' | 'medium';
 
 type DropdownImageSize = 'small' | 'big';
+
+export type DataLanguageType = {
+    label: React.ReactElement | string;
+    value: string;
+    iconEnd: React.ReactElement;
+}
 
 export type DropdownDataOption = {
     label: string;
@@ -24,12 +30,18 @@ export type DropdownDataGrouped = {
     options: DropdownDataOption[];
 }
 
+export type DropdownPill = DataLanguageType[]
 export type DropdownData = DropdownDataOption[] | DropdownDataGrouped[];
 export type DropdownDataTree = TreeViewData[]
 
 export type HandleSelect = (e: React.MouseEvent | React.KeyboardEvent, item?: DropdownDataOption) => void;
 
 export type DropdownProps = {
+
+    /**
+   * Whether the dropdown is reversed
+   */
+  isReversed?: boolean;
     /**
      * Content of the dropdown
      */
