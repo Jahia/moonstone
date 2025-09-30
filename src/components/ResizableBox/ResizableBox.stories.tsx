@@ -1,4 +1,3 @@
-import React from 'react';
 import {action} from 'storybook/actions';
 import markdownNotes from './ResizableBox.md';
 import {ResizableBox} from './index';
@@ -60,7 +59,7 @@ export const Default: Story = {
     }
 };
 
-export const Actions: React.FC = () => (
+export const Actions = () => (
     <ResizableBox
     enable={['right']}
     minWidth={100}
