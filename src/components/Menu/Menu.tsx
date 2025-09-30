@@ -67,9 +67,10 @@ export const Menu: React.FC<MenuProps> = ({
         if (inputValue !== '' && Array.isArray(children)) {
             const _childrenToFilter = getChildrenToFilter(children as [React.ReactElement]);
             const _filtered = _childrenToFilter.filter((child: React.ReactElement) => {
-                if (child.props && child.props.label) {
-                    const contains = child.props.label.toLowerCase().includes(inputValue.toLowerCase());
-                    return contains && child.props.variant !== 'title';
+                if (child.props && (child.props.label || child.props.description)) {
+                    const containsLabel = child.props.label ? child.props.label.toLowerCase().includes(inputValue.toLowerCase()) : false;
+                    const containsDescription = child.props.description ? child.props.description.toLowerCase().includes(inputValue.toLowerCase()) : false;
+                    return (containsLabel || containsDescription) && child.props.variant !== 'title';
                 }
 
                 return false;
