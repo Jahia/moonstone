@@ -5,12 +5,14 @@ import {Dropdown} from './index';
 import {Love} from '~/icons';
 import {Pill, Typography} from '~/components';
 import * as icons from '../../icons/components';
-import {dropdownData} from '~/data/dropdownData';
-import {dropdownDataTree} from '~/data/dropdownDataTree';
-import {dropdownDataGrouped} from '~/data/dropdownDataGrouped';
-import {dropdownDataImages} from '~/data/dropdownDataImages';
-import {dropdownDataDescriptions} from '~/data/dropdownDataDescriptions';
-import {DropdownData, DropdownDataOption, DropdownPill, DropdownProps, DropdownSize} from './Dropdown.types';
+import {
+    dropdownData,
+    dropdownDataDescriptions,
+    dropdownDataGrouped,
+    dropdownDataImages,
+    dropdownDataTree
+} from '~/data';
+import type {DropdownDataOption, DropdownProps} from './Dropdown.types';
 
 export default {
     title: 'Components/Dropdown',
@@ -122,7 +124,7 @@ export const Playground = {
     }
 };
 
-export const Default = () => { // Fix Default func type issue with Storybook
+export const Default = () => {
     const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
 
     const handleOnChange = (e: React.MouseEvent, item: DropdownDataOption) => {
@@ -131,16 +133,16 @@ export const Default = () => { // Fix Default func type issue with Storybook
 
     return (
         <Dropdown
-      icon={<Love/>}
-      placeholder="Select something"
-      value={currentOption?.value}
-      data={dropdownData}
-      onChange={handleOnChange}
+            icon={<Love/>}
+            placeholder="Select something"
+            value={currentOption?.value}
+            data={dropdownData}
+            onChange={handleOnChange}
     />
     );
 };
 
-export const Multiple = () => { // Fix Multiple func type issue with Storybook
+export const Multiple = () => {
     const [currentOption, setCurrentOption] = useState<DropdownDataOption[]>(dropdownData.slice(0, 2));
 
     const handleOnChange = (e: React.MouseEvent, item : DropdownDataOption) => {
@@ -158,7 +160,7 @@ export const Multiple = () => { // Fix Multiple func type issue with Storybook
             icon={<Love/>}
             placeholder="Select something"
             values={currentOption.map(v => v.value)}
-            size={'medium' as DropdownSize}
+            size="medium"
             isDisabled={false}
             data={dropdownData}
             onChange={(e, item) => handleOnChange(e, item)}
@@ -166,7 +168,7 @@ export const Multiple = () => { // Fix Multiple func type issue with Storybook
     );
 };
 
-export const Empty = () => { // Fix Empty func type issue with Storybook
+export const Empty = () => {
     const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
 
     const handleOnChange = (e:React.MouseEvent, item: DropdownDataOption) => {
@@ -178,15 +180,15 @@ export const Empty = () => { // Fix Empty func type issue with Storybook
     return (
         <Dropdown
             icon={<Love/>}
-            label={currentOption?.label || 'Select something'}
-            value={currentOption?.value || 'Select something'}
+            placeholder="Select something"
+            value={currentOption?.value}
             data={[]}
             onChange={(e, item) => handleOnChange(e, item)}
         />
     );
 };
 
-export const WithDefaultValue = () => { // Fix WithDefaultValue func type issue with Storybook
+export const WithDefaultValue = () => {
     const [currentOption, setCurrentOption] = useState<DropdownDataOption>({
         label: dropdownData[1].label,
         value: dropdownData[1].value
@@ -201,16 +203,15 @@ export const WithDefaultValue = () => { // Fix WithDefaultValue func type issue 
     return (
         <Dropdown
             isDisabled={false}
-            label={currentOption.label}
             value={currentOption.value}
-            size={'medium' as DropdownSize} // Fix issue with Storybook and DropdownSize type
+            size="medium"
             data={dropdownData}
             onChange={(e, item) => handleOnChange(e, item)}
         />
     );
 };
 
-export const Grouped = () => { // Fix Grouped func type issue with Storybook
+export const Grouped = () => {
     const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
 
     const handleOnChange = (e : React.MouseEvent, item : DropdownDataOption) => {
@@ -222,16 +223,16 @@ export const Grouped = () => { // Fix Grouped func type issue with Storybook
     return (
         <Dropdown
             isDisabled={false}
-            label={currentOption?.label || 'Select something'}
-            value={currentOption?.value || 'Select something'}
-            size={'medium' as DropdownSize} // Fix issue with Storybook and DropdownSize type
+            placeholder="Select something"
+            value={currentOption?.value}
+            size="medium"
             data={dropdownDataGrouped}
             onChange={(e, item) => handleOnChange(e, item)}
         />
     );
 };
 
-export const GroupedMultiple = () => { // Fix GroupedMultiple func type issue with Storybook
+export const GroupedMultiple = () => {
     const [currentOption, setCurrentOption] = useState<DropdownDataOption[]>([]);
 
     const handleOnChange = (e : React.MouseEvent, item: DropdownDataOption) => {
@@ -249,14 +250,14 @@ export const GroupedMultiple = () => { // Fix GroupedMultiple func type issue wi
             isDisabled={false}
             placeholder="Select something"
             values={currentOption.map(v => v.value)}
-            size={'medium' as DropdownSize} // Fix issue with Storybook and DropdownSize type
+            size="medium"
             data={dropdownDataGrouped}
             onChange={(e, item) => handleOnChange(e, item)}
         />
     );
 };
 
-export const OutlinedVariantWithSearch = () => { // Fix OutlinedVariantWithSearch func type issue with Storybook
+export const OutlinedVariantWithSearch = () => {
     const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
 
     const handleOnChange = (e: React.MouseEvent, item : DropdownDataOption) => {
@@ -269,17 +270,17 @@ export const OutlinedVariantWithSearch = () => { // Fix OutlinedVariantWithSearc
         <Dropdown
             hasSearch
             variant="outlined"
-            label={currentOption?.label || 'Select something'}
-            value={currentOption?.value || 'Select something'}
+            placeholder="Select something"
+            value={currentOption?.value}
             icon={<Love/>}
-            size={'medium' as DropdownSize} // Fix issue with Storybook and DropdownSize type
+            size="medium"
             data={dropdownDataGrouped}
             onChange={(e, item) => handleOnChange(e, item)}
     />
     );
 };
 
-export const OutlinedVariantWithBigImages = () => { // Fix OutlinedVariantWithBigImages func type issue with Storybook
+export const OutlinedVariantWithBigImages = () => {
     const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
 
     const handleOnChange = (e : React.MouseEvent, item: DropdownDataOption) => {
@@ -293,9 +294,8 @@ export const OutlinedVariantWithBigImages = () => { // Fix OutlinedVariantWithBi
             hasSearch
             variant="outlined"
             imageSize="big"
-            label={currentOption?.label || 'Select something'}
-            value={currentOption?.value || 'Select something'}
-            size={'medium' as DropdownSize} // Fix issue with Storybook and DropdownSize type
+            value={currentOption?.value}
+            size="medium"
             data={dropdownDataImages}
             onChange={(e, item) => handleOnChange(e, item)}
         />
@@ -316,8 +316,8 @@ export const OutlinedVariantWithSmallImages = () => {
             hasSearch
             variant="outlined"
             imageSize="small"
-            label={currentOption?.label || 'Select something'}
-            value={currentOption?.value || 'Select something'}
+            placeholder="Select something"
+            value={currentOption?.value}
             data={dropdownDataImages}
             size="medium"
             onChange={(e, item) => handleOnChange(e, item)}
@@ -325,7 +325,7 @@ export const OutlinedVariantWithSmallImages = () => {
     );
 };
 
-export const DropdownWithTree = () => { // Fix DropdownWithTree func type issue with Storybook
+export const DropdownWithTree = () => {
     const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
 
     const handleOnChange = (e : React.MouseEvent, item : DropdownDataOption) => {
@@ -339,10 +339,10 @@ export const DropdownWithTree = () => { // Fix DropdownWithTree func type issue 
             hasSearch
             isDisabled={false}
             variant="outlined"
-            size={'small' as DropdownSize} // Fix issue with Storybook and DropdownSize type
+            size="small"
             icon={<Love/>}
-            label={currentOption?.label || 'Select something'}
-            value={currentOption?.value || 'Select something'}
+            placeholder="Select something"
+            value={currentOption?.value}
             treeData={dropdownDataTree}
             onChange={(e, item) => handleOnChange(e, item)}
         />
@@ -350,7 +350,6 @@ export const DropdownWithTree = () => { // Fix DropdownWithTree func type issue 
 };
 
 export const WithDescription = {
-    // Fix WithDescription arg type issue with Storybook
     render: (args: DropdownProps) => {
         const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
 
@@ -363,8 +362,8 @@ export const WithDescription = {
         return (
             <Dropdown
                 {...args}
-                label={currentOption?.label || 'Select something'}
-                value={currentOption?.value || 'Select something'}
+                placeholder="Select something"
+                value={currentOption?.value}
                 data={dropdownDataDescriptions}
                 onChange={(e, item) => handleOnChange(e, item)}
             />
@@ -378,7 +377,7 @@ export const WithDescription = {
     }
 };
 
-export const DropdownWithTreeMultiple = () => { // Fix DropdownWithTreeMultiple func type issue with Storybook
+export const DropdownWithTreeMultiple = () => {
     const [currentOption, setCurrentOption] = useState<DropdownDataOption[]>([]);
 
     const handleOnChange = (e : React.MouseEvent, item : DropdownDataOption) => {
@@ -405,12 +404,12 @@ export const DropdownWithTreeMultiple = () => { // Fix DropdownWithTreeMultiple 
     );
 };
 
-export const DropdownWithPill = () => { // Fix DropdownWithPill func type issue with Storybook
+export const DropdownWithPill = () => {
     const [currentOption, setCurrentOption] = useState<DropdownDataOption>(
         {label: 'French', value: 'fr', iconEnd: <Pill label="FR"/>}
     );
 
-    const dataLanguages : DropdownPill = [
+    const dataLanguages : DropdownDataOption[] = [
         {
             label: 'French',
             value: 'fr',
@@ -470,12 +469,11 @@ export const DropdownWithPill = () => { // Fix DropdownWithPill func type issue 
                     <Pill label={currentOption.value.toUpperCase()}/>
                 ) : null
             }
-            label={currentOption.label}
             placeholder="Select something"
             value={currentOption.value}
             size="small"
             isDisabled={false}
-            data={dataLanguages as DropdownData}
+            data={dataLanguages}
             onChange={(e, item) => handleOnChange(e, item)}
         />
     );

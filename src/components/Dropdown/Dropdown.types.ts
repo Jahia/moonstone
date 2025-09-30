@@ -7,14 +7,8 @@ export type DropdownSize = 'small' | 'medium';
 
 type DropdownImageSize = 'small' | 'big';
 
-export type DataLanguageType = {
-    label: React.ReactElement | string;
-    value: string;
-    iconEnd: React.ReactElement;
-}
-
 export type DropdownDataOption = {
-    label: string;
+    label: string | React.ReactElement;
     description?: string;
     value?: string;
     isDisabled?: boolean;
@@ -30,7 +24,6 @@ export type DropdownDataGrouped = {
     options: DropdownDataOption[];
 }
 
-export type DropdownPill = DataLanguageType[]
 export type DropdownData = DropdownDataOption[] | DropdownDataGrouped[];
 export type DropdownDataTree = TreeViewData[]
 
