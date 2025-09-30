@@ -2,7 +2,25 @@ import {Love, NoCloud} from '~/icons';
 import '~/components/TreeView/TreeView.stories.scss';
 import {toIconComponent} from '~/icons/utils';
 
-export const treeData = [
+ type TypographyOptions = {
+  hasLineThrough?: boolean;
+  isItalic?: boolean;
+};
+
+ type TreeViewNode = {
+  id: string;
+  label: string;
+  iconStart?: React.ReactElement;
+  iconEnd?: React.ReactElement;
+  isClosable?: boolean;
+  isDisabled?: boolean;
+  isReadonly?: boolean;
+  typographyOptions?: TypographyOptions;
+  className?: string;
+  children?: TreeViewNode[];
+};
+
+export const treeData : TreeViewNode[] = [
     {
         id: 'ROOT',
         label: 'Root',
@@ -84,8 +102,8 @@ export const treeData = [
             {
                 id: 'C',
                 label: 'C level1',
-                iconStart: toIconComponent('http://www.google.com/s2/favicons?domain=www.jahia.com'),
-                children: []
+                iconStart: toIconComponent('http://www.google.com/s2/favicons?domain=www.jahia.com')
+                // Children: []
             }
         ]
     }

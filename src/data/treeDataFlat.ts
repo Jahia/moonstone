@@ -1,4 +1,9 @@
-export const treeDataFlat = [
+type treeDataFlat = {
+    id: string;
+    label: string;
+}[];
+
+export const treeDataFlat: treeDataFlat = [
     {id: 'A1', label: 'A-1 level1'},
     {id: 'A2', label: 'A-2 level1'},
     {id: 'A3', label: 'A-3 level1'},
