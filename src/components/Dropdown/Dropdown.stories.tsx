@@ -46,35 +46,20 @@ const TemplateSimple = (args: DropdownProps) => {
         className,
         searchEmptyText,
         hasSearch,
-        imageSize,
-        isTree,
-        multiple,
+        imageSize
     } = args;
 
     const [currentOption, setCurrentOption] = useState(null);
     const [currentOptions, setCurrentOptions] = useState([]);
 
     const handleOnChange = (e: React.MouseEvent, item : DropdownDataOption) => {
-        if (multiple) {
-            setCurrentOptions(prev =>
-                prev.every(p => p.value !== item.value) ?
-                    [...prev, item] :
-                    prev.filter(i => i.value !== item.value)
-            );
-        } else {
-            setCurrentOption(item);
-        }
-
+        setCurrentOption(item);
         action('onChange');
         return true;
     };
 
     const onClear = (() => {
-        if (multiple) {
-            setCurrentOptions([]);
-        } else {
-            setCurrentOption(null);
-        }
+        setCurrentOptions(null);
     });
 
     return (
@@ -88,16 +73,16 @@ const TemplateSimple = (args: DropdownProps) => {
             label={label}
             placeholder={placeholder}
             className={className}
-            value={!multiple && currentOption?.value}
-            values={multiple && currentOptions.map(i => i.value)}
+            value={currentOption?.value}
+            values={currentOptions.map(i => i.value)}
             size={size}
             searchEmptyText={searchEmptyText}
             imageSize={imageSize}
             variant={variant}
             isDisabled={isDisabled}
             isLoading={isLoading}
-            data={isTree ? null : dropdownData}
-            treeData={isTree ? dropdownDataTree : null}
+            data={dropdownData}
+            treeData={dropdownDataTree}
             onClear={onClear}
             onFocus={action('onfocus')}
             onBlur={action('onblur')}
