@@ -8,7 +8,7 @@ type DropdownSize = 'small' | 'medium';
 type DropdownImageSize = 'small' | 'big';
 
 export type DropdownDataOption = {
-    label: string
+    label: string;
     description?: string;
     value?: string;
     isDisabled?: boolean;
@@ -30,15 +30,6 @@ export type DropdownDataTree = TreeViewData[]
 export type HandleSelect = (e: React.MouseEvent | React.KeyboardEvent, item?: DropdownDataOption) => void;
 
 export type DropdownProps = {
-
-    /**
-     * Whether multiple options can be selected
-     */
-    multiple?: boolean;
-    /**
-     * Whether the dropdown is a tree structure
-     */
-    isTree?: boolean;
     /**
      * Content of the dropdown
      */
