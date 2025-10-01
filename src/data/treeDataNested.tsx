@@ -1,16 +1,7 @@
 import {Folder, File, NoCloud} from '~/icons';
 import {toIconComponent} from '~/icons/utils';
 
- type TreeDataNestedType = {
-  id: string;
-  label: string;
-  iconStart?: React.ReactElement;
-  iconEnd?: React.ReactElement;
-  isClosable?: boolean;
-  children?: TreeDataNestedType[];
-};
-
-export const treeDataNested : TreeDataNestedType[] = [
+export const treeDataNested = [
     {
         id: 'ROOT',
         label: 'Root',

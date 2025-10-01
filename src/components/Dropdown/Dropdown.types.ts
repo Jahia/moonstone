@@ -3,7 +3,7 @@ import type {TreeViewData} from '~/components/TreeView/TreeView.types';
 
 type DropdownVariant = 'ghost' | 'outlined';
 
-export type DropdownSize = 'small' | 'medium';
+type DropdownSize = 'small' | 'medium';
 
 type DropdownImageSize = 'small' | 'big';
 
