@@ -34,6 +34,20 @@ export const ClosableRoot = {
     }
 };
 
+// Export const OpenedByDefault = {
+//     render: (args, {globals: {theme}}) => {
+//         const theme = globals.theme;
+//         return (
+//             <TreeView
+//                 {...args}
+//                 defaultOpenedItems={['A']}
+//                 data={treeData}
+//                 isReversed={theme === 'dark'}
+//             />
+//         )
+//     }
+// };
+
 export const Flat = {
     render: (args: TreeViewProps, {globals: {theme}}: { globals: { theme: string } }) => (
         <TreeView {...args} data={treeDataFlat} isReversed={theme === 'dark'}/>
