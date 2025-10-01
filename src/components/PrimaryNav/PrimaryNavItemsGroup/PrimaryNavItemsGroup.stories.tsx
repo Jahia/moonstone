@@ -12,7 +12,7 @@ const meta: Meta<typeof PrimaryNavItemsGroup> = {
         layout: 'fullscreen'
     },
     decorators: [
-        (Story) => (
+        Story => (
             <div
                 style={{
                     backgroundColor: '#131c21',
