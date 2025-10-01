@@ -3,7 +3,7 @@ import {action} from 'storybook/actions';
 import markdownNotes from './Dropdown.md';
 import {Dropdown} from './index';
 import {Love} from '~/icons';
-import {Pill, Typography} from '~/components';
+import {Pill} from '~/components';
 import * as icons from '../../icons/components';
 import {
     dropdownData,
@@ -49,7 +49,6 @@ const TemplateSimple = (args: DropdownProps) => {
         imageSize,
         isTree,
         multiple,
-        withClear
     } = args;
 
     const [currentOption, setCurrentOption] = useState(null);
@@ -70,7 +69,7 @@ const TemplateSimple = (args: DropdownProps) => {
         return true;
     };
 
-    const onClear = withClear && (() => {
+    const onClear = (() => {
         if (multiple) {
             setCurrentOptions([]);
         } else {
@@ -119,7 +118,6 @@ export const Playground = {
         isLoading: false,
         isTree: false,
         multiple: false,
-        withClear: false,
         searchEmptyText: 'No results found'
     }
 };
@@ -416,35 +414,12 @@ export const DropdownWithPill = () => {
             iconEnd: <Pill label="FR"/>
         },
         {
-            label: (
-                <>
-                    French{' '}
-                    <Typography
-                        component="span"
-                        variant="caption"
-                        style={{color: 'darkgray'}}
-                    >
-                        (Canadian)
-                    </Typography>
-                </>
-            ),
+            label: 'French (Canadian)',
             value: 'fr_ca',
             iconEnd: <Pill label="FR_CA"/>
         },
         {
-            label: (
-                <>
-                    Language with very long long label label label label label label label
-                    name{' '}
-                    <Typography
-                        component="span"
-                        variant="caption"
-                        style={{color: 'darkgray'}}
-                    >
-                        (country name)
-                    </Typography>
-                </>
-            ),
+            label: 'Language with very long long label label label label label label label name (country name)',
             value: 'es',
             iconEnd: <Pill label="ES"/>
         },
@@ -463,7 +438,6 @@ export const DropdownWithPill = () => {
 
     return (
         <Dropdown
-            isReversed
             icon={
                 Object.keys(currentOption).length > 0 ? (
                     <Pill label={currentOption.value.toUpperCase()}/>

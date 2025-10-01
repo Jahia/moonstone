@@ -8,7 +8,7 @@ type DropdownSize = 'small' | 'medium';
 type DropdownImageSize = 'small' | 'big';
 
 export type DropdownDataOption = {
-    label: string | React.ReactElement;
+    label: string
     description?: string;
     value?: string;
     isDisabled?: boolean;
@@ -32,24 +32,13 @@ export type HandleSelect = (e: React.MouseEvent | React.KeyboardEvent, item?: Dr
 export type DropdownProps = {
 
     /**
-   * Enables multiple selection mode in the dropdown
-   */
-  multiple?: boolean;
-
-  /**
-   * Specifies if the dropdown data should be displayed as a hierarchical tree
-   */
-  isTree?: boolean;
-
-  /**
-   * Enables a clear action to reset/drop the current selection
-   */
-  withClear?: boolean;
-
+     * Whether multiple options can be selected
+     */
+    multiple?: boolean;
     /**
-   * Whether the dropdown is reversed
-   */
-  isReversed?: boolean;
+     * Whether the dropdown is a tree structure
+     */
+    isTree?: boolean;
     /**
      * Content of the dropdown
      */
