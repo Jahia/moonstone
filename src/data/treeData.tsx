@@ -1,8 +1,9 @@
 import {Love, NoCloud} from '~/icons';
 import '~/components/TreeView/TreeView.stories.scss';
 import {toIconComponent} from '~/icons/utils';
+import {TreeViewData} from '~/components/TreeView/TreeView.types';
 
-export const treeData = [
+export const treeData : TreeViewData[] = [
     {
         id: 'ROOT',
         label: 'Root',
