@@ -3,7 +3,8 @@ import {action} from 'storybook/actions';
 import markdownNotes from './Dropdown.md';
 import {Dropdown} from './index';
 import {Love} from '~/icons';
-import {Pill, Typography} from '~/components';
+import {Pill} from '~/components';
+import * as icons from '../../icons/components';
 import {
     dropdownData,
     dropdownDataDescriptions,
@@ -11,8 +12,7 @@ import {
     dropdownDataImages,
     dropdownDataTree
 } from '~/data';
-
-import * as icons from '../../icons/components';
+import type {DropdownDataOption, DropdownProps} from './Dropdown.types';
 
 export default {
     title: 'Components/Dropdown',
@@ -34,7 +34,7 @@ export default {
     }
 };
 
-const TemplateSimple = args => {
+const TemplateSimple = (args: DropdownProps) => {
     const {
         icon,
         size,
@@ -46,54 +46,43 @@ const TemplateSimple = args => {
         className,
         searchEmptyText,
         hasSearch,
-        imageSize,
-        isTree,
-        multiple,
-        withClear
+        imageSize
     } = args;
+
     const [currentOption, setCurrentOption] = useState(null);
     const [currentOptions, setCurrentOptions] = useState([]);
 
-    const handleOnChange = (e, item) => {
-        if (multiple) {
-            setCurrentOptions(prev =>
-                prev.every(p => p.value !== item.value) ?
-                    [...prev, item] :
-                    prev.filter(i => i.value !== item.value)
-            );
-        } else {
-            setCurrentOption(item);
-        }
-
+    const handleOnChange = (e: React.MouseEvent, item : DropdownDataOption) => {
+        setCurrentOption(item);
         action('onChange');
         return true;
     };
 
-    const onClear = withClear && (() => {
-        if (multiple) {
-            setCurrentOptions([]);
-        } else {
-            setCurrentOption(null);
-        }
+    const onClear = (() => {
+        setCurrentOptions(null);
     });
 
     return (
         <Dropdown
-            icon={icons[icon] && React.createElement(icons[icon])}
+        /**
+ * Dynamically creates a React icon component if 'icon' is a valid string key; otherwise returns undefined.
+ * This check ensures that the icon prop can either be a string key for icon lookup or no icon at all.
+ */
+            icon={typeof icon === 'string' && icons[icon] ? React.createElement(icons[icon]) : undefined}
             hasSearch={hasSearch}
             label={label}
             placeholder={placeholder}
             className={className}
-            value={!multiple && currentOption?.value}
-            values={multiple && currentOptions.map(i => i.value)}
+            value={currentOption?.value}
+            values={currentOptions.map(i => i.value)}
             size={size}
             searchEmptyText={searchEmptyText}
             imageSize={imageSize}
             variant={variant}
             isDisabled={isDisabled}
             isLoading={isLoading}
-            data={isTree ? null : dropdownData}
-            treeData={isTree ? dropdownDataTree : null}
+            data={dropdownData}
+            treeData={dropdownDataTree}
             onClear={onClear}
             onFocus={action('onfocus')}
             onBlur={action('onblur')}
@@ -114,18 +103,14 @@ export const Playground = {
         isLoading: false,
         isTree: false,
         multiple: false,
-        withClear: false,
         searchEmptyText: 'No results found'
     }
 };
 
 export const Default = () => {
-    const [currentOption, setCurrentOption] = useState({
-        label: 'Select something',
-        value: null
-    });
+    const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
 
-    const handleOnChange = (e, item) => {
+    const handleOnChange = (e: React.MouseEvent, item: DropdownDataOption) => {
         setCurrentOption(item);
     };
 
@@ -133,17 +118,17 @@ export const Default = () => {
         <Dropdown
             icon={<Love/>}
             placeholder="Select something"
-            value={currentOption.value}
+            value={currentOption?.value}
             data={dropdownData}
-            onChange={(e, item) => handleOnChange(e, item)}
-        />
+            onChange={handleOnChange}
+    />
     );
 };
 
 export const Multiple = () => {
-    const [currentOption, setCurrentOption] = useState(dropdownData.slice(0, 2));
+    const [currentOption, setCurrentOption] = useState<DropdownDataOption[]>(dropdownData.slice(0, 2));
 
-    const handleOnChange = (e, item) => {
+    const handleOnChange = (e: React.MouseEvent, item : DropdownDataOption) => {
         setCurrentOption(prev =>
             prev.indexOf(item) > -1 ?
                 prev.filter(i => i !== item) :
@@ -158,7 +143,7 @@ export const Multiple = () => {
             icon={<Love/>}
             placeholder="Select something"
             values={currentOption.map(v => v.value)}
-            size="big"
+            size="medium"
             isDisabled={false}
             data={dropdownData}
             onChange={(e, item) => handleOnChange(e, item)}
@@ -167,12 +152,9 @@ export const Multiple = () => {
 };
 
 export const Empty = () => {
-    const [currentOption, setCurrentOption] = useState({
-        label: 'Select something',
-        value: null
-    });
+    const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
 
-    const handleOnChange = (e, item) => {
+    const handleOnChange = (e:React.MouseEvent, item: DropdownDataOption) => {
         setCurrentOption(item);
         action('onChange');
         return true;
@@ -181,8 +163,8 @@ export const Empty = () => {
     return (
         <Dropdown
             icon={<Love/>}
-            label={currentOption.label}
-            value={currentOption.value}
+            placeholder="Select something"
+            value={currentOption?.value}
             data={[]}
             onChange={(e, item) => handleOnChange(e, item)}
         />
@@ -190,12 +172,12 @@ export const Empty = () => {
 };
 
 export const WithDefaultValue = () => {
-    const [currentOption, setCurrentOption] = useState({
+    const [currentOption, setCurrentOption] = useState<DropdownDataOption>({
         label: dropdownData[1].label,
         value: dropdownData[1].value
     });
 
-    const handleOnChange = (e, item) => {
+    const handleOnChange = (e: React.MouseEvent, item: DropdownDataOption) => {
         setCurrentOption(item);
         action('onChange');
         return true;
@@ -204,9 +186,8 @@ export const WithDefaultValue = () => {
     return (
         <Dropdown
             isDisabled={false}
-            label={currentOption.label}
             value={currentOption.value}
-            size="big"
+            size="medium"
             data={dropdownData}
             onChange={(e, item) => handleOnChange(e, item)}
         />
@@ -214,12 +195,9 @@ export const WithDefaultValue = () => {
 };
 
 export const Grouped = () => {
-    const [currentOption, setCurrentOption] = useState({
-        label: 'Select something',
-        value: null
-    });
+    const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
 
-    const handleOnChange = (e, item) => {
+    const handleOnChange = (e : React.MouseEvent, item : DropdownDataOption) => {
         setCurrentOption(item);
         action('onChange');
         return true;
@@ -228,9 +206,9 @@ export const Grouped = () => {
     return (
         <Dropdown
             isDisabled={false}
-            label={currentOption.label}
-            value={currentOption.value}
-            size="big"
+            placeholder="Select something"
+            value={currentOption?.value}
+            size="medium"
             data={dropdownDataGrouped}
             onChange={(e, item) => handleOnChange(e, item)}
         />
@@ -238,9 +216,9 @@ export const Grouped = () => {
 };
 
 export const GroupedMultiple = () => {
-    const [currentOption, setCurrentOption] = useState([]);
+    const [currentOption, setCurrentOption] = useState<DropdownDataOption[]>([]);
 
-    const handleOnChange = (e, item) => {
+    const handleOnChange = (e : React.MouseEvent, item: DropdownDataOption) => {
         setCurrentOption(prev =>
             prev.indexOf(item) > -1 ?
                 prev.filter(i => i !== item) :
@@ -255,7 +233,7 @@ export const GroupedMultiple = () => {
             isDisabled={false}
             placeholder="Select something"
             values={currentOption.map(v => v.value)}
-            size="big"
+            size="medium"
             data={dropdownDataGrouped}
             onChange={(e, item) => handleOnChange(e, item)}
         />
@@ -263,12 +241,9 @@ export const GroupedMultiple = () => {
 };
 
 export const OutlinedVariantWithSearch = () => {
-    const [currentOption, setCurrentOption] = useState({
-        label: 'Select something',
-        value: null
-    });
+    const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
 
-    const handleOnChange = (e, item) => {
+    const handleOnChange = (e: React.MouseEvent, item : DropdownDataOption) => {
         setCurrentOption(item);
         action('onChange');
         return true;
@@ -278,10 +253,10 @@ export const OutlinedVariantWithSearch = () => {
         <Dropdown
             hasSearch
             variant="outlined"
-            label={currentOption.label}
-            value={currentOption.value}
+            placeholder="Select something"
+            value={currentOption?.value}
             icon={<Love/>}
-            size="big"
+            size="medium"
             data={dropdownDataGrouped}
             onChange={(e, item) => handleOnChange(e, item)}
     />
@@ -289,12 +264,9 @@ export const OutlinedVariantWithSearch = () => {
 };
 
 export const OutlinedVariantWithBigImages = () => {
-    const [currentOption, setCurrentOption] = useState({
-        label: 'Select something',
-        value: null
-    });
+    const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
 
-    const handleOnChange = (e, item) => {
+    const handleOnChange = (e : React.MouseEvent, item: DropdownDataOption) => {
         setCurrentOption(item);
         action('onChange');
         return true;
@@ -305,8 +277,7 @@ export const OutlinedVariantWithBigImages = () => {
             hasSearch
             variant="outlined"
             imageSize="big"
-            label={currentOption.label}
-            value={currentOption.value}
+            value={currentOption?.value}
             size="medium"
             data={dropdownDataImages}
             onChange={(e, item) => handleOnChange(e, item)}
@@ -315,12 +286,9 @@ export const OutlinedVariantWithBigImages = () => {
 };
 
 export const OutlinedVariantWithSmallImages = () => {
-    const [currentOption, setCurrentOption] = useState({
-        label: 'Select something',
-        value: null
-    });
+    const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
 
-    const handleOnChange = (e, item) => {
+    const handleOnChange = (e: React.MouseEvent, item : DropdownDataOption) => {
         setCurrentOption(item);
         action('onChange');
         return true;
@@ -331,8 +299,8 @@ export const OutlinedVariantWithSmallImages = () => {
             hasSearch
             variant="outlined"
             imageSize="small"
-            label={currentOption.label}
-            value={currentOption.value}
+            placeholder="Select something"
+            value={currentOption?.value}
             data={dropdownDataImages}
             size="medium"
             onChange={(e, item) => handleOnChange(e, item)}
@@ -341,12 +309,9 @@ export const OutlinedVariantWithSmallImages = () => {
 };
 
 export const DropdownWithTree = () => {
-    const [currentOption, setCurrentOption] = useState({
-        label: 'Select something',
-        value: null
-    });
+    const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
 
-    const handleOnChange = (e, item) => {
+    const handleOnChange = (e : React.MouseEvent, item : DropdownDataOption) => {
         setCurrentOption(item);
         action('onChange');
         return true;
@@ -359,8 +324,8 @@ export const DropdownWithTree = () => {
             variant="outlined"
             size="small"
             icon={<Love/>}
-            label={currentOption.label}
-            value={currentOption.value}
+            placeholder="Select something"
+            value={currentOption?.value}
             treeData={dropdownDataTree}
             onChange={(e, item) => handleOnChange(e, item)}
         />
@@ -368,13 +333,10 @@ export const DropdownWithTree = () => {
 };
 
 export const WithDescription = {
-    render: args => {
-        const [currentOption, setCurrentOption] = useState({
-            label: 'Select something',
-            value: null
-        });
+    render: (args: DropdownProps) => {
+        const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
 
-        const handleOnChange = (e, item) => {
+        const handleOnChange = (e: React.MouseEvent, item : DropdownDataOption) => {
             setCurrentOption(item);
             action('onChange');
             return true;
@@ -383,8 +345,8 @@ export const WithDescription = {
         return (
             <Dropdown
                 {...args}
-                label={currentOption.label}
-                value={currentOption.value}
+                placeholder="Select something"
+                value={currentOption?.value}
                 data={dropdownDataDescriptions}
                 onChange={(e, item) => handleOnChange(e, item)}
             />
@@ -399,9 +361,9 @@ export const WithDescription = {
 };
 
 export const DropdownWithTreeMultiple = () => {
-    const [currentOption, setCurrentOption] = useState([]);
+    const [currentOption, setCurrentOption] = useState<DropdownDataOption[]>([]);
 
-    const handleOnChange = (e, item) => {
+    const handleOnChange = (e : React.MouseEvent, item : DropdownDataOption) => {
         setCurrentOption(prev =>
             prev.indexOf(item) > -1 ?
                 prev.filter(i => i !== item) :
@@ -426,44 +388,23 @@ export const DropdownWithTreeMultiple = () => {
 };
 
 export const DropdownWithPill = () => {
-    const [currentOption, setCurrentOption] = useState([]);
+    const [currentOption, setCurrentOption] = useState<DropdownDataOption>(
+        {label: 'French', value: 'fr', iconEnd: <Pill label="FR"/>}
+    );
 
-    const dataLanguages = [
+    const dataLanguages : DropdownDataOption[] = [
         {
             label: 'French',
             value: 'fr',
             iconEnd: <Pill label="FR"/>
         },
         {
-            label: (
-                <>
-                    French{' '}
-                    <Typography
-                        component="span"
-                        variant="caption"
-                        style={{color: 'darkgray'}}
-                    >
-                        (Canadian)
-                    </Typography>
-                </>
-            ),
+            label: 'French (Canadian)',
             value: 'fr_ca',
             iconEnd: <Pill label="FR_CA"/>
         },
         {
-            label: (
-                <>
-                    Language with very long long label label label label label label label
-                    name{' '}
-                    <Typography
-                        component="span"
-                        variant="caption"
-                        style={{color: 'darkgray'}}
-                    >
-                        (country name)
-                    </Typography>
-                </>
-            ),
+            label: 'Language with very long long label label label label label label label name (country name)',
             value: 'es',
             iconEnd: <Pill label="ES"/>
         },
@@ -474,7 +415,7 @@ export const DropdownWithPill = () => {
         }
     ];
 
-    const handleOnChange = (e, item) => {
+    const handleOnChange = (e : React.MouseEvent, item: DropdownDataOption) => {
         setCurrentOption(item);
         action('onChange');
         return true;
@@ -482,13 +423,11 @@ export const DropdownWithPill = () => {
 
     return (
         <Dropdown
-            isReversed
             icon={
                 Object.keys(currentOption).length > 0 ? (
                     <Pill label={currentOption.value.toUpperCase()}/>
                 ) : null
             }
-            label={currentOption.label}
             placeholder="Select something"
             value={currentOption.value}
             size="small"
@@ -498,3 +437,4 @@ export const DropdownWithPill = () => {
         />
     );
 };
+
