@@ -42,12 +42,8 @@ const ModalForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalProps
 
     const headingId = useId();
 
-    if (!children) {
-        return null;
-    }
-
     return (
-        isOpen && (
+        children && isOpen && (
         <FloatingPortal>
             <FloatingOverlay lockScroll className="moonstone-modal_overlay">
                 {/* FloatingFocusManager handles context to allow each modal to be treated separately

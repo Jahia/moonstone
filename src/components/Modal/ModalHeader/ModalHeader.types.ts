@@ -7,7 +7,7 @@ export type ModalHeaderProps = Omit<React.ComponentPropsWithRef<'header'>, 'clas
     title: string;
 
     /**
-     * Title of the ModalHeader
+     * Children of the ModalHeader
      */
     children?: ReactNode;
 

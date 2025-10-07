@@ -11,15 +11,15 @@ const ModalHeaderForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, Moda
     ...props
 }, ref) => {
     return (
+        title &&
         <header
             ref={ref}
             className={clsx('moonstone-modalHeader', 'flexCol_nowrap', className)}
             {...props}
         >
-            {title &&
             <Typography variant="heading" weight="bold" component="h4">
                 {title}
-            </Typography>}
+            </Typography>
             {children &&
             <Typography variant="body" component="div" className={clsx('moonstone-banner_content')}>
                 {children}

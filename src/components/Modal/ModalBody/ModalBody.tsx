@@ -9,12 +9,13 @@ const ModalBodyForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalB
     ...props
 }, ref) => {
     return (
+        children &&
         <div
             ref={ref}
             className={clsx('moonstone-modalBody', className)}
             {...props}
         >
-            {children && children}
+            {children}
         </div>
     );
 };

@@ -9,12 +9,13 @@ const ModalFooterForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, Moda
     ...props
 }, ref) => {
     return (
+        children &&
         <footer
             ref={ref}
             className={clsx('moonstone-modalFooter', 'alignCenter', 'flexRow_reverse', className)}
             {...props}
         >
-            {children && children}
+            {children}
         </footer>
     );
 };
