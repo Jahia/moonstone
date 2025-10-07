@@ -2,7 +2,7 @@ import React, {useRef, useEffect, useImperativeHandle} from 'react';
 import type {NumberInputProps} from './NumberInput.types';
 import {BaseInput} from '../BaseInput';
 import {onArrowIncrementation} from '~/hooks';
-import {filterInputValue} from '~/utils/filterInputValue';
+import {filterNumberInputValue} from '~/utils/filterNumberInputValue';
 
 const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(({
     allowNegative = false,
@@ -30,7 +30,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(({
         const initialValue = inputRef.current?.value;
 
         if (inputRef.current) {
-            const filteredValue = filterInputValue(initialValue || '', allowNegative, allowDecimal, separator);
+            const filteredValue = filterNumberInputValue(initialValue || '', allowNegative, allowDecimal, separator);
 
             if (filteredValue !== initialValue) {
                 inputRef.current.value = filteredValue;
@@ -40,7 +40,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(({
     }, [allowNegative, allowDecimal, separator]);
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const filteredValue = filterInputValue(event.target.value, allowNegative, allowDecimal, separator);
+        const filteredValue = filterNumberInputValue(event.target.value, allowNegative, allowDecimal, separator);
 
         if (inputRef.current?.value !== filteredValue) {
             inputRef.current.value = filteredValue;
@@ -54,7 +54,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(({
     return (
         <BaseInput
             ref={inputRef}
-            hasFilteredValue
+            filterFunction={filterNumberInputValue}
             inputMode={allowDecimal ? 'decimal' : 'numeric'}
             min={min}
             max={max}

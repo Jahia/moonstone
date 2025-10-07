@@ -39,6 +39,15 @@ describe('onArrowIncrementation', () => {
         expect(screen.getByRole('textbox')).toHaveValue('4');
     });
 
+    it('should substract decimal value starting with 0 by step', async () => {
+        const user = userEvent.setup();
+        render(<TestInput isNegative defaultValue="0.05" min={-2}/>);
+
+        await user.keyboard('[Tab]');
+        await user.keyboard('[ArrowDown]');
+        expect(screen.getByRole('textbox')).toHaveValue('-1.05');
+    });
+
     it('should substract decimal value by step', async () => {
         const user = userEvent.setup();
         render(<TestInput defaultValue="5.05"/>);
@@ -73,6 +82,15 @@ describe('onArrowIncrementation', () => {
         await user.keyboard('[Tab]');
         await user.keyboard('[ArrowUp]');
         expect(screen.getByRole('textbox')).toHaveValue('6');
+    });
+
+    it('should increment decimal value starting with 0 by step', async () => {
+        const user = userEvent.setup();
+        render(<TestInput defaultValue="0.05"/>);
+
+        await user.keyboard('[Tab]');
+        await user.keyboard('[ArrowUp]');
+        expect(screen.getByRole('textbox')).toHaveValue('1.05');
     });
 
     it('should increment decimal value by step', async () => {

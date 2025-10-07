@@ -117,9 +117,9 @@ type UncontrolledProps = {
     defaultValue?: string;
 
     /**
-     * Defines input as number only
+     * Function to use to filter the value
      */
-    hasFilteredValue?: boolean;
+    filterFunction?: (...args: unknown[]) => string;
 
     /**
      * Allows input value to be negative
@@ -134,7 +134,7 @@ type UncontrolledProps = {
     /**
      * Character to use as a separator
      */
-    separator?: string;
+    separator?: '.' | ',';
 }
 
 export type BaseInputProps = BasicBaseInputProps & Partial<ControlledProps> & Partial<UncontrolledProps>;

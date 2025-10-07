@@ -14,7 +14,7 @@ export type BasicNumberInputProps = Omit<BaseInputProps, 'isShowClearButton' | '
     /**
      * Character to use as a separator
      */
-    separator?: string;
+    separator?: '.' | ',';
 
     /**
      * Step to increase & decrease the value by

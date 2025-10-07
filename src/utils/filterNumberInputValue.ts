@@ -1,4 +1,4 @@
-export const filterInputValue = (value: string, allowNegative: boolean, allowDecimal: boolean, separator: string) => {
+export const filterNumberInputValue = (value: string, allowNegative: boolean, allowDecimal: boolean, separator: string) => {
     const negativeSign = allowNegative ? '-?' : '';
     const decimalPart = allowDecimal ? `((\\${separator})\\d+)?` : '';
     const pattern = new RegExp(`^${negativeSign}(0|[1-9]\\d*)${decimalPart}$`);
@@ -10,6 +10,7 @@ export const filterInputValue = (value: string, allowNegative: boolean, allowDec
 
     const filterValue = (val: string) => {
         let filtered;
+
         switch (inputType) {
             case 'both':
                 filtered = val.replace(new RegExp(`[^\\d${separator}\\-]`, 'g'), '').replace(/(?!^)-/g, '').replace(new RegExp(`\\${separator}.*\\${separator}`, 'g'), match => match.substring(1));
@@ -23,6 +24,14 @@ export const filterInputValue = (value: string, allowNegative: boolean, allowDec
             default:
                 filtered = val.replace(/\D/g, '');
                 break;
+        }
+
+        if (filtered.startsWith(separator)) {
+            filtered = '0' + filtered;
+        }
+
+        if (filtered.startsWith(`-${separator}`)) {
+            filtered = filtered.replace(new RegExp(`\\${separator}`, 'g'), `0${separator}`);
         }
 
         return filtered;

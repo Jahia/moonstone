@@ -30,7 +30,7 @@ export const onArrowIncrementation = ({
         const decimalsLeft = element.value.split(separator)[1] || null;
         // ParseFloat only works with '.' separator
         // Only keep the integer for incrementation to avoid floating point precsion
-        let newValue = parseFloat(element.value.replace(separator, '.').split('.')[0]) || parseFloat(element.value);
+        let newValue = decimalsLeft ? parseFloat(element.value.replace(separator, '.').split('.')[0]) : parseFloat(element.value);
         const newStep = Number.isInteger(step) ? step : 1;
 
         if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') {
