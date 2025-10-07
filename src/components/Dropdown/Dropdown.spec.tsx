@@ -154,6 +154,23 @@ describe('Dropdown', () => {
         expect(screen.getByRole('searchbox')).toHaveValue('test');
     });
 
+    it('should show group title where children match the search value', async () => {
+        const user = userEvent.setup();
+        render(
+            <Dropdown
+                hasSearch
+                data={dropdownDataGrouped}
+                onChange={() => 'testing'}
+            />
+        );
+
+        await user.click(screen.getByRole('listbox'));
+        await user.type(screen.getByRole('searchbox'), '4');
+        expect(screen.getByText(/test 2/)).toBeInTheDocument();
+        expect(screen.getByText(/option 4/)).toBeInTheDocument();
+        expect(screen.queryByText(/option 3/i)).not.toBeInTheDocument();
+    });
+
     it('should call onChange when I select a value', async () => {
         const user = userEvent.setup();
         const onChange = vi.fn();
