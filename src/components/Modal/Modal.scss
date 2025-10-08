@@ -1,0 +1,38 @@
+.moonstone-modal_overlay {
+    display: grid;
+
+    background: var(--color-dark60);
+    place-items: center;
+}
+
+.moonstone-modal {
+    position: inherit;
+
+    max-height: 80vh;
+
+    background-color: var(--color-light);
+}
+
+.moonstone-modal_small {
+    top: 10vh;
+
+    width: 300px;
+}
+
+.moonstone-modal_medium {
+    top: 10vh;
+
+    width: 450px;
+}
+
+.moonstone-modal_large {
+    top: auto;
+
+    width: 600px;
+}
+
+.moonstone-modal_full {
+    top: auto;
+
+    width: 100%;
+}
