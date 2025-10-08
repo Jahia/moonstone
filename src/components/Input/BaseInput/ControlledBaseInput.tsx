@@ -1,11 +1,11 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect} from 'react';
 import clsx from 'clsx';
 import {Cancel} from '~/icons';
 import {Button} from '~/components';
 import './BaseInput.scss';
 import type {ControlledBaseInputProps} from './BaseInput.types';
 
-export const ControlledBaseInput: React.FC<ControlledBaseInputProps> = ({
+const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInputProps>(({
     value = '',
     id,
     role,
@@ -28,22 +28,21 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps> = ({
     onFocus,
     focusOnField = false,
     ...props
-}) => {
+}, ref) => {
     const isFilled = value !== '';
-    const inputRef = useRef(null);
     const classNameProps = clsx('moonstone-baseInput', `moonstone-${size}`, `moonstone-${variant}`, className);
 
     useEffect(() => {
-        if (focusOnField && !isDisabled && !isReadOnly) {
-            inputRef.current.focus({preventScroll: true});
+        if (focusOnField && !isDisabled && !isReadOnly && ref && typeof ref === 'object') {
+            ref.current.focus({preventScroll: true});
         }
-    }, [focusOnField, isDisabled, isReadOnly]);
+    }, [focusOnField, isDisabled, isReadOnly, ref]);
 
-    if (isShowClearButton && !onClear) {
+    if (isShowClearButton && !onClear && ref && typeof ref === 'object') {
         onClear = () => {
-            inputRef.current.value = '';
+            ref.current.value = '';
             const inputEvent: unknown = new Event('change');
-            inputRef.current.dispatchEvent(inputEvent);
+            ref.current.dispatchEvent(inputEvent as Event);
             onChange(inputEvent as React.ChangeEvent<HTMLInputElement>);
         };
     }
@@ -64,11 +63,11 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps> = ({
             <div className="flexRow alignCenter flexFluid moonstone-baseInput_elementsWrapper">
                 {prefixComponents}
                 <input
-                    ref={inputRef}
+                    ref={ref}
                     className={clsx('moonstone-baseInput-element', `moonstone-${size}`)}
                     type="text"
                     value={value}
-                    role={role === 'search' && 'searchbox'}
+                    role={role === 'search' ? 'searchbox' : undefined}
                     id={id}
                     placeholder={placeholder}
                     disabled={isDisabled}
@@ -87,7 +86,7 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps> = ({
                 />
                 {postfixComponents}
             </div>
-            {onClear && isFilled && !isDisabled && !isReadOnly && (
+            { onClear && isFilled && !isDisabled && !isReadOnly && (
                 <Button
                     className="moonstone-baseInput_clearButton flexRow_center alignCenter"
                     variant="ghost"
@@ -98,6 +97,7 @@ export const ControlledBaseInput: React.FC<ControlledBaseInputProps> = ({
             )}
         </div>
     );
-};
+});
 
 ControlledBaseInput.displayName = 'ControlledBaseInput';
+export {ControlledBaseInput};

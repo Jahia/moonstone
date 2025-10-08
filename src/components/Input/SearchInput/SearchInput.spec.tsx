@@ -28,7 +28,6 @@ describe('UncontrolledInput', () => {
             <SearchInput
                 data-testid="moonstone-input"
                 defaultValue="test-default-value"
-                variant="search"
             />
         );
         await user.click(screen.getByLabelText('Reset'));
@@ -42,7 +41,6 @@ describe('UncontrolledInput', () => {
 
         render(
             <SearchInput
-                variant="search"
                 defaultValue="test-default-value"
                 onClear={handleClear}
             />
@@ -60,7 +58,6 @@ describe('ControlledInput', () => {
 
         render(
             <SearchInput
-                variant="search"
                 value="test-value"
                 onChange={() => null}
                 onClear={handleClear}
