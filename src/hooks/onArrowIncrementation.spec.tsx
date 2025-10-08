@@ -7,7 +7,7 @@ type TestInputProps = {readonly step?: number;
     readonly defaultValue?: string;
     readonly isNegative?: boolean;
     readonly isDecimal?: boolean;
-    readonly separator?: string;
+    readonly separator?: '.' | ',';
     readonly min?: number;
     readonly max?: number;
 };
@@ -66,15 +66,6 @@ describe('onArrowIncrementation', () => {
         expect(screen.getByRole('textbox')).toHaveValue('4,05');
     });
 
-    it('should substract decimal value with colon by step', async () => {
-        const user = userEvent.setup();
-        render(<TestInput defaultValue="5:05" separator=":"/>);
-
-        await user.keyboard('[Tab]');
-        await user.keyboard('[ArrowDown]');
-        expect(screen.getByRole('textbox')).toHaveValue('4:05');
-    });
-
     it('should increment value by step', async () => {
         const user = userEvent.setup();
         render(<TestInput/>);
@@ -109,15 +100,6 @@ describe('onArrowIncrementation', () => {
         await user.keyboard('[Tab]');
         await user.keyboard('[ArrowUp]');
         expect(screen.getByRole('textbox')).toHaveValue('6,05');
-    });
-
-    it('should increment decimal value with colon by step', async () => {
-        const user = userEvent.setup();
-        render(<TestInput defaultValue="5:05" separator=":"/>);
-
-        await user.keyboard('[Tab]');
-        await user.keyboard('[ArrowUp]');
-        expect(screen.getByRole('textbox')).toHaveValue('6:05');
     });
 
     it('should not go lower than min', async () => {
