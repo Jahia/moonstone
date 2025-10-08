@@ -4,5 +4,8 @@ export type InputProps = Omit<BaseInputProps,
     'prefixComponents' |
     'isShowClearButton' |
     'isShowTriggerButton' |
-    'triggerButtonIcon'
+    'triggerButtonIcon' |
+    'filterFunction' |
+    'allowDecimal' |
+    'allowNegative'
 >;

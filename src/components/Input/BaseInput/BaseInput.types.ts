@@ -115,6 +115,26 @@ type UncontrolledProps = {
      * Default value when the component is rendered (Uncontrolled)
      */
     defaultValue?: string;
+
+    /**
+     * Function to use to filter the value
+     */
+    filterFunction?: (...args: unknown[]) => string;
+
+    /**
+     * Allows input value to be negative
+     */
+    allowNegative?: boolean;
+
+    /**
+     * Allows input value to be decimal
+     */
+    allowDecimal?: boolean;
+
+    /**
+     * Character to use as a separator
+     */
+    separator?: '.' | ',';
 }
 
 export type BaseInputProps = BasicBaseInputProps & Partial<ControlledProps> & Partial<UncontrolledProps>;

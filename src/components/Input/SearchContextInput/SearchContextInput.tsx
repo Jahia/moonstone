@@ -1,10 +1,15 @@
-import React from 'react';
+import React, {useImperativeHandle, useRef} from 'react';
 import {SearchContextInputProps} from './SearchContextInput.types';
 import {BaseInput} from '../BaseInput';
 import clsx from 'clsx';
 
-export const SearchContextInput: React.FC<SearchContextInputProps> = ({searchContext, ...props}) => {
+export const SearchContextInput = React.forwardRef<HTMLInputElement, SearchContextInputProps>(({
+    searchContext,
+    ...props}, ref) => {
     const hasSearchContext = typeof searchContext !== 'undefined';
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    useImperativeHandle(ref, () => inputRef.current!, []);
 
     const component = hasSearchContext && (
         <searchContext.type
@@ -18,6 +23,7 @@ export const SearchContextInput: React.FC<SearchContextInputProps> = ({searchCon
 
     return (
         <BaseInput
+            ref={inputRef}
             {...props}
             isShowClearButton
             prefixComponents={[component]}
@@ -26,6 +32,6 @@ export const SearchContextInput: React.FC<SearchContextInputProps> = ({searchCon
             size="big"
         />
     );
-};
+});
 
 SearchContextInput.displayName = 'SearchContextInput';
