@@ -5,7 +5,7 @@ type onArrowIncrementationProps = {
     ref: React.RefObject<HTMLInputElement>;
     step: number;
     allowNegative: boolean;
-    separator?: string,
+    separator?: '.' | ',',
     min?: number;
     max?: number;
 };
@@ -26,16 +26,16 @@ export const onArrowIncrementation = ({
             return;
         }
 
+        if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') {
+            return;
+        }
+
         // Keep digits after the separator
         const decimalsLeft = element.value.split(separator)[1] || null;
         // ParseFloat only works with '.' separator
         // Only keep the integer for incrementation to avoid floating point precsion
         let newValue = decimalsLeft ? parseFloat(element.value.replace(separator, '.').split('.')[0]) : parseFloat(element.value);
         const newStep = Number.isInteger(step) ? step : 1;
-
-        if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') {
-            return;
-        }
 
         if (e.key === 'ArrowDown' && (newValue > 0 || allowNegative)) {
             e.preventDefault();
@@ -66,7 +66,7 @@ export const onArrowIncrementation = ({
         // Trim final value to have same digits after separator as initial value
         const fixedValue = (decimalsLeft && decimalsLeft.length > 0) ? `${newValue}${separator}${decimalsLeft}` : newValue.toString();
         element.value = Number.isNaN(newValue) ? '' : fixedValue;
-        // Update uncontrolled input
+        // Update uncontrolled input's value in the DOM
         element.defaultValue = element.value;
     };
 

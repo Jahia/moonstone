@@ -38,8 +38,7 @@ export const filterNumberInputValue = (value: string, allowNegative: boolean, al
     };
 
     if (!pattern.test(value) && value !== '') {
-        const filteredValue = filterValue(value);
-        return filteredValue;
+        return filterValue(value);
     }
 
     return value;
