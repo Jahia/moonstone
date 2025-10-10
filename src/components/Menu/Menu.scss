@@ -1,5 +1,28 @@
 @use '../../utils/index';
 
+.menu-listSelector, .moonstone-valueList_wrapper  {
+    width: fit-content !important;
+    display: flex;
+
+    .moonstone-valueList {
+        height: fit-content !important;
+        max-height: 100% !important;
+        & >*{
+            padding: var(--spacing-nano) !important;
+            & span {
+                font-size: 0.75rem !important;
+                line-height: unset !important;
+                height: fit-content !important;
+            }
+        }
+    }
+}
+.menu-listSelector, .moonstone-valueList_wrapper:has(.menu-list)  {
+    .moonstone-baseInput {
+        display: none !important;
+    }
+}
+
 .moonstone-menu {
     z-index: 9000;
 
@@ -30,6 +53,13 @@
 
         color: var(--color-gray);
         text-align: center;
+    }
+
+    .moonstone-checkboxItem {
+        margin-top: 0;
+    }
+    .moonstone-cardSelector_dragIcon {
+        position: unset !important;
     }
 }
 

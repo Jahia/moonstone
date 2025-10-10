@@ -31,7 +31,9 @@ const getFilteredGroups = (children: [React.ReactElement], inputValue: string) =
     // If group then filter each child by inputValue while keeping title & separator
     if (children.length > 0 && children[0].props?.['data-option-type'] === 'group') {
         return children.reduce((acc, curr) => {
-            const groupChildren = curr.props.children[2] || [];
+            // Instead of hardcoding children's array position, searches for it
+            const childrenIndex = curr.props.children.findIndex((child: React.ReactElement) => Array.isArray(child));
+            const groupChildren = curr.props.children[childrenIndex] || [];
             const filteredChildren = groupChildren.filter((child: React.ReactElement) => getFilteredChildren(child, inputValue));
 
             // If children match the inputValue then add group with only matching children to returning array

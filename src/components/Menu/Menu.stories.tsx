@@ -5,7 +5,8 @@ import {Menu, MenuItem} from './index';
 import type {MenuProps, AnchorPosition} from './Menu.types';
 
 import markdownNotes from './Menu.md';
-import {Separator} from '~/components';
+import {Dropdown, ListSelector, Separator} from '~/components';
+import {CheckboxChecked, CheckboxUnchecked, HandleDrag} from '~/icons';
 
 export default {
     title: 'Components/Menu',
@@ -17,7 +18,8 @@ export default {
             // Fix issues in the doc tab with firefox
             inlineStories: false,
             IframeHeight: 500
-        }
+        },
+        layout: 'centered'
     }
 };
 
@@ -42,6 +44,341 @@ export const Default: StoryObj<MenuProps> = {
         maxHeight: '250px',
         style: {zIndex: 10000}
     }
+};
+
+export const SpikeMenuWithSelectableChildren = () => {
+    const [selected, setSelected] = useState([
+        'Statuses',
+        'Content type',
+        'Created by',
+        'Last modified'
+    ]);
+    const [children, setChildren] = useState([
+        'Categories',
+        'Created at',
+        'Id',
+        'Languages',
+        'Last modified by',
+        'Path',
+        'Published',
+        'Published by',
+        'Tags',
+        'Usages'
+    ]);
+    const MLRS_DRAG = 'mlrs_drag_list_item';
+    const [dragged, setDragged] = useState(null);
+
+    const onCheck = (child: string) => {
+        setSelected([...selected, child]);
+        setChildren(children.filter(value => value !== child));
+    };
+
+    const onUncheck = (child: string) => {
+        setChildren([...children, child]);
+        setSelected(selected.filter(value => value !== child));
+    };
+
+    const displaySelected = [...selected];
+    if (typeof dragged?.originalIndex === 'number') {
+        displaySelected.splice(dragged.originalIndex, 1);
+    }
+
+    if (typeof dragged?.index === 'number') {
+        displaySelected.splice(dragged.index, 0, dragged.value);
+    }
+
+    const onDragStart = (e: React.DragEvent, child: string) => {
+        e.stopPropagation();
+        setTimeout(() => {
+            (e.currentTarget as HTMLElement).style.opacity = '0';
+        }, 10);
+        e.dataTransfer.setData(MLRS_DRAG, JSON.stringify({type: MLRS_DRAG, value: child}));
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setDragImage(e.currentTarget as Element, 10, 10);
+        setDragged({value: child, originalIndex: selected.indexOf(child), index: selected.indexOf(child)});
+    };
+
+    const onDragEnd = (e: React.DragEvent) => {
+        e.stopPropagation();
+        (e.currentTarget as HTMLElement).style.opacity = '1';
+        setDragged(null);
+    };
+
+    const onDragOver = (e: React.DragEvent, child: string) => {
+        e.stopPropagation();
+        if (e.dataTransfer.types.includes(MLRS_DRAG)) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            const rect = e.currentTarget.getBoundingClientRect();
+            const clientOffset = {x: e.clientX, y: e.clientY};
+            const targetMidPointY = rect.y + (rect.height / 2);
+            let newIndex = -1;
+            if (child && dragged?.value !== child) {
+                if (clientOffset.y < targetMidPointY) {
+                    newIndex = selected.filter(f => f !== dragged.value).indexOf(child);
+                }
+
+                if (clientOffset.y > targetMidPointY) {
+                    newIndex = selected.filter(f => f !== dragged.value).indexOf(child) + 1;
+                }
+            } else if (!child) {
+                newIndex = selected.length;
+            }
+
+            if (newIndex !== -1 && dragged.index !== newIndex) {
+                setDragged((state: object) => ({
+                    ...state,
+                    index: newIndex
+                }));
+            }
+        }
+    };
+
+    const onDrop = (e: React.DragEvent) => {
+        e.stopPropagation();
+        if (e.dataTransfer.types.includes(MLRS_DRAG)) {
+            setSelected(displaySelected);
+            setDragged(null);
+        }
+    };
+
+    return (
+        <Menu
+            hasSearch
+            isDisplayed
+            searchEmptyText="Oh no! It seems like that doesn't exist."
+            maxHeight="350px"
+            style={{zIndex: 10000, position: 'relative'}}
+        >
+            <div data-option-type="group" role="group">
+                <Separator/>
+                <MenuItem label="Visible fields" variant="title"/>
+                <MenuItem isDisabled label="Displayable name" iconStart={<CheckboxChecked color="blue"/>}/>
+                {displaySelected.map(child => (
+                    <MenuItem key={child} label={child} iconStart={<CheckboxChecked color="blue"/>} iconEnd={<HandleDrag/>} onClick={() => onUncheck(child)} onDragStart={e => onDragStart(e, child)} onDragEnd={e => onDragEnd(e)} onDragOver={e => onDragOver(e, child)} onDrop={e => onDrop(e)}/>
+                ))}
+            </div>
+            <div data-option-type="group" role="group">
+                <Separator/>
+                <MenuItem label="Hidden fields" variant="title"/>
+                {children.map(child => (
+                    <MenuItem key={child} label={child} iconStart={<CheckboxUnchecked/>} onClick={() => onCheck(child)}/>
+                ))}
+            </div>
+
+        </Menu>
+    );
+};
+
+export const SpikeWithVisibleAndDropdowns = () => {
+    const [selected, setSelected] = useState([
+        'Statuses',
+        'Content type',
+        'Created by',
+        'Last modified'
+    ]);
+    const firstDropdownData = [
+        {value: '1', label: 'Status'},
+        {value: '2', label: 'Name'},
+        {value: '3', label: 'Content type'},
+        {value: '4', label: 'Last modified'},
+        {value: '5', label: 'Created at'}
+    ];
+    const secondDropdownData = [
+        {value: 'asc', label: 'Ascending (A-Z)'},
+        {value: 'desc', label: 'Descending (Z-A)'}
+    ];
+
+    const MLRS_DRAG = 'mlrs_drag_list_item';
+    const [dragged, setDragged] = useState(null);
+
+    const displaySelected = [...selected];
+    if (typeof dragged?.originalIndex === 'number') {
+        displaySelected.splice(dragged.originalIndex, 1);
+    }
+
+    if (typeof dragged?.index === 'number') {
+        displaySelected.splice(dragged.index, 0, dragged.value);
+    }
+
+    const onDragStart = (e: React.DragEvent, child: string) => {
+        e.stopPropagation();
+        setTimeout(() => {
+            (e.currentTarget as HTMLElement).style.opacity = '0';
+        }, 10);
+        e.dataTransfer.setData(MLRS_DRAG, JSON.stringify({type: MLRS_DRAG, value: child}));
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setDragImage(e.currentTarget as Element, 10, 10);
+        setDragged({value: child, originalIndex: selected.indexOf(child), index: selected.indexOf(child)});
+    };
+
+    const onDragEnd = (e: React.DragEvent) => {
+        e.stopPropagation();
+        (e.currentTarget as HTMLElement).style.opacity = '1';
+        setDragged(null);
+    };
+
+    const onDragOver = (e: React.DragEvent, child: string) => {
+        e.stopPropagation();
+        if (e.dataTransfer.types.includes(MLRS_DRAG)) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            const rect = e.currentTarget.getBoundingClientRect();
+            const clientOffset = {x: e.clientX, y: e.clientY};
+            const targetMidPointY = rect.y + (rect.height / 2);
+            let newIndex = -1;
+            if (child && dragged?.value !== child) {
+                if (clientOffset.y < targetMidPointY) {
+                    newIndex = selected.filter(f => f !== dragged.value).indexOf(child);
+                }
+
+                if (clientOffset.y > targetMidPointY) {
+                    newIndex = selected.filter(f => f !== dragged.value).indexOf(child) + 1;
+                }
+            } else if (!child) {
+                newIndex = selected.length;
+            }
+
+            if (newIndex !== -1 && dragged.index !== newIndex) {
+                setDragged((state: object) => ({
+                    ...state,
+                    index: newIndex
+                }));
+            }
+        }
+    };
+
+    const onDrop = (e: React.DragEvent) => {
+        e.stopPropagation();
+        if (e.dataTransfer.types.includes(MLRS_DRAG)) {
+            setSelected(displaySelected);
+            setDragged(null);
+        }
+    };
+
+    return (
+        <Menu
+            isDisplayed
+            hasSearch={false}
+            maxHeight="350px"
+            style={{zIndex: 10000, position: 'relative', padding: 10}}
+        >
+            <MenuItem label="Visible fields" variant="title"/>
+            <MenuItem isDisabled label="Displayable name" iconStart={<CheckboxChecked color="blue"/>}/>
+            {displaySelected.map(child => (
+                <MenuItem key={child} label={child} iconStart={<CheckboxChecked color="blue"/>} iconEnd={<HandleDrag/>} onDragStart={e => onDragStart(e, child)} onDragEnd={e => onDragEnd(e)} onDragOver={e => onDragOver(e, child)} onDrop={e => onDrop(e)}/>
+                ))}
+            <Separator/>
+            <MenuItem label="Sort by" variant="title"/>
+            <Dropdown variant="outlined" data={firstDropdownData} value="4"/>
+            <Separator/>
+            <MenuItem label="Direction" variant="title"/>
+            <Dropdown variant="outlined" data={secondDropdownData} value="asc"/>
+        </Menu>
+    );
+};
+
+export const SpikeWithOnlyDropdowns = () => {
+    const firstDropdownData = [
+        {value: '1', label: 'Status'},
+        {value: '2', label: 'Name'},
+        {value: '3', label: 'Content type'},
+        {value: '4', label: 'Last modified'},
+        {value: '5', label: 'Created at'}
+    ];
+    const secondDropdownData = [
+        {value: 'asc', label: 'Ascending (A-Z)'},
+        {value: 'desc', label: 'Descending (Z-A)'}
+    ];
+
+    return (
+        <Menu
+            isDisplayed
+            maxHeight="250px"
+            style={{zIndex: 10000, position: 'relative', padding: 10}}
+        >
+            <MenuItem label="Sort by" variant="title"/>
+            <Dropdown variant="outlined" data={firstDropdownData} value="4"/>
+            <Separator/>
+            <MenuItem label="Direction" variant="title"/>
+            <Dropdown variant="outlined" data={secondDropdownData} value="asc"/>
+        </Menu>
+    );
+};
+
+// Search is not working on this one
+export const SpikeWithModifiedListselector = () => {
+    const [arrayValue, setArrayValue] = useState(['2', '5', '8', '9']);
+    const options = [
+        {value: '1', label: 'Status'},
+        {value: '2', label: 'Name'},
+        {value: '3', label: 'Content type'},
+        {value: '4', label: 'Last modified'},
+        {value: '5', label: 'Created at'},
+        {value: '6', label: 'Created by'},
+        {value: '7', label: 'Path'},
+        {value: '8', label: 'Published'},
+        {value: '9', label: 'Tags'}
+    ];
+    return (
+        <Menu
+            hasSearch
+            isDisplayed
+            searchEmptyText="Oh no! It seems like that doesn't exist."
+            maxHeight="350px"
+            style={{zIndex: 10000, position: 'relative', padding: 10}}
+        >
+            <ListSelector
+                    className="menu-listSelector"
+                    label={{
+                      rightListTitle: 'Visible fields',
+                      leftListTitle: 'Hidden fields',
+                      addAllTitle: 'Add all',
+                      removeAllTitle: 'Remove all',
+                      selected: `${arrayValue.length} item(s) selected`
+                    }}
+                    options={options}
+                    values={arrayValue}
+                    onChange={setArrayValue}
+                  />
+        </Menu>
+    );
+};
+
+export const SpikeWithListselector = () => {
+    const [arrayValue, setArrayValue] = useState(['2', '5', '8', '9']);
+    const options = [
+        {value: '1', label: 'Status'},
+        {value: '2', label: 'Name'},
+        {value: '3', label: 'Content type'},
+        {value: '4', label: 'Last modified'},
+        {value: '5', label: 'Created at'},
+        {value: '6', label: 'Created by'},
+        {value: '7', label: 'Path'},
+        {value: '8', label: 'Published'},
+        {value: '9', label: 'Tags'}
+    ];
+    return (
+        <Menu
+            isDisplayed
+            searchEmptyText="Oh no! It seems like that doesn't exist."
+            maxHeight="350px"
+            style={{zIndex: 10000, position: 'relative', padding: 10}}
+        >
+            <ListSelector
+                    label={{
+                      rightListTitle: 'Visible fields',
+                      leftListTitle: 'Hidden fields',
+                      addAllTitle: 'Add all',
+                      removeAllTitle: 'Remove all',
+                      selected: `${arrayValue.length} item(s) selected`
+                    }}
+                    options={options}
+                    values={arrayValue}
+                    onChange={setArrayValue}
+                  />
+        </Menu>
+    );
 };
 
 export const ContextualMenu = () => {
