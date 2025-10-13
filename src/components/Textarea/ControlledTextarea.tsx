@@ -9,7 +9,7 @@ export const ControlledTextarea = React.forwardRef<HTMLTextAreaElement, Controll
     placeholder,
     isDisabled = false,
     isReadOnly = false,
-    isResizable = false,
+    isResizable = true,
     className,
     onChange,
     onBlur,
