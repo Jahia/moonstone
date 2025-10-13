@@ -8,7 +8,6 @@ $selected-line-spacing-big: 20px;
 
 .moonstone-tabItem {
     @extend %variant_ghost;
-
     width: fit-content;
     margin: 0 var(--spacing-nano) calc(#{$selected-line-spacing} - 1px);
     padding: var(--spacing-nano) var(--spacing-small);
@@ -21,6 +20,10 @@ $selected-line-spacing-big: 20px;
 
     &:focus-visible {
         @extend %is-focused;
+    }
+    &.moonstone-disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
     }
 }
 

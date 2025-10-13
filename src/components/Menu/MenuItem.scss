@@ -5,8 +5,8 @@
 
     cursor: pointer;
 
-    &:hover,
-    &.moonstone-hover {
+    &:hover:not(.moonstone-disabled),
+    &.moonstone-hover:not(.moonstone-disabled) {
         color: var(--color-accent_dark);
 
         background-color: var(--color-gray_light40);
@@ -44,11 +44,9 @@
         box-shadow: none;
     }
 
-    &.moonstone-disabled,
-    &.moonstone-disabled:hover {
-        @extend %selector_disabled;
-
-        background: none;
+    &.moonstone-disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
     }
 
     &.moonstone-menuItem-image {
