@@ -50,7 +50,7 @@ const TemplateSimple = (args: DropdownProps) => {
     } = args;
 
     const [currentOption, setCurrentOption] = useState(null);
-    const [currentOptions, setCurrentOptions] = useState([]);
+    const [currentOptions, setCurrentOptions] = useState<DropdownDataOption[]>([]);
 
     const handleOnChange = (e: React.MouseEvent, item : DropdownDataOption) => {
         setCurrentOption(item);
@@ -59,7 +59,8 @@ const TemplateSimple = (args: DropdownProps) => {
     };
 
     const onClear = (() => {
-        setCurrentOptions(null);
+        setCurrentOption(null);
+        setCurrentOptions([]);
     });
 
     return (
