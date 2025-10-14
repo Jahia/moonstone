@@ -73,6 +73,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
     className,
     ...props
 }) => {
+    // If both `value` and `values` are provided, warn the developer
+    if (value !== undefined && values !== undefined) {
+        console.warn(
+            'Be careful, the Dropdown component receives both `values` and `value`. ' +
+            'If the component should accept multiple values, use `values`; otherwise, use `value`'
+        );
+    }
+
     const [isOpened, setIsOpened] = useState(false);
     const [focusData, setFocusData] = useState({focused: false, event: null, lastSent: false});
     const [anchorEl, setAnchorEl] = useState(null);

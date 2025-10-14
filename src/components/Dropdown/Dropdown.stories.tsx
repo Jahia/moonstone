@@ -49,18 +49,22 @@ const TemplateSimple = (args: DropdownProps) => {
         imageSize
     } = args;
 
-    const [currentOption, setCurrentOption] = useState(null);
-    const [currentOptions, setCurrentOptions] = useState<DropdownDataOption[]>([]);
+    const [currentOption, setCurrentOption] = useState<DropdownDataOption[]>([]);
 
-    const handleOnChange = (e: React.MouseEvent, item : DropdownDataOption) => {
-        setCurrentOption(item);
+    const handleOnChange = (e: React.MouseEvent, item: DropdownDataOption) => {
+        setCurrentOption(prev => {
+            const exists = prev.some(i => i.value === item.value);
+            const newOptions = exists ? prev.filter(i => i.value !== item.value) : [...prev, item];
+
+            return newOptions;
+        });
+
         action('onChange');
         return true;
     };
 
     const onClear = (() => {
-        setCurrentOption(null);
-        setCurrentOptions([]);
+        setCurrentOption([]);
     });
 
     return (
@@ -74,8 +78,7 @@ const TemplateSimple = (args: DropdownProps) => {
             label={label}
             placeholder={placeholder}
             className={className}
-            value={currentOption?.value}
-            values={currentOptions.map(i => i.value)}
+            values={currentOption.map(i => i.value)}
             size={size}
             searchEmptyText={searchEmptyText}
             imageSize={imageSize}
