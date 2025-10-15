@@ -113,6 +113,13 @@ type BaseDropdownProps = {
      * Function triggered when the checkbox value loses focus
      */
     onBlur?: React.FocusEventHandler;
+
+ /**
+     * Function trigger on change with the current option as param
+     * @param {object} event - Mouse event
+     * @param {object} item - The current item selected
+     */
+    onChange?: (event: React.MouseEvent, item: DropdownDataOption) => void;
 };
 
 /**
@@ -159,7 +166,6 @@ type SingleValueProps = {
      */
     values?: never;
 
-    onChange?: (event: React.MouseEvent, item: DropdownDataOption) => void;
 };
 
 /**
@@ -175,8 +181,6 @@ type MultipleValuesProps = {
      * Values of the dropdown (multiple selection)
      */
     values?: string[];
-
-    onChange?: (event: React.MouseEvent, item: DropdownDataOption) => void;
 };
 
 /**
