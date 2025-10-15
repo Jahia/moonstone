@@ -23,13 +23,13 @@ export const dropdownDataImages = [
         groupLabel: 'Options 4-11',
         options: [
             {
-                label: 'option 4',
+                label: 'option 4 (disabled)',
                 value: '4',
                 isDisabled: true,
                 image: <img src="https://via.placeholder.com/500?text=DropdownOptionImage"/>
             },
             {
-                label: 'option 5',
+                label: 'option 5 (disabled)',
                 value: '5',
                 image: <img src="https://via.placeholder.com/500?text=DropdownOptionImage"/>,
                 isDisabled: true

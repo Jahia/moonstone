@@ -22,6 +22,11 @@ $selected-line-spacing-big: 20px;
     &:focus-visible {
         @extend %is-focused;
     }
+
+    &.moonstone-disabled {
+        cursor: not-allowed;
+        opacity: 0.4;
+    }
 }
 
 .moonstone-tabItem_icon {
