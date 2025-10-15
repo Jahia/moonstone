@@ -12,7 +12,7 @@ describe('Dropdown', () => {
             <Dropdown
                 data={dropdownData}
                 data-testid="moonstone-dropdown"
-                values={[]}
+                value=""
                 onChange={() => 'testing'}
             />
         );
@@ -24,7 +24,7 @@ describe('Dropdown', () => {
             <Dropdown
                 data={dropdownData}
                 icon={<Love data-testid="dropdown-icon"/>}
-                values={[]}
+                value=""
             />
         );
         expect(screen.queryByTestId('dropdown-icon')).toBeInTheDocument();
@@ -37,7 +37,7 @@ describe('Dropdown', () => {
                 className={testClassName}
                 data={dropdownData}
                 data-testid="moonstone-dropdown"
-                values={[]}
+                value=""
                 onChange={() => 'testing'}
             />
         );
@@ -52,7 +52,7 @@ describe('Dropdown', () => {
                 data-custom="test"
                 data={dropdownData}
                 data-testid="moonstone-dropdown"
-                values={[]}
+                value=""
                 onChange={() => 'testing'}
             />
         );
@@ -68,7 +68,7 @@ describe('Dropdown', () => {
                 isDisabled
                 data={dropdownData}
                 data-testid="moonstone-dropdown"
-                values={[]}
+                value=""
                 onChange={() => 'testing'}
             />
         );
@@ -83,7 +83,7 @@ describe('Dropdown', () => {
                 isLoading
                 data={dropdownData}
                 data-testid="moonstone-dropdown"
-                values={[]}
+                value=""
                 onChange={() => 'testing'}
             />
         );
@@ -98,7 +98,7 @@ describe('Dropdown', () => {
                 isLoading
                 data={dropdownData}
                 data-testid="moonstone-dropdown"
-                values={[]}
+                value=""
                 onChange={() => 'testing'}
             />
         );
@@ -112,7 +112,7 @@ describe('Dropdown', () => {
             <Dropdown
                 data={dropdownDataGrouped}
                 data-testid="moonstone-dropdown"
-                values={[]}
+                value=""
                 onChange={() => 'testing'}
             />
         );
@@ -125,7 +125,7 @@ describe('Dropdown', () => {
             <Dropdown
                 data={dropdownDataGrouped}
                 data-testid="moonstone-dropdown"
-                values={[]}
+                value=""
                 onChange={() => 'testing'}
             />
         );
@@ -140,7 +140,7 @@ describe('Dropdown', () => {
             <Dropdown
                 treeData={dropdownDataTree}
                 data-testid="moonstone-dropdown"
-                values={[]}
+                value=""
                 onChange={() => 'testing'}
             />
         );
@@ -155,7 +155,7 @@ describe('Dropdown', () => {
             <Dropdown
                 hasSearch
                 data={dropdownDataGrouped}
-                values={[]}
+                value=""
                 onChange={() => 'testing'}
             />
         );
@@ -171,7 +171,7 @@ describe('Dropdown', () => {
             <Dropdown
                 hasSearch
                 data={dropdownDataGrouped}
-                values={[]}
+                value=""
                 onChange={() => 'testing'}
             />
         );
@@ -236,7 +236,7 @@ describe('Dropdown', () => {
             <Dropdown
                 data={[]}
                 data-testid="moonstone-dropdown"
-                values={[]}
+                value=""
                 onChange={() => 'testing'}
             />
         );
@@ -251,7 +251,7 @@ describe('Dropdown', () => {
                 data={[]}
                 isDisabled={false}
                 data-testid="moonstone-dropdown"
-                values={[]}
+                value=""
                 onChange={() => 'testing'}
             />
         );
@@ -354,7 +354,7 @@ describe('Dropdown', () => {
                 data={dData}
                 data-testid="moonstone-dropdown"
                 autoAddSearchLimit={limit}
-                values={[]}
+                value=""
             />
         );
 
@@ -384,7 +384,7 @@ describe('Dropdown', () => {
                 data={dData}
                 data-testid="moonstone-dropdown"
                 hasSearch={false}
-                values={[]}
+                value=""
             />
         );
 
@@ -401,7 +401,7 @@ describe('Dropdown', () => {
                 data={dData}
                 data-testid="moonstone-dropdown"
                 autoAddSearchLimit={3}
-                values={[]}
+                value=""
             />
         );
         await user.click(screen.getByRole('listbox'));

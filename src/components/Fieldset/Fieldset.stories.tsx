@@ -57,7 +57,7 @@ export const MultipleFields: Story = {
                     variant="outlined"
                     label="Input value"
                     className="flexFluid"
-                    values={[]}
+                    value=""
                     data={[
                         {
                             label: 'option 1',
