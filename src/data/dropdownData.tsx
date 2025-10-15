@@ -15,7 +15,7 @@ export const dropdownData = [
         value: '3'
     },
     {
-        label: 'option 4',
+        label: 'option 4 (disabled)',
         value: '4',
         isDisabled: true
     },

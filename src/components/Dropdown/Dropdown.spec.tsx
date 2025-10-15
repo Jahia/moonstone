@@ -246,11 +246,11 @@ describe('Dropdown', () => {
     });
 
     it('should display the value', () => {
-        render(<Dropdown data={dropdownData} value="4"/>);
+        render(<Dropdown data={dropdownData} value={dropdownData[3].value}/>);
         expect(
             queryByText(
                 document.querySelector('.moonstone-typography'),
-                'option 4'
+                dropdownData[3].label
             )
         ).toBeInTheDocument();
     });
@@ -272,9 +272,9 @@ describe('Dropdown', () => {
     });
 
     it('should display tags for multiple values', () => {
-        render(<Dropdown data={dropdownData} values={['4']}/>);
+        render(<Dropdown data={dropdownData} values={[dropdownData[3].value]}/>);
         expect(
-            queryByText(document.querySelector('.moonstone-tag'), 'option 4')
+            queryByText(document.querySelector('.moonstone-tag'), dropdownData[3].label)
         ).toBeInTheDocument();
     });
 
