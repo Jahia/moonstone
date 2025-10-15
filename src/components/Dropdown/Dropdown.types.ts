@@ -159,7 +159,7 @@ type SingleValueProps = {
     /**
      * Value of the dropdown (single selection)
      */
-    value?: string;
+    value: string;
 
     /**
      * Not allowed in single selection mode
@@ -180,7 +180,7 @@ type MultipleValuesProps = {
     /**
      * Values of the dropdown (multiple selection)
      */
-    values?: string[];
+    values: string[];
 };
 
 /**
