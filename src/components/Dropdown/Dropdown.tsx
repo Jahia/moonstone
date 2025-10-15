@@ -73,12 +73,12 @@ export const Dropdown: React.FC<DropdownProps> = ({
     className,
     ...props
 }) => {
-    // If both `value` and `values` are provided, warn the developer
     if (value !== undefined && values !== undefined) {
-        console.warn(
-            'Be careful, the Dropdown component receives both `values` and `value`. ' +
-            'If the component should accept multiple values, use `values`; otherwise, use `value`'
-        );
+        console.warn('The Dropdown component cannot receive both `value` and `values` props.');
+    }
+
+    if (data !== undefined && treeData !== undefined) {
+        console.warn('The Dropdown component cannot receive both `data` and `treeData` props.');
     }
 
     const [isOpened, setIsOpened] = useState(false);

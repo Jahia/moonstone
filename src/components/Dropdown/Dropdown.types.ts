@@ -29,17 +29,10 @@ export type DropdownDataTree = TreeViewData[]
 
 export type HandleSelect = (e: React.MouseEvent | React.KeyboardEvent, item?: DropdownDataOption) => void;
 
-export type DropdownProps = {
-    /**
-     * Content of the dropdown
-     */
-    data?: DropdownData;
-
-    /**
-     * Content of the dropdown, if tree
-     */
-    treeData?: DropdownDataTree;
-
+/**
+ * Common props shared by all dropdown variants
+ */
+type BaseDropdownProps = {
     /**
      * Text for dropdown, when no value is selected
      */
@@ -49,16 +42,6 @@ export type DropdownProps = {
      * Label of the dropdown
      */
     label?: string;
-
-    /**
-     * Value of the dropdown
-     */
-    value?: string;
-
-    /**
-     * Value of the dropdown
-     */
-    values?: string[];
 
     /**
      * Icon displays before the dropdown's label
@@ -88,7 +71,7 @@ export type DropdownProps = {
     /**
      * Whether the dropdown is loading
      */
-     isLoading?: boolean;
+    isLoading?: boolean;
 
     /**
      * Whether the Menu within the Dropdown has a search input
@@ -122,13 +105,6 @@ export type DropdownProps = {
     onClear?: React.MouseEventHandler;
 
     /**
-     * Function trigger on change with the current option as param
-     * @param {object} event - Mouse event
-     * @param {object} item - The current item selected
-     */
-    onChange?: (event: React.MouseEvent, item :DropdownDataOption) => void;
-
-    /**
      * Function triggered on focus of the checkbox value
      */
     onFocus?: React.FocusEventHandler;
@@ -137,4 +113,79 @@ export type DropdownProps = {
      * Function triggered when the checkbox value loses focus
      */
     onBlur?: React.FocusEventHandler;
+};
+
+/**
+ * Props when using regular data (not tree)
+ */
+type WithDataProps = {
+    /**
+     * Content of the dropdown
+     */
+    data: DropdownData;
+
+    /**
+     * Not allowed when using regular data
+     */
+    treeData?: never;
 }
+
+/**
+ * Props when using tree data
+ */
+type WithTreeDataProps = {
+    /**
+     * Not allowed when using tree data
+     */
+    data?: never;
+
+    /**
+     * Content of the dropdown, if tree
+     */
+    treeData: DropdownDataTree;
+}
+
+/**
+ * Props for single value dropdown
+ */
+type SingleValueProps = {
+    /**
+     * Value of the dropdown (single selection)
+     */
+    value?: string;
+
+    /**
+     * Not allowed in single selection mode
+     */
+    values?: never;
+
+    onChange?: (event: React.MouseEvent, item: DropdownDataOption) => void;
+};
+
+/**
+ * Props for multiple values dropdown
+ */
+type MultipleValuesProps = {
+    /**
+     * Not allowed in multiple selection mode
+     */
+    value?: never;
+
+    /**
+     * Values of the dropdown (multiple selection)
+     */
+    values?: string[];
+
+    onChange?: (event: React.MouseEvent, item: DropdownDataOption) => void;
+};
+
+/**
+ * Dropdown component props
+ * - Use either `value` for single selection OR `values` for multiple selection
+ * - Use either `data` for regular dropdown OR `treeData` for tree dropdown
+ * Using both will result in a TypeScript error
+ */
+export type DropdownProps = BaseDropdownProps & (
+     (SingleValueProps | MultipleValuesProps) &
+     (WithTreeDataProps | WithDataProps)
+);
