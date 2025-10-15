@@ -8,6 +8,7 @@ const requiredProps = {
     searchContext: <Dropdown
                 data-testid="test-searchContext"
                 data={dropdownData}
+                value=""
             />
 };
 

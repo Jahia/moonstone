@@ -39,7 +39,6 @@ const TemplateSimple = (args: DropdownProps) => {
         icon,
         size,
         variant,
-        label,
         placeholder,
         isDisabled,
         isLoading,
@@ -49,18 +48,21 @@ const TemplateSimple = (args: DropdownProps) => {
         imageSize
     } = args;
 
-    const [currentOption, setCurrentOption] = useState(null);
     const [currentOptions, setCurrentOptions] = useState<DropdownDataOption[]>([]);
 
-    const handleOnChange = (e: React.MouseEvent, item : DropdownDataOption) => {
-        setCurrentOption(item);
+    const handleOnChange = (e: React.MouseEvent, item: DropdownDataOption) => {
+        setCurrentOptions(prev =>
+            prev.indexOf(item) > -1 ?
+                prev.filter(i => i !== item) :
+                [...prev, item]
+        );
         action('onChange');
         return true;
     };
 
     const onClear = (() => {
-        setCurrentOption(null);
         setCurrentOptions([]);
+        action('onClear');
     });
 
     return (
@@ -71,10 +73,8 @@ const TemplateSimple = (args: DropdownProps) => {
  */
             icon={typeof icon === 'string' && icons[icon] ? React.createElement(icons[icon]) : undefined}
             hasSearch={hasSearch}
-            label={label}
             placeholder={placeholder}
             className={className}
-            value={currentOption?.value}
             values={currentOptions.map(i => i.value)}
             size={size}
             searchEmptyText={searchEmptyText}
@@ -82,7 +82,6 @@ const TemplateSimple = (args: DropdownProps) => {
             variant={variant}
             isDisabled={isDisabled}
             isLoading={isLoading}
-            data={dropdownData}
             treeData={dropdownDataTree}
             onClear={onClear}
             onFocus={action('onfocus')}
@@ -97,7 +96,7 @@ export const Playground = {
 
     args: {
         icon: 'Love',
-        size: 'small',
+        size: 'medium',
         variant: 'ghost',
         placeholder: 'Select something',
         isDisabled: false,
@@ -334,7 +333,7 @@ export const DropdownWithTree = () => {
 };
 
 export const WithDescription = {
-    render: (args: DropdownProps) => {
+    render: (args: Omit <DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
         const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
 
         const handleOnChange = (e: React.MouseEvent, item : DropdownDataOption) => {

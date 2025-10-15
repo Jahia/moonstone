@@ -73,6 +73,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
     className,
     ...props
 }) => {
+    if (value !== undefined && values !== undefined) {
+        console.warn('The Dropdown component cannot receive both `value` and `values` props.');
+    }
+
+    if (data !== undefined && treeData !== undefined) {
+        console.warn('The Dropdown component cannot receive both `data` and `treeData` props.');
+    }
+
     const [isOpened, setIsOpened] = useState(false);
     const [focusData, setFocusData] = useState({focused: false, event: null, lastSent: false});
     const [anchorEl, setAnchorEl] = useState(null);

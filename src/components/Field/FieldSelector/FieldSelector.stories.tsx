@@ -43,6 +43,7 @@ export const WithDropdown: Story = {
                 variant="outlined"
                 size="medium"
                 label="Input value"
+                value=""
                 data={[
                         {
                             label: 'option 1',

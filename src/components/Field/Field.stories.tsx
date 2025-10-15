@@ -70,6 +70,7 @@ export const WithDropdown: Story = {
         variant="outlined"
         label="Input value"
         className="flexFluid"
+        value=""
         data={[
             {
                 label: 'option 1',
