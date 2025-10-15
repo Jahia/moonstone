@@ -109,6 +109,7 @@ export const Advanced: Story = {
                                     variant="outlined"
                                     label="Input value"
                                     className="flexFluid"
+                                    values={[]}
                                     data={[
                                         {
                                             label: 'option 1',

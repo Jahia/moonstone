@@ -12,6 +12,7 @@ describe('Dropdown', () => {
             <Dropdown
                 data={dropdownData}
                 data-testid="moonstone-dropdown"
+                values={[]}
                 onChange={() => 'testing'}
             />
         );
@@ -23,6 +24,7 @@ describe('Dropdown', () => {
             <Dropdown
                 data={dropdownData}
                 icon={<Love data-testid="dropdown-icon"/>}
+                values={[]}
             />
         );
         expect(screen.queryByTestId('dropdown-icon')).toBeInTheDocument();
@@ -35,6 +37,7 @@ describe('Dropdown', () => {
                 className={testClassName}
                 data={dropdownData}
                 data-testid="moonstone-dropdown"
+                values={[]}
                 onChange={() => 'testing'}
             />
         );
@@ -49,6 +52,7 @@ describe('Dropdown', () => {
                 data-custom="test"
                 data={dropdownData}
                 data-testid="moonstone-dropdown"
+                values={[]}
                 onChange={() => 'testing'}
             />
         );
@@ -64,6 +68,7 @@ describe('Dropdown', () => {
                 isDisabled
                 data={dropdownData}
                 data-testid="moonstone-dropdown"
+                values={[]}
                 onChange={() => 'testing'}
             />
         );
@@ -78,6 +83,7 @@ describe('Dropdown', () => {
                 isLoading
                 data={dropdownData}
                 data-testid="moonstone-dropdown"
+                values={[]}
                 onChange={() => 'testing'}
             />
         );
@@ -92,6 +98,7 @@ describe('Dropdown', () => {
                 isLoading
                 data={dropdownData}
                 data-testid="moonstone-dropdown"
+                values={[]}
                 onChange={() => 'testing'}
             />
         );
@@ -105,6 +112,7 @@ describe('Dropdown', () => {
             <Dropdown
                 data={dropdownDataGrouped}
                 data-testid="moonstone-dropdown"
+                values={[]}
                 onChange={() => 'testing'}
             />
         );
@@ -117,6 +125,7 @@ describe('Dropdown', () => {
             <Dropdown
                 data={dropdownDataGrouped}
                 data-testid="moonstone-dropdown"
+                values={[]}
                 onChange={() => 'testing'}
             />
         );
@@ -131,6 +140,7 @@ describe('Dropdown', () => {
             <Dropdown
                 treeData={dropdownDataTree}
                 data-testid="moonstone-dropdown"
+                values={[]}
                 onChange={() => 'testing'}
             />
         );
@@ -145,6 +155,7 @@ describe('Dropdown', () => {
             <Dropdown
                 hasSearch
                 data={dropdownDataGrouped}
+                values={[]}
                 onChange={() => 'testing'}
             />
         );
@@ -160,6 +171,7 @@ describe('Dropdown', () => {
             <Dropdown
                 hasSearch
                 data={dropdownDataGrouped}
+                values={[]}
                 onChange={() => 'testing'}
             />
         );
@@ -195,6 +207,7 @@ describe('Dropdown', () => {
             <Dropdown
                 data={dropdownDataGrouped}
                 data-testid="moonstone-dropdown"
+                values={[]}
                 onChange={() => 'testing'}
             />
         );
@@ -223,6 +236,7 @@ describe('Dropdown', () => {
             <Dropdown
                 data={[]}
                 data-testid="moonstone-dropdown"
+                values={[]}
                 onChange={() => 'testing'}
             />
         );
@@ -237,6 +251,7 @@ describe('Dropdown', () => {
                 data={[]}
                 isDisabled={false}
                 data-testid="moonstone-dropdown"
+                values={[]}
                 onChange={() => 'testing'}
             />
         );
@@ -258,7 +273,7 @@ describe('Dropdown', () => {
     it('should display the images as small', async () => {
         const user = userEvent.setup();
 
-        render(<Dropdown data={dropdownData} imageSize="small"/>);
+        render(<Dropdown data={dropdownData} imageSize="small" value=""/>);
         await user.click(screen.getByRole('listbox'));
         expect(screen.getByRole('list')).toHaveStyle('max-width: 264px');
     });
@@ -266,7 +281,7 @@ describe('Dropdown', () => {
     it('should display the images as big', async () => {
         const user = userEvent.setup();
 
-        render(<Dropdown data={dropdownData} imageSize="big"/>);
+        render(<Dropdown data={dropdownData} imageSize="big" value=""/>);
         await user.click(screen.getByRole('listbox'));
         expect(screen.getByRole('list')).toHaveStyle('max-width: 400px');
     });
@@ -311,7 +326,7 @@ describe('Dropdown', () => {
         const user = userEvent.setup();
         const dData = dropdownData;
 
-        render(<Dropdown data={dData} data-testid="moonstone-dropdown"/>);
+        render(<Dropdown data={dData} data-testid="moonstone-dropdown" value=""/>);
 
         expect(dropdownData.length).toBeGreaterThan(7); // Triggers auto-adding search input
         await user.click(screen.getByRole('listbox'));
@@ -322,7 +337,7 @@ describe('Dropdown', () => {
         const user = userEvent.setup();
         const dData = dropdownData.slice(0, 7);
 
-        render(<Dropdown data={dData} data-testid="moonstone-dropdown"/>);
+        render(<Dropdown data={dData} data-testid="moonstone-dropdown" value=""/>);
 
         expect(dData.length).toBeLessThanOrEqual(7); // Does not trigger auto-adding search input
         await user.click(screen.getByRole('listbox'));
@@ -339,6 +354,7 @@ describe('Dropdown', () => {
                 data={dData}
                 data-testid="moonstone-dropdown"
                 autoAddSearchLimit={limit}
+                values={[]}
             />
         );
 
@@ -352,7 +368,7 @@ describe('Dropdown', () => {
         const dData = dropdownData.slice(0, 3);
 
         render(
-            <Dropdown hasSearch data={dData} data-testid="moonstone-dropdown"/>
+            <Dropdown hasSearch data={dData} data-testid="moonstone-dropdown" value=""/>
         );
 
         await user.click(screen.getByRole('listbox'));
@@ -368,6 +384,7 @@ describe('Dropdown', () => {
                 data={dData}
                 data-testid="moonstone-dropdown"
                 hasSearch={false}
+                values={[]}
             />
         );
 
@@ -384,6 +401,7 @@ describe('Dropdown', () => {
                 data={dData}
                 data-testid="moonstone-dropdown"
                 autoAddSearchLimit={3}
+                values={[]}
             />
         );
         await user.click(screen.getByRole('listbox'));
