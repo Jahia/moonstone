@@ -207,7 +207,7 @@ describe('Dropdown', () => {
             <Dropdown
                 data={dropdownDataGrouped}
                 data-testid="moonstone-dropdown"
-                values={[]}
+                value=""
                 onChange={() => 'testing'}
             />
         );
