@@ -13,6 +13,8 @@ import {
 } from '~/data';
 import type {DropdownDataOption, DropdownProps} from './Dropdown.types';
 import {dropdownDataDescriptions} from '~/data/dropdownDataDescriptions';
+import {dropdownGroupedDataDescriptions} from '~/data/dropdownDataGroupedDescriptions';
+import {dropdownGroupedDataImages} from '~/data/dropdownDataGroupedImages';
 
 export default {
     title: 'Components/Dropdown',
@@ -261,14 +263,34 @@ export const Grouped = {
         };
 
         return (
-            <Dropdown
-            {...args}
-            icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-            placeholder={args.placeholder || 'Select something'}
-            value={currentOption?.value}
-            data={dropdownDataGrouped}
-            onChange={(e, item) => handleOnChange(e, item)}
+            <section className="storyGrid">
+                <Dropdown
+                    {...args}
+                    icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                    placeholder={args.placeholder || 'Select something'}
+                    value={currentOption?.value}
+                    data={dropdownDataGrouped}
+                    onChange={(e, item) => handleOnChange(e, item)}
         />
+
+                <Dropdown
+                    {...args}
+                    icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                    placeholder={args.placeholder || 'Select something'}
+                    value={currentOption?.value}
+                    data={dropdownGroupedDataDescriptions}
+                    onChange={(e, item) => handleOnChange(e, item)}
+        />
+
+                <Dropdown
+                    {...args}
+                    icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                    placeholder={args.placeholder || 'Select something'}
+                    value={currentOption?.value}
+                    data={dropdownGroupedDataImages}
+                    onChange={(e, item) => handleOnChange(e, item)}
+        />
+            </section>
         );
     },
     args: {
