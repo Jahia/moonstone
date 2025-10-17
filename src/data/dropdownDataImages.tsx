@@ -1,69 +1,58 @@
 export const dropdownDataImages = [
     {
-        groupLabel: 'Options 1-3',
-        options: [
-            {
-                label: 'option 1',
-                value: '1',
-                image: <img src="https://via.placeholder.com/500?text=DropdownOptionImage"/>
-            },
-            {
-                label: 'option 2',
-                value: '2',
-                image: <img src="https://via.placeholder.com/500?text=DropdownOptionImage"/>
-            },
-            {
-                label: 'option 3 with very long long label label label label label label label label',
-                value: '3',
-                image: <img src="https://via.placeholder.com/500?text=DropdownOptionImage"/>
-            }
-        ]
+        label: 'option 1',
+        value: 'img-1',
+        image: <img src="https://picsum.photos/id/237/200/300"/>
     },
     {
-        groupLabel: 'Options 4-11',
-        options: [
-            {
-                label: 'option 4 (disabled)',
-                value: '4',
-                isDisabled: true,
-                image: <img src="https://via.placeholder.com/500?text=DropdownOptionImage"/>
-            },
-            {
-                label: 'option 5 (disabled)',
-                value: '5',
-                image: <img src="https://via.placeholder.com/500?text=DropdownOptionImage"/>,
-                isDisabled: true
-            },
-            {
-                label: 'option 6',
-                value: '6',
-                image: <img src="https://via.placeholder.com/500?text=DropdownOptionImage"/>
-            },
-            {
-                label: 'option 7',
-                value: '7',
-                image: <img src="https://via.placeholder.com/500?text=DropdownOptionImage"/>
-            },
-            {
-                label: 'option 8',
-                value: '8',
-                image: <img src="https://via.placeholder.com/500?text=DropdownOptionImage"/>
-            },
-            {
-                label: 'option 9',
-                value: '9',
-                image: <img src="https://via.placeholder.com/500?text=DropdownOptionImage"/>
-            },
-            {
-                label: 'option 10',
-                value: '10',
-                image: <img src="https://via.placeholder.com/500?text=DropdownOptionImage"/>
-            },
-            {
-                label: 'option 11',
-                value: '11',
-                image: <img src="https://via.placeholder.com/500?text=DropdownOptionImage"/>
-            }
-        ]
+        label: 'option 2',
+        value: 'img-2',
+        image: <img src="https://picsum.photos/id/237/200/300"/>
+    },
+    {
+        label: 'option 3 with very long long label label label label label label label label',
+        value: 'img-3',
+        image: <img src="https://picsum.photos/id/237/200/300"/>
+    },
+    {
+        label: 'option 4 (disabled)',
+        value: 'img-4',
+        isDisabled: true,
+        image: <img src="https://picsum.photos/id/237/200/300"/>
+    },
+    {
+        label: 'option 5 (disabled)',
+        value: 'img-5',
+        image: <img src="https://picsum.photos/id/237/200/300"/>
+    },
+    {
+        label: 'option 6',
+        value: 'img-6',
+        image: <img src="https://picsum.photos/id/237/200/300"/>
+    },
+    {
+        label: 'option 7',
+        value: 'img-7',
+        image: <img src="https://picsum.photos/id/237/200/300"/>
+    },
+    {
+        label: 'option 8',
+        value: 'img-8',
+        image: <img src="https://picsum.photos/id/237/200/300"/>
+    },
+    {
+        label: 'option 9',
+        value: 'img-9',
+        image: <img src="https://picsum.photos/id/237/200/300"/>
+    },
+    {
+        label: 'option 10',
+        value: 'img-10',
+        image: <img src="https://picsum.photos/id/237/200/300"/>
+    },
+    {
+        label: 'option 11',
+        value: 'img-11',
+        image: <img src="https://picsum.photos/id/237/200/300"/>
     }
 ];
