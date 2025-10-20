@@ -89,9 +89,7 @@ export const SpikeMenuWithSelectableChildren = () => {
 
     const onDragStart = (e: React.DragEvent, child: string) => {
         e.stopPropagation();
-        setTimeout(() => {
-            (e.currentTarget as HTMLElement).style.opacity = '0';
-        }, 10);
+        (e.currentTarget as HTMLElement).style.opacity = '0';
         e.dataTransfer.setData(MLRS_DRAG, JSON.stringify({type: MLRS_DRAG, value: child}));
         e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setDragImage(e.currentTarget as Element, 10, 10);
@@ -155,7 +153,7 @@ export const SpikeMenuWithSelectableChildren = () => {
                 <MenuItem label="Visible fields" variant="title"/>
                 <MenuItem isDisabled label="Displayable name" iconStart={<CheckboxChecked color="blue"/>}/>
                 {displaySelected.map(child => (
-                    <MenuItem key={child} label={child} iconStart={<CheckboxChecked color="blue"/>} iconEnd={<HandleDrag/>} onClick={() => onUncheck(child)} onDragStart={e => onDragStart(e, child)} onDragEnd={e => onDragEnd(e)} onDragOver={e => onDragOver(e, child)} onDrop={e => onDrop(e)}/>
+                    <MenuItem key={child} draggable label={child} iconStart={<CheckboxChecked color="blue"/>} iconEnd={<HandleDrag/>} onClick={() => onUncheck(child)} onDragStart={e => onDragStart(e, child)} onDragEnd={e => onDragEnd(e)} onDragOver={e => onDragOver(e, child)} onDrop={e => onDrop(e)}/>
                 ))}
             </div>
             <div data-option-type="group" role="group">
@@ -203,9 +201,7 @@ export const SpikeWithVisibleAndDropdowns = () => {
 
     const onDragStart = (e: React.DragEvent, child: string) => {
         e.stopPropagation();
-        setTimeout(() => {
-            (e.currentTarget as HTMLElement).style.opacity = '0';
-        }, 10);
+        (e.currentTarget as HTMLElement).style.opacity = '0';
         e.dataTransfer.setData(MLRS_DRAG, JSON.stringify({type: MLRS_DRAG, value: child}));
         e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setDragImage(e.currentTarget as Element, 10, 10);
@@ -266,7 +262,7 @@ export const SpikeWithVisibleAndDropdowns = () => {
             <MenuItem label="Visible fields" variant="title"/>
             <MenuItem isDisabled label="Displayable name" iconStart={<CheckboxChecked color="blue"/>}/>
             {displaySelected.map(child => (
-                <MenuItem key={child} label={child} iconStart={<CheckboxChecked color="blue"/>} iconEnd={<HandleDrag/>} onDragStart={e => onDragStart(e, child)} onDragEnd={e => onDragEnd(e)} onDragOver={e => onDragOver(e, child)} onDrop={e => onDrop(e)}/>
+                <MenuItem key={child} draggable label={child} iconStart={<CheckboxChecked color="blue"/>} iconEnd={<HandleDrag/>} onDragStart={e => onDragStart(e, child)} onDragEnd={e => onDragEnd(e)} onDragOver={e => onDragOver(e, child)} onDrop={e => onDrop(e)}/>
                 ))}
             <Separator/>
             <MenuItem label="Sort by" variant="title"/>
