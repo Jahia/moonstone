@@ -1,4 +1,6 @@
-export const dropdownDataImages = [
+import {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
+
+export const dropdownDataImages : DropdownDataOption[] = [
     {
         label: 'option 1',
         value: 'img-1',
@@ -7,12 +9,12 @@ export const dropdownDataImages = [
     {
         label: 'option 2',
         value: 'img-2',
-        image: <img src="https://picsum.photos/id/237/200/300"/>
+        image: <img src="https://picsum.photos/id/237/400/300"/>
     },
     {
         label: 'option 3 with very long long label label label label label label label label',
         value: 'img-3',
-        image: <img src="https://picsum.photos/id/237/200/300"/>
+        image: <img src="https://picsum.photos/id/237/200/600"/>
     },
     {
         label: 'option 4 (disabled)',

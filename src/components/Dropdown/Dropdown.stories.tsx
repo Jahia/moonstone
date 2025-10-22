@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {action} from 'storybook/actions';
 import markdownNotes from './Dropdown.md';
 import {Dropdown} from './index';
-import {Love} from '~/icons';
 import {Pill} from '~/components';
 import * as icons from '../../icons/components';
 import {
@@ -15,6 +14,11 @@ import type {DropdownDataOption, DropdownProps} from './Dropdown.types';
 import {dropdownDataDescriptions} from '~/data/dropdownDataDescriptions';
 import {dropdownGroupedDataDescriptions} from '~/data/dropdownDataGroupedDescriptions';
 import {dropdownGroupedDataImages} from '~/data/dropdownDataGroupedImages';
+import {dropdownDataTreeDescriptions} from '~/data/dropdownDataTreeDescriptions';
+import {dropdownDataTreeImages} from '~/data/dropdownDataTreeImages';
+import {dropdowndataLanguagesPill} from '~/data/dropdownDataPill';
+import {dropdowndataLanguagesTreePill} from '~/data/dropdownDataTreePill';
+import {dropdownDataGroupedLanguagesPill} from '~/data/dropdownDataGroupedPill';
 
 export default {
     title: 'Components/Dropdown',
@@ -35,276 +39,299 @@ export default {
         }
     }
 };
-
-const TemplateSimple = (args: DropdownProps) => {
-    const {
-        icon,
-        size,
-        variant,
-        placeholder,
-        isDisabled,
-        isLoading,
-        className,
-        searchEmptyText,
-        hasSearch,
-        imageSize
-    } = args;
-
-    const [currentOptions, setCurrentOptions] = useState<DropdownDataOption[]>([]);
-
-    const handleOnChange = (e: React.MouseEvent, item: DropdownDataOption) => {
-        setCurrentOptions(prev =>
-            prev.indexOf(item) > -1 ?
-                prev.filter(i => i !== item) :
-                [...prev, item]
-        );
-        action('onChange');
-        return true;
-    };
-
-    const onClear = (() => {
-        setCurrentOptions([]);
-        action('onClear');
-    });
-
-    return (
-        <Dropdown
-        /**
- * Dynamically creates a React icon component if 'icon' is a valid string key; otherwise returns undefined.
- * This check ensures that the icon prop can either be a string key for icon lookup or no icon at all.
- */
-            icon={typeof icon === 'string' && icons[icon] ? React.createElement(icons[icon]) : undefined}
-            hasSearch={hasSearch}
-            placeholder={placeholder}
-            className={className}
-            values={currentOptions.map(i => i.value)}
-            size={size}
-            searchEmptyText={searchEmptyText}
-            imageSize={imageSize}
-            variant={variant}
-            isDisabled={isDisabled}
-            isLoading={isLoading}
-            treeData={dropdownDataTree}
-            onClear={onClear}
-            onFocus={action('onfocus')}
-            onBlur={action('onblur')}
-            onChange={(e, item) => handleOnChange(e, item)}
-        />
-    );
-};
-
-export const Playground = {
-    render: TemplateSimple,
-
-    args: {
-        icon: 'Love',
-        size: 'medium',
-        variant: 'ghost',
-        placeholder: 'Select something',
-        isDisabled: false,
-        isLoading: false,
-        isTree: false,
-        multiple: false,
-        searchEmptyText: 'No results found'
-    }
-};
-
-export const Default = {
-    render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
-        const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
-
-        const handleOnChange = (e: React.MouseEvent, item: DropdownDataOption) => {
-            setCurrentOption(item);
-        };
-
-        return (
-            <Dropdown
-                {...args}
-                placeholder={args.placeholder || 'Select something'}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-                value={currentOption?.value}
-                data={dropdownData}
-                onChange={handleOnChange}
-            />
-        );
-    },
-    args: {
-        icon: 'Love',
-        placeholder: 'Select something',
-        size: 'medium',
-        variant: 'ghost',
-        isDisabled: false,
-        isLoading: false,
-        imageSize: 'small'
-    }
-};
-
 export const FlatData = {
     render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
         const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
+        const [currentDescription, setCurrentDescription] = useState<DropdownDataOption | null>(null);
+        const [currentImage, setCurrentImage] = useState<DropdownDataOption | null>(null);
+        const [currentPill, setCurrentPill] = useState<DropdownDataOption>({
+            label: 'French',
+            value: 'fr',
+            iconEnd: <Pill label="FR"/>
+        });
 
         const handleOnChange = (e: React.MouseEvent, item: DropdownDataOption) => {
             setCurrentOption(item);
-            action('onChange');
+            action('onChange')(e, item);
+            return true;
+        };
+
+        const handleOnChangeDescriptions = (e: React.MouseEvent, item: DropdownDataOption) => {
+            setCurrentDescription(item);
+            action('onChangeDescriptions')(e, item);
+            return true;
+        };
+
+        const handleOnChangeImage = (e: React.MouseEvent, item: DropdownDataOption) => {
+            setCurrentImage(item);
+            action('onChangeImage')(e, item);
+            return true;
+        };
+
+        const handleOnChangePill = (e: React.MouseEvent, item: DropdownDataOption) => {
+            setCurrentPill(item);
+            action('onChangePill')(e, item);
             return true;
         };
 
         return (
             <section className="storyGrid">
                 <Dropdown
-                    {...args}
-                    icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-                    placeholder={args.placeholder || 'Select something'}
-                    value={currentOption?.value}
-                    size={args.size || 'medium'}
-                    isDisabled={args.isDisabled || false}
-                    data={dropdownData}
-                    onChange={(e, item) => handleOnChange(e, item)}
-                />
-
-                <Dropdown
-                    {...args}
-                    icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-                    placeholder={args.placeholder || 'Select with descriptions'}
-                    value={currentOption?.value}
-                    data={dropdownDataDescriptions}
-                    onChange={(e, item) => handleOnChange(e, item)}
-                />
-
-                <Dropdown
-                    {...args}
-                    icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-                    hasSearch={args.hasSearch || true}
-                    variant={args.variant || 'outlined'}
-                    imageSize={args.imageSize || 'small'}
-                    size={args.size || 'medium'}
-                    placeholder={args.placeholder || 'Select with images'}
-                    value={currentOption?.value}
-                    data={dropdownDataImages}
-                    onChange={(e, item) => handleOnChange(e, item)}
-                />
-
-            </section>
-        );
-    },
-
-    args: {
-        size: 'medium',
-        variant: 'ghost',
-        icon: 'Love',
-        isDisabled: false,
-        isLoading: false
-    }
-};
-
-export const Empty = {
-    render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
-        const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
-
-        const handleOnChange = (e: React.MouseEvent, item: DropdownDataOption) => {
-            setCurrentOption(item);
-            action('onChange');
-            return true;
-        };
-
-        return (
-            <Dropdown
                 {...args}
-                placeholder={args.placeholder || 'Select something'}
                 icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-                value={currentOption?.value}
-                data={[]}
-                onChange={(e, item) => handleOnChange(e, item)}
-            />
+                placeholder={args.placeholder || 'Select something'}
+                value={currentOption?.value || null}
+                isDisabled={args.isDisabled || false}
+                data={dropdownData}
+                onChange={handleOnChange}
+        />
+
+                <Dropdown
+                {...args}
+                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                placeholder={args.placeholder || 'Select a description'}
+                value={currentDescription?.value || null}
+                data={dropdownDataDescriptions}
+                onChange={handleOnChangeDescriptions}
+                />
+
+                <Dropdown
+                {...args}
+                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                imageSize={args.imageSize || 'small'}
+                placeholder={args.placeholder || 'Select an image'}
+                value={currentImage?.value || null}
+                data={dropdownDataImages}
+                onChange={handleOnChangeImage}
+        />
+
+                <Dropdown
+                {...args}
+                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                placeholder={args.placeholder || 'Select a language'}
+                value={currentPill.value}
+                data={dropdowndataLanguagesPill}
+                onChange={handleOnChangePill}
+        />
+            </section>
         );
     },
 
     args: {
-        icon: 'Love',
-        placeholder: 'Select something',
-        size: 'medium',
-        variant: 'ghost',
-        isDisabled: false,
-        isLoading: false
+        icon: 'Love'
     }
 };
 
-export const WithDefaultValue = () => {
-    const [currentOption, setCurrentOption] = useState<DropdownDataOption>({
-        label: dropdownData[1].label,
-        value: dropdownData[1].value
-    });
+export const FlatDataMultiple = {
+    render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
+        const [currentOptionDescriptions, setCurrentOptionDescriptions] = useState<DropdownDataOption[]>([]);
+        const [currentOptionData, setCurrentOptionData] = useState<DropdownDataOption[]>([]);
+        const [currentOptionDataImages, setCurrentOptionDataImages] = useState<DropdownDataOption[]>([]);
+        const [currentPill, setCurrentPill] = useState<DropdownDataOption[]>([]);
 
-    const handleOnChange = (e: React.MouseEvent, item: DropdownDataOption) => {
-        setCurrentOption(item);
-        action('onChange');
-        return true;
-    };
+        const handleOnChangeDataDescriptions = (e: React.MouseEvent, item: DropdownDataOption) => {
+            setCurrentOptionDescriptions(prev =>
+                prev.indexOf(item) > -1 ?
+                    prev.filter(i => i !== item) :
+                    [...prev, item]
+            );
+            action('onChange');
+            return true;
+        };
 
-    return (
-        <Dropdown
-            isDisabled={false}
-            value={currentOption.value}
-            size="medium"
-            data={dropdownData}
-            onChange={(e, item) => handleOnChange(e, item)}
-        />
-    );
-};
+        const handleOnChangeData = (e: React.MouseEvent, item: DropdownDataOption) => {
+            setCurrentOptionData(prev =>
+                prev.indexOf(item) > -1 ?
+                    prev.filter(i => i !== item) :
+                    [...prev, item]
+            );
+            action('onChange');
+            return true;
+        };
 
-export const Grouped = {
-    render: (args: Omit <DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
-        const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
+        const handleOnChangeDataImages = (e: React.MouseEvent, item: DropdownDataOption) => {
+            setCurrentOptionDataImages(prev =>
+                prev.indexOf(item) > -1 ?
+                    prev.filter(i => i !== item) :
+                    [...prev, item]
+            );
+            action('onChange');
+            return true;
+        };
 
-        const handleOnChange = (e: React.MouseEvent, item : DropdownDataOption) => {
-            setCurrentOption(item);
+        const handleOnChangePill = (e: React.MouseEvent, item: DropdownDataOption) => {
+            setCurrentPill(prev =>
+                prev.indexOf(item) > -1 ?
+                    prev.filter(i => i !== item) :
+                    [...prev, item]
+            );
             action('onChange');
             return true;
         };
 
         return (
             <section className="storyGrid">
+
                 <Dropdown
-                    {...args}
-                    icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-                    placeholder={args.placeholder || 'Select something'}
-                    value={currentOption?.value}
-                    data={dropdownDataGrouped}
-                    onChange={(e, item) => handleOnChange(e, item)}
+               {...args}
+               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+               values={currentOptionData.map(v => v.value)}
+               placeholder={args.placeholder || 'Select something'}
+               data={dropdownData}
+               onChange={(e, item) => handleOnChangeData(e, item)}
+            />
+
+                <Dropdown
+               {...args}
+               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+               values={currentOptionDescriptions.map(v => v.value)}
+               placeholder={args.placeholder || 'Select descriptions'}
+               data={dropdownDataDescriptions}
+               onChange={(e, item) => handleOnChangeDataDescriptions(e, item)}
+            />
+
+                <Dropdown
+               {...args}
+               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+               values={currentOptionDataImages.map(v => v.value)}
+               placeholder={args.placeholder || 'Select images'}
+               data={dropdownDataImages}
+               onChange={(e, item) => handleOnChangeDataImages(e, item)}
+            />
+
+                <Dropdown
+               {...args}
+               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+               values={currentPill.map(v => v.value)}
+               placeholder={args.placeholder || 'Select languages'}
+               data={dropdowndataLanguagesPill}
+               onChange={(e, item) => handleOnChangePill(e, item)}
+            />
+            </section>
+        );
+    },
+
+    args: {
+        icon: 'Love'
+    }
+};
+
+export const GroupedData = {
+    render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
+        const [currentOptionGrouped, setCurrentOptionGrouped] = useState<DropdownDataOption | null>(null);
+        const [currentDescription, setCurrentDescription] = useState<DropdownDataOption | null>(null);
+        const [currentImage, setCurrentImage] = useState<DropdownDataOption | null>(null);
+        const [currentLanguage, setCurrentLanguage] = useState<DropdownDataOption | null>(null);
+
+        const handleChangeGrouped = (e: React.MouseEvent, item: DropdownDataOption) => {
+            setCurrentOptionGrouped(item);
+            action('onChangeGrouped')(e, item);
+            return true;
+        };
+
+        const handleChangeDescription = (e: React.MouseEvent, item: DropdownDataOption) => {
+            setCurrentDescription(item);
+            action('onChangeDescription')(e, item);
+            return true;
+        };
+
+        const handleChangeImage = (e: React.MouseEvent, item: DropdownDataOption) => {
+            setCurrentImage(item);
+            action('onChangeImage')(e, item);
+            return true;
+        };
+
+        const handleChangeLanguage = (e: React.MouseEvent, item: DropdownDataOption) => {
+            setCurrentLanguage(item);
+            action('onChangeLanguage')(e, item);
+            return true;
+        };
+
+        return (
+            <section className="storyGrid">
+                <Dropdown
+                {...args}
+                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                placeholder={args.placeholder || 'Select something'}
+                value={currentOptionGrouped?.value || null}
+                data={dropdownDataGrouped}
+                onChange={handleChangeGrouped}
         />
 
                 <Dropdown
-                    {...args}
-                    icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-                    placeholder={args.placeholder || 'Select something'}
-                    value={currentOption?.value}
-                    data={dropdownGroupedDataDescriptions}
-                    onChange={(e, item) => handleOnChange(e, item)}
+                {...args}
+                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                placeholder={args.placeholder || 'Select a description'}
+                value={currentDescription?.value || null}
+                data={dropdownGroupedDataDescriptions}
+                onChange={handleChangeDescription}
         />
 
                 <Dropdown
-                    {...args}
-                    icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-                    placeholder={args.placeholder || 'Select something'}
-                    value={currentOption?.value}
-                    data={dropdownGroupedDataImages}
-                    onChange={(e, item) => handleOnChange(e, item)}
+                {...args}
+                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                placeholder={args.placeholder || 'Select an image'}
+                value={currentImage?.value || null}
+                data={dropdownGroupedDataImages}
+                onChange={handleChangeImage}
+        />
+
+                <Dropdown
+                {...args}
+                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                placeholder={args.placeholder || 'Select a language'}
+                value={currentLanguage?.value || null}
+                data={dropdownDataGroupedLanguagesPill}
+                onChange={handleChangeLanguage}
         />
             </section>
         );
     },
+
     args: {
-        variant: 'outlined',
         icon: 'Love'
     }
 };
 
 export const GroupedMultiple = {
     render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
-        const [currentOption, setCurrentOption] = useState<DropdownDataOption[]>([]);
+        const [currentOptionDataGrouped, setCurrentOptionDataGrouped] = useState<DropdownDataOption[]>([]);
+        const [currentOptionDataDescriptions, setCurrentOptionDataDescriptions] = useState<DropdownDataOption[]>([]);
+        const [currentOptionDataImages, setCurrentOptionDataImages] = useState<DropdownDataOption[]>([]);
+        const [currentPill, setCurrentPill] = useState<DropdownDataOption[]>([]);
 
-        const handleOnChange = (e: React.MouseEvent, item: DropdownDataOption) => {
-            setCurrentOption(prev =>
+        const handleOnChangeDataGrouped = (e: React.MouseEvent, item: DropdownDataOption) => {
+            setCurrentOptionDataGrouped(prev =>
+                prev.indexOf(item) > -1 ?
+                    prev.filter(i => i !== item) :
+                    [...prev, item]
+            );
+            action('onChange');
+            return true;
+        };
+
+        const handleOnChangeDataDescriptions = (e: React.MouseEvent, item: DropdownDataOption) => {
+            setCurrentOptionDataDescriptions(prev =>
+                prev.indexOf(item) > -1 ?
+                    prev.filter(i => i !== item) :
+                    [...prev, item]
+            );
+            action('onChange');
+            return true;
+        };
+
+        const handleOnChangeDataImages = (e: React.MouseEvent, item: DropdownDataOption) => {
+            setCurrentOptionDataImages(prev =>
+                prev.indexOf(item) > -1 ?
+                    prev.filter(i => i !== item) :
+                    [...prev, item]
+            );
+            action('onChange');
+            return true;
+        };
+
+        const handleOnChangePill = (e: React.MouseEvent, item: DropdownDataOption) => {
+            setCurrentPill(prev =>
                 prev.indexOf(item) > -1 ?
                     prev.filter(i => i !== item) :
                     [...prev, item]
@@ -314,167 +341,156 @@ export const GroupedMultiple = {
         };
 
         return (
-            <Dropdown
+            <section className="storyGrid">
+                <Dropdown
                {...args}
                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-               values={currentOption.map(v => v.value)}
+               values={currentOptionDataGrouped.map(v => v.value)}
                placeholder={args.placeholder || 'Select something'}
                data={dropdownDataGrouped}
-               onChange={(e, item) => handleOnChange(e, item)}
+               onChange={(e, item) => handleOnChangeDataGrouped(e, item)}
             />
+
+                <Dropdown
+               {...args}
+               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+               values={currentOptionDataDescriptions.map(v => v.value)}
+               placeholder={args.placeholder || 'Select descriptions'}
+               data={dropdownGroupedDataDescriptions}
+               onChange={(e, item) => handleOnChangeDataDescriptions(e, item)}
+            />
+
+                <Dropdown
+               {...args}
+               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+               values={currentOptionDataImages.map(v => v.value)}
+               placeholder={args.placeholder || 'Select images'}
+               data={dropdownGroupedDataImages}
+               onChange={(e, item) => handleOnChangeDataImages(e, item)}
+            />
+
+                <Dropdown
+               {...args}
+               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+               values={currentPill.map(v => v.value)}
+               placeholder={args.placeholder || 'Select languages'}
+               data={dropdownDataGroupedLanguagesPill}
+               onChange={(e, item) => handleOnChangePill(e, item)}
+            />
+            </section>
         );
     },
 
     args: {
-        size: 'medium',
-        variant: 'ghost',
-        icon: 'Love',
-        isDisabled: false,
-        isLoading: false
+        icon: 'Love'
     }
 };
 
-export const OutlinedVariantWithSearch = () => {
-    const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
-
-    const handleOnChange = (e: React.MouseEvent, item : DropdownDataOption) => {
-        setCurrentOption(item);
-        action('onChange');
-        return true;
-    };
-
-    return (
-        <Dropdown
-            hasSearch
-            variant="outlined"
-            placeholder="Select something"
-            value={currentOption?.value}
-            icon={<Love/>}
-            size="medium"
-            data={dropdownDataGrouped}
-            onChange={(e, item) => handleOnChange(e, item)}
-    />
-    );
-};
-
-// Export const OutlinedVariantWithBigImages = () => {
-//     const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
-
-//     const handleOnChange = (e : React.MouseEvent, item: DropdownDataOption) => {
-//         setCurrentOption(item);
-//         action('onChange');
-//         return true;
-//     };
-
-//     return (
-//         <Dropdown
-//             hasSearch
-//             placeholder="Select something"
-//             variant="outlined"
-//             imageSize="big"
-//             value={currentOption?.value}
-//             size="medium"
-//             data={dropdownDataImages}
-//             onChange={(e, item) => handleOnChange(e, item)}
-//         />
-//     );
-// };
-
-// Export const OutlinedVariantWithSmallImages = () => {
-//     const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
-
-//     const handleOnChange = (e: React.MouseEvent, item : DropdownDataOption) => {
-//         setCurrentOption(item);
-//         action('onChange');
-//         return true;
-//     };
-
-//     return (
-//         <Dropdown
-//             hasSearch
-//             variant="outlined"
-//             imageSize="small"
-//             placeholder="Select something"
-//             value={currentOption?.value}
-//             data={dropdownDataImages}
-//             size="medium"
-//             onChange={(e, item) => handleOnChange(e, item)}
-//         />
-//     );
-// };
-
-export const DropdownWithTree = {
+export const TreeData = {
     render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
-        const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
+        const [currentOptionTree, setCurrentOptionTree] = useState<DropdownDataOption | null>(null);
+        const [currentDescription, setCurrentDescription] = useState<DropdownDataOption | null>(null);
+        const [currentImage, setCurrentImage] = useState<DropdownDataOption | null>(null);
+        const [currentLanguage, setCurrentLanguage] = useState<DropdownDataOption | null>(null);
 
-        const handleOnChange = (e: React.MouseEvent, item: DropdownDataOption) => {
-            setCurrentOption(item);
-            action('onChange');
+        const handleChangeTree = (e: React.MouseEvent, item: DropdownDataOption) => {
+            setCurrentOptionTree(item);
+            action('onChangeTree')(e, item);
+            return true;
+        };
+
+        const handleChangeDescription = (e: React.MouseEvent, item: DropdownDataOption) => {
+            setCurrentDescription(item);
+            action('onChangeDescription')(e, item);
+            return true;
+        };
+
+        const handleChangeImage = (e: React.MouseEvent, item: DropdownDataOption) => {
+            setCurrentImage(item);
+            action('onChangeImage')(e, item);
+            return true;
+        };
+
+        const handleChangeLanguage = (e: React.MouseEvent, item: DropdownDataOption) => {
+            setCurrentLanguage(item);
+            action('onChangeLanguage')(e, item);
             return true;
         };
 
         return (
-            <Dropdown
-                 {...args}
-                 hasSearch={args.hasSearch || true}
-                 isDisabled={args.isDisabled || false}
-                 variant={args.variant || 'outlined'}
-                 size={args.size || 'medium'}
-                 icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-                 placeholder={args.placeholder || 'Select something'}
-                 value={currentOption?.value}
-                 treeData={dropdownDataTree}
-                 onChange={(e, item) => handleOnChange(e, item)}
-            />
-        );
-    },
-
-    args: {
-        hasSearch: true,
-        variant: 'outlined',
-        size: 'small',
-        icon: 'Love',
-        placeholder: 'Select something',
-        isDisabled: false,
-        isLoading: false
-    }
-};
-
-export const WithDescription = {
-    render: (args: Omit <DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
-        const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
-
-        const handleOnChange = (e: React.MouseEvent, item : DropdownDataOption) => {
-            setCurrentOption(item);
-            action('onChange');
-            return true;
-        };
-
-        return (
-            <Dropdown
+            <section>
+                <Dropdown
                 {...args}
                 icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
                 placeholder={args.placeholder || 'Select something'}
-                value={currentOption?.value}
-                data={dropdownDataDescriptions}
-                onChange={(e, item) => handleOnChange(e, item)}
-            />
+                value={currentOptionTree?.value || null}
+                treeData={dropdownDataTree}
+                onChange={handleChangeTree}
+        />
+
+                <Dropdown
+                {...args}
+                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                placeholder={args.placeholder || 'Select a description'}
+                value={currentDescription?.value || null}
+                treeData={dropdownDataTreeDescriptions}
+                onChange={handleChangeDescription}
+        />
+
+                <Dropdown
+                {...args}
+                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                placeholder={args.placeholder || 'Select an image'}
+                value={currentImage?.value || null}
+                treeData={dropdownDataTreeImages}
+                onChange={handleChangeImage}
+        />
+
+                <Dropdown
+                {...args}
+                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                placeholder={args.placeholder || 'Select a language'}
+                value={currentLanguage?.value || null}
+                treeData={dropdowndataLanguagesTreePill}
+                onChange={handleChangeLanguage}
+        />
+            </section>
         );
     },
 
     args: {
-        variant: 'outlined',
-        size: 'medium',
-        icon: <Love/>
+        icon: 'Love'
     }
 };
 
-export const DropdownWithTreeMultiple = {
+export const TreeDataMultiple = {
     render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
-        const [currentOption, setCurrentOption] = useState<DropdownDataOption[]>([]);
+        const [currentOptionDataMultiple, setCurrentOptionDataMultiple] = useState<DropdownDataOption[]>([]);
+        const [currentOptionDataImages, setCurrentOptionDataImages] = useState<DropdownDataOption[]>([]);
+        const [currentPill, setCurrentPill] = useState<DropdownDataOption[]>([]);
 
-        const handleOnChange = (e: React.MouseEvent, item: DropdownDataOption) => {
-            setCurrentOption(prev =>
+        const handleOnChangeDataMultiple = (e: React.MouseEvent, item: DropdownDataOption) => {
+            setCurrentOptionDataMultiple(prev =>
+                prev.indexOf(item) > -1 ?
+                    prev.filter(i => i !== item) :
+                    [...prev, item]
+            );
+            action('onChange');
+            return true;
+        };
+
+        const handleOnChangeDataImages = (e: React.MouseEvent, item: DropdownDataOption) => {
+            setCurrentOptionDataImages(prev =>
+                prev.indexOf(item) > -1 ?
+                    prev.filter(i => i !== item) :
+                    [...prev, item]
+            );
+            action('onChange');
+            return true;
+        };
+
+        const handleOnChangePill = (e: React.MouseEvent, item: DropdownDataOption) => {
+            setCurrentPill(prev =>
                 prev.indexOf(item) > -1 ?
                     prev.filter(i => i !== item) :
                     [...prev, item]
@@ -484,73 +500,39 @@ export const DropdownWithTreeMultiple = {
         };
 
         return (
-            <Dropdown
-                hasSearch={args.hasSearch || true}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-                placeholder={args.placeholder || 'Select something'}
-                values={currentOption.map(v => v.value)}
-                size={args.size || 'medium'}
-                isDisabled={args.isDisabled || false}
-                data={dropdownDataTree}
-                onChange={(e, item) => handleOnChange(e, item)}
+            <section className="storyGrid">
+                <Dropdown
+               {...args}
+               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+               values={currentOptionDataMultiple.map(v => v.value)}
+               placeholder={args.placeholder || 'Select something'}
+               treeData={dropdownDataTree}
+               onChange={(e, item) => handleOnChangeDataMultiple(e, item)}
             />
+
+                <Dropdown
+               {...args}
+               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+               values={currentOptionDataImages.map(v => v.value)}
+               placeholder={args.placeholder || 'Select images'}
+               treeData={dropdownDataTreeImages}
+               onChange={(e, item) => handleOnChangeDataImages(e, item)}
+            />
+
+                <Dropdown
+                 {...args}
+                 icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                 values={currentPill.map(v => v.value)}
+                 placeholder={args.placeholder || 'Select a language'}
+                 treeData={dropdowndataLanguagesTreePill}
+                 onChange={(e, item) => handleOnChangePill(e, item)}
+            />
+            </section>
         );
     },
 
     args: {
-        icon: 'Love',
-        placeholder: 'Select something'
+        icon: 'Love'
     }
-};
-
-export const DropdownWithPill = () => {
-    const [currentOption, setCurrentOption] = useState<DropdownDataOption>(
-        {label: 'French', value: 'fr', iconEnd: <Pill label="FR"/>}
-    );
-
-    const dataLanguages : DropdownDataOption[] = [
-        {
-            label: 'French',
-            value: 'fr',
-            iconEnd: <Pill label="FR"/>
-        },
-        {
-            label: 'French (Canadian)',
-            value: 'fr_ca',
-            iconEnd: <Pill label="FR_CA"/>
-        },
-        {
-            label: 'Language with very long long label label label label label label label name (country name)',
-            value: 'es',
-            iconEnd: <Pill label="ES"/>
-        },
-        {
-            label: 'English',
-            value: 'en',
-            iconEnd: <Pill label="EN"/>
-        }
-    ];
-
-    const handleOnChange = (e : React.MouseEvent, item: DropdownDataOption) => {
-        setCurrentOption(item);
-        action('onChange');
-        return true;
-    };
-
-    return (
-        <Dropdown
-            icon={
-                Object.keys(currentOption).length > 0 ? (
-                    <Pill label={currentOption.value.toUpperCase()}/>
-                ) : null
-            }
-            placeholder="Select something"
-            value={currentOption.value}
-            size="small"
-            isDisabled={false}
-            data={dataLanguages}
-            onChange={(e, item) => handleOnChange(e, item)}
-        />
-    );
 };
 

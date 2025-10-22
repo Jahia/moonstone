@@ -9,17 +9,18 @@ export const dropdownDataDescriptions = [
             id: 'custom-id-1',
             imageSize: 'small'
         },
-        image: <img src="https://via.placeholder.com/50?text=ListItemImag"/>
+        image: <img src="https://picsum.photos/id/237/200/300"/>
     },
     {
-        label: 'label image 2',
+        label: 'label image 2 (Disabled)',
         value: 'desc-2',
         description: 'description for image 2',
         attributes: {
             id: 'custom-id',
             imageSize: 'small'
         },
-        image: <img src="https://via.placeholder.com/50?text=ListItemImag"/>
+        image: <img src="https://picsum.photos/id/237/200/300"/>,
+        isDisabled: true
     },
     {
         label: 'option 1',
@@ -86,6 +87,6 @@ export const dropdownDataDescriptions = [
             id: 'custom-id-100',
             imageSize: 'small'
         },
-        image: <img src="https://via.placeholder.com/50?text=ListItemImag"/>
+        image: <img src="https://picsum.photos/id/237/200/300"/>
     }
 ];

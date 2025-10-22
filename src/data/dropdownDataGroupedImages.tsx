@@ -1,4 +1,6 @@
-export const dropdownGroupedDataImages = [
+import {DropdownDataGrouped} from '~/components/Dropdown/Dropdown.types';
+
+export const dropdownGroupedDataImages: DropdownDataGrouped[] = [
     {
         groupLabel: 'Images Group 1',
         options: [
@@ -10,12 +12,12 @@ export const dropdownGroupedDataImages = [
             {
                 label: 'option 2',
                 value: 'img-group-2',
-                image: <img src="https://picsum.photos/id/237/200/300"/>
+                image: <img src="https://picsum.photos/id/237/400/300"/>
             },
             {
                 label: 'option 3 with very long long label label label label label label label label',
                 value: 'img-group-3',
-                image: <img src="https://picsum.photos/id/237/200/300"/>
+                image: <img src="https://picsum.photos/id/237/200/600"/>
             },
             {
                 label: 'option 4 (disabled)',

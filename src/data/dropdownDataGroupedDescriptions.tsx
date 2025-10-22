@@ -12,17 +12,18 @@ export const dropdownGroupedDataDescriptions = [
                     id: 'custom-id-1',
                     imageSize: 'small'
                 },
-                image: <img src="https://via.placeholder.com/50?text=ListItemImag"/>
+                image: <img src="https://picsum.photos/id/237/200/300"/>
             },
             {
-                label: 'label image 2',
+                label: 'label image 2 (disabled)',
                 value: 'group01-item02',
                 description: 'description for image 2',
                 attributes: {
                     id: 'custom-id',
                     imageSize: 'small'
                 },
-                image: <img src="https://via.placeholder.com/50?text=ListItemImag"/>
+                image: <img src="https://picsum.photos/id/237/200/300"/>,
+                isDisabled: true
             }
         ]
     },
@@ -109,7 +110,7 @@ export const dropdownGroupedDataDescriptions = [
                     id: 'custom-id-100',
                     imageSize: 'small'
                 },
-                image: <img src="https://via.placeholder.com/50?text=ListItemImag"/>
+                image: <img src="https://picsum.photos/id/237/200/300"/>
             }
         ]
     }
