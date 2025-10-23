@@ -1,7 +1,7 @@
 import {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
 import {Pill} from '~/components/Pill/Pill';
 
-export const dropdowndataLanguagesPill : DropdownDataOption[] = [
+export const dropdownDataPill : DropdownDataOption[] = [
     {
         label: 'French',
         value: 'fr',

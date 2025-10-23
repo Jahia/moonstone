@@ -1,4 +1,4 @@
-import {TreeViewData} from '~/components/TreeView/TreeView.types';
+import type {TreeViewData} from '~/components/TreeView/TreeView.types';
 
 export const dropdownDataTree: TreeViewData[] = [
     {id: 'A1', label: 'A-1 level1', value: 'a1'},

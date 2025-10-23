@@ -1,7 +1,7 @@
 import {Pill} from '~/components/Pill/Pill';
 import {TreeViewData} from '~/components/TreeView/TreeView.types';
 
-export const dropdowndataLanguagesTreePill: TreeViewData[] = [
+export const dropdownDataTreePill: TreeViewData[] = [
     {
         id: 'fr',
         label: 'French',
@@ -18,7 +18,7 @@ export const dropdowndataLanguagesTreePill: TreeViewData[] = [
     },
     {
         id: 'es',
-        label: '[translate:Language with very long long label label label label label label label name (country name)]',
+        label: 'Label with very long long label label label label label label label name (country name)',
         value: 'es',
         iconEnd: <Pill label="ES"/>
     },

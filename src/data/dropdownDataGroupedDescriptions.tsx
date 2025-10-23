@@ -11,8 +11,7 @@ export const dropdownGroupedDataDescriptions = [
                 attributes: {
                     id: 'custom-id-1',
                     imageSize: 'small'
-                },
-                image: <img src="https://picsum.photos/id/237/200/300"/>
+                }
             },
             {
                 label: 'label image 2 (disabled)',
@@ -22,7 +21,6 @@ export const dropdownGroupedDataDescriptions = [
                     id: 'custom-id',
                     imageSize: 'small'
                 },
-                image: <img src="https://picsum.photos/id/237/200/300"/>,
                 isDisabled: true
             }
         ]
@@ -109,8 +107,7 @@ export const dropdownGroupedDataDescriptions = [
                 attributes: {
                     id: 'custom-id-100',
                     imageSize: 'small'
-                },
-                image: <img src="https://picsum.photos/id/237/200/300"/>
+                }
             }
         ]
     }

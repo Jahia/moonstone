@@ -1,7 +1,7 @@
 import type {DropdownDataGrouped} from '~/components/Dropdown/Dropdown.types';
 import {Pill} from '~/components/Pill/Pill';
 
-export const dropdownDataGroupedLanguagesPill: DropdownDataGrouped[] = [
+export const dropdownDataGroupedPill: DropdownDataGrouped[] = [
     {
         groupLabel: 'Langues principales',
         options: [

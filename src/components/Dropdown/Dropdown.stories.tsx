@@ -6,19 +6,17 @@ import {Pill} from '~/components';
 import * as icons from '../../icons/components';
 import {
     dropdownData,
+    dropdownDataDescriptions,
     dropdownDataGrouped,
+    dropdownDataGroupedPill,
     dropdownDataImages,
-    dropdownDataTree
+    dropdownDataPill,
+    dropdownDataTree,
+    dropdownDataTreePill,
+    dropdownGroupedDataDescriptions,
+    dropdownGroupedImages
 } from '~/data';
 import type {DropdownDataOption, DropdownProps} from './Dropdown.types';
-import {dropdownDataDescriptions} from '~/data/dropdownDataDescriptions';
-import {dropdownGroupedDataDescriptions} from '~/data/dropdownDataGroupedDescriptions';
-import {dropdownGroupedDataImages} from '~/data/dropdownDataGroupedImages';
-import {dropdownDataTreeDescriptions} from '~/data/dropdownDataTreeDescriptions';
-import {dropdownDataTreeImages} from '~/data/dropdownDataTreeImages';
-import {dropdowndataLanguagesPill} from '~/data/dropdownDataPill';
-import {dropdowndataLanguagesTreePill} from '~/data/dropdownDataTreePill';
-import {dropdownDataGroupedLanguagesPill} from '~/data/dropdownDataGroupedPill';
 
 export default {
     title: 'Components/Dropdown',
@@ -110,7 +108,7 @@ export const FlatData = {
                 icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
                 placeholder={args.placeholder || 'Select a language'}
                 value={currentPill.value}
-                data={dropdowndataLanguagesPill}
+                data={dropdownDataTreePill}
                 onChange={handleOnChangePill}
         />
             </section>
@@ -204,7 +202,7 @@ export const FlatDataMultiple = {
                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
                values={currentPill.map(v => v.value)}
                placeholder={args.placeholder || 'Select languages'}
-               data={dropdowndataLanguagesPill}
+               data={dropdownDataPill}
                onChange={(e, item) => handleOnChangePill(e, item)}
             />
             </section>
@@ -272,7 +270,7 @@ export const GroupedData = {
                 icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
                 placeholder={args.placeholder || 'Select an image'}
                 value={currentImage?.value || null}
-                data={dropdownGroupedDataImages}
+                data={dropdownGroupedImages}
                 onChange={handleChangeImage}
         />
 
@@ -281,7 +279,7 @@ export const GroupedData = {
                 icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
                 placeholder={args.placeholder || 'Select a language'}
                 value={currentLanguage?.value || null}
-                data={dropdownDataGroupedLanguagesPill}
+                data={dropdownDataGroupedPill}
                 onChange={handleChangeLanguage}
         />
             </section>
@@ -293,7 +291,7 @@ export const GroupedData = {
     }
 };
 
-export const GroupedMultiple = {
+export const GroupedDataMultiple = {
     render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
         const [currentOptionDataGrouped, setCurrentOptionDataGrouped] = useState<DropdownDataOption[]>([]);
         const [currentOptionDataDescriptions, setCurrentOptionDataDescriptions] = useState<DropdownDataOption[]>([]);
@@ -365,7 +363,7 @@ export const GroupedMultiple = {
                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
                values={currentOptionDataImages.map(v => v.value)}
                placeholder={args.placeholder || 'Select images'}
-               data={dropdownGroupedDataImages}
+               data={dropdownGroupedImages}
                onChange={(e, item) => handleOnChangeDataImages(e, item)}
             />
 
@@ -374,7 +372,7 @@ export const GroupedMultiple = {
                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
                values={currentPill.map(v => v.value)}
                placeholder={args.placeholder || 'Select languages'}
-               data={dropdownDataGroupedLanguagesPill}
+               data={dropdownDataGroupedPill}
                onChange={(e, item) => handleOnChangePill(e, item)}
             />
             </section>
@@ -389,25 +387,11 @@ export const GroupedMultiple = {
 export const TreeData = {
     render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
         const [currentOptionTree, setCurrentOptionTree] = useState<DropdownDataOption | null>(null);
-        const [currentDescription, setCurrentDescription] = useState<DropdownDataOption | null>(null);
-        const [currentImage, setCurrentImage] = useState<DropdownDataOption | null>(null);
         const [currentLanguage, setCurrentLanguage] = useState<DropdownDataOption | null>(null);
 
         const handleChangeTree = (e: React.MouseEvent, item: DropdownDataOption) => {
             setCurrentOptionTree(item);
             action('onChangeTree')(e, item);
-            return true;
-        };
-
-        const handleChangeDescription = (e: React.MouseEvent, item: DropdownDataOption) => {
-            setCurrentDescription(item);
-            action('onChangeDescription')(e, item);
-            return true;
-        };
-
-        const handleChangeImage = (e: React.MouseEvent, item: DropdownDataOption) => {
-            setCurrentImage(item);
-            action('onChangeImage')(e, item);
             return true;
         };
 
@@ -431,27 +415,9 @@ export const TreeData = {
                 <Dropdown
                 {...args}
                 icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-                placeholder={args.placeholder || 'Select a description'}
-                value={currentDescription?.value || null}
-                treeData={dropdownDataTreeDescriptions}
-                onChange={handleChangeDescription}
-        />
-
-                <Dropdown
-                {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-                placeholder={args.placeholder || 'Select an image'}
-                value={currentImage?.value || null}
-                treeData={dropdownDataTreeImages}
-                onChange={handleChangeImage}
-        />
-
-                <Dropdown
-                {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
                 placeholder={args.placeholder || 'Select a language'}
                 value={currentLanguage?.value || null}
-                treeData={dropdowndataLanguagesTreePill}
+                treeData={dropdownDataTreePill}
                 onChange={handleChangeLanguage}
         />
             </section>
@@ -466,21 +432,10 @@ export const TreeData = {
 export const TreeDataMultiple = {
     render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
         const [currentOptionDataMultiple, setCurrentOptionDataMultiple] = useState<DropdownDataOption[]>([]);
-        const [currentOptionDataImages, setCurrentOptionDataImages] = useState<DropdownDataOption[]>([]);
         const [currentPill, setCurrentPill] = useState<DropdownDataOption[]>([]);
 
         const handleOnChangeDataMultiple = (e: React.MouseEvent, item: DropdownDataOption) => {
             setCurrentOptionDataMultiple(prev =>
-                prev.indexOf(item) > -1 ?
-                    prev.filter(i => i !== item) :
-                    [...prev, item]
-            );
-            action('onChange');
-            return true;
-        };
-
-        const handleOnChangeDataImages = (e: React.MouseEvent, item: DropdownDataOption) => {
-            setCurrentOptionDataImages(prev =>
                 prev.indexOf(item) > -1 ?
                     prev.filter(i => i !== item) :
                     [...prev, item]
@@ -511,20 +466,11 @@ export const TreeDataMultiple = {
             />
 
                 <Dropdown
-               {...args}
-               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-               values={currentOptionDataImages.map(v => v.value)}
-               placeholder={args.placeholder || 'Select images'}
-               treeData={dropdownDataTreeImages}
-               onChange={(e, item) => handleOnChangeDataImages(e, item)}
-            />
-
-                <Dropdown
                  {...args}
                  icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
                  values={currentPill.map(v => v.value)}
                  placeholder={args.placeholder || 'Select a language'}
-                 treeData={dropdowndataLanguagesTreePill}
+                 treeData={dropdownDataTreePill}
                  onChange={(e, item) => handleOnChangePill(e, item)}
             />
             </section>

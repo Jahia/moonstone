@@ -23,7 +23,7 @@ export const dropdownDataImages : DropdownDataOption[] = [
         image: <img src="https://picsum.photos/id/237/200/300"/>
     },
     {
-        label: 'option 5 (disabled)',
+        label: 'option 5',
         value: 'img-5',
         image: <img src="https://picsum.photos/id/237/200/300"/>
     },
