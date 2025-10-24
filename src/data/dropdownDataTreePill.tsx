@@ -1,5 +1,5 @@
 import {Pill} from '~/components/Pill/Pill';
-import {TreeViewData} from '~/components/TreeView/TreeView.types';
+import type {TreeViewData} from '~/components/TreeView/TreeView.types';
 
 export const dropdownDataTreePill: TreeViewData[] = [
     {

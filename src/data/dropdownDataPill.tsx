@@ -1,4 +1,4 @@
-import {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
+import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
 import {Pill} from '~/components/Pill/Pill';
 
 export const dropdownDataPill : DropdownDataOption[] = [

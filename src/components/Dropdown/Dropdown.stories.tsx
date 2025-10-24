@@ -6,15 +6,13 @@ import {Pill} from '~/components';
 import * as icons from '../../icons/components';
 import {
     dropdownData,
-    dropdownDataDescriptions,
     dropdownDataGrouped,
+    dropdownDataGroupedImages,
     dropdownDataGroupedPill,
     dropdownDataImages,
     dropdownDataPill,
     dropdownDataTree,
-    dropdownDataTreePill,
-    dropdownGroupedDataDescriptions,
-    dropdownGroupedImages
+    dropdownDataTreePill
 } from '~/data';
 import type {DropdownDataOption, DropdownProps} from './Dropdown.types';
 
@@ -40,7 +38,6 @@ export default {
 export const FlatData = {
     render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
         const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
-        const [currentDescription, setCurrentDescription] = useState<DropdownDataOption | null>(null);
         const [currentImage, setCurrentImage] = useState<DropdownDataOption | null>(null);
         const [currentPill, setCurrentPill] = useState<DropdownDataOption>({
             label: 'French',
@@ -51,12 +48,6 @@ export const FlatData = {
         const handleOnChange = (e: React.MouseEvent, item: DropdownDataOption) => {
             setCurrentOption(item);
             action('onChange')(e, item);
-            return true;
-        };
-
-        const handleOnChangeDescriptions = (e: React.MouseEvent, item: DropdownDataOption) => {
-            setCurrentDescription(item);
-            action('onChangeDescriptions')(e, item);
             return true;
         };
 
@@ -87,15 +78,6 @@ export const FlatData = {
                 <Dropdown
                 {...args}
                 icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-                placeholder={args.placeholder || 'Select a description'}
-                value={currentDescription?.value || null}
-                data={dropdownDataDescriptions}
-                onChange={handleOnChangeDescriptions}
-                />
-
-                <Dropdown
-                {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
                 imageSize={args.imageSize || 'small'}
                 placeholder={args.placeholder || 'Select an image'}
                 value={currentImage?.value || null}
@@ -122,20 +104,9 @@ export const FlatData = {
 
 export const FlatDataMultiple = {
     render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
-        const [currentOptionDescriptions, setCurrentOptionDescriptions] = useState<DropdownDataOption[]>([]);
         const [currentOptionData, setCurrentOptionData] = useState<DropdownDataOption[]>([]);
         const [currentOptionDataImages, setCurrentOptionDataImages] = useState<DropdownDataOption[]>([]);
         const [currentPill, setCurrentPill] = useState<DropdownDataOption[]>([]);
-
-        const handleOnChangeDataDescriptions = (e: React.MouseEvent, item: DropdownDataOption) => {
-            setCurrentOptionDescriptions(prev =>
-                prev.indexOf(item) > -1 ?
-                    prev.filter(i => i !== item) :
-                    [...prev, item]
-            );
-            action('onChange');
-            return true;
-        };
 
         const handleOnChangeData = (e: React.MouseEvent, item: DropdownDataOption) => {
             setCurrentOptionData(prev =>
@@ -182,15 +153,6 @@ export const FlatDataMultiple = {
                 <Dropdown
                {...args}
                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-               values={currentOptionDescriptions.map(v => v.value)}
-               placeholder={args.placeholder || 'Select descriptions'}
-               data={dropdownDataDescriptions}
-               onChange={(e, item) => handleOnChangeDataDescriptions(e, item)}
-            />
-
-                <Dropdown
-               {...args}
-               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
                values={currentOptionDataImages.map(v => v.value)}
                placeholder={args.placeholder || 'Select images'}
                data={dropdownDataImages}
@@ -217,19 +179,12 @@ export const FlatDataMultiple = {
 export const GroupedData = {
     render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
         const [currentOptionGrouped, setCurrentOptionGrouped] = useState<DropdownDataOption | null>(null);
-        const [currentDescription, setCurrentDescription] = useState<DropdownDataOption | null>(null);
         const [currentImage, setCurrentImage] = useState<DropdownDataOption | null>(null);
         const [currentLanguage, setCurrentLanguage] = useState<DropdownDataOption | null>(null);
 
         const handleChangeGrouped = (e: React.MouseEvent, item: DropdownDataOption) => {
             setCurrentOptionGrouped(item);
             action('onChangeGrouped')(e, item);
-            return true;
-        };
-
-        const handleChangeDescription = (e: React.MouseEvent, item: DropdownDataOption) => {
-            setCurrentDescription(item);
-            action('onChangeDescription')(e, item);
             return true;
         };
 
@@ -259,18 +214,9 @@ export const GroupedData = {
                 <Dropdown
                 {...args}
                 icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-                placeholder={args.placeholder || 'Select a description'}
-                value={currentDescription?.value || null}
-                data={dropdownGroupedDataDescriptions}
-                onChange={handleChangeDescription}
-        />
-
-                <Dropdown
-                {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
                 placeholder={args.placeholder || 'Select an image'}
                 value={currentImage?.value || null}
-                data={dropdownGroupedImages}
+                data={dropdownDataGroupedImages}
                 onChange={handleChangeImage}
         />
 
@@ -294,22 +240,11 @@ export const GroupedData = {
 export const GroupedDataMultiple = {
     render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
         const [currentOptionDataGrouped, setCurrentOptionDataGrouped] = useState<DropdownDataOption[]>([]);
-        const [currentOptionDataDescriptions, setCurrentOptionDataDescriptions] = useState<DropdownDataOption[]>([]);
         const [currentOptionDataImages, setCurrentOptionDataImages] = useState<DropdownDataOption[]>([]);
         const [currentPill, setCurrentPill] = useState<DropdownDataOption[]>([]);
 
         const handleOnChangeDataGrouped = (e: React.MouseEvent, item: DropdownDataOption) => {
             setCurrentOptionDataGrouped(prev =>
-                prev.indexOf(item) > -1 ?
-                    prev.filter(i => i !== item) :
-                    [...prev, item]
-            );
-            action('onChange');
-            return true;
-        };
-
-        const handleOnChangeDataDescriptions = (e: React.MouseEvent, item: DropdownDataOption) => {
-            setCurrentOptionDataDescriptions(prev =>
                 prev.indexOf(item) > -1 ?
                     prev.filter(i => i !== item) :
                     [...prev, item]
@@ -352,18 +287,9 @@ export const GroupedDataMultiple = {
                 <Dropdown
                {...args}
                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-               values={currentOptionDataDescriptions.map(v => v.value)}
-               placeholder={args.placeholder || 'Select descriptions'}
-               data={dropdownGroupedDataDescriptions}
-               onChange={(e, item) => handleOnChangeDataDescriptions(e, item)}
-            />
-
-                <Dropdown
-               {...args}
-               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
                values={currentOptionDataImages.map(v => v.value)}
                placeholder={args.placeholder || 'Select images'}
-               data={dropdownGroupedImages}
+               data={dropdownDataGroupedImages}
                onChange={(e, item) => handleOnChangeDataImages(e, item)}
             />
 
