@@ -7,8 +7,7 @@ export const dropdownData = [
     },
     {
         label: 'option 2',
-        value: '2',
-        iconStart: <img src="https://picsum.photos/200/300" alt="Sample image"/>
+        value: '2'
     },
     {
         label: 'option 3 with very long long label label label label label label label label',

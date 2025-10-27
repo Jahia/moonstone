@@ -178,7 +178,7 @@ describe('Dropdown', () => {
 
         await user.click(screen.getByRole('listbox'));
         await user.type(screen.getByRole('searchbox'), '4');
-        expect(screen.getByText(/test 2/)).toBeInTheDocument();
+        expect(screen.getByText(/Group Two/)).toBeInTheDocument();
         expect(screen.getByText(/option 4/)).toBeInTheDocument();
         expect(screen.queryByText(/option 3/i)).not.toBeInTheDocument();
     });
