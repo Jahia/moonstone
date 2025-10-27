@@ -105,21 +105,10 @@ export const FlatData = {
 export const FlatDataMultiple = {
     render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
         const [currentOptionData, setCurrentOptionData] = useState<DropdownDataOption[]>([]);
-        const [currentOptionDataImages, setCurrentOptionDataImages] = useState<DropdownDataOption[]>([]);
         const [currentPill, setCurrentPill] = useState<DropdownDataOption[]>([]);
 
         const handleOnChangeData = (e: React.MouseEvent, item: DropdownDataOption) => {
             setCurrentOptionData(prev =>
-                prev.indexOf(item) > -1 ?
-                    prev.filter(i => i !== item) :
-                    [...prev, item]
-            );
-            action('onChange');
-            return true;
-        };
-
-        const handleOnChangeDataImages = (e: React.MouseEvent, item: DropdownDataOption) => {
-            setCurrentOptionDataImages(prev =>
                 prev.indexOf(item) > -1 ?
                     prev.filter(i => i !== item) :
                     [...prev, item]
@@ -148,15 +137,6 @@ export const FlatDataMultiple = {
                placeholder={args.placeholder || 'Select something'}
                data={dropdownData}
                onChange={(e, item) => handleOnChangeData(e, item)}
-            />
-
-                <Dropdown
-               {...args}
-               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-               values={currentOptionDataImages.map(v => v.value)}
-               placeholder={args.placeholder || 'Select images'}
-               data={dropdownDataImages}
-               onChange={(e, item) => handleOnChangeDataImages(e, item)}
             />
 
                 <Dropdown
@@ -240,21 +220,10 @@ export const GroupedData = {
 export const GroupedDataMultiple = {
     render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
         const [currentOptionDataGrouped, setCurrentOptionDataGrouped] = useState<DropdownDataOption[]>([]);
-        const [currentOptionDataImages, setCurrentOptionDataImages] = useState<DropdownDataOption[]>([]);
         const [currentPill, setCurrentPill] = useState<DropdownDataOption[]>([]);
 
         const handleOnChangeDataGrouped = (e: React.MouseEvent, item: DropdownDataOption) => {
             setCurrentOptionDataGrouped(prev =>
-                prev.indexOf(item) > -1 ?
-                    prev.filter(i => i !== item) :
-                    [...prev, item]
-            );
-            action('onChange');
-            return true;
-        };
-
-        const handleOnChangeDataImages = (e: React.MouseEvent, item: DropdownDataOption) => {
-            setCurrentOptionDataImages(prev =>
                 prev.indexOf(item) > -1 ?
                     prev.filter(i => i !== item) :
                     [...prev, item]
@@ -282,15 +251,6 @@ export const GroupedDataMultiple = {
                placeholder={args.placeholder || 'Select something'}
                data={dropdownDataGrouped}
                onChange={(e, item) => handleOnChangeDataGrouped(e, item)}
-            />
-
-                <Dropdown
-               {...args}
-               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-               values={currentOptionDataImages.map(v => v.value)}
-               placeholder={args.placeholder || 'Select images'}
-               data={dropdownDataGroupedImages}
-               onChange={(e, item) => handleOnChangeDataImages(e, item)}
             />
 
                 <Dropdown

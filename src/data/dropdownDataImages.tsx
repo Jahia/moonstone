@@ -31,32 +31,32 @@ export const dropdownDataImages : DropdownDataOption[] = [
     {
         label: 'option 6',
         value: 'img-6',
-        image: <img src="https://picsum.photos/id/237/200/300"/>,
+        image: <img src="https://www.placeholderimage.eu/api/nature/id/1/260/260"/>,
         description: 'very long description for image 1 very long description for image 1 very long description for image 1'
     },
     {
         label: 'option 7',
         value: 'img-7',
-        image: <img src="https://picsum.photos/id/237/200/300"/>
+        image: <img src="https://www.placeholderimage.eu/api/nature/id/1/260/260"/>
     },
     {
         label: 'option 8',
         value: 'img-8',
-        image: <img src="https://picsum.photos/id/237/200/300"/>
+        image: <img src="https://www.placeholderimage.eu/api/nature/id/1/260/260"/>
     },
     {
         label: 'option 9',
         value: 'img-9',
-        image: <img src="https://picsum.photos/id/237/200/300"/>
+        image: <img src="https://www.placeholderimage.eu/api/nature/id/1/260/260"/>
     },
     {
         label: 'option 10',
         value: 'img-10',
-        image: <img src="https://picsum.photos/id/237/200/300"/>
+        image: <img src="https://www.placeholderimage.eu/api/nature/id/1/260/260"/>
     },
     {
         label: 'option 11',
         value: 'img-11',
-        image: <img src="https://picsum.photos/id/237/200/300"/>
+        image: <img src="https://www.placeholderimage.eu/api/nature/id/1/260/260"/>
     }
 ];
