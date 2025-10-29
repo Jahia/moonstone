@@ -16,6 +16,7 @@ export * from './Dropdown/Dropdown';
 export * from './Field';
 export * from './Field/FieldBoolean';
 export * from './Field/FieldSelector';
+export * from './Fieldset';
 export * from './GlobalStyle';
 export * from './Header';
 export * from './IconTextIcon';

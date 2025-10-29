@@ -1,26 +1,18 @@
-/* eslint-disable complexity */
 import React, {MutableRefObject, useEffect, useRef, useState} from 'react';
 import clsx from 'clsx';
+import type {DropdownActionProps} from './DropdownAction.types';
+import {Loader, Typography, Menu} from '~/components';
+import {ChevronDown} from '~/icons';
 import '../Dropdown.scss';
 
-import type {
-    DropdownAnythingProps
-} from './DropdownAnything.types';
-import {Menu} from '~/components';
-import {Button, Loader, Typography} from '~/components';
-import {Cancel, ChevronDown} from '~/icons';
-
-export const DropdownAnything: React.FC<DropdownAnythingProps> = ({
+export const DropdownAction: React.FC<DropdownActionProps> = ({
     label,
-    placeholder,
-    value,
     children,
     isDisabled,
     isLoading = false,
     variant = 'ghost',
     size = 'medium',
     icon,
-    onClear,
     onBlur,
     onFocus,
     className,
@@ -33,7 +25,6 @@ export const DropdownAnything: React.FC<DropdownAnythingProps> = ({
     const ref: MutableRefObject<HTMLDivElement> = useRef();
 
     const isEmpty = !children;
-    const isFilled = value !== undefined && value !== null;
 
     useEffect(() => {
         if (focusData.focused && focusData.event && !focusData.lastSent && onFocus) {
@@ -74,7 +65,7 @@ export const DropdownAnything: React.FC<DropdownAnythingProps> = ({
         top: 4,
         left: 0
     };
-    const menuMaxWidth = '250px';
+    const menuMaxWidth = 'auto';
     const menuMaxHeight = '270px';
 
     const cssDropdown = clsx(
@@ -86,7 +77,6 @@ export const DropdownAnything: React.FC<DropdownAnythingProps> = ({
         {
             'moonstone-disabled': (typeof isDisabled === 'undefined' && isEmpty) ? true : isDisabled,
             'moonstone-dropdown_loading': isLoading,
-            'moonstone-filled': isFilled,
             'moonstone-opened': isOpened
         }
     );
@@ -99,7 +89,7 @@ export const DropdownAnything: React.FC<DropdownAnythingProps> = ({
             <div
                 ref={ref}
                 role="listbox"
-                aria-label={label || placeholder}
+                aria-label={label}
                 aria-disabled={isDisabled || isEmpty}
                 aria-busy={isLoading ? true : undefined}
                 className={clsx(cssDropdown)}
@@ -119,38 +109,24 @@ export const DropdownAnything: React.FC<DropdownAnythingProps> = ({
             >
                 {icon && !isLoading && <icon.type {...icon.props} size="default" className={clsx('moonstone-dropdown_icon')} role="presentation"/>}
                 {isLoading && <Loader size="small" className={clsx({'moonstone-dropdown_loaderOverlay': !icon})}/>}
-                {(value || label || placeholder) &&
+                {label &&
                     <Typography
                         isNowrap
                         variant={size === 'small' ? 'caption' : 'body'}
                         component="span"
                         className={clsx('flexFluid', 'moonstone-dropdown_label')}
-                        title={value || label || placeholder}
+                        title={label}
                         role="option"
                     >
-                        {value || label || placeholder}
+                        {label}
                     </Typography>}
-                {onClear && !isDisabled && (
-                    <Button
-                        className="moonstone-baseInput_clearButton flexRow_center alignCenter"
-                        variant="ghost"
-                        icon={<Cancel/>}
-                        aria-label="Reset"
-                        onClick={e => {
-                            e.stopPropagation();
-                            ref.current.focus();
-                            ref.current.blur();
-                            onClear(e);
-                        }}
-                    />
-                )}
                 <ChevronDown className="moonstone-dropdown_chevronDown" role="presentation"/>
             </div>
 
             {isOpened && (
                 <Menu
                     isDisplayed
-                    style={{padding: 10, overflow: 'auto'}}
+                    style={{padding: 10}}
                     anchorPosition={anchorPosition}
                     minWidth={minWidth}
                     maxWidth={menuMaxWidth}
@@ -165,4 +141,4 @@ export const DropdownAnything: React.FC<DropdownAnythingProps> = ({
     );
 };
 
-DropdownAnything.displayName = 'DropdownAnything';
+DropdownAction.displayName = 'DropdownAction';

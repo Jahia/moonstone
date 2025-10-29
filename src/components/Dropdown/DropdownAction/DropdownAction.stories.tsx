@@ -1,15 +1,14 @@
 import React, {useState} from 'react';
 import {action} from 'storybook/actions';
-import {DropdownAnything} from './DropdownAnything';
-import {Button, CardSelector, Chip, Dropdown, EmptyCardSelector, Field, FieldBoolean, FieldSelector, Input, MenuItem, RadioGroup, RadioItem, Separator, Textarea, Typography} from '~/components';
-import * as icons from '../../../icons/components';
-import {File} from '../../../icons/components';
-import type {DropdownAnythingProps} from './DropdownAnything.types';
-import {Fieldset} from '~/components/Fieldset';
+import {DropdownAction} from './DropdownAction';
+import type {DropdownActionProps} from './DropdownAction.types';
+import {Button, Fieldset, CardSelector, Chip, Dropdown, EmptyCardSelector, Field, FieldBoolean, FieldSelector, Input, MenuItem, RadioGroup, RadioItem, Separator, Textarea, Typography} from '~/components';
+import * as icons from '~/icons/components';
+import {File} from '~/icons';
 
 export default {
-    title: 'Components/DropdownAnything',
-    component: DropdownAnything,
+    title: 'Components/DropdownAction',
+    component: DropdownAction,
     tags: ['beta'],
 
     parameters: {
@@ -27,14 +26,12 @@ export default {
     }
 };
 
-const TemplateSimple = (args: DropdownAnythingProps) => {
+const TemplateSimple = (args: DropdownActionProps) => {
     const {
         label,
-        value,
         icon,
         size,
         variant,
-        placeholder,
         isDisabled,
         isLoading,
         className,
@@ -42,11 +39,9 @@ const TemplateSimple = (args: DropdownAnythingProps) => {
     } = args;
 
     return (
-        <DropdownAnything
+        <DropdownAction
             label={label}
-            value={value}
             icon={typeof icon === 'string' && icons[icon] ? React.createElement(icons[icon]) : undefined}
-            placeholder={placeholder}
             className={className}
             size={size}
             variant={variant}
@@ -56,7 +51,7 @@ const TemplateSimple = (args: DropdownAnythingProps) => {
             onBlur={action('onblur')}
         >
             {children}
-        </DropdownAnything>
+        </DropdownAction>
     );
 };
 
@@ -69,7 +64,6 @@ export const WithText = {
         icon: 'Love',
         size: 'medium',
         variant: 'ghost',
-        placeholder: 'Open to read',
         isDisabled: false,
         isLoading: false,
         children:
@@ -96,7 +90,6 @@ export const Form = {
         icon: 'Love',
         size: 'medium',
         variant: 'ghost',
-        placeholder: 'Select something',
         isDisabled: false,
         isLoading: false,
         children:
@@ -148,30 +141,27 @@ export const Form = {
     }
 };
 
-export const WithButtons = (args: DropdownAnythingProps) => {
-    const [value, setValue] = useState(args.value);
+export const WithButtons = (args: DropdownActionProps) => {
+    const [labelState, setLabelState] = useState(args.label);
     const {
         label = 'Dropdown with buttons',
         icon = 'Widgets',
         size = 'medium',
         variant = 'ghost',
-        placeholder = 'Select something',
         isDisabled = false,
         isLoading = false,
         children =
         // eslint-disable-next-line react/jsx-indent
         <>
-            <Button label="Valeur 1" onClick={() => setValue('Valeur 1')}/>
-            <Button label="Valeur 2" onClick={() => setValue('Valeur 2')}/>
+            <Button label="Valeur 1" onClick={() => setLabelState('Valeur 1')}/>
+            <Button label="Valeur 2" onClick={() => setLabelState('Valeur 2')}/>
         </>
     } = args;
 
     return (
-        <DropdownAnything
-            label={label}
-            value={value}
+        <DropdownAction
+            label={labelState || label}
             icon={React.createElement(icons[icon as keyof typeof icons])}
-            placeholder={placeholder}
             size={size}
             variant={variant}
             isDisabled={isDisabled}
@@ -180,20 +170,53 @@ export const WithButtons = (args: DropdownAnythingProps) => {
             onBlur={action('onblur')}
         >
             {children}
-        </DropdownAnything>
+        </DropdownAction>
     );
 };
 
-export const SortingDropdown = (args: DropdownAnythingProps) => {
+export const MultipleValues = (args: DropdownActionProps) => {
+    const [values, setValues] = useState([]);
+    const {
+        label = 'Dropdown with buttons',
+        icon = 'Widgets',
+        size = 'medium',
+        variant = 'ghost',
+        isDisabled = false,
+        isLoading = false,
+        children =
+        // eslint-disable-next-line react/jsx-indent
+        <>
+            <Button label="Valeur 1" onClick={() => setValues([...values, 'Valeur 1'])}/>
+            <Button label="Valeur 2" onClick={() => setValues([...values, 'Valeur 2'])}/>
+            <Button label="Valeur 3" onClick={() => setValues([...values, 'Valeur 3'])}/>
+            <Button label="Valeur 4" onClick={() => setValues([...values, 'Valeur 4'])}/>
+        </>
+    } = args;
+
+    return (
+        <DropdownAction
+            label={values.length > 0 ? values.toString() : label}
+            icon={React.createElement(icons[icon as keyof typeof icons])}
+            size={size}
+            variant={variant}
+            isDisabled={isDisabled}
+            isLoading={isLoading}
+            onFocus={action('onfocus')}
+            onBlur={action('onblur')}
+        >
+            {children}
+        </DropdownAction>
+    );
+};
+
+export const SortingDropdown = (args: DropdownActionProps) => {
     const {
         label = 'Sorting dropdown',
         icon = 'Love',
         size = 'medium',
         variant = 'ghost',
-        placeholder = 'Select something',
         isDisabled = false,
         isLoading = false,
-        value,
         className
     } = args;
 
@@ -212,35 +235,28 @@ export const SortingDropdown = (args: DropdownAnythingProps) => {
 
     const [sortValue, setSortValue] = useState('4');
     const [directionValue, setDirectionValue] = useState('asc');
-    const [parentValue, setParentValue] = useState(firstDropdownData.find(item => item.value === sortValue).label || value);
-    const [parentIcon, setParentIcon] = useState(secondDropdownData.find(item => item.value === directionValue)?.icon || icon);
 
     const onValueChange = (item: {value: string, label: string}) => {
-        console.log({item});
         setSortValue(item.value);
-        setParentValue(item.label);
     };
 
     const onIconChange = (item: {value: string, label: string, icon: string}) => {
         setDirectionValue(item.value);
-        setParentIcon(item.icon);
     };
 
-    const iconElement = React.useMemo(() => {
-        if (typeof parentIcon === 'string') {
-            const IconComponent = icons[parentIcon as keyof typeof icons];
+    const iconElement = () => {
+        if (typeof directionValue === 'string') {
+            const IconComponent = directionValue ? icons[secondDropdownData.find(item => item.value === directionValue)?.icon as keyof typeof icons] : icons[icon as keyof typeof icons];
             return IconComponent ? React.createElement(IconComponent) : undefined;
         }
 
-        return parentIcon;
-    }, [parentIcon]);
+        return directionValue;
+    };
 
     return (
-        <DropdownAnything
-            label={label}
-            value={parentValue}
-            icon={iconElement}
-            placeholder={placeholder}
+        <DropdownAction
+            label={firstDropdownData.find(item => item.value === sortValue).label || label}
+            icon={iconElement()}
             className={className}
             size={size}
             variant={variant}
@@ -268,6 +284,6 @@ export const SortingDropdown = (args: DropdownAnythingProps) => {
                             onIconChange(item);
                         }}
                     />
-        </DropdownAnything>
+        </DropdownAction>
     );
 };
