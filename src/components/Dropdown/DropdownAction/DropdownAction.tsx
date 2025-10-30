@@ -1,7 +1,7 @@
-import React, {MutableRefObject, useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import clsx from 'clsx';
 import type {DropdownActionProps} from './DropdownAction.types';
-import {Loader, Typography, Menu} from '~/components';
+import {Menu, Button} from '~/components';
 import {ChevronDown} from '~/icons';
 import '../Dropdown.scss';
 
@@ -11,7 +11,7 @@ export const DropdownAction: React.FC<DropdownActionProps> = ({
     isDisabled,
     isLoading = false,
     variant = 'ghost',
-    size = 'medium',
+    size = 'default',
     icon,
     onBlur,
     onFocus,
@@ -22,7 +22,6 @@ export const DropdownAction: React.FC<DropdownActionProps> = ({
     const [focusData, setFocusData] = useState({focused: false, event: null, lastSent: false});
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
-    const ref: MutableRefObject<HTMLDivElement> = useRef();
 
     const isEmpty = !children;
 
@@ -68,31 +67,20 @@ export const DropdownAction: React.FC<DropdownActionProps> = ({
     const menuMaxWidth = 'auto';
     const menuMaxHeight = '270px';
 
-    const cssDropdown = clsx(
-        !label && !icon ? 'flexRow_reverse' : 'flexRow_between',
-        'alignCenter',
-        'moonstone-dropdown',
-        `moonstone-${size}`,
-        `moonstone-dropdown_${variant}`,
-        {
-            'moonstone-disabled': (typeof isDisabled === 'undefined' && isEmpty) ? true : isDisabled,
-            'moonstone-dropdown_loading': isLoading,
-            'moonstone-opened': isOpened
-        }
-    );
-
     return (
-        <div
-            className={clsx('moonstone-dropdown_container', className)}
-            {...props}
-        >
-            <div
-                ref={ref}
-                role="listbox"
+        <>
+            <Button
+                isDisabled={isDisabled}
+                isLoading={isLoading}
+                variant={variant}
+                size={size}
+                label={label}
+                icon={icon}
+                iconEnd={label && <ChevronDown role="presentation"/>}
                 aria-label={label}
                 aria-disabled={isDisabled || isEmpty}
                 aria-busy={isLoading ? true : undefined}
-                className={clsx(cssDropdown)}
+                className={clsx({'moonstone-opened': isOpened}, className)}
                 tabIndex={0}
                 onClick={!isDisabled && !isLoading && handleOpenMenu}
                 onKeyUp={e => {
@@ -106,22 +94,8 @@ export const DropdownAction: React.FC<DropdownActionProps> = ({
                 onFocus={event => {
                     setFocusData(p => ({...p, focused: true, event}));
                 }}
-            >
-                {icon && !isLoading && <icon.type {...icon.props} size="default" className={clsx('moonstone-dropdown_icon')} role="presentation"/>}
-                {isLoading && <Loader size="small" className={clsx({'moonstone-dropdown_loaderOverlay': !icon})}/>}
-                {label &&
-                    <Typography
-                        isNowrap
-                        variant={size === 'small' ? 'caption' : 'body'}
-                        component="span"
-                        className={clsx('flexFluid', 'moonstone-dropdown_label')}
-                        title={label}
-                        role="option"
-                    >
-                        {label}
-                    </Typography>}
-                <ChevronDown className="moonstone-dropdown_chevronDown" role="presentation"/>
-            </div>
+                {...props}
+            />
 
             {isOpened && (
                 <Menu
@@ -137,7 +111,7 @@ export const DropdownAction: React.FC<DropdownActionProps> = ({
                     {children}
                 </Menu>
             )}
-        </div>
+        </>
     );
 };
 

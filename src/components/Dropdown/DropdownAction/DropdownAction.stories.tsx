@@ -55,19 +55,20 @@ const TemplateSimple = (args: DropdownActionProps) => {
     );
 };
 
-export const WithText = {
+export const IconButtonWithText = {
 
     render: TemplateSimple,
 
     args: {
-        label: 'Dropdown with text',
+        label: '',
         icon: 'Love',
-        size: 'medium',
+        size: 'default',
         variant: 'ghost',
         isDisabled: false,
-        isLoading: false,
+        isLoading: true,
+        ariaLabel: 'text dropdown',
         children:
-    <Typography>
+    <Typography style={{maxWidth: '200px'}}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         Mauris porta tortor in erat pulvinar, non laoreet est tempus.
         Nulla scelerisque molestie tempor. Vestibulum ullamcorper ultrices dui quis hendrerit.
@@ -87,9 +88,7 @@ export const Form = {
 
     args: {
         label: 'Dropdown with form',
-        icon: 'Love',
-        size: 'medium',
-        variant: 'ghost',
+        variant: 'default',
         isDisabled: false,
         isLoading: false,
         children:
@@ -146,7 +145,7 @@ export const WithButtons = (args: DropdownActionProps) => {
     const {
         label = 'Dropdown with buttons',
         icon = 'Widgets',
-        size = 'medium',
+        size = 'default',
         variant = 'ghost',
         isDisabled = false,
         isLoading = false,
@@ -174,28 +173,28 @@ export const WithButtons = (args: DropdownActionProps) => {
     );
 };
 
-export const MultipleValues = (args: DropdownActionProps) => {
-    const [values, setValues] = useState([]);
+export const MultipleChoices = (args: DropdownActionProps) => {
+    const [choices, setChoices] = useState([]);
     const {
         label = 'Dropdown with buttons',
         icon = 'Widgets',
-        size = 'medium',
+        size = 'default',
         variant = 'ghost',
         isDisabled = false,
         isLoading = false,
         children =
         // eslint-disable-next-line react/jsx-indent
         <>
-            <Button label="Valeur 1" onClick={() => setValues([...values, 'Valeur 1'])}/>
-            <Button label="Valeur 2" onClick={() => setValues([...values, 'Valeur 2'])}/>
-            <Button label="Valeur 3" onClick={() => setValues([...values, 'Valeur 3'])}/>
-            <Button label="Valeur 4" onClick={() => setValues([...values, 'Valeur 4'])}/>
+            <Button label="Valeur 1" onClick={() => setChoices([...choices, 'Valeur 1'])}/>
+            <Button label="Valeur 2" onClick={() => setChoices([...choices, 'Valeur 2'])}/>
+            <Button label="Valeur 3" onClick={() => setChoices([...choices, 'Valeur 3'])}/>
+            <Button label="Valeur 4" onClick={() => setChoices([...choices, 'Valeur 4'])}/>
         </>
     } = args;
 
     return (
         <DropdownAction
-            label={values.length > 0 ? values.toString() : label}
+            label={choices.length > 0 ? choices.toString() : label}
             icon={React.createElement(icons[icon as keyof typeof icons])}
             size={size}
             variant={variant}
@@ -213,8 +212,8 @@ export const SortingDropdown = (args: DropdownActionProps) => {
     const {
         label = 'Sorting dropdown',
         icon = 'Love',
-        size = 'medium',
-        variant = 'ghost',
+        size = 'default',
+        variant = 'outlined',
         isDisabled = false,
         isLoading = false,
         className

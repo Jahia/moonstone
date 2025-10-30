@@ -39,8 +39,8 @@ describe('Dropdown', () => {
                 <Typography>Dropdown children</Typography>
             </DropdownAction>
         );
-        expect(screen.getByTestId('moonstone-dropdown').firstChild).toHaveClass(
-            'moonstone-dropdown_loading'
+        expect(screen.getByTestId('moonstone-dropdown')).toHaveClass(
+            'moonstone-button_loading'
         );
     });
 
@@ -54,7 +54,7 @@ describe('Dropdown', () => {
                 <Typography>Dropdown children</Typography>
             </DropdownAction>
         );
-        expect(screen.getByTestId('moonstone-dropdown').firstChild).toHaveAttribute(
+        expect(screen.getByTestId('moonstone-dropdown')).toHaveAttribute(
             'aria-busy'
         );
     });
@@ -82,7 +82,7 @@ describe('Dropdown', () => {
             </DropdownAction>
         );
 
-        await user.click(screen.getByRole('listbox'));
+        await user.click(screen.getByRole('button'));
         expect(screen.getByRole('list')).toBeInTheDocument();
     });
 
