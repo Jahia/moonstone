@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import clsx from 'clsx';
-import type {DropdownActionProps} from './DropdownAction.types';
+import type {CustomDropdownProps} from './CustomDropdown.types';
 import {Menu, Button} from '~/components';
 import {ChevronDown} from '~/icons';
 import '../Dropdown.scss';
 
-export const DropdownAction: React.FC<DropdownActionProps> = ({
+export const CustomDropdown: React.FC<CustomDropdownProps> = ({
     label,
     children,
     isDisabled,
@@ -80,7 +80,7 @@ export const DropdownAction: React.FC<DropdownActionProps> = ({
                 aria-label={label}
                 aria-disabled={isDisabled || isEmpty}
                 aria-busy={isLoading ? true : undefined}
-                className={clsx({'moonstone-opened': isOpened}, className)}
+                className={clsx('moonstone-custom-dropdown', {'moonstone-opened': isOpened}, className)}
                 tabIndex={0}
                 onClick={!isDisabled && !isLoading && handleOpenMenu}
                 onKeyUp={e => {
@@ -115,4 +115,4 @@ export const DropdownAction: React.FC<DropdownActionProps> = ({
     );
 };
 
-DropdownAction.displayName = 'DropdownAction';
+CustomDropdown.displayName = 'CustomDropdown';

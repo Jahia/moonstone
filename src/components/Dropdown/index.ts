@@ -1,4 +1,4 @@
 export * from './Dropdown';
-export * from './DropdownAction';
+export * from './CustomDropdown';
 export * from './DropdownMenu';
 export * from './TreeViewMenu';

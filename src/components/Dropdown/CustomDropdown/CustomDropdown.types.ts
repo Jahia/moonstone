@@ -1,7 +1,7 @@
 import {BaseDropdownProps} from '../Dropdown.types';
 import {ButtonSize} from '~/components/Button/Button.types';
 
-export type DropdownActionProps = Omit<BaseDropdownProps,
+export type CustomDropdownProps = Omit<BaseDropdownProps,
 'onClear'| 'hasSearch' | 'autoAddSearchLimit'
 | 'searchEmptyText' | 'imageSize' | 'onChange'
 | 'label' | 'placeholder' | 'size'> & {

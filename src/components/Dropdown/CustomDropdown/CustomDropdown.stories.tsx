@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import {action} from 'storybook/actions';
-import {DropdownAction} from './DropdownAction';
-import type {DropdownActionProps} from './DropdownAction.types';
+import {CustomDropdown} from './CustomDropdown';
+import type {CustomDropdownProps} from './CustomDropdown.types';
 import {Button, Fieldset, CardSelector, Chip, Dropdown, EmptyCardSelector, Field, FieldBoolean, FieldSelector, Input, MenuItem, RadioGroup, RadioItem, Separator, Textarea, Typography} from '~/components';
 import * as icons from '~/icons/components';
 import {File} from '~/icons';
 
 export default {
-    title: 'Components/DropdownAction',
-    component: DropdownAction,
+    title: 'Components/CustomDropdown',
+    component: CustomDropdown,
     tags: ['beta'],
 
     parameters: {
@@ -26,7 +26,7 @@ export default {
     }
 };
 
-const TemplateSimple = (args: DropdownActionProps) => {
+const TemplateSimple = (args: CustomDropdownProps) => {
     const {
         label,
         icon,
@@ -39,7 +39,7 @@ const TemplateSimple = (args: DropdownActionProps) => {
     } = args;
 
     return (
-        <DropdownAction
+        <CustomDropdown
             label={label}
             icon={typeof icon === 'string' && icons[icon] ? React.createElement(icons[icon]) : undefined}
             className={className}
@@ -51,7 +51,7 @@ const TemplateSimple = (args: DropdownActionProps) => {
             onBlur={action('onblur')}
         >
             {children}
-        </DropdownAction>
+        </CustomDropdown>
     );
 };
 
@@ -140,7 +140,7 @@ export const Form = {
     }
 };
 
-export const WithButtons = (args: DropdownActionProps) => {
+export const WithButtons = (args: CustomDropdownProps) => {
     const [labelState, setLabelState] = useState(args.label);
     const {
         label = 'Dropdown with buttons',
@@ -158,7 +158,7 @@ export const WithButtons = (args: DropdownActionProps) => {
     } = args;
 
     return (
-        <DropdownAction
+        <CustomDropdown
             label={labelState || label}
             icon={React.createElement(icons[icon as keyof typeof icons])}
             size={size}
@@ -169,11 +169,11 @@ export const WithButtons = (args: DropdownActionProps) => {
             onBlur={action('onblur')}
         >
             {children}
-        </DropdownAction>
+        </CustomDropdown>
     );
 };
 
-export const MultipleChoices = (args: DropdownActionProps) => {
+export const MultipleChoices = (args: CustomDropdownProps) => {
     const [choices, setChoices] = useState([]);
     const {
         label = 'Dropdown with buttons',
@@ -193,7 +193,7 @@ export const MultipleChoices = (args: DropdownActionProps) => {
     } = args;
 
     return (
-        <DropdownAction
+        <CustomDropdown
             label={choices.length > 0 ? choices.toString() : label}
             icon={React.createElement(icons[icon as keyof typeof icons])}
             size={size}
@@ -204,11 +204,11 @@ export const MultipleChoices = (args: DropdownActionProps) => {
             onBlur={action('onblur')}
         >
             {children}
-        </DropdownAction>
+        </CustomDropdown>
     );
 };
 
-export const SortingDropdown = (args: DropdownActionProps) => {
+export const SortingDropdown = (args: CustomDropdownProps) => {
     const {
         label = 'Sorting dropdown',
         icon = 'Love',
@@ -253,7 +253,7 @@ export const SortingDropdown = (args: DropdownActionProps) => {
     };
 
     return (
-        <DropdownAction
+        <CustomDropdown
             label={firstDropdownData.find(item => item.value === sortValue).label || label}
             icon={iconElement()}
             className={className}
@@ -283,6 +283,6 @@ export const SortingDropdown = (args: DropdownActionProps) => {
                             onIconChange(item);
                         }}
                     />
-        </DropdownAction>
+        </CustomDropdown>
     );
 };
