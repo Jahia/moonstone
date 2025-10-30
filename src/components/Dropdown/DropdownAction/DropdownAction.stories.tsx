@@ -65,7 +65,7 @@ export const IconButtonWithText = {
         size: 'default',
         variant: 'ghost',
         isDisabled: false,
-        isLoading: true,
+        isLoading: false,
         ariaLabel: 'text dropdown',
         children:
     <Typography style={{maxWidth: '200px'}}>
