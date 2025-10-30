@@ -14,71 +14,135 @@ describe('Menu', () => {
         expect(queryByTestId('moonstone-menu')).not.toBeInTheDocument();
     });
 
-    it('should show the correct search results', async () => {
-        const user = userEvent.setup();
+    describe('search functionality', () => {
+        it('should show the correct search results', async () => {
+            const user = userEvent.setup();
 
-        render(
-            <Menu isDisplayed hasSearch data-testid="moonstone-menu">
-                <MenuItem label="Item1"/>
-                <MenuItem label="Item2"/>
-                <MenuItem label="Item3"/>
-            </Menu>
-        );
-        await user.type(screen.getByRole('searchbox'), 'item2');
+            render(
+                <Menu isDisplayed hasSearch data-testid="moonstone-menu">
+                    <MenuItem label="Item1"/>
+                    <MenuItem label="Item2"/>
+                    <MenuItem label="Item3"/>
+                </Menu>
+            );
+            await user.type(screen.getByRole('searchbox'), 'item2');
 
-        expect(screen.queryByText(/item1/i)).not.toBeInTheDocument();
-        expect(screen.getByText(/item2/i)).toBeInTheDocument();
-        expect(screen.queryByText(/item3/i)).not.toBeInTheDocument();
+            expect(screen.queryByText(/item1/i)).not.toBeInTheDocument();
+            expect(screen.getByText(/item2/i)).toBeInTheDocument();
+            expect(screen.queryByText(/item3/i)).not.toBeInTheDocument();
+        });
+
+        it('should show the correct search results with description', async () => {
+            const user = userEvent.setup();
+
+            render(
+                <Menu isDisplayed hasSearch data-testid="moonstone-menu">
+                    <MenuItem label="Item1" description="Description1"/>
+                    <MenuItem label="Item2" description="Description2"/>
+                    <MenuItem label="Item3" description="Description3"/>
+                </Menu>
+            );
+            await user.type(screen.getByRole('searchbox'), 'description2');
+
+            expect(screen.queryByText(/item1/i)).not.toBeInTheDocument();
+            expect(screen.getByText(/item2/i)).toBeInTheDocument();
+            expect(screen.queryByText(/item3/i)).not.toBeInTheDocument();
+        });
+
+        it('should show the correct search results with only description', async () => {
+            const user = userEvent.setup();
+
+            render(
+                <Menu isDisplayed hasSearch data-testid="moonstone-menu">
+                    <MenuItem label="" description="Description1"/>
+                    <MenuItem label="" description="Description2"/>
+                    <MenuItem label="" description="Description3"/>
+                </Menu>
+            );
+            await user.type(screen.getByRole('searchbox'), 'description2');
+
+            expect(screen.queryByText(/description1/i)).not.toBeInTheDocument();
+            expect(screen.getByText(/description2/i)).toBeInTheDocument();
+            expect(screen.queryByText(/description3/i)).not.toBeInTheDocument();
+        });
+
+        it('should show the empty search text if there are no search results', async () => {
+            const user = userEvent.setup();
+            const searchEmptyText = 'No search results';
+
+            render(
+                <Menu isDisplayed hasSearch searchEmptyText={searchEmptyText} data-testid="moonstone-menu">
+                    <MenuItem label="Item1"/>
+                    <MenuItem label="Item2"/>
+                    <MenuItem label="Item3"/>
+                </Menu>
+            );
+            await user.type(screen.getByRole('searchbox'), 'random search text');
+
+            expect(screen.getByText(searchEmptyText)).toBeInTheDocument();
+        });
     });
 
-    it('should show the correct search results with description', async () => {
-        const user = userEvent.setup();
+    describe('search input visibility', () => {
+        it('should show search input when autoSearch is enabled (hasSearch=undefined) and exceeds limit', () => {
+            render(
+                <Menu isDisplayed data-testid="moonstone-menu">
+                    <MenuItem label="Item1"/>
+                    <MenuItem label="Item2"/>
+                    <MenuItem label="Item3"/>
+                    <MenuItem label="Item4"/>
+                    <MenuItem label="Item5"/>
+                    <MenuItem label="Item6"/>
+                    <MenuItem label="Item7"/>
+                    <MenuItem label="Item8"/>
+                </Menu>
+            );
+            expect(screen.queryByRole('search')).toBeInTheDocument();
+        });
 
-        render(
-            <Menu isDisplayed hasSearch data-testid="moonstone-menu">
-                <MenuItem label="Item1" description="Description1"/>
-                <MenuItem label="Item2" description="Description2"/>
-                <MenuItem label="Item3" description="Description3"/>
-            </Menu>
-        );
-        await user.type(screen.getByRole('searchbox'), 'description2');
+        it('should not show search input when autoSearch is enabled (hasSearch=undefined) and does not exceed limit', () => {
+            render(
+                <Menu isDisplayed data-testid="moonstone-menu">
+                    <MenuItem label="Item1"/>
+                    <MenuItem label="Item2"/>
+                    <MenuItem label="Item3"/>
+                </Menu>
+            );
+            expect(screen.queryByRole('search')).not.toBeInTheDocument();
+        });
 
-        expect(screen.queryByText(/item1/i)).not.toBeInTheDocument();
-        expect(screen.getByText(/item2/i)).toBeInTheDocument();
-        expect(screen.queryByText(/item3/i)).not.toBeInTheDocument();
-    });
+        it('should show search input when autoSearch is enabled (hasSearch=undefined) and exceeds specified limit', () => {
+            render(
+                <Menu isDisplayed data-testid="moonstone-menu" autoAddSearchLimit={2}>
+                    <MenuItem label="Item1"/>
+                    <MenuItem label="Item2"/>
+                    <MenuItem label="Item3"/>
+                </Menu>
+            );
+            expect(screen.queryByRole('search')).toBeInTheDocument();
+        });
 
-    it('should show the correct search results with only description', async () => {
-        const user = userEvent.setup();
+        it('should show search input when hasSearch is enabled', () => {
+            render(
+                <Menu isDisplayed hasSearch data-testid="moonstone-menu">
+                    <MenuItem label="Item1"/>
+                    <MenuItem label="Item2"/>
+                    <MenuItem label="Item3"/>
+                </Menu>
+            );
+            expect(screen.queryByRole('search')).toBeInTheDocument();
+        });
 
-        render(
-            <Menu isDisplayed hasSearch data-testid="moonstone-menu">
-                <MenuItem label="" description="Description1"/>
-                <MenuItem label="" description="Description2"/>
-                <MenuItem label="" description="Description3"/>
-            </Menu>
-        );
-        await user.type(screen.getByRole('searchbox'), 'description2');
-
-        expect(screen.queryByText(/description1/i)).not.toBeInTheDocument();
-        expect(screen.getByText(/description2/i)).toBeInTheDocument();
-        expect(screen.queryByText(/description3/i)).not.toBeInTheDocument();
-    });
-
-    it('should show the empty search text if there are no search results', async () => {
-        const user = userEvent.setup();
-        const searchEmptyText = 'No search results';
-
-        render(
-            <Menu isDisplayed hasSearch searchEmptyText={searchEmptyText} data-testid="moonstone-menu">
-                <MenuItem label="Item1"/>
-                <MenuItem label="Item2"/>
-                <MenuItem label="Item3"/>
-            </Menu>
-        );
-        await user.type(screen.getByRole('searchbox'), 'random search text');
-
-        expect(screen.getByText(searchEmptyText)).toBeInTheDocument();
+        it('should not show search input when hasSearch is disabled', () => {
+            render(
+                <Menu isDisplayed hasSearch={false} data-testid="moonstone-menu">
+                    <MenuItem label="Item1"/>
+                    <MenuItem label="Item2"/>
+                    <MenuItem label="Item3"/>
+                </Menu>
+            );
+            expect(screen.queryByRole('search')).not.toBeInTheDocument();
+        });
     });
 
     it('should show an icon if the iconStart props is passed in', () => {
@@ -100,63 +164,15 @@ describe('Menu', () => {
         expect(screen.getByTestId('moonstone-menuItem')).toHaveClass('test-custom-class');
     });
 
-    it('should show search input when autoSearch is enabled (hasSearch=undefined) and exceeds limit', () => {
+    it('should render a sub-contextual menu', () => {
         render(
-            <Menu isDisplayed data-testid="moonstone-menu">
-                <MenuItem label="Item1"/>
-                <MenuItem label="Item2"/>
-                <MenuItem label="Item3"/>
-                <MenuItem label="Item4"/>
-                <MenuItem label="Item5"/>
-                <MenuItem label="Item6"/>
-                <MenuItem label="Item7"/>
-                <MenuItem label="Item8"/>
+            <Menu isDisplayed>
+                <MenuItem label="Parent Item">
+                    <Menu isDisplayed>
+                        <MenuItem label="Sub Item"/>
+                    </Menu>
+                </MenuItem>
             </Menu>
         );
-        expect(screen.queryByRole('search')).toBeInTheDocument();
-    });
-
-    it('should not show search input when autoSearch is enabled (hasSearch=undefined) and does not exceed limit', () => {
-        render(
-            <Menu isDisplayed data-testid="moonstone-menu">
-                <MenuItem label="Item1"/>
-                <MenuItem label="Item2"/>
-                <MenuItem label="Item3"/>
-            </Menu>
-        );
-        expect(screen.queryByRole('search')).not.toBeInTheDocument();
-    });
-
-    it('should show search input when autoSearch is enabled (hasSearch=undefined) and exceeds specified limit', () => {
-        render(
-            <Menu isDisplayed data-testid="moonstone-menu" autoAddSearchLimit={2}>
-                <MenuItem label="Item1"/>
-                <MenuItem label="Item2"/>
-                <MenuItem label="Item3"/>
-            </Menu>
-        );
-        expect(screen.queryByRole('search')).toBeInTheDocument();
-    });
-
-    it('should show search input when hasSearch is enabled', () => {
-        render(
-            <Menu isDisplayed hasSearch data-testid="moonstone-menu">
-                <MenuItem label="Item1"/>
-                <MenuItem label="Item2"/>
-                <MenuItem label="Item3"/>
-            </Menu>
-        );
-        expect(screen.queryByRole('search')).toBeInTheDocument();
-    });
-
-    it('should not show search input when hasSearch is disabled', () => {
-        render(
-            <Menu isDisplayed hasSearch={false} data-testid="moonstone-menu">
-                <MenuItem label="Item1"/>
-                <MenuItem label="Item2"/>
-                <MenuItem label="Item3"/>
-            </Menu>
-        );
-        expect(screen.queryByRole('search')).not.toBeInTheDocument();
     });
 });
