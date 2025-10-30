@@ -32,7 +32,7 @@ export type HandleSelect = (e: React.MouseEvent | React.KeyboardEvent, item?: Dr
 /**
  * Common props shared by all dropdown variants
  */
-type BaseDropdownProps = {
+export type BaseDropdownProps = {
     /**
      * Text for dropdown, when no value is selected
      */
