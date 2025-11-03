@@ -9,8 +9,7 @@ const config: StorybookConfig = {
     addons: [
         '@storybook/addon-docs',
         '@storybook/addon-a11y',
-        'storybook-addon-tag-badges',
-        '@storybook/addon-vitest'
+        'storybook-addon-tag-badges'
     ]
 };
 
