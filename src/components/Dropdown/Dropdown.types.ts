@@ -40,6 +40,7 @@ export type BaseDropdownProps = {
 
     /**
      * Label of the dropdown
+     * @deprecated Label Props is deprecated and will be removed in a future release
      */
     label?: string;
 
