@@ -81,6 +81,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
         console.warn('The Dropdown component cannot receive both `data` and `treeData` props.');
     }
 
+    if (label !== undefined) {
+        console.warn('The property `label` is deprecated in the Dropdown component. Use `placeholder` to show text when no value is selected; otherwise, the label for the selected value is automatically displayed.');
+    }
+
     const [isOpened, setIsOpened] = useState(false);
     const [focusData, setFocusData] = useState({focused: false, event: null, lastSent: false});
     const [anchorEl, setAnchorEl] = useState(null);
