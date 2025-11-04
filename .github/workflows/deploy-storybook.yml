@@ -15,9 +15,6 @@ jobs:
     - name: Install
       run: yarn install --immutable
 
-    - name: Install Playwright browsers
-      run: yarn playwright install chromium --with-deps
-
     - name: Build
       run: yarn build:storybook
 
