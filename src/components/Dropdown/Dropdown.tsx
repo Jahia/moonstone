@@ -82,7 +82,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     }
 
     if (label !== undefined) {
-        console.warn('Label is deprecated from the dropdown component.');
+        console.warn('The property `label` is deprecated in the Dropdown component. Use `placeholder` to show text when no value is selected; otherwise, the label for the selected value is automatically displayed.');
     }
 
     const [isOpened, setIsOpened] = useState(false);

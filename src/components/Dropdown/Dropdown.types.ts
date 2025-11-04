@@ -40,7 +40,9 @@ export type BaseDropdownProps = {
 
     /**
      * Label of the dropdown
-     * @deprecated Label Props is deprecated and will be removed in a future release
+     * @deprecated Label is deprecated and will be removed in a future release.
+     * Use `placeholder` to show text when no value is selected; otherwise,
+     * the label for the selected value is automatically displayed.'
      */
     label?: string;
 
