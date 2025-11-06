@@ -82,7 +82,7 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
                 aria-busy={isLoading ? true : undefined}
                 className={clsx('moonstone-custom-dropdown-button', {'moonstone-opened': isOpened}, className)}
                 tabIndex={0}
-                onClick={!isDisabled && !isLoading && handleOpenMenu}
+                onClick={(!isDisabled && !isLoading) ? handleOpenMenu : undefined}
                 onKeyUp={e => {
                     if (e.key === 'Enter' && !isDisabled && !isLoading) {
                         handleOpenMenu(e);
