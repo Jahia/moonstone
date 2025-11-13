@@ -1,3 +1,0 @@
-import{j as m}from"./jsx-runtime-Cf8x2fCZ.js";import{T as a}from"./Tag-B2cGE1yR.js";import"./index-yBjzXJbu.js";import"./clsx-B-dksMZM.js";import"./Typography-B9xY8qhe.js";import"./index-G8LIXM5I.js";import"./_commonjsHelpers-CqkleIqs.js";const T={title:"Components/Tag",component:a,parameters:{layout:"fullscreen",knobs:{disable:!0},storysource:{disable:!0},actions:{argTypesRegex:"^on.*"}}},p=s=>m.jsx(a,{label:"Tag",value:"tag01",...s}),e={render:p};var r,t,o;e.parameters={...e.parameters,docs:{...(r=e.parameters)==null?void 0:r.docs,source:{originalSource:`{
-  render: Template
-}`,...(o=(t=e.parameters)==null?void 0:t.docs)==null?void 0:o.source}}};const f=["Default"];export{e as Default,f as __namedExportsOrder,T as default};
