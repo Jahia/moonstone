@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bom xmlns="http://cyclonedx.org/schema/bom/1.4" version="1">
 	<metadata>
-		<timestamp>2025-11-13T15:58:40.823Z</timestamp>
+		<timestamp>2025-11-14T12:40:12.134Z</timestamp>
 		<tools>
 			<tool>
 				<name>rollup-plugin-sbom</name>
@@ -58,16 +58,16 @@
 				</externalReferences>
 			</tool>
 		</tools>
-		<component type="application" bom-ref="pkg:npm/%40jahia/moonstone@2.17.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FJahia%2Fmoonstone.git">
+		<component type="application" bom-ref="pkg:npm/%40jahia/moonstone@2.17.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FJahia%2Fmoonstone.git">
 			<group>@jahia</group>
 			<name>moonstone</name>
-			<version>2.17.0</version>
+			<version>2.17.1</version>
 			<licenses>
 				<license>
 					<id>MIT</id>
 				</license>
 			</licenses>
-			<purl>pkg:npm/%40jahia/moonstone@2.17.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FJahia%2Fmoonstone.git</purl>
+			<purl>pkg:npm/%40jahia/moonstone@2.17.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FJahia%2Fmoonstone.git</purl>
 			<externalReferences>
 				<reference type="vcs">
 					<url>git+https://github.com/Jahia/moonstone.git</url>
@@ -737,7 +737,7 @@
 		</component>
 	</components>
 	<dependencies>
-		<dependency ref="pkg:npm/%40jahia/moonstone@2.17.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FJahia%2Fmoonstone.git">
+		<dependency ref="pkg:npm/%40jahia/moonstone@2.17.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FJahia%2Fmoonstone.git">
 			<dependency ref="pkg:npm/clsx@2.1.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Flukeed%2Fclsx.git"/>
 			<dependency ref="pkg:npm/to-px@1.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmikolalysenko%2Fto-px.git"/>
 			<dependency ref="pkg:npm/%40floating-ui/react@0.27.16?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/react"/>

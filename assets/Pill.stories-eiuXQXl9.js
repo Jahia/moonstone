@@ -1,0 +1,5 @@
+import{P as e}from"./Pill-GJFj_ibU.js";import"./iframe-C2ZGshnl.js";import"./preload-helper-D9Z9MdNV.js";import"./clsx-B-dksMZM.js";import"./Typography-spZ3wEuk.js";const a="data:text/markdown;base64,VGhlIGBQaWxsYCBjb21wb25lbnQgaXMgYSB2ZXJ5IHNpbXBsZSB2YXJpYXRpb24gb2YgdGhlIGBDaGlwYCBjb21wb25lbnQuCgojIyMgVXNhZ2VzClRoZSBgUGlsbGAgY29tcG9uZW50IG11c3QgYmUgdXNlZCBpbiBhIGRyb3Bkb3duTWVudSB0byBhZGQgaW5mb3JtYXRpb24gKGVnOiBBZGQgdGhlIGNvZGUgbGFuZ3VhZ2UgaW4gYSBsYW5ndWFnZSBzd2l0Y2hlcikgICAK",b={title:"Components/Pill",component:e,parameters:{layout:"centered",notes:{markdown:a}}},t={args:{label:"ListItem label"}};t.parameters={...t.parameters,docs:{...t.parameters?.docs,source:{originalSource:`{
+  args: {
+    label: 'ListItem label'
+  }
+}`,...t.parameters?.docs?.source}}};const m=["Default"];export{t as Default,m as __namedExportsOrder,b as default};
