@@ -1,3 +1,15 @@
+# v2.17.1 (Fri Nov 14 2025)
+
+#### 🐛 Bug Fix
+
+- fix: import CustomDropdown component [#1178](https://github.com/Jahia/moonstone/pull/1178) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.17.0 (Thu Nov 13 2025)
 
 #### 🚀 Enhancement
