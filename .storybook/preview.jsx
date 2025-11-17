@@ -30,6 +30,7 @@ export const decorators = (story => {
 
 export const parameters = {
     layout: 'fullscreen',
+    a11y: { test: 'error' },
     docs: {
         extractComponentDescription: (component, { notes }) => {
             if (notes) {
