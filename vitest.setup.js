@@ -1,7 +1,8 @@
 import '@testing-library/jest-dom/vitest';
 class IntersectionObserverMock {
     constructor(callback, options) {
-        // Parameters are accepted to match the real IntersectionObserver API.
+        this.callback = callback;
+        this.options = options;
     }
 
     observe() {}
