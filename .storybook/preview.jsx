@@ -44,10 +44,10 @@ export const parameters = {
         }
     },
     backgrounds: {
-        values: [
-            { name: "light", value: "#fdfdfd" },
-            { name: "dark", value: "#293136" }
-        ]
+        options: {
+            light: { name: "light", value: "#fdfdfd" },
+            dark: { name: "dark", value: "#293136" }
+        }
     },
     controls: {
         expanded: true,
