@@ -1,3 +1,56 @@
+# v2.17.1 (Fri Nov 14 2025)
+
+#### 🐛 Bug Fix
+
+- fix: import CustomDropdown component [#1178](https://github.com/Jahia/moonstone/pull/1178) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
+# v2.17.0 (Thu Nov 13 2025)
+
+#### 🚀 Enhancement
+
+- feat: New component CustomDropdown [#1167](https://github.com/Jahia/moonstone/pull/1167) ([@Eevolee](https://github.com/Eevolee))
+- feat: add new component Modal [#1100](https://github.com/Jahia/moonstone/pull/1100) ([@Eevolee](https://github.com/Eevolee))
+- feat: Add NumberInput component [#1137](https://github.com/Jahia/moonstone/pull/1137) ([@Eevolee](https://github.com/Eevolee))
+
+#### 🐛 Bug Fix
+
+- fix: avoid warning with onClick function on Dropdown and DropdownCustom components [#1176](https://github.com/Jahia/moonstone/pull/1176) ([@gflores-jahia](https://github.com/gflores-jahia))
+- feat: label props deprecated from dropdown component [#1174](https://github.com/Jahia/moonstone/pull/1174) ([@BouklifYacine](https://github.com/BouklifYacine))
+- fix: Improve typing of the  Dropdown component [#1159](https://github.com/Jahia/moonstone/pull/1159) ([@BouklifYacine](https://github.com/BouklifYacine))
+- fix: add disable style on menuItem and TabItem [#1154](https://github.com/Jahia/moonstone/pull/1154) ([@BouklifYacine](https://github.com/BouklifYacine))
+- chore: set resizable textarea props to true by default [#1156](https://github.com/Jahia/moonstone/pull/1156) ([@BouklifYacine](https://github.com/BouklifYacine))
+- fix: fix clear button on dropdown playground [#1155](https://github.com/Jahia/moonstone/pull/1155) ([@BouklifYacine](https://github.com/BouklifYacine))
+- feat: Add group titles to Dropdown search results [#1141](https://github.com/Jahia/moonstone/pull/1141) ([@Eevolee](https://github.com/Eevolee))
+- fix: Add search by description on Dropdown Menu [#1139](https://github.com/Jahia/moonstone/pull/1139) ([@Eevolee](https://github.com/Eevolee))
+- fix: Fix Pill overflow in DropdownMenu [#1138](https://github.com/Jahia/moonstone/pull/1138) ([@Eevolee](https://github.com/Eevolee))
+- chore: Migrate Colors stories to Typescript [#1131](https://github.com/Jahia/moonstone/pull/1131) ([@Eevolee](https://github.com/Eevolee))
+- chore: Migrate Spacings stories to Typescript [#1132](https://github.com/Jahia/moonstone/pull/1132) ([@Eevolee](https://github.com/Eevolee))
+
+#### 🏠 Internal
+
+- fix: Clear dropdown stories for a better usage [#1164](https://github.com/Jahia/moonstone/pull/1164) ([@BouklifYacine](https://github.com/BouklifYacine))
+- test: Improve tests of Menu components [#1166](https://github.com/Jahia/moonstone/pull/1166) ([@BouklifYacine](https://github.com/BouklifYacine))
+- chore: Migration treeview story file in typescript [#1148](https://github.com/Jahia/moonstone/pull/1148) ([@BouklifYacine](https://github.com/BouklifYacine))
+- chore: Migrate dropdown story in typescript [#1143](https://github.com/Jahia/moonstone/pull/1143) ([@BouklifYacine](https://github.com/BouklifYacine))
+- chore: migration PrimaryNavItemsGroup in typescript [#1146](https://github.com/Jahia/moonstone/pull/1146) ([@BouklifYacine](https://github.com/BouklifYacine))
+- chore: migrating resizableBox stories in Typescript [#1145](https://github.com/Jahia/moonstone/pull/1145) ([@BouklifYacine](https://github.com/BouklifYacine))
+- chore: update dependencies [#1105](https://github.com/Jahia/moonstone/pull/1105) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 4
+
+- Alessia Bourgoin ([@Eevolee](https://github.com/Eevolee))
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+- Geofrey Flores ([@gflores-jahia](https://github.com/gflores-jahia))
+- Yacine Bouklif ([@BouklifYacine](https://github.com/BouklifYacine))
+
+---
+
 # v2.16.2 (Mon Aug 25 2025)
 
 #### 🐛 Bug Fix
