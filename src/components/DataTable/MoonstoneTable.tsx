@@ -1,7 +1,8 @@
 import {
     useReactTable,
     getCoreRowModel,
-    flexRender
+    flexRender,
+    type ColumnDef
 } from '@tanstack/react-table';
 import {
     Table,
@@ -11,19 +12,37 @@ import {
     TableBody,
     TableBodyCell
 } from '~/components';
-import {TablePocProps} from './TablePoc.types';
+import type {MoonstoneTableProps} from './types/MoonstoneTableColumn.types';
 
-// Where we create the single Table component that can be reused for jcontent dev and will have the future features added
-
-export const TablePoc = <T extends Record<string, unknown>>({
+export const MoonstoneTable = <T extends Record<string, unknown>>({
     data,
     columns
-}: TablePocProps<T>) => {
+}: MoonstoneTableProps<T>) => {
+    const tanstackColumns: ColumnDef<T>[] = columns.map(col => ({
+        id: col.key.toString(),
+        accessorKey: col.key,
+        header: col.label,
+        cell: col.render ?
+            info => col.render!(info.getValue() as T[keyof T], info.row.original) :
+            info => {
+                const value = info.getValue();
+                if (value instanceof Date) {
+                    return value.toLocaleDateString('fr-FR');
+                }
+
+                return value === null ? '' : String(value);
+            }
+    }));
+
     const table = useReactTable({
         data,
-        columns,
+        columns: tanstackColumns,
         getCoreRowModel: getCoreRowModel()
     });
+
+    if (!data || data.length === 0) {
+        return <div>No data available.</div>;
+    }
 
     return (
         <Table>

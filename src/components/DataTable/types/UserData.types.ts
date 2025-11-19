@@ -1,4 +1,4 @@
-export type UserDataTypes = {
+export type UserDataProps = {
   firstName: string;
   lastName: string;
   age: number;
@@ -6,8 +6,3 @@ export type UserDataTypes = {
   progress: number;
   date: Date;
 };
-
-export type ProductDataTypes = {
-  productName: string;
-  category: string;
-  id: number;}
