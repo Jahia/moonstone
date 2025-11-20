@@ -5,12 +5,13 @@ import {
     flexRender,
     type ColumnDef,
     type ExpandedState,
+    type RowSelectionState,
     type Row
 } from '@tanstack/react-table';
 import {useState, useEffect} from 'react';
 
 import type {DataTableProps} from './types/DataTableColumn.types';
-import {Table, TableBody, TableBodyCell, TableHead, TableHeadCell, TableRow} from '~/index';
+import {Table, TableBody, TableBodyCell, TableHead, TableHeadCell, TableRow, Checkbox} from '~/index';
 
 const createTableColumns = <T extends Record<string, unknown>>(
     columns: DataTableProps<T>['columns']
@@ -37,7 +38,8 @@ const adaptRowForTableBodyCell = <T extends Record<string, unknown>>(row: Row<T>
     isExpanded: row.getIsExpanded(),
     depth: row.depth,
     getToggleRowExpandedProps: () => ({
-        onClick: row.getToggleExpandedHandler()
+        onClick: row.getToggleExpandedHandler(),
+        style: {}
     })
 });
 
@@ -52,19 +54,26 @@ const extractIconFromCell = (cellValue: unknown): React.ReactElement | undefined
 export const MoonstoneTable = <T extends Record<string, unknown>>({
     data,
     columns,
-    isStructured = false
+    isStructured = false,
+    enableRowSelection = false
 }: DataTableProps<T>) => {
     const [expanded, setExpanded] = useState<ExpandedState>({});
+    const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
     const tableColumns = createTableColumns(columns);
 
     const table = useReactTable({
         data,
         columns: tableColumns,
+        state: {
+            expanded,
+            rowSelection
+        },
+        onExpandedChange: setExpanded,
+        onRowSelectionChange: setRowSelection,
+        enableRowSelection,
         getCoreRowModel: getCoreRowModel(),
         ...(isStructured && {
-            state: {expanded},
-            onExpandedChange: setExpanded,
             getSubRows: (row: T) => (row as T & {subRows?: T[]}).subRows,
             getExpandedRowModel: getExpandedRowModel()
         })
@@ -85,6 +94,15 @@ export const MoonstoneTable = <T extends Record<string, unknown>>({
             <TableHead>
                 {table.getHeaderGroups().map(headerGroup => (
                     <TableRow key={headerGroup.id}>
+                        {enableRowSelection && (
+                            <TableHeadCell width="52px">
+                                <Checkbox
+                                    checked={table.getIsAllRowsSelected()}
+                                    indeterminate={table.getIsSomeRowsSelected()}
+                                    onChange={table.getToggleAllRowsSelectedHandler()}
+                                />
+                            </TableHeadCell>
+                        )}
                         {headerGroup.headers.map(header => (
                             <TableHeadCell key={header.id}>
                                 {flexRender(header.column.columnDef.header, header.getContext())}
@@ -98,7 +116,18 @@ export const MoonstoneTable = <T extends Record<string, unknown>>({
                     const adaptedRow = isStructured ? adaptRowForTableBodyCell(row) : undefined;
 
                     return (
-                        <TableRow key={row.id}>
+                        <TableRow
+                            key={row.id}
+                            isSelected={enableRowSelection ? row.getIsSelected() : undefined}
+                        >
+                            {enableRowSelection && (
+                                <TableBodyCell width="52px">
+                                    <Checkbox
+                                        checked={row.getIsSelected()}
+                                        onChange={row.getToggleSelectedHandler()}
+                                    />
+                                </TableBodyCell>
+                            )}
                             {row.getVisibleCells().map((cell, index) => {
                                 const isFirstColumn = index === 0;
                                 const iconStart = isFirstColumn ? extractIconFromCell(cell.getValue()) : undefined;

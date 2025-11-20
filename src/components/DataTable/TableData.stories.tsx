@@ -1,4 +1,3 @@
-
 import {TableData} from './data/TableData';
 import {userColumns} from './UserColumn';
 import {MoonstoneTable} from './DataTable';
@@ -47,7 +46,6 @@ export const StructuredViewDataTable: Story = {
     render: (args: Omit<DataTableProps<UserDataRowProps>, 'data' | 'columns'>) => {
         return (
             <MoonstoneTable
-                isStructured
                 {...args}
                 data={TableData}
                 columns={userColumns}
@@ -60,3 +58,38 @@ export const StructuredViewDataTable: Story = {
     name: 'Structured View'
 };
 
+export const SelectableDataTable: Story = {
+    render: (args: Omit<DataTableProps<UserDataRowProps>, 'data' | 'columns'>) => {
+        return (
+            <MoonstoneTable
+                enableRowSelection
+                {...args}
+                data={TableData}
+                columns={userColumns}
+            />
+        );
+    },
+    args: {
+        enableRowSelection: true
+    },
+    name: 'Selectable Rows'
+};
+
+export const SelectableStructuredDataTable: Story = {
+    render: (args: Omit<DataTableProps<UserDataRowProps>, 'data' | 'columns'>) => {
+        return (
+            <MoonstoneTable
+                enableRowSelection
+                isStructured
+                {...args}
+                data={TableData}
+                columns={userColumns}
+            />
+        );
+    },
+    args: {
+        enableRowSelection: true,
+        isStructured: true
+    },
+    name: 'Selectable and structured table view'
+};

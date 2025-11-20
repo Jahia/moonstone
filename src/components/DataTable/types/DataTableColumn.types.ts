@@ -10,4 +10,6 @@ export type DataTableProps<T> = {
     data: T[];
     columns: DataTableColumn<T>[];
     isStructured?: boolean;
+    enableRowSelection?: boolean;
 }
+
