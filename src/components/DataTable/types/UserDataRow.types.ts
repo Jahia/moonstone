@@ -1,4 +1,4 @@
-export type UserDataProps = {
+export type UserDataRowProps = {
   firstName: string;
   lastName: string;
   age: number;
@@ -6,3 +6,7 @@ export type UserDataProps = {
   progress: number;
   date: Date;
 };
+
+export type UserData = {
+UserData : UserDataRowProps[]
+}

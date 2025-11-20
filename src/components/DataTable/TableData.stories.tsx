@@ -1,9 +1,10 @@
-import {MoonstoneTable} from '~/components/DataTable/MoonstoneTable';
-import {DataTable} from './data/DataTable';
+
+import {TableData} from './data/TableData';
 import {userColumns} from './UserColumn';
+import {MoonstoneTable} from './DataTable';
+import type {DataTableProps} from './types/DataTableColumn.types';
 import type {Meta, StoryObj} from '@storybook/react';
-import type {UserDataProps} from './types/UserData.types';
-import type {MoonstoneTableProps} from './types/MoonstoneTableColumn.types';
+import type {UserData, UserDataRowProps} from './types/UserDataRow.types';
 
 export default {
     title: 'Components/TableData',
@@ -16,7 +17,7 @@ export default {
 type Story = StoryObj<typeof MoonstoneTable>;
 
 export const EmptyDataTable: Story = {
-    render: (args: Omit<MoonstoneTableProps<UserDataProps>, 'data' | 'columns'>) => {
+    render: (args: Omit<DataTableProps<UserData>, 'data' | 'columns'>) => {
         return (
             <MoonstoneTable
                 {...args}
@@ -29,11 +30,11 @@ export const EmptyDataTable: Story = {
 };
 
 export const MoonstoneDataTable: Story = {
-    render: (args: Omit<MoonstoneTableProps<UserDataProps>, 'data' | 'columns'>) => {
+    render: (args: Omit<DataTableProps<UserDataRowProps>, 'data' | 'columns'>) => {
         return (
             <MoonstoneTable
                 {...args}
-                data={DataTable}
+                data={TableData}
                 columns={userColumns}
             />
         );

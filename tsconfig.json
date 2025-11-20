@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "rootDir": "src",
-    "ignoreDeprecations": "6.0",
     "outDir": "dist",
     "sourceMap": true,
     "allowJs": false,

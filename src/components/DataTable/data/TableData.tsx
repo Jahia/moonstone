@@ -1,9 +1,8 @@
-
 // The data to populate the table in Storybook
 
-import type {UserDataProps} from '../types/UserData.types';
+import {UserDataRowProps} from '../types/UserDataRow.types';
 
-export const DataTable : UserDataProps[] = [
+export const TableData: UserDataRowProps[] = [
     {
         firstName: 'Yacine',
         lastName: 'Bouklif',

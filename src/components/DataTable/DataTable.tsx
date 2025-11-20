@@ -4,39 +4,23 @@ import {
     flexRender,
     type ColumnDef
 } from '@tanstack/react-table';
-import {
-    Table,
-    TableHead,
-    TableHeadCell,
-    TableRow,
-    TableBody,
-    TableBodyCell
-} from '~/components';
-import type {MoonstoneTableProps} from './types/MoonstoneTableColumn.types';
+
+import type {DataTableProps} from './types/DataTableColumn.types';
+import {Table, TableBody, TableBodyCell, TableHead, TableHeadCell, TableRow} from '~/index';
 
 export const MoonstoneTable = <T extends Record<string, unknown>>({
     data,
     columns
-}: MoonstoneTableProps<T>) => {
-    const tanstackColumns: ColumnDef<T>[] = columns.map(col => ({
-        id: col.key.toString(),
+}: DataTableProps<T>) => {
+    const TableColumns: ColumnDef<T>[] = columns.map(col => ({
+        id: col.key,
         accessorKey: col.key,
-        header: col.label,
-        cell: col.render ?
-            info => col.render!(info.getValue() as T[keyof T], info.row.original) :
-            info => {
-                const value = info.getValue();
-                if (value instanceof Date) {
-                    return value.toLocaleDateString('fr-FR');
-                }
-
-                return value === null ? '' : String(value);
-            }
+        header: col.label
     }));
 
     const table = useReactTable({
         data,
-        columns: tanstackColumns,
+        columns: TableColumns,
         getCoreRowModel: getCoreRowModel()
     });
 

@@ -1,7 +1,7 @@
-import {MoonstoneTableColumn} from './types/MoonstoneTableColumn.types';
-import {UserDataProps} from './types/UserData.types';
+import type {DataTableColumn} from './types/DataTableColumn.types';
+import {UserDataRowProps} from './types/UserDataRow.types';
 
-export const userColumns: MoonstoneTableColumn<UserDataProps>[] = [
+export const userColumns: DataTableColumn<UserDataRowProps>[] = [
     {
         key: 'firstName',
         label: 'Prénom'
