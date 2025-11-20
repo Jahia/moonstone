@@ -9,6 +9,7 @@ import type {UserData, UserDataRowProps} from './types/UserDataRow.types';
 export default {
     title: 'Components/TableData',
     component: MoonstoneTable,
+    tags: ['beta'],
     parameters: {
         controls: {expanded: true}
     }
@@ -40,5 +41,22 @@ export const MoonstoneDataTable: Story = {
         );
     },
     name: 'DataTable'
+};
+
+export const StructuredViewDataTable: Story = {
+    render: (args: Omit<DataTableProps<UserDataRowProps>, 'data' | 'columns'>) => {
+        return (
+            <MoonstoneTable
+                isStructured
+                {...args}
+                data={TableData}
+                columns={userColumns}
+            />
+        );
+    },
+    args: {
+        isStructured: true
+    },
+    name: 'Structured View'
 };
 

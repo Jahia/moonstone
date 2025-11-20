@@ -1,5 +1,5 @@
 import type {DataTableColumn} from './types/DataTableColumn.types';
-import {UserDataRowProps} from './types/UserDataRow.types';
+import type {UserDataRowProps} from './types/UserDataRow.types';
 
 export const userColumns: DataTableColumn<UserDataRowProps>[] = [
     {
