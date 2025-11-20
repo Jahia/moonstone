@@ -1,3 +1,0 @@
-import{j as a}from"./iframe-C2ZGshnl.js";import{T as r}from"./Tag-BUAFRkNB.js";import"./preload-helper-D9Z9MdNV.js";import"./clsx-B-dksMZM.js";import"./Typography-spZ3wEuk.js";const c={title:"Components/Tag",component:r,parameters:{layout:"fullscreen",knobs:{disable:!0},storysource:{disable:!0},actions:{argTypesRegex:"^on.*"}}},o=t=>a.jsx(r,{label:"Tag",value:"tag01",...t}),e={render:o};e.parameters={...e.parameters,docs:{...e.parameters?.docs,source:{originalSource:`{
-  render: Template
-}`,...e.parameters?.docs?.source}}};const i=["Default"];export{e as Default,i as __namedExportsOrder,c as default};
