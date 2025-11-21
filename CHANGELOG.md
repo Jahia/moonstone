@@ -1,3 +1,22 @@
+# v2.17.2 (Thu Nov 20 2025)
+
+#### 🐛 Bug Fix
+
+- fix: color contrast for the helper of field and fieldset [#1191](https://github.com/Jahia/moonstone/pull/1191) ([@ffffffelix](https://github.com/ffffffelix))
+- feat: update icon `PastAsReference` [#1187](https://github.com/Jahia/moonstone/pull/1187) ([@ffffffelix](https://github.com/ffffffelix))
+- feat: add icon `ContentReference` [#1188](https://github.com/Jahia/moonstone/pull/1188) ([@ffffffelix](https://github.com/ffffffelix))
+- fix: Improve background color on selected MenuItem on hover [#1182](https://github.com/Jahia/moonstone/pull/1182) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### 🔩 Dependency Updates
+
+- chore: upgrade dependencies [#1186](https://github.com/Jahia/moonstone/pull/1186) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.17.1 (Fri Nov 14 2025)
 
 #### 🐛 Bug Fix
