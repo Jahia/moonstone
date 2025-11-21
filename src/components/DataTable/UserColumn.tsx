@@ -1,3 +1,4 @@
+import {Button, MoreVert} from '~/index';
 import type {DataTableColumn} from './types/DataTableColumn.types';
 import type {UserDataRowProps} from './types/UserDataRow.types';
 
@@ -25,5 +26,11 @@ export const userColumns: DataTableColumn<UserDataRowProps>[] = [
     {
         key: 'date',
         label: 'Date'
+    },
+    {
+        key: 'actions',
+        label: '',
+        isSortable: false,
+        render: () => <Button variant="ghost" icon={<MoreVert />} onClick={() => alert('Action clicked')} />
     }
 ];
