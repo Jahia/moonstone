@@ -13,6 +13,7 @@ export type UserDataRowProps = {
   progress: number;
   date: Date;
   subRows?: UserDataRowProps[];
+  actions?: string;
 };
 
 export type UserData = {

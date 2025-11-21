@@ -11,6 +11,9 @@ export default {
     tags: ['beta'],
     parameters: {
         controls: {expanded: true}
+    },
+    argTypes: {
+        onChangeSelection: {action: 'onChangeSelection'}
     }
 } satisfies Meta<typeof MoonstoneTable>;
 
@@ -62,7 +65,7 @@ export const SelectableDataTable: Story = {
     render: (args: Omit<DataTableProps<UserDataRowProps>, 'data' | 'columns'>) => {
         return (
             <MoonstoneTable
-                enableRowSelection
+                enableSelection
                 {...args}
                 data={TableData}
                 columns={userColumns}
@@ -70,7 +73,7 @@ export const SelectableDataTable: Story = {
         );
     },
     args: {
-        enableRowSelection: true
+        enableSelection: true
     },
     name: 'Selectable Rows'
 };
@@ -79,7 +82,7 @@ export const SelectableStructuredDataTable: Story = {
     render: (args: Omit<DataTableProps<UserDataRowProps>, 'data' | 'columns'>) => {
         return (
             <MoonstoneTable
-                enableRowSelection
+                enableSelection
                 isStructured
                 {...args}
                 data={TableData}
@@ -88,8 +91,44 @@ export const SelectableStructuredDataTable: Story = {
         );
     },
     args: {
-        enableRowSelection: true,
+        enableSelection: true,
         isStructured: true
     },
     name: 'Selectable and structured table view'
 };
+
+export const SortableDataTable: Story = {
+    render: (args: Omit<DataTableProps<UserDataRowProps>, 'data' | 'columns'>) => {
+        return (
+            <MoonstoneTable
+                {...args}
+                data={TableData}
+                columns={userColumns}
+            />
+        );
+    },
+    args: {
+        isSortable : true 
+    },
+    name: 'Sortable Table'
+};
+
+export const AllFeaturesTable: Story = {
+    render: (args: Omit<DataTableProps<UserDataRowProps>, 'data' | 'columns'>) => {
+        return (
+            <MoonstoneTable
+                {...args}
+                data={TableData}
+                columns={userColumns}
+            />
+        );
+    },
+    args: {
+        enableSelection: true,
+        isStructured: true,
+        isSortable : true 
+    },
+    name: 'All features Table'
+};
+
+
