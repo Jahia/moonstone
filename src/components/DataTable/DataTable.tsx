@@ -11,8 +11,7 @@ import {
 import {useState, useEffect} from 'react';
 
 import type {DataTableProps} from './types/DataTableColumn.types';
-import {Table, TableBody, TableBodyCell, TableHead, TableHeadCell, TableRow, Checkbox} from '~/index';
-import {SortIndicator} from './SortIndicator';
+import {Table, TableBody, TableBodyCell, TableHead, TableHeadCell, TableRow, Checkbox, SortIndicator} from '~/index';
 
 const createTableColumns = <T extends Record<string, unknown>>(
     columns: DataTableProps<T>['columns']
@@ -32,7 +31,7 @@ const createTableColumns = <T extends Record<string, unknown>>(
                 return String(value ?? '');
             },
         meta: {
-            isSortable: col.isSortable
+            enableSorting: col.enableSorting
         }
     }));
 };
@@ -60,27 +59,26 @@ export const MoonstoneTable = <T extends Record<string, unknown>>({
     isStructured = false,
     enableSelection = false,
     onChangeSelection,
-    isSortable = false
+    enableSorting = false,
+    sortBy,
+    sortDirection,
+    onClickTableHeadCell,
+    defaultSelection = [],
+    defaultSorting
 }: DataTableProps<T>) => {
     const [expanded, setExpanded] = useState<ExpandedState>({});
-    const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-    const [sortState, setSortState] = useState<{columnId: string; direction: 'ascending' | 'descending'} | undefined>(undefined);
+    const [rowSelection, setRowSelection] = useState<RowSelectionState>(() => 
+        defaultSelection.reduce((acc, key) => ({...acc, [key]: true}), {})
+    );
+    const [internalSortBy, setInternalSortBy] = useState<string | undefined>(defaultSorting?.sortBy);
+    const [internalSortDirection, setInternalSortDirection] = useState<'ascending' | 'descending' | undefined>(defaultSorting?.sortDirection);
+
+    const currentSortBy = sortBy ?? internalSortBy;
+    const currentSortDirection = sortDirection ?? internalSortDirection;
 
     useEffect(() => {
-        onChangeSelection?.(rowSelection);
+        onChangeSelection?.(Object.keys(rowSelection));
     }, [rowSelection, onChangeSelection]);
-
-    const handleHeaderClick = (columnId: string) => {
-        setSortState(prevState => {
-            if (prevState?.columnId === columnId) {
-                if (prevState.direction === 'ascending') {
-                    return {columnId, direction: 'descending'};
-                }
-                return undefined;
-            }
-            return {columnId, direction: 'ascending'};
-        });
-    };
 
     const tableColumns = createTableColumns(columns);
 
@@ -126,17 +124,17 @@ export const MoonstoneTable = <T extends Record<string, unknown>>({
                             </TableHeadCell>
                         )}
                         {headerGroup.headers.map(header => {
-                            const isColumnSortable = isSortable && (header.column.columnDef.meta as {isSortable?: boolean})?.isSortable !== false;
+                            const isColumnSortable = enableSorting && (header.column.columnDef.meta as {enableSorting?: boolean})?.enableSorting !== false;
 
                             return (
                                 <TableHeadCell
                                     key={header.id}
+                                    onClick={isColumnSortable ? () => onClickTableHeadCell?.(header.id) : undefined}
                                     iconEnd={
                                         isColumnSortable ? (
                                             <SortIndicator
-                                             onClick={isColumnSortable ? () => handleHeaderClick(header.id) : undefined}
-                                                isSorted={sortState?.columnId === header.id}
-                                                direction={sortState?.columnId === header.id ? sortState.direction : undefined}
+                                                isSorted={currentSortBy === header.id}
+                                                direction={currentSortBy === header.id ? currentSortDirection : undefined}
                                             />
                                         ) : undefined
                                     }

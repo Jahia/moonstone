@@ -4,6 +4,7 @@ import {MoonstoneTable} from './DataTable';
 import type {DataTableProps} from './types/DataTableColumn.types';
 import type {Meta, StoryObj} from '@storybook/react';
 import type {UserData, UserDataRowProps} from './types/UserDataRow.types';
+import {useState} from 'react';
 
 export default {
     title: 'Components/TableData',
@@ -57,6 +58,7 @@ export const StructuredViewDataTable: Story = {
     },
     args: {
         isStructured: true
+        
     },
     name: 'Structured View'
 };
@@ -97,27 +99,77 @@ export const SelectableStructuredDataTable: Story = {
     name: 'Selectable and structured table view'
 };
 
-export const SortableDataTable: Story = {
+export const DefaultSelectionDataTable: Story = {
     render: (args: Omit<DataTableProps<UserDataRowProps>, 'data' | 'columns'>) => {
         return (
             <MoonstoneTable
                 {...args}
+                defaultSelection={['0', '2', '4']}
                 data={TableData}
                 columns={userColumns}
             />
         );
     },
     args: {
-        isSortable : true 
+        enableSelection: true,
+        defaultSelection: ['0', '2', '4']
+    },
+    name: 'Default Selection'
+};
+
+export const SortableDataTable: Story = {
+    render: (args) => {
+        const [sortBy, setSortBy] = useState(args.sortBy);
+        const [sortDirection, setSortDirection] = useState(args.sortDirection);
+
+        const handleHeaderClick = (columnId: string) => {
+            if (sortBy === columnId) {
+                setSortDirection(prev => prev === 'ascending' ? 'descending' : 'ascending');
+            } else {
+                setSortBy(columnId);
+                setSortDirection('ascending');
+            }
+        };
+
+        return (
+            <MoonstoneTable
+                {...args}
+                sortBy={sortBy}
+                sortDirection={sortDirection}
+                onClickTableHeadCell={handleHeaderClick}
+                data={TableData}
+                columns={userColumns}
+            />
+        );
+    },
+    args: {
+       enableSorting: true,
+       sortBy: 'progress',
+       sortDirection: 'descending'
     },
     name: 'Sortable Table'
 };
 
 export const AllFeaturesTable: Story = {
-    render: (args: Omit<DataTableProps<UserDataRowProps>, 'data' | 'columns'>) => {
+    render: (args) => {
+        const [sortBy, setSortBy] = useState(args.defaultSorting?.sortBy);
+        const [sortDirection, setSortDirection] = useState(args.defaultSorting?.sortDirection);
+
+        const handleHeaderClick = (columnId: string) => {
+            if (sortBy === columnId) {
+                setSortDirection(prev => prev === 'ascending' ? 'descending' : 'ascending');
+            } else {
+                setSortBy(columnId);
+                setSortDirection('ascending');
+            }
+        };
+
         return (
             <MoonstoneTable
                 {...args}
+                sortBy={sortBy}
+                sortDirection={sortDirection}
+                onClickTableHeadCell={handleHeaderClick}
                 data={TableData}
                 columns={userColumns}
             />
@@ -126,9 +178,15 @@ export const AllFeaturesTable: Story = {
     args: {
         enableSelection: true,
         isStructured: true,
-        isSortable : true 
+        enableSorting: true,
+        defaultSelection: ['0', '2'],
+        defaultSorting: {
+            sortBy: 'date',
+            sortDirection: 'descending'
+        }
     },
-    name: 'All features Table'
+    name: 'All features Table',
+
 };
 
 

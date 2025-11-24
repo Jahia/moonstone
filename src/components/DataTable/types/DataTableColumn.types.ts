@@ -4,7 +4,7 @@ export type DataTableColumn<T> = {
     key: Extract<keyof T, string>;
     label: string;
     render?: (value: T[keyof T], row: T) => ReactNode;
-    isSortable?: boolean;
+    enableSorting?: boolean;
 }
 
 export type DataTableProps<T> = {
@@ -12,7 +12,15 @@ export type DataTableProps<T> = {
     columns: DataTableColumn<T>[];
     isStructured?: boolean;
     enableSelection?: boolean;
-    onChangeSelection?: (selection: Record<string, boolean>) => void;
-    isSortable?: boolean;
+    onChangeSelection?: (selection: string[]) => void;
+    enableSorting?: boolean;
+    sortBy?: string;
+    sortDirection?: 'ascending' | 'descending';
+    onClickTableHeadCell?: (columnId: string) => void;
+    defaultSelection?: string[];
+    defaultSorting?: {
+        sortBy: string;
+        sortDirection: 'ascending' | 'descending';
+    };
 }
 
