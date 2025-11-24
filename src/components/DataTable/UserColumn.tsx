@@ -30,7 +30,7 @@ export const userColumns: DataTableColumn<UserDataRowProps>[] = [
     {
         key: 'actions',
         label: '',
-        enableSorting: false,
-        render: () => <Button variant="ghost" icon={<MoreVert />} onClick={() => alert('Action clicked')} />
+        isSortable: false,
+        render: () => <Button variant="ghost" icon={<MoreVert/>}/>
     }
 ];

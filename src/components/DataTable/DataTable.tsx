@@ -31,7 +31,7 @@ const createTableColumns = <T extends Record<string, unknown>>(
                 return String(value ?? '');
             },
         meta: {
-            enableSorting: col.enableSorting
+            isSortable: col.isSortable
         }
     }));
 };
@@ -41,7 +41,7 @@ const adaptRowForTableBodyCell = <T extends Record<string, unknown>>(row: Row<T>
     isExpanded: row.getIsExpanded(),
     depth: row.depth,
     getToggleRowExpandedProps: () => ({
-        onClick: row.getToggleExpandedHandler(),
+        onClick: row.getToggleExpandedHandler()
     })
 });
 
@@ -63,18 +63,12 @@ export const MoonstoneTable = <T extends Record<string, unknown>>({
     sortBy,
     sortDirection,
     onClickTableHeadCell,
-    defaultSelection = [],
-    defaultSorting
+    defaultSelection = []
 }: DataTableProps<T>) => {
     const [expanded, setExpanded] = useState<ExpandedState>({});
-    const [rowSelection, setRowSelection] = useState<RowSelectionState>(() => 
+    const [rowSelection, setRowSelection] = useState<RowSelectionState>(() =>
         defaultSelection.reduce((acc, key) => ({...acc, [key]: true}), {})
     );
-    const [internalSortBy, setInternalSortBy] = useState<string | undefined>(defaultSorting?.sortBy);
-    const [internalSortDirection, setInternalSortDirection] = useState<'ascending' | 'descending' | undefined>(defaultSorting?.sortDirection);
-
-    const currentSortBy = sortBy ?? internalSortBy;
-    const currentSortDirection = sortDirection ?? internalSortDirection;
 
     useEffect(() => {
         onChangeSelection?.(Object.keys(rowSelection));
@@ -124,21 +118,21 @@ export const MoonstoneTable = <T extends Record<string, unknown>>({
                             </TableHeadCell>
                         )}
                         {headerGroup.headers.map(header => {
-                            const isColumnSortable = enableSorting && (header.column.columnDef.meta as {enableSorting?: boolean})?.enableSorting !== false;
+                            const isColumnSortable = enableSorting && (header.column.columnDef.meta as {isSortable?: boolean})?.isSortable !== false;
 
                             return (
                                 <TableHeadCell
                                     key={header.id}
-                                    onClick={isColumnSortable ? () => onClickTableHeadCell?.(header.id) : undefined}
                                     iconEnd={
                                         isColumnSortable ? (
                                             <SortIndicator
-                                                isSorted={currentSortBy === header.id}
-                                                direction={currentSortBy === header.id ? currentSortDirection : undefined}
+                                                isSorted={sortBy === header.id}
+                                                direction={sortBy === header.id ? sortDirection : undefined}
                                             />
                                         ) : undefined
                                     }
                                     style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
+                                    onClick={isColumnSortable ? () => onClickTableHeadCell?.(header.id) : undefined}
                                 >
                                     {flexRender(header.column.columnDef.header, header.getContext())}
                                 </TableHeadCell>
