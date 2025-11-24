@@ -5,12 +5,13 @@ import {
     flexRender,
     type ColumnDef,
     type ExpandedState,
+    type RowSelectionState,
     type Row
 } from '@tanstack/react-table';
 import {useState, useEffect} from 'react';
 
 import type {DataTableProps} from './types/DataTableColumn.types';
-import {Table, TableBody, TableBodyCell, TableHead, TableHeadCell, TableRow} from '~/index';
+import {Table, TableBody, TableBodyCell, TableHead, TableHeadCell, TableRow, Checkbox, SortIndicator} from '~/index';
 
 const createTableColumns = <T extends Record<string, unknown>>(
     columns: DataTableProps<T>['columns']
@@ -28,7 +29,10 @@ const createTableColumns = <T extends Record<string, unknown>>(
                 }
 
                 return String(value ?? '');
-            }
+            },
+        meta: {
+            isSortable: col.isSortable
+        }
     }));
 };
 
@@ -52,18 +56,37 @@ const extractIconFromCell = (cellValue: unknown): React.ReactElement | undefined
 export const MoonstoneTable = <T extends Record<string, unknown>>({
     data,
     columns,
-    isStructured = false
+    isStructured = false,
+    enableSelection = false,
+    onChangeSelection,
+    enableSorting = false,
+    sortBy,
+    sortDirection,
+    onClickTableHeadCell,
+    defaultSelection = []
 }: DataTableProps<T>) => {
     const [expanded, setExpanded] = useState<ExpandedState>({});
+    const [rowSelection, setRowSelection] = useState<RowSelectionState>(() =>
+        defaultSelection.reduce((acc, key) => ({...acc, [key]: true}), {})
+    );
+
+    useEffect(() => {
+        onChangeSelection?.(Object.keys(rowSelection));
+    }, [rowSelection, onChangeSelection]);
 
     const tableColumns = createTableColumns(columns);
 
     const table = useReactTable({
         data,
         columns: tableColumns,
+        state: {
+            expanded,
+            rowSelection
+        },
+        onRowSelectionChange: setRowSelection,
+        enableRowSelection: enableSelection,
         getCoreRowModel: getCoreRowModel(),
         ...(isStructured && {
-            state: {expanded},
             onExpandedChange: setExpanded,
             getSubRows: (row: T) => (row as T & {subRows?: T[]}).subRows,
             getExpandedRowModel: getExpandedRowModel()
@@ -85,11 +108,36 @@ export const MoonstoneTable = <T extends Record<string, unknown>>({
             <TableHead>
                 {table.getHeaderGroups().map(headerGroup => (
                     <TableRow key={headerGroup.id}>
-                        {headerGroup.headers.map(header => (
-                            <TableHeadCell key={header.id}>
-                                {flexRender(header.column.columnDef.header, header.getContext())}
+                        {enableSelection && (
+                            <TableHeadCell width="52px">
+                                <Checkbox
+                                    checked={table.getIsAllRowsSelected()}
+                                    indeterminate={table.getIsSomeRowsSelected()}
+                                    onChange={table.getToggleAllRowsSelectedHandler()}
+                                />
                             </TableHeadCell>
-                        ))}
+                        )}
+                        {headerGroup.headers.map(header => {
+                            const isColumnSortable = enableSorting && (header.column.columnDef.meta as {isSortable?: boolean})?.isSortable !== false;
+
+                            return (
+                                <TableHeadCell
+                                    key={header.id}
+                                    iconEnd={
+                                        isColumnSortable ? (
+                                            <SortIndicator
+                                                isSorted={sortBy === header.id}
+                                                direction={sortBy === header.id ? sortDirection : undefined}
+                                            />
+                                        ) : undefined
+                                    }
+                                    style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
+                                    onClick={isColumnSortable ? () => onClickTableHeadCell?.(header.id) : undefined}
+                                >
+                                    {flexRender(header.column.columnDef.header, header.getContext())}
+                                </TableHeadCell>
+                            );
+                        })}
                     </TableRow>
                 ))}
             </TableHead>
@@ -98,7 +146,17 @@ export const MoonstoneTable = <T extends Record<string, unknown>>({
                     const adaptedRow = isStructured ? adaptRowForTableBodyCell(row) : undefined;
 
                     return (
-                        <TableRow key={row.id}>
+                        <TableRow
+                            key={row.id}
+                        >
+                            {enableSelection && (
+                                <TableBodyCell width="52px">
+                                    <Checkbox
+                                        checked={row.getIsSelected()}
+                                        onChange={row.getToggleSelectedHandler()}
+                                    />
+                                </TableBodyCell>
+                            )}
                             {row.getVisibleCells().map((cell, index) => {
                                 const isFirstColumn = index === 0;
                                 const iconStart = isFirstColumn ? extractIconFromCell(cell.getValue()) : undefined;
