@@ -1,3 +1,15 @@
+# v2.17.3 (Wed Nov 26 2025)
+
+#### 🐛 Bug Fix
+
+- fix: Improve spacing and styling of CustomDropdown [#1181](https://github.com/Jahia/moonstone/pull/1181) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # v2.17.2 (Thu Nov 20 2025)
 
 #### 🐛 Bug Fix
