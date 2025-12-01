@@ -16,23 +16,23 @@ import {Table, TableBody, TableBodyCell, TableHead, TableHeadCell, TableRow, Che
 const createTableColumns = <T extends NonNullable<unknown>>(
     columns: DataTableProps<T>['columns']
 ): ColumnDef<T>[] => columns.map(col => ({
-    id: String(col.key),
-    accessorKey: col.key,
-    header: col.label,
-    cell: col.render ?
-        ({row, getValue}) => col.render!(getValue() as Omit<T, SubRowKey>, row.original) :
-        ({getValue}) => {
-            const value = getValue();
-            if (value && typeof value === 'object' && 'value' in value) {
-                return (value as {value: string}).value;
-            }
+        id: String(col.key),
+        accessorKey: col.key,
+        header: col.label,
+        cell: col.render ?
+            ({row, getValue}) => col.render!(getValue() as Omit<T, SubRowKey>, row.original) :
+            ({getValue}) => {
+                const value = getValue();
+                if (value && typeof value === 'object' && 'value' in value) {
+                    return (value as {value: string}).value;
+                }
 
-            return String(value ?? '');
-        },
-    meta: {
-        isSortable: col.isSortable
-    }
-}))
+                return String(value ?? '');
+            },
+        meta: {
+            isSortable: col.isSortable
+        }
+    }));
 
 const adaptRowForTableBodyCell = <T extends object>(row: Row<T>) => ({
     canExpand: row.getCanExpand(),

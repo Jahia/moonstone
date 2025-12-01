@@ -13,13 +13,12 @@ type dataUser = {
     actions?: React.ReactNode
 };
 
-export type DataUserKeys = Exclude<keyof dataUser, "subRows">;
-
+export type DataUserKeys = Exclude<keyof dataUser, 'subRows'>;
 
 export const dataColumnsUser = [
     {
         key: 'firstName',
-        label: 'Prénom',
+        label: 'Prénom'
     },
     {
         key: 'lastName',

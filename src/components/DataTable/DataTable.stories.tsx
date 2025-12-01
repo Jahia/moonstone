@@ -58,7 +58,7 @@ export const SelectableDataTable: Story = {
     render: args => (
         <DataTable
             {...args}
-            enableSorting={true}
+            enableSorting
             sortBy={args.sortBy}
             data={dataTable}
             columns={dataColumnsUser}
@@ -120,12 +120,12 @@ export const SortableDataTable: Story = {
         return (
             <DataTable
                 {...args}
-                enableSorting={true}
+                enableSorting
                 sortBy={sortBy}
                 sortDirection={sortDirection}
-                onClickTableHeadCell={handleHeaderClick}
                 data={dataTable}
                 columns={dataColumnsUser}
+                onClickTableHeadCell={handleHeaderClick}
             />
         );
     },
@@ -149,15 +149,15 @@ export const AllFeaturesTable: Story = {
         return (
             <DataTable
                 {...args}
-                enableSelection={true}
-                isStructured={true}
-                enableSorting={true}
+                enableSelection
+                isStructured
+                enableSorting
                 defaultSelection={['0', '2']}
                 sortBy={sortBy}
                 sortDirection={sortDirection}
-                onClickTableHeadCell={handleHeaderClick}
                 data={dataTable}
                 columns={dataColumnsUser}
+                onClickTableHeadCell={handleHeaderClick}
             />
         );
     },
