@@ -19,7 +19,7 @@ export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children
     children: React.ReactNode;
 };
 
-export type DataTableColumn<T extends NonNullable<object>> = {
+export type DataTableColumn<T extends NonNullable<unknown>> = {
     /**
      * The key of the data property to display in this column
      */
@@ -43,7 +43,7 @@ export type DataTableColumn<T extends NonNullable<object>> = {
     isSortable?: boolean;
 }
 
-export type DataTableBaseProps<T extends NonNullable<object>> = {
+export type DataTableBaseProps<T extends NonNullable<unknown>> = {
     /**
      * Define which key is used as primary key for each row
      */
@@ -71,7 +71,7 @@ export type DataTableBaseProps<T extends NonNullable<object>> = {
     onClickTableHeadCell?: (columnId: string) => void;
 };
 
-type SortingProps<T extends NonNullable<object>> =
+type SortingProps<T extends NonNullable<unknown>> =
     | {
         /**
          * Enable sorting functionality
@@ -124,4 +124,4 @@ type SelectionProps =
         onChangeSelection?: never;
     };
 
-export type DataTableProps<T extends NonNullable<object>> = TableProps & DataTableBaseProps<T> & SortingProps<T> & SelectionProps;
+export type DataTableProps<T extends NonNullable<unknown>> = TableProps & DataTableBaseProps<T> & SortingProps<T> & SelectionProps;

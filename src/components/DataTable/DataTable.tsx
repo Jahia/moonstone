@@ -13,7 +13,7 @@ import {useState, useEffect} from 'react';
 import type {DataTableProps, SubRowKey} from './DataTable.types';
 import {Table, TableBody, TableBodyCell, TableHead, TableHeadCell, TableRow, Checkbox, SortIndicator} from '~/index';
 
-const createTableColumns = <T extends NonNullable<object>>(
+const createTableColumns = <T extends NonNullable<unknown>>(
     columns: DataTableProps<T>['columns']
 ): ColumnDef<T>[] => columns.map(col => ({
         id: String(col.key),
@@ -34,7 +34,7 @@ const createTableColumns = <T extends NonNullable<object>>(
         }
     }));
 
-const adaptRowForTableBodyCell = <T extends NonNullable<object>>(row: Row<T>) => ({
+const adaptRowForTableBodyCell = <T extends NonNullable<unknown>>(row: Row<T>) => ({
     canExpand: row.getCanExpand(),
     isExpanded: row.getIsExpanded(),
     depth: row.depth,
@@ -51,7 +51,7 @@ const extractIconFromCell = (cellValue: unknown): React.ReactElement | undefined
     return undefined;
 };
 
-export const DataTable = <T extends NonNullable<object>>({
+export const DataTable = <T extends NonNullable<unknown>>({
     data,
     columns,
     isStructured = false,
