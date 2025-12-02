@@ -1,21 +1,25 @@
 import React from 'react';
-import {Button} from '~/components';
+import {Badge, Button} from '~/components';
 import {MoreVert} from '~/icons';
+import { TableCellWrapper } from '../cells/TableCellWrapper';
+import type {DataTableColumn} from '../DataTable.types';
 
-type dataUser = {
+export type dataUser = {
     firstName: string | { value: string; icon?: React.ReactElement };
     lastName: string;
     age: number;
-    status: 'Accept' | 'In progress' | 'Refuse';
+    status: string;
     progress: number;
     date: Date;
+    tags?: string;
     subRows?: dataUser[];
-    actions?: React.ReactNode
+    actions?: React.ReactNode;
+    hoverActions?: React.ReactNode;
 };
 
 export type DataUserKeys = Exclude<keyof dataUser, 'subRows'>;
 
-export const dataColumnsUser = [
+export const dataColumnsUser: DataTableColumn<dataUser>[] = [
     {
         key: 'firstName',
         label: 'User',
@@ -29,18 +33,7 @@ export const dataColumnsUser = [
     {
         key: 'tags',
         label: 'Roles',
-        render: values => (
-            <TableCellWrapper>
-                <div className="moonstone-cell-chips">
-                    {Array.isArray(values) && values
-                        .filter((tag): tag is string => typeof tag === 'string')
-                        .map((tag, i) => (
-                            // eslint-disable-next-line react/no-array-index-key
-                            <Badge key={i} label={tag} color="accent"/>
-                        ))}
-                </div>
-            </TableCellWrapper>
-        )
+        type: "badge"
     },
     {
         key: 'progress',
@@ -54,8 +47,8 @@ export const dataColumnsUser = [
     },
     {
         key: 'hoverActions',
-        label: '',
-        type: 'hover-actions'
+        label: 'Hover Actions',
+        type: 'hover-actions',
     },
     {
         key: 'actions',
@@ -63,4 +56,4 @@ export const dataColumnsUser = [
         type: 'actions',
         isSortable: false
     }
-] as const;
+];

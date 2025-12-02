@@ -5,7 +5,7 @@ type Props = {
     value: string;
 };
 
-export const TableCellChips = ({value}: Props) => {
+export const TableCellChip = ({value}: Props) => {
     if (!value) {
         return <TableCellWrapper>-</TableCellWrapper>;
     }

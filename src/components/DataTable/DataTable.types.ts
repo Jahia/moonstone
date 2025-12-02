@@ -2,6 +2,23 @@ import React from 'react';
 
 export type SubRowKey = 'subRows';
 
+export type ColumnType =
+    | 'tags'
+    | 'text'
+    | 'number'
+    | 'date'
+    | 'badge'
+    | 'actions'
+    | 'hover-actions'
+    | 'status-bar';
+
+export type CellContent = {
+    label: string;
+    subLabel?: string;
+    iconStart?: React.ReactElement;
+    iconEnd?: React.ReactElement;
+};
+
 export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children' | 'className'> & {
     /**
      * Which html element to render the table as
@@ -31,6 +48,11 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
     label: string;
 
     /**
+     * The type of the column
+     */
+    type?: ColumnType;
+
+    /**
      * Optional custom render function for the cell content
      * @param value - The value of the cell
      * @param row - The entire row data
@@ -41,6 +63,11 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
      * Whether this column can be sorted
      */
     isSortable?: boolean;
+
+    /**
+     * The alignment of the column
+     */
+    align?: 'left' | 'center' | 'right';
 }
 
 export type DataTableBaseProps<T extends NonNullable<unknown>> = {

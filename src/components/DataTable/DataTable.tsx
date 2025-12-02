@@ -5,33 +5,20 @@ import {
     flexRender,
     type ExpandedState,
     type RowSelectionState,
-    type Row
+    type Row,
+    ColumnDef
 } from '@tanstack/react-table';
 import {useState, useEffect} from 'react';
 
-import type {DataTableProps, SubRowKey} from './DataTable.types';
+import type {DataTableProps} from './DataTable.types';
 import {Table, TableBody, TableBodyCell, TableHead, TableHeadCell, TableRow, Checkbox, SortIndicator} from '~/index';
+import { createTableColumns } from './utils/DataTableColumnUtils';
 
-const createTableColumns = <T extends NonNullable<unknown>>(
-    columns: DataTableProps<T>['columns']
-): ColumnDef<T>[] => columns.map(col => ({
-        id: String(col.key),
-        accessorKey: col.key,
-        header: col.label,
-        cell: col.render ?
-            ({row, getValue}) => col.render!(getValue() as Omit<T, SubRowKey>, row.original) :
-            ({getValue}) => {
-                const value = getValue();
-                if (value && typeof value === 'object' && 'value' in value) {
-                    return (value as {value: string}).value;
-                }
+type CustomColumnMeta = {
+    isSortable?: boolean;
+    align?: 'left' | 'center' | 'right';
+};
 
-                return String(value ?? '');
-            },
-        meta: {
-            isSortable: col.isSortable
-        }
-    }));
 
 const adaptRowForTableBodyCell = <T extends NonNullable<unknown>>(row: Row<T>) => ({
     canExpand: row.getCanExpand(),

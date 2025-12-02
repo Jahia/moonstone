@@ -1,9 +1,9 @@
 
 import {type ColumnDef} from '@tanstack/react-table';
-import type {DataTableProps, ColumnType, CellContent} from '../types/DataTableColumn.types';
+import type {DataTableProps, ColumnType, CellContent} from '../DataTable.types';
 import {TableCellDate} from '../cells/TableCellDate';
 import {TableCellNumber} from '../cells/TableCellNumber';
-import {TableCellChips} from '../cells/TableCellChip';
+import {TableCellChip} from '../cells/TableCellChip';
 import {TableCellActions} from '../cells/TableCellActions';
 import {TableCellText} from '../cells/TableCellText';
 
@@ -15,7 +15,7 @@ const getDefaultAlign = (type?: ColumnType): 'left' | 'right' => {
     return 'left';
 };
 
-const renderSmartCell = (
+const CustomCell = (
     type: ColumnType,
     value: string | number | Date | CellContent | null | undefined,
     locale?: string
@@ -26,7 +26,7 @@ const renderSmartCell = (
         case 'number':
             return <TableCellNumber value={value as number} locale={locale}/>;
         case 'badge':
-            return <TableCellChips value={value as string}/>;
+            return <TableCellChip value={value as string}/>;
         case 'actions':
             return <TableCellActions/>;
         case 'text':
@@ -40,8 +40,8 @@ export const createTableColumns = <T extends Record<string, unknown>>(
     locale?: string
 ): ColumnDef<T>[] => {
     return columns.map(col => ({
-        id: col.key,
-        accessorKey: col.key,
+        id: col.key as string,
+        accessorKey: col.key as string,
         header: col.label,
 
         meta: {
@@ -53,11 +53,11 @@ export const createTableColumns = <T extends Record<string, unknown>>(
             const value = getValue();
 
             if (col.render) {
-                return col.render(value as T[keyof T], row.original);
+                return col.render(value as any, row.original);
             }
 
             const safeType: ColumnType = col.type || 'text';
-            return renderSmartCell(safeType, value as string | number | Date | CellContent | null | undefined, locale);
+            return CustomCell(safeType, value as string | number | Date | CellContent | null | undefined, locale);
         }
     }));
 };
