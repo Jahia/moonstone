@@ -7,17 +7,11 @@ import {TableCellChip} from '../cells/TableCellChip';
 import {TableCellActions} from '../cells/TableCellActions';
 import {TableCellText} from '../cells/TableCellText';
 
-const getDefaultAlign = (type?: ColumnType): 'left' | 'right' => {
-    if (type === 'number' || type === 'actions' || type === 'hover-actions') {
-        return 'right';
-    }
-
-    return 'left';
-};
 
 const CustomCell = (
     type: ColumnType,
     value: string | number | Date | CellContent | null | undefined,
+    align: 'left' | 'center' | 'right',
     locale?: string
 ) => {
     switch (type) {
@@ -46,10 +40,10 @@ export const createTableColumns = <T extends Record<string, unknown>>(
 
         meta: {
             isSortable: Boolean(col.isSortable),
-            align: col.align || getDefaultAlign(col.type)
+            align: col.align
         },
 
-        cell: ({row, getValue}) => {
+        cell: ({row, getValue, column}) => {
             const value = getValue();
 
             if (col.render) {
@@ -57,7 +51,8 @@ export const createTableColumns = <T extends Record<string, unknown>>(
             }
 
             const safeType: ColumnType = col.type || 'text';
-            return CustomCell(safeType, value as string | number | Date | CellContent | null | undefined, locale);
+            const alignment = col.align
+            return CustomCell(safeType, value as string | number | Date | CellContent | null | undefined, alignment, locale);
         }
     }));
 };

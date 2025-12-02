@@ -2,22 +2,25 @@ import React from 'react';
 import clsx from 'clsx';
 import type {TableCellWrapperProps} from './TableCellWrapper.types';
 
-export const TableCellWrapper = React.forwardRef<HTMLTableCellElement, TableCellWrapperProps>(
-    ({children, className, align = 'left', ...props}, ref) => {
+export const TableCellWrapper = React.forwardRef<HTMLDivElement, TableCellWrapperProps>(
+    ({children, className, ...props}, ref) => {
         return (
-            <td
+            <div
                 ref={ref}
                 className={clsx(
                     'moonstone-TableCellWrapper',
-                    `align-${align}`,
                     className
                 )}
+                style={{
+                    width: '100%',
+                    ...props.style
+                }}
                 {...props}
             >
                 <div className="moonstone-TableCell-content">
                     {children}
                 </div>
-            </td>
+            </div>
         );
     }
 );

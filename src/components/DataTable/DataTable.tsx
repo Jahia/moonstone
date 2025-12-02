@@ -112,7 +112,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                             direction={sortBy === header.id ? sortDirection : undefined}
                                         />
                                     ) : undefined}
-                                    style={{cursor: isColumnSortable ? 'pointer' : 'default', textAlign: alignment}}
+                                    style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
+                                    textAlign={alignment}
                                     onClick={isColumnSortable ? () => onClickTableHeadCell?.(header.id) : undefined}
                                 >
                                     {flexRender(header.column.columnDef.header, header.getContext())}
@@ -145,7 +146,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                         cell={cell as never}
                                         isExpandableColumn={isStructured && isFirstColumn}
                                         iconStart={iconStart}
-                                        style={{textAlign: alignment}}
+                                        textAlign={alignment}
                                     >
                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                     </TableBodyCell>

@@ -23,12 +23,12 @@ export const dataColumnsUser: DataTableColumn<dataUser>[] = [
     {
         key: 'firstName',
         label: 'User',
-        type: 'text'
+        type: 'text',
     },
     {
         key: 'status',
         label: 'Status',
-        type: 'status-bar'
+        type: 'status-bar',
     },
     {
         key: 'tags',
@@ -38,7 +38,8 @@ export const dataColumnsUser: DataTableColumn<dataUser>[] = [
     {
         key: 'progress',
         label: 'Progress',
-        type: 'number'
+        type: 'number',
+        align: 'right'
     },
     {
         key: 'date',
