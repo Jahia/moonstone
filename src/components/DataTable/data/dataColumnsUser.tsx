@@ -50,6 +50,7 @@ export const dataColumnsUser: DataTableColumn<dataUser>[] = [
         key: 'hoverActions',
         label: 'Hover Actions',
         type: 'hover-actions',
+        isSortable: false
     },
     {
         key: 'actions',

@@ -109,7 +109,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                     iconEnd={isColumnSortable ? (
                                         <SortIndicator
                                             isSorted={sortBy === header.id}
-                                            direction={sortBy === header.id ? sortDirection : undefined}
+                                            direction={sortBy === header.id ? sortDirection : 'descending'}
                                         />
                                     ) : undefined}
                                     style={{cursor: isColumnSortable ? 'pointer' : 'default'}}

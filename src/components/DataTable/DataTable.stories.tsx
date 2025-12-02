@@ -75,6 +75,7 @@ export const SelectableStructuredDataTable: Story = {
     render: args => (
         <DataTable
             {...args}
+            enableSorting
             sortBy={args.sortBy}
             data={dataTable}
             columns={dataColumnsUser}
@@ -82,7 +83,8 @@ export const SelectableStructuredDataTable: Story = {
     ),
     args: {
         enableSelection: true,
-        isStructured: true
+        isStructured: true,
+        enableSorting: true
     },
     name: 'Selectable and structured table view'
 };
@@ -91,6 +93,7 @@ export const DefaultSelectionDataTable: Story = {
     render: args => (
         <DataTable
             {...args}
+            enableSorting
             sortBy={args.sortBy}
             data={dataTable}
             columns={dataColumnsUser}
@@ -98,7 +101,8 @@ export const DefaultSelectionDataTable: Story = {
     ),
     args: {
         enableSelection: true,
-        defaultSelection: ['0', '2', '4']
+        defaultSelection: ['0', '2', '4'],
+        enableSorting: true
     },
     name: 'Default Selection'
 };
@@ -161,5 +165,12 @@ export const AllFeaturesTable: Story = {
             />
         );
     },
-    name: 'All features Table'
+    name: 'All features Table', 
+    args: {
+        enableSelection: true,
+        isStructured: true,
+        enableSorting: true,
+        defaultSelection: ['0', '2'],
+        sortDirection: 'ascending'
+    }
 };

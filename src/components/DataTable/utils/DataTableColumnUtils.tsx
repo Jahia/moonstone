@@ -39,7 +39,7 @@ export const createTableColumns = <T extends Record<string, unknown>>(
         header: col.label,
 
         meta: {
-            isSortable: Boolean(col.isSortable),
+            isSortable: col.isSortable,
             align: col.align
         },
 
