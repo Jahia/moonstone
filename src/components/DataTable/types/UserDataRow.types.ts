@@ -1,21 +1,21 @@
 import type {ReactNode} from 'react';
 
-export type CellWithIcon = {
-    value: string;
-    icon?: ReactNode;
+export type CustomCell = {
+    label: string;
+    subLabel?: string;
+    iconStart?: ReactNode;
+    iconEnd?: ReactNode;
 };
 
 export type UserDataRowProps = {
-  firstName: string | CellWithIcon;
+  firstName: string | CustomCell;
   lastName: string;
   age: number;
-  status: 'Accept' | 'In progress' | 'Refuse';
+  status: string;
   progress: number;
   date: Date;
   subRows?: UserDataRowProps[];
+  tags?: string[];
+  hoverActions?: string;
   actions?: string;
-};
-
-export type UserData = {
-  UserData: UserDataRowProps[];
 };

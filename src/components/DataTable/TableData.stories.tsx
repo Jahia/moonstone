@@ -1,9 +1,9 @@
 import {TableData} from './data/TableData';
 import {userColumns} from './UserColumn';
-import {MoonstoneTable} from './DataTable';
 import type {Meta, StoryObj} from '@storybook/react';
 import type {UserDataRowProps} from './types/UserDataRow.types';
 import {useState} from 'react';
+import {MoonstoneTable} from './DataTable';
 
 export default {
     title: 'Components/TableData',
@@ -121,10 +121,10 @@ export const SortableDataTable: Story = {
 
         return (
             <MoonstoneTable
+                onClickTableHeadCell={handleHeaderClick}
                 {...args}
                 sortBy={sortBy}
                 sortDirection={sortDirection}
-                onClickTableHeadCell={handleHeaderClick}
                 data={TableData}
                 columns={userColumns}
             />
@@ -154,10 +154,10 @@ export const AllFeaturesTable: Story = {
 
         return (
             <MoonstoneTable
+                onClickTableHeadCell={handleHeaderClick}
                 {...args}
                 sortBy={sortBy}
                 sortDirection={sortDirection}
-                onClickTableHeadCell={handleHeaderClick}
                 data={TableData}
                 columns={userColumns}
             />
@@ -173,4 +173,3 @@ export const AllFeaturesTable: Story = {
     },
     name: 'All features Table'
 };
-

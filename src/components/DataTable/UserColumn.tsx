@@ -1,36 +1,54 @@
-import {Button, MoreVert} from '~/index';
+import {Badge} from '~/index';
 import type {DataTableColumn} from './types/DataTableColumn.types';
 import type {UserDataRowProps} from './types/UserDataRow.types';
+import {TableCellWrapper} from './cells/TableCellWrapper';
 
 export const userColumns: DataTableColumn<UserDataRowProps>[] = [
     {
         key: 'firstName',
-        label: 'Prénom'
-    },
-    {
-        key: 'lastName',
-        label: 'Nom'
-    },
-    {
-        key: 'age',
-        label: 'Âge'
+        label: 'User',
+        type: 'text'
     },
     {
         key: 'status',
-        label: 'Statut'
+        label: 'Status',
+        type: 'status-bar'
+    },
+    {
+        key: 'tags',
+        label: 'Roles',
+        render: values => (
+            <TableCellWrapper>
+                <div className="moonstone-cell-chips">
+                    {Array.isArray(values) && values
+                        .filter((tag): tag is string => typeof tag === 'string')
+                        .map((tag, i) => (
+                            // eslint-disable-next-line react/no-array-index-key
+                            <Badge key={i} label={tag} color="accent"/>
+                        ))}
+                </div>
+            </TableCellWrapper>
+        )
     },
     {
         key: 'progress',
-        label: 'Progression'
+        label: 'Progress',
+        type: 'number'
     },
     {
         key: 'date',
-        label: 'Date'
+        label: 'Last Login',
+        type: 'date'
+    },
+    {
+        key: 'hoverActions',
+        label: '',
+        type: 'hover-actions'
     },
     {
         key: 'actions',
         label: '',
-        isSortable: false,
-        render: () => <Button variant="ghost" icon={<MoreVert/>}/>
+        type: 'actions',
+        isSortable: false
     }
 ];
