@@ -1,7 +1,6 @@
-import type {UserDataRowProps} from '../types/UserDataRow.types';
 import {Person, FolderUser} from '~/icons';
 
-export const TableData: UserDataRowProps[] = [
+export const dataTable = [
     {
         firstName: {
             value: 'Yacine',
@@ -12,6 +11,7 @@ export const TableData: UserDataRowProps[] = [
         status: 'Accept',
         progress: 80,
         date: new Date(),
+        actions: '',
         subRows: [
             {
                 firstName: {
