@@ -10,17 +10,17 @@
         box-shadow: inset 0 0 0 2px var(--color-accent);
     }
 
-    &:hover:not(.moonstone-disabled),
-    &.moonstone-hover:not(.moonstone-disabled) {
+    &:hover:not(.moonstone-disabled, .moonstone-selected),
+    &.moonstone-hover:not(.moonstone-disabled, .moonstone-selected) {
         color: var(--color-accent_dark);
 
-        background-color: var(--color-gray_light40);
+        background-color: var(--color-gray_light_plain20);
     }
 
-    &:active:not(.moonstone-disabled) {
-        color: var(--color-light);
+    &:active:not(.moonstone-disabled, .moonstone-selected) {
+        color: var(--color-accent_dark);
 
-        background-color: var(--color-accent_dark);
+        background-color: var(--color-gray_light_plain60);
         box-shadow: none;
     }
 
@@ -36,6 +36,7 @@
         color: var(--color-light);
 
         background-color: var(--color-accent);
+        cursor: default;
     }
 
     &.moonstone-highlighted {
