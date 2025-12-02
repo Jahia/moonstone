@@ -1,13 +1,12 @@
-import {TableData} from './data/TableData';
-import {userColumns} from './UserColumn';
+import {dataTable} from './data/TableData';
+import {dataColumnsUser, type DataUserKeys} from './data/dataColumnsUser';
+import {DataTable} from './DataTable';
 import type {Meta, StoryObj} from '@storybook/react';
-import type {UserDataRowProps} from './types/UserDataRow.types';
 import {useState} from 'react';
-import {MoonstoneTable} from './DataTable';
 
 export default {
-    title: 'Components/TableData',
-    component: MoonstoneTable,
+    title: 'Components/DataTable',
+    component: DataTable,
     tags: ['beta'],
     parameters: {
         controls: {expanded: true}
@@ -15,17 +14,16 @@ export default {
     argTypes: {
         onChangeSelection: {action: 'onChangeSelection'}
     }
-} satisfies Meta<typeof MoonstoneTable>;
+} satisfies Meta<typeof DataTable>;
 
-type Story = StoryObj<typeof MoonstoneTable>;
+type Story = StoryObj<typeof DataTable>;
 
 export const EmptyDataTable: Story = {
     render: args => (
-        <MoonstoneTable
+        <DataTable
             {...args}
-            sortBy={args.sortBy as keyof UserDataRowProps}
             data={[]}
-            columns={userColumns}
+            columns={dataColumnsUser}
         />
     ),
     name: 'EmptyDataTable'
@@ -33,11 +31,10 @@ export const EmptyDataTable: Story = {
 
 export const MoonstoneDataTable: Story = {
     render: args => (
-        <MoonstoneTable
+        <DataTable
             {...args}
-            sortBy={args.sortBy as keyof UserDataRowProps}
-            data={TableData}
-            columns={userColumns}
+            data={dataTable}
+            columns={dataColumnsUser}
         />
     ),
     name: 'DataTable'
@@ -45,11 +42,10 @@ export const MoonstoneDataTable: Story = {
 
 export const StructuredViewDataTable: Story = {
     render: args => (
-        <MoonstoneTable
+        <DataTable
             {...args}
-            sortBy={args.sortBy as keyof UserDataRowProps}
-            data={TableData}
-            columns={userColumns}
+            data={dataTable}
+            columns={dataColumnsUser}
         />
     ),
     args: {
@@ -60,14 +56,16 @@ export const StructuredViewDataTable: Story = {
 
 export const SelectableDataTable: Story = {
     render: args => (
-        <MoonstoneTable
+        <DataTable
             {...args}
-            sortBy={args.sortBy as keyof UserDataRowProps}
-            data={TableData}
-            columns={userColumns}
+            enableSorting
+            sortBy={args.sortBy}
+            data={dataTable}
+            columns={dataColumnsUser}
         />
     ),
     args: {
+        enableSorting: true,
         enableSelection: true
     },
     name: 'Selectable Rows'
@@ -75,11 +73,11 @@ export const SelectableDataTable: Story = {
 
 export const SelectableStructuredDataTable: Story = {
     render: args => (
-        <MoonstoneTable
+        <DataTable
             {...args}
-            sortBy={args.sortBy as keyof UserDataRowProps}
-            data={TableData}
-            columns={userColumns}
+            sortBy={args.sortBy}
+            data={dataTable}
+            columns={dataColumnsUser}
         />
     ),
     args: {
@@ -91,11 +89,11 @@ export const SelectableStructuredDataTable: Story = {
 
 export const DefaultSelectionDataTable: Story = {
     render: args => (
-        <MoonstoneTable
+        <DataTable
             {...args}
-            sortBy={args.sortBy as keyof UserDataRowProps}
-            data={TableData}
-            columns={userColumns}
+            sortBy={args.sortBy}
+            data={dataTable}
+            columns={dataColumnsUser}
         />
     ),
     args: {
@@ -107,69 +105,61 @@ export const DefaultSelectionDataTable: Story = {
 
 export const SortableDataTable: Story = {
     render: args => {
-        const [sortBy, setSortBy] = useState<keyof UserDataRowProps | undefined>(args.sortBy as keyof UserDataRowProps | undefined);
+        const [sortBy, setSortBy] = useState<DataUserKeys>(args.sortBy);
         const [sortDirection, setSortDirection] = useState<'ascending' | 'descending' | undefined>(args.sortDirection);
 
-        const handleHeaderClick = (columnId: string) => {
+        const handleHeaderClick = (columnId: DataUserKeys) => {
             if (sortBy === columnId) {
                 setSortDirection(prev => prev === 'ascending' ? 'descending' : 'ascending');
             } else {
-                setSortBy(columnId as keyof UserDataRowProps);
+                setSortBy(columnId);
                 setSortDirection('ascending');
             }
         };
 
         return (
-            <MoonstoneTable
-                onClickTableHeadCell={handleHeaderClick}
+            <DataTable
                 {...args}
+                enableSorting
                 sortBy={sortBy}
                 sortDirection={sortDirection}
-                data={TableData}
-                columns={userColumns}
+                data={dataTable}
+                columns={dataColumnsUser}
+                onClickTableHeadCell={handleHeaderClick}
             />
         );
-    },
-    args: {
-        enableSorting: true,
-        sortBy: 'progress',
-        sortDirection: 'descending'
     },
     name: 'Sortable Table'
 };
 
 export const AllFeaturesTable: Story = {
     render: args => {
-        const [sortBy, setSortBy] = useState<keyof UserDataRowProps | undefined>(args.sortBy as keyof UserDataRowProps | undefined);
+        const [sortBy, setSortBy] = useState<DataUserKeys>(args.sortBy);
         const [sortDirection, setSortDirection] = useState<'ascending' | 'descending' | undefined>(args.sortDirection);
 
-        const handleHeaderClick = (columnId: string) => {
+        const handleHeaderClick = (columnId: DataUserKeys) => {
             if (sortBy === columnId) {
                 setSortDirection(prev => prev === 'ascending' ? 'descending' : 'ascending');
             } else {
-                setSortBy(columnId as keyof UserDataRowProps);
+                setSortBy(columnId);
                 setSortDirection('ascending');
             }
         };
 
         return (
-            <MoonstoneTable
-                onClickTableHeadCell={handleHeaderClick}
+            <DataTable
                 {...args}
+                enableSelection
+                isStructured
+                enableSorting
+                defaultSelection={['0', '2']}
                 sortBy={sortBy}
                 sortDirection={sortDirection}
-                data={TableData}
-                columns={userColumns}
+                data={dataTable}
+                columns={dataColumnsUser}
+                onClickTableHeadCell={handleHeaderClick}
             />
         );
-    },
-    args: {
-        enableSelection: true,
-        isStructured: true,
-        enableSorting: true,
-        defaultSelection: ['0', '2'],
-        sortBy: 'date',
-        sortDirection: 'descending'
     },
     name: 'All features Table'
 };

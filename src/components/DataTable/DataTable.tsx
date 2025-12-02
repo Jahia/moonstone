@@ -9,16 +9,31 @@ import {
 } from '@tanstack/react-table';
 import {useState, useEffect} from 'react';
 
-import type {DataTableProps} from './types/DataTableColumn.types';
-import {createTableColumns} from './utils/DataTableUtils';
+import type {DataTableProps, SubRowKey} from './DataTable.types';
 import {Table, TableBody, TableBodyCell, TableHead, TableHeadCell, TableRow, Checkbox, SortIndicator} from '~/index';
 
-type CustomColumnMeta = {
-    isSortable?: boolean;
-    align?: 'left' | 'center' | 'right';
-};
+const createTableColumns = <T extends NonNullable<unknown>>(
+    columns: DataTableProps<T>['columns']
+): ColumnDef<T>[] => columns.map(col => ({
+        id: String(col.key),
+        accessorKey: col.key,
+        header: col.label,
+        cell: col.render ?
+            ({row, getValue}) => col.render!(getValue() as Omit<T, SubRowKey>, row.original) :
+            ({getValue}) => {
+                const value = getValue();
+                if (value && typeof value === 'object' && 'value' in value) {
+                    return (value as {value: string}).value;
+                }
 
-const adaptRowForTableBodyCell = <T extends Record<string, unknown>>(row: Row<T>) => ({
+                return String(value ?? '');
+            },
+        meta: {
+            isSortable: col.isSortable
+        }
+    }));
+
+const adaptRowForTableBodyCell = <T extends NonNullable<unknown>>(row: Row<T>) => ({
     canExpand: row.getCanExpand(),
     isExpanded: row.getIsExpanded(),
     depth: row.depth,
@@ -35,13 +50,13 @@ const extractIconFromCell = (cellValue: unknown): React.ReactElement | undefined
     return undefined;
 };
 
-export const MoonstoneTable = <T extends Record<string, unknown>>({
+export const DataTable = <T extends NonNullable<unknown>>({
     data,
     columns,
     isStructured = false,
     enableSelection = false,
     onChangeSelection,
-    enableSorting = false,
+    enableSorting = true,
     sortBy,
     sortDirection,
     onClickTableHeadCell,
