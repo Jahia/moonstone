@@ -24,7 +24,6 @@ export interface CellProps<T = unknown> {
 }
 
 // ColumnType uses the union of all possible value types
-// This is type-safe and avoids 'any' while allowing all cell components
 export type ColumnType = React.ComponentType<CellProps<CellValue>>;
 
 export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children' | 'className'> & {
@@ -69,21 +68,26 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
 
     /**
      * Whether this column can be sorted
+     * @default false
      */
     isSortable?: boolean;
+
+    /**
+     * Custom sort function for this column
+     * If not provided but isSortable is true, TanStack will use automatic sorting
+     * @param a - First row data
+     * @param b - Second row data
+     * @returns Negative if a < b, positive if a > b, 0 if equal
+     */
+    sortFn?: (a: T, b: T) => number;
 
     /**
      * The alignment of the column
      */
     align?: 'left' | 'center' | 'right';
-}
+};
 
 export type DataTableBaseProps<T extends NonNullable<unknown>> = {
-    /**
-     * Define which key is used as primary key for each row
-     */
-    primaryKey: Exclude<keyof T, SubRowKey>;
-
     /**
      * The array of data to display in the table
      */
@@ -100,63 +104,52 @@ export type DataTableBaseProps<T extends NonNullable<unknown>> = {
     isStructured?: boolean;
 
     /**
-     * Callback fired when a table header cell is clicked
-     * @param columnId - The ID of the clicked column
+     * Enable sorting functionality
+     * When enabled, clicking on sortable column headers will toggle sort direction
+     * Sorting is handled internally by TanStack Table
+     * @default false
      */
-    onClickTableHeadCell?: (columnId: string) => void;
+    enableSorting?: boolean;
+
+    /**
+     * Default column to sort by on initial render
+     */
+    defaultSortBy?: Exclude<keyof T, SubRowKey>;
+
+    /**
+     * Default sort direction on initial render
+     * @default 'ascending'
+     */
+    defaultSortDirection?: 'ascending' | 'descending';
 };
-
-type SortingProps<T extends NonNullable<unknown>> =
-    | {
-        /**
-         * Enable sorting functionality
-         */
-        enableSorting: true;
-
-        /**
-         * The key of the column to sort by
-         */
-        sortBy: Exclude<keyof T, 'subRows'>;
-
-        /**
-         * The direction of the sort
-         */
-        sortDirection?: 'ascending' | 'descending';
-    }
-    | {
-        /**
-         * Disable sorting functionality
-         */
-        enableSorting?: false;
-        sortBy?: never;
-        sortDirection?: never;
-    };
 
 type SelectionProps =
     | {
-        /**
-         * Enable row selection functionality
-         */
-        enableSelection: true;
+          /**
+           * Enable row selection functionality
+           */
+          enableSelection: true;
 
-        /**
-         * Array of row IDs that should be selected by default
-         */
-        defaultSelection?: string[];
+          /**
+           * Array of row IDs that should be selected by default
+           */
+          defaultSelection?: string[];
 
-        /**
-         * Callback fired when the selection changes
-         * @param selection - Array of selected row IDs
-         */
-        onChangeSelection?: (selection: string[]) => void;
-    }
+          /**
+           * Callback fired when the selection changes
+           * @param selection - Array of selected row IDs
+           */
+          onChangeSelection?: (selection: string[]) => void;
+      }
     | {
-        /**
-         * Disable row selection functionality
-         */
-        enableSelection?: false;
-        defaultSelection?: never;
-        onChangeSelection?: never;
-    };
+          /**
+           * Disable row selection functionality
+           */
+          enableSelection?: false;
+          defaultSelection?: never;
+          onChangeSelection?: never;
+      };
 
-export type DataTableProps<T extends NonNullable<unknown>> = TableProps & DataTableBaseProps<T> & SortingProps<T> & SelectionProps;
+export type DataTableProps<T extends NonNullable<unknown>> = TableProps &
+    DataTableBaseProps<T> &
+    SelectionProps;

@@ -1,59 +1,39 @@
-import {dataTable} from './data/TableData';
-import {dataColumnsUser, type DataUserKeys} from './data/dataColumnsUser';
-import {DataTable} from './DataTable';
-import type {Meta, StoryObj} from '@storybook/react';
-import {useState} from 'react';
+import { dataTable } from './data/TableData';
+import { dataColumnsUser, type dataUser } from './data/dataColumnsUser';
+import { DataTable } from './DataTable';
+import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
     title: 'Components/DataTable',
     component: DataTable,
     tags: ['beta'],
     parameters: {
-        controls: {expanded: true}
+        controls: { expanded: true }
     },
     argTypes: {
-        onChangeSelection: {action: 'onChangeSelection'}
+        onChangeSelection: { action: 'onChangeSelection' }
     }
-} satisfies Meta<typeof DataTable>;
+} satisfies Meta<typeof DataTable<dataUser>>;
 
-type Story = StoryObj<typeof DataTable>;
+type Story = StoryObj<typeof DataTable<dataUser>>;
 
 export const EmptyDataTable: Story = {
     render: args => {
-        return (
-            <DataTable
-                {...args}
-                data={[]}
-                columns={dataColumnsUser}
-            />
-        );
+        return <DataTable {...args} data={[]} columns={dataColumnsUser} />;
     },
     name: 'EmptyDataTable'
 };
 
 export const MoonstoneDataTable: Story = {
     render: args => {
-        return (
-            <DataTable
-                {...args}
-                data={dataTable}
-                columns={dataColumnsUser}
-            />
-        );
+        return <DataTable {...args} data={dataTable} columns={dataColumnsUser} />;
     },
     name: 'DataTable'
 };
 
 export const StructuredViewDataTable: Story = {
     render: args => {
-        return (
-            <DataTable
-                isStructured
-                {...args}
-                data={dataTable}
-                columns={dataColumnsUser}
-            />
-        );
+        return <DataTable {...args} isStructured data={dataTable} columns={dataColumnsUser} />;
     },
     args: {
         isStructured: true
@@ -63,37 +43,27 @@ export const StructuredViewDataTable: Story = {
 
 export const SelectableDataTable: Story = {
     render: args => {
-        return (
-            <DataTable
-                enableSelection
-                {...args}
-                data={dataTable}
-                columns={dataColumnsUser}
-            />
-        );
+        return <DataTable {...args} enableSelection data={dataTable} columns={dataColumnsUser} />;
     },
     args: {
-        enableSorting: true,
         enableSelection: true
     },
     name: 'Selectable Rows'
 };
-
 
 export const DefaultSelectionDataTable: Story = {
     render: args => {
         return (
             <DataTable
                 {...args}
+                enableSelection
                 data={dataTable}
                 columns={dataColumnsUser}
-                enableSelection
                 defaultSelection={['0', '2', '4']}
             />
         );
     },
     args: {
-        enableSorting: true,
         enableSelection: true
     },
     name: 'Default Selection'
@@ -101,47 +71,37 @@ export const DefaultSelectionDataTable: Story = {
 
 export const SortableDataTable: Story = {
     render: args => {
-        const [sortBy, setSortBy] = useState<DataUserKeys>(args.sortBy);
-        const [sortDirection, setSortDirection] = useState<'ascending' | 'descending' | undefined>(args.sortDirection);
-
-        const handleHeaderClick = (columnId: DataUserKeys) => {
-            if (sortBy === columnId) {
-                setSortDirection(prev => prev === 'ascending' ? 'descending' : 'ascending');
-            } else {
-                setSortBy(columnId);
-                setSortDirection('ascending');
-            }
-        };
-
-        return (
-            <DataTable
-                {...args}
-                enableSorting
-                sortBy={sortBy}
-                sortDirection={sortDirection}
-                data={dataTable}
-                columns={dataColumnsUser}
-                onClickTableHeadCell={handleHeaderClick}
-            />
-        );
+        return <DataTable {...args} enableSorting data={dataTable} columns={dataColumnsUser} />;
+    },
+    args: {
+        enableSorting: true
     },
     name: 'Sortable Table'
 };
 
+export const DefaultSortDataTable: Story = {
+    render: args => {
+        return (
+            <DataTable
+                {...args}
+                enableSorting
+                defaultSortBy="progress"
+                defaultSortDirection="descending"
+                data={dataTable}
+                columns={dataColumnsUser}
+            />
+        );
+    },
+    args: {
+        enableSorting: true,
+        defaultSortBy: 'progress',
+        defaultSortDirection: 'descending'
+    },
+    name: 'Default Sort Applied'
+};
+
 export const AllFeaturesTable: Story = {
     render: args => {
-        const [sortBy, setSortBy] = useState<DataUserKeys>(args.sortBy);
-        const [sortDirection, setSortDirection] = useState<'ascending' | 'descending' | undefined>(args.sortDirection);
-
-        const handleHeaderClick = (columnId: DataUserKeys) => {
-            if (sortBy === columnId) {
-                setSortDirection(prev => prev === 'ascending' ? 'descending' : 'ascending');
-            } else {
-                setSortBy(columnId);
-                setSortDirection('ascending');
-            }
-        };
-
         return (
             <DataTable
                 {...args}
@@ -149,20 +109,16 @@ export const AllFeaturesTable: Story = {
                 isStructured
                 enableSorting
                 defaultSelection={['0', '2']}
-                sortBy={sortBy}
-                sortDirection={sortDirection}
                 data={dataTable}
                 columns={dataColumnsUser}
-                onClickTableHeadCell={handleHeaderClick}
             />
         );
     },
-    name: 'All features Table',
     args: {
         enableSelection: true,
-        isStructured: false,
+        isStructured: true,
         enableSorting: true,
-        defaultSelection: ['0', '2'],
-        sortDirection: 'ascending'
-    }
+        defaultSelection: ['0', '2']
+    },
+    name: 'All Features Table'
 };

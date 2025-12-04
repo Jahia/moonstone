@@ -1,14 +1,14 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import type {TableCellProps} from './TableCell.types';
-import type {CellContent} from '../DataTable.types';
+import type { TableCellProps } from './TableCell.types';
+import type { CellContent } from '../DataTable.types';
 import './TableCell.scss';
 
-const TableCellForwardRef: React.ForwardRefRenderFunction<
-    HTMLTableCellElement,
-    TableCellProps
-> = ({className, children, textAlign, style, width, value, ...props}, ref) => {
+const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellProps> = (
+    { className, children, textAlign, style, width, value, ...props },
+    ref
+) => {
     const renderContent = () => {
         if (children) {
             return children;
@@ -33,14 +33,10 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<
                     {content.iconStart && (
                         <span className="moonstone-icon-start">{content.iconStart}</span>
                     )}
-
                     <div className="flexCol">
                         <span className="moonstone-text-primary">{content.label}</span>
                     </div>
-
-                    {content.iconEnd && (
-                        <> {content.iconEnd} </>
-                    )}
+                    {content.iconEnd && <> {content.iconEnd} </>}
                 </>
             );
         }
@@ -49,9 +45,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<
             const content = value as { value: string; icon?: React.ReactElement };
             return (
                 <>
-                    {content.icon && (
-                        <> {content.icon} </>
-                    )}
+                    {content.icon && <> {content.icon} </>}
                     <> {content.value} </>
                 </>
             );
@@ -63,16 +57,8 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<
     return (
         <td
             ref={ref}
-            className={clsx(
-                'moonstone-TableCell',
-                className
-            )}
-            style={{
-                width,
-                justifyContent: textAlign === 'right' ? 'flex-end' : textAlign === 'center' ? 'center' : 'flex-start',
-                textAlign,
-                ...style
-            }}
+            className={clsx('moonstone-TableCell', className)}
+
             {...props}
         >
             {renderContent()}
@@ -82,4 +68,4 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<
 
 export const TableCell = React.forwardRef(TableCellForwardRef);
 
-TableCell.displayName = 'FoundationTableCell';
+TableCell.displayName = 'TableCell';
