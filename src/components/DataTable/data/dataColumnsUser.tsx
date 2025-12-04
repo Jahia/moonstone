@@ -1,8 +1,7 @@
 import React from 'react';
-import {Badge, Button} from '~/components';
-import {MoreVert} from '~/icons';
-import { TableCellWrapper } from '../cells/TableCellWrapper';
 import type {DataTableColumn} from '../DataTable.types';
+import {TableCellChips} from '../cells/TableCellChips';
+import {TableCell} from '../cells/TableCell';
 
 export type dataUser = {
     firstName: string | { value: string; icon?: React.ReactElement };
@@ -11,7 +10,7 @@ export type dataUser = {
     status: string;
     progress: number;
     date: Date;
-    tags?: string;
+    chips?: string[];
     subRows?: dataUser[];
     actions?: React.ReactNode;
     hoverActions?: React.ReactNode;
@@ -23,39 +22,30 @@ export const dataColumnsUser: DataTableColumn<dataUser>[] = [
     {
         key: 'firstName',
         label: 'User',
-        type: 'text',
+        render: value => <TableCell value={value as string}/>,
+        isSortable: true,
+        align: 'left'
     },
     {
         key: 'status',
         label: 'Status',
-        type: 'status-bar',
+        render: value => <TableCell value={value as string}/>,
+        align: 'right'
     },
     {
-        key: 'tags',
+        key: 'chips',
         label: 'Roles',
-        type: "badge"
+        render: value => <TableCellChips value={value as string[]}/>
     },
     {
         key: 'progress',
         label: 'Progress',
-        type: 'number',
-        align: 'right'
+        render: value => <TableCell value={value as number}/>
+
     },
     {
         key: 'date',
         label: 'Last Login',
-        type: 'date'
-    },
-    {
-        key: 'hoverActions',
-        label: 'Hover Actions',
-        type: 'hover-actions',
-        isSortable: false
-    },
-    {
-        key: 'actions',
-        label: '',
-        type: 'actions',
-        isSortable: false
+        render: value => <TableCell value={value as Date}/>
     }
 ];

@@ -11,7 +11,6 @@ export const dataTable: dataUser[] = [
         status: 'Accept',
         progress: 80,
         date: new Date(),
-        actions: '',
         subRows: [
             {
                 firstName: {
@@ -32,7 +31,7 @@ export const dataTable: dataUser[] = [
         lastName: 'Bouklifator',
         age: 36,
         status: 'Busy',
-        tags: 'Contractor',
+        chips: ['Contractor', 'Admin'],
         progress: 9000,
         date: new Date('2024-03-15')
     }

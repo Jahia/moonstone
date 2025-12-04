@@ -2,44 +2,81 @@ import React from 'react';
 import clsx from 'clsx';
 
 import type {TableCellProps} from './TableCell.types';
+import type {CellContent} from '../DataTable.types';
 import './TableCell.scss';
 
-const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, TableCellProps> = (
-    {
-        iconStart,
-        iconEnd,
-        className,
-        children,
-        ...props
-    }, ref) => {
+const TableCellForwardRef: React.ForwardRefRenderFunction<
+    HTMLTableCellElement,
+    TableCellProps
+> = ({className, children, textAlign, style, width, value, ...props}, ref) => {
+    const renderContent = () => {
+        if (children) {
+            return children;
+        }
+
+        if (value === null || value === undefined) {
+            return '-';
+        }
+
+        if (value instanceof Date) {
+            return value.toLocaleDateString();
+        }
+
+        if (typeof value === 'number') {
+            return value.toLocaleString();
+        }
+
+        if (typeof value === 'object' && value !== null && 'label' in value) {
+            const content = value as CellContent;
+            return (
+                <>
+                    {content.iconStart && (
+                        <span className="moonstone-icon-start">{content.iconStart}</span>
+                    )}
+
+                    <div className="flexCol">
+                        <span className="moonstone-text-primary">{content.label}</span>
+                    </div>
+
+                    {content.iconEnd && (
+                        <> {content.iconEnd} </>
+                    )}
+                </>
+            );
+        }
+
+        if (typeof value === 'object' && value !== null && 'value' in value) {
+            const content = value as { value: string; icon?: React.ReactElement };
+            return (
+                <>
+                    {content.icon && (
+                        <> {content.icon} </>
+                    )}
+                    <> {content.value} </>
+                </>
+            );
+        }
+
+        return <>{String(value)}</>;
+    };
+
     return (
-        <div ref={ref}
-             className={clsx(
-                 'moonstone-TableCell',
-                 'flexRow_nowrap',
-                 'alignCenter',
-                 className
-             )}
-             {...props}
+        <td
+            ref={ref}
+            className={clsx(
+                'moonstone-TableCell',
+                className
+            )}
+            style={{
+                width,
+                justifyContent: textAlign === 'right' ? 'flex-end' : textAlign === 'center' ? 'center' : 'flex-start',
+                textAlign,
+                ...style
+            }}
+            {...props}
         >
-
-            {iconStart && (
-                <iconStart.type
-                    {...iconStart.props}
-                    className={clsx('moonstone-icon_default', iconStart.props.className)}
-                />
-            )}
-
-            {children}
-
-            {iconEnd && (
-                <iconEnd.type
-                    {...iconEnd.props}
-                    className={clsx('moonstone-icon_default', iconEnd.props.className)}
-                />
-            )}
-
-        </div>
+            {renderContent()}
+        </td>
     );
 };
 

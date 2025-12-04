@@ -1,37 +1,16 @@
-
 import {type ColumnDef} from '@tanstack/react-table';
-import type {DataTableProps, ColumnType, CellContent} from '../DataTable.types';
-import {TableCellDate} from '../cells/TableCellDate';
-import {TableCellNumber} from '../cells/TableCellNumber';
-import {TableCellChip} from '../cells/TableCellChip';
-import {TableCellActions} from '../cells/TableCellActions';
-import {TableCellText} from '../cells/TableCellText';
+import type {DataTableProps, ColumnType, SubRowKey, CellValue} from '../DataTable.types';
 
-
-const CustomCell = (
-    type: ColumnType,
-    value: string | number | Date | CellContent | null | undefined,
-    align: 'left' | 'center' | 'right',
+const renderCustomCell = (
+    Cell: ColumnType,
+    value: unknown,
     locale?: string
 ) => {
-    switch (type) {
-        case 'date':
-            return <TableCellDate value={value as Date} locale={locale}/>;
-        case 'number':
-            return <TableCellNumber value={value as number} locale={locale}/>;
-        case 'badge':
-            return <TableCellChip value={value as string}/>;
-        case 'actions':
-            return <TableCellActions/>;
-        case 'text':
-        default:
-            return <TableCellText value={value as string | CellContent}/>;
-    }
+    return <Cell value={value as CellValue} locale={locale}/>;
 };
 
 export const createTableColumns = <T extends Record<string, unknown>>(
-    columns: DataTableProps<T>['columns'],
-    locale?: string
+    columns: DataTableProps<T>['columns']
 ): ColumnDef<T>[] => {
     return columns.map(col => ({
         id: col.key as string,
@@ -43,16 +22,19 @@ export const createTableColumns = <T extends Record<string, unknown>>(
             align: col.align
         },
 
-        cell: ({row, getValue, column}) => {
+        cell: ({row, getValue}) => {
             const value = getValue();
 
             if (col.render) {
-                return col.render(value as any, row.original);
+                return col.render(value as T[Exclude<keyof T, SubRowKey>], row.original as T);
             }
 
-            const safeType: ColumnType = col.type || 'text';
-            const alignment = col.align
-            return CustomCell(safeType, value as string | number | Date | CellContent | null | undefined, alignment, locale);
+            const Component = col.type;
+            if (!Component) {
+                return value as CellValue;
+            }
+
+            return renderCustomCell(Component, value);
         }
     }));
 };

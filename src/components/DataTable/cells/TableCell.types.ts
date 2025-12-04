@@ -1,5 +1,6 @@
 import React from 'react';
 import type {UseExpandedRowProps, Row, Cell} from 'react-table';
+import type {CellContent} from '../DataTable.types';
 
 // Shared types used by both TableHeadCell and TableBodyCell
 export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'children'| 'className' | 'width'> & {
@@ -68,4 +69,10 @@ export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'chi
      * Indicates if the cell is scrollable on hover
      */
     isScrollable?: boolean;
+
+    /**
+     * The value to display in the cell.
+     * Can be a string, number, Date, or CellContent object.
+     */
+    value?: string | number | Date | CellContent | null | undefined;
 };

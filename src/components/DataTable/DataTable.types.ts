@@ -1,23 +1,31 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 
 export type SubRowKey = 'subRows';
 
-export type ColumnType =
-    | 'tags'
-    | 'text'
-    | 'number'
-    | 'date'
-    | 'badge'
-    | 'actions'
-    | 'hover-actions'
-    | 'status-bar';
-
 export type CellContent = {
     label: string;
-    subLabel?: string;
     iconStart?: React.ReactElement;
     iconEnd?: React.ReactElement;
 };
+
+export type CellValue =
+    | string
+    | number
+    | Date
+    | ReactNode
+    | CellContent
+    | null
+    | undefined;
+
+// Define the standard props that every Cell component receives
+export interface CellProps<T = unknown> {
+    value: T;
+    locale?: string;
+}
+
+// ColumnType uses the union of all possible value types
+// This is type-safe and avoids 'any' while allowing all cell components
+export type ColumnType = React.ComponentType<CellProps<CellValue>>;
 
 export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children' | 'className'> & {
     /**
@@ -57,7 +65,7 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
      * @param value - The value of the cell
      * @param row - The entire row data
      */
-    render?: (value: Omit<T, SubRowKey>, row: T) => React.ReactNode;
+    render?: (value: T[Exclude<keyof T, SubRowKey>], row: T) => React.ReactNode;
 
     /**
      * Whether this column can be sorted

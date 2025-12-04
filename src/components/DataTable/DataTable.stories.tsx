@@ -19,35 +19,42 @@ export default {
 type Story = StoryObj<typeof DataTable>;
 
 export const EmptyDataTable: Story = {
-    render: args => (
-        <DataTable
-            {...args}
-            data={[]}
-            columns={dataColumnsUser}
-        />
-    ),
+    render: args => {
+        return (
+            <DataTable
+                {...args}
+                data={[]}
+                columns={dataColumnsUser}
+            />
+        );
+    },
     name: 'EmptyDataTable'
 };
 
 export const MoonstoneDataTable: Story = {
-    render: args => (
-        <DataTable
-            {...args}
-            data={dataTable}
-            columns={dataColumnsUser}
-        />
-    ),
+    render: args => {
+        return (
+            <DataTable
+                {...args}
+                data={dataTable}
+                columns={dataColumnsUser}
+            />
+        );
+    },
     name: 'DataTable'
 };
 
 export const StructuredViewDataTable: Story = {
-    render: args => (
-        <DataTable
-            {...args}
-            data={dataTable}
-            columns={dataColumnsUser}
-        />
-    ),
+    render: args => {
+        return (
+            <DataTable
+                isStructured
+                {...args}
+                data={dataTable}
+                columns={dataColumnsUser}
+            />
+        );
+    },
     args: {
         isStructured: true
     },
@@ -55,15 +62,16 @@ export const StructuredViewDataTable: Story = {
 };
 
 export const SelectableDataTable: Story = {
-    render: args => (
-        <DataTable
-            {...args}
-            enableSorting
-            sortBy={args.sortBy}
-            data={dataTable}
-            columns={dataColumnsUser}
-        />
-    ),
+    render: args => {
+        return (
+            <DataTable
+                enableSelection
+                {...args}
+                data={dataTable}
+                columns={dataColumnsUser}
+            />
+        );
+    },
     args: {
         enableSorting: true,
         enableSelection: true
@@ -71,38 +79,22 @@ export const SelectableDataTable: Story = {
     name: 'Selectable Rows'
 };
 
-export const SelectableStructuredDataTable: Story = {
-    render: args => (
-        <DataTable
-            {...args}
-            enableSorting
-            sortBy={args.sortBy}
-            data={dataTable}
-            columns={dataColumnsUser}
-        />
-    ),
-    args: {
-        enableSelection: true,
-        isStructured: true,
-        enableSorting: true
-    },
-    name: 'Selectable and structured table view'
-};
 
 export const DefaultSelectionDataTable: Story = {
-    render: args => (
-        <DataTable
-            {...args}
-            enableSorting
-            sortBy={args.sortBy}
-            data={dataTable}
-            columns={dataColumnsUser}
-        />
-    ),
+    render: args => {
+        return (
+            <DataTable
+                {...args}
+                data={dataTable}
+                columns={dataColumnsUser}
+                enableSelection
+                defaultSelection={['0', '2', '4']}
+            />
+        );
+    },
     args: {
-        enableSelection: true,
-        defaultSelection: ['0', '2', '4'],
-        enableSorting: true
+        enableSorting: true,
+        enableSelection: true
     },
     name: 'Default Selection'
 };
@@ -165,10 +157,10 @@ export const AllFeaturesTable: Story = {
             />
         );
     },
-    name: 'All features Table', 
+    name: 'All features Table',
     args: {
         enableSelection: true,
-        isStructured: true,
+        isStructured: false,
         enableSorting: true,
         defaultSelection: ['0', '2'],
         sortDirection: 'ascending'

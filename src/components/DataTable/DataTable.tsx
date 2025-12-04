@@ -5,20 +5,19 @@ import {
     flexRender,
     type ExpandedState,
     type RowSelectionState,
-    type Row,
-    ColumnDef
+    type Row
+
 } from '@tanstack/react-table';
 import {useState, useEffect} from 'react';
 
 import type {DataTableProps} from './DataTable.types';
 import {Table, TableBody, TableBodyCell, TableHead, TableHeadCell, TableRow, Checkbox, SortIndicator} from '~/index';
-import { createTableColumns } from './utils/DataTableColumnUtils';
+import {createTableColumns} from './utils/DataTableColumnUtils';
 
 type CustomColumnMeta = {
     isSortable?: boolean;
     align?: 'left' | 'center' | 'right';
 };
-
 
 const adaptRowForTableBodyCell = <T extends NonNullable<unknown>>(row: Row<T>) => ({
     canExpand: row.getCanExpand(),
