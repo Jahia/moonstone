@@ -20,32 +20,33 @@ type Story = StoryObj<typeof DataTable<dataUser>>;
 
 export const EmptyDataTable: Story = {
     render: args => {
-        return <DataTable<dataUser> {...args} data={[]} columns={dataColumnsUser} />;
+        return <DataTable<dataUser> {...args} />;
+    },
+    args: {
+        data: [],
+        columns: dataColumnsUser
     },
     name: 'Empty DataTable'
 };
 
 export const BasicDataTable: Story = {
     render: args => {
-        return <DataTable<dataUser> {...args} data={dataTable} columns={dataColumnsUser} />;
+        return <DataTable<dataUser> {...args} />;
+    },
+    args: {
+        data: dataTable,
+        columns: dataColumnsUser
     },
     name: 'Basic DataTable'
 };
 
 export const DefaultSortDataTable: Story = {
     render: args => {
-        return (
-            <DataTable<dataUser>
-                {...args}
-                enableSorting
-                defaultSortBy="progress"
-                defaultSortDirection="descending"
-                data={dataTable}
-                columns={dataColumnsUser}
-            />
-        );
+        return <DataTable<dataUser> {...args} />;
     },
     args: {
+        data: dataTable,
+        columns: dataColumnsUser,
         enableSorting: true,
         defaultSortBy: 'progress',
         defaultSortDirection: 'descending'
@@ -55,9 +56,11 @@ export const DefaultSortDataTable: Story = {
 
 export const SelectableDataTable: Story = {
     render: args => {
-        return <DataTable<dataUser> {...args} enableSelection data={dataTable} columns={dataColumnsUser} />;
+        return <DataTable<dataUser> {...args} />;
     },
     args: {
+        data: dataTable,
+        columns: dataColumnsUser,
         enableSelection: true
     },
     name: 'Selectable Rows'
@@ -65,27 +68,24 @@ export const SelectableDataTable: Story = {
 
 export const DefaultSelectionDataTable: Story = {
     render: args => {
-        return (
-            <DataTable<dataUser>
-                {...args}
-                enableSelection
-                data={dataTable}
-                columns={dataColumnsUser}
-                defaultSelection={['0', '2', '4']}
-            />
-        );
+        return <DataTable<dataUser> {...args} />;
     },
     args: {
-        enableSelection: true
+        data: dataTable,
+        columns: dataColumnsUser,
+        enableSelection: true,
+        defaultSelection: ['0', '2', '4']
     },
     name: 'Default Selection'
 };
 
 export const StructuredViewDataTable: Story = {
     render: args => {
-        return <DataTable<dataUser> {...args} isStructured data={dataTable} columns={dataColumnsUser} />;
+        return <DataTable<dataUser> {...args} />;
     },
     args: {
+        data: dataTable,
+        columns: dataColumnsUser,
         isStructured: true
     },
     name: 'Structured View'
@@ -96,14 +96,6 @@ export const AllFeaturesTable: Story = {
         return (
             <DataTable<dataUser>
                 {...args}
-                enableSelection
-                enableSorting
-                isStructured
-                defaultSelection={['0', '2']}
-                defaultSortBy="progress"
-                defaultSortDirection="descending"
-                data={dataTable}
-                columns={dataColumnsUser}
                 actions={row => (
                     <MoreVert onClick={() => console.log(`${row.age}`)} />
                 )}
@@ -112,7 +104,6 @@ export const AllFeaturesTable: Story = {
                     <TableBodyCell
                         {...cellProps} // To handle tree view
                         key={cell.id}
-
                     >
                         {defaultRender()}
                     </TableBodyCell>
@@ -133,10 +124,14 @@ export const AllFeaturesTable: Story = {
         );
     },
     args: {
+        data: dataTable,
+        columns: dataColumnsUser,
         enableSelection: true,
         isStructured: true,
         enableSorting: true,
-        defaultSelection: ['0', '2']
+        defaultSelection: ['0', '2'],
+        defaultSortBy: 'progress',
+        defaultSortDirection: 'descending'
     },
     name: 'All Features Combined'
 };
