@@ -27,5 +27,5 @@
     "skipLibCheck": true
   },
   "include": ["src"],
-  "exclude": ["node_modules", "build", "dist", "types"]
+  "exclude": ["**/data/**", "**/__mocks__/**", "**/__storybook__/**", "**/*.spec.*", "**/*.stories.*"]
 }
