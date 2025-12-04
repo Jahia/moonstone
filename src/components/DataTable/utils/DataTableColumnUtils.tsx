@@ -1,8 +1,8 @@
-import { type ColumnDef } from '@tanstack/react-table';
-import type { DataTableProps, ColumnType, SubRowKey, CellValue } from '../DataTable.types';
+import {type ColumnDef} from '@tanstack/react-table';
+import type {DataTableProps, ColumnType, SubRowKey, CellValue} from '../DataTable.types';
 
 const renderCustomCell = (Cell: ColumnType, value: unknown, locale?: string) => {
-    return <Cell value={value as CellValue} locale={locale} />;
+    return <Cell value={value as CellValue} locale={locale}/>;
 };
 
 export const createTableColumns = <T extends Record<string, unknown>>(
@@ -18,11 +18,12 @@ export const createTableColumns = <T extends Record<string, unknown>>(
             align: col.align ?? 'left'
         },
         enableSorting: col.isSortable ?? false,
+
         sortingFn: col.sortFn ?
             (rowA, rowB) => col.sortFn!(rowA.original as T, rowB.original as T) :
             'auto',
 
-        cell: ({ row, getValue }) => {
+        cell: ({row, getValue}) => {
             const value = getValue();
 
             if (col.render) {

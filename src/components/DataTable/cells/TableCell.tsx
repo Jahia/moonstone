@@ -6,7 +6,7 @@ import type { CellContent } from '../DataTable.types';
 import './TableCell.scss';
 
 const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellProps> = (
-    { className, children, textAlign, style, width, value, ...props },
+    { className, children, value, ...props }, // Need to add in the future textAlign, style, width, for the incoming features
     ref
 ) => {
     const renderContent = () => {
@@ -58,7 +58,6 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
         <td
             ref={ref}
             className={clsx('moonstone-TableCell', className)}
-
             {...props}
         >
             {renderContent()}

@@ -7,13 +7,23 @@ import {
     type ExpandedState,
     type RowSelectionState,
     type SortingState,
-    type Row
+    type Row,
+    type Cell
 } from '@tanstack/react-table';
-import { useState, useEffect, useMemo } from 'react';
+import {useState, useEffect, useMemo, useCallback} from 'react';
 
-import type { DataTableProps } from './DataTable.types';
-import { Table, TableBody, TableBodyCell, TableHead, TableHeadCell, TableRow, Checkbox, SortIndicator } from '~/index';
-import { createTableColumns } from './utils/DataTableColumnUtils';
+import type {DataTableProps, CellBodyProps} from './DataTable.types';
+import {
+    Table,
+    TableBody,
+    TableBodyCell,
+    TableHead,
+    TableHeadCell,
+    TableRow,
+    Checkbox,
+    SortIndicator
+} from '~/index';
+import {createTableColumns} from './utils/DataTableColumnUtils';
 
 type CustomColumnMeta = {
     isSortable?: boolean;
@@ -46,7 +56,11 @@ export const DataTable = <T extends NonNullable<unknown>>({
     enableSorting = false,
     defaultSortBy,
     defaultSortDirection = 'ascending',
-    defaultSelection = []
+    defaultSelection = [],
+    actions,
+    actionsHeaderLabel = 'Actions',
+    renderRow,
+    renderCell
 }: DataTableProps<T>) => {
     // Internal sorting state - fully managed by TanStack
     const initialSorting = useMemo<SortingState>(() => {
@@ -65,7 +79,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     const [sorting, setSorting] = useState<SortingState>(initialSorting);
     const [expanded, setExpanded] = useState<ExpandedState>({});
     const [rowSelection, setRowSelection] = useState<RowSelectionState>(() =>
-        defaultSelection.reduce((acc, key) => ({ ...acc, [key]: true }), {})
+        defaultSelection.reduce((acc: Record<string, boolean>, key: string) => ({...acc, [key]: true}), {})
     );
 
     useEffect(() => {
@@ -82,16 +96,12 @@ export const DataTable = <T extends NonNullable<unknown>>({
             rowSelection,
             sorting
         },
-        // Sorting
         onSortingChange: setSorting,
         getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,
         enableSorting,
-        // Selection
         onRowSelectionChange: setRowSelection,
         enableRowSelection: enableSelection,
-        // Core
         getCoreRowModel: getCoreRowModel(),
-        // Structured/Expandable
         ...(isStructured && {
             onExpandedChange: setExpanded,
             getSubRows: (row: T) => (row as T & { subRows?: T[] }).subRows,
@@ -105,6 +115,99 @@ export const DataTable = <T extends NonNullable<unknown>>({
         }
     }, [data, isStructured, table]);
 
+    const buildCellProps = useCallback(
+        (cell: Cell<T, unknown>, isFirstColumn: boolean): CellBodyProps => {
+            const iconStart = isFirstColumn ? extractIconFromCell(cell.getValue()) : undefined;
+            const meta = cell.column.columnDef.meta as CustomColumnMeta | undefined;
+            const alignment = meta?.align ?? 'left';
+            const adaptedRow = isStructured ? adaptRowForTableBodyCell(cell.row) : undefined;
+
+            return {
+                row: adaptedRow,
+                cell: cell,
+                isExpandableColumn: isStructured && isFirstColumn,
+                iconStart,
+                textAlign: alignment
+            };
+        },
+        [isStructured]
+    );
+
+    // Default cell renderer - returns the COMPLETE cell with all structured view props
+    const defaultCellRenderer = useCallback(
+        (cell: Cell<T, unknown>, isFirstColumn: boolean) => {
+            const cellProps = buildCellProps(cell, isFirstColumn);
+
+            return (
+                <TableBodyCell
+                    key={cell.id}
+                    row={cellProps.row as never}
+                    cell={cellProps.cell as never}
+                    isExpandableColumn={cellProps.isExpandableColumn}
+                    iconStart={cellProps.iconStart}
+                    textAlign={cellProps.textAlign}
+                >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </TableBodyCell>
+            );
+        },
+        [buildCellProps]
+    );
+
+    const renderCellWithCustomization = useCallback(
+        (cell: Cell<T, unknown>, index: number) => {
+            const isFirstColumn = index === 0;
+
+            if (renderCell) {
+                const cellProps = buildCellProps(cell, isFirstColumn);
+                const defaultRender = () => (
+                    <>{flexRender(cell.column.columnDef.cell, cell.getContext())}</>
+                );
+
+                return renderCell(cell, defaultRender, cellProps);
+            }
+
+            // Otherwise use default cell renderer
+            return defaultCellRenderer(cell, isFirstColumn);
+        },
+        [renderCell, defaultCellRenderer, buildCellProps]
+    );
+
+    const renderRowContent = useCallback(
+        (row: Row<T>) => {
+            return (
+                <>
+                    {enableSelection && (
+                        <TableBodyCell width="52px">
+                            <Checkbox
+                                checked={row.getIsSelected()}
+                                onChange={row.getToggleSelectedHandler()}
+                            />
+                        </TableBodyCell>
+                    )}
+
+                    {row.getVisibleCells().map((cell, index) => renderCellWithCustomization(cell, index))}
+
+                    {actions && <TableBodyCell>{actions(row.original)}</TableBodyCell>}
+                </>
+            );
+        },
+        [enableSelection, actions, renderCellWithCustomization]
+    );
+
+    const renderRowWithCustomization = useCallback(
+        (row: Row<T>) => {
+            const defaultRender = () => renderRowContent(row);
+
+            if (renderRow) {
+                return renderRow(row, defaultRender);
+            }
+
+            return <TableRow key={row.id}>{defaultRender()}</TableRow>;
+        },
+        [renderRow, renderRowContent]
+    );
+
     if (!data || data.length === 0) {
         return <div>No data available.</div>;
     }
@@ -114,6 +217,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
             <TableHead>
                 {table.getHeaderGroups().map(headerGroup => (
                     <TableRow key={headerGroup.id}>
+                        {/* Selection header */}
                         {enableSelection && (
                             <TableHeadCell width="52px">
                                 <Checkbox
@@ -123,6 +227,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                 />
                             </TableHeadCell>
                         )}
+
+                        {/* Column headers */}
                         {headerGroup.headers.map(header => {
                             const meta = header.column.columnDef.meta as CustomColumnMeta | undefined;
                             const isColumnSortable = enableSorting && (meta?.isSortable ?? false);
@@ -146,7 +252,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                             />
                                         ) : undefined
                                     }
-                                    style={{ cursor: isColumnSortable ? 'pointer' : 'default' }}
+                                    style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
                                     textAlign={alignment}
                                     onClick={
                                         isColumnSortable ?
@@ -158,46 +264,14 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                 </TableHeadCell>
                             );
                         })}
+
+                        {/* Actions header */}
+                        {actions && <TableHeadCell>{actionsHeaderLabel}</TableHeadCell>}
                     </TableRow>
                 ))}
             </TableHead>
             <TableBody>
-                {table.getRowModel().rows.map(row => {
-                    const adaptedRow = isStructured ? adaptRowForTableBodyCell(row) : undefined;
-                    return (
-                        <TableRow key={row.id}>
-                            {enableSelection && (
-                                <TableBodyCell width="52px">
-                                    <Checkbox
-                                        checked={row.getIsSelected()}
-                                        onChange={row.getToggleSelectedHandler()}
-                                    />
-                                </TableBodyCell>
-                            )}
-                            {row.getVisibleCells().map((cell, index) => {
-                                const isFirstColumn = index === 0;
-                                const iconStart = isFirstColumn ?
-                                    extractIconFromCell(cell.getValue()) :
-                                    undefined;
-                                const meta = cell.column.columnDef.meta as CustomColumnMeta | undefined;
-                                const alignment = meta?.align ?? 'left';
-
-                                return (
-                                    <TableBodyCell
-                                        key={cell.id}
-                                        row={adaptedRow as never}
-                                        cell={cell as never}
-                                        isExpandableColumn={isStructured && isFirstColumn}
-                                        iconStart={iconStart}
-                                        textAlign={alignment}
-                                    >
-                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                    </TableBodyCell>
-                                );
-                            })}
-                        </TableRow>
-                    );
-                })}
+                {table.getRowModel().rows.map(row => renderRowWithCustomization(row))}
             </TableBody>
         </Table>
     );
