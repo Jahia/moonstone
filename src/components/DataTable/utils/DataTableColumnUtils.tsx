@@ -1,4 +1,4 @@
-import {type ColumnDef} from '@tanstack/react-table';
+import type {ColumnDef} from '@tanstack/react-table';
 import type {DataTableProps, ColumnType, SubRowKey, CellValue} from '../DataTable.types';
 
 const renderCustomCell = (Cell: ColumnType, value: unknown, locale?: string) => {

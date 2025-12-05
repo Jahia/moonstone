@@ -1,4 +1,4 @@
-import { TableCell } from './TableCell';
+import {TableCell} from './TableCell';
 
 type Props = {
     readonly value: Date | string | null | undefined;
@@ -6,7 +6,7 @@ type Props = {
     readonly locale?: string;
 };
 
-export const TableCellDate = ({ value, className, locale }: Props) => {
+export const TableCellDate = ({value, className, locale}: Props) => {
     const formatDate = () => {
         if (value === null || value === undefined) {
             return '-';

@@ -1,18 +1,19 @@
-import { dataTable } from './data/TableData';
-import { dataColumnsUser, type dataUser } from './data/dataColumnsUser';
-import { DataTable } from './DataTable';
-import { TableRow, MoreVert } from '~/index';
-import type { Meta, StoryObj } from '@storybook/react';
+import {dataTable} from './data/TableData';
+import {dataColumnsUser} from './data/dataColumnsUser';
+import type {dataUser} from './data/dataColumnsUser';
+import {DataTable} from './DataTable';
+import {TableRow, MoreVert} from '~/index';
+import type {Meta, StoryObj} from '@storybook/react';
 
 export default {
     title: 'Components/DataTable',
     component: DataTable,
     tags: ['beta'],
     parameters: {
-        controls: { expanded: true }
+        controls: {expanded: true}
     },
     argTypes: {
-        onChangeSelection: { action: 'onChangeSelection' }
+        onChangeSelection: {action: 'onChangeSelection'}
     }
 } satisfies Meta<typeof DataTable<dataUser>>;
 
@@ -20,7 +21,7 @@ type Story = StoryObj<typeof DataTable<dataUser>>;
 
 export const EmptyDataTable: Story = {
     render: args => {
-        return <DataTable<dataUser> {...args} />;
+        return <DataTable<dataUser> {...args}/>;
     },
     args: {
         data: [],
@@ -31,7 +32,7 @@ export const EmptyDataTable: Story = {
 
 export const BasicDataTable: Story = {
     render: args => {
-        return <DataTable<dataUser> {...args} />;
+        return <DataTable<dataUser> {...args}/>;
     },
     args: {
         data: dataTable,
@@ -42,7 +43,7 @@ export const BasicDataTable: Story = {
 
 export const DefaultSortDataTable: Story = {
     render: args => {
-        return <DataTable<dataUser> {...args} />;
+        return <DataTable<dataUser> {...args}/>;
     },
     args: {
         data: dataTable,
@@ -56,7 +57,7 @@ export const DefaultSortDataTable: Story = {
 
 export const SelectableDataTable: Story = {
     render: args => {
-        return <DataTable<dataUser> {...args} />;
+        return <DataTable<dataUser> {...args}/>;
     },
     args: {
         data: dataTable,
@@ -68,7 +69,7 @@ export const SelectableDataTable: Story = {
 
 export const DefaultSelectionDataTable: Story = {
     render: args => {
-        return <DataTable<dataUser> {...args} />;
+        return <DataTable<dataUser> {...args}/>;
     },
     args: {
         data: dataTable,
@@ -81,7 +82,7 @@ export const DefaultSelectionDataTable: Story = {
 
 export const StructuredViewDataTable: Story = {
     render: args => {
-        return <DataTable<dataUser> {...args} />;
+        return <DataTable<dataUser> {...args}/>;
     },
     args: {
         data: dataTable,
@@ -97,7 +98,7 @@ export const AllFeaturesTable: Story = {
             <DataTable<dataUser>
                 {...args}
                 actions={row => (
-                    <MoreVert onClick={() => console.log(`${row.age}`)} />
+                    <MoreVert onClick={() => console.log(`${row.age}`)}/>
                 )}
                 actionsHeaderLabel=""
                 renderRow={(row, defaultRender) => (

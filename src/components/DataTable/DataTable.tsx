@@ -4,15 +4,18 @@ import {
     getExpandedRowModel,
     getSortedRowModel,
     flexRender,
-    type ExpandedState,
-    type RowSelectionState,
-    type SortingState,
-    type Row,
-    type Cell
 } from '@tanstack/react-table';
-import {useState, useEffect, useMemo, useCallback} from 'react';
 
-import type {DataTableProps, CellBodyProps} from './DataTable.types';
+import type {
+    ExpandedState,
+    RowSelectionState,
+    SortingState,
+    Row,
+    Cell
+} from '@tanstack/react-table';
+import { useState, useEffect, useMemo, useCallback } from 'react';
+
+import type { DataTableProps, CellBodyProps } from './DataTable.types';
 import {
     Table,
     TableBody,
@@ -23,7 +26,7 @@ import {
     Checkbox,
     SortIndicator
 } from '~/index';
-import {createTableColumns} from './utils/DataTableColumnUtils';
+import { createTableColumns } from './utils/DataTableColumnUtils';
 
 type CustomColumnMeta = {
     isSortable?: boolean;
@@ -78,7 +81,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     const [sorting, setSorting] = useState<SortingState>(initialSorting);
     const [expanded, setExpanded] = useState<ExpandedState>({});
     const [rowSelection, setRowSelection] = useState<RowSelectionState>(() =>
-        defaultSelection.reduce((acc: Record<string, boolean>, key: string) => ({...acc, [key]: true}), {})
+        defaultSelection.reduce((acc: Record<string, boolean>, key: string) => ({ ...acc, [key]: true }), {})
     );
 
     useEffect(() => {
@@ -240,7 +243,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                             />
                                         ) : undefined
                                     }
-                                    style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
+                                    style={{ cursor: isColumnSortable ? 'pointer' : 'default' }}
                                     textAlign={alignment}
                                     onClick={
                                         isColumnSortable ?

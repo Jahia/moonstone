@@ -1,5 +1,5 @@
 import React from 'react';
-import type { CellContent } from '../DataTable.types';
+import type {CellContent} from '../DataTable.types';
 
 type CellValue = string | number | Date | CellContent | { value: string; icon?: React.ReactElement } | null | undefined;
 

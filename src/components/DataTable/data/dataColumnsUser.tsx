@@ -1,9 +1,7 @@
 import React from 'react';
-import type { DataTableColumn } from '../DataTable.types';
-import { TableCellChips } from '../cells/TableCellChips';
-import { TableCellNumber } from '../cells/TableCellNumber';
-import { TableCellDate } from '../cells/TableCellDate';
-import { TableCell } from '../cells/TableCell';
+import type {DataTableColumn} from '../DataTable.types';
+import {Chip} from '~/index';
+import {numberColumn, dateColumn, chipsColumn, stringOrObjectColumn} from '../utils/columnHelpers';
 
 export type dataUser = {
     firstName: string | { value: string; icon?: React.ReactElement };
@@ -18,49 +16,41 @@ export type dataUser = {
 
 export type DataUserKeys = Exclude<keyof dataUser, 'subRows'>;
 
-// Helper to extract string value from firstName (handles both string and object format)
-const getFirstNameValue = (firstName: dataUser['firstName']): string => {
-    return typeof firstName === 'string' ? firstName : firstName.value;
-};
-
 export const dataColumnsUser: DataTableColumn<dataUser>[] = [
     {
         key: 'firstName',
         label: 'User',
-        render: value => <TableCell value={value as string} />,
-        isSortable: true,
-        sortFn: (a, b) => {
-            const aVal = getFirstNameValue(a.firstName);
-            const bVal = getFirstNameValue(b.firstName);
-            return aVal.localeCompare(bVal);
-        },
-        align: 'left'
+        ...stringOrObjectColumn<dataUser>(row => row.firstName)
     },
     {
         key: 'status',
         label: 'Status',
-        render: value => <TableCell value={value as string} />,
+        // Fully custom column - return content directly, TableBodyCell handles cell rendering
+        render: value => (
+            <Chip
+                label={value as string}
+                color={(value as string) === 'Active' ? 'success' : 'default'}
+            />
+        ),
         isSortable: true,
-        sortFn: (a, b) => a.status.localeCompare(b.status),
-        align: 'right'
+        sortFn: (a, b) => a.status.localeCompare(b.status)
+
     },
     {
         key: 'chips',
         label: 'Roles',
-        render: value => <TableCellChips value={value as string[]} />
+        ...chipsColumn<dataUser>(row => row.chips ?? [])
     },
     {
         key: 'progress',
         label: 'Progress',
-        render: value => <TableCellNumber value={value as number} />,
-        isSortable: true,
-        sortFn: (a, b) => a.progress - b.progress
+        ...numberColumn<dataUser>(row => row.progress),
+        align: 'left' // You can align the content of the cell and override the default alignment of the helper function
     },
     {
         key: 'date',
         label: 'Last Login',
-        render: value => <TableCellDate value={value as Date} locale='fr-FR' />,
-        isSortable: true,
-        sortFn: (a, b) => a.date.getTime() - b.date.getTime()
+        ...dateColumn<dataUser>(row => row.date, {locale: 'fr-FR'}), // Can use the locale option to format the date
+        align: 'right' // You can align the content of the cell
     }
 ];
