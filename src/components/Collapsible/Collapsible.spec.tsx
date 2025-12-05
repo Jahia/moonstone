@@ -2,15 +2,6 @@ import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {Collapsible} from './index';
 
-const intersectionObserverMock: () => Partial<IntersectionObserver> = () => ({
-    observe: () => null,
-    unobserve: () => null
-});
-
-window.IntersectionObserver = vi
-    .fn()
-    .mockImplementation(intersectionObserverMock);
-
 describe('Collapsible', () => {
     it('should display additional className', () => {
         render(

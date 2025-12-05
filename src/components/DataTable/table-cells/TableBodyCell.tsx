@@ -1,14 +1,14 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import type {TableCellProps} from './TableCell.types';
+import type {TableCellProps} from '../cells/TableCell.types';
 import {IconTextIcon, Typography} from '~/components';
 import {ChevronDown, ChevronRight} from '~/icons';
 import {capitalize} from '~/utils/helpers';
-import {TableCell} from './TableCell';
+import {TableCell} from '../cells/TableCell';
 import './TableCell.scss';
 
-const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, TableCellProps> = (
+const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellProps> = (
     {
         component = 'td',
         textAlign = 'left',

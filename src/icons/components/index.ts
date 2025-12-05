@@ -56,6 +56,7 @@ export {default as Collections} from './Collections';
 export {default as CollectionsBookmark} from './CollectionsBookmark';
 export {default as Comments} from './Comments';
 export {default as Compare} from './Compare';
+export {default as ContentReference} from './ContentReference';
 export {default as Copy} from './Copy';
 export {default as Crown} from './Crown';
 export {default as Cut} from './Cut';

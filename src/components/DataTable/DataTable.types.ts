@@ -1,127 +1,92 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
+import type {Row} from '@tanstack/react-table';
 
 export type SubRowKey = 'subRows';
 
-export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children' | 'className'> & {
-    /**
-     * Which html element to render the table as
-     */
-    component?: string;
-
-    /**
-     * Additional classname
-     */
-    className?: string;
-
-    /**
-     * The content of the table
-     */
-    children: React.ReactNode;
+export type CellContent = {
+    label: string; // Text content
+    iconStart?: React.ReactElement; // Icon before text
+    iconEnd?: React.ReactElement; // Icon after text
 };
 
-export type DataTableColumn<T extends NonNullable<unknown>> = {
-    /**
-     * The key of the data property to display in this column
-     */
-    key: Exclude<keyof T, SubRowKey>;
+export type CellValue =
+    | string
+    | number
+    | Date
+    | ReactNode
+    | CellContent
+    | null
+    | undefined;
 
-    /**
-     * The label to display in the column header
-     */
-    label: string;
-
-    /**
-     * Optional custom render function for the cell content
-     * @param value - The value of the cell
-     * @param row - The entire row data
-     */
-    render?: (value: Omit<T, SubRowKey>, row: T) => React.ReactNode;
-
-    /**
-     * Whether this column can be sorted
-     */
-    isSortable?: boolean;
+// Props received by cell renderer components
+export interface CellProps<T = unknown> {
+    value: T; // Cell value
+    locale?: string; // Locale for formatting
 }
 
-export type DataTableBaseProps<T extends NonNullable<unknown>> = {
-    /**
-     * Define which key is used as primary key for each row
-     */
-    primaryKey: Exclude<keyof T, SubRowKey>;
+export type ColumnType = React.ComponentType<CellProps<CellValue>>;
 
-    /**
-     * The array of data to display in the table
-     */
-    data: T[];
-
-    /**
-     * The column definitions for the table
-     */
-    columns: ReadonlyArray<DataTableColumn<T>>;
-
-    /**
-     * Whether the table data has a hierarchical structure with subRows
-     */
-    isStructured?: boolean;
-
-    /**
-     * Callback fired when a table header cell is clicked
-     * @param columnId - The ID of the clicked column
-     */
-    onClickTableHeadCell?: (columnId: string) => void;
+export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children' | 'className'> & {
+    component?: string; // HTML element to render as
+    className?: string; // Additional CSS class
+    children: React.ReactNode; // Table content
 };
 
-type SortingProps<T extends NonNullable<unknown>> =
+// Column definition for DataTable
+export type DataTableColumn<T extends NonNullable<unknown>> = {
+    key: Exclude<keyof T, SubRowKey>; // Data property key
+    label: string; // Header label
+    type?: ColumnType; // Cell renderer component
+    render?: (value: T[Exclude<keyof T, SubRowKey>], row: T) => React.ReactNode; // Custom render function
+    isSortable?: boolean; // Enable sorting
+    sortFn?: (a: T, b: T) => number; // Custom sort function
+    align?: 'left' | 'center' | 'right'; // Content alignment
+};
+
+// Base props for DataTable
+export type DataTableBaseProps<T extends NonNullable<unknown>> = {
+    data: T[]; // Table data
+    columns: ReadonlyArray<DataTableColumn<T>>; // Column definitions
+    isStructured?: boolean; // Enable tree view
+    enableSorting?: boolean; // Enable sorting
+    defaultSortBy?: Exclude<keyof T, SubRowKey>; // Initial sort column
+    defaultSortDirection?: 'ascending' | 'descending'; // Initial sort direction
+};
+
+// Row selection props
+type SelectionProps = {
+    enableSelection?: boolean; // Enable row selection
+    defaultSelection?: string[]; // Initially selected row IDs
+    onChangeSelection?: (selection: string[]) => void; // Selection change callback
+};
+
+// Actions column props
+type ActionsProps<T> =
     | {
-        /**
-         * Enable sorting functionality
-         */
-        enableSorting: true;
-
-        /**
-         * The key of the column to sort by
-         */
-        sortBy: Exclude<keyof T, 'subRows'>;
-
-        /**
-         * The direction of the sort
-         */
-        sortDirection?: 'ascending' | 'descending';
-    }
+          actions: (row: T) => React.ReactNode; // Render actions for row
+          actionsHeaderLabel?: string; // Actions column header
+      }
     | {
-        /**
-         * Disable sorting functionality
-         */
-        enableSorting?: false;
-        sortBy?: never;
-        sortDirection?: never;
-    };
+          actions?: never;
+          actionsHeaderLabel?: never;
+      };
 
-type SelectionProps =
-    | {
-        /**
-         * Enable row selection functionality
-         */
-        enableSelection: true;
+// Props passed to TableBodyCell for structured view support
+export type CellBodyProps = {
+    row?: unknown; // Row object
+    cell?: unknown; // Cell object
+    isExpandableColumn?: boolean; // Show expand/collapse
+    iconStart?: React.ReactElement; // Icon before content
+    textAlign?: 'left' | 'center' | 'right'; // Content alignment
+};
 
-        /**
-         * Array of row IDs that should be selected by default
-         */
-        defaultSelection?: string[];
+// Custom render function props
+type RenderProps<T> = {
+    renderRow?: (row: Row<T>, defaultRender: () => React.ReactNode) => React.ReactNode; // Custom row render
+};
 
-        /**
-         * Callback fired when the selection changes
-         * @param selection - Array of selected row IDs
-         */
-        onChangeSelection?: (selection: string[]) => void;
-    }
-    | {
-        /**
-         * Disable row selection functionality
-         */
-        enableSelection?: false;
-        defaultSelection?: never;
-        onChangeSelection?: never;
-    };
-
-export type DataTableProps<T extends NonNullable<unknown>> = TableProps & DataTableBaseProps<T> & SortingProps<T> & SelectionProps;
+export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'children'> &
+    DataTableBaseProps<T> &
+    SelectionProps &
+    ActionsProps<T> &
+    RenderProps<T>;

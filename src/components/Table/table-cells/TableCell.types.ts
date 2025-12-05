@@ -1,5 +1,4 @@
 import React from 'react';
-import type {UseExpandedRowProps, Row, Cell} from 'react-table';
 
 // Shared types used by both TableHeadCell and TableBodyCell
 export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'children'| 'className' | 'width'> & {
@@ -47,12 +46,17 @@ export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'chi
     /**
      * Row object returned by react-table instance
      */
-    row?: UseExpandedRowProps<Row>;
+    row?: {
+        depth?: number;
+        canExpand?: boolean;
+        isExpanded?: boolean;
+        getToggleRowExpandedProps?: (props?: Record<string, unknown>) => Record<string, unknown>;
+    };
 
     /**
      * Cell object returned by react-table instance
      */
-    cell?: Cell;
+    cell?: unknown;
 
     /**
      * Any styles to render inline

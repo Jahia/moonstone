@@ -273,7 +273,7 @@ export const SortingDropdown = (args: CustomDropdownProps) => {
                             onValueChange(item);
                         }}
                     />
-            <Separator/>
+            <Separator spacing="medium"/>
             <MenuItem label="Direction" variant="title"/>
             <Dropdown
                         variant="outlined"
