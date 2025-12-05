@@ -1,5 +1,5 @@
 import React, {ReactNode} from 'react';
-import type {Row, Cell} from '@tanstack/react-table';
+import type {Row} from '@tanstack/react-table';
 
 export type SubRowKey = 'subRows';
 
@@ -83,11 +83,6 @@ export type CellBodyProps = {
 // Custom render function props
 type RenderProps<T> = {
     renderRow?: (row: Row<T>, defaultRender: () => React.ReactNode) => React.ReactNode; // Custom row render
-    renderCell?: (
-        cell: Cell<T, unknown>,
-        defaultRender: () => React.ReactNode,
-        cellProps: CellBodyProps
-    ) => React.ReactNode; // Custom cell render
 };
 
 export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'children'> &

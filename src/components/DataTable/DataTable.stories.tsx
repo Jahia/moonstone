@@ -1,7 +1,7 @@
 import { dataTable } from './data/TableData';
 import { dataColumnsUser, type dataUser } from './data/dataColumnsUser';
 import { DataTable } from './DataTable';
-import { TableRow, TableBodyCell, MoreVert } from '~/index';
+import { TableRow, MoreVert } from '~/index';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
@@ -100,14 +100,6 @@ export const AllFeaturesTable: Story = {
                     <MoreVert onClick={() => console.log(`${row.age}`)} />
                 )}
                 actionsHeaderLabel=""
-                renderCell={(cell, defaultRender, cellProps) => (
-                    <TableBodyCell
-                        {...cellProps} // To handle tree view
-                        key={cell.id}
-                    >
-                        {defaultRender()}
-                    </TableBodyCell>
-                )}
                 renderRow={(row, defaultRender) => (
                     <TableRow
                         key={row.id}

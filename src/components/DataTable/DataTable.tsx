@@ -59,8 +59,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     defaultSelection = [],
     actions,
     actionsHeaderLabel = 'Actions',
-    renderRow,
-    renderCell
+    renderRow
 }: DataTableProps<T>) => {
     // Internal sorting state - fully managed by TanStack
     const initialSorting = useMemo<SortingState>(() => {
@@ -154,23 +153,12 @@ export const DataTable = <T extends NonNullable<unknown>>({
         [buildCellProps]
     );
 
-    const renderCellWithCustomization = useCallback(
+    const renderCellForRow = useCallback(
         (cell: Cell<T, unknown>, index: number) => {
             const isFirstColumn = index === 0;
-
-            if (renderCell) {
-                const cellProps = buildCellProps(cell, isFirstColumn);
-                const defaultRender = () => (
-                    <>{flexRender(cell.column.columnDef.cell, cell.getContext())}</>
-                );
-
-                return renderCell(cell, defaultRender, cellProps);
-            }
-
-            // Otherwise use default cell renderer
             return defaultCellRenderer(cell, isFirstColumn);
         },
-        [renderCell, defaultCellRenderer, buildCellProps]
+        [defaultCellRenderer]
     );
 
     const renderRowContent = useCallback(
@@ -186,13 +174,13 @@ export const DataTable = <T extends NonNullable<unknown>>({
                         </TableBodyCell>
                     )}
 
-                    {row.getVisibleCells().map((cell, index) => renderCellWithCustomization(cell, index))}
+                    {row.getVisibleCells().map((cell, index) => renderCellForRow(cell, index))}
 
                     {actions && <TableBodyCell>{actions(row.original)}</TableBodyCell>}
                 </>
             );
         },
-        [enableSelection, actions, renderCellWithCustomization]
+        [enableSelection, actions, renderCellForRow]
     );
 
     const renderRowWithCustomization = useCallback(

@@ -1,66 +1,30 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import type {TableCellProps} from './TableCell.types';
-import type {CellContent} from '../DataTable.types';
+import type { TableCellProps } from './TableCell.types';
+import { renderCellContent } from '../utils/tableCellUtils';
 import './TableCell.scss';
 
+/**
+ * Base table cell component.
+ * 
+ * Usage 1: Custom cells (TableCellNumber, TableCellDate, TableCellChips) 
+ *          pass pre-formatted content as children → renders children directly.
+ * 
+ * Usage 2: Direct usage with value prop → calls renderCellContent() to format.
+ */
 const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellProps> = (
-    {className, children, value, ...props}, // Need to add in the future textAlign, style, width, for the incoming features
+    { className, children, value, ...props },
     ref
 ) => {
-    const renderContent = () => {
-        if (children) {
-            return children;
-        }
-
-        if (value === null || value === undefined) {
-            return '-';
-        }
-
-        if (value instanceof Date) {
-            return value.toLocaleDateString();
-        }
-
-        if (typeof value === 'number') {
-            return value.toLocaleString();
-        }
-
-        if (typeof value === 'object' && value !== null && 'label' in value) {
-            const content = value as CellContent;
-            return (
-                <>
-                    {content.iconStart && (
-                        <span className="moonstone-icon-start">{content.iconStart}</span>
-                    )}
-                    <div className="flexCol">
-                        <span className="moonstone-text-primary">{content.label}</span>
-                    </div>
-                    {content.iconEnd && <> {content.iconEnd} </>}
-                </>
-            );
-        }
-
-        if (typeof value === 'object' && value !== null && 'value' in value) {
-            const content = value as { value: string; icon?: React.ReactElement };
-            return (
-                <>
-                    {content.icon && <> {content.icon} </>}
-                    <> {content.value} </>
-                </>
-            );
-        }
-
-        return <>{String(value)}</>;
-    };
-
     return (
         <td
             ref={ref}
             className={clsx('moonstone-TableCell', className)}
             {...props}
         >
-            {renderContent()}
+            {/* If children provided, use it; otherwise format value via utility */}
+            {children ?? renderCellContent(value)}
         </td>
     );
 };
