@@ -8,7 +8,7 @@ import {capitalize} from '~/utils/helpers';
 import {TableCell} from '../cells/TableCell';
 import './TableCell.scss';
 
-const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, TableCellProps> = (
+const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellProps> = (
     {
         component = 'td',
         textAlign = 'left',

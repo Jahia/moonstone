@@ -46,7 +46,12 @@ export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'chi
     /**
      * Row object returned by react-table instance
      */
-    row?: unknown;
+    row?: {
+        depth?: number;
+        canExpand?: boolean;
+        isExpanded?: boolean;
+        getToggleRowExpandedProps?: (props?: Record<string, unknown>) => Record<string, unknown>;
+    };
 
     /**
      * Cell object returned by react-table instance
