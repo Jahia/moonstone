@@ -1,7 +1,9 @@
 import React from 'react';
-import type {DataTableColumn} from '../DataTable.types';
-import {TableCellChips} from '../cells/TableCellChips';
-import {TableCell} from '../cells/TableCell';
+import type { DataTableColumn } from '../DataTable.types';
+import { TableCellChips } from '../cells/TableCellChips';
+import { TableCellNumber } from '../cells/TableCellNumber';
+import { TableCellDate } from '../cells/TableCellDate';
+import { TableCell } from '../cells/TableCell';
 
 export type dataUser = {
     firstName: string | { value: string; icon?: React.ReactElement };
@@ -25,7 +27,7 @@ export const dataColumnsUser: DataTableColumn<dataUser>[] = [
     {
         key: 'firstName',
         label: 'User',
-        render: value => <TableCell value={value as string}/>,
+        render: value => <TableCell value={value as string} />,
         isSortable: true,
         sortFn: (a, b) => {
             const aVal = getFirstNameValue(a.firstName);
@@ -37,7 +39,7 @@ export const dataColumnsUser: DataTableColumn<dataUser>[] = [
     {
         key: 'status',
         label: 'Status',
-        render: value => <TableCell value={value as string}/>,
+        render: value => <TableCell value={value as string} />,
         isSortable: true,
         sortFn: (a, b) => a.status.localeCompare(b.status),
         align: 'right'
@@ -45,19 +47,19 @@ export const dataColumnsUser: DataTableColumn<dataUser>[] = [
     {
         key: 'chips',
         label: 'Roles',
-        render: value => <TableCellChips value={value as string[]}/>
+        render: value => <TableCellChips value={value as string[]} />
     },
     {
         key: 'progress',
         label: 'Progress',
-        render: value => <TableCell value={value as number}/>,
+        render: value => <TableCellNumber value={value as number} />,
         isSortable: true,
         sortFn: (a, b) => a.progress - b.progress
     },
     {
         key: 'date',
         label: 'Last Login',
-        render: value => <TableCell value={value as Date}/>,
+        render: value => <TableCellDate value={value as Date} locale='fr-FR' />,
         isSortable: true,
         sortFn: (a, b) => a.date.getTime() - b.date.getTime()
     }

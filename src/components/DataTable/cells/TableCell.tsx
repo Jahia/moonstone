@@ -1,12 +1,12 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import type { TableCellProps } from './TableCell.types';
-import type { CellContent } from '../DataTable.types';
+import type {TableCellProps} from './TableCell.types';
+import type {CellContent} from '../DataTable.types';
 import './TableCell.scss';
 
 const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellProps> = (
-    { className, children, value, ...props }, // Need to add in the future textAlign, style, width, for the incoming features
+    {className, children, value, ...props}, // Need to add in the future textAlign, style, width, for the incoming features
     ref
 ) => {
     const renderContent = () => {
