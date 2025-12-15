@@ -1,8 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import type { TableCellProps } from './TableCell.types';
-import { capitalize } from '~/utils/helpers';
+import type {TableCellProps} from './TableCell.types';
+import {capitalize} from '~/utils/helpers';
 import './TableCell.scss';
 
 /**
@@ -11,7 +11,7 @@ import './TableCell.scss';
  * Usage 1: Direct usage with children prop → renders children directly.
  */
 const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellProps> = (
-    { className, children, textAlign, ...props },
+    {className, children, textAlign, ...props},
     ref
 ) => {
     return (
@@ -25,7 +25,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
             {...props}
         >
             {/* If children provided, use it; otherwise show "-" */}
-            {children ?? "-"}
+            {children ?? '-'}
         </td>
     );
 };

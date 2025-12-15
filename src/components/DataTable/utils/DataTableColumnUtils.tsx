@@ -1,9 +1,5 @@
 import type {ColumnDef} from '@tanstack/react-table';
-import type {DataTableProps, ColumnType, SubRowKey, CellValue} from '../DataTable.types';
-
-const renderCustomCell = (Cell: ColumnType, value: unknown, locale?: string) => {
-    return <Cell value={value as CellValue} locale={locale}/>;
-};
+import type {DataTableProps, SubRowKey} from '../DataTable.types';
 
 export const createTableColumns = <T extends Record<string, unknown>>(
     columns: DataTableProps<T>['columns']
@@ -26,16 +22,13 @@ export const createTableColumns = <T extends Record<string, unknown>>(
         cell: ({row, getValue}) => {
             const value = getValue();
 
+            // Use custom render function if provided
             if (col.render) {
                 return col.render(value as T[Exclude<keyof T, SubRowKey>], row.original as T);
             }
 
-            const Component = col.type;
-            if (!Component) {
-                return value as CellValue;
-            }
-
-            return renderCustomCell(Component, value);
+            // Fallback: return raw value as ReactNode
+            return value as React.ReactNode;
         }
     }));
 };

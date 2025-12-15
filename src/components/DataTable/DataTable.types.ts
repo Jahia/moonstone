@@ -1,92 +1,178 @@
-import React, {ReactNode} from 'react';
+import React from 'react';
 import type {Row} from '@tanstack/react-table';
 
 export type SubRowKey = 'subRows';
 
-export type CellContent = {
-    label: string; // Text content
-    iconStart?: React.ReactElement; // Icon before text
-    iconEnd?: React.ReactElement; // Icon after text
-};
-
-export type CellValue =
-    | string
-    | number
-    | Date
-    | ReactNode
-    | CellContent
-    | null
-    | undefined;
-
-// Props received by cell renderer components
-export interface CellProps<T = unknown> {
-    value: T; // Cell value
-    locale?: string; // Locale for formatting
-}
-
-export type ColumnType = React.ComponentType<CellProps<CellValue>>;
-
 export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children' | 'className'> & {
-    component?: string; // HTML element to render as
-    className?: string; // Additional CSS class
-    children: React.ReactNode; // Table content
+    /**
+     * Which html element to render the table as
+     */
+    component?: string;
+
+    /**
+     * Additional classname
+     */
+    className?: string;
+
+    /**
+     * The content of the table
+     */
+    children: React.ReactNode;
 };
 
-// Column definition for DataTable
 export type DataTableColumn<T extends NonNullable<unknown>> = {
-    key: Exclude<keyof T, SubRowKey>; // Data property key
-    label: string; // Header label
-    type?: ColumnType; // Cell renderer component
-    render?: (value: T[Exclude<keyof T, SubRowKey>], row: T) => React.ReactNode; // Custom render function
-    isSortable?: boolean; // Enable sorting
-    sortFn?: (a: T, b: T) => number; // Custom sort function
-    align?: 'left' | 'center' | 'right'; // Content alignment
+    /**
+     * The key of the data property to display in this column
+     */
+    key: Exclude<keyof T, SubRowKey>;
+
+    /**
+     * The label to display in the column header
+     */
+    label: string;
+
+    /**
+     * Optional custom render function for the cell content
+     * @param value - The value of the cell
+     * @param row - The entire row data
+     */
+    render?: (value: T[Exclude<keyof T, SubRowKey>], row: T) => React.ReactNode;
+
+    /**
+     * Whether this column can be sorted
+     */
+    isSortable?: boolean;
+
+    /**
+     * Custom sort function for the column
+     */
+    sortFn?: (a: T, b: T) => number;
+
+    /**
+     * Content alignment for the column
+     */
+    align?: 'left' | 'center' | 'right';
 };
 
-// Base props for DataTable
 export type DataTableBaseProps<T extends NonNullable<unknown>> = {
-    data: T[]; // Table data
-    columns: ReadonlyArray<DataTableColumn<T>>; // Column definitions
-    isStructured?: boolean; // Enable tree view
-    enableSorting?: boolean; // Enable sorting
-    defaultSortBy?: Exclude<keyof T, SubRowKey>; // Initial sort column
-    defaultSortDirection?: 'ascending' | 'descending'; // Initial sort direction
+    /**
+     * Define which key is used as primary key for each row
+     * @todo Will be required in a future version
+     */
+    primaryKey?: Exclude<keyof T, SubRowKey>;
+
+    /**
+     * The array of data to display in the table
+     */
+    data: T[];
+
+    /**
+     * The column definitions for the table
+     */
+    columns: ReadonlyArray<DataTableColumn<T>>;
+
+    /**
+     * Whether the table data has a hierarchical structure with subRows
+     */
+    isStructured?: boolean;
+
+    /**
+     * Callback fired when a table header cell is clicked
+     * @param columnId - The ID of the clicked column
+     */
+    onClickTableHeadCell?: (columnId: string) => void;
 };
 
-// Row selection props
+type SortingProps<T extends NonNullable<unknown>> = {
+    /**
+     * Enable sorting functionality
+     */
+    enableSorting?: boolean;
+
+    /**
+     * The key of the column to sort by initially
+     */
+    defaultSortBy?: Exclude<keyof T, SubRowKey>;
+
+    /**
+     * The direction of the initial sort
+     */
+    defaultSortDirection?: 'ascending' | 'descending';
+};
+
 type SelectionProps = {
-    enableSelection?: boolean; // Enable row selection
-    defaultSelection?: string[]; // Initially selected row IDs
-    onChangeSelection?: (selection: string[]) => void; // Selection change callback
+    /**
+     * Enable row selection functionality
+     */
+    enableSelection?: boolean;
+
+    /**
+     * Array of row IDs that should be selected by default
+     */
+    defaultSelection?: string[];
+
+    /**
+     * Callback fired when the selection changes
+     * @param selection - Array of selected row IDs
+     */
+    onChangeSelection?: (selection: string[]) => void;
 };
 
 // Actions column props
-type ActionsProps<T> =
-    | {
-          actions: (row: T) => React.ReactNode; // Render actions for row
-          actionsHeaderLabel?: string; // Actions column header
-      }
-    | {
-          actions?: never;
-          actionsHeaderLabel?: never;
-      };
+type ActionsProps<T> = {
+    /**
+     * Function to render action buttons for each row
+     * @param row - The row data
+     */
+    actions?: (row: T) => React.ReactNode;
+
+    /**
+     * The label for the actions column header
+     */
+    actionsHeaderLabel?: string;
+};
+
+// Custom row render props
+type RenderProps<T> = {
+    /**
+     * Custom render function for rows
+     * @param row - The row object from TanStack Table
+     * @param defaultRender - Function to render the default row content
+     */
+    renderRow?: (row: Row<T>, defaultRender: () => React.ReactNode) => React.ReactNode;
+};
 
 // Props passed to TableBodyCell for structured view support
 export type CellBodyProps = {
-    row?: unknown; // Row object
-    cell?: unknown; // Cell object
-    isExpandableColumn?: boolean; // Show expand/collapse
-    iconStart?: React.ReactElement; // Icon before content
-    textAlign?: 'left' | 'center' | 'right'; // Content alignment
-};
+    /**
+     * Row object with expansion methods
+     */
+    row?: unknown;
 
-// Custom render function props
-type RenderProps<T> = {
-    renderRow?: (row: Row<T>, defaultRender: () => React.ReactNode) => React.ReactNode; // Custom row render
+    /**
+     * Cell object from TanStack Table
+     */
+    cell?: unknown;
+
+    /**
+     * Whether this column shows expand/collapse controls
+     */
+    isExpandableColumn?: boolean;
+
+    /**
+     * Icon to display before content
+     */
+    iconStart?: React.ReactElement;
+
+    /**
+     * Content alignment
+     */
+    textAlign?: 'left' | 'center' | 'right';
 };
 
 export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'children'> &
     DataTableBaseProps<T> &
+    SortingProps<T> &
     SelectionProps &
     ActionsProps<T> &
     RenderProps<T>;

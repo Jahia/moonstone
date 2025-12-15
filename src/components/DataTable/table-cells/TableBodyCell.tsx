@@ -36,10 +36,14 @@ const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEleme
     const renderTableCell = () => {
         // These are cells that are in the expandable row (canExpand) and it is the column in
         // which the cells show the chevron icon to expand and collapse sub-rows (isExpandableColumn)
-        if (isExpandableColumn && row?.canExpand) {
+        if (isExpandableColumn && row?.getCanExpand?.()) {
             return (
-                <TableCell ref={ref} {...row?.getToggleRowExpandedProps({style: {marginLeft: `${leftMarginIndentDepth}px`}})}>
-                    {row?.isExpanded ?
+                <TableCell
+                    ref={ref}
+                    style={{marginLeft: `${leftMarginIndentDepth}px`, cursor: 'pointer'}}
+                    onClick={row?.getToggleExpandedHandler?.()}
+                >
+                    {row?.getIsExpanded?.() ?
                         <ChevronDown className="moonstone-marginRightNano"/> :
                         <ChevronRight className="moonstone-marginRightNano"/>}
                     {renderCellContent()}
@@ -52,7 +56,7 @@ const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEleme
         // but do not have the chevron to expand/collapse rows underneath them.
         // Also, a buffer of 20px is added so that they are aligned with the cells that do have
         // the chevron icons for expand/collapse
-        if (isExpandableColumn && !row?.canExpand) {
+        if (isExpandableColumn && !row?.getCanExpand?.()) {
             return (
                 <TableCell ref={ref} style={{marginLeft: `${leftMarginIndentDepth + leftMarginBuffer}px`}}>
                     {renderCellContent()}

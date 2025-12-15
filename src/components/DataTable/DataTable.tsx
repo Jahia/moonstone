@@ -12,9 +12,9 @@ import type {
     SortingState,
     Row
 } from '@tanstack/react-table';
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import {useState, useEffect, useMemo, useCallback} from 'react';
 
-import type { DataTableProps } from './DataTable.types';
+import type {DataTableProps} from './DataTable.types';
 import {
     Table,
     TableBody,
@@ -25,7 +25,7 @@ import {
     Checkbox,
     SortIndicator
 } from '~/index';
-import { createTableColumns } from './utils/DataTableColumnUtils';
+import {createTableColumns} from './utils/DataTableColumnUtils';
 
 type CustomColumnMeta = {
     isSortable?: boolean;
@@ -63,7 +63,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     const [sorting, setSorting] = useState<SortingState>(initialSorting);
     const [expanded, setExpanded] = useState<ExpandedState>({});
     const [rowSelection, setRowSelection] = useState<RowSelectionState>(() =>
-        defaultSelection.reduce((acc: Record<string, boolean>, key: string) => ({ ...acc, [key]: true }), {})
+        defaultSelection?.reduce((acc: Record<string, boolean>, key: string) => ({...acc, [key]: true}), {}) ?? {}
     );
 
     useEffect(() => {
@@ -99,8 +99,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
         }
     }, [data, isStructured, table]);
 
-    // Render row cells - cell content rendering is delegated to columns configuration (via render prop or type component)
-    // DataTable only handles the cell wrapper (TableBodyCell) and alignment
+    // Render row cells - cell content rendering is delegated to columns configuration (via render prop)
+    // DataTable handles the cell wrapper (TableBodyCell) with structured view props for expand/collapse
     const renderRowContent = useCallback(
         (row: Row<T>) => (
             <>
@@ -115,10 +115,29 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 )}
 
                 {/* Data cells - content comes from column.cell defined in createTableColumns */}
-                {row.getVisibleCells().map(cell => {
+                {row.getVisibleCells().map((cell, index) => {
                     const meta = cell.column.columnDef.meta as CustomColumnMeta | undefined;
+                    const isFirstColumn = index === 0;
+
+                    // Build structured view props for tree view support
+                    const structuredProps = isStructured && isFirstColumn ? {
+                        row: {
+                            canExpand: row.getCanExpand(),
+                            isExpanded: row.getIsExpanded(),
+                            depth: row.depth,
+                            getToggleRowExpandedProps: () => ({
+                                onClick: row.getToggleExpandedHandler()
+                            })
+                        },
+                        isExpandableColumn: true
+                    } : {};
+
                     return (
-                        <TableBodyCell key={cell.id} textAlign={meta?.align ?? 'left'}>
+                        <TableBodyCell
+                            key={cell.id}
+                            textAlign={meta?.align ?? 'left'}
+                            {...structuredProps}
+                        >
                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         </TableBodyCell>
                     );
@@ -128,7 +147,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 {actions && <TableBodyCell>{actions(row.original)}</TableBodyCell>}
             </>
         ),
-        [enableSelection, actions]
+        [enableSelection, actions, isStructured]
     );
 
     const renderRowWithCustomization = useCallback(
@@ -188,7 +207,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                             />
                                         ) : undefined
                                     }
-                                    style={{ cursor: isColumnSortable ? 'pointer' : 'default' }}
+                                    style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
                                     textAlign={alignment}
                                     onClick={
                                         isColumnSortable ?
