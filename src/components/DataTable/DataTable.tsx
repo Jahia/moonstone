@@ -10,12 +10,11 @@ import type {
     ExpandedState,
     RowSelectionState,
     SortingState,
-    Row,
-    Cell
+    Row
 } from '@tanstack/react-table';
-import {useState, useEffect, useMemo, useCallback} from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 
-import type {DataTableProps, CellBodyProps} from './DataTable.types';
+import type { DataTableProps } from './DataTable.types';
 import {
     Table,
     TableBody,
@@ -26,28 +25,11 @@ import {
     Checkbox,
     SortIndicator
 } from '~/index';
-import {createTableColumns} from './utils/DataTableColumnUtils';
+import { createTableColumns } from './utils/DataTableColumnUtils';
 
 type CustomColumnMeta = {
     isSortable?: boolean;
     align?: 'left' | 'center' | 'right';
-};
-
-const adaptRowForTableBodyCell = <T extends NonNullable<unknown>>(row: Row<T>) => ({
-    canExpand: row.getCanExpand(),
-    isExpanded: row.getIsExpanded(),
-    depth: row.depth,
-    getToggleRowExpandedProps: () => ({
-        onClick: row.getToggleExpandedHandler()
-    })
-});
-
-const extractIconFromCell = (cellValue: unknown): React.ReactElement | undefined => {
-    if (cellValue && typeof cellValue === 'object' && 'icon' in cellValue) {
-        return (cellValue as { icon?: React.ReactElement }).icon;
-    }
-
-    return undefined;
 };
 
 export const DataTable = <T extends NonNullable<unknown>>({
@@ -81,7 +63,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     const [sorting, setSorting] = useState<SortingState>(initialSorting);
     const [expanded, setExpanded] = useState<ExpandedState>({});
     const [rowSelection, setRowSelection] = useState<RowSelectionState>(() =>
-        defaultSelection.reduce((acc: Record<string, boolean>, key: string) => ({...acc, [key]: true}), {})
+        defaultSelection.reduce((acc: Record<string, boolean>, key: string) => ({ ...acc, [key]: true }), {})
     );
 
     useEffect(() => {
@@ -117,73 +99,36 @@ export const DataTable = <T extends NonNullable<unknown>>({
         }
     }, [data, isStructured, table]);
 
-    const buildCellProps = useCallback(
-        (cell: Cell<T, unknown>, isFirstColumn: boolean): CellBodyProps => {
-            const iconStart = isFirstColumn ? extractIconFromCell(cell.getValue()) : undefined;
-            const meta = cell.column.columnDef.meta as CustomColumnMeta | undefined;
-            const alignment = meta?.align ?? 'left';
-            const adaptedRow = isStructured ? adaptRowForTableBodyCell(cell.row) : undefined;
-
-            return {
-                row: adaptedRow,
-                cell: cell,
-                isExpandableColumn: isStructured && isFirstColumn,
-                iconStart,
-                textAlign: alignment
-            };
-        },
-        [isStructured]
-    );
-
-    // Default cell renderer - returns the COMPLETE cell with all structured view props
-    const defaultCellRenderer = useCallback(
-        (cell: Cell<T, unknown>, isFirstColumn: boolean) => {
-            const cellProps = buildCellProps(cell, isFirstColumn);
-
-            return (
-                <TableBodyCell
-                    key={cell.id}
-                    row={cellProps.row as never}
-                    cell={cellProps.cell as never}
-                    isExpandableColumn={cellProps.isExpandableColumn}
-                    iconStart={cellProps.iconStart}
-                    textAlign={cellProps.textAlign}
-                >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </TableBodyCell>
-            );
-        },
-        [buildCellProps]
-    );
-
-    const renderCellForRow = useCallback(
-        (cell: Cell<T, unknown>, index: number) => {
-            const isFirstColumn = index === 0;
-            return defaultCellRenderer(cell, isFirstColumn);
-        },
-        [defaultCellRenderer]
-    );
-
+    // Render row cells - cell content rendering is delegated to columns configuration (via render prop or type component)
+    // DataTable only handles the cell wrapper (TableBodyCell) and alignment
     const renderRowContent = useCallback(
-        (row: Row<T>) => {
-            return (
-                <>
-                    {enableSelection && (
-                        <TableBodyCell width="52px">
-                            <Checkbox
-                                checked={row.getIsSelected()}
-                                onChange={row.getToggleSelectedHandler()}
-                            />
+        (row: Row<T>) => (
+            <>
+                {/* Selection checkbox cell */}
+                {enableSelection && (
+                    <TableBodyCell width="52px">
+                        <Checkbox
+                            checked={row.getIsSelected()}
+                            onChange={row.getToggleSelectedHandler()}
+                        />
+                    </TableBodyCell>
+                )}
+
+                {/* Data cells - content comes from column.cell defined in createTableColumns */}
+                {row.getVisibleCells().map(cell => {
+                    const meta = cell.column.columnDef.meta as CustomColumnMeta | undefined;
+                    return (
+                        <TableBodyCell key={cell.id} textAlign={meta?.align ?? 'left'}>
+                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         </TableBodyCell>
-                    )}
+                    );
+                })}
 
-                    {row.getVisibleCells().map((cell, index) => renderCellForRow(cell, index))}
-
-                    {actions && <TableBodyCell>{actions(row.original)}</TableBodyCell>}
-                </>
-            );
-        },
-        [enableSelection, actions, renderCellForRow]
+                {/* Actions cell */}
+                {actions && <TableBodyCell>{actions(row.original)}</TableBodyCell>}
+            </>
+        ),
+        [enableSelection, actions]
     );
 
     const renderRowWithCustomization = useCallback(
@@ -243,7 +188,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                             />
                                         ) : undefined
                                     }
-                                    style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
+                                    style={{ cursor: isColumnSortable ? 'pointer' : 'default' }}
                                     textAlign={alignment}
                                     onClick={
                                         isColumnSortable ?

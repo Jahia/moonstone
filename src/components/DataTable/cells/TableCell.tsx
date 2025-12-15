@@ -1,21 +1,17 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import type {TableCellProps} from './TableCell.types';
-import {renderCellContent} from '../utils/tableCellUtils';
-import {capitalize} from '~/utils/helpers';
+import type { TableCellProps } from './TableCell.types';
+import { capitalize } from '~/utils/helpers';
 import './TableCell.scss';
 
 /**
  * Base table cell component.
  *
- * Usage 1: Custom cells (TableCellNumber, TableCellDate, TableCellChips)
- *          pass pre-formatted content as children → renders children directly.
- *
- * Usage 2: Direct usage with value prop → calls renderCellContent() to format.
+ * Usage 1: Direct usage with children prop → renders children directly.
  */
 const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellProps> = (
-    {className, children, value, textAlign, ...props},
+    { className, children, textAlign, ...props },
     ref
 ) => {
     return (
@@ -28,8 +24,8 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
             )}
             {...props}
         >
-            {/* If children provided, use it; otherwise format value via utility */}
-            {children ?? renderCellContent(value)}
+            {/* If children provided, use it; otherwise show "-" */}
+            {children ?? "-"}
         </td>
     );
 };

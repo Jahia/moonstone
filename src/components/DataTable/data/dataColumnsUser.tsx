@@ -1,7 +1,7 @@
 import React from 'react';
-import type {DataTableColumn} from '../DataTable.types';
-import {Chip} from '~/index';
-import {numberColumn, dateColumn, chipsColumn, stringOrObjectColumn} from '../utils/columnHelpers';
+import type { DataTableColumn } from '../DataTable.types';
+import { Chip } from '~/index';
+import { numberColumn, dateColumn, chipsColumn, stringOrObjectColumn } from '../utils/columnHelpers';
 
 export type dataUser = {
     firstName: string | { value: string; icon?: React.ReactElement };
@@ -50,7 +50,7 @@ export const dataColumnsUser: DataTableColumn<dataUser>[] = [
     {
         key: 'date',
         label: 'Last Login',
-        ...dateColumn<dataUser>(row => row.date, {locale: 'fr-FR'}), // Can use the locale option to format the date
+        ...dateColumn<dataUser>(row => row.date, { locale: 'fr-FR' }), // Can use the locale option to format the date
         align: 'right' // You can align the content of the cell
     }
 ];

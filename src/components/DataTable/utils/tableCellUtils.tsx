@@ -1,5 +1,5 @@
 import React from 'react';
-import type {CellContent} from '../DataTable.types';
+import type { CellContent } from '../DataTable.types';
 
 type CellValue = string | number | Date | CellContent | { value: string; icon?: React.ReactElement } | null | undefined;
 
@@ -23,14 +23,21 @@ export const renderCellContent = (value: CellValue): React.ReactNode => {
     // CellContent: { label, iconStart?, iconEnd? }
     if (typeof value === 'object' && value !== null && 'label' in value) {
         const content = value as CellContent;
+        // Return early if no content to render
+        if (!content.label && !content.iconStart && !content.iconEnd) {
+            return '-';
+        }
+
         return (
             <>
                 {content.iconStart && (
                     <span className="moonstone-icon-start">{content.iconStart}</span>
                 )}
-                <div className="flexCol">
-                    <span className="moonstone-text-primary">{content.label}</span>
-                </div>
+                {content.label && (
+                    <div className="flexCol">
+                        <span className="moonstone-text-primary">{content.label}</span>
+                    </div>
+                )}
                 {content.iconEnd && <> {content.iconEnd} </>}
             </>
         );
