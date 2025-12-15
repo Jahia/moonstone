@@ -51,7 +51,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
         if (defaultSortBy) {
             return [
                 {
-                    id: defaultSortBy as string,
+                    id: defaultSortBy,
                     desc: defaultSortDirection === 'descending'
                 }
             ];
@@ -63,7 +63,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     const [sorting, setSorting] = useState<SortingState>(initialSorting);
     const [expanded, setExpanded] = useState<ExpandedState>({});
     const [rowSelection, setRowSelection] = useState<RowSelectionState>(() =>
-        defaultSelection?.reduce((acc: Record<string, boolean>, key: string) => ({...acc, [key]: true}), {}) ?? {}
+        defaultSelection?.reduce((acc, key: string) => ({...acc, [key]: true}), {}) ?? {}
     );
 
     useEffect(() => {

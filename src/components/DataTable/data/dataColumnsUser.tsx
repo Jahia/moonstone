@@ -1,6 +1,6 @@
 import React from 'react';
 import type {DataTableColumn} from '../DataTable.types';
-import {Chip} from '~/index';
+import {Chip} from '~/components';
 import {numberColumn, dateColumn, chipsColumn, stringOrObjectColumn} from '../utils/columnHelpers';
 
 export type dataUser = {

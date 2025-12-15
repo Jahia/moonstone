@@ -20,7 +20,7 @@ export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children
     children: React.ReactNode;
 };
 
-export type DataTableColumn<T extends NonNullable<unknown>> = {
+export type DataTableColumn<T> = {
     /**
      * The key of the data property to display in this column
      */
@@ -54,7 +54,7 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
     align?: 'left' | 'center' | 'right';
 };
 
-export type DataTableBaseProps<T extends NonNullable<unknown>> = {
+export type DataTableBaseProps<T> = {
     /**
      * Define which key is used as primary key for each row
      * @todo Will be required in a future version
@@ -83,22 +83,39 @@ export type DataTableBaseProps<T extends NonNullable<unknown>> = {
     onClickTableHeadCell?: (columnId: string) => void;
 };
 
-type SortingProps<T extends NonNullable<unknown>> = {
-    /**
-     * Enable sorting functionality
-     */
-    enableSorting?: boolean;
+type SortingProps<T> =
+    | {
+          /**
+           * Enable sorting functionality
+           */
+          enableSorting: true;
 
-    /**
-     * The key of the column to sort by initially
-     */
-    defaultSortBy?: Exclude<keyof T, SubRowKey>;
+          /**
+           * The key of the column to sort by initially
+           */
+          defaultSortBy?: Extract<Exclude<keyof T, SubRowKey>, string>;
 
-    /**
-     * The direction of the initial sort
-     */
-    defaultSortDirection?: 'ascending' | 'descending';
-};
+          /**
+           * The direction of the initial sort
+           */
+          defaultSortDirection?: 'ascending' | 'descending';
+      }
+    | {
+          /**
+           * Enable sorting functionality
+           */
+          enableSorting?: false;
+
+          /**
+           * The key of the column to sort by initially
+           */
+          defaultSortBy?: never;
+
+          /**
+           * The direction of the initial sort
+           */
+          defaultSortDirection?: never;
+      };
 
 type SelectionProps = {
     /**
@@ -170,7 +187,7 @@ export type CellBodyProps = {
     textAlign?: 'left' | 'center' | 'right';
 };
 
-export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'children'> &
+export type DataTableProps<T> = Omit<TableProps, 'children'> &
     DataTableBaseProps<T> &
     SortingProps<T> &
     SelectionProps &

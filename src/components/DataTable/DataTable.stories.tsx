@@ -2,8 +2,9 @@ import {dataTable} from './data/TableData';
 import {dataColumnsUser} from './data/dataColumnsUser';
 import type {dataUser} from './data/dataColumnsUser';
 import {DataTable} from './DataTable';
-import {TableRow, MoreVert} from '~/index';
 import type {Meta, StoryObj} from '@storybook/react';
+import {TableRow} from '~/components';
+import {MoreVert} from '~/icons';
 
 export default {
     title: 'Components/DataTable',

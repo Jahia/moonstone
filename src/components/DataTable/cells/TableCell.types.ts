@@ -73,9 +73,4 @@ export type TableCellProps<TData = unknown> = Omit<React.ComponentPropsWithRef<'
      */
     isScrollable?: boolean;
 
-    /**
-     * The value to display in the cell.
-     * Can be a string, number, Date, or CellContent object.
-     */
-
 };
