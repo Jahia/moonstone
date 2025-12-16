@@ -1,12 +1,12 @@
 import {TableCell} from './TableCell';
+import type {TableCellProps} from './TableCell.types';
 
-type Props = {
+type Props = TableCellProps & {
     readonly value: Date | string | null | undefined;
-    readonly className?: string;
     readonly locale?: string;
 };
 
-export const TableCellDate = ({value, className, locale}: Props) => {
+export const TableCellDate = ({value, className, locale, ...props}: Props) => {
     const formatDate = () => {
         if (value === null || value === undefined) {
             return '-';
@@ -22,7 +22,7 @@ export const TableCellDate = ({value, className, locale}: Props) => {
     };
 
     return (
-        <TableCell className={className}>
+        <TableCell className={className} {...props}>
             {formatDate()}
         </TableCell>
     );

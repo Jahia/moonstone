@@ -20,7 +20,7 @@ export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children
     children: React.ReactNode;
 };
 
-export type DataTableColumn<T> = {
+export type DataTableColumn<T extends NonNullable<unknown>> = {
     /**
      * The key of the data property to display in this column
      */
@@ -54,7 +54,7 @@ export type DataTableColumn<T> = {
     align?: 'left' | 'center' | 'right';
 };
 
-export type DataTableBaseProps<T> = {
+export type DataTableBaseProps<T extends NonNullable<unknown>> = {
     /**
      * Define which key is used as primary key for each row
      * @todo Will be required in a future version
@@ -83,7 +83,7 @@ export type DataTableBaseProps<T> = {
     onClickTableHeadCell?: (columnId: string) => void;
 };
 
-type SortingProps<T> =
+type SortingProps<T extends NonNullable<unknown>> =
     | {
           /**
            * Enable sorting functionality
@@ -117,26 +117,43 @@ type SortingProps<T> =
           defaultSortDirection?: never;
       };
 
-type SelectionProps = {
-    /**
-     * Enable row selection functionality
-     */
-    enableSelection?: boolean;
+type SelectionProps =
+    | {
+          /**
+           * Enable row selection functionality
+           */
+          enableSelection: true;
 
-    /**
-     * Array of row IDs that should be selected by default
-     */
-    defaultSelection?: string[];
+          /**
+           * Array of row IDs that should be selected by default
+           */
+          defaultSelection?: string[];
 
-    /**
-     * Callback fired when the selection changes
-     * @param selection - Array of selected row IDs
-     */
-    onChangeSelection?: (selection: string[]) => void;
-};
+          /**
+           * Callback fired when the selection changes
+           * @param selection - Array of selected row IDs
+           */
+          onChangeSelection?: (selection: string[]) => void;
+      }
+    | {
+          /**
+           * Enable row selection functionality
+           */
+          enableSelection?: false;
+
+          /**
+           * Array of row IDs that should be selected by default
+           */
+          defaultSelection?: never;
+
+          /**
+           * Callback fired when the selection changes
+           */
+          onChangeSelection?: never;
+      };
 
 // Actions column props
-type ActionsProps<T> = {
+type ActionsProps<T extends NonNullable<unknown>> = {
     /**
      * Function to render action buttons for each row
      * @param row - The row data
@@ -150,7 +167,7 @@ type ActionsProps<T> = {
 };
 
 // Custom row render props
-type RenderProps<T> = {
+type RenderRowProps<T extends NonNullable<unknown>> = {
     /**
      * Custom render function for rows
      * @param row - The row object from TanStack Table
@@ -159,37 +176,9 @@ type RenderProps<T> = {
     renderRow?: (row: Row<T>, defaultRender: () => React.ReactNode) => React.ReactNode;
 };
 
-// Props passed to TableBodyCell for structured view support
-export type CellBodyProps = {
-    /**
-     * Row object with expansion methods
-     */
-    row?: unknown;
-
-    /**
-     * Cell object from TanStack Table
-     */
-    cell?: unknown;
-
-    /**
-     * Whether this column shows expand/collapse controls
-     */
-    isExpandableColumn?: boolean;
-
-    /**
-     * Icon to display before content
-     */
-    iconStart?: React.ReactElement;
-
-    /**
-     * Content alignment
-     */
-    textAlign?: 'left' | 'center' | 'right';
-};
-
-export type DataTableProps<T> = Omit<TableProps, 'children'> &
+export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'children'> &
     DataTableBaseProps<T> &
     SortingProps<T> &
     SelectionProps &
     ActionsProps<T> &
-    RenderProps<T>;
+    RenderRowProps<T>;
