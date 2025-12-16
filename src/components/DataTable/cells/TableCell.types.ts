@@ -1,5 +1,5 @@
 import React from 'react';
-import type {Row, Cell} from '@tanstack/react-table';
+import type {Row} from '@tanstack/react-table';
 
 /**
  * Shared types used by both TableHeadCell and TableBodyCell.
