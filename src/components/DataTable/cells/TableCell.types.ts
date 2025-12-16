@@ -54,11 +54,6 @@ export type TableCellProps<TData = unknown> = Omit<React.ComponentPropsWithRef<'
     row?: Row<TData>;
 
     /**
-     * Cell object returned by TanStack Table instance.
-     */
-    cell?: Cell<TData, unknown>;
-
-    /**
      * Any styles to render inline
      */
     style?: React.CSSProperties;
