@@ -1,4 +1,5 @@
 import React from 'react';
+import type {Row} from '@tanstack/react-table';
 
 export type SubRowKey = 'subRows';
 
@@ -35,19 +36,30 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
      * @param value - The value of the cell
      * @param row - The entire row data
      */
-    render?: (value: Omit<T, SubRowKey>, row: T) => React.ReactNode;
+    render?: (value: T[Exclude<keyof T, SubRowKey>], row: T) => React.ReactNode;
 
     /**
      * Whether this column can be sorted
      */
     isSortable?: boolean;
-}
+
+    /**
+     * Custom sort function for the column
+     */
+    sortFn?: (a: T, b: T) => number;
+
+    /**
+     * Content alignment for the column
+     */
+    align?: 'left' | 'center' | 'right';
+};
 
 export type DataTableBaseProps<T extends NonNullable<unknown>> = {
     /**
      * Define which key is used as primary key for each row
+     * @todo Will be required in a future version
      */
-    primaryKey: Exclude<keyof T, SubRowKey>;
+    primaryKey?: Exclude<keyof T, SubRowKey>;
 
     /**
      * The array of data to display in the table
@@ -73,55 +85,100 @@ export type DataTableBaseProps<T extends NonNullable<unknown>> = {
 
 type SortingProps<T extends NonNullable<unknown>> =
     | {
-        /**
-         * Enable sorting functionality
-         */
-        enableSorting: true;
+          /**
+           * Enable sorting functionality
+           */
+          enableSorting: true;
 
-        /**
-         * The key of the column to sort by
-         */
-        sortBy: Exclude<keyof T, 'subRows'>;
+          /**
+           * The key of the column to sort by initially
+           */
+          defaultSortBy?: Extract<Exclude<keyof T, SubRowKey>, string>;
 
-        /**
-         * The direction of the sort
-         */
-        sortDirection?: 'ascending' | 'descending';
-    }
+          /**
+           * The direction of the initial sort
+           */
+          defaultSortDirection?: 'ascending' | 'descending';
+      }
     | {
-        /**
-         * Disable sorting functionality
-         */
-        enableSorting?: false;
-        sortBy?: never;
-        sortDirection?: never;
-    };
+          /**
+           * Enable sorting functionality
+           */
+          enableSorting?: false;
+
+          /**
+           * The key of the column to sort by initially
+           */
+          defaultSortBy?: never;
+
+          /**
+           * The direction of the initial sort
+           */
+          defaultSortDirection?: never;
+      };
 
 type SelectionProps =
     | {
-        /**
-         * Enable row selection functionality
-         */
-        enableSelection: true;
+          /**
+           * Enable row selection functionality
+           */
+          enableSelection: true;
 
-        /**
-         * Array of row IDs that should be selected by default
-         */
-        defaultSelection?: string[];
+          /**
+           * Array of row IDs that should be selected by default
+           */
+          defaultSelection?: string[];
 
-        /**
-         * Callback fired when the selection changes
-         * @param selection - Array of selected row IDs
-         */
-        onChangeSelection?: (selection: string[]) => void;
-    }
+          /**
+           * Callback fired when the selection changes
+           * @param selection - Array of selected row IDs
+           */
+          onChangeSelection?: (selection: string[]) => void;
+      }
     | {
-        /**
-         * Disable row selection functionality
-         */
-        enableSelection?: false;
-        defaultSelection?: never;
-        onChangeSelection?: never;
-    };
+          /**
+           * Enable row selection functionality
+           */
+          enableSelection?: false;
 
-export type DataTableProps<T extends NonNullable<unknown>> = TableProps & DataTableBaseProps<T> & SortingProps<T> & SelectionProps;
+          /**
+           * Array of row IDs that should be selected by default
+           */
+          defaultSelection?: never;
+
+          /**
+           * Callback fired when the selection changes
+           */
+          onChangeSelection?: never;
+      };
+
+// Actions column props
+type ActionsProps<T extends NonNullable<unknown>> = {
+    /**
+     * Function to render action buttons for each row
+     * @param row - The row data
+     */
+    actions?: (row: T) => React.ReactNode;
+
+    /**
+     * The label for the actions column header
+     */
+    actionsHeaderLabel?: string;
+};
+
+// Custom row render props
+type RenderRowProps<T extends NonNullable<unknown>> = {
+    /**
+     * Custom render function for rows
+     * @param row - The row object from TanStack Table
+     * @param defaultRender - Function to render the default row content
+     */
+    renderRow?: (row: Row<T>, defaultRender: () => React.ReactNode) => React.ReactNode;
+};
+
+export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'children'> &
+    DataTableBaseProps<T> &
+    SortingProps<T> &
+    SelectionProps &
+    ActionsProps<T> &
+    RenderRowProps<T>;

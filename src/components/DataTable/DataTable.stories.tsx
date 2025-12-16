@@ -1,8 +1,10 @@
-import {dataTable} from './data/dataTable';
-import {dataColumnsUser, type DataUserKeys} from './data/dataColumnsUser';
+import {dataTable} from './data/TableData';
+import {dataColumnsUser} from './data/dataColumnsUser';
+import type {dataUser} from './data/dataColumnsUser';
 import {DataTable} from './DataTable';
 import type {Meta, StoryObj} from '@storybook/react';
-import {useState} from 'react';
+import {TableRow} from '~/components';
+import {MoreVert} from '~/icons';
 
 export default {
     title: 'Components/DataTable',
@@ -14,152 +16,116 @@ export default {
     argTypes: {
         onChangeSelection: {action: 'onChangeSelection'}
     }
-} satisfies Meta<typeof DataTable>;
+} satisfies Meta<typeof DataTable<dataUser>>;
 
-type Story = StoryObj<typeof DataTable>;
+type Story = StoryObj<typeof DataTable<dataUser>>;
 
 export const EmptyDataTable: Story = {
-    render: args => (
-        <DataTable
-            {...args}
-            data={[]}
-            columns={dataColumnsUser}
-        />
-    ),
-    name: 'EmptyDataTable'
-};
-
-export const MoonstoneDataTable: Story = {
-    render: args => (
-        <DataTable
-            {...args}
-            data={dataTable}
-            columns={dataColumnsUser}
-        />
-    ),
-    name: 'DataTable'
-};
-
-export const StructuredViewDataTable: Story = {
-    render: args => (
-        <DataTable
-            {...args}
-            data={dataTable}
-            columns={dataColumnsUser}
-        />
-    ),
-    args: {
-        isStructured: true
+    render: args => {
+        return <DataTable<dataUser> {...args}/>;
     },
-    name: 'Structured View'
+    args: {
+        data: [],
+        columns: dataColumnsUser
+    },
+    name: 'Empty DataTable'
+};
+
+export const BasicDataTable: Story = {
+    render: args => {
+        return <DataTable<dataUser> {...args}/>;
+    },
+    args: {
+        data: dataTable,
+        columns: dataColumnsUser
+    },
+    name: 'Basic DataTable'
+};
+
+export const DefaultSortDataTable: Story = {
+    render: args => {
+        return <DataTable<dataUser> {...args}/>;
+    },
+    args: {
+        data: dataTable,
+        columns: dataColumnsUser,
+        enableSorting: true,
+        defaultSortBy: 'progress',
+        defaultSortDirection: 'descending'
+    },
+    name: 'Default Sort Applied'
 };
 
 export const SelectableDataTable: Story = {
-    render: args => (
-        <DataTable
-            {...args}
-            enableSorting
-            sortBy={args.sortBy}
-            data={dataTable}
-            columns={dataColumnsUser}
-        />
-    ),
+    render: args => {
+        return <DataTable<dataUser> {...args}/>;
+    },
     args: {
-        enableSorting: true,
+        data: dataTable,
+        columns: dataColumnsUser,
         enableSelection: true
     },
     name: 'Selectable Rows'
 };
 
-export const SelectableStructuredDataTable: Story = {
-    render: args => (
-        <DataTable
-            {...args}
-            sortBy={args.sortBy}
-            data={dataTable}
-            columns={dataColumnsUser}
-        />
-    ),
-    args: {
-        enableSelection: true,
-        isStructured: true
-    },
-    name: 'Selectable and structured table view'
-};
-
 export const DefaultSelectionDataTable: Story = {
-    render: args => (
-        <DataTable
-            {...args}
-            sortBy={args.sortBy}
-            data={dataTable}
-            columns={dataColumnsUser}
-        />
-    ),
+    render: args => {
+        return <DataTable<dataUser> {...args}/>;
+    },
     args: {
+        data: dataTable,
+        columns: dataColumnsUser,
         enableSelection: true,
         defaultSelection: ['0', '2', '4']
     },
     name: 'Default Selection'
 };
 
-export const SortableDataTable: Story = {
+export const StructuredViewDataTable: Story = {
     render: args => {
-        const [sortBy, setSortBy] = useState<DataUserKeys>(args.sortBy);
-        const [sortDirection, setSortDirection] = useState<'ascending' | 'descending' | undefined>(args.sortDirection);
-
-        const handleHeaderClick = (columnId: DataUserKeys) => {
-            if (sortBy === columnId) {
-                setSortDirection(prev => prev === 'ascending' ? 'descending' : 'ascending');
-            } else {
-                setSortBy(columnId);
-                setSortDirection('ascending');
-            }
-        };
-
-        return (
-            <DataTable
-                {...args}
-                enableSorting
-                sortBy={sortBy}
-                sortDirection={sortDirection}
-                data={dataTable}
-                columns={dataColumnsUser}
-                onClickTableHeadCell={handleHeaderClick}
-            />
-        );
+        return <DataTable<dataUser> {...args}/>;
     },
-    name: 'Sortable Table'
+    args: {
+        data: dataTable,
+        columns: dataColumnsUser,
+        isStructured: true
+    },
+    name: 'Structured View'
 };
 
 export const AllFeaturesTable: Story = {
     render: args => {
-        const [sortBy, setSortBy] = useState<DataUserKeys>(args.sortBy);
-        const [sortDirection, setSortDirection] = useState<'ascending' | 'descending' | undefined>(args.sortDirection);
-
-        const handleHeaderClick = (columnId: DataUserKeys) => {
-            if (sortBy === columnId) {
-                setSortDirection(prev => prev === 'ascending' ? 'descending' : 'ascending');
-            } else {
-                setSortBy(columnId);
-                setSortDirection('ascending');
-            }
-        };
-
         return (
-            <DataTable
+            <DataTable<dataUser>
                 {...args}
-                enableSelection
-                isStructured
-                enableSorting
-                defaultSelection={['0', '2']}
-                sortBy={sortBy}
-                sortDirection={sortDirection}
-                data={dataTable}
-                columns={dataColumnsUser}
-                onClickTableHeadCell={handleHeaderClick}
+                actions={row => (
+                    <MoreVert onClick={() => console.log(`${row.age}`)}/>
+                )}
+                actionsHeaderLabel=""
+                renderRow={(row, defaultRender) => (
+                    <TableRow
+                        key={row.id}
+                        style={{
+                            backgroundColor: row.getIsSelected() ?
+                                'rgba(0, 100, 255, 0.1)' :
+                                undefined
+                        }}
+                    >
+                        {defaultRender()}
+                    </TableRow>
+                )}
             />
         );
     },
-    name: 'All features Table'
+    args: {
+        data: dataTable,
+        columns: dataColumnsUser,
+        enableSelection: true,
+        isStructured: true,
+        enableSorting: true,
+        defaultSelection: ['0', '2'],
+        defaultSortBy: 'progress',
+        defaultSortDirection: 'descending'
+    },
+    name: 'All Features Combined'
 };

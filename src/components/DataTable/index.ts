@@ -1,4 +1,4 @@
-export * from './DataTable';
+export * from './utils/DataTableColumnUtils';
 export * from './SortIndicator';
 export * from './TableRow';
 export * from './table-cells';

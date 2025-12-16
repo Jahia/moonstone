@@ -1,8 +1,10 @@
 import React from 'react';
-import type {UseExpandedRowProps, Row, Cell} from 'react-table';
+import type {Row, Cell} from '@tanstack/react-table';
 
-// Shared types used by both TableHeadCell and TableBodyCell
-export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'children'| 'className' | 'width'> & {
+/**
+ * Shared types used by both TableHeadCell and TableBodyCell.
+ */
+export type TableCellProps<TData = unknown> = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'children'| 'className' | 'width'> & {
     /**
      * Additional classname
      */
@@ -45,14 +47,16 @@ export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'chi
     isExpandableColumn?: boolean;
 
     /**
-     * Row object returned by react-table instance
+     * Row object returned by TanStack Table instance.
+     * TanStack Table (v8) Row includes all expansion methods built-in
+     * (getCanExpand, getIsExpanded, getToggleExpandedHandler, depth).
      */
-    row?: UseExpandedRowProps<Row>;
+    row?: Row<TData>;
 
     /**
-     * Cell object returned by react-table instance
+     * Cell object returned by TanStack Table instance.
      */
-    cell?: Cell;
+    cell?: Cell<TData, unknown>;
 
     /**
      * Any styles to render inline
@@ -68,4 +72,5 @@ export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'chi
      * Indicates if the cell is scrollable on hover
      */
     isScrollable?: boolean;
+
 };

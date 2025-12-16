@@ -1,10 +1,10 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import {TableCellProps} from './TableCell.types';
+import {TableCellProps} from '../cells/TableCell.types';
 import {Typography} from '~/components';
 import {capitalize} from '~/utils/helpers';
-import {TableCell} from './TableCell';
+import {TableCell} from '../cells/TableCell';
 
 export const TableHeadCell: React.FC<TableCellProps> = ({
     component = 'th',
