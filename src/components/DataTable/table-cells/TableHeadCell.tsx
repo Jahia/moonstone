@@ -1,42 +1,40 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
 import clsx from 'clsx';
-
-import {TableCellProps} from '../cells/TableCell.types';
-import {Typography} from '~/components';
-import {capitalize} from '~/utils/helpers';
+import './TableHeadCell.scss';
+import type {TableHeadCellProps} from './TableHeadCell.types';
 import {TableCell} from '../cells/TableCell';
+import {renderSortIcon} from '../utils/TableHeadCellUtils';
 
-export const TableHeadCell: React.FC<TableCellProps> = ({
-    component = 'th',
+export const TableHeadCell: React.FC<TableHeadCellProps> = ({
     width,
     textAlign = 'left',
-    verticalAlign = 'center',
+    verticalAlign = 'middle',
     className,
     iconStart,
     iconEnd,
     children,
+    sortDirection,
+    isSorted = false,
+    onClick,
+    style,
     ...props
 }) => {
     return (
-        <Typography
+        <TableCell
             {...props}
-            className={clsx(
-                {flexFluid: typeof width === 'undefined'},
-                'textAlign' + capitalize(textAlign),
-                'moonstone-verticalAlign' + capitalize(verticalAlign),
-                className
-            )}
-            component={component}
-            weight="bold"
-            variant="body"
-            style={{...props.style, width: width}}
+            component="th"
+            width={width}
+            textAlign={textAlign}
+            verticalAlign={verticalAlign}
+            className={clsx('moonstone-TableHeadCell', className)}
+            iconStart={iconStart}
+            iconEnd={iconEnd}
+            style={style}
+            onClick={onClick}
         >
-
-            <TableCell iconStart={iconStart} iconEnd={iconEnd}>
-                {children}
-            </TableCell>
-
-        </Typography>
+            {children}
+            {renderSortIcon({sortDirection, isSorted})}
+        </TableCell>
     );
 };
 

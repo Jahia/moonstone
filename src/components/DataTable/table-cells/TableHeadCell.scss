@@ -1,16 +1,22 @@
-.moonstone-SortIndicator {
+.moonstone-tableCellHead_sort {
+    margin-left: 2px;
+
     color: var(--color-gray_light);
+    vertical-align: middle;
 
     &:hover {
         color: var(--color-gray);
     }
 }
 
-.moonstone-SortIndicator-sorted {
+.moonstone-tableCellHead_sortActive {
     color: var(--color-accent);
 
     &:hover {
-        // at the moment, this is not being applied
         color: var(--color-accentDark);
     }
+}
+
+.moonstone-TableHeadCell {
+    font-weight: bold;
 }

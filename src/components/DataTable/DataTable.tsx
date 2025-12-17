@@ -12,20 +12,19 @@ import type {
     SortingState,
     Row
 } from '@tanstack/react-table';
-import {useState, useEffect, useMemo, useCallback} from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 
-import type {DataTableProps} from './DataTable.types';
+import type { DataTableProps } from './DataTable.types';
 import {
     Table,
     TableBody,
     TableHead,
-    TableHeadCell,
     TableRow,
-    Checkbox,
-    SortIndicator
+    Checkbox
 } from '~/index';
-import {TableCell} from './cells/TableCell';
-import {createTableColumns} from './utils/DataTableColumnUtils';
+import { TableCell } from './cells/TableCell';
+import { TableHeadCell } from './table-cells/TableHeadCell';
+import { createTableColumns } from './utils/DataTableColumnUtils';
 
 type CustomColumnMeta = {
     isSortable?: boolean;
@@ -44,7 +43,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
     defaultSelection = [],
     actions,
     actionsHeaderLabel = 'Actions',
-    renderRow
+    renderRow,
+    onClickTableHeadCell
 }: DataTableProps<T>) => {
     // Internal sorting state - fully managed by TanStack
     const initialSorting = useMemo<SortingState>(() => {
@@ -63,7 +63,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     const [sorting, setSorting] = useState<SortingState>(initialSorting);
     const [expanded, setExpanded] = useState<ExpandedState>({});
     const [rowSelection, setRowSelection] = useState<RowSelectionState>(() =>
-        defaultSelection?.reduce((acc, key) => ({...acc, [key]: true}), {}) ?? {}
+        defaultSelection?.reduce((acc, key) => ({ ...acc, [key]: true }), {}) ?? {}
     );
 
     useEffect(() => {
@@ -186,27 +186,25 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             return (
                                 <TableHeadCell
                                     key={header.id}
-                                    iconEnd={
+                                    isSorted={isColumnSortable && Boolean(sortDirection)}
+                                    sortDirection={
                                         isColumnSortable ? (
-                                            <SortIndicator
-                                                isSorted={Boolean(sortDirection)}
-                                                direction={
-                                                    sortDirection === 'asc' ?
-                                                        'ascending' :
-                                                        sortDirection === 'desc' ?
-                                                            'descending' :
-                                                            undefined
-                                                }
-                                            />
+                                            sortDirection === 'asc' ?
+                                                'ascending' :
+                                                sortDirection === 'desc' ?
+                                                    'descending' :
+                                                    'ascending'
                                         ) : undefined
                                     }
-                                    style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
+                                    style={{ cursor: isColumnSortable ? 'pointer' : 'default' }}
                                     textAlign={alignment}
-                                    onClick={
-                                        isColumnSortable ?
-                                            header.column.getToggleSortingHandler() :
-                                            undefined
-                                    }
+                                    onClick={e => {
+                                        if (isColumnSortable) {
+                                            header.column.getToggleSortingHandler()?.(e);
+                                        }
+
+                                        onClickTableHeadCell?.(header.id);
+                                    }}
                                 >
                                     {flexRender(header.column.columnDef.header, header.getContext())}
                                 </TableHeadCell>
