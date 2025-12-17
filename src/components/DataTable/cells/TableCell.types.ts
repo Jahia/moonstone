@@ -1,5 +1,5 @@
 import React from 'react';
-import type {Row, Cell} from '@tanstack/react-table';
+import type {Row} from '@tanstack/react-table';
 
 /**
  * Shared types used by both TableHeadCell and TableBodyCell.
@@ -52,11 +52,6 @@ export type TableCellProps<TData = unknown> = Omit<React.ComponentPropsWithRef<'
      * (getCanExpand, getIsExpanded, getToggleExpandedHandler, depth).
      */
     row?: Row<TData>;
-
-    /**
-     * Cell object returned by TanStack Table instance.
-     */
-    cell?: Cell<TData, unknown>;
 
     /**
      * Any styles to render inline

@@ -25,9 +25,32 @@
     padding-right: var(--spacing-medium);
     padding-left: var(--spacing-medium);
 
+    overflow-y: auto;
+
+    //noinspection CssUnknownProperty
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+        height: var(--spacing-nano);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--color-gray_light);
+    }
+
+    &:hover {
+        .moonstone-tableCellContent {
+            overflow: unset;
+        }
+    }
+
     // Manage the chevron spacing for the structured table
     .moonstone-marginRightNano {
         margin-right: var(--spacing-nano);
+    }
+
+    .moonstone-tableCellExpandable {
+        cursor: pointer;
     }
 }
 

@@ -18,13 +18,13 @@ import type {DataTableProps} from './DataTable.types';
 import {
     Table,
     TableBody,
-    TableBodyCell,
     TableHead,
     TableHeadCell,
     TableRow,
     Checkbox,
     SortIndicator
 } from '~/index';
+import {TableCell} from './cells/TableCell';
 import {createTableColumns} from './utils/DataTableColumnUtils';
 
 type CustomColumnMeta = {
@@ -63,7 +63,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     const [sorting, setSorting] = useState<SortingState>(initialSorting);
     const [expanded, setExpanded] = useState<ExpandedState>({});
     const [rowSelection, setRowSelection] = useState<RowSelectionState>(() =>
-        defaultSelection?.reduce((acc, key: string) => ({...acc, [key]: true}), {}) ?? {}
+        defaultSelection?.reduce((acc, key) => ({...acc, [key]: true}), {}) ?? {}
     );
 
     useEffect(() => {
@@ -106,12 +106,12 @@ export const DataTable = <T extends NonNullable<unknown>>({
             <>
                 {/* Selection checkbox cell */}
                 {enableSelection && (
-                    <TableBodyCell width="52px">
+                    <TableCell width="52px">
                         <Checkbox
                             checked={row.getIsSelected()}
                             onChange={row.getToggleSelectedHandler()}
                         />
-                    </TableBodyCell>
+                    </TableCell>
                 )}
 
                 {/* Data cells - content comes from column.cell defined in createTableColumns */}
@@ -121,30 +121,23 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
                     // Build structured view props for tree view support
                     const structuredProps = isStructured && isFirstColumn ? {
-                        row: {
-                            canExpand: row.getCanExpand(),
-                            isExpanded: row.getIsExpanded(),
-                            depth: row.depth,
-                            getToggleRowExpandedProps: () => ({
-                                onClick: row.getToggleExpandedHandler()
-                            })
-                        },
+                        row,
                         isExpandableColumn: true
                     } : {};
 
                     return (
-                        <TableBodyCell
+                        <TableCell
                             key={cell.id}
                             textAlign={meta?.align ?? 'left'}
                             {...structuredProps}
                         >
                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </TableBodyCell>
+                        </TableCell>
                     );
                 })}
 
                 {/* Actions cell */}
-                {actions && <TableBodyCell>{actions(row.original)}</TableBodyCell>}
+                {actions && <TableCell>{actions(row.original)}</TableCell>}
             </>
         ),
         [enableSelection, actions, isStructured]
