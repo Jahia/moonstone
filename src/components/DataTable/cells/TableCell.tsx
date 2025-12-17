@@ -38,7 +38,8 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
         if (row?.getCanExpand?.()) {
             return (
                 <div
-                    style={{marginLeft: `${leftMarginIndentDepth}px`, display: 'flex', alignItems: 'center', cursor: 'pointer'}}
+                    className="moonstone-tableCellExpandable flexRow_nowrap alignCenter"
+                    style={{marginLeft: `${leftMarginIndentDepth}px`}}
                     onClick={row.getToggleExpandedHandler()}
                 >
                     {row.getIsExpanded() ?

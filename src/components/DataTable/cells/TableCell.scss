@@ -48,6 +48,10 @@
     .moonstone-marginRightNano {
         margin-right: var(--spacing-nano);
     }
+
+    .moonstone-tableCellExpandable {
+        cursor: pointer;
+    }
 }
 
 .moonstone-verticalAlignTop {
