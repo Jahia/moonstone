@@ -12,9 +12,9 @@ import type {
     SortingState,
     Row
 } from '@tanstack/react-table';
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import {useState, useEffect, useMemo, useCallback} from 'react';
 
-import type { DataTableProps } from './DataTable.types';
+import type {DataTableProps} from './DataTable.types';
 import {
     Table,
     TableBody,
@@ -22,9 +22,9 @@ import {
     TableRow,
     Checkbox
 } from '~/index';
-import { TableCell } from './cells/TableCell';
-import { TableHeadCell } from './table-cells/TableHeadCell';
-import { createTableColumns } from './utils/DataTableColumnUtils';
+import {TableCell} from './cells/TableCell';
+import {TableHeadCell} from './table-cells/TableHeadCell';
+import {createTableColumns} from './utils/DataTableColumnUtils';
 
 type CustomColumnMeta = {
     isSortable?: boolean;
@@ -63,7 +63,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     const [sorting, setSorting] = useState<SortingState>(initialSorting);
     const [expanded, setExpanded] = useState<ExpandedState>({});
     const [rowSelection, setRowSelection] = useState<RowSelectionState>(() =>
-        defaultSelection?.reduce((acc, key) => ({ ...acc, [key]: true }), {}) ?? {}
+        defaultSelection?.reduce((acc, key) => ({...acc, [key]: true}), {}) ?? {}
     );
 
     useEffect(() => {
@@ -196,7 +196,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                                     'ascending'
                                         ) : undefined
                                     }
-                                    style={{ cursor: isColumnSortable ? 'pointer' : 'default' }}
+                                    style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
                                     textAlign={alignment}
                                     onClick={e => {
                                         if (isColumnSortable) {
