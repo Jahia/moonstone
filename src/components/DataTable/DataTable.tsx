@@ -19,12 +19,11 @@ import {
     Table,
     TableBody,
     TableHead,
-    TableHeadCell,
     TableRow,
-    Checkbox,
-    SortIndicator
+    Checkbox
 } from '~/index';
 import {TableCell} from './cells/TableCell';
+import {TableHeadCell} from './table-cells/TableHeadCell';
 import {createTableColumns} from './utils/DataTableColumnUtils';
 
 type CustomColumnMeta = {
@@ -44,7 +43,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
     defaultSelection = [],
     actions,
     actionsHeaderLabel = 'Actions',
-    renderRow
+    renderRow,
+    onClickTableHeadCell
 }: DataTableProps<T>) => {
     // Internal sorting state - fully managed by TanStack
     const initialSorting = useMemo<SortingState>(() => {
@@ -83,6 +83,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
         onSortingChange: setSorting,
         getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,
         enableSorting,
+        enableSortingRemoval: false, // Only toggle between asc/desc, no unsorted state
         onRowSelectionChange: setRowSelection,
         enableRowSelection: enableSelection,
         getCoreRowModel: getCoreRowModel(),
@@ -186,27 +187,19 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             return (
                                 <TableHeadCell
                                     key={header.id}
-                                    iconEnd={
-                                        isColumnSortable ? (
-                                            <SortIndicator
-                                                isSorted={Boolean(sortDirection)}
-                                                direction={
-                                                    sortDirection === 'asc' ?
-                                                        'ascending' :
-                                                        sortDirection === 'desc' ?
-                                                            'descending' :
-                                                            undefined
-                                                }
-                                            />
-                                        ) : undefined
-                                    }
+                                    sorting={isColumnSortable ? {
+                                        direction: sortDirection === 'desc' ? 'descending' : 'ascending',
+                                        isActive: Boolean(sortDirection)
+                                    } : undefined}
                                     style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
                                     textAlign={alignment}
-                                    onClick={
-                                        isColumnSortable ?
-                                            header.column.getToggleSortingHandler() :
-                                            undefined
-                                    }
+                                    onClick={e => {
+                                        if (isColumnSortable) {
+                                            header.column.getToggleSortingHandler()?.(e);
+                                        }
+
+                                        onClickTableHeadCell?.(header.id);
+                                    }}
                                 >
                                     {flexRender(header.column.columnDef.header, header.getContext())}
                                 </TableHeadCell>

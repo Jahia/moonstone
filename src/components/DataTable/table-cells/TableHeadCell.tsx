@@ -1,42 +1,59 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
+import {ArrowDown, ArrowUp} from '~/icons';
 import clsx from 'clsx';
-
-import {TableCellProps} from '../cells/TableCell.types';
-import {Typography} from '~/components';
-import {capitalize} from '~/utils/helpers';
+import './TableHeadCell.scss';
+import type {TableHeadCellProps} from './TableHeadCell.types';
 import {TableCell} from '../cells/TableCell';
 
-export const TableHeadCell: React.FC<TableCellProps> = ({
-    component = 'th',
+export const TableHeadCell: React.FC<TableHeadCellProps> = ({
     width,
     textAlign = 'left',
-    verticalAlign = 'center',
+    verticalAlign = 'middle',
     className,
     iconStart,
     iconEnd,
     children,
+    sorting,
+    onClick,
     ...props
 }) => {
+    const isSortable = Boolean(sorting);
+    const isActive = sorting?.isActive ?? false;
+
+    const sortClassName = isSortable && clsx(
+        'moonstone-tableCellHead_sort',
+        {'moonstone-tableCellHead_sortActive': isActive}
+    );
+
+    const SortIcon = isSortable ?
+        (sorting?.direction === 'descending' ? ArrowDown : ArrowUp) :
+        null;
+
+    const ariaSort = isSortable && isActive ? sorting?.direction : undefined;
+
     return (
-        <Typography
+        <TableCell
             {...props}
-            className={clsx(
-                {flexFluid: typeof width === 'undefined'},
-                'textAlign' + capitalize(textAlign),
-                'moonstone-verticalAlign' + capitalize(verticalAlign),
-                className
-            )}
-            component={component}
-            weight="bold"
-            variant="body"
-            style={{...props.style, width: width}}
+            component="th"
+            width={width}
+            textAlign={textAlign}
+            verticalAlign={verticalAlign}
+            className={clsx('moonstone-TableHeadCell', className)}
+            iconStart={iconStart}
+            iconEnd={iconEnd}
+            aria-sort={ariaSort}
+            onClick={onClick}
         >
-
-            <TableCell iconStart={iconStart} iconEnd={iconEnd}>
+            <span className="moonstone-TableHeadCell-content flexRow_nowrap alignCenter">
                 {children}
-            </TableCell>
-
-        </Typography>
+                {SortIcon && (
+                    <SortIcon
+                        aria-hidden="true"
+                        className={sortClassName}
+                    />
+                )}
+            </span>
+        </TableCell>
     );
 };
 
