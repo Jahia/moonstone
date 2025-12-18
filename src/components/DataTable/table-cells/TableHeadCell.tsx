@@ -13,17 +13,23 @@ export const TableHeadCell: React.FC<TableHeadCellProps> = ({
     iconStart,
     iconEnd,
     children,
-    sortDirection,
-    isSorted = false,
+    sorting,
     onClick,
     ...props
 }) => {
-    const sortClassName = sortDirection && clsx(
+    const isSortable = Boolean(sorting);
+    const isActive = sorting?.isActive ?? false;
+
+    const sortClassName = isSortable && clsx(
         'moonstone-tableCellHead_sort',
-        {'moonstone-tableCellHead_sortActive': isSorted}
+        {'moonstone-tableCellHead_sortActive': isActive}
     );
 
-    const SortIcon = sortDirection === 'descending' ? ArrowDown : sortDirection === 'ascending' ? ArrowUp : null;
+    const SortIcon = isSortable ?
+        (sorting?.direction === 'descending' ? ArrowDown : ArrowUp) :
+        null;
+
+    const ariaSort = isSortable && isActive ? sorting?.direction : undefined;
 
     return (
         <TableCell
@@ -35,13 +41,14 @@ export const TableHeadCell: React.FC<TableHeadCellProps> = ({
             className={clsx('moonstone-TableHeadCell', className)}
             iconStart={iconStart}
             iconEnd={iconEnd}
+            aria-sort={ariaSort}
             onClick={onClick}
         >
             <span className="moonstone-TableHeadCell-content flexRow_nowrap alignCenter">
                 {children}
                 {SortIcon && (
                     <SortIcon
-                        aria-label={`Icon for sorting in ${sortDirection} order`}
+                        aria-hidden="true"
                         className={sortClassName}
                     />
                 )}

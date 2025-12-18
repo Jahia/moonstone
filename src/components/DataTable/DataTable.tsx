@@ -83,6 +83,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
         onSortingChange: setSorting,
         getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,
         enableSorting,
+        enableSortingRemoval: false, // Only toggle between asc/desc, no unsorted state
         onRowSelectionChange: setRowSelection,
         enableRowSelection: enableSelection,
         getCoreRowModel: getCoreRowModel(),
@@ -186,16 +187,10 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             return (
                                 <TableHeadCell
                                     key={header.id}
-                                    isSorted={isColumnSortable && Boolean(sortDirection)}
-                                    sortDirection={
-                                        isColumnSortable ? (
-                                            sortDirection === 'asc' ?
-                                                'ascending' :
-                                                sortDirection === 'desc' ?
-                                                    'descending' :
-                                                    'ascending'
-                                        ) : undefined
-                                    }
+                                    sorting={isColumnSortable ? {
+                                        direction: sortDirection === 'desc' ? 'descending' : 'ascending',
+                                        isActive: Boolean(sortDirection)
+                                    } : undefined}
                                     style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
                                     textAlign={alignment}
                                     onClick={e => {

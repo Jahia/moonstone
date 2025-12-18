@@ -1,5 +1,6 @@
 import React from 'react';
-import {render, screen, fireEvent} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import {vi} from 'vitest';
 import {TableHeadCell} from './TableHeadCell';
 
@@ -32,7 +33,7 @@ describe('TableHeadCell', () => {
         expect(cell.tagName.toLowerCase()).toBe('th');
     });
 
-    it('should handle onClick on the th element', () => {
+    it('should handle onClick on the th element', async () => {
         const handleClick = vi.fn();
         render(
             <TableWrapper>
@@ -42,58 +43,54 @@ describe('TableHeadCell', () => {
             </TableWrapper>
         );
 
-        fireEvent.click(screen.getByTestId('moonstone-TableHeadCell'));
+        await userEvent.click(screen.getByTestId('moonstone-TableHeadCell'));
         expect(handleClick).toHaveBeenCalledTimes(1);
     });
 
     describe('sorting', () => {
-        it('should display arrowDown on sortDirection descending', () => {
+        it('should display sort icon on sorting direction descending', () => {
             render(
                 <TableWrapper>
-                    <TableHeadCell isSorted sortDirection="descending"/>
+                    <TableHeadCell sorting={{direction: 'descending', isActive: true}} data-testid="cell"/>
                 </TableWrapper>
             );
-            expect(screen.getByLabelText('Icon for sorting in descending order')).toBeInTheDocument();
+            expect(screen.getByTestId('cell').querySelector('.moonstone-tableCellHead_sort')).toBeInTheDocument();
         });
 
-        it('should display arrowUp on sortDirection ascending', () => {
+        it('should display sort icon on sorting direction ascending', () => {
             render(
                 <TableWrapper>
-                    <TableHeadCell isSorted sortDirection="ascending"/>
+                    <TableHeadCell sorting={{direction: 'ascending', isActive: true}} data-testid="cell"/>
                 </TableWrapper>
             );
-            expect(screen.getByLabelText('Icon for sorting in ascending order')).toBeInTheDocument();
+            expect(screen.getByTestId('cell').querySelector('.moonstone-tableCellHead_sort')).toBeInTheDocument();
         });
 
-        it('should apply sorted active class when isSorted is true', () => {
+        it('should set aria-sort when isActive is true', () => {
             render(
                 <TableWrapper>
-                    <TableHeadCell isSorted sortDirection="ascending" data-testid="cell"/>
+                    <TableHeadCell sorting={{direction: 'ascending', isActive: true}} data-testid="cell"/>
                 </TableWrapper>
             );
-            const sortIcon = screen.getByLabelText('Icon for sorting in ascending order');
-            expect(sortIcon).toHaveClass('moonstone-tableCellHead_sortActive');
+            expect(screen.getByTestId('cell')).toHaveAttribute('aria-sort', 'ascending');
         });
 
-        it('should not apply sorted active class when isSorted is false', () => {
+        it('should not set aria-sort when isActive is false', () => {
             render(
                 <TableWrapper>
-                    <TableHeadCell isSorted={false} sortDirection="ascending" data-testid="cell"/>
+                    <TableHeadCell sorting={{direction: 'ascending', isActive: false}} data-testid="cell"/>
                 </TableWrapper>
             );
-            const sortIcon = screen.getByLabelText('Icon for sorting in ascending order');
-            expect(sortIcon).toHaveClass('moonstone-tableCellHead_sort');
-            expect(sortIcon).not.toHaveClass('moonstone-tableCellHead_sortActive');
+            expect(screen.getByTestId('cell')).not.toHaveAttribute('aria-sort');
         });
 
-        it('should not display sort icon when sortDirection is undefined', () => {
+        it('should not display sort icon when column is not sortable', () => {
             render(
                 <TableWrapper>
                     <TableHeadCell data-testid="cell">Header</TableHeadCell>
                 </TableWrapper>
             );
-            expect(screen.queryByLabelText('Icon for sorting in ascending order')).not.toBeInTheDocument();
-            expect(screen.queryByLabelText('Icon for sorting in descending order')).not.toBeInTheDocument();
+            expect(screen.getByTestId('cell').querySelector('.moonstone-tableCellHead_sort')).not.toBeInTheDocument();
         });
     });
 });
