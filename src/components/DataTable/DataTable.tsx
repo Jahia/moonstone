@@ -24,7 +24,7 @@ import {
 } from '~/index';
 import {TableCell} from './cells/TableCell';
 import {TableHeadCell} from './table-cells/TableHeadCell';
-import {createTableColumns} from './utils/DataTableColumnUtils';
+import {createTableColumns} from './utils/tableHelpers';
 
 type CustomColumnMeta = {
     isSortable?: boolean;

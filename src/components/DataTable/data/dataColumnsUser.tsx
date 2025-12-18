@@ -1,7 +1,7 @@
 import React from 'react';
 import type {DataTableColumn} from '../DataTable.types';
 import {Chip} from '~/components';
-import {numberColumn, dateColumn, chipsColumn, stringOrObjectColumn} from '../utils/columnHelpers';
+import {numberColumn, dateColumn, chipsColumn, stringColumn} from '../utils';
 
 export type dataUser = {
     firstName: string | { value: string; icon?: React.ReactElement };
@@ -20,7 +20,7 @@ export const dataColumnsUser: DataTableColumn<dataUser>[] = [
     {
         key: 'firstName',
         label: 'User',
-        ...stringOrObjectColumn<dataUser>(row => row.firstName)
+        ...stringColumn<dataUser>(row => row.firstName)
     },
     {
         key: 'status',
