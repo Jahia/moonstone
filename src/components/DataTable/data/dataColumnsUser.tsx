@@ -1,10 +1,9 @@
-import React from 'react';
 import type {DataTableColumn} from '../DataTable.types';
 import {Chip} from '~/components';
 import {numberColumn, dateColumn, chipsColumn, stringColumn} from '../utils';
 
 export type dataUser = {
-    firstName: string | { value: string; icon?: React.ReactElement };
+    firstName: string;
     lastName: string;
     age: number;
     status: string;

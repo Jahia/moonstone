@@ -1,14 +1,6 @@
 import type {ColumnDef} from '@tanstack/react-table';
 import type {DataTableProps, SubRowKey} from '../DataTable.types';
 
-/**
- * Extract string value from a field that can be string or { value: string }.
- * Useful for sorting and comparison operations.
- */
-export const getCellValue = (value: string | { value: string }): string => {
-    return typeof value === 'string' ? value : value.value;
-};
-
 export const createTableColumns = <T extends Record<string, unknown>>(
     columns: DataTableProps<T>['columns']
 ): ColumnDef<T>[] => {

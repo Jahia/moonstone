@@ -3,9 +3,7 @@ import type {dataUser} from './dataColumnsUser';
 
 export const dataTable: dataUser[] = [
     {
-        firstName: {
-            value: 'Yacine'
-        },
+        firstName: 'Yacine',
         lastName: 'Bouklif',
         age: 26,
         status: 'Accept',
@@ -13,9 +11,7 @@ export const dataTable: dataUser[] = [
         date: new Date(),
         subRows: [
             {
-                firstName: {
-                    value: 'Sub-Yacine'
-                },
+                firstName: 'Sub-Yacine',
                 lastName: 'Bouklif Jr',
                 age: 5,
                 status: 'Offline',
@@ -25,9 +21,7 @@ export const dataTable: dataUser[] = [
         ]
     },
     {
-        firstName: {
-            value: 'Yacinator'
-        },
+        firstName: 'Yacinator',
         lastName: 'Bouklifator',
         age: 36,
         status: 'Busy',
