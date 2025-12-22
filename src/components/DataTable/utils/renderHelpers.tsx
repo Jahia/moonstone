@@ -1,19 +1,24 @@
 import React from 'react';
 import {Chip} from '~/index';
 
+export type LocaleOptions = {
+    locale?: string | string[];
+    localeOptions?: Intl.NumberFormatOptions | Intl.DateTimeFormatOptions;
+};
+
 export const renderString = (value: string): React.ReactNode => value;
 
 export const renderNumber = (
     value: number | null | undefined,
     locale?: string | string[],
-    options?: Intl.NumberFormatOptions
-): React.ReactNode => (value === null || value === undefined) ? null : value.toLocaleString(locale, options);
+    localeOptions?: Intl.NumberFormatOptions
+): React.ReactNode => (value === null || value === undefined) ? null : value.toLocaleString(locale, localeOptions);
 
 export const renderDate = (
     value: Date | null | undefined,
     locale?: string | string[],
-    options?: Intl.DateTimeFormatOptions
-): React.ReactNode => (value === null || value === undefined) ? null : value.toLocaleDateString(locale, options);
+    localeOptions?: Intl.DateTimeFormatOptions
+): React.ReactNode => (value === null || value === undefined) ? null : value.toLocaleDateString(locale, localeOptions);
 
 export const renderChips = (
     value: string[] | null | undefined
