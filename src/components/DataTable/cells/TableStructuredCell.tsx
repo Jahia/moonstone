@@ -1,10 +1,8 @@
 import React from 'react';
-import clsx from 'clsx';
-import {Typography} from '~/components';
 import {ChevronDown, ChevronRight} from '~/icons';
 
 import type {TableStructuredCellProps} from './TableStructuredCell.types';
-import {capitalize} from '~/utils/helpers';
+import {TableCell} from './TableCell';
 import './TableCell.scss';
 
 const leftMarginBuffer = 20; // Px
@@ -14,26 +12,21 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
         {
             className,
             children,
-            textAlign = 'left',
-            verticalAlign = 'center',
-            width,
-            isScrollable,
-            component = 'td',
             depth,
             isExpandable,
             isExpanded,
             onToggleExpand,
+            style,
             ...props
         },
         ref
     ) => {
         const leftMarginIndentDepth = depth * 20; // Px
-        const scrollableClass = isScrollable ? 'moonstone-tableCellContent' : '';
 
         const renderContent = () => {
             if (isExpandable) {
                 return (
-                    <div
+                    <span
                         className="moonstone-tableCellExpandable flexRow_nowrap alignCenter"
                         style={{marginLeft: `${leftMarginIndentDepth}px`}}
                         onClick={onToggleExpand}
@@ -43,39 +36,27 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                         ) : (
                             <ChevronRight className="moonstone-marginRightNano"/>
                         )}
-                        <span className={clsx('moonstone-tableCellContentWrapper', scrollableClass)}>
-                            {children ?? '-'}
-                        </span>
-                    </div>
+                        {children ?? '-'}
+                    </span>
                 );
             }
 
             return (
-                <div style={{marginLeft: `${leftMarginIndentDepth + leftMarginBuffer}px`}}>
-                    <span className={clsx('moonstone-tableCellContentWrapper', scrollableClass)}>
-                        {children ?? '-'}
-                    </span>
-                </div>
+                <span style={{marginLeft: `${leftMarginIndentDepth + leftMarginBuffer}px`}}>
+                    {children ?? '-'}
+                </span>
             );
         };
 
         return (
-            <Typography
+            <TableCell
                 ref={ref}
-                component={component}
-                variant="body"
-                className={clsx(
-                    'moonstone-TableCell',
-                    'textAlign' + capitalize(textAlign),
-                    'moonstone-verticalAlign' + capitalize(verticalAlign),
-                    {flexFluid: typeof width === 'undefined'},
-                    className
-                )}
-                style={{width}}
+                className={className}
+                style={style}
                 {...props}
             >
                 {renderContent()}
-            </Typography>
+            </TableCell>
         );
     }
 );

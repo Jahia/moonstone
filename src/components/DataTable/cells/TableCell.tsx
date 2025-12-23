@@ -14,6 +14,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
         verticalAlign = 'center',
         width,
         isScrollable,
+        style,
         component = 'td',
         ...props
     },
@@ -29,16 +30,17 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
             className={clsx(
                 'moonstone-TableCell',
                 'textAlign' + capitalize(textAlign),
+                'flexRow',
+                'alignCenter',
                 'moonstone-verticalAlign' + capitalize(verticalAlign),
                 {flexFluid: typeof width === 'undefined'},
+                scrollableClass,
                 className
             )}
-            style={{width}}
+            style={{width, ...style}}
             {...props}
         >
-            <span className={clsx('moonstone-tableCellContentWrapper', scrollableClass)}>
-                {children ?? '-'}
-            </span>
+            {children ?? '-'}
         </Typography>
     );
 };

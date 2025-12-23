@@ -15,10 +15,10 @@ export type TableStructuredCellProps = TableCellProps & {
     /**
      * Whether this row is currently expanded
      */
-    isExpanded: boolean;
+    isExpanded?: boolean;
 
     /**
      * Callback fired when the expand/collapse toggle is clicked
      */
-    onToggleExpand: () => void;
+    onToggleExpand?: () => void;
 };

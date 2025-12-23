@@ -52,14 +52,6 @@
     .moonstone-tableCellExpandable {
         cursor: pointer;
     }
-
-    // Flex container for cell content (chips, icons, etc.)
-    .moonstone-tableCellContentWrapper {
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--spacing-nano);
-        align-items: center;
-    }
 }
 
 .moonstone-verticalAlignTop {
