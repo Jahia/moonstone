@@ -10,8 +10,6 @@ export const TableHeadCell: React.FC<TableHeadCellProps> = ({
     textAlign = 'left',
     verticalAlign = 'middle',
     className,
-    iconStart,
-    iconEnd,
     children,
     sorting,
     onClick,
@@ -39,8 +37,6 @@ export const TableHeadCell: React.FC<TableHeadCellProps> = ({
             textAlign={textAlign}
             verticalAlign={verticalAlign}
             className={clsx('moonstone-TableHeadCell', className)}
-            iconStart={iconStart}
-            iconEnd={iconEnd}
             aria-sort={ariaSort}
             onClick={onClick}
         >

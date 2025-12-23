@@ -1,10 +1,9 @@
 import React from 'react';
-import type {Row} from '@tanstack/react-table';
 
 /**
- * Shared types used by both TableHeadCell and TableBodyCell.
+ * Props for TableCell - a composable cell wrapper component.
  */
-export type TableCellProps<TData = unknown> = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'children'| 'className' | 'width'> & {
+export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'children'| 'className' | 'width'> & {
     /**
      * Additional classname
      */
@@ -14,16 +13,6 @@ export type TableCellProps<TData = unknown> = Omit<React.ComponentPropsWithRef<'
      * Name of the cell HTML element to render in the DOM
      */
     component?: 'td' | 'th';
-
-    /**
-     * Icon to render at the start/left side of the cell
-     */
-    iconStart?: React.ReactElement;
-
-    /**
-     * Icon to render at the end/right side of the cell
-     */
-    iconEnd?: React.ReactElement;
 
     /**
      * How to align content horizontally within the table cell
@@ -41,19 +30,6 @@ export type TableCellProps<TData = unknown> = Omit<React.ComponentPropsWithRef<'
     width?: string;
 
     /**
-     * If true, it indicates that the rows in this column have nested sub-rows and
-     * that they should be displayed in a tree-like view
-     */
-    isExpandableColumn?: boolean;
-
-    /**
-     * Row object returned by TanStack Table instance.
-     * TanStack Table (v8) Row includes all expansion methods built-in
-     * (getCanExpand, getIsExpanded, getToggleExpandedHandler, depth).
-     */
-    row?: Row<TData>;
-
-    /**
      * Any styles to render inline
      */
     style?: React.CSSProperties;
@@ -67,5 +43,4 @@ export type TableCellProps<TData = unknown> = Omit<React.ComponentPropsWithRef<'
      * Indicates if the cell is scrollable on hover
      */
     isScrollable?: boolean;
-
 };
