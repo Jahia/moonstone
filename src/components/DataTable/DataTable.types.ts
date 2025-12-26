@@ -56,10 +56,10 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
 
 export type DataTableBaseProps<T extends NonNullable<unknown>> = {
     /**
-     * Define which key is used as primary key for each row
-     * @todo Will be required in a future version
+     * Define which key is used as primary key for each row.
+     * This is used as the unique identifier for row selection and other operations.
      */
-    primaryKey?: Exclude<keyof T, SubRowKey>;
+    primaryKey: Exclude<keyof T, SubRowKey>;
 
     /**
      * The array of data to display in the table

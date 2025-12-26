@@ -1,61 +1,25 @@
 import React from 'react';
 import clsx from 'clsx';
-import {IconTextIcon, Typography} from '~/components';
-import {ChevronDown, ChevronRight} from '~/icons';
-
-import type {TableCellProps} from './TableCell.types';
+import {Typography} from '~/components';
 import {capitalize} from '~/utils/helpers';
 import './TableCell.scss';
+import type {TableCellProps} from './TableCell.types';
 
 const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellProps> = (
     {
         className,
         children,
-        textAlign = 'left',
+        align = 'left',
         verticalAlign = 'center',
-        iconStart,
-        iconEnd,
-        isExpandableColumn,
-        row,
         width,
         isScrollable,
+        style,
         component = 'td',
         ...props
     },
     ref
 ) => {
-    const leftMarginBuffer = 20; // Px
-    const leftMarginIndentDepth = (row?.depth ?? 0) * 20; // Px
     const scrollableClass = isScrollable ? 'moonstone-tableCellContent' : '';
-
-    const renderCellContent = () => (
-        <IconTextIcon component="div" iconStart={iconStart} iconEnd={iconEnd} typographyProps={{className: clsx(scrollableClass, 'flexFluid')}}>
-            {children ?? '-'}
-        </IconTextIcon>
-    );
-
-    const renderExpandableContent = () => {
-        if (row?.getCanExpand?.()) {
-            return (
-                <div
-                    className="moonstone-tableCellExpandable flexRow_nowrap alignCenter"
-                    style={{marginLeft: `${leftMarginIndentDepth}px`}}
-                    onClick={row.getToggleExpandedHandler()}
-                >
-                    {row.getIsExpanded() ?
-                        <ChevronDown className="moonstone-marginRightNano"/> :
-                        <ChevronRight className="moonstone-marginRightNano"/>}
-                    {renderCellContent()}
-                </div>
-            );
-        }
-
-        return (
-            <div style={{marginLeft: `${leftMarginIndentDepth + leftMarginBuffer}px`}}>
-                {renderCellContent()}
-            </div>
-        );
-    };
 
     return (
         <Typography
@@ -64,15 +28,18 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
             variant="body"
             className={clsx(
                 'moonstone-TableCell',
-                'textAlign' + capitalize(textAlign),
+                align === 'left' ? 'justifyStart' : align === 'right' ? 'justifyEnd' : 'justifyCenter',
+                'flexRow',
+                'alignCenter',
                 'moonstone-verticalAlign' + capitalize(verticalAlign),
                 {flexFluid: typeof width === 'undefined'},
+                scrollableClass,
                 className
             )}
-            style={{width: width}}
+            style={{width, ...style}}
             {...props}
         >
-            {isExpandableColumn ? renderExpandableContent() : renderCellContent()}
+            {children ?? '-'}
         </Typography>
     );
 };

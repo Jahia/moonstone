@@ -22,33 +22,36 @@ type Story = StoryObj<typeof DataTable<dataUser>>;
 
 export const EmptyDataTable: Story = {
     render: args => {
-        return <DataTable<dataUser> {...args}/>;
+        return <DataTable {...args}/>;
     },
     args: {
         data: [],
-        columns: dataColumnsUser
+        columns: dataColumnsUser,
+        primaryKey: 'firstName'
     },
     name: 'Empty DataTable'
 };
 
 export const BasicDataTable: Story = {
     render: args => {
-        return <DataTable<dataUser> {...args}/>;
+        return <DataTable {...args}/>;
     },
     args: {
         data: dataTable,
-        columns: dataColumnsUser
+        columns: dataColumnsUser,
+        primaryKey: 'firstName'
     },
     name: 'Basic DataTable'
 };
 
 export const DefaultSortDataTable: Story = {
     render: args => {
-        return <DataTable<dataUser> {...args}/>;
+        return <DataTable {...args}/>;
     },
     args: {
         data: dataTable,
         columns: dataColumnsUser,
+        primaryKey: 'firstName',
         enableSorting: true,
         defaultSortBy: 'progress',
         defaultSortDirection: 'descending'
@@ -58,11 +61,12 @@ export const DefaultSortDataTable: Story = {
 
 export const SelectableDataTable: Story = {
     render: args => {
-        return <DataTable<dataUser> {...args}/>;
+        return <DataTable {...args}/>;
     },
     args: {
         data: dataTable,
         columns: dataColumnsUser,
+        primaryKey: 'firstName',
         enableSelection: true
     },
     name: 'Selectable Rows'
@@ -70,24 +74,26 @@ export const SelectableDataTable: Story = {
 
 export const DefaultSelectionDataTable: Story = {
     render: args => {
-        return <DataTable<dataUser> {...args}/>;
+        return <DataTable {...args}/>;
     },
     args: {
         data: dataTable,
         columns: dataColumnsUser,
+        primaryKey: 'firstName',
         enableSelection: true,
-        defaultSelection: ['0', '2', '4']
+        defaultSelection: ['Yacine', 'Yacinator']
     },
     name: 'Default Selection'
 };
 
 export const StructuredViewDataTable: Story = {
     render: args => {
-        return <DataTable<dataUser> {...args}/>;
+        return <DataTable {...args}/>;
     },
     args: {
         data: dataTable,
         columns: dataColumnsUser,
+        primaryKey: 'firstName',
         isStructured: true
     },
     name: 'Structured View'
@@ -96,7 +102,7 @@ export const StructuredViewDataTable: Story = {
 export const AllFeaturesTable: Story = {
     render: args => {
         return (
-            <DataTable<dataUser>
+            <DataTable
                 {...args}
                 actions={row => (
                     <MoreVert onClick={() => console.log(`${row.age}`)}/>
@@ -120,10 +126,11 @@ export const AllFeaturesTable: Story = {
     args: {
         data: dataTable,
         columns: dataColumnsUser,
+        primaryKey: 'firstName',
         enableSelection: true,
         isStructured: true,
         enableSorting: true,
-        defaultSelection: ['0', '2'],
+        defaultSelection: ['Yacine', 'Yacinator'],
         defaultSortBy: 'progress',
         defaultSortDirection: 'descending'
     },

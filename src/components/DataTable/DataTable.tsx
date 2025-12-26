@@ -25,6 +25,7 @@ import {
 import {TableCell} from './cells/TableCell';
 import {TableHeadCell} from './table-cells/TableHeadCell';
 import {createTableColumns} from './utils/tableHelpers';
+import {TableStructuredCell} from './cells/TableStructuredCell';
 
 type CustomColumnMeta = {
     isSortable?: boolean;
@@ -34,6 +35,7 @@ type CustomColumnMeta = {
 export const DataTable = <T extends NonNullable<unknown>>({
     data,
     columns,
+    primaryKey,
     isStructured = false,
     enableSelection = false,
     onChangeSelection,
@@ -86,6 +88,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
         enableSortingRemoval: false, // Only toggle between asc/desc, no unsorted state
         onRowSelectionChange: setRowSelection,
         enableRowSelection: enableSelection,
+        getRowId: (row: T) => String(row[primaryKey]),
         getCoreRowModel: getCoreRowModel(),
         ...(isStructured && {
             onExpandedChange: setExpanded,
@@ -119,20 +122,29 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 {row.getVisibleCells().map((cell, index) => {
                     const meta = cell.column.columnDef.meta as CustomColumnMeta | undefined;
                     const isFirstColumn = index === 0;
+                    const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
 
-                    // Build structured view props for tree view support
-                    const structuredProps = isStructured && isFirstColumn ? {
-                        row,
-                        isExpandableColumn: true
-                    } : {};
+                    if (isStructured && isFirstColumn) {
+                        return (
+                            <TableStructuredCell
+                                key={cell.id}
+                                align={meta?.align ?? 'left'}
+                                depth={row.depth}
+                                isExpandable={row.getCanExpand()}
+                                isExpanded={row.getIsExpanded()}
+                                onToggleExpand={row.getToggleExpandedHandler()}
+                            >
+                                {cellContent}
+                            </TableStructuredCell>
+                        );
+                    }
 
                     return (
                         <TableCell
                             key={cell.id}
-                            textAlign={meta?.align ?? 'left'}
-                            {...structuredProps}
+                            align={meta?.align ?? 'left'}
                         >
-                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                            {cellContent}
                         </TableCell>
                     );
                 })}
@@ -192,7 +204,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                         isActive: Boolean(sortDirection)
                                     } : undefined}
                                     style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
-                                    textAlign={alignment}
+                                    align={alignment}
                                     onClick={e => {
                                         if (isColumnSortable) {
                                             header.column.getToggleSortingHandler()?.(e);
