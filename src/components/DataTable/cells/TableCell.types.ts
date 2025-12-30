@@ -68,4 +68,25 @@ export type TableCellProps<TData = unknown> = Omit<React.ComponentPropsWithRef<'
      */
     isScrollable?: boolean;
 
+    // Structured view props (for tree-like data)
+
+    /**
+     * Depth level for structured/tree view (0-indexed)
+     */
+    depth?: number;
+
+    /**
+     * Whether this row can be expanded (has children)
+     */
+    isExpandable?: boolean;
+
+    /**
+     * Whether this row is currently expanded
+     */
+    isExpanded?: boolean;
+
+    /**
+     * Callback to toggle expand/collapse state
+     */
+    onToggleExpand?: () => void;
 };

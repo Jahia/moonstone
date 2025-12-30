@@ -3,6 +3,7 @@ import {
     getCoreRowModel,
     getExpandedRowModel,
     getSortedRowModel,
+    getPaginationRowModel,
     flexRender
 } from '@tanstack/react-table';
 
@@ -10,6 +11,7 @@ import type {
     ExpandedState,
     RowSelectionState,
     SortingState,
+    PaginationState,
     Row
 } from '@tanstack/react-table';
 import {useState, useEffect, useMemo, useCallback} from 'react';
@@ -25,7 +27,7 @@ import {
 import {TableCell} from './cells/TableCell';
 import {TableHeadCell} from './table-cells/TableHeadCell';
 import {createTableColumns} from './utils/tableHelpers';
-import {TableStructuredCell} from './cells/TableStructuredCell';
+import {DataTablePagination} from './DataTablePagination';
 
 type CustomColumnMeta = {
     isSortable?: boolean;
@@ -46,7 +48,12 @@ export const DataTable = <T extends NonNullable<unknown>>({
     actions,
     actionsHeaderLabel = 'Actions',
     renderRow,
-    onClickTableHeadCell
+    onClickTableHeadCell,
+    // Pagination props
+    enablePagination = false,
+    rowsPerPage,
+    rowsPerPageOptions,
+    paginationLabel
 }: DataTableProps<T>) => {
     // Internal sorting state - fully managed by TanStack
     const initialSorting = useMemo<SortingState>(() => {
@@ -68,6 +75,21 @@ export const DataTable = <T extends NonNullable<unknown>>({
         defaultSelection?.reduce((acc, key) => ({...acc, [key]: true}), {}) ?? {}
     );
 
+    // Ensure rowsPerPage is valid based on options
+    const defaultPageSize = useMemo(() => {
+        const options = rowsPerPageOptions ?? [5, 10, 25];
+        if (rowsPerPage && options.includes(rowsPerPage)) {
+            return rowsPerPage;
+        }
+
+        return options[0] ?? 10;
+    }, [rowsPerPage, rowsPerPageOptions]);
+
+    const [pagination, setPagination] = useState<PaginationState>({
+        pageIndex: 0,
+        pageSize: defaultPageSize
+    });
+
     useEffect(() => {
         onChangeSelection?.(Object.keys(rowSelection));
     }, [rowSelection, onChangeSelection]);
@@ -80,21 +102,22 @@ export const DataTable = <T extends NonNullable<unknown>>({
         state: {
             expanded,
             rowSelection,
-            sorting
+            sorting,
+            ...(enablePagination && {pagination})
         },
         onSortingChange: setSorting,
+        onExpandedChange: setExpanded,
+        onRowSelectionChange: setRowSelection,
+        getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,
+        getExpandedRowModel: getExpandedRowModel(),
+        getPaginationRowModel: enablePagination ? getPaginationRowModel() : undefined,
+        getSubRows: (row: T) => (row as T & { subRows?: T[] }).subRows,
+        onPaginationChange: setPagination,
         enableSorting,
         enableSortingRemoval: false, // Only toggle between asc/desc, no unsorted state
-        onRowSelectionChange: setRowSelection,
         enableRowSelection: enableSelection,
-        getRowId: (row: T) => String(row[primaryKey]),
-        getCoreRowModel: getCoreRowModel(),
-        ...(isStructured && {
-            onExpandedChange: setExpanded,
-            getSubRows: (row: T) => (row as T & { subRows?: T[] }).subRows,
-            getExpandedRowModel: getExpandedRowModel()
-        })
+        getRowId: (row: T) => String(row[primaryKey])
     });
 
     useEffect(() => {
@@ -123,26 +146,18 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     const meta = cell.column.columnDef.meta as CustomColumnMeta | undefined;
                     const isFirstColumn = index === 0;
                     const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
-
-                    if (isStructured && isFirstColumn) {
-                        return (
-                            <TableStructuredCell
-                                key={cell.id}
-                                align={meta?.align ?? 'left'}
-                                depth={row.depth}
-                                isExpandable={row.getCanExpand()}
-                                isExpanded={row.getIsExpanded()}
-                                onToggleExpand={row.getToggleExpandedHandler()}
-                            >
-                                {cellContent}
-                            </TableStructuredCell>
-                        );
-                    }
+                    const showStructured = isStructured && isFirstColumn;
 
                     return (
                         <TableCell
                             key={cell.id}
                             align={meta?.align ?? 'left'}
+                            {...(showStructured && {
+                                depth: row.depth,
+                                isExpandable: row.getCanExpand(),
+                                isExpanded: row.getIsExpanded(),
+                                onToggleExpand: row.getToggleExpandedHandler()
+                            })}
                         >
                             {cellContent}
                         </TableCell>
@@ -174,58 +189,71 @@ export const DataTable = <T extends NonNullable<unknown>>({
     }
 
     return (
-        <Table>
-            <TableHead>
-                {table.getHeaderGroups().map(headerGroup => (
-                    <TableRow key={headerGroup.id}>
-                        {/* Selection header */}
-                        {enableSelection && (
-                            <TableHeadCell width="52px">
-                                <Checkbox
-                                    checked={table.getIsAllRowsSelected()}
-                                    indeterminate={table.getIsSomeRowsSelected()}
-                                    onChange={table.getToggleAllRowsSelectedHandler()}
-                                />
-                            </TableHeadCell>
-                        )}
-
-                        {/* Column headers */}
-                        {headerGroup.headers.map(header => {
-                            const meta = header.column.columnDef.meta as CustomColumnMeta | undefined;
-                            const isColumnSortable = enableSorting && (meta?.isSortable ?? false);
-                            const alignment = meta?.align ?? 'left';
-                            const sortDirection = header.column.getIsSorted();
-
-                            return (
-                                <TableHeadCell
-                                    key={header.id}
-                                    sorting={isColumnSortable ? {
-                                        direction: sortDirection === 'desc' ? 'descending' : 'ascending',
-                                        isActive: Boolean(sortDirection)
-                                    } : undefined}
-                                    style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
-                                    align={alignment}
-                                    onClick={e => {
-                                        if (isColumnSortable) {
-                                            header.column.getToggleSortingHandler()?.(e);
-                                        }
-
-                                        onClickTableHeadCell?.(header.id);
-                                    }}
-                                >
-                                    {flexRender(header.column.columnDef.header, header.getContext())}
+        <div className="moonstone-dataTable">
+            <Table>
+                <TableHead>
+                    {table.getHeaderGroups().map(headerGroup => (
+                        <TableRow key={headerGroup.id}>
+                            {/* Selection header */}
+                            {enableSelection && (
+                                <TableHeadCell width="52px">
+                                    <Checkbox
+                                        checked={table.getIsAllRowsSelected()}
+                                        indeterminate={table.getIsSomeRowsSelected()}
+                                        onChange={table.getToggleAllRowsSelectedHandler()}
+                                    />
                                 </TableHeadCell>
-                            );
-                        })}
+                            )}
 
-                        {/* Actions header */}
-                        {actions && <TableHeadCell>{actionsHeaderLabel}</TableHeadCell>}
-                    </TableRow>
-                ))}
-            </TableHead>
-            <TableBody>
-                {table.getRowModel().rows.map(row => renderRowWithCustomization(row))}
-            </TableBody>
-        </Table>
+                            {/* Column headers */}
+                            {headerGroup.headers.map(header => {
+                                const meta = header.column.columnDef.meta as CustomColumnMeta | undefined;
+                                const isColumnSortable = enableSorting && (meta?.isSortable ?? false);
+                                const alignment = meta?.align ?? 'left';
+                                const sortDirection = header.column.getIsSorted();
+
+                                return (
+                                    <TableHeadCell
+                                        key={header.id}
+                                        sorting={isColumnSortable ? {
+                                            direction: sortDirection === 'desc' ? 'descending' : 'ascending',
+                                            isActive: Boolean(sortDirection)
+                                        } : undefined}
+                                        style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
+                                        align={alignment}
+                                        onClick={e => {
+                                            if (isColumnSortable) {
+                                                header.column.getToggleSortingHandler()?.(e);
+                                            }
+
+                                            onClickTableHeadCell?.(header.id);
+                                        }}
+                                    >
+                                        {flexRender(header.column.columnDef.header, header.getContext())}
+                                    </TableHeadCell>
+                                );
+                            })}
+
+                            {/* Actions header */}
+                            {actions && <TableHeadCell>{actionsHeaderLabel}</TableHeadCell>}
+                        </TableRow>
+                    ))}
+                </TableHead>
+                <TableBody>
+                    {table.getRowModel().rows.map(row => renderRowWithCustomization(row))}
+                </TableBody>
+            </Table>
+            {enablePagination && (
+                <DataTablePagination
+                    currentPage={table.getState().pagination.pageIndex + 1}
+                    totalNumberOfRows={data.length}
+                    rowsPerPage={table.getState().pagination.pageSize}
+                    rowsPerPageOptions={rowsPerPageOptions ?? [5, 10, 25]}
+                    label={paginationLabel}
+                    onPageChange={(page: number) => table.setPageIndex(page - 1)}
+                    onRowsPerPageChange={(size: number) => table.setPageSize(size)}
+                />
+            )}
+        </div>
     );
 };

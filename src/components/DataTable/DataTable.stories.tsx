@@ -14,7 +14,11 @@ export default {
         controls: {expanded: true}
     },
     argTypes: {
-        onChangeSelection: {action: 'onChangeSelection'}
+        onChangeSelection: {action: 'onChangeSelection'},
+        enablePagination: {control: 'boolean'},
+        rowsPerPage: {control: 'number'},
+        rowsPerPageOptions: {control: 'object'},
+        paginationLabel: {control: 'object'}
     }
 } satisfies Meta<typeof DataTable<dataUser>>;
 
@@ -99,11 +103,31 @@ export const StructuredViewDataTable: Story = {
     name: 'Structured View'
 };
 
+export const PaginationDataTable: Story = {
+    render: args => {
+        return (
+            <DataTable
+                {...args}
+                enablePagination
+                isStructured
+                data={dataTable}
+                rowsPerPageOptions={[5, 10, 25]}
+            />
+        );
+    },
+    args: {
+        columns: dataColumnsUser,
+        primaryKey: 'firstName'
+    },
+    name: 'With Pagination (Structured)'
+};
+
 export const AllFeaturesTable: Story = {
     render: args => {
         return (
             <DataTable
                 {...args}
+                enablePagination
                 actions={row => (
                     <MoreVert onClick={() => console.log(`${row.age}`)}/>
                 )}
@@ -136,3 +160,4 @@ export const AllFeaturesTable: Story = {
     },
     name: 'All Features Combined'
 };
+
