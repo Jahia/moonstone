@@ -35,6 +35,7 @@ type CustomColumnMeta = {
 };
 
 export const DataTable = <T extends NonNullable<unknown>>({
+    className,
     data,
     columns,
     primaryKey,
@@ -48,12 +49,14 @@ export const DataTable = <T extends NonNullable<unknown>>({
     actions,
     actionsHeaderLabel = 'Actions',
     renderRow,
+    rowProps,
     onClickTableHeadCell,
     // Pagination props
     enablePagination = false,
     rowsPerPage,
     rowsPerPageOptions,
-    paginationLabel
+    paginationLabel,
+    ...tableProps
 }: DataTableProps<T>) => {
     // Internal sorting state - fully managed by TanStack
     const initialSorting = useMemo<SortingState>(() => {
@@ -148,6 +151,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
                     const showStructured = isStructured && isFirstColumn;
 
+                    const columnDef = columns.find(col => col.key === cell.column.id);
+
                     return (
                         <TableCell
                             key={cell.id}
@@ -158,6 +163,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                 isExpanded: row.getIsExpanded(),
                                 onToggleExpand: row.getToggleExpandedHandler()
                             })}
+                            {...columnDef?.cellProps?.(row.original)}
                         >
                             {cellContent}
                         </TableCell>
@@ -168,7 +174,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 {actions && <TableCell>{actions(row.original)}</TableCell>}
             </>
         ),
-        [enableSelection, actions, isStructured]
+        [enableSelection, actions, isStructured, columns]
     );
 
     const renderRowWithCustomization = useCallback(
@@ -179,9 +185,9 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 return renderRow(row, defaultRender);
             }
 
-            return <TableRow key={row.id}>{defaultRender()}</TableRow>;
+            return <TableRow key={row.id} {...rowProps?.(row.original)}>{defaultRender()}</TableRow>;
         },
-        [renderRow, renderRowContent]
+        [renderRow, renderRowContent, rowProps]
     );
 
     if (!data || data.length === 0) {
@@ -190,7 +196,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
     return (
         <div className="moonstone-dataTable">
-            <Table>
+            <Table className={className} {...tableProps}>
                 <TableHead>
                     {table.getHeaderGroups().map(headerGroup => (
                         <TableRow key={headerGroup.id}>

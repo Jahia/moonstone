@@ -6,6 +6,14 @@
     }
 }
 
+.moonstone-tableCellHead_sortHidden {
+    visibility: hidden;
+}
+
+.moonstone-TableHeadCell:hover .moonstone-tableCellHead_sortHidden {
+    visibility: visible;
+}
+
 .moonstone-tableCellHead_sortActive {
     color: var(--color-accent);
 
