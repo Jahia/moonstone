@@ -10,7 +10,7 @@ export type TableStructuredCellProps = TableCellProps & {
     /**
      * Whether this row can be expanded (has children)
      */
-    isExpandable: boolean;
+    isExpandable?: boolean;
 
     /**
      * Whether this row is currently expanded
