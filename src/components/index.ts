@@ -42,6 +42,7 @@ export * from './SvgWrapper';
 export * from './Switch';
 export * from './Tab';
 export * from './Tab/TabItem';
+export * from './Thumbnail';
 export * from './Table';
 export * from './Textarea';
 export * from './Tooltip';

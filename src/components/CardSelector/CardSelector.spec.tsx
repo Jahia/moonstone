@@ -33,53 +33,35 @@ describe('CardSelector', () => {
 
     it('should display the image with thumbnail', () => {
         const {container} = render(<CardSelector {...requiredProps} thumbnail="thumbnail.png"/>);
-        expect(
-            container.querySelector('img[src="thumbnail.png"]')
-        ).toBeInTheDocument();
+        expect(container.querySelector('img[src="thumbnail.png"]')).toBeInTheDocument();
     });
 
     it('should display the icon passed with thumbnail', () => {
         const {container} = render(
             <CardSelector {...requiredProps} thumbnail={<Love id="thumbnail-icon"/>}/>
         );
-        expect(
-            container.querySelector('#thumbnail-icon')
-        ).toBeInTheDocument();
+        expect(container.querySelector('#thumbnail-icon')).toBeInTheDocument();
     });
 
     it('should display img as icon when thumbnailType is icon', () => {
         const {container} = render(
             <CardSelector {...requiredProps} thumbnailType="icon" thumbnail="thumbnail.png"/>
         );
-        expect(
-            container.querySelector('.moonstone-cardSelector_thumbnail_icon')
-        ).toBeInTheDocument();
+        expect(container.querySelector('.moonstone-thumbnail_icon')).toBeInTheDocument();
     });
 
     it('should display img as img when thumbnailType is preview', () => {
         const {container} = render(
-            <CardSelector
-                {...requiredProps}
-                thumbnailType="preview"
-                thumbnail="thumbnail.png"
-            />
+            <CardSelector {...requiredProps} thumbnailType="preview" thumbnail="thumbnail.png"/>
         );
-        expect(
-            container.querySelector('.moonstone-cardSelector_thumbnail_preview')
-        ).toBeInTheDocument();
+        expect(container.querySelector('.moonstone-thumbnail_preview')).toBeInTheDocument();
     });
 
     it('should use thumbnailAlt as img alt attribute', () => {
         render(
-            <CardSelector
-                {...requiredProps}
-                thumbnailAlt="thumbnail-alt"
-                thumbnail="thumbnail.png"
-            />
+            <CardSelector {...requiredProps} thumbnailAlt="thumbnail-alt" thumbnail="thumbnail.png"/>
         );
-        expect(
-            screen.getByAltText('thumbnail-alt')
-        ).toBeInTheDocument();
+        expect(screen.getByAltText('thumbnail-alt')).toBeInTheDocument();
     });
 
     it('should display chips', () => {
@@ -88,9 +70,7 @@ describe('CardSelector', () => {
     });
 
     it('should display cardActions', () => {
-        render(
-            <CardSelector {...requiredProps} cardAction={<Chip key="chip" label="action"/>}/>
-        );
+        render(<CardSelector {...requiredProps} cardAction={<Chip key="chip" label="action"/>}/>);
         expect(screen.queryByText('action')).toBeInTheDocument();
     });
 
@@ -106,16 +86,12 @@ describe('CardSelector', () => {
 
     it('should be disabled', () => {
         render(<CardSelector {...requiredProps} isDisabled data-testid="card-selector"/>);
-        expect(screen.getByTestId('card-selector')).toHaveClass(
-            'moonstone-cardSelector_disabled'
-        );
+        expect(screen.getByTestId('card-selector')).toHaveClass('moonstone-cardSelector_disabled');
     });
 
     it('should be disabled when isReadOnly', () => {
         render(<CardSelector {...requiredProps} isReadOnly data-testid="card-selector"/>);
-        expect(screen.getByTestId('card-selector')).toHaveClass(
-            'moonstone-cardSelector_disabled'
-        );
+        expect(screen.getByTestId('card-selector')).toHaveClass('moonstone-cardSelector_disabled');
     });
 
     it('should not call onClick when disabled', async () => {
@@ -123,12 +99,7 @@ describe('CardSelector', () => {
         const onClick = vi.fn();
 
         render(
-            <CardSelector
-                {...requiredProps}
-                isDisabled
-                data-testid="card-selector"
-                onClick={onClick}
-            />
+            <CardSelector {...requiredProps} isDisabled data-testid="card-selector" onClick={onClick}/>
         );
         await user.click(screen.getByTestId('card-selector'));
 
@@ -154,27 +125,23 @@ describe('CardSelector', () => {
     });
 
     it('should display errorCardSelector if hasError', () => {
-        render(<CardSelector {...requiredProps} hasError errorMessage="error message" data-testid="card-selector"/>);
-        expect(screen.getByTestId('card-selector')).toHaveClass(
-            'moonstone-cardSelector_error'
+        render(
+            <CardSelector {...requiredProps} hasError errorMessage="error message" data-testid="card-selector"/>
         );
+        expect(screen.getByTestId('card-selector')).toHaveClass('moonstone-cardSelector_error');
     });
 
     it('should be disabled even if hasError', () => {
         render(
             <CardSelector {...requiredProps} isDisabled hasError errorMessage="error message" data-testid="card-selector"/>
         );
-        expect(screen.getByTestId('card-selector')).toHaveClass(
-            'moonstone-cardSelector_disabled'
-        );
+        expect(screen.getByTestId('card-selector')).toHaveClass('moonstone-cardSelector_disabled');
     });
 
     it('should be disabled when isReadOnly even if hasError', () => {
         render(
             <CardSelector {...requiredProps} isReadOnly hasError errorMessage="error message" data-testid="card-selector"/>
         );
-        expect(screen.getByTestId('card-selector')).toHaveClass(
-            'moonstone-cardSelector_disabled'
-        );
+        expect(screen.getByTestId('card-selector')).toHaveClass('moonstone-cardSelector_disabled');
     });
 });

@@ -1,6 +1,9 @@
 import React from 'react';
 
-export type ThumbnailProps = {
+/**
+ * CardSelector thumbnail props
+ */
+export type CardSelectorThumbnailProps = {
     /**
      * Url of the thumbnail or icon component
      * If a string is provided, it will be used as the src of an img element.
@@ -18,9 +21,9 @@ export type ThumbnailProps = {
      * @default 'preview'
      */
     thumbnailType?: 'preview' | 'icon';
-}
+};
 
-type BasicProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'id' | 'onClick'> & ThumbnailProps & {
+type BasicProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'id' | 'onClick'> & CardSelectorThumbnailProps & {
     /**
      * Required id
      */
@@ -80,7 +83,8 @@ type BasicProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'id'
      * Function trigger on click
      */
     onClick?: React.MouseEventHandler;
+};
 
-}
-
-export type CardSelectorProps = (BasicProps & {hasError: true; errorMessage: string;}) | (BasicProps & {hasError?: false; errorMessage?: never;});
+export type CardSelectorProps =
+    | (BasicProps & {hasError: true; errorMessage: string})
+    | (BasicProps & {hasError?: false; errorMessage?: never});
