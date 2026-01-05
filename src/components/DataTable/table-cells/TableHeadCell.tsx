@@ -22,8 +22,7 @@ export const TableHeadCell: React.FC<TableHeadCellProps> = ({
 
     const sortClassName = isSortable && clsx(
         'moonstone-tableCellHead_sort',
-        {'moonstone-tableCellHead_sortActive': isActive},
-        {'moonstone-tableCellHead_sortHidden': !isActive}
+        {'moonstone-tableCellHead_sortActive': isActive}
     );
 
     const SortIcon = isSortable ?

@@ -54,10 +54,9 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
     align?: 'left' | 'center' | 'right';
 
     /**
-     * Function to add custom HTML attributes to the cell element
-     * @param row - The row data
+     * Custom HTML attributes to add to the cell element
      */
-    cellProps?: (row: T) => React.HTMLAttributes<HTMLTableCellElement> & Record<string, unknown>;
+    cellProps?: React.HTMLAttributes<HTMLTableCellElement> & Record<string, unknown>;
 };
 
 export type DataTableBaseProps<T extends NonNullable<unknown>> = {
@@ -89,10 +88,9 @@ export type DataTableBaseProps<T extends NonNullable<unknown>> = {
     onClickTableHeadCell?: (columnId: string) => void;
 
     /**
-     * Function to add custom HTML attributes to each row element
-     * @param row - The row data
+     * Custom HTML attributes to add to each row element
      */
-    rowProps?: (row: T) => React.HTMLAttributes<HTMLTableRowElement> & Record<string, unknown>;
+    rowProps?: React.HTMLAttributes<HTMLTableRowElement> & Record<string, unknown>;
 };
 
 type SortingProps<T extends NonNullable<unknown>> =

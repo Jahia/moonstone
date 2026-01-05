@@ -56,7 +56,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     rowsPerPage,
     rowsPerPageOptions,
     paginationLabel,
-    ...tableProps
+    ...props
 }: DataTableProps<T>) => {
     // Internal sorting state - fully managed by TanStack
     const initialSorting = useMemo<SortingState>(() => {
@@ -163,7 +163,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                 isExpanded: row.getIsExpanded(),
                                 onToggleExpand: row.getToggleExpandedHandler()
                             })}
-                            {...columnDef?.cellProps?.(row.original)}
+                            {...columnDef?.cellProps}
                         >
                             {cellContent}
                         </TableCell>
@@ -185,7 +185,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 return renderRow(row, defaultRender);
             }
 
-            return <TableRow key={row.id} {...rowProps?.(row.original)}>{defaultRender()}</TableRow>;
+            return <TableRow key={row.id} {...rowProps}>{defaultRender()}</TableRow>;
         },
         [renderRow, renderRowContent, rowProps]
     );
@@ -195,8 +195,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
     }
 
     return (
-        <div className="moonstone-dataTable">
-            <Table className={className} {...tableProps}>
+        <>
+            <Table className={className} {...props}>
                 <TableHead>
                     {table.getHeaderGroups().map(headerGroup => (
                         <TableRow key={headerGroup.id}>
@@ -260,6 +260,6 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     onRowsPerPageChange={(size: number) => table.setPageSize(size)}
                 />
             )}
-        </div>
+        </>
     );
 };
