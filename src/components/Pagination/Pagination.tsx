@@ -35,7 +35,7 @@ export const Pagination: React.FC<PaginationProps> = ({
 
     return (
         <div className={clsx('moonstone-pagination', 'flexRow', 'alignCenter', 'justifyEnd', className)} {...props}>
-            <div className="moonstone-pagination_navigation">
+            <div className={clsx('moonstone-pagination_navigation', 'flexRow', 'alignCenter')}>
                 <Button
                     icon={<ChevronFirstPage/>}
                     variant="ghost"
@@ -51,14 +51,14 @@ export const Pagination: React.FC<PaginationProps> = ({
                     onClick={() => onPageChange(currentPage - 1)}
                 />
             </div>
-            <div className="moonstone-pagination_info">
+            <div className={clsx('moonstone-pagination_info', 'flexRow', 'alignCenter')}>
                 <Typography
                     variant="caption"
                     data-testid="pagination-total-items"
                 >
                     {`${visibleRangeStart}-${visibleRangeEnd} ${label.of} ${totalOfItems}`}
                 </Typography>
-                <div className="moonstone-pagination_itemsPerPage">
+                <div className={clsx('moonstone-pagination_itemsPerPage', 'flexRow', 'alignCenter')}>
                     <Typography variant="caption">{label.itemsPerPage}</Typography>
                     <Dropdown
                         size="small"
@@ -69,7 +69,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                     />
                 </div>
             </div>
-            <div className="moonstone-pagination_navigation">
+            <div className={clsx('moonstone-pagination_navigation', 'flexRow', 'alignCenter')}>
                 <Button
                     icon={<ChevronRight/>}
                     variant="ghost"
