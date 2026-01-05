@@ -23,6 +23,7 @@ import {
     Checkbox
 } from '~/index';
 import {TableCell} from './cells/TableCell';
+import {TableStructuredCell} from './cells/TableStructuredCell';
 import {TableHeadCell} from './table-cells/TableHeadCell';
 import {createTableColumns} from './utils/tableHelpers';
 
@@ -119,20 +120,29 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 {row.getVisibleCells().map((cell, index) => {
                     const meta = cell.column.columnDef.meta as CustomColumnMeta | undefined;
                     const isFirstColumn = index === 0;
+                    const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
 
-                    // Build structured view props for tree view support
-                    const structuredProps = isStructured && isFirstColumn ? {
-                        row,
-                        isExpandableColumn: true
-                    } : {};
+                    if (isStructured && isFirstColumn) {
+                        return (
+                            <TableStructuredCell
+                                key={cell.id}
+                                textAlign={meta?.align ?? 'left'}
+                                depth={row.depth}
+                                isExpandable={row.getCanExpand()}
+                                isExpanded={row.getIsExpanded()}
+                                onToggleExpand={row.getToggleExpandedHandler()}
+                            >
+                                {cellContent}
+                            </TableStructuredCell>
+                        );
+                    }
 
                     return (
                         <TableCell
                             key={cell.id}
                             textAlign={meta?.align ?? 'left'}
-                            {...structuredProps}
                         >
-                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                            {cellContent}
                         </TableCell>
                     );
                 })}
