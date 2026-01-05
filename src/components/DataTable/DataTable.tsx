@@ -35,6 +35,7 @@ type CustomColumnMeta = {
 };
 
 export const DataTable = <T extends NonNullable<unknown>>({
+    className,
     data,
     columns,
     primaryKey,
@@ -148,6 +149,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
                     const showStructured = isStructured && isFirstColumn;
 
+                    const columnDef = columns.find(col => col.key === cell.column.id);
+
                     return (
                         <TableCell
                             key={cell.id}
@@ -168,7 +171,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 {actions && <TableCell>{actions(row.original)}</TableCell>}
             </>
         ),
-        [enableSelection, actions, isStructured]
+        [enableSelection, actions, isStructured, columns]
     );
 
     const renderRowWithCustomization = useCallback(
@@ -179,9 +182,9 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 return renderRow(row, defaultRender);
             }
 
-            return <TableRow key={row.id}>{defaultRender()}</TableRow>;
+            return <TableRow key={row.id} {...rowProps}>{defaultRender()}</TableRow>;
         },
-        [renderRow, renderRowContent]
+        [renderRow, renderRowContent, rowProps]
     );
 
     if (!data || data.length === 0) {
@@ -189,8 +192,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
     }
 
     return (
-        <div className="moonstone-dataTable">
-            <Table>
+        <>
+            <Table className={className} {...props}>
                 <TableHead>
                     {table.getHeaderGroups().map(headerGroup => (
                         <TableRow key={headerGroup.id}>
