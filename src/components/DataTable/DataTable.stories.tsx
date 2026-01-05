@@ -16,8 +16,8 @@ export default {
     argTypes: {
         onChangeSelection: {action: 'onChangeSelection'},
         enablePagination: {control: 'boolean'},
-        rowsPerPage: {control: 'number'},
-        rowsPerPageOptions: {control: 'object'},
+        itemsPerPage: {control: 'number'},
+        itemsPerPageOptions: {control: 'object'},
         paginationLabel: {control: 'object'}
     }
 } satisfies Meta<typeof DataTable<dataUser>>;
@@ -111,7 +111,7 @@ export const PaginationDataTable: Story = {
                 enablePagination
                 isStructured
                 data={dataTable}
-                rowsPerPageOptions={[5, 10, 25]}
+                itemsPerPageOptions={[5, 10, 25]}
             />
         );
     },

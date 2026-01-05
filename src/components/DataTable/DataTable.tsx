@@ -27,7 +27,7 @@ import {
 import {TableCell} from './cells/TableCell';
 import {TableHeadCell} from './table-cells/TableHeadCell';
 import {createTableColumns} from './utils/tableHelpers';
-import {DataTablePagination} from './DataTablePagination';
+import {Pagination} from '~/components/Pagination';
 
 type CustomColumnMeta = {
     isSortable?: boolean;
@@ -51,8 +51,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
     onClickTableHeadCell,
     // Pagination props
     enablePagination = false,
-    rowsPerPage,
-    rowsPerPageOptions,
+    itemsPerPage,
+    itemsPerPageOptions,
     paginationLabel
 }: DataTableProps<T>) => {
     // Internal sorting state - fully managed by TanStack
@@ -75,15 +75,15 @@ export const DataTable = <T extends NonNullable<unknown>>({
         defaultSelection?.reduce((acc, key) => ({...acc, [key]: true}), {}) ?? {}
     );
 
-    // Ensure rowsPerPage is valid based on options
+    // Ensure itemsPerPage is valid based on options
     const defaultPageSize = useMemo(() => {
-        const options = rowsPerPageOptions ?? [5, 10, 25];
-        if (rowsPerPage && options.includes(rowsPerPage)) {
-            return rowsPerPage;
+        const options = itemsPerPageOptions ?? [5, 10, 25];
+        if (itemsPerPage && options.includes(itemsPerPage)) {
+            return itemsPerPage;
         }
 
         return options[0] ?? 10;
-    }, [rowsPerPage, rowsPerPageOptions]);
+    }, [itemsPerPage, itemsPerPageOptions]);
 
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0,
@@ -244,14 +244,14 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 </TableBody>
             </Table>
             {enablePagination && (
-                <DataTablePagination
+                <Pagination
                     currentPage={table.getState().pagination.pageIndex + 1}
-                    totalNumberOfRows={data.length}
-                    rowsPerPage={table.getState().pagination.pageSize}
-                    rowsPerPageOptions={rowsPerPageOptions ?? [5, 10, 25]}
+                    totalOfItems={data.length}
+                    itemsPerPage={table.getState().pagination.pageSize}
+                    itemsPerPageOptions={itemsPerPageOptions ?? [5, 10, 25]}
                     label={paginationLabel}
                     onPageChange={(page: number) => table.setPageIndex(page - 1)}
-                    onRowsPerPageChange={(size: number) => table.setPageSize(size)}
+                    onItemsPerPageChange={(size: number) => table.setPageSize(size)}
                 />
             )}
         </div>

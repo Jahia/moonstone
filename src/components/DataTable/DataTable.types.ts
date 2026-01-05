@@ -185,20 +185,20 @@ type PaginationProps =
           enablePagination: true;
 
           /**
-           * Initial number of rows per page
+           * Initial number of items per page
            */
-          rowsPerPage?: number;
+          itemsPerPage?: number;
 
           /**
-           * Available options for rows per page dropdown
+           * Available options for items per page dropdown
            */
-          rowsPerPageOptions?: number[];
+          itemsPerPageOptions?: number[];
 
           /**
            * Labels for the pagination component
            */
           paginationLabel?: {
-              rowsPerPage: string;
+              itemsPerPage: string;
               of: string;
           };
       }
@@ -209,14 +209,14 @@ type PaginationProps =
           enablePagination?: false;
 
           /**
-           * Initial number of rows per page
+           * Initial number of items per page
            */
-          rowsPerPage?: never;
+          itemsPerPage?: never;
 
           /**
-           * Available options for rows per page dropdown
+           * Available options for items per page dropdown
            */
-          rowsPerPageOptions?: never;
+          itemsPerPageOptions?: never;
 
           /**
            * Labels for the pagination component
