@@ -1,7 +1,7 @@
 import React from 'react';
 import type {TableCellProps} from '../cells/TableCell.types';
 
-type BaseTableHeadCellProps = Omit<TableCellProps, 'row' | 'isExpandableColumn' | 'isScrollable' | 'component'> & {
+type BaseTableHeadCellProps = Omit<TableCellProps, 'isScrollable' | 'component'> & {
     /**
      * Callback when header cell is clicked (for sorting)
      */

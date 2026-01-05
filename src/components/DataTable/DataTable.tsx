@@ -25,6 +25,7 @@ import {
     Checkbox
 } from '~/index';
 import {TableCell} from './cells/TableCell';
+import {TableStructuredCell} from './cells/TableStructuredCell';
 import {TableHeadCell} from './table-cells/TableHeadCell';
 import {createTableColumns} from './utils/tableHelpers';
 import {Pagination} from '~/components/Pagination';
