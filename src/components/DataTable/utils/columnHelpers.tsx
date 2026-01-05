@@ -21,7 +21,7 @@ export const numberColumn = <T, >(get: (row: T) => number, options?: ColumnOptio
     render: (value: number) => renderNumber({value, locale: options?.locale, localeOptions: options?.localeOptions}),
     isSortable: true,
     sortFn: (a: T, b: T) => get(a) - get(b),
-    align: options?.align ?? 'left'
+    align: options?.align ?? 'right'
 });
 
 export const dateColumn = <T, >(get: (row: T) => Date, options?: ColumnOptions) => ({
