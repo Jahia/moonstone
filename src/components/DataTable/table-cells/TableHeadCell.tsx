@@ -7,7 +7,7 @@ import {TableCell} from '../cells/TableCell';
 
 export const TableHeadCell: React.FC<TableHeadCellProps> = ({
     width,
-    textAlign = 'left',
+    align = 'left',
     verticalAlign = 'middle',
     className,
     children,
@@ -34,7 +34,7 @@ export const TableHeadCell: React.FC<TableHeadCellProps> = ({
             {...props}
             component="th"
             width={width}
-            textAlign={textAlign}
+            align={align}
             verticalAlign={verticalAlign}
             className={clsx('moonstone-TableHeadCell', className)}
             aria-sort={ariaSort}

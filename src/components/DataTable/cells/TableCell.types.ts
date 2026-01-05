@@ -17,7 +17,7 @@ export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'chi
     /**
      * How to align content horizontally within the table cell
      */
-    textAlign?: 'left' | 'center' | 'right';
+    align?: 'left' | 'center' | 'right';
 
     /**
      * How to align content vertically within the table cell

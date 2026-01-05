@@ -19,7 +19,8 @@ export const dataColumnsUser: DataTableColumn<dataUser>[] = [
     {
         key: 'firstName',
         label: 'User',
-        ...stringColumn<dataUser>(row => row.firstName)
+        ...stringColumn<dataUser>(row => row.firstName),
+        align: 'left' // Testing left alignment
     },
     {
         key: 'status',
@@ -32,8 +33,8 @@ export const dataColumnsUser: DataTableColumn<dataUser>[] = [
             />
         ),
         isSortable: true,
-        sortFn: (a, b) => a.status.localeCompare(b.status)
-
+        sortFn: (a, b) => a.status.localeCompare(b.status),
+        align: 'center' // Testing center alignment
     },
     {
         key: 'chips',

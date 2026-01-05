@@ -23,9 +23,9 @@ import {
     Checkbox
 } from '~/index';
 import {TableCell} from './cells/TableCell';
-import {TableStructuredCell} from './cells/TableStructuredCell';
 import {TableHeadCell} from './table-cells/TableHeadCell';
 import {createTableColumns} from './utils/tableHelpers';
+import {TableStructuredCell} from './cells/TableStructuredCell';
 
 type CustomColumnMeta = {
     isSortable?: boolean;
@@ -35,6 +35,7 @@ type CustomColumnMeta = {
 export const DataTable = <T extends NonNullable<unknown>>({
     data,
     columns,
+    primaryKey,
     isStructured = false,
     enableSelection = false,
     onChangeSelection,
@@ -87,6 +88,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
         enableSortingRemoval: false, // Only toggle between asc/desc, no unsorted state
         onRowSelectionChange: setRowSelection,
         enableRowSelection: enableSelection,
+        getRowId: (row: T) => String(row[primaryKey]),
         getCoreRowModel: getCoreRowModel(),
         ...(isStructured && {
             onExpandedChange: setExpanded,
@@ -126,7 +128,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                         return (
                             <TableStructuredCell
                                 key={cell.id}
-                                textAlign={meta?.align ?? 'left'}
+                                align={meta?.align ?? 'left'}
                                 depth={row.depth}
                                 isExpandable={row.getCanExpand()}
                                 isExpanded={row.getIsExpanded()}
@@ -140,7 +142,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     return (
                         <TableCell
                             key={cell.id}
-                            textAlign={meta?.align ?? 'left'}
+                            align={meta?.align ?? 'left'}
                         >
                             {cellContent}
                         </TableCell>
@@ -202,7 +204,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                         isActive: Boolean(sortDirection)
                                     } : undefined}
                                     style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
-                                    textAlign={alignment}
+                                    align={alignment}
                                     onClick={e => {
                                         if (isColumnSortable) {
                                             header.column.getToggleSortingHandler()?.(e);

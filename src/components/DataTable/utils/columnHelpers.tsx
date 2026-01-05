@@ -28,7 +28,7 @@ export const dateColumn = <T, >(get: (row: T) => Date, options?: ColumnOptions) 
     render: (value: Date) => renderDate({value, locale: options?.locale, localeOptions: options?.localeOptions}),
     isSortable: true,
     sortFn: (a: T, b: T) => get(a).getTime() - get(b).getTime(),
-    align: options?.align
+    align: options?.align ?? 'right'
 });
 
 export const chipsColumn = <T, >(get: (row: T) => string[], options?: ColumnOptions) => ({

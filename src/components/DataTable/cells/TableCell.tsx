@@ -1,16 +1,15 @@
 import React from 'react';
 import clsx from 'clsx';
 import {Typography} from '~/components';
-
-import type {TableCellProps} from './TableCell.types';
 import {capitalize} from '~/utils/helpers';
 import './TableCell.scss';
+import type {TableCellProps} from './TableCell.types';
 
 const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellProps> = (
     {
         className,
         children,
-        textAlign = 'left',
+        align = 'left',
         verticalAlign = 'center',
         width,
         isScrollable,
@@ -29,7 +28,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
             variant="body"
             className={clsx(
                 'moonstone-TableCell',
-                'textAlign' + capitalize(textAlign),
+                align === 'left' ? 'justifyStart' : align === 'right' ? 'justifyEnd' : 'justifyCenter',
                 'flexRow',
                 'alignCenter',
                 'moonstone-verticalAlign' + capitalize(verticalAlign),
