@@ -52,6 +52,11 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
      * Content alignment for the column
      */
     align?: 'left' | 'center' | 'right';
+
+    /**
+     * Custom HTML attributes to add to the cell element
+     */
+    cellProps?: React.HTMLAttributes<HTMLTableCellElement> & Record<string, unknown>;
 };
 
 export type DataTableBaseProps<T extends NonNullable<unknown>> = {
@@ -81,6 +86,11 @@ export type DataTableBaseProps<T extends NonNullable<unknown>> = {
      * @param columnId - The ID of the clicked column
      */
     onClickTableHeadCell?: (columnId: string) => void;
+
+    /**
+     * Custom HTML attributes to add to each row element
+     */
+    rowProps?: React.HTMLAttributes<HTMLTableRowElement> & Record<string, unknown>;
 };
 
 type SortingProps<T extends NonNullable<unknown>> =
@@ -176,9 +186,59 @@ type RenderRowProps<T extends NonNullable<unknown>> = {
     renderRow?: (row: Row<T>, defaultRender: () => React.ReactNode) => React.ReactNode;
 };
 
+// Pagination props - TanStack Table handles pagination state internally
+type PaginationProps =
+    | {
+          /**
+           * Enable pagination functionality
+           */
+          enablePagination: true;
+
+          /**
+           * Initial number of rows per page
+           */
+          rowsPerPage?: number;
+
+          /**
+           * Available options for rows per page dropdown
+           */
+          rowsPerPageOptions?: number[];
+
+          /**
+           * Labels for the pagination component
+           */
+          paginationLabel?: {
+              rowsPerPage: string;
+              of: string;
+          };
+      }
+    | {
+          /**
+           * Enable pagination functionality
+           */
+          enablePagination?: false;
+
+          /**
+           * Initial number of rows per page
+           */
+          rowsPerPage?: never;
+
+          /**
+           * Available options for rows per page dropdown
+           */
+          rowsPerPageOptions?: never;
+
+          /**
+           * Labels for the pagination component
+           */
+          paginationLabel?: never;
+      };
+
 export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'children'> &
     DataTableBaseProps<T> &
     SortingProps<T> &
     SelectionProps &
     ActionsProps<T> &
-    RenderRowProps<T>;
+    RenderRowProps<T> &
+    PaginationProps;
+
