@@ -29,6 +29,7 @@ export * from './Loader';
 export * from './Menu';
 export * from './Modal';
 export * from './Paper';
+export * from './Pagination';
 export * from './Pill';
 export * from './PrimaryNav';
 export * from './PrimaryNav/PrimaryNavItem';
