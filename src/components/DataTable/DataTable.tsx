@@ -54,7 +54,9 @@ export const DataTable = <T extends NonNullable<unknown>>({
     enablePagination = false,
     itemsPerPage,
     itemsPerPageOptions,
-    paginationLabel
+    paginationLabel,
+    rowProps,
+    ...props
 }: DataTableProps<T>) => {
     // Internal sorting state - fully managed by TanStack
     const initialSorting = useMemo<SortingState>(() => {
@@ -149,8 +151,6 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
                     const showStructured = isStructured && isFirstColumn;
 
-                    const columnDef = columns.find(col => col.key === cell.column.id);
-
                     return (
                         <TableCell
                             key={cell.id}
@@ -171,7 +171,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 {actions && <TableCell>{actions(row.original)}</TableCell>}
             </>
         ),
-        [enableSelection, actions, isStructured, columns]
+        [enableSelection, actions, isStructured]
     );
 
     const renderRowWithCustomization = useCallback(
@@ -257,6 +257,6 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     onItemsPerPageChange={(size: number) => table.setPageSize(size)}
                 />
             )}
-        </div>
+        </>
     );
 };
