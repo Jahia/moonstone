@@ -52,7 +52,7 @@ describe('CardSelector', () => {
             <CardSelector {...requiredProps} thumbnailType="icon" thumbnail="thumbnail.png"/>
         );
         expect(
-            container.querySelector('.moonstone-cardSelector_thumbnail_icon')
+            container.querySelector('.moonstone-thumbnail_icon')
         ).toBeInTheDocument();
     });
 
@@ -65,7 +65,7 @@ describe('CardSelector', () => {
             />
         );
         expect(
-            container.querySelector('.moonstone-cardSelector_thumbnail_preview')
+            container.querySelector('.moonstone-thumbnail_preview')
         ).toBeInTheDocument();
     });
 

@@ -1,26 +1,22 @@
 import React from 'react';
 
-export type ThumbnailProps = {
+type BasicProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'id' | 'onClick'> & {
     /**
-     * Url of the thumbnail or icon component
-     * If a string is provided, it will be used as the src of an img element.
-     * If a React element is provided, it will be rendered as the thumbnail.
+     * Thumbnail URL or React element
      */
     thumbnail?: string | React.ReactElement;
 
     /**
-     * Alt attribute for thumbnail
+     * Alt text for thumbnail image
      */
     thumbnailAlt?: string;
 
     /**
-     * Thumbnail type
+     * Thumbnail display variant
      * @default 'preview'
      */
     thumbnailType?: 'preview' | 'icon';
-}
 
-type BasicProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'id' | 'onClick'> & ThumbnailProps & {
     /**
      * Required id
      */

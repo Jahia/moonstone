@@ -2,34 +2,9 @@ import React from 'react';
 import clsx from 'clsx';
 
 import './CardSelector.scss';
-import type {CardSelectorProps, ThumbnailProps} from './CardSelector.types';
-import {Typography} from '~/components';
-import {FileBroken, Image} from '~/icons/components';
-
-const ThumbnailCmp: React.FC<ThumbnailProps> = ({thumbnail, thumbnailType, thumbnailAlt}) => {
-    if (!thumbnail) {
-        return <Image size="big" color="gray" data-testid="cardSelector-thumbnail"/>;
-    }
-
-    if (typeof thumbnail === 'string') {
-        return (
-            <img
-                className={clsx(`moonstone-cardSelector_thumbnail_${thumbnailType}`)}
-                src={thumbnail}
-                alt={thumbnailAlt}
-                data-testid="cardSelector-thumbnail"
-            />
-        );
-    }
-
-    return (
-        <thumbnail.type
-            {...thumbnail.props}
-            className={clsx(`moonstone-cardSelector_thumbnail_${thumbnailType}`, thumbnail.props.className)}
-            data-testid="cardSelector-thumbnail"
-        />
-    );
-};
+import type {CardSelectorProps} from './CardSelector.types';
+import {Thumbnail, Typography} from '~/components';
+import {FileBroken} from '~/icons/components';
 
 export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProps>(({
     displayName,
@@ -105,9 +80,16 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
             onClick={e => handleOnClick(e)}
             {...props}
         >
-            <figure className={clsx('moonstone-cardSelector_thumbnail', 'flexRow_center', 'alignCenter')}>
-                <ThumbnailCmp thumbnail={thumbnail} thumbnailType={thumbnailType} thumbnailAlt={thumbnailAlt}/>
-            </figure>
+            <Thumbnail
+                className="moonstone-cardSelector_thumbnail"
+                variant={thumbnailType}
+                {...(typeof thumbnail === 'string' ?
+                    {src: thumbnail, alt: thumbnailAlt || ''} :
+                    thumbnail ?
+                        {src: thumbnail} :
+                        {}
+                )}
+            />
 
             <div className={clsx('moonstone-cardSelector_body', 'flexFluid', 'flexCol_nowrap')}>
                 <div className={clsx('flexRow_nowrap flexFluid')}>
