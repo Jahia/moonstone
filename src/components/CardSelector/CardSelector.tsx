@@ -83,12 +83,8 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
             <Thumbnail
                 className="moonstone-cardSelector_thumbnail"
                 variant={thumbnailType}
-                {...(typeof thumbnail === 'string' ?
-                    {src: thumbnail, alt: thumbnailAlt || ''} :
-                    thumbnail ?
-                        {src: thumbnail} :
-                        {}
-                )}
+                src={thumbnail}
+                alt={thumbnailAlt}
             />
 
             <div className={clsx('moonstone-cardSelector_body', 'flexFluid', 'flexCol_nowrap')}>

@@ -1,21 +1,13 @@
-import React from 'react';
+import type React from 'react';
+import type {ThumbnailSrc, ThumbnailVariant} from '~/components/Thumbnail/Thumbnail.types';
 
 type BasicProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'id' | 'onClick'> & {
-    /**
-     * Thumbnail URL or React element
-     */
-    thumbnail?: string | React.ReactElement;
-
-    /**
-     * Alt text for thumbnail image
-     */
+    /** Thumbnail URL or React element */
+    thumbnail?: ThumbnailSrc;
+    /** Alt text for thumbnail image */
     thumbnailAlt?: string;
-
-    /**
-     * Thumbnail display variant
-     * @default 'preview'
-     */
-    thumbnailType?: 'preview' | 'icon';
+    /** Thumbnail display variant @default 'preview' */
+    thumbnailType?: ThumbnailVariant;
 
     /**
      * Required id

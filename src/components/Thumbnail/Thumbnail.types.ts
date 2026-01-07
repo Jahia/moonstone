@@ -1,51 +1,21 @@
 import type React from 'react';
 
+export type ThumbnailSrc = string | React.ReactElement;
 export type ThumbnailSize = 'small' | 'default';
 export type ThumbnailVariant = 'preview' | 'icon';
 
-type BaseThumbnailProps = {
-    /**
-     * Size of the thumbnail
-     * - 'small': 40x40
-     * - 'default': 46x46
-     * @default 'default'
-     */
+export type ThumbnailProps = {
+    /** Image source - URL string, React element, or undefined for fallback icon */
+    src?: string | React.ReactElement;
+    /** Alt text for accessibility (recommended when src is a string) */
+    alt?: string;
+    /** Size: 'small' (40x40) or 'default' (46x46) @default 'default' */
     size?: ThumbnailSize;
-
-    /**
-     * Thumbnail display variant
-     * - 'preview': fills container with object-fit cover
-     * - 'icon': smaller centered display
-     * @default 'preview'
-     */
+    /** Display variant: 'preview' (object-fit cover) or 'icon' (centered) @default 'preview' */
     variant?: ThumbnailVariant;
-
-    /**
-     * Additional className
-     */
+    /** Additional className */
     className?: string;
+    /** Additional img element props (only applies when src is a string) */
+    imgProps?: Omit<React.ComponentPropsWithoutRef<'img'>, 'src' | 'alt' | 'className'>;
 };
 
-type ThumbnailSrcProps =
-    | {
-        /** Image URL - alt is required */
-        src: string;
-        /** Alt text for accessibility */
-        alt: string;
-        /** Additional img element props */
-        imgProps?: Omit<React.ComponentPropsWithoutRef<'img'>, 'src' | 'alt' | 'className'>;
-    }
-    | {
-        /** Custom React element to render as thumbnail */
-        src: React.ReactElement;
-        alt?: never;
-        imgProps?: never;
-    }
-    | {
-        /** No src - renders fallback icon */
-        src?: undefined;
-        alt?: never;
-        imgProps?: never;
-    };
-
-export type ThumbnailProps = BaseThumbnailProps & ThumbnailSrcProps;
