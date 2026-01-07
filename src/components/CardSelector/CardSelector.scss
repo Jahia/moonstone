@@ -63,26 +63,7 @@ $cardSelector-height: 58px;
 }
 
 .moonstone-cardSelector_thumbnail {
-    width: 46px;
-    min-width: 46px;
-    height: 46px;
-
     margin-right: var(--spacing-small);
-    overflow: hidden;
-
-    border-radius: var(--radius_small);
-    background-color: var(--color-gray_light40);
-}
-
-.moonstone-cardSelector_thumbnail_preview {
-    width: 100%;
-    height: inherit;
-    object-fit: cover;
-}
-
-.moonstone-cardSelector_thumbnail_icon {
-    width: 16px;
-    height: 16px;
 }
 
 .moonstone-cardSelector_actions {
