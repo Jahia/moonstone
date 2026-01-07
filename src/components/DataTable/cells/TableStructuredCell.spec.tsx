@@ -1,10 +1,10 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, it, expect, vi } from 'vitest';
-import { TableStructuredCell } from './TableStructuredCell';
+import {describe, it, expect, vi} from 'vitest';
+import {TableStructuredCell} from './TableStructuredCell';
 
-const TableWrapper: React.FC<{ readonly children: React.ReactNode }> = ({ children }) => (
+const TableWrapper: React.FC<{ readonly children: React.ReactNode }> = ({children}) => (
     <table>
         <tbody>
             <tr>{children}</tr>
@@ -25,7 +25,7 @@ describe('TableStructuredCell', () => {
     it('should render dash when children is missing', () => {
         render(
             <TableWrapper>
-                <TableStructuredCell depth={0} />
+                <TableStructuredCell depth={0}/>
             </TableWrapper>
         );
         expect(screen.getByText('-')).toBeInTheDocument();
@@ -33,33 +33,33 @@ describe('TableStructuredCell', () => {
 
     describe('Indentation', () => {
         it('should apply correct indentation for depth 0', () => {
-            // depth=0, non-expandable: 0*20 + 20 (buffer) = 20px
+            // Depth=0, non-expandable: 0*20 + 20 (buffer) = 20px
             render(
                 <TableWrapper>
                     <TableStructuredCell depth={0}>Root</TableStructuredCell>
                 </TableWrapper>
             );
-            expect(screen.getByText('Root').closest('span')).toHaveStyle({ marginLeft: '20px' });
+            expect(screen.getByText('Root').closest('span')).toHaveStyle({marginLeft: '20px'});
         });
 
         it('should apply correct indentation for depth 2', () => {
-            // depth=2, non-expandable: 2*20 + 20 (buffer) = 60px
+            // Depth=2, non-expandable: 2*20 + 20 (buffer) = 60px
             render(
                 <TableWrapper>
                     <TableStructuredCell depth={2}>Nested</TableStructuredCell>
                 </TableWrapper>
             );
-            expect(screen.getByText('Nested').closest('span')).toHaveStyle({ marginLeft: '60px' });
+            expect(screen.getByText('Nested').closest('span')).toHaveStyle({marginLeft: '60px'});
         });
 
         it('should not add buffer for expandable cells', () => {
-            // depth=1, expandable: 1*20 = 20px (no buffer)
+            // Depth=1, expandable: 1*20 = 20px (no buffer)
             render(
                 <TableWrapper>
-                    <TableStructuredCell depth={1} isExpandable>Parent</TableStructuredCell>
+                    <TableStructuredCell isExpandable depth={1}>Parent</TableStructuredCell>
                 </TableWrapper>
             );
-            expect(screen.getByText('Parent').closest('span')).toHaveStyle({ marginLeft: '20px' });
+            expect(screen.getByText('Parent').closest('span')).toHaveStyle({marginLeft: '20px'});
         });
     });
 
@@ -67,7 +67,7 @@ describe('TableStructuredCell', () => {
         it('should render expandable wrapper when isExpandable', () => {
             render(
                 <TableWrapper>
-                    <TableStructuredCell depth={0} isExpandable>Parent</TableStructuredCell>
+                    <TableStructuredCell isExpandable depth={0}>Parent</TableStructuredCell>
                 </TableWrapper>
             );
             expect(document.querySelector('.moonstone-tableCellExpandable')).toBeInTheDocument();
@@ -87,7 +87,7 @@ describe('TableStructuredCell', () => {
             const user = userEvent.setup();
             render(
                 <TableWrapper>
-                    <TableStructuredCell depth={0} isExpandable onToggleExpand={onToggle}>
+                    <TableStructuredCell isExpandable depth={0} onToggleExpand={onToggle}>
                         Clickable
                     </TableStructuredCell>
                 </TableWrapper>

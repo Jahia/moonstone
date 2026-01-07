@@ -1,10 +1,10 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, it, expect, vi } from 'vitest';
-import { TableRow } from './TableRow';
+import {describe, it, expect, vi} from 'vitest';
+import {TableRow} from './TableRow';
 
-const TableWrapper: React.FC<{ readonly children: React.ReactNode }> = ({ children }) => (
+const TableWrapper: React.FC<{ readonly children: React.ReactNode }> = ({children}) => (
     <table>
         <tbody>
             {children}
@@ -90,7 +90,7 @@ describe('TableRow', () => {
             const user = userEvent.setup();
             render(
                 <TableWrapper>
-                    <TableRow onClick={onClick} data-testid="row">
+                    <TableRow data-testid="row" onClick={onClick}>
                         <td>Content</td>
                     </TableRow>
                 </TableWrapper>
@@ -105,7 +105,7 @@ describe('TableRow', () => {
             const user = userEvent.setup();
             render(
                 <TableWrapper>
-                    <TableRow onDoubleClick={onDoubleClick} data-testid="row">
+                    <TableRow data-testid="row" onDoubleClick={onDoubleClick}>
                         <td>Content</td>
                     </TableRow>
                 </TableWrapper>
