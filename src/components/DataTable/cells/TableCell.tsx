@@ -35,7 +35,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
     // Render content with optional chevron for structured view
     const renderContent = () => {
         if (!isStructured) {
-            return children ?? '-';
+            return children;
         }
 
         // Structured cell - render with indentation and optional chevron
@@ -55,7 +55,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
                         <ChevronRight className="moonstone-marginRightNano"/>
                     )
                 )}
-                {children ?? '-'}
+                {children}
             </span>
         );
     };

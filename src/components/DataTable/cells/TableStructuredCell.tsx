@@ -36,14 +36,14 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                         ) : (
                             <ChevronRight className="moonstone-marginRightNano"/>
                         )}
-                        {children ?? '-'}
+                        {children}
                     </span>
                 );
             }
 
             return (
                 <span style={{marginLeft: `${leftMarginIndentDepth + leftMarginBuffer}px`}}>
-                    {children ?? '-'}
+                    {children}
                 </span>
             );
         };
