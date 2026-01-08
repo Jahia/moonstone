@@ -19,11 +19,11 @@ import {useState, useEffect, useMemo, useCallback} from 'react';
 import type {DataTableProps} from './DataTable.types';
 import {
     Table,
-    TableBody,
-    TableHead,
     TableRow,
     Checkbox
 } from '~/index';
+import {TableBody} from './TableBody';
+import {TableHead} from './TableHead';
 import {TableCell} from './cells/TableCell';
 import {TableStructuredCell} from './cells/TableStructuredCell';
 import {TableHeadCell} from './cells/TableHeadCell';
