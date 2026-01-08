@@ -1,4 +1,4 @@
-import type {DataTableColumn} from '../DataTable.types';
+import type {DataTableColumn} from '~/components/DataTable/DataTable.types';
 import {Chip} from '~/components';
 import {numberColumn, dateColumn, stringColumn} from '~/utils/dataTable';
 

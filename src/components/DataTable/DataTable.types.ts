@@ -1,5 +1,6 @@
 import React from 'react';
 import type {Row} from '@tanstack/react-table';
+import type {PaginationProps as ComponentPaginationProps} from '~/components/Pagination';
 
 export type SubRowKey = 'subRows';
 
@@ -186,7 +187,9 @@ type RenderRowProps<T extends NonNullable<unknown>> = {
     renderRow?: (row: Row<T>, defaultRender: () => React.ReactNode) => React.ReactNode;
 };
 
-// Pagination props - TanStack Table handles pagination state internally
+// Pagination props - uses types from Pagination component for consistency
+// Note: DataTable uses a discriminated union to enforce that pagination-related
+// props are only available when enablePagination is true
 type PaginationProps =
     | {
           /**
@@ -196,21 +199,21 @@ type PaginationProps =
 
           /**
            * Initial number of items per page
+           * @see PaginationProps.itemsPerPage from ~/components/Pagination
            */
-          itemsPerPage?: number;
+          itemsPerPage?: ComponentPaginationProps['itemsPerPage'];
 
           /**
            * Available options for items per page dropdown
+           * @see PaginationProps.itemsPerPageOptions from ~/components/Pagination
            */
-          itemsPerPageOptions?: number[];
+          itemsPerPageOptions?: ComponentPaginationProps['itemsPerPageOptions'];
 
           /**
            * Labels for the pagination component
+           * @see PaginationProps.label from ~/components/Pagination
            */
-          paginationLabel?: {
-              itemsPerPage: string;
-              of: string;
-          };
+          paginationLabel?: ComponentPaginationProps['label'];
       }
     | {
           /**

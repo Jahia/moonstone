@@ -1,6 +1,6 @@
-import {dataTable} from './data/TableData';
-import {dataColumnsUser} from './data/dataColumnsUser';
-import type {dataUser} from './data/dataColumnsUser';
+import {dataTable} from '~/data/dataTable';
+import {dataColumnsUser} from '~/data/dataTable';
+import type {dataUser} from '~/data/dataTable';
 import {DataTable} from './DataTable';
 import type {Meta, StoryObj} from '@storybook/react';
 import {TableRow} from '~/components';

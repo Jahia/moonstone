@@ -120,4 +120,3 @@ export const dataTable: dataUser[] = [
         date: new Date('2024-11-18')
     }
 ];
-
