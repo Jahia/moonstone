@@ -14,9 +14,9 @@ import type {
     PaginationState,
     Row
 } from '@tanstack/react-table';
-import {useState, useEffect, useMemo, useCallback} from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 
-import type {DataTableProps} from './DataTable.types';
+import type { DataTableProps } from './DataTable.types';
 import {
     Table,
     TableBody,
@@ -24,15 +24,10 @@ import {
     TableRow,
     Checkbox
 } from '~/index';
-import {TableCell} from './cells/TableCell';
-import {TableHeadCell} from './table-cells/TableHeadCell';
-import {createTableColumns} from './utils/tableHelpers';
-import {Pagination} from '~/components/Pagination';
-
-type CustomColumnMeta = {
-    isSortable?: boolean;
-    align?: 'left' | 'center' | 'right';
-};
+import { TableCell } from './cells/TableCell';
+import { TableHeadCell } from './table-cells/TableHeadCell';
+import { createTableColumns } from './utils/tableHelpers';
+import { Pagination } from '~/components/Pagination';
 
 export const DataTable = <T extends NonNullable<unknown>>({
     className,
@@ -75,7 +70,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     const [sorting, setSorting] = useState<SortingState>(initialSorting);
     const [expanded, setExpanded] = useState<ExpandedState>({});
     const [rowSelection, setRowSelection] = useState<RowSelectionState>(() =>
-        defaultSelection?.reduce((acc, key) => ({...acc, [key]: true}), {}) ?? {}
+        defaultSelection?.reduce((acc, key) => ({ ...acc, [key]: true }), {}) ?? {}
     );
 
     // Ensure itemsPerPage is valid based on options
@@ -106,7 +101,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
             expanded,
             rowSelection,
             sorting,
-            ...(enablePagination && {pagination})
+            ...(enablePagination && { pagination })
         },
         onSortingChange: setSorting,
         onExpandedChange: setExpanded,
@@ -146,7 +141,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
                 {/* Data cells - content comes from column.cell defined in createTableColumns */}
                 {row.getVisibleCells().map((cell, index) => {
-                    const meta = cell.column.columnDef.meta as CustomColumnMeta | undefined;
+                    const meta = cell.column.columnDef.meta as { isSortable?: boolean; align?: 'left' | 'center' | 'right' } | undefined;
                     const isFirstColumn = index === 0;
                     const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
                     const showStructured = isStructured && isFirstColumn;
@@ -210,7 +205,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
                             {/* Column headers */}
                             {headerGroup.headers.map(header => {
-                                const meta = header.column.columnDef.meta as CustomColumnMeta | undefined;
+                                const meta = header.column.columnDef.meta as { isSortable?: boolean; align?: 'left' | 'center' | 'right' } | undefined;
                                 const isColumnSortable = enableSorting && (meta?.isSortable ?? false);
                                 const alignment = meta?.align ?? 'left';
                                 const sortDirection = header.column.getIsSorted();
@@ -222,7 +217,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                             direction: sortDirection === 'desc' ? 'descending' : 'ascending',
                                             isActive: Boolean(sortDirection)
                                         } : undefined}
-                                        style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
+                                        style={{ cursor: isColumnSortable ? 'pointer' : 'default' }}
                                         align={alignment}
                                         onClick={e => {
                                             if (isColumnSortable) {
