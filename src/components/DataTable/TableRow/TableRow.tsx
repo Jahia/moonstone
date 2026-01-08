@@ -8,7 +8,6 @@ const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowPr
     {
         className,
         component = 'tr',
-        hasMultipleLines = false,
         isSelected = false,
         isHighlighted = false,
         children,
@@ -20,7 +19,6 @@ const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowPr
             'flexRow',
             'moonstone-TableRow',
             'alignCenter',
-            hasMultipleLines && 'moonstone-TableRow-multipleLines',
             isSelected && 'moonstone-TableRow-selected',
             isHighlighted && 'moonstone-TableRow-highlighted',
             className

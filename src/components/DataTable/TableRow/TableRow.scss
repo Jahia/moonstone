@@ -1,5 +1,4 @@
 $row-regular-height: 48px;
-$row-multiple-line-height: 64px;
 
 .moonstone-TableRow {
     height: $row-regular-height;
@@ -42,9 +41,5 @@ $row-multiple-line-height: 64px;
         .moonstone-button:not(:hover, :focus) {
             color: var(--color-light);
         }
-    }
-
-    &.moonstone-TableRow-multipleLines {
-        height: $row-multiple-line-height;
     }
 }
