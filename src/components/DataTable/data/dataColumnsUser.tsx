@@ -1,6 +1,6 @@
-import type {DataTableColumn} from '../DataTable.types';
-import {Chip} from '~/components';
-import {numberColumn, dateColumn, chipsColumn, stringColumn} from '../utils';
+import type { DataTableColumn } from '../DataTable.types';
+import { Chip } from '~/components';
+import { numberColumn, dateColumn, stringColumn } from '../utils';
 
 export type dataUser = {
     firstName: string;
@@ -37,11 +37,6 @@ export const dataColumnsUser: DataTableColumn<dataUser>[] = [
         align: 'center' // Testing center alignment
     },
     {
-        key: 'chips',
-        label: 'Roles',
-        ...chipsColumn<dataUser>(row => row.chips ?? [])
-    },
-    {
         key: 'progress',
         label: 'Progress',
         ...numberColumn<dataUser>(row => row.progress),
@@ -50,7 +45,8 @@ export const dataColumnsUser: DataTableColumn<dataUser>[] = [
     {
         key: 'date',
         label: 'Last Login',
-        ...dateColumn<dataUser>(row => row.date, {locale: 'fr-FR'}), // Can use the locale option to format the date
+        ...dateColumn<dataUser>(row => row.date, { locale: 'fr-FR' }), // Can use the locale option to format the date
         align: 'right' // You can align the content of the cell
     }
 ];
+

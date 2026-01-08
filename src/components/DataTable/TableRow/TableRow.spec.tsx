@@ -59,17 +59,6 @@ describe('TableRow', () => {
         expect(screen.getByTestId('row')).toHaveClass('moonstone-TableRow-highlighted');
     });
 
-    it('should apply hasMultipleLines class', () => {
-        render(
-            <TableWrapper>
-                <TableRow hasMultipleLines data-testid="row">
-                    <td>Content</td>
-                </TableRow>
-            </TableWrapper>
-        );
-        expect(screen.getByTestId('row')).toHaveClass('moonstone-TableRow-multipleLines');
-    });
-
     it('should call onClick when clicked', async () => {
         const onClick = vi.fn();
         const user = userEvent.setup();

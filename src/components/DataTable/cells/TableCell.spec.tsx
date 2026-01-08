@@ -1,8 +1,7 @@
 
 import React from 'react';
 import {render, screen} from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import {describe, it, expect, vi} from 'vitest';
+import {describe, it, expect} from 'vitest';
 import {TableCell} from './TableCell';
 
 const TableWrapper: React.FC<{ readonly children: React.ReactNode }> = ({children}) => (
@@ -24,15 +23,6 @@ describe('TableCell', () => {
         expect(screen.getByTestId('cell').tagName).toBe('TD');
     });
 
-    it('should render dash when children is missing', () => {
-        render(
-            <TableWrapper>
-                <TableCell data-testid="cell"/>
-            </TableWrapper>
-        );
-        expect(screen.getByText('-')).toBeInTheDocument();
-    });
-
     it('should render as th when component prop is set', () => {
         render(
             <TableWrapper>
@@ -45,9 +35,9 @@ describe('TableCell', () => {
     it('should apply alignment classes', () => {
         render(
             <TableWrapper>
-                <TableCell data-testid="left" align="left"/>
-                <TableCell data-testid="center" align="center"/>
-                <TableCell data-testid="right" align="right"/>
+                <TableCell data-testid="left" align="left">L</TableCell>
+                <TableCell data-testid="center" align="center">C</TableCell>
+                <TableCell data-testid="right" align="right">R</TableCell>
             </TableWrapper>
         );
         expect(screen.getByTestId('left')).toHaveClass('justifyStart');
@@ -58,7 +48,7 @@ describe('TableCell', () => {
     it('should apply width style', () => {
         render(
             <TableWrapper>
-                <TableCell data-testid="cell" width="100px"/>
+                <TableCell data-testid="cell" width="100px">W</TableCell>
             </TableWrapper>
         );
         expect(screen.getByTestId('cell')).toHaveStyle({width: '100px'});
@@ -67,7 +57,7 @@ describe('TableCell', () => {
     it('should apply vertical align classes', () => {
         render(
             <TableWrapper>
-                <TableCell data-testid="cell" verticalAlign="top"/>
+                <TableCell data-testid="cell" verticalAlign="top">V</TableCell>
             </TableWrapper>
         );
         expect(screen.getByTestId('cell')).toHaveClass('moonstone-verticalAlignTop');
@@ -76,73 +66,10 @@ describe('TableCell', () => {
     it('should apply scrollable class', () => {
         render(
             <TableWrapper>
-                <TableCell isScrollable data-testid="cell"/>
+                <TableCell isScrollable data-testid="cell">S</TableCell>
             </TableWrapper>
         );
         expect(screen.getByTestId('cell')).toHaveClass('moonstone-tableCellContent');
     });
-
-    describe('Structured View', () => {
-        it('should render indentation based on depth', () => {
-            // For depth 1, not expandable: 20 + 20 = 40px
-            render(
-                <TableWrapper>
-                    <TableCell depth={1} isExpandable={false}>Content</TableCell>
-                </TableWrapper>
-            );
-            const contentSpan = screen.getByText('Content').closest('span');
-            expect(contentSpan).toHaveStyle({marginLeft: '40px'});
-        });
-
-        it('should have aria-expanded false when expandable and not expanded', () => {
-            render(
-                <TableWrapper>
-                    <TableCell isExpandable depth={0} isExpanded={false} data-testid="cell">
-                        Content
-                    </TableCell>
-                </TableWrapper>
-            );
-            expect(screen.getByTestId('cell')).toHaveAttribute('aria-expanded', 'false');
-        });
-
-        it('should have aria-expanded true when expandable and expanded', () => {
-            render(
-                <TableWrapper>
-                    <TableCell isExpandable isExpanded depth={0} data-testid="cell">
-                        Content
-                    </TableCell>
-                </TableWrapper>
-            );
-            expect(screen.getByTestId('cell')).toHaveAttribute('aria-expanded', 'true');
-        });
-
-        it('should handle toggle click', async () => {
-            const onToggle = vi.fn();
-            const user = userEvent.setup();
-            render(
-                <TableWrapper>
-                    <TableCell
-                        isExpandable
-                        depth={0}
-                        data-testid="cell"
-                        onToggleExpand={onToggle}
-                    >
-                        Content
-                    </TableCell>
-                </TableWrapper>
-            );
-
-            await user.click(screen.getByTestId('cell'));
-            expect(onToggle).toHaveBeenCalled();
-        });
-
-        it('should have pointer cursor when expandable', () => {
-            render(
-                <TableWrapper>
-                    <TableCell isExpandable depth={0} data-testid="cell">Content</TableCell>
-                </TableWrapper>
-            );
-            expect(screen.getByTestId('cell')).toHaveStyle({cursor: 'pointer'});
-        });
-    });
 });
+

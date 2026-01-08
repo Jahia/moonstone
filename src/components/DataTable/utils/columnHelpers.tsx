@@ -2,7 +2,6 @@ import {
     renderString,
     renderNumber,
     renderDate,
-    renderChips,
     type LocaleOptions
 } from './renderHelpers';
 
@@ -29,11 +28,5 @@ export const dateColumn = <T, >(get: (row: T) => Date, options?: ColumnOptions) 
     isSortable: true,
     sortFn: (a: T, b: T) => get(a).getTime() - get(b).getTime(),
     align: options?.align ?? 'right'
-});
-
-export const chipsColumn = <T, >(get: (row: T) => string[], options?: ColumnOptions) => ({
-    render: (value: string[]) => renderChips(value),
-    isSortable: false,
-    align: options?.align
 });
 

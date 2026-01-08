@@ -25,6 +25,7 @@ import {
     Checkbox
 } from '~/index';
 import {TableCell} from './cells/TableCell';
+import {TableStructuredCell} from './cells/TableStructuredCell';
 import {TableHeadCell} from './table-cells/TableHeadCell';
 import {createTableColumns} from './utils/tableHelpers';
 import {Pagination} from '~/components/Pagination';
@@ -146,16 +147,26 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
                     const showStructured = isStructured && isFirstColumn;
 
+                    // Use TableStructuredCell for first column in structured view
+                    if (showStructured) {
+                        return (
+                            <TableStructuredCell
+                                key={cell.id}
+                                align={meta?.align ?? 'left'}
+                                depth={row.depth}
+                                isExpandable={row.getCanExpand()}
+                                isExpanded={row.getIsExpanded()}
+                                onToggleExpand={row.getToggleExpandedHandler()}
+                            >
+                                {cellContent}
+                            </TableStructuredCell>
+                        );
+                    }
+
                     return (
                         <TableCell
                             key={cell.id}
                             align={meta?.align ?? 'left'}
-                            {...(showStructured && {
-                                depth: row.depth,
-                                isExpandable: row.getCanExpand(),
-                                isExpanded: row.getIsExpanded(),
-                                onToggleExpand: row.getToggleExpandedHandler()
-                            })}
                         >
                             {cellContent}
                         </TableCell>
