@@ -49,15 +49,15 @@ describe('DataTable', () => {
         expect(screen.getByText('30')).toBeInTheDocument();
     });
 
-    it('should render empty message when no data', () => {
-        render(
+    it('should render nothing when no data', () => {
+        const {container} = render(
             <DataTable<TestData>
                 data={[]}
                 columns={columns}
                 primaryKey="id"
             />
         );
-        expect(screen.getByText('No data available.')).toBeInTheDocument();
+        expect(container.firstChild).toBeNull();
     });
 
     it('should render actions column', () => {
@@ -218,7 +218,7 @@ describe('DataTable', () => {
         expect(screen.getByText('Child')).toBeInTheDocument();
     });
 
-    it('should collapse row when parent cell is clicked', async () => {
+    it('should collapse row when expand toggle is clicked', async () => {
         const structuredData: TestData[] = [
             {
                 id: '1',
@@ -240,8 +240,9 @@ describe('DataTable', () => {
             />
         );
 
-        const parentCell = screen.getByText('Parent').closest('td');
-        await user.click(parentCell!);
+        // Click on the expandable span (with chevron) to collapse
+        const expandableSpan = document.querySelector('.moonstone-tableCellExpandable');
+        await user.click(expandableSpan!);
 
         expect(screen.queryByText('Child')).not.toBeInTheDocument();
     });

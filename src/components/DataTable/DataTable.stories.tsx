@@ -85,7 +85,7 @@ export const DefaultSelectionDataTable: Story = {
         columns: dataColumnsUser,
         primaryKey: 'firstName',
         enableSelection: true,
-        defaultSelection: ['Yacine', 'Yacinator']
+        defaultSelection: ['Walter', 'Jon']
     },
     name: 'Default Selection'
 };
@@ -154,7 +154,7 @@ export const AllFeaturesTable: Story = {
         enableSelection: true,
         isStructured: true,
         enableSorting: true,
-        defaultSelection: ['Yacine', 'Yacinator'],
+        defaultSelection: ['Walter', 'Jon'],
         defaultSortBy: 'progress',
         defaultSortDirection: 'descending'
     },
