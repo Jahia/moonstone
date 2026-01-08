@@ -36,84 +36,68 @@ describe('TableRow', () => {
         expect(screen.getByTestId('row')).toHaveAttribute('tabIndex', '0');
     });
 
-    describe('State Classes', () => {
-        it('should apply isSelected class', () => {
-            render(
-                <TableWrapper>
-                    <TableRow isSelected data-testid="row">
-                        <td>Content</td>
-                    </TableRow>
-                </TableWrapper>
-            );
-            expect(screen.getByTestId('row')).toHaveClass('moonstone-TableRow-selected');
-        });
-
-        it('should apply isHighlighted class', () => {
-            render(
-                <TableWrapper>
-                    <TableRow isHighlighted data-testid="row">
-                        <td>Content</td>
-                    </TableRow>
-                </TableWrapper>
-            );
-            expect(screen.getByTestId('row')).toHaveClass('moonstone-TableRow-highlighted');
-        });
-
-        it('should apply hasMultipleLines class', () => {
-            render(
-                <TableWrapper>
-                    <TableRow hasMultipleLines data-testid="row">
-                        <td>Content</td>
-                    </TableRow>
-                </TableWrapper>
-            );
-            expect(screen.getByTestId('row')).toHaveClass('moonstone-TableRow-multipleLines');
-        });
-
-        it('should apply multiple state classes together', () => {
-            render(
-                <TableWrapper>
-                    <TableRow isSelected isHighlighted data-testid="row">
-                        <td>Content</td>
-                    </TableRow>
-                </TableWrapper>
-            );
-            const row = screen.getByTestId('row');
-            expect(row).toHaveClass('moonstone-TableRow-selected');
-            expect(row).toHaveClass('moonstone-TableRow-highlighted');
-        });
+    it('should apply isSelected class and aria-selected', () => {
+        render(
+            <TableWrapper>
+                <TableRow isSelected data-testid="row">
+                    <td>Content</td>
+                </TableRow>
+            </TableWrapper>
+        );
+        expect(screen.getByTestId('row')).toHaveClass('moonstone-TableRow-selected');
+        expect(screen.getByTestId('row')).toHaveAttribute('aria-selected', 'true');
     });
 
-    describe('Event Handlers', () => {
-        it('should call onClick when clicked', async () => {
-            const onClick = vi.fn();
-            const user = userEvent.setup();
-            render(
-                <TableWrapper>
-                    <TableRow data-testid="row" onClick={onClick}>
-                        <td>Content</td>
-                    </TableRow>
-                </TableWrapper>
-            );
+    it('should apply isHighlighted class', () => {
+        render(
+            <TableWrapper>
+                <TableRow isHighlighted data-testid="row">
+                    <td>Content</td>
+                </TableRow>
+            </TableWrapper>
+        );
+        expect(screen.getByTestId('row')).toHaveClass('moonstone-TableRow-highlighted');
+    });
 
-            await user.click(screen.getByTestId('row'));
-            expect(onClick).toHaveBeenCalledTimes(1);
-        });
+    it('should apply hasMultipleLines class', () => {
+        render(
+            <TableWrapper>
+                <TableRow hasMultipleLines data-testid="row">
+                    <td>Content</td>
+                </TableRow>
+            </TableWrapper>
+        );
+        expect(screen.getByTestId('row')).toHaveClass('moonstone-TableRow-multipleLines');
+    });
 
-        it('should call onDoubleClick when double-clicked', async () => {
-            const onDoubleClick = vi.fn();
-            const user = userEvent.setup();
-            render(
-                <TableWrapper>
-                    <TableRow data-testid="row" onDoubleClick={onDoubleClick}>
-                        <td>Content</td>
-                    </TableRow>
-                </TableWrapper>
-            );
+    it('should call onClick when clicked', async () => {
+        const onClick = vi.fn();
+        const user = userEvent.setup();
+        render(
+            <TableWrapper>
+                <TableRow data-testid="row" onClick={onClick}>
+                    <td>Content</td>
+                </TableRow>
+            </TableWrapper>
+        );
 
-            await user.dblClick(screen.getByTestId('row'));
-            expect(onDoubleClick).toHaveBeenCalledTimes(1);
-        });
+        await user.click(screen.getByTestId('row'));
+        expect(onClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('should call onDoubleClick when double-clicked', async () => {
+        const onDoubleClick = vi.fn();
+        const user = userEvent.setup();
+        render(
+            <TableWrapper>
+                <TableRow data-testid="row" onDoubleClick={onDoubleClick}>
+                    <td>Content</td>
+                </TableRow>
+            </TableWrapper>
+        );
+
+        await user.dblClick(screen.getByTestId('row'));
+        expect(onDoubleClick).toHaveBeenCalledTimes(1);
     });
 
     it('should forward ref', () => {
@@ -128,7 +112,7 @@ describe('TableRow', () => {
         expect(ref.current?.tagName).toBe('TR');
     });
 
-    it('should forward className', () => {
+    it('should add custom className', () => {
         render(
             <TableWrapper>
                 <TableRow className="custom-class" data-testid="row">

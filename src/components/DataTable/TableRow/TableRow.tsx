@@ -26,6 +26,7 @@ const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowPr
             className
         ),
         tabIndex: 0,
+        'aria-selected': isSelected || undefined,
         ...props,
         ref
     },

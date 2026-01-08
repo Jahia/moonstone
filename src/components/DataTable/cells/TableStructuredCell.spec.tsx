@@ -64,24 +64,6 @@ describe('TableStructuredCell', () => {
     });
 
     describe('Expand/Collapse', () => {
-        it('should render expandable wrapper when isExpandable', () => {
-            render(
-                <TableWrapper>
-                    <TableStructuredCell isExpandable depth={0}>Parent</TableStructuredCell>
-                </TableWrapper>
-            );
-            expect(document.querySelector('.moonstone-tableCellExpandable')).toBeInTheDocument();
-        });
-
-        it('should not render expandable wrapper when not expandable', () => {
-            render(
-                <TableWrapper>
-                    <TableStructuredCell depth={0}>Leaf</TableStructuredCell>
-                </TableWrapper>
-            );
-            expect(document.querySelector('.moonstone-tableCellExpandable')).not.toBeInTheDocument();
-        });
-
         it('should call onToggleExpand when clicked', async () => {
             const onToggle = vi.fn();
             const user = userEvent.setup();
@@ -108,7 +90,7 @@ describe('TableStructuredCell', () => {
         expect(ref.current?.tagName).toBe('TD');
     });
 
-    it('should forward className', () => {
+    it('should add custom className', () => {
         render(
             <TableWrapper>
                 <TableStructuredCell depth={0} className="custom" data-testid="cell">

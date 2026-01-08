@@ -84,8 +84,6 @@ describe('TableCell', () => {
 
     describe('Structured View', () => {
         it('should render indentation based on depth', () => {
-            // We can check if the inner span has the margin left
-            // The implementation calculates marginLeft = depth * 20 + (isExpandable ? 0 : 20)
             // For depth 1, not expandable: 20 + 20 = 40px
             render(
                 <TableWrapper>
@@ -96,26 +94,26 @@ describe('TableCell', () => {
             expect(contentSpan).toHaveStyle({marginLeft: '40px'});
         });
 
-        it('should render chevron right when expandable and not expanded', () => {
+        it('should have aria-expanded false when expandable and not expanded', () => {
             render(
                 <TableWrapper>
-                    <TableCell isExpandable depth={0} isExpanded={false}>Content</TableCell>
+                    <TableCell isExpandable depth={0} isExpanded={false} data-testid="cell">
+                        Content
+                    </TableCell>
                 </TableWrapper>
             );
-            // Search for chevron right icon (usually based on class or svg title if available)
-            // Moonstone icons usually have specific classes or we can check presence
-            // The code renders <ChevronRight className="moonstone-marginRightNano"/>
-            expect(document.querySelector('.moonstone-marginRightNano')).toBeInTheDocument();
-            // Can also check if it is NOT ChevronDown
+            expect(screen.getByTestId('cell')).toHaveAttribute('aria-expanded', 'false');
         });
 
-        it('should render chevron down when expandable and expanded', () => {
+        it('should have aria-expanded true when expandable and expanded', () => {
             render(
                 <TableWrapper>
-                    <TableCell isExpandable isExpanded depth={0}>Content</TableCell>
+                    <TableCell isExpandable isExpanded depth={0} data-testid="cell">
+                        Content
+                    </TableCell>
                 </TableWrapper>
             );
-            expect(document.querySelector('.moonstone-marginRightNano')).toBeInTheDocument();
+            expect(screen.getByTestId('cell')).toHaveAttribute('aria-expanded', 'true');
         });
 
         it('should handle toggle click', async () => {
