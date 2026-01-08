@@ -1,5 +1,5 @@
 import {describe, it, expect, vi} from 'vitest';
-import {DataTableColumn} from '../DataTable.types';
+import {DataTableColumn} from '~/components/DataTable/DataTable.types';
 import {
     renderNumber,
     renderDate,

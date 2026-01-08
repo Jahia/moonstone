@@ -27,7 +27,7 @@ import {
 import {TableCell} from './cells/TableCell';
 import {TableStructuredCell} from './cells/TableStructuredCell';
 import {TableHeadCell} from './cells/TableHeadCell';
-import {createTableColumns} from './utils/tableHelpers';
+import {createTableColumns} from '~/utils/dataTable/tableHelpers';
 import {Pagination} from '~/components/Pagination';
 
 export const DataTable = <T extends NonNullable<unknown>>({

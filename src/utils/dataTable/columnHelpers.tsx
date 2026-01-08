@@ -29,4 +29,3 @@ export const dateColumn = <T, >(get: (row: T) => Date, options?: ColumnOptions) 
     sortFn: (a: T, b: T) => get(a).getTime() - get(b).getTime(),
     align: options?.align ?? 'right'
 });
-

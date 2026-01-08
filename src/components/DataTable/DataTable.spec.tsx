@@ -2,7 +2,7 @@ import {render, screen, within, waitFor} from '@testing-library/react';
 import {describe, it, expect, vi} from 'vitest';
 import userEvent from '@testing-library/user-event';
 import {DataTable} from './DataTable';
-import {stringColumn, numberColumn} from './utils';
+import {stringColumn, numberColumn} from '~/utils/dataTable';
 
 type TestData = {
     id: string;

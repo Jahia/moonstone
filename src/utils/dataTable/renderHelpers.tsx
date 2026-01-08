@@ -21,4 +21,3 @@ export const renderNumber = (
 export const renderDate = (
     {value, locale, localeOptions}: Extract<LocaleOptions, { value: Date | null | undefined }>
 ): React.ReactNode => (value === null || value === undefined) ? null : value.toLocaleDateString(locale, localeOptions);
-

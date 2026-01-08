@@ -1,5 +1,5 @@
 import type {ColumnDef} from '@tanstack/react-table';
-import type {DataTableProps, SubRowKey} from '../DataTable.types';
+import type {DataTableProps, SubRowKey} from '~/components/DataTable/DataTable.types';
 
 export const createTableColumns = <T extends Record<string, unknown>>(
     columns: DataTableProps<T>['columns']

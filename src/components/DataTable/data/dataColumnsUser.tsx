@@ -1,6 +1,6 @@
 import type {DataTableColumn} from '../DataTable.types';
 import {Chip} from '~/components';
-import {numberColumn, dateColumn, stringColumn} from '../utils';
+import {numberColumn, dateColumn, stringColumn} from '~/utils/dataTable';
 
 export type dataUser = {
     firstName: string;
