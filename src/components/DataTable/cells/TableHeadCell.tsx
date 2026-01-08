@@ -1,11 +1,10 @@
-/* eslint-disable react/prop-types */
 import {ArrowDown, ArrowUp} from '~/icons';
 import clsx from 'clsx';
 import './TableHeadCell.scss';
+import {TableCell} from './TableCell';
 import type {TableHeadCellProps} from './TableHeadCell.types';
-import {TableCell} from '../cells/TableCell';
 
-export const TableHeadCell: React.FC<TableHeadCellProps> = ({
+export const TableHeadCell = ({
     width,
     align = 'left',
     verticalAlign = 'middle',
@@ -14,7 +13,7 @@ export const TableHeadCell: React.FC<TableHeadCellProps> = ({
     sorting,
     onClick,
     ...props
-}) => {
+}: TableHeadCellProps) => {
     const isSortable = Boolean(sorting);
     const isActive = sorting?.isActive ?? false;
 

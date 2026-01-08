@@ -26,7 +26,7 @@ import {
 } from '~/index';
 import {TableCell} from './cells/TableCell';
 import {TableStructuredCell} from './cells/TableStructuredCell';
-import {TableHeadCell} from './table-cells/TableHeadCell';
+import {TableHeadCell} from './cells/TableHeadCell';
 import {createTableColumns} from './utils/tableHelpers';
 import {Pagination} from '~/components/Pagination';
 
@@ -230,7 +230,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                         } : undefined}
                                         style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
                                         align={alignment}
-                                        onClick={e => {
+                                        onClick={(e: React.MouseEvent<HTMLTableCellElement>) => {
                                             if (isColumnSortable) {
                                                 header.column.getToggleSortingHandler()?.(e);
                                             }

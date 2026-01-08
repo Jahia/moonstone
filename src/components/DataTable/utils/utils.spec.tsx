@@ -1,6 +1,5 @@
-import { render, screen } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
-import { DataTableColumn } from '../DataTable.types';
+import {describe, it, expect, vi} from 'vitest';
+import {DataTableColumn} from '../DataTable.types';
 import {
     renderNumber,
     renderDate,
@@ -12,19 +11,19 @@ import {
 
 describe('renderNumber', () => {
     it('should format number with en-US locale', () => {
-        expect(renderNumber({ value: 1234.56, locale: 'en-US' })).toBe('1,234.56');
+        expect(renderNumber({value: 1234.56, locale: 'en-US'})).toBe('1,234.56');
     });
 
     it('should return null if value is null or undefined', () => {
-        expect(renderNumber({ value: null })).toBeNull();
-        expect(renderNumber({ value: undefined })).toBeNull();
+        expect(renderNumber({value: null})).toBeNull();
+        expect(renderNumber({value: undefined})).toBeNull();
     });
 
     it('should apply minimumFractionDigits option', () => {
         const result = renderNumber({
             value: 1234,
             locale: 'en-US',
-            localeOptions: { minimumFractionDigits: 2 }
+            localeOptions: {minimumFractionDigits: 2}
         });
         expect(result).toBe('1,234.00');
     });
@@ -36,7 +35,7 @@ describe('renderDate', () => {
         const result = renderDate({
             value: date,
             locale: 'en-US',
-            localeOptions: { year: 'numeric', month: '2-digit', day: '2-digit' }
+            localeOptions: {year: 'numeric', month: '2-digit', day: '2-digit'}
         });
         expect(result).toContain('2023');
         expect(result).toContain('06');
@@ -44,8 +43,8 @@ describe('renderDate', () => {
     });
 
     it('should return null if value is null or undefined', () => {
-        expect(renderDate({ value: null })).toBeNull();
-        expect(renderDate({ value: undefined })).toBeNull();
+        expect(renderDate({value: null})).toBeNull();
+        expect(renderDate({value: undefined})).toBeNull();
     });
 });
 
@@ -53,13 +52,13 @@ describe('stringColumn', () => {
     it('should return correct config', () => {
         type Row = { val: string };
         const get = (row: Row) => row.val;
-        const col = stringColumn<Row>(get, { align: 'center' });
+        const col = stringColumn<Row>(get, {align: 'center'});
         expect(col.isSortable).toBe(true);
         expect(col.align).toBe('center');
         expect(col.render('test')).toBe('test');
 
-        const rowA = { val: 'a' };
-        const rowB = { val: 'b' };
+        const rowA = {val: 'a'};
+        const rowB = {val: 'b'};
         expect(col.sortFn(rowA, rowB)).toBeLessThan(0);
     });
 });
@@ -72,8 +71,8 @@ describe('numberColumn', () => {
         expect(col.isSortable).toBe(true);
         expect(col.align).toBe('left');
 
-        const rowA = { val: 10 };
-        const rowB = { val: 20 };
+        const rowA = {val: 10};
+        const rowB = {val: 20};
         expect(col.sortFn(rowA, rowB)).toBe(-10);
     });
 });
@@ -88,8 +87,8 @@ describe('dateColumn', () => {
 
         const d1 = new Date('2023-01-01');
         const d2 = new Date('2023-01-02');
-        const rowA = { val: d1 };
-        const rowB = { val: d2 };
+        const rowA = {val: d1};
+        const rowB = {val: d2};
         expect(col.sortFn(rowA, rowB)).toBeLessThan(0);
     });
 });
