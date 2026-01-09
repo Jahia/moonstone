@@ -4,6 +4,15 @@ import type {PaginationProps as ComponentPaginationProps} from '~/components/Pag
 
 export type SubRowKey = 'subRows';
 
+/**
+ * Custom meta properties for TanStack Table columns.
+ * Used to pass additional configuration through columnDef.meta
+ */
+export type CustomColumnMeta = {
+    isSortable?: boolean;
+    align?: 'left' | 'center' | 'right';
+};
+
 export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children' | 'className'> & {
     /**
      * Which html element to render the table as

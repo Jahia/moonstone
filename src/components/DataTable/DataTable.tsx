@@ -16,7 +16,7 @@ import type {
 } from '@tanstack/react-table';
 import {useState, useEffect, useMemo, useCallback} from 'react';
 
-import type {DataTableProps} from './DataTable.types';
+import type {DataTableProps, CustomColumnMeta} from './DataTable.types';
 import {
     Table,
     TableRow,
@@ -144,7 +144,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
                 {/* Data cells - content comes from column.cell defined in createTableColumns */}
                 {row.getVisibleCells().map((cell, index) => {
-                    const meta = cell.column.columnDef.meta;
+                    const meta = cell.column.columnDef.meta as CustomColumnMeta | undefined;
                     const isFirstColumn = index === 0;
                     const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
                     const showStructured = isStructured && isFirstColumn;
@@ -218,7 +218,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
                             {/* Column headers */}
                             {headerGroup.headers.map(header => {
-                                const meta = header.column.columnDef.meta;
+                                const meta = header.column.columnDef.meta as CustomColumnMeta | undefined;
                                 const isColumnSortable = enableSorting && (meta?.isSortable ?? false);
                                 const alignment = meta?.align ?? 'left';
                                 const sortDirection = header.column.getIsSorted();
