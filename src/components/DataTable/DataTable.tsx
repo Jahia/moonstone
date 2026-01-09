@@ -144,7 +144,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
                 {/* Data cells - content comes from column.cell defined in createTableColumns */}
                 {row.getVisibleCells().map((cell, index) => {
-                    const meta = cell.column.columnDef.meta as { isSortable?: boolean; align?: 'left' | 'center' | 'right' } | undefined;
+                    const meta = cell.column.columnDef.meta;
                     const isFirstColumn = index === 0;
                     const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
                     const showStructured = isStructured && isFirstColumn;
@@ -218,7 +218,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
                             {/* Column headers */}
                             {headerGroup.headers.map(header => {
-                                const meta = header.column.columnDef.meta as { isSortable?: boolean; align?: 'left' | 'center' | 'right' } | undefined;
+                                const meta = header.column.columnDef.meta;
                                 const isColumnSortable = enableSorting && (meta?.isSortable ?? false);
                                 const alignment = meta?.align ?? 'left';
                                 const sortDirection = header.column.getIsSorted();

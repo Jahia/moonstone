@@ -22,6 +22,11 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
         },
         ref
     ) => {
+        // Render nothing when no children are provided to avoid empty HTML markup
+        if (!children) {
+            return null;
+        }
+
         const leftMarginIndentDepth = depth * 20; // Px
 
         const renderContent = () => {

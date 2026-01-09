@@ -17,21 +17,6 @@
     &::-webkit-scrollbar-thumb {
         background-color: var(--color-gray_light);
     }
-
-    &:hover {
-        .moonstone-tableCellContent {
-            overflow: unset;
-        }
-    }
-
-    // Manage the chevron spacing for the structured table
-    .moonstone-marginRightNano {
-        margin-right: var(--spacing-nano);
-    }
-
-    .moonstone-tableCellExpandable {
-        cursor: pointer;
-    }
 }
 
 .moonstone-verticalAlignTop {

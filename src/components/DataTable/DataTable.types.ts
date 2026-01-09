@@ -185,7 +185,7 @@ type RenderRowProps<T extends NonNullable<unknown>> = {
 // Pagination props - uses types from Pagination component for consistency
 // Note: DataTable uses a discriminated union to enforce that pagination-related
 // props are only available when enablePagination is true
-type PaginationProps =
+type TablePaginationProps =
     | {
           /**
            * Enable pagination functionality
@@ -238,5 +238,5 @@ export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'c
     SelectionProps &
     ActionsProps<T> &
     RenderRowProps<T> &
-    PaginationProps;
+    TablePaginationProps;
 
