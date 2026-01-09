@@ -5,7 +5,8 @@ import type {TableStructuredCellProps} from './TableStructuredCell.types';
 import {TableCell} from './TableCell';
 import './TableCell.scss';
 
-const leftMarginBuffer = 20; // Px
+// Compensates for chevron icon width on non-expandable rows to maintain alignment with expandable rows
+const leftMarginBuffer = 20; // Px - matches chevron icon width + spacing
 
 export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableStructuredCellProps>(
     (

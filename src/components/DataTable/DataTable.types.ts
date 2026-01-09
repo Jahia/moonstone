@@ -53,11 +53,6 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
      * Content alignment for the column
      */
     align?: 'left' | 'center' | 'right';
-
-    /**
-     * Custom HTML attributes to add to the cell element
-     */
-    cellProps?: React.HTMLAttributes<HTMLTableCellElement> & Record<string, unknown>;
 };
 
 export type DataTableBaseProps<T extends NonNullable<unknown>> = {

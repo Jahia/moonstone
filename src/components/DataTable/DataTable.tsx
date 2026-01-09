@@ -111,10 +111,12 @@ export const DataTable = <T extends NonNullable<unknown>>({
         getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,
         getExpandedRowModel: getExpandedRowModel(),
         getPaginationRowModel: enablePagination ? getPaginationRowModel() : undefined,
+        // Enables hierarchical/structured table rendering by allowing TanStack to access nested subRows
         getSubRows: (row: T) => (row as T & { subRows?: T[] }).subRows,
         onPaginationChange: setPagination,
         enableSorting,
-        enableSortingRemoval: false, // Only toggle between asc/desc, no unsorted state
+        // UX decision: Toggle between asc/desc only, no unsorted state to prevent user confusion
+        enableSortingRemoval: false,
         enableRowSelection: enableSelection,
         getRowId: (row: T) => String(row[primaryKey])
     });

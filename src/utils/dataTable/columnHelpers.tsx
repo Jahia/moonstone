@@ -9,6 +9,17 @@ type ColumnOptions = Omit<LocaleOptions, 'value'> & {
     align?: 'left' | 'center' | 'right';
 };
 
+/**
+ * Column helper factories for common data types.
+ * These provide pre-configured sorting and rendering logic for typical use cases.
+ *
+ * @example
+ * const columns = [
+ *   { key: 'name', label: 'Name', ...stringColumn(row => row.name) },
+ *   { key: 'price', label: 'Price', ...numberColumn(row => row.price, { locale: 'en-US' }) },
+ *   { key: 'createdAt', label: 'Created', ...dateColumn(row => row.createdAt) },
+ * ];
+ */
 export const stringColumn = <T, >(get: (row: T) => string, options?: ColumnOptions) => ({
     render: (value: string) => renderString(value),
     isSortable: true,

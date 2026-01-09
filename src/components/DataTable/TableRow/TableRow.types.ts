@@ -9,7 +9,7 @@ export type TableRowProps = Omit<React.ComponentPropsWithoutRef<'tr'>, 'children
     /**
      * Name of HTML element to render in the DOM for this component
      */
-    component?: 'string;'
+    component?: string;
 
     /**
      * If true, then the row is selected

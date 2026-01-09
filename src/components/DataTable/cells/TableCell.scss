@@ -1,26 +1,5 @@
 @use '../../../utils/index.scss';
 
-.moonstone-tableBodyCell {
-    overflow-y: auto;
-
-    //noinspection CssUnknownProperty
-    scrollbar-width: thin;
-
-    &::-webkit-scrollbar {
-        height: var(--spacing-nano);
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background-color: var(--color-gray_light);
-    }
-
-    &:hover {
-        .moonstone-tableCellContent {
-            overflow: unset;
-        }
-    }
-}
-
 .moonstone-TableCell {
     gap: var(--spacing-nano);
     padding-right: var(--spacing-medium);
