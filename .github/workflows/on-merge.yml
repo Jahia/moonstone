@@ -46,7 +46,6 @@ jobs:
       - name: Release and publish
         env:
           GITHUB_TOKEN: ${{ secrets.GH_API_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPMJS_PUBLISH_TOKEN }}
         shell: bash
         run: |
           git fetch --tags
