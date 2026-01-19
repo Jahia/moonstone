@@ -22,13 +22,14 @@ describe('TableStructuredCell', () => {
         expect(screen.getByText('Content')).toBeInTheDocument();
     });
 
-    it('should render dash when children is missing', () => {
-        render(
+    it('should render nothing when children is missing', () => {
+        const {container} = render(
             <TableWrapper>
-                <TableStructuredCell depth={0}/>
+                <TableStructuredCell depth={0} data-testid="empty-cell"/>
             </TableWrapper>
         );
-        expect(screen.getByText('-')).toBeInTheDocument();
+        // Component returns null when no children, so tr should be empty
+        expect(container.querySelector('tr')?.children.length).toBe(0);
     });
 
     describe('Indentation', () => {

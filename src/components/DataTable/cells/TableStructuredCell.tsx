@@ -5,7 +5,8 @@ import type {TableStructuredCellProps} from './TableStructuredCell.types';
 import {TableCell} from './TableCell';
 import './TableCell.scss';
 
-const leftMarginBuffer = 20; // Px
+// Compensates for chevron icon width on non-expandable rows to maintain alignment with expandable rows
+const leftMarginBuffer = 20; // Px - matches chevron icon width + spacing
 
 export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableStructuredCellProps>(
     (
@@ -21,6 +22,11 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
         },
         ref
     ) => {
+        // Render nothing when no children are provided to avoid empty HTML markup
+        if (!children) {
+            return null;
+        }
+
         const leftMarginIndentDepth = depth * 20; // Px
 
         const renderContent = () => {
@@ -36,14 +42,14 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                         ) : (
                             <ChevronRight className="moonstone-marginRightNano"/>
                         )}
-                        {children ?? '-'}
+                        {children}
                     </span>
                 );
             }
 
             return (
                 <span style={{marginLeft: `${leftMarginIndentDepth + leftMarginBuffer}px`}}>
-                    {children ?? '-'}
+                    {children}
                 </span>
             );
         };

@@ -16,23 +16,19 @@ import type {
 } from '@tanstack/react-table';
 import {useState, useEffect, useMemo, useCallback} from 'react';
 
-import type {DataTableProps} from './DataTable.types';
+import type {DataTableProps, CustomColumnMeta} from './DataTable.types';
 import {
     Table,
-    TableBody,
-    TableHead,
     TableRow,
     Checkbox
 } from '~/index';
+import {TableBody} from './TableBody';
+import {TableHead} from './TableHead';
 import {TableCell} from './cells/TableCell';
-import {TableHeadCell} from './table-cells/TableHeadCell';
-import {createTableColumns} from './utils/tableHelpers';
+import {TableStructuredCell} from './cells/TableStructuredCell';
+import {TableHeadCell} from './cells/TableHeadCell';
+import {createTableColumns} from '~/utils/dataTable/tableHelpers';
 import {Pagination} from '~/components/Pagination';
-
-type CustomColumnMeta = {
-    isSortable?: boolean;
-    align?: 'left' | 'center' | 'right';
-};
 
 export const DataTable = <T extends NonNullable<unknown>>({
     className,
@@ -115,10 +111,12 @@ export const DataTable = <T extends NonNullable<unknown>>({
         getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,
         getExpandedRowModel: getExpandedRowModel(),
         getPaginationRowModel: enablePagination ? getPaginationRowModel() : undefined,
+        // Enables hierarchical/structured table rendering by allowing TanStack to access nested subRows
         getSubRows: (row: T) => (row as T & { subRows?: T[] }).subRows,
         onPaginationChange: setPagination,
         enableSorting,
-        enableSortingRemoval: false, // Only toggle between asc/desc, no unsorted state
+        // UX decision: Toggle between asc/desc only, no unsorted state to prevent user confusion
+        enableSortingRemoval: false,
         enableRowSelection: enableSelection,
         getRowId: (row: T) => String(row[primaryKey])
     });
@@ -151,16 +149,26 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
                     const showStructured = isStructured && isFirstColumn;
 
+                    // Use TableStructuredCell for first column in structured view
+                    if (showStructured) {
+                        return (
+                            <TableStructuredCell
+                                key={cell.id}
+                                align={meta?.align ?? 'left'}
+                                depth={row.depth}
+                                isExpandable={row.getCanExpand()}
+                                isExpanded={row.getIsExpanded()}
+                                onToggleExpand={row.getToggleExpandedHandler()}
+                            >
+                                {cellContent}
+                            </TableStructuredCell>
+                        );
+                    }
+
                     return (
                         <TableCell
                             key={cell.id}
                             align={meta?.align ?? 'left'}
-                            {...(showStructured && {
-                                depth: row.depth,
-                                isExpandable: row.getCanExpand(),
-                                isExpanded: row.getIsExpanded(),
-                                onToggleExpand: row.getToggleExpandedHandler()
-                            })}
                         >
                             {cellContent}
                         </TableCell>
@@ -187,8 +195,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
         [renderRow, renderRowContent, rowProps]
     );
 
-    if (!data || data.length === 0) {
-        return <div>No data available.</div>;
+    if (!data || !Array.isArray(data) || data.length === 0) {
+        return null;
     }
 
     return (
@@ -224,7 +232,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                         } : undefined}
                                         style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
                                         align={alignment}
-                                        onClick={e => {
+                                        onClick={(e: React.MouseEvent<HTMLTableCellElement>) => {
                                             if (isColumnSortable) {
                                                 header.column.getToggleSortingHandler()?.(e);
                                             }

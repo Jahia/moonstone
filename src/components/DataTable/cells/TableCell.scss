@@ -1,26 +1,5 @@
 @use '../../../utils/index.scss';
 
-.moonstone-tableBodyCell {
-    overflow-y: auto;
-
-    //noinspection CssUnknownProperty
-    scrollbar-width: thin;
-
-    &::-webkit-scrollbar {
-        height: var(--spacing-nano);
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background-color: var(--color-gray_light);
-    }
-
-    &:hover {
-        .moonstone-tableCellContent {
-            overflow: unset;
-        }
-    }
-}
-
 .moonstone-TableCell {
     gap: var(--spacing-nano);
     padding-right: var(--spacing-medium);
@@ -37,21 +16,6 @@
 
     &::-webkit-scrollbar-thumb {
         background-color: var(--color-gray_light);
-    }
-
-    &:hover {
-        .moonstone-tableCellContent {
-            overflow: unset;
-        }
-    }
-
-    // Manage the chevron spacing for the structured table
-    .moonstone-marginRightNano {
-        margin-right: var(--spacing-nano);
-    }
-
-    .moonstone-tableCellExpandable {
-        cursor: pointer;
     }
 }
 

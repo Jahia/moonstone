@@ -1,14 +1,11 @@
-import {render, screen} from '@testing-library/react';
 import {describe, it, expect, vi} from 'vitest';
-import {DataTableColumn} from '../DataTable.types';
+import {DataTableColumn} from '~/components/DataTable/DataTable.types';
 import {
     renderNumber,
     renderDate,
-    renderChips,
     stringColumn,
     numberColumn,
     dateColumn,
-    chipsColumn,
     createTableColumns
 } from './index';
 
@@ -48,20 +45,6 @@ describe('renderDate', () => {
     it('should return null if value is null or undefined', () => {
         expect(renderDate({value: null})).toBeNull();
         expect(renderDate({value: undefined})).toBeNull();
-    });
-});
-
-describe('renderChips', () => {
-    it('should render chips', () => {
-        render(<div>{renderChips(['chip1', 'chip2'])}</div>);
-        expect(screen.getByText('chip1')).toBeInTheDocument();
-        expect(screen.getByText('chip2')).toBeInTheDocument();
-    });
-
-    it('should return null if array is empty or null', () => {
-        expect(renderChips([])).toBeNull();
-        expect(renderChips(null)).toBeNull();
-        expect(renderChips(undefined)).toBeNull();
     });
 });
 
@@ -107,15 +90,6 @@ describe('dateColumn', () => {
         const rowA = {val: d1};
         const rowB = {val: d2};
         expect(col.sortFn(rowA, rowB)).toBeLessThan(0);
-    });
-});
-
-describe('chipsColumn', () => {
-    it('should return correct config', () => {
-        type Row = { val: string[] };
-        const get = (row: Row) => row.val;
-        const col = chipsColumn<Row>(get);
-        expect(col.isSortable).toBe(false);
     });
 });
 

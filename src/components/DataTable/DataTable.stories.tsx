@@ -1,6 +1,6 @@
-import {dataTable} from './data/TableData';
-import {dataColumnsUser} from './data/dataColumnsUser';
-import type {dataUser} from './data/dataColumnsUser';
+import {dataTable} from '~/data/dataTable';
+import {dataColumnsUser} from '~/data/dataTable';
+import type {dataUser} from '~/data/dataTable';
 import {DataTable} from './DataTable';
 import type {Meta, StoryObj} from '@storybook/react';
 import {TableRow} from '~/components';
@@ -85,7 +85,7 @@ export const DefaultSelectionDataTable: Story = {
         columns: dataColumnsUser,
         primaryKey: 'firstName',
         enableSelection: true,
-        defaultSelection: ['Yacine', 'Yacinator']
+        defaultSelection: ['Walter', 'Jon']
     },
     name: 'Default Selection'
 };
@@ -154,7 +154,7 @@ export const AllFeaturesTable: Story = {
         enableSelection: true,
         isStructured: true,
         enableSorting: true,
-        defaultSelection: ['Yacine', 'Yacinator'],
+        defaultSelection: ['Walter', 'Jon'],
         defaultSortBy: 'progress',
         defaultSortDirection: 'descending'
     },

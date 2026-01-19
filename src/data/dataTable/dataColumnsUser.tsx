@@ -1,6 +1,6 @@
-import type {DataTableColumn} from '../DataTable.types';
+import type {DataTableColumn} from '~/components/DataTable/DataTable.types';
 import {Chip} from '~/components';
-import {numberColumn, dateColumn, chipsColumn, stringColumn} from '../utils';
+import {numberColumn, dateColumn, stringColumn} from '~/utils/dataTable';
 
 export type dataUser = {
     firstName: string;
@@ -19,13 +19,12 @@ export const dataColumnsUser: DataTableColumn<dataUser>[] = [
     {
         key: 'firstName',
         label: 'User',
-        ...stringColumn<dataUser>(row => row.firstName),
-        align: 'left' // Testing left alignment
+        ...stringColumn<dataUser>(row => row.firstName)
+        // Align comes from stringColumn helper
     },
     {
         key: 'status',
         label: 'Status',
-        // Fully custom column - return content directly, TableBodyCell handles cell rendering
         render: value => (
             <Chip
                 label={value as string}
@@ -34,23 +33,18 @@ export const dataColumnsUser: DataTableColumn<dataUser>[] = [
         ),
         isSortable: true,
         sortFn: (a, b) => a.status.localeCompare(b.status),
-        align: 'center' // Testing center alignment
-    },
-    {
-        key: 'chips',
-        label: 'Roles',
-        ...chipsColumn<dataUser>(row => row.chips ?? [])
+        align: 'center' // Custom column needs explicit align
     },
     {
         key: 'progress',
         label: 'Progress',
-        ...numberColumn<dataUser>(row => row.progress),
-        align: 'left' // You can align the content of the cell and override the default alignment of the helper function
+        ...numberColumn<dataUser>(row => row.progress)
+        // Align comes from numberColumn helper
     },
     {
         key: 'date',
         label: 'Last Login',
-        ...dateColumn<dataUser>(row => row.date, {locale: 'fr-FR'}), // Can use the locale option to format the date
-        align: 'right' // You can align the content of the cell
+        ...dateColumn<dataUser>(row => row.date, {locale: 'fr-FR'})
+        // Align comes from dateColumn helper
     }
 ];

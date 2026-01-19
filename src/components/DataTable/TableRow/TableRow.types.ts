@@ -9,12 +9,7 @@ export type TableRowProps = Omit<React.ComponentPropsWithoutRef<'tr'>, 'children
     /**
      * Name of HTML element to render in the DOM for this component
      */
-    component?: 'string;'
-
-    /**
-     * Whether the cell height should be increased to show more than 1 line
-     */
-    hasMultipleLines?: boolean;
+    component?: string;
 
     /**
      * If true, then the row is selected

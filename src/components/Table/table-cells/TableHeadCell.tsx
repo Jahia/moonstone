@@ -9,7 +9,7 @@ import {TableCell} from './TableCell';
 export const TableHeadCell: React.FC<TableCellProps> = ({
     component = 'th',
     width,
-    textAlign = 'left',
+    align = 'left',
     verticalAlign = 'center',
     className,
     iconStart,
@@ -22,7 +22,7 @@ export const TableHeadCell: React.FC<TableCellProps> = ({
             {...props}
             className={clsx(
                 {flexFluid: typeof width === 'undefined'},
-                'textAlign' + capitalize(textAlign),
+                'textAlign' + capitalize(align),
                 'moonstone-verticalAlign' + capitalize(verticalAlign),
                 className
             )}

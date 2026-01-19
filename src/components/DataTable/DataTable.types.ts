@@ -1,7 +1,17 @@
 import React from 'react';
 import type {Row} from '@tanstack/react-table';
+import type {PaginationProps as ComponentPaginationProps} from '~/components/Pagination';
 
 export type SubRowKey = 'subRows';
+
+/**
+ * Custom meta properties for TanStack Table columns.
+ * Used to pass additional configuration through columnDef.meta
+ */
+export type CustomColumnMeta = {
+    isSortable?: boolean;
+    align?: 'left' | 'center' | 'right';
+};
 
 export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children' | 'className'> & {
     /**
@@ -52,11 +62,6 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
      * Content alignment for the column
      */
     align?: 'left' | 'center' | 'right';
-
-    /**
-     * Custom HTML attributes to add to the cell element
-     */
-    cellProps?: React.HTMLAttributes<HTMLTableCellElement> & Record<string, unknown>;
 };
 
 export type DataTableBaseProps<T extends NonNullable<unknown>> = {
@@ -186,8 +191,10 @@ type RenderRowProps<T extends NonNullable<unknown>> = {
     renderRow?: (row: Row<T>, defaultRender: () => React.ReactNode) => React.ReactNode;
 };
 
-// Pagination props - TanStack Table handles pagination state internally
-type PaginationProps =
+// Pagination props - uses types from Pagination component for consistency
+// Note: DataTable uses a discriminated union to enforce that pagination-related
+// props are only available when enablePagination is true
+type TablePaginationProps =
     | {
           /**
            * Enable pagination functionality
@@ -196,21 +203,21 @@ type PaginationProps =
 
           /**
            * Initial number of items per page
+           * @see PaginationProps.itemsPerPage from ~/components/Pagination
            */
-          itemsPerPage?: number;
+          itemsPerPage?: ComponentPaginationProps['itemsPerPage'];
 
           /**
            * Available options for items per page dropdown
+           * @see PaginationProps.itemsPerPageOptions from ~/components/Pagination
            */
-          itemsPerPageOptions?: number[];
+          itemsPerPageOptions?: ComponentPaginationProps['itemsPerPageOptions'];
 
           /**
            * Labels for the pagination component
+           * @see PaginationProps.label from ~/components/Pagination
            */
-          paginationLabel?: {
-              itemsPerPage: string;
-              of: string;
-          };
+          paginationLabel?: ComponentPaginationProps['label'];
       }
     | {
           /**
@@ -240,5 +247,5 @@ export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'c
     SelectionProps &
     ActionsProps<T> &
     RenderRowProps<T> &
-    PaginationProps;
+    TablePaginationProps;
 

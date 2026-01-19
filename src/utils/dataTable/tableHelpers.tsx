@@ -1,6 +1,13 @@
 import type {ColumnDef} from '@tanstack/react-table';
-import type {DataTableProps, SubRowKey} from '../DataTable.types';
+import type {DataTableProps, SubRowKey} from '~/components/DataTable/DataTable.types';
 
+/**
+ * Transforms user-friendly DataTable column definitions into TanStack Table compatible ColumnDef format.
+ * This abstraction keeps the public API clean and framework-agnostic while leveraging TanStack internally.
+ *
+ * @param columns - Array of DataTableColumn definitions from the user
+ * @returns Array of TanStack-compatible ColumnDef objects
+ */
 export const createTableColumns = <T extends Record<string, unknown>>(
     columns: DataTableProps<T>['columns']
 ): ColumnDef<T>[] => {

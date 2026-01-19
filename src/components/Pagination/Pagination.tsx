@@ -21,6 +21,7 @@ export const Pagination: React.FC<PaginationProps> = ({
     onPageChange,
     ...props
 }) => {
+    // Runtime validation: Fail fast with clear error messages for invalid props
     if (currentPage < 1) {
         throw new Error('currentPage must always be >= 1');
     }

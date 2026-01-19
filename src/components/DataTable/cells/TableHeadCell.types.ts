@@ -1,5 +1,5 @@
 import React from 'react';
-import type {TableCellProps} from '../cells/TableCell.types';
+import type {TableCellProps} from './TableCell.types';
 
 type BaseTableHeadCellProps = Omit<TableCellProps, 'isScrollable' | 'component'> & {
     /**
