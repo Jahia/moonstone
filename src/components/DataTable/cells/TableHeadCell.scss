@@ -1,21 +1,13 @@
-.moonstone-tableCellHead_sort {
+.moonstone-tableHeadCell_sort {
     color: var(--color-gray_light);
-
-    visibility: hidden;
 
     &:hover {
         color: var(--color-gray);
     }
 }
 
-.moonstone-TableHeadCell:hover .moonstone-tableCellHead_sort {
-    visibility: visible;
-}
-
-.moonstone-tableCellHead_sortActive {
+.moonstone-tableHeadCell_sortActive {
     color: var(--color-accent);
-
-    visibility: visible;
 
     &:hover {
         color: var(--color-accentDark);

@@ -5,8 +5,9 @@ import type {TableStructuredCellProps} from './TableStructuredCell.types';
 import {TableCell} from './TableCell';
 import './TableCell.scss';
 
-// Compensates for chevron icon width on non-expandable rows to maintain alignment with expandable rows
-const leftMarginBuffer = 20; // Px - matches chevron icon width + spacing
+// Spacing constants for tree structure alignment
+const indentSpace = 20; // Px - indentation per depth level
+const ChevronSpace = 20; // Px - compensates for chevron icon width on non-expandable rows
 
 export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableStructuredCellProps>(
     (
@@ -27,7 +28,7 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
             return null;
         }
 
-        const leftMarginIndentDepth = depth * 20; // Px
+        const leftMarginIndentDepth = depth * indentSpace;
 
         const renderContent = () => {
             if (isExpandable) {
@@ -48,7 +49,7 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
             }
 
             return (
-                <span style={{marginLeft: `${leftMarginIndentDepth + leftMarginBuffer}px`}}>
+                <span style={{marginLeft: `${leftMarginIndentDepth + ChevronSpace}px`}}>
                     {children}
                 </span>
             );
@@ -68,3 +69,4 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
 );
 
 TableStructuredCell.displayName = 'TableStructuredCell';
+

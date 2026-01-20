@@ -9,13 +9,20 @@ export const TableBody: React.FC<TableBodyProps> = ({
     className,
     children,
     ...props
-}) => React.createElement(
-    component,
-    {
-        className: clsx('moonstone-TableBody', className),
-        ...props
-    },
-    children
-);
+}) => {
+    if (!children) {
+        return null;
+    }
+
+    return React.createElement(
+        component,
+        {
+            className: clsx('moonstone-TableBody', className),
+            ...props
+        },
+        children
+    );
+};
 
 TableBody.displayName = 'TableBody';
+

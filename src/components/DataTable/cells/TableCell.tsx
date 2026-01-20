@@ -19,6 +19,10 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
     },
     ref
 ) => {
+    if (!children) {
+        return null;
+    }
+
     const scrollableClass = isScrollable ? 'moonstone-tableCellContent' : '';
 
     return (

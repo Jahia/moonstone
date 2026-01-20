@@ -5,18 +5,25 @@ import './TableHead.scss';
 import clsx from 'clsx';
 
 export const TableHead: React.FC<TableHeadProps> = ({
-    isSticky = false,
+    isSticky = true,
     component = 'thead',
     className,
     children,
     ...props
-}) => React.createElement(
-    component,
-    {
-        className: clsx('moonstone-tableHead', isSticky && 'moonstone-tableHead_sticky', className),
-        ...props
-    },
-    children
-);
+}) => {
+    if (!children) {
+        return null;
+    }
+
+    return React.createElement(
+        component,
+        {
+            className: clsx('moonstone-tableHead', isSticky && 'moonstone-tableHead_sticky', className),
+            ...props
+        },
+        children
+    );
+};
 
 TableHead.displayName = 'TableHead';
+

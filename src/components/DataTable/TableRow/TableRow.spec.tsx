@@ -36,18 +36,6 @@ describe('TableRow', () => {
         expect(screen.getByTestId('row')).toHaveAttribute('tabIndex', '0');
     });
 
-    it('should apply isSelected class and aria-selected', () => {
-        render(
-            <TableWrapper>
-                <TableRow isSelected data-testid="row">
-                    <td>Content</td>
-                </TableRow>
-            </TableWrapper>
-        );
-        expect(screen.getByTestId('row')).toHaveClass('moonstone-TableRow-selected');
-        expect(screen.getByTestId('row')).toHaveAttribute('aria-selected', 'true');
-    });
-
     it('should apply isHighlighted class', () => {
         render(
             <TableWrapper>
@@ -56,7 +44,7 @@ describe('TableRow', () => {
                 </TableRow>
             </TableWrapper>
         );
-        expect(screen.getByTestId('row')).toHaveClass('moonstone-TableRow-highlighted');
+        expect(screen.getByTestId('row')).toHaveClass('moonstone-TableRow_highlighted');
     });
 
     it('should call onClick when clicked', async () => {

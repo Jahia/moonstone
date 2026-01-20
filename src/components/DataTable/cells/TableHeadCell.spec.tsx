@@ -54,7 +54,7 @@ describe('TableHeadCell', () => {
                     <TableHeadCell sorting={{direction: 'descending', isActive: true}} data-testid="cell"/>
                 </TableWrapper>
             );
-            expect(screen.getByTestId('cell').querySelector('.moonstone-tableCellHead_sort')).toBeInTheDocument();
+            expect(screen.getByTestId('cell').querySelector('.moonstone-tableHeadCell_sort')).toBeInTheDocument();
         });
 
         it('should display sort icon on sorting direction ascending', () => {
@@ -63,7 +63,7 @@ describe('TableHeadCell', () => {
                     <TableHeadCell sorting={{direction: 'ascending', isActive: true}} data-testid="cell"/>
                 </TableWrapper>
             );
-            expect(screen.getByTestId('cell').querySelector('.moonstone-tableCellHead_sort')).toBeInTheDocument();
+            expect(screen.getByTestId('cell').querySelector('.moonstone-tableHeadCell_sort')).toBeInTheDocument();
         });
 
         it('should set aria-sort when isActive is true', () => {
@@ -90,7 +90,7 @@ describe('TableHeadCell', () => {
                     <TableHeadCell data-testid="cell">Header</TableHeadCell>
                 </TableWrapper>
             );
-            expect(screen.getByTestId('cell').querySelector('.moonstone-tableCellHead_sort')).not.toBeInTheDocument();
+            expect(screen.getByTestId('cell').querySelector('.moonstone-tableHeadCell_sort')).not.toBeInTheDocument();
         });
     });
 });

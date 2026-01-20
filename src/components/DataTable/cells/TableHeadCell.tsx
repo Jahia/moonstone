@@ -17,11 +17,6 @@ export const TableHeadCell = ({
     const isSortable = Boolean(sorting);
     const isActive = sorting?.isActive ?? false;
 
-    const sortClassName = isSortable && clsx(
-        'moonstone-tableCellHead_sort',
-        {'moonstone-tableCellHead_sortActive': isActive}
-    );
-
     const SortIcon = isSortable ?
         (sorting?.direction === 'descending' ? ArrowDown : ArrowUp) :
         null;
@@ -39,12 +34,15 @@ export const TableHeadCell = ({
             aria-sort={ariaSort}
             onClick={onClick}
         >
-            <span className="moonstone-TableHeadCell-content flexRow_nowrap alignCenter">
+            <span className="flexRow_nowrap alignCenter">
                 {children}
                 {SortIcon && (
                     <SortIcon
                         aria-hidden="true"
-                        className={sortClassName}
+                        className={clsx(
+                            'moonstone-tableHeadCell_sort',
+                            isActive && 'moonstone-tableHeadCell_sortActive'
+                        )}
                     />
                 )}
             </span>
@@ -53,3 +51,4 @@ export const TableHeadCell = ({
 };
 
 TableHeadCell.displayName = 'TableHeadCell';
+

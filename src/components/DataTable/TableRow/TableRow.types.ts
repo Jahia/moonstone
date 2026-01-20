@@ -12,11 +12,6 @@ export type TableRowProps = Omit<React.ComponentPropsWithoutRef<'tr'>, 'children
     component?: string;
 
     /**
-     * If true, then the row is selected
-     */
-    isSelected?: boolean;
-
-    /**
      * If true, then the row is highlighted. The background color of the row
      * will be in contrast to the normal row color and supported components
      * nested within the row will have their style change correspondingly
@@ -28,3 +23,4 @@ export type TableRowProps = Omit<React.ComponentPropsWithoutRef<'tr'>, 'children
      */
     children?: React.ReactNode;
 };
+

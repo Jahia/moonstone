@@ -11,7 +11,7 @@ import './TableCell.scss';
 const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellProps> = (
     {
         component = 'td',
-        align = 'left',
+        textAlign = 'left',
         verticalAlign = 'center',
         className,
         iconStart,
@@ -69,7 +69,7 @@ const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEleme
         <Typography
             className={clsx(
                 'moonstone-tableBodyCell',
-                'textAlign' + capitalize(align),
+                'textAlign' + capitalize(textAlign),
                 'moonstone-verticalAlign' + capitalize(verticalAlign),
                 {flexFluid: typeof width === 'undefined'},
                 className
