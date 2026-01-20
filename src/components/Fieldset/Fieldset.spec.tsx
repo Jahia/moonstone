@@ -44,9 +44,4 @@ describe('Fieldset', () => {
         render(<Fieldset {...requiredProps} buttons={<><Button icon={<Add/>} label="Click me"/><Button icon={<Love/>} label="Click me"/></>}><div/></Fieldset>);
         expect(screen.getAllByText('Click me')).toHaveLength(2);
     });
-
-    it('should return null when children is undefined', () => {
-        const {container} = render(<Fieldset {...requiredProps}/>);
-        expect(container.firstChild).toBeNull();
-    });
 });

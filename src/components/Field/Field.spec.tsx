@@ -102,17 +102,35 @@ describe('Field', () => {
     });
 
     it('should return null when children is undefined', () => {
+        // @ts-expect-error testing undefined children
         const {container} = render(<Field {...requiredProps}/>);
         expect(container.firstChild).toBeNull();
     });
 
-    it('should link label to field with htmlFor', () => {
+    it('should link label to input and focus on click', async () => {
         render(
             <Field {...requiredProps}>
-                <FieldSelector selector={<textarea placeholder="Input value"/>}/>
+                <FieldSelector selector={<input type="text" placeholder="Input value"/>}/>
             </Field>
         );
         const label = screen.getByText('Field label');
-        expect(label).toHaveAttribute('for', 'test');
+        const input = screen.getByPlaceholderText('Input value');
+
+        expect(input).toHaveAttribute('id', 'test');
+        await userEvent.click(label);
+        expect(input).toHaveFocus();
+    });
+
+    it('should add aria-describedby when helper is provided', () => {
+        render(
+            <Field {...requiredProps} helper="Helper text">
+                <FieldSelector selector={<input type="text" placeholder="Input value"/>}/>
+            </Field>
+        );
+        const input = screen.getByPlaceholderText('Input value');
+        const helper = screen.getByText('Helper text');
+
+        expect(input).toHaveAttribute('aria-describedby', 'test-helper');
+        expect(helper).toHaveAttribute('id', 'test-helper');
     });
 });

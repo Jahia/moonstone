@@ -9,8 +9,17 @@ export const FieldSelector = React.forwardRef<HTMLDivElement, FieldSelectorProps
     selector,
     className,
     isDraggable = false,
+    inputId,
+    'aria-describedby': ariaDescribedby,
     ...props
 }, ref) => {
+    const enhancedSelector = React.isValidElement(selector) ?
+        React.cloneElement(selector, {
+            id: inputId,
+            'aria-describedby': ariaDescribedby
+        } as React.HTMLAttributes<HTMLElement>) :
+        selector;
+
     return (
         <div
             ref={ref}
@@ -27,18 +36,18 @@ export const FieldSelector = React.forwardRef<HTMLDivElement, FieldSelectorProps
                 {isDraggable && <HandleDrag color="gray" size="big"/>}
             </div>
             <div className={clsx('moonstone-fieldSelector_selector', 'flexCol_nowrap', 'alignStart', 'flexFluid')}>
-                {selector}
+                {enhancedSelector}
             </div>
             <div className={clsx('moonstone-fieldSelector_buttons', 'flexRow_nowrap')}>
                 {buttons &&
-                React.Children.map(buttons, button =>
-                    button.props && button.props.children ?
-                    (React.Children.map(button.props.children, btn => {
-                        const key = btn.props.icon ? btn.props.icon.name : btn.props.label;
-                        return (btn && <btn.type key={`btn-${key}`} size="default" variant="ghost" {...btn.props}/>);
-                    }
-                     )) : (buttons && <buttons.type size="default" variant="ghost" {...buttons.props}/>)
-                )}
+                    React.Children.map(buttons, button =>
+                        button.props && button.props.children ?
+                            (React.Children.map(button.props.children, btn => {
+                                const key = btn.props.icon ? btn.props.icon.name : btn.props.label;
+                                return (btn && <btn.type key={`btn-${key}`} size="default" variant="ghost" {...btn.props}/>);
+                            }
+                            )) : (buttons && <buttons.type size="default" variant="ghost" {...buttons.props}/>)
+                    )}
             </div>
         </div>
     );

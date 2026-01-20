@@ -20,4 +20,14 @@ export type FieldSelectorProps = Omit<React.ComponentPropsWithRef<'div'>, 'class
      * FieldSelector selector
      */
     selector: React.ReactElement;
+
+    /**
+     * ID to apply to the selector element for label association
+     */
+    inputId?: string;
+
+    /**
+     * Aria-describedby to apply to the selector for helper text association
+     */
+    'aria-describedby'?: string;
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import './Field.scss';
 import type {FieldProps} from './Field.types';
+import type {FieldSelectorProps} from './FieldSelector/FieldSelector.types';
 import {Typography} from '~/components';
 
 export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
@@ -20,10 +21,22 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
         return null;
     }
 
+    const helperId = helper ? `${id}-helper` : undefined;
+
+    const enhancedChildren = React.Children.map(children, child => {
+        if (React.isValidElement(child)) {
+            return React.cloneElement(child, {
+                inputId: id,
+                'aria-describedby': helperId
+            } as Partial<FieldSelectorProps>);
+        }
+
+        return child;
+    });
+
     return (
         <div
             ref={ref}
-            id={id}
             className={clsx(
                 'moonstone-field',
                 'flexCol_nowrap',
@@ -54,9 +67,9 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
                     </div>}
             </div>
             {helper &&
-                <Typography variant="caption" className={clsx('moonstone-field_helper')}>{helper}</Typography>}
+                <Typography id={helperId} variant="caption" className={clsx('moonstone-field_helper')}>{helper}</Typography>}
             <div className={clsx('moonstone-field_children', 'flexCol_nowrap')}>
-                {children}
+                {enhancedChildren}
                 {hasError && errorMessage &&
                     <Typography className={clsx('moonstome-field_errorMessage')} variant="caption">{errorMessage}</Typography>}
             </div>
