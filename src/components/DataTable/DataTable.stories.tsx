@@ -1,6 +1,6 @@
 import {dataTable} from '~/data/dataTable';
 import {dataColumnsUser} from '~/data/dataTable';
-import type {dataUser} from '~/data/dataTable';
+import type {DataUser} from '~/data/dataTable';
 import {DataTable} from './DataTable';
 import type {Meta, StoryObj} from '@storybook/react';
 import {TableRow} from '~/components';
@@ -20,9 +20,9 @@ export default {
         itemsPerPageOptions: {control: 'object'},
         paginationLabel: {control: 'object'}
     }
-} satisfies Meta<typeof DataTable<dataUser>>;
+} satisfies Meta<typeof DataTable<DataUser>>;
 
-type Story = StoryObj<typeof DataTable<dataUser>>;
+type Story = StoryObj<typeof DataTable<DataUser>>;
 
 export const EmptyDataTable: Story = {
     render: args => {

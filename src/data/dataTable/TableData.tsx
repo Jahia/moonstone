@@ -1,6 +1,6 @@
-import type {dataUser} from './dataColumnsUser';
+import type {DataUser} from './dataColumnsUser';
 
-export const dataTable: dataUser[] = [
+export const dataTable: DataUser[] = [
     {
         firstName: 'Walter',
         lastName: 'White',

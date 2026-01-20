@@ -2,7 +2,7 @@ import type {DataTableColumn} from '~/components/DataTable/DataTable.types';
 import {Chip} from '~/components';
 import {numberColumn, dateColumn, stringColumn} from '~/utils/dataTable';
 
-export type dataUser = {
+export type DataUser = {
     firstName: string;
     lastName: string;
     age: number;
@@ -10,16 +10,16 @@ export type dataUser = {
     progress: number;
     date: Date;
     chips?: string[];
-    subRows?: dataUser[];
+    subRows?: DataUser[];
 };
 
-export type DataUserKeys = Exclude<keyof dataUser, 'subRows'>;
+export type DataUserKeys = Exclude<keyof DataUser, 'subRows'>;
 
-export const dataColumnsUser: DataTableColumn<dataUser>[] = [
+export const dataColumnsUser: DataTableColumn<DataUser>[] = [
     {
         key: 'firstName',
         label: 'User',
-        ...stringColumn<dataUser>(row => row.firstName)
+        ...stringColumn<DataUser>(row => row.firstName)
         // Align comes from stringColumn helper
     },
     {
@@ -38,13 +38,13 @@ export const dataColumnsUser: DataTableColumn<dataUser>[] = [
     {
         key: 'progress',
         label: 'Progress',
-        ...numberColumn<dataUser>(row => row.progress)
+        ...numberColumn<DataUser>(row => row.progress)
         // Align comes from numberColumn helper
     },
     {
         key: 'date',
         label: 'Last Login',
-        ...dateColumn<dataUser>(row => row.date, {locale: 'fr-FR'})
+        ...dateColumn<DataUser>(row => row.date, {locale: 'fr-FR'})
         // Align comes from dateColumn helper
     }
 ];

@@ -1,14 +1,14 @@
 import React from 'react';
 
-type localeProp = string | string[];
+type LocaleProp = string | string[];
 
 export type LocaleOptions = {
     value: Date | null | undefined;
-    locale?: localeProp;
+    locale?: LocaleProp;
     localeOptions?: Intl.DateTimeFormatOptions;
 } | {
     value: number | null | undefined;
-    locale?: localeProp;
+    locale?: LocaleProp;
     localeOptions?: Intl.NumberFormatOptions;
 };
 
