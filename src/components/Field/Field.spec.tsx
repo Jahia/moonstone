@@ -100,4 +100,19 @@ describe('Field', () => {
         render(<Field {...requiredProps} hasError errorMessage="Field errorMessage"><div/></Field>);
         expect(screen.queryByText('Field errorMessage')).toBeInTheDocument();
     });
+
+    it('should return null when children is undefined', () => {
+        const {container} = render(<Field {...requiredProps}/>);
+        expect(container.firstChild).toBeNull();
+    });
+
+    it('should link label to field with htmlFor', () => {
+        render(
+            <Field {...requiredProps}>
+                <FieldSelector selector={<textarea placeholder="Input value"/>}/>
+            </Field>
+        );
+        const label = screen.getByText('Field label');
+        expect(label).toHaveAttribute('for', 'test');
+    });
 });

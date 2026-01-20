@@ -16,6 +16,10 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
     className,
     ...props
 }, ref) => {
+    if (!children) {
+        return null;
+    }
+
     return (
         <div
             ref={ref}
@@ -30,7 +34,7 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
         >
             <div className={clsx('flexRow_nowrap', 'flexFluid', 'alignCenter')}>
                 <div className="flexRow_nowrap flexFluid alignCenter">
-                    <Typography isNowrap component="label" weight="bold">{label}</Typography>
+                    <Typography isNowrap component="label" htmlFor={id} weight="bold">{label}</Typography>
                     {chips &&
                         <div className={clsx('moonstone-field_chips', 'flexRow_nowrap')}>
                             {chips}
