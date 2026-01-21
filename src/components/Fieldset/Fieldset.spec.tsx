@@ -1,6 +1,7 @@
 import {render, screen} from '@testing-library/react';
 
 import {Fieldset} from './index';
+import type {FieldsetProps} from './Fieldset.types';
 import {Button, Input, Field, FieldSelector} from '~/components';
 import {Add, Love} from '~/icons';
 
@@ -45,7 +46,8 @@ describe('Fieldset', () => {
         expect(screen.getAllByText('Click me')).toHaveLength(2);
     });
     it('should render nothing when no children are provided', () => {
-        const {container} = render(<Fieldset {...requiredProps}/>);
+        const incompleteProps = {...requiredProps, children: undefined} as FieldsetProps;
+        const {container} = render(<Fieldset {...incompleteProps}/>);
         expect(container).toBeEmptyDOMElement();
     });
 });

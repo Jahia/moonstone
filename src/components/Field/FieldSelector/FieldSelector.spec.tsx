@@ -2,10 +2,17 @@ import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import {FieldSelector} from './index';
+import type {FieldSelectorProps} from './FieldSelector.types';
 import {Button} from '~/components';
 import {Add, Love} from '~/icons';
 
 describe('FieldSelector', () => {
+    it('should render nothing when no selector is provided', () => {
+        const incompleteProps = {selector: undefined} as FieldSelectorProps;
+        const {container} = render(<FieldSelector {...incompleteProps}/>);
+        expect(container).toBeEmptyDOMElement();
+    });
+
     it('should display additional class names', () => {
         render(
             <FieldSelector

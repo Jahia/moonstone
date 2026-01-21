@@ -19,5 +19,5 @@ export type FieldSelectorProps = Omit<React.ComponentPropsWithRef<'div'>, 'class
     /**
      * FieldSelector selector
      */
-    selector?: React.ReactElement;
+    selector: React.ReactElement;
 };
