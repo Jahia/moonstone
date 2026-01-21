@@ -21,9 +21,9 @@ const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowPr
         {
             className: clsx(
                 'flexRow',
-                'moonstone-TableRow',
+                'moonstone-tableRow',
                 'alignCenter',
-                isHighlighted && 'moonstone-TableRow_highlighted',
+                isHighlighted && 'moonstone-tableRow_highlighted',
                 className
             ),
             tabIndex: 0,

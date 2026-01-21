@@ -31,7 +31,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
             component={component}
             variant="body"
             className={clsx(
-                'moonstone-TableCell',
+                'moonstone-tableCell',
                 align === 'left' ? 'justifyStart' : align === 'right' ? 'justifyEnd' : 'justifyCenter',
                 'flexRow',
                 'alignCenter',

@@ -51,7 +51,7 @@ describe('TableHeadCell', () => {
         it('should display sort icon on sorting direction descending', () => {
             render(
                 <TableWrapper>
-                    <TableHeadCell sorting={{direction: 'descending', isActive: true}} data-testid="cell"/>
+                    <TableHeadCell sorting={{direction: 'descending', isActive: true}} data-testid="cell">Header</TableHeadCell>
                 </TableWrapper>
             );
             expect(screen.getByTestId('cell').querySelector('.moonstone-tableHeadCell_sort')).toBeInTheDocument();
@@ -60,7 +60,7 @@ describe('TableHeadCell', () => {
         it('should display sort icon on sorting direction ascending', () => {
             render(
                 <TableWrapper>
-                    <TableHeadCell sorting={{direction: 'ascending', isActive: true}} data-testid="cell"/>
+                    <TableHeadCell sorting={{direction: 'ascending', isActive: true}} data-testid="cell">Header</TableHeadCell>
                 </TableWrapper>
             );
             expect(screen.getByTestId('cell').querySelector('.moonstone-tableHeadCell_sort')).toBeInTheDocument();
@@ -69,7 +69,7 @@ describe('TableHeadCell', () => {
         it('should set aria-sort when isActive is true', () => {
             render(
                 <TableWrapper>
-                    <TableHeadCell sorting={{direction: 'ascending', isActive: true}} data-testid="cell"/>
+                    <TableHeadCell sorting={{direction: 'ascending', isActive: true}} data-testid="cell">Header</TableHeadCell>
                 </TableWrapper>
             );
             expect(screen.getByTestId('cell')).toHaveAttribute('aria-sort', 'ascending');
@@ -78,7 +78,7 @@ describe('TableHeadCell', () => {
         it('should not set aria-sort when isActive is false', () => {
             render(
                 <TableWrapper>
-                    <TableHeadCell sorting={{direction: 'ascending', isActive: false}} data-testid="cell"/>
+                    <TableHeadCell sorting={{direction: 'ascending', isActive: false}} data-testid="cell">Header</TableHeadCell>
                 </TableWrapper>
             );
             expect(screen.getByTestId('cell')).not.toHaveAttribute('aria-sort');

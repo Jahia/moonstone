@@ -7,7 +7,7 @@ import './TableCell.scss';
 
 // Spacing constants for tree structure alignment
 const indentSpace = 20; // Px - indentation per depth level
-const ChevronSpace = 20; // Px - compensates for chevron icon width on non-expandable rows
+const chevronSpace = 20; // Px - compensates for chevron icon width on non-expandable rows
 
 export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableStructuredCellProps>(
     (
@@ -49,7 +49,7 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
             }
 
             return (
-                <span style={{marginLeft: `${leftMarginIndentDepth + ChevronSpace}px`}}>
+                <span style={{marginLeft: `${leftMarginIndentDepth + chevronSpace}px`}}>
                     {children}
                 </span>
             );

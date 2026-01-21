@@ -44,7 +44,7 @@ describe('TableRow', () => {
                 </TableRow>
             </TableWrapper>
         );
-        expect(screen.getByTestId('row')).toHaveClass('moonstone-TableRow_highlighted');
+        expect(screen.getByTestId('row')).toHaveClass('moonstone-tableRow_highlighted');
     });
 
     it('should call onClick when clicked', async () => {
@@ -98,6 +98,6 @@ describe('TableRow', () => {
             </TableWrapper>
         );
         expect(screen.getByTestId('row')).toHaveClass('custom-class');
-        expect(screen.getByTestId('row')).toHaveClass('moonstone-TableRow');
+        expect(screen.getByTestId('row')).toHaveClass('moonstone-tableRow');
     });
 });

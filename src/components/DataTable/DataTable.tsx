@@ -190,7 +190,15 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 return renderRow(row, defaultRender);
             }
 
-            return <TableRow key={row.id} {...rowProps}>{defaultRender()}</TableRow>;
+            return (
+                <TableRow
+                    key={row.id}
+                    aria-selected={row.getIsSelected() || undefined}
+                    {...rowProps}
+                >
+                    {defaultRender()}
+                </TableRow>
+            );
         },
         [renderRow, renderRowContent, rowProps]
     );

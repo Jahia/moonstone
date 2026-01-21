@@ -30,7 +30,7 @@ export const TableHeadCell = ({
             width={width}
             align={align}
             verticalAlign={verticalAlign}
-            className={clsx('moonstone-TableHeadCell', className)}
+            className={clsx('moonstone-tableHeadCell', className)}
             aria-sort={ariaSort}
             onClick={onClick}
         >

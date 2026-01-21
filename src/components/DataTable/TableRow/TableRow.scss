@@ -1,17 +1,17 @@
 $row-regular-height: 48px;
 
-.moonstone-TableRow {
+.moonstone-tableRow {
     height: $row-regular-height;
 
     border-bottom: 1px solid var(--color-gray_light);
 
-    .moonstone-TableBody &:focus-within,
-    .moonstone-TableBody &:hover {
+    .moonstone-tableBody &:focus-within,
+    .moonstone-tableBody &:hover {
         background-color: var(--color-gray_light40);
     }
 }
 
-.moonstone-TableRow_highlighted {
+.moonstone-tableRow_highlighted {
     color: var(--color-light);
 
     background-color: var(--color-accent);
