@@ -59,7 +59,7 @@ describe('TableCell', () => {
                 <TableCell data-testid="cell" verticalAlign="top">V</TableCell>
             </TableWrapper>
         );
-        expect(screen.getByTestId('cell')).toHaveClass('moonstone-verticalAlignTop');
+        expect(screen.getByTestId('cell')).toHaveClass('verticalAlignTop');
     });
 
     it('should apply scrollable class', () => {

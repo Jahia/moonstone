@@ -21,6 +21,6 @@ export type TableRowProps = Omit<React.ComponentPropsWithoutRef<'tr'>, 'children
     /**
      * The children elements
      */
-    children?: React.ReactNode;
+    children: React.ReactNode;
 };
 

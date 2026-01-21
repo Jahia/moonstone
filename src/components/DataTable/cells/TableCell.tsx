@@ -19,10 +19,6 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
     },
     ref
 ) => {
-    if (!children) {
-        return null;
-    }
-
     const scrollableClass = isScrollable ? 'moonstone-tableCellContent' : '';
 
     return (
@@ -35,7 +31,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
                 align === 'left' ? 'justifyStart' : align === 'right' ? 'justifyEnd' : 'justifyCenter',
                 'flexRow',
                 'alignCenter',
-                'moonstone-verticalAlign' + capitalize(verticalAlign),
+                'verticalAlign' + capitalize(verticalAlign),
                 {flexFluid: typeof width === 'undefined'},
                 scrollableClass,
                 className
@@ -46,7 +42,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
             }}
             {...props}
         >
-            {children}
+            {children ?? '-'}
         </Typography>
     );
 };

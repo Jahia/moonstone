@@ -265,7 +265,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
             {enablePagination && (
                 <Pagination
                     currentPage={table.getState().pagination.pageIndex + 1}
-                    totalOfItems={data.length}
+                    totalOfItems={table.getPrePaginationRowModel().rows.length}
                     itemsPerPage={table.getState().pagination.pageSize}
                     itemsPerPageOptions={itemsPerPageOptions ?? [5, 10, 25]}
                     label={paginationLabel}

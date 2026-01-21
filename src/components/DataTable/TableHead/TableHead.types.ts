@@ -20,5 +20,5 @@ export type TableHeadProps = Omit<React.ComponentPropsWithoutRef<'thead'>, 'chil
     /**
      * The children elements provided
      */
-    children?: React.ReactNode;
+    children: React.ReactNode;
 };

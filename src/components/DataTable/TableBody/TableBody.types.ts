@@ -14,5 +14,5 @@ export type TableBodyProps = Omit<React.ComponentPropsWithoutRef<'tbody'>, 'chil
     /**
      * The children elements provided
      */
-    children?: React.ReactNode;
+    children: React.ReactNode;
 };
