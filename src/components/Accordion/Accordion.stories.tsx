@@ -1,10 +1,8 @@
 import {useState} from 'react';
-import {StoryFn, Meta} from '@storybook/react-vite';
-
+import {StoryObj, Meta} from '@storybook/react-vite';
 import {Accordion} from './index';
 import {AccordionItem} from '~/components/Accordion/AccordionItem';
 import type {AccordionProps} from './Accordion.types';
-
 import markdownNotes from './Accordion.md';
 import {Love, BarSquare, Bug} from '~/icons';
 
@@ -20,7 +18,7 @@ export default {
     decorators: [
         StoryCmp => (
             <div
-        style={{display: 'flex', flexDirection: 'column', height: '100vh'}}
+                style={{display: 'flex', flexDirection: 'column', height: '100vh'}}
             >
                 <StoryCmp/>
             </div>
@@ -32,7 +30,9 @@ export default {
     }
 } as Meta<typeof Accordion>;
 
-const Template: StoryFn<AccordionProps> = args => (
+type Story = StoryObj<AccordionProps>;
+
+const Template = (args: AccordionProps) => (
     <Accordion {...args}>
         <AccordionItem
             id={accordionIds[0]}
@@ -142,11 +142,11 @@ const Template: StoryFn<AccordionProps> = args => (
     </Accordion>
 );
 
-export const Default = {
+export const Default: Story = {
     render: Template
 };
 
-export const DefaultOpened = {
+export const DefaultOpened: Story = {
     render: Template,
 
     args: {
@@ -180,27 +180,27 @@ export const Controlled = () => {
                 </button>
             </span>
             <Accordion
-        openedItem={stateOpenedItems}
-        onSetOpenedItem={onSetOpenedItem}
+                openedItem={stateOpenedItems}
+                onSetOpenedItem={onSetOpenedItem}
             >
                 <AccordionItem
-          id={accordionIds[0]}
-          icon={<Love size="big"/>}
-          label="test 01"
+                    id={accordionIds[0]}
+                    icon={<Love size="big"/>}
+                    label="test 01"
                 >
                     Accordion Content
                 </AccordionItem>
                 <AccordionItem
-          id={accordionIds[1]}
-          icon={<Bug size="big"/>}
-          label="test 02 is opened by default"
+                    id={accordionIds[1]}
+                    icon={<Bug size="big"/>}
+                    label="test 02 is opened by default"
                 >
                     Accordion Content
                 </AccordionItem>
                 <AccordionItem
-          id={accordionIds[2]}
-          label="test 03 (with long content)"
-          icon={<BarSquare size="big"/>}
+                    id={accordionIds[2]}
+                    label="test 03 (with long content)"
+                    icon={<BarSquare size="big"/>}
                 >
                     Accordion Content
                 </AccordionItem>
@@ -209,7 +209,7 @@ export const Controlled = () => {
     );
 };
 
-export const Reversed = {
+export const Reversed: Story = {
     render: Template,
 
     args: {

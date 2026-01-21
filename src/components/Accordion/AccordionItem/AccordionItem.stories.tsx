@@ -1,5 +1,4 @@
-import {StoryFn, Meta} from '@storybook/react-vite';
-
+import {StoryObj, Meta} from '@storybook/react-vite';
 import {Accordion} from '~/components/Accordion';
 import {AccordionItem} from './index';
 import type {AccordionItemProps} from './AccordionItem.types';
@@ -13,7 +12,7 @@ export default {
     decorators: [
         StoryCmp => (
             <div
-        style={{display: 'flex', flexDirection: 'column', height: '100vh'}}
+                style={{display: 'flex', flexDirection: 'column', height: '100vh'}}
             >
                 <StoryCmp/>
             </div>
@@ -25,13 +24,15 @@ export default {
     }
 } as Meta<typeof AccordionItem>;
 
-const Template: StoryFn<AccordionItemProps> = args => (
+type Story = StoryObj<AccordionItemProps>;
+
+const Template = (args: AccordionItemProps) => (
     <Accordion>
         <AccordionItem {...args}>Content here</AccordionItem>
     </Accordion>
 );
 
-export const WithIcon = {
+export const WithIcon: Story = {
     render: Template,
 
     args: {
@@ -41,7 +42,7 @@ export const WithIcon = {
     }
 };
 
-export const WithoutIcon = {
+export const WithoutIcon: Story = {
     render: Template,
 
     args: {

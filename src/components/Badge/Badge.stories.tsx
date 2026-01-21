@@ -1,7 +1,6 @@
-import {Meta} from '@storybook/react-vite';
-
+import {StoryObj, Meta} from '@storybook/react-vite';
 import {Badge} from './index';
-
+import type {BadgeProps} from './Badge.types';
 import markdownNotes from './Badge.md';
 
 export default {
@@ -13,21 +12,23 @@ export default {
     }
 } as Meta<typeof Badge>;
 
-export const Accent = {
+type Story = StoryObj<BadgeProps>;
+
+export const Accent: Story = {
     args: {
         label: '3',
         color: 'accent'
     }
 };
 
-export const Success = {
+export const Success: Story = {
     args: {
         label: '3',
         color: 'success'
     }
 };
 
-export const Danger = {
+export const Danger: Story = {
     args: {
         label: '3',
         color: 'danger'

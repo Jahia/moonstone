@@ -1,4 +1,4 @@
-import {StoryObj} from '@storybook/react-vite';
+import {StoryObj, Meta} from '@storybook/react-vite';
 import '~/__storybook__/storybook.scss';
 
 import {Chip} from './index';
@@ -7,7 +7,7 @@ import type {ChipProps} from './Chip.types';
 import {Cloud, Delete, File, Lock, NoCloud, Warning, CloudCheck, Build, Edit, Subdirectory} from '~/icons';
 import markdownNotes from './Chip.md';
 
-export default {
+const meta: Meta<typeof Chip> = {
     title: 'Components/Chip',
     component: Chip,
     tags: ['updated'],
@@ -17,8 +17,11 @@ export default {
         notes: {markdown: markdownNotes}
     }
 };
+export default meta;
 
-export const Default: StoryObj<ChipProps> = {
+type Story = StoryObj<typeof Chip>;
+
+export const Default: Story = {
     args: {
         label: 'chip label',
         icon: <Cloud/>,
@@ -27,7 +30,7 @@ export const Default: StoryObj<ChipProps> = {
     }
 };
 
-export const TextOnly: StoryObj<ChipProps> = {
+export const TextOnly: Story = {
     args: {
         label: 'chip label',
         color: 'default',
@@ -35,7 +38,7 @@ export const TextOnly: StoryObj<ChipProps> = {
     }
 };
 
-export const IconOnly: StoryObj<ChipProps> = {
+export const IconOnly: Story = {
     args: {
         icon: <Cloud/>,
         color: 'default',
@@ -43,18 +46,20 @@ export const IconOnly: StoryObj<ChipProps> = {
     }
 };
 
-export const StatusExample = () => (
-    <section className="storyColumn">
-        <Chip icon={<Delete/>} label="Marked for deletion" color="danger"/>
-        <Chip icon={<Warning/>} label="Warning" color="warning"/>
-        <Chip icon={<Warning/>} label="Auto-publish" color="warning"/>
-        <Chip icon={<Lock/>} label="Locked" color="warning"/>
-        <Chip icon={<Build/>} label="Work in progress" color="warning"/>
-        <Chip icon={<CloudCheck/>} label="Published" color="success"/>
-        <Chip icon={<Subdirectory/>} label="3 items" color="accent"/>
-        <Chip icon={<File/>} label="Modified" color="accent"/>
-        <Chip icon={<Edit/>} label="Unsaved changed" color="accent"/>
-        <Chip icon={<NoCloud/>} label="Never published" color="default"/>
-        <Chip icon={<NoCloud/>} label="Unpublished" color="default"/>
-    </section>
-);
+export const StatusExample: Story = {
+    render: () => (
+        <section className="storyColumn">
+            <Chip icon={<Delete/>} label="Marked for deletion" color="danger"/>
+            <Chip icon={<Warning/>} label="Warning" color="warning"/>
+            <Chip icon={<Warning/>} label="Auto-publish" color="warning"/>
+            <Chip icon={<Lock/>} label="Locked" color="warning"/>
+            <Chip icon={<Build/>} label="Work in progress" color="warning"/>
+            <Chip icon={<CloudCheck/>} label="Published" color="success"/>
+            <Chip icon={<Subdirectory/>} label="3 items" color="accent"/>
+            <Chip icon={<File/>} label="Modified" color="accent"/>
+            <Chip icon={<Edit/>} label="Unsaved changed" color="accent"/>
+            <Chip icon={<NoCloud/>} label="Never published" color="default"/>
+            <Chip icon={<NoCloud/>} label="Unpublished" color="default"/>
+        </section>
+    )
+};

@@ -1,16 +1,19 @@
 import {useState} from 'react';
-import {StoryObj} from '@storybook/react-vite';
+import {StoryObj, Meta} from '@storybook/react-vite';
 
 import {Collapsible} from './index';
 import type {CollapsibleProps} from './Collapsible.types';
 
-export default {
+const meta: Meta<typeof Collapsible> = {
     title: 'Components/Collapsible',
     component: Collapsible,
     parameters: {
         actions: {argTypesRegex: '^on.*'}
     }
 };
+export default meta;
+
+type Story = StoryObj<typeof Collapsible>;
 
 const BodyCollapsible = () => {
     return (
@@ -68,7 +71,7 @@ const BodyCollapsible = () => {
     );
 };
 
-export const Uncontrolled = {
+export const Uncontrolled: Story = {
     args: {
         label: 'Collapsible label',
         children: <BodyCollapsible/>,
@@ -76,7 +79,7 @@ export const Uncontrolled = {
     }
 };
 
-export const Controlled: StoryObj<CollapsibleProps> = {
+export const Controlled: Story = {
     render: args => {
         const [isExpanded, setIsExpanded] = useState(false);
         const handleOnClick = () => {
@@ -85,9 +88,9 @@ export const Controlled: StoryObj<CollapsibleProps> = {
 
         return (
             <Collapsible
-        {...args}
-        isExpanded={isExpanded}
-        onClick={() => handleOnClick()}
+                {...args}
+                isExpanded={isExpanded}
+                onClick={() => handleOnClick()}
             >
                 <BodyCollapsible/>
             </Collapsible>
@@ -99,21 +102,23 @@ export const Controlled: StoryObj<CollapsibleProps> = {
     }
 };
 
-export const StickyCollapsibles = () => {
-    return (
-        <>
-            <Collapsible label="Collapsible 1">
-                <BodyCollapsible/>
-            </Collapsible>
-            <Collapsible label="Collapsible 2">
-                <BodyCollapsible/>
-            </Collapsible>
-            <Collapsible label="Collapsible 3">
-                <BodyCollapsible/>
-            </Collapsible>
-            <Collapsible label="Collapsible 4">
-                <BodyCollapsible/>
-            </Collapsible>
-        </>
-    );
+export const StickyCollapsibles: Story = {
+    render: () => {
+        return (
+            <>
+                <Collapsible label="Collapsible 1">
+                    <BodyCollapsible/>
+                </Collapsible>
+                <Collapsible label="Collapsible 2">
+                    <BodyCollapsible/>
+                </Collapsible>
+                <Collapsible label="Collapsible 3">
+                    <BodyCollapsible/>
+                </Collapsible>
+                <Collapsible label="Collapsible 4">
+                    <BodyCollapsible/>
+                </Collapsible>
+            </>
+        );
+    }
 };
