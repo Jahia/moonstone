@@ -2,6 +2,7 @@ import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import {Field} from './index';
+import type {FieldProps} from './Field.types';
 import {FieldSelector} from './FieldSelector';
 import {Button, Chip} from '~/index';
 import {Add, Love} from '~/icons';
@@ -12,6 +13,12 @@ const requiredProps = {
 };
 
 describe('Field', () => {
+    it('should render nothing when no children are provided', () => {
+        const incompleteProps = {...requiredProps, children: undefined} as FieldProps;
+        const {container} = render(<Field {...incompleteProps}/>);
+        expect(container).toBeEmptyDOMElement();
+    });
+
     it('should display additional class names', () => {
         render(
             <Field {...requiredProps} data-testid="field" className="extra">

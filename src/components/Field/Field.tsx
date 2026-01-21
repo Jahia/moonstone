@@ -16,6 +16,10 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
     className,
     ...props
 }, ref) => {
+    if (!children) {
+        return null;
+    }
+
     return (
         <div
             ref={ref}

@@ -11,6 +11,10 @@ export const FieldSelector = React.forwardRef<HTMLDivElement, FieldSelectorProps
     isDraggable = false,
     ...props
 }, ref) => {
+    if (!selector) {
+        return null;
+    }
+
     return (
         <div
             ref={ref}
@@ -31,14 +35,14 @@ export const FieldSelector = React.forwardRef<HTMLDivElement, FieldSelectorProps
             </div>
             <div className={clsx('moonstone-fieldSelector_buttons', 'flexRow_nowrap')}>
                 {buttons &&
-                React.Children.map(buttons, button =>
-                    button.props && button.props.children ?
-                    (React.Children.map(button.props.children, btn => {
-                        const key = btn.props.icon ? btn.props.icon.name : btn.props.label;
-                        return (btn && <btn.type key={`btn-${key}`} size="default" variant="ghost" {...btn.props}/>);
-                    }
-                     )) : (buttons && <buttons.type size="default" variant="ghost" {...buttons.props}/>)
-                )}
+                    React.Children.map(buttons, button =>
+                        button.props && button.props.children ?
+                            (React.Children.map(button.props.children, btn => {
+                                const key = btn.props.icon ? btn.props.icon.name : btn.props.label;
+                                return (btn && <btn.type key={`btn-${key}`} size="default" variant="ghost" {...btn.props}/>);
+                            }
+                            )) : (buttons && <buttons.type size="default" variant="ghost" {...buttons.props}/>)
+                    )}
             </div>
         </div>
     );
