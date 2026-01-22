@@ -44,7 +44,8 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
     {
         key: 'date',
         label: 'Last Login',
-        ...dateColumn<DataUser>(row => row.date, {locale: 'fr-FR'})
+        ...dateColumn<DataUser>(row => row.date, {locale: 'fr-FR'}),
         // Align comes from dateColumn helper
+        width: '150px'
     }
 ];

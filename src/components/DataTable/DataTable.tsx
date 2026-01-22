@@ -155,6 +155,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             <TableStructuredCell
                                 key={cell.id}
                                 align={meta?.align ?? 'left'}
+                                width={meta?.width}
                                 depth={row.depth}
                                 isExpandable={row.getCanExpand()}
                                 isExpanded={row.getIsExpanded()}
@@ -169,6 +170,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                         <TableCell
                             key={cell.id}
                             align={meta?.align ?? 'left'}
+                            width={meta?.width}
                         >
                             {cellContent}
                         </TableCell>
@@ -234,6 +236,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                 return (
                                     <TableHeadCell
                                         key={header.id}
+                                        width={meta?.width}
                                         sorting={isColumnSortable ? {
                                             direction: sortDirection === 'desc' ? 'descending' : 'ascending',
                                             isActive: Boolean(sortDirection)
