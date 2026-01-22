@@ -17,11 +17,9 @@ import type {
 import {useState, useEffect, useMemo, useCallback} from 'react';
 
 import type {DataTableProps, CustomColumnMeta} from './DataTable.types';
-import {
-    Table,
-    TableRow,
-    Checkbox
-} from '~/index';
+import {Checkbox} from '~/index';
+import {Table} from './Table';
+import {TableRow} from './TableRow';
 import {TableBody} from './TableBody';
 import {TableHead} from './TableHead';
 import {TableCell} from './cells/TableCell';

@@ -1,8 +1,13 @@
 export * from '~/utils/dataTable';
-export * from './TableRow';
-export * from './cells';
-export * from './TableHead';
-export * from './TableBody';
+export * from './cells/TableCell';
+export * from './cells/TableCell.types';
+export * from './cells/TableStructuredCell';
+export * from './cells/TableStructuredCell.types';
+export * from './cells/TableHeadCell.types';
 export * from './DataTable';
 export * from './DataTable.types';
-
+export {TableHeadCell as DataTableHeadCell} from './cells/TableHeadCell';
+export {Table as DataTableTable} from './Table';
+export {TableRow as DataTableRow} from './TableRow';
+export {TableHead as DataTableHead} from './TableHead';
+export {TableBody as DataTableBody} from './TableBody';
