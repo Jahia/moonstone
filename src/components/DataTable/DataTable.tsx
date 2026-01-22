@@ -17,14 +17,16 @@ import type {
 import {useState, useEffect, useMemo, useCallback} from 'react';
 
 import type {DataTableProps, CustomColumnMeta} from './DataTable.types';
-import {Checkbox} from '~/index';
-import {Table} from './Table';
-import {TableRow} from './TableRow';
-import {TableBody} from './TableBody';
-import {TableHead} from './TableHead';
-import {TableCell} from './cells/TableCell';
-import {TableStructuredCell} from './cells/TableStructuredCell';
-import {TableHeadCell} from './cells/TableHeadCell';
+import {Checkbox} from '~/components';
+import {
+    Table,
+    TableRow,
+    TableBody,
+    TableHead,
+    TableCell,
+    TableStructuredCell,
+    TableHeadCell
+} from '~/components/DataTable';
 import {createTableColumns} from '~/utils/dataTable/tableHelpers';
 import {Pagination} from '~/components/Pagination';
 
