@@ -11,6 +11,7 @@ export type SubRowKey = 'subRows';
 export type CustomColumnMeta = {
     isSortable?: boolean;
     align?: 'left' | 'center' | 'right';
+    width?: string;
 };
 
 export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children' | 'className'> & {
@@ -62,6 +63,12 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
      * Content alignment for the column
      */
     align?: 'left' | 'center' | 'right';
+
+    /**
+     * Column width as a CSS string (e.g., '250px', '20%').
+     * When undefined, the column takes all available space.
+     */
+    width?: string;
 };
 
 export type DataTableBaseProps<T extends NonNullable<unknown>> = {

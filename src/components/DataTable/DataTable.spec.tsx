@@ -246,4 +246,47 @@ describe('DataTable', () => {
 
         expect(screen.queryByText('Child')).not.toBeInTheDocument();
     });
+
+    it('should apply column width when specified', () => {
+        const columnsWithWidth = [
+            {
+                key: 'name',
+                label: 'Name',
+                width: '200px',
+                ...stringColumn((row: TestData) => row.name)
+            },
+            {
+                key: 'age',
+                label: 'Age',
+                ...numberColumn((row: TestData) => row.age)
+            }
+        ] as const;
+
+        render(
+            <DataTable<TestData>
+                data={data}
+                columns={columnsWithWidth}
+                primaryKey="id"
+            />
+        );
+
+        const nameHeader = screen.getByText('Name').closest('th');
+        expect(nameHeader).toHaveStyle({width: '200px'});
+
+        const aliceCell = screen.getByText('Alice').closest('td');
+        expect(aliceCell).toHaveStyle({width: '200px'});
+    });
+
+    it('should not set width style when width is undefined', () => {
+        render(
+            <DataTable<TestData>
+                data={data}
+                columns={columns}
+                primaryKey="id"
+            />
+        );
+
+        const nameHeader = screen.getByText('Name').closest('th');
+        expect(nameHeader).not.toHaveStyle({width: '200px'});
+    });
 });
