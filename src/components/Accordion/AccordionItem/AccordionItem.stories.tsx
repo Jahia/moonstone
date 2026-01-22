@@ -1,12 +1,11 @@
-import {StoryObj, Meta} from '@storybook/react-vite';
+import preview from '../../../../.storybook/preview';
 import {Accordion} from '~/components/Accordion';
 import {AccordionItem} from './index';
-import type {AccordionItemProps} from './AccordionItem.types';
-
 import markdownNotes from './AccordionItem.md';
 import {Love} from '~/icons';
+import {AccordionItemProps} from './AccordionItem.types';
 
-export default {
+const meta = preview.meta({
     title: 'Components/Accordion/AccordionItem',
     component: AccordionItem,
     decorators: [
@@ -21,32 +20,31 @@ export default {
     parameters: {
         notes: {markdown: markdownNotes},
         actions: {argTypesRegex: '^on.*'}
+    },
+    args: {
+        children: 'Accordion Item Content'
     }
-} as Meta<typeof AccordionItem>;
-
-type Story = StoryObj<AccordionItemProps>;
+});
 
 const Template = (args: AccordionItemProps) => (
     <Accordion>
-        <AccordionItem {...args}>Content here</AccordionItem>
+        <AccordionItem {...args}/>
     </Accordion>
 );
 
-export const WithIcon: Story = {
+export const WithIcon = meta.story({
     render: Template,
-
     args: {
         id: 'id',
         label: 'AccordionItem',
         icon: <Love size="big"/>
     }
-};
+});
 
-export const WithoutIcon: Story = {
+export const WithoutIcon = meta.story({
     render: Template,
-
     args: {
         id: 'id',
         label: 'AccordionItem'
     }
-};
+});
