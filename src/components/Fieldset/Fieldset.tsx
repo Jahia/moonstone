@@ -13,6 +13,10 @@ export const Fieldset = React.forwardRef<HTMLFieldSetElement, FieldsetProps>(({
     buttons,
     ...props
 }, ref) => {
+    if (!children) {
+        return null;
+    }
+
     return (
         <fieldset
             ref={ref}
@@ -31,9 +35,9 @@ export const Fieldset = React.forwardRef<HTMLFieldSetElement, FieldsetProps>(({
             {helper &&
                 <Typography variant="caption" className={clsx('moonstone-fieldset_helper')}>{helper}</Typography>}
             {children &&
-            <div className={clsx('moonstone-fieldset_children', 'flexCol_nowrap')}>
-                {children}
-            </div>}
+                <div className={clsx('moonstone-fieldset_children', 'flexCol_nowrap')}>
+                    {children}
+                </div>}
         </fieldset>
     );
 });
