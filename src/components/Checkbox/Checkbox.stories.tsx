@@ -1,8 +1,6 @@
 import {useState} from 'react';
 import {StoryObj, Meta} from '@storybook/react-vite';
-
 import {Checkbox} from '~/components';
-import type {CheckboxProps} from './Checkbox.types';
 
 const meta: Meta<typeof Checkbox> = {
     title: 'Components/Checkbox',

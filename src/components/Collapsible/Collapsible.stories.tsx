@@ -2,7 +2,6 @@ import {useState} from 'react';
 import {StoryObj, Meta} from '@storybook/react-vite';
 
 import {Collapsible} from './index';
-import type {CollapsibleProps} from './Collapsible.types';
 
 const meta: Meta<typeof Collapsible> = {
     title: 'Components/Collapsible',
