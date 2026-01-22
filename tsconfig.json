@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
-    "rootDir": "src",
+    "rootDirs": [
+      "src",
+      ".storybook"
+    ],
     "outDir": "dist",
     "sourceMap": true,
     "allowJs": false,
