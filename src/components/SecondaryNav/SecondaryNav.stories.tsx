@@ -1,18 +1,16 @@
-import {StoryFn, Meta} from '@storybook/react-vite';
-
+import preview from '../../../.storybook/preview';
 import {SecondaryNav, SecondaryNavHeader} from './index';
 import type {SecondaryNavProps} from './SecondaryNav.types';
-
 import markdownNotes from './SecondaryNav.md';
 import {Love} from '~/icons';
 
-export default {
+const meta = preview.meta({
     title: 'Components/SecondaryNav',
     component: SecondaryNav,
     decorators: [
         StoryCmp => (
             <div
-        style={{display: 'flex', flexDirection: 'column', height: '100vh'}}
+                style={{display: 'flex', flexDirection: 'column', height: '100vh'}}
             >
                 <StoryCmp/>
             </div>
@@ -20,45 +18,40 @@ export default {
     ],
     parameters: {
         notes: {markdown: markdownNotes}
+    },
+    argTypes: {
+        children: {table: {disable: true}}
     }
-} as Meta<typeof SecondaryNav>;
+});
 
-const Template: StoryFn<SecondaryNavProps> = args => (
-    <SecondaryNav {...args}>My content here</SecondaryNav>
-);
-
-export const TextTitle = {
-    render: Template,
-
+export const TextTitle = meta.story({
     args: {
-        header: 'Header here'
+        header: 'Header here',
+        children: 'My content here'
     }
-};
+});
 
-export const WithHeaderImage = {
-    render: Template,
-
+export const WithHeaderImage = meta.story({
     args: {
-        header: <Love size="big"/>
+        header: <Love size="big"/>,
+        children: 'My content here'
     }
-};
+});
 
-export const WithTextInHeaderComponent = {
-    render: Template,
-
+export const WithTextInHeaderComponent = meta.story({
     args: {
-        header: <SecondaryNavHeader>Secondary Header</SecondaryNavHeader>
+        header: <SecondaryNavHeader>Secondary Header</SecondaryNavHeader>,
+        children: 'My content here'
     }
-};
+});
 
-export const WithHeaderComponent = {
-    render: Template,
-
+export const WithHeaderComponent = meta.story({
     args: {
         header: (
             <SecondaryNavHeader>
                 <Love size="big"/>
             </SecondaryNavHeader>
-        )
+        ),
+        children: 'My content here'
     }
-};
+});

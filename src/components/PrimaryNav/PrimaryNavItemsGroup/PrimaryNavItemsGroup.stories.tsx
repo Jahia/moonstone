@@ -1,10 +1,11 @@
-import type {Meta, StoryObj} from '@storybook/react';
+import preview from '../../../../.storybook/preview';
 import {PrimaryNavItemsGroup} from './index';
+import type {PrimaryNavItemsGroupProps} from './PrimaryNavItemsGroup.types';
 import {PrimaryNavItem} from '~/components/PrimaryNav/PrimaryNavItem';
 import {Edit} from '~/icons';
 import markdownNotes from './PrimaryNavItemsGroup.md';
 
-const meta: Meta<typeof PrimaryNavItemsGroup> = {
+const meta = preview.meta({
     title: 'Components/PrimaryNavItemsGroup',
     component: PrimaryNavItemsGroup,
     parameters: {
@@ -23,27 +24,28 @@ const meta: Meta<typeof PrimaryNavItemsGroup> = {
                 <Story/>
             </div>
         )
-    ]
-};
+    ],
+    argTypes: {
+        children: {table: {disable: true}}
+    }
+});
 
-export default meta;
-
-type Story = StoryObj<typeof PrimaryNavItemsGroup>;
-
-export const Default: Story = {
-    render: () => (
-        <PrimaryNavItemsGroup>
+export const Default = meta.story({
+    args: {},
+    render: (args: PrimaryNavItemsGroupProps) => (
+        <PrimaryNavItemsGroup {...args}>
             <PrimaryNavItem icon={<Edit/>} label="NavItem not selected (default)"/>
             <PrimaryNavItem icon={<Edit/>} label="NavItem"/>
         </PrimaryNavItemsGroup>
     )
-};
+});
 
-export const CollapsedGroup: Story = {
-    render: () => (
-        <PrimaryNavItemsGroup isDisplayedWhenCollapsed={false}>
+export const CollapsedGroup = meta.story({
+    args: {},
+    render: (args: PrimaryNavItemsGroupProps) => (
+        <PrimaryNavItemsGroup {...args} isDisplayedWhenCollapsed={false}>
             <PrimaryNavItem icon={<Edit/>} label="Hidden when collapsed"/>
             <PrimaryNavItem icon={<Edit/>} label="Hidden when collapsed too"/>
         </PrimaryNavItemsGroup>
     )
-};
+});

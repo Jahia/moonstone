@@ -1,56 +1,58 @@
-import {StoryObj} from '@storybook/react-vite';
+import preview from '../../../.storybook/preview';
 import '~/__storybook__/storybook.scss';
-
 import {Separator} from './index';
-import {SeparatorProps} from './Separator.types';
-
+import type {SeparatorProps} from './Separator.types';
 import {Typography} from '~/components';
 import markdownNotes from './Separator.md';
 
-export default {
+const meta = preview.meta({
     title: 'Components/Separator',
     component: Separator,
     parameters: {
         layout: 'centered',
         notes: {markdown: markdownNotes}
     }
-};
+});
 
-export const Horizontal: StoryObj<SeparatorProps> = {
-    render: args => (
+export const Horizontal = meta.story({
+    args: {
+        variant: 'horizontal',
+        size: 'full',
+        spacing: 'medium'
+    },
+    render: (args: SeparatorProps) => (
         <>
             <Typography variant="heading">Content before a separator</Typography>
             <Separator {...args}/>
             <Typography variant="heading">Content after a separator</Typography>
         </>
-    ),
+    )
+});
 
+export const Vertical = meta.story({
     args: {
-        variant: 'horizontal',
+        variant: 'vertical',
         size: 'full',
         spacing: 'medium'
-    }
-};
-
-export const Vertical: StoryObj<SeparatorProps> = {
-    render: args => (
+    },
+    render: (args: SeparatorProps) => (
         <div className="flexRow alignCenter">
             <Typography variant="heading">Before</Typography>
 
             <Separator {...args}/>
             <Typography variant="heading">After</Typography>
         </div>
-    ),
+    )
+});
 
+export const Invisible = meta.story({
     args: {
         variant: 'vertical',
         size: 'full',
-        spacing: 'medium'
-    }
-};
-
-export const Invisible: StoryObj<SeparatorProps> = {
-    render: args => (
+        spacing: 'big',
+        invisible: 'lastChild'
+    },
+    render: (args: SeparatorProps) => (
         <section className="storyColumn">
             <div className="storyItem">
                 <Typography variant="heading">Before</Typography>
@@ -69,12 +71,5 @@ export const Invisible: StoryObj<SeparatorProps> = {
                 <Separator variant="vertical" {...args}/>
             </div>
         </section>
-    ),
-
-    args: {
-        variant: 'vertical',
-        size: 'full',
-        spacing: 'big',
-        invisible: 'lastChild'
-    }
-};
+    )
+});
