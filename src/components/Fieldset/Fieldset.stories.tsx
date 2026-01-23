@@ -1,46 +1,36 @@
-import {StoryObj, Meta} from '@storybook/react-vite';
-
+import preview from '../../../.storybook/preview';
 import {Fieldset} from './index';
 import {Field, FieldBoolean, FieldSelector} from '~/components';
 import markdownNotes from './Fieldset.md';
 import {Button, Chip, Input, Dropdown, RadioGroup, RadioItem, CardSelector, EmptyCardSelector, Textarea} from '~/components';
 import {Add, Close, Language, MoreVert, File} from '~/icons';
 
-const meta: Meta<typeof Fieldset> = {
+const meta = preview.meta({
     title: 'Components/Fieldset',
     component: Fieldset,
     tags: ['beta'],
-
     parameters: {
         layout: 'padded',
         actions: {argTypesRegex: '^on.*'},
         notes: {markdown: markdownNotes}
     },
     argTypes: {
-        buttons: {
-            control: false
-        },
-        children: {
-            control: false
-        }
+        buttons: {control: false},
+        children: {table: {disable: true}}
     }
-};
-export default meta;
+});
 
-type Story = StoryObj<typeof Fieldset>;
-
-export const SingleField: Story = {
+export const SingleField = meta.story({
     args: {
         label: 'Fieldset',
         buttons: <Button icon={<MoreVert/>} variant="ghost"/>,
         helper: 'Fieldset information',
         children: <Field id="field" label="Field" chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>} buttons={<><Button icon={<Add/>} label="Add"/><Button icon={<MoreVert/>} variant="ghost"/></>} helper="information"><FieldSelector selector={<Input size="big" placeholder="Input value"/>}/></Field>
     }
-};
+});
 
-export const MultipleFields: Story = {
+export const MultipleFields = SingleField.extend({
     args: {
-        ...SingleField.args,
         children:
     <>
         <Field id="field-multiple" label="Field" chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>} buttons={<><Button icon={<Add/>} label="Add"/><Button icon={<MoreVert/>} variant="ghost"/></>} helper="information">
@@ -53,25 +43,18 @@ export const MultipleFields: Story = {
         <FieldBoolean id="field-boolean" label="Field Boolean" helper="information" chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>} buttons={<Button icon={<MoreVert/>} variant="ghost"/>}/>
         <Field id="field-dropdown" label="Field" chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>} buttons={<Button icon={<MoreVert/>} variant="ghost"/>} helper="information">
             <FieldSelector
-                    selector={<Dropdown
-                    variant="outlined"
-                    label="Input value"
-                    className="flexFluid"
-                    value=""
-                    data={[
-                        {
-                            label: 'option 1',
-                            value: '1'
-                        },
-                        {
-                            label: 'option 2',
-                            value: '2'
-                        },
-                        {
-                            label: 'option 3 with very long long label label label label label label label label',
-                            value: '3'
-                        }
-            ]}/>}/>
+                        selector={<Dropdown
+                            variant="outlined"
+                            label="Input value"
+                            className="flexFluid"
+                            value=""
+                            data={[
+                                {label: 'option 1', value: '1'},
+                                {label: 'option 2', value: '2'},
+                                {label: 'option 3 with very long long label label label label label label label label', value: '3'}
+                            ]}
+                        />}
+                    />
         </Field>
         <Field hasError errorMessage="There is an error" id="field-textarea" label="Field" chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>} buttons={<Button icon={<MoreVert/>} variant="ghost"/>} helper="information">
             <FieldSelector selector={<Textarea id="moonstone-textarea" placeholder="Input value"/>}/>
@@ -88,4 +71,4 @@ export const MultipleFields: Story = {
         </Field>
     </>
     }
-};
+});

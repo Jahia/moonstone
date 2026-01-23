@@ -1,8 +1,8 @@
+import preview from '../../../.storybook/preview';
 import {ImgWrapper} from './index';
-
 import markdownNotes from './ImgWrapper.md';
 
-export default {
+const meta = preview.meta({
     title: 'Utilities/ImgWrapper',
     component: ImgWrapper,
     parameters: {
@@ -10,12 +10,12 @@ export default {
         layout: 'centered',
         notes: {markdown: markdownNotes}
     }
-};
+});
 
-export const Default = {
+export const Default = meta.story({
     args: {
         src: 'https://www.jahia.com/modules/jahiacom-templates/images/favicon/favicon.ico',
         alt: 'imgWrapper',
         size: 'default'
     }
-};
+});

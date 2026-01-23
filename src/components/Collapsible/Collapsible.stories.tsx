@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import preview from '../../../.storybook/preview';
-import { Collapsible } from './index';
+import {Collapsible} from './index';
 
 const meta = preview.meta({
     title: 'Components/Collapsible',
     component: Collapsible,
     parameters: {
-        actions: { argTypesRegex: '^on.*' }
+        actions: {argTypesRegex: '^on.*'}
     },
     argTypes: {
         children: {
@@ -76,7 +76,7 @@ const BodyCollapsible = () => {
 export const Uncontrolled = meta.story({
     args: {
         label: 'Collapsible label',
-        children: <BodyCollapsible />,
+        children: <BodyCollapsible/>,
         isDefaultExpanded: false
     }
 });
@@ -98,12 +98,12 @@ export const Controlled = meta.story({
     },
     args: {
         label: 'Collapsible label',
-        children: <BodyCollapsible />
+        children: <BodyCollapsible/>
     }
 });
 
 export const StickyCollapsibles = meta.story({
-    render: ({ label, children, ...args }) => {
+    render: ({label, children, ...args}) => {
         return (
             <>
                 <Collapsible {...args} label={`${label} 1`}>
@@ -123,6 +123,6 @@ export const StickyCollapsibles = meta.story({
     },
     args: {
         label: 'Collapsible',
-        children: <BodyCollapsible />
+        children: <BodyCollapsible/>
     }
 });
