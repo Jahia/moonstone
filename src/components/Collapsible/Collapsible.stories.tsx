@@ -1,18 +1,21 @@
-import {useState} from 'react';
-import {StoryObj, Meta} from '@storybook/react-vite';
+import { useState } from 'react';
+import preview from '../../../.storybook/preview';
+import { Collapsible } from './index';
 
-import {Collapsible} from './index';
-
-const meta: Meta<typeof Collapsible> = {
+const meta = preview.meta({
     title: 'Components/Collapsible',
     component: Collapsible,
     parameters: {
-        actions: {argTypesRegex: '^on.*'}
+        actions: { argTypesRegex: '^on.*' }
+    },
+    argTypes: {
+        children: {
+            table: {
+                disable: true
+            }
+        }
     }
-};
-export default meta;
-
-type Story = StoryObj<typeof Collapsible>;
+});
 
 const BodyCollapsible = () => {
     return (
@@ -70,15 +73,15 @@ const BodyCollapsible = () => {
     );
 };
 
-export const Uncontrolled: Story = {
+export const Uncontrolled = meta.story({
     args: {
         label: 'Collapsible label',
-        children: <BodyCollapsible/>,
+        children: <BodyCollapsible />,
         isDefaultExpanded: false
     }
-};
+});
 
-export const Controlled: Story = {
+export const Controlled = meta.story({
     render: args => {
         const [isExpanded, setIsExpanded] = useState(false);
         const handleOnClick = () => {
@@ -90,34 +93,36 @@ export const Controlled: Story = {
                 {...args}
                 isExpanded={isExpanded}
                 onClick={() => handleOnClick()}
-            >
-                <BodyCollapsible/>
-            </Collapsible>
+            />
         );
     },
-
     args: {
-        label: 'Collapsible label'
+        label: 'Collapsible label',
+        children: <BodyCollapsible />
     }
-};
+});
 
-export const StickyCollapsibles: Story = {
-    render: () => {
+export const StickyCollapsibles = meta.story({
+    render: ({ label, children, ...args }) => {
         return (
             <>
-                <Collapsible label="Collapsible 1">
-                    <BodyCollapsible/>
+                <Collapsible {...args} label={`${label} 1`}>
+                    {children}
                 </Collapsible>
-                <Collapsible label="Collapsible 2">
-                    <BodyCollapsible/>
+                <Collapsible {...args} label={`${label} 2`}>
+                    {children}
                 </Collapsible>
-                <Collapsible label="Collapsible 3">
-                    <BodyCollapsible/>
+                <Collapsible {...args} label={`${label} 3`}>
+                    {children}
                 </Collapsible>
-                <Collapsible label="Collapsible 4">
-                    <BodyCollapsible/>
+                <Collapsible {...args} label={`${label} 4`}>
+                    {children}
                 </Collapsible>
             </>
         );
+    },
+    args: {
+        label: 'Collapsible',
+        children: <BodyCollapsible />
     }
-};
+});

@@ -1,31 +1,21 @@
-import {StoryObj, Meta, StoryContext} from '@storybook/react-vite';
+import preview from '../../../.storybook/preview';
 import '~/__storybook__/storybook.scss';
-
 import {Button} from './index';
-import type {ButtonProps} from './Button.types';
-
 import {Love, OpenInNew} from '~/icons';
 import markdownNotes from './Button.md';
 
-const meta: Meta<typeof Button> = {
+const meta = preview.meta({
     title: 'Components/Button',
     component: Button,
-
     parameters: {
         layout: 'centered',
         actions: {argTypesRegex: '^on.*'},
         notes: {markdown: markdownNotes}
     }
-};
-export default meta;
+});
 
-type Story = StoryObj<ButtonProps>;
-const Template = (args: ButtonProps, globals: StoryContext) => {
-    const theme = globals.theme;
-    return <Button isReversed={theme === 'dark'} {...args}/>;
-};
-
-export const Overview: Story = {
+export const Overview = meta.story({
+    args: {},
     render: args => (
         <>
             <section className="storyGrid">
@@ -40,61 +30,32 @@ export const Overview: Story = {
             </section>
         </>
     )
-};
+});
 
-export const Default: Story = {
+export const Default = meta.story({
     args: {
         icon: <Love/>,
         label: 'Button'
     },
-    render: Template
-};
+    render: (args, globals) => {
+        const theme = globals.theme;
+        return <Button isReversed={theme === 'dark'} {...args}/>;
+    }
+});
 
-export const Ghost: Story = {
+export const Ghost = Default.extend({
     args: {
-        variant: 'ghost',
-        icon: <Love/>,
-        label: 'Button'
-    },
-    render: Template
-};
+        variant: 'ghost'
+    }
+});
 
-export const Outlined: Story = {
+export const Outlined = Default.extend({
     args: {
-        variant: 'outlined',
-        icon: <Love/>,
-        label: 'Button'
-    },
-    render: Template
-};
+        variant: 'outlined'
+    }
+});
 
-const IconAndLabelTemplate = (args: ButtonProps, globals: StoryContext) => {
-    const theme = globals.theme;
-    return (
-        <section className="storyGrid">
-            <Button
-                label="default"
-                isReversed={theme === 'dark'}
-                {...args}
-                variant="default"
-            />
-            <Button
-                label="ghost"
-                isReversed={theme === 'dark'}
-                {...args}
-                variant="ghost"
-            />
-            <Button
-                label="outlined"
-                isReversed={theme === 'dark'}
-                {...args}
-                variant="outlined"
-            />
-        </section>
-    );
-};
-
-export const IconAndLabel: Story = {
+export const IconAndLabel = meta.story({
     args: {
         icon: <Love/>,
         iconEnd: <OpenInNew/>
@@ -102,11 +63,35 @@ export const IconAndLabel: Story = {
     parameters: {
         controls: {exclude: ['variant', 'label']}
     },
-    render: IconAndLabelTemplate
-};
+    render: (args, globals) => {
+        const theme = globals.theme;
+        return (
+            <section className="storyGrid">
+                <Button
+                    label="default"
+                    isReversed={theme === 'dark'}
+                    {...args}
+                    variant="default"
+                />
+                <Button
+                    label="ghost"
+                    isReversed={theme === 'dark'}
+                    {...args}
+                    variant="ghost"
+                />
+                <Button
+                    label="outlined"
+                    isReversed={theme === 'dark'}
+                    {...args}
+                    variant="outlined"/>
+            </section>
+        );
+    }
+});
 
-export const OnlyLabel = {
-    render: (args: ButtonProps, globals: StoryContext) => {
+export const OnlyLabel = meta.story({
+    args: {},
+    render: (args, globals) => {
         const theme = globals.theme;
         return (
             <section className="storyGrid">
@@ -131,14 +116,13 @@ export const OnlyLabel = {
             </section>
         );
     },
-
     parameters: {
         controls: {exclude: ['variant', 'label']}
     }
-};
+});
 
-export const OnlyIcon = {
-    render: (args: ButtonProps, globals: StoryContext) => {
+export const OnlyIcon = meta.story({
+    render: (args, globals) => {
         const theme = globals.theme;
         return (
             <section className="storyGrid">
@@ -148,19 +132,17 @@ export const OnlyIcon = {
             </section>
         );
     },
-
     args: {
         icon: <Love/>,
         'aria-label': 'Button with Love icon'
     },
-
     parameters: {
         controls: {exclude: ['variant', 'label']}
     }
-};
+});
 
-export const Disabled = {
-    render: (args: ButtonProps, globals: StoryContext) => {
+export const Disabled = meta.story({
+    render: (args, globals) => {
         const theme = globals.theme;
         return (
             <section className="storyGrid">
@@ -185,13 +167,11 @@ export const Disabled = {
             </section>
         );
     },
-
     args: {
         icon: <Love/>,
         isDisabled: true
     },
-
     parameters: {
         controls: {exclude: ['variant', 'label']}
     }
-};
+});

@@ -1,51 +1,46 @@
-import {StoryObj, Meta} from '@storybook/react-vite';
+import preview from '../../../.storybook/preview';
 import '~/__storybook__/storybook.scss';
-
 import {Chip} from './index';
-
 import {Cloud, Delete, File, Lock, NoCloud, Warning, CloudCheck, Build, Edit, Subdirectory} from '~/icons';
 import markdownNotes from './Chip.md';
 
-const meta: Meta<typeof Chip> = {
+const meta = preview.meta({
     title: 'Components/Chip',
     component: Chip,
     tags: ['updated'],
-
     parameters: {
         layout: 'centered',
         notes: {markdown: markdownNotes}
     }
-};
-export default meta;
+});
 
-type Story = StoryObj<typeof Chip>;
-
-export const Default: Story = {
+export const Default = meta.story({
     args: {
         label: 'chip label',
         icon: <Cloud/>,
         color: 'default',
         variant: 'default'
     }
-};
+});
 
-export const TextOnly: Story = {
+export const TextOnly = meta.story({
     args: {
         label: 'chip label',
         color: 'default',
         variant: 'default'
     }
-};
+});
 
-export const IconOnly: Story = {
+export const IconOnly = meta.story({
     args: {
         icon: <Cloud/>,
         color: 'default',
         variant: 'default'
     }
-};
+});
 
-export const StatusExample: Story = {
+export const StatusExample = meta.story({
+    args: {},
     render: () => (
         <section className="storyColumn">
             <Chip icon={<Delete/>} label="Marked for deletion" color="danger"/>
@@ -61,4 +56,4 @@ export const StatusExample: Story = {
             <Chip icon={<NoCloud/>} label="Unpublished" color="default"/>
         </section>
     )
-};
+});

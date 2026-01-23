@@ -1,9 +1,9 @@
-import {StoryObj, Meta} from '@storybook/react-vite';
+import preview from '../../../.storybook/preview';
 import {Breadcrumb, BreadcrumbItem} from '~/components';
-import type {BreadcrumbProps} from './Breadcrumb.types';
 import markdownNotes from './Breadcrumb.md';
+import {BreadcrumbProps} from './Breadcrumb.types';
 
-export default {
+const meta = preview.meta({
     title: 'Components/Breadcrumb',
     component: Breadcrumb,
     subcomponents: {BreadcrumbItem},
@@ -18,19 +18,15 @@ export default {
         layout: 'centered',
         notes: {markdown: markdownNotes}
     }
-} as Meta<typeof Breadcrumb>;
+});
 
-type Story = StoryObj<BreadcrumbProps>;
-
-const Template = (args: BreadcrumbProps) => (
-    <Breadcrumb {...args}>
-        <BreadcrumbItem label="item 01"/>
-        <BreadcrumbItem label="item 02"/>
-        <BreadcrumbItem label="item 03"/>
-        <BreadcrumbItem label="item 04"/>
-    </Breadcrumb>
-);
-
-export const Default: Story = {
-    render: Template
-};
+export const Default = meta.story({
+    render: (args: BreadcrumbProps) => (
+        <Breadcrumb {...args}>
+            <BreadcrumbItem label="item 01"/>
+            <BreadcrumbItem label="item 02"/>
+            <BreadcrumbItem label="item 03"/>
+            <BreadcrumbItem label="item 04"/>
+        </Breadcrumb>
+    )
+});

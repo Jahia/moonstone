@@ -1,10 +1,9 @@
 import {useArgs} from 'storybook/preview-api';
-import {StoryObj, Meta} from '@storybook/react-vite';
-
-import type {CheckboxItemProps} from './CheckboxItem.types';
+import preview from '../../../../.storybook/preview';
 import {CheckboxItem} from './CheckboxItem';
+import {CheckboxItemProps} from './CheckboxItem.types';
 
-const meta: Meta<typeof CheckboxItem> = {
+const meta = preview.meta({
     title: 'Components/CheckboxGroup/CheckboxItem',
     component: CheckboxItem,
     parameters: {
@@ -19,22 +18,16 @@ const meta: Meta<typeof CheckboxItem> = {
         onBlur: {action: 'onBlur'},
         onFocus: {action: 'onFocus'}
     }
-};
-export default meta;
+});
 
-type Story = StoryObj<typeof CheckboxItem>;
-
-export const Uncontrolled: Story = {
-    render: args => {
-        return <CheckboxItem {...args}/>;
-    },
-
+export const Uncontrolled = meta.story({
     args: {
+        id: 'uncontrolled-item',
         label: 'Uncontrolled CheckboxItem'
     }
-};
+});
 
-export const Controlled: Story = {
+export const Controlled = meta.story({
     render: (args: CheckboxItemProps) => {
         const [{checked}, updateArgs] = useArgs();
 
@@ -50,21 +43,17 @@ export const Controlled: Story = {
             />
         );
     },
-
     args: {
+        id: 'controlled-item',
         label: 'Controlled CheckboxItem'
     }
-};
+});
 
-export const Playground: Story = {
-    render: args => {
-        return <CheckboxItem {...args}/>;
-    },
-
+export const Playground = meta.story({
     args: {
         id: 'playground-item',
         label: 'Play with me',
         description: 'Use the storybook controls to update this element',
         value: 'playground-value'
     }
-};
+});

@@ -1,41 +1,33 @@
-import {StoryObj, Meta} from '@storybook/react-vite';
-
+import preview from '../../../../.storybook/preview';
 import {EmptyCardSelector} from './index';
-import type {EmptyCardSelectorProps} from './EmptyCardSelector.types';
 import markdownNotes from './EmptyCardSelector.md';
 import {File} from '~/icons';
+import {EmptyCardSelectorProps} from './EmptyCardSelector.types';
 
-const meta: Meta<typeof EmptyCardSelector> = {
+const meta = preview.meta({
     title: 'Components/CardSelector/EmptyCardSelector',
     component: EmptyCardSelector,
     tags: ['new'],
-
     parameters: {
         layout: 'padded',
         actions: {argTypesRegex: '^on.*'},
         notes: {markdown: markdownNotes}
     }
-};
-export default meta;
+});
 
-type Story = StoryObj<typeof EmptyCardSelector>;
-const Template = (args: EmptyCardSelectorProps) => {
-    return <div><EmptyCardSelector {...args}/></div>;
-};
-
-export const Default: Story = {
+export const Default = meta.story({
     args: {
         label: 'No item selected',
         isReadOnly: false,
         isDisabled: false
     },
-    render: Template
-};
+    render: (args: EmptyCardSelectorProps) => (
+        <div><EmptyCardSelector {...args}/></div>
+    )
+});
 
-export const Icon: Story = {
+export const Icon = Default.extend({
     args: {
-        ...Default.args,
         iconStart: <File/>
-    },
-    render: Template
-};
+    }
+});

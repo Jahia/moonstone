@@ -1,10 +1,8 @@
-import {StoryObj, Meta} from '@storybook/react-vite';
-
+import preview from '../../../.storybook/preview';
 import {CheckboxGroup} from './index';
-import type {CheckboxGroupProps} from './CheckboxGroup.types';
 import {CheckboxItem} from './CheckboxItem';
 
-const meta: Meta<typeof CheckboxGroup> = {
+const meta = preview.meta({
     title: 'Components/CheckboxGroup',
     component: CheckboxGroup,
     parameters: {
@@ -20,41 +18,32 @@ const meta: Meta<typeof CheckboxGroup> = {
             }
         }
     }
-};
-export default meta;
+});
 
-type Story = StoryObj<typeof CheckboxGroup>;
+const defaultChildren = [
+    <CheckboxItem key="cat" id="cat" label="Cat" description="Miaouw" value="cat"/>,
+    <CheckboxItem key="dog" id="dog" label="Dog" description="Ouah-ouah" value="dog"/>,
+    <CheckboxItem
+        key="horse"
+        isDisabled
+        id="horse"
+        label="Horse"
+        description="Disabled element"
+        value="horse"
+    />,
+    <CheckboxItem key="bird" id="bird" label="Bird without description" value="bird"/>
+];
 
-const Template = (args: CheckboxGroupProps) => {
-    return (
-        <CheckboxGroup {...args}>
-            <CheckboxItem id="cat" label="Cat" description="Miaouw" value="cat"/>
-            <CheckboxItem id="dog" label="Dog" description="Ouah-ouah" value="dog"/>
-            <CheckboxItem
-                isDisabled
-                id="horse"
-                label="Horse"
-                description="Disabled element"
-                value="horse"
-            />
-            <CheckboxItem id="bird" label="Bird without description" value="bird"/>
-        </CheckboxGroup>
-    );
-};
-
-export const Default: Story = {
-    render: Template,
-
+export const Default = meta.story({
     args: {
-        name: 'default'
+        name: 'default',
+        children: defaultChildren
     }
-};
+});
 
-export const Disabled: Story = {
-    render: Template,
-
+export const Disabled = Default.extend({
     args: {
         name: 'disabled',
         isDisabled: true
     }
-};
+});

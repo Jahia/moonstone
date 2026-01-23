@@ -26,14 +26,12 @@ const meta = preview.meta({
     }
 });
 
-const Template = (args: AccordionItemProps) => (
-    <Accordion>
-        <AccordionItem {...args}/>
-    </Accordion>
-);
-
 export const WithIcon = meta.story({
-    render: Template,
+    render: (args: AccordionItemProps) => (
+        <Accordion>
+            <AccordionItem {...args}/>
+        </Accordion>
+    ),
     args: {
         id: 'id',
         label: 'AccordionItem',
@@ -42,7 +40,11 @@ export const WithIcon = meta.story({
 });
 
 export const WithoutIcon = meta.story({
-    render: Template,
+    render: (args: AccordionItemProps) => (
+        <Accordion>
+            <AccordionItem {...args}/>
+        </Accordion>
+    ),
     args: {
         id: 'id',
         label: 'AccordionItem'
