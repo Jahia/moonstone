@@ -1,6 +1,7 @@
 import preview from '../../../../.storybook/preview';
 import {Breadcrumb, BreadcrumbItem} from '~/components';
 import {Love} from '~/icons';
+import type {BreadcrumbItemProps} from './BreadcrumbItem.types';
 
 const meta = preview.meta({
     title: 'Components/Breadcrumb/BreadcrumbItem',
@@ -22,7 +23,7 @@ export const Basic = meta.story({
     args: {
         label: 'beadcrumbItem'
     },
-    render: args => (
+    render: (args: BreadcrumbItemProps) => (
         <Breadcrumb>
             <BreadcrumbItem {...args}/>
             <BreadcrumbItem {...args}/>

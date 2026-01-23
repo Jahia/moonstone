@@ -3,6 +3,8 @@ import '~/__storybook__/storybook.scss';
 import {Button} from './index';
 import {Love, OpenInNew} from '~/icons';
 import markdownNotes from './Button.md';
+import type {ButtonProps} from './Button.types';
+import {StoryContext} from '@storybook/react-vite';
 
 const meta = preview.meta({
     title: 'Components/Button',
@@ -15,8 +17,7 @@ const meta = preview.meta({
 });
 
 export const Overview = meta.story({
-    args: {},
-    render: args => (
+    render: (args: ButtonProps) => (
         <>
             <section className="storyGrid">
                 <Button label="default" {...args} variant="default"/>
@@ -37,7 +38,7 @@ export const Default = meta.story({
         icon: <Love/>,
         label: 'Button'
     },
-    render: (args, globals) => {
+    render: (args: ButtonProps, {globals}: StoryContext) => {
         const theme = globals.theme;
         return <Button isReversed={theme === 'dark'} {...args}/>;
     }
@@ -63,7 +64,7 @@ export const IconAndLabel = meta.story({
     parameters: {
         controls: {exclude: ['variant', 'label']}
     },
-    render: (args, globals) => {
+    render: (args: ButtonProps, {globals}: StoryContext) => {
         const theme = globals.theme;
         return (
             <section className="storyGrid">
@@ -90,8 +91,7 @@ export const IconAndLabel = meta.story({
 });
 
 export const OnlyLabel = meta.story({
-    args: {},
-    render: (args, globals) => {
+    render: (args: ButtonProps, {globals}: StoryContext) => {
         const theme = globals.theme;
         return (
             <section className="storyGrid">
@@ -122,7 +122,7 @@ export const OnlyLabel = meta.story({
 });
 
 export const OnlyIcon = meta.story({
-    render: (args, globals) => {
+    render: (args: ButtonProps, {globals}: StoryContext) => {
         const theme = globals.theme;
         return (
             <section className="storyGrid">
@@ -142,7 +142,7 @@ export const OnlyIcon = meta.story({
 });
 
 export const Disabled = meta.story({
-    render: (args, globals) => {
+    render: (args: ButtonProps, {globals}: StoryContext) => {
         const theme = globals.theme;
         return (
             <section className="storyGrid">

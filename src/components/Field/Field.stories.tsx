@@ -28,6 +28,7 @@ export const Default = meta.story({
         chips: <><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>,
         buttons: <><Button icon={<Add/>} label="Add"/><Button icon={<MoreVert/>} variant="ghost"/></>,
         helper: 'information',
+        id: 'field-id',
         children: <FieldSelector selector={<Input size="big" placeholder="Input value"/>}/>
     }
 });

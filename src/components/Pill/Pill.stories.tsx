@@ -15,5 +15,6 @@ const meta = preview.meta({
 export const Default = meta.story({
     args: {
         label: 'Pill label'
-    }
+    },
+    render: (args: PillProps) => <Pill {...args}/>
 });

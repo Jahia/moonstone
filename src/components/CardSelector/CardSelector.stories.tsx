@@ -2,6 +2,7 @@ import preview from '../../../.storybook/preview';
 import {CardSelector} from './index';
 import {Button, Chip} from '~/index';
 import {Close, FileImage, Lock, Love} from '~/icons';
+import type {CardSelectorProps} from './CardSelector.types';
 
 const meta = preview.meta({
     title: 'Components/CardSelector',
@@ -19,7 +20,7 @@ export const Default = meta.story({
         displayName: 'Item name',
         systemName: 'system name'
     },
-    render: args => (
+    render: (args: CardSelectorProps) => (
         <div style={{maxWidth: '100vw'}}>
             <CardSelector {...args}/>
         </div>

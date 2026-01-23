@@ -5,6 +5,7 @@ import {SearchContextInput} from './index';
 import {Person, SiteWeb, Collections} from '~/icons';
 import {Dropdown} from '~/components';
 import {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
+import type {SearchContextInputProps} from './SearchContextInput.types';
 
 const searchContextData: DropdownDataOption[] = [
     {
@@ -50,8 +51,10 @@ const meta = preview.meta({
 });
 
 export const SearchContext = meta.story({
-    args: {},
-    render: args => {
+    args: {
+        searchContext: null
+    },
+    render: (args: SearchContextInputProps) => {
         const [contextOption, setContextOption] = useState(searchContextData[0]);
         const handleDropdownOnChange = (
             e: React.MouseEvent,

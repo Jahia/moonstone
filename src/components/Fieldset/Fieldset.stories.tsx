@@ -25,6 +25,7 @@ export const SingleField = meta.story({
         label: 'Fieldset',
         buttons: <Button icon={<MoreVert/>} variant="ghost"/>,
         helper: 'Fieldset information',
+        id: 'fieldset-id',
         children: <Field id="field" label="Field" chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>} buttons={<><Button icon={<Add/>} label="Add"/><Button icon={<MoreVert/>} variant="ghost"/></>} helper="information"><FieldSelector selector={<Input size="big" placeholder="Input value"/>}/></Field>
     }
 });

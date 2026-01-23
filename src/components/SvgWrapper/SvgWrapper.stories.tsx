@@ -26,5 +26,6 @@ export const Playground = meta.story({
     args: {
         svg: svg,
         size: 'default'
-    }
+    },
+    render: (args: SvgWrapperProps) => <SvgWrapper {...args}/>
 });

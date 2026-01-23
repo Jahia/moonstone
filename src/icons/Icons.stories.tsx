@@ -51,13 +51,11 @@ const meta = preview.meta({
 });
 
 export const _Default = meta.story({
-    args: {},
     render: () => (
         <section className="storyGrid">{displayIcons()}</section>
     )
 });
 
 export const Colored = meta.story({
-    args: {},
     render: () => <Love color="red"/>
 });

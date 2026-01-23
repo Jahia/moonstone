@@ -1,6 +1,5 @@
 import preview from '../../../.storybook/preview';
 import {SecondaryNav, SecondaryNavHeader} from './index';
-import type {SecondaryNavProps} from './SecondaryNav.types';
 import markdownNotes from './SecondaryNav.md';
 import {Love} from '~/icons';
 

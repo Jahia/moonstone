@@ -1,6 +1,7 @@
 import preview from '../../../../.storybook/preview';
 import '~/__storybook__/storybook.scss';
 import {SearchInput} from './index';
+import type {SearchInputProps} from './SearchInput.types';
 
 const meta = preview.meta({
     title: 'Components/Input',
@@ -27,8 +28,7 @@ const meta = preview.meta({
 });
 
 export const Search = meta.story({
-    args: {},
-    render: args => (
+    render: (args: SearchInputProps) => (
         <section className="storyWrapper">
             <SearchInput {...args}/>
         </section>

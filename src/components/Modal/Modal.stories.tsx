@@ -1,111 +1,102 @@
-import {StoryObj, Meta} from '@storybook/react';
-
+import {useState} from 'react';
+import {StoryObj} from '@storybook/react';
+import preview from '../../../.storybook/preview';
 import {Modal, Button, Typography, Field, FieldSelector, Input, Chip, Dropdown} from '~/components';
 import type {ModalProps} from './Modal.types';
 import {Add, Language, MoreVert} from '~/icons';
 import {Fieldset} from '../Fieldset';
 import {ModalBody, ModalFooter, ModalHeader} from '~/components';
-import {useState} from 'react';
 
-const meta: Meta<typeof Modal> = {
+const meta = preview.meta({
     title: 'Components/Modal',
     component: Modal,
     tags: ['beta'],
-
     parameters: {
         layout: 'centered'
-        // Overrides onOpenChange
-        // actions: {argTypesRegex: '^on.*'}
     }
-};
-export default meta;
+});
 
 type Story = StoryObj<typeof Modal>;
-const Template = (args: ModalProps) => {
-    const [open, setOpen] = useState(false);
-    return (
-        <div style={{maxWidth: '100vw'}}>
-            <Button label="Open modal" onClick={() => setOpen(true)}/>
-            <Modal isOpen={open} onOpenChange={setOpen} {...args}/>
-        </div>
-    );
-};
 
-export const Playground = (args: ModalProps) => {
-    const [open, setOpen] = useState(false);
-    return (
-        <div style={{maxWidth: '100vw'}}>
-            <Button label="Open modal" onClick={() => setOpen(true)}/>
-            <Modal isOpen={open} onOpenChange={setOpen} {...args}>
-                <>
-                    <ModalHeader title="Modal Title"/>
-                    <ModalBody>
-                        <Typography>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sed elit et nibh rhoncus tincidunt id vel orci. Quisque vehicula eleifend odio, vitae dapibus eros volutpat vel. Quisque tortor ipsum, blandit porta ipsum quis, imperdiet lobortis purus. Cras euismod tempus lectus. Etiam fringilla ut orci ac ultricies. Donec eget finibus erat. Quisque posuere elit massa, eget posuere neque euismod sit amet. Duis orci tortor, rhoncus a risus eget, accumsan suscipit mauris.
-                            Suspendisse metus quam, suscipit eu suscipit vitae, vehicula non dolor. Vestibulum tincidunt nec dolor non viverra. Nunc pharetra elit vel dolor interdum, ut venenatis risus dignissim. Quisque in facilisis sem. Nulla egestas, risus nec vehicula tincidunt, nisi magna iaculis turpis, ut commodo sem ipsum eu dui. Nulla varius, magna et suscipit porta, mauris erat blandit magna, ut condimentum ante mi in erat. Sed auctor libero sit amet hendrerit fermentum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti. Cras placerat sapien ut porta convallis. Aliquam semper fringilla magna. Maecenas tincidunt ultricies ante. In ultricies augue non pharetra suscipit. Donec ante dolor, pulvinar vitae rutrum vitae, porttitor vel nulla. Praesent et massa lectus. Nulla gravida turpis metus, vestibulum aliquam leo mollis id.
-                            Nulla ullamcorper pretium est, ac tempor ante. Donec molestie posuere metus id feugiat. Quisque auctor, lectus at luctus pharetra, felis orci pulvinar ante, eget venenatis lacus neque a quam. Maecenas tortor massa, placerat a feugiat id, porttitor sit amet lorem. Nunc lacinia ante sed diam aliquet, vel vehicula magna tincidunt. Nulla quam risus, placerat semper erat nec, semper dictum sapien. Suspendisse est erat, tincidunt vitae dictum eu, auctor quis sem. Ut venenatis egestas nisl, quis consectetur erat consectetur et.
-                        </Typography>
-                    </ModalBody>
-                    <ModalFooter>
-                        <Typography>Modal footer</Typography>
-                        <Button label="Close" onClick={() => setOpen(false)}/>
-                    </ModalFooter>
-                </>
-            </Modal>
-        </div>
-    );
-};
+export const Playground: Story = meta.story({
+    render: (args: ModalProps) => {
+        const [open, setOpen] = useState(false);
+        return (
+            <div style={{maxWidth: '100vw'}}>
+                <Button label="Open modal" onClick={() => setOpen(true)}/>
+                <Modal isOpen={open} onOpenChange={setOpen} {...args}>
+                    <>
+                        <ModalHeader title="Modal Title"/>
+                        <ModalBody>
+                            <Typography>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sed elit et nibh rhoncus tincidunt id vel orci. Quisque vehicula eleifend odio, vitae dapibus eros volutpat vel. Quisque tortor ipsum, blandit porta ipsum quis, imperdiet lobortis purus. Cras euismod tempus lectus. Etiam fringilla ut orci ac ultricies. Donec eget finibus erat. Quisque posuere elit massa, eget posuere neque euismod sit amet. Duis orci tortor, rhoncus a risus eget, accumsan suscipit mauris.
+                                Suspendisse metus quam, suscipit eu suscipit vitae, vehicula non dolor. Vestibulum tincidunt nec dolor non viverra. Nunc pharetra elit vel dolor interdum, ut venenatis risus dignissim. Quisque in facilisis sem. Nulla egestas, risus nec vehicula tincidunt, nisi magna iaculis turpis, ut commodo sem ipsum eu dui. Nulla varius, magna et suscipit porta, mauris erat blandit magna, ut condimentum ante mi in erat. Sed auctor libero sit amet hendrerit fermentum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti. Cras placerat sapien ut porta convallis. Aliquam semper fringilla magna. Maecenas tincidunt ultricies ante. In ultricies augue non pharetra suscipit. Donec ante dolor, pulvinar vitae rutrum vitae, porttitor vel nulla. Praesent et massa lectus. Nulla gravida turpis metus, vestibulum aliquam leo mollis id.
+                                Nulla ullamcorper pretium est, ac tempor ante. Donec molestie posuere metus id feugiat. Quisque auctor, lectus at luctus pharetra, felis orci pulvinar ante, eget venenatis lacus neque a quam. Maecenas tortor massa, placerat a feugiat id, porttitor sit amet lorem. Nunc lacinia ante sed diam aliquet, vel vehicula magna tincidunt. Nulla quam risus, placerat semper erat nec, semper dictum sapien. Suspendisse est erat, tincidunt vitae dictum eu, auctor quis sem. Ut venenatis egestas nisl, quis consectetur erat consectetur et.
+                            </Typography>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Typography>Modal footer</Typography>
+                            <Button label="Close" onClick={() => setOpen(false)}/>
+                        </ModalFooter>
+                    </>
+                </Modal>
+            </div>
+        );
+    }
+});
 
-export const ModalInModal = (args: ModalProps) => {
-    const [open, setOpen] = useState(false);
-    const [open2, setOpen2] = useState(false);
-    return (
-        <div style={{maxWidth: '100vw'}}>
-            <Button label="Open modal" onClick={() => setOpen(true)}/>
-            <Modal isOpen={open} onOpenChange={setOpen} {...args}>
-                <>
-                    <ModalHeader title="Modal Title"/>
-                    <ModalBody>
-                        <Button label="Open modal" onClick={() => setOpen2(true)}/>
-                        <Modal isOpen={open2} onOpenChange={setOpen2} {...args}>
-                            <>
-                                <ModalHeader title="Modal Title"/>
-                                <ModalBody>
-                                    <Typography>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sed elit et nibh rhoncus tincidunt id vel orci. Quisque vehicula eleifend odio, vitae dapibus eros volutpat vel. Quisque tortor ipsum, blandit porta ipsum quis, imperdiet lobortis purus. Cras euismod tempus lectus. Etiam fringilla ut orci ac ultricies. Donec eget finibus erat. Quisque posuere elit massa, eget posuere neque euismod sit amet. Duis orci tortor, rhoncus a risus eget, accumsan suscipit mauris.
-                                        Suspendisse metus quam, suscipit eu suscipit vitae, vehicula non dolor. Vestibulum tincidunt nec dolor non viverra. Nunc pharetra elit vel dolor interdum, ut venenatis risus dignissim. Quisque in facilisis sem. Nulla egestas, risus nec vehicula tincidunt, nisi magna iaculis turpis, ut commodo sem ipsum eu dui. Nulla varius, magna et suscipit porta, mauris erat blandit magna, ut condimentum ante mi in erat. Sed auctor libero sit amet hendrerit fermentum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti. Cras placerat sapien ut porta convallis. Aliquam semper fringilla magna. Maecenas tincidunt ultricies ante. In ultricies augue non pharetra suscipit. Donec ante dolor, pulvinar vitae rutrum vitae, porttitor vel nulla. Praesent et massa lectus. Nulla gravida turpis metus, vestibulum aliquam leo mollis id.
-                                        Nulla ullamcorper pretium est, ac tempor ante. Donec molestie posuere metus id feugiat. Quisque auctor, lectus at luctus pharetra, felis orci pulvinar ante, eget venenatis lacus neque a quam. Maecenas tortor massa, placerat a feugiat id, porttitor sit amet lorem. Nunc lacinia ante sed diam aliquet, vel vehicula magna tincidunt. Nulla quam risus, placerat semper erat nec, semper dictum sapien. Suspendisse est erat, tincidunt vitae dictum eu, auctor quis sem. Ut venenatis egestas nisl, quis consectetur erat consectetur et.
-                                    </Typography>
-                                </ModalBody>
-                                <ModalFooter>
-                                    <Typography>Modal footer</Typography>
-                                    <Button label="Close" onClick={() => setOpen2(false)}/>
-                                </ModalFooter>
-                            </>
-                        </Modal>
-                    </ModalBody>
-                    <ModalFooter>
-                        <Typography>Modal footer</Typography>
-                        <Button label="Close" onClick={() => setOpen(false)}/>
-                    </ModalFooter>
-                </>
-            </Modal>
-        </div>
-    );
-};
+export const ModalInModal: Story = meta.story({
+    render: (args: ModalProps) => {
+        const [open, setOpen] = useState(false);
+        const [open2, setOpen2] = useState(false);
+        return (
+            <div style={{maxWidth: '100vw'}}>
+                <Button label="Open modal" onClick={() => setOpen(true)}/>
+                <Modal isOpen={open} onOpenChange={setOpen} {...args}>
+                    <>
+                        <ModalHeader title="Modal Title"/>
+                        <ModalBody>
+                            <Button label="Open modal" onClick={() => setOpen2(true)}/>
+                            <Modal isOpen={open2} onOpenChange={setOpen2} {...args}>
+                                <>
+                                    <ModalHeader title="Modal Title"/>
+                                    <ModalBody>
+                                        <Typography>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sed elit et nibh rhoncus tincidunt id vel orci. Quisque vehicula eleifend odio, vitae dapibus eros volutpat vel. Quisque tortor ipsum, blandit porta ipsum quis, imperdiet lobortis purus. Cras euismod tempus lectus. Etiam fringilla ut orci ac ultricies. Donec eget finibus erat. Quisque posuere elit massa, eget posuere neque euismod sit amet. Duis orci tortor, rhoncus a risus eget, accumsan suscipit mauris.
+                                            Suspendisse metus quam, suscipit eu suscipit vitae, vehicula non dolor. Vestibulum tincidunt nec dolor non viverra. Nunc pharetra elit vel dolor interdum, ut venenatis risus dignissim. Quisque in facilisis sem. Nulla egestas, risus nec vehicula tincidunt, nisi magna iaculis turpis, ut commodo sem ipsum eu dui. Nulla varius, magna et suscipit porta, mauris erat blandit magna, ut condimentum ante mi in erat. Sed auctor libero sit amet hendrerit fermentum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti. Cras placerat sapien ut porta convallis. Aliquam semper fringilla magna. Maecenas tincidunt ultricies ante. In ultricies augue non pharetra suscipit. Donec ante dolor, pulvinar vitae rutrum vitae, porttitor vel nulla. Praesent et massa lectus. Nulla gravida turpis metus, vestibulum aliquam leo mollis id.
+                                            Nulla ullamcorper pretium est, ac tempor ante. Donec molestie posuere metus id feugiat. Quisque auctor, lectus at luctus pharetra, felis orci pulvinar ante, eget venenatis lacus neque a quam. Maecenas tortor massa, placerat a feugiat id, porttitor sit amet lorem. Nunc lacinia ante sed diam aliquet, vel vehicula magna tincidunt. Nulla quam risus, placerat semper erat nec, semper dictum sapien. Suspendisse est erat, tincidunt vitae dictum eu, auctor quis sem. Ut venenatis egestas nisl, quis consectetur erat consectetur et.
+                                        </Typography>
+                                    </ModalBody>
+                                    <ModalFooter>
+                                        <Typography>Modal footer</Typography>
+                                        <Button label="Close" onClick={() => setOpen2(false)}/>
+                                    </ModalFooter>
+                                </>
+                            </Modal>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Typography>Modal footer</Typography>
+                            <Button label="Close" onClick={() => setOpen(false)}/>
+                        </ModalFooter>
+                    </>
+                </Modal>
+            </div>
+        );
+    }
+});
 
-export const Advanced: Story = {
+export const Advanced: Story = meta.story({
     args: {
         size: 'large',
-        children:
-    <>
-        <ModalHeader title="Modal Title">Additional information</ModalHeader>
-        <ModalBody>
-            <Fieldset id="modal-fieldset" label="Modal fieldset">
-                <Field id="field-text" label="Text field" chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>} buttons={<><Button icon={<Add/>} label="Add"/><Button icon={<MoreVert/>} variant="ghost"/></>} helper="information">
-                    <FieldSelector buttons={<Button icon={<MoreVert/>}/>} selector={<Input size="big" placeholder="Input value"/>}/>
-                </Field>
-                <Field id="field-dropdown" label="Dropdown field" chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>} buttons={<Button icon={<MoreVert/>} variant="ghost"/>} helper="information">
-                    <FieldSelector
-                                    selector={<Dropdown
+        children: (
+            <>
+                <ModalHeader title="Modal Title">Additional information</ModalHeader>
+                <ModalBody>
+                    <Fieldset id="modal-fieldset" label="Modal fieldset">
+                        <Field id="field-text" label="Text field" chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>} buttons={<><Button icon={<Add/>} label="Add"/><Button icon={<MoreVert/>} variant="ghost"/></>} helper="information">
+                            <FieldSelector buttons={<Button icon={<MoreVert/>}/>} selector={<Input size="big" placeholder="Input value"/>}/>
+                        </Field>
+                        <Field id="field-dropdown" label="Dropdown field" chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>} buttons={<Button icon={<MoreVert/>} variant="ghost"/>} helper="information">
+                            <FieldSelector
+                                selector={<Dropdown
                                     variant="outlined"
                                     label="Input value"
                                     className="flexFluid"
@@ -124,16 +115,25 @@ export const Advanced: Story = {
                                             value: '3'
                                         }
                                     ]}
-                                    />}
-                        />
-                </Field>
-            </Fieldset>
-        </ModalBody>
-        <ModalFooter>
-            <Typography variant="caption">Footer children 1</Typography>
-            <Button color="accent" label="Footer children 2"/>
-        </ModalFooter>
-    </>
+                                />}
+                            />
+                        </Field>
+                    </Fieldset>
+                </ModalBody>
+                <ModalFooter>
+                    <Typography variant="caption">Footer children 1</Typography>
+                    <Button color="accent" label="Footer children 2"/>
+                </ModalFooter>
+            </>
+        )
     },
-    render: Template
-};
+    render: (args: ModalProps) => {
+        const [open, setOpen] = useState(false);
+        return (
+            <div style={{maxWidth: '100vw'}}>
+                <Button label="Open modal" onClick={() => setOpen(true)}/>
+                <Modal isOpen={open} onOpenChange={setOpen} {...args}/>
+            </div>
+        );
+    }
+});

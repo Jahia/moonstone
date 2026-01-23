@@ -24,7 +24,6 @@ const meta = preview.meta({
 });
 
 export const Default = meta.story({
-    args: {},
     render: (args: LayoutModuleProps) => (
         <div
             style={{

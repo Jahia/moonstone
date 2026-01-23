@@ -31,7 +31,6 @@ const meta = preview.meta({
 });
 
 export const Default = meta.story({
-    args: {},
     render: (args: PrimaryNavProps) => (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <PrimaryNav

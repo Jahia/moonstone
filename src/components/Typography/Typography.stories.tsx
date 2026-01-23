@@ -16,7 +16,7 @@ const meta = preview.meta({
 });
 
 export const Variants = meta.story({
-    render: (args: TypographyProps<'div'>) => (
+    render: () => (
         <section className="storyWrapper">
             <div className="storyItem">
                 <Typography variant="title">Title</Typography>
@@ -41,6 +41,5 @@ export const Variants = meta.story({
 });
 
 export const Playground = meta.story({
-    args: {},
     render: (args: TypographyProps<'div'>) => <Typography {...args}>Playground</Typography>
 });

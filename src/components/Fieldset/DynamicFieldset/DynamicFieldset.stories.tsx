@@ -5,6 +5,7 @@ import markdownNotes from './DynamicFieldset.md';
 import {Button, Chip, Input} from '~/components';
 import {Add, Language, MoreVert} from '~/icons';
 import {useArgs} from 'storybook/preview-api';
+import type {DynamicFieldsetProps} from './DynamicFieldset.types';
 
 const meta = preview.meta({
     title: 'Components/Fieldset/DynamicFieldset',
@@ -28,13 +29,10 @@ const meta = preview.meta({
     }
 });
 
-export const Uncontrolled = meta.story({
-    args: {}
-});
+export const Uncontrolled = meta.story({});
 
 export const Controlled = meta.story({
-    args: {},
-    render: args => {
+    render: (args: DynamicFieldsetProps) => {
         const [, setArgs] = useArgs();
 
         const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {

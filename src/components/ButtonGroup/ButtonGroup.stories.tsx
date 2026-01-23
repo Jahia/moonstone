@@ -3,6 +3,7 @@ import markdownNotes from './ButtonGroup.md';
 import {ButtonGroup} from './index';
 import {Button} from '~/components/Button';
 import {ChevronDown} from '~/icons';
+import type {ButtonGroupProps} from './ButtonGroup.types';
 
 const meta = preview.meta({
     title: 'Components/ButtonGroup',
@@ -17,8 +18,11 @@ const meta = preview.meta({
 });
 
 export const Default = meta.story({
-    render: () => (
-        <ButtonGroup>
+    args: {
+        children: null
+    },
+    render: (args: ButtonGroupProps) => (
+        <ButtonGroup {...args}>
             <Button label="one" onClick={() => null}/>
             <Button label="two" onClick={() => null}/>
             <Button label="three" onClick={() => null}/>
@@ -27,8 +31,13 @@ export const Default = meta.story({
 });
 
 export const ButtonWithActions = meta.story({
-    render: () => (
-        <ButtonGroup color="accent" size="big">
+    args: {
+        color: 'accent',
+        size: 'big',
+        children: null
+    },
+    render: (args: ButtonGroupProps) => (
+        <ButtonGroup {...args}>
             <Button label="Actions" onClick={() => null}/>
             <Button icon={<ChevronDown/>} aria-label="button with down arrow icon" onClick={() => null}/>
         </ButtonGroup>
@@ -36,8 +45,14 @@ export const ButtonWithActions = meta.story({
 });
 
 export const ButtonOutlinedWithActions = meta.story({
-    render: () => (
-        <ButtonGroup color="accent" size="big" variant="outlined">
+    args: {
+        color: 'accent',
+        size: 'big',
+        variant: 'outlined',
+        children: null
+    },
+    render: (args: ButtonGroupProps) => (
+        <ButtonGroup {...args}>
             <Button label="Actions" onClick={() => null}/>
             <Button icon={<ChevronDown/>} aria-label="button with down arrow icon" onClick={() => null}/>
         </ButtonGroup>
@@ -45,8 +60,13 @@ export const ButtonOutlinedWithActions = meta.story({
 });
 
 export const ButtonGroupWith1Button = meta.story({
-    render: () => (
-        <ButtonGroup color="accent" size="big">
+    args: {
+        color: 'accent',
+        size: 'big',
+        children: null
+    },
+    render: (args: ButtonGroupProps) => (
+        <ButtonGroup {...args}>
             <Button label="Actions" onClick={() => null}/>
         </ButtonGroup>
     )

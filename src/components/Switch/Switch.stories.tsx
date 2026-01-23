@@ -8,20 +8,15 @@ const meta = preview.meta({
     component: Switch,
     parameters: {
         layout: 'centered'
-        // When enabled, the controlledSwitch doesn't work anymore. maybe it's fixed with storybook 7.4 (https://github.com/storybookjs/storybook/pull/23804)
-        // Actions: {argTypesRegex: '^on.*'}
     },
     args: {
         'aria-label': 'switch component'
     }
 });
 
-export const Uncontrolled = meta.story({
-    args: {}
-});
+export const Uncontrolled = meta.story({});
 
 export const Controlled = meta.story({
-    args: {},
     render: (args: SwitchProps) => {
         const [checked, setChecked] = useState(false);
 

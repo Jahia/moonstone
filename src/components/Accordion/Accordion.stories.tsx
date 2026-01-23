@@ -4,6 +4,7 @@ import {Accordion} from './index';
 import {AccordionItem} from '~/components/Accordion/AccordionItem';
 import markdownNotes from './Accordion.md';
 import {Love, BarSquare, Bug} from '~/icons';
+import type {AccordionProps} from './Accordion.types';
 
 const accordionIds = ['01', '02', '03'];
 
@@ -104,7 +105,10 @@ const controlledChildren = [
 ];
 
 export const Controlled = meta.story({
-    render: () => {
+    args: {
+        children: controlledChildren
+    },
+    render: (args: AccordionProps) => {
         const [stateOpenedItems, setStateOpenedItem] = useState(accordionIds[1]);
 
         const onSetOpenedItem = (id: string | null) => {
@@ -130,6 +134,7 @@ export const Controlled = meta.story({
                     </button>
                 </span>
                 <Accordion
+                    {...args}
                     openedItem={stateOpenedItems}
                     onSetOpenedItem={onSetOpenedItem}
                 >
@@ -137,8 +142,7 @@ export const Controlled = meta.story({
                 </Accordion>
             </>
         );
-    },
-    args: {}
+    }
 });
 
 export const Reversed = Default.extend({

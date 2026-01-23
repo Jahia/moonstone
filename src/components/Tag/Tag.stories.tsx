@@ -14,8 +14,11 @@ const meta = preview.meta({
 });
 
 export const Default = meta.story({
+
+    render: (args: TagProps) => <Tag {...args}/>,
     args: {
         label: 'Tag',
-        value: 'tag01'
+        value: 'tag01',
+        onClick: () => console.log('Tag clicked')
     }
 });

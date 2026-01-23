@@ -18,7 +18,6 @@ const meta = preview.meta({
 });
 
 export const Default = meta.story({
-    args: {},
     render: (args: PrimaryNavItemProps) => (
         <ul
       style={{

@@ -11,7 +11,6 @@ const meta = preview.meta({
 });
 
 export const Default = meta.story({
-    args: {},
     render: (args: PaperProps) => <Paper {...args}>Content here</Paper>
 });
 

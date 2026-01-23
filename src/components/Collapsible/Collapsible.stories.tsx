@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import preview from '../../../.storybook/preview';
 import {Collapsible} from './index';
+import type {CollapsibleProps} from './Collapsible.types';
 
 const meta = preview.meta({
     title: 'Components/Collapsible',
@@ -82,7 +83,7 @@ export const Uncontrolled = meta.story({
 });
 
 export const Controlled = meta.story({
-    render: args => {
+    render: (args: CollapsibleProps) => {
         const [isExpanded, setIsExpanded] = useState(false);
         const handleOnClick = () => {
             setIsExpanded(!isExpanded);
@@ -103,7 +104,7 @@ export const Controlled = meta.story({
 });
 
 export const StickyCollapsibles = meta.story({
-    render: ({label, children, ...args}) => {
+    render: ({label, children, ...args}: CollapsibleProps) => {
         return (
             <>
                 <Collapsible {...args} label={`${label} 1`}>

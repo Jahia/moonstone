@@ -22,9 +22,7 @@ const meta = preview.meta({
     }
 });
 
-export const Default = meta.story({
-    args: {}
-});
+export const Default = meta.story({});
 
 export const WithImage = meta.story({
     args: {
@@ -56,7 +54,6 @@ export const IconVariant = meta.story({
 });
 
 export const AllVariants = meta.story({
-    args: {},
     render: (args: ThumbnailProps) => (
         <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
             <Thumbnail {...args}/>

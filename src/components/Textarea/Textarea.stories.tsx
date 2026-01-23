@@ -28,12 +28,9 @@ const meta = preview.meta({
     }
 });
 
-export const Uncontrolled = meta.story({
-    args: {}
-});
+export const Uncontrolled = meta.story({});
 
 export const Controlled = meta.story({
-    args: {},
     render: (args: TextareaProps) => {
         const [, setArgs] = useArgs();
 

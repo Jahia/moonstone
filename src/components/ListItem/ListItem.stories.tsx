@@ -2,6 +2,7 @@ import preview from '../../../.storybook/preview';
 import markdownNotes from './ListItem.md';
 import {ListItem} from './index';
 import {Love, Cloud} from '~/icons';
+import type {ListItemProps} from './ListItem.types';
 
 const meta = preview.meta({
     title: 'Components/ListItem',
@@ -19,7 +20,7 @@ export const Default = meta.story({
     args: {
         label: 'ListItem label'
     },
-    render: args => (
+    render: (args: ListItemProps) => (
         <ul>
             <ListItem {...args}/>
         </ul>
@@ -32,7 +33,7 @@ export const IconText = meta.story({
         label: 'ListItem',
         iconStart: <Love/>
     },
-    render: args => (
+    render: (args: ListItemProps) => (
         <ul>
             <ListItem {...args}/>
         </ul>
@@ -46,7 +47,7 @@ export const IconTextIcon = meta.story({
         iconStart: <Love/>,
         iconEnd: <Cloud/>
     },
-    render: args => (
+    render: (args: ListItemProps) => (
         <ul>
             <ListItem {...args}/>
         </ul>
@@ -58,7 +59,7 @@ export const WithBigImage = meta.story({
         label: 'ListItem label',
         imageSize: 'big'
     },
-    render: args => (
+    render: (args: ListItemProps) => (
         <ul>
             <ListItem
                 image={<img src="https://via.placeholder.com/500?text=ListItemImage" alt="big image"/>}
@@ -81,7 +82,7 @@ export const WithSmallImage = meta.story({
         label: 'ListItem label',
         imageSize: 'small'
     },
-    render: args => (
+    render: (args: ListItemProps) => (
         <ul>
             <ListItem
                 image={<img src="https://via.placeholder.com/500?text=ListItemImage" alt="small image"/>}

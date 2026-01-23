@@ -25,6 +25,7 @@ export const Default = meta.story({
         chips: <><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>,
         buttons: <Button icon={<MoreVert/>} variant="ghost"/>,
         helper: 'information',
+        id: 'field-boolean-id',
         checkboxAttributes: {
             value: 'checkbox',
             className: 'test-class'

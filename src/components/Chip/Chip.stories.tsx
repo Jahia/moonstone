@@ -40,7 +40,6 @@ export const IconOnly = meta.story({
 });
 
 export const StatusExample = meta.story({
-    args: {},
     render: () => (
         <section className="storyColumn">
             <Chip icon={<Delete/>} label="Marked for deletion" color="danger"/>

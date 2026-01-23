@@ -1,6 +1,5 @@
 import preview from '../../../.storybook/preview';
 import {Tooltip} from './index';
-import type {TooltipProps} from './Tooltip.types';
 import {Badge, Button, Chip, PrimaryNav, PrimaryNavItem, PrimaryNavItemsGroup} from '~/components';
 import {Apps, Feather, Home, Person, Profile, Setting} from '~/icons';
 
@@ -70,7 +69,7 @@ export const BadgeTooltip = meta.story({
 
 export const PrimaryNavTooltip = meta.story({
     args: {},
-    render: (args: TooltipProps) => {
+    render: () => {
         return (
             <div style={{transform: 'scale(1)', height: '100vh'}}>
                 <PrimaryNav

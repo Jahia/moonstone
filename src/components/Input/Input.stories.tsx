@@ -3,6 +3,7 @@ import preview from '../../../.storybook/preview';
 import {Input} from './index';
 import {Love} from '~/icons';
 import {useArgs} from 'storybook/preview-api';
+import type {InputProps} from './Input.types';
 
 const meta = preview.meta({
     title: 'Components/Input',
@@ -28,13 +29,10 @@ const meta = preview.meta({
     }
 });
 
-export const Uncontrolled = meta.story({
-    args: {}
-});
+export const Uncontrolled = meta.story({});
 
 export const Controlled = meta.story({
-    args: {},
-    render: args => {
+    render: (args: InputProps) => {
         const [, setArgs] = useArgs();
 
         const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
