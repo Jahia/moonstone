@@ -3,7 +3,7 @@ import {dataColumnsUser} from '~/data/dataTable';
 import type {DataUser} from '~/data/dataTable';
 import {DataTable} from './DataTable';
 import type {Meta, StoryObj} from '@storybook/react';
-import {TableRow} from '~/components';
+import {TableRow} from './TableRow';
 import {MoreVert} from '~/icons';
 
 export default {

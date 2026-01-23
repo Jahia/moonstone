@@ -1,8 +1,8 @@
 export * from '~/utils/dataTable';
-export * from './TableRow';
 export * from './cells';
-export * from './TableHead';
-export * from './TableBody';
 export * from './DataTable';
 export * from './DataTable.types';
-
+export {Table} from './Table';
+export {TableRow} from './TableRow';
+export {TableHead} from './TableHead';
+export {TableBody} from './TableBody';
