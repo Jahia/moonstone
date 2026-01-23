@@ -1,6 +1,6 @@
 import React from 'react';
+import preview from '../../.storybook/preview';
 import '~/__storybook__/storybook.scss';
-
 import markdownNotes from './Icons.md';
 import * as Icons from '~/icons/components';
 import {Love} from '~/icons';
@@ -30,40 +30,34 @@ function displayIcons() {
     for (const name of iconsName) {
         allIcons.push(
             <IconWrapper
-        key={`key-${name}`}
-        iconName={name}
-        size="big"
-        // Color={color}
-      />
+                key={`key-${name}`}
+                iconName={name}
+                size="big"
+            // Color={color}
+            />
         );
     }
 
     return allIcons;
 }
 
-export default {
+const meta = preview.meta({
     title: 'Tokens/Icons',
-    component: Icons,
-    // Decorators: [withKnobs],
-
     parameters: {
-    // ComponentSubtitle: 'Icons',
+        // ComponentSubtitle: 'Icons',
         notes: {markdown: markdownNotes}
     },
-
     excludeStories: ['IconWrapper']
-};
+});
 
-export const _Default = () => (
-    <section className="storyGrid">{displayIcons()}</section>
-);
+export const _Default = meta.story({
+    args: {},
+    render: () => (
+        <section className="storyGrid">{displayIcons()}</section>
+    )
+});
 
-export const Colored = () => <Love color="red"/>;
-
-// Export const Playground = () => (
-//     <IconWrapper
-//         iconName={select('Choose your icon', iconsName, 'Edit')}
-//         size={iconsSize()}
-//         // color={iconsColor()}
-//   />
-// );
+export const Colored = meta.story({
+    args: {},
+    render: () => <Love color="red"/>
+});

@@ -1,8 +1,9 @@
-import type {Meta, StoryObj} from '@storybook/react';
+import preview from '../../../.storybook/preview';
 import {Thumbnail} from './Thumbnail';
+import type {ThumbnailProps} from './Thumbnail.types';
 import {Love} from '../../icons/components';
 
-const meta: Meta<typeof Thumbnail> = {
+const meta = preview.meta({
     title: 'Components/Thumbnail',
     component: Thumbnail,
     tags: ['beta'],
@@ -19,52 +20,49 @@ const meta: Meta<typeof Thumbnail> = {
             options: ['preview', 'icon']
         }
     }
-};
+});
 
-export default meta;
-
-type Story = StoryObj<typeof Thumbnail>;
-
-export const Default: Story = {
+export const Default = meta.story({
     args: {}
-};
+});
 
-export const WithImage: Story = {
+export const WithImage = meta.story({
     args: {
         src: 'https://picsum.photos/200',
         alt: 'Random image'
     }
-};
+});
 
-export const WithReactElement: Story = {
+export const WithReactElement = meta.story({
     args: {
         src: <Love size="big" color="gray"/>
     }
-};
+});
 
-export const SmallSize: Story = {
+export const SmallSize = meta.story({
     args: {
         src: 'https://picsum.photos/200',
         alt: 'Small thumbnail',
         size: 'small'
     }
-};
+});
 
-export const IconVariant: Story = {
+export const IconVariant = meta.story({
     args: {
         src: 'https://picsum.photos/200',
         alt: 'Icon variant',
         variant: 'icon'
     }
-};
+});
 
-export const AllVariants: Story = {
-    render: () => (
+export const AllVariants = meta.story({
+    args: {},
+    render: (args: ThumbnailProps) => (
         <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
-            <Thumbnail/>
+            <Thumbnail {...args}/>
             <Thumbnail src="https://picsum.photos/200" alt="Preview"/>
             <Thumbnail src={<Love size="big" color="gray"/>}/>
             <Thumbnail size="small" src="https://picsum.photos/200" alt="Small"/>
         </div>
     )
-};
+});

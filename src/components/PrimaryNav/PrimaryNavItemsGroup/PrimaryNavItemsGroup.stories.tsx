@@ -31,7 +31,9 @@ const meta = preview.meta({
 });
 
 export const Default = meta.story({
-    args: {},
+    args: {
+        children: []
+    },
     render: (args: PrimaryNavItemsGroupProps) => (
         <PrimaryNavItemsGroup {...args}>
             <PrimaryNavItem icon={<Edit/>} label="NavItem not selected (default)"/>
@@ -41,7 +43,9 @@ export const Default = meta.story({
 });
 
 export const CollapsedGroup = meta.story({
-    args: {},
+    args: {
+        children: []
+    },
     render: (args: PrimaryNavItemsGroupProps) => (
         <PrimaryNavItemsGroup {...args} isDisplayedWhenCollapsed={false}>
             <PrimaryNavItem icon={<Edit/>} label="Hidden when collapsed"/>
