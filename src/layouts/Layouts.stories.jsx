@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import preview from '../../.storybook/preview';
 
 import {treeData, treeDataNested} from '~/data';
 import {LayoutApp, LayoutModule, LayoutContent} from '~/layouts';
@@ -21,33 +22,34 @@ import {Bug, Love} from '~/icons';
 
 const accordionIds = ['01', '02', '03'];
 
-export default {
+const meta = preview.meta({
     title: 'Layouts/Demos'
-};
+});
 
-export const Example = () => {
-    const [selectedItems1, setSelectedItems1] = useState([]);
-    const [selectedItems2, setSelectedItems2] = useState([]);
+export const Example = meta.story({
+    render: () => {
+        const [selectedItems1, setSelectedItems1] = useState([]);
+        const [selectedItems2, setSelectedItems2] = useState([]);
 
-    const handleSelectItem1 = node => {
-        if (selectedItems1.includes(node.id)) {
-            setSelectedItems1(selectedItems1.filter(item => item !== node.id));
-        } else {
-            setSelectedItems1([node.id]);
-        }
-    };
+        const handleSelectItem1 = node => {
+            if (selectedItems1.includes(node.id)) {
+                setSelectedItems1(selectedItems1.filter(item => item !== node.id));
+            } else {
+                setSelectedItems1([node.id]);
+            }
+        };
 
-    const handleSelectItem2 = node => {
-        if (selectedItems2.includes(node.id)) {
-            setSelectedItems2(selectedItems2.filter(item => item !== node.id));
-        } else {
-            setSelectedItems2([node.id]);
-        }
-    };
+        const handleSelectItem2 = node => {
+            if (selectedItems2.includes(node.id)) {
+                setSelectedItems2(selectedItems2.filter(item => item !== node.id));
+            } else {
+                setSelectedItems2([node.id]);
+            }
+        };
 
-    return (
-        <div style={{transform: 'scale(1)'}}>
-            <LayoutApp
+        return (
+            <div style={{transform: 'scale(1)'}}>
+                <LayoutApp
         navigation={<PrimaryNav>level 1</PrimaryNav>}
         content={
             <LayoutModule
@@ -97,33 +99,35 @@ export const Example = () => {
           />
         }
       />
-        </div>
-    );
-};
+            </div>
+        );
+    }
+});
 
-export const ExampleLight = () => {
-    const [selectedItems1, setSelectedItems1] = useState([]);
-    const [selectedItems2, setSelectedItems2] = useState([]);
+export const ExampleLight = meta.story({
+    render: () => {
+        const [selectedItems1, setSelectedItems1] = useState([]);
+        const [selectedItems2, setSelectedItems2] = useState([]);
 
-    const handleSelectItem1 = node => {
-        if (selectedItems1.includes(node.id)) {
-            setSelectedItems1(selectedItems1.filter(item => item !== node.id));
-        } else {
-            setSelectedItems1([node.id]);
-        }
-    };
+        const handleSelectItem1 = node => {
+            if (selectedItems1.includes(node.id)) {
+                setSelectedItems1(selectedItems1.filter(item => item !== node.id));
+            } else {
+                setSelectedItems1([node.id]);
+            }
+        };
 
-    const handleSelectItem2 = node => {
-        if (selectedItems2.includes(node.id)) {
-            setSelectedItems2(selectedItems2.filter(item => item !== node.id));
-        } else {
-            setSelectedItems2([node.id]);
-        }
-    };
+        const handleSelectItem2 = node => {
+            if (selectedItems2.includes(node.id)) {
+                setSelectedItems2(selectedItems2.filter(item => item !== node.id));
+            } else {
+                setSelectedItems2([node.id]);
+            }
+        };
 
-    return (
-        <div style={{transform: 'scale(1)'}}>
-            <LayoutApp
+        return (
+            <div style={{transform: 'scale(1)'}}>
+                <LayoutApp
         navigation={<PrimaryNav>level 1</PrimaryNav>}
         content={
             <LayoutModule
@@ -172,13 +176,15 @@ export const ExampleLight = () => {
           />
         }
       />
-        </div>
-    );
-};
+            </div>
+        );
+    }
+});
 
-export const Centered = () => (
-    <div style={{transform: 'scale(1)'}}>
-        <LayoutApp
+export const Centered = meta.story({
+    render: () => (
+        <div style={{transform: 'scale(1)'}}>
+            <LayoutApp
       navigation={<FakePrimaryNavigation/>}
       content={
           <LayoutModule
@@ -193,12 +199,14 @@ export const Centered = () => (
         />
       }
     />
-    </div>
-);
+        </div>
+    )
+});
 
-export const WithoutLevel2 = () => (
-    <div style={{transform: 'scale(1)'}}>
-        <LayoutApp
+export const WithoutLevel2 = meta.story({
+    render: () => (
+        <div style={{transform: 'scale(1)'}}>
+            <LayoutApp
       navigation={<FakePrimaryNavigation/>}
       content={
           <LayoutModule
@@ -211,5 +219,6 @@ export const WithoutLevel2 = () => (
         />
       }
     />
-    </div>
-);
+        </div>
+    )
+});
