@@ -46,7 +46,7 @@ export const Default = meta.story({
 
 export const ContextualMenu = meta.story({
 
-    render: () => {
+    render: (args: MenuProps) => {
         const [isDisplayed, setIsDisplayed] = useState<boolean>(false);
         const [menuPosition, setMenuPosition] = useState<AnchorPosition>();
 
@@ -77,6 +77,7 @@ export const ContextualMenu = meta.story({
                     isDisplayed={isDisplayed}
                     anchorPosition={menuPosition}
                     onClose={handleClose}
+                    {...args}
                 >
                     <MenuItem label="Item1"/>
                     <MenuItem label="Item2"/>
@@ -84,12 +85,16 @@ export const ContextualMenu = meta.story({
                 </Menu>
             </div>
         );
+    },
+    args: {
+        isDisplayed: true,
+        children: null
     }
 });
 
 export const AnchorElOrigin = meta.story({
 
-    render: () => {
+    render: (args: MenuProps) => {
         const [isDisplayed, setIsDisplayed] = useState(false);
         const [anchorEl, setAnchorEl] = useState(null);
         const buttonEl = React.useRef();
@@ -130,6 +135,7 @@ export const AnchorElOrigin = meta.story({
                         horizontal: 'left'
                     }}
                     onClose={handleClose}
+                    {...args}
                 >
                     <MenuItem label="Item1"/>
                     <MenuItem label="Item2"/>
@@ -137,12 +143,16 @@ export const AnchorElOrigin = meta.story({
                 </Menu>
             </>
         );
+    },
+    args: {
+        isDisplayed: true,
+        children: null
     }
 });
 
 export const PositionAbsolute = meta.story({
 
-    render: () => (
+    render: (args: MenuProps) => (
         <div
             style={{
                 position: 'relative',
@@ -174,24 +184,30 @@ export const PositionAbsolute = meta.story({
                     vertical: 'top',
                     horizontal: 'left'
                 }}
+                {...args}
             >
                 <MenuItem label="Item1"/>
                 <MenuItem label="Item2"/>
                 <MenuItem label="Item3"/>
             </Menu>
         </div>
-    )
+    ),
+    args: {
+        isDisplayed: true,
+        children: null
+    }
 });
 
 export const BigImageMenuItems = meta.story({
 
-    render: () => (
+    render: (args: MenuProps) => (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <Menu
                 isDisplayed
                 maxWidth="400px"
                 maxHeight="440px"
                 style={{zIndex: 10000}}
+                {...args}
             >
                 <MenuItem label="Menu Items with Big Images Title" variant="title"/>
                 <MenuItem
@@ -222,18 +238,23 @@ export const BigImageMenuItems = meta.story({
                 />
             </Menu>
         </div>
-    )
+    ),
+    args: {
+        isDisplayed: false,
+        children: null
+    }
 });
 
 export const SmallImageMenuItems = meta.story({
 
-    render: () => (
+    render: (args: MenuProps) => (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <Menu
                 isDisplayed
                 maxWidth="264px"
                 maxHeight="320px"
                 style={{zIndex: 10000}}
+                {...args}
             >
                 <MenuItem label="Menu Items with Small Images Title" variant="title"/>
                 <MenuItem
@@ -264,12 +285,16 @@ export const SmallImageMenuItems = meta.story({
                 />
             </Menu>
         </div>
-    )
+    ),
+    args: {
+        isDisplayed: true,
+        children: null
+    }
 });
 
 export const WithSearch = meta.story({
 
-    render: () => (
+    render: (args: MenuProps) => (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <Menu
                 hasSearch
@@ -277,6 +302,7 @@ export const WithSearch = meta.story({
                 searchEmptyText="Oh no! It seems like that doesn't exist."
                 maxHeight="250px"
                 style={{zIndex: 10000}}
+                {...args}
             >
                 <MenuItem label="Base items" variant="title"/>
                 <MenuItem label="Item1"/>
@@ -290,12 +316,16 @@ export const WithSearch = meta.story({
                 <MenuItem label="Item9"/>
             </Menu>
         </div>
-    )
+    ),
+    args: {
+        isDisplayed: true,
+        children: null
+    }
 });
 
 export const Reversed = meta.story({
 
-    render: () => (
+    render: (args: MenuProps) => (
         <div
             className="moonstone-reversed"
             style={{
@@ -310,6 +340,7 @@ export const Reversed = meta.story({
                 searchEmptyText="Oh no! It seems like that doesn't exist."
                 maxHeight="250px"
                 style={{zIndex: 10000}}
+                {...args}
             >
                 <MenuItem label="Base items" variant="title"/>
                 <MenuItem label="Item1"/>
@@ -323,5 +354,9 @@ export const Reversed = meta.story({
                 <MenuItem label="Item9"/>
             </Menu>
         </div>
-    )
+    ),
+    args: {
+        isDisplayed: true,
+        children: null
+    }
 });
