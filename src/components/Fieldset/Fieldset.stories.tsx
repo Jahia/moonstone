@@ -1,5 +1,6 @@
 import preview from '../../../.storybook/preview';
 import {Fieldset} from './index';
+import type {FieldsetProps} from './Fieldset.types';
 import {Field, FieldBoolean, FieldSelector} from '~/components';
 import markdownNotes from './Fieldset.md';
 import {Button, Chip, Input, Dropdown, RadioGroup, RadioItem, CardSelector, EmptyCardSelector, Textarea} from '~/components';
@@ -27,7 +28,8 @@ export const SingleField = meta.story({
         helper: 'Fieldset information',
         id: 'fieldset-id',
         children: <Field id="field" label="Field" chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>} buttons={<><Button icon={<Add/>} label="Add"/><Button icon={<MoreVert/>} variant="ghost"/></>} helper="information"><FieldSelector selector={<Input size="big" placeholder="Input value"/>}/></Field>
-    }
+    },
+    render: (args: FieldsetProps) => <Fieldset {...args}/>
 });
 
 export const MultipleFields = SingleField.extend({

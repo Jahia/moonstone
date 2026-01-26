@@ -22,19 +22,23 @@ const meta = preview.meta({
     }
 });
 
-export const Default = meta.story({});
+export const Default = meta.story({
+    render: (args: ThumbnailProps) => <Thumbnail {...args}/>
+});
 
 export const WithImage = meta.story({
     args: {
         src: 'https://picsum.photos/200',
         alt: 'Random image'
-    }
+    },
+    render: (args: ThumbnailProps) => <Thumbnail {...args}/>
 });
 
 export const WithReactElement = meta.story({
     args: {
         src: <Love size="big" color="gray"/>
-    }
+    },
+    render: (args: ThumbnailProps) => <Thumbnail {...args}/>
 });
 
 export const SmallSize = meta.story({
@@ -42,7 +46,8 @@ export const SmallSize = meta.story({
         src: 'https://picsum.photos/200',
         alt: 'Small thumbnail',
         size: 'small'
-    }
+    },
+    render: (args: ThumbnailProps) => <Thumbnail {...args}/>
 });
 
 export const IconVariant = meta.story({
@@ -50,7 +55,8 @@ export const IconVariant = meta.story({
         src: 'https://picsum.photos/200',
         alt: 'Icon variant',
         variant: 'icon'
-    }
+    },
+    render: (args: ThumbnailProps) => <Thumbnail {...args}/>
 });
 
 export const AllVariants = meta.story({

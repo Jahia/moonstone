@@ -29,7 +29,9 @@ const meta = preview.meta({
     }
 });
 
-export const Uncontrolled = meta.story({});
+export const Uncontrolled = meta.story({
+    render: (args: InputProps) => <Input {...args}/>
+});
 
 export const Controlled = meta.story({
     render: (args: InputProps) => {
@@ -47,11 +49,13 @@ export const Controlled = meta.story({
 export const InputWithIcon = meta.story({
     args: {
         icon: <Love/>
-    }
+    },
+    render: (args: InputProps) => <Input {...args}/>
 });
 
 export const InputWithDefaultValue = meta.story({
     args: {
         defaultValue: 'Default value'
-    }
+    },
+    render: (args: InputProps) => <Input {...args}/>
 });

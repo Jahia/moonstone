@@ -3,7 +3,7 @@ import {Accordion} from '~/components/Accordion';
 import {AccordionItem} from './index';
 import markdownNotes from './AccordionItem.md';
 import {Love} from '~/icons';
-import {AccordionItemProps} from './AccordionItem.types';
+import type {AccordionItemProps} from './AccordionItem.types';
 
 const meta = preview.meta({
     title: 'Components/Accordion/AccordionItem',

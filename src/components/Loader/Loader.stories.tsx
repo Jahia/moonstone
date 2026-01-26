@@ -1,5 +1,6 @@
 import preview from '../../../.storybook/preview';
 import {Loader as LoaderCmp} from './index';
+import type {LoaderProps} from './Loader.types';
 
 const meta = preview.meta({
     title: 'Components/Loader',
@@ -12,5 +13,6 @@ const meta = preview.meta({
 export const Loader = meta.story({
     args: {
         size: 'small'
-    }
+    },
+    render: (args: LoaderProps) => <LoaderCmp {...args}/>
 });

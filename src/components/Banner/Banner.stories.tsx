@@ -1,7 +1,7 @@
 import preview from '../../../.storybook/preview';
 import {Banner, Button} from '~/components';
 import {RichText} from '~/icons';
-import {BannerProps} from './Banner.types';
+import type {BannerProps} from './Banner.types';
 
 const meta = preview.meta({
     title: 'Components/Banner',

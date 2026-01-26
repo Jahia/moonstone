@@ -1,7 +1,7 @@
 import {useArgs} from 'storybook/preview-api';
 import preview from '../../../../.storybook/preview';
 import {CheckboxItem} from './CheckboxItem';
-import {CheckboxItemProps} from './CheckboxItem.types';
+import type {CheckboxItemProps} from './CheckboxItem.types';
 
 const meta = preview.meta({
     title: 'Components/CheckboxGroup/CheckboxItem',
@@ -24,7 +24,8 @@ export const Uncontrolled = meta.story({
     args: {
         id: 'uncontrolled-item',
         label: 'Uncontrolled CheckboxItem'
-    }
+    },
+    render: (args: CheckboxItemProps) => <CheckboxItem {...args}/>
 });
 
 export const Controlled = meta.story({
@@ -55,5 +56,6 @@ export const Playground = meta.story({
         label: 'Play with me',
         description: 'Use the storybook controls to update this element',
         value: 'playground-value'
-    }
+    },
+    render: (args: CheckboxItemProps) => <CheckboxItem {...args}/>
 });

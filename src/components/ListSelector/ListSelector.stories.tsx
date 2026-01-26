@@ -3,7 +3,7 @@ import preview from '../../../.storybook/preview';
 import '~/__storybook__/storybook.scss';
 import {ListSelector} from './index';
 import {listSelectorData} from '~/data/listSelectorData';
-import {ListSelectorSelectorProps} from './ListSelector.types';
+import type {ListSelectorSelectorProps} from './ListSelector.types';
 
 const meta = preview.meta({
     title: 'Components/ListSelector',
@@ -32,7 +32,8 @@ export const Basic = meta.story({
             removeAllTitle: 'Remove All',
             selected: 'Selected'
         }
-    }
+    },
+    render: (args: ListSelectorSelectorProps) => <ListSelector {...args}/>
 });
 
 export const ReadOnly = Basic.extend({

@@ -1,6 +1,7 @@
 import preview from '../../../.storybook/preview';
 import '~/__storybook__/storybook.scss';
 import {Chip} from './index';
+import type {ChipProps} from './Chip.types';
 import {Cloud, Delete, File, Lock, NoCloud, Warning, CloudCheck, Build, Edit, Subdirectory} from '~/icons';
 import markdownNotes from './Chip.md';
 
@@ -20,7 +21,8 @@ export const Default = meta.story({
         icon: <Cloud/>,
         color: 'default',
         variant: 'default'
-    }
+    },
+    render: (args: ChipProps) => <Chip {...args}/>
 });
 
 export const TextOnly = meta.story({
@@ -28,7 +30,8 @@ export const TextOnly = meta.story({
         label: 'chip label',
         color: 'default',
         variant: 'default'
-    }
+    },
+    render: (args: ChipProps) => <Chip {...args}/>
 });
 
 export const IconOnly = meta.story({
@@ -36,11 +39,12 @@ export const IconOnly = meta.story({
         icon: <Cloud/>,
         color: 'default',
         variant: 'default'
-    }
+    },
+    render: (args: ChipProps) => <Chip {...args}/>
 });
 
 export const StatusExample = meta.story({
-    render: () => (
+    render: (args: ChipProps) => (
         <section className="storyColumn">
             <Chip icon={<Delete/>} label="Marked for deletion" color="danger"/>
             <Chip icon={<Warning/>} label="Warning" color="warning"/>

@@ -1,7 +1,7 @@
 import preview from '../../../.storybook/preview';
 import {Breadcrumb, BreadcrumbItem} from '~/components';
 import markdownNotes from './Breadcrumb.md';
-import {BreadcrumbProps} from './Breadcrumb.types';
+import type {BreadcrumbProps} from './Breadcrumb.types';
 
 const meta = preview.meta({
     title: 'Components/Breadcrumb',

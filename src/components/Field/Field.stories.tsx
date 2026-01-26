@@ -1,5 +1,6 @@
 import preview from '../../../.storybook/preview';
 import {Field} from './index';
+import type {FieldProps} from './Field.types';
 import markdownNotes from './Field.md';
 import {Button, Chip, Input, Dropdown, RadioGroup, RadioItem, CheckboxItem, ListSelector, CardSelector, EmptyCardSelector, Textarea} from '~/components';
 import {Add, Close, Language, MoreVert, File} from '~/icons';
@@ -30,7 +31,8 @@ export const Default = meta.story({
         helper: 'information',
         id: 'field-id',
         children: <FieldSelector selector={<Input size="big" placeholder="Input value"/>}/>
-    }
+    },
+    render: (args: FieldProps) => <Field {...args}/>
 });
 
 export const SelectorButtons = Default.extend({

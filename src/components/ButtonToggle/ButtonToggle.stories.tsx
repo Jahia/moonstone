@@ -2,7 +2,7 @@ import preview from '../../../.storybook/preview';
 import {ButtonToggle} from './index';
 import {Apps} from '~/icons';
 import markdownNotes from './ButtonToggle.md';
-import {ButtonToggleProps} from './ButtonToggle.types';
+import type {ButtonToggleProps} from './ButtonToggle.types';
 import {StoryContext} from '@storybook/react-vite';
 
 const meta = preview.meta({

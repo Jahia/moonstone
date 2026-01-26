@@ -1,5 +1,6 @@
 import preview from '../../../.storybook/preview';
 import {Header} from './index';
+import type {HeaderProps} from './Header.types';
 import {
     Button,
     Breadcrumb,
@@ -147,5 +148,6 @@ export const WithoutInformation = Full.extend({
 export const Simple = meta.story({
     args: {
         title: 'Application title'
-    }
+    },
+    render: (args: HeaderProps) => <Header {...args}/>
 });

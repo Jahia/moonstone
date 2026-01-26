@@ -1,5 +1,6 @@
 import preview from '../../../.storybook/preview';
 import {SecondaryNav, SecondaryNavHeader} from './index';
+import type {SecondaryNavProps} from './SecondaryNav.types';
 import markdownNotes from './SecondaryNav.md';
 import {Love} from '~/icons';
 
@@ -27,21 +28,24 @@ export const TextTitle = meta.story({
     args: {
         header: 'Header here',
         children: 'My content here'
-    }
+    },
+    render: (args: SecondaryNavProps) => <SecondaryNav {...args}/>
 });
 
 export const WithHeaderImage = meta.story({
     args: {
         header: <Love size="big"/>,
         children: 'My content here'
-    }
+    },
+    render: (args: SecondaryNavProps) => <SecondaryNav {...args}/>
 });
 
 export const WithTextInHeaderComponent = meta.story({
     args: {
         header: <SecondaryNavHeader>Secondary Header</SecondaryNavHeader>,
         children: 'My content here'
-    }
+    },
+    render: (args: SecondaryNavProps) => <SecondaryNav {...args}/>
 });
 
 export const WithHeaderComponent = meta.story({
@@ -52,5 +56,6 @@ export const WithHeaderComponent = meta.story({
             </SecondaryNavHeader>
         ),
         children: 'My content here'
-    }
+    },
+    render: (args: SecondaryNavProps) => <SecondaryNav {...args}/>
 });

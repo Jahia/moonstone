@@ -68,7 +68,8 @@ const defaultChildren = [
 export const Default = meta.story({
     args: {
         children: defaultChildren
-    }
+    },
+    render: (args: AccordionProps) => <Accordion {...args}/>
 });
 
 export const DefaultOpened = Default.extend({

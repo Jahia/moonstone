@@ -1,6 +1,6 @@
 import preview from '../../../.storybook/preview';
 import {Typography} from './index';
-import {TypographyProps} from './Typography.types';
+import type {TypographyProps} from './Typography.types';
 
 const meta = preview.meta({
     title: 'Tokens/Typography',
@@ -16,7 +16,7 @@ const meta = preview.meta({
 });
 
 export const Variants = meta.story({
-    render: () => (
+    render: (args: TypographyProps<'div'>) => (
         <section className="storyWrapper">
             <div className="storyItem">
                 <Typography variant="title">Title</Typography>
