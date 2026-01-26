@@ -13,14 +13,14 @@ const meta = preview.meta({
     parameters: {
         layout: 'centered',
         notes: {markdown: markdownNotes}
-    },
-    argTypes: {
-        children: {table: {disable: true}}
     }
 });
 
 export const _Tab = meta.story({
-    args: {},
+    args: {
+        children: null
+    },
+
     render: (args: TabProps) => {
         const [selectedTabItemLabel, setSelectedTabItemLabel] = useState('Tab 1');
         const handleClick = (label: string) => {
@@ -60,7 +60,10 @@ export const _Tab = meta.story({
 });
 
 export const Reversed = meta.story({
-    args: {},
+    args: {
+        children: null
+    },
+
     render: (args: TabProps) => {
         const [selectedTabItemLabel, setSelectedTabItemLabel] = useState('Tab 1');
         const handleClick = (label: string) => {
@@ -103,7 +106,10 @@ export const Reversed = meta.story({
 });
 
 export const SizeBig = meta.story({
-    args: {},
+    args: {
+        children: null
+    },
+
     render: (args: TabProps) => {
         const [selectedTabItemLabel, setSelectedTabItemLabel] = useState('Tab 1');
         const handleClick = (label: string) => {

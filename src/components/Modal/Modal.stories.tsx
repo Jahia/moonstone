@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {StoryObj} from '@storybook/react';
+
 import preview from '../../../.storybook/preview';
 import {Modal, Button, Typography, Field, FieldSelector, Input, Chip, Dropdown} from '~/components';
 import type {ModalProps} from './Modal.types';
@@ -16,15 +16,17 @@ const meta = preview.meta({
     }
 });
 
-type Story = StoryObj<typeof Modal>;
-
-export const Playground: Story = meta.story({
+export const Playground = meta.story({
+    args: {
+        children: null,
+        isOpen: false
+    },
     render: (args: ModalProps) => {
         const [open, setOpen] = useState(false);
         return (
             <div style={{maxWidth: '100vw'}}>
                 <Button label="Open modal" onClick={() => setOpen(true)}/>
-                <Modal isOpen={open} onOpenChange={setOpen} {...args}>
+                <Modal {...args} isOpen={open} onOpenChange={setOpen}>
                     <>
                         <ModalHeader title="Modal Title"/>
                         <ModalBody>
@@ -44,19 +46,24 @@ export const Playground: Story = meta.story({
     }
 });
 
-export const ModalInModal: Story = meta.story({
+export const ModalInModal = meta.story({
+    args: {
+        children: null,
+        isOpen: false,
+        onOpenChange: () => undefined
+    },
     render: (args: ModalProps) => {
         const [open, setOpen] = useState(false);
         const [open2, setOpen2] = useState(false);
         return (
             <div style={{maxWidth: '100vw'}}>
                 <Button label="Open modal" onClick={() => setOpen(true)}/>
-                <Modal isOpen={open} onOpenChange={setOpen} {...args}>
+                <Modal {...args} isOpen={open} onOpenChange={setOpen}>
                     <>
                         <ModalHeader title="Modal Title"/>
                         <ModalBody>
                             <Button label="Open modal" onClick={() => setOpen2(true)}/>
-                            <Modal isOpen={open2} onOpenChange={setOpen2} {...args}>
+                            <Modal {...args} isOpen={open2} onOpenChange={setOpen2}>
                                 <>
                                     <ModalHeader title="Modal Title"/>
                                     <ModalBody>
@@ -83,8 +90,10 @@ export const ModalInModal: Story = meta.story({
     }
 });
 
-export const Advanced: Story = meta.story({
+export const Advanced = meta.story({
     args: {
+        isOpen: false,
+        onOpenChange: () => undefined,
         size: 'large',
         children: (
             <>
@@ -132,7 +141,7 @@ export const Advanced: Story = meta.story({
         return (
             <div style={{maxWidth: '100vw'}}>
                 <Button label="Open modal" onClick={() => setOpen(true)}/>
-                <Modal isOpen={open} onOpenChange={setOpen} {...args}/>
+                <Modal {...args} isOpen={open} onOpenChange={setOpen}/>
             </div>
         );
     }

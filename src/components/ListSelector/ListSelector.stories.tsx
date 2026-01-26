@@ -3,6 +3,7 @@ import preview from '../../../.storybook/preview';
 import '~/__storybook__/storybook.scss';
 import {ListSelector} from './index';
 import {listSelectorData} from '~/data/listSelectorData';
+import {ListSelectorSelectorProps} from './ListSelector.types';
 
 const meta = preview.meta({
     title: 'Components/ListSelector',
@@ -23,7 +24,14 @@ export const Basic = meta.story({
     args: {
         options: listSelectorData,
         values: ['1', '3', '5'],
-        onChange: (v: string[]) => console.log(v)
+        onChange: (v: string[]) => console.log(v),
+        label: {
+            rightListTitle: 'Right List',
+            leftListTitle: 'Left List',
+            addAllTitle: 'Add All',
+            removeAllTitle: 'Remove All',
+            selected: 'Selected'
+        }
     }
 });
 
@@ -34,8 +42,17 @@ export const ReadOnly = Basic.extend({
 });
 
 export const Controlled = meta.story({
-    args: {},
-    render: args => {
+    args: {
+        onChange: () => undefined,
+        label: {
+            rightListTitle: '',
+            leftListTitle: '',
+            addAllTitle: '',
+            removeAllTitle: '',
+            selected: ''
+        }
+    },
+    render: (args: ListSelectorSelectorProps) => {
         const [arrayValue, setArrayValue] = useState<string[]>([]);
 
         const options = listSelectorData;

@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {action} from 'storybook/actions';
-import preview from '../../../.storybook/preview';
 import markdownNotes from './Dropdown.md';
 import {Dropdown} from './index';
 import {Pill} from '~/components';
@@ -17,29 +16,26 @@ import {
 } from '~/data';
 import type {DropdownDataOption, DropdownProps} from './Dropdown.types';
 
-const meta = preview.meta({
+export default {
     title: 'Components/Dropdown',
     component: Dropdown,
+
     parameters: {
         layout: 'centered',
         notes: {markdown: markdownNotes},
         docs: {
+            // Fix issues in the doc tab with firefox
             inlineStories: false,
             IframeHeight: 500
         }
     },
     argTypes: {
-        children: {table: {disable: true}},
         icon: {
             options: Object.keys(icons)
         }
     }
-});
-
-export const FlatData = meta.story({
-    args: {
-        icon: 'Love'
-    },
+};
+export const FlatData = {
     render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
         const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
         const [currentImage, setCurrentImage] = useState<DropdownDataOption | null>(null);
@@ -99,13 +95,14 @@ export const FlatData = meta.story({
                 />
             </section>
         );
-    }
-});
+    },
 
-export const FlatDataMultiple = meta.story({
     args: {
         icon: 'Love'
-    },
+    }
+};
+
+export const FlatDataMultiple = {
     render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
         const [currentOptionData, setCurrentOptionData] = useState<DropdownDataOption[]>([]);
         const [currentPill, setCurrentPill] = useState<DropdownDataOption[]>([]);
@@ -132,6 +129,7 @@ export const FlatDataMultiple = meta.story({
 
         return (
             <section className="storyGrid">
+
                 <Dropdown
                     {...args}
                     icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
@@ -151,13 +149,14 @@ export const FlatDataMultiple = meta.story({
                 />
             </section>
         );
-    }
-});
+    },
 
-export const GroupedData = meta.story({
     args: {
         icon: 'Love'
-    },
+    }
+};
+
+export const GroupedData = {
     render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
         const [currentOptionGrouped, setCurrentOptionGrouped] = useState<DropdownDataOption | null>(null);
         const [currentImage, setCurrentImage] = useState<DropdownDataOption | null>(null);
@@ -211,13 +210,14 @@ export const GroupedData = meta.story({
                 />
             </section>
         );
-    }
-});
+    },
 
-export const GroupedDataMultiple = meta.story({
     args: {
         icon: 'Love'
-    },
+    }
+};
+
+export const GroupedDataMultiple = {
     render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
         const [currentOptionDataGrouped, setCurrentOptionDataGrouped] = useState<DropdownDataOption[]>([]);
         const [currentPill, setCurrentPill] = useState<DropdownDataOption[]>([]);
@@ -263,13 +263,14 @@ export const GroupedDataMultiple = meta.story({
                 />
             </section>
         );
-    }
-});
+    },
 
-export const TreeData = meta.story({
     args: {
         icon: 'Love'
-    },
+    }
+};
+
+export const TreeData = {
     render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
         const [currentOptionTree, setCurrentOptionTree] = useState<DropdownDataOption | null>(null);
         const [currentLanguage, setCurrentLanguage] = useState<DropdownDataOption | null>(null);
@@ -307,13 +308,14 @@ export const TreeData = meta.story({
                 />
             </section>
         );
-    }
-});
+    },
 
-export const TreeDataMultiple = meta.story({
     args: {
         icon: 'Love'
-    },
+    }
+};
+
+export const TreeDataMultiple = {
     render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
         const [currentOptionDataMultiple, setCurrentOptionDataMultiple] = useState<DropdownDataOption[]>([]);
         const [currentPill, setCurrentPill] = useState<DropdownDataOption[]>([]);
@@ -359,5 +361,9 @@ export const TreeDataMultiple = meta.story({
                 />
             </section>
         );
+    },
+
+    args: {
+        icon: 'Love'
     }
-});
+};

@@ -1,10 +1,10 @@
-import preview from '../../../.storybook/preview';
+import {Meta, StoryObj} from '@storybook/react-vite';
 import {LayoutContent} from '~/layouts';
 import {Header} from '~/components';
 import {FakeContent} from '~/__storybook__/FakeComponents';
 import type {LayoutContentProps} from './LayoutContent.types';
 
-const meta = preview.meta({
+export default {
     title: 'Layouts/LayoutContent',
     component: LayoutContent,
     decorators: [
@@ -22,54 +22,42 @@ const meta = preview.meta({
             control: false
         }
     }
-});
+} as Meta<typeof LayoutContent>;
 
-export const Default = meta.story({
-    args: {},
-    render: (args: LayoutContentProps) => (
-        <LayoutContent
-            header={<Header title="Header"/>}
-            content={<FakeContent/>}
-            {...args}
-        />
-    )
-});
+type Story = StoryObj<typeof LayoutContent>;
 
-export const Centered = meta.story({
+const Template = (args: LayoutContentProps) => (
+    <LayoutContent
+        header={<Header title="Header"/>}
+        content={<FakeContent/>}
+        {...args}
+    />
+);
+
+export const Default: Story = {
+    render: Template
+};
+
+export const Centered: Story = {
+    render: Template,
+
     args: {
         isCentered: true
-    },
-    render: (args: LayoutContentProps) => (
-        <LayoutContent
-            header={<Header title="Header"/>}
-            content={<FakeContent/>}
-            {...args}
-        />
-    )
-});
+    }
+};
 
-export const WithoutPadding = meta.story({
+export const WithoutPadding: Story = {
+    render: Template,
+
     args: {
         hasPadding: false
-    },
-    render: (args: LayoutContentProps) => (
-        <LayoutContent
-            header={<Header title="Header"/>}
-            content={<FakeContent/>}
-            {...args}
-        />
-    )
-});
+    }
+};
 
-export const Loading = meta.story({
+export const Loading: Story = {
+    render: Template,
+
     args: {
         isLoading: true
-    },
-    render: (args: LayoutContentProps) => (
-        <LayoutContent
-            header={<Header title="Header"/>}
-            content={<FakeContent/>}
-            {...args}
-        />
-    )
-});
+    }
+};

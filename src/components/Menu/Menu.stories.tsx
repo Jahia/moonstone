@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import preview from '../../../.storybook/preview';
 import {Menu, MenuItem} from './index';
-import type {AnchorPosition} from './Menu.types';
+import type {AnchorPosition, MenuProps} from './Menu.types';
 import markdownNotes from './Menu.md';
 import {Separator} from '~/components';
 
@@ -25,9 +25,10 @@ export const Default = meta.story({
     args: {
         isDisplayed: true,
         maxHeight: '250px',
-        style: {zIndex: 10000}
+        style: {zIndex: 10000},
+        children: null
     },
-    render: args => (
+    render: (args: MenuProps) => (
         <Menu {...args}>
             <MenuItem label="Base items" variant="title"/>
             <MenuItem label="Item1"/>
@@ -44,7 +45,7 @@ export const Default = meta.story({
 });
 
 export const ContextualMenu = meta.story({
-    args: {},
+
     render: () => {
         const [isDisplayed, setIsDisplayed] = useState<boolean>(false);
         const [menuPosition, setMenuPosition] = useState<AnchorPosition>();
@@ -87,7 +88,7 @@ export const ContextualMenu = meta.story({
 });
 
 export const AnchorElOrigin = meta.story({
-    args: {},
+
     render: () => {
         const [isDisplayed, setIsDisplayed] = useState(false);
         const [anchorEl, setAnchorEl] = useState(null);
@@ -140,7 +141,7 @@ export const AnchorElOrigin = meta.story({
 });
 
 export const PositionAbsolute = meta.story({
-    args: {},
+
     render: () => (
         <div
             style={{
@@ -183,7 +184,7 @@ export const PositionAbsolute = meta.story({
 });
 
 export const BigImageMenuItems = meta.story({
-    args: {},
+
     render: () => (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <Menu
@@ -225,7 +226,7 @@ export const BigImageMenuItems = meta.story({
 });
 
 export const SmallImageMenuItems = meta.story({
-    args: {},
+
     render: () => (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <Menu
@@ -267,7 +268,7 @@ export const SmallImageMenuItems = meta.story({
 });
 
 export const WithSearch = meta.story({
-    args: {},
+
     render: () => (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <Menu
@@ -293,7 +294,7 @@ export const WithSearch = meta.story({
 });
 
 export const Reversed = meta.story({
-    args: {},
+
     render: () => (
         <div
             className="moonstone-reversed"

@@ -26,9 +26,13 @@ export const Default = meta.story({
 });
 
 export const WithButton = Default.extend({
-    args: {
-        children: <>There was an error. <Button label="Click me"/></>
-    }
+    render: (args: BannerProps) => (
+        <div style={{maxWidth: '100vw'}}>
+            <Banner {...args}>
+                <Button label="Click me"/>
+            </Banner>
+        </div>
+    )
 });
 
 export const WithLongContent = Default.extend({

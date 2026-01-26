@@ -40,7 +40,7 @@ const meta = preview.meta({
             table: {type: {summary: '<Breadcrumb/>'}},
             control: {disable: true}
         },
-        toolbar: {table: {disable: true}},
+        // Toolbar: { table: { disable: true } },
         toolbarLeft: {control: {disable: true}},
         toolbarRight: {control: {disable: true}}
     }

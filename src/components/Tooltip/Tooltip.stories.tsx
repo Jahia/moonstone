@@ -68,7 +68,6 @@ export const BadgeTooltip = meta.story({
 });
 
 export const PrimaryNavTooltip = meta.story({
-    args: {},
     render: () => {
         return (
             <div style={{transform: 'scale(1)', height: '100vh'}}>
