@@ -11,9 +11,8 @@ const storyListener = (args: { args: { isReversed?: boolean } }) => {
     if (typeof args.args.isReversed !== 'undefined') {
         const colorTheme = args.args.isReversed ? 'dark' : 'light';
         channel.emit(UPDATE_GLOBALS, {
-            initialGlobals: {
-                theme: colorTheme,
-                backgrounds: colorTheme === "dark" ? { name: "dark", value: "#293136" } : { name: "light", value: "#fdfdfd" }
+            globals: {
+                backgrounds: { value: colorTheme }
             }
         });
     }
