@@ -1,5 +1,6 @@
 import { definePreview } from '@storybook/react-vite';
 import addonA11y from '@storybook/addon-a11y';
+import addonDocs from '@storybook/addon-docs';
 import { GlobalStyle } from '../src';
 import { addons } from 'storybook/preview-api';
 import { UPDATE_GLOBALS, STORY_ARGS_UPDATED } from "storybook/internal/core-events";
@@ -26,7 +27,7 @@ function setupBackgroundListener() {
 setupBackgroundListener();
 
 export default definePreview({
-    addons: [addonA11y()],
+    addons: [addonDocs(), addonA11y()],
     decorators: [
         (story) => (
             <>
@@ -37,14 +38,6 @@ export default definePreview({
     ],
     parameters: {
         layout: 'fullscreen',
-        docs: {
-            extractComponentDescription: (_component: unknown, { notes }: { notes: string | { markdown?: string; text?: string } }) => {
-                if (notes) {
-                    return typeof notes === 'string' ? notes : notes.markdown || notes.text;
-                }
-                return null;
-            },
-        },
         options: {
             storySort: {
                 method: 'alphabetical'
