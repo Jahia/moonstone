@@ -42,8 +42,7 @@ const meta = preview.meta({
         notes: {markdown: markdownNotes},
         docs: {
             // Fix issues in the doc tab with firefox
-            inlineStories: false,
-            IframeHeight: 500
+            story: {inline: false, iframeHeight: '500px'}
         }
     },
     argTypes: {

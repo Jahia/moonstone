@@ -12,8 +12,7 @@ const meta = preview.meta({
     parameters: {
         notes: {markdown: markdownNotes},
         docs: {
-            inlineStories: false,
-            IframeHeight: 500
+            story: {inline: false, iframeHeight: '500px'}
         }
     },
     argTypes: {

@@ -23,7 +23,7 @@ const meta = preview.meta({
     ],
     parameters: {
         docs: {
-            IframeHeight: 800
+            story: {iframeHeight: '800px'}
         },
         notes: {markdown: markdownNotes},
         actions: {argTypesRegex: '^on.*'}
