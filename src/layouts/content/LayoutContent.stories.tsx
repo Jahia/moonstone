@@ -39,23 +39,20 @@ export const Default = meta.story({
     render: Template
 });
 
-export const Centered = meta.story({
+export const Centered = Default.extend({
     args: {
         isCentered: true
-    },
-    render: Template
+    }
 });
 
-export const WithoutPadding = meta.story({
+export const WithoutPadding = Default.extend({
     args: {
         hasPadding: false
-    },
-    render: Template
+    }
 });
 
-export const Loading = meta.story({
+export const Loading = Default.extend({
     args: {
         isLoading: true
-    },
-    render: Template
+    }
 });

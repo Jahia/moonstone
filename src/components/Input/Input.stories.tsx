@@ -46,16 +46,14 @@ export const Controlled = meta.story({
     }
 });
 
-export const InputWithIcon = meta.story({
+export const InputWithIcon = Uncontrolled.extend({
     args: {
         icon: <Love/>
-    },
-    render: (args: InputProps) => <Input {...args}/>
+    }
 });
 
-export const InputWithDefaultValue = meta.story({
+export const InputWithDefaultValue = Uncontrolled.extend({
     args: {
         defaultValue: 'Default value'
-    },
-    render: (args: InputProps) => <Input {...args}/>
+    }
 });

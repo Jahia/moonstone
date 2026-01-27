@@ -27,31 +27,19 @@ export const Default = meta.story({
     )
 });
 
-export const IconText = meta.story({
+export const IconText = Default.extend({
     name: 'Icon + Text',
     args: {
-        label: 'ListItem',
         iconStart: <Love/>
-    },
-    render: (args: ListItemProps) => (
-        <ul>
-            <ListItem {...args}/>
-        </ul>
-    )
+    }
 });
 
-export const IconTextIcon = meta.story({
+export const IconTextIcon = Default.extend({
     name: 'Icon + Text + Icon',
     args: {
-        label: 'ListItem',
         iconStart: <Love/>,
         iconEnd: <Cloud/>
-    },
-    render: (args: ListItemProps) => (
-        <ul>
-            <ListItem {...args}/>
-        </ul>
-    )
+    }
 });
 
 export const WithBigImage = meta.story({

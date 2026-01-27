@@ -27,52 +27,44 @@ export const IconButtonTooltip = meta.story({
     render: (args: TooltipProps) => <Tooltip {...args}/>
 });
 
-export const ButtonTooltip = meta.story({
+export const ButtonTooltip = IconButtonTooltip.extend({
     args: {
-        label: 'Home',
         children: <Button label="Home button" icon={<Home/>} variant="outlined"/>
-    },
-    render: (args: TooltipProps) => <Tooltip {...args}/>
+    }
 });
 
-export const DisabledButtonTooltip = meta.story({
+export const DisabledButtonTooltip = IconButtonTooltip.extend({
     args: {
         label: 'Tooltip',
         children: <Button isDisabled label="Disabled button" icon={<Home/>} variant="outlined"/>
-    },
-    render: (args: TooltipProps) => <Tooltip {...args}/>
+    }
 });
 
-export const LongTooltip = meta.story({
+export const LongTooltip = IconButtonTooltip.extend({
     args: {
-        label: 'Very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long tooltip',
-        children: <Button icon={<Home/>} variant="outlined"/>
-    },
-    render: (args: TooltipProps) => <Tooltip {...args}/>
+        label: 'Very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long tooltip'
+    }
 });
 
-export const ChipTooltip = meta.story({
+export const ChipTooltip = IconButtonTooltip.extend({
     args: {
         label: 'Tooltip',
         children: <Chip icon={<Home/>} label="Chip"/>
-    },
-    render: (args: TooltipProps) => <Tooltip {...args}/>
+    }
 });
 
-export const TextTooltip = meta.story({
+export const TextTooltip = IconButtonTooltip.extend({
     args: {
         label: 'That is a long text',
         children: <p style={{width: '400px'}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dictum velit orci, a condimentum erat eleifend vel. Nam eu urna in libero gravida consequat nec non elit. Nulla maximus vestibulum mauris, quis volutpat metus rutrum ac. In eu libero a justo vulputate viverra at quis lacus. Duis volutpat sapien ac rhoncus elementum. Quisque id mollis tellus. Nunc sit amet magna hendrerit, convallis risus vitae, condimentum ante.</p>
-    },
-    render: (args: TooltipProps) => <Tooltip {...args}/>
+    }
 });
 
-export const BadgeTooltip = meta.story({
+export const BadgeTooltip = IconButtonTooltip.extend({
     args: {
         label: 'Tooltip',
         children: <Badge label="Badge"/>
-    },
-    render: (args: TooltipProps) => <Tooltip {...args}/>
+    }
 });
 
 export const PrimaryNavTooltip = meta.story({

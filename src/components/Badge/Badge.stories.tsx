@@ -20,18 +20,14 @@ export const Accent = meta.story({
     render: (args: BadgeProps) => <Badge {...args}/>
 });
 
-export const Success = meta.story({
+export const Success = Accent.extend({
     args: {
-        label: '3',
         color: 'success'
-    },
-    render: (args: BadgeProps) => <Badge {...args}/>
+    }
 });
 
-export const Danger = meta.story({
+export const Danger = Accent.extend({
     args: {
-        label: '3',
         color: 'danger'
-    },
-    render: (args: BadgeProps) => <Badge {...args}/>
+    }
 });

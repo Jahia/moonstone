@@ -25,22 +25,16 @@ export const Default = meta.story({
     render: (args: ChipProps) => <Chip {...args}/>
 });
 
-export const TextOnly = meta.story({
+export const TextOnly = Default.extend({
     args: {
-        label: 'chip label',
-        color: 'default',
-        variant: 'default'
-    },
-    render: (args: ChipProps) => <Chip {...args}/>
+        icon: undefined
+    }
 });
 
-export const IconOnly = meta.story({
+export const IconOnly = Default.extend({
     args: {
-        icon: <Cloud/>,
-        color: 'default',
-        variant: 'default'
-    },
-    render: (args: ChipProps) => <Chip {...args}/>
+        label: undefined
+    }
 });
 
 export const StatusExample = meta.story({

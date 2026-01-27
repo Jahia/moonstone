@@ -32,30 +32,24 @@ export const TextTitle = meta.story({
     render: (args: SecondaryNavProps) => <SecondaryNav {...args}/>
 });
 
-export const WithHeaderImage = meta.story({
+export const WithHeaderImage = TextTitle.extend({
     args: {
-        header: <Love size="big"/>,
-        children: 'My content here'
-    },
-    render: (args: SecondaryNavProps) => <SecondaryNav {...args}/>
+        header: <Love size="big"/>
+    }
 });
 
-export const WithTextInHeaderComponent = meta.story({
+export const WithTextInHeaderComponent = TextTitle.extend({
     args: {
-        header: <SecondaryNavHeader>Secondary Header</SecondaryNavHeader>,
-        children: 'My content here'
-    },
-    render: (args: SecondaryNavProps) => <SecondaryNav {...args}/>
+        header: <SecondaryNavHeader>Secondary Header</SecondaryNavHeader>
+    }
 });
 
-export const WithHeaderComponent = meta.story({
+export const WithHeaderComponent = TextTitle.extend({
     args: {
         header: (
             <SecondaryNavHeader>
                 <Love size="big"/>
             </SecondaryNavHeader>
-        ),
-        children: 'My content here'
-    },
-    render: (args: SecondaryNavProps) => <SecondaryNav {...args}/>
+        )
+    }
 });

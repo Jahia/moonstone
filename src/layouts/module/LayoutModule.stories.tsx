@@ -41,23 +41,8 @@ export const Default = meta.story({
     )
 });
 
-export const Loading = meta.story({
+export const Loading = Default.extend({
     args: {
         isLoading: true
-    },
-    render: (args: LayoutModuleProps) => (
-        <div
-            style={{
-                width: '100vw',
-                height: '100vh',
-                display: 'flex'
-            }}
-        >
-            <LayoutModule
-                navigation={<FakeSecondaryNavigation/>}
-                content={<FakeContent/>}
-                {...args}
-            />
-        </div>
-    )
+    }
 });

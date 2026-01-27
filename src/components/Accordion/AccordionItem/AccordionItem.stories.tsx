@@ -39,14 +39,8 @@ export const WithIcon = meta.story({
     }
 });
 
-export const WithoutIcon = meta.story({
-    render: (args: AccordionItemProps) => (
-        <Accordion>
-            <AccordionItem {...args}/>
-        </Accordion>
-    ),
+export const WithoutIcon = WithIcon.extend({
     args: {
-        id: 'id',
-        label: 'AccordionItem'
+        icon: undefined
     }
 });

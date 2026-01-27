@@ -34,15 +34,8 @@ export const Default = meta.story({
     )
 });
 
-export const Loading = meta.story({
+export const Loading = Default.extend({
     args: {
         isLoading: true
-    },
-    render: (args: LayoutAppProps) => (
-        <LayoutApp
-            navigation={<FakePrimaryNavigation/>}
-            content={<FakeContent/>}
-            {...args}
-        />
-    )
+    }
 });
