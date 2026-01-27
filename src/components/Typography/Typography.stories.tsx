@@ -16,7 +16,7 @@ const meta = preview.meta({
 });
 
 export const Variants = meta.story({
-    render: (args: TypographyProps<'div'>) => (
+    render: () => (
         <section className="storyWrapper">
             <div className="storyItem">
                 <Typography variant="title">Title</Typography>
