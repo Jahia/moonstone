@@ -1,4 +1,4 @@
-import preview from '../../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {FieldSelector} from './index';
 import markdownNotes from './FieldSelector.md';
 import {Button, Input, Dropdown, RadioGroup, RadioItem} from '~/components';

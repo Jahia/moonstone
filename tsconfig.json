@@ -26,6 +26,9 @@
     "paths": {
       "~/*": [
         "*"
+      ],
+      "~storybook/*": [
+        "../.storybook/*"
       ]
     },
     "typeRoots": [

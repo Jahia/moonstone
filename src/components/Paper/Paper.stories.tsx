@@ -1,4 +1,4 @@
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {Paper} from './index';
 import type {PaperProps} from './Paper.types';
 

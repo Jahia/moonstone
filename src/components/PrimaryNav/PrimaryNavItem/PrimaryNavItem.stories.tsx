@@ -1,4 +1,4 @@
-import preview from '../../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {PrimaryNavItem} from './index';
 import type {PrimaryNavItemProps} from './PrimaryNavItem.types';
 import {Edit, Person, Power, Workflow} from '~/icons';

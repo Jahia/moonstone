@@ -1,4 +1,4 @@
-import preview from '../../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {PrimaryNavItemsGroup} from './index';
 import type {PrimaryNavItemsGroupProps} from './PrimaryNavItemsGroup.types';
 import {PrimaryNavItem} from '~/components/PrimaryNav/PrimaryNavItem';

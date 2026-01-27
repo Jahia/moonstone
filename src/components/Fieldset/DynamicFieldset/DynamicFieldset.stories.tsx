@@ -1,4 +1,4 @@
-import preview from '../../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {DynamicFieldset} from './index';
 import {Field, FieldSelector} from '~/components';
 import markdownNotes from './DynamicFieldset.md';

@@ -1,4 +1,4 @@
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {ButtonToggle} from './index';
 import {Apps} from '~/icons';
 import markdownNotes from './ButtonToggle.md';

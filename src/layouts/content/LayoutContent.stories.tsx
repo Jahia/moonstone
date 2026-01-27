@@ -1,5 +1,5 @@
 import React from 'react';
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {LayoutContent} from '~/layouts';
 import {Header} from '~/components';
 import {FakeContent} from '~/__storybook__/FakeComponents';

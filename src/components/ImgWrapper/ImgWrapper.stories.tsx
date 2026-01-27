@@ -1,4 +1,4 @@
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {ImgWrapper} from './index';
 import markdownNotes from './ImgWrapper.md';
 

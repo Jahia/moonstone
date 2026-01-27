@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {Modal, Button, Typography, Field, FieldSelector, Input, Chip, Dropdown} from '~/components';
 import type {ModalProps} from './Modal.types';
 import {Add, Language, MoreVert} from '~/icons';

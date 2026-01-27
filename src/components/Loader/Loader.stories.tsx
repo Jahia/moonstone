@@ -1,4 +1,4 @@
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {Loader as LoaderCmp} from './index';
 import type {LoaderProps} from './Loader.types';
 

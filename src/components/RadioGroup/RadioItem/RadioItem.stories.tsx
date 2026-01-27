@@ -1,4 +1,4 @@
-import preview from '../../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {RadioItem} from './index';
 import type {RadioItemProps} from './RadioItem.types';
 import {RadioGroup} from '../index';

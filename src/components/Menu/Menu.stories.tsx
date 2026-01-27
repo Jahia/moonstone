@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {Menu, MenuItem} from './index';
 import type {AnchorPosition, MenuProps} from './Menu.types';
 import markdownNotes from './Menu.md';

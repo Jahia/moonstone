@@ -1,4 +1,4 @@
-import preview from '../../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {FieldBoolean} from './index';
 import markdownNotes from './FieldBoolean.md';
 import {Button, Chip} from '~/components';

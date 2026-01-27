@@ -1,5 +1,5 @@
 import React from 'react';
-import preview from '../../../../.storybook/preview';
+import preview from '~storybook/preview';
 import '~/__storybook__/storybook.scss';
 import {NumberInput} from './index';
 import {useArgs} from 'storybook/preview-api';

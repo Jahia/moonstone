@@ -1,4 +1,4 @@
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {Typography} from './index';
 import type {TypographyProps} from './Typography.types';
 

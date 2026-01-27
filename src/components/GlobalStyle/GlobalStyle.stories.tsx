@@ -1,5 +1,5 @@
 import React from 'react';
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import markdownNotes from './GlobalStyle_layout.md';
 import clsx from 'clsx';
 

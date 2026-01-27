@@ -1,4 +1,4 @@
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {CardSelector} from './index';
 import {Button, Chip} from '~/index';
 import {Close, FileImage, Lock, Love} from '~/icons';

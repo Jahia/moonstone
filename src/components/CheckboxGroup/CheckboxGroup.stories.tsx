@@ -1,4 +1,4 @@
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {CheckboxGroup} from './index';
 import {CheckboxItem} from './CheckboxItem';
 

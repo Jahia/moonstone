@@ -1,4 +1,4 @@
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {SvgWrapper} from './index';
 import type {SvgWrapperProps} from './SvgWrapper.types';
 import markdownNotes from './SvgWrapper.md';

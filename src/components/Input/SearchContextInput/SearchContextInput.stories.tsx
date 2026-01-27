@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import preview from '../../../../.storybook/preview';
+import preview from '~storybook/preview';
 import '~/__storybook__/storybook.scss';
 import {SearchContextInput} from './index';
 import {Person, SiteWeb, Collections} from '~/icons';

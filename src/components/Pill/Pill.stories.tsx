@@ -1,4 +1,4 @@
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import markdownNotes from './Pill.md';
 import {Pill} from './index';
 import type {PillProps} from './Pill.types';

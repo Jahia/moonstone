@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {Switch} from './index';
 import type {SwitchProps} from './Switch.types';
 

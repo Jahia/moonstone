@@ -1,4 +1,4 @@
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import markdownNotes from './ButtonGroup.md';
 import {ButtonGroup} from './index';
 import {Button} from '~/components/Button';

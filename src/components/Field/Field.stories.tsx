@@ -1,4 +1,4 @@
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {Field} from './index';
 import type {FieldProps} from './Field.types';
 import markdownNotes from './Field.md';

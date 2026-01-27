@@ -1,4 +1,4 @@
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {Header} from './index';
 import type {HeaderProps} from './Header.types';
 import {

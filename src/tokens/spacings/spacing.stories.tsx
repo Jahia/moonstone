@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import './spacings.stories.scss';
 import '~/__storybook__/storybook.scss';
 

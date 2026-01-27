@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {Checkbox} from '~/components';
 import type {CheckboxProps} from './Checkbox.types';
 

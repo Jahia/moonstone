@@ -9,7 +9,8 @@ export default defineConfig({
     plugins: [react(), libInjectCss(), sbom({specVersion: '1.4'})],
     resolve: {
         alias: {
-            '~': path.resolve('./src')
+            '~': path.resolve('./src'),
+            '~storybook': path.resolve('./.storybook')
         }
     },
     build: {

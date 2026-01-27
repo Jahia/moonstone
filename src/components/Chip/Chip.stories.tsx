@@ -1,4 +1,4 @@
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import '~/__storybook__/storybook.scss';
 import {Chip} from './index';
 import type {ChipProps} from './Chip.types';

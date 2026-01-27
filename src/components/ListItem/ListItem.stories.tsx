@@ -1,4 +1,4 @@
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import markdownNotes from './ListItem.md';
 import {ListItem} from './index';
 import {Love, Cloud} from '~/icons';

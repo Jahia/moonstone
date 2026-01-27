@@ -1,4 +1,4 @@
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {Thumbnail} from './Thumbnail';
 import type {ThumbnailProps} from './Thumbnail.types';
 import {Love} from '../../icons/components';

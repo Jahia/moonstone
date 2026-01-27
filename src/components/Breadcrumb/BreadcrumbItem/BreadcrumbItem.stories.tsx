@@ -1,4 +1,4 @@
-import preview from '../../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {Breadcrumb, BreadcrumbItem} from '~/components';
 import {Love} from '~/icons';
 import type {BreadcrumbItemProps} from './BreadcrumbItem.types';

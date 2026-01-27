@@ -1,4 +1,4 @@
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import '~/__storybook__/storybook.scss';
 import {Button} from './index';
 import {Love, OpenInNew} from '~/icons';

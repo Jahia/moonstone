@@ -1,4 +1,4 @@
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {Fieldset} from './index';
 import type {FieldsetProps} from './Fieldset.types';
 import {Field, FieldBoolean, FieldSelector} from '~/components';

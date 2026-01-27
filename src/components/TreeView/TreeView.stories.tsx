@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import type {StoryContext} from '@storybook/react';
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {TreeView} from './index';
 import type {TreeViewProps, TreeViewData} from './TreeView.types';
 import {treeData, treeDataFlat, treeDataRootClosable} from '~/data';

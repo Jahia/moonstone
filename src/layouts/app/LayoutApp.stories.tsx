@@ -1,4 +1,4 @@
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {LayoutApp} from './index';
 import type {LayoutAppProps} from './LayoutApp.types';
 import {

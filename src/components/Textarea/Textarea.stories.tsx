@@ -1,5 +1,5 @@
 import React from 'react';
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {Textarea} from './index';
 import type {TextareaProps} from './Textarea.types';
 import {useArgs} from 'storybook/preview-api';

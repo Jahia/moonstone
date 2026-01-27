@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {action} from 'storybook/actions';
-import preview from '../../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {CustomDropdown} from './CustomDropdown';
 import type {CustomDropdownProps} from './CustomDropdown.types';
 import {Button, Fieldset, CardSelector, Chip, Dropdown, EmptyCardSelector, Field, FieldBoolean, FieldSelector, Input, MenuItem, RadioGroup, RadioItem, Separator, Textarea, Typography} from '~/components';

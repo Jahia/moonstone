@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {Accordion} from './index';
 import {AccordionItem} from '~/components/Accordion/AccordionItem';
 import markdownNotes from './Accordion.md';

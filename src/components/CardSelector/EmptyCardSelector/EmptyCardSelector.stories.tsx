@@ -1,4 +1,4 @@
-import preview from '../../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {EmptyCardSelector} from './index';
 import markdownNotes from './EmptyCardSelector.md';
 import {File} from '~/icons';

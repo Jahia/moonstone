@@ -1,4 +1,4 @@
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import markdownNotes from './PrimaryNav.md';
 import {PrimaryNav} from './index';
 import type {PrimaryNavProps} from './PrimaryNav.types';

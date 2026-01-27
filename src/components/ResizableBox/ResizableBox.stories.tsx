@@ -1,5 +1,5 @@
 import {action} from 'storybook/actions';
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import markdownNotes from './ResizableBox.md';
 import {ResizableBox} from './index';
 import type {ResizableBoxProps} from './ResizableBox.types';

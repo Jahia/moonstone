@@ -1,4 +1,4 @@
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {IconTextIcon} from './index';
 import {Apps, Love} from '~/icons';
 

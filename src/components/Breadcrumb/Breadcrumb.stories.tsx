@@ -1,4 +1,4 @@
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {Breadcrumb, BreadcrumbItem} from '~/components';
 import markdownNotes from './Breadcrumb.md';
 import type {BreadcrumbProps} from './Breadcrumb.types';

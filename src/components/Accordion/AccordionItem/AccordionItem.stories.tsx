@@ -1,4 +1,4 @@
-import preview from '../../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {Accordion} from '~/components/Accordion';
 import {AccordionItem} from './index';
 import markdownNotes from './AccordionItem.md';

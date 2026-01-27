@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {Collapsible} from './index';
 import type {CollapsibleProps} from './Collapsible.types';
 

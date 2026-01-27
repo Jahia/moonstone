@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {RadioGroup} from './index';
 import {RadioItem} from './RadioItem';
 import type {RadioGroupProps} from './RadioGroup.types';

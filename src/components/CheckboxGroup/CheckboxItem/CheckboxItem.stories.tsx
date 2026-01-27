@@ -1,5 +1,5 @@
 import {useArgs} from 'storybook/preview-api';
-import preview from '../../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {CheckboxItem} from './CheckboxItem';
 import type {CheckboxItemProps} from './CheckboxItem.types';
 

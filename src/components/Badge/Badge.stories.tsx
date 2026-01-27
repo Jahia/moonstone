@@ -1,4 +1,4 @@
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {Badge} from './index';
 import type {BadgeProps} from './Badge.types';
 import markdownNotes from './Badge.md';

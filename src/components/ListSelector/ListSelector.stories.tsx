@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import '~/__storybook__/storybook.scss';
 import {ListSelector} from './index';
 import {listSelectorData} from '~/data/listSelectorData';

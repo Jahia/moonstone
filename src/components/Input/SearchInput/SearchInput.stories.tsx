@@ -1,4 +1,4 @@
-import preview from '../../../../.storybook/preview';
+import preview from '~storybook/preview';
 import '~/__storybook__/storybook.scss';
 import {SearchInput} from './index';
 import type {SearchInputProps} from './SearchInput.types';

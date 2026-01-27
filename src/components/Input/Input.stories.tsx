@@ -1,5 +1,5 @@
 import React from 'react';
-import preview from '../../../.storybook/preview';
+import preview from '~storybook/preview';
 import {Input} from './index';
 import {Love} from '~/icons';
 import {useArgs} from 'storybook/preview-api';
