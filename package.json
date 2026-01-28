@@ -65,7 +65,7 @@
     "tsc": "tsc --build tsconfig.json && cp ./dist/index.d.ts ./dist/index.d.cts"
   },
   "dependencies": {
-    "@floating-ui/react": "^0.27.16",
+    "@floating-ui/react": "^0.27.17",
     "clsx": "^2.1.1",
     "re-resizable": "^6.11.2",
     "to-px": "^1.1.0"
