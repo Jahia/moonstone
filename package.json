@@ -66,6 +66,7 @@
   },
   "dependencies": {
     "@floating-ui/react": "^0.27.16",
+    "@tanstack/react-table": "^8.21.3",
     "clsx": "^2.1.1",
     "re-resizable": "^6.11.2",
     "to-px": "^1.1.0"

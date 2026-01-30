@@ -1,0 +1,17 @@
+.moonstone-pagination {
+    gap: var(--spacing-medium);
+    height: 64px;
+    padding: 0 var(--spacing-medium);
+}
+
+.moonstone-pagination_navigation {
+    gap: var(--spacing-small);
+}
+
+.moonstone-pagination_info {
+    gap: var(--spacing-medium);
+}
+
+.moonstone-pagination_itemsPerPage {
+    gap: var(--spacing-nano);
+}

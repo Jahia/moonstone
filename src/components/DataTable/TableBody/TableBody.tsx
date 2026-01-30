@@ -1,0 +1,28 @@
+import React from 'react';
+import clsx from 'clsx';
+
+import './TableBody.scss';
+import type {TableBodyProps} from './TableBody.types';
+
+export const TableBody: React.FC<TableBodyProps> = ({
+    component = 'tbody',
+    className,
+    children,
+    ...props
+}) => {
+    if (!children) {
+        return null;
+    }
+
+    return React.createElement(
+        component,
+        {
+            className: clsx('moonstone-tableBody', className),
+            ...props
+        },
+        children
+    );
+};
+
+TableBody.displayName = 'TableBody';
+

@@ -1,3 +1,4 @@
+export {DataTable} from './DataTable';
 export * from './Accordion';
 export * from './Accordion/AccordionItem';
 export * from './Badge';
@@ -29,6 +30,7 @@ export * from './Loader';
 export * from './Menu';
 export * from './Modal';
 export * from './Paper';
+export * from './Pagination';
 export * from './Pill';
 export * from './PrimaryNav';
 export * from './PrimaryNav/PrimaryNavItem';
