@@ -4,7 +4,7 @@
 	"specVersion": "1.4",
 	"version": 1,
 	"metadata": {
-		"timestamp": "2026-01-30T16:45:17.173Z",
+		"timestamp": "2026-01-30T16:47:50.800Z",
 		"tools": [
 			{
 				"name": "rollup-plugin-sbom",
@@ -74,8 +74,8 @@
 			"type": "application",
 			"name": "moonstone",
 			"group": "@jahia",
-			"version": "2.17.4",
-			"bom-ref": "pkg:npm/%40jahia/moonstone@2.17.4?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FJahia%2Fmoonstone.git",
+			"version": "2.17.5",
+			"bom-ref": "pkg:npm/%40jahia/moonstone@2.17.5?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FJahia%2Fmoonstone.git",
 			"licenses": [
 				{
 					"license": {
@@ -83,7 +83,7 @@
 					}
 				}
 			],
-			"purl": "pkg:npm/%40jahia/moonstone@2.17.4?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FJahia%2Fmoonstone.git",
+			"purl": "pkg:npm/%40jahia/moonstone@2.17.5?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FJahia%2Fmoonstone.git",
 			"externalReferences": [
 				{
 					"url": "git+https://github.com/Jahia/moonstone.git",
@@ -997,7 +997,7 @@
 	],
 	"dependencies": [
 		{
-			"ref": "pkg:npm/%40jahia/moonstone@2.17.4?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FJahia%2Fmoonstone.git",
+			"ref": "pkg:npm/%40jahia/moonstone@2.17.5?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FJahia%2Fmoonstone.git",
 			"dependsOn": [
 				"pkg:npm/clsx@2.1.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Flukeed%2Fclsx.git",
 				"pkg:npm/to-px@1.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmikolalysenko%2Fto-px.git",
