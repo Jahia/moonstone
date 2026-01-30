@@ -3,4 +3,4 @@
 "@jahia/moonstone": patch
 ---
 
-Fix the spacing on CardSelector (#1268)
+Reduce the spacing after the thumbnail on CardSelector (#1268)
