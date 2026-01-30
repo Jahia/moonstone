@@ -4,7 +4,7 @@
 	"specVersion": "1.4",
 	"version": 1,
 	"metadata": {
-		"timestamp": "2026-01-30T11:52:46.509Z",
+		"timestamp": "2026-01-30T16:21:17.551Z",
 		"tools": [
 			{
 				"name": "rollup-plugin-sbom",
