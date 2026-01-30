@@ -3,6 +3,7 @@
 $cardSelector-height: 58px;
 
 .moonstone-cardSelector {
+    gap: var(--spacing-small);
     width: 100%;
     height: $cardSelector-height;
     padding: var(--spacing-nano);
@@ -60,14 +61,6 @@ $cardSelector-height: 58px;
 .moonstone-cardSelector_systemName,
 .moonstone-cardSelector_information {
     color: var(--color-dark_plain60);
-}
-
-.moonstone-cardSelector_thumbnail {
-    margin-right: var(--spacing-small);
-}
-
-.moonstone-cardSelector_actions {
-    margin-left: auto;
 }
 
 .moonstone-cardSelector_error {

@@ -1,8 +1,9 @@
 {
   "name": "@jahia/moonstone",
-  "version": "2.17.3",
+  "version": "2.17.5",
   "repository": {
-    "url": "https://github.com/Jahia/moonstone.git"
+    "type": "git",
+    "url": "git+https://github.com/Jahia/moonstone.git"
   },
   "license": "MIT",
   "sideEffects": false,
@@ -58,7 +59,6 @@
     "lint:js:fix": "yarn lint:js --fix .",
     "lint:scss": "stylelint ./src/**/*.scss",
     "lint:scss:fix": "yarn lint:scss --fix",
-    "release": "auto shipit",
     "start": "storybook dev -p 6006",
     "tdd": "vitest watch",
     "test": "vitest run --coverage",
@@ -72,6 +72,7 @@
     "to-px": "^1.1.0"
   },
   "devDependencies": {
+    "@chachalog/types": "^0.4.4",
     "@jahia/eslint-config": "^2.2.0",
     "@jahia/stylelint-config": "^0.0.4",
     "@storybook/addon-a11y": "^10.1.11",
@@ -88,7 +89,6 @@
     "@typescript-eslint/parser": "^8.51.0",
     "@vitejs/plugin-react": "^5.1.2",
     "@vitest/coverage-v8": "4.0.16",
-    "auto": "^11.3.6",
     "eslint": "^8.57.1",
     "eslint-plugin-jest": "^28.14.0",
     "eslint-plugin-json": "^4.0.1",
@@ -116,7 +116,7 @@
     "react-dom": "^18.3.1",
     "react-table": "^7.8.0"
   },
-  "packageManager": "yarn@4.6.0",
+  "packageManager": "yarn@4.12.0",
   "publishConfig": {
     "access": "public"
   }
