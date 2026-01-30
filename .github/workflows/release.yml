@@ -36,3 +36,22 @@ jobs:
       - run: npx chachalog@^0.4.4 publish-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy-storybook:
+    runs-on: ubuntu-latest
+    needs: publish-release
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Check latest release tag
+        run: git checkout $(git for-each-ref --sort=-creatordate --format='%(refname:strip=2)' 'refs/tags/@jahia/moonstone@*' | head -1)
+      - name: Build the storybook
+        run: |
+          corepack enable && yarn install --immutable
+          yarn build:storybook
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          deploy_key: ${{ secrets.DEPLOY_STORYBOOK }}
+          publish_dir: "storybook-static"
+          commit_message: "Automated deployment - ${{ github.event.head_commit.message }} - [skip ci]"
