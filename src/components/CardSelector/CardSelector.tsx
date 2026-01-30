@@ -81,7 +81,6 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
             {...props}
         >
             <Thumbnail
-                className="moonstone-cardSelector_thumbnail"
                 variant={thumbnailType}
                 src={thumbnail}
                 alt={thumbnailAlt}
