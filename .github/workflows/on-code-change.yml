@@ -1,34 +1,14 @@
 name: On Code Change
 
-on:
-  pull_request:
-    types: [opened, reopened, synchronize]
+on: [push]
 
 jobs:
-  lint-tests:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Install dependencies
-        shell: bash
-        run: yarn install --immutable
-      - name: Run linting
-        shell: bash
-        run: yarn lint
-      - name: Run tests
-        shell: bash
-        run: yarn test
-    
-  build:
-    runs-on: ubuntu-latest
-    needs: lint-tests
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install dependencies
-        shell: bash
-        run: yarn install --immutable
-      - name: Run Build
-        shell: bash
-        run: yarn build
-
-        
+        run: yarn
+      - run: yarn build
+      - run: yarn test
+      - run: yarn lint

@@ -1,0 +1,17 @@
+name: Comment PR
+
+on:
+  pull_request_target:
+    branches:
+      - main
+
+jobs:
+  comment-pr:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v6
+      - run: npx chachalog@^0.4.4 comment-pr
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
