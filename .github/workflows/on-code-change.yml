@@ -1,6 +1,6 @@
 name: On Code Change
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build-and-test:
@@ -10,5 +10,7 @@ jobs:
       - name: Install dependencies
         run: yarn
       - run: yarn build
+      - name: Publish to pkg.pr.new
+        run: npx pkg-pr-new publish --compact
       - run: yarn test
       - run: yarn lint
