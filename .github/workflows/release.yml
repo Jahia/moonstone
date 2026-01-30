@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: null
+
+jobs:
+  prepare-next-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v6
+      - run: npx chachalog@^0.4.4 prepare-next-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  publish-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+      - name: Build and publish
+        run: >
+          corepack enable && yarn install
+
+          yarn workspaces foreach -vv --all --topological-dev run build
+
+          yarn workspaces foreach -vv --all --topological --no-private npm publish --access public
+          --tolerate-republish --provenance
+      - run: npx chachalog@^0.4.4 publish-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

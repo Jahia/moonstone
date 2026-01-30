@@ -9,18 +9,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v6
 
-    - name: Install
-      run: yarn install --immutable
+      - name: Install
+        run: yarn install --immutable
 
-    - name: Build
-      run: yarn build:storybook
+      - name: Build
+        run: yarn build:storybook
 
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v4
-      with:
-        deploy_key: ${{ secrets.DEPLOY_STORYBOOK }}
-        publish_dir: 'storybook-static'
-        commit_message: 'Automated deployment - ${{ github.event.head_commit.message }} - [skip ci]' 
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          deploy_key: ${{ secrets.DEPLOY_STORYBOOK }}
+          publish_dir: "storybook-static"
+          commit_message: "Automated deployment - ${{ github.event.head_commit.message }} - [skip ci]"
