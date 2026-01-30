@@ -1,86 +1,74 @@
-import {StoryObj, Meta} from '@storybook/react-vite';
-
+import preview from '~storybook/preview';
 import {CardSelector} from './index';
 import {Button, Chip} from '~/index';
 import {Close, FileImage, Lock, Love} from '~/icons';
 import type {CardSelectorProps} from './CardSelector.types';
 
-const meta: Meta<typeof CardSelector> = {
+const meta = preview.meta({
     title: 'Components/CardSelector',
     component: CardSelector,
     tags: ['new'],
-
     parameters: {
         layout: 'padded',
         actions: {argTypesRegex: '^on.*'}
     }
-};
-export default meta;
+});
 
-type Story = StoryObj<typeof CardSelector>;
-const Template = (args: CardSelectorProps) => {
-    return <div style={{maxWidth: '100vw'}}><CardSelector {...args}/></div>;
-};
-
-export const Default: Story = {
+export const Default = meta.story({
     args: {
         id: 'cardSelector',
         displayName: 'Item name',
         systemName: 'system name'
     },
-    render: Template
-};
+    render: (args: CardSelectorProps) => (
+        <div style={{maxWidth: '100vw'}}>
+            <CardSelector {...args}/>
+        </div>
+    )
+});
 
-export const Image: Story = {
+export const Image = Default.extend({
     args: {
-        ...Default.args,
         thumbnail: 'https://picsum.photos/100/300',
         thumbnailAlt: 'preview-img',
         thumbnailType: 'preview',
         information: 'more information',
-        chips: [<Chip key="chip" label="image" icon={<FileImage/>} color="accent"/>, <Chip key="chip2" label="marked for deletion" icon={<Lock/>} color="danger"/>]
-    },
-    render: Template
-};
+        chips: [
+            <Chip key="chip" label="image" icon={<FileImage/>} color="accent"/>,
+            <Chip key="chip2" label="marked for deletion" icon={<Lock/>} color="danger"/>
+        ]
+    }
+});
 
-export const Icon: Story = {
+export const Icon = Image.extend({
     args: {
-        ...Image.args,
         thumbnail: 'http://www.google.com/s2/favicons?domain=www.jahia.com',
         thumbnailType: 'icon'
-    },
-    render: Template
-};
+    }
+});
 
-export const IconComponent: Story = {
+export const IconComponent = Image.extend({
     args: {
-        ...Image.args,
         thumbnail: <Love id="test" className="test"/>,
         thumbnailType: 'icon'
-    },
-    render: Template
-};
+    }
+});
 
-export const Actions: Story = {
+export const Actions = Image.extend({
     args: {
-        ...Image.args,
         cardAction: <Button key="btn" variant="ghost" icon={<Close/>}/>
-    },
-    render: Template
-};
+    }
+});
 
-export const NoChips: Story = {
+export const NoChips = Image.extend({
     args: {
-        ...Image.args,
         chips: null
-    },
-    render: Template
-};
+    }
+});
 
-export const Error: Story = {
+export const Error = Default.extend({
     args: {
         hasError: true,
         errorMessage: 'Broken reference'
-    },
-    render: Template
-};
+    }
+});

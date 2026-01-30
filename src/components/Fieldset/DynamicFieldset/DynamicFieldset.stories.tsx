@@ -1,17 +1,16 @@
-import {StoryObj, Meta} from '@storybook/react-vite';
-
+import preview from '~storybook/preview';
 import {DynamicFieldset} from './index';
 import {Field, FieldSelector} from '~/components';
 import markdownNotes from './DynamicFieldset.md';
 import {Button, Chip, Input} from '~/components';
 import {Add, Language, MoreVert} from '~/icons';
 import {useArgs} from 'storybook/preview-api';
+import type {DynamicFieldsetProps} from './DynamicFieldset.types';
 
-const meta: Meta<typeof DynamicFieldset> = {
+const meta = preview.meta({
     title: 'Components/Fieldset/DynamicFieldset',
     component: DynamicFieldset,
     tags: ['beta'],
-
     parameters: {
         layout: 'padded',
         actions: {argTypesRegex: '^on.*'},
@@ -25,29 +24,22 @@ const meta: Meta<typeof DynamicFieldset> = {
         children: <Field id="field" label="Field" chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>} buttons={<><Button icon={<Add/>} label="Add"/><Button icon={<MoreVert/>} variant="ghost"/></>} helper="information"><FieldSelector selector={<Input size="big" placeholder="Input value"/>}/></Field>
     },
     argTypes: {
-        buttons: {
-            control: false
-        },
-        children: {
-            control: false
-        }
+        buttons: {control: false},
+        children: {table: {disable: true}}
     }
-};
-export default meta;
+});
 
-type Story = StoryObj<typeof DynamicFieldset>;
+export const Uncontrolled = meta.story({});
 
-export const Uncontrolled: Story = {};
-
-export const Controlled: Story = {
-    render: args => {
+export const Controlled = meta.story({
+    render: (args: DynamicFieldsetProps) => {
         const [, setArgs] = useArgs();
 
-        const onChange = (e : React.ChangeEvent<HTMLInputElement>) => {
-            args.onChange(e);
+        const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+            args.onChange?.(e);
             setArgs({value: e.target.value});
         };
 
         return <DynamicFieldset {...args} onChange={onChange}/>;
     }
-};
+});

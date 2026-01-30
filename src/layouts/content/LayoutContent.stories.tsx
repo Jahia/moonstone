@@ -1,15 +1,18 @@
-import {Meta, StoryObj} from '@storybook/react-vite';
+import React from 'react';
+import preview from '~storybook/preview';
 import {LayoutContent} from '~/layouts';
 import {Header} from '~/components';
 import {FakeContent} from '~/__storybook__/FakeComponents';
 import type {LayoutContentProps} from './LayoutContent.types';
 
-export default {
+type LayoutContentStoryArgs = Partial<LayoutContentProps>;
+
+const meta = preview.meta({
     title: 'Layouts/LayoutContent',
-    component: LayoutContent,
+    component: LayoutContent as React.FC<LayoutContentStoryArgs>,
     decorators: [
         StoryCmp => (
-            <div style={{width: '1OOvw', height: '100vh', display: 'flex'}}>
+            <div style={{width: '100vw', height: '100vh', display: 'flex'}}>
                 <StoryCmp/>
             </div>
         )
@@ -22,42 +25,34 @@ export default {
             control: false
         }
     }
-} as Meta<typeof LayoutContent>;
+});
 
-type Story = StoryObj<typeof LayoutContent>;
-
-const Template = (args: LayoutContentProps) => (
+const Template = (args: LayoutContentStoryArgs) => (
     <LayoutContent
-    header={<Header title="Header"/>}
-    content={<FakeContent/>}
-    {...args}
-  />
+        header={<Header title="Header"/>}
+        content={<FakeContent/>}
+        {...args as LayoutContentProps}
+    />
 );
 
-export const Default: Story = {
+export const Default = meta.story({
     render: Template
-};
+});
 
-export const Centered: Story = {
-    render: Template,
-
+export const Centered = Default.extend({
     args: {
         isCentered: true
     }
-};
+});
 
-export const WithoutPadding: Story = {
-    render: Template,
-
+export const WithoutPadding = Default.extend({
     args: {
         hasPadding: false
     }
-};
+});
 
-export const Loading: Story = {
-    render: Template,
-
+export const Loading = Default.extend({
     args: {
         isLoading: true
     }
-};
+});

@@ -1,4 +1,4 @@
-import {Meta, StoryObj} from '@storybook/react-vite';
+import preview from '~storybook/preview';
 import {LayoutModule} from './index';
 import {
     FakeSecondaryNavigation,
@@ -7,7 +7,7 @@ import {
 import markdownNotes from './LayoutModule.md';
 import type {LayoutModuleProps} from './LayoutModule.types';
 
-export default {
+const meta = preview.meta({
     title: 'Layouts/LayoutModule',
     component: LayoutModule,
     parameters: {
@@ -21,34 +21,28 @@ export default {
             control: false
         }
     }
-} as Meta<typeof LayoutModule>;
+});
 
-type Story = StoryObj<typeof LayoutModule>
+export const Default = meta.story({
+    render: (args: LayoutModuleProps) => (
+        <div
+            style={{
+                width: '100vw',
+                height: '100vh',
+                display: 'flex'
+            }}
+        >
+            <LayoutModule
+                navigation={<FakeSecondaryNavigation/>}
+                content={<FakeContent/>}
+                {...args}
+            />
+        </div>
+    )
+});
 
-const Template = (args: LayoutModuleProps) => (
-    <div
-    style={{
-      width: '100vw',
-      height: '100vh',
-      display: 'flex'
-    }}
-    >
-        <LayoutModule
-      navigation={<FakeSecondaryNavigation/>}
-      content={<FakeContent/>}
-      {...args}
-    />
-    </div>
-);
-
-export const Default: Story = {
-    render: Template
-};
-
-export const Loading: Story = {
-    render: Template,
-
+export const Loading = Default.extend({
     args: {
         isLoading: true
     }
-};
+});

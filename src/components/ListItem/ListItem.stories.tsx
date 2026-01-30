@@ -1,107 +1,89 @@
-import {StoryObj} from '@storybook/react-vite';
+import preview from '~storybook/preview';
 import markdownNotes from './ListItem.md';
-
 import {ListItem} from './index';
-import type {ListItemProps} from './ListItem.types';
 import {Love, Cloud} from '~/icons';
+import type {ListItemProps} from './ListItem.types';
 
-export default {
+const meta = preview.meta({
     title: 'Components/ListItem',
     component: ListItem,
-
     parameters: {
         layout: 'centered',
         notes: {markdown: markdownNotes}
+    },
+    argTypes: {
+        children: {table: {disable: true}}
     }
-};
+});
 
-export const Default: StoryObj<ListItemProps> = {
-    render: args => (
-        <ul>
-            <ListItem {...args}/>
-        </ul>
-    ),
-
+export const Default = meta.story({
     args: {
         label: 'ListItem label'
-    }
-};
-
-export const IconText: StoryObj<ListItemProps> = {
-    render: args => (
+    },
+    render: (args: ListItemProps) => (
         <ul>
             <ListItem {...args}/>
         </ul>
-    ),
+    )
+});
 
+export const IconText = Default.extend({
     name: 'Icon + Text',
-
     args: {
-        label: 'ListItem',
         iconStart: <Love/>
     }
-};
+});
 
-export const IconTextIcon: StoryObj<ListItemProps> = {
-    render: args => (
-        <ul>
-            <ListItem {...args}/>
-        </ul>
-    ),
-
+export const IconTextIcon = Default.extend({
     name: 'Icon + Text + Icon',
-
     args: {
-        label: 'ListItem',
         iconStart: <Love/>,
         iconEnd: <Cloud/>
     }
-};
+});
 
-export const WithBigImage: StoryObj<ListItemProps> = {
-    render: args => (
-        <ul>
-            <ListItem
-        image={<img src="https://via.placeholder.com/500?text=ListItemImage" alt="big image"/>}
-        {...args}
-      />
-            <ListItem
-        image={<img src="https://via.placeholder.com/200x500?text=ListItemImage" alt="big image"/>}
-        {...args}
-      />
-            <ListItem
-        image={<img src="https://via.placeholder.com/500x200?text=ListItemImage" alt="big image"/>}
-        {...args}
-      />
-        </ul>
-    ),
-
+export const WithBigImage = meta.story({
     args: {
         label: 'ListItem label',
         imageSize: 'big'
-    }
-};
-
-export const WithSmallImage: StoryObj<ListItemProps> = {
-    render: args => (
+    },
+    render: (args: ListItemProps) => (
         <ul>
             <ListItem
-        image={<img src="https://via.placeholder.com/500?text=ListItemImage" alt="small image"/>}
-        {...args}
-      />
+                image={<img src="https://via.placeholder.com/500?text=ListItemImage" alt="big image"/>}
+                {...args}
+            />
             <ListItem
-        image={<img src="https://via.placeholder.com/200x500?text=ListItemImage" alt="small image"/>}
-        {...args}
-      />
+                image={<img src="https://via.placeholder.com/200x500?text=ListItemImage" alt="big image"/>}
+                {...args}
+            />
             <ListItem
-        image={<img src="https://via.placeholder.com/500x200?text=ListItemImage" alt="small image"/>}
-        {...args}
-      />
+                image={<img src="https://via.placeholder.com/500x200?text=ListItemImage" alt="big image"/>}
+                {...args}
+            />
         </ul>
-    ),
+    )
+});
 
+export const WithSmallImage = meta.story({
     args: {
         label: 'ListItem label',
         imageSize: 'small'
-    }
-};
+    },
+    render: (args: ListItemProps) => (
+        <ul>
+            <ListItem
+                image={<img src="https://via.placeholder.com/500?text=ListItemImage" alt="small image"/>}
+                {...args}
+            />
+            <ListItem
+                image={<img src="https://via.placeholder.com/200x500?text=ListItemImage" alt="small image"/>}
+                {...args}
+            />
+            <ListItem
+                image={<img src="https://via.placeholder.com/500x200?text=ListItemImage" alt="small image"/>}
+                {...args}
+            />
+        </ul>
+    )
+});

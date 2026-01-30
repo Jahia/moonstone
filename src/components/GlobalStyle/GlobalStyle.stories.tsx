@@ -1,4 +1,5 @@
 import React from 'react';
+import preview from '~storybook/preview';
 import markdownNotes from './GlobalStyle_layout.md';
 import clsx from 'clsx';
 
@@ -11,10 +12,10 @@ type AlignOption = typeof alignOptions[number];
 type Direction = 'row' | 'col';
 
 type ItemContainerProps = {
-    readonly title?: string,
-    readonly justify?: JustifyOption,
-    readonly align?: AlignOption,
-    readonly direction?: Direction
+    readonly title?: string;
+    readonly justify?: JustifyOption;
+    readonly align?: AlignOption;
+    readonly direction?: Direction;
 };
 
 const cssWrap = {
@@ -22,8 +23,7 @@ const cssWrap = {
     height: '300px'
 };
 
-// Define an item container to provide flex context and play with positioning
-const ItemContainer : React.FC<ItemContainerProps> = ({title, direction, justify, align}) => {
+const ItemContainer: React.FC<ItemContainerProps> = ({title, direction, justify, align}) => {
     const cssDirection = direction === 'row' ? 'flexRow' : 'flexCol';
     const cssJustify = justify ? `${cssDirection}_${justify}` : cssDirection;
     const cssAlign = align ?
@@ -36,15 +36,15 @@ const ItemContainer : React.FC<ItemContainerProps> = ({title, direction, justify
             <h2 className="flexRow alignCenter" style={{marginBottom: '24px'}}>
                 {title}:
                 <code
-          style={{
-            fontFamily: 'monospace',
-            fontSize: '12px',
-            padding: '4px',
-            marginLeft: '8px',
-            background: '#eee',
-            borderRadius: '4px',
-            color: '#444'
-          }}
+                    style={{
+                        fontFamily: 'monospace',
+                        fontSize: '12px',
+                        padding: '4px',
+                        marginLeft: '8px',
+                        background: '#eee',
+                        borderRadius: '4px',
+                        color: '#444'
+                    }}
                 >
                     {css}
                 </code>
@@ -67,17 +67,16 @@ const ItemContainer : React.FC<ItemContainerProps> = ({title, direction, justify
     );
 };
 
-// Just an item to positioning
 const Item = () => {
     return (
         <div
-      style={{
-        width: '80px',
-        height: '80px',
-        backgroundColor: '#ccc',
-        border: '1px solid #000'
-      }}
-    />
+            style={{
+                width: '80px',
+                height: '80px',
+                backgroundColor: '#ccc',
+                border: '1px solid #000'
+            }}
+        />
     );
 };
 
@@ -94,33 +93,39 @@ function displayItems(direction: Direction, type: 'justify' | 'align') {
     for (const option of arrayOptions) {
         display.push(
             <ItemContainer
-        title={`${type} ${clsx(option)}`}
-        direction={direction}
-        justify={type === 'justify' ? option : 'center'}
-        align={type === 'align' ? option : 'center'}
-      />
+                key={String(option)}
+                title={`${type} ${clsx(option)}`}
+                direction={direction}
+                justify={type === 'justify' ? option : 'center'}
+                align={type === 'align' ? option : 'center'}
+            />
         );
     }
 
     return display;
 }
 
-export default {
+const meta = preview.meta({
     title: 'Utilities/Layout',
-
     parameters: {
         componentSubtitle: 'Layout',
         notes: {markdown: markdownNotes}
     }
-};
+});
 
-export const Direction = () => (
-    <>
-        <ItemContainer title="Horizontal flow" direction="row"/>
-        <ItemContainer title="Vertical flow" direction="col"/>
-    </>
-);
+export const Direction = meta.story({
+    render: () => (
+        <>
+            <ItemContainer title="Horizontal flow" direction="row"/>
+            <ItemContainer title="Vertical flow" direction="col"/>
+        </>
+    )
+});
 
-export const Justify = () => <>{displayItems('row', 'justify')}</>;
+export const Justify = meta.story({
+    render: () => <>{displayItems('row', 'justify')}</>
+});
 
-export const Alignment = () => <>{displayItems('row', 'align')}</>;
+export const Alignment = meta.story({
+    render: () => <>{displayItems('row', 'align')}</>
+});

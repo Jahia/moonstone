@@ -1,33 +1,27 @@
-import {StoryObj, Meta, StoryContext} from '@storybook/react-vite';
-
+import preview from '~storybook/preview';
 import {ButtonToggle} from './index';
-import type {ButtonToggleProps} from './ButtonToggle.types';
-
 import {Apps} from '~/icons';
 import markdownNotes from './ButtonToggle.md';
+import type {ButtonToggleProps} from './ButtonToggle.types';
+import {StoryContext} from '@storybook/react-vite';
 
-const meta: Meta<typeof ButtonToggle> = {
+const meta = preview.meta({
     title: 'Components/ButtonToggle',
     component: ButtonToggle,
-
     parameters: {
         layout: 'centered',
         actions: {argTypesRegex: '^on.*'},
         notes: {markdown: markdownNotes}
     }
-};
-export default meta;
+});
 
-type Story = StoryObj<ButtonToggleProps>;
-const Template = (args: ButtonToggleProps, globals: StoryContext) => {
-    const theme = globals.theme;
-    return <ButtonToggle {...args} isReversed={theme === 'dark'}/>;
-};
-
-export const Default: Story = {
+export const Default = meta.story({
     args: {
         iconStart: <Apps/>,
         label: 'ButtonToggle'
     },
-    render: Template
-};
+    render: (args: ButtonToggleProps, globals: StoryContext) => {
+        const theme = globals.theme;
+        return <ButtonToggle {...args} isReversed={theme === 'dark'}/>;
+    }
+});

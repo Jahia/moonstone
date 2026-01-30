@@ -1,49 +1,41 @@
-import {StoryObj, Meta} from '@storybook/react-vite';
-
+import preview from '~storybook/preview';
 import {FieldBoolean} from './index';
 import markdownNotes from './FieldBoolean.md';
 import {Button, Chip} from '~/components';
 import {Language, MoreVert} from '~/icons';
 
-const meta: Meta<typeof FieldBoolean> = {
+const meta = preview.meta({
     title: 'Components/Field/FieldBoolean',
     component: FieldBoolean,
     tags: ['beta'],
-
     parameters: {
         layout: 'padded',
         actions: {argTypesRegex: '^on.*'},
         notes: {markdown: markdownNotes}
     },
     argTypes: {
-        buttons: {
-            control: false
-        },
-        chips: {
-            control: false
-        }
+        buttons: {control: false},
+        chips: {control: false}
     }
-};
-export default meta;
+});
 
-type Story = StoryObj<typeof FieldBoolean>;
-
-export const Default: Story = {
+export const Default = meta.story({
     args: {
         label: 'Title',
         chips: <><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>,
         buttons: <Button icon={<MoreVert/>} variant="ghost"/>,
         helper: 'information',
-        checkboxAttributes: {value: 'checkbox',
+        id: 'field-boolean-id',
+        checkboxAttributes: {
+            value: 'checkbox',
             className: 'test-class'
         }
     }
-};
+});
 
-export const Error: Story = {
+export const Error = Default.extend({
     args: {
-        ...Default.args,
         hasError: true,
         errorMessage: 'There is an error.'
     }
-};
+});

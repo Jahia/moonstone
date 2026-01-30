@@ -1,19 +1,17 @@
-import {StoryFn, Meta} from '@storybook/react-vite';
-
+import preview from '~storybook/preview';
 import {Accordion} from '~/components/Accordion';
 import {AccordionItem} from './index';
-import type {AccordionItemProps} from './AccordionItem.types';
-
 import markdownNotes from './AccordionItem.md';
 import {Love} from '~/icons';
+import type {AccordionItemProps} from './AccordionItem.types';
 
-export default {
+const meta = preview.meta({
     title: 'Components/Accordion/AccordionItem',
     component: AccordionItem,
     decorators: [
         StoryCmp => (
             <div
-        style={{display: 'flex', flexDirection: 'column', height: '100vh'}}
+                style={{display: 'flex', flexDirection: 'column', height: '100vh'}}
             >
                 <StoryCmp/>
             </div>
@@ -22,30 +20,27 @@ export default {
     parameters: {
         notes: {markdown: markdownNotes},
         actions: {argTypesRegex: '^on.*'}
+    },
+    args: {
+        children: 'Accordion Item Content'
     }
-} as Meta<typeof AccordionItem>;
+});
 
-const Template: StoryFn<AccordionItemProps> = args => (
-    <Accordion>
-        <AccordionItem {...args}>Content here</AccordionItem>
-    </Accordion>
-);
-
-export const WithIcon = {
-    render: Template,
-
+export const WithIcon = meta.story({
+    render: (args: AccordionItemProps) => (
+        <Accordion>
+            <AccordionItem {...args}/>
+        </Accordion>
+    ),
     args: {
         id: 'id',
         label: 'AccordionItem',
         icon: <Love size="big"/>
     }
-};
+});
 
-export const WithoutIcon = {
-    render: Template,
-
+export const WithoutIcon = WithIcon.extend({
     args: {
-        id: 'id',
-        label: 'AccordionItem'
+        icon: undefined
     }
-};
+});

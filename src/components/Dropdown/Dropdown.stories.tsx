@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import preview from '~storybook/preview';
+import '~/__storybook__/storybook.scss';
 import {action} from 'storybook/actions';
 import markdownNotes from './Dropdown.md';
 import {Dropdown} from './index';
@@ -14,19 +16,33 @@ import {
     dropdownDataTree,
     dropdownDataTreePill
 } from '~/data';
-import type {DropdownDataOption, DropdownProps} from './Dropdown.types';
+import type {BaseDropdownProps, DropdownDataOption} from './Dropdown.types';
 
-export default {
+type DropdownStoryArgs = Omit<BaseDropdownProps, 'icon'> & {
+    icon?: React.ReactElement | keyof typeof icons;
+};
+
+const getIcon = (icon: DropdownStoryArgs['icon']): React.ReactElement | undefined => {
+    if (!icon) {
+        return undefined;
+    }
+
+    if (typeof icon === 'string' && icon in icons) {
+        return React.createElement(icons[icon]);
+    }
+
+    return icon as React.ReactElement;
+};
+
+const meta = preview.meta({
     title: 'Components/Dropdown',
-    component: Dropdown,
-
+    component: Dropdown as React.FC<DropdownStoryArgs>,
     parameters: {
         layout: 'centered',
         notes: {markdown: markdownNotes},
         docs: {
             // Fix issues in the doc tab with firefox
-            inlineStories: false,
-            IframeHeight: 500
+            story: {inline: false, iframeHeight: '500px'}
         }
     },
     argTypes: {
@@ -34,9 +50,12 @@ export default {
             options: Object.keys(icons)
         }
     }
-};
-export const FlatData = {
-    render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
+});
+export const FlatData = meta.story({
+    args: {
+        icon: 'Love'
+    },
+    render: (args: DropdownStoryArgs) => {
         const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
         const [currentImage, setCurrentImage] = useState<DropdownDataOption | null>(null);
         const [currentPill, setCurrentPill] = useState<DropdownDataOption>({
@@ -66,44 +85,43 @@ export const FlatData = {
         return (
             <section className="storyGrid">
                 <Dropdown
-                {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-                placeholder={args.placeholder || 'Select something'}
-                value={currentOption?.value || null}
-                isDisabled={args.isDisabled || false}
-                data={dropdownData}
-                onChange={handleOnChange}
-        />
+                    {...args}
+                    icon={getIcon(args.icon)}
+                    placeholder={args.placeholder || 'Select something'}
+                    value={currentOption?.value || null}
+                    isDisabled={args.isDisabled || false}
+                    data={dropdownData}
+                    onChange={handleOnChange}
+                />
 
                 <Dropdown
-                {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-                imageSize={args.imageSize || 'small'}
-                placeholder={args.placeholder || 'Select an image'}
-                value={currentImage?.value || null}
-                data={dropdownDataImages}
-                onChange={handleOnChangeImage}
-        />
+                    {...args}
+                    icon={getIcon(args.icon)}
+                    imageSize={args.imageSize || 'small'}
+                    placeholder={args.placeholder || 'Select an image'}
+                    value={currentImage?.value || null}
+                    data={dropdownDataImages}
+                    onChange={handleOnChangeImage}
+                />
 
                 <Dropdown
-                {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-                placeholder={args.placeholder || 'Select a language'}
-                value={currentPill.value}
-                data={dropdownDataTreePill}
-                onChange={handleOnChangePill}
-        />
+                    {...args}
+                    icon={getIcon(args.icon)}
+                    placeholder={args.placeholder || 'Select a language'}
+                    value={currentPill.value}
+                    data={dropdownDataTreePill}
+                    onChange={handleOnChangePill}
+                />
             </section>
         );
-    },
+    }
+});
 
+export const FlatDataMultiple = meta.story({
     args: {
         icon: 'Love'
-    }
-};
-
-export const FlatDataMultiple = {
-    render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
+    },
+    render: (args: DropdownStoryArgs) => {
         const [currentOptionData, setCurrentOptionData] = useState<DropdownDataOption[]>([]);
         const [currentPill, setCurrentPill] = useState<DropdownDataOption[]>([]);
 
@@ -131,33 +149,32 @@ export const FlatDataMultiple = {
             <section className="storyGrid">
 
                 <Dropdown
-               {...args}
-               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-               values={currentOptionData.map(v => v.value)}
-               placeholder={args.placeholder || 'Select something'}
-               data={dropdownData}
-               onChange={(e, item) => handleOnChangeData(e, item)}
-            />
+                    {...args}
+                    icon={getIcon(args.icon)}
+                    values={currentOptionData.map(v => v.value)}
+                    placeholder={args.placeholder || 'Select something'}
+                    data={dropdownData}
+                    onChange={(e, item) => handleOnChangeData(e, item)}
+                />
 
                 <Dropdown
-               {...args}
-               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-               values={currentPill.map(v => v.value)}
-               placeholder={args.placeholder || 'Select languages'}
-               data={dropdownDataPill}
-               onChange={(e, item) => handleOnChangePill(e, item)}
-            />
+                    {...args}
+                    icon={getIcon(args.icon)}
+                    values={currentPill.map(v => v.value)}
+                    placeholder={args.placeholder || 'Select languages'}
+                    data={dropdownDataPill}
+                    onChange={(e, item) => handleOnChangePill(e, item)}
+                />
             </section>
         );
-    },
+    }
+});
 
+export const GroupedData = meta.story({
     args: {
         icon: 'Love'
-    }
-};
-
-export const GroupedData = {
-    render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
+    },
+    render: (args: DropdownStoryArgs) => {
         const [currentOptionGrouped, setCurrentOptionGrouped] = useState<DropdownDataOption | null>(null);
         const [currentImage, setCurrentImage] = useState<DropdownDataOption | null>(null);
         const [currentLanguage, setCurrentLanguage] = useState<DropdownDataOption | null>(null);
@@ -183,42 +200,41 @@ export const GroupedData = {
         return (
             <section className="storyGrid">
                 <Dropdown
-                {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-                placeholder={args.placeholder || 'Select something'}
-                value={currentOptionGrouped?.value || null}
-                data={dropdownDataGrouped}
-                onChange={handleChangeGrouped}
-        />
+                    {...args}
+                    icon={getIcon(args.icon)}
+                    placeholder={args.placeholder || 'Select something'}
+                    value={currentOptionGrouped?.value || null}
+                    data={dropdownDataGrouped}
+                    onChange={handleChangeGrouped}
+                />
 
                 <Dropdown
-                {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-                placeholder={args.placeholder || 'Select an image'}
-                value={currentImage?.value || null}
-                data={dropdownDataGroupedImages}
-                onChange={handleChangeImage}
-        />
+                    {...args}
+                    icon={getIcon(args.icon)}
+                    placeholder={args.placeholder || 'Select an image'}
+                    value={currentImage?.value || null}
+                    data={dropdownDataGroupedImages}
+                    onChange={handleChangeImage}
+                />
 
                 <Dropdown
-                {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-                placeholder={args.placeholder || 'Select a language'}
-                value={currentLanguage?.value || null}
-                data={dropdownDataGroupedPill}
-                onChange={handleChangeLanguage}
-        />
+                    {...args}
+                    icon={getIcon(args.icon)}
+                    placeholder={args.placeholder || 'Select a language'}
+                    value={currentLanguage?.value || null}
+                    data={dropdownDataGroupedPill}
+                    onChange={handleChangeLanguage}
+                />
             </section>
         );
-    },
+    }
+});
 
+export const GroupedDataMultiple = meta.story({
     args: {
         icon: 'Love'
-    }
-};
-
-export const GroupedDataMultiple = {
-    render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
+    },
+    render: (args: DropdownStoryArgs) => {
         const [currentOptionDataGrouped, setCurrentOptionDataGrouped] = useState<DropdownDataOption[]>([]);
         const [currentPill, setCurrentPill] = useState<DropdownDataOption[]>([]);
 
@@ -245,33 +261,32 @@ export const GroupedDataMultiple = {
         return (
             <section className="storyGrid">
                 <Dropdown
-               {...args}
-               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-               values={currentOptionDataGrouped.map(v => v.value)}
-               placeholder={args.placeholder || 'Select something'}
-               data={dropdownDataGrouped}
-               onChange={(e, item) => handleOnChangeDataGrouped(e, item)}
-            />
+                    {...args}
+                    icon={getIcon(args.icon)}
+                    values={currentOptionDataGrouped.map(v => v.value)}
+                    placeholder={args.placeholder || 'Select something'}
+                    data={dropdownDataGrouped}
+                    onChange={(e, item) => handleOnChangeDataGrouped(e, item)}
+                />
 
                 <Dropdown
-               {...args}
-               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-               values={currentPill.map(v => v.value)}
-               placeholder={args.placeholder || 'Select languages'}
-               data={dropdownDataGroupedPill}
-               onChange={(e, item) => handleOnChangePill(e, item)}
-            />
+                    {...args}
+                    icon={getIcon(args.icon)}
+                    values={currentPill.map(v => v.value)}
+                    placeholder={args.placeholder || 'Select languages'}
+                    data={dropdownDataGroupedPill}
+                    onChange={(e, item) => handleOnChangePill(e, item)}
+                />
             </section>
         );
-    },
+    }
+});
 
+export const TreeData = meta.story({
     args: {
         icon: 'Love'
-    }
-};
-
-export const TreeData = {
-    render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
+    },
+    render: (args: DropdownStoryArgs) => {
         const [currentOptionTree, setCurrentOptionTree] = useState<DropdownDataOption | null>(null);
         const [currentLanguage, setCurrentLanguage] = useState<DropdownDataOption | null>(null);
 
@@ -290,33 +305,32 @@ export const TreeData = {
         return (
             <section>
                 <Dropdown
-                {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-                placeholder={args.placeholder || 'Select something'}
-                value={currentOptionTree?.value || null}
-                treeData={dropdownDataTree}
-                onChange={handleChangeTree}
-        />
+                    {...args}
+                    icon={getIcon(args.icon)}
+                    placeholder={args.placeholder || 'Select something'}
+                    value={currentOptionTree?.value || null}
+                    treeData={dropdownDataTree}
+                    onChange={handleChangeTree}
+                />
 
                 <Dropdown
-                {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-                placeholder={args.placeholder || 'Select a language'}
-                value={currentLanguage?.value || null}
-                treeData={dropdownDataTreePill}
-                onChange={handleChangeLanguage}
-        />
+                    {...args}
+                    icon={getIcon(args.icon)}
+                    placeholder={args.placeholder || 'Select a language'}
+                    value={currentLanguage?.value || null}
+                    treeData={dropdownDataTreePill}
+                    onChange={handleChangeLanguage}
+                />
             </section>
         );
-    },
+    }
+});
 
+export const TreeDataMultiple = meta.story({
     args: {
         icon: 'Love'
-    }
-};
-
-export const TreeDataMultiple = {
-    render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
+    },
+    render: (args: DropdownStoryArgs) => {
         const [currentOptionDataMultiple, setCurrentOptionDataMultiple] = useState<DropdownDataOption[]>([]);
         const [currentPill, setCurrentPill] = useState<DropdownDataOption[]>([]);
 
@@ -343,28 +357,23 @@ export const TreeDataMultiple = {
         return (
             <section className="storyGrid">
                 <Dropdown
-               {...args}
-               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-               values={currentOptionDataMultiple.map(v => v.value)}
-               placeholder={args.placeholder || 'Select something'}
-               treeData={dropdownDataTree}
-               onChange={(e, item) => handleOnChangeDataMultiple(e, item)}
-            />
+                    {...args}
+                    icon={getIcon(args.icon)}
+                    values={currentOptionDataMultiple.map(v => v.value)}
+                    placeholder={args.placeholder || 'Select something'}
+                    treeData={dropdownDataTree}
+                    onChange={(e, item) => handleOnChangeDataMultiple(e, item)}
+                />
 
                 <Dropdown
-                 {...args}
-                 icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
-                 values={currentPill.map(v => v.value)}
-                 placeholder={args.placeholder || 'Select a language'}
-                 treeData={dropdownDataTreePill}
-                 onChange={(e, item) => handleOnChangePill(e, item)}
-            />
+                    {...args}
+                    icon={getIcon(args.icon)}
+                    values={currentPill.map(v => v.value)}
+                    placeholder={args.placeholder || 'Select a language'}
+                    treeData={dropdownDataTreePill}
+                    onChange={(e, item) => handleOnChangePill(e, item)}
+                />
             </section>
         );
-    },
-
-    args: {
-        icon: 'Love'
     }
-};
-
+});

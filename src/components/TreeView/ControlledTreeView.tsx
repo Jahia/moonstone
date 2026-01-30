@@ -16,12 +16,12 @@ const displayIcon = (icon: React.ReactElement, size: string, className?: string,
     return (
         <i className={clsx('flexRow', 'alignCenter', className)}>
             {icon &&
-            <icon.type
-                aria-label={(icon.type as React.ComponentType).name || 'moonstone-treeView-icon'}
-                {...icon.props}
-                size={size}
-                className={clsx(`moonstone-icon_${size}`, icon.props.className)}
-            />}
+                <icon.type
+                    aria-label={(icon.type as React.ComponentType).name || 'moonstone-treeView-icon'}
+                    {...icon.props}
+                    size={size}
+                    className={clsx(`moonstone-icon_${size}`, icon.props.className)}
+                />}
         </i>
     );
 };

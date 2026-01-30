@@ -6,6 +6,7 @@
 
 import React, {useEffect, useState} from 'react';
 import {useExpanded, useRowSelect, useSortBy, useTable} from 'react-table';
+import preview from '../../../.storybook/preview';
 import '~/__storybook__/storybook.scss';
 
 import {
@@ -28,14 +29,13 @@ import {
 } from '~/data';
 import {Edit, Love, Visibility} from '~/icons';
 
-export default {
+const meta = preview.meta({
     title: 'Components/Table',
     component: Table,
     parameters: {
-        controls: {disable: true},
         actions: {argTypesRegex: '^on.*'}
     }
-};
+});
 
 const columnsWidth = {
     selection: '52px',
@@ -45,49 +45,52 @@ const columnsWidth = {
     lastModifiedOn: '160px'
 };
 
-export const Basic = () => (
-    <Table>
-        <TableHead>
-            <TableRow>
-                <TableHeadCell>first column</TableHeadCell>
-                <TableHeadCell>second column</TableHeadCell>
-                <TableHeadCell>third column</TableHeadCell>
-                <TableHeadCell>fourth column</TableHeadCell>
-            </TableRow>
-        </TableHead>
-        <TableBody>
-            <TableRow isHighlighted>
-                <TableBodyCell iconStart={<Love color="red"/>}>cell 1</TableBodyCell>
-                <TableBodyCell>cell 2</TableBodyCell>
-                <TableBodyCell>cell 3</TableBodyCell>
-                <TableBodyCell>
-                    <Button variant="ghost" icon={<Edit/>}/>
-                    <Button variant="ghost" icon={<Visibility/>}/>
-                </TableBodyCell>
-            </TableRow>
-            <TableRow>
-                <TableBodyCell iconStart={<Love color="red"/>}>cell 4</TableBodyCell>
-                <TableBodyCell>cell 5</TableBodyCell>
-                <TableBodyCell>cell 6</TableBodyCell>
-                <TableBodyCell>
-                    <Button variant="ghost" icon={<Edit/>}/>
-                    <Button variant="ghost" icon={<Visibility/>}/>
-                </TableBodyCell>
-            </TableRow>
-            <TableRow>
-                <TableBodyCell iconStart={<Love color="red"/>}>cell 7</TableBodyCell>
-                <TableBodyCell>cell 8</TableBodyCell>
-                <TableBodyCell>cell 9</TableBodyCell>
-                <TableBodyCell>
-                    <Button variant="ghost" icon={<Edit/>}/>
-                    <Button variant="ghost" icon={<Visibility/>}/>
-                </TableBodyCell>
-            </TableRow>
-        </TableBody>
-    </Table>
-);
+export const Basic = meta.story({
+    render: () => (
+        <Table>
+            <TableHead>
+                <TableRow>
+                    <TableHeadCell>first column</TableHeadCell>
+                    <TableHeadCell>second column</TableHeadCell>
+                    <TableHeadCell>third column</TableHeadCell>
+                    <TableHeadCell>fourth column</TableHeadCell>
+                </TableRow>
+            </TableHead>
+            <TableBody>
+                <TableRow isHighlighted>
+                    <TableBodyCell iconStart={<Love color="red"/>}>cell 1</TableBodyCell>
+                    <TableBodyCell>cell 2</TableBodyCell>
+                    <TableBodyCell>cell 3</TableBodyCell>
+                    <TableBodyCell>
+                        <Button variant="ghost" icon={<Edit/>}/>
+                        <Button variant="ghost" icon={<Visibility/>}/>
+                    </TableBodyCell>
+                </TableRow>
+                <TableRow>
+                    <TableBodyCell iconStart={<Love color="red"/>}>cell 4</TableBodyCell>
+                    <TableBodyCell>cell 5</TableBodyCell>
+                    <TableBodyCell>cell 6</TableBodyCell>
+                    <TableBodyCell>
+                        <Button variant="ghost" icon={<Edit/>}/>
+                        <Button variant="ghost" icon={<Visibility/>}/>
+                    </TableBodyCell>
+                </TableRow>
+                <TableRow>
+                    <TableBodyCell iconStart={<Love color="red"/>}>cell 7</TableBodyCell>
+                    <TableBodyCell>cell 8</TableBodyCell>
+                    <TableBodyCell>cell 9</TableBodyCell>
+                    <TableBodyCell>
+                        <Button variant="ghost" icon={<Edit/>}/>
+                        <Button variant="ghost" icon={<Visibility/>}/>
+                    </TableBodyCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+    )
+});
 
-export const BasicReactTable = {
+export const BasicReactTable = meta.story({
+    name: 'Basic Table with React-Table',
     render: () => {
         const data = React.useMemo(() => tableDataFlat, []);
         const columns = React.useMemo(
@@ -174,12 +177,11 @@ export const BasicReactTable = {
                 </TableBody>
             </Table>
         );
-    },
+    }
+});
 
-    name: 'Basic Table with React-Table'
-};
-
-export const SelectableRows = {
+export const SelectableRows = meta.story({
+    name: 'Selectable Rows with React-Table',
     render: () => {
         const data = React.useMemo(() => tableDataFlat, []);
         const columns = React.useMemo(
@@ -310,12 +312,11 @@ export const SelectableRows = {
                 </section>
             </>
         );
-    },
+    }
+});
 
-    name: 'Selectable Rows with React-Table'
-};
-
-export const SortingByColumn = {
+export const SortingByColumn = meta.story({
+    name: 'Sorting by Column with React-Table',
     render: () => {
         const data = React.useMemo(() => tableDataFlat, []);
         const columns = React.useMemo(
@@ -425,12 +426,11 @@ export const SortingByColumn = {
                 </TableBody>
             </Table>
         );
-    },
+    }
+});
 
-    name: 'Sorting by Column with React-Table'
-};
-
-export const Pagination = {
+export const Pagination = meta.story({
+    name: 'Pagination with React-Table',
     render: () => {
         const [rowsPerPage, setRowsPerPage] = useState(5);
         const [currentPage, setCurrentPage] = useState(1);
@@ -530,12 +530,11 @@ export const Pagination = {
                 />
             </>
         );
-    },
+    }
+});
 
-    name: 'Pagination with React-Table'
-};
-
-export const StructuredView = {
+export const StructuredView = meta.story({
+    name: 'Structured View with React-Table',
     render: () => {
         const data = React.useMemo(() => tableDataNested, []);
         const columns = React.useMemo(
@@ -635,48 +634,49 @@ export const StructuredView = {
                 </TableBody>
             </Table>
         );
-    },
-
-    name: 'Structured View with React-Table'
-};
-
-export const StickyHeader = () => {
-    const colNum = 4;
-    const rowNum = 20;
-    const cols = [];
-    const rows = [];
-
-    for (let i = 1; i <= colNum; i++) {
-        cols.push('column ' + i);
     }
+});
 
-    for (let i = 1; i <= rowNum; i++) {
-        rows.push('row ' + i);
-    }
+export const StickyHeader = meta.story({
+    render: () => {
+        const colNum = 4;
+        const rowNum = 20;
+        const cols = [];
+        const rows = [];
 
-    return (
-        <Table>
-            <TableHead isSticky>
-                <TableRow>
-                    {cols.map(col => (
-                        <TableHeadCell key={col}>{col}</TableHeadCell>
-                    ))}
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {rows.map(row => (
-                    <TableRow key={row}>
+        for (let i = 1; i <= colNum; i++) {
+            cols.push('column ' + i);
+        }
+
+        for (let i = 1; i <= rowNum; i++) {
+            rows.push('row ' + i);
+        }
+
+        return (
+            <Table>
+                <TableHead isSticky>
+                    <TableRow>
                         {cols.map(col => (
-                            <TableBodyCell key={row + col}>this is a cell!</TableBodyCell>
+                            <TableHeadCell key={col}>{col}</TableHeadCell>
                         ))}
                     </TableRow>
-                ))}
-            </TableBody>
-        </Table>
-    );
-};
+                </TableHead>
+                <TableBody>
+                    {rows.map(row => (
+                        <TableRow key={row}>
+                            {cols.map(col => (
+                                <TableBodyCell key={row + col}>this is a cell!</TableBodyCell>
+                            ))}
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        );
+    }
+});
 
-export const KitchenSinkFlat = {
+export const KitchenSinkFlat = meta.story({
+    name: 'All features except row expansion - flat data',
     render: () => {
         const [rowsPerPage, setRowsPerPage] = useState(5);
         const [currentPage, setCurrentPage] = useState(1);
@@ -812,12 +812,11 @@ export const KitchenSinkFlat = {
                 />
             </>
         );
-    },
+    }
+});
 
-    name: 'All features except row expansion - flat data'
-};
-
-export const KitchenSinkNested = {
+export const KitchenSinkNested = meta.story({
+    name: 'All features except pagination - nested data',
     render: () => {
         const data = React.useMemo(() => tableDataNested, []);
         const columns = React.useMemo(
@@ -948,7 +947,5 @@ export const KitchenSinkNested = {
                 </TableBody>
             </Table>
         );
-    },
-
-    name: 'All features except pagination - nested data'
-};
+    }
+});

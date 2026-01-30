@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import {StoryObj, StoryFn, Meta} from '@storybook/react-vite';
-
+import preview from '~storybook/preview';
 import {RadioGroup} from './index';
 import {RadioItem} from './RadioItem';
+import type {RadioGroupProps} from './RadioGroup.types';
 
-export default {
+const meta = preview.meta({
     title: 'Components/RadioGroup',
     component: RadioGroup,
     subcomponents: {RadioItem},
@@ -22,51 +22,79 @@ export default {
             }
         }
     }
-} as Meta<typeof RadioGroup>;
+});
 
-const Template: StoryFn<typeof RadioGroup> = args => (
-    <RadioGroup {...args}>
-        <RadioItem id="cat" label="Cat" description="Miaouw" value="cat"/>
-        <RadioItem id="dog" label="Dog" description="Ouah-ouah" value="dog"/>
-        <RadioItem
-      isDisabled
-      id="horse"
-      label="Horse"
-      description="Disabled element"
-      value="horse"
-    />
-        <RadioItem id="bird" label="Bird without description" value="bird"/>
-    </RadioGroup>
-);
-
-export const NoDefaultValue = {
-    render: Template,
-
+export const NoDefaultValue = meta.story({
     args: {
-        name: 'no-default-value'
-    }
-};
+        name: 'no-default-value',
+        children: []
+    },
+    render: (args: RadioGroupProps) => (
+        <RadioGroup {...args}>
+            <RadioItem id="cat" label="Cat" description="Miaouw" value="cat"/>
+            <RadioItem id="dog" label="Dog" description="Ouah-ouah" value="dog"/>
+            <RadioItem
+                isDisabled
+                id="horse"
+                label="Horse"
+                description="Disabled element"
+                value="horse"
+            />
+            <RadioItem id="bird" label="Bird without description" value="bird"/>
+        </RadioGroup>
+    )
+});
 
-export const WithDefaultValue = {
-    render: Template,
-
+export const WithDefaultValue = meta.story({
     args: {
         name: 'default-value',
-        defaultValue: 'dog'
-    }
-};
+        defaultValue: 'dog',
+        children: []
+    },
+    render: (args: RadioGroupProps) => (
+        <RadioGroup {...args}>
+            <RadioItem id="cat" label="Cat" description="Miaouw" value="cat"/>
+            <RadioItem id="dog" label="Dog" description="Ouah-ouah" value="dog"/>
+            <RadioItem
+                isDisabled
+                id="horse"
+                label="Horse"
+                description="Disabled element"
+                value="horse"
+            />
+            <RadioItem id="bird" label="Bird without description" value="bird"/>
+        </RadioGroup>
+    )
+});
 
-export const Disabled = {
-    render: Template,
-
+export const Disabled = meta.story({
     args: {
         name: 'disabled',
-        isDisabled: true
-    }
-};
+        isDisabled: true,
+        children: []
+    },
+    render: (args: RadioGroupProps) => (
+        <RadioGroup {...args}>
+            <RadioItem id="cat" label="Cat" description="Miaouw" value="cat"/>
+            <RadioItem id="dog" label="Dog" description="Ouah-ouah" value="dog"/>
+            <RadioItem
+                isDisabled
+                id="horse"
+                label="Horse"
+                description="Disabled element"
+                value="horse"
+            />
+            <RadioItem id="bird" label="Bird without description" value="bird"/>
+        </RadioGroup>
+    )
+});
 
-export const Controlled: StoryObj<typeof RadioGroup> = {
-    render: args => {
+export const Controlled = meta.story({
+    args: {
+        name: 'controlled',
+        children: []
+    },
+    render: (args: RadioGroupProps) => {
         const [value, setValue] = useState('cat');
 
         const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,10 +103,10 @@ export const Controlled: StoryObj<typeof RadioGroup> = {
 
         return (
             <RadioGroup
-        {...args}
-        name="controlled"
-        value={value}
-        onChange={event => handleChange(event)}
+                {...args}
+                name="controlled"
+                value={value}
+                onChange={event => handleChange(event)}
             >
                 <RadioItem id="dog1" label="Dog" description="Ouah-ouah" value="dog"/>
                 <RadioItem id="cat" label="Cat" description="Miaow" value="cat"/>
@@ -86,4 +114,4 @@ export const Controlled: StoryObj<typeof RadioGroup> = {
             </RadioGroup>
         );
     }
-};
+});

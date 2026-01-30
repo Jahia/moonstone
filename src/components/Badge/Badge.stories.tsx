@@ -1,35 +1,33 @@
-import {Meta} from '@storybook/react-vite';
-
+import preview from '~storybook/preview';
 import {Badge} from './index';
-
+import type {BadgeProps} from './Badge.types';
 import markdownNotes from './Badge.md';
 
-export default {
+const meta = preview.meta({
     title: 'Components/Badge',
     component: Badge,
     parameters: {
         layout: 'centered',
         notes: {markdown: markdownNotes}
     }
-} as Meta<typeof Badge>;
+});
 
-export const Accent = {
+export const Accent = meta.story({
     args: {
         label: '3',
         color: 'accent'
-    }
-};
+    },
+    render: (args: BadgeProps) => <Badge {...args}/>
+});
 
-export const Success = {
+export const Success = Accent.extend({
     args: {
-        label: '3',
         color: 'success'
     }
-};
+});
 
-export const Danger = {
+export const Danger = Accent.extend({
     args: {
-        label: '3',
         color: 'danger'
     }
-};
+});

@@ -1,9 +1,8 @@
-import {StoryFn, Meta} from '@storybook/react-vite';
-
+import preview from '~storybook/preview';
 import {CheckboxGroup} from './index';
 import {CheckboxItem} from './CheckboxItem';
 
-export default {
+const meta = preview.meta({
     title: 'Components/CheckboxGroup',
     component: CheckboxGroup,
     parameters: {
@@ -19,38 +18,32 @@ export default {
             }
         }
     }
-} as Meta<typeof CheckboxGroup>;
+});
 
-const Template: StoryFn<typeof CheckboxGroup> = args => {
-    return (
-        <CheckboxGroup {...args}>
-            <CheckboxItem id="cat" label="Cat" description="Miaouw" value="cat"/>
-            <CheckboxItem id="dog" label="Dog" description="Ouah-ouah" value="dog"/>
-            <CheckboxItem
+const defaultChildren = [
+    <CheckboxItem key="cat" id="cat" label="Cat" description="Miaouw" value="cat"/>,
+    <CheckboxItem key="dog" id="dog" label="Dog" description="Ouah-ouah" value="dog"/>,
+    <CheckboxItem
+        key="horse"
         isDisabled
         id="horse"
         label="Horse"
         description="Disabled element"
         value="horse"
-      />
-            <CheckboxItem id="bird" label="Bird without description" value="bird"/>
-        </CheckboxGroup>
-    );
-};
+    />,
+    <CheckboxItem key="bird" id="bird" label="Bird without description" value="bird"/>
+];
 
-export const Default = {
-    render: Template,
-
+export const Default = meta.story({
     args: {
-        name: 'default'
+        name: 'default',
+        children: defaultChildren
     }
-};
+});
 
-export const Disabled = {
-    render: Template,
-
+export const Disabled = Default.extend({
     args: {
         name: 'disabled',
         isDisabled: true
     }
-};
+});
