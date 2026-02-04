@@ -1,0 +1,19 @@
+.moonstone-tableHeadCell_sort {
+    color: var(--color-gray_light);
+
+    &:hover {
+        color: var(--color-gray);
+    }
+}
+
+.moonstone-tableHeadCell_sortActive {
+    color: var(--color-accent);
+
+    &:hover {
+        color: var(--color-accentDark);
+    }
+}
+
+.moonstone-tableHeadCell {
+    font-weight: bold;
+}

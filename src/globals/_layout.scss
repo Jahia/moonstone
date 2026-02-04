@@ -100,3 +100,18 @@
     min-width: 0;
     min-height: 0;
 }
+
+// ---
+// Justify content (standalone helpers)
+// ---
+.justifyStart {
+    justify-content: flex-start;
+}
+
+.justifyCenter {
+    justify-content: center;
+}
+
+.justifyEnd {
+    justify-content: flex-end;
+}
