@@ -19,7 +19,8 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
     {
         key: 'firstName',
         label: 'User',
-        ...stringColumn<DataUser>(row => row.firstName)
+        ...stringColumn<DataUser>(row => row.firstName),
+        textOverflow: 'scroll'
         // Align comes from stringColumn helper
     },
     {
@@ -33,13 +34,16 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
         ),
         isSortable: true,
         sortFn: (a, b) => a.status.localeCompare(b.status),
-        align: 'center' // Custom column needs explicit align
+        align: 'center' // Custom column needs explicit align,
+
     },
     {
         key: 'progress',
         label: 'Progress',
-        ...numberColumn<DataUser>(row => row.progress)
+        ...numberColumn<DataUser>(row => row.progress),
         // Align comes from numberColumn helper
+        width: '100px',
+        textOverflow: 'truncate'
     },
     {
         key: 'date',

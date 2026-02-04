@@ -18,3 +18,23 @@
         background-color: var(--color-gray_light);
     }
 }
+
+.moonstone-tableCell.moonstone-tableCell_truncate {
+    display: block;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.moonstone-tableCell.moonstone-tableCell_scroll {
+    display: block;
+    overflow-x: auto;
+
+    white-space: nowrap;
+}
+
+/** Applied when cell has truncate or scroll so it can shrink and respect overflow */
+.moonstone-tableCell_canShrink {
+    min-width: 0;
+}

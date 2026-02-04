@@ -49,6 +49,19 @@ describe('DataTable', () => {
         expect(screen.getByText('30')).toBeInTheDocument();
     });
 
+    it('should apply fixed layout class to table', () => {
+        render(
+            <DataTable<TestData>
+                data={data}
+                columns={columns}
+                primaryKey="id"
+            />
+        );
+
+        const table = screen.getByRole('table');
+        expect(table).toHaveClass('moonstone-table_fixedLayout');
+    });
+
     it('should render nothing when no data', () => {
         const {container} = render(
             <DataTable<TestData>
@@ -288,5 +301,38 @@ describe('DataTable', () => {
 
         const nameHeader = screen.getByText('Name').closest('th');
         expect(nameHeader).not.toHaveStyle({width: '200px'});
+    });
+
+    it('should apply text overflow classes', () => {
+        const columnsWithOverflow = [
+            {
+                key: 'name',
+                label: 'Truncated',
+                textOverflow: 'truncate',
+                ...stringColumn((row: TestData) => row.name)
+            },
+            {
+                key: 'age',
+                label: 'Scrollable',
+                textOverflow: 'scroll',
+                ...numberColumn((row: TestData) => row.age)
+            }
+        ] as const;
+
+        render(
+            <DataTable<TestData>
+                data={data}
+                columns={columnsWithOverflow}
+                primaryKey="id"
+            />
+        );
+
+        const nameCell = screen.getByText('Alice').closest('td');
+        expect(nameCell).toHaveClass('moonstone-tableCell_truncate');
+        expect(nameCell).toHaveClass('moonstone-tableCell_canShrink');
+
+        const ageCell = screen.getByText('30').closest('td');
+        expect(ageCell).toHaveClass('moonstone-tableCell_scroll');
+        expect(ageCell).toHaveClass('moonstone-tableCell_canShrink');
     });
 });

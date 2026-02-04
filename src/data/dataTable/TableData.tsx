@@ -2,7 +2,7 @@ import type {DataUser} from './dataColumnsUser';
 
 export const dataTable: DataUser[] = [
     {
-        firstName: 'Walter',
+        firstName: 'Walterrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr',
         lastName: 'White',
         age: 52,
         status: 'Active',
@@ -21,7 +21,7 @@ export const dataTable: DataUser[] = [
         ]
     },
     {
-        firstName: 'Jon',
+        firstName: 'Jonnnnnnnnnnnnnnnnnnnnnnnn',
         lastName: 'Snow',
         age: 24,
         status: 'Active',
@@ -35,7 +35,7 @@ export const dataTable: DataUser[] = [
         age: 15,
         status: 'Active',
         chips: ['Telekinetic'],
-        progress: 100,
+        progress: 1000000000000,
         date: new Date('2024-01-20')
     },
     {

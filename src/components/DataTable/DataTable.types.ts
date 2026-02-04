@@ -12,6 +12,7 @@ export type CustomColumnMeta = {
     isSortable?: boolean;
     align?: 'left' | 'center' | 'right';
     width?: string;
+    textOverflow?: 'truncate' | 'scroll';
 };
 
 export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children' | 'className'> & {
@@ -69,6 +70,13 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
      * When undefined, the column takes all available space.
      */
     width?: string;
+
+    /**
+     * How to handle text overflow in the cell.
+     * 'truncate': Text is truncated with an ellipsis (default).
+     * 'scroll': A horizontal scrollbar is added.
+     */
+    textOverflow?: 'truncate' | 'scroll';
 };
 
 export type DataTableBaseProps<T extends NonNullable<unknown>> = {

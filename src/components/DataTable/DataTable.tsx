@@ -18,6 +18,7 @@ import {useState, useEffect, useMemo, useCallback} from 'react';
 
 import type {DataTableProps, CustomColumnMeta} from './DataTable.types';
 import {Checkbox} from '~/components';
+import clsx from 'clsx';
 import {
     Table,
     TableRow,
@@ -156,6 +157,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                 key={cell.id}
                                 align={meta?.align ?? 'left'}
                                 width={meta?.width}
+                                textOverflow={meta?.textOverflow}
                                 depth={row.depth}
                                 isExpandable={row.getCanExpand()}
                                 isExpanded={row.getIsExpanded()}
@@ -171,6 +173,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             key={cell.id}
                             align={meta?.align ?? 'left'}
                             width={meta?.width}
+                            textOverflow={meta?.textOverflow}
                         >
                             {cellContent}
                         </TableCell>
@@ -211,7 +214,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
     return (
         <>
-            <Table className={className} {...props}>
+            <Table className={clsx('moonstone-table_fixedLayout', className)} {...props}>
                 <TableHead>
                     {table.getHeaderGroups().map(headerGroup => (
                         <TableRow key={headerGroup.id}>
