@@ -62,15 +62,6 @@ describe('TableCell', () => {
         expect(screen.getByTestId('cell')).toHaveClass('verticalAlignTop');
     });
 
-    it('should apply scrollable class', () => {
-        render(
-            <TableWrapper>
-                <TableCell isScrollable data-testid="cell">S</TableCell>
-            </TableWrapper>
-        );
-        expect(screen.getByTestId('cell')).toHaveClass('moonstone-tableCellContent');
-    });
-
     it('should apply truncate class and Typography isNowrap when textOverflow is truncate', () => {
         render(
             <TableWrapper>

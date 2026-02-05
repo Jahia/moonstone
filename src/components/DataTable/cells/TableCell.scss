@@ -2,34 +2,22 @@
 
 .moonstone-tableCell {
     gap: var(--spacing-nano);
-
     min-width: 0;
     padding-right: var(--spacing-medium);
     padding-left: var(--spacing-medium);
-
-    overflow-y: auto;
-
-    //noinspection CssUnknownProperty
-    scrollbar-width: thin;
-
-    &::-webkit-scrollbar {
-        height: var(--spacing-nano);
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background-color: var(--color-gray_light);
-    }
 }
 
 .moonstone-tableCell.moonstone-tableCell_truncate {
     display: block;
 }
 
+// Scroll: horizontal scroll only. padding-bottom reserves space so scrollbar doesn't overlap text.
 .moonstone-tableCell_scroll {
     display: block;
-    overflow-x: auto;
+    padding-bottom: var(--spacing-nano);
 
     white-space: nowrap;
+    overflow-x: auto;
 
     scrollbar-width: thin;
 

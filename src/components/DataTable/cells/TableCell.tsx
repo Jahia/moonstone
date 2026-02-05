@@ -12,7 +12,6 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
         align = 'left',
         verticalAlign = 'middle',
         width,
-        isScrollable,
         style,
         component = 'td',
         textOverflow = 'truncate',
@@ -20,8 +19,6 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
     },
     ref
 ) => {
-    const scrollableClass = isScrollable ? 'moonstone-tableCellContent' : '';
-
     return (
         <Typography
             ref={ref}
@@ -37,7 +34,6 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
                 {flexFluid: typeof width === 'undefined'},
                 textOverflow === 'truncate' && 'moonstone-tableCell_truncate',
                 textOverflow === 'scroll' && 'moonstone-tableCell_scroll',
-                scrollableClass,
                 className
             )}
             style={{

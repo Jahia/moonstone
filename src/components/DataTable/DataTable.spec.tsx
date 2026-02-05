@@ -49,19 +49,6 @@ describe('DataTable', () => {
         expect(screen.getByText('30')).toBeInTheDocument();
     });
 
-    it('should apply fixed layout class to table', () => {
-        render(
-            <DataTable<TestData>
-                data={data}
-                columns={columns}
-                primaryKey="id"
-            />
-        );
-
-        const table = screen.getByRole('table');
-        expect(table).toHaveClass('moonstone-table_fixedLayout');
-    });
-
     it('should render nothing when no data', () => {
         const {container} = render(
             <DataTable<TestData>

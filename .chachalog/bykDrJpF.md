@@ -2,4 +2,4 @@
 "@jahia/moonstone": minor
 ---
 
-New DataTable component (beta) .
+New DataTable component (beta)

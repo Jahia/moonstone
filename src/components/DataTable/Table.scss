@@ -2,8 +2,3 @@
     // Override min-height set by flexFluid utility class
     min-height: auto;
 }
-
-/** Applied by DataTable so column widths are respected and truncate/scroll work */
-.moonstone-table_fixedLayout {
-    table-layout: fixed;
-}

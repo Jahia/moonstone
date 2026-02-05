@@ -214,7 +214,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
     return (
         <>
-            <Table className={clsx('moonstone-table_fixedLayout', className)} {...props}>
+            <Table className={clsx('moonstone-dataTable', className)} {...props}>
                 <TableHead>
                     {table.getHeaderGroups().map(headerGroup => (
                         <TableRow key={headerGroup.id}>

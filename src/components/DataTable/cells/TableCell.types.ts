@@ -40,11 +40,6 @@ export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'chi
     children?: React.ReactNode;
 
     /**
-     * Indicates if the cell is scrollable on hover
-     */
-    isScrollable?: boolean;
-
-    /**
      * How to handle text overflow in the cell.
      * 'truncate': Text is truncated with an ellipsis (default).
      * 'scroll': A horizontal scrollbar is added.
