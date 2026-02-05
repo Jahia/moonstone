@@ -4,7 +4,7 @@
 	"specVersion": "1.4",
 	"version": 1,
 	"metadata": {
-		"timestamp": "2026-01-30T16:58:00.657Z",
+		"timestamp": "2026-02-05T11:28:00.114Z",
 		"tools": [
 			{
 				"name": "rollup-plugin-sbom",
@@ -360,6 +360,74 @@
 				},
 				{
 					"url": "https://github.com/Sidnioulz/storybook-addon-tag-badges/issues",
+					"type": "issue-tracker",
+					"comment": "as detected from PackageJson property \"bugs.url\""
+				}
+			]
+		},
+		{
+			"type": "library",
+			"name": "table-core",
+			"group": "@tanstack",
+			"version": "8.21.3",
+			"bom-ref": "pkg:npm/%40tanstack/table-core@8.21.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FTanStack%2Ftable.git#packages/table-core",
+			"author": "Tanner Linsley",
+			"description": "Headless UI for building powerful tables & datagrids for TS/JS.",
+			"licenses": [
+				{
+					"license": {
+						"id": "MIT"
+					}
+				}
+			],
+			"purl": "pkg:npm/%40tanstack/table-core@8.21.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FTanStack%2Ftable.git#packages/table-core",
+			"externalReferences": [
+				{
+					"url": "git+https://github.com/TanStack/table.git#packages/table-core",
+					"type": "vcs",
+					"comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
+				},
+				{
+					"url": "https://tanstack.com/table",
+					"type": "website",
+					"comment": "as detected from PackageJson property \"homepage\""
+				},
+				{
+					"url": "https://github.com/TanStack/table/issues",
+					"type": "issue-tracker",
+					"comment": "as detected from PackageJson property \"bugs.url\""
+				}
+			]
+		},
+		{
+			"type": "library",
+			"name": "react-table",
+			"group": "@tanstack",
+			"version": "8.21.3",
+			"bom-ref": "pkg:npm/%40tanstack/react-table@8.21.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FTanStack%2Ftable.git#packages/react-table",
+			"author": "Tanner Linsley",
+			"description": "Headless UI for building powerful tables & datagrids for React.",
+			"licenses": [
+				{
+					"license": {
+						"id": "MIT"
+					}
+				}
+			],
+			"purl": "pkg:npm/%40tanstack/react-table@8.21.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FTanStack%2Ftable.git#packages/react-table",
+			"externalReferences": [
+				{
+					"url": "git+https://github.com/TanStack/table.git#packages/react-table",
+					"type": "vcs",
+					"comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
+				},
+				{
+					"url": "https://tanstack.com/table",
+					"type": "website",
+					"comment": "as detected from PackageJson property \"homepage\""
+				},
+				{
+					"url": "https://github.com/TanStack/table/issues",
 					"type": "issue-tracker",
 					"comment": "as detected from PackageJson property \"bugs.url\""
 				}
@@ -999,6 +1067,7 @@
 		{
 			"ref": "pkg:npm/%40jahia/moonstone@2.17.5?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FJahia%2Fmoonstone.git",
 			"dependsOn": [
+				"pkg:npm/%40tanstack/react-table@8.21.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FTanStack%2Ftable.git#packages/react-table",
 				"pkg:npm/clsx@2.1.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Flukeed%2Fclsx.git",
 				"pkg:npm/to-px@1.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmikolalysenko%2Fto-px.git",
 				"pkg:npm/%40floating-ui/react@0.27.16?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/react",
@@ -1043,6 +1112,15 @@
 		},
 		{
 			"ref": "pkg:npm/storybook-addon-tag-badges@3.0.4?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FSidnioulz%2Fstorybook-addon-tag-badges.git"
+		},
+		{
+			"ref": "pkg:npm/%40tanstack/table-core@8.21.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FTanStack%2Ftable.git#packages/table-core"
+		},
+		{
+			"ref": "pkg:npm/%40tanstack/react-table@8.21.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FTanStack%2Ftable.git#packages/react-table",
+			"dependsOn": [
+				"pkg:npm/%40tanstack/table-core@8.21.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FTanStack%2Ftable.git#packages/table-core"
+			]
 		},
 		{
 			"ref": "pkg:npm/clsx@2.1.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Flukeed%2Fclsx.git"
