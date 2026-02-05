@@ -12,7 +12,8 @@ export default {
 
 export const Default = {
     args: {
-        title: 'No data available'
+        title: 'No data available',
+        message: 'There is no data to display at the moment.'
     }
 };
 
@@ -26,7 +27,8 @@ export const WithMessage = {
 export const WithIcon = {
     args: {
         icon: <Love size="big"/>,
-        title: 'No favorites found'
+        title: 'No favorites found',
+        message: 'You have not added any items to your favorites yet.'
     }
 };
 

@@ -1,35 +1,34 @@
 import React from 'react';
 import clsx from 'clsx';
 import {Typography} from '~/components';
-import {EmptyDataProps} from './EmptyData.types';
+import type {EmptyDataProps} from './EmptyData.types';
 import './EmptyData.scss';
 
-export const EmptyData: React.FC<EmptyDataProps> = ({
-    title,
-    message,
-    icon,
-    className,
-    ...props
-}) => {
-    return (
-        <div
-            className={clsx(
-                'moonstone-emptyData',
-                'flexCol_center',
-                'alignCenter',
-                className
-            )}
-            {...props}
-        >
-            {icon && <div className="moonstone-emptyData_icon">{icon}</div>}
-            {title && (
-                <Typography variant="heading" weight="semiBold">
-                    {title}
-                </Typography>
-            )}
-            {message && <Typography variant="body">{message}</Typography>}
-        </div>
-    );
-};
+export const EmptyData = React.forwardRef<HTMLElement, EmptyDataProps>(
+    ({title, message, icon, className, component, ...props}, ref) => {
+        const Component = component ?? 'div';
+        return (
+            <Component
+                ref={ref}
+                className={clsx(
+                    'moonstone-emptyData',
+                    'flexCol_center',
+                    'alignCenter',
+                    'flexFluid',
+                    className
+                )}
+                {...props}
+            >
+                {icon}
+                {title && (
+                    <Typography variant="heading" weight="semiBold">
+                        {title}
+                    </Typography>
+                )}
+                <Typography variant="body">{message}</Typography>
+            </Component>
+        );
+    }
+);
 
 EmptyData.displayName = 'EmptyData';

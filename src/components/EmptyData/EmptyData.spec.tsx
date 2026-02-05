@@ -9,13 +9,14 @@ describe('EmptyData', () => {
             <EmptyData
                 data-testid="empty-data"
                 className="extra"
+                message="Empty"
             />
         );
         expect(screen.getByTestId('empty-data')).toHaveClass('extra');
     });
 
     it('should display title', () => {
-        render(<EmptyData title="No Data Found"/>);
+        render(<EmptyData title="No Data Found" message="Empty"/>);
         expect(screen.getByText('No Data Found')).toBeInTheDocument();
     });
 
@@ -28,6 +29,7 @@ describe('EmptyData', () => {
         render(
             <EmptyData
                 icon={<Love data-testid="empty-data-icon"/>}
+                message="Empty"
             />
         );
         expect(screen.getByTestId('empty-data-icon')).toBeInTheDocument();

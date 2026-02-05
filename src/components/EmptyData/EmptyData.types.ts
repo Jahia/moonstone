@@ -1,6 +1,10 @@
 import React from 'react';
 
-export type EmptyDataProps = {
+export type EmptyDataProps = React.HTMLAttributes<HTMLDivElement> & {
+    /**
+     * HTML tag or component to render (default: 'div')
+     */
+    component?: React.ElementType;
     /**
      * Title of the empty state
      */
@@ -8,7 +12,7 @@ export type EmptyDataProps = {
     /**
      * Message to display
      */
-    message?: string;
+    message: string;
     /**
      * Icon to display
      */
