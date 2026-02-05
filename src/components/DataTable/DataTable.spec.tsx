@@ -329,10 +329,8 @@ describe('DataTable', () => {
 
         const nameCell = screen.getByText('Alice').closest('td');
         expect(nameCell).toHaveClass('moonstone-tableCell_truncate');
-        expect(nameCell).toHaveClass('moonstone-tableCell_canShrink');
 
         const ageCell = screen.getByText('30').closest('td');
         expect(ageCell).toHaveClass('moonstone-tableCell_scroll');
-        expect(ageCell).toHaveClass('moonstone-tableCell_canShrink');
     });
 });

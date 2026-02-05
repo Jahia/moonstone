@@ -27,6 +27,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
             ref={ref}
             component={component}
             variant="body"
+            isNowrap={textOverflow === 'truncate'}
             className={clsx(
                 'moonstone-tableCell',
                 align === 'left' ? 'justifyStart' : align === 'right' ? 'justifyEnd' : 'justifyCenter',
@@ -36,7 +37,6 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
                 {flexFluid: typeof width === 'undefined'},
                 textOverflow === 'truncate' && 'moonstone-tableCell_truncate',
                 textOverflow === 'scroll' && 'moonstone-tableCell_scroll',
-                (textOverflow === 'truncate' || textOverflow === 'scroll') && 'moonstone-tableCell_canShrink',
                 scrollableClass,
                 className
             )}

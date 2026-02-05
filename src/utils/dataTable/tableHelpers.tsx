@@ -20,7 +20,7 @@ export const createTableColumns = <T extends Record<string, unknown>>(
             isSortable: col.isSortable ?? false,
             align: col.align ?? 'left',
             width: col.width,
-            textOverflow: col.textOverflow ?? 'truncate'
+            textOverflow: col.textOverflow
         },
         enableSorting: col.isSortable ?? false,
 

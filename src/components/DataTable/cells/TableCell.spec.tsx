@@ -71,24 +71,23 @@ describe('TableCell', () => {
         expect(screen.getByTestId('cell')).toHaveClass('moonstone-tableCellContent');
     });
 
-    it('should apply truncate and canShrink classes when textOverflow is truncate', () => {
+    it('should apply truncate class and Typography isNowrap when textOverflow is truncate', () => {
         render(
             <TableWrapper>
                 <TableCell textOverflow="truncate" data-testid="cell">Content</TableCell>
             </TableWrapper>
         );
         expect(screen.getByTestId('cell')).toHaveClass('moonstone-tableCell_truncate');
-        expect(screen.getByTestId('cell')).toHaveClass('moonstone-tableCell_canShrink');
+        expect(screen.getByTestId('cell')).toHaveClass('moonstone-nowrap');
     });
 
-    it('should apply scroll and canShrink classes when textOverflow is scroll', () => {
+    it('should apply scroll class when textOverflow is scroll', () => {
         render(
             <TableWrapper>
                 <TableCell textOverflow="scroll" data-testid="cell">Content</TableCell>
             </TableWrapper>
         );
         expect(screen.getByTestId('cell')).toHaveClass('moonstone-tableCell_scroll');
-        expect(screen.getByTestId('cell')).toHaveClass('moonstone-tableCell_canShrink');
     });
 });
 
