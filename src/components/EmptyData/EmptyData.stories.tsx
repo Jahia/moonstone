@@ -5,6 +5,7 @@ import {Love} from '~/icons';
 export default {
     title: 'Components/EmptyData',
     component: EmptyData,
+    tags: ['beta'],
     parameters: {
         layout: 'centered'
     }
