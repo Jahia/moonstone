@@ -37,7 +37,6 @@
 .moonstone-collapsible_button_expanded {
     position: sticky;
     top: 0;
-    z-index: 10;
 
     background: var(--color-white);
 
@@ -45,6 +44,8 @@
 }
 
 .moonstone-collapsible_button_sticky {
+    z-index: 10;
+
     box-shadow: -4px 4px 4px -4px var(--color-gray60);
 }
 
