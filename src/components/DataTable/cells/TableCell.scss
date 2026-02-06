@@ -11,21 +11,29 @@
     display: block;
 }
 
-// Scroll: horizontal scroll only. padding-bottom reserves space so scrollbar doesn't overlap text.
+// Scroll: truncate by default, horizontal scroll on hover.
 .moonstone-tableCell_scroll {
     display: block;
     padding-bottom: var(--spacing-nano);
 
     white-space: nowrap;
-    overflow-x: auto;
+    overflow: hidden;
 
-    scrollbar-width: thin;
+    text-overflow: ellipsis;
 
-    &::-webkit-scrollbar {
-        height: var(--spacing-nano);
-    }
+    &:hover {
+        padding-bottom: var(--spacing-nano);
 
-    &::-webkit-scrollbar-thumb {
-        background-color: var(--color-gray_light);
+        text-overflow: clip;
+        overflow-x: auto;
+        scrollbar-width: thin;
+
+        &::-webkit-scrollbar {
+            height: var(--spacing-nano);
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: var(--color-gray_light);
+        }
     }
 }
