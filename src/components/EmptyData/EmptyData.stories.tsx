@@ -1,4 +1,3 @@
-
 import {EmptyData} from './index';
 import {Love} from '~/icons';
 
