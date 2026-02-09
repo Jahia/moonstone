@@ -24,6 +24,14 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
         // Align comes from stringColumn helper
     },
     {
+        key: 'lastName',
+        label: 'Last Name',
+        textOverflow: 'scroll',
+        isSortable: true,
+        sortFn: (a, b) => a.lastName.localeCompare(b.lastName),
+        align: 'left'
+    },
+    {
         key: 'status',
         label: 'Status',
         render: value => (

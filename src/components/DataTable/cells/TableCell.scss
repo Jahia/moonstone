@@ -13,19 +13,11 @@
 
 // Scroll: truncate by default, horizontal scroll on hover.
 .moonstone-tableCell_scroll {
-    display: block;
-    padding-bottom: var(--spacing-nano);
-
-    white-space: nowrap;
-    overflow: hidden;
-
-    text-overflow: ellipsis;
+    @include index.truncate;
 
     &:hover {
-        padding-bottom: var(--spacing-nano);
-
         text-overflow: clip;
-        overflow-x: auto;
+        overflow: auto;
         scrollbar-width: thin;
 
         &::-webkit-scrollbar {
