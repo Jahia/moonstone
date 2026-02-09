@@ -11,6 +11,6 @@ jobs:
         run: yarn
       - run: yarn build
       - name: Publish to pkg.pr.new
-        run: npx pkg-pr-new publish --compact
+        run: npx pkg-pr-new publish --compact --packageManager=yarn
       - run: yarn test
       - run: yarn lint
