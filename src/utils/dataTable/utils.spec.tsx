@@ -1,4 +1,5 @@
 import {describe, it, expect, vi} from 'vitest';
+import {render} from '@testing-library/react';
 import {DataTableColumn} from '~/components/DataTable/DataTable.types';
 import {
     renderNumber,
@@ -11,7 +12,8 @@ import {
 
 describe('renderNumber', () => {
     it('should format number with en-US locale', () => {
-        expect(renderNumber({value: 1234.56, locale: 'en-US'})).toBe('1,234.56');
+        const {container} = render(<>{renderNumber({value: 1234.56, locale: 'en-US'})}</>);
+        expect(container.textContent).toBe('1,234.56');
     });
 
     it('should return null if value is null or undefined', () => {
@@ -20,26 +22,32 @@ describe('renderNumber', () => {
     });
 
     it('should apply minimumFractionDigits option', () => {
-        const result = renderNumber({
-            value: 1234,
-            locale: 'en-US',
-            localeOptions: {minimumFractionDigits: 2}
-        });
-        expect(result).toBe('1,234.00');
+        const {container} = render(
+            <>{renderNumber({
+                value: 1234,
+                locale: 'en-US',
+                localeOptions: {minimumFractionDigits: 2}
+            })}
+            </>
+        );
+        expect(container.textContent).toBe('1,234.00');
     });
 });
 
 describe('renderDate', () => {
     it('should format date with specific options', () => {
         const date = new Date('2023-06-15T12:00:00Z');
-        const result = renderDate({
-            value: date,
-            locale: 'en-US',
-            localeOptions: {year: 'numeric', month: '2-digit', day: '2-digit'}
-        });
-        expect(result).toContain('2023');
-        expect(result).toContain('06');
-        expect(result).toContain('15');
+        const {container} = render(
+            <>{renderDate({
+                value: date,
+                locale: 'en-US',
+                localeOptions: {year: 'numeric', month: '2-digit', day: '2-digit'}
+            })}
+            </>
+        );
+        expect(container.textContent).toContain('2023');
+        expect(container.textContent).toContain('06');
+        expect(container.textContent).toContain('15');
     });
 
     it('should return null if value is null or undefined', () => {
@@ -55,7 +63,8 @@ describe('stringColumn', () => {
         const col = stringColumn<Row>(get, {align: 'center'});
         expect(col.isSortable).toBe(true);
         expect(col.align).toBe('center');
-        expect(col.render('test')).toBe('test');
+        const {container} = render(<>{col.render('test')}</>);
+        expect(container.textContent).toBe('test');
 
         const rowA = {val: 'a'};
         const rowB = {val: 'b'};

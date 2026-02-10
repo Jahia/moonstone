@@ -39,9 +39,9 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                         onClick={onToggleExpand}
                     >
                         {isExpanded ? (
-                            <ChevronDown className="moonstone-marginRightNano"/>
+                            <ChevronDown className="moonstone-marginRightNano moonstone-tableCellExpandable__chevron"/>
                         ) : (
-                            <ChevronRight className="moonstone-marginRightNano"/>
+                            <ChevronRight className="moonstone-marginRightNano moonstone-tableCellExpandable__chevron"/>
                         )}
                         {children}
                     </span>
@@ -49,7 +49,10 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
             }
 
             return (
-                <span style={{marginLeft: `${leftMarginIndentDepth + chevronSpace}px`}}>
+                <span
+                    className="moonstone-tableCellIndent"
+                    style={{marginLeft: `${leftMarginIndentDepth + chevronSpace}px`}}
+                >
                     {children}
                 </span>
             );

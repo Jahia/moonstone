@@ -4,17 +4,67 @@
     gap: var(--spacing-nano);
     padding-right: var(--spacing-medium);
     padding-left: var(--spacing-medium);
+    overflow: hidden;
+}
 
-    overflow-y: auto;
+// Structured cell wrapper (expandable rows with chevron)
+.moonstone-tableCellExpandable {
+    flex: 1;
+    min-width: 0; // Allow shrinking below content width
+}
 
-    //noinspection CssUnknownProperty
-    scrollbar-width: thin;
+.moonstone-tableCellExpandable__chevron {
+    flex-shrink: 0;
+}
 
-    &::-webkit-scrollbar {
-        height: var(--spacing-nano);
+// Structured cell wrapper (non-expandable rows with indentation only)
+.moonstone-tableCellIndent {
+    flex: 1;
+    min-width: 0;
+}
+
+.moonstone-cellText {
+    // WebKit-specific scrollbar customization (Chrome, Safari, Edge)
+    @supports selector(::-webkit-scrollbar) {
+        &::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 3px;
+            background-color: var(--color-gray_light);
+        }
+
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
     }
 
-    &::-webkit-scrollbar-thumb {
-        background-color: var(--color-gray_light);
+    // Base layout and truncation behavior
+    display: block;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    // Base scrollbar styling (applies to all browsers that support it)
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-gray_light) transparent;
+}
+
+// Only enable scroll-on-hover when content actually overflows
+.moonstone-cellText--overflowing {
+    // Firefox-only: reserve space for scrollbar to prevent layout shift
+    @supports (scrollbar-color: auto) and (not selector(::-webkit-scrollbar)) {
+        scrollbar-gutter: stable;
+
+        &:hover {
+            padding-bottom: 10px; // Firefox needs more space
+        }
+    }
+
+    &:hover {
+        text-overflow: clip;
+        overflow-x: auto;
     }
 }
