@@ -1,7 +1,8 @@
 import {describe, it, expect, vi} from 'vitest';
-import {render} from '@testing-library/react';
+import {render, fireEvent} from '@testing-library/react';
 import {DataTableColumn} from '~/components/DataTable/DataTable.types';
 import {
+    CellText,
     renderNumber,
     renderDate,
     stringColumn,
@@ -137,5 +138,47 @@ describe('createTableColumns', () => {
         const result = createTableColumns(columns);
         const col = result[0];
         expect(typeof col.sortingFn).toBe('function');
+    });
+});
+
+describe('CellText', () => {
+    it('should add overflowing class on mouse enter if content overflows', () => {
+        const {container} = render(<CellText>Content</CellText>);
+        const span = container.querySelector('span');
+
+        // Mock scrollWidth > clientWidth
+        Object.defineProperty(span, 'scrollWidth', {configurable: true, value: 200});
+        Object.defineProperty(span, 'clientWidth', {configurable: true, value: 100});
+
+        fireEvent.mouseEnter(span!);
+        expect(span).toHaveClass('moonstone-cellText--overflowing');
+    });
+
+    it('should not add overflowing class if content does not overflow', () => {
+        const {container} = render(<CellText>Content</CellText>);
+        const span = container.querySelector('span');
+
+        // Mock scrollWidth <= clientWidth
+        Object.defineProperty(span, 'scrollWidth', {configurable: true, value: 100});
+        Object.defineProperty(span, 'clientWidth', {configurable: true, value: 100});
+
+        fireEvent.mouseEnter(span!);
+        expect(span).not.toHaveClass('moonstone-cellText--overflowing');
+    });
+
+    it('should remove overflowing class and reset scroll on mouse leave', () => {
+        const {container} = render(<CellText>Content</CellText>);
+        const span = container.querySelector('span');
+
+        // Setup overflow state
+        Object.defineProperty(span, 'scrollWidth', {configurable: true, value: 200});
+        Object.defineProperty(span, 'clientWidth', {configurable: true, value: 100});
+        fireEvent.mouseEnter(span!);
+        expect(span).toHaveClass('moonstone-cellText--overflowing');
+
+        // Test leave
+        fireEvent.mouseLeave(span!);
+        expect(span).not.toHaveClass('moonstone-cellText--overflowing');
+        expect(span?.scrollLeft).toBe(0);
     });
 });

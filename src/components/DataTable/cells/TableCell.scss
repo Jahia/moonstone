@@ -27,11 +27,11 @@
     // WebKit-specific scrollbar customization (Chrome, Safari, Edge)
     @supports selector(::-webkit-scrollbar) {
         &::-webkit-scrollbar {
-            height: 6px;
+            height: calc(var(--spacing-nano) + var(--spacing-pico));
         }
 
         &::-webkit-scrollbar-thumb {
-            border-radius: 3px;
+            border-radius: var(--radius_small);
             background-color: var(--color-gray_light);
         }
 
@@ -59,7 +59,7 @@
         scrollbar-gutter: stable;
 
         &:hover {
-            padding-bottom: 10px; // Firefox needs more space
+            padding-bottom: calc(var(--spacing-small) + var(--spacing-pico)); // Firefox needs more space
         }
     }
 
