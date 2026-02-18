@@ -7,7 +7,6 @@ import './TableCell.scss';
 
 // Spacing constants for tree structure alignment
 const indentSpace = 20; // Px - indentation per depth level
-const chevronSpace = 20; // Px - compensates for chevron icon width on non-expandable rows
 
 export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableStructuredCellProps>(
     (
@@ -48,10 +47,11 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                 );
             }
 
+            // Non-expandable rows: indent by depth only. Aligns with column header (no chevron placeholder)
             return (
                 <span
                     className="moonstone-tableCellIndent"
-                    style={{marginLeft: `${leftMarginIndentDepth + chevronSpace}px`}}
+                    style={{marginLeft: `${leftMarginIndentDepth}px`}}
                 >
                     {children}
                 </span>
