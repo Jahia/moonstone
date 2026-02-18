@@ -7,16 +7,11 @@ import {
     flexRender
 } from '@tanstack/react-table';
 
-import type {
-    ExpandedState,
-    RowSelectionState,
-    SortingState,
-    PaginationState,
-    Row
-} from '@tanstack/react-table';
+import type {ExpandedState, Row} from '@tanstack/react-table';
 import {useState, useEffect, useMemo, useCallback} from 'react';
 
 import type {DataTableProps, CustomColumnMeta} from './DataTable.types';
+import {useDataTableState} from '~/hooks/useDataTableState';
 import {Checkbox} from '~/components';
 import {
     Table,
@@ -66,108 +61,34 @@ export const DataTable = <T extends NonNullable<unknown>>({
     rowProps,
     ...props
 }: DataTableProps<T>) => {
-    // Sorting: controlled (sortBy/sortDirection props) vs uncontrolled (internal state)
-    const isSortingControlled = sortBy !== undefined;
-    const initialSorting = useMemo<SortingState>(() => {
-        if (defaultSortBy) {
-            return [{id: defaultSortBy, desc: defaultSortDirection === 'descending'}];
-        }
-
-        return [];
-    }, [defaultSortBy, defaultSortDirection]);
-    const [uncontrolledSorting, setUncontrolledSorting] = useState<SortingState>(initialSorting);
-    const controlledSorting = useMemo<SortingState>(
-        () => (sortBy ? [{id: sortBy, desc: sortDirection === 'descending'}] : []),
-        [sortBy, sortDirection]
-    );
-    const sorting = isSortingControlled ? controlledSorting : uncontrolledSorting;
     const [expanded, setExpanded] = useState<ExpandedState>({});
 
-    // Selection: controlled (selection prop) vs uncontrolled (internal state)
-    const isSelectionControlled = selection !== undefined;
-    const uncontrolledRowSelection = useState<RowSelectionState>(() =>
-        defaultSelection?.reduce((acc, key) => ({...acc, [key]: true}), {}) ?? {}
-    );
-    const controlledRowSelection = useMemo<RowSelectionState>(
-        () => (selection ?? []).reduce((acc, id) => ({...acc, [id]: true}), {}),
-        [selection]
-    );
-    const rowSelection = isSelectionControlled ? controlledRowSelection : uncontrolledRowSelection[0];
-    const setRowSelection = uncontrolledRowSelection[1];
-
-    // Pagination: controlled (pageIndex/pageSize props) vs uncontrolled (internal state)
-    const isPaginationControlled = pageIndex !== undefined;
-    const defaultPageSize = useMemo(() => {
-        const options = itemsPerPageOptions ?? [5, 10, 25];
-        if (itemsPerPage && options.includes(itemsPerPage)) {
-            return itemsPerPage;
-        }
-
-        return options[0] ?? 10;
-    }, [itemsPerPage, itemsPerPageOptions]);
-    const [uncontrolledPagination, setUncontrolledPagination] = useState<PaginationState>({
-        pageIndex: 0,
-        pageSize: defaultPageSize
+    const {
+        sorting,
+        rowSelection,
+        pagination,
+        isPaginationControlled,
+        handleRowSelectionChange,
+        handleSortingChange,
+        handlePaginationChange
+    } = useDataTableState<T>({
+        selection,
+        defaultSelection,
+        onChangeSelection,
+        sortBy,
+        sortDirection,
+        defaultSortBy,
+        defaultSortDirection,
+        onSortChange,
+        pageIndex,
+        pageSize,
+        itemsPerPage,
+        itemsPerPageOptions,
+        onPageChange,
+        onItemsPerPageChange
     });
-    const controlledPagination = useMemo<PaginationState>(
-        () => ({pageIndex: pageIndex ?? 0, pageSize: pageSize ?? defaultPageSize}),
-        [pageIndex, pageSize, defaultPageSize]
-    );
-    const pagination = isPaginationControlled ? controlledPagination : uncontrolledPagination;
-
-    useEffect(() => {
-        if (!isSelectionControlled) {
-            onChangeSelection?.(Object.keys(rowSelection).filter(id => rowSelection[id]));
-        }
-    }, [isSelectionControlled, rowSelection, onChangeSelection]);
 
     const tableColumns = useMemo(() => createTableColumns(columns), [columns]);
-
-    const handleRowSelectionChange = useCallback(
-        (updater: React.SetStateAction<RowSelectionState>) => {
-            if (isSelectionControlled) {
-                const next = typeof updater === 'function' ? updater(rowSelection) : updater;
-                onChangeSelection?.(Object.keys(next).filter(id => next[id]));
-            } else {
-                setRowSelection(updater);
-            }
-        },
-        [isSelectionControlled, rowSelection, onChangeSelection, setRowSelection]
-    );
-
-    const handleSortingChange = useCallback(
-        (updater: React.SetStateAction<SortingState>) => {
-            const next = typeof updater === 'function' ? updater(sorting) : updater;
-            const first = next[0];
-            if (isSortingControlled && onSortChange && first) {
-                onSortChange(
-                    first.id as Extract<keyof T, string>,
-                    first.desc ? 'descending' : 'ascending'
-                );
-            } else {
-                setUncontrolledSorting(updater);
-            }
-        },
-        [isSortingControlled, sorting, onSortChange]
-    );
-
-    const handlePaginationChange = useCallback(
-        (updater: React.SetStateAction<PaginationState>) => {
-            if (isPaginationControlled && onPageChange && onItemsPerPageChange) {
-                const next = typeof updater === 'function' ? updater(pagination) : updater;
-                if (next.pageIndex !== pagination.pageIndex) {
-                    onPageChange(next.pageIndex + 1);
-                }
-
-                if (next.pageSize !== pagination.pageSize) {
-                    onItemsPerPageChange(next.pageSize);
-                }
-            } else {
-                setUncontrolledPagination(updater);
-            }
-        },
-        [isPaginationControlled, pagination, onPageChange, onItemsPerPageChange]
-    );
 
     const table = useReactTable({
         data,
@@ -308,15 +229,15 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                 const meta = header.column.columnDef.meta as CustomColumnMeta | undefined;
                                 const isColumnSortable = enableSorting && (meta?.isSortable ?? false);
                                 const alignment = meta?.align ?? 'left';
-                                const sortDirection = header.column.getIsSorted();
+                                const columnSort = header.column.getIsSorted();
 
                                 return (
                                     <TableHeadCell
                                         key={header.id}
                                         width={meta?.width}
                                         sorting={isColumnSortable ? {
-                                            direction: sortDirection === 'desc' ? 'descending' : 'ascending',
-                                            isActive: Boolean(sortDirection)
+                                            direction: columnSort === 'desc' ? 'descending' : 'ascending',
+                                            isActive: Boolean(columnSort)
                                         } : undefined}
                                         style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
                                         align={alignment}
@@ -346,23 +267,21 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 <Pagination
                     currentPage={table.getState().pagination.pageIndex + 1}
                     totalOfItems={
-                        manualPagination && totalRowCount !== undefined
-                            ? totalRowCount
-                            : table.getPrePaginationRowModel().rows.length
+                        manualPagination && totalRowCount !== undefined ?
+                            totalRowCount :
+                            table.getPrePaginationRowModel().rows.length
                     }
                     itemsPerPage={table.getState().pagination.pageSize}
                     itemsPerPageOptions={itemsPerPageOptions ?? [5, 10, 25]}
                     label={paginationLabel}
                     onPageChange={(page: number) =>
-                        isPaginationControlled
-                            ? onPageChange?.(page)
-                            : table.setPageIndex(page - 1)
-                    }
+                        isPaginationControlled ?
+                            onPageChange?.(page) :
+                            table.setPageIndex(page - 1)}
                     onItemsPerPageChange={(size: number) =>
-                        isPaginationControlled
-                            ? onItemsPerPageChange?.(size)
-                            : table.setPageSize(size)
-                    }
+                        isPaginationControlled ?
+                            onItemsPerPageChange?.(size) :
+                            table.setPageSize(size)}
                     {...paginationProps}
                 />
             )}

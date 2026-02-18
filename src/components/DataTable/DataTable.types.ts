@@ -193,13 +193,14 @@ type PaginationUncontrolledProps = {
     pageSize?: never;
     onPageChange?: never;
     onItemsPerPageChange?: never;
-    totalRowCount?: never;
+    /** Server-side: total rows when manualPagination (for Pagination display) */
+    totalRowCount?: number;
     /** Initial items per page */
     itemsPerPage?: ComponentPaginationProps['itemsPerPage'];
     itemsPerPageOptions?: ComponentPaginationProps['itemsPerPageOptions'];
     paginationLabel?: ComponentPaginationProps['label'];
     /** Custom attributes spread on Pagination root (data-*, aria-*, etc.) */
-    paginationProps?: Omit<React.ComponentPropsWithoutRef<'div'>, 'children'>;
+    paginationProps?: Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> & Record<string, unknown>;
 };
 
 type PaginationControlledProps = {
@@ -216,7 +217,7 @@ type PaginationControlledProps = {
     itemsPerPage?: never;
     itemsPerPageOptions?: ComponentPaginationProps['itemsPerPageOptions'];
     paginationLabel?: ComponentPaginationProps['label'];
-    paginationProps?: Omit<React.ComponentPropsWithoutRef<'div'>, 'children'>;
+    paginationProps?: Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> & Record<string, unknown>;
 };
 
 type TablePaginationProps =

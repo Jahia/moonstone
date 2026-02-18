@@ -1,10 +1,10 @@
-import {dataTable} from '~/data/dataTable';
-import {dataColumnsUser} from '~/data/dataTable';
+import {dataTable, dataColumnsUser} from '~/data/dataTable';
 import type {DataUser} from '~/data/dataTable';
 import {DataTable} from './DataTable';
 import type {Meta, StoryObj} from '@storybook/react';
 import {TableRow} from './TableRow';
 import {MoreVert} from '~/icons';
+import {useArgs} from 'storybook/preview-api';
 
 export default {
     title: 'Components/DataTable',
@@ -120,6 +120,36 @@ export const PaginationDataTable: Story = {
         primaryKey: 'firstName'
     },
     name: 'With Pagination (Structured)'
+};
+
+export const ControlledSelection: Story = {
+    render: args => {
+        const [, setArgs] = useArgs();
+        const a = args as typeof args & {selection?: string[]};
+
+        const onChangeSelection = (selection: string[]) => {
+            args.onChangeSelection?.(selection);
+            setArgs({...args, selection});
+        };
+
+        return (
+            <DataTable<DataUser>
+                enableSelection
+                data={args.data}
+                columns={args.columns}
+                primaryKey={args.primaryKey}
+                selection={a.selection ?? ['Walter']}
+                onChangeSelection={onChangeSelection}
+            />
+        );
+    },
+    args: {
+        data: dataTable,
+        columns: dataColumnsUser,
+        primaryKey: 'firstName',
+        selection: ['Walter']
+    },
+    name: 'Controlled Selection'
 };
 
 export const AllFeaturesTable: Story = {

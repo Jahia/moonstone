@@ -289,4 +289,175 @@ describe('DataTable', () => {
         const nameHeader = screen.getByText('Name').closest('th');
         expect(nameHeader).not.toHaveStyle({width: '200px'});
     });
+
+    it('should display controlled selection from selection prop', () => {
+        render(
+            <DataTable<TestData>
+                enableSelection
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                selection={['1', '2']}
+                onChangeSelection={() => {}}
+            />
+        );
+
+        const checkboxes = screen.getAllByRole('checkbox');
+        expect(checkboxes[1]).toBeChecked();
+        expect(checkboxes[2]).toBeChecked();
+        expect(checkboxes[3]).not.toBeChecked();
+    });
+
+    it('should call onChangeSelection when selection changes in controlled mode', async () => {
+        const onChangeSelection = vi.fn();
+        const user = userEvent.setup();
+
+        render(
+            <DataTable<TestData>
+                enableSelection
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                selection={[]}
+                onChangeSelection={onChangeSelection}
+            />
+        );
+
+        const firstRowCheckbox = screen.getAllByRole('checkbox')[1];
+        await user.click(firstRowCheckbox);
+
+        expect(onChangeSelection).toHaveBeenCalledWith(['1']);
+    });
+
+    it('should respect controlled sortBy and sortDirection', () => {
+        render(
+            <DataTable<TestData>
+                enableSorting
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                sortBy="name"
+                sortDirection="descending"
+                onSortChange={() => {}}
+            />
+        );
+
+        const rows = screen.getAllByRole('row');
+        expect(within(rows[1]).getByText('Charlie')).toBeInTheDocument();
+        expect(within(rows[2]).getByText('Bob')).toBeInTheDocument();
+        expect(within(rows[3]).getByText('Alice')).toBeInTheDocument();
+    });
+
+    it('should respect controlled pagination', () => {
+        render(
+            <DataTable<TestData>
+                enablePagination
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                pageIndex={1}
+                pageSize={1}
+                itemsPerPageOptions={[1, 5, 10]}
+                onPageChange={() => {}}
+                onItemsPerPageChange={() => {}}
+            />
+        );
+
+        expect(screen.getByText('Bob')).toBeInTheDocument();
+        expect(screen.queryByText('Alice')).not.toBeInTheDocument();
+        expect(screen.queryByText('Charlie')).not.toBeInTheDocument();
+    });
+
+    it('should spread paginationProps on Pagination component', () => {
+        render(
+            <DataTable<TestData>
+                enablePagination
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                itemsPerPageOptions={[5, 10]}
+                paginationProps={{'data-testid': 'custom-pagination'}}
+            />
+        );
+
+        expect(screen.getByTestId('custom-pagination')).toBeInTheDocument();
+    });
+
+    it('should expand row when expand toggle is clicked after collapse', async () => {
+        const structuredData: TestData[] = [
+            {
+                id: '1',
+                name: 'Parent',
+                age: 50,
+                subRows: [{id: '1.1', name: 'Child', age: 10}]
+            }
+        ];
+
+        const user = userEvent.setup();
+        render(
+            <DataTable<TestData>
+                isStructured
+                data={structuredData}
+                columns={columns}
+                primaryKey="id"
+            />
+        );
+
+        const expandableSpan = document.querySelector('.moonstone-tableCellExpandable')!;
+        await user.click(expandableSpan);
+        expect(screen.queryByText('Child')).not.toBeInTheDocument();
+
+        await user.click(expandableSpan);
+        expect(screen.getByText('Child')).toBeInTheDocument();
+    });
+
+    it('should show nested subRows when parent is expanded', () => {
+        const nestedData: TestData[] = [
+            {
+                id: '1',
+                name: 'Level1',
+                age: 50,
+                subRows: [
+                    {
+                        id: '1.1',
+                        name: 'Level2',
+                        age: 25,
+                        subRows: [{id: '1.1.1', name: 'Level3', age: 5}]
+                    }
+                ]
+            }
+        ];
+
+        render(
+            <DataTable<TestData>
+                isStructured
+                data={nestedData}
+                columns={columns}
+                primaryKey="id"
+            />
+        );
+
+        expect(screen.getByText('Level1')).toBeInTheDocument();
+        expect(screen.getByText('Level2')).toBeInTheDocument();
+        expect(screen.getByText('Level3')).toBeInTheDocument();
+    });
+
+    it('should use totalRowCount for manualPagination in uncontrolled mode', () => {
+        const firstPageData = [data[0]];
+
+        render(
+            <DataTable<TestData>
+                enablePagination
+                manualPagination
+                data={firstPageData}
+                columns={columns}
+                primaryKey="id"
+                itemsPerPage={1}
+                itemsPerPageOptions={[1, 5, 10]}
+                totalRowCount={100}
+            />
+        );
+
+        expect(screen.getByText('1-1 of 100')).toBeInTheDocument();
+    });
 });
