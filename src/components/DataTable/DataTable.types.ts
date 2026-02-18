@@ -1,5 +1,5 @@
 import React from 'react';
-import type {Row} from '@tanstack/react-table';
+import type {Row, ColumnSizingState, OnChangeFn} from '@tanstack/react-table';
 import type {PaginationProps as ComponentPaginationProps} from '~/components/Pagination';
 
 export type SubRowKey = 'subRows';
@@ -143,6 +143,23 @@ export type DataTableBaseProps<T extends NonNullable<unknown>> = {
      * @param width - The current width in pixels
      */
     onResizing?: (columnId: string, width: number) => void;
+
+    /**
+     * Controlled column sizing (for persistence). When provided with onColumnSizingChange,
+     * enables controlled mode. The consumer manages state (e.g. localStorage) and passes it back.
+     */
+    columnSizing?: ColumnSizingState;
+
+    /**
+     * Callback when column sizing changes (controlled mode). Use with columnSizing for persistence.
+     */
+    onColumnSizingChange?: OnChangeFn<ColumnSizingState>;
+
+    /**
+     * Width of the actions column in pixels when enableResize is true.
+     * @default 60
+     */
+    actionsColumnWidth?: number | string;
 
     /**
      * Custom HTML attributes to add to each row element

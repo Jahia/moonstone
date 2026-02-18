@@ -51,6 +51,9 @@ export const DataTable = <T extends NonNullable<unknown>>({
     onResizeStart,
     onResizeStop,
     onResizing,
+    columnSizing: columnSizingState,
+    onColumnSizingChange,
+    actionsColumnWidth = 60,
     // Pagination props
     enablePagination = false,
     itemsPerPage,
@@ -113,9 +116,11 @@ export const DataTable = <T extends NonNullable<unknown>>({
             rowSelection,
             sorting,
             ...(enablePagination && {pagination}),
-            ...(enableResize && {columnSizingInfo})
+            ...(enableResize && {columnSizingInfo}),
+            ...(enableResize && columnSizingState !== undefined && {columnSizing: columnSizingState})
         },
         onColumnSizingInfoChange: enableResize ? setColumnSizingInfo : undefined,
+        onColumnSizingChange: enableResize ? onColumnSizingChange : undefined,
         onSortingChange: setSorting,
         onExpandedChange: setExpanded,
         onRowSelectionChange: setRowSelection,
@@ -226,10 +231,20 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 })}
 
                 {/* Actions cell */}
-                {actions && <TableCell>{actions(row.original)}</TableCell>}
+                {actions && (
+                    <TableCell
+                        width={enableResize ?
+                            (typeof actionsColumnWidth === 'number' ?
+                                `${actionsColumnWidth}px` :
+                                actionsColumnWidth) :
+                            undefined}
+                    >
+                        {actions(row.original)}
+                    </TableCell>
+                )}
             </>
         ),
-        [enableSelection, actions, isStructured, enableResize]
+        [enableSelection, actions, isStructured, enableResize, actionsColumnWidth]
     );
 
     const renderRowWithCustomization = useCallback(
@@ -257,81 +272,86 @@ export const DataTable = <T extends NonNullable<unknown>>({
         return null;
     }
 
-    const tableWidth = enableResize ?
-        table.getCenterTotalSize() + (enableSelection ? 52 : 0) + (actions ? 60 : 0) :
-        undefined;
-    const tableStyle = enableResize ? {tableLayout: 'fixed' as const, width: tableWidth} : undefined;
+    const tableStyle = enableResize ? {tableLayout: 'fixed' as const, width: '100%'} : undefined;
+
+    const tableContent = (
+        <Table className={className} style={{...style, ...tableStyle}} {...props}>
+            <TableHead>
+                {table.getHeaderGroups().map(headerGroup => (
+                    <TableRow key={headerGroup.id}>
+                        {enableSelection && (
+                            <TableHeadCell width="52px">
+                                <Checkbox
+                                    checked={table.getIsAllRowsSelected()}
+                                    indeterminate={table.getIsSomeRowsSelected()}
+                                    onChange={table.getToggleAllRowsSelectedHandler()}
+                                />
+                            </TableHeadCell>
+                        )}
+                        {headerGroup.headers.map(header => {
+                            const meta = header.column.columnDef.meta as CustomColumnMeta | undefined;
+                            const isColumnSortable = enableSorting && (meta?.isSortable ?? false);
+                            const alignment = meta?.align ?? 'left';
+                            const sortDirection = header.column.getIsSorted();
+                            const headerWidth = enableResize ? `${header.getSize()}px` : meta?.width;
+
+                            return (
+                                <TableHeadCell
+                                    key={header.id}
+                                    width={headerWidth}
+                                    sorting={isColumnSortable ? {
+                                        direction: sortDirection === 'desc' ? 'descending' : 'ascending',
+                                        isActive: Boolean(sortDirection)
+                                    } : undefined}
+                                    style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
+                                    align={alignment}
+                                    enableResize={enableResize}
+                                    isResizing={enableResize ? header.column.getIsResizing() : undefined}
+                                    resizeHandler={enableResize ? header.getResizeHandler() : undefined}
+                                    resizeHeaderRef={
+                                        enableResize ?
+                                            el => {
+                                                if (el) {
+                                                    headerRefsRef.current[header.id] = el;
+                                                }
+                                            } :
+                                            undefined
+                                    }
+                                    onClick={(e: React.MouseEvent<HTMLTableCellElement>) => {
+                                        if (isColumnSortable) {
+                                            header.column.getToggleSortingHandler()?.(e);
+                                        }
+                                        onClickTableHeadCell?.(header.id);
+                                    }}
+                                    onResizeReset={enableResize ? () => header.column.resetSize() : undefined}
+                                >
+                                    {flexRender(header.column.columnDef.header, header.getContext())}
+                                </TableHeadCell>
+                            );
+                        })}
+                        {actions && (
+                            <TableHeadCell
+                                width={enableResize ?
+                                    (typeof actionsColumnWidth === 'number' ?
+                                        `${actionsColumnWidth}px` :
+                                        actionsColumnWidth) :
+                                    undefined}
+                            >
+                                {actionsHeaderLabel}
+                            </TableHeadCell>
+                        )}
+                    </TableRow>
+                ))}
+            </TableHead>
+            <TableBody>
+                {table.getRowModel().rows.map(row => renderRowWithCustomization(row))}
+            </TableBody>
+        </Table>
+    );
 
     return (
         <>
-            <Table className={className} style={{...style, ...tableStyle}} {...props}>
-                <TableHead>
-                    {table.getHeaderGroups().map(headerGroup => (
-                        <TableRow key={headerGroup.id}>
-                            {/* Selection header */}
-                            {enableSelection && (
-                                <TableHeadCell width="52px">
-                                    <Checkbox
-                                        checked={table.getIsAllRowsSelected()}
-                                        indeterminate={table.getIsSomeRowsSelected()}
-                                        onChange={table.getToggleAllRowsSelectedHandler()}
-                                    />
-                                </TableHeadCell>
-                            )}
-
-                            {/* Column headers */}
-                            {headerGroup.headers.map(header => {
-                                const meta = header.column.columnDef.meta as CustomColumnMeta | undefined;
-                                const isColumnSortable = enableSorting && (meta?.isSortable ?? false);
-                                const alignment = meta?.align ?? 'left';
-                                const sortDirection = header.column.getIsSorted();
-                                const headerWidth = enableResize ? `${header.getSize()}px` : meta?.width;
-
-                                return (
-                                    <TableHeadCell
-                                        key={header.id}
-                                        width={headerWidth}
-                                        sorting={isColumnSortable ? {
-                                            direction: sortDirection === 'desc' ? 'descending' : 'ascending',
-                                            isActive: Boolean(sortDirection)
-                                        } : undefined}
-                                        style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
-                                        align={alignment}
-                                        enableResize={enableResize}
-                                        isResizing={enableResize ? header.column.getIsResizing() : undefined}
-                                        resizeHandler={enableResize ? header.getResizeHandler() : undefined}
-                                        resizeHeaderRef={
-                                            enableResize ?
-                                                el => {
-                                                    if (el) {
-                                                        headerRefsRef.current[header.id] = el;
-                                                    }
-                                                } :
-                                                undefined
-                                        }
-                                        onClick={(e: React.MouseEvent<HTMLTableCellElement>) => {
-                                            if (isColumnSortable) {
-                                                header.column.getToggleSortingHandler()?.(e);
-                                            }
-
-                                            onClickTableHeadCell?.(header.id);
-                                        }}
-                                        onResizeReset={enableResize ? () => header.column.resetSize() : undefined}
-                                    >
-                                        {flexRender(header.column.columnDef.header, header.getContext())}
-                                    </TableHeadCell>
-                                );
-                            })}
-
-                            {/* Actions header */}
-                            {actions && <TableHeadCell>{actionsHeaderLabel}</TableHeadCell>}
-                        </TableRow>
-                    ))}
-                </TableHead>
-                <TableBody>
-                    {table.getRowModel().rows.map(row => renderRowWithCustomization(row))}
-                </TableBody>
-            </Table>
+            <div style={{overflowX: 'auto', width: '100%', minWidth: 0}}>{tableContent}</div>
             {enablePagination && (
                 <Pagination
                     currentPage={table.getState().pagination.pageIndex + 1}

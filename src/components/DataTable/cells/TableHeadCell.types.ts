@@ -51,5 +51,10 @@ export type TableHeadCellProps = Omit<TableCellProps, 'isScrollable' | 'componen
      * Ref callback to register the header element (for resize callbacks)
      */
     resizeHeaderRef?: (el: HTMLTableCellElement | null) => void;
+
+    /**
+     * Accessible label for the resize handle (e.g. "Redimensionner la colonne Nom")
+     */
+    resizeHandleLabel?: string;
 };
 

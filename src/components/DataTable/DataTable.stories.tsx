@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import {dataTable} from '~/data/dataTable';
 import {dataColumnsUser} from '~/data/dataTable';
 import type {DataUser} from '~/data/dataTable';
@@ -11,14 +12,22 @@ export default {
     component: DataTable,
     tags: ['beta'],
     parameters: {
-        controls: {expanded: true}
+        controls: {expanded: true},
+        docs: {
+            description: {
+                component: 'Data table with sorting, selection, pagination and column resizing. Use `enableResize` for resize handles; `columnSizing` + `onColumnSizingChange` for controlled mode.'
+            }
+        }
     },
     argTypes: {
         onChangeSelection: {action: 'onChangeSelection'},
         onResizeStart: {action: 'onResizeStart'},
         onResizeStop: {action: 'onResizeStop'},
         onResizing: {action: 'onResizing'},
+        onColumnSizingChange: {action: 'onColumnSizingChange'},
         enableResize: {control: 'boolean'},
+        columnSizing: {control: false},
+        actionsColumnWidth: {control: 'number'},
         enablePagination: {control: 'boolean'},
         itemsPerPage: {control: 'number'},
         itemsPerPageOptions: {control: 'object'},
@@ -107,17 +116,34 @@ export const StructuredViewDataTable: Story = {
     name: 'Structured View'
 };
 
-export const ResizableColumnsDataTable: Story = {
+export const ResizableColumnsControlledDataTable: Story = {
     render: args => {
-        return <DataTable {...args}/>;
+        const [columnSizing, setColumnSizing] = useState<Record<string, number>>({});
+
+        return (
+            <DataTable<DataUser>
+                {...args}
+                enableResize
+                columnSizing={Object.keys(columnSizing).length > 0 ? columnSizing : undefined}
+                onColumnSizingChange={updater => {
+                    setColumnSizing(prev => (typeof updater === 'function' ? updater(prev) : updater));
+                }}
+            />
+        );
     },
     args: {
         data: dataTable,
         columns: dataColumnsUser,
-        primaryKey: 'firstName',
-        enableResize: true
+        primaryKey: 'firstName'
     },
-    name: 'Resizable Columns'
+    parameters: {
+        docs: {
+            description: {
+                story: 'Controlled column widths in state (e.g. for localStorage persistence).'
+            }
+        }
+    },
+    name: 'Resizable Columns Controlled'
 };
 
 export const PaginationDataTable: Story = {
@@ -141,10 +167,14 @@ export const PaginationDataTable: Story = {
 
 export const AllFeaturesTable: Story = {
     render: args => {
+        const [columnSizing, setColumnSizing] = useState<Record<string, number>>({});
+
         return (
-            <DataTable
+            <DataTable<DataUser>
                 {...args}
+                enableResize
                 enablePagination
+                columnSizing={Object.keys(columnSizing).length > 0 ? columnSizing : undefined}
                 actions={row => (
                     <MoreVert onClick={() => console.log(`${row.age}`)}/>
                 )}
@@ -161,6 +191,9 @@ export const AllFeaturesTable: Story = {
                         {defaultRender()}
                     </TableRow>
                 )}
+                onColumnSizingChange={updater => {
+                    setColumnSizing(prev => (typeof updater === 'function' ? updater(prev) : updater));
+                }}
             />
         );
     },
@@ -171,6 +204,7 @@ export const AllFeaturesTable: Story = {
         enableSelection: true,
         isStructured: true,
         enableSorting: true,
+        enableResize: true,
         defaultSelection: ['Walter', 'Jon'],
         defaultSortBy: 'progress',
         defaultSortDirection: 'descending'

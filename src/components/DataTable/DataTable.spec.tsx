@@ -304,7 +304,7 @@ describe('DataTable', () => {
         expect(resizeHandles.length).toBe(2); // One per data column (name, age)
     });
 
-    it('should apply table-layout fixed when enableResize is true', () => {
+    it('should apply table-layout fixed and width 100% when enableResize is true', () => {
         const {container} = render(
             <DataTable<TestData>
                 enableResize
@@ -315,6 +315,100 @@ describe('DataTable', () => {
         );
 
         const table = container.querySelector('table');
-        expect(table).toHaveStyle({tableLayout: 'fixed'});
+        expect(table).toHaveStyle({tableLayout: 'fixed', width: '100%'});
+    });
+
+    it('should give resize handles role="separator" for accessibility', () => {
+        render(
+            <DataTable<TestData>
+                enableResize
+                data={data}
+                columns={columns}
+                primaryKey="id"
+            />
+        );
+
+        const separators = screen.getAllByRole('separator');
+        expect(separators.length).toBe(2); // One per data column (name, age)
+    });
+
+    it('should apply controlled column widths when columnSizing is provided', () => {
+        const columnSizing = {name: 200, age: 100};
+
+        render(
+            <DataTable<TestData>
+                enableResize
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                columnSizing={columnSizing}
+            />
+        );
+
+        const nameHeader = screen.getByText('Name').closest('th');
+        expect(nameHeader).toHaveStyle({width: '200px'});
+
+        const ageHeader = screen.getByText('Age').closest('th');
+        expect(ageHeader).toHaveStyle({width: '100px'});
+    });
+
+    it('should call onResizeStart when resize handle is mousedown', async () => {
+        const onResizeStart = vi.fn();
+        const user = userEvent.setup();
+
+        render(
+            <DataTable<TestData>
+                enableResize
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                onResizeStart={onResizeStart}
+            />
+        );
+
+        const handles = document.querySelectorAll('[data-resizer]');
+        await user.pointer({keys: '[MouseLeft>]', target: handles[0]!});
+
+        expect(onResizeStart).toHaveBeenCalledWith('name', expect.any(HTMLElement));
+    });
+
+    it('should call onResizeStop when resize handle is released after mousedown', async () => {
+        const onResizeStop = vi.fn();
+        const user = userEvent.setup();
+
+        render(
+            <DataTable<TestData>
+                enableResize
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                onResizeStop={onResizeStop}
+            />
+        );
+
+        const handles = document.querySelectorAll('[data-resizer]');
+        await user.pointer([{keys: '[MouseLeft>]', target: handles[0]!}, {keys: '[MouseLeft/]'}]);
+
+        expect(onResizeStop).toHaveBeenCalledWith('name', expect.any(HTMLElement));
+    });
+
+    it('should render in controlled mode when columnSizing and onColumnSizingChange are provided', () => {
+        const onColumnSizingChange = vi.fn();
+
+        render(
+            <DataTable<TestData>
+                enableResize
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                columnSizing={{name: 180, age: 90}}
+                onColumnSizingChange={onColumnSizingChange}
+            />
+        );
+
+        expect(screen.getByText('Name')).toBeInTheDocument();
+        expect(screen.getByText('Age')).toBeInTheDocument();
+        const nameHeader = screen.getByText('Name').closest('th');
+        expect(nameHeader).toHaveStyle({width: '180px'});
     });
 });

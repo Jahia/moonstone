@@ -15,30 +15,36 @@
 }
 
 .moonstone-tableHeadCell {
-    font-weight: bold;
     position: relative;
 
-    &_resizable {
-        .moonstone-tableHeadCell_resizeHandle {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            width: 10px;
-            cursor: col-resize;
-            user-select: none;
-            touch-action: none;
-            z-index: 1;
-            border-left: 2px solid var(--color-gray_light);
-            opacity: 0.6;
-            box-sizing: border-box;
-            transition: opacity 0.15s ease, border-color 0.15s ease;
-        }
+    font-weight: bold;
+}
 
-        &:hover .moonstone-tableHeadCell_resizeHandle,
-        &_resizing .moonstone-tableHeadCell_resizeHandle {
-            border-left-color: var(--color-gray);
-            opacity: 1;
-        }
+.moonstone-tableHeadCell_resizable {
+    .moonstone-tableHeadCell_resizeHandle {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+
+        box-sizing: border-box;
+        width: 10px;
+
+        border-left: 2px solid var(--color-gray_light);
+        cursor: col-resize;
+        opacity: 0.6;
+
+        transition: opacity 0.15s ease, border-color 0.15s ease;
+
+        user-select: none;
+        touch-action: none;
+    }
+
+    /* More specific selector first for no-descending-specificity */
+    &.moonstone-tableHeadCell_resizing .moonstone-tableHeadCell_resizeHandle,
+    &:hover .moonstone-tableHeadCell_resizeHandle {
+        border-left-color: var(--color-gray);
+        opacity: 1;
     }
 }
