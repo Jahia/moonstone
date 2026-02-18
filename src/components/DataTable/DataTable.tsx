@@ -37,11 +37,12 @@ export const DataTable = <T extends NonNullable<unknown>>({
     primaryKey,
     isStructured = false,
     enableSelection = false,
+    selection,
     onChangeSelection,
+    defaultSelection = [],
     enableSorting = false,
     defaultSortBy,
     defaultSortDirection = 'ascending',
-    defaultSelection = [],
     actions,
     actionsHeaderLabel = 'Actions',
     renderRow,
@@ -70,9 +71,18 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
     const [sorting, setSorting] = useState<SortingState>(initialSorting);
     const [expanded, setExpanded] = useState<ExpandedState>({});
-    const [rowSelection, setRowSelection] = useState<RowSelectionState>(() =>
+
+    // Selection: controlled (selection prop) vs uncontrolled (internal state)
+    const isSelectionControlled = selection !== undefined;
+    const uncontrolledRowSelection = useState<RowSelectionState>(() =>
         defaultSelection?.reduce((acc, key) => ({...acc, [key]: true}), {}) ?? {}
     );
+    const controlledRowSelection = useMemo<RowSelectionState>(
+        () => (selection ?? []).reduce((acc, id) => ({...acc, [id]: true}), {}),
+        [selection]
+    );
+    const rowSelection = isSelectionControlled ? controlledRowSelection : uncontrolledRowSelection[0];
+    const setRowSelection = uncontrolledRowSelection[1];
 
     // Ensure itemsPerPage is valid based on options
     const defaultPageSize = useMemo(() => {
@@ -90,10 +100,24 @@ export const DataTable = <T extends NonNullable<unknown>>({
     });
 
     useEffect(() => {
-        onChangeSelection?.(Object.keys(rowSelection));
-    }, [rowSelection, onChangeSelection]);
+        if (!isSelectionControlled) {
+            onChangeSelection?.(Object.keys(rowSelection).filter(id => rowSelection[id]));
+        }
+    }, [isSelectionControlled, rowSelection, onChangeSelection]);
 
     const tableColumns = useMemo(() => createTableColumns(columns), [columns]);
+
+    const handleRowSelectionChange = useCallback(
+        (updater: React.SetStateAction<RowSelectionState>) => {
+            if (isSelectionControlled) {
+                const next = typeof updater === 'function' ? updater(rowSelection) : updater;
+                onChangeSelection?.(Object.keys(next).filter(id => next[id]));
+            } else {
+                setRowSelection(updater);
+            }
+        },
+        [isSelectionControlled, rowSelection, onChangeSelection, setRowSelection]
+    );
 
     const table = useReactTable({
         data,
@@ -106,7 +130,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
         },
         onSortingChange: setSorting,
         onExpandedChange: setExpanded,
-        onRowSelectionChange: setRowSelection,
+        onRowSelectionChange: handleRowSelectionChange,
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,
         getExpandedRowModel: getExpandedRowModel(),
