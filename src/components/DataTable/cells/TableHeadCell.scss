@@ -16,4 +16,34 @@
 
 .moonstone-tableHeadCell {
     font-weight: bold;
+    position: relative;
+
+    &_resizable {
+        .moonstone-tableHeadCell_resizeHandle {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 8px;
+            cursor: col-resize;
+            user-select: none;
+            touch-action: none;
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 3px;
+                bottom: 0;
+                width: 1px;
+                background: transparent;
+                transition: background 0.15s ease;
+            }
+        }
+
+        &:hover .moonstone-tableHeadCell_resizeHandle::after,
+        &_resizing .moonstone-tableHeadCell_resizeHandle::after {
+            background: var(--color-gray_light);
+        }
+    }
 }
