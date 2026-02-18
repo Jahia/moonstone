@@ -15,6 +15,10 @@ export default {
     },
     argTypes: {
         onChangeSelection: {action: 'onChangeSelection'},
+        onResizeStart: {action: 'onResizeStart'},
+        onResizeStop: {action: 'onResizeStop'},
+        onResizing: {action: 'onResizing'},
+        enableResize: {control: 'boolean'},
         enablePagination: {control: 'boolean'},
         itemsPerPage: {control: 'number'},
         itemsPerPageOptions: {control: 'object'},
@@ -101,6 +105,19 @@ export const StructuredViewDataTable: Story = {
         isStructured: true
     },
     name: 'Structured View'
+};
+
+export const ResizableColumnsDataTable: Story = {
+    render: args => {
+        return <DataTable {...args}/>;
+    },
+    args: {
+        data: dataTable,
+        columns: dataColumnsUser,
+        primaryKey: 'firstName',
+        enableResize: true
+    },
+    name: 'Resizable Columns'
 };
 
 export const PaginationDataTable: Story = {

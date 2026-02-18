@@ -24,26 +24,21 @@
             top: 0;
             right: 0;
             bottom: 0;
-            width: 8px;
+            width: 10px;
             cursor: col-resize;
             user-select: none;
             touch-action: none;
-
-            &::after {
-                content: '';
-                position: absolute;
-                top: 0;
-                right: 3px;
-                bottom: 0;
-                width: 1px;
-                background: transparent;
-                transition: background 0.15s ease;
-            }
+            z-index: 1;
+            border-left: 2px solid var(--color-gray_light);
+            opacity: 0.6;
+            box-sizing: border-box;
+            transition: opacity 0.15s ease, border-color 0.15s ease;
         }
 
-        &:hover .moonstone-tableHeadCell_resizeHandle::after,
-        &_resizing .moonstone-tableHeadCell_resizeHandle::after {
-            background: var(--color-gray_light);
+        &:hover .moonstone-tableHeadCell_resizeHandle,
+        &_resizing .moonstone-tableHeadCell_resizeHandle {
+            border-left-color: var(--color-gray);
+            opacity: 1;
         }
     }
 }

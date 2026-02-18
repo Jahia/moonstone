@@ -289,4 +289,32 @@ describe('DataTable', () => {
         const nameHeader = screen.getByText('Name').closest('th');
         expect(nameHeader).not.toHaveStyle({width: '200px'});
     });
+
+    it('should render resize handles when enableResize is true', () => {
+        render(
+            <DataTable<TestData>
+                enableResize
+                data={data}
+                columns={columns}
+                primaryKey="id"
+            />
+        );
+
+        const resizeHandles = document.querySelectorAll('[data-resizer]');
+        expect(resizeHandles.length).toBe(2); // One per data column (name, age)
+    });
+
+    it('should apply table-layout fixed when enableResize is true', () => {
+        const {container} = render(
+            <DataTable<TestData>
+                enableResize
+                data={data}
+                columns={columns}
+                primaryKey="id"
+            />
+        );
+
+        const table = container.querySelector('table');
+        expect(table).toHaveStyle({tableLayout: 'fixed'});
+    });
 });
