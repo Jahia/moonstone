@@ -53,9 +53,16 @@ export const DataTable = <T extends NonNullable<unknown>>({
     onClickTableHeadCell,
     // Pagination props
     enablePagination = false,
+    pageIndex,
+    pageSize,
+    onPageChange,
+    onItemsPerPageChange,
+    totalRowCount,
+    manualPagination = false,
     itemsPerPage,
     itemsPerPageOptions,
     paginationLabel,
+    paginationProps,
     rowProps,
     ...props
 }: DataTableProps<T>) => {
@@ -88,7 +95,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
     const rowSelection = isSelectionControlled ? controlledRowSelection : uncontrolledRowSelection[0];
     const setRowSelection = uncontrolledRowSelection[1];
 
-    // Ensure itemsPerPage is valid based on options
+    // Pagination: controlled (pageIndex/pageSize props) vs uncontrolled (internal state)
+    const isPaginationControlled = pageIndex !== undefined;
     const defaultPageSize = useMemo(() => {
         const options = itemsPerPageOptions ?? [5, 10, 25];
         if (itemsPerPage && options.includes(itemsPerPage)) {
@@ -97,11 +105,15 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
         return options[0] ?? 10;
     }, [itemsPerPage, itemsPerPageOptions]);
-
-    const [pagination, setPagination] = useState<PaginationState>({
+    const [uncontrolledPagination, setUncontrolledPagination] = useState<PaginationState>({
         pageIndex: 0,
         pageSize: defaultPageSize
     });
+    const controlledPagination = useMemo<PaginationState>(
+        () => ({pageIndex: pageIndex ?? 0, pageSize: pageSize ?? defaultPageSize}),
+        [pageIndex, pageSize, defaultPageSize]
+    );
+    const pagination = isPaginationControlled ? controlledPagination : uncontrolledPagination;
 
     useEffect(() => {
         if (!isSelectionControlled) {
@@ -139,6 +151,24 @@ export const DataTable = <T extends NonNullable<unknown>>({
         [isSortingControlled, sorting, onSortChange]
     );
 
+    const handlePaginationChange = useCallback(
+        (updater: React.SetStateAction<PaginationState>) => {
+            if (isPaginationControlled && onPageChange && onItemsPerPageChange) {
+                const next = typeof updater === 'function' ? updater(pagination) : updater;
+                if (next.pageIndex !== pagination.pageIndex) {
+                    onPageChange(next.pageIndex + 1);
+                }
+
+                if (next.pageSize !== pagination.pageSize) {
+                    onItemsPerPageChange(next.pageSize);
+                }
+            } else {
+                setUncontrolledPagination(updater);
+            }
+        },
+        [isPaginationControlled, pagination, onPageChange, onItemsPerPageChange]
+    );
+
     const table = useReactTable({
         data,
         columns: tableColumns,
@@ -155,10 +185,12 @@ export const DataTable = <T extends NonNullable<unknown>>({
         getSortedRowModel: enableSorting && !manualSorting ? getSortedRowModel() : undefined,
         manualSorting,
         getExpandedRowModel: getExpandedRowModel(),
-        getPaginationRowModel: enablePagination ? getPaginationRowModel() : undefined,
+        getPaginationRowModel: enablePagination && !manualPagination ? getPaginationRowModel() : undefined,
+        manualPagination: enablePagination && manualPagination,
+        ...(enablePagination && manualPagination && totalRowCount !== undefined && {rowCount: totalRowCount}),
         // Enables hierarchical/structured table rendering by allowing TanStack to access nested subRows
         getSubRows: (row: T) => (row as T & { subRows?: T[] }).subRows,
-        onPaginationChange: setPagination,
+        onPaginationChange: enablePagination ? handlePaginationChange : undefined,
         enableSorting,
         // UX decision: Toggle between asc/desc only, no unsorted state to prevent user confusion
         enableSortingRemoval: false,
@@ -313,12 +345,25 @@ export const DataTable = <T extends NonNullable<unknown>>({
             {enablePagination && (
                 <Pagination
                     currentPage={table.getState().pagination.pageIndex + 1}
-                    totalOfItems={table.getPrePaginationRowModel().rows.length}
+                    totalOfItems={
+                        manualPagination && totalRowCount !== undefined
+                            ? totalRowCount
+                            : table.getPrePaginationRowModel().rows.length
+                    }
                     itemsPerPage={table.getState().pagination.pageSize}
                     itemsPerPageOptions={itemsPerPageOptions ?? [5, 10, 25]}
                     label={paginationLabel}
-                    onPageChange={(page: number) => table.setPageIndex(page - 1)}
-                    onItemsPerPageChange={(size: number) => table.setPageSize(size)}
+                    onPageChange={(page: number) =>
+                        isPaginationControlled
+                            ? onPageChange?.(page)
+                            : table.setPageIndex(page - 1)
+                    }
+                    onItemsPerPageChange={(size: number) =>
+                        isPaginationControlled
+                            ? onItemsPerPageChange?.(size)
+                            : table.setPageSize(size)
+                    }
+                    {...paginationProps}
                 />
             )}
         </>
