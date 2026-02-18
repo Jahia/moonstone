@@ -105,72 +105,62 @@ export type DataTableBaseProps<T extends NonNullable<unknown>> = {
     rowProps?: React.HTMLAttributes<HTMLTableRowElement> & Record<string, unknown>;
 };
 
+export type SortDirection = 'ascending' | 'descending';
+
 type SortingProps<T extends NonNullable<unknown>> =
     | {
-          /**
-           * Enable sorting functionality
-           */
           enableSorting: true;
-
-          /**
-           * The key of the column to sort by initially
-           */
-          defaultSortBy?: Extract<Exclude<keyof T, SubRowKey>, string>;
-
-          /**
-           * The direction of the initial sort
-           */
-          defaultSortDirection?: 'ascending' | 'descending';
+          /** Controlled: sort state */
+          sortBy: Extract<Exclude<keyof T, SubRowKey>, string>;
+          sortDirection: SortDirection;
+          onSortChange: (sortBy: Extract<Exclude<keyof T, SubRowKey>, string>, sortDirection: SortDirection) => void;
+          defaultSortBy?: never;
+          defaultSortDirection?: never;
+          manualSorting?: boolean;
       }
     | {
-          /**
-           * Enable sorting functionality
-           */
+          enableSorting: true;
+          sortBy?: never;
+          sortDirection?: never;
+          onSortChange?: never;
+          /** Uncontrolled: initial sort column */
+          defaultSortBy?: Extract<Exclude<keyof T, SubRowKey>, string>;
+          /** Uncontrolled: initial sort direction */
+          defaultSortDirection?: SortDirection;
+          /** Server-side: table does not sort data, parent provides sorted data */
+          manualSorting?: boolean;
+      }
+    | {
           enableSorting?: false;
-
-          /**
-           * The key of the column to sort by initially
-           */
+          sortBy?: never;
+          sortDirection?: never;
+          onSortChange?: never;
           defaultSortBy?: never;
-
-          /**
-           * The direction of the initial sort
-           */
           defaultSortDirection?: never;
+          manualSorting?: never;
       };
 
 type SelectionProps =
     | {
-          /**
-           * Enable row selection functionality
-           */
           enableSelection: true;
-
-          /**
-           * Array of row IDs that should be selected by default
-           */
-          defaultSelection?: string[];
-
-          /**
-           * Callback fired when the selection changes
-           * @param selection - Array of selected row IDs
-           */
-          onChangeSelection?: (selection: string[]) => void;
+          /** Controlled: selected row IDs */
+          selection: string[];
+          /** Controlled: callback when selection changes */
+          onChangeSelection: (selection: string[]) => void;
+          defaultSelection?: never;
       }
     | {
-          /**
-           * Enable row selection functionality
-           */
+          enableSelection: true;
+          /** Uncontrolled: initial selected row IDs */
+          defaultSelection?: string[];
+          /** Uncontrolled: callback when selection changes */
+          onChangeSelection?: (selection: string[]) => void;
+          selection?: never;
+      }
+    | {
           enableSelection?: false;
-
-          /**
-           * Array of row IDs that should be selected by default
-           */
+          selection?: never;
           defaultSelection?: never;
-
-          /**
-           * Callback fired when the selection changes
-           */
           onChangeSelection?: never;
       };
 
@@ -198,54 +188,55 @@ type RenderRowProps<T extends NonNullable<unknown>> = {
     renderRow?: (row: Row<T>, defaultRender: () => React.ReactNode) => React.ReactNode;
 };
 
-// Pagination props - uses types from Pagination component for consistency
-// Note: DataTable uses a discriminated union to enforce that pagination-related
-// props are only available when enablePagination is true
+type PaginationUncontrolledProps = {
+    pageIndex?: never;
+    pageSize?: never;
+    onPageChange?: never;
+    onItemsPerPageChange?: never;
+    totalRowCount?: never;
+    /** Initial items per page */
+    itemsPerPage?: ComponentPaginationProps['itemsPerPage'];
+    itemsPerPageOptions?: ComponentPaginationProps['itemsPerPageOptions'];
+    paginationLabel?: ComponentPaginationProps['label'];
+    /** Custom attributes spread on Pagination root (data-*, aria-*, etc.) */
+    paginationProps?: Omit<React.ComponentPropsWithoutRef<'div'>, 'children'>;
+};
+
+type PaginationControlledProps = {
+    /** Controlled: current page (0-indexed) */
+    pageIndex: number;
+    /** Controlled: items per page */
+    pageSize: number;
+    /** Controlled: callback when page changes (1-indexed) */
+    onPageChange: (page: number) => void;
+    /** Controlled: callback when page size changes */
+    onItemsPerPageChange: (pageSize: number) => void;
+    /** Server-side: total rows for Pagination and TanStack rowCount */
+    totalRowCount?: number;
+    itemsPerPage?: never;
+    itemsPerPageOptions?: ComponentPaginationProps['itemsPerPageOptions'];
+    paginationLabel?: ComponentPaginationProps['label'];
+    paginationProps?: Omit<React.ComponentPropsWithoutRef<'div'>, 'children'>;
+};
+
 type TablePaginationProps =
-    | {
-          /**
-           * Enable pagination functionality
-           */
+    | ({
           enablePagination: true;
-
-          /**
-           * Initial number of items per page
-           * @see PaginationProps.itemsPerPage from ~/components/Pagination
-           */
-          itemsPerPage?: ComponentPaginationProps['itemsPerPage'];
-
-          /**
-           * Available options for items per page dropdown
-           * @see PaginationProps.itemsPerPageOptions from ~/components/Pagination
-           */
-          itemsPerPageOptions?: ComponentPaginationProps['itemsPerPageOptions'];
-
-          /**
-           * Labels for the pagination component
-           * @see PaginationProps.label from ~/components/Pagination
-           */
-          paginationLabel?: ComponentPaginationProps['label'];
-      }
+          /** Server-side: disable client-side pagination, data is pre-paginated */
+          manualPagination?: boolean;
+      } & (PaginationControlledProps | PaginationUncontrolledProps))
     | {
-          /**
-           * Enable pagination functionality
-           */
           enablePagination?: false;
-
-          /**
-           * Initial number of items per page
-           */
+          manualPagination?: never;
+          pageIndex?: never;
+          pageSize?: never;
+          onPageChange?: never;
+          onItemsPerPageChange?: never;
+          totalRowCount?: never;
           itemsPerPage?: never;
-
-          /**
-           * Available options for items per page dropdown
-           */
           itemsPerPageOptions?: never;
-
-          /**
-           * Labels for the pagination component
-           */
           paginationLabel?: never;
+          paginationProps?: never;
       };
 
 export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'children'> &
