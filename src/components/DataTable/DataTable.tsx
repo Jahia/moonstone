@@ -42,8 +42,9 @@ export const DataTable = <T extends NonNullable<unknown>>({
     defaultSortBy,
     defaultSortDirection = 'ascending',
     defaultSelection = [],
-    actions,
-    actionsHeaderLabel = 'Actions',
+    enableActions = false,
+    actionsLabel = '',
+    renderActions,
     renderRow,
     onClickTableHeadCell,
     // Pagination props
@@ -129,8 +130,9 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
     // Render row cells - cell content rendering is delegated to columns configuration (via render prop)
     // DataTable handles the cell wrapper (TableBodyCell) with structured view props for expand/collapse
+    // actionsOverride: from defaultRender({ actions }) when using renderRow; otherwise uses renderActions(row)
     const renderRowContent = useCallback(
-        (row: Row<T>) => (
+        (row: Row<T>, actionsOverride?: React.ReactNode) => (
             <>
                 {/* Selection checkbox cell */}
                 {enableSelection && (
@@ -177,16 +179,21 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     );
                 })}
 
-                {/* Actions cell */}
-                {actions && <TableCell>{actions(row.original)}</TableCell>}
+                {/* Actions cell - visible on row hover via CSS */}
+                {enableActions && (
+                    <TableCell className="moonstone-tableCell_actions">
+                        {actionsOverride ?? renderActions?.(row.original)}
+                    </TableCell>
+                )}
             </>
         ),
-        [enableSelection, actions, isStructured]
+        [enableSelection, enableActions, renderActions, isStructured]
     );
 
     const renderRowWithCustomization = useCallback(
         (row: Row<T>) => {
-            const defaultRender = () => renderRowContent(row);
+            const defaultRender = (options?: { actions?: React.ReactNode }) =>
+                renderRowContent(row, options?.actions);
 
             if (renderRow) {
                 return renderRow(row, defaultRender);
@@ -257,7 +264,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             })}
 
                             {/* Actions header */}
-                            {actions && <TableHeadCell>{actionsHeaderLabel}</TableHeadCell>}
+                            {enableActions && <TableHeadCell>{actionsLabel}</TableHeadCell>}
                         </TableRow>
                     ))}
                 </TableHead>

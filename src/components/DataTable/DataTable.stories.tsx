@@ -18,7 +18,8 @@ export default {
         enablePagination: {control: 'boolean'},
         itemsPerPage: {control: 'number'},
         itemsPerPageOptions: {control: 'object'},
-        paginationLabel: {control: 'object'}
+        paginationLabel: {control: 'object'},
+        actionsLabel: {control: 'text'}
     }
 } satisfies Meta<typeof DataTable<DataUser>>;
 
@@ -128,10 +129,14 @@ export const AllFeaturesTable: Story = {
             <DataTable
                 {...args}
                 enablePagination
-                actions={row => (
-                    <MoreVert onClick={() => console.log(`${row.age}`)}/>
+                enableActions
+                renderActions={row => (
+                    <>
+                        <MoreVert onClick={() => console.log(`${row.age} - 1`)}/>
+                        <MoreVert onClick={() => console.log(`${row.age} - 2`)}/>
+                        <MoreVert onClick={() => console.log(`${row.age} - 3`)}/>
+                    </>
                 )}
-                actionsHeaderLabel=""
                 renderRow={(row, defaultRender) => (
                     <TableRow
                         key={row.id}
@@ -156,7 +161,8 @@ export const AllFeaturesTable: Story = {
         enableSorting: true,
         defaultSelection: ['Walter', 'Jon'],
         defaultSortBy: 'progress',
-        defaultSortDirection: 'descending'
+        defaultSortDirection: 'descending',
+        actionsLabel: 'Actions hover'
     },
     name: 'All Features Combined'
 };

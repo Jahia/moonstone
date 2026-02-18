@@ -174,28 +174,42 @@ type SelectionProps =
           onChangeSelection?: never;
       };
 
-// Actions column props
-type ActionsProps<T extends NonNullable<unknown>> = {
-    /**
-     * Function to render action buttons for each row
-     * @param row - The row data
-     */
-    actions?: (row: T) => React.ReactNode;
+// Actions column props - discriminated union: actions-related props only when enableActions is true
+type ActionsProps<T extends NonNullable<unknown>> =
+    | {
+          /**
+           * Enable the actions column (adds column + CSS for hover visibility)
+           */
+          enableActions: true;
 
-    /**
-     * The label for the actions column header
-     */
-    actionsHeaderLabel?: string;
-};
+          /**
+           * Header label for the actions column. Empty by default; pass a string when a visible label is needed.
+           */
+          actionsLabel?: string;
+
+          /**
+           * Shorthand: render actions for each row. Used when renderRow does not provide options.actions
+           * @param row - The row data
+           */
+          renderActions?: (row: T) => React.ReactNode;
+      }
+    | {
+          enableActions?: false;
+          actionsLabel?: never;
+          renderActions?: never;
+      };
 
 // Custom row render props
 type RenderRowProps<T extends NonNullable<unknown>> = {
     /**
      * Custom render function for rows
      * @param row - The row object from TanStack Table
-     * @param defaultRender - Function to render the default row content
+     * @param defaultRender - Function to render the default row content. Accepts options to inject actions per row.
      */
-    renderRow?: (row: Row<T>, defaultRender: () => React.ReactNode) => React.ReactNode;
+    renderRow?: (
+        row: Row<T>,
+        defaultRender: (options?: { actions?: React.ReactNode }) => React.ReactNode
+    ) => React.ReactNode;
 };
 
 // Pagination props - uses types from Pagination component for consistency

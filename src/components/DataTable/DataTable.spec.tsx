@@ -60,17 +60,56 @@ describe('DataTable', () => {
         expect(container.firstChild).toBeNull();
     });
 
-    it('should render actions column', () => {
+    it('should render actions column when enableActions and renderActions are provided', () => {
         render(
             <DataTable<TestData>
+                enableActions
                 data={data}
                 columns={columns}
                 primaryKey="id"
-                actions={row => <button type="button">Edit {row.name}</button>}
+                actionsLabel="Actions"
+                renderActions={row => <button type="button">Edit {row.name}</button>}
             />
         );
         expect(screen.getByText('Actions')).toBeInTheDocument();
         expect(screen.getByText('Edit Alice')).toBeInTheDocument();
+    });
+
+    it('should render empty actions header by default', () => {
+        render(
+            <DataTable<TestData>
+                enableActions
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                renderActions={row => <button type="button">Edit {row.name}</button>}
+            />
+        );
+        expect(screen.queryByText('Actions')).not.toBeInTheDocument();
+        expect(screen.getByText('Edit Alice')).toBeInTheDocument();
+    });
+
+    it('should support per-row actions via renderRow and defaultRender options', () => {
+        render(
+            <DataTable<TestData>
+                enableActions
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                actionsLabel="Actions"
+                renderRow={(row, defaultRender) => (
+                    <tr key={row.id}>
+                        {defaultRender({
+                            actions: <button type="button">Custom {row.original.name}</button>
+                        })}
+                    </tr>
+                )}
+            />
+        );
+        expect(screen.getByText('Actions')).toBeInTheDocument();
+        expect(screen.getByText('Custom Alice')).toBeInTheDocument();
+        expect(screen.getByText('Custom Bob')).toBeInTheDocument();
+        expect(screen.getByText('Custom Charlie')).toBeInTheDocument();
     });
 
     it('should apply rowProps', () => {
