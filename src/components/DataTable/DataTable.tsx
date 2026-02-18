@@ -41,8 +41,12 @@ export const DataTable = <T extends NonNullable<unknown>>({
     onChangeSelection,
     defaultSelection = [],
     enableSorting = false,
+    sortBy,
+    sortDirection,
+    onSortChange,
     defaultSortBy,
     defaultSortDirection = 'ascending',
+    manualSorting = false,
     actions,
     actionsHeaderLabel = 'Actions',
     renderRow,
@@ -55,21 +59,21 @@ export const DataTable = <T extends NonNullable<unknown>>({
     rowProps,
     ...props
 }: DataTableProps<T>) => {
-    // Internal sorting state - fully managed by TanStack
+    // Sorting: controlled (sortBy/sortDirection props) vs uncontrolled (internal state)
+    const isSortingControlled = sortBy !== undefined;
     const initialSorting = useMemo<SortingState>(() => {
         if (defaultSortBy) {
-            return [
-                {
-                    id: defaultSortBy,
-                    desc: defaultSortDirection === 'descending'
-                }
-            ];
+            return [{id: defaultSortBy, desc: defaultSortDirection === 'descending'}];
         }
 
         return [];
     }, [defaultSortBy, defaultSortDirection]);
-
-    const [sorting, setSorting] = useState<SortingState>(initialSorting);
+    const [uncontrolledSorting, setUncontrolledSorting] = useState<SortingState>(initialSorting);
+    const controlledSorting = useMemo<SortingState>(
+        () => (sortBy ? [{id: sortBy, desc: sortDirection === 'descending'}] : []),
+        [sortBy, sortDirection]
+    );
+    const sorting = isSortingControlled ? controlledSorting : uncontrolledSorting;
     const [expanded, setExpanded] = useState<ExpandedState>({});
 
     // Selection: controlled (selection prop) vs uncontrolled (internal state)
@@ -119,6 +123,22 @@ export const DataTable = <T extends NonNullable<unknown>>({
         [isSelectionControlled, rowSelection, onChangeSelection, setRowSelection]
     );
 
+    const handleSortingChange = useCallback(
+        (updater: React.SetStateAction<SortingState>) => {
+            const next = typeof updater === 'function' ? updater(sorting) : updater;
+            const first = next[0];
+            if (isSortingControlled && onSortChange && first) {
+                onSortChange(
+                    first.id as Extract<keyof T, string>,
+                    first.desc ? 'descending' : 'ascending'
+                );
+            } else {
+                setUncontrolledSorting(updater);
+            }
+        },
+        [isSortingControlled, sorting, onSortChange]
+    );
+
     const table = useReactTable({
         data,
         columns: tableColumns,
@@ -128,11 +148,12 @@ export const DataTable = <T extends NonNullable<unknown>>({
             sorting,
             ...(enablePagination && {pagination})
         },
-        onSortingChange: setSorting,
+        onSortingChange: handleSortingChange,
         onExpandedChange: setExpanded,
         onRowSelectionChange: handleRowSelectionChange,
         getCoreRowModel: getCoreRowModel(),
-        getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,
+        getSortedRowModel: enableSorting && !manualSorting ? getSortedRowModel() : undefined,
+        manualSorting,
         getExpandedRowModel: getExpandedRowModel(),
         getPaginationRowModel: enablePagination ? getPaginationRowModel() : undefined,
         // Enables hierarchical/structured table rendering by allowing TanStack to access nested subRows
