@@ -321,6 +321,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                         if (isColumnSortable) {
                                             header.column.getToggleSortingHandler()?.(e);
                                         }
+
                                         onClickTableHeadCell?.(header.id);
                                     }}
                                     onResizeReset={enableResize ? () => header.column.resetSize() : undefined}
