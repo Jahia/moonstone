@@ -22,7 +22,9 @@
 .moonstone-tableCell_actions {
     visibility: hidden;
 
-    tr:hover & {
+    tr:hover &,
+    tr:focus-within &,
+    .moonstone-tableRow:focus-within & {
         visibility: visible;
     }
 }
