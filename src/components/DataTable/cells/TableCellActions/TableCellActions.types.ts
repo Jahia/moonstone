@@ -2,18 +2,16 @@ import React from 'react';
 
 /**
  * Props for TableCellActions - a cell dedicated to row actions.
- * Aligned to the right, supports display on hover or always visible.
+ * Aligned to the right, supports both always-visible and hover-only actions.
  */
 export type TableCellActionsProps = {
     /**
-     * When to show the actions: 'hover' (visible on row hover/focus) or 'always'.
-     * @default 'hover'
+     * Actions always visible in the cell.
      */
-    displayMode?: 'always' | 'hover';
+    actions?: React.ReactNode;
 
     /**
-     * Action buttons or content to render.
-     * Renders nothing when empty (no "-" placeholder).
+     * Actions visible only on row hover or focus.
      */
-    children?: React.ReactNode;
+    actionsOnHover?: React.ReactNode;
 };

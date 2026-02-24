@@ -174,17 +174,38 @@ type SelectionProps =
           onChangeSelection?: never;
       };
 
+export type TableRowActions = {
+    /**
+     * Actions always visible in the cell.
+     */
+    actions?: React.ReactNode;
+
+    /**
+     * Actions visible only on row hover or focus.
+     */
+    actionsOnHover?: React.ReactNode;
+};
+
 // Custom row render props
 type RenderRowProps<T extends NonNullable<unknown>> = {
     /**
-     * Custom render function for rows
+     * Custom render function for rows (e.g. styling, wrapper).
      * @param row - The row object from TanStack Table. Use row.original to access the raw row data.
      * @param defaultRender - Function to render the default row content. Accepts options to inject actions per row.
      */
     renderRow?: (
         row: Row<T>,
-        defaultRender: (options?: { actions?: React.ReactNode }) => React.ReactNode
+        defaultRender: (options?: TableRowActions) => React.ReactNode
     ) => React.ReactNode;
+};
+
+type RenderActionsProps<T extends NonNullable<unknown>> = {
+    /**
+     * Provides actions per row. When provided, displays the actions column.
+     * Pass raw React nodes (buttons, etc.) - TableCellActions is applied internally.
+     * @param row - The row object from TanStack Table.
+     */
+    renderActions?: (row: Row<T>) => TableRowActions;
 };
 
 // Pagination props - uses types from Pagination component for consistency
@@ -242,5 +263,6 @@ export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'c
     SortingProps<T> &
     SelectionProps &
     RenderRowProps<T> &
+    RenderActionsProps<T> &
     TablePaginationProps;
 

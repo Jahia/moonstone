@@ -1,7 +1,7 @@
 import {render, screen, within, waitFor} from '@testing-library/react';
 import {describe, it, expect, vi} from 'vitest';
 import userEvent from '@testing-library/user-event';
-import {DataTable, TableRow, TableCellActions} from '~/components/DataTable';
+import {DataTable, TableRow} from '~/components/DataTable';
 import {stringColumn, numberColumn} from '~/utils/dataTable';
 
 type TestData = {
@@ -60,7 +60,23 @@ describe('DataTable', () => {
         expect(container.firstChild).toBeNull();
     });
 
-    it('should render actions when renderRow provides actions via defaultRender', () => {
+    it('should render actions when renderActions provides actionsOnHover', () => {
+        render(
+            <DataTable<TestData>
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                renderActions={row => ({
+                    actionsOnHover: <button type="button">Edit {row.original.name}</button>
+                })}
+            />
+        );
+        expect(screen.getByText('Edit Alice')).toBeInTheDocument();
+        expect(screen.getByText('Edit Bob')).toBeInTheDocument();
+        expect(screen.getByText('Edit Charlie')).toBeInTheDocument();
+    });
+
+    it('should render actions when renderRow provides actions via defaultRender options', () => {
         render(
             <DataTable<TestData>
                 data={data}
@@ -69,11 +85,7 @@ describe('DataTable', () => {
                 renderRow={(row, defaultRender) => (
                     <TableRow key={row.id}>
                         {defaultRender({
-                            actions: (
-                                <TableCellActions displayMode="hover">
-                                    <button type="button">Edit {row.original.name}</button>
-                                </TableCellActions>
-                            )
+                            actionsOnHover: <button type="button">Edit {row.original.name}</button>
                         })}
                     </TableRow>
                 )}
@@ -84,25 +96,19 @@ describe('DataTable', () => {
         expect(screen.getByText('Edit Charlie')).toBeInTheDocument();
     });
 
-    it('should support per-row actions via renderRow and defaultRender options', () => {
+    it('should support per-row actions via renderActions with actions and actionsOnHover', () => {
         render(
             <DataTable<TestData>
                 data={data}
                 columns={columns}
                 primaryKey="id"
-                renderRow={(row, defaultRender) => (
-                    <TableRow key={row.id}>
-                        {defaultRender({
-                            actions: (
-                                <TableCellActions displayMode="hover">
-                                    <button type="button">Custom {row.original.name}</button>
-                                </TableCellActions>
-                            )
-                        })}
-                    </TableRow>
-                )}
+                renderActions={row => ({
+                    actions: <span data-testid="always-visible">Always</span>,
+                    actionsOnHover: <button type="button">Custom {row.original.name}</button>
+                })}
             />
         );
+        expect(screen.getAllByTestId('always-visible')).toHaveLength(3);
         expect(screen.getByText('Custom Alice')).toBeInTheDocument();
         expect(screen.getByText('Custom Bob')).toBeInTheDocument();
         expect(screen.getByText('Custom Charlie')).toBeInTheDocument();
@@ -277,7 +283,10 @@ describe('DataTable', () => {
 
         // Click on the expandable span (with chevron) to collapse
         const expandableSpan = document.querySelector('.moonstone-tableCellExpandable');
-        await user.click(expandableSpan!);
+        expect(expandableSpan).not.toBeNull();
+        if (expandableSpan) {
+            await user.click(expandableSpan);
+        }
 
         expect(screen.queryByText('Child')).not.toBeInTheDocument();
     });

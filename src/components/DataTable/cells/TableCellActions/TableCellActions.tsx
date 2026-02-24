@@ -1,20 +1,18 @@
 import React from 'react';
 import {TableCell} from '../TableCell';
 import type {TableCellActionsProps} from './TableCellActions.types';
+import './TableCellActions.scss';
 
 export const TableCellActions: React.FC<TableCellActionsProps> = ({
-    displayMode = 'hover',
-    children
+    actions,
+    actionsOnHover
 }) => (
-    <TableCell
-        align="right"
-        className={
-            displayMode === 'hover' ?
-                'moonstone-tableCell_actions moonstone-tableCell_actions--hover' :
-                'moonstone-tableCell_actions'
-        }
-    >
-        {children ?? ''}
+    <TableCell align="right" className="moonstone-tableCellActions">
+        {actionsOnHover && (
+            <span className="moonstone-tableCellActions_hover">{actionsOnHover}</span>
+        )}
+        {actions}
+        {!(actions || actionsOnHover) && ''}
     </TableCell>
 );
 

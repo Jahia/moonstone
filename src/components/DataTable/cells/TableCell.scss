@@ -18,13 +18,3 @@
         background-color: var(--color-gray_light);
     }
 }
-
-.moonstone-tableCell_actions--hover {
-    visibility: hidden;
-
-    tr:hover &,
-    tr:focus-within &,
-    .moonstone-tableRow:focus-within & {
-        visibility: visible;
-    }
-}

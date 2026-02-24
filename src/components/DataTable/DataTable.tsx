@@ -16,7 +16,7 @@ import type {
 } from '@tanstack/react-table';
 import {useState, useEffect, useMemo, useCallback} from 'react';
 
-import type {DataTableProps, CustomColumnMeta} from './DataTable.types';
+import type {DataTableProps, CustomColumnMeta, TableRowActions} from './DataTable.types';
 import {Checkbox} from '~/components';
 import {
     Table,
@@ -44,6 +44,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     defaultSortDirection = 'ascending',
     defaultSelection = [],
     renderRow,
+    renderActions,
     onClickTableHeadCell,
     // Pagination props
     enablePagination = false,
@@ -126,12 +127,10 @@ export const DataTable = <T extends NonNullable<unknown>>({
         }
     }, [data, isStructured, table]);
 
-    const hasActionsColumn = Boolean(renderRow);
+    const hasActionsColumn = Boolean(renderActions) || Boolean(renderRow);
 
-    // Render row cells - cell content rendering is delegated to columns configuration (via render prop)
-    // actionsOverride: from defaultRender({ actions }) when using renderRow
     const renderRowContent = useCallback(
-        (row: Row<T>, actionsOverride?: React.ReactNode) => (
+        (row: Row<T>, actionsContent?: TableRowActions) => (
             <>
                 {/* Selection checkbox cell */}
                 {enableSelection && (
@@ -178,8 +177,13 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     );
                 })}
 
-                {/* Actions cell - only when renderRow is used. User passes TableCellActions or nothing. */}
-                {hasActionsColumn && (actionsOverride ?? <TableCellActions displayMode="hover"/>)}
+                {/* Actions cell - TableCellActions wraps raw nodes internally */}
+                {hasActionsColumn && (
+                    <TableCellActions
+                        actions={actionsContent?.actions}
+                        actionsOnHover={actionsContent?.actionsOnHover}
+                    />
+                )}
             </>
         ),
         [enableSelection, hasActionsColumn, isStructured]
@@ -187,8 +191,11 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
     const renderRowWithCustomization = useCallback(
         (row: Row<T>) => {
-            const defaultRender = (options?: { actions?: React.ReactNode }) =>
-                renderRowContent(row, options?.actions);
+            const defaultRender = (options?: TableRowActions) => {
+                // Fusion : renderActions (prop) + options (passé à defaultRender). Les options priment.
+                const actionsContent = {...renderActions?.(row), ...options};
+                return renderRowContent(row, actionsContent);
+            };
 
             if (renderRow) {
                 return renderRow(row, defaultRender);
@@ -204,7 +211,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 </TableRow>
             );
         },
-        [renderRow, renderRowContent, rowProps]
+        [renderRow, renderActions, renderRowContent, rowProps]
     );
 
     if (!data || !Array.isArray(data) || data.length === 0) {

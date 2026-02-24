@@ -1,0 +1,8 @@
+.moonstone-tableCellActions_hover {
+    visibility: hidden;
+
+    .moonstone-tableRow:hover &,
+    .moonstone-tableRow:focus-within & {
+        visibility: visible;
+    }
+}

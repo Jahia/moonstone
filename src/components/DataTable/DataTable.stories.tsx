@@ -4,9 +4,8 @@ import type {DataUser} from '~/data/dataTable';
 import {DataTable} from './DataTable';
 import type {Meta, StoryObj} from '@storybook/react';
 import {TableRow} from './TableRow';
-import {TableCellActions} from './cells';
 import {Button} from '~/components';
-import {Visibility, Edit, Delete} from '~/icons';
+import {Visibility, Edit, Delete, MoreVert} from '~/icons';
 
 export default {
     title: 'Components/DataTable',
@@ -141,11 +140,14 @@ export const AllFeaturesTable: Story = {
                     >
                         {defaultRender({
                             actions: (
-                                <TableCellActions displayMode="hover">
+                                <Button icon={<MoreVert/>} variant="ghost" aria-label="Actions"/>
+                            ),
+                            actionsOnHover: (
+                                <>
                                     <Button icon={<Visibility/>} variant="ghost"/>
                                     <Button icon={<Edit/>} variant="ghost"/>
                                     <Button icon={<Delete/>} variant="ghost"/>
-                                </TableCellActions>
+                                </>
                             )
                         })}
                     </TableRow>
