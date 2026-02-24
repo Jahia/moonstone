@@ -12,7 +12,6 @@ export const Tag: React.FC<TagProps> = ({label, value, size = 'medium', onClick,
         type="button"
         className={clsx('moonstone-tag', className, {'moonstone-small': size === 'small'})}
         disabled={isDisabled}
-        aria-label={`Remove ${label}`}
         onClick={e => onClick(e, value)}
         {...props}
     >
