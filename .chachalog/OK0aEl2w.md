@@ -3,4 +3,4 @@
 "@jahia/moonstone": minor
 ---
 
-* Add Close icon to Tag component with reduced opacity to highlight the label (#1286)
+* Add an icon to inform the Tag component is removable (#1286)
