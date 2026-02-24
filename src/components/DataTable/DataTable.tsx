@@ -24,6 +24,7 @@ import {
     TableBody,
     TableHead,
     TableCell,
+    TableCellActions,
     TableStructuredCell,
     TableHeadCell
 } from '~/components/DataTable';
@@ -42,9 +43,6 @@ export const DataTable = <T extends NonNullable<unknown>>({
     defaultSortBy,
     defaultSortDirection = 'ascending',
     defaultSelection = [],
-    enableActions = false,
-    actionsLabel = '',
-    renderActions,
     renderRow,
     onClickTableHeadCell,
     // Pagination props
@@ -128,9 +126,10 @@ export const DataTable = <T extends NonNullable<unknown>>({
         }
     }, [data, isStructured, table]);
 
+    const hasActionsColumn = Boolean(renderRow);
+
     // Render row cells - cell content rendering is delegated to columns configuration (via render prop)
-    // DataTable handles the cell wrapper (TableBodyCell) with structured view props for expand/collapse
-    // actionsOverride: from defaultRender({ actions }) when using renderRow; otherwise uses renderActions(row)
+    // actionsOverride: from defaultRender({ actions }) when using renderRow
     const renderRowContent = useCallback(
         (row: Row<T>, actionsOverride?: React.ReactNode) => (
             <>
@@ -179,15 +178,11 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     );
                 })}
 
-                {/* Actions cell - visible on row hover via CSS */}
-                {enableActions && (
-                    <TableCell className="moonstone-tableCell_actions">
-                        {actionsOverride ?? renderActions?.(row.original)}
-                    </TableCell>
-                )}
+                {/* Actions cell - only when renderRow is used. User passes TableCellActions or nothing. */}
+                {hasActionsColumn && (actionsOverride ?? <TableCellActions displayMode="hover"/>)}
             </>
         ),
-        [enableSelection, enableActions, renderActions, isStructured]
+        [enableSelection, hasActionsColumn, isStructured]
     );
 
     const renderRowWithCustomization = useCallback(
@@ -263,8 +258,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                 );
                             })}
 
-                            {/* Actions header */}
-                            {enableActions && <TableHeadCell>{actionsLabel}</TableHeadCell>}
+                            {/* Actions header - empty, no label */}
+                            {hasActionsColumn && <TableHeadCell/>}
                         </TableRow>
                     ))}
                 </TableHead>

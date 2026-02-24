@@ -4,7 +4,9 @@ import type {DataUser} from '~/data/dataTable';
 import {DataTable} from './DataTable';
 import type {Meta, StoryObj} from '@storybook/react';
 import {TableRow} from './TableRow';
-import {MoreVert} from '~/icons';
+import {TableCellActions} from './cells';
+import {Button} from '~/components';
+import {Visibility, Edit, Delete} from '~/icons';
 
 export default {
     title: 'Components/DataTable',
@@ -18,8 +20,7 @@ export default {
         enablePagination: {control: 'boolean'},
         itemsPerPage: {control: 'number'},
         itemsPerPageOptions: {control: 'object'},
-        paginationLabel: {control: 'object'},
-        actionsLabel: {control: 'text'}
+        paginationLabel: {control: 'object'}
     }
 } satisfies Meta<typeof DataTable<DataUser>>;
 
@@ -129,14 +130,6 @@ export const AllFeaturesTable: Story = {
             <DataTable
                 {...args}
                 enablePagination
-                enableActions
-                renderActions={row => (
-                    <>
-                        <MoreVert onClick={() => console.log(`${row.age} - 1`)}/>
-                        <MoreVert onClick={() => console.log(`${row.age} - 2`)}/>
-                        <MoreVert onClick={() => console.log(`${row.age} - 3`)}/>
-                    </>
-                )}
                 renderRow={(row, defaultRender) => (
                     <TableRow
                         key={row.id}
@@ -146,7 +139,15 @@ export const AllFeaturesTable: Story = {
                                 undefined
                         }}
                     >
-                        {defaultRender()}
+                        {defaultRender({
+                            actions: (
+                                <TableCellActions displayMode="hover">
+                                    <Button icon={<Visibility/>} variant="ghost"/>
+                                    <Button icon={<Edit/>} variant="ghost"/>
+                                    <Button icon={<Delete/>} variant="ghost"/>
+                                </TableCellActions>
+                            )
+                        })}
                     </TableRow>
                 )}
             />
@@ -161,8 +162,7 @@ export const AllFeaturesTable: Story = {
         enableSorting: true,
         defaultSelection: ['Walter', 'Jon'],
         defaultSortBy: 'progress',
-        defaultSortDirection: 'descending',
-        actionsLabel: 'Actions hover'
+        defaultSortDirection: 'descending'
     },
     name: 'All Features Combined'
 };

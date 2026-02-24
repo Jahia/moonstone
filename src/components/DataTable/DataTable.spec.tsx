@@ -1,7 +1,7 @@
 import {render, screen, within, waitFor} from '@testing-library/react';
 import {describe, it, expect, vi} from 'vitest';
 import userEvent from '@testing-library/user-event';
-import {DataTable} from './DataTable';
+import {DataTable, TableRow, TableCellActions} from '~/components/DataTable';
 import {stringColumn, numberColumn} from '~/utils/dataTable';
 
 type TestData = {
@@ -60,53 +60,49 @@ describe('DataTable', () => {
         expect(container.firstChild).toBeNull();
     });
 
-    it('should render actions column when enableActions and renderActions are provided', () => {
+    it('should render actions when renderRow provides actions via defaultRender', () => {
         render(
             <DataTable<TestData>
-                enableActions
                 data={data}
                 columns={columns}
                 primaryKey="id"
-                actionsLabel="Actions"
-                renderActions={row => <button type="button">Edit {row.name}</button>}
+                renderRow={(row, defaultRender) => (
+                    <TableRow key={row.id}>
+                        {defaultRender({
+                            actions: (
+                                <TableCellActions displayMode="hover">
+                                    <button type="button">Edit {row.original.name}</button>
+                                </TableCellActions>
+                            )
+                        })}
+                    </TableRow>
+                )}
             />
         );
-        expect(screen.getByText('Actions')).toBeInTheDocument();
         expect(screen.getByText('Edit Alice')).toBeInTheDocument();
-    });
-
-    it('should render empty actions header by default', () => {
-        render(
-            <DataTable<TestData>
-                enableActions
-                data={data}
-                columns={columns}
-                primaryKey="id"
-                renderActions={row => <button type="button">Edit {row.name}</button>}
-            />
-        );
-        expect(screen.queryByText('Actions')).not.toBeInTheDocument();
-        expect(screen.getByText('Edit Alice')).toBeInTheDocument();
+        expect(screen.getByText('Edit Bob')).toBeInTheDocument();
+        expect(screen.getByText('Edit Charlie')).toBeInTheDocument();
     });
 
     it('should support per-row actions via renderRow and defaultRender options', () => {
         render(
             <DataTable<TestData>
-                enableActions
                 data={data}
                 columns={columns}
                 primaryKey="id"
-                actionsLabel="Actions"
                 renderRow={(row, defaultRender) => (
-                    <tr key={row.id}>
+                    <TableRow key={row.id}>
                         {defaultRender({
-                            actions: <button type="button">Custom {row.original.name}</button>
+                            actions: (
+                                <TableCellActions displayMode="hover">
+                                    <button type="button">Custom {row.original.name}</button>
+                                </TableCellActions>
+                            )
                         })}
-                    </tr>
+                    </TableRow>
                 )}
             />
         );
-        expect(screen.getByText('Actions')).toBeInTheDocument();
         expect(screen.getByText('Custom Alice')).toBeInTheDocument();
         expect(screen.getByText('Custom Bob')).toBeInTheDocument();
         expect(screen.getByText('Custom Charlie')).toBeInTheDocument();
