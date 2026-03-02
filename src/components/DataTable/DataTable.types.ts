@@ -199,15 +199,6 @@ type RenderRowProps<T extends NonNullable<unknown>> = {
     ) => React.ReactNode;
 };
 
-type RenderActionsProps<T extends NonNullable<unknown>> = {
-    /**
-     * Provides actions per row. When provided, displays the actions column.
-     * Pass raw React nodes (buttons, etc.) - TableCellActions is applied internally.
-     * @param row - The row object from TanStack Table.
-     */
-    renderActions?: (row: Row<T>) => TableRowActions;
-};
-
 // Pagination props - uses types from Pagination component for consistency
 // Note: DataTable uses a discriminated union to enforce that pagination-related
 // props are only available when enablePagination is true
@@ -263,6 +254,5 @@ export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'c
     SortingProps<T> &
     SelectionProps &
     RenderRowProps<T> &
-    RenderActionsProps<T> &
     TablePaginationProps;
 

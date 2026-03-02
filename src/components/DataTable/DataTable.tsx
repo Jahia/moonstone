@@ -44,7 +44,6 @@ export const DataTable = <T extends NonNullable<unknown>>({
     defaultSortDirection = 'ascending',
     defaultSelection = [],
     renderRow,
-    renderActions,
     onClickTableHeadCell,
     // Pagination props
     enablePagination = false,
@@ -127,7 +126,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
         }
     }, [data, isStructured, table]);
 
-    const hasActionsColumn = Boolean(renderActions) || Boolean(renderRow);
+    const hasActionsColumn = Boolean(renderRow);
 
     const renderRowContent = useCallback(
         (row: Row<T>, actionsContent?: TableRowActions) => (
@@ -191,11 +190,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
     const renderRowWithCustomization = useCallback(
         (row: Row<T>) => {
-            const defaultRender = (options?: TableRowActions) => {
-                // Fusion : renderActions (prop) + options (passé à defaultRender). Les options priment.
-                const actionsContent = {...renderActions?.(row), ...options};
-                return renderRowContent(row, actionsContent);
-            };
+            const defaultRender = (options?: TableRowActions) => renderRowContent(row, options);
 
             if (renderRow) {
                 return renderRow(row, defaultRender);
@@ -211,7 +206,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 </TableRow>
             );
         },
-        [renderRow, renderActions, renderRowContent, rowProps]
+        [renderRow, renderRowContent, rowProps]
     );
 
     if (!data || !Array.isArray(data) || data.length === 0) {

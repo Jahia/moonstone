@@ -1,4 +1,15 @@
-.moonstone-tableCellActions_hover {
+.moonstone-tableCellActions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.moonstone-tableCellActions_displayHover {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
     visibility: hidden;
 
     .moonstone-tableRow:hover &,

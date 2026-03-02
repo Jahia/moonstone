@@ -9,10 +9,9 @@ export const TableCellActions: React.FC<TableCellActionsProps> = ({
 }) => (
     <TableCell align="right" className="moonstone-tableCellActions">
         {actionsOnHover && (
-            <span className="moonstone-tableCellActions_hover">{actionsOnHover}</span>
+            <div className="moonstone-tableCellActions_displayHover">{actionsOnHover}</div>
         )}
-        {actions}
-        {!(actions || actionsOnHover) && ''}
+        {actions ?? ''}
     </TableCell>
 );
 
