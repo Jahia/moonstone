@@ -41,26 +41,29 @@ export const DataTable = <T extends NonNullable<unknown>>({
     onSortChange,
     defaultSortBy,
     defaultSortDirection = 'ascending',
-    manualSorting = false,
     actions,
     actionsHeaderLabel = 'Actions',
     renderRow,
     onClickTableHeadCell,
     // Pagination props
     enablePagination = false,
-    pageIndex,
-    pageSize,
+    currentPage,
+    itemsPerPage,
+    defaultCurrentPage,
+    defaultItemsPerPage,
     onPageChange,
     onItemsPerPageChange,
     totalRowCount,
-    manualPagination = false,
-    itemsPerPage,
     itemsPerPageOptions,
     paginationLabel,
     paginationProps,
     rowProps,
     ...props
 }: DataTableProps<T>) => {
+    // Derive manual flags from controlled state — abstraction over TanStack internals
+    const manualSorting = sortBy !== undefined;
+    const manualPagination = currentPage !== undefined;
+
     const [expanded, setExpanded] = useState<ExpandedState>({});
 
     const {
@@ -80,9 +83,10 @@ export const DataTable = <T extends NonNullable<unknown>>({
         defaultSortBy,
         defaultSortDirection,
         onSortChange,
-        pageIndex,
-        pageSize,
+        currentPage,
         itemsPerPage,
+        defaultCurrentPage,
+        defaultItemsPerPage,
         itemsPerPageOptions,
         onPageChange,
         onItemsPerPageChange

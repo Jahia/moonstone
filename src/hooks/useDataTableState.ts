@@ -10,12 +10,13 @@ type UseDataTableStateProps<T> = {
     defaultSortBy?: keyof T & string;
     defaultSortDirection?: 'ascending' | 'descending';
     onSortChange?: (sortBy: keyof T & string, sortDirection: 'ascending' | 'descending') => void;
-    pageIndex?: number;
-    pageSize?: number;
+    currentPage?: number;
     itemsPerPage?: number;
+    defaultCurrentPage?: number;
+    defaultItemsPerPage?: number;
     itemsPerPageOptions?: number[];
     onPageChange?: (page: number) => void;
-    onItemsPerPageChange?: (pageSize: number) => void;
+    onItemsPerPageChange?: (itemsPerPage: number) => void;
 };
 
 export function useDataTableState<T>({
@@ -27,16 +28,19 @@ export function useDataTableState<T>({
     defaultSortBy,
     defaultSortDirection = 'ascending',
     onSortChange,
-    pageIndex,
-    pageSize,
+    currentPage,
     itemsPerPage,
+    defaultCurrentPage,
+    defaultItemsPerPage,
     itemsPerPageOptions = [5, 10, 25],
     onPageChange,
     onItemsPerPageChange
 }: UseDataTableStateProps<T>) {
     const isSelectionControlled = selection !== undefined;
     const isSortingControlled = sortBy !== undefined;
-    const isPaginationControlled = pageIndex !== undefined;
+    const isPaginationControlled = currentPage !== undefined;
+
+    // --- Sorting ---
 
     const initialSorting = useMemo<SortingState>(() => {
         if (defaultSortBy) {
@@ -52,6 +56,8 @@ export function useDataTableState<T>({
     );
     const sorting = isSortingControlled ? controlledSorting : uncontrolledSorting;
 
+    // --- Selection ---
+
     const uncontrolledRowSelection = useState<RowSelectionState>(() =>
         defaultSelection?.reduce((acc, key) => ({...acc, [key]: true}), {}) ?? {}
     );
@@ -62,29 +68,39 @@ export function useDataTableState<T>({
     const rowSelection = isSelectionControlled ? controlledRowSelection : uncontrolledRowSelection[0];
     const setRowSelection = uncontrolledRowSelection[1];
 
-    const defaultPageSize = useMemo(() => {
+    // --- Pagination ---
+
+    const resolvedDefaultPageSize = useMemo(() => {
         const options = itemsPerPageOptions ?? [5, 10, 25];
-        if (itemsPerPage && options.includes(itemsPerPage)) {
-            return itemsPerPage;
+        if (defaultItemsPerPage && options.includes(defaultItemsPerPage)) {
+            return defaultItemsPerPage;
         }
 
         return options[0] ?? 10;
-    }, [itemsPerPage, itemsPerPageOptions]);
+    }, [defaultItemsPerPage, itemsPerPageOptions]);
+
     const [uncontrolledPagination, setUncontrolledPagination] = useState<PaginationState>({
-        pageIndex: 0,
-        pageSize: defaultPageSize
+        pageIndex: defaultCurrentPage ? defaultCurrentPage - 1 : 0,
+        pageSize: resolvedDefaultPageSize
     });
     const controlledPagination = useMemo<PaginationState>(
-        () => ({pageIndex: pageIndex ?? 0, pageSize: pageSize ?? defaultPageSize}),
-        [pageIndex, pageSize, defaultPageSize]
+        () => ({
+            pageIndex: currentPage ? currentPage - 1 : 0,
+            pageSize: itemsPerPage ?? resolvedDefaultPageSize
+        }),
+        [currentPage, itemsPerPage, resolvedDefaultPageSize]
     );
     const pagination = isPaginationControlled ? controlledPagination : uncontrolledPagination;
+
+    // --- Selection side-effect (observer in uncontrolled mode) ---
 
     useEffect(() => {
         if (!isSelectionControlled) {
             onChangeSelection?.(Object.keys(rowSelection).filter(id => rowSelection[id]));
         }
     }, [isSelectionControlled, rowSelection, onChangeSelection]);
+
+    // --- Handlers ---
 
     const handleRowSelectionChange = useCallback(
         (updater: React.SetStateAction<RowSelectionState>) => {
@@ -102,13 +118,17 @@ export function useDataTableState<T>({
         (updater: React.SetStateAction<SortingState>) => {
             const next = typeof updater === 'function' ? updater(sorting) : updater;
             const first = next[0];
-            if (isSortingControlled && onSortChange && first) {
+
+            if (!isSortingControlled) {
+                setUncontrolledSorting(updater);
+            }
+
+            // Fire onSortChange in both controlled and uncontrolled modes
+            if (first && onSortChange) {
                 onSortChange(
                     first.id as keyof T & string,
                     first.desc ? 'descending' : 'ascending'
                 );
-            } else {
-                setUncontrolledSorting(updater);
             }
         },
         [isSortingControlled, sorting, onSortChange]

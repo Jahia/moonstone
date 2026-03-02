@@ -176,7 +176,7 @@ describe('DataTable', () => {
                 data={data}
                 columns={columns}
                 primaryKey="id"
-                itemsPerPage={1}
+                defaultItemsPerPage={1}
                 itemsPerPageOptions={[1, 5, 10]}
             />
         );
@@ -298,7 +298,7 @@ describe('DataTable', () => {
                 columns={columns}
                 primaryKey="id"
                 selection={['1', '2']}
-                onChangeSelection={() => {}}
+                onChangeSelection={() => { }}
             />
         );
 
@@ -330,15 +330,19 @@ describe('DataTable', () => {
     });
 
     it('should respect controlled sortBy and sortDirection', () => {
+        // In controlled mode, manualSorting is inferred as true, so TanStack doesn't sort locally.
+        // We must provide pre-sorted data to match the controlled state being passed.
+        const sortedData = [...data].sort((a, b) => b.name.localeCompare(a.name));
+
         render(
             <DataTable<TestData>
                 enableSorting
-                data={data}
+                data={sortedData}
                 columns={columns}
                 primaryKey="id"
                 sortBy="name"
                 sortDirection="descending"
-                onSortChange={() => {}}
+                onSortChange={() => { }}
             />
         );
 
@@ -349,17 +353,21 @@ describe('DataTable', () => {
     });
 
     it('should respect controlled pagination', () => {
+        // In controlled mode, manualPagination is inferred as true, so TanStack doesn't slice locally.
+        // We must provide the pre-sliced data for the specific page being requested.
+        const pageTwoData = [data[1]]; // Bob (index 1) is on page 2 when itemsPerPage is 1
+
         render(
             <DataTable<TestData>
                 enablePagination
-                data={data}
+                data={pageTwoData}
                 columns={columns}
                 primaryKey="id"
-                pageIndex={1}
-                pageSize={1}
+                currentPage={2}
+                itemsPerPage={1}
                 itemsPerPageOptions={[1, 5, 10]}
-                onPageChange={() => {}}
-                onItemsPerPageChange={() => {}}
+                onPageChange={() => { }}
+                onItemsPerPageChange={() => { }}
             />
         );
 
@@ -442,19 +450,21 @@ describe('DataTable', () => {
         expect(screen.getByText('Level3')).toBeInTheDocument();
     });
 
-    it('should use totalRowCount for manualPagination in uncontrolled mode', () => {
+    it('should use totalRowCount for server-side pagination', () => {
         const firstPageData = [data[0]];
 
         render(
             <DataTable<TestData>
                 enablePagination
-                manualPagination
                 data={firstPageData}
                 columns={columns}
                 primaryKey="id"
+                currentPage={1}
                 itemsPerPage={1}
                 itemsPerPageOptions={[1, 5, 10]}
                 totalRowCount={100}
+                onPageChange={() => { }}
+                onItemsPerPageChange={() => { }}
             />
         );
 

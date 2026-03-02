@@ -110,25 +110,25 @@ export type SortDirection = 'ascending' | 'descending';
 type SortingProps<T extends NonNullable<unknown>> =
     | {
           enableSorting: true;
-          /** Controlled: sort state */
+          /** Controlled: current sort column */
           sortBy: Extract<Exclude<keyof T, SubRowKey>, string>;
+          /** Controlled: current sort direction */
           sortDirection: SortDirection;
+          /** Callback when sort changes */
           onSortChange: (sortBy: Extract<Exclude<keyof T, SubRowKey>, string>, sortDirection: SortDirection) => void;
           defaultSortBy?: never;
           defaultSortDirection?: never;
-          manualSorting?: boolean;
       }
     | {
           enableSorting: true;
           sortBy?: never;
           sortDirection?: never;
-          onSortChange?: never;
+          /** Optional callback to observe sort changes in uncontrolled mode */
+          onSortChange?: (sortBy: Extract<Exclude<keyof T, SubRowKey>, string>, sortDirection: SortDirection) => void;
           /** Uncontrolled: initial sort column */
           defaultSortBy?: Extract<Exclude<keyof T, SubRowKey>, string>;
           /** Uncontrolled: initial sort direction */
           defaultSortDirection?: SortDirection;
-          /** Server-side: table does not sort data, parent provides sorted data */
-          manualSorting?: boolean;
       }
     | {
           enableSorting?: false;
@@ -137,7 +137,6 @@ type SortingProps<T extends NonNullable<unknown>> =
           onSortChange?: never;
           defaultSortBy?: never;
           defaultSortDirection?: never;
-          manualSorting?: never;
       };
 
 type SelectionProps =
@@ -145,7 +144,7 @@ type SelectionProps =
           enableSelection: true;
           /** Controlled: selected row IDs */
           selection: string[];
-          /** Controlled: callback when selection changes */
+          /** Callback when selection changes */
           onChangeSelection: (selection: string[]) => void;
           defaultSelection?: never;
       }
@@ -153,7 +152,7 @@ type SelectionProps =
           enableSelection: true;
           /** Uncontrolled: initial selected row IDs */
           defaultSelection?: string[];
-          /** Uncontrolled: callback when selection changes */
+          /** Optional callback to observe selection changes */
           onChangeSelection?: (selection: string[]) => void;
           selection?: never;
       }
@@ -164,7 +163,6 @@ type SelectionProps =
           onChangeSelection?: never;
       };
 
-// Actions column props
 type ActionsProps<T extends NonNullable<unknown>> = {
     /**
      * Function to render action buttons for each row
@@ -178,7 +176,6 @@ type ActionsProps<T extends NonNullable<unknown>> = {
     actionsHeaderLabel?: string;
 };
 
-// Custom row render props
 type RenderRowProps<T extends NonNullable<unknown>> = {
     /**
      * Custom render function for rows
@@ -188,53 +185,54 @@ type RenderRowProps<T extends NonNullable<unknown>> = {
     renderRow?: (row: Row<T>, defaultRender: () => React.ReactNode) => React.ReactNode;
 };
 
-type PaginationUncontrolledProps = {
-    pageIndex?: never;
-    pageSize?: never;
-    onPageChange?: never;
-    onItemsPerPageChange?: never;
-    /** Server-side: total rows when manualPagination (for Pagination display) */
+type PaginationBaseProps = {
+    /** Total number of rows across all pages (for server-side pagination display) */
     totalRowCount?: number;
-    /** Initial items per page */
-    itemsPerPage?: ComponentPaginationProps['itemsPerPage'];
+    /** Choices for items per page value */
     itemsPerPageOptions?: ComponentPaginationProps['itemsPerPageOptions'];
+    /** Pagination labels */
     paginationLabel?: ComponentPaginationProps['label'];
     /** Custom attributes spread on Pagination root (data-*, aria-*, etc.) */
     paginationProps?: Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> & Record<string, unknown>;
 };
 
-type PaginationControlledProps = {
-    /** Controlled: current page (0-indexed) */
-    pageIndex: number;
+type PaginationControlledProps = PaginationBaseProps & {
+    /** Controlled: current page (1-indexed) */
+    currentPage: number;
     /** Controlled: items per page */
-    pageSize: number;
+    itemsPerPage: number;
     /** Controlled: callback when page changes (1-indexed) */
     onPageChange: (page: number) => void;
-    /** Controlled: callback when page size changes */
-    onItemsPerPageChange: (pageSize: number) => void;
-    /** Server-side: total rows for Pagination and TanStack rowCount */
-    totalRowCount?: number;
+    /** Controlled: callback when items per page changes */
+    onItemsPerPageChange: (itemsPerPage: number) => void;
+    defaultCurrentPage?: never;
+    defaultItemsPerPage?: never;
+};
+
+type PaginationUncontrolledProps = PaginationBaseProps & {
+    currentPage?: never;
+    onPageChange?: never;
+    onItemsPerPageChange?: never;
+    /** Uncontrolled: initial page (1-indexed) */
+    defaultCurrentPage?: number;
+    /** Uncontrolled: initial items per page */
+    defaultItemsPerPage?: number;
     itemsPerPage?: never;
-    itemsPerPageOptions?: ComponentPaginationProps['itemsPerPageOptions'];
-    paginationLabel?: ComponentPaginationProps['label'];
-    paginationProps?: Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> & Record<string, unknown>;
 };
 
 type TablePaginationProps =
     | ({
           enablePagination: true;
-          /** Server-side: disable client-side pagination, data is pre-paginated */
-          manualPagination?: boolean;
       } & (PaginationControlledProps | PaginationUncontrolledProps))
     | {
           enablePagination?: false;
-          manualPagination?: never;
-          pageIndex?: never;
-          pageSize?: never;
+          currentPage?: never;
+          itemsPerPage?: never;
           onPageChange?: never;
           onItemsPerPageChange?: never;
           totalRowCount?: never;
-          itemsPerPage?: never;
+          defaultCurrentPage?: never;
+          defaultItemsPerPage?: never;
           itemsPerPageOptions?: never;
           paginationLabel?: never;
           paginationProps?: never;
@@ -247,4 +245,3 @@ export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'c
     ActionsProps<T> &
     RenderRowProps<T> &
     TablePaginationProps;
-

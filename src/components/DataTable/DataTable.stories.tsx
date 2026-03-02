@@ -16,7 +16,7 @@ export default {
     argTypes: {
         onChangeSelection: {action: 'onChangeSelection'},
         enablePagination: {control: 'boolean'},
-        itemsPerPage: {control: 'number'},
+        defaultItemsPerPage: {control: 'number'},
         itemsPerPageOptions: {control: 'object'},
         paginationLabel: {control: 'object'}
     }
@@ -125,7 +125,7 @@ export const PaginationDataTable: Story = {
 export const ControlledSelection: Story = {
     render: args => {
         const [, setArgs] = useArgs();
-        const a = args as typeof args & {selection?: string[]};
+        const a = args as typeof args & { selection?: string[] };
 
         const onChangeSelection = (selection: string[]) => {
             args.onChangeSelection?.(selection);
@@ -190,4 +190,3 @@ export const AllFeaturesTable: Story = {
     },
     name: 'All Features Combined'
 };
-
