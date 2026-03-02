@@ -28,7 +28,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   deploy-storybook:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     needs: publish-release
     steps:
       - name: Checkout
