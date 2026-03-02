@@ -60,17 +60,27 @@ describe('DataTable', () => {
         expect(container.firstChild).toBeNull();
     });
 
-    it.skip('should render actions when renderActions provides actionsOnHover', () => {
+    it('should render actions when renderRow provides actionsOnHover', () => {
         render(
             <DataTable<TestData>
                 data={data}
                 columns={columns}
                 primaryKey="id"
+                renderRow={(row, defaultRender) => (
+                    <TableRow key={row.id}>
+                        {defaultRender({
+                            actionsOnHover: <button type="button">Edit {row.original.name}</button>
+                        })}
+                    </TableRow>
+                )}
             />
         );
         expect(screen.getByText('Edit Alice')).toBeInTheDocument();
         expect(screen.getByText('Edit Bob')).toBeInTheDocument();
         expect(screen.getByText('Edit Charlie')).toBeInTheDocument();
+
+        const hoverContainers = document.querySelectorAll('.moonstone-tableCellActions_displayHover');
+        expect(hoverContainers).toHaveLength(3);
     });
 
     it('should render actions when renderRow provides actions via defaultRender options', () => {
@@ -91,20 +101,38 @@ describe('DataTable', () => {
         expect(screen.getByText('Edit Alice')).toBeInTheDocument();
         expect(screen.getByText('Edit Bob')).toBeInTheDocument();
         expect(screen.getByText('Edit Charlie')).toBeInTheDocument();
+
+        const hoverContainers = document.querySelectorAll('.moonstone-tableCellActions_displayHover');
+        expect(hoverContainers).toHaveLength(3);
     });
 
-    it.skip('should support per-row actions via renderActions with actions and actionsOnHover', () => {
+    it('should support per-row actions with both actions and actionsOnHover', () => {
         render(
             <DataTable<TestData>
                 data={data}
                 columns={columns}
                 primaryKey="id"
+                renderRow={(row, defaultRender) => (
+                    <TableRow key={row.id}>
+                        {defaultRender({
+                            actions: <span data-testid="always-visible">Custom {row.original.name}</span>,
+                            actionsOnHover: <button type="button">Hover {row.original.name}</button>
+                        })}
+                    </TableRow>
+                )}
             />
         );
+
         expect(screen.getAllByTestId('always-visible')).toHaveLength(3);
         expect(screen.getByText('Custom Alice')).toBeInTheDocument();
         expect(screen.getByText('Custom Bob')).toBeInTheDocument();
         expect(screen.getByText('Custom Charlie')).toBeInTheDocument();
+
+        const hoverContainers = document.querySelectorAll('.moonstone-tableCellActions_displayHover');
+        expect(hoverContainers).toHaveLength(3);
+        expect(screen.getByText('Hover Alice')).toBeInTheDocument();
+        expect(screen.getByText('Hover Bob')).toBeInTheDocument();
+        expect(screen.getByText('Hover Charlie')).toBeInTheDocument();
     });
 
     it('should apply rowProps', () => {

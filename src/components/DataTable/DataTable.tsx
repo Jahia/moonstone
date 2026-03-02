@@ -16,7 +16,7 @@ import type {
 } from '@tanstack/react-table';
 import {useState, useEffect, useMemo, useCallback} from 'react';
 
-import type {DataTableProps, CustomColumnMeta, TableRowActions} from './DataTable.types';
+import type {DataTableProps, CustomColumnMeta, DefaultRenderOptions} from './DataTable.types';
 import {Checkbox} from '~/components';
 import {
     Table,
@@ -126,10 +126,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
         }
     }, [data, isStructured, table]);
 
-    const hasActionsColumn = Boolean(renderRow);
-
     const renderRowContent = useCallback(
-        (row: Row<T>, actionsContent?: TableRowActions) => (
+        (row: Row<T>, actionsContent?: DefaultRenderOptions) => (
             <>
                 {/* Selection checkbox cell */}
                 {enableSelection && (
@@ -176,8 +174,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     );
                 })}
 
-                {/* Actions cell - TableCellActions wraps raw nodes internally */}
-                {hasActionsColumn && (
+                {/* Actions cell - rendered only when actions are provided */}
+                {(actionsContent?.actions || actionsContent?.actionsOnHover) && (
                     <TableCellActions
                         actions={actionsContent?.actions}
                         actionsOnHover={actionsContent?.actionsOnHover}
@@ -185,12 +183,12 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 )}
             </>
         ),
-        [enableSelection, hasActionsColumn, isStructured]
+        [enableSelection, isStructured]
     );
 
     const renderRowWithCustomization = useCallback(
         (row: Row<T>) => {
-            const defaultRender = (options?: TableRowActions) => renderRowContent(row, options);
+            const defaultRender = (options?: DefaultRenderOptions) => renderRowContent(row, options);
 
             if (renderRow) {
                 return renderRow(row, defaultRender);
@@ -260,8 +258,6 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                 );
                             })}
 
-                            {/* Actions header - empty, no label */}
-                            {hasActionsColumn && <TableHeadCell/>}
                         </TableRow>
                     ))}
                 </TableHead>

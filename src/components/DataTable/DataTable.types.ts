@@ -174,7 +174,7 @@ type SelectionProps =
           onChangeSelection?: never;
       };
 
-export type TableRowActions = {
+export type DefaultRenderOptions = {
     /**
      * Actions always visible in the cell.
      */
@@ -195,7 +195,7 @@ type RenderRowProps<T extends NonNullable<unknown>> = {
      */
     renderRow?: (
         row: Row<T>,
-        defaultRender: (options?: TableRowActions) => React.ReactNode
+        defaultRender: (options?: DefaultRenderOptions) => React.ReactNode
     ) => React.ReactNode;
 };
 
