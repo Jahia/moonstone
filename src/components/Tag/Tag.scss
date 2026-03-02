@@ -1,14 +1,16 @@
 @use '../../utils' as *;
 
 .moonstone-tag {
-    display: flex;
+    display: inline-flex;
+    gap: var(--spacing-nano);
+    align-items: center;
     width: fit-content;
     max-width: 100px;
     padding: 4px 8px;
 
     color: var(--color-light);
 
-    border: none;
+    border: 1px solid var(--color-accent);
     border-radius: var(--radius);
     background-color: var(--color-accent);
     cursor: pointer;
@@ -18,7 +20,19 @@
     }
 
     &:not([disabled]):hover {
-        background-color: var(--color-accent60);
+        border-color: var(--color-accent_dark);
+        background-color: var(--color-accent_dark);
+    }
+
+    &:not([disabled]):focus-visible {
+        @extend %is-focused;
+    }
+
+    &:not([disabled]):active {
+        color: var(--color-white);
+
+        border-color: var(--color-accent_dark_contrast);
+        background-color: var(--color-accent_dark_contrast);
     }
 
     &[disabled] {
@@ -26,8 +40,15 @@
 
         color: var(--color-gray_dark);
 
+        border-color: transparent;
         background-color: var(--color-gray20);
         cursor: not-allowed;
         opacity: 0.8;
     }
+}
+
+.moonstone-tag_icon {
+    flex-shrink: 0;
+
+    opacity: 0.6;
 }
