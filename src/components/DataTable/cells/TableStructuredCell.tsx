@@ -33,7 +33,7 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
             <TableCell
                 ref={ref}
                 className={className}
-                style={{paddingLeft: 0, ...style}}
+                style={style}
                 {...props}
             >
                 {isExpandable ? (

@@ -107,7 +107,25 @@ export const dataTable: DataUser[] = [
                 age: 38,
                 status: 'Active',
                 progress: 88,
-                date: new Date('2024-02-12')
+                date: new Date('2024-02-12'),
+                subRows: [
+                    {
+                        firstName: 'John',
+                        lastName: 'Shelby',
+                        age: 35,
+                        status: 'Busy',
+                        progress: 72,
+                        date: new Date('2024-02-13')
+                    },
+                    {
+                        firstName: 'Finn',
+                        lastName: 'Shelby',
+                        age: 17,
+                        status: 'Active',
+                        progress: 55,
+                        date: new Date('2024-02-14')
+                    }
+                ]
             },
             {
                 firstName: 'Polly',
@@ -115,7 +133,62 @@ export const dataTable: DataUser[] = [
                 age: 45,
                 status: 'Active',
                 progress: 92,
-                date: new Date('2024-02-15')
+                date: new Date('2024-02-15'),
+                subRows: [
+                    {
+                        firstName: 'Mikey',
+                        lastName: 'Gray',
+                        age: 22,
+                        status: 'Active',
+                        progress: 68,
+                        date: new Date('2024-02-16')
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        firstName: 'Tony',
+        lastName: 'Soprano',
+        age: 47,
+        status: 'Busy',
+        chips: ['Boss'],
+        progress: 87,
+        date: new Date('2024-01-10'),
+        subRows: [
+            {
+                firstName: 'Christopher',
+                lastName: 'Moltisanti',
+                age: 30,
+                status: 'Active',
+                progress: 65,
+                date: new Date('2024-01-11'),
+                subRows: [
+                    {
+                        firstName: 'Paulie',
+                        lastName: 'Walnuts',
+                        age: 55,
+                        status: 'Active',
+                        progress: 78,
+                        date: new Date('2024-01-12')
+                    },
+                    {
+                        firstName: 'Silvio',
+                        lastName: 'Dante',
+                        age: 50,
+                        status: 'Offline',
+                        progress: 82,
+                        date: new Date('2024-01-13')
+                    }
+                ]
+            },
+            {
+                firstName: 'Bobby',
+                lastName: 'Baccalieri',
+                age: 42,
+                status: 'Active',
+                progress: 70,
+                date: new Date('2024-01-14')
             }
         ]
     },
