@@ -5,6 +5,7 @@ import type {TagProps} from './Tag.types';
 
 import './Tag.scss';
 import {Typography} from '~/components/Typography';
+import {Close} from '~/icons';
 
 export const Tag: React.FC<TagProps> = ({label, value, size = 'medium', onClick, className, isDisabled = false, ...props}) => (
     <button
@@ -15,6 +16,7 @@ export const Tag: React.FC<TagProps> = ({label, value, size = 'medium', onClick,
         {...props}
     >
         {label && <Typography isNowrap component="span" variant="caption">{label}</Typography>}
+        <Close aria-hidden size={size === 'small' ? 'small' : 'default'} className="moonstone-tag_icon"/>
     </button>
 );
 
