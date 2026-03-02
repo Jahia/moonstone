@@ -3,4 +3,4 @@
 "@jahia/moonstone": minor
 ---
 
-minor: Add cross icon, accent styles, and tighter spacing in dropdown (#1286)
+* Add an icon to inform the Tag component is removable (#1286)
