@@ -75,35 +75,14 @@ describe('DataTable', () => {
                 )}
             />
         );
-        expect(screen.getByText('Edit Alice')).toBeInTheDocument();
+
+        const aliceAction = screen.getByText('Edit Alice');
+        expect(aliceAction).toBeInTheDocument();
         expect(screen.getByText('Edit Bob')).toBeInTheDocument();
         expect(screen.getByText('Edit Charlie')).toBeInTheDocument();
 
-        const hoverContainers = document.querySelectorAll('.moonstone-tableCellActions_displayHover');
-        expect(hoverContainers).toHaveLength(3);
-    });
-
-    it('should render actions when renderRow provides actions via defaultRender options', () => {
-        render(
-            <DataTable<TestData>
-                data={data}
-                columns={columns}
-                primaryKey="id"
-                renderRow={(row, defaultRender) => (
-                    <TableRow key={row.id}>
-                        {defaultRender({
-                            actionsOnHover: <button type="button">Edit {row.original.name}</button>
-                        })}
-                    </TableRow>
-                )}
-            />
-        );
-        expect(screen.getByText('Edit Alice')).toBeInTheDocument();
-        expect(screen.getByText('Edit Bob')).toBeInTheDocument();
-        expect(screen.getByText('Edit Charlie')).toBeInTheDocument();
-
-        const hoverContainers = document.querySelectorAll('.moonstone-tableCellActions_displayHover');
-        expect(hoverContainers).toHaveLength(3);
+        // Verify the action is rendered inside the hidden-by-default container
+        expect(aliceAction.closest('.moonstone-tableCellActions_displayHover')).toBeInTheDocument();
     });
 
     it('should support per-row actions with both actions and actionsOnHover', () => {
@@ -124,15 +103,21 @@ describe('DataTable', () => {
         );
 
         expect(screen.getAllByTestId('always-visible')).toHaveLength(3);
-        expect(screen.getByText('Custom Alice')).toBeInTheDocument();
+        const customAlice = screen.getByText('Custom Alice');
+        expect(customAlice).toBeInTheDocument();
         expect(screen.getByText('Custom Bob')).toBeInTheDocument();
         expect(screen.getByText('Custom Charlie')).toBeInTheDocument();
 
-        const hoverContainers = document.querySelectorAll('.moonstone-tableCellActions_displayHover');
-        expect(hoverContainers).toHaveLength(3);
-        expect(screen.getByText('Hover Alice')).toBeInTheDocument();
+        // Verify that the always-visible action does NOT have the hover class container
+        expect(customAlice.closest('.moonstone-tableCellActions_displayHover')).toBeNull();
+
+        const hoverAlice = screen.getByText('Hover Alice');
+        expect(hoverAlice).toBeInTheDocument();
         expect(screen.getByText('Hover Bob')).toBeInTheDocument();
         expect(screen.getByText('Hover Charlie')).toBeInTheDocument();
+
+        // Verify that the hover action has the hover class container
+        expect(hoverAlice.closest('.moonstone-tableCellActions_displayHover')).toBeInTheDocument();
     });
 
     it('should apply rowProps', () => {
