@@ -17,7 +17,6 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
             isExpandable,
             isExpanded,
             onToggleExpand,
-            style,
             ...props
         },
         ref
@@ -33,7 +32,6 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
             <TableCell
                 ref={ref}
                 className={className}
-                style={style}
                 {...props}
             >
                 {isExpandable ? (
