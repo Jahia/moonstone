@@ -139,7 +139,7 @@ type SortingProps<T extends NonNullable<unknown>> =
           defaultSortDirection?: never;
       };
 
-type SelectionProps =
+export type SelectionProps =
     | {
           enableSelection: true;
           /** Controlled: selected row IDs */
