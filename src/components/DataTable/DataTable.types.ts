@@ -194,6 +194,10 @@ type PaginationBaseProps = {
     paginationLabel?: ComponentPaginationProps['label'];
     /** Custom attributes spread on Pagination root (data-*, aria-*, etc.) */
     paginationProps?: Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> & Record<string, unknown>;
+    /** Callback when page changes (1-indexed) — available in both controlled and uncontrolled modes */
+    onPageChange?: (page: number) => void;
+    /** Callback when items per page changes — available in both controlled and uncontrolled modes */
+    onItemsPerPageChange?: (itemsPerPage: number) => void;
 };
 
 type PaginationControlledProps = PaginationBaseProps & {
@@ -201,9 +205,9 @@ type PaginationControlledProps = PaginationBaseProps & {
     currentPage: number;
     /** Controlled: items per page */
     itemsPerPage: number;
-    /** Controlled: callback when page changes (1-indexed) */
+    /** Required in controlled mode */
     onPageChange: (page: number) => void;
-    /** Controlled: callback when items per page changes */
+    /** Required in controlled mode */
     onItemsPerPageChange: (itemsPerPage: number) => void;
     defaultCurrentPage?: never;
     defaultItemsPerPage?: never;
@@ -211,8 +215,6 @@ type PaginationControlledProps = PaginationBaseProps & {
 
 type PaginationUncontrolledProps = PaginationBaseProps & {
     currentPage?: never;
-    onPageChange?: never;
-    onItemsPerPageChange?: never;
     /** Uncontrolled: initial page (1-indexed) */
     defaultCurrentPage?: number;
     /** Uncontrolled: initial items per page */

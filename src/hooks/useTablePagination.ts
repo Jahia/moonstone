@@ -27,8 +27,13 @@ export function useTablePagination({currentPage, itemsPerPage, defaultCurrentPag
             setInternal(next);
         }
 
-        onPageChange?.(next.pageIndex + 1);
-        onItemsPerPageChange?.(next.pageSize);
+        if (next.pageIndex !== pagination.pageIndex) {
+            onPageChange?.(next.pageIndex + 1);
+        }
+
+        if (next.pageSize !== pagination.pageSize) {
+            onItemsPerPageChange?.(next.pageSize);
+        }
     };
 
     return {pagination, isControlled, handlePaginationChange};
