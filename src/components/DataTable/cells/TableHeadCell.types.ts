@@ -26,5 +26,35 @@ export type TableHeadCellProps = Omit<TableCellProps, 'isScrollable' | 'componen
          */
         isActive?: boolean;
     };
+
+    /**
+     * Enable column resize handle (vertical border on hover)
+     */
+    enableResize?: boolean;
+
+    /**
+     * Resize handler for mousedown/touchstart
+     */
+    resizeHandler?: (e: React.MouseEvent | React.TouchEvent) => void;
+
+    /**
+     * Reset column size on double-click
+     */
+    onResizeReset?: () => void;
+
+    /**
+     * Whether this column is currently being resized
+     */
+    isResizing?: boolean;
+
+    /**
+     * Ref callback to register the header element (for resize callbacks)
+     */
+    resizeHeaderRef?: (el: HTMLTableCellElement | null) => void;
+
+    /**
+     * Accessible label for the resize handle (e.g. "Redimensionner la colonne Nom")
+     */
+    resizeHandleLabel?: string;
 };
 

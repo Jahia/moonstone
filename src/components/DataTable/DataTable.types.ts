@@ -1,5 +1,5 @@
 import React from 'react';
-import type {Row} from '@tanstack/react-table';
+import type {Row, ColumnSizingState, OnChangeFn} from '@tanstack/react-table';
 import type {PaginationProps as ComponentPaginationProps} from '~/components/Pagination';
 
 export type SubRowKey = 'subRows';
@@ -69,6 +69,24 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
      * When undefined, the column takes all available space.
      */
     width?: string;
+
+    /**
+     * Minimum column width in pixels (used when enableResize is true).
+     * @default 60
+     */
+    minWidth?: number;
+
+    /**
+     * Maximum column width in pixels (used when enableResize is true).
+     * @default 800
+     */
+    maxWidth?: number;
+
+    /**
+     * Default column width in pixels (used when enableResize is true).
+     * @default 150
+     */
+    defaultWidth?: number;
 };
 
 export type DataTableBaseProps<T extends NonNullable<unknown>> = {
@@ -98,6 +116,50 @@ export type DataTableBaseProps<T extends NonNullable<unknown>> = {
      * @param columnId - The ID of the clicked column
      */
     onClickTableHeadCell?: (columnId: string) => void;
+
+    /**
+     * Enable column resizing. When true, users can resize columns via a vertical handle on hover.
+     * @default false
+     */
+    enableResize?: boolean;
+
+    /**
+     * Callback fired when column resize begins
+     * @param columnId - The ID of the column being resized
+     * @param headerRef - The header element being resized
+     */
+    onResizeStart?: (columnId: string, headerRef: HTMLElement) => void;
+
+    /**
+     * Callback fired when column resize ends
+     * @param columnId - The ID of the column that was resized
+     * @param headerRef - The header element that was resized
+     */
+    onResizeStop?: (columnId: string, headerRef: HTMLElement) => void;
+
+    /**
+     * Callback fired during column resize (on each drag movement)
+     * @param columnId - The ID of the column being resized
+     * @param width - The current width in pixels
+     */
+    onResizing?: (columnId: string, width: number) => void;
+
+    /**
+     * Controlled column sizing (for persistence). When provided with onColumnSizingChange,
+     * enables controlled mode. The consumer manages state (e.g. localStorage) and passes it back.
+     */
+    columnSizing?: ColumnSizingState;
+
+    /**
+     * Callback when column sizing changes (controlled mode). Use with columnSizing for persistence.
+     */
+    onColumnSizingChange?: OnChangeFn<ColumnSizingState>;
+
+    /**
+     * Width of the actions column in pixels when enableResize is true.
+     * @default 60
+     */
+    actionsColumnWidth?: number | string;
 
     /**
      * Custom HTML attributes to add to each row element

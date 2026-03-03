@@ -8,6 +8,10 @@ import type {DataTableProps, SubRowKey} from '~/components/DataTable/DataTable.t
  * @param columns - Array of DataTableColumn definitions from the user
  * @returns Array of TanStack-compatible ColumnDef objects
  */
+export const DEFAULT_COLUMN_SIZE = 150;
+const DEFAULT_COLUMN_MIN_SIZE = 60;
+const DEFAULT_COLUMN_MAX_SIZE = 800;
+
 export const createTableColumns = <T extends Record<string, unknown>>(
     columns: DataTableProps<T>['columns']
 ): ColumnDef<T>[] => {
@@ -15,6 +19,10 @@ export const createTableColumns = <T extends Record<string, unknown>>(
         id: col.key as string,
         accessorKey: col.key as string,
         header: col.label,
+
+        size: col.defaultWidth ?? DEFAULT_COLUMN_SIZE,
+        minSize: col.minWidth ?? DEFAULT_COLUMN_MIN_SIZE,
+        maxSize: col.maxWidth ?? DEFAULT_COLUMN_MAX_SIZE,
 
         meta: {
             isSortable: col.isSortable ?? false,
