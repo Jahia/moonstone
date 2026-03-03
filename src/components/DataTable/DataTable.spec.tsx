@@ -60,7 +60,7 @@ describe('DataTable', () => {
         expect(container.firstChild).toBeNull();
     });
 
-    it('should render actions when renderRow provides actionsOnHover', () => {
+    it('should render hidden elements provided from actionsOnHover', () => {
         render(
             <DataTable<TestData>
                 data={data}
@@ -76,16 +76,12 @@ describe('DataTable', () => {
             />
         );
 
-        const aliceAction = screen.getByText('Edit Alice');
-        expect(aliceAction).toBeInTheDocument();
-        expect(screen.getByText('Edit Bob')).toBeInTheDocument();
-        expect(screen.getByText('Edit Charlie')).toBeInTheDocument();
-
-        // Verify the action is rendered inside the hidden-by-default container
-        expect(aliceAction.closest('.moonstone-tableCellActions_displayHover')).toBeInTheDocument();
+        expect(screen.getByText('Edit Alice')).not.toBeVisible();
+        expect(screen.getByText('Edit Bob')).not.toBeVisible();
+        expect(screen.getByText('Edit Charlie')).not.toBeVisible();
     });
 
-    it('should support per-row actions with both actions and actionsOnHover', () => {
+    it('should render elements provided from both actions and actionsOnHover', () => {
         render(
             <DataTable<TestData>
                 data={data}
@@ -103,21 +99,14 @@ describe('DataTable', () => {
         );
 
         expect(screen.getAllByTestId('always-visible')).toHaveLength(3);
-        const customAlice = screen.getByText('Custom Alice');
-        expect(customAlice).toBeInTheDocument();
-        expect(screen.getByText('Custom Bob')).toBeInTheDocument();
-        expect(screen.getByText('Custom Charlie')).toBeInTheDocument();
 
-        // Verify that the always-visible action does NOT have the hover class container
-        expect(customAlice.closest('.moonstone-tableCellActions_displayHover')).toBeNull();
+        expect(screen.getByText('Custom Alice')).toBeVisible();
+        expect(screen.getByText('Custom Bob')).toBeVisible();
+        expect(screen.getByText('Custom Charlie')).toBeVisible();
 
-        const hoverAlice = screen.getByText('Hover Alice');
-        expect(hoverAlice).toBeInTheDocument();
-        expect(screen.getByText('Hover Bob')).toBeInTheDocument();
-        expect(screen.getByText('Hover Charlie')).toBeInTheDocument();
-
-        // Verify that the hover action has the hover class container
-        expect(hoverAlice.closest('.moonstone-tableCellActions_displayHover')).toBeInTheDocument();
+        expect(screen.getByText('Hover Alice')).not.toBeVisible();
+        expect(screen.getByText('Hover Bob')).not.toBeVisible();
+        expect(screen.getByText('Hover Charlie')).not.toBeVisible();
     });
 
     it('should apply rowProps', () => {

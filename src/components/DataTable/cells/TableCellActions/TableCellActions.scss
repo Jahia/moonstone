@@ -1,9 +1,9 @@
 .moonstone-tableCellActions {
-    gap: 8px;
+    gap: var(--spacing-small);
 }
 
 .moonstone-tableCellActions_displayHover {
-    gap: 8px;
+    gap: var(--spacing-small);
 
     visibility: hidden;
 
