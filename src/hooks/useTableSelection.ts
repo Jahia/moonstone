@@ -11,9 +11,9 @@ export function useTableSelection({selection, defaultSelection = [], onChangeSel
         () => defaultSelection.reduce<RowSelectionState>((acc, id) => ({...acc, [id]: true}), {})
     );
 
-    const rowSelection = isControlled
-        ? selection.reduce<RowSelectionState>((acc, id) => ({...acc, [id]: true}), {})
-        : internal;
+    const rowSelection = isControlled ?
+        selection.reduce<RowSelectionState>((acc, id) => ({...acc, [id]: true}), {}) :
+        internal;
 
     const handleRowSelectionChange = (updater: React.SetStateAction<RowSelectionState>) => {
         const next = typeof updater === 'function' ? updater(rowSelection) : updater;

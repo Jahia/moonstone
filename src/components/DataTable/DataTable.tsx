@@ -11,7 +11,7 @@ import type {ExpandedState, Row} from '@tanstack/react-table';
 import {useState, useEffect, useMemo, useCallback} from 'react';
 
 import type {DataTableProps, CustomColumnMeta} from './DataTable.types';
-import {useDataTableState} from '~/hooks/useDataTableState';
+import {useTableSelection, useTableSorting, useTablePagination} from '~/hooks';
 import {Checkbox} from '~/components';
 import {
     Table,
@@ -66,23 +66,21 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
     const [expanded, setExpanded] = useState<ExpandedState>({});
 
-    const {
-        sorting,
-        rowSelection,
-        pagination,
-        isPaginationControlled,
-        handleRowSelectionChange,
-        handleSortingChange,
-        handlePaginationChange
-    } = useDataTableState<T>({
-        selection,
-        defaultSelection,
-        onChangeSelection,
+    const {sorting, handleSortingChange} = useTableSorting({
         sortBy,
         sortDirection,
         defaultSortBy,
         defaultSortDirection,
-        onSortChange,
+        onSortChange
+    });
+
+    const {rowSelection, handleRowSelectionChange} = useTableSelection({
+        selection,
+        defaultSelection,
+        onChangeSelection
+    });
+
+    const {pagination, isControlled: isPaginationControlled, handlePaginationChange} = useTablePagination({
         currentPage,
         itemsPerPage,
         defaultCurrentPage,

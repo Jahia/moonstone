@@ -11,9 +11,9 @@ export function useTableSorting({sortBy, sortDirection, defaultSortBy, defaultSo
         () => defaultSortBy ? [{id: defaultSortBy, desc: defaultSortDirection === 'descending'}] : []
     );
 
-    const sorting = isControlled
-        ? (sortBy ? [{id: sortBy, desc: sortDirection === 'descending'}] : [])
-        : internal;
+    const sorting = isControlled ?
+        (sortBy ? [{id: sortBy, desc: sortDirection === 'descending'}] : []) :
+        internal;
 
     const handleSortingChange = (updater: React.SetStateAction<SortingState>) => {
         const next = typeof updater === 'function' ? updater(sorting) : updater;
