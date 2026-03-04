@@ -1,0 +1,14 @@
+$chevron-offset: calc(var(--spacing-medium) * -1);
+
+.moonstone-tableCellExpandable {
+    cursor: pointer;
+}
+
+.moonstone-tableCellChevron {
+    margin-left: $chevron-offset;
+}
+
+.moonstone-tableCellSpacer {
+    width: var(--spacing-medium);
+    margin-left: $chevron-offset;
+}

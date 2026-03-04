@@ -2,6 +2,8 @@
 
 .moonstone-tableCell {
     gap: var(--spacing-nano);
+    padding-right: var(--spacing-medium);
+    padding-left: var(--spacing-medium);
 
     overflow-y: auto;
 

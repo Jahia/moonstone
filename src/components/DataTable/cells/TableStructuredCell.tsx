@@ -3,7 +3,7 @@ import {ChevronDown, ChevronRight} from '~/icons';
 
 import type {TableStructuredCellProps} from './TableStructuredCell.types';
 import {TableCell} from './TableCell';
-import './TableCell.scss';
+import './TableStructuredCell.scss';
 
 // Spacing constants for tree structure alignment
 const indentSpace = 20; // Px - indentation per depth level
@@ -40,13 +40,13 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                         style={{marginLeft: indent}}
                         onClick={onToggleExpand}
                     >
-                        {isExpanded ? <ChevronDown style={{marginRight: 0}}/> : <ChevronRight style={{marginRight: 0}}/>}
+                        {isExpanded ? <ChevronDown className="moonstone-tableCellChevron"/> : <ChevronRight className="moonstone-tableCellChevron"/>}
                         {children}
                     </span>
                 ) : (
                     // Non-expandable rows: indent + placeholder to align text with expandable rows (chevron space)
                     <span className="flexRow_nowrap alignCenter" style={{marginLeft: indent}}>
-                        <span aria-hidden style={{width: 'var(--spacing-medium)', flexShrink: 0}}/>
+                        <span aria-hidden className="moonstone-tableCellSpacer"/>
                         {children}
                     </span>
                 )}
