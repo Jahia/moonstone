@@ -261,21 +261,26 @@ describe('DataTable sorting feature', () => {
         );
 
         const ageHeader = screen.getByText('Age');
-        // Click to sort ascending (Bob: 25, Alice: 30, Charlie: 35)
+        
+        // Click to sort descending by age (Charlie: 35, Alice: 30, Bob: 25)
         await user.click(ageHeader);
 
-        let rows = screen.getAllByRole('row');
-        expect(within(rows[1]).getByText('Bob')).toBeVisible();
-        expect(within(rows[2]).getByText('Alice')).toBeVisible();
-        expect(within(rows[3]).getByText('Charlie')).toBeVisible();
+        await waitFor(() => {
+            const rows = screen.getAllByRole('row');
+            expect(within(rows[1]).getByText('Charlie')).toBeVisible();
+            expect(within(rows[2]).getByText('Alice')).toBeVisible();
+            expect(within(rows[3]).getByText('Bob')).toBeVisible();
+        });
 
-        // Click again to sort descending (Charlie: 35, Alice: 30, Bob: 25)
+        // Click again to sort ascending (Bob: 25, Alice: 30, Charlie: 35)
         await user.click(ageHeader);
 
-        rows = screen.getAllByRole('row');
-        expect(within(rows[1]).getByText('Charlie')).toBeVisible();
-        expect(within(rows[2]).getByText('Alice')).toBeVisible();
-        expect(within(rows[3]).getByText('Bob')).toBeVisible();
+        await waitFor(() => {
+            const rows = screen.getAllByRole('row');
+            expect(within(rows[1]).getByText('Bob')).toBeVisible();
+            expect(within(rows[2]).getByText('Alice')).toBeVisible();
+            expect(within(rows[3]).getByText('Charlie')).toBeVisible();
+        });
     });
 
     it('should use defaultSortBy', () => {
