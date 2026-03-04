@@ -1,5 +1,5 @@
 import type {DataTableColumn} from '~/components/DataTable/DataTable.types';
-import {Chip, IconTextIcon} from '~/components';
+import {Chip} from '~/components';
 import {Person} from '~/icons';
 import {numberColumn, dateColumn, stringColumn} from '~/utils/dataTable';
 
@@ -22,9 +22,10 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
         label: 'User',
         ...stringColumn<DataUser>(row => row.firstName),
         render: (value, row) => (
-            <IconTextIcon iconStart={<Person/>}>
+            <>
+                <Person/>
                 {row.firstName} {row.lastName}
-            </IconTextIcon>
+            </>
         ),
         align: 'left'
     },
