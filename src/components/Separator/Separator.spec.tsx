@@ -37,24 +37,54 @@ describe('Separator', () => {
         expect(screen.getByTestId('separator')).toHaveClass('extra');
     });
 
-    // TODO: It will be better to test if the element is visible or not with `toBeVisible` but it seems the style is not applied in the test environment
-    it('should have the class invisible_firstChild', () => {
-        render(<Separator invisible="firstChild"/>);
-        expect(screen.getByRole('separator')).toHaveClass('moonstone-invisible_firstChild');
+    it('should manage invisible="firstChild"', () => {
+        render(
+            <>
+                <Separator data-testid="separator-first" invisible="firstChild"/>
+                <div>Content</div>
+                <Separator data-testid="separator-second" invisible="firstChild"/>
+            </>
+        );
+        expect(screen.getByTestId('separator-first')).not.toBeVisible();
+        expect(screen.getByTestId('separator-second')).toBeVisible();
     });
 
-    it('should have the class invisible_lastChild', () => {
-        render(<Separator invisible="lastChild"/>);
-        expect(screen.getByRole('separator')).toHaveClass('moonstone-invisible_lastChild');
+    it('should manage invisible="lastChild"', () => {
+        render(
+            <>
+                <Separator data-testid="separator-first" invisible="lastChild"/>
+                <div>Content</div>
+                <Separator data-testid="separator-second" invisible="lastChild"/>
+            </>
+        );
+        expect(screen.getByTestId('separator-first')).toBeVisible();
+        expect(screen.getByTestId('separator-second')).not.toBeVisible();
     });
 
-    it('should have the class invisible_onlyChild', () => {
-        render(<Separator invisible="onlyChild"/>);
-        expect(screen.getByRole('separator')).toHaveClass('moonstone-invisible_onlyChild');
+    it('should hide when separator is the only child and invisible="onlyChild"', () => {
+        render(<Separator data-testid="separator" invisible="onlyChild"/>);
+        expect(screen.getByTestId('separator')).not.toBeVisible();
     });
 
-    it('should have the class invisible_firstOrLastChild', () => {
-        render(<Separator invisible="firstOrLastChild"/>);
-        expect(screen.getByRole('separator')).toHaveClass('moonstone-invisible_firstOrLastChild');
+    it('should display when separator is not the only child even if invisible="onlyChild"', () => {
+        render(
+            <>
+                <Separator data-testid="separator" invisible="onlyChild"/>
+                <div>Content</div>
+            </>
+        );
+        expect(screen.getByTestId('separator')).toBeVisible();
+    });
+
+    it('should manage invisible="firstOrLastChild"', () => {
+        render(
+            <>
+                <Separator data-testid="separator-first" invisible="firstOrLastChild"/>
+                <div>Content</div>
+                <Separator data-testid="separator-second" invisible="firstOrLastChild"/>
+            </>
+        );
+        expect(screen.getByTestId('separator-first')).not.toBeVisible();
+        expect(screen.getByTestId('separator-second')).not.toBeVisible();
     });
 });
