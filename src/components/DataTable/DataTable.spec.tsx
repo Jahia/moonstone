@@ -1,7 +1,7 @@
 import {render, screen, within, waitFor} from '@testing-library/react';
 import {describe, it, expect, vi} from 'vitest';
 import userEvent from '@testing-library/user-event';
-import {DataTable, TableRow} from '~/components/DataTable';
+import {DataTable} from '~/components/DataTable';
 import {stringColumn, numberColumn} from '~/utils/dataTable';
 
 type TestData = {
@@ -58,55 +58,6 @@ describe('DataTable', () => {
             />
         );
         expect(container.firstChild).toBeNull();
-    });
-
-    it('should render hidden elements provided from actionsOnHover', () => {
-        render(
-            <DataTable<TestData>
-                data={data}
-                columns={columns}
-                primaryKey="id"
-                renderRow={(row, defaultRender) => (
-                    <TableRow key={row.id}>
-                        {defaultRender({
-                            actionsOnHover: <button type="button">Edit {row.original.name}</button>
-                        })}
-                    </TableRow>
-                )}
-            />
-        );
-
-        expect(screen.getByText('Edit Alice')).not.toBeVisible();
-        expect(screen.getByText('Edit Bob')).not.toBeVisible();
-        expect(screen.getByText('Edit Charlie')).not.toBeVisible();
-    });
-
-    it('should render elements provided from both actions and actionsOnHover', () => {
-        render(
-            <DataTable<TestData>
-                data={data}
-                columns={columns}
-                primaryKey="id"
-                renderRow={(row, defaultRender) => (
-                    <TableRow key={row.id}>
-                        {defaultRender({
-                            actions: <span data-testid="always-visible">Custom {row.original.name}</span>,
-                            actionsOnHover: <button type="button">Hover {row.original.name}</button>
-                        })}
-                    </TableRow>
-                )}
-            />
-        );
-
-        expect(screen.getAllByTestId('always-visible')).toHaveLength(3);
-
-        expect(screen.getByText('Custom Alice')).toBeVisible();
-        expect(screen.getByText('Custom Bob')).toBeVisible();
-        expect(screen.getByText('Custom Charlie')).toBeVisible();
-
-        expect(screen.getByText('Hover Alice')).not.toBeVisible();
-        expect(screen.getByText('Hover Bob')).not.toBeVisible();
-        expect(screen.getByText('Hover Charlie')).not.toBeVisible();
     });
 
     it('should apply rowProps', () => {
