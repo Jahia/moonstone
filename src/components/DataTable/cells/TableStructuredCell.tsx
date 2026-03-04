@@ -1,9 +1,9 @@
 import React from 'react';
-import { ChevronDown, ChevronRight } from '~/icons';
+import {ChevronDown, ChevronRight} from '~/icons';
 
-import { TableCell } from './TableCell';
+import {TableCell} from './TableCell';
 import './TableCell.scss';
-import type { TableStructuredCellProps } from './TableStructuredCell.types';
+import type {TableStructuredCellProps} from './TableStructuredCell.types';
 
 // Spacing constants for tree structure alignment
 const indentSpace = 20; // Px - indentation per depth level
@@ -36,8 +36,8 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                     <span
                         className="moonstone-tableCellExpandable flexRow_nowrap alignCenter"
                         style={{marginLeft: `${leftMarginIndentDepth}px`}}
-                        onClick={onToggleExpand}
                         aria-expanded={isExpanded}
+                        onClick={onToggleExpand}
                     >
                         {isExpanded ? (
                             <ChevronDown className="moonstone-marginRightNano"/>

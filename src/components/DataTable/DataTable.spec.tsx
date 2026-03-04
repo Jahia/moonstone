@@ -1,8 +1,8 @@
-import { render, screen, waitFor, within } from '@testing-library/react';
+import {render, screen, waitFor, within} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it, vi } from 'vitest';
-import { DataTable, TableRow } from '~/components/DataTable';
-import { numberColumn, stringColumn } from '~/utils/dataTable';
+import {describe, expect, it, vi} from 'vitest';
+import {DataTable, TableRow} from '~/components/DataTable';
+import {numberColumn, stringColumn} from '~/utils/dataTable';
 
 type TestData = {
     id: string;
@@ -99,7 +99,7 @@ describe('DataTable', () => {
             />
         );
 
-        const buttons = screen.getAllByTestId('button-actions'); 
+        const buttons = screen.getAllByTestId('button-actions');
         expect(buttons).toHaveLength(3);
         buttons.forEach(button => {
             expect(button).toBeVisible();
@@ -122,7 +122,7 @@ describe('DataTable', () => {
             />
         );
 
-        const buttons = screen.getAllByTestId('button-hidden'); 
+        const buttons = screen.getAllByTestId('button-hidden');
         expect(buttons).toHaveLength(3);
         buttons.forEach(button => {
             expect(button).not.toBeVisible();
@@ -137,7 +137,7 @@ describe('DataTable', () => {
                 columns={columns}
                 primaryKey="id"
                 renderRow={(row, defaultRender) => (
-                    <TableRow data-testid={row.id} key={row.id}>
+                    <TableRow key={row.id} data-testid={row.id}>
                         {defaultRender({
                             actionsOnHover: <button data-testid={`button-${row.id}`} type="button">Edit {row.original.name}</button>
                         })}
@@ -153,7 +153,7 @@ describe('DataTable', () => {
 
         // Button should now be visible
         expect(firstButton).toBeVisible();
-        
+
         // Other buttons should still be hidden
         expect(screen.getByTestId('button-2')).not.toBeVisible();
         expect(screen.getByTestId('button-3')).not.toBeVisible();
@@ -261,7 +261,7 @@ describe('DataTable sorting feature', () => {
         );
 
         const ageHeader = screen.getByText('Age');
-        
+
         // Click to sort descending by age (Charlie: 35, Alice: 30, Bob: 25)
         await user.click(ageHeader);
 

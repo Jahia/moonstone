@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/react';
-import { Separator } from './index';
+import {render, screen} from '@testing-library/react';
+import {Separator} from './index';
 
 describe('Separator', () => {
     it('should display separator component', () => {
