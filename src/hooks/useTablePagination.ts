@@ -4,27 +4,27 @@ import type {DataTableProps} from '~/components/DataTable/DataTable.types';
 
 type Props = Pick<DataTableProps<Record<string, unknown>>, 'currentPage' | 'itemsPerPage' | 'defaultCurrentPage' | 'defaultItemsPerPage' | 'itemsPerPageOptions' | 'onPageChange' | 'onItemsPerPageChange'>;
 
-export function useTablePagination({currentPage, itemsPerPage, defaultCurrentPage, defaultItemsPerPage, itemsPerPageOptions = [5, 10, 25], onPageChange, onItemsPerPageChange}: Props) {
-    const isControlled = currentPage !== undefined;
+export function useTablePagination({currentPage, itemsPerPage, defaultCurrentPage, defaultItemsPerPage, itemsPerPageOptions, onPageChange, onItemsPerPageChange}: Props) {
+    const isPaginationControlled = currentPage !== undefined;
     const options = itemsPerPageOptions ?? [5, 10, 25];
     const defaultSize = defaultItemsPerPage && options.includes(defaultItemsPerPage) ?
         defaultItemsPerPage :
         (options[0] ?? 10);
 
-    const [internal, setInternal] = useState<PaginationState>({
+    const [state, setState] = useState<PaginationState>({
         pageIndex: defaultCurrentPage ? defaultCurrentPage - 1 : 0,
         pageSize: defaultSize
     });
 
-    const pagination: PaginationState = isControlled ?
+    const pagination: PaginationState = isPaginationControlled ?
         {pageIndex: (currentPage ?? 1) - 1, pageSize: itemsPerPage ?? defaultSize} :
-        internal;
+        state;
 
     const handlePaginationChange = (updater: React.SetStateAction<PaginationState>) => {
         const next = typeof updater === 'function' ? updater(pagination) : updater;
 
-        if (!isControlled) {
-            setInternal(next);
+        if (!isPaginationControlled) {
+            setState(next);
         }
 
         if (next.pageIndex !== pagination.pageIndex) {
@@ -36,5 +36,5 @@ export function useTablePagination({currentPage, itemsPerPage, defaultCurrentPag
         }
     };
 
-    return {pagination, isControlled, handlePaginationChange};
+    return {pagination, isPaginationControlled, handlePaginationChange};
 }

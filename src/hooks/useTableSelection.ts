@@ -5,25 +5,25 @@ import type {DataTableProps} from '~/components/DataTable/DataTable.types';
 type Props = Pick<DataTableProps<Record<string, unknown>>, 'selection' | 'defaultSelection' | 'onChangeSelection'>;
 
 export function useTableSelection({selection, defaultSelection = [], onChangeSelection}: Props) {
-    const isControlled = selection !== undefined;
+    const isSelectionControlled = selection !== undefined;
 
-    const [internal, setInternal] = useState<RowSelectionState>(
+    const [state, setState] = useState<RowSelectionState>(
         () => defaultSelection.reduce<RowSelectionState>((acc, id) => ({...acc, [id]: true}), {})
     );
 
-    const rowSelection = isControlled ?
+    const rowSelection = isSelectionControlled ?
         selection.reduce<RowSelectionState>((acc, id) => ({...acc, [id]: true}), {}) :
-        internal;
+        state;
 
     const handleRowSelectionChange = (updater: React.SetStateAction<RowSelectionState>) => {
         const next = typeof updater === 'function' ? updater(rowSelection) : updater;
 
-        if (!isControlled) {
-            setInternal(next);
+        if (!isSelectionControlled) {
+            setState(next);
         }
 
         onChangeSelection?.(Object.keys(next).filter(id => next[id]));
     };
 
-    return {rowSelection, handleRowSelectionChange};
+    return {rowSelection, isSelectionControlled, handleRowSelectionChange};
 }
