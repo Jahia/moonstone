@@ -1,9 +1,9 @@
+import clsx from 'clsx';
 import React from 'react';
 import {ChevronDown, ChevronRight} from '~/icons';
 
 import {TableCell} from './TableCell';
 import './TableStructuredCell.scss';
-import './TableCell.scss';
 import type {TableStructuredCellProps} from './TableStructuredCell.types';
 
 // Spacing constants for tree structure alignment
@@ -33,24 +33,30 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
             <TableCell
                 ref={ref}
                 className={className}
+                aria-expanded={isExpanded}
+                onClick={onToggleExpand}
                 {...props}
             >
-                {isExpandable ? (
-                    <span
-                        aria-expanded={isExpanded}
-                        className="moonstone-tableStructuredCell_expandable flexRow_nowrap alignCenter"
-                        style={{marginLeft: indent}}
-                        onClick={onToggleExpand}
-                    >
-                        {isExpanded ? <ChevronDown className="moonstone-tableStructuredCell_chevron"/> : <ChevronRight className="moonstone-tableStructuredCell_chevron"/>}
-                        {children}
-                    </span>
-                ) : (
-                    // Non-expandable rows: indent to align text with expandable rows
-                    <span className="moonstone-tableStructuredCell_nonExpandable flexRow_nowrap alignCenter" style={{marginLeft: indent}}>
-                        {children}
-                    </span>
-                )}
+                <div
+                    className={clsx(
+                        'moonstone-tableStructuredCell_content',
+                        'flexRow_nowrap',
+                        'flexFluid',
+                        'alignCenter',
+                        {'moonstone-tableStructuredCell_expandable': isExpandable })
+                    }
+                    style={{marginLeft: indent}}
+                >
+                    {isExpandable && (
+                        <>
+                            {isExpanded
+                                ? <ChevronDown/>
+                                : <ChevronRight/>
+                            }
+                        </>
+                    )}
+                    {children}
+                </div>
             </TableCell>
         );
     }

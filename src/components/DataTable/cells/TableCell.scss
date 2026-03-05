@@ -1,10 +1,12 @@
 @use '../../../utils/index.scss';
 
+$cell-height: 48px;
+
 .moonstone-tableCell {
     gap: var(--spacing-nano);
+    height: $cell-height;
     padding-right: var(--spacing-medium);
     padding-left: var(--spacing-medium);
-
     overflow-y: auto;
 
     //noinspection CssUnknownProperty
