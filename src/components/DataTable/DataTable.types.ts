@@ -163,11 +163,7 @@ export type SelectionProps =
           onChangeSelection?: never;
       };
 
-<<<<<<< uncontrolled_states
-type ActionsProps<T extends NonNullable<unknown>> = {
-=======
 export type DefaultRenderOptions = {
->>>>>>> main
     /**
      * Actions always visible in the cell.
      */

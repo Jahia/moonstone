@@ -32,6 +32,19 @@ const columns = [
     {
         key: 'name',
         label: 'Name',
+        ...stringColumn((row: TestData) => row.name)
+    },
+    {
+        key: 'age',
+        label: 'Age',
+        ...numberColumn((row: TestData) => row.age)
+    }
+] as const;
+
+const sortableColumns = [
+    {
+        key: 'name',
+        label: 'Name',
         isSortable: true,
         ...stringColumn((row: TestData) => row.name)
     },
@@ -165,12 +178,7 @@ describe('DataTable', () => {
                 data={data}
                 columns={columns}
                 primaryKey="id"
-<<<<<<< uncontrolled_states
-                defaultItemsPerPage={1}
-                itemsPerPageOptions={[1, 5, 10]}
-=======
                 rowProps={{'data-testid': 'custom-row'}}
->>>>>>> main
             />
         );
         const rows = screen.getAllByTestId('custom-row');
@@ -300,7 +308,7 @@ describe('DataTable', () => {
             <DataTable<TestData>
                 enableSorting
                 data={sortedData}
-                columns={columns}
+                columns={sortableColumns}
                 primaryKey="id"
                 sortBy="name"
                 sortDirection="descending"
@@ -353,15 +361,6 @@ describe('DataTable', () => {
     });
 
     it('should expand row when expand toggle is clicked after collapse', async () => {
-        const structuredData: TestData[] = [
-            {
-                id: '1',
-                name: 'Parent',
-                age: 50,
-                subRows: [{id: '1.1', name: 'Child', age: 10}]
-            }
-        ];
-
         const user = userEvent.setup();
         render(
             <DataTable<TestData>
@@ -440,7 +439,7 @@ describe('DataTable sorting feature', () => {
             <DataTable
                 enableSorting
                 data={data}
-                columns={columns}
+                columns={sortableColumns}
                 primaryKey="id"
             />
         );
@@ -473,7 +472,7 @@ describe('DataTable sorting feature', () => {
             <DataTable
                 enableSorting
                 data={data}
-                columns={columns}
+                columns={sortableColumns}
                 primaryKey="id"
                 defaultSortBy="name"
                 defaultSortDirection="descending"
@@ -538,7 +537,7 @@ describe('DataTable pagination feature', () => {
                 data={data}
                 columns={columns}
                 primaryKey="id"
-                itemsPerPage={1}
+                defaultItemsPerPage={1}
                 itemsPerPageOptions={[1, 5, 10]}
             />
         );

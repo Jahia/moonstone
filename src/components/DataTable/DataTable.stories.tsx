@@ -3,13 +3,9 @@ import type {DataUser, DataUserKeys} from '~/data/dataTable';
 import {DataTable} from './DataTable';
 import type {Meta, StoryObj} from '@storybook/react';
 import {TableRow} from './TableRow';
-<<<<<<< uncontrolled_states
-import {MoreVert} from '~/icons';
 import {useState} from 'react';
-=======
 import {Button} from '~/components';
 import {Visibility, Edit, Delete, MoreVert} from '~/icons';
->>>>>>> main
 
 export default {
     title: 'Components/DataTable',

@@ -10,12 +10,8 @@ import {
 import type {ExpandedState, Row} from '@tanstack/react-table';
 import {useState, useEffect, useMemo, useCallback} from 'react';
 
-<<<<<<< uncontrolled_states
-import type {DataTableProps, CustomColumnMeta} from './DataTable.types';
 import {useTableSelection, useTableSorting, useTablePagination} from '~/hooks';
-=======
 import type {DataTableProps, CustomColumnMeta, DefaultRenderOptions} from './DataTable.types';
->>>>>>> main
 import {Checkbox} from '~/components';
 import {
     Table,
@@ -39,19 +35,13 @@ export const DataTable = <T extends NonNullable<unknown>>({
     enableSelection = false,
     selection,
     onChangeSelection,
-    defaultSelection = [],
     enableSorting = false,
     sortBy,
     sortDirection,
     onSortChange,
     defaultSortBy,
     defaultSortDirection = 'ascending',
-<<<<<<< uncontrolled_states
-    actions,
-    actionsHeaderLabel = 'Actions',
-=======
     defaultSelection = [],
->>>>>>> main
     renderRow,
     onClickTableHeadCell,
     // Pagination props
