@@ -43,16 +43,14 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                         'flexRow_nowrap',
                         'flexFluid',
                         'alignCenter',
-                        {'moonstone-tableStructuredCell_expandable': isExpandable })
-                    }
+                        {'moonstone-tableStructuredCell_expandable': isExpandable})}
                     style={{marginLeft: indent}}
                 >
                     {isExpandable && (
                         <>
-                            {isExpanded
-                                ? <ChevronDown/>
-                                : <ChevronRight/>
-                            }
+                            {isExpanded ?
+                                <ChevronDown/> :
+                                <ChevronRight/>}
                         </>
                     )}
                     {children}
