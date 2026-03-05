@@ -24,12 +24,13 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
     return (
         <Typography
             ref={ref}
+            isNowrap
             component={component}
             variant="body"
             className={clsx(
                 'moonstone-tableCell',
                 align === 'left' ? 'justifyStart' : align === 'right' ? 'justifyEnd' : 'justifyCenter',
-                'flexRow',
+                'flexRow_nowrap',
                 'alignCenter',
                 'verticalAlign' + capitalize(verticalAlign),
                 {flexFluid: typeof width === 'undefined'},
