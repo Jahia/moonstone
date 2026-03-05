@@ -53,7 +53,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     onPageChange,
     onItemsPerPageChange,
     totalRowCount,
-    itemsPerPageOptions,
+    itemsPerPageOptions = [5, 10, 25],
     paginationLabel,
     paginationProps,
     rowProps,
@@ -75,14 +75,12 @@ export const DataTable = <T extends NonNullable<unknown>>({
         onChangeSelection
     });
 
-    const defaultItemsPerPageOptions = itemsPerPageOptions ?? [5, 10, 25];
-
     const {pagination, isPaginationControlled, handlePaginationChange} = useTablePagination({
         currentPage,
         itemsPerPage,
         defaultCurrentPage,
         defaultItemsPerPage,
-        itemsPerPageOptions: defaultItemsPerPageOptions,
+        itemsPerPageOptions,
         onPageChange,
         onItemsPerPageChange
     });
@@ -268,11 +266,11 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     currentPage={table.getState().pagination.pageIndex + 1}
                     totalOfItems={
                         isPaginationControlled ?
-                            totalRowCount as number :
+                            totalRowCount :
                             table.getPrePaginationRowModel().rows.length
                     }
                     itemsPerPage={table.getState().pagination.pageSize}
-                    itemsPerPageOptions={defaultItemsPerPageOptions}
+                    itemsPerPageOptions={itemsPerPageOptions}
                     label={paginationLabel}
                     onPageChange={(page: number) => table.setPageIndex(page - 1)}
                     onItemsPerPageChange={(size: number) => table.setPageSize(size)}

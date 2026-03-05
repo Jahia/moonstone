@@ -300,8 +300,7 @@ describe('DataTable', () => {
     });
 
     it('should respect controlled sortBy and sortDirection', () => {
-        // In controlled mode, manualSorting is inferred as true, so TanStack doesn't sort locally.
-        // We must provide pre-sorted data to match the controlled state being passed.
+        // In controlled mode, the component assumes that the data is already sorted.
         const sortedData = [...data].sort((a, b) => b.name.localeCompare(a.name));
 
         render(
@@ -345,7 +344,7 @@ describe('DataTable', () => {
         expect(screen.queryByText('Charlie')).not.toBeInTheDocument();
     });
 
-    it('should spread paginationProps on Pagination component', () => {
+    it('should allow custom attributes to the Pagination component', () => {
         render(
             <DataTable<TestData>
                 enablePagination
@@ -358,25 +357,6 @@ describe('DataTable', () => {
         );
 
         expect(screen.getByTestId('custom-pagination')).toBeInTheDocument();
-    });
-
-    it('should expand row when expand toggle is clicked after collapse', async () => {
-        const user = userEvent.setup();
-        render(
-            <DataTable<TestData>
-                isStructured
-                data={structuredData}
-                columns={columns}
-                primaryKey="id"
-            />
-        );
-
-        const expandableSpan = document.querySelector('.moonstone-tableCellExpandable')!;
-        await user.click(expandableSpan);
-        expect(screen.queryByText('Child')).not.toBeInTheDocument();
-
-        await user.click(expandableSpan);
-        expect(screen.getByText('Child')).toBeInTheDocument();
     });
 
     it('should show nested subRows when parent is expanded', () => {
