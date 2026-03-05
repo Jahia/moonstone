@@ -20,7 +20,7 @@ const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowPr
         component,
         {
             className: clsx(
-                'flexRow',
+                'flexRow_nowrap',
                 'moonstone-tableRow',
                 'alignCenter',
                 isHighlighted && 'moonstone-tableRow_highlighted',
