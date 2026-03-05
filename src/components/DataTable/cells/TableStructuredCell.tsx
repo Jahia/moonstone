@@ -37,17 +37,17 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
             >
                 {isExpandable ? (
                     <span
-                        className="moonstone-tableCellExpandable flexRow_nowrap alignCenter"
+                        aria-expanded={isExpanded}
+                        className="moonstone-tableStructuredCell_expandable flexRow_nowrap alignCenter"
                         style={{marginLeft: indent}}
                         onClick={onToggleExpand}
                     >
-                        {isExpanded ? <ChevronDown className="moonstone-tableCellChevron"/> : <ChevronRight className="moonstone-tableCellChevron"/>}
+                        {isExpanded ? <ChevronDown className="moonstone-tableStructuredCell_chevron"/> : <ChevronRight className="moonstone-tableStructuredCell_chevron"/>}
                         {children}
                     </span>
                 ) : (
-                    // Non-expandable rows: indent + placeholder to align text with expandable rows (chevron space)
-                    <span className="flexRow_nowrap alignCenter" style={{marginLeft: indent}}>
-                        <span aria-hidden className="moonstone-tableCellSpacer"/>
+                    // Non-expandable rows: indent to align text with expandable rows
+                    <span className="moonstone-tableStructuredCell_nonExpandable flexRow_nowrap alignCenter" style={{marginLeft: indent}}>
                         {children}
                     </span>
                 )}

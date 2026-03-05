@@ -258,6 +258,9 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                 );
                             })}
 
+                            {/* Spacer header cell to align with the actions column in body rows */}
+                            {renderRow && <TableHeadCell className="moonstone-tableCellActions"/>}
+
                         </TableRow>
                     ))}
                 </TableHead>

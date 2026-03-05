@@ -1,16 +1,21 @@
 $chevron-offset: calc(var(--spacing-medium) * -1);
 
-.moonstone-tableCellExpandable {
+.moonstone-tableStructuredCell_expandable {
     cursor: pointer;
 }
 
 // Chevron: offset into left padding
-.moonstone-tableCellChevron {
+.moonstone-tableStructuredCell_chevron {
     margin-left: $chevron-offset;
 }
 
-// Spacer: replaces chevron on childless rows to maintain alignment
-.moonstone-tableCellSpacer {
-    width: var(--spacing-medium);
-    margin-left: $chevron-offset;
+.moonstone-tableStructuredCell_expandable,
+.moonstone-tableStructuredCell_nonExpandable {
+    // Gap handles spacing between chevron, icon, and text
+    gap: var(--spacing-nano);
+}
+
+.moonstone-tableStructuredCell_nonExpandable {
+    // Replaces the flex gap that would normally exist between the chevron and child elements
+    padding-left: var(--spacing-nano);
 }
