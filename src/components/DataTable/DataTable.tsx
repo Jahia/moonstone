@@ -7,12 +7,12 @@ import {
     flexRender
 } from '@tanstack/react-table';
 
-import type { ExpandedState, Row } from '@tanstack/react-table';
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import type {ExpandedState, Row} from '@tanstack/react-table';
+import {useState, useEffect, useMemo, useCallback} from 'react';
 
-import type { DataTableProps, CustomColumnMeta } from './DataTable.types';
-import { useTableSelection, useTableSorting, useTablePagination } from '~/hooks';
-import { Checkbox } from '~/components';
+import type {DataTableProps, CustomColumnMeta} from './DataTable.types';
+import {useTableSelection, useTableSorting, useTablePagination} from '~/hooks';
+import {Checkbox} from '~/components';
 import {
     Table,
     TableRow,
@@ -22,8 +22,8 @@ import {
     TableStructuredCell,
     TableHeadCell
 } from '~/components/DataTable';
-import { createTableColumns } from '~/utils/dataTable/tableHelpers';
-import { Pagination } from '~/components/Pagination';
+import {createTableColumns} from '~/utils/dataTable/tableHelpers';
+import {Pagination} from '~/components/Pagination';
 
 export const DataTable = <T extends NonNullable<unknown>>({
     className,
@@ -62,7 +62,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
 }: DataTableProps<T>) => {
     const [expanded, setExpanded] = useState<ExpandedState>({});
 
-    const { sorting, isSortingControlled, handleSortingChange } = useTableSorting({
+    const {sorting, handleSortingChange} = useTableSorting({
         sortBy,
         sortDirection,
         defaultSortBy,
@@ -70,7 +70,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
         onSortChange
     });
 
-    const { rowSelection, handleRowSelectionChange } = useTableSelection({
+    const {rowSelection, handleRowSelectionChange} = useTableSelection({
         selection,
         defaultSelection,
         onChangeSelection
@@ -78,7 +78,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
     const defaultItemsPerPageOptions = itemsPerPageOptions ?? [5, 10, 25];
 
-    const { pagination, isPaginationControlled, handlePaginationChange } = useTablePagination({
+    const {pagination, isPaginationControlled, handlePaginationChange} = useTablePagination({
         currentPage,
         itemsPerPage,
         defaultCurrentPage,
@@ -97,7 +97,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
             expanded,
             rowSelection,
             sorting,
-            ...(enablePagination && { pagination })
+            ...(enablePagination && {pagination})
         },
         onSortingChange: handleSortingChange,
         onExpandedChange: setExpanded,
@@ -106,9 +106,6 @@ export const DataTable = <T extends NonNullable<unknown>>({
         getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,
         getExpandedRowModel: getExpandedRowModel(),
         getPaginationRowModel: enablePagination ? getPaginationRowModel() : undefined,
-        manualSorting: enableSorting && isSortingControlled,
-        manualPagination: enablePagination && isPaginationControlled,
-        ...(enablePagination && isPaginationControlled && { rowCount: totalRowCount }),
         // Enables hierarchical/structured table rendering by allowing TanStack to access nested subRows
         getSubRows: (row: T) => (row as T & { subRows?: T[] }).subRows,
         onPaginationChange: enablePagination ? handlePaginationChange : undefined,
@@ -239,7 +236,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                             direction: columnSortDirection === 'desc' ? 'descending' : 'ascending',
                                             isActive: Boolean(columnSortDirection)
                                         } : undefined}
-                                        style={{ cursor: isColumnSortable ? 'pointer' : 'default' }}
+                                        style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
                                         align={alignment}
                                         onClick={(e: React.MouseEvent<HTMLTableCellElement>) => {
                                             if (isColumnSortable) {

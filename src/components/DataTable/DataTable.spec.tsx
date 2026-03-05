@@ -1,8 +1,8 @@
-import { render, screen, within, waitFor } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import {render, screen, within, waitFor} from '@testing-library/react';
+import {describe, it, expect, vi} from 'vitest';
 import userEvent from '@testing-library/user-event';
-import { DataTable } from './DataTable';
-import { stringColumn, numberColumn } from '~/utils/dataTable';
+import {DataTable} from './DataTable';
+import {stringColumn, numberColumn} from '~/utils/dataTable';
 
 type TestData = {
     id: string;
@@ -12,9 +12,9 @@ type TestData = {
 };
 
 const data: TestData[] = [
-    { id: '1', name: 'Alice', age: 30 },
-    { id: '2', name: 'Bob', age: 25 },
-    { id: '3', name: 'Charlie', age: 35 }
+    {id: '1', name: 'Alice', age: 30},
+    {id: '2', name: 'Bob', age: 25},
+    {id: '3', name: 'Charlie', age: 35}
 ];
 
 const columns = [
@@ -50,7 +50,7 @@ describe('DataTable', () => {
     });
 
     it('should render nothing when no data', () => {
-        const { container } = render(
+        const {container} = render(
             <DataTable<TestData>
                 data={[]}
                 columns={columns}
@@ -79,7 +79,7 @@ describe('DataTable', () => {
                 data={data}
                 columns={columns}
                 primaryKey="id"
-                rowProps={{ 'data-testid': 'custom-row' }}
+                rowProps={{'data-testid': 'custom-row'}}
             />
         );
         const rows = screen.getAllByTestId('custom-row');
@@ -200,7 +200,7 @@ describe('DataTable', () => {
                 name: 'Parent',
                 age: 50,
                 subRows: [
-                    { id: '1.1', name: 'Child', age: 10 }
+                    {id: '1.1', name: 'Child', age: 10}
                 ]
             }
         ];
@@ -225,7 +225,7 @@ describe('DataTable', () => {
                 name: 'Parent',
                 age: 50,
                 subRows: [
-                    { id: '1.1', name: 'Child', age: 10 }
+                    {id: '1.1', name: 'Child', age: 10}
                 ]
             }
         ];
@@ -271,10 +271,10 @@ describe('DataTable', () => {
         );
 
         const nameHeader = screen.getByText('Name').closest('th');
-        expect(nameHeader).toHaveStyle({ width: '200px' });
+        expect(nameHeader).toHaveStyle({width: '200px'});
 
         const aliceCell = screen.getByText('Alice').closest('td');
-        expect(aliceCell).toHaveStyle({ width: '200px' });
+        expect(aliceCell).toHaveStyle({width: '200px'});
     });
 
     it('should not set width style when width is undefined', () => {
@@ -287,7 +287,7 @@ describe('DataTable', () => {
         );
 
         const nameHeader = screen.getByText('Name').closest('th');
-        expect(nameHeader).not.toHaveStyle({ width: '200px' });
+        expect(nameHeader).not.toHaveStyle({width: '200px'});
     });
 
     it('should display controlled selection from selection prop', () => {
@@ -353,14 +353,12 @@ describe('DataTable', () => {
     });
 
     it('should respect controlled pagination', () => {
-        // In controlled mode, manualPagination is inferred as true, so TanStack doesn't slice locally.
-        // We must provide the pre-sliced data for the specific page being requested.
-        const pageTwoData = [data[1]]; // Bob (index 1) is on page 2 when itemsPerPage is 1
-
+        // Controlled pagination: state is managed externally, but TanStack still handles client-side slicing.
+        // Pass full data and TanStack will display the correct page based on currentPage/itemsPerPage.
         render(
             <DataTable<TestData>
                 enablePagination
-                data={pageTwoData}
+                data={data}
                 columns={columns}
                 primaryKey="id"
                 currentPage={2}
@@ -385,7 +383,7 @@ describe('DataTable', () => {
                 columns={columns}
                 primaryKey="id"
                 itemsPerPageOptions={[5, 10]}
-                paginationProps={{ 'data-testid': 'custom-pagination' }}
+                paginationProps={{'data-testid': 'custom-pagination'}}
             />
         );
 
@@ -398,7 +396,7 @@ describe('DataTable', () => {
                 id: '1',
                 name: 'Parent',
                 age: 50,
-                subRows: [{ id: '1.1', name: 'Child', age: 10 }]
+                subRows: [{id: '1.1', name: 'Child', age: 10}]
             }
         ];
 
@@ -431,7 +429,7 @@ describe('DataTable', () => {
                         id: '1.1',
                         name: 'Level2',
                         age: 25,
-                        subRows: [{ id: '1.1.1', name: 'Level3', age: 5 }]
+                        subRows: [{id: '1.1.1', name: 'Level3', age: 5}]
                     }
                 ]
             }
