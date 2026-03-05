@@ -40,7 +40,7 @@ describe('TableStructuredCell', () => {
                     <TableStructuredCell depth={0}>Root</TableStructuredCell>
                 </TableWrapper>
             );
-            expect(screen.getByText('Root').closest('span')).toHaveStyle({marginLeft: '0px'});
+            expect(screen.getByText('Root').closest('[style]')).toHaveStyle({marginLeft: '0px'});
         });
 
         it('should apply correct indentation for depth 2', () => {
@@ -50,7 +50,7 @@ describe('TableStructuredCell', () => {
                     <TableStructuredCell depth={2}>Nested</TableStructuredCell>
                 </TableWrapper>
             );
-            expect(screen.getByText('Nested').closest('span')).toHaveStyle({marginLeft: '40px'});
+            expect(screen.getByText('Nested').closest('[style]')).toHaveStyle({marginLeft: '40px'});
         });
 
         it('should not add buffer for expandable cells', () => {
@@ -60,7 +60,7 @@ describe('TableStructuredCell', () => {
                     <TableStructuredCell isExpandable depth={1}>Parent</TableStructuredCell>
                 </TableWrapper>
             );
-            expect(screen.getByText('Parent').closest('span')).toHaveStyle({marginLeft: '20px'});
+            expect(screen.getByText('Parent').closest('[style]')).toHaveStyle({marginLeft: '20px'});
         });
     });
 
