@@ -10,8 +10,12 @@ import {
 import type {ExpandedState, Row} from '@tanstack/react-table';
 import {useState, useEffect, useMemo, useCallback} from 'react';
 
+<<<<<<< uncontrolled_states
 import type {DataTableProps, CustomColumnMeta} from './DataTable.types';
 import {useTableSelection, useTableSorting, useTablePagination} from '~/hooks';
+=======
+import type {DataTableProps, CustomColumnMeta, DefaultRenderOptions} from './DataTable.types';
+>>>>>>> main
 import {Checkbox} from '~/components';
 import {
     Table,
@@ -19,6 +23,7 @@ import {
     TableBody,
     TableHead,
     TableCell,
+    TableCellActions,
     TableStructuredCell,
     TableHeadCell
 } from '~/components/DataTable';
@@ -41,8 +46,12 @@ export const DataTable = <T extends NonNullable<unknown>>({
     onSortChange,
     defaultSortBy,
     defaultSortDirection = 'ascending',
+<<<<<<< uncontrolled_states
     actions,
     actionsHeaderLabel = 'Actions',
+=======
+    defaultSelection = [],
+>>>>>>> main
     renderRow,
     onClickTableHeadCell,
     // Pagination props
@@ -122,10 +131,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
         }
     }, [data, isStructured, table]);
 
-    // Render row cells - cell content rendering is delegated to columns configuration (via render prop)
-    // DataTable handles the cell wrapper (TableBodyCell) with structured view props for expand/collapse
     const renderRowContent = useCallback(
-        (row: Row<T>) => (
+        (row: Row<T>, actionsContent?: DefaultRenderOptions) => (
             <>
                 {/* Selection checkbox cell */}
                 {enableSelection && (
@@ -172,16 +179,21 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     );
                 })}
 
-                {/* Actions cell */}
-                {actions && <TableCell>{actions(row.original)}</TableCell>}
+                {/* Actions cell - rendered only when actions are provided */}
+                {(actionsContent?.actions || actionsContent?.actionsOnHover) && (
+                    <TableCellActions
+                        actions={actionsContent?.actions}
+                        actionsOnHover={actionsContent?.actionsOnHover}
+                    />
+                )}
             </>
         ),
-        [enableSelection, actions, isStructured]
+        [enableSelection, isStructured]
     );
 
     const renderRowWithCustomization = useCallback(
         (row: Row<T>) => {
-            const defaultRender = () => renderRowContent(row);
+            const defaultRender = (options?: DefaultRenderOptions) => renderRowContent(row, options);
 
             if (renderRow) {
                 return renderRow(row, defaultRender);
@@ -251,8 +263,6 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                 );
                             })}
 
-                            {/* Actions header */}
-                            {actions && <TableHeadCell>{actionsHeaderLabel}</TableHeadCell>}
                         </TableRow>
                     ))}
                 </TableHead>

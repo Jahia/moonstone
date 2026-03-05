@@ -3,8 +3,13 @@ import type {DataUser, DataUserKeys} from '~/data/dataTable';
 import {DataTable} from './DataTable';
 import type {Meta, StoryObj} from '@storybook/react';
 import {TableRow} from './TableRow';
+<<<<<<< uncontrolled_states
 import {MoreVert} from '~/icons';
 import {useState} from 'react';
+=======
+import {Button} from '~/components';
+import {Visibility, Edit, Delete, MoreVert} from '~/icons';
+>>>>>>> main
 
 export default {
     title: 'Components/DataTable',
@@ -211,10 +216,6 @@ export const AllFeaturesTable: Story = {
             <DataTable
                 {...args}
                 enablePagination
-                actions={row => (
-                    <MoreVert onClick={() => console.log(`${row.age}`)}/>
-                )}
-                actionsHeaderLabel=""
                 renderRow={(row, defaultRender) => (
                     <TableRow
                         key={row.id}
@@ -224,7 +225,18 @@ export const AllFeaturesTable: Story = {
                                 undefined
                         }}
                     >
-                        {defaultRender()}
+                        {defaultRender({
+                            actions: (
+                                <Button icon={<MoreVert/>} variant="ghost" aria-label="Actions"/>
+                            ),
+                            actionsOnHover: (
+                                <>
+                                    <Button icon={<Visibility/>} variant="ghost"/>
+                                    <Button icon={<Edit/>} variant="ghost"/>
+                                    <Button icon={<Delete/>} variant="ghost"/>
+                                </>
+                            )
+                        })}
                     </TableRow>
                 )}
             />
