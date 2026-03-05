@@ -60,10 +60,6 @@ export const DataTable = <T extends NonNullable<unknown>>({
     rowProps,
     ...props
 }: DataTableProps<T>) => {
-    // Derive manual flags from controlled state — abstraction over TanStack internals
-    const isSortingControlled = sortBy !== undefined;
-    const isPaginationControlled = currentPage !== undefined;
-
     const [expanded, setExpanded] = useState<ExpandedState>({});
 
     const {sorting, handleSortingChange} = useTableSorting({
@@ -80,12 +76,14 @@ export const DataTable = <T extends NonNullable<unknown>>({
         onChangeSelection
     });
 
-    const {pagination, handlePaginationChange} = useTablePagination({
+    const defaultItemsPerPageOptions = itemsPerPageOptions ?? [5, 10, 25];
+
+    const {pagination, isPaginationControlled, handlePaginationChange} = useTablePagination({
         currentPage,
         itemsPerPage,
         defaultCurrentPage,
         defaultItemsPerPage,
-        itemsPerPageOptions,
+        itemsPerPageOptions: defaultItemsPerPageOptions,
         onPageChange,
         onItemsPerPageChange
     });
@@ -105,12 +103,10 @@ export const DataTable = <T extends NonNullable<unknown>>({
         onExpandedChange: setExpanded,
         onRowSelectionChange: handleRowSelectionChange,
         getCoreRowModel: getCoreRowModel(),
-        getSortedRowModel: enableSorting && !isSortingControlled ? getSortedRowModel() : undefined,
-        manualSorting: isSortingControlled,
+        getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,
         getExpandedRowModel: getExpandedRowModel(),
-        getPaginationRowModel: enablePagination && !isPaginationControlled ? getPaginationRowModel() : undefined,
-        manualPagination: enablePagination && isPaginationControlled,
-        ...(enablePagination && isPaginationControlled && totalRowCount !== undefined && {rowCount: totalRowCount}),
+        getPaginationRowModel: enablePagination ? getPaginationRowModel() : undefined,
+        ...(enablePagination && isPaginationControlled && {rowCount: totalRowCount}),
         // Enables hierarchical/structured table rendering by allowing TanStack to access nested subRows
         getSubRows: (row: T) => (row as T & { subRows?: T[] }).subRows,
         onPaginationChange: enablePagination ? handlePaginationChange : undefined,
@@ -231,15 +227,15 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                 const meta = header.column.columnDef.meta as CustomColumnMeta | undefined;
                                 const isColumnSortable = enableSorting && (meta?.isSortable ?? false);
                                 const alignment = meta?.align ?? 'left';
-                                const headerSortDirection = header.column.getIsSorted();
+                                const columnSortDirection = header.column.getIsSorted();
 
                                 return (
                                     <TableHeadCell
                                         key={header.id}
                                         width={meta?.width}
                                         sorting={isColumnSortable ? {
-                                            direction: headerSortDirection === 'desc' ? 'descending' : 'ascending',
-                                            isActive: Boolean(headerSortDirection)
+                                            direction: columnSortDirection === 'desc' ? 'descending' : 'ascending',
+                                            isActive: Boolean(columnSortDirection)
                                         } : undefined}
                                         style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
                                         align={alignment}
@@ -269,12 +265,12 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 <Pagination
                     currentPage={table.getState().pagination.pageIndex + 1}
                     totalOfItems={
-                        isPaginationControlled && totalRowCount !== undefined ?
-                            totalRowCount :
+                        isPaginationControlled ?
+                            totalRowCount as number :
                             table.getPrePaginationRowModel().rows.length
                     }
                     itemsPerPage={table.getState().pagination.pageSize}
-                    itemsPerPageOptions={itemsPerPageOptions ?? [5, 10, 25]}
+                    itemsPerPageOptions={defaultItemsPerPageOptions}
                     label={paginationLabel}
                     onPageChange={(page: number) => table.setPageIndex(page - 1)}
                     onItemsPerPageChange={(size: number) => table.setPageSize(size)}

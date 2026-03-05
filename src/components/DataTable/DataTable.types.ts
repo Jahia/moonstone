@@ -205,6 +205,8 @@ type PaginationControlledProps = PaginationBaseProps & {
     currentPage: number;
     /** Controlled: items per page */
     itemsPerPage: number;
+    /** Required in controlled mode: total number of rows across all pages */
+    totalRowCount: number;
     /** Required in controlled mode */
     onPageChange: (page: number) => void;
     /** Required in controlled mode */

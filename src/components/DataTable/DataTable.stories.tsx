@@ -1,10 +1,10 @@
 import {dataTable, dataColumnsUser} from '~/data/dataTable';
-import type {DataUser} from '~/data/dataTable';
+import type {DataUser, DataUserKeys} from '~/data/dataTable';
 import {DataTable} from './DataTable';
 import type {Meta, StoryObj} from '@storybook/react';
 import {TableRow} from './TableRow';
 import {MoreVert} from '~/icons';
-import {useArgs} from 'storybook/preview-api';
+import {useState} from 'react';
 
 export default {
     title: 'Components/DataTable',
@@ -124,22 +124,46 @@ export const PaginationDataTable: Story = {
 
 export const ControlledSelection: Story = {
     render: args => {
-        const [, setArgs] = useArgs();
-        const a = args as typeof args & { selection?: string[] };
-
-        const onChangeSelection = (selection: string[]) => {
-            args.onChangeSelection?.(selection);
-            setArgs({...args, selection});
-        };
+        const [selection, setSelection] = useState<string[]>(['Walter', 'Jesse']);
 
         return (
             <DataTable<DataUser>
                 enableSelection
+                isStructured
                 data={args.data}
                 columns={args.columns}
                 primaryKey={args.primaryKey}
-                selection={a.selection ?? ['Walter']}
-                onChangeSelection={onChangeSelection}
+                selection={selection}
+                onChangeSelection={setSelection}
+            />
+        );
+    },
+    args: {
+        data: dataTable,
+        columns: dataColumnsUser,
+        primaryKey: 'firstName'
+    },
+    name: 'Controlled Selection'
+};
+
+export const ControlledSorting: Story = {
+    render: args => {
+        const [sortBy, setSortBy] = useState<DataUserKeys>('progress');
+        const [sortDirection, setSortDirection] = useState<'ascending' | 'descending'>('descending');
+
+        return (
+            <DataTable<DataUser>
+                enableSorting
+                isStructured
+                data={args.data}
+                columns={args.columns}
+                primaryKey={args.primaryKey}
+                sortBy={sortBy}
+                sortDirection={sortDirection}
+                onSortChange={(newSortBy, newSortDirection) => {
+                    setSortBy(newSortBy);
+                    setSortDirection(newSortDirection);
+                }}
             />
         );
     },
@@ -147,9 +171,38 @@ export const ControlledSelection: Story = {
         data: dataTable,
         columns: dataColumnsUser,
         primaryKey: 'firstName',
-        selection: ['Walter']
+        sortBy: 'progress'
     },
-    name: 'Controlled Selection'
+    name: 'Controlled Sorting'
+};
+
+export const ControlledPagination: Story = {
+    render: args => {
+        const [currentPage, setCurrentPage] = useState(1);
+        const [itemsPerPage, setItemsPerPage] = useState(5);
+
+        return (
+            <DataTable<DataUser>
+                enablePagination
+                isStructured
+                data={args.data}
+                columns={args.columns}
+                primaryKey={args.primaryKey}
+                currentPage={currentPage}
+                itemsPerPage={itemsPerPage}
+                totalRowCount={args.data.length}
+                itemsPerPageOptions={[5, 10, 25]}
+                onPageChange={setCurrentPage}
+                onItemsPerPageChange={setItemsPerPage}
+            />
+        );
+    },
+    args: {
+        data: dataTable,
+        columns: dataColumnsUser,
+        primaryKey: 'firstName'
+    },
+    name: 'Controlled Pagination'
 };
 
 export const AllFeaturesTable: Story = {

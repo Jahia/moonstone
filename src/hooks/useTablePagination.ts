@@ -6,10 +6,9 @@ type Props = Pick<DataTableProps<Record<string, unknown>>, 'currentPage' | 'item
 
 export function useTablePagination({currentPage, itemsPerPage, defaultCurrentPage, defaultItemsPerPage, itemsPerPageOptions, onPageChange, onItemsPerPageChange}: Props) {
     const isPaginationControlled = currentPage !== undefined;
-    const options = itemsPerPageOptions ?? [5, 10, 25];
-    const defaultSize = defaultItemsPerPage && options.includes(defaultItemsPerPage) ?
+    const defaultSize = defaultItemsPerPage && itemsPerPageOptions?.includes(defaultItemsPerPage) ?
         defaultItemsPerPage :
-        (options[0] ?? 10);
+        (itemsPerPageOptions?.[0] ?? 10);
 
     const [state, setState] = useState<PaginationState>({
         pageIndex: defaultCurrentPage ? defaultCurrentPage - 1 : 0,
