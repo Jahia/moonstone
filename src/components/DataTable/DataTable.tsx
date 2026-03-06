@@ -48,7 +48,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     enablePagination = false,
     currentPage,
     itemsPerPage,
-    defaultCurrentPage,
+    defaultCurrentPage = 1,
     defaultItemsPerPage,
     onPageChange,
     onItemsPerPageChange,
