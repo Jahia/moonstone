@@ -27,6 +27,35 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
             return null;
         }
 
+        const leftMarginIndentDepth = depth * indentSpace;
+
+        const renderContent = () => {
+            if (isExpandable) {
+                return (
+                    <span
+                        className="moonstone-tableCellExpandable flexRow_nowrap alignCenter"
+                        style={{marginLeft: `${leftMarginIndentDepth}px`}}
+                        onClick={onToggleExpand}
+                    >
+                        {isExpanded ? (
+                            <ChevronDown className="moonstone-marginRightNano moonstone-tableCellExpandable__chevron"/>
+                        ) : (
+                            <ChevronRight className="moonstone-marginRightNano moonstone-tableCellExpandable__chevron"/>
+                        )}
+                        {children}
+                    </span>
+                );
+            }
+
+            return (
+                <span
+                    className="moonstone-tableCellIndent"
+                    style={{marginLeft: `${leftMarginIndentDepth + chevronSpace}px`}}
+                >
+                    {children}
+                </span>
+            );
+        };
         const indent = depth * indentSpace;
 
         return (

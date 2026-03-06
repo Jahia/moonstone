@@ -7,16 +7,68 @@ $cell-height: 48px;
     height: $cell-height;
     padding-right: var(--spacing-medium);
     padding-left: var(--spacing-medium);
+    overflow: hidden;
+}
+
+// Structured cell wrapper (expandable rows with chevron)
+.moonstone-tableCellExpandable {
+    flex: 1;
+    min-width: 0; // Allow shrinking below content width
+}
+
+.moonstone-tableCellExpandable__chevron {
+    flex-shrink: 0;
+}
+
+// Structured cell wrapper (non-expandable rows with indentation only)
+.moonstone-tableCellIndent {
+    flex: 1;
+    min-width: 0;
+}
+
+.moonstone-cellText {
+    // WebKit-specific scrollbar customization (Chrome, Safari, Edge)
+    @supports selector(::-webkit-scrollbar) {
+        &::-webkit-scrollbar {
+            height: calc(var(--spacing-nano) + var(--spacing-pico));
+        }
     overflow-y: auto;
 
-    //noinspection CssUnknownProperty
-    scrollbar-width: thin;
+        &::-webkit-scrollbar-thumb {
+            border-radius: var(--radius_small);
+            background-color: var(--color-gray_light);
+        }
 
-    &::-webkit-scrollbar {
-        height: var(--spacing-nano);
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
     }
 
-    &::-webkit-scrollbar-thumb {
-        background-color: var(--color-gray_light);
+    // Base layout and truncation behavior
+    display: block;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    // Base scrollbar styling (applies to all browsers that support it)
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-gray_light) transparent;
+}
+
+// Only enable scroll-on-hover when content actually overflows
+.moonstone-cellText--overflowing {
+    // Firefox-only: reserve space for scrollbar to prevent layout shift
+    @supports (scrollbar-color: auto) and (not selector(::-webkit-scrollbar)) {
+        scrollbar-gutter: stable;
+
+        &:hover {
+            padding-bottom: calc(var(--spacing-small) + var(--spacing-pico)); // Firefox needs more space
+        }
+    }
+
+    &:hover {
+        text-overflow: clip;
+        overflow-x: auto;
     }
 }

@@ -1,6 +1,8 @@
 import {describe, it, expect, vi} from 'vitest';
+import {render, fireEvent} from '@testing-library/react';
 import {DataTableColumn} from '~/components/DataTable/DataTable.types';
 import {
+    CellText,
     renderNumber,
     renderDate,
     stringColumn,
@@ -11,7 +13,8 @@ import {
 
 describe('renderNumber', () => {
     it('should format number with en-US locale', () => {
-        expect(renderNumber({value: 1234.56, locale: 'en-US'})).toBe('1,234.56');
+        const {container} = render(<>{renderNumber({value: 1234.56, locale: 'en-US'})}</>);
+        expect(container.textContent).toBe('1,234.56');
     });
 
     it('should return null if value is null or undefined', () => {
@@ -20,26 +23,32 @@ describe('renderNumber', () => {
     });
 
     it('should apply minimumFractionDigits option', () => {
-        const result = renderNumber({
-            value: 1234,
-            locale: 'en-US',
-            localeOptions: {minimumFractionDigits: 2}
-        });
-        expect(result).toBe('1,234.00');
+        const {container} = render(
+            <>{renderNumber({
+                value: 1234,
+                locale: 'en-US',
+                localeOptions: {minimumFractionDigits: 2}
+            })}
+            </>
+        );
+        expect(container.textContent).toBe('1,234.00');
     });
 });
 
 describe('renderDate', () => {
     it('should format date with specific options', () => {
         const date = new Date('2023-06-15T12:00:00Z');
-        const result = renderDate({
-            value: date,
-            locale: 'en-US',
-            localeOptions: {year: 'numeric', month: '2-digit', day: '2-digit'}
-        });
-        expect(result).toContain('2023');
-        expect(result).toContain('06');
-        expect(result).toContain('15');
+        const {container} = render(
+            <>{renderDate({
+                value: date,
+                locale: 'en-US',
+                localeOptions: {year: 'numeric', month: '2-digit', day: '2-digit'}
+            })}
+            </>
+        );
+        expect(container.textContent).toContain('2023');
+        expect(container.textContent).toContain('06');
+        expect(container.textContent).toContain('15');
     });
 
     it('should return null if value is null or undefined', () => {
@@ -55,7 +64,8 @@ describe('stringColumn', () => {
         const col = stringColumn<Row>(get, {align: 'center'});
         expect(col.isSortable).toBe(true);
         expect(col.align).toBe('center');
-        expect(col.render('test')).toBe('test');
+        const {container} = render(<>{col.render('test')}</>);
+        expect(container.textContent).toBe('test');
 
         const rowA = {val: 'a'};
         const rowB = {val: 'b'};
@@ -128,5 +138,47 @@ describe('createTableColumns', () => {
         const result = createTableColumns(columns);
         const col = result[0];
         expect(typeof col.sortingFn).toBe('function');
+    });
+});
+
+describe('CellText', () => {
+    it('should add overflowing class on mouse enter if content overflows', () => {
+        const {container} = render(<CellText>Content</CellText>);
+        const span = container.querySelector('span');
+
+        // Mock scrollWidth > clientWidth
+        Object.defineProperty(span, 'scrollWidth', {configurable: true, value: 200});
+        Object.defineProperty(span, 'clientWidth', {configurable: true, value: 100});
+
+        fireEvent.mouseEnter(span!);
+        expect(span).toHaveClass('moonstone-cellText--overflowing');
+    });
+
+    it('should not add overflowing class if content does not overflow', () => {
+        const {container} = render(<CellText>Content</CellText>);
+        const span = container.querySelector('span');
+
+        // Mock scrollWidth <= clientWidth
+        Object.defineProperty(span, 'scrollWidth', {configurable: true, value: 100});
+        Object.defineProperty(span, 'clientWidth', {configurable: true, value: 100});
+
+        fireEvent.mouseEnter(span!);
+        expect(span).not.toHaveClass('moonstone-cellText--overflowing');
+    });
+
+    it('should remove overflowing class and reset scroll on mouse leave', () => {
+        const {container} = render(<CellText>Content</CellText>);
+        const span = container.querySelector('span');
+
+        // Setup overflow state
+        Object.defineProperty(span, 'scrollWidth', {configurable: true, value: 200});
+        Object.defineProperty(span, 'clientWidth', {configurable: true, value: 100});
+        fireEvent.mouseEnter(span!);
+        expect(span).toHaveClass('moonstone-cellText--overflowing');
+
+        // Test leave
+        fireEvent.mouseLeave(span!);
+        expect(span).not.toHaveClass('moonstone-cellText--overflowing');
+        expect(span?.scrollLeft).toBe(0);
     });
 });

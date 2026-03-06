@@ -2,8 +2,8 @@ import type {DataUser} from './dataColumnsUser';
 
 export const dataTable: DataUser[] = [
     {
-        firstName: 'Walter',
-        lastName: 'White',
+        firstName: 'Walter Hartwell White the Great Heisenberg',
+        lastName: 'White-McFarlane-Johnson-Williams',
         age: 52,
         status: 'Active',
         progress: 99,
@@ -11,10 +11,12 @@ export const dataTable: DataUser[] = [
         chips: ['Chemist', 'Teacher'],
         subRows: [
             {
-                firstName: 'Jesse',
-                lastName: 'Pinkman',
+                firstName: 'Jesse Bruce Pinkman the Blue Sky Master',
+                lastName: 'Pinkman-Rodriguez-Hernandez',
                 age: 27,
                 status: 'Busy',
+                progress: 7500000,
+                date: new Date('2024-06-10')
                 progress: 75,
                 date: new Date('2024-06-10'),
                 subRows: [
@@ -47,11 +49,13 @@ export const dataTable: DataUser[] = [
         ]
     },
     {
-        firstName: 'Jon',
-        lastName: 'Snow',
+        firstName: 'Jon Aegon Targaryen Snow the King in the North',
+        lastName: 'Snow-Stark-Targaryen',
         age: 24,
         status: 'Active',
         chips: ['Commander'],
+        progress: 85000000,
+        date: new Date('2024-03-15')
         progress: 85,
         date: new Date('2024-03-15'),
         subRows: [
