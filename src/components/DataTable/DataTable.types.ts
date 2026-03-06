@@ -189,7 +189,7 @@ type RenderRowProps<T extends NonNullable<unknown>> = {
 
 type PaginationBaseProps = {
     /** Total number of rows across all pages (for server-side pagination display) */
-    totalRowCount?: number;
+    totalItems?: number;
     /** Choices for items per page value */
     itemsPerPageOptions?: ComponentPaginationProps['itemsPerPageOptions'];
     /** Pagination labels */
@@ -207,8 +207,8 @@ type PaginationControlledProps = PaginationBaseProps & {
     currentPage: number;
     /** Controlled: items per page */
     itemsPerPage: number;
-    /** Required in controlled mode: total number of rows across all pages */
-    totalRowCount: number;
+    /** Required in controlled mode: total number of items across all pages */
+    totalItems: number;
     /** Required in controlled mode */
     onPageChange: (page: number) => void;
     /** Required in controlled mode */
@@ -236,7 +236,7 @@ type TablePaginationProps =
           itemsPerPage?: never;
           onPageChange?: never;
           onItemsPerPageChange?: never;
-          totalRowCount?: never;
+          totalItems?: never;
           defaultCurrentPage?: never;
           defaultItemsPerPage?: never;
           itemsPerPageOptions?: never;

@@ -48,12 +48,12 @@ export const DataTable = <T extends NonNullable<unknown>>({
     enablePagination = false,
     currentPage,
     itemsPerPage,
+    itemsPerPageOptions = [5, 10, 25],
     defaultCurrentPage = 1,
-    defaultItemsPerPage,
+    defaultItemsPerPage = itemsPerPageOptions[0],
     onPageChange,
     onItemsPerPageChange,
-    totalRowCount,
-    itemsPerPageOptions = [5, 10, 25],
+    totalItems,
     paginationLabel,
     paginationProps,
     rowProps,
@@ -80,9 +80,9 @@ export const DataTable = <T extends NonNullable<unknown>>({
         itemsPerPage,
         defaultCurrentPage,
         defaultItemsPerPage,
-        itemsPerPageOptions,
         onPageChange,
-        onItemsPerPageChange
+        onItemsPerPageChange,
+        totalItems
     });
 
     const tableColumns = useMemo(() => createTableColumns(columns), [columns]);
@@ -266,7 +266,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     currentPage={table.getState().pagination.pageIndex + 1}
                     totalOfItems={
                         isPaginationControlled ?
-                            totalRowCount :
+                            totalItems :
                             table.getPrePaginationRowModel().rows.length
                     }
                     itemsPerPage={table.getState().pagination.pageSize}

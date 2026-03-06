@@ -332,7 +332,7 @@ describe('DataTable', () => {
                 primaryKey="id"
                 currentPage={2}
                 itemsPerPage={1}
-                totalRowCount={3}
+                totalItems={3}
                 itemsPerPageOptions={[1, 5, 10]}
                 onPageChange={() => { }}
                 onItemsPerPageChange={() => { }}
@@ -390,7 +390,7 @@ describe('DataTable', () => {
         expect(screen.getByText('Level3')).toBeInTheDocument();
     });
 
-    it('should use totalRowCount for server-side pagination', () => {
+    it('should use totalItems for server-side pagination', () => {
         const firstPageData = [data[0]];
 
         render(
@@ -402,7 +402,7 @@ describe('DataTable', () => {
                 currentPage={1}
                 itemsPerPage={1}
                 itemsPerPageOptions={[1, 5, 10]}
-                totalRowCount={100}
+                totalItems={100}
                 onPageChange={() => { }}
                 onItemsPerPageChange={() => { }}
             />
