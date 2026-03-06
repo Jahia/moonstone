@@ -1,22 +1,26 @@
 import {useState} from 'react';
 import type {PaginationState} from '@tanstack/react-table';
-import type {DataTableProps} from '~/components/DataTable/DataTable.types';
+import type {DataTableProps, PaginationUncontrolledProps} from '~/components/DataTable/DataTable.types';
 
-type Props = Pick<DataTableProps<Record<string, unknown>>, 'currentPage' | 'itemsPerPage' | 'onPageChange' | 'onItemsPerPageChange'> & {
-    defaultCurrentPage: number;
-    defaultItemsPerPage: number;
-    totalItems?: number;
-};
+type ControlledPaginationProps = Pick<DataTableProps<Record<string, string>>, 'currentPage' | 'itemsPerPage' | 'totalItems' | 'onPageChange' | 'onItemsPerPageChange'>;
+
+type PaginationDefaultProps = Pick< PaginationUncontrolledProps, 'defaultCurrentPage' | 'defaultItemsPerPage'>;
+
+type Props = ControlledPaginationProps & PaginationDefaultProps;
 
 export function useTablePagination({currentPage, itemsPerPage, defaultCurrentPage, defaultItemsPerPage, totalItems, onPageChange, onItemsPerPageChange}: Props) {
     const isPaginationControlled = currentPage !== undefined && totalItems !== undefined;
+    const isItemsPerPageControlled = itemsPerPage !== undefined;
     const [state, setState] = useState<PaginationState>({
         pageIndex: defaultCurrentPage - 1,
         pageSize: defaultItemsPerPage
     });
 
     const pagination: PaginationState = isPaginationControlled ?
-        {pageIndex: (currentPage ?? 1) - 1, pageSize: itemsPerPage ?? defaultItemsPerPage} :
+        {
+            pageIndex: (currentPage ?? 1) - 1,
+            pageSize: isItemsPerPageControlled ? itemsPerPage : state.pageSize
+        } :
         state;
 
     const handlePaginationChange = (updater: React.SetStateAction<PaginationState>) => {
@@ -24,6 +28,8 @@ export function useTablePagination({currentPage, itemsPerPage, defaultCurrentPag
 
         if (!isPaginationControlled) {
             setState(next);
+        } else if (!isItemsPerPageControlled && next.pageSize !== state.pageSize) {
+            setState(previous => ({...previous, pageSize: next.pageSize}));
         }
 
         if (next.pageIndex !== pagination.pageIndex) {

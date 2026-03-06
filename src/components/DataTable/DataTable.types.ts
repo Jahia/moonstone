@@ -188,48 +188,47 @@ type RenderRowProps<T extends NonNullable<unknown>> = {
 };
 
 type PaginationBaseProps = {
-    /** Total number of rows across all pages (for server-side pagination display) */
-    totalItems?: number;
     /** Choices for items per page value */
     itemsPerPageOptions?: ComponentPaginationProps['itemsPerPageOptions'];
     /** Pagination labels */
     paginationLabel?: ComponentPaginationProps['label'];
-    /** Custom attributes spread on Pagination root (data-*, aria-*, etc.) */
+    /** Custom attributes for the Pagination element */
     paginationProps?: Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> & Record<string, unknown>;
-    /** Callback when page changes (1-indexed) — available in both controlled and uncontrolled modes */
-    onPageChange?: (page: number) => void;
-    /** Callback when items per page changes — available in both controlled and uncontrolled modes */
-    onItemsPerPageChange?: (itemsPerPage: number) => void;
 };
 
-type PaginationControlledProps = PaginationBaseProps & {
+type PaginationControlledProps = {
     /** Controlled: current page (1-indexed) */
     currentPage: number;
-    /** Controlled: items per page */
-    itemsPerPage: number;
-    /** Required in controlled mode: total number of items across all pages */
+    /** Controlled (optional): items per page */
+    itemsPerPage?: number;
+    /** Controlled: total number of items across all pages */
     totalItems: number;
-    /** Required in controlled mode */
+    /** Controlled: callback when page changes (1-indexed) */
     onPageChange: (page: number) => void;
-    /** Required in controlled mode */
-    onItemsPerPageChange: (itemsPerPage: number) => void;
+    /** Optional callback when items per page changes */
+    onItemsPerPageChange?: (itemsPerPage: number) => void;
     defaultCurrentPage?: never;
     defaultItemsPerPage?: never;
 };
 
-type PaginationUncontrolledProps = PaginationBaseProps & {
+export type PaginationUncontrolledProps = {
     currentPage?: never;
     /** Uncontrolled: initial page (1-indexed) */
     defaultCurrentPage?: number;
     /** Uncontrolled: initial items per page */
     defaultItemsPerPage?: number;
     itemsPerPage?: never;
+    totalItems?: never;
+    /** Optional callback when page changes (1-indexed) */
+    onPageChange?: (page: number) => void;
+    /** Optional callback when items per page changes */
+    onItemsPerPageChange?: (itemsPerPage: number) => void;
 };
 
 type TablePaginationProps =
     | ({
           enablePagination: true;
-      } & (PaginationControlledProps | PaginationUncontrolledProps))
+      } & PaginationBaseProps & (PaginationControlledProps | PaginationUncontrolledProps))
     | {
           enablePagination?: false;
           currentPage?: never;
