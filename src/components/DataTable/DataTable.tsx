@@ -7,15 +7,10 @@ import {
     flexRender
 } from '@tanstack/react-table';
 
-import type {
-    ExpandedState,
-    RowSelectionState,
-    SortingState,
-    PaginationState,
-    Row
-} from '@tanstack/react-table';
+import type {ExpandedState, Row} from '@tanstack/react-table';
 import {useState, useEffect, useMemo, useCallback} from 'react';
 
+import {useTableSelection, useTableSorting, useTablePagination} from '~/hooks';
 import type {DataTableProps, CustomColumnMeta, DefaultRenderOptions} from './DataTable.types';
 import {Checkbox} from '~/components';
 import {
@@ -38,8 +33,12 @@ export const DataTable = <T extends NonNullable<unknown>>({
     primaryKey,
     isStructured = false,
     enableSelection = false,
+    selection,
     onChangeSelection,
     enableSorting = false,
+    sortBy,
+    sortDirection,
+    onSortChange,
     defaultSortBy,
     defaultSortDirection = 'ascending',
     defaultSelection = [],
@@ -47,50 +46,44 @@ export const DataTable = <T extends NonNullable<unknown>>({
     onClickTableHeadCell,
     // Pagination props
     enablePagination = false,
+    currentPage,
     itemsPerPage,
-    itemsPerPageOptions,
+    itemsPerPageOptions = [5, 10, 25],
+    defaultCurrentPage = 1,
+    defaultItemsPerPage = itemsPerPageOptions[0],
+    onPageChange,
+    onItemsPerPageChange,
+    totalItems,
     paginationLabel,
+    paginationProps,
     rowProps,
     ...props
 }: DataTableProps<T>) => {
-    // Internal sorting state - fully managed by TanStack
-    const initialSorting = useMemo<SortingState>(() => {
-        if (defaultSortBy) {
-            return [
-                {
-                    id: defaultSortBy,
-                    desc: defaultSortDirection === 'descending'
-                }
-            ];
-        }
-
-        return [];
-    }, [defaultSortBy, defaultSortDirection]);
-
-    const [sorting, setSorting] = useState<SortingState>(initialSorting);
     const [expanded, setExpanded] = useState<ExpandedState>({});
-    const [rowSelection, setRowSelection] = useState<RowSelectionState>(() =>
-        defaultSelection?.reduce((acc, key) => ({...acc, [key]: true}), {}) ?? {}
-    );
 
-    // Ensure itemsPerPage is valid based on options
-    const defaultPageSize = useMemo(() => {
-        const options = itemsPerPageOptions ?? [5, 10, 25];
-        if (itemsPerPage && options.includes(itemsPerPage)) {
-            return itemsPerPage;
-        }
-
-        return options[0] ?? 10;
-    }, [itemsPerPage, itemsPerPageOptions]);
-
-    const [pagination, setPagination] = useState<PaginationState>({
-        pageIndex: 0,
-        pageSize: defaultPageSize
+    const {sorting, handleSortingChange} = useTableSorting({
+        sortBy,
+        sortDirection,
+        defaultSortBy,
+        defaultSortDirection,
+        onSortChange
     });
 
-    useEffect(() => {
-        onChangeSelection?.(Object.keys(rowSelection));
-    }, [rowSelection, onChangeSelection]);
+    const {rowSelection, handleRowSelectionChange} = useTableSelection({
+        selection,
+        defaultSelection,
+        onChangeSelection
+    });
+
+    const {pagination, isPaginationControlled, handlePaginationChange} = useTablePagination({
+        currentPage,
+        itemsPerPage,
+        defaultCurrentPage,
+        defaultItemsPerPage,
+        onPageChange,
+        onItemsPerPageChange,
+        totalItems
+    });
 
     const tableColumns = useMemo(() => createTableColumns(columns), [columns]);
 
@@ -103,16 +96,16 @@ export const DataTable = <T extends NonNullable<unknown>>({
             sorting,
             ...(enablePagination && {pagination})
         },
-        onSortingChange: setSorting,
+        onSortingChange: handleSortingChange,
         onExpandedChange: setExpanded,
-        onRowSelectionChange: setRowSelection,
+        onRowSelectionChange: handleRowSelectionChange,
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,
         getExpandedRowModel: getExpandedRowModel(),
         getPaginationRowModel: enablePagination ? getPaginationRowModel() : undefined,
         // Enables hierarchical/structured table rendering by allowing TanStack to access nested subRows
         getSubRows: (row: T) => (row as T & { subRows?: T[] }).subRows,
-        onPaginationChange: setPagination,
+        onPaginationChange: enablePagination ? handlePaginationChange : undefined,
         enableSorting,
         // UX decision: Toggle between asc/desc only, no unsorted state to prevent user confusion
         enableSortingRemoval: false,
@@ -233,15 +226,15 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                 const meta = header.column.columnDef.meta as CustomColumnMeta | undefined;
                                 const isColumnSortable = enableSorting && (meta?.isSortable ?? false);
                                 const alignment = meta?.align ?? 'left';
-                                const sortDirection = header.column.getIsSorted();
+                                const columnSortDirection = header.column.getIsSorted();
 
                                 return (
                                     <TableHeadCell
                                         key={header.id}
                                         width={meta?.width}
                                         sorting={isColumnSortable ? {
-                                            direction: sortDirection === 'desc' ? 'descending' : 'ascending',
-                                            isActive: Boolean(sortDirection)
+                                            direction: columnSortDirection === 'desc' ? 'descending' : 'ascending',
+                                            isActive: Boolean(columnSortDirection)
                                         } : undefined}
                                         style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
                                         align={alignment}
@@ -271,12 +264,17 @@ export const DataTable = <T extends NonNullable<unknown>>({
             {enablePagination && (
                 <Pagination
                     currentPage={table.getState().pagination.pageIndex + 1}
-                    totalOfItems={table.getPrePaginationRowModel().rows.length}
+                    totalOfItems={
+                        isPaginationControlled ?
+                            totalItems :
+                            table.getPrePaginationRowModel().rows.length
+                    }
                     itemsPerPage={table.getState().pagination.pageSize}
-                    itemsPerPageOptions={itemsPerPageOptions ?? [5, 10, 25]}
+                    itemsPerPageOptions={itemsPerPageOptions}
                     label={paginationLabel}
                     onPageChange={(page: number) => table.setPageIndex(page - 1)}
                     onItemsPerPageChange={(size: number) => table.setPageSize(size)}
+                    {...paginationProps}
                 />
             )}
         </>
