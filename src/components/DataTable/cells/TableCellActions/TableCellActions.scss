@@ -1,0 +1,14 @@
+.moonstone-tableCellActions {
+    gap: var(--spacing-small);
+}
+
+.moonstone-tableCellActions_displayHover {
+    gap: var(--spacing-small);
+
+    visibility: hidden;
+
+    .moonstone-tableRow:hover &,
+    .moonstone-tableRow:focus-within & {
+        visibility: visible;
+    }
+}

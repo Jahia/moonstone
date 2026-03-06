@@ -1,5 +1,6 @@
 import type {DataTableColumn} from '~/components/DataTable/DataTable.types';
 import {Chip} from '~/components';
+import {Person} from '~/icons';
 import {numberColumn, dateColumn, stringColumn} from '~/utils/dataTable';
 
 export type DataUser = {
@@ -19,8 +20,14 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
     {
         key: 'firstName',
         label: 'User',
-        ...stringColumn<DataUser>(row => row.firstName)
-        // Align comes from stringColumn helper
+        ...stringColumn<DataUser>(row => row.firstName),
+        render: (value, row) => (
+            <>
+                <Person/>
+                {row.firstName} {row.lastName}
+            </>
+        ),
+        align: 'left'
     },
     {
         key: 'status',

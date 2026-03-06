@@ -1,13 +1,13 @@
+import clsx from 'clsx';
 import React from 'react';
 import {ChevronDown, ChevronRight} from '~/icons';
 
-import type {TableStructuredCellProps} from './TableStructuredCell.types';
 import {TableCell} from './TableCell';
-import './TableCell.scss';
+import './TableStructuredCell.scss';
+import type {TableStructuredCellProps} from './TableStructuredCell.types';
 
 // Spacing constants for tree structure alignment
 const indentSpace = 20; // Px - indentation per depth level
-const chevronSpace = 20; // Px - compensates for chevron icon width on non-expandable rows
 
 export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableStructuredCellProps>(
     (
@@ -18,7 +18,6 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
             isExpandable,
             isExpanded,
             onToggleExpand,
-            style,
             ...props
         },
         ref
@@ -57,19 +56,37 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                 </span>
             );
         };
+        const indent = depth * indentSpace;
 
         return (
             <TableCell
                 ref={ref}
                 className={className}
-                style={style}
+                aria-expanded={isExpanded}
+                onClick={onToggleExpand}
                 {...props}
             >
-                {renderContent()}
+                <div
+                    className={clsx(
+                        'moonstone-tableStructuredCell_content',
+                        'flexRow_nowrap',
+                        'flexFluid',
+                        'alignCenter',
+                        {'moonstone-tableStructuredCell_expandable': isExpandable})}
+                    style={{marginLeft: indent}}
+                >
+                    {isExpandable && (
+                        <>
+                            {isExpanded ?
+                                <ChevronDown/> :
+                                <ChevronRight/>}
+                        </>
+                    )}
+                    {children}
+                </div>
             </TableCell>
         );
     }
 );
 
 TableStructuredCell.displayName = 'TableStructuredCell';
-

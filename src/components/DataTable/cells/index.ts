@@ -1,5 +1,7 @@
 export * from './TableCell';
 export * from './TableCell.types';
+export * from './TableCellActions/TableCellActions';
+export * from './TableCellActions/TableCellActions.types';
 export * from './TableStructuredCell';
 export * from './TableStructuredCell.types';
 export * from './TableHeadCell';

@@ -15,6 +15,7 @@ export * from './Chip';
 export * from './Collapsible';
 export * from './Dropdown';
 export * from './Dropdown/CustomDropdown';
+export * from './EmptyData';
 export * from './Field';
 export * from './Field/FieldBoolean';
 export * from './Field/FieldSelector';

@@ -1,10 +1,11 @@
-import {dataTable} from '~/data/dataTable';
-import {dataColumnsUser} from '~/data/dataTable';
-import type {DataUser} from '~/data/dataTable';
+import {dataTable, dataColumnsUser} from '~/data/dataTable';
+import type {DataUser, DataUserKeys} from '~/data/dataTable';
 import {DataTable} from './DataTable';
 import type {Meta, StoryObj} from '@storybook/react';
 import {TableRow} from './TableRow';
-import {MoreVert} from '~/icons';
+import {useState} from 'react';
+import {Button} from '~/components';
+import {Visibility, Edit, Delete, MoreVert} from '~/icons';
 
 export default {
     title: 'Components/DataTable',
@@ -16,7 +17,7 @@ export default {
     argTypes: {
         onChangeSelection: {action: 'onChangeSelection'},
         enablePagination: {control: 'boolean'},
-        itemsPerPage: {control: 'number'},
+        defaultItemsPerPage: {control: 'number'},
         itemsPerPageOptions: {control: 'object'},
         paginationLabel: {control: 'object'}
     }
@@ -122,16 +123,95 @@ export const PaginationDataTable: Story = {
     name: 'With Pagination (Structured)'
 };
 
+export const ControlledSelection: Story = {
+    render: args => {
+        const [selection, setSelection] = useState<string[]>(['Walter', 'Jesse']);
+
+        return (
+            <DataTable<DataUser>
+                enableSelection
+                isStructured
+                data={args.data}
+                columns={args.columns}
+                primaryKey={args.primaryKey}
+                selection={selection}
+                onChangeSelection={setSelection}
+            />
+        );
+    },
+    args: {
+        data: dataTable,
+        columns: dataColumnsUser,
+        primaryKey: 'firstName'
+    },
+    name: 'Controlled Selection'
+};
+
+export const ControlledSorting: Story = {
+    render: args => {
+        const [sortBy, setSortBy] = useState<DataUserKeys>('progress');
+        const [sortDirection, setSortDirection] = useState<'ascending' | 'descending'>('descending');
+
+        return (
+            <DataTable<DataUser>
+                enableSorting
+                isStructured
+                data={args.data}
+                columns={args.columns}
+                primaryKey={args.primaryKey}
+                sortBy={sortBy}
+                sortDirection={sortDirection}
+                onSortChange={(newSortBy, newSortDirection) => {
+                    setSortBy(newSortBy);
+                    setSortDirection(newSortDirection);
+                }}
+            />
+        );
+    },
+    args: {
+        data: dataTable,
+        columns: dataColumnsUser,
+        primaryKey: 'firstName',
+        sortBy: 'progress'
+    },
+    name: 'Controlled Sorting'
+};
+
+export const ControlledPagination: Story = {
+    render: args => {
+        const [currentPage, setCurrentPage] = useState(1);
+        const [itemsPerPage, setItemsPerPage] = useState(5);
+
+        return (
+            <DataTable<DataUser>
+                enablePagination
+                isStructured
+                data={args.data}
+                columns={args.columns}
+                primaryKey={args.primaryKey}
+                currentPage={currentPage}
+                itemsPerPage={itemsPerPage}
+                totalItems={args.data.length}
+                itemsPerPageOptions={[5, 10, 25]}
+                onPageChange={setCurrentPage}
+                onItemsPerPageChange={setItemsPerPage}
+            />
+        );
+    },
+    args: {
+        data: dataTable,
+        columns: dataColumnsUser,
+        primaryKey: 'firstName'
+    },
+    name: 'Controlled Pagination'
+};
+
 export const AllFeaturesTable: Story = {
     render: args => {
         return (
             <DataTable
                 {...args}
                 enablePagination
-                actions={row => (
-                    <MoreVert onClick={() => console.log(`${row.age}`)}/>
-                )}
-                actionsHeaderLabel=""
                 renderRow={(row, defaultRender) => (
                     <TableRow
                         key={row.id}
@@ -141,7 +221,18 @@ export const AllFeaturesTable: Story = {
                                 undefined
                         }}
                     >
-                        {defaultRender()}
+                        {defaultRender({
+                            actions: (
+                                <Button icon={<MoreVert/>} variant="ghost" aria-label="Actions"/>
+                            ),
+                            actionsOnHover: (
+                                <>
+                                    <Button icon={<Visibility/>} variant="ghost"/>
+                                    <Button icon={<Edit/>} variant="ghost"/>
+                                    <Button icon={<Delete/>} variant="ghost"/>
+                                </>
+                            )
+                        })}
                     </TableRow>
                 )}
             />
@@ -160,4 +251,3 @@ export const AllFeaturesTable: Story = {
     },
     name: 'All Features Combined'
 };
-

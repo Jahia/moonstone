@@ -33,24 +33,24 @@ describe('TableStructuredCell', () => {
     });
 
     describe('Indentation', () => {
-        it('should apply correct indentation for depth 0', () => {
-            // Depth=0, non-expandable: 0*20 + 20 (buffer) = 20px
+        it('should apply correct indentation for depth 0 (aligns with header)', () => {
+            // Depth=0, non-expandable: 0*20 = 0px - aligns with column header
             render(
                 <TableWrapper>
                     <TableStructuredCell depth={0}>Root</TableStructuredCell>
                 </TableWrapper>
             );
-            expect(screen.getByText('Root').closest('span')).toHaveStyle({marginLeft: '20px'});
+            expect(screen.getByText('Root').closest('[style]')).toHaveStyle({marginLeft: '0px'});
         });
 
         it('should apply correct indentation for depth 2', () => {
-            // Depth=2, non-expandable: 2*20 + 20 (buffer) = 60px
+            // Depth=2, non-expandable: 2*20 = 40px
             render(
                 <TableWrapper>
                     <TableStructuredCell depth={2}>Nested</TableStructuredCell>
                 </TableWrapper>
             );
-            expect(screen.getByText('Nested').closest('span')).toHaveStyle({marginLeft: '60px'});
+            expect(screen.getByText('Nested').closest('[style]')).toHaveStyle({marginLeft: '40px'});
         });
 
         it('should not add buffer for expandable cells', () => {
@@ -60,7 +60,7 @@ describe('TableStructuredCell', () => {
                     <TableStructuredCell isExpandable depth={1}>Parent</TableStructuredCell>
                 </TableWrapper>
             );
-            expect(screen.getByText('Parent').closest('span')).toHaveStyle({marginLeft: '20px'});
+            expect(screen.getByText('Parent').closest('[style]')).toHaveStyle({marginLeft: '20px'});
         });
     });
 
@@ -76,7 +76,7 @@ describe('TableStructuredCell', () => {
                 </TableWrapper>
             );
 
-            await user.click(document.querySelector('.moonstone-tableCellExpandable')!);
+            await user.click(document.querySelector('.moonstone-tableStructuredCell_expandable')!);
             expect(onToggle).toHaveBeenCalledTimes(1);
         });
     });
