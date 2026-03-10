@@ -39,6 +39,15 @@ $cell-height: 48px;
         }
     }
 
+    // Firefox-only layout fix to prevent native scrollbar from overlapping text.
+    @supports (scrollbar-width: thin) and (not selector(::-webkit-scrollbar)) {
+        // Space reserved for the native Firefox scrollbar
+        $firefox-scrollbar-space: calc(var(--spacing-small) + var(--spacing-pico));
+
+        margin-bottom: calc(-1 * #{$firefox-scrollbar-space});
+        padding-bottom: $firefox-scrollbar-space;
+    }
+
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -57,21 +66,4 @@ $cell-height: 48px;
 :is(.moonstone-cellText, .moonstone-tableCellContent):is(:hover, :focus) {
     text-overflow: clip;
     overflow-x: auto;
-}
-
-// Only enable scroll-on-hover when content actually overflows
-.moonstone-cellText--overflowing {
-    // Firefox-only: reserve space for scrollbar to prevent layout shift
-    @supports (scrollbar-color: auto) and (not selector(::-webkit-scrollbar)) {
-        scrollbar-gutter: stable;
-
-        &:hover {
-            padding-bottom: calc(var(--spacing-small) + var(--spacing-pico)); // Firefox needs more space
-        }
-    }
-
-    &:hover {
-        text-overflow: clip;
-        overflow-x: auto;
-    }
 }
