@@ -10,17 +10,6 @@ $cell-height: 48px;
     overflow: hidden;
 }
 
-// Structured cell wrapper (expandable rows with chevron)
-.moonstone-tableCellExpandable {
-    flex: 1;
-    min-width: 0; // Allow shrinking below content width
-}
-
-.moonstone-tableCellExpandable__chevron {
-    flex-shrink: 0;
-    margin-right: var(--spacing-nano);
-}
-
 .moonstone-cellText,
 .moonstone-tableCellContent {
     // WebKit-specific scrollbar customization (Chrome, Safari, Edge)

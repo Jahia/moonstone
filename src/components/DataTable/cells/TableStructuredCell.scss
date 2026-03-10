@@ -4,6 +4,12 @@ $tree-offset: -20px; // chevron size (16px) + gap (4px)
     transform: translateX($tree-offset);
 }
 
+.moonstone-tableStructuredCell_chevron {
+    flex-shrink: 0;
+
+    margin-right: var(--spacing-nano);
+}
+
 .moonstone-tableStructuredCell_toggle {
     display: inline-flex;
     padding: 0;

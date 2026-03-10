@@ -58,11 +58,11 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                             onClick={handleToggleExpand}
                         >
                             {isExpanded ?
-                                <ChevronDown className="moonstone-tableCellExpandable__chevron"/> :
-                                <ChevronRight className="moonstone-tableCellExpandable__chevron"/>}
+                                <ChevronDown className="moonstone-tableStructuredCell_chevron"/> :
+                                <ChevronRight className="moonstone-tableStructuredCell_chevron"/>}
                         </button>
                     )}
-                    <span className="moonstone-tableCellExpandable flexRow_nowrap alignCenter">
+                    <span className="flexFluid flexRow_nowrap alignCenter">
                         <span className="moonstone-tableCellContent">
                             {children}
                         </span>
