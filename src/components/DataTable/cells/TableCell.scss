@@ -1,6 +1,7 @@
 @use '../../../utils/index.scss';
 
 $cell-height: 48px;
+$cell-scrollbar: calc(var(--spacing-nano) + var(--spacing-pico));
 
 .moonstone-tableCell {
     gap: var(--spacing-nano);
@@ -12,10 +13,12 @@ $cell-height: 48px;
 
 .moonstone-cellText,
 .moonstone-tableCellContent {
+    @include index.truncate;
+
     // WebKit-specific scrollbar customization (Chrome, Safari, Edge)
     @supports selector(::-webkit-scrollbar) {
         &::-webkit-scrollbar {
-            height: calc(var(--spacing-nano) + var(--spacing-pico));
+            height: $cell-scrollbar;
         }
 
         &::-webkit-scrollbar-thumb {
@@ -37,10 +40,6 @@ $cell-height: 48px;
         padding-bottom: $firefox-scrollbar-space;
     }
 
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-
     // Base scrollbar styling (applies to all browsers that support it)
     scrollbar-width: thin;
     scrollbar-color: var(--color-gray_light) transparent;
@@ -52,7 +51,7 @@ $cell-height: 48px;
     vertical-align: middle;
 }
 
-:is(.moonstone-cellText, .moonstone-tableCellContent):is(:hover, :focus) {
+.moonstone-tableCellContent_overflowing {
     text-overflow: clip;
     overflow-x: auto;
 }
