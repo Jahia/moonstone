@@ -5,6 +5,8 @@ import {capitalize} from '~/utils/helpers';
 import './TableCell.scss';
 import type {TableCellProps} from './TableCell.types';
 
+const scrollableContentSelector = '.moonstone-tableCellContent, .moonstone-cellText';
+
 const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellProps> = (
     {
         className,
