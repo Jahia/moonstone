@@ -75,6 +75,9 @@ describe('TableCell', () => {
         const span = td.querySelector('.moonstone-tableCellContent') as HTMLElement;
         expect(span).toBeInTheDocument();
 
+        // Check correct role assignment from useAccessibleClick
+        expect(span).toHaveAttribute('role', 'region');
+
         // Mock truncation
         Object.defineProperty(span, 'scrollWidth', {configurable: true, value: 200});
         Object.defineProperty(span, 'clientWidth', {configurable: true, value: 100});

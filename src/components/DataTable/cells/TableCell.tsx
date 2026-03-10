@@ -2,6 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import {Typography} from '~/components';
 import {capitalize, isTruncated} from '~/utils/helpers';
+import {onAccessibleClick} from '~/hooks/useAccessibleClick';
 import './TableCell.scss';
 import type {TableCellProps} from './TableCell.types';
 
@@ -57,6 +58,12 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
         onBlur?.(event);
     };
 
+    const accessibleProps = isScrollable ? onAccessibleClick({
+        onClick: () => console.log('Cell clicked'),
+        tabIndex: 0,
+        role: 'region'
+    }) : {};
+
     return (
         <Typography
             ref={ref}
@@ -83,7 +90,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
             {...props}
         >
             {isScrollable ? (
-                <span className="moonstone-tableCellContent flexFluid" tabIndex={0}>
+                <span className="moonstone-tableCellContent flexFluid" aria-label="Scrollable cell content" {...accessibleProps}>
                     {children ?? '-'}
                 </span>
             ) : (
