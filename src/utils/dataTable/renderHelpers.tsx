@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, {useCallback, useRef} from 'react';
 
 type LocaleProp = string | string[];
 
@@ -19,7 +19,7 @@ const OVERFLOWING_CLASS = 'moonstone-cellText--overflowing';
  * On hover: checks if content is truncated, enables scrolling only when needed.
  * On leave: resets scroll position so the beginning of the text is always visible.
  */
-export const CellText = ({ children }: { readonly children: React.ReactNode }) => {
+export const CellText = ({children}: { readonly children: React.ReactNode }) => {
     const ref = useRef<HTMLSpanElement>(null);
 
     const handleMouseEnter = useCallback(() => {
@@ -58,13 +58,13 @@ export const renderString = (value: string): React.ReactNode => (
 );
 
 export const renderNumber = (
-    { value, locale, localeOptions }: Extract<LocaleOptions, { value: number | null | undefined }>
+    {value, locale, localeOptions}: Extract<LocaleOptions, { value: number | null | undefined }>
 ): React.ReactNode => (value === null || value === undefined) ? null : (
     <CellText>{value.toLocaleString(locale, localeOptions)}</CellText>
 );
 
 export const renderDate = (
-    { value, locale, localeOptions }: Extract<LocaleOptions, { value: Date | null | undefined }>
+    {value, locale, localeOptions}: Extract<LocaleOptions, { value: Date | null | undefined }>
 ): React.ReactNode => (value === null || value === undefined) ? null : (
     <CellText>{value.toLocaleDateString(locale, localeOptions)}</CellText>
 );

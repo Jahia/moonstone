@@ -18,21 +18,16 @@ $cell-height: 48px;
 
 .moonstone-tableCellExpandable__chevron {
     flex-shrink: 0;
+    margin-right: var(--spacing-nano);
 }
 
-// Structured cell wrapper (non-expandable rows with indentation only)
-.moonstone-tableCellIndent {
-    flex: 1;
-    min-width: 0;
-}
-
-.moonstone-cellText {
+.moonstone-cellText,
+.moonstone-tableCellContent {
     // WebKit-specific scrollbar customization (Chrome, Safari, Edge)
     @supports selector(::-webkit-scrollbar) {
         &::-webkit-scrollbar {
             height: calc(var(--spacing-nano) + var(--spacing-pico));
         }
-    overflow-y: auto;
 
         &::-webkit-scrollbar-thumb {
             border-radius: var(--radius_small);
@@ -44,9 +39,6 @@ $cell-height: 48px;
         }
     }
 
-    // Base layout and truncation behavior
-    display: block;
-
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -54,6 +46,17 @@ $cell-height: 48px;
     // Base scrollbar styling (applies to all browsers that support it)
     scrollbar-width: thin;
     scrollbar-color: var(--color-gray_light) transparent;
+}
+
+.moonstone-tableCellContent > .moonstone-icon {
+    margin-right: var(--spacing-nano);
+
+    vertical-align: middle;
+}
+
+:is(.moonstone-cellText, .moonstone-tableCellContent):is(:hover, :focus) {
+    text-overflow: clip;
+    overflow-x: auto;
 }
 
 // Only enable scroll-on-hover when content actually overflows

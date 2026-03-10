@@ -27,43 +27,17 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
             return null;
         }
 
-        const leftMarginIndentDepth = depth * indentSpace;
-
-        const renderContent = () => {
-            if (isExpandable) {
-                return (
-                    <span
-                        className="moonstone-tableCellExpandable flexRow_nowrap alignCenter"
-                        style={{marginLeft: `${leftMarginIndentDepth}px`}}
-                        onClick={onToggleExpand}
-                    >
-                        {isExpanded ? (
-                            <ChevronDown className="moonstone-marginRightNano moonstone-tableCellExpandable__chevron"/>
-                        ) : (
-                            <ChevronRight className="moonstone-marginRightNano moonstone-tableCellExpandable__chevron"/>
-                        )}
-                        {children}
-                    </span>
-                );
-            }
-
-            return (
-                <span
-                    className="moonstone-tableCellIndent"
-                    style={{marginLeft: `${leftMarginIndentDepth + chevronSpace}px`}}
-                >
-                    {children}
-                </span>
-            );
-        };
         const indent = depth * indentSpace;
+        const handleToggleExpand: React.MouseEventHandler<HTMLButtonElement> = event => {
+            event.stopPropagation();
+            onToggleExpand?.();
+        };
 
         return (
             <TableCell
                 ref={ref}
                 className={className}
                 aria-expanded={isExpanded}
-                onClick={onToggleExpand}
                 {...props}
             >
                 <div
@@ -76,13 +50,23 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                     style={{marginLeft: indent}}
                 >
                     {isExpandable && (
-                        <>
+                        <button
+                            type="button"
+                            className="moonstone-tableStructuredCell_toggle"
+                            aria-expanded={isExpanded}
+                            aria-label={isExpanded ? 'Collapse row' : 'Expand row'}
+                            onClick={handleToggleExpand}
+                        >
                             {isExpanded ?
-                                <ChevronDown/> :
-                                <ChevronRight/>}
-                        </>
+                                <ChevronDown className="moonstone-tableCellExpandable__chevron"/> :
+                                <ChevronRight className="moonstone-tableCellExpandable__chevron"/>}
+                        </button>
                     )}
-                    {children}
+                    <span className="moonstone-tableCellExpandable flexRow_nowrap alignCenter">
+                        <span className="moonstone-tableCellContent">
+                            {children}
+                        </span>
+                    </span>
                 </div>
             </TableCell>
         );

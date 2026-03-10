@@ -15,11 +15,38 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
         isScrollable,
         style,
         component = 'td',
+        onMouseLeave,
+        onBlur,
         ...props
     },
     ref
 ) => {
     const scrollableClass = isScrollable ? 'moonstone-tableCellContent' : '';
+
+    const resetHorizontalScroll = (cell: HTMLTableCellElement): void => {
+        const scrollableElements = cell.querySelectorAll<HTMLElement>(scrollableContentSelector);
+
+        scrollableElements.forEach(element => {
+            element.scrollLeft = 0;
+        });
+    };
+
+    const resetScrollAndForwardEvent = <T extends React.SyntheticEvent<HTMLTableCellElement>>(
+        event: T,
+        callback?: (event: T) => void
+    ): void => {
+        resetHorizontalScroll(event.currentTarget);
+        callback?.(event);
+    };
+
+    const handleMouseLeave: React.MouseEventHandler<HTMLTableCellElement> = event => {
+        resetScrollAndForwardEvent(event, onMouseLeave);
+    };
+
+    const handleBlur: React.FocusEventHandler<HTMLTableCellElement> = event => {
+        // Reset on focus loss as well (keyboard navigation / pointer leave edge cases)
+        resetScrollAndForwardEvent(event, onBlur);
+    };
 
     return (
         <Typography
@@ -41,6 +68,8 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
                 width,
                 ...style
             }}
+            onMouseLeave={handleMouseLeave}
+            onBlur={handleBlur}
             {...props}
         >
             {children ?? '-'}

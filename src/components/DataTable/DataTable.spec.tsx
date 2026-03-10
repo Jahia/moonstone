@@ -210,10 +210,10 @@ describe('DataTable', () => {
             />
         );
 
-        await user.click(document.querySelector('[aria-expanded="true"]'));
+        await user.click(screen.getByRole('button', {name: 'Collapse row'}));
         expect(screen.queryByText('Child')).not.toBeInTheDocument();
 
-        await user.click(document.querySelector('[aria-expanded="true"]'));
+        await user.click(screen.getByRole('button', {name: 'Expand row'}));
         expect(screen.queryByText('Child')).toBeInTheDocument();
     });
 

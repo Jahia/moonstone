@@ -15,8 +15,6 @@ export const dataTable: DataUser[] = [
                 lastName: 'Pinkman-Rodriguez-Hernandez',
                 age: 27,
                 status: 'Busy',
-                progress: 7500000,
-                date: new Date('2024-06-10')
                 progress: 75,
                 date: new Date('2024-06-10'),
                 subRows: [
@@ -54,8 +52,6 @@ export const dataTable: DataUser[] = [
         age: 24,
         status: 'Active',
         chips: ['Commander'],
-        progress: 85000000,
-        date: new Date('2024-03-15')
         progress: 85,
         date: new Date('2024-03-15'),
         subRows: [

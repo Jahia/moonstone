@@ -22,10 +22,12 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
         label: 'User',
         ...stringColumn<DataUser>(row => row.firstName),
         render: (value, row) => (
-            <>
+            <span className="moonstone-tableCellContent flexRow_nowrap alignCenter">
                 <Person/>
-                {row.firstName} {row.lastName}
-            </>
+                <span className="moonstone-cellText">
+                    {row.firstName} {row.lastName}
+                </span>
+            </span>
         ),
         align: 'left'
     },
