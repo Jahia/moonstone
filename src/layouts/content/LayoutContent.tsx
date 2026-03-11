@@ -12,6 +12,7 @@ export const LayoutContent = React.forwardRef(({
     isLoading = false,
     isCentered = false,
     className,
+    children,
     ...props
 }: LayoutContentProps, ref: ForwardedRef<HTMLDivElement>) => {
     const classNameProps = clsx(
@@ -32,10 +33,10 @@ export const LayoutContent = React.forwardRef(({
                         isCentered ?
                         (
                             <div className="flexCol_nowrap flexFluid moonstone-layoutContent_centered">
-                                {content}
+                                {children ?? content}
                             </div>
                         ) :
-                        content
+                        children ?? content
                       )
                 }
             </div>

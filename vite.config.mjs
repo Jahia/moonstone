@@ -1,4 +1,5 @@
-// @ts-check
+/// @ts-check
+/// <reference types="vitest/config" />
 import {defineConfig} from 'vite';
 import path from 'node:path';
 import {libInjectCss} from 'vite-plugin-lib-inject-css';
