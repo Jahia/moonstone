@@ -17,9 +17,6 @@ export default {
     argTypes: {
         header: {
             control: false
-        },
-        content: {
-            control: false
         }
     }
 } as Meta<typeof LayoutContent>;
@@ -27,11 +24,9 @@ export default {
 type Story = StoryObj<typeof LayoutContent>;
 
 const Template = (args: LayoutContentProps) => (
-    <LayoutContent
-    header={<Header title="Header"/>}
-    content={<FakeContent/>}
-    {...args}
-  />
+    <LayoutContent header={<Header title="Header"/>} {...args}>
+        <FakeContent/>
+    </LayoutContent>
 );
 
 export const Default: Story = {

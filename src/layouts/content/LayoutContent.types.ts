@@ -8,8 +8,10 @@ export type LayoutContentProps = Omit<React.ComponentPropsWithRef<'div'>, 'class
 
     /**
      * Content of the page
+     *
+     * @deprecated Use `children`
      */
-    content: React.ReactNode,
+    content?: React.ReactNode,
 
     /**
      * Define if the content is centered
