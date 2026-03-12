@@ -76,7 +76,7 @@ describe('TableStructuredCell', () => {
                 </TableWrapper>
             );
 
-            await user.click(document.querySelector('.moonstone-tableStructuredCell_expandable')!);
+            await user.click(screen.getByRole('button', {name: 'Expand row'}));
             expect(onToggle).toHaveBeenCalledTimes(1);
         });
     });

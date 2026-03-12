@@ -28,13 +28,16 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
         }
 
         const indent = depth * indentSpace;
+        const handleToggleExpand: React.MouseEventHandler<HTMLButtonElement> = event => {
+            event.stopPropagation();
+            onToggleExpand?.();
+        };
 
         return (
             <TableCell
                 ref={ref}
                 className={className}
                 aria-expanded={isExpanded}
-                onClick={onToggleExpand}
                 {...props}
             >
                 <div
@@ -47,13 +50,23 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                     style={{marginLeft: indent}}
                 >
                     {isExpandable && (
-                        <>
+                        <button
+                            type="button"
+                            className="moonstone-tableStructuredCell_toggle"
+                            aria-expanded={isExpanded}
+                            aria-label={isExpanded ? 'Collapse row' : 'Expand row'}
+                            onClick={handleToggleExpand}
+                        >
                             {isExpanded ?
-                                <ChevronDown/> :
-                                <ChevronRight/>}
-                        </>
+                                <ChevronDown className="moonstone-tableStructuredCell_chevron"/> :
+                                <ChevronRight className="moonstone-tableStructuredCell_chevron"/>}
+                        </button>
                     )}
-                    {children}
+                    <span className="flexFluid flexRow_nowrap alignCenter">
+                        <span className="moonstone-tableCellContent">
+                            {children}
+                        </span>
+                    </span>
                 </div>
             </TableCell>
         );

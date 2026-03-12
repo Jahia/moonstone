@@ -1,22 +1,57 @@
 @use '../../../utils/index.scss';
 
 $cell-height: 48px;
+$cell-scrollbar: calc(var(--spacing-nano) + var(--spacing-pico));
 
 .moonstone-tableCell {
     gap: var(--spacing-nano);
     height: $cell-height;
     padding-right: var(--spacing-medium);
     padding-left: var(--spacing-medium);
-    overflow-y: auto;
+    overflow: hidden;
+}
 
-    //noinspection CssUnknownProperty
+.moonstone-cellText,
+.moonstone-tableCellContent {
+    @include index.truncate;
+
+    // WebKit-specific scrollbar customization (Chrome, Safari, Edge)
+    @supports selector(::-webkit-scrollbar) {
+        &::-webkit-scrollbar {
+            height: $cell-scrollbar;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: var(--radius_small);
+            background-color: var(--color-gray_light);
+        }
+
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+    }
+
+    // Firefox-only layout fix to prevent native scrollbar from overlapping text.
+    @supports (scrollbar-width: thin) and (not selector(::-webkit-scrollbar)) {
+        // Space reserved for the native Firefox scrollbar
+        $firefox-scrollbar-space: calc(var(--spacing-small) + var(--spacing-pico));
+
+        margin-bottom: calc(-1 * #{$firefox-scrollbar-space});
+        padding-bottom: $firefox-scrollbar-space;
+    }
+
+    // Base scrollbar styling (applies to all browsers that support it)
     scrollbar-width: thin;
+    scrollbar-color: var(--color-gray_light) transparent;
+}
 
-    &::-webkit-scrollbar {
-        height: var(--spacing-nano);
-    }
+.moonstone-tableCellContent > .moonstone-icon {
+    margin-right: var(--spacing-nano);
 
-    &::-webkit-scrollbar-thumb {
-        background-color: var(--color-gray_light);
-    }
+    vertical-align: middle;
+}
+
+.moonstone-tableCellContent_overflowing {
+    text-overflow: clip;
+    overflow-x: auto;
 }

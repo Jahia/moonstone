@@ -1,5 +1,6 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import {describe, it, expect} from 'vitest';
 import {TableCell} from './TableCell';
 
@@ -62,13 +63,33 @@ describe('TableCell', () => {
         expect(screen.getByTestId('cell')).toHaveClass('verticalAlignTop');
     });
 
-    it('should apply scrollable class', () => {
+    it('should apply scrollable class and handle truncation on hover', async () => {
+        const user = userEvent.setup();
         render(
             <TableWrapper>
-                <TableCell isScrollable data-testid="cell">S</TableCell>
+                <TableCell isScrollable data-testid="cell">Long Content That Might Scroll</TableCell>
             </TableWrapper>
         );
-        expect(screen.getByTestId('cell')).toHaveClass('moonstone-tableCellContent');
+
+        const td = screen.getByTestId('cell');
+        const span = td.querySelector('.moonstone-tableCellContent') as HTMLElement;
+        expect(span).toBeInTheDocument();
+
+        // Check correct role assignment from useAccessibleClick
+        expect(span).toHaveAttribute('role', 'region');
+
+        // Mock truncation
+        Object.defineProperty(span, 'scrollWidth', {configurable: true, value: 200});
+        Object.defineProperty(span, 'clientWidth', {configurable: true, value: 100});
+
+        // Hover table cell
+        await user.hover(td);
+
+        expect(span).toHaveClass('moonstone-tableCellContent_overflowing');
+
+        // Unhover
+        await user.unhover(td);
+        expect(span).not.toHaveClass('moonstone-tableCellContent_overflowing');
+        expect(span.scrollLeft).toBe(0);
     });
 });
-
