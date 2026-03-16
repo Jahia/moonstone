@@ -47,7 +47,8 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
     {
         key: 'progress',
         label: 'Progress',
-        ...numberColumn<DataUser>(row => row.progress)
+        ...numberColumn<DataUser>(row => row.progress),
+        isScrollable: true
         // Align comes from numberColumn helper
     },
     {

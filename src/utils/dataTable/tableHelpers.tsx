@@ -19,7 +19,8 @@ export const createTableColumns = <T extends Record<string, unknown>>(
         meta: {
             isSortable: col.isSortable ?? false,
             align: col.align ?? 'left',
-            width: col.width
+            width: col.width,
+            isScrollable: col.isScrollable ?? false
         },
         enableSorting: col.isSortable ?? false,
 
