@@ -63,7 +63,7 @@ describe('TableCell', () => {
         expect(screen.getByTestId('cell')).toHaveClass('verticalAlignTop');
     });
 
-    it('should apply scrollable class and handle truncation on hover', async () => {
+    it('should reset scroll position on unhover', async () => {
         const user = userEvent.setup();
         render(
             <TableWrapper>
@@ -78,18 +78,9 @@ describe('TableCell', () => {
         // Check correct role assignment from useAccessibleClick
         expect(span).toHaveAttribute('role', 'region');
 
-        // Mock truncation
-        Object.defineProperty(span, 'scrollWidth', {configurable: true, value: 200});
-        Object.defineProperty(span, 'clientWidth', {configurable: true, value: 100});
-
-        // Hover table cell
+        // Unhover resets scroll position
         await user.hover(td);
-
-        expect(span).toHaveClass('moonstone-tableCellContent_overflowing');
-
-        // Unhover
         await user.unhover(td);
-        expect(span).not.toHaveClass('moonstone-tableCellContent_overflowing');
         expect(span.scrollLeft).toBe(0);
     });
 });

@@ -1,12 +1,13 @@
 import React from 'react';
 import clsx from 'clsx';
 import {Typography} from '~/components';
-import {capitalize, isTruncated} from '~/utils/helpers';
+import {capitalize} from '~/utils/helpers';
 import {onAccessibleClick} from '~/hooks/useAccessibleClick';
 import './TableCell.scss';
 import type {TableCellProps} from './TableCell.types';
 
-const OVERFLOWING_CLASS = 'moonstone-tableCellContent_overflowing';
+// Two targets: plain text cells scroll via moonstone-tableCellContent,
+// icon+text cells (e.g. dataColumnsUser.tsx) scroll via moonstone-cellText only to avoid scrolling the icon.
 const scrollableContentSelector = '.moonstone-tableCellContent, .moonstone-cellText';
 
 const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellProps> = (
@@ -19,46 +20,25 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
         isScrollable,
         style,
         component = 'td',
-        onMouseEnter,
-        onFocus,
         onMouseLeave,
         onBlur,
         ...props
     },
     ref
 ) => {
-    const handleScrollableInteraction = (cell: HTMLTableCellElement, isEntering: boolean): void => {
-        const scrollableElements = cell.querySelectorAll<HTMLElement>(scrollableContentSelector);
-
-        scrollableElements.forEach(element => {
-            if (isEntering) {
-                if (isTruncated(element)) {
-                    element.classList.add(OVERFLOWING_CLASS);
-                }
-            } else {
-                element.classList.remove(OVERFLOWING_CLASS);
-                element.scrollLeft = 0;
-            }
+    const resetScroll = (cell: HTMLTableCellElement): void => {
+        cell.querySelectorAll<HTMLElement>(scrollableContentSelector).forEach(el => {
+            el.scrollLeft = 0;
         });
     };
 
-    const handleMouseEnter: React.MouseEventHandler<HTMLTableCellElement> = event => {
-        handleScrollableInteraction(event.currentTarget, true);
-        onMouseEnter?.(event);
-    };
-
     const handleMouseLeave: React.MouseEventHandler<HTMLTableCellElement> = event => {
-        handleScrollableInteraction(event.currentTarget, false);
+        resetScroll(event.currentTarget);
         onMouseLeave?.(event);
     };
 
-    const handleFocus: React.FocusEventHandler<HTMLTableCellElement> = event => {
-        handleScrollableInteraction(event.currentTarget, true);
-        onFocus?.(event);
-    };
-
     const handleBlur: React.FocusEventHandler<HTMLTableCellElement> = event => {
-        handleScrollableInteraction(event.currentTarget, false);
+        resetScroll(event.currentTarget);
         onBlur?.(event);
     };
 
@@ -87,9 +67,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
                 width,
                 ...style
             }}
-            onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            onFocus={handleFocus}
             onBlur={handleBlur}
             {...props}
         >

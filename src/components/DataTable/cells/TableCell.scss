@@ -20,7 +20,6 @@ $cell-scrollbar: calc(var(--spacing-nano) + var(--spacing-pico));
         &::-webkit-scrollbar {
             height: $cell-scrollbar;
         }
-
     }
 
     // Firefox-only layout fix to prevent native scrollbar from overlapping text.
@@ -43,7 +42,11 @@ $cell-scrollbar: calc(var(--spacing-nano) + var(--spacing-pico));
     vertical-align: middle;
 }
 
-.moonstone-tableCellContent_overflowing {
-    text-overflow: clip;
-    overflow-x: auto;
+.moonstone-tableCell:hover,
+.moonstone-tableCell:focus-within {
+    .moonstone-tableCellContent,
+    .moonstone-cellText {
+        text-overflow: clip;
+        overflow-x: auto;
+    }
 }
