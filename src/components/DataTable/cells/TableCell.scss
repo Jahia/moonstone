@@ -21,14 +21,6 @@ $cell-scrollbar: calc(var(--spacing-nano) + var(--spacing-pico));
             height: $cell-scrollbar;
         }
 
-        &::-webkit-scrollbar-thumb {
-            border-radius: var(--radius_small);
-            background-color: var(--color-gray_light);
-        }
-
-        &::-webkit-scrollbar-track {
-            background: transparent;
-        }
     }
 
     // Firefox-only layout fix to prevent native scrollbar from overlapping text.

@@ -19,6 +19,8 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
         isScrollable,
         style,
         component = 'td',
+        onMouseEnter,
+        onFocus,
         onMouseLeave,
         onBlur,
         ...props
@@ -42,6 +44,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
 
     const handleMouseEnter: React.MouseEventHandler<HTMLTableCellElement> = event => {
         handleScrollableInteraction(event.currentTarget, true);
+        onMouseEnter?.(event);
     };
 
     const handleMouseLeave: React.MouseEventHandler<HTMLTableCellElement> = event => {
@@ -51,6 +54,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
 
     const handleFocus: React.FocusEventHandler<HTMLTableCellElement> = event => {
         handleScrollableInteraction(event.currentTarget, true);
+        onFocus?.(event);
     };
 
     const handleBlur: React.FocusEventHandler<HTMLTableCellElement> = event => {
@@ -59,7 +63,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
     };
 
     const accessibleProps = isScrollable ? onAccessibleClick({
-        onClick: () => console.log('Cell clicked'),
+        onClick: () => {},
         tabIndex: 0,
         role: 'region'
     }) : {};
@@ -90,7 +94,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
             {...props}
         >
             {isScrollable ? (
-                <span className="moonstone-tableCellContent flexFluid" aria-label="Scrollable cell content" {...accessibleProps}>
+                <span className="moonstone-tableCellContent flexFluid" {...accessibleProps}>
                     {children ?? '-'}
                 </span>
             ) : (
