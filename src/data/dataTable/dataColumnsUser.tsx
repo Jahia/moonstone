@@ -20,14 +20,13 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
     {
         key: 'firstName',
         label: 'User',
+        isScrollable: true,
         ...stringColumn<DataUser>(row => row.firstName),
         render: (value, row) => (
-            <span className="moonstone-tableCellContent flexRow_nowrap alignCenter">
+            <>
                 <Person/>
-                <span className="moonstone-cellText">
-                    {row.firstName} {row.lastName}
-                </span>
-            </span>
+                <span>{row.firstName} {row.lastName}</span>
+            </>
         ),
         align: 'left'
     },
@@ -47,8 +46,8 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
     {
         key: 'progress',
         label: 'Progress',
-        ...numberColumn<DataUser>(row => row.progress),
-        isScrollable: true
+        isScrollable: true,
+        ...numberColumn<DataUser>(row => row.progress)
         // Align comes from numberColumn helper
     },
     {

@@ -34,7 +34,7 @@ export const TableHeadCell = ({
             aria-sort={ariaSort}
             onClick={onClick}
         >
-            <span className="flexRow_nowrap alignCenter">
+            <span className="flexRow_nowrap alignCenter flexFluid">
                 {children}
                 {SortIcon && (
                     <SortIcon

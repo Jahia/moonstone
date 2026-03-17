@@ -72,7 +72,8 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
     width?: string;
 
     /**
-     * Whether the cell content should be wrapped in a scrollable container.
+     * Whether the cell content is scrollable on hover
+     * @default false
      */
     isScrollable?: boolean;
 };

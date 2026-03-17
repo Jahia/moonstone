@@ -11,7 +11,6 @@ $cell-scrollbar: calc(var(--spacing-nano) + var(--spacing-pico));
     overflow: hidden;
 }
 
-.moonstone-cellText,
 .moonstone-tableCellContent {
     @include index.truncate;
 
@@ -43,9 +42,8 @@ $cell-scrollbar: calc(var(--spacing-nano) + var(--spacing-pico));
 }
 
 .moonstone-tableCell:hover,
-.moonstone-tableCell:focus-within {
-    .moonstone-tableCellContent,
-    .moonstone-cellText {
+.moonstone-tableCell:has(:focus-visible) {
+    .moonstone-tableCellContent {
         text-overflow: clip;
         overflow-x: auto;
     }

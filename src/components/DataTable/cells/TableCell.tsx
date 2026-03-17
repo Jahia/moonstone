@@ -6,9 +6,7 @@ import {onAccessibleClick} from '~/hooks/useAccessibleClick';
 import './TableCell.scss';
 import type {TableCellProps} from './TableCell.types';
 
-// Two targets: plain text cells scroll via moonstone-tableCellContent,
-// icon+text cells (e.g. dataColumnsUser.tsx) scroll via moonstone-cellText only to avoid scrolling the icon.
-const scrollableContentSelector = '.moonstone-tableCellContent, .moonstone-cellText';
+const scrollableContentSelector = '.moonstone-tableCellContent';
 
 const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellProps> = (
     {
@@ -17,7 +15,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
         align = 'left',
         verticalAlign = 'middle',
         width,
-        isScrollable,
+        isScrollable = false,
         style,
         component = 'td',
         onMouseLeave,
@@ -72,7 +70,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
             {...props}
         >
             {isScrollable ? (
-                <span className="moonstone-tableCellContent flexFluid" {...accessibleProps}>
+                <span className={clsx('moonstone-tableCellContent', 'flexFluid')} {...accessibleProps}>
                     {children ?? '-'}
                 </span>
             ) : (
@@ -85,4 +83,3 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
 export const TableCell = React.forwardRef(TableCellForwardRef);
 
 TableCell.displayName = 'TableCell';
-
