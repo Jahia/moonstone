@@ -3,7 +3,7 @@
 
 $accordionHeader_height: 48px;
 
-.moonstone-accordionItem {
+.accordionItem {
     min-height: $accordionHeader_height;
 
     border-top: 1px solid var(--color-gray_light);
@@ -15,11 +15,11 @@ $accordionHeader_height: 48px;
         border-bottom: none;
     }
 
-    & + .moonstone-accordionItem {
+    & + :global(.moonstone-accordionItem) {
         border-top: 0;
     }
 
-    &.moonstone-reversed {
+    &:global(.moonstone-reversed) {
         border-color: var(--color-gray);
     }
 }
@@ -27,7 +27,7 @@ $accordionHeader_height: 48px;
 // ---
 // Header
 // ---
-.moonstone-accordionItem_header {
+.accordionItem_header {
     width: 100%;
     height: $accordionHeader_height;
     padding: 0 var(--spacing-medium);
@@ -36,7 +36,7 @@ $accordionHeader_height: 48px;
 
     cursor: pointer;
 
-    &.moonstone-selected {
+    &:global(.moonstone-selected) {
         border-bottom: 1px solid var(--color-gray_light);
 
         cursor: default;
@@ -52,18 +52,18 @@ $accordionHeader_height: 48px;
         background-color: var(--color-gray40);
     }
 
-    &:not(.moonstone-selected):not(:active):hover {
+    &:not(:global(.moonstone-selected)):not(:active):hover {
         color: var(--color-dark);
 
         background-color: var(--color-gray_light);
     }
 
-    &.moonstone-reversed {
+    &:global(.moonstone-reversed) {
         color: var(--color-light);
 
         background-color: var(--color-dark60);
 
-        &.moonstone-selected {
+        &:global(.moonstone-selected) {
             color: var(--color-light);
 
             border-color: var(--color-gray);
@@ -74,7 +74,7 @@ $accordionHeader_height: 48px;
             background-color: var(--color-black);
         }
 
-        &:not(.moonstone-selected):not(:active):hover {
+        &:not(:global(.moonstone-selected)):not(:active):hover {
             color: var(--color-light);
 
             background-color: var(--color-gray40);
@@ -82,14 +82,14 @@ $accordionHeader_height: 48px;
     }
 }
 
-.moonstone-accordionItem_iconContainer {
+.accordionItem_iconContainer {
     margin-right: $spacing-icon_big;
 }
 
 // ---
 // Content
 // ---
-.moonstone-accordionItem_content {
+.accordionItem_content {
     max-width: 100%;
 
     overflow-x: hidden;

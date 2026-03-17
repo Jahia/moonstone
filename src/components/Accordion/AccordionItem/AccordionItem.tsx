@@ -1,16 +1,27 @@
 import React from 'react';
 import clsx from 'clsx';
-import './AccordionItem.scss';
+import styles from './AccordionItem.module.scss';
 import {Typography} from '~/components/Typography';
 import {AccordionContext} from '~/components/Accordion/Accordion.context';
 import type {AccordionItemProps} from './AccordionItem.types';
 import {onAccessibleClick} from '~/hooks';
 
-export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = null, onClick = () => undefined, className, children, ...props}) => {
+export const AccordionItem: React.FC<AccordionItemProps> = ({
+    id,
+    label,
+    icon = null,
+    onClick = () => undefined,
+    className,
+    children,
+    ...props
+}) => {
     const context = React.useContext(AccordionContext);
     const open = context.currentItem === id;
 
-    const handleClick = (e: React.MouseEvent | React.KeyboardEvent, isOpen: boolean) => {
+    const handleClick = (
+        e: React.MouseEvent | React.KeyboardEvent,
+        isOpen: boolean
+    ) => {
         onClick(e, !isOpen);
         context.onSetOpenedItem(id);
     };
@@ -20,6 +31,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
             {...props}
             className={clsx(
                 'moonstone-accordionItem',
+                styles.accordionItem,
                 {'moonstone-reversed': context.isReversed},
                 'flexCol',
                 open ? 'flexFluid' : null,
@@ -29,6 +41,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
             <header
                 className={clsx(
                     'moonstone-accordionItem_header',
+                    styles.accordionItem_header,
                     {
                         'moonstone-selected': open,
                         'moonstone-reversed': context.isReversed
@@ -41,17 +54,27 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
                 {...onAccessibleClick({onClick: e => handleClick(e, open)})}
                 role="accordion-item"
             >
-                {icon &&
-                    (
-                        <div className={clsx(
+                {icon && (
+                    <div
+                        className={clsx(
                             'moonstone-accordionItem_iconContainer',
+                            styles.accordionItem_iconContainer,
                             'flexRow_center',
                             'alignCenter'
                         )}
-                        >
-                            {icon && <icon.type {...icon.props} size="big" className={clsx('moonstone-icon_big', icon.props.className)}/>}
-                        </div>
-                    )}
+                    >
+                        {icon && (
+                            <icon.type
+                                {...icon.props}
+                                size="big"
+                                className={clsx(
+                                    'moonstone-icon_big',
+                                    icon.props.className
+                                )}
+                            />
+                        )}
+                    </div>
+                )}
                 <Typography
                     isNowrap
                     variant="subheading"
@@ -63,18 +86,19 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
             </header>
 
             {/* Accordion content */}
-            {open &&
-                (
-                    <div className={clsx(
+            {open && (
+                <div
+                    className={clsx(
                         'moonstone-accordionItem_content',
+                        styles.accordionItem_content,
                         'flexFluid',
                         'flexCol_nowrap'
                     )}
-                         role="region"
-                    >
-                        {children}
-                    </div>
-                )}
+                    role="region"
+                >
+                    {children}
+                </div>
+            )}
         </section>
     );
 };
