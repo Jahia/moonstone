@@ -146,6 +146,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                 key={cell.id}
                                 align={meta?.align ?? 'left'}
                                 width={meta?.width}
+                                isScrollable={meta?.isScrollable}
                                 depth={row.depth}
                                 isExpandable={row.getCanExpand()}
                                 isExpanded={row.getIsExpanded()}

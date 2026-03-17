@@ -17,6 +17,7 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
             depth,
             isExpandable,
             isExpanded,
+            isScrollable = false,
             onToggleExpand,
             ...props
         },
@@ -63,7 +64,7 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                         </button>
                     )}
                     <span className="flexFluid flexRow_nowrap alignCenter">
-                        <span className="moonstone-tableCellContent">
+                        <span className={isScrollable ? 'moonstone-tableCellContent' : undefined}>
                             {children}
                         </span>
                     </span>
