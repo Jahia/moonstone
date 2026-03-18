@@ -15,7 +15,8 @@ export const TableCellStatus: React.FC<TableCellStatusProps> = ({
         className={clsx('moonstone-tableCellStatus', `moonstone-tableCellStatus_${color}`, className)}
         {...props}
     >
-        <span className="moonstone-tableCellStatus_strip" aria-hidden="true"/>
+        <span className="moonstone-tableCellStatus_trigger"/>
+        <span className="moonstone-tableCellStatus_strip"/>
         <div className="moonstone-tableCellStatus_overlay">
             {iconStart && <span className="moonstone-tableCellStatus_icon">{iconStart}</span>}
             <Typography

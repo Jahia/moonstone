@@ -1,26 +1,24 @@
-import React from 'react';
 import clsx from 'clsx';
 import './TableCellStart.scss';
 import type {TableCellStartProps} from './TableCellStart.types';
 
-export const TableCellStart = React.forwardRef<HTMLTableCellElement, TableCellStartProps>(
-    (
-        {
-            className,
-            component = 'td',
-            children,
-            ...props
-        },
-        ref
-    ) => React.createElement(
-        component,
-        {
-            className: clsx('moonstone-tableCellStart', className),
-            ref,
-            ...props
-        },
-        children
-    )
-);
+export const TableCellStart = ({
+    className,
+    component = 'td',
+    children,
+    ...props
+}: TableCellStartProps) => {
+    const classNameProps = clsx('moonstone-tableCellStart', className);
+    const Component = component;
+
+    return (
+        <Component
+            className={classNameProps}
+            {...props}
+        >
+            {children}
+        </Component>
+    );
+};
 
 TableCellStart.displayName = 'TableCellStart';

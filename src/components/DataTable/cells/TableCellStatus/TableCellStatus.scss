@@ -1,22 +1,31 @@
 .moonstone-tableCellStatus {
     position: absolute;
     top: 0;
+    bottom: 0;
     left: calc(var(--spacing-medium) * -1);
+    z-index: 1;
+
+    width: calc(var(--spacing-medium) + var(--spacing-small));
+}
+
+.moonstone-tableCellStatus_trigger {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
 
     width: 100%;
-    /* stylelint-disable-next-line declaration-property-unit-disallowed-list */
-    height: 100%;
 }
 
 .moonstone-tableCellStatus_strip {
     position: absolute;
     top: 0;
+    bottom: 0;
     left: 0;
-    z-index: 2;
+    z-index: 4;
 
     width: var(--spacing-nano);
-    /* stylelint-disable-next-line declaration-property-unit-disallowed-list */
-    height: 100%;
 
     background-color: var(--tableCellStatus-accent);
 }
@@ -24,8 +33,9 @@
 .moonstone-tableCellStatus_overlay {
     position: absolute;
     top: 0;
+    bottom: 0;
     left: 0;
-    z-index: 1;
+    z-index: 3;
 
     display: flex;
     gap: var(--spacing-nano);
@@ -33,8 +43,6 @@
 
     width: max-content;
     max-width: calc(100vw);
-    /* stylelint-disable-next-line declaration-property-unit-disallowed-list */
-    height: 100%;
     padding-right: var(--spacing-small);
     padding-left: calc(var(--spacing-small) + var(--spacing-nano));
 
@@ -50,9 +58,9 @@
     opacity: 0;
 
     transition:
-        opacity 120ms ease,
-        transform 120ms ease,
-        visibility 120ms ease;
+        opacity 200ms ease,
+        transform 200ms ease,
+        visibility 200ms ease;
 
     pointer-events: none;
 }
@@ -66,17 +74,13 @@
     align-items: center;
 }
 
-.moonstone-tableRow:hover .moonstone-tableCellStatus_overlay,
-.moonstone-tableRow:focus-within .moonstone-tableCellStatus_overlay,
-.moonstone-tableRow:hover .moonstone-tableCellStatus_overlay::after,
-.moonstone-tableRow:focus-within .moonstone-tableCellStatus_overlay::after {
-    opacity: 1;
-}
-
-.moonstone-tableRow:hover .moonstone-tableCellStatus_overlay,
-.moonstone-tableRow:focus-within .moonstone-tableCellStatus_overlay {
+.moonstone-tableCellStatus:hover .moonstone-tableCellStatus_overlay,
+.moonstone-tableCellStatus:focus-within .moonstone-tableCellStatus_overlay {
     transform: translateX(0);
     visibility: visible;
+    opacity: 1;
+
+    pointer-events: auto;
 }
 
 .moonstone-tableCellStatus_success {

@@ -1,4 +1,3 @@
-import React from 'react';
 import {Publish, WorkInProgress, Lock} from '~/icons';
 import type {DataUser} from './dataColumnsUser';
 import type {TableCellStatusProps} from '~/components/DataTable';
