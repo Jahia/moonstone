@@ -31,10 +31,10 @@ jobs:
     steps:
       - name: Checkout selected branch
         uses: actions/checkout@v6
-        # with:
-        #   ref: ${{ github.ref_name }}
-        #   # use PAT if triggering other workflows
-        #   # token: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          # use PAT if triggering other workflows
+          # token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Configure Git
         run: |
@@ -82,7 +82,7 @@ jobs:
 
       - name: Push changes
         if: steps.check_changes.outputs.changes == 'true'
-        run: git push origin ${{ github.ref_name }}
+        run: git push origin ${{ github.head_ref || github.ref_name }}
 
       # pretty summary for humans
       - name: Summary
@@ -90,7 +90,7 @@ jobs:
           if [[ "${{ steps.check_changes.outputs.changes }}" == "true" ]]; then
             echo "### 📸 Visual Regression Screenshots Updated" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
-            echo "Successfully updated **${{ steps.check_changes.outputs.changed_count }}** screenshot(s) on \`${{ github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
+            echo "Successfully updated **${{ steps.check_changes.outputs.changed_count }}** screenshot(s) on \`${{ github.head_ref || github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "#### Changed Files:" >> $GITHUB_STEP_SUMMARY
             echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
