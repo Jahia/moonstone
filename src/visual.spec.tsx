@@ -15,9 +15,12 @@ const ignore = new Set([
 describe.for(Object.entries(stories).slice(0, 1))('%s', ([file, imports]) => {
     test.for(Object.entries<() => JSX.Element>(composeStories(imports)).slice(0, 1))('%s', async ([name, Story], {skip}) => {
         skip(ignore.has(`${file}-${name}`));
+        console.log("Before rendering", {file, name});
         const {container} = await render(<Story/>, {});
+        console.log("After rendering", {file, name});
         await expect
             .element(container)
             .toMatchScreenshot(`${file}-${name}`);
+        console.log("After screenshot", {file, name});
     });
 });

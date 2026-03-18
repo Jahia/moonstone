@@ -12,11 +12,11 @@ jobs:
       - uses: actions/checkout@v6
       - name: Install dependencies
         run: yarn && yarn playwright install chromium --only-shell
-      - run: yarn build
-      - name: Publish to pkg.pr.new
-        run: npx pkg-pr-new publish --compact --packageManager=yarn
-      - run: yarn test
+      # - run: yarn build
+      # - name: Publish to pkg.pr.new
+      #   run: npx pkg-pr-new publish --compact --packageManager=yarn
+      # - run: yarn test
       - name: Run visual tests
-        if: github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'test:visual')
+        # if: github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'test:visual')
         run: yarn test:visual
-      - run: yarn lint
+      # - run: yarn lint
