@@ -279,3 +279,5 @@ yalc.lock
 *.iml
 /.settings/
 /.project
+
+.vitest*

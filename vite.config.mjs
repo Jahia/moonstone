@@ -5,6 +5,7 @@ import path from 'node:path';
 import {libInjectCss} from 'vite-plugin-lib-inject-css';
 import react from '@vitejs/plugin-react';
 import sbom from 'rollup-plugin-sbom';
+import {playwright} from '@vitest/browser-playwright';
 
 export default defineConfig({
     plugins: [react(), libInjectCss(), sbom({specVersion: '1.4'})],
@@ -30,16 +31,38 @@ export default defineConfig({
         },
         assetsInlineLimit: 0
     },
-    assetsInclude: ['**/*.md'],
     test: {
-        globals: true,
-        environment: 'jsdom',
-        setupFiles: ['./vitest.setup.js'],
-        css: true,
         coverage: {
             provider: 'v8',
             include: ['src/**/*.tsx'],
             exclude: ['src/__mocks__', 'src/__storybook__', 'src/data', '**/*.stories.*']
-        }
+        },
+        projects: [
+            {
+                extends: true,
+                test: {
+                    name: 'unit',
+                    setupFiles: ['./vitest.setup.js'],
+                    globals: true,
+                    environment: 'jsdom',
+                    include: ['src/**/*.spec.tsx'],
+                    exclude: ['src/visual.spec.tsx'],
+                    css: true
+                }
+            },
+            {
+                extends: true,
+                assetsInclude: ['**/*.md'],
+                test: {
+                    name: 'visual',
+                    include: ['src/visual.spec.tsx'],
+                    browser: {
+                        enabled: true,
+                        provider: playwright(),
+                        instances: [{browser: 'chromium'}]
+                    }
+                }
+            }
+        ]
     }
 });

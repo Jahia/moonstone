@@ -88,13 +88,16 @@
     "@typescript-eslint/eslint-plugin": "^8.51.0",
     "@typescript-eslint/parser": "^8.51.0",
     "@vitejs/plugin-react": "^5.1.2",
-    "@vitest/coverage-v8": "4.0.16",
+    "@vitest/browser": "^4.1.0",
+    "@vitest/browser-playwright": "^4.1.0",
+    "@vitest/coverage-v8": "^4.1.0",
     "eslint": "^8.57.1",
     "eslint-plugin-jest": "^28.14.0",
     "eslint-plugin-json": "^4.0.1",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "jsdom": "^27.4.0",
+    "playwright": "^1.58.2",
     "publint": "^0.3.16",
     "react": "18.3.1",
     "react-dom": "^18.3.1",
@@ -109,7 +112,8 @@
     "typescript": "^5.9.3",
     "vite": "^7.3.0",
     "vite-plugin-lib-inject-css": "^2.2.2",
-    "vitest": "^4.0.16"
+    "vitest": "^4.1.0",
+    "vitest-browser-react": "^2.1.0"
   },
   "peerDependencies": {
     "react": "^18.3.1",
