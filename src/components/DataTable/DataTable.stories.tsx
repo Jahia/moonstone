@@ -1,8 +1,9 @@
-import {dataTable, dataColumnsUser} from '~/data/dataTable';
+import {dataTable, dataColumnsUser, getStatusMessage} from '~/data/dataTable';
 import type {DataUser, DataUserKeys} from '~/data/dataTable';
 import {DataTable} from './DataTable';
 import type {Meta, StoryObj} from '@storybook/react';
 import {TableRow} from './TableRow';
+import {TableCellStatus} from './cells';
 import {useState} from 'react';
 import {Button} from '~/components';
 import {Visibility, Edit, Delete, MoreVert} from '~/icons';
@@ -102,6 +103,35 @@ export const StructuredViewDataTable: Story = {
         isStructured: true
     },
     name: 'Structured View'
+};
+
+export const StatusBarDataTable: Story = {
+    render: args => {
+        return (
+            <DataTable<DataUser>
+                {...args}
+                enableSelection
+                isStructured
+                renderRowStart={row => {
+                    const status = getStatusMessage(row.original.status);
+
+                    return (
+                        <TableCellStatus
+                            color={status.color}
+                            iconStart={status.iconStart}
+                            text={status.text}
+                        />
+                    );
+                }}
+            />
+        );
+    },
+    args: {
+        data: dataTable,
+        columns: dataColumnsUser,
+        primaryKey: 'firstName'
+    },
+    name: 'With Status Bar'
 };
 
 export const PaginationDataTable: Story = {
