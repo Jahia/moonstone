@@ -30,7 +30,7 @@
     background-color: var(--tableCellStatus-accent);
 }
 
-.moonstone-tableCellStatus_overlay {
+.moonstone-tableCellStatus_panel {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -74,8 +74,8 @@
     align-items: center;
 }
 
-.moonstone-tableCellStatus:hover .moonstone-tableCellStatus_overlay,
-.moonstone-tableCellStatus:focus-within .moonstone-tableCellStatus_overlay {
+.moonstone-tableCellStatus:hover .moonstone-tableCellStatus_panel,
+.moonstone-tableCellStatus:focus-within .moonstone-tableCellStatus_panel {
     transform: translateX(0);
     visibility: visible;
     opacity: 1;

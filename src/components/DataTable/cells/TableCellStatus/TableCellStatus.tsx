@@ -17,7 +17,7 @@ export const TableCellStatus: React.FC<TableCellStatusProps> = ({
     >
         <span className="moonstone-tableCellStatus_trigger"/>
         <span className="moonstone-tableCellStatus_strip"/>
-        <div className="moonstone-tableCellStatus_overlay">
+        <div className="moonstone-tableCellStatus_panel">
             {iconStart && <span className="moonstone-tableCellStatus_icon">{iconStart}</span>}
             <Typography
                 isNowrap

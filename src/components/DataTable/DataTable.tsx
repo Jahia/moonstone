@@ -219,7 +219,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 <TableHead>
                     {table.getHeaderGroups().map(headerGroup => (
                         <TableRow key={headerGroup.id}>
-                            {hasRowStart && <TableCellStart component="th" aria-hidden="true"/>}
+                            {hasRowStart && <TableCellStart component="th"/>}
 
                             {/* Selection header */}
                             {enableSelection && (
