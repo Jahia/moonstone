@@ -1,4 +1,5 @@
 import {composeStories} from '@storybook/react';
+import type {JSX} from 'react';
 import {describe, expect, test} from 'vitest';
 import {render} from 'vitest-browser-react';
 
@@ -12,7 +13,7 @@ const ignore = new Set([
 ]);
 
 describe.for(Object.entries(stories))('%s', ([file, imports]) => {
-    test.for(Object.entries(composeStories(imports)))('%s', async ([name, Story], {skip}) => {
+    test.for(Object.entries(composeStories(imports)))('%s', async ([name, Story]: [string, () => JSX.Element], {skip}) => {
         skip(ignore.has(`${file}-${name}`));
         const {container} = await render(<Story/>, {});
         await expect
