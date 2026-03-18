@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Install dependencies
-        run: yarn
+        run: yarn && yarn playwright install chromium --only-shell
       - run: yarn build
       - name: Publish to pkg.pr.new
         run: npx pkg-pr-new publish --compact --packageManager=yarn

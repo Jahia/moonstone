@@ -13,7 +13,7 @@ const ignore = new Set([
 ]);
 
 describe.for(Object.entries(stories))('%s', ([file, imports]) => {
-    test.for(Object.entries(composeStories(imports)))('%s', async ([name, Story]: [string, () => JSX.Element], {skip}) => {
+    test.for(Object.entries<() => JSX.Element>(composeStories(imports)))('%s', async ([name, Story], {skip}) => {
         skip(ignore.has(`${file}-${name}`));
         const {container} = await render(<Story/>, {});
         await expect
