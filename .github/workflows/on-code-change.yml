@@ -3,7 +3,7 @@ name: On Code Change
 on:
   push:
   pull_request:
-    types: [opened, synchronize, reopened, labeled, unlabeled]
+    types: [opened, synchronize, reopened, labeled]
 
 jobs:
   build-and-test:
@@ -12,11 +12,11 @@ jobs:
       - uses: actions/checkout@v6
       - name: Install dependencies
         run: yarn
-      # - run: yarn build
-      # - name: Publish to pkg.pr.new
-      #   run: npx pkg-pr-new publish --compact --packageManager=yarn
-      # - run: yarn test
+      - run: yarn build
+      - name: Publish to pkg.pr.new
+        run: npx pkg-pr-new publish --compact --packageManager=yarn
+      - run: yarn test
       - name: Run visual tests
         # if: github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'test:visual')
         run: yarn playwright install chromium --only-shell && yarn test:visual
-      # - run: yarn lint
+      - run: yarn lint
