@@ -62,7 +62,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     ...props
 }: DataTableProps<T>) => {
     const [expanded, setExpanded] = useState<ExpandedState>({});
-    const hasRowStart = Boolean(renderRowStart);
+    const hasRowStart = renderRowStart != null;
 
     const {sorting, handleSortingChange} = useTableSorting({
         sortBy,
