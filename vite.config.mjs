@@ -31,6 +31,7 @@ export default defineConfig({
         },
         assetsInlineLimit: 0
     },
+    assetsInclude: ['**/*.md'],
     test: {
         coverage: {
             provider: 'v8',
@@ -52,7 +53,6 @@ export default defineConfig({
             },
             {
                 extends: true,
-                assetsInclude: ['**/*.md'],
                 test: {
                     name: 'visual',
                     include: ['src/visual.spec.tsx'],
