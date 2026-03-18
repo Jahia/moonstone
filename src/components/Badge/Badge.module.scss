@@ -1,0 +1,29 @@
+.badge {
+    color: var(--color-light);
+
+    pointer-events: none;
+
+    &.badge_round {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 20px;
+        max-width: max-content;
+        height: 20px;
+        padding: var(--spacing-nano);
+
+        border-radius: var(--radius_rounded);
+    }
+
+    &.badge_accent {
+        background-color: var(--color-accent);
+    }
+
+    &.badge_danger {
+        background-color: var(--color-danger);
+    }
+
+    &.badge_success {
+        background-color: var(--color-success);
+    }
+}

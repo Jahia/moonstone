@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import type {CustomDropdownProps} from './CustomDropdown.types';
 import {Menu, Button} from '~/components';
 import {ChevronDown} from '~/icons';
-import './CustomDropdown.scss';
+import styles from './CustomDropdown.module.scss';
 
 export const CustomDropdown: React.FC<CustomDropdownProps> = ({
     label,
@@ -80,7 +80,7 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
                 aria-label={label}
                 aria-disabled={isDisabled || isEmpty}
                 aria-busy={isLoading ? true : undefined}
-                className={clsx('moonstone-custom-dropdown-button', {'moonstone-opened': isOpened}, className)}
+                className={clsx('moonstone-custom-dropdown-button', styles.custom_dropdown_button, {'moonstone-opened': isOpened, [styles.opened]: isOpened}, className)}
                 tabIndex={0}
                 onClick={(!isDisabled && !isLoading) ? handleOpenMenu : undefined}
                 onKeyUp={e => {
@@ -100,7 +100,7 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
             {isOpened && (
                 <Menu
                     isDisplayed
-                    className={clsx('moonstone-custom-dropdown-menu')}
+                    className={clsx('moonstone-custom-dropdown-menu', styles.custom_dropdown_menu)}
                     anchorPosition={anchorPosition}
                     minWidth={minWidth}
                     maxWidth={menuMaxWidth}

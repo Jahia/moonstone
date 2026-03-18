@@ -1,0 +1,15 @@
+.custom_dropdown_button {
+    &.opened {
+        border: var(--border-selector_active);
+    }
+}
+
+.custom_dropdown_menu {
+    padding: var(--spacing-small);
+
+    > :global(.moonstone-menuItem) {
+        padding-top: 0;
+        padding-right: 0;
+        padding-left: 0;
+    }
+}

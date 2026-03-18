@@ -1,0 +1,14 @@
+$tree-offset: -20px; // chevron size (16px) + gap (4px)
+
+.tableStructuredCell_expandable {
+    transform: translateX($tree-offset);
+
+    cursor: pointer;
+}
+
+.tableStructuredCell_content {
+    gap: var(--spacing-nano);
+
+    /* stylelint-disable-next-line declaration-property-unit-disallowed-list */
+    height: 100%;
+}

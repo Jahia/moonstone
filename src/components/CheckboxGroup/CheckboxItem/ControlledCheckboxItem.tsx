@@ -1,7 +1,7 @@
 import React, {useRef} from 'react';
 import clsx from 'clsx';
 
-import './CheckboxItem.scss';
+import styles from './CheckboxItem.module.scss';
 import {Checkbox, Typography} from '~/components';
 import {CheckboxGroupContext} from '../CheckboxGroup.context';
 import type {ControlledCheckboxItemProps} from './CheckboxItem.types';
@@ -17,7 +17,7 @@ export const ControlledCheckboxItem: React.FC<ControlledCheckboxItemProps> = ({c
     return (
         <Typography
             ref={containerRef}
-            className={clsx('moonstone-checkboxItem flexCol', className)}
+            className={clsx('moonstone-checkboxItem', styles.checkboxItem, 'flexCol', className)}
             aria-readonly={isReadOnlyItem}
             aria-disabled={isDisabledItem}
             variant="body"
@@ -47,7 +47,7 @@ export const ControlledCheckboxItem: React.FC<ControlledCheckboxItemProps> = ({c
                     id={`${id}-label`}
                     variant="body"
                     component="span"
-                    className={clsx('moonstone-checkboxItem_label')}
+                    className={clsx('moonstone-checkboxItem_label', styles.checkboxItem_label)}
                 >
                     {label}
                 </Typography>
@@ -58,7 +58,7 @@ export const ControlledCheckboxItem: React.FC<ControlledCheckboxItemProps> = ({c
                     variant="caption"
                     weight="default"
                     component="span"
-                    className={clsx('moonstone-checkboxItem_description flexRow')}
+                     className={clsx('moonstone-checkboxItem_description', styles.checkboxItem_description, 'flexRow')}
                 >
                     {description}
                 </Typography>

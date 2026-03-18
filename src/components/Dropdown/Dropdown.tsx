@@ -1,7 +1,7 @@
 /* eslint-disable complexity */
 import React, {MutableRefObject, useEffect, useMemo, useRef, useState} from 'react';
 import clsx from 'clsx';
-import './Dropdown.scss';
+import styles from './Dropdown.module.scss';
 
 import type {
     DropdownData,
@@ -190,13 +190,19 @@ export const Dropdown: React.FC<DropdownProps> = ({
         !label && !icon ? 'flexRow_reverse' : 'flexRow_between',
         'alignCenter',
         'moonstone-dropdown',
+        styles.dropdown,
         `moonstone-${size}`,
+        size === 'medium' && styles.medium,
         `moonstone-dropdown_${variant}`,
+        variant === 'outlined' && styles.dropdown_outlined,
         {
             'moonstone-disabled': (typeof isDisabled === 'undefined' && isEmpty) ? true : isDisabled,
             'moonstone-dropdown_loading': isLoading,
+            [styles.dropdown_loading]: isLoading,
             'moonstone-filled': isFilled,
-            'moonstone-opened': isOpened
+            [styles.filled]: isFilled,
+            'moonstone-opened': isOpened,
+            [styles.opened]: isOpened
         }
     );
 
@@ -204,7 +210,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
     return (
         <div
-            className={clsx('moonstone-dropdown_container', className)}
+            className={clsx('moonstone-dropdown_container', styles.dropdown_container, className)}
             {...props}
         >
             <div
@@ -228,10 +234,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     setFocusData(p => ({...p, focused: true, event}));
                 }}
             >
-                {icon && !isLoading && <icon.type {...icon.props} size="default" className={clsx('moonstone-dropdown_icon')} role="presentation"/>}
+                {icon && !isLoading && <icon.type {...icon.props} size="default" className={clsx('moonstone-dropdown_icon', styles.dropdown_icon)} role="presentation"/>}
                 {isLoading && <Loader size="small" className={clsx({'moonstone-dropdown_loaderOverlay': !icon})}/>}
                 {!label && values && values.length > 0 ? (
-                    <div className="moonstone-dropdown_tags flexFluid flexRow">
+                    <div className={clsx('moonstone-dropdown_tags', styles.dropdown_tags, 'flexFluid', 'flexRow')}>
                         {values.map(v => {
                             const item = getDataItem(flatData, v);
                             return item && (
@@ -257,7 +263,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                         isNowrap
                         variant={size === 'small' ? 'caption' : 'body'}
                         component="span"
-                        className={clsx('flexFluid', 'moonstone-dropdown_label')}
+                        className={clsx('flexFluid', 'moonstone-dropdown_label', styles.dropdown_label)}
                         title={label}
                         role="option"
                     >
@@ -278,7 +284,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                         }}
                     />
                 )}
-                <ChevronDown className="moonstone-dropdown_chevronDown" role="presentation"/>
+                <ChevronDown className={clsx('moonstone-dropdown_chevronDown', styles.dropdown_chevronDown)} role="presentation"/>
             </div>
 
             {isOpened && (

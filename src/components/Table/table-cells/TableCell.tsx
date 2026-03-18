@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 
 import type {TableCellProps} from './TableCell.types';
-import './TableCell.scss';
+import styles from './TableCell.module.scss';
 
 const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, TableCellProps> = (
     {
@@ -16,6 +16,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, TableC
         <div ref={ref}
              className={clsx(
                  'moonstone-TableCell',
+                 styles.TableCell,
                  'flexRow_nowrap',
                  'alignCenter',
                  className

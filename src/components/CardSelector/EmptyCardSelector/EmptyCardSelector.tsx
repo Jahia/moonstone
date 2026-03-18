@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import './EmptyCardSelector.scss';
+import styles from './EmptyCardSelector.module.scss';
 import type {EmptyCardSelectorProps} from './EmptyCardSelector.types';
 import {Typography} from '~/components';
 
@@ -29,7 +29,9 @@ export const EmptyCardSelector = React.forwardRef<HTMLButtonElement, EmptyCardSe
             id={id}
             type="button"
             className={clsx('moonstone-emptyCardSelector',
+                styles.emptyCardSelector,
                 (isDisabled || isReadOnly) && 'moonstone-emptyCardSelector_disabled',
+                (isDisabled || isReadOnly) && styles.emptyCardSelector_disabled,
                 'flexRow_center',
                 'flexFluid',
                 'alignCenter',

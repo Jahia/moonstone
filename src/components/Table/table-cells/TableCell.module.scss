@@ -1,0 +1,44 @@
+@use '../../../utils/index.scss';
+
+.tableBodyCell {
+    overflow-y: auto;
+
+    //noinspection CssUnknownProperty
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+        height: var(--spacing-nano);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--color-gray_light);
+    }
+
+    &:hover {
+        :global(.moonstone-tableCellContent) {
+            overflow: unset;
+        }
+    }
+}
+
+.TableCell {
+    padding-right: var(--spacing-medium);
+    padding-left: var(--spacing-medium);
+
+    // Manage the chevron spacing for the structured table
+    .marginRightNano {
+        margin-right: var(--spacing-nano);
+    }
+}
+
+.verticalAlignTop {
+    vertical-align: top;
+}
+
+.verticalAlignCenter {
+    vertical-align: middle;
+}
+
+.verticalAlignBottom {
+    vertical-align: bottom;
+}

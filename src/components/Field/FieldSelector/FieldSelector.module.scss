@@ -1,0 +1,27 @@
+.fieldSelector {
+    position: relative;
+
+    gap: var(--spacing-nano);
+
+    width: 100%;
+
+    :global(.moonstone-cardSelector_dragIcon) {
+        position: absolute;
+        left: calc(var(--spacing-medium) / -1);
+    }
+
+    :global(.moonstone-dropdown_container) {
+        width: 100%;
+    }
+}
+
+/* Note: typo "moonstome" preserved from original to maintain CSS class name */
+.fieldSelector_errorMessage {
+    color: var(--color-warning);
+}
+
+.fieldSelector_buttons {
+    gap: var(--spacing-nano);
+    width: fit-content;
+    min-width: var(--spacing-large);
+}

@@ -1,7 +1,7 @@
 import React, {useRef} from 'react';
 import {ListItem} from '~/components/ListItem';
 import clsx from 'clsx';
-import './MenuItem.scss';
+import styles from './MenuItem.module.scss';
 
 import type {MenuItemProps} from './MenuItem.types';
 import {onArrowNavigation} from '~/hooks';
@@ -31,14 +31,18 @@ export const MenuItem: React.FC<MenuItemProps> = ({
         aria-disabled={isDisabled}
         className={clsx(
             'moonstone-menuItem',
+            styles.menuItem,
             {
                 'moonstone-hover': isHover,
                 'moonstone-selected': isSelected,
                 'moonstone-disabled': isDisabled,
                 'moonstone-highlighted': isHighlighted && !isSelected,
-                'moonstone-title': variant === 'title'
+                'moonstone-title': variant === 'title',
+                [styles['menuItem-title']]: variant === 'title',
+                [styles['menuItem-highlighted']]: isHighlighted && !isSelected
             },
             image && 'moonstone-menuItem-image',
+            image && styles['menuItem-image'],
             className
         )}
         image={image}

@@ -1,0 +1,55 @@
+@use '../../utils/index';
+
+.typography {
+    &.variant_title {
+        @extend %variant-title;
+    }
+
+    &.variant_heading {
+        @extend %variant-heading;
+    }
+
+    &.variant_subheading {
+        @extend %variant-subheading;
+    }
+
+    &.variant_body {
+        @extend %variant-body;
+    }
+
+    &.variant_caption {
+        @extend %variant-caption;
+    }
+
+    &.variant_button {
+        @extend %variant-button;
+    }
+
+    &.weight_bold {
+        @extend %weight-bold;
+    }
+
+    &.weight_semiBold {
+        @extend %weight-semiBold;
+    }
+
+    &.weight_light {
+        @extend %weight-light;
+    }
+
+    &.nowrap {
+        @extend %nowrap;
+    }
+
+    &.italic {
+        @extend %italic;
+    }
+
+    &.lineThrough {
+        @extend %lineThrough;
+    }
+
+    &.upperCase {
+        @extend %upperCase;
+    }
+}

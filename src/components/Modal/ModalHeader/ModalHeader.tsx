@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import type {ModalHeaderProps} from './ModalHeader.types';
-import './ModalHeader.scss';
+import styles from './ModalHeader.module.scss';
 import {Typography} from '~/components';
 
 const ModalHeaderForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalHeaderProps> = ({
@@ -14,7 +14,7 @@ const ModalHeaderForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, Moda
         title &&
         <header
             ref={ref}
-            className={clsx('moonstone-modalHeader', 'flexCol_nowrap', className)}
+            className={clsx('moonstone-modalHeader', styles.modalHeader, 'flexCol_nowrap', className)}
             {...props}
         >
             <Typography variant="heading" weight="bold" component="h4">

@@ -1,0 +1,57 @@
+@use '../../utils/index' as *;
+
+.menuItem {
+    padding: var(--spacing-nano) var(--spacing-medium);
+
+    cursor: pointer;
+
+    &:focus-visible {
+        outline: none;
+        box-shadow: inset 0 0 0 2px var(--color-accent);
+    }
+
+    &:hover:not(:global(.moonstone-disabled), :global(.moonstone-selected)),
+    &:global(.moonstone-hover):not(:global(.moonstone-disabled), :global(.moonstone-selected)) {
+        color: var(--color-accent_dark);
+
+        background-color: var(--color-gray_light_plain20);
+    }
+
+    &:active:not(:global(.moonstone-disabled), :global(.moonstone-selected)) {
+        color: var(--color-accent_dark);
+
+        background-color: var(--color-gray_light_plain60);
+        box-shadow: none;
+    }
+
+    &.menuItem-title {
+        font-weight: 700;
+
+        cursor: default;
+
+        pointer-events: none;
+    }
+
+    &:global(.moonstone-selected) {
+        color: var(--color-light);
+
+        background-color: var(--color-accent);
+        cursor: default;
+    }
+
+    &.menuItem-highlighted {
+        color: var(--color-light);
+
+        background-color: var(--color-gray60);
+    }
+
+    &:global(.moonstone-disabled) {
+        cursor: not-allowed;
+        opacity: 0.4;
+    }
+
+    &.menuItem-image {
+        padding-top: var(--spacing-small);
+        padding-bottom: var(--spacing-small);
+    }
+}

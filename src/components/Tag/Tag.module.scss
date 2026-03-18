@@ -1,0 +1,54 @@
+@use '../../utils' as *;
+
+.tag {
+    display: inline-flex;
+    gap: var(--spacing-nano);
+    align-items: center;
+    width: fit-content;
+    max-width: 100px;
+    padding: 4px 8px;
+
+    color: var(--color-light);
+
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius);
+    background-color: var(--color-accent);
+    cursor: pointer;
+
+    &.small {
+        padding: 0 8px;
+    }
+
+    &:not([disabled]):hover {
+        border-color: var(--color-accent_dark);
+        background-color: var(--color-accent_dark);
+    }
+
+    &:not([disabled]):focus-visible {
+        @extend %is-focused;
+    }
+
+    &:not([disabled]):active {
+        color: var(--color-white);
+
+        border-color: var(--color-accent_dark_contrast);
+        background-color: var(--color-accent_dark_contrast);
+    }
+
+    &[disabled] {
+        @extend %selector_disabled;
+
+        color: var(--color-gray_dark);
+
+        border-color: transparent;
+        background-color: var(--color-gray20);
+        cursor: not-allowed;
+        opacity: 0.8;
+    }
+}
+
+.tag_icon {
+    flex-shrink: 0;
+
+    opacity: 0.6;
+}

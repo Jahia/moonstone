@@ -5,11 +5,11 @@ import type {TablePaginationProps} from './TablePagination.types';
 import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
 import {Button, Dropdown, Typography} from '~/components';
 import {ChevronFirstPage, ChevronLastPage, ChevronLeft, ChevronRight} from '~/icons';
-import './TablePagination.scss';
+import styles from './TablePagination.module.scss';
 
-const cssClass = 'moonstone-tablePagination';
-const cssClass32 = 'moonstone-marginRight32';
-const cssClass16 = 'moonstone-marginRight16';
+const cssClass = clsx('moonstone-tablePagination', styles.tablePagination);
+const cssClass32 = clsx('moonstone-marginRight32', styles.marginRight32);
+const cssClass16 = clsx('moonstone-marginRight16', styles.marginRight16);
 
 export const TablePagination: React.FC<TablePaginationProps> = ({
     className,

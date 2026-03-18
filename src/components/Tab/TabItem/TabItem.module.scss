@@ -1,0 +1,76 @@
+@use "../../../globals/variants";
+@use "../../../tokens/spacings/spacings" as *;
+@use "../../../utils/mixins" as *;
+
+$big-tab-height: 32px;
+$selected-line-spacing: 6px;
+$selected-line-spacing-big: 20px;
+
+.tabItem {
+    @extend %variant_ghost;
+
+    width: fit-content;
+    margin: 0 var(--spacing-nano) calc(#{$selected-line-spacing} - 1px);
+    padding: var(--spacing-nano) var(--spacing-small);
+
+    color: var(--color-gray);
+
+    border-radius: var(--radius);
+    outline: none;
+    cursor: pointer;
+
+    &:focus-visible {
+        @extend %is-focused;
+    }
+
+    &:global(.moonstone-disabled) {
+        cursor: not-allowed;
+        opacity: 0.4;
+    }
+}
+
+.tabItem_icon {
+    margin-right: $spacing-icon;
+}
+
+.tabItem_big {
+    height: $big-tab-height;
+
+    .tabItem_icon {
+        margin-right: $spacing-icon_big;
+    }
+
+    &.tabItem_selected::after {
+        bottom: calc(-1 * #{$selected-line-spacing-big});
+    }
+}
+
+.tabItem_noLabel {
+    padding: var(--spacing-small);
+
+    &.tabItem_default {
+        padding: $spacing-icon;
+    }
+}
+
+.tabItem_selected {
+    position: relative;
+
+    color: var(--color-accent);
+
+    border-color: transparent;
+    cursor: default;
+
+    pointer-events: none;
+
+    &::after {
+        position: absolute;
+        bottom: calc(-1 * #{$selected-line-spacing});
+
+        width: 100%;
+        height: 2px;
+
+        background-color: var(--color-accent);
+        content: "";
+    }
+}

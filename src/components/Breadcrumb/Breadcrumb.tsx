@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import clsx from 'clsx';
-import './Breadcrumb.scss';
+import styles from './Breadcrumb.module.scss';
 import {BreadcrumbProps} from './Breadcrumb.types';
 import {ChevronRight} from '~/icons';
 
@@ -12,7 +12,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({children, className, ...p
     }
 
     return (
-        <nav className={clsx('moonstone-breadcrumb', className)} aria-label="breadcrumb" {...props}>
+        <nav className={clsx('moonstone-breadcrumb', styles.breadcrumb, className)} aria-label="breadcrumb" {...props}>
             <ol className={clsx('flexRow_nowrap', 'alignCenter')}>
                 {allItems.map((item: React.ReactElement, index) => (
                             index < allItems.length - 1 ? (
@@ -23,7 +23,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({children, className, ...p
                                     <li
                                     className={
                                         clsx(
-                                            'moonstone-breadcrumb_separator',
+                                            'moonstone-breadcrumb_separator', styles.breadcrumb_separator,
                                             'flexRow_center',
                                             'alignCenter'
                                         )

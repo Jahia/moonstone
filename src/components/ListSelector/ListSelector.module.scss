@@ -1,0 +1,34 @@
+$footerHeight: 24px;
+$gap: 8px;
+
+.listSelector {
+    :global(.moonstone-draggedOver) {
+        outline: solid 2px var(--color-accent);
+    }
+}
+
+.listSelector_buttons {
+    gap: 16px;
+    width: var(--spacing-big);
+    margin-bottom: $footerHeight + $gap;
+    padding: var(--spacing-small);
+}
+
+.listSelector_title {
+    height: 24px;
+}
+
+.listSelector_left,
+.listSelector_right {
+    gap: $gap;
+}
+
+.listSelector_left {
+    margin-bottom: $footerHeight + $gap;
+}
+
+.listSelector_footer {
+    height: $footerHeight;
+
+    color: var(--color-gray60);
+}

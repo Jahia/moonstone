@@ -1,0 +1,22 @@
+@use '../../../utils/index.scss';
+
+$cell-height: 48px;
+
+.tableCell {
+    gap: var(--spacing-nano);
+    height: $cell-height;
+    padding-right: var(--spacing-medium);
+    padding-left: var(--spacing-medium);
+    overflow-y: auto;
+
+    //noinspection CssUnknownProperty
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+        height: var(--spacing-nano);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--color-gray_light);
+    }
+}

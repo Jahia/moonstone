@@ -1,0 +1,62 @@
+$header-minHeight: 64px;
+$header-toolbar-minheight: 35px;
+
+.header {
+    width: 100%;
+    min-height: $header-minHeight;
+    padding: var(--spacing-medium) var(--spacing-large) 0 var(--spacing-large);
+
+    background-color: var(--background-selector);
+    box-shadow: 0 1px 8px var(--color-gray60);
+}
+
+// Set the same spacing between each elements (buttons, chips, ...)
+.header_actions {
+    > * + * {
+        margin-left: var(--spacing-small);
+    }
+}
+
+//---
+// Main
+//---
+.header_main {
+    margin-bottom: var(--spacing-nano);
+}
+
+.header_back {
+    margin-right: var(--spacing-small);
+}
+
+.header_title {
+    margin-right: var(--spacing-big);
+
+    color: var(--color-gray_dark);
+}
+
+.header_search {
+    margin-right: var(--spacing-large);
+}
+
+//---
+// Information Section
+//---
+.header_information {
+    padding: var(--spacing-medium) 0;
+}
+
+.header_informationLeft,
+.header_informationRight {
+    overflow: hidden;
+}
+
+.header_informationLeft {
+    margin-right: var(--spacing-big);
+}
+
+//---
+// Toolbar Section
+//---
+.header_toolbar {
+    height: $header-toolbar-minheight;
+}

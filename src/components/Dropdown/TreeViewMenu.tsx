@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {usePositioning} from '~/hooks';
 import {TreeViewMenuProps} from './TreeViewMenu.types';
 import {SearchInput, TreeView} from '~/components';
-import '../Menu/Menu.scss';
+import styles from '../Menu/Menu.module.scss';
 import {TreeViewData} from '~/components/TreeView/TreeView.types';
 import clsx from 'clsx';
 
@@ -180,11 +180,11 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     return (
         <>
             <menu ref={itemRef}
-                  className="moonstone-menu"
+                  className={clsx('moonstone-menu', styles.menu)}
                   style={styleMenu}
             >
                 {hasAutoSearch && (
-                    <div className="moonstone-menu_searchInput">
+                    <div className={clsx('moonstone-menu_searchInput', styles.menu_searchInput)}>
                         <SearchInput
                             value={inputValue}
                             onChange={e => setInputValue(e.target.value)}
@@ -216,7 +216,7 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
                 hasOverlay && isDisplayed && (
                     <div
                         aria-hidden="true"
-                        className="moonstone-menu_overlay"
+                        className={clsx('moonstone-menu_overlay', styles.menu_overlay)}
                         onClick={onClose}
                         onContextMenu={onClose}
                     />

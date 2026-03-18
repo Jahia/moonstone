@@ -1,0 +1,37 @@
+.field {
+    padding-left: 32px;
+
+    border-left: 3px solid transparent;
+}
+
+.field_error {
+    // background-color: var(--color-warning20);
+    border-color: var(--color-warning);
+}
+
+.field_chips {
+    gap: var(--spacing-nano);
+    margin-right: var(--spacing-medium);
+    margin-left: var(--spacing-small);
+}
+
+.field_helper {
+    margin-top: 2px;
+    padding-right: calc(var(--spacing-large) + var(--spacing-nano));
+
+    opacity: 0.8;
+}
+
+.field_children {
+    gap: var(--spacing-small);
+    margin-top: var(--spacing-small);
+}
+
+/* Note: typo "moonstome" preserved from original to maintain CSS class name */
+.field_errorMessage {
+    color: var(--color-warning_dark);
+}
+
+.field_buttons {
+    gap: var(--spacing-nano);
+}

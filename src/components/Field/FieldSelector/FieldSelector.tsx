@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import './FieldSelector.scss';
+import styles from './FieldSelector.module.scss';
 import {FieldSelectorProps} from './FieldSelector.types';
 import {HandleDrag} from '~/icons';
 
@@ -20,6 +20,7 @@ export const FieldSelector = React.forwardRef<HTMLDivElement, FieldSelectorProps
             ref={ref}
             className={clsx(
                 'moonstone-fieldSelector',
+                styles.fieldSelector,
                 'flexRow_nowrap',
                 'alignCenter',
                 className
@@ -33,7 +34,7 @@ export const FieldSelector = React.forwardRef<HTMLDivElement, FieldSelectorProps
             <div className={clsx('moonstone-fieldSelector_selector', 'flexCol_nowrap', 'alignStart', 'flexFluid')}>
                 {selector}
             </div>
-            <div className={clsx('moonstone-fieldSelector_buttons', 'flexRow_nowrap')}>
+            <div className={clsx('moonstone-fieldSelector_buttons', styles.fieldSelector_buttons, 'flexRow_nowrap')}>
                 {buttons &&
                     React.Children.map(buttons, button =>
                         button.props && button.props.children ?

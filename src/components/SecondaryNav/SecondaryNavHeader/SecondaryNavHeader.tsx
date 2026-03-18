@@ -1,13 +1,13 @@
 import React from 'react';
 import clsx from 'clsx';
-import './SecondaryNavHeader.scss';
+import styles from './SecondaryNavHeader.module.scss';
 import {Typography} from '~/components/Typography';
 import {SecondaryNavHeaderProps} from './SecondaryNavHeader.types';
 
 export const SecondaryNavHeader: React.FC<SecondaryNavHeaderProps> = ({children}) => (
     <Typography component="header"
                 aria-label="moonstone-secondaryNavHeader"
-                className={clsx('moonstone-secondaryNavHeader', 'flexCol_center', 'alignCenter')}
+                className={clsx('moonstone-secondaryNavHeader', styles.secondaryNavHeader, 'flexCol_center', 'alignCenter')}
                 variant="heading"
     >
         {children}

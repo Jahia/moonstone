@@ -1,0 +1,4 @@
+.Table {
+    // The min-height set by the class FlexFluid break the layout, so we have to override it here
+    min-height: auto;
+}

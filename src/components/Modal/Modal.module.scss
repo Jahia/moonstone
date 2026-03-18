@@ -1,0 +1,38 @@
+.modal_overlay {
+    display: grid;
+
+    background: var(--color-dark60);
+    place-items: center;
+}
+
+.modal {
+    position: inherit;
+
+    max-height: 80vh;
+
+    background-color: var(--color-light);
+}
+
+.modal_small {
+    top: 10vh;
+
+    width: 300px;
+}
+
+.modal_medium {
+    top: 10vh;
+
+    width: 450px;
+}
+
+.modal_large {
+    top: auto;
+
+    width: 600px;
+}
+
+.modal_full {
+    top: auto;
+
+    width: 100%;
+}

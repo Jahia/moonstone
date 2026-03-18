@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import clsx from 'clsx';
-import './SecondaryNav.scss';
+import styles from './SecondaryNav.module.scss';
 import type {SecondaryNavProps} from './SecondaryNav.types';
 import {ResizableBox} from '~/components/ResizableBox';
 import {ChevronDoubleRight, ChevronDoubleLeft} from '~/icons';
@@ -30,9 +30,11 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
                     'flexFluid',
                     'flexCol_nowrap',
                     'moonstone-secondaryNav',
+                    styles.secondaryNav,
                     {
                         'moonstone-reversed': isReversed,
-                        'moonstone-secondaryNav_hidden': !isVisible
+                        'moonstone-secondaryNav_hidden': !isVisible,
+                        [styles.secondaryNav_hidden]: !isVisible
                     }
                 )
             }
@@ -52,7 +54,8 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
                     aria-label="Toggle secondary navigation"
                     className={clsx(
                         'moonstone-secondaryNav_buttonToggle',
-                        {'moonstone-secondaryNav_buttonToggle_reversed': isReversed}
+                        styles.secondaryNav_buttonToggle,
+                        {'moonstone-secondaryNav_buttonToggle_reversed': isReversed, [styles.secondaryNav_buttonToggle_reversed]: isReversed}
                     )}
                     onClick={handleToggle}
             >
@@ -62,7 +65,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
                     <ChevronDoubleRight/>}
             </button>
 
-            <div id="moonstone-secondaryNav_wrapper" className={clsx('moonstone-secondaryNav_wrapper', 'flexFluid', 'flexCol_nowrap')}>
+            <div id="moonstone-secondaryNav_wrapper" className={clsx('moonstone-secondaryNav_wrapper', styles.secondaryNav_wrapper, 'flexFluid', 'flexCol_nowrap')}>
                 {header}
                 <div className={clsx('flexFluid', 'flexCol_nowrap')}>
                     {children}

@@ -1,0 +1,106 @@
+@use "variants/default";
+@use "variants/outlined";
+@use "../../tokens/spacings/spacings" as *;
+@use "../../globals/variants";
+
+$button-size_small: 16px;
+$button-size_medium: 24px;
+$button-size_big: 32px;
+
+.button {
+    @extend %variant_default;
+
+    // The display `inline-flex` is requiered to align buttons in a table row
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    width: fit-content;
+    height: $button-size_medium;
+    padding: 0 var(--spacing-small);
+
+    font-family: inherit;
+
+    border: solid 1px var(--color-gray_dark);
+
+    border-radius: var(--radius);
+
+    outline: none;
+    cursor: pointer;
+
+    &.button_outlined,
+    &.button_outlined_accent,
+    &.button_outlined_danger {
+        @extend %variant_outlined;
+    }
+
+    &.button_ghost {
+        @extend %variant_ghost;
+    }
+
+    &.button_ghost_accent {
+        @extend %variant_ghost_accent;
+    }
+
+    &.button_ghost_danger {
+        @extend %variant_ghost_danger;
+    }
+
+    &.iconButton {
+        padding: 0;
+
+        border-radius: 40px;
+
+        &.button_small {
+            width: $button-size_small;
+        }
+
+        &.button_default {
+            width: $button-size_medium;
+        }
+
+        &.button_big {
+            width: $button-size_big;
+        }
+    }
+
+    &.icon {
+        gap: $spacing-icon;
+
+        &.button_big {
+            gap: $spacing-icon_big;
+        }
+    }
+}
+
+.button_big {
+    height: $button-size_big;
+    padding: 0 var(--spacing-medium);
+}
+
+.button_small {
+    height: $button-size_small;
+    padding: 0 var(--spacing-nano);
+
+    > * {
+        line-height: $button-size_small - 2px;
+    }
+}
+
+.button_loading {
+    position: relative;
+}
+
+.button .button_loaderOverlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    fill: var(--color-white);
+
+    transform: translate(-50%, -50%);
+
+    // Hide siblings of the loader when it displays as overlay (Typography, iconEnd)
+    ~ * {
+        visibility: hidden;
+    }
+}

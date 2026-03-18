@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import clsx from 'clsx';
-import './PrimaryNavItemsGroup.scss';
+import styles from './PrimaryNavItemsGroup.module.scss';
 import {PrimaryNavItemsGroupProps} from './PrimaryNavItemsGroup.types';
 import {PrimaryNavContext} from '../PrimaryNav.context';
 import {Separator} from '~/components/Separator';
@@ -18,10 +18,9 @@ export const PrimaryNavItemsGroup: React.FC<PrimaryNavItemsGroupProps> = ({
 
     return (
         <>
-            <li className={clsx('moonstone-primaryNavItemsGroup')}>
-                <Separator size="large" spacing="small"/>
+            <li className={clsx('moonstone-primaryNavItemsGroup', styles.primaryNavItemsGroup)}>
             </li>
-            <li className={clsx('moonstone-primaryNavItemsGroup')} {...props}>
+            <li className={clsx('moonstone-primaryNavItemsGroup', styles.primaryNavItemsGroup)} {...props}>
                 <ul>
                     {children}
                 </ul>

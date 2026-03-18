@@ -1,0 +1,77 @@
+@use "sass:math";
+
+$pi: 3.14159;
+$loader-sizes: (
+    "small": 14px,
+    "medium": 50px,
+    "big": 80px
+);
+
+.loader {
+    position: relative;
+
+    transform: scaleX(-1);
+}
+
+.loader_circle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    fill: none;
+
+    stroke: var(--color-accent);
+    stroke-linecap: round;
+}
+
+.loader_background {
+    stroke-width: 0.1rem;
+
+    stroke: var(--color-gray_light40);
+}
+
+@each $sizeName, $sizeValue in $loader-sizes {
+    $radius: $sizeValue * 0.4;
+    $const: math.div($radius, $pi);
+    $circumference: 2 * $pi * $radius;
+
+    // stylelint-disable-next-line order/order
+    @keyframes animation-loader_#{$sizeName} {
+        0% {
+            stroke-dasharray: $const ($circumference - $const);
+            stroke-dashoffset: 0;
+        }
+
+        50% {
+            stroke-dasharray: math.div($circumference, 2);
+            stroke-dashoffset: math.div($circumference, 2);
+        }
+
+        100% {
+            stroke-dasharray: $const ($circumference - $const);
+            stroke-dashoffset: $circumference;
+        }
+    }
+
+    .loader_#{$sizeName} {
+        width: $sizeValue;
+        height: $sizeValue;
+
+        .loader_animation {
+            stroke-dasharray: $circumference;
+            stroke-width: 0.1rem;
+
+            animation: animation-loader_#{$sizeName} 1s cubic-bezier(1, 1, 1, 1) 0s infinite;
+        }
+
+        .loader_circle {
+            r: $radius;
+        }
+    }
+}
+
+.loader_reversed {
+    stroke: var(--color-white);
+}

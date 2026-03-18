@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import './Field.scss';
+import styles from './Field.module.scss';
 import type {FieldProps} from './Field.types';
 import {Typography} from '~/components';
 
@@ -26,8 +26,10 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
             id={id}
             className={clsx(
                 'moonstone-field',
+                styles.field,
                 'flexCol_nowrap',
                 hasError && 'moonstone-field_error',
+                hasError && styles.field_error,
                 className
             )}
             {...props}
@@ -36,12 +38,12 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
                 <div className="flexRow_nowrap flexFluid alignCenter">
                     <Typography isNowrap component="label" weight="bold">{label}</Typography>
                     {chips &&
-                        <div className={clsx('moonstone-field_chips', 'flexRow_nowrap')}>
+                        <div className={clsx('moonstone-field_chips', styles.field_chips, 'flexRow_nowrap')}>
                             {chips}
                         </div>}
                 </div>
                 {buttons &&
-                    <div className={clsx('moonstone-field_buttons', 'flexRow_nowrap')}>
+                    <div className={clsx('moonstone-field_buttons', styles.field_buttons, 'flexRow_nowrap')}>
                         {React.Children.map(buttons, button =>
                             button.props && button.props.children ?
                                 (React.Children.map(button.props.children, btn => {
@@ -54,11 +56,11 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
                     </div>}
             </div>
             {helper &&
-                <Typography variant="caption" className={clsx('moonstone-field_helper')}>{helper}</Typography>}
-            <div className={clsx('moonstone-field_children', 'flexCol_nowrap')}>
+                <Typography variant="caption" className={clsx('moonstone-field_helper', styles.field_helper)}>{helper}</Typography>}
+            <div className={clsx('moonstone-field_children', styles.field_children, 'flexCol_nowrap')}>
                 {children}
                 {hasError && errorMessage &&
-                    <Typography className={clsx('moonstome-field_errorMessage')} variant="caption">{errorMessage}</Typography>}
+                    <Typography className={clsx('moonstome-field_errorMessage', styles.field_errorMessage)} variant="caption">{errorMessage}</Typography>}
             </div>
         </div>
     );

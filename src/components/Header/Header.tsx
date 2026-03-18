@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 
 import {HeaderProps} from './Header.types';
-import './Header.scss';
+import styles from './Header.module.scss';
 import {Separator, Typography} from '~/components';
 
 export const Header: React.FC<HeaderProps> = ({
@@ -26,39 +26,39 @@ export const Header: React.FC<HeaderProps> = ({
     }
 
     return (
-        <header className={clsx('moonstone-header', className)} {...props}>
+        <header className={clsx('moonstone-header', styles.header, className)} {...props}>
             {/* Main area */}
-            <div className={clsx('moonstone-header_main', 'flexRow', 'alignCenter', 'flexFluid')}>
+            <div className={clsx('moonstone-header_main', styles.header_main, 'flexRow', 'alignCenter', 'flexFluid')}>
                 { backButton && (
-                    <div className="moonstone-header_back">
+                    <div className={clsx('moonstone-header_back', styles.header_back)}>
                         {backButton}
                     </div>
                 )}
 
-                <Typography isNowrap component="h1" variant="title" className={clsx('flexFluid', 'moonstone-header_title')}>{title}</Typography>
+                <Typography isNowrap component="h1" variant="title" className={clsx('flexFluid', 'moonstone-header_title', styles.header_title)}>{title}</Typography>
 
                 { search && (
-                    <div className={clsx('moonstone-header_search')}>
+                    <div className={clsx('moonstone-header_search', styles.header_search)}>
                         { search }
                     </div>
                 )}
 
                 { mainActions && (
-                    <div className={clsx('moonstone-header_mainActions', 'moonstone-header_actions', 'flexRow', 'alignCenter')}>
+                    <div className={clsx('moonstone-header_mainActions', styles.header_mainActions, 'moonstone-header_actions', styles.header_actions, 'flexRow', 'alignCenter')}>
                         { mainActions }
                     </div>
                 )}
             </div>
 
             { hasInformationArea && (
-                <div className={clsx('flexRow_between', 'alignCenter', 'moonstone-header_information')}>
-                    <div className={clsx('flexRow_nowrap', 'alignCenter', 'flexFluid', 'moonstone-header_informationLeft')}>
+                <div className={clsx('flexRow_between', 'alignCenter', 'moonstone-header_information', styles.header_information)}>
+                    <div className={clsx('flexRow_nowrap', 'alignCenter', 'flexFluid', 'moonstone-header_informationLeft', styles.header_informationLeft)}>
                         { breadcrumb }
                         <Separator variant="vertical" spacing="small" invisible="firstOrLastChild"/>
                         { contentType }
                     </div>
                     {status && (
-                        <div className={clsx('flexRow_reverse', 'alignCenter', 'moonstone-header_informationRight', 'moonstone-header_actions')}>
+                        <div className={clsx('flexRow_reverse', 'alignCenter', 'moonstone-header_informationRight', styles.header_informationRight, 'moonstone-header_actions', styles.header_actions)}>
                             { status }
                         </div>
                     )}
@@ -68,11 +68,11 @@ export const Header: React.FC<HeaderProps> = ({
             {hasToolbar && (
                 <>
                     {hasInformationArea && <Separator spacing="none"/>}
-                    <div role="toolbar" className={clsx('flexRow_between', 'alignCenter', 'moonstone-header_toolbar')}>
-                        <div className={clsx('flexRow', 'alignCenter', 'flexFluid', 'moonstone-header_actions')}>
+                    <div role="toolbar" className={clsx('flexRow_between', 'alignCenter', 'moonstone-header_toolbar', styles.header_toolbar)}>
+                        <div className={clsx('flexRow', 'alignCenter', 'flexFluid', 'moonstone-header_actions', styles.header_actions)}>
                             { toolbarLeft }
                         </div>
-                        <div className={clsx('flexRow', 'alignCenter', 'moonstone-header_actions')}>
+                        <div className={clsx('flexRow', 'alignCenter', 'moonstone-header_actions', styles.header_actions)}>
                             { toolbarRight }
                         </div>
                     </div>

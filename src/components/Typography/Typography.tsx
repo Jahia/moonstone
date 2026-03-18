@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import './Typography.scss';
+import styles from './Typography.module.scss';
 import type {TypographyProps} from './Typography.types';
 
 export const Typography = React.forwardRef(<C extends React.ElementType = 'p'> ({
@@ -26,14 +26,14 @@ export const Typography = React.forwardRef(<C extends React.ElementType = 'p'> (
         <Component
             ref={ref}
             className={clsx(
-                'moonstone-typography',
-                `moonstone-variant_${variant}`,
-                `moonstone-weight_${weight}`,
+                'moonstone-typography', styles.typography,
+                `moonstone-variant_${variant}`, styles[`variant_${variant}`],
+                `moonstone-weight_${weight}`, styles[`weight_${weight}`],
                 className,
-                {'moonstone-nowrap': isNowrap},
-                {'moonstone-italic': isItalic},
-                {'moonstone-upperCase': isUpperCase},
-                {'moonstone-lineThrough': hasLineThrough}
+                {'moonstone-nowrap': isNowrap, [styles.nowrap]: isNowrap},
+                {'moonstone-italic': isItalic, [styles.italic]: isItalic},
+                {'moonstone-upperCase': isUpperCase, [styles.upperCase]: isUpperCase},
+                {'moonstone-lineThrough': hasLineThrough, [styles.lineThrough]: hasLineThrough}
             )}
             {...props}
         >

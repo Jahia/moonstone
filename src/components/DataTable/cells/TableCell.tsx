@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import {Typography} from '~/components';
 import {capitalize} from '~/utils/helpers';
-import './TableCell.scss';
+import styles from './TableCell.module.scss';
 import type {TableCellProps} from './TableCell.types';
 
 const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellProps> = (
@@ -29,6 +29,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
             variant="body"
             className={clsx(
                 'moonstone-tableCell',
+                styles.tableCell,
                 align === 'left' ? 'justifyStart' : align === 'right' ? 'justifyEnd' : 'justifyCenter',
                 'flexRow_nowrap',
                 'alignCenter',

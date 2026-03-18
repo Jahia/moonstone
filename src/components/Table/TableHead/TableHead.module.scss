@@ -1,0 +1,11 @@
+.tableHead {
+    color: var(--color-gray_dark);
+
+    background-color: var(--color-white);
+}
+
+.tableHead_sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}

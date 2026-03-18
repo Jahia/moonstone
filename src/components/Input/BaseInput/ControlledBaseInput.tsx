@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import {Cancel} from '~/icons';
 import {Button} from '~/components';
 import './BaseInput.scss';
+import styles from './BaseInput.module.scss';
 import type {ControlledBaseInputProps} from './BaseInput.types';
 
 const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInputProps>(({
@@ -30,7 +31,7 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
     ...props
 }, ref) => {
     const isFilled = value !== '';
-    const classNameProps = clsx('moonstone-baseInput', `moonstone-${size}`, `moonstone-${variant}`, className);
+    const classNameProps = clsx('moonstone-baseInput', styles.baseInput, `moonstone-${size}`, size === 'big' && styles.big, `moonstone-${variant}`, variant === 'outlined' && styles.outlined, className);
 
     useEffect(() => {
         if (focusOnField && !isDisabled && !isReadOnly && ref && typeof ref === 'object') {
@@ -53,6 +54,7 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
                 <div
                     className={clsx(
                         'moonstone-baseInput_icon',
+                        styles.baseInput_icon,
                         'flexRow_nowrap',
                         'alignCenter'
                     )}
@@ -60,11 +62,11 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
                     <icon.type {...icon.props} focusable="false"/>
                 </div>
             )}
-            <div className="flexRow alignCenter flexFluid moonstone-baseInput_elementsWrapper">
+            <div className={clsx('flexRow', 'alignCenter', 'flexFluid', 'moonstone-baseInput_elementsWrapper', styles.baseInput_elementsWrapper)}>
                 {prefixComponents}
                 <input
                     ref={ref}
-                    className={clsx('moonstone-baseInput-element', `moonstone-${size}`)}
+                    className={clsx('moonstone-baseInput-element', styles.baseInput_element, `moonstone-${size}`, size === 'big' && styles.big)}
                     type="text"
                     value={value}
                     role={role === 'search' ? 'searchbox' : undefined}
@@ -88,7 +90,7 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
             </div>
             { onClear && isFilled && !isDisabled && !isReadOnly && (
                 <Button
-                    className="moonstone-baseInput_clearButton flexRow_center alignCenter"
+                    className={clsx('moonstone-baseInput_clearButton', styles.baseInput_clearButton, 'flexRow_center', 'alignCenter')}
                     variant="ghost"
                     icon={<Cancel/>}
                     aria-label="Reset"

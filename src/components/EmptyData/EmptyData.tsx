@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import {Typography} from '~/components';
 import type {EmptyDataProps} from './EmptyData.types';
-import './EmptyData.scss';
+import styles from './EmptyData.module.scss';
 
 export const EmptyData = React.forwardRef<HTMLElement, EmptyDataProps>(
     ({title, message, icon, className, component, ...props}, ref) => {
@@ -11,7 +11,7 @@ export const EmptyData = React.forwardRef<HTMLElement, EmptyDataProps>(
             <Component
                 ref={ref}
                 className={clsx(
-                    'moonstone-emptyData',
+                    'moonstone-emptyData', styles.emptyData,
                     'flexCol_center',
                     'alignCenter',
                     'flexFluid',

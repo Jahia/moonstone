@@ -6,7 +6,7 @@ import {IconTextIcon, Typography} from '~/components';
 import {ChevronDown, ChevronRight} from '~/icons';
 import {capitalize} from '~/utils/helpers';
 import {TableCell} from './TableCell';
-import './TableCell.scss';
+import styles from './TableCell.module.scss';
 
 const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellProps> = (
     {
@@ -69,8 +69,10 @@ const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEleme
         <Typography
             className={clsx(
                 'moonstone-tableBodyCell',
+                styles.tableBodyCell,
                 'textAlign' + capitalize(textAlign),
                 'moonstone-verticalAlign' + capitalize(verticalAlign),
+                styles['verticalAlign' + capitalize(verticalAlign)],
                 {flexFluid: typeof width === 'undefined'},
                 className
             )}

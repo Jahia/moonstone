@@ -1,0 +1,12 @@
+.pill {
+    width: auto;
+    height: auto;
+    padding: 0 var(--spacing-nano);
+
+    border-radius: var(--radius_small);
+    background-color: var(--color-gray_light40);
+
+    &.pill_reversed {
+        color: var(--color-light);
+    }
+}

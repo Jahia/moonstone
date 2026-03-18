@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
 import clsx from 'clsx';
-import './Button.scss';
+import styles from './Button.module.scss';
 import {Typography} from '../Typography';
 import {TypographyWeight} from '~/components/Typography/Typography.types';
 import {ButtonProps} from './Button.types';
@@ -41,13 +41,14 @@ export const Button = ({
         <button
             ref={ButtonEl}
             className={clsx(
-                {'moonstone-button': (variant !== 'default' || color !== 'default')},
-                `moonstone-button_${size}`,
+                {'moonstone-button': (variant !== 'default' || color !== 'default'), [styles.button]: (variant !== 'default' || color !== 'default')},
+                `moonstone-button_${size}`, styles[`button_${size}`],
                 `moonstone-button${variant === 'default' ? '' : `_${variant}`}${color === 'default' ? '' : `_${color}`}`,
-                {'moonstone-icon': (label && (icon || iconEnd))},
-                {'moonstone-icon-button': !label},
+                styles[`button${variant === 'default' ? '' : `_${variant}`}${color === 'default' ? '' : `_${color}`}`],
+                {'moonstone-icon': (label && (icon || iconEnd)), [styles.icon]: (label && (icon || iconEnd))},
+                {'moonstone-icon-button': !label, [styles.iconButton]: !label},
                 {'moonstone-reverse': isReversed},
-                {'moonstone-button_loading': isLoading},
+                {'moonstone-button_loading': isLoading, [styles.button_loading]: isLoading},
                 'alignCenter',
                 className
             )}
@@ -59,7 +60,7 @@ export const Button = ({
             {/* Display icon when an icon is provided */}
             {icon && !isLoading && <icon.type {...icon.props} size={(size === 'big') ? 'default' : size}/>}
             {/* When the button has an icon the loader replaces the icon otherwise we display the loader as overlay */}
-            {isLoading && <Loader size="small" isReversed={LoaderReversed} className={clsx({'moonstone-button_loaderOverlay': !icon})}/>}
+            {isLoading && <Loader size="small" isReversed={LoaderReversed} className={clsx({'moonstone-button_loaderOverlay': !icon, [styles.button_loaderOverlay]: !icon})}/>}
             {label && (
                 <Typography
                     isNowrap

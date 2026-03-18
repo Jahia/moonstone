@@ -1,0 +1,120 @@
+@use "../../tokens/spacings/spacings" as *;
+
+.chip {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+
+    height: 16px;
+    padding: 0 var(--spacing-small);
+
+    border-radius: 40px;
+
+    &:global(.moonstone-disabled) {
+        opacity: 0.3;
+    }
+
+    & > :global(.moonstone-icon):not(:last-child) {
+        margin-right: $spacing-icon;
+    }
+}
+
+.chip_default {
+    &:global(.moonstone-color_accent) {
+        color: var(--color-accent_dark_contrast);
+
+        background-color: var(--color-accent_light_plain20);
+    }
+
+    &:global(.moonstone-color_light) {
+        color: var(--color-gray);
+
+        background-color: var(--color-light);
+    }
+
+    &:global(.moonstone-color_dark) {
+        color: var(--color-light);
+
+        background-color: var(--color-gray);
+    }
+
+    &:global(.moonstone-color_danger) {
+        color: var(--color-danger_dark);
+
+        background-color: var(--color-danger_plain20);
+    }
+
+    &:global(.moonstone-color_default) {
+        color: var(--color-gray_dark);
+
+        background-color: var(--color-gray_light_plain40);
+    }
+
+    &:global(.moonstone-color_success) {
+        color: var(--color-success_dark);
+
+        background-color: var(--color-success_plain20);
+    }
+
+    &:global(.moonstone-color_warning) {
+        color: var(--color-warning_dark);
+
+        background-color: var(--color-warning_plain20);
+    }
+
+    &:global(.moonstone-color_reassuring) {
+        color: var(--color-purple_dark);
+
+        background-color: var(--color-purple_plain20);
+    }
+}
+
+.chip_bright {
+    &:global(.moonstone-color_accent) {
+        color: var(--color-light);
+
+        background-color: var(--color-accent_dark);
+    }
+
+    &:global(.moonstone-color_light) {
+        color: var(--color-gray_dark);
+
+        background-color: var(--color-light);
+    }
+
+    &:global(.moonstone-color_dark) {
+        color: var(--color-light);
+
+        background-color: var(--color-gray);
+    }
+
+    &:global(.moonstone-color_danger) {
+        color: var(--color-light);
+
+        background-color: var(--color-danger);
+    }
+
+    &:global(.moonstone-color_default) {
+        color: var(--color-light);
+
+        background-color: var(--color-gray);
+    }
+
+    &:global(.moonstone-color_success) {
+        color: var(--color-light);
+
+        background-color: var(--color-success);
+    }
+
+    &:global(.moonstone-color_warning) {
+        color: var(--color-warning_dark);
+
+        background-color: var(--color-warning_plain60);
+    }
+
+    &:global(.moonstone-color_reassuring) {
+        color: var(--color-light);
+
+        background-color: var(--color-purple);
+    }
+}

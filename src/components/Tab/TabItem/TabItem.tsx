@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
 import clsx from 'clsx';
-import './TabItem.scss';
+import styles from './TabItem.module.scss';
 import type {TabItemProps} from './TabItem.types';
 import {Typography} from '~/components/Typography';
 import {onArrowNavigation} from '~/hooks';
@@ -24,9 +24,11 @@ export const TabItem: React.FC<TabItemProps> = ({
             {
                 className: clsx(
                     'moonstone-tabItem',
+                    styles.tabItem,
                     `moonstone-tabItem_${size}`,
-                    {'moonstone-tabItem_noLabel': !label},
-                    {'moonstone-tabItem_selected': isSelected},
+                    styles[`tabItem_${size}`],
+                    {'moonstone-tabItem_noLabel': !label, [styles.tabItem_noLabel]: !label},
+                    {'moonstone-tabItem_selected': isSelected, [styles.tabItem_selected]: isSelected},
                     {'moonstone-reverse': isReversed},
                     {'moonstone-disabled': isDisabled},
                     'flexRow_center',
@@ -43,7 +45,7 @@ export const TabItem: React.FC<TabItemProps> = ({
             },
             (
                 <>
-                    {icon && <icon.type {...icon.props} className={clsx('moonstone-tabItem_icon', icon.props.className)} size={(size === 'big') ? 'default' : size}/>}
+                    {icon && <icon.type {...icon.props} className={clsx('moonstone-tabItem_icon', styles.tabItem_icon, icon.props.className)} size={(size === 'big') ? 'default' : size}/>}
 
                     {label && (
                     <Typography

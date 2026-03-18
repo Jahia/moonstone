@@ -1,0 +1,6 @@
+@use "../../tokens/spacings/spacings" as *;
+
+.IconTextIcon {
+    gap: $spacing-icon;
+    width: 100%;
+}

@@ -1,0 +1,93 @@
+@use "../../../utils";
+
+.valueList {
+    flex-grow: 1;
+    height: 300px;
+    overflow-y: auto;
+}
+
+.iconContainer {
+    :global(.moonstone-displayNone) {
+        display: none;
+    }
+
+    :global(.moonstone-dragHandle) {
+        cursor: move;
+    }
+}
+
+.valueListItem {
+    align-items: center;
+    width: calc(100% - 2px);
+    margin: 1px;
+    padding: var(--spacing-small);
+
+    cursor: pointer;
+
+    &[disabled] {
+        cursor: default;
+    }
+
+    &:focus-visible {
+        @extend %is-focused;
+
+        outline-offset: -1px;
+    }
+
+    &.selected {
+        color: var(--color-white);
+
+        background-color: var(--color-accent);
+    }
+
+    &:not([disabled]):hover {
+        color: var(--color-accent);
+
+        background-color: var(--color-gray_light60);
+    }
+
+    &:hover > div > div > :global(.moonstone-displayNone) {
+        display: block;
+    }
+}
+
+.valueList_wrapper {
+    flex-grow: 1;
+    gap: var(--spacing-small);
+    min-width: 200px;
+    padding: var(--spacing-small);
+
+    border: var(--border-selector);
+    border-radius: var(--radius-selector);
+
+    background-color: var(--background-selector);
+
+    .dragging {
+        background-color: var(--color-light);
+        box-shadow: 0 4px 8px rgba(19, 28, 33, 0.2);
+
+        & > div > div > :global(.moonstone-displayNone) {
+            display: none;
+        }
+    }
+
+    .noHoveEffect {
+        &:hover {
+            color: inherit;
+
+            background-color: inherit;
+        }
+
+        &:hover > div > div > :global(.moonstone-displayNone) {
+            display: none;
+        }
+    }
+
+    .noOpacity {
+        opacity: 0;
+    }
+
+    &.valueList_wrapper_readOnly {
+        @extend %selector_disabled;
+    }
+}

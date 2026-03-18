@@ -7,7 +7,7 @@ import {ValueList} from './ValueList';
 import {Button, Typography} from '~/components';
 import {ChevronDoubleLeft, ChevronDoubleRight, ChevronRight, Close} from '~/icons';
 import type {ListSelectorSelectorProps} from './ListSelector.types';
-import './ListSelector.scss';
+import styles from './ListSelector.module.scss';
 import clsx from 'clsx';
 
 const MLRS_DRAG = 'mlrs_drag_list_item';
@@ -51,10 +51,10 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
     }
 
     return (
-        <div className={clsx('flexRow_nowrap', 'moonstone-listSelector')} {...props}>
-            <div className="moonstone-listSelector_left flexCol_nowrap flexFluid">
+        <div className={clsx('flexRow_nowrap', 'moonstone-listSelector', styles.listSelector)} {...props}>
+            <div className={clsx('moonstone-listSelector_left', styles.listSelector_left, 'flexCol_nowrap', 'flexFluid')}>
                 {hasTitle &&
-                    <header className="moonstone-listSelector_title flexRow alignCenter">
+                    <header className={clsx('moonstone-listSelector_title', styles.listSelector_title, 'flexRow', 'alignCenter')}>
                         <Typography isNowrap component="h3" weight="bold">{label?.leftListTitle}</Typography>
                     </header>}
                 <ValueList values={valuesLeft}
@@ -101,7 +101,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
 
                 />
             </div>
-            <div className="moonstone-listSelector_buttons alignCenter flexCol_center">
+            <div className={clsx('moonstone-listSelector_buttons', styles.listSelector_buttons, 'alignCenter', 'flexCol_center')}>
                 <Button title={label.addAllTitle || 'Add all'}
                         role="add-all"
                         variant="ghost"
@@ -117,9 +117,9 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                         onClick={() => onChange(values.filter(v => !valuesRight.find(o => o.value === v)))}
                     />
             </div>
-            <div className="moonstone-listSelector_right flexCol_nowrap flexFluid">
+            <div className={clsx('moonstone-listSelector_right', styles.listSelector_right, 'flexCol_nowrap', 'flexFluid')}>
                 {hasTitle &&
-                <header className="moonstone-listSelector_title flexRow alignCenter">
+                <header className={clsx('moonstone-listSelector_title', styles.listSelector_title, 'flexRow', 'alignCenter')}>
                     <Typography isNowrap component="h3" weight="bold">{label?.rightListTitle}</Typography>
                 </header>}
                 <ValueList values={valuesRight}
@@ -190,7 +190,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                                }
                            }}
                 />
-                <footer className="moonstone-listSelector_footer flexRow alignCenter">
+                <footer className={clsx('moonstone-listSelector_footer', styles.listSelector_footer, 'flexRow', 'alignCenter')}>
                     {values.length > 0 && <Typography variant="caption" weight="semiBold">{label.selected || '0 item selected'}</Typography>}
                 </footer>
             </div>

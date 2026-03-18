@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import './Table.scss';
+import styles from './Table.module.scss';
 import type {TableProps} from './DataTable.types';
 
 export const Table: React.FC<TableProps> = ({
@@ -11,7 +11,7 @@ export const Table: React.FC<TableProps> = ({
 }) => React.createElement(
     component,
     {
-        className: clsx('moonstone-table', 'flexCol_nowrap', className),
+        className: clsx('moonstone-table', styles.table, 'flexCol_nowrap', className),
         ...props
     },
     children

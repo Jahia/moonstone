@@ -1,0 +1,33 @@
+@use "../../../utils/mixins" as *;
+
+.checkboxItem[aria-disabled="true"],
+.checkboxItem[aria-readonly="true"] {
+    cursor: default;
+    opacity: 0.4;
+
+    pointer-events: none;
+}
+
+.checkboxItem {
+    cursor: pointer;
+
+    & + .checkboxItem {
+        margin-top: var(--spacing-medium);
+    }
+
+    &:focus-visible {
+        @extend %is-focused;
+    }
+}
+
+.checkboxItem_label {
+    margin-left: var(--spacing-small);
+
+    color: var(--color-gray-dark);
+}
+
+.checkboxItem_description {
+    margin-left: var(--spacing-large);
+
+    color: var(--color-gray60);
+}

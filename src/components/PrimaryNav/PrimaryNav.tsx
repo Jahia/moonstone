@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import clsx from 'clsx';
-import './PrimaryNav.scss';
+import styles from './PrimaryNav.module.scss';
 import type {PrimaryNavButtonProps, PrimaryNavHeaderProps, PrimaryNavProps} from './PrimaryNav.types';
 import {PrimaryNavContext} from './PrimaryNav.context';
 import {MenuIcon, ArrowLeft} from '~/icons';
@@ -11,11 +11,11 @@ const NavButton: React.FC<PrimaryNavButtonProps> = ({isExpanded, toggleExpand, m
             {!isExpanded && modeIcon && (
                 <modeIcon.type
                     {...modeIcon.props}
-                    className={clsx(modeIcon.props.className, 'moonstone-primaryNav_modeIcon')}
+                    className={clsx(modeIcon.props.className, 'moonstone-primaryNav_modeIcon', styles.primaryNav_modeIcon)}
                 />
             )}
             <button
-                className={clsx('moonstone-primaryNav_button')}
+                className={clsx('moonstone-primaryNav_button', styles.primaryNav_button)}
                 type="button"
                 data-testid="primaryNavMenuButton"
                 aria-label="Toggle primary navigation"
@@ -35,7 +35,7 @@ const NavHeader: React.FC<PrimaryNavHeaderProps> = ({headerCaption, modeIcon, he
                 {modeIcon && (
                     <modeIcon.type
                         {...modeIcon.props}
-                        className={clsx(modeIcon.props.className, 'moonstone-primaryNav_modeIconHeader')}
+                        className={clsx(modeIcon.props.className, 'moonstone-primaryNav_modeIconHeader', styles.primaryNav_modeIconHeader)}
                     />
                 )}
                 {headerCaption}
@@ -65,12 +65,13 @@ export const PrimaryNav: React.FC<PrimaryNavProps> = ({
                 aria-expanded={isExpanded}
                 className={clsx(
                     'moonstone-primaryNav',
-                    {'moonstone-expanded': isExpanded},
+                    styles.primaryNav,
+                    {'moonstone-expanded': isExpanded, [styles.expanded]: isExpanded},
                     'flexCol_nowrap'
                 )}
             >
-                <div className={clsx('flexRow_nowrap', 'moonstone-primaryNav_header')}>
-                    <div className={clsx('moonstone-primaryNav_buttonContainer', 'flexRow_center', 'alignCenter')}>
+                    <div className={clsx('flexRow_nowrap', 'moonstone-primaryNav_header', styles.primaryNav_header)}>
+                        <div className={clsx('moonstone-primaryNav_buttonContainer', styles.primaryNav_buttonContainer, 'flexRow_center', 'alignCenter')}>
                         <NavButton isExpanded={isExpanded} toggleExpand={toggleExpand} modeIcon={modeIcon}/>
                     </div>
                     <div
@@ -85,7 +86,7 @@ export const PrimaryNav: React.FC<PrimaryNavProps> = ({
                     </div>
                 </div>
 
-                <ul className={clsx('flexCol_nowrap', 'flexFluid', 'moonstone-primaryNav_top')}>
+                <ul className={clsx('flexCol_nowrap', 'flexFluid', 'moonstone-primaryNav_top', styles.primaryNav_top)}>
                     {top}
                 </ul>
 
@@ -93,7 +94,7 @@ export const PrimaryNav: React.FC<PrimaryNavProps> = ({
                     {bottom}
                 </ul>
             </nav>
-            {isExpanded && <div className="moonstone-primaryNav_overlay" onClick={toggleExpand}/>}
+            {isExpanded && <div className={clsx('moonstone-primaryNav_overlay', styles.primaryNav_overlay)} onClick={toggleExpand}/>}
         </PrimaryNavContext.Provider>
     );
 };

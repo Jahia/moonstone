@@ -5,7 +5,7 @@ import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
 import type {PaginationProps} from './Pagination.types';
 import {Button, Dropdown, Typography} from '~/components';
 import {ChevronFirstPage, ChevronLastPage, ChevronLeft, ChevronRight} from '~/icons';
-import './Pagination.scss';
+import styles from './Pagination.module.scss';
 
 export const Pagination: React.FC<PaginationProps> = ({
     className,
@@ -35,8 +35,8 @@ export const Pagination: React.FC<PaginationProps> = ({
     const visibleRangeEnd = Math.min(totalOfItems, currentPage * itemsPerPage);
 
     return (
-        <div className={clsx('moonstone-pagination', 'flexRow', 'alignCenter', 'justifyEnd', className)} {...props}>
-            <div className={clsx('moonstone-pagination_navigation', 'flexRow', 'alignCenter')}>
+        <div className={clsx('moonstone-pagination', styles.pagination, 'flexRow', 'alignCenter', 'justifyEnd', className)} {...props}>
+            <div className={clsx('moonstone-pagination_navigation', styles.pagination_navigation, 'flexRow', 'alignCenter')}>
                 <Button
                     icon={<ChevronFirstPage/>}
                     variant="ghost"
@@ -52,14 +52,14 @@ export const Pagination: React.FC<PaginationProps> = ({
                     onClick={() => onPageChange(currentPage - 1)}
                 />
             </div>
-            <div className={clsx('moonstone-pagination_info', 'flexRow', 'alignCenter')}>
+            <div className={clsx('moonstone-pagination_info', styles.pagination_info, 'flexRow', 'alignCenter')}>
                 <Typography
                     variant="caption"
                     data-testid="pagination-total-items"
                 >
                     {`${visibleRangeStart}-${visibleRangeEnd} ${label.of} ${totalOfItems}`}
                 </Typography>
-                <div className={clsx('moonstone-pagination_itemsPerPage', 'flexRow', 'alignCenter')}>
+                <div className={clsx('moonstone-pagination_itemsPerPage', styles.pagination_itemsPerPage, 'flexRow', 'alignCenter')}>
                     <Typography variant="caption">{label.itemsPerPage}</Typography>
                     <Dropdown
                         size="small"
@@ -70,7 +70,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                     />
                 </div>
             </div>
-            <div className={clsx('moonstone-pagination_navigation', 'flexRow', 'alignCenter')}>
+            <div className={clsx('moonstone-pagination_navigation', styles.pagination_navigation, 'flexRow', 'alignCenter')}>
                 <Button
                     icon={<ChevronRight/>}
                     variant="ghost"

@@ -1,0 +1,50 @@
+$row-regular-height: 48px;
+$row-multiple-line-height: 64px;
+
+.TableRow {
+    height: $row-regular-height;
+
+    border-bottom: 1px solid var(--color-gray_light);
+
+    :global(.moonstone-TableBody) &:focus-within,
+    :global(.moonstone-TableBody) &:hover {
+        background-color: var(--color-gray_light40);
+    }
+
+    &.TableRow_highlighted {
+        color: var(--color-light);
+
+        background-color: var(--color-accent);
+
+        &:focus-within,
+        &:hover {
+            background-color: var(--color-accent);
+        }
+
+        :global(.moonstone-checkbox_input) {
+            border: 1px solid var(--color-light);
+
+            &[aria-checked="false"] {
+                box-shadow: none;
+            }
+
+            &.hasFocus {
+                border: 2px solid var(--color-accent_dark_contrast);
+            }
+        }
+
+        :global(.moonstone-chip) {
+            color: var(--color-light);
+
+            background-color: var(--color-accent_light40);
+        }
+
+        :global(.moonstone-button):not(:hover, :focus) {
+            color: var(--color-light);
+        }
+    }
+
+    &.TableRow_multipleLines {
+        height: $row-multiple-line-height;
+    }
+}

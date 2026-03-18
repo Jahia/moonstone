@@ -1,6 +1,6 @@
 import React, {MutableRefObject, useEffect, useRef} from 'react';
 import clsx from 'clsx';
-import './Collapsible.scss';
+import styles from './Collapsible.module.scss';
 import type {ControlledCollapsibleProps} from './Collapsible.types';
 import {Typography} from '~/components';
 import {ChevronRight} from '~/icons/components';
@@ -15,7 +15,7 @@ const ControlledCollapsibleForwardRef: React.ForwardRefRenderFunction<HTMLDivEle
     ...other
 }, ref) => {
     const classNameProps = clsx(
-        'moonstone-collapsible',
+        'moonstone-collapsible', styles.collapsible,
         className
     );
 
@@ -26,9 +26,9 @@ const ControlledCollapsibleForwardRef: React.ForwardRefRenderFunction<HTMLDivEle
         const observer = new IntersectionObserver(entries => {
             if (buttonRef.current) {
                 if (entries[0].intersectionRatio === 0) {
-                    buttonRef.current.classList.add('moonstone-collapsible_button_sticky');
+                    buttonRef.current.classList.add('moonstone-collapsible_button_sticky', styles.collapsible_button_sticky);
                 } else if (entries[0].intersectionRatio === 1) {
-                    buttonRef.current.classList.remove('moonstone-collapsible_button_sticky');
+                        buttonRef.current.classList.remove('moonstone-collapsible_button_sticky', styles.collapsible_button_sticky);
                 }
             }
         }, {threshold: [0, 1]});
@@ -38,7 +38,7 @@ const ControlledCollapsibleForwardRef: React.ForwardRefRenderFunction<HTMLDivEle
             observer.observe(htmlDivElement);
             return () => {
                 if (buttonRef.current) {
-                    buttonRef.current.classList.remove('moonstone-collapsible_button_sticky');
+                    buttonRef.current.classList.remove('moonstone-collapsible_button_sticky', styles.collapsible_button_sticky);
                 }
 
                 observer.unobserve(htmlDivElement);
@@ -52,16 +52,16 @@ const ControlledCollapsibleForwardRef: React.ForwardRefRenderFunction<HTMLDivEle
             className={classNameProps}
             {...other}
         >
-            <div ref={topDivRef} className="moonstone-collapsible_topdiv"/>
+            <div ref={topDivRef} className={clsx('moonstone-collapsible_topdiv', styles.collapsible_topdiv)}/>
             <button
                 ref={buttonRef}
                 type="button"
-                className={clsx('moonstone-collapsible_button', {'moonstone-collapsible_button_expanded': isExpanded}, 'flexRow', 'alignCenter')}
+                className={clsx('moonstone-collapsible_button', styles.collapsible_button, {'moonstone-collapsible_button_expanded': isExpanded, [styles.collapsible_button_expanded]: isExpanded}, 'flexRow', 'alignCenter')}
                 aria-expanded={isExpanded}
                 aria-controls={id}
                 onClick={e => onClick(e)}
             >
-                <ChevronRight className={clsx('moonstone-collapsible_icon', {'moonstone-collapsible_icon_expanded': isExpanded})} size="big"/>
+                <ChevronRight className={clsx('moonstone-collapsible_icon', styles.collapsible_icon, {'moonstone-collapsible_icon_expanded': isExpanded, [styles.collapsible_icon_expanded]: isExpanded})} size="big"/>
                 <Typography
                     isNowrap
                     isUpperCase
@@ -72,7 +72,7 @@ const ControlledCollapsibleForwardRef: React.ForwardRefRenderFunction<HTMLDivEle
                 </Typography>
             </button>
             <div id={id}
-                 className={clsx([isExpanded ? 'moonstone-collapsible_content_expanded' : 'moonstone-collapsible_content_collapsed'])}
+                 className={clsx([isExpanded ? ['moonstone-collapsible_content_expanded', styles.collapsible_content_expanded] : ['moonstone-collapsible_content_collapsed', styles.collapsible_content_collapsed]])}
                  hidden={!isExpanded}
             >
                 {children}

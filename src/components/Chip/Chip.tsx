@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import './Chip.scss';
+import styles from './Chip.module.scss';
 import type {ChipProps} from './Chip.types';
 import {Typography} from '~/components/Typography';
 
@@ -15,9 +15,9 @@ export const Chip: React.FC<ChipProps> = ({
 }) => (
     <div
         className={clsx(
-            'moonstone-chip',
+            'moonstone-chip', styles.chip,
             `moonstone-color_${color}`,
-            `moonstone-chip_${variant}`,
+            `moonstone-chip_${variant}`, styles[`chip_${variant}`],
             {'moonstone-disabled': isDisabled},
             className
         )}

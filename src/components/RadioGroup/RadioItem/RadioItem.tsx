@@ -1,7 +1,7 @@
 import React, {useRef} from 'react';
 import clsx from 'clsx';
 import type {RadioItemProps} from './RadioItem.types';
-import './RadioItem.scss';
+import styles from './RadioItem.module.scss';
 import {RadioChecked, RadioUnchecked} from '~/icons';
 import {Typography} from '~/components';
 import {RadioGroupContext} from '~/components/RadioGroup/RadioGroup.context';
@@ -15,7 +15,7 @@ export const RadioItem: React.FC<RadioItemProps> = ({className, id, value, label
     return (
         <Typography
             ref={containerRef}
-            className={clsx('moonstone-radio-container flexCol', className)}
+            className={clsx('moonstone-radio-container', styles['radio-container'], 'flexCol', className)}
             aria-readonly={isReadOnlyItem}
             aria-disabled={isDisabledItem}
             variant="body"
@@ -23,10 +23,10 @@ export const RadioItem: React.FC<RadioItemProps> = ({className, id, value, label
             component="label"
         >
             <div className={clsx('flexRow alignCenter')}>
-                <div className={clsx('moonstone-radio')}>
+                <div className={clsx('moonstone-radio', styles.radio)}>
                     <input
                         {...props}
-                        className={clsx('moonstone-radio_input')}
+                        className={clsx('moonstone-radio_input', styles.radio_input)}
                         type="radio"
                         checked={context.value === value}
                         disabled={isDisabledItem}
@@ -40,13 +40,13 @@ export const RadioItem: React.FC<RadioItemProps> = ({className, id, value, label
                             context.onChange(event, value);
                         }}
                     />
-                    <RadioChecked className={clsx('moonstone-radio_icon moonstone-radio_iconChecked')}/>
-                    <RadioUnchecked className={clsx('moonstone-radio_icon moonstone-radio_iconUnchecked')}/>
+                    <RadioChecked className={clsx('moonstone-radio_icon', styles.radio_icon, 'moonstone-radio_iconChecked', styles.radio_iconChecked)}/>
+                    <RadioUnchecked className={clsx('moonstone-radio_icon', styles.radio_icon, 'moonstone-radio_iconUnchecked', styles.radio_iconUnchecked)}/>
                 </div>
-                <Typography id={`${id}-label`} variant="body" weight="default" component="span" className={clsx('moonstone-radio-label')}>{label}</Typography>
+                <Typography id={`${id}-label`} variant="body" weight="default" component="span" className={clsx('moonstone-radio-label', styles['radio-label'])}>{label}</Typography>
             </div>
             {description && (
-                <Typography id={`${id}-description`} variant="caption" weight="default" component="span" className={clsx('moonstone-radio-description flexRow')}>{description}</Typography>
+                <Typography id={`${id}-description`} variant="caption" weight="default" component="span" className={clsx('moonstone-radio-description', styles['radio-description'], 'flexRow')}>{description}</Typography>
             )}
         </Typography>
     );

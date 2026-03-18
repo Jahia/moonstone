@@ -1,0 +1,98 @@
+@use '../../utils/index' as *;
+@use "../../tokens/spacings/spacings" as *;
+@use "../../globals/variants";
+@use "../../utils/mixins" as *;
+
+.dropdown_container {
+    position: relative;
+}
+
+.dropdown_icon {
+    display: flex;
+    flex: 0 0 auto;
+}
+
+.dropdown_chevronDown {
+    flex: 0 0 auto;
+    margin-left: var(--spacing-nano);
+}
+
+.dropdown_tags {
+    gap: var(--spacing-nano);
+}
+
+:global(.moonstone-disabled) {
+    & > :global(.moonstone-treeView_item) {
+        @extend %selector_disabled;
+    }
+}
+
+.dropdown {
+    @extend %variant_ghost;
+
+    gap: $spacing-icon;
+    padding: var(--spacing-nano) var(--spacing-small);
+
+    border-radius: var(--radius-selector);
+    cursor: pointer;
+
+    &:global(.moonstone-disabled) {
+        @extend %selector_disabled;
+    }
+
+    &.dropdown_loading {
+        cursor: default;
+    }
+
+    //Would have browser default outline otherwise
+    &[aria-disabled="true"],
+    &[aria-busy="true"] {
+        &:focus-visible {
+            outline: none;
+        }
+    }
+
+    // ---
+    // Manage sizes
+    // ---
+    &.medium {
+        gap: $spacing-icon_big;
+        min-height: 32px;
+    }
+
+    &.opened {
+        border: var(--border-selector_active);
+    }
+
+    &:focus-visible:not([aria-disabled="true"], [aria-busy="true"]) {
+        @extend %is-focused;
+    }
+
+    &:not(.filled) .dropdown_label {
+        font-style: italic;
+        color: var(--color-gray_dark60);
+    }
+}
+
+:global(.moonstone-reversed) {
+    .dropdown_ghost:hover {
+        color: var(--color-accent);
+
+        background-color: transparent;
+    }
+}
+
+// ---
+// Outlined variant
+// ---
+.dropdown_outlined {
+    color: var(--color-gray_dark);
+
+    border: var(--border-selector);
+    background-color: var(--background-selector);
+
+    &:hover:not(:global(.moonstone-disabled), [aria-disabled="true"], [aria-busy="true"]) {
+        border: var(--border-selector_hover);
+        background: none;
+    }
+}

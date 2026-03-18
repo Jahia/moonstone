@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import './Fieldset.scss';
+import styles from './Fieldset.module.scss';
 import type {FieldsetProps} from './Fieldset.types';
 import {Typography} from '~/components';
 
@@ -23,6 +23,7 @@ export const Fieldset = React.forwardRef<HTMLFieldSetElement, FieldsetProps>(({
             id={id}
             className={clsx(
                 'moonstone-fieldset',
+                styles.fieldset,
                 'flexCol_nowrap',
                 className
             )}
@@ -33,9 +34,9 @@ export const Fieldset = React.forwardRef<HTMLFieldSetElement, FieldsetProps>(({
                 {buttons && buttons}
             </div>
             {helper &&
-                <Typography variant="caption" className={clsx('moonstone-fieldset_helper')}>{helper}</Typography>}
+                <Typography variant="caption" className={clsx('moonstone-fieldset_helper', styles.fieldset_helper)}>{helper}</Typography>}
             {children &&
-                <div className={clsx('moonstone-fieldset_children', 'flexCol_nowrap')}>
+                <div className={clsx('moonstone-fieldset_children', styles.fieldset_children, 'flexCol_nowrap')}>
                     {children}
                 </div>}
         </fieldset>

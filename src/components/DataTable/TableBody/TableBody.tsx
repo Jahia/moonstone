@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import './TableBody.scss';
+import styles from './TableBody.module.scss';
 import type {TableBodyProps} from './TableBody.types';
 
 export const TableBody: React.FC<TableBodyProps> = ({
@@ -17,7 +17,7 @@ export const TableBody: React.FC<TableBodyProps> = ({
     return React.createElement(
         component,
         {
-            className: clsx('moonstone-tableBody', className),
+            className: clsx('moonstone-tableBody', styles.tableBody, className),
             ...props
         },
         children

@@ -1,0 +1,22 @@
+.fieldset,
+.dynamic-fieldset {
+    padding-left: 32px;
+
+    border-left: 3px solid transparent;
+
+    & legend {
+        width: 100%;
+    }
+}
+
+.fieldset_helper {
+    margin-top: 2px;
+    padding-right: calc(var(--spacing-large) + var(--spacing-nano));
+
+    opacity: 0.8;
+}
+
+.fieldset_children {
+    gap: var(--spacing-large);
+    margin-top: var(--spacing-small);
+}

@@ -1,0 +1,37 @@
+.buttonGroup {
+    :global(.moonstone-button) {
+        &:first-child {
+            border-radius: var(--radius) 0 0 var(--radius);
+        }
+
+        &:last-child {
+            border-radius: 0 var(--radius) var(--radius) 0;
+        }
+
+        &:only-child {
+            border-radius: var(--radius);
+        }
+
+        & + :global(.moonstone-button) {
+            border-left-color: transparent;
+
+            &:not(:last-child) {
+                border-radius: 0;
+            }
+        }
+
+        &:global(.moonstone-button_accent),
+        &:global(.moonstone-button_danger) {
+            + :global(.moonstone-button_accent),
+            + :global(.moonstone-button_danger) {
+                margin-left: 1px;
+            }
+        }
+    }
+
+    :global(.moonstone-button_outlined) {
+        & + :global(.moonstone-button_outlined) {
+            border-left-color: transparent;
+        }
+    }
+}

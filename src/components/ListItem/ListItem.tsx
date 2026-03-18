@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import './ListItem.scss';
+import styles from './ListItem.module.scss';
 import {Typography} from '~/components/Typography';
 import {ListItemProps} from './ListItem.types';
 
@@ -18,6 +18,7 @@ const ListItemForwardRef: React.ForwardRefRenderFunction<HTMLLIElement, ListItem
 }, ref) => {
     const cssListItem = clsx(
         'moonstone-listItem',
+        styles.listItem,
         'flexRow',
         className
     );
@@ -31,12 +32,12 @@ const ListItemForwardRef: React.ForwardRefRenderFunction<HTMLLIElement, ListItem
             {...props}
         >
             {isDisplayImage && (
-                <figure className={clsx(`moonstone-listItem-image moonstone-listItem-image_${imageSize}`, 'flexRow', 'alignCenter')}>
+                <figure className={clsx('moonstone-listItem-image', styles['listItem-image'], `moonstone-listItem-image_${imageSize}`, styles[`listItem-image_${imageSize}`], 'flexRow', 'alignCenter')}>
                     {image}
                 </figure>
             )}
             {iconStart && (
-                <div className="moonstone-listItem_iconStart flexRow_center alignCenter">
+                <div className={clsx('moonstone-listItem_iconStart', styles.listItem_iconStart, 'flexRow_center', 'alignCenter')}>
                     <iconStart.type {...iconStart.props} size={iconSize} className={clsx(`moonstone-icon_${iconSize}`, iconStart.props.className)}/>
                 </div>
             )}
@@ -59,7 +60,7 @@ const ListItemForwardRef: React.ForwardRefRenderFunction<HTMLLIElement, ListItem
                         variant="caption"
                         weight="default"
                         component="span"
-                        className={clsx('moonstone-listItem_description')}
+                        className={clsx('moonstone-listItem_description', styles.listItem_description)}
                     >
                         {description}
                     </Typography>
@@ -67,7 +68,7 @@ const ListItemForwardRef: React.ForwardRefRenderFunction<HTMLLIElement, ListItem
             </div>
 
             {iconEnd && (
-                <div className="moonstone-listItem_iconEnd">
+                    <div className={clsx('moonstone-listItem_iconEnd', styles.listItem_iconEnd)}>
                     <iconEnd.type {...iconEnd.props} size={iconSize} className={clsx(`moonstone-icon_${iconSize}`, iconEnd.props.className)}/>
                 </div>
             )}

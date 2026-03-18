@@ -1,0 +1,97 @@
+@use '../../utils' as *;
+
+$cardSelector-height: 58px;
+
+.cardSelector {
+    gap: var(--spacing-small);
+    width: 100%;
+    height: $cardSelector-height;
+    padding: var(--spacing-nano);
+
+    border: var(--border-selector);
+    border-radius: var(--radius-selector);
+    background-color: var(--background-selector);
+
+    transition: all 0.2s ease-in-out;
+
+    &:not([disabled]) {
+        &:hover {
+            border: var(--border-selector_hover);
+            box-shadow: 0 1px 6px var(--color-gray20);
+        }
+
+        &:active {
+            border: var(--border-selector_active);
+        }
+
+        &:focus-visible {
+            @extend %is-focused;
+        }
+    }
+
+    &.cardSelector_disabled {
+        @extend %selector_disabled;
+
+        color: var(--color-dark_plain60);
+
+        cursor: not-allowed;
+    }
+}
+
+.cardSelector_body {
+    overflow: hidden;
+}
+
+.cardSelector_body,
+.cardSelector_actions {
+    gap: var(--spacing-nano);
+
+    & > * {
+        gap: var(--spacing-nano);
+    }
+}
+
+:global(.moonstone-typography) {
+    &.cardSelector_displayName,
+    &.cardSelector_systemName {
+        max-width: 50%;
+    }
+}
+
+.cardSelector_systemName,
+.cardSelector_information {
+    color: var(--color-dark_plain60);
+}
+
+.cardSelector_error {
+    gap: var(--spacing-nano);
+    width: 100%;
+    height: $cardSelector-height;
+
+    color: var(--color-warning);
+
+    border: 1px solid var(--color-warning_plain60);
+    border-radius: var(--radius-selector);
+    background-color: var(--background-selector);
+    cursor: pointer;
+
+    transition: all 0.2s ease-in-out;
+
+    &[disabled] {
+        @extend %selector_disabled;
+
+        color: var(--color-dark_plain60);
+
+        cursor: not-allowed;
+    }
+
+    &:not([disabled]) {
+        &:hover {
+            border-color: var(--color-warning);
+        }
+
+        &:focus-visible {
+            @extend %is-focused;
+        }
+    }
+}

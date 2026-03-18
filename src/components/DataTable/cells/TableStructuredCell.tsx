@@ -3,7 +3,7 @@ import React from 'react';
 import {ChevronDown, ChevronRight} from '~/icons';
 
 import {TableCell} from './TableCell';
-import './TableStructuredCell.scss';
+import styles from './TableStructuredCell.module.scss';
 import type {TableStructuredCellProps} from './TableStructuredCell.types';
 
 // Spacing constants for tree structure alignment
@@ -40,10 +40,11 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                 <div
                     className={clsx(
                         'moonstone-tableStructuredCell_content',
+                        styles.tableStructuredCell_content,
                         'flexRow_nowrap',
                         'flexFluid',
                         'alignCenter',
-                        {'moonstone-tableStructuredCell_expandable': isExpandable})}
+                        {'moonstone-tableStructuredCell_expandable': isExpandable, [styles.tableStructuredCell_expandable]: isExpandable})}
                     style={{marginLeft: indent}}
                 >
                     {isExpandable && (
