@@ -31,10 +31,10 @@ jobs:
     steps:
       - name: Checkout selected branch
         uses: actions/checkout@v6
-        with:
-          ref: ${{ github.ref_name }}
-          # use PAT if triggering other workflows
-          # token: ${{ secrets.GITHUB_TOKEN }}
+        # with:
+        #   ref: ${{ github.ref_name }}
+        #   # use PAT if triggering other workflows
+        #   # token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Configure Git
         run: |
