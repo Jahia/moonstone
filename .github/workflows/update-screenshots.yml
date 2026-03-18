@@ -2,7 +2,8 @@
 name: Update Visual Regression Screenshots
 
 on:
-  workflow_dispatch: # manual trigger only
+  workflow_dispatch: # manual trigger
+  workflow_call: # used for the initial setup
 
 env:
   AUTHOR_NAME: "github-actions[bot]"
