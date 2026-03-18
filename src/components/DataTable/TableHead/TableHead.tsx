@@ -26,4 +26,3 @@ export const TableHead: React.FC<TableHeadProps> = ({
 };
 
 TableHead.displayName = 'TableHead';
-

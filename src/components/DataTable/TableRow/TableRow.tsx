@@ -39,4 +39,3 @@ const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowPr
 export const TableRow = React.forwardRef(TableRowForwardRef);
 
 TableRow.displayName = 'TableRow';
-

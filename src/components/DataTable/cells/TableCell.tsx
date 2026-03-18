@@ -52,4 +52,3 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
 export const TableCell = React.forwardRef(TableCellForwardRef);
 
 TableCell.displayName = 'TableCell';
-
