@@ -10,9 +10,7 @@ export const Paper: FunctionComponent<PaperProps> = ({
     ...props
 }) => {
     const classNameProps = clsx(
-        'moonstone-paper', styles.paper,
-        {'moonstone-paper_padding': hasPadding, [styles.paper_padding]: hasPadding},
-        className
+        'moonstone-paper', styles.paper, {'moonstone-paper_padding': hasPadding, [styles.paper_padding]: hasPadding}, className
     );
 
     if (!children) {

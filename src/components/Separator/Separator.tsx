@@ -14,12 +14,7 @@ export const Separator: React.FC<SeparatorProps> = ({
     return (
         <hr {...props}
             className={clsx(
-                'moonstone-separator', styles.separator,
-                `moonstone-separator_${variant}`, styles[`separator_${variant}`],
-                `moonstone-size_${size}`, styles[`size_${size}`],
-                `moonstone-spacing_${spacing}`, styles[`spacing_${spacing}`],
-                invisible && `moonstone-invisible_${invisible}`, invisible && styles[`invisible_${invisible}`],
-                className
+                'moonstone-separator', styles.separator, `moonstone-separator_${variant}`, styles[`separator_${variant}`], `moonstone-size_${size}`, styles[`size_${size}`], `moonstone-spacing_${spacing}`, styles[`spacing_${spacing}`], invisible && `moonstone-invisible_${invisible}`, invisible && styles[`invisible_${invisible}`], className
             )}
         />
     );

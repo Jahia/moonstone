@@ -42,7 +42,8 @@ export const Button = ({
             ref={ButtonEl}
             className={clsx(
                 {'moonstone-button': (variant !== 'default' || color !== 'default'), [styles.button]: (variant !== 'default' || color !== 'default')},
-                `moonstone-button_${size}`, styles[`button_${size}`],
+                `moonstone-button_${size}`,
+styles[`button_${size}`],
                 `moonstone-button${variant === 'default' ? '' : `_${variant}`}${color === 'default' ? '' : `_${color}`}`,
                 styles[`button${variant === 'default' ? '' : `_${variant}`}${color === 'default' ? '' : `_${color}`}`],
                 {'moonstone-icon': (label && (icon || iconEnd)), [styles.icon]: (label && (icon || iconEnd))},

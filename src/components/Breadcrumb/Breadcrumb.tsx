@@ -23,9 +23,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({children, className, ...p
                                     <li
                                     className={
                                         clsx(
-                                            'moonstone-breadcrumb_separator', styles.breadcrumb_separator,
-                                            'flexRow_center',
-                                            'alignCenter'
+                                            'moonstone-breadcrumb_separator', styles.breadcrumb_separator, 'flexRow_center', 'alignCenter'
                                         )
                                     }
                                     >

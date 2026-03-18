@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import styles from './PrimaryNavItemsGroup.module.scss';
 import {PrimaryNavItemsGroupProps} from './PrimaryNavItemsGroup.types';
 import {PrimaryNavContext} from '../PrimaryNav.context';
-import {Separator} from '~/components/Separator';
 
 export const PrimaryNavItemsGroup: React.FC<PrimaryNavItemsGroupProps> = ({
     isDisplayedWhenCollapsed = true,
@@ -18,8 +17,7 @@ export const PrimaryNavItemsGroup: React.FC<PrimaryNavItemsGroupProps> = ({
 
     return (
         <>
-            <li className={clsx('moonstone-primaryNavItemsGroup', styles.primaryNavItemsGroup)}>
-            </li>
+            <li className={clsx('moonstone-primaryNavItemsGroup', styles.primaryNavItemsGroup)}/>
             <li className={clsx('moonstone-primaryNavItemsGroup', styles.primaryNavItemsGroup)} {...props}>
                 <ul>
                     {children}

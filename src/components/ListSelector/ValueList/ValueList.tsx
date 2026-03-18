@@ -38,13 +38,13 @@ export const ValueList: React.FC<ValueListProps> = ({
                             <ListItem key={v.label}
                                       role={role}
                                       iconStart={!isReadOnly && (
-                                           <div className={clsx('moonstone-iconContainer', styles.iconContainer)}
-                                               draggable="true"
-                                               onDragStart={e => onDragStart(e, v)}
-                                               onDragEnd={e => onDragEnd(e, v)}
-                                          >
-                                              <HandleDrag className="moonstone-dragHandle"/>
-                                          </div>
+                                      <div className={clsx('moonstone-iconContainer', styles.iconContainer)}
+                                           draggable="true"
+                                           onDragStart={e => onDragStart(e, v)}
+                                           onDragEnd={e => onDragEnd(e, v)}
+                                      >
+                                          <HandleDrag className="moonstone-dragHandle"/>
+                                      </div>
                                       )}
                                       iconEnd={!isReadOnly && (role === 'left-list' ? (
                                           <div className={clsx('moonstone-iconContainer', styles.iconContainer)}>

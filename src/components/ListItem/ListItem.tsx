@@ -68,9 +68,9 @@ const ListItemForwardRef: React.ForwardRefRenderFunction<HTMLLIElement, ListItem
             </div>
 
             {iconEnd && (
-                    <div className={clsx('moonstone-listItem_iconEnd', styles.listItem_iconEnd)}>
-                    <iconEnd.type {...iconEnd.props} size={iconSize} className={clsx(`moonstone-icon_${iconSize}`, iconEnd.props.className)}/>
-                </div>
+            <div className={clsx('moonstone-listItem_iconEnd', styles.listItem_iconEnd)}>
+                <iconEnd.type {...iconEnd.props} size={iconSize} className={clsx(`moonstone-icon_${iconSize}`, iconEnd.props.className)}/>
+            </div>
             )}
         </li>
     );

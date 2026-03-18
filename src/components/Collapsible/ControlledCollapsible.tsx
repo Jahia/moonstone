@@ -15,8 +15,7 @@ const ControlledCollapsibleForwardRef: React.ForwardRefRenderFunction<HTMLDivEle
     ...other
 }, ref) => {
     const classNameProps = clsx(
-        'moonstone-collapsible', styles.collapsible,
-        className
+        'moonstone-collapsible', styles.collapsible, className
     );
 
     const topDivRef: MutableRefObject<HTMLDivElement> = useRef();
@@ -28,7 +27,7 @@ const ControlledCollapsibleForwardRef: React.ForwardRefRenderFunction<HTMLDivEle
                 if (entries[0].intersectionRatio === 0) {
                     buttonRef.current.classList.add('moonstone-collapsible_button_sticky', styles.collapsible_button_sticky);
                 } else if (entries[0].intersectionRatio === 1) {
-                        buttonRef.current.classList.remove('moonstone-collapsible_button_sticky', styles.collapsible_button_sticky);
+                    buttonRef.current.classList.remove('moonstone-collapsible_button_sticky', styles.collapsible_button_sticky);
                 }
             }
         }, {threshold: [0, 1]});

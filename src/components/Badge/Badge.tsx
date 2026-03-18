@@ -11,10 +11,7 @@ export const Badge: React.FC<BadgeProps> = ({
     ...other
 }) => {
     const classNameProps = clsx(
-        'moonstone-badge', styles.badge,
-        'moonstone-badge_round', styles.badge_round,
-        `moonstone-badge_${color}`, styles[`badge_${color}`],
-        className
+        'moonstone-badge', styles.badge, 'moonstone-badge_round', styles.badge_round, `moonstone-badge_${color}`, styles[`badge_${color}`], className
     );
 
     if (!label || label.length < 1) {

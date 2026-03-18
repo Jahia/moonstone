@@ -11,11 +11,7 @@ export const EmptyData = React.forwardRef<HTMLElement, EmptyDataProps>(
             <Component
                 ref={ref}
                 className={clsx(
-                    'moonstone-emptyData', styles.emptyData,
-                    'flexCol_center',
-                    'alignCenter',
-                    'flexFluid',
-                    className
+                    'moonstone-emptyData', styles.emptyData, 'flexCol_center', 'alignCenter', 'flexFluid', className
                 )}
                 {...props}
             >

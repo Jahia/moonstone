@@ -18,7 +18,7 @@ const Item: React.FC<ItemProps> = ({icon, label, textVariant, subtitle, button})
                 <Typography isNowrap
                             variant={textVariant}
                             component="span"
-                             className={clsx('moonstone-primaryNavItem_label', styles.primaryNavItem_label)}
+                            className={clsx('moonstone-primaryNavItem_label', styles.primaryNavItem_label)}
                 >
                     {label}
                 </Typography>
@@ -48,9 +48,9 @@ const ItemTypeResolver: React.FC<ItemTypeResolverProps> = ({url, icon, label, su
         return (
             <a
                 className={clsx('moonstone-primaryNavItem', styles.primaryNavItem, 'moonstone-primaryNavItem_linkItem', styles.primaryNavItem_linkItem)}
-               href={url}
-               target="_blank"
-               rel="noopener noreferrer"
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
             >
                 <Item icon={icon} label={label} subtitle={subtitle} textVariant="body" button={button}/>
             </a>
@@ -80,8 +80,7 @@ export const PrimaryNavItem: React.FC<PrimaryNavItemProps> = ({
         <li
             aria-current={isSelected}
             className={clsx(
-                'moonstone-primaryNavItem',                styles.primaryNavItem,                {'moonstone-selected': isSelected},
-                className
+                'moonstone-primaryNavItem', styles.primaryNavItem, {'moonstone-selected': isSelected}, className
             )}
             title={label}
             {...onAccessibleClick({onClick: (e: React.MouseEvent) => {
@@ -98,9 +97,9 @@ export const PrimaryNavItem: React.FC<PrimaryNavItemProps> = ({
             {badge && (
                 <badge.type
                      className={clsx('moonstone-primaryNavItem_badge', styles.primaryNavItem_badge)}
-                    color="danger"
-                    type="round"
-                    label={badge.props.label}
+                     color="danger"
+                     type="round"
+                     label={badge.props.label}
                 />
             )}
         </li>

@@ -20,10 +20,7 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
         <div
             role="group"
             className={clsx(
-                'moonstone-buttonGroup', styles.buttonGroup,
-                className,
-                'flexRow',
-                'alignCenter'
+                'moonstone-buttonGroup', styles.buttonGroup, className, 'flexRow', 'alignCenter'
             )}
             {...props}
         >

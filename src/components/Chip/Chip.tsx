@@ -15,11 +15,7 @@ export const Chip: React.FC<ChipProps> = ({
 }) => (
     <div
         className={clsx(
-            'moonstone-chip', styles.chip,
-            `moonstone-color_${color}`,
-            `moonstone-chip_${variant}`, styles[`chip_${variant}`],
-            {'moonstone-disabled': isDisabled},
-            className
+            'moonstone-chip', styles.chip, `moonstone-color_${color}`, `moonstone-chip_${variant}`, styles[`chip_${variant}`], {'moonstone-disabled': isDisabled}, className
         )}
         {...props}
     >

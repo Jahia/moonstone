@@ -58,7 +58,7 @@ export const ControlledCheckboxItem: React.FC<ControlledCheckboxItemProps> = ({c
                     variant="caption"
                     weight="default"
                     component="span"
-                     className={clsx('moonstone-checkboxItem_description', styles.checkboxItem_description, 'flexRow')}
+                    className={clsx('moonstone-checkboxItem_description', styles.checkboxItem_description, 'flexRow')}
                 >
                     {description}
                 </Typography>

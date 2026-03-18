@@ -15,9 +15,7 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({
     ...props
 }) => {
     const rootClassName = clsx(
-        'moonstone-thumbnail', styles.thumbnail,
-        `moonstone-thumbnail_${size}`, styles[`thumbnail_${size}`],
-        className
+        'moonstone-thumbnail', styles.thumbnail, `moonstone-thumbnail_${size}`, styles[`thumbnail_${size}`], className
     );
 
     if (!src) {

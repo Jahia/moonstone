@@ -70,8 +70,8 @@ export const PrimaryNav: React.FC<PrimaryNavProps> = ({
                     'flexCol_nowrap'
                 )}
             >
-                    <div className={clsx('flexRow_nowrap', 'moonstone-primaryNav_header', styles.primaryNav_header)}>
-                        <div className={clsx('moonstone-primaryNav_buttonContainer', styles.primaryNav_buttonContainer, 'flexRow_center', 'alignCenter')}>
+                <div className={clsx('flexRow_nowrap', 'moonstone-primaryNav_header', styles.primaryNav_header)}>
+                    <div className={clsx('moonstone-primaryNav_buttonContainer', styles.primaryNav_buttonContainer, 'flexRow_center', 'alignCenter')}>
                         <NavButton isExpanded={isExpanded} toggleExpand={toggleExpand} modeIcon={modeIcon}/>
                     </div>
                     <div

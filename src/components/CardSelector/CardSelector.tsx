@@ -109,7 +109,7 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
                         <Typography
                             isNowrap
                             id={id && `${id}-systemName`}
-                             className={clsx('moonstone-cardSelector_systemName', styles.cardSelector_systemName)}
+                            className={clsx('moonstone-cardSelector_systemName', styles.cardSelector_systemName)}
                             data-testid="cardSelector-systemName"
                             variant="body"
                             component="span"

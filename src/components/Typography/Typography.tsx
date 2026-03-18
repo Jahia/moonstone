@@ -26,14 +26,7 @@ export const Typography = React.forwardRef(<C extends React.ElementType = 'p'> (
         <Component
             ref={ref}
             className={clsx(
-                'moonstone-typography', styles.typography,
-                `moonstone-variant_${variant}`, styles[`variant_${variant}`],
-                `moonstone-weight_${weight}`, styles[`weight_${weight}`],
-                className,
-                {'moonstone-nowrap': isNowrap, [styles.nowrap]: isNowrap},
-                {'moonstone-italic': isItalic, [styles.italic]: isItalic},
-                {'moonstone-upperCase': isUpperCase, [styles.upperCase]: isUpperCase},
-                {'moonstone-lineThrough': hasLineThrough, [styles.lineThrough]: hasLineThrough}
+                'moonstone-typography', styles.typography, `moonstone-variant_${variant}`, styles[`variant_${variant}`], `moonstone-weight_${weight}`, styles[`weight_${weight}`], className, {'moonstone-nowrap': isNowrap, [styles.nowrap]: isNowrap}, {'moonstone-italic': isItalic, [styles.italic]: isItalic}, {'moonstone-upperCase': isUpperCase, [styles.upperCase]: isUpperCase}, {'moonstone-lineThrough': hasLineThrough, [styles.lineThrough]: hasLineThrough}
             )}
             {...props}
         >
