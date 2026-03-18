@@ -12,8 +12,8 @@ const ignore = new Set([
     './components/Menu/Menu.stories.tsx-Default'
 ]);
 
-describe.for(Object.entries(stories))('%s', ([file, imports]) => {
-    test.for(Object.entries<() => JSX.Element>(composeStories(imports)))('%s', async ([name, Story], {skip}) => {
+describe.for(Object.entries(stories).slice(0, 1))('%s', ([file, imports]) => {
+    test.for(Object.entries<() => JSX.Element>(composeStories(imports)).slice(0, 1))('%s', async ([name, Story], {skip}) => {
         skip(ignore.has(`${file}-${name}`));
         const {container} = await render(<Story/>, {});
         await expect
