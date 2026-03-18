@@ -16,7 +16,6 @@ jobs:
       # - name: Publish to pkg.pr.new
       #   run: npx pkg-pr-new publish --compact --packageManager=yarn
       # - run: yarn test
-      - uses: ./.github/workflows/update-screenshots.yml
       - name: Run visual tests
         # if: github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'test:visual')
         run: yarn playwright install chromium --only-shell && yarn test:visual
