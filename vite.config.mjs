@@ -58,6 +58,7 @@ export default defineConfig({
                     include: ['src/visual.spec.tsx'],
                     browser: {
                         enabled: true,
+                        headless: true,
                         provider: playwright(),
                         instances: [{browser: 'chromium'}]
                     }

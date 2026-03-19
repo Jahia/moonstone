@@ -1923,6 +1923,7 @@ __metadata:
     "@vitest/browser": "npm:^4.1.0"
     "@vitest/browser-playwright": "npm:^4.1.0"
     "@vitest/coverage-v8": "npm:^4.1.0"
+    "@vitest/ui": "npm:4.1.0"
     clsx: "npm:^2.1.1"
     eslint: "npm:^8.57.1"
     eslint-plugin-jest: "npm:^28.14.0"
@@ -3449,6 +3450,23 @@ __metadata:
   version: 4.1.0
   resolution: "@vitest/spy@npm:4.1.0"
   checksum: 10c0/363776bbffda45af76ff500deacb9b1a35ad8b889462c1be9ebe5f29578ce1dd2c4bd7858c8188614a7db9699a5c802b7beb72e5a18ab5130a70326817961446
+  languageName: node
+  linkType: hard
+
+"@vitest/ui@npm:4.1.0":
+  version: 4.1.0
+  resolution: "@vitest/ui@npm:4.1.0"
+  dependencies:
+    "@vitest/utils": "npm:4.1.0"
+    fflate: "npm:^0.8.2"
+    flatted: "npm:3.4.0"
+    pathe: "npm:^2.0.3"
+    sirv: "npm:^3.0.2"
+    tinyglobby: "npm:^0.2.15"
+    tinyrainbow: "npm:^3.0.3"
+  peerDependencies:
+    vitest: 4.1.0
+  checksum: 10c0/3629aadc120b992c80a18c32879358a40d936245ab987f64bd76cf6b13abb319b2ef9a029be69be7f6ea7f7ae9182e54f6d631fd57df32ba31060d6ae488048e
   languageName: node
   linkType: hard
 
@@ -5483,6 +5501,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fflate@npm:^0.8.2":
+  version: 0.8.2
+  resolution: "fflate@npm:0.8.2"
+  checksum: 10c0/03448d630c0a583abea594835a9fdb2aaf7d67787055a761515bf4ed862913cfd693b4c4ffd5c3f3b355a70cf1e19033e9ae5aedcca103188aaff91b8bd6e293
+  languageName: node
+  linkType: hard
+
 "file-entry-cache@npm:^6.0.1":
   version: 6.0.1
   resolution: "file-entry-cache@npm:6.0.1"
@@ -5529,6 +5554,13 @@ __metadata:
     keyv: "npm:^4.5.3"
     rimraf: "npm:^3.0.2"
   checksum: 10c0/b76f611bd5f5d68f7ae632e3ae503e678d205cf97a17c6ab5b12f6ca61188b5f1f7464503efae6dc18683ed8f0b41460beb48ac4b9ac63fe6201296a91ba2f75
+  languageName: node
+  linkType: hard
+
+"flatted@npm:3.4.0":
+  version: 3.4.0
+  resolution: "flatted@npm:3.4.0"
+  checksum: 10c0/033b0d28dc7c11c20cdddfef160647d37ee6f49cac265e6315d7c172a8a518a971316938d49c72cce3e20bddd40f1bae1455a5cba29f9741fcfb0af4d3491fa4
   languageName: node
   linkType: hard
 
