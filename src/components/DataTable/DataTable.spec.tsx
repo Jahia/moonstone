@@ -1,7 +1,7 @@
 import {render, screen, waitFor, within} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {describe, expect, it, vi} from 'vitest';
-import {DataTable, TableRow} from '~/components/DataTable';
+import {DataTable, TableCellStatus, TableRow} from '~/components/DataTable';
 import {numberColumn, stringColumn} from '~/utils/dataTable';
 
 type TestData = {
@@ -9,6 +9,14 @@ type TestData = {
     name: string;
     age: number;
     subRows?: TestData[];
+};
+
+type StatusBarData = {
+    id: string;
+    name: string;
+    age: number;
+    status: 'Healthy' | 'Pending';
+    subRows?: StatusBarData[];
 };
 
 const data: TestData[] = [
@@ -28,6 +36,23 @@ const structuredData: TestData[] = [
     }
 ];
 
+const statusBarData: StatusBarData[] = [
+    {
+        id: '1',
+        name: 'Parent',
+        age: 50,
+        status: 'Healthy',
+        subRows: [
+            {
+                id: '1.1',
+                name: 'Child',
+                age: 10,
+                status: 'Pending'
+            }
+        ]
+    }
+];
+
 const columns = [
     {
         key: 'name',
@@ -38,6 +63,19 @@ const columns = [
         key: 'age',
         label: 'Age',
         ...numberColumn((row: TestData) => row.age)
+    }
+] as const;
+
+const statusBarColumns = [
+    {
+        key: 'name',
+        label: 'Name',
+        ...stringColumn((row: StatusBarData) => row.name)
+    },
+    {
+        key: 'age',
+        label: 'Age',
+        ...numberColumn((row: StatusBarData) => row.age)
     }
 ] as const;
 
@@ -185,6 +223,25 @@ describe('DataTable', () => {
         expect(rows).toHaveLength(3);
     });
 
+    it('should render a start cell in the header and each data row when renderRowStart is provided', () => {
+        render(
+            <DataTable
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                renderRowStart={row => <span data-testid={`start-${row.id}`}>{row.original.name}</span>}
+            />
+        );
+
+        const [headerRow] = screen.getAllByRole('row');
+
+        expect(within(headerRow).getAllByRole('columnheader')[0]).toHaveClass('moonstone-tableCellStart');
+        expect(screen.getAllByTestId(/start-/)).toHaveLength(data.length);
+        expect(screen.getByTestId('start-1')).toHaveTextContent('Alice');
+        expect(screen.getByTestId('start-2')).toHaveTextContent('Bob');
+        expect(screen.getByTestId('start-3')).toHaveTextContent('Charlie');
+    });
+
     it('should render expandable rows with children visible by default', () => {
         render(
             <DataTable
@@ -197,6 +254,30 @@ describe('DataTable', () => {
 
         expect(screen.getByText('Parent')).toBeInTheDocument();
         expect(screen.getByText('Child')).toBeInTheDocument();
+    });
+
+    it('should render status bars through renderRowStart with structured rows and selection enabled', () => {
+        render(
+            <DataTable<StatusBarData>
+                enableSelection
+                isStructured
+                data={statusBarData}
+                columns={statusBarColumns}
+                primaryKey="id"
+                renderRowStart={row => (
+                    <TableCellStatus
+                        color={row.original.status === 'Healthy' ? 'success' : 'warning'}
+                        text={row.original.status}
+                    />
+                )}
+            />
+        );
+
+        expect(screen.getByText('Parent')).toBeInTheDocument();
+        expect(screen.getByText('Child')).toBeInTheDocument();
+        expect(screen.getByText('Healthy').closest('.moonstone-tableCellStatus')).toHaveClass('moonstone-tableCellStatus_success');
+        expect(screen.getByText('Pending').closest('.moonstone-tableCellStatus')).toHaveClass('moonstone-tableCellStatus_warning');
+        expect(screen.getAllByRole('checkbox')).toHaveLength(3);
     });
 
     it('should toggle row when clicking on the expandable node', async () => {
