@@ -62,7 +62,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     ...props
 }: DataTableProps<T>) => {
     const [expanded, setExpanded] = useState<ExpandedState>({});
-    const hasRowStart = renderRowStart !== null;
+    const hasRowStart = typeof renderRowStart === 'function';
 
     const {sorting, handleSortingChange} = useTableSorting({
         sortBy,
@@ -219,7 +219,9 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 <TableHead>
                     {table.getHeaderGroups().map(headerGroup => (
                         <TableRow key={headerGroup.id}>
-                            {hasRowStart && <TableCellStart component="th"/>}
+                            {hasRowStart && (
+                                <TableCellStart component="th"/>
+                            )}
 
                             {/* Selection header */}
                             {enableSelection && (
