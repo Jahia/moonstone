@@ -61,8 +61,8 @@
     "lint:scss:fix": "yarn lint:scss --fix",
     "start": "storybook dev -p 6006",
     "tdd": "vitest watch",
-    "test": "vitest run --coverage --project unit",
-    "test:visual": "vitest run --project visual --reporter verbose",
+    "test": "vitest --coverage --project unit",
+    "test:visual": "vitest --project visual --reporter verbose",
     "tsc": "tsc --build tsconfig.json && cp ./dist/index.d.ts ./dist/index.d.cts"
   },
   "dependencies": {
