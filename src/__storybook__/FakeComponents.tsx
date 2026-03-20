@@ -7,8 +7,8 @@ export const FakePrimaryNavigation = ({...props}) => {
                 writingMode: 'vertical-rl',
                 width: '100%',
                 height: '100vh',
-                backgroundColor: 'var(--color-dark)',
-                color: 'var(--color-light)',
+                backgroundColor: 'var(--moon-color-dark)',
+                color: 'var(--moon-color-light)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center'
@@ -26,8 +26,8 @@ export const FakeSecondaryNavigation = ({...props}) => {
                 writingMode: 'vertical-rl',
                 width: '245px',
                 height: '100vh',
-                backgroundColor: 'var(--color-gray_dark)',
-                color: 'var(--color-light)',
+                backgroundColor: 'var(--moon-color-gray_dark)',
+                color: 'var(--moon-color-light)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center'
@@ -44,7 +44,7 @@ export const FakeContent = ({
     return (
         <p
             style={{
-                backgroundColor: 'var(--color-gray_light)',
+                backgroundColor: 'var(--moon-color-gray_light)',
                 alignItems: 'center',
                 textAlign: 'center',
                 justifyContent: 'center'

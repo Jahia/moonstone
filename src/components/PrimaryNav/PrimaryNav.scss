@@ -21,9 +21,9 @@ $primaryNav: 56px;
     width: $primaryNav;
     height: 100vh;
 
-    color: var(--color-light);
+    color: var(--moon-color-light);
 
-    background: var(--color-dark);
+    background: var(--moon-color-dark);
     overflow: hidden;
 
     transition: width 0.3s;
@@ -33,7 +33,7 @@ $primaryNav: 56px;
 
         width: $primaryNavExpanded;
 
-        box-shadow: 8px 0 16px 0 var(--color-gray_dark60);
+        box-shadow: 8px 0 16px 0 var(--moon-color-gray_dark60);
 
         .moonstone-primaryNav_logoCaptionGroup {
             visibility: visible;
@@ -49,7 +49,7 @@ $primaryNav: 56px;
     width: 100vw;
     height: 100vh;
 
-    background-color: var(--color-dark);
+    background-color: var(--moon-color-dark);
     opacity: 0.6;
 }
 
@@ -74,7 +74,7 @@ $primaryNav: 56px;
     height: 40px;
     padding: 0;
 
-    color: var(--color-light);
+    color: var(--moon-color-light);
 
     border: none;
     border-radius: 40px;
@@ -83,18 +83,18 @@ $primaryNav: 56px;
     cursor: pointer;
 
     &:hover {
-        color: var(--color-accent);
+        color: var(--moon-color-accent);
 
-        background-color: var(--color-gray_dark60);
+        background-color: var(--moon-color-gray_dark60);
     }
 }
 
 .moonstone-primaryNav_modeIcon {
     position: absolute;
-    top: calc(var(--spacing-nano) * 3);
-    right: calc(var(--spacing-nano) * 2);
+    top: calc(var(--moon-spacing-nano) * 3);
+    right: calc(var(--moon-spacing-nano) * 2);
 
-    color: var(--color-accent);
+    color: var(--moon-color-accent);
 
     pointer-events: none;
 }
@@ -103,7 +103,7 @@ $primaryNav: 56px;
     width: 15px;
     height: 15px;
 
-    color: var(--color-accent);
+    color: var(--moon-color-accent);
 
     pointer-events: none;
 }
@@ -114,5 +114,5 @@ $primaryNav: 56px;
     margin-left: 40px;
 
     font-size: 8pt;
-    color: var(--color-light);
+    color: var(--moon-color-light);
 }

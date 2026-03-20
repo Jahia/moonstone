@@ -4,16 +4,16 @@ $header-toolbar-minheight: 35px;
 .moonstone-header {
     width: 100%;
     min-height: $header-minHeight;
-    padding: var(--spacing-medium) var(--spacing-large) 0 var(--spacing-large);
+    padding: var(--moon-spacing-medium) var(--moon-spacing-large) 0 var(--moon-spacing-large);
 
-    background-color: var(--background-selector);
-    box-shadow: 0 1px 8px var(--color-gray60);
+    background-color: var(--moon-background-selector);
+    box-shadow: 0 1px 8px var(--moon-color-gray60);
 }
 
 // Set the same spacing between each elements (buttons, chips, ...)
 .moonstone-header_actions {
     > * + * {
-        margin-left: var(--spacing-small);
+        margin-left: var(--moon-spacing-small);
     }
 }
 
@@ -21,28 +21,28 @@ $header-toolbar-minheight: 35px;
 // Main
 //---
 .moonstone-header_main {
-    margin-bottom: var(--spacing-nano);
+    margin-bottom: var(--moon-spacing-nano);
 }
 
 .moonstone-header_back {
-    margin-right: var(--spacing-small);
+    margin-right: var(--moon-spacing-small);
 }
 
 .moonstone-header_title {
-    margin-right: var(--spacing-big);
+    margin-right: var(--moon-spacing-big);
 
-    color: var(--color-gray_dark);
+    color: var(--moon-color-gray_dark);
 }
 
 .moonstone-header_search {
-    margin-right: var(--spacing-large);
+    margin-right: var(--moon-spacing-large);
 }
 
 //---
 // Information Section
 //---
 .moonstone-header_information {
-    padding: var(--spacing-medium) 0;
+    padding: var(--moon-spacing-medium) 0;
 }
 
 .moonstone-header_informationLeft,
@@ -51,7 +51,7 @@ $header-toolbar-minheight: 35px;
 }
 
 .moonstone-header_informationLeft {
-    margin-right: var(--spacing-big);
+    margin-right: var(--moon-spacing-big);
 }
 
 //---

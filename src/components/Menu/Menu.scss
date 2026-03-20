@@ -5,13 +5,13 @@
 
     width: max-content;
 
-    color: var(--color-gray_dark);
+    color: var(--moon-color-gray_dark);
 
-    border-radius: var(--radius);
+    border-radius: var(--moon-radius);
 
     list-style: none;
-    background-color: var(--color-light);
-    box-shadow: 0 var(--spacing-nano) var(--spacing-small) var(--color-gray_dark60);
+    background-color: var(--moon-color-light);
+    box-shadow: 0 var(--moon-spacing-nano) var(--moon-spacing-small) var(--moon-color-gray_dark60);
     overflow-x: hidden; // Shorten property doesn't work with Safari
     overflow-y: auto;
 
@@ -22,13 +22,13 @@
     }
 
     .moonstone-menu_searchInput {
-        margin: var(--spacing-small) var(--spacing-medium);
+        margin: var(--moon-spacing-small) var(--moon-spacing-medium);
     }
 
     .moonstone-menu_emptySearchText {
-        margin: var(--spacing-medium) var(--spacing-medium);
+        margin: var(--moon-spacing-medium) var(--moon-spacing-medium);
 
-        color: var(--color-gray);
+        color: var(--moon-color-gray);
         text-align: center;
     }
 }
