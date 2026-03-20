@@ -25,6 +25,7 @@ import {
 } from '~/components/DataTable';
 import {createTableColumns} from '~/utils/dataTable/tableHelpers';
 import {Pagination} from '~/components/Pagination';
+import {TableCellStart} from './cells/TableCellStart/TableCellStart';
 
 export const DataTable = <T extends NonNullable<unknown>>({
     className,
@@ -42,6 +43,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     defaultSortBy,
     defaultSortDirection = 'ascending',
     defaultSelection = [],
+    renderRowStart,
     renderRow,
     onClickTableHeadCell,
     // Pagination props
@@ -60,6 +62,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     ...props
 }: DataTableProps<T>) => {
     const [expanded, setExpanded] = useState<ExpandedState>({});
+    const hasRowStart = typeof renderRowStart === 'function';
 
     const {sorting, handleSortingChange} = useTableSorting({
         sortBy,
@@ -122,6 +125,12 @@ export const DataTable = <T extends NonNullable<unknown>>({
     const renderRowContent = useCallback(
         (row: Row<T>, actionsContent?: DefaultRenderOptions) => (
             <>
+                {hasRowStart && (
+                    <TableCellStart>
+                        {renderRowStart?.(row)}
+                    </TableCellStart>
+                )}
+
                 {/* Selection checkbox cell */}
                 {enableSelection && (
                     <TableCell width="52px">
@@ -176,7 +185,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 )}
             </>
         ),
-        [enableSelection, isStructured]
+        [enableSelection, hasRowStart, isStructured, renderRowStart]
     );
 
     const renderRowWithCustomization = useCallback(
@@ -210,6 +219,10 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 <TableHead>
                     {table.getHeaderGroups().map(headerGroup => (
                         <TableRow key={headerGroup.id}>
+                            {hasRowStart && (
+                                <TableCellStart component="th"/>
+                            )}
+
                             {/* Selection header */}
                             {enableSelection && (
                                 <TableHeadCell width="52px">

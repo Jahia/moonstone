@@ -1,0 +1,127 @@
+.moonstone-tableCellStatus {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(var(--spacing-medium) * -1);
+    z-index: 1;
+
+    // The width of the status bar is the width of the trigger
+    width: calc(var(--spacing-nano) + var(--spacing-nano));
+}
+
+.moonstone-tableCellStatus_trigger {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+
+    width: 100%;
+}
+
+.moonstone-tableCellStatus_strip {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 4;
+
+    width: var(--spacing-nano);
+
+    background-color: var(--tableCellStatus-accent);
+}
+
+.moonstone-tableCellStatus_panel {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+
+    display: flex;
+    gap: var(--spacing-nano);
+    align-items: center;
+
+    width: max-content;
+    max-width: calc(100vw);
+    padding-right: var(--spacing-small);
+    padding-left: calc(var(--spacing-small) + var(--spacing-nano));
+
+    color: var(--tableCellStatus-color);
+
+    white-space: nowrap;
+
+    border-radius: 0 var(--spacing-small) var(--spacing-small) 0;
+    background-color: var(--tableCellStatus-background);
+    box-shadow: 0 1px 2px var(--tableCellStatus-shadow);
+    transform: translateX(calc(var(--spacing-small) * -1));
+    visibility: hidden;
+    opacity: 0;
+
+    transition:
+        opacity 200ms ease,
+        transform 200ms ease,
+        visibility 200ms ease;
+
+    pointer-events: none;
+}
+
+.moonstone-tableCellStatus_text {
+    color: inherit;
+}
+
+.moonstone-tableCellStatus_icon {
+    display: inline-flex;
+    align-items: center;
+}
+
+.moonstone-tableCellStatus:hover .moonstone-tableCellStatus_panel,
+.moonstone-tableCellStatus:focus-within .moonstone-tableCellStatus_panel {
+    transform: translateX(0);
+    visibility: visible;
+    opacity: 1;
+
+    pointer-events: auto;
+}
+
+.moonstone-tableCellStatus_success {
+    --tableCellStatus-background: var(--color-success_plain20);
+    --tableCellStatus-color: var(--color-success_dark);
+    --tableCellStatus-shadow: var(--color-success20);
+    --tableCellStatus-accent: var(--color-success);
+}
+
+.moonstone-tableCellStatus_warning {
+    --tableCellStatus-background: var(--color-warning_plain20);
+    --tableCellStatus-color: var(--color-warning_dark);
+    --tableCellStatus-shadow: var(--color-warning20);
+    --tableCellStatus-accent: var(--color-warning);
+}
+
+.moonstone-tableCellStatus_danger {
+    --tableCellStatus-background: var(--color-danger_plain20);
+    --tableCellStatus-color: var(--color-danger_dark);
+    --tableCellStatus-shadow: var(--color-danger20);
+    --tableCellStatus-accent: var(--color-danger);
+}
+
+.moonstone-tableCellStatus_dark {
+    --tableCellStatus-background: var(--color-dark_plain20);
+    --tableCellStatus-color: var(--color-dark);
+    --tableCellStatus-shadow: var(--color-dark20);
+    --tableCellStatus-accent: var(--color-dark);
+}
+
+.moonstone-tableCellStatus_neutral {
+    --tableCellStatus-background: var(--color-gray_light_plain40);
+    --tableCellStatus-color: var(--color-gray_dark);
+    --tableCellStatus-shadow: var(--color-gray20);
+    --tableCellStatus-accent: var(--color-gray);
+}
+
+.moonstone-tableCellStatus_info {
+    --tableCellStatus-background: var(--color-accent_light_plain20);
+    --tableCellStatus-color: var(--color-accent_dark_contrast);
+    --tableCellStatus-shadow: var(--color-accent20);
+    --tableCellStatus-accent: var(--color-accent);
+}
