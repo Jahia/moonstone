@@ -1,5 +1,4 @@
 import React from 'react';
-import {GlobalStyle} from '../src';
 import {addons} from 'storybook/preview-api';
 import {UPDATE_GLOBALS, STORY_ARGS_UPDATED} from "storybook/internal/core-events";
 import './until-we-find-a-better-name.scss';
@@ -22,12 +21,7 @@ function setupBackgroundListener() {
     channel.addListener(STORY_ARGS_UPDATED, storyListener);
 }
 
-export const decorators = (story => {
-    return <>
-        <GlobalStyle/>
-        {story()}
-    </>
-});
+export const decorators = story => story();
 
 export const parameters = {
     layout: 'fullscreen',
