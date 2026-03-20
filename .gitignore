@@ -272,6 +272,8 @@ GitHub.sublime-settings
 storybook-static/
 dist/
 
+/src/icons/components
+
 yalc.lock
 .yalc
 *.iml
