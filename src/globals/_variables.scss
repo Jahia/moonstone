@@ -1,9 +1,9 @@
 :root {
-    --border-selector: solid 1px var(--moon-color-gray40);
-    --border-selector_hover: solid 1px var(--moon-color-gray60);
-    --border-selector_focus: solid 1px var(--moon-color-accent);
-    --border-selector_active: solid 1px var(--moon-color-accent);
-    --border-selector_invisible: solid 1px transparent;
-    --background-selector: var(--moon-color-white);
-    --radius-selector: var(--moon-radius_small);
+    --moon-border-selector: solid 1px var(--moon-color-gray40);
+    --moon-border-selector_hover: solid 1px var(--moon-color-gray60);
+    --moon-border-selector_focus: solid 1px var(--moon-color-accent);
+    --moon-border-selector_active: solid 1px var(--moon-color-accent);
+    --moon-order-selector_invisible: solid 1px transparent;
+    --moon-background-selector: var(--moon-color-white);
+    --moon-radius-selector: var(--moon-radius_small);
 }
