@@ -49,7 +49,7 @@
   ],
   "scripts": {
     "build": "yarn build:icons && yarn build:storybook && yarn build:lib",
-    "build:icons": "rimraf src/icons/components/*.tsx && svgr --template ./src/icons/svgrTemplate.cjs --config-file ./src/icons/svgr.config.cjs ./src/icons/assets && eslint --fix ./src/icons/components/*",
+    "build:icons": "rimraf -g 'src/icons/components/*.tsx' && svgr --template ./src/icons/svgrTemplate.cjs --config-file ./src/icons/svgr.config.cjs ./src/icons/assets && eslint --fix ./src/icons/components/*",
     "prebuild:lib": "rimraf dist/",
     "build:lib": "yarn vite build && yarn tsc && yarn tsc-alias && yarn publint",
     "build:storybook": "storybook build",
