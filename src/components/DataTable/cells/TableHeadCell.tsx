@@ -1,8 +1,9 @@
 import {ArrowDown, ArrowUp} from '~/icons';
 import clsx from 'clsx';
-import './TableHeadCell.scss';
+import styles from './TableHeadCell.module.scss';
 import {TableCell} from './TableCell';
 import type {TableHeadCellProps} from './TableHeadCell.types';
+import {layout} from '~/globals/css-utils.js';
 
 export const TableHeadCell = ({
     width,
@@ -30,18 +31,18 @@ export const TableHeadCell = ({
             width={width}
             align={align}
             verticalAlign={verticalAlign}
-            className={clsx('moonstone-tableHeadCell', className)}
+            className={clsx(styles['moonstone-tableHeadCell'], className)}
             aria-sort={ariaSort}
             onClick={onClick}
         >
-            <span className="flexRow_nowrap alignCenter">
+            <span className={clsx(layout.flexRow_nowrap, layout.alignCenter)}>
                 {children}
                 {SortIcon && (
                     <SortIcon
                         aria-hidden="true"
                         className={clsx(
-                            'moonstone-tableHeadCell_sort',
-                            isActive && 'moonstone-tableHeadCell_sortActive'
+                            styles['moonstone-tableHeadCell_sort'],
+                            isActive && styles['moonstone-tableHeadCell_sortActive']
                         )}
                     />
                 )}
@@ -51,4 +52,3 @@ export const TableHeadCell = ({
 };
 
 TableHeadCell.displayName = 'TableHeadCell';
-

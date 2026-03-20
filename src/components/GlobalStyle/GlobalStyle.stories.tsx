@@ -1,11 +1,13 @@
 import React from 'react';
 import markdownNotes from './GlobalStyle_layout.md';
 import clsx from 'clsx';
+import {layout} from '~/globals/css-utils.js';
+import {capitalize} from '~/utils/helpers.js';
 
-const justifyOptions = [null, 'center', 'reverse', 'between', 'nowrap'];
+const justifyOptions = [null as null, 'center', 'reverse', 'between', 'nowrap'] as const;
 type JustifyOption = typeof justifyOptions[number];
 
-const alignOptions = ['start', 'center', 'end'];
+const alignOptions = ['start', 'center', 'end'] as const;
 type AlignOption = typeof alignOptions[number];
 
 type Direction = 'row' | 'col';
@@ -25,15 +27,15 @@ const cssWrap = {
 // Define an item container to provide flex context and play with positioning
 const ItemContainer : React.FC<ItemContainerProps> = ({title, direction, justify, align}) => {
     const cssDirection = direction === 'row' ? 'flexRow' : 'flexCol';
-    const cssJustify = justify ? `${cssDirection}_${justify}` : cssDirection;
+    const cssJustify = justify ? `${cssDirection}_${justify}` as const : cssDirection;
     const cssAlign = align ?
-        `align${align.charAt(0).toUpperCase() + align.slice(1)}` :
+        `align${capitalize(align)}` as const :
         null;
     const css = clsx(cssJustify, cssAlign);
 
     return (
         <section style={{marginBottom: '48px'}}>
-            <h2 className="flexRow alignCenter" style={{marginBottom: '24px'}}>
+            <h2 className={clsx('flexRow', layout.flexRow, 'alignCenter', layout.alignCenter)} style={{marginBottom: '24px'}}>
                 {title}:
                 <code
           style={{
@@ -49,7 +51,10 @@ const ItemContainer : React.FC<ItemContainerProps> = ({title, direction, justify
                     {css}
                 </code>
             </h2>
-            <div className={clsx(cssJustify, cssAlign)} style={cssWrap}>
+            <div
+                className={clsx(cssJustify, layout[cssJustify], cssAlign, layout[cssAlign])}
+                style={cssWrap}
+            >
                 <Item/>
                 <Item/>
                 <Item/>
@@ -83,11 +88,13 @@ const Item = () => {
 
 function displayItems(direction: Direction, type: 'justify' | 'align') {
     const display = [];
-    let arrayOptions: JustifyOption[] | AlignOption[] | [] = [];
+    let arrayOptions: JustifyOption[] | AlignOption[] = [];
 
     if (type === 'justify') {
+        // @ts-expect-error let's not touch that for now
         arrayOptions = justifyOptions;
     } else if (type === 'align') {
+        // @ts-expect-error let's not touch that for now
         arrayOptions = alignOptions;
     }
 
@@ -96,7 +103,9 @@ function displayItems(direction: Direction, type: 'justify' | 'align') {
             <ItemContainer
         title={`${type} ${clsx(option)}`}
         direction={direction}
+        // @ts-expect-error let's not touch that for now
         justify={type === 'justify' ? option : 'center'}
+        // @ts-expect-error let's not touch that for now
         align={type === 'align' ? option : 'center'}
       />
         );

@@ -3,6 +3,7 @@ import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {vi} from 'vitest';
 import {TableHeadCell} from './TableHeadCell';
+import styles from './TableHeadCell.module.scss';
 
 const TableWrapper: React.FC<{ readonly children: React.ReactNode }> = ({children}) => (
     <table>
@@ -54,7 +55,7 @@ describe('TableHeadCell', () => {
                     <TableHeadCell sorting={{direction: 'descending', isActive: true}} data-testid="cell">Header</TableHeadCell>
                 </TableWrapper>
             );
-            expect(screen.getByTestId('cell').querySelector('.moonstone-tableHeadCell_sort')).toBeInTheDocument();
+            expect(screen.getByTestId('cell').querySelector(`.${styles['moonstone-tableHeadCell_sort']}`)).toBeInTheDocument();
         });
 
         it('should display sort icon on sorting direction ascending', () => {
@@ -63,7 +64,7 @@ describe('TableHeadCell', () => {
                     <TableHeadCell sorting={{direction: 'ascending', isActive: true}} data-testid="cell">Header</TableHeadCell>
                 </TableWrapper>
             );
-            expect(screen.getByTestId('cell').querySelector('.moonstone-tableHeadCell_sort')).toBeInTheDocument();
+            expect(screen.getByTestId('cell').querySelector(`.${styles['moonstone-tableHeadCell_sort']}`)).toBeInTheDocument();
         });
 
         it('should set aria-sort when isActive is true', () => {
@@ -90,7 +91,7 @@ describe('TableHeadCell', () => {
                     <TableHeadCell data-testid="cell">Header</TableHeadCell>
                 </TableWrapper>
             );
-            expect(screen.getByTestId('cell').querySelector('.moonstone-tableHeadCell_sort')).not.toBeInTheDocument();
+            expect(screen.getByTestId('cell').querySelector(`.${styles['moonstone-tableHeadCell_sort']}`)).not.toBeInTheDocument();
         });
     });
 });

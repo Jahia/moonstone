@@ -1,4 +1,6 @@
 .moonstone-tableRow {
+    composes: moonstone-tableRow from "../cells/TableCellActions/TableCellActions.module.scss";
+
     padding: 0 var(--spacing-medium);
 
     border-bottom: 1px solid var(--color-gray_light);

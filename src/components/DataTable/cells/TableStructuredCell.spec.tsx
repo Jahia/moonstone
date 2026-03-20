@@ -3,6 +3,7 @@ import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {describe, it, expect, vi} from 'vitest';
 import {TableStructuredCell} from './TableStructuredCell';
+import styles from './TableStructuredCell.module.scss';
 
 const TableWrapper: React.FC<{ readonly children: React.ReactNode }> = ({children}) => (
     <table>
@@ -76,7 +77,7 @@ describe('TableStructuredCell', () => {
                 </TableWrapper>
             );
 
-            await user.click(document.querySelector('.moonstone-tableStructuredCell_expandable')!);
+            await user.click(document.querySelector(`.${styles['moonstone-tableStructuredCell_expandable']}`)!);
             expect(onToggle).toHaveBeenCalledTimes(1);
         });
     });

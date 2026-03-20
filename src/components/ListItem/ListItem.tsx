@@ -1,8 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
-import './ListItem.scss';
+import styles from './ListItem.module.scss';
 import {Typography} from '~/components/Typography';
 import {ListItemProps} from './ListItem.types';
+import {icons, layout} from '~/globals/css-utils.js';
 
 const ListItemForwardRef: React.ForwardRefRenderFunction<HTMLLIElement, ListItemProps> = ({
     label,
@@ -17,8 +18,8 @@ const ListItemForwardRef: React.ForwardRefRenderFunction<HTMLLIElement, ListItem
     ...props
 }, ref) => {
     const cssListItem = clsx(
-        'moonstone-listItem',
-        'flexRow',
+        ['moonstone-listItem', styles['moonstone-listItem']],
+        ['flexRow', layout.flexRow],
         className
     );
     // When an image and an iconStart is provided we display the icon
@@ -31,24 +32,37 @@ const ListItemForwardRef: React.ForwardRefRenderFunction<HTMLLIElement, ListItem
             {...props}
         >
             {isDisplayImage && (
-                <figure className={clsx(`moonstone-listItem-image moonstone-listItem-image_${imageSize}`, 'flexRow', 'alignCenter')}>
+                <figure
+                    className={clsx(
+                        ['moonstone-listItem-image', styles['moonstone-listItem-image']],
+                        [`moonstone-listItem-image_${imageSize}`, styles[`moonstone-listItem-image_${imageSize}`]],
+                        ['flexRow', layout.flexRow],
+                        ['alignCenter', layout.alignCenter]
+                    )}
+                >
                     {image}
                 </figure>
             )}
             {iconStart && (
-                <div className="moonstone-listItem_iconStart flexRow_center alignCenter">
-                    <iconStart.type {...iconStart.props} size={iconSize} className={clsx(`moonstone-icon_${iconSize}`, iconStart.props.className)}/>
+                <div
+                    className={clsx(
+                        ['moonstone-listItem_iconStart', styles['moonstone-listItem_iconStart']],
+                        ['flexRow_center', layout.flexRow_center],
+                        ['alignCenter', layout.alignCenter]
+                    )}
+                >
+                    <iconStart.type {...iconStart.props} size={iconSize} className={clsx(`moonstone-icon_${iconSize}`, icons[`moonstone-icon_${iconSize}`], iconStart.props.className)}/>
                 </div>
             )}
 
             <div className={clsx(
-                isDisplayImage ? 'flexCol_center' : 'flexCol',
-                'flexFluid'
+                isDisplayImage ? ['flexCol_center', layout.flexCol_center] : ['flexCol', layout.flexCol],
+                ['flexFluid', layout.flexFluid]
                 )}
             >
                 <Typography
                     isNowrap
-                    className={clsx(isDisplayImage ? null : 'flexFluid')}
+                    className={clsx(isDisplayImage ? null : ['flexFluid', layout.flexFluid])}
                     variant={typographyVariant}
                     component="span"
                 >
@@ -59,7 +73,7 @@ const ListItemForwardRef: React.ForwardRefRenderFunction<HTMLLIElement, ListItem
                         variant="caption"
                         weight="default"
                         component="span"
-                        className={clsx('moonstone-listItem_description')}
+                        className={clsx('moonstone-listItem_description', styles['moonstone-listItem_description'])}
                     >
                         {description}
                     </Typography>
@@ -67,8 +81,8 @@ const ListItemForwardRef: React.ForwardRefRenderFunction<HTMLLIElement, ListItem
             </div>
 
             {iconEnd && (
-                <div className="moonstone-listItem_iconEnd">
-                    <iconEnd.type {...iconEnd.props} size={iconSize} className={clsx(`moonstone-icon_${iconSize}`, iconEnd.props.className)}/>
+                <div className={clsx('moonstone-listItem_iconEnd', styles['moonstone-listItem_iconEnd'])}>
+                    <iconEnd.type {...iconEnd.props} size={iconSize} className={clsx(`moonstone-icon_${iconSize}`, icons[`moonstone-icon_${iconSize}`], iconEnd.props.className)}/>
                 </div>
             )}
         </li>

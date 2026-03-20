@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import clsx from 'clsx';
-import './PrimaryNavItem.scss';
+import styles from './PrimaryNavItem.module.scss';
 import {ItemProps, ItemTypeResolverProps, PrimaryNavItemProps} from './PrimaryNavItem.types';
 import {Typography} from '~/components/Typography';
 import {PrimaryNavContext} from '../PrimaryNav.context';
@@ -9,16 +9,16 @@ import {onAccessibleClick} from '~/hooks';
 // Internal component
 const Item: React.FC<ItemProps> = ({icon, label, textVariant, subtitle, button}) => (
     <>
-        <div className={clsx('moonstone-primaryNavItem_content')}>
-            <div className={clsx('moonstone-primaryNavItem_iconContainer')}>
+        <div className={clsx('moonstone-primaryNavItem_content', styles['moonstone-primaryNavItem_content'])}>
+            <div className={clsx('moonstone-primaryNavItem_iconContainer', styles['moonstone-primaryNavItem_iconContainer'])}>
                 {icon && <icon.type {...icon.props} size="big"/>}
             </div>
 
-            <div className={clsx('moonstone-primaryNavItem_textContainer')}>
+            <div className={clsx('moonstone-primaryNavItem_textContainer', styles['moonstone-primaryNavItem_textContainer'])}>
                 <Typography isNowrap
                             variant={textVariant}
                             component="span"
-                            className={clsx('moonstone-primaryNavItem_label')}
+                            className={clsx('moonstone-primaryNavItem_label', styles['moonstone-primaryNavItem_label'])}
                 >
                     {label}
                 </Typography>
@@ -27,7 +27,10 @@ const Item: React.FC<ItemProps> = ({icon, label, textVariant, subtitle, button})
                         isNowrap
                         component="div"
                         variant="caption"
-                        className={clsx('moonstone-primaryNavItem_label', 'moonstone-subtitle')}
+                        className={clsx(
+                            ['moonstone-primaryNavItem_label', styles['moonstone-primaryNavItem_label']],
+                            ['moonstone-subtitle', styles['moonstone-subtitle']]
+                        )}
                     >
                         {subtitle}
                     </Typography>
@@ -35,7 +38,7 @@ const Item: React.FC<ItemProps> = ({icon, label, textVariant, subtitle, button})
             </div>
         </div>
         {button && (
-            <div className={clsx('moonstone-primaryNavItem_buttonContainer')}>
+            <div className={clsx('moonstone-primaryNavItem_buttonContainer', styles['moonstone-primaryNavItem_buttonContainer'])}>
                 {button}
             </div>
         )}
@@ -46,10 +49,14 @@ const Item: React.FC<ItemProps> = ({icon, label, textVariant, subtitle, button})
 const ItemTypeResolver: React.FC<ItemTypeResolverProps> = ({url, icon, label, subtitle, button}) => {
     if (url) {
         return (
-            <a className={clsx('moonstone-primaryNavItem', 'moonstone-primaryNavItem_linkItem')}
-               href={url}
-               target="_blank"
-               rel="noopener noreferrer"
+            <a
+                className={clsx(
+                    ['moonstone-primaryNavItem', styles['moonstone-primaryNavItem']],
+                    ['moonstone-primaryNavItem_linkItem', styles['moonstone-primaryNavItem_linkItem']]
+                )}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
             >
                 <Item icon={icon} label={label} subtitle={subtitle} textVariant="body" button={button}/>
             </a>
@@ -79,8 +86,8 @@ export const PrimaryNavItem: React.FC<PrimaryNavItemProps> = ({
         <li
             aria-current={isSelected}
             className={clsx(
-                'moonstone-primaryNavItem',
-                {'moonstone-selected': isSelected},
+                ['moonstone-primaryNavItem', styles['moonstone-primaryNavItem']],
+                isSelected && ['moonstone-selected', styles['moonstone-selected']],
                 className
             )}
             title={label}
@@ -97,7 +104,7 @@ export const PrimaryNavItem: React.FC<PrimaryNavItemProps> = ({
 
             {badge && (
                 <badge.type
-                    className={clsx('moonstone-primaryNavItem_badge')}
+                    className={clsx('moonstone-primaryNavItem_badge', styles['moonstone-primaryNavItem_badge'])}
                     color="danger"
                     type="round"
                     label={badge.props.label}

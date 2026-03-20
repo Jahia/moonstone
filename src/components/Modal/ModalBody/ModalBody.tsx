@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import type {ModalBodyProps} from './ModalBody.types';
-import './ModalBody.scss';
+import styles from './ModalBody.module.scss';
 
 const ModalBodyForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalBodyProps> = ({
     children,
@@ -12,7 +12,7 @@ const ModalBodyForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalB
         children &&
         <div
             ref={ref}
-            className={clsx('moonstone-modalBody', className)}
+            className={clsx('moonstone-modalBody', styles['moonstone-modalBody'], className)}
             {...props}
         >
             {children}

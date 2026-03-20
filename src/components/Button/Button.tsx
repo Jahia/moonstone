@@ -1,11 +1,14 @@
 import React, {useRef} from 'react';
 import clsx from 'clsx';
-import './Button.scss';
+import styles from './Button.module.scss';
 import {Typography} from '../Typography';
 import {TypographyWeight} from '~/components/Typography/Typography.types';
 import {ButtonProps} from './Button.types';
 import {Loader} from '~/components/Loader';
+import {layout} from '~/globals/css-utils.js';
 
+// We have many conditions because of classname=..., we can safely ignore complexity here
+// eslint-disable-next-line complexity
 export const Button = ({
     label = '',
     size = 'default',
@@ -41,14 +44,15 @@ export const Button = ({
         <button
             ref={ButtonEl}
             className={clsx(
-                {'moonstone-button': (variant !== 'default' || color !== 'default')},
-                `moonstone-button_${size}`,
-                `moonstone-button${variant === 'default' ? '' : `_${variant}`}${color === 'default' ? '' : `_${color}`}`,
-                {'moonstone-icon': (label && (icon || iconEnd))},
-                {'moonstone-icon-button': !label},
-                {'moonstone-reverse': isReversed},
-                {'moonstone-button_loading': isLoading},
-                'alignCenter',
+                (variant !== 'default' || color !== 'default') && ['moonstone-button', styles['moonstone-button']],
+                [`moonstone-button_${size}`, styles[`moonstone-button_${size}`]],
+                [`moonstone-button${variant === 'default' ? '' : `_${variant}`}${color === 'default' ? '' : `_${color}`}`,
+                    styles[`moonstone-button${variant === 'default' ? '' : `_${variant}` as const}${color === 'default' ? '' : `_${color}` as const}`]],
+                (label && (icon || iconEnd)) && ['moonstone-icon', styles['moonstone-icon']],
+                !label && ['moonstone-icon-button', styles['moonstone-icon-button']],
+                isReversed && ['moonstone-reverse', styles['moonstone-reverse']],
+                isLoading && ['moonstone-button_loading', styles['moonstone-button_loading']],
+                layout.alignCenter,
                 className
             )}
             type="button"
@@ -59,7 +63,9 @@ export const Button = ({
             {/* Display icon when an icon is provided */}
             {icon && !isLoading && <icon.type {...icon.props} size={(size === 'big') ? 'default' : size}/>}
             {/* When the button has an icon the loader replaces the icon otherwise we display the loader as overlay */}
-            {isLoading && <Loader size="small" isReversed={LoaderReversed} className={clsx({'moonstone-button_loaderOverlay': !icon})}/>}
+            {isLoading && <Loader size="small"
+                                  isReversed={LoaderReversed}
+                                  className={clsx(!icon && ['moonstone-button_loaderOverlay', styles['moonstone-button_loaderOverlay']])}/>}
             {label && (
                 <Typography
                     isNowrap
@@ -67,7 +73,7 @@ export const Button = ({
                     variant="button"
                     isUpperCase={size === 'big'}
                     weight={typoWeight}
-                    className={clsx('flexFluid')}
+                    className={clsx('flexFluid', layout.flexFluid)}
                 >
                     {label}
                 </Typography>

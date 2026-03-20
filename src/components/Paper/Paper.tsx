@@ -1,5 +1,5 @@
 import {FunctionComponent} from 'react';
-import './Paper.scss';
+import styles from './Paper.module.scss';
 import clsx from 'clsx';
 import {PaperProps} from './Paper.types';
 
@@ -10,8 +10,8 @@ export const Paper: FunctionComponent<PaperProps> = ({
     ...props
 }) => {
     const classNameProps = clsx(
-        'moonstone-paper',
-        {'moonstone-paper_padding': hasPadding},
+        ['moonstone-paper', styles['moonstone-paper']],
+        hasPadding && ['moonstone-paper_padding', styles['moonstone-paper_padding']],
         className
     );
 

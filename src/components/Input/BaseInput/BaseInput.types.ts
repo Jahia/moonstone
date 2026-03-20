@@ -48,7 +48,7 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
 
     /**
      * Which icon to use at the beginning of the input
-     * @deprecatedValues 'text' and 'search' use specific component instead
+     * @deprecated Values 'text' and 'search' use specific component instead
      */
     variant?: 'text' | 'search' | 'outlined' | 'ghost';
 
