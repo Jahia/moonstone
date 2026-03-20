@@ -3,7 +3,7 @@ name: Update Visual Regression Screenshots
 
 on:
   workflow_dispatch: # manual trigger
-  # pull_request: # used for the initial setup, uncomment to run on the current PR
+  pull_request: # used for the initial setup, uncomment to run on the current PR
 
 env:
   AUTHOR_NAME: "github-actions[bot]"
@@ -49,6 +49,9 @@ jobs:
 
       - name: Install dependencies
         run: yarn install && yarn playwright install chromium --only-shell
+
+      - name: Build icons (implicit dependency of the library)
+        run: yarn build:icons
 
       # the magic happens below 🪄
       - name: Update Visual Regression Screenshots
