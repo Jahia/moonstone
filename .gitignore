@@ -279,3 +279,9 @@ yalc.lock
 *.iml
 /.settings/
 /.project
+
+.vitest*
+
+# Ignore all but CI screenshots
+**/__screenshots__/**/*.png
+!**/__screenshots__/**/*-chromium-linux.png
