@@ -20,11 +20,6 @@ export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'chi
     align?: 'left' | 'center' | 'right';
 
     /**
-     * How to align content vertically within the table cell
-     */
-    verticalAlign?: 'top' | 'middle' | 'bottom';
-
-    /**
      * Define the width of the cell, if no width is set the column takes all space available. (e.g. '120px')
      */
     width?: string;
@@ -45,4 +40,3 @@ export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'chi
      */
     isScrollable?: boolean;
 };
-

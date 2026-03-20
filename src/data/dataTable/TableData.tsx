@@ -6,7 +6,7 @@ export const dataTable: DataUser[] = [
         lastName: 'White-McFarlane-Johnson-Williams',
         age: 52,
         status: 'Active',
-        progress: 9999999999,
+        progress: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999,
         date: new Date('2024-01-15'),
         chips: ['Chemist', 'Teacher'],
         subRows: [
@@ -38,7 +38,7 @@ export const dataTable: DataUser[] = [
             },
             {
                 firstName: 'Skyler',
-                lastName: 'White',
+                lastName: 'White White White White White White White White White White White White White',
                 age: 40,
                 status: 'Active',
                 progress: 85,

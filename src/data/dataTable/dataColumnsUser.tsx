@@ -1,5 +1,5 @@
 import type {DataTableColumn} from '~/components/DataTable/DataTable.types';
-import {Chip} from '~/components';
+import {Chip, Typography} from '~/components';
 import {Person} from '~/icons';
 import {numberColumn, dateColumn, stringColumn} from '~/utils/dataTable';
 
@@ -25,7 +25,7 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
         render: (value, row) => (
             <>
                 <Person/>
-                <span>{row.firstName} {row.lastName}</span>
+                <Typography isNowrap variant="body">{`${value} ${row.lastName}`}</Typography>
             </>
         ),
         align: 'left'
@@ -41,20 +41,18 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
         ),
         isSortable: true,
         sortFn: (a, b) => a.status.localeCompare(b.status),
-        align: 'center' // Custom column needs explicit align
+        align: 'center'
     },
     {
         key: 'progress',
         label: 'Progress',
         isScrollable: true,
         ...numberColumn<DataUser>(row => row.progress)
-        // Align comes from numberColumn helper
     },
     {
         key: 'date',
         label: 'Last Login',
         ...dateColumn<DataUser>(row => row.date, {locale: 'fr-FR'}),
-        // Align comes from dateColumn helper
         width: '150px'
     }
 ];

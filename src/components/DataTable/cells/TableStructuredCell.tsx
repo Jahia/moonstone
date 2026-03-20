@@ -3,6 +3,7 @@ import React from 'react';
 import {ChevronDown, ChevronRight} from '~/icons';
 
 import {TableCell} from './TableCell';
+import {Typography} from '~/components';
 import './TableStructuredCell.scss';
 import type {TableStructuredCellProps} from './TableStructuredCell.types';
 
@@ -29,7 +30,7 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
         }
 
         const indent = depth * indentSpace;
-        const handleToggleExpand: React.MouseEventHandler<HTMLButtonElement> = event => {
+        const handleToggleExpand: React.MouseEventHandler = event => {
             event.stopPropagation();
             onToggleExpand?.();
         };
@@ -39,35 +40,38 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                 ref={ref}
                 className={className}
                 aria-expanded={isExpanded}
+                onClick={handleToggleExpand}
                 {...props}
             >
                 <div
                     className={clsx(
-                        'moonstone-tableStructuredCell_content',
                         'flexRow_nowrap',
                         'flexFluid',
                         'alignCenter',
-                        {'moonstone-tableStructuredCell_expandable': isExpandable})}
+                        {'moonstone-tableStructuredCell_expandable': isExpandable},
+                        {'moonstone-tableStructuredCell_scrollable': isScrollable && !isExpandable}
+                    )}
                     style={{marginLeft: indent}}
                 >
-                    {isExpandable && (
-                        <button
-                            type="button"
-                            className="moonstone-tableStructuredCell_toggle"
-                            aria-expanded={isExpanded}
-                            aria-label={isExpanded ? 'Collapse row' : 'Expand row'}
-                            onClick={handleToggleExpand}
-                        >
+                    {isExpandable ? (
+                        <>
                             {isExpanded ?
                                 <ChevronDown className="moonstone-tableStructuredCell_chevron"/> :
                                 <ChevronRight className="moonstone-tableStructuredCell_chevron"/>}
-                        </button>
-                    )}
-                    <span className="flexFluid flexRow_nowrap alignCenter">
-                        <span className={isScrollable ? 'moonstone-tableCellContent' : undefined}>
-                            {children}
-                        </span>
-                    </span>
+                            <Typography
+                                isNowrap
+                                component="div"
+                                className={clsx(
+                                    'flexRow_nowrap',
+                                    'alignCenter',
+                                    {'moonstone-tableStructuredCell_scrollable': isScrollable}
+                                )}
+                            >
+                                {children}
+                            </Typography>
+                        </>
+                    ) :
+                    children}
                 </div>
             </TableCell>
         );

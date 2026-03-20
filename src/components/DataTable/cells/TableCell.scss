@@ -1,50 +1,36 @@
 @use '../../../utils/index.scss';
 
-$cell-height: 48px;
-$cell-scrollbar: calc(var(--spacing-nano) + var(--spacing-pico));
-
 .moonstone-tableCell {
     gap: var(--spacing-nano);
-    height: $cell-height;
+
+    height: -webkit-fill-available; // firefox fixes
+    /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
+    height: stretch;
+
     padding-right: var(--spacing-medium);
     padding-left: var(--spacing-medium);
     overflow: hidden;
 }
 
-.moonstone-tableCellContent {
-    @include index.truncate;
+.moonstone-tableCell_scrollable {
+    height: -webkit-fill-available; // firefox fixes
+    /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
+    height: stretch;
 
-    // WebKit-specific scrollbar customization (Chrome, Safari, Edge)
-    @supports selector(::-webkit-scrollbar) {
-        &::-webkit-scrollbar {
-            height: $cell-scrollbar;
-        }
-    }
-
-    // Firefox-only layout fix to prevent native scrollbar from overlapping text.
-    @supports (scrollbar-width: thin) and (not selector(::-webkit-scrollbar)) {
-        // Space reserved for the native Firefox scrollbar
-        $firefox-scrollbar-space: calc(var(--spacing-small) + var(--spacing-pico));
-
-        margin-bottom: calc(-1 * #{$firefox-scrollbar-space});
-        padding-bottom: $firefox-scrollbar-space;
-    }
-
-    // Base scrollbar styling (applies to all browsers that support it)
     scrollbar-width: thin;
-    scrollbar-color: var(--color-gray_light) transparent;
-}
 
-.moonstone-tableCellContent > .moonstone-icon {
-    margin-right: var(--spacing-nano);
+    > * {
+        overflow: clip;
+    }
 
-    vertical-align: middle;
-}
-
-.moonstone-tableCell:hover,
-.moonstone-tableCell:has(:focus-visible) {
-    .moonstone-tableCellContent {
-        text-overflow: clip;
+    &:hover {
         overflow-x: auto;
+
+        box-shadow: var(--color-gray20) -1px 0 3px 0 inset;
+
+        > * {
+            text-overflow: unset;
+            overflow: visible;
+        }
     }
 }
