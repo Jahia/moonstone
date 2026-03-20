@@ -5,22 +5,22 @@
     position: relative;
 
     & + .moonstone-collapsible {
-        margin-top: var(--spacing-large);
+        margin-top: var(--moon-spacing-large);
     }
 }
 
 .moonstone-collapsible_button {
     width: 100%;
-    padding: var(--spacing-small);
+    padding: var(--moon-spacing-small);
 
-    color: var(--color-dark);
+    color: var(--moon-color-dark);
 
     border: 0;
     background: none;
     cursor: pointer;
 
     &:hover {
-        color: var(--color-gray_dark);
+        color: var(--moon-color-gray_dark);
     }
 
     &:focus-visible {
@@ -43,8 +43,8 @@
     top: 0;
     z-index: 10;
 
-    background: var(--color-white);
-    box-shadow: -4px 4px 4px -4px var(--color-gray60);
+    background: var(--moon-color-white);
+    box-shadow: -4px 4px 4px -4px var(--moon-color-gray60);
 }
 
 // Chevron icon animation
@@ -63,12 +63,12 @@
 // Collapsible content
 .moonstone-collapsible_content_collapsed {
     height: 0;
-    padding: 0 var(--spacing-large);
+    padding: 0 var(--moon-spacing-large);
     overflow: hidden;
 
     pointer-events: none;
 }
 
 .moonstone-collapsible_content_expanded {
-    padding: var(--spacing-medium) var(--spacing-big);
+    padding: var(--moon-spacing-medium) var(--moon-spacing-big);
 }

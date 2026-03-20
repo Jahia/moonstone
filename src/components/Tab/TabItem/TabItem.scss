@@ -10,12 +10,12 @@ $selected-line-spacing-big: 20px;
     @extend %variant_ghost;
 
     width: fit-content;
-    margin: 0 var(--spacing-nano) calc(#{$selected-line-spacing} - 1px);
-    padding: var(--spacing-nano) var(--spacing-small);
+    margin: 0 var(--moon-spacing-nano) calc(#{$selected-line-spacing} - 1px);
+    padding: var(--moon-spacing-nano) var(--moon-spacing-small);
 
-    color: var(--color-gray);
+    color: var(--moon-color-gray);
 
-    border-radius: var(--radius);
+    border-radius: var(--moon-radius);
     outline: none;
     cursor: pointer;
 
@@ -46,7 +46,7 @@ $selected-line-spacing-big: 20px;
 }
 
 .moonstone-tabItem_noLabel {
-    padding: var(--spacing-small);
+    padding: var(--moon-spacing-small);
 
     &.moonstone-tabItem_default {
         padding: $spacing-icon;
@@ -56,7 +56,7 @@ $selected-line-spacing-big: 20px;
 .moonstone-tabItem_selected {
     position: relative;
 
-    color: var(--color-accent);
+    color: var(--moon-color-accent);
 
     border-color: transparent;
     cursor: default;
@@ -70,7 +70,7 @@ $selected-line-spacing-big: 20px;
         width: 100%;
         height: 2px;
 
-        background-color: var(--color-accent);
+        background-color: var(--moon-color-accent);
         content: "";
     }
 }

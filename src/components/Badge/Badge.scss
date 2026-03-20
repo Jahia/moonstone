@@ -1,5 +1,5 @@
 .moonstone-badge {
-    color: var(--color-light);
+    color: var(--moon-color-light);
 
     pointer-events: none;
 
@@ -10,20 +10,20 @@
         min-width: 20px;
         max-width: max-content;
         height: 20px;
-        padding: var(--spacing-nano);
+        padding: var(--moon-spacing-nano);
 
-        border-radius: var(--radius_rounded);
+        border-radius: var(--moon-radius_rounded);
     }
 
     &.moonstone-badge_accent {
-        background-color: var(--color-accent);
+        background-color: var(--moon-color-accent);
     }
 
     &.moonstone-badge_danger {
-        background-color: var(--color-danger);
+        background-color: var(--moon-color-danger);
     }
 
     &.moonstone-badge_success {
-        background-color: var(--color-success);
+        background-color: var(--moon-color-success);
     }
 }

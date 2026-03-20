@@ -6,7 +6,7 @@
     align-items: center;
 
     height: 16px;
-    padding: 0 var(--spacing-small);
+    padding: 0 var(--moon-spacing-small);
 
     border-radius: 40px;
 
@@ -21,100 +21,100 @@
 
 .moonstone-chip_default {
     &.moonstone-color_accent {
-        color: var(--color-accent_dark_contrast);
+        color: var(--moon-color-accent_dark_contrast);
 
-        background-color: var(--color-accent_light_plain20);
+        background-color: var(--moon-color-accent_light_plain20);
     }
 
     &.moonstone-color_light {
-        color: var(--color-gray);
+        color: var(--moon-color-gray);
 
-        background-color: var(--color-light);
+        background-color: var(--moon-color-light);
     }
 
     &.moonstone-color_dark {
-        color: var(--color-light);
+        color: var(--moon-color-light);
 
-        background-color: var(--color-gray);
+        background-color: var(--moon-color-gray);
     }
 
     &.moonstone-color_danger {
-        color: var(--color-danger_dark);
+        color: var(--moon-color-danger_dark);
 
-        background-color: var(--color-danger_plain20);
+        background-color: var(--moon-color-danger_plain20);
     }
 
     &.moonstone-color_default {
-        color: var(--color-gray_dark);
+        color: var(--moon-color-gray_dark);
 
-        background-color: var(--color-gray_light_plain40);
+        background-color: var(--moon-color-gray_light_plain40);
     }
 
     &.moonstone-color_success {
-        color: var(--color-success_dark);
+        color: var(--moon-color-success_dark);
 
-        background-color: var(--color-success_plain20);
+        background-color: var(--moon-color-success_plain20);
     }
 
     &.moonstone-color_warning {
-        color: var(--color-warning_dark);
+        color: var(--moon-color-warning_dark);
 
-        background-color: var(--color-warning_plain20);
+        background-color: var(--moon-color-warning_plain20);
     }
 
     &.moonstone-color_reassuring {
-        color: var(--color-purple_dark);
+        color: var(--moon-color-purple_dark);
 
-        background-color: var(--color-purple_plain20);
+        background-color: var(--moon-color-purple_plain20);
     }
 }
 
 .moonstone-chip_bright {
     &.moonstone-color_accent {
-        color: var(--color-light);
+        color: var(--moon-color-light);
 
-        background-color: var(--color-accent_dark);
+        background-color: var(--moon-color-accent_dark);
     }
 
     &.moonstone-color_light {
-        color: var(--color-gray_dark);
+        color: var(--moon-color-gray_dark);
 
-        background-color: var(--color-light);
+        background-color: var(--moon-color-light);
     }
 
     &.moonstone-color_dark {
-        color: var(--color-light);
+        color: var(--moon-color-light);
 
-        background-color: var(--color-gray);
+        background-color: var(--moon-color-gray);
     }
 
     &.moonstone-color_danger {
-        color: var(--color-light);
+        color: var(--moon-color-light);
 
-        background-color: var(--color-danger);
+        background-color: var(--moon-color-danger);
     }
 
     &.moonstone-color_default {
-        color: var(--color-light);
+        color: var(--moon-color-light);
 
-        background-color: var(--color-gray);
+        background-color: var(--moon-color-gray);
     }
 
     &.moonstone-color_success {
-        color: var(--color-light);
+        color: var(--moon-color-light);
 
-        background-color: var(--color-success);
+        background-color: var(--moon-color-success);
     }
 
     &.moonstone-color_warning {
-        color: var(--color-warning_dark);
+        color: var(--moon-color-warning_dark);
 
-        background-color: var(--color-warning_plain60);
+        background-color: var(--moon-color-warning_plain60);
     }
 
     &.moonstone-color_reassuring {
-        color: var(--color-light);
+        color: var(--moon-color-light);
 
-        background-color: var(--color-purple);
+        background-color: var(--moon-color-purple);
     }
 }

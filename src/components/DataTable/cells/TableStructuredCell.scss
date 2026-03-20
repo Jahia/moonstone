@@ -7,7 +7,7 @@ $tree-offset: -20px; // chevron size (16px) + gap (4px)
 }
 
 .moonstone-tableStructuredCell_content {
-    gap: var(--spacing-nano);
+    gap: var(--moon-spacing-nano);
 
     /* stylelint-disable-next-line declaration-property-unit-disallowed-list */
     height: 100%;

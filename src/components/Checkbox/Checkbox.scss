@@ -25,7 +25,7 @@ $checkbox-sizeBig: 20px;
     left: 0;
 
     fill: none;
-    stroke: var(--color-light);
+    stroke: var(--moon-color-light);
 
     transform: scale(0) translateZ(0);
 
@@ -35,7 +35,7 @@ $checkbox-sizeBig: 20px;
 
 .moonstone-checkbox_input {
     --shadow-size: 1px;
-    --shadow-color: var(--color-gray);
+    --shadow-color: var(--moon-color-gray);
 
     position: relative;
 
@@ -45,7 +45,7 @@ $checkbox-sizeBig: 20px;
     appearance: none;
 
     border: none;
-    border-radius: var(--radius_small);
+    border-radius: var(--moon-radius_small);
     outline: none;
     background: transparent;
 
@@ -55,7 +55,7 @@ $checkbox-sizeBig: 20px;
     transition: box-shadow 0.1s;
 
     &:hover {
-        --shadow-color: var(--color-gray60);
+        --shadow-color: var(--moon-color-gray60);
         --shadow-size: 2px;
     }
 
@@ -67,10 +67,10 @@ $checkbox-sizeBig: 20px;
     &[aria-checked="true"],
     &[aria-checked="mixed"] {
         --shadow-size: 12px;
-        --shadow-color: var(--color-accent);
+        --shadow-color: var(--moon-color-accent);
 
         &:hover {
-            border: 2px solid var(--color-accent_dark);
+            border: 2px solid var(--moon-color-accent_dark);
         }
 
         & ~ .moonstone-checkbox_icon {
@@ -88,13 +88,13 @@ $checkbox-sizeBig: 20px;
 
         // Reset :hover style for disabled and readonly state
         &:hover {
-            --shadow-color: var(--color-gray);
+            --shadow-color: var(--moon-color-gray);
             --shadow-size: 1px;
         }
 
         &[aria-checked="true"]:hover,
         &[aria-checked="mixed"]:hover {
-            --shadow-color: var(--color-accent);
+            --shadow-color: var(--moon-color-accent);
             --shadow-size: 12px;
 
             border: none;

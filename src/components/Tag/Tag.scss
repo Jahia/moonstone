@@ -2,17 +2,17 @@
 
 .moonstone-tag {
     display: inline-flex;
-    gap: var(--spacing-nano);
+    gap: var(--moon-spacing-nano);
     align-items: center;
     width: fit-content;
     max-width: 100px;
     padding: 4px 8px;
 
-    color: var(--color-light);
+    color: var(--moon-color-light);
 
-    border: 1px solid var(--color-accent);
-    border-radius: var(--radius);
-    background-color: var(--color-accent);
+    border: 1px solid var(--moon-color-accent);
+    border-radius: var(--moon-radius);
+    background-color: var(--moon-color-accent);
     cursor: pointer;
 
     &.moonstone-small {
@@ -20,8 +20,8 @@
     }
 
     &:not([disabled]):hover {
-        border-color: var(--color-accent_dark);
-        background-color: var(--color-accent_dark);
+        border-color: var(--moon-color-accent_dark);
+        background-color: var(--moon-color-accent_dark);
     }
 
     &:not([disabled]):focus-visible {
@@ -29,19 +29,19 @@
     }
 
     &:not([disabled]):active {
-        color: var(--color-white);
+        color: var(--moon-color-white);
 
-        border-color: var(--color-accent_dark_contrast);
-        background-color: var(--color-accent_dark_contrast);
+        border-color: var(--moon-color-accent_dark_contrast);
+        background-color: var(--moon-color-accent_dark_contrast);
     }
 
     &[disabled] {
         @extend %selector_disabled;
 
-        color: var(--color-gray_dark);
+        color: var(--moon-color-gray_dark);
 
         border-color: transparent;
-        background-color: var(--color-gray20);
+        background-color: var(--moon-color-gray20);
         cursor: not-allowed;
         opacity: 0.8;
     }

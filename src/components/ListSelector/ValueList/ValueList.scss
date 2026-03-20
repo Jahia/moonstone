@@ -20,7 +20,7 @@
     align-items: center;
     width: calc(100% - 2px);
     margin: 1px;
-    padding: var(--spacing-small);
+    padding: var(--moon-spacing-small);
 
     cursor: pointer;
 
@@ -35,15 +35,15 @@
     }
 
     &.selected {
-        color: var(--color-white);
+        color: var(--moon-color-white);
 
-        background-color: var(--color-accent);
+        background-color: var(--moon-color-accent);
     }
 
     &:not([disabled]):hover {
-        color: var(--color-accent);
+        color: var(--moon-color-accent);
 
-        background-color: var(--color-gray_light60);
+        background-color: var(--moon-color-gray_light60);
     }
 
     &:hover > div > div > .moonstone-displayNone {
@@ -53,17 +53,17 @@
 
 .moonstone-valueList_wrapper {
     flex-grow: 1;
-    gap: var(--spacing-small);
+    gap: var(--moon-spacing-small);
     min-width: 200px;
-    padding: var(--spacing-small);
+    padding: var(--moon-spacing-small);
 
-    border: var(--border-selector);
-    border-radius: var(--radius-selector);
+    border: var(--moon-border-selector);
+    border-radius: var(--moon-radius-selector);
 
-    background-color: var(--background-selector);
+    background-color: var(--moon-background-selector);
 
     .moonstone-dragging {
-        background-color: var(--color-light);
+        background-color: var(--moon-color-light);
         box-shadow: 0 4px 8px rgba(19, 28, 33, 0.2);
 
         & > div > div > .moonstone-displayNone {

@@ -5,46 +5,46 @@
     background: none;
 
     &:focus-visible {
-        color: var(--color-accent_dark);
+        color: var(--moon-color-accent_dark);
 
-        border-color: var(--color-accent_dark);
-        background-color: var(--color-gray_light20);
+        border-color: var(--moon-color-accent_dark);
+        background-color: var(--moon-color-gray_light20);
     }
 
     &:active:not(.moonstone-button_loading, [disabled]) {
-        color: var(--color-white);
+        color: var(--moon-color-white);
 
-        background-color: var(--color-accent);
+        background-color: var(--moon-color-accent);
     }
 
     &:hover:not(.moonstone-button_loading, [disabled]) {
-        color: var(--color-accent);
+        color: var(--moon-color-accent);
 
-        background-color: var(--color-gray_light20);
+        background-color: var(--moon-color-gray_light20);
     }
 }
 
 .moonstone-buttonToggle_pressed {
-    --shadow: inset 0 1px 2px var(--color-accent_dark20);
+    --shadow: inset 0 1px 2px var(--moon-color-accent_dark20);
 
-    color: var(--color-accent_dark);
+    color: var(--moon-color-accent_dark);
 
-    background-color: var(--color-accent_light20);
+    background-color: var(--moon-color-accent_light20);
 
     &:focus-visible {
-        background-color: var(--color-accent_light20);
+        background-color: var(--moon-color-accent_light20);
     }
 
     &:active:not(.moonstone-button_loading, [disabled]) {
-        color: var(--color-white);
+        color: var(--moon-color-white);
 
-        background-color: var(--color-accent);
+        background-color: var(--moon-color-accent);
     }
 
     &:hover:not(.moonstone-button_loading, [disabled]) {
-        color: var(--color-accent_dark);
+        color: var(--moon-color-accent_dark);
 
-        background-color: var(--color-accent40);
+        background-color: var(--moon-color-accent40);
     }
 }
 

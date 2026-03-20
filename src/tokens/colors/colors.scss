@@ -1,0 +1,125 @@
+$color-light: #fdfdfd;
+$color-gray-light: #dadada;
+$color-gray: #7a7f88;
+$color-gray-dark: #293136;
+$color-dark: #131c21;
+$color-white: #fff;
+$color-black: #000;
+$color-blue: #00a0e3;
+$color-blue-contrast: #004781;
+$color-blue-dark: #0072b1;
+$color-blue-light: #63d1ff;
+$color-green: #6abb6d;
+$color-green-dark: #267729;
+$color-red: #f44053;
+$color-red-dark: #840d0f;
+$color-yellow: #fb0;
+$color-yellow-dark: #754c0b;
+$color-purple: #8840f4;
+$color-purple-dark: #47168f;
+
+:root {
+    // Accent
+    --moon-color-accent: #{$color-blue};
+    --moon-color-accent20: #{rgba($color-blue, 0.2)};
+    --moon-color-accent40: #{rgba($color-blue, 0.4)};
+    --moon-color-accent60: #{rgba($color-blue, 0.6)};
+    --moon-color-accent_plain20: #caeaf8;
+    --moon-color-accent_plain40: #98d8f3;
+    --moon-color-accent_plain60: #65c5ed;
+    --moon-color-accent_dark: #{$color-blue-dark};
+    --moon-color-accent_dark20: #{rgba($color-blue-dark, 0.2)};
+    --moon-color-accent_dark40: #{rgba($color-blue-dark, 0.4)};
+    --moon-color-accent_dark60: #{rgba($color-blue-dark, 0.6)};
+    --moon-color-accent_dark_plain20: #cae1ee;
+    --moon-color-accent_dark_plain40: #98c5df;
+    --moon-color-accent_dark_plain60: #65aacf;
+    --moon-color-accent_dark_contrast: #{$color-blue-contrast};
+    --moon-color-accent_dark_contrast20: #{rgba($color-blue-contrast, 0.2)};
+    --moon-color-accent_dark_contrast40: #{rgba($color-blue-contrast, 0.4)};
+    --moon-color-accent_dark_contrast60: #{rgba($color-blue-contrast, 0.6)};
+    --moon-color-accent_dark_contrast_plain20: #cad9e4;
+    --moon-color-accent_dark_contrast_plain40: #98b4cb;
+    --moon-color-accent_dark_contrast_plain60: #6590b3;
+    --moon-color-accent_light: #{$color-blue-light};
+    --moon-color-accent_light20: #{rgba($color-blue-light, 0.2)};
+    --moon-color-accent_light40: #{rgba($color-blue-light, 0.4)};
+    --moon-color-accent_light60: #{rgba($color-blue-light, 0.6)};
+    --moon-color-accent_light_plain20: #def4fd;
+    --moon-color-accent_light_plain40: #bfebfe;
+    --moon-color-accent_light_plain60: #a1e3fe;
+
+    // Basic
+    --moon-color-black: #{$color-black};
+    --moon-color-white: #{$color-white};
+
+    // Neutral
+    --moon-color-light: #{$color-light};
+    --moon-color-light20: #{rgba($color-light, 0.2)};
+    --moon-color-light40: #{rgba($color-light, 0.4)};
+    --moon-color-light60: #{rgba($color-light, 0.6)};
+    --moon-color-gray_light: #{$color-gray-light};
+    --moon-color-gray_light20: #{rgba($color-gray-light, 0.2)};
+    --moon-color-gray_light40: #{rgba($color-gray-light, 0.4)};
+    --moon-color-gray_light60: #{rgba($color-gray-light, 0.6)};
+    --moon-color-gray_light_plain20: #f6f6f6;
+    --moon-color-gray_light_plain40: #efefef;
+    --moon-color-gray_light_plain60: #e8e8e8;
+    --moon-color-gray: #{$color-gray};
+    --moon-color-gray20: #{rgba($color-gray, 0.2)};
+    --moon-color-gray40: #{rgba($color-gray, 0.4)};
+    --moon-color-gray60: #{rgba($color-gray, 0.6)};
+    --moon-color-gray_plain20: #e3e4e6;
+    --moon-color-gray_plain40: #c9cbce;
+    --moon-color-gray_plain60: #aeb1b7;
+    --moon-color-gray_dark: #{$color-gray-dark};
+    --moon-color-gray_dark20: #{rgba($color-gray-dark, 0.2)};
+    --moon-color-gray_dark40: #{rgba($color-gray-dark, 0.4)};
+    --moon-color-gray_dark60: #{rgba($color-gray-dark, 0.6)};
+    --moon-color-gray_dark_plain20: #d3d4d5;
+    --moon-color-gray_dark_plain40: #a8abad;
+    --moon-color-gray_dark_plain60: #7e8386;
+    --moon-color-dark: #{$color-dark};
+    --moon-color-dark20: #{rgba($color-dark, 0.2)};
+    --moon-color-dark40: #{rgba($color-dark, 0.4)};
+    --moon-color-dark60: #{rgba($color-dark, 0.6)};
+    --moon-color-dark_plain20: #cfd1d2;
+    --moon-color-dark_plain40: #9fa3a5;
+    --moon-color-dark_plain60: #717679;
+
+    // Support
+    --moon-color-success: #{$color-green};
+    --moon-color-success20: #{rgba($color-green, 0.2)};
+    --moon-color-success40: #{rgba($color-green, 0.4)};
+    --moon-color-success60: #{rgba($color-green, 0.6)};
+    --moon-color-success_plain20: #e0f0e0;
+    --moon-color-success_plain40: #c2e3c3;
+    --moon-color-success_plain60: #a5d5a7;
+    --moon-color-success_dark: #{$color-green-dark};
+    --moon-color-warning: #{$color-yellow};
+    --moon-color-warning20: #{rgba($color-yellow, 0.2)};
+    --moon-color-warning40: #{rgba($color-yellow, 0.4)};
+    --moon-color-warning60: #{rgba($color-yellow, 0.6)};
+    --moon-color-warning_plain20: #fff1cc;
+    --moon-color-warning_plain40: #ffe499;
+    --moon-color-warning_plain60: #ffd666;
+    --moon-color-warning_dark: #{$color-yellow-dark};
+    --moon-color-danger: #{$color-red};
+    --moon-color-danger20: #{rgba($color-red, 0.2)};
+    --moon-color-danger40: #{rgba($color-red, 0.4)};
+    --moon-color-danger60: #{rgba($color-red, 0.6)};
+    --moon-color-danger_plain20: #fbd7db;
+    --moon-color-danger_plain40: #f9b1b9;
+    --moon-color-danger_plain60: #f88c97;
+    --moon-color-danger_dark: #{$color-red-dark};
+
+    // Palette
+    --moon-color-purple: #{$color-purple};
+    --moon-color-purple20: #{rgba($color-purple, 0.2)};
+    --moon-color-purple40: #{rgba($color-purple, 0.4)};
+    --moon-color-purple60: #{rgba($color-purple, 0.6)};
+    --moon-color-purple_plain20: #e6d7fb;
+    --moon-color-purple_plain40: #ceb1f9;
+    --moon-color-purple_plain60: #b78cf8;
+    --moon-color-purple_dark: #{$color-purple-dark};
+}
