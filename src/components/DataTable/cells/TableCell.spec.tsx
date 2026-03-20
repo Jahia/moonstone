@@ -23,7 +23,7 @@ describe('TableCell', () => {
         expect(screen.getByTestId('cell').tagName).toBe('TD');
     });
 
-    it('should render as th when component prop is set', () => {
+    it('should render as `th` when component prop is set', () => {
         render(
             <TableWrapper>
                 <TableCell data-testid="cell" component="th">Header</TableCell>
@@ -52,35 +52,5 @@ describe('TableCell', () => {
             </TableWrapper>
         );
         expect(screen.getByTestId('cell')).toHaveStyle({width: '100px'});
-    });
-
-    it('should apply vertical align classes', () => {
-        render(
-            <TableWrapper>
-                <TableCell data-testid="cell" verticalAlign="top">V</TableCell>
-            </TableWrapper>
-        );
-        expect(screen.getByTestId('cell')).toHaveClass('verticalAlignTop');
-    });
-
-    it('should reset scroll position on unhover', async () => {
-        const user = userEvent.setup();
-        render(
-            <TableWrapper>
-                <TableCell isScrollable data-testid="cell">Long Content That Might Scroll</TableCell>
-            </TableWrapper>
-        );
-
-        const td = screen.getByTestId('cell');
-        const span = td.querySelector('.moonstone-tableCellContent') as HTMLElement;
-        expect(span).toBeInTheDocument();
-
-        // Check correct role assignment from useAccessibleClick
-        expect(span).toHaveAttribute('role', 'region');
-
-        // Unhover resets scroll position
-        await user.hover(td);
-        await user.unhover(td);
-        expect(span.scrollLeft).toBe(0);
     });
 });

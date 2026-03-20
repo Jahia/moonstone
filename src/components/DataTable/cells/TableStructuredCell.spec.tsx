@@ -70,13 +70,13 @@ describe('TableStructuredCell', () => {
             const user = userEvent.setup();
             render(
                 <TableWrapper>
-                    <TableStructuredCell isExpandable depth={0} onToggleExpand={onToggle}>
+                    <TableStructuredCell depth={0} onToggleExpand={onToggle}>
                         Clickable
                     </TableStructuredCell>
                 </TableWrapper>
             );
 
-            await user.click(screen.getByRole('button', {name: 'Expand row'}));
+            await user.click(screen.getByText('Clickable'));
             expect(onToggle).toHaveBeenCalledTimes(1);
         });
     });

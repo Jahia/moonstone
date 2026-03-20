@@ -210,10 +210,10 @@ describe('DataTable', () => {
             />
         );
 
-        await user.click(screen.getByRole('button', {name: 'Collapse row'}));
+        await user.click(screen.getByText('Parent'));
         expect(screen.queryByText('Child')).not.toBeInTheDocument();
 
-        await user.click(screen.getByRole('button', {name: 'Expand row'}));
+        await user.click(screen.getByText('Parent'));
         expect(screen.queryByText('Child')).toBeInTheDocument();
     });
 
