@@ -1,14 +1,36 @@
 $tree-offset: -20px; // chevron size (16px) + gap (4px)
 
 .moonstone-tableStructuredCell_expandable {
-    transform: translateX($tree-offset);
+    gap: var(--spacing-nano);
 
+    height: -webkit-fill-available; // firefox fixes
+    /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
+    height: stretch;
+    margin-right: $tree-offset;
+
+    transform: translateX($tree-offset);
     cursor: pointer;
 }
 
-.moonstone-tableStructuredCell_content {
-    gap: var(--spacing-nano);
+.moonstone-tableStructuredCell_scrollable {
+    height: -webkit-fill-available; // firefox fixes
+    /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
+    height: stretch;
 
-    /* stylelint-disable-next-line declaration-property-unit-disallowed-list */
-    height: 100%;
+    scrollbar-width: thin;
+
+    > * {
+        overflow: clip;
+    }
+
+    &:hover {
+        overflow-x: auto;
+
+        box-shadow: var(--color-gray20) -1px 0 3px 0 inset;
+
+        > * {
+            text-overflow: unset;
+            overflow: visible;
+        }
+    }
 }

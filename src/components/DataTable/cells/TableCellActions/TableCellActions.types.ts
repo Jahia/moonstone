@@ -14,4 +14,6 @@ export type TableCellActionsProps = {
      * Actions visible only on row hover or focus.
      */
     actionsOnHover?: React.ReactNode;
+
+    className?: string;
 };

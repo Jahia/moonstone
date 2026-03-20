@@ -146,6 +146,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                 key={cell.id}
                                 align={meta?.align ?? 'left'}
                                 width={meta?.width}
+                                isScrollable={meta?.isScrollable}
                                 depth={row.depth}
                                 isExpandable={row.getCanExpand()}
                                 isExpanded={row.getIsExpanded()}
@@ -161,6 +162,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             key={cell.id}
                             align={meta?.align ?? 'left'}
                             width={meta?.width}
+                            isScrollable={meta?.isScrollable}
                         >
                             {cellContent}
                         </TableCell>
@@ -224,8 +226,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             {/* Column headers */}
                             {headerGroup.headers.map(header => {
                                 const meta = header.column.columnDef.meta as CustomColumnMeta | undefined;
-                                const isColumnSortable = enableSorting && (meta?.isSortable ?? false);
-                                const alignment = meta?.align ?? 'left';
+                                const isColumnSortable = enableSorting && meta?.isSortable;
+                                const alignment = meta?.align;
                                 const columnSortDirection = header.column.getIsSorted();
 
                                 return (
@@ -236,7 +238,6 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                             direction: columnSortDirection === 'desc' ? 'descending' : 'ascending',
                                             isActive: Boolean(columnSortDirection)
                                         } : undefined}
-                                        style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
                                         align={alignment}
                                         onClick={(e: React.MouseEvent<HTMLTableCellElement>) => {
                                             if (isColumnSortable) {

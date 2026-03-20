@@ -6,9 +6,11 @@ import './TableCellActions.scss';
 
 export const TableCellActions: React.FC<TableCellActionsProps> = ({
     actions,
-    actionsOnHover
+    actionsOnHover,
+    className,
+    ...props
 }) => (
-    <TableCell align="right" className={clsx('flexRow_reverse', 'alignCenter', 'moonstone-tableCellActions')}>
+    <TableCell align="right" className={clsx('moonstone-tableCellActions', className)} {...props}>
         {actionsOnHover && (
             <div className={clsx('flexRow_nowrap', 'alignCenter', 'moonstone-tableCellActions_displayHover')}>{actionsOnHover}</div>
         )}
