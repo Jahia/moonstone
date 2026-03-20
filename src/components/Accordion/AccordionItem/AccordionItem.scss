@@ -3,6 +3,11 @@
 
 $accordionHeader_height: 48px;
 
+button {
+    border: none;
+    background: none;
+}
+
 .moonstone-accordionItem {
     min-height: $accordionHeader_height;
 
@@ -13,6 +18,12 @@ $accordionHeader_height: 48px;
 
     &:only-child {
         border-bottom: none;
+    }
+
+    &:focus-visible {
+        @extend %is-focused;
+
+        outline-offset: -2px;
     }
 
     & + .moonstone-accordionItem {
@@ -27,7 +38,7 @@ $accordionHeader_height: 48px;
 // ---
 // Header
 // ---
-.moonstone-accordionItem_header {
+.moonstone-accordionItem_button {
     width: 100%;
     height: $accordionHeader_height;
     padding: 0 var(--spacing-medium);
@@ -40,12 +51,6 @@ $accordionHeader_height: 48px;
         border-bottom: 1px solid var(--color-gray_light);
 
         cursor: default;
-    }
-
-    &:focus-visible {
-        @extend %is-focused;
-
-        outline-offset: -2px;
     }
 
     &:active {
