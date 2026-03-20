@@ -1,9 +1,10 @@
 import React, {ForwardedRef} from 'react';
 import clsx from 'clsx';
 import type {LayoutContentProps} from './LayoutContent.types';
-import './LayoutContent.scss';
+import styles from './LayoutContent.module.scss';
 
 import {Loader} from '~/components/Loader';
+import {layout} from '~/globals/css-utils.js';
 
 export const LayoutContent = React.forwardRef(({
     header,
@@ -16,14 +17,23 @@ export const LayoutContent = React.forwardRef(({
     ...props
 }: LayoutContentProps, ref: ForwardedRef<HTMLDivElement>) => {
     const classNameProps = clsx(
-        'flexFluid',
-        'moonstone-layoutContent',
-        {'moonstone-layoutContent_withPadding': hasPadding},
-        isLoading ? ['flexCol_center', 'alignCenter'] : 'flexCol_nowrap'
+        ['flexFluid', layout.flexFluid],
+        ['moonstone-layoutContent', styles['moonstone-layoutContent']],
+        hasPadding && ['moonstone-layoutContent_withPadding', styles['moonstone-layoutContent_withPadding']],
+        isLoading ? ['flexCol_center', layout.flexCol_center, 'alignCenter', layout.alignCenter] : ['flexCol_nowrap', layout.flexCol_nowrap]
     );
 
     return (
-        <div ref={ref} className={clsx('flexCol', 'flexFluid', 'moonstone-layoutContent_wrapper', className)} {...props}>
+        <div
+            ref={ref}
+            className={clsx(
+                ['flexCol', layout.flexCol],
+                ['flexFluid', layout.flexFluid],
+                ['moonstone-layoutContent_wrapper', styles['moonstone-layoutContent_wrapper']],
+                className
+            )}
+            {...props}
+        >
             {header}
             <div className={classNameProps} aria-busy={isLoading ? 'true' : undefined}>
                 {
@@ -32,7 +42,11 @@ export const LayoutContent = React.forwardRef(({
                     (
                         isCentered ?
                         (
-                            <div className="flexCol_nowrap flexFluid moonstone-layoutContent_centered">
+                            <div className={clsx(
+                                ['flexCol_nowrap', layout.flexCol_nowrap],
+                                ['flexFluid', layout.flexFluid],
+                                ['moonstone-layoutContent_centered', styles['moonstone-layoutContent_centered']])}
+                            >
                                 {children ?? content}
                             </div>
                         ) :

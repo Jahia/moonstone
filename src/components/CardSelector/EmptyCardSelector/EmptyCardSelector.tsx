@@ -1,8 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
-import './EmptyCardSelector.scss';
+import styles from './EmptyCardSelector.module.scss';
 import type {EmptyCardSelectorProps} from './EmptyCardSelector.types';
 import {Typography} from '~/components';
+import {layout} from '~/globals/css-utils.js';
 
 export const EmptyCardSelector = React.forwardRef<HTMLButtonElement, EmptyCardSelectorProps>(({
     label,
@@ -28,11 +29,12 @@ export const EmptyCardSelector = React.forwardRef<HTMLButtonElement, EmptyCardSe
             ref={ref}
             id={id}
             type="button"
-            className={clsx('moonstone-emptyCardSelector',
-                (isDisabled || isReadOnly) && 'moonstone-emptyCardSelector_disabled',
-                'flexRow_center',
-                'flexFluid',
-                'alignCenter',
+            className={clsx(
+                ['moonstone-emptyCardSelector', styles['moonstone-emptyCardSelector']],
+                (isDisabled || isReadOnly) && ['moonstone-emptyCardSelector_disabled', styles['moonstone-emptyCardSelector_disabled']],
+                ['flexRow_center', layout.flexRow_center],
+                ['flexFluid', layout.flexFluid],
+                ['alignCenter', layout.alignCenter],
                 className
             )}
             disabled={isDisabled || isReadOnly}

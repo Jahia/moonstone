@@ -2,6 +2,7 @@ import React from 'react';
 import {GlobalStyle} from '../src';
 import {addons} from 'storybook/preview-api';
 import {UPDATE_GLOBALS, STORY_ARGS_UPDATED} from "storybook/internal/core-events";
+import './until-we-find-a-better-name.scss';
 
 let channel = addons.getChannel();
 const storyListener = (args) => {

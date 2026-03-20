@@ -1,5 +1,5 @@
 import type React from 'react';
-import './Badge.scss';
+import styles from './Badge.module.scss';
 import {Typography} from '~/components/Typography';
 import clsx from 'clsx';
 import {BadgeProps} from './Badge.types';
@@ -11,9 +11,9 @@ export const Badge: React.FC<BadgeProps> = ({
     ...other
 }) => {
     const classNameProps = clsx(
-        'moonstone-badge',
-        'moonstone-badge_round',
-        `moonstone-badge_${color}`,
+        ['moonstone-badge', styles['moonstone-badge']],
+        ['moonstone-badge_round', styles['moonstone-badge_round']],
+        [`moonstone-badge_${color}`, styles[`moonstone-badge_${color}`]],
         className
     );
 

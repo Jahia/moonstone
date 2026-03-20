@@ -1,6 +1,10 @@
 @use "../../tokens/spacings/spacings" as *;
 
 .moonstone-chip {
+    composes:
+        moonstone-chip from "../Table/TableRow/TableRow.module.scss",
+        moonstone-chip from "../DataTable/TableRow/TableRow.module.scss";
+
     display: inline-flex;
     flex-direction: row;
     align-items: center;

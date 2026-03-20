@@ -6,6 +6,7 @@ import {Button, Chip, Input, Dropdown, RadioGroup, RadioItem, CheckboxItem, List
 import {Add, Close, Language, MoreVert, File} from '~/icons';
 import {FieldSelector} from './FieldSelector';
 import {listSelectorData} from '~/data/listSelectorData';
+import {layout} from '~/globals/css-utils.js';
 
 const meta: Meta<typeof Field> = {
     title: 'Components/Field',
@@ -69,7 +70,7 @@ export const WithDropdown: Story = {
         selector={<Dropdown
         variant="outlined"
         label="Input value"
-        className="flexFluid"
+        className={`flexFluid ${layout.flexFluid}`}
         value=""
         data={[
             {

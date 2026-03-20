@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import './Collapsible.scss';
 import type {UncontrolledCollapsibleProps} from './Collapsible.types';
 import {ControlledCollapsible} from './ControlledCollapsible';
 
