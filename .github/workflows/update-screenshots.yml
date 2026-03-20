@@ -3,7 +3,7 @@ name: Update Visual Regression Screenshots
 
 on:
   workflow_dispatch: # manual trigger
-  pull_request: # used for the initial setup, uncomment to run on the current PR
+  # pull_request: # used for the initial setup, uncomment to run on the current PR
 
 env:
   AUTHOR_NAME: "github-actions[bot]"
