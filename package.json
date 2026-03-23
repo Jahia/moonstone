@@ -74,6 +74,7 @@
   },
   "devDependencies": {
     "@chachalog/types": "^0.5.0",
+    "@fontsource-variable/nunito-sans": "^5.2.7",
     "@jahia/eslint-config": "^2.2.0",
     "@jahia/stylelint-config": "^0.0.4",
     "@storybook/addon-a11y": "^10.1.11",
