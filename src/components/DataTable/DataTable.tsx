@@ -18,6 +18,7 @@ import type {
 import {useState, useEffect, useMemo, useCallback, useRef} from 'react';
 
 import type {DataTableProps, CustomColumnMeta} from './DataTable.types';
+import type {TableCellProps} from './cells/TableCell.types';
 import {Checkbox} from '~/components';
 import {
     Table,
@@ -30,6 +31,8 @@ import {
 } from '~/components/DataTable';
 import {createTableColumns} from '~/utils/dataTable/tableHelpers';
 import {Pagination} from '~/components/Pagination';
+
+type ColumnLayoutProps = Pick<TableCellProps, 'width' | 'style'>;
 
 export const DataTable = <T extends NonNullable<unknown>>({
     className,
@@ -50,17 +53,15 @@ export const DataTable = <T extends NonNullable<unknown>>({
     enableResize = false,
     onResizeStart,
     onResizeStop,
-    onResizing,
+    onResizeChange,
     columnSizing: columnSizingState,
     onColumnSizingChange,
-    actionsColumnWidth = 60,
     // Pagination props
     enablePagination = false,
     itemsPerPage,
     itemsPerPageOptions,
     paginationLabel,
     rowProps,
-    style,
     ...props
 }: DataTableProps<T>) => {
     // Internal sorting state - fully managed by TanStack
@@ -116,8 +117,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
             rowSelection,
             sorting,
             ...(enablePagination && {pagination}),
-            ...(enableResize && {columnSizingInfo}),
-            ...(enableResize && columnSizingState !== undefined && {columnSizing: columnSizingState})
+            ...(enableResize && {columnSizingInfo, columnSizing: columnSizingState})
         },
         onColumnSizingInfoChange: enableResize ? setColumnSizingInfo : undefined,
         onColumnSizingChange: enableResize ? onColumnSizingChange : undefined,
@@ -148,7 +148,6 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
     // Resize callbacks: detect start/stop from columnSizingInfo
     const prevResizingRef = useRef<false | string>(false);
-    const headerRefsRef = useRef<Record<string, HTMLElement>>({});
 
     useEffect(() => {
         if (!enableResize) {
@@ -159,19 +158,19 @@ export const DataTable = <T extends NonNullable<unknown>>({
         const prev = prevResizingRef.current;
 
         if (!prev && isResizingColumn) {
-            onResizeStart?.(isResizingColumn, headerRefsRef.current[isResizingColumn] ?? document.body);
+            onResizeStart?.(isResizingColumn);
         } else if (prev && !isResizingColumn) {
-            onResizeStop?.(prev, headerRefsRef.current[prev] ?? document.body);
+            onResizeStop?.(prev);
         }
 
         if (isResizingColumn) {
             const col = table.getColumn(isResizingColumn);
             const width = col?.getSize() ?? 0;
-            onResizing?.(isResizingColumn, width);
+            onResizeChange?.(isResizingColumn, width);
         }
 
         prevResizingRef.current = isResizingColumn;
-    }, [enableResize, columnSizingInfo, table, onResizeStart, onResizeStop, onResizing]);
+    }, [enableResize, columnSizingInfo, table, onResizeStart, onResizeStop, onResizeChange]);
 
     useEffect(() => {
         if (isStructured && data.length > 0) {
@@ -179,72 +178,128 @@ export const DataTable = <T extends NonNullable<unknown>>({
         }
     }, [data, isStructured, table]);
 
+    const getColumnLayoutProps = useCallback(({
+        enableResize: isResizeEnabled,
+        columnSize,
+        configuredWidth
+    }: {
+        enableResize: boolean;
+        columnSize: number;
+        configuredWidth?: number;
+    }): ColumnLayoutProps => {
+        if (!isResizeEnabled) {
+            return {
+                width: typeof configuredWidth === 'number' ? `${configuredWidth}px` : undefined,
+                style: undefined
+            };
+        }
+
+        const size = `${columnSize}px`;
+
+        if (typeof configuredWidth === 'number') {
+            return {
+                width: size,
+                style: {
+                    minWidth: size,
+                    maxWidth: size,
+                    flexBasis: size,
+                    flexShrink: 0
+                }
+            };
+        }
+
+        return {
+            width: undefined,
+            style: {
+                minWidth: size,
+                flexBasis: size,
+                flexShrink: 0
+            }
+        };
+    }, []);
+
     // Render row cells - cell content rendering is delegated to columns configuration (via render prop)
     // DataTable handles the cell wrapper (TableBodyCell) with structured view props for expand/collapse
     const renderRowContent = useCallback(
-        (row: Row<T>) => (
-            <>
-                {/* Selection checkbox cell */}
-                {enableSelection && (
-                    <TableCell width="52px">
-                        <Checkbox
-                            checked={row.getIsSelected()}
-                            onChange={row.getToggleSelectedHandler()}
-                        />
-                    </TableCell>
-                )}
+        (row: Row<T>) => {
+            // Build column-id → resize handler map for body cells.
+            // Computed per-row call — acceptable for typical dataset sizes.
+            const headers = table.getHeaderGroups()[0]?.headers ?? [];
 
-                {/* Data cells - content comes from column.cell defined in createTableColumns */}
-                {row.getVisibleCells().map((cell, index) => {
-                    const meta = cell.column.columnDef.meta as CustomColumnMeta | undefined;
-                    const isFirstColumn = index === 0;
-                    const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
-                    const showStructured = isStructured && isFirstColumn;
-                    const cellWidth = enableResize ? `${cell.column.getSize()}px` : meta?.width;
+            return (
+                <>
+                    {/* Selection checkbox cell */}
+                    {enableSelection && (
+                        <TableCell width="52px">
+                            <Checkbox
+                                checked={row.getIsSelected()}
+                                onChange={row.getToggleSelectedHandler()}
+                            />
+                        </TableCell>
+                    )}
 
-                    // Use TableStructuredCell for first column in structured view
-                    if (showStructured) {
+                    {/* Data cells - content comes from column.cell defined in createTableColumns */}
+                    {row.getVisibleCells().map((cell, index) => {
+                        const meta = cell.column.columnDef.meta as CustomColumnMeta | undefined;
+                        const isFirstColumn = index === 0;
+                        const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
+                        const showStructured = isStructured && isFirstColumn;
+                        const cellLayout = getColumnLayoutProps({
+                            enableResize,
+                            columnSize: cell.column.getSize(),
+                            configuredWidth: meta?.width
+                        });
+                        const resizeHandler = enableResize ?
+                            headers.find(header => header.column.id === cell.column.id)?.getResizeHandler() :
+                            undefined;
+                        const cellIsResizing = enableResize ? cell.column.getIsResizing() : undefined;
+
+                        // Use TableStructuredCell for first column in structured view
+                        if (showStructured) {
+                            return (
+                                <TableStructuredCell
+                                    key={cell.id}
+                                    align={meta?.align ?? 'left'}
+                                    width={cellLayout.width}
+                                    depth={row.depth}
+                                    isExpandable={row.getCanExpand()}
+                                    isExpanded={row.getIsExpanded()}
+                                    style={cellLayout.style}
+                                    enableResize={enableResize || undefined}
+                                    resizeHandler={resizeHandler}
+                                    isResizing={cellIsResizing}
+                                    onToggleExpand={row.getToggleExpandedHandler()}
+                                >
+                                    {cellContent}
+                                </TableStructuredCell>
+                            );
+                        }
+
                         return (
-                            <TableStructuredCell
+                            <TableCell
                                 key={cell.id}
                                 align={meta?.align ?? 'left'}
-                                width={cellWidth}
-                                depth={row.depth}
-                                isExpandable={row.getCanExpand()}
-                                isExpanded={row.getIsExpanded()}
-                                onToggleExpand={row.getToggleExpandedHandler()}
+                                width={cellLayout.width}
+                                style={cellLayout.style}
+                                enableResize={enableResize || undefined}
+                                resizeHandler={resizeHandler}
+                                isResizing={cellIsResizing}
                             >
                                 {cellContent}
-                            </TableStructuredCell>
+                            </TableCell>
                         );
-                    }
+                    })}
 
-                    return (
-                        <TableCell
-                            key={cell.id}
-                            align={meta?.align ?? 'left'}
-                            width={cellWidth}
-                        >
-                            {cellContent}
+                    {/* Actions cell — no explicit width, auto-sizes to content */}
+                    {actions && (
+                        <TableCell>
+                            {actions(row.original)}
                         </TableCell>
-                    );
-                })}
-
-                {/* Actions cell */}
-                {actions && (
-                    <TableCell
-                        width={enableResize ?
-                            (typeof actionsColumnWidth === 'number' ?
-                                `${actionsColumnWidth}px` :
-                                actionsColumnWidth) :
-                            undefined}
-                    >
-                        {actions(row.original)}
-                    </TableCell>
-                )}
-            </>
-        ),
-        [enableSelection, actions, isStructured, enableResize, actionsColumnWidth]
+                    )}
+                </>
+            );
+        },
+        [enableSelection, actions, isStructured, enableResize, getColumnLayoutProps, table]
     );
 
     const renderRowWithCustomization = useCallback(
@@ -272,10 +327,18 @@ export const DataTable = <T extends NonNullable<unknown>>({
         return null;
     }
 
-    const tableStyle = enableResize ? {tableLayout: 'fixed' as const, width: '100%'} : undefined;
+    // Width: 100% — fills the container like a non-resize table.
+    // minWidth: totalSize — enables horizontal scroll when resized columns exceed the container.
+    const tableStyle = enableResize ?
+        {width: '100%', minWidth: `${table.getTotalSize()}px`} :
+        undefined;
 
     const tableContent = (
-        <Table className={className} style={{...style, ...tableStyle}} {...props}>
+        <Table
+            {...props}
+            className={className}
+            style={tableStyle}
+        >
             <TableHead>
                 {table.getHeaderGroups().map(headerGroup => (
                     <TableRow key={headerGroup.id}>
@@ -293,30 +356,28 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             const isColumnSortable = enableSorting && (meta?.isSortable ?? false);
                             const alignment = meta?.align ?? 'left';
                             const sortDirection = header.column.getIsSorted();
-                            const headerWidth = enableResize ? `${header.getSize()}px` : meta?.width;
+                            const headerLayout = getColumnLayoutProps({
+                                enableResize,
+                                columnSize: header.getSize(),
+                                configuredWidth: meta?.width
+                            });
 
                             return (
                                 <TableHeadCell
                                     key={header.id}
-                                    width={headerWidth}
+                                    width={headerLayout.width}
                                     sorting={isColumnSortable ? {
                                         direction: sortDirection === 'desc' ? 'descending' : 'ascending',
                                         isActive: Boolean(sortDirection)
                                     } : undefined}
-                                    style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
+                                    style={{
+                                        cursor: isColumnSortable ? 'pointer' : 'default',
+                                        ...headerLayout.style
+                                    }}
                                     align={alignment}
                                     enableResize={enableResize}
                                     isResizing={enableResize ? header.column.getIsResizing() : undefined}
                                     resizeHandler={enableResize ? header.getResizeHandler() : undefined}
-                                    resizeHeaderRef={
-                                        enableResize ?
-                                            el => {
-                                                if (el) {
-                                                    headerRefsRef.current[header.id] = el;
-                                                }
-                                            } :
-                                            undefined
-                                    }
                                     onClick={(e: React.MouseEvent<HTMLTableCellElement>) => {
                                         if (isColumnSortable) {
                                             header.column.getToggleSortingHandler()?.(e);
@@ -324,20 +385,14 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
                                         onClickTableHeadCell?.(header.id);
                                     }}
-                                    onResizeReset={enableResize ? () => header.column.resetSize() : undefined}
                                 >
                                     {flexRender(header.column.columnDef.header, header.getContext())}
                                 </TableHeadCell>
                             );
                         })}
+                        {/* Actions header — no explicit width, auto-sizes to content */}
                         {actions && (
-                            <TableHeadCell
-                                width={enableResize ?
-                                    (typeof actionsColumnWidth === 'number' ?
-                                        `${actionsColumnWidth}px` :
-                                        actionsColumnWidth) :
-                                    undefined}
-                            >
+                            <TableHeadCell>
                                 {actionsHeaderLabel}
                             </TableHeadCell>
                         )}

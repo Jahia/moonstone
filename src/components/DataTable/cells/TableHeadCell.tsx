@@ -14,10 +14,9 @@ export const TableHeadCell = ({
     onClick,
     enableResize,
     resizeHandler,
-    onResizeReset,
     isResizing,
     resizeHeaderRef,
-    resizeHandleLabel,
+    resizeHandleAttr,
     ...props
 }: TableHeadCellProps) => {
     const isSortable = Boolean(sorting);
@@ -60,13 +59,10 @@ export const TableHeadCell = ({
             </span>
             {enableResize && resizeHandler && (
                 <div
-                    data-resizer
                     className="moonstone-tableHeadCell_resizeHandle"
                     role="separator"
-                    aria-label={resizeHandleLabel}
                     onMouseDown={resizeHandler}
-                    onTouchStart={resizeHandler}
-                    onDoubleClick={onResizeReset}
+                    {...resizeHandleAttr}
                 />
             )}
         </TableCell>
@@ -74,4 +70,3 @@ export const TableHeadCell = ({
 };
 
 TableHeadCell.displayName = 'TableHeadCell';
-

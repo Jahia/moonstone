@@ -11,7 +11,7 @@ export type SubRowKey = 'subRows';
 export type CustomColumnMeta = {
     isSortable?: boolean;
     align?: 'left' | 'center' | 'right';
-    width?: string;
+    width?: number;
 };
 
 export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children' | 'className'> & {
@@ -65,10 +65,13 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
     align?: 'left' | 'center' | 'right';
 
     /**
-     * Column width as a CSS string (e.g., '250px', '20%').
+     * Column width in pixels.
+     * When enableResize is true, used as the default/initial size for TanStack column resizing.
+     * When enableResize is false, applied as a fixed CSS pixel width.
      * When undefined, the column takes all available space.
+     * @default 150 (when enableResize is true)
      */
-    width?: string;
+    width?: number;
 
     /**
      * Minimum column width in pixels (used when enableResize is true).
@@ -81,12 +84,6 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
      * @default 800
      */
     maxWidth?: number;
-
-    /**
-     * Default column width in pixels (used when enableResize is true).
-     * @default 150
-     */
-    defaultWidth?: number;
 };
 
 export type DataTableBaseProps<T extends NonNullable<unknown>> = {
@@ -116,50 +113,6 @@ export type DataTableBaseProps<T extends NonNullable<unknown>> = {
      * @param columnId - The ID of the clicked column
      */
     onClickTableHeadCell?: (columnId: string) => void;
-
-    /**
-     * Enable column resizing. When true, users can resize columns via a vertical handle on hover.
-     * @default false
-     */
-    enableResize?: boolean;
-
-    /**
-     * Callback fired when column resize begins
-     * @param columnId - The ID of the column being resized
-     * @param headerRef - The header element being resized
-     */
-    onResizeStart?: (columnId: string, headerRef: HTMLElement) => void;
-
-    /**
-     * Callback fired when column resize ends
-     * @param columnId - The ID of the column that was resized
-     * @param headerRef - The header element that was resized
-     */
-    onResizeStop?: (columnId: string, headerRef: HTMLElement) => void;
-
-    /**
-     * Callback fired during column resize (on each drag movement)
-     * @param columnId - The ID of the column being resized
-     * @param width - The current width in pixels
-     */
-    onResizing?: (columnId: string, width: number) => void;
-
-    /**
-     * Controlled column sizing (for persistence). When provided with onColumnSizingChange,
-     * enables controlled mode. The consumer manages state (e.g. localStorage) and passes it back.
-     */
-    columnSizing?: ColumnSizingState;
-
-    /**
-     * Callback when column sizing changes (controlled mode). Use with columnSizing for persistence.
-     */
-    onColumnSizingChange?: OnChangeFn<ColumnSizingState>;
-
-    /**
-     * Width of the actions column in pixels when enableResize is true.
-     * @default 60
-     */
-    actionsColumnWidth?: number | string;
 
     /**
      * Custom HTML attributes to add to each row element
@@ -310,11 +263,60 @@ type TablePaginationProps =
           paginationLabel?: never;
       };
 
-export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'children'> &
+type ResizeProps =
+    | {
+          /**
+           * Enable column resizing. When true, users can resize columns via a vertical handle on hover.
+           */
+          enableResize: true;
+
+          /**
+           * Controlled column sizing state. Required in controlled mode to enable persistence
+           * (e.g. localStorage). Pass the state back via onColumnSizingChange.
+           */
+          columnSizing: ColumnSizingState;
+
+          /**
+           * Callback when column sizing changes. Use with columnSizing to persist widths.
+           */
+          onColumnSizingChange: OnChangeFn<ColumnSizingState>;
+
+          /**
+           * Callback fired when column resize begins
+           * @param key - The key of the column being resized
+           */
+          onResizeStart?: (key: string) => void;
+
+          /**
+           * Callback fired when column resize ends
+           * @param key - The key of the column that was resized
+           */
+          onResizeStop?: (key: string) => void;
+
+          /**
+           * Callback fired during column resize (on each drag movement)
+           * @param key - The key of the column being resized
+           * @param width - The current width in pixels
+           */
+          onResizeChange?: (key: string, width: number) => void;
+      }
+    | {
+          /**
+           * Enable column resizing.
+           */
+          enableResize?: false;
+          columnSizing?: never;
+          onColumnSizingChange?: never;
+          onResizeStart?: never;
+          onResizeStop?: never;
+          onResizeChange?: never;
+      };
+
+export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'children' | 'style'> &
     DataTableBaseProps<T> &
     SortingProps<T> &
     SelectionProps &
     ActionsProps<T> &
     RenderRowProps<T> &
-    TablePaginationProps;
-
+    TablePaginationProps &
+    ResizeProps;

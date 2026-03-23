@@ -1,6 +1,9 @@
 @use '../../../utils/index.scss';
+@use '../../../globals/dnd' as dnd;
 
 .moonstone-tableCell {
+    position: relative;
+
     gap: var(--spacing-nano);
     padding-right: var(--spacing-medium);
     padding-left: var(--spacing-medium);
@@ -17,4 +20,33 @@
     &::-webkit-scrollbar-thumb {
         background-color: var(--color-gray_light);
     }
+}
+
+.moonstone-tableCell_resizeHandle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+
+    width: 10px;
+
+    border-left: 2px solid var(--color-gray_light);
+    cursor: col-resize;
+    opacity: 0;
+
+    transition: opacity 0.15s ease, border-color 0.15s ease;
+
+    user-select: none;
+    touch-action: none;
+}
+
+.moonstone-tableCell_resizing .moonstone-tableCell_resizeHandle {
+    border-left-color: dnd.$dnd-highlight;
+    opacity: 1;
+}
+
+.moonstone-tableCell_resizable:hover .moonstone-tableCell_resizeHandle {
+    border-left-color: var(--color-gray);
+    opacity: 1;
 }

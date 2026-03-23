@@ -20,7 +20,7 @@ export const createTableColumns = <T extends Record<string, unknown>>(
         accessorKey: col.key as string,
         header: col.label,
 
-        size: col.defaultWidth ?? DEFAULT_COLUMN_SIZE,
+        size: col.width ?? DEFAULT_COLUMN_SIZE,
         minSize: col.minWidth ?? DEFAULT_COLUMN_MIN_SIZE,
         maxSize: col.maxWidth ?? DEFAULT_COLUMN_MAX_SIZE,
 

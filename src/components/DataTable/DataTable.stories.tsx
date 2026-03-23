@@ -15,7 +15,7 @@ export default {
         controls: {expanded: true},
         docs: {
             description: {
-                component: 'Data table with sorting, selection, pagination and column resizing. Use `enableResize` for resize handles; `columnSizing` + `onColumnSizingChange` for controlled mode.'
+                component: 'Data table with sorting, selection, pagination and column resizing. Use `enableResize` with required `columnSizing` + `onColumnSizingChange` for resize handles.'
             }
         }
     },
@@ -23,11 +23,10 @@ export default {
         onChangeSelection: {action: 'onChangeSelection'},
         onResizeStart: {action: 'onResizeStart'},
         onResizeStop: {action: 'onResizeStop'},
-        onResizing: {action: 'onResizing'},
+        onResizeChange: {action: 'onResizeChange'},
         onColumnSizingChange: {action: 'onColumnSizingChange'},
         enableResize: {control: 'boolean'},
         columnSizing: {control: false},
-        actionsColumnWidth: {control: 'number'},
         enablePagination: {control: 'boolean'},
         itemsPerPage: {control: 'number'},
         itemsPerPageOptions: {control: 'object'},
@@ -116,36 +115,6 @@ export const StructuredViewDataTable: Story = {
     name: 'Structured View'
 };
 
-export const ResizableColumnsControlledDataTable: Story = {
-    render: args => {
-        const [columnSizing, setColumnSizing] = useState<Record<string, number>>({});
-
-        return (
-            <DataTable<DataUser>
-                {...args}
-                enableResize
-                columnSizing={Object.keys(columnSizing).length > 0 ? columnSizing : undefined}
-                onColumnSizingChange={updater => {
-                    setColumnSizing(prev => (typeof updater === 'function' ? updater(prev) : updater));
-                }}
-            />
-        );
-    },
-    args: {
-        data: dataTable,
-        columns: dataColumnsUser,
-        primaryKey: 'firstName'
-    },
-    parameters: {
-        docs: {
-            description: {
-                story: 'Controlled column widths in state (e.g. for localStorage persistence).'
-            }
-        }
-    },
-    name: 'Resizable Columns Controlled'
-};
-
 export const PaginationDataTable: Story = {
     render: args => {
         return (
@@ -174,7 +143,7 @@ export const AllFeaturesTable: Story = {
                 {...args}
                 enableResize
                 enablePagination
-                columnSizing={Object.keys(columnSizing).length > 0 ? columnSizing : undefined}
+                columnSizing={columnSizing}
                 actions={row => (
                     <MoreVert onClick={() => console.log(`${row.age}`)}/>
                 )}
@@ -211,4 +180,3 @@ export const AllFeaturesTable: Story = {
     },
     name: 'All Features Combined'
 };
-

@@ -38,11 +38,6 @@ export type TableHeadCellProps = Omit<TableCellProps, 'isScrollable' | 'componen
     resizeHandler?: (e: React.MouseEvent | React.TouchEvent) => void;
 
     /**
-     * Reset column size on double-click
-     */
-    onResizeReset?: () => void;
-
-    /**
      * Whether this column is currently being resized
      */
     isResizing?: boolean;
@@ -53,8 +48,9 @@ export type TableHeadCellProps = Omit<TableCellProps, 'isScrollable' | 'componen
     resizeHeaderRef?: (el: HTMLTableCellElement | null) => void;
 
     /**
-     * Accessible label for the resize handle (e.g. "Redimensionner la colonne Nom")
+     * HTML attributes to spread onto the resize handle element.
+     * Use for data-testid, aria-label, or other custom attributes.
      */
-    resizeHandleLabel?: string;
+    resizeHandleAttr?: React.HTMLAttributes<HTMLDivElement>;
 };
 

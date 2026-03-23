@@ -43,5 +43,26 @@ export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'chi
      * Indicates if the cell is scrollable on hover
      */
     isScrollable?: boolean;
+
+    /**
+     * Enable column resize handle on this cell
+     */
+    enableResize?: boolean;
+
+    /**
+     * Resize handler for mousedown — starts the column resize interaction
+     */
+    resizeHandler?: (e: React.MouseEvent) => void;
+
+    /**
+     * Whether this column is currently being resized
+     */
+    isResizing?: boolean;
+
+    /**
+     * HTML attributes to spread onto the resize handle element.
+     * Use for data-testid, aria-label, or other custom attributes.
+     */
+    resizeHandleAttr?: React.HTMLAttributes<HTMLDivElement>;
 };
 
