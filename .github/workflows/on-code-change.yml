@@ -1,6 +1,10 @@
 name: On Code Change
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
 
 jobs:
   build-and-test:
@@ -13,4 +17,7 @@ jobs:
       - name: Publish to pkg.pr.new
         run: npx pkg-pr-new publish --compact --packageManager=yarn
       - run: yarn test
+      - name: Run visual tests
+        if: github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'test:visual')
+        run: yarn playwright install chromium --only-shell && yarn test:visual
       - run: yarn lint

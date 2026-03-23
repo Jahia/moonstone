@@ -31,7 +31,7 @@ export const Default: Story = {
 
 export const WithImage: Story = {
     args: {
-        src: 'https://picsum.photos/200',
+        src: 'https://picsum.photos/seed/moonstone/200',
         alt: 'Random image'
     }
 };
@@ -44,7 +44,7 @@ export const WithReactElement: Story = {
 
 export const SmallSize: Story = {
     args: {
-        src: 'https://picsum.photos/200',
+        src: 'https://picsum.photos/seed/moonstone/200',
         alt: 'Small thumbnail',
         size: 'small'
     }
@@ -52,7 +52,7 @@ export const SmallSize: Story = {
 
 export const IconVariant: Story = {
     args: {
-        src: 'https://picsum.photos/200',
+        src: 'https://picsum.photos/seed/moonstone/200',
         alt: 'Icon variant',
         variant: 'icon'
     }
@@ -62,9 +62,9 @@ export const AllVariants: Story = {
     render: () => (
         <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
             <Thumbnail/>
-            <Thumbnail src="https://picsum.photos/200" alt="Preview"/>
+            <Thumbnail src="https://picsum.photos/seed/moonstone/200" alt="Preview"/>
             <Thumbnail src={<Love size="big" color="gray"/>}/>
-            <Thumbnail size="small" src="https://picsum.photos/200" alt="Small"/>
+            <Thumbnail size="small" src="https://picsum.photos/seed/moonstone/200" alt="Small"/>
         </div>
     )
 };
