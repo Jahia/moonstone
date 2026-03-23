@@ -1,35 +1,39 @@
-import React from 'react';
+import {React} from 'react';
 import clsx from 'clsx';
 import {Typography} from '~/components';
+import {TableCell} from '../TableCell';
 import './TableCellStatus.scss';
 import type {TableCellStatusProps} from './TableCellStatus.types';
 
 export const TableCellStatus: React.FC<TableCellStatusProps> = ({
     color,
-    iconStart = null,
+    iconStart,
     text,
     className,
     ...props
 }) => (
-    <div
-        className={clsx('moonstone-tableCellStatus', `moonstone-tableCellStatus_${color}`, className)}
+    <TableCell
+        className={clsx(
+            'moonstone-tableCellStatus',
+            `moonstone-tableCellStatus_${color}`,
+            className
+        )}
+        width="8px"
         {...props}
     >
-        <span className="moonstone-tableCellStatus_trigger"/>
-        <span className="moonstone-tableCellStatus_strip"/>
-        <div className="moonstone-tableCellStatus_panel">
-            {iconStart && <span className="moonstone-tableCellStatus_icon">{iconStart}</span>}
+        <div className='flexRow_nowrap alignCenter moonstone-tableCellStatus_panel'>
+            {iconStart && <iconStart.type {...iconStart.props} size="default    "/>}
             <Typography
                 isNowrap
-                component="span"
+                component="div"
                 variant="caption"
                 weight="semiBold"
-                className="moonstone-tableCellStatus_text"
+                className="flexRow_nowrap alignCenter"
             >
                 {text}
             </Typography>
         </div>
-    </div>
+    </TableCell>
 );
 
 TableCellStatus.displayName = 'TableCellStatus';

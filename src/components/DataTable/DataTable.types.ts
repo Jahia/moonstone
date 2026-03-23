@@ -165,24 +165,19 @@ export type SelectionProps =
 
 export type DefaultRenderOptions = {
     /**
-     * Actions always visible in the cell.
+     * Custom cells to render before the data cells (selection + columns).
+     * The width will be automatically measured for header alignment.
      */
-    actions?: React.ReactNode;
+    before?: React.ReactNode;
 
     /**
-     * Actions visible only on row hover or focus.
+     * Custom cells to render after the data cells.
+     * The width will be automatically measured for header alignment.
      */
-    actionsOnHover?: React.ReactNode;
+    after?: React.ReactNode;
 };
 
 type RenderRowProps<T extends NonNullable<unknown>> = {
-    /**
-     * Custom render function for a leading row slot rendered before the selection column.
-     * This slot is useful for status indicators or other row-level markers.
-     * @param row - The row object from TanStack Table. Use row.original to access the raw row data.
-     */
-    renderRowStart?: (row: Row<T>) => React.ReactNode;
-
     /**
      * Custom render function for rows (e.g. styling, wrapper).
      * @param row - The row object from TanStack Table. Use row.original to access the raw row data.

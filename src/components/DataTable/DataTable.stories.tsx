@@ -105,34 +105,34 @@ export const StructuredViewDataTable: Story = {
     name: 'Structured View'
 };
 
-export const StatusBarDataTable: Story = {
-    render: args => {
-        return (
-            <DataTable<DataUser>
-                {...args}
-                enableSelection
-                isStructured
-                renderRowStart={row => {
-                    const status = getStatusMessage(row.original.status);
+// export const StatusBarDataTable: Story = {
+//     render: args => {
+//         return (
+//             <DataTable<DataUser>
+//                 {...args}
+//                 enableSelection
+//                 isStructured
+//                 renderRowStart={row => {
+//                     const status = getStatusMessage(row.original.status);
 
-                    return (
-                        <TableCellStatus
-                            color={status.color}
-                            iconStart={status.iconStart}
-                            text={status.text}
-                        />
-                    );
-                }}
-            />
-        );
-    },
-    args: {
-        data: dataTable,
-        columns: dataColumnsUser,
-        primaryKey: 'firstName'
-    },
-    name: 'With Status Bar'
-};
+//                     return (
+//                         <TableCellStatus
+//                             color={status.color}
+//                             iconStart={status.iconStart}
+//                             text={status.text}
+//                         />
+//                     );
+//                 }}
+//             />
+//         );
+//     },
+//     args: {
+//         data: dataTable,
+//         columns: dataColumnsUser,
+//         primaryKey: 'firstName'
+//     },
+//     name: 'With Status Bar'
+// };
 
 export const PaginationDataTable: Story = {
     render: args => {
@@ -236,13 +236,15 @@ export const ControlledPagination: Story = {
     name: 'Controlled Pagination'
 };
 
+
+
 export const AllFeaturesTable: Story = {
     render: args => {
         return (
             <DataTable
                 {...args}
                 enablePagination
-                renderRow={(row, defaultRender) => (
+                renderRow={(row, renderCells) => (
                     <TableRow
                         key={row.id}
                         style={{
@@ -251,12 +253,17 @@ export const AllFeaturesTable: Story = {
                                 undefined
                         }}
                     >
-                        {defaultRender({
-                            actions: (
-                                <Button icon={<MoreVert/>} variant="ghost" aria-label="Actions"/>
+                        {renderCells({
+                            before: (
+                                <TableCellStatus
+                                    color={getStatusMessage(row.original.status).color}
+                                    iconStart={getStatusMessage(row.original.status).iconStart}
+                                    text={getStatusMessage(row.original.status).text}
+                                />
                             ),
-                            actionsOnHover: (
+                            after: (
                                 <>
+                                    <Button icon={<MoreVert/>} variant="ghost" aria-label="Actions"/>
                                     <Button icon={<Visibility/>} variant="ghost"/>
                                     <Button icon={<Edit/>} variant="ghost"/>
                                     <Button icon={<Delete/>} variant="ghost"/>

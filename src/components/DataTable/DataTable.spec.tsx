@@ -223,24 +223,24 @@ describe('DataTable', () => {
         expect(rows).toHaveLength(3);
     });
 
-    it('should render a start cell in the header and each data row when renderRowStart is provided', () => {
-        render(
-            <DataTable
-                data={data}
-                columns={columns}
-                primaryKey="id"
-                renderRowStart={row => <span data-testid={`start-${row.id}`}>{row.original.name}</span>}
-            />
-        );
+    // it('should render a start cell in the header and each data row when renderRowStart is provided', () => {
+    //     render(
+    //         <DataTable
+    //             data={data}
+    //             columns={columns}
+    //             primaryKey="id"
+    //             renderRowStart={row => <span data-testid={`start-${row.id}`}>{row.original.name}</span>}
+    //         />
+    //     );
 
-        const [headerRow] = screen.getAllByRole('row');
+    //     const [headerRow] = screen.getAllByRole('row');
 
-        expect(within(headerRow).getAllByRole('columnheader')[0]).toHaveClass('moonstone-tableCellStart');
-        expect(screen.getAllByTestId(/start-/)).toHaveLength(data.length);
-        expect(screen.getByTestId('start-1')).toHaveTextContent('Alice');
-        expect(screen.getByTestId('start-2')).toHaveTextContent('Bob');
-        expect(screen.getByTestId('start-3')).toHaveTextContent('Charlie');
-    });
+    //     expect(within(headerRow).getAllByRole('columnheader')[0]).toHaveClass('moonstone-tableCellStart');
+    //     expect(screen.getAllByTestId(/start-/)).toHaveLength(data.length);
+    //     expect(screen.getByTestId('start-1')).toHaveTextContent('Alice');
+    //     expect(screen.getByTestId('start-2')).toHaveTextContent('Bob');
+    //     expect(screen.getByTestId('start-3')).toHaveTextContent('Charlie');
+    // });
 
     it('should render expandable rows with children visible by default', () => {
         render(
@@ -256,29 +256,29 @@ describe('DataTable', () => {
         expect(screen.getByText('Child')).toBeInTheDocument();
     });
 
-    it('should render status bars through renderRowStart with structured rows and selection enabled', () => {
-        render(
-            <DataTable<StatusBarData>
-                enableSelection
-                isStructured
-                data={statusBarData}
-                columns={statusBarColumns}
-                primaryKey="id"
-                renderRowStart={row => (
-                    <TableCellStatus
-                        color={row.original.status === 'Healthy' ? 'success' : 'warning'}
-                        text={row.original.status}
-                    />
-                )}
-            />
-        );
+    // it('should render status bars through renderRowStart with structured rows and selection enabled', () => {
+    //     render(
+    //         <DataTable<StatusBarData>
+    //             enableSelection
+    //             isStructured
+    //             data={statusBarData}
+    //             columns={statusBarColumns}
+    //             primaryKey="id"
+    //             renderRowStart={row => (
+    //                 <TableCellStatus
+    //                     color={row.original.status === 'Healthy' ? 'success' : 'warning'}
+    //                     text={row.original.status}
+    //                 />
+    //             )}
+    //         />
+    //     );
 
-        expect(screen.getByText('Parent')).toBeInTheDocument();
-        expect(screen.getByText('Child')).toBeInTheDocument();
-        expect(screen.getByText('Healthy').closest('.moonstone-tableCellStatus')).toHaveClass('moonstone-tableCellStatus_success');
-        expect(screen.getByText('Pending').closest('.moonstone-tableCellStatus')).toHaveClass('moonstone-tableCellStatus_warning');
-        expect(screen.getAllByRole('checkbox')).toHaveLength(3);
-    });
+    //     expect(screen.getByText('Parent')).toBeInTheDocument();
+    //     expect(screen.getByText('Child')).toBeInTheDocument();
+    //     expect(screen.getByText('Healthy').closest('.moonstone-tableCellStatus')).toHaveClass('moonstone-tableCellStatus_success');
+    //     expect(screen.getByText('Pending').closest('.moonstone-tableCellStatus')).toHaveClass('moonstone-tableCellStatus_warning');
+    //     expect(screen.getAllByRole('checkbox')).toHaveLength(3);
+    // });
 
     it('should toggle row when clicking on the expandable node', async () => {
         const user = userEvent.setup();
