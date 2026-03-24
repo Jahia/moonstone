@@ -4,7 +4,7 @@ $radio-sizeDefault: 16px;
     cursor: pointer;
 
     & + .moonstone-radio-container {
-        margin-top: var(--spacing-medium);
+        margin-top: var(--moon-spacing-medium);
     }
 }
 
@@ -18,15 +18,15 @@ $radio-sizeDefault: 16px;
 }
 
 .moonstone-radio-label {
-    margin-left: var(--spacing-small);
+    margin-left: var(--moon-spacing-small);
 
-    color: var(--color-gray-dark);
+    color: var(--moon-color-gray-dark);
 }
 
 .moonstone-radio-description {
-    margin-left: var(--spacing-large);
+    margin-left: var(--moon-spacing-large);
 
-    color: var(--color-gray60);
+    color: var(--moon-color-gray60);
 }
 
 .moonstone-radio {
@@ -41,7 +41,7 @@ $radio-sizeDefault: 16px;
     top: 0;
     left: 0;
 
-    fill: var(--color-gray);
+    fill: var(--moon-color-gray);
     stroke: none;
 
     transform: scale(0) translateZ(0);
@@ -79,15 +79,15 @@ $radio-sizeDefault: 16px;
     }
 
     &:checked ~ .moonstone-radio_icon {
-        fill: var(--color-accent);
+        fill: var(--moon-color-accent);
     }
 
     &:hover ~ .moonstone-radio_icon {
-        fill: var(--color-accent_dark);
+        fill: var(--moon-color-accent_dark);
     }
 
     &:focus-visible:not([aria-disabled="true"], [aria-readonly="true"]) ~ .moonstone-radio_icon {
-        fill: var(--color-accent_dark_contrast);
+        fill: var(--moon-color-accent_dark_contrast);
     }
 }
 

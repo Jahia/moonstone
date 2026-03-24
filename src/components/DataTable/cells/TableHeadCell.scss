@@ -1,16 +1,16 @@
 .moonstone-tableHeadCell_sort {
-    color: var(--color-gray_light);
+    color: var(--moon-color-gray_light);
 
     &:hover {
-        color: var(--color-gray);
+        color: var(--moon-color-gray);
     }
 }
 
 .moonstone-tableHeadCell_sortActive {
-    color: var(--color-accent);
+    color: var(--moon-color-accent);
 
     &:hover {
-        color: var(--color-accentDark);
+        color: var(--moon-color-accentDark);
     }
 }
 

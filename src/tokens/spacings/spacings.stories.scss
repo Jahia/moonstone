@@ -1,11 +1,11 @@
 $spacings: (
-    "pico": var(--spacing-pico),
-    "nano": var(--spacing-nano),
-    "small": var(--spacing-small),
-    "medium": var(--spacing-medium),
-    "large": var(--spacing-large),
-    "big": var(--spacing-big),
-    "huge": var(--spacing-huge)
+    "pico": var(--moon-spacing-pico),
+    "nano": var(--moon-spacing-nano),
+    "small": var(--moon-spacing-small),
+    "medium": var(--moon-spacing-medium),
+    "large": var(--moon-spacing-large),
+    "big": var(--moon-spacing-big),
+    "huge": var(--moon-spacing-huge)
 );
 
 @function spacing($spacingName) {
@@ -23,10 +23,10 @@ $spacings: (
         content: "#{$value}";
 
         position: absolute;
-        bottom: var(--spacing-small);
+        bottom: var(--moon-spacing-small);
         left: 0;
 
-        color: var(--color-gray60);
+        color: var(--moon-color-gray60);
     }
 }
 
@@ -37,6 +37,6 @@ $spacings: (
         width: $spacingValue;
         height: $spacingValue;
 
-        background-color: var(--color-accent);
+        background-color: var(--moon-color-accent);
     }
 }

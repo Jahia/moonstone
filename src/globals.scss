@@ -11,4 +11,7 @@
 @forward 'tokens/colors/colors';
 @forward 'tokens/borders/borders';
 
+// Backward compatibility with unprefixed tokens
+@forward 'tokens/legacy';
+
 @forward 'icons/icons';

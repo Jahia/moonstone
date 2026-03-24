@@ -22,14 +22,14 @@ $loader-sizes: (
 
     fill: none;
 
-    stroke: var(--color-accent);
+    stroke: var(--moon-color-accent);
     stroke-linecap: round;
 }
 
 .moonstone-loader_background {
     stroke-width: 0.1rem;
 
-    stroke: var(--color-gray_light40);
+    stroke: var(--moon-color-gray_light40);
 }
 
 @each $sizeName, $sizeValue in $loader-sizes {
@@ -73,5 +73,5 @@ $loader-sizes: (
 }
 
 .moonstone-loader_reversed {
-    stroke: var(--color-white);
+    stroke: var(--moon-color-white);
 }

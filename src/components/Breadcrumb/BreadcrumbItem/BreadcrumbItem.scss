@@ -3,7 +3,7 @@
     max-width: 150px;
 
     & + & {
-        margin-left: var(--spacing-small);
+        margin-left: var(--moon-spacing-small);
     }
 
     > * {

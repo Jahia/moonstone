@@ -1,15 +1,15 @@
-$bgColor: var(--color-gray_dark);
+$bgColor: var(--moon-color-gray_dark);
 
 .moonstone-tooltip_label {
     z-index: 1;
 
     width: inherit;
     max-width: 450px;
-    padding: var(--spacing-nano) var(--spacing-small);
+    padding: var(--moon-spacing-nano) var(--moon-spacing-small);
 
-    color: var(--color-white);
+    color: var(--moon-color-white);
 
-    border-radius: var(--radius);
+    border-radius: var(--moon-radius);
     background-color: $bgColor;
 }
 

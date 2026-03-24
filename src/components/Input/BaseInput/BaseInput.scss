@@ -13,9 +13,9 @@ $min-width: 40px;
     min-width: $min-width;
     min-height: $default-size;
 
-    color: var(--color-gray_dark);
+    color: var(--moon-color-gray_dark);
 
-    background-color: var(--background-selector);
+    background-color: var(--moon-background-selector);
 
     cursor: text;
 
@@ -37,11 +37,11 @@ $min-width: 40px;
     }
 
     &.moonstone-outlined {
-        border: var(--border-selector);
-        border-radius: var(--radius-selector);
+        border: var(--moon-border-selector);
+        border-radius: var(--moon-radius-selector);
 
         &:hover:not(:has(input:disabled)):not(:has(input:read-only)) {
-            border: var(--border-selector_hover);
+            border: var(--moon-border-selector_hover);
         }
     }
 }
@@ -52,9 +52,9 @@ $min-width: 40px;
 .moonstone-baseInput_icon {
     height: 0.01em;
     max-height: 2em;
-    margin-left: var(--spacing-small);
+    margin-left: var(--moon-spacing-small);
 
-    color: var(--color-gray_dark);
+    color: var(--moon-color-gray_dark);
 
     white-space: nowrap;
 
@@ -62,8 +62,8 @@ $min-width: 40px;
 }
 
 .moonstone-baseInput_elementsWrapper {
-    gap: var(--spacing-nano);
-    margin: 0 var(--spacing-nano);
+    gap: var(--moon-spacing-nano);
+    margin: 0 var(--moon-spacing-nano);
 }
 
 //--
@@ -100,7 +100,7 @@ $min-width: 40px;
 
     &::placeholder {
         font-style: italic;
-        color: var(--color-gray_dark60);
+        color: var(--moon-color-gray_dark60);
 
         opacity: 1;
     }
@@ -109,14 +109,14 @@ $min-width: 40px;
         outline: none;
 
         ~ .moonstone-baseInput_icon {
-            color: var(--color-accent);
+            color: var(--moon-color-accent);
         }
     }
 
     // Check if the input is empty
     &:placeholder-shown {
         ~ .moonstone-baseInput_icon {
-            color: var(--color-gray60);
+            color: var(--moon-color-gray60);
         }
     }
 }
@@ -127,7 +127,7 @@ $min-width: 40px;
 .moonstone-reversed:not(:has(.moonstone-menu)) {
     .moonstone-baseInput_icon,
     .moonstone-baseInput {
-        color: var(--color-white);
+        color: var(--moon-color-white);
     }
 }
 
@@ -135,7 +135,7 @@ $min-width: 40px;
 // Clear Button
 //--
 .moonstone-baseInput_clearButton {
-    color: var(--color-gray);
+    color: var(--moon-color-gray);
     white-space: nowrap;
 
     cursor: pointer;
@@ -148,5 +148,5 @@ $min-width: 40px;
     min-width: 100px;
     max-width: 100px;
 
-    background-color: var(--color-gray_light40);
+    background-color: var(--moon-color-gray_light40);
 }

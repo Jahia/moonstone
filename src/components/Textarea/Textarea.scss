@@ -7,10 +7,10 @@ $minHeight-size: 50px;
     width: 100%; // CSS trick to force element to shrink
     min-height: $minHeight-size;
     margin: 0; // Reset for Safari
-    padding: var(--spacing-nano) var(--spacing-small);
+    padding: var(--moon-spacing-nano) var(--moon-spacing-small);
 
-    border: var(--border-selector);
-    border-radius: var(--radius-selector);
+    border: var(--moon-border-selector);
+    border-radius: var(--moon-radius-selector);
     outline: none;
     resize: none;
 
@@ -28,14 +28,14 @@ $minHeight-size: 50px;
 
     &::placeholder {
         font-style: italic;
-        color: var(--color-gray_dark60);
+        color: var(--moon-color-gray_dark60);
 
         opacity: 1;
     }
 
     &:not(:disabled, :read-only) {
         &:hover {
-            border: var(--border-selector_hover);
+            border: var(--moon-border-selector_hover);
         }
 
         &:focus-visible {

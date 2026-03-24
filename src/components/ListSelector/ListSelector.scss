@@ -3,15 +3,15 @@ $gap: 8px;
 
 .moonstone-listSelector {
     .moonstone-draggedOver {
-        outline: solid 2px var(--color-accent);
+        outline: solid 2px var(--moon-color-accent);
     }
 }
 
 .moonstone-listSelector_buttons {
     gap: 16px;
-    width: var(--spacing-big);
+    width: var(--moon-spacing-big);
     margin-bottom: $footerHeight + $gap;
-    padding: var(--spacing-small);
+    padding: var(--moon-spacing-small);
 }
 
 .moonstone-listSelector_title {
@@ -30,5 +30,5 @@ $gap: 8px;
 .moonstone-listSelector_footer {
     height: $footerHeight;
 
-    color: var(--color-gray60);
+    color: var(--moon-color-gray60);
 }

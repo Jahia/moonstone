@@ -1,22 +1,22 @@
 @use "../../../utils/mixins" as *;
 
 %variant_outlined_disabled {
-    color: var(--color-gray_dark);
+    color: var(--moon-color-gray_dark);
 
-    border-color: var(--color-gray);
+    border-color: var(--moon-color-gray);
 }
 
 %variant_outlined {
-    color: var(--color-gray_dark);
+    color: var(--moon-color-gray_dark);
 
-    border: 1px solid var(--color-gray_dark);
+    border: 1px solid var(--moon-color-gray_dark);
     background-color: transparent;
 
     &.moonstone-button_outlined {
         &:hover:not(:disabled) {
-            color: var(--color-accent);
+            color: var(--moon-color-accent);
 
-            border-color: var(--color-accent);
+            border-color: var(--moon-color-accent);
         }
 
         &:focus-visible:not(:disabled) {
@@ -24,10 +24,10 @@
         }
 
         &:active:not(:disabled) {
-            color: var(--color-white);
+            color: var(--moon-color-white);
 
-            border-color: var(--color-white);
-            background-color: var(--color-accent);
+            border-color: var(--moon-color-white);
+            background-color: var(--moon-color-accent);
         }
 
         &:disabled {
@@ -35,21 +35,21 @@
         }
 
         &.moonstone-reverse {
-            color: var(--color-light60);
+            color: var(--moon-color-light60);
 
-            border-color: var(--color-light60);
+            border-color: var(--moon-color-light60);
         }
     }
 
     &.moonstone-button_outlined_accent {
-        color: var(--color-accent);
+        color: var(--moon-color-accent);
 
-        border-color: var(--color-accent);
+        border-color: var(--moon-color-accent);
 
         &:hover:not(:disabled) {
-            color: var(--color-accent_dark);
+            color: var(--moon-color-accent_dark);
 
-            border-color: var(--color-accent_dark);
+            border-color: var(--moon-color-accent_dark);
         }
 
         &:focus-visible:not(:disabled) {
@@ -57,10 +57,10 @@
         }
 
         &:active:not(:disabled) {
-            color: var(--color-white);
+            color: var(--moon-color-white);
 
-            border-color: var(--color-white);
-            background-color: var(--color-accent_dark);
+            border-color: var(--moon-color-white);
+            background-color: var(--moon-color-accent_dark);
         }
 
         &:disabled {
@@ -69,14 +69,14 @@
     }
 
     &.moonstone-button_outlined_danger {
-        color: var(--color-danger);
+        color: var(--moon-color-danger);
 
-        border-color: var(--color-danger);
+        border-color: var(--moon-color-danger);
 
         &:hover:not(:disabled) {
-            color: var(--color-danger);
+            color: var(--moon-color-danger);
 
-            border-color: var(--color-danger);
+            border-color: var(--moon-color-danger);
         }
 
         &:focus-visible:not(:disabled) {
@@ -84,10 +84,10 @@
         }
 
         &:active:not(:disabled) {
-            color: var(--color-white);
+            color: var(--moon-color-white);
 
-            border-color: var(--color-white);
-            background-color: var(--color-danger);
+            border-color: var(--moon-color-white);
+            background-color: var(--moon-color-danger);
         }
 
         &:disabled {
@@ -96,9 +96,9 @@
     }
 
     &.moonstone-reverse:disabled {
-        color: var(--color-gray_light);
+        color: var(--moon-color-gray_light);
 
-        border-color: var(--color-gray_light);
+        border-color: var(--moon-color-gray_light);
         background-color: transparent;
     }
 }

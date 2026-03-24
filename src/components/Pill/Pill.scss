@@ -1,12 +1,12 @@
 .moonstone-pill {
     width: auto;
     height: auto;
-    padding: 0 var(--spacing-nano);
+    padding: 0 var(--moon-spacing-nano);
 
-    border-radius: var(--radius_small);
-    background-color: var(--color-gray_light40);
+    border-radius: var(--moon-radius_small);
+    background-color: var(--moon-color-gray_light40);
 
     &.moonstone-pill_reversed {
-        color: var(--color-light);
+        color: var(--moon-color-light);
     }
 }
