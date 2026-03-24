@@ -2,6 +2,33 @@
 
 $cell-height: 48px;
 
+.moonstone-tableCell--resizable {
+    position: relative;
+}
+
+.moonstone-tableCell_resizeHandle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+
+    width: 2px;
+
+    background-color: var(--color-gray_light);
+    cursor: col-resize;
+
+    user-select: none;
+    touch-action: none; // Let TanStack handle touch events instead of the browser
+
+    &:hover {
+        background-color: var(--color-accent);
+    }
+}
+
+.moonstone-tableCell_resizeHandle--active {
+    background-color: var(--color-accent);
+}
+
 .moonstone-tableCell {
     gap: var(--spacing-nano);
     height: $cell-height;

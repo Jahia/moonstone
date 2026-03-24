@@ -43,5 +43,22 @@ export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'chi
      * Indicates if the cell is scrollable on hover
      */
     isScrollable?: boolean;
+
+    /**
+     * Handler to initiate column resizing when dragging the resize handle (mouse or touch).
+     * When provided, a resize handle is rendered at the right edge of the cell.
+     */
+    resizeHandler?: (event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => void;
+
+    /**
+     * Whether this column is currently being resized (applies active styling to the handle)
+     */
+    isResizing?: boolean;
+
+    /**
+     * Additional HTML attributes to pass to the resize handle element.
+     * Useful for testing selectors, accessibility attributes, or custom data attributes.
+     */
+    resizeHandleAttr?: React.HTMLAttributes<HTMLDivElement>;
 };
 

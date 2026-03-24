@@ -11,6 +11,9 @@ export const TableHeadCell = ({
     className,
     children,
     sorting,
+    isResizing,
+    resizeHandler,
+    resizeHandleAttr,
     onClick,
     ...props
 }: TableHeadCellProps) => {
@@ -30,6 +33,9 @@ export const TableHeadCell = ({
             width={width}
             align={align}
             verticalAlign={verticalAlign}
+            isResizing={isResizing}
+            resizeHandler={resizeHandler}
+            resizeHandleAttr={resizeHandleAttr}
             className={clsx('moonstone-tableHeadCell', className)}
             aria-sort={ariaSort}
             onClick={onClick}

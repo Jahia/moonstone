@@ -13,6 +13,9 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
         verticalAlign = 'middle',
         width,
         isScrollable,
+        isResizing,
+        resizeHandler,
+        resizeHandleAttr,
         style,
         component = 'td',
         ...props
@@ -34,6 +37,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
                 'alignCenter',
                 'verticalAlign' + capitalize(verticalAlign),
                 {flexFluid: typeof width === 'undefined'},
+                {'moonstone-tableCell--resizable': Boolean(resizeHandler)},
                 scrollableClass,
                 className
             )}
@@ -44,6 +48,18 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
             {...props}
         >
             {children ?? '-'}
+            {resizeHandler && (
+                <div
+                    className={clsx(
+                        'moonstone-tableCell_resizeHandle',
+                        isResizing && 'moonstone-tableCell_resizeHandle--active'
+                    )}
+                    onMouseDown={resizeHandler}
+                    onTouchStart={resizeHandler}
+                    onClick={e => e.stopPropagation()}
+                    {...resizeHandleAttr}
+                />
+            )}
         </Typography>
     );
 };
