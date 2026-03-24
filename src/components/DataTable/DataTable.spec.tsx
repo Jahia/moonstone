@@ -1,4 +1,4 @@
-import {render, screen, waitFor, within} from '@testing-library/react';
+import {fireEvent, render, screen, waitFor, within} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {describe, expect, it, vi} from 'vitest';
 import {DataTable, TableRow} from '~/components/DataTable';
@@ -530,6 +530,35 @@ describe('DataTable pagination feature', () => {
         await waitFor(() => {
             expect(screen.queryByText('Alice')).not.toBeInTheDocument();
             expect(screen.getByText('Bob')).toBeInTheDocument();
+        });
+    });
+});
+
+describe('DataTable resize feature', () => {
+    it('should call resize callbacks when a column handle is dragged', async () => {
+        const onResizeStart = vi.fn();
+        const onResizeStop = vi.fn();
+
+        render(
+            <DataTable<TestData>
+                enableResize
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                onResizeStart={onResizeStart}
+                onResizeStop={onResizeStop}
+            />
+        );
+
+        const firstHeaderResizeHandle = document.querySelector('th .moonstone-tableCell_resizeHandle');
+        expect(firstHeaderResizeHandle).toBeInTheDocument();
+
+        fireEvent.mouseDown(firstHeaderResizeHandle as Element, {clientX: 200});
+        fireEvent.mouseUp(document, {clientX: 200});
+
+        await waitFor(() => {
+            expect(onResizeStart).toHaveBeenCalled();
+            expect(onResizeStop).toHaveBeenCalled();
         });
     });
 });

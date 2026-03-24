@@ -27,7 +27,9 @@ export const createTableColumns = <T extends Record<string, unknown>>(
         enableResizing: col.enableResizing ?? true,
         // TanStack expects pixels — only parse values explicitly in px, ignore % or other units
         size: col.width?.endsWith('px') ? parseInt(col.width, 10) : undefined,
-        minSize: col.minWidth ?? 60,
+        // Keep column-level overrides only when explicitly provided.
+        // Otherwise let table-level defaultColumn sizing rules apply.
+        minSize: col.minWidth,
         maxSize: col.maxWidth,
 
         sortingFn: col.sortFn ?
