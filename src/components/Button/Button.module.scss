@@ -10,6 +10,12 @@ $button-size_big: 32px;
 .moonstone-button {
     @extend %variant_default;
 
+    composes:
+        moonstone-button from "../ButtonGroup/ButtonGroup.module.scss",
+        moonstone-button from "../ButtonToggle/ButtonToggle.module.scss",
+        moonstone-button from "../Table/TableRow/TableRow.module.scss",
+        moonstone-button from "../DataTable/TableRow/TableRow.module.scss";
+
     // The display `inline-flex` is requiered to align buttons in a table row
     display: inline-flex;
     flex-direction: row;
@@ -103,4 +109,16 @@ $button-size_big: 32px;
     ~ * {
         visibility: hidden;
     }
+}
+
+.moonstone-button_accent {
+    composes: moonstone-button_accent from "../ButtonGroup/ButtonGroup.module.scss";
+}
+
+.moonstone-button_danger {
+    composes: moonstone-button_danger from "../ButtonGroup/ButtonGroup.module.scss";
+}
+
+.moonstone-button_outlined {
+    composes: moonstone-button_outlined from "../ButtonGroup/ButtonGroup.module.scss";
 }

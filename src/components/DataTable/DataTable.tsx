@@ -25,6 +25,7 @@ import {
 } from '~/components/DataTable';
 import {createTableColumns} from '~/utils/dataTable/tableHelpers';
 import {Pagination} from '~/components/Pagination';
+import styles from './cells/TableCellActions/TableCellActions.module.scss';
 
 export const DataTable = <T extends NonNullable<unknown>>({
     className,
@@ -252,7 +253,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             })}
 
                             {/* Spacer header cell to align with the actions column in body rows */}
-                            {renderRow && <TableHeadCell className="moonstone-tableCellActions"/>}
+                            {renderRow && <TableHeadCell className={styles['moonstone-tableCellActions']}/>}
 
                         </TableRow>
                     ))}

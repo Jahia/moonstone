@@ -1,6 +1,4 @@
-// Embed Nunito Sans font
-import '@fontsource-variable/nunito-sans/wght.css';
+/** @module This entrypoint contains global styles */
+export * from './scoped';
 
-export * from './components';
-export * from './layouts';
-export * from './icons';
+import './globals.scss';

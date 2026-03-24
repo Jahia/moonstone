@@ -6,13 +6,14 @@ import {IconTextIcon, Typography} from '~/components';
 import {ChevronDown, ChevronRight} from '~/icons';
 import {capitalize} from '~/utils/helpers';
 import {TableCell} from './TableCell';
-import './TableCell.scss';
+import styles from './TableCell.module.scss';
+import {alignment, layout} from '~/globals/css-utils.js';
 
 const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellProps> = (
     {
         component = 'td',
         textAlign = 'left',
-        verticalAlign = 'center',
+        verticalAlign = 'middle',
         className,
         iconStart,
         iconEnd,
@@ -25,10 +26,10 @@ const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEleme
     }, ref) => {
     const leftMarginBuffer = 20; // Px
     const leftMarginIndentDepth = row?.depth * 20; // Px
-    const scrollableClass = isScrollable ? 'moonstone-tableCellContent' : '';
+    const scrollableClass = isScrollable ? ['moonstone-tableCellContent', styles['moonstone-tableCellContent']] : '';
 
     const renderCellContent = () => (
-        <IconTextIcon component="div" iconStart={iconStart} iconEnd={iconEnd} typographyProps={{className: clsx(scrollableClass, 'flexFluid')}}>
+        <IconTextIcon component="div" iconStart={iconStart} iconEnd={iconEnd} typographyProps={{className: clsx(scrollableClass, 'flexFluid', layout.flexFluid)}}>
             {children}
         </IconTextIcon>
     );
@@ -40,8 +41,8 @@ const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEleme
             return (
                 <TableCell ref={ref} {...row?.getToggleRowExpandedProps({style: {marginLeft: `${leftMarginIndentDepth}px`}})}>
                     {row?.isExpanded ?
-                        <ChevronDown className="moonstone-marginRightNano"/> :
-                        <ChevronRight className="moonstone-marginRightNano"/>}
+                        <ChevronDown className={clsx('moonstone-marginRightNano', styles['moonstone-marginRightNano'])}/> :
+                        <ChevronRight className={clsx('moonstone-marginRightNano', styles['moonstone-marginRightNano'])}/>}
                     {renderCellContent()}
                 </TableCell>
             );
@@ -68,10 +69,10 @@ const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEleme
     return (
         <Typography
             className={clsx(
-                'moonstone-tableBodyCell',
-                'textAlign' + capitalize(textAlign),
-                'moonstone-verticalAlign' + capitalize(verticalAlign),
-                {flexFluid: typeof width === 'undefined'},
+                ['moonstone-tableBodyCell', styles['moonstone-tableBodyCell']],
+                [`textAlign${capitalize(textAlign)}`, alignment[`textAlign${capitalize(textAlign)}`]],
+                [`verticalAlign${capitalize(verticalAlign)}`, alignment[`verticalAlign${capitalize(verticalAlign)}`]],
+                typeof width === 'undefined' && ['flexFluid', layout.flexFluid],
                 className
             )}
             component={component}

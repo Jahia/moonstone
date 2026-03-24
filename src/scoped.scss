@@ -1,0 +1,5 @@
+// These modules are correctly scoped and do not conflict when injected in client pages
+@forward './globals/_variables.scss';
+@forward './tokens/spacings/spacings.scss';
+@forward './tokens/colors/colors.scss';
+@forward './tokens/borders/borders.scss';

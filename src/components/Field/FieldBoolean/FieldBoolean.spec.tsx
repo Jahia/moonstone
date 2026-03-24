@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import {FieldBoolean} from './index';
-import {Button, Chip} from '~/index';
+import {Button, Chip} from '~/scoped';
 import {Add, Love} from '~/icons';
 
 const requiredProps = {

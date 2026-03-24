@@ -1,10 +1,11 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import './CardSelector.scss';
+import styles from './CardSelector.module.scss';
 import type {CardSelectorProps} from './CardSelector.types';
 import {Thumbnail, Typography} from '~/components';
 import {FileBroken} from '~/icons/components';
+import {layout} from '~/globals/css-utils.js';
 
 export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProps>(({
     displayName,
@@ -25,11 +26,11 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
     ...props
 }, ref) => {
     const classNameProps = clsx(
-        'moonstone-cardSelector',
-        (isDisabled || isReadOnly) && 'moonstone-cardSelector_disabled',
-        'flexFluid',
-        'flexRow_nowrap',
-        'alignCenter',
+        ['moonstone-cardSelector', styles['moonstone-cardSelector']],
+        (isDisabled || isReadOnly) && ['moonstone-cardSelector_disabled', styles['moonstone-cardSelector_disabled']],
+        ['flexFluid', layout.flexFluid],
+        ['flexRow_nowrap', layout.flexRow_nowrap],
+        ['alignCenter', layout.alignCenter],
         className
     );
 
@@ -49,10 +50,10 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
                 id={id}
                 type="button"
                 className={clsx(
-                    'moonstone-cardSelector_error',
-                    (isDisabled || isReadOnly) && 'moonstone-cardSelector_disabled',
-                    'flexRow_center',
-                    'alignCenter')}
+                    ['moonstone-cardSelector_error', styles['moonstone-cardSelector_error']],
+                    (isDisabled || isReadOnly) && ['moonstone-cardSelector_disabled', styles['moonstone-cardSelector_disabled']],
+                    ['flexRow_center', layout.flexRow_center],
+                    ['alignCenter', layout.alignCenter])}
                 disabled={isDisabled || isReadOnly}
                 onClick={e => handleOnClick(e)}
                 {...props}
@@ -86,14 +87,19 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
                 alt={thumbnailAlt}
             />
 
-            <div className={clsx('moonstone-cardSelector_body', 'flexFluid', 'flexCol_nowrap')}>
-                <div className={clsx('flexRow_nowrap flexFluid')}>
+            <div className={clsx(
+                    ['moonstone-cardSelector_body', styles['moonstone-cardSelector_body']],
+                    ['flexFluid', layout.flexFluid],
+                    ['flexCol_nowrap', layout.flexCol_nowrap]
+                )}
+            >
+                <div className={clsx(['flexRow_nowrap', layout.flexRow_nowrap], ['flexFluid', layout.flexFluid])}>
                     {displayName && (
                         <Typography
                             isNowrap
                             data-testid="cardSelector-displayName"
                             id={id && `${id}-displayName`}
-                            className={clsx('moonstone-cardSelector_displayName')}
+                            className={clsx('moonstone-cardSelector_displayName', styles['moonstone-cardSelector_displayName'])}
                             variant="body"
                             component="span"
                         >
@@ -105,7 +111,7 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
                         <Typography
                             isNowrap
                             id={id && `${id}-systemName`}
-                            className="moonstone-cardSelector_systemName"
+                            className={clsx('moonstone-cardSelector_systemName', styles['moonstone-cardSelector_systemName'])}
                             data-testid="cardSelector-systemName"
                             variant="body"
                             component="span"
@@ -115,14 +121,14 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
                     )}
                 </div>
                 {(chips || information) && (
-                    <div className={clsx('flexRow_nowrap')}>
+                    <div className={clsx('flexRow_nowrap', layout.flexRow_nowrap)}>
                         {chips}
                         {information && (
                             <Typography
                                 isNowrap
                                 variant="caption"
                                 component="span"
-                                className={clsx('moonstone-cardSelector_information')}
+                                className={clsx('moonstone-cardSelector_information', styles['moonstone-cardSelector_information'])}
                                 data-testid="cardSelector-information"
                             >
                                 {information}
@@ -132,7 +138,12 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
                 )}
             </div>
             {cardAction && (
-                <div className="moonstone-cardSelector_actions flexRow_nowrap alignCenter">
+                <div className={clsx(
+                        ['moonstone-cardSelector_actions', styles['moonstone-cardSelector_actions']],
+                        ['flexRow_nowrap', layout.flexRow_nowrap],
+                        ['alignCenter', layout.alignCenter]
+                    )}
+                >
                     {cardAction}
                 </div>
             )}

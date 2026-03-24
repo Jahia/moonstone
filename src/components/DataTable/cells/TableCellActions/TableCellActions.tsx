@@ -2,15 +2,21 @@ import React from 'react';
 import clsx from 'clsx';
 import {TableCell} from '../TableCell';
 import type {TableCellActionsProps} from './TableCellActions.types';
-import './TableCellActions.scss';
+import styles from './TableCellActions.module.scss';
+import {layout} from '~/globals/css-utils.js';
 
 export const TableCellActions: React.FC<TableCellActionsProps> = ({
     actions,
     actionsOnHover
 }) => (
-    <TableCell align="right" className={clsx('flexRow_reverse', 'alignCenter', 'moonstone-tableCellActions')}>
+    <TableCell
+        align="right"
+        className={clsx(layout.flexRow_reverse, layout.alignCenter, styles['moonstone-tableCellActions'])}
+    >
         {actionsOnHover && (
-            <div className={clsx('flexRow_nowrap', 'alignCenter', 'moonstone-tableCellActions_displayHover')}>{actionsOnHover}</div>
+            <div className={clsx(layout.flexRow_nowrap, layout.alignCenter, styles['moonstone-tableCellActions_displayHover'])}>
+                {actionsOnHover}
+            </div>
         )}
         {actions ?? ''}
     </TableCell>

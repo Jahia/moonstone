@@ -1,4 +1,6 @@
 .moonstone-icon {
+    composes: moonstone-icon from "../components/Chip/Chip.module.scss";
+
     flex-shrink: 0;
 
     fill: currentColor;

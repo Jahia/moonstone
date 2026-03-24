@@ -19,6 +19,7 @@
         "default": "./dist/index.cjs"
       }
     },
+    "./scoped.css": "./dist/scoped.css",
     "./dist/rulesconfig-wp": {
       "require": "./rulesconfig-wp.cjs"
     },
@@ -77,9 +78,9 @@
     "@fontsource-variable/nunito-sans": "^5.2.7",
     "@jahia/eslint-config": "^2.2.0",
     "@jahia/stylelint-config": "^0.0.4",
-    "@storybook/addon-a11y": "^10.1.11",
-    "@storybook/addon-docs": "^10.1.11",
-    "@storybook/react-vite": "^10.1.11",
+    "@storybook/addon-a11y": "^10.3.1",
+    "@storybook/addon-docs": "^10.3.1",
+    "@storybook/react-vite": "^10.3.1",
     "@svgr/cli": "^8.1.0",
     "@svgr/core": "^8.1.0",
     "@testing-library/dom": "^10.4.1",
@@ -101,6 +102,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "jsdom": "^27.4.0",
     "playwright": "^1.58.2",
+    "postcss": "^8.5.8",
     "publint": "^0.3.16",
     "react": "18.3.1",
     "react-dom": "^18.3.1",
@@ -108,12 +110,14 @@
     "rimraf": "6.1.2",
     "rollup-plugin-sbom": "^3.0.1",
     "sass": "^1.97.1",
-    "storybook": "^10.1.11",
-    "storybook-addon-tag-badges": "^3.0.4",
+    "storybook": "^10.3.1",
+    "storybook-addon-tag-badges": "^3.1.0",
     "stylelint": "^13.13.1",
     "tsc-alias": "^1.8.16",
     "typescript": "^5.9.3",
-    "vite": "^8.0.0",
+    "typescript-plugin-css-modules": "^5.2.0",
+    "vite": "^8.0.1",
+    "vite-css-modules": "^1.14.0",
     "vite-plugin-lib-inject-css": "^2.2.2",
     "vitest": "^4.1.0",
     "vitest-browser-react": "^2.1.0"

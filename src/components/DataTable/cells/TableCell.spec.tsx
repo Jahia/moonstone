@@ -2,6 +2,7 @@ import React from 'react';
 import {render, screen} from '@testing-library/react';
 import {describe, it, expect} from 'vitest';
 import {TableCell} from './TableCell';
+import {alignment, layout} from '~/globals/css-utils.js';
 
 const TableWrapper: React.FC<{ readonly children: React.ReactNode }> = ({children}) => (
     <table>
@@ -39,9 +40,9 @@ describe('TableCell', () => {
                 <TableCell data-testid="right" align="right">R</TableCell>
             </TableWrapper>
         );
-        expect(screen.getByTestId('left')).toHaveClass('justifyStart');
-        expect(screen.getByTestId('center')).toHaveClass('justifyCenter');
-        expect(screen.getByTestId('right')).toHaveClass('justifyEnd');
+        expect(screen.getByTestId('left')).toHaveClass(layout.justifyStart);
+        expect(screen.getByTestId('center')).toHaveClass(layout.justifyCenter);
+        expect(screen.getByTestId('right')).toHaveClass(layout.justifyEnd);
     });
 
     it('should apply width style', () => {
@@ -59,7 +60,7 @@ describe('TableCell', () => {
                 <TableCell data-testid="cell" verticalAlign="top">V</TableCell>
             </TableWrapper>
         );
-        expect(screen.getByTestId('cell')).toHaveClass('verticalAlignTop');
+        expect(screen.getByTestId('cell')).toHaveClass(alignment.verticalAlignTop);
     });
 
     it('should apply scrollable class', () => {
@@ -71,4 +72,3 @@ describe('TableCell', () => {
         expect(screen.getByTestId('cell')).toHaveClass('moonstone-tableCellContent');
     });
 });
-

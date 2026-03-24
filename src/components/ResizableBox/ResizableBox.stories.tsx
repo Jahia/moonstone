@@ -4,6 +4,8 @@ import {ResizableBox} from './index';
 
 import type {Meta, StoryObj} from '@storybook/react';
 import type {ResizableBoxProps} from './ResizableBox.types';
+import clsx from 'clsx';
+import {layout} from '~/globals/css-utils.js';
 
 const meta: Meta<ResizableBoxProps> = {
     title: 'Components/ResizableBox',
@@ -46,7 +48,7 @@ export const Default: Story = {
       defaultSize={{width: '100%', height: 'auto'}}
         >
             <div
-        className="flexRow_center alignCenter flexFuild"
+        className={clsx('flexRow_center', 'alignCenter', 'flexFuild', layout.flexRow_center, layout.alignCenter, layout.flexFluid)}
         style={{height: '100vh', background: 'yellow'}}
             >
                 content resizable
@@ -70,7 +72,7 @@ export const Actions = () => (
     onResizeStop={action('onResizeStop')}
     >
         <div
-      className="flexRow_center alignCenter flexFuild"
+      className={clsx('flexRow_center', 'alignCenter', 'flexFuild', layout.flexRow_center, layout.alignCenter, layout.flexFluid)}
       style={{height: '100vh', background: 'yellow'}}
         >
             content resizable
