@@ -16,6 +16,9 @@ export default {
     },
     argTypes: {
         onChangeSelection: {action: 'onChangeSelection'},
+        onResizeStart: {action: 'onResizeStart'},
+        onResizeChange: {action: 'onResizeChange'},
+        onResizeStop: {action: 'onResizeStop'},
         enablePagination: {control: 'boolean'},
         defaultItemsPerPage: {control: 'number'},
         itemsPerPageOptions: {control: 'object'},
@@ -206,6 +209,19 @@ export const ControlledPagination: Story = {
     name: 'Controlled Pagination'
 };
 
+export const ResizableDataTable: Story = {
+    render: args => {
+        return <DataTable {...args}/>;
+    },
+    args: {
+        data: dataTable,
+        primaryKey: 'firstName',
+        enableResize: true,
+        columns: dataColumnsUser
+    },
+    name: 'Resizable Columns'
+};
+
 export const AllFeaturesTable: Story = {
     render: args => {
         return (
@@ -243,8 +259,9 @@ export const AllFeaturesTable: Story = {
         columns: dataColumnsUser,
         primaryKey: 'firstName',
         enableSelection: true,
-        isStructured: true,
         enableSorting: true,
+        enableResize: true,
+        isStructured: true,
         defaultSelection: ['Walter', 'Jon'],
         defaultSortBy: 'progress',
         defaultSortDirection: 'descending'
