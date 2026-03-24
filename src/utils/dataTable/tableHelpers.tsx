@@ -19,9 +19,16 @@ export const createTableColumns = <T extends Record<string, unknown>>(
         meta: {
             isSortable: col.isSortable ?? false,
             align: col.align ?? 'left',
-            width: col.width
+            width: col.width,
+            minWidth: col.minWidth,
+            maxWidth: col.maxWidth
         },
         enableSorting: col.isSortable ?? false,
+        enableResizing: col.enableResizing ?? true,
+        // TanStack expects pixels — only parse values explicitly in px, ignore % or other units
+        size: col.width?.endsWith('px') ? parseInt(col.width, 10) : undefined,
+        minSize: col.minWidth ?? 60,
+        maxSize: col.maxWidth,
 
         sortingFn: col.sortFn ?
             (rowA, rowB) => col.sortFn!(rowA.original as T, rowB.original as T) :
