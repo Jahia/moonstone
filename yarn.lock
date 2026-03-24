@@ -1813,6 +1813,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fontsource-variable/nunito-sans@npm:^5.2.7":
+  version: 5.2.7
+  resolution: "@fontsource-variable/nunito-sans@npm:5.2.7"
+  checksum: 10c0/8fe9976895643a868eb1266d43ea3e9019498e06a45a9b53f23cfadfb087bd398b933240132aed8129786b95a27af94562b2c992ba3ada2f875c8e8d2394b6a6
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/config-array@npm:^0.13.0":
   version: 0.13.0
   resolution: "@humanwhocodes/config-array@npm:0.13.0"
@@ -1904,6 +1911,7 @@ __metadata:
   dependencies:
     "@chachalog/types": "npm:^0.5.0"
     "@floating-ui/react": "npm:^0.27.16"
+    "@fontsource-variable/nunito-sans": "npm:^5.2.7"
     "@jahia/eslint-config": "npm:^2.2.0"
     "@jahia/stylelint-config": "npm:^0.0.4"
     "@storybook/addon-a11y": "npm:^10.1.11"
