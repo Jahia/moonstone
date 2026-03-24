@@ -1,0 +1,11 @@
+import"./react-ST3FQwwi.js";import{t as e}from"./Edit-B0rRbUdl.js";import"./Typography-BqMqOA4O.js";import{t}from"./PrimaryNavItem-ChwYl-E9.js";import{t as n}from"./PrimaryNavItemsGroup-BU6so9nt.js";import"./Separator-Ce7mh4u2.js";import{t as r}from"./iframe-DMYQjOt7.js";var i=`data:text/markdown;base64,IyMgR29hbHM6Ckdyb3VwIG5hdmlnYXRpb24gaXRlbSB0b2dldGhlciwgdGhpcyBjb21wb25lbnQgaXMgb25seSB1c2UgdG8gYnVpbGQgdGhlIG1haW4gbmF2aWdhdGlvbiAobGV2ZWwgMSkuCgojIyBTcGVjaWZpY2F0aW9uczoKUHJvdmlkZSBhIHByb3AgdG8ga25vdyBpZiB0aGUgZWxlbWVudCBpcyB2aXNpYmxlIHdoZW4gdGhlIG1haW4gbmF2aWdhdGlvbiBpcyBjb2xsYXBzZWQK`,a=r(),o={title:`Components/PrimaryNavItemsGroup`,component:n,parameters:{notes:{markdown:i},layout:`fullscreen`},decorators:[e=>(0,a.jsx)(`div`,{style:{backgroundColor:`#131c21`,width:`18.75rem`,height:`100vh`},children:(0,a.jsx)(e,{})})]},s={render:()=>(0,a.jsxs)(n,{children:[(0,a.jsx)(t,{icon:(0,a.jsx)(e,{}),label:`NavItem not selected (default)`}),(0,a.jsx)(t,{icon:(0,a.jsx)(e,{}),label:`NavItem`})]})},c={render:()=>(0,a.jsxs)(n,{isDisplayedWhenCollapsed:!1,children:[(0,a.jsx)(t,{icon:(0,a.jsx)(e,{}),label:`Hidden when collapsed`}),(0,a.jsx)(t,{icon:(0,a.jsx)(e,{}),label:`Hidden when collapsed too`})]})};s.parameters={...s.parameters,docs:{...s.parameters?.docs,source:{originalSource:`{
+  render: () => <PrimaryNavItemsGroup>
+            <PrimaryNavItem icon={<Edit />} label="NavItem not selected (default)" />
+            <PrimaryNavItem icon={<Edit />} label="NavItem" />
+        </PrimaryNavItemsGroup>
+}`,...s.parameters?.docs?.source}}},c.parameters={...c.parameters,docs:{...c.parameters?.docs,source:{originalSource:`{
+  render: () => <PrimaryNavItemsGroup isDisplayedWhenCollapsed={false}>
+            <PrimaryNavItem icon={<Edit />} label="Hidden when collapsed" />
+            <PrimaryNavItem icon={<Edit />} label="Hidden when collapsed too" />
+        </PrimaryNavItemsGroup>
+}`,...c.parameters?.docs?.source}}};var l=[`Default`,`CollapsedGroup`];export{c as CollapsedGroup,s as Default,l as __namedExportsOrder,o as default};
