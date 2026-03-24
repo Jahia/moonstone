@@ -8,9 +8,8 @@ import {
 } from '@tanstack/react-table';
 
 import type {ExpandedState, Row} from '@tanstack/react-table';
-import {useState, useEffect, useMemo, useCallback} from 'react';
-
-import {useTableSelection, useTableSorting, useTablePagination} from '~/hooks';
+import {useState, useEffect, useMemo, useCallback, useRef} from 'react';
+import {useTableSelection, useTableSorting, useTablePagination, useTableResizing} from '~/hooks';
 import type {DataTableProps, CustomColumnMeta, DefaultRenderOptions} from './DataTable.types';
 import {Checkbox} from '~/components';
 import {
@@ -25,6 +24,26 @@ import {
 } from '~/components/DataTable';
 import {createTableColumns} from '~/utils/dataTable/tableHelpers';
 import {Pagination} from '~/components/Pagination';
+
+// Maps column ids to their TanStack resize handler, used to attach resize handles to body cells.
+type ResizeHandlerMap = Record<string, (event: unknown) => void>;
+
+// Returns the pixel width from TanStack when the column has a fixed size, otherwise falls back
+// to metaWidth (undefined = fluid column that takes remaining space).
+const resolveColumnWidth = (
+    enableResize: boolean,
+    columnSize: number,
+    metaWidth: string | undefined,
+    sizingEntry: number | undefined
+): string | undefined => {
+    if (!enableResize) {
+        return metaWidth;
+    }
+
+    const hasFixedWidth = metaWidth !== undefined || sizingEntry !== undefined;
+
+    return hasFixedWidth ? `${columnSize}px` : metaWidth;
+};
 
 export const DataTable = <T extends NonNullable<unknown>>({
     className,
@@ -57,6 +76,11 @@ export const DataTable = <T extends NonNullable<unknown>>({
     paginationLabel,
     paginationProps,
     rowProps,
+    // Resize props
+    enableResize = false,
+    onResizeStart,
+    onResizeChange,
+    onResizeStop,
     ...props
 }: DataTableProps<T>) => {
     const [expanded, setExpanded] = useState<ExpandedState>({});
@@ -85,6 +109,12 @@ export const DataTable = <T extends NonNullable<unknown>>({
         totalItems
     });
 
+    const {columnSizing, columnSizingInfo, handleColumnSizingChange, handleColumnSizingInfoChange} = useTableResizing({
+        onResizeStart,
+        onResizeChange,
+        onResizeStop
+    });
+
     const tableColumns = useMemo(() => createTableColumns(columns), [columns]);
 
     const table = useReactTable({
@@ -94,7 +124,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
             expanded,
             rowSelection,
             sorting,
-            ...(enablePagination && {pagination})
+            ...(enablePagination && {pagination}),
+            ...(enableResize && {columnSizing, columnSizingInfo})
         },
         onSortingChange: handleSortingChange,
         onExpandedChange: setExpanded,
@@ -104,12 +135,16 @@ export const DataTable = <T extends NonNullable<unknown>>({
         getExpandedRowModel: getExpandedRowModel(),
         getPaginationRowModel: enablePagination ? getPaginationRowModel() : undefined,
         // Enables hierarchical/structured table rendering by allowing TanStack to access nested subRows
-        getSubRows: (row: T) => (row as T & { subRows?: T[] }).subRows,
+        getSubRows: (row: T) => (row as T & {subRows?: T[]}).subRows,
         onPaginationChange: enablePagination ? handlePaginationChange : undefined,
+        onColumnSizingChange: enableResize ? handleColumnSizingChange : undefined,
+        onColumnSizingInfoChange: enableResize ? handleColumnSizingInfoChange : undefined,
         enableSorting,
         // UX decision: Toggle between asc/desc only, no unsorted state to prevent user confusion
         enableSortingRemoval: false,
         enableRowSelection: enableSelection,
+        enableColumnResizing: enableResize,
+        columnResizeMode: 'onChange',
         getRowId: (row: T) => String(row[primaryKey])
     });
 
@@ -118,6 +153,14 @@ export const DataTable = <T extends NonNullable<unknown>>({
             table.toggleAllRowsExpanded(true);
         }
     }, [data, isStructured, table]);
+
+    // TanStack only exposes getResizeHandler on headers, so we build a map to also attach
+    // resize handles to body cells. A ref avoids stale closures during high-frequency drag updates.
+    const resizeHandlersRef = useRef<ResizeHandlerMap>({});
+
+    resizeHandlersRef.current = enableResize ?
+        table.getFlatHeaders().reduce<ResizeHandlerMap>((acc, h) => ({...acc, [h.id]: h.getResizeHandler()}), {}) :
+        {};
 
     const renderRowContent = useCallback(
         (row: Row<T>, actionsContent?: DefaultRenderOptions) => (
@@ -138,6 +181,14 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     const isFirstColumn = index === 0;
                     const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
                     const showStructured = isStructured && isFirstColumn;
+                    const cellWidth = resolveColumnWidth(
+                        enableResize,
+                        cell.column.getSize(),
+                        meta?.width,
+                        columnSizing[cell.column.id]
+                    );
+                    const cellResizeHandler = cell.column.getCanResize() ? resizeHandlersRef.current[cell.column.id] : undefined;
+                    const cellIsResizing = cell.column.getIsResizing();
 
                     // Use TableStructuredCell for first column in structured view
                     if (showStructured) {
@@ -145,10 +196,12 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             <TableStructuredCell
                                 key={cell.id}
                                 align={meta?.align ?? 'left'}
-                                width={meta?.width}
+                                width={cellWidth}
                                 depth={row.depth}
                                 isExpandable={row.getCanExpand()}
                                 isExpanded={row.getIsExpanded()}
+                                isResizing={cellIsResizing}
+                                resizeHandler={cellResizeHandler}
                                 onToggleExpand={row.getToggleExpandedHandler()}
                             >
                                 {cellContent}
@@ -160,7 +213,9 @@ export const DataTable = <T extends NonNullable<unknown>>({
                         <TableCell
                             key={cell.id}
                             align={meta?.align ?? 'left'}
-                            width={meta?.width}
+                            width={cellWidth}
+                            resizeHandler={cellResizeHandler}
+                            isResizing={cellIsResizing}
                         >
                             {cellContent}
                         </TableCell>
@@ -176,7 +231,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 )}
             </>
         ),
-        [enableSelection, isStructured]
+        [enableSelection, isStructured, enableResize, columnSizing]
     );
 
     const renderRowWithCustomization = useCallback(
@@ -206,7 +261,11 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
     return (
         <>
-            <Table className={className} {...props}>
+            <Table
+                className={className}
+                {...props}
+                style={props.style}
+            >
                 <TableHead>
                     {table.getHeaderGroups().map(headerGroup => (
                         <TableRow key={headerGroup.id}>
@@ -227,17 +286,25 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                 const isColumnSortable = enableSorting && (meta?.isSortable ?? false);
                                 const alignment = meta?.align ?? 'left';
                                 const columnSortDirection = header.column.getIsSorted();
+                                const columnWidth = resolveColumnWidth(
+                                    enableResize,
+                                    header.getSize(),
+                                    meta?.width,
+                                    columnSizing[header.column.id]
+                                );
 
                                 return (
                                     <TableHeadCell
                                         key={header.id}
-                                        width={meta?.width}
+                                        width={columnWidth}
                                         sorting={isColumnSortable ? {
                                             direction: columnSortDirection === 'desc' ? 'descending' : 'ascending',
                                             isActive: Boolean(columnSortDirection)
                                         } : undefined}
                                         style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
                                         align={alignment}
+                                        resizeHandler={header.column.getCanResize() ? header.getResizeHandler() : undefined}
+                                        isResizing={header.column.getIsResizing()}
                                         onClick={(e: React.MouseEvent<HTMLTableCellElement>) => {
                                             if (isColumnSortable) {
                                                 header.column.getToggleSortingHandler()?.(e);

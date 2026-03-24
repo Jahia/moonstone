@@ -129,4 +129,45 @@ describe('createTableColumns', () => {
         const col = result[0];
         expect(typeof col.sortingFn).toBe('function');
     });
+
+    it('should map minWidth and maxWidth to TanStack minSize and maxSize', () => {
+        const columns: DataTableColumn<TestData>[] = [
+            {
+                key: 'name',
+                label: 'Name',
+                minWidth: 120,
+                maxWidth: 260
+            }
+        ];
+
+        const [column] = createTableColumns(columns);
+        expect(column.minSize).toBe(120);
+        expect(column.maxSize).toBe(260);
+    });
+
+    it('should keep column non-resizable when enableResizing is false', () => {
+        const columns: DataTableColumn<TestData>[] = [
+            {
+                key: 'name',
+                label: 'Name',
+                enableResizing: false
+            }
+        ];
+
+        const [column] = createTableColumns(columns);
+        expect(column.enableResizing).toBe(false);
+    });
+
+    it('should map width in px to TanStack numeric size', () => {
+        const columns: DataTableColumn<TestData>[] = [
+            {
+                key: 'name',
+                label: 'Name',
+                width: '180px'
+            }
+        ];
+
+        const [column] = createTableColumns(columns);
+        expect(column.size).toBe(180);
+    });
 });

@@ -1,4 +1,5 @@
 export * from './useTablePagination';
+export * from './useTableResizing';
 export * from './useTableSelection';
 export * from './useTableSorting';
 export * from './mergeHandlers';

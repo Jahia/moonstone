@@ -12,6 +12,8 @@ export type CustomColumnMeta = {
     isSortable?: boolean;
     align?: 'left' | 'center' | 'right';
     width?: string;
+    minWidth?: number;
+    maxWidth?: number;
 };
 
 export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children' | 'className'> & {
@@ -69,6 +71,23 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
      * When undefined, the column takes all available space.
      */
     width?: string;
+
+    /**
+     * Whether this column can be resized when table-level resizing is enabled.
+     * Requires a `width` in pixels to be set — without it, the column has no known initial
+     * size and may jump when the user starts dragging. Defaults to true.
+     */
+    enableResizing?: boolean;
+
+    /**
+     * Minimum column width in pixels. Only applies when enableResize is true.
+     */
+    minWidth?: number;
+
+    /**
+     * Maximum column width in pixels. Only applies when enableResize is true.
+     */
+    maxWidth?: number;
 };
 
 export type DataTableBaseProps<T extends NonNullable<unknown>> = {
@@ -243,9 +262,27 @@ type TablePaginationProps =
           paginationProps?: never;
       };
 
+type ResizeProps =
+    | {
+          enableResize: true;
+          /** Callback fired when column resize starts */
+          onResizeStart?: (key: string, size: number) => void;
+          /** Callback fired on each size change during resize */
+          onResizeChange?: (key: string, size: number) => void;
+          /** Callback fired when column resize ends */
+          onResizeStop?: (key: string, size: number) => void;
+      }
+    | {
+          enableResize?: false;
+          onResizeStart?: never;
+          onResizeChange?: never;
+          onResizeStop?: never;
+      };
+
 export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'children'> &
     DataTableBaseProps<T> &
     SortingProps<T> &
     SelectionProps &
     RenderRowProps<T> &
-    TablePaginationProps;
+    TablePaginationProps &
+    ResizeProps;

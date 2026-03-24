@@ -20,6 +20,7 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
     {
         key: 'firstName',
         label: 'User',
+        minWidth: 120, // Can help to prevent columns from being too narrow during resizing
         ...stringColumn<DataUser>(row => row.firstName),
         render: (value, row) => (
             <>
@@ -39,19 +40,23 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
             />
         ),
         isSortable: true,
+        minWidth: 120,
         sortFn: (a, b) => a.status.localeCompare(b.status),
         align: 'center' // Custom column needs explicit align
     },
     {
         key: 'progress',
         label: 'Progress',
+        minWidth: 120,
         ...numberColumn<DataUser>(row => row.progress)
         // Align comes from numberColumn helper
     },
     {
         key: 'date',
         label: 'Last Login',
+        minWidth: 120,
         ...dateColumn<DataUser>(row => row.date, {locale: 'fr-FR'}),
+        enableResizing: false,
         // Align comes from dateColumn helper
         width: '150px'
     }
