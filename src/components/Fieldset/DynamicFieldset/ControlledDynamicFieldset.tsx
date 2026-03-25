@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import styles from '../Fieldset.module.scss';
 import type {ControlledDynamicFieldsetProps} from './DynamicFieldset.types';
 import {Switch, Typography} from '~/components';
-import {layout} from '~/globals/css-utils.js';
+import {layout, reset} from '~/globals/css-utils.js';
 
 export const ControlledDynamicFieldset = React.forwardRef<HTMLFieldSetElement, ControlledDynamicFieldsetProps>(({
     id,
@@ -21,6 +21,7 @@ export const ControlledDynamicFieldset = React.forwardRef<HTMLFieldSetElement, C
             ref={ref}
             id={id}
             className={clsx(
+                reset,
                 ['moonstone-dynamic-fieldset', styles['moonstone-dynamic-fieldset']],
                 checked && 'moonstone-dynamic-fieldset_open',
                 ['flexCol_nowrap', layout.flexCol_nowrap],

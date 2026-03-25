@@ -3,6 +3,7 @@ import clsx from 'clsx';
 
 import type {LoaderProps} from './Loader.types';
 import styles from './Loader.module.scss';
+import {reset} from '~/globals/css-utils.js';
 
 export const Loader: React.FC<LoaderProps> = ({
     size,
@@ -13,6 +14,7 @@ export const Loader: React.FC<LoaderProps> = ({
     return (
         <svg role="status"
              className={clsx(
+                reset,
                 ['moonstone-loader', styles['moonstone-loader']],
                 [`moonstone-loader_${size}`, styles[`moonstone-loader_${size}`]],
                 className

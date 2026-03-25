@@ -3,7 +3,7 @@ import React, {MutableRefObject, useEffect, useMemo, useRef, useState} from 'rea
 import clsx from 'clsx';
 import styles from './Dropdown.module.scss';
 import baseInputStyles from '../Input/BaseInput/BaseInput.module.scss';
-import {layout} from '~/globals/css-utils.js';
+import {layout, reset} from '~/globals/css-utils.js';
 
 import type {
     DropdownData,
@@ -204,7 +204,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
     return (
         <div
-            className={clsx('moonstone-dropdown_container', styles['moonstone-dropdown_container'], className)}
+            className={clsx(reset, 'moonstone-dropdown_container', styles['moonstone-dropdown_container'], className)}
             {...props}
         >
             <div

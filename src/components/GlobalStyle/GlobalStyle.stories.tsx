@@ -1,7 +1,7 @@
 import React from 'react';
 import markdownNotes from './GlobalStyle_layout.md';
 import clsx from 'clsx';
-import {layout} from '~/globals/css-utils.js';
+import {layout, reset} from '~/globals/css-utils.js';
 import {capitalize} from '~/utils/helpers.js';
 
 const justifyOptions = [null as null, 'center', 'reverse', 'between', 'nowrap'] as const;
@@ -35,7 +35,7 @@ const ItemContainer : React.FC<ItemContainerProps> = ({title, direction, justify
 
     return (
         <section style={{marginBottom: '48px'}}>
-            <h2 className={clsx('flexRow', layout.flexRow, 'alignCenter', layout.alignCenter)} style={{marginBottom: '24px'}}>
+            <h2 className={clsx(reset, 'flexRow', layout.flexRow, 'alignCenter', layout.alignCenter)} style={{marginBottom: '24px', fontWeight: 'normal'}}>
                 {title}:
                 <code
           style={{

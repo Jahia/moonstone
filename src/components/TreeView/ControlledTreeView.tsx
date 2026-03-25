@@ -6,7 +6,7 @@ import type {ControlledTreeViewProps, TreeViewData} from './TreeView.types';
 import {ChevronDown, ChevronRight, CheckboxChecked, CheckboxUnchecked} from '~/icons';
 import {Typography, Loader} from '~/components';
 import {onToggleNode, onArrowNavigation, mergeHandlers} from '~/hooks';
-import {icons, layout} from '~/globals/css-utils.js';
+import {icons, layout, reset} from '~/globals/css-utils.js';
 
 // Manage treeView_item's icon
 const displayIcon = (icon: React.ReactElement, size: 'small' | 'default' | 'big', className?: string, parentHasIconStart = false) => {
@@ -200,7 +200,16 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
     }
 
     // TreeView component
-    return React.createElement(component, {ref, role: 'tree', 'aria-multiselectable': showCheckbox, ...props}, generateLevelJSX(data, 0, false));
+    return React.createElement(
+        component, {
+            ref,
+            role: 'tree',
+            'aria-multiselectable': showCheckbox,
+            ...props,
+            // @ts-expect-error className not defined but probably used somewhere
+            className: clsx(reset, props.className)
+        }, generateLevelJSX(data, 0, false)
+    );
 };
 
 export const ControlledTreeView = React.forwardRef(ControlledTreeViewForwardRef);

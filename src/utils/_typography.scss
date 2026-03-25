@@ -6,9 +6,9 @@
 
 %variant-title {
     font-weight: 300;
-    font-size: 1.75rem; // 28px
+    font-size: 28px; // 1.75rem
 
-    line-height: 2rem; // 32px;
+    line-height: 32px; // 2rem
 
     &::first-letter {
         text-transform: capitalize;
@@ -17,28 +17,28 @@
 
 %variant-heading {
     font-weight: 600;
-    font-size: 1.25rem; // 20px;
-    line-height: 1.5rem; // 24px;
+    font-size: 20px; // 1.25rem
+    line-height: 24px; // 1.5rem
 }
 
 %variant-subheading {
-    font-size: 1rem; // 16px;
-    line-height: 1.125rem; // 18px;
+    font-size: 16px; // 1rem
+    line-height: 18px; // 1.125rem
 }
 
 %variant-body {
-    font-size: 0.875rem; // 14px;
-    line-height: 1.1875rem; // 19px;
+    font-size: 14px; // 0.875rem
+    line-height: 19px; // 1.1875rem
 }
 
 %variant-caption {
-    font-size: 0.75rem; // 12px;
-    line-height: 1rem; // 16px;
+    font-size: 12px; // 0.75rem
+    line-height: 16px; // 1rem
 }
 
 %variant-button {
-    font-size: 0.75rem; // 12px;
-    line-height: 1rem; // 16px;
+    font-size: 12px; // 0.75rem
+    line-height: 16px; // 1rem
 }
 
 %weight-bold {

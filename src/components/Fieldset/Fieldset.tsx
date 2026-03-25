@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import styles from './Fieldset.module.scss';
 import type {FieldsetProps} from './Fieldset.types';
 import {Typography} from '~/components';
-import {layout} from '~/globals/css-utils.js';
+import {layout, reset} from '~/globals/css-utils.js';
 
 export const Fieldset = React.forwardRef<HTMLFieldSetElement, FieldsetProps>(({
     id,
@@ -23,6 +23,7 @@ export const Fieldset = React.forwardRef<HTMLFieldSetElement, FieldsetProps>(({
             ref={ref}
             id={id}
             className={clsx(
+                reset,
                 ['moonstone-fieldset', styles['moonstone-fieldset']],
                 ['flexCol_nowrap', layout.flexCol_nowrap],
                 className

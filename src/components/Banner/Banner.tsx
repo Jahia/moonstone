@@ -4,7 +4,7 @@ import type {BannerProps} from './Banner.types';
 import styles from './Banner.module.scss';
 import {Typography} from '../Typography';
 import {HelpOutline, Information, Warning, Report} from '~/icons';
-import {layout} from '~/globals/css-utils.js';
+import {layout, reset} from '~/globals/css-utils.js';
 
 const BannerForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, BannerProps> = ({
     className,
@@ -34,6 +34,7 @@ const BannerForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, BannerPro
         <div
             ref={ref}
             className={clsx(
+                reset,
                 ['moonstone-banner', styles['moonstone-banner']],
                 [`moonstone-banner_${variant}`, styles[`moonstone-banner_${variant}`]],
                 className,

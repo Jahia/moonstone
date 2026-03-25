@@ -4,7 +4,7 @@ import styles from './Collapsible.module.scss';
 import type {ControlledCollapsibleProps} from './Collapsible.types';
 import {Typography} from '~/components';
 import {ChevronRight} from '~/icons/components';
-import {layout} from '~/globals/css-utils.js';
+import {layout, reset} from '~/globals/css-utils.js';
 
 const ControlledCollapsibleForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ControlledCollapsibleProps> = ({
     label,
@@ -16,6 +16,7 @@ const ControlledCollapsibleForwardRef: React.ForwardRefRenderFunction<HTMLDivEle
     ...other
 }, ref) => {
     const classNameProps = clsx(
+        reset,
         ['moonstone-collapsible', styles['moonstone-collapsible']],
         className
     );

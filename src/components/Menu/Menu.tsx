@@ -5,6 +5,7 @@ import styles from './Menu.module.scss';
 import {MenuProps} from './Menu.types';
 import {SearchInput} from '~/components/Input';
 import {Typography} from '~/components/Typography';
+import {reset} from '~/globals/css-utils.js';
 
 const getFlatChildren = (children: [React.ReactElement]) => {
     if (children[0].props['data-option-type'] === 'group') {
@@ -164,6 +165,7 @@ export const Menu: React.FC<MenuProps> = ({
                 style={styleMenu}
                 role="list"
                 className={clsx(
+                    reset,
                     ['moonstone-menu', styles['moonstone-menu']],
                     className,
                     (!isDisplayed || !stylePosition) && ['moonstone-hidden', styles['moonstone-hidden']]
@@ -204,7 +206,7 @@ export const Menu: React.FC<MenuProps> = ({
                 hasOverlay && isDisplayed && (
                     <div
                         aria-hidden="true"
-                        className={clsx('moonstone-menu_overlay', styles['moonstone-menu_overlay'])}
+                        className={clsx(reset, 'moonstone-menu_overlay', styles['moonstone-menu_overlay'])}
                         onClick={onClose}
                         onContextMenu={onClose}
                     />

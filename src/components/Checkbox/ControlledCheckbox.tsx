@@ -3,12 +3,13 @@ import clsx from 'clsx';
 import {capitalize} from '~/utils/helpers';
 import type {ControlledCheckboxProps} from './Checkbox.types';
 import styles from './Checkbox.module.scss';
+import {reset} from '~/globals/css-utils.js';
 
 export const ControlledCheckbox: React.FC<ControlledCheckboxProps> = ({className, checked = false, indeterminate = false, size = 'default', isDisabled, isReadOnly, onChange, value, ...props}) => {
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (
-        <div className={clsx('moonstone-checkbox', styles['moonstone-checkbox'], className)}>
+        <div className={clsx(reset, 'moonstone-checkbox', styles['moonstone-checkbox'], className)}>
             <input
                 {...props}
                 ref={inputRef}

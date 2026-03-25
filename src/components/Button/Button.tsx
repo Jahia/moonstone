@@ -5,7 +5,7 @@ import {Typography} from '../Typography';
 import {TypographyWeight} from '~/components/Typography/Typography.types';
 import {ButtonProps} from './Button.types';
 import {Loader} from '~/components/Loader';
-import {layout} from '~/globals/css-utils.js';
+import {layout, reset} from '~/globals/css-utils.js';
 
 // We have many conditions because of classname=..., we can safely ignore complexity here
 // eslint-disable-next-line complexity
@@ -44,6 +44,7 @@ export const Button = ({
         <button
             ref={ButtonEl}
             className={clsx(
+                reset,
                 (variant !== 'default' || color !== 'default') && ['moonstone-button', styles['moonstone-button']],
                 [`moonstone-button_${size}`, styles[`moonstone-button_${size}`]],
                 [`moonstone-button${variant === 'default' ? '' : `_${variant}`}${color === 'default' ? '' : `_${color}`}`,

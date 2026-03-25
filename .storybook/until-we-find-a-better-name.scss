@@ -1,3 +1,22 @@
-@forward '../src/globals/_reset.scss';
-@forward '../src/globals/_init.scss';
 @forward '../src/scoped.scss';
+
+html {
+    box-sizing: border-box;
+
+    font-family: var(--moon-font-family);
+    color: var(--moon-color-dark);
+
+    line-height: 1;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: inherit;
+}
+
+button,
+input,
+textarea {
+    font-family: inherit;
+}

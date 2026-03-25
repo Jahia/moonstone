@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import {HeaderProps} from './Header.types';
 import styles from './Header.module.scss';
 import {Separator, Typography} from '~/components';
-import {layout} from '~/globals/css-utils.js';
+import {layout, reset} from '~/globals/css-utils.js';
 
 export const Header: React.FC<HeaderProps> = ({
     title,
@@ -27,7 +27,7 @@ export const Header: React.FC<HeaderProps> = ({
     }
 
     return (
-        <header className={clsx('moonstone-header', styles['moonstone-header'], className)} {...props}>
+        <header className={clsx(reset, 'moonstone-header', styles['moonstone-header'], className)} {...props}>
             {/* Main area */}
             <div
                 className={clsx(
