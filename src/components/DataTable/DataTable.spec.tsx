@@ -215,7 +215,7 @@ describe('DataTable', () => {
                         {defaultRender({
                             before: (
                                 <TableCell data-testid={`before-${row.id}`}>
-                                   {`before-${row.id}`}
+                                    {`before-${row.id}`}
                                 </TableCell>
                             ),
                             after: (
