@@ -1,18 +1,22 @@
-import {React} from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import {Typography} from '~/components';
 import {TableCell} from '../TableCell';
 import './TableCellStatus.scss';
 import type {TableCellStatusProps} from './TableCellStatus.types';
 
-export const TableCellStatus: React.FC<TableCellStatusProps> = ({
-    color,
-    iconStart,
-    text,
-    className,
-    ...props
-}) => (
+const TableCellStatusForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellStatusProps> = (
+    {
+        color,
+        iconStart,
+        text,
+        className,
+        ...props
+    },
+    ref
+) => (
     <TableCell
+        ref={ref}
         className={clsx(
             'moonstone-tableCellStatus',
             `moonstone-tableCellStatus_${color}`,
@@ -21,8 +25,8 @@ export const TableCellStatus: React.FC<TableCellStatusProps> = ({
         width="8px"
         {...props}
     >
-        <div className='flexRow_nowrap alignCenter moonstone-tableCellStatus_panel'>
-            {iconStart && <iconStart.type {...iconStart.props} size="default    "/>}
+        <div className="flexRow_nowrap alignCenter moonstone-tableCellStatus_panel">
+            {iconStart}
             <Typography
                 isNowrap
                 component="div"
@@ -36,4 +40,5 @@ export const TableCellStatus: React.FC<TableCellStatusProps> = ({
     </TableCell>
 );
 
+export const TableCellStatus = React.forwardRef(TableCellStatusForwardRef);
 TableCellStatus.displayName = 'TableCellStatus';

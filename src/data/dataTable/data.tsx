@@ -5,7 +5,7 @@ export const dataTable: DataUser[] = [
         firstName: 'Walter',
         lastName: 'White',
         age: 52,
-        status: 'Active',
+        status: 'published',
         progress: 99,
         date: new Date('2024-01-15'),
         chips: ['Chemist', 'Teacher'],
@@ -14,7 +14,7 @@ export const dataTable: DataUser[] = [
                 firstName: 'Jesse',
                 lastName: 'Pinkman',
                 age: 27,
-                status: 'Busy',
+                status: 'modified',
                 progress: 75,
                 date: new Date('2024-06-10'),
                 subRows: [
@@ -22,7 +22,7 @@ export const dataTable: DataUser[] = [
                         firstName: 'Badger',
                         lastName: 'Unknown',
                         age: 35,
-                        status: 'Active',
+                        status: 'published',
                         progress: 60,
                         date: new Date('2024-07-01')
                     },
@@ -30,7 +30,7 @@ export const dataTable: DataUser[] = [
                         firstName: 'Skinny',
                         lastName: 'Pete',
                         age: 32,
-                        status: 'Offline',
+                        status: 'unpublished',
                         progress: 45,
                         date: new Date('2024-07-15')
                     }
@@ -40,7 +40,7 @@ export const dataTable: DataUser[] = [
                 firstName: 'Skyler',
                 lastName: 'White',
                 age: 40,
-                status: 'Active',
+                status: 'published',
                 progress: 85,
                 date: new Date('2024-05-20')
             }
@@ -50,7 +50,7 @@ export const dataTable: DataUser[] = [
         firstName: 'Jon',
         lastName: 'Snow',
         age: 24,
-        status: 'Active',
+        status: 'published',
         chips: ['Commander'],
         progress: 85,
         date: new Date('2024-03-15'),
@@ -59,7 +59,7 @@ export const dataTable: DataUser[] = [
                 firstName: 'Samwell',
                 lastName: 'Tarly',
                 age: 28,
-                status: 'Active',
+                status: 'published',
                 progress: 90,
                 date: new Date('2024-03-20'),
                 subRows: [
@@ -67,7 +67,7 @@ export const dataTable: DataUser[] = [
                         firstName: 'Gilly',
                         lastName: 'Tarly',
                         age: 22,
-                        status: 'Active',
+                        status: 'deleted',
                         progress: 95,
                         date: new Date('2024-03-25')
                     }
@@ -77,7 +77,7 @@ export const dataTable: DataUser[] = [
                 firstName: 'Ghost',
                 lastName: 'Direwolf',
                 age: 5,
-                status: 'Active',
+                status: 'published',
                 progress: 100,
                 date: new Date('2024-03-18')
             }
@@ -87,7 +87,7 @@ export const dataTable: DataUser[] = [
         firstName: 'Eleven',
         lastName: 'Hopper',
         age: 15,
-        status: 'Active',
+        status: 'published',
         chips: ['Telekinetic'],
         progress: 100,
         date: new Date('2024-01-20')
@@ -96,7 +96,7 @@ export const dataTable: DataUser[] = [
         firstName: 'Thomas',
         lastName: 'Shelby',
         age: 34,
-        status: 'Busy',
+        status: 'modified',
         chips: ['Boss', 'MP'],
         progress: 95,
         date: new Date('2024-02-10'),
@@ -105,7 +105,7 @@ export const dataTable: DataUser[] = [
                 firstName: 'Arthur',
                 lastName: 'Shelby',
                 age: 38,
-                status: 'Active',
+                status: 'published',
                 progress: 88,
                 date: new Date('2024-02-12'),
                 subRows: [
@@ -113,7 +113,7 @@ export const dataTable: DataUser[] = [
                         firstName: 'John',
                         lastName: 'Shelby',
                         age: 35,
-                        status: 'Busy',
+                        status: 'modified',
                         progress: 72,
                         date: new Date('2024-02-13')
                     },
@@ -121,7 +121,7 @@ export const dataTable: DataUser[] = [
                         firstName: 'Finn',
                         lastName: 'Shelby',
                         age: 17,
-                        status: 'Active',
+                        status: 'new',
                         progress: 55,
                         date: new Date('2024-02-14')
                     }
@@ -131,7 +131,7 @@ export const dataTable: DataUser[] = [
                 firstName: 'Polly',
                 lastName: 'Gray',
                 age: 45,
-                status: 'Active',
+                status: 'published',
                 progress: 92,
                 date: new Date('2024-02-15'),
                 subRows: [
@@ -139,7 +139,7 @@ export const dataTable: DataUser[] = [
                         firstName: 'Mikey',
                         lastName: 'Gray',
                         age: 22,
-                        status: 'Active',
+                        status: 'published',
                         progress: 68,
                         date: new Date('2024-02-16')
                     }
@@ -151,7 +151,7 @@ export const dataTable: DataUser[] = [
         firstName: 'Tony',
         lastName: 'Soprano',
         age: 47,
-        status: 'Busy',
+        status: 'modified',
         chips: ['Boss'],
         progress: 87,
         date: new Date('2024-01-10'),
@@ -160,7 +160,7 @@ export const dataTable: DataUser[] = [
                 firstName: 'Christopher',
                 lastName: 'Moltisanti',
                 age: 30,
-                status: 'Active',
+                status: 'published',
                 progress: 65,
                 date: new Date('2024-01-11'),
                 subRows: [
@@ -168,7 +168,7 @@ export const dataTable: DataUser[] = [
                         firstName: 'Paulie',
                         lastName: 'Walnuts',
                         age: 55,
-                        status: 'Active',
+                        status: 'published',
                         progress: 78,
                         date: new Date('2024-01-12')
                     },
@@ -176,7 +176,7 @@ export const dataTable: DataUser[] = [
                         firstName: 'Silvio',
                         lastName: 'Dante',
                         age: 50,
-                        status: 'Offline',
+                        status: 'unpublished',
                         progress: 82,
                         date: new Date('2024-01-13')
                     }
@@ -186,7 +186,7 @@ export const dataTable: DataUser[] = [
                 firstName: 'Bobby',
                 lastName: 'Baccalieri',
                 age: 42,
-                status: 'Active',
+                status: 'published',
                 progress: 70,
                 date: new Date('2024-01-14')
             }
@@ -196,7 +196,7 @@ export const dataTable: DataUser[] = [
         firstName: 'Rick',
         lastName: 'Grimes',
         age: 42,
-        status: 'Offline',
+        status: 'unpublished',
         chips: ['Sheriff'],
         progress: 70,
         date: new Date('2024-04-05')
@@ -205,7 +205,7 @@ export const dataTable: DataUser[] = [
         firstName: 'Daenerys',
         lastName: 'Targaryen',
         age: 23,
-        status: 'Active',
+        status: 'published',
         chips: ['Queen', 'Dragon'],
         progress: 90,
         date: new Date('2024-05-15')
@@ -214,7 +214,7 @@ export const dataTable: DataUser[] = [
         firstName: 'Geralt',
         lastName: 'of Rivia',
         age: 100,
-        status: 'Active',
+        status: 'published',
         chips: ['Witcher'],
         progress: 88,
         date: new Date('2024-06-20')
@@ -223,7 +223,7 @@ export const dataTable: DataUser[] = [
         firstName: 'Michael',
         lastName: 'Scott',
         age: 46,
-        status: 'Active',
+        status: 'published',
         chips: ['Manager'],
         progress: 15,
         date: new Date('2024-07-01')
@@ -232,7 +232,7 @@ export const dataTable: DataUser[] = [
         firstName: 'Tyrion',
         lastName: 'Lannister',
         age: 38,
-        status: 'Active',
+        status: 'published',
         chips: ['Hand'],
         progress: 92,
         date: new Date('2024-08-12')
@@ -241,7 +241,7 @@ export const dataTable: DataUser[] = [
         firstName: 'Sherlock',
         lastName: 'Holmes',
         age: 35,
-        status: 'Busy',
+        status: 'modified',
         chips: ['Detective'],
         progress: 100,
         date: new Date('2024-09-25')
@@ -250,7 +250,7 @@ export const dataTable: DataUser[] = [
         firstName: 'Saul',
         lastName: 'Goodman',
         age: 48,
-        status: 'Active',
+        status: 'published',
         chips: ['Lawyer'],
         progress: 80,
         date: new Date('2024-10-08')
@@ -259,7 +259,7 @@ export const dataTable: DataUser[] = [
         firstName: 'Arya',
         lastName: 'Stark',
         age: 18,
-        status: 'Active',
+        status: 'published',
         chips: ['Assassin'],
         progress: 95,
         date: new Date('2024-11-18')

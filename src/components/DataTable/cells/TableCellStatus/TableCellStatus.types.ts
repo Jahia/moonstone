@@ -1,8 +1,8 @@
 import React from 'react';
 
-export type TableCellStatusProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> & {
+export type TableCellStatusProps = React.ComponentPropsWithoutRef<'div'> & {
     /**
-     * Status background and accent color.
+     * Main status color.
      */
     color: 'success' | 'warning' | 'danger' | 'dark' | 'neutral' | 'info';
 
@@ -12,7 +12,7 @@ export type TableCellStatusProps = Omit<React.ComponentPropsWithoutRef<'div'>, '
     iconStart?: React.ReactNode;
 
     /**
-     * Visible status label.
+     * Status description.
      */
     text: string;
 };

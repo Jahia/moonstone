@@ -25,6 +25,12 @@ import {
 import {createTableColumns} from '~/utils/dataTable/tableHelpers';
 import {Pagination} from '~/components/Pagination';
 
+// Custom column metadata type
+type CustomColumnType = 'before' | 'after';
+
+// Styles for custom column headers (no padding to match measured cell widths)
+const CUSTOM_HEADER_STYLE = {padding: 0};
+
 export const DataTable = <T extends NonNullable<unknown>>({
     className,
     data,
@@ -59,14 +65,22 @@ export const DataTable = <T extends NonNullable<unknown>>({
     ...props
 }: DataTableProps<T>) => {
     const [expanded, setExpanded] = useState<ExpandedState>({});
-    // const hasRowStart = typeof renderRowStart === 'function';
-    
+
     // Track whether custom cells are being used (to add display columns)
     const [hasCustomBefore, setHasCustomBefore] = useState(false);
     const [hasCustomAfter, setHasCustomAfter] = useState(false);
-    
-    // Store custom cell content for each row ID
-    const customCellsMap = useRef<Map<string, { before?: React.ReactNode; after?: React.ReactNode }>>(new Map());
+
+    // Store custom cell content
+    const customCellsMap = useRef<Map<string, {
+        before?: React.ReactNode;
+        after?: React.ReactNode;
+    }>>(new Map());
+
+    // Store measured widths from first row's rendered cells for header alignment
+    const headerCellWidths = useRef<{
+        before?: string;
+        after?: string;
+    }>({});
 
     const {sorting, handleSortingChange} = useTableSorting({
         sortBy,
@@ -97,19 +111,36 @@ export const DataTable = <T extends NonNullable<unknown>>({
         const baseColumns = createTableColumns(columns);
         const finalColumns = [];
 
+        // Helper to create a custom display column with width measurement
+        const createCustomColumn = (position: 'before' | 'after', index: number) => ({
+            id: `custom-${position}-${index}`,
+            header: (): null => null,
+            cell: ({row}: {readonly row: Row<T>}) => {
+                const rowId = row.id;
+                const content = customCellsMap.current.get(rowId)?.[position];
+                const isFirstRow = row.index === 0;
+
+                // Measure width from first row's rendered cell
+                if (isFirstRow && content && React.isValidElement(content)) {
+                    return React.cloneElement(content, {
+                        ref: (node: HTMLTableCellElement | null) => {
+                            if (node && !headerCellWidths.current[position]) {
+                                headerCellWidths.current[position] = `${node.offsetWidth}px`;
+                            }
+                        }
+                    } as React.HTMLAttributes<HTMLTableCellElement>);
+                }
+
+                return content || null;
+            },
+            meta: {
+                customColumnType: position as CustomColumnType
+            }
+        });
+
         // Add "before" display column if custom before cells are being used
         if (hasCustomBefore) {
-            finalColumns.push({
-                id: '__custom_before__',
-                header: () => null,
-                cell: ({row}: {row: Row<T>}) => {
-                    const rowId = row.id;
-                    const content = customCellsMap.current.get(rowId)?.before;
-                    return content || null;
-                },
-                size: 8,
-                enableSorting: false
-            });
+            finalColumns.push(createCustomColumn('before', 0));
         }
 
         // Add base columns
@@ -117,16 +148,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
         // Add "after" display column if custom after cells are being used
         if (hasCustomAfter) {
-            finalColumns.push({
-                id: '__custom_after__',
-                header: () => null,
-                cell: ({row}: {row: Row<T>}) => {
-                    const rowId = row.id;
-                    const content = customCellsMap.current.get(rowId)?.after;
-                    return content || null;
-                },
-                enableSorting: false
-            });
+            finalColumns.push(createCustomColumn('after', 0));
         }
 
         return finalColumns;
@@ -164,43 +186,47 @@ export const DataTable = <T extends NonNullable<unknown>>({
         }
     }, [data, isStructured, table]);
 
+    // Helper to filter cells/headers by type using column metadata
+    const filterByColumnType = useCallback(<V extends {column: {columnDef: {meta?: unknown}}}>(items: V[]) => {
+        const isCustomColumn = (item: V, type: CustomColumnType) =>
+            item.column.columnDef.meta?.customColumnType === type;
+
+        return {
+            before: items.filter(item => isCustomColumn(item, 'before')),
+            data: items.filter(item => !item.column.columnDef.meta?.customColumnType),
+            after: items.filter(item => isCustomColumn(item, 'after'))
+        };
+    }, []);
+
     const renderRowContent = useCallback(
         (row: Row<T>, options?: DefaultRenderOptions) => {
-            const rowId = row.id;
-            
-            // Store custom cell content in map for display columns to access
+            // Store custom cell content from options
             if (options?.before !== undefined || options?.after !== undefined) {
-                customCellsMap.current.set(rowId, {
+                customCellsMap.current.set(row.id, {
                     before: options?.before,
                     after: options?.after
                 });
-                
+
                 // Track that we're using custom cells (triggers column re-creation)
                 if (options?.before && !hasCustomBefore) {
                     setHasCustomBefore(true);
                 }
+
                 if (options?.after && !hasCustomAfter) {
                     setHasCustomAfter(true);
                 }
             }
 
-            const allCells = row.getVisibleCells();
-            const beforeCells = allCells.filter(cell => cell.column.id === '__custom_before__');
-            const dataCells = allCells.filter(cell => cell.column.id !== '__custom_before__' && cell.column.id !== '__custom_after__');
-            const afterCells = allCells.filter(cell => cell.column.id === '__custom_after__');
+            const {before: beforeCells, data: dataCells, after: afterCells} = filterByColumnType(row.getVisibleCells());
 
             return (
                 <>
                     {/* Custom "before" cells - rendered first */}
-                    {beforeCells.map(cell => (
-                        <React.Fragment key={cell.id}>
-                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </React.Fragment>
-                    ))}
+                    {beforeCells.map(cell => flexRender(cell.column.columnDef.cell, cell.getContext()))}
 
                     {/* Selection checkbox cell */}
                     {enableSelection && (
-                        <TableCell width="52px">
+                        <TableCell width="auto">
                             <Checkbox
                                 checked={row.getIsSelected()}
                                 onChange={row.getToggleSelectedHandler()}
@@ -244,15 +270,11 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     })}
 
                     {/* Custom "after" cells - rendered last */}
-                    {afterCells.map(cell => (
-                        <React.Fragment key={cell.id}>
-                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </React.Fragment>
-                    ))}
+                    {afterCells.map(cell => flexRender(cell.column.columnDef.cell, cell.getContext()))}
                 </>
             );
         },
-        [enableSelection, isStructured, hasCustomBefore, hasCustomAfter]
+        [enableSelection, isStructured, hasCustomBefore, hasCustomAfter, filterByColumnType]
     );
 
     const renderRowWithCustomization = useCallback(
@@ -285,18 +307,16 @@ export const DataTable = <T extends NonNullable<unknown>>({
             <Table className={className} {...props}>
                 <TableHead>
                     {table.getHeaderGroups().map(headerGroup => {
-                        const allHeaders = headerGroup.headers;
-                        const beforeHeaders = allHeaders.filter(h => h.column.id === '__custom_before__');
-                        const dataHeaders = allHeaders.filter(h => h.column.id !== '__custom_before__' && h.column.id !== '__custom_after__');
-                        const afterHeaders = allHeaders.filter(h => h.column.id === '__custom_after__');
+                        const {before: beforeHeaders, data: dataHeaders, after: afterHeaders} = filterByColumnType(headerGroup.headers);
 
                         return (
-                            <TableRow key={headerGroup.id}>
-                                {/* Custom "before" column headers */}
+                            <TableRow key={headerGroup.id} className="moonstone-tableRow_header">
+                                {/* Custom "before" column headers - match width from measured cells */}
                                 {beforeHeaders.map(header => (
-                                    <TableHeadCell 
+                                    <TableHeadCell
                                         key={header.id}
-                                        width="8px"
+                                        width={headerCellWidths.current.before}
+                                        style={CUSTOM_HEADER_STYLE}
                                     />
                                 ))}
 
@@ -341,10 +361,12 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                     );
                                 })}
 
-                                {/* Custom "after" column headers */}
+                                {/* Custom "after" column headers - match width from measured cells */}
                                 {afterHeaders.map(header => (
-                                    <TableHeadCell 
+                                    <TableHeadCell
                                         key={header.id}
+                                        width={headerCellWidths.current.after}
+                                        style={CUSTOM_HEADER_STYLE}
                                     />
                                 ))}
 

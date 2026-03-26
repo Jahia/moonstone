@@ -1,16 +1,17 @@
 import type {DataTableColumn} from '~/components/DataTable/DataTable.types';
 import {Chip} from '~/components';
 import {Person} from '~/icons';
+import {getStatus} from '~/data/dataTable/utils';
 import {numberColumn, dateColumn, stringColumn} from '~/utils/dataTable';
 
 export type DataUser = {
     firstName: string;
     lastName: string;
     age: number;
-    status: string;
+    status: 'published' | 'deleted' | 'modified' | 'new' | 'unpublished';
     progress: number;
     date: Date;
-    chips?: string[];
+    // Chips?: string[];
     subRows?: DataUser[];
 };
 
@@ -26,8 +27,7 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
                 <Person/>
                 {row.firstName} {row.lastName}
             </>
-        ),
-        align: 'left'
+        )
     },
     {
         key: 'status',
@@ -35,24 +35,22 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
         render: value => (
             <Chip
                 label={value as string}
-                color={(value as string) === 'Active' ? 'success' : 'default'}
+                color={getStatus(value).color}
             />
         ),
         isSortable: true,
         sortFn: (a, b) => a.status.localeCompare(b.status),
-        align: 'center' // Custom column needs explicit align
+        align: 'center'
     },
     {
         key: 'progress',
         label: 'Progress',
-        ...numberColumn<DataUser>(row => row.progress)
-        // Align comes from numberColumn helper
+        ...numberColumn(row => row.progress)
     },
     {
         key: 'date',
         label: 'Last Login',
-        ...dateColumn<DataUser>(row => row.date, {locale: 'fr-FR'}),
-        // Align comes from dateColumn helper
+        ...dateColumn(row => row.date, {locale: 'fr-FR'}),
         width: '150px'
     }
 ];

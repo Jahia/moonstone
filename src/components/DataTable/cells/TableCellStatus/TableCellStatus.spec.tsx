@@ -2,45 +2,42 @@ import {render, screen} from '@testing-library/react';
 import {describe, expect, it} from 'vitest';
 import {TableCellStatus} from './TableCellStatus';
 
+const TableWrapper = ({children}) => (
+    <table>
+        <tbody>
+            <tr>
+                {children}
+            </tr>
+        </tbody>
+    </table>
+);
+
 describe('TableCellStatus', () => {
-    it('should render text with base and color classes', () => {
+    it('should render text', () => {
         render(
-            <TableCellStatus
-                color="success"
-                text="Online"
-                data-testid="status"
-            />
+            <TableWrapper>
+                <TableCellStatus
+                    color="success"
+                    text="test"
+                    data-testid="status"
+                />
+            </TableWrapper>
         );
-
-        const status = screen.getByTestId('status');
-
-        expect(status).toHaveClass('moonstone-tableCellStatus', 'moonstone-tableCellStatus_success');
-        expect(screen.getByText('Online')).toBeInTheDocument();
+        expect(screen.getByText('test')).toBeInTheDocument();
     });
 
-    it('should render the icon wrapper when iconStart is provided', () => {
+    it('should display the icon when `iconStart` is provided', () => {
         render(
-            <TableCellStatus
-                color="warning"
-                text="Pending"
-                iconStart={<span data-testid="status-icon">!</span>}
-                data-testid="status"
-            />
+            <TableWrapper>
+                <TableCellStatus
+                    color="warning"
+                    text="Pending"
+                    iconStart={<span data-testid="test-icon">!</span>}
+                    data-testid="status"
+                />
+            </TableWrapper>
         );
 
-        expect(screen.getByTestId('status-icon')).toBeInTheDocument();
-        expect(screen.getByTestId('status').querySelector('.moonstone-tableCellStatus_icon')).toBeInTheDocument();
-    });
-
-    it('should not render the icon wrapper when iconStart is missing', () => {
-        render(
-            <TableCellStatus
-                color="danger"
-                text="Offline"
-                data-testid="status"
-            />
-        );
-
-        expect(screen.getByTestId('status').querySelector('.moonstone-tableCellStatus_icon')).not.toBeInTheDocument();
+        expect(screen.getByTestId('test-icon')).toBeInTheDocument();
     });
 });

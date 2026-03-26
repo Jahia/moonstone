@@ -1,7 +1,7 @@
 import {render, screen, waitFor, within} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {describe, expect, it, vi} from 'vitest';
-import {DataTable, TableCellStatus, TableRow} from '~/components/DataTable';
+import {DataTable, TableCell, TableCellStatus, TableRow} from '~/components/DataTable';
 import {numberColumn, stringColumn} from '~/utils/dataTable';
 
 type TestData = {
@@ -134,54 +134,7 @@ describe('DataTable', () => {
         expect(screen.queryByTestId('dataTable')).not.toBeInTheDocument();
     });
 
-    it('should display elements provided from actions', () => {
-        render(
-            <DataTable
-                data={data}
-                columns={columns}
-                primaryKey="id"
-                renderRow={(row, defaultRender) => (
-                    <TableRow key={row.id}>
-                        {defaultRender({
-                            actions: <button data-testid="button-actions" type="button">Edit {row.original.name}</button>
-                        })}
-                    </TableRow>
-                )}
-            />
-        );
-
-        const buttons = screen.getAllByTestId('button-actions');
-        expect(buttons).toHaveLength(3);
-        buttons.forEach(button => {
-            expect(button).toBeVisible();
-        });
-    });
-
-    it('should render hidden elements provided from actionsOnHover', () => {
-        render(
-            <DataTable
-                data={data}
-                columns={columns}
-                primaryKey="id"
-                renderRow={(row, defaultRender) => (
-                    <TableRow key={row.id}>
-                        {defaultRender({
-                            actionsOnHover: <button data-testid="button-hidden" type="button">Edit {row.original.name}</button>
-                        })}
-                    </TableRow>
-                )}
-            />
-        );
-
-        const buttons = screen.getAllByTestId('button-hidden');
-        expect(buttons).toHaveLength(3);
-        buttons.forEach(button => {
-            expect(button).not.toBeVisible();
-        });
-    });
-
-    it('should display elements from actionsOnHover when the row is hovered', async () => {
-        const user = userEvent.setup();
+    it('should render custom after cells for each row', async () => {
         render(
             <DataTable
                 data={data}
@@ -190,27 +143,52 @@ describe('DataTable', () => {
                 renderRow={(row, defaultRender) => (
                     <TableRow key={row.id} data-testid={row.id}>
                         {defaultRender({
-                            actionsOnHover: <button data-testid={`button-${row.id}`} type="button">Edit {row.original.name}</button>
+                            after: (
+                                <TableCell data-testid={`after-${row.id}`}>
+                                    {row.original.name}
+                                </TableCell>
+                            )
                         })}
                     </TableRow>
                 )}
             />
         );
 
-        // Hover over the first row
-        const firstButton = screen.getByTestId('button-1');
-        const firstRow = screen.getByTestId('1');
-        await user.hover(firstRow);
-
-        // Button should now be visible
-        expect(firstButton).toBeVisible();
-
-        // Other buttons should still be hidden
-        expect(screen.getByTestId('button-2')).not.toBeVisible();
-        expect(screen.getByTestId('button-3')).not.toBeVisible();
+        const afterItems = screen.getAllByTestId(/after-/);
+        expect(afterItems).toHaveLength(3);
+        afterItems.forEach(item => {
+            expect(item).toBeVisible();
+        });
     });
 
-    it('should apply custom attribute via rowProps', () => {
+    it('should render custom before cells for each row', async () => {
+        render(
+            <DataTable
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                renderRow={(row, defaultRender) => (
+                    <TableRow key={row.id} data-testid={row.id}>
+                        {defaultRender({
+                            before: (
+                                <TableCell data-testid={`before-${row.id}`}>
+                                    {row.original.name}
+                                </TableCell>
+                            )
+                        })}
+                    </TableRow>
+                )}
+            />
+        );
+
+        const beforeItems = screen.getAllByTestId(/before-/);
+        expect(beforeItems).toHaveLength(3);
+        beforeItems.forEach(item => {
+            expect(item).toBeVisible();
+        });
+    });
+
+    it('should apply custom attribute via `rowProps`', () => {
         render(
             <DataTable
                 data={data}
@@ -221,26 +199,48 @@ describe('DataTable', () => {
         );
         const rows = screen.getAllByTestId('custom-row');
         expect(rows).toHaveLength(3);
+        rows.forEach(row => {
+            expect(row.tagName).toBe('TR');
+        });
     });
 
-    // it('should render a start cell in the header and each data row when renderRowStart is provided', () => {
-    //     render(
-    //         <DataTable
-    //             data={data}
-    //             columns={columns}
-    //             primaryKey="id"
-    //             renderRowStart={row => <span data-testid={`start-${row.id}`}>{row.original.name}</span>}
-    //         />
-    //     );
+    it('should render both before and after custom cells', () => {
+        render(
+            <DataTable
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                renderRow={(row, defaultRender) => (
+                    <TableRow key={row.id}>
+                        {defaultRender({
+                            before: (
+                                <TableCell data-testid={`before-${row.id}`}>
+                                   {`before-${row.id}`}
+                                </TableCell>
+                            ),
+                            after: (
+                                <TableCell data-testid={`after-${row.id}`}>
+                                    {`after-${row.id}`}
+                                </TableCell>
+                            )
+                        })}
+                    </TableRow>
+                )}
+            />
+        );
 
-    //     const [headerRow] = screen.getAllByRole('row');
+        const beforeItems = screen.getAllByTestId(/before-/);
+        expect(beforeItems).toHaveLength(3);
+        beforeItems.forEach(item => {
+            expect(item).toBeVisible();
+        });
 
-    //     expect(within(headerRow).getAllByRole('columnheader')[0]).toHaveClass('moonstone-tableCellStart');
-    //     expect(screen.getAllByTestId(/start-/)).toHaveLength(data.length);
-    //     expect(screen.getByTestId('start-1')).toHaveTextContent('Alice');
-    //     expect(screen.getByTestId('start-2')).toHaveTextContent('Bob');
-    //     expect(screen.getByTestId('start-3')).toHaveTextContent('Charlie');
-    // });
+        const afterItems = screen.getAllByTestId(/after-/);
+        expect(afterItems).toHaveLength(3);
+        afterItems.forEach(item => {
+            expect(item).toBeVisible();
+        });
+    });
 
     it('should render expandable rows with children visible by default', () => {
         render(
@@ -255,30 +255,6 @@ describe('DataTable', () => {
         expect(screen.getByText('Parent')).toBeInTheDocument();
         expect(screen.getByText('Child')).toBeInTheDocument();
     });
-
-    // it('should render status bars through renderRowStart with structured rows and selection enabled', () => {
-    //     render(
-    //         <DataTable<StatusBarData>
-    //             enableSelection
-    //             isStructured
-    //             data={statusBarData}
-    //             columns={statusBarColumns}
-    //             primaryKey="id"
-    //             renderRowStart={row => (
-    //                 <TableCellStatus
-    //                     color={row.original.status === 'Healthy' ? 'success' : 'warning'}
-    //                     text={row.original.status}
-    //                 />
-    //             )}
-    //         />
-    //     );
-
-    //     expect(screen.getByText('Parent')).toBeInTheDocument();
-    //     expect(screen.getByText('Child')).toBeInTheDocument();
-    //     expect(screen.getByText('Healthy').closest('.moonstone-tableCellStatus')).toHaveClass('moonstone-tableCellStatus_success');
-    //     expect(screen.getByText('Pending').closest('.moonstone-tableCellStatus')).toHaveClass('moonstone-tableCellStatus_warning');
-    //     expect(screen.getAllByRole('checkbox')).toHaveLength(3);
-    // });
 
     it('should toggle row when clicking on the expandable node', async () => {
         const user = userEvent.setup();
@@ -612,5 +588,34 @@ describe('DataTable pagination feature', () => {
             expect(screen.queryByText('Alice')).not.toBeInTheDocument();
             expect(screen.getByText('Bob')).toBeInTheDocument();
         });
+    });
+});
+
+describe('DataTable custom cells', () => {
+    it('should measure width from first row for header alignment', () => {
+        render(
+            <DataTable<StatusBarData>
+                data={statusBarData}
+                columns={statusBarColumns}
+                primaryKey="id"
+                renderRow={(row, defaultRender) => (
+                    <TableRow key={row.id}>
+                        {defaultRender({
+                            before: (
+                                <TableCellStatus
+                                    color="success"
+                                    text="Test"
+                                />
+                            )
+                        })}
+                    </TableRow>
+                )}
+            />
+        );
+
+        // Header cells for custom columns should have padding: 0
+        const headerRow = screen.getAllByRole('row')[0];
+        const firstHeader = within(headerRow).getAllByRole('columnheader')[0];
+        expect(firstHeader).toHaveStyle({padding: '0'});
     });
 });

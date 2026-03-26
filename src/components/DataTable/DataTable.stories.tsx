@@ -1,9 +1,7 @@
-import {dataTable, dataColumnsUser, getStatusMessage} from '~/data/dataTable';
+import {dataTable, dataColumnsUser, getStatus} from '~/data/dataTable';
 import type {DataUser, DataUserKeys} from '~/data/dataTable';
-import {DataTable} from './DataTable';
 import type {Meta, StoryObj} from '@storybook/react';
-import {TableRow} from './TableRow';
-import {TableCellStatus} from './cells';
+import {DataTable, TableRow, TableCellActions, TableCellStatus} from './index.ts';
 import {useState} from 'react';
 import {Button} from '~/components';
 import {Visibility, Edit, Delete, MoreVert} from '~/icons';
@@ -104,35 +102,6 @@ export const StructuredViewDataTable: Story = {
     },
     name: 'Structured View'
 };
-
-// export const StatusBarDataTable: Story = {
-//     render: args => {
-//         return (
-//             <DataTable<DataUser>
-//                 {...args}
-//                 enableSelection
-//                 isStructured
-//                 renderRowStart={row => {
-//                     const status = getStatusMessage(row.original.status);
-
-//                     return (
-//                         <TableCellStatus
-//                             color={status.color}
-//                             iconStart={status.iconStart}
-//                             text={status.text}
-//                         />
-//                     );
-//                 }}
-//             />
-//         );
-//     },
-//     args: {
-//         data: dataTable,
-//         columns: dataColumnsUser,
-//         primaryKey: 'firstName'
-//     },
-//     name: 'With Status Bar'
-// };
 
 export const PaginationDataTable: Story = {
     render: args => {
@@ -236,8 +205,6 @@ export const ControlledPagination: Story = {
     name: 'Controlled Pagination'
 };
 
-
-
 export const AllFeaturesTable: Story = {
     render: args => {
         return (
@@ -247,27 +214,27 @@ export const AllFeaturesTable: Story = {
                 renderRow={(row, renderCells) => (
                     <TableRow
                         key={row.id}
-                        style={{
-                            backgroundColor: row.getIsSelected() ?
-                                'rgba(0, 100, 255, 0.1)' :
-                                undefined
-                        }}
                     >
                         {renderCells({
                             before: (
                                 <TableCellStatus
-                                    color={getStatusMessage(row.original.status).color}
-                                    iconStart={getStatusMessage(row.original.status).iconStart}
-                                    text={getStatusMessage(row.original.status).text}
+                                    color={getStatus(row.original.status).color}
+                                    iconStart={getStatus(row.original.status).iconStart}
+                                    title={row.original.status}
+                                    text={getStatus(row.original.status).text}
                                 />
                             ),
                             after: (
-                                <>
-                                    <Button icon={<MoreVert/>} variant="ghost" aria-label="Actions"/>
-                                    <Button icon={<Visibility/>} variant="ghost"/>
-                                    <Button icon={<Edit/>} variant="ghost"/>
-                                    <Button icon={<Delete/>} variant="ghost"/>
-                                </>
+                                <TableCellActions
+                                    actionsOnHover={
+                                        <>
+                                            <Button icon={<Visibility/>} variant="ghost"/>
+                                            <Button icon={<Edit/>} variant="ghost"/>
+                                            <Button icon={<Delete/>} variant="ghost"/>
+                                        </>
+                                    }
+                                    actions={<Button icon={<MoreVert/>} variant="ghost" aria-label="Actions"/>}
+                                />
                             )
                         })}
                     </TableRow>

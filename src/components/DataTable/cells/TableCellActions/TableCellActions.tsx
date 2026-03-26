@@ -4,11 +4,14 @@ import {TableCell} from '../TableCell';
 import type {TableCellActionsProps} from './TableCellActions.types';
 import './TableCellActions.scss';
 
-export const TableCellActions: React.FC<TableCellActionsProps> = ({
-    actions,
-    actionsOnHover
-}) => (
-    <TableCell align="right" className={clsx('flexRow_reverse', 'alignCenter', 'moonstone-tableCellActions')}>
+const TableCellActionsForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellActionsProps> = (
+    {
+        actions,
+        actionsOnHover
+    },
+    ref
+) => (
+    <TableCell ref={ref} align="right" className={clsx('flexRow_reverse', 'alignCenter', 'moonstone-tableCellActions')}>
         {actionsOnHover && (
             <div className={clsx('flexRow_nowrap', 'alignCenter', 'moonstone-tableCellActions_displayHover')}>{actionsOnHover}</div>
         )}
@@ -16,4 +19,5 @@ export const TableCellActions: React.FC<TableCellActionsProps> = ({
     </TableCell>
 );
 
+export const TableCellActions = React.forwardRef(TableCellActionsForwardRef);
 TableCellActions.displayName = 'TableCellActions';
