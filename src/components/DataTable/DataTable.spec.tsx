@@ -363,7 +363,7 @@ describe('DataTable', () => {
         ] as const;
 
         render(
-            <DataTable<TestData>
+            <DataTable
                 isStructured
                 data={structuredData}
                 columns={columnsWithCellProps}

@@ -14,7 +14,7 @@ export type CustomColumnMeta = {
     align?: 'left' | 'center' | 'right';
     width?: string;
     isScrollable?: boolean;
-    cellProps?: React.TdHTMLAttributes<HTMLTableCellElement>;
+    cellProps?: React.TdHTMLAttributes<HTMLTableCellElement> & Record<string, unknown>;
 };
 
 export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children' | 'className'> & {
@@ -82,7 +82,7 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
     /**
      * Custom HTML attributes added to TableCell or TableStructuredCell
      */
-    cellProps?: React.TdHTMLAttributes<HTMLTableCellElement>;
+    cellProps?: React.TdHTMLAttributes<HTMLTableCellElement> & Record<string, unknown>;
 };
 
 export type DataTableBaseProps<T extends NonNullable<unknown>> = {
