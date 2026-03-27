@@ -35,7 +35,7 @@ export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'chi
     children?: React.ReactNode;
 
     /**
-     * Whether the cell content is wrapped in a scrollable/truncatable container.
+     * Whether the cell content is scrollable on hover
      * @default false
      */
     isScrollable?: boolean;
