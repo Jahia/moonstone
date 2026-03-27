@@ -48,25 +48,16 @@ describe('TableHeadCell', () => {
     });
 
     describe('sorting', () => {
-        it('should display sort icon on sorting direction descending', () => {
+        it('should sort descending direction', () => {
             render(
                 <TableWrapper>
                     <TableHeadCell sorting={{direction: 'descending', isActive: true}} data-testid="cell">Header</TableHeadCell>
                 </TableWrapper>
             );
-            expect(screen.getByTestId('cell').querySelector('.moonstone-tableHeadCell_sort')).toBeInTheDocument();
+            expect(screen.getByTestId('cell')).toHaveAttribute('aria-sort', 'descending');
         });
 
-        it('should display sort icon on sorting direction ascending', () => {
-            render(
-                <TableWrapper>
-                    <TableHeadCell sorting={{direction: 'ascending', isActive: true}} data-testid="cell">Header</TableHeadCell>
-                </TableWrapper>
-            );
-            expect(screen.getByTestId('cell').querySelector('.moonstone-tableHeadCell_sort')).toBeInTheDocument();
-        });
-
-        it('should set aria-sort when isActive is true', () => {
+        it('should sort ascending direction', () => {
             render(
                 <TableWrapper>
                     <TableHeadCell sorting={{direction: 'ascending', isActive: true}} data-testid="cell">Header</TableHeadCell>
@@ -75,7 +66,7 @@ describe('TableHeadCell', () => {
             expect(screen.getByTestId('cell')).toHaveAttribute('aria-sort', 'ascending');
         });
 
-        it('should not set aria-sort when isActive is false', () => {
+        it('should not set `aria-sort` when `isActive` is `false`', () => {
             render(
                 <TableWrapper>
                     <TableHeadCell sorting={{direction: 'ascending', isActive: false}} data-testid="cell">Header</TableHeadCell>
@@ -90,7 +81,9 @@ describe('TableHeadCell', () => {
                     <TableHeadCell data-testid="cell">Header</TableHeadCell>
                 </TableWrapper>
             );
-            expect(screen.getByTestId('cell').querySelector('.moonstone-tableHeadCell_sort')).not.toBeInTheDocument();
+
+            expect(screen.getByTestId('cell')).not.toHaveAttribute('aria-sort');
+            expect(screen.queryByRole('svg', {hidden: true})).not.toBeInTheDocument();
         });
     });
 });

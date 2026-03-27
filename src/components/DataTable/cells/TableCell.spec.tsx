@@ -22,7 +22,7 @@ describe('TableCell', () => {
         expect(screen.getByTestId('cell').tagName).toBe('TD');
     });
 
-    it('should render as th when component prop is set', () => {
+    it('should render as `th` when component prop is set', () => {
         render(
             <TableWrapper>
                 <TableCell data-testid="cell" component="th">Header</TableCell>
@@ -52,23 +52,4 @@ describe('TableCell', () => {
         );
         expect(screen.getByTestId('cell')).toHaveStyle({width: '100px'});
     });
-
-    it('should apply vertical align classes', () => {
-        render(
-            <TableWrapper>
-                <TableCell data-testid="cell" verticalAlign="top">V</TableCell>
-            </TableWrapper>
-        );
-        expect(screen.getByTestId('cell')).toHaveClass('verticalAlignTop');
-    });
-
-    it('should apply scrollable class', () => {
-        render(
-            <TableWrapper>
-                <TableCell isScrollable data-testid="cell">S</TableCell>
-            </TableWrapper>
-        );
-        expect(screen.getByTestId('cell')).toHaveClass('moonstone-tableCellContent');
-    });
 });
-

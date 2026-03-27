@@ -1,26 +1,22 @@
 import React from 'react';
 import clsx from 'clsx';
 import {Typography} from '~/components';
-import {capitalize} from '~/utils/helpers';
 import './TableCell.scss';
 import type {TableCellProps} from './TableCell.types';
 
 const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellProps> = (
     {
         className,
-        children,
+        children = '-',
         align = 'left',
-        verticalAlign = 'middle',
         width,
-        isScrollable,
+        isScrollable = false,
         style,
         component = 'td',
         ...props
     },
     ref
 ) => {
-    const scrollableClass = isScrollable ? 'moonstone-tableCellContent' : '';
-
     return (
         <Typography
             ref={ref}
@@ -32,18 +28,17 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
                 align === 'left' ? 'justifyStart' : align === 'right' ? 'justifyEnd' : 'justifyCenter',
                 'flexRow_nowrap',
                 'alignCenter',
-                'verticalAlign' + capitalize(verticalAlign),
-                {flexFluid: typeof width === 'undefined'},
-                scrollableClass,
+                {flexFluid: !width},
+                {'moonstone-tableCell_scrollable': isScrollable},
                 className
             )}
             style={{
-                width,
+                width: width,
                 ...style
             }}
             {...props}
         >
-            {children ?? '-'}
+            {children}
         </Typography>
     );
 };
@@ -51,4 +46,3 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
 export const TableCell = React.forwardRef(TableCellForwardRef);
 
 TableCell.displayName = 'TableCell';
-
