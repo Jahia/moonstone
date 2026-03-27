@@ -24,13 +24,16 @@
     }
 
     &:hover {
-        overflow-x: auto;
+        /* stylelint-disable-next-line declaration-no-important */
+        overflow-x: auto !important;
 
-        box-shadow: var(--color-gray20) -1px 0 3px 0 inset;
+        // box-shadow: var(--color-gray20) -1px 0 3px 0 inset;
 
         > * {
-            text-overflow: unset;
-            overflow: visible;
+            /* stylelint-disable-next-line declaration-no-important */
+            text-overflow: unset !important;
+            /* stylelint-disable-next-line declaration-no-important */
+            overflow: visible !important;
         }
     }
 }
