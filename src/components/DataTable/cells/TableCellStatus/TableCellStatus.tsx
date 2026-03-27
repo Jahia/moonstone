@@ -8,8 +8,7 @@ import type {TableCellStatusProps} from './TableCellStatus.types';
 const TableCellStatusForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellStatusProps> = (
     {
         color,
-        iconStart,
-        text,
+        children,
         className,
         ...props
     },
@@ -26,16 +25,7 @@ const TableCellStatusForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEle
         {...props}
     >
         <div className="flexRow_nowrap alignCenter moonstone-tableCellStatus_panel">
-            {iconStart}
-            <Typography
-                isNowrap
-                component="div"
-                variant="caption"
-                weight="semiBold"
-                className="flexRow_nowrap alignCenter"
-            >
-                {text}
-            </Typography>
+            {children}
         </div>
     </TableCell>
 );

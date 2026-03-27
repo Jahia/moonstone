@@ -13,31 +13,14 @@ const TableWrapper = ({children}: {children: React.ReactNode}) => (
 );
 
 describe('TableCellStatus', () => {
-    it('should render text', () => {
+    it('should render content', () => {
         render(
             <TableWrapper>
-                <TableCellStatus
-                    color="success"
-                    text="test"
-                    data-testid="status"
-                />
+                <TableCellStatus color="success">
+                    test
+                </TableCellStatus>
             </TableWrapper>
         );
         expect(screen.getByText('test')).toBeInTheDocument();
-    });
-
-    it('should display the icon when `iconStart` is provided', () => {
-        render(
-            <TableWrapper>
-                <TableCellStatus
-                    color="warning"
-                    text="Pending"
-                    iconStart={<span data-testid="test-icon">!</span>}
-                    data-testid="status"
-                />
-            </TableWrapper>
-        );
-
-        expect(screen.getByTestId('test-icon')).toBeInTheDocument();
     });
 });

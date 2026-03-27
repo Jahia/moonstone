@@ -1,7 +1,7 @@
 import {dataTable, dataColumnsUser, getStatus} from '~/data/dataTable';
 import type {DataUser, DataUserKeys} from '~/data/dataTable';
 import type {Meta, StoryObj} from '@storybook/react';
-import {DataTable, TableRow, TableCellActions, TableCellStatus} from './index';
+import {DataTable, TableRow, TableCellActions, TableCellStatus, Table} from './index';
 import {useState} from 'react';
 import {Button} from '~/components';
 import {Visibility, Edit, Delete, MoreVert} from '~/icons';
@@ -217,12 +217,11 @@ export const AllFeaturesTable: Story = {
                     >
                         {renderCells({
                             before: (
-                                <TableCellStatus
-                                    color={getStatus(row.original.status).color}
-                                    iconStart={getStatus(row.original.status).iconStart}
-                                    title={row.original.status}
-                                    text={getStatus(row.original.status).text}
-                                />
+                                <TableCellStatus color={getStatus(row.original.status).color}>
+                                    <>
+                                        {getStatus(row.original.status).iconStart} {getStatus(row.original.status).text}
+                                    </>
+                                </TableCellStatus>
                             ),
                             after: (
                                 <TableCellActions
