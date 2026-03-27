@@ -188,12 +188,15 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
     // Helper to filter cells/headers by type using column metadata
     const filterByColumnType = useCallback(<V extends {column: {columnDef: {meta?: unknown}}}>(items: V[]) => {
+        const getCustomColumnType = (item: V): CustomColumnType | undefined =>
+            (item.column.columnDef.meta as {customColumnType?: CustomColumnType} | undefined)?.customColumnType;
+
         const isCustomColumn = (item: V, type: CustomColumnType) =>
-            item.column.columnDef.meta?.customColumnType === type;
+            getCustomColumnType(item) === type;
 
         return {
             before: items.filter(item => isCustomColumn(item, 'before')),
-            data: items.filter(item => !item.column.columnDef.meta?.customColumnType),
+            data: items.filter(item => !getCustomColumnType(item)),
             after: items.filter(item => isCustomColumn(item, 'after'))
         };
     }, []);

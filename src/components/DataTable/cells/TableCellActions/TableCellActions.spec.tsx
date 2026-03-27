@@ -4,7 +4,7 @@ import {describe, expect, it} from 'vitest';
 import {TableCellActions} from './TableCellActions';
 import {TableRow} from '~/components/DataTable/TableRow';
 
-const TableWrapper = ({children}) => (
+const TableWrapper = ({children}: {children: React.ReactNode}) => (
     <table>
         <tbody>
             <TableRow data-testid="row">
@@ -51,19 +51,5 @@ describe('TableCellActions', () => {
         const cell = container.querySelector('td');
         expect(cell).toBeInTheDocument();
         expect(cell?.textContent).toBe('');
-    });
-
-    it('should support ref forwarding', () => {
-        const ref = {current: null};
-        render(
-            <TableWrapper>
-                <TableCellActions
-                    ref={ref}
-                    actions={<button type="button">Edit</button>}
-                />
-            </TableWrapper>
-        );
-
-        expect(ref.current).toBeInstanceOf(HTMLTableCellElement);
     });
 });

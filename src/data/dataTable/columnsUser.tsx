@@ -32,10 +32,10 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
     {
         key: 'status',
         label: 'Status',
-        render: value => (
+        render: (value, row) => (
             <Chip
                 label={value as string}
-                color={getStatus(value).color}
+                color={getStatus(row.status).chipColor}
             />
         ),
         isSortable: true,
