@@ -1,5 +1,9 @@
 $tree-offset: -20px; // chevron size (16px) + gap (4px)
 
+.moonstone-tableStructuredCell {
+    padding: 0 var(--spacing-large);
+}
+
 .moonstone-tableStructuredCell_expandable {
     gap: var(--spacing-nano);
 

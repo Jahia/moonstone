@@ -9,7 +9,7 @@ import {
 
 import type {ExpandedState, Row} from '@tanstack/react-table';
 import React, {useState, useEffect, useMemo, useCallback, useRef} from 'react';
-
+import clsx from 'clsx';
 import {useTableSelection, useTableSorting, useTablePagination} from '~/hooks';
 import type {DataTableProps, CustomColumnMeta, DefaultRenderOptions} from './DataTable.types';
 import {Checkbox} from '~/components';
@@ -254,6 +254,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                     depth={row.depth}
                                     isExpandable={row.getCanExpand()}
                                     isExpanded={row.getIsExpanded()}
+                                    isScrollable={meta?.isScrollable}
                                     onToggleExpand={row.getToggleExpandedHandler()}
                                 >
                                     {cellContent}
@@ -336,7 +337,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                 )}
 
                                 {/* Data column headers */}
-                                {dataHeaders.map(header => {
+                                {dataHeaders.map((header, index) => {
                                     const meta = header.column.columnDef.meta as CustomColumnMeta | undefined;
                                     const isColumnSortable = enableSorting && (meta?.isSortable ?? false);
                                     const alignment = meta?.align ?? 'left';
@@ -346,6 +347,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                         <TableHeadCell
                                             key={header.id}
                                             width={meta?.width}
+                                            className={clsx({'moonstone-tableHeadCell_structured': isStructured && index === 0})}
                                             sorting={isColumnSortable ? {
                                                 direction: columnSortDirection === 'desc' ? 'descending' : 'ascending',
                                                 isActive: Boolean(columnSortDirection)

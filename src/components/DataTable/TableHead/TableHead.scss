@@ -4,6 +4,10 @@
     background-color: var(--color-white);
 }
 
+.moonstone-tableHeadCell_structured {
+    padding: 0 var(--spacing-large);
+}
+
 .moonstone-tableHead_sticky {
     position: sticky;
     top: 0;

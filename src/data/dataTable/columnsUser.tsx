@@ -1,5 +1,5 @@
 import type {DataTableColumn} from '~/components/DataTable/DataTable.types';
-import {Chip} from '~/components';
+import {Chip, Typography} from '~/components';
 import {Person} from '~/icons';
 import {getStatus} from '~/data/dataTable/utils';
 import {numberColumn, dateColumn, stringColumn} from '~/utils/dataTable';
@@ -25,7 +25,7 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
         render: (value, row) => (
             <>
                 <Person/>
-                {`${value} ${row.lastName}`}
+                <Typography isNowrap variant="body">{`${value} ${row.lastName}`}</Typography>
             </>
         )
     },
