@@ -1,6 +1,7 @@
 import React from 'react';
 import type {Row} from '@tanstack/react-table';
 import type {PaginationProps as ComponentPaginationProps} from '~/components/Pagination';
+import type {TableCellProps} from '~/components/DataTable/cells/TableCell.types';
 
 export type SubRowKey = 'subRows';
 
@@ -13,6 +14,7 @@ export type CustomColumnMeta = {
     align?: 'left' | 'center' | 'right';
     width?: string;
     isScrollable?: boolean;
+    cellProps?: React.TdHTMLAttributes<HTMLTableCellElement>;
 };
 
 export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children' | 'className'> & {
@@ -76,6 +78,11 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
      * @default false
      */
     isScrollable?: boolean;
+
+    /**
+     * Custom HTML attributes added to TableCell or TableStructuredCell
+     */
+    cellProps?: React.TdHTMLAttributes<HTMLTableCellElement>;
 };
 
 export type DataTableBaseProps<T extends NonNullable<unknown>> = {
@@ -154,6 +161,8 @@ export type SelectionProps =
           /** Callback when selection changes */
           onChangeSelection: (selection: string[]) => void;
           defaultSelection?: never;
+          /** Custom HTML attributes added to the selection TableCell */
+          selectionCellProps?: Omit<TableCellProps, 'children' | 'width' | 'component'>;
       }
     | {
           enableSelection: true;
@@ -162,12 +171,15 @@ export type SelectionProps =
           /** Optional callback to observe selection changes */
           onChangeSelection?: (selection: string[]) => void;
           selection?: never;
+          /** Custom HTML attributes added to the selection TableCell */
+          selectionCellProps?: Omit<TableCellProps, 'children' | 'width' | 'component'>;
       }
     | {
           enableSelection?: false;
           selection?: never;
           defaultSelection?: never;
           onChangeSelection?: never;
+          selectionCellProps?: never;
       };
 
 export type DefaultRenderOptions = {

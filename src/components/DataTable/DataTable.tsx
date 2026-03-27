@@ -49,6 +49,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     defaultSelection = [],
     renderRow,
     onClickTableHeadCell,
+    selectionCellProps,
     // Pagination props
     enablePagination = false,
     currentPage,
@@ -229,7 +230,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
                     {/* Selection checkbox cell */}
                     {enableSelection && (
-                        <TableCell width="auto">
+                        <TableCell width="auto" {...selectionCellProps}>
                             <Checkbox
                                 checked={row.getIsSelected()}
                                 onChange={row.getToggleSelectedHandler()}
@@ -249,6 +250,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             return (
                                 <TableStructuredCell
                                     key={cell.id}
+                                    {...meta?.cellProps}
                                     align={meta?.align ?? 'left'}
                                     width={meta?.width}
                                     depth={row.depth}
@@ -265,6 +267,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                         return (
                             <TableCell
                                 key={cell.id}
+                                {...meta?.cellProps}
                                 align={meta?.align}
                                 width={meta?.width}
                                 isScrollable={meta?.isScrollable}

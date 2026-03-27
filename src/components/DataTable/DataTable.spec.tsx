@@ -317,6 +317,64 @@ describe('DataTable', () => {
         expect(nameHeader).not.toHaveStyle({width: '200px'});
     });
 
+    it('should apply cellProps to regular cells', () => {
+        const columnsWithCellProps = [
+            {
+                key: 'name',
+                label: 'Name',
+                cellProps: {'data-testid': 'test-cell', className: 'custom-class'},
+                ...stringColumn((row: TestData) => row.name)
+            },
+            {
+                key: 'age',
+                label: 'Age',
+                ...numberColumn((row: TestData) => row.age)
+            }
+        ] as const;
+
+        render(
+            <DataTable<TestData>
+                data={data}
+                columns={columnsWithCellProps}
+                primaryKey="id"
+            />
+        );
+
+        const nameCells = screen.getAllByTestId('test-cell');
+        expect(nameCells).toHaveLength(data.length);
+        nameCells.forEach(cell => {
+            expect(cell).toHaveClass('custom-class');
+        });
+    });
+
+    it('should apply cellProps to structured cells', () => {
+        const columnsWithCellProps = [
+            {
+                key: 'name',
+                label: 'Name',
+                cellProps: {'data-testid': 'name-cell'},
+                ...stringColumn((row: TestData) => row.name)
+            },
+            {
+                key: 'age',
+                label: 'Age',
+                ...numberColumn((row: TestData) => row.age)
+            }
+        ] as const;
+
+        render(
+            <DataTable<TestData>
+                isStructured
+                data={structuredData}
+                columns={columnsWithCellProps}
+                primaryKey="id"
+            />
+        );
+
+        const nameCells = screen.getAllByTestId('name-cell');
+        expect(nameCells.length).toBeGreaterThan(0);
+    });
+
     it('should display controlled selection from selection prop', () => {
         render(
             <DataTable<TestData>
