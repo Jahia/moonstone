@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/react';
 import {describe, expect, it} from 'vitest';
 import {TableCellStatus} from './TableCellStatus';
 
-const TableWrapper = ({children}: {children: React.ReactNode}) => (
+const TableWrapper = ({children}: {readonly children: React.ReactNode}) => (
     <table>
         <tbody>
             <tr>

@@ -4,7 +4,7 @@ import {describe, expect, it} from 'vitest';
 import {TableCellActions} from './TableCellActions';
 import {TableRow} from '~/components/DataTable/TableRow';
 
-const TableWrapper = ({children}: {children: React.ReactNode}) => (
+const TableWrapper = ({children}: {readonly children: React.ReactNode}) => (
     <table>
         <tbody>
             <TableRow data-testid="row">
