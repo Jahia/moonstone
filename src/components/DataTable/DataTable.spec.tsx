@@ -267,10 +267,10 @@ describe('DataTable', () => {
             />
         );
 
-        await user.click(document.querySelector('[aria-expanded="true"]'));
+        await user.click(screen.getByText('Parent'));
         expect(screen.queryByText('Child')).not.toBeInTheDocument();
 
-        await user.click(document.querySelector('[aria-expanded="true"]'));
+        await user.click(screen.getByText('Parent'));
         expect(screen.queryByText('Child')).toBeInTheDocument();
     });
 

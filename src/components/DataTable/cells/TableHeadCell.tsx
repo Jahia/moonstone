@@ -7,7 +7,6 @@ import type {TableHeadCellProps} from './TableHeadCell.types';
 export const TableHeadCell = ({
     width,
     align = 'left',
-    verticalAlign = 'middle',
     className,
     children,
     sorting,
@@ -15,13 +14,9 @@ export const TableHeadCell = ({
     ...props
 }: TableHeadCellProps) => {
     const isSortable = Boolean(sorting);
-    const isActive = sorting?.isActive ?? false;
+    const isSortActive = (isSortable && sorting?.isActive) ?? false;
 
-    const SortIcon = isSortable ?
-        (sorting?.direction === 'descending' ? ArrowDown : ArrowUp) :
-        null;
-
-    const ariaSort = isSortable && isActive ? sorting?.direction : undefined;
+    const SortIcon = sorting?.direction === 'descending' ? ArrowDown : ArrowUp;
 
     return (
         <TableCell
@@ -29,23 +24,20 @@ export const TableHeadCell = ({
             component="th"
             width={width}
             align={align}
-            verticalAlign={verticalAlign}
-            className={clsx('moonstone-tableHeadCell', className)}
-            aria-sort={ariaSort}
+            className={clsx('moonstone-tableHeadCell', {'moonstone-tableHeadCell_sortable': isSortable}, className)}
+            aria-sort={isSortActive ? sorting?.direction : undefined}
             onClick={onClick}
         >
-            <span className="flexRow_nowrap alignCenter">
-                {children}
-                {SortIcon && (
-                    <SortIcon
-                        aria-hidden="true"
-                        className={clsx(
-                            'moonstone-tableHeadCell_sort',
-                            isActive && 'moonstone-tableHeadCell_sortActive'
-                        )}
-                    />
-                )}
-            </span>
+            {children}
+            {isSortable && (
+                <SortIcon
+                    aria-hidden="true"
+                    className={clsx(
+                        {'moonstone-tableHeadCell_sort': !isSortActive},
+                        {'moonstone-tableHeadCell_sortActive': isSortActive}
+                    )}
+                />
+            )}
         </TableCell>
     );
 };

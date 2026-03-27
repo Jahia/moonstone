@@ -34,7 +34,7 @@ export const Default: Story = {
 export const Image: Story = {
     args: {
         ...Default.args,
-        thumbnail: 'https://picsum.photos/100/300',
+        thumbnail: 'https://picsum.photos/seed/moonstone/100/300',
         thumbnailAlt: 'preview-img',
         thumbnailType: 'preview',
         information: 'more information',

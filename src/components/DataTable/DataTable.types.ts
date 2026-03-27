@@ -12,6 +12,7 @@ export type CustomColumnMeta = {
     isSortable?: boolean;
     align?: 'left' | 'center' | 'right';
     width?: string;
+    isScrollable?: boolean;
 };
 
 export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children' | 'className'> & {
@@ -69,6 +70,12 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
      * When undefined, the column takes all available space.
      */
     width?: string;
+
+    /**
+     * Whether the cell content is scrollable on hover
+     * @default false
+     */
+    isScrollable?: boolean;
 };
 
 export type DataTableBaseProps<T extends NonNullable<unknown>> = {

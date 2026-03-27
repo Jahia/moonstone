@@ -264,8 +264,9 @@ export const DataTable = <T extends NonNullable<unknown>>({
                         return (
                             <TableCell
                                 key={cell.id}
-                                align={meta?.align ?? 'left'}
+                                align={meta?.align}
                                 width={meta?.width}
+                                isScrollable={meta?.isScrollable}
                             >
                                 {cellContent}
                             </TableCell>

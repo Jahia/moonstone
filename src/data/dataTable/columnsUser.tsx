@@ -20,11 +20,12 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
     {
         key: 'firstName',
         label: 'User',
+        isScrollable: true,
         ...stringColumn<DataUser>(row => row.firstName),
         render: (value, row) => (
             <>
                 <Person/>
-                {value} {row.lastName}
+                {`${value} ${row.lastName}`}
             </>
         )
     },
@@ -44,6 +45,7 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
     {
         key: 'progress',
         label: 'Progress',
+        isScrollable: true,
         ...numberColumn(row => row.progress)
     },
     {

@@ -2,16 +2,16 @@ import type {DataUser} from './columnsUser';
 
 export const dataTable: DataUser[] = [
     {
-        firstName: 'Walter',
-        lastName: 'White',
+        firstName: 'Walter Hartwell White the Great Heisenberg',
+        lastName: 'White-McFarlane-Johnson-Williams',
         age: 52,
         status: 'published',
-        progress: 99,
+        progress: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999,
         date: new Date('2024-01-15'),
         subRows: [
             {
-                firstName: 'Jesse',
-                lastName: 'Pinkman',
+                firstName: 'Jesse Bruce Pinkman the Blue Sky Master',
+                lastName: 'Pinkman-Rodriguez-Hernandez',
                 age: 27,
                 status: 'modified',
                 progress: 75,
@@ -37,7 +37,7 @@ export const dataTable: DataUser[] = [
             },
             {
                 firstName: 'Skyler',
-                lastName: 'White',
+                lastName: 'White White White White White White White White White White White White White',
                 age: 40,
                 status: 'published',
                 progress: 85,
@@ -46,8 +46,8 @@ export const dataTable: DataUser[] = [
         ]
     },
     {
-        firstName: 'Jon',
-        lastName: 'Snow',
+        firstName: 'Jon Aegon Targaryen Snow the King in the North',
+        lastName: 'Snow-Stark-Targaryen',
         age: 24,
         status: 'published',
         progress: 85,
