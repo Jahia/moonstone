@@ -44,6 +44,11 @@ describe('renderNumber', () => {
         expect(renderNumber({value: 'not a number' as unknown as number})).toBeNull();
     });
 
+    it('should format bigint with en-US locale', () => {
+        render(<>{renderNumber({value: 9007199254740992n, locale: 'en-US'})}</>);
+        expect(screen.getByText('9,007,199,254,740,992')).toBeInTheDocument();
+    });
+
     it('should apply minimumFractionDigits option', () => {
         render(
             <>{renderNumber({

@@ -8,7 +8,7 @@ export type LocaleOptions = {
     locale?: LocaleProp;
     localeOptions?: Intl.DateTimeFormatOptions;
 } | {
-    value: number | null | undefined;
+    value: number | bigint | null | undefined;
     locale?: LocaleProp;
     localeOptions?: Intl.NumberFormatOptions;
 };
@@ -23,14 +23,14 @@ export const renderString = (value: string): React.ReactNode => {
 };
 
 export const renderNumber = (
-    {value, locale, localeOptions}: Extract<LocaleOptions, { value: number | null | undefined }>
+    {value, locale, localeOptions}: Extract<LocaleOptions, { value: number | bigint }>
 ): React.ReactNode => {
     if (value === null || value === undefined) {
         return null;
     }
 
-    if (typeof value !== 'number') {
-        console.warn('renderNumber expects a number, received:', typeof value, value);
+    if (typeof value !== 'number' && typeof value !== 'bigint') {
+        console.warn('renderNumber expects a number or bigint, received:', typeof value, value);
         return null;
     }
 
