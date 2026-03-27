@@ -11,7 +11,6 @@ export type DataUser = {
     status: 'published' | 'deleted' | 'modified' | 'new' | 'unpublished';
     progress: number;
     date: Date;
-    // Chips?: string[];
     subRows?: DataUser[];
 };
 
@@ -25,7 +24,7 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
         render: (value, row) => (
             <>
                 <Person/>
-                {row.firstName} {row.lastName}
+                {value} {row.lastName}
             </>
         )
     },

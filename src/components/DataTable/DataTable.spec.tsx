@@ -602,10 +602,7 @@ describe('DataTable custom cells', () => {
                     <TableRow key={row.id}>
                         {defaultRender({
                             before: (
-                                <TableCellStatus
-                                    color="success"
-                                    text="Test"
-                                />
+                                <TableCellStatus color="success">test</TableCellStatus>
                             )
                         })}
                     </TableRow>

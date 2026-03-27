@@ -1,6 +1,5 @@
 import React from 'react';
 import clsx from 'clsx';
-import {Typography} from '~/components';
 import {TableCell} from '../TableCell';
 import './TableCellStatus.scss';
 import type {TableCellStatusProps} from './TableCellStatus.types';

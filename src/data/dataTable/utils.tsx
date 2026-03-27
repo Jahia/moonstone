@@ -1,10 +1,10 @@
 import type {ChipProps} from '~/components/Chip/Chip.types';
-import type { TableCellStatusProps } from '~/components/DataTable';
+import type {TableCellStatusProps} from '~/components/DataTable';
 import {Edit, CloudCheck, NoCloud, Delete} from '~/icons';
 import type {DataUser} from './columnsUser';
 
 type getStatusReturn = {
-    color:  NonNullable<TableCellStatusProps['color']>;
+    color: NonNullable<TableCellStatusProps['color']>;
     chipColor: NonNullable<ChipProps['color']>;
     iconStart?: React.ReactNode;
     text: string;
