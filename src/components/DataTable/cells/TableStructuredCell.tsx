@@ -18,7 +18,7 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
             depth,
             isExpandable,
             isExpanded,
-            isScrollable = false,
+            isScrollable,
             onToggleExpand,
             ...props
         },
