@@ -5,6 +5,7 @@ import {getStatus} from '~/data/dataTable/utils';
 import {numberColumn, dateColumn, stringColumn} from '~/utils/dataTable';
 
 export type DataUser = {
+    id: string;
     firstName: string;
     lastName: string;
     age: number;

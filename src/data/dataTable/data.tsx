@@ -2,6 +2,7 @@ import type {DataUser} from './columnsUser';
 
 export const dataTable: DataUser[] = [
     {
+        id: '1',
         firstName: 'Walter Hartwell White the Great Heisenberg',
         lastName: 'White-McFarlane-Johnson-Williams',
         age: 52,
@@ -10,6 +11,7 @@ export const dataTable: DataUser[] = [
         date: new Date('2024-01-15'),
         subRows: [
             {
+                id: '2',
                 firstName: 'Jesse Bruce Pinkman the Blue Sky Master',
                 lastName: 'Pinkman-Rodriguez-Hernandez',
                 age: 27,
@@ -18,6 +20,7 @@ export const dataTable: DataUser[] = [
                 date: new Date('2024-06-10'),
                 subRows: [
                     {
+                        id: '3',
                         firstName: 'Badger',
                         lastName: 'Unknown',
                         age: 35,
@@ -26,6 +29,7 @@ export const dataTable: DataUser[] = [
                         date: new Date('2024-07-01')
                     },
                     {
+                        id: '4',
                         firstName: 'Skinny',
                         lastName: 'Pete',
                         age: 32,
@@ -36,6 +40,7 @@ export const dataTable: DataUser[] = [
                 ]
             },
             {
+                id: '5',
                 firstName: 'Skyler',
                 lastName: 'White White White White White White White White White White White White White',
                 age: 40,
@@ -46,6 +51,7 @@ export const dataTable: DataUser[] = [
         ]
     },
     {
+        id: '6',
         firstName: 'Jon Aegon Targaryen Snow the King in the North',
         lastName: 'Snow-Stark-Targaryen',
         age: 24,
@@ -54,6 +60,7 @@ export const dataTable: DataUser[] = [
         date: new Date('2024-03-15'),
         subRows: [
             {
+                id: '7',
                 firstName: 'Samwell',
                 lastName: 'Tarly',
                 age: 28,
@@ -62,6 +69,7 @@ export const dataTable: DataUser[] = [
                 date: new Date('2024-03-20'),
                 subRows: [
                     {
+                        id: '8',
                         firstName: 'Gilly',
                         lastName: 'Tarly',
                         age: 22,
@@ -72,6 +80,7 @@ export const dataTable: DataUser[] = [
                 ]
             },
             {
+                id: '9',
                 firstName: 'Ghost',
                 lastName: 'Direwolf',
                 age: 5,
@@ -82,6 +91,7 @@ export const dataTable: DataUser[] = [
         ]
     },
     {
+        id: '10',
         firstName: 'Eleven',
         lastName: 'Hopper',
         age: 15,
@@ -90,6 +100,7 @@ export const dataTable: DataUser[] = [
         date: new Date('2024-01-20')
     },
     {
+        id: '11',
         firstName: 'Thomas',
         lastName: 'Shelby',
         age: 34,
@@ -98,6 +109,7 @@ export const dataTable: DataUser[] = [
         date: new Date('2024-02-10'),
         subRows: [
             {
+                id: '12',
                 firstName: 'Arthur',
                 lastName: 'Shelby',
                 age: 38,
@@ -106,6 +118,7 @@ export const dataTable: DataUser[] = [
                 date: new Date('2024-02-12'),
                 subRows: [
                     {
+                        id: '13',
                         firstName: 'John',
                         lastName: 'Shelby',
                         age: 35,
@@ -114,6 +127,7 @@ export const dataTable: DataUser[] = [
                         date: new Date('2024-02-13')
                     },
                     {
+                        id: '14',
                         firstName: 'Finn',
                         lastName: 'Shelby',
                         age: 17,
@@ -124,6 +138,7 @@ export const dataTable: DataUser[] = [
                 ]
             },
             {
+                id: '15',
                 firstName: 'Polly',
                 lastName: 'Gray',
                 age: 45,
@@ -132,6 +147,7 @@ export const dataTable: DataUser[] = [
                 date: new Date('2024-02-15'),
                 subRows: [
                     {
+                        id: '16',
                         firstName: 'Mikey',
                         lastName: 'Gray',
                         age: 22,
@@ -144,6 +160,7 @@ export const dataTable: DataUser[] = [
         ]
     },
     {
+        id: '17',
         firstName: 'Tony',
         lastName: 'Soprano',
         age: 47,
@@ -152,6 +169,7 @@ export const dataTable: DataUser[] = [
         date: new Date('2024-01-10'),
         subRows: [
             {
+                id: '18',
                 firstName: 'Christopher',
                 lastName: 'Moltisanti',
                 age: 30,
@@ -160,6 +178,7 @@ export const dataTable: DataUser[] = [
                 date: new Date('2024-01-11'),
                 subRows: [
                     {
+                        id: '19',
                         firstName: 'Paulie',
                         lastName: 'Walnuts',
                         age: 55,
@@ -168,6 +187,7 @@ export const dataTable: DataUser[] = [
                         date: new Date('2024-01-12')
                     },
                     {
+                        id: '20',
                         firstName: 'Silvio',
                         lastName: 'Dante',
                         age: 50,
@@ -178,6 +198,7 @@ export const dataTable: DataUser[] = [
                 ]
             },
             {
+                id: '21',
                 firstName: 'Bobby',
                 lastName: 'Baccalieri',
                 age: 42,
@@ -188,6 +209,7 @@ export const dataTable: DataUser[] = [
         ]
     },
     {
+        id: '22',
         firstName: 'Rick',
         lastName: 'Grimes',
         age: 42,
@@ -196,6 +218,7 @@ export const dataTable: DataUser[] = [
         date: new Date('2024-04-05')
     },
     {
+        id: '23',
         firstName: 'Daenerys',
         lastName: 'Targaryen',
         age: 23,
@@ -204,6 +227,7 @@ export const dataTable: DataUser[] = [
         date: new Date('2024-05-15')
     },
     {
+        id: '24',
         firstName: 'Geralt',
         lastName: 'of Rivia',
         age: 100,
@@ -212,6 +236,7 @@ export const dataTable: DataUser[] = [
         date: new Date('2024-06-20')
     },
     {
+        id: '25',
         firstName: 'Michael',
         lastName: 'Scott',
         age: 46,
@@ -220,6 +245,7 @@ export const dataTable: DataUser[] = [
         date: new Date('2024-07-01')
     },
     {
+        id: '26',
         firstName: 'Tyrion',
         lastName: 'Lannister',
         age: 38,
@@ -228,6 +254,7 @@ export const dataTable: DataUser[] = [
         date: new Date('2024-08-12')
     },
     {
+        id: '27',
         firstName: 'Sherlock',
         lastName: 'Holmes',
         age: 35,
@@ -236,6 +263,7 @@ export const dataTable: DataUser[] = [
         date: new Date('2024-09-25')
     },
     {
+        id: '28',
         firstName: 'Saul',
         lastName: 'Goodman',
         age: 48,
@@ -244,6 +272,7 @@ export const dataTable: DataUser[] = [
         date: new Date('2024-10-08')
     },
     {
+        id: '29',
         firstName: 'Arya',
         lastName: 'Stark',
         age: 18,

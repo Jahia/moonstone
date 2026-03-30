@@ -31,7 +31,7 @@ export const EmptyDataTable: Story = {
     args: {
         data: [],
         columns: dataColumnsUser,
-        primaryKey: 'firstName'
+        primaryKey: 'id'
     },
     name: 'Empty DataTable'
 };
@@ -43,7 +43,7 @@ export const BasicDataTable: Story = {
     args: {
         data: dataTable,
         columns: dataColumnsUser,
-        primaryKey: 'firstName'
+        primaryKey: 'id'
     },
     name: 'Basic DataTable'
 };
@@ -55,7 +55,7 @@ export const DefaultSortDataTable: Story = {
     args: {
         data: dataTable,
         columns: dataColumnsUser,
-        primaryKey: 'firstName',
+        primaryKey: 'id',
         enableSorting: true,
         defaultSortBy: 'progress',
         defaultSortDirection: 'descending'
@@ -70,7 +70,7 @@ export const SelectableDataTable: Story = {
     args: {
         data: dataTable,
         columns: dataColumnsUser,
-        primaryKey: 'firstName',
+        primaryKey: 'id',
         enableSelection: true
     },
     name: 'Selectable Rows'
@@ -83,9 +83,9 @@ export const DefaultSelectionDataTable: Story = {
     args: {
         data: dataTable,
         columns: dataColumnsUser,
-        primaryKey: 'firstName',
+        primaryKey: 'id',
         enableSelection: true,
-        defaultSelection: ['Walter', 'Jon']
+        defaultSelection: ['1', '6']
     },
     name: 'Default Selection'
 };
@@ -97,7 +97,7 @@ export const StructuredViewDataTable: Story = {
     args: {
         data: dataTable,
         columns: dataColumnsUser,
-        primaryKey: 'firstName',
+        primaryKey: 'id',
         isStructured: true
     },
     name: 'Structured View'
@@ -116,14 +116,14 @@ export const PaginationDataTable: Story = {
     },
     args: {
         columns: dataColumnsUser,
-        primaryKey: 'firstName'
+        primaryKey: 'id'
     },
     name: 'With Pagination (Structured)'
 };
 
 export const ControlledSelection: Story = {
     render: args => {
-        const [selection, setSelection] = useState<string[]>(['Walter', 'Jesse']);
+        const [selection, setSelection] = useState<string[]>(['1', '2']);
 
         return (
             <DataTable<DataUser>
@@ -140,7 +140,7 @@ export const ControlledSelection: Story = {
     args: {
         data: dataTable,
         columns: dataColumnsUser,
-        primaryKey: 'firstName'
+        primaryKey: 'id'
     },
     name: 'Controlled Selection'
 };
@@ -169,7 +169,7 @@ export const ControlledSorting: Story = {
     args: {
         data: dataTable,
         columns: dataColumnsUser,
-        primaryKey: 'firstName',
+        primaryKey: 'id',
         sortBy: 'progress'
     },
     name: 'Controlled Sorting'
@@ -198,7 +198,7 @@ export const ControlledPagination: Story = {
     args: {
         data: dataTable,
         columns: dataColumnsUser,
-        primaryKey: 'firstName'
+        primaryKey: 'id'
     },
     name: 'Controlled Pagination'
 };
@@ -243,12 +243,11 @@ export const AllFeaturesTable: Story = {
     args: {
         data: dataTable,
         columns: dataColumnsUser,
-        primaryKey: 'firstName',
+        primaryKey: 'id',
         enableSelection: true,
         isStructured: true,
         enableSorting: true,
-        defaultSelection: ['Walter', 'Jon'],
-        defaultSortBy: 'progress',
+        defaultSelection: ['1', '6'],
         defaultSortDirection: 'descending'
     },
     name: 'All Features Combined'
