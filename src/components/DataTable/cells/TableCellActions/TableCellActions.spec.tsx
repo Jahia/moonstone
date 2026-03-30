@@ -35,9 +35,8 @@ describe('TableCellActions', () => {
         );
         const button = screen.getByTestId('hover-action');
         expect(button).not.toBeVisible();
-        
     });
-    
+
     // This test doesn't work because :hover doesn't work in jsdom, we will reactivate it when we move to browser mode testing
     // it('should only display `actionsOnHover` when hovering', async () => {
     //     const user = userEvent.setup();

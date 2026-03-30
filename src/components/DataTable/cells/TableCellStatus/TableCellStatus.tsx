@@ -20,7 +20,7 @@ const TableCellStatusForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEle
             `moonstone-tableCellStatus_${color}`,
             className
         )}
-        component='td'
+        component="td"
         width="8px"
         {...props}
     >
