@@ -89,6 +89,11 @@ export const DataTable = <T extends NonNullable<unknown>>({
         pendingCustomAfter.current = false;
         setHasCustomBefore(false);
         setHasCustomAfter(false);
+        // Also clear measured header widths so stale values aren't reused
+        // when the data or primary key changes.
+        if (headerCellWidths.current) {
+            headerCellWidths.current = {};
+        }
     }, [data, primaryKey]);
 
     // Sync pending flags (written during render) to state after each render.
