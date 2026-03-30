@@ -25,8 +25,7 @@ describe('TableCellActions', () => {
         expect(screen.getByRole('button', {name: 'Edit'})).toBeVisible();
     });
 
-    it('should only display `actionsOnHover` when hovering', async () => {
-        // Const user = userEvent.setup();
+    it('should not display `actionsOnHover` by default', async () => {
         render(
             <TableWrapper>
                 <TableCellActions
@@ -36,10 +35,24 @@ describe('TableCellActions', () => {
         );
         const button = screen.getByTestId('hover-action');
         expect(button).not.toBeVisible();
-        // This part doesn't work because :hover doesn't work in jsdom, we will reactivate it when we move to browser mode testing
-        // screen.getByRole('row').hover();
-        // expect(button).toBeVisible();
+        
     });
+    
+    // This test doesn't work because :hover doesn't work in jsdom, we will reactivate it when we move to browser mode testing
+    // it('should only display `actionsOnHover` when hovering', async () => {
+    //     const user = userEvent.setup();
+    //     render(
+    //         <TableWrapper>
+    //             <TableCellActions
+    //                 actionsOnHover={<button data-testid="hover-action" type="button">Delete</button>}
+    //             />
+    //         </TableWrapper>
+    //     );
+
+    //     const button = screen.getByTestId('hover-action');
+    //     screen.getByRole('row').hover();
+    //     expect(button).toBeVisible();
+    // });
 
     it('should render empty when no actions provided', () => {
         const {container} = render(

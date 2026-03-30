@@ -7,11 +7,13 @@ import './TableCellActions.scss';
 const TableCellActionsForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellActionsProps> = (
     {
         actions,
-        actionsOnHover
+        actionsOnHover,
+        className,
+        ...props
     },
     ref
 ) => (
-    <TableCell ref={ref} align="right" className={clsx('flexRow_reverse', 'alignCenter', 'moonstone-tableCellActions')}>
+    <TableCell ref={ref} className={clsx('flexRow_reverse', 'alignCenter', 'moonstone-tableCellActions', className)} align="right" {...props}>
         {actionsOnHover && (
             <div className={clsx('flexRow_nowrap', 'alignCenter', 'moonstone-tableCellActions_displayHover')}>{actionsOnHover}</div>
         )}

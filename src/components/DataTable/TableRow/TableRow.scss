@@ -25,7 +25,7 @@ $background-highlight-hover: var(--color-accent_light40);
 
     &:focus-within,
     &:hover {
-        --background: #{$background-highlight-hover};
+        --background-row: #{$background-highlight-hover};
     }
 
     // .moonstone-checkbox_input {

@@ -1,3 +1,4 @@
+import React from 'react';
 import type {ChipProps} from '~/components/Chip/Chip.types';
 import type {TableCellStatusProps} from '~/components/DataTable';
 import {Edit, CloudCheck, NoCloud, Delete} from '~/icons';

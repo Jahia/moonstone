@@ -1,6 +1,7 @@
 import React from 'react';
+import type {TableCellProps} from '../TableCell.types';
 
-export type TableCellStatusProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'color'> & {
+export type TableCellStatusProps = Omit<TableCellProps, 'color' | 'children'> & {
     /**
      * Main status color.
      */

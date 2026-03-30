@@ -33,6 +33,7 @@
 
     border-left: 6px solid var(--tableCellStatus-bar);
 
+    &:focus-within,
     &:hover {
         .moonstone-tableCellStatus_panel {
             max-width: 500px;

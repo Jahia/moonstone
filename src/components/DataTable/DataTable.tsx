@@ -8,7 +8,7 @@ import {
 } from '@tanstack/react-table';
 
 import type {ExpandedState, Row} from '@tanstack/react-table';
-import React, {useState, useEffect, useMemo, useCallback, useRef} from 'react';
+import React, {useState, useEffect, useLayoutEffect, useMemo, useCallback, useRef} from 'react';
 import clsx from 'clsx';
 import {useTableSelection, useTableSorting, useTablePagination} from '~/hooks';
 import type {DataTableProps, CustomColumnMeta, DefaultRenderOptions} from './DataTable.types';
@@ -71,11 +71,42 @@ export const DataTable = <T extends NonNullable<unknown>>({
     const [hasCustomBefore, setHasCustomBefore] = useState(false);
     const [hasCustomAfter, setHasCustomAfter] = useState(false);
 
+    // Pending flags set during render; synced to state via useLayoutEffect to
+    // avoid calling setState during render (which triggers React warnings).
+    const pendingCustomBefore = useRef(false);
+    const pendingCustomAfter = useRef(false);
+
     // Store custom cell content
     const customCellsMap = useRef<Map<string, {
         before?: React.ReactNode;
         after?: React.ReactNode;
     }>>(new Map());
+
+    // Clear custom cell mappings when the underlying data or primary key changes
+    useEffect(() => {
+        customCellsMap.current.clear();
+        pendingCustomBefore.current = false;
+        pendingCustomAfter.current = false;
+        setHasCustomBefore(false);
+        setHasCustomAfter(false);
+    }, [data, primaryKey]);
+
+    // Sync pending flags (written during render) to state after each render.
+    // useLayoutEffect fires synchronously before the browser paints, so the
+    // follow-up re-render that adds the custom columns is invisible to the user.
+    useLayoutEffect(() => {
+        if (pendingCustomBefore.current !== hasCustomBefore) {
+            setHasCustomBefore(pendingCustomBefore.current);
+        }
+
+        if (pendingCustomAfter.current !== hasCustomAfter) {
+            setHasCustomAfter(pendingCustomAfter.current);
+        }
+
+        // Reset so the next render starts from a clean slate.
+        pendingCustomBefore.current = false;
+        pendingCustomAfter.current = false;
+    });
 
     // Store measured widths from first row's rendered cells for header alignment
     const headerCellWidths = useRef<{
@@ -211,13 +242,14 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     after: options?.after
                 });
 
-                // Track that we're using custom cells (triggers column re-creation)
-                if (options?.before && !hasCustomBefore) {
-                    setHasCustomBefore(true);
+                // Mark that custom cells are in use; state is updated via useLayoutEffect
+                // after the render completes to avoid calling setState during render.
+                if (options?.before) {
+                    pendingCustomBefore.current = true;
                 }
 
-                if (options?.after && !hasCustomAfter) {
-                    setHasCustomAfter(true);
+                if (options?.after) {
+                    pendingCustomAfter.current = true;
                 }
             }
 
@@ -282,7 +314,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 </>
             );
         },
-        [enableSelection, isStructured, hasCustomBefore, hasCustomAfter, filterByColumnType]
+        [enableSelection, isStructured, filterByColumnType]
     );
 
     const renderRowWithCustomization = useCallback(
@@ -330,7 +362,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
                                 {/* Selection header */}
                                 {enableSelection && (
-                                    <TableHeadCell width="52px">
+                                    <TableHeadCell width="auto" {...selectionCellProps}>
                                         <Checkbox
                                             checked={table.getIsAllRowsSelected()}
                                             indeterminate={table.getIsSomeRowsSelected()}
