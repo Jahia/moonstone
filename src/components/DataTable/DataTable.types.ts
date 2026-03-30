@@ -185,16 +185,21 @@ export type SelectionProps =
 export type DefaultRenderOptions = {
     /**
      * Custom cells to render before the data cells (selection + columns).
-     * The width will be automatically measured for header alignment.
+     * Each element in the array becomes its own column with automatic header alignment.
+     * The width of each column header is measured from the first rendered cell.
      */
-    before?: React.ReactNode;
+    before?: React.ReactNode[];
 
     /**
      * Custom cells to render after the data cells.
-     * The width will be automatically measured for header alignment.
+     * Each element in the array becomes its own column with automatic header alignment.
+     * The width of each column header is measured from the first rendered cell.
      */
-    after?: React.ReactNode;
+    after?: React.ReactNode[];
 };
+
+// Custom column metadata type
+export type CustomColumnType = 'before' | 'after';
 
 type RenderRowProps<T extends NonNullable<unknown>> = {
     /**

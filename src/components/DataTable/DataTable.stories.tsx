@@ -1,7 +1,7 @@
 import {dataTable, dataColumnsUser, getStatus} from '~/data/dataTable';
 import type {DataUser, DataUserKeys} from '~/data/dataTable';
 import type {Meta, StoryObj} from '@storybook/react';
-import {DataTable, TableRow, TableCellActions, TableCellStatus} from './index';
+import {DataTable, TableRow, TableCell, TableCellActions, TableCellStatus} from './index';
 import {useState} from 'react';
 import {Button} from '~/components';
 import {Visibility, Edit, Delete, MoreVert} from '~/icons';
@@ -111,7 +111,6 @@ export const PaginationDataTable: Story = {
                 enablePagination
                 isStructured
                 data={dataTable}
-                itemsPerPageOptions={[5, 10, 25]}
             />
         );
     },
@@ -179,7 +178,7 @@ export const ControlledSorting: Story = {
 export const ControlledPagination: Story = {
     render: args => {
         const [currentPage, setCurrentPage] = useState(1);
-        const [itemsPerPage, setItemsPerPage] = useState(5);
+        const [itemsPerPage, setItemsPerPage] = useState(10);
 
         return (
             <DataTable<DataUser>
@@ -191,7 +190,6 @@ export const ControlledPagination: Story = {
                 currentPage={currentPage}
                 itemsPerPage={itemsPerPage}
                 totalItems={args.data.length}
-                itemsPerPageOptions={[5, 10, 25]}
                 onPageChange={setCurrentPage}
                 onItemsPerPageChange={setItemsPerPage}
             />
@@ -216,14 +214,15 @@ export const AllFeaturesTable: Story = {
                         key={row.id}
                     >
                         {renderCells({
-                            before: (
+                            before: [
                                 <TableCellStatus color={getStatus(row.original.status).color}>
                                     <>
                                         {getStatus(row.original.status).iconStart} {getStatus(row.original.status).text}
                                     </>
                                 </TableCellStatus>
-                            ),
-                            after: (
+                            ],
+                            after: [
+                                <TableCell>test</TableCell>,
                                 <TableCellActions
                                     actionsOnHover={
                                         <>
@@ -234,7 +233,7 @@ export const AllFeaturesTable: Story = {
                                     }
                                     actions={<Button icon={<MoreVert/>} variant="ghost" aria-label="Actions"/>}
                                 />
-                            )
+                            ]
                         })}
                     </TableRow>
                 )}
