@@ -1,0 +1,38 @@
+.moonstone-timeInput {
+    display: inline-flex;
+    gap: var(--spacing-nano);
+    align-items: center;
+    width: auto;
+    max-width: 100%;
+}
+
+.moonstone-timeInput_12h {
+    width: auto;
+}
+
+.moonstone-timeInput_field {
+    width: 140px;
+}
+
+.moonstone-timeInput_12h .moonstone-timeInput_field {
+    width: 80px;
+}
+
+.moonstone-timeInput .moonstone-baseInput-element {
+    font-variant-numeric: tabular-nums;
+
+    letter-spacing: 0.02em;
+}
+
+.moonstone-timeInput .moonstone-baseInput_icon {
+    margin-right: var(--spacing-nano);
+}
+
+.moonstone-timeInput_meridiem {
+    flex-shrink: 0;
+    width: 88px;
+}
+
+.moonstone-timeInput_meridiem .moonstone-dropdown_container {
+    width: 100%;
+}

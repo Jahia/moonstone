@@ -1,0 +1,102 @@
+@use '../../../utils/index' as *;
+
+.moonstone-timezoneInput {
+    display: inline-block;
+    width: 100%;
+    max-width: 100%;
+}
+
+.moonstone-timezoneInput .moonstone-baseInput,
+.moonstone-timezoneInput .moonstone-baseInput-element {
+    cursor: pointer;
+}
+
+.moonstone-timezoneInput .moonstone-baseInput:has(input:read-only:not(:disabled)) {
+    border: var(--border-selector);
+    background-color: var(--color-light);
+    opacity: 1;
+}
+
+.moonstone-timezoneInput .moonstone-baseInput.moonstone-outlined:has(input:read-only:not(:disabled)):hover {
+    border: var(--border-selector_hover);
+}
+
+.moonstone-timezoneInput .moonstone-timezoneInput_trigger.moonstone-outlined.moonstone-focused:has(input:read-only:not(:disabled)),
+.moonstone-timezoneInput .moonstone-timezoneInput_trigger.moonstone-outlined.moonstone-opened:has(input:read-only:not(:disabled)),
+.moonstone-timezoneInput .moonstone-timezoneInput_trigger.moonstone-outlined.moonstone-focused:has(input:read-only:not(:disabled)):hover,
+.moonstone-timezoneInput .moonstone-timezoneInput_trigger.moonstone-outlined.moonstone-opened:has(input:read-only:not(:disabled)):hover {
+    border: var(--border-selector_active);
+}
+
+.moonstone-timezoneInput_chevron {
+    flex-shrink: 0;
+
+    color: var(--color-gray_dark60);
+
+    transition: transform 0.2s ease;
+}
+
+.moonstone-timezoneInput_chevron.moonstone-opened {
+    transform: rotate(180deg);
+}
+
+.moonstone-timezoneInput_menu {
+    padding: 0;
+}
+
+.moonstone-timezoneInput_menuContent {
+    min-width: 0;
+}
+
+.moonstone-timezoneInput_menuSearch {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+
+    padding: var(--spacing-small) var(--spacing-medium);
+
+    background-color: var(--color-light);
+}
+
+.moonstone-timezoneInput_groups {
+    padding-bottom: var(--spacing-nano);
+}
+
+.moonstone-timezoneInput_option {
+    list-style: none;
+}
+
+.moonstone-timezoneInput_optionContent {
+    display: flex;
+    gap: var(--spacing-small);
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+}
+
+.moonstone-timezoneInput_optionLabel {
+    min-width: 0;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.moonstone-timezoneInput_optionOffset {
+    @extend %variant-caption;
+
+    flex-shrink: 0;
+    padding: 0 var(--spacing-nano);
+
+    color: var(--color-gray_dark);
+
+    border-radius: var(--radius-selector);
+    background-color: var(--color-gray_light40);
+}
+
+.moonstone-timezoneInput_option.moonstone-selected .moonstone-timezoneInput_optionOffset {
+    color: var(--color-accent_dark);
+
+    background-color: var(--color-light);
+}

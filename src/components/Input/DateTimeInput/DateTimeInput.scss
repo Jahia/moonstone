@@ -1,0 +1,72 @@
+.moonstone-dateTimeInput {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-small);
+    align-items: center;
+    max-width: 100%;
+}
+
+.moonstone-dateTimeInput_dateField {
+    width: 138px;
+    min-width: 138px;
+}
+
+.moonstone-dateTimeInput_dateField .moonstone-baseInput:has(input:read-only:not(:disabled)) {
+    border: var(--border-selector);
+    background-color: var(--color-light);
+    cursor: pointer;
+    opacity: 1;
+}
+
+.moonstone-dateTimeInput_dateField .moonstone-baseInput.moonstone-outlined:has(input:read-only:not(:disabled)):hover {
+    border: var(--border-selector_hover);
+}
+
+.moonstone-dateTimeInput_timeField,
+.moonstone-dateTimeInput_timezoneField {
+    flex-shrink: 0;
+}
+
+.moonstone-dateTimeInput_timezoneField {
+    width: 190px;
+    min-width: 190px;
+}
+
+.moonstone-dateTimeInput_calendarMenu {
+    padding: 0;
+}
+
+.moonstone-dateTimeInput_calendar {
+    padding: var(--spacing-small);
+}
+
+.moonstone-dateTimeInput_calendar .rdp-root {
+    --rdp-accent-color: var(--color-accent);
+    --rdp-background-color: var(--background-selector);
+    --rdp-accent-background-color: var(--color-accent_light40);
+    --rdp-day-width: 32px;
+    --rdp-day-height: 32px;
+    --rdp-nav_button-width: 32px;
+    --rdp-nav_button-height: 32px;
+
+    margin: 0;
+}
+
+.moonstone-dateTimeInput_calendar .rdp-button {
+    border-radius: var(--radius-default);
+}
+
+.moonstone-dateTimeInput_calendar .rdp-selected .rdp-day_button,
+.moonstone-dateTimeInput_calendar .rdp-selected .rdp-button {
+    color: var(--color-white);
+
+    background-color: var(--color-accent);
+}
+
+.moonstone-dateTimeInput_calendarFooter {
+    display: flex;
+    justify-content: center;
+    padding-top: var(--spacing-small);
+
+    border-top: 1px solid var(--color-gray_light40);
+}
