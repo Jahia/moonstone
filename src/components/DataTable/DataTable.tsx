@@ -503,7 +503,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                     <TableHeadCell
                                         key={header.id}
                                         width={customHeaderWidths.before[index]}
-                                        style={customHeaderWidths.before[index] ? CUSTOM_HEADER_STYLE : undefined}
+                                        style={CUSTOM_HEADER_STYLE}
                                     />
                                 ))}
 
@@ -554,7 +554,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                     <TableHeadCell
                                         key={header.id}
                                         width={customHeaderWidths.after[index]}
-                                        style={customHeaderWidths.after[index] ? CUSTOM_HEADER_STYLE : undefined}
+                                        style={CUSTOM_HEADER_STYLE}
                                     />
                                 ))}
 

@@ -668,7 +668,7 @@ describe('DataTable custom cells', () => {
 
         // Header cells for custom columns should have padding: 0
         const headerRow = screen.getAllByRole('row')[0];
-        const firstHeader = within(headerRow).getAllByRole('columnheader')[0];
-        expect(firstHeader).toHaveStyle({padding: '0'});
+        const firstHeadCell = within(headerRow).getAllByRole('columnheader')[0];
+        expect(firstHeadCell).toHaveStyle({padding: '0'});
     });
 });
