@@ -143,11 +143,11 @@ describe('DataTable', () => {
                 renderRow={(row, defaultRender) => (
                     <TableRow key={row.id} data-testid={row.id}>
                         {defaultRender({
-                            after: [
+                            after: (
                                 <TableCell data-testid={`after-${row.id}`}>
                                     {row.original.name}
                                 </TableCell>
-                            ]
+                            )
                         })}
                     </TableRow>
                 )}
@@ -170,11 +170,11 @@ describe('DataTable', () => {
                 renderRow={(row, defaultRender) => (
                     <TableRow key={row.id} data-testid={row.id}>
                         {defaultRender({
-                            before: [
+                            before: (
                                 <TableCell data-testid={`before-${row.id}`}>
                                     {row.original.name}
                                 </TableCell>
-                            ]
+                            )
                         })}
                     </TableRow>
                 )}
@@ -213,16 +213,16 @@ describe('DataTable', () => {
                 renderRow={(row, defaultRender) => (
                     <TableRow key={row.id}>
                         {defaultRender({
-                            before: [
+                            before: (
                                 <TableCell data-testid={`before-${row.id}`}>
                                     {`before-${row.id}`}
                                 </TableCell>
-                            ],
-                            after: [
+                            ),
+                            after: (
                                 <TableCell data-testid={`after-${row.id}`}>
                                     {`after-${row.id}`}
                                 </TableCell>
-                            ]
+                            )
                         })}
                     </TableRow>
                 )}
@@ -659,9 +659,7 @@ describe('DataTable custom cells', () => {
                 renderRow={(row, defaultRender) => (
                     <TableRow key={row.id}>
                         {defaultRender({
-                            before: [
-                                <TableCellStatus color="success">test</TableCellStatus>
-                            ]
+                            before: <TableCellStatus color="success">test</TableCellStatus>
                         })}
                     </TableRow>
                 )}

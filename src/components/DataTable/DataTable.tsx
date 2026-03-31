@@ -6,7 +6,7 @@ import {
     getPaginationRowModel,
     flexRender
 } from '@tanstack/react-table';
-
+import {toNodeArray} from '~/utils/helpers';
 import type {ExpandedState, Row} from '@tanstack/react-table';
 import React, {useState, useEffect, useMemo, useCallback, useRef} from 'react';
 import clsx from 'clsx';
@@ -83,7 +83,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
     // Measured offsetWidths per position index, kept in state so that ResizeObserver updates trigger a re-render and headers stay aligned.
     const [customHeaderWidths, setCustomHeaderWidths] = useState<{ before: string[]; after: string[] }>({before: [], after: []});
-    const observersRef = useRef<{ before: (ResizeObserver | undefined)[]; after: (ResizeObserver | undefined)[] }>({before: [], after: []});
+    const observersRef = useRef<{ before:(ResizeObserver | undefined)[]; after: (ResizeObserver | undefined)[] }>({before: [], after: []});
 
     // Disconnect all observers on unmount.
     useEffect(() => () => {
@@ -319,18 +319,25 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
             // Store custom cell content from options
             if (options?.before !== undefined || options?.after !== undefined) {
+                const beforeCells = options?.before !== undefined ?
+                    toNodeArray(options.before) :
+                    undefined;
+                const afterCells = options?.after !== undefined ?
+                    toNodeArray(options.after) :
+                    undefined;
+
                 customCellsMap.current.set(row.id, {
-                    before: options?.before,
-                    after: options?.after
+                    before: beforeCells,
+                    after: afterCells
                 });
 
                 // Mark counts; state is updated after the render completes.
-                if (options?.before?.length) {
-                    pendingCustomBefore.current = options.before.length;
+                if (beforeCells?.length) {
+                    pendingCustomBefore.current = beforeCells.length;
                 }
 
-                if (options?.after?.length) {
-                    pendingCustomAfter.current = options.after.length;
+                if (afterCells?.length) {
+                    pendingCustomAfter.current = afterCells.length;
                 }
             }
 

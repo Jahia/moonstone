@@ -185,17 +185,19 @@ export type SelectionProps =
 export type DefaultRenderOptions = {
     /**
      * Custom cells to render before the data cells (selection + columns).
-     * Each element in the array becomes its own column with automatic header alignment.
-     * The width of each column header is measured from the first rendered cell.
+     * Each direct child becomes its own column with automatic header alignment.
+     * Pass a single element or a Fragment with multiple children:
+     * `before={<MyCell />}` or `before={<><CellA /><CellB /></>}`
      */
-    before?: React.ReactNode[];
+    before?: React.ReactNode;
 
     /**
      * Custom cells to render after the data cells.
-     * Each element in the array becomes its own column with automatic header alignment.
-     * The width of each column header is measured from the first rendered cell.
+     * Each direct child becomes its own column with automatic header alignment.
+     * Pass a single element or a Fragment with multiple children:
+     * `after={<MyCell />}` or `after={<><CellA /><CellB /></>}`
      */
-    after?: React.ReactNode[];
+    after?: React.ReactNode;
 };
 
 // Custom column metadata type

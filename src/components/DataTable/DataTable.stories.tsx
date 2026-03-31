@@ -214,26 +214,28 @@ export const AllFeaturesTable: Story = {
                         key={row.id}
                     >
                         {renderCells({
-                            before: [
+                            before: (
                                 <TableCellStatus color={getStatus(row.original.status).color}>
                                     <>
                                         {getStatus(row.original.status).iconStart} {getStatus(row.original.status).text}
                                     </>
                                 </TableCellStatus>
-                            ],
-                            after: [
-                                <TableCell>test</TableCell>,
-                                <TableCellActions
-                                    actionsOnHover={
-                                        <>
-                                            <Button icon={<Visibility/>} variant="ghost"/>
-                                            <Button icon={<Edit/>} variant="ghost"/>
-                                            <Button icon={<Delete/>} variant="ghost"/>
-                                        </>
-                                    }
-                                    actions={<Button icon={<MoreVert/>} variant="ghost" aria-label="Actions"/>}
-                                />
-                            ]
+                            ),
+                            after: (
+                                <>
+                                    <TableCell>test</TableCell>
+                                    <TableCellActions
+                                        actionsOnHover={
+                                            <>
+                                                <Button icon={<Visibility/>} variant="ghost"/>
+                                                <Button icon={<Edit/>} variant="ghost"/>
+                                                <Button icon={<Delete/>} variant="ghost"/>
+                                            </>
+                                        }
+                                        actions={<Button icon={<MoreVert/>} variant="ghost" aria-label="Actions"/>}
+                                    />
+                                </>
+                            )
                         })}
                     </TableRow>
                 )}
