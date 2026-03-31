@@ -200,9 +200,6 @@ export type DefaultRenderOptions = {
     after?: React.ReactNode;
 };
 
-// Custom column metadata type
-export type CustomColumnType = 'before' | 'after';
-
 type RenderRowProps<T extends NonNullable<unknown>> = {
     /**
      * Custom render function for rows (e.g. styling, wrapper).

@@ -11,7 +11,7 @@ import type {ExpandedState, Row} from '@tanstack/react-table';
 import React, {useState, useEffect, useMemo, useCallback, useRef} from 'react';
 import clsx from 'clsx';
 import {useTableSelection, useTableSorting, useTablePagination} from '~/hooks';
-import type {DataTableProps, CustomColumnMeta, CustomColumnType, DefaultRenderOptions} from './DataTable.types';
+import type {DataTableProps, CustomColumnMeta, DefaultRenderOptions} from './DataTable.types';
 import {Checkbox} from '~/components';
 import {
     Table,
@@ -67,19 +67,10 @@ export const DataTable = <T extends NonNullable<unknown>>({
     // Track how many custom cells are being used per position (0 = none).
     const [customBeforeCount, setCustomBeforeCount] = useState(0);
     const [customAfterCount, setCustomAfterCount] = useState(0);
-    // Define if any custom cells are used
-    const hasCustomBefore = customBeforeCount > 0;
-    const hasCustomAfter = customAfterCount > 0;
 
-    // Pending counts set during render; synced to state to avoid calling setState during render (which triggers React warnings).
+    // Pending counts written during render; synced to state post-render to avoid calling setState during render.
     const pendingCustomBefore = useRef(0);
     const pendingCustomAfter = useRef(0);
-
-    // Store custom cell content per row (arrays, one entry per column).
-    const customCellsMap = useRef<Map<string, {
-        before?: React.ReactNode[];
-        after?: React.ReactNode[];
-    }>>(new Map());
 
     // Measured offsetWidths per position index, kept in state so that ResizeObserver updates trigger a re-render and headers stay aligned.
     const [customHeaderWidths, setCustomHeaderWidths] = useState<{ before: string[]; after: string[] }>({before: [], after: []});
@@ -97,7 +88,6 @@ export const DataTable = <T extends NonNullable<unknown>>({
             return;
         }
 
-        customCellsMap.current.clear();
         pendingCustomBefore.current = 0;
         pendingCustomAfter.current = 0;
         setCustomBeforeCount(0);
@@ -126,9 +116,6 @@ export const DataTable = <T extends NonNullable<unknown>>({
         // Reset so the next render starts from a clean slate.
         pendingCustomBefore.current = 0;
         pendingCustomAfter.current = 0;
-
-        // Clear stale entries so the map never accumulates rows from previous pages.
-        customCellsMap.current.clear();
     });
 
     const {sorting, handleSortingChange} = useTableSorting({
@@ -155,67 +142,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
         totalItems
     });
 
-    const tableColumns = useMemo(() => {
-        const baseColumns = createTableColumns(columns);
-
-        if (!hasCustomBefore && !hasCustomAfter) {
-            return baseColumns;
-        }
-
-        // Helper to create a custom display column for a specific position and index
-        const createCustomColumn = (position: 'before' | 'after', index: number) => ({
-            id: `custom-${position}-${index}`,
-            header: (): null => null,
-            cell: ({row}: {readonly row: Row<T>}) => {
-                const content = customCellsMap.current.get(row.id)?.[position]?.[index];
-                if (!content) {
-                    return null;
-                }
-
-                // Attach a ResizeObserver to the first row's cell to measure its
-                // rendered offsetWidth (including any padding overrides applied by the
-                // component). The header cell uses that measured width with padding:0
-                // so its total flex size always matches the body cell.
-                if (row.index === 0 && React.isValidElement(content)) {
-                    return React.cloneElement(content as React.ReactElement, {
-                        ref: (node: HTMLElement | null) => {
-                            observersRef.current[position][index]?.disconnect();
-                            observersRef.current[position][index] = undefined;
-                            if (node) {
-                                const measure = () => {
-                                    const w = `${node.offsetWidth}px`;
-                                    setCustomHeaderWidths(prev => {
-                                        if (prev[position][index] === w) {
-                                            return prev;
-                                        }
-
-                                        const next = [...prev[position]];
-                                        next[index] = w;
-                                        return {...prev, [position]: next};
-                                    });
-                                };
-
-                                const observer = new ResizeObserver(measure);
-                                observer.observe(node);
-                                observersRef.current[position][index] = observer;
-                            }
-                        }
-                    });
-                }
-
-                return content;
-            },
-            meta: {
-                customColumnType: position as CustomColumnType
-            }
-        });
-
-        return [
-            ...Array.from({length: customBeforeCount}, (_, i) => createCustomColumn('before', i)),
-            ...baseColumns,
-            ...Array.from({length: customAfterCount}, (_, i) => createCustomColumn('after', i))
-        ];
-    }, [columns, hasCustomBefore, hasCustomAfter, customBeforeCount, customAfterCount]);
+    const tableColumns = useMemo(() => createTableColumns(columns), [columns]);
 
     const table = useReactTable({
         data,
@@ -249,161 +176,60 @@ export const DataTable = <T extends NonNullable<unknown>>({
         }
     }, [data, isStructured, table]);
 
-    // Helper to filter cells/headers by type using column metadata
-    const filterByColumnType = useCallback(<V extends {column: {columnDef: {meta?: unknown}}}>(items: V[]) => {
-        const getCustomColumnType = (item: V): CustomColumnType | undefined =>
-            (item.column.columnDef.meta as {customColumnType?: CustomColumnType} | undefined)?.customColumnType;
-
-        const isCustomColumn = (item: V, type: CustomColumnType) =>
-            getCustomColumnType(item) === type;
-
-        return {
-            before: items.filter(item => isCustomColumn(item, 'before')),
-            data: items.filter(item => !getCustomColumnType(item)),
-            after: items.filter(item => isCustomColumn(item, 'after'))
-        };
-    }, []);
-
     const renderRowContent = useCallback(
         (row: Row<T>, options?: DefaultRenderOptions) => {
-            // No renderRow means before/after can never be used: render cells directly.
-            if (!renderRow) {
-                return (
-                    <>
-                        {enableSelection && (
-                            <TableCell width="auto" {...selectionCellProps}>
-                                <Checkbox
-                                    checked={row.getIsSelected()}
-                                    onChange={row.getToggleSelectedHandler()}
-                                />
-                            </TableCell>
-                        )}
-                        {row.getVisibleCells().map((cell, index) => {
-                            const meta = cell.column.columnDef.meta as CustomColumnMeta | undefined;
-                            const isFirstColumn = index === 0;
-                            const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
+            const beforeCells = toNodeArray(options?.before);
+            const afterCells = toNodeArray(options?.after);
 
-                            if (isStructured && isFirstColumn) {
-                                return (
-                                    <TableStructuredCell
-                                        key={cell.id}
-                                        {...meta?.cellProps}
-                                        align={meta?.align ?? 'left'}
-                                        width={meta?.width}
-                                        depth={row.depth}
-                                        isExpandable={row.getCanExpand()}
-                                        isExpanded={row.getIsExpanded()}
-                                        isScrollable={meta?.isScrollable}
-                                        onToggleExpand={row.getToggleExpandedHandler()}
-                                    >
-                                        {cellContent}
-                                    </TableStructuredCell>
-                                );
-                            }
-
-                            return (
-                                <TableCell
-                                    key={cell.id}
-                                    {...meta?.cellProps}
-                                    align={meta?.align}
-                                    width={meta?.width}
-                                    isScrollable={meta?.isScrollable}
-                                >
-                                    {cellContent}
-                                </TableCell>
-                            );
-                        })}
-                    </>
-                );
+            // Track how many custom cells are present so the header can create matching placeholder cells.
+            if (beforeCells.length) {
+                pendingCustomBefore.current = beforeCells.length;
             }
 
-            // Store custom cell content from options
-            if (options?.before !== undefined || options?.after !== undefined) {
-                const beforeCells = options?.before !== undefined ?
-                    toNodeArray(options.before) :
-                    undefined;
-                const afterCells = options?.after !== undefined ?
-                    toNodeArray(options.after) :
-                    undefined;
+            if (afterCells.length) {
+                pendingCustomAfter.current = afterCells.length;
+            }
 
-                customCellsMap.current.set(row.id, {
-                    before: beforeCells,
-                    after: afterCells
+            // For the first row, attach a ResizeObserver so each header placeholder cell
+            // can match the measured offsetWidth of the body cell (which includes any
+            // padding overrides applied by the component, e.g. TableCellStatus sets padding: 0).
+            const withObserver = (node: React.ReactNode, position: 'before' | 'after', index: number): React.ReactNode => {
+                if (row.index !== 0 || !React.isValidElement(node)) {
+                    return node;
+                }
+
+                return React.cloneElement(node as React.ReactElement, {
+                    ref: (el: HTMLElement | null) => {
+                        observersRef.current[position][index]?.disconnect();
+                        observersRef.current[position][index] = undefined;
+                        if (el) {
+                            const measure = () => {
+                                const w = `${el.offsetWidth}px`;
+                                setCustomHeaderWidths(prev => {
+                                    if (prev[position][index] === w) {
+                                        return prev;
+                                    }
+
+                                    const next = [...prev[position]];
+                                    next[index] = w;
+                                    return {...prev, [position]: next};
+                                });
+                            };
+
+                            const observer = new ResizeObserver(measure);
+                            observer.observe(el);
+                            observersRef.current[position][index] = observer;
+                        }
+                    }
                 });
-
-                // Mark counts; state is updated after the render completes.
-                if (beforeCells?.length) {
-                    pendingCustomBefore.current = beforeCells.length;
-                }
-
-                if (afterCells?.length) {
-                    pendingCustomAfter.current = afterCells.length;
-                }
-            }
-
-            // If no before/after columns have been detected yet, render cells directly
-            if (!hasCustomBefore && !hasCustomAfter) {
-                return (
-                    <>
-                        {enableSelection && (
-                            <TableCell width="auto" {...selectionCellProps}>
-                                <Checkbox
-                                    checked={row.getIsSelected()}
-                                    onChange={row.getToggleSelectedHandler()}
-                                />
-                            </TableCell>
-                        )}
-                        {row.getVisibleCells().map((cell, index) => {
-                            const meta = cell.column.columnDef.meta as CustomColumnMeta | undefined;
-                            const isFirstColumn = index === 0;
-                            const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
-
-                            if (isStructured && isFirstColumn) {
-                                return (
-                                    <TableStructuredCell
-                                        key={cell.id}
-                                        {...meta?.cellProps}
-                                        align={meta?.align ?? 'left'}
-                                        width={meta?.width}
-                                        depth={row.depth}
-                                        isExpandable={row.getCanExpand()}
-                                        isExpanded={row.getIsExpanded()}
-                                        isScrollable={meta?.isScrollable}
-                                        onToggleExpand={row.getToggleExpandedHandler()}
-                                    >
-                                        {cellContent}
-                                    </TableStructuredCell>
-                                );
-                            }
-
-                            return (
-                                <TableCell
-                                    key={cell.id}
-                                    {...meta?.cellProps}
-                                    align={meta?.align}
-                                    width={meta?.width}
-                                    isScrollable={meta?.isScrollable}
-                                >
-                                    {cellContent}
-                                </TableCell>
-                            );
-                        })}
-                    </>
-                );
-            }
-
-            const {before: beforeCells, data: dataCells, after: afterCells} = filterByColumnType(row.getVisibleCells());
+            };
 
             return (
                 <>
-                    {/* Custom "before" cells - rendered first */}
-                    {beforeCells.map(cell => (
-                        <React.Fragment key={cell.id}>
-                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </React.Fragment>
+                    {beforeCells.map((cell, i) => (
+                        <React.Fragment key={(cell as React.ReactElement).key}>{withObserver(cell, 'before', i)}</React.Fragment>
                     ))}
 
-                    {/* Selection checkbox cell */}
                     {enableSelection && (
                         <TableCell width="auto" {...selectionCellProps}>
                             <Checkbox
@@ -413,15 +239,12 @@ export const DataTable = <T extends NonNullable<unknown>>({
                         </TableCell>
                     )}
 
-                    {/* Data columns */}
-                    {dataCells.map((cell, index) => {
+                    {row.getVisibleCells().map((cell, index) => {
                         const meta = cell.column.columnDef.meta as CustomColumnMeta | undefined;
                         const isFirstColumn = index === 0;
                         const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
-                        const showStructured = isStructured && isFirstColumn;
 
-                        // Use TableStructuredCell for first column in structured view
-                        if (showStructured) {
+                        if (isStructured && isFirstColumn) {
                             return (
                                 <TableStructuredCell
                                     key={cell.id}
@@ -452,16 +275,13 @@ export const DataTable = <T extends NonNullable<unknown>>({
                         );
                     })}
 
-                    {/* Custom "after" cells - rendered last */}
-                    {afterCells.map(cell => (
-                        <React.Fragment key={cell.id}>
-                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </React.Fragment>
+                    {afterCells.map((cell, i) => (
+                        <React.Fragment key={(cell as React.ReactElement).key}>{withObserver(cell, 'after', i)}</React.Fragment>
                     ))}
                 </>
             );
         },
-        [enableSelection, isStructured, filterByColumnType, hasCustomBefore, hasCustomAfter, renderRow]
+        [enableSelection, isStructured]
     );
 
     const renderRowWithCustomization = useCallback(
@@ -493,74 +313,69 @@ export const DataTable = <T extends NonNullable<unknown>>({
         <>
             <Table className={className} {...props}>
                 <TableHead>
-                    {table.getHeaderGroups().map(headerGroup => {
-                        const {before: beforeHeaders, data: dataHeaders, after: afterHeaders} = filterByColumnType(headerGroup.headers);
+                    {table.getHeaderGroups().map(headerGroup => (
+                        <TableRow key={headerGroup.id} className="moonstone-tableRow_header">
+                            {/* Custom "before" column headers */}
+                            {Array.from({length: customBeforeCount}, (_, i) => (
+                                <TableHeadCell
+                                    key={`custom-before-header-${i}`}
+                                    width={customHeaderWidths.before[i]}
+                                    style={CUSTOM_HEADER_STYLE}
+                                />
+                            ))}
 
-                        return (
-                            <TableRow key={headerGroup.id} className="moonstone-tableRow_header">
-                                {/* Custom "before" column headers */}
-                                {beforeHeaders.map((header, index) => (
+                            {/* Selection header */}
+                            {enableSelection && (
+                                <TableHeadCell width="auto" {...selectionCellProps}>
+                                    <Checkbox
+                                        checked={table.getIsAllRowsSelected()}
+                                        indeterminate={table.getIsSomeRowsSelected()}
+                                        onChange={table.getToggleAllRowsSelectedHandler()}
+                                    />
+                                </TableHeadCell>
+                            )}
+
+                            {/* Data column headers */}
+                            {headerGroup.headers.map((header, index) => {
+                                const meta = header.column.columnDef.meta as CustomColumnMeta | undefined;
+                                const isColumnSortable = enableSorting && (meta?.isSortable ?? false);
+                                const alignment = meta?.align ?? 'left';
+                                const columnSortDirection = header.column.getIsSorted();
+
+                                return (
                                     <TableHeadCell
                                         key={header.id}
-                                        width={customHeaderWidths.before[index]}
-                                        style={CUSTOM_HEADER_STYLE}
-                                    />
-                                ))}
+                                        width={meta?.width}
+                                        className={clsx({'moonstone-tableHeadCell_structured': isStructured && index === 0})}
+                                        sorting={isColumnSortable ? {
+                                            direction: columnSortDirection === 'desc' ? 'descending' : 'ascending',
+                                            isActive: Boolean(columnSortDirection)
+                                        } : undefined}
+                                        style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
+                                        align={alignment}
+                                        onClick={(e: React.MouseEvent<HTMLTableCellElement>) => {
+                                            if (isColumnSortable) {
+                                                header.column.getToggleSortingHandler()?.(e);
+                                            }
 
-                                {/* Selection header */}
-                                {enableSelection && (
-                                    <TableHeadCell width="auto" {...selectionCellProps}>
-                                        <Checkbox
-                                            checked={table.getIsAllRowsSelected()}
-                                            indeterminate={table.getIsSomeRowsSelected()}
-                                            onChange={table.getToggleAllRowsSelectedHandler()}
-                                        />
+                                            onClickTableHeadCell?.(header.id);
+                                        }}
+                                    >
+                                        {flexRender(header.column.columnDef.header, header.getContext())}
                                     </TableHeadCell>
-                                )}
+                                );
+                            })}
 
-                                {/* Data column headers */}
-                                {dataHeaders.map((header, index) => {
-                                    const meta = header.column.columnDef.meta as CustomColumnMeta | undefined;
-                                    const isColumnSortable = enableSorting && (meta?.isSortable ?? false);
-                                    const alignment = meta?.align ?? 'left';
-                                    const columnSortDirection = header.column.getIsSorted();
-
-                                    return (
-                                        <TableHeadCell
-                                            key={header.id}
-                                            width={meta?.width}
-                                            className={clsx({'moonstone-tableHeadCell_structured': isStructured && index === 0})}
-                                            sorting={isColumnSortable ? {
-                                                direction: columnSortDirection === 'desc' ? 'descending' : 'ascending',
-                                                isActive: Boolean(columnSortDirection)
-                                            } : undefined}
-                                            style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
-                                            align={alignment}
-                                            onClick={(e: React.MouseEvent<HTMLTableCellElement>) => {
-                                                if (isColumnSortable) {
-                                                    header.column.getToggleSortingHandler()?.(e);
-                                                }
-
-                                                onClickTableHeadCell?.(header.id);
-                                            }}
-                                        >
-                                            {flexRender(header.column.columnDef.header, header.getContext())}
-                                        </TableHeadCell>
-                                    );
-                                })}
-
-                                {/* Custom "after" column headers */}
-                                {afterHeaders.map((header, index) => (
-                                    <TableHeadCell
-                                        key={header.id}
-                                        width={customHeaderWidths.after[index]}
-                                        style={CUSTOM_HEADER_STYLE}
-                                    />
-                                ))}
-
-                            </TableRow>
-                        );
-                    })}
+                            {/* Custom "after" column headers */}
+                            {Array.from({length: customAfterCount}, (_, i) => (
+                                <TableHeadCell
+                                    key={`custom-after-header-${i}`}
+                                    width={customHeaderWidths.after[i]}
+                                    style={CUSTOM_HEADER_STYLE}
+                                />
+                            ))}
+                        </TableRow>
+                    ))}
                 </TableHead>
                 <TableBody>
                     {table.getRowModel().rows.map(row => renderRowWithCustomization(row))}
