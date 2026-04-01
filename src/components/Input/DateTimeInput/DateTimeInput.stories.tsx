@@ -34,16 +34,6 @@ export default {
 
 type Story = StoryObj<ControlledDateTimeInputProps>;
 
-const allowedTimezones = [
-    'UTC',
-    'Europe/Paris',
-    'America/Toronto',
-    'Africa/Cairo',
-    'Africa/Johannesburg',
-    'Australia/Sydney',
-    'Pacific/Auckland'
-];
-
 export const DateOnly: Story = {
     render: args => {
         const [, setArgs] = useArgs();
@@ -62,9 +52,7 @@ export const DateOnly: Story = {
     args: {
         type: 'date',
         value: {
-            date: null,
-            time: null,
-            timezone: null
+            date: null
         },
         onChange: action('onChange'),
         placeholder: 'Select a date'
@@ -79,7 +67,6 @@ export const DateTimeWithTimezone: Story = {
             <DateTimeInput
                 hasTimezone
                 type="datetime"
-                allowedTimezones={allowedTimezones}
                 {...args}
                 onChange={(_event, change) => {
                     action('onChange')(change.value.date, change.value.time, change.value.timezone);
@@ -96,7 +83,6 @@ export const DateTimeWithTimezone: Story = {
             time: currentTime,
             timezone: 'Europe/Paris'
         },
-        allowedTimezones,
         onChange: action('onChange')
     },
     name: 'Date Time With Timezone'
@@ -110,7 +96,6 @@ export const DateTimeWithTimezone12h: Story = {
                 hasTimezone
                 type="datetime"
                 timeFormat="12h"
-                allowedTimezones={allowedTimezones}
                 {...args}
                 onChange={(_event, change) => {
                     action('onChange')(change.value.date, change.value.time, change.value.timezone);
@@ -128,36 +113,9 @@ export const DateTimeWithTimezone12h: Story = {
             time: '23:56',
             timezone: 'Europe/Paris'
         },
-        allowedTimezones,
         onChange: action('onChange')
     },
     name: 'Date Time With Timezone 12h'
-};
-
-export const TimeOnly: Story = {
-    render: args => {
-        const [, setArgs] = useArgs();
-        return (
-            <DateTimeInput
-                type="time"
-                timeFormat="24h"
-                {...args}
-                onChange={(_event, change) => {
-                    action('onChange')(change.value.date, change.value.time, change.value.timezone);
-                    setArgs({value: change.value});
-                }}
-            />
-        );
-    },
-    args: {
-        type: 'time',
-        timeFormat: '24h',
-        value: {
-            time: currentTime
-        },
-        onChange: action('onChange')
-    },
-    name: 'Time Only'
 };
 
 export const DisabledDates: Story = {

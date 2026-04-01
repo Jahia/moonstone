@@ -1,4 +1,4 @@
-import {fireEvent, render, screen} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {DateTimeInput} from './index';
 import {formatDateDisplayValue, formatDateString} from '../shared/dateTime.utils';
@@ -85,7 +85,6 @@ describe('DateTimeInput', () => {
                 hasTimezone
                 type="datetime"
                 value={{date: '2026-02-10', time: '11:56', timezone: 'Europe/Paris'}}
-                allowedTimezones={['UTC', 'Europe/Paris', 'America/Toronto']}
                 labels={{today: 'Today', timezone: 'Timezone'}}
                 onChange={handleChange}
             />
@@ -93,10 +92,11 @@ describe('DateTimeInput', () => {
 
         expect(screen.getByDisplayValue(formatDateDisplayValue('2026-02-10'))).toBeInTheDocument();
         expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
-        expect(screen.getByDisplayValue('Paris (UTC +01:00)')).toBeInTheDocument();
+        expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
 
-        await user.click(screen.getByDisplayValue('Paris (UTC +01:00)'));
-        await user.click(screen.getByText('Toronto'));
+        await user.click(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'}));
+        await user.type(screen.getByRole('searchbox'), 'toronto');
+        await user.click(screen.getByText('Toronto (UTC -05:00)'));
 
         expect(handleChange).toHaveBeenLastCalledWith(
             expect.any(Object),
@@ -121,7 +121,7 @@ describe('DateTimeInput', () => {
 
         expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
         expect(screen.getByText('PM')).toBeInTheDocument();
-        expect(screen.getByDisplayValue('Paris (UTC +01:00)')).toBeInTheDocument();
+        expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
     });
 
     it('should let the user switch meridiem in 12h datetime mode and keep canonical output', async () => {
@@ -149,22 +149,6 @@ describe('DateTimeInput', () => {
             expect.objectContaining({
                 value: expect.objectContaining({time: '14:30'}),
                 date: expect.any(Date)
-            })
-        );
-    });
-
-    it('should keep the normalized date null in time mode', () => {
-        const handleChange = vi.fn();
-
-        render(<DateTimeInput type="time" onChange={handleChange}/>);
-
-        fireEvent.change(screen.getByPlaceholderText('HH:MM'), {target: {value: '0945'}});
-
-        expect(handleChange).toHaveBeenLastCalledWith(
-            expect.any(Object),
-            expect.objectContaining({
-                value: expect.objectContaining({time: '09:45'}),
-                date: null
             })
         );
     });
@@ -275,7 +259,7 @@ describe('DateTimeInput', () => {
             />
         );
 
-        expect(screen.getByDisplayValue('Paris (UTC +01:00)')).toBeInTheDocument();
+        expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
 
         rerender(
             <DateTimeInput
@@ -287,7 +271,7 @@ describe('DateTimeInput', () => {
             />
         );
 
-        expect(screen.getByDisplayValue('Paris (UTC +02:00)')).toBeInTheDocument();
+        expect(screen.getByRole('listbox', {name: 'Paris (UTC +02:00)'})).toBeInTheDocument();
     });
 
     it('should not display an invalid canonical date', () => {

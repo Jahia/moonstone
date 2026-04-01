@@ -4,44 +4,25 @@ import {TimezoneInput} from './index';
 import {getDefaultTimezones, getTimezoneDisplayLabel} from '../shared/dateTime.utils';
 
 describe('TimezoneInput', () => {
-    const timezones = ['UTC', 'Europe/Paris', 'America/Toronto', 'Pacific/Honolulu'];
-    const extendedRegionalTimezones = [
-        'Africa/Cairo',
-        'Africa/Johannesburg',
-        'Africa/Lagos',
-        'Africa/Nairobi',
-        'Africa/Casablanca',
-        'Australia/Sydney',
-        'Australia/Melbourne',
-        'Australia/Brisbane',
-        'Australia/Perth',
-        'Pacific/Auckland',
-        'Pacific/Fiji',
-        'Pacific/Guam',
-        'Pacific/Tahiti'
-    ];
-
     it('should render the placeholder when no timezone is selected', () => {
         render(
             <TimezoneInput
-                allowedTimezones={timezones}
                 placeholder="Select timezone"
             />
         );
 
-        expect(screen.getByPlaceholderText('Select timezone')).toBeInTheDocument();
+        expect(screen.getByRole('listbox', {name: 'Select timezone'})).toBeInTheDocument();
     });
 
     it('should render the selected timezone as city and utc offset', () => {
         render(
             <TimezoneInput
                 value="Europe/Paris"
-                allowedTimezones={timezones}
                 onChange={() => undefined}
             />
         );
 
-        expect(screen.getByDisplayValue(getTimezoneDisplayLabel('Europe/Paris'))).toBeInTheDocument();
+        expect(screen.getByRole('listbox', {name: getTimezoneDisplayLabel('Europe/Paris')})).toBeInTheDocument();
     });
 
     it('should include UTC in the default timezone catalog', () => {
@@ -56,29 +37,27 @@ describe('TimezoneInput', () => {
             />
         );
 
-        expect(screen.getByDisplayValue(getTimezoneDisplayLabel('UTC'))).toBeInTheDocument();
+        expect(screen.getByRole('listbox', {name: getTimezoneDisplayLabel('UTC')})).toBeInTheDocument();
     });
 
-    it('should render the default shortlist and keep non short-listed zones hidden until search', async () => {
+    it('should render the full selector catalog without the UTC shortcut group', async () => {
         const user = userEvent.setup();
 
         render(
             <TimezoneInput
-                allowedTimezones={timezones}
                 placeholder="Select timezone"
             />
         );
 
-        await user.click(screen.getByPlaceholderText('Select timezone'));
+        await user.click(screen.getByRole('listbox', {name: 'Select timezone'}));
 
+        expect(screen.queryByText('UTC')).not.toBeInTheDocument();
         expect(screen.getByText('Europe')).toBeInTheDocument();
-        expect(screen.getByText('Paris')).toBeInTheDocument();
         expect(screen.getByText('America')).toBeInTheDocument();
-        expect(screen.getByText('Toronto')).toBeInTheDocument();
-        expect(screen.queryByText('Honolulu')).not.toBeInTheDocument();
+        expect(screen.getByText(/^Paris \(UTC \+/)).toBeInTheDocument();
     });
 
-    it('should include UTC in the default selector path when allowedTimezones is omitted', async () => {
+    it('should not include UTC in the default selector path', async () => {
         const user = userEvent.setup();
 
         render(
@@ -87,9 +66,9 @@ describe('TimezoneInput', () => {
             />
         );
 
-        await user.click(screen.getByPlaceholderText('Select timezone'));
+        await user.click(screen.getByRole('listbox', {name: 'Select timezone'}));
 
-        expect(screen.getAllByText('UTC').length).toBeGreaterThan(1);
+        expect(screen.queryByText('UTC')).not.toBeInTheDocument();
     });
 
     it('should search across the full timezone universe and call onChange', async () => {
@@ -98,63 +77,59 @@ describe('TimezoneInput', () => {
 
         render(
             <TimezoneInput
-                allowedTimezones={timezones}
                 placeholder="Select timezone"
                 onChange={handleChange}
             />
         );
 
-        await user.click(screen.getByPlaceholderText('Select timezone'));
+        await user.click(screen.getByRole('listbox', {name: 'Select timezone'}));
         await user.type(screen.getByRole('searchbox'), 'honolulu');
-        await user.click(screen.getByText('Honolulu'));
+        await user.click(screen.getByText('Honolulu (UTC -10:00)'));
 
         expect(handleChange).toHaveBeenLastCalledWith(expect.any(Object), 'Pacific/Honolulu');
     });
 
-    it('should keep the selected non short-listed timezone visible without search', async () => {
-        const user = userEvent.setup();
-
-        render(
+    it('should refresh the displayed offset when the reference date changes', () => {
+        const {rerender} = render(
             <TimezoneInput
-                value="Pacific/Honolulu"
-                allowedTimezones={timezones}
+                value="Europe/Paris"
+                referenceDate={new Date(Date.UTC(2026, 0, 15, 12, 0, 0))}
                 onChange={() => undefined}
             />
         );
 
-        await user.click(screen.getByDisplayValue(getTimezoneDisplayLabel('Pacific/Honolulu')));
+        expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
 
-        expect(screen.getByText('Pacific')).toBeInTheDocument();
-        expect(screen.getByText('Honolulu')).toBeInTheDocument();
+        rerender(
+            <TimezoneInput
+                value="Europe/Paris"
+                referenceDate={new Date(Date.UTC(2026, 6, 15, 12, 0, 0))}
+                onChange={() => undefined}
+            />
+        );
+
+        expect(screen.getByRole('listbox', {name: 'Paris (UTC +02:00)'})).toBeInTheDocument();
     });
 
-    it('should include the extended Africa, Australia and Pacific shortlists when allowed', async () => {
+    it('should support canonical timezones with three segments', async () => {
+        const timezone = getDefaultTimezones().find(item => item.split('/').length > 2);
+
+        expect(timezone).toBeDefined();
+
         const user = userEvent.setup();
 
         render(
             <TimezoneInput
-                allowedTimezones={extendedRegionalTimezones}
-                placeholder="Select timezone"
+                value={timezone ?? null}
+                onChange={() => undefined}
             />
         );
 
-        await user.click(screen.getByPlaceholderText('Select timezone'));
+        expect(screen.getByRole('listbox', {name: getTimezoneDisplayLabel(timezone)})).toBeInTheDocument();
 
-        expect(screen.getByText('Africa')).toBeInTheDocument();
-        expect(screen.getByText('Cairo')).toBeInTheDocument();
-        expect(screen.getByText('Johannesburg')).toBeInTheDocument();
-        expect(screen.getByText('Lagos')).toBeInTheDocument();
-        expect(screen.getByText('Nairobi')).toBeInTheDocument();
-        expect(screen.getByText('Casablanca')).toBeInTheDocument();
-        expect(screen.getByText('Australia')).toBeInTheDocument();
-        expect(screen.getByText('Sydney')).toBeInTheDocument();
-        expect(screen.getByText('Melbourne')).toBeInTheDocument();
-        expect(screen.getByText('Brisbane')).toBeInTheDocument();
-        expect(screen.getByText('Perth')).toBeInTheDocument();
-        expect(screen.getByText('Pacific')).toBeInTheDocument();
-        expect(screen.getByText('Auckland')).toBeInTheDocument();
-        expect(screen.getByText('Fiji')).toBeInTheDocument();
-        expect(screen.getByText('Guam')).toBeInTheDocument();
-        expect(screen.getByText('Tahiti')).toBeInTheDocument();
+        await user.click(screen.getByRole('listbox', {name: getTimezoneDisplayLabel(timezone)}));
+        await user.type(screen.getByRole('searchbox'), (timezone ?? '').split('/').pop() ?? '');
+
+        expect(screen.getByText(getTimezoneDisplayLabel(timezone))).toBeInTheDocument();
     });
 });
