@@ -21,8 +21,6 @@ const meridiemOptions: DropdownDataOption[] = [
 
 const getDropdownSize = (size: ControlledTimeInputProps['size']) => size === 'big' ? 'medium' : 'small';
 
-const getPlaceholder = () => 'HH:MM';
-
 const getInputAriaLabel = (labels: ControlledTimeInputProps['labels']): string | undefined => {
     const nextLabel = [labels?.hours, labels?.minutes].filter(Boolean).join(' ');
     return nextLabel || undefined;
@@ -33,6 +31,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
     timeFormat = '24h',
     size = 'default',
     variant = 'outlined',
+    placeholder = 'HH:MM',
     className,
     labels,
     isDisabled = false,
@@ -58,8 +57,10 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
     }, [value, timeFormat]);
 
     const triggerChange = (event: React.SyntheticEvent, nextValue: string) => {
-        if (typeof onChange === 'function') {
-            onChange(event, parseTimeInputValue(nextValue, timeFormat, meridiem));
+        const parsedValue = parseTimeInputValue(nextValue, timeFormat, meridiem);
+
+        if (typeof onChange === 'function' && (nextValue === '' || parsedValue !== null)) {
+            onChange(event, parsedValue);
         }
     };
 
@@ -78,8 +79,10 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
         const nextMeridiem = item?.value === 'PM' ? 'PM' : 'AM';
         setMeridiem(nextMeridiem);
 
-        if (typeof onChange === 'function') {
-            onChange(event, parseTimeInputValue(inputValue, timeFormat, nextMeridiem));
+        const parsedValue = parseTimeInputValue(inputValue, timeFormat, nextMeridiem);
+
+        if (typeof onChange === 'function' && (inputValue === '' || parsedValue !== null)) {
+            onChange(event, parsedValue);
         }
     };
 
@@ -101,7 +104,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
                 focusOnField={focusOnField}
                 isDisabled={isDisabled}
                 isReadOnly={isReadOnly}
-                placeholder={getPlaceholder()}
+                placeholder={placeholder || 'HH:MM'}
                 aria-label={ariaLabel}
                 autoComplete="off"
                 icon={<Clock aria-hidden size={size === 'big' ? 'big' : 'default'}/>}

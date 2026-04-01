@@ -67,4 +67,15 @@ describe('TimeInput', () => {
         expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
         expect(screen.queryByDisplayValue('28:97')).not.toBeInTheDocument();
     });
+
+    it('should keep the partial value when deleting in controlled mode', () => {
+        const handleChange = vi.fn();
+
+        render(<TimeInput value="11:56" onChange={handleChange}/>);
+
+        fireEvent.change(screen.getByDisplayValue('11:56'), {target: {value: '11:5'}});
+
+        expect(screen.getByDisplayValue('11:5')).toBeInTheDocument();
+        expect(handleChange).not.toHaveBeenCalled();
+    });
 });
