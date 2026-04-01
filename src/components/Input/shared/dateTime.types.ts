@@ -4,10 +4,9 @@ export type TimeFormat = '24h' | '12h';
 /**
  * Determines which fields are rendered in the `DateTimeInput`:
  * - `'date'`     : calendar picker only
- * - `'time'`     : time input only
  * - `'datetime'` : calendar picker + time input
  */
-export type DateTimeInputType = 'date' | 'time' | 'datetime';
+export type DateTimeInputType = 'date' | 'datetime';
 
 /** AM/PM indicator used in 12-hour time format */
 export type Meridiem = 'AM' | 'PM';
@@ -22,7 +21,7 @@ export type Meridiem = 'AM' | 'PM';
  * @property timezone - IANA timezone identifier (e.g. `'Europe/Paris'`)
  */
 export type DateTimeInputValue = {
-    date?: string | null;
+    date: string | null;
     time?: string | null;
     timezone?: string | null;
 };
@@ -32,7 +31,7 @@ export type DateTimeInputValue = {
  *
  * @property value - Canonical field values to store and pass back as the `value` prop (controlled usage).
  * @property date  - Resolved JS `Date` object, ready for comparisons or calculations.
- *                   `null` if date or time is missing, or if `type='time'` (no date reference).
+ *                   `null` if date is missing or if `type='datetime'` and time is missing.
  *                   Timezone-aware when a timezone is provided.
  */
 export type DateTimeInputChange = {

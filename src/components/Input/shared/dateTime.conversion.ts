@@ -8,7 +8,6 @@ import {CANONICAL_TIME_FORMAT, normalizeCanonicalTime} from './dateTime.time';
  * Converts a `DateTimeInputValue` into a resolved JS `Date` object.
  *
  * Rules by `type`:
- * - `'time'`     : always returns `null` — no date reference, no absolute moment.
  * - `'date'`     : time is assumed to be `00:00` (start of day); no timezone applied.
  * - `'datetime'` : combines date + time; applies timezone conversion if provided.
  *
@@ -20,10 +19,6 @@ import {CANONICAL_TIME_FORMAT, normalizeCanonicalTime} from './dateTime.time';
  * or if the resulting date string is not a valid date.
  */
 export const getNormalizedDateTime = (type: DateTimeInputType, value: DateTimeInputValue) => {
-    if (type === 'time') {
-        return null;
-    }
-
     const dateValue = normalizeDateString(value.date);
 
     if (!dateValue) {
