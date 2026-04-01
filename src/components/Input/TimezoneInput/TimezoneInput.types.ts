@@ -1,29 +1,25 @@
 import React from 'react';
+import type {BaseInputProps} from '../BaseInput/BaseInput.types';
 import type {DateTimeInputLabels} from '../shared/dateTime.types';
 
-type BaseTimezoneInputProps = {
-    className?: string;
-
-    /** Text displayed when no timezone is selected */
-    placeholder?: string;
-
+type BaseTimezoneInputProps = Omit<BaseInputProps,
+    'isShowClearButton' |
+    'value' |
+    'defaultValue' |
+    'onChange' |
+    'onClear' |
+    'size' |
+    'icon' |
+    'role' |
+    'focusOnField' |
+    'filterFunction' |
+    'allowDecimal' |
+    'allowNegative'
+> & {
     variant?: 'ghost' | 'outlined';
     size?: 'small' | 'medium';
-    isDisabled?: boolean;
-
-    /**
-     * When `true`, shows a clear button that calls `onChange` with `null`.
-     */
-    isClearable?: boolean;
-    onFocus?: React.FocusEventHandler<HTMLInputElement>;
-    onBlur?: React.FocusEventHandler<HTMLInputElement>;
-
-    /**
-     * Restricts the timezones available in the selector.
-     * When omitted, all IANA timezones supported by the browser are available.
-     * Example: `['UTC', 'Europe/Paris', 'America/Toronto']`
-     */
-    allowedTimezones?: string[];
+    onFocus?: React.FocusEventHandler<HTMLElement>;
+    onBlur?: React.FocusEventHandler<HTMLElement>;
 
     /**
      * Reference date used to compute UTC offset labels (e.g. `'UTC +02:00'`).
@@ -37,10 +33,10 @@ type BaseTimezoneInputProps = {
     labels?: Pick<DateTimeInputLabels, 'timezone'>;
 
     /**
-     * Fired on every selection change, including when the value is cleared.
+     * Fired on every selection change.
      *
      * @param event - Originating React event
-     * @param value - Selected IANA timezone identifier (e.g. `'Europe/Paris'`), or `null` when cleared
+     * @param value - Selected IANA timezone identifier (e.g. `'Europe/Paris'`)
      */
     onChange?: (event: React.SyntheticEvent, value: string | null) => void;
 }

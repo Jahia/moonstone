@@ -3,15 +3,13 @@ import type {BaseInputProps} from '../BaseInput/BaseInput.types';
 import type {DateTimeInputLabels, TimeFormat} from '../shared/dateTime.types';
 
 type BasicTimeInputProps = Omit<BaseInputProps,
+    'isShowClearButton' |
     'value' |
     'defaultValue' |
     'onChange' |
     'onBlur' |
     'onFocus' |
     'onClear' |
-    'placeholder' |
-    'prefixComponents' |
-    'postfixComponents' |
     'icon' |
     'role' |
     'min' |
@@ -39,8 +37,9 @@ type BasicTimeInputProps = Omit<BaseInputProps,
     onFocus?: React.FocusEventHandler<HTMLDivElement>;
 
     /**
-     * Fired when a complete time value is entered (all 4 digits filled).
-     * The value is always in 24h format `HH:mm`, or `null` if incomplete.
+     * Fired when a complete time value is entered (all 4 digits filled),
+     * or when the field is emptied.
+     * The value is always in 24h format `HH:mm`, or `null` when empty.
      *
      * @param event - Originating React event
      * @param value - Time string in `HH:mm` format (e.g. `'14:30'`), or `null`

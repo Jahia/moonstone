@@ -1,4 +1,5 @@
 import React from 'react';
+import type {DayPickerProps} from 'react-day-picker';
 import type {BaseInputProps} from '../BaseInput/BaseInput.types';
 import type {
     DateTimeInputChange,
@@ -10,14 +11,13 @@ import type {
 } from '../shared/dateTime.types';
 
 type BasicDateTimeInputProps = Omit<BaseInputProps,
+    'isShowClearButton' |
     'value' |
     'defaultValue' |
     'onChange' |
     'onBlur' |
     'onFocus' |
     'onClear' |
-    'prefixComponents' |
-    'postfixComponents' |
     'icon' |
     'role' |
     'variant' |
@@ -28,7 +28,6 @@ type BasicDateTimeInputProps = Omit<BaseInputProps,
     /**
      * Determines which fields are rendered:
      * - `'date'`     : calendar picker only
-     * - `'time'`     : time input only
      * - `'datetime'` : calendar picker + time input
      */
     type: DateTimeInputType;
@@ -37,7 +36,7 @@ type BasicDateTimeInputProps = Omit<BaseInputProps,
 
     /**
      * When `true`, displays a timezone selector to the right of the time input.
-     * Has no effect when `type='time'`.
+     * Has no effect when `type='date'`.
      * @default false
      */
     hasTimezone?: boolean;
@@ -48,13 +47,6 @@ type BasicDateTimeInputProps = Omit<BaseInputProps,
      * @default '24h'
      */
     timeFormat?: TimeFormat;
-
-    /**
-     * Restricts the timezones available in the timezone selector.
-     * When omitted, all IANA timezones supported by the browser are available.
-     * Example: `['UTC', 'Europe/Paris', 'America/Toronto']`
-     */
-    allowedTimezones?: string[];
 
     /** Lower bound of the calendar (inclusive). Dates before this are disabled. */
     minDate?: Date;
@@ -80,7 +72,7 @@ type BasicDateTimeInputProps = Omit<BaseInputProps,
      * `0` = Sunday, `1` = Monday, …, `6` = Saturday.
      * @default 1
      */
-    weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+    weekStartsOn?: DayPickerProps['weekStartsOn'];
 
     /** I18n labels for fields and buttons */
     labels?: DateTimeInputLabels;
