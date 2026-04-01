@@ -13,8 +13,8 @@ export const Pagination: React.FC<PaginationProps> = ({
         itemsPerPage: 'Items',
         of: 'of'
     },
-    itemsPerPage = 10,
-    itemsPerPageOptions = [5, 10, 25],
+    itemsPerPageOptions = [25, 50, 100],
+    itemsPerPage = itemsPerPageOptions[0],
     totalOfItems,
     currentPage,
     onItemsPerPageChange,

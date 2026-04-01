@@ -1,36 +1,44 @@
+$background-hover: var(--color-gray_light20);
+$background-highlight: var(--color-accent_light20);
+$background-highlight-hover: var(--color-accent_light40);
+
 .moonstone-tableRow {
+    --background-row: white;
+
     height: 48px;
-    padding: 0 var(--spacing-medium);
 
     border-bottom: 1px solid var(--color-gray_light);
+    background-color: var(--background-row);
 
-    .moonstone-tableBody &:focus-within,
-    .moonstone-tableBody &:hover {
-        background-color: var(--color-gray_light40);
+    &:not(.moonstone-tableRow_header) {
+        &:focus-within,
+        &:hover {
+            --background-row: #{$background-hover};
+        }
     }
 }
 
 .moonstone-tableRow_highlighted {
-    color: var(--color-light);
+    --background-row: #{$background-highlight};
 
-    background-color: var(--color-accent);
+    // color: var(--color-light);
 
     &:focus-within,
     &:hover {
-        background-color: var(--color-accent);
+        --background-row: #{$background-highlight-hover};
     }
 
-    .moonstone-checkbox_input {
-        border: 1px solid var(--color-light);
+    // .moonstone-checkbox_input {
+    //     border: 1px solid var(--color-light);
 
-        &[aria-checked="false"] {
-            box-shadow: none;
-        }
+    //     &[aria-checked="false"] {
+    //         box-shadow: none;
+    //     }
 
-        &.hasFocus {
-            border: 2px solid var(--color-accent_dark_contrast);
-        }
-    }
+    //     &.hasFocus {
+    //         border: 2px solid var(--color-accent_dark_contrast);
+    //     }
+    // }
 
     .moonstone-chip {
         color: var(--color-light);
@@ -38,7 +46,11 @@
         background-color: var(--color-accent_light40);
     }
 
-    .moonstone-button:not(:hover, :focus) {
-        color: var(--color-light);
-    }
+    // .moonstone-button:not(:hover, :focus) {
+    //     color: var(--color-light);
+    // }
+}
+
+.moonstone-tableRow_header {
+    height: 40px;
 }

@@ -38,7 +38,7 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
         return (
             <TableCell
                 ref={ref}
-                className={className}
+                className={clsx('moonstone-tableStructuredCell', className)}
                 aria-expanded={isExpanded}
                 onClick={handleToggleExpand}
                 {...props}

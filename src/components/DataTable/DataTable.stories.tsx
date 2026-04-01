@@ -1,8 +1,7 @@
-import {dataTable, dataColumnsUser} from '~/data/dataTable';
+import {dataTable, dataColumnsUser, getStatus} from '~/data/dataTable';
 import type {DataUser, DataUserKeys} from '~/data/dataTable';
-import {DataTable} from './DataTable';
 import type {Meta, StoryObj} from '@storybook/react';
-import {TableRow} from './TableRow';
+import {DataTable, TableRow, TableCell, TableCellActions, TableCellStatus} from './index';
 import {useState} from 'react';
 import {Button} from '~/components';
 import {Visibility, Edit, Delete, MoreVert} from '~/icons';
@@ -32,7 +31,7 @@ export const EmptyDataTable: Story = {
     args: {
         data: [],
         columns: dataColumnsUser,
-        primaryKey: 'firstName'
+        primaryKey: 'id'
     },
     name: 'Empty DataTable'
 };
@@ -44,7 +43,7 @@ export const BasicDataTable: Story = {
     args: {
         data: dataTable,
         columns: dataColumnsUser,
-        primaryKey: 'firstName'
+        primaryKey: 'id'
     },
     name: 'Basic DataTable'
 };
@@ -56,7 +55,7 @@ export const DefaultSortDataTable: Story = {
     args: {
         data: dataTable,
         columns: dataColumnsUser,
-        primaryKey: 'firstName',
+        primaryKey: 'id',
         enableSorting: true,
         defaultSortBy: 'progress',
         defaultSortDirection: 'descending'
@@ -71,7 +70,7 @@ export const SelectableDataTable: Story = {
     args: {
         data: dataTable,
         columns: dataColumnsUser,
-        primaryKey: 'firstName',
+        primaryKey: 'id',
         enableSelection: true
     },
     name: 'Selectable Rows'
@@ -84,9 +83,9 @@ export const DefaultSelectionDataTable: Story = {
     args: {
         data: dataTable,
         columns: dataColumnsUser,
-        primaryKey: 'firstName',
+        primaryKey: 'id',
         enableSelection: true,
-        defaultSelection: ['Walter', 'Jon']
+        defaultSelection: ['1', '6']
     },
     name: 'Default Selection'
 };
@@ -98,7 +97,7 @@ export const StructuredViewDataTable: Story = {
     args: {
         data: dataTable,
         columns: dataColumnsUser,
-        primaryKey: 'firstName',
+        primaryKey: 'id',
         isStructured: true
     },
     name: 'Structured View'
@@ -112,20 +111,19 @@ export const PaginationDataTable: Story = {
                 enablePagination
                 isStructured
                 data={dataTable}
-                itemsPerPageOptions={[5, 10, 25]}
             />
         );
     },
     args: {
         columns: dataColumnsUser,
-        primaryKey: 'firstName'
+        primaryKey: 'id'
     },
     name: 'With Pagination (Structured)'
 };
 
 export const ControlledSelection: Story = {
     render: args => {
-        const [selection, setSelection] = useState<string[]>(['Walter', 'Jesse']);
+        const [selection, setSelection] = useState<string[]>(['1', '2']);
 
         return (
             <DataTable<DataUser>
@@ -142,7 +140,7 @@ export const ControlledSelection: Story = {
     args: {
         data: dataTable,
         columns: dataColumnsUser,
-        primaryKey: 'firstName'
+        primaryKey: 'id'
     },
     name: 'Controlled Selection'
 };
@@ -171,7 +169,7 @@ export const ControlledSorting: Story = {
     args: {
         data: dataTable,
         columns: dataColumnsUser,
-        primaryKey: 'firstName',
+        primaryKey: 'id',
         sortBy: 'progress'
     },
     name: 'Controlled Sorting'
@@ -180,7 +178,7 @@ export const ControlledSorting: Story = {
 export const ControlledPagination: Story = {
     render: args => {
         const [currentPage, setCurrentPage] = useState(1);
-        const [itemsPerPage, setItemsPerPage] = useState(5);
+        const [itemsPerPage, setItemsPerPage] = useState(10);
 
         return (
             <DataTable<DataUser>
@@ -192,7 +190,6 @@ export const ControlledPagination: Story = {
                 currentPage={currentPage}
                 itemsPerPage={itemsPerPage}
                 totalItems={args.data.length}
-                itemsPerPageOptions={[5, 10, 25]}
                 onPageChange={setCurrentPage}
                 onItemsPerPageChange={setItemsPerPage}
             />
@@ -201,7 +198,7 @@ export const ControlledPagination: Story = {
     args: {
         data: dataTable,
         columns: dataColumnsUser,
-        primaryKey: 'firstName'
+        primaryKey: 'id'
     },
     name: 'Controlled Pagination'
 };
@@ -212,24 +209,31 @@ export const AllFeaturesTable: Story = {
             <DataTable
                 {...args}
                 enablePagination
-                renderRow={(row, defaultRender) => (
+                renderRow={(row, renderCells) => (
                     <TableRow
                         key={row.id}
-                        style={{
-                            backgroundColor: row.getIsSelected() ?
-                                'rgba(0, 100, 255, 0.1)' :
-                                undefined
-                        }}
                     >
-                        {defaultRender({
-                            actions: (
-                                <Button icon={<MoreVert/>} variant="ghost" aria-label="Actions"/>
+                        {renderCells({
+                            before: (
+                                <TableCellStatus color={getStatus(row.original.status).color}>
+                                    <>
+                                        {getStatus(row.original.status).iconStart} {getStatus(row.original.status).text}
+                                    </>
+                                </TableCellStatus>
                             ),
-                            actionsOnHover: (
+                            after: (
                                 <>
-                                    <Button icon={<Visibility/>} variant="ghost"/>
-                                    <Button icon={<Edit/>} variant="ghost"/>
-                                    <Button icon={<Delete/>} variant="ghost"/>
+                                    <TableCell>test</TableCell>
+                                    <TableCellActions
+                                        actionsOnHover={
+                                            <>
+                                                <Button icon={<Visibility/>} variant="ghost"/>
+                                                <Button icon={<Edit/>} variant="ghost"/>
+                                                <Button icon={<Delete/>} variant="ghost"/>
+                                            </>
+                                        }
+                                        actions={<Button icon={<MoreVert/>} variant="ghost" aria-label="Actions"/>}
+                                    />
                                 </>
                             )
                         })}
@@ -241,12 +245,11 @@ export const AllFeaturesTable: Story = {
     args: {
         data: dataTable,
         columns: dataColumnsUser,
-        primaryKey: 'firstName',
+        primaryKey: 'id',
         enableSelection: true,
         isStructured: true,
         enableSorting: true,
-        defaultSelection: ['Walter', 'Jon'],
-        defaultSortBy: 'progress',
+        defaultSelection: ['1', '6'],
         defaultSortDirection: 'descending'
     },
     name: 'All Features Combined'

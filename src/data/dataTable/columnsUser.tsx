@@ -1,16 +1,17 @@
 import type {DataTableColumn} from '~/components/DataTable/DataTable.types';
 import {Chip, Typography} from '~/components';
 import {Person} from '~/icons';
+import {getStatus} from '~/data/dataTable/utils';
 import {numberColumn, dateColumn, stringColumn} from '~/utils/dataTable';
 
 export type DataUser = {
+    id: string;
     firstName: string;
     lastName: string;
     age: number;
-    status: string;
+    status: 'published' | 'deleted' | 'modified' | 'new' | 'unpublished';
     progress: number;
     date: Date;
-    chips?: string[];
     subRows?: DataUser[];
 };
 
@@ -27,16 +28,15 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
                 <Person/>
                 <Typography isNowrap variant="body">{`${value} ${row.lastName}`}</Typography>
             </>
-        ),
-        align: 'left'
+        )
     },
     {
         key: 'status',
         label: 'Status',
-        render: value => (
+        render: (value, row) => (
             <Chip
                 label={value as string}
-                color={(value as string) === 'Active' ? 'success' : 'default'}
+                color={getStatus(row.status).chipColor}
             />
         ),
         isSortable: true,
@@ -47,12 +47,12 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
         key: 'progress',
         label: 'Progress',
         isScrollable: true,
-        ...numberColumn<DataUser>(row => row.progress)
+        ...numberColumn(row => row.progress)
     },
     {
         key: 'date',
         label: 'Last Login',
-        ...dateColumn<DataUser>(row => row.date, {locale: 'fr-FR'}),
+        ...dateColumn(row => row.date, {locale: 'fr-FR'}),
         width: '150px'
     }
 ];
