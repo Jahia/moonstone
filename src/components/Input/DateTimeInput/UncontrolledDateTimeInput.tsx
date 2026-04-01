@@ -22,14 +22,6 @@ const getDefaultDateTimeInputValue = (type: UncontrolledDateTimeInputProps['type
         };
     }
 
-    if (type === 'time') {
-        return {
-            date: null,
-            time: getCurrentTimeString(),
-            timezone: null
-        };
-    }
-
     return {
         date: getCurrentDateString(),
         time: getCurrentTimeString(),

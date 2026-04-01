@@ -5,7 +5,7 @@ import {Button, Menu} from '~/components';
 import {Calendar} from '~/icons';
 import {BaseInput} from '../BaseInput';
 import {TimeInput} from '../TimeInput';
-import {ControlledTimezoneInput} from '../TimezoneInput/ControlledTimezoneInput';
+import {TimezoneInput} from '../TimezoneInput';
 import type {DateTimeInputValue} from '../shared/dateTime.types';
 import {
     createDateTimeInputValue,
@@ -31,13 +31,10 @@ const sanitizeValueForConfiguration = (
 
     if (type === 'date') {
         nextValue.time = null;
+        nextValue.timezone = null;
     }
 
-    if (type === 'time') {
-        nextValue.date = null;
-    }
-
-    if (!hasTimezone) {
+    if (type === 'datetime' && !hasTimezone) {
         nextValue.timezone = null;
     }
 
@@ -49,7 +46,6 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     hasTimezone = false,
     timeFormat = '24h',
     value,
-    allowedTimezones,
     minDate,
     maxDate,
     disabledDates,
@@ -132,78 +128,76 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
             onFocus={onFocus}
             {...props}
         >
-            {type !== 'time' && (
-                <div ref={calendarAnchorRef} className="moonstone-dateTimeInput_dateField">
-                    <BaseInput
-                        ref={ref}
-                        isReadOnly
-                        value={triggerDisplayValue}
-                        size={size}
-                        variant={variant}
-                        isDisabled={isDisabled}
-                        focusOnField={focusOnField}
-                        placeholder={placeholder}
-                        icon={<Calendar aria-hidden/>}
-                        onClick={() => {
-                            if (!isDisabled && !isReadOnly) {
-                                setIsCalendarOpen(true);
-                            }
-                        }}
-                        onKeyUp={event => {
-                            if ((event.key === 'Enter' || event.key === ' ') && !isDisabled && !isReadOnly) {
-                                setIsCalendarOpen(true);
-                            }
-                        }}
-                    />
-                    {isCalendarOpen && calendarAnchorRef.current && (
-                        <Menu
-                            isDisplayed
-                            anchorEl={calendarAnchorRef}
-                            anchorPosition={{top: 4, left: 0}}
-                            minWidth={size === 'big' ? '320px' : '280px'}
-                            maxWidth="340px"
-                            className="moonstone-dateTimeInput_calendarMenu"
-                            onClose={() => setIsCalendarOpen(false)}
-                        >
-                            <div className="moonstone-dateTimeInput_calendar">
-                                <DayPicker
-                                    {...commonDayPickerProps}
-                                    mode="single"
-                                    selected={selectedDate ?? undefined}
-                                    onSelect={(date, _selectedDay, modifiers, event) => {
-                                        if (modifiers.disabled) {
-                                            return;
-                                        }
+            <div ref={calendarAnchorRef} className="moonstone-dateTimeInput_dateField">
+                <BaseInput
+                    ref={ref}
+                    isReadOnly
+                    value={triggerDisplayValue}
+                    size={size}
+                    variant={variant}
+                    isDisabled={isDisabled}
+                    focusOnField={focusOnField}
+                    placeholder={placeholder}
+                    icon={<Calendar aria-hidden/>}
+                    onClick={() => {
+                        if (!isDisabled && !isReadOnly) {
+                            setIsCalendarOpen(true);
+                        }
+                    }}
+                    onKeyUp={event => {
+                        if ((event.key === 'Enter' || event.key === ' ') && !isDisabled && !isReadOnly) {
+                            setIsCalendarOpen(true);
+                        }
+                    }}
+                />
+                {isCalendarOpen && calendarAnchorRef.current && (
+                    <Menu
+                        isDisplayed
+                        anchorEl={calendarAnchorRef}
+                        anchorPosition={{top: 4, left: 0}}
+                        minWidth={size === 'big' ? '270px' : '235px'}
+                        maxWidth="340px"
+                        className="moonstone-dateTimeInput_calendarMenu"
+                        onClose={() => setIsCalendarOpen(false)}
+                    >
+                        <div className="moonstone-dateTimeInput_calendar">
+                            <DayPicker
+                                {...commonDayPickerProps}
+                                mode="single"
+                                selected={selectedDate ?? undefined}
+                                onSelect={(date, _selectedDay, modifiers, event) => {
+                                    if (modifiers.disabled) {
+                                        return;
+                                    }
 
-                                        handleDateSelection(date, event);
+                                    handleDateSelection(date, event);
+                                }}
+                            />
+                            <div className="moonstone-dateTimeInput_calendarFooter">
+                                <Button
+                                    variant="ghost"
+                                    size="default"
+                                    isDisabled={isTodayDisabled}
+                                    label={todayButtonLabel}
+                                    onClick={event => {
+                                        if (!isTodayDisabled) {
+                                            handleDateSelection(todayDate, event);
+                                        }
                                     }}
                                 />
-                                <div className="moonstone-dateTimeInput_calendarFooter">
-                                    <Button
-                                        variant="ghost"
-                                        size="default"
-                                        isDisabled={isTodayDisabled}
-                                        label={todayButtonLabel}
-                                        onClick={event => {
-                                            if (!isTodayDisabled) {
-                                                handleDateSelection(todayDate, event);
-                                            }
-                                        }}
-                                    />
-                                </div>
                             </div>
-                        </Menu>
-                    )}
-                </div>
-            )}
-            {type !== 'date' && (
+                        </div>
+                    </Menu>
+                )}
+            </div>
+            {type === 'datetime' && (
                 <TimeInput
                     className="moonstone-dateTimeInput_timeField"
                     size={size}
                     variant={variant}
                     isDisabled={isDisabled}
                     isReadOnly={isReadOnly}
-                    focusOnField={focusOnField && type === 'time'}
+                    focusOnField={false}
                     timeFormat={timeFormat}
                     value={sanitizedValue.time ?? null}
                     labels={labels}
@@ -212,14 +206,14 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                     }}
                 />
             )}
-            {hasTimezone && type !== 'time' && (
-                <ControlledTimezoneInput
+            {hasTimezone && type === 'datetime' && (
+                <TimezoneInput
                     className="moonstone-dateTimeInput_timezoneField"
                     size={getDropdownSize(size)}
                     variant={variant}
-                    isDisabled={isDisabled || isReadOnly}
+                    isDisabled={isDisabled}
+                    isReadOnly={isReadOnly}
                     value={sanitizedValue.timezone ?? null}
-                    allowedTimezones={allowedTimezones}
                     referenceDate={timezoneReferenceDate}
                     placeholder={labels?.timezone}
                     labels={labels}

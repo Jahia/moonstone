@@ -37,17 +37,17 @@
 }
 
 .moonstone-dateTimeInput_calendar {
-    padding: var(--spacing-small);
+    padding: var(--spacing-nano);
 }
 
 .moonstone-dateTimeInput_calendar .rdp-root {
     --rdp-accent-color: var(--color-accent);
     --rdp-background-color: var(--background-selector);
     --rdp-accent-background-color: var(--color-accent_light40);
-    --rdp-day-width: 32px;
-    --rdp-day-height: 32px;
-    --rdp-nav_button-width: 32px;
-    --rdp-nav_button-height: 32px;
+    --rdp-day-width: 21px;
+    --rdp-day-height: 21px;
+    --rdp-nav_button-width: 21px;
+    --rdp-nav_button-height: 21px;
 
     margin: 0;
 }
@@ -66,7 +66,7 @@
 .moonstone-dateTimeInput_calendarFooter {
     display: flex;
     justify-content: center;
-    padding-top: var(--spacing-small);
+    padding-top: var(--spacing-nano);
 
     border-top: 1px solid var(--color-gray_light40);
 }
