@@ -24,8 +24,8 @@ const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowPr
                 'flexRow',
                 styles.tableRow,
                 'alignCenter',
-                styles.highlighted && isHighlighted && type === 'body',
-                styles.head && type === 'head',
+                isHighlighted && type === 'body' && styles.highlighted,
+                type === 'head' && styles.head,
                 className
             ),
             'aria-selected': isHighlighted && type === 'body' ? true : undefined,
