@@ -29,7 +29,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
                 'flexRow_nowrap',
                 'alignCenter',
                 {flexFluid: !width},
-                { [styles.scrollable]: isScrollable },
+                {[styles.scrollable]: isScrollable},
                 className
             )}
             style={{

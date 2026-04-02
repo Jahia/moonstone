@@ -44,7 +44,7 @@ describe('TableRow', () => {
                 </TableRow>
             </TableWrapper>
         );
-        expect(screen.getByRole('row', { selected: true })).toBeInTheDocument();
+        expect(screen.getByRole('row', {selected: true})).toBeInTheDocument();
     });
 
     it('should call onClick when clicked', async () => {

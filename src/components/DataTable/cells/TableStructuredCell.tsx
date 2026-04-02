@@ -56,8 +56,8 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                     {isExpandable ? (
                         <>
                             {isExpanded ?
-                                <ChevronDown /> :
-                                <ChevronRight />}
+                                <ChevronDown/> :
+                                <ChevronRight/>}
                             <Typography
                                 isNowrap
                                 component="div"
