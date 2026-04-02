@@ -1,4 +1,4 @@
-import {dataTable, dataColumnsUser, getStatus} from '~/data/dataTable';
+import {tableStructured, tableFlat, dataColumnsUser, getStatus} from '~/data/dataTable';
 import type {DataUser, DataUserKeys} from '~/data/dataTable';
 import type {Meta, StoryObj} from '@storybook/react';
 import {DataTable, TableRow, TableCell, TableCellActions, TableCellStatus} from './index';
@@ -24,43 +24,29 @@ export default {
 
 type Story = StoryObj<typeof DataTable<DataUser>>;
 
-export const EmptyDataTable: Story = {
+export const DefaultDataTable: Story = {
     render: args => {
         return <DataTable {...args}/>;
     },
     args: {
-        data: [],
-        columns: dataColumnsUser,
-        primaryKey: 'id'
-    },
-    name: 'Empty DataTable'
-};
-
-export const BasicDataTable: Story = {
-    render: args => {
-        return <DataTable {...args}/>;
-    },
-    args: {
-        data: dataTable,
-        columns: dataColumnsUser,
-        primaryKey: 'id'
-    },
-    name: 'Basic DataTable'
-};
-
-export const DefaultSortDataTable: Story = {
-    render: args => {
-        return <DataTable {...args}/>;
-    },
-    args: {
-        data: dataTable,
+        data: tableFlat,
         columns: dataColumnsUser,
         primaryKey: 'id',
-        enableSorting: true,
-        defaultSortBy: 'progress',
-        defaultSortDirection: 'descending'
     },
-    name: 'Default Sort Applied'
+    name: 'Default DataTable (uncontrolled)'
+};
+
+export const StructuredDataTable: Story = {
+    render: args => {
+        return <DataTable {...args}/>;
+    },
+    args: {
+        data: tableStructured,
+        isStructured: true,
+        columns: dataColumnsUser,
+        primaryKey: 'id',
+    },
+    name: 'Structured DataTable (uncontrolled)'
 };
 
 export const SelectableDataTable: Story = {
@@ -68,12 +54,13 @@ export const SelectableDataTable: Story = {
         return <DataTable {...args}/>;
     },
     args: {
-        data: dataTable,
+        data: tableFlat,
         columns: dataColumnsUser,
         primaryKey: 'id',
-        enableSelection: true
+        enableSelection: true,
+        defaultSortBy: 'progress'
     },
-    name: 'Selectable Rows'
+    name: 'Selectable DataTable (uncontrolled)'
 };
 
 export const DefaultSelectionDataTable: Story = {
@@ -81,134 +68,57 @@ export const DefaultSelectionDataTable: Story = {
         return <DataTable {...args}/>;
     },
     args: {
-        data: dataTable,
+        data: tableFlat,
         columns: dataColumnsUser,
         primaryKey: 'id',
+        defaultSortBy: 'progress',
         enableSelection: true,
         defaultSelection: ['1', '6']
     },
-    name: 'Default Selection'
+    name: 'Default Selection (uncontrolled)'
 };
 
-export const StructuredViewDataTable: Story = {
-    render: args => {
-        return <DataTable {...args}/>;
-    },
-    args: {
-        data: dataTable,
-        columns: dataColumnsUser,
-        primaryKey: 'id',
-        isStructured: true
-    },
-    name: 'Structured View'
-};
-
-export const PaginationDataTable: Story = {
-    render: args => {
-        return (
-            <DataTable
-                {...args}
-                enablePagination
-                isStructured
-                data={dataTable}
-            />
-        );
-    },
-    args: {
-        columns: dataColumnsUser,
-        primaryKey: 'id'
-    },
-    name: 'With Pagination (Structured)'
-};
-
-export const ControlledSelection: Story = {
-    render: args => {
-        const [selection, setSelection] = useState<string[]>(['1', '2']);
-
-        return (
-            <DataTable<DataUser>
-                enableSelection
-                isStructured
-                data={args.data}
-                columns={args.columns}
-                primaryKey={args.primaryKey}
-                selection={selection}
-                onChangeSelection={setSelection}
-            />
-        );
-    },
-    args: {
-        data: dataTable,
-        columns: dataColumnsUser,
-        primaryKey: 'id'
-    },
-    name: 'Controlled Selection'
-};
-
-export const ControlledSorting: Story = {
-    render: args => {
+export const ControlledDataTable: Story = {
+    render: () => {
+        // Sorting
         const [sortBy, setSortBy] = useState<DataUserKeys>('progress');
         const [sortDirection, setSortDirection] = useState<'ascending' | 'descending'>('descending');
+        // Selection
+        const [selection, setSelection] = useState<string[]>(['1', '2']);
+        // Pagination
+        const [currentPage, setCurrentPage] = useState(1);
+        const [itemsPerPage, setItemsPerPage] = useState(10);
 
         return (
             <DataTable<DataUser>
-                enableSorting
-                isStructured
-                data={args.data}
-                columns={args.columns}
-                primaryKey={args.primaryKey}
+                data={tableFlat}
+                columns={dataColumnsUser}
+                primaryKey="id"
                 sortBy={sortBy}
                 sortDirection={sortDirection}
                 onSortChange={(newSortBy, newSortDirection) => {
                     setSortBy(newSortBy);
                     setSortDirection(newSortDirection);
                 }}
-            />
-        );
-    },
-    args: {
-        data: dataTable,
-        columns: dataColumnsUser,
-        primaryKey: 'id',
-        sortBy: 'progress'
-    },
-    name: 'Controlled Sorting'
-};
-
-export const ControlledPagination: Story = {
-    render: args => {
-        const [currentPage, setCurrentPage] = useState(1);
-        const [itemsPerPage, setItemsPerPage] = useState(10);
-
-        return (
-            <DataTable<DataUser>
-                enablePagination
-                isStructured
-                data={args.data}
-                columns={args.columns}
-                primaryKey={args.primaryKey}
+                enableSelection
+                selection={selection}
+                onChangeSelection={setSelection}
                 currentPage={currentPage}
                 itemsPerPage={itemsPerPage}
-                totalItems={args.data.length}
+                totalItems={tableFlat.length}
                 onPageChange={setCurrentPage}
                 onItemsPerPageChange={setItemsPerPage}
             />
         );
     },
-    args: {
-        data: dataTable,
-        columns: dataColumnsUser,
-        primaryKey: 'id'
-    },
-    name: 'Controlled Pagination'
+    name: 'Controlled DataTable'
 };
 
-export const AllFeaturesTable: Story = {
+export const InsertCells: Story = {
     render: args => {
         return (
             <DataTable
                 {...args}
-                enablePagination
                 renderRow={(row, renderCells) => (
                     <TableRow
                         key={row.id}
@@ -222,19 +132,16 @@ export const AllFeaturesTable: Story = {
                                 </TableCellStatus>
                             ),
                             after: (
-                                <>
-                                    <TableCell>test</TableCell>
-                                    <TableCellActions
-                                        actionsOnHover={
-                                            <>
-                                                <Button icon={<Visibility/>} variant="ghost"/>
-                                                <Button icon={<Edit/>} variant="ghost"/>
-                                                <Button icon={<Delete/>} variant="ghost"/>
-                                            </>
-                                        }
-                                        actions={<Button icon={<MoreVert/>} variant="ghost" aria-label="Actions"/>}
-                                    />
-                                </>
+                                <TableCellActions
+                                    actionsOnHover={
+                                        <>
+                                            <Button icon={<Visibility/>} variant="ghost"/>
+                                            <Button icon={<Edit/>} variant="ghost"/>
+                                            <Button icon={<Delete/>} variant="ghost"/>
+                                        </>
+                                    }
+                                    actions={<Button icon={<MoreVert/>} variant="ghost" aria-label="Actions"/>}
+                                />
                             )
                         })}
                     </TableRow>
@@ -243,14 +150,10 @@ export const AllFeaturesTable: Story = {
         );
     },
     args: {
-        data: dataTable,
+        data: tableFlat,
         columns: dataColumnsUser,
         primaryKey: 'id',
         enableSelection: true,
-        isStructured: true,
-        enableSorting: true,
-        defaultSelection: ['1', '6'],
-        defaultSortDirection: 'descending'
     },
-    name: 'All Features Combined'
+    name: 'Insert custom cells (renderRow)'
 };

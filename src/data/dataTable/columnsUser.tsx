@@ -15,6 +15,8 @@ export type DataUser = {
     subRows?: DataUser[];
 };
 
+export type DataUserFlat = Omit<DataUser, 'subRows'>;
+
 export type DataUserKeys = Exclude<keyof DataUser, 'subRows'>;
 
 export const dataColumnsUser: DataTableColumn<DataUser>[] = [

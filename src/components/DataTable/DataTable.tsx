@@ -37,7 +37,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     enableSelection = false,
     selection,
     onChangeSelection,
-    enableSorting = false,
+    enableSorting = !isStructured,
     sortBy,
     sortDirection,
     onSortChange,
@@ -48,7 +48,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     onClickTableHeadCell,
     selectionCellProps,
     // Pagination props
-    enablePagination = false,
+    enablePagination = !isStructured,
     currentPage,
     itemsPerPage,
     itemsPerPageOptions = [5, 10, 25],

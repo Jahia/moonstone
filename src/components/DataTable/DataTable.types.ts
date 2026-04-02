@@ -90,7 +90,7 @@ export type DataTableBaseProps<T extends NonNullable<unknown>> = {
      * Define which key is used as primary key for each row.
      * This is used as the unique identifier for row selection and other operations.
      */
-    primaryKey: Exclude<keyof T, SubRowKey>;
+    primaryKey: Extract<Exclude<keyof T, SubRowKey>, string>;
 
     /**
      * The array of data to display in the table
@@ -123,7 +123,7 @@ export type SortDirection = 'ascending' | 'descending';
 
 type SortingProps<T extends NonNullable<unknown>> =
     | {
-          enableSorting: true;
+          enableSorting?: true;
           /** Controlled: current sort column */
           sortBy: Extract<Exclude<keyof T, SubRowKey>, string>;
           /** Controlled: current sort direction */
@@ -134,7 +134,7 @@ type SortingProps<T extends NonNullable<unknown>> =
           defaultSortDirection?: never;
       }
     | {
-          enableSorting: true;
+          enableSorting?: true;
           sortBy?: never;
           sortDirection?: never;
           /** Optional callback to observe sort changes in uncontrolled mode */
@@ -155,7 +155,7 @@ type SortingProps<T extends NonNullable<unknown>> =
 
 export type SelectionProps =
     | {
-          enableSelection: true;
+          enableSelection?: true;
           /** Controlled: selected row IDs */
           selection: string[];
           /** Callback when selection changes */
@@ -165,7 +165,7 @@ export type SelectionProps =
           selectionCellProps?: Omit<TableCellProps, 'children' | 'width' | 'component'>;
       }
     | {
-          enableSelection: true;
+          enableSelection?: true;
           /** Uncontrolled: initial selected row IDs */
           defaultSelection?: string[];
           /** Optional callback to observe selection changes */
@@ -252,7 +252,7 @@ export type PaginationUncontrolledProps = {
 
 type TablePaginationProps =
     | ({
-          enablePagination: true;
+          enablePagination?: true;
       } & PaginationBaseProps & (PaginationControlledProps | PaginationUncontrolledProps))
     | {
           enablePagination?: false;
