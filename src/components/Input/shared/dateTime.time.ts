@@ -1,4 +1,4 @@
-import {format, isValid, parse} from 'date-fns';
+import {Temporal} from 'temporal-polyfill';
 import type {Meridiem, TimeFormat} from './dateTime.types';
 
 export const CANONICAL_TIME_FORMAT = 'HH:mm';
@@ -57,36 +57,35 @@ const isValidPartialMinutes = (minutesValue: string) => {
     return minutes >= 0 && minutes <= 59;
 };
 
-/** Parses a canonical `HH:mm` string and returns a Date, or null if invalid. */
+/** Parses a canonical `HH:mm` string and returns a Temporal.PlainTime, or null if invalid. */
 const parseCanonicalTimeValue = (value?: string | null) => {
     if (!value) {
         return null;
     }
 
-    const parsedTime = parse(value, CANONICAL_TIME_FORMAT, new Date());
-
-    // Re-format to reject values that date-fns accepts but don't round-trip
-    // (e.g. out-of-range times that get clamped silently).
-    if (!isValid(parsedTime) || format(parsedTime, CANONICAL_TIME_FORMAT) !== value) {
+    try {
+        // Overflow: 'reject' throws on out-of-range times instead of clamping silently.
+        return Temporal.PlainTime.from(value, {overflow: 'reject'});
+    } catch {
         return null;
     }
-
-    return parsedTime;
 };
 
 export const normalizeCanonicalTime = (value?: string | null) => {
-    const parsedTime = parseCanonicalTimeValue(value);
+    const plainTime = parseCanonicalTimeValue(value);
 
-    if (!parsedTime) {
+    if (!plainTime) {
         return null;
     }
 
-    return format(parsedTime, CANONICAL_TIME_FORMAT);
+    return plainTime.toString({smallestUnit: 'minute'});
 };
 
-export const formatTimeString = (value: Date) => format(value, CANONICAL_TIME_FORMAT);
+export const formatTimeString = (value: Date) =>
+    Temporal.PlainTime.from({hour: value.getHours(), minute: value.getMinutes()})
+        .toString({smallestUnit: 'minute'});
 
-export const getCurrentTimeString = () => formatTimeString(new Date());
+export const getCurrentTimeString = () => Temporal.Now.plainTimeISO().toString({smallestUnit: 'minute'});
 
 /**
  * Converts a canonical `HH:mm` value into display-ready parts for the time input fields.
@@ -96,9 +95,9 @@ export const getCurrentTimeString = () => formatTimeString(new Date());
  * The meridiem defaults to 'AM' when no valid value is provided.
  */
 export const parseCanonicalTime = (value?: string | null, timeFormat: TimeFormat = '24h') => {
-    const parsedTime = parseCanonicalTimeValue(value);
+    const plainTime = parseCanonicalTimeValue(value);
 
-    if (!parsedTime) {
+    if (!plainTime) {
         return {
             hours: '',
             minutes: '',
@@ -106,20 +105,16 @@ export const parseCanonicalTime = (value?: string | null, timeFormat: TimeFormat
         };
     }
 
-    const hoursValue = format(parsedTime, 'HH');
-    const minutesValue = format(parsedTime, 'mm');
-    const meridiem = format(parsedTime, 'a') as Meridiem;
+    const hoursValue = String(plainTime.hour).padStart(2, '0');
+    const minutesValue = String(plainTime.minute).padStart(2, '0');
+    const meridiem: Meridiem = plainTime.hour < 12 ? 'AM' : 'PM';
 
     if (timeFormat === '24h') {
-        return {
-            hours: hoursValue,
-            minutes: minutesValue,
-            meridiem: meridiem as Meridiem
-        };
+        return {hours: hoursValue, minutes: minutesValue, meridiem};
     }
 
     return {
-        hours: format(parsedTime, 'hh'), // 01–12 range
+        hours: String(plainTime.hour % 12 || 12).padStart(2, '0'), // 01–12 range
         minutes: minutesValue,
         meridiem
     };

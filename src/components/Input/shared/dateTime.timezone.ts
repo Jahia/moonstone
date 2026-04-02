@@ -1,5 +1,5 @@
+import {Temporal} from 'temporal-polyfill';
 import type {DropdownDataGrouped, DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
-import {formatInTimeZone, getTimezoneOffset} from 'date-fns-tz';
 
 const intlWithSupportedValues = Intl as typeof Intl & {
     supportedValuesOf?: (key: string) => string[];
@@ -87,8 +87,10 @@ const isValidTimezone = (timezone: string) => {
     }
 
     try {
-        getTimezoneOffset(timezone, new Date());
-        return true;
+        // Intl.DateTimeFormat throws a RangeError for unknown IANA timezone identifiers.
+        return Boolean(
+            new Intl.DateTimeFormat(undefined, {timeZone: timezone}).resolvedOptions().timeZone
+        );
     } catch {
         return false;
     }
@@ -107,8 +109,11 @@ const getTimezoneCityLabel = (timezone: string) => {
     return (parts[parts.length - 1] || timezone).replace(/_/g, ' ');
 };
 
-const formatTimezoneOffsetLabel = (timezone: string, referenceDate: Date) =>
-    formatInTimeZone(referenceDate, timezone, '\'UTC \'xxx');
+const formatTimezoneOffsetLabel = (timezone: string, referenceDate: Date) => {
+    const zdt = Temporal.Instant.fromEpochMilliseconds(referenceDate.getTime())
+        .toZonedDateTimeISO(timezone);
+    return `UTC ${zdt.offset}`;
+};
 
 const getRegionSortIndex = (region: string) => {
     const index = timezoneGroupOrder.indexOf(region);

@@ -1,43 +1,45 @@
-import {format, isValid, parse} from 'date-fns';
+import {Temporal} from 'temporal-polyfill';
 import type {Matcher} from 'react-day-picker';
 import type {DisabledDateRange} from './dateTime.types';
 
 export const CANONICAL_DATE_FORMAT = 'yyyy-MM-dd';
 
-/** Parses a canonical date string and returns a Date, or null if invalid. */
+/** Parses a canonical date string and returns a Temporal.PlainDate, or null if invalid. */
 const parseCanonicalDate = (value?: string | null) => {
     if (!value) {
         return null;
     }
 
-    const parsedDate = parse(value, CANONICAL_DATE_FORMAT, new Date());
-
-    // Double-check by re-formatting: rejects dates like '2026-02-30' that
-    // date-fns would silently roll over to a valid date.
-    if (!isValid(parsedDate) || format(parsedDate, CANONICAL_DATE_FORMAT) !== value) {
+    try {
+        // Overflow: 'reject' throws on dates like '2026-02-30' instead of rolling over.
+        return Temporal.PlainDate.from(value, {overflow: 'reject'});
+    } catch {
         return null;
     }
-
-    return parsedDate;
 };
 
 export const normalizeDateString = (value?: string | null): string | null => {
-    const parsedDate = parseCanonicalDate(value);
-
-    if (!parsedDate) {
-        return null;
-    }
-
-    return format(parsedDate, CANONICAL_DATE_FORMAT);
+    return parseCanonicalDate(value)?.toString() ?? null;
 };
 
 export const parseDateString = (value?: string | null): Date | null => {
-    return parseCanonicalDate(value);
+    const plainDate = parseCanonicalDate(value);
+
+    if (!plainDate) {
+        return null;
+    }
+
+    return new Date(plainDate.year, plainDate.month - 1, plainDate.day);
 };
 
-export const formatDateString = (value: Date) => format(value, CANONICAL_DATE_FORMAT);
+export const formatDateString = (value: Date) =>
+    Temporal.PlainDate.from({
+        year: value.getFullYear(),
+        month: value.getMonth() + 1,
+        day: value.getDate()
+    }).toString();
 
-export const getCurrentDateString = () => formatDateString(new Date());
+export const getCurrentDateString = () => Temporal.Now.plainDateISO().toString();
 
 /**
  * Formats a canonical date string for display in the trigger input.
@@ -104,19 +106,11 @@ export const getCalendarDisabledMatchers = (
  * on the previous or next calendar day depending on the timezone.
  */
 export const getTimezoneReferenceDate = (dateValue?: string | null) => {
-    const parsedDate = parseCanonicalDate(dateValue);
+    const plainDate = parseCanonicalDate(dateValue);
 
-    if (!parsedDate) {
+    if (!plainDate) {
         return null;
     }
 
-    return new Date(Date.UTC(
-        parsedDate.getFullYear(),
-        parsedDate.getMonth(),
-        parsedDate.getDate(),
-        12,
-        0,
-        0,
-        0
-    ));
+    return new Date(Date.UTC(plainDate.year, plainDate.month - 1, plainDate.day, 12, 0, 0, 0));
 };

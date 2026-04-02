@@ -1940,8 +1940,6 @@ __metadata:
     "@vitest/coverage-v8": "npm:^4.1.0"
     "@vitest/ui": "npm:4.1.0"
     clsx: "npm:^2.1.1"
-    date-fns: "npm:^4.1.0"
-    date-fns-tz: "npm:^3.2.0"
     eslint: "npm:^8.57.1"
     eslint-plugin-jest: "npm:^28.14.0"
     eslint-plugin-json: "npm:^4.0.1"
@@ -1961,6 +1959,7 @@ __metadata:
     storybook: "npm:^10.1.11"
     storybook-addon-tag-badges: "npm:^3.0.4"
     stylelint: "npm:^13.13.1"
+    temporal-polyfill: "npm:^0.3.2"
     to-px: "npm:^1.1.0"
     tsc-alias: "npm:^1.8.16"
     typescript: "npm:^5.9.3"
@@ -4434,15 +4433,6 @@ __metadata:
   version: 4.1.0-0
   resolution: "date-fns-jalali@npm:4.1.0-0"
   checksum: 10c0/f9ad98d9f7e8e5abe0d070dc806b0c8baded2b1208626c42e92cbd2605b5171f5714d6b79b20cc2666267d821699244c9d0b5e93274106cf57d6232da77596ed
-  languageName: node
-  linkType: hard
-
-"date-fns-tz@npm:^3.2.0":
-  version: 3.2.0
-  resolution: "date-fns-tz@npm:3.2.0"
-  peerDependencies:
-    date-fns: ^3.0.0 || ^4.0.0
-  checksum: 10c0/3f43300a4335d59f3515dc5196c66b4b56ef2af129eb82e4445ce0983e8ef31a5d038bc0406d669946bbbcf52ed953527527aa28b4a810995d6631a54655abcc
   languageName: node
   linkType: hard
 
@@ -9609,6 +9599,22 @@ __metadata:
     mkdirp: "npm:^1.0.3"
     yallist: "npm:^4.0.0"
   checksum: 10c0/a5eca3eb50bc11552d453488344e6507156b9193efd7635e98e867fab275d527af53d8866e2370cd09dfe74378a18111622ace35af6a608e5223a7d27fe99537
+  languageName: node
+  linkType: hard
+
+"temporal-polyfill@npm:^0.3.2":
+  version: 0.3.2
+  resolution: "temporal-polyfill@npm:0.3.2"
+  dependencies:
+    temporal-spec: "npm:0.3.1"
+  checksum: 10c0/762795c94e1b6cb0574541d0b09f805ff23b0a2c9d0356ab3fc0205e390a3bce73e047de2fdc54c7d149d6e6d781aa1d95aa62afa5de4c83cb79c129b0e502da
+  languageName: node
+  linkType: hard
+
+"temporal-spec@npm:0.3.1":
+  version: 0.3.1
+  resolution: "temporal-spec@npm:0.3.1"
+  checksum: 10c0/e38eae391bd59ae675f1925a65c8ef302933cf9ce98efedaf2e69269e8c36f2b5d486cd3084367f04a6c1ea0289b925690c0df20a73f0c4629b531775924e850
   languageName: node
   linkType: hard
 

@@ -1,8 +1,7 @@
-import {isValid, parse} from 'date-fns';
-import {fromZonedTime} from 'date-fns-tz';
+import {Temporal} from 'temporal-polyfill';
 import type {DateTimeInputType, DateTimeInputValue} from './dateTime.types';
-import {CANONICAL_DATE_FORMAT, normalizeDateString} from './dateTime.date';
-import {CANONICAL_TIME_FORMAT, normalizeCanonicalTime} from './dateTime.time';
+import {normalizeDateString} from './dateTime.date';
+import {normalizeCanonicalTime} from './dateTime.time';
 
 /**
  * Converts a `DateTimeInputValue` into a resolved JS `Date` object.
@@ -11,9 +10,9 @@ import {CANONICAL_TIME_FORMAT, normalizeCanonicalTime} from './dateTime.time';
  * - `'date'`     : time is assumed to be `00:00` (start of day); no timezone applied.
  * - `'datetime'` : combines date + time; applies timezone conversion if provided.
  *
- * When a timezone is present, `fromZonedTime` interprets the local date+time as
- * being in that timezone and converts it to UTC, so the returned `Date` represents
- * the correct absolute instant.
+ * When a timezone is present, `Temporal.ZonedDateTime.from` interprets the local
+ * date+time as being in that timezone and converts it to UTC, so the returned `Date`
+ * represents the correct absolute instant.
  *
  * Returns `null` if the date is missing, the time is missing (for `'datetime'`),
  * or if the resulting date string is not a valid date.
@@ -32,24 +31,15 @@ export const getNormalizedDateTime = (type: DateTimeInputType, value: DateTimeIn
         return null;
     }
 
-    const dateTimeString = `${dateValue}T${timeValue}:00`;
-
     if (value.timezone) {
         // Interpret the local datetime as being in the given timezone,
         // and convert to a UTC-based Date.
-        return fromZonedTime(dateTimeString, value.timezone);
+        return new Date(
+            Temporal.ZonedDateTime.from(`${dateValue}T${timeValue}:00[${value.timezone}]`)
+                .toInstant().epochMilliseconds
+        );
     }
 
-    // No timezone: parse as local time using date-fns.
-    const parsedDateTime = parse(
-        `${dateValue} ${timeValue}`,
-        `${CANONICAL_DATE_FORMAT} ${CANONICAL_TIME_FORMAT}`,
-        new Date()
-    );
-
-    if (!isValid(parsedDateTime)) {
-        return null;
-    }
-
-    return parsedDateTime;
+    // No timezone: `new Date('YYYY-MM-DDTHH:mm:ss')` is interpreted as local time by browsers.
+    return new Date(`${dateValue}T${timeValue}:00`);
 };
