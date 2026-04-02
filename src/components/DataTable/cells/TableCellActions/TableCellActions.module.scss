@@ -5,10 +5,6 @@
     gap: var(--spacing-small);
 }
 
-// .tableCellActions.moonstone-typography.moonstone-nowrap {
-//     overflow: visible;
-// }
-
 .displayHover {
     position: absolute;
     top: 0;
@@ -21,10 +17,5 @@
 
     background: var(--background-hover);
 
-    visibility: var(--moon-cellAction-visibility);
-
-    .tableRow:hover &,
-    .tableRow:focus-within & {
-        visibility: visible;
-    }
+    visibility: var(--moon-cellAction-visibility, hidden);
 }

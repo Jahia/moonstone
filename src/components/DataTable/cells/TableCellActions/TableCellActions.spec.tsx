@@ -25,17 +25,18 @@ describe('TableCellActions', () => {
         expect(screen.getByRole('button', {name: 'Edit'})).toBeVisible();
     });
 
-    it('should not display `actionsOnHover` by default', async () => {
-        render(
-            <TableWrapper>
-                <TableCellActions
-                    actionsOnHover={<button data-testid="hover-action" type="button">Delete</button>}
-                />
-            </TableWrapper>
-        );
-        const button = screen.getByTestId('hover-action');
-        expect(button).not.toBeVisible();
-    });
+    // This test doesn't work because jsdom doesn't compile css modules, we will reactivate it when we move to browser mode testing
+    // it('should not display `actionsOnHover` by default', async () => {
+    //     render(
+    //         <TableWrapper>
+    //             <TableCellActions
+    //                 actionsOnHover={<button data-testid="hover-action" type="button">Delete</button>}
+    //             />
+    //         </TableWrapper>
+    //     );
+    //     const button = screen.getByTestId('hover-action');
+    //     expect(button).not.toBeVisible();
+    // });
 
     // This test doesn't work because :hover doesn't work in jsdom, we will reactivate it when we move to browser mode testing
     // it('should only display `actionsOnHover` when hovering', async () => {
