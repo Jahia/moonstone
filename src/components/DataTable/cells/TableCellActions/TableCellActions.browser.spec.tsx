@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react';
 import {describe, expect, it} from 'vitest';
-// Import userEvent from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import {TableCellActions} from './TableCellActions';
 import {TableRow} from '~/components/DataTable/TableRow';
 
@@ -26,33 +26,33 @@ describe('TableCellActions', () => {
     });
 
     // This test doesn't work because jsdom doesn't compile css modules, we will reactivate it when we move to browser mode testing
-    // it('should not display `actionsOnHover` by default', async () => {
-    //     render(
-    //         <TableWrapper>
-    //             <TableCellActions
-    //                 actionsOnHover={<button data-testid="hover-action" type="button">Delete</button>}
-    //             />
-    //         </TableWrapper>
-    //     );
-    //     const button = screen.getByTestId('hover-action');
-    //     expect(button).not.toBeVisible();
-    // });
+    it('should not display `actionsOnHover` by default', async () => {
+        render(
+            <TableWrapper>
+                <TableCellActions
+                    actionsOnHover={<button data-testid="hover-action" type="button">Delete</button>}
+                />
+            </TableWrapper>
+        );
+        const button = screen.getByTestId('hover-action');
+        expect(button).not.toBeVisible();
+    });
 
     // This test doesn't work because :hover doesn't work in jsdom, we will reactivate it when we move to browser mode testing
-    // it('should only display `actionsOnHover` when hovering', async () => {
-    //     const user = userEvent.setup();
-    //     render(
-    //         <TableWrapper>
-    //             <TableCellActions
-    //                 actionsOnHover={<button data-testid="hover-action" type="button">Delete</button>}
-    //             />
-    //         </TableWrapper>
-    //     );
+    it('should only display `actionsOnHover` when hovering', async () => {
+        const user = userEvent.setup();
+        render(
+            <TableWrapper>
+                <TableCellActions
+                    actionsOnHover={<button data-testid="hover-action" type="button">Delete</button>}
+                />
+            </TableWrapper>
+        );
 
-    //     const button = screen.getByTestId('hover-action');
-    //     screen.getByRole('row').hover();
-    //     expect(button).toBeVisible();
-    // });
+        const button = screen.getByTestId('hover-action');
+        await user.hover(screen.getByRole('row'));
+        expect(button).toBeVisible();
+    });
 
     it('should render empty when no actions provided', () => {
         const {container} = render(
