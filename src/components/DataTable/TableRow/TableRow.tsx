@@ -2,12 +2,13 @@ import React from 'react';
 import clsx from 'clsx';
 
 import type {TableRowProps} from './TableRow.types';
-import './TableRow.scss';
+import styles from './TableRow.module.scss';
 
 const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowProps> = (
     {
         className,
         component = 'tr',
+        type = 'body',
         isHighlighted = false,
         children,
         ...props
@@ -21,9 +22,10 @@ const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowPr
         {
             className: clsx(
                 'flexRow',
-                'moonstone-tableRow',
+                styles.tableRow,
                 'alignCenter',
-                isHighlighted && 'moonstone-tableRow_highlighted',
+                styles.highlighted && isHighlighted && type === 'body',
+                styles.head && type === 'head',
                 className
             ),
             tabIndex: 0,

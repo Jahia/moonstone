@@ -4,7 +4,7 @@ import {ChevronDown, ChevronRight} from '~/icons';
 
 import {TableCell} from './TableCell';
 import {Typography} from '~/components';
-import './TableStructuredCell.scss';
+import styles from './TableStructuredCell.module.scss';
 import type {TableStructuredCellProps} from './TableStructuredCell.types';
 
 // Spacing constants for tree structure alignment
@@ -38,7 +38,7 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
         return (
             <TableCell
                 ref={ref}
-                className={clsx('moonstone-tableStructuredCell', className)}
+                className={clsx(styles.tableStructuredCell, className)}
                 aria-expanded={isExpanded}
                 onClick={handleToggleExpand}
                 {...props}
@@ -48,23 +48,23 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                         'flexRow_nowrap',
                         'flexFluid',
                         'alignCenter',
-                        {'moonstone-tableStructuredCell_expandable': isExpandable},
-                        {'moonstone-tableStructuredCell_scrollable': isScrollable && !isExpandable}
+                        {[styles.expandable]: isExpandable},
+                        {[styles.scrollable]: isScrollable && !isExpandable}
                     )}
                     style={{marginLeft: indent}}
                 >
                     {isExpandable ? (
                         <>
                             {isExpanded ?
-                                <ChevronDown className="moonstone-tableStructuredCell_chevron"/> :
-                                <ChevronRight className="moonstone-tableStructuredCell_chevron"/>}
+                                <ChevronDown /> :
+                                <ChevronRight />}
                             <Typography
                                 isNowrap
                                 component="div"
                                 className={clsx(
                                     'flexRow_nowrap',
                                     'alignCenter',
-                                    {'moonstone-tableStructuredCell_scrollable': isScrollable}
+                                    {[styles.scrollable]: isScrollable}
                                 )}
                             >
                                 {children}

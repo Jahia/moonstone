@@ -6,9 +6,15 @@ import {libInjectCss} from 'vite-plugin-lib-inject-css';
 import react from '@vitejs/plugin-react';
 import sbom from 'rollup-plugin-sbom';
 import {playwright} from '@vitest/browser-playwright';
+import {patchCssModules} from 'vite-css-modules';
 
 export default defineConfig({
-    plugins: [react(), libInjectCss(), sbom({specVersion: '1.4'})],
+    plugins: [
+        patchCssModules(),
+        react(),
+        libInjectCss(),
+        sbom({specVersion: '1.4'})
+    ],
     resolve: {
         alias: {
             '~': path.resolve('./src')
