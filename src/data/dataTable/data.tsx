@@ -282,7 +282,6 @@ export const tableStructured: DataUser[] = [
     }
 ];
 
-
 export const tableFlat: DataUserFlat[] = [
     {
         id: '1',

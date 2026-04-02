@@ -1,7 +1,7 @@
 import {tableStructured, tableFlat, dataColumnsUser, getStatus} from '~/data/dataTable';
 import type {DataUser, DataUserKeys} from '~/data/dataTable';
 import type {Meta, StoryObj} from '@storybook/react';
-import {DataTable, TableRow, TableCell, TableCellActions, TableCellStatus} from './index';
+import {DataTable, TableRow, TableCellActions, TableCellStatus} from './index';
 import {useState} from 'react';
 import {Button} from '~/components';
 import {Visibility, Edit, Delete, MoreVert} from '~/icons';
@@ -18,7 +18,7 @@ export default {
         enablePagination: {control: 'boolean'},
         defaultItemsPerPage: {control: 'number'},
         itemsPerPageOptions: {control: 'object'},
-        paginationLabel: {control: 'object'}
+        i18nPagination: {control: 'object'}
     }
 } satisfies Meta<typeof DataTable<DataUser>>;
 
@@ -31,7 +31,7 @@ export const DefaultDataTable: Story = {
     args: {
         data: tableFlat,
         columns: dataColumnsUser,
-        primaryKey: 'id',
+        primaryKey: 'id'
     },
     name: 'Default DataTable (uncontrolled)'
 };
@@ -44,7 +44,7 @@ export const StructuredDataTable: Story = {
         data: tableStructured,
         isStructured: true,
         columns: dataColumnsUser,
-        primaryKey: 'id',
+        primaryKey: 'id'
     },
     name: 'Structured DataTable (uncontrolled)'
 };
@@ -91,21 +91,21 @@ export const ControlledDataTable: Story = {
 
         return (
             <DataTable<DataUser>
+                enableSelection
                 data={tableFlat}
                 columns={dataColumnsUser}
                 primaryKey="id"
                 sortBy={sortBy}
                 sortDirection={sortDirection}
+                selection={selection}
+                currentPage={currentPage}
+                itemsPerPage={itemsPerPage}
+                totalItems={tableFlat.length}
                 onSortChange={(newSortBy, newSortDirection) => {
                     setSortBy(newSortBy);
                     setSortDirection(newSortDirection);
                 }}
-                enableSelection
-                selection={selection}
                 onChangeSelection={setSelection}
-                currentPage={currentPage}
-                itemsPerPage={itemsPerPage}
-                totalItems={tableFlat.length}
                 onPageChange={setCurrentPage}
                 onItemsPerPageChange={setItemsPerPage}
             />
@@ -153,7 +153,7 @@ export const InsertCells: Story = {
         data: tableFlat,
         columns: dataColumnsUser,
         primaryKey: 'id',
-        enableSelection: true,
+        enableSelection: true
     },
     name: 'Insert custom cells (renderRow)'
 };
