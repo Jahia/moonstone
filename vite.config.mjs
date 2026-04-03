@@ -41,7 +41,7 @@ export default defineConfig({
     test: {
         coverage: {
             provider: 'v8',
-            include: ['src/**/*.tsx'],
+            include: ['src/**/*.spec.tsx'],
             exclude: ['src/__mocks__', 'src/__storybook__', 'src/data', '**/*.stories.*']
         },
         projects: [
@@ -61,7 +61,23 @@ export default defineConfig({
                 extends: true,
                 test: {
                     name: 'browser',
-                    include: ['src/visual.spec.tsx', 'src/**/*.browser.spec.tsx'],
+                    include: ['src/**/*.browser.spec.tsx'],
+                    exclude: ['src/visual.spec.tsx'],
+                    css: true,
+                    browser: {
+                        enabled: true,
+                        headless: true,
+                        screenshotFailures: false,
+                        provider: playwright(),
+                        instances: [{browser: 'chromium'}]
+                    }
+                }
+            },
+            {
+                extends: true,
+                test: {
+                    name: 'visual',
+                    include: ['src/visual.spec.tsx'],
                     browser: {
                         enabled: true,
                         headless: true,

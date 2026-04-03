@@ -1,6 +1,6 @@
-import {render, screen} from '@testing-library/react';
-import {describe, expect, it} from 'vitest';
-import userEvent from '@testing-library/user-event';
+import {render, screen, cleanup} from '@testing-library/react';
+import {afterEach, describe, expect, it} from 'vitest';
+import {userEvent} from '@vitest/browser/context';
 import {TableCellActions} from './TableCellActions';
 import {TableRow} from '~/components/DataTable/TableRow';
 
@@ -15,6 +15,10 @@ const TableWrapper = ({children}: {readonly children: React.ReactNode}) => (
 );
 
 describe('TableCellActions', () => {
+    afterEach(() => {
+        cleanup();
+    });
+
     it('should display actions', () => {
         render(
             <TableWrapper>
@@ -25,7 +29,6 @@ describe('TableCellActions', () => {
         expect(screen.getByRole('button', {name: 'Edit'})).toBeVisible();
     });
 
-    // This test doesn't work because jsdom doesn't compile css modules, we will reactivate it when we move to browser mode testing
     it('should not display `actionsOnHover` by default', async () => {
         render(
             <TableWrapper>
@@ -38,9 +41,7 @@ describe('TableCellActions', () => {
         expect(button).not.toBeVisible();
     });
 
-    // This test doesn't work because :hover doesn't work in jsdom, we will reactivate it when we move to browser mode testing
     it('should only display `actionsOnHover` when hovering', async () => {
-        const user = userEvent.setup();
         render(
             <TableWrapper>
                 <TableCellActions
@@ -50,7 +51,7 @@ describe('TableCellActions', () => {
         );
 
         const button = screen.getByTestId('hover-action');
-        await user.hover(screen.getByRole('row'));
+        await userEvent.hover(screen.getByTestId('row'));
         expect(button).toBeVisible();
     });
 
