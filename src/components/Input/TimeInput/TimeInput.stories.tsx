@@ -2,8 +2,8 @@ import type {Meta, StoryObj} from '@storybook/react-vite';
 import {action} from 'storybook/actions';
 import {useArgs} from 'storybook/preview-api';
 import {TimeInput} from './TimeInput';
-import type {ControlledTimeInputProps} from './TimeInput.types';
-import {getCurrentTimeString} from '../shared/dateTime.utils';
+import type {TimeInputProps} from './TimeInput.types';
+import {getCurrentTimeString} from '../shared';
 
 const currentTime = getCurrentTimeString();
 
@@ -25,8 +25,8 @@ export default {
     }
 } satisfies Meta<typeof TimeInput>;
 
-type Story = StoryObj<ControlledTimeInputProps>;
-const logTimeChange: ControlledTimeInputProps['onChange'] = (_event, value) => {
+type Story = StoryObj<typeof TimeInput>;
+const logTimeChange: TimeInputProps['onChange'] = (_event, value) => {
     action('onChange')(value);
 };
 

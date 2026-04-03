@@ -94,7 +94,7 @@ export const getCurrentTimeString = () => Temporal.Now.plainTimeISO().toString({
  * In 12h mode, hours are converted to the 1–12 range and the meridiem is derived.
  * The meridiem defaults to 'AM' when no valid value is provided.
  */
-export const parseCanonicalTime = (value?: string | null, timeFormat: TimeFormat = '24h') => {
+export const parseCanonicalTime = (value: string | null | undefined, timeFormat: TimeFormat) => {
     const plainTime = parseCanonicalTimeValue(value);
 
     if (!plainTime) {
@@ -120,7 +120,7 @@ export const parseCanonicalTime = (value?: string | null, timeFormat: TimeFormat
     };
 };
 
-export const formatTimeDisplayValue = (value?: string | null, timeFormat: TimeFormat = '24h') => {
+export const formatTimeDisplayValue = (value: string | null | undefined, timeFormat: TimeFormat) => {
     const parsedTime = parseCanonicalTime(value, timeFormat);
 
     if (parsedTime.hours === '' || parsedTime.minutes === '') {
@@ -142,7 +142,7 @@ export const formatTimeInputValue = (value?: string | null) => {
 };
 
 /** Returns `true` if the current input value is a valid partial or complete time. */
-export const isValidPartialTimeInputValue = (value?: string | null, timeFormat: TimeFormat = '24h') => {
+export const isValidPartialTimeInputValue = (value: string | null | undefined, timeFormat: TimeFormat) => {
     const digits = getSanitizedTimeDigits(value);
     const hoursValue = digits.slice(0, 2);
     const minutesValue = digits.slice(2, 4);
@@ -156,9 +156,9 @@ export const isValidPartialTimeInputValue = (value?: string | null, timeFormat: 
  * Returns `null` if the input is incomplete (fewer than 4 digits).
  */
 export const parseTimeInputValue = (
-    value?: string | null,
-    timeFormat: TimeFormat = '24h',
-    meridiem: Meridiem = 'AM'
+    value: string | null | undefined,
+    timeFormat: TimeFormat,
+    meridiem: Meridiem
 ) => {
     const digits = getSanitizedTimeDigits(value);
 

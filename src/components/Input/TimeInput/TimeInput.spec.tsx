@@ -1,4 +1,4 @@
-import {fireEvent, render, screen} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {TimeInput} from './index';
 
@@ -16,12 +16,13 @@ describe('TimeInput', () => {
         }
     });
 
-    it('should call onChange with a canonical 24h value', () => {
+    it('should call onChange with a canonical 24h value', async () => {
+        const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(<TimeInput onChange={handleChange}/>);
+        render(<TimeInput defaultValue={null} onChange={handleChange}/>);
 
-        fireEvent.change(screen.getByPlaceholderText('HH:MM'), {target: {value: '1430'}});
+        await user.type(screen.getByPlaceholderText('HH:MM'), '1430');
 
         expect(handleChange).toHaveBeenLastCalledWith(expect.any(Object), '14:30');
     });
@@ -59,21 +60,28 @@ describe('TimeInput', () => {
         expect(screen.getByText('PM')).toBeInTheDocument();
     });
 
-    it('should ignore impossible 24h values while typing', () => {
+    it('should ignore impossible 24h values while typing', async () => {
+        const user = userEvent.setup();
+
         render(<TimeInput value="11:56" onChange={() => null}/>);
 
-        fireEvent.change(screen.getByDisplayValue('11:56'), {target: {value: '2897'}});
+        const input = screen.getByDisplayValue('11:56');
+        await user.click(input);
+        await user.keyboard('{Control>}a{/Control}{Backspace}');
+        await user.type(input, '2897');
 
-        expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
+        expect(screen.getByDisplayValue('2')).toBeInTheDocument();
         expect(screen.queryByDisplayValue('28:97')).not.toBeInTheDocument();
     });
 
-    it('should keep the partial value when deleting in controlled mode', () => {
+    it('should keep the partial value when deleting in controlled mode', async () => {
+        const user = userEvent.setup();
         const handleChange = vi.fn();
 
         render(<TimeInput value="11:56" onChange={handleChange}/>);
 
-        fireEvent.change(screen.getByDisplayValue('11:56'), {target: {value: '11:5'}});
+        await user.click(screen.getByDisplayValue('11:56'));
+        await user.keyboard('{End}{Backspace}');
 
         expect(screen.getByDisplayValue('11:5')).toBeInTheDocument();
         expect(handleChange).not.toHaveBeenCalled();

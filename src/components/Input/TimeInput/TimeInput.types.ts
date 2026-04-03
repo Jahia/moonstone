@@ -1,14 +1,14 @@
 import React from 'react';
 import type {BaseInputProps} from '../BaseInput/BaseInput.types';
-import type {DateTimeInputLabels, TimeFormat} from '../shared/dateTime.types';
+import type {DateTimeInputLabels, TimeFormat} from '../shared';
+
+type TimeInputVariant = Extract<BaseInputProps['variant'], 'ghost' | 'outlined'>;
 
 type BasicTimeInputProps = Omit<BaseInputProps,
     'isShowClearButton' |
     'value' |
     'defaultValue' |
     'onChange' |
-    'onBlur' |
-    'onFocus' |
     'onClear' |
     'icon' |
     'role' |
@@ -20,7 +20,7 @@ type BasicTimeInputProps = Omit<BaseInputProps,
     'allowDecimal' |
     'allowNegative'
 > & {
-    variant?: 'ghost' | 'outlined';
+    variant?: TimeInputVariant;
 
     /**
      * Display format for the time input.
@@ -32,9 +32,6 @@ type BasicTimeInputProps = Omit<BaseInputProps,
 
     /** I18n labels for the hours, minutes and meridiem fields */
     labels?: Pick<DateTimeInputLabels, 'hours' | 'minutes' | 'meridiem'>;
-
-    onBlur?: React.FocusEventHandler<HTMLDivElement>;
-    onFocus?: React.FocusEventHandler<HTMLDivElement>;
 
     /**
      * Fired when a complete time value is entered (all 4 digits filled),
@@ -51,6 +48,7 @@ type ControlledProps = {
     /** Controlled value in 24h format `HH:mm` (e.g. `'14:30'`), or `null`. */
     value: string | null;
     defaultValue?: never;
+    onChange: (event: React.SyntheticEvent, value: string | null) => void;
 }
 
 type UncontrolledProps = {
@@ -60,6 +58,4 @@ type UncontrolledProps = {
 }
 
 export type TimeInputProps = BasicTimeInputProps & (ControlledProps | UncontrolledProps);
-export type ControlledTimeInputProps = BasicTimeInputProps & ControlledProps;
-export type UncontrolledTimeInputProps = BasicTimeInputProps & UncontrolledProps;
-export type {DateTimeInputLabels, TimeFormat} from '../shared/dateTime.types';
+export type {DateTimeInputLabels, TimeFormat} from '../shared';

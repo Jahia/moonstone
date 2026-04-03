@@ -18,21 +18,16 @@
     width: 80px;
 }
 
-.moonstone-timeInput .moonstone-baseInput-element {
+.moonstone-timeInput_input {
     font-variant-numeric: tabular-nums;
-
     letter-spacing: 0.02em;
 }
 
-.moonstone-timeInput .moonstone-baseInput_icon {
+.moonstone-timeInput_icon {
     margin-right: var(--spacing-nano);
 }
 
 .moonstone-timeInput_meridiem {
     flex-shrink: 0;
     width: 88px;
-}
-
-.moonstone-timeInput_meridiem .moonstone-dropdown_container {
-    width: 100%;
 }
