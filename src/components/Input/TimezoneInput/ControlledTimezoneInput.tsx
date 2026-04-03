@@ -3,9 +3,13 @@ import clsx from 'clsx';
 import {Dropdown} from '~/components';
 import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
 import {Language} from '~/icons';
-import {getTimezoneDropdownData} from '../shared/dateTime.utils';
-import type {ControlledTimezoneInputProps} from './TimezoneInput.types';
+import {getTimezoneDropdownData} from '../shared';
+import type {TimezoneInputProps} from './TimezoneInput.types';
 import './TimezoneInput.scss';
+
+type ControlledTimezoneInputProps = Extract<TimezoneInputProps, {value: string | null}> & {
+    referenceDate?: Date | null;
+};
 
 export const ControlledTimezoneInput: React.FC<ControlledTimezoneInputProps> = ({
     value,
@@ -17,8 +21,6 @@ export const ControlledTimezoneInput: React.FC<ControlledTimezoneInputProps> = (
     className,
     isDisabled = false,
     isReadOnly = false,
-    onBlur,
-    onFocus,
     onChange,
     ...props
 }) => {
@@ -33,8 +35,6 @@ export const ControlledTimezoneInput: React.FC<ControlledTimezoneInputProps> = (
             isDisabled={isDisabled || isReadOnly}
             placeholder={placeholder || labels?.timezone}
             icon={<Language aria-hidden/>}
-            onFocus={onFocus}
-            onBlur={onBlur}
             onChange={(event: React.MouseEvent, item: DropdownDataOption) => {
                 onChange?.(event, item.value ?? null);
             }}

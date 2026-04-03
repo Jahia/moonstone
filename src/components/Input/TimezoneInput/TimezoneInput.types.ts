@@ -1,34 +1,15 @@
 import React from 'react';
-import type {BaseInputProps} from '../BaseInput/BaseInput.types';
-import type {DateTimeInputLabels} from '../shared/dateTime.types';
+import type {DropdownProps} from '~/components/Dropdown/Dropdown.types';
+import type {DateTimeInputLabels} from '../shared';
 
-type BaseTimezoneInputProps = Omit<BaseInputProps,
-    'isShowClearButton' |
+type BaseTimezoneInputProps = Omit<DropdownProps,
+    'data' |
+    'treeData' |
     'value' |
-    'defaultValue' |
+    'values' |
     'onChange' |
-    'onClear' |
-    'size' |
-    'icon' |
-    'role' |
-    'focusOnField' |
-    'filterFunction' |
-    'allowDecimal' |
-    'allowNegative'
+    'icon'
 > & {
-    variant?: 'ghost' | 'outlined';
-    size?: 'small' | 'medium';
-    onFocus?: React.FocusEventHandler<HTMLElement>;
-    onBlur?: React.FocusEventHandler<HTMLElement>;
-
-    /**
-     * Reference date used to compute UTC offset labels (e.g. `'UTC +02:00'`).
-     * Defaults to today when omitted.
-     * Pass a specific date when the timezone selector is used in a future/past context
-     * to ensure DST offsets are displayed correctly.
-     */
-    referenceDate?: Date | null;
-
     /** I18n label for the selector placeholder */
     labels?: Pick<DateTimeInputLabels, 'timezone'>;
 
@@ -45,6 +26,7 @@ type ControlledProps = {
     /** Controlled value: IANA timezone identifier (e.g. `'Europe/Paris'`), or `null`. */
     value: string | null;
     defaultValue?: never;
+    onChange: (event: React.SyntheticEvent, value: string | null) => void;
 }
 
 type UncontrolledProps = {
@@ -54,6 +36,4 @@ type UncontrolledProps = {
 }
 
 export type TimezoneInputProps = BaseTimezoneInputProps & (ControlledProps | UncontrolledProps);
-export type ControlledTimezoneInputProps = BaseTimezoneInputProps & ControlledProps;
-export type UncontrolledTimezoneInputProps = BaseTimezoneInputProps & UncontrolledProps;
-export type {DateTimeInputLabels} from '../shared/dateTime.types';
+export type {DateTimeInputLabels} from '../shared';

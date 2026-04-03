@@ -1,7 +1,7 @@
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {TimezoneInput} from './index';
-import {getDefaultTimezones, getTimezoneDisplayLabel} from '../shared/dateTime.utils';
+import {getDefaultTimezones, getTimezoneDisplayLabel} from '../shared';
 
 describe('TimezoneInput', () => {
     it('should render the placeholder when no timezone is selected', () => {
@@ -89,26 +89,15 @@ describe('TimezoneInput', () => {
         expect(handleChange).toHaveBeenLastCalledWith(expect.any(Object), 'Pacific/Honolulu');
     });
 
-    it('should refresh the displayed offset when the reference date changes', () => {
-        const {rerender} = render(
+    it('should render the current offset in the public component', () => {
+        render(
             <TimezoneInput
                 value="Europe/Paris"
-                referenceDate={new Date(Date.UTC(2026, 0, 15, 12, 0, 0))}
                 onChange={() => undefined}
             />
         );
 
-        expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
-
-        rerender(
-            <TimezoneInput
-                value="Europe/Paris"
-                referenceDate={new Date(Date.UTC(2026, 6, 15, 12, 0, 0))}
-                onChange={() => undefined}
-            />
-        );
-
-        expect(screen.getByRole('listbox', {name: 'Paris (UTC +02:00)'})).toBeInTheDocument();
+        expect(screen.getByRole('listbox', {name: getTimezoneDisplayLabel('Europe/Paris')})).toBeInTheDocument();
     });
 
     it('should support canonical timezones with three segments', async () => {

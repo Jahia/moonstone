@@ -1,7 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react-vite';
 import {action} from 'storybook/actions';
 import {TimezoneInput} from './TimezoneInput';
-import type {UncontrolledTimezoneInputProps} from './TimezoneInput.types';
+import type {TimezoneInputProps} from './TimezoneInput.types';
 
 export default {
     title: 'Components/Input/TimezoneInput',
@@ -22,8 +22,8 @@ export default {
     }
 } satisfies Meta<typeof TimezoneInput>;
 
-type Story = StoryObj<UncontrolledTimezoneInputProps>;
-const logTimezoneChange: UncontrolledTimezoneInputProps['onChange'] = (_event, value) => {
+type Story = StoryObj<typeof TimezoneInput>;
+const logTimezoneChange: TimezoneInputProps['onChange'] = (_event, value) => {
     action('onChange')(value);
 };
 
