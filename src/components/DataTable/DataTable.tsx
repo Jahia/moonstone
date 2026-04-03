@@ -57,7 +57,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     onPageChange,
     onItemsPerPageChange,
     totalItems,
-    i18nPagination,
+    i18n,
     paginationProps,
     rowProps,
     ...props
@@ -391,7 +391,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     }
                     itemsPerPage={table.getState().pagination.pageSize}
                     itemsPerPageOptions={itemsPerPageOptions}
-                    i18n={i18nPagination}
+                    i18n={i18n}
                     onPageChange={(page: number) => table.setPageIndex(page - 1)}
                     onItemsPerPageChange={(size: number) => table.setPageSize(size)}
                     {...paginationProps}

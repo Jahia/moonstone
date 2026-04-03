@@ -18,7 +18,7 @@ export default {
         enablePagination: {control: 'boolean'},
         defaultItemsPerPage: {control: 'number'},
         itemsPerPageOptions: {control: 'object'},
-        i18nPagination: {control: 'object'}
+        i18n: {control: 'object'}
     }
 } satisfies Meta<typeof DataTable<DataUser>>;
 

@@ -214,7 +214,7 @@ type PaginationBaseProps = {
     /** Choices for items per page value */
     itemsPerPageOptions?: ComponentPaginationProps['itemsPerPageOptions'];
     /** Pagination labels */
-    i18nPagination?: ComponentPaginationProps['i18n'];
+    i18n?: ComponentPaginationProps['i18n'];
     /** Custom attributes for the Pagination element */
     paginationProps?: Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> & Record<string, unknown>;
 };
@@ -263,7 +263,7 @@ type TablePaginationProps =
           defaultCurrentPage?: never;
           defaultItemsPerPage?: never;
           itemsPerPageOptions?: never;
-          i18nPagination?: never;
+          i18n?: never;
           paginationProps?: never;
       };
 
