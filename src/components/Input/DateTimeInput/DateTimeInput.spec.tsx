@@ -1,9 +1,10 @@
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {DateTimeInput} from './index';
-import {formatDateDisplayValue, formatDateString} from '../shared/dateTime.utils';
+import {formatDateDisplayValue, formatDateString} from '../shared';
 
-const nextMonthLabel = 'Go to the Next Month';
+const nextMonthLabel = 'Next month';
+const previousMonthLabel = 'Previous month';
 const march2026 = 'March 2026';
 const april2026 = 'April 2026';
 const july2026 = 'July 2026';
@@ -29,10 +30,7 @@ describe('DateTimeInput', () => {
         const expectedDate = formatDateString(new Date());
         expect(handleChange).toHaveBeenLastCalledWith(
             expect.any(Object),
-            expect.objectContaining({
-                value: expect.objectContaining({date: expectedDate}),
-                date: expect.any(Date)
-            })
+            expect.objectContaining({date: expectedDate})
         );
     });
 
@@ -100,10 +98,7 @@ describe('DateTimeInput', () => {
 
         expect(handleChange).toHaveBeenLastCalledWith(
             expect.any(Object),
-            expect.objectContaining({
-                value: expect.objectContaining({timezone: 'America/Toronto'}),
-                date: expect.any(Date)
-            })
+            expect.objectContaining({timezone: 'America/Toronto'})
         );
     });
 
@@ -146,10 +141,7 @@ describe('DateTimeInput', () => {
 
         expect(handleChange).toHaveBeenLastCalledWith(
             expect.any(Object),
-            expect.objectContaining({
-                value: expect.objectContaining({time: '14:30'}),
-                date: expect.any(Date)
-            })
+            expect.objectContaining({time: '14:30'})
         );
     });
 
@@ -180,7 +172,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 value={{date: '2026-03-30'}}
                 locale="en-US"
-                labels={{today: 'Today'}}
+                labels={{today: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
             />
         );
@@ -198,7 +190,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 value={{date: '2026-03-30'}}
                 locale="en-US"
-                labels={{today: 'Today'}}
+                labels={{today: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
             />
         );
@@ -226,7 +218,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 value={{date: '2026-03-30'}}
                 locale="en-US"
-                labels={{today: 'Today'}}
+                labels={{today: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
             />
         );
@@ -240,7 +232,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 value={{date: '2026-07-15'}}
                 locale="en-US"
-                labels={{today: 'Today'}}
+                labels={{today: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
             />
         );

@@ -2,8 +2,8 @@ import type {Meta, StoryObj} from '@storybook/react-vite';
 import {action} from 'storybook/actions';
 import {useArgs} from 'storybook/preview-api';
 import {DateTimeInput} from './DateTimeInput';
-import type {ControlledDateTimeInputProps} from './DateTimeInput.types';
-import {getCurrentDateString, getCurrentTimeString} from '../shared/dateTime.utils';
+import type {DateTimeInputProps} from './DateTimeInput.types';
+import {getCurrentDateString, getCurrentTimeString} from '../shared';
 
 const currentDate = getCurrentDateString();
 const currentTime = getCurrentTimeString();
@@ -32,7 +32,7 @@ export default {
     }
 } satisfies Meta<typeof DateTimeInput>;
 
-type Story = StoryObj<ControlledDateTimeInputProps>;
+type Story = StoryObj<typeof DateTimeInput>;
 
 export const DateOnly: Story = {
     render: args => {
@@ -42,9 +42,9 @@ export const DateOnly: Story = {
                 type="date"
                 placeholder="Select a date"
                 {...args}
-                onChange={(_event, change) => {
-                    action('onChange')(change.value.date, change.value.time, change.value.timezone);
-                    setArgs({value: change.value});
+                onChange={(_event, value) => {
+                    action('onChange')(value.date, value.time, value.timezone);
+                    setArgs({value});
                 }}
             />
         );
@@ -68,9 +68,9 @@ export const DateTimeWithTimezone: Story = {
                 hasTimezone
                 type="datetime"
                 {...args}
-                onChange={(_event, change) => {
-                    action('onChange')(change.value.date, change.value.time, change.value.timezone);
-                    setArgs({value: change.value});
+                onChange={(_event, value) => {
+                    action('onChange')(value.date, value.time, value.timezone);
+                    setArgs({value});
                 }}
             />
         );
@@ -97,9 +97,9 @@ export const DateTimeWithTimezone12h: Story = {
                 type="datetime"
                 timeFormat="12h"
                 {...args}
-                onChange={(_event, change) => {
-                    action('onChange')(change.value.date, change.value.time, change.value.timezone);
-                    setArgs({value: change.value});
+                onChange={(_event, value) => {
+                    action('onChange')(value.date, value.time, value.timezone);
+                    setArgs({value});
                 }}
             />
         );
@@ -128,9 +128,9 @@ export const DisabledDates: Story = {
                 maxDate={new Date(2026, 3, 5)}
                 disabledDates={[new Date(2026, 2, 30)]}
                 {...args}
-                onChange={(_event, change) => {
-                    action('onChange')(change.value.date, change.value.time, change.value.timezone);
-                    setArgs({value: change.value});
+                onChange={(_event, value) => {
+                    action('onChange')(value.date, value.time, value.timezone);
+                    setArgs({value});
                 }}
             />
         );

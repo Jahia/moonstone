@@ -2,21 +2,20 @@ import React from 'react';
 import type {DayPickerProps} from 'react-day-picker';
 import type {BaseInputProps} from '../BaseInput/BaseInput.types';
 import type {
-    DateTimeInputChange,
     DateTimeInputLabels,
     DateTimeInputType,
     DateTimeInputValue,
     DisabledDateRange,
     TimeFormat
-} from '../shared/dateTime.types';
+} from '../shared';
+
+type DateTimeInputVariant = Extract<BaseInputProps['variant'], 'ghost' | 'outlined'>;
 
 type BasicDateTimeInputProps = Omit<BaseInputProps,
     'isShowClearButton' |
     'value' |
     'defaultValue' |
     'onChange' |
-    'onBlur' |
-    'onFocus' |
     'onClear' |
     'icon' |
     'role' |
@@ -32,21 +31,7 @@ type BasicDateTimeInputProps = Omit<BaseInputProps,
      */
     type: DateTimeInputType;
 
-    variant?: 'ghost' | 'outlined';
-
-    /**
-     * When `true`, displays a timezone selector to the right of the time input.
-     * Has no effect when `type='date'`.
-     * @default false
-     */
-    hasTimezone?: boolean;
-
-    /**
-     * Display format for the time input.
-     * Does not affect the `value.time` format, which is always `HH:mm` (24h).
-     * @default '24h'
-     */
-    timeFormat?: TimeFormat;
+    variant?: DateTimeInputVariant;
 
     /** Lower bound of the calendar (inclusive). Dates before this are disabled. */
     minDate?: Date;
@@ -65,7 +50,7 @@ type BasicDateTimeInputProps = Omit<BaseInputProps,
      * Examples: `'fr-FR'`, `'en-US'`, `'de-DE'`.
      * When omitted, the browser's locale is used (`Intl.DateTimeFormat` with no locale argument).
      */
-    locale?: string;
+    locale?: Intl.ResolvedDateTimeFormatOptions['locale'];
 
     /**
      * The day of the week that starts the calendar week.
@@ -76,41 +61,52 @@ type BasicDateTimeInputProps = Omit<BaseInputProps,
 
     /** I18n labels for fields and buttons */
     labels?: DateTimeInputLabels;
+};
 
-    onBlur?: React.FocusEventHandler<HTMLDivElement>;
-    onFocus?: React.FocusEventHandler<HTMLDivElement>;
+type DateProps = {
+    type: 'date';
+    hasTimezone?: never;
+    timeFormat?: never;
+};
+
+type DateTimeProps = {
+    type: 'datetime';
 
     /**
-     * Fired on every value change.
-     *
-     * @param event  - Originating React event (click, change, etc.)
-     * @param change - Object containing:
-     *   - `value`: Canonical field values — store this and pass it back as the `value` prop
-     *   - `date`:  Resolved JS `Date` object, `null` if the value is incomplete
+     * When `true`, displays a timezone selector.
+     * @default false
      */
-    onChange?: (event: React.SyntheticEvent, change: DateTimeInputChange) => void;
-}
+    hasTimezone?: boolean;
+
+    /**
+     * Display format for the time input.
+     * Does not affect the `value.time` format, which is always `HH:mm` (24h).
+     * @default '24h'
+     */
+    timeFormat?: TimeFormat;
+};
 
 type ControlledProps = {
     /** Controlled value. Must be updated via `onChange` to reflect user changes. */
     value: DateTimeInputValue;
     defaultValue?: never;
-}
+    onChange: (event: React.SyntheticEvent, value: DateTimeInputValue) => void;
+};
 
 type UncontrolledProps = {
     value?: never;
     /** Initial value in uncontrolled mode. The component manages its own internal state. */
     defaultValue?: DateTimeInputValue;
-}
+    onChange?: (event: React.SyntheticEvent, value: DateTimeInputValue) => void;
+};
 
-export type DateTimeInputProps = BasicDateTimeInputProps & (ControlledProps | UncontrolledProps);
-export type ControlledDateTimeInputProps = BasicDateTimeInputProps & ControlledProps;
-export type UncontrolledDateTimeInputProps = BasicDateTimeInputProps & UncontrolledProps;
+type DateTimeInputBaseProps = BasicDateTimeInputProps & (DateProps | DateTimeProps);
+
+export type DateTimeInputProps = DateTimeInputBaseProps & (ControlledProps | UncontrolledProps);
 export type {
-    DateTimeInputChange,
     DateTimeInputLabels,
     DateTimeInputType,
     DateTimeInputValue,
     DisabledDateRange,
     TimeFormat
-} from '../shared/dateTime.types';
+} from '../shared';
