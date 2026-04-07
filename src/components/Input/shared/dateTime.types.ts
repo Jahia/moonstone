@@ -27,19 +27,6 @@ export type DateTimeInputValue = {
 };
 
 /**
- * Object emitted by the `onChange` callback of the `DateTimeInput`.
- *
- * @property value - Canonical field values to store and pass back as the `value` prop (controlled usage).
- * @property date  - Resolved JS `Date` object, ready for comparisons or calculations.
- *                   `null` if date is missing or if `type='datetime'` and time is missing.
- *                   Timezone-aware when a timezone is provided.
- */
-export type DateTimeInputChange = {
-    value: DateTimeInputValue;
-    date: Date | null;
-};
-
-/**
  * A date range to disable in the calendar picker.
  * Both `from` and `to` bounds are inclusive.
  */
@@ -60,16 +47,8 @@ export type DateTimeInputLabels = {
     meridiem?: string;
     /** Placeholder for the timezone selector */
     timezone?: string;
+    /** Accessible label for the next month button */
+    nextMonth?: string;
+    /** Accessible label for the previous month button */
+    previousMonth?: string;
 };
-
-export const emptyDateTimeInputValue: DateTimeInputValue = {
-    date: null,
-    time: null,
-    timezone: null
-};
-
-export const createDateTimeInputValue = (value?: DateTimeInputValue | null): DateTimeInputValue => ({
-    date: value?.date ?? null,
-    time: value?.time ?? null,
-    timezone: value?.timezone ?? null
-});

@@ -138,13 +138,13 @@ const getSanitizedTimezones = (timezones: string[]) => getUniqueTimezones(
     timezones
         .map(timezone => timezone.trim())
         .filter(Boolean)
-).filter(isValidTimezone);
+);
 
 export const getDefaultTimezones = () => {
     const supportedValuesOf = intlWithSupportedValues.supportedValuesOf;
 
     if (typeof supportedValuesOf === 'function') {
-        return getSanitizedTimezones(['UTC', ...supportedValuesOf('timeZone')]);
+        return ['UTC', ...supportedValuesOf('timeZone')];
     }
 
     return [...fallbackTimezones];
@@ -167,14 +167,14 @@ export const getTimezoneDropdownData = (
     referenceDate?: Date | null
 ): DropdownDataGrouped[] => {
     const resolvedReferenceDate = referenceDate ?? new Date();
-    const timezones = getDefaultTimezones().filter(timezone => timezone !== 'UTC');
+    const timezones = getSanitizedTimezones(getDefaultTimezones().filter(timezone => timezone !== 'UTC'));
 
-    if (selectedTimezone && !timezones.includes(selectedTimezone)) {
+    if (selectedTimezone && isValidTimezone(selectedTimezone) && !timezones.includes(selectedTimezone)) {
         timezones.push(selectedTimezone);
     }
 
     return Array.from(
-        getSanitizedTimezones(timezones).reduce((groups, timezone) => {
+        timezones.reduce((groups, timezone) => {
             const groupLabel = getTimezoneRegion(timezone);
             const nextGroup = groups.get(groupLabel) ?? [];
 

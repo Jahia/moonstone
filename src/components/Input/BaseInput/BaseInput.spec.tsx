@@ -1,5 +1,6 @@
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import React from 'react';
 import {BaseInput} from './index';
 import {Love} from '~/icons';
 
@@ -53,6 +54,27 @@ describe('BaseInput', () => {
     it('should display the specified icon', () => {
         render(<BaseInput icon={<Love data-testid="test-icon"/>}/>);
         expect(screen.getByTestId('test-icon')).toBeInTheDocument();
+    });
+
+    it('should forward the containerRef to the root element', () => {
+        const containerRef = React.createRef<HTMLDivElement>();
+
+        render(<BaseInput containerRef={containerRef}/>);
+
+        expect(containerRef.current).toHaveClass('moonstone-baseInput');
+    });
+
+    it('should apply inputClassName and iconClassName to the proper elements', () => {
+        const {container} = render(
+            <BaseInput
+                icon={<Love data-testid="test-icon"/>}
+                inputClassName="test-input-class"
+                iconClassName="test-icon-class"
+            />
+        );
+
+        expect(container.querySelector('.test-input-class')).toHaveClass('moonstone-baseInput-element');
+        expect(container.querySelector('.test-icon-class')).toHaveClass('moonstone-baseInput_icon');
     });
 
     it('should work when no value or defaultValue is specified', async () => {
