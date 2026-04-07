@@ -3,7 +3,7 @@ name: On merge
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   release-publish:
@@ -56,7 +56,7 @@ jobs:
         shell: bash
         run: |
           git checkout develop
-          git merge master --ff-only
+          git merge main --ff-only
           git push -u origin develop
 
   sbom:
