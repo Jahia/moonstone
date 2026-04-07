@@ -15,7 +15,7 @@ export const ControlledTimezoneInput: React.FC<ControlledTimezoneInputProps> = (
     value,
     referenceDate,
     placeholder,
-    labels,
+    i18n,
     size = 'small',
     variant = 'outlined',
     className,
@@ -33,7 +33,7 @@ export const ControlledTimezoneInput: React.FC<ControlledTimezoneInputProps> = (
             size={size}
             variant={variant}
             isDisabled={isDisabled || isReadOnly}
-            placeholder={placeholder || labels?.timezone}
+            placeholder={placeholder || i18n?.timezone}
             icon={<Language aria-hidden/>}
             onChange={(event: React.MouseEvent, item: DropdownDataOption) => {
                 onChange?.(event, item.value ?? null);

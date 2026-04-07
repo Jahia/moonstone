@@ -16,7 +16,7 @@ export default {
     },
     args: {
         value: currentTime,
-        labels: {
+        i18n: {
             hours: 'Hours',
             minutes: 'Minutes',
             meridiem: 'Meridiem'

@@ -1,6 +1,6 @@
 import React from 'react';
 import type {BaseInputProps} from '../BaseInput/BaseInput.types';
-import type {DateTimeInputLabels, TimeFormat} from '../shared';
+import type {DateTimeInputI18n, TimeFormat} from '../shared';
 
 type TimeInputVariant = Extract<BaseInputProps['variant'], 'ghost' | 'outlined'>;
 
@@ -31,7 +31,7 @@ type BasicTimeInputProps = Omit<BaseInputProps,
     timeFormat?: TimeFormat;
 
     /** I18n labels for the hours, minutes and meridiem fields */
-    labels?: Pick<DateTimeInputLabels, 'hours' | 'minutes' | 'meridiem'>;
+    i18n?: Pick<DateTimeInputI18n, 'hours' | 'minutes' | 'meridiem'>;
 
     /**
      * Fired when a complete time value is entered (all 4 digits filled),
@@ -58,4 +58,4 @@ type UncontrolledProps = {
 }
 
 export type TimeInputProps = BasicTimeInputProps & (ControlledProps | UncontrolledProps);
-export type {DateTimeInputLabels, TimeFormat} from '../shared';
+export type {DateTimeInputI18n, TimeFormat} from '../shared';

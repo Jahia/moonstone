@@ -19,7 +19,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 value={{date: null}}
                 placeholder="Select a date"
-                labels={{today: 'Today'}}
+                i18n={{today: 'Today'}}
                 onChange={handleChange}
             />
         );
@@ -44,7 +44,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 placeholder="Select a date"
                 disabledDates={[today]}
-                labels={{today: 'Today'}}
+                i18n={{today: 'Today'}}
                 onChange={handleChange}
             />
         );
@@ -63,7 +63,7 @@ describe('DateTimeInput', () => {
             render(
                 <DateTimeInput
                     type="datetime"
-                    labels={{today: 'Today', timezone: 'Timezone'}}
+                    i18n={{today: 'Today', timezone: 'Timezone'}}
                 />
             );
 
@@ -83,7 +83,7 @@ describe('DateTimeInput', () => {
                 hasTimezone
                 type="datetime"
                 value={{date: '2026-02-10', time: '11:56', timezone: 'Europe/Paris'}}
-                labels={{today: 'Today', timezone: 'Timezone'}}
+                i18n={{today: 'Today', timezone: 'Timezone'}}
                 onChange={handleChange}
             />
         );
@@ -109,7 +109,7 @@ describe('DateTimeInput', () => {
                 type="datetime"
                 timeFormat="12h"
                 value={{date: '2026-02-10', time: '23:56', timezone: 'Europe/Paris'}}
-                labels={{today: 'Today', timezone: 'Timezone'}}
+                i18n={{today: 'Today', timezone: 'Timezone'}}
                 onChange={() => null}
             />
         );
@@ -128,7 +128,7 @@ describe('DateTimeInput', () => {
                 type="datetime"
                 timeFormat="12h"
                 value={{date: '2026-02-10', time: '02:30'}}
-                labels={{today: 'Today', meridiem: 'Meridiem'}}
+                i18n={{today: 'Today', meridiem: 'Meridiem'}}
                 onChange={handleChange}
             />
         );
@@ -153,7 +153,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 value={{date: '2026-03-30'}}
                 disabledDates={[new Date(2026, 2, 30)]}
-                labels={{today: 'Today'}}
+                i18n={{today: 'Today'}}
                 onChange={() => null}
             />
         );
@@ -172,7 +172,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 value={{date: '2026-03-30'}}
                 locale="en-US"
-                labels={{today: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
+                i18n={{today: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
             />
         );
@@ -190,7 +190,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 value={{date: '2026-03-30'}}
                 locale="en-US"
-                labels={{today: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
+                i18n={{today: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
             />
         );
@@ -218,7 +218,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 value={{date: '2026-03-30'}}
                 locale="en-US"
-                labels={{today: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
+                i18n={{today: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
             />
         );
@@ -232,7 +232,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 value={{date: '2026-07-15'}}
                 locale="en-US"
-                labels={{today: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
+                i18n={{today: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
             />
         );
@@ -246,7 +246,7 @@ describe('DateTimeInput', () => {
                 hasTimezone
                 type="datetime"
                 value={{date: '2026-01-15', time: '11:56', timezone: 'Europe/Paris'}}
-                labels={{today: 'Today', timezone: 'Timezone'}}
+                i18n={{today: 'Today', timezone: 'Timezone'}}
                 onChange={() => null}
             />
         );
@@ -258,7 +258,7 @@ describe('DateTimeInput', () => {
                 hasTimezone
                 type="datetime"
                 value={{date: '2026-07-15', time: '11:56', timezone: 'Europe/Paris'}}
-                labels={{today: 'Today', timezone: 'Timezone'}}
+                i18n={{today: 'Today', timezone: 'Timezone'}}
                 onChange={() => null}
             />
         );
@@ -272,7 +272,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 value={{date: '2026-02-30'}}
                 placeholder="Select a date"
-                labels={{today: 'Today'}}
+                i18n={{today: 'Today'}}
                 onChange={() => null}
             />
         );

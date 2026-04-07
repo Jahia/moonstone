@@ -51,7 +51,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     disabledDateRanges,
     locale,
     weekStartsOn = 1,
-    labels,
+    i18n,
     size,
     variant,
     placeholder,
@@ -71,7 +71,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     const calendarAnchorRef = useRef<HTMLDivElement>(null);
     const now = new Date();
     const todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const todayButtonLabel = labels?.today || formatDateDisplayValue(formatDateString(todayDate), locale);
+    const todayButtonLabel = i18n?.today || formatDateDisplayValue(formatDateString(todayDate), locale);
     const timezoneReferenceDate = getTimezoneReferenceDate(sanitizedValue.date) ?? undefined;
     const calendarDisabledMatchers = getCalendarDisabledMatchers(minDate, maxDate, disabledDates, disabledDateRanges);
     const isTodayDisabled = isDisabled || isReadOnly || dateMatchModifiers(todayDate, calendarDisabledMatchers);
@@ -130,8 +130,8 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                         <DayPicker
                             classNames={dayPickerClassNames}
                             labels={{
-                                labelNext: () => labels?.nextMonth || 'Go to the next month',
-                                labelPrevious: () => labels?.previousMonth || 'Go to the previous month'
+                                labelNext: () => i18n?.nextMonth || 'Go to the next month',
+                                labelPrevious: () => i18n?.previousMonth || 'Go to the previous month'
                             }}
                             showOutsideDays
                             navLayout="around"
@@ -182,7 +182,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                     focusOnField={false}
                     timeFormat={timeFormat}
                     value={sanitizedValue.time ?? null}
-                    labels={labels}
+                    i18n={i18n}
                     onChange={(event, timeValue) => {
                         emitChange(event, {...sanitizedValue, time: timeValue});
                     }}
@@ -197,8 +197,8 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                     isReadOnly={isReadOnly}
                     value={sanitizedValue.timezone ?? null}
                     referenceDate={timezoneReferenceDate}
-                    placeholder={labels?.timezone}
-                    labels={labels}
+                    placeholder={i18n?.timezone}
+                    i18n={i18n}
                     onChange={(event, timezoneValue) => {
                         emitChange(event, {...sanitizedValue, timezone: timezoneValue});
                     }}

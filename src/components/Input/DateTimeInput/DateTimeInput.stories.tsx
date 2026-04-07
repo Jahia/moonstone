@@ -22,7 +22,7 @@ export default {
         layout: 'centered'
     },
     args: {
-        labels: {
+        i18n: {
             today: 'Today',
             hours: 'Hours',
             minutes: 'Minutes',

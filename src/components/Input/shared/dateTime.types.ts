@@ -36,7 +36,7 @@ export type DisabledDateRange = {
 };
 
 /** I18n labels for the fields and action buttons of the `DateTimeInput` */
-export type DateTimeInputLabels = {
+export type DateTimeInputI18n = {
     /** Label for the "Today" shortcut button in the calendar footer */
     today?: string;
     /** Placeholder / aria-label for the hours field */

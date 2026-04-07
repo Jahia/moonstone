@@ -22,8 +22,8 @@ const meridiemOptions: DropdownDataOption[] = [
 
 const getDropdownSize = (size: TimeInputProps['size']) => size === 'big' ? 'medium' : 'small';
 
-const getInputAriaLabel = (labels: TimeInputProps['labels']) => {
-    const ariaLabel = [labels?.hours, labels?.minutes].filter(Boolean).join(' ');
+const getInputAriaLabel = (i18n: TimeInputProps['i18n']) => {
+    const ariaLabel = [i18n?.hours, i18n?.minutes].filter(Boolean).join(' ');
     return ariaLabel || undefined;
 };
 
@@ -35,7 +35,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
     variant = 'outlined',
     placeholder = 'HH:MM',
     className,
-    labels,
+    i18n,
     isDisabled = false,
     isReadOnly = false,
     focusOnField = false,
@@ -113,7 +113,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
                 isDisabled={isDisabled}
                 isReadOnly={isReadOnly}
                 placeholder={placeholder}
-                aria-label={getInputAriaLabel(labels)}
+                aria-label={getInputAriaLabel(i18n)}
                 autoComplete="off"
                 icon={<Clock aria-hidden size={size === 'big' ? 'big' : 'default'}/>}
                 inputMode="numeric"

@@ -8,7 +8,7 @@ describe('TimeInput', () => {
         vi.setSystemTime(new Date(2026, 2, 31, 11, 56, 0));
 
         try {
-            render(<TimeInput labels={{hours: 'Hours', minutes: 'Minutes'}}/>);
+            render(<TimeInput i18n={{hours: 'Hours', minutes: 'Minutes'}}/>);
 
             expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
         } finally {

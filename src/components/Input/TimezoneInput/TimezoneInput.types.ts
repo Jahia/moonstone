@@ -1,6 +1,6 @@
 import React from 'react';
 import type {DropdownProps} from '~/components/Dropdown/Dropdown.types';
-import type {DateTimeInputLabels} from '../shared';
+import type {DateTimeInputI18n} from '../shared';
 
 type BaseTimezoneInputProps = Omit<DropdownProps,
     'data' |
@@ -11,7 +11,7 @@ type BaseTimezoneInputProps = Omit<DropdownProps,
     'icon'
 > & {
     /** I18n label for the selector placeholder */
-    labels?: Pick<DateTimeInputLabels, 'timezone'>;
+    i18n?: Pick<DateTimeInputI18n, 'timezone'>;
 
     /**
      * Fired on every selection change.
@@ -36,4 +36,4 @@ type UncontrolledProps = {
 }
 
 export type TimezoneInputProps = BaseTimezoneInputProps & (ControlledProps | UncontrolledProps);
-export type {DateTimeInputLabels} from '../shared';
+export type {DateTimeInputI18n} from '../shared';
