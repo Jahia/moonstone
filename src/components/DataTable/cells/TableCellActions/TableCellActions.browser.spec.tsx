@@ -1,6 +1,6 @@
-import {render, screen} from '@testing-library/react';
-import {describe, expect, it} from 'vitest';
-// Import userEvent from '@testing-library/user-event';
+import {render, screen, cleanup} from '@testing-library/react';
+import {afterEach, describe, expect, it} from 'vitest';
+import {userEvent} from '@vitest/browser/context';
 import {TableCellActions} from './TableCellActions';
 import {TableRow} from '~/components/DataTable/TableRow';
 
@@ -15,6 +15,10 @@ const TableWrapper = ({children}: {readonly children: React.ReactNode}) => (
 );
 
 describe('TableCellActions', () => {
+    afterEach(() => {
+        cleanup();
+    });
+
     it('should display actions', () => {
         render(
             <TableWrapper>
@@ -37,21 +41,19 @@ describe('TableCellActions', () => {
         expect(button).not.toBeVisible();
     });
 
-    // This test doesn't work because :hover doesn't work in jsdom, we will reactivate it when we move to browser mode testing
-    // it('should only display `actionsOnHover` when hovering', async () => {
-    //     const user = userEvent.setup();
-    //     render(
-    //         <TableWrapper>
-    //             <TableCellActions
-    //                 actionsOnHover={<button data-testid="hover-action" type="button">Delete</button>}
-    //             />
-    //         </TableWrapper>
-    //     );
+    it('should only display `actionsOnHover` when hovering', async () => {
+        render(
+            <TableWrapper>
+                <TableCellActions
+                    actionsOnHover={<button data-testid="hover-action" type="button">Delete</button>}
+                />
+            </TableWrapper>
+        );
 
-    //     const button = screen.getByTestId('hover-action');
-    //     screen.getByRole('row').hover();
-    //     expect(button).toBeVisible();
-    // });
+        const button = screen.getByTestId('hover-action');
+        await userEvent.hover(screen.getByTestId('row'));
+        expect(button).toBeVisible();
+    });
 
     it('should render empty when no actions provided', () => {
         const {container} = render(

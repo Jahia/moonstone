@@ -1,4 +1,4 @@
-.moonstone-tableCellStatus_panel {
+.panel {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -24,7 +24,7 @@
     transition: max-width 0.4s ease-in-out, visibility 0.3s;
 }
 
-.moonstone-tableCellStatus {
+.tableCellStatus {
     position: relative;
 
     padding: 0;
@@ -34,7 +34,7 @@
     border-left: 6px solid var(--tableCellStatus-bar);
 
     &:hover {
-        .moonstone-tableCellStatus_panel {
+        .panel {
             max-width: 500px;
 
             visibility: visible;
@@ -42,37 +42,37 @@
     }
 }
 
-.moonstone-tableCellStatus_success {
+.success {
     --tableCellStatus-background: var(--color-success_plain20);
     --tableCellStatus-color: var(--color-success_dark);
     --tableCellStatus-bar: var(--color-success);
 }
 
-.moonstone-tableCellStatus_warning {
+.warning {
     --tableCellStatus-background: var(--color-warning_plain20);
     --tableCellStatus-color: var(--color-warning_dark);
     --tableCellStatus-bar: var(--color-warning);
 }
 
-.moonstone-tableCellStatus_danger {
+.danger {
     --tableCellStatus-background: var(--color-danger_plain20);
     --tableCellStatus-color: var(--color-danger_dark);
     --tableCellStatus-bar: var(--color-danger);
 }
 
-.moonstone-tableCellStatus_dark {
+.dark {
     --tableCellStatus-background: var(--color-dark_plain20);
     --tableCellStatus-color: var(--color-dark);
     --tableCellStatus-bar: var(--color-dark);
 }
 
-.moonstone-tableCellStatus_default {
+.default {
     --tableCellStatus-background: var(--color-gray_light_plain40);
     --tableCellStatus-color: var(--color-gray_dark);
     --tableCellStatus-bar: var(--color-gray);
 }
 
-.moonstone-tableCellStatus_info {
+.info {
     --tableCellStatus-background: var(--color-accent_light_plain20);
     --tableCellStatus-color: var(--color-accent_dark_contrast);
     --tableCellStatus-bar: var(--color-accent);

@@ -1,22 +1,18 @@
-$tree-offset: -20px; // chevron size (16px) + gap (4px)
+@use '../../../utils/index.scss';
 
-.moonstone-tableStructuredCell {
-    padding: 0 var(--spacing-large);
-}
-
-.moonstone-tableStructuredCell_expandable {
+.tableCell {
     gap: var(--spacing-nano);
 
     height: -webkit-fill-available; // firefox fixes
     /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
     height: stretch;
-    margin-right: $tree-offset;
 
-    transform: translateX($tree-offset);
-    cursor: pointer;
+    padding-right: var(--spacing-medium);
+    padding-left: var(--spacing-medium);
+    overflow: hidden;
 }
 
-.moonstone-tableStructuredCell_scrollable {
+.scrollable {
     height: -webkit-fill-available; // firefox fixes
     /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
     height: stretch;

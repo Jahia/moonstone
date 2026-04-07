@@ -1,6 +1,6 @@
 import {ArrowDown, ArrowUp} from '~/icons';
 import clsx from 'clsx';
-import './TableHeadCell.scss';
+import styles from './TableHeadCell.module.scss';
 import {TableCell} from './TableCell';
 import type {TableHeadCellProps} from './TableHeadCell.types';
 
@@ -24,7 +24,7 @@ export const TableHeadCell = ({
             component="th"
             width={width}
             align={align}
-            className={clsx('moonstone-tableHeadCell', {'moonstone-tableHeadCell_sortable': isSortable}, className)}
+            className={clsx(styles.tableHeadCell, {[styles.sortable]: isSortable}, className)}
             aria-sort={isSortActive ? sorting?.direction : undefined}
             onClick={onClick}
         >
@@ -33,8 +33,8 @@ export const TableHeadCell = ({
                 <SortIcon
                     aria-hidden="true"
                     className={clsx(
-                        {'moonstone-tableHeadCell_sort': !isSortActive},
-                        {'moonstone-tableHeadCell_sortActive': isSortActive}
+                        {[styles.sort]: !isSortActive},
+                        {[styles.sortActive]: isSortActive}
                     )}
                 />
             )}
