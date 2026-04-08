@@ -37,7 +37,6 @@
 }
 
 .moonstone-dateTimeInput_calendar {
-    padding: var(--spacing-nano);
     --rdp-accent-color: var(--color-accent);
     --rdp-background-color: var(--background-selector);
     --rdp-accent-background-color: var(--color-accent_light40);
@@ -47,6 +46,8 @@
     --rdp-nav_button-width: 21px;
     --rdp-nav_button-height: 21px;
     --rdp-selected-border: 1px solid var(--color-accent);
+
+    padding: var(--spacing-nano);
 }
 
 .moonstone-dateTimeInput_calendarFooter {

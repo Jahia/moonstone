@@ -21,7 +21,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
         <ControlledDateTimeInput
             ref={ref}
             {...props}
-            type={type}
+            type={type as 'datetime'}
             value={isControlled ? value : dateTimeValue}
             onChange={(event, selectedDateTimeValue) => {
                 if (!isControlled) {

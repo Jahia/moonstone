@@ -93,9 +93,9 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
             <BaseInput
                 ref={ref}
                 {...props}
+                isReadOnly
                 containerRef={calendarAnchorRef}
                 className="moonstone-dateTimeInput_dateField"
-                isReadOnly
                 value={formatDateDisplayValue(sanitizedValue.date, locale)}
                 size={size}
                 variant={variant}
@@ -119,7 +119,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
             {calendarAnchorRef.current && (
                 <Menu
                     isDisplayed={isCalendarOpen}
-                    anchorEl={calendarAnchorRef}
+                    anchorEl={calendarAnchorRef as React.MutableRefObject<HTMLDivElement>}
                     anchorPosition={{top: 4, left: 0}}
                     minWidth={size === 'big' ? '270px' : '235px'}
                     maxWidth="340px"
@@ -128,25 +128,25 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                 >
                     <div className="moonstone-dateTimeInput_calendar">
                         <DayPicker
-                            classNames={dayPickerClassNames}
-                            labels={{
+                        showOutsideDays
+                        classNames={dayPickerClassNames}
+                        labels={{
                                 labelNext: () => i18n?.nextMonth || 'Go to the next month',
                                 labelPrevious: () => i18n?.previousMonth || 'Go to the previous month'
                             }}
-                            showOutsideDays
-                            navLayout="around"
-                            weekStartsOn={weekStartsOn}
-                            month={displayedMonth}
-                            disabled={calendarDisabledMatchers}
-                            formatters={locale ? {
+                        navLayout="around"
+                        weekStartsOn={weekStartsOn}
+                        month={displayedMonth}
+                        disabled={calendarDisabledMatchers}
+                        formatters={locale ? {
                                 formatCaption: (date: Date) => new Intl.DateTimeFormat(locale, {month: 'long', year: 'numeric'}).format(date),
                                 formatDay: (date: Date) => new Intl.DateTimeFormat(locale, {day: 'numeric'}).format(date),
                                 formatWeekdayName: (date: Date) => new Intl.DateTimeFormat(locale, {weekday: 'short'}).format(date)
                             } : undefined}
-                            onMonthChange={setDisplayedMonth}
-                            mode="single"
-                            selected={selectedDate ?? undefined}
-                            onSelect={(date, _selectedDay, modifiers, event) => {
+                        mode="single"
+                        selected={selectedDate ?? undefined}
+                        onMonthChange={setDisplayedMonth}
+                        onSelect={(date, _selectedDay, modifiers, event) => {
                                 if (modifiers.disabled) {
                                     return;
                                 }
@@ -194,7 +194,6 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                     size={size === 'big' ? 'medium' : 'small'}
                     variant={variant}
                     isDisabled={isDisabled}
-                    isReadOnly={isReadOnly}
                     value={sanitizedValue.timezone ?? null}
                     referenceDate={timezoneReferenceDate}
                     placeholder={i18n?.timezone}

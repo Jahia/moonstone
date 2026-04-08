@@ -28,7 +28,7 @@ const logTimezoneChange: TimezoneInputProps['onChange'] = (_event, value) => {
 };
 
 export const Default: Story = {
-    render: args => <TimezoneInput defaultValue="Europe/Paris" {...args}/>,
+    render: args => <TimezoneInput {...args}/>,
     args: {
         defaultValue: 'Europe/Paris',
         onChange: logTimezoneChange

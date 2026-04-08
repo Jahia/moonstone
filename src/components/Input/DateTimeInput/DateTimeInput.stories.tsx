@@ -2,7 +2,6 @@ import type {Meta, StoryObj} from '@storybook/react-vite';
 import {action} from 'storybook/actions';
 import {useArgs} from 'storybook/preview-api';
 import {DateTimeInput} from './DateTimeInput';
-import type {DateTimeInputProps} from './DateTimeInput.types';
 import {getCurrentDateString, getCurrentTimeString} from '../shared';
 
 const currentDate = getCurrentDateString();
@@ -39,7 +38,6 @@ export const DateOnly: Story = {
         const [, setArgs] = useArgs();
         return (
             <DateTimeInput
-                type="date"
                 placeholder="Select a date"
                 {...args}
                 onChange={(_event, value) => {
@@ -65,8 +63,6 @@ export const DateTimeWithTimezone: Story = {
         const [, setArgs] = useArgs();
         return (
             <DateTimeInput
-                hasTimezone
-                type="datetime"
                 {...args}
                 onChange={(_event, value) => {
                     action('onChange')(value.date, value.time, value.timezone);
@@ -93,9 +89,6 @@ export const DateTimeWithTimezone12h: Story = {
         const [, setArgs] = useArgs();
         return (
             <DateTimeInput
-                hasTimezone
-                type="datetime"
-                timeFormat="12h"
                 {...args}
                 onChange={(_event, value) => {
                     action('onChange')(value.date, value.time, value.timezone);
@@ -105,7 +98,6 @@ export const DateTimeWithTimezone12h: Story = {
         );
     },
     args: {
-        type: 'datetime',
         hasTimezone: true,
         timeFormat: '12h',
         value: {
@@ -123,7 +115,6 @@ export const DisabledDates: Story = {
         const [, setArgs] = useArgs();
         return (
             <DateTimeInput
-                type="date"
                 minDate={new Date(2026, 2, 28)}
                 maxDate={new Date(2026, 3, 5)}
                 disabledDates={[new Date(2026, 2, 30)]}
