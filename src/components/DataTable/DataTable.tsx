@@ -132,7 +132,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
         onChangeSelection
     });
 
-    const {pagination, isPaginationControlled, handlePaginationChange} = useTablePagination({
+    const {pagination, handlePaginationChange} = useTablePagination({
         currentPage,
         itemsPerPage,
         defaultCurrentPage,
@@ -385,7 +385,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 <Pagination
                     currentPage={table.getState().pagination.pageIndex + 1}
                     totalOfItems={
-                        isPaginationControlled ?
+                        currentPage !== undefined && totalItems !== undefined ?
                             totalItems :
                             table.getPrePaginationRowModel().rows.length
                     }

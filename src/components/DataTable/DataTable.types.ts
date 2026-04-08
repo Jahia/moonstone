@@ -123,7 +123,7 @@ export type SortDirection = 'ascending' | 'descending';
 type SortingProps<T extends NonNullable<unknown>> =
     | {
           /** Enable sorting for the table */
-          enableSorting?: true;
+          enableSorting: true;
           /** Current sort column (controlled) */
           sortBy: Extract<Exclude<keyof T, SubRowKey>, string>;
           /** Current sort direction (controlled) */
@@ -135,7 +135,7 @@ type SortingProps<T extends NonNullable<unknown>> =
       }
     | {
           /** Enable sorting for the table */
-          enableSorting?: true;
+          enableSorting: true;
           sortBy?: never;
           sortDirection?: never;
           /** Callback when sort changes */
@@ -157,7 +157,7 @@ type SortingProps<T extends NonNullable<unknown>> =
 export type SelectionProps =
     | {
           /** Enable selection for the table */
-          enableSelection?: true;
+          enableSelection: true;
           /** Selected row primaryKey values (controlled) */
           selection: string[];
           /** Callback when selection changes */
@@ -167,7 +167,7 @@ export type SelectionProps =
           selectionCellProps?: Omit<TableCellProps, 'children' | 'width' | 'component'>;
       }
     | {
-          enableSelection?: true;
+          enableSelection: true;
           /** Initial selected rows primaryKey values (uncontrolled) */
           defaultSelection?: string[];
           /** Optional callback to observe selection changes */
@@ -221,15 +221,15 @@ type PaginationBaseProps = {
 
 type PaginationControlledProps = {
     /** Current page 1-indexed (Controlled) */
-    currentPage: number;
+    currentPage: ComponentPaginationProps['currentPage'];
     /** Items per page (Controlled) */
-    itemsPerPage?: number;
+    itemsPerPage?: ComponentPaginationProps['itemsPerPage'];
     /** Total number of items across all pages (Controlled) */
     totalItems: number;
     /** Callback when page changes (Controlled) */
-    onPageChange: (page: number) => void;
+    onPageChange: ComponentPaginationProps['onPageChange'];
     /** Callback when items per page changes */
-    onItemsPerPageChange?: (itemsPerPage: number) => void;
+    onItemsPerPageChange?: ComponentPaginationProps['onItemsPerPageChange'];
     defaultCurrentPage?: never;
     defaultItemsPerPage?: never;
 };
@@ -243,15 +243,15 @@ export type PaginationUncontrolledProps = {
     itemsPerPage?: never;
     totalItems?: never;
     /** Callback when page changes */
-    onPageChange?: (page: number) => void;
+    onPageChange?: ComponentPaginationProps['onPageChange'];
     /** Callback when items per page changes */
-    onItemsPerPageChange?: (itemsPerPage: number) => void;
+    onItemsPerPageChange?: ComponentPaginationProps['onItemsPerPageChange'];
 };
 
 type TablePaginationProps =
     | ({
           /** Enable Table Pagination */
-          enablePagination?: true;
+          enablePagination: true;
       } & PaginationBaseProps & (PaginationControlledProps | PaginationUncontrolledProps))
     | {
           enablePagination?: false;

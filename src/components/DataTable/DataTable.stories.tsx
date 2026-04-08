@@ -90,8 +90,10 @@ export const ControlledDataTable: Story = {
         const [itemsPerPage, setItemsPerPage] = useState(10);
 
         return (
-            <DataTable<DataUser>
+            <DataTable
                 enableSelection
+                enableSorting
+                enablePagination
                 data={tableFlat}
                 columns={dataColumnsUser}
                 primaryKey="id"
@@ -102,7 +104,7 @@ export const ControlledDataTable: Story = {
                 itemsPerPage={itemsPerPage}
                 totalItems={tableFlat.length}
                 onSortChange={(newSortBy, newSortDirection) => {
-                    setSortBy(newSortBy);
+                    setSortBy(newSortBy as DataUserKeys);
                     setSortDirection(newSortDirection);
                 }}
                 onChangeSelection={setSelection}
