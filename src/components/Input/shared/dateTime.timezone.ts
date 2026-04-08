@@ -7,10 +7,6 @@ const intlWithSupportedValues = Intl as typeof Intl & {
 
 const preferredTimezoneGroups: Array<{groupLabel: string; timezones: string[]}> = [
     {
-        groupLabel: 'UTC',
-        timezones: ['UTC']
-    },
-    {
         groupLabel: 'Europe',
         timezones: [
             'Europe/Paris',
@@ -82,10 +78,6 @@ const timezoneGroupOrder = preferredTimezoneGroups.map(group => group.groupLabel
 const getUniqueTimezones = (timezones: string[]) => Array.from(new Set(timezones));
 
 const isValidTimezone = (timezone: string) => {
-    if (timezone === 'UTC') {
-        return true;
-    }
-
     try {
         // Intl.DateTimeFormat throws a RangeError for unknown IANA timezone identifiers.
         return Boolean(
@@ -96,15 +88,9 @@ const isValidTimezone = (timezone: string) => {
     }
 };
 
-const getTimezoneRegion = (timezone: string) => timezone === 'UTC' ?
-    'UTC' :
-    timezone.split('/')[0] || 'Other';
+const getTimezoneRegion = (timezone: string) => timezone.split('/')[0] || 'Other';
 
 const getTimezoneCityLabel = (timezone: string) => {
-    if (timezone === 'UTC') {
-        return 'UTC';
-    }
-
     const parts = timezone.split('/');
     return (parts[parts.length - 1] || timezone).replace(/_/g, ' ');
 };
@@ -129,7 +115,7 @@ const getTimezoneOption = (timezone: string, referenceDate: Date): DropdownDataO
     const offsetLabel = formatTimezoneOffsetLabel(timezone, referenceDate);
 
     return {
-        label: timezone === 'UTC' ? 'UTC' : `${getTimezoneCityLabel(timezone)} (${offsetLabel})`,
+        label: `${getTimezoneCityLabel(timezone)} (${offsetLabel})`,
         value: timezone
     };
 };
@@ -144,7 +130,7 @@ export const getDefaultTimezones = () => {
     const supportedValuesOf = intlWithSupportedValues.supportedValuesOf;
 
     if (typeof supportedValuesOf === 'function') {
-        return ['UTC', ...supportedValuesOf('timeZone')];
+        return supportedValuesOf('timeZone');
     }
 
     return [...fallbackTimezones];
