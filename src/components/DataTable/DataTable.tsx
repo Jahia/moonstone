@@ -11,7 +11,7 @@ import type {ExpandedState, Row} from '@tanstack/react-table';
 import React, {useState, useEffect, useMemo, useCallback, useRef} from 'react';
 import clsx from 'clsx';
 import {useTableSelection, useTableSorting, useTablePagination} from '~/hooks';
-import type {DataTableProps, CustomColumnMeta, DefaultRenderOptions} from './DataTable.types';
+import type {DataTableProps, CustomColumnMeta, RenderOptions} from './DataTable.types';
 import {Checkbox} from '~/components';
 import {
     Table,
@@ -37,7 +37,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     enableSelection = false,
     selection,
     onChangeSelection,
-    enableSorting = false,
+    enableSorting = !isStructured,
     sortBy,
     sortDirection,
     onSortChange,
@@ -48,7 +48,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     onClickTableHeadCell,
     selectionCellProps,
     // Pagination props
-    enablePagination = false,
+    enablePagination = !isStructured,
     currentPage,
     itemsPerPage,
     itemsPerPageOptions = [5, 10, 25],
@@ -57,7 +57,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     onPageChange,
     onItemsPerPageChange,
     totalItems,
-    paginationLabel,
+    i18n,
     paginationProps,
     rowProps,
     ...props
@@ -132,7 +132,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
         onChangeSelection
     });
 
-    const {pagination, isPaginationControlled, handlePaginationChange} = useTablePagination({
+    const {pagination, handlePaginationChange} = useTablePagination({
         currentPage,
         itemsPerPage,
         defaultCurrentPage,
@@ -177,7 +177,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     }, [data, isStructured, table]);
 
     const renderRowContent = useCallback(
-        (row: Row<T>, options?: DefaultRenderOptions) => {
+        (row: Row<T>, options?: RenderOptions) => {
             const beforeCells = toNodeArray(options?.before);
             const afterCells = toNodeArray(options?.after);
 
@@ -286,10 +286,10 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
     const renderRowWithCustomization = useCallback(
         (row: Row<T>) => {
-            const defaultRender = (options?: DefaultRenderOptions) => renderRowContent(row, options);
+            const render = (options?: RenderOptions) => renderRowContent(row, options);
 
             if (renderRow) {
-                return renderRow(row, defaultRender);
+                return renderRow(row, render);
             }
 
             return (
@@ -298,7 +298,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     aria-selected={row.getIsSelected() || undefined}
                     {...rowProps}
                 >
-                    {defaultRender()}
+                    {render()}
                 </TableRow>
             );
         },
@@ -385,13 +385,13 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 <Pagination
                     currentPage={table.getState().pagination.pageIndex + 1}
                     totalOfItems={
-                        isPaginationControlled ?
+                        currentPage !== undefined && totalItems !== undefined ?
                             totalItems :
                             table.getPrePaginationRowModel().rows.length
                     }
                     itemsPerPage={table.getState().pagination.pageSize}
                     itemsPerPageOptions={itemsPerPageOptions}
-                    label={paginationLabel}
+                    i18n={i18n}
                     onPageChange={(page: number) => table.setPageIndex(page - 1)}
                     onItemsPerPageChange={(size: number) => table.setPageSize(size)}
                     {...paginationProps}
