@@ -1,3 +1,0 @@
-import"./react-ST3FQwwi.js";import"./Typography-DmF64pNr.js";import{t as e}from"./Tag-D6j7szLT.js";import{t}from"./iframe-Cl0une2Q.js";var n=t(),r={title:`Components/Tag`,component:e,parameters:{layout:`fullscreen`,knobs:{disable:!0},storysource:{disable:!0},actions:{argTypesRegex:`^on.*`}}},i={render:t=>(0,n.jsx)(e,{label:`Tag`,value:`tag01`,...t})};i.parameters={...i.parameters,docs:{...i.parameters?.docs,source:{originalSource:`{
-  render: Template
-}`,...i.parameters?.docs?.source}}};var a=[`Default`];export{i as Default,a as __namedExportsOrder,r as default};
