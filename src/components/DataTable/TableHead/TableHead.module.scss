@@ -1,14 +1,14 @@
-.moonstone-tableHead {
+.tableHead {
     color: var(--color-gray_dark);
 
     background-color: var(--color-white);
 }
 
-.moonstone-tableHeadCell_structured {
+.structured {
     padding: 0 var(--spacing-large);
 }
 
-.moonstone-tableHead_sticky {
+.sticky {
     position: sticky;
     top: 0;
     z-index: 5;

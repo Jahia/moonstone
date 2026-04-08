@@ -6,9 +6,15 @@ import {libInjectCss} from 'vite-plugin-lib-inject-css';
 import react from '@vitejs/plugin-react';
 import sbom from 'rollup-plugin-sbom';
 import {playwright} from '@vitest/browser-playwright';
+import {patchCssModules} from 'vite-css-modules';
 
 export default defineConfig({
-    plugins: [react(), libInjectCss(), sbom({specVersion: '1.4'})],
+    plugins: [
+        patchCssModules(),
+        react(),
+        libInjectCss(),
+        sbom({specVersion: '1.4'})
+    ],
     resolve: {
         alias: {
             '~': path.resolve('./src')
@@ -35,7 +41,7 @@ export default defineConfig({
     test: {
         coverage: {
             provider: 'v8',
-            include: ['src/**/*.tsx'],
+            include: ['src/**/*.spec.tsx'],
             exclude: ['src/__mocks__', 'src/__storybook__', 'src/data', '**/*.stories.*']
         },
         projects: [
@@ -47,8 +53,24 @@ export default defineConfig({
                     globals: true,
                     environment: 'jsdom',
                     include: ['src/**/*.spec.tsx'],
-                    exclude: ['src/visual.spec.tsx'],
+                    exclude: ['src/visual.spec.tsx', 'src/**/*.browser.spec.tsx'],
                     css: true
+                }
+            },
+            {
+                extends: true,
+                test: {
+                    name: 'browser',
+                    include: ['src/**/*.browser.spec.tsx'],
+                    exclude: ['src/visual.spec.tsx'],
+                    css: true,
+                    browser: {
+                        enabled: true,
+                        headless: true,
+                        screenshotFailures: false,
+                        provider: playwright(),
+                        instances: [{browser: 'chromium'}]
+                    }
                 }
             },
             {

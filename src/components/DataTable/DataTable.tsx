@@ -314,7 +314,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
             <Table className={className} {...props}>
                 <TableHead>
                     {table.getHeaderGroups().map(headerGroup => (
-                        <TableRow key={headerGroup.id} className="moonstone-tableRow_header">
+                        <TableRow key={headerGroup.id} type="head">
                             {/* Custom "before" column headers */}
                             {Array.from({length: customBeforeCount}, (_, i) => (
                                 <TableHeadCell

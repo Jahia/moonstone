@@ -1,0 +1,25 @@
+.tableHeadCell {
+    font-weight: bold;
+}
+
+.sort {
+    color: var(--color-gray_light);
+}
+
+.sortActive {
+    color: var(--color-accent);
+}
+
+.sortable {
+    cursor: pointer;
+
+    &:hover {
+        .sort {
+            color: var(--color-gray);
+        }
+
+        .sortActive {
+            color: var(--color-accent_dark);
+        }
+    }
+}
