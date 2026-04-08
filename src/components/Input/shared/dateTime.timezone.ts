@@ -73,10 +73,6 @@ const fallbackTimezones = preferredTimezoneGroups.reduce<string[]>(
     []
 );
 
-const timezoneGroupOrder = preferredTimezoneGroups.map(group => group.groupLabel);
-
-const getUniqueTimezones = (timezones: string[]) => Array.from(new Set(timezones));
-
 const isValidTimezone = (timezone: string) => {
     try {
         // Intl.DateTimeFormat throws a RangeError for unknown IANA timezone identifiers.
@@ -102,7 +98,7 @@ const formatTimezoneOffsetLabel = (timezone: string, referenceDate: Date) => {
 };
 
 const getRegionSortIndex = (region: string) => {
-    const index = timezoneGroupOrder.indexOf(region);
+    const index = preferredTimezoneGroups.findIndex(group => group.groupLabel === region);
     return index === -1 ? Number.MAX_SAFE_INTEGER : index;
 };
 
@@ -119,12 +115,6 @@ const getTimezoneOption = (timezone: string, referenceDate: Date): DropdownDataO
         value: timezone
     };
 };
-
-const getSanitizedTimezones = (timezones: string[]) => getUniqueTimezones(
-    timezones
-        .map(timezone => timezone.trim())
-        .filter(Boolean)
-);
 
 export const getDefaultTimezones = () => {
     const supportedValuesOf = intlWithSupportedValues.supportedValuesOf;
@@ -153,7 +143,9 @@ export const getTimezoneDropdownData = (
     referenceDate?: Date | null
 ): DropdownDataGrouped[] => {
     const resolvedReferenceDate = referenceDate ?? new Date();
-    const timezones = getSanitizedTimezones(getDefaultTimezones().filter(timezone => timezone !== 'UTC'));
+    const timezones = Array.from(new Set(
+        getDefaultTimezones().filter(tz => tz !== 'UTC').map(tz => tz.trim()).filter(Boolean)
+    ));
 
     if (selectedTimezone && isValidTimezone(selectedTimezone) && !timezones.includes(selectedTimezone)) {
         timezones.push(selectedTimezone);

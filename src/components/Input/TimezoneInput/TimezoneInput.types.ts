@@ -10,6 +10,9 @@ type BaseTimezoneInputProps = Omit<DropdownProps,
     'onChange' |
     'icon'
 > & {
+    /** Reference date used to compute UTC offsets in the timezone list. Defaults to today when omitted. */
+    referenceDate?: Date | null;
+
     /** I18n label for the selector placeholder */
     i18n?: Pick<DateTimeInputI18n, 'timezone'>;
 

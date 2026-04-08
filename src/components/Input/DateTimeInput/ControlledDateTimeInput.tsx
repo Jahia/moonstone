@@ -6,7 +6,7 @@ import {Button, Menu} from '~/components';
 import {Calendar} from '~/icons';
 import {BaseInput} from '../BaseInput';
 import {TimeInput} from '../TimeInput';
-import {ControlledTimezoneInput} from '../TimezoneInput/ControlledTimezoneInput';
+import {TimezoneInput} from '../TimezoneInput/TimezoneInput';
 import {
     createDateTimeInputValue,
     formatDateDisplayValue,
@@ -189,7 +189,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                 />
             )}
             {type === 'datetime' && hasTimezone && (
-                <ControlledTimezoneInput
+                <TimezoneInput
                     className="moonstone-dateTimeInput_timezoneField"
                     size={size === 'big' ? 'medium' : 'small'}
                     variant={variant}
