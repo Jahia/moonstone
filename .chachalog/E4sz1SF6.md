@@ -3,4 +3,4 @@
 "@jahia/moonstone": patch
 ---
 
-MenuItem click handling when disabled (#1323)
+Prevent click when MenuItem is disabled (#1323)
