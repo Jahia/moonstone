@@ -1,0 +1,1 @@
+import"./react-ST3FQwwi.js";import"./react-dom-D6wlrHAt.js";import{r as e}from"./chunk-P4F4UVXX-CfTx9Hnb.js";import"./components-CT6skZl7.js";export{e as createCopyToClipboardFunction};
