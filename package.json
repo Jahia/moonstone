@@ -19,6 +19,16 @@
         "default": "./dist/index.cjs"
       }
     },
+    "./DataTable": {
+      "import": {
+        "types": "./dist/components/DataTable.d.ts",
+        "default": "./dist/components/DataTable.js"
+      },
+      "require": {
+        "types": "./dist/components/DataTable.d.cts",
+        "default": "./dist/components/DataTable.cjs"
+      }
+    },
     "./dist/rulesconfig-wp": {
       "require": "./rulesconfig-wp.cjs"
     },

@@ -12,7 +12,7 @@ import React, {useState, useEffect, useMemo, useCallback, useRef} from 'react';
 import clsx from 'clsx';
 import {useTableSelection, useTableSorting, useTablePagination} from '~/hooks';
 import type {DataTableProps, CustomColumnMeta, RenderOptions} from './DataTable.types';
-import {Checkbox} from '~/components';
+import {Checkbox, Pagination} from '~/components';
 import {
     Table,
     TableRow,
@@ -23,7 +23,6 @@ import {
     TableHeadCell
 } from '~/components/DataTable';
 import {createTableColumns} from '~/utils/dataTable/tableHelpers';
-import {Pagination} from '~/components/Pagination';
 
 // Styles for custom column headers (no padding to match measured cell widths)
 const CUSTOM_HEADER_STYLE = {padding: 0};

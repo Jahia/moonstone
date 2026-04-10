@@ -24,6 +24,7 @@ export default defineConfig({
         lib: {
             entry: {
                 index: './src/index.ts',
+                'components/DataTable': './src/components/DataTable/index.ts',
                 // Legacy entrypoints, remove in the future
                 'icons/index': './src/icons/index.ts',
                 'components/CheckboxGroup/CheckboxItem': './src/components/CheckboxGroup/CheckboxItem/index.ts',

@@ -1,7 +1,7 @@
 import {tableStructured, tableFlat, dataColumnsUser, getStatus} from '~/data/dataTable';
 import type {DataUser, DataUserKeys} from '~/data/dataTable';
 import type {Meta, StoryObj} from '@storybook/react';
-import {DataTable, TableRow, TableCellActions, TableCellStatus} from './index';
+import {DataTable, TableRow, TableCellActions, TableCellStatus} from '~/components/DataTable';
 import {useState} from 'react';
 import {Button} from '~/components';
 import {Visibility, Edit, Delete, MoreVert} from '~/icons';
