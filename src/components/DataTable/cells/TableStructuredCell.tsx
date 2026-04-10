@@ -5,6 +5,7 @@ import {ChevronDown, ChevronRight} from '~/icons';
 import {TableCell} from './TableCell';
 import {Typography} from '~/components';
 import styles from './TableStructuredCell.module.scss';
+import {layout} from '~/globals/css-utils.js';
 import type {TableStructuredCellProps} from './TableStructuredCell.types';
 
 // Spacing constants for tree structure alignment
@@ -45,9 +46,9 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
             >
                 <div
                     className={clsx(
-                        'flexRow_nowrap',
-                        'flexFluid',
-                        'alignCenter',
+                        layout.flexRow_nowrap,
+                        layout.flexFluid,
+                        layout.alignCenter,
                         {[styles.expandable]: isExpandable},
                         {[styles.scrollable]: isScrollable && !isExpandable}
                     )}
@@ -62,8 +63,8 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                                 isNowrap
                                 component="div"
                                 className={clsx(
-                                    'flexRow_nowrap',
-                                    'alignCenter',
+                                    layout.flexRow_nowrap,
+                                    layout.alignCenter,
                                     {[styles.scrollable]: isScrollable}
                                 )}
                             >
