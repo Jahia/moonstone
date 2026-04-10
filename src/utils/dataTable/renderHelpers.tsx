@@ -3,17 +3,21 @@ import {Typography} from '~/components';
 
 type LocaleProp = string | string[];
 
-export type LocaleOptions = {
+export type DateLocaleOptions = {
     value: Date | null | undefined;
     locale?: LocaleProp;
     localeOptions?: Intl.DateTimeFormatOptions;
-} | {
+};
+
+export type NumberLocaleOptions = {
     value: number | bigint | null | undefined;
     locale?: LocaleProp;
     localeOptions?: Intl.NumberFormatOptions;
 };
 
-export const renderString = (value: string): React.ReactNode => {
+export type LocaleOptions = DateLocaleOptions | NumberLocaleOptions;
+
+export const renderString = (value: string | null | undefined): React.ReactNode => {
     if (typeof value !== 'string') {
         console.warn('renderString expects a string, received:', typeof value, value);
         return null;
@@ -23,7 +27,7 @@ export const renderString = (value: string): React.ReactNode => {
 };
 
 export const renderNumber = (
-    {value, locale, localeOptions}: Extract<LocaleOptions, { value: number | bigint }>
+    {value, locale, localeOptions}: NumberLocaleOptions
 ): React.ReactNode => {
     if (value === null || value === undefined) {
         return null;
@@ -38,7 +42,7 @@ export const renderNumber = (
 };
 
 export const renderDate = (
-    {value, locale, localeOptions}: Extract<LocaleOptions, { value: Date | null | undefined }>
+    {value, locale, localeOptions}: DateLocaleOptions
 ): React.ReactNode => {
     if (value === null || value === undefined) {
         return null;
