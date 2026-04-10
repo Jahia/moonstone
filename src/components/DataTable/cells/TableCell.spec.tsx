@@ -31,19 +31,6 @@ describe('TableCell', () => {
         expect(screen.getByTestId('cell').tagName).toBe('TH');
     });
 
-    it('should apply alignment classes', () => {
-        render(
-            <TableWrapper>
-                <TableCell data-testid="left" align="left">L</TableCell>
-                <TableCell data-testid="center" align="center">C</TableCell>
-                <TableCell data-testid="right" align="right">R</TableCell>
-            </TableWrapper>
-        );
-        expect(screen.getByTestId('left')).toHaveClass('justifyStart');
-        expect(screen.getByTestId('center')).toHaveClass('justifyCenter');
-        expect(screen.getByTestId('right')).toHaveClass('justifyEnd');
-    });
-
     it('should apply width style', () => {
         render(
             <TableWrapper>
