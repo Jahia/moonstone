@@ -9,8 +9,6 @@ import type {
     TimeFormat
 } from '../shared';
 
-type DateTimeInputVariant = Extract<BaseInputProps['variant'], 'ghost' | 'outlined'>;
-
 type BasicDateTimeInputProps = Omit<BaseInputProps,
     'isShowClearButton' |
     'value' |
@@ -31,7 +29,16 @@ type BasicDateTimeInputProps = Omit<BaseInputProps,
      */
     type: DateTimeInputType;
 
-    variant?: DateTimeInputVariant;
+    /** Controlled value. Must be updated via `onChange` to reflect user changes. */
+    value?: DateTimeInputValue;
+
+    /** Initial value in uncontrolled mode. The component manages its own internal state. */
+    defaultValue?: DateTimeInputValue;
+
+    /** Fired when the selected date, time or timezone changes. */
+    onChange?: (event: React.SyntheticEvent, value: DateTimeInputValue) => void;
+
+    variant?: 'ghost' | 'outlined';
 
     /** Lower bound of the calendar (inclusive). Dates before this are disabled. */
     minDate?: Date;
@@ -86,23 +93,7 @@ type DateTimeProps = {
     timeFormat?: TimeFormat;
 };
 
-type ControlledProps = {
-    /** Controlled value. Must be updated via `onChange` to reflect user changes. */
-    value: DateTimeInputValue;
-    defaultValue?: never;
-    onChange: (event: React.SyntheticEvent, value: DateTimeInputValue) => void;
-};
-
-type UncontrolledProps = {
-    value?: never;
-    /** Initial value in uncontrolled mode. The component manages its own internal state. */
-    defaultValue?: DateTimeInputValue;
-    onChange?: (event: React.SyntheticEvent, value: DateTimeInputValue) => void;
-};
-
-type DateTimeInputBaseProps = BasicDateTimeInputProps & (DateProps | DateTimeProps);
-
-export type DateTimeInputProps = DateTimeInputBaseProps & (ControlledProps | UncontrolledProps);
+export type DateTimeInputProps = BasicDateTimeInputProps & (DateProps | DateTimeProps);
 export type {
     DateTimeInputI18n,
     DateTimeInputType,
