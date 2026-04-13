@@ -42,16 +42,6 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
     containerRef?: React.Ref<HTMLDivElement>;
 
     /**
-     * Additional classname applied to the input element.
-     */
-    inputClassName?: string;
-
-    /**
-     * Additional classname applied to the icon wrapper.
-     */
-    iconClassName?: string;
-
-    /**
      * Whether the size of the input should be default or big
      */
     size?: 'default' | 'big';

@@ -14,8 +14,6 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
     isReadOnly = false,
     className,
     containerRef,
-    inputClassName,
-    iconClassName,
     size = 'default',
     icon,
     variant = 'outlined',
@@ -57,8 +55,7 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
                     className={clsx(
                         'moonstone-baseInput_icon',
                         'flexRow_nowrap',
-                        'alignCenter',
-                        iconClassName
+                        'alignCenter'
                     )}
                 >
                     <icon.type {...icon.props} focusable="false"/>
@@ -68,7 +65,7 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
                 {prefixComponents}
                 <input
                     ref={ref}
-                    className={clsx('moonstone-baseInput-element', `moonstone-${size}`, inputClassName)}
+                    className={clsx('moonstone-baseInput-element', `moonstone-${size}`)}
                     type="text"
                     value={value}
                     role={role === 'search' ? 'searchbox' : undefined}

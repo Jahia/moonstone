@@ -20,8 +20,6 @@ const meridiemOptions: DropdownDataOption[] = [
     {label: 'PM', value: 'PM'}
 ];
 
-const getDropdownSize = (size: TimeInputProps['size']) => size === 'big' ? 'medium' : 'small';
-
 const getInputAriaLabel = (i18n: TimeInputProps['i18n']) => {
     const ariaLabel = [i18n?.hours, i18n?.minutes].filter(Boolean).join(' ');
     return ariaLabel || undefined;
@@ -95,44 +93,39 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
     };
 
     return (
-        <div
+        <BaseInput
+            ref={ref}
+            {...props}
             className={clsx('moonstone-timeInput', className, {
                 'moonstone-timeInput_12h': timeFormat === '12h'
             })}
-        >
-            <BaseInput
-                ref={ref}
-                {...props}
-                className="moonstone-timeInput_field"
-                inputClassName="moonstone-timeInput_input"
-                iconClassName="moonstone-timeInput_icon"
-                value={inputValue}
-                size={size}
-                variant={variant}
-                focusOnField={focusOnField}
-                isDisabled={isDisabled}
-                isReadOnly={isReadOnly}
-                placeholder={placeholder}
-                aria-label={getInputAriaLabel(i18n)}
-                autoComplete="off"
-                icon={<Clock aria-hidden size={size === 'big' ? 'big' : 'default'}/>}
-                inputMode="numeric"
-                onBlur={onBlur}
-                onFocus={onFocus}
-                onChange={handleInputChange}
-            />
-            {timeFormat === '12h' && (
+            value={inputValue}
+            size={size}
+            variant={variant}
+            focusOnField={focusOnField}
+            isDisabled={isDisabled}
+            isReadOnly={isReadOnly}
+            placeholder={placeholder}
+            aria-label={getInputAriaLabel(i18n)}
+            autoComplete="off"
+            icon={<Clock aria-hidden size={size === 'big' ? 'big' : 'default'}/>}
+            inputMode="numeric"
+            postfixComponents={timeFormat === '12h' ? [
                 <Dropdown
+                    key="meridiem"
                     className="moonstone-timeInput_meridiem"
                     data={meridiemOptions}
                     value={meridiem}
-                    size={getDropdownSize(size)}
-                    variant={variant}
+                    size={size === 'big' ? 'medium' : 'small'}
+                    variant="ghost"
                     isDisabled={isDisabled || isReadOnly}
                     onChange={handleMeridiemChange}
                 />
-            )}
-        </div>
+            ] : undefined}
+            onBlur={onBlur}
+            onFocus={onFocus}
+            onChange={handleInputChange}
+        />
     );
 });
 

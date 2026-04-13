@@ -64,19 +64,6 @@ describe('BaseInput', () => {
         expect(containerRef.current).toHaveClass('moonstone-baseInput');
     });
 
-    it('should apply inputClassName and iconClassName to the proper elements', () => {
-        const {container} = render(
-            <BaseInput
-                icon={<Love data-testid="test-icon"/>}
-                inputClassName="test-input-class"
-                iconClassName="test-icon-class"
-            />
-        );
-
-        expect(container.querySelector('.test-input-class')).toHaveClass('moonstone-baseInput-element');
-        expect(container.querySelector('.test-icon-class')).toHaveClass('moonstone-baseInput_icon');
-    });
-
     it('should work when no value or defaultValue is specified', async () => {
         const user = userEvent.setup();
 
