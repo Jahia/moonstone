@@ -93,39 +93,40 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
     };
 
     return (
-        <BaseInput
-            ref={ref}
-            {...props}
-            className={clsx('moonstone-timeInput', className, {
-                'moonstone-timeInput_12h': timeFormat === '12h'
-            })}
-            value={inputValue}
-            size={size}
-            variant={variant}
-            focusOnField={focusOnField}
-            isDisabled={isDisabled}
-            isReadOnly={isReadOnly}
-            placeholder={placeholder}
-            aria-label={getInputAriaLabel(i18n)}
-            autoComplete="off"
-            icon={<Clock aria-hidden size={size === 'big' ? 'big' : 'default'}/>}
-            inputMode="numeric"
-            postfixComponents={timeFormat === '12h' ? [
+        <div className={clsx('moonstone-timeInput', 'flexRow_nowrap', 'alignCenter', className)}>
+            <BaseInput
+                ref={ref}
+                {...props}
+                className={clsx('moonstone-timeInput_field', {
+                    'moonstone-timeInput_field_12h': timeFormat === '12h'
+                })}
+                value={inputValue}
+                size={size}
+                variant={variant}
+                focusOnField={focusOnField}
+                isDisabled={isDisabled}
+                isReadOnly={isReadOnly}
+                placeholder={placeholder}
+                aria-label={getInputAriaLabel(i18n)}
+                autoComplete="off"
+                icon={<Clock aria-hidden size={size === 'big' ? 'big' : 'default'}/>}
+                inputMode="numeric"
+                onBlur={onBlur}
+                onFocus={onFocus}
+                onChange={handleInputChange}
+            />
+            {timeFormat === '12h' && (
                 <Dropdown
-                    key="meridiem"
                     className="moonstone-timeInput_meridiem"
                     data={meridiemOptions}
                     value={meridiem}
                     size={size === 'big' ? 'medium' : 'small'}
-                    variant="ghost"
+                    variant={variant}
                     isDisabled={isDisabled || isReadOnly}
                     onChange={handleMeridiemChange}
                 />
-            ] : undefined}
-            onBlur={onBlur}
-            onFocus={onFocus}
-            onChange={handleInputChange}
-        />
+            )}
+        </div>
     );
 });
 

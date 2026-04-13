@@ -1,10 +1,14 @@
 .moonstone-timeInput {
+    gap: var(--spacing-nano);
+}
+
+.moonstone-timeInput_field {
     width: 140px;
     max-width: 100%;
 }
 
-.moonstone-timeInput_12h {
-    width: calc(80px + 88px + var(--spacing-nano));
+.moonstone-timeInput_field_12h {
+    width: 80px;
 }
 
 .moonstone-timeInput .moonstone-baseInput-element {
