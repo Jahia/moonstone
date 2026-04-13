@@ -4,9 +4,9 @@ import {dateMatchModifiers, DayPicker} from 'react-day-picker';
 import dayPickerClassNames from 'react-day-picker/style.module.css';
 import {Button, Menu} from '~/components';
 import {Calendar} from '~/icons';
+import {TimezoneSelector} from '../../TimezoneSelector/TimezoneSelector';
 import {BaseInput} from '../BaseInput';
 import {TimeInput} from '../TimeInput';
-import {TimezoneInput} from '../TimezoneInput/TimezoneInput';
 import {
     createDateTimeInputValue,
     formatDateDisplayValue,
@@ -189,7 +189,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                 />
             )}
             {type === 'datetime' && hasTimezone && (
-                <TimezoneInput
+                <TimezoneSelector
                     className="moonstone-dateTimeInput_timezoneField"
                     size={size === 'big' ? 'medium' : 'small'}
                     variant={variant}
@@ -197,7 +197,6 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                     value={sanitizedValue.timezone ?? null}
                     referenceDate={timezoneReferenceDate}
                     placeholder={i18n?.timezone}
-                    i18n={i18n}
                     onChange={(event, timezoneValue) => {
                         emitChange(event, {...sanitizedValue, timezone: timezoneValue});
                     }}

@@ -48,6 +48,7 @@ export * from './Tab/TabItem';
 export * from './Table';
 export * from './Textarea';
 export * from './Thumbnail';
+export * from './TimezoneSelector';
 export * from './Tooltip';
 export * from './TreeView';
 export * from './Typography';

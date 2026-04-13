@@ -1,11 +1,11 @@
 import type {Meta, StoryObj} from '@storybook/react-vite';
 import {action} from 'storybook/actions';
-import {TimezoneInput} from './TimezoneInput';
-import type {TimezoneInputProps} from './TimezoneInput.types';
+import {TimezoneSelector} from './TimezoneSelector';
+import type {TimezoneSelectorProps} from './TimezoneSelector.types';
 
 export default {
-    title: 'Components/Input/TimezoneInput',
-    component: TimezoneInput,
+    title: 'Components/TimezoneSelector',
+    component: TimezoneSelector,
     tags: ['beta'],
     decorators: [
         StoryCmp => (
@@ -20,15 +20,15 @@ export default {
     args: {
         defaultValue: 'Europe/Paris'
     }
-} satisfies Meta<typeof TimezoneInput>;
+} satisfies Meta<typeof TimezoneSelector>;
 
-type Story = StoryObj<typeof TimezoneInput>;
-const logTimezoneChange: TimezoneInputProps['onChange'] = (_event, value) => {
+type Story = StoryObj<typeof TimezoneSelector>;
+const logTimezoneChange: TimezoneSelectorProps['onChange'] = (_event, value) => {
     action('onChange')(value);
 };
 
 export const Default: Story = {
-    render: args => <TimezoneInput {...args}/>,
+    render: args => <TimezoneSelector {...args}/>,
     args: {
         defaultValue: 'Europe/Paris',
         onChange: logTimezoneChange

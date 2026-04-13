@@ -1,12 +1,12 @@
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {TimezoneInput} from './index';
-import {getDefaultTimezones, getTimezoneDisplayLabel} from '../shared';
+import {TimezoneSelector} from './index';
+import {getDefaultTimezones, getTimezoneDisplayLabel} from '../Input/shared';
 
-describe('TimezoneInput', () => {
+describe('TimezoneSelector', () => {
     it('should render the placeholder when no timezone is selected', () => {
         render(
-            <TimezoneInput
+            <TimezoneSelector
                 placeholder="Select timezone"
             />
         );
@@ -16,7 +16,7 @@ describe('TimezoneInput', () => {
 
     it('should render the selected timezone as city and utc offset', () => {
         render(
-            <TimezoneInput
+            <TimezoneSelector
                 value="Europe/Paris"
                 onChange={() => undefined}
             />
@@ -25,13 +25,13 @@ describe('TimezoneInput', () => {
         expect(screen.getByRole('listbox', {name: getTimezoneDisplayLabel('Europe/Paris')})).toBeInTheDocument();
     });
 
-    it('should include UTC in the default timezone catalog', () => {
-        expect(getDefaultTimezones()).toContain('UTC');
+    it('should include common IANA timezones in the default timezone catalog', () => {
+        expect(getDefaultTimezones()).toContain('Europe/Paris');
     });
 
     it('should render UTC correctly in the default display path', () => {
         render(
-            <TimezoneInput
+            <TimezoneSelector
                 value="UTC"
                 onChange={() => undefined}
             />
@@ -44,7 +44,7 @@ describe('TimezoneInput', () => {
         const user = userEvent.setup();
 
         render(
-            <TimezoneInput
+            <TimezoneSelector
                 placeholder="Select timezone"
             />
         );
@@ -61,7 +61,7 @@ describe('TimezoneInput', () => {
         const user = userEvent.setup();
 
         render(
-            <TimezoneInput
+            <TimezoneSelector
                 placeholder="Select timezone"
             />
         );
@@ -76,7 +76,7 @@ describe('TimezoneInput', () => {
         const handleChange = vi.fn();
 
         render(
-            <TimezoneInput
+            <TimezoneSelector
                 placeholder="Select timezone"
                 onChange={handleChange}
             />
@@ -91,7 +91,7 @@ describe('TimezoneInput', () => {
 
     it('should render the current offset in the public component', () => {
         render(
-            <TimezoneInput
+            <TimezoneSelector
                 value="Europe/Paris"
                 onChange={() => undefined}
             />
@@ -108,7 +108,7 @@ describe('TimezoneInput', () => {
         const user = userEvent.setup();
 
         render(
-            <TimezoneInput
+            <TimezoneSelector
                 value={timezone ?? null}
                 onChange={() => undefined}
             />
