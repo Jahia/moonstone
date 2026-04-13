@@ -211,7 +211,6 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                     isDisabled={isDisabled}
                     value={sanitizedValue.timezone ?? null}
                     referenceDate={timezoneReferenceDate}
-                    placeholder={i18n?.timezone}
                     onChange={(event, timezoneValue) => {
                         emitChange(event, {...sanitizedValue, timezone: timezoneValue});
                     }}

@@ -35,18 +35,10 @@ export type DisabledDateRange = {
     to: Date;
 };
 
-/** I18n labels for the fields and action buttons of the `DateTimeInput` */
+/** I18n labels for the calendar actions of the `DateTimeInput` */
 export type DateTimeInputI18n = {
     /** Label for the "Today" shortcut button in the calendar footer */
     today?: string;
-    /** Placeholder / aria-label for the hours field */
-    hours?: string;
-    /** Placeholder / aria-label for the minutes field */
-    minutes?: string;
-    /** Placeholder for the AM/PM dropdown */
-    meridiem?: string;
-    /** Placeholder for the timezone selector */
-    timezone?: string;
     /** Accessible label for the next month button */
     nextMonth?: string;
     /** Accessible label for the previous month button */

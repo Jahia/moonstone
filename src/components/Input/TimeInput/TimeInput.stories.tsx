@@ -18,8 +18,7 @@ export default {
         value: currentTime,
         i18n: {
             hours: 'Hours',
-            minutes: 'Minutes',
-            meridiem: 'Meridiem'
+            minutes: 'Minutes'
         },
         onChange: () => undefined
     }

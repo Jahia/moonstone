@@ -63,7 +63,7 @@ describe('DateTimeInput', () => {
             render(
                 <DateTimeInput
                     type="datetime"
-                    i18n={{today: 'Today', timezone: 'Timezone'}}
+                    i18n={{today: 'Today'}}
                 />
             );
 
@@ -83,7 +83,7 @@ describe('DateTimeInput', () => {
                 hasTimezone
                 type="datetime"
                 value={{date: '2026-02-10', time: '11:56', timezone: 'Europe/Paris'}}
-                i18n={{today: 'Today', timezone: 'Timezone'}}
+                i18n={{today: 'Today'}}
                 onChange={handleChange}
             />
         );
@@ -109,7 +109,7 @@ describe('DateTimeInput', () => {
                 type="datetime"
                 timeFormat="12h"
                 value={{date: '2026-02-10', time: '23:56', timezone: 'Europe/Paris'}}
-                i18n={{today: 'Today', timezone: 'Timezone'}}
+                i18n={{today: 'Today'}}
                 onChange={() => null}
             />
         );
@@ -128,7 +128,7 @@ describe('DateTimeInput', () => {
                 type="datetime"
                 timeFormat="12h"
                 value={{date: '2026-02-10', time: '02:30'}}
-                i18n={{today: 'Today', meridiem: 'Meridiem'}}
+                i18n={{today: 'Today'}}
                 onChange={handleChange}
             />
         );
@@ -246,7 +246,7 @@ describe('DateTimeInput', () => {
                 hasTimezone
                 type="datetime"
                 value={{date: '2026-01-15', time: '11:56', timezone: 'Europe/Paris'}}
-                i18n={{today: 'Today', timezone: 'Timezone'}}
+                i18n={{today: 'Today'}}
                 onChange={() => null}
             />
         );
@@ -258,7 +258,7 @@ describe('DateTimeInput', () => {
                 hasTimezone
                 type="datetime"
                 value={{date: '2026-07-15', time: '11:56', timezone: 'Europe/Paris'}}
-                i18n={{today: 'Today', timezone: 'Timezone'}}
+                i18n={{today: 'Today'}}
                 onChange={() => null}
             />
         );

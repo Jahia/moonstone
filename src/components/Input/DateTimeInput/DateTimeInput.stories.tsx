@@ -24,9 +24,7 @@ export default {
         i18n: {
             today: 'Today',
             hours: 'Hours',
-            minutes: 'Minutes',
-            meridiem: 'Meridiem',
-            timezone: 'Timezone'
+            minutes: 'Minutes'
         }
     }
 } satisfies Meta<typeof DateTimeInput>;
