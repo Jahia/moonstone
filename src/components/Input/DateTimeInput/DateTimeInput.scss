@@ -11,17 +11,6 @@
     min-width: 138px;
 }
 
-.moonstone-dateTimeInput_dateField:has(input:read-only:not(:disabled)) {
-    border: var(--border-selector);
-    background-color: var(--color-light);
-    cursor: pointer;
-    opacity: 1;
-}
-
-.moonstone-dateTimeInput_dateField.moonstone-outlined:has(input:read-only:not(:disabled)):hover {
-    border: var(--border-selector_hover);
-}
-
 .moonstone-dateTimeInput_timeField,
 .moonstone-dateTimeInput_timezoneField {
     flex-shrink: 0;
