@@ -1,5 +1,5 @@
 import {Temporal} from 'temporal-polyfill';
-import type {Meridiem, TimeFormat} from './dateTime.types';
+import type {Meridiem, TimeFormat} from '../TimeInput/TimeInput.types';
 
 export const CANONICAL_TIME_FORMAT = 'HH:mm';
 

@@ -8,11 +8,10 @@ import {
     formatTimeInputValue,
     getCurrentTimeString,
     isValidPartialTimeInputValue,
-    type Meridiem,
     parseCanonicalTime,
     parseTimeInputValue
 } from '../shared';
-import type {TimeInputProps} from './TimeInput.types';
+import type {Meridiem, TimeInputProps} from './TimeInput.types';
 import './TimeInput.scss';
 
 const meridiemOptions: DropdownDataOption[] = [

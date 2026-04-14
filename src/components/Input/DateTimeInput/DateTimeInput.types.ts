@@ -1,13 +1,12 @@
 import React from 'react';
 import type {DayPickerProps} from 'react-day-picker';
 import type {BaseInputProps} from '../BaseInput/BaseInput.types';
-import type {TimeInputI18n} from '../TimeInput';
+import type {TimeFormat, TimeInputI18n} from '../TimeInput';
 import type {
     DateTimeInputI18n,
     DateTimeInputType,
     DateTimeInputValue,
-    DisabledDateRange,
-    TimeFormat
+    DisabledDateRange
 } from '../shared';
 
 type BasicDateTimeInputProps = Omit<BaseInputProps,
@@ -99,6 +98,6 @@ export type {
     DateTimeInputI18n,
     DateTimeInputType,
     DateTimeInputValue,
-    DisabledDateRange,
-    TimeFormat
+    DisabledDateRange
 } from '../shared';
+export type {TimeFormat} from '../TimeInput';

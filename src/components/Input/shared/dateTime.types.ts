@@ -1,15 +1,9 @@
-/** Time display format */
-export type TimeFormat = '24h' | '12h';
-
 /**
  * Determines which fields are rendered in the `DateTimeInput`:
  * - `'date'`     : calendar picker only
  * - `'datetime'` : calendar picker + time input
  */
 export type DateTimeInputType = 'date' | 'datetime';
-
-/** AM/PM indicator used in 12-hour time format */
-export type Meridiem = 'AM' | 'PM';
 
 /** Value shape of the `DateTimeInput`. */
 export type DateTimeInputValue = {

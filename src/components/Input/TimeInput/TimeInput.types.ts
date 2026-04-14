@@ -1,6 +1,11 @@
 import React from 'react';
 import type {BaseInputProps} from '../BaseInput/BaseInput.types';
-import type {TimeFormat} from '../shared';
+
+/** Time display format */
+export type TimeFormat = '24h' | '12h';
+
+/** AM/PM indicator used in 12-hour time format */
+export type Meridiem = 'AM' | 'PM';
 
 export type TimeInputI18n = {
     /** Accessible label for the hours field */
@@ -66,4 +71,3 @@ type UncontrolledProps = {
 }
 
 export type TimeInputProps = BasicTimeInputProps & (ControlledProps | UncontrolledProps);
-export type {TimeFormat} from '../shared';
