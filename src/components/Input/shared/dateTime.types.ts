@@ -11,18 +11,19 @@ export type DateTimeInputType = 'date' | 'datetime';
 /** AM/PM indicator used in 12-hour time format */
 export type Meridiem = 'AM' | 'PM';
 
-/**
- * Internal value shape of the `DateTimeInput`. All fields use canonical
- * string formats, or `null` when not set.
- *
- * @property date     - ISO date string `yyyy-MM-dd` (e.g. `'2026-03-31'`)
- * @property time     - 24-hour time string `HH:mm` (e.g. `'14:30'`).
- *                      Always 24h regardless of the `timeFormat` display setting.
- * @property timezone - IANA timezone identifier (e.g. `'Europe/Paris'`)
- */
+/** Value shape of the `DateTimeInput`. */
 export type DateTimeInputValue = {
-    date: string | null;
+    /**
+     * Calendar day selected in the input.
+     * The date part is used; any time part is ignored.
+     */
+    date: Date | null;
+    /**
+     * 24-hour time string `HH:mm` (e.g. `'14:30'`).
+     * Always 24h regardless of the `timeFormat` display setting.
+     */
     time?: string | null;
+    /** IANA timezone identifier (e.g. `'Europe/Paris'`) */
     timezone?: string | null;
 };
 

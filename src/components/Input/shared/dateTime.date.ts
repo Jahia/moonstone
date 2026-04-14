@@ -2,52 +2,51 @@ import {Temporal} from 'temporal-polyfill';
 import type {Matcher} from 'react-day-picker';
 import type {DisabledDateRange} from './dateTime.types';
 
-export const CANONICAL_DATE_FORMAT = 'yyyy-MM-dd';
+const isValidDate = (value?: Date | null): value is Date => Boolean(value) && !Number.isNaN(value.getTime());
 
-/** Parses a canonical date string and returns a Temporal.PlainDate, or null if invalid. */
-const parseCanonicalDate = (value?: string | null) => {
-    if (!value) {
+export const getNormalizedDate = (value?: Date | null) => {
+    if (!isValidDate(value)) {
         return null;
     }
 
-    try {
-        // Overflow: 'reject' throws on dates like '2026-02-30' instead of rolling over.
-        return Temporal.PlainDate.from(value, {overflow: 'reject'});
-    } catch {
-        return null;
-    }
-};
-
-export const normalizeDateString = (value?: string | null): string | null => {
-    return parseCanonicalDate(value)?.toString() ?? null;
-};
-
-export const parseDateString = (value?: string | null): Date | null => {
-    const plainDate = parseCanonicalDate(value);
-
-    if (!plainDate) {
-        return null;
+    if (
+        value.getHours() === 0 &&
+        value.getMinutes() === 0 &&
+        value.getSeconds() === 0 &&
+        value.getMilliseconds() === 0
+    ) {
+        return value;
     }
 
-    return new Date(plainDate.year, plainDate.month - 1, plainDate.day);
+    return new Date(value.getFullYear(), value.getMonth(), value.getDate());
 };
 
-export const formatDateString = (value: Date) =>
-    Temporal.PlainDate.from({
-        year: value.getFullYear(),
-        month: value.getMonth() + 1,
-        day: value.getDate()
-    }).toString();
+export const getCanonicalDate = (value?: Date | null) => {
+    const date = getNormalizedDate(value);
 
-export const getCurrentDateString = () => Temporal.Now.plainDateISO().toString();
+    if (!date) {
+        return null;
+    }
+
+    return Temporal.PlainDate.from({
+        year: date.getFullYear(),
+        month: date.getMonth() + 1,
+        day: date.getDate()
+    });
+};
+
+export const getCurrentDate = () => {
+    const today = Temporal.Now.plainDateISO();
+    return new Date(today.year, today.month - 1, today.day);
+};
 
 /**
- * Formats a canonical date string for display in the trigger input.
+ * Formats a selected date for display in the trigger input.
  * Uses `Intl.DateTimeFormat` so the output respects the consumer's locale.
  * Falls back to the browser locale when `locale` is not provided.
  */
-export const formatDateDisplayValue = (value?: string | null, locale?: string) => {
-    const date = parseDateString(value);
+export const formatDateDisplayValue = (value?: Date | null, locale?: string) => {
+    const date = getNormalizedDate(value);
 
     if (!date) {
         return '';
@@ -73,25 +72,29 @@ export const getCalendarDisabledMatchers = (
     disabledDateRanges?: DisabledDateRange[]
 ): Matcher[] => {
     const matchers: Matcher[] = [];
+    const minimumDate = getNormalizedDate(minDate);
+    const maximumDate = getNormalizedDate(maxDate);
+    const unavailableDates = disabledDates?.map(getNormalizedDate).filter((date): date is Date => Boolean(date));
+    const unavailableRanges = disabledDateRanges?.map(range => ({
+        from: getNormalizedDate(range.from),
+        to: getNormalizedDate(range.to)
+    })).filter((range): range is DisabledDateRange => Boolean(range.from && range.to));
 
-    if (minDate) {
-        matchers.push({before: new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate())});
+    if (minimumDate) {
+        matchers.push({before: minimumDate});
     }
 
-    if (maxDate) {
-        matchers.push({after: new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate())});
+    if (maximumDate) {
+        matchers.push({after: maximumDate});
     }
 
-    if (disabledDates?.length) {
-        matchers.push(disabledDates.map(date => new Date(date.getFullYear(), date.getMonth(), date.getDate())));
+    if (unavailableDates?.length) {
+        matchers.push(unavailableDates);
     }
 
-    if (disabledDateRanges?.length) {
-        disabledDateRanges.forEach(range => {
-            matchers.push({
-                from: new Date(range.from.getFullYear(), range.from.getMonth(), range.from.getDate()),
-                to: new Date(range.to.getFullYear(), range.to.getMonth(), range.to.getDate())
-            });
+    if (unavailableRanges?.length) {
+        unavailableRanges.forEach(range => {
+            matchers.push(range);
         });
     }
 
@@ -99,18 +102,18 @@ export const getCalendarDisabledMatchers = (
 };
 
 /**
- * Builds a UTC noon `Date` from a canonical date string, used as the reference
+ * Builds a UTC noon `Date` from a selected calendar date, used as the reference
  * point for computing timezone offsets in the timezone selector.
  *
  * Using noon UTC avoids DST edge cases where midnight local time could land
  * on the previous or next calendar day depending on the timezone.
  */
-export const getTimezoneReferenceDate = (dateValue?: string | null) => {
-    const plainDate = parseCanonicalDate(dateValue);
+export const getTimezoneReferenceDate = (dateValue?: Date | null) => {
+    const canonicalDate = getCanonicalDate(dateValue);
 
-    if (!plainDate) {
+    if (!canonicalDate) {
         return null;
     }
 
-    return new Date(Date.UTC(plainDate.year, plainDate.month - 1, plainDate.day, 12, 0, 0, 0));
+    return new Date(Date.UTC(canonicalDate.year, canonicalDate.month - 1, canonicalDate.day, 12, 0, 0, 0));
 };

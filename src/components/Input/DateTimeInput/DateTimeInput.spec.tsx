@@ -1,7 +1,7 @@
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {DateTimeInput} from './index';
-import {formatDateDisplayValue, formatDateString} from '../shared';
+import {formatDateDisplayValue, getCurrentDate} from '../shared';
 
 const nextMonthLabel = 'Next month';
 const previousMonthLabel = 'Previous month';
@@ -27,7 +27,7 @@ describe('DateTimeInput', () => {
         await user.click(screen.getByPlaceholderText('Select a date'));
         await user.click(screen.getByText('Today'));
 
-        const expectedDate = formatDateString(new Date());
+        const expectedDate = getCurrentDate();
         expect(handleChange).toHaveBeenLastCalledWith(
             expect.any(Object),
             expect.objectContaining({date: expectedDate})
@@ -67,7 +67,7 @@ describe('DateTimeInput', () => {
                 />
             );
 
-            expect(screen.getByDisplayValue(formatDateDisplayValue('2026-03-31'))).toBeInTheDocument();
+            expect(screen.getByDisplayValue(formatDateDisplayValue(new Date(2026, 2, 31)))).toBeInTheDocument();
             expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
         } finally {
             vi.useRealTimers();
@@ -82,13 +82,13 @@ describe('DateTimeInput', () => {
             <DateTimeInput
                 hasTimezone
                 type="datetime"
-                value={{date: '2026-02-10', time: '11:56', timezone: 'Europe/Paris'}}
+                value={{date: new Date(2026, 1, 10), time: '11:56', timezone: 'Europe/Paris'}}
                 i18n={{today: 'Today'}}
                 onChange={handleChange}
             />
         );
 
-        expect(screen.getByDisplayValue(formatDateDisplayValue('2026-02-10'))).toBeInTheDocument();
+        expect(screen.getByDisplayValue(formatDateDisplayValue(new Date(2026, 1, 10)))).toBeInTheDocument();
         expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
         expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
 
@@ -108,7 +108,7 @@ describe('DateTimeInput', () => {
                 hasTimezone
                 type="datetime"
                 timeFormat="12h"
-                value={{date: '2026-02-10', time: '23:56', timezone: 'Europe/Paris'}}
+                value={{date: new Date(2026, 1, 10), time: '23:56', timezone: 'Europe/Paris'}}
                 i18n={{today: 'Today'}}
                 onChange={() => null}
             />
@@ -127,7 +127,7 @@ describe('DateTimeInput', () => {
             <DateTimeInput
                 type="datetime"
                 timeFormat="12h"
-                value={{date: '2026-02-10', time: '02:30'}}
+                value={{date: new Date(2026, 1, 10), time: '02:30'}}
                 i18n={{today: 'Today'}}
                 onChange={handleChange}
             />
@@ -151,14 +151,14 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 type="date"
-                value={{date: '2026-03-30'}}
+                value={{date: new Date(2026, 2, 30)}}
                 disabledDates={[new Date(2026, 2, 30)]}
                 i18n={{today: 'Today'}}
                 onChange={() => null}
             />
         );
 
-        await user.click(screen.getByDisplayValue(formatDateDisplayValue('2026-03-30')));
+        await user.click(screen.getByDisplayValue(formatDateDisplayValue(new Date(2026, 2, 30))));
 
         const dayButton = screen.getAllByRole('button').find(button => button.textContent === '30');
         expect(dayButton).toBeDisabled();
@@ -170,14 +170,14 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 type="date"
-                value={{date: '2026-03-30'}}
+                value={{date: new Date(2026, 2, 30)}}
                 locale="en-US"
                 i18n={{today: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
             />
         );
 
-        await user.click(screen.getByDisplayValue(formatDateDisplayValue('2026-03-30', 'en-US')));
+        await user.click(screen.getByDisplayValue(formatDateDisplayValue(new Date(2026, 2, 30), 'en-US')));
         await user.click(screen.getByRole('button', {name: nextMonthLabel}));
 
         expect(screen.getByText(april2026)).toBeInTheDocument();
@@ -188,14 +188,14 @@ describe('DateTimeInput', () => {
         const {container} = render(
             <DateTimeInput
                 type="date"
-                value={{date: '2026-03-30'}}
+                value={{date: new Date(2026, 2, 30)}}
                 locale="en-US"
                 i18n={{today: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
             />
         );
 
-        const input = screen.getByDisplayValue(formatDateDisplayValue('2026-03-30', 'en-US'));
+        const input = screen.getByDisplayValue(formatDateDisplayValue(new Date(2026, 2, 30), 'en-US'));
 
         await user.click(input);
         expect(screen.getByText(march2026)).toBeInTheDocument();
@@ -216,21 +216,21 @@ describe('DateTimeInput', () => {
         const {rerender} = render(
             <DateTimeInput
                 type="date"
-                value={{date: '2026-03-30'}}
+                value={{date: new Date(2026, 2, 30)}}
                 locale="en-US"
                 i18n={{today: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
             />
         );
 
-        await user.click(screen.getByDisplayValue(formatDateDisplayValue('2026-03-30', 'en-US')));
+        await user.click(screen.getByDisplayValue(formatDateDisplayValue(new Date(2026, 2, 30), 'en-US')));
         await user.click(screen.getByRole('button', {name: nextMonthLabel}));
         expect(screen.getByText(april2026)).toBeInTheDocument();
 
         rerender(
             <DateTimeInput
                 type="date"
-                value={{date: '2026-07-15'}}
+                value={{date: new Date(2026, 6, 15)}}
                 locale="en-US"
                 i18n={{today: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
@@ -245,7 +245,7 @@ describe('DateTimeInput', () => {
             <DateTimeInput
                 hasTimezone
                 type="datetime"
-                value={{date: '2026-01-15', time: '11:56', timezone: 'Europe/Paris'}}
+                value={{date: new Date(2026, 0, 15), time: '11:56', timezone: 'Europe/Paris'}}
                 i18n={{today: 'Today'}}
                 onChange={() => null}
             />
@@ -257,7 +257,7 @@ describe('DateTimeInput', () => {
             <DateTimeInput
                 hasTimezone
                 type="datetime"
-                value={{date: '2026-07-15', time: '11:56', timezone: 'Europe/Paris'}}
+                value={{date: new Date(2026, 6, 15), time: '11:56', timezone: 'Europe/Paris'}}
                 i18n={{today: 'Today'}}
                 onChange={() => null}
             />
@@ -266,11 +266,11 @@ describe('DateTimeInput', () => {
         expect(screen.getByRole('listbox', {name: 'Paris (UTC +02:00)'})).toBeInTheDocument();
     });
 
-    it('should not display an invalid canonical date', () => {
+    it('should not display an invalid date', () => {
         render(
             <DateTimeInput
                 type="date"
-                value={{date: '2026-02-30'}}
+                value={{date: new Date(Number.NaN)}}
                 placeholder="Select a date"
                 i18n={{today: 'Today'}}
                 onChange={() => null}

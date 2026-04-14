@@ -9,14 +9,12 @@ import {TimezoneSelector} from '../../TimezoneSelector/TimezoneSelector';
 import {BaseInput} from '../BaseInput';
 import {TimeInput} from '../TimeInput';
 import {
-    createDateTimeInputValue,
     formatDateDisplayValue,
-    formatDateString,
-    getCurrentDateString,
+    getCurrentDate,
     getCurrentTimeString,
     getCalendarDisabledMatchers,
+    getNormalizedDate,
     getTimezoneReferenceDate,
-    parseDateString,
     type DateTimeInputValue
 } from '../shared';
 import './DateTimeInput.scss';
@@ -26,7 +24,11 @@ const sanitizeDateTimeValue = (
     type: DateTimeInputProps['type'],
     hasTimezone?: boolean
 ) => {
-    const sanitizedValue = createDateTimeInputValue(value);
+    const sanitizedValue: DateTimeInputValue = {
+        date: getNormalizedDate(value.date),
+        time: value.time ?? null,
+        timezone: value.timezone ?? null
+    };
 
     if (type === 'date') {
         sanitizedValue.time = null;
@@ -68,28 +70,25 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     const isControlled = typeof value !== 'undefined';
     const [dateTimeValue, setDateTimeValue] = useState(
         defaultValue ?
-            createDateTimeInputValue(defaultValue) :
+            sanitizeDateTimeValue(defaultValue, type, hasTimezone) :
             type === 'date' ?
-                {date: getCurrentDateString(), time: null, timezone: null} :
-                {date: getCurrentDateString(), time: getCurrentTimeString(), timezone: null}
+                {date: getCurrentDate(), time: null, timezone: null} :
+                {date: getCurrentDate(), time: getCurrentTimeString(), timezone: null}
     );
     const sanitizedValue = sanitizeDateTimeValue(isControlled ? value : dateTimeValue, type, hasTimezone);
-    const selectedDate = parseDateString(sanitizedValue.date);
+    const selectedDate = sanitizedValue.date;
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-    const [displayedMonth, setDisplayedMonth] = useState(parseDateString(sanitizedValue.date) || new Date());
+    const [displayedMonth, setDisplayedMonth] = useState(sanitizedValue.date || new Date());
     const calendarAnchorRef = useRef<HTMLDivElement>(null);
-    const now = new Date();
-    const todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const todayButtonLabel = i18n?.today || formatDateDisplayValue(formatDateString(todayDate), locale);
+    const todayDate = getCurrentDate();
+    const todayButtonLabel = i18n?.today || formatDateDisplayValue(todayDate, locale);
     const timezoneReferenceDate = getTimezoneReferenceDate(sanitizedValue.date) ?? undefined;
     const calendarDisabledMatchers = getCalendarDisabledMatchers(minDate, maxDate, disabledDates, disabledDateRanges);
     const isTodayDisabled = isDisabled || isReadOnly || dateMatchModifiers(todayDate, calendarDisabledMatchers);
 
     useEffect(() => {
-        const selectedMonth = parseDateString(sanitizedValue.date);
-
-        if (selectedMonth) {
-            setDisplayedMonth(selectedMonth);
+        if (sanitizedValue.date) {
+            setDisplayedMonth(sanitizedValue.date);
         }
     }, [sanitizedValue.date]);
 
@@ -166,7 +165,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                                     return;
                                 }
 
-                                emitChange(event, {...sanitizedValue, date: date ? formatDateString(date) : null});
+                                emitChange(event, {...sanitizedValue, date: getNormalizedDate(date)});
                                 setIsCalendarOpen(false);
                             }}
                         />
@@ -178,7 +177,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                                 label={todayButtonLabel}
                                 onClick={event => {
                                     if (!isTodayDisabled) {
-                                        emitChange(event, {...sanitizedValue, date: formatDateString(todayDate)});
+                                        emitChange(event, {...sanitizedValue, date: todayDate});
                                         setIsCalendarOpen(false);
                                     }
                                 }}

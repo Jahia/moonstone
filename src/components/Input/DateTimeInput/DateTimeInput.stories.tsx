@@ -2,9 +2,9 @@ import type {Meta, StoryObj} from '@storybook/react-vite';
 import {action} from 'storybook/actions';
 import {useArgs} from 'storybook/preview-api';
 import {DateTimeInput} from './DateTimeInput';
-import {getCurrentDateString, getCurrentTimeString} from '../shared';
+import {getCurrentDate, getCurrentTimeString} from '../shared';
 
-const currentDate = getCurrentDateString();
+const currentDate = getCurrentDate();
 const currentTime = getCurrentTimeString();
 
 export default {
@@ -127,7 +127,7 @@ export const DisabledDates: Story = {
     args: {
         type: 'date',
         value: {
-            date: '2026-03-30'
+            date: new Date(2026, 2, 30)
         },
         minDate: new Date(2026, 2, 28),
         maxDate: new Date(2026, 3, 5),

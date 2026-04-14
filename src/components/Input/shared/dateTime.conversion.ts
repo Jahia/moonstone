@@ -1,6 +1,6 @@
 import {Temporal} from 'temporal-polyfill';
 import type {DateTimeInputType, DateTimeInputValue} from './dateTime.types';
-import {normalizeDateString} from './dateTime.date';
+import {getCanonicalDate} from './dateTime.date';
 import {normalizeCanonicalTime} from './dateTime.time';
 
 /**
@@ -18,7 +18,7 @@ import {normalizeCanonicalTime} from './dateTime.time';
  * or if the resulting date string is not a valid date.
  */
 export const getNormalizedDateTime = (type: DateTimeInputType, value: DateTimeInputValue) => {
-    const dateValue = normalizeDateString(value.date);
+    const dateValue = getCanonicalDate(value.date)?.toString();
 
     if (!dateValue) {
         return null;
