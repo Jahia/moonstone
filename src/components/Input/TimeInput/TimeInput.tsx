@@ -96,9 +96,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
             <BaseInput
                 ref={ref}
                 {...props}
-                className={clsx('moonstone-timeInput_field', {
-                    'moonstone-timeInput_field_12h': timeFormat === '12h'
-                })}
+                className={timeFormat === '12h' ? 'moonstone-timeInput_field_12h' : undefined}
                 value={inputValue}
                 size={size}
                 variant={variant}
@@ -116,7 +114,6 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
             />
             {timeFormat === '12h' && (
                 <Dropdown
-                    className="moonstone-timeInput_meridiem"
                     data={meridiemOptions}
                     value={meridiem}
                     size={size === 'big' ? 'medium' : 'small'}

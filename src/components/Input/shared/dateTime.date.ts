@@ -2,7 +2,7 @@ import {Temporal} from 'temporal-polyfill';
 import type {Matcher} from 'react-day-picker';
 import type {DisabledDateRange} from './dateTime.types';
 
-const isValidDate = (value?: Date | null): value is Date => Boolean(value) && !Number.isNaN(value.getTime());
+const isValidDate = (value?: Date | null): value is Date => Boolean(value) && !Number.isNaN(value?.getTime());
 
 export const getNormalizedDate = (value?: Date | null) => {
     if (!isValidDate(value)) {

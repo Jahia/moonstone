@@ -2,24 +2,6 @@
     gap: var(--spacing-nano);
 }
 
-.moonstone-timeInput_field {
-    width: 140px;
-    max-width: 100%;
-}
-
 .moonstone-timeInput_field_12h {
     width: 80px;
-}
-
-.moonstone-timeInput .moonstone-baseInput-element {
-    font-variant-numeric: tabular-nums;
-}
-
-.moonstone-timeInput .moonstone-baseInput_icon {
-    margin-right: var(--spacing-nano);
-}
-
-.moonstone-timeInput_meridiem {
-    flex-shrink: 0;
-    width: 88px;
 }
