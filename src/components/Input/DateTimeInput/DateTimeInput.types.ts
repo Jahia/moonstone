@@ -9,18 +9,23 @@ import type {
     DisabledDateRange
 } from '../shared';
 
-type BasicDateTimeInputProps = Omit<BaseInputProps,
-    'isShowClearButton' |
-    'value' |
-    'defaultValue' |
-    'onChange' |
-    'onClear' |
-    'icon' |
-    'role' |
-    'variant' |
-    'filterFunction' |
-    'allowDecimal' |
-    'allowNegative'
+type DateTimeInputSharedProps = Pick<BaseInputProps,
+    'id' |
+    'name' |
+    'placeholder' |
+    'isDisabled' |
+    'isReadOnly' |
+    'focusOnField' |
+    'className' |
+    'size' |
+    'required' |
+    'autoFocus' |
+    'tabIndex' |
+    'aria-label' |
+    'aria-labelledby' |
+    'aria-describedby' |
+    'onBlur' |
+    'onFocus'
 > & {
     /**
      * Determines which fields are rendered:
@@ -61,7 +66,7 @@ type BasicDateTimeInputProps = Omit<BaseInputProps,
 
     /**
      * The day of the week that starts the calendar week.
-     * `0` = Sunday, `1` = Monday, …, `6` = Saturday.
+     * `0` = Sunday, `1` = Monday, ..., `6` = Saturday.
      * @default 1
      */
     weekStartsOn?: DayPickerProps['weekStartsOn'];
@@ -93,7 +98,7 @@ type DateTimeProps = {
     timeFormat?: TimeFormat;
 };
 
-export type DateTimeInputProps = BasicDateTimeInputProps & (DateProps | DateTimeProps);
+export type DateTimeInputProps = DateTimeInputSharedProps & (DateProps | DateTimeProps);
 export type {
     DateTimeInputI18n,
     DateTimeInputType,
