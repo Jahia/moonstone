@@ -107,7 +107,6 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
             <BaseInput
                 ref={ref}
                 {...props}
-                isReadOnly
                 containerRef={calendarAnchorRef}
                 className="moonstone-dateTimeInput_dateField"
                 value={formatDateDisplayValue(sanitizedValue.date, locale)}
@@ -137,13 +136,15 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                     anchorPosition={{top: 4, left: 0}}
                     minWidth={size === 'big' ? '270px' : '235px'}
                     maxWidth="320px"
-                    className="moonstone-dateTimeInput_calendarMenu"
                     onClose={() => setIsCalendarOpen(false)}
                 >
-                    <div className="moonstone-dateTimeInput_calendar">
+                    <div>
                         <DayPicker
                             showOutsideDays
-                            classNames={dayPickerClassNames}
+                            classNames={{
+                                ...dayPickerClassNames,
+                                root: clsx(dayPickerClassNames.root, 'moonstone-dateTimeInput_dayPicker')
+                            }}
                             labels={{
                                 labelNext: () => i18n?.nextMonth || 'Go to the next month',
                                 labelPrevious: () => i18n?.previousMonth || 'Go to the previous month'
@@ -188,7 +189,6 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
             )}
             {type === 'datetime' && (
                 <TimeInput
-                    className="moonstone-dateTimeInput_timeField"
                     size={size}
                     variant={variant}
                     isDisabled={isDisabled}
@@ -204,9 +204,8 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
             )}
             {type === 'datetime' && hasTimezone && (
                 <TimezoneSelector
-                    className="moonstone-dateTimeInput_timezoneField"
                     size={size === 'big' ? 'medium' : 'small'}
-                    variant={variant}
+                    variant={variant ?? 'outlined'}
                     isDisabled={isDisabled}
                     value={sanitizedValue.timezone ?? null}
                     referenceDate={timezoneReferenceDate}
