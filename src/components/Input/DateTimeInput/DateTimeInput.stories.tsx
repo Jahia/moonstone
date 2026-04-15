@@ -96,6 +96,7 @@ export const DateTimeWithTimezone12h: Story = {
         );
     },
     args: {
+        type: 'datetime',
         hasTimezone: true,
         timeFormat: '12h',
         value: {
