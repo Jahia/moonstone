@@ -7,42 +7,12 @@
 }
 
 .moonstone-dateTimeInput_dateField {
-    width: 138px;
-    min-width: 138px;
-}
-
-.moonstone-dateTimeInput_timeField,
-.moonstone-dateTimeInput_timezoneField {
-    flex-shrink: 0;
-}
-
-.moonstone-dateTimeInput_timezoneField {
-    width: 190px;
-    min-width: 190px;
-}
-
-.moonstone-dateTimeInput_calendarMenu {
-    padding: 0;
-}
-
-.moonstone-dateTimeInput_calendar {
-    --rdp-accent-color: var(--color-accent);
-    --rdp-background-color: var(--background-selector);
-    --rdp-accent-background-color: var(--color-accent_light40);
-    --rdp-day-width: 21px;
-    --rdp-day-height: 21px;
-    --rdp-day_button-border-radius: var(--radius-default);
-    --rdp-nav_button-width: 21px;
-    --rdp-nav_button-height: 21px;
-    --rdp-selected-border: 1px solid var(--color-accent);
-
-    padding: var(--spacing-nano);
+    width: 120px;
 }
 
 .moonstone-dateTimeInput_calendarFooter {
     display: flex;
     justify-content: center;
     padding-top: var(--spacing-nano);
-
     border-top: 1px solid var(--color-gray_light40);
 }

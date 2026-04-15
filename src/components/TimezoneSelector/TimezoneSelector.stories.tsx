@@ -7,18 +7,8 @@ export default {
     title: 'Components/TimezoneSelector',
     component: TimezoneSelector,
     tags: ['beta'],
-    decorators: [
-        StoryCmp => (
-            <div style={{width: '260px'}}>
-                <StoryCmp/>
-            </div>
-        )
-    ],
     parameters: {
         layout: 'centered'
-    },
-    args: {
-        defaultValue: 'Europe/Paris'
     }
 } satisfies Meta<typeof TimezoneSelector>;
 

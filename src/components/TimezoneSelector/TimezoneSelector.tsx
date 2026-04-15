@@ -1,11 +1,9 @@
 import React, {useState} from 'react';
-import clsx from 'clsx';
 import {Dropdown} from '~/components';
 import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
 import {Language} from '~/icons';
 import {getTimezoneDropdownData} from '../Input/shared';
 import type {TimezoneSelectorProps} from './TimezoneSelector.types';
-import './TimezoneSelector.scss';
 
 export const TimezoneSelector: React.FC<TimezoneSelectorProps> = ({
     value,
@@ -25,7 +23,7 @@ export const TimezoneSelector: React.FC<TimezoneSelectorProps> = ({
     return (
         <Dropdown
             {...props}
-            className={clsx('moonstone-timezoneSelector', className)}
+            className={className}
             data={getTimezoneDropdownData(selectedTimezone, referenceDate)}
             value={selectedTimezone ?? ''}
             size={size}

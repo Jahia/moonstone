@@ -136,7 +136,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                     anchorEl={calendarAnchorRef as React.MutableRefObject<HTMLDivElement>}
                     anchorPosition={{top: 4, left: 0}}
                     minWidth={size === 'big' ? '270px' : '235px'}
-                    maxWidth="340px"
+                    maxWidth="320px"
                     className="moonstone-dateTimeInput_calendarMenu"
                     onClose={() => setIsCalendarOpen(false)}
                 >
