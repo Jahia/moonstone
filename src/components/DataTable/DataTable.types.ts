@@ -6,18 +6,6 @@ export type {PaginationUncontrolledProps} from './Pagination/dataTablePagination
 
 export type SubRowKey = 'subRows';
 
-/**
- * Custom meta properties for TanStack Table columns.
- * Used to pass additional configuration through columnDef.meta
- */
-export type CustomColumnMeta = {
-    isSortable?: boolean;
-    align?: 'left' | 'center' | 'right';
-    width?: string;
-    isScrollable?: boolean;
-    cellProps?: React.TdHTMLAttributes<HTMLTableCellElement> & Record<string, unknown>;
-};
-
 export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children' | 'className'> & {
     /**
      * Define HTML tag used to render the table

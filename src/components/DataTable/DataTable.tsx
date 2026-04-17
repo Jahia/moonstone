@@ -3,16 +3,15 @@ import {
     getCoreRowModel,
     getExpandedRowModel,
     getSortedRowModel,
-    getPaginationRowModel,
-    flexRender
+    getPaginationRowModel
 } from '@tanstack/react-table';
 import {toNodeArray} from '~/utils/helpers';
 import type {ExpandedState, Row} from '@tanstack/react-table';
 import React, {useState, useEffect, useMemo, useCallback} from 'react';
-import clsx from 'clsx';
 import {useTableSelection, useTableSorting, useTablePagination} from '~/hooks';
-import type {DataTableProps, CustomColumnMeta, RenderOptions} from './DataTable.types';
+import type {DataTableProps, RenderOptions} from './DataTable.types';
 import {useDataTableCustomCells} from './CustomCells/useDataTableCustomCells';
+import {renderDataTableBodyCells, renderDataTableHeaderCells} from './Columns/dataTableColumns';
 import {getDataTablePaginationProps} from './Pagination/dataTablePagination';
 import {Checkbox} from '~/components';
 import {Pagination} from '~/components/Pagination';
@@ -22,7 +21,6 @@ import {
     TableBody,
     TableHead,
     TableCell,
-    TableStructuredCell,
     TableHeadCell
 } from '~/components/DataTable';
 import {createTableColumns} from '~/utils/dataTable/tableHelpers';
@@ -157,42 +155,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             />
                         </TableCell>
                     )}
-
-                    {row.getVisibleCells().map((cell, index) => {
-                        const meta = cell.column.columnDef.meta as CustomColumnMeta | undefined;
-                        const isFirstColumn = index === 0;
-                        const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
-
-                        if (isStructured && isFirstColumn) {
-                            return (
-                                <TableStructuredCell
-                                    key={cell.id}
-                                    {...meta?.cellProps}
-                                    align={meta?.align ?? 'left'}
-                                    width={meta?.width}
-                                    depth={row.depth}
-                                    isExpandable={row.getCanExpand()}
-                                    isExpanded={row.getIsExpanded()}
-                                    isScrollable={meta?.isScrollable}
-                                    onToggleExpand={row.getToggleExpandedHandler()}
-                                >
-                                    {cellContent}
-                                </TableStructuredCell>
-                            );
-                        }
-
-                        return (
-                            <TableCell
-                                key={cell.id}
-                                {...meta?.cellProps}
-                                align={meta?.align}
-                                width={meta?.width}
-                                isScrollable={meta?.isScrollable}
-                            >
-                                {cellContent}
-                            </TableCell>
-                        );
-                    })}
+                    {renderDataTableBodyCells({row, isStructured})}
 
                     {afterCells.map((cell, i) => (
                         <React.Fragment key={(cell as React.ReactElement).key}>
@@ -257,34 +220,11 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             )}
 
                             {/* Data column headers */}
-                            {headerGroup.headers.map((header, index) => {
-                                const meta = header.column.columnDef.meta as CustomColumnMeta | undefined;
-                                const isColumnSortable = enableSorting && (meta?.isSortable ?? false);
-                                const alignment = meta?.align ?? 'left';
-                                const columnSortDirection = header.column.getIsSorted();
-
-                                return (
-                                    <TableHeadCell
-                                        key={header.id}
-                                        width={meta?.width}
-                                        className={clsx({'moonstone-tableHeadCell_structured': isStructured && index === 0})}
-                                        sorting={isColumnSortable ? {
-                                            direction: columnSortDirection === 'desc' ? 'descending' : 'ascending',
-                                            isActive: Boolean(columnSortDirection)
-                                        } : undefined}
-                                        style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
-                                        align={alignment}
-                                        onClick={(e: React.MouseEvent<HTMLTableCellElement>) => {
-                                            if (isColumnSortable) {
-                                                header.column.getToggleSortingHandler()?.(e);
-                                            }
-
-                                            onClickTableHeadCell?.(header.id);
-                                        }}
-                                    >
-                                        {flexRender(header.column.columnDef.header, header.getContext())}
-                                    </TableHeadCell>
-                                );
+                            {renderDataTableHeaderCells({
+                                headerGroup,
+                                enableSorting,
+                                isStructured,
+                                onClickTableHeadCell
                             })}
 
                             {/* Custom "after" column headers */}
