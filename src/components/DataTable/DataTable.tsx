@@ -12,7 +12,9 @@ import React, {useState, useEffect, useMemo, useCallback, useRef} from 'react';
 import clsx from 'clsx';
 import {useTableSelection, useTableSorting, useTablePagination} from '~/hooks';
 import type {DataTableProps, CustomColumnMeta, RenderOptions} from './DataTable.types';
+import {getDataTablePaginationProps} from './Pagination/dataTablePagination';
 import {Checkbox} from '~/components';
+import {Pagination} from '~/components/Pagination';
 import {
     Table,
     TableRow,
@@ -23,7 +25,6 @@ import {
     TableHeadCell
 } from '~/components/DataTable';
 import {createTableColumns} from '~/utils/dataTable/tableHelpers';
-import {Pagination} from '~/components/Pagination';
 
 // Styles for custom column headers (no padding to match measured cell widths)
 const CUSTOM_HEADER_STYLE = {padding: 0};
@@ -132,7 +133,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
         onChangeSelection
     });
 
-    const {pagination, handlePaginationChange} = useTablePagination({
+    const {pagination, isPaginationControlled, handlePaginationChange} = useTablePagination({
         currentPage,
         itemsPerPage,
         defaultCurrentPage,
@@ -383,18 +384,14 @@ export const DataTable = <T extends NonNullable<unknown>>({
             </Table>
             {enablePagination && (
                 <Pagination
-                    currentPage={table.getState().pagination.pageIndex + 1}
-                    totalOfItems={
-                        currentPage !== undefined && totalItems !== undefined ?
-                            totalItems :
-                            table.getPrePaginationRowModel().rows.length
-                    }
-                    itemsPerPage={table.getState().pagination.pageSize}
-                    itemsPerPageOptions={itemsPerPageOptions}
-                    i18n={i18n}
-                    onPageChange={(page: number) => table.setPageIndex(page - 1)}
-                    onItemsPerPageChange={(size: number) => table.setPageSize(size)}
-                    {...paginationProps}
+                    {...getDataTablePaginationProps({
+                        table,
+                        isPaginationControlled,
+                        totalItems,
+                        itemsPerPageOptions,
+                        i18n,
+                        paginationProps
+                    })}
                 />
             )}
         </>
