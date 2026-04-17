@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import {TableCell} from '../TableCell';
+import {TableCell} from '../TableCell/TableCell';
 import type {TableCellActionsProps} from './TableCellActions.types';
 import style from './TableCellActions.module.scss';
 
