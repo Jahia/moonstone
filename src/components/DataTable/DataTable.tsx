@@ -8,10 +8,11 @@ import {
 } from '@tanstack/react-table';
 import {toNodeArray} from '~/utils/helpers';
 import type {ExpandedState, Row} from '@tanstack/react-table';
-import React, {useState, useEffect, useMemo, useCallback, useRef} from 'react';
+import React, {useState, useEffect, useMemo, useCallback} from 'react';
 import clsx from 'clsx';
 import {useTableSelection, useTableSorting, useTablePagination} from '~/hooks';
 import type {DataTableProps, CustomColumnMeta, RenderOptions} from './DataTable.types';
+import {useDataTableCustomCells} from './CustomCells/useDataTableCustomCells';
 import {getDataTablePaginationProps} from './Pagination/dataTablePagination';
 import {Checkbox} from '~/components';
 import {Pagination} from '~/components/Pagination';
@@ -64,59 +65,16 @@ export const DataTable = <T extends NonNullable<unknown>>({
     ...props
 }: DataTableProps<T>) => {
     const [expanded, setExpanded] = useState<ExpandedState>({});
-
-    // Track how many custom cells are being used per position (0 = none).
-    const [customBeforeCount, setCustomBeforeCount] = useState(0);
-    const [customAfterCount, setCustomAfterCount] = useState(0);
-
-    // Pending counts written during render; synced to state post-render to avoid calling setState during render.
-    const pendingCustomBefore = useRef(0);
-    const pendingCustomAfter = useRef(0);
-
-    // Measured offsetWidths per position index, kept in state so that ResizeObserver updates trigger a re-render and headers stay aligned.
-    const [customHeaderWidths, setCustomHeaderWidths] = useState<{ before: string[]; after: string[] }>({before: [], after: []});
-    const observersRef = useRef<{ before:(ResizeObserver | undefined)[]; after: (ResizeObserver | undefined)[] }>({before: [], after: []});
-
-    // Disconnect all observers on unmount.
-    useEffect(() => () => {
-        observersRef.current.before.forEach(o => o?.disconnect());
-        observersRef.current.after.forEach(o => o?.disconnect());
-    }, []);
-
-    // Clear custom cell mappings when the underlying data or primary key changes
-    useEffect(() => {
-        if (!renderRow) {
-            return;
-        }
-
-        pendingCustomBefore.current = 0;
-        pendingCustomAfter.current = 0;
-        setCustomBeforeCount(0);
-        setCustomAfterCount(0);
-        observersRef.current.before.forEach(o => o?.disconnect());
-        observersRef.current.before = [];
-        observersRef.current.after.forEach(o => o?.disconnect());
-        observersRef.current.after = [];
-        setCustomHeaderWidths({before: [], after: []});
-    }, [data, primaryKey, renderRow]);
-
-    // Sync pending counts (written during render) to state after each render.
-    useEffect(() => {
-        if (!renderRow) {
-            return;
-        }
-
-        if (pendingCustomBefore.current !== customBeforeCount) {
-            setCustomBeforeCount(pendingCustomBefore.current);
-        }
-
-        if (pendingCustomAfter.current !== customAfterCount) {
-            setCustomAfterCount(pendingCustomAfter.current);
-        }
-
-        // Reset so the next render starts from a clean slate.
-        pendingCustomBefore.current = 0;
-        pendingCustomAfter.current = 0;
+    const {
+        customBeforeCount,
+        customAfterCount,
+        customHeaderWidths,
+        registerCustomCellCounts,
+        withCustomCellObserver
+    } = useDataTableCustomCells({
+        data,
+        primaryKey,
+        renderRow
     });
 
     const {sorting, handleSortingChange} = useTableSorting({
@@ -181,54 +139,14 @@ export const DataTable = <T extends NonNullable<unknown>>({
         (row: Row<T>, options?: RenderOptions) => {
             const beforeCells = toNodeArray(options?.before);
             const afterCells = toNodeArray(options?.after);
-
-            // Track how many custom cells are present so the header can create matching placeholder cells.
-            if (beforeCells.length) {
-                pendingCustomBefore.current = beforeCells.length;
-            }
-
-            if (afterCells.length) {
-                pendingCustomAfter.current = afterCells.length;
-            }
-
-            // For the first row, attach a ResizeObserver so each header placeholder cell
-            // can match the measured offsetWidth of the body cell (which includes any
-            // padding overrides applied by the component, e.g. TableCellStatus sets padding: 0).
-            const withObserver = (node: React.ReactNode, position: 'before' | 'after', index: number): React.ReactNode => {
-                if (row.index !== 0 || !React.isValidElement(node)) {
-                    return node;
-                }
-
-                return React.cloneElement(node as React.ReactElement, {
-                    ref: (el: HTMLElement | null) => {
-                        observersRef.current[position][index]?.disconnect();
-                        observersRef.current[position][index] = undefined;
-                        if (el) {
-                            const measure = () => {
-                                const w = `${el.offsetWidth}px`;
-                                setCustomHeaderWidths(prev => {
-                                    if (prev[position][index] === w) {
-                                        return prev;
-                                    }
-
-                                    const next = [...prev[position]];
-                                    next[index] = w;
-                                    return {...prev, [position]: next};
-                                });
-                            };
-
-                            const observer = new ResizeObserver(measure);
-                            observer.observe(el);
-                            observersRef.current[position][index] = observer;
-                        }
-                    }
-                });
-            };
+            registerCustomCellCounts(beforeCells.length, afterCells.length);
 
             return (
                 <>
                     {beforeCells.map((cell, i) => (
-                        <React.Fragment key={(cell as React.ReactElement).key}>{withObserver(cell, 'before', i)}</React.Fragment>
+                        <React.Fragment key={(cell as React.ReactElement).key}>
+                            {withCustomCellObserver(cell, row.index, 'before', i)}
+                        </React.Fragment>
                     ))}
 
                     {enableSelection && (
@@ -277,12 +195,14 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     })}
 
                     {afterCells.map((cell, i) => (
-                        <React.Fragment key={(cell as React.ReactElement).key}>{withObserver(cell, 'after', i)}</React.Fragment>
+                        <React.Fragment key={(cell as React.ReactElement).key}>
+                            {withCustomCellObserver(cell, row.index, 'after', i)}
+                        </React.Fragment>
                     ))}
                 </>
             );
         },
-        [enableSelection, isStructured]
+        [enableSelection, isStructured, registerCustomCellCounts, withCustomCellObserver]
     );
 
     const renderRowWithCustomization = useCallback(
