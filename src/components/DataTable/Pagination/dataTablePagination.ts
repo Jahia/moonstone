@@ -1,7 +1,7 @@
 import type {PaginationProps as ComponentPaginationProps} from '~/components/Pagination';
 import type {DataTablePaginationLogicProps} from './index';
 
-export const getDataTablePaginationProps = <T extends NonNullable<unknown>>({
+export const getPaginationProps = <T extends NonNullable<unknown>>({
     table,
     isPaginationControlled,
     totalItems,

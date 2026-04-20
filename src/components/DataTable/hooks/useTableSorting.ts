@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import type {SortingState} from '@tanstack/react-table';
-import type {DataTableProps, SortDirection, SubRowKey} from '../DataTable.types';
+import type {DataTableProps, SubRowKey} from '../DataTable.types';
 
 type SortKey<T extends NonNullable<unknown>> = Extract<Exclude<keyof T, SubRowKey>, string>;
 

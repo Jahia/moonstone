@@ -10,8 +10,8 @@ import type {ExpandedState, Row} from '@tanstack/react-table';
 import React, {useState, useEffect, useMemo, useCallback} from 'react';
 import {useDataTableCustomCells, useTablePagination, useTableSelection, useTableSorting} from './hooks';
 import type {DataTableProps, RenderOptions} from './DataTable.types';
-import {renderDataTableBodyCells, renderDataTableHeaderCells} from './Columns';
-import {getDataTablePaginationProps} from './Pagination';
+import {renderCell, renderHeadCell} from './columns';
+import {getPaginationProps} from './pagination';
 import {Checkbox} from '~/components';
 import {Pagination} from '~/components/Pagination';
 import {
@@ -154,7 +154,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             />
                         </TableCell>
                     )}
-                    {renderDataTableBodyCells({row, isStructured})}
+                    {renderCell({row, isStructured})}
 
                     {afterCells.map((cell, i) => (
                         <React.Fragment key={(cell as React.ReactElement).key}>
@@ -219,7 +219,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             )}
 
                             {/* Data column headers */}
-                            {renderDataTableHeaderCells({
+                            {renderHeadCell({
                                 headerGroup,
                                 enableSorting,
                                 isStructured,
@@ -243,7 +243,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
             </Table>
             {enablePagination && (
                 <Pagination
-                    {...getDataTablePaginationProps({
+                    {...getPaginationProps({
                         table,
                         isPaginationControlled,
                         totalItems,

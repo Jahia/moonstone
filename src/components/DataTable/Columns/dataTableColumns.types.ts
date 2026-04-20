@@ -10,14 +10,14 @@ export type CustomColumnMeta = {
     cellProps?: React.TdHTMLAttributes<HTMLTableCellElement> & Record<string, unknown>;
 };
 
-export type RenderDataTableHeaderCellsProps<T extends NonNullable<unknown>> = {
+export type RenderHeadCellProps<T extends NonNullable<unknown>> = {
     headerGroup: HeaderGroup<T>;
     enableSorting: boolean;
     isStructured: boolean;
     onClickTableHeadCell?: DataTableProps<T>['onClickTableHeadCell'];
 };
 
-export type RenderDataTableBodyCellsProps<T extends NonNullable<unknown>> = {
+export type RenderCellProps<T extends NonNullable<unknown>> = {
     row: Row<T>;
     isStructured: boolean;
 };

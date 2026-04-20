@@ -1,22 +1,23 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import type {
-    DataTableCustomHeaderWidths,
-    UseDataTableCustomCellsProps,
-    UseDataTableCustomCellsReturn
+    CustomCellPosition,
+    CustomHeaderWidths,
+    UseCustomCellsProps,
+    UseCustomCellsReturn
 } from './dataTableCustomCells.types';
 
-const createInitialHeaderWidths = (): DataTableCustomHeaderWidths => ({before: [], after: []});
+const defaultHeaderWidths = (): CustomHeaderWidths => ({before: [], after: []});
 
 export function useDataTableCustomCells<T extends NonNullable<unknown>>({
     data,
     primaryKey,
     renderRow
-}: UseDataTableCustomCellsProps<T>): UseDataTableCustomCellsReturn {
+}: UseCustomCellsProps<T>): UseCustomCellsReturn {
     const [customBeforeCount, setCustomBeforeCount] = useState(0);
     const [customAfterCount, setCustomAfterCount] = useState(0);
     const pendingCustomBefore = useRef(0);
     const pendingCustomAfter = useRef(0);
-    const [customHeaderWidths, setCustomHeaderWidths] = useState<DataTableCustomHeaderWidths>(createInitialHeaderWidths);
+    const [customHeaderWidths, setCustomHeaderWidths] = useState<CustomHeaderWidths>(defaultHeaderWidths);
     const observersRef = useRef<{ before:(ResizeObserver | undefined)[]; after: (ResizeObserver | undefined)[] }>({
         before: [],
         after: []
@@ -40,7 +41,7 @@ export function useDataTableCustomCells<T extends NonNullable<unknown>>({
         observersRef.current.before = [];
         observersRef.current.after.forEach(observer => observer?.disconnect());
         observersRef.current.after = [];
-        setCustomHeaderWidths(createInitialHeaderWidths());
+        setCustomHeaderWidths(defaultHeaderWidths());
     }, [data, primaryKey, renderRow]);
 
     useEffect(() => {
@@ -71,7 +72,7 @@ export function useDataTableCustomCells<T extends NonNullable<unknown>>({
     }, []);
 
     const withCustomCellObserver = useCallback(
-        (node: React.ReactNode, rowIndex: number, position: 'before' | 'after', index: number): React.ReactNode => {
+        (node: React.ReactNode, rowIndex: number, position: CustomCellPosition, index: number): React.ReactNode => {
             if (rowIndex !== 0 || !React.isValidElement(node)) {
                 return node;
             }

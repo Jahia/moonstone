@@ -1,8 +1,8 @@
 import React from 'react';
 import type {Row} from '@tanstack/react-table';
 import type {TableCellProps} from '~/components/DataTable/cells/TableCell';
-import type {DataTablePaginationProps} from './Pagination';
-export type {PaginationUncontrolledProps} from './Pagination';
+import type {DataTablePaginationProps} from './pagination';
+export type {PaginationUncontrolledProps} from './pagination';
 
 export type SubRowKey = 'subRows';
 
