@@ -1,6 +1,6 @@
 import React from 'react';
 import type {Row} from '@tanstack/react-table';
-import type {TableCellProps} from '~/components/DataTable/cells/TableCell';
+import type {TableCellProps} from '~/components/DataTable/cells';
 import type {DataTablePaginationProps} from './pagination';
 export type {PaginationUncontrolledProps} from './pagination';
 
