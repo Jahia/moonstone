@@ -3,7 +3,8 @@ import React from 'react';
 import {ChevronDown, ChevronRight} from '~/icons';
 
 import {TableCell} from './TableCell';
-import './TableStructuredCell.scss';
+import {Typography} from '~/components';
+import styles from './TableStructuredCell.module.scss';
 import type {TableStructuredCellProps} from './TableStructuredCell.types';
 
 // Spacing constants for tree structure alignment
@@ -17,6 +18,7 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
             depth,
             isExpandable,
             isExpanded,
+            isScrollable,
             onToggleExpand,
             ...props
         },
@@ -28,32 +30,48 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
         }
 
         const indent = depth * indentSpace;
+        const handleToggleExpand: React.MouseEventHandler = event => {
+            event.stopPropagation();
+            onToggleExpand?.();
+        };
 
         return (
             <TableCell
                 ref={ref}
-                className={className}
+                className={clsx(styles.tableStructuredCell, className)}
                 aria-expanded={isExpanded}
-                onClick={onToggleExpand}
+                onClick={handleToggleExpand}
                 {...props}
             >
                 <div
                     className={clsx(
-                        'moonstone-tableStructuredCell_content',
                         'flexRow_nowrap',
                         'flexFluid',
                         'alignCenter',
-                        {'moonstone-tableStructuredCell_expandable': isExpandable})}
+                        {[styles.expandable]: isExpandable},
+                        {[styles.scrollable]: isScrollable && !isExpandable}
+                    )}
                     style={{marginLeft: indent}}
                 >
-                    {isExpandable && (
+                    {isExpandable ? (
                         <>
                             {isExpanded ?
                                 <ChevronDown/> :
                                 <ChevronRight/>}
+                            <Typography
+                                isNowrap
+                                component="div"
+                                className={clsx(
+                                    'flexRow_nowrap',
+                                    'alignCenter',
+                                    {[styles.scrollable]: isScrollable}
+                                )}
+                            >
+                                {children}
+                            </Typography>
                         </>
-                    )}
-                    {children}
+                    ) :
+                    children}
                 </div>
             </TableCell>
         );

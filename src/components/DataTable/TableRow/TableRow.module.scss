@@ -1,0 +1,58 @@
+$background-hover: var(--color-gray_light_plain20);
+$background-highlight: var(--color-accent_light_plain20);
+$background-highlight-hover: var(--color-accent_light_plain40);
+
+.tableRow {
+    --moon-row-background: white;
+    --moon-cellAction-visibility: hidden;
+
+    height: 48px;
+
+    border-bottom: 1px solid var(--color-gray_light);
+    background-color: var(--moon-row-background);
+
+    &:not(.header) {
+        &:focus-within,
+        &:hover {
+            --moon-row-background: #{$background-hover};
+            --moon-cellAction-visibility: visible;
+        }
+    }
+}
+
+.highlighted {
+    --moon-row-background: #{$background-highlight};
+
+    // color: var(--color-light);
+
+    &:focus-within,
+    &:hover {
+        --moon-row-background: #{$background-highlight-hover};
+    }
+
+    // .moonstone-checkbox_input {
+    //     border: 1px solid var(--color-light);
+
+    //     &[aria-checked="false"] {
+    //         box-shadow: none;
+    //     }
+
+    //     &.hasFocus {
+    //         border: 2px solid var(--color-accent_dark_contrast);
+    //     }
+    // }
+
+    .moonstone-chip {
+        color: var(--color-light);
+
+        background-color: var(--color-accent_light40);
+    }
+
+    // .moonstone-button:not(:hover, :focus) {
+    //     color: var(--color-light);
+    // }
+}
+
+.head {
+    height: 40px;
+}

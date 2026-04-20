@@ -272,8 +272,16 @@ GitHub.sublime-settings
 storybook-static/
 dist/
 
+/src/icons/components
+
 yalc.lock
 .yalc
 *.iml
 /.settings/
 /.project
+
+.vitest*
+
+# Ignore all but CI screenshots
+**/__screenshots__/**/*.png
+!**/__screenshots__/**/*-chromium-linux.png

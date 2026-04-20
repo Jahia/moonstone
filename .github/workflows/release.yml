@@ -38,7 +38,7 @@ jobs:
       - name: Build the storybook
         run: |
           corepack enable && yarn install --immutable
-          yarn build:storybook
+          yarn build
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:

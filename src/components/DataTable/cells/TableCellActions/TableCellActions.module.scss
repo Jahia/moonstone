@@ -1,0 +1,21 @@
+.tableCellActions {
+    position: relative;
+    overflow: visible;
+
+    gap: var(--spacing-small);
+}
+
+.displayHover {
+    position: absolute;
+    top: 0;
+    right: 56px;
+    bottom: 0;
+    z-index: 5;
+
+    gap: var(--spacing-small);
+    padding: 0 var(--spacing-small);
+
+    background: var(--moon-row-background);
+
+    visibility: var(--moon-cellAction-visibility, hidden);
+}

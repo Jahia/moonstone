@@ -18,8 +18,10 @@ export const createTableColumns = <T extends Record<string, unknown>>(
 
         meta: {
             isSortable: col.isSortable ?? false,
-            align: col.align ?? 'left',
-            width: col.width
+            align: col.align,
+            width: col.width,
+            isScrollable: col.isScrollable,
+            cellProps: col.cellProps
         },
         enableSorting: col.isSortable ?? false,
 

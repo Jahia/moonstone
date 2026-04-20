@@ -1,0 +1,15 @@
+.tableHead {
+    color: var(--color-gray_dark);
+
+    background-color: var(--color-white);
+}
+
+.structured {
+    padding: 0 var(--spacing-large);
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
