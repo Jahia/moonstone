@@ -1,4 +1,4 @@
-export * from '~/utils/dataTable';
+export * from './utils';
 export * from './cells';
 export * from './DataTable';
 export * from './DataTable.types';

@@ -1,5 +1,5 @@
 import type {ColumnDef} from '@tanstack/react-table';
-import type {DataTableProps, SubRowKey} from '~/components/DataTable/DataTable.types';
+import type {DataTableProps, SubRowKey} from '../DataTable.types';
 
 /**
  * Transforms user-friendly DataTable column definitions into TanStack Table compatible ColumnDef format.

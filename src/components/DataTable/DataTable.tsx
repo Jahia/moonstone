@@ -21,8 +21,8 @@ import {
     TableCell,
     TableHeadCell
 } from '~/components/DataTable';
-import {createTableColumns} from '~/utils/dataTable/tableHelpers';
 import {renderCell, renderHeadCell} from './columns';
+import {createTableColumns} from './utils';
 
 // Styles for custom column headers (no padding to match measured cell widths)
 const CUSTOM_HEADER_STYLE = {padding: 0};
