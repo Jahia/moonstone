@@ -10,7 +10,6 @@ import type {ExpandedState, Row} from '@tanstack/react-table';
 import React, {useState, useEffect, useMemo, useCallback} from 'react';
 import {useDataTableCustomCells, useTablePagination, useTableSelection, useTableSorting} from './hooks';
 import type {DataTableProps, RenderOptions} from './DataTable.types';
-import {renderCell, renderHeadCell} from './columns';
 import {getPaginationProps} from './pagination';
 import {Checkbox} from '~/components';
 import {Pagination} from '~/components/Pagination';
@@ -23,6 +22,7 @@ import {
     TableHeadCell
 } from '~/components/DataTable';
 import {createTableColumns} from '~/utils/dataTable/tableHelpers';
+import {renderCell, renderHeadCell} from './columns';
 
 // Styles for custom column headers (no padding to match measured cell widths)
 const CUSTOM_HEADER_STYLE = {padding: 0};
