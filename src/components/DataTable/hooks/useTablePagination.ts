@@ -1,6 +1,16 @@
 import {useState} from 'react';
 import type {PaginationState} from '@tanstack/react-table';
-import type {UseTablePaginationProps} from '~/components/DataTable/Pagination';
+import type {PaginationProps as ComponentPaginationProps} from '~/components/Pagination';
+
+type UseTablePaginationProps = {
+    currentPage?: ComponentPaginationProps['currentPage'];
+    itemsPerPage?: ComponentPaginationProps['itemsPerPage'];
+    defaultCurrentPage: number;
+    defaultItemsPerPage: number;
+    totalItems?: number;
+    onPageChange?: ComponentPaginationProps['onPageChange'];
+    onItemsPerPageChange?: ComponentPaginationProps['onItemsPerPageChange'];
+};
 
 export function useTablePagination({currentPage, itemsPerPage, defaultCurrentPage, defaultItemsPerPage, totalItems, onPageChange, onItemsPerPageChange}: UseTablePaginationProps) {
     const isPaginationControlled = currentPage !== undefined && totalItems !== undefined;

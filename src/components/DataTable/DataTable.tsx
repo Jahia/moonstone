@@ -8,9 +8,8 @@ import {
 import {toNodeArray} from '~/utils/helpers';
 import type {ExpandedState, Row} from '@tanstack/react-table';
 import React, {useState, useEffect, useMemo, useCallback} from 'react';
-import {useTableSelection, useTableSorting, useTablePagination} from '~/hooks';
+import {useDataTableCustomCells, useTablePagination, useTableSelection, useTableSorting} from './hooks';
 import type {DataTableProps, RenderOptions} from './DataTable.types';
-import {useDataTableCustomCells} from './CustomCells';
 import {renderDataTableBodyCells, renderDataTableHeaderCells} from './Columns';
 import {getDataTablePaginationProps} from './Pagination';
 import {Checkbox} from '~/components';
@@ -75,7 +74,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
         renderRow
     });
 
-    const {sorting, handleSortingChange} = useTableSorting({
+    const {sorting, handleSortingChange} = useTableSorting<T>({
         sortBy,
         sortDirection,
         defaultSortBy,
@@ -165,7 +164,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 </>
             );
         },
-        [enableSelection, isStructured, registerCustomCellCounts, withCustomCellObserver]
+        [enableSelection, isStructured, registerCustomCellCounts, selectionCellProps, withCustomCellObserver]
     );
 
     const renderRowWithCustomization = useCallback(

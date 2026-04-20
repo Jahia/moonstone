@@ -59,16 +59,6 @@ export type DataTablePaginationProps =
           paginationProps?: never;
       };
 
-export type UseTablePaginationProps = {
-    currentPage?: ComponentPaginationProps['currentPage'];
-    itemsPerPage?: ComponentPaginationProps['itemsPerPage'];
-    defaultCurrentPage: number;
-    defaultItemsPerPage: number;
-    totalItems?: number;
-    onPageChange?: ComponentPaginationProps['onPageChange'];
-    onItemsPerPageChange?: ComponentPaginationProps['onItemsPerPageChange'];
-};
-
 export type DataTablePaginationLogicProps<T extends NonNullable<unknown>> = {
     table: TanstackTable<T>;
     isPaginationControlled: boolean;

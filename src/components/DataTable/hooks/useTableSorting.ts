@@ -1,17 +1,22 @@
 import {useState} from 'react';
 import type {SortingState} from '@tanstack/react-table';
-import type {DataTableProps} from '~/components/DataTable/DataTable.types';
+import type {DataTableProps, SortDirection, SubRowKey} from '../DataTable.types';
 
-type Props = Pick<DataTableProps<Record<string, unknown>>, 'sortBy' | 'sortDirection' | 'defaultSortBy' | 'defaultSortDirection' | 'onSortChange'>;
+type SortKey<T extends NonNullable<unknown>> = Extract<Exclude<keyof T, SubRowKey>, string>;
 
-export function useTableSorting({sortBy, sortDirection, defaultSortBy, defaultSortDirection = 'ascending', onSortChange}: Props) {
+type UseTableSortingProps<T extends NonNullable<unknown>> = Pick<
+    DataTableProps<T>,
+    'sortBy' | 'sortDirection' | 'defaultSortBy' | 'defaultSortDirection' | 'onSortChange'
+>;
+
+export function useTableSorting<T extends NonNullable<unknown>>({sortBy, sortDirection, defaultSortBy, defaultSortDirection = 'ascending', onSortChange}: UseTableSortingProps<T>) {
     const isSortingControlled = sortBy !== undefined;
 
     const [state, setState] = useState<SortingState>(
         () => defaultSortBy ? [{id: defaultSortBy, desc: defaultSortDirection === 'descending'}] : []
     );
 
-    const sorting = isSortingControlled ?
+    const sorting: SortingState = isSortingControlled ?
         (sortBy ? [{id: sortBy, desc: sortDirection === 'descending'}] : []) :
         state;
 
@@ -23,7 +28,7 @@ export function useTableSorting({sortBy, sortDirection, defaultSortBy, defaultSo
         }
 
         if (next[0]) {
-            onSortChange?.(next[0].id, next[0].desc ? 'descending' : 'ascending');
+            onSortChange?.(next[0].id as SortKey<T>, next[0].desc ? 'descending' : 'ascending');
         }
     };
 
