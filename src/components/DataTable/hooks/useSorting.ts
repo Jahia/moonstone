@@ -4,12 +4,12 @@ import type {DataTableProps, SubRowKey} from '../DataTable.types';
 
 type SortKey<T extends NonNullable<unknown>> = Extract<Exclude<keyof T, SubRowKey>, string>;
 
-type UseTableSortingProps<T extends NonNullable<unknown>> = Pick<
+type UseSortingProps<T extends NonNullable<unknown>> = Pick<
     DataTableProps<T>,
     'sortBy' | 'sortDirection' | 'defaultSortBy' | 'defaultSortDirection' | 'onSortChange'
 >;
 
-export function useTableSorting<T extends NonNullable<unknown>>({sortBy, sortDirection, defaultSortBy, defaultSortDirection = 'ascending', onSortChange}: UseTableSortingProps<T>) {
+export function useSorting<T extends NonNullable<unknown>>({sortBy, sortDirection, defaultSortBy, defaultSortDirection = 'ascending', onSortChange}: UseSortingProps<T>) {
     const isSortingControlled = sortBy !== undefined;
 
     const [state, setState] = useState<SortingState>(

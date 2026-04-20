@@ -2,7 +2,7 @@ import {useState} from 'react';
 import type {PaginationState} from '@tanstack/react-table';
 import type {PaginationProps as ComponentPaginationProps} from '~/components/Pagination';
 
-type UseTablePaginationProps = {
+type UsePaginationProps = {
     currentPage?: ComponentPaginationProps['currentPage'];
     itemsPerPage?: ComponentPaginationProps['itemsPerPage'];
     defaultCurrentPage: number;
@@ -12,7 +12,7 @@ type UseTablePaginationProps = {
     onItemsPerPageChange?: ComponentPaginationProps['onItemsPerPageChange'];
 };
 
-export function useTablePagination({currentPage, itemsPerPage, defaultCurrentPage, defaultItemsPerPage, totalItems, onPageChange, onItemsPerPageChange}: UseTablePaginationProps) {
+export function usePagination({currentPage, itemsPerPage, defaultCurrentPage, defaultItemsPerPage, totalItems, onPageChange, onItemsPerPageChange}: UsePaginationProps) {
     const isPaginationControlled = currentPage !== undefined && totalItems !== undefined;
     const isItemsPerPageControlled = itemsPerPage !== undefined;
     const [state, setState] = useState<PaginationState>({

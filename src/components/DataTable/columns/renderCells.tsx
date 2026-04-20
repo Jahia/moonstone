@@ -6,7 +6,7 @@ import type {
     CustomColumnMeta,
     RenderCellProps,
     RenderHeadCellProps
-} from './dataTableColumns.types';
+} from './renderCells.types';
 
 export const renderHeadCell = <T extends NonNullable<unknown>>({
     headerGroup,

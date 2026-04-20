@@ -8,7 +8,7 @@ import type {
 
 const defaultHeaderWidths = (): CustomHeaderWidths => ({before: [], after: []});
 
-export function useDataTableCustomCells<T extends NonNullable<unknown>>({
+export function useCustomCells<T extends NonNullable<unknown>>({
     data,
     primaryKey,
     renderRow

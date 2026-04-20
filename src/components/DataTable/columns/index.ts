@@ -1,2 +1,2 @@
-export * from './dataTableColumns';
-export * from './dataTableColumns.types';
+export * from './renderCells';
+export * from './renderCells.types';

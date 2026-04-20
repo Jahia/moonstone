@@ -8,7 +8,7 @@ import {
 import {toNodeArray} from '~/utils/helpers';
 import type {ExpandedState, Row} from '@tanstack/react-table';
 import React, {useState, useEffect, useMemo, useCallback} from 'react';
-import {useDataTableCustomCells, useTablePagination, useTableSelection, useTableSorting} from './hooks';
+import {useCustomCells, usePagination, useSelection, useSorting} from './hooks';
 import type {DataTableProps, RenderOptions} from './DataTable.types';
 import {getPaginationProps} from './pagination';
 import {Checkbox} from '~/components';
@@ -68,13 +68,13 @@ export const DataTable = <T extends NonNullable<unknown>>({
         customHeaderWidths,
         registerCustomCellCounts,
         withCustomCellObserver
-    } = useDataTableCustomCells({
+    } = useCustomCells({
         data,
         primaryKey,
         renderRow
     });
 
-    const {sorting, handleSortingChange} = useTableSorting<T>({
+    const {sorting, handleSortingChange} = useSorting<T>({
         sortBy,
         sortDirection,
         defaultSortBy,
@@ -82,13 +82,13 @@ export const DataTable = <T extends NonNullable<unknown>>({
         onSortChange
     });
 
-    const {rowSelection, handleRowSelectionChange} = useTableSelection({
+    const {rowSelection, handleRowSelectionChange} = useSelection({
         selection,
         defaultSelection,
         onChangeSelection
     });
 
-    const {pagination, isPaginationControlled, handlePaginationChange} = useTablePagination({
+    const {pagination, isPaginationControlled, handlePaginationChange} = usePagination({
         currentPage,
         itemsPerPage,
         defaultCurrentPage,
