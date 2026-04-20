@@ -10,9 +10,9 @@ import type {ExpandedState, Row} from '@tanstack/react-table';
 import React, {useState, useEffect, useMemo, useCallback} from 'react';
 import {useTableSelection, useTableSorting, useTablePagination} from '~/hooks';
 import type {DataTableProps, RenderOptions} from './DataTable.types';
-import {useDataTableCustomCells} from './CustomCells/useDataTableCustomCells';
-import {renderDataTableBodyCells, renderDataTableHeaderCells} from './Columns/dataTableColumns';
-import {getDataTablePaginationProps} from './Pagination/dataTablePagination';
+import {useDataTableCustomCells} from './CustomCells';
+import {renderDataTableBodyCells, renderDataTableHeaderCells} from './Columns';
+import {getDataTablePaginationProps} from './Pagination';
 import {Checkbox} from '~/components';
 import {Pagination} from '~/components/Pagination';
 import {

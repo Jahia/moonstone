@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import React from 'react';
 import {ChevronDown, ChevronRight} from '~/icons';
 
-import {TableCell} from '../TableCell/TableCell';
+import {TableCell} from '../TableCell';
 import {Typography} from '~/components';
 import styles from './TableStructuredCell.module.scss';
 import type {TableStructuredCellProps} from './TableStructuredCell.types';

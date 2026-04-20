@@ -1,9 +1,9 @@
 import {flexRender} from '@tanstack/react-table';
 import clsx from 'clsx';
 import React from 'react';
-import {TableCell} from '../cells/TableCell/TableCell';
-import {TableHeadCell} from '../cells/TableHeadCell/TableHeadCell';
-import {TableStructuredCell} from '../cells/TableStructuredCell/TableStructuredCell';
+import {TableCell} from '../cells/TableCell';
+import {TableHeadCell} from '../cells/TableHeadCell';
+import {TableStructuredCell} from '../cells/TableStructuredCell';
 import type {
     CustomColumnMeta,
     RenderDataTableBodyCellsProps,

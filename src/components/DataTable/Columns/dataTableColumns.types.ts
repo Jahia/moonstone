@@ -1,3 +1,4 @@
+import type React from 'react';
 import type {HeaderGroup, Row} from '@tanstack/react-table';
 import type {DataTableProps} from '../DataTable.types';
 
