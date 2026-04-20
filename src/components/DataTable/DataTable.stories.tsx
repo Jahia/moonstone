@@ -157,5 +157,5 @@ export const InsertCells: Story = {
         primaryKey: 'id',
         enableSelection: true
     },
-    name: 'Insertt custom cells (renderRow)'
+    name: 'Insert custom cells (renderRow)'
 };
