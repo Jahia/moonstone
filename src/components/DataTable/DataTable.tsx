@@ -11,6 +11,7 @@ import React, {useState, useEffect, useMemo, useCallback} from 'react';
 import {useCustomCells, usePagination, useSelection, useSorting} from './hooks';
 import type {DataTableProps, RenderOptions} from './DataTable.types';
 import {getPaginationProps} from './pagination';
+import {createTableColumns} from './shared';
 import {Checkbox} from '~/components';
 import {Pagination} from '~/components/Pagination';
 import {
@@ -22,7 +23,6 @@ import {
     TableHeadCell
 } from '~/components/DataTable';
 import {renderCell, renderHeadCell} from './columns';
-import {createTableColumns} from './utils';
 
 // Styles for custom column headers (no padding to match measured cell widths)
 const CUSTOM_HEADER_STYLE = {padding: 0};
