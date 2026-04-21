@@ -10,8 +10,8 @@ import type {ExpandedState, Row} from '@tanstack/react-table';
 import React, {useState, useEffect, useMemo, useCallback} from 'react';
 import {useCustomCells, usePagination, useSelection, useSorting} from './hooks';
 import type {DataTableProps, RenderOptions} from './DataTable.types';
-import {getPaginationProps} from './pagination';
 import {createTableColumns} from './shared';
+import {renderCell, renderHeadCell} from './utils';
 import {Checkbox} from '~/components';
 import {Pagination} from '~/components/Pagination';
 import {
@@ -22,7 +22,6 @@ import {
     TableCell,
     TableHeadCell
 } from '~/components/DataTable';
-import {renderCell, renderHeadCell} from './columns';
 
 // Styles for custom column headers (no padding to match measured cell widths)
 const CUSTOM_HEADER_STYLE = {padding: 0};
@@ -243,14 +242,18 @@ export const DataTable = <T extends NonNullable<unknown>>({
             </Table>
             {enablePagination && (
                 <Pagination
-                    {...getPaginationProps({
-                        table,
-                        isPaginationControlled,
-                        totalItems,
-                        itemsPerPageOptions,
-                        i18n,
-                        paginationProps
-                    })}
+                    currentPage={table.getState().pagination.pageIndex + 1}
+                    totalOfItems={
+                        isPaginationControlled && totalItems !== undefined ?
+                            totalItems :
+                            table.getPrePaginationRowModel().rows.length
+                    }
+                    itemsPerPage={table.getState().pagination.pageSize}
+                    itemsPerPageOptions={itemsPerPageOptions}
+                    i18n={i18n}
+                    onPageChange={(page: number) => table.setPageIndex(page - 1)}
+                    onItemsPerPageChange={(size: number) => table.setPageSize(size)}
+                    {...paginationProps}
                 />
             )}
         </>

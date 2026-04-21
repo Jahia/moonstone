@@ -1,5 +1,4 @@
 import React from 'react';
-import type {Table as TanstackTable} from '@tanstack/react-table';
 import type {PaginationProps as ComponentPaginationProps} from '~/components/Pagination';
 
 type PaginationBaseProps = {
@@ -58,12 +57,3 @@ export type DataTablePaginationProps =
           i18n?: never;
           paginationProps?: never;
       };
-
-export type DataTablePaginationLogicProps<T extends NonNullable<unknown>> = {
-    table: TanstackTable<T>;
-    isPaginationControlled: boolean;
-    totalItems?: number;
-    itemsPerPageOptions?: ComponentPaginationProps['itemsPerPageOptions'];
-    i18n?: ComponentPaginationProps['i18n'];
-    paginationProps?: Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> & Record<string, unknown>;
-};
