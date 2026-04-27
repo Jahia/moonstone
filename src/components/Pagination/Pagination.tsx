@@ -13,8 +13,12 @@ export const Pagination: React.FC<PaginationProps> = ({
         itemsPerPage: 'Items',
         of: 'of'
     },
-    itemsPerPage = 10,
-    itemsPerPageOptions = [5, 10, 25],
+    i18n = {
+        itemsPerPage: label.itemsPerPage,
+        of: label.of
+    },
+    itemsPerPageOptions = [25, 50, 100],
+    itemsPerPage = itemsPerPageOptions[0],
     totalOfItems,
     currentPage,
     onItemsPerPageChange,
@@ -57,10 +61,10 @@ export const Pagination: React.FC<PaginationProps> = ({
                     variant="caption"
                     data-testid="pagination-total-items"
                 >
-                    {`${visibleRangeStart}-${visibleRangeEnd} ${label.of} ${totalOfItems}`}
+                    {`${visibleRangeStart}-${visibleRangeEnd} ${i18n.of} ${totalOfItems}`}
                 </Typography>
                 <div className={clsx('moonstone-pagination_itemsPerPage', 'flexRow', 'alignCenter')}>
-                    <Typography variant="caption">{label.itemsPerPage}</Typography>
+                    <Typography variant="caption">{i18n.itemsPerPage}</Typography>
                     <Dropdown
                         size="small"
                         data-testid="pagination-dropdown-items-per-page"

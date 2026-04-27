@@ -1,0 +1,25 @@
+.tableHeadCell {
+    font-weight: bold;
+}
+
+.sort {
+    color: var(--moon-color-gray_light);
+}
+
+.sortActive {
+    color: var(--moon-color-accent);
+}
+
+.sortable {
+    cursor: pointer;
+
+    &:hover {
+        .sort {
+            color: var(--moon-color-gray);
+        }
+
+        .sortActive {
+            color: var(--moon-color-accent_dark);
+        }
+    }
+}

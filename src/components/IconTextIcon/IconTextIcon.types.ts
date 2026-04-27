@@ -1,5 +1,5 @@
 import React from 'react';
-import type {PolymorphicComponentProps} from '~/types/Polymorphic.types';
+import type {PolymorphicProps} from '~/types/Polymorphic.types';
 import type {BasicTypographyProps} from '~/components/Typography/Typography.types';
 
 export type BasicIconTextIconProps = {
@@ -44,4 +44,4 @@ export type BasicIconTextIconProps = {
     children?: React.ReactNode;
 };
 
-export type IconTextIconProps<C extends React.ElementType> = PolymorphicComponentProps<C, BasicIconTextIconProps>;
+export type IconTextIconProps<C extends React.ElementType> = PolymorphicProps<C, BasicIconTextIconProps>;
