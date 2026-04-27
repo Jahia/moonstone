@@ -4,7 +4,7 @@ import type {
     CustomHeaderWidths,
     UseCustomCellsProps,
     UseCustomCellsReturn
-} from './dataTableCustomCells.types';
+} from './useCustomCells.types';
 
 const defaultHeaderWidths = (): CustomHeaderWidths => ({before: [], after: []});
 
