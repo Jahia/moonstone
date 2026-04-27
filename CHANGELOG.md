@@ -1,5 +1,11 @@
 # @jahia/moonstone Changelog
 
+## 2.18.1
+
+* Improve the typing of `Typography` (#1301)
+
+* Datatable improve component organisation and expose helper functions (#1335)
+
 ## 2.18.0
 
 ### New Features
