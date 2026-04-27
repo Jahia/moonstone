@@ -74,6 +74,20 @@ describe('DateTimeInput', () => {
         }
     });
 
+    it('should render the date trigger as read-only', () => {
+        render(
+            <DateTimeInput
+                type="date"
+                value={{date: null}}
+                placeholder="Select a date"
+                i18n={{today: 'Today'}}
+                onChange={() => null}
+            />
+        );
+
+        expect(screen.getByPlaceholderText('Select a date')).toHaveProperty('readOnly', true);
+    });
+
     it('should render the 24h datetime layout and trigger timezone changes', async () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();

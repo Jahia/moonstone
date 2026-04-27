@@ -73,6 +73,9 @@ const fallbackTimezones = preferredTimezoneGroups.reduce<string[]>(
     []
 );
 
+let defaultTimezonesCache: string[] | null = null;
+const timezoneDropdownDataCache = new Map<string, DropdownDataGrouped[]>();
+
 const isValidTimezone = (timezone: string) => {
     try {
         // Intl.DateTimeFormat throws a RangeError for unknown IANA timezone identifiers.
@@ -117,13 +120,19 @@ const getTimezoneOption = (timezone: string, referenceDate: Date): DropdownDataO
 };
 
 export const getDefaultTimezones = () => {
+    if (defaultTimezonesCache) {
+        return defaultTimezonesCache;
+    }
+
     const supportedValuesOf = intlWithSupportedValues.supportedValuesOf;
 
     if (typeof supportedValuesOf === 'function') {
-        return supportedValuesOf('timeZone');
+        defaultTimezonesCache = supportedValuesOf('timeZone');
+        return defaultTimezonesCache;
     }
 
-    return [...fallbackTimezones];
+    defaultTimezonesCache = [...fallbackTimezones];
+    return defaultTimezonesCache;
 };
 
 export const getTimezoneDisplayLabel = (timezone?: string | null, referenceDate?: Date | null) => {
@@ -143,6 +152,13 @@ export const getTimezoneDropdownData = (
     referenceDate?: Date | null
 ): DropdownDataGrouped[] => {
     const resolvedReferenceDate = referenceDate ?? new Date();
+    const cacheKey = `${selectedTimezone ?? ''}|${resolvedReferenceDate.toISOString().slice(0, 10)}`;
+    const cachedDropdownData = timezoneDropdownDataCache.get(cacheKey);
+
+    if (cachedDropdownData) {
+        return cachedDropdownData;
+    }
+
     const timezones = Array.from(new Set(
         getDefaultTimezones().filter(tz => tz !== 'UTC').map(tz => tz.trim()).filter(Boolean)
     ));
@@ -151,7 +167,7 @@ export const getTimezoneDropdownData = (
         timezones.push(selectedTimezone);
     }
 
-    return Array.from(
+    const dropdownData = Array.from(
         timezones.reduce((groups, timezone) => {
             const groupLabel = getTimezoneRegion(timezone);
             const nextGroup = groups.get(groupLabel) ?? [];
@@ -167,4 +183,8 @@ export const getTimezoneDropdownData = (
             groupLabel,
             options: options.sort((left, right) => left.label.localeCompare(right.label))
         }));
+
+    timezoneDropdownDataCache.set(cacheKey, dropdownData);
+
+    return dropdownData;
 };

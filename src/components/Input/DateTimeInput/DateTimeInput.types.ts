@@ -34,13 +34,22 @@ type DateTimeInputSharedProps = Pick<BaseInputProps,
      */
     type: DateTimeInputType;
 
-    /** Controlled value. Must be updated via `onChange` to reflect user changes. */
+    /**
+     * Controlled value.
+     * When used with `onChange`, the parent component is responsible for updating it in
+     * response to user changes. If provided without `onChange`, the component will be
+     * effectively read-only.
+     */
     value?: DateTimeInputValue;
 
     /** Initial value in uncontrolled mode. The component manages its own internal state. */
     defaultValue?: DateTimeInputValue;
 
-    /** Fired when the selected date, time or timezone changes. */
+    /**
+     * Fired when the selected date, time or timezone changes.
+     * Provide this when using the component in controlled mode and updating `value`
+     * from user input.
+     */
     onChange?: (event: React.SyntheticEvent, value: DateTimeInputValue) => void;
 
     variant?: 'ghost' | 'outlined';
