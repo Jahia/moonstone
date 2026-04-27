@@ -1,5 +1,5 @@
 import type {ColumnDef} from '@tanstack/react-table';
-import type {DataTableProps, SubRowKey} from '~/components/DataTable/DataTable.types';
+import type {DataTableProps, SubRowKey} from '../DataTable.types';
 
 /**
  * Transforms user-friendly DataTable column definitions into TanStack Table compatible ColumnDef format.
@@ -32,12 +32,10 @@ export const createTableColumns = <T extends Record<string, unknown>>(
         cell: ({row, getValue}) => {
             const value = getValue();
 
-            // Use custom render function if provided
             if (col.render) {
                 return col.render(value as T[Exclude<keyof T, SubRowKey>], row.original as T);
             }
 
-            // Fallback: return raw value as ReactNode
             return value as React.ReactNode;
         }
     }));

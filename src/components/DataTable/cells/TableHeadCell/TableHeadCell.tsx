@@ -1,7 +1,7 @@
 import {ArrowDown, ArrowUp} from '~/icons';
 import clsx from 'clsx';
 import styles from './TableHeadCell.module.scss';
-import {TableCell} from './TableCell';
+import {TableCell} from '../TableCell';
 import type {TableHeadCellProps} from './TableHeadCell.types';
 
 export const TableHeadCell = ({

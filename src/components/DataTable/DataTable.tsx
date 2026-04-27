@@ -3,27 +3,25 @@ import {
     getCoreRowModel,
     getExpandedRowModel,
     getSortedRowModel,
-    getPaginationRowModel,
-    flexRender
+    getPaginationRowModel
 } from '@tanstack/react-table';
 import {toNodeArray} from '~/utils/helpers';
 import type {ExpandedState, Row} from '@tanstack/react-table';
-import React, {useState, useEffect, useMemo, useCallback, useRef} from 'react';
-import clsx from 'clsx';
-import {useTableSelection, useTableSorting, useTablePagination} from '~/hooks';
-import type {DataTableProps, CustomColumnMeta, RenderOptions} from './DataTable.types';
+import React, {useState, useEffect, useMemo, useCallback} from 'react';
+import {useCustomCells, usePagination, useSelection, useSorting} from './hooks';
+import type {DataTableProps, RenderOptions} from './DataTable.types';
+import {createTableColumns} from './shared';
+import {renderCell, renderHeadCell} from './utils';
 import {Checkbox} from '~/components';
+import {Pagination} from '~/components/Pagination';
 import {
     Table,
     TableRow,
     TableBody,
     TableHead,
     TableCell,
-    TableStructuredCell,
     TableHeadCell
 } from '~/components/DataTable';
-import {createTableColumns} from '~/utils/dataTable/tableHelpers';
-import {Pagination} from '~/components/Pagination';
 
 // Styles for custom column headers (no padding to match measured cell widths)
 const CUSTOM_HEADER_STYLE = {padding: 0};
@@ -63,62 +61,19 @@ export const DataTable = <T extends NonNullable<unknown>>({
     ...props
 }: DataTableProps<T>) => {
     const [expanded, setExpanded] = useState<ExpandedState>({});
-
-    // Track how many custom cells are being used per position (0 = none).
-    const [customBeforeCount, setCustomBeforeCount] = useState(0);
-    const [customAfterCount, setCustomAfterCount] = useState(0);
-
-    // Pending counts written during render; synced to state post-render to avoid calling setState during render.
-    const pendingCustomBefore = useRef(0);
-    const pendingCustomAfter = useRef(0);
-
-    // Measured offsetWidths per position index, kept in state so that ResizeObserver updates trigger a re-render and headers stay aligned.
-    const [customHeaderWidths, setCustomHeaderWidths] = useState<{ before: string[]; after: string[] }>({before: [], after: []});
-    const observersRef = useRef<{ before:(ResizeObserver | undefined)[]; after: (ResizeObserver | undefined)[] }>({before: [], after: []});
-
-    // Disconnect all observers on unmount.
-    useEffect(() => () => {
-        observersRef.current.before.forEach(o => o?.disconnect());
-        observersRef.current.after.forEach(o => o?.disconnect());
-    }, []);
-
-    // Clear custom cell mappings when the underlying data or primary key changes
-    useEffect(() => {
-        if (!renderRow) {
-            return;
-        }
-
-        pendingCustomBefore.current = 0;
-        pendingCustomAfter.current = 0;
-        setCustomBeforeCount(0);
-        setCustomAfterCount(0);
-        observersRef.current.before.forEach(o => o?.disconnect());
-        observersRef.current.before = [];
-        observersRef.current.after.forEach(o => o?.disconnect());
-        observersRef.current.after = [];
-        setCustomHeaderWidths({before: [], after: []});
-    }, [data, primaryKey, renderRow]);
-
-    // Sync pending counts (written during render) to state after each render.
-    useEffect(() => {
-        if (!renderRow) {
-            return;
-        }
-
-        if (pendingCustomBefore.current !== customBeforeCount) {
-            setCustomBeforeCount(pendingCustomBefore.current);
-        }
-
-        if (pendingCustomAfter.current !== customAfterCount) {
-            setCustomAfterCount(pendingCustomAfter.current);
-        }
-
-        // Reset so the next render starts from a clean slate.
-        pendingCustomBefore.current = 0;
-        pendingCustomAfter.current = 0;
+    const {
+        customBeforeCount,
+        customAfterCount,
+        customHeaderWidths,
+        registerCustomCellCounts,
+        withCustomCellObserver
+    } = useCustomCells({
+        data,
+        primaryKey,
+        renderRow
     });
 
-    const {sorting, handleSortingChange} = useTableSorting({
+    const {sorting, handleSortingChange} = useSorting<T>({
         sortBy,
         sortDirection,
         defaultSortBy,
@@ -126,13 +81,13 @@ export const DataTable = <T extends NonNullable<unknown>>({
         onSortChange
     });
 
-    const {rowSelection, handleRowSelectionChange} = useTableSelection({
+    const {rowSelection, handleRowSelectionChange} = useSelection({
         selection,
         defaultSelection,
         onChangeSelection
     });
 
-    const {pagination, handlePaginationChange} = useTablePagination({
+    const {pagination, isPaginationControlled, handlePaginationChange} = usePagination({
         currentPage,
         itemsPerPage,
         defaultCurrentPage,
@@ -180,54 +135,14 @@ export const DataTable = <T extends NonNullable<unknown>>({
         (row: Row<T>, options?: RenderOptions) => {
             const beforeCells = toNodeArray(options?.before);
             const afterCells = toNodeArray(options?.after);
-
-            // Track how many custom cells are present so the header can create matching placeholder cells.
-            if (beforeCells.length) {
-                pendingCustomBefore.current = beforeCells.length;
-            }
-
-            if (afterCells.length) {
-                pendingCustomAfter.current = afterCells.length;
-            }
-
-            // For the first row, attach a ResizeObserver so each header placeholder cell
-            // can match the measured offsetWidth of the body cell (which includes any
-            // padding overrides applied by the component, e.g. TableCellStatus sets padding: 0).
-            const withObserver = (node: React.ReactNode, position: 'before' | 'after', index: number): React.ReactNode => {
-                if (row.index !== 0 || !React.isValidElement(node)) {
-                    return node;
-                }
-
-                return React.cloneElement(node as React.ReactElement, {
-                    ref: (el: HTMLElement | null) => {
-                        observersRef.current[position][index]?.disconnect();
-                        observersRef.current[position][index] = undefined;
-                        if (el) {
-                            const measure = () => {
-                                const w = `${el.offsetWidth}px`;
-                                setCustomHeaderWidths(prev => {
-                                    if (prev[position][index] === w) {
-                                        return prev;
-                                    }
-
-                                    const next = [...prev[position]];
-                                    next[index] = w;
-                                    return {...prev, [position]: next};
-                                });
-                            };
-
-                            const observer = new ResizeObserver(measure);
-                            observer.observe(el);
-                            observersRef.current[position][index] = observer;
-                        }
-                    }
-                });
-            };
+            registerCustomCellCounts(beforeCells.length, afterCells.length);
 
             return (
                 <>
                     {beforeCells.map((cell, i) => (
-                        <React.Fragment key={(cell as React.ReactElement).key}>{withObserver(cell, 'before', i)}</React.Fragment>
+                        <React.Fragment key={(cell as React.ReactElement).key}>
+                            {withCustomCellObserver(cell, row.index, 'before', i)}
+                        </React.Fragment>
                     ))}
 
                     {enableSelection && (
@@ -238,50 +153,17 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             />
                         </TableCell>
                     )}
-
-                    {row.getVisibleCells().map((cell, index) => {
-                        const meta = cell.column.columnDef.meta as CustomColumnMeta | undefined;
-                        const isFirstColumn = index === 0;
-                        const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
-
-                        if (isStructured && isFirstColumn) {
-                            return (
-                                <TableStructuredCell
-                                    key={cell.id}
-                                    {...meta?.cellProps}
-                                    align={meta?.align ?? 'left'}
-                                    width={meta?.width}
-                                    depth={row.depth}
-                                    isExpandable={row.getCanExpand()}
-                                    isExpanded={row.getIsExpanded()}
-                                    isScrollable={meta?.isScrollable}
-                                    onToggleExpand={row.getToggleExpandedHandler()}
-                                >
-                                    {cellContent}
-                                </TableStructuredCell>
-                            );
-                        }
-
-                        return (
-                            <TableCell
-                                key={cell.id}
-                                {...meta?.cellProps}
-                                align={meta?.align}
-                                width={meta?.width}
-                                isScrollable={meta?.isScrollable}
-                            >
-                                {cellContent}
-                            </TableCell>
-                        );
-                    })}
+                    {renderCell({row, isStructured})}
 
                     {afterCells.map((cell, i) => (
-                        <React.Fragment key={(cell as React.ReactElement).key}>{withObserver(cell, 'after', i)}</React.Fragment>
+                        <React.Fragment key={(cell as React.ReactElement).key}>
+                            {withCustomCellObserver(cell, row.index, 'after', i)}
+                        </React.Fragment>
                     ))}
                 </>
             );
         },
-        [enableSelection, isStructured]
+        [enableSelection, isStructured, registerCustomCellCounts, selectionCellProps, withCustomCellObserver]
     );
 
     const renderRowWithCustomization = useCallback(
@@ -336,34 +218,11 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             )}
 
                             {/* Data column headers */}
-                            {headerGroup.headers.map((header, index) => {
-                                const meta = header.column.columnDef.meta as CustomColumnMeta | undefined;
-                                const isColumnSortable = enableSorting && (meta?.isSortable ?? false);
-                                const alignment = meta?.align ?? 'left';
-                                const columnSortDirection = header.column.getIsSorted();
-
-                                return (
-                                    <TableHeadCell
-                                        key={header.id}
-                                        width={meta?.width}
-                                        className={clsx({'moonstone-tableHeadCell_structured': isStructured && index === 0})}
-                                        sorting={isColumnSortable ? {
-                                            direction: columnSortDirection === 'desc' ? 'descending' : 'ascending',
-                                            isActive: Boolean(columnSortDirection)
-                                        } : undefined}
-                                        style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
-                                        align={alignment}
-                                        onClick={(e: React.MouseEvent<HTMLTableCellElement>) => {
-                                            if (isColumnSortable) {
-                                                header.column.getToggleSortingHandler()?.(e);
-                                            }
-
-                                            onClickTableHeadCell?.(header.id);
-                                        }}
-                                    >
-                                        {flexRender(header.column.columnDef.header, header.getContext())}
-                                    </TableHeadCell>
-                                );
+                            {renderHeadCell({
+                                headerGroup,
+                                enableSorting,
+                                isStructured,
+                                onClickTableHeadCell
                             })}
 
                             {/* Custom "after" column headers */}
@@ -385,7 +244,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 <Pagination
                     currentPage={table.getState().pagination.pageIndex + 1}
                     totalOfItems={
-                        currentPage !== undefined && totalItems !== undefined ?
+                        isPaginationControlled && totalItems !== undefined ?
                             totalItems :
                             table.getPrePaginationRowModel().rows.length
                     }

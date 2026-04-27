@@ -1,21 +1,10 @@
 import React from 'react';
 import type {Row} from '@tanstack/react-table';
-import type {PaginationProps as ComponentPaginationProps} from '~/components/Pagination';
-import type {TableCellProps} from '~/components/DataTable/cells/TableCell.types';
+import type {TableCellProps} from '~/components/DataTable/cells';
+import type {DataTablePaginationProps} from './pagination';
+export type {PaginationUncontrolledProps} from './pagination';
 
 export type SubRowKey = 'subRows';
-
-/**
- * Custom meta properties for TanStack Table columns.
- * Used to pass additional configuration through columnDef.meta
- */
-export type CustomColumnMeta = {
-    isSortable?: boolean;
-    align?: 'left' | 'center' | 'right';
-    width?: string;
-    isScrollable?: boolean;
-    cellProps?: React.TdHTMLAttributes<HTMLTableCellElement> & Record<string, unknown>;
-};
 
 export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children' | 'className'> & {
     /**
@@ -210,66 +199,9 @@ type RenderRowProps<T extends NonNullable<unknown>> = {
     ) => React.ReactNode;
 };
 
-type PaginationBaseProps = {
-    /** Choices for items per page value */
-    itemsPerPageOptions?: ComponentPaginationProps['itemsPerPageOptions'];
-    /** Pagination labels */
-    i18n?: ComponentPaginationProps['i18n'];
-    /** Custom attributes for the Pagination element */
-    paginationProps?: Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> & Record<string, unknown>;
-};
-
-type PaginationControlledProps = {
-    /** Current page 1-indexed (Controlled) */
-    currentPage: ComponentPaginationProps['currentPage'];
-    /** Items per page (Controlled) */
-    itemsPerPage?: ComponentPaginationProps['itemsPerPage'];
-    /** Total number of items across all pages (Controlled) */
-    totalItems: number;
-    /** Callback when page changes (Controlled) */
-    onPageChange: ComponentPaginationProps['onPageChange'];
-    /** Callback when items per page changes */
-    onItemsPerPageChange?: ComponentPaginationProps['onItemsPerPageChange'];
-    defaultCurrentPage?: never;
-    defaultItemsPerPage?: never;
-};
-
-export type PaginationUncontrolledProps = {
-    currentPage?: never;
-    /** Initial page 1-indexed (Uncontrolled) */
-    defaultCurrentPage?: number;
-    /** Initial items per page (Uncontrolled) */
-    defaultItemsPerPage?: number;
-    itemsPerPage?: never;
-    totalItems?: never;
-    /** Callback when page changes */
-    onPageChange?: ComponentPaginationProps['onPageChange'];
-    /** Callback when items per page changes */
-    onItemsPerPageChange?: ComponentPaginationProps['onItemsPerPageChange'];
-};
-
-type TablePaginationProps =
-    | ({
-          /** Enable Table Pagination */
-          enablePagination: true;
-      } & PaginationBaseProps & (PaginationControlledProps | PaginationUncontrolledProps))
-    | {
-          enablePagination?: false;
-          currentPage?: never;
-          itemsPerPage?: never;
-          onPageChange?: never;
-          onItemsPerPageChange?: never;
-          totalItems?: never;
-          defaultCurrentPage?: never;
-          defaultItemsPerPage?: never;
-          itemsPerPageOptions?: never;
-          i18n?: never;
-          paginationProps?: never;
-      };
-
 export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'children'> &
     DataTableBaseProps<T> &
     SortingProps<T> &
     SelectionProps &
     RenderRowProps<T> &
-    TablePaginationProps;
+    DataTablePaginationProps;

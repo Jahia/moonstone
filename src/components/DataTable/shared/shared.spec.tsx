@@ -1,6 +1,6 @@
 import {describe, it, expect, vi} from 'vitest';
 import {render, screen} from '@testing-library/react';
-import {DataTableColumn} from '~/components/DataTable/DataTable.types';
+import type {DataTableColumn} from '~/components/DataTable/DataTable.types';
 import {
     renderNumber,
     renderDate,
@@ -22,9 +22,7 @@ describe('renderString', () => {
     });
 
     it('should display string value correctly', () => {
-        render(
-            <>{renderString('test')}</>
-        );
+        render(<>{renderString('test')}</>);
         expect(screen.getByText('test')).toBeInTheDocument();
     });
 });
@@ -73,7 +71,6 @@ describe('renderDate', () => {
             })}
             </>
         );
-        screen.debug();
         expect(screen.getByText('06/15/2023')).toBeInTheDocument();
     });
 

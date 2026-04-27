@@ -1,10 +1,10 @@
 import {useState} from 'react';
 import type {RowSelectionState} from '@tanstack/react-table';
-import type {DataTableProps} from '~/components/DataTable/DataTable.types';
+import type {SelectionProps} from '../DataTable.types';
 
-type Props = Pick<DataTableProps<Record<string, unknown>>, 'selection' | 'defaultSelection' | 'onChangeSelection'>;
+type UseSelectionProps = Pick<SelectionProps, 'selection' | 'defaultSelection' | 'onChangeSelection'>;
 
-export function useTableSelection({selection, defaultSelection = [], onChangeSelection}: Props) {
+export function useSelection({selection, defaultSelection = [], onChangeSelection}: UseSelectionProps) {
     const isSelectionControlled = selection !== undefined;
 
     const [state, setState] = useState<RowSelectionState>(

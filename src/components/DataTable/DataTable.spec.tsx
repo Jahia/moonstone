@@ -1,8 +1,7 @@
 import {render, screen, waitFor, within} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {describe, expect, it, vi} from 'vitest';
-import {DataTable, TableCell, TableCellStatus, TableRow} from '~/components/DataTable';
-import {numberColumn, stringColumn} from '~/utils/dataTable';
+import {DataTable, numberColumn, stringColumn, TableCell, TableCellStatus, TableRow} from '~/components/DataTable';
 
 type TestData = {
     id: string;

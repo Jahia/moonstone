@@ -1,5 +1,5 @@
 import React from 'react';
-import type {TableCellProps} from '../TableCell.types';
+import type {TableCellProps} from '../TableCell';
 
 export type TableCellStatusProps = Omit<TableCellProps, 'color' | 'children'> & {
     /**

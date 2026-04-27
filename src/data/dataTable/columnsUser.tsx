@@ -1,8 +1,8 @@
 import type {DataTableColumn} from '~/components/DataTable/DataTable.types';
 import {Chip, Typography} from '~/components';
+import {numberColumn, dateColumn, stringColumn} from '~/components/DataTable';
 import {Person} from '~/icons';
 import {getStatus} from '~/data/dataTable/utils';
-import {numberColumn, dateColumn, stringColumn} from '~/utils/dataTable';
 
 export type DataUser = {
     id: string;
