@@ -2,6 +2,8 @@ import React from 'react';
 import {addons} from 'storybook/preview-api';
 import {UPDATE_GLOBALS, STORY_ARGS_UPDATED} from "storybook/internal/core-events";
 
+import './preview.scss';
+
 // Copy imports from src/index.ts, in the same order
 import '../src/globals/reset.module.scss';
 import '../src/globals/_variables.scss';
