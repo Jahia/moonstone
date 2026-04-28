@@ -12,7 +12,6 @@ on:
 
 jobs:
   publish-release:
-    if: ${{ github.event_name != 'release' }}
     runs-on: ubuntu-slim
     permissions:
       contents: write
