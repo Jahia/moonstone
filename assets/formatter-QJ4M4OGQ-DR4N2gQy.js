@@ -1,1 +1,0 @@
-import{c as e,l as t,x as n}from"./iframe-bp116kiQ.js";var r=(0,n(t(),1).default)(2)(async(t,n)=>t===!1?n:e(n));export{r as formatter};
