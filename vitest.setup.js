@@ -15,3 +15,12 @@ class IntersectionObserverMock {
 
 global.IntersectionObserver = IntersectionObserverMock;
 window.IntersectionObserver = IntersectionObserverMock;
+
+class ResizeObserverMock {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+}
+
+global.ResizeObserver = ResizeObserverMock;
+window.ResizeObserver = ResizeObserverMock;

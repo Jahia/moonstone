@@ -17,7 +17,7 @@ export const TableBody: React.FC<TableBodyProps> = ({
     return React.createElement(
         component,
         {
-            className: clsx(styles['moonstone-tableBody'], className),
+            className: clsx(styles.tableBody, className),
             ...props
         },
         children

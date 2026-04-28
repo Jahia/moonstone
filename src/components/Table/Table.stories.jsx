@@ -38,7 +38,7 @@ export default {
 };
 
 const columnsWidth = {
-    selection: '52px',
+    selection: 'auto',
     status: '120px',
     type: '120px',
     createdBy: '120px',

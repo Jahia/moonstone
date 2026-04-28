@@ -1,11 +1,15 @@
-.moonstone-tableHead {
+.tableHead {
     color: var(--moon-color-gray_dark);
 
     background-color: var(--moon-color-white);
 }
 
-.moonstone-tableHead_sticky {
+.structured {
+    padding: 0 var(--moon-spacing-large);
+}
+
+.sticky {
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 5;
 }

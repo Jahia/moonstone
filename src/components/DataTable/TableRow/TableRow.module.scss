@@ -1,37 +1,46 @@
-.moonstone-tableRow {
-    composes: moonstone-tableRow from "../cells/TableCellActions/TableCellActions.module.scss";
+$background-hover: var(--moon-color-gray_light_plain20);
+$background-highlight: var(--moon-color-accent_light_plain20);
+$background-highlight-hover: var(--moon-color-accent_light_plain40);
 
-    padding: 0 var(--moon-spacing-medium);
+.tableRow {
+    --moon-row-background: white;
+    --moon-cellAction-visibility: hidden;
+
+    height: 48px;
 
     border-bottom: 1px solid var(--moon-color-gray_light);
+    background-color: var(--moon-row-background);
 
-    .moonstone-tableBody &:focus-within,
-    .moonstone-tableBody &:hover {
-        background-color: var(--moon-color-gray_light40);
+    &:not(.header) {
+        &:focus-within,
+        &:hover {
+            --moon-row-background: #{$background-hover};
+            --moon-cellAction-visibility: visible;
+        }
     }
 }
 
-.moonstone-tableRow_highlighted {
-    color: var(--moon-color-light);
+.highlighted {
+    --moon-row-background: #{$background-highlight};
 
-    background-color: var(--moon-color-accent);
+    // color: var(--color-light);
 
     &:focus-within,
     &:hover {
-        background-color: var(--moon-color-accent);
+        --moon-row-background: #{$background-highlight-hover};
     }
 
-    .moonstone-checkbox_input {
-        border: 1px solid var(--moon-color-light);
+    // .moonstone-checkbox_input {
+    //     border: 1px solid var(--color-light);
 
-        &[aria-checked="false"] {
-            box-shadow: none;
-        }
+    //     &[aria-checked="false"] {
+    //         box-shadow: none;
+    //     }
 
-        &.hasFocus {
-            border: 2px solid var(--moon-color-accent_dark_contrast);
-        }
-    }
+    //     &.hasFocus {
+    //         border: 2px solid var(--color-accent_dark_contrast);
+    //     }
+    // }
 
     .moonstone-chip {
         color: var(--moon-color-light);
@@ -39,7 +48,11 @@
         background-color: var(--moon-color-accent_light40);
     }
 
-    .moonstone-button:not(:hover, :focus) {
-        color: var(--moon-color-light);
-    }
+    // .moonstone-button:not(:hover, :focus) {
+    //     color: var(--color-light);
+    // }
+}
+
+.head {
+    height: 40px;
 }

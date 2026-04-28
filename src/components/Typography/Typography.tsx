@@ -1,7 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
 import styles from './Typography.module.scss';
-import type {TypographyProps} from './Typography.types';
+import type {PolymorphicComponent} from '~/types/Polymorphic.types';
+import type {BasicTypographyProps, TypographyProps} from './Typography.types';
 
 export const Typography = React.forwardRef(<C extends React.ElementType = 'p'> ({
     children = '',
@@ -40,6 +41,6 @@ export const Typography = React.forwardRef(<C extends React.ElementType = 'p'> (
             {children}
         </Component>
     );
-});
+}) as unknown as PolymorphicComponent<'p', BasicTypographyProps>;
 
 Typography.displayName = 'Typography';

@@ -1,14 +1,21 @@
-.moonstone-tableCellActions {
+.tableCellActions {
+    position: relative;
+    overflow: visible;
+
     gap: var(--moon-spacing-small);
 }
 
-.moonstone-tableCellActions_displayHover {
+.displayHover {
+    position: absolute;
+    top: 0;
+    right: 56px;
+    bottom: 0;
+    z-index: 5;
+
     gap: var(--moon-spacing-small);
+    padding: 0 var(--moon-spacing-small);
 
-    visibility: hidden;
+    background: var(--moon-row-background);
 
-    .moonstone-tableRow:hover &,
-    .moonstone-tableRow:focus-within & {
-        visibility: visible;
-    }
+    visibility: var(--moon-cellAction-visibility, hidden);
 }

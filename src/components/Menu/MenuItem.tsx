@@ -19,6 +19,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
     imageSize,
     className,
     description,
+    onClick,
     onKeyPress,
     onKeyUp,
     ...props
@@ -45,6 +46,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
         iconStart={iconStart}
         iconEnd={iconEnd}
         description={description}
+        onClick={isDisabled ? undefined : onClick}
         onKeyPress={e => {
                         console.warn('onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
                         onKeyPress(e);

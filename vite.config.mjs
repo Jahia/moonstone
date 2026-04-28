@@ -43,7 +43,7 @@ export default defineConfig({
     test: {
         coverage: {
             provider: 'v8',
-            include: ['src/**/*.tsx'],
+            include: ['src/**/*.spec.tsx'],
             exclude: ['src/__mocks__', 'src/__storybook__', 'src/data', '**/*.stories.*']
         },
         projects: [
@@ -55,8 +55,24 @@ export default defineConfig({
                     globals: true,
                     environment: 'jsdom',
                     include: ['src/**/*.spec.tsx'],
-                    exclude: ['src/visual*.spec.tsx'],
+                    exclude: ['src/visual.spec.tsx', 'src/**/*.browser.spec.tsx'],
                     css: true
+                }
+            },
+            {
+                extends: true,
+                test: {
+                    name: 'browser',
+                    include: ['src/**/*.browser.spec.tsx'],
+                    exclude: ['src/visual.spec.tsx'],
+                    css: true,
+                    browser: {
+                        enabled: true,
+                        headless: true,
+                        screenshotFailures: false,
+                        provider: playwright(),
+                        instances: [{browser: 'chromium'}]
+                    }
                 }
             },
             {

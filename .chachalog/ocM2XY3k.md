@@ -3,6 +3,6 @@
 "@jahia/moonstone": patch
 ---
 
-All CSS variables are now prefixed with `--moon`. (#1307)
+Prefixed global CSS variables with `--moon` and kept legacy aliases for existing variable names. (#1307)
 
-This is not a breaking change as old names are now aliases of the new names, e.g. `--color-accent: var(--moon-color-accent)`.
+Kept existing variable names as aliases so this change is not breaking, e.g. `--color-accent: var(--moon-color-accent)`.

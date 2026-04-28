@@ -3,29 +3,28 @@ import {
     getCoreRowModel,
     getExpandedRowModel,
     getSortedRowModel,
-    getPaginationRowModel,
-    flexRender
+    getPaginationRowModel
 } from '@tanstack/react-table';
-
+import {toNodeArray} from '~/utils/helpers';
 import type {ExpandedState, Row} from '@tanstack/react-table';
-import {useState, useEffect, useMemo, useCallback} from 'react';
-
-import {useTableSelection, useTableSorting, useTablePagination} from '~/hooks';
-import type {DataTableProps, CustomColumnMeta, DefaultRenderOptions} from './DataTable.types';
+import React, {useState, useEffect, useMemo, useCallback} from 'react';
+import {useCustomCells, usePagination, useSelection, useSorting} from './hooks';
+import type {DataTableProps, RenderOptions} from './DataTable.types';
+import {createTableColumns} from './shared';
+import {renderCell, renderHeadCell} from './utils';
 import {Checkbox} from '~/components';
+import {Pagination} from '~/components/Pagination';
 import {
     Table,
     TableRow,
     TableBody,
     TableHead,
     TableCell,
-    TableCellActions,
-    TableStructuredCell,
     TableHeadCell
 } from '~/components/DataTable';
-import {createTableColumns} from '~/utils/dataTable/tableHelpers';
-import {Pagination} from '~/components/Pagination';
-import styles from './cells/TableCellActions/TableCellActions.module.scss';
+
+// Styles for custom column headers (no padding to match measured cell widths)
+const CUSTOM_HEADER_STYLE = {padding: 0};
 
 export const DataTable = <T extends NonNullable<unknown>>({
     className,
@@ -36,7 +35,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     enableSelection = false,
     selection,
     onChangeSelection,
-    enableSorting = false,
+    enableSorting = !isStructured,
     sortBy,
     sortDirection,
     onSortChange,
@@ -45,8 +44,9 @@ export const DataTable = <T extends NonNullable<unknown>>({
     defaultSelection = [],
     renderRow,
     onClickTableHeadCell,
+    selectionCellProps,
     // Pagination props
-    enablePagination = false,
+    enablePagination = !isStructured,
     currentPage,
     itemsPerPage,
     itemsPerPageOptions = [5, 10, 25],
@@ -55,14 +55,25 @@ export const DataTable = <T extends NonNullable<unknown>>({
     onPageChange,
     onItemsPerPageChange,
     totalItems,
-    paginationLabel,
+    i18n,
     paginationProps,
     rowProps,
     ...props
 }: DataTableProps<T>) => {
     const [expanded, setExpanded] = useState<ExpandedState>({});
+    const {
+        customBeforeCount,
+        customAfterCount,
+        customHeaderWidths,
+        registerCustomCellCounts,
+        withCustomCellObserver
+    } = useCustomCells({
+        data,
+        primaryKey,
+        renderRow
+    });
 
-    const {sorting, handleSortingChange} = useTableSorting({
+    const {sorting, handleSortingChange} = useSorting<T>({
         sortBy,
         sortDirection,
         defaultSortBy,
@@ -70,13 +81,13 @@ export const DataTable = <T extends NonNullable<unknown>>({
         onSortChange
     });
 
-    const {rowSelection, handleRowSelectionChange} = useTableSelection({
+    const {rowSelection, handleRowSelectionChange} = useSelection({
         selection,
         defaultSelection,
         onChangeSelection
     });
 
-    const {pagination, isPaginationControlled, handlePaginationChange} = useTablePagination({
+    const {pagination, isPaginationControlled, handlePaginationChange} = usePagination({
         currentPage,
         itemsPerPage,
         defaultCurrentPage,
@@ -121,71 +132,46 @@ export const DataTable = <T extends NonNullable<unknown>>({
     }, [data, isStructured, table]);
 
     const renderRowContent = useCallback(
-        (row: Row<T>, actionsContent?: DefaultRenderOptions) => (
-            <>
-                {/* Selection checkbox cell */}
-                {enableSelection && (
-                    <TableCell width="52px">
-                        <Checkbox
-                            checked={row.getIsSelected()}
-                            onChange={row.getToggleSelectedHandler()}
-                        />
-                    </TableCell>
-                )}
+        (row: Row<T>, options?: RenderOptions) => {
+            const beforeCells = toNodeArray(options?.before);
+            const afterCells = toNodeArray(options?.after);
+            registerCustomCellCounts(beforeCells.length, afterCells.length);
 
-                {/* Data cells - content comes from column.cell defined in createTableColumns */}
-                {row.getVisibleCells().map((cell, index) => {
-                    const meta = cell.column.columnDef.meta as CustomColumnMeta | undefined;
-                    const isFirstColumn = index === 0;
-                    const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
-                    const showStructured = isStructured && isFirstColumn;
+            return (
+                <>
+                    {beforeCells.map((cell, i) => (
+                        <React.Fragment key={(cell as React.ReactElement).key}>
+                            {withCustomCellObserver(cell, row.index, 'before', i)}
+                        </React.Fragment>
+                    ))}
 
-                    // Use TableStructuredCell for first column in structured view
-                    if (showStructured) {
-                        return (
-                            <TableStructuredCell
-                                key={cell.id}
-                                align={meta?.align ?? 'left'}
-                                width={meta?.width}
-                                depth={row.depth}
-                                isExpandable={row.getCanExpand()}
-                                isExpanded={row.getIsExpanded()}
-                                onToggleExpand={row.getToggleExpandedHandler()}
-                            >
-                                {cellContent}
-                            </TableStructuredCell>
-                        );
-                    }
-
-                    return (
-                        <TableCell
-                            key={cell.id}
-                            align={meta?.align ?? 'left'}
-                            width={meta?.width}
-                        >
-                            {cellContent}
+                    {enableSelection && (
+                        <TableCell width="auto" {...selectionCellProps}>
+                            <Checkbox
+                                checked={row.getIsSelected()}
+                                onChange={row.getToggleSelectedHandler()}
+                            />
                         </TableCell>
-                    );
-                })}
+                    )}
+                    {renderCell({row, isStructured})}
 
-                {/* Actions cell - rendered only when actions are provided */}
-                {(actionsContent?.actions || actionsContent?.actionsOnHover) && (
-                    <TableCellActions
-                        actions={actionsContent?.actions}
-                        actionsOnHover={actionsContent?.actionsOnHover}
-                    />
-                )}
-            </>
-        ),
-        [enableSelection, isStructured]
+                    {afterCells.map((cell, i) => (
+                        <React.Fragment key={(cell as React.ReactElement).key}>
+                            {withCustomCellObserver(cell, row.index, 'after', i)}
+                        </React.Fragment>
+                    ))}
+                </>
+            );
+        },
+        [enableSelection, isStructured, registerCustomCellCounts, selectionCellProps, withCustomCellObserver]
     );
 
     const renderRowWithCustomization = useCallback(
         (row: Row<T>) => {
-            const defaultRender = (options?: DefaultRenderOptions) => renderRowContent(row, options);
+            const render = (options?: RenderOptions) => renderRowContent(row, options);
 
             if (renderRow) {
-                return renderRow(row, defaultRender);
+                return renderRow(row, render);
             }
 
             return (
@@ -194,7 +180,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     aria-selected={row.getIsSelected() || undefined}
                     {...rowProps}
                 >
-                    {defaultRender()}
+                    {render()}
                 </TableRow>
             );
         },
@@ -210,10 +196,19 @@ export const DataTable = <T extends NonNullable<unknown>>({
             <Table className={className} {...props}>
                 <TableHead>
                     {table.getHeaderGroups().map(headerGroup => (
-                        <TableRow key={headerGroup.id}>
+                        <TableRow key={headerGroup.id} type="head">
+                            {/* Custom "before" column headers */}
+                            {Array.from({length: customBeforeCount}, (_, i) => (
+                                <TableHeadCell
+                                    key={`custom-before-header-${i}`}
+                                    width={customHeaderWidths.before[i]}
+                                    style={CUSTOM_HEADER_STYLE}
+                                />
+                            ))}
+
                             {/* Selection header */}
                             {enableSelection && (
-                                <TableHeadCell width="52px">
+                                <TableHeadCell width="auto" {...selectionCellProps}>
                                     <Checkbox
                                         checked={table.getIsAllRowsSelected()}
                                         indeterminate={table.getIsSomeRowsSelected()}
@@ -222,39 +217,22 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                 </TableHeadCell>
                             )}
 
-                            {/* Column headers */}
-                            {headerGroup.headers.map(header => {
-                                const meta = header.column.columnDef.meta as CustomColumnMeta | undefined;
-                                const isColumnSortable = enableSorting && (meta?.isSortable ?? false);
-                                const alignment = meta?.align ?? 'left';
-                                const columnSortDirection = header.column.getIsSorted();
-
-                                return (
-                                    <TableHeadCell
-                                        key={header.id}
-                                        width={meta?.width}
-                                        sorting={isColumnSortable ? {
-                                            direction: columnSortDirection === 'desc' ? 'descending' : 'ascending',
-                                            isActive: Boolean(columnSortDirection)
-                                        } : undefined}
-                                        style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
-                                        align={alignment}
-                                        onClick={(e: React.MouseEvent<HTMLTableCellElement>) => {
-                                            if (isColumnSortable) {
-                                                header.column.getToggleSortingHandler()?.(e);
-                                            }
-
-                                            onClickTableHeadCell?.(header.id);
-                                        }}
-                                    >
-                                        {flexRender(header.column.columnDef.header, header.getContext())}
-                                    </TableHeadCell>
-                                );
+                            {/* Data column headers */}
+                            {renderHeadCell({
+                                headerGroup,
+                                enableSorting,
+                                isStructured,
+                                onClickTableHeadCell
                             })}
 
-                            {/* Spacer header cell to align with the actions column in body rows */}
-                            {renderRow && <TableHeadCell className={styles['moonstone-tableCellActions']}/>}
-
+                            {/* Custom "after" column headers */}
+                            {Array.from({length: customAfterCount}, (_, i) => (
+                                <TableHeadCell
+                                    key={`custom-after-header-${i}`}
+                                    width={customHeaderWidths.after[i]}
+                                    style={CUSTOM_HEADER_STYLE}
+                                />
+                            ))}
                         </TableRow>
                     ))}
                 </TableHead>
@@ -266,13 +244,13 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 <Pagination
                     currentPage={table.getState().pagination.pageIndex + 1}
                     totalOfItems={
-                        isPaginationControlled ?
+                        isPaginationControlled && totalItems !== undefined ?
                             totalItems :
                             table.getPrePaginationRowModel().rows.length
                     }
                     itemsPerPage={table.getState().pagination.pageSize}
                     itemsPerPageOptions={itemsPerPageOptions}
-                    label={paginationLabel}
+                    i18n={i18n}
                     onPageChange={(page: number) => table.setPageIndex(page - 1)}
                     onItemsPerPageChange={(size: number) => table.setPageSize(size)}
                     {...paginationProps}

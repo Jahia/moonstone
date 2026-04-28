@@ -9,6 +9,7 @@ const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowPr
     {
         className,
         component = 'tr',
+        type = 'body',
         isHighlighted = false,
         children,
         ...props
@@ -21,12 +22,14 @@ const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowPr
         component,
         {
             className: clsx(
-                layout.flexRow_nowrap,
-                styles['moonstone-tableRow'],
+                layout.flexRow,
+                styles.tableRow,
                 layout.alignCenter,
-                isHighlighted && styles['moonstone-tableRow_highlighted'],
+                isHighlighted && type === 'body' && styles.highlighted,
+                type === 'head' && styles.head,
                 className
             ),
+            'aria-selected': isHighlighted && type === 'body' ? true : undefined,
             tabIndex: 0,
             ...props,
             ref

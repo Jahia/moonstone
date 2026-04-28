@@ -1,0 +1,35 @@
+import React from 'react';
+import clsx from 'clsx';
+import {TableCell} from '../TableCell';
+import style from './TableCellStatus.module.scss';
+import type {TableCellStatusProps} from './TableCellStatus.types';
+import {layout} from '~/globals/css-utils.js';
+
+const TableCellStatusForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellStatusProps> = (
+    {
+        color,
+        children,
+        className,
+        ...props
+    },
+    ref
+) => (
+    <TableCell
+        ref={ref}
+        className={clsx(
+            style.tableCellStatus,
+            style[color],
+            className
+        )}
+        component="td"
+        width="8px"
+        {...props}
+    >
+        <div className={clsx(layout.flexRow_nowrap, layout.alignCenter, style.panel)}>
+            {children}
+        </div>
+    </TableCell>
+);
+
+export const TableCellStatus = React.forwardRef(TableCellStatusForwardRef);
+TableCellStatus.displayName = 'TableCellStatus';

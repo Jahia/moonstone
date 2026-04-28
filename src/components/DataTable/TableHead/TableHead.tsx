@@ -18,11 +18,7 @@ export const TableHead: React.FC<TableHeadProps> = ({
     return React.createElement(
         component,
         {
-            className: clsx(
-                styles['moonstone-tableHead'],
-                isSticky && styles['moonstone-tableHead_sticky'],
-                className
-            ),
+            className: clsx(styles.tableHead, isSticky && styles.sticky, className),
             ...props
         },
         children
