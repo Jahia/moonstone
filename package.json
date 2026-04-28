@@ -28,7 +28,7 @@
         "default": "./dist/components/DataTable/index.js"
       },
       "require": {
-        "types": "./dist/components/DataTable/index.d.cts",
+        "types": "./dist/components/DataTable/index.d.ts",
         "default": "./dist/components/DataTable/index.cjs"
       }
     },
