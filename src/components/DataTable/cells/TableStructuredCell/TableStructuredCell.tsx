@@ -65,8 +65,8 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                                 isNowrap
                                 component="div"
                                 className={clsx(
-                                    'flexRow_nowrap',
-                                    'alignCenter',
+                                    layout.flexRow_nowrap,
+                                    layout.alignCenter,
                                     {[styles.scrollable]: isScrollable}
                                 )}
                             >
