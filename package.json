@@ -6,7 +6,9 @@
     "url": "git+https://github.com/Jahia/moonstone.git"
   },
   "license": "MIT",
-  "sideEffects": false,
+  "sideEffects": [
+    "*.css"
+  ],
   "type": "module",
   "exports": {
     ".": {
@@ -19,10 +21,7 @@
         "default": "./dist/index.cjs"
       }
     },
-    "./scoped": {
-      "types": "./dist/scoped.d.ts",
-      "import": "./dist/scoped.js"
-    },
+    "./scoped.css": "./dist/scoped.css",
     "./dist/rulesconfig-wp": {
       "require": "./rulesconfig-wp.cjs"
     },
@@ -55,7 +54,9 @@
     "build": "yarn build:icons && yarn build:storybook && yarn build:lib",
     "build:icons": "rimraf -g 'src/icons/components/*.tsx' && svgr --template ./src/icons/svgrTemplate.cjs --config-file ./src/icons/svgr.config.cjs ./src/icons/assets && eslint --fix ./src/icons/components/*",
     "prebuild:lib": "rimraf dist/",
-    "build:lib": "yarn vite build && yarn tsc && yarn tsc-alias -f && yarn publint",
+    "build:lib:scoped": "vite build && yarn tsc && tsc-alias -f",
+    "build:lib:legacy": "sass src/globals.scss dist/legacy-global-bundle.css --no-source-map --style=compressed",
+    "build:lib": "yarn build:lib:scoped && yarn build:lib:legacy && publint",
     "build:storybook": "storybook build",
     "lint": "yarn lint:js && yarn lint:scss",
     "lint:fix": "yarn lint:js:fix && yarn lint:scss:fix",
@@ -110,7 +111,7 @@
     "react-table": "^7.8.0",
     "rimraf": "6.1.2",
     "rollup-plugin-sbom": "^3.0.1",
-    "sass": "^1.97.1",
+    "sass-embedded": "^1.98.0",
     "storybook": "^10.3.1",
     "storybook-addon-tag-badges": "^3.1.0",
     "stylelint": "^13.13.1",
@@ -118,8 +119,7 @@
     "typescript": "^5.9.3",
     "typescript-plugin-css-modules": "^5.2.0",
     "vite": "^8.0.1",
-    "vite-css-modules": "^1.15.0",
-    "vite-plugin-lib-inject-css": "^2.2.2",
+    "vite-css-modules": "^1.14.0",
     "vitest": "^4.1.0",
     "vitest-browser-react": "^2.1.0"
   },

@@ -2,7 +2,6 @@
 /// <reference types="vitest/config" />
 import {defineConfig} from 'vite';
 import path from 'node:path';
-import {libInjectCss} from 'vite-plugin-lib-inject-css';
 import react from '@vitejs/plugin-react';
 import sbom from 'rollup-plugin-sbom';
 import {playwright} from '@vitest/browser-playwright';
@@ -12,7 +11,6 @@ export default defineConfig({
     plugins: [
         patchCssModules(),
         react(),
-        libInjectCss(),
         sbom({specVersion: '1.4'})
     ],
     resolve: {
@@ -24,20 +22,24 @@ export default defineConfig({
         lib: {
             entry: {
                 index: './src/index.ts',
-                // Isolated styles for Moonstone
-                scoped: './src/scoped.ts',
                 // Legacy entrypoints, remove in the future
                 'icons/index': './src/icons/index.ts',
                 'components/CheckboxGroup/CheckboxItem': './src/components/CheckboxGroup/CheckboxItem/index.ts',
                 'icons/components/DefaultEntry': './src/icons/components/DefaultEntry.tsx',
                 'icons/components/Information': 'src/icons/components/Information.tsx'
             },
-            formats: ['es', 'cjs']
+            formats: ['es', 'cjs'],
+            cssFileName: 'scoped' // The CSS file produced by Vite only contains classes hashed by CSS modules, hence scoped
         },
         rollupOptions: {
-            external: ['react', 'react-dom', 'react/jsx-runtime']
-        },
-        assetsInlineLimit: 0
+            external: [
+                'react',
+                'react-dom',
+                'react/jsx-runtime',
+                // Preserve the import statement in `src/index.ts`
+                './legacy-global-bundle.css'
+            ]
+        }
     },
     assetsInclude: ['**/*.md'],
     test: {

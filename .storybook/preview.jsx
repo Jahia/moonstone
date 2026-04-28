@@ -1,7 +1,14 @@
 import React from 'react';
 import {addons} from 'storybook/preview-api';
 import {UPDATE_GLOBALS, STORY_ARGS_UPDATED} from "storybook/internal/core-events";
-import './until-we-find-a-better-name.scss';
+
+// Copy imports from src/index.ts, in the same order
+import '../src/globals/reset.module.scss';
+import '../src/globals/_variables.scss';
+import '../src/tokens/spacings/spacings.scss';
+import '../src/tokens/colors/colors.scss';
+import '../src/tokens/borders/borders.scss';
+import '@fontsource-variable/nunito-sans';
 
 let channel = addons.getChannel();
 const storyListener = (args) => {
