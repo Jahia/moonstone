@@ -1,7 +1,7 @@
 import React, {MutableRefObject, useRef} from 'react';
 import clsx from 'clsx';
 import type {ControlledSwitchProps} from './Switch.types';
-import './Switch.scss';
+import styles from './Switch.module.scss';
 import {onAccessibleClick} from '~/hooks';
 
 const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ControlledSwitchProps> = ({
@@ -15,11 +15,19 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLDivElement,
     const inputRef: MutableRefObject<HTMLInputElement> = useRef();
 
     return (
-        <div ref={ref} className={clsx('moonstone-switch', {'moonstone-switch_checked': checked, 'moonstone-switch_disabled': isDisabled}, className)}>
+        <div
+            ref={ref}
+            className={clsx(
+                ['moonstone-switch', styles['moonstone-switch']],
+                checked && ['moonstone-switch_checked', styles['moonstone-switch_checked']],
+                isDisabled && ['moonstone-switch_disabled', styles['moonstone-switch_disabled']],
+                className
+            )}
+        >
             <input
                 {...other}
                 ref={inputRef}
-                className={clsx('moonstone-switch_input')}
+                className={clsx('moonstone-switch_input', styles['moonstone-switch_input'])}
                 type="checkbox"
                 value={value}
                 checked={checked}
@@ -30,7 +38,7 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLDivElement,
                     disabled: isDisabled,
                     role: 'checkbox'})}
             />
-            <span className={clsx('moonstone-switch_icon')}/>
+            <span className={clsx('moonstone-switch_icon', styles['moonstone-switch_icon'])}/>
         </div>
     );
 };

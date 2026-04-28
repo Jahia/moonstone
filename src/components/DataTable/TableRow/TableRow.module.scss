@@ -30,6 +30,8 @@ $background-highlight-hover: var(--moon-color-accent_light_plain40);
         --moon-row-background: #{$background-highlight-hover};
     }
 
+    // Ensure to add moonstone-checkbox_input in the composes (https://github.com/Jahia/moonstone/blob/7d28e35869bd11069d79a9968f92ebb0b0440fd2/src/components/Checkbox/Checkbox.module.scss#L40) when bringing back this class
+
     // .moonstone-checkbox_input {
     //     border: 1px solid var(--color-light);
 
@@ -47,6 +49,8 @@ $background-highlight-hover: var(--moon-color-accent_light_plain40);
 
         background-color: var(--moon-color-accent_light40);
     }
+
+    // Same for https://github.com/Jahia/moonstone/blob/7d28e35869bd11069d79a9968f92ebb0b0440fd2/src/components/Button/Button.module.scss#L13-L16
 
     // .moonstone-button:not(:hover, :focus) {
     //     color: var(--color-light);

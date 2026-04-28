@@ -3,6 +3,7 @@ import clsx from 'clsx';
 
 import type {TableRowProps} from './TableRow.types';
 import styles from './TableRow.module.scss';
+import {layout} from '~/globals/css-utils.js';
 
 const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowProps> = (
     {
@@ -21,9 +22,9 @@ const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowPr
         component,
         {
             className: clsx(
-                'flexRow',
+                layout.flexRow,
                 styles.tableRow,
-                'alignCenter',
+                layout.alignCenter,
                 isHighlighted && type === 'body' && styles.highlighted,
                 type === 'head' && styles.head,
                 className

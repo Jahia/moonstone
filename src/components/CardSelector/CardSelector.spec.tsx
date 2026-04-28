@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {Chip} from '~/index';
+import {Chip} from '~/scoped';
 import {Love} from '~/icons';
 
 import {CardSelector} from './index';

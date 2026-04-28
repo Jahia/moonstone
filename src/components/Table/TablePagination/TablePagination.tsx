@@ -5,7 +5,8 @@ import type {TablePaginationProps} from './TablePagination.types';
 import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
 import {Button, Dropdown, Typography} from '~/components';
 import {ChevronFirstPage, ChevronLastPage, ChevronLeft, ChevronRight} from '~/icons';
-import './TablePagination.scss';
+import styles from './TablePagination.module.scss';
+import {layout} from '~/globals/css-utils.js';
 
 const cssClass = 'moonstone-tablePagination';
 const cssClass32 = 'moonstone-marginRight32';
@@ -38,10 +39,17 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
     const visibleRowsRangeRight = Math.min(totalNumberOfRows, currentPage * rowsPerPage);
 
     return (
-        <div className={clsx(cssClass, 'flexRow_reverse', 'alignCenter', className)} {...props}>
+        <div className={clsx(
+                [cssClass, styles[cssClass]],
+                ['flexRow_reverse', layout.flexRow_reverse],
+                ['alignCenter', layout.alignCenter],
+                className
+            )}
+             {...props}
+        >
             <Typography variant="caption">{label.rowsPerPage}</Typography>
             <Dropdown
-                className={clsx('alignCenter', cssClass16)}
+                className={clsx('alignCenter', layout.alignCenter, cssClass16, styles[cssClass16])}
                 size="small"
                 data-sel-role="table-pagination-dropdown-rows-per-page"
                 data={rowsPerPageOptions.map(opt => ({label: opt.toString(), value: opt.toString()}))}
@@ -51,13 +59,18 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
             />
             <Typography
                 variant="caption"
-                className={clsx(cssClass, 'flexRow_reverse', 'alignCenter', cssClass32)}
+                className={clsx(
+                    [cssClass, styles[cssClass]],
+                    ['flexRow_reverse', layout.flexRow_reverse],
+                    ['alignCenter', layout.alignCenter],
+                    [cssClass32, styles[cssClass32]]
+                )}
                 data-sel-role="table-pagination-total-rows"
             >
                 {`${visibleRowsRangeLeft}-${visibleRowsRangeRight} ${label.of} ${totalNumberOfRows}`}
             </Typography>
             <Button
-                className={clsx(cssClass32)}
+                className={clsx([cssClass32, styles[cssClass32]])}
                 icon={<ChevronFirstPage/>}
                 variant="ghost"
                 data-sel-role="table-pagination-button-first-page"
@@ -65,7 +78,7 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
                 onClick={() => onPageChange(1)}
             />
             <Button
-                className={clsx(cssClass32)}
+                className={clsx([cssClass32, styles[cssClass32]])}
                 icon={<ChevronLeft/>}
                 variant="ghost"
                 data-sel-role="table-pagination-button-previous-page"
@@ -73,7 +86,7 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
                 onClick={() => onPageChange(currentPage - 1)}
             />
             <Button
-                className={clsx(cssClass32)}
+                className={clsx([cssClass32, styles[cssClass32]])}
                 icon={<ChevronRight/>}
                 variant="ghost"
                 data-sel-role="table-pagination-button-next-page"
@@ -81,7 +94,7 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
                 onClick={() => onPageChange(currentPage + 1)}
             />
             <Button
-                className={clsx(cssClass16)}
+                className={clsx([cssClass16, styles[cssClass16]])}
                 icon={<ChevronLastPage/>}
                 variant="ghost"
                 data-sel-role="table-pagination-button-last-page"

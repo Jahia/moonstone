@@ -1,10 +1,11 @@
 import React from 'react';
 import clsx from 'clsx';
-import './ButtonToggle.scss';
-import '../Button/Button.scss';
+import styles from './ButtonToggle.module.scss';
+import button from '../Button/Button.module.scss';
 import {Typography} from '../Typography';
 import {Loader} from '~/components/Loader';
 import type {ControlledButtonToggleProps} from './ButtonToggle.types';
+import {layout} from '~/globals/css-utils.js';
 
 const ControlledButtonToggleForwardRef: React.ForwardRefRenderFunction<HTMLButtonElement, ControlledButtonToggleProps> = ({
     label,
@@ -32,16 +33,16 @@ const ControlledButtonToggleForwardRef: React.ForwardRefRenderFunction<HTMLButto
         <button
             ref={ref}
             className={clsx(
-                'moonstone-buttonToggle',
-                'moonstone-button',
-                `moonstone-button_${size}`,
-                {'moonstone-icon': (label && (iconStart || iconEnd))},
-                {'moonstone-icon-button': !label},
-                {'moonstone-reverse': isReversed},
-                {'moonstone-button_loading': isLoading},
-                {'moonstone-buttonToggle_pressed': isPressed},
-                'flexRow_center',
-                'alignCenter',
+                ['moonstone-buttonToggle', styles['moonstone-buttonToggle']],
+                ['moonstone-button', button['moonstone-button']],
+                [`moonstone-button_${size}`, button[`moonstone-button_${size}`]],
+                (label && (iconStart || iconEnd)) && ['moonstone-icon', button['moonstone-icon']],
+                !label && ['moonstone-icon-button', button['moonstone-icon-button']],
+                isReversed && ['moonstone-reverse', button['moonstone-reverse']],
+                isLoading && ['moonstone-button_loading', button['moonstone-button_loading']],
+                isPressed && ['moonstone-buttonToggle_pressed', styles['moonstone-buttonToggle_pressed']],
+                ['flexRow_center', layout.flexRow_center],
+                ['alignCenter', layout.alignCenter],
                 className
             )}
             aria-pressed={isPressed}
@@ -54,7 +55,10 @@ const ControlledButtonToggleForwardRef: React.ForwardRefRenderFunction<HTMLButto
             {/* Display icon when an icon is provided */}
             {iconStart && !isLoading && <iconStart.type {...iconStart.props} size={(size === 'big') ? 'default' : size}/>}
             {/* When the button has an icon the loader replaces the icon otherwise we display the loader as overlay */}
-            {isLoading && <Loader size="small" className={clsx({'moonstone-button_loaderOverlay': !iconStart})}/>}
+            {isLoading && <Loader
+                size="small"
+                className={clsx(!iconStart && ['moonstone-button_loaderOverlay', button['moonstone-button_loaderOverlay']])}
+            />}
             {label && (
                 <Typography
                     isNowrap
@@ -62,7 +66,7 @@ const ControlledButtonToggleForwardRef: React.ForwardRefRenderFunction<HTMLButto
                     variant="button"
                     isUpperCase={size === 'big'}
                     weight={size === 'big' ? 'semiBold' : 'default'}
-                    className={clsx('flexFluid')}
+                    className={clsx('flexFluid', layout.flexFluid)}
                 >
                     {label}
                 </Typography>

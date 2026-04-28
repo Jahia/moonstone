@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {usePositioning, useEnterExitCallbacks} from '~/hooks';
 import clsx from 'clsx';
-import './Menu.scss';
+import styles from './Menu.module.scss';
 import {MenuProps} from './Menu.types';
 import {SearchInput} from '~/components/Input';
 import {Typography} from '~/components/Typography';
@@ -164,16 +164,16 @@ export const Menu: React.FC<MenuProps> = ({
                 style={styleMenu}
                 role="list"
                 className={clsx(
-                    'moonstone-menu',
+                    ['moonstone-menu', styles['moonstone-menu']],
                     className,
-                    {'moonstone-hidden': !isDisplayed || !stylePosition}
+                    (!isDisplayed || !stylePosition) && ['moonstone-hidden', styles['moonstone-hidden']]
                 )}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
                 {...props}
             >
                 { hasAutoSearch && (
-                    <div className="moonstone-menu_searchInput">
+                    <div className={clsx('moonstone-menu_searchInput', styles['moonstone-menu_searchInput'])}>
                         <SearchInput
                             focusOnField
                             value={inputValue}
@@ -193,7 +193,7 @@ export const Menu: React.FC<MenuProps> = ({
                 {filteredChildren || children}
                 {isEmptySearch && (
                     <Typography
-                        className="moonstone-menu_emptySearchText"
+                        className={clsx('moonstone-menu_emptySearchText', styles['moonstone-menu_emptySearchText'])}
                         variant="caption"
                     >
                         {searchEmptyText}
@@ -204,7 +204,7 @@ export const Menu: React.FC<MenuProps> = ({
                 hasOverlay && isDisplayed && (
                     <div
                         aria-hidden="true"
-                        className="moonstone-menu_overlay"
+                        className={clsx('moonstone-menu_overlay', styles['moonstone-menu_overlay'])}
                         onClick={onClose}
                         onContextMenu={onClose}
                     />

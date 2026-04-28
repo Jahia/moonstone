@@ -1,17 +1,93 @@
 @forward 'globals/animations';
 @forward 'globals/reset';
 @forward 'globals/init';
-@forward 'globals/layout';
-@forward 'globals/alignment';
 @forward 'globals/dnd';
-@forward 'globals/variables';
 @forward 'globals/variants';
 
-@forward 'tokens/spacings/spacings';
-@forward 'tokens/colors/colors';
-@forward 'tokens/borders/borders';
+// CSS variables prefixed with `--moon`
+@forward './scoped.scss';
 
 // Backward compatibility with unprefixed tokens
-@forward 'tokens/legacy';
+@forward './tokens/legacy.scss';
 
-@forward 'icons/icons';
+// Import all CSS modules as global styles to allow usage of moonstone in pure HTML+CSS
+// /!\ Order matters: some styles have the same specificity and the last one wins
+// We apply stylesheets in the same order as the `composes:` chain in the components
+@forward './icons/_icons.module.scss';
+@forward './components/Button/Button.module.scss';
+@forward './components/CheckboxGroup/CheckboxItem/CheckboxItem.module.scss';
+@forward './components/Chip/Chip.module.scss';
+@forward './components/DataTable/TableRow/TableRow.module.scss';
+@forward './components/Dropdown/Dropdown.module.scss';
+
+// Implicit dependency: must be before ValueList.module.scss
+@forward './components/ListItem/ListItem.module.scss';
+
+@forward './globals/_alignment.module.scss';
+@forward './globals/_layout.module.scss';
+@forward './components/ButtonToggle/ButtonToggle.module.scss';
+@forward './components/RadioGroup/RadioItem/RadioItem.module.scss';
+@forward './components/Paper/Paper.module.scss';
+@forward './components/Thumbnail/Thumbnail.module.scss';
+@forward './components/Dropdown/CustomDropdown/CustomDropdown.module.scss';
+@forward './components/Pagination/Pagination.module.scss';
+@forward './components/CardSelector/CardSelector.module.scss';
+@forward './components/CardSelector/EmptyCardSelector/EmptyCardSelector.module.scss';
+@forward './components/Tooltip/Tooltip.module.scss';
+@forward './components/ButtonGroup/ButtonGroup.module.scss';
+@forward './components/TreeView/TreeView.module.scss';
+@forward './components/Input/BaseInput/BaseInput.module.scss';
+@forward './components/ListSelector/ListSelector.module.scss';
+@forward './components/ListSelector/ValueList/ValueList.module.scss';
+@forward './components/Accordion/Accordion.module.scss';
+@forward './components/Accordion/AccordionItem/AccordionItem.module.scss';
+@forward './components/Separator/Separator.module.scss';
+@forward './components/IconTextIcon/IconTextIcon.module.scss';
+@forward './components/Checkbox/Checkbox.module.scss';
+@forward './components/Pill/Pill.module.scss';
+@forward './components/Tab/TabItem/TabItem.module.scss';
+@forward './components/Tab/Tab.module.scss';
+@forward './components/PrimaryNav/PrimaryNavItem/PrimaryNavItem.module.scss';
+@forward './components/PrimaryNav/PrimaryNavItemsGroup/PrimaryNavItemsGroup.module.scss';
+@forward './components/PrimaryNav/PrimaryNav.module.scss';
+@forward './components/Field/FieldSelector/FieldSelector.module.scss';
+@forward './components/Field/Field.module.scss';
+@forward './components/Field/FieldBoolean/FieldBoolean.module.scss';
+@forward './components/Textarea/Textarea.module.scss';
+@forward './components/ResizableBox/ResizableBox.module.scss';
+@forward './components/Table/SortIndicator/SortIndicator.module.scss';
+@forward './components/Table/table-cells/TableCell.module.scss';
+@forward './components/Table/Table.module.scss';
+@forward './components/Table/TableRow/TableRow.module.scss';
+@forward './components/Table/TableHead/TableHead.module.scss';
+@forward './components/Table/TablePagination/TablePagination.module.scss';
+@forward './components/Table/TableBody/TableBody.module.scss';
+@forward './components/Loader/Loader.module.scss';
+@forward './components/Collapsible/Collapsible.module.scss';
+@forward './components/Menu/MenuItem.module.scss';
+@forward './components/Menu/Menu.module.scss';
+@forward './components/Fieldset/Fieldset.module.scss';
+@forward './components/Typography/Typography.module.scss';
+@forward './components/Switch/Switch.module.scss';
+@forward './components/SecondaryNav/SecondaryNav.module.scss';
+@forward './components/SecondaryNav/SecondaryNavHeader/SecondaryNavHeader.module.scss';
+@forward './components/EmptyData/EmptyData.module.scss';
+@forward './components/Breadcrumb/BreadcrumbItem/BreadcrumbItem.module.scss';
+@forward './components/Breadcrumb/Breadcrumb.module.scss';
+@forward './components/Modal/Modal.module.scss';
+@forward './components/Modal/ModalFooter/ModalFooter.module.scss';
+@forward './components/Modal/ModalHeader/ModalHeader.module.scss';
+@forward './components/Modal/ModalBody/ModalBody.module.scss';
+@forward './components/Tag/Tag.module.scss';
+@forward './components/Header/Header.module.scss';
+@forward './components/DataTable/cells/TableCellActions/TableCellActions.module.scss';
+@forward './components/DataTable/cells/TableStructuredCell/TableStructuredCell.module.scss';
+@forward './components/DataTable/cells/TableHeadCell/TableHeadCell.module.scss';
+@forward './components/DataTable/cells/TableCell/TableCell.module.scss';
+@forward './components/DataTable/Table/Table.module.scss';
+@forward './components/DataTable/TableHead/TableHead.module.scss';
+@forward './components/DataTable/TableBody/TableBody.module.scss';
+@forward './components/Banner/Banner.module.scss';
+@forward './components/Badge/Badge.module.scss';
+@forward './layouts/app/LayoutApp.module.scss';
+@forward './layouts/content/LayoutContent.module.scss';

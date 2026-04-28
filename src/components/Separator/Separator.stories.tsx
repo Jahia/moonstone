@@ -6,6 +6,8 @@ import {SeparatorProps} from './Separator.types';
 
 import {Typography} from '~/components';
 import markdownNotes from './Separator.md';
+import clsx from 'clsx';
+import {layout} from '~/globals/css-utils.js';
 
 export default {
     title: 'Components/Separator',
@@ -34,7 +36,7 @@ export const Horizontal: StoryObj<SeparatorProps> = {
 
 export const Vertical: StoryObj<SeparatorProps> = {
     render: args => (
-        <div className="flexRow alignCenter">
+        <div className={clsx('flexRow', 'alignCenter', layout.flexRow, layout.alignCenter)}>
             <Typography variant="heading">Before</Typography>
 
             <Separator {...args}/>

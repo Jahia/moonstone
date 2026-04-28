@@ -1,8 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
+import styles from './Typography.module.scss';
 import type {PolymorphicComponent} from '~/types/Polymorphic.types';
 import type {BasicTypographyProps, TypographyProps} from './Typography.types';
-import './Typography.scss';
 
 export const Typography = React.forwardRef(<C extends React.ElementType = 'p'> ({
     children = '',
@@ -27,14 +27,14 @@ export const Typography = React.forwardRef(<C extends React.ElementType = 'p'> (
         <Component
             ref={ref}
             className={clsx(
-                'moonstone-typography',
-                `moonstone-variant_${variant}`,
-                `moonstone-weight_${weight}`,
+                ['moonstone-typography', styles['moonstone-typography']],
+                [`moonstone-variant_${variant}`, styles[`moonstone-variant_${variant}`]],
+                [`moonstone-weight_${weight}`, weight !== 'default' && styles[`moonstone-weight_${weight}`]],
                 className,
-                {'moonstone-nowrap': isNowrap},
-                {'moonstone-italic': isItalic},
-                {'moonstone-upperCase': isUpperCase},
-                {'moonstone-lineThrough': hasLineThrough}
+                isNowrap && ['moonstone-nowrap', styles['moonstone-nowrap']],
+                isItalic && ['moonstone-italic', styles['moonstone-italic']],
+                isUpperCase && ['moonstone-upperCase', styles['moonstone-upperCase']],
+                hasLineThrough && ['moonstone-lineThrough', styles['moonstone-lineThrough']]
             )}
             {...props}
         >

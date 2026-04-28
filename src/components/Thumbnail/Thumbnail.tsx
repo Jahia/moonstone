@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import './Thumbnail.scss';
+import styles from './Thumbnail.module.scss';
 import type {ThumbnailProps} from './Thumbnail.types';
 import {Image} from '~/icons/components';
 
@@ -15,8 +15,8 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({
     ...props
 }) => {
     const rootClassName = clsx(
-        'moonstone-thumbnail',
-        `moonstone-thumbnail_${size}`,
+        ['moonstone-thumbnail', styles['moonstone-thumbnail']],
+        [`moonstone-thumbnail_${size}`, styles[`moonstone-thumbnail_${size}`]],
         className
     );
 
@@ -32,7 +32,7 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({
         return (
             <div className={rootClassName} {...props}>
                 <img
-                    className={`moonstone-thumbnail_${variant}`}
+                    className={clsx([`moonstone-thumbnail_${variant}`, styles[`moonstone-thumbnail_${variant}`]])}
                     src={src}
                     alt={alt}
                     {...imgProps}
@@ -45,7 +45,7 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({
         <div className={rootClassName} {...props}>
             <src.type
                 {...src.props}
-                className={clsx(`moonstone-thumbnail_${variant}`, src.props.className)}
+                className={clsx([`moonstone-thumbnail_${variant}`, styles[`moonstone-thumbnail_${variant}`]], src.props.className)}
             />
         </div>
     );

@@ -18,6 +18,8 @@ import {
     lorem
 } from '~/__storybook__/FakeComponents';
 import {Bug, Love} from '~/icons';
+import clsx from 'clsx';
+import {layout} from '~/globals/css-utils.js';
 
 const accordionIds = ['01', '02', '03'];
 
@@ -205,7 +207,7 @@ export const WithoutLevel2 = () => (
           content={
               <LayoutContent
               header={<Header title="Title"/>}
-              content={<Paper className="flexFluid">Content</Paper>}
+              content={<Paper className={clsx('flexFluid', layout.flexFluid)}>Content</Paper>}
             />
           }
         />

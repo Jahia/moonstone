@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import clsx from 'clsx';
-import './SecondaryNav.scss';
+import styles from './SecondaryNav.module.scss';
 import type {SecondaryNavProps} from './SecondaryNav.types';
 import {ResizableBox} from '~/components/ResizableBox';
 import {ChevronDoubleRight, ChevronDoubleLeft} from '~/icons';
+import {layout} from '~/globals/css-utils.js';
 
 export const SecondaryNav: React.FC<SecondaryNavProps> = ({
     header,
@@ -27,13 +28,11 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
             className={
                 clsx(
                     className,
-                    'flexFluid',
-                    'flexCol_nowrap',
-                    'moonstone-secondaryNav',
-                    {
-                        'moonstone-reversed': isReversed,
-                        'moonstone-secondaryNav_hidden': !isVisible
-                    }
+                    ['flexFluid', layout.flexFluid],
+                    ['flexCol_nowrap', layout.flexCol_nowrap],
+                    ['moonstone-secondaryNav', styles['moonstone-secondaryNav']],
+                    isReversed && ['moonstone-reversed', styles['moonstone-reversed']],
+                    !isVisible && ['moonstone-secondaryNav_hidden', styles['moonstone-secondaryNav_hidden']]
                 )
             }
             enable={['right']}
@@ -51,8 +50,8 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
                     type="button"
                     aria-label="Toggle secondary navigation"
                     className={clsx(
-                        'moonstone-secondaryNav_buttonToggle',
-                        {'moonstone-secondaryNav_buttonToggle_reversed': isReversed}
+                        ['moonstone-secondaryNav_buttonToggle', styles['moonstone-secondaryNav_buttonToggle']],
+                        isReversed && ['moonstone-secondaryNav_buttonToggle_reversed', styles['moonstone-secondaryNav_buttonToggle_reversed']]
                     )}
                     onClick={handleToggle}
             >
@@ -62,9 +61,16 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
                     <ChevronDoubleRight/>}
             </button>
 
-            <div id="moonstone-secondaryNav_wrapper" className={clsx('moonstone-secondaryNav_wrapper', 'flexFluid', 'flexCol_nowrap')}>
+            <div
+                id="moonstone-secondaryNav_wrapper"
+                className={clsx(
+                    ['moonstone-secondaryNav_wrapper', styles['moonstone-secondaryNav_wrapper']],
+                    ['flexFluid', layout.flexFluid],
+                    ['flexCol_nowrap', layout.flexCol_nowrap]
+                )}
+            >
                 {header}
-                <div className={clsx('flexFluid', 'flexCol_nowrap')}>
+                <div className={clsx('flexFluid', layout.flexFluid, 'flexCol_nowrap', layout.flexCol_nowrap)}>
                     {children}
                 </div>
             </div>

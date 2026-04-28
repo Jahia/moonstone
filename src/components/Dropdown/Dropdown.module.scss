@@ -4,6 +4,8 @@
 @use "../../utils/mixins" as *;
 
 .moonstone-dropdown_container {
+    composes: moonstone-dropdown_container from "../Field/FieldSelector/FieldSelector.module.scss";
+
     position: relative;
 }
 
