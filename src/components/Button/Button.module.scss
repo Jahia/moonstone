@@ -13,8 +13,7 @@ $button-size_big: 32px;
     composes:
         moonstone-button from "../ButtonGroup/ButtonGroup.module.scss",
         moonstone-button from "../ButtonToggle/ButtonToggle.module.scss",
-        moonstone-button from "../Table/TableRow/TableRow.module.scss",
-        moonstone-button from "../DataTable/TableRow/TableRow.module.scss";
+        moonstone-button from "../Table/TableRow/TableRow.module.scss";
 
     // The display `inline-flex` is requiered to align buttons in a table row
     display: inline-flex;

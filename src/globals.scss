@@ -81,10 +81,10 @@
 @forward './components/Tag/Tag.module.scss';
 @forward './components/Header/Header.module.scss';
 @forward './components/DataTable/cells/TableCellActions/TableCellActions.module.scss';
-@forward './components/DataTable/cells/TableStructuredCell.module.scss';
-@forward './components/DataTable/cells/TableHeadCell.module.scss';
-@forward './components/DataTable/cells/TableCell.module.scss';
-@forward './components/DataTable/Table.module.scss';
+@forward './components/DataTable/cells/TableStructuredCell/TableStructuredCell.module.scss';
+@forward './components/DataTable/cells/TableHeadCell/TableHeadCell.module.scss';
+@forward './components/DataTable/cells/TableCell/TableCell.module.scss';
+@forward './components/DataTable/Table/Table.module.scss';
 @forward './components/DataTable/TableHead/TableHead.module.scss';
 @forward './components/DataTable/TableBody/TableBody.module.scss';
 @forward './components/Banner/Banner.module.scss';
