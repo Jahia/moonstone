@@ -582,7 +582,7 @@
 <main>
   <div class="wrap">
     <div class="note err" style="margin-bottom: 16px;">
-              <strong>Performance warning:</strong> <code>react-docgen-typescript</code> took <strong>12.1s</strong> to generate the manifest. This delay applies every time the manifest is used by an agent. Consider switching to the faster <code>react-docgen</code> in your <code>main.ts</code>:
+              <strong>Performance warning:</strong> <code>react-docgen-typescript</code> took <strong>14.4s</strong> to generate the manifest. This delay applies every time the manifest is used by an agent. Consider switching to the faster <code>react-docgen</code> in your <code>main.ts</code>:
               <pre><code>typescript: {
   reactDocgen: 'react-docgen',
 }</code></pre>
@@ -7318,7 +7318,7 @@ variant?: &quot;search&quot; | &quot;text&quot; | &quot;ghost&quot; | &quot;outl
 import React from &#39;react&#39;;
 import markdownNotes from &#39;./GlobalStyle_layout.md&#39;;
 import clsx from &#39;clsx&#39;;
-import {layout} from &#39;~/globals/css-utils.js&#39;;
+import {layout, reset} from &#39;~/globals/css-utils.js&#39;;
 import {capitalize} from &#39;~/utils/helpers.js&#39;;
 
 const justifyOptions = [null as null, &#39;center&#39;, &#39;reverse&#39;, &#39;between&#39;, &#39;nowrap&#39;] as const;
@@ -7352,7 +7352,7 @@ const ItemContainer : React.FC&lt;ItemContainerProps&gt; = ({title, direction, j
 
     return (
         &lt;section style={{marginBottom: &#39;48px&#39;}}&gt;
-            &lt;h2 className={clsx(&#39;flexRow&#39;, layout.flexRow, &#39;alignCenter&#39;, layout.alignCenter)} style={{marginBottom: &#39;24px&#39;}}&gt;
+            &lt;h2 className={clsx(reset, &#39;flexRow&#39;, layout.flexRow, &#39;alignCenter&#39;, layout.alignCenter)} style={{marginBottom: &#39;24px&#39;, fontWeight: &#39;normal&#39;}}&gt;
                 {title}:
                 &lt;code
           style={{
@@ -7987,7 +7987,7 @@ typographyVariant?: &quot;body&quot; | &quot;button&quot; | &quot;caption&quot; 
               </div>
               
               
-              <pre><code>const Default = () =&gt; &lt;ul&gt;
+              <pre><code>const Default = () =&gt; &lt;ul className={reset}&gt;
     &lt;ListItem label=&quot;ListItem label&quot; /&gt;
 &lt;/ul&gt;;</code></pre>
             </div>
@@ -7998,7 +7998,7 @@ typographyVariant?: &quot;body&quot; | &quot;button&quot; | &quot;caption&quot; 
               </div>
               
               
-              <pre><code>const IconText = () =&gt; &lt;ul&gt;
+              <pre><code>const IconText = () =&gt; &lt;ul className={reset}&gt;
     &lt;ListItem label=&quot;ListItem&quot; iconStart={&lt;Love/&gt;} /&gt;
 &lt;/ul&gt;;</code></pre>
             </div>
@@ -8009,7 +8009,7 @@ typographyVariant?: &quot;body&quot; | &quot;button&quot; | &quot;caption&quot; 
               </div>
               
               
-              <pre><code>const IconTextIcon = () =&gt; &lt;ul&gt;
+              <pre><code>const IconTextIcon = () =&gt; &lt;ul className={reset}&gt;
     &lt;ListItem label=&quot;ListItem&quot; iconStart={&lt;Love/&gt;} iconEnd={&lt;Cloud/&gt;} /&gt;
 &lt;/ul&gt;;</code></pre>
             </div>
@@ -8020,7 +8020,7 @@ typographyVariant?: &quot;body&quot; | &quot;button&quot; | &quot;caption&quot; 
               </div>
               
               
-              <pre><code>const WithBigImage = () =&gt; &lt;ul&gt;
+              <pre><code>const WithBigImage = () =&gt; &lt;ul className={reset}&gt;
     &lt;ListItem
         image={&lt;img src=&quot;https://via.placeholder.com/500?text=ListItemImage&quot; alt=&quot;big image&quot;/&gt;}
         label=&quot;ListItem label&quot;
@@ -8042,7 +8042,7 @@ typographyVariant?: &quot;body&quot; | &quot;button&quot; | &quot;caption&quot; 
               </div>
               
               
-              <pre><code>const WithSmallImage = () =&gt; &lt;ul&gt;
+              <pre><code>const WithSmallImage = () =&gt; &lt;ul className={reset}&gt;
     &lt;ListItem
         image={&lt;img src=&quot;https://via.placeholder.com/500?text=ListItemImage&quot; alt=&quot;small image&quot;/&gt;}
         label=&quot;ListItem label&quot;
@@ -9770,6 +9770,7 @@ url?: string = null</code></pre>
               
               <pre><code>const Default = () =&gt; (
     &lt;ul
+    className={reset}
     style={{
       display: &#39;flex&#39;,
       flexDirection: &#39;column&#39;,
@@ -11606,7 +11607,7 @@ component?: string = table</code></pre>
                 })}
             &lt;/TableBody&gt;
         &lt;/Table&gt;
-        &lt;section&gt;
+        &lt;section className={reset}&gt;
             &lt;pre&gt;
                 &lt;code className=&quot;storyCode&quot;&gt;
                     {JSON.stringify(
@@ -14252,7 +14253,7 @@ export const WithoutLevel2 = () =&gt; (
 import React from &#39;react&#39;;
 import markdownNotes from &#39;./GlobalStyle_layout.md&#39;;
 import clsx from &#39;clsx&#39;;
-import {layout} from &#39;~/globals/css-utils.js&#39;;
+import {layout, reset} from &#39;~/globals/css-utils.js&#39;;
 import {capitalize} from &#39;~/utils/helpers.js&#39;;
 
 const justifyOptions = [null as null, &#39;center&#39;, &#39;reverse&#39;, &#39;between&#39;, &#39;nowrap&#39;] as const;
@@ -14286,7 +14287,7 @@ const ItemContainer : React.FC&lt;ItemContainerProps&gt; = ({title, direction, j
 
     return (
         &lt;section style={{marginBottom: &#39;48px&#39;}}&gt;
-            &lt;h2 className={clsx(&#39;flexRow&#39;, layout.flexRow, &#39;alignCenter&#39;, layout.alignCenter)} style={{marginBottom: &#39;24px&#39;}}&gt;
+            &lt;h2 className={clsx(reset, &#39;flexRow&#39;, layout.flexRow, &#39;alignCenter&#39;, layout.alignCenter)} style={{marginBottom: &#39;24px&#39;, fontWeight: &#39;normal&#39;}}&gt;
                 {title}:
                 &lt;code
           style={{

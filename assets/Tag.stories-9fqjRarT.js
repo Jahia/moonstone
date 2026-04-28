@@ -1,3 +1,0 @@
-import{n as e}from"./chunk-BneVvdWh.js";import{t}from"./jsx-runtime-Df_OrLWO.js";import{Ct as n,wt as r}from"./icons-ZZa_JA4E.js";var i,a,o,s,c;e((()=>{n(),i=t(),a={title:`Components/Tag`,component:r,parameters:{layout:`fullscreen`,knobs:{disable:!0},storysource:{disable:!0},actions:{argTypesRegex:`^on.*`}}},o=e=>(0,i.jsx)(r,{label:`Tag`,value:`tag01`,...e}),s={render:o},s.parameters={...s.parameters,docs:{...s.parameters?.docs,source:{originalSource:`{
-  render: Template
-}`,...s.parameters?.docs?.source}}},c=[`Default`]}))();export{s as Default,c as __namedExportsOrder,a as default};

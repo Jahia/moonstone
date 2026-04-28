@@ -1,0 +1,11 @@
+import{n as e}from"./chunk-BneVvdWh.js";import{t}from"./jsx-runtime-DTRofVPE.js";import{A as n,F as r,P as i,j as a,t as o}from"./icons-U8xZOogm.js";import{n as s,t as c}from"./css-utils-IDKilUOP.js";import{H as l}from"./Thumbnail-BEzSuisq.js";var u,d=e((()=>{u=`data:text/markdown;base64,IyMgR29hbHM6Ckdyb3VwIG5hdmlnYXRpb24gaXRlbSB0b2dldGhlciwgdGhpcyBjb21wb25lbnQgaXMgb25seSB1c2UgdG8gYnVpbGQgdGhlIG1haW4gbmF2aWdhdGlvbiAobGV2ZWwgMSkuCgojIyBTcGVjaWZpY2F0aW9uczoKUHJvdmlkZSBhIHByb3AgdG8ga25vdyBpZiB0aGUgZWxlbWVudCBpcyB2aXNpYmxlIHdoZW4gdGhlIG1haW4gbmF2aWdhdGlvbiBpcyBjb2xsYXBzZWQK`})),f,p,m,h,g;e((()=>{n(),i(),o(),d(),c(),f=t(),p={title:`Components/PrimaryNavItemsGroup`,component:a,parameters:{notes:{markdown:u},layout:`fullscreen`},decorators:[e=>(0,f.jsx)(`div`,{className:s,style:{backgroundColor:`#131c21`,width:`18.75rem`,height:`100vh`},children:(0,f.jsx)(e,{})})]},m={render:()=>(0,f.jsxs)(a,{children:[(0,f.jsx)(r,{icon:(0,f.jsx)(l,{}),label:`NavItem not selected (default)`}),(0,f.jsx)(r,{icon:(0,f.jsx)(l,{}),label:`NavItem`})]})},h={render:()=>(0,f.jsxs)(a,{isDisplayedWhenCollapsed:!1,children:[(0,f.jsx)(r,{icon:(0,f.jsx)(l,{}),label:`Hidden when collapsed`}),(0,f.jsx)(r,{icon:(0,f.jsx)(l,{}),label:`Hidden when collapsed too`})]})},m.parameters={...m.parameters,docs:{...m.parameters?.docs,source:{originalSource:`{
+  render: () => <PrimaryNavItemsGroup>
+            <PrimaryNavItem icon={<Edit />} label="NavItem not selected (default)" />
+            <PrimaryNavItem icon={<Edit />} label="NavItem" />
+        </PrimaryNavItemsGroup>
+}`,...m.parameters?.docs?.source}}},h.parameters={...h.parameters,docs:{...h.parameters?.docs,source:{originalSource:`{
+  render: () => <PrimaryNavItemsGroup isDisplayedWhenCollapsed={false}>
+            <PrimaryNavItem icon={<Edit />} label="Hidden when collapsed" />
+            <PrimaryNavItem icon={<Edit />} label="Hidden when collapsed too" />
+        </PrimaryNavItemsGroup>
+}`,...h.parameters?.docs?.source}}},g=[`Default`,`CollapsedGroup`]}))();export{h as CollapsedGroup,m as Default,g as __namedExportsOrder,p as default};
