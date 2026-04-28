@@ -13,7 +13,6 @@ const stories = import.meta.glob<never>('./**/*.stories.{js,jsx,ts,tsx}', {eager
 
 // These stories do not create a stable screenshot, skip for now
 const ignore = new Set([
-    './components/DataTable/DataTable.stories.tsx-EmptyDataTable',
     './components/Menu/Menu.stories.tsx-Default'
 ]);
 
