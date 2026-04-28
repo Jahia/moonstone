@@ -55,7 +55,7 @@ export default defineConfig({
                     globals: true,
                     environment: 'jsdom',
                     include: ['src/**/*.spec.tsx'],
-                    exclude: ['src/visual.spec.tsx', 'src/**/*.browser.spec.tsx'],
+                    exclude: ['src/visual*.spec.tsx', 'src/**/*.browser.spec.tsx'],
                     css: true
                 }
             },
@@ -64,7 +64,7 @@ export default defineConfig({
                 test: {
                     name: 'browser',
                     include: ['src/**/*.browser.spec.tsx'],
-                    exclude: ['src/visual.spec.tsx'],
+                    exclude: ['src/visual*.spec.tsx'],
                     css: true,
                     browser: {
                         enabled: true,
