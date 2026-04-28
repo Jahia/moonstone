@@ -48,7 +48,7 @@ export const Default: Story = {
       defaultSize={{width: '100%', height: 'auto'}}
         >
             <div
-        className={clsx('flexRow_center', 'alignCenter', 'flexFuild', layout.flexRow_center, layout.alignCenter, layout.flexFluid)}
+        className={clsx(layout.flexRow_center, layout.alignCenter, layout.flexFluid)}
         style={{height: '100vh', background: 'yellow'}}
             >
                 content resizable
@@ -72,7 +72,7 @@ export const Actions = () => (
     onResizeStop={action('onResizeStop')}
     >
         <div
-      className={clsx('flexRow_center', 'alignCenter', 'flexFuild', layout.flexRow_center, layout.alignCenter, layout.flexFluid)}
+      className={clsx(layout.flexRow_center, layout.alignCenter, layout.flexFluid)}
       style={{height: '100vh', background: 'yellow'}}
         >
             content resizable
