@@ -6,7 +6,7 @@ import type {ListSelectorSelectorProps} from './ListSelector.types';
 import styles from './ListSelector.module.scss';
 import valueListStyles from './ValueList/ValueList.module.scss';
 import clsx from 'clsx';
-import {layout} from '~/globals/css-utils.js';
+import {layout, reset} from '~/globals/css-utils.js';
 
 const MLRS_DRAG = 'mlrs_drag_list_item';
 
@@ -51,6 +51,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
     return (
         <div
             className={clsx(
+                reset,
                 ['flexRow_nowrap', layout.flexRow_nowrap],
                 ['moonstone-listSelector', styles['moonstone-listSelector']]
             )}

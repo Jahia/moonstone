@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import styles from './Table.module.scss';
-import {layout} from '~/globals/css-utils.js';
+import {layout, reset} from '~/globals/css-utils.js';
 import {TableProps} from '../DataTable.types.js';
 
 export const Table: React.FC<TableProps> = ({
@@ -12,7 +12,7 @@ export const Table: React.FC<TableProps> = ({
 }) => React.createElement(
     component,
     {
-        className: clsx(styles.table, layout.flexCol_nowrap, className),
+        className: clsx(reset, styles.table, layout.flexCol_nowrap, className),
         ...props
     },
     children

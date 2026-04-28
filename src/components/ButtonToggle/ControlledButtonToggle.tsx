@@ -5,7 +5,7 @@ import button from '../Button/Button.module.scss';
 import {Typography} from '../Typography';
 import {Loader} from '~/components/Loader';
 import type {ControlledButtonToggleProps} from './ButtonToggle.types';
-import {layout} from '~/globals/css-utils.js';
+import {layout, reset} from '~/globals/css-utils.js';
 
 const ControlledButtonToggleForwardRef: React.ForwardRefRenderFunction<HTMLButtonElement, ControlledButtonToggleProps> = ({
     label,
@@ -33,6 +33,7 @@ const ControlledButtonToggleForwardRef: React.ForwardRefRenderFunction<HTMLButto
         <button
             ref={ref}
             className={clsx(
+                reset,
                 ['moonstone-buttonToggle', styles['moonstone-buttonToggle']],
                 ['moonstone-button', button['moonstone-button']],
                 [`moonstone-button_${size}`, button[`moonstone-button_${size}`]],

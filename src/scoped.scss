@@ -3,3 +3,6 @@
 @forward './tokens/spacings/spacings.scss';
 @forward './tokens/colors/colors.scss';
 @forward './tokens/borders/borders.scss';
+
+// Embed Nunito Sans font
+@forward '@fontsource-variable/nunito-sans/wght.css';

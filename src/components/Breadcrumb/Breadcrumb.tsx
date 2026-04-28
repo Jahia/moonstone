@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import styles from './Breadcrumb.module.scss';
 import {BreadcrumbProps} from './Breadcrumb.types';
 import {ChevronRight} from '~/icons';
-import {layout} from '~/globals/css-utils.js';
+import {layout, reset} from '~/globals/css-utils.js';
 
 export const Breadcrumb: React.FC<BreadcrumbProps> = ({children, className, ...props}) => {
     const allItems = React.Children.toArray(children);
@@ -13,7 +13,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({children, className, ...p
     }
 
     return (
-        <nav className={clsx('moonstone-breadcrumb', styles['moonstone-breadcrumb'], className)} aria-label="breadcrumb" {...props}>
+        <nav className={clsx(reset, 'moonstone-breadcrumb', styles['moonstone-breadcrumb'], className)} aria-label="breadcrumb" {...props}>
             <ol className={clsx('flexRow_nowrap', layout.flexRow_nowrap, 'alignCenter', layout.alignCenter)}>
                 {allItems.map((item: React.ReactElement, index) => (
                             index < allItems.length - 1 ? (

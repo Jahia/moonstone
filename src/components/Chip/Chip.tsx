@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import styles from './Chip.module.scss';
 import type {ChipProps} from './Chip.types';
 import {Typography} from '~/components/Typography';
-import {icons} from '~/globals/css-utils.js';
+import {icons, reset} from '~/globals/css-utils.js';
 
 export const Chip: React.FC<ChipProps> = ({
     label = '',
@@ -16,6 +16,7 @@ export const Chip: React.FC<ChipProps> = ({
 }) => (
     <div
         className={clsx(
+            reset,
             ['moonstone-chip', styles['moonstone-chip']],
             [`moonstone-color_${color}`, styles[`moonstone-color_${color}`]],
             [`moonstone-chip_${variant}`, styles[`moonstone-chip_${variant}`]],

@@ -4,7 +4,7 @@ import styles from './FieldBoolean.module.scss';
 import fieldStyles from '../Field.module.scss';
 import type {FieldBooleanProps} from './FieldBoolean.types';
 import {Typography, Checkbox} from '~/components';
-import {layout} from '~/globals/css-utils.js';
+import {layout, reset} from '~/globals/css-utils.js';
 
 export const FieldBoolean = React.forwardRef<HTMLDivElement, FieldBooleanProps>(({
     id,
@@ -23,6 +23,7 @@ export const FieldBoolean = React.forwardRef<HTMLDivElement, FieldBooleanProps>(
             ref={ref}
             id={id}
             className={clsx(
+                reset,
                 ['moonstone-field', fieldStyles['moonstone-field']],
                 ['moonstone-fieldBoolean', styles['moonstone-fieldBoolean']],
                 ['flexCol_nowrap', layout.flexCol_nowrap],

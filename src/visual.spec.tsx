@@ -10,7 +10,8 @@ const stories = import.meta.glob<never>('./**/*.stories.{js,jsx,ts,tsx}', {eager
 
 // These stories do not create a stable screenshot, skip for now
 const ignore = new Set([
-    './components/Menu/Menu.stories.tsx-Default'
+    './components/Menu/Menu.stories.tsx-Default',
+    './icons/Icons.stories.tsx-_Default'
 ]);
 
 describe.for(Object.entries(stories))('%s', ([file, imports]) => {

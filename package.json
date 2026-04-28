@@ -19,7 +19,10 @@
         "default": "./dist/index.cjs"
       }
     },
-    "./scoped.css": "./dist/scoped.css",
+    "./scoped": {
+      "types": "./dist/scoped.d.ts",
+      "import": "./dist/scoped.js"
+    },
     "./dist/rulesconfig-wp": {
       "require": "./rulesconfig-wp.cjs"
     },

@@ -14,7 +14,7 @@ import {
     FloatingOverlay,
     FloatingPortal
 } from '@floating-ui/react';
-import {layout} from '~/globals/css-utils.js';
+import {layout, reset} from '~/globals/css-utils.js';
 
 const ModalForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalProps> = ({
     className,
@@ -53,6 +53,7 @@ const ModalForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalProps
                     <div
                         ref={modalRef}
                         className={clsx(
+                            reset,
                             ['moonstone-modal', styles['moonstone-modal']],
                             [`moonstone-modal_${size}`, styles[`moonstone-modal_${size}`]],
                             ['flexCol_nowrap', layout.flexCol_nowrap],

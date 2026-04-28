@@ -1,7 +1,7 @@
 import React from 'react';
 import {ImgWrapperProps} from './ImgWrapper.types';
 import clsx from 'clsx';
-import {icons} from '~/globals/css-utils.js';
+import {icons, reset} from '~/globals/css-utils.js';
 
 export const ImgWrapper: React.FC<ImgWrapperProps> = ({
     size = 'default',
@@ -9,6 +9,7 @@ export const ImgWrapper: React.FC<ImgWrapperProps> = ({
     ...props
 }) => {
     const classes = clsx(
+        reset,
         className,
         ['moonstone-icon', icons['moonstone-icon']],
         [`moonstone-icon_${size}`, icons[`moonstone-icon_${size}`]]

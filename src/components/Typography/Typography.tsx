@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import styles from './Typography.module.scss';
 import type {PolymorphicComponent} from '~/types/Polymorphic.types';
 import type {BasicTypographyProps, TypographyProps} from './Typography.types';
+import {reset} from '~/globals/css-utils.js';
 
 export const Typography = React.forwardRef(<C extends React.ElementType = 'p'> ({
     children = '',
@@ -27,6 +28,7 @@ export const Typography = React.forwardRef(<C extends React.ElementType = 'p'> (
         <Component
             ref={ref}
             className={clsx(
+                reset,
                 ['moonstone-typography', styles['moonstone-typography']],
                 [`moonstone-variant_${variant}`, styles[`moonstone-variant_${variant}`]],
                 [`moonstone-weight_${weight}`, weight !== 'default' && styles[`moonstone-weight_${weight}`]],

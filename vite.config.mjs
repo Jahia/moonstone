@@ -24,7 +24,7 @@ export default defineConfig({
         lib: {
             entry: {
                 index: './src/index.ts',
-                // Produce `scoped.css`, the isolated styles for Moonstone
+                // Isolated styles for Moonstone
                 scoped: './src/scoped.ts',
                 // Legacy entrypoints, remove in the future
                 'icons/index': './src/icons/index.ts',
