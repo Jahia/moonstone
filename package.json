@@ -22,6 +22,16 @@
     "./dist/rulesconfig-wp": {
       "require": "./rulesconfig-wp.cjs"
     },
+    "./DataTable": {
+      "import": {
+        "types": "./dist/components/DataTable/index.d.ts",
+        "default": "./dist/components/DataTable/index.js"
+      },
+      "require": {
+        "types": "./dist/components/DataTable/index.d.cts",
+        "default": "./dist/components/DataTable/index.cjs"
+      }
+    },
     "./dist/icons": {
       "import": "./dist/icons/index.js",
       "require": "./dist/icons/index.cjs"
