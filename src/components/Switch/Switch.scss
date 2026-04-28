@@ -13,8 +13,8 @@
 }
 
 .moonstone-switch {
-    --switch-input_bg: var(--color-gray_light);
-    --switch-icon_bg: var(--color-gray);
+    --switch-input_bg: var(--moon-color-gray_light);
+    --switch-icon_bg: var(--moon-color-gray);
 
     position: relative;
 
@@ -24,7 +24,7 @@
     cursor: pointer;
 
     &:hover:not(.moonstone-switch_disabled) {
-        --switch-icon_bg: var(--color-gray_dark);
+        --switch-icon_bg: var(--moon-color-gray_dark);
     }
 
     .moonstone-switch_icon {
@@ -33,16 +33,16 @@
 }
 
 .moonstone-switch_checked {
-    --switch-icon_bg: var(--color-accent_dark);
-    --switch-input_bg: var(--color-accent_light20);
+    --switch-icon_bg: var(--moon-color-accent_dark);
+    --switch-input_bg: var(--moon-color-accent_light20);
 
     &:hover:not(.moonstone-switch_disabled) {
-        --switch-icon_bg: var(--color-accent_dark_contrast);
+        --switch-icon_bg: var(--moon-color-accent_dark_contrast);
     }
 
     &.moonstone-switch_disabled {
-        --switch-icon_bg: var(--color-accent_dark);
-        --switch-input_bg: var(--color-accent_light40);
+        --switch-icon_bg: var(--moon-color-accent_dark);
+        --switch-input_bg: var(--moon-color-accent_light40);
     }
 
     .moonstone-switch_icon {
@@ -70,7 +70,7 @@
 
     // Only triggered when the input is focus with tab
     &:focus-visible {
-        border: 2px solid var(--color-accent_light);
+        border: 2px solid var(--moon-color-accent_light);
     }
 }
 

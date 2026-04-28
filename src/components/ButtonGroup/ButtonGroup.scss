@@ -1,15 +1,15 @@
 .moonstone-buttonGroup {
     .moonstone-button {
         &:first-child {
-            border-radius: var(--radius) 0 0 var(--radius);
+            border-radius: var(--moon-radius) 0 0 var(--moon-radius);
         }
 
         &:last-child {
-            border-radius: 0 var(--radius) var(--radius) 0;
+            border-radius: 0 var(--moon-radius) var(--moon-radius) 0;
         }
 
         &:only-child {
-            border-radius: var(--radius);
+            border-radius: var(--moon-radius);
         }
 
         & + .moonstone-button {

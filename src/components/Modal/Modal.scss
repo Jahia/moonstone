@@ -1,7 +1,7 @@
 .moonstone-modal_overlay {
     display: grid;
 
-    background: var(--color-dark60);
+    background: var(--moon-color-dark60);
     place-items: center;
 }
 
@@ -10,7 +10,7 @@
 
     max-height: 80vh;
 
-    background-color: var(--color-light);
+    background-color: var(--moon-color-light);
 }
 
 .moonstone-modal_small {

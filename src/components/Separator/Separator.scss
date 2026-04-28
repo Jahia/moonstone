@@ -1,6 +1,6 @@
 .moonstone-separator {
     border: 0;
-    background: var(--color-gray20);
+    background: var(--moon-color-gray20);
 
     &.moonstone-invisible_firstChild:first-child,
     &.moonstone-invisible_lastChild:last-child,
@@ -17,11 +17,11 @@
 
     // Size's Separator
     &.moonstone-size_medium {
-        width: calc(100% - var(--spacing-huge));
+        width: calc(100% - var(--moon-spacing-huge));
     }
 
     &.moonstone-size_large {
-        width: calc(100% - var(--spacing-medium));
+        width: calc(100% - var(--moon-spacing-medium));
     }
 
     &.moonstone-size_full {
@@ -34,15 +34,15 @@
     }
 
     &.moonstone-spacing_small {
-        margin: var(--spacing-small) auto;
+        margin: var(--moon-spacing-small) auto;
     }
 
     &.moonstone-spacing_medium {
-        margin: var(--spacing-medium) auto;
+        margin: var(--moon-spacing-medium) auto;
     }
 
     &.moonstone-spacing_big {
-        margin: var(--spacing-big) auto;
+        margin: var(--moon-spacing-big) auto;
     }
 }
 
@@ -52,13 +52,13 @@
 
     // Size's Separator
     &.moonstone-size_medium {
-        margin-top: var(--spacing-small);
-        margin-bottom: var(--spacing-small);
+        margin-top: var(--moon-spacing-small);
+        margin-bottom: var(--moon-spacing-small);
     }
 
     &.moonstone-size_large {
-        margin-top: var(--spacing-nano);
-        margin-bottom: var(--spacing-nano);
+        margin-top: var(--moon-spacing-nano);
+        margin-bottom: var(--moon-spacing-nano);
     }
 
     &.moonstone-size_full {
@@ -73,17 +73,17 @@
     }
 
     &.moonstone-spacing_small {
-        margin-right: var(--spacing-small);
-        margin-left: var(--spacing-small);
+        margin-right: var(--moon-spacing-small);
+        margin-left: var(--moon-spacing-small);
     }
 
     &.moonstone-spacing_medium {
-        margin-right: var(--spacing-medium);
-        margin-left: var(--spacing-medium);
+        margin-right: var(--moon-spacing-medium);
+        margin-left: var(--moon-spacing-medium);
     }
 
     &.moonstone-spacing_big {
-        margin-right: var(--spacing-big);
-        margin-left: var(--spacing-big);
+        margin-right: var(--moon-spacing-big);
+        margin-left: var(--moon-spacing-big);
     }
 }

@@ -16,13 +16,13 @@ $button-size_big: 32px;
     justify-content: center;
     width: fit-content;
     height: $button-size_medium;
-    padding: 0 var(--spacing-small);
+    padding: 0 var(--moon-spacing-small);
 
     font-family: inherit;
 
-    border: solid 1px var(--color-gray_dark);
+    border: solid 1px var(--moon-color-gray_dark);
 
-    border-radius: var(--radius);
+    border-radius: var(--moon-radius);
 
     outline: none;
     cursor: pointer;
@@ -74,12 +74,12 @@ $button-size_big: 32px;
 
 .moonstone-button_big {
     height: $button-size_big;
-    padding: 0 var(--spacing-medium);
+    padding: 0 var(--moon-spacing-medium);
 }
 
 .moonstone-button_small {
     height: $button-size_small;
-    padding: 0 var(--spacing-nano);
+    padding: 0 var(--moon-spacing-nano);
 
     > * {
         line-height: $button-size_small - 2px;
@@ -95,7 +95,7 @@ $button-size_big: 32px;
     top: 50%;
     left: 50%;
 
-    fill: var(--color-white);
+    fill: var(--moon-color-white);
 
     transform: translate(-50%, -50%);
 

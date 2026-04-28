@@ -7,11 +7,11 @@
     scrollbar-width: thin;
 
     &::-webkit-scrollbar {
-        height: var(--spacing-nano);
+        height: var(--moon-spacing-nano);
     }
 
     &::-webkit-scrollbar-thumb {
-        background-color: var(--color-gray_light);
+        background-color: var(--moon-color-gray_light);
     }
 
     &:hover {
@@ -22,12 +22,12 @@
 }
 
 .moonstone-TableCell {
-    padding-right: var(--spacing-medium);
-    padding-left: var(--spacing-medium);
+    padding-right: var(--moon-spacing-medium);
+    padding-left: var(--moon-spacing-medium);
 
     // Manage the chevron spacing for the structured table
     .moonstone-marginRightNano {
-        margin-right: var(--spacing-nano);
+        margin-right: var(--moon-spacing-nano);
     }
 }
 

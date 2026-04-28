@@ -1,12 +1,12 @@
-$spacing-icon: var(--spacing-pico);
-$spacing-icon_big: var(--spacing-nano);
+$spacing-icon: var(--moon-spacing-pico);
+$spacing-icon_big: var(--moon-spacing-nano);
 
 :root {
-    --spacing-pico: 2px;
-    --spacing-nano: 4px;
-    --spacing-small: 8px;
-    --spacing-medium: 16px;
-    --spacing-large: 24px;
-    --spacing-big: 40px;
-    --spacing-huge: 56px;
+    --moon-spacing-pico: 2px;
+    --moon-spacing-nano: 4px;
+    --moon-spacing-small: 8px;
+    --moon-spacing-medium: 16px;
+    --moon-spacing-large: 24px;
+    --moon-spacing-big: 40px;
+    --moon-spacing-huge: 56px;
 }

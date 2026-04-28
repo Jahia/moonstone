@@ -1,15 +1,15 @@
 @use "../../../utils/mixins" as *;
 
 %variant_default {
-    color: var(--color-gray_dark);
+    color: var(--moon-color-gray_dark);
 
-    border: 1px solid var(--color-accent);
-    background-color: var(--color-white);
+    border: 1px solid var(--moon-color-accent);
+    background-color: var(--moon-color-white);
 
     &:hover {
-        color: var(--color-accent);
+        color: var(--moon-color-accent);
 
-        border-color: var(--color-accent);
+        border-color: var(--moon-color-accent);
     }
 
     &:focus-visible {
@@ -17,38 +17,38 @@
     }
 
     &:active {
-        color: var(--color-white);
+        color: var(--moon-color-white);
 
-        border-color: var(--color-white);
-        background-color: var(--color-accent);
+        border-color: var(--moon-color-white);
+        background-color: var(--moon-color-accent);
     }
 
     &:disabled {
-        color: var(--color-gray_dark);
+        color: var(--moon-color-gray_dark);
 
-        border-color: var(--color-gray_light);
-        background-color: var(--color-gray_light);
+        border-color: var(--moon-color-gray_light);
+        background-color: var(--moon-color-gray_light);
 
         box-shadow: none;
         cursor: not-allowed;
         opacity: 0.4;
 
         &.moonstone-reverse {
-            color: var(--color-white);
+            color: var(--moon-color-white);
 
-            background-color: var(--color-gray);
+            background-color: var(--moon-color-gray);
         }
     }
 
     &.moonstone-button_accent {
-        color: var(--color-white);
+        color: var(--moon-color-white);
 
-        border-color: var(--color-accent);
-        background-color: var(--color-accent);
+        border-color: var(--moon-color-accent);
+        background-color: var(--moon-color-accent);
 
         &:hover {
-            border-color: var(--color-accent_dark);
-            background-color: var(--color-accent_dark);
+            border-color: var(--moon-color-accent_dark);
+            background-color: var(--moon-color-accent_dark);
         }
 
         &:focus-visible {
@@ -56,40 +56,40 @@
         }
 
         &:active {
-            color: var(--color-white);
+            color: var(--moon-color-white);
 
-            border-color: var(--color-accent_dark_contrast);
-            background-color: var(--color-accent_dark_contrast);
+            border-color: var(--moon-color-accent_dark_contrast);
+            background-color: var(--moon-color-accent_dark_contrast);
         }
 
         &:disabled {
             color: inherit;
 
-            border-color: var(--color-gray_light);
-            background-color: var(--color-gray_light);
+            border-color: var(--moon-color-gray_light);
+            background-color: var(--moon-color-gray_light);
         }
     }
 
     &.moonstone-button_danger {
-        color: var(--color-white);
+        color: var(--moon-color-white);
 
-        border-color: var(--color-danger);
-        background-color: var(--color-danger);
+        border-color: var(--moon-color-danger);
+        background-color: var(--moon-color-danger);
 
         &:hover,
         &:focus-visible,
         &:active {
-            color: var(--color-white);
+            color: var(--moon-color-white);
 
-            border-color: var(--color-danger_dark);
-            background-color: var(--color-danger_dark);
+            border-color: var(--moon-color-danger_dark);
+            background-color: var(--moon-color-danger_dark);
         }
 
         &:disabled {
             color: inherit;
 
-            border-color: var(--color-gray_light);
-            background-color: var(--color-gray_light);
+            border-color: var(--moon-color-gray_light);
+            background-color: var(--moon-color-gray_light);
         }
     }
 }

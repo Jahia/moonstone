@@ -5,19 +5,19 @@
     left: 0;
     z-index: 1;
 
-    gap: var(--spacing-nano);
+    gap: var(--moon-spacing-nano);
     max-width: 0;
     overflow: hidden;
 
-    padding: var(--spacing-medium) var(--spacing-medium) var(--spacing-medium) var(--spacing-nano);
+    padding: var(--moon-spacing-medium) var(--moon-spacing-medium) var(--moon-spacing-medium) var(--moon-spacing-nano);
 
     color: var(--tableCellStatus-color);
     white-space: nowrap;
 
-    border-radius: 0 var(--radius) var(--radius) 0;
+    border-radius: 0 var(--moon-radius) var(--moon-radius) 0;
     background-color: var(--tableCellStatus-background);
 
-    box-shadow: 1px 0 3px 0 var(--color-gray_dark20);
+    box-shadow: 1px 0 3px 0 var(--moon-color-gray_dark20);
 
     visibility: hidden;
 
@@ -43,37 +43,37 @@
 }
 
 .success {
-    --tableCellStatus-background: var(--color-success_plain20);
-    --tableCellStatus-color: var(--color-success_dark);
-    --tableCellStatus-bar: var(--color-success);
+    --tableCellStatus-background: var(--moon-color-success_plain20);
+    --tableCellStatus-color: var(--moon-color-success_dark);
+    --tableCellStatus-bar: var(--moon-color-success);
 }
 
 .warning {
-    --tableCellStatus-background: var(--color-warning_plain20);
-    --tableCellStatus-color: var(--color-warning_dark);
-    --tableCellStatus-bar: var(--color-warning);
+    --tableCellStatus-background: var(--moon-color-warning_plain20);
+    --tableCellStatus-color: var(--moon-color-warning_dark);
+    --tableCellStatus-bar: var(--moon-color-warning);
 }
 
 .danger {
-    --tableCellStatus-background: var(--color-danger_plain20);
-    --tableCellStatus-color: var(--color-danger_dark);
-    --tableCellStatus-bar: var(--color-danger);
+    --tableCellStatus-background: var(--moon-color-danger_plain20);
+    --tableCellStatus-color: var(--moon-color-danger_dark);
+    --tableCellStatus-bar: var(--moon-color-danger);
 }
 
 .dark {
-    --tableCellStatus-background: var(--color-dark_plain20);
-    --tableCellStatus-color: var(--color-dark);
-    --tableCellStatus-bar: var(--color-dark);
+    --tableCellStatus-background: var(--moon-color-dark_plain20);
+    --tableCellStatus-color: var(--moon-color-dark);
+    --tableCellStatus-bar: var(--moon-color-dark);
 }
 
 .default {
-    --tableCellStatus-background: var(--color-gray_light_plain40);
-    --tableCellStatus-color: var(--color-gray_dark);
-    --tableCellStatus-bar: var(--color-gray);
+    --tableCellStatus-background: var(--moon-color-gray_light_plain40);
+    --tableCellStatus-color: var(--moon-color-gray_dark);
+    --tableCellStatus-bar: var(--moon-color-gray);
 }
 
 .info {
-    --tableCellStatus-background: var(--color-accent_light_plain20);
-    --tableCellStatus-color: var(--color-accent_dark_contrast);
-    --tableCellStatus-bar: var(--color-accent);
+    --tableCellStatus-background: var(--moon-color-accent_light_plain20);
+    --tableCellStatus-color: var(--moon-color-accent_dark_contrast);
+    --tableCellStatus-bar: var(--moon-color-accent);
 }
