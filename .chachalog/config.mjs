@@ -8,4 +8,6 @@ export default defineConfig(() => ({
 	allowedBumps: ["patch", "minor", "major"],
 	platform: github(),
 	managers: yarn(),
+	base: 'release-2.18.2',
+	releaseBranch: 'release-2.18.2-release'
 }));
