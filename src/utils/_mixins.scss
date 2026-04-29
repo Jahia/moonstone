@@ -13,15 +13,15 @@
 
 .moonstone-selector_disabled,
 %selector_disabled {
-    color: var(--color-gray_dark);
+    color: var(--moon-color-gray_dark);
 
     border-color: transparent;
-    background-color: var(--color-gray_light_plain40);
+    background-color: var(--moon-color-gray_light_plain40);
     cursor: inherit;
     opacity: 0.8;
 }
 
 %is-focused {
-    outline: 2px solid var(--color-accent_light);
+    outline: 2px solid var(--moon-color-accent_light);
     outline-offset: 2px;
 }

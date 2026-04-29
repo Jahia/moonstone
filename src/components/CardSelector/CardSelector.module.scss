@@ -1,0 +1,97 @@
+@use '../../utils' as *;
+
+$cardSelector-height: 58px;
+
+.moonstone-cardSelector {
+    gap: var(--moon-spacing-small);
+    width: 100%;
+    height: $cardSelector-height;
+    padding: var(--moon-spacing-nano);
+
+    border: var(--moon-border-selector);
+    border-radius: var(--moon-radius-selector);
+    background-color: var(--moon-background-selector);
+
+    transition: all 0.2s ease-in-out;
+
+    &:not([disabled]) {
+        &:hover {
+            border: var(--moon-border-selector_hover);
+            box-shadow: 0 1px 6px var(--moon-color-gray20);
+        }
+
+        &:active {
+            border: var(--moon-border-selector_active);
+        }
+
+        &:focus-visible {
+            @extend %is-focused;
+        }
+    }
+
+    &.moonstone-cardSelector_disabled {
+        @extend %selector_disabled;
+
+        color: var(--moon-color-dark_plain60);
+
+        cursor: not-allowed;
+    }
+}
+
+.moonstone-cardSelector_body {
+    overflow: hidden;
+}
+
+.moonstone-cardSelector_body,
+.moonstone-cardSelector_actions {
+    gap: var(--moon-spacing-nano);
+
+    & > * {
+        gap: var(--moon-spacing-nano);
+    }
+}
+
+.moonstone-typography {
+    &.moonstone-cardSelector_displayName,
+    &.moonstone-cardSelector_systemName {
+        max-width: 50%;
+    }
+}
+
+.moonstone-cardSelector_systemName,
+.moonstone-cardSelector_information {
+    color: var(--moon-color-dark_plain60);
+}
+
+.moonstone-cardSelector_error {
+    gap: var(--moon-spacing-nano);
+    width: 100%;
+    height: $cardSelector-height;
+
+    color: var(--moon-color-warning);
+
+    border: 1px solid var(--moon-color-warning_plain60);
+    border-radius: var(--moon-radius-selector);
+    background-color: var(--moon-background-selector);
+    cursor: pointer;
+
+    transition: all 0.2s ease-in-out;
+
+    &[disabled] {
+        @extend %selector_disabled;
+
+        color: var(--moon-color-dark_plain60);
+
+        cursor: not-allowed;
+    }
+
+    &:not([disabled]) {
+        &:hover {
+            border-color: var(--moon-color-warning);
+        }
+
+        &:focus-visible {
+            @extend %is-focused;
+        }
+    }
+}

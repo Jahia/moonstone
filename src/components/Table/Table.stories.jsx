@@ -7,6 +7,7 @@
 import React, {useEffect, useState} from 'react';
 import {useExpanded, useRowSelect, useSortBy, useTable} from 'react-table';
 import '~/__storybook__/storybook.scss';
+import {reset} from '~/globals/css-utils.js';
 
 import {
     Checkbox,
@@ -294,7 +295,7 @@ export const SelectableRows = {
                         })}
                     </TableBody>
                 </Table>
-                <section>
+                <section className={reset}>
                     <pre>
                         <code className="storyCode">
                             {JSON.stringify(

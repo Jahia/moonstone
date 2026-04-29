@@ -1,7 +1,8 @@
 import React from 'react';
-import './ButtonGroup.scss';
+import styles from './ButtonGroup.module.scss';
 import clsx from 'clsx';
 import {ButtonGroupProps} from './ButtonGroup.types';
+import {layout, reset} from '~/globals/css-utils.js';
 
 export const ButtonGroup: React.FC<ButtonGroupProps> = ({
     size = 'default',
@@ -20,10 +21,11 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
         <div
             role="group"
             className={clsx(
-                'moonstone-buttonGroup',
+                reset,
+                ['moonstone-buttonGroup', styles['moonstone-buttonGroup']],
                 className,
-                'flexRow',
-                'alignCenter'
+                ['flexRow', layout.flexRow],
+                ['alignCenter', layout.alignCenter]
             )}
             {...props}
         >

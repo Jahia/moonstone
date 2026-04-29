@@ -6,6 +6,8 @@ import type {MenuProps, AnchorPosition} from './Menu.types';
 
 import markdownNotes from './Menu.md';
 import {Separator} from '~/components';
+import clsx from 'clsx';
+import {layout} from '~/globals/css-utils.js';
 
 export default {
     title: 'Components/Menu',
@@ -66,7 +68,7 @@ export const ContextualMenu = () => {
 
     return (
         <div
-      className="flexRow_center alignCenter"
+      className={clsx('flexRow_center', 'alignCenter', layout.flexRow_center, layout.alignCenter)}
       style={{transform: 'scale(1)', height: '100vh'}}
       onClick={handleOnClick}
         >
@@ -150,7 +152,7 @@ export const PositionAbsolute = () => {
         style={{
           height: '100%',
           width: '100%',
-          backgroundColor: 'var(--color-accent)',
+          backgroundColor: 'var(--moon-color-accent)',
           cursor: 'pointer',
           padding: '10px'
         }}
@@ -285,7 +287,7 @@ export const Reversed = () => (
     style={{
       transform: 'scale(1)',
       height: '100vh',
-      background: 'var(--color-gray_dark)'
+      background: 'var(--moon-color-gray_dark)'
     }}
     >
         <Menu

@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import {Field} from './index';
 import type {FieldProps} from './Field.types';
 import {FieldSelector} from './FieldSelector';
-import {Button, Chip} from '~/index';
+import {Button, Chip} from '~/scoped';
 import {Add, Love} from '~/icons';
 
 const requiredProps = {

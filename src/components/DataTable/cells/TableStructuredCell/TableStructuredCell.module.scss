@@ -1,11 +1,11 @@
 $tree-offset: -20px; // chevron size (16px) + gap (4px)
 
 .tableStructuredCell {
-    padding: 0 var(--spacing-large);
+    padding: 0 var(--moon-spacing-large);
 }
 
 .expandable {
-    gap: var(--spacing-nano);
+    gap: var(--moon-spacing-nano);
 
     height: -webkit-fill-available; // firefox fixes
     /* stylelint-disable-next-line declaration-block-no-duplicate-properties */

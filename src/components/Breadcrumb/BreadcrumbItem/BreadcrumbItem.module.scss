@@ -1,0 +1,16 @@
+.moonstone-breadcrumbItem {
+    min-width: 0;
+    max-width: 150px;
+
+    & + & {
+        margin-left: var(--moon-spacing-small);
+    }
+
+    > * {
+        max-width: 100%;
+
+        &:focus-visible {
+            outline-offset: -2px;
+        }
+    }
+}

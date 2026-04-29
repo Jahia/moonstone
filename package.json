@@ -1,6 +1,6 @@
 {
   "name": "@jahia/moonstone",
-  "version": "2.18.0",
+  "version": "2.18.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Jahia/moonstone.git"
@@ -18,6 +18,10 @@
         "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
       }
+    },
+    "./scoped": {
+      "types": "./dist/scoped.d.ts",
+      "import": "./dist/scoped.js"
     },
     "./dist/rulesconfig-wp": {
       "require": "./rulesconfig-wp.cjs"
@@ -77,9 +81,9 @@
     "@fontsource-variable/nunito-sans": "^5.2.7",
     "@jahia/eslint-config": "^2.2.0",
     "@jahia/stylelint-config": "^0.0.4",
-    "@storybook/addon-a11y": "^10.1.11",
-    "@storybook/addon-docs": "^10.1.11",
-    "@storybook/react-vite": "^10.1.11",
+    "@storybook/addon-a11y": "^10.3.1",
+    "@storybook/addon-docs": "^10.3.1",
+    "@storybook/react-vite": "^10.3.1",
     "@svgr/cli": "^8.1.0",
     "@svgr/core": "^8.1.0",
     "@testing-library/dom": "^10.4.1",
@@ -107,13 +111,13 @@
     "rimraf": "6.1.2",
     "rollup-plugin-sbom": "^3.0.1",
     "sass": "^1.97.1",
-    "storybook": "^10.1.11",
-    "storybook-addon-tag-badges": "^3.0.4",
+    "storybook": "^10.3.1",
+    "storybook-addon-tag-badges": "^3.1.0",
     "stylelint": "^13.13.1",
     "tsc-alias": "^1.8.16",
     "typescript": "^5.9.3",
     "typescript-plugin-css-modules": "^5.2.0",
-    "vite": "^8.0.0",
+    "vite": "^8.0.1",
     "vite-css-modules": "^1.15.0",
     "vite-plugin-lib-inject-css": "^2.2.2",
     "vitest": "^4.1.0",

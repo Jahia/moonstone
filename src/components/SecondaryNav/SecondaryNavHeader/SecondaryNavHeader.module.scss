@@ -1,0 +1,12 @@
+@use '../../../utils/index' as *;
+
+.moonstone-secondaryNavHeader {
+    @include truncate;
+
+    width: 100%;
+    min-height: 65px;
+
+    padding: var(--moon-spacing-nano);
+
+    font-size: 20px;
+}

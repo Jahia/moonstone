@@ -1,0 +1,11 @@
+.moonstone-SortIndicator {
+    color: var(--moon-color-gray_light);
+
+    &:hover {
+        color: var(--moon-color-gray);
+    }
+}
+
+.moonstone-SortIndicator-sorted {
+    color: var(--moon-color-accent);
+}

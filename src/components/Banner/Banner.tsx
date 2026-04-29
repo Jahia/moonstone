@@ -1,9 +1,10 @@
 import React from 'react';
 import clsx from 'clsx';
 import type {BannerProps} from './Banner.types';
-import './Banner.scss';
+import styles from './Banner.module.scss';
 import {Typography} from '../Typography';
 import {HelpOutline, Information, Warning, Report} from '~/icons';
+import {layout, reset} from '~/globals/css-utils.js';
 
 const BannerForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, BannerProps> = ({
     className,
@@ -32,11 +33,22 @@ const BannerForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, BannerPro
     return (
         <div
             ref={ref}
-            className={clsx('moonstone-banner', `moonstone-banner_${variant}`, className, 'flexCol')}
+            className={clsx(
+                reset,
+                ['moonstone-banner', styles['moonstone-banner']],
+                [`moonstone-banner_${variant}`, styles[`moonstone-banner_${variant}`]],
+                className,
+                ['flexCol', layout.flexCol]
+            )}
             aria-label={title}
             {...props}
         >
-            <div className="moonstone-banner_title alignCenter flexRow">
+            <div className={clsx(
+                    ['moonstone-banner_title', styles['moonstone-banner_title']],
+                    ['alignCenter', layout.alignCenter],
+                    ['flexRow', layout.flexRow]
+                )}
+            >
                 {effectiveIcon && <effectiveIcon.type {...effectiveIcon.props} size="default"/>}
                 <Typography variant="subheading" weight="bold">
                     {title}

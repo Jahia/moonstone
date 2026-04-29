@@ -3,11 +3,11 @@
 }
 
 .sort {
-    color: var(--color-gray_light);
+    color: var(--moon-color-gray_light);
 }
 
 .sortActive {
-    color: var(--color-accent);
+    color: var(--moon-color-accent);
 }
 
 .sortable {
@@ -15,11 +15,11 @@
 
     &:hover {
         .sort {
-            color: var(--color-gray);
+            color: var(--moon-color-gray);
         }
 
         .sortActive {
-            color: var(--color-accent_dark);
+            color: var(--moon-color-accent_dark);
         }
     }
 }

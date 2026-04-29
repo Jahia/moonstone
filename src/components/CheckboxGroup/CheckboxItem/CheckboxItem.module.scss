@@ -1,0 +1,33 @@
+@use "../../../utils/mixins" as *;
+
+.moonstone-checkboxItem[aria-disabled="true"],
+.moonstone-checkboxItem[aria-readonly="true"] {
+    cursor: default;
+    opacity: 0.4;
+
+    pointer-events: none;
+}
+
+.moonstone-checkboxItem {
+    cursor: pointer;
+
+    & + .moonstone-checkboxItem {
+        margin-top: var(--moon-spacing-medium);
+    }
+
+    &:focus-visible {
+        @extend %is-focused;
+    }
+}
+
+.moonstone-checkboxItem_label {
+    margin-left: var(--moon-spacing-small);
+
+    color: var(--moon-color-gray_dark);
+}
+
+.moonstone-checkboxItem_description {
+    margin-left: var(--moon-spacing-large);
+
+    color: var(--moon-color-gray60);
+}

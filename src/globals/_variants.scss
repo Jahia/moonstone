@@ -7,9 +7,9 @@
     background-color: transparent;
 
     &:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-        color: var(--color-accent_dark);
+        color: var(--moon-color-accent_dark);
 
-        background-color: var(--color-gray_light_plain20);
+        background-color: var(--moon-color-gray_light_plain20);
     }
 
     &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
@@ -18,41 +18,41 @@
 
     &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
         border-color: transparent;
-        background-color: var(--color-gray_light_plain60);
+        background-color: var(--moon-color-gray_light_plain60);
     }
 
     &.moonstone-reverse {
-        color: var(--color-light);
+        color: var(--moon-color-light);
 
         &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
             @extend %is-focused;
         }
 
         &:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-            color: var(--color-light);
+            color: var(--moon-color-light);
 
             border-color: transparent;
-            background-color: var(--color-gray40);
+            background-color: var(--moon-color-gray40);
         }
 
         &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-            color: var(--color-white);
+            color: var(--moon-color-white);
 
             border-color: transparent;
-            background-color: var(--color-gray_light40);
+            background-color: var(--moon-color-gray_light40);
         }
     }
 }
 
 %variant_ghost_accent {
-    color: var(--color-accent);
+    color: var(--moon-color-accent);
 
     border: 1px solid transparent;
 
     background-color: transparent;
 
     &:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-        color: var(--color-accent_dark);
+        color: var(--moon-color-accent_dark);
     }
 
     &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
@@ -60,9 +60,9 @@
     }
 
     &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-        color: var(--color-white);
+        color: var(--moon-color-white);
 
-        background-color: var(--color-accent_dark);
+        background-color: var(--moon-color-accent_dark);
     }
 
     &[aria-disabled="true"],
@@ -73,9 +73,9 @@
 
     &.moonstone-reverse {
         &:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-            color: var(--color-white);
+            color: var(--moon-color-white);
 
-            background-color: var(--color-accent40);
+            background-color: var(--moon-color-accent40);
         }
 
         &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
@@ -83,23 +83,23 @@
         }
 
         &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-            color: var(--color-white);
+            color: var(--moon-color-white);
 
             border-color: transparent;
-            background-color: var(--color-accent_dark);
+            background-color: var(--moon-color-accent_dark);
         }
     }
 }
 
 %variant_ghost_danger {
-    color: var(--color-danger);
+    color: var(--moon-color-danger);
 
     border: 1px solid transparent;
 
     background-color: transparent;
 
     &:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-        color: var(--color-danger);
+        color: var(--moon-color-danger);
     }
 
     &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
@@ -107,9 +107,9 @@
     }
 
     &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-        color: var(--color-white);
+        color: var(--moon-color-white);
 
-        background-color: var(--color-danger);
+        background-color: var(--moon-color-danger);
     }
 
     &[aria-disabled="true"],
@@ -120,9 +120,9 @@
 
     &.moonstone-reverse {
         &:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-            color: var(--color-white);
+            color: var(--moon-color-white);
 
-            background-color: var(--color-danger40);
+            background-color: var(--moon-color-danger40);
         }
 
         &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
@@ -130,10 +130,10 @@
         }
 
         &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-            color: var(--color-white);
+            color: var(--moon-color-white);
 
             border-color: transparent;
-            background-color: var(--color-danger);
+            background-color: var(--moon-color-danger);
         }
     }
 }
