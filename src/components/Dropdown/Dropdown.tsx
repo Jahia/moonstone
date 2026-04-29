@@ -1,7 +1,9 @@
 /* eslint-disable complexity */
 import React, {MutableRefObject, useEffect, useMemo, useRef, useState} from 'react';
 import clsx from 'clsx';
-import './Dropdown.scss';
+import styles from './Dropdown.module.scss';
+import baseInputStyles from '../Input/BaseInput/BaseInput.module.scss';
+import {layout, reset} from '~/globals/css-utils.js';
 
 import type {
     DropdownData,
@@ -187,24 +189,22 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const isFilled = value || values?.length > 0;
 
     const cssDropdown = clsx(
-        !label && !icon ? 'flexRow_reverse' : 'flexRow_between',
-        'alignCenter',
-        'moonstone-dropdown',
-        `moonstone-${size}`,
-        `moonstone-dropdown_${variant}`,
-        {
-            'moonstone-disabled': (typeof isDisabled === 'undefined' && isEmpty) ? true : isDisabled,
-            'moonstone-dropdown_loading': isLoading,
-            'moonstone-filled': isFilled,
-            'moonstone-opened': isOpened
-        }
+        !label && !icon ? ['flexRow_reverse', layout.flexRow_reverse] : ['flexRow_between', layout.flexRow_between],
+        ['alignCenter', layout.alignCenter],
+        ['moonstone-dropdown', styles['moonstone-dropdown']],
+        [`moonstone-${size}`, size === 'medium' && styles[`moonstone-${size}`]],
+        [`moonstone-dropdown_${variant}`, styles[`moonstone-dropdown_${variant}`]],
+        ((typeof isDisabled === 'undefined' && isEmpty) || isDisabled) && ['moonstone-disabled', styles['moonstone-disabled']],
+        isLoading && ['moonstone-dropdown_loading', styles['moonstone-dropdown_loading']],
+        isFilled && ['moonstone-filled', styles['moonstone-filled']],
+        isOpened && ['moonstone-opened', styles['moonstone-opened']]
     );
 
     const View = isTree ? TreeViewMenu : DropdownMenu;
 
     return (
         <div
-            className={clsx('moonstone-dropdown_container', className)}
+            className={clsx(reset, 'moonstone-dropdown_container', styles['moonstone-dropdown_container'], className)}
             {...props}
         >
             <div
@@ -228,10 +228,16 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     setFocusData(p => ({...p, focused: true, event}));
                 }}
             >
-                {icon && !isLoading && <icon.type {...icon.props} size="default" className={clsx('moonstone-dropdown_icon')} role="presentation"/>}
+                {icon && !isLoading && <icon.type {...icon.props} size="default" className={clsx('moonstone-dropdown_icon', styles['moonstone-dropdown_icon'])} role="presentation"/>}
                 {isLoading && <Loader size="small" className={clsx({'moonstone-dropdown_loaderOverlay': !icon})}/>}
                 {!label && values && values.length > 0 ? (
-                    <div className="moonstone-dropdown_tags flexFluid flexRow">
+                    <div
+                        className={clsx(
+                            ['moonstone-dropdown_tags', styles['moonstone-dropdown_tags']],
+                            ['flexFluid', layout.flexFluid],
+                            ['flexRow', layout.flexRow]
+                        )}
+                    >
                         {values.map(v => {
                             const item = getDataItem(flatData, v);
                             return item && (
@@ -257,7 +263,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
                         isNowrap
                         variant={size === 'small' ? 'caption' : 'body'}
                         component="span"
-                        className={clsx('flexFluid', 'moonstone-dropdown_label')}
+                        className={clsx(
+                            ['flexFluid', layout.flexFluid],
+                            ['moonstone-dropdown_label', styles['moonstone-dropdown_label']]
+                        )}
                         title={label}
                         role="option"
                     >
@@ -266,7 +275,11 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 )}
                 {onClear && isFilled && !isDisabled && (
                     <Button
-                        className="moonstone-baseInput_clearButton flexRow_center alignCenter"
+                        className={clsx(
+                            ['moonstone-baseInput_clearButton', baseInputStyles['moonstone-baseInput_clearButton']],
+                            ['flexRow_center', layout.flexRow_center],
+                            ['alignCenter', layout.alignCenter]
+                        )}
                         variant="ghost"
                         icon={<Cancel/>}
                         aria-label="Reset"
@@ -278,7 +291,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                         }}
                     />
                 )}
-                <ChevronDown className="moonstone-dropdown_chevronDown" role="presentation"/>
+                <ChevronDown className={clsx('moonstone-dropdown_chevronDown', styles['moonstone-dropdown_chevronDown'])} role="presentation"/>
             </div>
 
             {isOpened && (

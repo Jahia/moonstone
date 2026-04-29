@@ -1,4 +1,4 @@
-@use '../CardSelector.scss' as *;
+@use '../CardSelector.module.scss' as *;
 
 .moonstone-emptyCardSelector {
     gap: var(--moon-spacing-nano);

@@ -37,6 +37,8 @@ $checkbox-sizeBig: 20px;
     --shadow-size: 1px;
     --shadow-color: var(--moon-color-gray);
 
+    composes: moonstone-checkbox_input from "../Table/TableRow/TableRow.module.scss";
+
     position: relative;
 
     margin: 0;

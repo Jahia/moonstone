@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import './Checkbox.scss';
 import type {UncontrolledCheckboxProps} from './Checkbox.types';
 import {ControlledCheckbox} from '~/components/Checkbox/ControlledCheckbox';
 

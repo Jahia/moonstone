@@ -27,7 +27,7 @@ $loader-sizes: (
 }
 
 .moonstone-loader_background {
-    stroke-width: 0.1rem;
+    stroke-width: 1.6px;
 
     stroke: var(--moon-color-gray_light40);
 }
@@ -61,7 +61,7 @@ $loader-sizes: (
 
         .moonstone-loader_animation {
             stroke-dasharray: $circumference;
-            stroke-width: 0.1rem;
+            stroke-width: 1.6px;
 
             animation: animation-loader_#{$sizeName} 1s cubic-bezier(1, 1, 1, 1) 0s infinite;
         }
