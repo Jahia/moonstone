@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - release-2.18.2
   workflow_dispatch: null
 
 jobs:
