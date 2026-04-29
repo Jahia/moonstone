@@ -1532,10 +1532,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@chachalog/types@npm:^0.5.0":
-  version: 0.5.0
-  resolution: "@chachalog/types@npm:0.5.0"
-  checksum: 10c0/c300659372d84d98c12409c40c762f8bbf62baf30582a8bad2a6b9e9e63c4d1ef40ace2f37c4f3c372c7c4ea1986220ae388fa72a5341dc3a7b401e57150fe8c
+"@chachalog/types@npm:^0.5.1":
+  version: 0.5.1
+  resolution: "@chachalog/types@npm:0.5.1"
+  checksum: 10c0/6d36e96f15da5987591d27e4789c2f5daaa4790abe02dc67242c8c648422bcf9906a9f905fc6182783a7fdfe1c21c790bd70a97ce31a8c77f5299dabe6104243
   languageName: node
   linkType: hard
 
@@ -2050,7 +2050,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@jahia/moonstone@workspace:."
   dependencies:
-    "@chachalog/types": "npm:^0.5.0"
+    "@chachalog/types": "npm:^0.5.1"
     "@floating-ui/react": "npm:^0.27.19"
     "@fontsource-variable/nunito-sans": "npm:^5.2.7"
     "@jahia/eslint-config": "npm:^2.2.0"
