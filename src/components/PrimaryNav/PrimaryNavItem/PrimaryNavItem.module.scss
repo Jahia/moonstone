@@ -1,0 +1,100 @@
+@use "../../../utils/mixins" as *;
+
+.moonstone-primaryNavItem {
+    position: relative;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 40px;
+    margin: 8px;
+
+    color: var(--moon-color-light);
+
+    border-radius: var(--moon-radius_rounded);
+    cursor: pointer;
+
+    transition: color 0.2s, background-color 0.2s;
+
+    &.moonstone-selected {
+        color: var(--moon-color-light);
+
+        background-color: var(--moon-color-accent);
+        cursor: default;
+    }
+
+    &:focus-visible {
+        @extend %is-focused;
+    }
+
+    &:not(.moonstone-selected):hover {
+        background-color: var(--moon-color-gray_dark60);
+    }
+}
+
+.moonstone-primaryNavItem_content {
+    display: flex;
+    flex: 1;
+    justify-content: flex-start;
+    overflow: hidden;
+
+    min-width: 40px;
+    max-width: 100%; // Necessery to truncate text inside it
+
+    &:hover {
+        color: var(--moon-color-accent);
+    }
+}
+
+.moonstone-selected {
+    .moonstone-primaryNavItem_content:hover {
+        color: currentColor;
+    }
+}
+
+.moonstone-primaryNavItem_iconContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+}
+
+.moonstone-primaryNavItem_label {
+    color: inherit;
+    text-decoration: none;
+
+    &.moonstone-subtitle {
+        color: var(--moon-color-light60);
+    }
+}
+
+.moonstone-primaryNavItem_badge {
+    position: absolute;
+    top: calc(var(--moon-spacing-nano) * -1);
+    right: calc(var(--moon-spacing-nano) * -1);
+}
+
+.moonstone-primaryNavItem_textContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+
+    margin-left: var(--moon-spacing-nano);
+}
+
+.moonstone-primaryNavItem_buttonContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    overflow: hidden;
+
+    margin: 0 var(--moon-spacing-nano);
+}
+
+.moonstone-primaryNavItem_linkItem {
+    width: 100%;
+    margin: 0;
+}

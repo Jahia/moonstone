@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+export const capitalize = <T extends string>(s: T): Capitalize<T> => s.charAt(0).toUpperCase() + s.slice(1) as Capitalize<T>;
 
 export const isTruncated = (element: HTMLElement | null): boolean => element !== null && element.scrollWidth > element.clientWidth;
 

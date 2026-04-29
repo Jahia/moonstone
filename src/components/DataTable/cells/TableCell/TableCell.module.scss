@@ -1,14 +1,14 @@
 @use '../../../../utils/index.scss';
 
 .tableCell {
-    gap: var(--spacing-nano);
+    gap: var(--moon-spacing-nano);
 
     height: -webkit-fill-available; // firefox fixes
     /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
     height: stretch;
 
-    padding-right: var(--spacing-medium);
-    padding-left: var(--spacing-medium);
+    padding-right: var(--moon-spacing-medium);
+    padding-left: var(--moon-spacing-medium);
     overflow: hidden;
 }
 

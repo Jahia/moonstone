@@ -1,0 +1,22 @@
+.moonstone-fieldset,
+.moonstone-dynamic-fieldset {
+    padding-left: 32px;
+
+    border-left: 3px solid transparent;
+
+    & legend {
+        width: 100%;
+    }
+}
+
+.moonstone-fieldset_helper {
+    margin-top: 2px;
+    padding-right: calc(var(--moon-spacing-large) + var(--moon-spacing-nano));
+
+    opacity: 0.8;
+}
+
+.moonstone-fieldset_children {
+    gap: var(--moon-spacing-large);
+    margin-top: var(--moon-spacing-small);
+}

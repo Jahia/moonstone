@@ -1,0 +1,97 @@
+@use "../../../tokens/spacings/spacings" as *;
+@use "../../../utils/mixins" as *;
+
+$accordionHeader_height: 48px;
+
+.moonstone-accordionItem {
+    min-height: $accordionHeader_height;
+
+    border-top: 1px solid var(--moon-color-gray_light);
+    border-bottom: 1px solid var(--moon-color-gray_light);
+
+    overflow: hidden;
+
+    &:only-child {
+        border-bottom: none;
+    }
+
+    & + .moonstone-accordionItem {
+        border-top: 0;
+    }
+
+    &.moonstone-reversed {
+        border-color: var(--moon-color-gray);
+    }
+}
+
+// ---
+// Header
+// ---
+.moonstone-accordionItem_header {
+    width: 100%;
+    height: $accordionHeader_height;
+    padding: 0 var(--moon-spacing-medium);
+
+    background-color: var(--moon-color-gray_light60);
+
+    cursor: pointer;
+
+    &.moonstone-selected {
+        border-bottom: 1px solid var(--moon-color-gray_light);
+
+        cursor: default;
+    }
+
+    &:focus-visible {
+        @extend %is-focused;
+
+        outline-offset: -2px;
+    }
+
+    &:active {
+        background-color: var(--moon-color-gray40);
+    }
+
+    &:not(.moonstone-selected):not(:active):hover {
+        color: var(--moon-color-dark);
+
+        background-color: var(--moon-color-gray_light);
+    }
+
+    &.moonstone-reversed {
+        color: var(--moon-color-light);
+
+        background-color: var(--moon-color-dark60);
+
+        &.moonstone-selected {
+            color: var(--moon-color-light);
+
+            border-color: var(--moon-color-gray);
+            background-color: var(--moon-color-dark60);
+        }
+
+        &:active {
+            background-color: var(--moon-color-black);
+        }
+
+        &:not(.moonstone-selected):not(:active):hover {
+            color: var(--moon-color-light);
+
+            background-color: var(--moon-color-gray40);
+        }
+    }
+}
+
+.moonstone-accordionItem_iconContainer {
+    margin-right: $spacing-icon_big;
+}
+
+// ---
+// Content
+// ---
+.moonstone-accordionItem_content {
+    max-width: 100%;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+}

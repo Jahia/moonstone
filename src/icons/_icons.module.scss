@@ -1,0 +1,57 @@
+.moonstone-icon {
+    composes: moonstone-icon from "../components/Chip/Chip.module.scss";
+
+    flex-shrink: 0;
+
+    fill: currentColor;
+}
+
+// Size
+.moonstone-icon_small {
+    width: 12px;
+    height: 12px;
+}
+
+.moonstone-icon_default {
+    width: 16px;
+    height: 16px;
+}
+
+.moonstone-icon_big {
+    width: 24px;
+    height: 24px;
+}
+
+// Color
+.moonstone-icon_blue {
+    fill: var(--moon-color-accent);
+}
+
+.moonstone-icon_deepBlue {
+    fill: var(--moon-color-accent_dark_contrast);
+}
+
+.moonstone-icon_green {
+    fill: var(--moon-color-success);
+}
+
+.moonstone-icon_yellow {
+    fill: var(--moon-color-warning);
+}
+
+.moonstone-icon_red {
+    fill: var(--moon-color-danger);
+}
+
+.moonstone-icon_purple {
+    fill: var(--moon-color-purple);
+}
+
+.moonstone-icon_gray {
+    fill: var(--moon-color-gray);
+}
+
+// Loading
+.moonstone-icon_isLoading {
+    animation: spin 2s linear infinite;
+}

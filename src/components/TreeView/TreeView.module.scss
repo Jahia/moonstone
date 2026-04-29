@@ -1,0 +1,101 @@
+@use "../../tokens/spacings/spacings" as *;
+@use "../../utils/mixins" as *;
+
+[role='treeitem'] {
+    --treeItem-indent: calc((var(--moon-spacing-medium) + var(--moon-spacing-nano)) * var(--treeItem-depth, 0) + var(--moon-spacing-small));
+    --treeItem-color: inherit;
+    --treeItem-color_hover: var(--moon-color-dark);
+    --treeItem-color_selected: var(--moon-color-light);
+    --treeItem-color_highlighted: var(--moon-color-light);
+    --treeItem-color_selected_hover: var(--moon-color-light);
+    --treeItem-background: inherit;
+    --treeItem-background_hover: var(--moon-color-gray_light40);
+    --treeItem-background_selected: var(--moon-color-accent);
+    --treeItem-background_selected_hover: var(--moon-color-accent);
+    --treeItem-background_highlighted: var(--moon-color-gray60);
+
+    &:focus-visible {
+        @extend %is-focused;
+    }
+}
+
+.moonstone-treeView_item {
+    flex-wrap: nowrap;
+
+    height: 32px;
+    padding-right: var(--moon-spacing-small);
+    padding-left: var(--treeItem-indent);
+
+    color: var(--treeItem-color);
+
+    background-color: var(--treeItem-background);
+    cursor: pointer;
+
+    &:hover {
+        color: var(--treeItem-color_hover);
+
+        background-color: var(--treeItem-background_hover);
+    }
+
+    &.moonstone-small {
+        height: 24px;
+    }
+
+    &.moonstone-selected {
+        color: var(--treeItem-color_selected);
+
+        background-color: var(--treeItem-background_selected);
+
+        &:hover {
+            color: var(--treeItem-color_selected_hover);
+
+            background-color: var(--treeItem-background_selected_hover);
+        }
+    }
+
+    &.moonstone-highlighted {
+        color: var(--treeItem-color_highlighted);
+
+        background-color: var(--treeItem-background_highlighted);
+    }
+
+    // Theme reversed
+    &.moonstone-reversed {
+        --treeItem-color: var(--moon-color-gray_light);
+        --treeItem-color_hover: var(--moon-color-light);
+        --treeItem-background_hover: var(--moon-color-gray40);
+        --treeItem-background_highlighted: var(--moon-color-gray_light40);
+    }
+
+    &.moonstone-disabled {
+        background: none;
+        cursor: not-allowed;
+    }
+
+    &.moonstone-readonly {
+        background: none;
+        cursor: default;
+    }
+}
+
+.moonstone-treeView_itemIconStart {
+    min-width: 12px;
+    min-height: 12px;
+}
+
+.moonstone-treeView_itemToggle {
+    width: 16px;
+    height: 16px;
+
+    cursor: pointer;
+}
+
+.moonstone-treeView_itemLabel {
+    gap: $spacing-icon;
+    align-self: stretch;
+    min-width: 0;
+
+    .moonstone-treeView_item.moonstone-disabled & {
+        color: var(--moon-color-gray40);
+    }
+}
