@@ -11,7 +11,7 @@ $background-highlight-hover: var(--color-accent_light_plain40);
     border-bottom: 1px solid var(--color-gray_light);
     background-color: var(--moon-row-background);
 
-    &:not(.header) {
+    &:not(.head) {
         &:focus-within,
         &:hover {
             --moon-row-background: #{$background-hover};
