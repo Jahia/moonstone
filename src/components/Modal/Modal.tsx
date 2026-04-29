@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import type {ModalProps} from './Modal.types';
-import './Modal.scss';
+import styles from './Modal.module.scss';
 import {
     useFloating,
     useDismiss,
@@ -14,6 +14,7 @@ import {
     FloatingOverlay,
     FloatingPortal
 } from '@floating-ui/react';
+import {layout, reset} from '~/globals/css-utils.js';
 
 const ModalForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalProps> = ({
     className,
@@ -45,13 +46,19 @@ const ModalForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalProps
     return (
         children && isOpen && (
         <FloatingPortal>
-            <FloatingOverlay lockScroll className="moonstone-modal_overlay">
+            <FloatingOverlay lockScroll className={clsx('moonstone-modal_overlay', styles['moonstone-modal_overlay'])}>
                 {/* FloatingFocusManager handles context to allow each modal to be treated separately
                 (e.g if a modal is inside a modal: pressing esc will only close the last one open) */}
                 <FloatingFocusManager context={context}>
                     <div
                         ref={modalRef}
-                        className={clsx('moonstone-modal', `moonstone-modal_${size}`, 'flexCol_nowrap', className)}
+                        className={clsx(
+                            reset,
+                            ['moonstone-modal', styles['moonstone-modal']],
+                            [`moonstone-modal_${size}`, styles[`moonstone-modal_${size}`]],
+                            ['flexCol_nowrap', layout.flexCol_nowrap],
+                            className
+                        )}
                         aria-labelledby={`moonstone-modal_${headingId}`}
                         aria-modal="true"
                         {...getFloatingProps()}

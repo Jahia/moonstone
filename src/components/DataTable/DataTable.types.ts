@@ -1,23 +1,14 @@
 import React from 'react';
 import type {Row} from '@tanstack/react-table';
-import type {PaginationProps as ComponentPaginationProps} from '~/components/Pagination';
+import type {TableCellProps} from '~/components/DataTable/cells';
+import type {DataTablePaginationProps} from './pagination';
+export type {PaginationUncontrolledProps} from './pagination';
 
 export type SubRowKey = 'subRows';
 
-/**
- * Custom meta properties for TanStack Table columns.
- * Used to pass additional configuration through columnDef.meta
- */
-export type CustomColumnMeta = {
-    isSortable?: boolean;
-    align?: 'left' | 'center' | 'right';
-    width?: string;
-    isScrollable?: boolean;
-};
-
 export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children' | 'className'> & {
     /**
-     * Which html element to render the table as
+     * Define HTML tag used to render the table
      */
     component?: string;
 
@@ -61,7 +52,7 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
     sortFn?: (a: T, b: T) => number;
 
     /**
-     * Content alignment for the column
+     * Alignment of the column content
      */
     align?: 'left' | 'center' | 'right';
 
@@ -76,22 +67,26 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
      * @default false
      */
     isScrollable?: boolean;
+
+    /**
+     * Custom HTML attributes added to TableCell or TableStructuredCell
+     */
+    cellProps?: React.TdHTMLAttributes<HTMLTableCellElement> & Record<string, unknown>;
 };
 
 export type DataTableBaseProps<T extends NonNullable<unknown>> = {
     /**
-     * Define which key is used as primary key for each row.
-     * This is used as the unique identifier for row selection and other operations.
+     * Define which key is used as unique identifier for each row.
      */
-    primaryKey: Exclude<keyof T, SubRowKey>;
+    primaryKey: Extract<Exclude<keyof T, SubRowKey>, string>;
 
     /**
-     * The array of data to display in the table
+     * The array of data to display
      */
     data: T[];
 
     /**
-     * The column definitions for the table
+     * The column definitions
      */
     columns: ReadonlyArray<DataTableColumn<T>>;
 
@@ -102,9 +97,9 @@ export type DataTableBaseProps<T extends NonNullable<unknown>> = {
 
     /**
      * Callback fired when a table header cell is clicked
-     * @param columnId - The ID of the clicked column
+     * @param columnKey - The key of the clicked column
      */
-    onClickTableHeadCell?: (columnId: string) => void;
+    onClickTableHeadCell?: (columnKey: string) => void;
 
     /**
      * Custom HTML attributes to add to each row element
@@ -116,10 +111,11 @@ export type SortDirection = 'ascending' | 'descending';
 
 type SortingProps<T extends NonNullable<unknown>> =
     | {
+          /** Enable sorting for the table */
           enableSorting: true;
-          /** Controlled: current sort column */
+          /** Current sort column (controlled) */
           sortBy: Extract<Exclude<keyof T, SubRowKey>, string>;
-          /** Controlled: current sort direction */
+          /** Current sort direction (controlled) */
           sortDirection: SortDirection;
           /** Callback when sort changes */
           onSortChange: (sortBy: Extract<Exclude<keyof T, SubRowKey>, string>, sortDirection: SortDirection) => void;
@@ -127,14 +123,15 @@ type SortingProps<T extends NonNullable<unknown>> =
           defaultSortDirection?: never;
       }
     | {
+          /** Enable sorting for the table */
           enableSorting: true;
           sortBy?: never;
           sortDirection?: never;
-          /** Optional callback to observe sort changes in uncontrolled mode */
+          /** Callback when sort changes */
           onSortChange?: (sortBy: Extract<Exclude<keyof T, SubRowKey>, string>, sortDirection: SortDirection) => void;
-          /** Uncontrolled: initial sort column */
+          /** Initial sort column (uncontrolled) */
           defaultSortBy?: Extract<Exclude<keyof T, SubRowKey>, string>;
-          /** Uncontrolled: initial sort direction */
+          /** Initial sort direction (uncontrolled) */
           defaultSortDirection?: SortDirection;
       }
     | {
@@ -148,111 +145,63 @@ type SortingProps<T extends NonNullable<unknown>> =
 
 export type SelectionProps =
     | {
+          /** Enable selection for the table */
           enableSelection: true;
-          /** Controlled: selected row IDs */
+          /** Selected row primaryKey values (controlled) */
           selection: string[];
           /** Callback when selection changes */
           onChangeSelection: (selection: string[]) => void;
           defaultSelection?: never;
+          /** Custom HTML attributes added to the TableCell selection */
+          selectionCellProps?: Omit<TableCellProps, 'children' | 'width' | 'component'>;
       }
     | {
           enableSelection: true;
-          /** Uncontrolled: initial selected row IDs */
+          /** Initial selected rows primaryKey values (uncontrolled) */
           defaultSelection?: string[];
           /** Optional callback to observe selection changes */
           onChangeSelection?: (selection: string[]) => void;
           selection?: never;
+          /** Custom HTML attributes added to the TableCell selection */
+          selectionCellProps?: Omit<TableCellProps, 'children' | 'width' | 'component'>;
       }
     | {
           enableSelection?: false;
           selection?: never;
           defaultSelection?: never;
           onChangeSelection?: never;
+          selectionCellProps?: never;
       };
 
-export type DefaultRenderOptions = {
+export type RenderOptions = {
     /**
-     * Actions always visible in the cell.
+     * Custom cells to render before the data cells (selection + columns).
+     * Each direct child becomes its own column with automatic header alignment.
      */
-    actions?: React.ReactNode;
+    before?: React.ReactNode;
 
     /**
-     * Actions visible only on row hover or focus.
+     * Custom cells to render after the data cells.
+     * Each direct child becomes its own column with automatic header alignment.
      */
-    actionsOnHover?: React.ReactNode;
+    after?: React.ReactNode;
 };
 
 type RenderRowProps<T extends NonNullable<unknown>> = {
     /**
      * Custom render function for rows (e.g. styling, wrapper).
      * @param row - The row object from TanStack Table. Use row.original to access the raw row data.
-     * @param defaultRender - Function to render the default row content. Accepts options to inject actions per row.
+     * @param render - Function to render the default row content. Accepts options to inject actions per row.
      */
     renderRow?: (
         row: Row<T>,
-        defaultRender: (options?: DefaultRenderOptions) => React.ReactNode
+        render: (options?: RenderOptions) => React.ReactNode
     ) => React.ReactNode;
 };
-
-type PaginationBaseProps = {
-    /** Choices for items per page value */
-    itemsPerPageOptions?: ComponentPaginationProps['itemsPerPageOptions'];
-    /** Pagination labels */
-    paginationLabel?: ComponentPaginationProps['label'];
-    /** Custom attributes for the Pagination element */
-    paginationProps?: Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> & Record<string, unknown>;
-};
-
-type PaginationControlledProps = {
-    /** Controlled: current page (1-indexed) */
-    currentPage: number;
-    /** Controlled (optional): items per page */
-    itemsPerPage?: number;
-    /** Controlled: total number of items across all pages */
-    totalItems: number;
-    /** Controlled: callback when page changes (1-indexed) */
-    onPageChange: (page: number) => void;
-    /** Optional callback when items per page changes */
-    onItemsPerPageChange?: (itemsPerPage: number) => void;
-    defaultCurrentPage?: never;
-    defaultItemsPerPage?: never;
-};
-
-export type PaginationUncontrolledProps = {
-    currentPage?: never;
-    /** Uncontrolled: initial page (1-indexed) */
-    defaultCurrentPage?: number;
-    /** Uncontrolled: initial items per page */
-    defaultItemsPerPage?: number;
-    itemsPerPage?: never;
-    totalItems?: never;
-    /** Optional callback when page changes (1-indexed) */
-    onPageChange?: (page: number) => void;
-    /** Optional callback when items per page changes */
-    onItemsPerPageChange?: (itemsPerPage: number) => void;
-};
-
-type TablePaginationProps =
-    | ({
-          enablePagination: true;
-      } & PaginationBaseProps & (PaginationControlledProps | PaginationUncontrolledProps))
-    | {
-          enablePagination?: false;
-          currentPage?: never;
-          itemsPerPage?: never;
-          onPageChange?: never;
-          onItemsPerPageChange?: never;
-          totalItems?: never;
-          defaultCurrentPage?: never;
-          defaultItemsPerPage?: never;
-          itemsPerPageOptions?: never;
-          paginationLabel?: never;
-          paginationProps?: never;
-      };
 
 export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'children'> &
     DataTableBaseProps<T> &
     SortingProps<T> &
     SelectionProps &
     RenderRowProps<T> &
-    TablePaginationProps;
+    DataTablePaginationProps;

@@ -3,6 +3,7 @@ import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {describe, it, expect, vi} from 'vitest';
 import {TableRow} from './TableRow';
+import styles from './TableRow.module.scss';
 
 const TableWrapper: React.FC<{ readonly children: React.ReactNode }> = ({children}) => (
     <table>
@@ -44,7 +45,7 @@ describe('TableRow', () => {
                 </TableRow>
             </TableWrapper>
         );
-        expect(screen.getByTestId('row')).toHaveClass('moonstone-tableRow_highlighted');
+        expect(screen.getByRole('row', {selected: true})).toBeInTheDocument();
     });
 
     it('should call onClick when clicked', async () => {
@@ -98,6 +99,5 @@ describe('TableRow', () => {
             </TableWrapper>
         );
         expect(screen.getByTestId('row')).toHaveClass('custom-class');
-        expect(screen.getByTestId('row')).toHaveClass('moonstone-tableRow');
     });
 });

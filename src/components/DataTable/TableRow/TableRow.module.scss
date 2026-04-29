@@ -1,0 +1,62 @@
+$background-hover: var(--moon-color-gray_light_plain20);
+$background-highlight: var(--moon-color-accent_light_plain20);
+$background-highlight-hover: var(--moon-color-accent_light_plain40);
+
+.tableRow {
+    --moon-row-background: white;
+    --moon-cellAction-visibility: hidden;
+
+    height: 48px;
+
+    border-bottom: 1px solid var(--moon-color-gray_light);
+    background-color: var(--moon-row-background);
+
+    &:not(.header) {
+        &:focus-within,
+        &:hover {
+            --moon-row-background: #{$background-hover};
+            --moon-cellAction-visibility: visible;
+        }
+    }
+}
+
+.highlighted {
+    --moon-row-background: #{$background-highlight};
+
+    // color: var(--color-light);
+
+    &:focus-within,
+    &:hover {
+        --moon-row-background: #{$background-highlight-hover};
+    }
+
+    // Ensure to add moonstone-checkbox_input in the composes (https://github.com/Jahia/moonstone/blob/7d28e35869bd11069d79a9968f92ebb0b0440fd2/src/components/Checkbox/Checkbox.module.scss#L40) when bringing back this class
+
+    // .moonstone-checkbox_input {
+    //     border: 1px solid var(--color-light);
+
+    //     &[aria-checked="false"] {
+    //         box-shadow: none;
+    //     }
+
+    //     &.hasFocus {
+    //         border: 2px solid var(--color-accent_dark_contrast);
+    //     }
+    // }
+
+    .moonstone-chip {
+        color: var(--moon-color-light);
+
+        background-color: var(--moon-color-accent_light40);
+    }
+
+    // Same for https://github.com/Jahia/moonstone/blob/7d28e35869bd11069d79a9968f92ebb0b0440fd2/src/components/Button/Button.module.scss#L13-L16
+
+    // .moonstone-button:not(:hover, :focus) {
+    //     color: var(--color-light);
+    // }
+}
+
+.head {
+    height: 40px;
+}

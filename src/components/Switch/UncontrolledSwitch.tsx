@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import './Switch.scss';
 import type {UncontrolledSwitchProps} from './Switch.types';
 import {ControlledSwitch} from '~/components/Switch/ControlledSwitch';
 

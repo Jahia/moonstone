@@ -1,0 +1,57 @@
+@use '../../utils/index' as *;
+
+.moonstone-menuItem {
+    padding: var(--moon-spacing-nano) var(--moon-spacing-medium);
+
+    cursor: pointer;
+
+    &:focus-visible {
+        outline: none;
+        box-shadow: inset 0 0 0 2px var(--moon-color-accent);
+    }
+
+    &:hover:not(.moonstone-disabled, .moonstone-selected),
+    &.moonstone-hover:not(.moonstone-disabled, .moonstone-selected) {
+        color: var(--moon-color-accent_dark);
+
+        background-color: var(--moon-color-gray_light_plain20);
+    }
+
+    &:active:not(.moonstone-disabled, .moonstone-selected) {
+        color: var(--moon-color-accent_dark);
+
+        background-color: var(--moon-color-gray_light_plain60);
+        box-shadow: none;
+    }
+
+    &.moonstone-title {
+        font-weight: 700;
+
+        cursor: default;
+
+        pointer-events: none;
+    }
+
+    &.moonstone-selected {
+        color: var(--moon-color-light);
+
+        background-color: var(--moon-color-accent);
+        cursor: default;
+    }
+
+    &.moonstone-highlighted {
+        color: var(--moon-color-light);
+
+        background-color: var(--moon-color-gray60);
+    }
+
+    &.moonstone-disabled {
+        cursor: not-allowed;
+        opacity: 0.4;
+    }
+
+    &.moonstone-menuItem-image {
+        padding-top: var(--moon-spacing-small);
+        padding-bottom: var(--moon-spacing-small);
+    }
+}

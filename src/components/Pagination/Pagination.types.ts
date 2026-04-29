@@ -40,8 +40,17 @@ export type PaginationProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'class
 
     /**
      * Pagination labels
+     * @deprecated Use `i18n` instead
      */
     label?: {
+        itemsPerPage: string;
+        of: string;
+    };
+
+    /**
+     * Pagination labels
+     */
+    i18n?: {
         itemsPerPage: string;
         of: string;
     };

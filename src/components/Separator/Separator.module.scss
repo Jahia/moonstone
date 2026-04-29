@@ -1,0 +1,89 @@
+.moonstone-separator {
+    border: 0;
+    background: var(--moon-color-gray20);
+
+    &.moonstone-invisible_firstChild:first-child,
+    &.moonstone-invisible_lastChild:last-child,
+    &.moonstone-invisible_onlyChild:only-child,
+    &.moonstone-invisible_firstOrLastChild:first-child,
+    &.moonstone-invisible_firstOrLastChild:last-child,
+    &:has(+ &) {
+        display: none;
+    }
+}
+
+.moonstone-separator_horizontal {
+    height: 1px;
+
+    // Size's Separator
+    &.moonstone-size_medium {
+        width: calc(100% - var(--moon-spacing-huge));
+    }
+
+    &.moonstone-size_large {
+        width: calc(100% - var(--moon-spacing-medium));
+    }
+
+    &.moonstone-size_full {
+        width: 100%;
+    }
+
+    // Spacing's Separator
+    &.moonstone-spacing_none {
+        margin: 0 auto;
+    }
+
+    &.moonstone-spacing_small {
+        margin: var(--moon-spacing-small) auto;
+    }
+
+    &.moonstone-spacing_medium {
+        margin: var(--moon-spacing-medium) auto;
+    }
+
+    &.moonstone-spacing_big {
+        margin: var(--moon-spacing-big) auto;
+    }
+}
+
+.moonstone-separator_vertical {
+    align-self: stretch;
+    width: 1px;
+
+    // Size's Separator
+    &.moonstone-size_medium {
+        margin-top: var(--moon-spacing-small);
+        margin-bottom: var(--moon-spacing-small);
+    }
+
+    &.moonstone-size_large {
+        margin-top: var(--moon-spacing-nano);
+        margin-bottom: var(--moon-spacing-nano);
+    }
+
+    &.moonstone-size_full {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    // Spacing's Separator
+    &.moonstone-spacing_none {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    &.moonstone-spacing_small {
+        margin-right: var(--moon-spacing-small);
+        margin-left: var(--moon-spacing-small);
+    }
+
+    &.moonstone-spacing_medium {
+        margin-right: var(--moon-spacing-medium);
+        margin-left: var(--moon-spacing-medium);
+    }
+
+    &.moonstone-spacing_big {
+        margin-right: var(--moon-spacing-big);
+        margin-left: var(--moon-spacing-big);
+    }
+}

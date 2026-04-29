@@ -2,7 +2,8 @@ import React from 'react';
 import clsx from 'clsx';
 
 import type {TableCellProps} from './TableCell.types';
-import './TableCell.scss';
+import styles from './TableCell.module.scss';
+import {icons, layout} from '~/globals/css-utils.js';
 
 const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, TableCellProps> = (
     {
@@ -15,9 +16,9 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, TableC
     return (
         <div ref={ref}
              className={clsx(
-                 'moonstone-TableCell',
-                 'flexRow_nowrap',
-                 'alignCenter',
+                 ['moonstone-TableCell', styles['moonstone-TableCell']],
+                 ['flexRow_nowrap', layout.flexRow_nowrap],
+                 ['alignCenter', layout.alignCenter],
                  className
              )}
              {...props}
@@ -26,7 +27,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, TableC
             {iconStart && (
                 <iconStart.type
                     {...iconStart.props}
-                    className={clsx('moonstone-icon_default', iconStart.props.className)}
+                    className={clsx('moonstone-icon_default', icons['moonstone-icon_default'], iconStart.props.className)}
                 />
             )}
 
@@ -35,7 +36,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, TableC
             {iconEnd && (
                 <iconEnd.type
                     {...iconEnd.props}
-                    className={clsx('moonstone-icon_default', iconEnd.props.className)}
+                    className={clsx('moonstone-icon_default', icons['moonstone-icon_default'], iconEnd.props.className)}
                 />
             )}
 

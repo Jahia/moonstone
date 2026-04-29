@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import './ButtonToggle.scss';
 import type {UncontrolledButtonToggleProps} from './ButtonToggle.types';
 import {ControlledButtonToggle} from './index';
 
