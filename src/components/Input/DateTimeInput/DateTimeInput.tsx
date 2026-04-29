@@ -107,10 +107,10 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
             <BaseInput
                 ref={ref}
                 {...props}
+                readOnly
                 containerRef={calendarAnchorRef}
                 className="moonstone-dateTimeInput_dateField"
                 value={formatDateDisplayValue(sanitizedValue.date, locale)}
-                readOnly
                 size={size}
                 variant={variant}
                 isDisabled={isDisabled}
