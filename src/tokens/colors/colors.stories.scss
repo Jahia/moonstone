@@ -3,10 +3,10 @@
         content: "#{$value}";
 
         position: absolute;
-        bottom: var(--spacing-small);
+        bottom: var(--moon-spacing-small);
         left: 0;
 
-        color: var(--color-gray60);
+        color: var(--moon-color-gray60);
     }
 }
 
@@ -18,7 +18,7 @@
     align-items: center;
 
     & + & {
-        margin-top: var(--spacing-medium);
+        margin-top: var(--moon-spacing-medium);
     }
 }
 
@@ -26,7 +26,7 @@
     width: 160px;
     height: 80px;
 
-    border: 1px solid var(--color-gray_light);
+    border: 1px solid var(--moon-color-gray_light);
 }
 
 $colorsAccent: (
@@ -127,7 +127,7 @@ $colorsPalette: (
     .color-#{$name} {
         @include colorValue($name);
 
-        background-color: var(--color-#{$name});
+        background-color: var(--moon-color-#{$name});
     }
 }
 
@@ -135,7 +135,7 @@ $colorsPalette: (
     .color-#{$name} {
         @include colorValue($name);
 
-        background-color: var(--color-#{$name});
+        background-color: var(--moon-color-#{$name});
     }
 }
 
@@ -143,7 +143,7 @@ $colorsPalette: (
     .color-#{$name} {
         @include colorValue($name);
 
-        background-color: var(--color-#{$name});
+        background-color: var(--moon-color-#{$name});
     }
 }
 
@@ -151,6 +151,6 @@ $colorsPalette: (
     .color-#{$name} {
         @include colorValue($name);
 
-        background-color: var(--color-#{$name});
+        background-color: var(--moon-color-#{$name});
     }
 }

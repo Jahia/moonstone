@@ -2,7 +2,7 @@
     position: relative;
     overflow: visible;
 
-    gap: var(--spacing-small);
+    gap: var(--moon-spacing-small);
 }
 
 .displayHover {
@@ -12,8 +12,8 @@
     bottom: 0;
     z-index: 5;
 
-    gap: var(--spacing-small);
-    padding: 0 var(--spacing-small);
+    gap: var(--moon-spacing-small);
+    padding: 0 var(--moon-spacing-small);
 
     background: var(--moon-row-background);
 

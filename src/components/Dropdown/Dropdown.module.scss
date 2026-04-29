@@ -1,0 +1,100 @@
+@use '../../utils/index' as *;
+@use "../../tokens/spacings/spacings" as *;
+@use "../../globals/variants";
+@use "../../utils/mixins" as *;
+
+.moonstone-dropdown_container {
+    composes: moonstone-dropdown_container from "../Field/FieldSelector/FieldSelector.module.scss";
+
+    position: relative;
+}
+
+.moonstone-dropdown_icon {
+    display: flex;
+    flex: 0 0 auto;
+}
+
+.moonstone-dropdown_chevronDown {
+    flex: 0 0 auto;
+    margin-left: var(--moon-spacing-nano);
+}
+
+.moonstone-dropdown_tags {
+    gap: var(--moon-spacing-nano);
+}
+
+.moonstone-disabled {
+    & > .moonstone-treeView_item {
+        @extend %selector_disabled;
+    }
+}
+
+.moonstone-dropdown {
+    @extend %variant_ghost;
+
+    gap: $spacing-icon;
+    padding: var(--moon-spacing-nano) var(--moon-spacing-small);
+
+    border-radius: var(--moon-radius-selector);
+    cursor: pointer;
+
+    &.moonstone-disabled {
+        @extend %selector_disabled;
+    }
+
+    &.moonstone-dropdown_loading {
+        cursor: default;
+    }
+
+    //Would have browser default outline otherwise
+    &[aria-disabled="true"],
+    &[aria-busy="true"] {
+        &:focus-visible {
+            outline: none;
+        }
+    }
+
+    // ---
+    // Manage sizes
+    // ---
+    &.moonstone-medium {
+        gap: $spacing-icon_big;
+        min-height: 32px;
+    }
+
+    &.moonstone-opened {
+        border: var(--moon-border-selector_active);
+    }
+
+    &:focus-visible:not([aria-disabled="true"], [aria-busy="true"]) {
+        @extend %is-focused;
+    }
+
+    &:not(.moonstone-filled) .moonstone-dropdown_label {
+        font-style: italic;
+        color: var(--moon-color-gray_dark60);
+    }
+}
+
+.moonstone-reversed {
+    .moonstone-dropdown_ghost:hover {
+        color: var(--moon-color-accent);
+
+        background-color: transparent;
+    }
+}
+
+// ---
+// Outlined variant
+// ---
+.moonstone-dropdown_outlined {
+    color: var(--moon-color-gray_dark);
+
+    border: var(--moon-border-selector);
+    background-color: var(--moon-background-selector);
+
+    &:hover:not(.moonstone-disabled, [aria-disabled="true"], [aria-busy="true"]) {
+        border: var(--moon-border-selector_hover);
+        background: none;
+    }
+}

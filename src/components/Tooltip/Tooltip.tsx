@@ -1,9 +1,10 @@
 import React, {useRef, useState} from 'react';
 import clsx from 'clsx';
-import './Tooltip.scss';
+import styles from './Tooltip.module.scss';
 import type {TooltipProps} from './Tooltip.types';
 import {useHover, useFloating, useInteractions, arrow, offset, FloatingArrow, flip, shift, useFocus, useDismiss} from '@floating-ui/react';
 import {Typography} from '../Typography';
+import {reset} from '~/globals/css-utils.js';
 
 export const Tooltip = ({
     label,
@@ -45,7 +46,7 @@ export const Tooltip = ({
         return (
             <div
                 ref={refs.setReference}
-                className={clsx('moonstone-tooltip', className)}
+                className={clsx(reset, 'moonstone-tooltip', className)}
                 {...getReferenceProps()}
                 {...props}
             >
@@ -57,12 +58,12 @@ export const Tooltip = ({
                 <div
                     ref={refs.setFloating}
                     id="moonstone-tooltip_label"
-                    className={clsx('moonstone-tooltip_label')}
+                    className={clsx('moonstone-tooltip_label', styles['moonstone-tooltip_label'])}
                     style={floatingStyles}
                     role="tooltip"
                     {...getFloatingProps()}
                 >
-                    <FloatingArrow ref={arrowRef} className="moonstone-tooltip_arrow" context={context}/>
+                    <FloatingArrow ref={arrowRef} className={clsx('moonstone-tooltip_arrow', styles['moonstone-tooltip_arrow'])} context={context}/>
                     <Typography>
                         {label}
                     </Typography>

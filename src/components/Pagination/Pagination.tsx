@@ -5,7 +5,8 @@ import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
 import type {PaginationProps} from './Pagination.types';
 import {Button, Dropdown, Typography} from '~/components';
 import {ChevronFirstPage, ChevronLastPage, ChevronLeft, ChevronRight} from '~/icons';
-import './Pagination.scss';
+import styles from './Pagination.module.scss';
+import {layout, reset} from '~/globals/css-utils.js';
 
 export const Pagination: React.FC<PaginationProps> = ({
     className,
@@ -39,8 +40,24 @@ export const Pagination: React.FC<PaginationProps> = ({
     const visibleRangeEnd = Math.min(totalOfItems, currentPage * itemsPerPage);
 
     return (
-        <div className={clsx('moonstone-pagination', 'flexRow', 'alignCenter', 'justifyEnd', className)} {...props}>
-            <div className={clsx('moonstone-pagination_navigation', 'flexRow', 'alignCenter')}>
+        <div
+            className={clsx(
+                reset,
+                ['moonstone-pagination', styles['moonstone-pagination']],
+                ['flexRow', layout.flexRow],
+                ['alignCenter', layout.alignCenter],
+                ['justifyEnd', layout.justifyEnd],
+                className
+            )}
+            {...props}
+        >
+            <div
+                className={clsx(
+                    ['moonstone-pagination_navigation', styles['moonstone-pagination_navigation']],
+                    ['flexRow', layout.flexRow],
+                    ['alignCenter', layout.alignCenter]
+                )}
+            >
                 <Button
                     icon={<ChevronFirstPage/>}
                     variant="ghost"
@@ -56,14 +73,26 @@ export const Pagination: React.FC<PaginationProps> = ({
                     onClick={() => onPageChange(currentPage - 1)}
                 />
             </div>
-            <div className={clsx('moonstone-pagination_info', 'flexRow', 'alignCenter')}>
+            <div
+                className={clsx(
+                    ['moonstone-pagination_info', styles['moonstone-pagination_info']],
+                    ['flexRow', layout.flexRow],
+                    ['alignCenter', layout.alignCenter]
+                )}
+            >
                 <Typography
                     variant="caption"
                     data-testid="pagination-total-items"
                 >
                     {`${visibleRangeStart}-${visibleRangeEnd} ${i18n.of} ${totalOfItems}`}
                 </Typography>
-                <div className={clsx('moonstone-pagination_itemsPerPage', 'flexRow', 'alignCenter')}>
+                <div
+                    className={clsx(
+                        styles['moonstone-pagination_itemsPerPage'],
+                        layout.flexRow,
+                        layout.alignCenter
+                    )}
+                >
                     <Typography variant="caption">{i18n.itemsPerPage}</Typography>
                     <Dropdown
                         size="small"
@@ -74,7 +103,13 @@ export const Pagination: React.FC<PaginationProps> = ({
                     />
                 </div>
             </div>
-            <div className={clsx('moonstone-pagination_navigation', 'flexRow', 'alignCenter')}>
+            <div
+                className={clsx(
+                    ['moonstone-pagination_navigation', styles['moonstone-pagination_navigation']],
+                    ['flexRow', layout.flexRow],
+                    ['alignCenter', layout.alignCenter]
+                )}
+            >
                 <Button
                     icon={<ChevronRight/>}
                     variant="ghost"

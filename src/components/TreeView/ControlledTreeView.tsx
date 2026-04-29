@@ -1,26 +1,33 @@
 import React, {useRef} from 'react';
 import clsx from 'clsx';
-import './TreeView.scss';
+import styles from './TreeView.module.scss';
 import type {ControlledTreeViewProps, TreeViewData} from './TreeView.types';
 
 import {ChevronDown, ChevronRight, CheckboxChecked, CheckboxUnchecked} from '~/icons';
 import {Typography, Loader} from '~/components';
 import {onToggleNode, onArrowNavigation, mergeHandlers} from '~/hooks';
+import {icons, layout, reset} from '~/globals/css-utils.js';
 
 // Manage treeView_item's icon
-const displayIcon = (icon: React.ReactElement, size: string, className?: string, parentHasIconStart = false) => {
+const displayIcon = (icon: React.ReactElement, size: 'small' | 'default' | 'big', className?: string, parentHasIconStart = false) => {
     if (!icon && !parentHasIconStart) {
         return;
     }
 
     return (
-        <i className={clsx('flexRow', 'alignCenter', className)}>
+        <i
+            className={clsx(
+                ['flexRow', layout.flexRow],
+                ['alignCenter', layout.alignCenter],
+                className
+            )}
+        >
             {icon &&
             <icon.type
                 aria-label={(icon.type as React.ComponentType).name || 'moonstone-treeView-icon'}
                 {...icon.props}
                 size={size}
-                className={clsx(`moonstone-icon_${size}`, icon.props.className)}
+                className={clsx(`moonstone-icon_${size}`, icons[`moonstone-icon_${size}`], icon.props.className)}
             />}
         </i>
     );
@@ -103,17 +110,15 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
             // Define CSS treeView_item classes
             // ---
             const cssTreeViewItem = clsx(
-                'flexRow_between',
-                'alignCenter',
-                'moonstone-treeView_item',
-                {
-                    'moonstone-small': size === 'small',
-                    'moonstone-selected': isSelected && !showCheckbox,
-                    'moonstone-highlighted': isHighlighted,
-                    'moonstone-reversed': isReversed,
-                    'moonstone-readonly': node.isReadonly,
-                    'moonstone-disabled': node.isDisabled
-                }
+                ['flexRow_between', layout.flexRow_between],
+                ['alignCenter', layout.alignCenter],
+                ['moonstone-treeView_item', styles['moonstone-treeView_item']],
+                size === 'small' && ['moonstone-small', styles['moonstone-small']],
+                isSelected && !showCheckbox && ['moonstone-selected', styles['moonstone-selected']],
+                isHighlighted && ['moonstone-highlighted', styles['moonstone-highlighted']],
+                isReversed && ['moonstone-reversed', styles['moonstone-reversed']],
+                node.isReadonly && ['moonstone-readonly', styles['moonstone-readonly']],
+                node.isDisabled && ['moonstone-disabled', styles['moonstone-disabled']]
             );
 
             return [
@@ -138,7 +143,11 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                         {/* Icon arrow */}
                         {isClosable && hasChild && (
                             <div
-                                className={clsx('flexRow', 'alignCenter', 'moonstone-treeView_itemToggle')}
+                                className={clsx(
+                                    ['flexRow', layout.flexRow],
+                                    ['alignCenter', layout.alignCenter],
+                                    ['moonstone-treeView_itemToggle', styles['moonstone-treeView_itemToggle']]
+                                )}
                                 data-testid="treeitem-toggle-icon"
                                 onClick={toggleNode}
                             >
@@ -146,21 +155,35 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                             </div>
                         )}
                         {!isFlatData && !hasChild &&
-                            <div className={clsx('flexRow', 'alignCenter', 'moonstone-treeView_itemToggle')}/>}
+                            <div className={clsx(
+                                ['flexRow', layout.flexRow],
+                                ['alignCenter', layout.alignCenter],
+                                ['moonstone-treeView_itemToggle', styles['moonstone-treeView_itemToggle']]
+                            )}/>}
 
                         {isPadVirtualizedRow && isFlatData && !isClosable &&
-                            <div className={clsx('flexRow', 'alignCenter', 'moonstone-treeView_itemToggle')}/>}
+                            <div className={clsx(
+                                ['flexRow', layout.flexRow],
+                                ['alignCenter', layout.alignCenter],
+                                ['moonstone-treeView_itemToggle', styles['moonstone-treeView_itemToggle']]
+                            )}/>}
 
                         {/* TreeViewItem */}
                         <div
-                            className={clsx('flexRow_nowrap', 'alignCenter', 'flexFluid', 'moonstone-treeView_itemLabel', node.className)}
+                            className={clsx(
+                                ['flexRow_nowrap', layout.flexRow],
+                                ['alignCenter', layout.alignCenter],
+                                ['flexFluid', layout.flexFluid],
+                                ['moonstone-treeView_itemLabel', styles['moonstone-treeView_itemLabel']],
+                                node.className
+                            )}
                             onClick={isClickable ? handleNodeClick : undefined}
                         >
                             {showCheckbox ?
-                                (isSelected ? <CheckboxChecked className="moonstone-treeView_itemIconStart" role="checkbox" color="blue" aria-checked="true"/> : <CheckboxUnchecked className="moonstone-treeView_itemIconStart" role="checkbox" aria-checked="false"/>) :
-                                (displayIcon(node.iconStart, 'small', 'moonstone-treeView_itemIconStart', parentHasIconStart))}
+                                (isSelected ? <CheckboxChecked className={clsx('moonstone-treeView_itemIconStart', styles['moonstone-treeView_itemIconStart'])} role="checkbox" color="blue" aria-checked="true"/> : <CheckboxUnchecked className={clsx('moonstone-treeView_itemIconStart', styles['moonstone-treeView_itemIconStart'])} role="checkbox" aria-checked="false"/>) :
+                                (displayIcon(node.iconStart, 'small', clsx('moonstone-treeView_itemIconStart', styles['moonstone-treeView_itemIconStart']), parentHasIconStart))}
                             <Typography isNowrap
-                                        className={clsx('flexFluid')}
+                                        className={clsx('flexFluid', layout.flexFluid)}
                                         component="span"
                                         variant={size === 'default' ? 'body' : 'caption'}
                                         {...node.typographyOptions}
@@ -177,7 +200,16 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
     }
 
     // TreeView component
-    return React.createElement(component, {ref, role: 'tree', 'aria-multiselectable': showCheckbox, ...props}, generateLevelJSX(data, 0, false));
+    return React.createElement(
+        component, {
+            ref,
+            role: 'tree',
+            'aria-multiselectable': showCheckbox,
+            ...props,
+            // @ts-expect-error className not defined but probably used somewhere
+            className: clsx(reset, props.className)
+        }, generateLevelJSX(data, 0, false)
+    );
 };
 
 export const ControlledTreeView = React.forwardRef(ControlledTreeViewForwardRef);

@@ -1,14 +1,12 @@
-/* Disabled lint due to incompatibility of Button with regular props, work on this is in progress */
-/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
-// @ts-nocheck
-
 import React, {useState} from 'react';
 import {ValueList} from './ValueList';
 import {Button, Typography} from '~/components';
 import {ChevronDoubleLeft, ChevronDoubleRight, ChevronRight, Close} from '~/icons';
 import type {ListSelectorSelectorProps} from './ListSelector.types';
-import './ListSelector.scss';
+import styles from './ListSelector.module.scss';
+import valueListStyles from './ValueList/ValueList.module.scss';
 import clsx from 'clsx';
+import {layout, reset} from '~/globals/css-utils.js';
 
 const MLRS_DRAG = 'mlrs_drag_list_item';
 
@@ -51,19 +49,39 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
     }
 
     return (
-        <div className={clsx('flexRow_nowrap', 'moonstone-listSelector')} {...props}>
-            <div className="moonstone-listSelector_left flexCol_nowrap flexFluid">
+        <div
+            className={clsx(
+                reset,
+                ['flexRow_nowrap', layout.flexRow_nowrap],
+                ['moonstone-listSelector', styles['moonstone-listSelector']]
+            )}
+            {...props}
+        >
+            <div
+                className={clsx(
+                    ['moonstone-listSelector_left', styles['moonstone-listSelector_left']],
+                    ['flexCol_nowrap', layout.flexCol_nowrap],
+                    ['flexFluid', layout.flexFluid]
+                )}
+            >
                 {hasTitle &&
-                    <header className="moonstone-listSelector_title flexRow alignCenter">
+                    <header
+                        className={clsx(
+                            ['moonstone-listSelector_title', styles['moonstone-listSelector_title']],
+                            ['flexRow', layout.flexRow],
+                            ['alignCenter', layout.alignCenter]
+                        )}
+                    >
                         <Typography isNowrap component="h3" weight="bold">{label?.leftListTitle}</Typography>
                     </header>}
                 <ValueList values={valuesLeft}
                            role="left-list"
-                           iconEnd={<ChevronRight className="moonstone-displayNone"/>}
+                           iconEnd={<ChevronRight className={clsx('moonstone-displayNone', valueListStyles['moonstone-displayNone'])}/>}
                            isReadOnly={isReadOnly}
+                           // @ts-expect-error prop does not exist, removal to be investigated
                            filter={filterLeft}
                            setFilter={setFilterLeft}
-                           listClasses={typeof dragged?.originalIndex === 'number' ? ['moonstone-draggedOver'] : []}
+                           listClasses={typeof dragged?.originalIndex === 'number' ? ['moonstone-draggedOver', styles['moonstone-draggedOver']] : []}
                            draggedId={dragged?.value.value}
                            onClick={(e, value) => {
                                onChange(values.concat(value.value));
@@ -72,6 +90,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                                e.stopPropagation();
                                const ct = e.currentTarget;
                                setTimeout(() => {
+                                   // @ts-expect-error investigate .parentElement
                                    ct.parentNode.parentNode.style.opacity = '0';
                                }, 10);
                                e.dataTransfer.setData(MLRS_DRAG, JSON.stringify({type: MLRS_DRAG, value: value}));
@@ -81,6 +100,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                            }}
                            onDragEnd={e => {
                                e.stopPropagation();
+                               // @ts-expect-error investigate .parentElement
                                e.currentTarget.parentNode.parentNode.style.opacity = '1';
                                setDragged(null);
                            }}
@@ -101,7 +121,13 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
 
                 />
             </div>
-            <div className="moonstone-listSelector_buttons alignCenter flexCol_center">
+            <div
+                className={clsx(
+                    ['moonstone-listSelector_buttons', styles['moonstone-listSelector_buttons']],
+                    ['alignCenter', layout.alignCenter],
+                    ['flexCol_center', layout.flexCol_center]
+                )}
+            >
                 <Button title={label.addAllTitle || 'Add all'}
                         role="add-all"
                         variant="ghost"
@@ -117,19 +143,32 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                         onClick={() => onChange(values.filter(v => !valuesRight.find(o => o.value === v)))}
                     />
             </div>
-            <div className="moonstone-listSelector_right flexCol_nowrap flexFluid">
+            <div
+                className={clsx(
+                    ['moonstone-listSelector_right', styles['moonstone-listSelector_right']],
+                    ['flexCol_nowrap', layout.flexCol_nowrap],
+                    ['flexFluid', layout.flexFluid]
+                )}
+            >
                 {hasTitle &&
-                <header className="moonstone-listSelector_title flexRow alignCenter">
+                <header
+                    className={clsx(
+                        ['moonstone-listSelector_title', styles['moonstone-listSelector_title']],
+                        ['flexRow', layout.flexRow],
+                        ['alignCenter', layout.alignCenter]
+                    )}
+                >
                     <Typography isNowrap component="h3" weight="bold">{label?.rightListTitle}</Typography>
                 </header>}
                 <ValueList values={valuesRight}
                            role="right-list"
-                           iconEnd={<Close className="moonstone-displayNone"/>}
+                           iconEnd={<Close className={clsx('moonstone-displayNone', valueListStyles['moonstone-displayNone'])}/>}
                            isReadOnly={isReadOnly}
+                           // @ts-expect-error prop does not exist, removal to be investigated
                            label={label}
                            filter={filterRight}
                            setFilter={setFilterRight}
-                           listClasses={(dragged && !filterRight) ? ['moonstone-draggedOver'] : []}
+                           listClasses={(dragged && !filterRight) ? ['moonstone-draggedOver', styles['moonstone-draggedOver']] : []}
                            draggedId={dragged?.value.value}
                            onClick={(e, value) => {
                                onChange(values.filter(val => val !== value.value));
@@ -138,6 +177,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                                e.stopPropagation();
                                const ct = e.currentTarget;
                                setTimeout(() => {
+                                   // @ts-expect-error investigate .parentElement
                                    ct.parentNode.parentNode.style.opacity = '0';
                                }, 10);
                                e.dataTransfer.setData(MLRS_DRAG, JSON.stringify({type: MLRS_DRAG, value: value}));
@@ -147,6 +187,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                            }}
                            onDragEnd={e => {
                                e.stopPropagation();
+                               // @ts-expect-error investigate .parentElement
                                e.currentTarget.parentNode.parentNode.style.opacity = '1';
                                setDragged(null);
                            }}
@@ -174,7 +215,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                                    }
 
                                    if (newIndex !== -1 && dragged.index !== newIndex) {
-                                       setDragged(state => ({
+                                       setDragged((state: object) => ({
                                            ...state,
                                            index: newIndex
                                        }));
@@ -190,7 +231,13 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                                }
                            }}
                 />
-                <footer className="moonstone-listSelector_footer flexRow alignCenter">
+                <footer
+                    className={clsx(
+                        ['moonstone-listSelector_footer', styles['moonstone-listSelector_footer']],
+                        ['flexRow', layout.flexRow],
+                        ['alignCenter', layout.alignCenter]
+                    )}
+                >
                     {values.length > 0 && <Typography variant="caption" weight="semiBold">{label.selected || '0 item selected'}</Typography>}
                 </footer>
             </div>

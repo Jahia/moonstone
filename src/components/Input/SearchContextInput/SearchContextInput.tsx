@@ -2,6 +2,7 @@ import React, {useImperativeHandle, useRef} from 'react';
 import {SearchContextInputProps} from './SearchContextInput.types';
 import {BaseInput} from '../BaseInput';
 import clsx from 'clsx';
+import baseInputStyles from '../BaseInput/BaseInput.module.scss';
 
 export const SearchContextInput = React.forwardRef<HTMLInputElement, SearchContextInputProps>(({
     searchContext,
@@ -17,7 +18,7 @@ export const SearchContextInput = React.forwardRef<HTMLInputElement, SearchConte
             {...searchContext.props}
             variant="ghost"
             size="small"
-            className={clsx(searchContext.props.className, 'moonstone-searchContextInput_element')}
+            className={clsx(searchContext.props.className, 'moonstone-searchContextInput_element', baseInputStyles['moonstone-searchContextInput_element'])}
         />
     );
 

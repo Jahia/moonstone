@@ -4,6 +4,7 @@
         "declaration-property-unit-disallowed-list": {
             "height": ["%"]
         },
-        "declaration-no-important": true
+        "declaration-no-important": true,
+        "value-keyword-case": ["lower", {"ignoreProperties": ["composes"]}]
     }
 }

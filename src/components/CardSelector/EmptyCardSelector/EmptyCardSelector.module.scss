@@ -1,0 +1,42 @@
+@use '../CardSelector.module.scss' as *;
+
+.moonstone-emptyCardSelector {
+    gap: var(--moon-spacing-nano);
+    width: 100%;
+    height: $cardSelector-height;
+
+    color: var(--moon-color-dark_plain60);
+
+    border: 1px dashed var(--moon-color-gray40);
+    border-radius: var(--moon-radius-selector);
+    background-color: var(--moon-background-selector);
+    cursor: pointer;
+
+    transition: all 0.2s ease-in-out;
+
+    &[disabled] {
+        @extend %selector_disabled;
+
+        color: var(--moon-color-dark_plain60);
+
+        cursor: not-allowed;
+    }
+
+    &:focus-visible:not([disabled]) {
+        @extend %is-focused;
+    }
+
+    &:hover:not([disabled]) {
+        border: var(--moon-border-selector_hover);
+    }
+}
+
+.moonstone-emptyCardSelector_disabled {
+    background: none;
+    cursor: not-allowed;
+    opacity: 60%;
+
+    &:focus-visible {
+        outline: none;
+    }
+}

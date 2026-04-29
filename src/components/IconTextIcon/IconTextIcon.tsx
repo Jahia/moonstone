@@ -2,8 +2,9 @@ import React from 'react';
 import clsx from 'clsx';
 
 import type {IconTextIconProps} from './IconTextIcon.types';
-import './IconTextIcon.scss';
+import styles from './IconTextIcon.module.scss';
 import {Typography} from '~/components';
+import {icons, layout, reset} from '~/globals/css-utils.js';
 
 export const IconTextIcon = <C extends React.ElementType = 'div'> ({
     component,
@@ -19,7 +20,13 @@ export const IconTextIcon = <C extends React.ElementType = 'div'> ({
 
     return (
         <Component
-            className={clsx('moonstone-IconTextIcon', 'flexRow_nowrap', 'alignCenter', className)}
+            className={clsx(
+                reset,
+                ['moonstone-IconTextIcon', styles['moonstone-IconTextIcon']],
+                ['flexRow_nowrap', layout.flexRow_nowrap],
+                ['alignCenter', layout.alignCenter],
+                className
+            )}
             {...props}
         >
             <>
@@ -27,14 +34,14 @@ export const IconTextIcon = <C extends React.ElementType = 'div'> ({
                     <iconStart.type
                         {...iconStart.props}
                         size={iconSize}
-                        className={clsx(`moonstone-icon_${iconSize}`, iconStart.props.className)}
+                        className={clsx(`moonstone-icon_${iconSize}`, icons[`moonstone-icon_${iconSize}`], iconStart.props.className)}
                     />
                 )}
 
                 <Typography
                     isNowrap
                     component="span"
-                    className={clsx('flexFluid', typographyProps?.className)}
+                    className={clsx('flexFluid', layout.flexFluid, typographyProps?.className)}
                     {...typographyProps}
                 >
                     {children}
@@ -44,7 +51,7 @@ export const IconTextIcon = <C extends React.ElementType = 'div'> ({
                     <iconEnd.type
                         {...iconEnd.props}
                         size={iconSize}
-                        className={clsx(`moonstone-icon_${iconSize}`, iconEnd.props.className)}
+                        className={clsx(`moonstone-icon_${iconSize}`, icons[`moonstone-icon_${iconSize}`], iconEnd.props.className)}
                     />
                 )}
             </>

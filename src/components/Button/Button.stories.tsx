@@ -33,7 +33,7 @@ export const Overview: Story = {
                 <Button label="outlined" {...args} variant="outlined"/>
                 <Button label="ghost" {...args} variant="ghost"/>
             </section>
-            <section className="storyGrid" style={{backgroundColor: 'var(--color-gray_dark)'}}>
+            <section className="storyGrid" style={{backgroundColor: 'var(--moon-color-gray_dark)'}}>
                 <Button isReversed label="default" {...args} variant="default"/>
                 <Button isReversed label="outlined" {...args} variant="outlined"/>
                 <Button isReversed label="ghost" {...args} variant="ghost"/>
