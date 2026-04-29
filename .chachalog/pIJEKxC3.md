@@ -3,4 +3,4 @@
 "@jahia/moonstone": patch
 ---
 
-import sub-path export for datatable (#1346)
+Fix import of DataTable's subcomponent and utils (#1346)
