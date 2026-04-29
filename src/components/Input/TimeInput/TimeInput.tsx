@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import {Dropdown} from '~/components';
 import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
 import {Clock} from '~/icons';
+import {layout} from '~/globals/css-utils';
 import {BaseInput} from '../BaseInput';
 import {
     formatTimeInputValue,
@@ -92,7 +93,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
     };
 
     return (
-        <div className={clsx('moonstone-timeInput', 'flexRow_nowrap', 'alignCenter', className)}>
+        <div className={clsx('moonstone-timeInput', layout.flexRow_nowrap, layout.alignCenter, className)}>
             <BaseInput
                 ref={ref}
                 {...props}

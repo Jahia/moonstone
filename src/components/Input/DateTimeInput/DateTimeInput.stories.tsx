@@ -11,12 +11,6 @@ export default {
     title: 'Components/Input/DateTimeInput',
     component: DateTimeInput,
     tags: ['beta'],
-    //     StoryCmp => (
-    //         <div style={{width: '720px'}}>
-    //             <StoryCmp/>
-    //         </div>
-    //     )
-    // ],
     parameters: {
         layout: 'centered'
     },

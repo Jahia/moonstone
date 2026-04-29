@@ -1,7 +1,7 @@
 .moonstone-dateTimeInput {
     display: inline-flex;
     flex-wrap: wrap;
-    gap: var(--spacing-small);
+    gap: var(--moon-spacing-small);
     align-items: center;
     max-width: 100%;
 }
@@ -20,7 +20,7 @@
 .moonstone-dateTimeInput_calendarFooter {
     display: flex;
     justify-content: center;
-    padding-top: var(--spacing-nano);
+    padding-top: var(--moon-spacing-nano);
 
     border-top: 1px solid var(--color-gray_light40);
 }
