@@ -1,5 +1,11 @@
 # @jahia/moonstone Changelog
 
+## 2.18.2
+
+* Prevent hover style on DataTable header
+
+* Fix import of DataTable's subcomponent and utils (#1346)
+
 ## 2.18.1
 
 * Improve the typing of `Typography` (#1301)
