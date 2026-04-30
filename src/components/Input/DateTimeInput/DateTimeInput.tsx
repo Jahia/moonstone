@@ -1,10 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react';
 import clsx from 'clsx';
-import {dateMatchModifiers, DayPicker} from 'react-day-picker';
+import {dateMatchModifiers, DayPicker, YearsDropdown} from 'react-day-picker';
 import dayPickerClassNames from 'react-day-picker/style.module.css';
 import {Button, Menu} from '~/components';
 import {Calendar} from '~/icons';
 import type {DateTimeInputProps} from './DateTimeInput.types';
+import type {DropdownProps} from 'react-day-picker';
 import {TimezoneSelector} from '../../TimezoneSelector/TimezoneSelector';
 import {BaseInput} from '../BaseInput';
 import {TimeInput} from '../TimeInput';
@@ -85,6 +86,8 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     const timezoneReferenceDate = getTimezoneReferenceDate(sanitizedValue.date) ?? undefined;
     const calendarDisabledMatchers = getCalendarDisabledMatchers(minDate, maxDate, disabledDates, disabledDateRanges);
     const isTodayDisabled = isDisabled || isReadOnly || dateMatchModifiers(todayDate, calendarDisabledMatchers);
+    const startMonth = minDate ? new Date(minDate.getFullYear(), minDate.getMonth(), 1) : new Date(displayedMonth.getFullYear() - 20, 0, 1);
+    const endMonth = maxDate ? new Date(maxDate.getFullYear(), maxDate.getMonth(), 1) : new Date(displayedMonth.getFullYear() + 20, 11, 1);
 
     useEffect(() => {
         if (sanitizedValue.date) {
@@ -146,13 +149,26 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                                 ...dayPickerClassNames,
                                 root: clsx(dayPickerClassNames.root, 'moonstone-dateTimeInput_dayPicker')
                             }}
+                            components={{
+                                YearsDropdown: (dropdownProps: DropdownProps) => (
+                                    <YearsDropdown
+                                        {...dropdownProps}
+                                        onChange={event => {
+                                            dropdownProps.onChange?.(event);
+                                        }}
+                                    />
+                                )
+                            }}
                             labels={{
                                 labelNext: () => i18n?.nextMonth || 'Go to the next month',
                                 labelPrevious: () => i18n?.previousMonth || 'Go to the previous month'
                             }}
+                            captionLayout="dropdown-years"
                             navLayout="around"
                             weekStartsOn={weekStartsOn}
                             month={displayedMonth}
+                            startMonth={startMonth}
+                            endMonth={endMonth}
                             disabled={calendarDisabledMatchers}
                             formatters={locale ? {
                                 formatCaption: (date: Date) => new Intl.DateTimeFormat(locale, {month: 'long', year: 'numeric'}).format(date),
