@@ -214,7 +214,7 @@ describe('DateTimeInput', () => {
         await user.selectOptions(screen.getByRole('combobox'), '2024');
 
         expect(screen.getByText('March 2024')).toBeInTheDocument();
-        expect(screen.getByDisplayValue(formatDateDisplayValue(new Date(2024, 2, 30), 'en-US'))).toBeInTheDocument();
+        expect(screen.getByDisplayValue(formatDateDisplayValue(new Date(2026, 2, 30), 'en-US'))).toBeInTheDocument();
     });
 
     it('should keep the last visited month when reopening the calendar', async () => {
