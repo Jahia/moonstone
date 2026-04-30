@@ -155,26 +155,6 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                                         {...dropdownProps}
                                         onChange={event => {
                                             dropdownProps.onChange?.(event);
-
-                                            if (!selectedDate) {
-                                                return;
-                                            }
-
-                                            const nextYear = Number(event.currentTarget.value);
-                                            const nextDate = new Date(
-                                                nextYear,
-                                                selectedDate.getMonth(),
-                                                Math.min(
-                                                    selectedDate.getDate(),
-                                                    new Date(nextYear, selectedDate.getMonth() + 1, 0).getDate()
-                                                )
-                                            );
-
-                                            if (dateMatchModifiers(nextDate, calendarDisabledMatchers)) {
-                                                return;
-                                            }
-
-                                            emitChange(event, {...sanitizedValue, date: nextDate});
                                         }}
                                     />
                                 )
