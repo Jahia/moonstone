@@ -1,5 +1,21 @@
 # @jahia/moonstone Changelog
 
+## 2.19.0
+
+### New Features
+
+* Moonstone is now shipped with two CSS bundles: one with global classes (legacy, prone to conflicts) and one with scoped classes (modern, produced from CSS modules). (#1305)
+
+* Protect Moonstone from global styles (and vice-versa). (#1310)
+
+  The new `@jahia/moonstone/scoped` entrypoint is designed for safe insertion of Moonstone components in foreign contexts (e.g. the editframe).
+
+### Bug Fixes
+
+* Prefixed global CSS variables with `--moon` and kept legacy aliases for existing variable names. (#1307)
+
+  Kept existing variable names as aliases so this change is not breaking, e.g. `--color-accent: var(--moon-color-accent)`.
+
 ## 2.18.2
 
 * Prevent hover style on DataTable header
