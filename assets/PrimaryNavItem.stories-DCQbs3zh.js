@@ -1,0 +1,15 @@
+import{n as e}from"./chunk-BneVvdWh.js";import{t}from"./jsx-runtime-B6JWlyvB.js";import{F as n,Gt as r,P as i,i as a,t as o}from"./icons-Dxh7SjmP.js";import{n as s,t as c}from"./css-utils-BlnxTXwI.js";import{H as l,S as u,a as d,x as f}from"./Thumbnail-DFO8t8sM.js";import{n as p}from"./Badge-DpBW7rp2.js";var m,h=e((()=>{m=`data:text/markdown;base64,VGhpcyBjb21wb25lbnQgaXMgb25seSB1c2VkIHRvIGJ1aWxkIHRoZSBuYXZpZ2F0aW9uLgoKIyMgU3BlY2lmaWNhdGlvbnM6CgpXaGVuIGBOYXZpZ2F0aW9uLXByaW1hcnlgIGlzIGNvbGxhcHNlZCBvbmx5IGljb24gc2hvdWxkIGJlIGRpc3BsYXksIGJ1dCBuYXZpZ2F0aW9uX2l0ZW0ncyBsYWJlbCBtdXN0IGJlIGRpc3BsYXkgb24gaG92ZXIgd2l0aCBhIHRvb2x0aXAgZnJvbSB0aGUgZGVmYXVsdCB0aXRsZSBhdHRyaWJ1dGUuCgpPbmx5IG9uZSBpdGVtIGNhbiBiZSBzZWxlY3RlZCBieSBuYXZpZ2F0aW9uIGF0IG9uY2UuCgpBbiBlbGVtZW50IHNlbGVjdGVkIGNhbm5vdCBiZSBjbGlja2FibGUKCkZpZ21hIExpbmsgOiBodHRwczovL3d3dy5maWdtYS5jb20vZmlsZS85MzliVzc0QzNUTFc1VkF6SzIzdW94L21vb25zdG9uZS1jb21wb25lbnRzP25vZGUtaWQ9NiUzQTAK`})),g,_,v,y;e((()=>{i(),o(),h(),a(),c(),g=t(),_={title:`Components/PrimaryNavItem`,component:n,parameters:{componentSubtitle:`PrimaryNavItem`,notes:{markdown:m}}},v={render:()=>(0,g.jsxs)(`ul`,{className:s,style:{display:`flex`,flexDirection:`column`,backgroundColor:`#131c21`,width:`18.75rem`,height:`100vh`},children:[(0,g.jsx)(n,{icon:(0,g.jsx)(l,{}),label:`NavItem not selected (default)`}),(0,g.jsx)(n,{isSelected:!0,icon:(0,g.jsx)(l,{}),label:`NavItem Selected`}),(0,g.jsx)(n,{isSelected:!1,icon:(0,g.jsx)(d,{}),label:`Another NavItem`,badge:(0,g.jsx)(p,{label:`9`})}),(0,g.jsx)(n,{isSelected:!1,icon:(0,g.jsx)(u,{}),label:`My profile`,subtitle:`username as a subtitle`}),(0,g.jsx)(n,{isSelected:!1,icon:(0,g.jsx)(u,{}),label:`My profile`,subtitle:`username as a subtitle`,button:(0,g.jsx)(r,{isReversed:!0,icon:(0,g.jsx)(f,{}),label:`Sign Out`,variant:`ghost`,onClick:()=>null})})]})},v.parameters={...v.parameters,docs:{...v.parameters?.docs,source:{originalSource:`{
+  render: () => <ul className={reset} style={{
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: '#131c21',
+    width: '18.75rem',
+    height: '100vh'
+  }}>
+        <PrimaryNavItem icon={<Edit />} label="NavItem not selected (default)" />
+        <PrimaryNavItem isSelected icon={<Edit />} label="NavItem Selected" />
+        <PrimaryNavItem isSelected={false} icon={<Workflow />} label="Another NavItem" badge={<Badge label="9" />} />
+        <PrimaryNavItem isSelected={false} icon={<Person />} label="My profile" subtitle="username as a subtitle" />
+        <PrimaryNavItem isSelected={false} icon={<Person />} label="My profile" subtitle="username as a subtitle" button={<Button isReversed icon={<Power />} label="Sign Out" variant="ghost" onClick={() => null} />} />
+    </ul>
+}`,...v.parameters?.docs?.source}}},y=[`Default`]}))();export{v as Default,y as __namedExportsOrder,_ as default};

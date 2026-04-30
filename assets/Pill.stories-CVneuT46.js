@@ -1,0 +1,5 @@
+import{n as e}from"./chunk-BneVvdWh.js";import{n as t,t as n}from"./Pill-sE3wPaTs.js";var r,i=e((()=>{r=`data:text/markdown;base64,VGhlIGBQaWxsYCBjb21wb25lbnQgaXMgYSB2ZXJ5IHNpbXBsZSB2YXJpYXRpb24gb2YgdGhlIGBDaGlwYCBjb21wb25lbnQuCgojIyMgVXNhZ2VzClRoZSBgUGlsbGAgY29tcG9uZW50IG11c3QgYmUgdXNlZCBpbiBhIGRyb3Bkb3duTWVudSB0byBhZGQgaW5mb3JtYXRpb24gKGVnOiBBZGQgdGhlIGNvZGUgbGFuZ3VhZ2UgaW4gYSBsYW5ndWFnZSBzd2l0Y2hlcikgICAK`})),a,o,s;e((()=>{i(),n(),a={title:`Components/Pill`,component:t,parameters:{layout:`centered`,notes:{markdown:r}}},o={args:{label:`ListItem label`}},o.parameters={...o.parameters,docs:{...o.parameters?.docs,source:{originalSource:`{
+  args: {
+    label: 'ListItem label'
+  }
+}`,...o.parameters?.docs?.source}}},s=[`Default`]}))();export{o as Default,s as __namedExportsOrder,a as default};

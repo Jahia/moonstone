@@ -1,0 +1,1 @@
+import{n as e}from"./chunk-BneVvdWh.js";var t,n=e((()=>{t=[{value:`1`,label:`One`},{value:`2`,label:`Two`},{value:`3`,label:`Three`},{value:`4`,label:`Four`},{value:`5`,label:`Five`}]}));export{t as n,n as t};
