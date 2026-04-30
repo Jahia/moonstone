@@ -23,8 +23,6 @@ export default defineConfig({
             entry: {
                 index: './src/index.ts',
                 'components/DataTable/index': './src/components/DataTable/index.ts',
-                // Isolated styles for Moonstone
-                scoped: './src/scoped.ts',
                 // Legacy entrypoints, remove in the future
                 'icons/index': './src/icons/index.ts',
                 'components/CheckboxGroup/CheckboxItem': './src/components/CheckboxGroup/CheckboxItem/index.ts',
