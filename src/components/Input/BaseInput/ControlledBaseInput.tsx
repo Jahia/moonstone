@@ -14,6 +14,7 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
     isDisabled = false,
     isReadOnly = false,
     className,
+    containerRef,
     size = 'default',
     icon,
     variant = 'outlined',
@@ -55,7 +56,7 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
     }
 
     return (
-        <div className={classNameProps} role={role} onClick={onClick}>
+        <div ref={containerRef} className={classNameProps} role={role} onClick={onClick}>
             {icon && (
                 <div
                     className={clsx(

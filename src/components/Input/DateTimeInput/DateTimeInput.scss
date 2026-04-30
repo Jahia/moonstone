@@ -1,0 +1,26 @@
+.moonstone-dateTimeInput {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: var(--moon-spacing-small);
+    align-items: center;
+    max-width: 100%;
+}
+
+.moonstone-dateTimeInput_dateField {
+    width: 120px;
+}
+
+.moonstone-dateTimeInput_dayPicker {
+    --rdp-accent-color: var(--color-accent);
+    --rdp-accent-background-color: var(--color-accent);
+    --rdp-selected-border: 1px solid var(--color-accent);
+    --rdp-today-color: var(--color-blue);
+}
+
+.moonstone-dateTimeInput_calendarFooter {
+    display: flex;
+    justify-content: center;
+    padding-top: var(--moon-spacing-nano);
+
+    border-top: 1px solid var(--color-gray_light40);
+}
