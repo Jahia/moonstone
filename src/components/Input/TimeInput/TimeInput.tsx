@@ -13,7 +13,7 @@ import {
     parseTimeInputValue
 } from '../shared';
 import type {Meridiem, TimeInputProps} from './TimeInput.types';
-import './TimeInput.scss';
+import styles from './TimeInput.module.scss';
 
 const meridiemOptions: DropdownDataOption[] = [
     {label: 'AM', value: 'AM'},
@@ -93,11 +93,11 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
     };
 
     return (
-        <div className={clsx('moonstone-timeInput', layout.flexRow_nowrap, layout.alignCenter, className)}>
+        <div className={clsx(['moonstone-timeInput', styles['moonstone-timeInput']], layout.flexRow_nowrap, layout.alignCenter, className)}>
             <BaseInput
                 ref={ref}
                 {...props}
-                className={timeFormat === '12h' ? 'moonstone-timeInput_field_12h' : undefined}
+                className={timeFormat === '12h' ? clsx('moonstone-timeInput_field_12h', styles['moonstone-timeInput_field_12h']) : undefined}
                 value={inputValue}
                 size={size}
                 variant={variant}

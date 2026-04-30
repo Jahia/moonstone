@@ -17,7 +17,7 @@ import {
     getTimezoneReferenceDate,
     type DateTimeInputValue
 } from '../shared';
-import './DateTimeInput.scss';
+import styles from './DateTimeInput.module.scss';
 
 const sanitizeDateTimeValue = (
     value: DateTimeInputValue,
@@ -103,13 +103,13 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     };
 
     return (
-        <div className={clsx('moonstone-dateTimeInput', className)}>
+        <div className={clsx(['moonstone-dateTimeInput', styles['moonstone-dateTimeInput']], className)}>
             <BaseInput
                 ref={ref}
                 {...props}
                 readOnly
                 containerRef={calendarAnchorRef}
-                className="moonstone-dateTimeInput_dateField"
+                className={clsx('moonstone-dateTimeInput_dateField', styles['moonstone-dateTimeInput_dateField'])}
                 value={formatDateDisplayValue(sanitizedValue.date, locale)}
                 size={size}
                 variant={variant}
@@ -144,7 +144,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                             showOutsideDays
                             classNames={{
                                 ...dayPickerClassNames,
-                                root: clsx(dayPickerClassNames.root, 'moonstone-dateTimeInput_dayPicker')
+                                root: clsx(dayPickerClassNames.root, 'moonstone-dateTimeInput_dayPicker', styles['moonstone-dateTimeInput_dayPicker'])
                             }}
                             labels={{
                                 labelNext: () => i18n?.nextMonth || 'Go to the next month',
@@ -171,7 +171,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                                 setIsCalendarOpen(false);
                             }}
                         />
-                        <footer className="moonstone-dateTimeInput_calendarFooter">
+                        <footer className={clsx('moonstone-dateTimeInput_calendarFooter', styles['moonstone-dateTimeInput_calendarFooter'])}>
                             <Button
                                 variant="ghost"
                                 size="default"
