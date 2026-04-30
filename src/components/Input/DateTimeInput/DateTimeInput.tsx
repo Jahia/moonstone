@@ -116,13 +116,13 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     };
 
     return (
-        <div className={clsx(['moonstone-dateTimeInput', styles['moonstone-dateTimeInput']], className)}>
+        <div className={clsx(styles.dateTimeInput, className)}>
             <BaseInput
                 ref={ref}
                 {...props}
                 readOnly
                 containerRef={calendarAnchorRef}
-                className={clsx('moonstone-dateTimeInput_dateField', styles['moonstone-dateTimeInput_dateField'])}
+                className={styles.dateField}
                 value={formatDateDisplayValue(sanitizedValue.date, locale)}
                 size={size}
                 variant={variant}
@@ -157,7 +157,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                             showOutsideDays
                             classNames={{
                                 ...dayPickerClassNames,
-                                root: clsx(dayPickerClassNames.root, 'moonstone-dateTimeInput_dayPicker', styles['moonstone-dateTimeInput_dayPicker'])
+                                root: clsx(dayPickerClassNames.root, styles.dayPicker)
                             }}
                             labels={{
                                 labelNext: () => i18n?.nextMonth || 'Go to the next month',
@@ -184,7 +184,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                                 setIsCalendarOpen(false);
                             }}
                         />
-                        <footer className={clsx('moonstone-dateTimeInput_calendarFooter', styles['moonstone-dateTimeInput_calendarFooter'])}>
+                        <footer className={styles.calendarFooter}>
                             <Button
                                 variant="ghost"
                                 size="default"

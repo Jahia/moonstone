@@ -93,11 +93,11 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
     };
 
     return (
-        <div className={clsx(['moonstone-timeInput', styles['moonstone-timeInput']], layout.flexRow_nowrap, layout.alignCenter, className)}>
+        <div className={clsx(styles.timeInput, layout.flexRow_nowrap, layout.alignCenter, className)}>
             <BaseInput
                 ref={ref}
                 {...props}
-                className={timeFormat === '12h' ? clsx('moonstone-timeInput_field_12h', styles['moonstone-timeInput_field_12h']) : undefined}
+                className={timeFormat === '12h' ? styles.field_12h : undefined}
                 value={inputValue}
                 size={size}
                 variant={variant}
