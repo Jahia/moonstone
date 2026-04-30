@@ -17,7 +17,7 @@ import {
     getTimezoneReferenceDate,
     type DateTimeInputValue
 } from '../shared';
-import './DateTimeInput.scss';
+import styles from './DateTimeInput.module.scss';
 
 const sanitizeDateTimeValue = (
     value: DateTimeInputValue,
@@ -79,6 +79,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     const selectedDate = sanitizedValue.date;
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
     const [displayedMonth, setDisplayedMonth] = useState(sanitizedValue.date || new Date());
+    const lastSelectedDateTimestampRef = useRef(selectedDate?.getTime() ?? null);
     const calendarAnchorRef = useRef<HTMLDivElement>(null);
     const todayDate = getCurrentDate();
     const todayButtonLabel = i18n?.today || formatDateDisplayValue(todayDate, locale);
@@ -87,10 +88,22 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     const isTodayDisabled = isDisabled || isReadOnly || dateMatchModifiers(todayDate, calendarDisabledMatchers);
 
     useEffect(() => {
-        if (sanitizedValue.date) {
-            setDisplayedMonth(sanitizedValue.date);
+        const selectedDateTimestamp = selectedDate?.getTime() ?? null;
+
+        if (selectedDate && selectedDateTimestamp !== lastSelectedDateTimestampRef.current) {
+            lastSelectedDateTimestampRef.current = selectedDateTimestamp;
+            setDisplayedMonth(selectedDate);
         }
-    }, [sanitizedValue.date]);
+    }, [selectedDate]);
+
+    const handleMonthChange = (nextMonth: Date) => {
+        if (
+            nextMonth.getFullYear() !== displayedMonth.getFullYear() ||
+            nextMonth.getMonth() !== displayedMonth.getMonth()
+        ) {
+            setDisplayedMonth(nextMonth);
+        }
+    };
 
     const emitChange = (event: React.SyntheticEvent, nextValue: DateTimeInputValue) => {
         const sanitizedNextValue = sanitizeDateTimeValue(nextValue, type, hasTimezone);
@@ -103,13 +116,13 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     };
 
     return (
-        <div className={clsx('moonstone-dateTimeInput', className)}>
+        <div className={clsx(styles.dateTimeInput, className)}>
             <BaseInput
                 ref={ref}
                 {...props}
                 readOnly
                 containerRef={calendarAnchorRef}
-                className="moonstone-dateTimeInput_dateField"
+                className={styles.dateField}
                 value={formatDateDisplayValue(sanitizedValue.date, locale)}
                 size={size}
                 variant={variant}
@@ -144,7 +157,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                             showOutsideDays
                             classNames={{
                                 ...dayPickerClassNames,
-                                root: clsx(dayPickerClassNames.root, 'moonstone-dateTimeInput_dayPicker')
+                                root: clsx(dayPickerClassNames.root, styles.dayPicker)
                             }}
                             labels={{
                                 labelNext: () => i18n?.nextMonth || 'Go to the next month',
@@ -161,7 +174,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                             } : undefined}
                             mode="single"
                             selected={selectedDate ?? undefined}
-                            onMonthChange={setDisplayedMonth}
+                            onMonthChange={handleMonthChange}
                             onSelect={(date, _selectedDay, modifiers, event) => {
                                 if (modifiers.disabled) {
                                     return;
@@ -171,7 +184,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                                 setIsCalendarOpen(false);
                             }}
                         />
-                        <footer className="moonstone-dateTimeInput_calendarFooter">
+                        <footer className={styles.calendarFooter}>
                             <Button
                                 variant="ghost"
                                 size="default"
