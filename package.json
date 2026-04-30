@@ -1,6 +1,6 @@
 {
   "name": "@jahia/moonstone",
-  "version": "2.18.1",
+  "version": "2.18.2",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Jahia/moonstone.git"
@@ -25,6 +25,11 @@
     },
     "./dist/rulesconfig-wp": {
       "require": "./rulesconfig-wp.cjs"
+    },
+    "./DataTable": {
+      "types": "./dist/components/DataTable/index.d.ts",
+      "import": "./dist/components/DataTable/index.js",
+      "require": "./dist/components/DataTable/index.cjs"
     },
     "./dist/icons": {
       "import": "./dist/icons/index.js",
