@@ -79,6 +79,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     const selectedDate = sanitizedValue.date;
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
     const [displayedMonth, setDisplayedMonth] = useState(sanitizedValue.date || new Date());
+    const lastSelectedDateTimestampRef = useRef(selectedDate?.getTime() ?? null);
     const calendarAnchorRef = useRef<HTMLDivElement>(null);
     const todayDate = getCurrentDate();
     const todayButtonLabel = i18n?.today || formatDateDisplayValue(todayDate, locale);
@@ -87,10 +88,22 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     const isTodayDisabled = isDisabled || isReadOnly || dateMatchModifiers(todayDate, calendarDisabledMatchers);
 
     useEffect(() => {
-        if (sanitizedValue.date) {
-            setDisplayedMonth(sanitizedValue.date);
+        const selectedDateTimestamp = selectedDate?.getTime() ?? null;
+
+        if (selectedDate && selectedDateTimestamp !== lastSelectedDateTimestampRef.current) {
+            lastSelectedDateTimestampRef.current = selectedDateTimestamp;
+            setDisplayedMonth(selectedDate);
         }
-    }, [sanitizedValue.date]);
+    }, [selectedDate]);
+
+    const handleMonthChange = (nextMonth: Date) => {
+        if (
+            nextMonth.getFullYear() !== displayedMonth.getFullYear() ||
+            nextMonth.getMonth() !== displayedMonth.getMonth()
+        ) {
+            setDisplayedMonth(nextMonth);
+        }
+    };
 
     const emitChange = (event: React.SyntheticEvent, nextValue: DateTimeInputValue) => {
         const sanitizedNextValue = sanitizeDateTimeValue(nextValue, type, hasTimezone);
@@ -161,7 +174,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                             } : undefined}
                             mode="single"
                             selected={selectedDate ?? undefined}
-                            onMonthChange={setDisplayedMonth}
+                            onMonthChange={handleMonthChange}
                             onSelect={(date, _selectedDay, modifiers, event) => {
                                 if (modifiers.disabled) {
                                     return;
