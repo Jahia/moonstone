@@ -3,6 +3,9 @@ import {addons} from 'storybook/preview-api';
 import {UPDATE_GLOBALS, STORY_ARGS_UPDATED} from "storybook/internal/core-events";
 import './until-we-find-a-better-name.scss';
 
+// Uncomment to use legacy css in storybook
+// import '../dist/legacy-global-bundle.css';
+
 let channel = addons.getChannel();
 const storyListener = (args) => {
     if (typeof args.args.isReversed !== 'undefined') {
