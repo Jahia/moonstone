@@ -1,11 +1,11 @@
+// Insert scoped styles first to have Nunito Sans in the bundle, and ensure the reset is overridden by global styles
+@forward '../dist/scoped.css';
+
 @forward 'globals/animations';
 @forward 'globals/reset';
 @forward 'globals/init';
 @forward 'globals/dnd';
 @forward 'globals/variants';
-
-// CSS variables prefixed with `--moon`
-@forward './scoped.scss';
 
 // Backward compatibility with unprefixed tokens
 @forward './tokens/legacy.scss';
