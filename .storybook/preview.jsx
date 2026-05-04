@@ -12,6 +12,9 @@ import '../src/tokens/colors/colors.scss';
 import '../src/tokens/borders/borders.scss';
 import '@fontsource-variable/nunito-sans';
 
+// Uncomment to use legacy css in storybook
+// import '../dist/legacy-global-bundle.css';
+
 let channel = addons.getChannel();
 const storyListener = (args) => {
     if (typeof args.args.isReversed !== 'undefined') {
