@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import styles from './Thumbnail.module.scss';
 import type {ThumbnailProps} from './Thumbnail.types';
-import {Image} from '~/icons/components';
+import {Image} from '~/icons';
 import {reset} from '~/globals/css-utils.js';
 
 export const Thumbnail: React.FC<ThumbnailProps> = ({

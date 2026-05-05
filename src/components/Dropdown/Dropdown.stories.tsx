@@ -3,7 +3,7 @@ import {action} from 'storybook/actions';
 import markdownNotes from './Dropdown.md';
 import {Dropdown} from './index';
 import {Pill} from '~/components';
-import * as icons from '../../icons/components';
+import * as icons from '~/icons/components';
 import {
     dropdownData,
     dropdownDataGrouped,
@@ -367,4 +367,3 @@ export const TreeDataMultiple = {
         icon: 'Love'
     }
 };
-

@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import {buttonColors, buttonSizes, buttonVariants} from './Button.types';
 
 import {Button} from './index';
-import {Love} from '~/icons/index';
+import {Love} from '~/icons';
 
 describe('Button', () => {
     it('should render', () => {
