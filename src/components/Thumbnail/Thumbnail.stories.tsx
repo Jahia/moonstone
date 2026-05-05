@@ -1,6 +1,9 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import {Thumbnail} from './Thumbnail';
-import {Love} from '../../icons/components';
+import {Love} from '~/icons';
+import imgVertical from '~/__storybook__/assets/img-vertical.webp';
+import imgHorizontal from '~/__storybook__/assets/img-horizontal.webp';
+import imgIcon from '~/__storybook__/assets/img-icon.webp';
 
 const meta: Meta<typeof Thumbnail> = {
     title: 'Components/Thumbnail',
@@ -31,8 +34,8 @@ export const Default: Story = {
 
 export const WithImage: Story = {
     args: {
-        src: 'https://picsum.photos/seed/moonstone/200',
-        alt: 'Random image'
+        src: imgVertical,
+        alt: 'vertical image'
     }
 };
 
@@ -44,7 +47,7 @@ export const WithReactElement: Story = {
 
 export const SmallSize: Story = {
     args: {
-        src: 'https://picsum.photos/seed/moonstone/200',
+        src: imgHorizontal,
         alt: 'Small thumbnail',
         size: 'small'
     }
@@ -52,7 +55,7 @@ export const SmallSize: Story = {
 
 export const IconVariant: Story = {
     args: {
-        src: 'https://picsum.photos/seed/moonstone/200',
+        src: imgIcon,
         alt: 'Icon variant',
         variant: 'icon'
     }
@@ -62,9 +65,9 @@ export const AllVariants: Story = {
     render: () => (
         <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
             <Thumbnail/>
-            <Thumbnail src="https://picsum.photos/seed/moonstone/200" alt="Preview"/>
+            <Thumbnail src={imgHorizontal} alt="Horizontal image"/>
             <Thumbnail src={<Love size="big" color="gray"/>}/>
-            <Thumbnail size="small" src="https://picsum.photos/seed/moonstone/200" alt="Small"/>
+            <Thumbnail size="small" src={imgVertical} alt="Small image"/>
         </div>
     )
 };
