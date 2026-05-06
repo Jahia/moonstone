@@ -31,3 +31,21 @@ export const Default: Story = {
     },
     render: Template
 };
+
+export const Pressed: Story = {
+    args: {
+        iconStart: <Apps/>,
+        label: 'ButtonToggle',
+        isPressed: true
+    },
+    render: Template
+};
+
+export const Disabled: Story = {
+    args: {
+        iconStart: <Apps/>,
+        label: 'ButtonToggle',
+        isDisabled: true
+    },
+    render: Template
+};

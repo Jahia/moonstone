@@ -1,7 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
 import type {ModalProps} from './Modal.types';
-import styles from './Modal.module.scss';
 import {
     useFloating,
     useDismiss,
@@ -15,6 +14,7 @@ import {
     FloatingPortal
 } from '@floating-ui/react';
 import {layout, reset} from '~/globals/css-utils.js';
+import styles from './Modal.module.scss';
 
 const ModalForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalProps> = ({
     className,

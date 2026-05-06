@@ -26,8 +26,8 @@
     &:disabled {
         color: inherit;
 
-        border: inherit;
-        background: inherit;
+        border-color: transparent;
+        background-color: transparent;
     }
 
     &.moonstone-reverse {

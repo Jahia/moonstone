@@ -1,8 +1,8 @@
 import {FunctionComponent} from 'react';
-import styles from './Paper.module.scss';
 import clsx from 'clsx';
-import {PaperProps} from './Paper.types';
+import type {PaperProps} from './Paper.types';
 import {reset} from '~/globals/css-utils.js';
+import styles from './Paper.module.scss';
 
 export const Paper: FunctionComponent<PaperProps> = ({
     children,

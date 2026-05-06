@@ -1,11 +1,11 @@
 import React, {useRef} from 'react';
 import clsx from 'clsx';
 import type {RadioItemProps} from './RadioItem.types';
-import styles from './RadioItem.module.scss';
 import {RadioChecked, RadioUnchecked} from '~/icons';
 import {Typography} from '~/components';
 import {RadioGroupContext} from '~/components/RadioGroup/RadioGroup.context';
 import {layout} from '~/globals/css-utils.js';
+import styles from './RadioItem.module.scss';
 
 export const RadioItem: React.FC<RadioItemProps> = ({className, id, value, label, description, isDisabled, isReadOnly, ...props}) => {
     const context = React.useContext(RadioGroupContext);

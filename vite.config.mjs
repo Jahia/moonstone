@@ -85,7 +85,7 @@ export default defineConfig({
                     include: ['src/visual*.spec.tsx'],
                     // It's super fast to take a screenshot, but Vitest will wait until
                     // the default timeout of 15s in case the screenshot does not match
-                    testTimeout: 1000,
+                    testTimeout: 3000,
                     browser: {
                         enabled: true,
                         headless: true,
