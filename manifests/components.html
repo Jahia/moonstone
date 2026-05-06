@@ -576,13 +576,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">5/63 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">63/63 infos</a><span class="filter-pill ok" aria-disabled="true">211 stories ok</span></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">5/63 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">63/63 infos</a><span class="filter-pill ok" aria-disabled="true">213 stories ok</span></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note err" style="margin-bottom: 16px;">
-              <strong>Performance warning:</strong> <code>react-docgen-typescript</code> took <strong>11.2s</strong> to generate the manifest. This delay applies every time the manifest is used by an agent. Consider switching to the faster <code>react-docgen</code> in your <code>main.ts</code>:
+              <strong>Performance warning:</strong> <code>react-docgen-typescript</code> took <strong>11.0s</strong> to generate the manifest. This delay applies every time the manifest is used by an agent. Consider switching to the faster <code>react-docgen</code> in your <code>main.ts</code>:
               <pre><code>typescript: {
   reactDocgen: 'react-docgen',
 }</code></pre>
@@ -2123,7 +2123,7 @@ variant?: &quot;default&quot; | &quot;ghost&quot; | &quot;outlined&quot; = defau
       <div class="badges">
         <label for="c-8-components-buttontoggle-props" class="badge ok as-toggle">12 prop types</label>
         <label for="c-8-components-buttontoggle-info" class="badge info as-toggle">1 info</label>
-        <label for="c-8-components-buttontoggle-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-8-components-buttontoggle-stories" class="badge ok as-toggle">3 stories</label>
         
       </div>
     </div>
@@ -2240,6 +2240,44 @@ size?: &quot;big&quot; | &quot;default&quot;</code></pre>
               <pre><code>const Default = () =&gt; {
     const theme = globals.theme;
     return &lt;ButtonToggle iconStart={&lt;Apps/&gt;} label=&quot;ButtonToggle&quot; isReversed={theme === &#39;dark&#39;} /&gt;;
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Pressed</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Pressed = () =&gt; {
+    const theme = globals.theme;
+
+    return (
+        &lt;ButtonToggle
+            iconStart={&lt;Apps/&gt;}
+            label=&quot;ButtonToggle&quot;
+            isPressed
+            isReversed={theme === &#39;dark&#39;} /&gt;
+    );
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Disabled</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Disabled = () =&gt; {
+    const theme = globals.theme;
+
+    return (
+        &lt;ButtonToggle
+            iconStart={&lt;Apps/&gt;}
+            label=&quot;ButtonToggle&quot;
+            isDisabled
+            isReversed={theme === &#39;dark&#39;} /&gt;
+    );
 };</code></pre>
             </div>
         </div>
@@ -8722,7 +8760,7 @@ transformElOrigin?: TransformElOrigin = {
               
               
               <pre><code>const SmallImageMenuItems = () =&gt; (
-    &lt;div style={{transform: &#39;scale(1)&#39;, height: &#39;100vh&#39;}}&gt;
+    &lt;div style={{transform: &#39;scale(1)&#39;, height: &#39;100vh&#39;, contain: &#39;strict&#39;}}&gt;
         &lt;Menu
             isDisplayed
             maxWidth=&quot;264px&quot;
@@ -11543,9 +11581,7 @@ component?: string = table</code></pre>
         getTableBodyProps,
         headerGroups,
         rows,
-        prepareRow,
-        selectedFlatRows,
-        state: {selectedRowIds}
+        prepareRow
     } = useTable(
         {
             data,
@@ -11554,8 +11590,8 @@ component?: string = table</code></pre>
         useRowSelect
     );
 
-    return (&lt;&gt;
-        &lt;Table {...getTableProps()}&gt;
+    return (
+        (&lt;Table {...getTableProps()}&gt;
             &lt;TableHead&gt;
                 {headerGroups.map(headerGroup =&gt; (
                     // A key is included in headerGroup.getHeaderGroupProps
@@ -11599,22 +11635,8 @@ component?: string = table</code></pre>
                     );
                 })}
             &lt;/TableBody&gt;
-        &lt;/Table&gt;
-        &lt;section className={reset}&gt;
-            &lt;pre&gt;
-                &lt;code className=&quot;storyCode&quot;&gt;
-                    {JSON.stringify(
-                        {
-                            selectedRowIds,
-                            &#39;selectedFlatRows[].original&#39;: selectedFlatRows.map(d =&gt; d.original)
-                        },
-                        null,
-                        2
-                    )}
-                &lt;/code&gt;
-            &lt;/pre&gt;
-        &lt;/section&gt;
-    &lt;/&gt;);
+        &lt;/Table&gt;)
+    );
 };</code></pre>
             </div>
             <div class="note ok">
@@ -12670,9 +12692,9 @@ variant?: ThumbnailVariant = preview</code></pre>
               <pre><code>const AllVariants = () =&gt; (
     &lt;div style={{display: &#39;flex&#39;, gap: &#39;16px&#39;, alignItems: &#39;center&#39;}}&gt;
         &lt;Thumbnail/&gt;
-        &lt;Thumbnail src={imgHorizontal} alt=&quot;Horizontal image&quot;/&gt;
-        &lt;Thumbnail src={&lt;Love size=&quot;big&quot; color=&quot;gray&quot;/&gt;}/&gt;
-        &lt;Thumbnail size=&quot;small&quot; src={imgVertical} alt=&quot;Small image&quot;/&gt;
+        &lt;Thumbnail variant=&quot;preview&quot; src={imgHorizontal} alt=&quot;Horizontal image&quot;/&gt;
+        &lt;Thumbnail variant=&quot;icon&quot; src={&lt;Love size=&quot;big&quot; color=&quot;gray&quot;/&gt;}/&gt;
+        &lt;Thumbnail variant=&quot;preview&quot; size=&quot;small&quot; src={imgVertical} alt=&quot;Small image&quot;/&gt;
     &lt;/div&gt;
 );</code></pre>
             </div>
