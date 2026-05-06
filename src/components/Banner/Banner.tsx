@@ -1,10 +1,10 @@
 import React from 'react';
 import clsx from 'clsx';
 import type {BannerProps} from './Banner.types';
-import styles from './Banner.module.scss';
 import {Typography} from '../Typography';
 import {HelpOutline, Information, Warning, Report} from '~/icons';
 import {layout, reset} from '~/globals/css-utils.js';
+import styles from './Banner.module.scss';
 
 const BannerForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, BannerProps> = ({
     className,

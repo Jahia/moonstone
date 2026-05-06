@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import {ButtonToggle} from './index';
-import {Apps} from '~/icons/index';
+import {Apps} from '~/icons';
 
 describe('ButtonToggle', () => {
     it('should render', () => {

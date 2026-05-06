@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react';
 import {IconTextIcon} from './index';
-import {Love} from '~/icons/index';
+import {Love} from '~/icons';
 
 describe('IconTextIcon', () => {
     it('should display', () => {

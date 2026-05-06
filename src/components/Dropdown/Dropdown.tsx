@@ -1,9 +1,9 @@
 /* eslint-disable complexity */
 import React, {MutableRefObject, useEffect, useMemo, useRef, useState} from 'react';
 import clsx from 'clsx';
+import {layout, reset} from '~/globals/css-utils.js';
 import styles from './Dropdown.module.scss';
 import baseInputStyles from '../Input/BaseInput/BaseInput.module.scss';
-import {layout, reset} from '~/globals/css-utils.js';
 
 import type {
     DropdownData,

@@ -1,11 +1,11 @@
 import React from 'react';
 import clsx from 'clsx';
-import styles from './ButtonToggle.module.scss';
 import button from '../Button/Button.module.scss';
 import {Typography} from '../Typography';
 import {Loader} from '~/components/Loader';
 import type {ControlledButtonToggleProps} from './ButtonToggle.types';
 import {layout, reset} from '~/globals/css-utils.js';
+import styles from './ButtonToggle.module.scss';
 
 const ControlledButtonToggleForwardRef: React.ForwardRefRenderFunction<HTMLButtonElement, ControlledButtonToggleProps> = ({
     label,

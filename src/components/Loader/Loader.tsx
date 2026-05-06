@@ -2,8 +2,8 @@ import React from 'react';
 import clsx from 'clsx';
 
 import type {LoaderProps} from './Loader.types';
-import styles from './Loader.module.scss';
 import {reset} from '~/globals/css-utils.js';
+import styles from './Loader.module.scss';
 
 export const Loader: React.FC<LoaderProps> = ({
     size,

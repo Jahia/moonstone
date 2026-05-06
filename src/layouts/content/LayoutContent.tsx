@@ -1,10 +1,10 @@
 import React, {ForwardedRef} from 'react';
 import clsx from 'clsx';
 import type {LayoutContentProps} from './LayoutContent.types';
-import styles from './LayoutContent.module.scss';
 
-import {Loader} from '~/components/Loader';
+import {Loader} from '~/components';
 import {layout, reset} from '~/globals/css-utils.js';
+import styles from './LayoutContent.module.scss';
 
 export const LayoutContent = React.forwardRef(({
     header,
