@@ -1,7 +1,7 @@
 import {StoryObj, Meta} from '@storybook/react-vite';
 
 import {CardSelector} from './index';
-import {Button, Chip} from '~/scoped';
+import {Button, Chip} from '~/components';
 import {Close, FileImage, Lock, Love} from '~/icons';
 import type {CardSelectorProps} from './CardSelector.types';
 
