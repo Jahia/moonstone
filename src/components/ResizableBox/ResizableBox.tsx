@@ -3,7 +3,7 @@ import {Resizable} from 're-resizable';
 import clsx from 'clsx';
 
 import {HandleResize} from '~/icons';
-import type {zones, EnableZonesProps, ZonesProps, ResizableBoxProps} from './ResizableBox.types';
+import {zones, EnableZonesProps, ZonesProps, ResizableBoxProps} from './ResizableBox.types';
 import {reset} from '~/globals/css-utils.js';
 import styles from './ResizableBox.module.scss';
 
