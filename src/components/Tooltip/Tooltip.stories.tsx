@@ -3,6 +3,7 @@ import {StoryFn, Meta} from '@storybook/react-vite';
 import {Tooltip} from './index';
 import {Badge, Button, Chip, PrimaryNav, PrimaryNavItem, PrimaryNavItemsGroup} from '~/components';
 import {Apps, Feather, Home, Person, Profile, Setting} from '~/icons';
+import placeholder from '~/__storybook__/assets/img-placeholder.jpg';
 
 export default {
     title: 'Components/Tooltip',
@@ -77,51 +78,51 @@ export const PrimaryNavTooltip = () => {
     return (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <PrimaryNav
-          headerLogo={<img src="https://via.placeholder.com/100x40?text=Logo"/>}
-          headerCaption="development"
-          top={
-              <>
-                  <PrimaryNavItemsGroup>
-                      <Tooltip label="Tooltip">
-                          <PrimaryNavItem
-                            isSelected
-                            label="NavItem selected"
-                            icon={<Apps/>}
-                />
-                      </Tooltip>
-                  </PrimaryNavItemsGroup>
-                  <PrimaryNavItemsGroup>
-                      <Tooltip label="Tooltip">
-                          <PrimaryNavItem
-                            label="Very very long long name with many characters"
-                            icon={<Feather/>}
-                />
-                      </Tooltip>
-                      <Tooltip label="Tooltip">
-                          <PrimaryNavItem
-                            icon={<Person/>}
-                            label="My profile"
-                            subtitle="username as a subtitle"
-                />
-                      </Tooltip>
-                  </PrimaryNavItemsGroup>
-              </>
-          }
-          bottom={
-              <>
-                  <PrimaryNavItemsGroup>
-                      <Tooltip label="Tooltip">
-                          <PrimaryNavItem label="Another bottom item" icon={<Profile/>}/>
-                      </Tooltip>
-                  </PrimaryNavItemsGroup>
-                  <PrimaryNavItemsGroup>
-                      <Tooltip label="Tooltip">
-                          <PrimaryNavItem label="Bottom item" icon={<Setting/>}/>
-                      </Tooltip>
-                  </PrimaryNavItemsGroup>
-              </>
-          }
-        />
+                headerLogo={<img src={placeholder} height={30} alt="placeholder"/>}
+                headerCaption="development"
+                top={
+                    <>
+                        <PrimaryNavItemsGroup>
+                            <Tooltip label="Tooltip">
+                                <PrimaryNavItem
+                                    isSelected
+                                    label="NavItem selected"
+                                    icon={<Apps/>}
+                                />
+                            </Tooltip>
+                        </PrimaryNavItemsGroup>
+                        <PrimaryNavItemsGroup>
+                            <Tooltip label="Tooltip">
+                                <PrimaryNavItem
+                                    label="Very very long long name with many characters"
+                                    icon={<Feather/>}
+                                />
+                            </Tooltip>
+                            <Tooltip label="Tooltip">
+                                <PrimaryNavItem
+                                    icon={<Person/>}
+                                    label="My profile"
+                                    subtitle="username as a subtitle"
+                                />
+                            </Tooltip>
+                        </PrimaryNavItemsGroup>
+                    </>
+                }
+                bottom={
+                    <>
+                        <PrimaryNavItemsGroup>
+                            <Tooltip label="Tooltip">
+                                <PrimaryNavItem label="Another bottom item" icon={<Profile/>}/>
+                            </Tooltip>
+                        </PrimaryNavItemsGroup>
+                        <PrimaryNavItemsGroup>
+                            <Tooltip label="Tooltip">
+                                <PrimaryNavItem label="Bottom item" icon={<Setting/>}/>
+                            </Tooltip>
+                        </PrimaryNavItemsGroup>
+                    </>
+                }
+            />
         </div>
     );
 };
