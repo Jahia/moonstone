@@ -295,20 +295,6 @@ export const SelectableRows = {
                         })}
                     </TableBody>
                 </Table>
-                <section className={reset}>
-                    <pre>
-                        <code className="storyCode">
-                            {JSON.stringify(
-                                {
-                                    selectedRowIds,
-                                    'selectedFlatRows[].original': selectedFlatRows.map(d => d.original)
-                                },
-                                null,
-                                2
-                            )}
-                        </code>
-                    </pre>
-                </section>
             </>
         );
     },
