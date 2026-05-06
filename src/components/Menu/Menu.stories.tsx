@@ -224,7 +224,7 @@ export const BigImageMenuItems = () => (
 );
 
 export const SmallImageMenuItems = () => (
-    <div style={{transform: 'scale(1)', height: '100vh'}}>
+    <div style={{transform: 'scale(1)', height: '100vh', contain: 'strict'}}>
         <Menu
             isDisplayed
             maxWidth="264px"
