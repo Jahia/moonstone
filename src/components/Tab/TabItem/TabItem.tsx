@@ -29,7 +29,7 @@ export const TabItem: React.FC<TabItemProps> = ({
                     !label && ['moonstone-tabItem_noLabel', styles['moonstone-tabItem_noLabel']],
                     isSelected && ['moonstone-tabItem_selected', styles['moonstone-tabItem_selected']],
                     isReversed && ['moonstone-reverse', styles['moonstone-reverse']],
-                    isDisabled && ['moonstone-disabled', styles['moonstone-disabled']],
+                    isDisabled && ['moonstone-disabled'],
                     ['flexRow_center', layout.flexRow_center],
                     ['alignCenter', layout.alignCenter],
                     className
