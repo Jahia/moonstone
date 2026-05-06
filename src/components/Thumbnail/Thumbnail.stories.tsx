@@ -65,9 +65,10 @@ export const AllVariants: Story = {
     render: () => (
         <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
             <Thumbnail/>
-            <Thumbnail src={imgHorizontal} alt="Horizontal image"/>
-            <Thumbnail src={<Love size="big" color="gray"/>}/>
-            <Thumbnail size="small" src={imgVertical} alt="Small image"/>
+            <Thumbnail variant='preview' src={imgHorizontal} alt="Horizontal image"/>
+            <Thumbnail variant='icon' src={<Love size="big" color="gray"/>}/>
+            <Thumbnail variant='preview' size="small" src={imgVertical} alt="Small image"/>
         </div>
     )
 };
+
