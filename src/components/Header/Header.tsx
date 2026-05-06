@@ -2,9 +2,9 @@ import React from 'react';
 import clsx from 'clsx';
 
 import {HeaderProps} from './Header.types';
-import styles from './Header.module.scss';
 import {Separator, Typography} from '~/components';
 import {layout, reset} from '~/globals/css-utils.js';
+import styles from './Header.module.scss';
 
 export const Header: React.FC<HeaderProps> = ({
     title,
