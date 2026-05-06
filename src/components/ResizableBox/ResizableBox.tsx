@@ -1,10 +1,11 @@
 import React from 'react';
 import {Resizable} from 're-resizable';
 import clsx from 'clsx';
-import styles from './ResizableBox.module.scss';
+
 import {HandleResize} from '~/icons';
-import {zones, EnableZonesProps, ZonesProps, ResizableBoxProps} from './ResizableBox.types';
+import type {zones, EnableZonesProps, ZonesProps, ResizableBoxProps} from './ResizableBox.types';
 import {reset} from '~/globals/css-utils.js';
+import styles from './ResizableBox.module.scss';
 
 export const ResizableBox: React.FC<ResizableBoxProps> = ({
     enable = ['right'],

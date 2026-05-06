@@ -1,9 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
-import styles from './BreadcrumbItem.module.scss';
 import {Button} from '~/components/Button';
 import type {BreadcrumbItemProps} from './BreadcrumbItem.types';
 import {layout} from '~/globals/css-utils.js';
+import styles from './BreadcrumbItem.module.scss';
 
 export const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({className = '', ...props}) => (
     <li className={clsx(

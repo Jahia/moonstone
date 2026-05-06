@@ -1,10 +1,10 @@
 import React, {useRef} from 'react';
 import clsx from 'clsx';
-import styles from './TabItem.module.scss';
 import type {TabItemProps} from './TabItem.types';
-import {Typography} from '~/components/Typography';
+import {Typography} from '~/components';
 import {onArrowNavigation} from '~/hooks';
 import {layout} from '~/globals/css-utils.js';
+import styles from './TabItem.module.scss';
 
 export const TabItem: React.FC<TabItemProps> = ({
     component = 'button',

@@ -1,9 +1,9 @@
 import React, {Fragment} from 'react';
 import clsx from 'clsx';
-import styles from './Breadcrumb.module.scss';
 import {BreadcrumbProps} from './Breadcrumb.types';
 import {ChevronRight} from '~/icons';
 import {layout, reset} from '~/globals/css-utils.js';
+import styles from './Breadcrumb.module.scss';
 
 export const Breadcrumb: React.FC<BreadcrumbProps> = ({children, className, ...props}) => {
     const allItems = React.Children.toArray(children);
