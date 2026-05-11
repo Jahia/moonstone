@@ -5,6 +5,21 @@
  */
 export type DateTimeInputType = 'date' | 'datetime';
 
+export type DateTimeInputMode = 'single' | 'range';
+
+export type DateRange = {
+    from?: Date;
+    to?: Date;
+};
+
+export type DateInputValue = {
+    /**
+     * Calendar day selected in the input.
+     * The date part is used; any time part is ignored.
+     */
+    date: Date | DateRange | null;
+};
+
 /** Value shape of the `DateTimeInput`. */
 export type DateTimeInputValue = {
     /**

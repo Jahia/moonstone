@@ -1,8 +1,11 @@
 import {Temporal} from 'temporal-polyfill';
 import type {Matcher} from 'react-day-picker';
-import type {DisabledDateRange} from './dateTime.types';
+import type {DateRange, DisabledDateRange} from './dateTime.types';
 
 const isValidDate = (value?: Date | null): value is Date => Boolean(value) && !Number.isNaN(value?.getTime());
+
+export const isDateRange = (value?: Date | DateRange | null): value is DateRange =>
+    Boolean(value) && !(value instanceof Date);
 
 export const getNormalizedDate = (value?: Date | null) => {
     if (!isValidDate(value)) {
@@ -19,6 +22,24 @@ export const getNormalizedDate = (value?: Date | null) => {
     }
 
     return new Date(value.getFullYear(), value.getMonth(), value.getDate());
+};
+
+export const getNormalizedDateRange = (value?: DateRange | null) => {
+    if (!value) {
+        return null;
+    }
+
+    const from = getNormalizedDate(value.from);
+    const to = getNormalizedDate(value.to);
+
+    if (!from && !to) {
+        return null;
+    }
+
+    return {
+        from: from ?? undefined,
+        to: to ?? undefined
+    };
 };
 
 export const getCanonicalDate = (value?: Date | null) => {
@@ -54,6 +75,23 @@ export const formatDateDisplayValue = (value?: Date | null, locale?: string) => 
 
     return new Intl.DateTimeFormat(locale || undefined).format(date);
 };
+
+export const formatDateRangeDisplayValue = (value?: DateRange | null, locale?: string) => {
+    const dateRange = getNormalizedDateRange(value);
+
+    if (!dateRange) {
+        return '';
+    }
+
+    if (!dateRange.from || !dateRange.to) {
+        return formatDateDisplayValue(dateRange.from || dateRange.to, locale);
+    }
+
+    return `${formatDateDisplayValue(dateRange.from, locale)} - ${formatDateDisplayValue(dateRange.to, locale)}`;
+};
+
+export const formatDateValueDisplayValue = (value?: Date | DateRange | null, locale?: string) =>
+    isDateRange(value) ? formatDateRangeDisplayValue(value, locale) : formatDateDisplayValue(value, locale);
 
 /**
  * Builds the list of `react-day-picker` disabled matchers from the consumer-facing
