@@ -293,4 +293,57 @@ describe('DateTimeInput', () => {
 
         expect(screen.getByPlaceholderText('Select a date')).toHaveValue('');
     });
+
+    it('should display a selected range in the input', () => {
+        render(
+            <DateTimeInput
+                type="date"
+                mode="range"
+                locale="en-US"
+                value={{
+                    date: {
+                        from: new Date(2026, 2, 8),
+                        to: new Date(2026, 2, 22)
+                    }
+                }}
+                i18n={{today: 'Today'}}
+                onChange={() => null}
+            />
+        );
+
+        expect(screen.getByDisplayValue('3/8/2026 - 3/22/2026')).toBeInTheDocument();
+    });
+
+    it('should emit a range when selecting an end date', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(
+            <DateTimeInput
+                type="date"
+                mode="range"
+                locale="en-US"
+                value={{
+                    date: {
+                        from: new Date(2026, 2, 8)
+                    }
+                }}
+                i18n={{today: 'Today'}}
+                onChange={handleChange}
+            />
+        );
+
+        await user.click(screen.getByDisplayValue('3/8/2026'));
+        await user.click(screen.getByRole('button', {name: 'Sunday, March 22nd, 2026'}));
+
+        expect(handleChange).toHaveBeenLastCalledWith(
+            expect.any(Object),
+            expect.objectContaining({
+                date: {
+                    from: new Date(2026, 2, 8),
+                    to: new Date(2026, 2, 22)
+                }
+            })
+        );
+    });
 });

@@ -2,10 +2,18 @@ import type {Meta, StoryObj} from '@storybook/react-vite';
 import {action} from 'storybook/actions';
 import {useArgs} from 'storybook/preview-api';
 import {DateTimeInput} from './DateTimeInput';
+import type {DateInputValue, DateTimeInputValue} from './DateTimeInput.types';
 import {getCurrentDate, getCurrentTimeString} from '../shared';
 
 const currentDate = getCurrentDate();
 const currentTime = getCurrentTimeString();
+const logChange = (value: DateInputValue | DateTimeInputValue) => {
+    action('onChange')(
+        value.date,
+        'time' in value ? value.time : undefined,
+        'timezone' in value ? value.timezone : undefined
+    );
+};
 
 export default {
     title: 'Components/Input/DateTimeInput',
@@ -33,7 +41,7 @@ export const DateOnly: Story = {
                 placeholder="Select a date"
                 {...args}
                 onChange={(_event, value) => {
-                    action('onChange')(value.date, value.time, value.timezone);
+                    logChange(value);
                     setArgs({value});
                 }}
             />
@@ -57,7 +65,7 @@ export const DateTimeWithTimezone: Story = {
             <DateTimeInput
                 {...args}
                 onChange={(_event, value) => {
-                    action('onChange')(value.date, value.time, value.timezone);
+                    logChange(value);
                     setArgs({value});
                 }}
             />
@@ -83,7 +91,7 @@ export const DateTimeWithTimezone12h: Story = {
             <DateTimeInput
                 {...args}
                 onChange={(_event, value) => {
-                    action('onChange')(value.date, value.time, value.timezone);
+                    logChange(value);
                     setArgs({value});
                 }}
             />
@@ -113,7 +121,7 @@ export const DisabledDates: Story = {
                 disabledDates={[new Date(2026, 2, 30)]}
                 {...args}
                 onChange={(_event, value) => {
-                    action('onChange')(value.date, value.time, value.timezone);
+                    logChange(value);
                     setArgs({value});
                 }}
             />
@@ -130,4 +138,33 @@ export const DisabledDates: Story = {
         onChange: action('onChange')
     },
     name: 'Disabled Dates'
+};
+
+export const DateRange: Story = {
+    render: args => {
+        const [, setArgs] = useArgs();
+        return (
+            <DateTimeInput
+                placeholder="Select a date range"
+                {...args}
+                onChange={(_event, value) => {
+                    logChange(value);
+                    setArgs({value});
+                }}
+            />
+        );
+    },
+    args: {
+        type: 'date',
+        mode: 'range',
+        value: {
+            date: {
+                from: new Date(2026, 2, 8),
+                to: new Date(2026, 2, 22)
+            }
+        },
+        onChange: action('onChange'),
+        placeholder: 'Select a date range'
+    },
+    name: 'Date Range'
 };
