@@ -3,7 +3,10 @@ import type {DayPickerProps} from 'react-day-picker';
 import type {BaseInputProps} from '../BaseInput/BaseInput.types';
 import type {TimeFormat, TimeInputI18n} from '../TimeInput';
 import type {
+    DateInputValue,
+    DateRange,
     DateTimeInputI18n,
+    DateTimeInputMode,
     DateTimeInputType,
     DateTimeInputValue,
     DisabledDateRange
@@ -33,24 +36,6 @@ type DateTimeInputSharedProps = Pick<BaseInputProps,
      * - `'datetime'` : calendar picker + time input
      */
     type: DateTimeInputType;
-
-    /**
-     * Controlled value.
-     * When used with `onChange`, the parent component is responsible for updating it in
-     * response to user changes. If provided without `onChange`, the component will be
-     * effectively read-only.
-     */
-    value?: DateTimeInputValue;
-
-    /** Initial value in uncontrolled mode. The component manages its own internal state. */
-    defaultValue?: DateTimeInputValue;
-
-    /**
-     * Fired when the selected date, time or timezone changes.
-     * Provide this when using the component in controlled mode and updating `value`
-     * from user input.
-     */
-    onChange?: (event: React.SyntheticEvent, value: DateTimeInputValue) => void;
 
     variant?: 'ghost' | 'outlined';
 
@@ -86,12 +71,48 @@ type DateTimeInputSharedProps = Pick<BaseInputProps,
 
 type DateProps = {
     type: 'date';
+    mode?: DateTimeInputMode;
+    /**
+     * Controlled value.
+     * When used with `onChange`, the parent component is responsible for updating it in
+     * response to user changes. If provided without `onChange`, the component will be
+     * effectively read-only.
+     */
+    value?: DateInputValue;
+
+    /** Initial value in uncontrolled mode. The component manages its own internal state. */
+    defaultValue?: DateInputValue;
+
+    /**
+     * Fired when the selected date changes.
+     * Provide this when using the component in controlled mode and updating `value`
+     * from user input.
+     */
+    onChange?: (event: React.SyntheticEvent, value: DateInputValue) => void;
     hasTimezone?: never;
     timeFormat?: never;
 };
 
 type DateTimeProps = {
     type: 'datetime';
+    mode?: never;
+    /**
+     * Controlled value.
+     * When used with `onChange`, the parent component is responsible for updating it in
+     * response to user changes. If provided without `onChange`, the component will be
+     * effectively read-only.
+     */
+    value?: DateTimeInputValue;
+
+    /** Initial value in uncontrolled mode. The component manages its own internal state. */
+    defaultValue?: DateTimeInputValue;
+
+    /**
+     * Fired when the selected date, time or timezone changes.
+     * Provide this when using the component in controlled mode and updating `value`
+     * from user input.
+     */
+    onChange?: (event: React.SyntheticEvent, value: DateTimeInputValue) => void;
 
     /**
      * When `true`, displays a timezone selector.
@@ -109,7 +130,10 @@ type DateTimeProps = {
 
 export type DateTimeInputProps = DateTimeInputSharedProps & (DateProps | DateTimeProps);
 export type {
+    DateInputValue,
+    DateRange,
     DateTimeInputI18n,
+    DateTimeInputMode,
     DateTimeInputType,
     DateTimeInputValue,
     DisabledDateRange
