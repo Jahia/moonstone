@@ -1,8 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
 import clsx from 'clsx';
-import {dateMatchModifiers, DayPicker, YearsDropdown} from 'react-day-picker';
+import {dateMatchModifiers, DayPicker} from 'react-day-picker';
 import dayPickerClassNames from 'react-day-picker/style.module.css';
-import {Button, Menu} from '~/components';
+import {Button, Dropdown, Menu} from '~/components';
 import {Calendar} from '~/icons';
 import type {DateTimeInputProps} from './DateTimeInput.types';
 import type {DropdownProps} from 'react-day-picker';
@@ -88,6 +88,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     const isTodayDisabled = isDisabled || isReadOnly || dateMatchModifiers(todayDate, calendarDisabledMatchers);
     const startMonth = minDate ? new Date(minDate.getFullYear(), minDate.getMonth(), 1) : new Date(displayedMonth.getFullYear() - 20, 0, 1);
     const endMonth = maxDate ? new Date(maxDate.getFullYear(), maxDate.getMonth(), 1) : new Date(displayedMonth.getFullYear() + 20, 11, 1);
+    const hasMultipleYears = startMonth.getFullYear() !== endMonth.getFullYear();
 
     useEffect(() => {
         if (sanitizedValue.date) {
@@ -151,10 +152,17 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                             }}
                             components={{
                                 YearsDropdown: (dropdownProps: DropdownProps) => (
-                                    <YearsDropdown
-                                        {...dropdownProps}
-                                        onChange={event => {
-                                            dropdownProps.onChange?.(event);
+                                    <Dropdown
+                                        size="medium"
+                                        variant="ghost"
+                                        data={(dropdownProps.options ?? []).map(opt => ({
+                                            label: opt.label,
+                                            value: String(opt.value),
+                                            isDisabled: opt.disabled
+                                        }))}
+                                        value={String(dropdownProps.value ?? '')}
+                                        onChange={(_e, item) => {
+                                            setDisplayedMonth(new Date(Number(item.value), displayedMonth.getMonth(), 1));
                                         }}
                                     />
                                 )
@@ -163,7 +171,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                                 labelNext: () => i18n?.nextMonth || 'Go to the next month',
                                 labelPrevious: () => i18n?.previousMonth || 'Go to the previous month'
                             }}
-                            captionLayout="dropdown-years"
+                            captionLayout={hasMultipleYears ? 'dropdown-years' : 'label'}
                             navLayout="around"
                             weekStartsOn={weekStartsOn}
                             month={displayedMonth}

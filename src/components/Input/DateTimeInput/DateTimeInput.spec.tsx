@@ -211,7 +211,8 @@ describe('DateTimeInput', () => {
         );
 
         await user.click(screen.getByDisplayValue(formatDateDisplayValue(new Date(2026, 2, 30), 'en-US')));
-        await user.selectOptions(screen.getByRole('combobox'), '2024');
+        await user.click(screen.getByRole('listbox', {name: '2026'}));
+        await user.click(screen.getByRole('option', {name: '2024'}));
 
         expect(screen.getByText('March 2024')).toBeInTheDocument();
         expect(screen.getByDisplayValue(formatDateDisplayValue(new Date(2026, 2, 30), 'en-US'))).toBeInTheDocument();
