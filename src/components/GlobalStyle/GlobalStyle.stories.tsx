@@ -118,8 +118,10 @@ export default {
     title: 'Utilities/Layout',
 
     parameters: {
-        componentSubtitle: 'Layout',
-        notes: {markdown: markdownNotes}
+        docs: {
+            description: {component: markdownNotes},
+            subtitle: 'Layout'
+        }
     }
 };
 
@@ -133,3 +135,4 @@ export const Direction = () => (
 export const Justify = () => <>{displayItems('row', 'justify')}</>;
 
 export const Alignment = () => <>{displayItems('row', 'align')}</>;
+

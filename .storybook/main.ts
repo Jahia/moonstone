@@ -1,9 +1,9 @@
-import type { StorybookConfig } from '@storybook/react-vite';
+import { defineMain } from '@storybook/react-vite/node';
 
-const config: StorybookConfig = {
+export default defineMain({
     framework: '@storybook/react-vite',
     typescript: {
-        reactDocgen: "react-docgen-typescript",
+        reactDocgen: 'react-docgen-typescript'
     },
     stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
     addons: [
@@ -11,6 +11,4 @@ const config: StorybookConfig = {
         '@storybook/addon-a11y',
         'storybook-addon-tag-badges'
     ]
-};
-
-export default config;
+});

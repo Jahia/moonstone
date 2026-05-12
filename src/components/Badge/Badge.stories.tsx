@@ -9,7 +9,7 @@ export default {
     component: Badge,
     parameters: {
         layout: 'centered',
-        notes: {markdown: markdownNotes}
+        docs: {description: {component: markdownNotes}}
     }
 } as Meta<typeof Badge>;
 
@@ -33,3 +33,4 @@ export const Danger = {
         color: 'danger'
     }
 };
+

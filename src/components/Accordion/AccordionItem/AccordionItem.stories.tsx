@@ -20,7 +20,7 @@ export default {
         )
     ],
     parameters: {
-        notes: {markdown: markdownNotes},
+        docs: {description: {component: markdownNotes}},
         actions: {argTypesRegex: '^on.*'}
     }
 } as Meta<typeof AccordionItem>;
@@ -49,3 +49,4 @@ export const WithoutIcon = {
         label: 'AccordionItem'
     }
 };
+

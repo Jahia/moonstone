@@ -24,7 +24,7 @@ export default {
     component: PrimaryNav,
 
     parameters: {
-        notes: {markdown: markdownNotes}
+        docs: {description: {component: markdownNotes}}
     }
 }as Meta<typeof PrimaryNav>;
 
@@ -99,3 +99,4 @@ export const Default: Story = {render: () => (
         />
     </div>
 )};
+

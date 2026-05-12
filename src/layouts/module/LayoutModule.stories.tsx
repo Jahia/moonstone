@@ -11,7 +11,7 @@ export default {
     title: 'Layouts/LayoutModule',
     component: LayoutModule,
     parameters: {
-        notes: {markdown: markdownNotes}
+        docs: {description: {component: markdownNotes}}
     },
     argTypes: {
         navigation: {
@@ -52,3 +52,4 @@ export const Loading: Story = {
         isLoading: true
     }
 };
+

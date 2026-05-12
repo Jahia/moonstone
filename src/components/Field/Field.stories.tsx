@@ -16,7 +16,7 @@ const meta: Meta<typeof Field> = {
     parameters: {
         layout: 'padded',
         actions: {argTypesRegex: '^on.*'},
-        notes: {markdown: markdownNotes}
+        docs: {description: {component: markdownNotes}}
     },
     argTypes: {
         buttons: {
@@ -144,3 +144,4 @@ export const Error: Story = {
         errorMessage: 'There is an error.'
     }
 };
+

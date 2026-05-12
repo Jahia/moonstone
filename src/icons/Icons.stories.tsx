@@ -48,7 +48,7 @@ export default {
 
     parameters: {
     // ComponentSubtitle: 'Icons',
-        notes: {markdown: markdownNotes}
+        docs: {description: {component: markdownNotes}}
     },
 
     excludeStories: ['IconWrapper']
@@ -67,3 +67,4 @@ export const Colored = () => <Love color="red"/>;
 //         // color={iconsColor()}
 //   />
 // );
+

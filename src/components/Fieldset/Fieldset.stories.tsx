@@ -14,7 +14,7 @@ const meta: Meta<typeof Fieldset> = {
     parameters: {
         layout: 'padded',
         actions: {argTypesRegex: '^on.*'},
-        notes: {markdown: markdownNotes}
+        docs: {description: {component: markdownNotes}}
     },
     argTypes: {
         buttons: {
@@ -89,3 +89,4 @@ export const MultipleFields: Story = {
     </>
     }
 };
+

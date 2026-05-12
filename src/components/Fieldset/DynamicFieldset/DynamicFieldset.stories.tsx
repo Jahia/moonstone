@@ -15,7 +15,7 @@ const meta: Meta<typeof DynamicFieldset> = {
     parameters: {
         layout: 'padded',
         actions: {argTypesRegex: '^on.*'},
-        notes: {markdown: markdownNotes}
+        docs: {description: {component: markdownNotes}}
     },
     args: {
         id: 'dynamic-fieldset',
@@ -51,3 +51,4 @@ export const Controlled: Story = {
         return <DynamicFieldset {...args} onChange={onChange}/>;
     }
 };
+

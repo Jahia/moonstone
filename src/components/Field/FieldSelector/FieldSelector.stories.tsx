@@ -13,7 +13,7 @@ const meta: Meta<typeof FieldSelector> = {
     parameters: {
         layout: 'padded',
         actions: {argTypesRegex: '^on.*'},
-        notes: {markdown: markdownNotes}
+        docs: {description: {component: markdownNotes}}
     },
     argTypes: {
 

@@ -11,8 +11,10 @@ export default {
     title: 'Layouts/LayoutApp',
     component: LayoutApp,
     parameters: {
-        subtitle: 'How to use our root application layout',
-        notes: {markdown: markdownNotes}
+        docs: {
+            description: {component: markdownNotes},
+            subtitle: 'How to use our root application layout'
+        }
     },
     argTypes: {
         navigation: {
@@ -43,3 +45,4 @@ export const Loading: Story = {
         isLoading: true
     }
 };
+

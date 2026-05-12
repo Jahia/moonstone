@@ -26,8 +26,9 @@ export default {
 
     parameters: {
         layout: 'centered',
-        notes: {markdown: markdownNotes}
+        docs: {description: {component: markdownNotes}}
     }
 }as Meta<typeof SvgWrapper>;
 
 export const Playground: StoryObj<typeof SvgWrapper> = {render: () => <SvgWrapper svg={svg} size="default"/>};
+

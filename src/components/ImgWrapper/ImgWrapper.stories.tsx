@@ -7,9 +7,11 @@ export default {
     title: 'Utilities/ImgWrapper',
     component: ImgWrapper,
     parameters: {
-        componentSubtitle: 'Image wrapper',
         layout: 'centered',
-        notes: {markdown: markdownNotes}
+        docs: {
+            description: {component: markdownNotes},
+            subtitle: 'Image wrapper'
+        }
     }
 };
 
@@ -20,3 +22,4 @@ export const Default = {
         size: 'default'
     }
 };
+

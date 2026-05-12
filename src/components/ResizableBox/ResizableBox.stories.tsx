@@ -29,7 +29,7 @@ const meta: Meta<ResizableBoxProps> = {
         )
     ],
     parameters: {
-        notes: {markdown: markdownNotes}
+        docs: {description: {component: markdownNotes}}
     }
 };
 
@@ -79,3 +79,4 @@ export const Actions = () => (
         </div>
     </ResizableBox>
 );
+

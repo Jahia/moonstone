@@ -13,7 +13,7 @@ const meta: Meta<typeof EmptyCardSelector> = {
     parameters: {
         layout: 'padded',
         actions: {argTypesRegex: '^on.*'},
-        notes: {markdown: markdownNotes}
+        docs: {description: {component: markdownNotes}}
     }
 };
 export default meta;
@@ -39,3 +39,4 @@ export const Icon: Story = {
     },
     render: Template
 };
+

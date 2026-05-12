@@ -14,9 +14,6 @@ export default {
     title: 'Components/Accordion',
     component: Accordion,
     subcomponents: {AccordionItem},
-    docs: {
-        IframeHeight: 800
-    },
     decorators: [
         StoryCmp => (
             <div
@@ -27,7 +24,12 @@ export default {
         )
     ],
     parameters: {
-        notes: {markdown: markdownNotes},
+        docs: {
+            description: {component: markdownNotes},
+            story: {
+                iframeHeight: '800px'
+            }
+        },
         actions: {argTypesRegex: '^on.*'}
     }
 } as Meta<typeof Accordion>;
@@ -217,3 +219,4 @@ export const Reversed = {
         defaultOpenedItem: accordionIds[1]
     }
 };
+

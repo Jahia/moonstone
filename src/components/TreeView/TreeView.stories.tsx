@@ -16,7 +16,7 @@ export default {
     decorators: [(storyFn: () => JSX.Element) => <div style={css}>{storyFn()}</div>],
     parameters: {
         layout: 'centered',
-        notes: {markdown: markdownNotes}
+        docs: {description: {component: markdownNotes}}
     }
 };
 
@@ -188,3 +188,4 @@ export const ControlledWithLoading = {
         );
     }
 };
+

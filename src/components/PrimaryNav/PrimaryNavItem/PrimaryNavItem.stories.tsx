@@ -10,8 +10,10 @@ export default {
     component: PrimaryNavItem,
 
     parameters: {
-        componentSubtitle: 'PrimaryNavItem',
-        notes: {markdown: markdownNotes}
+        docs: {
+            description: {component: markdownNotes},
+            subtitle: 'PrimaryNavItem'
+        }
     }
 } as Meta<typeof PrimaryNavItem>;
 
@@ -59,3 +61,4 @@ export const Default: Story = {render: () => (
     />
     </ul>
 )};
+

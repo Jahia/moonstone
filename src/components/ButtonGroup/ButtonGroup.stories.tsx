@@ -13,8 +13,10 @@ export default {
 
     parameters: {
         layout: 'centered',
-        componentSubtitle: 'ButtonGroup',
-        notes: {markdown: markdownNotes},
+        docs: {
+            description: {component: markdownNotes},
+            subtitle: 'ButtonGroup'
+        },
         actions: {argTypesRegex: '^on.*'}
     }
 } as Meta<typeof ButtonGroup>;
@@ -52,3 +54,4 @@ export const ButtonGroupWith1Button = () => (
         <Button label="Actions" onClick={() => null}/>
     </ButtonGroup>
 );
+

@@ -14,7 +14,7 @@ export default {
 
     parameters: {
         layout: 'centered',
-        notes: {markdown: markdownNotes}
+        docs: {description: {component: markdownNotes}}
     }
 };
 
@@ -58,3 +58,4 @@ export const StatusExample = () => (
         <Chip icon={<NoCloud/>} label="Unpublished" color="default"/>
     </section>
 );
+

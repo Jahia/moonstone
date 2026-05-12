@@ -10,7 +10,7 @@ export default {
 
     parameters: {
         layout: 'centered',
-        notes: {markdown: markdownNotes}
+        docs: {description: {component: markdownNotes}}
     }
 };
 
@@ -19,3 +19,4 @@ export const Default: StoryObj<PillProps> = {
         label: 'ListItem label'
     }
 };
+

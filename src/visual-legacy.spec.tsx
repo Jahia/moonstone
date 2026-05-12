@@ -5,8 +5,7 @@ import {composeStories} from '@storybook/react';
 import type {JSX} from 'react';
 import {describe, expect, test} from 'vitest';
 import {render} from 'vitest-browser-react';
-// @ts-expect-error preview is js not ts
-import * as projectAnnotations from '../.storybook/preview.jsx';
+import {projectAnnotations} from './__storybook__/previewAnnotations';
 
 // Import all stories
 const stories = import.meta.glob<never>('./**/*.stories.{js,jsx,ts,tsx}', {eager: true});

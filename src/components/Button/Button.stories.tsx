@@ -14,7 +14,7 @@ const meta: Meta<typeof Button> = {
     parameters: {
         layout: 'centered',
         actions: {argTypesRegex: '^on.*'},
-        notes: {markdown: markdownNotes}
+        docs: {description: {component: markdownNotes}}
     }
 };
 export default meta;
@@ -195,3 +195,4 @@ export const Disabled = {
         controls: {exclude: ['variant', 'label']}
     }
 };
+

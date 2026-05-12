@@ -14,7 +14,7 @@ export default {
     component: Separator,
     parameters: {
         layout: 'centered',
-        notes: {markdown: markdownNotes}
+        docs: {description: {component: markdownNotes}}
     }
 };
 
@@ -80,3 +80,4 @@ export const Invisible: StoryObj<SeparatorProps> = {
         invisible: 'lastChild'
     }
 };
+

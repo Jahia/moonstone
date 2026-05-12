@@ -18,7 +18,7 @@ export default {
     ],
     parameters: {
         layout: 'centered',
-        notes: {markdown: markdownNotes}
+        docs: {description: {component: markdownNotes}}
     }
 } as Meta<typeof Breadcrumb>;
 
@@ -34,3 +34,4 @@ const Template: StoryFn<BreadcrumbProps> = args => (
 export const Default = {
     render: Template
 };
+

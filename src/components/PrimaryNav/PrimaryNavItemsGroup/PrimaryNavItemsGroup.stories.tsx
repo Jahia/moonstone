@@ -9,7 +9,7 @@ const meta: Meta<typeof PrimaryNavItemsGroup> = {
     title: 'Components/PrimaryNavItemsGroup',
     component: PrimaryNavItemsGroup,
     parameters: {
-        notes: {markdown: markdownNotes},
+        docs: {description: {component: markdownNotes}},
         layout: 'fullscreen'
     },
     decorators: [
@@ -49,3 +49,4 @@ export const CollapsedGroup: Story = {
         </PrimaryNavItemsGroup>
     )
 };
+

@@ -73,7 +73,7 @@
     "tdd": "vitest watch",
     "test": "vitest --coverage --project unit --project browser",
     "test:visual": "vitest --project visual --reporter verbose",
-    "tsc": "tsc --build tsconfig.json && cp ./dist/index.d.ts ./dist/index.d.cts"
+    "tsc": "tsc --build tsconfig.json && node -e \"require('node:fs').copyFileSync('./dist/index.d.ts', './dist/index.d.cts')\""
   },
   "dependencies": {
     "@floating-ui/react": "^0.27.16",

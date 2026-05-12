@@ -12,7 +12,9 @@ export default {
         layout: 'centered',
         knobs: {disable: true},
         storysource: {disable: true},
-        componentSubtitle: 'RadioGroup & RadioItem',
+        docs: {
+            subtitle: 'RadioGroup & RadioItem'
+        },
         actions: {argTypesRegex: '^on.*'}
     },
     argTypes: {
