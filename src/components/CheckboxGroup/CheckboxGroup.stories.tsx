@@ -1,9 +1,9 @@
-import {StoryFn, Meta} from '@storybook/react-vite';
+import {StoryObj, Meta} from '@storybook/react-vite';
 
 import {CheckboxGroup} from './index';
 import {CheckboxItem} from './CheckboxItem';
 
-export default {
+const meta: Meta<typeof CheckboxGroup> = {
     title: 'Components/CheckboxGroup',
     component: CheckboxGroup,
     parameters: {
@@ -19,9 +19,12 @@ export default {
             }
         }
     }
-} as Meta<typeof CheckboxGroup>;
+};
+export default meta;
 
-const Template: StoryFn<typeof CheckboxGroup> = args => {
+type Story = StoryObj<typeof meta>;
+
+const Template = (args: Parameters<typeof CheckboxGroup>[0]) => {
     return (
         <CheckboxGroup {...args}>
             <CheckboxItem id="cat" label="Cat" description="Miaouw" value="cat"/>
@@ -38,7 +41,7 @@ const Template: StoryFn<typeof CheckboxGroup> = args => {
     );
 };
 
-export const Default = {
+export const Default: Story = {
     render: Template,
 
     args: {
@@ -46,7 +49,7 @@ export const Default = {
     }
 };
 
-export const Disabled = {
+export const Disabled: Story = {
     render: Template,
 
     args: {

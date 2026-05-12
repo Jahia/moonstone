@@ -1,4 +1,4 @@
-import {StoryFn, Meta} from '@storybook/react-vite';
+import {StoryObj, Meta} from '@storybook/react-vite';
 
 import {SecondaryNav, SecondaryNavHeader} from './index';
 import type {SecondaryNavProps} from './SecondaryNav.types';
@@ -6,7 +6,7 @@ import type {SecondaryNavProps} from './SecondaryNav.types';
 import markdownNotes from './SecondaryNav.md';
 import {Love} from '~/icons';
 
-export default {
+const meta: Meta<typeof SecondaryNav> = {
     title: 'Components/SecondaryNav',
     component: SecondaryNav,
     decorators: [
@@ -21,13 +21,16 @@ export default {
     parameters: {
         docs: {description: {component: markdownNotes}}
     }
-} as Meta<typeof SecondaryNav>;
+};
+export default meta;
 
-const Template: StoryFn<SecondaryNavProps> = args => (
+type Story = StoryObj<typeof meta>;
+
+const Template = (args: SecondaryNavProps) => (
     <SecondaryNav {...args}>My content here</SecondaryNav>
 );
 
-export const TextTitle = {
+export const TextTitle: Story = {
     render: Template,
 
     args: {
@@ -35,7 +38,7 @@ export const TextTitle = {
     }
 };
 
-export const WithHeaderImage = {
+export const WithHeaderImage: Story = {
     render: Template,
 
     args: {
@@ -43,7 +46,7 @@ export const WithHeaderImage = {
     }
 };
 
-export const WithTextInHeaderComponent = {
+export const WithTextInHeaderComponent: Story = {
     render: Template,
 
     args: {
@@ -51,7 +54,7 @@ export const WithTextInHeaderComponent = {
     }
 };
 
-export const WithHeaderComponent = {
+export const WithHeaderComponent: Story = {
     render: Template,
 
     args: {

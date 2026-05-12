@@ -28,7 +28,7 @@ import {
 } from '~/data';
 import {Edit, Love, Visibility} from '~/icons';
 
-export default {
+const meta = {
     title: 'Components/Table',
     component: Table,
     parameters: {
@@ -36,6 +36,7 @@ export default {
         actions: {argTypesRegex: '^on.*'}
     }
 };
+export default meta;
 
 const columnsWidth = {
     selection: 'auto',
@@ -45,7 +46,8 @@ const columnsWidth = {
     lastModifiedOn: '160px'
 };
 
-export const Basic = () => (
+export const Basic = {
+    render: () => (
     <Table>
         <TableHead>
             <TableRow>
@@ -85,7 +87,8 @@ export const Basic = () => (
             </TableRow>
         </TableBody>
     </Table>
-);
+    )
+};
 
 export const BasicReactTable = {
     render: () => {

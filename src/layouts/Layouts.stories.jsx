@@ -23,11 +23,13 @@ import {layout} from '~/globals/css-utils.js';
 
 const accordionIds = ['01', '02', '03'];
 
-export default {
+const meta = {
     title: 'Layouts/Demos'
 };
+export default meta;
 
-export const Example = () => {
+export const Example = {
+    render: () => {
     const [selectedItems1, setSelectedItems1] = useState([]);
     const [selectedItems2, setSelectedItems2] = useState([]);
 
@@ -101,9 +103,11 @@ export const Example = () => {
       />
         </div>
     );
+    }
 };
 
-export const ExampleLight = () => {
+export const ExampleLight = {
+    render: () => {
     const [selectedItems1, setSelectedItems1] = useState([]);
     const [selectedItems2, setSelectedItems2] = useState([]);
 
@@ -176,9 +180,11 @@ export const ExampleLight = () => {
       />
         </div>
     );
+    }
 };
 
-export const Centered = () => (
+export const Centered = {
+    render: () => (
     <div style={{transform: 'scale(1)'}}>
         <LayoutApp
       navigation={<FakePrimaryNavigation/>}
@@ -196,9 +202,11 @@ export const Centered = () => (
       }
     />
     </div>
-);
+    )
+};
 
-export const WithoutLevel2 = () => (
+export const WithoutLevel2 = {
+    render: () => (
     <div style={{transform: 'scale(1)'}}>
         <LayoutApp
       navigation={<FakePrimaryNavigation/>}
@@ -214,4 +222,5 @@ export const WithoutLevel2 = () => (
       }
     />
     </div>
-);
+    )
+};

@@ -6,7 +6,7 @@ import type {ButtonGroupProps} from './ButtonGroup.types';
 import {Button} from '~/components/Button';
 import {ChevronDown} from '~/icons';
 
-export default {
+const meta: Meta<typeof ButtonGroup> = {
     title: 'Components/ButtonGroup',
     component: ButtonGroup,
     subcomponents: {Button},
@@ -19,9 +19,12 @@ export default {
         },
         actions: {argTypesRegex: '^on.*'}
     }
-} as Meta<typeof ButtonGroup>;
+};
+export default meta;
 
-export const Default: StoryObj<ButtonGroupProps> = {
+type Story = StoryObj<ButtonGroupProps>;
+
+export const Default: Story = {
     render: args => (
         <ButtonGroup {...args}>
             <Button label="one" onClick={() => null}/>
@@ -35,23 +38,29 @@ export const Default: StoryObj<ButtonGroupProps> = {
     }
 };
 
-export const ButtonWithActions = () => (
-    <ButtonGroup color="accent" size="big">
-        <Button label="Actions" onClick={() => null}/>
-        <Button icon={<ChevronDown/>} aria-label="button with down arrow icon" onClick={() => null}/>
-    </ButtonGroup>
-);
+export const ButtonWithActions: Story = {
+    render: () => (
+        <ButtonGroup color="accent" size="big">
+            <Button label="Actions" onClick={() => null}/>
+            <Button icon={<ChevronDown/>} aria-label="button with down arrow icon" onClick={() => null}/>
+        </ButtonGroup>
+    )
+};
 
-export const ButtonOutlinedWithActions = () => (
-    <ButtonGroup color="accent" size="big" variant="outlined">
-        <Button label="Actions" onClick={() => null}/>
-        <Button icon={<ChevronDown/>} aria-label="button with down arrow icon" onClick={() => null}/>
-    </ButtonGroup>
-);
+export const ButtonOutlinedWithActions: Story = {
+    render: () => (
+        <ButtonGroup color="accent" size="big" variant="outlined">
+            <Button label="Actions" onClick={() => null}/>
+            <Button icon={<ChevronDown/>} aria-label="button with down arrow icon" onClick={() => null}/>
+        </ButtonGroup>
+    )
+};
 
-export const ButtonGroupWith1Button = () => (
-    <ButtonGroup color="accent" size="big">
-        <Button label="Actions" onClick={() => null}/>
-    </ButtonGroup>
-);
+export const ButtonGroupWith1Button: Story = {
+    render: () => (
+        <ButtonGroup color="accent" size="big">
+            <Button label="Actions" onClick={() => null}/>
+        </ButtonGroup>
+    )
+};
 

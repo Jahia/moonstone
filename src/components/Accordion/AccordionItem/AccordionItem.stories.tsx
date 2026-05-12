@@ -1,4 +1,4 @@
-import {StoryFn, Meta} from '@storybook/react-vite';
+import {StoryObj, Meta} from '@storybook/react-vite';
 
 import {Accordion} from '~/components/Accordion';
 import {AccordionItem} from './index';
@@ -7,7 +7,7 @@ import type {AccordionItemProps} from './AccordionItem.types';
 import markdownNotes from './AccordionItem.md';
 import {Love} from '~/icons';
 
-export default {
+const meta: Meta<typeof AccordionItem> = {
     title: 'Components/Accordion/AccordionItem',
     component: AccordionItem,
     decorators: [
@@ -23,15 +23,18 @@ export default {
         docs: {description: {component: markdownNotes}},
         actions: {argTypesRegex: '^on.*'}
     }
-} as Meta<typeof AccordionItem>;
+};
+export default meta;
 
-const Template: StoryFn<AccordionItemProps> = args => (
+type Story = StoryObj<typeof meta>;
+
+const Template = (args: AccordionItemProps) => (
     <Accordion>
         <AccordionItem {...args}>Content here</AccordionItem>
     </Accordion>
 );
 
-export const WithIcon = {
+export const WithIcon: Story = {
     render: Template,
 
     args: {
@@ -41,7 +44,7 @@ export const WithIcon = {
     }
 };
 
-export const WithoutIcon = {
+export const WithoutIcon: Story = {
     render: Template,
 
     args: {

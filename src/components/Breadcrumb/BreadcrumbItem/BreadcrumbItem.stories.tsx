@@ -1,4 +1,4 @@
-import {StoryFn, Meta} from '@storybook/react-vite';
+import {StoryObj, Meta} from '@storybook/react-vite';
 
 // Import '~/__storybook__/storybook.scss';
 
@@ -7,7 +7,7 @@ import type {BreadcrumbItemProps} from './BreadcrumbItem.types';
 
 import {Love} from '~/icons';
 
-export default {
+const meta: Meta<typeof BreadcrumbItem> = {
     title: 'Components/Breadcrumb/BreadcrumbItem',
     component: BreadcrumbItem,
     decorators: [
@@ -21,16 +21,19 @@ export default {
         layout: 'centered',
         actions: {argTypesRegex: '^on.*'}
     }
-} as Meta<typeof BreadcrumbItem>;
+};
+export default meta;
 
-const Template: StoryFn<BreadcrumbItemProps> = args => (
+type Story = StoryObj<typeof meta>;
+
+const Template = (args: BreadcrumbItemProps) => (
     <Breadcrumb>
         <BreadcrumbItem {...args}/>
         <BreadcrumbItem {...args}/>
     </Breadcrumb>
 );
 
-export const Basic = {
+export const Basic: Story = {
     render: Template,
 
     args: {
@@ -38,7 +41,7 @@ export const Basic = {
     }
 };
 
-export const LongLabels = {
+export const LongLabels: Story = {
     render: Template,
 
     args: {
@@ -46,7 +49,7 @@ export const LongLabels = {
     }
 };
 
-export const WithIcons = {
+export const WithIcons: Story = {
     render: Template,
 
     args: {

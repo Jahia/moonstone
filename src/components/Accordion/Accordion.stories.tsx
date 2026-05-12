@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {StoryFn, Meta} from '@storybook/react-vite';
+import {StoryObj, Meta} from '@storybook/react-vite';
 
 import {Accordion} from './index';
 import {AccordionItem} from '~/components/Accordion/AccordionItem';
@@ -10,7 +10,7 @@ import {Love, BarSquare, Bug} from '~/icons';
 
 const accordionIds = ['01', '02', '03'];
 
-export default {
+const meta: Meta<typeof Accordion> = {
     title: 'Components/Accordion',
     component: Accordion,
     subcomponents: {AccordionItem},
@@ -32,9 +32,12 @@ export default {
         },
         actions: {argTypesRegex: '^on.*'}
     }
-} as Meta<typeof Accordion>;
+};
+export default meta;
 
-const Template: StoryFn<AccordionProps> = args => (
+type Story = StoryObj<typeof meta>;
+
+const Template = (args: AccordionProps) => (
     <Accordion {...args}>
         <AccordionItem
             id={accordionIds[0]}
@@ -144,11 +147,11 @@ const Template: StoryFn<AccordionProps> = args => (
     </Accordion>
 );
 
-export const Default = {
+export const Default: Story = {
     render: Template
 };
 
-export const DefaultOpened = {
+export const DefaultOpened: Story = {
     render: Template,
 
     args: {
@@ -156,7 +159,8 @@ export const DefaultOpened = {
     }
 };
 
-export const Controlled = () => {
+export const Controlled: Story = {
+    render: () => {
     const [stateOpenedItems, setStateOpenedItem] = useState(accordionIds[1]);
 
     const onSetOpenedItem = (id: string) => {
@@ -209,9 +213,10 @@ export const Controlled = () => {
             </Accordion>
         </>
     );
+    }
 };
 
-export const Reversed = {
+export const Reversed: Story = {
     render: Template,
 
     args: {

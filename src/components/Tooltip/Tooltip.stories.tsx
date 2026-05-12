@@ -1,11 +1,11 @@
-import {StoryFn, Meta} from '@storybook/react-vite';
+import {StoryObj, Meta} from '@storybook/react-vite';
 
 import {Tooltip} from './index';
 import {Badge, Button, Chip, PrimaryNav, PrimaryNavItem, PrimaryNavItemsGroup} from '~/components';
 import {Apps, Feather, Home, Person, Profile, Setting} from '~/icons';
 import placeholder from '~/__storybook__/assets/img-placeholder.jpg';
 
-export default {
+const meta: Meta<typeof Tooltip> = {
     title: 'Components/Tooltip',
     component: Tooltip,
     tags: ['new'],
@@ -15,13 +15,16 @@ export default {
         storysource: {disable: true},
         actions: {argTypesRegex: '^on.*'}
     }
-} as Meta<typeof Tooltip>;
+};
+export default meta;
 
-const Template: StoryFn<typeof Tooltip> = args => (
+type Story = StoryObj<typeof meta>;
+
+const Template = (args: Parameters<typeof Tooltip>[0]) => (
     <Tooltip label="Tooltip" {...args}/>
 );
 
-export const IconButtonTooltip = {
+export const IconButtonTooltip: Story = {
     render: Template,
     args: {
         label: 'Home',
@@ -29,7 +32,7 @@ export const IconButtonTooltip = {
     }
 };
 
-export const ButtonTooltip = {
+export const ButtonTooltip: Story = {
     render: Template,
     args: {
         label: 'Home',
@@ -37,14 +40,14 @@ export const ButtonTooltip = {
     }
 };
 
-export const DisabledButtonTooltip = {
+export const DisabledButtonTooltip: Story = {
     render: Template,
     args: {
         children: <Button isDisabled label="Disabled button" icon={<Home/>} variant="outlined"/>
     }
 };
 
-export const LongTooltip = {
+export const LongTooltip: Story = {
     render: Template,
     args: {
         label: 'Very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long tooltip',
@@ -52,14 +55,14 @@ export const LongTooltip = {
     }
 };
 
-export const ChipTooltip = {
+export const ChipTooltip: Story = {
     render: Template,
     args: {
         children: <Chip icon={<Home/>} label="Chip"/>
     }
 };
 
-export const TextTooltip = {
+export const TextTooltip: Story = {
     render: Template,
     args: {
         label: 'That is a long text',
@@ -67,14 +70,15 @@ export const TextTooltip = {
     }
 };
 
-export const BadgeTooltip = {
+export const BadgeTooltip: Story = {
     render: Template,
     args: {
         children: <Badge label="Badge"/>
     }
 };
 
-export const PrimaryNavTooltip = () => {
+export const PrimaryNavTooltip: Story = {
+    render: () => {
     return (
         <div style={{transform: 'scale(1)', height: '100vh'}}>
             <PrimaryNav
@@ -125,4 +129,5 @@ export const PrimaryNavTooltip = () => {
             />
         </div>
     );
+    }
 };

@@ -1,16 +1,19 @@
 import {useState} from 'react';
-import {StoryObj} from '@storybook/react-vite';
+import {StoryObj, Meta} from '@storybook/react-vite';
 
 import {Collapsible} from './index';
 import type {CollapsibleProps} from './Collapsible.types';
 
-export default {
+const meta: Meta<typeof Collapsible> = {
     title: 'Components/Collapsible',
     component: Collapsible,
     parameters: {
         actions: {argTypesRegex: '^on.*'}
     }
 };
+export default meta;
+
+type Story = StoryObj<CollapsibleProps>;
 
 const BodyCollapsible = () => {
     return (
@@ -68,7 +71,7 @@ const BodyCollapsible = () => {
     );
 };
 
-export const Uncontrolled = {
+export const Uncontrolled: Story = {
     args: {
         label: 'Collapsible label',
         children: <BodyCollapsible/>,
@@ -76,7 +79,7 @@ export const Uncontrolled = {
     }
 };
 
-export const Controlled: StoryObj<CollapsibleProps> = {
+export const Controlled: Story = {
     render: args => {
         const [isExpanded, setIsExpanded] = useState(false);
         const handleOnClick = () => {
@@ -99,7 +102,8 @@ export const Controlled: StoryObj<CollapsibleProps> = {
     }
 };
 
-export const StickyCollapsibles = () => {
+export const StickyCollapsibles: Story = {
+    render: () => {
     return (
         <>
             <Collapsible label="Collapsible 1">
@@ -116,4 +120,5 @@ export const StickyCollapsibles = () => {
             </Collapsible>
         </>
     );
+    }
 };

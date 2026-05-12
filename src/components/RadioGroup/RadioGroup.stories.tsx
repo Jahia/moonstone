@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import {StoryObj, StoryFn, Meta} from '@storybook/react-vite';
+import {StoryObj, Meta} from '@storybook/react-vite';
 
 import {RadioGroup} from './index';
 import {RadioItem} from './RadioItem';
 
-export default {
+const meta: Meta<typeof RadioGroup> = {
     title: 'Components/RadioGroup',
     component: RadioGroup,
     subcomponents: {RadioItem},
@@ -24,9 +24,12 @@ export default {
             }
         }
     }
-} as Meta<typeof RadioGroup>;
+};
+export default meta;
 
-const Template: StoryFn<typeof RadioGroup> = args => (
+type Story = StoryObj<typeof meta>;
+
+const Template = (args: Parameters<typeof RadioGroup>[0]) => (
     <RadioGroup {...args}>
         <RadioItem id="cat" label="Cat" description="Miaouw" value="cat"/>
         <RadioItem id="dog" label="Dog" description="Ouah-ouah" value="dog"/>
@@ -41,7 +44,7 @@ const Template: StoryFn<typeof RadioGroup> = args => (
     </RadioGroup>
 );
 
-export const NoDefaultValue = {
+export const NoDefaultValue: Story = {
     render: Template,
 
     args: {
@@ -49,7 +52,7 @@ export const NoDefaultValue = {
     }
 };
 
-export const WithDefaultValue = {
+export const WithDefaultValue: Story = {
     render: Template,
 
     args: {
@@ -58,7 +61,7 @@ export const WithDefaultValue = {
     }
 };
 
-export const Disabled = {
+export const Disabled: Story = {
     render: Template,
 
     args: {
@@ -67,7 +70,7 @@ export const Disabled = {
     }
 };
 
-export const Controlled: StoryObj<typeof RadioGroup> = {
+export const Controlled: Story = {
     render: args => {
         const [value, setValue] = useState('cat');
 
