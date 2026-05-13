@@ -104,21 +104,21 @@ export const Controlled: Story = {
 
 export const StickyCollapsibles: Story = {
     render: () => {
-    return (
-        <>
-            <Collapsible label="Collapsible 1">
-                <BodyCollapsible/>
-            </Collapsible>
-            <Collapsible label="Collapsible 2">
-                <BodyCollapsible/>
-            </Collapsible>
-            <Collapsible label="Collapsible 3">
-                <BodyCollapsible/>
-            </Collapsible>
-            <Collapsible label="Collapsible 4">
-                <BodyCollapsible/>
-            </Collapsible>
-        </>
-    );
+        return (
+            <>
+                <Collapsible label="Collapsible 1">
+                    <BodyCollapsible/>
+                </Collapsible>
+                <Collapsible label="Collapsible 2">
+                    <BodyCollapsible/>
+                </Collapsible>
+                <Collapsible label="Collapsible 3">
+                    <BodyCollapsible/>
+                </Collapsible>
+                <Collapsible label="Collapsible 4">
+                    <BodyCollapsible/>
+                </Collapsible>
+            </>
+        );
     }
 };

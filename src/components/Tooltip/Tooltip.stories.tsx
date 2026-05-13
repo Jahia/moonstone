@@ -79,9 +79,9 @@ export const BadgeTooltip: Story = {
 
 export const PrimaryNavTooltip: Story = {
     render: () => {
-    return (
-        <div style={{transform: 'scale(1)', height: '100vh'}}>
-            <PrimaryNav
+        return (
+            <div style={{transform: 'scale(1)', height: '100vh'}}>
+                <PrimaryNav
                 headerLogo={<img src={placeholder} height={30} alt="placeholder"/>}
                 headerCaption="development"
                 top={
@@ -127,7 +127,7 @@ export const PrimaryNavTooltip: Story = {
                     </>
                 }
             />
-        </div>
-    );
+            </div>
+        );
     }
 };

@@ -30,28 +30,28 @@ export default meta;
 
 export const Example = {
     render: () => {
-    const [selectedItems1, setSelectedItems1] = useState([]);
-    const [selectedItems2, setSelectedItems2] = useState([]);
+        const [selectedItems1, setSelectedItems1] = useState([]);
+        const [selectedItems2, setSelectedItems2] = useState([]);
 
-    const handleSelectItem1 = node => {
-        if (selectedItems1.includes(node.id)) {
-            setSelectedItems1(selectedItems1.filter(item => item !== node.id));
-        } else {
-            setSelectedItems1([node.id]);
-        }
-    };
+        const handleSelectItem1 = node => {
+            if (selectedItems1.includes(node.id)) {
+                setSelectedItems1(selectedItems1.filter(item => item !== node.id));
+            } else {
+                setSelectedItems1([node.id]);
+            }
+        };
 
-    const handleSelectItem2 = node => {
-        if (selectedItems2.includes(node.id)) {
-            setSelectedItems2(selectedItems2.filter(item => item !== node.id));
-        } else {
-            setSelectedItems2([node.id]);
-        }
-    };
+        const handleSelectItem2 = node => {
+            if (selectedItems2.includes(node.id)) {
+                setSelectedItems2(selectedItems2.filter(item => item !== node.id));
+            } else {
+                setSelectedItems2([node.id]);
+            }
+        };
 
-    return (
-        <div style={{transform: 'scale(1)'}}>
-            <LayoutApp
+        return (
+            <div style={{transform: 'scale(1)'}}>
+                <LayoutApp
         navigation={<PrimaryNav>level 1</PrimaryNav>}
         content={
             <LayoutModule
@@ -101,35 +101,35 @@ export const Example = {
           />
         }
       />
-        </div>
-    );
+            </div>
+        );
     }
 };
 
 export const ExampleLight = {
     render: () => {
-    const [selectedItems1, setSelectedItems1] = useState([]);
-    const [selectedItems2, setSelectedItems2] = useState([]);
+        const [selectedItems1, setSelectedItems1] = useState([]);
+        const [selectedItems2, setSelectedItems2] = useState([]);
 
-    const handleSelectItem1 = node => {
-        if (selectedItems1.includes(node.id)) {
-            setSelectedItems1(selectedItems1.filter(item => item !== node.id));
-        } else {
-            setSelectedItems1([node.id]);
-        }
-    };
+        const handleSelectItem1 = node => {
+            if (selectedItems1.includes(node.id)) {
+                setSelectedItems1(selectedItems1.filter(item => item !== node.id));
+            } else {
+                setSelectedItems1([node.id]);
+            }
+        };
 
-    const handleSelectItem2 = node => {
-        if (selectedItems2.includes(node.id)) {
-            setSelectedItems2(selectedItems2.filter(item => item !== node.id));
-        } else {
-            setSelectedItems2([node.id]);
-        }
-    };
+        const handleSelectItem2 = node => {
+            if (selectedItems2.includes(node.id)) {
+                setSelectedItems2(selectedItems2.filter(item => item !== node.id));
+            } else {
+                setSelectedItems2([node.id]);
+            }
+        };
 
-    return (
-        <div style={{transform: 'scale(1)'}}>
-            <LayoutApp
+        return (
+            <div style={{transform: 'scale(1)'}}>
+                <LayoutApp
         navigation={<PrimaryNav>level 1</PrimaryNav>}
         content={
             <LayoutModule
@@ -178,15 +178,15 @@ export const ExampleLight = {
           />
         }
       />
-        </div>
-    );
+            </div>
+        );
     }
 };
 
 export const Centered = {
     render: () => (
-    <div style={{transform: 'scale(1)'}}>
-        <LayoutApp
+        <div style={{transform: 'scale(1)'}}>
+            <LayoutApp
       navigation={<FakePrimaryNavigation/>}
       content={
           <LayoutModule
@@ -201,14 +201,14 @@ export const Centered = {
         />
       }
     />
-    </div>
+        </div>
     )
 };
 
 export const WithoutLevel2 = {
     render: () => (
-    <div style={{transform: 'scale(1)'}}>
-        <LayoutApp
+        <div style={{transform: 'scale(1)'}}>
+            <LayoutApp
       navigation={<FakePrimaryNavigation/>}
       content={
           <LayoutModule
@@ -221,6 +221,6 @@ export const WithoutLevel2 = {
         />
       }
     />
-    </div>
+        </div>
     )
 };

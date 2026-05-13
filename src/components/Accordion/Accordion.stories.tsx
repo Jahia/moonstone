@@ -161,58 +161,58 @@ export const DefaultOpened: Story = {
 
 export const Controlled: Story = {
     render: () => {
-    const [stateOpenedItems, setStateOpenedItem] = useState(accordionIds[1]);
+        const [stateOpenedItems, setStateOpenedItem] = useState(accordionIds[1]);
 
-    const onSetOpenedItem = (id: string) => {
-        setStateOpenedItem(prevState => {
-            return prevState === id ? null : id;
-        });
-    };
+        const onSetOpenedItem = (id: string) => {
+            setStateOpenedItem(prevState => {
+                return prevState === id ? null : id;
+            });
+        };
 
-    return (
-        <>
-            <span>
-                <button type="button" onClick={() => onSetOpenedItem('01')}>
-                    Open First
-                </button>
-                <button type="button" onClick={() => onSetOpenedItem('02')}>
-                    Open Second
-                </button>
-                <button type="button" onClick={() => onSetOpenedItem('03')}>
-                    Open Third
-                </button>
-                <button type="button" onClick={() => onSetOpenedItem(null)}>
-                    Close
-                </button>
-            </span>
-            <Accordion
+        return (
+            <>
+                <span>
+                    <button type="button" onClick={() => onSetOpenedItem('01')}>
+                        Open First
+                    </button>
+                    <button type="button" onClick={() => onSetOpenedItem('02')}>
+                        Open Second
+                    </button>
+                    <button type="button" onClick={() => onSetOpenedItem('03')}>
+                        Open Third
+                    </button>
+                    <button type="button" onClick={() => onSetOpenedItem(null)}>
+                        Close
+                    </button>
+                </span>
+                <Accordion
         openedItem={stateOpenedItems}
         onSetOpenedItem={onSetOpenedItem}
-            >
-                <AccordionItem
+                >
+                    <AccordionItem
           id={accordionIds[0]}
           icon={<Love size="big"/>}
           label="test 01"
-                >
-                    Accordion Content
-                </AccordionItem>
-                <AccordionItem
+                    >
+                        Accordion Content
+                    </AccordionItem>
+                    <AccordionItem
           id={accordionIds[1]}
           icon={<Bug size="big"/>}
           label="test 02 is opened by default"
-                >
-                    Accordion Content
-                </AccordionItem>
-                <AccordionItem
+                    >
+                        Accordion Content
+                    </AccordionItem>
+                    <AccordionItem
           id={accordionIds[2]}
           label="test 03 (with long content)"
           icon={<BarSquare size="big"/>}
-                >
-                    Accordion Content
-                </AccordionItem>
-            </Accordion>
-        </>
-    );
+                    >
+                        Accordion Content
+                    </AccordionItem>
+                </Accordion>
+            </>
+        );
     }
 };
 

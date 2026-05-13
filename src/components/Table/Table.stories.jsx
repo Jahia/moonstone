@@ -48,45 +48,45 @@ const columnsWidth = {
 
 export const Basic = {
     render: () => (
-    <Table>
-        <TableHead>
-            <TableRow>
-                <TableHeadCell>first column</TableHeadCell>
-                <TableHeadCell>second column</TableHeadCell>
-                <TableHeadCell>third column</TableHeadCell>
-                <TableHeadCell>fourth column</TableHeadCell>
-            </TableRow>
-        </TableHead>
-        <TableBody>
-            <TableRow isHighlighted>
-                <TableBodyCell iconStart={<Love color="red"/>}>cell 1</TableBodyCell>
-                <TableBodyCell>cell 2</TableBodyCell>
-                <TableBodyCell>cell 3</TableBodyCell>
-                <TableBodyCell>
-                    <Button variant="ghost" icon={<Edit/>}/>
-                    <Button variant="ghost" icon={<Visibility/>}/>
-                </TableBodyCell>
-            </TableRow>
-            <TableRow>
-                <TableBodyCell iconStart={<Love color="red"/>}>cell 4</TableBodyCell>
-                <TableBodyCell>cell 5</TableBodyCell>
-                <TableBodyCell>cell 6</TableBodyCell>
-                <TableBodyCell>
-                    <Button variant="ghost" icon={<Edit/>}/>
-                    <Button variant="ghost" icon={<Visibility/>}/>
-                </TableBodyCell>
-            </TableRow>
-            <TableRow>
-                <TableBodyCell iconStart={<Love color="red"/>}>cell 7</TableBodyCell>
-                <TableBodyCell>cell 8</TableBodyCell>
-                <TableBodyCell>cell 9</TableBodyCell>
-                <TableBodyCell>
-                    <Button variant="ghost" icon={<Edit/>}/>
-                    <Button variant="ghost" icon={<Visibility/>}/>
-                </TableBodyCell>
-            </TableRow>
-        </TableBody>
-    </Table>
+        <Table>
+            <TableHead>
+                <TableRow>
+                    <TableHeadCell>first column</TableHeadCell>
+                    <TableHeadCell>second column</TableHeadCell>
+                    <TableHeadCell>third column</TableHeadCell>
+                    <TableHeadCell>fourth column</TableHeadCell>
+                </TableRow>
+            </TableHead>
+            <TableBody>
+                <TableRow isHighlighted>
+                    <TableBodyCell iconStart={<Love color="red"/>}>cell 1</TableBodyCell>
+                    <TableBodyCell>cell 2</TableBodyCell>
+                    <TableBodyCell>cell 3</TableBodyCell>
+                    <TableBodyCell>
+                        <Button variant="ghost" icon={<Edit/>}/>
+                        <Button variant="ghost" icon={<Visibility/>}/>
+                    </TableBodyCell>
+                </TableRow>
+                <TableRow>
+                    <TableBodyCell iconStart={<Love color="red"/>}>cell 4</TableBodyCell>
+                    <TableBodyCell>cell 5</TableBodyCell>
+                    <TableBodyCell>cell 6</TableBodyCell>
+                    <TableBodyCell>
+                        <Button variant="ghost" icon={<Edit/>}/>
+                        <Button variant="ghost" icon={<Visibility/>}/>
+                    </TableBodyCell>
+                </TableRow>
+                <TableRow>
+                    <TableBodyCell iconStart={<Love color="red"/>}>cell 7</TableBodyCell>
+                    <TableBodyCell>cell 8</TableBodyCell>
+                    <TableBodyCell>cell 9</TableBodyCell>
+                    <TableBodyCell>
+                        <Button variant="ghost" icon={<Edit/>}/>
+                        <Button variant="ghost" icon={<Visibility/>}/>
+                    </TableBodyCell>
+                </TableRow>
+            </TableBody>
+        </Table>
     )
 };
 
