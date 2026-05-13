@@ -1,10 +1,9 @@
-import {StoryObj, Meta} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
 import '~/__storybook__/storybook.scss';
 
 import {SearchInput} from './index';
-import type {SearchInputProps} from './SearchInput.types';
 
-const meta: Meta<typeof SearchInput> = {
+const meta = preview.meta({
     title: 'Components/Input',
     component: SearchInput,
     decorators: [
@@ -26,17 +25,12 @@ const meta: Meta<typeof SearchInput> = {
         onBlur: {action: 'onBlur'},
         onFocus: {action: 'onFocus'}
     }
-};
-export default meta;
+});
 
-type Story = StoryObj<typeof meta>;
-
-const Template = (args: SearchInputProps) => (
-    <section className="storyWrapper">
-        <SearchInput {...args}/>
-    </section>
-);
-
-export const Search: Story = {
-    render: Template
-};
+export const Search = meta.story({
+    render: args => (
+        <section className="storyWrapper">
+            <SearchInput {...args}/>
+        </section>
+    )
+});

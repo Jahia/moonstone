@@ -1,10 +1,10 @@
-import {useState} from 'react';
-import {StoryObj} from '@storybook/react-vite';
+import type {ChangeEvent} from 'react';
+import preview from '~/__storybook__/preview';
+import {useArgs} from 'storybook/preview-api';
 
 import {Switch} from './index';
-import type {SwitchProps} from './Switch.types';
 
-export default {
+const meta = preview.meta({
     title: 'Components/Switch',
     component: Switch,
     parameters: {
@@ -15,20 +15,32 @@ export default {
     args: {
         'aria-label': 'switch component'
     }
-};
+});
 
-export const Uncontrolled: StoryObj<SwitchProps> = {};
+export const Uncontrolled = meta.story();
 
-export const Controlled: StoryObj<SwitchProps> = {
-    render: args => {
-        const [checked, setChecked] = useState(false);
+export const Controlled = meta.story({
+    args: {
+        checked: false
+    },
+    render(args) {
+        const [{checked}, updateArgs] = useArgs();
 
-        const handleOnChange = () => {
-            setChecked(!checked);
+        const handleOnChange = (
+            event: ChangeEvent<HTMLInputElement>,
+            value: string,
+            nextChecked: boolean
+        ) => {
+            args.onChange?.(event, value, nextChecked);
+            updateArgs({checked: nextChecked});
         };
 
         return (
-            <Switch checked={checked} onChange={() => handleOnChange()} {...args}/>
+            <Switch
+                {...args}
+                checked={Boolean(checked)}
+                onChange={handleOnChange}
+            />
         );
     }
-};
+});

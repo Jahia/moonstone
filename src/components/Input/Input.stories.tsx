@@ -36,7 +36,7 @@ export const Controlled = meta.story({
         const [, setArgs] = useArgs();
 
         const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-            args.onChange(e);
+            args.onChange?.(e);
             setArgs({value: e.target.value});
         };
 

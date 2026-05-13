@@ -1,10 +1,9 @@
-import {StoryObj} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
 
 import {RadioItem} from './index';
-import type {RadioItemProps} from './RadioItem.types';
 import {RadioGroup} from '../index';
 
-export default {
+const meta = preview.meta({
     title: 'Components/RadioGroup/RadioItem',
     component: RadioItem,
     parameters: {
@@ -13,10 +12,10 @@ export default {
         storysource: {disable: true},
         actions: {argTypesRegex: '^on.*'}
     }
-};
+});
 
-export const Playground: StoryObj<RadioItemProps> = {
-    render: args => {
+export const Playground = meta.story({
+    render(args) {
         return (
             <RadioGroup name="playground-name">
                 <RadioItem {...args}/>
@@ -36,4 +35,4 @@ export const Playground: StoryObj<RadioItemProps> = {
         description: 'Use the storybook controls to update this element',
         value: 'playground-value'
     }
-};
+});
