@@ -1,11 +1,11 @@
-import {StoryObj, Meta} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
 
 import {FieldSelector} from './index';
 import markdownNotes from './FieldSelector.md';
 import {Button, Input, Dropdown, RadioGroup, RadioItem} from '~/components';
 import {Close, MoreVert} from '~/icons';
 
-const meta: Meta<typeof FieldSelector> = {
+const meta = preview.meta({
     title: 'Components/Field/FieldSelector',
     component: FieldSelector,
     tags: ['beta'],
@@ -24,55 +24,55 @@ const meta: Meta<typeof FieldSelector> = {
             control: false
         }
     }
-};
-export default meta;
+});
 
-type Story = StoryObj<typeof FieldSelector>;
-
-export const Default: Story = {
-    args: {
-        buttons: <><Button icon={<MoreVert/>}/><Button icon={<Close/>}/></>,
-        selector: <Input size="big" placeholder="Input value"/>
-    }
+const defaultArgs = {
+    buttons: <><Button icon={<MoreVert/>}/><Button icon={<Close/>}/></>,
+    selector: <Input size="big" placeholder="Input value"/>
 };
 
-export const WithDropdown: Story = {
+export const Default = meta.story({
+    args: defaultArgs
+});
+
+export const WithDropdown = meta.story({
     args: {
-        ...Default.args,
+        ...defaultArgs,
         selector: <Dropdown
-                variant="outlined"
-                size="medium"
-                label="Input value"
-                value=""
-                data={[
-                        {
-                            label: 'option 1',
-                            value: '1'
-                        },
-                        {
-                            label: 'option 2',
-                            value: '2'
-                        },
-                        {
-                            label: 'option 3 with very long long label label label label label label label label',
-                            value: '3'
-                        }
-                    ]}/>
+            variant="outlined"
+            size="medium"
+            label="Input value"
+            value=""
+            data={[
+                {
+                    label: 'option 1',
+                    value: '1'
+                },
+                {
+                    label: 'option 2',
+                    value: '2'
+                },
+                {
+                    label: 'option 3 with very long long label label label label label label label label',
+                    value: '3'
+                }
+            ]}
+        />
     }
-};
+});
 
-export const WithTextarea: Story = {
+export const WithTextarea = meta.story({
     args: {
-        ...Default.args,
+        ...defaultArgs,
         selector: <textarea style={{width: '100%'}} placeholder="Input value"/>
     }
-};
+});
 
-export const WithRadio: Story = {
+export const WithRadio = meta.story({
     args: {
-        ...Default.args,
+        ...defaultArgs,
         buttons: <Button icon={<Close/>}/>,
         selector: <RadioGroup name="radio"><RadioItem id="radio1" label="Yes" value="Yes"/><RadioItem id="radio2" label="No" value="No"/></RadioGroup>
     }
-};
+});
 
