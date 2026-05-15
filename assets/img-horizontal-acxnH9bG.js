@@ -1,1 +1,0 @@
-import{n as e}from"./chunk-BneVvdWh.js";var t,n=e((()=>{t=``+new URL(`img-horizontal-BOM-k5Fc.webp`,import.meta.url).href}));export{n,t};

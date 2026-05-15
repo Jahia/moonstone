@@ -1,1 +1,0 @@
-import{c as e,g as t}from"./theming-DciguE_r.js";e();export{t as color};

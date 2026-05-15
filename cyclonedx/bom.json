@@ -4,11 +4,11 @@
 	"specVersion": "1.4",
 	"version": 1,
 	"metadata": {
-		"timestamp": "2026-05-07T08:06:35.545Z",
+		"timestamp": "2026-05-15T11:00:11.226Z",
 		"tools": [
 			{
 				"name": "rollup-plugin-sbom",
-				"version": "3.0.1",
+				"version": "3.2.0",
 				"externalReferences": [
 					{
 						"url": "git+https://github.com/janbiasi/rollup-plugin-sbom.git",
@@ -28,8 +28,29 @@
 				]
 			},
 			{
+				"name": "rolldown",
+				"version": "1.0.0",
+				"externalReferences": [
+					{
+						"url": "git+https://github.com/rolldown/rolldown.git#packages/rolldown",
+						"type": "vcs",
+						"comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
+					},
+					{
+						"url": "https://rolldown.rs/",
+						"type": "website",
+						"comment": "as detected from PackageJson property \"homepage\""
+					},
+					{
+						"url": "https://github.com/rolldown/rolldown/issues",
+						"type": "issue-tracker",
+						"comment": "as detected from PackageJson property \"bugs.url\""
+					}
+				]
+			},
+			{
 				"name": "vite",
-				"version": "8.0.1",
+				"version": "8.0.12",
 				"externalReferences": [
 					{
 						"url": "git+https://github.com/vitejs/vite.git#packages/vite",
@@ -86,8 +107,8 @@
 		{
 			"type": "library",
 			"name": "storybook",
-			"version": "10.3.1",
-			"bom-ref": "pkg:npm/storybook@10.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/core",
+			"version": "10.3.6",
+			"bom-ref": "pkg:npm/storybook@10.3.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git%23code%2Fcore",
 			"description": "Storybook: Develop, document, and test UI components in isolation",
 			"licenses": [
 				{
@@ -96,7 +117,7 @@
 					}
 				}
 			],
-			"purl": "pkg:npm/storybook@10.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/core",
+			"purl": "pkg:npm/storybook@10.3.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git%23code%2Fcore",
 			"externalReferences": [
 				{
 					"url": "git+https://github.com/storybookjs/storybook.git#code/core",
@@ -119,7 +140,7 @@
 			"type": "library",
 			"name": "react",
 			"version": "18.3.1",
-			"bom-ref": "pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react",
+			"bom-ref": "pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Freact",
 			"description": "React is a JavaScript library for building user interfaces.",
 			"licenses": [
 				{
@@ -128,7 +149,7 @@
 					}
 				}
 			],
-			"purl": "pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react",
+			"purl": "pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Freact",
 			"externalReferences": [
 				{
 					"url": "git+https://github.com/facebook/react.git#packages/react",
@@ -151,8 +172,8 @@
 			"type": "library",
 			"name": "react",
 			"group": "@storybook",
-			"version": "10.3.1",
-			"bom-ref": "pkg:npm/%40storybook/react@10.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/renderers/react",
+			"version": "10.3.6",
+			"bom-ref": "pkg:npm/%40storybook/react@10.3.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git%23code%2Frenderers%2Freact",
 			"description": "Storybook React renderer",
 			"licenses": [
 				{
@@ -161,7 +182,7 @@
 					}
 				}
 			],
-			"purl": "pkg:npm/%40storybook/react@10.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/renderers/react",
+			"purl": "pkg:npm/%40storybook/react@10.3.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git%23code%2Frenderers%2Freact",
 			"externalReferences": [
 				{
 					"url": "git+https://github.com/storybookjs/storybook.git#code/renderers/react",
@@ -184,8 +205,8 @@
 			"type": "library",
 			"name": "react-dom-shim",
 			"group": "@storybook",
-			"version": "10.3.1",
-			"bom-ref": "pkg:npm/%40storybook/react-dom-shim@10.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/lib/react-dom-shim",
+			"version": "10.3.6",
+			"bom-ref": "pkg:npm/%40storybook/react-dom-shim@10.3.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git%23code%2Flib%2Freact-dom-shim",
 			"licenses": [
 				{
 					"license": {
@@ -193,7 +214,7 @@
 					}
 				}
 			],
-			"purl": "pkg:npm/%40storybook/react-dom-shim@10.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/lib/react-dom-shim",
+			"purl": "pkg:npm/%40storybook/react-dom-shim@10.3.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git%23code%2Flib%2Freact-dom-shim",
 			"externalReferences": [
 				{
 					"url": "git+https://github.com/storybookjs/storybook.git#code/lib/react-dom-shim",
@@ -216,8 +237,8 @@
 			"type": "library",
 			"name": "addon-docs",
 			"group": "@storybook",
-			"version": "10.3.1",
-			"bom-ref": "pkg:npm/%40storybook/addon-docs@10.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/addons/docs",
+			"version": "10.3.6",
+			"bom-ref": "pkg:npm/%40storybook/addon-docs@10.3.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git%23code%2Faddons%2Fdocs",
 			"description": "Storybook Docs: Document UI components automatically with stories and MDX",
 			"licenses": [
 				{
@@ -226,7 +247,7 @@
 					}
 				}
 			],
-			"purl": "pkg:npm/%40storybook/addon-docs@10.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/addons/docs",
+			"purl": "pkg:npm/%40storybook/addon-docs@10.3.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git%23code%2Faddons%2Fdocs",
 			"externalReferences": [
 				{
 					"url": "git+https://github.com/storybookjs/storybook.git#code/addons/docs",
@@ -249,8 +270,8 @@
 			"type": "library",
 			"name": "addon-a11y",
 			"group": "@storybook",
-			"version": "10.3.1",
-			"bom-ref": "pkg:npm/%40storybook/addon-a11y@10.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/addons/a11y",
+			"version": "10.3.6",
+			"bom-ref": "pkg:npm/%40storybook/addon-a11y@10.3.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git%23code%2Faddons%2Fa11y",
 			"description": "Storybook Addon A11y: Test UI component compliance with WCAG web accessibility standards",
 			"licenses": [
 				{
@@ -259,7 +280,7 @@
 					}
 				}
 			],
-			"purl": "pkg:npm/%40storybook/addon-a11y@10.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/addons/a11y",
+			"purl": "pkg:npm/%40storybook/addon-a11y@10.3.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git%23code%2Faddons%2Fa11y",
 			"externalReferences": [
 				{
 					"url": "git+https://github.com/storybookjs/storybook.git#code/addons/a11y",
@@ -348,7 +369,7 @@
 			"name": "nunito-sans",
 			"group": "@fontsource-variable",
 			"version": "5.2.7",
-			"bom-ref": "pkg:npm/%40fontsource-variable/nunito-sans@5.2.7?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffontsource%2Ffont-files.git#fonts/variable/nunito-sans",
+			"bom-ref": "pkg:npm/%40fontsource-variable/nunito-sans@5.2.7?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffontsource%2Ffont-files.git%23fonts%2Fvariable%2Fnunito-sans",
 			"author": "Google Inc.",
 			"description": "Self-host the Nunito Sans font in a neatly bundled NPM package.",
 			"licenses": [
@@ -358,7 +379,7 @@
 					}
 				}
 			],
-			"purl": "pkg:npm/%40fontsource-variable/nunito-sans@5.2.7?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffontsource%2Ffont-files.git#fonts/variable/nunito-sans",
+			"purl": "pkg:npm/%40fontsource-variable/nunito-sans@5.2.7?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffontsource%2Ffont-files.git%23fonts%2Fvariable%2Fnunito-sans",
 			"externalReferences": [
 				{
 					"url": "git+https://github.com/fontsource/font-files.git#fonts/variable/nunito-sans",
@@ -415,7 +436,7 @@
 			"type": "library",
 			"name": "react-dom",
 			"version": "18.3.1",
-			"bom-ref": "pkg:npm/react-dom@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react-dom",
+			"bom-ref": "pkg:npm/react-dom@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Freact-dom",
 			"description": "React package for working with the DOM.",
 			"licenses": [
 				{
@@ -424,7 +445,7 @@
 					}
 				}
 			],
-			"purl": "pkg:npm/react-dom@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react-dom",
+			"purl": "pkg:npm/react-dom@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Freact-dom",
 			"externalReferences": [
 				{
 					"url": "git+https://github.com/facebook/react.git#packages/react-dom",
@@ -481,7 +502,7 @@
 			"name": "react",
 			"group": "@mdx-js",
 			"version": "3.1.0",
-			"bom-ref": "pkg:npm/%40mdx-js/react@3.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmdx-js%2Fmdx.git#packages/react",
+			"bom-ref": "pkg:npm/%40mdx-js/react@3.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmdx-js%2Fmdx.git%23packages%2Freact%2F",
 			"author": "John Otander",
 			"description": "React context for MDX",
 			"licenses": [
@@ -491,7 +512,7 @@
 					}
 				}
 			],
-			"purl": "pkg:npm/%40mdx-js/react@3.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmdx-js%2Fmdx.git#packages/react",
+			"purl": "pkg:npm/%40mdx-js/react@3.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmdx-js%2Fmdx.git%23packages%2Freact%2F",
 			"externalReferences": [
 				{
 					"url": "git+https://github.com/mdx-js/mdx.git#packages/react/",
@@ -678,7 +699,7 @@
 			"type": "library",
 			"name": "use-sync-external-store",
 			"version": "1.6.0",
-			"bom-ref": "pkg:npm/use-sync-external-store@1.6.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/use-sync-external-store",
+			"bom-ref": "pkg:npm/use-sync-external-store@1.6.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Fuse-sync-external-store",
 			"description": "Backwards compatible shim for React's useSyncExternalStore. Works with any React that supports hooks.",
 			"licenses": [
 				{
@@ -687,7 +708,7 @@
 					}
 				}
 			],
-			"purl": "pkg:npm/use-sync-external-store@1.6.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/use-sync-external-store",
+			"purl": "pkg:npm/use-sync-external-store@1.6.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Fuse-sync-external-store",
 			"externalReferences": [
 				{
 					"url": "git+https://github.com/facebook/react.git#packages/use-sync-external-store",
@@ -711,7 +732,7 @@
 			"name": "table-core",
 			"group": "@tanstack",
 			"version": "8.21.3",
-			"bom-ref": "pkg:npm/%40tanstack/table-core@8.21.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FTanStack%2Ftable.git#packages/table-core",
+			"bom-ref": "pkg:npm/%40tanstack/table-core@8.21.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FTanStack%2Ftable.git%23packages%2Ftable-core",
 			"author": "Tanner Linsley",
 			"description": "Headless UI for building powerful tables & datagrids for TS/JS.",
 			"licenses": [
@@ -721,7 +742,7 @@
 					}
 				}
 			],
-			"purl": "pkg:npm/%40tanstack/table-core@8.21.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FTanStack%2Ftable.git#packages/table-core",
+			"purl": "pkg:npm/%40tanstack/table-core@8.21.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FTanStack%2Ftable.git%23packages%2Ftable-core",
 			"externalReferences": [
 				{
 					"url": "git+https://github.com/TanStack/table.git#packages/table-core",
@@ -745,7 +766,7 @@
 			"name": "react-table",
 			"group": "@tanstack",
 			"version": "8.21.3",
-			"bom-ref": "pkg:npm/%40tanstack/react-table@8.21.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FTanStack%2Ftable.git#packages/react-table",
+			"bom-ref": "pkg:npm/%40tanstack/react-table@8.21.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FTanStack%2Ftable.git%23packages%2Freact-table",
 			"author": "Tanner Linsley",
 			"description": "Headless UI for building powerful tables & datagrids for React.",
 			"licenses": [
@@ -755,7 +776,7 @@
 					}
 				}
 			],
-			"purl": "pkg:npm/%40tanstack/react-table@8.21.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FTanStack%2Ftable.git#packages/react-table",
+			"purl": "pkg:npm/%40tanstack/react-table@8.21.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FTanStack%2Ftable.git%23packages%2Freact-table",
 			"externalReferences": [
 				{
 					"url": "git+https://github.com/TanStack/table.git#packages/react-table",
@@ -778,8 +799,8 @@
 			"type": "library",
 			"name": "utils",
 			"group": "@floating-ui",
-			"version": "0.2.10",
-			"bom-ref": "pkg:npm/%40floating-ui/utils@0.2.10?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/utils",
+			"version": "0.2.11",
+			"bom-ref": "pkg:npm/%40floating-ui/utils@0.2.11?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git%23packages%2Futils",
 			"author": "atomiks",
 			"description": "Utilities for Floating UI",
 			"licenses": [
@@ -789,7 +810,7 @@
 					}
 				}
 			],
-			"purl": "pkg:npm/%40floating-ui/utils@0.2.10?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/utils",
+			"purl": "pkg:npm/%40floating-ui/utils@0.2.11?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git%23packages%2Futils",
 			"externalReferences": [
 				{
 					"url": "git+https://github.com/floating-ui/floating-ui.git#packages/utils",
@@ -845,8 +866,8 @@
 			"type": "library",
 			"name": "react",
 			"group": "@floating-ui",
-			"version": "0.27.16",
-			"bom-ref": "pkg:npm/%40floating-ui/react@0.27.16?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/react",
+			"version": "0.27.19",
+			"bom-ref": "pkg:npm/%40floating-ui/react@0.27.19?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git%23packages%2Freact",
 			"author": "atomiks",
 			"description": "Floating UI for React",
 			"licenses": [
@@ -856,7 +877,7 @@
 					}
 				}
 			],
-			"purl": "pkg:npm/%40floating-ui/react@0.27.16?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/react",
+			"purl": "pkg:npm/%40floating-ui/react@0.27.19?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git%23packages%2Freact",
 			"externalReferences": [
 				{
 					"url": "git+https://github.com/floating-ui/floating-ui.git#packages/react",
@@ -879,8 +900,8 @@
 			"type": "library",
 			"name": "core",
 			"group": "@floating-ui",
-			"version": "1.7.3",
-			"bom-ref": "pkg:npm/%40floating-ui/core@1.7.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/core",
+			"version": "1.7.5",
+			"bom-ref": "pkg:npm/%40floating-ui/core@1.7.5?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git%23packages%2Fcore",
 			"author": "atomiks",
 			"description": "Positioning library for floating elements: tooltips, popovers, dropdowns, and more",
 			"licenses": [
@@ -890,7 +911,7 @@
 					}
 				}
 			],
-			"purl": "pkg:npm/%40floating-ui/core@1.7.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/core",
+			"purl": "pkg:npm/%40floating-ui/core@1.7.5?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git%23packages%2Fcore",
 			"externalReferences": [
 				{
 					"url": "git+https://github.com/floating-ui/floating-ui.git#packages/core",
@@ -913,8 +934,8 @@
 			"type": "library",
 			"name": "dom",
 			"group": "@floating-ui",
-			"version": "1.7.4",
-			"bom-ref": "pkg:npm/%40floating-ui/dom@1.7.4?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/dom",
+			"version": "1.7.6",
+			"bom-ref": "pkg:npm/%40floating-ui/dom@1.7.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git%23packages%2Fdom",
 			"author": "atomiks",
 			"description": "Floating UI for the web",
 			"licenses": [
@@ -924,7 +945,7 @@
 					}
 				}
 			],
-			"purl": "pkg:npm/%40floating-ui/dom@1.7.4?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/dom",
+			"purl": "pkg:npm/%40floating-ui/dom@1.7.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git%23packages%2Fdom",
 			"externalReferences": [
 				{
 					"url": "git+https://github.com/floating-ui/floating-ui.git#packages/dom",
@@ -947,8 +968,8 @@
 			"type": "library",
 			"name": "react-dom",
 			"group": "@floating-ui",
-			"version": "2.1.6",
-			"bom-ref": "pkg:npm/%40floating-ui/react-dom@2.1.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/react-dom",
+			"version": "2.1.8",
+			"bom-ref": "pkg:npm/%40floating-ui/react-dom@2.1.8?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git%23packages%2Freact-dom",
 			"author": "atomiks",
 			"description": "Floating UI for React DOM",
 			"licenses": [
@@ -958,7 +979,7 @@
 					}
 				}
 			],
-			"purl": "pkg:npm/%40floating-ui/react-dom@2.1.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/react-dom",
+			"purl": "pkg:npm/%40floating-ui/react-dom@2.1.8?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git%23packages%2Freact-dom",
 			"externalReferences": [
 				{
 					"url": "git+https://github.com/floating-ui/floating-ui.git#packages/react-dom",
@@ -1014,7 +1035,7 @@
 			"type": "library",
 			"name": "scheduler",
 			"version": "0.23.2",
-			"bom-ref": "pkg:npm/scheduler@0.23.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/scheduler",
+			"bom-ref": "pkg:npm/scheduler@0.23.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Fscheduler",
 			"description": "Cooperative scheduler for the browser environment.",
 			"licenses": [
 				{
@@ -1023,7 +1044,7 @@
 					}
 				}
 			],
-			"purl": "pkg:npm/scheduler@0.23.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/scheduler",
+			"purl": "pkg:npm/scheduler@0.23.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Fscheduler",
 			"externalReferences": [
 				{
 					"url": "git+https://github.com/facebook/react.git#packages/scheduler",
@@ -1049,53 +1070,53 @@
 			"dependsOn": [
 				"pkg:npm/to-px@1.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmikolalysenko%2Fto-px.git",
 				"pkg:npm/clsx@2.1.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Flukeed%2Fclsx.git",
-				"pkg:npm/%40tanstack/react-table@8.21.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FTanStack%2Ftable.git#packages/react-table",
-				"pkg:npm/%40floating-ui/react@0.27.16?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/react",
+				"pkg:npm/%40tanstack/react-table@8.21.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FTanStack%2Ftable.git%23packages%2Freact-table",
+				"pkg:npm/%40floating-ui/react@0.27.19?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git%23packages%2Freact",
 				"pkg:npm/re-resizable@6.11.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fbokuweb%2Freact-resizable-box.git"
 			]
 		},
 		{
-			"ref": "pkg:npm/storybook@10.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/core",
+			"ref": "pkg:npm/storybook@10.3.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git%23code%2Fcore",
 			"dependsOn": [
-				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react",
-				"pkg:npm/react-dom@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react-dom",
+				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Freact",
+				"pkg:npm/react-dom@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Freact-dom",
 				"pkg:npm/%40storybook/icons@2.0.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Ficons.git",
 				"pkg:npm/semver@7.7.4?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fnpm%2Fnode-semver.git",
-				"pkg:npm/use-sync-external-store@1.6.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/use-sync-external-store"
+				"pkg:npm/use-sync-external-store@1.6.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Fuse-sync-external-store"
 			]
 		},
 		{
-			"ref": "pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react"
+			"ref": "pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Freact"
 		},
 		{
-			"ref": "pkg:npm/%40storybook/react@10.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/renderers/react",
+			"ref": "pkg:npm/%40storybook/react@10.3.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git%23code%2Frenderers%2Freact",
 			"dependsOn": [
-				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react",
-				"pkg:npm/%40storybook/react-dom-shim@10.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/lib/react-dom-shim",
-				"pkg:npm/storybook@10.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/core"
+				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Freact",
+				"pkg:npm/%40storybook/react-dom-shim@10.3.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git%23code%2Flib%2Freact-dom-shim",
+				"pkg:npm/storybook@10.3.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git%23code%2Fcore"
 			]
 		},
 		{
-			"ref": "pkg:npm/%40storybook/react-dom-shim@10.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/lib/react-dom-shim",
+			"ref": "pkg:npm/%40storybook/react-dom-shim@10.3.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git%23code%2Flib%2Freact-dom-shim",
 			"dependsOn": [
-				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react",
-				"pkg:npm/react-dom@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react-dom"
+				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Freact",
+				"pkg:npm/react-dom@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Freact-dom"
 			]
 		},
 		{
-			"ref": "pkg:npm/%40storybook/addon-docs@10.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/addons/docs",
+			"ref": "pkg:npm/%40storybook/addon-docs@10.3.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git%23code%2Faddons%2Fdocs",
 			"dependsOn": [
-				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react",
-				"pkg:npm/storybook@10.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/core",
+				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Freact",
+				"pkg:npm/storybook@10.3.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git%23code%2Fcore",
 				"pkg:npm/%40storybook/icons@2.0.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Ficons.git",
-				"pkg:npm/react-dom@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react-dom",
-				"pkg:npm/%40mdx-js/react@3.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmdx-js%2Fmdx.git#packages/react",
+				"pkg:npm/react-dom@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Freact-dom",
+				"pkg:npm/%40mdx-js/react@3.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmdx-js%2Fmdx.git%23packages%2Freact%2F",
 				"pkg:npm/ts-dedent@2.2.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ftamino-martinius%2Fnode-ts-dedent.git",
-				"pkg:npm/%40storybook/react-dom-shim@10.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/lib/react-dom-shim"
+				"pkg:npm/%40storybook/react-dom-shim@10.3.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git%23code%2Flib%2Freact-dom-shim"
 			]
 		},
 		{
-			"ref": "pkg:npm/%40storybook/addon-a11y@10.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git#code/addons/a11y",
+			"ref": "pkg:npm/%40storybook/addon-a11y@10.3.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Fstorybook.git%23code%2Faddons%2Fa11y",
 			"dependsOn": [
 				"pkg:npm/axe-core@4.10.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fdequelabs%2Faxe-core.git"
 			]
@@ -1107,28 +1128,28 @@
 			"ref": "pkg:npm/storybook-addon-tag-badges@3.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FSidnioulz%2Fstorybook-addon-tag-badges.git"
 		},
 		{
-			"ref": "pkg:npm/%40fontsource-variable/nunito-sans@5.2.7?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffontsource%2Ffont-files.git#fonts/variable/nunito-sans"
+			"ref": "pkg:npm/%40fontsource-variable/nunito-sans@5.2.7?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffontsource%2Ffont-files.git%23fonts%2Fvariable%2Fnunito-sans"
 		},
 		{
 			"ref": "pkg:npm/%40storybook/icons@2.0.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fstorybookjs%2Ficons.git",
 			"dependsOn": [
-				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react"
+				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Freact"
 			]
 		},
 		{
-			"ref": "pkg:npm/react-dom@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react-dom",
+			"ref": "pkg:npm/react-dom@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Freact-dom",
 			"dependsOn": [
-				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react",
-				"pkg:npm/scheduler@0.23.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/scheduler"
+				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Freact",
+				"pkg:npm/scheduler@0.23.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Fscheduler"
 			]
 		},
 		{
 			"ref": "pkg:npm/ts-dedent@2.2.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ftamino-martinius%2Fnode-ts-dedent.git"
 		},
 		{
-			"ref": "pkg:npm/%40mdx-js/react@3.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmdx-js%2Fmdx.git#packages/react",
+			"ref": "pkg:npm/%40mdx-js/react@3.1.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fmdx-js%2Fmdx.git%23packages%2Freact%2F",
 			"dependsOn": [
-				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react"
+				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Freact"
 			]
 		},
 		{
@@ -1143,7 +1164,7 @@
 		{
 			"ref": "pkg:npm/react-table@7.8.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ftannerlinsley%2Freact-table.git",
 			"dependsOn": [
-				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react"
+				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Freact"
 			]
 		},
 		{
@@ -1153,67 +1174,67 @@
 			"ref": "pkg:npm/semver@7.7.4?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fnpm%2Fnode-semver.git"
 		},
 		{
-			"ref": "pkg:npm/use-sync-external-store@1.6.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/use-sync-external-store",
+			"ref": "pkg:npm/use-sync-external-store@1.6.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Fuse-sync-external-store",
 			"dependsOn": [
-				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react"
+				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Freact"
 			]
 		},
 		{
-			"ref": "pkg:npm/%40tanstack/table-core@8.21.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FTanStack%2Ftable.git#packages/table-core"
+			"ref": "pkg:npm/%40tanstack/table-core@8.21.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FTanStack%2Ftable.git%23packages%2Ftable-core"
 		},
 		{
-			"ref": "pkg:npm/%40tanstack/react-table@8.21.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FTanStack%2Ftable.git#packages/react-table",
+			"ref": "pkg:npm/%40tanstack/react-table@8.21.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FTanStack%2Ftable.git%23packages%2Freact-table",
 			"dependsOn": [
-				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react",
-				"pkg:npm/%40tanstack/table-core@8.21.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FTanStack%2Ftable.git#packages/table-core"
+				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Freact",
+				"pkg:npm/%40tanstack/table-core@8.21.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FTanStack%2Ftable.git%23packages%2Ftable-core"
 			]
 		},
 		{
-			"ref": "pkg:npm/%40floating-ui/utils@0.2.10?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/utils"
+			"ref": "pkg:npm/%40floating-ui/utils@0.2.11?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git%23packages%2Futils"
 		},
 		{
 			"ref": "pkg:npm/tabbable@6.2.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffocus-trap%2Ftabbable.git"
 		},
 		{
-			"ref": "pkg:npm/%40floating-ui/react@0.27.16?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/react",
+			"ref": "pkg:npm/%40floating-ui/react@0.27.19?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git%23packages%2Freact",
 			"dependsOn": [
-				"pkg:npm/%40floating-ui/utils@0.2.10?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/utils",
-				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react",
+				"pkg:npm/%40floating-ui/utils@0.2.11?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git%23packages%2Futils",
+				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Freact",
 				"pkg:npm/tabbable@6.2.0?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffocus-trap%2Ftabbable.git",
-				"pkg:npm/react-dom@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react-dom",
-				"pkg:npm/%40floating-ui/react-dom@2.1.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/react-dom"
+				"pkg:npm/react-dom@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Freact-dom",
+				"pkg:npm/%40floating-ui/react-dom@2.1.8?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git%23packages%2Freact-dom"
 			]
 		},
 		{
-			"ref": "pkg:npm/%40floating-ui/core@1.7.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/core",
+			"ref": "pkg:npm/%40floating-ui/core@1.7.5?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git%23packages%2Fcore",
 			"dependsOn": [
-				"pkg:npm/%40floating-ui/utils@0.2.10?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/utils"
+				"pkg:npm/%40floating-ui/utils@0.2.11?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git%23packages%2Futils"
 			]
 		},
 		{
-			"ref": "pkg:npm/%40floating-ui/dom@1.7.4?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/dom",
+			"ref": "pkg:npm/%40floating-ui/dom@1.7.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git%23packages%2Fdom",
 			"dependsOn": [
-				"pkg:npm/%40floating-ui/core@1.7.3?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/core",
-				"pkg:npm/%40floating-ui/utils@0.2.10?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/utils"
+				"pkg:npm/%40floating-ui/core@1.7.5?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git%23packages%2Fcore",
+				"pkg:npm/%40floating-ui/utils@0.2.11?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git%23packages%2Futils"
 			]
 		},
 		{
-			"ref": "pkg:npm/%40floating-ui/react-dom@2.1.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/react-dom",
+			"ref": "pkg:npm/%40floating-ui/react-dom@2.1.8?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git%23packages%2Freact-dom",
 			"dependsOn": [
-				"pkg:npm/%40floating-ui/dom@1.7.4?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git#packages/dom",
-				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react",
-				"pkg:npm/react-dom@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react-dom"
+				"pkg:npm/%40floating-ui/dom@1.7.6?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffloating-ui%2Ffloating-ui.git%23packages%2Fdom",
+				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Freact",
+				"pkg:npm/react-dom@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Freact-dom"
 			]
 		},
 		{
 			"ref": "pkg:npm/re-resizable@6.11.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fbokuweb%2Freact-resizable-box.git",
 			"dependsOn": [
-				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react",
-				"pkg:npm/react-dom@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/react-dom"
+				"pkg:npm/react@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Freact",
+				"pkg:npm/react-dom@18.3.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Freact-dom"
 			]
 		},
 		{
-			"ref": "pkg:npm/scheduler@0.23.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git#packages/scheduler"
+			"ref": "pkg:npm/scheduler@0.23.2?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Ffacebook%2Freact.git%23packages%2Fscheduler"
 		}
 	]
 }
