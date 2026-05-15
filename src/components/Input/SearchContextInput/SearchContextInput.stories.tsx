@@ -58,8 +58,8 @@ export const SearchContext = meta.story({
                 data={searchContextData}
                 icon={searchContextData[0].iconStart}
                 label={searchContextData[0].label}
-                onChange={() => undefined}
                 value={searchContextData[0].value}
+                onChange={() => undefined}
             />
         )
     },

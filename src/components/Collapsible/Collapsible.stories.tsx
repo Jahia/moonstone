@@ -1,19 +1,15 @@
 import {useState} from 'react';
-import {StoryObj, Meta} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
 
 import {Collapsible} from './index';
-import type {CollapsibleProps} from './Collapsible.types';
 
-const meta: Meta<typeof Collapsible> = {
+const meta = preview.meta({
     title: 'Components/Collapsible',
     component: Collapsible,
     parameters: {
         actions: {argTypesRegex: '^on.*'}
     }
-};
-export default meta;
-
-type Story = StoryObj<CollapsibleProps>;
+});
 
 const BodyCollapsible = () => {
     return (
@@ -71,15 +67,20 @@ const BodyCollapsible = () => {
     );
 };
 
-export const Uncontrolled: Story = {
+export const Uncontrolled = meta.story({
+    render: args => (
+        <Collapsible {...args}>
+            {args.children}
+        </Collapsible>
+    ),
     args: {
         label: 'Collapsible label',
         children: <BodyCollapsible/>,
         isDefaultExpanded: false
     }
-};
+});
 
-export const Controlled: Story = {
+export const Controlled = meta.story({
     render: args => {
         const [isExpanded, setIsExpanded] = useState(false);
         const handleOnClick = () => {
@@ -88,21 +89,22 @@ export const Controlled: Story = {
 
         return (
             <Collapsible
-        {...args}
-        isExpanded={isExpanded}
-        onClick={() => handleOnClick()}
+                {...args}
+                isExpanded={isExpanded}
+                onClick={handleOnClick}
             >
-                <BodyCollapsible/>
+                {args.children}
             </Collapsible>
         );
     },
 
     args: {
-        label: 'Collapsible label'
+        label: 'Collapsible label',
+        children: <BodyCollapsible/>
     }
-};
+});
 
-export const StickyCollapsibles: Story = {
+export const StickyCollapsibles = meta.story({
     render: () => {
         return (
             <>
@@ -121,4 +123,4 @@ export const StickyCollapsibles: Story = {
             </>
         );
     }
-};
+});

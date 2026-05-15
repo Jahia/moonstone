@@ -107,7 +107,7 @@ export const Controlled = meta.story({
                 onChange={handleChange}
             >
                 {args.children}
-           </RadioGroup>
+            </RadioGroup>
         );
     }
 });
