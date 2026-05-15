@@ -1,4 +1,4 @@
-import {StoryObj, Meta} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
 
 import {SecondaryNav, SecondaryNavHeader} from './index';
 import type {SecondaryNavProps} from './SecondaryNav.types';
@@ -6,7 +6,7 @@ import type {SecondaryNavProps} from './SecondaryNav.types';
 import markdownNotes from './SecondaryNav.md';
 import {Love} from '~/icons';
 
-const meta: Meta<typeof SecondaryNav> = {
+const meta = preview.meta({
     title: 'Components/SecondaryNav',
     component: SecondaryNav,
     decorators: [
@@ -21,48 +21,53 @@ const meta: Meta<typeof SecondaryNav> = {
     parameters: {
         docs: {description: {component: markdownNotes}}
     }
-};
-export default meta;
-
-type Story = StoryObj<typeof meta>;
+});
 
 const Template = (args: SecondaryNavProps) => (
-    <SecondaryNav {...args}>My content here</SecondaryNav>
+    <SecondaryNav {...args}>{args.children}</SecondaryNav>
 );
 
-export const TextTitle: Story = {
+const defaultArgs = {
+    children: 'My content here'
+};
+
+export const TextTitle = meta.story({
     render: Template,
 
     args: {
+        ...defaultArgs,
         header: 'Header here'
     }
-};
+});
 
-export const WithHeaderImage: Story = {
+export const WithHeaderImage = meta.story({
     render: Template,
 
     args: {
+        ...defaultArgs,
         header: <Love size="big"/>
     }
-};
+});
 
-export const WithTextInHeaderComponent: Story = {
+export const WithTextInHeaderComponent = meta.story({
     render: Template,
 
     args: {
+        ...defaultArgs,
         header: <SecondaryNavHeader>Secondary Header</SecondaryNavHeader>
     }
-};
+});
 
-export const WithHeaderComponent: Story = {
+export const WithHeaderComponent = meta.story({
     render: Template,
 
     args: {
+        ...defaultArgs,
         header: (
             <SecondaryNavHeader>
                 <Love size="big"/>
             </SecondaryNavHeader>
         )
     }
-};
+});
 
