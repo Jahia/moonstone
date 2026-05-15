@@ -1,14 +1,22 @@
 import React, {useState} from 'react';
 import {action} from 'storybook/actions';
+import preview from '~/__storybook__/preview';
 import {CustomDropdown} from './CustomDropdown';
 import type {CustomDropdownProps} from './CustomDropdown.types';
 import {Button, Fieldset, CardSelector, Chip, Dropdown, EmptyCardSelector, Field, FieldBoolean, FieldSelector, Input, MenuItem, RadioGroup, RadioItem, Separator, Textarea, Typography} from '~/components';
 import * as icons from '~/icons/components';
 import {File} from '~/icons';
 
-export default {
+type CustomDropdownStoryArgs = Partial<Omit<CustomDropdownProps, 'icon'>> & {
+    icon?: keyof typeof icons;
+};
+
+const resolveIcon = (icon?: CustomDropdownStoryArgs['icon']) => {
+    return icon ? React.createElement(icons[icon]) : undefined;
+};
+
+const meta = preview.type<{args: CustomDropdownStoryArgs}>().meta({
     title: 'Components/CustomDropdown',
-    component: CustomDropdown,
     tags: ['beta'],
 
     parameters: {
@@ -26,9 +34,9 @@ export default {
             options: Object.keys(icons)
         }
     }
-};
+});
 
-const TemplateSimple = (args: CustomDropdownProps) => {
+const TemplateSimple = (args: CustomDropdownStoryArgs) => {
     const {
         label,
         icon,
@@ -43,7 +51,7 @@ const TemplateSimple = (args: CustomDropdownProps) => {
     return (
         <CustomDropdown
             label={label}
-            icon={typeof icon === 'string' && icons[icon] ? React.createElement(icons[icon]) : undefined}
+            icon={resolveIcon(icon)}
             className={className}
             size={size}
             variant={variant}
@@ -57,7 +65,7 @@ const TemplateSimple = (args: CustomDropdownProps) => {
     );
 };
 
-export const IconButtonWithText = {
+export const IconButtonWithText = meta.story({
 
     render: TemplateSimple,
 
@@ -68,7 +76,6 @@ export const IconButtonWithText = {
         variant: 'ghost',
         isDisabled: false,
         isLoading: false,
-        ariaLabel: 'text dropdown',
         children:
     <Typography style={{maxWidth: '200px'}}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -82,15 +89,15 @@ export const IconButtonWithText = {
         Morbi varius a mauris vel posuere. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
     </Typography>
     }
-};
+});
 
-export const Form = {
+export const Form = meta.story({
 
     render: TemplateSimple,
 
     args: {
         label: 'Dropdown with form',
-        variant: 'default',
+        variant: 'outlined',
         isDisabled: false,
         isLoading: false,
         children:
@@ -140,134 +147,139 @@ export const Form = {
         </Field>
     </Fieldset>
     }
-};
+});
 
-export const WithButtons = (args: CustomDropdownProps) => {
-    const [labelState, setLabelState] = useState(args.label);
-    const {
-        label = 'Dropdown with buttons',
-        icon = 'Widgets',
-        size = 'default',
-        variant = 'ghost',
-        isDisabled = false,
-        isLoading = false,
-        children =
-        // eslint-disable-next-line react/jsx-indent
-        <>
-            <Button label="Valeur 1" onClick={() => setLabelState('Valeur 1')}/>
-            <Button label="Valeur 2" onClick={() => setLabelState('Valeur 2')}/>
-        </>
-    } = args;
+export const WithButtons = meta.story({
+    render: args => {
+        const [labelState, setLabelState] = useState(args.label);
+        const {
+            label = 'Dropdown with buttons',
+            icon = 'Widgets',
+            size = 'default',
+            variant = 'ghost',
+            isDisabled = false,
+            isLoading = false,
+            children = (
+                <>
+                    <Button label="Valeur 1" onClick={() => setLabelState('Valeur 1')}/>
+                    <Button label="Valeur 2" onClick={() => setLabelState('Valeur 2')}/>
+                </>
+            )
+        } = args;
 
-    return (
-        <CustomDropdown
-            label={labelState || label}
-            icon={React.createElement(icons[icon as keyof typeof icons])}
-            size={size}
-            variant={variant}
-            isDisabled={isDisabled}
-            isLoading={isLoading}
-            onFocus={action('onfocus')}
-            onBlur={action('onblur')}
-        >
-            {children}
-        </CustomDropdown>
-    );
-};
+        return (
+            <CustomDropdown
+                label={labelState || label}
+                icon={React.createElement(icons[icon as keyof typeof icons])}
+                size={size}
+                variant={variant}
+                isDisabled={isDisabled}
+                isLoading={isLoading}
+                onFocus={action('onfocus')}
+                onBlur={action('onblur')}
+            >
+                {children}
+            </CustomDropdown>
+        );
+    }
+});
 
-export const MultipleChoices = (args: CustomDropdownProps) => {
-    const [choices, setChoices] = useState([]);
-    const {
-        label = 'Dropdown with buttons',
-        icon = 'Widgets',
-        size = 'default',
-        variant = 'ghost',
-        isDisabled = false,
-        isLoading = false,
-        children =
-        // eslint-disable-next-line react/jsx-indent
-        <>
-            <Button label="Valeur 1" onClick={() => setChoices([...choices, 'Valeur 1'])}/>
-            <Button label="Valeur 2" onClick={() => setChoices([...choices, 'Valeur 2'])}/>
-            <Button label="Valeur 3" onClick={() => setChoices([...choices, 'Valeur 3'])}/>
-            <Button label="Valeur 4" onClick={() => setChoices([...choices, 'Valeur 4'])}/>
-        </>
-    } = args;
+export const MultipleChoices = meta.story({
+    render: args => {
+        const [choices, setChoices] = useState<string[]>([]);
+        const {
+            label = 'Dropdown with buttons',
+            icon = 'Widgets',
+            size = 'default',
+            variant = 'ghost',
+            isDisabled = false,
+            isLoading = false,
+            children = (
+                <>
+                    <Button label="Valeur 1" onClick={() => setChoices([...choices, 'Valeur 1'])}/>
+                    <Button label="Valeur 2" onClick={() => setChoices([...choices, 'Valeur 2'])}/>
+                    <Button label="Valeur 3" onClick={() => setChoices([...choices, 'Valeur 3'])}/>
+                    <Button label="Valeur 4" onClick={() => setChoices([...choices, 'Valeur 4'])}/>
+                </>
+            )
+        } = args;
 
-    return (
-        <CustomDropdown
-            label={choices.length > 0 ? choices.toString() : label}
-            icon={React.createElement(icons[icon as keyof typeof icons])}
-            size={size}
-            variant={variant}
-            isDisabled={isDisabled}
-            isLoading={isLoading}
-            onFocus={action('onfocus')}
-            onBlur={action('onblur')}
-        >
-            {children}
-        </CustomDropdown>
-    );
-};
+        return (
+            <CustomDropdown
+                label={choices.length > 0 ? choices.toString() : label}
+                icon={React.createElement(icons[icon as keyof typeof icons])}
+                size={size}
+                variant={variant}
+                isDisabled={isDisabled}
+                isLoading={isLoading}
+                onFocus={action('onfocus')}
+                onBlur={action('onblur')}
+            >
+                {children}
+            </CustomDropdown>
+        );
+    }
+});
 
-export const SortingDropdown = (args: CustomDropdownProps) => {
-    const {
-        label = 'Sorting dropdown',
-        icon = 'Love',
-        size = 'default',
-        variant = 'outlined',
-        isDisabled = false,
-        isLoading = false,
-        className
-    } = args;
+export const SortingDropdown = meta.story({
+    render: args => {
+        const {
+            label = 'Sorting dropdown',
+            icon = 'Love',
+            size = 'default',
+            variant = 'outlined',
+            isDisabled = false,
+            isLoading = false,
+            className
+        } = args;
 
-    const firstDropdownData = [
-        {value: '1', label: 'Status'},
-        {value: '2', label: 'Name'},
-        {value: '3', label: 'Content type'},
-        {value: '4', label: 'Last modified'},
-        {value: '5', label: 'Created at'}
-    ];
+        const firstDropdownData = [
+            {value: '1', label: 'Status'},
+            {value: '2', label: 'Name'},
+            {value: '3', label: 'Content type'},
+            {value: '4', label: 'Last modified'},
+            {value: '5', label: 'Created at'}
+        ];
 
-    const secondDropdownData = [
-        {value: 'asc', label: 'Ascending (A-Z)', icon: 'ArrowDown'},
-        {value: 'desc', label: 'Descending (Z-A)', icon: 'ArrowUp'}
-    ];
+        const secondDropdownData = [
+            {value: 'asc', label: 'Ascending (A-Z)', icon: 'ArrowDown'},
+            {value: 'desc', label: 'Descending (Z-A)', icon: 'ArrowUp'}
+        ];
 
-    const [sortValue, setSortValue] = useState('4');
-    const [directionValue, setDirectionValue] = useState('asc');
+        const [sortValue, setSortValue] = useState('4');
+        const [directionValue, setDirectionValue] = useState('asc');
 
-    const onValueChange = (item: {value: string, label: string}) => {
-        setSortValue(item.value);
-    };
+        const onValueChange = (item: {value: string, label: string}) => {
+            setSortValue(item.value);
+        };
 
-    const onIconChange = (item: {value: string, label: string, icon: string}) => {
-        setDirectionValue(item.value);
-    };
+        const onIconChange = (item: {value: string, label: string, icon: string}) => {
+            setDirectionValue(item.value);
+        };
 
-    const iconElement = () => {
-        if (typeof directionValue === 'string') {
-            const IconComponent = directionValue ? icons[secondDropdownData.find(item => item.value === directionValue)?.icon as keyof typeof icons] : icons[icon as keyof typeof icons];
-            return IconComponent ? React.createElement(IconComponent) : undefined;
-        }
+        const iconElement = () => {
+            if (typeof directionValue === 'string') {
+                const IconComponent = directionValue ? icons[secondDropdownData.find(item => item.value === directionValue)?.icon as keyof typeof icons] : icons[icon as keyof typeof icons];
+                return IconComponent ? React.createElement(IconComponent) : undefined;
+            }
 
-        return directionValue;
-    };
+            return directionValue;
+        };
 
-    return (
-        <CustomDropdown
-            label={firstDropdownData.find(item => item.value === sortValue).label || label}
-            icon={iconElement()}
-            className={className}
-            size={size}
-            variant={variant}
-            isDisabled={isDisabled}
-            isLoading={isLoading}
-            onFocus={action('onfocus')}
-            onBlur={action('onblur')}
-        >
-            <MenuItem label="Sort by" variant="title"/>
-            <Dropdown
+        return (
+            <CustomDropdown
+                label={firstDropdownData.find(item => item.value === sortValue).label || label}
+                icon={iconElement()}
+                className={className}
+                size={size}
+                variant={variant}
+                isDisabled={isDisabled}
+                isLoading={isLoading}
+                onFocus={action('onfocus')}
+                onBlur={action('onblur')}
+            >
+                <MenuItem label="Sort by" variant="title"/>
+                <Dropdown
                         variant="outlined"
                         data={firstDropdownData}
                         value={sortValue}
@@ -275,9 +287,9 @@ export const SortingDropdown = (args: CustomDropdownProps) => {
                             onValueChange(item);
                         }}
                     />
-            <Separator spacing="medium"/>
-            <MenuItem label="Direction" variant="title"/>
-            <Dropdown
+                <Separator spacing="medium"/>
+                <MenuItem label="Direction" variant="title"/>
+                <Dropdown
                         variant="outlined"
                         data={secondDropdownData}
                         value={directionValue}
@@ -285,6 +297,7 @@ export const SortingDropdown = (args: CustomDropdownProps) => {
                             onIconChange(item);
                         }}
                     />
-        </CustomDropdown>
-    );
-};
+            </CustomDropdown>
+        );
+    }
+});

@@ -1,8 +1,9 @@
 import {useState} from 'react';
+import preview from '~/__storybook__/preview';
 import {TreeView} from './index';
 import {treeData, treeDataFlat, treeDataRootClosable} from '~/data';
 import markdownNotes from './TreeView.md';
-import type {TreeViewProps, TreeViewData} from './TreeView.types';
+import type {TreeViewData} from './TreeView.types';
 
 const css = {
     transform: 'scale(1)',
@@ -10,29 +11,35 @@ const css = {
     height: '100vh'
 };
 
-export default {
+const meta = preview.meta({
     title: 'Components/TreeView',
     component: TreeView,
-    decorators: [(storyFn: () => JSX.Element) => <div style={css}>{storyFn()}</div>],
+    decorators: [StoryCmp => <div style={css}><StoryCmp/></div>],
     parameters: {
         layout: 'centered',
         docs: {description: {component: markdownNotes}}
     }
-};
+});
 
-export const Default = {
-    render: (args: TreeViewProps, globals: { theme: string }) => {
+export const Default = meta.story({
+    render: (args, {globals}) => {
         const theme = globals.theme;
         return <TreeView {...args} data={treeData} isReversed={theme === 'dark'}/>;
+    },
+    args: {
+        data: treeData
     }
-};
+});
 
-export const ClosableRoot = {
-    render: (args: TreeViewProps, globals: { theme: string }) => {
+export const ClosableRoot = meta.story({
+    render: (args, {globals}) => {
         const theme = globals.theme;
         return <TreeView {...args} data={treeDataRootClosable} isReversed={theme === 'dark'}/>;
+    },
+    args: {
+        data: treeDataRootClosable
     }
-};
+});
 
 // Export const OpenedByDefault = {
 //     render: (args, {globals: {theme}}) => {
@@ -48,14 +55,17 @@ export const ClosableRoot = {
 //     }
 // };
 
-export const Flat = {
-    render: (args: TreeViewProps, {globals: {theme}}: { globals: { theme: string } }) => (
+export const Flat = meta.story({
+    render: (args, {globals: {theme}}) => (
         <TreeView {...args} data={treeDataFlat} isReversed={theme === 'dark'}/>
-    )
-};
+    ),
+    args: {
+        data: treeDataFlat
+    }
+});
 
-export const Selection = {
-    render: (args: TreeViewProps, globals: { theme: string }) => {
+export const Selection = meta.story({
+    render: (args, {globals}) => {
         const theme = globals.theme;
         const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
@@ -76,16 +86,22 @@ export const Selection = {
         {...args}
       />
         );
+    },
+    args: {
+        data: treeData
     }
-};
-export const Highlight = {
-    render: (args: TreeViewProps, {globals: {theme}}: { globals: { theme: string } }) => (
+});
+export const Highlight = meta.story({
+    render: (args, {globals: {theme}}) => (
         <TreeView data={treeData} isReversed={theme === 'dark'} highlightedItems={['A']} {...args}/>
-    )
-};
+    ),
+    args: {
+        data: treeData
+    }
+});
 
-export const Controlled = {
-    render: (args: TreeViewProps, globals: { theme: string }) => {
+export const Controlled = meta.story({
+    render: (args, {globals}) => {
         const theme = globals.theme;
         const [openedItems, setOpenedItems] = useState<string[]>([]);
 
@@ -117,11 +133,14 @@ export const Controlled = {
         />
             </div>
         );
+    },
+    args: {
+        data: treeData
     }
-};
+});
 
-export const ControlledWithLoading = {
-    render: (args: TreeViewProps, globals: { theme: string }) => {
+export const ControlledWithLoading = meta.story({
+    render: (_args, {globals}) => {
         const theme = globals.theme;
         const [openedItems, setOpenedItems] = useState<string[]>([]);
         const [treeDataState, setTreeDataState] = useState<TreeViewData[]>([
@@ -186,6 +205,9 @@ export const ControlledWithLoading = {
         />
             </div>
         );
+    },
+    args: {
+        data: treeData
     }
-};
+});
 

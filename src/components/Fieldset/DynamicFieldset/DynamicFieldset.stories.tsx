@@ -1,4 +1,4 @@
-import {StoryObj, Meta} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
 
 import {DynamicFieldset} from './index';
 import {Field, FieldSelector} from '~/components';
@@ -7,7 +7,7 @@ import {Button, Chip, Input} from '~/components';
 import {Add, Language, MoreVert} from '~/icons';
 import {useArgs} from 'storybook/preview-api';
 
-const meta: Meta<typeof DynamicFieldset> = {
+const meta = preview.meta({
     title: 'Components/Fieldset/DynamicFieldset',
     component: DynamicFieldset,
     tags: ['beta'],
@@ -32,14 +32,11 @@ const meta: Meta<typeof DynamicFieldset> = {
             control: false
         }
     }
-};
-export default meta;
+});
 
-type Story = StoryObj<typeof DynamicFieldset>;
+export const Uncontrolled = meta.story();
 
-export const Uncontrolled: Story = {};
-
-export const Controlled: Story = {
+export const Controlled = meta.story({
     render: args => {
         const [, setArgs] = useArgs();
 
@@ -50,5 +47,5 @@ export const Controlled: Story = {
 
         return <DynamicFieldset {...args} onChange={onChange}/>;
     }
-};
+});
 

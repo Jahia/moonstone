@@ -1,6 +1,7 @@
 import React from 'react';
 import markdownNotes from './GlobalStyle_layout.md';
 import clsx from 'clsx';
+import preview from '~/__storybook__/preview';
 import {layout, reset} from '~/globals/css-utils.js';
 import {capitalize} from '~/utils/helpers.js';
 
@@ -114,7 +115,7 @@ function displayItems(direction: Direction, type: 'justify' | 'align') {
     return display;
 }
 
-export default {
+const meta = preview.meta({
     title: 'Utilities/Layout',
 
     parameters: {
@@ -123,16 +124,22 @@ export default {
             subtitle: 'Layout'
         }
     }
-};
+});
 
-export const Direction = () => (
-    <>
-        <ItemContainer title="Horizontal flow" direction="row"/>
-        <ItemContainer title="Vertical flow" direction="col"/>
-    </>
-);
+export const Direction = meta.story({
+    render: () => (
+        <>
+            <ItemContainer title="Horizontal flow" direction="row"/>
+            <ItemContainer title="Vertical flow" direction="col"/>
+        </>
+    )
+});
 
-export const Justify = () => <>{displayItems('row', 'justify')}</>;
+export const Justify = meta.story({
+    render: () => <>{displayItems('row', 'justify')}</>
+});
 
-export const Alignment = () => <>{displayItems('row', 'align')}</>;
+export const Alignment = meta.story({
+    render: () => <>{displayItems('row', 'align')}</>
+});
 

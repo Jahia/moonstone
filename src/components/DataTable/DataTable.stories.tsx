@@ -1,14 +1,14 @@
 import {tableStructured, tableFlat, dataColumnsUser, getStatus} from '~/data/dataTable';
 import type {DataUser, DataUserKeys} from '~/data/dataTable';
-import type {Meta, StoryObj} from '@storybook/react';
+import preview from '~/__storybook__/preview';
 import {DataTable, TableRow, TableCellActions, TableCellStatus} from './index';
+import type {DataTableProps} from './DataTable.types';
 import {useState} from 'react';
 import {Button} from '~/components';
 import {Visibility, Edit, Delete, MoreVert} from '~/icons';
 
-export default {
+const meta = preview.type<{args: DataTableProps<DataUser>}>().meta({
     title: 'Components/DataTable',
-    component: DataTable,
     tags: ['beta'],
     parameters: {
         controls: {expanded: true}
@@ -20,26 +20,18 @@ export default {
         itemsPerPageOptions: {control: 'object'},
         i18n: {control: 'object'}
     }
-} satisfies Meta<typeof DataTable<DataUser>>;
+});
 
-type Story = StoryObj<typeof DataTable<DataUser>>;
-
-export const DefaultDataTable: Story = {
-    render: args => {
-        return <DataTable {...args}/>;
-    },
+export const DefaultDataTable = meta.story({
     args: {
         data: tableFlat,
         columns: dataColumnsUser,
         primaryKey: 'id'
     },
     name: 'Default DataTable (uncontrolled)'
-};
+});
 
-export const StructuredDataTable: Story = {
-    render: args => {
-        return <DataTable {...args}/>;
-    },
+export const StructuredDataTable = meta.story({
     args: {
         data: tableStructured,
         isStructured: true,
@@ -47,12 +39,9 @@ export const StructuredDataTable: Story = {
         primaryKey: 'id'
     },
     name: 'Structured DataTable (uncontrolled)'
-};
+});
 
-export const SelectableDataTable: Story = {
-    render: args => {
-        return <DataTable {...args}/>;
-    },
+export const SelectableDataTable = meta.story({
     args: {
         data: tableFlat,
         columns: dataColumnsUser,
@@ -61,12 +50,9 @@ export const SelectableDataTable: Story = {
         defaultSortBy: 'progress'
     },
     name: 'Selectable DataTable (uncontrolled)'
-};
+});
 
-export const DefaultSelectionDataTable: Story = {
-    render: args => {
-        return <DataTable {...args}/>;
-    },
+export const DefaultSelectionDataTable = meta.story({
     args: {
         data: tableFlat,
         columns: dataColumnsUser,
@@ -76,9 +62,9 @@ export const DefaultSelectionDataTable: Story = {
         defaultSelection: ['1', '6']
     },
     name: 'Default Selection (uncontrolled)'
-};
+});
 
-export const ControlledDataTable: Story = {
+export const ControlledDataTable = meta.story({
     render: () => {
         // Sorting
         const [sortBy, setSortBy] = useState<DataUserKeys>('progress');
@@ -114,9 +100,9 @@ export const ControlledDataTable: Story = {
         );
     },
     name: 'Controlled DataTable'
-};
+});
 
-export const InsertCells: Story = {
+export const InsertCells = meta.story({
     render: args => {
         return (
             <DataTable
@@ -158,4 +144,4 @@ export const InsertCells: Story = {
         enableSelection: true
     },
     name: 'Insert custom cells (renderRow)'
-};
+});

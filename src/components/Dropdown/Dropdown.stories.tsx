@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {action} from 'storybook/actions';
+import preview from '~/__storybook__/preview';
 import markdownNotes from './Dropdown.md';
 import {Dropdown} from './index';
 import {Pill} from '~/components';
@@ -16,9 +17,16 @@ import {
 } from '~/data';
 import type {DropdownDataOption, DropdownProps} from './Dropdown.types';
 
-export default {
+type DropdownStoryArgs = Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData' | 'icon'> & {
+    icon?: keyof typeof icons | React.ReactElement;
+};
+
+const resolveIcon = (icon?: DropdownStoryArgs['icon']) => {
+    return typeof icon === 'string' ? React.createElement(icons[icon]) : icon;
+};
+
+const meta = preview.type<{args: DropdownStoryArgs}>().meta({
     title: 'Components/Dropdown',
-    component: Dropdown,
 
     parameters: {
         layout: 'centered',
@@ -36,9 +44,9 @@ export default {
             options: Object.keys(icons)
         }
     }
-};
-export const FlatData = {
-    render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
+});
+export const FlatData = meta.story({
+    render: args => {
         const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
         const [currentImage, setCurrentImage] = useState<DropdownDataOption | null>(null);
         const [currentPill, setCurrentPill] = useState<DropdownDataOption>({
@@ -69,7 +77,7 @@ export const FlatData = {
             <section className="storyGrid">
                 <Dropdown
                 {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                icon={resolveIcon(args.icon)}
                 placeholder={args.placeholder || 'Select something'}
                 value={currentOption?.value || null}
                 isDisabled={args.isDisabled || false}
@@ -79,7 +87,7 @@ export const FlatData = {
 
                 <Dropdown
                 {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                icon={resolveIcon(args.icon)}
                 imageSize={args.imageSize || 'small'}
                 placeholder={args.placeholder || 'Select an image'}
                 value={currentImage?.value || null}
@@ -89,7 +97,7 @@ export const FlatData = {
 
                 <Dropdown
                 {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                icon={resolveIcon(args.icon)}
                 placeholder={args.placeholder || 'Select a language'}
                 value={currentPill.value}
                 data={dropdownDataTreePill}
@@ -102,10 +110,10 @@ export const FlatData = {
     args: {
         icon: 'Love'
     }
-};
+});
 
-export const FlatDataMultiple = {
-    render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
+export const FlatDataMultiple = meta.story({
+    render: args => {
         const [currentOptionData, setCurrentOptionData] = useState<DropdownDataOption[]>([]);
         const [currentPill, setCurrentPill] = useState<DropdownDataOption[]>([]);
 
@@ -134,7 +142,7 @@ export const FlatDataMultiple = {
 
                 <Dropdown
                {...args}
-               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+               icon={resolveIcon(args.icon)}
                values={currentOptionData.map(v => v.value)}
                placeholder={args.placeholder || 'Select something'}
                data={dropdownData}
@@ -143,7 +151,7 @@ export const FlatDataMultiple = {
 
                 <Dropdown
                {...args}
-               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+               icon={resolveIcon(args.icon)}
                values={currentPill.map(v => v.value)}
                placeholder={args.placeholder || 'Select languages'}
                data={dropdownDataPill}
@@ -156,10 +164,10 @@ export const FlatDataMultiple = {
     args: {
         icon: 'Love'
     }
-};
+});
 
-export const GroupedData = {
-    render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
+export const GroupedData = meta.story({
+    render: args => {
         const [currentOptionGrouped, setCurrentOptionGrouped] = useState<DropdownDataOption | null>(null);
         const [currentImage, setCurrentImage] = useState<DropdownDataOption | null>(null);
         const [currentLanguage, setCurrentLanguage] = useState<DropdownDataOption | null>(null);
@@ -186,7 +194,7 @@ export const GroupedData = {
             <section className="storyGrid">
                 <Dropdown
                 {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                icon={resolveIcon(args.icon)}
                 placeholder={args.placeholder || 'Select something'}
                 value={currentOptionGrouped?.value || null}
                 data={dropdownDataGrouped}
@@ -195,7 +203,7 @@ export const GroupedData = {
 
                 <Dropdown
                 {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                icon={resolveIcon(args.icon)}
                 placeholder={args.placeholder || 'Select an image'}
                 value={currentImage?.value || null}
                 data={dropdownDataGroupedImages}
@@ -204,7 +212,7 @@ export const GroupedData = {
 
                 <Dropdown
                 {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                icon={resolveIcon(args.icon)}
                 placeholder={args.placeholder || 'Select a language'}
                 value={currentLanguage?.value || null}
                 data={dropdownDataGroupedPill}
@@ -217,10 +225,10 @@ export const GroupedData = {
     args: {
         icon: 'Love'
     }
-};
+});
 
-export const GroupedDataMultiple = {
-    render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
+export const GroupedDataMultiple = meta.story({
+    render: args => {
         const [currentOptionDataGrouped, setCurrentOptionDataGrouped] = useState<DropdownDataOption[]>([]);
         const [currentPill, setCurrentPill] = useState<DropdownDataOption[]>([]);
 
@@ -248,7 +256,7 @@ export const GroupedDataMultiple = {
             <section className="storyGrid">
                 <Dropdown
                {...args}
-               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+               icon={resolveIcon(args.icon)}
                values={currentOptionDataGrouped.map(v => v.value)}
                placeholder={args.placeholder || 'Select something'}
                data={dropdownDataGrouped}
@@ -257,7 +265,7 @@ export const GroupedDataMultiple = {
 
                 <Dropdown
                {...args}
-               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+               icon={resolveIcon(args.icon)}
                values={currentPill.map(v => v.value)}
                placeholder={args.placeholder || 'Select languages'}
                data={dropdownDataGroupedPill}
@@ -270,10 +278,10 @@ export const GroupedDataMultiple = {
     args: {
         icon: 'Love'
     }
-};
+});
 
-export const TreeData = {
-    render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
+export const TreeData = meta.story({
+    render: args => {
         const [currentOptionTree, setCurrentOptionTree] = useState<DropdownDataOption | null>(null);
         const [currentLanguage, setCurrentLanguage] = useState<DropdownDataOption | null>(null);
 
@@ -293,7 +301,7 @@ export const TreeData = {
             <section>
                 <Dropdown
                 {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                icon={resolveIcon(args.icon)}
                 placeholder={args.placeholder || 'Select something'}
                 value={currentOptionTree?.value || null}
                 treeData={dropdownDataTree}
@@ -302,7 +310,7 @@ export const TreeData = {
 
                 <Dropdown
                 {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                icon={resolveIcon(args.icon)}
                 placeholder={args.placeholder || 'Select a language'}
                 value={currentLanguage?.value || null}
                 treeData={dropdownDataTreePill}
@@ -315,10 +323,10 @@ export const TreeData = {
     args: {
         icon: 'Love'
     }
-};
+});
 
-export const TreeDataMultiple = {
-    render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
+export const TreeDataMultiple = meta.story({
+    render: args => {
         const [currentOptionDataMultiple, setCurrentOptionDataMultiple] = useState<DropdownDataOption[]>([]);
         const [currentPill, setCurrentPill] = useState<DropdownDataOption[]>([]);
 
@@ -346,7 +354,7 @@ export const TreeDataMultiple = {
             <section className="storyGrid">
                 <Dropdown
                {...args}
-               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+               icon={resolveIcon(args.icon)}
                values={currentOptionDataMultiple.map(v => v.value)}
                placeholder={args.placeholder || 'Select something'}
                treeData={dropdownDataTree}
@@ -355,7 +363,7 @@ export const TreeDataMultiple = {
 
                 <Dropdown
                  {...args}
-                 icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                 icon={resolveIcon(args.icon)}
                  values={currentPill.map(v => v.value)}
                  placeholder={args.placeholder || 'Select a language'}
                  treeData={dropdownDataTreePill}
@@ -368,5 +376,5 @@ export const TreeDataMultiple = {
     args: {
         icon: 'Love'
     }
-};
+});
 

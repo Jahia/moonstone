@@ -1,4 +1,4 @@
-import {StoryObj, Meta} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
 
 import {Field} from './index';
 import markdownNotes from './Field.md';
@@ -8,7 +8,7 @@ import {FieldSelector} from './FieldSelector';
 import {listSelectorData} from '~/data/listSelectorData';
 import {layout} from '~/globals/css-utils.js';
 
-const meta: Meta<typeof Field> = {
+const meta = preview.meta({
     title: 'Components/Field',
     component: Field,
     tags: ['beta'],
@@ -29,31 +29,33 @@ const meta: Meta<typeof Field> = {
             control: false
         }
     }
-};
-export default meta;
+});
 
-type Story = StoryObj<typeof Field>;
-
-export const Default: Story = {
-    args: {
-        label: 'Title',
-        chips: <><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>,
-        buttons: <><Button icon={<Add/>} label="Add"/><Button icon={<MoreVert/>} variant="ghost"/></>,
-        helper: 'information',
-        children: <FieldSelector selector={<Input size="big" placeholder="Input value"/>}/>
-    }
+const defaultArgs = {
+    id: 'field-default',
+    label: 'Title',
+    chips: <><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>,
+    buttons: <><Button icon={<Add/>} label="Add"/><Button icon={<MoreVert/>} variant="ghost"/></>,
+    helper: 'information',
+    children: <FieldSelector selector={<Input size="big" placeholder="Input value"/>}/>
 };
 
-export const SelectorButtons: Story = {
+export const Default = meta.story({
+    args: defaultArgs
+});
+
+export const SelectorButtons = meta.story({
     args: {
-        ...Default.args,
+        ...defaultArgs,
+        id: 'field-selector-buttons',
         children: <FieldSelector isDraggable buttons={<Button icon={<MoreVert/>}/>} selector={<Input size="big" placeholder="Input value"/>}/>
     }
-};
+});
 
-export const Multiple: Story = {
+export const Multiple = meta.story({
     args: {
-        ...Default.args,
+        ...defaultArgs,
+        id: 'field-multiple',
         children:
     <>
         <FieldSelector isDraggable buttons={<><Button icon={<MoreVert/>}/><Button icon={<Close/>}/></>} selector={<Input size="big" placeholder="Input value"/>}/>
@@ -61,11 +63,12 @@ export const Multiple: Story = {
         <FieldSelector isDraggable buttons={<><Button icon={<MoreVert/>}/><Button icon={<Close/>}/></>} selector={<Input size="big" placeholder="Input value"/>}/>
     </>
     }
-};
+});
 
-export const WithDropdown: Story = {
+export const WithDropdown = meta.story({
     args: {
-        ...Default.args,
+        ...defaultArgs,
+        id: 'field-dropdown',
         children: <FieldSelector
         selector={<Dropdown
         variant="outlined"
@@ -87,47 +90,53 @@ export const WithDropdown: Story = {
             }
 ]}/>}/>
     }
-};
+});
 
-export const WithTextarea: Story = {
+export const WithTextarea = meta.story({
     args: {
-        ...Default.args,
+        ...defaultArgs,
+        id: 'field-textarea',
         children: <FieldSelector selector={<Textarea id="moonstone-textarea" placeholder="Input value"/>}/>
     }
-};
+});
 
-export const WithRadio: Story = {
+export const WithRadio = meta.story({
     args: {
-        ...Default.args,
+        ...defaultArgs,
+        id: 'field-radio',
         children: <FieldSelector selector={<RadioGroup name="radio"><RadioItem id="radio1" label="Yes" value="Yes"/><RadioItem id="radio2" label="No" value="No"/></RadioGroup>}/>
     }
-};
+});
 
-export const WithListSelector: Story = {
+export const WithListSelector = meta.story({
     args: {
-        ...Default.args,
+        ...defaultArgs,
+        id: 'field-list-selector',
         children:
     <FieldSelector selector={<ListSelector options={listSelectorData} label={{addAllTitle: 'add', removeAllTitle: 'remove', selected: 'selected'}} onChange={(v: string[]) => console.log(v)}/>}/>
     }
-};
+});
 
-export const WithCardSelector: Story = {
+export const WithCardSelector = meta.story({
     args: {
-        ...Default.args,
+        ...defaultArgs,
+        id: 'field-card-selector',
         children: <FieldSelector selector={<CardSelector id="cardSelector" displayName="Item name" systemName="system name" information="information" thumbnailType="icon"/>}/>
     }
-};
+});
 
-export const WithEmptyCardSelector: Story = {
+export const WithEmptyCardSelector = meta.story({
     args: {
-        ...Default.args,
+        ...defaultArgs,
+        id: 'field-empty-card-selector',
         children: <FieldSelector selector={<EmptyCardSelector iconStart={<File/>} id="emptyCardSelector" label="Add item"/>}/>
     }
-};
+});
 
-export const WithMultipleCheckboxes: Story = {
+export const WithMultipleCheckboxes = meta.story({
     args: {
-        ...Default.args,
+        ...defaultArgs,
+        id: 'field-multiple-checkboxes',
         children:
     <>
         <FieldSelector isDraggable buttons={<Button icon={<Close/>}/>} selector={<CheckboxItem id="checkbox1" value="checkbox1" label="CheckboxItem 1"/>}/>
@@ -135,13 +144,15 @@ export const WithMultipleCheckboxes: Story = {
         <FieldSelector isDraggable buttons={<Button icon={<Close/>}/>} selector={<CheckboxItem id="checkbox3" value="checkbox3" label="CheckboxItem 3"/>}/>
     </>
     }
-};
+});
 
-export const Error: Story = {
+export const Error = meta.story({
     args: {
-        ...SelectorButtons.args,
+        ...defaultArgs,
+        id: 'field-error',
+        children: <FieldSelector isDraggable buttons={<Button icon={<MoreVert/>}/>} selector={<Input size="big" placeholder="Input value"/>}/>,
         hasError: true,
         errorMessage: 'There is an error.'
     }
-};
+});
 
