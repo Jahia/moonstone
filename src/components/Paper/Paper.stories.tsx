@@ -1,18 +1,17 @@
-import {StoryObj} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
 
 import {Paper} from './index';
-import type {PaperProps} from './Paper.types';
 
-export default {
+const meta = preview.meta({
     title: 'Components/Paper',
     component: Paper
-};
+});
 
-export const Default: StoryObj<PaperProps> = {
+export const Default = meta.story({
     render: args => <Paper {...args}>Content here</Paper>
-};
+});
 
-export const NoPadding: StoryObj<PaperProps> = {
+export const NoPadding = meta.story({
     render: args => <Paper {...args}>Content here</Paper>,
     args: {hasPadding: false}
-};
+});

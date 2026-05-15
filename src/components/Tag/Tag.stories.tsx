@@ -1,8 +1,8 @@
-import {StoryObj, Meta} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
 
 import {Tag} from './index';
 
-const meta: Meta<typeof Tag> = {
+const meta = preview.meta({
     title: 'Components/Tag',
     component: Tag,
     parameters: {
@@ -11,15 +11,17 @@ const meta: Meta<typeof Tag> = {
         storysource: {disable: true},
         actions: {argTypesRegex: '^on.*'}
     }
-};
-export default meta;
-
-type Story = StoryObj<typeof meta>;
+});
 
 const Template = (args: Parameters<typeof Tag>[0]) => (
-    <Tag label="Tag" value="tag01" {...args}/>
+    <Tag {...args}/>
 );
 
-export const Default: Story = {
-    render: Template
-};
+export const Default = meta.story({
+    render: Template,
+    args: {
+        label: 'Tag',
+        value: 'tag01',
+        onClick: () => undefined
+    }
+});

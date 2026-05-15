@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import './spacings.stories.scss';
 import '~/__storybook__/storybook.scss';
-import {Meta, StoryObj} from '@storybook/react';
+import preview from '~/__storybook__/preview';
 
 type SpacingProps = {
     readonly name: string
@@ -16,16 +16,12 @@ export const Spacing: React.FC<SpacingProps> = ({name}) => {
     );
 };
 
-const meta: Meta = {
+const meta = preview.meta({
     title: 'Tokens/Spacings',
     excludeStories: ['Spacing']
-};
+});
 
-export default meta;
-
-type Story = StoryObj;
-
-export const Default: Story = {
+export const Default = meta.story({
     render: () => (
         <section className="storyWrapper">
             <Spacing name="nano"/>
@@ -36,4 +32,4 @@ export const Default: Story = {
             <Spacing name="huge"/>
         </section>
     )
-};
+});
