@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {StoryObj, Meta} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
 
 import {Accordion} from './index';
 import {AccordionItem} from '~/components/Accordion/AccordionItem';
@@ -10,14 +10,14 @@ import {Love, BarSquare, Bug} from '~/icons';
 
 const accordionIds = ['01', '02', '03'];
 
-const meta: Meta<typeof Accordion> = {
+const meta = preview.meta({
     title: 'Components/Accordion',
     component: Accordion,
     subcomponents: {AccordionItem},
     decorators: [
         StoryCmp => (
             <div
-        style={{display: 'flex', flexDirection: 'column', height: '100vh'}}
+                style={{display: 'flex', flexDirection: 'column', height: '100vh'}}
             >
                 <StoryCmp/>
             </div>
@@ -32,28 +32,28 @@ const meta: Meta<typeof Accordion> = {
         },
         actions: {argTypesRegex: '^on.*'}
     }
-};
-export default meta;
+});
 
-type Story = StoryObj<typeof meta>;
-
-const Template = (args: AccordionProps) => (
-    <Accordion {...args}>
+const defaultArgs = {
+    children: [
         <AccordionItem
+            key={accordionIds[0]}
             id={accordionIds[0]}
             icon={<Love size="big"/>}
             label="test 01"
         >
             Accordion Content 01
-        </AccordionItem>
+        </AccordionItem>,
         <AccordionItem
+            key={accordionIds[1]}
             id={accordionIds[1]}
             icon={<Bug size="big"/>}
             label="test 02"
         >
             Accordion Content 02
-        </AccordionItem>
+        </AccordionItem>,
         <AccordionItem
+            key={accordionIds[2]}
             id={accordionIds[2]}
             label="test 03 (with long content)"
             icon={<BarSquare size="big"/>}
@@ -134,32 +134,25 @@ const Template = (args: AccordionProps) => (
             gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a
             rig measured fer yer chains Brethren of the Coast marooned ye ballast
             mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or
-            just lubber poop deck draft interloper main sheet ho. Snow nipper skysail
-            gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a
-            rig measured fer yer chains Brethren of the Coast marooned ye ballast
-            mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or
-            just lubber poop deck draft interloper main sheet ho. Snow nipper skysail
-            gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a
-            rig measured fer yer chains Brethren of the Coast marooned ye ballast
-            mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or
             just lubber poop deck draft interloper main sheet ho.
         </AccordionItem>
-    </Accordion>
-);
+    ]
+} satisfies Pick<AccordionProps, 'children'>;
 
-export const Default: Story = {
-    render: Template
-};
+export const Default = meta.story({
+    render: args => <Accordion {...args}>{args.children}</Accordion>,
+    args: defaultArgs
+});
 
-export const DefaultOpened: Story = {
-    render: Template,
-
+export const DefaultOpened = meta.story({
+    render: args => <Accordion {...args}>{args.children}</Accordion>,
     args: {
+        ...defaultArgs,
         defaultOpenedItem: accordionIds[1]
     }
-};
+});
 
-export const Controlled: Story = {
+export const Controlled = meta.story({
     render: () => {
         const [stateOpenedItems, setStateOpenedItem] = useState(accordionIds[1]);
 
@@ -186,27 +179,27 @@ export const Controlled: Story = {
                     </button>
                 </span>
                 <Accordion
-        openedItem={stateOpenedItems}
-        onSetOpenedItem={onSetOpenedItem}
+                    openedItem={stateOpenedItems}
+                    onSetOpenedItem={onSetOpenedItem}
                 >
                     <AccordionItem
-          id={accordionIds[0]}
-          icon={<Love size="big"/>}
-          label="test 01"
+                        id={accordionIds[0]}
+                        icon={<Love size="big"/>}
+                        label="test 01"
                     >
                         Accordion Content
                     </AccordionItem>
                     <AccordionItem
-          id={accordionIds[1]}
-          icon={<Bug size="big"/>}
-          label="test 02 is opened by default"
+                        id={accordionIds[1]}
+                        icon={<Bug size="big"/>}
+                        label="test 02 is opened by default"
                     >
                         Accordion Content
                     </AccordionItem>
                     <AccordionItem
-          id={accordionIds[2]}
-          label="test 03 (with long content)"
-          icon={<BarSquare size="big"/>}
+                        id={accordionIds[2]}
+                        label="test 03 (with long content)"
+                        icon={<BarSquare size="big"/>}
                     >
                         Accordion Content
                     </AccordionItem>
@@ -214,14 +207,13 @@ export const Controlled: Story = {
             </>
         );
     }
-};
+});
 
-export const Reversed: Story = {
-    render: Template,
-
+export const Reversed = meta.story({
+    render: args => <Accordion {...args}>{args.children}</Accordion>,
     args: {
+        ...defaultArgs,
         isReversed: true,
         defaultOpenedItem: accordionIds[1]
     }
-};
-
+});
