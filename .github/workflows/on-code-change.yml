@@ -21,60 +21,94 @@ jobs:
       - name: Run visual tests
         id: visual-tests
         if: github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'test:visual')
-        run: yarn test:visual
+        run: |
+          set +e
+          NO_COLOR=1 yarn test:visual 2>&1 | tee visual-test-output.log
+          status=${PIPESTATUS[0]}
+          echo "exit_code=$status" >> $GITHUB_OUTPUT
+          exit "$status"
       - name: Collect failed visual screenshots
+        id: collect-visual-screenshots
         if: failure() && steps.visual-tests.outcome == 'failure'
         run: |
           rm -rf visual-test-screenshots
           mkdir -p visual-test-screenshots/baseline visual-test-screenshots/current visual-test-screenshots/diff
 
-          if [ ! -d .vitest-attachments ]; then
+          if [ ! -f visual-test-output.log ]; then
+            echo "failed_tests=0" >> $GITHUB_OUTPUT
+            echo "baseline_count=0" >> $GITHUB_OUTPUT
+            echo "current_count=0" >> $GITHUB_OUTPUT
+            echo "diff_count=0" >> $GITHUB_OUTPUT
+            echo "artifact_ready=false" >> $GITHUB_OUTPUT
             exit 0
           fi
 
-          find .vitest-attachments -type f \( -name '*-actual.png' -o -name '*-diff.png' \) | while read -r file; do
-            relative_path="${file#./.vitest-attachments/}"
-            relative_path="${relative_path#.vitest-attachments/}"
-            attachment_path="${relative_path#*/}"
+          awk '
+            /Reference screenshot:/ { mode = "reference"; next }
+            /Actual screenshot:/ { mode = "actual"; next }
+            /Diff image:/ { mode = "diff"; next }
+            /Failure screenshots:/ { mode = "failure"; next }
+            mode == "failure" && /^[[:space:]]*-[[:space:]]+/ {
+              sub(/^[[:space:]]*-[[:space:]]+/, "")
+              print mode "\t" $0
+              next
+            }
+            mode != "failure" && /^[[:space:]]+/ {
+              sub(/^[[:space:]]+/, "")
+              print mode "\t" $0
+              mode = ""
+              next
+            }
+            { if (mode != "failure") mode = "" }
+          ' visual-test-output.log | sort -u > visual-test-paths.tsv
 
-            directory_name="$(dirname "$attachment_path")"
-            file_name="$(basename "$attachment_path")"
-            extension=".${file_name##*.}"
-            stem="${file_name%$extension}"
+          baseline_count=0
+          current_count=0
+          diff_count=0
 
-            case "$stem" in
-              *-actual)
-                target_root="visual-test-screenshots/current"
-                reference_stem="${stem%-actual}"
+          while IFS=$'\t' read -r kind file; do
+            [ -n "$file" ] || continue
+            [ -f "$file" ] || continue
+
+            case "$kind" in
+              reference)
+                target_root="visual-test-screenshots/baseline"
+                baseline_count=$((baseline_count + 1))
                 ;;
-              *-diff)
+              actual|failure)
+                target_root="visual-test-screenshots/current"
+                current_count=$((current_count + 1))
+                ;;
+              diff)
                 target_root="visual-test-screenshots/diff"
-                reference_stem="${stem%-diff}"
+                diff_count=$((diff_count + 1))
                 ;;
               *)
                 continue
                 ;;
             esac
 
-            target_path="$target_root/$attachment_path"
+            target_path="$target_root/$file"
             mkdir -p "$(dirname "$target_path")"
             cp "$file" "$target_path"
+          done < visual-test-paths.tsv
 
-            reference_relative_path="$directory_name/$reference_stem$extension"
-            if [ "$directory_name" = "." ]; then
-              reference_relative_path="$reference_stem$extension"
-            fi
+          failed_tests=$(awk -F '\t' '$1 == "reference" || $1 == "failure" { print $2 }' visual-test-paths.tsv | sort -u | wc -l | tr -d ' ')
+          copied_files=$((baseline_count + current_count + diff_count))
 
-            reference_path="src/__screenshots__/visual.spec.tsx/$reference_relative_path"
-            if [ -f "$reference_path" ]; then
-              baseline_target="visual-test-screenshots/baseline/$reference_relative_path"
-              mkdir -p "$(dirname "$baseline_target")"
-              cp "$reference_path" "$baseline_target"
-            fi
-          done
+          echo "failed_tests=$failed_tests" >> $GITHUB_OUTPUT
+          echo "baseline_count=$baseline_count" >> $GITHUB_OUTPUT
+          echo "current_count=$current_count" >> $GITHUB_OUTPUT
+          echo "diff_count=$diff_count" >> $GITHUB_OUTPUT
+
+          if [ "$copied_files" -gt 0 ]; then
+            echo "artifact_ready=true" >> $GITHUB_OUTPUT
+          else
+            echo "artifact_ready=false" >> $GITHUB_OUTPUT
+          fi
       - name: Upload failed visual screenshots
         id: upload-screenshots
-        if: failure() && steps.visual-tests.outcome == 'failure'
+        if: failure() && steps.visual-tests.outcome == 'failure' && steps.collect-visual-screenshots.outputs.artifact_ready == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: visual-test-screenshots-${{ github.run_id }}
@@ -86,8 +120,15 @@ jobs:
         run: |
           echo "### Visual Test Screenshots" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Download the artifact \`visual-test-screenshots-${{ github.run_id }}\` from this workflow run to inspect only the failed visual tests:" >> $GITHUB_STEP_SUMMARY
-          echo "- \`baseline/\`: committed reference screenshots for the failed tests" >> $GITHUB_STEP_SUMMARY
-          echo "- \`current/\`: screenshots captured during this failed run" >> $GITHUB_STEP_SUMMARY
-          echo "- \`diff/\`: generated diff images when Vitest produced them" >> $GITHUB_STEP_SUMMARY
+          echo "Visual tests failed: **${{ steps.collect-visual-screenshots.outputs.failed_tests }}**" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.collect-visual-screenshots.outputs.artifact_ready }}" = "true" ]; then
+            echo "**[Download screenshots](${{ steps.upload-screenshots.outputs.artifact-url }})**" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "- \`baseline/\`: ${{ steps.collect-visual-screenshots.outputs.baseline_count }} reference screenshot(s)" >> $GITHUB_STEP_SUMMARY
+            echo "- \`current/\`: ${{ steps.collect-visual-screenshots.outputs.current_count }} screenshot(s) captured during this failed run" >> $GITHUB_STEP_SUMMARY
+            echo "- \`diff/\`: ${{ steps.collect-visual-screenshots.outputs.diff_count }} generated diff image(s)" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No screenshot files were collected from the visual test output." >> $GITHUB_STEP_SUMMARY
+          fi
       - run: yarn lint
