@@ -22,15 +22,63 @@ jobs:
         id: visual-tests
         if: github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'test:visual')
         run: yarn test:visual
+      - name: Collect failed visual screenshots
+        if: failure() && steps.visual-tests.outcome == 'failure'
+        run: |
+          rm -rf visual-test-screenshots
+          mkdir -p visual-test-screenshots/baseline visual-test-screenshots/current visual-test-screenshots/diff
+
+          if [ ! -d .vitest-attachments ]; then
+            exit 0
+          fi
+
+          find .vitest-attachments -type f \( -name '*-actual.png' -o -name '*-diff.png' \) | while read -r file; do
+            relative_path="${file#./.vitest-attachments/}"
+            relative_path="${relative_path#.vitest-attachments/}"
+            attachment_path="${relative_path#*/}"
+
+            directory_name="$(dirname "$attachment_path")"
+            file_name="$(basename "$attachment_path")"
+            extension=".${file_name##*.}"
+            stem="${file_name%$extension}"
+
+            case "$stem" in
+              *-actual)
+                target_root="visual-test-screenshots/current"
+                reference_stem="${stem%-actual}"
+                ;;
+              *-diff)
+                target_root="visual-test-screenshots/diff"
+                reference_stem="${stem%-diff}"
+                ;;
+              *)
+                continue
+                ;;
+            esac
+
+            target_path="$target_root/$attachment_path"
+            mkdir -p "$(dirname "$target_path")"
+            cp "$file" "$target_path"
+
+            reference_relative_path="$directory_name/$reference_stem$extension"
+            if [ "$directory_name" = "." ]; then
+              reference_relative_path="$reference_stem$extension"
+            fi
+
+            reference_path="src/__screenshots__/visual.spec.tsx/$reference_relative_path"
+            if [ -f "$reference_path" ]; then
+              baseline_target="visual-test-screenshots/baseline/$reference_relative_path"
+              mkdir -p "$(dirname "$baseline_target")"
+              cp "$reference_path" "$baseline_target"
+            fi
+          done
       - name: Upload failed visual screenshots
         id: upload-screenshots
         if: failure() && steps.visual-tests.outcome == 'failure'
         uses: actions/upload-artifact@v4
         with:
           name: visual-test-screenshots-${{ github.run_id }}
-          path: |
-            src/__screenshots__/visual.spec.tsx
-            .vitest-attachments
+          path: visual-test-screenshots/
           if-no-files-found: warn
           retention-days: 7
       - name: Summarize failed visual screenshots
@@ -38,7 +86,8 @@ jobs:
         run: |
           echo "### Visual Test Screenshots" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Download the artifact \`visual-test-screenshots-${{ github.run_id }}\` from this workflow run to inspect:" >> $GITHUB_STEP_SUMMARY
-          echo "- baseline screenshots from \`src/__screenshots__/visual.spec.tsx\`" >> $GITHUB_STEP_SUMMARY
-          echo "- actual and diff screenshots from \`.vitest-attachments\`" >> $GITHUB_STEP_SUMMARY
+          echo "Download the artifact \`visual-test-screenshots-${{ github.run_id }}\` from this workflow run to inspect only the failed visual tests:" >> $GITHUB_STEP_SUMMARY
+          echo "- \`baseline/\`: committed reference screenshots for the failed tests" >> $GITHUB_STEP_SUMMARY
+          echo "- \`current/\`: screenshots captured during this failed run" >> $GITHUB_STEP_SUMMARY
+          echo "- \`diff/\`: generated diff images when Vitest produced them" >> $GITHUB_STEP_SUMMARY
       - run: yarn lint
