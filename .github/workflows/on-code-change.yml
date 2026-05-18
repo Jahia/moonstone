@@ -22,42 +22,19 @@ jobs:
         id: visual-tests
         if: github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'test:visual')
         run: yarn test:visual
-      - name: Collect failed screenshots
-        if: failure() && steps.visual-tests.conclusion == 'failure'
-        run: |
-          while IFS= read -r actual; do
-            subpath="${actual#src/.vitest-attachments/}"
-            subdir=$(dirname "$subpath")
-            filename=$(basename "$subpath")
-            ext="${filename##*.}"
-            name="${filename%-actual.$ext}"
-            baseline="src/__screenshots__/$subdir/$name.$ext"
-            destdir="src/failed-screenshots/$subdir"
-            mkdir -p "$destdir"
-            cp "$actual" "$destdir/$filename"
-            [ -f "$baseline" ] && cp "$baseline" "$destdir/$name.$ext"
-          done < <(find src/.vitest-attachments -name '*-actual.*' 2>/dev/null)
       - name: Upload failed screenshots
         id: upload-screenshots
         if: failure() && steps.visual-tests.conclusion == 'failure'
         uses: actions/upload-artifact@v4
         with:
           name: visual-test-screenshots
-          path: src/failed-screenshots/
+          path: "**/.vitest-attachments/**/*-actual.*"
+          include-hidden-files: true
           retention-days: 7
       - name: Visual test failure summary
         if: failure() && steps.visual-tests.conclusion == 'failure'
         run: |
-          echo "### 💥 Visual regression tests failed" >> $GITHUB_STEP_SUMMARY
+          echo "### Visual regression tests failed" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**[Download screenshots](${{ steps.upload-screenshots.outputs.artifact-url }})**" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "#### Failed tests" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          find src/failed-screenshots -name '*-actual.*' 2>/dev/null | while IFS= read -r f; do
-            subpath="${f#src/failed-screenshots/}"
-            ext="${subpath##*.}"
-            name="${subpath%-actual.$ext}"
-            echo "- \`$name\`" >> $GITHUB_STEP_SUMMARY
-          done
       - run: yarn lint
