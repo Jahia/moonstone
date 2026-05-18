@@ -22,14 +22,26 @@ jobs:
         id: visual-tests
         if: github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'test:visual')
         run: yarn test:visual
-      - name: Upload screenshot diffs on failure
+      - name: Collect failed screenshots
+        if: failure() && steps.visual-tests.conclusion == 'failure'
+        run: |
+          while IFS= read -r actual; do
+            subpath="${actual#src/.vitest-attachments/}"
+            subdir=$(dirname "$subpath")
+            filename=$(basename "$subpath")
+            ext="${filename##*.}"
+            name="${filename%-actual.$ext}"
+            baseline="src/__screenshots__/$subdir/$name.$ext"
+            destdir="src/failed-screenshots/$subdir"
+            mkdir -p "$destdir"
+            cp "$actual" "$destdir/$filename"
+            [ -f "$baseline" ] && cp "$baseline" "$destdir/$name.$ext"
+          done < <(find src/.vitest-attachments -name '*-actual.*' 2>/dev/null)
+      - name: Upload failed screenshots
         if: failure() && steps.visual-tests.conclusion == 'failure'
         uses: actions/upload-artifact@v4
         with:
           name: visual-test-screenshots
-          path: |
-            src/__screenshots__/
-            src/.vitest-attachments/**/*-actual.*
-          include-hidden-files: true
+          path: src/failed-screenshots/
           retention-days: 7
       - run: yarn lint
