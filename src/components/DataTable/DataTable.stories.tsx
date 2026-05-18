@@ -9,6 +9,7 @@ import {Visibility, Edit, Delete, MoreVert} from '~/icons';
 
 const meta = preview.type<{args: DataTableProps<DataUser>}>().meta({
     title: 'Components/DataTable',
+    component: DataTable,
     tags: ['beta'],
     parameters: {
         controls: {expanded: true}

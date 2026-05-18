@@ -7,10 +7,11 @@ import {Fieldset} from '../Fieldset';
 import {ModalBody, ModalFooter, ModalHeader} from '~/components';
 import {useState} from 'react';
 
-type ModalStoryArgs = Partial<Omit<ModalProps, 'isOpen'>>;
+type ModalStoryArgs = Partial<Omit<ModalProps, 'isOpen' | 'onOpenChange'>>;
 
 const meta = preview.type<{args: ModalStoryArgs}>().meta({
     title: 'Components/Modal',
+    component: Modal,
     tags: ['beta'],
 
     parameters: {
@@ -26,7 +27,7 @@ const Template = (args: ModalStoryArgs) => {
     return (
         <div style={{maxWidth: '100vw'}}>
             <Button label="Open modal" onClick={() => setOpen(true)}/>
-            <Modal isOpen={open} onOpenChange={setOpen} {...modalArgs}>
+            <Modal {...modalArgs} isOpen={open} onOpenChange={setOpen}>
                 {children}
             </Modal>
         </div>

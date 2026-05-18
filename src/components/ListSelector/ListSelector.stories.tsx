@@ -13,7 +13,7 @@ const meta = preview.meta({
         knobs: {disable: true},
         storysource: {disable: true},
         docs: {
-            subtitle: 'RadioGroup & RadioItem'
+            subtitle: 'ListSelector'
         },
         actions: {argTypesRegex: '^on.*'}
     },

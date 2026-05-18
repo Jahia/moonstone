@@ -5,6 +5,7 @@ import {Chip} from './index';
 import markdownNotes from './Chip.md';
 
 import {Cloud, Delete, File, Lock, NoCloud, Warning, CloudCheck, Build, Edit, Subdirectory} from '~/icons';
+
 const meta = preview.meta({
     title: 'Components/Chip',
     component: Chip,

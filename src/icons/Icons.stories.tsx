@@ -44,6 +44,7 @@ function displayIcons() {
 
 const meta = preview.meta({
     title: 'Tokens/Icons',
+    component: Love,
     // Decorators: [withKnobs],
 
     parameters: {
