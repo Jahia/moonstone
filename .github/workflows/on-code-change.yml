@@ -65,6 +65,26 @@ jobs:
           baseline_count=0
           current_count=0
           diff_count=0
+          cp_if_missing() {
+            source_file="$1"
+            target_file="$2"
+
+            if [ ! -f "$source_file" ] || [ -f "$target_file" ]; then
+              return 1
+            fi
+
+            mkdir -p "$(dirname "$target_file")"
+            cp "$source_file" "$target_file"
+            return 0
+          }
+
+          normalize_failure_key() {
+            printf '%s' "$1" | sed -E 's/\.[^.]+$//' | sed -E 's/-[0-9]+$//' | tr '[:upper:]' '[:lower:]' | tr -cd '[:alnum:]'
+          }
+
+          normalize_baseline_key() {
+            printf '%s' "$1" | sed -E 's/\.[^.]+$//' | sed -E 's/-chromium-(linux|darwin|win32|aix|freebsd|openbsd|sunos)$//' | tr '[:upper:]' '[:lower:]' | tr -cd '[:alnum:]'
+          }
 
           while IFS=$'\t' read -r kind file; do
             [ -n "$file" ] || continue
@@ -91,6 +111,45 @@ jobs:
             target_path="$target_root/$file"
             mkdir -p "$(dirname "$target_path")"
             cp "$file" "$target_path"
+
+            if [ "$kind" = "actual" ] || [ "$kind" = "failure" ]; then
+              failure_name="$(basename "$file")"
+              failure_key="$(normalize_failure_key "$failure_name")"
+
+              if [ -n "$failure_key" ]; then
+                matched_baseline="$(find src/__screenshots__/visual.spec.tsx -type f -name '*.png' | while read -r baseline_file; do
+                  baseline_relative="${baseline_file#src/__screenshots__/visual.spec.tsx/}"
+                  baseline_key="$(normalize_baseline_key "$baseline_relative")"
+                  if [ "$baseline_key" = "$failure_key" ]; then
+                    case "$baseline_relative" in
+                      *-chromium-linux.png)
+                        printf '%s\n' "$baseline_file"
+                        break
+                        ;;
+                    esac
+                  fi
+                done | head -n 1)"
+
+                if [ -z "$matched_baseline" ]; then
+                  matched_baseline="$(find src/__screenshots__/visual.spec.tsx -type f -name '*.png' | while read -r baseline_file; do
+                    baseline_relative="${baseline_file#src/__screenshots__/visual.spec.tsx/}"
+                    baseline_key="$(normalize_baseline_key "$baseline_relative")"
+                    if [ "$baseline_key" = "$failure_key" ]; then
+                      printf '%s\n' "$baseline_file"
+                      break
+                    fi
+                  done | head -n 1)"
+                fi
+
+                if [ -n "$matched_baseline" ]; then
+                  baseline_relative="${matched_baseline#src/__screenshots__/visual.spec.tsx/}"
+                  baseline_target="visual-test-screenshots/baseline/$baseline_relative"
+                  if cp_if_missing "$matched_baseline" "$baseline_target"; then
+                    baseline_count=$((baseline_count + 1))
+                  fi
+                fi
+              fi
+            fi
           done < visual-test-paths.tsv
 
           failed_tests=$(awk -F '\t' '$1 == "reference" || $1 == "failure" { print $2 }' visual-test-paths.tsv | sort -u | wc -l | tr -d ' ')
@@ -120,7 +179,7 @@ jobs:
         run: |
           echo "### Visual Test Screenshots" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Visual tests failed: **${{ steps.collect-visual-screenshots.outputs.failed_tests }}**" >> $GITHUB_STEP_SUMMARY
+          echo "- **Visual tests failed: ${{ steps.collect-visual-screenshots.outputs.failed_tests }}**" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           if [ "${{ steps.collect-visual-screenshots.outputs.artifact_ready }}" = "true" ]; then
             echo "**[Download screenshots](${{ steps.upload-screenshots.outputs.artifact-url }})**" >> $GITHUB_STEP_SUMMARY
