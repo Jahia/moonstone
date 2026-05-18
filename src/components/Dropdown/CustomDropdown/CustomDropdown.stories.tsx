@@ -17,7 +17,6 @@ const resolveIcon = (icon?: CustomDropdownStoryArgs['icon']) => {
 
 const meta = preview.type<{args: CustomDropdownStoryArgs}>().meta({
     title: 'Components/CustomDropdown',
-    component: CustomDropdown,
     tags: ['beta'],
 
     parameters: {
@@ -72,7 +71,6 @@ export const IconButtonWithText = meta.story({
 
     args: {
         label: '',
-        'aria-label': 'Text dropdown',
         icon: 'Love',
         size: 'default',
         variant: 'ghost',
@@ -99,7 +97,6 @@ export const Form = meta.story({
 
     args: {
         label: 'Dropdown with form',
-        variant: 'default',
         isDisabled: false,
         isLoading: false,
         children:

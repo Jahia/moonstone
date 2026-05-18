@@ -9,7 +9,6 @@ import {Visibility, Edit, Delete, MoreVert} from '~/icons';
 
 const meta = preview.type<{args: DataTableProps<DataUser>}>().meta({
     title: 'Components/DataTable',
-    component: DataTable,
     tags: ['beta'],
     parameters: {
         controls: {expanded: true}
@@ -24,6 +23,7 @@ const meta = preview.type<{args: DataTableProps<DataUser>}>().meta({
 });
 
 export const DefaultDataTable = meta.story({
+    render: args => <DataTable {...args}/>,
     args: {
         data: tableFlat,
         columns: dataColumnsUser,
@@ -33,6 +33,7 @@ export const DefaultDataTable = meta.story({
 });
 
 export const StructuredDataTable = meta.story({
+    render: args => <DataTable {...args}/>,
     args: {
         data: tableStructured,
         isStructured: true,
@@ -43,6 +44,7 @@ export const StructuredDataTable = meta.story({
 });
 
 export const SelectableDataTable = meta.story({
+    render: args => <DataTable {...args}/>,
     args: {
         data: tableFlat,
         columns: dataColumnsUser,
@@ -54,6 +56,7 @@ export const SelectableDataTable = meta.story({
 });
 
 export const DefaultSelectionDataTable = meta.story({
+    render: args => <DataTable {...args}/>,
     args: {
         data: tableFlat,
         columns: dataColumnsUser,

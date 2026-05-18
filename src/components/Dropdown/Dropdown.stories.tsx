@@ -27,7 +27,6 @@ const resolveIcon = (icon?: DropdownStoryArgs['icon']) => {
 
 const meta = preview.type<{args: DropdownStoryArgs}>().meta({
     title: 'Components/Dropdown',
-    component: Dropdown,
 
     parameters: {
         layout: 'centered',
