@@ -22,19 +22,23 @@ jobs:
         id: visual-tests
         if: github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'test:visual')
         run: yarn test:visual
-      - name: Upload failed screenshots
+      - name: Upload failed visual screenshots
         id: upload-screenshots
-        if: failure() && steps.visual-tests.conclusion == 'failure'
+        if: failure() && steps.visual-tests.outcome == 'failure'
         uses: actions/upload-artifact@v4
         with:
-          name: visual-test-screenshots
-          path: "**/.vitest-attachments/**/*-actual.*"
-          include-hidden-files: true
+          name: visual-test-screenshots-${{ github.run_id }}
+          path: |
+            src/__screenshots__/visual.spec.tsx
+            .vitest-attachments
+          if-no-files-found: warn
           retention-days: 7
-      - name: Visual test failure summary
-        if: failure() && steps.visual-tests.conclusion == 'failure'
+      - name: Summarize failed visual screenshots
+        if: failure() && steps.visual-tests.outcome == 'failure'
         run: |
-          echo "### Visual regression tests failed" >> $GITHUB_STEP_SUMMARY
+          echo "### Visual Test Screenshots" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**[Download screenshots](${{ steps.upload-screenshots.outputs.artifact-url }})**" >> $GITHUB_STEP_SUMMARY
+          echo "Download the artifact \`visual-test-screenshots-${{ github.run_id }}\` from this workflow run to inspect:" >> $GITHUB_STEP_SUMMARY
+          echo "- baseline screenshots from \`src/__screenshots__/visual.spec.tsx\`" >> $GITHUB_STEP_SUMMARY
+          echo "- actual and diff screenshots from \`.vitest-attachments\`" >> $GITHUB_STEP_SUMMARY
       - run: yarn lint
