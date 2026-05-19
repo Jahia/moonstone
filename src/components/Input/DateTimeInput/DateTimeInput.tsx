@@ -47,6 +47,12 @@ const getDateTimeValue = (
     return nextValue;
 };
 
+const getCalendarDisplayMonth = (value?: Date | null) => {
+    const monthDate = getNormalizedDate(value) ?? getCurrentDate();
+
+    return new Date(monthDate.getFullYear(), monthDate.getMonth(), 1, 12);
+};
+
 export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputProps>(({
     value,
     defaultValue,
@@ -86,7 +92,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
         getDateTimeValue(value, type, hasTimezone);
     const selectedDate = currentValue.date;
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-    const [displayedMonth, setDisplayedMonth] = useState(selectedDate ?? getCurrentDate());
+    const [displayedMonth, setDisplayedMonth] = useState(() => getCalendarDisplayMonth(selectedDate));
     const calendarAnchorRef = useRef<HTMLDivElement>(null);
     const todayDate = getCurrentDate();
     const todayButtonLabel = today || formatDateDisplayValue(todayDate, locale);
@@ -96,9 +102,10 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
 
     useEffect(() => {
         if (isCalendarOpen) {
-            setDisplayedMonth(selectedDate ?? getCurrentDate());
+            setDisplayedMonth(getCalendarDisplayMonth(selectedDate));
         }
-    }, [isCalendarOpen, selectedDate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedDate]);
 
     const emitChange = (event: React.SyntheticEvent, nextValue: DateTimeInputValue) => {
         const nextDateTimeValue = getDateTimeValue(nextValue, type, hasTimezone);
@@ -129,11 +136,13 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                 onFocus={onFocus}
                 onClick={() => {
                     if (!isDisabled && !isReadOnly) {
+                        setDisplayedMonth(getCalendarDisplayMonth(selectedDate));
                         setIsCalendarOpen(true);
                     }
                 }}
                 onKeyUp={event => {
                     if ((event.key === 'Enter' || event.key === ' ') && !isDisabled && !isReadOnly) {
+                        setDisplayedMonth(getCalendarDisplayMonth(selectedDate));
                         setIsCalendarOpen(true);
                     }
                 }}
@@ -168,7 +177,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                         } : undefined}
                         mode="single"
                         selected={selectedDate ?? undefined}
-                        onMonthChange={setDisplayedMonth}
+                        onMonthChange={month => setDisplayedMonth(getCalendarDisplayMonth(month))}
                         onSelect={(date, _selectedDay, modifiers, event) => {
                             if (modifiers.disabled) {
                                 return;
