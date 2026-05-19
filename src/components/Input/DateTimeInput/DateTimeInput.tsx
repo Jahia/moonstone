@@ -60,7 +60,12 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     disabledDateRanges,
     locale,
     weekStartsOn = 1,
-    i18n,
+    i18n: {
+        today,
+        nextMonth = 'Go to the next month',
+        previousMonth = 'Go to the previous month',
+        ...timeInputI18n
+    } = {},
     size,
     variant,
     placeholder,
@@ -84,7 +89,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     const [displayedMonth, setDisplayedMonth] = useState(selectedDate ?? getCurrentDate());
     const calendarAnchorRef = useRef<HTMLDivElement>(null);
     const todayDate = getCurrentDate();
-    const todayButtonLabel = i18n?.today || formatDateDisplayValue(todayDate, locale);
+    const todayButtonLabel = today || formatDateDisplayValue(todayDate, locale);
     const timezoneReferenceDate = getTimezoneReferenceDate(selectedDate) ?? undefined;
     const calendarDisabledMatchers = getCalendarDisabledMatchers(minDate, maxDate, disabledDates, disabledDateRanges);
     const isTodayDisabled = isDisabled || isReadOnly || dateMatchModifiers(todayDate, calendarDisabledMatchers);
@@ -149,8 +154,8 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                             root: clsx(dayPickerClassNames.root, 'moonstone-dateTimeInput_dayPicker')
                         }}
                         labels={{
-                            labelNext: () => i18n?.nextMonth || 'Go to the next month',
-                            labelPrevious: () => i18n?.previousMonth || 'Go to the previous month'
+                            labelNext: () => nextMonth,
+                            labelPrevious: () => previousMonth
                         }}
                         navLayout="around"
                         weekStartsOn={weekStartsOn}
@@ -198,7 +203,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                     focusOnField={false}
                     timeFormat={timeFormat}
                     value={currentValue.time ?? null}
-                    i18n={i18n}
+                    i18n={timeInputI18n}
                     onChange={(event, timeValue) => {
                         emitChange(event, {...currentValue, time: timeValue});
                     }}

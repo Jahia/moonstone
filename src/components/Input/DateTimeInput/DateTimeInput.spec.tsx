@@ -1,4 +1,4 @@
-import {render, screen} from '@testing-library/react';
+import {fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {DateTimeInput} from './index';
 import {formatDateDisplayValue, getCurrentDate} from '../shared';
@@ -205,7 +205,7 @@ describe('DateTimeInput', () => {
 
         const overlay = container.querySelector('[aria-hidden="true"]');
         expect(overlay).toBeInTheDocument();
-        await user.click(overlay as HTMLElement);
+        fireEvent.click(overlay as HTMLElement);
 
         await user.click(input);
         expect(screen.getByText(march2026)).toBeInTheDocument();
