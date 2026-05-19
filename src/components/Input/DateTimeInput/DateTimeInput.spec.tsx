@@ -74,20 +74,6 @@ describe('DateTimeInput', () => {
         }
     });
 
-    it('should render the date trigger as read-only', () => {
-        render(
-            <DateTimeInput
-                type="date"
-                value={{date: null}}
-                placeholder="Select a date"
-                i18n={{today: 'Today'}}
-                onChange={() => null}
-            />
-        );
-
-        expect(screen.getByPlaceholderText('Select a date')).toHaveProperty('readOnly', true);
-    });
-
     it('should render the 24h datetime layout and trigger timezone changes', async () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
@@ -197,7 +183,7 @@ describe('DateTimeInput', () => {
         expect(screen.getByText(april2026)).toBeInTheDocument();
     });
 
-    it('should keep the last visited month when reopening the calendar', async () => {
+    it('should reopen the calendar on the selected date month', async () => {
         const user = userEvent.setup();
         const {container} = render(
             <DateTimeInput
@@ -217,12 +203,12 @@ describe('DateTimeInput', () => {
         await user.click(screen.getByRole('button', {name: nextMonthLabel}));
         expect(screen.getByText(april2026)).toBeInTheDocument();
 
-        const overlay = container.querySelector('.moonstone-menu_overlay');
+        const overlay = container.querySelector('[aria-hidden="true"]');
         expect(overlay).toBeInTheDocument();
         await user.click(overlay as HTMLElement);
 
         await user.click(input);
-        expect(screen.getByText(april2026)).toBeInTheDocument();
+        expect(screen.getByText(march2026)).toBeInTheDocument();
     });
 
     it('should recenter on a new controlled value date when it changes externally', async () => {

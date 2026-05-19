@@ -19,27 +19,31 @@ import {
 } from '../shared';
 import './DateTimeInput.scss';
 
-const sanitizeDateTimeValue = (
+const getDefaultDateTimeValue = (type: DateTimeInputProps['type']): DateTimeInputValue => type === 'date' ?
+    {date: getCurrentDate(), time: null, timezone: null} :
+    {date: getCurrentDate(), time: getCurrentTimeString(), timezone: null};
+
+const getDateTimeValue = (
     value: DateTimeInputValue,
     type: DateTimeInputProps['type'],
     hasTimezone?: boolean
 ) => {
-    const sanitizedValue: DateTimeInputValue = {
+    const nextValue: DateTimeInputValue = {
         date: getNormalizedDate(value.date),
         time: value.time ?? null,
         timezone: value.timezone ?? null
     };
 
     if (type === 'date') {
-        sanitizedValue.time = null;
-        sanitizedValue.timezone = null;
+        nextValue.time = null;
+        nextValue.timezone = null;
     }
 
     if (type === 'datetime' && !hasTimezone) {
-        sanitizedValue.timezone = null;
+        nextValue.timezone = null;
     }
 
-    return sanitizedValue;
+    return nextValue;
 };
 
 export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputProps>(({
@@ -67,39 +71,37 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     onFocus,
     ...props
 }, ref) => {
-    const isControlled = typeof value !== 'undefined';
-    const [dateTimeValue, setDateTimeValue] = useState(
-        defaultValue ?
-            sanitizeDateTimeValue(defaultValue, type, hasTimezone) :
-            type === 'date' ?
-                {date: getCurrentDate(), time: null, timezone: null} :
-                {date: getCurrentDate(), time: getCurrentTimeString(), timezone: null}
+    const [uncontrolledValue, setUncontrolledValue] = useState(() => defaultValue ?
+        getDateTimeValue(defaultValue, type, hasTimezone) :
+        getDefaultDateTimeValue(type)
     );
-    const sanitizedValue = sanitizeDateTimeValue(isControlled ? value : dateTimeValue, type, hasTimezone);
-    const selectedDate = sanitizedValue.date;
+    const currentValue = typeof value === 'undefined' ?
+        uncontrolledValue :
+        getDateTimeValue(value, type, hasTimezone);
+    const selectedDate = currentValue.date;
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-    const [displayedMonth, setDisplayedMonth] = useState(sanitizedValue.date || new Date());
+    const [displayedMonth, setDisplayedMonth] = useState(selectedDate ?? getCurrentDate());
     const calendarAnchorRef = useRef<HTMLDivElement>(null);
     const todayDate = getCurrentDate();
     const todayButtonLabel = i18n?.today || formatDateDisplayValue(todayDate, locale);
-    const timezoneReferenceDate = getTimezoneReferenceDate(sanitizedValue.date) ?? undefined;
+    const timezoneReferenceDate = getTimezoneReferenceDate(selectedDate) ?? undefined;
     const calendarDisabledMatchers = getCalendarDisabledMatchers(minDate, maxDate, disabledDates, disabledDateRanges);
     const isTodayDisabled = isDisabled || isReadOnly || dateMatchModifiers(todayDate, calendarDisabledMatchers);
 
     useEffect(() => {
-        if (sanitizedValue.date) {
-            setDisplayedMonth(sanitizedValue.date);
+        if (isCalendarOpen) {
+            setDisplayedMonth(selectedDate ?? getCurrentDate());
         }
-    }, [sanitizedValue.date]);
+    }, [isCalendarOpen, selectedDate]);
 
     const emitChange = (event: React.SyntheticEvent, nextValue: DateTimeInputValue) => {
-        const sanitizedNextValue = sanitizeDateTimeValue(nextValue, type, hasTimezone);
+        const nextDateTimeValue = getDateTimeValue(nextValue, type, hasTimezone);
 
-        if (!isControlled) {
-            setDateTimeValue(sanitizedNextValue);
+        if (typeof value === 'undefined') {
+            setUncontrolledValue(nextDateTimeValue);
         }
 
-        onChange?.(event, sanitizedNextValue);
+        onChange?.(event, nextDateTimeValue);
     };
 
     return (
@@ -110,7 +112,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                 readOnly
                 containerRef={calendarAnchorRef}
                 className="moonstone-dateTimeInput_dateField"
-                value={formatDateDisplayValue(sanitizedValue.date, locale)}
+                value={formatDateDisplayValue(selectedDate, locale)}
                 size={size}
                 variant={variant}
                 isDisabled={isDisabled}
@@ -139,53 +141,51 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                     maxWidth="320px"
                     onClose={() => setIsCalendarOpen(false)}
                 >
-                    <div>
-                        <DayPicker
-                            showOutsideDays
-                            classNames={{
-                                ...dayPickerClassNames,
-                                root: clsx(dayPickerClassNames.root, 'moonstone-dateTimeInput_dayPicker')
-                            }}
-                            labels={{
-                                labelNext: () => i18n?.nextMonth || 'Go to the next month',
-                                labelPrevious: () => i18n?.previousMonth || 'Go to the previous month'
-                            }}
-                            navLayout="around"
-                            weekStartsOn={weekStartsOn}
-                            month={displayedMonth}
-                            disabled={calendarDisabledMatchers}
-                            formatters={locale ? {
-                                formatCaption: (date: Date) => new Intl.DateTimeFormat(locale, {month: 'long', year: 'numeric'}).format(date),
-                                formatDay: (date: Date) => new Intl.DateTimeFormat(locale, {day: 'numeric'}).format(date),
-                                formatWeekdayName: (date: Date) => new Intl.DateTimeFormat(locale, {weekday: 'short'}).format(date)
-                            } : undefined}
-                            mode="single"
-                            selected={selectedDate ?? undefined}
-                            onMonthChange={setDisplayedMonth}
-                            onSelect={(date, _selectedDay, modifiers, event) => {
-                                if (modifiers.disabled) {
-                                    return;
-                                }
+                    <DayPicker
+                        showOutsideDays
+                        classNames={{
+                            ...dayPickerClassNames,
+                            root: clsx(dayPickerClassNames.root, 'moonstone-dateTimeInput_dayPicker')
+                        }}
+                        labels={{
+                            labelNext: () => i18n?.nextMonth || 'Go to the next month',
+                            labelPrevious: () => i18n?.previousMonth || 'Go to the previous month'
+                        }}
+                        navLayout="around"
+                        weekStartsOn={weekStartsOn}
+                        month={displayedMonth}
+                        disabled={calendarDisabledMatchers}
+                        formatters={locale ? {
+                            formatCaption: (date: Date) => new Intl.DateTimeFormat(locale, {month: 'long', year: 'numeric'}).format(date),
+                            formatDay: (date: Date) => new Intl.DateTimeFormat(locale, {day: 'numeric'}).format(date),
+                            formatWeekdayName: (date: Date) => new Intl.DateTimeFormat(locale, {weekday: 'short'}).format(date)
+                        } : undefined}
+                        mode="single"
+                        selected={selectedDate ?? undefined}
+                        onMonthChange={setDisplayedMonth}
+                        onSelect={(date, _selectedDay, modifiers, event) => {
+                            if (modifiers.disabled) {
+                                return;
+                            }
 
-                                emitChange(event, {...sanitizedValue, date: getNormalizedDate(date)});
-                                setIsCalendarOpen(false);
+                            emitChange(event, {...currentValue, date: getNormalizedDate(date)});
+                            setIsCalendarOpen(false);
+                        }}
+                    />
+                    <footer className="moonstone-dateTimeInput_calendarFooter">
+                        <Button
+                            variant="ghost"
+                            size="default"
+                            isDisabled={isTodayDisabled}
+                            label={todayButtonLabel}
+                            onClick={event => {
+                                if (!isTodayDisabled) {
+                                    emitChange(event, {...currentValue, date: todayDate});
+                                    setIsCalendarOpen(false);
+                                }
                             }}
                         />
-                        <footer className="moonstone-dateTimeInput_calendarFooter">
-                            <Button
-                                variant="ghost"
-                                size="default"
-                                isDisabled={isTodayDisabled}
-                                label={todayButtonLabel}
-                                onClick={event => {
-                                    if (!isTodayDisabled) {
-                                        emitChange(event, {...sanitizedValue, date: todayDate});
-                                        setIsCalendarOpen(false);
-                                    }
-                                }}
-                            />
-                        </footer>
-                    </div>
+                    </footer>
                 </Menu>
             )}
             {type === 'datetime' && (
@@ -196,10 +196,10 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                     isReadOnly={isReadOnly}
                     focusOnField={false}
                     timeFormat={timeFormat}
-                    value={sanitizedValue.time ?? null}
+                    value={currentValue.time ?? null}
                     i18n={i18n}
                     onChange={(event, timeValue) => {
-                        emitChange(event, {...sanitizedValue, time: timeValue});
+                        emitChange(event, {...currentValue, time: timeValue});
                     }}
                 />
             )}
@@ -208,10 +208,10 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                     size={size === 'big' ? 'medium' : 'small'}
                     variant={variant ?? 'outlined'}
                     isDisabled={isDisabled}
-                    value={sanitizedValue.timezone ?? null}
+                    value={currentValue.timezone ?? null}
                     referenceDate={timezoneReferenceDate}
                     onChange={(event, timezoneValue) => {
-                        emitChange(event, {...sanitizedValue, timezone: timezoneValue});
+                        emitChange(event, {...currentValue, timezone: timezoneValue});
                     }}
                 />
             )}
