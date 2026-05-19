@@ -24,7 +24,7 @@ const getDefaultDateTimeValue = (type: DateTimeInputProps['type']): DateTimeInpu
     {date: getCurrentDate(), time: null, timezone: null} :
     {date: getCurrentDate(), time: getCurrentTimeString(), timezone: null};
 
-const getDateTimeValue = (
+const normalizeDateTimeValue = (
     value: DateTimeInputValue,
     type: DateTimeInputProps['type'],
     hasTimezone?: boolean
@@ -83,13 +83,10 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     onFocus,
     ...props
 }, ref) => {
-    const [uncontrolledValue, setUncontrolledValue] = useState(() => defaultValue ?
-        getDateTimeValue(defaultValue, type, hasTimezone) :
-        getDefaultDateTimeValue(type)
-    );
-    const currentValue = typeof value === 'undefined' ?
-        uncontrolledValue :
-        getDateTimeValue(value, type, hasTimezone);
+    const isControlled = typeof value !== 'undefined';
+    const [uncontrolledValue, setUncontrolledValue] = useState(() => defaultValue ?? getDefaultDateTimeValue(type));
+    const sourceValue = isControlled ? value : uncontrolledValue;
+    const currentValue = normalizeDateTimeValue(sourceValue, type, hasTimezone);
     const selectedDate = currentValue.date;
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
     const [displayedMonth, setDisplayedMonth] = useState(() => getCalendarDisplayMonth(selectedDate));
@@ -108,9 +105,9 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     }, [selectedDate]);
 
     const emitChange = (event: React.SyntheticEvent, nextValue: DateTimeInputValue) => {
-        const nextDateTimeValue = getDateTimeValue(nextValue, type, hasTimezone);
+        const nextDateTimeValue = normalizeDateTimeValue(nextValue, type, hasTimezone);
 
-        if (typeof value === 'undefined') {
+        if (!isControlled) {
             setUncontrolledValue(nextDateTimeValue);
         }
 
