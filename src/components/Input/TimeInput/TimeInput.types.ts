@@ -1,4 +1,5 @@
 import React from 'react';
+import type {DropdownProps} from '~/components/Dropdown/Dropdown.types';
 import type {BaseInputProps} from '../BaseInput/BaseInput.types';
 
 /** Time display format */
@@ -26,10 +27,13 @@ type BasicTimeInputProps = Omit<BaseInputProps,
     'min' |
     'max' |
     'step' |
+    'variant' |
     'filterFunction' |
     'allowDecimal' |
     'allowNegative'
 > & {
+    variant?: DropdownProps['variant'];
+
     /**
      * Display format for the time input.
      * When `'12h'`, an AM/PM dropdown is shown to the right of the field.
