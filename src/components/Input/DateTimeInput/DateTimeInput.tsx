@@ -4,6 +4,7 @@ import {dateMatchModifiers, DayPicker} from 'react-day-picker';
 import dayPickerClassNames from 'react-day-picker/style.module.css';
 import {Button, Menu} from '~/components';
 import {Calendar} from '~/icons';
+import {layout} from '~/globals/css-utils';
 import type {DateTimeInputProps} from './DateTimeInput.types';
 import {TimezoneSelector} from '../../TimezoneSelector/TimezoneSelector';
 import {BaseInput} from '../BaseInput';
@@ -172,7 +173,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                             setIsCalendarOpen(false);
                         }}
                     />
-                    <footer className="moonstone-dateTimeInput_calendarFooter">
+                    <footer className={clsx('moonstone-dateTimeInput_calendarFooter', 'flexRow_center', layout.flexRow_center)}>
                         <Button
                             variant="ghost"
                             size="default"
