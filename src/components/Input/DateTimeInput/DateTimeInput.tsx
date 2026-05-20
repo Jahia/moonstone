@@ -191,8 +191,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
 
                                 const nextDay = getNormalizedDate(date);
                                 const nextDate = nextDay ? new Date(
-                                    nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate(),
-                                    selectedDate?.getHours() ?? 0, selectedDate?.getMinutes() ?? 0
+                                    nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate(), selectedDate?.getHours() ?? 0, selectedDate?.getMinutes() ?? 0
                                 ) : null;
                                 emitChange(event, {...currentValue, date: nextDate});
                                 setIsCalendarOpen(false);
@@ -207,8 +206,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                                 onClick={event => {
                                     if (!isTodayDisabled) {
                                         const nextDate = new Date(
-                                            todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate(),
-                                            selectedDate?.getHours() ?? 0, selectedDate?.getMinutes() ?? 0
+                                            todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate(), selectedDate?.getHours() ?? 0, selectedDate?.getMinutes() ?? 0
                                         );
                                         emitChange(event, {...currentValue, date: nextDate});
                                         setIsCalendarOpen(false);
