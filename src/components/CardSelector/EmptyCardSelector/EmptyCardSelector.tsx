@@ -1,9 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
-import styles from './EmptyCardSelector.module.scss';
 import type {EmptyCardSelectorProps} from './EmptyCardSelector.types';
 import {Typography} from '~/components';
 import {layout, reset} from '~/globals/css-utils.js';
+import styles from './EmptyCardSelector.module.scss';
 
 export const EmptyCardSelector = React.forwardRef<HTMLButtonElement, EmptyCardSelectorProps>(({
     label,

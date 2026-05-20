@@ -1,8 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
 import type {ModalFooterProps} from './ModalFooter.types';
-import styles from './ModalFooter.module.scss';
 import {layout} from '~/globals/css-utils.js';
+import styles from './ModalFooter.module.scss';
 
 const ModalFooterForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalFooterProps> = ({
     children,

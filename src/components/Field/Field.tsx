@@ -1,9 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
-import styles from './Field.module.scss';
 import type {FieldProps} from './Field.types';
 import {Typography} from '~/components';
 import {layout, reset} from '~/globals/css-utils.js';
+import styles from './Field.module.scss';
 
 export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
     id,

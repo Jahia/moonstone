@@ -2,9 +2,9 @@ import React, {useEffect} from 'react';
 import clsx from 'clsx';
 import {Cancel} from '~/icons';
 import {Button} from '~/components';
-import styles from './BaseInput.module.scss';
 import type {ControlledBaseInputProps} from './BaseInput.types';
 import {layout, reset} from '~/globals/css-utils.js';
+import styles from './BaseInput.module.scss';
 
 const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInputProps>(({
     value = '',
