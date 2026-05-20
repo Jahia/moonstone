@@ -4,7 +4,6 @@ import {dateMatchModifiers, DayPicker} from 'react-day-picker';
 import dayPickerClassNames from 'react-day-picker/style.module.css';
 import {Button, Menu} from '~/components';
 import {Calendar} from '~/icons';
-import {layout} from '~/globals/css-utils';
 import type {DateTimeInputProps} from './DateTimeInput.types';
 import {TimezoneSelector} from '../../TimezoneSelector/TimezoneSelector';
 import {BaseInput} from '../BaseInput';
@@ -89,7 +88,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     const currentValue = normalizeDateTimeValue(sourceValue, type, hasTimezone);
     const selectedDate = currentValue.date;
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-    const [displayedMonth, setDisplayedMonth] = useState(sanitizedValue.date || new Date());
+    const [displayedMonth, setDisplayedMonth] = useState(currentValue.date || new Date());
     const lastSelectedDateTimestampRef = useRef(selectedDate?.getTime() ?? null);
     const calendarAnchorRef = useRef<HTMLDivElement>(null);
     const todayDate = getCurrentDate();
@@ -107,12 +106,12 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
         }
     }, [selectedDate]);
 
-    const handleMonthChange = (nextMonth: Date) => {
+    const handleMonthChange = (month: Date) => {
         if (
-            nextMonth.getFullYear() !== displayedMonth.getFullYear() ||
-            nextMonth.getMonth() !== displayedMonth.getMonth()
+            month.getFullYear() !== displayedMonth.getFullYear() ||
+            month.getMonth() !== displayedMonth.getMonth()
         ) {
-            setDisplayedMonth(nextMonth);
+            setDisplayedMonth(month);
         }
     };
 
@@ -134,7 +133,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                 readOnly
                 containerRef={calendarAnchorRef}
                 className={styles.dateField}
-                value={formatDateDisplayValue(sanitizedValue.date, locale)}
+                value={formatDateDisplayValue(currentValue.date, locale)}
                 size={size}
                 variant={variant}
                 isDisabled={isDisabled}
@@ -173,8 +172,8 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                                 root: clsx(dayPickerClassNames.root, styles.dayPicker)
                             }}
                             labels={{
-                                labelNext: () => i18n?.nextMonth || 'Go to the next month',
-                                labelPrevious: () => i18n?.previousMonth || 'Go to the previous month'
+                                labelNext: () => nextMonth,
+                                labelPrevious: () => previousMonth
                             }}
                             navLayout="around"
                             weekStartsOn={weekStartsOn}
@@ -193,7 +192,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                                     return;
                                 }
 
-                                emitChange(event, {...sanitizedValue, date: getNormalizedDate(date)});
+                                emitChange(event, {...currentValue, date: getNormalizedDate(date)});
                                 setIsCalendarOpen(false);
                             }}
                         />
@@ -205,7 +204,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                                 label={todayButtonLabel}
                                 onClick={event => {
                                     if (!isTodayDisabled) {
-                                        emitChange(event, {...sanitizedValue, date: todayDate});
+                                        emitChange(event, {...currentValue, date: todayDate});
                                         setIsCalendarOpen(false);
                                     }
                                 }}
