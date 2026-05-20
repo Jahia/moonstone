@@ -2,10 +2,14 @@ import type {Meta, StoryObj} from '@storybook/react-vite';
 import {action} from 'storybook/actions';
 import {useArgs} from 'storybook/preview-api';
 import {DateTimeInput} from './DateTimeInput';
-import {getCurrentDate, getCurrentTimeString} from '../shared';
+import {getCurrentDate} from '../shared';
 
 const currentDate = getCurrentDate();
-const currentTime = getCurrentTimeString();
+const dateTimeInputI18n = {
+    today: 'Today',
+    hours: 'Hours',
+    minutes: 'Minutes'
+};
 
 export default {
     title: 'Components/Input/DateTimeInput',
@@ -15,11 +19,7 @@ export default {
         layout: 'centered'
     },
     args: {
-        i18n: {
-            today: 'Today',
-            hours: 'Hours',
-            minutes: 'Minutes'
-        }
+        i18n: dateTimeInputI18n
     }
 } satisfies Meta<typeof DateTimeInput>;
 
@@ -28,24 +28,23 @@ type Story = StoryObj<typeof DateTimeInput>;
 export const DateOnly: Story = {
     render: args => {
         const [, setArgs] = useArgs();
+        const {i18n, value: currentValue} = args;
+
         return (
             <DateTimeInput
+                type="date"
+                i18n={i18n}
                 placeholder="Select a date"
-                {...args}
-                onChange={(_event, value) => {
-                    action('onChange')(value.date, value.time, value.timezone);
-                    setArgs({value});
+                value={currentValue}
+                onChange={(_event, nextValue) => {
+                    action('onChange')(nextValue.date, nextValue.timezone);
+                    setArgs({value: nextValue});
                 }}
             />
         );
     },
     args: {
-        type: 'date',
-        value: {
-            date: null
-        },
-        onChange: action('onChange'),
-        placeholder: 'Select a date'
+        value: {date: null}
     },
     name: 'Date Only'
 };
@@ -53,25 +52,26 @@ export const DateOnly: Story = {
 export const DateTimeWithTimezone: Story = {
     render: args => {
         const [, setArgs] = useArgs();
+        const {i18n, value: currentValue} = args;
+
         return (
             <DateTimeInput
-                {...args}
-                onChange={(_event, value) => {
-                    action('onChange')(value.date, value.time, value.timezone);
-                    setArgs({value});
+                hasTimezone
+                type="datetime"
+                i18n={i18n}
+                value={currentValue}
+                onChange={(_event, nextValue) => {
+                    action('onChange')(nextValue.date, nextValue.timezone);
+                    setArgs({value: nextValue});
                 }}
             />
         );
     },
     args: {
-        type: 'datetime',
-        hasTimezone: true,
         value: {
-            date: currentDate,
-            time: currentTime,
+            date: new Date(),
             timezone: 'Europe/Paris'
-        },
-        onChange: action('onChange')
+        }
     },
     name: 'Date Time With Timezone'
 };
@@ -79,26 +79,27 @@ export const DateTimeWithTimezone: Story = {
 export const DateTimeWithTimezone12h: Story = {
     render: args => {
         const [, setArgs] = useArgs();
+        const {i18n, value: currentValue} = args;
+
         return (
             <DateTimeInput
-                {...args}
-                onChange={(_event, value) => {
-                    action('onChange')(value.date, value.time, value.timezone);
-                    setArgs({value});
+                hasTimezone
+                type="datetime"
+                timeFormat="12h"
+                i18n={i18n}
+                value={currentValue}
+                onChange={(_event, nextValue) => {
+                    action('onChange')(nextValue.date, nextValue.timezone);
+                    setArgs({value: nextValue});
                 }}
             />
         );
     },
     args: {
-        type: 'datetime',
-        hasTimezone: true,
-        timeFormat: '12h',
         value: {
-            date: currentDate,
-            time: '23:56',
+            date: new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 23, 56),
             timezone: 'Europe/Paris'
-        },
-        onChange: action('onChange')
+        }
     },
     name: 'Date Time With Timezone 12h'
 };
@@ -106,28 +107,25 @@ export const DateTimeWithTimezone12h: Story = {
 export const DisabledDates: Story = {
     render: args => {
         const [, setArgs] = useArgs();
+        const {i18n, value: currentValue} = args;
+
         return (
             <DateTimeInput
+                type="date"
+                i18n={i18n}
                 minDate={new Date(2026, 2, 28)}
                 maxDate={new Date(2026, 3, 5)}
                 disabledDates={[new Date(2026, 2, 30)]}
-                {...args}
-                onChange={(_event, value) => {
-                    action('onChange')(value.date, value.time, value.timezone);
-                    setArgs({value});
+                value={currentValue}
+                onChange={(_event, nextValue) => {
+                    action('onChange')(nextValue.date, nextValue.timezone);
+                    setArgs({value: nextValue});
                 }}
             />
         );
     },
     args: {
-        type: 'date',
-        value: {
-            date: new Date(2026, 2, 30)
-        },
-        minDate: new Date(2026, 2, 28),
-        maxDate: new Date(2026, 3, 5),
-        disabledDates: [new Date(2026, 2, 30)],
-        onChange: action('onChange')
+        value: {date: new Date(2026, 2, 30)}
     },
     name: 'Disabled Dates'
 };

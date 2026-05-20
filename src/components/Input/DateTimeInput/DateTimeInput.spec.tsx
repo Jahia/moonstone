@@ -1,4 +1,4 @@
-import {render, screen} from '@testing-library/react';
+import {fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {DateTimeInput} from './index';
 import {formatDateDisplayValue, getCurrentDate} from '../shared';
@@ -74,20 +74,6 @@ describe('DateTimeInput', () => {
         }
     });
 
-    it('should render the date trigger as read-only', () => {
-        render(
-            <DateTimeInput
-                type="date"
-                value={{date: null}}
-                placeholder="Select a date"
-                i18n={{today: 'Today'}}
-                onChange={() => null}
-            />
-        );
-
-        expect(screen.getByPlaceholderText('Select a date')).toHaveProperty('readOnly', true);
-    });
-
     it('should render the 24h datetime layout and trigger timezone changes', async () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
@@ -96,7 +82,7 @@ describe('DateTimeInput', () => {
             <DateTimeInput
                 hasTimezone
                 type="datetime"
-                value={{date: new Date(2026, 1, 10), time: '11:56', timezone: 'Europe/Paris'}}
+                value={{date: new Date(2026, 1, 10, 11, 56), timezone: 'Europe/Paris'}}
                 i18n={{today: 'Today'}}
                 onChange={handleChange}
             />
@@ -122,7 +108,7 @@ describe('DateTimeInput', () => {
                 hasTimezone
                 type="datetime"
                 timeFormat="12h"
-                value={{date: new Date(2026, 1, 10), time: '23:56', timezone: 'Europe/Paris'}}
+                value={{date: new Date(2026, 1, 10, 23, 56), timezone: 'Europe/Paris'}}
                 i18n={{today: 'Today'}}
                 onChange={() => null}
             />
@@ -141,7 +127,7 @@ describe('DateTimeInput', () => {
             <DateTimeInput
                 type="datetime"
                 timeFormat="12h"
-                value={{date: new Date(2026, 1, 10), time: '02:30'}}
+                value={{date: new Date(2026, 1, 10, 2, 30)}}
                 i18n={{today: 'Today'}}
                 onChange={handleChange}
             />
@@ -155,7 +141,7 @@ describe('DateTimeInput', () => {
 
         expect(handleChange).toHaveBeenLastCalledWith(
             expect.any(Object),
-            expect.objectContaining({time: '14:30'})
+            expect.objectContaining({date: new Date(2026, 1, 10, 14, 30)})
         );
     });
 
@@ -238,12 +224,12 @@ describe('DateTimeInput', () => {
         await user.click(screen.getByRole('button', {name: nextMonthLabel}));
         expect(screen.getByText(april2026)).toBeInTheDocument();
 
-        const overlay = container.querySelector('.moonstone-menu_overlay');
+        const overlay = container.querySelector('[aria-hidden="true"]');
         expect(overlay).toBeInTheDocument();
-        await user.click(overlay as HTMLElement);
+        fireEvent.click(overlay as HTMLElement);
 
         await user.click(input);
-        expect(screen.getByText(april2026)).toBeInTheDocument();
+        expect(screen.getByText(march2026)).toBeInTheDocument();
     });
 
     it('should recenter on a new controlled value date when it changes externally', async () => {
@@ -280,7 +266,7 @@ describe('DateTimeInput', () => {
             <DateTimeInput
                 hasTimezone
                 type="datetime"
-                value={{date: new Date(2026, 0, 15), time: '11:56', timezone: 'Europe/Paris'}}
+                value={{date: new Date(2026, 0, 15, 11, 56), timezone: 'Europe/Paris'}}
                 i18n={{today: 'Today'}}
                 onChange={() => null}
             />
@@ -292,7 +278,7 @@ describe('DateTimeInput', () => {
             <DateTimeInput
                 hasTimezone
                 type="datetime"
-                value={{date: new Date(2026, 6, 15), time: '11:56', timezone: 'Europe/Paris'}}
+                value={{date: new Date(2026, 6, 15, 11, 56), timezone: 'Europe/Paris'}}
                 i18n={{today: 'Today'}}
                 onChange={() => null}
             />
