@@ -183,7 +183,28 @@ describe('DateTimeInput', () => {
         expect(screen.getByText(april2026)).toBeInTheDocument();
     });
 
-    it('should reopen the calendar on the selected date month', async () => {
+    it('should render a year dropdown and let the user jump to another year', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                type="date"
+                defaultValue={{date: new Date(2026, 2, 30)}}
+                locale="en-US"
+                i18n={{today: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
+                onChange={() => null}
+            />
+        );
+
+        await user.click(screen.getByDisplayValue(formatDateDisplayValue(new Date(2026, 2, 30), 'en-US')));
+        await user.click(screen.getByRole('listbox', {name: '2026'}));
+        await user.click(screen.getByRole('option', {name: '2024'}));
+
+        expect(screen.getByText('March 2024')).toBeInTheDocument();
+        expect(screen.getByDisplayValue(formatDateDisplayValue(new Date(2026, 2, 30), 'en-US'))).toBeInTheDocument();
+    });
+
+    it('should keep the last visited month when reopening the calendar', async () => {
         const user = userEvent.setup();
         const {container} = render(
             <DateTimeInput

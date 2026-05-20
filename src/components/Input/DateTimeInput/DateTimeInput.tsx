@@ -2,9 +2,10 @@ import React, {useEffect, useRef, useState} from 'react';
 import clsx from 'clsx';
 import {dateMatchModifiers, DayPicker} from 'react-day-picker';
 import dayPickerClassNames from 'react-day-picker/style.module.css';
-import {Button, Menu} from '~/components';
+import {Button, Dropdown, Menu} from '~/components';
 import {Calendar} from '~/icons';
 import type {DateTimeInputProps} from './DateTimeInput.types';
+import type {DropdownProps} from 'react-day-picker';
 import {TimezoneSelector} from '../../TimezoneSelector/TimezoneSelector';
 import {BaseInput} from '../BaseInput';
 import {TimeInput} from '../TimeInput';
@@ -92,6 +93,9 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     const timezoneReferenceDate = getTimezoneReferenceDate(selectedDate) ?? undefined;
     const calendarDisabledMatchers = getCalendarDisabledMatchers(minDate, maxDate, disabledDates, disabledDateRanges);
     const isTodayDisabled = isDisabled || isReadOnly || dateMatchModifiers(todayDate, calendarDisabledMatchers);
+    const startMonth = minDate ? new Date(minDate.getFullYear(), minDate.getMonth(), 1) : new Date(displayedMonth.getFullYear() - 20, 0, 1);
+    const endMonth = maxDate ? new Date(maxDate.getFullYear(), maxDate.getMonth(), 1) : new Date(displayedMonth.getFullYear() + 20, 11, 1);
+    const hasMultipleYears = startMonth.getFullYear() !== endMonth.getFullYear();
 
     useEffect(() => {
         const calendarDateTimestamp = calendarDate?.getTime() ?? null;
@@ -168,13 +172,33 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                                 ...dayPickerClassNames,
                                 root: clsx(dayPickerClassNames.root, styles.dayPicker)
                             }}
+                            components={{
+                                YearsDropdown: (dropdownProps: DropdownProps) => (
+                                    <Dropdown
+                                        size="medium"
+                                        variant="ghost"
+                                        data={(dropdownProps.options ?? []).map(opt => ({
+                                            label: opt.label,
+                                            value: String(opt.value),
+                                            isDisabled: opt.disabled
+                                        }))}
+                                        value={String(dropdownProps.value ?? '')}
+                                        onChange={(_e, item) => {
+                                            setDisplayedMonth(new Date(Number(item.value), displayedMonth.getMonth(), 1));
+                                        }}
+                                    />
+                                )
+                            }}
                             labels={{
                                 labelNext: () => nextMonth,
                                 labelPrevious: () => previousMonth
                             }}
+                            captionLayout={hasMultipleYears ? 'dropdown-years' : 'label'}
                             navLayout="around"
                             weekStartsOn={weekStartsOn}
                             month={displayedMonth}
+                            startMonth={startMonth}
+                            endMonth={endMonth}
                             disabled={calendarDisabledMatchers}
                             formatters={locale ? {
                                 formatCaption: (date: Date) => new Intl.DateTimeFormat(locale, {month: 'long', year: 'numeric'}).format(date),
