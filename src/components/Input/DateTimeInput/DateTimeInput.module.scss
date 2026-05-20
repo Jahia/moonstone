@@ -10,17 +10,15 @@
     width: 120px;
 }
 
-.dayPicker {
-    --rdp-accent-color: var(--color-accent);
-    --rdp-accent-background-color: var(--color-accent);
-    --rdp-selected-border: 1px solid var(--color-accent);
-    --rdp-today-color: var(--color-blue);
+.moonstone-dateTimeInput_dayPicker {
+    --rdp-accent-color: var(--moon-color-accent);
+    --rdp-accent-background-color: var(--moon-color-accent);
+    --rdp-selected-border: 1px solid var(--moon-color-accent);
+    --rdp-today-color: var(--moon-color-accent);
 }
 
-.calendarFooter {
-    display: flex;
-    justify-content: center;
+.moonstone-dateTimeInput_calendarFooter {
     padding-top: var(--moon-spacing-nano);
 
-    border-top: 1px solid var(--color-gray_light40);
+    border-top: 1px solid var(--moon-color-gray_light40);
 }

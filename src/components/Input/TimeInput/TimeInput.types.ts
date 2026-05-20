@@ -1,4 +1,5 @@
 import React from 'react';
+import type {DropdownProps} from '~/components/Dropdown/Dropdown.types';
 import type {BaseInputProps} from '../BaseInput/BaseInput.types';
 
 /** Time display format */
@@ -8,14 +9,12 @@ export type TimeFormat = '24h' | '12h';
 export type Meridiem = 'AM' | 'PM';
 
 export type TimeInputI18n = {
-    /** Accessible label for the hours field */
+    /** Hours label */
     hours?: string;
 
-    /** Accessible label for the minutes field */
+    /** Minutes label */
     minutes?: string;
 };
-
-type TimeInputVariant = Extract<BaseInputProps['variant'], 'ghost' | 'outlined'>;
 
 type BasicTimeInputProps = Omit<BaseInputProps,
     'isShowClearButton' |
@@ -33,7 +32,7 @@ type BasicTimeInputProps = Omit<BaseInputProps,
     'allowDecimal' |
     'allowNegative'
 > & {
-    variant?: TimeInputVariant;
+    variant?: DropdownProps['variant'];
 
     /**
      * Display format for the time input.
@@ -43,8 +42,14 @@ type BasicTimeInputProps = Omit<BaseInputProps,
      */
     timeFormat?: TimeFormat;
 
-    /** Accessible labels for the hours and minutes fields */
+    /** Time input labels */
     i18n?: TimeInputI18n;
+
+    /** Controlled value in 24h format `HH:mm` (e.g. `'14:30'`), or `null`. */
+    value?: string | null;
+
+    /** Initial value in uncontrolled mode, in 24h format `HH:mm`, or `null`. */
+    defaultValue?: string | null;
 
     /**
      * Fired when a complete time value is entered (all 4 digits filled),
@@ -57,17 +62,4 @@ type BasicTimeInputProps = Omit<BaseInputProps,
     onChange?: (event: React.SyntheticEvent, value: string | null) => void;
 }
 
-type ControlledProps = {
-    /** Controlled value in 24h format `HH:mm` (e.g. `'14:30'`), or `null`. */
-    value: string | null;
-    defaultValue?: never;
-    onChange: (event: React.SyntheticEvent, value: string | null) => void;
-}
-
-type UncontrolledProps = {
-    value?: never;
-    /** Initial value in uncontrolled mode, in 24h format `HH:mm`, or `null`. */
-    defaultValue?: string | null;
-}
-
-export type TimeInputProps = BasicTimeInputProps & (ControlledProps | UncontrolledProps);
+export type TimeInputProps = BasicTimeInputProps;

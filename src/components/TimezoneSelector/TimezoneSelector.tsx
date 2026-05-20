@@ -7,17 +7,17 @@ import type {TimezoneSelectorProps} from './TimezoneSelector.types';
 
 export const TimezoneSelector: React.FC<TimezoneSelectorProps> = ({
     value,
-    defaultValue,
+    defaultValue = null,
     referenceDate,
     placeholder,
     size,
-    variant,
+    variant = 'outlined',
     className,
     isDisabled,
     onChange,
     ...props
 }) => {
-    const [timezone, setTimezone] = useState(defaultValue ?? null);
+    const [timezone, setTimezone] = useState(defaultValue);
     const selectedTimezone = typeof value === 'undefined' ? timezone : value;
 
     return (
@@ -25,9 +25,9 @@ export const TimezoneSelector: React.FC<TimezoneSelectorProps> = ({
             {...props}
             className={className}
             data={getTimezoneDropdownData(selectedTimezone, referenceDate)}
-            value={selectedTimezone ?? ''}
+            value={selectedTimezone}
             size={size}
-            variant={variant ?? 'outlined'}
+            variant={variant}
             isDisabled={isDisabled}
             placeholder={placeholder}
             icon={<Language aria-hidden/>}

@@ -20,11 +20,6 @@ const meridiemOptions: DropdownDataOption[] = [
     {label: 'PM', value: 'PM'}
 ];
 
-const getInputAriaLabel = (i18n: TimeInputProps['i18n']) => {
-    const ariaLabel = [i18n?.hours, i18n?.minutes].filter(Boolean).join(' ');
-    return ariaLabel || undefined;
-};
-
 export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
     value,
     defaultValue,
@@ -33,7 +28,6 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
     variant = 'outlined',
     placeholder = 'HH:MM',
     className,
-    i18n,
     isDisabled = false,
     isReadOnly = false,
     focusOnField = false,
@@ -42,11 +36,15 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
     onChange,
     ...props
 }, ref) => {
-    const isControlled = typeof value !== 'undefined';
-    const [timeValue, setTimeValue] = useState(typeof defaultValue === 'undefined' ? getCurrentTimeString() : defaultValue);
+    const [timeValue, setTimeValue] = useState<string | null>(() => typeof defaultValue === 'undefined' ? getCurrentTimeString() : defaultValue);
     const [inputValue, setInputValue] = useState('');
-    const [meridiem, setMeridiem] = useState<Meridiem>('AM');
-    const canonicalTimeValue = isControlled ? value : timeValue;
+    const [meridiem, setMeridiem] = useState<Meridiem>(() => parseCanonicalTime(
+        typeof value === 'undefined' ?
+            (typeof defaultValue === 'undefined' ? getCurrentTimeString() : defaultValue) :
+            value,
+        '12h'
+    ).meridiem);
+    const canonicalTimeValue = typeof value === 'undefined' ? timeValue : value;
 
     useEffect(() => {
         const parsedTime = parseCanonicalTime(canonicalTimeValue, timeFormat);
@@ -65,7 +63,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
             return;
         }
 
-        if (!isControlled) {
+        if (typeof value === 'undefined') {
             setTimeValue(parsedTimeValue);
         }
 
@@ -105,7 +103,6 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
                 isDisabled={isDisabled}
                 isReadOnly={isReadOnly}
                 placeholder={placeholder}
-                aria-label={getInputAriaLabel(i18n)}
                 autoComplete="off"
                 icon={<Clock aria-hidden size={size === 'big' ? 'big' : 'default'}/>}
                 inputMode="numeric"
