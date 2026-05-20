@@ -48,11 +48,8 @@
 .storyColumn {
     display: flex;
     flex-direction: column;
+    gap: var(--moon-spacing-medium);
     align-items: flex-start;
-
-    & > * {
-        margin: 10px;
-    }
 }
 
 .storyCode {

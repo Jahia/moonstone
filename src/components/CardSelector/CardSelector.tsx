@@ -5,7 +5,7 @@ import {layout, reset} from '~/globals/css-utils.js';
 import styles from './CardSelector.module.scss';
 import type {CardSelectorProps} from './CardSelector.types';
 import {Thumbnail, Typography} from '~/components';
-import {FileBroken} from '~/icons/components';
+import {FileBroken} from '~/icons';
 
 export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProps>(({
     displayName,
