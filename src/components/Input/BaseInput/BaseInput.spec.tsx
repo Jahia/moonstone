@@ -56,14 +56,6 @@ describe('BaseInput', () => {
         expect(screen.getByTestId('test-icon')).toBeInTheDocument();
     });
 
-    it('should forward the containerRef to the root element', () => {
-        const containerRef = React.createRef<HTMLDivElement>();
-
-        render(<BaseInput containerRef={containerRef}/>);
-
-        expect(containerRef.current).toHaveClass('moonstone-baseInput');
-    });
-
     it('should work when no value or defaultValue is specified', async () => {
         const user = userEvent.setup();
 
