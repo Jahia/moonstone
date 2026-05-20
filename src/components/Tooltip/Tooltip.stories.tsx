@@ -1,6 +1,7 @@
 import preview from '~/__storybook__/preview';
 
 import {Tooltip} from './index';
+import type {TooltipProps} from './Tooltip.types';
 import {Badge, Button, Chip, PrimaryNav, PrimaryNavItem, PrimaryNavItemsGroup} from '~/components';
 import {Apps, Feather, Home, Person, Profile, Setting} from '~/icons';
 import placeholder from '~/__storybook__/assets/img-placeholder.jpg';
@@ -17,7 +18,7 @@ const meta = preview.meta({
     }
 });
 
-const Template = (args: Parameters<typeof Tooltip>[0]) => (
+const Template = (args: TooltipProps) => (
     <Tooltip label="Tooltip" {...args}/>
 );
 
