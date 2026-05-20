@@ -18,7 +18,7 @@ import {
     getTimezoneReferenceDate,
     type DateTimeInputValue
 } from '../shared';
-import './DateTimeInput.scss';
+import styles from './DateTimeInput.module.scss';
 
 const getDefaultDateTimeValue = (type: DateTimeInputProps['type']): DateTimeInputValue => type === 'date' ?
     {date: getCurrentDate(), time: null, timezone: null} :
@@ -89,7 +89,8 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     const currentValue = normalizeDateTimeValue(sourceValue, type, hasTimezone);
     const selectedDate = currentValue.date;
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-    const [displayedMonth, setDisplayedMonth] = useState(() => getCalendarDisplayMonth(selectedDate));
+    const [displayedMonth, setDisplayedMonth] = useState(sanitizedValue.date || new Date());
+    const lastSelectedDateTimestampRef = useRef(selectedDate?.getTime() ?? null);
     const calendarAnchorRef = useRef<HTMLDivElement>(null);
     const todayDate = getCurrentDate();
     const todayButtonLabel = today || formatDateDisplayValue(todayDate, locale);
@@ -98,11 +99,22 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     const isTodayDisabled = isDisabled || isReadOnly || dateMatchModifiers(todayDate, calendarDisabledMatchers);
 
     useEffect(() => {
-        if (isCalendarOpen) {
-            setDisplayedMonth(getCalendarDisplayMonth(selectedDate));
+        const selectedDateTimestamp = selectedDate?.getTime() ?? null;
+
+        if (selectedDate && selectedDateTimestamp !== lastSelectedDateTimestampRef.current) {
+            lastSelectedDateTimestampRef.current = selectedDateTimestamp;
+            setDisplayedMonth(selectedDate);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedDate]);
+
+    const handleMonthChange = (nextMonth: Date) => {
+        if (
+            nextMonth.getFullYear() !== displayedMonth.getFullYear() ||
+            nextMonth.getMonth() !== displayedMonth.getMonth()
+        ) {
+            setDisplayedMonth(nextMonth);
+        }
+    };
 
     const emitChange = (event: React.SyntheticEvent, nextValue: DateTimeInputValue) => {
         const nextDateTimeValue = normalizeDateTimeValue(nextValue, type, hasTimezone);
@@ -115,14 +127,14 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     };
 
     return (
-        <div className={clsx('moonstone-dateTimeInput', className)}>
+        <div className={clsx(styles.dateTimeInput, className)}>
             <BaseInput
                 ref={ref}
                 {...props}
                 readOnly
                 containerRef={calendarAnchorRef}
-                className="moonstone-dateTimeInput_dateField"
-                value={formatDateDisplayValue(selectedDate, locale)}
+                className={styles.dateField}
+                value={formatDateDisplayValue(sanitizedValue.date, locale)}
                 size={size}
                 variant={variant}
                 isDisabled={isDisabled}
@@ -153,51 +165,53 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                     maxWidth="320px"
                     onClose={() => setIsCalendarOpen(false)}
                 >
-                    <DayPicker
-                        showOutsideDays
-                        classNames={{
-                            ...dayPickerClassNames,
-                            root: clsx(dayPickerClassNames.root, 'moonstone-dateTimeInput_dayPicker')
-                        }}
-                        labels={{
-                            labelNext: () => nextMonth,
-                            labelPrevious: () => previousMonth
-                        }}
-                        navLayout="around"
-                        weekStartsOn={weekStartsOn}
-                        month={displayedMonth}
-                        disabled={calendarDisabledMatchers}
-                        formatters={locale ? {
-                            formatCaption: (date: Date) => new Intl.DateTimeFormat(locale, {month: 'long', year: 'numeric'}).format(date),
-                            formatDay: (date: Date) => new Intl.DateTimeFormat(locale, {day: 'numeric'}).format(date),
-                            formatWeekdayName: (date: Date) => new Intl.DateTimeFormat(locale, {weekday: 'short'}).format(date)
-                        } : undefined}
-                        mode="single"
-                        selected={selectedDate ?? undefined}
-                        onMonthChange={month => setDisplayedMonth(getCalendarDisplayMonth(month))}
-                        onSelect={(date, _selectedDay, modifiers, event) => {
-                            if (modifiers.disabled) {
-                                return;
-                            }
-
-                            emitChange(event, {...currentValue, date: getNormalizedDate(date)});
-                            setIsCalendarOpen(false);
-                        }}
-                    />
-                    <footer className={clsx('moonstone-dateTimeInput_calendarFooter', 'flexRow_center', layout.flexRow_center)}>
-                        <Button
-                            variant="ghost"
-                            size="default"
-                            isDisabled={isTodayDisabled}
-                            label={todayButtonLabel}
-                            onClick={event => {
-                                if (!isTodayDisabled) {
-                                    emitChange(event, {...currentValue, date: todayDate});
-                                    setIsCalendarOpen(false);
+                    <div>
+                        <DayPicker
+                            showOutsideDays
+                            classNames={{
+                                ...dayPickerClassNames,
+                                root: clsx(dayPickerClassNames.root, styles.dayPicker)
+                            }}
+                            labels={{
+                                labelNext: () => i18n?.nextMonth || 'Go to the next month',
+                                labelPrevious: () => i18n?.previousMonth || 'Go to the previous month'
+                            }}
+                            navLayout="around"
+                            weekStartsOn={weekStartsOn}
+                            month={displayedMonth}
+                            disabled={calendarDisabledMatchers}
+                            formatters={locale ? {
+                                formatCaption: (date: Date) => new Intl.DateTimeFormat(locale, {month: 'long', year: 'numeric'}).format(date),
+                                formatDay: (date: Date) => new Intl.DateTimeFormat(locale, {day: 'numeric'}).format(date),
+                                formatWeekdayName: (date: Date) => new Intl.DateTimeFormat(locale, {weekday: 'short'}).format(date)
+                            } : undefined}
+                            mode="single"
+                            selected={selectedDate ?? undefined}
+                            onMonthChange={handleMonthChange}
+                            onSelect={(date, _selectedDay, modifiers, event) => {
+                                if (modifiers.disabled) {
+                                    return;
                                 }
+
+                                emitChange(event, {...sanitizedValue, date: getNormalizedDate(date)});
+                                setIsCalendarOpen(false);
                             }}
                         />
-                    </footer>
+                        <footer className={styles.calendarFooter}>
+                            <Button
+                                variant="ghost"
+                                size="default"
+                                isDisabled={isTodayDisabled}
+                                label={todayButtonLabel}
+                                onClick={event => {
+                                    if (!isTodayDisabled) {
+                                        emitChange(event, {...sanitizedValue, date: todayDate});
+                                        setIsCalendarOpen(false);
+                                    }
+                                }}
+                            />
+                        </footer>
+                    </div>
                 </Menu>
             )}
             {type === 'datetime' && (

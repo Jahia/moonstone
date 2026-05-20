@@ -1,4 +1,4 @@
-.moonstone-dateTimeInput {
+.dateTimeInput {
     display: inline-flex;
     flex-wrap: wrap;
     gap: var(--moon-spacing-small);
@@ -6,7 +6,7 @@
     max-width: 100%;
 }
 
-.moonstone-dateTimeInput_dateField {
+.dateField {
     width: 120px;
 }
 
