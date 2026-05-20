@@ -1,8 +1,8 @@
 import React from 'react';
+import clsx from 'clsx';
 
 import type {TableHeadProps} from './TableHead.types';
 import styles from './TableHead.module.scss';
-import clsx from 'clsx';
 
 export const TableHead: React.FC<TableHeadProps> = ({
     isSticky = false,

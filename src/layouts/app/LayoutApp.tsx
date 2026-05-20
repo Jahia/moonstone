@@ -1,9 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
-import styles from './LayoutApp.module.scss';
-import {LayoutAppProps} from './LayoutApp.types';
-import {Loader} from '~/components/Loader';
+import type {LayoutAppProps} from './LayoutApp.types';
+import {Loader} from '~/components';
 import {layout, reset} from '~/globals/css-utils.js';
+import styles from './LayoutApp.module.scss';
 
 export const LayoutApp = React.forwardRef(({
     navigation = null,
