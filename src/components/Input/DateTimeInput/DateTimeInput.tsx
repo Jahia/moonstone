@@ -127,11 +127,11 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
 
     return (
         <div className={clsx(styles.dateTimeInput, className)}>
-            <BaseInput
+            <div ref={calendarAnchorRef}>
+                <BaseInput
                 ref={ref}
                 {...props}
                 readOnly
-                containerRef={calendarAnchorRef}
                 className={styles.dateField}
                 value={formatDateDisplayValue(currentValue.date, locale)}
                 size={size}
@@ -155,6 +155,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                     }
                 }}
             />
+            </div>
             {calendarAnchorRef.current && (
                 <Menu
                     isDisplayed={isCalendarOpen}

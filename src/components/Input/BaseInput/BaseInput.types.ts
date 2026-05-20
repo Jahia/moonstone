@@ -37,11 +37,6 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
     className?: string;
 
     /**
-     * Ref applied to the root container.
-     */
-    containerRef?: React.Ref<HTMLDivElement>;
-
-    /**
      * Whether the size of the input should be default or big
      */
     size?: 'default' | 'big';
