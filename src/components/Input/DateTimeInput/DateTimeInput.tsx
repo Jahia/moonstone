@@ -10,8 +10,8 @@ import {BaseInput} from '../BaseInput';
 import {TimeInput} from '../TimeInput';
 import {
     formatDateDisplayValue,
+    formatTimeString,
     getCurrentDate,
-    getCurrentTimeString,
     getCalendarDisabledMatchers,
     getNormalizedDate,
     getTimezoneReferenceDate,
@@ -19,31 +19,26 @@ import {
 } from '../shared';
 import styles from './DateTimeInput.module.scss';
 
-const getDefaultDateTimeValue = (type: DateTimeInputProps['type']): DateTimeInputValue => type === 'date' ?
-    {date: getCurrentDate(), time: null, timezone: null} :
-    {date: getCurrentDate(), time: getCurrentTimeString(), timezone: null};
+const getDefaultDateTimeValue = (type: DateTimeInputProps['type']): DateTimeInputValue => {
+    if (type === 'date') {
+        return {date: getCurrentDate(), timezone: null};
+    }
+
+    const now = new Date();
+    return {date: new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes()), timezone: null};
+};
 
 const normalizeDateTimeValue = (
     value: DateTimeInputValue,
     type: DateTimeInputProps['type'],
     hasTimezone?: boolean
 ) => {
-    const nextValue: DateTimeInputValue = {
-        date: getNormalizedDate(value.date),
-        time: value.time ?? null,
-        timezone: value.timezone ?? null
-    };
+    const date = value.date instanceof Date && !isNaN(value.date.getTime()) ? value.date : null;
 
-    if (type === 'date') {
-        nextValue.time = null;
-        nextValue.timezone = null;
-    }
-
-    if (type === 'datetime' && !hasTimezone) {
-        nextValue.timezone = null;
-    }
-
-    return nextValue;
+    return {
+        date,
+        timezone: type === 'date' || !hasTimezone ? null : (value.timezone ?? null)
+    } as DateTimeInputValue;
 };
 
 const getCalendarDisplayMonth = (value?: Date | null) => {
@@ -87,9 +82,10 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     const sourceValue = isControlled ? value : uncontrolledValue;
     const currentValue = normalizeDateTimeValue(sourceValue, type, hasTimezone);
     const selectedDate = currentValue.date;
+    const calendarDate = selectedDate ? getNormalizedDate(selectedDate) : null;
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-    const [displayedMonth, setDisplayedMonth] = useState(currentValue.date || new Date());
-    const lastSelectedDateTimestampRef = useRef(selectedDate?.getTime() ?? null);
+    const [displayedMonth, setDisplayedMonth] = useState(calendarDate || new Date());
+    const lastSelectedDateTimestampRef = useRef(calendarDate?.getTime() ?? null);
     const calendarAnchorRef = useRef<HTMLDivElement>(null);
     const todayDate = getCurrentDate();
     const todayButtonLabel = today || formatDateDisplayValue(todayDate, locale);
@@ -98,13 +94,13 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     const isTodayDisabled = isDisabled || isReadOnly || dateMatchModifiers(todayDate, calendarDisabledMatchers);
 
     useEffect(() => {
-        const selectedDateTimestamp = selectedDate?.getTime() ?? null;
+        const calendarDateTimestamp = calendarDate?.getTime() ?? null;
 
-        if (selectedDate && selectedDateTimestamp !== lastSelectedDateTimestampRef.current) {
-            lastSelectedDateTimestampRef.current = selectedDateTimestamp;
-            setDisplayedMonth(selectedDate);
+        if (calendarDate && calendarDateTimestamp !== lastSelectedDateTimestampRef.current) {
+            lastSelectedDateTimestampRef.current = calendarDateTimestamp;
+            setDisplayedMonth(calendarDate);
         }
-    }, [selectedDate]);
+    }, [calendarDate]);
 
     const handleMonthChange = (month: Date) => {
         if (
@@ -186,14 +182,19 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                                 formatWeekdayName: (date: Date) => new Intl.DateTimeFormat(locale, {weekday: 'short'}).format(date)
                             } : undefined}
                             mode="single"
-                            selected={selectedDate ?? undefined}
+                            selected={calendarDate ?? undefined}
                             onMonthChange={handleMonthChange}
                             onSelect={(date, _selectedDay, modifiers, event) => {
                                 if (modifiers.disabled) {
                                     return;
                                 }
 
-                                emitChange(event, {...currentValue, date: getNormalizedDate(date)});
+                                const nextDay = getNormalizedDate(date);
+                                const nextDate = nextDay ? new Date(
+                                    nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate(),
+                                    selectedDate?.getHours() ?? 0, selectedDate?.getMinutes() ?? 0
+                                ) : null;
+                                emitChange(event, {...currentValue, date: nextDate});
                                 setIsCalendarOpen(false);
                             }}
                         />
@@ -205,7 +206,11 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                                 label={todayButtonLabel}
                                 onClick={event => {
                                     if (!isTodayDisabled) {
-                                        emitChange(event, {...currentValue, date: todayDate});
+                                        const nextDate = new Date(
+                                            todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate(),
+                                            selectedDate?.getHours() ?? 0, selectedDate?.getMinutes() ?? 0
+                                        );
+                                        emitChange(event, {...currentValue, date: nextDate});
                                         setIsCalendarOpen(false);
                                     }
                                 }}
@@ -222,10 +227,15 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                     isReadOnly={isReadOnly}
                     focusOnField={false}
                     timeFormat={timeFormat}
-                    value={currentValue.time ?? null}
+                    value={selectedDate ? formatTimeString(selectedDate) : null}
                     i18n={timeInputI18n}
                     onChange={(event, timeValue) => {
-                        emitChange(event, {...currentValue, time: timeValue});
+                        const base = selectedDate ?? getCurrentDate();
+                        const nextDate = timeValue ? (() => {
+                            const [hours, minutes] = timeValue.split(':').map(Number);
+                            return new Date(base.getFullYear(), base.getMonth(), base.getDate(), hours, minutes);
+                        })() : new Date(base.getFullYear(), base.getMonth(), base.getDate());
+                        emitChange(event, {...currentValue, date: nextDate});
                     }}
                 />
             )}

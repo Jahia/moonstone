@@ -82,7 +82,7 @@ describe('DateTimeInput', () => {
             <DateTimeInput
                 hasTimezone
                 type="datetime"
-                value={{date: new Date(2026, 1, 10), time: '11:56', timezone: 'Europe/Paris'}}
+                value={{date: new Date(2026, 1, 10, 11, 56), timezone: 'Europe/Paris'}}
                 i18n={{today: 'Today'}}
                 onChange={handleChange}
             />
@@ -108,7 +108,7 @@ describe('DateTimeInput', () => {
                 hasTimezone
                 type="datetime"
                 timeFormat="12h"
-                value={{date: new Date(2026, 1, 10), time: '23:56', timezone: 'Europe/Paris'}}
+                value={{date: new Date(2026, 1, 10, 23, 56), timezone: 'Europe/Paris'}}
                 i18n={{today: 'Today'}}
                 onChange={() => null}
             />
@@ -127,7 +127,7 @@ describe('DateTimeInput', () => {
             <DateTimeInput
                 type="datetime"
                 timeFormat="12h"
-                value={{date: new Date(2026, 1, 10), time: '02:30'}}
+                value={{date: new Date(2026, 1, 10, 2, 30)}}
                 i18n={{today: 'Today'}}
                 onChange={handleChange}
             />
@@ -141,7 +141,7 @@ describe('DateTimeInput', () => {
 
         expect(handleChange).toHaveBeenLastCalledWith(
             expect.any(Object),
-            expect.objectContaining({time: '14:30'})
+            expect.objectContaining({date: new Date(2026, 1, 10, 14, 30)})
         );
     });
 
@@ -245,7 +245,7 @@ describe('DateTimeInput', () => {
             <DateTimeInput
                 hasTimezone
                 type="datetime"
-                value={{date: new Date(2026, 0, 15), time: '11:56', timezone: 'Europe/Paris'}}
+                value={{date: new Date(2026, 0, 15, 11, 56), timezone: 'Europe/Paris'}}
                 i18n={{today: 'Today'}}
                 onChange={() => null}
             />
@@ -257,7 +257,7 @@ describe('DateTimeInput', () => {
             <DateTimeInput
                 hasTimezone
                 type="datetime"
-                value={{date: new Date(2026, 6, 15), time: '11:56', timezone: 'Europe/Paris'}}
+                value={{date: new Date(2026, 6, 15, 11, 56), timezone: 'Europe/Paris'}}
                 i18n={{today: 'Today'}}
                 onChange={() => null}
             />

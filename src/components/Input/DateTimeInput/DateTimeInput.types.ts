@@ -13,15 +13,11 @@ export type DateTimeInputType = 'date' | 'datetime';
 /** Value shape of the `DateTimeInput`. */
 export type DateTimeInputValue = {
     /**
-     * Calendar day selected in the input.
-     * The date part is used; any time part is ignored.
+     * Selected date and time.
+     * For `type='date'`, only the calendar day is relevant; any time part is ignored.
+     * For `type='datetime'`, hours and minutes are meaningful.
      */
     date: Date | null;
-    /**
-     * 24-hour time string `HH:mm` (e.g. `'14:30'`).
-     * Always 24h regardless of the `timeFormat` display setting.
-     */
-    time?: string | null;
     /** IANA timezone identifier (e.g. `'Europe/Paris'`) */
     timezone?: string | null;
 };
@@ -46,7 +42,6 @@ export type DateTimeInputI18n = {
 };
 
 type DateTimeInputSharedProps = Omit<BaseInputProps,
-    'containerRef' |
     'value' |
     'defaultValue' |
     'onChange' |
@@ -138,7 +133,7 @@ type DateTimeProps = {
 
     /**
      * Display format for the time input.
-     * Does not affect the `value.time` format, which is always `HH:mm` (24h).
+     * Does not affect the `value.date` time component, which is always stored in 24h (hours 0–23).
      * @default '24h'
      */
     timeFormat?: TimeFormat;

@@ -2,10 +2,9 @@ import type {Meta, StoryObj} from '@storybook/react-vite';
 import {action} from 'storybook/actions';
 import {useArgs} from 'storybook/preview-api';
 import {DateTimeInput} from './DateTimeInput';
-import {getCurrentDate, getCurrentTimeString} from '../shared';
+import {getCurrentDate} from '../shared';
 
 const currentDate = getCurrentDate();
-const currentTime = getCurrentTimeString();
 const dateTimeInputI18n = {
     today: 'Today',
     hours: 'Hours',
@@ -38,7 +37,7 @@ export const DateOnly: Story = {
                 placeholder="Select a date"
                 value={currentValue}
                 onChange={(_event, nextValue) => {
-                    action('onChange')(nextValue.date, nextValue.time, nextValue.timezone);
+                    action('onChange')(nextValue.date, nextValue.timezone);
                     setArgs({value: nextValue});
                 }}
             />
@@ -62,7 +61,7 @@ export const DateTimeWithTimezone: Story = {
                 i18n={i18n}
                 value={currentValue}
                 onChange={(_event, nextValue) => {
-                    action('onChange')(nextValue.date, nextValue.time, nextValue.timezone);
+                    action('onChange')(nextValue.date, nextValue.timezone);
                     setArgs({value: nextValue});
                 }}
             />
@@ -70,8 +69,7 @@ export const DateTimeWithTimezone: Story = {
     },
     args: {
         value: {
-            date: currentDate,
-            time: currentTime,
+            date: new Date(),
             timezone: 'Europe/Paris'
         }
     },
@@ -91,7 +89,7 @@ export const DateTimeWithTimezone12h: Story = {
                 i18n={i18n}
                 value={currentValue}
                 onChange={(_event, nextValue) => {
-                    action('onChange')(nextValue.date, nextValue.time, nextValue.timezone);
+                    action('onChange')(nextValue.date, nextValue.timezone);
                     setArgs({value: nextValue});
                 }}
             />
@@ -99,8 +97,7 @@ export const DateTimeWithTimezone12h: Story = {
     },
     args: {
         value: {
-            date: currentDate,
-            time: '23:56',
+            date: new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 23, 56),
             timezone: 'Europe/Paris'
         }
     },
@@ -121,7 +118,7 @@ export const DisabledDates: Story = {
                 disabledDates={[new Date(2026, 2, 30)]}
                 value={currentValue}
                 onChange={(_event, nextValue) => {
-                    action('onChange')(nextValue.date, nextValue.time, nextValue.timezone);
+                    action('onChange')(nextValue.date, nextValue.timezone);
                     setArgs({value: nextValue});
                 }}
             />
