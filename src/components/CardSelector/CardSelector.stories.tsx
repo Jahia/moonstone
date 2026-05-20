@@ -1,12 +1,9 @@
 import {StoryObj, Meta} from '@storybook/react-vite';
 
 import {CardSelector} from './index';
-import {Button} from '~/components/Button';
-import {Chip} from '~/components/Chip';
+import {Button, Chip} from '~/scoped';
 import {Close, FileImage, Lock, Love} from '~/icons';
 import type {CardSelectorProps} from './CardSelector.types';
-import imgVertical from '~/__storybook__/assets/img-vertical.webp';
-import imgIcon from '~/__storybook__/assets/img-icon.webp';
 
 const meta: Meta<typeof CardSelector> = {
     title: 'Components/CardSelector',
@@ -37,7 +34,7 @@ export const Default: Story = {
 export const Image: Story = {
     args: {
         ...Default.args,
-        thumbnail: imgVertical,
+        thumbnail: 'https://picsum.photos/seed/moonstone/100/300',
         thumbnailAlt: 'preview-img',
         thumbnailType: 'preview',
         information: 'more information',
@@ -49,7 +46,7 @@ export const Image: Story = {
 export const Icon: Story = {
     args: {
         ...Image.args,
-        thumbnail: imgIcon,
+        thumbnail: 'http://www.google.com/s2/favicons?domain=www.jahia.com',
         thumbnailType: 'icon'
     },
     render: Template

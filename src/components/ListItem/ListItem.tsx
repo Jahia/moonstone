@@ -1,9 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
-import {Typography} from '~/components';
-import type {ListItemProps} from './ListItem.types';
-import {icons, layout} from '~/globals/css-utils.js';
 import styles from './ListItem.module.scss';
+import {Typography} from '~/components/Typography';
+import {ListItemProps} from './ListItem.types';
+import {icons, layout} from '~/globals/css-utils.js';
 
 const ListItemForwardRef: React.ForwardRefRenderFunction<HTMLLIElement, ListItemProps> = ({
     label,

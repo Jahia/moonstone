@@ -1,12 +1,12 @@
 import React, {useRef} from 'react';
 import clsx from 'clsx';
+import styles from './TreeView.module.scss';
 import type {ControlledTreeViewProps, TreeViewData} from './TreeView.types';
 
 import {ChevronDown, ChevronRight, CheckboxChecked, CheckboxUnchecked} from '~/icons';
 import {Typography, Loader} from '~/components';
 import {onToggleNode, onArrowNavigation, mergeHandlers} from '~/hooks';
 import {icons, layout, reset} from '~/globals/css-utils.js';
-import styles from './TreeView.module.scss';
 
 // Manage treeView_item's icon
 const displayIcon = (icon: React.ReactElement, size: 'small' | 'default' | 'big', className?: string, parentHasIconStart = false) => {

@@ -1,10 +1,10 @@
 import React, {useContext} from 'react';
 import clsx from 'clsx';
-import type {ItemProps, ItemTypeResolverProps, PrimaryNavItemProps} from './PrimaryNavItem.types';
-import {Typography} from '~/components';
+import styles from './PrimaryNavItem.module.scss';
+import {ItemProps, ItemTypeResolverProps, PrimaryNavItemProps} from './PrimaryNavItem.types';
+import {Typography} from '~/components/Typography';
 import {PrimaryNavContext} from '../PrimaryNav.context';
 import {onAccessibleClick} from '~/hooks';
-import styles from './PrimaryNavItem.module.scss';
 
 // Internal component
 const Item: React.FC<ItemProps> = ({icon, label, textVariant, subtitle, button}) => (

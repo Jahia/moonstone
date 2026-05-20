@@ -1,8 +1,8 @@
 import React from 'react';
+import styles from './ButtonGroup.module.scss';
 import clsx from 'clsx';
 import {ButtonGroupProps} from './ButtonGroup.types';
 import {layout, reset} from '~/globals/css-utils.js';
-import styles from './ButtonGroup.module.scss';
 
 export const ButtonGroup: React.FC<ButtonGroupProps> = ({
     size = 'default',

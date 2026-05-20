@@ -1,10 +1,10 @@
 import React, {useRef} from 'react';
 import clsx from 'clsx';
+import styles from './TabItem.module.scss';
 import type {TabItemProps} from './TabItem.types';
-import {Typography} from '~/components';
+import {Typography} from '~/components/Typography';
 import {onArrowNavigation} from '~/hooks';
 import {layout} from '~/globals/css-utils.js';
-import styles from './TabItem.module.scss';
 
 export const TabItem: React.FC<TabItemProps> = ({
     component = 'button',
@@ -29,7 +29,7 @@ export const TabItem: React.FC<TabItemProps> = ({
                     !label && ['moonstone-tabItem_noLabel', styles['moonstone-tabItem_noLabel']],
                     isSelected && ['moonstone-tabItem_selected', styles['moonstone-tabItem_selected']],
                     isReversed && ['moonstone-reverse', styles['moonstone-reverse']],
-                    isDisabled && ['moonstone-disabled'],
+                    isDisabled && ['moonstone-disabled', styles['moonstone-disabled']],
                     ['flexRow_center', layout.flexRow_center],
                     ['alignCenter', layout.alignCenter],
                     className

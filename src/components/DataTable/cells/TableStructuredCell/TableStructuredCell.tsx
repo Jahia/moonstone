@@ -4,9 +4,9 @@ import {ChevronDown, ChevronRight} from '~/icons';
 
 import {TableCell} from '../TableCell';
 import {Typography} from '~/components';
+import styles from './TableStructuredCell.module.scss';
 import type {TableStructuredCellProps} from './TableStructuredCell.types';
 import {layout} from '~/globals/css-utils.js';
-import styles from './TableStructuredCell.module.scss';
 
 // Spacing constants for tree structure alignment
 const indentSpace = 20; // Px - indentation per depth level

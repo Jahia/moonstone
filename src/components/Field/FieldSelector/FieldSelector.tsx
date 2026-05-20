@@ -1,9 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
-import type {FieldSelectorProps} from './FieldSelector.types';
+import styles from './FieldSelector.module.scss';
+import {FieldSelectorProps} from './FieldSelector.types';
 import {HandleDrag} from '~/icons';
 import {layout} from '~/globals/css-utils.js';
-import styles from './FieldSelector.module.scss';
 
 export const FieldSelector = React.forwardRef<HTMLDivElement, FieldSelectorProps>(({
     buttons,

@@ -1,9 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
+import styles from './Fieldset.module.scss';
 import type {FieldsetProps} from './Fieldset.types';
 import {Typography} from '~/components';
 import {layout, reset} from '~/globals/css-utils.js';
-import styles from './Fieldset.module.scss';
 
 export const Fieldset = React.forwardRef<HTMLFieldSetElement, FieldsetProps>(({
     id,

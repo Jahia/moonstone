@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react';
 import {Thumbnail} from './Thumbnail';
-import {Love} from '~/icons';
+import {Love} from '../../icons/components';
 
 describe('Thumbnail', () => {
     it('should render fallback icon when no src provided', () => {

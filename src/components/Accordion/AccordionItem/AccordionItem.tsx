@@ -1,11 +1,11 @@
 import React from 'react';
 import clsx from 'clsx';
+import styles from './AccordionItem.module.scss';
 import {Typography} from '~/components/Typography';
 import {AccordionContext} from '~/components/Accordion/Accordion.context';
 import type {AccordionItemProps} from './AccordionItem.types';
 import {onAccessibleClick} from '~/hooks';
 import {icons, layout} from '~/globals/css-utils.js';
-import styles from './AccordionItem.module.scss';
 
 export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = null, onClick = () => undefined, className, children, ...props}) => {
     const context = React.useContext(AccordionContext);

@@ -1,12 +1,11 @@
 import {Folder, File, NoCloud} from '~/icons';
 import {toIconComponent} from '~/icons/utils';
-import imgIcon from '~/__storybook__/assets/img-icon.webp';
 
 export const treeDataNested = [
     {
         id: 'ROOT',
         label: 'Root',
-        iconStart: toIconComponent(imgIcon),
+        iconStart: toIconComponent('http://www.google.com/s2/favicons?domain=www.jahia.com'),
         isClosable: false,
         children: [
             {

@@ -1,5 +1,5 @@
 import React, {useImperativeHandle, useRef} from 'react';
-import type {SearchContextInputProps} from './SearchContextInput.types';
+import {SearchContextInputProps} from './SearchContextInput.types';
 import {BaseInput} from '../BaseInput';
 import clsx from 'clsx';
 import baseInputStyles from '../BaseInput/BaseInput.module.scss';

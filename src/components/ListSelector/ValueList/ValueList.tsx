@@ -1,11 +1,11 @@
 import React from 'react';
-import clsx from 'clsx';
 import {ListItem, SearchInput} from '~/components';
 import {HandleDrag} from '~/icons';
-import type {ValueListProps} from './ValueList.types';
+import clsx from 'clsx';
+import {ValueListProps} from './ValueList.types';
+import styles from './ValueList.module.scss';
 import {onAccessibleClick} from '~/hooks';
 import {layout, reset} from '~/globals/css-utils.js';
-import styles from './ValueList.module.scss';
 
 export const ValueList: React.FC<ValueListProps> = ({
     values,

@@ -1,12 +1,10 @@
 import React from 'react';
 import clsx from 'clsx';
-
-import type {FieldBooleanProps} from './FieldBoolean.types';
-import {Typography, Checkbox} from '~/components';
-
-import {layout, reset} from '~/globals/css-utils.js';
 import styles from './FieldBoolean.module.scss';
 import fieldStyles from '../Field.module.scss';
+import type {FieldBooleanProps} from './FieldBoolean.types';
+import {Typography, Checkbox} from '~/components';
+import {layout, reset} from '~/globals/css-utils.js';
 
 export const FieldBoolean = React.forwardRef<HTMLDivElement, FieldBooleanProps>(({
     id,

@@ -7,6 +7,7 @@
 import React, {useEffect, useState} from 'react';
 import {useExpanded, useRowSelect, useSortBy, useTable} from 'react-table';
 import '~/__storybook__/storybook.scss';
+import {reset} from '~/globals/css-utils.js';
 
 import {
     Checkbox,
@@ -236,7 +237,9 @@ export const SelectableRows = {
             getTableBodyProps,
             headerGroups,
             rows,
-            prepareRow
+            prepareRow,
+            selectedFlatRows,
+            state: {selectedRowIds}
         } = useTable(
             {
                 data,
@@ -246,51 +249,67 @@ export const SelectableRows = {
         );
 
         return (
-            <Table {...getTableProps()}>
-                <TableHead>
-                    {headerGroups.map(headerGroup => (
-                        // A key is included in headerGroup.getHeaderGroupProps
-                        // eslint-disable-next-line react/jsx-key
-                        <TableRow {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map(column => (
-                                // A key is included in column.getHeaderProps
-                                // eslint-disable-next-line react/jsx-key
-                                <TableHeadCell
-                                    {...column.getHeaderProps()}
-                                    width={column.customWidth}
-                                >
-                                    {column.render('Header')}
-                                </TableHeadCell>
-                            ))}
-                        </TableRow>
-                    ))}
-                </TableHead>
-                <TableBody {...getTableBodyProps()}>
-                    {rows.map((row, id) => {
-                        prepareRow(row);
-                        return (
-                            // A key is included in row.getRowProps
+            <>
+                <Table {...getTableProps()}>
+                    <TableHead>
+                        {headerGroups.map(headerGroup => (
+                            // A key is included in headerGroup.getHeaderGroupProps
                             // eslint-disable-next-line react/jsx-key
-                            <TableRow
-                                isSelected={row.isSelected}
-                                isHighlighted={id === 1}
-                                {...row.getRowProps()}
-                            >
-                                {row.cells.map(cell => (
-                                    // A key is included in cell.getCellProps
+                            <TableRow {...headerGroup.getHeaderGroupProps()}>
+                                {headerGroup.headers.map(column => (
+                                    // A key is included in column.getHeaderProps
                                     // eslint-disable-next-line react/jsx-key
-                                    <TableBodyCell
-                                        {...cell.getCellProps()}
-                                        width={cell.column.customWidth}
+                                    <TableHeadCell
+                                        {...column.getHeaderProps()}
+                                        width={column.customWidth}
                                     >
-                                        {cell.render('Cell')}
-                                    </TableBodyCell>
+                                        {column.render('Header')}
+                                    </TableHeadCell>
                                 ))}
                             </TableRow>
-                        );
-                    })}
-                </TableBody>
-            </Table>
+                        ))}
+                    </TableHead>
+                    <TableBody {...getTableBodyProps()}>
+                        {rows.map((row, id) => {
+                            prepareRow(row);
+                            return (
+                                // A key is included in row.getRowProps
+                                // eslint-disable-next-line react/jsx-key
+                                <TableRow
+                                    isSelected={row.isSelected}
+                                    isHighlighted={id === 1}
+                                    {...row.getRowProps()}
+                                >
+                                    {row.cells.map(cell => (
+                                        // A key is included in cell.getCellProps
+                                        // eslint-disable-next-line react/jsx-key
+                                        <TableBodyCell
+                                            {...cell.getCellProps()}
+                                            width={cell.column.customWidth}
+                                        >
+                                            {cell.render('Cell')}
+                                        </TableBodyCell>
+                                    ))}
+                                </TableRow>
+                            );
+                        })}
+                    </TableBody>
+                </Table>
+                <section className={reset}>
+                    <pre>
+                        <code className="storyCode">
+                            {JSON.stringify(
+                                {
+                                    selectedRowIds,
+                                    'selectedFlatRows[].original': selectedFlatRows.map(d => d.original)
+                                },
+                                null,
+                                2
+                            )}
+                        </code>
+                    </pre>
+                </section>
+            </>
         );
     },
 

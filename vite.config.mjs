@@ -2,6 +2,7 @@
 /// <reference types="vitest/config" />
 import {defineConfig} from 'vite';
 import path from 'node:path';
+import {libInjectCss} from 'vite-plugin-lib-inject-css';
 import react from '@vitejs/plugin-react';
 import sbom from 'rollup-plugin-sbom';
 import {playwright} from '@vitest/browser-playwright';
@@ -11,6 +12,7 @@ export default defineConfig({
     plugins: [
         patchCssModules(),
         react(),
+        libInjectCss(),
         sbom({specVersion: '1.4'})
     ],
     resolve: {
@@ -22,25 +24,20 @@ export default defineConfig({
         lib: {
             entry: {
                 index: './src/index.ts',
-                'components/DataTable/index': './src/components/DataTable/index.ts',
+                // Isolated styles for Moonstone
+                scoped: './src/scoped.ts',
                 // Legacy entrypoints, remove in the future
                 'icons/index': './src/icons/index.ts',
                 'components/CheckboxGroup/CheckboxItem': './src/components/CheckboxGroup/CheckboxItem/index.ts',
                 'icons/components/DefaultEntry': './src/icons/components/DefaultEntry.tsx',
                 'icons/components/Information': 'src/icons/components/Information.tsx'
             },
-            formats: ['es', 'cjs'],
-            cssFileName: 'scoped' // The CSS file produced by Vite only contains classes hashed by CSS modules, hence scoped
+            formats: ['es', 'cjs']
         },
         rollupOptions: {
-            external: [
-                'react',
-                'react-dom',
-                'react/jsx-runtime',
-                // Preserve the import statement in `src/index.ts`
-                './legacy-global-bundle.css'
-            ]
-        }
+            external: ['react', 'react-dom', 'react/jsx-runtime']
+        },
+        assetsInlineLimit: 0
     },
     assetsInclude: ['**/*.md'],
     test: {
@@ -85,7 +82,7 @@ export default defineConfig({
                     include: ['src/visual*.spec.tsx'],
                     // It's super fast to take a screenshot, but Vitest will wait until
                     // the default timeout of 15s in case the screenshot does not match
-                    testTimeout: 3000,
+                    testTimeout: 1000,
                     browser: {
                         enabled: true,
                         headless: true,

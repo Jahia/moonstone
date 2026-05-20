@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react';
 import {EmptyData} from './index';
-import {Love} from '~/icons';
+import {Love} from '~/icons/index';
 
 describe('EmptyData', () => {
     it('should display additional class names', () => {

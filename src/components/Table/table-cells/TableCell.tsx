@@ -2,8 +2,8 @@ import React from 'react';
 import clsx from 'clsx';
 
 import type {TableCellProps} from './TableCell.types';
-import {icons, layout} from '~/globals/css-utils.js';
 import styles from './TableCell.module.scss';
+import {icons, layout} from '~/globals/css-utils.js';
 
 const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, TableCellProps> = (
     {

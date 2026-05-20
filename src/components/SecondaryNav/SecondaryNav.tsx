@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import clsx from 'clsx';
+import styles from './SecondaryNav.module.scss';
 import type {SecondaryNavProps} from './SecondaryNav.types';
 import {ResizableBox} from '~/components/ResizableBox';
 import {ChevronDoubleRight, ChevronDoubleLeft} from '~/icons';
 import {layout} from '~/globals/css-utils.js';
-import styles from './SecondaryNav.module.scss';
 
 export const SecondaryNav: React.FC<SecondaryNavProps> = ({
     header,

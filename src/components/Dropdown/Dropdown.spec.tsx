@@ -4,7 +4,7 @@ import {Dropdown, DropdownMenu, TreeViewMenu} from './index';
 import {dropdownData} from '~/data/dropdownData';
 import {dropdownDataGrouped} from '~/data/dropdownDataGrouped';
 import {dropdownDataTree} from '~/data/dropdownDataTree';
-import {Love} from '~/icons';
+import {Love} from '~/icons/index';
 
 describe('Dropdown', () => {
     it('should display', () => {

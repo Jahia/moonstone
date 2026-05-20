@@ -1,8 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
+import styles from './Textarea.module.scss';
 import type {ControlledTextareaProps} from './Textarea.types';
 import {reset} from '~/globals/css-utils.js';
-import styles from './Textarea.module.scss';
 
 export const ControlledTextarea = React.forwardRef<HTMLTextAreaElement, ControlledTextareaProps>(({
     value,

@@ -1,11 +1,11 @@
 import React, {useRef} from 'react';
 import clsx from 'clsx';
+import styles from './Button.module.scss';
 import {Typography} from '../Typography';
 import {TypographyWeight} from '~/components/Typography/Typography.types';
 import {ButtonProps} from './Button.types';
 import {Loader} from '~/components/Loader';
 import {layout, reset} from '~/globals/css-utils.js';
-import styles from './Button.module.scss';
 
 // We have many conditions because of classname=..., we can safely ignore complexity here
 // eslint-disable-next-line complexity

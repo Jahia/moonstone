@@ -1,5 +1,5 @@
 import React, {useImperativeHandle, useRef} from 'react';
-import type {InputProps} from './Input.types';
+import {InputProps} from './Input.types';
 import {BaseInput} from './BaseInput';
 import {SearchInput} from './SearchInput';
 

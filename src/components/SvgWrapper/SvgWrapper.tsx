@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import type {SvgWrapperProps} from './SvgWrapper.types';
+import {SvgWrapperProps} from './SvgWrapper.types';
 import {icons, reset} from '~/globals/css-utils.js';
 
 export const SvgWrapper: React.FC<SvgWrapperProps> = ({

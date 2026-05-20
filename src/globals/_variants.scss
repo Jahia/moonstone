@@ -21,15 +21,6 @@
         background-color: var(--moon-color-gray_light_plain60);
     }
 
-    &[aria-disabled="true"],
-    &[aria-busy="true"],
-    &:disabled {
-        color: inherit;
-
-        border-color: transparent;
-        background-color: transparent;
-    }
-
     &.moonstone-reverse {
         color: var(--moon-color-light);
 

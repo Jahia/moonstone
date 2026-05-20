@@ -1,6 +1,6 @@
 import React from 'react';
+import {ImgWrapperProps} from './ImgWrapper.types';
 import clsx from 'clsx';
-import type {ImgWrapperProps} from './ImgWrapper.types';
 import {icons, reset} from '~/globals/css-utils.js';
 
 export const ImgWrapper: React.FC<ImgWrapperProps> = ({

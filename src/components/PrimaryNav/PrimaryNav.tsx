@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
 import clsx from 'clsx';
-
+import {layout, reset} from '~/globals/css-utils.js';
+import styles from './PrimaryNav.module.scss';
 import type {PrimaryNavButtonProps, PrimaryNavHeaderProps, PrimaryNavProps} from './PrimaryNav.types';
 import {PrimaryNavContext} from './PrimaryNav.context';
 import {MenuIcon, ArrowLeft} from '~/icons';
-import {layout, reset} from '~/globals/css-utils.js';
-import styles from './PrimaryNav.module.scss';
 
 const NavButton: React.FC<PrimaryNavButtonProps> = ({isExpanded, toggleExpand, modeIcon}) => {
     return (

@@ -1,5 +1,4 @@
 import {ImgWrapper} from './index';
-import icon from '~/__storybook__/assets/img-icon.webp';
 
 import markdownNotes from './ImgWrapper.md';
 
@@ -15,7 +14,7 @@ export default {
 
 export const Default = {
     args: {
-        src: icon,
+        src: 'https://www.jahia.com/modules/jahiacom-templates/images/favicon/favicon.ico',
         alt: 'imgWrapper',
         size: 'default'
     }

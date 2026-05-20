@@ -1,9 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
-import {Typography} from '~/components';
-import type {SecondaryNavHeaderProps} from './SecondaryNavHeader.types';
-import {layout} from '~/globals/css-utils.js';
 import styles from './SecondaryNavHeader.module.scss';
+import {Typography} from '~/components/Typography';
+import {SecondaryNavHeaderProps} from './SecondaryNavHeader.types';
+import {layout} from '~/globals/css-utils.js';
 
 export const SecondaryNavHeader: React.FC<SecondaryNavHeaderProps> = ({children}) => (
     <Typography component="header"

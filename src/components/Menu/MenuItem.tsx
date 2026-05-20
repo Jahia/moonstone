@@ -1,10 +1,10 @@
 import React, {useRef} from 'react';
+import {ListItem} from '~/components/ListItem';
 import clsx from 'clsx';
-import {ListItem} from '~/components';
+import styles from './MenuItem.module.scss';
 
 import type {MenuItemProps} from './MenuItem.types';
 import {onArrowNavigation} from '~/hooks';
-import styles from './MenuItem.module.scss';
 
 export const MenuItem: React.FC<MenuItemProps> = ({
     variant = 'default',

@@ -2,8 +2,8 @@ import React from 'react';
 import clsx from 'clsx';
 import {Typography} from '~/components';
 import type {EmptyDataProps} from './EmptyData.types';
-import {layout, reset} from '~/globals/css-utils.js';
 import styles from './EmptyData.module.scss';
+import {layout, reset} from '~/globals/css-utils.js';
 
 export const EmptyData = React.forwardRef<HTMLElement, EmptyDataProps>(
     ({title, message, icon, className, component, ...props}, ref) => {
