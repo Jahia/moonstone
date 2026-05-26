@@ -6,6 +6,10 @@ const isValidDate = (value?: Date | null): value is Date => Boolean(value) && !N
 
 export const getNormalizedDate = (value?: Date | null) => {
     if (!isValidDate(value)) {
+        if (value !== null && value !== undefined) {
+            console.warn('[DateTimeInput] getNormalizedDate: received an invalid Date value', value);
+        }
+
         return null;
     }
 

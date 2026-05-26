@@ -4,4 +4,3 @@ export * from './SearchContextInput';
 export * from './NumberInput';
 export * from './TimeInput';
 export * from './DateTimeInput';
-export * from './shared';

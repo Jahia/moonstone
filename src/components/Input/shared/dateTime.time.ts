@@ -163,6 +163,10 @@ export const parseTimeInputValue = (
     const digits = getSanitizedTimeDigits(value);
 
     if (digits.length !== 4) {
+        if (digits.length > 0) {
+            console.warn('[TimeInput] parseTimeInputValue: incomplete time value, expected 4 digits, got', digits.length);
+        }
+
         return null;
     }
 
@@ -198,6 +202,7 @@ export const buildCanonicalTime = (
     }
 
     if (sanitizedHours.length === 0 || sanitizedMinutes.length === 0) {
+        console.warn('[TimeInput] buildCanonicalTime: missing hours or minutes', {hoursValue, minutesValue});
         return null;
     }
 
@@ -205,11 +210,13 @@ export const buildCanonicalTime = (
     const minutes = Number(sanitizedMinutes);
 
     if (Number.isNaN(hours) || Number.isNaN(minutes) || minutes < 0 || minutes > 59) {
+        console.warn('[TimeInput] buildCanonicalTime: invalid hours or minutes value', {hoursValue, minutesValue});
         return null;
     }
 
     if (timeFormat === '24h') {
         if (hours < 0 || hours > 23) {
+            console.warn('[TimeInput] buildCanonicalTime: hours out of 24h range', hours);
             return null;
         }
 
@@ -217,6 +224,7 @@ export const buildCanonicalTime = (
     }
 
     if (hours < 1 || hours > 12) {
+        console.warn('[TimeInput] buildCanonicalTime: hours out of 12h range', hours);
         return null;
     }
 

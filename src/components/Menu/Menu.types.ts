@@ -46,7 +46,7 @@ export type MenuProps = {
     /**
      * Reference element to positioning the menu
      */
-    anchorEl?: React.MutableRefObject<HTMLDivElement>;
+    anchorEl?: React.MutableRefObject<HTMLElement>;
 
     /**
      * Position of the menu in px relative to anchorEl or the document

@@ -30,6 +30,11 @@
       "import": "./dist/components/DataTable/index.js",
       "require": "./dist/components/DataTable/index.cjs"
     },
+    "./DateTime": {
+      "types": "./dist/DateTime.d.ts",
+      "import": "./dist/DateTime.js",
+      "require": "./dist/DateTime.cjs"
+    },
     "./dist/icons": {
       "import": "./dist/icons/index.js",
       "require": "./dist/icons/index.cjs"

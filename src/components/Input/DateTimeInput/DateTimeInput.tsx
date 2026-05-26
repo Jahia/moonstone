@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import clsx from 'clsx';
 import {dateMatchModifiers, DayPicker} from 'react-day-picker';
 import dayPickerClassNames from 'react-day-picker/style.module.css';
@@ -69,25 +69,27 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     } = {},
     size,
     variant,
-    placeholder,
     className,
     isDisabled,
     isReadOnly,
-    focusOnField,
-    onBlur,
-    onFocus,
     ...props
 }, ref) => {
-    const isControlled = typeof value !== 'undefined';
-    const [uncontrolledValue, setUncontrolledValue] = useState(() => defaultValue ?? getDefaultDateTimeValue(type));
-    const sourceValue = isControlled ? value : uncontrolledValue;
-    const currentValue = normalizeDateTimeValue(sourceValue, type, hasTimezone);
+    const [internalValue, setInternalValue] = useState<DateTimeInputValue>(() => defaultValue ?? getDefaultDateTimeValue(type));
+    const currentValue = normalizeDateTimeValue(value ?? internalValue, type, hasTimezone);
     const selectedDate = currentValue.date;
     const calendarDate = selectedDate ? getNormalizedDate(selectedDate) ?? undefined : undefined;
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
     const [displayedMonth, setDisplayedMonth] = useState(calendarDate || new Date());
     const lastSelectedDateTimestampRef = useRef(calendarDate?.getTime() ?? null);
-    const calendarAnchorRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const handleRef = useCallback((node: HTMLInputElement | null) => {
+        (inputRef as React.MutableRefObject<HTMLInputElement | null>).current = node;
+        if (typeof ref === 'function') {
+            ref(node);
+        } else if (ref) {
+            (ref as React.MutableRefObject<HTMLInputElement | null>).current = node;
+        }
+    }, [ref]);
     const todayDate = getCurrentDate();
     const timezoneReferenceDate = getTimezoneReferenceDate(selectedDate) ?? undefined;
     const calendarDisabledMatchers = getCalendarDisabledMatchers(minDate, maxDate, disabledDates, disabledDateRanges);
@@ -117,8 +119,8 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     const emitChange = (event: React.SyntheticEvent, nextValue: DateTimeInputValue) => {
         const nextDateTimeValue = normalizeDateTimeValue(nextValue, type, hasTimezone);
 
-        if (!isControlled) {
-            setUncontrolledValue(nextDateTimeValue);
+        if (value === undefined) {
+            setInternalValue(nextDateTimeValue);
         }
 
         onChange?.(event, nextDateTimeValue);
@@ -126,9 +128,8 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
 
     return (
         <div className={clsx(styles.dateTimeInput, className)}>
-            <div ref={calendarAnchorRef}>
-                <BaseInput
-                ref={ref}
+            <BaseInput
+                ref={handleRef}
                 {...props}
                 readOnly
                 className={styles.dateField}
@@ -136,11 +137,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                 size={size}
                 variant={variant}
                 isDisabled={isDisabled}
-                focusOnField={focusOnField}
-                placeholder={placeholder}
                 icon={<Calendar aria-hidden/>}
-                onBlur={onBlur}
-                onFocus={onFocus}
                 onClick={() => {
                     if (!isDisabled && !isReadOnly) {
                         setDisplayedMonth(getCalendarDisplayMonth(selectedDate));
@@ -154,90 +151,87 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                     }
                 }}
             />
-            </div>
-            {calendarAnchorRef.current && (
+            {inputRef.current && (
                 <Menu
                     isDisplayed={isCalendarOpen}
-                    anchorEl={calendarAnchorRef as React.MutableRefObject<HTMLDivElement>}
+                    anchorEl={inputRef as React.MutableRefObject<HTMLElement>}
                     anchorPosition={{top: 4, left: 0}}
                     minWidth={size === 'big' ? '270px' : '235px'}
                     maxWidth="320px"
                     onClose={() => setIsCalendarOpen(false)}
                 >
-                    <div>
-                        <DayPicker
-                            showOutsideDays
-                            classNames={{
-                                ...dayPickerClassNames,
-                                root: clsx(dayPickerClassNames.root, styles.dayPicker)
-                            }}
-                            components={{
-                                YearsDropdown: (dropdownProps: DropdownProps) => (
-                                    <Dropdown
-                                        size="medium"
-                                        variant="ghost"
-                                        data={(dropdownProps.options ?? []).map(opt => ({
-                                            label: opt.label,
-                                            value: String(opt.value),
-                                            isDisabled: opt.disabled
-                                        }))}
-                                        value={String(dropdownProps.value ?? '')}
-                                        onChange={(_e, item) => {
-                                            setDisplayedMonth(new Date(Number(item.value), displayedMonth.getMonth(), 1));
-                                        }}
-                                    />
-                                )
-                            }}
-                            labels={{
-                                labelNext: () => nextMonth,
-                                labelPrevious: () => previousMonth
-                            }}
-                            captionLayout={hasMultipleYears ? 'dropdown-years' : 'label'}
-                            navLayout="around"
-                            weekStartsOn={weekStartsOn}
-                            month={displayedMonth}
-                            startMonth={startMonth}
-                            endMonth={endMonth}
-                            disabled={calendarDisabledMatchers}
-                            formatters={locale ? {
-                                formatCaption: (date: Date) => new Intl.DateTimeFormat(locale, {month: 'long', year: 'numeric'}).format(date),
-                                formatDay: (date: Date) => new Intl.DateTimeFormat(locale, {day: 'numeric'}).format(date),
-                                formatWeekdayName: (date: Date) => new Intl.DateTimeFormat(locale, {weekday: 'short'}).format(date)
-                            } : undefined}
-                            mode="single"
-                            selected={calendarDate}
-                            onMonthChange={handleMonthChange}
-                            onSelect={(date, _selectedDay, modifiers, event) => {
-                                if (modifiers.disabled) {
-                                    return;
-                                }
+                    <DayPicker
+                        showOutsideDays
+                        classNames={{
+                            ...dayPickerClassNames,
+                            root: clsx(dayPickerClassNames.root, styles.dayPicker)
+                        }}
+                        components={{
+                            YearsDropdown: (dropdownProps: DropdownProps) => (
+                                <Dropdown
+                                    size="medium"
+                                    variant="ghost"
+                                    data={(dropdownProps.options ?? []).map(opt => ({
+                                        label: opt.label,
+                                        value: String(opt.value),
+                                        isDisabled: opt.disabled
+                                    }))}
+                                    value={String(dropdownProps.value ?? '')}
+                                    onChange={(_e, item) => {
+                                        setDisplayedMonth(new Date(Number(item.value), displayedMonth.getMonth(), 1));
+                                    }}
+                                />
+                            )
+                        }}
+                        labels={{
+                            labelNext: () => nextMonth,
+                            labelPrevious: () => previousMonth
+                        }}
+                        captionLayout={hasMultipleYears ? 'dropdown-years' : 'label'}
+                        navLayout="around"
+                        weekStartsOn={weekStartsOn}
+                        month={displayedMonth}
+                        startMonth={startMonth}
+                        endMonth={endMonth}
+                        disabled={calendarDisabledMatchers}
+                        formatters={locale ? {
+                            formatCaption: (date: Date) => new Intl.DateTimeFormat(locale, {month: 'long', year: 'numeric'}).format(date),
+                            formatDay: (date: Date) => new Intl.DateTimeFormat(locale, {day: 'numeric'}).format(date),
+                            formatWeekdayName: (date: Date) => new Intl.DateTimeFormat(locale, {weekday: 'short'}).format(date)
+                        } : undefined}
+                        mode="single"
+                        selected={calendarDate}
+                        onMonthChange={handleMonthChange}
+                        onSelect={(date, _selectedDay, modifiers, event) => {
+                            if (modifiers.disabled) {
+                                return;
+                            }
 
-                                const nextDay = getNormalizedDate(date);
-                                const nextDate = nextDay ? new Date(
-                                    nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate(), selectedDate?.getHours() ?? 0, selectedDate?.getMinutes() ?? 0
-                                ) : null;
-                                emitChange(event, {...currentValue, date: nextDate});
-                                setIsCalendarOpen(false);
+                            const nextDay = getNormalizedDate(date);
+                            const nextDate = nextDay ? new Date(
+                                nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate(), selectedDate?.getHours() ?? 0, selectedDate?.getMinutes() ?? 0
+                            ) : null;
+                            emitChange(event, {...currentValue, date: nextDate});
+                            setIsCalendarOpen(false);
+                        }}
+                    />
+                    <footer className={styles.calendarFooter}>
+                        <Button
+                            variant="ghost"
+                            size="default"
+                            isDisabled={isTodayDisabled}
+                            label={todayButton ?? formatDateDisplayValue(todayDate, locale)}
+                            onClick={event => {
+                                if (!isTodayDisabled) {
+                                    const nextDate = new Date(
+                                        todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate(), selectedDate?.getHours() ?? 0, selectedDate?.getMinutes() ?? 0
+                                    );
+                                    emitChange(event, {...currentValue, date: nextDate});
+                                    setIsCalendarOpen(false);
+                                }
                             }}
                         />
-                        <footer className={styles.calendarFooter}>
-                            <Button
-                                variant="ghost"
-                                size="default"
-                                isDisabled={isTodayDisabled}
-                                label={todayButton ?? formatDateDisplayValue(todayDate, locale)}
-                                onClick={event => {
-                                    if (!isTodayDisabled) {
-                                        const nextDate = new Date(
-                                            todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate(), selectedDate?.getHours() ?? 0, selectedDate?.getMinutes() ?? 0
-                                        );
-                                        emitChange(event, {...currentValue, date: nextDate});
-                                        setIsCalendarOpen(false);
-                                    }
-                                }}
-                            />
-                        </footer>
-                    </div>
+                    </footer>
                 </Menu>
             )}
             {type === 'datetime' && (

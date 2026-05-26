@@ -24,15 +24,11 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
     value,
     defaultValue,
     timeFormat = '24h',
-    size = 'default',
-    variant = 'outlined',
-    placeholder = 'HH:MM',
+    size,
+    variant,
     className,
-    isDisabled = false,
-    isReadOnly = false,
-    focusOnField = false,
-    onBlur,
-    onFocus,
+    isDisabled,
+    isReadOnly,
     onChange,
     ...props
 }, ref) => {
@@ -99,15 +95,11 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
                 value={inputValue}
                 size={size}
                 variant={variant}
-                focusOnField={focusOnField}
                 isDisabled={isDisabled}
                 isReadOnly={isReadOnly}
-                placeholder={placeholder}
                 autoComplete="off"
                 icon={<Clock aria-hidden size={size === 'big' ? 'big' : 'default'}/>}
                 inputMode="numeric"
-                onBlur={onBlur}
-                onFocus={onFocus}
                 onChange={handleInputChange}
             />
             {timeFormat === '12h' && (
