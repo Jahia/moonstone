@@ -34,7 +34,7 @@ export type DisabledDateRange = {
 /** I18n labels for the calendar actions of the `DateTimeInput` */
 export type DateTimeInputI18n = {
     /** Label for the "Today" shortcut button in the calendar footer */
-    today?: string;
+    todayButton?: string;
     /** Accessible label for the next month button */
     nextMonth?: string;
     /** Accessible label for the previous month button */

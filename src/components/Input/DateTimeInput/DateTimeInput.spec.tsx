@@ -19,7 +19,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 value={{date: null}}
                 placeholder="Select a date"
-                i18n={{today: 'Today'}}
+                i18n={{todayButton: 'Today'}}
                 onChange={handleChange}
             />
         );
@@ -44,7 +44,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 placeholder="Select a date"
                 disabledDates={[today]}
-                i18n={{today: 'Today'}}
+                i18n={{todayButton: 'Today'}}
                 onChange={handleChange}
             />
         );
@@ -63,7 +63,7 @@ describe('DateTimeInput', () => {
             render(
                 <DateTimeInput
                     type="datetime"
-                    i18n={{today: 'Today'}}
+                    i18n={{todayButton: 'Today'}}
                 />
             );
 
@@ -83,7 +83,7 @@ describe('DateTimeInput', () => {
                 hasTimezone
                 type="datetime"
                 value={{date: new Date(2026, 1, 10, 11, 56), timezone: 'Europe/Paris'}}
-                i18n={{today: 'Today'}}
+                i18n={{todayButton: 'Today'}}
                 onChange={handleChange}
             />
         );
@@ -109,7 +109,7 @@ describe('DateTimeInput', () => {
                 type="datetime"
                 timeFormat="12h"
                 value={{date: new Date(2026, 1, 10, 23, 56), timezone: 'Europe/Paris'}}
-                i18n={{today: 'Today'}}
+                i18n={{todayButton: 'Today'}}
                 onChange={() => null}
             />
         );
@@ -128,7 +128,7 @@ describe('DateTimeInput', () => {
                 type="datetime"
                 timeFormat="12h"
                 value={{date: new Date(2026, 1, 10, 2, 30)}}
-                i18n={{today: 'Today'}}
+                i18n={{todayButton: 'Today'}}
                 onChange={handleChange}
             />
         );
@@ -153,7 +153,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 value={{date: new Date(2026, 2, 30)}}
                 disabledDates={[new Date(2026, 2, 30)]}
-                i18n={{today: 'Today'}}
+                i18n={{todayButton: 'Today'}}
                 onChange={() => null}
             />
         );
@@ -172,7 +172,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 value={{date: new Date(2026, 2, 30)}}
                 locale="en-US"
-                i18n={{today: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
+                i18n={{todayButton: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
             />
         );
@@ -191,7 +191,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 defaultValue={{date: new Date(2026, 2, 30)}}
                 locale="en-US"
-                i18n={{today: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
+                i18n={{todayButton: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
             />
         );
@@ -211,7 +211,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 value={{date: new Date(2026, 2, 30)}}
                 locale="en-US"
-                i18n={{today: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
+                i18n={{todayButton: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
             />
         );
@@ -239,7 +239,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 value={{date: new Date(2026, 2, 30)}}
                 locale="en-US"
-                i18n={{today: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
+                i18n={{todayButton: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
             />
         );
@@ -253,7 +253,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 value={{date: new Date(2026, 6, 15)}}
                 locale="en-US"
-                i18n={{today: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
+                i18n={{todayButton: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
             />
         );
@@ -267,7 +267,7 @@ describe('DateTimeInput', () => {
                 hasTimezone
                 type="datetime"
                 value={{date: new Date(2026, 0, 15, 11, 56), timezone: 'Europe/Paris'}}
-                i18n={{today: 'Today'}}
+                i18n={{todayButton: 'Today'}}
                 onChange={() => null}
             />
         );
@@ -279,7 +279,7 @@ describe('DateTimeInput', () => {
                 hasTimezone
                 type="datetime"
                 value={{date: new Date(2026, 6, 15, 11, 56), timezone: 'Europe/Paris'}}
-                i18n={{today: 'Today'}}
+                i18n={{todayButton: 'Today'}}
                 onChange={() => null}
             />
         );
@@ -293,7 +293,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 value={{date: new Date(Number.NaN)}}
                 placeholder="Select a date"
-                i18n={{today: 'Today'}}
+                i18n={{todayButton: 'Today'}}
                 onChange={() => null}
             />
         );

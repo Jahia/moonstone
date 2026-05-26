@@ -6,7 +6,7 @@ import {getCurrentDate} from '../shared';
 
 const currentDate = getCurrentDate();
 const dateTimeInputI18n = {
-    today: 'Today',
+    todayButton: 'Today',
     hours: 'Hours',
     minutes: 'Minutes'
 };
