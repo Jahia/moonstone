@@ -1,104 +1,116 @@
 @use "../../../utils/mixins" as *;
 
-%variant_outlined_disabled {
+%outlined_disabled {
     color: var(--moon-color-gray_dark);
 
     border-color: var(--moon-color-gray);
 }
 
-%variant_outlined {
+%outlined_disabled_reversed {
+    color: var(--moon-color-gray_light);
+
+    border-color: var(--moon-color-gray_light);
+    background-color: transparent;
+}
+
+%outlined_default {
     color: var(--moon-color-gray_dark);
 
     border: 1px solid var(--moon-color-gray_dark);
     background-color: transparent;
 
-    &.moonstone-button_outlined {
-        &:hover:not(:disabled) {
-            color: var(--moon-color-accent);
-
-            border-color: var(--moon-color-accent);
-        }
-
-        &:focus-visible:not(:disabled) {
-            @extend %is-focused;
-        }
-
-        &:active:not(:disabled) {
-            color: var(--moon-color-white);
-
-            border-color: var(--moon-color-white);
-            background-color: var(--moon-color-accent);
-        }
-
-        &:disabled {
-            @extend %variant_outlined_disabled;
-        }
-
-        &.moonstone-reverse {
-            color: var(--moon-color-light60);
-
-            border-color: var(--moon-color-light60);
-        }
-    }
-
-    &.moonstone-button_outlined_accent {
+    &:hover:not(:disabled) {
         color: var(--moon-color-accent);
 
         border-color: var(--moon-color-accent);
-
-        &:hover:not(:disabled) {
-            color: var(--moon-color-accent_dark);
-
-            border-color: var(--moon-color-accent_dark);
-        }
-
-        &:focus-visible:not(:disabled) {
-            @extend %is-focused;
-        }
-
-        &:active:not(:disabled) {
-            color: var(--moon-color-white);
-
-            border-color: var(--moon-color-white);
-            background-color: var(--moon-color-accent_dark);
-        }
-
-        &:disabled {
-            @extend %variant_outlined_disabled;
-        }
     }
 
-    &.moonstone-button_outlined_danger {
+    &:focus-visible:not(:disabled) {
+        @extend %is-focused;
+    }
+
+    &:active:not(:disabled) {
+        color: var(--moon-color-white);
+
+        border-color: var(--moon-color-white);
+        background-color: var(--moon-color-accent);
+    }
+
+    &:disabled {
+        @extend %outlined_disabled;
+    }
+
+    &.moonstone-reverse {
+        color: var(--moon-color-light);
+
+        border-color: var(--moon-color-light);
+
+        &:disabled {
+            @extend %outlined_disabled_reversed;
+        }
+    }
+}
+
+%outlined_danger {
+    color: var(--moon-color-danger);
+
+    border: 1px solid var(--moon-color-danger);
+    background-color: transparent;
+
+    &:hover:not(:disabled) {
         color: var(--moon-color-danger);
 
         border-color: var(--moon-color-danger);
-
-        &:hover:not(:disabled) {
-            color: var(--moon-color-danger);
-
-            border-color: var(--moon-color-danger);
-        }
-
-        &:focus-visible:not(:disabled) {
-            @extend %is-focused;
-        }
-
-        &:active:not(:disabled) {
-            color: var(--moon-color-white);
-
-            border-color: var(--moon-color-white);
-            background-color: var(--moon-color-danger);
-        }
-
-        &:disabled {
-            @extend %variant_outlined_disabled;
-        }
     }
 
-    &.moonstone-reverse:disabled {
-        color: var(--moon-color-gray_light);
+    &:focus-visible:not(:disabled) {
+        @extend %is-focused;
+    }
 
-        border-color: var(--moon-color-gray_light);
-        background-color: transparent;
+    &:active:not(:disabled) {
+        color: var(--moon-color-white);
+
+        border-color: var(--moon-color-white);
+        background-color: var(--moon-color-danger);
+    }
+
+    &:disabled {
+        @extend %outlined_disabled;
+
+        &.moonstone-reverse {
+            @extend %outlined_disabled_reversed;
+        }
+    }
+}
+
+%outlined_accent {
+    color: var(--moon-color-accent);
+
+    border: 1px solid var(--moon-color-accent);
+    background-color: transparent;
+
+    &:hover:not(:disabled) {
+        color: var(--moon-color-accent_dark);
+
+        border-color: var(--moon-color-accent_dark);
+    }
+
+    &:focus-visible:not(:disabled) {
+        @extend %is-focused;
+    }
+
+    &:active:not(:disabled) {
+        color: var(--moon-color-white);
+
+        border-color: var(--moon-color-white);
+        background-color: var(--moon-color-accent_dark);
+    }
+
+    &:disabled {
+        @extend %outlined_disabled;
+
+        &.moonstone-reverse {
+            @extend %outlined_disabled_reversed;
+        }
     }
 }

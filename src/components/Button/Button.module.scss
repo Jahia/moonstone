@@ -1,5 +1,5 @@
-@use "variants/default";
-@use "variants/outlined";
+@use "variants/default" as *;
+@use "variants/outlined" as *;
 @use "../../tokens/spacings/spacings" as *;
 @use "../../globals/variants";
 
@@ -8,8 +8,6 @@ $button-size_medium: 24px;
 $button-size_big: 32px;
 
 .moonstone-button {
-    @extend %variant_default;
-
     composes:
         moonstone-button from "../ButtonGroup/ButtonGroup.module.scss",
         moonstone-button from "../ButtonToggle/ButtonToggle.module.scss",
@@ -20,33 +18,54 @@ $button-size_big: 32px;
     flex-direction: row;
     justify-content: center;
     width: fit-content;
-    height: $button-size_medium;
-    padding: 0 var(--moon-spacing-small);
 
     font-family: inherit;
-
-    border: solid 1px var(--moon-color-gray_dark);
 
     border-radius: var(--moon-radius);
 
     outline: none;
     cursor: pointer;
 
-    &.moonstone-button_outlined,
-    &.moonstone-button_outlined_accent,
-    &.moonstone-button_outlined_danger {
-        @extend %variant_outlined;
+    &:disabled {
+        color: var(--moon-color-gray_dark);
+
+        cursor: not-allowed;
+        opacity: 0.4;
     }
 
-    &.moonstone-button_ghost {
+    &[data-variant="default"] {
+        @include variant_default;
+    }
+
+    &[data-variant="default"][data-color="accent"] {
+        @include variant_default_accent;
+    }
+
+    &[data-variant="default"][data-color="danger"] {
+        @include variant_default_danger;
+    }
+
+    &[data-variant="outlined"] {
+        @extend %outlined_default;
+    }
+
+    &[data-variant="outlined"][data-color="accent"] {
+        @extend %outlined_accent;
+    }
+
+    &[data-variant="outlined"][data-color="danger"] {
+        @extend %outlined_danger;
+    }
+
+    &[data-variant="ghost"] {
         @extend %variant_ghost;
     }
 
-    &.moonstone-button_ghost_accent {
+    &[data-variant="ghost"][data-color="accent"] {
         @extend %variant_ghost_accent;
     }
 
-    &.moonstone-button_ghost_danger {
+    &[data-variant="ghost"][data-color="danger"] {
         @extend %variant_ghost_danger;
     }
 
@@ -75,6 +94,11 @@ $button-size_big: 32px;
             gap: $spacing-icon_big;
         }
     }
+}
+
+.moonstone-button_default {
+    height: $button-size_medium;
+    padding: 0 var(--moon-spacing-small);
 }
 
 .moonstone-button_big {

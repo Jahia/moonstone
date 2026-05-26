@@ -15,9 +15,6 @@ import '@fontsource-variable/nunito-sans';
 // Uncomment to use legacy css in storybook
 // import '../dist/legacy-global-bundle.css';
 
-// Uncomment to use legacy css in storybook
-// import '../dist/legacy-global-bundle.css';
-
 let channel = addons.getChannel();
 const storyListener = (args) => {
     if (typeof args.args.isReversed !== 'undefined') {
