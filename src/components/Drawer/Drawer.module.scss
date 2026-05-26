@@ -1,0 +1,43 @@
+.moonstone-drawer_overlay {
+    display: flex;
+    justify-content: flex-end;
+
+    background: var(--moon-color-dark60);
+}
+
+.moonstone-drawer {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    height: 100vh;
+    overflow-y: auto;
+
+    background-color: var(--moon-color-white);
+    box-shadow: -2px 0 8px 0 rgba(0, 0, 0, 0.15);
+
+    animation: moonstone-drawer_slideIn 0.25s ease-out;
+}
+
+.moonstone-drawer_small {
+    width: 300px;
+}
+
+.moonstone-drawer_medium {
+    width: 450px;
+}
+
+.moonstone-drawer_large {
+    width: 640px;
+}
+
+@keyframes moonstone-drawer_slideIn {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
