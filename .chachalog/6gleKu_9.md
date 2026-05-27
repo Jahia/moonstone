@@ -3,4 +3,4 @@
 "@jahia/moonstone": patch
 ---
 
-Fix disabled styles of Dropdown (#1361)
+Fix styling issue with ghost button and disabled dropdown (#1361)
