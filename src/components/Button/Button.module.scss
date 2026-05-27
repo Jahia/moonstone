@@ -10,7 +10,6 @@ $button-size_big: 32px;
 .moonstone-button {
     composes:
         moonstone-button from "../ButtonGroup/ButtonGroup.module.scss",
-        moonstone-button from "../ButtonToggle/ButtonToggle.module.scss",
         moonstone-button from "../Table/TableRow/TableRow.module.scss";
 
     // The display `inline-flex` is requiered to align buttons in a table row
@@ -69,30 +68,32 @@ $button-size_big: 32px;
         @extend %variant_ghost_danger;
     }
 
-    &.moonstone-icon-button {
-        padding: 0;
-
-        border-radius: 40px;
-
-        &.moonstone-button_small {
-            width: $button-size_small;
-        }
-
-        &.moonstone-button_default {
-            width: $button-size_medium;
-        }
-
-        &.moonstone-button_big {
-            width: $button-size_big;
-        }
-    }
-
     &.moonstone-icon {
         gap: $spacing-icon;
 
         &.moonstone-button_big {
             gap: $spacing-icon_big;
         }
+    }
+}
+
+.moonstone-icon-button {
+    composes: moonstone-icon-button from "../ButtonGroup/ButtonGroup.module.scss";
+
+    padding: 0;
+
+    border-radius: 40px;
+
+    &.moonstone-button_small {
+        width: $button-size_small;
+    }
+
+    &.moonstone-button_default {
+        width: $button-size_medium;
+    }
+
+    &.moonstone-button_big {
+        width: $button-size_big;
     }
 }
 
@@ -134,14 +135,14 @@ $button-size_big: 32px;
     }
 }
 
-.moonstone-button_accent {
-    composes: moonstone-button_accent from "../ButtonGroup/ButtonGroup.module.scss";
-}
+// .moonstone-button_accent {
+//     composes: moonstone-button_accent from "../ButtonGroup/ButtonGroup.module.scss";
+// }
 
-.moonstone-button_danger {
-    composes: moonstone-button_danger from "../ButtonGroup/ButtonGroup.module.scss";
-}
+// .moonstone-button_danger {
+//     composes: moonstone-button_danger from "../ButtonGroup/ButtonGroup.module.scss";
+// }
 
-.moonstone-button_outlined {
-    composes: moonstone-button_outlined from "../ButtonGroup/ButtonGroup.module.scss";
-}
+// .moonstone-button_outlined {
+//     composes: moonstone-button_outlined from "../ButtonGroup/ButtonGroup.module.scss";
+// }

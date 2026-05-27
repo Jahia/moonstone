@@ -28,6 +28,9 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
                 ['alignCenter', layout.alignCenter]
             )}
             {...props}
+            data-variant={variant}
+            data-color={color}
+            data-size={size}
         >
             {
                 React.Children.map(children, button => {
