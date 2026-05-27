@@ -80,8 +80,6 @@ $button-size_big: 32px;
 .moonstone-icon-button {
     composes: moonstone-icon-button from "../ButtonGroup/ButtonGroup.module.scss";
 
-    padding: 0;
-
     border-radius: 40px;
 
     &.moonstone-button_small {
