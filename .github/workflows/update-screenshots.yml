@@ -50,6 +50,9 @@ jobs:
       - name: Install dependencies
         run: yarn install && yarn playwright install chromium --only-shell
 
+      - name: Build library
+        run: yarn build:lib
+
       - name: Build icons (implicit dependency of the library)
         run: yarn build:icons
 
