@@ -70,7 +70,7 @@
     &:active:not(:disabled) {
         color: var(--moon-color-white);
 
-        border-color: var(--moon-color-white);
+        border-color: var(--moon-color-danger);
         background-color: var(--moon-color-danger);
     }
 
@@ -102,7 +102,7 @@
     &:active:not(:disabled) {
         color: var(--moon-color-white);
 
-        border-color: var(--moon-color-white);
+        border-color: var(--moon-color-accent_dark);
         background-color: var(--moon-color-accent_dark);
     }
 

@@ -18,8 +18,10 @@
     }
 
     &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
+        color: var(--moon-color-accent_dark);
+
         border-color: transparent;
-        background-color: var(--moon-color-gray_light_plain60);
+        background-color: var(--moon-color-gray_light_plain40);
     }
 
     &.moonstone-reverse {
