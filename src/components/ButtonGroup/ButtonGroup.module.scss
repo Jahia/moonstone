@@ -5,6 +5,10 @@
 
     .moonstone-button,
     .moonstone-icon-button {
+        &:hover {
+            z-index: 1;
+        }
+
         &:first-child {
             border-radius: var(--moon-radius) 0 0 var(--moon-radius);
         }
