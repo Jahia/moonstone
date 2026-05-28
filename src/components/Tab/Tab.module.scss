@@ -1,4 +1,8 @@
+@use '../../utils/reset' as *;
+
 .moonstone-tab {
+    @include reset;
+
     display: flex;
     flex-direction: row;
     width: max-content;

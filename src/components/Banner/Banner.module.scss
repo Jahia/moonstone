@@ -1,4 +1,8 @@
+@use '../../utils/reset' as *;
+
 .moonstone-banner {
+    @include reset;
+
     gap: var(--moon-spacing-small);
     width: 100%;
     padding: var(--moon-spacing-medium);

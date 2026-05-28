@@ -1,0 +1,5 @@
+@use '../../utils/reset' as *;
+
+.checkboxGroup {
+    @include reset;
+}

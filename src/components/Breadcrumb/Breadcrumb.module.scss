@@ -1,4 +1,8 @@
+@use '../../utils/reset' as *;
+
 .moonstone-breadcrumb {
+    @include reset;
+
     max-width: 100%;
     overflow: hidden;
 }

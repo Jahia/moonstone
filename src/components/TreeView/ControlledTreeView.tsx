@@ -5,7 +5,7 @@ import type {ControlledTreeViewProps, TreeViewData} from './TreeView.types';
 import {ChevronDown, ChevronRight, CheckboxChecked, CheckboxUnchecked} from '~/icons';
 import {Typography, Loader} from '~/components';
 import {onToggleNode, onArrowNavigation, mergeHandlers} from '~/hooks';
-import {icons, layout, reset} from '~/globals/css-utils.js';
+import {icons, layout} from '~/globals/css-utils.js';
 import styles from './TreeView.module.scss';
 
 // Manage treeView_item's icon
@@ -207,7 +207,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
             'aria-multiselectable': showCheckbox,
             ...props,
             // @ts-expect-error className not defined but probably used somewhere
-            className: clsx(reset, props.className)
+            className: clsx(styles.treeView, props.className)
         }, generateLevelJSX(data, 0, false)
     );
 };

@@ -13,6 +13,8 @@ $primaryNav: 56px;
 }
 
 .moonstone-primaryNav {
+    @include reset;
+
     position: fixed;
     top: 0;
     left: 0;

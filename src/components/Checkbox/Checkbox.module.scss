@@ -1,9 +1,12 @@
+@use '../../utils/reset' as *;
 @use "../../utils/mixins" as *;
 
 $checkbox-sizeDefault: 16px;
 $checkbox-sizeBig: 20px;
 
 .moonstone-checkbox {
+    @include reset;
+
     position: relative;
 }
 

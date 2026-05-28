@@ -5,7 +5,7 @@ import {UPDATE_GLOBALS, STORY_ARGS_UPDATED} from "storybook/internal/core-events
 import './preview.scss';
 
 // Copy imports from src/index.ts, in the same order
-import '../src/globals/reset.module.scss';
+// import '../src/globals/reset.module.scss';
 import '../src/globals/_variables.scss';
 import '../src/tokens/spacings/spacings.scss';
 import '../src/tokens/colors/colors.scss';

@@ -1,4 +1,8 @@
+@use '../../utils/reset' as *;
+
 .moonstone-accordion {
+    @include reset;
+
     display: flex;
     flex-direction: column;
     overflow: hidden;

@@ -1,4 +1,8 @@
+@use '../../utils/reset' as *;
+
 .moonstone-buttonGroup {
+    @include reset;
+
     &[data-variant="default"]:not([data-color="default"]) {
         gap: 1px;
     }

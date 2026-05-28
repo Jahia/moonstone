@@ -1,6 +1,9 @@
 @use "../../tokens/spacings/spacings" as *;
+@use '../../utils/reset' as *;
 
 .moonstone-IconTextIcon {
+    @include reset;
+
     gap: $spacing-icon;
     width: 100%;
 }

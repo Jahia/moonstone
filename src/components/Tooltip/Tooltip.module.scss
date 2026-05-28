@@ -1,6 +1,10 @@
+@use '../../utils' as *;
+
 $bgColor: var(--moon-color-gray_dark);
 
 .moonstone-tooltip_label {
+    @include reset;
+
     z-index: 1;
 
     width: inherit;

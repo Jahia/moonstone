@@ -1,0 +1,5 @@
+@use '../../utils/reset' as *;
+
+.radioGroup {
+    @include reset;
+}

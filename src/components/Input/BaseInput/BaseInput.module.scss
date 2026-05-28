@@ -1,10 +1,12 @@
-@use '../../../utils';
+@use '../../../utils' as *;
 
 $default-size: 24px;
 $big-size: 32px;
 $min-width: 40px;
 
 .moonstone-baseInput {
+    @include reset;
+
     position: relative;
 
     display: inline-flex;

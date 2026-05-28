@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import type {LayoutContentProps} from './LayoutContent.types';
 
 import {Loader} from '~/components';
-import {layout, reset} from '~/globals/css-utils.js';
+import {layout} from '~/globals/css-utils.js';
 import styles from './LayoutContent.module.scss';
 
 export const LayoutContent = React.forwardRef(({
@@ -17,7 +17,6 @@ export const LayoutContent = React.forwardRef(({
     ...props
 }: LayoutContentProps, ref: ForwardedRef<HTMLDivElement>) => {
     const classNameProps = clsx(
-        reset,
         ['flexFluid', layout.flexFluid],
         ['moonstone-layoutContent', styles['moonstone-layoutContent']],
         hasPadding && ['moonstone-layoutContent_withPadding', styles['moonstone-layoutContent_withPadding']],

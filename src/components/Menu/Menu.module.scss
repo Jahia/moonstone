@@ -1,6 +1,8 @@
 @use '../../utils/index';
 
 .moonstone-menu {
+    @include reset;
+
     z-index: 9000;
 
     width: max-content;
@@ -37,6 +39,8 @@
 // Overlay
 // ---
 .moonstone-menu_overlay {
+    @include reset;
+
     @extend %overlay;
 
     z-index: 8500;

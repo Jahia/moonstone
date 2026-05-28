@@ -1,6 +1,8 @@
 @use '../../utils' as *;
 
 .moonstone-thumbnail {
+    @include reset;
+
     display: flex;
     justify-content: center;
     align-items: center;

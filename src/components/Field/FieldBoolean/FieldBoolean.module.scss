@@ -1,4 +1,8 @@
+@use '../../utils/reset' as *;
+
 .moonstone-fieldBoolean {
+    @include reset;
+
     position: relative;
 
     gap: var(--moon-spacing-nano);

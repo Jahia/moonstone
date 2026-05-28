@@ -1,6 +1,9 @@
 @use "../../tokens/spacings/spacings" as *;
+@use '../../utils/reset' as *;
 
 .moonstone-chip {
+    @include reset;
+
     composes:
         moonstone-chip from "../Table/TableRow/TableRow.module.scss",
         moonstone-chip from "../DataTable/TableRow/TableRow.module.scss";

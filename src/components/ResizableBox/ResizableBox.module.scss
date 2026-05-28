@@ -1,3 +1,9 @@
+@use '../../utils/reset' as *;
+
+.resizableBox {
+    @include reset;
+}
+
 .moonstone-resizable_handle {
     /* stylelint-disable-next-line declaration-no-important */
     right: -3px !important;

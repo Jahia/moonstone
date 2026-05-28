@@ -1,4 +1,5 @@
 @use "sass:math";
+@use '../../utils/reset' as *;
 
 $pi: 3.14159;
 $loader-sizes: (
@@ -8,6 +9,8 @@ $loader-sizes: (
 );
 
 .moonstone-loader {
+    @include reset;
+
     position: relative;
 
     transform: scaleX(-1);

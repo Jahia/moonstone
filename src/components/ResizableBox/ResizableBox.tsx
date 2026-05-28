@@ -4,7 +4,6 @@ import clsx from 'clsx';
 
 import {HandleResize} from '~/icons';
 import {zones, EnableZonesProps, ZonesProps, ResizableBoxProps} from './ResizableBox.types';
-import {reset} from '~/globals/css-utils.js';
 import styles from './ResizableBox.module.scss';
 
 export const ResizableBox: React.FC<ResizableBoxProps> = ({
@@ -47,7 +46,7 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
                     left: <HandleResize className={clsx('moonstone-resizable_handle_icon', styles['moonstone-resizable_handle_icon'])} size="big"/>
                 }
             }
-            className={clsx(reset, className)}
+            className={clsx(styles.resizableBox, className)}
             onResize={onResizing}
             onResizeStart={onResizeStart}
             onResizeStop={onResizeStop}

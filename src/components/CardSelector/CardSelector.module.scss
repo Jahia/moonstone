@@ -3,6 +3,8 @@
 $cardSelector-height: 58px;
 
 .moonstone-cardSelector {
+    @include reset;
+
     gap: var(--moon-spacing-small);
     width: 100%;
     height: $cardSelector-height;

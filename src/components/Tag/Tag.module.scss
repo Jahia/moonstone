@@ -1,6 +1,8 @@
 @use '../../utils' as *;
 
 .moonstone-tag {
+    @include reset;
+
     display: inline-flex;
     gap: var(--moon-spacing-nano);
     align-items: center;

@@ -1,5 +1,9 @@
 @use "../../tokens/spacings/spacings" as *;
-@use "../../utils/mixins" as *;
+@use "../../utils" as *;
+
+.treeView {
+    @include reset;
+}
 
 [role='treeitem'] {
     --treeItem-indent: calc((var(--moon-spacing-medium) + var(--moon-spacing-nano)) * var(--treeItem-depth, 0) + var(--moon-spacing-small));

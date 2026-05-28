@@ -2,7 +2,8 @@ import React from 'react';
 import clsx from 'clsx';
 import {CheckboxGroupContext} from './CheckboxGroup.context';
 import type {CheckboxGroupProps} from './CheckboxGroup.types';
-import {layout, reset} from '~/globals/css-utils.js';
+import {layout} from '~/globals/css-utils.js';
+import styles from './CheckboxGroup.module.scss';
 
 export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({children, name, isDisabled, isReadOnly, className, onChange, ...props}) => {
     const provider = {
@@ -16,9 +17,7 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({children, name, isD
         <CheckboxGroupContext.Provider value={provider}>
             <div
                 {...props}
-                className={clsx(
-                    reset,
-                    ['flexCol', layout.flexCol],
+                className={clsx([styles.checkboxGroup, 'flexCol', layout.flexCol],
                     className
                 )}
             >

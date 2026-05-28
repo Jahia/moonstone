@@ -1,3 +1,5 @@
+@use '../../utils/reset' as *;
+
 .moonstone-modal_overlay {
     display: grid;
 
@@ -6,6 +8,8 @@
 }
 
 .moonstone-modal {
+    @include reset;
+
     position: inherit;
 
     max-height: 80vh;

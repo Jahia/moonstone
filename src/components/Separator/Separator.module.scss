@@ -1,4 +1,8 @@
+@use '../../utils/reset' as *;
+
 .moonstone-separator {
+    @include reset;
+
     border: 0;
     background: var(--moon-color-gray20);
 

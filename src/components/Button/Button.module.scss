@@ -1,3 +1,4 @@
+@use '../../utils/reset' as *;
 @use "variants/default" as *;
 @use "variants/outlined" as *;
 @use "../../tokens/spacings/spacings" as *;
@@ -8,6 +9,8 @@ $button-size_medium: 24px;
 $button-size_big: 32px;
 
 .moonstone-button {
+    @include reset;
+
     composes:
         moonstone-button from "../ButtonGroup/ButtonGroup.module.scss",
         moonstone-button from "../Table/TableRow/TableRow.module.scss";
