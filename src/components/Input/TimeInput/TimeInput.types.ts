@@ -8,14 +8,6 @@ export type TimeFormat = '24h' | '12h';
 /** AM/PM indicator used in 12-hour time format */
 export type Meridiem = 'AM' | 'PM';
 
-export type TimeInputI18n = {
-    /** Hours label */
-    hours?: string;
-
-    /** Minutes label */
-    minutes?: string;
-};
-
 type BasicTimeInputProps = Omit<BaseInputProps,
     'isShowClearButton' |
     'value' |
@@ -41,9 +33,6 @@ type BasicTimeInputProps = Omit<BaseInputProps,
      * @default '24h'
      */
     timeFormat?: TimeFormat;
-
-    /** Time input labels */
-    i18n?: TimeInputI18n;
 
     /** Controlled value in 24h format `HH:mm` (e.g. `'14:30'`), or `null`. */
     value?: string | null;

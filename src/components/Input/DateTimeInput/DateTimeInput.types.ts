@@ -1,7 +1,7 @@
 import React from 'react';
 import type {DayPickerProps} from 'react-day-picker';
 import type {BaseInputProps} from '../BaseInput/BaseInput.types';
-import type {TimeFormat, TimeInputI18n} from '../TimeInput';
+import type {TimeFormat} from '../TimeInput';
 
 /**
  * Determines which fields are rendered in the `DateTimeInput`:
@@ -112,8 +112,8 @@ type DateTimeInputSharedProps = Omit<BaseInputProps,
      */
     weekStartsOn?: DayPickerProps['weekStartsOn'];
 
-    /** I18n labels for calendar actions and time field accessibility */
-    i18n?: DateTimeInputI18n & TimeInputI18n;
+    /** I18n labels for calendar actions */
+    i18n?: DateTimeInputI18n;
 };
 
 type DateProps = {

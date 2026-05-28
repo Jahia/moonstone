@@ -16,10 +16,6 @@ export default {
     },
     args: {
         value: currentTime,
-        i18n: {
-            hours: 'Hours',
-            minutes: 'Minutes'
-        },
         onChange: () => undefined
     }
 } satisfies Meta<typeof TimeInput>;

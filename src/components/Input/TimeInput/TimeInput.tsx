@@ -95,6 +95,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
                 value={inputValue}
                 size={size}
                 variant={variant}
+                placeholder={props.placeholder ?? 'HH:MM'}
                 isDisabled={isDisabled}
                 isReadOnly={isReadOnly}
                 autoComplete="off"

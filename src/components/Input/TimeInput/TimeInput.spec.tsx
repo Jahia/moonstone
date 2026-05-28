@@ -27,6 +27,18 @@ describe('TimeInput', () => {
         expect(handleChange).toHaveBeenLastCalledWith(expect.any(Object), '14:30');
     });
 
+    it('should display a default time format placeholder', () => {
+        render(<TimeInput value={null} onChange={() => null}/>);
+
+        expect(screen.getByPlaceholderText('HH:MM')).toBeInTheDocument();
+    });
+
+    it('should let consumers override the time placeholder', () => {
+        render(<TimeInput value={null} placeholder="Enter time" onChange={() => null}/>);
+
+        expect(screen.getByPlaceholderText('Enter time')).toBeInTheDocument();
+    });
+
     it('should display a canonical value in 12h mode', () => {
         render(<TimeInput timeFormat="12h" value="14:30" onChange={() => null}/>);
 
