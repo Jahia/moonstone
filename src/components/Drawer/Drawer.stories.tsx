@@ -1,19 +1,14 @@
 import {useState} from 'react';
 import type {Meta, StoryObj} from '@storybook/react';
 import {Drawer} from './Drawer';
-import type {DrawerProps} from './Drawer.types';
 import {Button, Typography} from '~/components';
 
 const meta = {
     title: 'Components/Drawer',
     component: Drawer,
     tags: ['beta'],
-    args: {
-        isOpen: false,
-        children: null as DrawerProps['children']
-    },
     parameters: {
-        layout: 'centered'
+        layout: 'fullscreen'
     }
 } satisfies Meta<typeof Drawer>;
 export default meta;
@@ -24,9 +19,11 @@ export const Playground: Story = {
     render: args => {
         const [open, setOpen] = useState(false);
         return (
-            <div>
-                <Button label="Open drawer" onClick={() => setOpen(true)}/>
-                <Drawer {...args} isOpen={open} onOpenChange={setOpen}>
+            <div style={{display: 'flex', minHeight: '320px'}}>
+                <div style={{flex: 1, padding: 'var(--moon-spacing-medium)'}}>
+                    <Button label="Open drawer" onClick={() => setOpen(true)}/>
+                </div>
+                <Drawer {...args} isOpen={open} style={{width: '320px'}}>
                     <div style={{padding: 'var(--moon-spacing-medium)'}}>
                         <Typography variant="heading" weight="bold" component="h2">
                             Drawer title
