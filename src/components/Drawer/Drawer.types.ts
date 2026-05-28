@@ -4,7 +4,7 @@ export type DrawerProps = Omit<React.ComponentPropsWithRef<'section'>, 'classNam
     /**
      * Content of the Drawer
      */
-    children: ReactNode;
+    children?: ReactNode;
 
     /**
      * Whether the Drawer is open
