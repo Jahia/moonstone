@@ -62,10 +62,9 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     locale,
     weekStartsOn = 1,
     i18n: {
-        todayButton,
+        todayButton = 'Today',
         nextMonth = 'Go to the next month',
-        previousMonth = 'Go to the previous month',
-        ...timeInputI18n
+        previousMonth = 'Go to the previous month'
     } = {},
     size,
     variant,
@@ -220,7 +219,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                             variant="ghost"
                             size="default"
                             isDisabled={isTodayDisabled}
-                            label={todayButton ?? formatDateDisplayValue(todayDate, locale)}
+                            label={todayButton}
                             onClick={event => {
                                 if (!isTodayDisabled) {
                                     const nextDate = new Date(
@@ -243,13 +242,14 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                     focusOnField={false}
                     timeFormat={timeFormat}
                     value={selectedDate ? formatTimeString(selectedDate) : null}
-                    i18n={timeInputI18n}
                     onChange={(event, timeValue) => {
+                        if (!timeValue) {
+                            return;
+                        }
+
                         const base = selectedDate ?? getCurrentDate();
-                        const nextDate = timeValue ? (() => {
-                            const [hours, minutes] = timeValue.split(':').map(Number);
-                            return new Date(base.getFullYear(), base.getMonth(), base.getDate(), hours, minutes);
-                        })() : new Date(base.getFullYear(), base.getMonth(), base.getDate());
+                        const [hours, minutes] = timeValue.split(':').map(Number);
+                        const nextDate = new Date(base.getFullYear(), base.getMonth(), base.getDate(), hours, minutes);
                         emitChange(event, {...currentValue, date: nextDate});
                     }}
                 />

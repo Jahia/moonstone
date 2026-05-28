@@ -19,7 +19,6 @@ describe('DateTimeInput', () => {
                 type="date"
                 value={{date: null}}
                 placeholder="Select a date"
-                i18n={{todayButton: 'Today'}}
                 onChange={handleChange}
             />
         );
@@ -44,7 +43,6 @@ describe('DateTimeInput', () => {
                 type="date"
                 placeholder="Select a date"
                 disabledDates={[today]}
-                i18n={{todayButton: 'Today'}}
                 onChange={handleChange}
             />
         );
@@ -55,6 +53,43 @@ describe('DateTimeInput', () => {
         expect(handleChange).not.toHaveBeenCalled();
     });
 
+    it('should render default calendar action labels', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                type="date"
+                placeholder="Select a date"
+                onChange={() => null}
+            />
+        );
+
+        await user.click(screen.getByPlaceholderText('Select a date'));
+
+        expect(screen.getByRole('button', {name: 'Today'})).toBeInTheDocument();
+        expect(screen.getByRole('button', {name: 'Go to the next month'})).toBeInTheDocument();
+        expect(screen.getByRole('button', {name: 'Go to the previous month'})).toBeInTheDocument();
+    });
+
+    it('should render custom calendar action labels', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                type="date"
+                placeholder="Select a date"
+                i18n={{todayButton: 'Current day', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
+                onChange={() => null}
+            />
+        );
+
+        await user.click(screen.getByPlaceholderText('Select a date'));
+
+        expect(screen.getByRole('button', {name: 'Current day'})).toBeInTheDocument();
+        expect(screen.getByRole('button', {name: nextMonthLabel})).toBeInTheDocument();
+        expect(screen.getByRole('button', {name: previousMonthLabel})).toBeInTheDocument();
+    });
+
     it('should default to the current date and time when uncontrolled', () => {
         vi.useFakeTimers();
         vi.setSystemTime(new Date(2026, 2, 31, 11, 56, 0));
@@ -63,7 +98,6 @@ describe('DateTimeInput', () => {
             render(
                 <DateTimeInput
                     type="datetime"
-                    i18n={{todayButton: 'Today'}}
                 />
             );
 
@@ -83,7 +117,6 @@ describe('DateTimeInput', () => {
                 hasTimezone
                 type="datetime"
                 value={{date: new Date(2026, 1, 10, 11, 56), timezone: 'Europe/Paris'}}
-                i18n={{todayButton: 'Today'}}
                 onChange={handleChange}
             />
         );
@@ -102,6 +135,65 @@ describe('DateTimeInput', () => {
         );
     });
 
+    it('should not emit a midnight date when the time is cleared', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(
+            <DateTimeInput
+                type="datetime"
+                value={{date: new Date(2026, 1, 10, 11, 56)}}
+                onChange={handleChange}
+            />
+        );
+
+        await user.clear(screen.getByDisplayValue('11:56'));
+
+        expect(handleChange).not.toHaveBeenCalled();
+    });
+
+    it('should not emit a change while the time is incomplete', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(
+            <DateTimeInput
+                type="datetime"
+                value={{date: new Date(2026, 1, 10, 11, 56)}}
+                onChange={handleChange}
+            />
+        );
+
+        const timeInput = screen.getByDisplayValue('11:56');
+        await user.clear(timeInput);
+        await user.type(timeInput, '12');
+
+        expect(handleChange).not.toHaveBeenCalled();
+    });
+
+    it('should emit the selected date with the typed complete time', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(
+            <DateTimeInput
+                type="datetime"
+                value={{date: new Date(2026, 1, 10, 11, 56)}}
+                onChange={handleChange}
+            />
+        );
+
+        const timeInput = screen.getByDisplayValue('11:56');
+        await user.clear(timeInput);
+        await user.type(timeInput, '1425');
+
+        expect(handleChange).toHaveBeenCalledTimes(1);
+        expect(handleChange).toHaveBeenLastCalledWith(
+            expect.any(Object),
+            expect.objectContaining({date: new Date(2026, 1, 10, 14, 25)})
+        );
+    });
+
     it('should render the 12h datetime layout with meridiem and timezone', () => {
         render(
             <DateTimeInput
@@ -109,7 +201,6 @@ describe('DateTimeInput', () => {
                 type="datetime"
                 timeFormat="12h"
                 value={{date: new Date(2026, 1, 10, 23, 56), timezone: 'Europe/Paris'}}
-                i18n={{todayButton: 'Today'}}
                 onChange={() => null}
             />
         );
@@ -128,7 +219,6 @@ describe('DateTimeInput', () => {
                 type="datetime"
                 timeFormat="12h"
                 value={{date: new Date(2026, 1, 10, 2, 30)}}
-                i18n={{todayButton: 'Today'}}
                 onChange={handleChange}
             />
         );
@@ -153,7 +243,6 @@ describe('DateTimeInput', () => {
                 type="date"
                 value={{date: new Date(2026, 2, 30)}}
                 disabledDates={[new Date(2026, 2, 30)]}
-                i18n={{todayButton: 'Today'}}
                 onChange={() => null}
             />
         );
@@ -172,7 +261,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 value={{date: new Date(2026, 2, 30)}}
                 locale="en-US"
-                i18n={{todayButton: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
+                i18n={{nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
             />
         );
@@ -191,7 +280,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 defaultValue={{date: new Date(2026, 2, 30)}}
                 locale="en-US"
-                i18n={{todayButton: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
+                i18n={{nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
             />
         );
@@ -211,7 +300,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 value={{date: new Date(2026, 2, 30)}}
                 locale="en-US"
-                i18n={{todayButton: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
+                i18n={{nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
             />
         );
@@ -239,7 +328,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 value={{date: new Date(2026, 2, 30)}}
                 locale="en-US"
-                i18n={{todayButton: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
+                i18n={{nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
             />
         );
@@ -253,7 +342,7 @@ describe('DateTimeInput', () => {
                 type="date"
                 value={{date: new Date(2026, 6, 15)}}
                 locale="en-US"
-                i18n={{todayButton: 'Today', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
+                i18n={{nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
             />
         );
@@ -267,7 +356,6 @@ describe('DateTimeInput', () => {
                 hasTimezone
                 type="datetime"
                 value={{date: new Date(2026, 0, 15, 11, 56), timezone: 'Europe/Paris'}}
-                i18n={{todayButton: 'Today'}}
                 onChange={() => null}
             />
         );
@@ -279,7 +367,6 @@ describe('DateTimeInput', () => {
                 hasTimezone
                 type="datetime"
                 value={{date: new Date(2026, 6, 15, 11, 56), timezone: 'Europe/Paris'}}
-                i18n={{todayButton: 'Today'}}
                 onChange={() => null}
             />
         );
@@ -293,7 +380,6 @@ describe('DateTimeInput', () => {
                 type="date"
                 value={{date: new Date(Number.NaN)}}
                 placeholder="Select a date"
-                i18n={{todayButton: 'Today'}}
                 onChange={() => null}
             />
         );
