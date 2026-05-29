@@ -10,14 +10,16 @@
     width: 120px;
 }
 
-.moonstone-dateTimeInput_dayPicker {
+.dayPicker {
     --rdp-accent-color: var(--moon-color-accent);
     --rdp-accent-background-color: var(--moon-color-accent);
     --rdp-selected-border: 1px solid var(--moon-color-accent);
     --rdp-today-color: var(--moon-color-accent);
 }
 
-.moonstone-dateTimeInput_calendarFooter {
+.calendarFooter {
+    display: flex;
+    justify-content: center;
     padding-top: var(--moon-spacing-nano);
 
     border-top: 1px solid var(--moon-color-gray_light40);

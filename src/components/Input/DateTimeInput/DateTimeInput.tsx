@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import {dateMatchModifiers, DayPicker} from 'react-day-picker';
 import dayPickerClassNames from 'react-day-picker/style.module.css';
 import {Button, Dropdown, Menu} from '~/components';
-import {useControllableState} from '~/hooks';
 import {Calendar} from '~/icons';
 import type {DateTimeInputProps} from './DateTimeInput.types';
 import type {DropdownProps} from 'react-day-picker';
@@ -65,8 +64,8 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     isReadOnly,
     ...props
 }, ref) => {
-    const [rawValue, setRawValue] = useControllableState<DateTimeInputValue>(value, defaultValue ?? {date: null, timezone: null});
-    const currentValue = normalizeDateTimeValue(rawValue, type, hasTimezone);
+    const [internalValue, setInternalValue] = useState<DateTimeInputValue>(defaultValue ?? {date: null, timezone: null});
+    const currentValue = normalizeDateTimeValue(value ?? internalValue, type, hasTimezone);
     const selectedDate = currentValue.date;
     const calendarDate = selectedDate ? getNormalizedDate(selectedDate) ?? undefined : undefined;
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -110,7 +109,10 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     const emitChange = (event: React.SyntheticEvent, nextValue: DateTimeInputValue) => {
         const nextDateTimeValue = normalizeDateTimeValue(nextValue, type, hasTimezone);
 
-        setRawValue(nextDateTimeValue);
+        if (value === undefined) {
+            setInternalValue(nextDateTimeValue);
+        }
+
         onChange?.(event, nextDateTimeValue);
     };
 
@@ -157,7 +159,8 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                         showOutsideDays
                         classNames={{
                             ...dayPickerClassNames,
-                            root: clsx(dayPickerClassNames.root, styles.dayPicker)
+                            root: clsx(dayPickerClassNames.root, styles.dayPicker),
+                            footer: styles.calendarFooter
                         }}
                         components={{
                             YearsDropdown: (dropdownProps: DropdownProps) => (
@@ -194,6 +197,20 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                         } : undefined}
                         mode="single"
                         selected={calendarDate}
+                        footer={(
+                            <Button
+                                variant="ghost"
+                                size="default"
+                                isDisabled={isTodayDisabled}
+                                label={todayButton}
+                                onClick={event => {
+                                    if (!isTodayDisabled) {
+                                        emitChange(event, {...currentValue, date: withSelectedTime(todayDate)});
+                                        setIsCalendarOpen(false);
+                                    }
+                                }}
+                            />
+                        )}
                         onMonthChange={handleMonthChange}
                         onSelect={(date, _selectedDay, modifiers, event) => {
                             if (modifiers.disabled) {
@@ -205,20 +222,6 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                             setIsCalendarOpen(false);
                         }}
                     />
-                    <footer className={styles.calendarFooter}>
-                        <Button
-                            variant="ghost"
-                            size="default"
-                            isDisabled={isTodayDisabled}
-                            label={todayButton}
-                            onClick={event => {
-                                if (!isTodayDisabled) {
-                                    emitChange(event, {...currentValue, date: withSelectedTime(todayDate)});
-                                    setIsCalendarOpen(false);
-                                }
-                            }}
-                        />
-                    </footer>
                 </Menu>
             )}
             {type === 'datetime' && (
@@ -232,6 +235,10 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                     value={selectedDate ? formatTimeString(selectedDate) : null}
                     onChange={(event, timeValue) => {
                         if (!timeValue) {
+                            if (selectedDate) {
+                                emitChange(event, {...currentValue, date: getNormalizedDate(selectedDate)});
+                            }
+
                             return;
                         }
 

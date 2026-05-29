@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import {fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {DateTimeInput} from './index';
@@ -151,7 +152,7 @@ describe('DateTimeInput', () => {
         );
     });
 
-    it('should not emit a midnight date when the time is cleared', async () => {
+    it('should reset the selected datetime to midnight when the time is cleared', async () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
@@ -165,7 +166,41 @@ describe('DateTimeInput', () => {
 
         await user.clear(screen.getByDisplayValue('11:56'));
 
-        expect(handleChange).not.toHaveBeenCalled();
+        expect(handleChange).toHaveBeenLastCalledWith(
+            expect.any(Object),
+            expect.objectContaining({date: new Date(2026, 1, 10)})
+        );
+    });
+
+    it('should keep midnight after clearing the time and selecting another date', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        function ControlledDateTimeInput() {
+            const [dateTimeValue, setDateTimeValue] = useState<{date: Date | null}>({date: new Date(2026, 1, 10, 11, 56)});
+
+            return (
+                <DateTimeInput
+                    type="datetime"
+                    value={dateTimeValue}
+                    onChange={(event, nextValue) => {
+                        handleChange(event, nextValue);
+                        setDateTimeValue(nextValue);
+                    }}
+                />
+            );
+        }
+
+        render(<ControlledDateTimeInput/>);
+
+        await user.clear(screen.getByDisplayValue('11:56'));
+        await user.click(screen.getByDisplayValue(formatDateDisplayValue(new Date(2026, 1, 10))));
+        await user.click(screen.getByText('12'));
+
+        expect(handleChange).toHaveBeenLastCalledWith(
+            expect.any(Object),
+            expect.objectContaining({date: new Date(2026, 1, 12)})
+        );
     });
 
     it('should not emit a change while the time is incomplete', async () => {
@@ -182,6 +217,7 @@ describe('DateTimeInput', () => {
 
         const timeInput = screen.getByDisplayValue('11:56');
         await user.clear(timeInput);
+        handleChange.mockClear();
         await user.type(timeInput, '12');
 
         expect(handleChange).not.toHaveBeenCalled();
@@ -201,6 +237,7 @@ describe('DateTimeInput', () => {
 
         const timeInput = screen.getByDisplayValue('11:56');
         await user.clear(timeInput);
+        handleChange.mockClear();
         await user.type(timeInput, '1425');
 
         expect(handleChange).toHaveBeenCalledTimes(1);
