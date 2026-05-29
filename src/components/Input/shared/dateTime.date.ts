@@ -6,20 +6,7 @@ const isValidDate = (value?: Date | null): value is Date => Boolean(value) && !N
 
 export const getNormalizedDate = (value?: Date | null) => {
     if (!isValidDate(value)) {
-        if (value !== null && value !== undefined) {
-            console.warn('[DateTimeInput] getNormalizedDate: received an invalid Date value', value);
-        }
-
         return null;
-    }
-
-    if (
-        value.getHours() === 0 &&
-        value.getMinutes() === 0 &&
-        value.getSeconds() === 0 &&
-        value.getMilliseconds() === 0
-    ) {
-        return value;
     }
 
     return new Date(value.getFullYear(), value.getMonth(), value.getDate());

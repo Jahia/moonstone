@@ -3,9 +3,6 @@ import {action} from 'storybook/actions';
 import {useArgs} from 'storybook/preview-api';
 import {TimeInput} from './TimeInput';
 import type {TimeInputProps} from './TimeInput.types';
-import {getCurrentTimeString} from '../shared';
-
-const currentTime = getCurrentTimeString();
 
 export default {
     title: 'Components/Input/TimeInput',
@@ -15,7 +12,7 @@ export default {
         layout: 'centered'
     },
     args: {
-        value: currentTime,
+        value: '12:30',
         onChange: () => undefined
     }
 } satisfies Meta<typeof TimeInput>;
@@ -39,7 +36,7 @@ export const Default: Story = {
         );
     },
     args: {
-        value: currentTime,
+        value: '12:30',
         onChange: logTimeChange
     },
     name: 'Default'

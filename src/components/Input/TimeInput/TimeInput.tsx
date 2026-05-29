@@ -5,25 +5,21 @@ import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
 import {Clock} from '~/icons';
 import {layout, reset} from '~/globals/css-utils';
 import {BaseInput} from '../BaseInput';
-import {
-    formatTimeInputValue,
-    getCurrentTimeString,
-    isValidPartialTimeInputValue,
-    parseCanonicalTime,
-    parseTimeInputValue
-} from '../shared';
-import type {Meridiem, TimeInputProps} from './TimeInput.types';
+import {filterTimeInputValue, parseCanonicalTime, parseTimeInputValue} from '../shared';
+import type {Meridiem, TimeFormat, TimeInputProps} from './TimeInput.types';
 import styles from './TimeInput.module.scss';
 
-const meridiemOptions: DropdownDataOption[] = [
-    {label: 'AM', value: 'AM'},
-    {label: 'PM', value: 'PM'}
-];
+/** Converts a canonical 24h `HH:mm` value into the `HH:MM` string shown in the field. */
+const toDisplayValue = (canonicalValue: string | null | undefined, timeFormat: TimeFormat) => {
+    const {hours, minutes} = parseCanonicalTime(canonicalValue, timeFormat);
+    return hours && minutes ? `${hours}:${minutes}` : '';
+};
 
 export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
     value,
     defaultValue,
     timeFormat = '24h',
+    placeholder = 'HH:MM',
     size,
     variant,
     className,
@@ -32,49 +28,42 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
     onChange,
     ...props
 }, ref) => {
-    const [timeValue, setTimeValue] = useState<string | null>(() => typeof defaultValue === 'undefined' ? getCurrentTimeString() : defaultValue);
-    const [inputValue, setInputValue] = useState('');
-    const [meridiem, setMeridiem] = useState<Meridiem>(() => parseCanonicalTime(
-        typeof value === 'undefined' ?
-            (typeof defaultValue === 'undefined' ? getCurrentTimeString() : defaultValue) :
-            value,
-        '12h'
-    ).meridiem);
-    const canonicalTimeValue = typeof value === 'undefined' ? timeValue : value;
+    // Display is owned here, not delegated to BaseInput: incomplete entries must stay editable
+    // without emitting, and a controlled BaseInput would freeze on a value that never updates.
+    const [inputValue, setInputValue] = useState(() => toDisplayValue(value ?? defaultValue, timeFormat));
+    const [meridiem, setMeridiem] = useState<Meridiem>(() => parseCanonicalTime(value ?? defaultValue, '12h').meridiem);
 
+    // Resync the local display when an externally controlled value (or the format) changes.
     useEffect(() => {
-        const parsedTime = parseCanonicalTime(canonicalTimeValue, timeFormat);
-        setInputValue(
-            parsedTime.hours && parsedTime.minutes ?
-                `${parsedTime.hours}:${parsedTime.minutes}` :
-                ''
-        );
-        setMeridiem(parsedTime.meridiem);
-    }, [canonicalTimeValue, timeFormat]);
-
-    const emitChange = (event: React.SyntheticEvent, formattedInputValue: string, selectedMeridiem: Meridiem) => {
-        const parsedTimeValue = parseTimeInputValue(formattedInputValue, timeFormat, selectedMeridiem);
-
-        if (formattedInputValue !== '' && parsedTimeValue === null) {
+        if (value === undefined) {
             return;
         }
 
-        if (typeof value === 'undefined') {
-            setTimeValue(parsedTimeValue);
-        }
+        setInputValue(toDisplayValue(value, timeFormat));
+        setMeridiem(parseCanonicalTime(value, '12h').meridiem);
+    }, [value, timeFormat]);
 
-        onChange?.(event, parsedTimeValue);
+    // Emits only a complete, valid time; a partial or rejected entry never fires onChange.
+    const emitChange = (event: React.SyntheticEvent, displayValue: string, selectedMeridiem: Meridiem) => {
+        const canonicalValue = parseTimeInputValue(displayValue, timeFormat, selectedMeridiem);
+
+        if (canonicalValue !== null) {
+            onChange?.(event, canonicalValue);
+        }
     };
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const formattedInputValue = formatTimeInputValue(event.target.value);
+        const filteredValue = filterTimeInputValue(event.target.value, timeFormat);
 
-        if (!isValidPartialTimeInputValue(formattedInputValue, timeFormat)) {
+        setInputValue(filteredValue);
+
+        // Clearing the field emits null; an incomplete or invalid entry emits nothing.
+        if (event.target.value === '') {
+            onChange?.(event, null);
             return;
         }
 
-        setInputValue(formattedInputValue);
-        emitChange(event, formattedInputValue, meridiem);
+        emitChange(event, filteredValue, meridiem);
     };
 
     const handleMeridiemChange = (event: React.SyntheticEvent, item?: DropdownDataOption) => {
@@ -91,11 +80,11 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
             <BaseInput
                 ref={ref}
                 {...props}
-                className={timeFormat === '12h' ? styles.field_12h : undefined}
                 value={inputValue}
+                className={timeFormat === '12h' ? styles.field_12h : undefined}
                 size={size}
                 variant={variant}
-                placeholder={props.placeholder ?? 'HH:MM'}
+                placeholder={placeholder}
                 isDisabled={isDisabled}
                 isReadOnly={isReadOnly}
                 autoComplete="off"
@@ -105,7 +94,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
             />
             {timeFormat === '12h' && (
                 <Dropdown
-                    data={meridiemOptions}
+                    data={[{label: 'AM', value: 'AM'}, {label: 'PM', value: 'PM'}]}
                     value={meridiem}
                     size={size === 'big' ? 'medium' : 'small'}
                     variant={variant}

@@ -3,17 +3,10 @@ import userEvent from '@testing-library/user-event';
 import {TimeInput} from './index';
 
 describe('TimeInput', () => {
-    it('should default to the current time when uncontrolled', () => {
-        vi.useFakeTimers();
-        vi.setSystemTime(new Date(2026, 2, 31, 11, 56, 0));
+    it('should render empty when uncontrolled without a default value', () => {
+        render(<TimeInput/>);
 
-        try {
-            render(<TimeInput/>);
-
-            expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
-        } finally {
-            vi.useRealTimers();
-        }
+        expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
     });
 
     it('should call onChange with a canonical 24h value', async () => {
