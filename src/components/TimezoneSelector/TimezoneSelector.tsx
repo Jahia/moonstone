@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Dropdown} from '~/components';
 import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
+import {useControllableState} from '~/hooks';
 import {Language} from '~/icons';
 import {getTimezoneDropdownData} from '../Input/shared';
 import type {TimezoneSelectorProps} from './TimezoneSelector.types';
@@ -17,8 +18,7 @@ export const TimezoneSelector: React.FC<TimezoneSelectorProps> = ({
     onChange,
     ...props
 }) => {
-    const [timezone, setTimezone] = useState(defaultValue);
-    const selectedTimezone = typeof value === 'undefined' ? timezone : value;
+    const [selectedTimezone, setTimezone] = useControllableState(value, defaultValue);
 
     return (
         <Dropdown
@@ -32,10 +32,7 @@ export const TimezoneSelector: React.FC<TimezoneSelectorProps> = ({
             placeholder={placeholder}
             icon={<Language aria-hidden/>}
             onChange={(event: React.MouseEvent, item: DropdownDataOption) => {
-                if (typeof value === 'undefined') {
-                    setTimezone(item.value ?? null);
-                }
-
+                setTimezone(item.value ?? null);
                 onChange?.(event, item.value ?? null);
             }}
         />
