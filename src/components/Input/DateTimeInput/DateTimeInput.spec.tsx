@@ -176,7 +176,7 @@ describe('DateTimeInput', () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        function ControlledDateTimeInput() {
+        const ControlledDateTimeInput = () => {
             const [dateTimeValue, setDateTimeValue] = useState<{date: Date | null}>({date: new Date(2026, 1, 10, 11, 56)});
 
             return (
@@ -189,7 +189,7 @@ describe('DateTimeInput', () => {
                     }}
                 />
             );
-        }
+        };
 
         render(<ControlledDateTimeInput/>);
 
