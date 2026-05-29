@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import {dateMatchModifiers, DayPicker} from 'react-day-picker';
 import dayPickerClassNames from 'react-day-picker/style.module.css';
 import {Button, Dropdown, Menu} from '~/components';
+import {useControllableState} from '~/hooks';
 import {Calendar} from '~/icons';
 import type {DateTimeInputProps} from './DateTimeInput.types';
 import type {DropdownProps} from 'react-day-picker';
@@ -19,15 +20,6 @@ import {
     type DateTimeInputValue
 } from '../shared';
 import styles from './DateTimeInput.module.scss';
-
-const getDefaultDateTimeValue = (type: DateTimeInputProps['type']): DateTimeInputValue => {
-    if (type === 'date') {
-        return {date: getCurrentDate(), timezone: null};
-    }
-
-    const now = new Date();
-    return {date: new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes()), timezone: null};
-};
 
 const normalizeDateTimeValue = (
     value: DateTimeInputValue,
@@ -73,8 +65,8 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     isReadOnly,
     ...props
 }, ref) => {
-    const [internalValue, setInternalValue] = useState<DateTimeInputValue>(() => defaultValue ?? getDefaultDateTimeValue(type));
-    const currentValue = normalizeDateTimeValue(value ?? internalValue, type, hasTimezone);
+    const [rawValue, setRawValue] = useControllableState<DateTimeInputValue>(value, defaultValue ?? {date: null, timezone: null});
+    const currentValue = normalizeDateTimeValue(rawValue, type, hasTimezone);
     const selectedDate = currentValue.date;
     const calendarDate = selectedDate ? getNormalizedDate(selectedDate) ?? undefined : undefined;
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -118,12 +110,20 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     const emitChange = (event: React.SyntheticEvent, nextValue: DateTimeInputValue) => {
         const nextDateTimeValue = normalizeDateTimeValue(nextValue, type, hasTimezone);
 
-        if (value === undefined) {
-            setInternalValue(nextDateTimeValue);
-        }
-
+        setRawValue(nextDateTimeValue);
         onChange?.(event, nextDateTimeValue);
     };
+
+    const openCalendar = () => {
+        if (!isDisabled && !isReadOnly) {
+            setDisplayedMonth(getCalendarDisplayMonth(selectedDate));
+            setIsCalendarOpen(true);
+        }
+    };
+
+    const withSelectedTime = (day: Date) => new Date(
+        day.getFullYear(), day.getMonth(), day.getDate(), selectedDate?.getHours() ?? 0, selectedDate?.getMinutes() ?? 0
+    );
 
     return (
         <div className={clsx(styles.dateTimeInput, className)}>
@@ -137,16 +137,10 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                 variant={variant}
                 isDisabled={isDisabled}
                 icon={<Calendar aria-hidden/>}
-                onClick={() => {
-                    if (!isDisabled && !isReadOnly) {
-                        setDisplayedMonth(getCalendarDisplayMonth(selectedDate));
-                        setIsCalendarOpen(true);
-                    }
-                }}
+                onClick={openCalendar}
                 onKeyUp={event => {
-                    if ((event.key === 'Enter' || event.key === ' ') && !isDisabled && !isReadOnly) {
-                        setDisplayedMonth(getCalendarDisplayMonth(selectedDate));
-                        setIsCalendarOpen(true);
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        openCalendar();
                     }
                 }}
             />
@@ -207,10 +201,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                             }
 
                             const nextDay = getNormalizedDate(date);
-                            const nextDate = nextDay ? new Date(
-                                nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate(), selectedDate?.getHours() ?? 0, selectedDate?.getMinutes() ?? 0
-                            ) : null;
-                            emitChange(event, {...currentValue, date: nextDate});
+                            emitChange(event, {...currentValue, date: nextDay ? withSelectedTime(nextDay) : null});
                             setIsCalendarOpen(false);
                         }}
                     />
@@ -222,10 +213,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                             label={todayButton}
                             onClick={event => {
                                 if (!isTodayDisabled) {
-                                    const nextDate = new Date(
-                                        todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate(), selectedDate?.getHours() ?? 0, selectedDate?.getMinutes() ?? 0
-                                    );
-                                    emitChange(event, {...currentValue, date: nextDate});
+                                    emitChange(event, {...currentValue, date: withSelectedTime(todayDate)});
                                     setIsCalendarOpen(false);
                                 }
                             }}

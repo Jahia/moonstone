@@ -90,22 +90,38 @@ describe('DateTimeInput', () => {
         expect(screen.getByRole('button', {name: previousMonthLabel})).toBeInTheDocument();
     });
 
-    it('should default to the current date and time when uncontrolled', () => {
-        vi.useFakeTimers();
-        vi.setSystemTime(new Date(2026, 2, 31, 11, 56, 0));
+    it('should render empty when uncontrolled without a default value', () => {
+        render(
+            <DateTimeInput
+                type="datetime"
+                placeholder="Select a date"
+            />
+        );
 
-        try {
-            render(
-                <DateTimeInput
-                    type="datetime"
-                />
-            );
+        expect(screen.getByPlaceholderText('Select a date')).toHaveValue('');
+        expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
+    });
 
-            expect(screen.getByDisplayValue(formatDateDisplayValue(new Date(2026, 2, 31)))).toBeInTheDocument();
-            expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
-        } finally {
-            vi.useRealTimers();
-        }
+    it('should select a datetime date at midnight when no time exists', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(
+            <DateTimeInput
+                type="datetime"
+                value={{date: null}}
+                placeholder="Select a date"
+                onChange={handleChange}
+            />
+        );
+
+        await user.click(screen.getByPlaceholderText('Select a date'));
+        await user.click(screen.getByText('Today'));
+
+        expect(handleChange).toHaveBeenLastCalledWith(
+            expect.any(Object),
+            expect.objectContaining({date: getCurrentDate()})
+        );
     });
 
     it('should render the 24h datetime layout and trigger timezone changes', async () => {
