@@ -5,7 +5,7 @@ import type {PrimaryNavButtonProps, PrimaryNavHeaderProps, PrimaryNavProps} from
 import {PrimaryNavContext} from './PrimaryNav.context';
 import {MenuIcon, ArrowLeft} from '~/icons';
 import {layout} from '~/globals/css-utils.js';
-import styles from './PrimaryNav.module.scss';
+import {primaryNavStyles as styles} from './styles';
 
 const NavButton: React.FC<PrimaryNavButtonProps> = ({isExpanded, toggleExpand, modeIcon}) => {
     return (

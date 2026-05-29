@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import type {TableRowProps} from './TableRow.types';
 import {layout} from '~/globals/css-utils.js';
-import styles from './TableRow.module.scss';
+import {tableRowStyles as styles} from '../styles';
 
 const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowProps> = (
     {

@@ -1,4 +1,4 @@
-@use '../../utils/index';
+@use '../../utils/index' as *;
 
 .moonstone-menu {
     @include reset;

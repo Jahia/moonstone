@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import type {TabProps} from './Tab.types';
 import {layout} from '~/globals/css-utils.js';
-import styles from './Tab.module.scss';
+import {tabStyles as styles} from './styles';
 
 export const Tab: React.FC<TabProps> = ({children, className = '', ...props}) => {
     if (!children || React.Children.count(children) < 1) {

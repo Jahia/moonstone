@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import type {MenuProps} from './Menu.types';
 import {SearchInput} from '~/components/Input';
 import {Typography} from '~/components/Typography';
-import styles from './Menu.module.scss';
+import {menuStyles as styles} from './styles';
 
 const getFlatChildren = (children: [React.ReactElement]) => {
     if (children[0].props['data-option-type'] === 'group') {

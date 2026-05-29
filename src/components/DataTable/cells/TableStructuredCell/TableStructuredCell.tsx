@@ -6,7 +6,7 @@ import {TableCell} from '../TableCell';
 import {Typography} from '~/components';
 import type {TableStructuredCellProps} from './TableStructuredCell.types';
 import {layout} from '~/globals/css-utils.js';
-import styles from './TableStructuredCell.module.scss';
+import {tableCellStatusStyles as styles} from '../../styles';
 
 // Spacing constants for tree structure alignment
 const indentSpace = 20; // Px - indentation per depth level

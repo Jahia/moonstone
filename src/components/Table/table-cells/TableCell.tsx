@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import type {TableCellProps} from './TableCell.types';
 import {icons, layout} from '~/globals/css-utils.js';
-import styles from './TableCell.module.scss';
+import {tableCellStyles as styles} from '../styles';
 
 const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, TableCellProps> = (
     {

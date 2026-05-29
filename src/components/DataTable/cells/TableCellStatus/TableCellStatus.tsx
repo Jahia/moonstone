@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import {TableCell} from '../TableCell';
 import type {TableCellStatusProps} from './TableCellStatus.types';
 import {layout} from '~/globals/css-utils.js';
-import style from './TableCellStatus.module.scss';
+import {tableCellStatusStyles as styles} from '../../styles';
 
 const TableCellStatusForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellStatusProps> = (
     {
@@ -17,15 +17,15 @@ const TableCellStatusForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEle
     <TableCell
         ref={ref}
         className={clsx(
-            style.tableCellStatus,
-            style[color],
+            styles.tableCellStatus,
+            styles[color],
             className
         )}
         component="td"
         width="8px"
         {...props}
     >
-        <div className={clsx(layout.flexRow_nowrap, layout.alignCenter, style.panel)}>
+        <div className={clsx(layout.flexRow_nowrap, layout.alignCenter, styles.panel)}>
             {children}
         </div>
     </TableCell>

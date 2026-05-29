@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import type {TableProps} from './Table.types';
 import {layout} from '~/globals/css-utils.js';
-import styles from './Table.module.scss';
+import {tableStyles as styles} from './styles';
 
 export const Table: React.FC<TableProps> = ({
     component = 'table',

@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import {RadioGroupContext} from './RadioGroup.context';
 import type {ControlledRadioGroupProps} from './RadioGroup.types';
 import {layout} from '~/globals/css-utils.js';
-import styles from './RadioGroup.module.scss';
+import {radioGroupStyles as styles} from './styles';
 
 export const ControlledRadioGroup: React.FC<ControlledRadioGroupProps> = ({children, name, value, isDisabled, isReadOnly, onChange, className, ...props}) => {
     // When no value is set, then the first item will be selected by default

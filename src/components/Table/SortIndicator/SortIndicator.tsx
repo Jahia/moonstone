@@ -2,8 +2,8 @@ import React from 'react';
 import clsx from 'clsx';
 
 import type {SortIndicatorProps} from './SortIndicator.types';
-import styles from './SortIndicator.module.scss';
 import {ArrowDown, ArrowUp} from '~/icons';
+import {sortIndicatorStyles as styles} from '../styles';
 
 export const SortIndicator: React.FC<SortIndicatorProps> = ({
     direction = 'descending',

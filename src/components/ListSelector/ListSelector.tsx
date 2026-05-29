@@ -5,8 +5,8 @@ import {Button, Typography} from '~/components';
 import {ChevronDoubleLeft, ChevronDoubleRight, ChevronRight, Close} from '~/icons';
 import type {ListSelectorSelectorProps} from './ListSelector.types';
 import {layout} from '~/globals/css-utils.js';
-import styles from './ListSelector.module.scss';
-import valueListStyles from './ValueList/ValueList.module.scss';
+import {listSelectorStyles as styles} from './styles';
+import {valueListStyles} from './styles';
 
 const MLRS_DRAG = 'mlrs_drag_list_item';
 

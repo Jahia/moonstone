@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import type {ModalBodyProps} from './ModalBody.types';
-import styles from './ModalBody.module.scss';
+import {modalBodyStyles as styles} from '../styles';
 
 const ModalBodyForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalBodyProps> = ({
     children,

@@ -4,7 +4,7 @@ import type {ItemProps, ItemTypeResolverProps, PrimaryNavItemProps} from './Prim
 import {Typography} from '~/components';
 import {PrimaryNavContext} from '../PrimaryNav.context';
 import {onAccessibleClick} from '~/hooks';
-import styles from './PrimaryNavItem.module.scss';
+import {primaryNavItemStyles as styles} from '../styles';
 
 // Internal component
 const Item: React.FC<ItemProps> = ({icon, label, textVariant, subtitle, button}) => (
