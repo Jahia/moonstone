@@ -2,7 +2,7 @@ import {ArrowDown, ArrowUp} from '~/icons';
 import clsx from 'clsx';
 import {TableCell} from '../TableCell';
 import type {TableHeadCellProps} from './TableHeadCell.types';
-import {tableCellStatusStyles as styles} from '../../styles';
+import {tableHeadCellStyles as styles} from '../../styles';
 
 export const TableHeadCell = ({
     width,
