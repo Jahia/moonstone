@@ -92,13 +92,14 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
                     onChange={onChange}
                     onBlur={onBlur}
                     onFocus={onFocus}
-                    onKeyPress={e => {
-                        console.warn('onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
-                        if (typeof onKeyPress === 'function') {
+                    onKeyUp={e => {
+                        if (onKeyPress) {
+                            console.warn('onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
                             onKeyPress(e);
                         }
+
+                        onKeyUp?.(e);
                     }}
-                    onKeyUp={onKeyUp}
                     {...props}
                 />
                 {postfixComponents}
