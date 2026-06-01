@@ -3,4 +3,4 @@
 "@jahia/moonstone": patch
 ---
 
-OnKeyPress warning removed (#1373)
+Prevent always displaying the warning about OnKeyPress  (#1373)
