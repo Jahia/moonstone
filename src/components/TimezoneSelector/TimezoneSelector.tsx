@@ -1,45 +1,14 @@
-import React, {useState} from 'react';
-import {Dropdown} from '~/components';
-import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
-import {Language} from '~/icons';
-import {getTimezoneDropdownData} from '../Input/shared';
+import React from 'react';
+import {ControlledTimezoneSelector} from './ControlledTimezoneSelector';
 import type {TimezoneSelectorProps} from './TimezoneSelector.types';
+import {UncontrolledTimezoneSelector} from './UncontrolledTimezoneSelector';
 
-export const TimezoneSelector: React.FC<TimezoneSelectorProps> = ({
-    value,
-    defaultValue = null,
-    referenceDate,
-    placeholder,
-    size,
-    variant = 'outlined',
-    className,
-    isDisabled,
-    onChange,
-    ...props
-}) => {
-    const [timezone, setTimezone] = useState(defaultValue);
-    const selectedTimezone = value === undefined ? timezone : value;
+export const TimezoneSelector: React.FC<TimezoneSelectorProps> = props => {
+    if (typeof props.value === 'undefined') {
+        return <UncontrolledTimezoneSelector {...props}/>;
+    }
 
-    return (
-        <Dropdown
-            {...props}
-            className={className}
-            data={getTimezoneDropdownData(selectedTimezone, referenceDate)}
-            value={selectedTimezone}
-            size={size}
-            variant={variant}
-            isDisabled={isDisabled}
-            placeholder={placeholder}
-            icon={<Language aria-hidden/>}
-            onChange={(event: React.MouseEvent, item: DropdownDataOption) => {
-                if (value === undefined) {
-                    setTimezone(item.value ?? null);
-                }
-
-                onChange?.(event, item.value ?? null);
-            }}
-        />
-    );
+    return <ControlledTimezoneSelector {...props}/>;
 };
 
 TimezoneSelector.displayName = 'TimezoneSelector';

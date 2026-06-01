@@ -89,6 +89,42 @@ describe('TimezoneSelector', () => {
         expect(handleChange).toHaveBeenLastCalledWith(expect.any(Object), 'Pacific/Honolulu');
     });
 
+    it('should update the selected timezone internally in uncontrolled mode', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <TimezoneSelector
+                defaultValue="Europe/Paris"
+            />
+        );
+
+        await user.click(screen.getByRole('listbox', {name: getTimezoneDisplayLabel('Europe/Paris')}));
+        await user.type(screen.getByRole('searchbox'), 'honolulu');
+        await user.click(screen.getByText('Honolulu (UTC -10:00)'));
+
+        expect(screen.getByRole('listbox', {name: getTimezoneDisplayLabel('Pacific/Honolulu')})).toBeInTheDocument();
+    });
+
+    it('should keep the controlled value until the parent updates it', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(
+            <TimezoneSelector
+                value="Europe/Paris"
+                onChange={handleChange}
+            />
+        );
+
+        await user.click(screen.getByRole('listbox', {name: getTimezoneDisplayLabel('Europe/Paris')}));
+        await user.type(screen.getByRole('searchbox'), 'honolulu');
+        await user.click(screen.getByText('Honolulu (UTC -10:00)'));
+
+        expect(handleChange).toHaveBeenLastCalledWith(expect.any(Object), 'Pacific/Honolulu');
+        expect(screen.getByRole('listbox', {name: getTimezoneDisplayLabel('Europe/Paris')})).toBeInTheDocument();
+        expect(screen.queryByRole('listbox', {name: getTimezoneDisplayLabel('Pacific/Honolulu')})).not.toBeInTheDocument();
+    });
+
     it('should render the current offset in the public component', () => {
         render(
             <TimezoneSelector
