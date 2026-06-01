@@ -1,0 +1,11 @@
+import{n as e}from"./chunk-DnJy8xQt.js";import{t}from"./jsx-runtime-_12HUoMu.js";import{F as n,Fn as r,I as i,L as a,P as o,t as s}from"./icons-BScL08Ri.js";import{n as c,t as l}from"./css-utils-s5DPh-AN.js";var u,d=e((()=>{u=`data:text/markdown;base64,IyMgR29hbHM6Ckdyb3VwIG5hdmlnYXRpb24gaXRlbSB0b2dldGhlciwgdGhpcyBjb21wb25lbnQgaXMgb25seSB1c2UgdG8gYnVpbGQgdGhlIG1haW4gbmF2aWdhdGlvbiAobGV2ZWwgMSkuCgojIyBTcGVjaWZpY2F0aW9uczoKUHJvdmlkZSBhIHByb3AgdG8ga25vdyBpZiB0aGUgZWxlbWVudCBpcyB2aXNpYmxlIHdoZW4gdGhlIG1haW4gbmF2aWdhdGlvbiBpcyBjb2xsYXBzZWQK`})),f,p,m,h,g;e((()=>{o(),i(),s(),d(),l(),f=t(),p={title:`Components/PrimaryNavItemsGroup`,component:n,parameters:{notes:{markdown:u},layout:`fullscreen`},decorators:[e=>(0,f.jsx)(`div`,{className:c,style:{backgroundColor:`#131c21`,width:`18.75rem`,height:`100vh`},children:(0,f.jsx)(e,{})})]},m={render:()=>(0,f.jsxs)(n,{children:[(0,f.jsx)(a,{icon:(0,f.jsx)(r,{}),label:`NavItem not selected (default)`}),(0,f.jsx)(a,{icon:(0,f.jsx)(r,{}),label:`NavItem`})]})},h={render:()=>(0,f.jsxs)(n,{isDisplayedWhenCollapsed:!1,children:[(0,f.jsx)(a,{icon:(0,f.jsx)(r,{}),label:`Hidden when collapsed`}),(0,f.jsx)(a,{icon:(0,f.jsx)(r,{}),label:`Hidden when collapsed too`})]})},m.parameters={...m.parameters,docs:{...m.parameters?.docs,source:{originalSource:`{
+  render: () => <PrimaryNavItemsGroup>
+            <PrimaryNavItem icon={<Edit />} label="NavItem not selected (default)" />
+            <PrimaryNavItem icon={<Edit />} label="NavItem" />
+        </PrimaryNavItemsGroup>
+}`,...m.parameters?.docs?.source}}},h.parameters={...h.parameters,docs:{...h.parameters?.docs,source:{originalSource:`{
+  render: () => <PrimaryNavItemsGroup isDisplayedWhenCollapsed={false}>
+            <PrimaryNavItem icon={<Edit />} label="Hidden when collapsed" />
+            <PrimaryNavItem icon={<Edit />} label="Hidden when collapsed too" />
+        </PrimaryNavItemsGroup>
+}`,...h.parameters?.docs?.source}}},g=[`Default`,`CollapsedGroup`]}))();export{h as CollapsedGroup,m as Default,g as __namedExportsOrder,p as default};

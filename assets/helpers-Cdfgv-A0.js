@@ -1,1 +1,0 @@
-import{a as e,n as t}from"./chunk-DnJy8xQt.js";import{s as n}from"./iframe-ClJRRSNz.js";var r,i,a,o=t((()=>{r=e(n(),1),i=e=>e.charAt(0).toUpperCase()+e.slice(1),a=e=>e==null?[]:r.isValidElement(e)&&e.type===r.Fragment?r.Children.toArray(e.props.children):r.Children.toArray(e)}));export{o as n,a as r,i as t};
