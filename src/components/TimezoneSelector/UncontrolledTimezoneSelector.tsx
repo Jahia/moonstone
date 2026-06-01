@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import {ControlledTimezoneSelector} from './ControlledTimezoneSelector';
-import type {TimezoneSelectorProps} from './TimezoneSelector.types';
-
-type UncontrolledTimezoneSelectorProps = Extract<TimezoneSelectorProps, {value?: never}>;
+import type {UncontrolledTimezoneSelectorProps} from './TimezoneSelector.types';
 
 export const UncontrolledTimezoneSelector: React.FC<UncontrolledTimezoneSelectorProps> = ({
     defaultValue = null,

@@ -13,14 +13,14 @@ type BaseTimezoneSelectorProps = Omit<DropdownProps,
     referenceDate?: Date | null;
 }
 
-type ControlledProps = {
+export type ControlledTimezoneSelectorProps = BaseTimezoneSelectorProps & {
     /** Controlled value: IANA timezone identifier (e.g. `'Europe/Paris'`), or `null`. */
     value: string | null;
     defaultValue?: never;
     onChange: (event: React.SyntheticEvent, value: string | null) => void;
 }
 
-type UncontrolledProps = {
+export type UncontrolledTimezoneSelectorProps = BaseTimezoneSelectorProps & {
     value?: never;
     /** Initial value in uncontrolled mode: IANA timezone identifier, or `null`. */
     defaultValue?: string | null;
@@ -34,4 +34,4 @@ type UncontrolledProps = {
     onChange?: (event: React.SyntheticEvent, value: string | null) => void;
 }
 
-export type TimezoneSelectorProps = BaseTimezoneSelectorProps & (ControlledProps | UncontrolledProps);
+export type TimezoneSelectorProps = ControlledTimezoneSelectorProps | UncontrolledTimezoneSelectorProps;

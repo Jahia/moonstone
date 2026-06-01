@@ -3,9 +3,7 @@ import {Dropdown} from '~/components';
 import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
 import {Language} from '~/icons';
 import {getTimezoneDropdownData} from '../Input/shared';
-import type {TimezoneSelectorProps} from './TimezoneSelector.types';
-
-type ControlledTimezoneSelectorProps = Extract<TimezoneSelectorProps, {value: string | null}>;
+import type {ControlledTimezoneSelectorProps} from './TimezoneSelector.types';
 
 export const ControlledTimezoneSelector: React.FC<ControlledTimezoneSelectorProps> = ({
     value,
