@@ -1,6 +1,5 @@
 import type {Meta, StoryObj} from '@storybook/react-vite';
 import {action} from 'storybook/actions';
-import {useArgs} from 'storybook/preview-api';
 import {DateTimeInput} from './DateTimeInput';
 import {getCurrentDate} from '../shared';
 
@@ -18,47 +17,21 @@ export default {
 type Story = StoryObj<typeof DateTimeInput>;
 
 export const DateOnly: Story = {
-    render: args => {
-        const [, setArgs] = useArgs();
-        const {value: currentValue} = args;
-
-        return (
-            <DateTimeInput
-                type="date"
-                placeholder="Select a date"
-                value={currentValue}
-                onChange={(_event, nextValue) => {
-                    action('onChange')(nextValue.date, nextValue.timezone);
-                    setArgs({value: nextValue});
-                }}
-            />
-        );
-    },
+    render: args => <DateTimeInput {...args} onChange={(_event, nextValue) => action('onChange')(nextValue.date, nextValue.timezone)}/>,
     args: {
-        value: {date: null}
+        type: 'date',
+        placeholder: 'Select a date',
+        defaultValue: {date: null}
     },
     name: 'Date Only'
 };
 
 export const DateTimeWithTimezone: Story = {
-    render: args => {
-        const [, setArgs] = useArgs();
-        const {value: currentValue} = args;
-
-        return (
-            <DateTimeInput
-                hasTimezone
-                type="datetime"
-                value={currentValue}
-                onChange={(_event, nextValue) => {
-                    action('onChange')(nextValue.date, nextValue.timezone);
-                    setArgs({value: nextValue});
-                }}
-            />
-        );
-    },
+    render: args => <DateTimeInput {...args} onChange={(_event, nextValue) => action('onChange')(nextValue.date, nextValue.timezone)}/>,
     args: {
-        value: {
+        hasTimezone: true,
+        type: 'datetime',
+        defaultValue: {
             date: new Date(),
             timezone: 'Europe/Paris'
         }
@@ -67,25 +40,12 @@ export const DateTimeWithTimezone: Story = {
 };
 
 export const DateTimeWithTimezone12h: Story = {
-    render: args => {
-        const [, setArgs] = useArgs();
-        const {value: currentValue} = args;
-
-        return (
-            <DateTimeInput
-                hasTimezone
-                type="datetime"
-                timeFormat="12h"
-                value={currentValue}
-                onChange={(_event, nextValue) => {
-                    action('onChange')(nextValue.date, nextValue.timezone);
-                    setArgs({value: nextValue});
-                }}
-            />
-        );
-    },
+    render: args => <DateTimeInput {...args} onChange={(_event, nextValue) => action('onChange')(nextValue.date, nextValue.timezone)}/>,
     args: {
-        value: {
+        hasTimezone: true,
+        type: 'datetime',
+        timeFormat: '12h',
+        defaultValue: {
             date: new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 23, 56),
             timezone: 'Europe/Paris'
         }
@@ -94,26 +54,13 @@ export const DateTimeWithTimezone12h: Story = {
 };
 
 export const DisabledDates: Story = {
-    render: args => {
-        const [, setArgs] = useArgs();
-        const {value: currentValue} = args;
-
-        return (
-            <DateTimeInput
-                type="date"
-                minDate={new Date(2026, 2, 28)}
-                maxDate={new Date(2026, 3, 5)}
-                disabledDates={[new Date(2026, 2, 30)]}
-                value={currentValue}
-                onChange={(_event, nextValue) => {
-                    action('onChange')(nextValue.date, nextValue.timezone);
-                    setArgs({value: nextValue});
-                }}
-            />
-        );
-    },
+    render: args => <DateTimeInput {...args} onChange={(_event, nextValue) => action('onChange')(nextValue.date, nextValue.timezone)}/>,
     args: {
-        value: {date: new Date(2026, 2, 30)}
+        type: 'date',
+        minDate: new Date(2026, 2, 28),
+        maxDate: new Date(2026, 3, 5),
+        disabledDates: [new Date(2026, 2, 30)],
+        defaultValue: {date: new Date(2026, 2, 30)}
     },
     name: 'Disabled Dates'
 };

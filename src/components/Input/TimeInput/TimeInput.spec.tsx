@@ -21,19 +21,19 @@ describe('TimeInput', () => {
     });
 
     it('should display a default time format placeholder', () => {
-        render(<TimeInput value={null} onChange={() => null}/>);
+        render(<TimeInput defaultValue={null} onChange={() => null}/>);
 
         expect(screen.getByPlaceholderText('HH:MM')).toBeInTheDocument();
     });
 
     it('should let consumers override the time placeholder', () => {
-        render(<TimeInput value={null} placeholder="Enter time" onChange={() => null}/>);
+        render(<TimeInput defaultValue={null} placeholder="Enter time" onChange={() => null}/>);
 
         expect(screen.getByPlaceholderText('Enter time')).toBeInTheDocument();
     });
 
     it('should display a canonical value in 12h mode', () => {
-        render(<TimeInput timeFormat="12h" value="14:30" onChange={() => null}/>);
+        render(<TimeInput timeFormat="12h" defaultValue="14:30" onChange={() => null}/>);
 
         expect(screen.getByDisplayValue('02:30')).toBeInTheDocument();
         expect(screen.getByText('PM')).toBeInTheDocument();
@@ -43,7 +43,7 @@ describe('TimeInput', () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(<TimeInput timeFormat="12h" value={null} onChange={handleChange}/>);
+        render(<TimeInput timeFormat="12h" defaultValue={null} onChange={handleChange}/>);
 
         await user.type(screen.getByPlaceholderText('HH:MM'), '0230');
         await user.click(screen.getByText('AM'));
@@ -53,13 +53,15 @@ describe('TimeInput', () => {
         expect(handleChange).toHaveBeenLastCalledWith(expect.any(Object), '14:30');
     });
 
-    it('should display midnight and noon correctly in 12h mode', () => {
-        const {rerender} = render(<TimeInput timeFormat="12h" value="00:00" onChange={() => null}/>);
+    it('should display midnight correctly in 12h mode', () => {
+        render(<TimeInput timeFormat="12h" defaultValue="00:00" onChange={() => null}/>);
 
         expect(screen.getByDisplayValue('12:00')).toBeInTheDocument();
         expect(screen.getByText('AM')).toBeInTheDocument();
+    });
 
-        rerender(<TimeInput timeFormat="12h" value="12:00" onChange={() => null}/>);
+    it('should display noon correctly in 12h mode', () => {
+        render(<TimeInput timeFormat="12h" defaultValue="12:00" onChange={() => null}/>);
 
         expect(screen.getByDisplayValue('12:00')).toBeInTheDocument();
         expect(screen.getByText('PM')).toBeInTheDocument();
@@ -68,7 +70,7 @@ describe('TimeInput', () => {
     it('should ignore impossible 24h values while typing', async () => {
         const user = userEvent.setup();
 
-        render(<TimeInput value="11:56" onChange={() => null}/>);
+        render(<TimeInput defaultValue="11:56" onChange={() => null}/>);
 
         const input = screen.getByDisplayValue('11:56');
         await user.click(input);
@@ -79,11 +81,11 @@ describe('TimeInput', () => {
         expect(screen.queryByDisplayValue('28:97')).not.toBeInTheDocument();
     });
 
-    it('should keep the partial value when deleting in controlled mode', async () => {
+    it('should keep the partial value when deleting', async () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(<TimeInput value="11:56" onChange={handleChange}/>);
+        render(<TimeInput defaultValue="11:56" onChange={handleChange}/>);
 
         await user.click(screen.getByDisplayValue('11:56'));
         await user.keyboard('{End}{Backspace}');

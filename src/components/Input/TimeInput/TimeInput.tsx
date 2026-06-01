@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import clsx from 'clsx';
 import {Dropdown} from '~/components';
 import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
@@ -16,7 +16,6 @@ const toDisplayValue = (canonicalValue: string | null | undefined, timeFormat: T
 };
 
 export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
-    value,
     defaultValue,
     timeFormat = '24h',
     placeholder = 'HH:MM',
@@ -30,18 +29,8 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
 }, ref) => {
     // Display is owned here, not delegated to BaseInput: incomplete entries must stay editable
     // without emitting, and a controlled BaseInput would freeze on a value that never updates.
-    const [inputValue, setInputValue] = useState(() => toDisplayValue(value ?? defaultValue, timeFormat));
-    const [meridiem, setMeridiem] = useState<Meridiem>(() => parseCanonicalTime(value ?? defaultValue, '12h').meridiem);
-
-    // Resync the local display when an externally controlled value (or the format) changes.
-    useEffect(() => {
-        if (value === undefined) {
-            return;
-        }
-
-        setInputValue(toDisplayValue(value, timeFormat));
-        setMeridiem(parseCanonicalTime(value, '12h').meridiem);
-    }, [value, timeFormat]);
+    const [inputValue, setInputValue] = useState(() => toDisplayValue(defaultValue, timeFormat));
+    const [meridiem, setMeridiem] = useState<Meridiem>(() => parseCanonicalTime(defaultValue, '12h').meridiem);
 
     // Emits only a complete, valid time; a partial or rejected entry never fires onChange.
     const emitChange = (event: React.SyntheticEvent, displayValue: string, selectedMeridiem: Meridiem) => {

@@ -10,7 +10,6 @@ export type Meridiem = 'AM' | 'PM';
 
 type BasicTimeInputProps = Omit<BaseInputProps,
     'isShowClearButton' |
-    'value' |
     'defaultValue' |
     'onChange' |
     'onClear' |
@@ -33,9 +32,6 @@ type BasicTimeInputProps = Omit<BaseInputProps,
      * @default '24h'
      */
     timeFormat?: TimeFormat;
-
-    /** Controlled value in 24h format `HH:mm` (e.g. `'14:30'`), or `null`. */
-    value?: string | null;
 
     /** Initial value in uncontrolled mode, in 24h format `HH:mm`, or `null`. */
     defaultValue?: string | null;

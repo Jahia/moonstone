@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import {fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {DateTimeInput} from './index';
@@ -8,7 +7,6 @@ const nextMonthLabel = 'Next month';
 const previousMonthLabel = 'Previous month';
 const march2026 = 'March 2026';
 const april2026 = 'April 2026';
-const july2026 = 'July 2026';
 
 describe('DateTimeInput', () => {
     it('should open the calendar and select today', async () => {
@@ -18,7 +16,7 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 type="date"
-                value={{date: null}}
+                defaultValue={{date: null}}
                 placeholder="Select a date"
                 onChange={handleChange}
             />
@@ -110,7 +108,7 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 type="datetime"
-                value={{date: null}}
+                defaultValue={{date: null}}
                 placeholder="Select a date"
                 onChange={handleChange}
             />
@@ -133,7 +131,7 @@ describe('DateTimeInput', () => {
             <DateTimeInput
                 hasTimezone
                 type="datetime"
-                value={{date: new Date(2026, 1, 10, 11, 56), timezone: 'Europe/Paris'}}
+                defaultValue={{date: new Date(2026, 1, 10, 11, 56), timezone: 'Europe/Paris'}}
                 onChange={handleChange}
             />
         );
@@ -159,7 +157,7 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 type="datetime"
-                value={{date: new Date(2026, 1, 10, 11, 56)}}
+                defaultValue={{date: new Date(2026, 1, 10, 11, 56)}}
                 onChange={handleChange}
             />
         );
@@ -176,22 +174,13 @@ describe('DateTimeInput', () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        const ControlledDateTimeInput = () => {
-            const [dateTimeValue, setDateTimeValue] = useState<{date: Date | null}>({date: new Date(2026, 1, 10, 11, 56)});
-
-            return (
-                <DateTimeInput
-                    type="datetime"
-                    value={dateTimeValue}
-                    onChange={(event, nextValue) => {
-                        handleChange(event, nextValue);
-                        setDateTimeValue(nextValue);
-                    }}
-                />
-            );
-        };
-
-        render(<ControlledDateTimeInput/>);
+        render(
+            <DateTimeInput
+                type="datetime"
+                defaultValue={{date: new Date(2026, 1, 10, 11, 56)}}
+                onChange={handleChange}
+            />
+        );
 
         await user.clear(screen.getByDisplayValue('11:56'));
         await user.click(screen.getByDisplayValue(formatDateDisplayValue(new Date(2026, 1, 10))));
@@ -210,7 +199,7 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 type="datetime"
-                value={{date: new Date(2026, 1, 10, 11, 56)}}
+                defaultValue={{date: new Date(2026, 1, 10, 11, 56)}}
                 onChange={handleChange}
             />
         );
@@ -230,7 +219,7 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 type="datetime"
-                value={{date: new Date(2026, 1, 10, 11, 56)}}
+                defaultValue={{date: new Date(2026, 1, 10, 11, 56)}}
                 onChange={handleChange}
             />
         );
@@ -253,7 +242,7 @@ describe('DateTimeInput', () => {
                 hasTimezone
                 type="datetime"
                 timeFormat="12h"
-                value={{date: new Date(2026, 1, 10, 23, 56), timezone: 'Europe/Paris'}}
+                defaultValue={{date: new Date(2026, 1, 10, 23, 56), timezone: 'Europe/Paris'}}
                 onChange={() => null}
             />
         );
@@ -271,7 +260,7 @@ describe('DateTimeInput', () => {
             <DateTimeInput
                 type="datetime"
                 timeFormat="12h"
-                value={{date: new Date(2026, 1, 10, 2, 30)}}
+                defaultValue={{date: new Date(2026, 1, 10, 2, 30)}}
                 onChange={handleChange}
             />
         );
@@ -294,7 +283,7 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 type="date"
-                value={{date: new Date(2026, 2, 30)}}
+                defaultValue={{date: new Date(2026, 2, 30)}}
                 disabledDates={[new Date(2026, 2, 30)]}
                 onChange={() => null}
             />
@@ -312,7 +301,7 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 type="date"
-                value={{date: new Date(2026, 2, 30)}}
+                defaultValue={{date: new Date(2026, 2, 30)}}
                 locale="en-US"
                 i18n={{nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
@@ -351,7 +340,7 @@ describe('DateTimeInput', () => {
         const {container} = render(
             <DateTimeInput
                 type="date"
-                value={{date: new Date(2026, 2, 30)}}
+                defaultValue={{date: new Date(2026, 2, 30)}}
                 locale="en-US"
                 i18n={{nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
@@ -374,55 +363,24 @@ describe('DateTimeInput', () => {
         expect(screen.getByText(march2026)).toBeInTheDocument();
     });
 
-    it('should recenter on a new controlled value date when it changes externally', async () => {
+    it('should refresh the timezone utc offset when the selected date changes internally', async () => {
         const user = userEvent.setup();
-        const {rerender} = render(
-            <DateTimeInput
-                type="date"
-                value={{date: new Date(2026, 2, 30)}}
-                locale="en-US"
-                i18n={{nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
-                onChange={() => null}
-            />
-        );
 
-        await user.click(screen.getByDisplayValue(formatDateDisplayValue(new Date(2026, 2, 30), 'en-US')));
-        await user.click(screen.getByRole('button', {name: nextMonthLabel}));
-        expect(screen.getByText(april2026)).toBeInTheDocument();
-
-        rerender(
-            <DateTimeInput
-                type="date"
-                value={{date: new Date(2026, 6, 15)}}
-                locale="en-US"
-                i18n={{nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
-                onChange={() => null}
-            />
-        );
-
-        expect(screen.getByText(july2026)).toBeInTheDocument();
-    });
-
-    it('should refresh the timezone utc offset when the selected date changes', () => {
-        const {rerender} = render(
+        render(
             <DateTimeInput
                 hasTimezone
                 type="datetime"
-                value={{date: new Date(2026, 0, 15, 11, 56), timezone: 'Europe/Paris'}}
+                defaultValue={{date: new Date(2026, 2, 15, 11, 56), timezone: 'Europe/Paris'}}
+                i18n={{nextMonth: nextMonthLabel}}
                 onChange={() => null}
             />
         );
 
         expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
 
-        rerender(
-            <DateTimeInput
-                hasTimezone
-                type="datetime"
-                value={{date: new Date(2026, 6, 15, 11, 56), timezone: 'Europe/Paris'}}
-                onChange={() => null}
-            />
-        );
+        await user.click(screen.getByDisplayValue(formatDateDisplayValue(new Date(2026, 2, 15))));
+        await user.click(screen.getByRole('button', {name: nextMonthLabel}));
+        await user.click(screen.getByText('15'));
 
         expect(screen.getByRole('listbox', {name: 'Paris (UTC +02:00)'})).toBeInTheDocument();
     });
@@ -431,7 +389,7 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 type="date"
-                value={{date: new Date(Number.NaN)}}
+                defaultValue={{date: new Date(Number.NaN)}}
                 placeholder="Select a date"
                 onChange={() => null}
             />

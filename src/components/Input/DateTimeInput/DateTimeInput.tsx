@@ -40,7 +40,6 @@ const getCalendarDisplayMonth = (value?: Date | null) => {
 };
 
 export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputProps>(({
-    value,
     defaultValue,
     onChange,
     type,
@@ -65,7 +64,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     ...props
 }, ref) => {
     const [internalValue, setInternalValue] = useState<DateTimeInputValue>(defaultValue ?? {date: null, timezone: null});
-    const currentValue = normalizeDateTimeValue(value ?? internalValue, type, hasTimezone);
+    const currentValue = normalizeDateTimeValue(internalValue, type, hasTimezone);
     const selectedDate = currentValue.date;
     const calendarDate = selectedDate ? getNormalizedDate(selectedDate) ?? undefined : undefined;
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -109,10 +108,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     const emitChange = (event: React.SyntheticEvent, nextValue: DateTimeInputValue) => {
         const nextDateTimeValue = normalizeDateTimeValue(nextValue, type, hasTimezone);
 
-        if (value === undefined) {
-            setInternalValue(nextDateTimeValue);
-        }
-
+        setInternalValue(nextDateTimeValue);
         onChange?.(event, nextDateTimeValue);
     };
 
@@ -232,7 +228,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                     isReadOnly={isReadOnly}
                     focusOnField={false}
                     timeFormat={timeFormat}
-                    value={selectedDate ? formatTimeString(selectedDate) : null}
+                    defaultValue={selectedDate ? formatTimeString(selectedDate) : null}
                     onChange={(event, timeValue) => {
                         if (!timeValue) {
                             if (selectedDate) {

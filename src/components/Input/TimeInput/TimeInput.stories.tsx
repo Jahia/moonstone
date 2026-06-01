@@ -1,6 +1,5 @@
 import type {Meta, StoryObj} from '@storybook/react-vite';
 import {action} from 'storybook/actions';
-import {useArgs} from 'storybook/preview-api';
 import {TimeInput} from './TimeInput';
 import type {TimeInputProps} from './TimeInput.types';
 
@@ -12,7 +11,7 @@ export default {
         layout: 'centered'
     },
     args: {
-        value: '12:30',
+        defaultValue: '12:30',
         onChange: () => undefined
     }
 } satisfies Meta<typeof TimeInput>;
@@ -23,42 +22,19 @@ const logTimeChange: TimeInputProps['onChange'] = (_event, value) => {
 };
 
 export const Default: Story = {
-    render: args => {
-        const [, setArgs] = useArgs();
-        return (
-            <TimeInput
-                {...args}
-                onChange={(event, value) => {
-                    logTimeChange(event, value);
-                    setArgs({value});
-                }}
-            />
-        );
-    },
+    render: args => <TimeInput {...args} onChange={logTimeChange}/>,
     args: {
-        value: '12:30',
+        defaultValue: '12:30',
         onChange: logTimeChange
     },
     name: 'Default'
 };
 
 export const TwelveHours: Story = {
-    render: args => {
-        const [, setArgs] = useArgs();
-        return (
-            <TimeInput
-                timeFormat="12h"
-                {...args}
-                onChange={(event, value) => {
-                    logTimeChange(event, value);
-                    setArgs({value});
-                }}
-            />
-        );
-    },
+    render: args => <TimeInput {...args} onChange={logTimeChange}/>,
     args: {
         timeFormat: '12h',
-        value: '23:56',
+        defaultValue: '23:56',
         onChange: logTimeChange
     },
     name: 'Twelve Hours'
