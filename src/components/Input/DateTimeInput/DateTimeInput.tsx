@@ -61,6 +61,8 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     className,
     isDisabled,
     isReadOnly,
+    timeInputProps,
+    timezoneSelectorProps,
     ...props
 }, ref) => {
     const [internalValue, setInternalValue] = useState<DateTimeInputValue>(defaultValue ?? {date: null, timezone: null});
@@ -222,6 +224,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
             )}
             {type === 'datetime' && (
                 <TimeInput
+                    {...timeInputProps}
                     size={size}
                     variant={variant}
                     isDisabled={isDisabled}
@@ -247,6 +250,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
             )}
             {type === 'datetime' && hasTimezone && (
                 <TimezoneSelector
+                    {...timezoneSelectorProps}
                     size={size === 'big' ? 'medium' : 'small'}
                     variant={variant ?? 'outlined'}
                     isDisabled={isDisabled}

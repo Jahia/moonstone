@@ -19,6 +19,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
     defaultValue,
     timeFormat = '24h',
     placeholder = 'HH:MM',
+    meridiemDropdownProps,
     size,
     variant,
     className,
@@ -83,6 +84,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
             />
             {timeFormat === '12h' && (
                 <Dropdown
+                    {...meridiemDropdownProps}
                     data={[{label: 'AM', value: 'AM'}, {label: 'PM', value: 'PM'}]}
                     value={meridiem}
                     size={size === 'big' ? 'medium' : 'small'}

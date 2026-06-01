@@ -1,7 +1,8 @@
 import React from 'react';
 import type {DayPickerProps} from 'react-day-picker';
 import type {BaseInputProps} from '../BaseInput/BaseInput.types';
-import type {TimeFormat} from '../TimeInput';
+import type {TimeFormat, TimeInputProps} from '../TimeInput';
+import type {ControlledTimezoneSelectorProps} from '../../TimezoneSelector';
 
 /**
  * Determines which fields are rendered in the `DateTimeInput`:
@@ -40,6 +41,26 @@ export type DateTimeInputI18n = {
     /** Accessible label for the previous month button */
     previousMonth?: string;
 };
+
+export type DateTimeInputTimeInputProps = Omit<TimeInputProps,
+    'defaultValue' |
+    'onChange' |
+    'timeFormat' |
+    'size' |
+    'variant' |
+    'isDisabled' |
+    'isReadOnly' |
+    'focusOnField'
+>;
+
+export type DateTimeInputTimezoneSelectorProps = Omit<ControlledTimezoneSelectorProps,
+    'value' |
+    'onChange' |
+    'referenceDate' |
+    'size' |
+    'variant' |
+    'isDisabled'
+>;
 
 type DateTimeInputSharedProps = Omit<BaseInputProps,
     'defaultValue' |
@@ -105,6 +126,12 @@ type DateTimeInputSharedProps = Omit<BaseInputProps,
 
     /** I18n labels for calendar actions */
     i18n?: DateTimeInputI18n;
+
+    /** Additional props forwarded to the internal TimeInput when `type='datetime'`. */
+    timeInputProps?: DateTimeInputTimeInputProps;
+
+    /** Additional props forwarded to the internal TimezoneSelector when timezone selection is enabled. */
+    timezoneSelectorProps?: DateTimeInputTimezoneSelectorProps;
 };
 
 type DateProps = {

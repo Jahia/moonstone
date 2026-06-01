@@ -8,6 +8,17 @@ export type TimeFormat = '24h' | '12h';
 /** AM/PM indicator used in 12-hour time format */
 export type Meridiem = 'AM' | 'PM';
 
+export type TimeInputMeridiemDropdownProps = Omit<DropdownProps,
+    'data' |
+    'treeData' |
+    'value' |
+    'values' |
+    'onChange' |
+    'size' |
+    'variant' |
+    'isDisabled'
+> & Omit<React.ComponentPropsWithoutRef<'div'>, keyof DropdownProps> & Record<string, unknown>;
+
 type BasicTimeInputProps = Omit<BaseInputProps,
     'isShowClearButton' |
     'defaultValue' |
@@ -45,6 +56,9 @@ type BasicTimeInputProps = Omit<BaseInputProps,
      * @param value - Time string in `HH:mm` format (e.g. `'14:30'`), or `null`
      */
     onChange?: (event: React.SyntheticEvent, value: string | null) => void;
+
+    /** Additional props forwarded to the internal AM/PM dropdown in 12h mode. */
+    meridiemDropdownProps?: TimeInputMeridiemDropdownProps;
 }
 
 export type TimeInputProps = BasicTimeInputProps;
