@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import {ListItem} from '~/components';
 
 import type {MenuItemProps} from './MenuItem.types';
-import {onArrowNavigation} from '~/hooks';
+import {mergeHandlers, onArrowNavigation} from '~/hooks';
 import styles from './MenuItem.module.scss';
 
 export const MenuItem: React.FC<MenuItemProps> = ({
@@ -28,6 +28,19 @@ export const MenuItem: React.FC<MenuItemProps> = ({
     return (
         <ListItem
         ref={containerRef}
+        {...mergeHandlers(
+            {
+                onKeyUp: (e: React.KeyboardEvent) => {
+                    if (onKeyPress) {
+                        console.warn('onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
+                        onKeyPress(e);
+                    }
+
+                    onKeyUp?.(e);
+                }
+            },
+            onArrowNavigation({ref: containerRef})
+        )}
         tabIndex={isDisabled || variant === 'title' || isSelected ? null : 0}
         aria-disabled={isDisabled}
         className={clsx(
@@ -47,15 +60,6 @@ export const MenuItem: React.FC<MenuItemProps> = ({
         iconEnd={iconEnd}
         description={description}
         onClick={isDisabled ? undefined : onClick}
-        onKeyUp={e => {
-            if (onKeyPress) {
-                console.warn('onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
-                onKeyPress(e);
-            }
-
-            onKeyUp?.(e);
-            onArrowNavigation({ref: containerRef}).onKeyUp(e);
-        }}
         {...props}
     />
     );
