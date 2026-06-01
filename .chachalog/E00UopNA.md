@@ -3,4 +3,4 @@
 "@jahia/moonstone": minor
 ---
 
-Add date, time, and timezone input components (#1318)
+Add DateTimeInput, TimeInput, and timezoneSelector(in beta) input components (#1318)
