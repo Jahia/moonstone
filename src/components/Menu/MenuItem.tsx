@@ -47,12 +47,15 @@ export const MenuItem: React.FC<MenuItemProps> = ({
         iconEnd={iconEnd}
         description={description}
         onClick={isDisabled ? undefined : onClick}
-        onKeyPress={e => {
-                        console.warn('onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
-                        onKeyPress(e);
-                    }}
-        onKeyUp={onKeyUp}
-        {... onArrowNavigation({ref: containerRef})}
+        onKeyUp={e => {
+            if (onKeyPress) {
+                console.warn('onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
+                onKeyPress(e);
+            }
+
+            onKeyUp?.(e);
+            onArrowNavigation({ref: containerRef}).onKeyUp(e);
+        }}
         {...props}
     />
     );
