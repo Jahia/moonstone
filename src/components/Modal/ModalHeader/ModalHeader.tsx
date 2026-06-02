@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import type {ModalHeaderProps} from './ModalHeader.types';
 import {Typography} from '~/components';
 import {layout} from '~/globals/css-utils.js';
-import {modalHeaderStyles as styles} from '../styles';
+import styles from './ModalHeader.module.scss';
 
 const ModalHeaderForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalHeaderProps> = ({
     title,

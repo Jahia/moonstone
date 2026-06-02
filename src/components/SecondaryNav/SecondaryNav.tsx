@@ -4,7 +4,7 @@ import type {SecondaryNavProps} from './SecondaryNav.types';
 import {ResizableBox} from '~/components/ResizableBox';
 import {ChevronDoubleRight, ChevronDoubleLeft} from '~/icons';
 import {layout} from '~/globals/css-utils.js';
-import {secondaryNavStyles as styles} from './styles';
+import styles from './SecondaryNav.module.scss';
 
 export const SecondaryNav: React.FC<SecondaryNavProps> = ({
     header,

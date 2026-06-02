@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 
 import type {TableBodyProps} from './TableBody.types';
-import {tableBodyStyles as styles} from '../styles';
+import styles from './TableBody.module.scss';
 
 export const TableBody: React.FC<TableBodyProps> = ({
     component = 'tbody',

@@ -27,7 +27,7 @@ export const LayoutModule = React.forwardRef(({
             { React.createElement(
                 component,
                 {
-                    className: clsx('moonstone-layoutModule_main', styles.layoutModule_main, 'flexCol_nowrap', layout.flexCol_nowrap, 'flexFluid', layout.flexFluid),
+                    className: clsx('moonstone-layoutModule_main', styles['layoutModule_main'], 'flexCol_nowrap', layout.flexCol_nowrap, 'flexFluid', layout.flexFluid),
                     ref
                 },
                 (

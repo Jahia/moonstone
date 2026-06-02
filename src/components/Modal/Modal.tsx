@@ -14,7 +14,7 @@ import {
     FloatingPortal
 } from '@floating-ui/react';
 import {layout} from '~/globals/css-utils.js';
-import {modalStyles as styles} from './styles';
+import styles from './Modal.module.scss';
 
 const ModalForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalProps> = ({
     className,

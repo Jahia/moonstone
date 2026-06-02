@@ -32,7 +32,7 @@ const ControlledButtonToggleForwardRef: React.ForwardRefRenderFunction<HTMLButto
             ref={ref}
             label={label}
             size={size}
-            variant="ghost"
+            variant='ghost'
             isReversed={isReversed}
             isDisabled={isDisabled}
             isLoading={isLoading}
@@ -44,10 +44,10 @@ const ControlledButtonToggleForwardRef: React.ForwardRefRenderFunction<HTMLButto
                 ['flexRow_center', layout.flexRow_center],
                 className
             )}
+            onClick={e => handleOnClick(e)}
             disabled={isDisabled || isLoading}
             aria-pressed={isPressed}
             data-loading={isLoading}
-            onClick={e => handleOnClick(e)}
             {...props}
         />
     );

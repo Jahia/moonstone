@@ -4,7 +4,7 @@ import {ListItem} from '~/components';
 
 import type {MenuItemProps} from './MenuItem.types';
 import {onArrowNavigation} from '~/hooks';
-import {menuItemStyles as styles} from './styles';
+import styles from './MenuItem.module.scss';
 
 export const MenuItem: React.FC<MenuItemProps> = ({
     variant = 'default',

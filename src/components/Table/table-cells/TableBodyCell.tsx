@@ -7,7 +7,7 @@ import {ChevronDown, ChevronRight} from '~/icons';
 import {capitalize} from '~/utils/helpers';
 import {TableCell} from './TableCell';
 import {alignment, layout} from '~/globals/css-utils.js';
-import {tableCellStyles as styles} from '../styles';
+import styles from './TableCell.module.scss';
 
 const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellProps> = (
     {

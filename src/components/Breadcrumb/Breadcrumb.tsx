@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import {BreadcrumbProps} from './Breadcrumb.types';
 import {ChevronRight} from '~/icons';
 import {layout} from '~/globals/css-utils.js';
-import {breadcrumbStyles as styles} from './styles';
+import styles from './Breadcrumb.module.scss';
 
 export const Breadcrumb: React.FC<BreadcrumbProps> = ({children, className, ...props}) => {
     const allItems = React.Children.toArray(children);

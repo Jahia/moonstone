@@ -4,7 +4,7 @@ import type {TabItemProps} from './TabItem.types';
 import {Typography} from '~/components';
 import {onArrowNavigation} from '~/hooks';
 import {layout} from '~/globals/css-utils.js';
-import {tabStyles as styles} from '../styles';
+import styles from './TabItem.module.scss';
 
 export const TabItem: React.FC<TabItemProps> = ({
     component = 'button',

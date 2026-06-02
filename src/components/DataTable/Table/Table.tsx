@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import type {TableProps} from '../DataTable.types.js';
 import {layout} from '~/globals/css-utils.js';
-import {tableStyles as styles} from '../styles';
+import styles from './Table.module.scss';
 
 export const Table: React.FC<TableProps> = ({
     component = 'table',

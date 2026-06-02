@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import type {PrimaryNavItemsGroupProps} from './PrimaryNavItemsGroup.types';
 import {PrimaryNavContext} from '../PrimaryNav.context';
 import {Separator} from '~/components';
-import {primaryNavItemsGroupStyles as styles} from '../styles';
+import styles from './PrimaryNavItemsGroup.module.scss';
 
 export const PrimaryNavItemsGroup: React.FC<PrimaryNavItemsGroupProps> = ({
     isDisplayedWhenCollapsed = true,

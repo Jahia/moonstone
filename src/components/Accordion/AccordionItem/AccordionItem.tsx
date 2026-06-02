@@ -5,7 +5,7 @@ import {AccordionContext} from '~/components/Accordion/Accordion.context';
 import type {AccordionItemProps} from './AccordionItem.types';
 import {onAccessibleClick} from '~/hooks';
 import {icons, layout} from '~/globals/css-utils.js';
-import {accordionItemStyles as styles} from '../styles';
+import styles from './AccordionItem.module.scss';
 
 export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = null, onClick = () => undefined, className, children, ...props}) => {
     const context = React.useContext(AccordionContext);

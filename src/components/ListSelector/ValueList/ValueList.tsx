@@ -5,7 +5,7 @@ import {HandleDrag} from '~/icons';
 import type {ValueListProps} from './ValueList.types';
 import {onAccessibleClick} from '~/hooks';
 import {layout} from '~/globals/css-utils.js';
-import {valueListStyles as styles} from '../styles';
+import styles from './ValueList.module.scss';
 
 export const ValueList: React.FC<ValueListProps> = ({
     values,

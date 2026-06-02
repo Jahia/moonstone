@@ -5,7 +5,6 @@ $small-image-size: 56px;
 $big-image-size: 96px;
 
 .moonstone-listItem {
-    @include reset;
     @include truncate;
 
     gap: $spacing-icon;

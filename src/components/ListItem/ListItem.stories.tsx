@@ -4,6 +4,7 @@ import markdownNotes from './ListItem.md';
 import {ListItem} from './index';
 import type {ListItemProps} from './ListItem.types';
 import {Love, Cloud} from '~/icons';
+import {reset} from '~/globals/css-utils.js';
 import imgVertical from '~/__storybook__/assets/img-vertical.webp';
 import imgHorizontal from '~/__storybook__/assets/img-horizontal.webp';
 import imgSquare from '~/__storybook__/assets/img-square.webp';
@@ -20,7 +21,7 @@ export default {
 
 export const Default: StoryObj<ListItemProps> = {
     render: args => (
-        <ul>
+        <ul className={reset}>
             <ListItem {...args}/>
         </ul>
     ),
@@ -32,7 +33,7 @@ export const Default: StoryObj<ListItemProps> = {
 
 export const IconText: StoryObj<ListItemProps> = {
     render: args => (
-        <ul>
+        <ul className={reset}>
             <ListItem {...args}/>
         </ul>
     ),
@@ -47,7 +48,7 @@ export const IconText: StoryObj<ListItemProps> = {
 
 export const IconTextIcon: StoryObj<ListItemProps> = {
     render: args => (
-        <ul>
+        <ul className={reset}>
             <ListItem {...args}/>
         </ul>
     ),
@@ -63,7 +64,7 @@ export const IconTextIcon: StoryObj<ListItemProps> = {
 
 export const WithBigImage: StoryObj<ListItemProps> = {
     render: args => (
-        <ul>
+        <ul className={reset}>
             <ListItem
                 image={<img src={imgVertical} alt="vertical big image"/>}
                 {...args}
@@ -87,7 +88,7 @@ export const WithBigImage: StoryObj<ListItemProps> = {
 
 export const WithSmallImage: StoryObj<ListItemProps> = {
     render: args => (
-        <ul>
+        <ul className={reset}>
             <ListItem
                 image={<img src={imgVertical} alt="vertical small image"/>}
                 {...args}
