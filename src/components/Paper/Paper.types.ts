@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type PaperProps = Omit<React.ComponentPropsWithoutRef<'section'>, 'children' | 'className'> & {
+export type PaperProps = Omit<React.ComponentPropsWithRef<'section'>, 'children' | 'className'> & {
     /**
      * Define if the component has padding
      */
