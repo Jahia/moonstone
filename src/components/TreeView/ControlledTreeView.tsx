@@ -50,6 +50,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
         itemComponent = 'li',
         size = 'default',
         isPadVirtualizedRow = false,
+        className,
         ...props
     }, ref) => {
     const isFlatData = data.filter(item => item.children && item.children.length > 0).length === 0;
@@ -206,8 +207,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
             role: 'tree',
             'aria-multiselectable': showCheckbox,
             ...props,
-            // @ts-expect-error className not defined but probably used somewhere
-            className: clsx(props.className)
+            className: clsx(styles.treeView, className)
         }, generateLevelJSX(data, 0, false)
     );
 };

@@ -1,7 +1,10 @@
 .moonstone-fieldset,
 .moonstone-dynamic-fieldset {
+    margin: 0; // Reset default fieldset styles
+    padding: 0; // Reset default fieldset styles
     padding-left: 32px;
 
+    border: none; // Reset default fieldset styles
     border-left: 3px solid transparent;
 
     & legend {
