@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import {layout} from '~/globals/css-utils.js';
+import {layout, reset} from '~/globals/css-utils.js';
 import styles from './CardSelector.module.scss';
 import type {CardSelectorProps} from './CardSelector.types';
 import {Thumbnail, Typography} from '~/components';
@@ -26,6 +26,7 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
     ...props
 }, ref) => {
     const classNameProps = clsx(
+        reset,
         ['moonstone-cardSelector', styles['moonstone-cardSelector']],
         (isDisabled || isReadOnly) && ['moonstone-cardSelector_disabled', styles['moonstone-cardSelector_disabled']],
         ['flexFluid', layout.flexFluid],
@@ -50,6 +51,7 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
                 id={id}
                 type="button"
                 className={clsx(
+                    reset,
                     ['moonstone-cardSelector_error', styles['moonstone-cardSelector_error']],
                     (isDisabled || isReadOnly) && ['moonstone-cardSelector_disabled', styles['moonstone-cardSelector_disabled']],
                     ['flexRow_center', layout.flexRow_center],

@@ -4,7 +4,7 @@ import {Typography} from '../Typography';
 import {TypographyWeight} from '~/components/Typography/Typography.types';
 import {ButtonProps} from './Button.types';
 import {Loader} from '~/components/Loader';
-import {layout} from '~/globals/css-utils.js';
+import {layout, reset} from '~/globals/css-utils.js';
 import styles from './Button.module.scss';
 
 // We have many conditions because of classname=..., we can safely ignore complexity here
@@ -44,6 +44,7 @@ export const Button = ({
         <button
             ref={ButtonEl}
             className={clsx(
+                reset,
                 ['moonstone-button', styles['moonstone-button']],
                 [`moonstone-button_${size}`, styles[`moonstone-button_${size}`]],
                 [`moonstone-button${variant === 'default' ? '' : `_${variant}`}${color === 'default' ? '' : `_${color}`}`],

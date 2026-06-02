@@ -2,8 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import type {LayoutModuleProps} from './LayoutModule.types';
 import {Loader} from '~/components/Loader';
-import {layout} from '~/globals/css-utils.js';
-import styles from './LayoutModule.module.scss';
+import {layout, reset} from '~/globals/css-utils.js';
 
 export const LayoutModule = React.forwardRef(({
     navigation,
@@ -12,6 +11,7 @@ export const LayoutModule = React.forwardRef(({
     isLoading = false
 }: LayoutModuleProps, ref: React.ForwardedRef<unknown>) => {
     const classNameProps = clsx(
+        reset,
         ['flexFluid', layout.flexFluid],
         isLoading ? ['flexCol_center', layout.flexCol_center, 'alignCenter', layout.alignCenter] : ['flexCol', layout.flexCol]
     );
@@ -27,7 +27,7 @@ export const LayoutModule = React.forwardRef(({
             { React.createElement(
                 component,
                 {
-                    className: clsx('moonstone-layoutModule_main', styles['layoutModule_main'], 'flexCol_nowrap', layout.flexCol_nowrap, 'flexFluid', layout.flexFluid),
+                    className: clsx('moonstone-layoutModule_main', 'flexCol_nowrap', layout.flexCol_nowrap, 'flexFluid', layout.flexFluid),
                     ref
                 },
                 (

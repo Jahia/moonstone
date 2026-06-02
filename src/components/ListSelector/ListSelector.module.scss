@@ -1,11 +1,7 @@
-@use '../../utils/reset' as *;
-
 $footerHeight: 24px;
 $gap: 8px;
 
 .moonstone-listSelector {
-    @include reset;
-
     .moonstone-draggedOver {
         outline: solid 2px var(--moon-color-accent);
     }

@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import {Button} from '~/components/Button';
 import type {ControlledButtonToggleProps} from './ButtonToggle.types';
-import {layout} from '~/globals/css-utils.js';
+import {layout, reset} from '~/globals/css-utils.js';
 import styles from './ButtonToggle.module.scss';
 
 const ControlledButtonToggleForwardRef: React.ForwardRefRenderFunction<HTMLButtonElement, ControlledButtonToggleProps> = ({
@@ -39,6 +39,7 @@ const ControlledButtonToggleForwardRef: React.ForwardRefRenderFunction<HTMLButto
             icon={iconStart}
             iconEnd={iconEnd}
             className={clsx(
+                reset,
                 ['moonstone-buttonToggle', styles['moonstone-buttonToggle']],
                 isPressed && ['moonstone-buttonToggle_pressed', styles['moonstone-buttonToggle_pressed']],
                 ['flexRow_center', layout.flexRow_center],

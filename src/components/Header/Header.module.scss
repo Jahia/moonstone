@@ -1,11 +1,7 @@
-@use '../../utils/reset' as *;
-
 $header-minHeight: 64px;
 $header-toolbar-minheight: 35px;
 
 .moonstone-header {
-    @include reset;
-
     width: 100%;
     min-height: $header-minHeight;
     padding: var(--moon-spacing-medium) var(--moon-spacing-large) 0 var(--moon-spacing-large);

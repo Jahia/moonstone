@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 
 import type {TableProps} from './Table.types';
-import {layout} from '~/globals/css-utils.js';
+import {layout, reset} from '~/globals/css-utils.js';
 import styles from './Table.module.scss';
 
 export const Table: React.FC<TableProps> = ({
@@ -14,6 +14,7 @@ export const Table: React.FC<TableProps> = ({
     component,
     {
         className: clsx(
+            reset,
             ['moonstone-Table', styles['moonstone-Table']],
             ['flexCol_nowrap', layout.flexCol_nowrap],
             className

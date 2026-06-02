@@ -1,8 +1,4 @@
-@use '../../utils/reset' as *;
-
 .moonstone-pagination {
-    @include reset;
-
     gap: var(--moon-spacing-medium);
     height: 64px;
     padding: 0 var(--moon-spacing-medium);

@@ -1,9 +1,5 @@
-@use '../../utils/reset' as *;
-
 .moonstone-fieldset,
 .moonstone-dynamic-fieldset {
-    @include reset;
-
     padding-left: 32px;
 
     border-left: 3px solid transparent;

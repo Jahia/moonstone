@@ -4,7 +4,7 @@ import {ListItem, SearchInput} from '~/components';
 import {HandleDrag} from '~/icons';
 import type {ValueListProps} from './ValueList.types';
 import {onAccessibleClick} from '~/hooks';
-import {layout} from '~/globals/css-utils.js';
+import {layout, reset} from '~/globals/css-utils.js';
 import styles from './ValueList.module.scss';
 
 export const ValueList: React.FC<ValueListProps> = ({
@@ -24,6 +24,7 @@ export const ValueList: React.FC<ValueListProps> = ({
     return (
         <div
             className={clsx(
+                reset,
                 ['flexCol_nowrap', layout.flexCol_nowrap],
                 ['moonstone-valueList_wrapper', styles['moonstone-valueList_wrapper']],
                 isReadOnly && ['moonstone-valueList_wrapper_readOnly', styles['moonstone-valueList_wrapper_readOnly']]

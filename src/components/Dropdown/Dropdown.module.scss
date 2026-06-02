@@ -1,10 +1,9 @@
 @use '../../utils/index' as *;
 @use "../../tokens/spacings/spacings" as *;
 @use "../../globals/variants";
+@use "../../utils/mixins" as *;
 
 .moonstone-dropdown_container {
-    @include reset;
-
     composes: moonstone-dropdown_container from "../Field/FieldSelector/FieldSelector.module.scss";
 
     position: relative;

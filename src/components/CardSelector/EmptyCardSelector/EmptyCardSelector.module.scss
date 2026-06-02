@@ -1,9 +1,6 @@
-@use '../../utils/reset' as *;
 @use '../CardSelector.module.scss' as *;
 
 .moonstone-emptyCardSelector {
-    @include reset;
-
     gap: var(--moon-spacing-nano);
     width: 100%;
     height: $cardSelector-height;

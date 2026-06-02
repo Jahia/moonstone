@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import {Typography} from '~/components';
 import type {EmptyDataProps} from './EmptyData.types';
-import {layout} from '~/globals/css-utils.js';
+import {layout, reset} from '~/globals/css-utils.js';
 import styles from './EmptyData.module.scss';
 
 export const EmptyData = React.forwardRef<HTMLElement, EmptyDataProps>(
@@ -12,6 +12,7 @@ export const EmptyData = React.forwardRef<HTMLElement, EmptyDataProps>(
             <Component
                 ref={ref}
                 className={clsx(
+                    reset,
                     ['moonstone-emptyData', styles['moonstone-emptyData']],
                     ['flexCol_center', layout.flexCol_center],
                     ['alignCenter', layout.alignCenter],

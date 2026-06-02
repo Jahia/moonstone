@@ -1,5 +1,3 @@
-@use '../../utils/reset' as *;
-
 .moonstone-switch_icon {
     position: absolute;
 
@@ -15,8 +13,6 @@
 }
 
 .moonstone-switch {
-    @include reset;
-
     --switch-input_bg: var(--moon-color-gray_light);
     --switch-icon_bg: var(--moon-color-gray);
 

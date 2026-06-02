@@ -1,8 +1,4 @@
-@use '../../utils' as *;
-
 .moonstone-layoutContent_wrapper {
-    @include reset;
-
     overflow: hidden;
 }
 

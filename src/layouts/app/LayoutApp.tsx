@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import type {LayoutAppProps} from './LayoutApp.types';
 import {Loader} from '~/components';
-import {layout} from '~/globals/css-utils.js';
+import {layout, reset} from '~/globals/css-utils.js';
 import styles from './LayoutApp.module.scss';
 
 export const LayoutApp = React.forwardRef(({
@@ -11,6 +11,7 @@ export const LayoutApp = React.forwardRef(({
     isLoading = false
 }: LayoutAppProps, ref: React.ForwardedRef<HTMLDivElement>) => {
     const classNameProps = clsx(
+        reset,
         'moonstone-layoutApp_content',
         ['flexFluid', layout.flexFluid],
         isLoading ? ['flexCol_center', layout.flexCol_center, 'alignCenter', layout.alignCenter] : ['flexRow_nowrap', layout.flexRow_nowrap]

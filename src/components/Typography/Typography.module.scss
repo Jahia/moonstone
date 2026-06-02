@@ -1,8 +1,6 @@
-@use '../../utils' as *;
+@use '../../utils/index';
 
 .moonstone-typography {
-    @include reset;
-
     &.moonstone-variant_title {
         @extend %variant-title;
     }

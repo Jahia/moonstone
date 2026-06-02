@@ -1,10 +1,7 @@
 @use "../../tokens/spacings/spacings" as *;
 @use "../../utils/mixins" as *;
-@use '../../utils/reset' as *;
 
 .moonstone-collapsible {
-    @include reset;
-
     position: relative;
 
     & + .moonstone-collapsible {

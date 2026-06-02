@@ -1,10 +1,8 @@
-@use '../../utils/index' as *;
+@use '../../utils';
 
 $minHeight-size: 50px;
 
 .moonstone-textarea {
-    @include reset;
-
     display: block;
     width: 100%; // CSS trick to force element to shrink
     min-height: $minHeight-size;

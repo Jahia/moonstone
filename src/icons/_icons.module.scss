@@ -1,8 +1,4 @@
-@use '../../utils/reset' as *;
-
 .moonstone-icon {
-    @include reset;
-
     composes: moonstone-icon from "../components/Chip/Chip.module.scss";
 
     flex-shrink: 0;
