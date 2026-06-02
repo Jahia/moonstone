@@ -13,6 +13,7 @@ export * from './Checkbox';
 export * from './CheckboxGroup';
 export * from './Chip';
 export * from './Collapsible';
+export * from './Drawer';
 export * from './Dropdown';
 export * from './Dropdown/CustomDropdown';
 export * from './EmptyData';
