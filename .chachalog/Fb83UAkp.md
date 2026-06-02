@@ -3,4 +3,4 @@
 "@jahia/moonstone": minor
 ---
 
-Add new drawer component (#1370)
+Add new drawer component (Beta) (#1370)
