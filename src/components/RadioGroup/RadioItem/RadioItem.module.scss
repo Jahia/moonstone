@@ -17,9 +17,11 @@ $radio-sizeDefault: 16px;
     pointer-events: none;
 }
 
-.moonstone-radio-label {
-    margin-left: var(--moon-spacing-small);
+.radioItem_wrapper {
+    gap: var(--moon-spacing-small);
+}
 
+.moonstone-radio-label {
     color: var(--moon-color-gray_dark);
 }
 

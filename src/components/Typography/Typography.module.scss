@@ -1,6 +1,6 @@
 @use '../../utils/index';
 
-.moonstone-typography {
+.moonstone-typography:not(td, th) {
     margin: 0;
     padding: 0;
 
