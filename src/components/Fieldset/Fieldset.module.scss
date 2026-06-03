@@ -7,19 +7,20 @@
     border: none; // Reset default fieldset styles
     border-left: 3px solid transparent;
 
+    .moonstone-fieldset_helper {
+        margin-top: 2px;
+        padding-right: calc(var(--moon-spacing-large) + var(--moon-spacing-nano));
+
+        opacity: 0.8;
+    }
+
+    .moonstone-fieldset_children {
+        gap: var(--moon-spacing-large);
+        margin-top: var(--moon-spacing-small);
+    }
+
     & legend {
         width: 100%;
+        padding: 0;
     }
-}
-
-.moonstone-fieldset_helper {
-    margin-top: 2px;
-    padding-right: calc(var(--moon-spacing-large) + var(--moon-spacing-nano));
-
-    opacity: 0.8;
-}
-
-.moonstone-fieldset_children {
-    gap: var(--moon-spacing-large);
-    margin-top: var(--moon-spacing-small);
 }

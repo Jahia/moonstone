@@ -1,8 +1,10 @@
 @use '../../utils/index';
 
-.moonstone-typography:not(td, th) {
-    margin: 0;
-    padding: 0;
+.moonstone-typography {
+    &:not(td, th) {
+        margin: 0;
+        padding: 0;
+    }
 
     &.moonstone-variant_title {
         @extend %variant-title;

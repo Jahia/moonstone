@@ -20,6 +20,8 @@ export const Default: Story = {render: () => (
     <ul
     style={{
       display: 'flex',
+      padding: 0,
+      margin: 0,
       flexDirection: 'column',
       backgroundColor: '#131c21',
       width: '18.75rem',

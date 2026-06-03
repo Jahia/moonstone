@@ -35,7 +35,7 @@ const ItemContainer : React.FC<ItemContainerProps> = ({title, direction, justify
 
     return (
         <section style={{marginBottom: '48px'}}>
-            <h2 className={clsx('flexRow', layout.flexRow, 'alignCenter', layout.alignCenter)} style={{marginBottom: '24px', fontWeight: 'normal'}}>
+            <h2 className={clsx('flexRow', layout.flexRow, 'alignCenter', layout.alignCenter)} style={{fontSize: '100%', marginBottom: '24px', fontWeight: 'normal'}}>
                 {title}:
                 <code
           style={{
