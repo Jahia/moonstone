@@ -1,7 +1,9 @@
 @use '../../../utils/index.scss';
 
-.moonstone-tableBodyCell {
+.moonstone-tableBodyCell.moonstone-tableBodyCell {
     overflow-y: auto;
+
+    padding: 0;
 
     //noinspection CssUnknownProperty
     scrollbar-width: thin;
@@ -41,4 +43,8 @@
 
 .moonstone-verticalAlignBottom {
     vertical-align: bottom;
+}
+
+.tableHeadCell.tableHeadCell {
+    padding: 0;
 }
