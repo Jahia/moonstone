@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 import toPX from 'to-px';
 
 type Position = {
@@ -279,13 +279,21 @@ export const usePositioning = (
     const [stylePosition, setStylePosition] = useState<React.CSSProperties>(initialPosition as React.CSSProperties);
     const itemRef = useRef(null);
 
+    const computePosition = useCallback(() => {
+        if (!itemRef.current) {
+            return;
+        }
+
+        const resolvedAnchorEl = (anchorEl && anchorEl.current ? anchorEl.current : anchorEl) as HTMLDivElement;
+        const _stylePosition = (position === 'absolute' || hasTransform(resolvedAnchorEl)) ?
+            getAbsolutePosition(itemRef, anchorElOrigin, transformElOrigin, anchorPosition) :
+            getFixedPosition(itemRef, anchorEl, anchorElOrigin, transformElOrigin, anchorPosition);
+        setStylePosition(_stylePosition);
+    }, [anchorEl, anchorPosition, anchorElOrigin, transformElOrigin, position]);
+
     useEffect(() => {
         if (isDisplayed) {
-            const resolvedAnchorEl = (anchorEl && anchorEl.current ? anchorEl.current : anchorEl) as HTMLDivElement;
-            const _stylePosition = (position === 'absolute' || hasTransform(resolvedAnchorEl)) ?
-                getAbsolutePosition(itemRef, anchorElOrigin, transformElOrigin, anchorPosition) :
-                getFixedPosition(itemRef, anchorEl, anchorElOrigin, transformElOrigin, anchorPosition);
-            setStylePosition(_stylePosition);
+            computePosition();
         } else {
             setStylePosition(initialPosition);
         }
@@ -295,11 +303,24 @@ export const usePositioning = (
         anchorElOrigin.vertical,
         anchorElOrigin.horizontal,
         isDisplayed,
-        itemRef,
         anchorElOrigin,
         transformElOrigin,
-        position
+        position,
+        computePosition
     ]);
+
+    // Reposition when the menu resizes (e.g. loading items resolve and some become invisible)
+    useEffect(() => {
+        if (!isDisplayed || !itemRef.current) {
+            return;
+        }
+
+        const observer = new ResizeObserver(() => {
+            computePosition();
+        });
+        observer.observe(itemRef.current);
+        return () => observer.disconnect();
+    }, [isDisplayed, computePosition]);
 
     return [stylePosition, itemRef];
 };
