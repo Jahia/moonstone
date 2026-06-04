@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, act, waitFor} from '@testing-library/react';
+import {render, act} from '@testing-library/react';
 import {usePositioning} from './usePositioning';
 
 const defaultAnchorElOrigin = {horizontal: 'left' as const, vertical: 'bottom' as const};
@@ -7,8 +7,8 @@ const defaultTransformElOrigin = {horizontal: 'left' as const, vertical: 'top' a
 const defaultAnchorPosition = {top: 0, left: 0};
 
 type TestComponentProps = {
-    isDisplayed: boolean;
-    anchorEl: React.RefObject<HTMLElement>;
+    readonly isDisplayed: boolean;
+    readonly anchorEl: React.RefObject<HTMLElement>;
 };
 
 const TestComponent = ({isDisplayed, anchorEl}: TestComponentProps) => {
@@ -33,7 +33,7 @@ describe('usePositioning - ResizeObserver', () => {
         disconnectMock = vi.fn();
         capturedResizeCallback = null;
 
-        // vi.fn().mockImplementation produces an arrow function which can't be used with `new`.
+        // Vi.fn().mockImplementation produces an arrow function which can't be used with `new`.
         // Use a class that closes over the mocks instead.
         class ResizeObserverMock {
             constructor(cb: ResizeObserverCallback) {
@@ -45,7 +45,7 @@ describe('usePositioning - ResizeObserver', () => {
             unobserve = vi.fn();
         }
 
-        global.ResizeObserver = ResizeObserverMock as unknown as typeof ResizeObserver;
+        window.ResizeObserver = ResizeObserverMock as unknown as typeof ResizeObserver;
     });
 
     afterEach(() => {
@@ -100,7 +100,7 @@ describe('usePositioning - ResizeObserver', () => {
 
         render(<TestComponent isDisplayed anchorEl={anchorEl}/>);
 
-        // computePosition ran once on mount
+        // ComputePosition ran once on mount
         const callsAfterMount = getBoundingClientRectMock.mock.calls.length;
         expect(callsAfterMount).toBeGreaterThan(0);
 
@@ -122,7 +122,7 @@ describe('usePositioning - ResizeObserver', () => {
 
         render(<TestComponent isDisplayed={false} anchorEl={anchorEl}/>);
 
-        // computePosition should not run when not displayed — menu stays off-screen
+        // ComputePosition should not run when not displayed — menu stays off-screen
         expect(getBoundingClientRectMock).not.toHaveBeenCalled();
     });
 });
