@@ -27,7 +27,7 @@ export const RadioItem: React.FC<RadioItemProps> = ({className, id, value, label
             weight="default"
             component="label"
         >
-            <div className={clsx('flexRow', layout.flexRow, 'alignCenter', layout.alignCenter, styles['radioItem_wrapper'])}>
+            <div className={clsx('flexRow', layout.flexRow, 'alignCenter', layout.alignCenter, styles.radioItem_wrapper)}>
                 <div className={clsx('moonstone-radio', styles['moonstone-radio'])}>
                     <input
                         {...props}
