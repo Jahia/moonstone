@@ -20,7 +20,7 @@ export default {
 
 export const Default: StoryObj<ListItemProps> = {
     render: args => (
-        <ul style={{ padding: 0, margin: 0 }}>
+        <ul style={{padding: 0, margin: 0}}>
             <ListItem {...args}/>
         </ul>
     ),
@@ -32,7 +32,7 @@ export const Default: StoryObj<ListItemProps> = {
 
 export const IconText: StoryObj<ListItemProps> = {
     render: args => (
-        <ul style={{ padding: 0, margin: 0 }}>
+        <ul style={{padding: 0, margin: 0}}>
             <ListItem {...args}/>
         </ul>
     ),
@@ -47,7 +47,7 @@ export const IconText: StoryObj<ListItemProps> = {
 
 export const IconTextIcon: StoryObj<ListItemProps> = {
     render: args => (
-        <ul style={{ padding: 0 }}>
+        <ul style={{padding: 0}}>
             <ListItem {...args}/>
         </ul>
     ),
@@ -63,7 +63,7 @@ export const IconTextIcon: StoryObj<ListItemProps> = {
 
 export const WithBigImage: StoryObj<ListItemProps> = {
     render: args => (
-        <ul style={{ padding: 0 }}>
+        <ul style={{padding: 0}}>
             <ListItem
                 image={<img src={imgVertical} alt="vertical big image"/>}
                 {...args}
@@ -87,7 +87,7 @@ export const WithBigImage: StoryObj<ListItemProps> = {
 
 export const WithSmallImage: StoryObj<ListItemProps> = {
     render: args => (
-        <ul style={{ padding: 0 }}>
+        <ul style={{padding: 0}}>
             <ListItem
                 image={<img src={imgVertical} alt="vertical small image"/>}
                 {...args}
