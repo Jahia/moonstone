@@ -6,17 +6,15 @@
 
 * Add new drawer component (Beta) (#1370)
 
-* Add new drawer component (#1370)
-
 ### Bug Fixes
 
 * Fix context menu repositioning on resize (#1376)
 
-* Fix styling issue with ghost button and disabled dropdown (#1361)
+* Fix styling issues due to CSS specificity (#1361)
 
-* Update @floating-ui/react from 0.27.16 to 0.27.19  (#1360)
+* Update @floating-ui/react from 0.27.16 to 0.27.19 (#1360)
 
-* Prevent always displaying the warning about OnKeyPress  (#1373)
+* Prevent always displaying the warning about OnKeyPress (#1373)
 
 ## 2.19.0
 
