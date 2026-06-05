@@ -1,0 +1,1 @@
+import{t as e}from"./chunk-DnJy8xQt.js";import{t}from"./react-dom-D8XL_pdf.js";var n=e((e=>{var n=t();e.createRoot=n.createRoot,e.hydrateRoot=n.hydrateRoot}));export{n as t};
