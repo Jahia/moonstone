@@ -5,7 +5,7 @@ import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
 import type {PaginationProps} from './Pagination.types';
 import {Button, Dropdown, Typography} from '~/components';
 import {ChevronFirstPage, ChevronLastPage, ChevronLeft, ChevronRight} from '~/icons';
-import {layout, reset} from '~/globals/css-utils.js';
+import {layout} from '~/globals/css-utils.js';
 import styles from './Pagination.module.scss';
 
 export const Pagination: React.FC<PaginationProps> = ({
@@ -42,7 +42,6 @@ export const Pagination: React.FC<PaginationProps> = ({
     return (
         <div
             className={clsx(
-                reset,
                 ['moonstone-pagination', styles['moonstone-pagination']],
                 ['flexRow', layout.flexRow],
                 ['alignCenter', layout.alignCenter],
