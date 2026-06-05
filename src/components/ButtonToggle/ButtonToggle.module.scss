@@ -9,25 +9,24 @@
     &:disabled {
         box-shadow: var(--shadow);
     }
-}
 
-// Sorry about this uggly selector, but it's needed to override the defaut button styles.
-.moonstone-buttonToggle.moonstone-buttonToggle.moonstone-buttonToggle_pressed {
-    --shadow: inset 0 1px 2px var(--moon-color-accent_dark20);
+    &.moonstone-buttonToggle_pressed {
+        --shadow: inset 0 1px 2px var(--moon-color-accent_dark20);
 
-    color: var(--moon-color-accent_dark);
+        color: var(--moon-color-accent_dark);
 
-    background-color: var(--moon-color-accent_light_plain20);
+        background-color: var(--moon-color-accent_light_plain20);
 
-    &:active:not(.moonstone-button_loading, [disabled]) {
-        color: var(--moon-color-accent_dark_contrast);
+        &:active:not(.moonstone-button_loading, [disabled]) {
+            color: var(--moon-color-accent_dark_contrast);
 
-        background-color: var(--moon-color-accent_light_plain60);
-    }
+            background-color: var(--moon-color-accent_light_plain60);
+        }
 
-    &:hover:not(.moonstone-button_loading, [disabled]) {
-        color: var(--moon-color-accent_dark_contrast);
+        &:hover:not(.moonstone-button_loading, [disabled]) {
+            color: var(--moon-color-accent_dark_contrast);
 
-        background-color: var(--moon-color-accent_light_plain40);
+            background-color: var(--moon-color-accent_light_plain40);
+        }
     }
 }

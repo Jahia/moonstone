@@ -1,5 +1,6 @@
 @use '../../../utils/index.scss';
 
+// We have to double the selector for specificy issue with Typography
 .moonstone-tableBodyCell.moonstone-tableBodyCell {
     overflow-y: auto;
 
