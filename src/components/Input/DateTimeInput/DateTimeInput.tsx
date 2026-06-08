@@ -130,7 +130,6 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
             <BaseInput
                 ref={handleRef}
                 {...props}
-                readOnly
                 className={styles.dateField}
                 value={formatDateDisplayValue(currentValue.date, locale)}
                 size={size}
