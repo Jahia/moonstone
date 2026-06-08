@@ -94,9 +94,8 @@ const getTimezoneCityLabel = (timezone: string) => {
     return (parts[parts.length - 1] || timezone).replace(/_/g, ' ');
 };
 
-const formatTimezoneOffsetLabel = (timezone: string, referenceDate: Date) => {
-    const zdt = Temporal.Instant.fromEpochMilliseconds(referenceDate.getTime())
-        .toZonedDateTimeISO(timezone);
+const formatTimezoneOffsetLabel = (timezone: string, referenceDate: Temporal.PlainDate) => {
+    const zdt = referenceDate.toZonedDateTime({timeZone: timezone, plainTime: new Temporal.PlainTime(12)});
     return `UTC ${zdt.offset}`;
 };
 
@@ -110,7 +109,7 @@ const compareRegions = (left: string, right: string) => {
     return diff === 0 ? left.localeCompare(right) : diff;
 };
 
-const getTimezoneOption = (timezone: string, referenceDate: Date): DropdownDataOption => {
+const getTimezoneOption = (timezone: string, referenceDate: Temporal.PlainDate): DropdownDataOption => {
     const offsetLabel = formatTimezoneOffsetLabel(timezone, referenceDate);
 
     return {
@@ -135,7 +134,7 @@ export const getDefaultTimezones = () => {
     return defaultTimezonesCache;
 };
 
-export const getTimezoneDisplayLabel = (timezone?: string | null, referenceDate?: Date | null) => {
+export const getTimezoneDisplayLabel = (timezone?: string | null, referenceDate?: Temporal.PlainDate | null) => {
     if (!timezone) {
         return '';
     }
@@ -144,15 +143,15 @@ export const getTimezoneDisplayLabel = (timezone?: string | null, referenceDate?
         return timezone;
     }
 
-    return getTimezoneOption(timezone, referenceDate ?? new Date()).label;
+    return getTimezoneOption(timezone, referenceDate ?? Temporal.Now.plainDateISO()).label;
 };
 
 export const getTimezoneDropdownData = (
     selectedTimezone?: string | null,
-    referenceDate?: Date | null
+    referenceDate?: Temporal.PlainDate | null
 ): DropdownDataGrouped[] => {
-    const resolvedReferenceDate = referenceDate ?? new Date();
-    const cacheKey = `${selectedTimezone ?? ''}|${resolvedReferenceDate.toISOString().slice(0, 10)}`;
+    const resolvedReferenceDate = referenceDate ?? Temporal.Now.plainDateISO();
+    const cacheKey = `${selectedTimezone ?? ''}|${resolvedReferenceDate.toString()}`;
     const cachedDropdownData = timezoneDropdownDataCache.get(cacheKey);
 
     if (cachedDropdownData) {

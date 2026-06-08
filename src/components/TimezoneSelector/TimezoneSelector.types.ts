@@ -1,4 +1,5 @@
 import React from 'react';
+import type {Temporal} from 'temporal-polyfill';
 import type {DropdownProps} from '~/components/Dropdown/Dropdown.types';
 
 type BaseTimezoneSelectorProps = Omit<DropdownProps,
@@ -10,7 +11,7 @@ type BaseTimezoneSelectorProps = Omit<DropdownProps,
     'icon'
 > & {
     /** Reference date used to compute UTC offsets in the timezone list. Defaults to today when omitted. */
-    referenceDate?: Date | null;
+    referenceDate?: Temporal.PlainDate | null;
 }
 
 export type ControlledTimezoneSelectorProps = BaseTimezoneSelectorProps & {

@@ -15,7 +15,6 @@ import {
     formatTimeString,
     fromCalendarDate,
     getCalendarDisabledMatchers,
-    getTimezoneReferenceDate,
     toCalendarDate,
     type DateTimeInputValue
 } from '../shared';
@@ -256,7 +255,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                     variant={variant ?? 'outlined'}
                     isDisabled={isDisabled}
                     value={currentValue.timezone ?? null}
-                    referenceDate={getTimezoneReferenceDate(selectedDay) ?? undefined}
+                    referenceDate={selectedDay ?? undefined}
                     onChange={(event, timezoneValue) => {
                         emitChange(event, {...currentValue, timezone: timezoneValue});
                     }}

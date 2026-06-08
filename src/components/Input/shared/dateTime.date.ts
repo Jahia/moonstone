@@ -70,19 +70,3 @@ export const getCalendarDisabledMatchers = (
 
     return matchers;
 };
-
-/**
- * Builds a UTC noon `Date` from a selected calendar date, used as the reference
- * point for computing timezone offsets in the timezone selector.
- *
- * `TimezoneSelector.referenceDate` is part of that component's public `Date` API,
- * so this stays a `Date`. Using noon UTC avoids DST edge cases where midnight local
- * time could land on the previous or next calendar day depending on the timezone.
- */
-export const getTimezoneReferenceDate = (date?: Temporal.PlainDate | null) => {
-    if (!date) {
-        return null;
-    }
-
-    return new Date(Date.UTC(date.year, date.month - 1, date.day, 12, 0, 0, 0));
-};
