@@ -42,7 +42,7 @@ export type DateTimeInputI18n = {
     previousMonth?: string;
 };
 
-export type DateTimeInputTimeInputProps = Omit<TimeInputProps,
+export type DateTimeInputTimeProps = Omit<TimeInputProps,
     'defaultValue' |
     'onChange' |
     'timeFormat' |
@@ -128,7 +128,7 @@ type DateTimeInputSharedProps = Omit<BaseInputProps,
     i18n?: DateTimeInputI18n;
 
     /** Additional props forwarded to the internal TimeInput when `type='datetime'`. */
-    timeInputProps?: DateTimeInputTimeInputProps;
+    timeInputProps?: DateTimeInputTimeProps;
 
     /** Additional props forwarded to the internal TimezoneSelector when timezone selection is enabled. */
     timezoneSelectorProps?: DateTimeInputTimezoneSelectorProps;
