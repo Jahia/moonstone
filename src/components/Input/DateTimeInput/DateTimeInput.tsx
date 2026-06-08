@@ -1,5 +1,6 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import clsx from 'clsx';
+import {Temporal} from 'temporal-polyfill';
 import {dateMatchModifiers, DayPicker} from 'react-day-picker';
 import dayPickerClassNames from 'react-day-picker/style.module.css';
 import {Button, Dropdown, Menu} from '~/components';
@@ -12,10 +13,10 @@ import {TimeInput} from '../TimeInput';
 import {
     formatDateDisplayValue,
     formatTimeString,
-    getCurrentDate,
+    fromCalendarDate,
     getCalendarDisabledMatchers,
-    getNormalizedDate,
     getTimezoneReferenceDate,
+    toCalendarDate,
     type DateTimeInputValue
 } from '../shared';
 import styles from './DateTimeInput.module.scss';
@@ -25,7 +26,7 @@ const normalizeDateTimeValue = (
     type: DateTimeInputProps['type'],
     hasTimezone?: boolean
 ) => {
-    const date = value.date instanceof Date && !isNaN(value.date.getTime()) ? value.date : null;
+    const date = value.date instanceof Temporal.PlainDateTime ? value.date : null;
 
     return {
         date,
@@ -33,11 +34,10 @@ const normalizeDateTimeValue = (
     } as DateTimeInputValue;
 };
 
-const getCalendarDisplayMonth = (value?: Date | null) => {
-    const monthDate = getNormalizedDate(value) ?? getCurrentDate();
-
-    return new Date(monthDate.getFullYear(), monthDate.getMonth(), 1, 12);
-};
+// DayPicker drives its month navigation with a native `Date`; we build it
+// from the selected day (or today) pinned to the first of the month.
+const getCalendarDisplayMonth = (value?: Temporal.PlainDate | null) =>
+    toCalendarDate((value ?? Temporal.Now.plainDateISO()).with({day: 1}));
 
 export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputProps>(({
     defaultValue,
@@ -68,10 +68,12 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
     const [internalValue, setInternalValue] = useState<DateTimeInputValue>(defaultValue ?? {date: null, timezone: null});
     const currentValue = normalizeDateTimeValue(internalValue, type, hasTimezone);
     const selectedDate = currentValue.date;
-    const calendarDate = selectedDate ? getNormalizedDate(selectedDate) ?? undefined : undefined;
+    const selectedDay = selectedDate?.toPlainDate() ?? null;
+    const selectedDayKey = selectedDay?.toString() ?? null;
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-    const [displayedMonth, setDisplayedMonth] = useState(calendarDate || new Date());
-    const lastSelectedDateTimestampRef = useRef(calendarDate?.getTime() ?? null);
+    // DayPicker owns its month navigation as a native `Date`.
+    const [displayedMonth, setDisplayedMonth] = useState(() => getCalendarDisplayMonth(selectedDay));
+    const lastSelectedDayKeyRef = useRef(selectedDayKey);
     const inputRef = useRef<HTMLInputElement>(null);
     const handleRef = useCallback((node: HTMLInputElement | null) => {
         (inputRef as React.MutableRefObject<HTMLInputElement | null>).current = node;
@@ -81,22 +83,22 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
             (ref as React.MutableRefObject<HTMLInputElement | null>).current = node;
         }
     }, [ref]);
-    const todayDate = getCurrentDate();
-    const timezoneReferenceDate = getTimezoneReferenceDate(selectedDate) ?? undefined;
+    const timezoneReferenceDate = getTimezoneReferenceDate(selectedDay) ?? undefined;
     const calendarDisabledMatchers = getCalendarDisabledMatchers(minDate, maxDate, disabledDates, disabledDateRanges);
+    // DayPicker's `selected`, `month`, bounds and matchers are all native `Date`.
+    const calendarDate = selectedDay ? toCalendarDate(selectedDay) : undefined;
+    const todayDate = toCalendarDate(Temporal.Now.plainDateISO());
     const isTodayDisabled = isDisabled || isReadOnly || dateMatchModifiers(todayDate, calendarDisabledMatchers);
-    const startMonth = minDate ? new Date(minDate.getFullYear(), minDate.getMonth(), 1) : new Date(displayedMonth.getFullYear() - 20, 0, 1);
-    const endMonth = maxDate ? new Date(maxDate.getFullYear(), maxDate.getMonth(), 1) : new Date(displayedMonth.getFullYear() + 20, 11, 1);
+    const startMonth = minDate ? toCalendarDate(minDate.with({day: 1})) : new Date(displayedMonth.getFullYear() - 20, 0, 1);
+    const endMonth = maxDate ? toCalendarDate(maxDate.with({day: 1})) : new Date(displayedMonth.getFullYear() + 20, 11, 1);
     const hasMultipleYears = startMonth.getFullYear() !== endMonth.getFullYear();
 
     useEffect(() => {
-        const calendarDateTimestamp = calendarDate?.getTime() ?? null;
-
-        if (calendarDate && calendarDateTimestamp !== lastSelectedDateTimestampRef.current) {
-            lastSelectedDateTimestampRef.current = calendarDateTimestamp;
-            setDisplayedMonth(calendarDate);
+        if (selectedDayKey && selectedDayKey !== lastSelectedDayKeyRef.current) {
+            lastSelectedDayKeyRef.current = selectedDayKey;
+            setDisplayedMonth(getCalendarDisplayMonth(Temporal.PlainDate.from(selectedDayKey)));
         }
-    }, [calendarDate]);
+    }, [selectedDayKey]);
 
     const handleMonthChange = (month: Date) => {
         if (
@@ -116,14 +118,13 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
 
     const openCalendar = () => {
         if (!isDisabled && !isReadOnly) {
-            setDisplayedMonth(getCalendarDisplayMonth(selectedDate));
+            setDisplayedMonth(getCalendarDisplayMonth(selectedDay));
             setIsCalendarOpen(true);
         }
     };
 
-    const withSelectedTime = (day: Date) => new Date(
-        day.getFullYear(), day.getMonth(), day.getDate(), selectedDate?.getHours() ?? 0, selectedDate?.getMinutes() ?? 0
-    );
+    // Combines a picked calendar day with the currently selected time (midnight when none).
+    const withSelectedTime = (day: Temporal.PlainDate) => day.toPlainDateTime(selectedDate?.toPlainTime());
 
     return (
         <div className={clsx(styles.dateTimeInput, className)}>
@@ -131,7 +132,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                 ref={handleRef}
                 {...props}
                 className={styles.dateField}
-                value={formatDateDisplayValue(currentValue.date, locale)}
+                value={formatDateDisplayValue(selectedDay, locale)}
                 size={size}
                 variant={variant}
                 isDisabled={isDisabled}
@@ -202,7 +203,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                                 label={todayButton}
                                 onClick={event => {
                                     if (!isTodayDisabled) {
-                                        emitChange(event, {...currentValue, date: withSelectedTime(todayDate)});
+                                        emitChange(event, {...currentValue, date: withSelectedTime(Temporal.Now.plainDateISO())});
                                         setIsCalendarOpen(false);
                                     }
                                 }}
@@ -214,8 +215,9 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                                 return;
                             }
 
-                            const nextDay = getNormalizedDate(date);
-                            emitChange(event, {...currentValue, date: nextDay ? withSelectedTime(nextDay) : null});
+                            // `date` comes back from DayPicker as a native `Date`.
+                            const nextDay = date ? withSelectedTime(fromCalendarDate(date)) : null;
+                            emitChange(event, {...currentValue, date: nextDay});
                             setIsCalendarOpen(false);
                         }}
                     />
@@ -233,17 +235,15 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                     defaultValue={selectedDate ? formatTimeString(selectedDate) : null}
                     onChange={(event, timeValue) => {
                         if (!timeValue) {
-                            if (selectedDate) {
-                                emitChange(event, {...currentValue, date: getNormalizedDate(selectedDate)});
+                            if (selectedDay) {
+                                emitChange(event, {...currentValue, date: selectedDay.toPlainDateTime()});
                             }
 
                             return;
                         }
 
-                        const base = selectedDate ?? getCurrentDate();
-                        const [hours, minutes] = timeValue.split(':').map(Number);
-                        const nextDate = new Date(base.getFullYear(), base.getMonth(), base.getDate(), hours, minutes);
-                        emitChange(event, {...currentValue, date: nextDate});
+                        const day = selectedDay ?? Temporal.Now.plainDateISO();
+                        emitChange(event, {...currentValue, date: day.toPlainDateTime(Temporal.PlainTime.from(timeValue))});
                     }}
                 />
             )}

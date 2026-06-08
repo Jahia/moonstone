@@ -1,12 +1,18 @@
 import {fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import {Temporal} from 'temporal-polyfill';
 import {DateTimeInput} from './index';
-import {formatDateDisplayValue, getCurrentDate} from '../shared';
+import {formatDateDisplayValue, type DateTimeInputValue} from '../shared';
 
 const nextMonthLabel = 'Next month';
 const previousMonthLabel = 'Previous month';
 const march2026 = 'March 2026';
 const april2026 = 'April 2026';
+
+// Temporal values expose their fields through getters, not enumerable own properties,
+// so `toEqual`/`objectContaining` cannot compare them; assert on the canonical string instead.
+const emittedDate = (mock: ReturnType<typeof vi.fn>) =>
+    (mock.mock.lastCall?.[1] as DateTimeInputValue | undefined)?.date ?? null;
 
 describe('DateTimeInput', () => {
     it('should open the calendar and select today', async () => {
@@ -25,23 +31,19 @@ describe('DateTimeInput', () => {
         await user.click(screen.getByPlaceholderText('Select a date'));
         await user.click(screen.getByText('Today'));
 
-        const expectedDate = getCurrentDate();
-        expect(handleChange).toHaveBeenLastCalledWith(
-            expect.any(Object),
-            expect.objectContaining({date: expectedDate})
-        );
+        expect(emittedDate(handleChange)?.toString())
+            .toBe(Temporal.Now.plainDateISO().toPlainDateTime().toString());
     });
 
     it('should disable the today shortcut when today is configured as unavailable', async () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
-        const today = new Date();
 
         render(
             <DateTimeInput
                 type="date"
                 placeholder="Select a date"
-                disabledDates={[today]}
+                disabledDates={[Temporal.Now.plainDateISO()]}
                 onChange={handleChange}
             />
         );
@@ -117,10 +119,8 @@ describe('DateTimeInput', () => {
         await user.click(screen.getByPlaceholderText('Select a date'));
         await user.click(screen.getByText('Today'));
 
-        expect(handleChange).toHaveBeenLastCalledWith(
-            expect.any(Object),
-            expect.objectContaining({date: getCurrentDate()})
-        );
+        expect(emittedDate(handleChange)?.toString())
+            .toBe(Temporal.Now.plainDateISO().toPlainDateTime().toString());
     });
 
     it('should render the 24h datetime layout and trigger timezone changes', async () => {
@@ -131,12 +131,12 @@ describe('DateTimeInput', () => {
             <DateTimeInput
                 hasTimezone
                 type="datetime"
-                defaultValue={{date: new Date(2026, 1, 10, 11, 56), timezone: 'Europe/Paris'}}
+                defaultValue={{date: Temporal.PlainDateTime.from('2026-02-10T11:56'), timezone: 'Europe/Paris'}}
                 onChange={handleChange}
             />
         );
 
-        expect(screen.getByDisplayValue(formatDateDisplayValue(new Date(2026, 1, 10)))).toBeInTheDocument();
+        expect(screen.getByDisplayValue(formatDateDisplayValue(Temporal.PlainDate.from('2026-02-10')))).toBeInTheDocument();
         expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
         expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
 
@@ -157,17 +157,14 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 type="datetime"
-                defaultValue={{date: new Date(2026, 1, 10, 11, 56)}}
+                defaultValue={{date: Temporal.PlainDateTime.from('2026-02-10T11:56')}}
                 onChange={handleChange}
             />
         );
 
         await user.clear(screen.getByDisplayValue('11:56'));
 
-        expect(handleChange).toHaveBeenLastCalledWith(
-            expect.any(Object),
-            expect.objectContaining({date: new Date(2026, 1, 10)})
-        );
+        expect(emittedDate(handleChange)?.toString()).toBe('2026-02-10T00:00:00');
     });
 
     it('should keep midnight after clearing the time and selecting another date', async () => {
@@ -177,19 +174,16 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 type="datetime"
-                defaultValue={{date: new Date(2026, 1, 10, 11, 56)}}
+                defaultValue={{date: Temporal.PlainDateTime.from('2026-02-10T11:56')}}
                 onChange={handleChange}
             />
         );
 
         await user.clear(screen.getByDisplayValue('11:56'));
-        await user.click(screen.getByDisplayValue(formatDateDisplayValue(new Date(2026, 1, 10))));
+        await user.click(screen.getByDisplayValue(formatDateDisplayValue(Temporal.PlainDate.from('2026-02-10'))));
         await user.click(screen.getByText('12'));
 
-        expect(handleChange).toHaveBeenLastCalledWith(
-            expect.any(Object),
-            expect.objectContaining({date: new Date(2026, 1, 12)})
-        );
+        expect(emittedDate(handleChange)?.toString()).toBe('2026-02-12T00:00:00');
     });
 
     it('should not emit a change while the time is incomplete', async () => {
@@ -199,7 +193,7 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 type="datetime"
-                defaultValue={{date: new Date(2026, 1, 10, 11, 56)}}
+                defaultValue={{date: Temporal.PlainDateTime.from('2026-02-10T11:56')}}
                 onChange={handleChange}
             />
         );
@@ -219,7 +213,7 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 type="datetime"
-                defaultValue={{date: new Date(2026, 1, 10, 11, 56)}}
+                defaultValue={{date: Temporal.PlainDateTime.from('2026-02-10T11:56')}}
                 onChange={handleChange}
             />
         );
@@ -230,10 +224,8 @@ describe('DateTimeInput', () => {
         await user.type(timeInput, '1425');
 
         expect(handleChange).toHaveBeenCalledTimes(1);
-        expect(handleChange).toHaveBeenLastCalledWith(
-            expect.any(Object),
-            expect.objectContaining({date: new Date(2026, 1, 10, 14, 25)})
-        );
+        expect(emittedDate(handleChange)).toBeInstanceOf(Temporal.PlainDateTime);
+        expect(emittedDate(handleChange)?.toString()).toBe('2026-02-10T14:25:00');
     });
 
     it('should render the 12h datetime layout with meridiem and timezone', () => {
@@ -242,7 +234,7 @@ describe('DateTimeInput', () => {
                 hasTimezone
                 type="datetime"
                 timeFormat="12h"
-                defaultValue={{date: new Date(2026, 1, 10, 23, 56), timezone: 'Europe/Paris'}}
+                defaultValue={{date: Temporal.PlainDateTime.from('2026-02-10T23:56'), timezone: 'Europe/Paris'}}
                 onChange={() => null}
             />
         );
@@ -260,7 +252,7 @@ describe('DateTimeInput', () => {
             <DateTimeInput
                 type="datetime"
                 timeFormat="12h"
-                defaultValue={{date: new Date(2026, 1, 10, 2, 30)}}
+                defaultValue={{date: Temporal.PlainDateTime.from('2026-02-10T02:30')}}
                 onChange={handleChange}
             />
         );
@@ -271,10 +263,7 @@ describe('DateTimeInput', () => {
         const pmOptions = screen.getAllByText('PM');
         await user.click(pmOptions[pmOptions.length - 1]);
 
-        expect(handleChange).toHaveBeenLastCalledWith(
-            expect.any(Object),
-            expect.objectContaining({date: new Date(2026, 1, 10, 14, 30)})
-        );
+        expect(emittedDate(handleChange)?.toString()).toBe('2026-02-10T14:30:00');
     });
 
     it('should disable configured dates in the calendar', async () => {
@@ -283,13 +272,13 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 type="date"
-                defaultValue={{date: new Date(2026, 2, 30)}}
-                disabledDates={[new Date(2026, 2, 30)]}
+                defaultValue={{date: Temporal.PlainDateTime.from('2026-03-30')}}
+                disabledDates={[Temporal.PlainDate.from('2026-03-30')]}
                 onChange={() => null}
             />
         );
 
-        await user.click(screen.getByDisplayValue(formatDateDisplayValue(new Date(2026, 2, 30))));
+        await user.click(screen.getByDisplayValue(formatDateDisplayValue(Temporal.PlainDate.from('2026-03-30'))));
 
         const dayButton = screen.getAllByRole('button').find(button => button.textContent === '30');
         expect(dayButton).toBeDisabled();
@@ -301,14 +290,14 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 type="date"
-                defaultValue={{date: new Date(2026, 2, 30)}}
+                defaultValue={{date: Temporal.PlainDateTime.from('2026-03-30')}}
                 locale="en-US"
                 i18n={{nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
             />
         );
 
-        await user.click(screen.getByDisplayValue(formatDateDisplayValue(new Date(2026, 2, 30), 'en-US')));
+        await user.click(screen.getByDisplayValue(formatDateDisplayValue(Temporal.PlainDate.from('2026-03-30'), 'en-US')));
         await user.click(screen.getByRole('button', {name: nextMonthLabel}));
 
         expect(screen.getByText(april2026)).toBeInTheDocument();
@@ -320,19 +309,19 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 type="date"
-                defaultValue={{date: new Date(2026, 2, 30)}}
+                defaultValue={{date: Temporal.PlainDateTime.from('2026-03-30')}}
                 locale="en-US"
                 i18n={{nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
             />
         );
 
-        await user.click(screen.getByDisplayValue(formatDateDisplayValue(new Date(2026, 2, 30), 'en-US')));
+        await user.click(screen.getByDisplayValue(formatDateDisplayValue(Temporal.PlainDate.from('2026-03-30'), 'en-US')));
         await user.click(screen.getByRole('listbox', {name: '2026'}));
         await user.click(screen.getByRole('option', {name: '2024'}));
 
         expect(screen.getByText('March 2024')).toBeInTheDocument();
-        expect(screen.getByDisplayValue(formatDateDisplayValue(new Date(2026, 2, 30), 'en-US'))).toBeInTheDocument();
+        expect(screen.getByDisplayValue(formatDateDisplayValue(Temporal.PlainDate.from('2026-03-30'), 'en-US'))).toBeInTheDocument();
     });
 
     it('should keep the last visited month when reopening the calendar', async () => {
@@ -340,14 +329,14 @@ describe('DateTimeInput', () => {
         const {container} = render(
             <DateTimeInput
                 type="date"
-                defaultValue={{date: new Date(2026, 2, 30)}}
+                defaultValue={{date: Temporal.PlainDateTime.from('2026-03-30')}}
                 locale="en-US"
                 i18n={{nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
             />
         );
 
-        const input = screen.getByDisplayValue(formatDateDisplayValue(new Date(2026, 2, 30), 'en-US'));
+        const input = screen.getByDisplayValue(formatDateDisplayValue(Temporal.PlainDate.from('2026-03-30'), 'en-US'));
 
         await user.click(input);
         expect(screen.getByText(march2026)).toBeInTheDocument();
@@ -370,7 +359,7 @@ describe('DateTimeInput', () => {
             <DateTimeInput
                 hasTimezone
                 type="datetime"
-                defaultValue={{date: new Date(2026, 2, 15, 11, 56), timezone: 'Europe/Paris'}}
+                defaultValue={{date: Temporal.PlainDateTime.from('2026-03-15T11:56'), timezone: 'Europe/Paris'}}
                 i18n={{nextMonth: nextMonthLabel}}
                 onChange={() => null}
             />
@@ -378,18 +367,19 @@ describe('DateTimeInput', () => {
 
         expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
 
-        await user.click(screen.getByDisplayValue(formatDateDisplayValue(new Date(2026, 2, 15))));
+        await user.click(screen.getByDisplayValue(formatDateDisplayValue(Temporal.PlainDate.from('2026-03-15'))));
         await user.click(screen.getByRole('button', {name: nextMonthLabel}));
         await user.click(screen.getByText('15'));
 
         expect(screen.getByRole('listbox', {name: 'Paris (UTC +02:00)'})).toBeInTheDocument();
     });
 
-    it('should not display an invalid date', () => {
+    it('should ignore a date value that is not a Temporal.PlainDateTime', () => {
         render(
             <DateTimeInput
                 type="date"
-                defaultValue={{date: new Date(Number.NaN)}}
+                // A JS Date is not a Temporal.PlainDateTime: the runtime guard must reject it.
+                defaultValue={{date: new Date(2026, 1, 10) as unknown as Temporal.PlainDateTime}}
                 placeholder="Select a date"
                 onChange={() => null}
             />

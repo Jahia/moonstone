@@ -2,48 +2,36 @@ import {Temporal} from 'temporal-polyfill';
 import type {Matcher} from 'react-day-picker';
 import type {DisabledDateRange} from './dateTime.types';
 
-const isValidDate = (value?: Date | null): value is Date => Boolean(value) && !Number.isNaN(value?.getTime());
+/**
+ * Converts a `Temporal.PlainDate` into a native `Date` (local midnight).
+ * react-day-picker only accepts native `Date`, so this is the single boundary
+ * where we hand calendar days over to the library.
+ */
+export const toCalendarDate = (date: Temporal.PlainDate) =>
+    new Date(date.year, date.month - 1, date.day);
 
-export const getNormalizedDate = (value?: Date | null) => {
-    if (!isValidDate(value)) {
-        return null;
-    }
-
-    return new Date(value.getFullYear(), value.getMonth(), value.getDate());
-};
-
-export const getCanonicalDate = (value?: Date | null) => {
-    const date = getNormalizedDate(value);
-
-    if (!date) {
-        return null;
-    }
-
-    return Temporal.PlainDate.from({
+/**
+ * Converts a native `Date` coming back from react-day-picker into a
+ * `Temporal.PlainDate`, reading the local calendar fields (no time component).
+ */
+export const fromCalendarDate = (date: Date) =>
+    Temporal.PlainDate.from({
         year: date.getFullYear(),
         month: date.getMonth() + 1,
         day: date.getDate()
     });
-};
-
-export const getCurrentDate = () => {
-    const today = Temporal.Now.plainDateISO();
-    return new Date(today.year, today.month - 1, today.day);
-};
 
 /**
  * Formats a selected date for display in the trigger input.
- * Uses `Intl.DateTimeFormat` so the output respects the consumer's locale.
- * Falls back to the browser locale when `locale` is not provided.
+ * Uses the locale-aware `Temporal.PlainDate.toLocaleString` so the output
+ * respects the consumer's locale, falling back to the browser locale.
  */
-export const formatDateDisplayValue = (value?: Date | null, locale?: string) => {
-    const date = getNormalizedDate(value);
-
-    if (!date) {
+export const formatDateDisplayValue = (value?: Temporal.PlainDate | null, locale?: string) => {
+    if (!value) {
         return '';
     }
 
-    return new Intl.DateTimeFormat(locale || undefined).format(date);
+    return value.toLocaleString(locale || undefined);
 };
 
 /**
@@ -53,41 +41,32 @@ export const formatDateDisplayValue = (value?: Date | null, locale?: string) => 
  * - An array of `Date` for individual disabled dates
  * - `{ from, to }` objects for disabled ranges
  *
- * Dates are normalized to midnight (no time component) to avoid off-by-one
- * issues caused by timezone offsets.
+ * react-day-picker only accepts native `Date`, so every `PlainDate` is converted
+ * to local midnight here, which also avoids off-by-one issues from timezone offsets.
  */
 export const getCalendarDisabledMatchers = (
-    minDate?: Date,
-    maxDate?: Date,
-    disabledDates?: Date[],
+    minDate?: Temporal.PlainDate,
+    maxDate?: Temporal.PlainDate,
+    disabledDates?: Temporal.PlainDate[],
     disabledDateRanges?: DisabledDateRange[]
 ): Matcher[] => {
     const matchers: Matcher[] = [];
-    const minimumDate = getNormalizedDate(minDate);
-    const maximumDate = getNormalizedDate(maxDate);
-    const unavailableDates = disabledDates?.map(getNormalizedDate).filter((date): date is Date => Boolean(date));
-    const unavailableRanges = disabledDateRanges?.map(range => ({
-        from: getNormalizedDate(range.from),
-        to: getNormalizedDate(range.to)
-    })).filter((range): range is DisabledDateRange => Boolean(range.from && range.to));
 
-    if (minimumDate) {
-        matchers.push({before: minimumDate});
+    if (minDate) {
+        matchers.push({before: toCalendarDate(minDate)});
     }
 
-    if (maximumDate) {
-        matchers.push({after: maximumDate});
+    if (maxDate) {
+        matchers.push({after: toCalendarDate(maxDate)});
     }
 
-    if (unavailableDates?.length) {
-        matchers.push(unavailableDates);
+    if (disabledDates?.length) {
+        matchers.push(disabledDates.map(toCalendarDate));
     }
 
-    if (unavailableRanges?.length) {
-        unavailableRanges.forEach(range => {
-            matchers.push(range);
-        });
-    }
+    disabledDateRanges?.forEach(range => {
+        matchers.push({from: toCalendarDate(range.from), to: toCalendarDate(range.to)});
+    });
 
     return matchers;
 };
@@ -96,15 +75,14 @@ export const getCalendarDisabledMatchers = (
  * Builds a UTC noon `Date` from a selected calendar date, used as the reference
  * point for computing timezone offsets in the timezone selector.
  *
- * Using noon UTC avoids DST edge cases where midnight local time could land
- * on the previous or next calendar day depending on the timezone.
+ * `TimezoneSelector.referenceDate` is part of that component's public `Date` API,
+ * so this stays a `Date`. Using noon UTC avoids DST edge cases where midnight local
+ * time could land on the previous or next calendar day depending on the timezone.
  */
-export const getTimezoneReferenceDate = (dateValue?: Date | null) => {
-    const canonicalDate = getCanonicalDate(dateValue);
-
-    if (!canonicalDate) {
+export const getTimezoneReferenceDate = (date?: Temporal.PlainDate | null) => {
+    if (!date) {
         return null;
     }
 
-    return new Date(Date.UTC(canonicalDate.year, canonicalDate.month - 1, canonicalDate.day, 12, 0, 0, 0));
+    return new Date(Date.UTC(date.year, date.month - 1, date.day, 12, 0, 0, 0));
 };

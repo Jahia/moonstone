@@ -1,4 +1,5 @@
 import React from 'react';
+import type {Temporal} from 'temporal-polyfill';
 import type {DayPickerProps} from 'react-day-picker';
 import type {BaseInputProps} from '../BaseInput/BaseInput.types';
 import type {TimeFormat, TimeInputProps} from '../TimeInput';
@@ -18,7 +19,7 @@ export type DateTimeInputValue = {
      * For `type='date'`, only the calendar day is relevant; any time part is ignored.
      * For `type='datetime'`, hours and minutes are meaningful.
      */
-    date: Date | null;
+    date: Temporal.PlainDateTime | null;
     /** IANA timezone identifier (e.g. `'Europe/Paris'`) */
     timezone?: string | null;
 };
@@ -28,8 +29,8 @@ export type DateTimeInputValue = {
  * Both `from` and `to` bounds are inclusive.
  */
 export type DisabledDateRange = {
-    from: Date;
-    to: Date;
+    from: Temporal.PlainDate;
+    to: Temporal.PlainDate;
 };
 
 /** I18n labels for the calendar actions of the `DateTimeInput` */
@@ -99,13 +100,13 @@ type DateTimeInputSharedProps = Omit<BaseInputProps,
     variant?: 'ghost' | 'outlined';
 
     /** Lower bound of the calendar (inclusive). Dates before this are disabled. */
-    minDate?: Date;
+    minDate?: Temporal.PlainDate;
 
     /** Upper bound of the calendar (inclusive). Dates after this are disabled. */
-    maxDate?: Date;
+    maxDate?: Temporal.PlainDate;
 
     /** Individual dates to disable in the calendar. */
-    disabledDates?: Date[];
+    disabledDates?: Temporal.PlainDate[];
 
     /** Date ranges to disable in the calendar. */
     disabledDateRanges?: DisabledDateRange[];

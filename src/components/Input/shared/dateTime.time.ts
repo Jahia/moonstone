@@ -18,9 +18,8 @@ const parseCanonicalTimeValue = (value?: string | null) => {
     }
 };
 
-export const formatTimeString = (value: Date) =>
-    Temporal.PlainTime.from({hour: value.getHours(), minute: value.getMinutes()})
-        .toString({smallestUnit: 'minute'});
+export const formatTimeString = (value: Temporal.PlainDateTime) =>
+    value.toPlainTime().toString({smallestUnit: 'minute'});
 
 /**
  * Converts a canonical `HH:mm` value into display-ready parts for the time input fields.
