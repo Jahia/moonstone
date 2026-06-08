@@ -17,7 +17,7 @@ export type TimeInputMeridiemDropdownProps = Omit<DropdownProps,
     'size' |
     'variant' |
     'isDisabled'
-> & Omit<React.ComponentPropsWithoutRef<'div'>, keyof DropdownProps> & Record<string, unknown>;
+> & Omit<React.ComponentPropsWithoutRef<'div'>, keyof DropdownProps>;
 
 type BasicTimeInputProps = Omit<BaseInputProps,
     'isShowClearButton' |
