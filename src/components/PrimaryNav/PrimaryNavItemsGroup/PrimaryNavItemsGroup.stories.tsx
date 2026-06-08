@@ -3,7 +3,6 @@ import {PrimaryNavItemsGroup} from './index';
 import {PrimaryNavItem} from '~/components/PrimaryNav/PrimaryNavItem';
 import {Edit} from '~/icons';
 import markdownNotes from './PrimaryNavItemsGroup.md';
-import {reset} from '~/globals/css-utils.js';
 
 const meta: Meta<typeof PrimaryNavItemsGroup> = {
     title: 'Components/PrimaryNavItemsGroup',
@@ -15,7 +14,6 @@ const meta: Meta<typeof PrimaryNavItemsGroup> = {
     decorators: [
         Story => (
             <div
-                className={reset}
                 style={{
                     backgroundColor: '#131c21',
                     width: '18.75rem',

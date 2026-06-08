@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import {AccordionContext} from './Accordion.context';
-import {layout, reset} from '~/globals/css-utils.js';
+import {layout} from '~/globals/css-utils.js';
 import styles from './Accordion.module.scss';
 import type {ControlledAccordionProps} from './Accordion.types';
 
@@ -16,7 +16,6 @@ export const ControlledAccordion: React.FC<ControlledAccordionProps> = ({childre
         <AccordionContext.Provider value={provider}>
             <div className={
                 clsx(
-                    reset,
                     className,
                     ['flexFluid', layout.flexFluid],
                     ['moonstone-accordion', styles['moonstone-accordion']],
