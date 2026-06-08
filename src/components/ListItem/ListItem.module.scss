@@ -14,6 +14,7 @@ $big-image-size: 96px;
     list-style: none;
 
     .moonstone-listItem-image {
+        margin: 0;
         margin-right: var(--moon-spacing-small);
 
         & > * {

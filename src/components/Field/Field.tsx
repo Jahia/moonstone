@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import type {FieldProps} from './Field.types';
 import {Typography} from '~/components';
-import {layout, reset} from '~/globals/css-utils.js';
+import {layout} from '~/globals/css-utils.js';
 import styles from './Field.module.scss';
 
 export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
@@ -26,7 +26,6 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
             ref={ref}
             id={id}
             className={clsx(
-                reset,
                 ['moonstone-field', styles['moonstone-field']],
                 ['flexCol_nowrap', layout.flexCol_nowrap],
                 hasError && ['moonstone-field_error', styles['moonstone-field_error']],

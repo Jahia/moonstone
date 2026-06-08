@@ -1,5 +1,21 @@
 # @jahia/moonstone Changelog
 
+## 2.20.0
+
+### New Features
+
+* Add new drawer component (Beta) (#1370)
+
+### Bug Fixes
+
+* Fix context menu repositioning on resize (#1376)
+
+* Fix styling issues due to CSS specificity (#1361)
+
+* Update @floating-ui/react from 0.27.16 to 0.27.19 (#1360)
+
+* Prevent always displaying the warning about OnKeyPress (#1373)
+
 ## 2.19.0
 
 ### New Features
