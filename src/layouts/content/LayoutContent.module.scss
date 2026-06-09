@@ -2,6 +2,10 @@
     overflow: hidden;
 }
 
+.moonstone-layoutContent_body {
+    overflow: hidden;
+}
+
 .moonstone-layoutContent {
     background-color: var(--moon-color-gray_light40);
     overflow: auto;
@@ -15,4 +19,8 @@
     min-width: 400px;
     max-width: 800px;
     margin: 0 auto;
+}
+
+.moonstone-layoutContent_storyDrawer {
+    width: 320px;
 }

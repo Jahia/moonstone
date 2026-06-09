@@ -1,8 +1,9 @@
 import {Meta, StoryObj} from '@storybook/react-vite';
 import {LayoutContent} from '~/layouts';
-import {Header} from '~/components';
+import {Drawer, Header} from '~/components';
 import {FakeContent} from '~/__storybook__/FakeComponents';
 import type {LayoutContentProps} from './LayoutContent.types';
+import styles from './LayoutContent.module.scss';
 
 export default {
     title: 'Layouts/LayoutContent',
@@ -47,6 +48,18 @@ export const WithoutPadding: Story = {
     args: {
         hasPadding: false
     }
+};
+
+export const WithDrawer: Story = {
+    render: args => (
+        <LayoutContent
+            header={<Header title="Header"/>}
+            {...args}
+            drawer={<Drawer isOpen className={styles['moonstone-layoutContent_storyDrawer']}>Drawer content</Drawer>}
+        >
+            <FakeContent/>
+        </LayoutContent>
+    )
 };
 
 export const Loading: Story = {

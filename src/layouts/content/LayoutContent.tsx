@@ -9,6 +9,7 @@ import styles from './LayoutContent.module.scss';
 export const LayoutContent = React.forwardRef(({
     header,
     content,
+    drawer,
     hasPadding = true,
     isLoading = false,
     isCentered = false,
@@ -23,6 +24,23 @@ export const LayoutContent = React.forwardRef(({
         isLoading ? ['flexCol_center', layout.flexCol_center, 'alignCenter', layout.alignCenter] : ['flexCol_nowrap', layout.flexCol_nowrap]
     );
 
+    const mainContent = (
+        <div className={classNameProps} aria-busy={isLoading ? 'true' : undefined}>
+            {isLoading ? (
+                <Loader size="big"/>
+            ) : isCentered ? (
+                <div className={clsx(
+                    ['flexCol_nowrap', layout.flexCol_nowrap],
+                    ['flexFluid', layout.flexFluid],
+                    ['moonstone-layoutContent_centered', styles['moonstone-layoutContent_centered']]
+                )}
+                >
+                    {children ?? content}
+                </div>
+            ) : children ?? content}
+        </div>
+    );
+
     return (
         <div
             ref={ref}
@@ -35,25 +53,17 @@ export const LayoutContent = React.forwardRef(({
             {...props}
         >
             {header}
-            <div className={classNameProps} aria-busy={isLoading ? 'true' : undefined}>
-                {
-                    isLoading ?
-                        <Loader size="big"/> :
-                    (
-                        isCentered ?
-                        (
-                            <div className={clsx(
-                                ['flexCol_nowrap', layout.flexCol_nowrap],
-                                ['flexFluid', layout.flexFluid],
-                                ['moonstone-layoutContent_centered', styles['moonstone-layoutContent_centered']])}
-                            >
-                                {children ?? content}
-                            </div>
-                        ) :
-                        children ?? content
-                      )
-                }
-            </div>
+            {drawer ? (
+                <div className={clsx(
+                    ['flexRow_nowrap', layout.flexRow_nowrap],
+                    ['flexFluid', layout.flexFluid],
+                    ['moonstone-layoutContent_body', styles['moonstone-layoutContent_body']]
+                )}
+                >
+                    {mainContent}
+                    {drawer}
+                </div>
+            ) : mainContent}
         </div>
     );
 });
