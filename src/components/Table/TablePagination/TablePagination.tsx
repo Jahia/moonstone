@@ -5,8 +5,8 @@ import type {TablePaginationProps} from './TablePagination.types';
 import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
 import {Button, Dropdown, Typography} from '~/components';
 import {ChevronFirstPage, ChevronLastPage, ChevronLeft, ChevronRight} from '~/icons';
-import styles from './TablePagination.module.scss';
 import {layout} from '~/globals/css-utils.js';
+import styles from './TablePagination.module.scss';
 
 const cssClass = 'moonstone-tablePagination';
 const cssClass32 = 'moonstone-marginRight32';

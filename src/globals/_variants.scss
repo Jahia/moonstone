@@ -2,8 +2,9 @@
 
 // Default style
 %variant_ghost {
-    border: 1px solid transparent;
+    color: currentColor;
 
+    border: 1px solid transparent;
     background-color: transparent;
 
     &:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
@@ -17,29 +18,35 @@
     }
 
     &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
+        color: var(--moon-color-accent_dark);
+
         border-color: transparent;
-        background-color: var(--moon-color-gray_light_plain60);
+        background-color: var(--moon-color-gray_light_plain40);
     }
 
     &.moonstone-reverse {
-        color: var(--moon-color-light);
+        color: var(--moon-color-white);
 
         &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
             @extend %is-focused;
         }
 
         &:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-            color: var(--moon-color-light);
+            color: var(--moon-color-white);
 
             border-color: transparent;
             background-color: var(--moon-color-gray40);
         }
 
         &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-            color: var(--moon-color-white);
-
             border-color: transparent;
             background-color: var(--moon-color-gray_light40);
+        }
+
+        &[aria-disabled="true"],
+        &[aria-busy="true"],
+        &:disabled {
+            color: var(--moon-color-gray_light);
         }
     }
 }
@@ -65,12 +72,6 @@
         background-color: var(--moon-color-accent_dark);
     }
 
-    &[aria-disabled="true"],
-    &[aria-busy="true"],
-    &:disabled {
-        color: inherit;
-    }
-
     &.moonstone-reverse {
         &:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
             color: var(--moon-color-white);
@@ -83,10 +84,14 @@
         }
 
         &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-            color: var(--moon-color-white);
-
             border-color: transparent;
             background-color: var(--moon-color-accent_dark);
+        }
+
+        &[aria-disabled="true"],
+        &[aria-busy="true"],
+        &:disabled {
+            color: var(--moon-color-gray_light);
         }
     }
 }
@@ -112,12 +117,6 @@
         background-color: var(--moon-color-danger);
     }
 
-    &[aria-disabled="true"],
-    &[aria-busy="true"],
-    &:disabled {
-        color: inherit;
-    }
-
     &.moonstone-reverse {
         &:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
             color: var(--moon-color-white);
@@ -130,10 +129,14 @@
         }
 
         &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-            color: var(--moon-color-white);
-
             border-color: transparent;
             background-color: var(--moon-color-danger);
+        }
+
+        &[aria-disabled="true"],
+        &[aria-busy="true"],
+        &:disabled {
+            color: var(--moon-color-gray_light);
         }
     }
 }

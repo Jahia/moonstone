@@ -1,9 +1,8 @@
 import React, {MutableRefObject, useRef} from 'react';
 import clsx from 'clsx';
 import type {ControlledSwitchProps} from './Switch.types';
-import styles from './Switch.module.scss';
 import {onAccessibleClick} from '~/hooks';
-import {reset} from '~/globals/css-utils.js';
+import styles from './Switch.module.scss';
 
 const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ControlledSwitchProps> = ({
     className,
@@ -19,7 +18,6 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLDivElement,
         <div
             ref={ref}
             className={clsx(
-                reset,
                 ['moonstone-switch', styles['moonstone-switch']],
                 checked && ['moonstone-switch_checked', styles['moonstone-switch_checked']],
                 isDisabled && ['moonstone-switch_disabled', styles['moonstone-switch_disabled']],

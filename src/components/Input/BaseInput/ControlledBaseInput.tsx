@@ -2,9 +2,9 @@ import React, {useEffect} from 'react';
 import clsx from 'clsx';
 import {Cancel} from '~/icons';
 import {Button} from '~/components';
-import styles from './BaseInput.module.scss';
 import type {ControlledBaseInputProps} from './BaseInput.types';
-import {layout, reset} from '~/globals/css-utils.js';
+import {layout} from '~/globals/css-utils.js';
+import styles from './BaseInput.module.scss';
 
 const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInputProps>(({
     value = '',
@@ -32,7 +32,6 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
 }, ref) => {
     const isFilled = value !== '';
     const classNameProps = clsx(
-        reset,
         ['moonstone-baseInput', styles['moonstone-baseInput']],
         [`moonstone-${size}`, size === 'big' && styles[`moonstone-${size}`]],
         [`moonstone-${variant}`, variant === 'outlined' && styles[`moonstone-${variant}`]],
@@ -92,13 +91,14 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
                     onChange={onChange}
                     onBlur={onBlur}
                     onFocus={onFocus}
-                    onKeyPress={e => {
-                        console.warn('onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
-                        if (typeof onKeyPress === 'function') {
+                    onKeyUp={e => {
+                        if (onKeyPress) {
+                            console.warn('onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
                             onKeyPress(e);
                         }
+
+                        onKeyUp?.(e);
                     }}
-                    onKeyUp={onKeyUp}
                     {...props}
                 />
                 {postfixComponents}

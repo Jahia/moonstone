@@ -1,12 +1,12 @@
 import React, {useRef} from 'react';
 import clsx from 'clsx';
-import styles from './TreeView.module.scss';
 import type {ControlledTreeViewProps, TreeViewData} from './TreeView.types';
 
 import {ChevronDown, ChevronRight, CheckboxChecked, CheckboxUnchecked} from '~/icons';
 import {Typography, Loader} from '~/components';
 import {onToggleNode, onArrowNavigation, mergeHandlers} from '~/hooks';
-import {icons, layout, reset} from '~/globals/css-utils.js';
+import {icons, layout} from '~/globals/css-utils.js';
+import styles from './TreeView.module.scss';
 
 // Manage treeView_item's icon
 const displayIcon = (icon: React.ReactElement, size: 'small' | 'default' | 'big', className?: string, parentHasIconStart = false) => {
@@ -50,6 +50,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
         itemComponent = 'li',
         size = 'default',
         isPadVirtualizedRow = false,
+        className,
         ...props
     }, ref) => {
     const isFlatData = data.filter(item => item.children && item.children.length > 0).length === 0;
@@ -206,8 +207,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
             role: 'tree',
             'aria-multiselectable': showCheckbox,
             ...props,
-            // @ts-expect-error className not defined but probably used somewhere
-            className: clsx(reset, props.className)
+            className: clsx(styles.treeView, className)
         }, generateLevelJSX(data, 0, false)
     );
 };

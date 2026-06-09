@@ -2,9 +2,9 @@ import React from 'react';
 import clsx from 'clsx';
 
 import type {IconTextIconProps} from './IconTextIcon.types';
-import styles from './IconTextIcon.module.scss';
 import {Typography} from '~/components';
-import {icons, layout, reset} from '~/globals/css-utils.js';
+import {icons, layout} from '~/globals/css-utils.js';
+import styles from './IconTextIcon.module.scss';
 
 export const IconTextIcon = <C extends React.ElementType = 'div'> ({
     component,
@@ -21,7 +21,6 @@ export const IconTextIcon = <C extends React.ElementType = 'div'> ({
     return (
         <Component
             className={clsx(
-                reset,
                 ['moonstone-IconTextIcon', styles['moonstone-IconTextIcon']],
                 ['flexRow_nowrap', layout.flexRow_nowrap],
                 ['alignCenter', layout.alignCenter],

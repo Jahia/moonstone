@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import type {PillProps} from './Pill.types';
 
-import {Typography} from '~/components/Typography';
+import {Typography} from '~/components';
 import styles from './Pill.module.scss';
 
 export const Pill: React.FC<PillProps> = ({

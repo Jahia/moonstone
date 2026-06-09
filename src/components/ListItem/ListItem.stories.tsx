@@ -4,7 +4,9 @@ import markdownNotes from './ListItem.md';
 import {ListItem} from './index';
 import type {ListItemProps} from './ListItem.types';
 import {Love, Cloud} from '~/icons';
-import {reset} from '~/globals/css-utils.js';
+import imgVertical from '~/__storybook__/assets/img-vertical.webp';
+import imgHorizontal from '~/__storybook__/assets/img-horizontal.webp';
+import imgSquare from '~/__storybook__/assets/img-square.webp';
 
 export default {
     title: 'Components/ListItem',
@@ -18,7 +20,7 @@ export default {
 
 export const Default: StoryObj<ListItemProps> = {
     render: args => (
-        <ul className={reset}>
+        <ul style={{padding: 0, margin: 0}}>
             <ListItem {...args}/>
         </ul>
     ),
@@ -30,7 +32,7 @@ export const Default: StoryObj<ListItemProps> = {
 
 export const IconText: StoryObj<ListItemProps> = {
     render: args => (
-        <ul className={reset}>
+        <ul style={{padding: 0, margin: 0}}>
             <ListItem {...args}/>
         </ul>
     ),
@@ -45,7 +47,7 @@ export const IconText: StoryObj<ListItemProps> = {
 
 export const IconTextIcon: StoryObj<ListItemProps> = {
     render: args => (
-        <ul className={reset}>
+        <ul style={{padding: 0}}>
             <ListItem {...args}/>
         </ul>
     ),
@@ -61,19 +63,19 @@ export const IconTextIcon: StoryObj<ListItemProps> = {
 
 export const WithBigImage: StoryObj<ListItemProps> = {
     render: args => (
-        <ul className={reset}>
+        <ul style={{padding: 0}}>
             <ListItem
-        image={<img src="https://via.placeholder.com/500?text=ListItemImage" alt="big image"/>}
-        {...args}
-      />
+                image={<img src={imgVertical} alt="vertical big image"/>}
+                {...args}
+            />
             <ListItem
-        image={<img src="https://via.placeholder.com/200x500?text=ListItemImage" alt="big image"/>}
-        {...args}
-      />
+                image={<img src={imgHorizontal} alt="horizontal big image"/>}
+                {...args}
+            />
             <ListItem
-        image={<img src="https://via.placeholder.com/500x200?text=ListItemImage" alt="big image"/>}
-        {...args}
-      />
+                image={<img src={imgSquare} alt="square big image"/>}
+                {...args}
+            />
         </ul>
     ),
 
@@ -85,19 +87,19 @@ export const WithBigImage: StoryObj<ListItemProps> = {
 
 export const WithSmallImage: StoryObj<ListItemProps> = {
     render: args => (
-        <ul className={reset}>
+        <ul style={{padding: 0}}>
             <ListItem
-        image={<img src="https://via.placeholder.com/500?text=ListItemImage" alt="small image"/>}
-        {...args}
-      />
+                image={<img src={imgVertical} alt="vertical small image"/>}
+                {...args}
+            />
             <ListItem
-        image={<img src="https://via.placeholder.com/200x500?text=ListItemImage" alt="small image"/>}
-        {...args}
-      />
+                image={<img src={imgHorizontal} alt="horizontal small image"/>}
+                {...args}
+            />
             <ListItem
-        image={<img src="https://via.placeholder.com/500x200?text=ListItemImage" alt="small image"/>}
-        {...args}
-      />
+                image={<img src={imgSquare} alt="square small image"/>}
+                {...args}
+            />
         </ul>
     ),
 
