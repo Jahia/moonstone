@@ -1,11 +1,11 @@
 import React, {useRef} from 'react';
 import clsx from 'clsx';
-import styles from './Button.module.scss';
 import {Typography} from '../Typography';
 import {TypographyWeight} from '~/components/Typography/Typography.types';
 import {ButtonProps} from './Button.types';
 import {Loader} from '~/components/Loader';
-import {layout, reset} from '~/globals/css-utils.js';
+import {layout} from '~/globals/css-utils.js';
+import styles from './Button.module.scss';
 
 // We have many conditions because of classname=..., we can safely ignore complexity here
 // eslint-disable-next-line complexity
@@ -44,11 +44,9 @@ export const Button = ({
         <button
             ref={ButtonEl}
             className={clsx(
-                reset,
-                (variant !== 'default' || color !== 'default') && ['moonstone-button', styles['moonstone-button']],
+                ['moonstone-button', styles['moonstone-button']],
                 [`moonstone-button_${size}`, styles[`moonstone-button_${size}`]],
-                [`moonstone-button${variant === 'default' ? '' : `_${variant}`}${color === 'default' ? '' : `_${color}`}`,
-                    styles[`moonstone-button${variant === 'default' ? '' : `_${variant}` as const}${color === 'default' ? '' : `_${color}` as const}`]],
+                [`moonstone-button${variant === 'default' ? '' : `_${variant}`}${color === 'default' ? '' : `_${color}`}`],
                 (label && (icon || iconEnd)) && ['moonstone-icon', styles['moonstone-icon']],
                 !label && ['moonstone-icon-button', styles['moonstone-icon-button']],
                 isReversed && ['moonstone-reverse', styles['moonstone-reverse']],
@@ -57,6 +55,9 @@ export const Button = ({
                 className
             )}
             type="button"
+            data-variant={variant}
+            data-color={color}
+            data-size={size}
             disabled={isDisabled || isLoading}
             onClick={e => handleOnClick(e)}
             {...props}

@@ -9,6 +9,10 @@ import {Separator} from '~/components';
 import clsx from 'clsx';
 import {layout} from '~/globals/css-utils.js';
 
+import imgVertical from '~/__storybook__/assets/img-vertical.webp';
+import imgHorizontal from '~/__storybook__/assets/img-horizontal.webp';
+import imgSquare from '~/__storybook__/assets/img-square.webp';
+
 export default {
     title: 'Components/Menu',
     component: Menu,
@@ -68,15 +72,15 @@ export const ContextualMenu = () => {
 
     return (
         <div
-      className={clsx('flexRow_center', 'alignCenter', layout.flexRow_center, layout.alignCenter)}
-      style={{transform: 'scale(1)', height: '100vh'}}
-      onClick={handleOnClick}
+            className={clsx('flexRow_center', 'alignCenter', layout.flexRow_center, layout.alignCenter)}
+            style={{transform: 'scale(1)', height: '100vh'}}
+            onClick={handleOnClick}
         >
             <p>Click somewhere to display the menu, another click close it</p>
             <Menu
-        isDisplayed={isDisplayed}
-        anchorPosition={menuPosition}
-        onClose={handleClose}
+                isDisplayed={isDisplayed}
+                anchorPosition={menuPosition}
+                onClose={handleClose}
             >
                 <MenuItem label="Item1"/>
                 <MenuItem label="Item2"/>
@@ -107,26 +111,26 @@ export const AnchorElOrigin = () => {
     return (
         <>
             <button
-        ref={buttonEl}
-        type="button"
-        style={{margin: '90px', width: '100px', height: '100px'}}
-        onClick={handleOnClick}
+                ref={buttonEl}
+                type="button"
+                style={{margin: '90px', width: '100px', height: '100px'}}
+                onClick={handleOnClick}
             >
                 Display menu
             </button>
             <Menu
-        isDisplayed={isDisplayed}
-        anchorEl={anchorEl}
-        anchorPosition={{top: 0, left: 0}}
-        anchorElOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left'
-        }}
-        transformElOrigin={{
-          vertical: 'top',
-          horizontal: 'left'
-        }}
-        onClose={handleClose}
+                isDisplayed={isDisplayed}
+                anchorEl={anchorEl}
+                anchorPosition={{top: 0, left: 0}}
+                anchorElOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left'
+                }}
+                transformElOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left'
+                }}
+                onClose={handleClose}
             >
                 <MenuItem label="Item1"/>
                 <MenuItem label="Item2"/>
@@ -141,36 +145,36 @@ export const PositionAbsolute = () => {
     // <div style={{transform: 'scale(1)', height: '100vh'}}>
     // </div>
         <div
-      style={{
-        position: 'relative',
-        transform: 'translate(90px, 90px)',
-        width: '100px',
-        height: '100px'
-      }}
+            style={{
+                position: 'relative',
+                transform: 'translate(90px, 90px)',
+                width: '100px',
+                height: '100px'
+            }}
         >
             <div
-        style={{
-          height: '100%',
-          width: '100%',
-          backgroundColor: 'var(--moon-color-accent)',
-          cursor: 'pointer',
-          padding: '10px'
-        }}
+                style={{
+                    height: '100%',
+                    width: '100%',
+                    backgroundColor: 'var(--moon-color-accent)',
+                    cursor: 'pointer',
+                    padding: '10px'
+                }}
             >
                 Parent div is position: relative.
             </div>
             <Menu
-        isDisplayed
-        position="absolute"
-        anchorPosition={{top: 4, left: 0}}
-        anchorElOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left'
-        }}
-        transformElOrigin={{
-          vertical: 'top',
-          horizontal: 'left'
-        }}
+                isDisplayed
+                position="absolute"
+                anchorPosition={{top: 4, left: 0}}
+                anchorElOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left'
+                }}
+                transformElOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left'
+                }}
             >
                 <MenuItem label="Item1"/>
                 <MenuItem label="Item2"/>
@@ -183,77 +187,77 @@ export const PositionAbsolute = () => {
 export const BigImageMenuItems = () => (
     <div style={{transform: 'scale(1)', height: '100vh'}}>
         <Menu
-      isDisplayed
-      maxWidth="400px"
-      maxHeight="440px"
-      style={{zIndex: 10000}}
+            isDisplayed
+            maxWidth="400px"
+            maxHeight="440px"
+            style={{zIndex: 10000}}
         >
             <MenuItem label="Menu Items with Big Images Title" variant="title"/>
             <MenuItem
-        label="Big image MenuItem"
-        image={<img src="https://via.placeholder.com/500?text=MenuItemImage" alt="big image"/>}
-        imageSize="big"
-      />
+                label="Big image MenuItem"
+                image={<img src={imgVertical} alt="big vertical image"/>}
+                imageSize="big"
+            />
             <MenuItem
-        label="Big image MenuItem"
-        image={<img src="https://via.placeholder.com/500?text=MenuItemImage" alt="big image"/>}
-        imageSize="big"
-      />
+                label="Big image MenuItem"
+                image={<img src={imgHorizontal} alt="big horizontal image"/>}
+                imageSize="big"
+            />
             <MenuItem
-        isSelected
-        label="Big image MenuItem - selected"
-        image={<img src="https://via.placeholder.com/500?text=MenuItemImage" alt="big image"/>}
-        imageSize="big"
-      />
+                isSelected
+                label="Big image MenuItem - selected"
+                image={<img src={imgSquare} alt="big square image"/>}
+                imageSize="big"
+            />
             <MenuItem
-        label="Big image MenuItem - lots of words lots of words lots of words"
-        image={<img src="https://via.placeholder.com/300x500?text=MenuItemImage" alt="big image"/>}
-        imageSize="big"
-      />
+                label="Big image MenuItem - lots of words lots of words lots of words"
+                image={<img src={imgVertical} alt="big vertical image"/>}
+                imageSize="big"
+            />
             <MenuItem
-        label="Big image MenuItem - lots of words lots of words lots of words"
-        image={<img src="https://via.placeholder.com/500x300?text=MenuItemImage" alt="big image"/>}
-        imageSize="big"
-      />
+                label="Big image MenuItem - lots of words lots of words lots of words"
+                image={<img src={imgHorizontal} alt="big horizontal image"/>}
+                imageSize="big"
+            />
         </Menu>
     </div>
 );
 
 export const SmallImageMenuItems = () => (
-    <div style={{transform: 'scale(1)', height: '100vh'}}>
+    <div style={{transform: 'scale(1)', height: '100vh', contain: 'strict'}}>
         <Menu
-      isDisplayed
-      maxWidth="264px"
-      maxHeight="320px"
-      style={{zIndex: 10000}}
+            isDisplayed
+            maxWidth="264px"
+            maxHeight="320px"
+            style={{zIndex: 10000}}
         >
             <MenuItem label="Menu Items with Small Images Title" variant="title"/>
             <MenuItem
-        label="Small image MenuItem"
-        image={<img src="https://via.placeholder.com/500?text=MenuItemImage" alt="small image"/>}
-        imageSize="small"
-      />
+                label="Small image MenuItem"
+                image={<img src={imgVertical} alt="small vertical image"/>}
+                imageSize="small"
+            />
             <MenuItem
-        label="Small image MenuItem"
-        image={<img src="https://via.placeholder.com/500?text=MenuItemImage" alt="small image"/>}
-        imageSize="small"
-      />
+                label="Small image MenuItem"
+                image={<img src={imgHorizontal} alt="small horizontal image"/>}
+                imageSize="small"
+            />
             <MenuItem
-        isSelected
-        label="Small image MenuItem - selected"
-        image={<img src="https://via.placeholder.com/500?text=MenuItemImage" alt="small image"/>}
-        imageSize="small"
-      />
+                isSelected
+                label="Small image MenuItem - selected"
+                image={<img src={imgSquare} alt="small square image"/>}
+                imageSize="small"
+            />
             <MenuItem
-        label="Small image MenuItem - lots of words lots of words lots of words"
-        image={<img src="https://via.placeholder.com/300x500?text=MenuItemImage" alt="small image"/>}
-        imageSize="small"
-      />
+                label="Small image MenuItem - lots of words lots of words lots of words"
+                image={<img src={imgVertical} alt="small vertical image"/>}
+                imageSize="small"
+            />
             <MenuItem
-        label="Small image MenuItem - lots of words lots of words lots of words"
-        image={<img src="https://via.placeholder.com/500x300?text=MenuItemImage" alt="small image"/>}
-        imageSize="small"
-      />
+                label="Small image MenuItem - lots of words lots of words lots of words"
+                image={<img src={imgHorizontal} alt="small horizontal image"/>}
+                imageSize="small"
+            />
         </Menu>
     </div>
 );
@@ -261,11 +265,11 @@ export const SmallImageMenuItems = () => (
 export const WithSearch = () => (
     <div style={{transform: 'scale(1)', height: '100vh'}}>
         <Menu
-      hasSearch
-      isDisplayed
-      searchEmptyText="Oh no! It seems like that doesn't exist."
-      maxHeight="250px"
-      style={{zIndex: 10000}}
+            hasSearch
+            isDisplayed
+            searchEmptyText="Oh no! It seems like that doesn't exist."
+            maxHeight="250px"
+            style={{zIndex: 10000}}
         >
             <MenuItem label="Base items" variant="title"/>
             <MenuItem label="Item1"/>
@@ -283,19 +287,19 @@ export const WithSearch = () => (
 
 export const Reversed = () => (
     <div
-    className="moonstone-reversed"
-    style={{
-      transform: 'scale(1)',
-      height: '100vh',
-      background: 'var(--moon-color-gray_dark)'
-    }}
+        className="moonstone-reversed"
+        style={{
+            transform: 'scale(1)',
+            height: '100vh',
+            background: 'var(--moon-color-gray_dark)'
+        }}
     >
         <Menu
-      hasSearch
-      isDisplayed
-      searchEmptyText="Oh no! It seems like that doesn't exist."
-      maxHeight="250px"
-      style={{zIndex: 10000}}
+            hasSearch
+            isDisplayed
+            searchEmptyText="Oh no! It seems like that doesn't exist."
+            maxHeight="250px"
+            style={{zIndex: 10000}}
         >
             <MenuItem label="Base items" variant="title"/>
             <MenuItem label="Item1"/>

@@ -1,0 +1,8 @@
+.drawer {
+    display: flex;
+    flex-direction: column;
+
+    height: stretch;
+    min-height: 0;
+    overflow-y: auto;
+}

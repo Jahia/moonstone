@@ -1,10 +1,8 @@
-@forward '../src/scoped.scss';
-
 html {
     box-sizing: border-box;
 
     font-family: var(--moon-font-family);
-    color: var(--moon-color-dark);
+    color: var(--moon-color-gray_dark);
 
     line-height: 1;
 }
