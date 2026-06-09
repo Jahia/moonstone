@@ -10,13 +10,16 @@ export default {
     component: LayoutContent,
     decorators: [
         StoryCmp => (
-            <div style={{width: '1OOvw', height: '100vh', display: 'flex'}}>
+            <div style={{width: '100vw', height: '100vh', display: 'flex'}}>
                 <StoryCmp/>
             </div>
         )
     ],
     argTypes: {
         header: {
+            control: false
+        },
+        drawer: {
             control: false
         }
     }
