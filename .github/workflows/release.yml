@@ -32,8 +32,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   deploy-storybook:
+    # only run on non-prerelease GitHub releases
     if: ${{ github.event_name == 'release' && !github.event.release.prerelease }}
     runs-on: ubuntu-latest
+    permissions:
+      pages: write      # required to deploy to GitHub Pages
+      id-token: write   # required for OIDC authentication
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }} # displays deployed URL in Actions tab
     steps:
       - name: Checkout release tag
         uses: actions/checkout@v6
@@ -44,9 +51,12 @@ jobs:
         run: |
           corepack enable && yarn install --immutable
           yarn build
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3 # packages storybook-static for deployment
         with:
-          deploy_key: ${{ secrets.DEPLOY_STORYBOOK }}
-          publish_dir: "storybook-static"
-          commit_message: "Automated deployment - release ${{ github.event.release.tag_name }} - [skip ci]"
+          path: storybook-static
+
+      - name: Deploy to GitHub Pages
+        id: deployment # id needed to expose page_url output
+        uses: actions/deploy-pages@v4
