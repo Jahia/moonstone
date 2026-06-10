@@ -71,7 +71,11 @@ type BasicTreeViewProps = {
     /**
      * When using virtualization row may require padding if they become detached from its parent
      */
-    isPadVirtualizedRow?: boolean
+    isPadVirtualizedRow?: boolean;
+    /**
+     * Additional classname
+     */
+    className?: string;
 };
 
 type ControlledProps = {

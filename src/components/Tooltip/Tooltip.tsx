@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import type {TooltipProps} from './Tooltip.types';
 import {useHover, useFloating, useInteractions, arrow, offset, FloatingArrow, flip, shift, useFocus, useDismiss} from '@floating-ui/react';
 import {Typography} from '~/components';
-import {reset} from '~/globals/css-utils.js';
 import styles from './Tooltip.module.scss';
 
 export const Tooltip = ({
@@ -46,7 +45,7 @@ export const Tooltip = ({
         return (
             <div
                 ref={refs.setReference}
-                className={clsx(reset, 'moonstone-tooltip', className)}
+                className={clsx('moonstone-tooltip', className)}
                 {...getReferenceProps()}
                 {...props}
             >

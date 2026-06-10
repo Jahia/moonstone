@@ -1,7 +1,7 @@
 /* eslint-disable complexity */
 import React, {MutableRefObject, useEffect, useMemo, useRef, useState} from 'react';
 import clsx from 'clsx';
-import {layout, reset} from '~/globals/css-utils.js';
+import {layout} from '~/globals/css-utils.js';
 import styles from './Dropdown.module.scss';
 import baseInputStyles from '../Input/BaseInput/BaseInput.module.scss';
 
@@ -204,7 +204,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
     return (
         <div
-            className={clsx(reset, 'moonstone-dropdown_container', styles['moonstone-dropdown_container'], className)}
+            className={clsx('moonstone-dropdown_container', styles['moonstone-dropdown_container'], className)}
             {...props}
         >
             <div

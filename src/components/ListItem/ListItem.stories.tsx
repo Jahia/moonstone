@@ -3,7 +3,6 @@ import markdownNotes from './ListItem.md';
 
 import {ListItem} from './index';
 import {Love, Cloud} from '~/icons';
-import {reset} from '~/globals/css-utils.js';
 import imgVertical from '~/__storybook__/assets/img-vertical.webp';
 import imgHorizontal from '~/__storybook__/assets/img-horizontal.webp';
 import imgSquare from '~/__storybook__/assets/img-square.webp';
@@ -20,7 +19,7 @@ const meta = preview.meta({
 
 export const Default = meta.story({
     render: args => (
-        <ul className={reset}>
+        <ul style={{padding: 0, margin: 0}}>
             <ListItem {...args}/>
         </ul>
     ),
@@ -32,7 +31,7 @@ export const Default = meta.story({
 
 export const IconText = meta.story({
     render: args => (
-        <ul className={reset}>
+        <ul style={{padding: 0, margin: 0}}>
             <ListItem {...args}/>
         </ul>
     ),
@@ -47,7 +46,7 @@ export const IconText = meta.story({
 
 export const IconTextIcon = meta.story({
     render: args => (
-        <ul className={reset}>
+        <ul style={{padding: 0}}>
             <ListItem {...args}/>
         </ul>
     ),
@@ -63,7 +62,7 @@ export const IconTextIcon = meta.story({
 
 export const WithBigImage = meta.story({
     render: args => (
-        <ul className={reset}>
+        <ul style={{padding: 0}}>
             <ListItem
                 image={<img src={imgVertical} alt="vertical big image"/>}
                 {...args}
@@ -87,7 +86,7 @@ export const WithBigImage = meta.story({
 
 export const WithSmallImage = meta.story({
     render: args => (
-        <ul className={reset}>
+        <ul style={{padding: 0}}>
             <ListItem
                 image={<img src={imgVertical} alt="vertical small image"/>}
                 {...args}

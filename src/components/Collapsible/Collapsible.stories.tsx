@@ -13,7 +13,7 @@ const meta = preview.meta({
 
 const BodyCollapsible = () => {
     return (
-        <p>
+        <Typography>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
             tempor incididunt ut labore et dolore magna aliqua. Cursus metus aliquam
             eleifend mi in nulla posuere sollicitudin aliquam. Arcu bibendum at varius
@@ -63,7 +63,7 @@ const BodyCollapsible = () => {
             Lorem sed risus ultricies tristique nulla. Cursus in hac habitasse platea
             dictumst quisque sagittis. Sem nulla pharetra diam sit. Sed cras ornare
             arcu dui vivamus. Mi bibendum neque egestas congue quisque egestas diam.
-        </p>
+        </Typography>
     );
 };
 

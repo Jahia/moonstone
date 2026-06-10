@@ -3,7 +3,6 @@ import clsx from 'clsx';
 
 import type {ThumbnailProps} from './Thumbnail.types';
 import {Image} from '~/icons';
-import {reset} from '~/globals/css-utils.js';
 import styles from './Thumbnail.module.scss';
 
 export const Thumbnail: React.FC<ThumbnailProps> = ({
@@ -16,7 +15,6 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({
     ...props
 }) => {
     const rootClassName = clsx(
-        reset,
         ['moonstone-thumbnail', styles['moonstone-thumbnail']],
         [`moonstone-thumbnail_${size}`, styles[`moonstone-thumbnail_${size}`]],
         className

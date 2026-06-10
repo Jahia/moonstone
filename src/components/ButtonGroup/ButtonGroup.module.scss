@@ -1,5 +1,14 @@
 .moonstone-buttonGroup {
-    .moonstone-button {
+    &[data-variant="default"]:not([data-color="default"]) {
+        gap: 1px;
+    }
+
+    .moonstone-button,
+    .moonstone-icon-button {
+        &:hover {
+            z-index: 1;
+        }
+
         &:first-child {
             border-radius: var(--moon-radius) 0 0 var(--moon-radius);
         }
@@ -12,26 +21,15 @@
             border-radius: var(--moon-radius);
         }
 
-        & + .moonstone-button {
-            border-left-color: transparent;
-
-            &:not(:last-child) {
-                border-radius: 0;
-            }
-        }
-
-        &.moonstone-button_accent,
-        &.moonstone-button_danger {
-            + .moonstone-button_accent,
-            + .moonstone-button_danger {
-                margin-left: 1px;
-            }
+        & + .moonstone-button:not(:last-child) {
+            border-radius: 0;
         }
     }
 
-    .moonstone-button_outlined {
-        & + .moonstone-button_outlined {
-            border-left-color: transparent;
+    .moonstone-button[data-variant="default"][data-color="default"],
+    .moonstone-button[data-variant="outlined"] {
+        &:not(:first-child) {
+            margin-left: -1px;
         }
     }
 }

@@ -40,6 +40,13 @@ $primaryNav: 56px;
             opacity: 1;
         }
     }
+
+    ul {
+        margin: 0;
+        padding: 0;
+
+        list-style: none;
+    }
 }
 
 .moonstone-primaryNav_overlay {

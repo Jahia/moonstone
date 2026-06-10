@@ -3,7 +3,7 @@ import React from 'react';
 export const buttonToggleSizes = ['default', 'big'] as const;
 export type ButtonToggleSize = typeof buttonToggleSizes[number];
 
-type BasicProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'onClick'> & {
+type BasicProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'onClick' | 'color'> & {
     /**
      * Button label
      */

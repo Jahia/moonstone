@@ -1,3 +1,4 @@
+import {createRef} from 'react';
 import {render, screen} from '@testing-library/react';
 import {Paper} from './index';
 
@@ -20,5 +21,12 @@ describe('Paper', () => {
     it('should add additional attributes', () => {
         render(<Paper data-testid="moonstone-paper" data-custom="test">Content here</Paper>);
         expect(screen.getByTestId('moonstone-paper')).toHaveAttribute('data-custom', 'test');
+    });
+
+    it('should forward ref', () => {
+        const ref = createRef<HTMLElement>();
+
+        render(<Paper ref={ref} data-testid="moonstone-paper">Content here</Paper>);
+        expect(ref.current).toBe(screen.getByTestId('moonstone-paper'));
     });
 });
