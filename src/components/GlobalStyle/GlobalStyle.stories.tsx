@@ -133,3 +133,40 @@ export const Direction = () => (
 export const Justify = () => <>{displayItems('row', 'justify')}</>;
 
 export const Alignment = () => <>{displayItems('row', 'align')}</>;
+
+export const GapUtilities = () => (
+    <>
+        <section style={{marginBottom: '48px'}}>
+            <h2 className={clsx('flexRow', layout.flexRow, 'alignCenter', layout.alignCenter)} style={{fontSize: '100%', marginBottom: '24px', fontWeight: 'normal'}}>
+                row-small
+            </h2>
+            <div className={clsx('row-small', layout['row-small'])} style={cssWrap}>
+                <Item/>
+                <Item/>
+                <Item/>
+            </div>
+        </section>
+
+        <section style={{marginBottom: '48px'}}>
+            <h2 className={clsx('flexRow', layout.flexRow, 'alignCenter', layout.alignCenter)} style={{fontSize: '100%', marginBottom: '24px', fontWeight: 'normal'}}>
+                row-small + justifyBetween
+            </h2>
+            <div className={clsx('row-small', layout['row-small'], 'justifyBetween', layout.justifyBetween)} style={cssWrap}>
+                <Item/>
+                <Item/>
+                <Item/>
+            </div>
+        </section>
+
+        <section style={{marginBottom: '48px'}}>
+            <h2 className={clsx('flexRow', layout.flexRow, 'alignCenter', layout.alignCenter)} style={{fontSize: '100%', marginBottom: '24px', fontWeight: 'normal'}}>
+                col-medium
+            </h2>
+            <div className={clsx('col-medium', layout['col-medium'])} style={cssWrap}>
+                <Item/>
+                <Item/>
+                <Item/>
+            </div>
+        </section>
+    </>
+);

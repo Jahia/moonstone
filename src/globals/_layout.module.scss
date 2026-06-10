@@ -1,3 +1,5 @@
+@use '../tokens/spacings/map' as *;
+
 // ---
 // Flex class wrapper
 // ---
@@ -77,6 +79,27 @@
 }
 
 // ---
+// Gap utilities
+// ---
+@each $name, $value in $spacings {
+    .row-#{$name} {
+        display: flex;
+        flex-direction: row;
+        gap: $value;
+        align-items: center;
+        min-height: 0;
+    }
+
+    .col-#{$name} {
+        display: flex;
+        flex-direction: column;
+        gap: $value;
+        align-items: center;
+        min-height: 0;
+    }
+}
+
+// ---
 // Alignment
 // ---
 .alignCenter {
@@ -114,4 +137,8 @@
 
 .justifyEnd {
     justify-content: flex-end;
+}
+
+.justifyBetween {
+    justify-content: space-between;
 }
