@@ -4,10 +4,10 @@ import addonA11y from '@storybook/addon-a11y';
 import * as tagBadgesAddon from 'storybook-addon-tag-badges';
 import {projectAnnotations} from './previewAnnotations';
 
-import '../../.storybook/preview.scss';
+import './storybook.scss';
 
 // Copy imports from src/index.ts, in the same order
-import '../globals/reset.module.scss';
+import '../globals/reset.scss';
 import '../globals/_variables.scss';
 import '../tokens/spacings/spacings.scss';
 import '../tokens/colors/colors.scss';

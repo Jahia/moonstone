@@ -1,21 +1,18 @@
 import {useState} from 'react';
-import type {Meta, StoryObj} from '@storybook/react';
+import preview from '~/__storybook__/preview';
 import {Drawer} from './Drawer';
 import {Button, Typography} from '~/components';
 
-const meta = {
+const meta = preview.meta({
     title: 'Components/Drawer',
     component: Drawer,
     tags: ['beta'],
     parameters: {
         layout: 'fullscreen'
     }
-} satisfies Meta<typeof Drawer>;
-export default meta;
+});
 
-type Story = StoryObj<typeof meta>;
-
-export const Playground: Story = {
+export const Playground = meta.story({
     render: args => {
         const [open, setOpen] = useState(false);
         return (
@@ -39,4 +36,4 @@ export const Playground: Story = {
             </div>
         );
     }
-};
+});

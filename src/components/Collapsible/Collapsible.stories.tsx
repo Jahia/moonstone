@@ -2,7 +2,7 @@ import {useState} from 'react';
 import preview from '~/__storybook__/preview';
 
 import {Collapsible} from './index';
-import {Typography} from '~/index';
+import {Typography} from '~/components';
 
 const meta = preview.meta({
     title: 'Components/Collapsible',

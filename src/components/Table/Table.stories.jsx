@@ -7,6 +7,7 @@
 import React, {useEffect, useState} from 'react';
 import {useExpanded, useRowSelect, useSortBy, useTable} from 'react-table';
 import '~/__storybook__/storybook.scss';
+import preview from '~/__storybook__/preview';
 
 import {
     Checkbox,
@@ -28,15 +29,14 @@ import {
 } from '~/data';
 import {Edit, Love, Visibility} from '~/icons';
 
-const meta = {
+const meta = preview.meta({
     title: 'Components/Table',
     component: Table,
     parameters: {
         controls: {disable: true},
         actions: {argTypesRegex: '^on.*'}
     }
-};
-export default meta;
+});
 
 const columnsWidth = {
     selection: 'auto',
@@ -46,7 +46,7 @@ const columnsWidth = {
     lastModifiedOn: '160px'
 };
 
-export const Basic = {
+export const Basic = meta.story({
     render: () => (
         <Table>
             <TableHead>
@@ -88,9 +88,9 @@ export const Basic = {
             </TableBody>
         </Table>
     )
-};
+});
 
-export const BasicReactTable = {
+export const BasicReactTable = meta.story({
     render: () => {
         const data = React.useMemo(() => tableDataFlat, []);
         const columns = React.useMemo(
@@ -180,9 +180,9 @@ export const BasicReactTable = {
     },
 
     name: 'Basic Table with React-Table'
-};
+});
 
-export const SelectableRows = {
+export const SelectableRows = meta.story({
     render: () => {
         const data = React.useMemo(() => tableDataFlat, []);
         const columns = React.useMemo(
@@ -298,9 +298,9 @@ export const SelectableRows = {
     },
 
     name: 'Selectable Rows with React-Table'
-};
+});
 
-export const SortingByColumn = {
+export const SortingByColumn = meta.story({
     render: () => {
         const data = React.useMemo(() => tableDataFlat, []);
         const columns = React.useMemo(
@@ -413,9 +413,9 @@ export const SortingByColumn = {
     },
 
     name: 'Sorting by Column with React-Table'
-};
+});
 
-export const Pagination = {
+export const Pagination = meta.story({
     render: () => {
         const [rowsPerPage, setRowsPerPage] = useState(5);
         const [currentPage, setCurrentPage] = useState(1);
@@ -518,9 +518,9 @@ export const Pagination = {
     },
 
     name: 'Pagination with React-Table'
-};
+});
 
-export const StructuredView = {
+export const StructuredView = meta.story({
     render: () => {
         const data = React.useMemo(() => tableDataNested, []);
         const columns = React.useMemo(
@@ -623,7 +623,7 @@ export const StructuredView = {
     },
 
     name: 'Structured View with React-Table'
-};
+});
 
 export const StickyHeader = () => {
     const colNum = 4;
@@ -661,7 +661,7 @@ export const StickyHeader = () => {
     );
 };
 
-export const KitchenSinkFlat = {
+export const KitchenSinkFlat = meta.story({
     render: () => {
         const [rowsPerPage, setRowsPerPage] = useState(5);
         const [currentPage, setCurrentPage] = useState(1);
@@ -800,9 +800,9 @@ export const KitchenSinkFlat = {
     },
 
     name: 'All features except row expansion - flat data'
-};
+});
 
-export const KitchenSinkNested = {
+export const KitchenSinkNested = meta.story({
     render: () => {
         const data = React.useMemo(() => tableDataNested, []);
         const columns = React.useMemo(
@@ -936,4 +936,4 @@ export const KitchenSinkNested = {
     },
 
     name: 'All features except pagination - nested data'
-};
+});

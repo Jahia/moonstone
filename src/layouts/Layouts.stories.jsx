@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import preview from '~/__storybook__/preview';
 
 import {treeData, treeDataNested} from '~/data';
 import {LayoutApp, LayoutModule, LayoutContent} from '~/layouts';
@@ -23,12 +24,11 @@ import {layout} from '~/globals/css-utils.js';
 
 const accordionIds = ['01', '02', '03'];
 
-const meta = {
+const meta = preview.meta({
     title: 'Layouts/Demos'
-};
-export default meta;
+});
 
-export const Example = {
+export const Example = meta.story({
     render: () => {
         const [selectedItems1, setSelectedItems1] = useState([]);
         const [selectedItems2, setSelectedItems2] = useState([]);
@@ -104,9 +104,9 @@ export const Example = {
             </div>
         );
     }
-};
+});
 
-export const ExampleLight = {
+export const ExampleLight = meta.story({
     render: () => {
         const [selectedItems1, setSelectedItems1] = useState([]);
         const [selectedItems2, setSelectedItems2] = useState([]);
@@ -181,9 +181,9 @@ export const ExampleLight = {
             </div>
         );
     }
-};
+});
 
-export const Centered = {
+export const Centered = meta.story({
     render: () => (
         <div style={{transform: 'scale(1)'}}>
             <LayoutApp
@@ -203,9 +203,9 @@ export const Centered = {
     />
         </div>
     )
-};
+});
 
-export const WithoutLevel2 = {
+export const WithoutLevel2 = meta.story({
     render: () => (
         <div style={{transform: 'scale(1)'}}>
             <LayoutApp
@@ -223,4 +223,4 @@ export const WithoutLevel2 = {
     />
         </div>
     )
-};
+});
