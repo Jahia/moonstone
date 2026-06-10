@@ -4,7 +4,6 @@ import {Accordion} from '~/components/Accordion';
 import {AccordionItem} from './index';
 import type {AccordionItemProps} from './AccordionItem.types';
 
-import markdownNotes from './AccordionItem.md';
 import {Love} from '~/icons';
 
 const meta = preview.meta({
@@ -20,7 +19,6 @@ const meta = preview.meta({
         )
     ],
     parameters: {
-        docs: {description: {component: markdownNotes}},
         actions: {argTypesRegex: '^on.*'}
     }
 });
