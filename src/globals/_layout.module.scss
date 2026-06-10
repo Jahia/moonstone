@@ -83,19 +83,17 @@
 // ---
 @each $name, $value in $spacings {
     .row-#{$name} {
-        display: flex;
-        flex-direction: row;
+        @extend %flex-row;
+
         gap: $value;
         align-items: center;
-        min-height: 0;
     }
 
     .col-#{$name} {
-        display: flex;
-        flex-direction: column;
+        @extend %flex-column;
+
         gap: $value;
         align-items: center;
-        min-height: 0;
     }
 }
 
