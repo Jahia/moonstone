@@ -5,16 +5,22 @@ import {Button} from './index';
 import type {ButtonProps} from './Button.types';
 
 import {Love, OpenInNew} from '~/icons';
-import markdownNotes from './Button.md';
+import markdownNotes from './Button.md?raw';
+import {iconArgType} from '~/__storybook__/iconArgType';
 
 const meta: Meta<typeof Button> = {
     title: 'Components/Button',
     component: Button,
+    tags: ['!autodocs'],
 
     parameters: {
         layout: 'centered',
         actions: {argTypesRegex: '^on.*'},
         notes: {markdown: markdownNotes}
+    },
+    argTypes: {
+        icon: iconArgType,
+        iconEnd: iconArgType
     }
 };
 export default meta;

@@ -4,6 +4,7 @@ import {Tooltip} from './index';
 import {Badge, Button, Chip, PrimaryNav, PrimaryNavItem, PrimaryNavItemsGroup} from '~/components';
 import {Apps, Feather, Home, Person, Profile, Setting} from '~/icons';
 import placeholder from '~/__storybook__/assets/img-placeholder.jpg';
+import markdownNotes from './Tooltip.md?raw';
 
 export default {
     title: 'Components/Tooltip',
@@ -13,7 +14,8 @@ export default {
         layout: 'centered',
         knobs: {disable: true},
         storysource: {disable: true},
-        actions: {argTypesRegex: '^on.*'}
+        actions: {argTypesRegex: '^on.*'},
+        notes: {markdown: markdownNotes}
     }
 } as Meta<typeof Tooltip>;
 

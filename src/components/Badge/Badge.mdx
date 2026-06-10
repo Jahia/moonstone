@@ -1,0 +1,16 @@
+import {Meta, Title, Subtitle, Markdown, Canvas, Controls} from '@storybook/addon-docs/blocks';
+import * as BadgeStories from './Badge.stories';
+import notes from './Badge.md?raw';
+
+<Meta of={BadgeStories} />
+
+<Title />
+<Subtitle>A compact label that surfaces counts or system-driven status on another element.</Subtitle>
+
+<Canvas of={BadgeStories.Accent} />
+
+## Props
+
+<Controls of={BadgeStories.Accent} />
+
+<Markdown>{notes}</Markdown>

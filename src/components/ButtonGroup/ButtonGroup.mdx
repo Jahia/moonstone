@@ -1,0 +1,16 @@
+import {Meta, Title, Subtitle, Markdown, Canvas, Controls} from '@storybook/addon-docs/blocks';
+import * as ButtonGroupStories from './ButtonGroup.stories';
+import notes from './ButtonGroup.md?raw';
+
+<Meta of={ButtonGroupStories} />
+
+<Title />
+<Subtitle>Wraps related Buttons into a single visual unit with shared variant, color, and size.</Subtitle>
+
+<Canvas of={ButtonGroupStories.Default} />
+
+## Props
+
+<Controls of={ButtonGroupStories.Default} />
+
+<Markdown>{notes}</Markdown>

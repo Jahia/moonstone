@@ -6,6 +6,7 @@ import {Add, Language, MoreVert} from '~/icons';
 import {Fieldset} from '../Fieldset';
 import {ModalBody, ModalFooter, ModalHeader} from '~/components';
 import {useState} from 'react';
+import markdownNotes from './Modal.md?raw';
 
 const meta: Meta<typeof Modal> = {
     title: 'Components/Modal',
@@ -13,7 +14,8 @@ const meta: Meta<typeof Modal> = {
     tags: ['beta'],
 
     parameters: {
-        layout: 'centered'
+        layout: 'centered',
+        notes: {markdown: markdownNotes}
         // Overrides onOpenChange
         // actions: {argTypesRegex: '^on.*'}
     }

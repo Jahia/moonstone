@@ -1,24 +1,41 @@
-Toggle contextual overlays for displaying a list of actions. This component replaces the classic `select` HTML element.
+A control that lets the user pick one or several values from a list. It replaces the
+native HTML `<select>` and adds grouping, search, icons/images, and tree data.
 
-## Specifications:
+## When to use
+- Selecting from a fixed set of options (single or multiple).
+- The list is long enough to benefit from search, grouping, or a tree.
 
-Click on the Dropdown label to display the Menu component.
+## When NOT to use
+- A free-floating list of *actions* (not a value selection) → use **Menu**.
+- 2–4 mutually exclusive options always visible → consider **RadioGroup**.
+- A simple on/off → use **Switch**.
 
-The label should be truncated if it's longer than the container.
+## Usage
+```jsx
+import {Dropdown} from '@jahia/moonstone';
 
-Allow user to navigate between option by using `Tabulation`.
+// Single selection
+<Dropdown
+    data={[{label: 'Draft', value: 'draft'}, {label: 'Published', value: 'published'}]}
+    value={status}
+    placeholder="Select a status"
+    onChange={(e, item) => setStatus(item.value)}
+/>
 
-Allow user to validate a value by pressing `Enter`.
+// Multiple selection: pass `values` (string[]) instead of `value`
+// Tree selection: pass `treeData` instead of `data`
+```
 
-To hide the menu click on an item of the list or click outside to it.
+- Single vs multiple: use **either** `value` **or** `values` (TS enforces this).
+- Regular vs tree: use **either** `data` **or** `treeData`.
+- Options support `iconStart`/`iconEnd`, `description`, `image`, and `isDisabled`.
+- Group options with `{groupLabel, options}`; if you group, **all** options must be in a group.
+- Search: `hasSearch` (auto-enabled past `autoAddSearchLimit`, default 7); `searchEmptyText` for no results.
+- `placeholder` shows when nothing is selected (`label` is deprecated).
 
-The selected item has a specific design.
+## Accessibility
+- Keyboard: Tab to move between options, Enter to select; click outside to dismiss.
+- The selected item has a distinct visual state.
 
-## Grouping Items
-Items can be grouped with a title.
-If you are using item groups then all items must be within a group.
-
-## Dropdown Options with Images
-To use image dropdown options, ensure that the data passed into the Dropdown has an `image` property in addition to the `label` and any other properties you wish.
-
-The value of the `image` property should be an `img` HTML element.
+## Related
+- **Menu** (actions overlay), **TreeView** (tree without selection control), **Field** (label/error).

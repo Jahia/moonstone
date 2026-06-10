@@ -27,13 +27,15 @@ import {
     tablePaginationDataFlat
 } from '~/data';
 import {Edit, Love, Visibility} from '~/icons';
+import markdownNotes from './Table.md?raw';
 
 export default {
     title: 'Components/Table',
     component: Table,
     parameters: {
         controls: {disable: true},
-        actions: {argTypesRegex: '^on.*'}
+        actions: {argTypesRegex: '^on.*'},
+        notes: {markdown: markdownNotes}
     }
 };
 

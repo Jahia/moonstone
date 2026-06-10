@@ -36,7 +36,10 @@ export const decorators = story => story();
 export const parameters = {
     layout: 'fullscreen',
     docs: {
-        extractComponentDescription: (component, { notes }) => {
+        // Storybook 10 calls this as (component, {component, parameters}).
+        // The markdown lives at parameters.notes — read it from there, not the top-level arg.
+        extractComponentDescription: (component, {parameters}) => {
+            const notes = parameters?.notes;
             if (notes) {
                 return typeof notes === 'string' ? notes : notes.markdown || notes.text;
             }
@@ -62,3 +65,27 @@ export const parameters = {
 
 setupBackgroundListener();
 export const tags = ['autodocs'];
+
+// Group props into categories in the args table, by Moonstone naming convention:
+//  - on*      → "Events"  (and disable the control: a JSON editor for a callback is meaningless;
+//               handlers belong in the Actions panel, but stay documented here)
+//  - is*/has* → "State"
+// secondPass = run after control inference so our control settings aren't re-inferred away.
+const categorizeArgs = context => {
+    const {argTypes = {}} = context;
+    const next = {};
+    for (const key in argTypes) {
+        const argType = argTypes[key];
+        const table = argType.table || {};
+        if (/^on[A-Z]/.test(key)) {
+            next[key] = {...argType, control: false, table: {...table, category: 'Events'}};
+        } else if (/^(is|has)[A-Z]/.test(key)) {
+            next[key] = {...argType, table: {...table, category: 'State'}};
+        } else {
+            next[key] = argType;
+        }
+    }
+    return next;
+};
+categorizeArgs.secondPass = true;
+export const argTypesEnhancers = [categorizeArgs];

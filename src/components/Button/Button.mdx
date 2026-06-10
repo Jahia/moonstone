@@ -1,0 +1,16 @@
+import {Meta, Title, Subtitle, Markdown, Canvas, Controls} from '@storybook/addon-docs/blocks';
+import * as ButtonStories from './Button.stories';
+import notes from './Button.md?raw';
+
+<Meta of={ButtonStories} />
+
+<Title />
+<Subtitle>Triggers an action when the user clicks it.</Subtitle>
+
+<Canvas of={ButtonStories.Overview} />
+
+## Props
+
+<Controls of={ButtonStories.Default} />
+
+<Markdown>{notes}</Markdown>

@@ -4,6 +4,7 @@ import {StoryObj, Meta} from '@storybook/react-vite';
 import {Input} from './index';
 import {Love} from '~/icons';
 import {useArgs} from 'storybook/preview-api';
+import markdownNotes from './Input.md?raw';
 
 export default {
     title: 'Components/Input',
@@ -16,7 +17,8 @@ export default {
         )
     ],
     parameters: {
-        layout: 'centered'
+        layout: 'centered',
+        notes: {markdown: markdownNotes}
     },
     args: {
         placeholder: 'Placeholder text'

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {action} from 'storybook/actions';
-import markdownNotes from './Dropdown.md';
+import markdownNotes from './Dropdown.md?raw';
 import {Dropdown} from './index';
 import {Pill} from '~/components';
 import * as icons from '~/icons/components';

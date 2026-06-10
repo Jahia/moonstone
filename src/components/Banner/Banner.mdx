@@ -1,0 +1,16 @@
+import {Meta, Title, Subtitle, Markdown, Canvas, Controls} from '@storybook/addon-docs/blocks';
+import * as BannerStories from './Banner.stories';
+import notes from './Banner.md?raw';
+
+<Meta of={BannerStories} />
+
+<Title />
+<Subtitle>Displays a titled status message with optional body content and actions.</Subtitle>
+
+<Canvas of={BannerStories.Default} />
+
+## Props
+
+<Controls of={BannerStories.Default} />
+
+<Markdown>{notes}</Markdown>

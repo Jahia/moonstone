@@ -3,12 +3,14 @@ import {StoryObj} from '@storybook/react-vite';
 
 import {Checkbox} from '~/components';
 import type {CheckboxProps} from './Checkbox.types';
+import markdownNotes from './Checkbox.md?raw';
 
 export default {
     title: 'Components/Checkbox',
     component: Checkbox,
     parameters: {
-        layout: 'centered'
+        layout: 'centered',
+        notes: {markdown: markdownNotes}
     // When enabled, the controlledCheckbox doesn't work anymore. maybe it's fixed with storybook 7.4 (https://github.com/storybookjs/storybook/pull/23804)
     // Actions: {argTypesRegex: '^on.*'}
     }

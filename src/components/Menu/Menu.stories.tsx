@@ -4,7 +4,7 @@ import {StoryObj} from '@storybook/react-vite';
 import {Menu, MenuItem} from './index';
 import type {MenuProps, AnchorPosition} from './Menu.types';
 
-import markdownNotes from './Menu.md';
+import markdownNotes from './Menu.md?raw';
 import {Separator} from '~/components';
 import clsx from 'clsx';
 import {layout} from '~/globals/css-utils.js';

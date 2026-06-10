@@ -1,0 +1,16 @@
+import {Meta, Title, Subtitle, Markdown, Canvas, Controls} from '@storybook/addon-docs/blocks';
+import * as ButtonToggleStories from './ButtonToggle.stories';
+import notes from './ButtonToggle.md?raw';
+
+<Meta of={ButtonToggleStories} />
+
+<Title />
+<Subtitle>A button that holds a pressed/active state, used for toggleable modes and toolbar controls.</Subtitle>
+
+<Canvas of={ButtonToggleStories.Default} />
+
+## Props
+
+<Controls of={ButtonToggleStories.Default} />
+
+<Markdown>{notes}</Markdown>

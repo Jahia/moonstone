@@ -1,18 +1,35 @@
-The Input component is built in two sizes. It also uses the Icon token as a leading icon which indicates the purpose of the Input.
+A single-line text field for collecting short free-form text from the user. Supports
+controlled and uncontrolled usage, a leading icon, and an optional clear button.
 
-## Design
-[Figma Link](https://www.figma.com/file/939bW74C3TLW5VAzK23uox/%F0%9F%8C%99moonstone-components?node-id=4631%3A365)
+## When to use
+- Capturing short text (name, title, search term, etc.).
+- Inside a form — wrap it in **Field** to get a label, helper text, and error message.
 
-## Search Variant
-To use the search variant of the Input, use `variant="search"` for the Input.
-This displays the Search/magnifying glass icon at the beginning of the Input.
+## When NOT to use
+- Multi-line text → use **Textarea**.
+- Numbers with stepping/validation → use **NumberInput** (`@jahia/moonstone`).
+- A search box → use **SearchInput** (the `variant="search"` prop is deprecated).
+- Choosing from a fixed list → use **Dropdown** (it replaces the native `<select>`).
 
-Also, ensure that an `onClear` callback is provided which will cause the Cancel icon to appear at the end of the input.
-The purpose of the `onClear` prop is to provide a callback which will clear the text in the Input.
+## Usage
+```jsx
+import {Input, Field} from '@jahia/moonstone';
 
-## Number Input
-Only allows numbers to be typed inside & '-' as first character if `allowNegative` is true (default).
+// Controlled, inside a Field for label + error
+<Field label="Email" id="email" hasError={!valid} errorMessage="Enter a valid email">
+    <Input id="email" value={email} onChange={e => setEmail(e.target.value)}/>
+</Field>
 
-`min`, `max` & `step` props take numbers and are only used for arrow incrementation. NumberInput's value validation must be done on the form level.
+// With a clear button
+<Input defaultValue="" onClear={() => setValue('')} isShowClearButton/>
+```
 
-`NumberInput`'s value is typed as a string.
+- `size`: `default` · `big`.
+- States: `isDisabled`, `isReadOnly` (still submittable), `focusOnField` (autofocus).
+- Controlled = pass `value` + `onChange`; uncontrolled = pass `defaultValue`.
+
+## Accessibility
+- Always provide a label — use **Field**, or an `aria-label` if standalone.
+
+## Related
+- **Field** (label/error/helper wrapper), **Textarea**, **NumberInput**, **SearchInput**, **Dropdown**.
