@@ -5,6 +5,7 @@ import {Button} from './index';
 import type {ButtonProps} from './Button.types';
 
 import {Love, OpenInNew} from '~/icons';
+import {iconArgType} from '~/__storybook__/iconArgType';
 import markdownNotes from './Button.md';
 
 const meta: Meta<typeof Button> = {
@@ -15,6 +16,10 @@ const meta: Meta<typeof Button> = {
         layout: 'centered',
         actions: {argTypesRegex: '^on.*'},
         notes: {markdown: markdownNotes}
+    },
+    argTypes: {
+        icon: iconArgType,
+        iconEnd: iconArgType
     }
 };
 export default meta;

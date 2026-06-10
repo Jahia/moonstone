@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {StoryFn, Meta} from '@storybook/react-vite';
+import {iconArgType} from '~/__storybook__/iconArgType';
 
 import {Accordion} from './index';
 import {AccordionItem} from '~/components/Accordion/AccordionItem';
@@ -17,6 +18,7 @@ export default {
     docs: {
         IframeHeight: 800
     },
+    argTypes: { icon: iconArgType},
     decorators: [
         StoryCmp => (
             <div

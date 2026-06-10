@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {action} from 'storybook/actions';
 import markdownNotes from './Dropdown.md';
+import {iconArgType} from '~/__storybook__/iconArgType';
 import {Dropdown} from './index';
 import {Pill} from '~/components';
-import * as icons from '~/icons/components';
 import {
     dropdownData,
     dropdownDataGrouped,
@@ -30,9 +30,7 @@ export default {
         }
     },
     argTypes: {
-        icon: {
-            options: Object.keys(icons)
-        }
+        icon: iconArgType
     }
 };
 export const FlatData = {
