@@ -11,7 +11,7 @@
     color: var(--moon-color-gray_dark);
 
     border: 1px solid var(--moon-color-gray_dark);
-    background-color: transparent;
+    background-color: white;
 
     &:disabled {
         @include default_disabled;
