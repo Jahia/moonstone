@@ -3,7 +3,6 @@ import {LayoutContent} from '~/layouts';
 import {Drawer, Header} from '~/components';
 import {FakeContent} from '~/__storybook__/FakeComponents';
 import type {LayoutContentProps} from './LayoutContent.types';
-import styles from './LayoutContent.module.scss';
 
 export default {
     title: 'Layouts/LayoutContent',
@@ -58,7 +57,7 @@ export const WithDrawer: Story = {
         <LayoutContent
             header={<Header title="Header"/>}
             {...args}
-            drawer={<Drawer isOpen className={styles['moonstone-layoutContent_storyDrawer']}>Drawer content</Drawer>}
+            drawer={<Drawer isOpen style={{width: '320px'}}>Drawer content</Drawer>}
         >
             <FakeContent/>
         </LayoutContent>

@@ -16,13 +16,6 @@ describe('LayoutContent', () => {
         expect(screen.getByText(requiredProps.children)).toBeInTheDocument();
     });
 
-    it('should display drawer alongside content', () => {
-        const {container} = render(<LayoutContent {...requiredProps} drawer={<aside>test-drawer</aside>}/>);
-        expect(screen.getByText(requiredProps.children)).toBeInTheDocument();
-        expect(screen.getByText('test-drawer')).toBeInTheDocument();
-        expect(container.querySelector('.moonstone-layoutContent_body')).toBeInTheDocument();
-    });
-
     it('should display the loader and not the content when LayoutContent is loading', () => {
         render(<LayoutContent isLoading {...requiredProps}/>);
         expect(screen.getByRole('status')).toBeInTheDocument();

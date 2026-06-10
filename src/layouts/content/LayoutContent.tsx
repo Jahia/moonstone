@@ -57,7 +57,7 @@ export const LayoutContent = React.forwardRef(({
                 <div className={clsx(
                     ['flexRow_nowrap', layout.flexRow_nowrap],
                     ['flexFluid', layout.flexFluid],
-                    ['moonstone-layoutContent_body', styles['moonstone-layoutContent_body']]
+                    styles['moonstone-layoutContent_body']
                 )}
                 >
                     {mainContent}
