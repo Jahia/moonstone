@@ -33,7 +33,7 @@ jobs:
   deploy-storybook:
     needs: publish-release
     # only run when chachalog released @jahia/moonstone
-    if: ${{ needs.publish-release.outputs.released_moonstone == 'true' }}
+    if: needs.publish-release.outputs.released_moonstone
     runs-on: ubuntu-latest
     permissions:
       pages: write      # required to deploy to GitHub Pages
