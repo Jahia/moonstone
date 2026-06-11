@@ -1,0 +1,16 @@
+import {Meta, Title, Subtitle, Markdown, Canvas, Controls} from '@storybook/addon-docs/blocks';
+import * as AccordionStories from './Accordion.stories';
+import notes from './Accordion.md?raw';
+
+<Meta of={AccordionStories} />
+
+<Title />
+<Subtitle>Organises content into vertically stacked, collapsible sections where only one section is open at a time.</Subtitle>
+
+<Canvas of={AccordionStories.Default} />
+
+## Props
+
+<Controls of={AccordionStories.Default} />
+
+<Markdown>{notes}</Markdown>

@@ -1,14 +1,3 @@
-## Do
-- Submitting a form or confirming a choice.
-- Triggering an action (open a modal, run a command, toggle something).
-- A compact, **icon-only** utility action — e.g. a table-row action or a 3-dots "more" menu (omit `label`, pass `icon`, and add an `aria-label`).
-
-## Don't
-- Navigating to another page or URL → use a link / navigation component, not a Button.
-- A group of related actions → wrap Buttons in **ButtonGroup**.
-- A binary on/off setting → use **Switch**.
-- A toolbar button with a pressed/active state → use **ButtonToggle**.
-
 ## Example
 ```jsx
 import {Button} from '@jahia/moonstone';
@@ -19,58 +8,57 @@ import {Love} from '@jahia/moonstone/icons';
 // Destructive action
 <Button label="Delete" variant="outlined" color="danger" onClick={handleDelete}/>
 
-// Icon-only (requires aria-label — see Accessibility)
+// Icon-only button. See Accessibility for the required aria-label.
 <Button icon={<Love/>} aria-label="Add to favorites" onClick={handleFav}/>
 ```
 
+## Do
+- Use it to submit a form or confirm a choice.
+- Use it to trigger an action, such as opening a modal, running a command, or toggling a setting.
+- Use it for a compact, icon-only utility action, such as a table-row action or a 3-dots "more" menu. Omit the `label`, pass an `icon`, and add an `aria-label`.
+
+## Don't
+- Don't use a Button to navigate to another page or URL. Use a link or navigation component instead.
+- Don't use separate Buttons for a group of related actions. Wrap them in a **ButtonGroup**.
+- Don't use a Button for a binary on/off setting. Use a **Switch** instead.
+- Don't use a Button for a control that holds a pressed or active state. Use a **ButtonToggle** instead.
+
 ## Appearance
 
-One main action per *area* (page, modal, panel); lower the emphasis as an action's importance drops.
+Each area, such as a page, a modal, or a panel, should have one main action. Lower the emphasis as an action becomes less important.
 
 ### `variant` for emphasis
 
 | Value | Use it for |
 |---|---|
-| `default` | The main action of an area (use once per area). |
-| `outlined` | Secondary actions that perform something — Save, Copy, Export. |
-| `ghost` | Lowest emphasis: Cancel / Close, and toolbar or icon-only actions. |
+| `default` | The main action of an area. Use it once per area. |
+| `outlined` | Secondary actions that perform something, such as Save, Copy, or Export. |
+| `ghost` | The lowest-emphasis actions, such as Cancel, Close, toolbar buttons, and icon-only buttons. |
 
 ### `color` for meaning
 
 | Value | Use it for |
 |---|---|
 | `default` | Neutral actions. |
-| `accent` | The main action — pair with `variant="default"`. |
-| `danger` | Destructive or irreversible actions (Delete). For two destructive actions side by side, make the lesser one `outlined`. |
+| `accent` | The main action. Pair it with `variant="default"`. |
+| `danger` | Destructive or irreversible actions, such as Delete. When two destructive actions sit side by side, make the lesser one `outlined`. |
 
 ### `size` for prominence
 
 | Value | Use it for |
 |---|---|
 | `default` | Most contexts. |
-| `small` | BreadcrumbItem only — don't use elsewhere for now. |
-| `big` | Header and modal-footer buttons, to raise emphasis (label shown uppercase). |
-
-### `isReversed` for dark backgrounds
-
-Set `isReversed` when the button appears on a dark or coloured background; it switches to the reversed-colour treatment.
+| `small` | BreadcrumbItem only. Don't use it elsewhere for now. |
+| `big` | Header and modal-footer buttons, where you want to raise emphasis. The label is shown in uppercase. |
 
 ## Voice and tone
 
-- **Sentence case; a few words (3 max), never a sentence.**
-- **Use a verb.** Label the button with the action verb: "Save", "Publish", "Copy".
-- **Add a noun only to disambiguate** — when the same verb applies to different objects:
-  "Edit image" vs "Edit content".
-- **Be specific — never "OK".** Name the real outcome ("Delete"), especially for
-  destructive actions.
+- Write labels in sentence case, using a few words at most (3 maximum). Never write a full sentence.
+- Start with a verb that names the action, such as "Save", "Publish", or "Copy".
+- Add a noun only when the same verb applies to different objects, such as "Edit image" and "Edit content".
+- Be specific and name the real outcome. Write "Delete", never "OK", especially for destructive actions.
 
 ## Accessibility
-- An **icon-only** Button (no `label`) **must** have an `aria-label` describing the action.
-- A disabled or loading Button is non-interactive and not focusable for activation.
-- Focus shows the standard focus ring automatically — do not remove it.
-
-## Related
-- **ButtonGroup** — group related buttons together.
-- **ButtonToggle** — a button that holds a pressed/active state (toolbar toggles).
-- **Switch** — an immediate on/off setting.
-- **Loader** — shown inside the button when `isLoading`.
+- An icon-only Button (one with no `label`) must have an `aria-label` that describes the action.
+- A disabled or loading Button is non-interactive and cannot be activated with the keyboard.
+- The focus ring appears automatically on keyboard focus. Don't remove it.

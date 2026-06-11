@@ -1,36 +1,47 @@
-Renders all text in the design system. It applies the correct size, weight, and HTML
-element for a given level, so text hierarchy stays consistent everywhere. **All text
-should go through Typography** rather than raw styled elements.
-
-## When to use
-- Any visible text: headings, body copy, captions, labels.
-- Whenever you'd otherwise set `font-size` / `font-weight` by hand — use a variant instead.
-
-## When NOT to use
-- The text inside another Moonstone component that already renders Typography for you
-  (e.g. `Button`'s `label`) — don't double-wrap.
-
-## Usage
+## Example
 ```jsx
 import {Typography} from '@jahia/moonstone';
 
-<Typography variant="title">Page title</Typography>
+<Typography variant="title" component="h1">Page title</Typography>
+<Typography variant="heading" component="h2">Section heading</Typography>
 <Typography variant="body">Body copy goes here.</Typography>
-<Typography variant="caption" weight="light">Secondary detail</Typography>
-
-// Polymorphic: render as a different element
-<Typography component="label" variant="body">Email</Typography>
+<Typography variant="caption">Secondary detail</Typography>
 ```
 
-- `variant`: `title` · `heading` · `subheading` · `body` · `caption` · `button`
-  (variant drives both the style and the default HTML element).
-- `weight`: `default` · `bold` · `semiBold` · `light`.
-- Modifiers: `isItalic`, `isUpperCase`, `hasLineThrough`, `isNowrap`.
-- `component` overrides the rendered element (polymorphic).
+## Do
+- Use it for all visible text in your UI: headings, body copy, captions, and labels.
+- Use the `component` prop to render the correct semantic HTML element for the text's role in the page, such as `h1`, `h2`, or `label`.
+- Use `weight` to adjust emphasis within a variant without changing its visual size.
+
+## Don't
+- Don't use raw HTML elements with custom styles for text. Use a Typography variant instead to stay consistent with the design system's type scale.
+- Don't double-wrap text that is already inside a Moonstone component that renders Typography internally, such as the `label` prop of a **Button**.
+
+## Appearance
+
+Choose the variant that matches the text's role in the content hierarchy, then adjust weight and modifiers as needed.
+
+### `variant` for hierarchy
+
+| Value | Use it for |
+|---|---|
+| `title` | _Pending design guidance_ <!-- designer: page-level titles, the largest text level --> |
+| `heading` | _Pending design guidance_ <!-- designer: section headings within a page --> |
+| `subheading` | _Pending design guidance_ <!-- designer: subsection headings or group labels --> |
+| `body` | _Pending design guidance_ <!-- designer: default body text, the most common variant --> |
+| `caption` | _Pending design guidance_ <!-- designer: small supporting text, metadata, secondary details --> |
+| `button` | _Pending design guidance_ <!-- designer: control and button labels; used internally by Button --> |
+
+### `weight` for emphasis
+
+| Value | Use it for |
+|---|---|
+| `default` | _Pending design guidance_ <!-- designer: regular weight, the baseline for all variants --> |
+| `bold` | _Pending design guidance_ <!-- designer: strong emphasis within a text block --> |
+| `semiBold` | _Pending design guidance_ <!-- designer: moderate emphasis --> |
+| `light` | _Pending design guidance_ <!-- designer: de-emphasised or secondary text --> |
 
 ## Accessibility
-- Choose the variant for *meaning/hierarchy*; use `component` to keep the correct
-  heading level / element for semantics and screen readers.
-
-## Related
-- Pairs with `--moon-color-*` for text color. Used internally by most components.
+- Set the `component` prop to the correct HTML heading element (`h1`, `h2`, and so on) when the text is a heading. Typography renders as `<p>` by default regardless of variant.
+- Use `component="label"` when the Typography wraps a form-field label, and associate it with the input via `htmlFor`.
+- Don't rely on `variant` alone for semantic structure. Screen readers use the HTML element, not the visual style, to convey hierarchy.

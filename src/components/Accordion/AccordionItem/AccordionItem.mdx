@@ -1,0 +1,16 @@
+import {Meta, Title, Subtitle, Markdown, Canvas, Controls} from '@storybook/addon-docs/blocks';
+import * as AccordionItemStories from './AccordionItem.stories';
+import notes from './AccordionItem.md?raw';
+
+<Meta of={AccordionItemStories} />
+
+<Title />
+<Subtitle>A single collapsible section used inside an Accordion, with an optional icon and a required label.</Subtitle>
+
+<Canvas of={AccordionItemStories.WithIcon} />
+
+## Props
+
+<Controls of={AccordionItemStories.WithIcon} />
+
+<Markdown>{notes}</Markdown>

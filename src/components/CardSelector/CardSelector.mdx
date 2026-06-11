@@ -1,0 +1,16 @@
+import {Meta, Title, Subtitle, Markdown, Canvas, Controls} from '@storybook/addon-docs/blocks';
+import * as CardSelectorStories from './CardSelector.stories';
+import notes from './CardSelector.md?raw';
+
+<Meta of={CardSelectorStories} />
+
+<Title />
+<Subtitle>Displays a selected content item with its thumbnail, metadata, and optional actions.</Subtitle>
+
+<Canvas of={CardSelectorStories.Default} />
+
+## Props
+
+<Controls of={CardSelectorStories.Default} />
+
+<Markdown>{notes}</Markdown>

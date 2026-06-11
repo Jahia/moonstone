@@ -37,6 +37,8 @@ audiences with two different problems, so there are two tracks.
   reuse the same questions, e.g. token semantics Q-A2 ≈ Q-V3.)
 - **[VOICE-AND-TONE.md](./VOICE-AND-TONE.md)** — global UI-copy rules (sentence case,
   verb-first labels, canonical label list). First adopted by Button; applies to all components.
+- **[DOC-STYLE.md](./DOC-STYLE.md)** — how the documentation itself is written (mixed voice,
+  no em dashes, complete sentences). Governs the `.md`/`.mdx` docs; distinct from VOICE-AND-TONE.
 
 ## LLM-delivery decision (consumer track)
 

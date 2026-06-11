@@ -1,0 +1,16 @@
+import {Meta, Title, Subtitle, Markdown, Canvas, Controls} from '@storybook/addon-docs/blocks';
+import * as TypographyStories from './Typography.stories';
+import notes from './Typography.md?raw';
+
+<Meta of={TypographyStories} />
+
+<Title />
+<Subtitle>Renders text in the design system's type scale, applying the correct style for a given level of the content hierarchy.</Subtitle>
+
+<Canvas of={TypographyStories.Variants} />
+
+## Props
+
+<Controls of={TypographyStories.Playground} />
+
+<Markdown>{notes}</Markdown>

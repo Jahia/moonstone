@@ -69,8 +69,10 @@ export const tags = ['autodocs'];
 // Group props into categories in the args table, by Moonstone naming convention:
 //  - on*      → "Events"  (and disable the control: a JSON editor for a callback is meaningless;
 //               handlers belong in the Actions panel, but stay documented here)
-//  - is*/has* → "State"
+//  - is*/has* → "State", EXCEPT the appearance/theme flags below. Those are not interaction
+//               state, so they stay ungrouped alongside variant/color/size.
 // secondPass = run after control inference so our control settings aren't re-inferred away.
+const APPEARANCE_FLAGS = ['isReversed', 'isItalic', 'isUpperCase', 'isNowrap', 'hasLineThrough'];
 const categorizeArgs = context => {
     const {argTypes = {}} = context;
     const next = {};
@@ -79,7 +81,7 @@ const categorizeArgs = context => {
         const table = argType.table || {};
         if (/^on[A-Z]/.test(key)) {
             next[key] = {...argType, control: false, table: {...table, category: 'Events'}};
-        } else if (/^(is|has)[A-Z]/.test(key)) {
+        } else if (/^(is|has)[A-Z]/.test(key) && !APPEARANCE_FLAGS.includes(key)) {
             next[key] = {...argType, table: {...table, category: 'State'}};
         } else {
             next[key] = argType;

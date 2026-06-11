@@ -1,6 +1,5 @@
 import {StoryObj, Meta} from '@storybook/react-vite';
 
-import markdownNotes from './ButtonGroup.md';
 import {ButtonGroup} from './index';
 import type {ButtonGroupProps} from './ButtonGroup.types';
 import {Button} from '~/components/Button';
@@ -14,7 +13,6 @@ export default {
     parameters: {
         layout: 'centered',
         componentSubtitle: 'ButtonGroup',
-        notes: {markdown: markdownNotes},
         actions: {argTypesRegex: '^on.*'}
     }
 } as Meta<typeof ButtonGroup>;

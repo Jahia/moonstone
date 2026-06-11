@@ -1,6 +1,6 @@
 ---
 name: component-doc-writer
-description: Write or review documentation for a Moonstone (@jahia/moonstone) component — the `<Component>.md` usage doc and the `<Component>.mdx` Storybook page — following the design system's documentation standard. Use when a component needs docs created, existing docs updated, or an audit of docs against the standard.
+description: "ALWAYS delegate to this agent for any component documentation task — writing, updating, or auditing. Never handle component docs directly. The agent always creates or updates both `<Component>.md` and `<Component>.mdx` together; doing one without the other is an error. Use for: creating new docs, updating existing docs, auditing docs against the standard."
 tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 
@@ -42,31 +42,53 @@ any existing `<Component>.md`, and `src/components/<Component>/index.ts` (and su
 Sections, in this exact order and with these exact h2 titles:
 
 ```
-## Do
-## Don't
 ## Example
 ## Controlled & uncontrolled   ← ONLY if the component supports both modes (see below)
+## Do
+## Don't
 ## Appearance
 ## Voice and tone   ← ONLY if the component involves user-authored copy (see below)
 ## Accessibility
-## Related
 ```
+
+### Writing style
+
+Follow `docs/design-review/DOC-STYLE.md`. The essentials:
+
+- **Mixed voice:** the subtitle/intro is descriptive and present tense ("Triggers an action
+  when the user clicks it."); Do/Don't and all guidance are imperative ("Use it to…",
+  "Don't use it for…").
+- **No em dashes (`—`) and no arrow shortcuts (`→`).** Write complete sentences or clean list
+  items; use a full stop, a comma, or "such as" instead.
+- Present tense, active voice, sentence-case headings.
 
 Rules per section:
 
 - **No leading `# Title`.** Storybook prints the title; a leading H1 doubles it. Start the
-  file at `## Do`.
-- **Do** — bullet list of concrete situations the component is for.
-- **Don't** — bullet list of situations to avoid, each routing to the correct alternative
-  component (`→ use **OtherComponent**`). This routing is what steers an LLM to built-ins,
-  so it is required and must name real, exported components.
+  file at `## Example`.
 - **Example** — a fenced ```jsx block: the import line(s) plus 2–4 minimal, copy-pasteable
   usages covering the common cases. Use realistic labels that follow Voice and tone.
   Import the component from `@jahia/moonstone` and any icons from `@jahia/moonstone/icons`.
+  Placed first so it renders right after the Props table.
 - **Controlled & uncontrolled** — include ONLY when the component supports both modes (a
   controlled prop such as `value` / `checked` / `isPressed`, plus an uncontrolled `default*`
   prop — confirm from `*.types.ts`). Explain each mode in one line with a short code example,
   say when to use which, and warn not to mix them (the controlled prop vs the `default*` one).
+- **Do** — answers only **"when should I reach for this component?"** Each bullet is a
+  "when to use" statement: the scenario or context in which this is the right component.
+  Lead with "Use it to / for / when …" (for example, "Use it to submit a form or confirm
+  a choice."). Other action verbs (Pair, Reserve …) are allowed where they read naturally.
+  Never gerunds ("Showing …") or bare noun phrases.
+  **CRITICAL — never include "how to use" bullets.** Anything about configuring a specific
+  prop ("Supply `cardAction` with…", "Set `hasError` when…", "Use `isDisabled` when…") is
+  **not** a "when to use" statement. It belongs in the Props table or Example, not here.
+  If a candidate bullet is about a prop value, delete it.
+- **Don't** — answers only **"when should I NOT use this component?"** Each bullet names a
+  wrong *use case*, then names the correct alternative as a complete sentence (for example,
+  "Don't use a Button for an on/off setting. Use a **Switch** instead.").
+  This routing steers an LLM to built-ins, so it is required and must name real, exported
+  components. There is no separate Related section, so cross-references to other components
+  live here or in the prose.
 - **Appearance** — see the pattern below.
 - **Voice and tone** — include ONLY for components where the user writes copy (labels,
   placeholders, messages) — e.g. Button, Input, Field, EmptyData. Omit for components with
@@ -76,16 +98,16 @@ Rules per section:
   other `docs/design-review/` doc; the section is self-contained.
 - **Accessibility** — bullets of the must-dos the consumer is responsible for (e.g.
   icon-only controls need `aria-label`; labels via `Field`; don't remove the focus ring).
-- **Related** — a bullet **list**, one component per line: `**Name** — short reason`.
-  List only **public, exported** components (importable from `@jahia/moonstone`) — never
-  internal or non-exported sub-components / implementation pieces. Confirm a component is
-  public by checking `src/components/index.ts` and the package `exports` in `package.json`.
-
 ### The Appearance pattern (generalizable — use for every component)
 
-One block per "variant-like" prop (any enum/choice prop: `variant`, `color`, `size`,
-`weight`, …). Each block is an **h3 heading** `### \`<prop>\` for <one-word gist>` followed
-by a two-column table, one row per allowed value:
+One block per "variant-like" prop (any enum/choice prop with multiple values: `variant`,
+`color`, `size`, `weight`, …). Each block is an **h3 heading** `### \`<prop>\` for <one-word
+gist>` followed by a two-column table, one row per allowed value.
+
+Do NOT give a subsection to a simple **boolean** prop (`isReversed`, `isDisabled`, `isLoading`,
+…). The Props table already documents booleans; a value table for true/false adds nothing.
+
+Example:
 
 ```
 ### `variant` for emphasis
@@ -165,7 +187,8 @@ component has such props, include a ready-to-paste **"Apply to `<Component>.stor
 
 Already set up project-wide — never touch these, only flag if genuinely missing: the
 `.storybook/main.ts` `*.mdx` glob, and the `.storybook/preview.jsx` `argTypesEnhancer` that
-groups props by naming (`on*` → "Events" with control disabled, `is*/has*` → "State").
+groups props by naming (`on*` → "Events" with control disabled, `is*/has*` → "State", except
+appearance/theme flags like `isReversed` / `isItalic` / `isUpperCase` which stay ungrouped).
 
 ---
 
@@ -190,6 +213,8 @@ groups props by naming (`on*` → "Events" with control disabled, `is*/has*` →
 - **No internal-doc links.** Never link to `docs/design-review/` files (the rulebooks,
   `VOICE-AND-TONE.md`) or any internal governance doc. Component docs are self-contained —
   inline any rule you'd otherwise link to.
+- **No em dashes (`—`) or arrow shortcuts (`→`).** Write complete sentences or clean list
+  items (see Writing style above and `DOC-STYLE.md`).
 - **No "states/props in prose"** that merely restate the Props table (e.g. "States:
   isDisabled, isLoading…") — the table covers props.
 - **Respect the public API boundary**: only reference exported components and public props.
@@ -215,8 +240,12 @@ correct once pasted in.
 
 When auditing existing docs, report findings against every item below (pass/fail + fix):
 
-- [ ] `.md` has no leading `# Title`; sections are exactly Do · Don't · Example ·
-      [Controlled & uncontrolled] · Appearance · [Voice and tone] · Accessibility · Related, in order.
+- [ ] `.md` has no leading `# Title`; sections are exactly Example · [Controlled & uncontrolled] ·
+      Do · Don't · Appearance · [Voice and tone] · Accessibility, in order (no Related).
+- [ ] No em dashes (`—`) or arrow shortcuts (`→`); complete sentences or clean list items.
+- [ ] Descriptive subtitle/intro; imperative Do/Don't and guidance.
+- [ ] Do contains only "when to use" bullets (scenario/context); no "how to configure a prop"
+      bullets — those belong in the Props table or Example.
 - [ ] Don't section routes to real, exported alternative components.
 - [ ] Example is copy-pasteable and uses realistic, Voice-and-tone-compliant labels.
 - [ ] Appearance uses the per-prop `### \`prop\` for <gist>` + `Value | Use it for` table;
@@ -228,8 +257,6 @@ When auditing existing docs, report findings against every item below (pass/fail
 - [ ] No implementation details (px, `.moonstone-*`, `$vars`, `--moon-*`).
 - [ ] No Figma / design-tool links.
 - [ ] No links to internal `docs/design-review/` docs (VOICE-AND-TONE.md, rulebooks).
-- [ ] Related is a per-component bullet list of **public/exported** components only (no
-      internal or non-exported sub-components).
 - [ ] `.mdx` imports `.md?raw`, uses `<Meta of>`, `<Title/>`, `<Subtitle>`, one `<Canvas of>`,
       `<Controls of>`, then `<Markdown>{notes}</Markdown>`; order Preview → Props → prose.
 - [ ] Element props (if any) use `iconArgType` in the story; no leftover unused `notes`/`.md`
@@ -241,6 +268,7 @@ When auditing existing docs, report findings against every item below (pass/fail
 ## References (read these for context)
 
 - `src/components/Button/` — the canonical example (`.md`, `.mdx`, `.stories.tsx`).
+- `docs/design-review/DOC-STYLE.md` — how to WRITE the docs (voice, no em dashes, sentences).
 - `docs/design-review/VOICE-AND-TONE.md` — UI-copy rules (casing, verb-first labels).
 - `docs/design-review/CONSUMER-RULEBOOK.md` — how consumers/LLMs must use the system
   (use built-ins, never custom CSS/internal classes) — the *why* behind Do/Don't routing.

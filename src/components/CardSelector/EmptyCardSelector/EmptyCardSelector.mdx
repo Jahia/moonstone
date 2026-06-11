@@ -1,0 +1,16 @@
+import {Meta, Title, Subtitle, Markdown, Canvas, Controls} from '@storybook/addon-docs/blocks';
+import * as EmptyCardSelectorStories from './EmptyCardSelector.stories';
+import notes from './EmptyCardSelector.md?raw';
+
+<Meta of={EmptyCardSelectorStories} />
+
+<Title />
+<Subtitle>Represents an unselected content-picker slot and invites the user to make a selection.</Subtitle>
+
+<Canvas of={EmptyCardSelectorStories.Default} />
+
+## Props
+
+<Controls of={EmptyCardSelectorStories.Default} />
+
+<Markdown>{notes}</Markdown>

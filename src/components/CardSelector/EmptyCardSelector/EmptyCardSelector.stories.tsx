@@ -2,7 +2,6 @@ import {StoryObj, Meta} from '@storybook/react-vite';
 
 import {EmptyCardSelector} from './index';
 import type {EmptyCardSelectorProps} from './EmptyCardSelector.types';
-import markdownNotes from './EmptyCardSelector.md';
 import {File} from '~/icons';
 
 const meta: Meta<typeof EmptyCardSelector> = {
@@ -12,8 +11,7 @@ const meta: Meta<typeof EmptyCardSelector> = {
 
     parameters: {
         layout: 'padded',
-        actions: {argTypesRegex: '^on.*'},
-        notes: {markdown: markdownNotes}
+        actions: {argTypesRegex: '^on.*'}
     }
 };
 export default meta;

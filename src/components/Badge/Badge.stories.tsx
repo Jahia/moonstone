@@ -2,14 +2,11 @@ import {Meta} from '@storybook/react-vite';
 
 import {Badge} from './index';
 
-import markdownNotes from './Badge.md';
-
 export default {
     title: 'Components/Badge',
     component: Badge,
     parameters: {
-        layout: 'centered',
-        notes: {markdown: markdownNotes}
+        layout: 'centered'
     }
 } as Meta<typeof Badge>;
 
