@@ -1,5 +1,9 @@
 # @jahia/moonstone Changelog
 
+## 2.20.1
+
+* Fix minor styling issues (Button, Typography) (#1381)
+
 ## 2.20.0
 
 ### New Features
