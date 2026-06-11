@@ -5,9 +5,7 @@ import * as iconComponents from '~/icons/components';
  * Reusable Storybook argType for React-element icon props (`icon`, `iconStart`, `iconEnd`…).
  *
  * Renders a clean `<select>` of icon names in the Controls table and maps the selected name
- * to a rendered element via Storybook's `mapping` — instead of dumping serialized element
- * source into the Control column. Because `mapping` resolves the value before `render`, the
- * component receives a real element with no per-story conversion needed.
+ * to a rendered element via Storybook's `mapping`.
  *
  * Usage:
  *   import {iconArgType} from '~/__storybook__/iconArgType';
