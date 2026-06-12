@@ -8,6 +8,21 @@ agent-friendly codebase. Read this first, then open the document that owns the d
 > The **plan and status** (phases, what's next) are transient and live in
 > [ROADMAP.md](./ROADMAP.md), not here.
 
+## Non-negotiables (the vision — check every change against these)
+
+These are the founding requirements. If a change, even a "simplification", would break one, the
+change is wrong: flag the conflict, do not proceed.
+
+1. **Harness-agnostic.** One source serves Claude Code, Copilot, and Cursor through thin
+   per-harness adapters. No harness is privileged; if one must be, it is `.github/` (the org
+   standard). Never collapse the system to a single harness.
+2. **Model-agnostic.** No agent pins a model id; the harness or the user chooses.
+3. **One source of truth (DRY).** Each rule lives once — a standard in `docs/`, or `AGENTS.md`
+   for the generic ones. Harness files are thin pointers. Generate, never hand-copy.
+4. **Scalable to many agents.** `AGENTS.md` is the generic baseline; each agent owns one domain;
+   nothing domain-specific lives in the baseline.
+5. **Two audiences.** Contributor and consumer, split on the public / internal API boundary.
+
 ## Two audiences (the spine)
 
 Every decision splits along one line: the **public / internal API boundary**. It separates
@@ -60,16 +75,17 @@ Every knowledge/process doc carries one, so nobody mistakes a hypothesis for law
 |---|---|---|---|
 | `docs/README.md` | index (permanent) | both | this map + decisions log |
 | `docs/ROADMAP.md` | plan (transient) | both | phases, status, delivery plan |
-| `docs/contributing/component-docs.md` 🟢 | ① knowledge | contributor | **single source** for writing component docs (sections, voice, checklist) |
+| `docs/contributing/component-docs.md` 🟢 | ① knowledge | contributor | **single source** for writing component docs (sections, voice, per-section rules) |
 | `docs/consuming/usage.md` ⬜ | ① knowledge | consumer | rules to **use** the library; source for the consumer `AGENTS.md` |
 | `docs/consuming/ui-copy.md` 🟢 | ① knowledge | consumer (+ contributor for defaults/examples) | UI microcopy rules; feeds the consumer `AGENTS.md` |
 | `docs/_process/component-rules-draft.md` 🟠 | process | contributor | unvalidated build-rule hypotheses; interview material |
 | `docs/_process/designer-interview.md` 🔧 | process | contributor | designer sessions that validate the draft → `contributing/` |
-| `AGENTS.md` *(root)* | ② baseline | contributor | generic rules for **all** maintainer agents; multi-harness entry point |
-| `CLAUDE.md` | ③ routing | contributor | Claude Code adapter → points to `AGENTS.md` |
-| `.github/copilot-instructions.md` | ③ routing | contributor | Copilot repo-wide adapter → points to `AGENTS.md` |
-| `.github/instructions/*.instructions.md` | ③ routing | contributor | Copilot per-glob triggers (`docs`, `changelog`) |
+| `AGENTS.md` *(root)* | ② baseline | contributor | generic rules for **all** maintainer agents; harness-neutral baseline |
+| `CLAUDE.md` | ③ routing | contributor | Claude Code entry → points to `AGENTS.md` |
+| `.github/copilot-instructions.md` | ③ routing | contributor | Copilot repo-wide entry → points to `AGENTS.md` |
+| `.github/instructions/docs.instructions.md` | ③ routing | contributor | Copilot per-glob trigger for component docs → points to the standard |
 | `.claude/agents/component-docs.md` | ③ executor | contributor | writes/reviews component docs; carries only its delta over the `component-docs.md` standard |
+| `.github/instructions/changelog.instructions.md` | — | contributor | changelog rules, **synced from the org's `.github`** — out of scope for this model |
 | linter config + CI step *(planned)* | ④ guardrail | contributor | mechanical conformance of `.md`/`.mdx` |
 
 > **Naming watch — two different `AGENTS.md`.** The **root** `AGENTS.md` is the *contributor*

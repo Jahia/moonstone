@@ -18,14 +18,15 @@ Agents/skills are not a separate initiative; they are the concrete executors of 
 
 - [x] Rename agent → `component-docs`; update its references (Copilot instruction, memory).
 - [x] Scope note in `component-docs.md` (the three kinds of copy).
-- [x] `AGENTS.md` (root) — generic contributor-agent baseline; `CLAUDE.md` +
-      `.github/copilot-instructions.md` as one-line adapters.
-- [ ] Shrink `.claude/agents/component-docs.md` (~280 → ~90 lines): reference
-      `contributing/component-docs.md`, keep only its operational delta.
-- [ ] Fold the agent's doc-writing knowledge (Appearance pattern, MDX template, checklist)
-      into `contributing/component-docs.md` so it is the true single source.
+- [x] `AGENTS.md` (root) — generic contributor-agent baseline; thin adapters: `CLAUDE.md`
+      (Claude Code) + `.github/copilot-instructions.md` & `docs.instructions.md` (Copilot).
+- [x] Reduce `.claude/agents/component-docs.md` to a thin wrapper (~20 lines): all neutral content
+      lives in `AGENTS.md` + the standard; the file keeps only the autonomous-agent scope rule.
+- [x] Fold the agent's doc-writing knowledge (structure, Appearance pattern, MDX template,
+      grounding, verification) into `contributing/component-docs.md` so it is the true single source.
 - [ ] Doc linter (remark-lint + eslint-plugin-mdx) + CI step in `on-code-change.yml`.
 - [ ] Portable `/doc-component` command (`.claude/commands/` + `.github/prompts/`).
+- [ ] Cursor wiring (rules pointing at `AGENTS.md` / the standard) — when needed.
 
 ## Open items
 
