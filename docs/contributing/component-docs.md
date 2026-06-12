@@ -1,10 +1,20 @@
-# Documentation style
+# Component documentation style
 
-> **Status:** v0 (draft). How we **write** component documentation (the `<Component>.md`
-> prose and `<Component>.mdx` page), so every component reads consistently.
-> This is distinct from [VOICE-AND-TONE.md](./VOICE-AND-TONE.md), which governs *UI microcopy*
-> (the labels and messages inside components). This guide governs the *docs themselves*.
-> **Last updated:** 2026-06-10
+> 🟢 **Maturity: Enforced — single source of truth.** This is how every `<Component>.md`
+> and `<Component>.mdx` is written. The `component-docs` agent and the doc linter
+> both derive from this file; do not duplicate its rules elsewhere.
+> This is distinct from [ui-copy.md](../consuming/ui-copy.md), which governs *UI microcopy*
+> (the labels and messages inside components). This file governs the *docs themselves*.
+> **Last updated:** 2026-06-12
+
+## Scope — three kinds of copy, don't mix them
+
+This file governs **the prose of the component docs**. Two neighbours govern different copy:
+
+- **Microcopy inside a component** (a button label, a placeholder) → `docs/consuming/ui-copy.md`.
+- **Changelog entries** → `.github/instructions/changelog.instructions.md`.
+
+Examples in these docs use realistic labels, so they also follow the microcopy rules.
 
 ## Voice
 
@@ -55,8 +65,8 @@ Example sits first so it renders directly after the Props table.
 - Only mention public, exported components. Never reference internal or non-exported parts.
 - No implementation details (pixel values, `.moonstone-*` classes, `$` Sass variables,
   `--moon-*` token names).
-- No links to design-tool files (Figma) or to internal `docs/design-review/` docs. Component
-  docs are self-contained.
+- No links to design-tool files (Figma) or to internal governance docs under `docs/`
+  (`contributing/`, `consuming/`, `_process/`). Component docs are self-contained.
 
 ## Quick checklist
 

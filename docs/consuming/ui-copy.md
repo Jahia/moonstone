@@ -1,10 +1,10 @@
-# Moonstone Voice & Tone
+# Moonstone UI copy (voice & tone)
 
-> **Status:** v0 (draft). Global rules for user-visible text across all Moonstone
-> components. Applies to **contributors** (default labels in components) and
-> **consumers** (the copy they pass into components).
-> Items marked *(proposed)* or ⚠️ still need design/product confirmation.
-> **Last updated:** 2026-06-09
+> 🟢 **Maturity: Enforced (core rules).** Rules for the user-visible text in components.
+> **Primarily for consumers** — the copy you pass into a component, such as a button label.
+> Contributors follow the same rules for component **default** labels and **doc examples**.
+> Feeds the future consumer `AGENTS.md`. The *Open items* at the end await product/design.
+> **Last updated:** 2026-06-12
 
 ## Scope
 
@@ -28,24 +28,18 @@ labels, field labels, menu items, placeholders, empty-state messages, etc.
   destructive actions.
 - **Keep it to a few words — 3 maximum.** Never a sentence.
 
-## Canonical labels — not defined yet
-
-No fixed wording list for now. The action-label rules above still apply (be specific;
-never "OK"). A canonical per-action list may be defined later with product/design.
+- **`aria-label` follows the same verb-first rule.** An icon-only control's label
+  describes the action (for example, `aria-label="Add to favorites"`).
 
 ## Tone
 
 - Neutral and professional; clear over clever.
 
-## Accessibility text (aria-label etc.) — TBD
+## Open items (pending product/design, not enforced)
 
-- Not yet defined. Interim: an icon-only control's `aria-label` should describe the
-  action with the same verb-first rule (e.g. `aria-label="Add to favorites"`).
-
-## Open items
-
-- Canonical label list — may be defined later with product/design.
-- `aria-label` / accessibility voice — define later.
+- Canonical per-action label list (a fixed wording list). Until defined, the action-label
+  rules above apply.
+- A fuller accessibility-text voice beyond the interim `aria-label` rule.
 
 ## Used by
 

@@ -1,5 +1,5 @@
 ---
-name: component-doc-writer
+name: component-docs
 description: "ALWAYS delegate to this agent for any component documentation task — writing, updating, or auditing. Never handle component docs directly. The agent always creates or updates both `<Component>.md` and `<Component>.mdx` together; doing one without the other is an error. Use for: creating new docs, updating existing docs, auditing docs against the standard."
 tools: Read, Write, Edit, Bash, Grep, Glob
 ---
@@ -53,7 +53,7 @@ Sections, in this exact order and with these exact h2 titles:
 
 ### Writing style
 
-Follow `docs/design-review/DOC-STYLE.md`. The essentials:
+Follow `docs/contributing/component-docs.md`. The essentials:
 
 - **Mixed voice:** the subtitle/intro is descriptive and present tense ("Triggers an action
   when the user clicks it."); Do/Don't and all guidance are imperative ("Use it to…",
@@ -94,8 +94,8 @@ Rules per section:
   placeholders, messages) — e.g. Button, Input, Field, EmptyData. Omit for components with
   no user copy (e.g. Typography, Table, Loader). When present: state the relevant copy rules
   **inline** — sentence case; a few words (3 max), never a sentence; verb-first; be specific,
-  never "OK" — plus any component-specific rules. **Never link to `VOICE-AND-TONE.md`** or any
-  other `docs/design-review/` doc; the section is self-contained.
+  never "OK" — plus any component-specific rules. **Never link to `ui-copy.md`** or any
+  other internal governance doc under `docs/`; the section is self-contained.
 - **Accessibility** — bullets of the must-dos the consumer is responsible for (e.g.
   icon-only controls need `aria-label`; labels via `Field`; don't remove the focus ring).
 ### The Appearance pattern (generalizable — use for every component)
@@ -210,11 +210,11 @@ appearance/theme flags like `isReversed` / `isItalic` / `isUpperCase` which stay
 - **No design-tool links.** Never include Figma (or other design-tool) links — they're
   internal references, not consumer documentation. Omit them when writing, and remove any
   you find when updating or reviewing existing docs.
-- **No internal-doc links.** Never link to `docs/design-review/` files (the rulebooks,
-  `VOICE-AND-TONE.md`) or any internal governance doc. Component docs are self-contained —
-  inline any rule you'd otherwise link to.
+- **No internal-doc links.** Never link to internal governance docs under `docs/`
+  (`contributing/`, `consuming/`, `_process/`) or any rulebook. Component docs are
+  self-contained — inline any rule you'd otherwise link to.
 - **No em dashes (`—`) or arrow shortcuts (`→`).** Write complete sentences or clean list
-  items (see Writing style above and `DOC-STYLE.md`).
+  items (see Writing style above and `contributing/component-docs.md`).
 - **No "states/props in prose"** that merely restate the Props table (e.g. "States:
   isDisabled, isLoading…") — the table covers props.
 - **Respect the public API boundary**: only reference exported components and public props.
@@ -256,7 +256,7 @@ When auditing existing docs, report findings against every item below (pass/fail
       mode and warns against mixing them.
 - [ ] No implementation details (px, `.moonstone-*`, `$vars`, `--moon-*`).
 - [ ] No Figma / design-tool links.
-- [ ] No links to internal `docs/design-review/` docs (VOICE-AND-TONE.md, rulebooks).
+- [ ] No links to internal governance docs under `docs/` (`contributing/`, rulebooks).
 - [ ] `.mdx` imports `.md?raw`, uses `<Meta of>`, `<Title/>`, `<Subtitle>`, one `<Canvas of>`,
       `<Controls of>`, then `<Markdown>{notes}</Markdown>`; order Preview → Props → prose.
 - [ ] Element props (if any) use `iconArgType` in the story; no leftover unused `notes`/`.md`
@@ -268,11 +268,11 @@ When auditing existing docs, report findings against every item below (pass/fail
 ## References (read these for context)
 
 - `src/components/Button/` — the canonical example (`.md`, `.mdx`, `.stories.tsx`).
-- `docs/design-review/DOC-STYLE.md` — how to WRITE the docs (voice, no em dashes, sentences).
-- `docs/design-review/VOICE-AND-TONE.md` — UI-copy rules (casing, verb-first labels).
-- `docs/design-review/CONSUMER-RULEBOOK.md` — how consumers/LLMs must use the system
+- `docs/contributing/component-docs.md` — how to WRITE the docs (voice, no em dashes, sentences).
+- `docs/consuming/ui-copy.md` — UI-copy rules (casing, verb-first labels).
+- `docs/consuming/usage.md` — how consumers/LLMs must use the system
   (use built-ins, never custom CSS/internal classes) — the *why* behind Do/Don't routing.
-- `docs/design-review/CONTRIBUTOR-RULEBOOK.md` — the component-build conventions.
+- `docs/_process/component-rules-draft.md` — draft component-build conventions (unvalidated).
 
 When you finish a write task, end with a short summary: which `.md`/`.mdx` files you created
 or changed, any **story-wiring snippet** to apply (only the `iconArgType` argTypes, and only

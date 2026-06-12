@@ -1,9 +1,13 @@
-# Moonstone Consumer Rulebook
+# Moonstone usage rules (consumer)
+
+> ⬜ **Maturity: Deferred — consumer track (Phase 2-3).** Content is sound (the
+> public/internal boundary is real and code-grounded); it is simply not activated yet.
+> This is the source for the future consumer-facing `AGENTS.md`.
 
 > **Audience:** developers (and their AI coding assistants) who **use** `@jahia/moonstone`
 > to build an application — including "vibe coding" with Claude Code, Cursor, Copilot, etc.
 > If you are **building or maintaining Moonstone components** inside the library repo,
-> use the **[Contributor Rulebook](./CONTRIBUTOR-RULEBOOK.md)** instead.
+> use the **[Contributor Rulebook](../_process/component-rules-draft.md)** instead.
 >
 > **Status:** v0 (draft) — codebase-derived. Phase 1 of the Design System Governance plan.
 > **Why this exists:** Moonstone has no LLM-consumable documentation today, so AI tools
@@ -154,7 +158,7 @@ The thing that makes [CU-1] and [CU-7] answerable by an LLM is a machine-readabl
 catalog of the 53 exported components. **We will not hand-maintain one** — Storybook's
 [components manifest](https://storybook.js.org/docs/ai/manifests)
 (`/manifests/components.json`) generates it automatically from CSF + MDX + source, and
-its MCP server serves it live. (See project [README](./README.md) for the full delivery
+its MCP server serves it live. (See project [README](../README.md) for the full delivery
 decision.)
 
 So the Phase 1 work is **making each component's docs rich enough** that the generated

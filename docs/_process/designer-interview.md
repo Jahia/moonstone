@@ -1,7 +1,10 @@
-# Senior Designer Interview Guide — Moonstone Rulebook
+# Senior Designer Interview Guide
+
+> 🔧 **Maturity: Process — transient working doc, not normative.** Retire once the rules
+> reach v1.
 
 > **Purpose:** capture the tacit design knowledge the codebase *cannot* express, to
-> raise the [RULEBOOK.md](./RULEBOOK.md) from v0 (code-derived) to v1 (ratified).
+> raise the [component-rules-draft](./component-rules-draft.md) from v0 (code-derived) to v1 (ratified).
 > **Format:** react-and-edit, not blank-page. Each question is anchored to a concrete
 > v0 rule so the designer is *confirming, bounding, or overriding* something specific.
 > **Last updated:** 2026-06-08
@@ -202,7 +205,7 @@ For the future checklist and AI assistant, we need to rank findings.
 
 ## Output of these sessions
 
-After each session, fold answers back into [RULEBOOK.md](./RULEBOOK.md):
+After each session, fold answers back into [component-rules-draft](./component-rules-draft.md):
 - Upgrade the linked rule's **confidence** and tighten its **Check** with the
   threshold the designer gave.
 - Add the **anti-pattern** to the rule (these are the most valuable input for the

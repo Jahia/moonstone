@@ -1,8 +1,13 @@
-# Moonstone Contributor Rulebook
+# Moonstone component rules — DRAFT
+
+> 🟠 **Maturity: Draft v0 — code-derived hypotheses, NOT validated.** This is *interview
+> material*, not law. Its job is to drive the designer sessions
+> ([designer-interview](./designer-interview.md)). Validated rules graduate to
+> `docs/contributing/`; nothing here is enforced.
 
 > **Audience:** developers who **build and maintain** Moonstone components (inside this repo).
 > For developers who **use** Moonstone in their own app (incl. AI-assisted "vibe coding"),
-> see the **[Consumer Rulebook](./CONSUMER-RULEBOOK.md)** instead — the rules are different.
+> see the **[Consumer Rulebook](../consuming/usage.md)** instead — the rules are different.
 >
 > **Status:** v0 (draft) — codebase-derived. Phase 1 of the Design System Governance plan.
 > **Source of truth:** this document. [CONTRIBUTING.md](../../CONTRIBUTING.md) and
@@ -46,7 +51,7 @@ as such.
 The rule, stated as a single checkable assertion.
 ↳ Evidence:  where this is already enforced or exemplified in the codebase
 ↳ Check:     how a reviewer (or tool) confirms compliance
-↳ Gap:       (if any) what the senior designer still needs to confirm — see INTERVIEW-GUIDE.md
+↳ Gap:       (if any) what the senior designer still needs to confirm — see designer-interview.md
 ```
 
 **Confidence** reflects how firmly the rule is grounded *in code today*, not how
@@ -345,7 +350,7 @@ A spec file exercises behavior, and accessibility is verified.
 ## Open questions & rule gaps (Phase 1 backlog)
 
 These are the rules the **code cannot tell us** — the senior designer's tacit
-knowledge. Each is tracked in [INTERVIEW-GUIDE.md](./INTERVIEW-GUIDE.md) with the
+knowledge. Each is tracked in [designer-interview](./designer-interview.md) with the
 matching `Q-` id. Resolving them upgrades the related rule's confidence and may add
 new rules.
 
