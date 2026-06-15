@@ -1,0 +1,16 @@
+import {Meta, Title, Subtitle, Markdown, Canvas, Controls} from '@storybook/addon-docs/blocks';
+import * as ThumbnailStories from './Thumbnail.stories';
+import notes from './Thumbnail.md?raw';
+
+<Meta of={ThumbnailStories} />
+
+<Title />
+<Subtitle>Displays a small visual preview of a resource, with a fallback placeholder when no image is available.</Subtitle>
+
+<Canvas of={ThumbnailStories.AllVariants} />
+
+## Props
+
+<Controls of={ThumbnailStories.WithImage} />
+
+<Markdown>{notes}</Markdown>

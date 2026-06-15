@@ -1,0 +1,16 @@
+import {Meta, Title, Subtitle, Markdown, Canvas, Controls} from '@storybook/addon-docs/blocks';
+import * as TagStories from './Tag.stories';
+import notes from './Tag.md?raw';
+
+<Meta of={TagStories} />
+
+<Title />
+<Subtitle>Represents a removable attribute, such as an applied filter or a selected option.</Subtitle>
+
+<Canvas of={TagStories.Default} />
+
+## Props
+
+<Controls of={TagStories.Default} />
+
+<Markdown>{notes}</Markdown>

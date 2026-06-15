@@ -1,0 +1,16 @@
+import {Meta, Title, Subtitle, Markdown, Canvas, Controls} from '@storybook/addon-docs/blocks';
+import * as LayoutContentStories from './LayoutContent.stories';
+import notes from './LayoutContent.md?raw';
+
+<Meta of={LayoutContentStories} />
+
+<Title />
+<Subtitle>Lays out the main content area of a page, with an optional header and loading state.</Subtitle>
+
+<Canvas of={LayoutContentStories.Default} />
+
+## Props
+
+<Controls of={LayoutContentStories.Default} />
+
+<Markdown>{notes}</Markdown>

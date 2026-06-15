@@ -18,7 +18,8 @@ in [ui-copy.md](../consuming/ui-copy.md), and the example labels in these docs f
 
 ## The two files
 
-Each component lives in `src/components/<Component>/`. Its documentation is two files:
+Each component lives in its own folder under `src/` (`src/components/<Component>/`, or
+`src/layouts/<name>/` for layouts). Its documentation is two files:
 
 - **`<Component>.md`** — the prose usage doc. Single source of truth for the wording; also the
   corpus an LLM or manifest reads.
@@ -33,7 +34,10 @@ The canonical, approved reference is **`src/components/Button/`** (`Button.md`, 
 Every claim comes from the component's source, never a guess. Before writing, read
 `<Component>.types.ts` (props + JSDoc), `<Component>.tsx`, `<Component>.stories.tsx`, any existing
 `<Component>.md`, and `index.ts` (plus sub-components). Prop names, allowed values, and behaviour
-are taken from there.
+are taken from there. Ground in the code's actual behaviour, not just JSDoc text: if a prop's
+JSDoc contradicts what the component does, flag it and emit a JSDoc fix as a snippet. For the
+example labels and the Voice and tone section, also consult the microcopy rules in
+[ui-copy.md](../consuming/ui-copy.md).
 
 ## `<Component>.md` — structure
 
@@ -60,7 +64,12 @@ Per-section content (for phrasing, see Voice / Sentences below):
 - **Controlled & uncontrolled** — include ONLY when the component supports both modes (a
   controlled prop such as `value` / `checked` / `isPressed`, plus an uncontrolled `default*`
   prop; confirm from `*.types.ts`). Explain each mode in one line with a short code example,
-  say when to use which, and warn not to mix them.
+  say when to use which, and warn not to mix them. Surface the **change-callback signature**
+  when its arguments are not obvious (for example `onChange(event, isPressed)`, where the second
+  argument is the new state). If the two modes are also exported as **named components** (for
+  example `ControlledX` / `UncontrolledX`), the unified component stays the single documented
+  entry: explain the modes through its props and steer consumers to it, rather than giving the
+  named variants their own docs.
 - **Do** — answers only **"when should I reach for this component?"** Each bullet is a
   "when to use" statement, refers to the component as "it", and leads with "Use it to / for /
   when …" (for example, "Use it to submit a form or confirm a choice."). Other action verbs
@@ -99,7 +108,9 @@ gist> `` followed by a two-column table, one row per allowed value:
 - Derive prop names and allowed values from `<Component>.types.ts` (the `as const` arrays /
   union types).
 - Do **not** give a subsection to a simple **boolean** prop (`isReversed`, `isDisabled`…): the
-  Props table already covers it.
+  Props table already covers it. If a boolean's *when/why* is not obvious (for example
+  `isLoading`, `isReversed`), put a one-sentence rationale in the prop's **JSDoc** so it surfaces
+  in the Props table; emit that JSDoc change as a copy-paste snippet (do not edit source files).
 - Gist words: emphasis (variant), meaning (color), prominence (size); pick a fitting one-word
   gist for other props.
 - Do **not** build a combined "action-type" matrix mixing several props (too dense). If two
@@ -151,14 +162,16 @@ Controls dropdown, not as dumped element source.
 > Until it lands, follow Button. The story change is emitted as a copy-paste snippet, never
 > applied by the agent.
 
-## Verify it renders
+## Verify
 
-Run Storybook on port **6017** (`npx storybook dev -p 6017 --ci`; the developer's own instance
-usually holds 6006) and open the component's Docs page. Confirm, and fix until all hold:
+Do the **static** checks yourself by re-reading the files you wrote: the `.md` starts at
+`## Example` (no leading `#`); the `.mdx` imports `./<Component>.md?raw` and uses one
+`<Canvas of>` plus one `<Controls of>`; the section order is correct.
 
-- exactly one title (no leading `#` in the `.md`);
-- the prose renders as text, not a path like `/src/.../X.md` (confirms the `?raw` import);
-- only the curated story shows under Preview.
+Do **not** boot Storybook to verify — it is slow and unreliable in an automated run. The
+**runtime** render check (one title; prose renders as text, not a `/src/...` path; only the
+curated story under Preview) is a human or CI step. State it as *pending* in your report.
+If Storybook is needed, it runs on port **6017** (the developer's own instance usually holds 6006).
 
 ## Voice
 
@@ -186,7 +199,15 @@ Mixed, by section:
 - Only mention public, exported components and props. Never reference internal or non-exported
   parts.
 - No implementation details (pixel values, `.moonstone-*` classes, `$` Sass variables,
-  `--moon-*` token names).
+  `--moon-*` token names). Describing observable rendered behaviour in plain terms is fine (for
+  example, "the label is shown in uppercase"); only *implementation* detail is off-limits.
+- Native HTML attributes the component forwards (via `{...props}`, such as `type` or `data-*`)
+  are **not** documented; consumers know HTML. Surface only the ones that carry a usage rule
+  (for example `aria-label`), in the section that calls for them. The same applies to native
+  props the component *omits*: not documented.
 - No "states in prose" that merely restate the Props table.
+- Deprecated props: the `@deprecated` JSDoc already surfaces them in the Props table. If there is
+  a replacement, add one Don't-style bullet steering to it (for example, "Pass the page body as
+  `children`, not the deprecated `content`."). Never use a deprecated prop in the Example.
 - No links to design-tool files (Figma) or to internal governance docs under `docs/`
   (`contributing/`, `consuming/`, `_process/`). Component docs are self-contained.

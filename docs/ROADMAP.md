@@ -28,6 +28,57 @@ Agents/skills are not a separate initiative; they are the concrete executors of 
 - [ ] Portable `/doc-component` command (`.claude/commands/` + `.github/prompts/`).
 - [ ] Cursor wiring (rules pointing at `AGENTS.md` / the standard) — when needed.
 
+## Dogfood — Button audit (2026-06-12)
+
+The `component-docs` agent audited Button end-to-end: the whole chain (AGENTS.md + standard +
+grounding in source) worked. It surfaced standard gaps, now resolved:
+
+- [x] **G1** behavioural booleans (`isLoading`, `isReversed`) → rationale goes in the prop JSDoc.
+- [x] **G2** rendered-behaviour prose is allowed (only *implementation* detail is off-limits).
+- [x] **G3** native pass-through props → out of scope, stated explicitly in the standard.
+- [x] **G4** `ui-copy.md` added to the grounding sources.
+- **G5** = the tracked `iconArgType` ticket below (no new action).
+- **G6** static-verify subset = the **doc linter**'s job (the runtime checks can't run in audit).
+- Button `size: small` cell ("BreadcrumbItem only") reads as unsourced intent — **confirm with
+  the designer** (likely intentional; not a standard issue).
+
+Second audit — **ButtonToggle** (controlled/uncontrolled, a shape Button could not exercise).
+The chain held; it found gaps the first run couldn't, now resolved in the standard:
+
+- [x] **A** modes also exported as named components (`ControlledX`/`UncontrolledX`) → the unified
+      component is the single documented entry; resolves the conflict with "only mention exports".
+- [x] **B** "Controlled & uncontrolled" now requires the change-callback signature when non-obvious.
+- [x] **C** Grounding now says: ground in actual behaviour; if JSDoc contradicts it, flag + snippet.
+- [x] **D** native props the component *omits* are also not documented (extends the G3 rule).
+- ButtonToggle.md doc nits (Accessibility bullet restating a prop; "ButtonToggles" plural; comment
+  style) — fix when ButtonToggle is next edited in write mode; not standard issues.
+
+Third run — **LayoutContent** (write mode, `src/layouts/content/`, outside `src/components/`,
+deprecated prop, element props, no choice props). Structure held; agent created statically-valid
+`.md` + `.mdx`. Resolved:
+
+- [x] **Location** wording generalised (components live under `src/`, incl. `src/layouts/`).
+- [x] **Deprecated props** rule added (JSDoc surfaces them; steer with a Don't bullet; never in Example).
+- Tail gaps left to the agent's `[STANDARD GAP]` flagging (the scalable mechanism), not pre-filled:
+  element-prop prose, no-Overview-story fallback, internally-applied ARIA, boolean-only thinness.
+- **Side find (real bug):** `src/layouts/content/LayoutContent.stories.tsx:12` has `'1OOvw'`
+  (letter O, not zeros) — should be `'100vw'`.
+- Created `src/layouts/content/LayoutContent.{md,mdx}` — pending human review + runtime verify, or discard.
+
+Autonomy test — **Tag**, minimal prompt only ("Document the Tag component.", no steps/files/standard
+named). The agent self-served correctly: read its references + source, created both files, omitted
+the conditional sections rightly, marked `_Pending design guidance_`, routed Don't to real exports,
+and flagged that **Tag is not exported** (public/internal boundary — confirm intent). So the agent
+definition is self-sufficient (dimension B). Created `src/components/Tag/Tag.{md,mdx}`.
+
+- [x] **Flow fix:** the agent autonomously booted Storybook to verify and it took ~2.4h. The standard's
+      Verify step now does **static** self-checks only; the **runtime** render check is a human/CI step
+      (the doc linter will own the static subset). Agents must not boot Storybook in an automated run.
+- **Still untested: dimension A (routing).** Whether a *natural* request auto-delegates to
+  `component-docs` (the original "agent not systematically used" problem) cannot be tested from a
+  primed session. Needs a fresh-session test, or the deterministic trigger (`/doc-component` command
+  or a hook) — description-based delegation is probabilistic, which is what failed before.
+
 ## Open items
 
 - `iconArgType` convention (clean Controls for element props) is **being revised in a

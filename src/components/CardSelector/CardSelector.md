@@ -67,7 +67,7 @@ CardSelector renders in a row layout: the thumbnail appears on the left, the bod
 - Avoid generic messages such as "Error". Be specific about what failed.
 
 ## Accessibility
-- The root button element receives `aria-label` from `displayName` automatically. No extra wiring is needed.
+- The root element receives `aria-label` from `displayName` automatically. No extra wiring is needed.
 - Provide `thumbnailAlt` whenever `thumbnail` is an image URL so assistive technologies can describe the image.
 - If `cardAction` contains buttons, ensure each has an `aria-label` that describes its specific action.
-- Use `isDisabled` rather than removing the component when an action is unavailable, so screen readers can still discover and announce the field.
+- Use `isDisabled` rather than removing the component when an action is unavailable, so screen readers can still discover and announce the component.

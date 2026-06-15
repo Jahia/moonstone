@@ -1,0 +1,16 @@
+import {Meta, Title, Subtitle, Markdown, Canvas, Controls} from '@storybook/addon-docs/blocks';
+import * as BreadcrumbItemStories from './BreadcrumbItem.stories';
+import notes from './BreadcrumbItem.md?raw';
+
+<Meta of={BreadcrumbItemStories} />
+
+<Title />
+<Subtitle>A single navigation step used inside a Breadcrumb, with an optional icon and a label.</Subtitle>
+
+<Canvas of={BreadcrumbItemStories.Basic} />
+
+## Props
+
+<Controls of={BreadcrumbItemStories.Basic} />
+
+<Markdown>{notes}</Markdown>

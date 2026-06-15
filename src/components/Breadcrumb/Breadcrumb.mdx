@@ -1,0 +1,16 @@
+import {Meta, Title, Subtitle, Markdown, Canvas, Controls} from '@storybook/addon-docs/blocks';
+import * as BreadcrumbStories from './Breadcrumb.stories';
+import notes from './Breadcrumb.md?raw';
+
+<Meta of={BreadcrumbStories} />
+
+<Title />
+<Subtitle>Shows the current page's position in a multi-level hierarchy and lets the user navigate to an ancestor level.</Subtitle>
+
+<Canvas of={BreadcrumbStories.Default} />
+
+## Props
+
+<Controls of={BreadcrumbStories.Default} />
+
+<Markdown>{notes}</Markdown>

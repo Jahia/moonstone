@@ -1,0 +1,16 @@
+import {Meta, Title, Subtitle, Markdown, Canvas, Controls} from '@storybook/addon-docs/blocks';
+import * as TooltipStories from './Tooltip.stories';
+import notes from './Tooltip.md?raw';
+
+<Meta of={TooltipStories} />
+
+<Title />
+<Subtitle>A small floating label that appears when the user hovers or focuses an element.</Subtitle>
+
+<Canvas of={TooltipStories.IconButtonTooltip} />
+
+## Props
+
+<Controls of={TooltipStories.IconButtonTooltip} />
+
+<Markdown>{notes}</Markdown>
