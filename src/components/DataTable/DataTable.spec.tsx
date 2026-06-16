@@ -82,13 +82,11 @@ const sortableColumns = [
     {
         key: 'name',
         label: 'Name',
-        isSortable: true,
         ...stringColumn((row: TestData) => row.name)
     },
     {
         key: 'age',
         label: 'Age',
-        isSortable: true,
         ...numberColumn((row: TestData) => row.age)
     }
 ] as const;
@@ -201,6 +199,42 @@ describe('DataTable', () => {
         rows.forEach(row => {
             expect(row.tagName).toBe('TR');
         });
+    });
+
+    it('should apply rowProps function per row', () => {
+        render(
+            <DataTable<TestData>
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                rowProps={row => ({'data-testid': `row-${row.id}`})}
+            />
+        );
+
+        expect(screen.getByTestId('row-1')).toBeInTheDocument();
+        expect(screen.getByTestId('row-2')).toBeInTheDocument();
+        expect(screen.getByTestId('row-3')).toBeInTheDocument();
+    });
+
+    it('should apply conditional className via rowProps function', () => {
+        render(
+            <DataTable<TestData>
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                rowProps={row => ({
+                    'data-testid': 'conditional-row',
+                    className: row.age >= 30 ? 'senior' : 'junior'
+                })}
+            />
+        );
+
+        const rows = screen.getAllByTestId('conditional-row');
+        expect(rows).toHaveLength(3);
+        // Alice (30) and Charlie (35) are senior, Bob (25) is junior
+        expect(rows[0]).toHaveClass('senior'); // Alice
+        expect(rows[1]).toHaveClass('junior'); // Bob
+        expect(rows[2]).toHaveClass('senior'); // Charlie
     });
 
     it('should render both before and after custom cells', () => {

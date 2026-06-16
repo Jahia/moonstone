@@ -100,9 +100,12 @@ export type DataTableBaseProps<T extends NonNullable<unknown>> = {
     onClickTableHeadCell?: (columnKey: string) => void;
 
     /**
-     * Custom HTML attributes to add to each row element
+     * Custom HTML attributes to add to each row element.
+     * Can be a static object or a function receiving the row data to compute props per-row.
      */
-    rowProps?: React.HTMLAttributes<HTMLTableRowElement> & Record<string, unknown>;
+    rowProps?:
+        | (React.HTMLAttributes<HTMLTableRowElement> & Record<string, unknown>)
+        | ((row: T) => React.HTMLAttributes<HTMLTableRowElement> & Record<string, unknown>);
 };
 
 export type SortDirection = 'ascending' | 'descending';

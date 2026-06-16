@@ -183,7 +183,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 <TableRow
                     key={row.id}
                     aria-selected={row.getIsSelected() || undefined}
-                    {...rowProps}
+                    {...(typeof rowProps === 'function' ? rowProps(row.original as T) : rowProps)}
                 >
                     {render()}
                 </TableRow>
