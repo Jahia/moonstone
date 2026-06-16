@@ -1,6 +1,5 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import type {ExpandedState} from '@tanstack/react-table';
-import React from 'react';
 
 type UseExpansionProps = {
     expandedRows?: string[];
