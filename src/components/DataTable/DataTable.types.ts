@@ -91,11 +91,6 @@ export type DataTableBaseProps<T extends NonNullable<unknown>> = {
     columns: ReadonlyArray<DataTableColumn<T>>;
 
     /**
-     * Whether the table data has a hierarchical structure with subRows
-     */
-    isStructured?: boolean;
-
-    /**
      * Callback fired when a table header cell is clicked
      * @param columnKey - The key of the clicked column
      */
@@ -199,9 +194,46 @@ type RenderRowProps<T extends NonNullable<unknown>> = {
     ) => React.ReactNode;
 };
 
+type StructuredProps =
+    | {
+          /** Whether the table data has a hierarchical structure with subRows */
+          isStructured: true;
+          /**
+           * IDs of currently expanded rows (controlled).
+           * When provided, the component no longer manages expansion state internally.
+           */
+          expandedRows: string[];
+          /**
+           * Callback fired when expanded rows change (required in controlled mode).
+           */
+          onExpandChange: (expandedRows: string[]) => void;
+          defaultExpandedRows?: never;
+      }
+    | {
+          /** Whether the table data has a hierarchical structure with subRows */
+          isStructured: true;
+          expandedRows?: never;
+          /**
+           * Callback fired when expanded rows change (uncontrolled).
+           */
+          onExpandChange?: (expandedRows: string[]) => void;
+          /**
+           * IDs of rows expanded at mount (uncontrolled).
+           * Pass `true` to expand all rows (default when `isStructured` is set).
+           */
+          defaultExpandedRows?: true | string[];
+      }
+    | {
+          isStructured?: false;
+          expandedRows?: never;
+          onExpandChange?: never;
+          defaultExpandedRows?: never;
+      };
+
 export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'children'> &
     DataTableBaseProps<T> &
     SortingProps<T> &
     SelectionProps &
+    StructuredProps &
     RenderRowProps<T> &
     DataTablePaginationProps;

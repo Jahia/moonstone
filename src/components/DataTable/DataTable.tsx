@@ -6,9 +6,9 @@ import {
     getPaginationRowModel
 } from '@tanstack/react-table';
 import {toNodeArray} from '~/utils/helpers';
-import type {ExpandedState, Row} from '@tanstack/react-table';
-import React, {useState, useEffect, useMemo, useCallback} from 'react';
-import {useCustomCells, usePagination, useSelection, useSorting} from './hooks';
+import type {Row} from '@tanstack/react-table';
+import React, {useMemo, useCallback} from 'react';
+import {useCustomCells, useExpansion, usePagination, useSelection, useSorting} from './hooks';
 import type {DataTableProps, RenderOptions} from './DataTable.types';
 import {createTableColumns} from './shared';
 import {renderCell, renderHeadCell} from './utils';
@@ -42,6 +42,9 @@ export const DataTable = <T extends NonNullable<unknown>>({
     defaultSortBy,
     defaultSortDirection = 'ascending',
     defaultSelection = [],
+    expandedRows,
+    defaultExpandedRows,
+    onExpandChange,
     renderRow,
     onClickTableHeadCell,
     selectionCellProps,
@@ -60,7 +63,12 @@ export const DataTable = <T extends NonNullable<unknown>>({
     rowProps,
     ...props
 }: DataTableProps<T>) => {
-    const [expanded, setExpanded] = useState<ExpandedState>({});
+    const {expanded, handleExpandedChange} = useExpansion({
+        expandedRows,
+        defaultExpandedRows: defaultExpandedRows ?? (isStructured ? true : undefined),
+        onExpandChange
+    });
+
     const {
         customBeforeCount,
         customAfterCount,
@@ -73,7 +81,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
         renderRow
     });
 
-    const {sorting, handleSortingChange} = useSorting<T>({
+    const {sorting, isSortingControlled, handleSortingChange} = useSorting<T>({
         sortBy,
         sortDirection,
         defaultSortBy,
@@ -109,12 +117,15 @@ export const DataTable = <T extends NonNullable<unknown>>({
             ...(enablePagination && {pagination})
         },
         onSortingChange: handleSortingChange,
-        onExpandedChange: setExpanded,
+        onExpandedChange: handleExpandedChange,
         onRowSelectionChange: handleRowSelectionChange,
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,
+        manualSorting: isSortingControlled,
         getExpandedRowModel: getExpandedRowModel(),
         getPaginationRowModel: enablePagination ? getPaginationRowModel() : undefined,
+        manualPagination: isPaginationControlled,
+        rowCount: isPaginationControlled ? totalItems : undefined,
         // Enables hierarchical/structured table rendering by allowing TanStack to access nested subRows
         getSubRows: (row: T) => (row as T & { subRows?: T[] }).subRows,
         onPaginationChange: enablePagination ? handlePaginationChange : undefined,
@@ -124,12 +135,6 @@ export const DataTable = <T extends NonNullable<unknown>>({
         enableRowSelection: enableSelection,
         getRowId: (row: T) => String(row[primaryKey])
     });
-
-    useEffect(() => {
-        if (isStructured && data.length > 0) {
-            table.toggleAllRowsExpanded(true);
-        }
-    }, [data, isStructured, table]);
 
     const renderRowContent = useCallback(
         (row: Row<T>, options?: RenderOptions) => {
