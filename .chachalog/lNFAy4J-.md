@@ -2,4 +2,4 @@
 "@jahia/moonstone": patch
 ---
 
-Improve controlled features of DataTable
+Improved DataTable controlled sorting, pagination, and row expansion behavior
