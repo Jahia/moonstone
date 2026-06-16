@@ -7,7 +7,9 @@ export type CustomColumnMeta = {
     align?: 'left' | 'center' | 'right';
     width?: string;
     isScrollable?: boolean;
-    cellProps?: React.TdHTMLAttributes<HTMLTableCellElement> & Record<string, unknown>;
+    cellProps?:
+        | (React.TdHTMLAttributes<HTMLTableCellElement> & Record<string, unknown>)
+        | ((row: unknown) => React.TdHTMLAttributes<HTMLTableCellElement> & Record<string, unknown>);
 };
 
 export type RenderHeadCellProps<T extends NonNullable<unknown>> = {

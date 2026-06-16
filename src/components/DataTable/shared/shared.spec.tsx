@@ -92,7 +92,7 @@ describe('stringColumn', () => {
         expect(col.isSortable).toBe(true);
         expect(col.align).toBe('center');
 
-        render(<>{col.render('test')}</>);
+        render(<>{col.render('test', {val: 'test'})}</>);
         expect(screen.getByText('test')).toBeInTheDocument();
 
         const rowA = {val: 'a'};

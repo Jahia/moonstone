@@ -69,9 +69,12 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
     isScrollable?: boolean;
 
     /**
-     * Custom HTML attributes added to TableCell or TableStructuredCell
+     * Custom HTML attributes added to TableCell or TableStructuredCell.
+     * Can be a static object or a function receiving the row data to compute props per-row.
      */
-    cellProps?: React.TdHTMLAttributes<HTMLTableCellElement> & Record<string, unknown>;
+    cellProps?:
+        | (React.TdHTMLAttributes<HTMLTableCellElement> & Record<string, unknown>)
+        | ((row: T) => React.TdHTMLAttributes<HTMLTableCellElement> & Record<string, unknown>);
 };
 
 export type DataTableBaseProps<T extends NonNullable<unknown>> = {
