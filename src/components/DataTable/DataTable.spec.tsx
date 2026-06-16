@@ -607,7 +607,7 @@ describe('DataTable', () => {
     it('should respect controlled pagination', () => {
         // Controlled (server-side) pagination: the caller provides only the current page's items.
         // With manualPagination=true TanStack renders data as-is without client-side slicing.
-        const page2Data = [data[1]]; // only Bob, the single item for page 2
+        const page2Data = [data[1]]; // Only Bob, the single item for page 2
         render(
             <DataTable<TestData>
                 enablePagination

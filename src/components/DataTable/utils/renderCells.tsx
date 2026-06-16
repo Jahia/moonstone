@@ -48,9 +48,9 @@ export const renderCell = <T extends NonNullable<unknown>>({
 }: RenderCellProps<T>) => row.getVisibleCells().map((cell, index) => {
         const meta = cell.column.columnDef.meta as CustomColumnMeta | undefined;
         const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
-        const cellProps = typeof meta?.cellProps === 'function'
-            ? meta.cellProps(row.original)
-            : meta?.cellProps;
+        const cellProps = typeof meta?.cellProps === 'function' ?
+            meta.cellProps(row.original) :
+            meta?.cellProps;
 
         if (isStructured && index === 0) {
             return (
