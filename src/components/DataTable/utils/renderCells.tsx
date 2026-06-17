@@ -45,19 +45,22 @@ export const renderHeadCell = <T extends NonNullable<unknown>>({
 export const renderCell = <T extends NonNullable<unknown>>({
     row,
     isStructured
-}: RenderCellProps<T>) => row.getVisibleCells().map((cell, index) => {
+}: RenderCellProps<T>) => {
+    const rowContext = {
+        id: row.id,
+        data: row.original,
+        meta: {
+            index: row.index,
+            isSelected: row.getIsSelected(),
+            isExpanded: row.getIsExpanded()
+        }
+    };
+
+    return row.getVisibleCells().map((cell, index) => {
         const meta = cell.column.columnDef.meta as CustomColumnMeta<T> | undefined;
         const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
         const cellProps = typeof meta?.cellProps === 'function' ?
-            meta.cellProps({
-                id: row.id,
-                data: row.original,
-                meta: {
-                    index: row.index,
-                    isSelected: row.getIsSelected(),
-                    isExpanded: row.getIsExpanded()
-                }
-            }) :
+            meta.cellProps(rowContext) :
             meta?.cellProps;
 
         if (isStructured && index === 0) {
@@ -69,7 +72,7 @@ export const renderCell = <T extends NonNullable<unknown>>({
                     width={meta?.width}
                     depth={row.depth}
                     isExpandable={row.getCanExpand()}
-                    isExpanded={row.getIsExpanded()}
+                    isExpanded={rowContext.meta.isExpanded}
                     isScrollable={meta?.isScrollable}
                     onToggleExpand={row.getToggleExpandedHandler()}
                 >
@@ -90,3 +93,4 @@ export const renderCell = <T extends NonNullable<unknown>>({
             </TableCell>
         );
     });
+};
