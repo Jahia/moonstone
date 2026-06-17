@@ -175,15 +175,25 @@ export const DataTable = <T extends NonNullable<unknown>>({
         (row: Row<T>) => {
             const render = (options?: RenderOptions) => renderRowContent(row, options);
 
+            const rowContext = {
+                id: row.id,
+                data: row.original as T,
+                meta: {
+                    index: row.index,
+                    isSelected: row.getIsSelected(),
+                    isExpanded: row.getIsExpanded()
+                }
+            };
+
             if (renderRow) {
-                return renderRow(row, render);
+                return renderRow({...rowContext, render});
             }
 
             return (
                 <TableRow
                     key={row.id}
                     aria-selected={row.getIsSelected() || undefined}
-                    {...(typeof rowProps === 'function' ? rowProps(row.original as T) : rowProps)}
+                    {...(typeof rowProps === 'function' ? rowProps(rowContext) : rowProps)}
                 >
                     {render()}
                 </TableRow>

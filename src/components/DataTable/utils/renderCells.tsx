@@ -49,7 +49,15 @@ export const renderCell = <T extends NonNullable<unknown>>({
         const meta = cell.column.columnDef.meta as CustomColumnMeta | undefined;
         const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
         const cellProps = typeof meta?.cellProps === 'function' ?
-            meta.cellProps(row.original) :
+            meta.cellProps({
+                id: row.id,
+                data: row.original,
+                meta: {
+                    index: row.index,
+                    isSelected: row.getIsSelected(),
+                    isExpanded: row.getIsExpanded()
+                }
+            }) :
             meta?.cellProps;
 
         if (isStructured && index === 0) {

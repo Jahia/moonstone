@@ -137,12 +137,12 @@ describe('DataTable', () => {
                 data={data}
                 columns={columns}
                 primaryKey="id"
-                renderRow={(row, defaultRender) => (
-                    <TableRow key={row.id} data-testid={row.id}>
-                        {defaultRender({
+                renderRow={({id, data: rowData, render: renderCells}) => (
+                    <TableRow key={id} data-testid={id}>
+                        {renderCells({
                             after: (
-                                <TableCell data-testid={`after-${row.id}`}>
-                                    {row.original.name}
+                                <TableCell data-testid={`after-${id}`}>
+                                    {rowData.name}
                                 </TableCell>
                             )
                         })}
@@ -164,12 +164,12 @@ describe('DataTable', () => {
                 data={data}
                 columns={columns}
                 primaryKey="id"
-                renderRow={(row, defaultRender) => (
-                    <TableRow key={row.id} data-testid={row.id}>
-                        {defaultRender({
+                renderRow={({id, data: rowData, render: renderCells}) => (
+                    <TableRow key={id} data-testid={id}>
+                        {renderCells({
                             before: (
-                                <TableCell data-testid={`before-${row.id}`}>
-                                    {row.original.name}
+                                <TableCell data-testid={`before-${id}`}>
+                                    {rowData.name}
                                 </TableCell>
                             )
                         })}
@@ -207,7 +207,7 @@ describe('DataTable', () => {
                 data={data}
                 columns={columns}
                 primaryKey="id"
-                rowProps={row => ({'data-testid': `row-${row.id}`})}
+                rowProps={({id}) => ({'data-testid': `row-${id}`})}
             />
         );
 
@@ -222,9 +222,9 @@ describe('DataTable', () => {
                 data={data}
                 columns={columns}
                 primaryKey="id"
-                rowProps={row => ({
+                rowProps={({data: rowData}) => ({
                     'data-testid': 'conditional-row',
-                    className: row.age >= 30 ? 'senior' : 'junior'
+                    className: rowData.age >= 30 ? 'senior' : 'junior'
                 })}
             />
         );
@@ -243,17 +243,17 @@ describe('DataTable', () => {
                 data={data}
                 columns={columns}
                 primaryKey="id"
-                renderRow={(row, defaultRender) => (
-                    <TableRow key={row.id}>
-                        {defaultRender({
+                renderRow={({id, render: renderCells}) => (
+                    <TableRow key={id}>
+                        {renderCells({
                             before: (
-                                <TableCell data-testid={`before-${row.id}`}>
-                                    {`before-${row.id}`}
+                                <TableCell data-testid={`before-${id}`}>
+                                    {`before-${id}`}
                                 </TableCell>
                             ),
                             after: (
-                                <TableCell data-testid={`after-${row.id}`}>
-                                    {`after-${row.id}`}
+                                <TableCell data-testid={`after-${id}`}>
+                                    {`after-${id}`}
                                 </TableCell>
                             )
                         })}
@@ -520,9 +520,9 @@ describe('DataTable', () => {
             {
                 key: 'name',
                 label: 'Name',
-                cellProps: (row: TestData) => ({
+                cellProps: ({data: cellData}: {data: TestData}) => ({
                     'data-testid': 'fn-cell',
-                    className: row.age >= 30 ? 'senior' : 'junior'
+                    className: cellData.age >= 30 ? 'senior' : 'junior'
                 }),
                 ...stringColumn((row: TestData) => row.name)
             },
@@ -554,7 +554,7 @@ describe('DataTable', () => {
             {
                 key: 'name',
                 label: 'Name',
-                cellProps: (row: TestData) => ({'data-testid': `name-cell-${row.id}`}),
+                cellProps: ({data: cellData}: {data: TestData}) => ({'data-testid': `name-cell-${cellData.id}`}),
                 ...stringColumn((row: TestData) => row.name)
             },
             {
@@ -946,9 +946,9 @@ describe('DataTable custom cells', () => {
                 data={statusBarData}
                 columns={statusBarColumns}
                 primaryKey="id"
-                renderRow={(row, defaultRender) => (
-                    <TableRow key={row.id}>
-                        {defaultRender({
+                renderRow={({id, render: renderCells}) => (
+                    <TableRow key={id}>
+                        {renderCells({
                             before: <TableCellStatus color="success">test</TableCellStatus>
                         })}
                     </TableRow>
