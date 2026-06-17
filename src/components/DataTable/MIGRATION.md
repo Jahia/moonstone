@@ -50,7 +50,7 @@ type RenderRowContext<T> = RowContext<T> & {
 
 ```ts
 type RenderCellContext<T> = RowContext<T> & {
-    value: T[key]; // The value of this specific cell
+    value: T[keyof T]; // The value of this specific cell
 };
 ```
 
