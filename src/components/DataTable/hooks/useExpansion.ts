@@ -8,7 +8,7 @@ type UseExpansionProps = {
 };
 
 function toExpandedState(ids: string[]): ExpandedState {
-    return ids.reduce<Record<string, boolean>>((acc, id) => ({...acc, [id]: true}), {});
+    return Object.fromEntries(ids.map(id => [id, true]));
 }
 
 function toRowIds(state: ExpandedState): string[] {
