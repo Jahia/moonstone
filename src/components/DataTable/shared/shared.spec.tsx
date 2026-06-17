@@ -107,7 +107,7 @@ describe('numberColumn', () => {
         const get = (row: Row) => row.val;
         const col = numberColumn<Row>(get);
         expect(col.isSortable).toBe(true);
-        expect(col.align).toBe('left');
+        expect(col.align).toBe('right');
 
         const rowA = {val: 10};
         const rowB = {val: 20};
