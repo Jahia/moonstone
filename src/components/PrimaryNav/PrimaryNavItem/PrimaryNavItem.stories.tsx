@@ -1,22 +1,22 @@
-import {Meta, StoryObj} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
 import {PrimaryNavItem} from './index';
 import {Edit, Person, Power, Workflow} from '~/icons';
 import markdownNotes from './PrimaryNavItem.md';
 import {Badge, Button} from '~/components';
 
-export default {
+const meta = preview.meta({
     title: 'Components/PrimaryNavItem',
     component: PrimaryNavItem,
 
     parameters: {
-        componentSubtitle: 'PrimaryNavItem',
-        notes: {markdown: markdownNotes}
+        docs: {
+            description: {component: markdownNotes},
+            subtitle: 'PrimaryNavItem'
+        }
     }
-} as Meta<typeof PrimaryNavItem>;
+});
 
-type Story = StoryObj<typeof PrimaryNavItem>
-
-export const Default: Story = {render: () => (
+export const Default = meta.story({render: () => (
     <ul
     style={{
       display: 'flex',
@@ -58,4 +58,5 @@ export const Default: Story = {render: () => (
       }
     />
     </ul>
-)};
+)});
+

@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import './colors.stories.scss';
 import '~/__storybook__/storybook.scss';
-import {Meta, StoryObj} from '@storybook/react';
+import preview from '~/__storybook__/preview';
 
 const paletteNeutral = [
     'light',
@@ -126,35 +126,31 @@ function displayColors(palette: Palettes) {
     return colors;
 }
 
-const meta: Meta = {
+const meta = preview.meta({
     title: 'Tokens/Colors',
     excludeStories: ['Color']
-};
+});
 
-export default meta;
-
-type Story = StoryObj;
-
-export const Accent: Story = {
+export const Accent = meta.story({
     render: () => (
         <section className="storyWrapper">{displayColors(paletteAccent)}</section>
     )
-};
+});
 
-export const Neutral: Story = {
+export const Neutral = meta.story({
     render: () => (
         <section className="storyWrapper">{displayColors(paletteNeutral)}</section>
     )
-};
+});
 
-export const Support: Story = {
+export const Support = meta.story({
     render: () => (
         <section className="storyWrapper">{displayColors(paletteSupport)}</section>
     )
-};
+});
 
-export const Palette: Story = {
+export const Palette = meta.story({
     render: () => (
         <section className="storyWrapper">{displayColors(paletteColors)}</section>
     )
-};
+});

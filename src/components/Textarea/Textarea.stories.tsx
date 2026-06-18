@@ -1,10 +1,10 @@
-import React from 'react';
-import {StoryObj, Meta} from '@storybook/react-vite';
+import type {ChangeEvent} from 'react';
+import preview from '~/__storybook__/preview';
 
 import {Textarea} from './index';
 import {useArgs} from 'storybook/preview-api';
 
-const meta: Meta<typeof Textarea> = {
+const meta = preview.meta({
     title: 'Components/Textarea',
     tags: ['new'],
     component: Textarea,
@@ -26,22 +26,19 @@ const meta: Meta<typeof Textarea> = {
         onBlur: {action: 'onBlur'},
         onFocus: {action: 'onFocus'}
     }
-};
-export default meta;
+});
 
-type Story = StoryObj<typeof Textarea>;
+export const Uncontrolled = meta.story();
 
-export const Uncontrolled: Story = {};
-
-export const Controlled: Story = {
-    render: args => {
+export const Controlled = meta.story({
+    render(args) {
         const [, setArgs] = useArgs();
 
-        const onChange = (e : React.ChangeEvent<HTMLTextAreaElement>) => {
-            args.onChange(e);
+        const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+            args.onChange?.(e);
             setArgs({value: e.target.value});
         };
 
         return <Textarea value="Default value" {...args} onChange={onChange}/>;
     }
-};
+});

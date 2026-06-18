@@ -1,4 +1,4 @@
-import {Meta, StoryObj} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
 import {SvgWrapper} from './index';
 import markdownNotes from './SvgWrapper.md';
 import '~/__storybook__/storybook.scss';
@@ -12,7 +12,7 @@ const svg = (
     </svg>
 );
 
-export default {
+const meta = preview.meta({
     title: 'Utilities/SvgWrapper',
     component: SvgWrapper,
 
@@ -26,8 +26,11 @@ export default {
 
     parameters: {
         layout: 'centered',
-        notes: {markdown: markdownNotes}
+        docs: {description: {component: markdownNotes}}
     }
-}as Meta<typeof SvgWrapper>;
+});
 
-export const Playground: StoryObj<typeof SvgWrapper> = {render: () => <SvgWrapper svg={svg} size="default"/>};
+export const Playground = meta.story({
+    render: () => <SvgWrapper svg={svg} size="default"/>
+});
+

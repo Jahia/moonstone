@@ -1,5 +1,5 @@
 import markdownNotes from './PrimaryNav.md';
-import {Meta, StoryObj} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
 import {PrimaryNav} from './index';
 import {
     PrimaryNavItemsGroup,
@@ -19,18 +19,16 @@ import {
 } from '~/icons';
 import placeholder from '~/__storybook__/assets/img-placeholder.jpg';
 
-export default {
+const meta = preview.meta({
     title: 'Components/PrimaryNav',
     component: PrimaryNav,
 
     parameters: {
-        notes: {markdown: markdownNotes}
+        docs: {description: {component: markdownNotes}}
     }
-}as Meta<typeof PrimaryNav>;
+});
 
-type Story = StoryObj<typeof PrimaryNavItem>
-
-export const Default: Story = {render: () => (
+export const Default = meta.story({render: () => (
     <div style={{transform: 'scale(1)', height: '100vh'}}>
         <PrimaryNav
             headerLogo={<img src={placeholder} alt="Placeholder logo" height="30"/>}
@@ -98,4 +96,5 @@ export const Default: Story = {render: () => (
             }
         />
     </div>
-)};
+)});
+

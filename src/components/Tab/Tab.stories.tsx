@@ -1,33 +1,32 @@
 import {useState} from 'react';
-import {StoryObj} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
 
 import {Tab} from './index';
-import type {TabProps} from './Tab.types';
 
 import {TabItem} from './TabItem';
 import {Apps} from '~/icons';
 import markdownNotes from './Tab.md';
 
-export default {
+const meta = preview.meta({
     title: 'Components/Tab',
     component: Tab,
     subcomponents: {TabItem},
 
     parameters: {
         layout: 'centered',
-        notes: {markdown: markdownNotes}
+        docs: {description: {component: markdownNotes}}
     }
-};
+});
 
-export const _Tab: StoryObj<TabProps> = {
-    render: args => {
+export const _Tab = meta.story({
+    render: () => {
         const [selectedTabItemLabel, setSelectedTabItemLabel] = useState('Tab 1');
         const handleClick = (label: string) => {
             setSelectedTabItemLabel(label);
         };
 
         return (
-            <Tab {...args}>
+            <Tab>
                 <TabItem
                     isSelected={selectedTabItemLabel === 'Tab 1'}
                     icon={<Apps/>}
@@ -56,17 +55,17 @@ export const _Tab: StoryObj<TabProps> = {
             </Tab>
         );
     }
-};
+});
 
-export const Reversed: StoryObj<TabProps> = {
-    render: args => {
+export const Reversed = meta.story({
+    render: () => {
         const [selectedTabItemLabel, setSelectedTabItemLabel] = useState('Tab 1');
         const handleClick = (label: string) => {
             setSelectedTabItemLabel(label);
         };
 
         return (
-            <Tab style={{backgroundColor: '#333', padding: '20px'}} {...args}>
+            <Tab style={{backgroundColor: '#333', padding: '20px'}}>
                 <TabItem
                   isReversed
                   isSelected={selectedTabItemLabel === 'Tab 1'}
@@ -98,17 +97,17 @@ export const Reversed: StoryObj<TabProps> = {
             </Tab>
         );
     }
-};
+});
 
-export const SizeBig: StoryObj<TabProps> = {
-    render: args => {
+export const SizeBig = meta.story({
+    render: () => {
         const [selectedTabItemLabel, setSelectedTabItemLabel] = useState('Tab 1');
         const handleClick = (label: string) => {
             setSelectedTabItemLabel(label);
         };
 
         return (
-            <Tab {...args}>
+            <Tab>
                 <TabItem
                   isSelected={selectedTabItemLabel === 'Tab 1'}
                   icon={<Apps/>}
@@ -140,4 +139,5 @@ export const SizeBig: StoryObj<TabProps> = {
             </Tab>
         );
     }
-};
+});
+

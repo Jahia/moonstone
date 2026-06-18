@@ -1,10 +1,10 @@
-import {StoryObj, Meta} from '@storybook/react';
-import '~/__storybook__/storybook.scss';
+import type {ChangeEvent} from 'react';
+import preview from '~/__storybook__/preview';
 
 import {NumberInput} from './index';
 import {useArgs} from 'storybook/preview-api';
 
-export default {
+const meta = preview.meta({
     title: 'Components/Input/Numbers',
     component: NumberInput,
     tags: ['new'],
@@ -18,36 +18,30 @@ export default {
     parameters: {
         layout: 'centered'
     }
-} as Meta<typeof NumberInput>;
+});
 
-type Story = StoryObj<typeof NumberInput>;
+export const UncontrolledNumberInput = meta.story();
 
-export const UncontrolledNumberInput: Story = {
-};
-
-export const ControlledNumberInput: Story = {
+export const ControlledNumberInput = meta.story({
     args: {
         max: 10,
         min: 1,
         value: '5',
         step: 1
     },
-    render: args => {
+    render(args) {
         const [, setArgs] = useArgs();
 
-        const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-            if (args.onChange) {
-                args.onChange(e);
-            }
-
-            setArgs({...args, value: e.target.value});
+        const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+            args.onChange?.(e);
+            setArgs({value: e.target.value});
         };
 
         return (
             <NumberInput
-                onChange={onChange}
                 {...args}
+                onChange={onChange}
             />
         );
     }
-};
+});

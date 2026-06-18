@@ -1,14 +1,14 @@
-import type {Meta, StoryObj} from '@storybook/react';
+import preview from '~/__storybook__/preview';
 import {PrimaryNavItemsGroup} from './index';
 import {PrimaryNavItem} from '~/components/PrimaryNav/PrimaryNavItem';
 import {Edit} from '~/icons';
 import markdownNotes from './PrimaryNavItemsGroup.md';
 
-const meta: Meta<typeof PrimaryNavItemsGroup> = {
+const meta = preview.meta({
     title: 'Components/PrimaryNavItemsGroup',
     component: PrimaryNavItemsGroup,
     parameters: {
-        notes: {markdown: markdownNotes},
+        docs: {description: {component: markdownNotes}},
         layout: 'fullscreen'
     },
     decorators: [
@@ -24,26 +24,23 @@ const meta: Meta<typeof PrimaryNavItemsGroup> = {
             </div>
         )
     ]
-};
+});
 
-export default meta;
-
-type Story = StoryObj<typeof PrimaryNavItemsGroup>;
-
-export const Default: Story = {
+export const Default = meta.story({
     render: () => (
         <PrimaryNavItemsGroup>
             <PrimaryNavItem icon={<Edit/>} label="NavItem not selected (default)"/>
             <PrimaryNavItem icon={<Edit/>} label="NavItem"/>
         </PrimaryNavItemsGroup>
     )
-};
+});
 
-export const CollapsedGroup: Story = {
+export const CollapsedGroup = meta.story({
     render: () => (
         <PrimaryNavItemsGroup isDisplayedWhenCollapsed={false}>
             <PrimaryNavItem icon={<Edit/>} label="Hidden when collapsed"/>
             <PrimaryNavItem icon={<Edit/>} label="Hidden when collapsed too"/>
         </PrimaryNavItemsGroup>
     )
-};
+});
+

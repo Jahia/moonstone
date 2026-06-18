@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {StoryObj} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
 
 import {Menu, MenuItem} from './index';
-import type {MenuProps, AnchorPosition} from './Menu.types';
+import type {AnchorPosition} from './Menu.types';
 
 import markdownNotes from './Menu.md';
 import {Separator} from '~/components';
@@ -13,137 +13,144 @@ import imgVertical from '~/__storybook__/assets/img-vertical.webp';
 import imgHorizontal from '~/__storybook__/assets/img-horizontal.webp';
 import imgSquare from '~/__storybook__/assets/img-square.webp';
 
-export default {
+const meta = preview.meta({
     title: 'Components/Menu',
     component: Menu,
     subcomponents: {MenuItem},
     parameters: {
-        notes: {markdown: markdownNotes},
         docs: {
+            description: {component: markdownNotes},
             // Fix issues in the doc tab with firefox
-            inlineStories: false,
-            IframeHeight: 500
+            story: {
+                inline: false,
+                iframeHeight: '500px'
+            }
         }
     }
-};
+});
 
-export const Default: StoryObj<MenuProps> = {
+export const Default = meta.story({
     render: args => (
         <Menu {...args}>
-            <MenuItem label="Base items" variant="title"/>
-            <MenuItem label="Item1"/>
-            <MenuItem label="Item2"/>
-            <MenuItem label="Item3"/>
-            <Separator/>
-            <MenuItem label="Variants" variant="title"/>
-            <MenuItem isHover label="Item3 - Hover"/>
-            <MenuItem isDisabled label="Item3 - Disabled"/>
-            <MenuItem isHighlighted label="Item3 - Highlighted"/>
-            <MenuItem isSelected label="Item4 - Selected"/>
+            {args.children}
         </Menu>
     ),
 
     args: {
+        children: [
+            <MenuItem key="base-title" label="Base items" variant="title"/>,
+            <MenuItem key="item-1" label="Item1"/>,
+            <MenuItem key="item-2" label="Item2"/>,
+            <MenuItem key="item-3" label="Item3"/>,
+            <Separator key="separator"/>,
+            <MenuItem key="variants-title" label="Variants" variant="title"/>,
+            <MenuItem key="hover" isHover label="Item3 - Hover"/>,
+            <MenuItem key="disabled" isDisabled label="Item3 - Disabled"/>,
+            <MenuItem key="highlighted" isHighlighted label="Item3 - Highlighted"/>,
+            <MenuItem key="selected" isSelected label="Item4 - Selected"/>
+        ],
         isDisplayed: true,
         maxHeight: '250px',
         style: {zIndex: 10000}
     }
-};
+});
 
-export const ContextualMenu = () => {
-    const [isDisplayed, setIsDisplayed] = useState<boolean>(false);
-    const [menuPosition, setMenuPosition] = useState<AnchorPosition>();
+export const ContextualMenu = meta.story({
+    render: () => {
+        const [isDisplayed, setIsDisplayed] = useState<boolean>(false);
+        const [menuPosition, setMenuPosition] = useState<AnchorPosition>();
 
-    const handleOnClick = (e: React.MouseEvent) => {
-        if (isDisplayed) {
-            handleClose();
-        } else {
-            setIsDisplayed(true);
-            setMenuPosition({
-                top: e.clientY,
-                left: e.clientX
-            });
-        }
-    };
+        const handleOnClick = (e: React.MouseEvent) => {
+            if (isDisplayed) {
+                handleClose();
+            } else {
+                setIsDisplayed(true);
+                setMenuPosition({
+                    top: e.clientY,
+                    left: e.clientX
+                });
+            }
+        };
 
-    const handleClose = () => {
-        setIsDisplayed(false);
-    };
+        const handleClose = () => {
+            setIsDisplayed(false);
+        };
 
-    return (
-        <div
-            className={clsx('flexRow_center', 'alignCenter', layout.flexRow_center, layout.alignCenter)}
-            style={{transform: 'scale(1)', height: '100vh'}}
-            onClick={handleOnClick}
-        >
-            <p>Click somewhere to display the menu, another click close it</p>
-            <Menu
-                isDisplayed={isDisplayed}
-                anchorPosition={menuPosition}
-                onClose={handleClose}
-            >
-                <MenuItem label="Item1"/>
-                <MenuItem label="Item2"/>
-                <MenuItem label="Item3"/>
-            </Menu>
-        </div>
-    );
-};
-
-export const AnchorElOrigin = () => {
-    const [isDisplayed, setIsDisplayed] = useState(false);
-    const [anchorEl, setAnchorEl] = useState(null);
-    const buttonEl = React.useRef();
-
-    const handleOnClick = () => {
-        setAnchorEl(buttonEl);
-        if (isDisplayed) {
-            handleClose();
-        } else {
-            setIsDisplayed(true);
-        }
-    };
-
-    const handleClose = () => {
-        setIsDisplayed(false);
-    };
-
-    return (
-        <>
-            <button
-                ref={buttonEl}
-                type="button"
-                style={{margin: '90px', width: '100px', height: '100px'}}
+        return (
+            <div
+                className={clsx('flexRow_center', 'alignCenter', layout.flexRow_center, layout.alignCenter)}
+                style={{transform: 'scale(1)', height: '100vh'}}
                 onClick={handleOnClick}
             >
-                Display menu
-            </button>
-            <Menu
-                isDisplayed={isDisplayed}
-                anchorEl={anchorEl}
-                anchorPosition={{top: 0, left: 0}}
-                anchorElOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left'
-                }}
-                transformElOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left'
-                }}
-                onClose={handleClose}
-            >
-                <MenuItem label="Item1"/>
-                <MenuItem label="Item2"/>
-                <MenuItem label="Item3"/>
-            </Menu>
-        </>
-    );
-};
+                <p>Click somewhere to display the menu, another click close it</p>
+                <Menu
+                    isDisplayed={isDisplayed}
+                    anchorPosition={menuPosition}
+                    onClose={handleClose}
+                >
+                    <MenuItem label="Item1"/>
+                    <MenuItem label="Item2"/>
+                    <MenuItem label="Item3"/>
+                </Menu>
+            </div>
+        );
+    }
+});
 
-export const PositionAbsolute = () => {
-    return (
-    // <div style={{transform: 'scale(1)', height: '100vh'}}>
-    // </div>
+export const AnchorElOrigin = meta.story({
+    render: () => {
+        const [isDisplayed, setIsDisplayed] = useState(false);
+        const [anchorEl, setAnchorEl] = useState(null);
+        const buttonEl = React.useRef();
+
+        const handleOnClick = () => {
+            setAnchorEl(buttonEl);
+            if (isDisplayed) {
+                handleClose();
+            } else {
+                setIsDisplayed(true);
+            }
+        };
+
+        const handleClose = () => {
+            setIsDisplayed(false);
+        };
+
+        return (
+            <>
+                <button
+                    ref={buttonEl}
+                    type="button"
+                    style={{margin: '90px', width: '100px', height: '100px'}}
+                    onClick={handleOnClick}
+                >
+                    Display menu
+                </button>
+                <Menu
+                    isDisplayed={isDisplayed}
+                    anchorEl={anchorEl}
+                    anchorPosition={{top: 0, left: 0}}
+                    anchorElOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left'
+                    }}
+                    transformElOrigin={{
+                        vertical: 'top',
+                        horizontal: 'left'
+                    }}
+                    onClose={handleClose}
+                >
+                    <MenuItem label="Item1"/>
+                    <MenuItem label="Item2"/>
+                    <MenuItem label="Item3"/>
+                </Menu>
+            </>
+        );
+    }
+});
+
+export const PositionAbsolute = meta.story({
+    render: () => (
         <div
             style={{
                 position: 'relative',
@@ -181,136 +188,145 @@ export const PositionAbsolute = () => {
                 <MenuItem label="Item3"/>
             </Menu>
         </div>
-    );
-};
+    )
+});
 
-export const BigImageMenuItems = () => (
-    <div style={{transform: 'scale(1)', height: '100vh'}}>
-        <Menu
-            isDisplayed
-            maxWidth="400px"
-            maxHeight="440px"
-            style={{zIndex: 10000}}
-        >
-            <MenuItem label="Menu Items with Big Images Title" variant="title"/>
-            <MenuItem
-                label="Big image MenuItem"
-                image={<img src={imgVertical} alt="big vertical image"/>}
-                imageSize="big"
-            />
-            <MenuItem
-                label="Big image MenuItem"
-                image={<img src={imgHorizontal} alt="big horizontal image"/>}
-                imageSize="big"
-            />
-            <MenuItem
-                isSelected
-                label="Big image MenuItem - selected"
-                image={<img src={imgSquare} alt="big square image"/>}
-                imageSize="big"
-            />
-            <MenuItem
-                label="Big image MenuItem - lots of words lots of words lots of words"
-                image={<img src={imgVertical} alt="big vertical image"/>}
-                imageSize="big"
-            />
-            <MenuItem
-                label="Big image MenuItem - lots of words lots of words lots of words"
-                image={<img src={imgHorizontal} alt="big horizontal image"/>}
-                imageSize="big"
-            />
-        </Menu>
-    </div>
-);
+export const BigImageMenuItems = meta.story({
+    render: () => (
+        <div style={{transform: 'scale(1)', height: '100vh'}}>
+            <Menu
+                isDisplayed
+                maxWidth="400px"
+                maxHeight="440px"
+                style={{zIndex: 10000}}
+            >
+                <MenuItem label="Menu Items with Big Images Title" variant="title"/>
+                <MenuItem
+                    label="Big image MenuItem"
+                    image={<img src={imgVertical} alt="big vertical image"/>}
+                    imageSize="big"
+                />
+                <MenuItem
+                    label="Big image MenuItem"
+                    image={<img src={imgHorizontal} alt="big horizontal image"/>}
+                    imageSize="big"
+                />
+                <MenuItem
+                    isSelected
+                    label="Big image MenuItem - selected"
+                    image={<img src={imgSquare} alt="big square image"/>}
+                    imageSize="big"
+                />
+                <MenuItem
+                    label="Big image MenuItem - lots of words lots of words lots of words"
+                    image={<img src={imgVertical} alt="big vertical image"/>}
+                    imageSize="big"
+                />
+                <MenuItem
+                    label="Big image MenuItem - lots of words lots of words lots of words"
+                    image={<img src={imgHorizontal} alt="big horizontal image"/>}
+                    imageSize="big"
+                />
+            </Menu>
+        </div>
+    )
+});
 
-export const SmallImageMenuItems = () => (
-    <div style={{transform: 'scale(1)', height: '100vh', contain: 'strict'}}>
-        <Menu
-            isDisplayed
-            maxWidth="264px"
-            maxHeight="320px"
-            style={{zIndex: 10000}}
-        >
-            <MenuItem label="Menu Items with Small Images Title" variant="title"/>
-            <MenuItem
-                label="Small image MenuItem"
-                image={<img src={imgVertical} alt="small vertical image"/>}
-                imageSize="small"
-            />
-            <MenuItem
-                label="Small image MenuItem"
-                image={<img src={imgHorizontal} alt="small horizontal image"/>}
-                imageSize="small"
-            />
-            <MenuItem
-                isSelected
-                label="Small image MenuItem - selected"
-                image={<img src={imgSquare} alt="small square image"/>}
-                imageSize="small"
-            />
-            <MenuItem
-                label="Small image MenuItem - lots of words lots of words lots of words"
-                image={<img src={imgVertical} alt="small vertical image"/>}
-                imageSize="small"
-            />
-            <MenuItem
-                label="Small image MenuItem - lots of words lots of words lots of words"
-                image={<img src={imgHorizontal} alt="small horizontal image"/>}
-                imageSize="small"
-            />
-        </Menu>
-    </div>
-);
+export const SmallImageMenuItems = meta.story({
+    render: () => (
+        <div style={{transform: 'scale(1)', height: '100vh', contain: 'strict'}}>
+            <Menu
+                isDisplayed
+                maxWidth="264px"
+                maxHeight="320px"
+                style={{zIndex: 10000}}
+            >
+                <MenuItem label="Menu Items with Small Images Title" variant="title"/>
+                <MenuItem
+                    label="Small image MenuItem"
+                    image={<img src={imgVertical} alt="small vertical image"/>}
+                    imageSize="small"
+                />
+                <MenuItem
+                    label="Small image MenuItem"
+                    image={<img src={imgHorizontal} alt="small horizontal image"/>}
+                    imageSize="small"
+                />
+                <MenuItem
+                    isSelected
+                    label="Small image MenuItem - selected"
+                    image={<img src={imgSquare} alt="small square image"/>}
+                    imageSize="small"
+                />
+                <MenuItem
+                    label="Small image MenuItem - lots of words lots of words lots of words"
+                    image={<img src={imgVertical} alt="small vertical image"/>}
+                    imageSize="small"
+                />
+                <MenuItem
+                    label="Small image MenuItem - lots of words lots of words lots of words"
+                    image={<img src={imgHorizontal} alt="small horizontal image"/>}
+                    imageSize="small"
+                />
+            </Menu>
+        </div>
+    )
+});
 
-export const WithSearch = () => (
-    <div style={{transform: 'scale(1)', height: '100vh'}}>
-        <Menu
-            hasSearch
-            isDisplayed
-            searchEmptyText="Oh no! It seems like that doesn't exist."
-            maxHeight="250px"
-            style={{zIndex: 10000}}
-        >
-            <MenuItem label="Base items" variant="title"/>
-            <MenuItem label="Item1"/>
-            <MenuItem label="Item2"/>
-            <MenuItem label="Item3"/>
-            <MenuItem label="Item4"/>
-            <MenuItem label="Item5"/>
-            <MenuItem label="Item6"/>
-            <MenuItem label="Item7"/>
-            <MenuItem label="Item8"/>
-            <MenuItem label="Item9"/>
-        </Menu>
-    </div>
-);
+export const WithSearch = meta.story({
+    render: () => (
+        <div style={{transform: 'scale(1)', height: '100vh'}}>
+            <Menu
+                hasSearch
+                isDisplayed
+                searchEmptyText="Oh no! It seems like that doesn't exist."
+                maxHeight="250px"
+                style={{zIndex: 10000}}
+            >
+                <MenuItem label="Base items" variant="title"/>
+                <MenuItem label="Item1"/>
+                <MenuItem label="Item2"/>
+                <MenuItem label="Item3"/>
+                <MenuItem label="Item4"/>
+                <MenuItem label="Item5"/>
+                <MenuItem label="Item6"/>
+                <MenuItem label="Item7"/>
+                <MenuItem label="Item8"/>
+                <MenuItem label="Item9"/>
+            </Menu>
+        </div>
+    )
+});
 
-export const Reversed = () => (
-    <div
-        className="moonstone-reversed"
-        style={{
-            transform: 'scale(1)',
-            height: '100vh',
-            background: 'var(--moon-color-gray_dark)'
-        }}
-    >
-        <Menu
-            hasSearch
-            isDisplayed
-            searchEmptyText="Oh no! It seems like that doesn't exist."
-            maxHeight="250px"
-            style={{zIndex: 10000}}
+export const Reversed = meta.story({
+    render: () => (
+        <div
+            className="moonstone-reversed"
+            style={{
+                transform: 'scale(1)',
+                height: '100vh',
+                background: 'var(--moon-color-gray_dark)'
+            }}
         >
-            <MenuItem label="Base items" variant="title"/>
-            <MenuItem label="Item1"/>
-            <MenuItem label="Item2"/>
-            <MenuItem label="Item3"/>
-            <MenuItem label="Item4"/>
-            <MenuItem label="Item5"/>
-            <MenuItem label="Item6"/>
-            <MenuItem label="Item7"/>
-            <MenuItem label="Item8"/>
-            <MenuItem label="Item9"/>
-        </Menu>
-    </div>
-);
+            <Menu
+                hasSearch
+                isDisplayed
+                searchEmptyText="Oh no! It seems like that doesn't exist."
+                maxHeight="250px"
+                style={{zIndex: 10000}}
+            >
+                <MenuItem label="Base items" variant="title"/>
+                <MenuItem label="Item1"/>
+                <MenuItem label="Item2"/>
+                <MenuItem label="Item3"/>
+                <MenuItem label="Item4"/>
+                <MenuItem label="Item5"/>
+                <MenuItem label="Item6"/>
+                <MenuItem label="Item7"/>
+                <MenuItem label="Item8"/>
+                <MenuItem label="Item9"/>
+            </Menu>
+        </div>
+    )
+});
+

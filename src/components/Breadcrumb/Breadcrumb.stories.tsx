@@ -1,11 +1,10 @@
-import {StoryFn, Meta} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
 
 import {Breadcrumb, BreadcrumbItem} from '~/components';
 import type {BreadcrumbProps} from './Breadcrumb.types';
-
 import markdownNotes from './Breadcrumb.md';
 
-export default {
+const meta = preview.meta({
     title: 'Components/Breadcrumb',
     component: Breadcrumb,
     subcomponents: {BreadcrumbItem},
@@ -18,11 +17,11 @@ export default {
     ],
     parameters: {
         layout: 'centered',
-        notes: {markdown: markdownNotes}
+        docs: {description: {component: markdownNotes}}
     }
-} as Meta<typeof Breadcrumb>;
+});
 
-const Template: StoryFn<BreadcrumbProps> = args => (
+const Template = (args: BreadcrumbProps) => (
     <Breadcrumb {...args}>
         <BreadcrumbItem label="item 01"/>
         <BreadcrumbItem label="item 02"/>
@@ -31,6 +30,7 @@ const Template: StoryFn<BreadcrumbProps> = args => (
     </Breadcrumb>
 );
 
-export const Default = {
+export const Default = meta.story({
     render: Template
-};
+});
+

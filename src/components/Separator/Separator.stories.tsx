@@ -1,24 +1,23 @@
-import {StoryObj} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
 import '~/__storybook__/storybook.scss';
 
 import {Separator} from './index';
-import {SeparatorProps} from './Separator.types';
 
 import {Typography} from '~/components';
 import markdownNotes from './Separator.md';
 import clsx from 'clsx';
 import {layout} from '~/globals/css-utils.js';
 
-export default {
+const meta = preview.meta({
     title: 'Components/Separator',
     component: Separator,
     parameters: {
         layout: 'centered',
-        notes: {markdown: markdownNotes}
+        docs: {description: {component: markdownNotes}}
     }
-};
+});
 
-export const Horizontal: StoryObj<SeparatorProps> = {
+export const Horizontal = meta.story({
     render: args => (
         <>
             <Typography variant="heading">Content before a separator</Typography>
@@ -32,9 +31,9 @@ export const Horizontal: StoryObj<SeparatorProps> = {
         size: 'full',
         spacing: 'medium'
     }
-};
+});
 
-export const Vertical: StoryObj<SeparatorProps> = {
+export const Vertical = meta.story({
     render: args => (
         <div className={clsx('flexRow', 'alignCenter', layout.flexRow, layout.alignCenter)}>
             <Typography variant="heading">Before</Typography>
@@ -49,9 +48,9 @@ export const Vertical: StoryObj<SeparatorProps> = {
         size: 'full',
         spacing: 'medium'
     }
-};
+});
 
-export const Invisible: StoryObj<SeparatorProps> = {
+export const Invisible = meta.story({
     render: args => (
         <section className="storyColumn">
             <div className="storyItem">
@@ -79,4 +78,5 @@ export const Invisible: StoryObj<SeparatorProps> = {
         spacing: 'big',
         invisible: 'lastChild'
     }
-};
+});
+

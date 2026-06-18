@@ -1,4 +1,4 @@
-import {Meta, StoryObj} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
 import {LayoutApp} from './index';
 import type {LayoutAppProps} from './LayoutApp.types';
 import {
@@ -7,12 +7,14 @@ import {
 } from '~/__storybook__/FakeComponents';
 import markdownNotes from './LayoutApp.md';
 
-export default {
+const meta = preview.meta({
     title: 'Layouts/LayoutApp',
     component: LayoutApp,
     parameters: {
-        subtitle: 'How to use our root application layout',
-        notes: {markdown: markdownNotes}
+        docs: {
+            description: {component: markdownNotes},
+            subtitle: 'How to use our root application layout'
+        }
     },
     argTypes: {
         navigation: {
@@ -22,9 +24,7 @@ export default {
             control: false
         }
     }
-} as Meta<typeof LayoutApp>;
-
-type Story = StoryObj<typeof LayoutApp>
+});
 
 const Template = (args: LayoutAppProps) => (
     <LayoutApp
@@ -33,13 +33,14 @@ const Template = (args: LayoutAppProps) => (
     {...args}
   />
 );
-export const Default: Story = {
+export const Default = meta.story({
     render: Template
-};
+});
 
-export const Loading: Story = {
+export const Loading = meta.story({
     render: Template,
     args: {
         isLoading: true
     }
-};
+});
+
