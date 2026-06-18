@@ -1,10 +1,8 @@
 import * as iconComponents from '~/icons/components';
 
-const icons = {
-    ...Object.fromEntries(
-        Object.entries(iconComponents).map(([name, Icon]) => [name, <Icon />])
-    )
-}
+const icons = Object.fromEntries(
+    Object.entries(iconComponents).map(([name, Icon]) => [name, <Icon key={name}/>])
+);
 
 /**
  * Reusable Storybook `argType` for React-element icon props (`icon`, `iconStart`, `iconEnd`…).
