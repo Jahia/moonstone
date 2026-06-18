@@ -121,15 +121,15 @@ export const InsertCells: Story = {
         return (
             <DataTable
                 {...args}
-                renderRow={(row, renderCells) => (
+                renderRow={({id, data, render: renderCells}) => (
                     <TableRow
-                        key={row.id}
+                        key={id}
                     >
                         {renderCells({
                             before: (
-                                <TableCellStatus color={getStatus(row.original.status).color}>
+                                <TableCellStatus color={getStatus(data.status).color}>
                                     <>
-                                        {getStatus(row.original.status).iconStart} {getStatus(row.original.status).text}
+                                        {getStatus(data.status).iconStart} {getStatus(data.status).text}
                                     </>
                                 </TableCellStatus>
                             ),

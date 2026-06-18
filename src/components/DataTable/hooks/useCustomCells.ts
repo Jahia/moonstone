@@ -44,6 +44,9 @@ export function useCustomCells<T extends NonNullable<unknown>>({
         setCustomHeaderWidths(defaultHeaderWidths());
     }, [data, primaryKey, renderRow]);
 
+    // This effect intentionally runs after every render to flush ref-collected counts
+    // (written during render) into state without triggering setState during render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         if (!renderRow) {
             return;

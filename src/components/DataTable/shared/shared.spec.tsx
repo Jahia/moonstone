@@ -92,7 +92,7 @@ describe('stringColumn', () => {
         expect(col.isSortable).toBe(true);
         expect(col.align).toBe('center');
 
-        render(<>{col.render('test')}</>);
+        render(<>{col.render?.({data: {val: 'test'}})}</>);
         expect(screen.getByText('test')).toBeInTheDocument();
 
         const rowA = {val: 'a'};
@@ -107,7 +107,7 @@ describe('numberColumn', () => {
         const get = (row: Row) => row.val;
         const col = numberColumn<Row>(get);
         expect(col.isSortable).toBe(true);
-        expect(col.align).toBe('left');
+        expect(col.align).toBe('right');
 
         const rowA = {val: 10};
         const rowB = {val: 20};
@@ -141,7 +141,7 @@ describe('createTableColumns', () => {
                 label: 'Name',
                 isSortable: true,
                 align: 'center',
-                render: (val: string) => val.toUpperCase()
+                render: ({value}) => value.toUpperCase()
             }
         ];
 

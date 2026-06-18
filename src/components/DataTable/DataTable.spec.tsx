@@ -82,13 +82,11 @@ const sortableColumns = [
     {
         key: 'name',
         label: 'Name',
-        isSortable: true,
         ...stringColumn((row: TestData) => row.name)
     },
     {
         key: 'age',
         label: 'Age',
-        isSortable: true,
         ...numberColumn((row: TestData) => row.age)
     }
 ] as const;
@@ -139,12 +137,12 @@ describe('DataTable', () => {
                 data={data}
                 columns={columns}
                 primaryKey="id"
-                renderRow={(row, defaultRender) => (
-                    <TableRow key={row.id} data-testid={row.id}>
-                        {defaultRender({
+                renderRow={({id, data: rowData, render: renderCells}) => (
+                    <TableRow key={id} data-testid={id}>
+                        {renderCells({
                             after: (
-                                <TableCell data-testid={`after-${row.id}`}>
-                                    {row.original.name}
+                                <TableCell data-testid={`after-${id}`}>
+                                    {rowData.name}
                                 </TableCell>
                             )
                         })}
@@ -166,12 +164,12 @@ describe('DataTable', () => {
                 data={data}
                 columns={columns}
                 primaryKey="id"
-                renderRow={(row, defaultRender) => (
-                    <TableRow key={row.id} data-testid={row.id}>
-                        {defaultRender({
+                renderRow={({id, data: rowData, render: renderCells}) => (
+                    <TableRow key={id} data-testid={id}>
+                        {renderCells({
                             before: (
-                                <TableCell data-testid={`before-${row.id}`}>
-                                    {row.original.name}
+                                <TableCell data-testid={`before-${id}`}>
+                                    {rowData.name}
                                 </TableCell>
                             )
                         })}
@@ -203,23 +201,59 @@ describe('DataTable', () => {
         });
     });
 
+    it('should apply rowProps function per row', () => {
+        render(
+            <DataTable<TestData>
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                rowProps={({id}) => ({'data-testid': `row-${id}`})}
+            />
+        );
+
+        expect(screen.getByTestId('row-1')).toBeInTheDocument();
+        expect(screen.getByTestId('row-2')).toBeInTheDocument();
+        expect(screen.getByTestId('row-3')).toBeInTheDocument();
+    });
+
+    it('should apply conditional className via rowProps function', () => {
+        render(
+            <DataTable<TestData>
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                rowProps={({data: rowData}) => ({
+                    'data-testid': 'conditional-row',
+                    className: rowData.age >= 30 ? 'senior' : 'junior'
+                })}
+            />
+        );
+
+        const rows = screen.getAllByTestId('conditional-row');
+        expect(rows).toHaveLength(3);
+        // Alice (30) and Charlie (35) are senior, Bob (25) is junior
+        expect(rows[0]).toHaveClass('senior'); // Alice
+        expect(rows[1]).toHaveClass('junior'); // Bob
+        expect(rows[2]).toHaveClass('senior'); // Charlie
+    });
+
     it('should render both before and after custom cells', () => {
         render(
             <DataTable
                 data={data}
                 columns={columns}
                 primaryKey="id"
-                renderRow={(row, defaultRender) => (
-                    <TableRow key={row.id}>
-                        {defaultRender({
+                renderRow={({id, render: renderCells}) => (
+                    <TableRow key={id}>
+                        {renderCells({
                             before: (
-                                <TableCell data-testid={`before-${row.id}`}>
-                                    {`before-${row.id}`}
+                                <TableCell data-testid={`before-${id}`}>
+                                    {`before-${id}`}
                                 </TableCell>
                             ),
                             after: (
-                                <TableCell data-testid={`after-${row.id}`}>
-                                    {`after-${row.id}`}
+                                <TableCell data-testid={`after-${id}`}>
+                                    {`after-${id}`}
                                 </TableCell>
                             )
                         })}
@@ -253,6 +287,113 @@ describe('DataTable', () => {
 
         expect(screen.getByText('Parent')).toBeInTheDocument();
         expect(screen.getByText('Child')).toBeInTheDocument();
+    });
+
+    it('should not reset expansion state when data reference changes', async () => {
+        // Regression: useEffect with [data] was calling toggleAllRowsExpanded on every data change,
+        // reverting any manual collapse done by the user.
+        const user = userEvent.setup();
+        const {rerender} = render(
+            <DataTable<TestData>
+                isStructured
+                data={structuredData}
+                columns={columns}
+                primaryKey="id"
+            />
+        );
+
+        // Collapse the parent row
+        await user.click(screen.getByText('Parent'));
+        expect(screen.queryByText('Child')).not.toBeInTheDocument();
+
+        // Simulate a data reference change with same content (e.g. re-fetch, filter)
+        rerender(
+            <DataTable<TestData>
+                isStructured
+                data={[...structuredData]}
+                columns={columns}
+                primaryKey="id"
+            />
+        );
+
+        // Expansion state must be preserved — child must remain hidden
+        expect(screen.queryByText('Child')).not.toBeInTheDocument();
+    });
+
+    it('should expand only specified rows via defaultExpandedRows', () => {
+        const multiParentData: TestData[] = [
+            {id: '1', name: 'Parent A', age: 50, subRows: [{id: '1.1', name: 'Child A', age: 10}]},
+            {id: '2', name: 'Parent B', age: 60, subRows: [{id: '2.1', name: 'Child B', age: 20}]}
+        ];
+
+        render(
+            <DataTable<TestData>
+                isStructured
+                data={multiParentData}
+                columns={columns}
+                primaryKey="id"
+                defaultExpandedRows={['1']}
+            />
+        );
+
+        expect(screen.getByText('Child A')).toBeInTheDocument();
+        expect(screen.queryByText('Child B')).not.toBeInTheDocument();
+    });
+
+    it('should respect controlled expandedRows prop', () => {
+        const multiParentData: TestData[] = [
+            {id: '1', name: 'Parent A', age: 50, subRows: [{id: '1.1', name: 'Child A', age: 10}]},
+            {id: '2', name: 'Parent B', age: 60, subRows: [{id: '2.1', name: 'Child B', age: 20}]}
+        ];
+
+        const {rerender} = render(
+            <DataTable<TestData>
+                isStructured
+                data={multiParentData}
+                columns={columns}
+                primaryKey="id"
+                expandedRows={['1']}
+                onExpandChange={() => { }}
+            />
+        );
+
+        expect(screen.getByText('Child A')).toBeInTheDocument();
+        expect(screen.queryByText('Child B')).not.toBeInTheDocument();
+
+        // Parent updates controlled state to expand second parent
+        rerender(
+            <DataTable<TestData>
+                isStructured
+                data={multiParentData}
+                columns={columns}
+                primaryKey="id"
+                expandedRows={['2']}
+                onExpandChange={() => { }}
+            />
+        );
+
+        expect(screen.queryByText('Child A')).not.toBeInTheDocument();
+        expect(screen.getByText('Child B')).toBeInTheDocument();
+    });
+
+    it('should call onExpandChange when a row is toggled', async () => {
+        const onExpandChange = vi.fn();
+        const user = userEvent.setup();
+
+        render(
+            <DataTable<TestData>
+                isStructured
+                data={structuredData}
+                columns={columns}
+                primaryKey="id"
+                onExpandChange={onExpandChange}
+            />
+        );
+
+        await user.click(screen.getByText('Parent'));
+        // When collapsing parent "1", TanStack transitions from `true` (all expanded) to an explicit
+        // record; child "1.1" remains listed as expanded in the record even though it is hidden.
+        expect(onExpandChange).toHaveBeenCalledWith(['1.1']);
     });
 
     it('should toggle row when clicking on the expandable node', async () => {
@@ -374,6 +515,68 @@ describe('DataTable', () => {
         expect(nameCells.length).toBeGreaterThan(0);
     });
 
+    it('should apply cellProps function to regular cells per row', () => {
+        const columnsWithFnCellProps = [
+            {
+                key: 'name',
+                label: 'Name',
+                cellProps: ({data: cellData}: {data: TestData}) => ({
+                    'data-testid': 'fn-cell',
+                    className: cellData.age >= 30 ? 'senior' : 'junior'
+                }),
+                ...stringColumn((row: TestData) => row.name)
+            },
+            {
+                key: 'age',
+                label: 'Age',
+                ...numberColumn((row: TestData) => row.age)
+            }
+        ] as const;
+
+        render(
+            <DataTable<TestData>
+                data={data}
+                columns={columnsWithFnCellProps}
+                primaryKey="id"
+            />
+        );
+
+        const nameCells = screen.getAllByTestId('fn-cell');
+        expect(nameCells).toHaveLength(data.length);
+        // Alice (30) and Charlie (35) are senior, Bob (25) is junior
+        expect(nameCells[0]).toHaveClass('senior'); // Alice
+        expect(nameCells[1]).toHaveClass('junior'); // Bob
+        expect(nameCells[2]).toHaveClass('senior'); // Charlie
+    });
+
+    it('should apply cellProps function to structured cells per row', () => {
+        const columnsWithFnCellProps = [
+            {
+                key: 'name',
+                label: 'Name',
+                cellProps: ({data: cellData}: {data: TestData}) => ({'data-testid': `name-cell-${cellData.id}`}),
+                ...stringColumn((row: TestData) => row.name)
+            },
+            {
+                key: 'age',
+                label: 'Age',
+                ...numberColumn((row: TestData) => row.age)
+            }
+        ] as const;
+
+        render(
+            <DataTable
+                isStructured
+                data={structuredData}
+                columns={columnsWithFnCellProps}
+                primaryKey="id"
+            />
+        );
+
+        expect(screen.getByTestId('name-cell-1')).toBeInTheDocument();
+        expect(screen.getByTestId('name-cell-1.1')).toBeInTheDocument();
+    });
+
     it('should display controlled selection from selection prop', () => {
         render(
             <DataTable<TestData>
@@ -436,12 +639,13 @@ describe('DataTable', () => {
     });
 
     it('should respect controlled pagination', () => {
-        // Controlled pagination: state is managed externally, but TanStack still handles client-side slicing.
-        // Pass full data and TanStack will display the correct page based on currentPage/itemsPerPage.
+        // Controlled (server-side) pagination: the caller provides only the current page's items.
+        // With manualPagination=true TanStack renders data as-is without client-side slicing.
+        const page2Data = [data[1]]; // Only Bob, the single item for page 2
         render(
             <DataTable<TestData>
                 enablePagination
-                data={data}
+                data={page2Data}
                 columns={columns}
                 primaryKey="id"
                 currentPage={2}
@@ -456,6 +660,39 @@ describe('DataTable', () => {
         expect(screen.getByText('Bob')).toBeInTheDocument();
         expect(screen.queryByText('Alice')).not.toBeInTheDocument();
         expect(screen.queryByText('Charlie')).not.toBeInTheDocument();
+    });
+
+    it('should display server-side page data without client-side slicing on page 2', () => {
+        // Regression test: when currentPage=2 and data contains only the 5 items returned by the server
+        // for that page, all 5 items should be visible (not sliced to an empty set by TanStack).
+        const serverPage2Data: TestData[] = [
+            {id: '6', name: 'Frank', age: 28},
+            {id: '7', name: 'Grace', age: 33},
+            {id: '8', name: 'Hank', age: 41},
+            {id: '9', name: 'Ivy', age: 22},
+            {id: '10', name: 'Jack', age: 37}
+        ];
+
+        render(
+            <DataTable<TestData>
+                enablePagination
+                data={serverPage2Data}
+                columns={columns}
+                primaryKey="id"
+                currentPage={2}
+                itemsPerPage={5}
+                totalItems={10}
+                itemsPerPageOptions={[5, 10]}
+                onPageChange={() => { }}
+                onItemsPerPageChange={() => { }}
+            />
+        );
+
+        expect(screen.getByText('Frank')).toBeInTheDocument();
+        expect(screen.getByText('Grace')).toBeInTheDocument();
+        expect(screen.getByText('Hank')).toBeInTheDocument();
+        expect(screen.getByText('Ivy')).toBeInTheDocument();
+        expect(screen.getByText('Jack')).toBeInTheDocument();
     });
 
     it('should allow custom attributes to the Pagination component', () => {
@@ -577,6 +814,60 @@ describe('DataTable sorting feature', () => {
         expect(within(rows[2]).getByText('Bob')).toBeVisible();
         expect(within(rows[3]).getByText('Alice')).toBeVisible();
     });
+
+    it('should respect controlled sorting and not re-sort server-sorted data', () => {
+        // Server returns data already sorted descending by age; TanStack must not re-sort locally.
+        const serverSortedData: TestData[] = [
+            {id: '3', name: 'Charlie', age: 35},
+            {id: '1', name: 'Alice', age: 30},
+            {id: '2', name: 'Bob', age: 25}
+        ];
+
+        render(
+            <DataTable<TestData>
+                enableSorting
+                data={serverSortedData}
+                columns={sortableColumns}
+                primaryKey="id"
+                sortBy="age"
+                sortDirection="descending"
+                onSortChange={() => { }}
+            />
+        );
+
+        const rows = screen.getAllByRole('row');
+        expect(within(rows[1]).getByText('Charlie')).toBeVisible();
+        expect(within(rows[2]).getByText('Alice')).toBeVisible();
+        expect(within(rows[3]).getByText('Bob')).toBeVisible();
+    });
+
+    it('should call onSortChange and not mutate order when controlled', async () => {
+        const onSortChange = vi.fn();
+        const user = userEvent.setup();
+
+        // Server returns data in a fixed order; clicking a header must fire onSortChange only.
+        render(
+            <DataTable<TestData>
+                enableSorting
+                data={data}
+                columns={sortableColumns}
+                primaryKey="id"
+                sortBy="name"
+                sortDirection="ascending"
+                onSortChange={onSortChange}
+            />
+        );
+
+        await user.click(screen.getByText('Age'));
+
+        expect(onSortChange).toHaveBeenCalledWith('age', expect.any(String));
+
+        // Order must remain unchanged (server hasn't responded yet)
+        const rows = screen.getAllByRole('row');
+        expect(within(rows[1]).getByText('Alice')).toBeVisible();
+        expect(within(rows[2]).getByText('Bob')).toBeVisible();
+        expect(within(rows[3]).getByText('Charlie')).toBeVisible();
+    });
 });
 
 describe('DataTable selection feature', () => {
@@ -655,9 +946,9 @@ describe('DataTable custom cells', () => {
                 data={statusBarData}
                 columns={statusBarColumns}
                 primaryKey="id"
-                renderRow={(row, defaultRender) => (
-                    <TableRow key={row.id}>
-                        {defaultRender({
+                renderRow={({id, render: renderCells}) => (
+                    <TableRow key={id}>
+                        {renderCells({
                             before: <TableCellStatus color="success">test</TableCellStatus>
                         })}
                     </TableRow>

@@ -14,28 +14,28 @@ export const renderHeadCell = <T extends NonNullable<unknown>>({
     isStructured,
     onClickTableHeadCell
 }: RenderHeadCellProps<T>) => headerGroup.headers.map((header, index) => {
-        const meta = header.column.columnDef.meta as CustomColumnMeta | undefined;
+        const meta = header.column.columnDef.meta as CustomColumnMeta<T> | undefined;
         const isColumnSortable = enableSorting && (meta?.isSortable ?? false);
         const columnSortDirection = header.column.getIsSorted();
 
         return (
             <TableHeadCell
-            key={header.id}
-            width={meta?.width}
-            className={clsx({'moonstone-tableHeadCell_structured': isStructured && index === 0})}
-            sorting={isColumnSortable ? {
-                direction: columnSortDirection === 'desc' ? 'descending' : 'ascending',
-                isActive: Boolean(columnSortDirection)
-            } : undefined}
-            style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
-            align={meta?.align ?? 'left'}
-            onClick={(event: React.MouseEvent<HTMLTableCellElement>) => {
-                if (isColumnSortable) {
-                    header.column.getToggleSortingHandler()?.(event);
-                }
+                key={header.id}
+                width={meta?.width}
+                className={clsx({'moonstone-tableHeadCell_structured': isStructured && index === 0})}
+                sorting={isColumnSortable ? {
+                    direction: columnSortDirection === 'desc' ? 'descending' : 'ascending',
+                    isActive: Boolean(columnSortDirection)
+                } : undefined}
+                style={{cursor: isColumnSortable ? 'pointer' : 'default'}}
+                align={meta?.align ?? 'left'}
+                onClick={(event: React.MouseEvent<HTMLTableCellElement>) => {
+                    if (isColumnSortable) {
+                        header.column.getToggleSortingHandler()?.(event);
+                    }
 
-                onClickTableHeadCell?.(header.id);
-            }}
+                    onClickTableHeadCell?.(header.id);
+                }}
             >
                 {flexRender(header.column.columnDef.header, header.getContext())}
             </TableHeadCell>
@@ -45,22 +45,36 @@ export const renderHeadCell = <T extends NonNullable<unknown>>({
 export const renderCell = <T extends NonNullable<unknown>>({
     row,
     isStructured
-}: RenderCellProps<T>) => row.getVisibleCells().map((cell, index) => {
-        const meta = cell.column.columnDef.meta as CustomColumnMeta | undefined;
+}: RenderCellProps<T>) => {
+    const rowContext = {
+        id: row.id,
+        data: row.original,
+        meta: {
+            index: row.index,
+            isSelected: row.getIsSelected(),
+            isExpanded: row.getIsExpanded()
+        }
+    };
+
+    return row.getVisibleCells().map((cell, index) => {
+        const meta = cell.column.columnDef.meta as CustomColumnMeta<T> | undefined;
         const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
+        const cellProps = typeof meta?.cellProps === 'function' ?
+            meta.cellProps(rowContext) :
+            meta?.cellProps;
 
         if (isStructured && index === 0) {
             return (
                 <TableStructuredCell
-                key={cell.id}
-                {...meta?.cellProps}
-                align={meta?.align ?? 'left'}
-                width={meta?.width}
-                depth={row.depth}
-                isExpandable={row.getCanExpand()}
-                isExpanded={row.getIsExpanded()}
-                isScrollable={meta?.isScrollable}
-                onToggleExpand={row.getToggleExpandedHandler()}
+                    key={cell.id}
+                    {...cellProps}
+                    align={meta?.align ?? 'left'}
+                    width={meta?.width}
+                    depth={row.depth}
+                    isExpandable={row.getCanExpand()}
+                    isExpanded={rowContext.meta.isExpanded}
+                    isScrollable={meta?.isScrollable}
+                    onToggleExpand={row.getToggleExpandedHandler()}
                 >
                     {cellContent}
                 </TableStructuredCell>
@@ -69,13 +83,14 @@ export const renderCell = <T extends NonNullable<unknown>>({
 
         return (
             <TableCell
-            key={cell.id}
-            {...meta?.cellProps}
-            align={meta?.align}
-            width={meta?.width}
-            isScrollable={meta?.isScrollable}
+                key={cell.id}
+                {...cellProps}
+                align={meta?.align}
+                width={meta?.width}
+                isScrollable={meta?.isScrollable}
             >
                 {cellContent}
             </TableCell>
         );
     });
+};
