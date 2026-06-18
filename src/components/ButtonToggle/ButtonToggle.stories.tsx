@@ -4,6 +4,7 @@ import {ButtonToggle} from './index';
 import type {ButtonToggleProps} from './ButtonToggle.types';
 
 import {Apps} from '~/icons';
+import {iconArgType} from '~/__storybook__/iconArgType';
 import markdownNotes from './ButtonToggle.md';
 
 const meta: Meta<typeof ButtonToggle> = {
@@ -14,6 +15,10 @@ const meta: Meta<typeof ButtonToggle> = {
         layout: 'centered',
         actions: {argTypesRegex: '^on.*'},
         notes: {markdown: markdownNotes}
+    },
+    argTypes: {
+        iconStart: iconArgType,
+        iconEnd: iconArgType
     }
 };
 export default meta;

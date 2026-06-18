@@ -5,6 +5,7 @@ import {Chip} from './index';
 import type {ChipProps} from './Chip.types';
 
 import {Cloud, Delete, File, Lock, NoCloud, Warning, CloudCheck, Build, Edit, Subdirectory} from '~/icons';
+import {iconArgType} from '~/__storybook__/iconArgType';
 import markdownNotes from './Chip.md';
 
 export default {
@@ -15,6 +16,9 @@ export default {
     parameters: {
         layout: 'centered',
         notes: {markdown: markdownNotes}
+    },
+    argTypes: {
+        icon: iconArgType
     }
 };
 

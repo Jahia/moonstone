@@ -4,6 +4,7 @@ import markdownNotes from './ListItem.md';
 import {ListItem} from './index';
 import type {ListItemProps} from './ListItem.types';
 import {Love, Cloud} from '~/icons';
+import {iconArgType} from '~/__storybook__/iconArgType';
 import imgVertical from '~/__storybook__/assets/img-vertical.webp';
 import imgHorizontal from '~/__storybook__/assets/img-horizontal.webp';
 import imgSquare from '~/__storybook__/assets/img-square.webp';
@@ -15,6 +16,10 @@ export default {
     parameters: {
         layout: 'centered',
         notes: {markdown: markdownNotes}
+    },
+    argTypes: {
+        iconStart: iconArgType,
+        iconEnd: iconArgType
     }
 };
 
