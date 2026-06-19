@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import type {TabProps} from './Tab.types';
-import {layout, reset} from '~/globals/css-utils.js';
+import {layout} from '~/globals/css-utils.js';
 import styles from './Tab.module.scss';
 
 export const Tab: React.FC<TabProps> = ({children, className = '', ...props}) => {
@@ -13,7 +13,6 @@ export const Tab: React.FC<TabProps> = ({children, className = '', ...props}) =>
         <div
             {...props}
             className={clsx(
-                reset,
                 ['moonstone-tab', styles['moonstone-tab']],
                 ['flexRow_center', layout.flexRow_center],
                 ['alignCenter', layout.alignCenter],

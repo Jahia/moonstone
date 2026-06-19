@@ -45,7 +45,7 @@ export const FakeContent = ({
     ...props
 }) => {
     return (
-        <p
+        <div
             style={{
                 backgroundColor: 'var(--moon-color-gray_light)',
                 alignItems: 'center',
@@ -56,6 +56,6 @@ export const FakeContent = ({
             {...props}
         >
             Content
-        </p>
+        </div>
     );
 };

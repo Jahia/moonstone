@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import type {PrimaryNavButtonProps, PrimaryNavHeaderProps, PrimaryNavProps} from './PrimaryNav.types';
 import {PrimaryNavContext} from './PrimaryNav.context';
 import {MenuIcon, ArrowLeft} from '~/icons';
-import {layout, reset} from '~/globals/css-utils.js';
+import {layout} from '~/globals/css-utils.js';
 import styles from './PrimaryNav.module.scss';
 
 const NavButton: React.FC<PrimaryNavButtonProps> = ({isExpanded, toggleExpand, modeIcon}) => {
@@ -74,7 +74,6 @@ export const PrimaryNav: React.FC<PrimaryNavProps> = ({
                 {...props}
                 aria-expanded={isExpanded}
                 className={clsx(
-                    reset,
                     ['moonstone-primaryNav', styles['moonstone-primaryNav']],
                     isExpanded && ['moonstone-expanded', styles['moonstone-expanded']],
                     ['flexCol_nowrap', layout.flexCol_nowrap]

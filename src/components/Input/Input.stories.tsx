@@ -3,6 +3,7 @@ import {StoryObj, Meta} from '@storybook/react-vite';
 
 import {Input} from './index';
 import {Love} from '~/icons';
+import {iconArgType} from '~/__storybook__/iconArgType';
 import {useArgs} from 'storybook/preview-api';
 
 export default {
@@ -25,7 +26,8 @@ export default {
         onChange: {action: 'onChange'},
         onClick: {action: 'onClick'},
         onBlur: {action: 'onBlur'},
-        onFocus: {action: 'onFocus'}
+        onFocus: {action: 'onFocus'},
+        icon: iconArgType
     }
 } as Meta<typeof Input>;
 

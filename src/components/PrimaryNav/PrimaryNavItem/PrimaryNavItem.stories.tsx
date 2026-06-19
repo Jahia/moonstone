@@ -3,7 +3,6 @@ import {PrimaryNavItem} from './index';
 import {Edit, Person, Power, Workflow} from '~/icons';
 import markdownNotes from './PrimaryNavItem.md';
 import {Badge, Button} from '~/components';
-import {reset} from '~/globals/css-utils.js';
 
 export default {
     title: 'Components/PrimaryNavItem',
@@ -19,9 +18,10 @@ type Story = StoryObj<typeof PrimaryNavItem>
 
 export const Default: Story = {render: () => (
     <ul
-    className={reset}
     style={{
       display: 'flex',
+      padding: 0,
+      margin: 0,
       flexDirection: 'column',
       backgroundColor: '#131c21',
       width: '18.75rem',

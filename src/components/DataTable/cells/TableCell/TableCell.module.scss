@@ -7,8 +7,7 @@
     /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
     height: stretch;
 
-    padding-right: var(--moon-spacing-medium);
-    padding-left: var(--moon-spacing-medium);
+    padding: 0 var(--moon-spacing-medium);
     overflow: hidden;
 }
 

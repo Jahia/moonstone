@@ -1,11 +1,16 @@
 import {IconTextIcon} from './index';
 import {Apps, Love} from '~/icons';
+import {iconArgType} from '~/__storybook__/iconArgType';
 
 export default {
     title: 'Components/IconTextIcon',
     component: IconTextIcon,
     parameters: {
         layout: 'centered'
+    },
+    argTypes: {
+        iconStart: iconArgType,
+        iconEnd: iconArgType
     }
 };
 

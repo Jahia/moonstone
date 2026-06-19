@@ -3,7 +3,7 @@
 .moonstone-emptyCardSelector {
     gap: var(--moon-spacing-nano);
     width: 100%;
-    height: $cardSelector-height;
+    min-height: $cardSelector-height;
 
     color: var(--moon-color-dark_plain60);
 

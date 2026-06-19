@@ -1,6 +1,13 @@
 @use '../../utils/index';
 
 .moonstone-typography {
+    font-family: var(--moon-font-family);
+
+    &:not(td, th) {
+        margin: 0;
+        padding: 0;
+    }
+
     &.moonstone-variant_title {
         @extend %variant-title;
     }

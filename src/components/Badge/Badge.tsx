@@ -22,7 +22,7 @@ export const Badge: React.FC<BadgeProps> = ({
     }
 
     return (
-        <Typography isNowrap component="span" variant="caption" weight="bold" className={classNameProps} {...other}>
+        <Typography component="span" variant="caption" weight="bold" className={classNameProps} {...other}>
             {label}
         </Typography>
     );
