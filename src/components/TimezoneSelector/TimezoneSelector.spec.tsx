@@ -29,6 +29,11 @@ describe('TimezoneSelector', () => {
         expect(getDefaultTimezones()).toContain('Europe/Paris');
     });
 
+    it('should compute the offset for the given reference date (DST-aware)', () => {
+        expect(getTimezoneDisplayLabel('Europe/Paris', '2026-01-15')).toContain('UTC +01:00');
+        expect(getTimezoneDisplayLabel('Europe/Paris', '2026-07-15')).toContain('UTC +02:00');
+    });
+
     it('should render UTC correctly in the default display path', () => {
         render(
             <TimezoneSelector

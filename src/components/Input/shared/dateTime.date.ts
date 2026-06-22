@@ -91,20 +91,3 @@ export const getCalendarDisabledMatchers = (
 
     return matchers;
 };
-
-/**
- * Builds a UTC noon `Date` from a selected calendar date, used as the reference
- * point for computing timezone offsets in the timezone selector.
- *
- * Using noon UTC avoids DST edge cases where midnight local time could land
- * on the previous or next calendar day depending on the timezone.
- */
-export const getTimezoneReferenceDate = (dateValue?: Date | null) => {
-    const canonicalDate = getCanonicalDate(dateValue);
-
-    if (!canonicalDate) {
-        return null;
-    }
-
-    return new Date(Date.UTC(canonicalDate.year, canonicalDate.month - 1, canonicalDate.day, 12, 0, 0, 0));
-};

@@ -12,10 +12,10 @@ import {TimeInput} from '../TimeInput';
 import {
     formatDateDisplayValue,
     formatTimeString,
+    getCanonicalDate,
     getCurrentDate,
     getCalendarDisabledMatchers,
     getNormalizedDate,
-    getTimezoneReferenceDate,
     type DateTimeInputValue
 } from '../shared';
 import styles from './DateTimeInput.module.scss';
@@ -82,7 +82,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
         }
     }, [ref]);
     const todayDate = getCurrentDate();
-    const timezoneReferenceDate = getTimezoneReferenceDate(selectedDate) ?? undefined;
+    const timezoneReferenceDate = getCanonicalDate(selectedDate) ?? undefined;
     const calendarDisabledMatchers = getCalendarDisabledMatchers(minDate, maxDate, disabledDates, disabledDateRanges);
     const isTodayDisabled = isDisabled || isReadOnly || dateMatchModifiers(todayDate, calendarDisabledMatchers);
     const startMonth = minDate ? new Date(minDate.getFullYear(), minDate.getMonth(), 1) : new Date(displayedMonth.getFullYear() - 20, 0, 1);

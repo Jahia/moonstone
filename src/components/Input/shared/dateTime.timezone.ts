@@ -1,5 +1,9 @@
 import {Temporal} from 'temporal-polyfill';
 import type {DropdownDataGrouped, DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
+import {getTodayPlainDate, toPlainDate} from './temporal';
+
+/** Reference time of day for offset computation — noon avoids DST midnight edge cases. */
+const NOON = Temporal.PlainTime.from('12:00');
 
 const intlWithSupportedValues = Intl as typeof Intl & {
     supportedValuesOf?: (key: string) => string[];
@@ -74,7 +78,6 @@ const fallbackTimezones = preferredTimezoneGroups.reduce<string[]>(
 );
 
 let defaultTimezonesCache: string[] | null = null;
-const timezoneDropdownDataCache = new Map<string, DropdownDataGrouped[]>();
 
 const isValidTimezone = (timezone: string) => {
     try {
@@ -94,11 +97,8 @@ const getTimezoneCityLabel = (timezone: string) => {
     return (parts[parts.length - 1] || timezone).replace(/_/g, ' ');
 };
 
-const formatTimezoneOffsetLabel = (timezone: string, referenceDate: Date) => {
-    const zdt = Temporal.Instant.fromEpochMilliseconds(referenceDate.getTime())
-        .toZonedDateTimeISO(timezone);
-    return `UTC ${zdt.offset}`;
-};
+const formatTimezoneOffsetLabel = (timezone: string, referenceDate: Temporal.PlainDate) =>
+    `UTC ${referenceDate.toZonedDateTime({timeZone: timezone, plainTime: NOON}).offset}`;
 
 const getRegionSortIndex = (region: string) => {
     const index = preferredTimezoneGroups.findIndex(group => group.groupLabel === region);
@@ -110,7 +110,7 @@ const compareRegions = (left: string, right: string) => {
     return diff === 0 ? left.localeCompare(right) : diff;
 };
 
-const getTimezoneOption = (timezone: string, referenceDate: Date): DropdownDataOption => {
+const getTimezoneOption = (timezone: string, referenceDate: Temporal.PlainDate): DropdownDataOption => {
     const offsetLabel = formatTimezoneOffsetLabel(timezone, referenceDate);
 
     return {
@@ -135,7 +135,10 @@ export const getDefaultTimezones = () => {
     return defaultTimezonesCache;
 };
 
-export const getTimezoneDisplayLabel = (timezone?: string | null, referenceDate?: Date | null) => {
+export const getTimezoneDisplayLabel = (
+    timezone?: string | null,
+    referenceDate?: Temporal.PlainDate | string | null
+) => {
     if (!timezone) {
         return '';
     }
@@ -144,20 +147,14 @@ export const getTimezoneDisplayLabel = (timezone?: string | null, referenceDate?
         return timezone;
     }
 
-    return getTimezoneOption(timezone, referenceDate ?? new Date()).label;
+    return getTimezoneOption(timezone, toPlainDate(referenceDate) ?? getTodayPlainDate()).label;
 };
 
 export const getTimezoneDropdownData = (
     selectedTimezone?: string | null,
-    referenceDate?: Date | null
+    referenceDate?: Temporal.PlainDate | null
 ): DropdownDataGrouped[] => {
-    const resolvedReferenceDate = referenceDate ?? new Date();
-    const cacheKey = `${selectedTimezone ?? ''}|${resolvedReferenceDate.toISOString().slice(0, 10)}`;
-    const cachedDropdownData = timezoneDropdownDataCache.get(cacheKey);
-
-    if (cachedDropdownData) {
-        return cachedDropdownData;
-    }
+    const resolvedReferenceDate = referenceDate ?? getTodayPlainDate();
 
     const timezones = Array.from(new Set(
         getDefaultTimezones().filter(tz => tz !== 'UTC').map(tz => tz.trim()).filter(Boolean)
@@ -167,7 +164,7 @@ export const getTimezoneDropdownData = (
         timezones.push(selectedTimezone);
     }
 
-    const dropdownData = Array.from(
+    return Array.from(
         timezones.reduce((groups, timezone) => {
             const groupLabel = getTimezoneRegion(timezone);
             const nextGroup = groups.get(groupLabel) ?? [];
@@ -183,8 +180,4 @@ export const getTimezoneDropdownData = (
             groupLabel,
             options: options.sort((left, right) => left.label.localeCompare(right.label))
         }));
-
-    timezoneDropdownDataCache.set(cacheKey, dropdownData);
-
-    return dropdownData;
 };
