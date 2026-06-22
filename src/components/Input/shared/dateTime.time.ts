@@ -4,35 +4,19 @@ import type {Meridiem, TimeFormat} from '../TimeInput/TimeInput.types';
 /** Strips all non-digit characters and keeps at most 4 digits (HHMM). */
 const getSanitizedTimeDigits = (value?: string | null) => (value ?? '').replace(/\D/g, '').slice(0, 4);
 
-/** Parses a canonical `HH:mm` string and returns a Temporal.PlainTime, or null if invalid. */
-const parseCanonicalTimeValue = (value?: string | null) => {
-    if (!value) {
-        return null;
-    }
-
-    try {
-        // Overflow: 'reject' throws on out-of-range times instead of clamping silently.
-        return Temporal.PlainTime.from(value, {overflow: 'reject'});
-    } catch {
-        return null;
-    }
-};
-
 export const formatTimeString = (value: Date) =>
     Temporal.PlainTime.from({hour: value.getHours(), minute: value.getMinutes()})
         .toString({smallestUnit: 'minute'});
 
 /**
- * Converts a canonical `HH:mm` value into display-ready parts for the time input fields.
- * Returns empty strings when the value is absent or invalid.
+ * Splits a `Temporal.PlainTime` into the display-ready parts shown in the time field.
+ * Returns empty strings when no time is provided.
  *
- * In 12h mode, hours are converted to the 1-12 range and the meridiem is derived.
- * The meridiem defaults to 'AM' when no valid value is provided.
+ * In 12h mode, hours map to the 1-12 range and the meridiem is derived from the hour.
+ * The meridiem defaults to 'AM' when no time is provided.
  */
-export const parseCanonicalTime = (value: string | null | undefined, timeFormat: TimeFormat) => {
-    const plainTime = parseCanonicalTimeValue(value);
-
-    if (!plainTime) {
+export const getTimeDisplayParts = (value: Temporal.PlainTime | null, timeFormat: TimeFormat) => {
+    if (!value) {
         return {
             hours: '',
             minutes: '',
@@ -40,14 +24,13 @@ export const parseCanonicalTime = (value: string | null | undefined, timeFormat:
         };
     }
 
-    const minutesValue = String(plainTime.minute).padStart(2, '0');
-    const meridiem: Meridiem = plainTime.hour < 12 ? 'AM' : 'PM';
+    const meridiem: Meridiem = value.hour < 12 ? 'AM' : 'PM';
     // 24h keeps 0-23; 12h maps to the 1-12 display range (0 and 12 both show as 12).
-    const displayHours = timeFormat === '12h' ? plainTime.hour % 12 || 12 : plainTime.hour;
+    const displayHours = timeFormat === '12h' ? value.hour % 12 || 12 : value.hour;
 
     return {
         hours: String(displayHours).padStart(2, '0'),
-        minutes: minutesValue,
+        minutes: String(value.minute).padStart(2, '0'),
         meridiem
     };
 };
@@ -93,17 +76,17 @@ export const filterTimeInputValue = (value: string | null | undefined, timeForma
 };
 
 /**
- * Converts user input (raw digit string) + current meridiem into a canonical 24h `HH:mm` string.
+ * Converts user input (raw digit string) + current meridiem into a `Temporal.PlainTime`.
  * Returns `null` if the input is incomplete (fewer than 4 digits) or out of range.
  *
  * In 12h mode the 1-12 display range is shifted back to 0-23 (12 AM -> 0, 12 PM -> 12,
- * 1-11 PM -> 13-23); `Temporal.PlainTime` then validates and formats the canonical result.
+ * 1-11 PM -> 13-23); `Temporal.PlainTime` then validates the canonical result.
  */
 export const parseTimeInputValue = (
     value: string | null | undefined,
     timeFormat: TimeFormat,
     meridiem: Meridiem
-) => {
+): Temporal.PlainTime | null => {
     const digits = getSanitizedTimeDigits(value);
 
     if (digits.length !== 4) {
@@ -118,8 +101,7 @@ export const parseTimeInputValue = (
 
     try {
         // Overflow: 'reject' turns out-of-range hours/minutes into a null result.
-        return Temporal.PlainTime.from({hour: hour24, minute: minutes}, {overflow: 'reject'})
-            .toString({smallestUnit: 'minute'});
+        return Temporal.PlainTime.from({hour: hour24, minute: minutes}, {overflow: 'reject'});
     } catch {
         return null;
     }

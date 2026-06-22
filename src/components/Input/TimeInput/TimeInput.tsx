@@ -5,15 +5,9 @@ import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
 import {Clock} from '~/icons';
 import {layout} from '~/globals/css-utils';
 import {BaseInput} from '../BaseInput';
-import {filterTimeInputValue, parseCanonicalTime, parseTimeInputValue} from '../shared';
-import type {Meridiem, TimeFormat, TimeInputProps} from './TimeInput.types';
+import {filterTimeInputValue, getTimeDisplayParts, parseTimeInputValue, toPlainTime} from '../shared';
+import type {Meridiem, TimeInputProps} from './TimeInput.types';
 import styles from './TimeInput.module.scss';
-
-/** Converts a canonical 24h `HH:mm` value into the `HH:MM` string shown in the field. */
-const toDisplayValue = (canonicalValue: string | null | undefined, timeFormat: TimeFormat) => {
-    const {hours, minutes} = parseCanonicalTime(canonicalValue, timeFormat);
-    return hours && minutes ? `${hours}:${minutes}` : '';
-};
 
 export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
     defaultValue,
@@ -28,17 +22,22 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(({
     onChange,
     ...props
 }, ref) => {
-    // Display is owned here, not delegated to BaseInput: incomplete entries must stay editable
-    // without emitting, and a controlled BaseInput would freeze on a value that never updates.
-    const [inputValue, setInputValue] = useState(() => toDisplayValue(defaultValue, timeFormat));
-    const [meridiem, setMeridiem] = useState<Meridiem>(() => parseCanonicalTime(defaultValue, '12h').meridiem);
+    // Display text is owned here, not delegated to BaseInput: an incomplete entry must
+    // stay editable without emitting, which a controlled BaseInput can't express. In 12h
+    // mode the meridiem belongs to the same in-progress input — it can't be derived until
+    // the digits and the AM/PM choice together form a complete time.
+    const [inputValue, setInputValue] = useState(() => {
+        const {hours, minutes} = getTimeDisplayParts(toPlainTime(defaultValue), timeFormat);
+        return hours && minutes ? `${hours}:${minutes}` : '';
+    });
+    const [meridiem, setMeridiem] = useState<Meridiem>(() => getTimeDisplayParts(toPlainTime(defaultValue), timeFormat).meridiem);
 
     // Emits only a complete, valid time; a partial or rejected entry never fires onChange.
     const emitChange = (event: React.SyntheticEvent, displayValue: string, selectedMeridiem: Meridiem) => {
-        const canonicalValue = parseTimeInputValue(displayValue, timeFormat, selectedMeridiem);
+        const value = parseTimeInputValue(displayValue, timeFormat, selectedMeridiem);
 
-        if (canonicalValue !== null) {
-            onChange?.(event, canonicalValue);
+        if (value !== null) {
+            onChange?.(event, value);
         }
     };
 

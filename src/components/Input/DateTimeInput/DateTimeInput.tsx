@@ -232,8 +232,8 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                     focusOnField={false}
                     timeFormat={timeFormat}
                     defaultValue={selectedDate ? formatTimeString(selectedDate) : null}
-                    onChange={(event, timeValue) => {
-                        if (!timeValue) {
+                    onChange={(event, time) => {
+                        if (!time) {
                             if (selectedDate) {
                                 emitChange(event, {...currentValue, date: getNormalizedDate(selectedDate)});
                             }
@@ -242,8 +242,7 @@ export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputPro
                         }
 
                         const base = selectedDate ?? getCurrentDate();
-                        const [hours, minutes] = timeValue.split(':').map(Number);
-                        const nextDate = new Date(base.getFullYear(), base.getMonth(), base.getDate(), hours, minutes);
+                        const nextDate = new Date(base.getFullYear(), base.getMonth(), base.getDate(), time.hour, time.minute);
                         emitChange(event, {...currentValue, date: nextDate});
                     }}
                 />

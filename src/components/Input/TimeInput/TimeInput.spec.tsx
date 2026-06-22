@@ -1,6 +1,10 @@
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import {Temporal} from 'temporal-polyfill';
 import {TimeInput} from './index';
+
+const lastEmittedTime = (handleChange: ReturnType<typeof vi.fn>) =>
+    (handleChange.mock.lastCall?.[1] as Temporal.PlainTime).toString({smallestUnit: 'minute'});
 
 describe('TimeInput', () => {
     it('should render empty when uncontrolled without a default value', () => {
@@ -17,7 +21,14 @@ describe('TimeInput', () => {
 
         await user.type(screen.getByPlaceholderText('HH:MM'), '1430');
 
-        expect(handleChange).toHaveBeenLastCalledWith(expect.any(Object), '14:30');
+        expect(handleChange).toHaveBeenLastCalledWith(expect.any(Object), expect.any(Temporal.PlainTime));
+        expect(lastEmittedTime(handleChange)).toBe('14:30');
+    });
+
+    it('should accept a Temporal.PlainTime as default value', () => {
+        render(<TimeInput defaultValue={Temporal.PlainTime.from('14:30')} onChange={() => null}/>);
+
+        expect(screen.getByDisplayValue('14:30')).toBeInTheDocument();
     });
 
     it('should display a default time format placeholder', () => {
@@ -50,7 +61,7 @@ describe('TimeInput', () => {
         const pmOptions = screen.getAllByText('PM');
         await user.click(pmOptions[pmOptions.length - 1]);
 
-        expect(handleChange).toHaveBeenLastCalledWith(expect.any(Object), '14:30');
+        expect(lastEmittedTime(handleChange)).toBe('14:30');
     });
 
     it('should display midnight correctly in 12h mode', () => {
