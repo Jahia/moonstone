@@ -1,91 +1,58 @@
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {TimezoneSelector} from './index';
-import {getDefaultTimezones, getTimezoneDisplayLabel} from '../Input/shared';
+
+// `baseDate` is this spec's reference date — a winter day, so UTC offsets are deterministic
+// (Paris reads +01:00) and we can assert plain, consumer-visible labels. The DST test below
+// also checks a summer date.
+const baseDate = '2026-01-15';
 
 describe('TimezoneSelector', () => {
     it('should render the placeholder when no timezone is selected', () => {
-        render(
-            <TimezoneSelector
-                placeholder="Select timezone"
-            />
-        );
+        render(<TimezoneSelector placeholder="Select timezone"/>);
 
         expect(screen.getByRole('listbox', {name: 'Select timezone'})).toBeInTheDocument();
     });
 
     it('should render the selected timezone as city and utc offset', () => {
-        render(
-            <TimezoneSelector
-                value="Europe/Paris"
-                onChange={() => undefined}
-            />
-        );
+        render(<TimezoneSelector value="Europe/Paris" referenceDate={baseDate} onChange={() => undefined}/>);
 
-        expect(screen.getByRole('listbox', {name: getTimezoneDisplayLabel('Europe/Paris')})).toBeInTheDocument();
-    });
-
-    it('should include common IANA timezones in the default timezone catalog', () => {
-        expect(getDefaultTimezones()).toContain('Europe/Paris');
+        expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
     });
 
     it('should compute the offset for the given reference date (DST-aware)', () => {
-        expect(getTimezoneDisplayLabel('Europe/Paris', '2026-01-15')).toContain('UTC +01:00');
-        expect(getTimezoneDisplayLabel('Europe/Paris', '2026-07-15')).toContain('UTC +02:00');
+        const {rerender} = render(<TimezoneSelector value="Europe/Paris" referenceDate={baseDate} onChange={() => undefined}/>);
+        expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
+
+        // A summer date flips Paris to +02:00 — the contrast case, kept inline.
+        rerender(<TimezoneSelector value="Europe/Paris" referenceDate="2026-07-15" onChange={() => undefined}/>);
+        expect(screen.getByRole('listbox', {name: 'Paris (UTC +02:00)'})).toBeInTheDocument();
     });
 
-    it('should render UTC correctly in the default display path', () => {
-        render(
-            <TimezoneSelector
-                value="UTC"
-                onChange={() => undefined}
-            />
-        );
+    it('should render UTC correctly when it is the selected value', () => {
+        render(<TimezoneSelector value="UTC" referenceDate={baseDate} onChange={() => undefined}/>);
 
-        expect(screen.getByRole('listbox', {name: getTimezoneDisplayLabel('UTC')})).toBeInTheDocument();
+        expect(screen.getByRole('listbox', {name: 'UTC (UTC +00:00)'})).toBeInTheDocument();
     });
 
-    it('should render the full selector catalog without the UTC shortcut group', async () => {
+    it('should render the grouped catalog without a UTC shortcut group', async () => {
         const user = userEvent.setup();
 
-        render(
-            <TimezoneSelector
-                placeholder="Select timezone"
-            />
-        );
+        render(<TimezoneSelector placeholder="Select timezone" referenceDate={baseDate}/>);
 
         await user.click(screen.getByRole('listbox', {name: 'Select timezone'}));
 
         expect(screen.queryByText('UTC')).not.toBeInTheDocument();
         expect(screen.getByText('Europe')).toBeInTheDocument();
         expect(screen.getByText('America')).toBeInTheDocument();
-        expect(screen.getByText(/^Paris \(UTC \+/)).toBeInTheDocument();
+        expect(screen.getByText('Paris (UTC +01:00)')).toBeInTheDocument();
     });
 
-    it('should not include UTC in the default selector path', async () => {
-        const user = userEvent.setup();
-
-        render(
-            <TimezoneSelector
-                placeholder="Select timezone"
-            />
-        );
-
-        await user.click(screen.getByRole('listbox', {name: 'Select timezone'}));
-
-        expect(screen.queryByText('UTC')).not.toBeInTheDocument();
-    });
-
-    it('should search across the full timezone universe and call onChange', async () => {
+    it('should search across the full timezone universe and call onChange with the IANA id', async () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(
-            <TimezoneSelector
-                placeholder="Select timezone"
-                onChange={handleChange}
-            />
-        );
+        render(<TimezoneSelector placeholder="Select timezone" referenceDate={baseDate} onChange={handleChange}/>);
 
         await user.click(screen.getByRole('listbox', {name: 'Select timezone'}));
         await user.type(screen.getByRole('searchbox'), 'honolulu');
@@ -97,69 +64,41 @@ describe('TimezoneSelector', () => {
     it('should update the selected timezone internally in uncontrolled mode', async () => {
         const user = userEvent.setup();
 
-        render(
-            <TimezoneSelector
-                defaultValue="Europe/Paris"
-            />
-        );
+        render(<TimezoneSelector defaultValue="Europe/Paris" referenceDate={baseDate}/>);
 
-        await user.click(screen.getByRole('listbox', {name: getTimezoneDisplayLabel('Europe/Paris')}));
+        await user.click(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'}));
         await user.type(screen.getByRole('searchbox'), 'honolulu');
         await user.click(screen.getByText('Honolulu (UTC -10:00)'));
 
-        expect(screen.getByRole('listbox', {name: getTimezoneDisplayLabel('Pacific/Honolulu')})).toBeInTheDocument();
+        expect(screen.getByRole('listbox', {name: 'Honolulu (UTC -10:00)'})).toBeInTheDocument();
     });
 
     it('should keep the controlled value until the parent updates it', async () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(
-            <TimezoneSelector
-                value="Europe/Paris"
-                onChange={handleChange}
-            />
-        );
+        render(<TimezoneSelector value="Europe/Paris" referenceDate={baseDate} onChange={handleChange}/>);
 
-        await user.click(screen.getByRole('listbox', {name: getTimezoneDisplayLabel('Europe/Paris')}));
+        await user.click(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'}));
         await user.type(screen.getByRole('searchbox'), 'honolulu');
         await user.click(screen.getByText('Honolulu (UTC -10:00)'));
 
         expect(handleChange).toHaveBeenLastCalledWith(expect.any(Object), 'Pacific/Honolulu');
-        expect(screen.getByRole('listbox', {name: getTimezoneDisplayLabel('Europe/Paris')})).toBeInTheDocument();
-        expect(screen.queryByRole('listbox', {name: getTimezoneDisplayLabel('Pacific/Honolulu')})).not.toBeInTheDocument();
-    });
-
-    it('should render the current offset in the public component', () => {
-        render(
-            <TimezoneSelector
-                value="Europe/Paris"
-                onChange={() => undefined}
-            />
-        );
-
-        expect(screen.getByRole('listbox', {name: getTimezoneDisplayLabel('Europe/Paris')})).toBeInTheDocument();
+        expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
+        expect(screen.queryByRole('listbox', {name: 'Honolulu (UTC -10:00)'})).not.toBeInTheDocument();
     });
 
     it('should support canonical timezones with three segments', async () => {
-        const timezone = getDefaultTimezones().find(item => item.split('/').length > 2);
-
-        expect(timezone).toBeDefined();
-
         const user = userEvent.setup();
 
-        render(
-            <TimezoneSelector
-                value={timezone ?? null}
-                onChange={() => undefined}
-            />
-        );
+        render(<TimezoneSelector value="America/Argentina/Buenos_Aires" referenceDate={baseDate} onChange={() => undefined}/>);
 
-        expect(screen.getByRole('listbox', {name: getTimezoneDisplayLabel(timezone)})).toBeInTheDocument();
+        const selected = screen.getByRole('listbox', {name: 'Buenos Aires (UTC -03:00)'});
+        expect(selected).toBeInTheDocument();
 
-        await user.click(screen.getByRole('listbox', {name: getTimezoneDisplayLabel(timezone)}));
-        await user.type(screen.getByRole('searchbox'), (timezone ?? '').split('/').pop() ?? '');
+        await user.click(selected);
+        await user.type(screen.getByRole('searchbox'), 'Buenos');
 
-        expect(screen.getByText(getTimezoneDisplayLabel(timezone))).toBeInTheDocument();
+        expect(screen.getAllByRole('option', {name: 'Buenos Aires (UTC -03:00)'}).length).toBeGreaterThan(0);
     });
 });

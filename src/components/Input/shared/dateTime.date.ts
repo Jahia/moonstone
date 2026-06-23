@@ -1,93 +1,59 @@
 import {Temporal} from 'temporal-polyfill';
 import type {Matcher} from 'react-day-picker';
-import type {DisabledDateRange} from './dateTime.types';
-
-const isValidDate = (value?: Date | null): value is Date => Boolean(value) && !Number.isNaN(value?.getTime());
-
-export const getNormalizedDate = (value?: Date | null) => {
-    if (!isValidDate(value)) {
-        return null;
-    }
-
-    return new Date(value.getFullYear(), value.getMonth(), value.getDate());
-};
-
-export const getCanonicalDate = (value?: Date | null) => {
-    const date = getNormalizedDate(value);
-
-    if (!date) {
-        return null;
-    }
-
-    return Temporal.PlainDate.from({
-        year: date.getFullYear(),
-        month: date.getMonth() + 1,
-        day: date.getDate()
-    });
-};
-
-export const getCurrentDate = () => {
-    const today = Temporal.Now.plainDateISO();
-    return new Date(today.year, today.month - 1, today.day);
-};
+import type {CalendarDate, DisabledDateRange} from './dateTime.types';
+import {plainDateToDate, toPlainDate} from './temporal';
 
 /**
- * Formats a selected date for display in the trigger input.
- * Uses `Intl.DateTimeFormat` so the output respects the consumer's locale.
- * Falls back to the browser locale when `locale` is not provided.
+ * Formats a calendar date for display in the trigger input.
+ * Uses `Intl.DateTimeFormat` so the output respects the consumer's locale, falling back
+ * to the browser locale when `locale` is not provided. Returns '' when there is no date.
  */
-export const formatDateDisplayValue = (value?: Date | null, locale?: string) => {
-    const date = getNormalizedDate(value);
-
-    if (!date) {
+export const formatPlainDate = (value: Temporal.PlainDate | null, locale?: string) => {
+    if (!value) {
         return '';
     }
 
-    return new Intl.DateTimeFormat(locale || undefined).format(date);
+    return new Intl.DateTimeFormat(locale || undefined).format(plainDateToDate(value));
 };
 
 /**
- * Builds the list of `react-day-picker` disabled matchers from the consumer-facing
- * date constraint props. Each matcher type maps to a different DayPicker format:
- * - `{ before }` / `{ after }` for min/max bounds
- * - An array of `Date` for individual disabled dates
- * - `{ from, to }` objects for disabled ranges
- *
- * Dates are normalized to midnight (no time component) to avoid off-by-one
- * issues caused by timezone offsets.
+ * Builds the list of `react-day-picker` disabled matchers from the consumer-facing date
+ * constraints. Each `PlainDate` is bridged to a local-noon JS `Date` — DayPicker compares
+ * by calendar day (and normalizes to noon itself), so the time component is irrelevant.
  */
 export const getCalendarDisabledMatchers = (
-    minDate?: Date,
-    maxDate?: Date,
-    disabledDates?: Date[],
+    minDate?: CalendarDate,
+    maxDate?: CalendarDate,
+    disabledDates?: CalendarDate[],
     disabledDateRanges?: DisabledDateRange[]
 ): Matcher[] => {
     const matchers: Matcher[] = [];
-    const minimumDate = getNormalizedDate(minDate);
-    const maximumDate = getNormalizedDate(maxDate);
-    const unavailableDates = disabledDates?.map(getNormalizedDate).filter((date): date is Date => Boolean(date));
-    const unavailableRanges = disabledDateRanges?.map(range => ({
-        from: getNormalizedDate(range.from),
-        to: getNormalizedDate(range.to)
-    })).filter((range): range is DisabledDateRange => Boolean(range.from && range.to));
+    const minimumDate = toPlainDate(minDate);
+    const maximumDate = toPlainDate(maxDate);
+    const unavailableDates = (disabledDates ?? [])
+        .map(toPlainDate)
+        .filter((date): date is Temporal.PlainDate => date !== null)
+        .map(plainDateToDate);
+    const unavailableRanges = (disabledDateRanges ?? [])
+        .map(range => ({from: toPlainDate(range.from), to: toPlainDate(range.to)}))
+        .filter((range): range is {from: Temporal.PlainDate; to: Temporal.PlainDate} =>
+            range.from !== null && range.to !== null);
 
     if (minimumDate) {
-        matchers.push({before: minimumDate});
+        matchers.push({before: plainDateToDate(minimumDate)});
     }
 
     if (maximumDate) {
-        matchers.push({after: maximumDate});
+        matchers.push({after: plainDateToDate(maximumDate)});
     }
 
-    if (unavailableDates?.length) {
+    if (unavailableDates.length) {
         matchers.push(unavailableDates);
     }
 
-    if (unavailableRanges?.length) {
-        unavailableRanges.forEach(range => {
-            matchers.push(range);
-        });
-    }
+    unavailableRanges.forEach(range => {
+        matchers.push({from: plainDateToDate(range.from), to: plainDateToDate(range.to)});
+    });
 
     return matchers;
 };

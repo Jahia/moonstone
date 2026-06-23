@@ -94,3 +94,6 @@ export const dateToPlainDate = (value: Date): Temporal.PlainDate =>
 
 /** Today's calendar date in the system time zone. */
 export const getTodayPlainDate = (): Temporal.PlainDate => Temporal.Now.plainDateISO();
+
+/** The system IANA time zone (e.g. `'Europe/Paris'`). */
+export const getSystemTimeZone = (): string => Temporal.Now.timeZoneId();
