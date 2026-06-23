@@ -14,6 +14,11 @@ export type LayoutContentProps = Omit<React.ComponentPropsWithRef<'div'>, 'class
     content?: React.ReactNode,
 
     /**
+     * Drawer displayed alongside the content
+     */
+    drawer?: React.ReactNode,
+
+    /**
      * Define if the content is centered
      */
     isCentered?: boolean,

@@ -1,6 +1,6 @@
 import {Meta, StoryObj} from '@storybook/react-vite';
 import {LayoutContent} from '~/layouts';
-import {Header} from '~/components';
+import {Drawer, Header} from '~/components';
 import {FakeContent} from '~/__storybook__/FakeComponents';
 import type {LayoutContentProps} from './LayoutContent.types';
 
@@ -9,13 +9,16 @@ export default {
     component: LayoutContent,
     decorators: [
         StoryCmp => (
-            <div style={{width: '1OOvw', height: '100vh', display: 'flex'}}>
+            <div style={{width: '100vw', height: '100vh', display: 'flex'}}>
                 <StoryCmp/>
             </div>
         )
     ],
     argTypes: {
         header: {
+            control: false
+        },
+        drawer: {
             control: false
         }
     }
@@ -47,6 +50,18 @@ export const WithoutPadding: Story = {
     args: {
         hasPadding: false
     }
+};
+
+export const WithDrawer: Story = {
+    render: args => (
+        <LayoutContent
+            header={<Header title="Header"/>}
+            {...args}
+            drawer={<Drawer isOpen style={{width: '320px'}}>Drawer content</Drawer>}
+        >
+            <FakeContent/>
+        </LayoutContent>
+    )
 };
 
 export const Loading: Story = {
