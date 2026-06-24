@@ -221,13 +221,11 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                     isReadOnly={isReadOnly}
                     focusOnField={false}
                     timeFormat={timeFormat}
-                    defaultValue={selectedTime}
+                    value={selectedTime}
                     onChange={(event, time) => {
-                        if (!time) {
-                            if (selectedDate) {
-                                emitChange(event, {plainTime: null});
-                            }
-
+                        // Clearing the time with no date is a no-op; otherwise a null time
+                        // assembles to midnight (and the controlled field then shows 00:00).
+                        if (time === null && selectedDate === null) {
                             return;
                         }
 

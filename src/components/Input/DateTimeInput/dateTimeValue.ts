@@ -16,6 +16,22 @@ export type DateTimeValue = Temporal.PlainDate | Temporal.PlainDateTime | Tempor
 /** Any value the public API accepts (Temporal instance or ISO string). */
 export type DateTimeValueInput = DateTimeValue | string | null | undefined;
 
+/**
+ * The current date/time/zone for the given type, truncated to the minute — used as the
+ * default when no `defaultValue` is provided (consumers pass `null` to start empty).
+ */
+export const getCurrentValue = (type: DateTimeInputType): DateTimeValue => {
+    if (type === 'date') {
+        return Temporal.Now.plainDateISO();
+    }
+
+    const toMinute = {second: 0, millisecond: 0, microsecond: 0, nanosecond: 0};
+
+    return type === 'zonedDateTime' ?
+        Temporal.Now.zonedDateTimeISO().with(toMinute) :
+        Temporal.Now.plainDateTimeISO().with(toMinute);
+};
+
 /** Coerces a consumer value (Temporal instance or ISO string) to the canonical value for the type. */
 export const parseValue = (input: DateTimeValueInput, type: DateTimeInputType): DateTimeValue | null => {
     if (type === 'date') {

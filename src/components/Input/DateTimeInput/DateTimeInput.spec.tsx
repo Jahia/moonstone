@@ -39,6 +39,7 @@ describe('DateTimeInput', () => {
             <DateTimeInput
                 type="date"
                 placeholder="Select a date"
+                defaultValue={null}
                 disabledDates={[baseDate]}
                 onChange={handleChange}
             />
@@ -81,8 +82,15 @@ describe('DateTimeInput', () => {
         expect(screen.getByRole('button', {name: previousMonthLabel})).toBeInTheDocument();
     });
 
-    it('should render empty when uncontrolled without a default value', () => {
-        render(<DateTimeInput type="dateTime" placeholder="Select a date"/>);
+    it('should default to the current date and time when no defaultValue is given', () => {
+        render(<DateTimeInput type="dateTime" placeholder="Select a date" onChange={() => null}/>);
+
+        expect(dateField()).not.toHaveValue('');
+        expect(screen.getByPlaceholderText('HH:MM')).not.toHaveValue('');
+    });
+
+    it('should render empty when defaultValue is null', () => {
+        render(<DateTimeInput type="dateTime" placeholder="Select a date" defaultValue={null}/>);
 
         expect(dateField()).toHaveValue('');
         expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
@@ -92,7 +100,7 @@ describe('DateTimeInput', () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(<DateTimeInput type="dateTime" placeholder="Select a date" onChange={handleChange}/>);
+        render(<DateTimeInput type="dateTime" placeholder="Select a date" defaultValue={null} onChange={handleChange}/>);
 
         await user.click(dateField());
         await user.click(screen.getByText('Today'));

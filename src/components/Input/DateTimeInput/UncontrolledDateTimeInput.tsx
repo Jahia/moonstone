@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {ControlledDateTimeInput} from './ControlledDateTimeInput';
-import {parseValue, type DateTimeValue} from './dateTimeValue';
+import {getCurrentValue, parseValue, type DateTimeValue} from './dateTimeValue';
 import type {UncontrolledDateTimeInputProps} from './DateTimeInput.types';
 
 export const UncontrolledDateTimeInput = React.forwardRef<HTMLInputElement, UncontrolledDateTimeInputProps>(({
-    defaultValue,
-    onChange,
     type,
+    defaultValue = getCurrentValue(type),
+    onChange,
     ...props
 }, ref) => {
     const [value, setValue] = useState<DateTimeValue | null>(() => parseValue(defaultValue, type));

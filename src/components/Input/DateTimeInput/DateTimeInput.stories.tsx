@@ -22,7 +22,9 @@ type Story = StoryObj<typeof DateTimeInput>;
 export const DateOnly: Story = {
     args: {
         type: 'date',
-        placeholder: 'Select a date'
+        placeholder: 'Select a date',
+        // Fixed (not the default "now") so the snapshot stays stable.
+        defaultValue: baseDate
     },
     name: 'Date Only'
 };
