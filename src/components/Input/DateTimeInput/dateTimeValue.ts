@@ -1,5 +1,5 @@
 import {Temporal} from 'temporal-polyfill';
-import {toPlainDate, toPlainDateTime, toZonedDateTime} from '../shared';
+import {toPlainDate, toPlainDateTime, toZonedDateTime} from '../utils/temporal';
 import type {DateTimeInputType} from './DateTimeInput.types';
 
 /**

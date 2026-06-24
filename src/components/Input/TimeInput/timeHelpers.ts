@@ -1,12 +1,8 @@
 import {Temporal} from 'temporal-polyfill';
-import type {Meridiem, TimeFormat} from '../TimeInput/TimeInput.types';
+import type {Meridiem, TimeFormat} from './TimeInput.types';
 
 /** Strips all non-digit characters and keeps at most 4 digits (HHMM). */
 const getSanitizedTimeDigits = (value?: string | null) => (value ?? '').replace(/\D/g, '').slice(0, 4);
-
-export const formatTimeString = (value: Date) =>
-    Temporal.PlainTime.from({hour: value.getHours(), minute: value.getMinutes()})
-        .toString({smallestUnit: 'minute'});
 
 /**
  * Splits a `Temporal.PlainTime` into the display-ready parts shown in the time field.
@@ -82,6 +78,27 @@ export const filterTimeInputValue = (value: string | null | undefined, timeForma
  * In 12h mode the 1-12 display range is shifted back to 0-23 (12 AM -> 0, 12 PM -> 12,
  * 1-11 PM -> 13-23); `Temporal.PlainTime` then validates the canonical result.
  */
+/**
+ * Completes a partial entry into a valid `Temporal.PlainTime` on blur, or `null` when empty.
+ * Hours pad left, minutes pad right: `'1'` -> 01:00, `'14'` -> 14:00, `'14:3'` -> 14:30.
+ */
+export const completeTimeInput = (
+    value: string | null | undefined,
+    timeFormat: TimeFormat,
+    meridiem: Meridiem
+): Temporal.PlainTime | null => {
+    const digits = getSanitizedTimeDigits(value);
+
+    if (digits.length === 0) {
+        return null;
+    }
+
+    const hours = digits.slice(0, 2).padStart(2, '0');
+    const minutes = digits.slice(2, 4).padEnd(2, '0');
+
+    return parseTimeInputValue(`${hours}${minutes}`, timeFormat, meridiem);
+};
+
 export const parseTimeInputValue = (
     value: string | null | undefined,
     timeFormat: TimeFormat,

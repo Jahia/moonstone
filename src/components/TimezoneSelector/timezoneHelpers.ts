@@ -1,6 +1,6 @@
 import {Temporal} from 'temporal-polyfill';
 import type {DropdownDataGrouped, DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
-import {getTodayPlainDate, toPlainDate} from './temporal';
+import {getTodayPlainDate} from '../Input/utils/temporal';
 
 /** Reference time of day for offset computation — noon avoids DST midnight edge cases. */
 const NOON = Temporal.PlainTime.from('12:00');
@@ -119,7 +119,7 @@ const getTimezoneOption = (timezone: string, referenceDate: Temporal.PlainDate):
     };
 };
 
-export const getDefaultTimezones = () => {
+const getDefaultTimezones = () => {
     if (defaultTimezonesCache) {
         return defaultTimezonesCache;
     }
@@ -133,21 +133,6 @@ export const getDefaultTimezones = () => {
 
     defaultTimezonesCache = [...fallbackTimezones];
     return defaultTimezonesCache;
-};
-
-export const getTimezoneDisplayLabel = (
-    timezone?: string | null,
-    referenceDate?: Temporal.PlainDate | string | null
-) => {
-    if (!timezone) {
-        return '';
-    }
-
-    if (!isValidTimezone(timezone)) {
-        return timezone;
-    }
-
-    return getTimezoneOption(timezone, toPlainDate(referenceDate) ?? getTodayPlainDate()).label;
 };
 
 export const getTimezoneDropdownData = (

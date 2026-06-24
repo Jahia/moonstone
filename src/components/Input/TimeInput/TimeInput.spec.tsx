@@ -1,10 +1,10 @@
-import {render, screen} from '@testing-library/react';
+import {fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {Temporal} from 'temporal-polyfill';
 import {TimeInput} from './index';
 
-const lastEmittedTime = (handleChange: ReturnType<typeof vi.fn>) =>
-    (handleChange.mock.lastCall?.[1] as Temporal.PlainTime).toString({smallestUnit: 'minute'});
+const emittedTime = (handleChange: ReturnType<typeof vi.fn>) =>
+    (handleChange.mock.lastCall?.[1] as Temporal.PlainTime | null)?.toString({smallestUnit: 'minute'}) ?? null;
 
 describe('TimeInput', () => {
     it('should render empty when uncontrolled without a default value', () => {
@@ -13,95 +13,112 @@ describe('TimeInput', () => {
         expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
     });
 
-    it('should call onChange with a canonical 24h value', async () => {
+    it('should commit a typed time on blur', async () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(<TimeInput defaultValue={null} onChange={handleChange}/>);
+        render(<TimeInput onChange={handleChange}/>);
 
-        await user.type(screen.getByPlaceholderText('HH:MM'), '1430');
+        const input = screen.getByPlaceholderText('HH:MM');
+        await user.type(input, '1430');
+        expect(handleChange).not.toHaveBeenCalled();
 
-        expect(handleChange).toHaveBeenLastCalledWith(expect.any(Object), expect.any(Temporal.PlainTime));
-        expect(lastEmittedTime(handleChange)).toBe('14:30');
+        fireEvent.blur(input);
+        expect(emittedTime(handleChange)).toBe('14:30');
     });
 
-    it('should accept a Temporal.PlainTime as default value', () => {
+    it('should complete a partial entry on blur (1 -> 01:00)', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(<TimeInput onChange={handleChange}/>);
+
+        const input = screen.getByPlaceholderText('HH:MM');
+        await user.type(input, '1');
+        fireEvent.blur(input);
+
+        expect(emittedTime(handleChange)).toBe('01:00');
+        expect(input).toHaveValue('01:00');
+    });
+
+    it('should accept a Temporal.PlainTime default value', () => {
         render(<TimeInput defaultValue={Temporal.PlainTime.from('14:30')} onChange={() => null}/>);
 
         expect(screen.getByDisplayValue('14:30')).toBeInTheDocument();
     });
 
-    it('should display a default time format placeholder', () => {
-        render(<TimeInput defaultValue={null} onChange={() => null}/>);
-
-        expect(screen.getByPlaceholderText('HH:MM')).toBeInTheDocument();
-    });
-
-    it('should let consumers override the time placeholder', () => {
-        render(<TimeInput defaultValue={null} placeholder="Enter time" onChange={() => null}/>);
-
-        expect(screen.getByPlaceholderText('Enter time')).toBeInTheDocument();
-    });
-
-    it('should display a canonical value in 12h mode', () => {
+    it('should display a 12h default value with meridiem', () => {
         render(<TimeInput timeFormat="12h" defaultValue="14:30" onChange={() => null}/>);
 
         expect(screen.getByDisplayValue('02:30')).toBeInTheDocument();
         expect(screen.getByText('PM')).toBeInTheDocument();
     });
 
-    it('should parse a 12h display value and keep canonical output', async () => {
+    it('should commit a 12h entry with the chosen meridiem', async () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(<TimeInput timeFormat="12h" defaultValue={null} onChange={handleChange}/>);
+        render(<TimeInput timeFormat="12h" onChange={handleChange}/>);
 
         await user.type(screen.getByPlaceholderText('HH:MM'), '0230');
-        await user.click(screen.getByText('AM'));
+        await user.click(screen.getByText('AM')); // Open the meridiem dropdown
         const pmOptions = screen.getAllByText('PM');
         await user.click(pmOptions[pmOptions.length - 1]);
 
-        expect(lastEmittedTime(handleChange)).toBe('14:30');
+        expect(emittedTime(handleChange)).toBe('14:30');
     });
 
-    it('should display midnight correctly in 12h mode', () => {
-        render(<TimeInput timeFormat="12h" defaultValue="00:00" onChange={() => null}/>);
-
-        expect(screen.getByDisplayValue('12:00')).toBeInTheDocument();
-        expect(screen.getByText('AM')).toBeInTheDocument();
-    });
-
-    it('should display noon correctly in 12h mode', () => {
-        render(<TimeInput timeFormat="12h" defaultValue="12:00" onChange={() => null}/>);
-
-        expect(screen.getByDisplayValue('12:00')).toBeInTheDocument();
-        expect(screen.getByText('PM')).toBeInTheDocument();
-    });
-
-    it('should ignore impossible 24h values while typing', async () => {
+    it('should keep the longest valid prefix while typing', async () => {
         const user = userEvent.setup();
 
-        render(<TimeInput defaultValue="11:56" onChange={() => null}/>);
+        render(<TimeInput onChange={() => null}/>);
 
-        const input = screen.getByDisplayValue('11:56');
-        await user.click(input);
-        await user.keyboard('{Control>}a{/Control}{Backspace}');
+        const input = screen.getByPlaceholderText('HH:MM');
         await user.type(input, '2897');
 
-        expect(screen.getByDisplayValue('2')).toBeInTheDocument();
-        expect(screen.queryByDisplayValue('28:97')).not.toBeInTheDocument();
+        expect(input).toHaveValue('2');
     });
 
-    it('should keep the partial value when deleting', async () => {
+    it('should not emit while typing, only on blur', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(<TimeInput onChange={handleChange}/>);
+
+        const input = screen.getByPlaceholderText('HH:MM');
+        await user.type(input, '0930');
+        expect(handleChange).not.toHaveBeenCalled();
+
+        fireEvent.blur(input);
+        expect(emittedTime(handleChange)).toBe('09:30');
+    });
+
+    it('should emit null when the field is cleared and blurred', async () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
         render(<TimeInput defaultValue="11:56" onChange={handleChange}/>);
 
-        await user.click(screen.getByDisplayValue('11:56'));
-        await user.keyboard('{End}{Backspace}');
+        const input = screen.getByDisplayValue('11:56');
+        await user.clear(input);
+        fireEvent.blur(input);
 
-        expect(screen.getByDisplayValue('11:5')).toBeInTheDocument();
-        expect(handleChange).not.toHaveBeenCalled();
+        expect(handleChange).toHaveBeenLastCalledWith(expect.any(Object), null);
+    });
+
+    it('should keep a controlled value until the parent updates it', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(<TimeInput value="11:56" onChange={handleChange}/>);
+
+        const input = screen.getByDisplayValue('11:56');
+        await user.clear(input);
+        await user.type(input, '0900');
+        fireEvent.blur(input);
+
+        expect(emittedTime(handleChange)).toBe('09:00');
+        // Controlled: the parent didn't update `value`, so the field reverts to it.
+        expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
     });
 });

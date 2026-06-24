@@ -130,7 +130,9 @@ describe('DateTimeInput', () => {
 
         render(<DateTimeInput type="dateTime" defaultValue="2026-02-10T11:56" onChange={handleChange}/>);
 
-        await user.clear(screen.getByDisplayValue('11:56'));
+        const timeInput = screen.getByDisplayValue('11:56');
+        await user.clear(timeInput);
+        fireEvent.blur(timeInput);
 
         expect(lastValue(handleChange).toString()).toBe('2026-02-10T00:00:00');
     });
@@ -179,6 +181,7 @@ describe('DateTimeInput', () => {
         await user.clear(timeInput);
         handleChange.mockClear();
         await user.type(timeInput, '1425');
+        fireEvent.blur(timeInput);
 
         expect(handleChange).toHaveBeenCalledTimes(1);
         expect(lastValue(handleChange).toString()).toBe('2026-02-10T14:25:00');

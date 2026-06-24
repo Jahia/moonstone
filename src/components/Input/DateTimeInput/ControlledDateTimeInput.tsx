@@ -11,13 +11,17 @@ import {BaseInput} from '../BaseInput';
 import {TimeInput} from '../TimeInput';
 import {
     dateToPlainDate,
-    formatPlainDate,
-    getCalendarDisabledMatchers,
     getSystemTimeZone,
     getTodayPlainDate,
     plainDateToDate,
     toPlainDate
-} from '../shared';
+} from '../utils/temporal';
+import {
+    formatPlainDate,
+    getCalendarDisabledMatchers,
+    getDisplayMonth,
+    getMonthStart
+} from './calendarHelpers';
 import {
     assembleValue,
     getPlainDate,
@@ -27,15 +31,6 @@ import {
 } from './dateTimeValue';
 import type {ControlledDateTimeInputProps} from './DateTimeInput.types';
 import styles from './DateTimeInput.module.scss';
-
-/** First day of the month (local noon) shown when the calendar opens for a given date. */
-const getDisplayMonth = (plainDate: Temporal.PlainDate | null): Date => {
-    const date = plainDate ?? getTodayPlainDate();
-    return new Date(date.year, date.month - 1, 1, 12);
-};
-
-const getMonthStart = (plainDate: Temporal.PlainDate | null, fallbackYear: number, fallbackMonth: number): Date =>
-    plainDate ? new Date(plainDate.year, plainDate.month - 1, 1) : new Date(fallbackYear, fallbackMonth, 1);
 
 export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, ControlledDateTimeInputProps>(({
     value,

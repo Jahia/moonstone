@@ -20,8 +20,10 @@ export type TimeInputMeridiemDropdownProps = Omit<DropdownProps,
     'isDisabled'
 > & Omit<React.ComponentPropsWithoutRef<'div'>, keyof DropdownProps> & Record<string, unknown>;
 
-type BasicTimeInputProps = Omit<BaseInputProps,
+/** Props common to both modes. */
+type TimeInputSharedProps = Omit<BaseInputProps,
     'isShowClearButton' |
+    'value' |
     'defaultValue' |
     'onChange' |
     'onClear' |
@@ -45,23 +47,31 @@ type BasicTimeInputProps = Omit<BaseInputProps,
      */
     timeFormat?: TimeFormat;
 
-    /**
-     * Initial value in uncontrolled mode. Accepts a `Temporal.PlainTime`, an ISO time
-     * string (e.g. `'14:30'`), or `null`.
-     */
-    defaultValue?: Temporal.PlainTime | string | null;
-
-    /**
-     * Fired when a complete time value is entered (all 4 digits filled),
-     * or when the field is emptied.
-     *
-     * @param event - Originating React event
-     * @param value - The entered time as a `Temporal.PlainTime`, or `null` when empty
-     */
-    onChange?: (event: React.SyntheticEvent, value: Temporal.PlainTime | null) => void;
-
     /** Additional props forwarded to the internal AM/PM dropdown in 12h mode. */
     meridiemDropdownProps?: TimeInputMeridiemDropdownProps;
-}
+};
 
-export type TimeInputProps = BasicTimeInputProps;
+/**
+ * Fired when the entry is committed (on blur, completed to a valid time; or via the AM/PM
+ * dropdown). A partial entry is never emitted; an emptied field emits `null`.
+ */
+type TimeInputOnChange = (event: React.SyntheticEvent, value: Temporal.PlainTime | null) => void;
+
+/** A time value the component accepts: a `Temporal.PlainTime`, an ISO string, or `null`. */
+type TimeValue = Temporal.PlainTime | string | null;
+
+/** Controlled: `value` + `onChange` required; the field always displays `value`. */
+export type ControlledTimeInputProps = TimeInputSharedProps & {
+    value: TimeValue;
+    onChange: TimeInputOnChange;
+    defaultValue?: never;
+};
+
+/** Uncontrolled: `defaultValue` seeds the field; the component owns its state afterwards. */
+export type UncontrolledTimeInputProps = TimeInputSharedProps & {
+    value?: never;
+    defaultValue?: TimeValue;
+    onChange?: TimeInputOnChange;
+};
+
+export type TimeInputProps = ControlledTimeInputProps | UncontrolledTimeInputProps;

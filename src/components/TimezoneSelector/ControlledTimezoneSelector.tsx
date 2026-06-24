@@ -2,7 +2,8 @@ import React from 'react';
 import {Dropdown} from '~/components';
 import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
 import {Language} from '~/icons';
-import {getTimezoneDropdownData, toPlainDate} from '../Input/shared';
+import {getTimezoneDropdownData} from './timezoneHelpers';
+import {toPlainDate} from '../Input/utils/temporal';
 import type {ControlledTimezoneSelectorProps} from './TimezoneSelector.types';
 
 export const ControlledTimezoneSelector: React.FC<ControlledTimezoneSelectorProps> = ({
