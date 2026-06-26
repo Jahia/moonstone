@@ -9,158 +9,60 @@ const intlWithSupportedValues = Intl as typeof Intl & {
     supportedValuesOf?: (key: string) => string[];
 };
 
-const preferredTimezoneGroups: Array<{groupLabel: string; timezones: string[]}> = [
-    {
-        groupLabel: 'Europe',
-        timezones: [
-            'Europe/Paris',
-            'Europe/London',
-            'Europe/Amsterdam',
-            'Europe/Berlin',
-            'Europe/Madrid',
-            'Europe/Rome',
-            'Europe/Athens'
-        ]
-    },
-    {
-        groupLabel: 'America',
-        timezones: [
-            'America/New_York',
-            'America/Toronto',
-            'America/Chicago',
-            'America/Los_Angeles',
-            'America/Mexico_City',
-            'America/Sao_Paulo'
-        ]
-    },
-    {
-        groupLabel: 'Asia',
-        timezones: [
-            'Asia/Dubai',
-            'Asia/Singapore',
-            'Asia/Tokyo',
-            'Asia/Hong_Kong'
-        ]
-    },
-    {
-        groupLabel: 'Africa',
-        timezones: [
-            'Africa/Cairo',
-            'Africa/Johannesburg',
-            'Africa/Lagos',
-            'Africa/Nairobi',
-            'Africa/Casablanca'
-        ]
-    },
-    {
-        groupLabel: 'Australia',
-        timezones: [
-            'Australia/Sydney',
-            'Australia/Melbourne',
-            'Australia/Brisbane',
-            'Australia/Perth'
-        ]
-    },
-    {
-        groupLabel: 'Pacific',
-        timezones: [
-            'Pacific/Auckland',
-            'Pacific/Fiji',
-            'Pacific/Guam',
-            'Pacific/Tahiti'
-        ]
-    }
+/** Used only if the runtime lacks `Intl.supportedValuesOf` (all current targets have it). */
+const FALLBACK_TIMEZONES = [
+    'Europe/Paris',
+    'Europe/London',
+    'America/New_York',
+    'America/Los_Angeles',
+    'Asia/Tokyo',
+    'Asia/Shanghai',
+    'Australia/Sydney'
 ];
 
-const fallbackTimezones = preferredTimezoneGroups.reduce<string[]>(
-    (acc, group) => acc.concat(group.timezones),
-    []
-);
-
-let defaultTimezonesCache: string[] | null = null;
-
-const isValidTimezone = (timezone: string) => {
-    try {
-        // Intl.DateTimeFormat throws a RangeError for unknown IANA timezone identifiers.
-        return Boolean(
-            new Intl.DateTimeFormat(undefined, {timeZone: timezone}).resolvedOptions().timeZone
-        );
-    } catch {
-        return false;
-    }
-};
+/**
+ * The full IANA timezone list (computed once), minus UTC — UTC is only offered when it is the
+ * selected value. The dropdown's own search handles the volume; we just group + sort.
+ */
+const DEFAULT_TIMEZONES = (intlWithSupportedValues.supportedValuesOf?.('timeZone') ?? FALLBACK_TIMEZONES)
+    .filter(timezone => timezone !== 'UTC');
 
 const getTimezoneRegion = (timezone: string) => timezone.split('/')[0] || 'Other';
 
-const getTimezoneCityLabel = (timezone: string) => {
-    const parts = timezone.split('/');
-    return (parts[parts.length - 1] || timezone).replace(/_/g, ' ');
-};
+const getTimezoneCityLabel = (timezone: string) =>
+    (timezone.split('/').pop() ?? timezone).replace(/_/g, ' ');
 
-const formatTimezoneOffsetLabel = (timezone: string, referenceDate: Temporal.PlainDate) =>
-    `UTC ${referenceDate.toZonedDateTime({timeZone: timezone, plainTime: NOON}).offset}`;
-
-const getRegionSortIndex = (region: string) => {
-    const index = preferredTimezoneGroups.findIndex(group => group.groupLabel === region);
-    return index === -1 ? Number.MAX_SAFE_INTEGER : index;
-};
-
-const compareRegions = (left: string, right: string) => {
-    const diff = getRegionSortIndex(left) - getRegionSortIndex(right);
-    return diff === 0 ? left.localeCompare(right) : diff;
-};
-
-const getTimezoneOption = (timezone: string, referenceDate: Temporal.PlainDate): DropdownDataOption => {
-    const offsetLabel = formatTimezoneOffsetLabel(timezone, referenceDate);
-
-    return {
-        label: `${getTimezoneCityLabel(timezone)} (${offsetLabel})`,
-        value: timezone
-    };
-};
-
-const getDefaultTimezones = () => {
-    if (defaultTimezonesCache) {
-        return defaultTimezonesCache;
-    }
-
-    const supportedValuesOf = intlWithSupportedValues.supportedValuesOf;
-
-    if (typeof supportedValuesOf === 'function') {
-        defaultTimezonesCache = supportedValuesOf('timeZone');
-        return defaultTimezonesCache;
-    }
-
-    defaultTimezonesCache = [...fallbackTimezones];
-    return defaultTimezonesCache;
-};
+const getTimezoneOption = (timezone: string, referenceDate: Temporal.PlainDate): DropdownDataOption => ({
+    label: `${getTimezoneCityLabel(timezone)} (UTC ${referenceDate.toZonedDateTime({timeZone: timezone, plainTime: NOON}).offset})`,
+    value: timezone
+});
 
 export const getTimezoneDropdownData = (
     selectedTimezone?: string | null,
     referenceDate?: Temporal.PlainDate | null
 ): DropdownDataGrouped[] => {
     const resolvedReferenceDate = referenceDate ?? getTodayPlainDate();
+    const timezones = [...DEFAULT_TIMEZONES];
 
-    const timezones = Array.from(new Set(
-        getDefaultTimezones().filter(tz => tz !== 'UTC').map(tz => tz.trim()).filter(Boolean)
-    ));
-
-    if (selectedTimezone && isValidTimezone(selectedTimezone) && !timezones.includes(selectedTimezone)) {
-        timezones.push(selectedTimezone);
+    // A selected zone outside the catalog (e.g. UTC, or a valid alias) is added — verified by
+    // the same offset computation used below, so an invalid string is simply ignored.
+    if (selectedTimezone && !timezones.includes(selectedTimezone)) {
+        try {
+            resolvedReferenceDate.toZonedDateTime({timeZone: selectedTimezone, plainTime: NOON});
+            timezones.push(selectedTimezone);
+        } catch {
+            // Not a valid IANA timezone — ignore it.
+        }
     }
 
-    return Array.from(
-        timezones.reduce((groups, timezone) => {
-            const groupLabel = getTimezoneRegion(timezone);
-            const nextGroup = groups.get(groupLabel) ?? [];
+    const groups = timezones.reduce((acc, timezone) => {
+        const region = getTimezoneRegion(timezone);
+        acc.set(region, [...(acc.get(region) ?? []), getTimezoneOption(timezone, resolvedReferenceDate)]);
+        return acc;
+    }, new Map<string, DropdownDataOption[]>());
 
-            nextGroup.push(getTimezoneOption(timezone, resolvedReferenceDate));
-            groups.set(groupLabel, nextGroup);
-
-            return groups;
-        }, new Map<string, DropdownDataOption[]>()).entries()
-    )
-        .sort(([left], [right]) => compareRegions(left, right))
+    return [...groups.entries()]
+        .sort(([left], [right]) => left.localeCompare(right))
         .map(([groupLabel, options]) => ({
             groupLabel,
             options: options.sort((left, right) => left.label.localeCompare(right.label))

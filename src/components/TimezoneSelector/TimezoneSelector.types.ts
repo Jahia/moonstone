@@ -8,6 +8,7 @@ type BaseTimezoneSelectorProps = Omit<DropdownProps,
     'value' |
     'values' |
     'onChange' |
+    'onClear' |
     'icon'
 > & {
     /**

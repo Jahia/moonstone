@@ -96,6 +96,24 @@ describe('DateTimeInput', () => {
         expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
     });
 
+    it('should fill and display today when a time is entered without a date', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(<DateTimeInput type="dateTime" placeholder="Select a date" defaultValue={null} onChange={handleChange}/>);
+
+        expect(dateField()).toHaveValue('');
+
+        const timeInput = screen.getByPlaceholderText('HH:MM');
+        await user.type(timeInput, '0930');
+        fireEvent.blur(timeInput);
+
+        // Entering a time with no date fills today, and the trigger shows it — so the user
+        // sees the date that was applied under the hood.
+        expect(lastValue(handleChange).toString()).toBe(`${baseDate}T09:30:00`);
+        expect(dateField()).not.toHaveValue('');
+    });
+
     it('should select a datetime date at midnight when no time exists (PlainDateTime)', async () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();

@@ -6,7 +6,7 @@ import {Clock} from '~/icons';
 import {layout} from '~/globals/css-utils';
 import {BaseInput} from '../BaseInput';
 import {toPlainTime} from '../utils/temporal';
-import {completeTimeInput, filterTimeInputValue, getTimeDisplayParts} from './timeHelpers';
+import {completeTimeInput, filterTimeInputValue, splitTime} from './timeHelpers';
 import type {ControlledTimeInputProps, Meridiem} from './TimeInput.types';
 import styles from './TimeInput.module.scss';
 
@@ -17,23 +17,21 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
     placeholder = 'HH:MM',
     meridiemDropdownProps,
     size,
-    variant,
+    variant = 'outlined',
     className,
     isDisabled,
     isReadOnly,
     ...props
 }, ref) => {
-    const committed = toPlainTime(value);
-    const {hours, minutes, meridiem} = getTimeDisplayParts(committed, timeFormat);
-    const committedText = hours && minutes ? `${hours}:${minutes}` : '';
+    const {hours, minutes, meridiem} = splitTime(toPlainTime(value), timeFormat);
 
-    // `draft` holds the raw text while editing; `null` means "show the committed value".
-    // The entry commits on blur (completed to a valid time), so partial input never emits
-    // and the field otherwise always reflects the value we store.
+    // `draft` holds the raw text while editing (a partial entry like "14:3" isn't a valid time
+    // yet); `null` means "show the stored value". Committing on blur completes the draft, so a
+    // partial entry never emits and the field otherwise mirrors the stored value.
     const [draft, setDraft] = useState<string | null>(null);
-    const displayValue = draft ?? committedText;
+    const displayValue = draft ?? (hours && minutes ? `${hours}:${minutes}` : '');
 
-    const commit = (event: React.SyntheticEvent, text: string, selectedMeridiem: Meridiem) => {
+    const emitChange = (event: React.SyntheticEvent, text: string, selectedMeridiem: Meridiem) => {
         setDraft(null);
         onChange(event, completeTimeInput(text, timeFormat, selectedMeridiem));
     };
@@ -56,7 +54,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
                 onChange={event => setDraft(filterTimeInputValue(event.target.value, timeFormat))}
                 onBlur={event => {
                     if (draft !== null) {
-                        commit(event, draft, meridiem);
+                        emitChange(event, draft, meridiem);
                     }
                 }}
             />
@@ -70,7 +68,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
                     isDisabled={isDisabled || isReadOnly}
                     onChange={(event: React.SyntheticEvent, item?: DropdownDataOption) => {
                         if (item?.value === 'AM' || item?.value === 'PM') {
-                            commit(event, displayValue, item.value);
+                            emitChange(event, displayValue, item.value);
                         }
                     }}
                 />

@@ -5,13 +5,13 @@ import type {Meridiem, TimeFormat} from './TimeInput.types';
 const getSanitizedTimeDigits = (value?: string | null) => (value ?? '').replace(/\D/g, '').slice(0, 4);
 
 /**
- * Splits a `Temporal.PlainTime` into the display-ready parts shown in the time field.
- * Returns empty strings when no time is provided.
+ * Splits a `Temporal.PlainTime` into the display parts shown in the time field
+ * (`hours`, `minutes`, `meridiem`). Returns empty strings when no time is provided.
  *
  * In 12h mode, hours map to the 1-12 range and the meridiem is derived from the hour.
  * The meridiem defaults to 'AM' when no time is provided.
  */
-export const getTimeDisplayParts = (value: Temporal.PlainTime | null, timeFormat: TimeFormat) => {
+export const splitTime = (value: Temporal.PlainTime | null, timeFormat: TimeFormat) => {
     if (!value) {
         return {
             hours: '',
@@ -72,34 +72,11 @@ export const filterTimeInputValue = (value: string | null | undefined, timeForma
 };
 
 /**
- * Converts user input (raw digit string) + current meridiem into a `Temporal.PlainTime`.
- * Returns `null` if the input is incomplete (fewer than 4 digits) or out of range.
- *
- * In 12h mode the 1-12 display range is shifted back to 0-23 (12 AM -> 0, 12 PM -> 12,
- * 1-11 PM -> 13-23); `Temporal.PlainTime` then validates the canonical result.
+ * Converts a complete 4-digit entry + meridiem into a `Temporal.PlainTime`, or `null` if it's
+ * incomplete or out of range. In 12h mode the 1-12 range maps back to 0-23 (12 AM -> 0,
+ * 12 PM -> 12, 1-11 PM -> 13-23). Internal: used by `completeTimeInput`.
  */
-/**
- * Completes a partial entry into a valid `Temporal.PlainTime` on blur, or `null` when empty.
- * Hours pad left, minutes pad right: `'1'` -> 01:00, `'14'` -> 14:00, `'14:3'` -> 14:30.
- */
-export const completeTimeInput = (
-    value: string | null | undefined,
-    timeFormat: TimeFormat,
-    meridiem: Meridiem
-): Temporal.PlainTime | null => {
-    const digits = getSanitizedTimeDigits(value);
-
-    if (digits.length === 0) {
-        return null;
-    }
-
-    const hours = digits.slice(0, 2).padStart(2, '0');
-    const minutes = digits.slice(2, 4).padEnd(2, '0');
-
-    return parseTimeInputValue(`${hours}${minutes}`, timeFormat, meridiem);
-};
-
-export const parseTimeInputValue = (
+const parseTimeInputValue = (
     value: string | null | undefined,
     timeFormat: TimeFormat,
     meridiem: Meridiem
@@ -122,4 +99,25 @@ export const parseTimeInputValue = (
     } catch {
         return null;
     }
+};
+
+/**
+ * Completes a partial entry into a valid `Temporal.PlainTime` on blur, or `null` when empty.
+ * Hours pad left, minutes pad right: `'1'` -> 01:00, `'14'` -> 14:00, `'14:3'` -> 14:30.
+ */
+export const completeTimeInput = (
+    value: string | null | undefined,
+    timeFormat: TimeFormat,
+    meridiem: Meridiem
+): Temporal.PlainTime | null => {
+    const digits = getSanitizedTimeDigits(value);
+
+    if (digits.length === 0) {
+        return null;
+    }
+
+    const hours = digits.slice(0, 2).padStart(2, '0');
+    const minutes = digits.slice(2, 4).padEnd(2, '0');
+
+    return parseTimeInputValue(`${hours}${minutes}`, timeFormat, meridiem);
 };

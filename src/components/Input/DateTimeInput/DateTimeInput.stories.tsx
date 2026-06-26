@@ -3,6 +3,7 @@ import type {Meta, StoryObj} from '@storybook/react-vite';
 import {Temporal} from 'temporal-polyfill';
 import {Button} from '~/components';
 import {DateTimeInput} from './DateTimeInput';
+import markdownNotes from './DateTimeInput.md';
 
 // Fixed so the rendered snapshots stay stable across runs (stories double as visual tests).
 const baseDate = Temporal.PlainDate.from('2026-03-30');
@@ -13,7 +14,8 @@ export default {
     tags: ['beta'],
     parameters: {
         layout: 'centered',
-        actions: {argTypesRegex: '^on.*'}
+        actions: {argTypesRegex: '^on.*'},
+        notes: {markdown: markdownNotes}
     }
 } satisfies Meta<typeof DateTimeInput>;
 

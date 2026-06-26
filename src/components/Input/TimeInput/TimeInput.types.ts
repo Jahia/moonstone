@@ -21,11 +21,12 @@ export type TimeInputMeridiemDropdownProps = Omit<DropdownProps,
 > & Omit<React.ComponentPropsWithoutRef<'div'>, keyof DropdownProps> & Record<string, unknown>;
 
 /** Props common to both modes. */
-type TimeInputSharedProps = Omit<BaseInputProps,
+type TimeInputBaseProps = Omit<BaseInputProps,
     'isShowClearButton' |
     'value' |
     'defaultValue' |
     'onChange' |
+    'onBlur' |
     'onClear' |
     'icon' |
     'role' |
@@ -61,14 +62,14 @@ type TimeInputOnChange = (event: React.SyntheticEvent, value: Temporal.PlainTime
 type TimeValue = Temporal.PlainTime | string | null;
 
 /** Controlled: `value` + `onChange` required; the field always displays `value`. */
-export type ControlledTimeInputProps = TimeInputSharedProps & {
+export type ControlledTimeInputProps = TimeInputBaseProps & {
     value: TimeValue;
     onChange: TimeInputOnChange;
     defaultValue?: never;
 };
 
 /** Uncontrolled: `defaultValue` seeds the field; the component owns its state afterwards. */
-export type UncontrolledTimeInputProps = TimeInputSharedProps & {
+export type UncontrolledTimeInputProps = TimeInputBaseProps & {
     value?: never;
     defaultValue?: TimeValue;
     onChange?: TimeInputOnChange;
