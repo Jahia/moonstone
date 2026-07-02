@@ -121,4 +121,84 @@ describe('TimeInput', () => {
         // Controlled: the parent didn't update `value`, so the field reverts to it.
         expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
     });
+
+    it('should immediately drop a leading hour digit greater than 2 in 24h mode', async () => {
+        const user = userEvent.setup();
+
+        render(<TimeInput onChange={() => null}/>);
+
+        await user.type(screen.getByPlaceholderText('HH:MM'), '3');
+
+        expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
+    });
+
+    it('should immediately drop a leading hour digit greater than 1 in 12h mode', async () => {
+        const user = userEvent.setup();
+
+        render(<TimeInput timeFormat="12h" onChange={() => null}/>);
+
+        await user.type(screen.getByPlaceholderText('HH:MM'), '2');
+
+        expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
+    });
+
+    it('should reject 00 as hours in 12h mode (minimum is 1)', async () => {
+        const user = userEvent.setup();
+
+        render(<TimeInput timeFormat="12h" onChange={() => null}/>);
+
+        await user.type(screen.getByPlaceholderText('HH:MM'), '00');
+
+        expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('0');
+    });
+
+    it('should reject a minutes first digit greater than 5, keeping only the hours', async () => {
+        const user = userEvent.setup();
+
+        render(<TimeInput onChange={() => null}/>);
+
+        await user.type(screen.getByPlaceholderText('HH:MM'), '146');
+
+        expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('14');
+    });
+
+    it('should display midnight (00:00) as 12:00 AM in 12h mode', () => {
+        render(<TimeInput timeFormat="12h" value={Temporal.PlainTime.from('00:00')} onChange={() => null}/>);
+
+        expect(screen.getByDisplayValue('12:00')).toBeInTheDocument();
+        expect(screen.getByText('AM')).toBeInTheDocument();
+    });
+
+    it('should display noon (12:00) as 12:00 PM in 12h mode', () => {
+        render(<TimeInput timeFormat="12h" value={Temporal.PlainTime.from('12:00')} onChange={() => null}/>);
+
+        expect(screen.getByDisplayValue('12:00')).toBeInTheDocument();
+        expect(screen.getByText('PM')).toBeInTheDocument();
+    });
+
+    it('should emit midnight when 12 with AM is committed in 12h mode', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(<TimeInput timeFormat="12h" onChange={handleChange}/>);
+
+        await user.type(screen.getByPlaceholderText('HH:MM'), '1200');
+        fireEvent.blur(screen.getByPlaceholderText('HH:MM'));
+
+        expect(emittedTime(handleChange)).toBe('00:00');
+    });
+
+    it('should emit noon when 12 with PM is committed in 12h mode', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(<TimeInput timeFormat="12h" value={Temporal.PlainTime.from('14:30')} onChange={handleChange}/>);
+
+        const input = screen.getByDisplayValue('02:30');
+        await user.clear(input);
+        await user.type(input, '1200');
+        fireEvent.blur(input);
+
+        expect(emittedTime(handleChange)).toBe('12:00');
+    });
 });
