@@ -20,6 +20,9 @@ export type DateTimeInputType = 'date' | 'dateTime' | 'zonedDateTime';
  */
 export type CalendarDate = Temporal.PlainDate | string;
 
+/** A day-of-week index (0 = Sunday, 1 = Monday, … 6 = Saturday). */
+export type DayOfWeek = NonNullable<DayPickerProps['weekStartsOn']>;
+
 /**
  * A date range to disable in the calendar picker.
  * Both `from` and `to` bounds are inclusive.
@@ -92,6 +95,12 @@ export type DateTimeInputSharedProps = Omit<BaseInputProps,
 
     /** Date ranges to disable in the calendar. */
     disabledDateRanges?: DisabledDateRange[];
+
+    /**
+     * Days of the week to always disable (0 = Sunday, 1 = Monday, … 6 = Saturday).
+     * Example: `[0, 6]` disables every weekend.
+     */
+    disabledDaysOfWeek?: DayOfWeek[];
 
     /**
      * BCP 47 locale for formatting the date displayed in the text field.

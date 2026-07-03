@@ -61,6 +61,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
             {timeFormat === '12h' && (
                 <Dropdown
                     {...meridiemDropdownProps}
+                    className={clsx(styles.meridiemDropdown, meridiemDropdownProps?.className)}
                     data={[{label: 'AM', value: 'AM'}, {label: 'PM', value: 'PM'}]}
                     value={meridiem}
                     size={size === 'big' ? 'medium' : 'small'}

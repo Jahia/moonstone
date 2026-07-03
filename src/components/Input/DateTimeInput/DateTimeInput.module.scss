@@ -10,17 +10,131 @@
     width: 120px;
 }
 
-.dayPicker {
+.calendar {
     --rdp-accent-color: var(--moon-color-accent);
     --rdp-accent-background-color: var(--moon-color-accent);
-    --rdp-selected-border: 1px solid var(--moon-color-accent);
+    --rdp-weekday-opacity: 0.6;
+    --rdp-dropdown-gap: 4px;
+    --rdp-outside-opacity: 0.6;
     --rdp-today-color: var(--moon-color-accent);
+    --rdp-day_button-border-radius: 50%;
+    --rdp-disabled-opacity: 0.4;
+    --rdp-day-height: 32px;
+    --rdp-day-width: 32px;
+    --rdp-nav-height: 36px;
+
+    padding: var(--moon-spacing-small);
+}
+
+.calendarDayButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--rdp-day-width);
+    height: var(--rdp-day-height);
+    margin: 0;
+    padding: 0;
+
+    font: inherit;
+    font-size: 14px;
+    color: inherit;
+
+    border: 0;
+    border-radius: var(--rdp-day_button-border-radius);
+    background: none;
+    cursor: pointer;
+
+    &:not([disabled], [data-selected="true"]):hover {
+        color: var(--moon-color-accent_dark);
+
+        // background-color: var(--moon-color-gray_light_plain20);
+        background-color: var(--moon-color-accent_light_plain20);
+    }
+}
+
+.calendarWeekday {
+    font-weight: 400;
+    color: var(--moon-color-gray);
+}
+
+.calendarDisabledDate {
+    background-color: var(--moon-color-gray_light_plain20);
+    cursor: not-allowed;
+
+    .calendarDayButton {
+        color: var(--moon-color-gray60);
+
+        cursor: not-allowed;
+    }
+}
+
+.calendarHeader {
+    font-size: 14px;
+
+    text-transform: capitalize;
+}
+
+.calendarCaptionLabel {
+    text-transform: none;
+
+    &::first-letter {
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: brown;
+        text-transform: capitalize;
+    }
+}
+
+.calendarDropdowns {
+    padding-left: var(--moon-spacing-small);
+}
+
+.calendarNextButton,
+.calendarPreviousButton {
+    border-radius: 50%;
+    outline-color: var(--moon-color-accent_light);
+
+    &[aria-disabled="true"] {
+        cursor: not-allowed;
+    }
+
+    &:not([aria-disabled="true"]):hover {
+        background-color: var(--moon-color-gray_light_plain20);
+    }
+}
+
+// Selected Date
+.calendarSelectedDate {
+    .calendarDayButton:not([disabled]) {
+        color: white;
+
+        background-color: var(--rdp-accent-background-color);
+
+        &:hover {
+            color: white;
+
+            background-color: var(--moon-color-accent_dark);
+        }
+    }
+}
+
+// Current Date
+.calendarToday:not(.calendarSelectedDate) {
+    .calendarDayButton:not([disabled]) {
+        font-weight: bold;
+        color: var(--rdp-today-color);
+
+        &:hover {
+            color: var(--moon-color-accent_dark);
+        }
+    }
 }
 
 .calendarFooter {
     display: flex;
     justify-content: center;
-    padding-top: var(--moon-spacing-nano);
+    margin-top: var(--moon-spacing-small);
+    padding-top: var(--moon-spacing-small);
 
-    border-top: 1px solid var(--moon-color-gray_light40);
+    border-top: 1px solid var(--moon-color-gray20);
 }

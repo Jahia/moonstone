@@ -59,6 +59,16 @@ export const DisabledDates: Story = {
     name: 'Disabled Dates'
 };
 
+export const DisabledWeekends: Story = {
+    args: {
+        type: 'date',
+        disabledDaysOfWeek: [0, 6],
+        defaultValue: baseDate,
+        locale: 'fr'
+    },
+    name: 'Disabled Weekends'
+};
+
 export const Uncontrolled: Story = {
     args: {
         type: 'dateTime',

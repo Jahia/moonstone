@@ -1,7 +1,32 @@
 import {Temporal} from 'temporal-polyfill';
 import type {Matcher} from 'react-day-picker';
-import type {CalendarDate, DisabledDateRange} from './DateTimeInput.types';
+import type {CalendarDate, DayOfWeek, DisabledDateRange} from './DateTimeInput.types';
 import {getTodayPlainDate, plainDateToDate, toPlainDate} from '../utils/temporal';
+
+/**
+ * Returns the first day of the week (0 = Sunday … 6 = Saturday) for a given locale,
+ * using `Intl.Locale` week-info. Falls back to Monday (1) when the locale is absent or
+ * the runtime doesn't support the weekInfo API.
+ */
+export const getWeekStartsOn = (locale?: string): 0 | 1 | 2 | 3 | 4 | 5 | 6 => {
+    if (!locale) {
+        return 1;
+    }
+
+    try {
+        const intlLocale = new Intl.Locale(locale);
+        // `getWeekInfo()` is in the newer spec; `weekInfo` is the older property form.
+        const weekInfo = intlLocale.getWeekInfo?.() ?? intlLocale.weekInfo;
+        const firstDay = weekInfo?.firstDay; // ISO: 1=Mon … 7=Sun
+        if (typeof firstDay === 'number') {
+            return (firstDay % 7) as 0 | 1 | 2 | 3 | 4 | 5 | 6; // maps 7→0 (Sun), 1→1 (Mon), …
+        }
+    } catch {
+        // ignore invalid locale strings
+    }
+
+    return 1;
+};
 
 /**
  * Formats a calendar date for display in the trigger input.
@@ -35,7 +60,8 @@ export const getCalendarDisabledMatchers = (
     minDate?: CalendarDate,
     maxDate?: CalendarDate,
     disabledDates?: CalendarDate[],
-    disabledDateRanges?: DisabledDateRange[]
+    disabledDateRanges?: DisabledDateRange[],
+    disabledDaysOfWeek?: DayOfWeek[]
 ): Matcher[] => {
     const matchers: Matcher[] = [];
     const minimumDate = toPlainDate(minDate);
@@ -64,6 +90,10 @@ export const getCalendarDisabledMatchers = (
     unavailableRanges.forEach(range => {
         matchers.push({from: plainDateToDate(range.from), to: plainDateToDate(range.to)});
     });
+
+    if (disabledDaysOfWeek?.length) {
+        matchers.push({dayOfWeek: disabledDaysOfWeek});
+    }
 
     return matchers;
 };

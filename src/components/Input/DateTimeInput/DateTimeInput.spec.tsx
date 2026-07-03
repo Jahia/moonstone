@@ -751,4 +751,46 @@ describe('DateTimeInput', () => {
         expect(dateField()).toHaveValue('');
         expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
     });
+
+    it('should disable all weekend days when disabledDaysOfWeek=[0, 6] is set', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                type="date"
+                placeholder="Select a date"
+                defaultValue="2026-03-15"
+                disabledDaysOfWeek={[0, 6]}
+                onChange={() => null}
+            />
+        );
+
+        await user.click(dateField());
+
+        // March 2026: the 1st is a Sunday (0) and the 7th is a Saturday (6).
+        expect(screen.getByRole('button', {name: /March 1st, 2026/})).toBeDisabled();
+        expect(screen.getByRole('button', {name: /March 7th, 2026/})).toBeDisabled();
+        // A weekday must remain enabled.
+        expect(screen.getByRole('button', {name: /March 2nd, 2026/})).not.toBeDisabled();
+    });
+
+    it('should not emit a change when clicking a disabled weekend day', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(
+            <DateTimeInput
+                type="date"
+                placeholder="Select a date"
+                defaultValue="2026-03-15"
+                disabledDaysOfWeek={[0, 6]}
+                onChange={handleChange}
+            />
+        );
+
+        await user.click(dateField());
+        await user.click(screen.getByRole('button', {name: /March 7th, 2026/}));
+
+        expect(handleChange).not.toHaveBeenCalled();
+    });
 });

@@ -20,7 +20,8 @@ import {
     formatPlainDate,
     getCalendarDisabledMatchers,
     getDisplayMonth,
-    getMonthStart
+    getMonthStart,
+    getWeekStartsOn
 } from './calendarHelpers';
 import {
     assembleValue,
@@ -41,13 +42,14 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     maxDate,
     disabledDates,
     disabledDateRanges,
-    locale,
-    weekStartsOn = 1,
-    i18n: {
-        todayButton = 'Today',
-        nextMonth = 'Go to the next month',
-        previousMonth = 'Go to the previous month'
-    } = {},
+    disabledDaysOfWeek,
+    locale = 'en',
+    weekStartsOn,
+    i18n = {
+        todayButton: 'Today',
+        nextMonth: 'Go to the next month',
+        previousMonth: 'Go to the previous month'
+    },
     size,
     variant,
     className,
@@ -80,7 +82,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
 
     const minPlainDate = toPlainDate(minDate);
     const maxPlainDate = toPlainDate(maxDate);
-    const calendarDisabledMatchers = getCalendarDisabledMatchers(minDate, maxDate, disabledDates, disabledDateRanges);
+    const calendarDisabledMatchers = getCalendarDisabledMatchers(minDate, maxDate, disabledDates, disabledDateRanges, disabledDaysOfWeek);
     const todayDate = plainDateToDate(getTodayPlainDate());
     const isTodayDisabled = isDisabled || isReadOnly || dateMatchModifiers(todayDate, calendarDisabledMatchers);
     const startMonth = getMonthStart(minPlainDate, displayedMonth.getFullYear() - 20, 0);
@@ -121,7 +123,6 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
             <BaseInput
                 ref={handleRef}
                 {...props}
-                readOnly
                 className={styles.dateField}
                 value={formatPlainDate(selectedDate, locale)}
                 size={size}
@@ -140,15 +141,25 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                     isDisplayed={isCalendarOpen}
                     anchorEl={inputRef as React.MutableRefObject<HTMLElement>}
                     anchorPosition={{top: 4, left: 0}}
-                    minWidth={size === 'big' ? '270px' : '235px'}
+                    // minWidth={size === 'big' ? '270px' : '235px'}
                     maxWidth="320px"
                     onClose={() => setIsCalendarOpen(false)}
                 >
                     <DayPicker
-                        showOutsideDays
+                        animate
                         classNames={{
                             ...dayPickerClassNames,
-                            root: clsx(dayPickerClassNames.root, styles.dayPicker),
+                            root: clsx(dayPickerClassNames.root, styles.calendar),
+                            month_caption: clsx(dayPickerClassNames.month_caption, styles.calendarHeader),
+                            caption_label: clsx(dayPickerClassNames.caption_label, styles.calendarCaptionLabel),
+                            dropdowns: clsx(dayPickerClassNames.dropdowns, styles.calendarDropdowns),
+                            button_next: clsx(dayPickerClassNames.button_next, styles.calendarNextButton),
+                            button_previous: clsx(dayPickerClassNames.button_previous, styles.calendarPreviousButton),
+                            weekday: clsx(dayPickerClassNames.weekday, styles.calendarWeekday),
+                            today: styles.calendarToday,
+                            selected: styles.calendarSelectedDate,
+                            disabled: styles.calendarDisabledDate,
+                            day_button: clsx(dayPickerClassNames.day_button, styles.calendarDayButton),
                             footer: styles.calendarFooter
                         }}
                         components={{
@@ -169,18 +180,19 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                             )
                         }}
                         labels={{
-                            labelNext: () => nextMonth,
-                            labelPrevious: () => previousMonth
+                            labelNext: () => i18n.nextMonth,
+                            labelPrevious: () => i18n.previousMonth
                         }}
                         captionLayout={hasMultipleYears ? 'dropdown-years' : 'label'}
                         navLayout="around"
-                        weekStartsOn={weekStartsOn}
+                        weekStartsOn={weekStartsOn ?? getWeekStartsOn(locale)}
                         month={displayedMonth}
                         startMonth={startMonth}
                         endMonth={endMonth}
                         disabled={calendarDisabledMatchers}
                         formatters={locale ? {
                             formatCaption: (date: Date) => new Intl.DateTimeFormat(locale, {month: 'long', year: 'numeric'}).format(date),
+                            formatMonthDropdown: (date: Date) => new Intl.DateTimeFormat(locale, {month: 'long'}).format(date),
                             formatDay: (date: Date) => new Intl.DateTimeFormat(locale, {day: 'numeric'}).format(date),
                             formatWeekdayName: (date: Date) => new Intl.DateTimeFormat(locale, {weekday: 'short'}).format(date)
                         } : undefined}
@@ -191,7 +203,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                                 variant="ghost"
                                 size="default"
                                 isDisabled={isTodayDisabled}
-                                label={todayButton}
+                                label={i18n.todayButton}
                                 onClick={event => {
                                     if (!isTodayDisabled) {
                                         emitChange(event, {plainDate: getTodayPlainDate()});
