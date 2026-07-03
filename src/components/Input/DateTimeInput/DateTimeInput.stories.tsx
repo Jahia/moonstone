@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import type {Meta, StoryObj} from '@storybook/react-vite';
+import {userEvent, within} from 'storybook/test';
 import {Temporal} from 'temporal-polyfill';
 import {Button} from '~/components';
 import {DateTimeInput} from './DateTimeInput';
@@ -67,6 +68,21 @@ export const DisabledWeekends: Story = {
         locale: 'fr'
     },
     name: 'Disabled Weekends'
+};
+
+// play opens the calendar so the snapshot captures the full picker UI.
+export const CalendarOpen: Story = {
+    args: {
+        type: 'date',
+        placeholder: 'Select a date',
+        defaultValue: baseDate
+    },
+    parameters: {layout: 'centered'},
+    play: async ({canvasElement}) => {
+        const canvas = within(canvasElement);
+        await userEvent.click(canvas.getByPlaceholderText('Select a date'));
+    },
+    name: 'Calendar Open'
 };
 
 export const Uncontrolled: Story = {

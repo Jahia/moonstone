@@ -141,8 +141,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                     isDisplayed={isCalendarOpen}
                     anchorEl={inputRef as React.MutableRefObject<HTMLElement>}
                     anchorPosition={{top: 4, left: 0}}
-                    // minWidth={size === 'big' ? '270px' : '235px'}
-                    maxWidth="320px"
+                    position="absolute"
                     onClose={() => setIsCalendarOpen(false)}
                 >
                     <DayPicker

@@ -4,28 +4,31 @@ import type {CalendarDate, DayOfWeek, DisabledDateRange} from './DateTimeInput.t
 import {getTodayPlainDate, plainDateToDate, toPlainDate} from '../utils/temporal';
 
 /**
- * Returns the first day of the week (0 = Sunday … 6 = Saturday) for a given locale,
- * using `Intl.Locale` week-info. Falls back to Monday (1) when the locale is absent or
- * the runtime doesn't support the weekInfo API.
+ * Returns the first day of the week for a given locale, using `Intl.Locale` week-info.
+ * Falls back to Monday (1) when the locale is absent or the runtime doesn't support the weekInfo API.
  */
-export const getWeekStartsOn = (locale?: string): 0 | 1 | 2 | 3 | 4 | 5 | 6 => {
+export const getWeekStartsOn = (locale?: string): DayOfWeek => {
     if (!locale) {
         return 1;
     }
 
     try {
-        const intlLocale = new Intl.Locale(locale);
-        // `getWeekInfo()` is in the newer spec; `weekInfo` is the older property form.
-        const weekInfo = intlLocale.getWeekInfo?.() ?? intlLocale.weekInfo;
-        const firstDay = weekInfo?.firstDay; // ISO: 1=Mon … 7=Sun
-        if (typeof firstDay === 'number') {
-            return (firstDay % 7) as 0 | 1 | 2 | 3 | 4 | 5 | 6; // maps 7→0 (Sun), 1→1 (Mon), …
-        }
+        const intlLocale = new Intl.Locale(locale) as Intl.Locale & {
+            getWeekInfo?(): {firstDay: number}; // newer spec
+            weekInfo?: {firstDay: number}; // older property form
+        };
+        // Both forms exist: `getWeekInfo()` (newer spec) and `weekInfo` (older property).
+        const firstDay = (intlLocale.getWeekInfo?.() ?? intlLocale.weekInfo)?.firstDay;
+
+        // Intl uses ISO days: 1=Mon … 7=Sun. DayPicker uses 0=Sun, 1=Mon … 6=Sat.
+        // Sunday is the only value that doesn't map 1:1 (ISO 7 → JS 0).
+        if (firstDay === 7) return 0;
+        if (firstDay !== undefined) return firstDay as DayOfWeek;
     } catch {
-        // ignore invalid locale strings
+        // Invalid locale string — fall through to default.
     }
 
-    return 1;
+    return 1; // Monday
 };
 
 /**
