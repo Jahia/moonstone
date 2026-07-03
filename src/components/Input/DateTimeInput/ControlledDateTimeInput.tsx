@@ -145,6 +145,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                     onClose={() => setIsCalendarOpen(false)}
                 >
                     <DayPicker
+                        data-testid="calendar"
                         animate
                         classNames={{
                             ...dayPickerClassNames,

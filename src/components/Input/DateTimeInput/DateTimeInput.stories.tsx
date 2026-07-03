@@ -17,6 +17,17 @@ export default {
         layout: 'centered',
         actions: {argTypesRegex: '^on.*'},
         notes: {markdown: markdownNotes}
+    },
+    args: {
+        'data-testid': 'dateTimeInput',
+        // Fixed (not the default "now") so the snapshot stays stable.
+        defaultValue: baseDate,
+        timeInputProps: {
+            'data-testid': 'timeInput'
+        },
+        timezoneSelectorProps: {
+            'data-testid': 'timezoneSelector'
+        }
     }
 } satisfies Meta<typeof DateTimeInput>;
 
@@ -24,10 +35,13 @@ type Story = StoryObj<typeof DateTimeInput>;
 
 export const DateOnly: Story = {
     args: {
-        type: 'date',
-        placeholder: 'Select a date',
-        // Fixed (not the default "now") so the snapshot stays stable.
-        defaultValue: baseDate
+        type: 'date'
+    },
+    play: async ({canvasElement}) => {
+        const canvas = within(canvasElement);
+        await userEvent.click(canvas.getByTestId('dateTimeInput'));
+        // Wait until the calendar is rendered before the screenshot is taken
+        canvas.getByTestId('calendar');
     },
     name: 'Date Only'
 };
@@ -35,7 +49,20 @@ export const DateOnly: Story = {
 export const DateTimeWithTimezone: Story = {
     args: {
         type: 'zonedDateTime',
-        defaultValue: baseDate.toPlainDateTime().toZonedDateTime('Europe/Paris')
+        defaultValue: baseDate.toPlainDateTime().toZonedDateTime('Europe/Paris'),
+        size: 'big',
+        locale: 'fr',
+        i18n: {
+            todayButton: 'Aujourd\'hui',
+            nextMonth: 'Mois suivant',
+            previousMonth: 'Mois précédent'
+        }
+    },
+    play: async ({canvasElement}) => {
+        const canvas = within(canvasElement);
+        await userEvent.click(canvas.getByTestId('dateTimeInput'));
+        // Wait until the calendar is rendered before the screenshot is taken
+        canvas.getByTestId('calendar');
     },
     name: 'Date Time With Timezone'
 };
@@ -45,6 +72,12 @@ export const DateTimeWithTimezone12h: Story = {
         type: 'zonedDateTime',
         timeFormat: '12h',
         defaultValue: baseDate.toPlainDateTime(Temporal.PlainTime.from('23:56')).toZonedDateTime('Europe/Paris')
+    },
+    play: async ({canvasElement}) => {
+        const canvas = within(canvasElement);
+        await userEvent.click(canvas.getByTestId('dateTimeInput'));
+        // Wait until the calendar is rendered before the screenshot is taken
+        canvas.getByTestId('calendar');
     },
     name: 'Date Time With Timezone 12h'
 };
@@ -57,6 +90,12 @@ export const DisabledDates: Story = {
         disabledDates: ['2026-03-30'],
         defaultValue: '2026-03-30'
     },
+    play: async ({canvasElement}) => {
+        const canvas = within(canvasElement);
+        await userEvent.click(canvas.getByTestId('dateTimeInput'));
+        // Wait until the calendar is rendered before the screenshot is taken
+        canvas.getByTestId('calendar');
+    },
     name: 'Disabled Dates'
 };
 
@@ -64,36 +103,17 @@ export const DisabledWeekends: Story = {
     args: {
         type: 'date',
         disabledDaysOfWeek: [0, 6],
-        defaultValue: baseDate,
         locale: 'fr'
+    },
+    play: async ({canvasElement}) => {
+        const canvas = within(canvasElement);
+        await userEvent.click(canvas.getByTestId('dateTimeInput'));
+        // Wait until the calendar is rendered before the screenshot is taken
+        canvas.getByTestId('calendar');
     },
     name: 'Disabled Weekends'
 };
 
-// play opens the calendar so the snapshot captures the full picker UI.
-export const CalendarOpen: Story = {
-    args: {
-        type: 'date',
-        placeholder: 'Select a date',
-        defaultValue: baseDate
-    },
-    parameters: {layout: 'centered'},
-    play: async ({canvasElement}) => {
-        const canvas = within(canvasElement);
-        await userEvent.click(canvas.getByPlaceholderText('Select a date'));
-    },
-    name: 'Calendar Open'
-};
-
-export const Uncontrolled: Story = {
-    args: {
-        type: 'dateTime',
-        defaultValue: '2026-03-30T09:30'
-    },
-    name: 'Uncontrolled'
-};
-
-// Controlled: parent owns the value; the buttons mutate it from outside to show it flows in.
 export const Controlled: Story = {
     render: () => {
         const [value, setValue] = useState<Temporal.PlainDate | string | null>('2026-03-30');
