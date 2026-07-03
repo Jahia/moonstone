@@ -793,4 +793,138 @@ describe('DateTimeInput', () => {
 
         expect(handleChange).not.toHaveBeenCalled();
     });
+
+    describe('local time conversion hint', () => {
+        beforeEach(() => {
+            vi.spyOn(Temporal.Now, 'timeZoneId').mockReturnValue('Europe/Paris');
+        });
+
+        afterEach(() => {
+            vi.restoreAllMocks();
+        });
+
+        it('should not show the hint when the selected timezone equals the system timezone', () => {
+            render(
+                <DateTimeInput
+                    type="zonedDateTime"
+                    placeholder="Select a date"
+                    defaultValue="2026-03-15T11:56[Europe/Paris]"
+                    onChange={() => null}
+                />
+            );
+
+            expect(screen.queryByText(/Your local time/)).not.toBeInTheDocument();
+        });
+
+        it('should not show the hint when only a date is set but no time', () => {
+            render(
+                <DateTimeInput
+                    type="zonedDateTime"
+                    placeholder="Select a date"
+                    defaultValue={null}
+                    onChange={() => null}
+                />
+            );
+
+            expect(screen.queryByText(/Your local time/)).not.toBeInTheDocument();
+        });
+
+        it('should show the hint when the selected timezone differs from the system timezone', () => {
+            // Abidjan is UTC+0; Paris in winter is UTC+1 → 11:56 Abidjan = 12:56 Paris
+            render(
+                <DateTimeInput
+                    type="zonedDateTime"
+                    placeholder="Select a date"
+                    defaultValue="2026-02-10T11:56[Africa/Abidjan]"
+                    onChange={() => null}
+                />
+            );
+
+            expect(screen.getByText(/Your local time/)).toBeInTheDocument();
+        });
+
+        it('should display the converted date and time in the hint', () => {
+            // 00:00 Abidjan (UTC+0) = 01:00 Paris (UTC+1) — same day, unambiguous
+            render(
+                <DateTimeInput
+                    type="zonedDateTime"
+                    placeholder="Select a date"
+                    defaultValue="2026-02-10T00:00[Africa/Abidjan]"
+                    locale="en"
+                    onChange={() => null}
+                />
+            );
+
+            // The hint must include both a date fragment and a time fragment.
+            // We verify the time portion (01:00) is present; the exact date format is locale-dependent.
+            expect(screen.getByText(/Your local time/)).toBeInTheDocument();
+            expect(screen.getByText(/01:00/)).toBeInTheDocument();
+        });
+
+        it('should show the previous day in the hint when the conversion crosses midnight', () => {
+            // 00:00 in Toronto (UTC−5 in winter) = 06:00 Paris (UTC+1) same day
+            // Use the reverse: 00:00 Paris (UTC+1) = 23:00 prev day in Toronto.
+            // Here system=Paris, selected=Toronto: 2026-02-10T00:00 Toronto = 2026-02-10T06:00 Paris
+            // To get a day-before case: pick a time in the east. 2026-02-10T00:00 Tokyo (UTC+9) = 2026-02-09T16:00 Paris
+            render(
+                <DateTimeInput
+                    type="zonedDateTime"
+                    placeholder="Select a date"
+                    defaultValue="2026-02-10T00:00[Asia/Tokyo]"
+                    locale="en"
+                    onChange={() => null}
+                />
+            );
+
+            // The hint must include the converted date (Feb 9) to avoid day-boundary ambiguity.
+            expect(screen.getByText(/Feb 9/)).toBeInTheDocument();
+        });
+
+        it('should use the custom i18n.localTime label', () => {
+            render(
+                <DateTimeInput
+                    type="zonedDateTime"
+                    placeholder="Select a date"
+                    defaultValue="2026-02-10T11:56[Africa/Abidjan]"
+                    i18n={{localTime: 'Heure locale'}}
+                    onChange={() => null}
+                />
+            );
+
+            expect(screen.getByText(/Heure locale/)).toBeInTheDocument();
+            expect(screen.queryByText(/Your local time/)).not.toBeInTheDocument();
+        });
+
+        it('should fall back to the default label when i18n is partial and omits localTime', () => {
+            render(
+                <DateTimeInput
+                    type="zonedDateTime"
+                    placeholder="Select a date"
+                    defaultValue="2026-02-10T11:56[Africa/Abidjan]"
+                    i18n={{todayButton: "Aujourd'hui"}}
+                    onChange={() => null}
+                />
+            );
+
+            expect(screen.getByText(/Your local time/)).toBeInTheDocument();
+        });
+
+        it('should format the hint time as 12h when timeFormat="12h"', () => {
+            // 23:00 Abidjan (UTC+0) = 00:00 Paris next day (UTC+1)
+            // Use 11:56 Abidjan = 12:56 Paris → with 12h: "12:56 PM"
+            render(
+                <DateTimeInput
+                    type="zonedDateTime"
+                    placeholder="Select a date"
+                    timeFormat="12h"
+                    defaultValue="2026-02-10T11:56[Africa/Abidjan]"
+                    locale="en"
+                    onChange={() => null}
+                />
+            );
+
+            // 12h format includes AM/PM in the hint text
+            expect(screen.getByText(/Your local time/)).toHaveTextContent(/PM|AM/);
+        });
+    });
 });

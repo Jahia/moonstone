@@ -20,8 +20,7 @@ export default {
     },
     args: {
         'data-testid': 'dateTimeInput',
-        // Fixed (not the default "now") so the snapshot stays stable.
-        defaultValue: baseDate,
+        defaultValue: baseDate, // Fixed (not the default "now") so the snapshot stays stable.
         timeInputProps: {
             'data-testid': 'timeInput'
         },

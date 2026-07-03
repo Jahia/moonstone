@@ -40,6 +40,8 @@ export type DateTimeInputI18n = {
     nextMonth?: string;
     /** Accessible label for the previous month button */
     previousMonth?: string;
+    /** Prefix label shown before the converted local time when the selected timezone differs from the user's system timezone */
+    localTime?: string;
 };
 
 export type DateTimeInputTimeInputProps = Omit<TimeInputProps,

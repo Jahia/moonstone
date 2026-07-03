@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import {dateMatchModifiers, DayPicker} from 'react-day-picker';
 import dayPickerClassNames from 'react-day-picker/style.module.css';
 import {Temporal} from 'temporal-polyfill';
-import {Button, Dropdown, Menu} from '~/components';
+import {Button, Dropdown, Menu, Typography} from '~/components';
 import {Calendar} from '~/icons';
 import type {DropdownProps} from 'react-day-picker';
 import {TimezoneSelector} from '../../TimezoneSelector/TimezoneSelector';
@@ -45,11 +45,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     disabledDaysOfWeek,
     locale = 'en',
     weekStartsOn,
-    i18n = {
-        todayButton: 'Today',
-        nextMonth: 'Go to the next month',
-        previousMonth: 'Go to the previous month'
-    },
+    i18n,
     size,
     variant,
     className,
@@ -62,6 +58,14 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     const currentValue = parseValue(value, type);
     const selectedDate = getPlainDate(currentValue);
     const selectedTime = getPlainTime(currentValue);
+
+    const i18nLabels = {
+        todayButton: 'Today',
+        nextMonth: 'Go to the next month',
+        previousMonth: 'Go to the previous month',
+        localTime: 'Your local time',
+        ...i18n
+    };
 
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
     const [displayedMonth, setDisplayedMonth] = useState(() => getDisplayMonth(selectedDate));
@@ -88,6 +92,25 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     const startMonth = getMonthStart(minPlainDate, displayedMonth.getFullYear() - 20, 0);
     const endMonth = getMonthStart(maxPlainDate, displayedMonth.getFullYear() + 20, 11);
     const hasMultipleYears = startMonth.getFullYear() !== endMonth.getFullYear();
+
+    const systemTimeZone = getSystemTimeZone();
+    const showLocalTime =
+        type === 'zonedDateTime' &&
+        selectedDate !== null &&
+        selectedTime !== null &&
+        currentTimeZone !== systemTimeZone &&
+        currentValue instanceof Temporal.ZonedDateTime;
+
+    const localTimeFormatted = showLocalTime
+        ? new Intl.DateTimeFormat(locale, {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: timeFormat === '12h'
+        }).format(new Date((currentValue as Temporal.ZonedDateTime).withTimeZone(systemTimeZone).epochMilliseconds))
+        : null;
 
     // This component holds no value state: it derives display from `value` and reports the next
     // value via `onChange`. onChange drives the value — never the reverse. (Uncontrolled: the
@@ -180,8 +203,8 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                             )
                         }}
                         labels={{
-                            labelNext: () => i18n.nextMonth,
-                            labelPrevious: () => i18n.previousMonth
+                            labelNext: () => i18nLabels.nextMonth,
+                            labelPrevious: () => i18nLabels.previousMonth
                         }}
                         captionLayout={hasMultipleYears ? 'dropdown-years' : 'label'}
                         navLayout="around"
@@ -203,7 +226,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                                 variant="ghost"
                                 size="default"
                                 isDisabled={isTodayDisabled}
-                                label={i18n.todayButton}
+                                label={i18nLabels.todayButton}
                                 onClick={event => {
                                     if (!isTodayDisabled) {
                                         emitChange(event, {plainDate: getTodayPlainDate()});
@@ -264,6 +287,11 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                         }
                     }}
                 />
+            )}
+            {showLocalTime && (
+                <Typography component="span" variant="caption" className={styles.localTimeConversion}>
+                    {i18nLabels.localTime}: {localTimeFormatted}
+                </Typography>
             )}
         </div>
     );
