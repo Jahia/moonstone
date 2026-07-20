@@ -17,10 +17,9 @@
       "dom",
       "es2019"
     ],
-    "baseUrl": "src",
     "paths": {
       "~/*": [
-        "*"
+        "./src/*"
       ]
     },
     "typeRoots": [
