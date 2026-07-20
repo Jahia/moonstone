@@ -57,7 +57,7 @@
   ],
   "scripts": {
     "build": "yarn build:icons && yarn build:storybook && yarn build:lib",
-    "build:icons": "rimraf -g 'src/icons/components/*.tsx' && svgr --template ./src/icons/svgrTemplate.cjs --config-file ./src/icons/svgr.config.cjs ./src/icons/assets && oxlint --fix ./src/icons/components/*",
+    "build:icons": "rimraf -g 'src/icons/components/*.tsx' && svgr --template ./src/icons/svgrTemplate.cjs --config-file ./src/icons/svgr.config.cjs ./src/icons/assets",
     "prebuild:lib": "rimraf dist/",
     "build:lib:scoped": "vite build && yarn tsc && tsc-alias -f",
     "build:lib:legacy": "sass src/globals.scss dist/legacy-global-bundle.css --no-source-map --style=compressed",
