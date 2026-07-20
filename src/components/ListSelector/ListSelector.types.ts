@@ -18,7 +18,7 @@ type Label = {
     /**
      * Label for number of items selected, use values to determine the number
      */
-    selected: string,
+    selected?: string,
 }
 
 export type Option = {
@@ -36,7 +36,7 @@ export type ListSelectorSelectorProps = Omit<React.ComponentPropsWithoutRef<'div
     /**
      * Labels for component
      */
-    label: Label
+    label?: Label
     /**
      * Options for left list
      */

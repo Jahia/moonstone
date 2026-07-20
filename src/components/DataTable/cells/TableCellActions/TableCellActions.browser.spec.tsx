@@ -1,5 +1,5 @@
-import {render, screen, cleanup} from '@testing-library/react';
-import {afterEach, describe, expect, it} from 'vitest';
+import {render, screen} from '@testing-library/react';
+import {describe, expect, it} from 'vitest';
 import {userEvent} from '@vitest/browser/context';
 import {TableCellActions} from './TableCellActions';
 import {TableRow} from '~/components/DataTable/TableRow';
@@ -15,10 +15,6 @@ const TableWrapper = ({children}: {readonly children: React.ReactNode}) => (
 );
 
 describe('TableCellActions', () => {
-    afterEach(() => {
-        cleanup();
-    });
-
     it('should display actions', () => {
         render(
             <TableWrapper>

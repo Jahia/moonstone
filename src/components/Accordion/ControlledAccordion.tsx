@@ -6,11 +6,11 @@ import styles from './Accordion.module.scss';
 import type {ControlledAccordionProps} from './Accordion.types';
 
 export const ControlledAccordion: React.FC<ControlledAccordionProps> = ({children, openedItem, isReversed = false, className, onSetOpenedItem, ...props}) => {
-    const provider = {
+    const provider = React.useMemo(() => ({
         currentItem: openedItem,
         onSetOpenedItem,
         isReversed
-    };
+    }), [openedItem, onSetOpenedItem, isReversed]);
 
     return (
         <AccordionContext.Provider value={provider}>

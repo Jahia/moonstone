@@ -18,7 +18,7 @@ export const SvgWrapper: React.FC<SvgWrapperProps> = ({
     );
 
     return (
-        <svg viewBox={viewBox && viewBox} fill={fill && fill} className={css} {...props}>
+        <svg viewBox={viewBox} fill={fill} className={css} {...props}>
             {children}
         </svg>
     );

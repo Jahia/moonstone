@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StoryObj} from '@storybook/react-vite';
+import type {StoryObj} from '@storybook/react-vite';
 
 import {Menu, MenuItem} from './index';
 import type {MenuProps, AnchorPosition} from './Menu.types';
@@ -195,28 +195,28 @@ export const BigImageMenuItems = () => (
             <MenuItem label="Menu Items with Big Images Title" variant="title"/>
             <MenuItem
                 label="Big image MenuItem"
-                image={<img src={imgVertical} alt="big vertical image"/>}
+                image={<img src={imgVertical} alt="big vertical placeholder"/>}
                 imageSize="big"
             />
             <MenuItem
                 label="Big image MenuItem"
-                image={<img src={imgHorizontal} alt="big horizontal image"/>}
+                image={<img src={imgHorizontal} alt="big horizontal placeholder"/>}
                 imageSize="big"
             />
             <MenuItem
                 isSelected
                 label="Big image MenuItem - selected"
-                image={<img src={imgSquare} alt="big square image"/>}
+                image={<img src={imgSquare} alt="big square placeholder"/>}
                 imageSize="big"
             />
             <MenuItem
                 label="Big image MenuItem - lots of words lots of words lots of words"
-                image={<img src={imgVertical} alt="big vertical image"/>}
+                image={<img src={imgVertical} alt="big vertical placeholder"/>}
                 imageSize="big"
             />
             <MenuItem
                 label="Big image MenuItem - lots of words lots of words lots of words"
-                image={<img src={imgHorizontal} alt="big horizontal image"/>}
+                image={<img src={imgHorizontal} alt="big horizontal placeholder"/>}
                 imageSize="big"
             />
         </Menu>
@@ -234,28 +234,28 @@ export const SmallImageMenuItems = () => (
             <MenuItem label="Menu Items with Small Images Title" variant="title"/>
             <MenuItem
                 label="Small image MenuItem"
-                image={<img src={imgVertical} alt="small vertical image"/>}
+                image={<img src={imgVertical} alt="small vertical placeholder"/>}
                 imageSize="small"
             />
             <MenuItem
                 label="Small image MenuItem"
-                image={<img src={imgHorizontal} alt="small horizontal image"/>}
+                image={<img src={imgHorizontal} alt="small horizontal placeholder"/>}
                 imageSize="small"
             />
             <MenuItem
                 isSelected
                 label="Small image MenuItem - selected"
-                image={<img src={imgSquare} alt="small square image"/>}
+                image={<img src={imgSquare} alt="small square placeholder"/>}
                 imageSize="small"
             />
             <MenuItem
                 label="Small image MenuItem - lots of words lots of words lots of words"
-                image={<img src={imgVertical} alt="small vertical image"/>}
+                image={<img src={imgVertical} alt="small vertical placeholder"/>}
                 imageSize="small"
             />
             <MenuItem
                 label="Small image MenuItem - lots of words lots of words lots of words"
-                image={<img src={imgHorizontal} alt="small horizontal image"/>}
+                image={<img src={imgHorizontal} alt="small horizontal placeholder"/>}
                 imageSize="small"
             />
         </Menu>

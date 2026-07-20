@@ -70,15 +70,15 @@ export const WithBigImage: StoryObj<ListItemProps> = {
     render: args => (
         <ul style={{padding: 0}}>
             <ListItem
-                image={<img src={imgVertical} alt="vertical big image"/>}
+                image={<img src={imgVertical} alt="vertical big placeholder"/>}
                 {...args}
             />
             <ListItem
-                image={<img src={imgHorizontal} alt="horizontal big image"/>}
+                image={<img src={imgHorizontal} alt="horizontal big placeholder"/>}
                 {...args}
             />
             <ListItem
-                image={<img src={imgSquare} alt="square big image"/>}
+                image={<img src={imgSquare} alt="square big placeholder"/>}
                 {...args}
             />
         </ul>
@@ -94,15 +94,15 @@ export const WithSmallImage: StoryObj<ListItemProps> = {
     render: args => (
         <ul style={{padding: 0}}>
             <ListItem
-                image={<img src={imgVertical} alt="vertical small image"/>}
+                image={<img src={imgVertical} alt="vertical small placeholder"/>}
                 {...args}
             />
             <ListItem
-                image={<img src={imgHorizontal} alt="horizontal small image"/>}
+                image={<img src={imgHorizontal} alt="horizontal small placeholder"/>}
                 {...args}
             />
             <ListItem
-                image={<img src={imgSquare} alt="square small image"/>}
+                image={<img src={imgSquare} alt="square small placeholder"/>}
                 {...args}
             />
         </ul>

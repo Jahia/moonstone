@@ -7,7 +7,7 @@ export const tableStructured: DataUser[] = [
         lastName: 'White-McFarlane-Johnson-Williams',
         age: 52,
         status: 'published',
-        progress: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999,
+        progress: 999999999999999,
         date: new Date('2024-01-15'),
         subRows: [
             {
@@ -289,7 +289,7 @@ export const tableFlat: DataUserFlat[] = [
         lastName: 'White-McFarlane-Johnson-Williams',
         age: 52,
         status: 'published',
-        progress: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999,
+        progress: 999999999999999,
         date: new Date('2024-01-15')
     },
     {

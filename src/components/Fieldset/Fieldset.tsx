@@ -37,7 +37,7 @@ export const Fieldset = React.forwardRef<HTMLFieldSetElement, FieldsetProps>(({
                 )}
             >
                 <Typography isNowrap className={clsx(['flexRow_nowrap', layout.flexRow_nowrap], ['flexFluid', layout.flexFluid], ['alignCenter', layout.alignCenter])} component="legend" variant="heading" weight="bold">{label}</Typography>
-                {buttons && buttons}
+                {buttons}
             </div>
             {helper &&
                 <Typography variant="caption" className={clsx('moonstone-fieldset_helper', styles['moonstone-fieldset_helper'])}>{helper}</Typography>}

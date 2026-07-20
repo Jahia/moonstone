@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import type {UncontrolledDynamicFieldsetProps} from './DynamicFieldset.types';
 import {ControlledDynamicFieldset} from './ControlledDynamicFieldset';
 
-export const UncontrolledDynamicFieldset: React.FC<UncontrolledDynamicFieldsetProps> = ({defaultChecked, onChange, ...props}) => {
+export const UncontrolledDynamicFieldset: React.FC<UncontrolledDynamicFieldsetProps> = ({defaultChecked = false, onChange, ...props}) => {
     const [checked, setChecked] = useState(defaultChecked);
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {

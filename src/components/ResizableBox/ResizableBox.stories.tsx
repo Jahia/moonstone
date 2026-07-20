@@ -2,7 +2,7 @@ import {action} from 'storybook/actions';
 import markdownNotes from './ResizableBox.md';
 import {ResizableBox} from './index';
 
-import type {Meta, StoryObj} from '@storybook/react';
+import type {Meta, StoryObj} from '@storybook/react-vite';
 import type {ResizableBoxProps} from './ResizableBox.types';
 import clsx from 'clsx';
 import {layout} from '~/globals/css-utils.js';

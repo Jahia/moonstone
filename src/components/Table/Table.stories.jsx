@@ -134,13 +134,13 @@ export const BasicReactTable = {
         return (
             <Table {...getTableProps()}>
                 <TableHead>
+                    {/* oxlint-disable-next-line react/jsx-key */}
                     {headerGroups.map(headerGroup => (
                         // A key is included in headerGroup.getHeaderGroupProps
-                        // eslint-disable-next-line react/jsx-key
                         <TableRow {...headerGroup.getHeaderGroupProps()}>
+                            {/* oxlint-disable-next-line react/jsx-key */}
                             {headerGroup.headers.map(column => (
                                 // A key is included in column.getHeaderProps
-                                // eslint-disable-next-line react/jsx-key
                                 <TableHeadCell
                                     {...column.getHeaderProps()}
                                     width={column.customWidth}
@@ -152,15 +152,15 @@ export const BasicReactTable = {
                     ))}
                 </TableHead>
                 <TableBody {...getTableBodyProps()}>
+                    {/* oxlint-disable-next-line react/jsx-key */}
                     {rows.map(row => {
                         prepareRow(row);
                         return (
                             // A key is included in row.getRowProps
-                            // eslint-disable-next-line react/jsx-key
                             <TableRow {...row.getRowProps()}>
+                                {/* oxlint-disable-next-line react/jsx-key */}
                                 {row.cells.map(cell => (
                                     // A key is included in cell.getCellProps
-                                    // eslint-disable-next-line react/jsx-key
                                     <TableBodyCell
                                         {...cell.getCellProps()}
                                         width={cell.column.customWidth}
@@ -248,13 +248,13 @@ export const SelectableRows = {
         return (
             <Table {...getTableProps()}>
                 <TableHead>
+                    {/* oxlint-disable-next-line react/jsx-key */}
                     {headerGroups.map(headerGroup => (
                         // A key is included in headerGroup.getHeaderGroupProps
-                        // eslint-disable-next-line react/jsx-key
                         <TableRow {...headerGroup.getHeaderGroupProps()}>
+                            {/* oxlint-disable-next-line react/jsx-key */}
                             {headerGroup.headers.map(column => (
                                 // A key is included in column.getHeaderProps
-                                // eslint-disable-next-line react/jsx-key
                                 <TableHeadCell
                                     {...column.getHeaderProps()}
                                     width={column.customWidth}
@@ -266,19 +266,19 @@ export const SelectableRows = {
                     ))}
                 </TableHead>
                 <TableBody {...getTableBodyProps()}>
+                    {/* oxlint-disable-next-line react/jsx-key */}
                     {rows.map((row, id) => {
                         prepareRow(row);
                         return (
                             // A key is included in row.getRowProps
-                            // eslint-disable-next-line react/jsx-key
                             <TableRow
                                 isSelected={row.isSelected}
                                 isHighlighted={id === 1}
                                 {...row.getRowProps()}
                             >
+                                {/* oxlint-disable-next-line react/jsx-key */}
                                 {row.cells.map(cell => (
                                     // A key is included in cell.getCellProps
-                                    // eslint-disable-next-line react/jsx-key
                                     <TableBodyCell
                                         {...cell.getCellProps()}
                                         width={cell.column.customWidth}
@@ -360,13 +360,13 @@ export const SortingByColumn = {
         return (
             <Table {...getTableProps()}>
                 <TableHead>
+                    {/* oxlint-disable-next-line react/jsx-key */}
                     {headerGroups.map(headerGroup => (
                         // A key is included in headerGroup.getHeaderGroupProps
-                        // eslint-disable-next-line react/jsx-key
                         <TableRow {...headerGroup.getHeaderGroupProps()}>
+                            {/* oxlint-disable-next-line react/jsx-key */}
                             {headerGroup.headers.map(column => (
                                 // A key is included in column.getHeaderProps
-                                // eslint-disable-next-line react/jsx-key
                                 <TableHeadCell
                                     {...column.getHeaderProps(column.getSortByToggleProps())}
                                     iconEnd={
@@ -382,18 +382,18 @@ export const SortingByColumn = {
                     ))}
                 </TableHead>
                 <TableBody {...getTableBodyProps()}>
+                    {/* oxlint-disable-next-line react/jsx-key */}
                     {rows.map(row => {
                         prepareRow(row);
                         return (
                             // A key is included in row.getRowProps
-                            // eslint-disable-next-line react/jsx-key
                             <TableRow
                                 {...row.getRowProps()}
                                 isHighlighted={row.values.name === 'Highlight Row'}
                             >
+                                {/* oxlint-disable-next-line react/jsx-key */}
                                 {row.cells.map(cell => (
                                     // A key is included in cell.getCellProps
-                                    // eslint-disable-next-line react/jsx-key
                                     <TableBodyCell
                                         {...cell.getCellProps()}
                                         width={cell.column.customWidth}
@@ -463,13 +463,13 @@ export const Pagination = {
             <>
                 <Table {...getTableProps()}>
                     <TableHead>
+                        {/* oxlint-disable-next-line react/jsx-key */}
                         {headerGroups.map(headerGroup => (
                             // A key is included in headerGroup.getHeaderGroupProps
-                            // eslint-disable-next-line react/jsx-key
                             <TableRow {...headerGroup.getHeaderGroupProps()}>
+                                {/* oxlint-disable-next-line react/jsx-key */}
                                 {headerGroup.headers.map(column => (
                                     // A key is included in column.getHeaderProps
-                                    // eslint-disable-next-line react/jsx-key
                                     <TableHeadCell
                                         {...column.getHeaderProps()}
                                         width={column.customWidth}
@@ -481,15 +481,15 @@ export const Pagination = {
                             ))}
                     </TableHead>
                     <TableBody {...getTableBodyProps()}>
+                        {/* oxlint-disable-next-line react/jsx-key */}
                         {rows.map(row => {
                             prepareRow(row);
                             return (
                                 // A key is included in row.getRowProps
-                                // eslint-disable-next-line react/jsx-key
                                 <TableRow {...row.getRowProps()}>
+                                    {/* oxlint-disable-next-line react/jsx-key */}
                                     {row.cells.map(cell => (
                                         // A key is included in cell.getCellProps
-                                        // eslint-disable-next-line react/jsx-key
                                         <TableBodyCell
                                             {...cell.getCellProps()}
                                             width={cell.column.customWidth}
@@ -573,13 +573,13 @@ export const StructuredView = {
         return (
             <Table {...getTableProps()}>
                 <TableHead>
+                    {/* oxlint-disable-next-line react/jsx-key */}
                     {headerGroups.map(headerGroup => (
                         // A key is included in headerGroup.getHeaderGroupProps
-                        // eslint-disable-next-line react/jsx-key
                         <TableRow {...headerGroup.getHeaderGroupProps()}>
+                            {/* oxlint-disable-next-line react/jsx-key */}
                             {headerGroup.headers.map(column => (
                                 // A key is included in column.getHeaderProps
-                                // eslint-disable-next-line react/jsx-key
                                 <TableHeadCell
                                     {...column.getHeaderProps()}
                                     width={column.customWidth}
@@ -591,15 +591,16 @@ export const StructuredView = {
                     ))}
                 </TableHead>
                 <TableBody {...getTableBodyProps()}>
+                    {/* oxlint-disable-next-line react/jsx-key */}
                     {rows.map(row => {
                         prepareRow(row);
                         return (
                             // A key is included in row.getRowProps
                             // eslint-disable-next-line react/jsx-key
                             <TableRow {...row.getRowProps()}>
+                                {/* oxlint-disable-next-line react/jsx-key */}
                                 {row.cells.map(cell => (
                                     // A key is included in cell.getCellProps
-                                    // eslint-disable-next-line react/jsx-key
                                     <TableBodyCell
                                         {...cell.getCellProps()}
                                         row={row}
@@ -736,13 +737,13 @@ export const KitchenSinkFlat = {
             <>
                 <Table {...getTableProps()}>
                     <TableHead isSticky>
+                        {/* oxlint-disable-next-line react/jsx-key */}
                         {headerGroups.map(headerGroup => (
                             // A key is included in headerGroup.getHeaderGroupProps
-                            // eslint-disable-next-line react/jsx-key
                             <TableRow {...headerGroup.getHeaderGroupProps()}>
+                                {/* oxlint-disable-next-line react/jsx-key */}
                                 {headerGroup.headers.map(column => (
                                     // A key is included in column.getHeaderProps
-                                    // eslint-disable-next-line react/jsx-key
                                     <TableHeadCell
                                         {...column.getHeaderProps(column.getSortByToggleProps())}
                                         iconEnd={
@@ -758,19 +759,19 @@ export const KitchenSinkFlat = {
                         ))}
                     </TableHead>
                     <TableBody {...getTableBodyProps()}>
+                        {/* oxlint-disable-next-line react/jsx-key */}
                         {rows.map((row, id) => {
                             prepareRow(row);
                             return (
                                 // A key is included in row.getRowProps
-                                // eslint-disable-next-line react/jsx-key
                                 <TableRow
                                     isSelected={row.isSelected}
                                     isHighlighted={id === 1}
                                     {...row.getRowProps()}
                                 >
+                                    {/* oxlint-disable-next-line react/jsx-key */}
                                     {row.cells.map(cell => (
                                         // A key is included in cell.getCellProps
-                                        // eslint-disable-next-line react/jsx-key
                                         <TableBodyCell
                                             {...cell.getCellProps()}
                                             iconStart={row.original[cell.column.id]?.icon}
@@ -878,13 +879,13 @@ export const KitchenSinkNested = {
         return (
             <Table {...getTableProps()}>
                 <TableHead isSticky>
+                    {/* oxlint-disable-next-line react/jsx-key */}
                     {headerGroups.map(headerGroup => (
                         // A key is included in headerGroup.getHeaderGroupProps
-                        // eslint-disable-next-line react/jsx-key
                         <TableRow {...headerGroup.getHeaderGroupProps()}>
+                            {/* oxlint-disable-next-line react/jsx-key */}
                             {headerGroup.headers.map(column => (
                                 // A key is included in column.getHeaderProps
-                                // eslint-disable-next-line react/jsx-key
                                 <TableHeadCell
                                     {...column.getHeaderProps(column.getSortByToggleProps())}
                                     iconEnd={
@@ -900,19 +901,19 @@ export const KitchenSinkNested = {
                     ))}
                 </TableHead>
                 <TableBody {...getTableBodyProps()}>
+                    {/* oxlint-disable-next-line react/jsx-key */}
                     {rows.map((row, id) => {
                         prepareRow(row);
                         return (
                             // A key is included in row.getRowProps
-                            // eslint-disable-next-line react/jsx-key
                             <TableRow
                                 isSelected={row.isSelected}
                                 isHighlighted={id === 1}
                                 {...row.getRowProps()}
                             >
+                                {/* oxlint-disable-next-line react/jsx-key */}
                                 {row.cells.map(cell => (
                                     // A key is included in cell.getCellProps
-                                    // eslint-disable-next-line react/jsx-key
                                     <TableBodyCell
                                         {...cell.getCellProps()}
                                         row={row}

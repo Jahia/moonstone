@@ -1,4 +1,4 @@
-import {StoryObj, Meta} from '@storybook/react';
+import {StoryObj, Meta} from '@storybook/react-vite';
 
 import {Modal, Button, Typography, Field, FieldSelector, Input, Chip, Dropdown} from '~/components';
 import type {ModalProps} from './Modal.types';

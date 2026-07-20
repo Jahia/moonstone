@@ -42,9 +42,7 @@ describe('TableRow', () => {
         render(<TableRow data-testid="moonstone-TableRow"/>);
         expect(screen.getByTestId('moonstone-TableRow')).toBeInTheDocument();
     });
-});
 
-describe('TableRow', () => {
     it('should have multiple lines', () => {
         render(<TableRow hasMultipleLines data-testid="moonstone-TableRow"/>);
         expect(screen.getByTestId('moonstone-TableRow')).toHaveClass('moonstone-TableRow-multipleLines');

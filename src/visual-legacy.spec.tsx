@@ -1,7 +1,7 @@
 // Exact same test suite as visual.spec.tsx, but with global styles
 import './globals.scss';
 
-import {composeStories} from '@storybook/react';
+import {composeStories} from '@storybook/react-vite';
 import type {JSX} from 'react';
 import {describe, expect, test} from 'vitest';
 import {render} from 'vitest-browser-react';

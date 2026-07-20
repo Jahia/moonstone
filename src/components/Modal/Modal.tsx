@@ -18,7 +18,7 @@ import styles from './Modal.module.scss';
 
 const ModalForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalProps> = ({
     className,
-    isOpen = false,
+    isOpen,
     onOpenChange,
     size = 'medium',
     children,

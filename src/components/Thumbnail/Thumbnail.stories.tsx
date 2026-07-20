@@ -1,4 +1,4 @@
-import type {Meta, StoryObj} from '@storybook/react';
+import type {Meta, StoryObj} from '@storybook/react-vite';
 import {Thumbnail} from './Thumbnail';
 import {Love} from '~/icons';
 import imgVertical from '~/__storybook__/assets/img-vertical.webp';

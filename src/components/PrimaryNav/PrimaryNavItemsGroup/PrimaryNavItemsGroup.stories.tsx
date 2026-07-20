@@ -1,4 +1,4 @@
-import type {Meta, StoryObj} from '@storybook/react';
+import type {Meta, StoryObj} from '@storybook/react-vite';
 import {PrimaryNavItemsGroup} from './index';
 import {PrimaryNavItem} from '~/components/PrimaryNav/PrimaryNavItem';
 import {Edit} from '~/icons';

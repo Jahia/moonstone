@@ -149,12 +149,12 @@ export const WithButtons = (args: CustomDropdownProps) => {
         variant = 'ghost',
         isDisabled = false,
         isLoading = false,
-        children =
-        // eslint-disable-next-line react/jsx-indent
-        <>
-            <Button label="Valeur 1" onClick={() => setLabelState('Valeur 1')}/>
-            <Button label="Valeur 2" onClick={() => setLabelState('Valeur 2')}/>
-        </>
+        children = (
+            <>
+                <Button label="Valeur 1" onClick={() => setLabelState('Valeur 1')}/>
+                <Button label="Valeur 2" onClick={() => setLabelState('Valeur 2')}/>
+            </>
+        ),
     } = args;
 
     return (

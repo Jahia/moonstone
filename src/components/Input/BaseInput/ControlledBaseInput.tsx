@@ -7,7 +7,7 @@ import {layout} from '~/globals/css-utils.js';
 import styles from './BaseInput.module.scss';
 
 const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInputProps>(({
-    value = '',
+    value,
     id,
     role,
     placeholder,

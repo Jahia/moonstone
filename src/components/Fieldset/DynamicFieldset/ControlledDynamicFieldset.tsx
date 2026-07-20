@@ -12,7 +12,7 @@ export const ControlledDynamicFieldset = React.forwardRef<HTMLFieldSetElement, C
     children,
     className,
     buttons,
-    checked = false,
+    checked,
     onChange,
     ...props
 }, ref) => {
@@ -50,7 +50,7 @@ export const ControlledDynamicFieldset = React.forwardRef<HTMLFieldSetElement, C
                 >{label}
                 </Typography>
                 <Switch id="moonstone-dynamic-fieldset-switch" checked={checked} onChange={onChange}/>
-                {buttons && buttons}
+                {buttons}
             </legend>
             {helper &&
                 <Typography variant="caption" className={clsx('moonstone-fieldset_helper', styles['moonstone-fieldset_helper'])}>{helper}</Typography>}

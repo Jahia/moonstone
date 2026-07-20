@@ -11,17 +11,17 @@ import valueListStyles from './ValueList/ValueList.module.scss';
 const MLRS_DRAG = 'mlrs_drag_list_item';
 
 export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
-    label = {
-        rightListTitle: '',
-        leftListTitle: '',
-        addAllTitle: '',
-        removeAllTitle: '',
-        selected: ''
-    },
     options = [],
     values = [],
     isReadOnly,
     onChange,
+    label = {
+        rightListTitle: 'Label for the right list',
+        leftListTitle: 'Label for the left list',
+        addAllTitle: 'Add all',
+        removeAllTitle: 'Remove all',
+        selected: `${values.length} item(s) selected`
+    },
     ...props
 }) => {
     const [dragged, setDragged] = useState(null);

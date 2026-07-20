@@ -8,11 +8,11 @@ export function useSelection({selection, defaultSelection = [], onChangeSelectio
     const isSelectionControlled = selection !== undefined;
 
     const [state, setState] = useState<RowSelectionState>(
-        () => defaultSelection.reduce<RowSelectionState>((acc, id) => ({...acc, [id]: true}), {})
+        () => defaultSelection.reduce<RowSelectionState>((acc, id) => Object.assign(acc, {[id]: true}), {})
     );
 
     const rowSelection = isSelectionControlled ?
-        selection.reduce<RowSelectionState>((acc, id) => ({...acc, [id]: true}), {}) :
+        selection.reduce<RowSelectionState>((acc, id) => Object.assign(acc, {[id]: true}), {}) :
         state;
 
     const handleRowSelectionChange = (updater: React.SetStateAction<RowSelectionState>) => {

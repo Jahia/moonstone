@@ -12,7 +12,7 @@ const ControlledCollapsibleForwardRef: React.ForwardRefRenderFunction<HTMLDivEle
     children,
     onClick,
     id = null,
-    isExpanded = false,
+    isExpanded,
     ...other
 }, ref) => {
     const classNameProps = clsx(

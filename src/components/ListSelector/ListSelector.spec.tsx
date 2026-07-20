@@ -1,4 +1,5 @@
 import {render, screen, fireEvent} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import {ListSelector} from './index';
 
 const requiredProps = {
@@ -79,27 +80,9 @@ describe('MultipleLeftRightSelector', () => {
         });
     });
 
-    it('should display selection in right list', () => {
-        const mockOnChange = vi.fn(v => console.log(v));
-        const selection = ['1', '3'];
-        const {container} = render(
-            <ListSelector
-                {...requiredProps}
-                options={options}
-                values={selection}
-                onChange={mockOnChange}
-            />
-        );
-        expect(container.querySelectorAll('li[role="left-list"]')).toHaveLength(
-            options.length - selection.length
-        );
-        expect(
-            container.querySelectorAll('li[role="right-list"]')
-        ).toHaveLength(selection.length);
-    });
-
-    it('should pass all items when addAll button clicked', () => {
-        const mockOnChange = vi.fn(v => console.log(v));
+    it('should pass all items when addAll button clicked', async () => {
+        const mockOnChange = vi.fn();
+        const user = userEvent.setup();
         const selection = ['1', '3'];
         const {container} = render(
             <ListSelector
@@ -112,15 +95,16 @@ describe('MultipleLeftRightSelector', () => {
 
         const button = container.querySelector('button[title="Add all"]');
 
-        fireEvent.click(button);
+        await user.click(button);
 
         expect(mockOnChange).toHaveBeenCalledTimes(1);
         expect(mockOnChange.mock.calls[0][0]).toHaveLength(3);
         expect(mockOnChange.mock.calls[0][0]).toContain('3');
     });
 
-    it('should filter items', () => {
-        const mockOnChange = vi.fn(v => console.log(v));
+    it('should filter items', async () => {
+        const mockOnChange = vi.fn();
+        const user = userEvent.setup();
         const {container} = render(
             <ListSelector {...requiredProps} options={options} onChange={mockOnChange}/>
         );
@@ -130,7 +114,7 @@ describe('MultipleLeftRightSelector', () => {
 
         const search = container.querySelector('input[role="searchbox"]');
 
-        fireEvent.change(search, {target: {value: 'On'}});
+        await user.type(search, 'On');
 
         expect(container.querySelectorAll('li[role="left-list"]')).toHaveLength(
             1

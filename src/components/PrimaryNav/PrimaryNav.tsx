@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback, useMemo} from 'react';
 import clsx from 'clsx';
 
 import type {PrimaryNavButtonProps, PrimaryNavHeaderProps, PrimaryNavProps} from './PrimaryNav.types';
@@ -68,8 +68,11 @@ export const PrimaryNav: React.FC<PrimaryNavProps> = ({
         setExpanded(!isExpanded);
     };
 
+    const collapse = useCallback(() => setExpanded(false), []);
+    const contextValue = useMemo(() => ({isExpanded, collapse}), [isExpanded, collapse]);
+
     return (
-        <PrimaryNavContext.Provider value={{isExpanded, collapse: () => setExpanded(false)}}>
+        <PrimaryNavContext.Provider value={contextValue}>
             <nav
                 {...props}
                 aria-expanded={isExpanded}

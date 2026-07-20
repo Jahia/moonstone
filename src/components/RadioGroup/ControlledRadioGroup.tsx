@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import clsx from 'clsx';
 import {RadioGroupContext} from './RadioGroup.context';
 import type {ControlledRadioGroupProps} from './RadioGroup.types';
@@ -10,13 +10,13 @@ export const ControlledRadioGroup: React.FC<ControlledRadioGroupProps> = ({child
         value = (children[0].props.value);
     }
 
-    const provider = {
-        name: name,
-        value: value,
+    const provider = useMemo(() => ({
+        name,
+        value,
         isDisabled,
         isReadOnly,
-        onChange: onChange
-    };
+        onChange
+    }), [name, value, isDisabled, isReadOnly, onChange]);
 
     return (
         <RadioGroupContext.Provider value={provider}>

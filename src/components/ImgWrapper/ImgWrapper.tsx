@@ -14,6 +14,7 @@ export const ImgWrapper: React.FC<ImgWrapperProps> = ({
         [`moonstone-icon_${size}`, icons[`moonstone-icon_${size}`]]
     );
     return (
+        // oxlint-disable-next-line jsx-a11y/alt-text
         <img {...props} className={classes}/>
     );
 };

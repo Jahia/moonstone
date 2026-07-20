@@ -1,16 +1,16 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import clsx from 'clsx';
 import {CheckboxGroupContext} from './CheckboxGroup.context';
 import type {CheckboxGroupProps} from './CheckboxGroup.types';
 import {layout} from '~/globals/css-utils.js';
 
 export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({children, name, isDisabled, isReadOnly, className, onChange, ...props}) => {
-    const provider = {
-        name: name,
+    const provider = useMemo(() => ({
+        name,
         isDisabled,
         isReadOnly,
-        onChange: onChange
-    };
+        onChange
+    }), [name, isDisabled, isReadOnly, onChange]);
 
     return (
         <CheckboxGroupContext.Provider value={provider}>

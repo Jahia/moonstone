@@ -27,7 +27,7 @@ describe('Dropdown', () => {
                 value=""
             />
         );
-        expect(screen.queryByTestId('dropdown-icon')).toBeInTheDocument();
+        expect(screen.getByTestId('dropdown-icon')).toBeInTheDocument();
     });
 
     it('should add additional class names', () => {
@@ -245,7 +245,7 @@ describe('Dropdown', () => {
         ).toHaveClass('moonstone-disabled');
     });
 
-    it('should not add "dropdown-disabled" class if data is empty when "isDisabled=false" ', () => {
+    it('should not add "dropdown-disabled" class if data is empty when "isDisabled=false"', () => {
         render(
             <Dropdown
                 data={[]}
@@ -263,7 +263,7 @@ describe('Dropdown', () => {
     it('should display the value', () => {
         render(<Dropdown data={dropdownData} value={dropdownData[3].value}/>);
         expect(
-            queryByText(
+            getByText(
                 document.querySelector('.moonstone-typography'),
                 dropdownData[3].label
             )
@@ -288,9 +288,7 @@ describe('Dropdown', () => {
 
     it('should display tags for multiple values', () => {
         render(<Dropdown data={dropdownData} values={[dropdownData[3].value]}/>);
-        expect(
-            queryByText(document.querySelector('.moonstone-tag'), dropdownData[3].label)
-        ).toBeInTheDocument();
+        expect(screen.getByText(dropdownData[3].label)).toBeInTheDocument();
     });
 
     it('should show checkboxes for multiple select', async () => {
@@ -330,7 +328,7 @@ describe('Dropdown', () => {
 
         expect(dropdownData.length).toBeGreaterThan(7); // Triggers auto-adding search input
         await user.click(screen.getByRole('listbox'));
-        expect(screen.queryByRole('search')).toBeInTheDocument();
+        expect(screen.getByRole('search')).toBeInTheDocument();
     });
 
     it('should not show search input when autoSearch is enabled (hasSearch=undefined) and does not exceed limit', async () => {
@@ -360,7 +358,7 @@ describe('Dropdown', () => {
 
         expect(dropdownData.length).toBeGreaterThan(limit); // Triggers auto-adding search input
         await user.click(screen.getByRole('listbox'));
-        expect(screen.queryByRole('search')).toBeInTheDocument();
+        expect(screen.getByRole('search')).toBeInTheDocument();
     });
 
     it('should show search input when hasSearch is enabled', async () => {
@@ -372,7 +370,7 @@ describe('Dropdown', () => {
         );
 
         await user.click(screen.getByRole('listbox'));
-        expect(screen.queryByRole('search')).toBeInTheDocument();
+        expect(screen.getByRole('search')).toBeInTheDocument();
     });
 
     it('should not show search input when hasSearch is disabled', async () => {
@@ -405,7 +403,7 @@ describe('Dropdown', () => {
             />
         );
         await user.click(screen.getByRole('listbox'));
-        expect(screen.queryByRole('search')).toBeInTheDocument();
+        expect(screen.getByRole('search')).toBeInTheDocument();
     });
 });
 

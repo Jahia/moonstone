@@ -9,7 +9,8 @@ import styles from './Menu.module.scss';
 const getFlatChildren = (children: [React.ReactElement]) => {
     if (children[0].props['data-option-type'] === 'group') {
         return children.reduce((acc, curr) => {
-            return [...acc, ...curr.props.children[2]];
+            acc.push(...curr.props.children[2]);
+            return acc;
         }, []);
     }
 

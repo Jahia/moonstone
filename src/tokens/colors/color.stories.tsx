@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import './colors.stories.scss';
 import '~/__storybook__/storybook.scss';
-import {Meta, StoryObj} from '@storybook/react';
+import type {Meta, StoryObj} from '@storybook/react-vite';
 
 const paletteNeutral = [
     'light',
@@ -101,7 +101,7 @@ const paletteColors = [
     'purple_dark'
 ];
 
-type Palettes = typeof paletteAccent | typeof paletteColors | typeof paletteNeutral | typeof paletteSupport;
+type Palettes = typeof paletteAccent      ;
 type ColorProps = {
     readonly color: string,
     readonly name: string

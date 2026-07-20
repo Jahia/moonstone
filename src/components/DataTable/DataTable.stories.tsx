@@ -1,6 +1,6 @@
 import {tableStructured, tableFlat, dataColumnsUser, getStatus} from '~/data/dataTable';
 import type {DataUser, DataUserKeys} from '~/data/dataTable';
-import type {Meta, StoryObj} from '@storybook/react';
+import type {Meta, StoryObj} from '@storybook/react-vite';
 import {DataTable, TableRow, TableCellActions, TableCellStatus} from './index';
 import {useState} from 'react';
 import {Button} from '~/components';

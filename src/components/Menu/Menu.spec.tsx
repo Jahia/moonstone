@@ -10,8 +10,8 @@ describe('Menu', () => {
     });
 
     it('should not display the menu when children is empty', () => {
-        const {queryByTestId} = render(<Menu isDisplayed data-testid="moonstone-menu">{[]}</Menu>);
-        expect(queryByTestId('moonstone-menu')).not.toBeInTheDocument();
+        render(<Menu isDisplayed data-testid="moonstone-menu">{[]}</Menu>);
+        expect(screen.queryByTestId('moonstone-menu')).not.toBeInTheDocument();
     });
 
     describe('search functionality', () => {

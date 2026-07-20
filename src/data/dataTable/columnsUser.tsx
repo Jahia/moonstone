@@ -25,10 +25,10 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
         label: 'User',
         isScrollable: true,
         ...stringColumn<DataUser>(row => row.firstName),
-        render: ({value, data}) => (
+        render: ({data}) => (
             <>
                 <Person/>
-                <Typography isNowrap variant="body">{`${value} ${data.lastName}`}</Typography>
+                <Typography isNowrap variant="body">{`${data.firstName} ${data.lastName}`}</Typography>
             </>
         )
     },

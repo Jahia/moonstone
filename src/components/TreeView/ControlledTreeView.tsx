@@ -36,7 +36,7 @@ const displayIcon = (icon: React.ReactElement, size: 'small' | 'default' | 'big'
 const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElement, ControlledTreeViewProps> = (
     {
         data,
-        openedItems = [],
+        openedItems,
         selectedItems = [],
         highlightedItems = [],
         showCheckbox = false,
