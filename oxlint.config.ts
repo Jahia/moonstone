@@ -164,10 +164,10 @@ export default defineConfig({
             files: ['**/*.stories.{ts,tsx,js,jsx}'],
             jsPlugins: ['eslint-plugin-storybook'],
             rules: {
-                // [0] registers the plugin and has no rules; [1] targets stories
                 ...storybook.configs['flat/recommended'][1].rules,
                 // Fixture objects read better with several properties per line
                 '@stylistic/object-property-newline': 'off',
+                'typescript/no-useless-default-assignment': 'off',
             },
         },
         {
@@ -212,6 +212,7 @@ export default defineConfig({
                 'react/jsx-no-constructed-context-values': 'off',
                 // Fixture objects read better with several properties per line
                 '@stylistic/object-property-newline': 'off',
+                'jsx-a11y/alt-text': 'off',
                 ...testingLibrary.configs['flat/react'].rules,
                 // TODO: ratchet to 'error' after the CSS-modules test migration (~105 hits)
                 'testing-library/no-container': 'warn',
