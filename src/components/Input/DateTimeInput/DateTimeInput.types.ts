@@ -5,6 +5,7 @@ import type {BaseInputProps} from '../BaseInput/BaseInput.types';
 import type {TimeFormat, TimeInputProps} from '../TimeInput';
 import type {ControlledTimezoneSelectorProps} from '../../TimezoneSelector';
 import type {DateTimeValue} from './dateTimeValue';
+import type {DataAttributes} from '~/types/DataAttributes.types';
 
 /**
  * Selects the component's mode, which fields it renders, and the emitted value type:
@@ -63,7 +64,7 @@ export type DateTimeInputTimezoneSelectorProps = Omit<ControlledTimezoneSelector
     'size' |
     'variant' |
     'isDisabled'
->;
+> & DataAttributes;
 
 /** Props common to every mode of the `DateTimeInput`. */
 export type DateTimeInputSharedProps = Omit<BaseInputProps,

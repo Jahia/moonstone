@@ -3,7 +3,6 @@ import type {Meta, StoryObj} from '@storybook/react-vite';
 import {Temporal} from 'temporal-polyfill';
 import {Button} from '~/components';
 import {TimeInput} from './TimeInput';
-import markdownNotes from './TimeInput.md';
 
 export default {
     title: 'Components/Input/TimeInput',
@@ -12,7 +11,6 @@ export default {
     parameters: {
         layout: 'centered',
         actions: {argTypesRegex: '^on.*'},
-        notes: {markdown: markdownNotes}
     }
 } satisfies Meta<typeof TimeInput>;
 
