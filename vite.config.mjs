@@ -107,11 +107,6 @@ export default defineConfig({
                     // Runs the tests for the stories defined in your Storybook config
                     storybookTest({configDir: path.resolve('.storybook')})
                 ],
-                // Pre-bundle CJS-only deps so their named exports resolve in browser mode
-                // (e.g. aria-query's `elementRoles`, pulled in transitively by the a11y setup).
-                optimizeDeps: {
-                    include: ['aria-query']
-                },
                 test: {
                     name: 'storybook',
                     setupFiles: ['./.storybook/vitest.setup.ts'],
