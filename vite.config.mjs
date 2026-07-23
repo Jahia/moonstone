@@ -46,8 +46,8 @@ export default defineConfig({
     test: {
         coverage: {
             provider: 'v8',
-            include: ['src/**/*.spec.tsx'],
-            exclude: ['src/__mocks__', 'src/__storybook__', 'src/data', '**/*.stories.*']
+            include: ['src/**/*.{ts,tsx}'],
+            exclude: ['src/__mocks__', 'src/__storybook__', 'src/data', '**/*.stories.*', '**/*.spec.tsx']
         },
         projects: [{
             extends: true,
