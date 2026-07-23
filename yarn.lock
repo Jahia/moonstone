@@ -1901,6 +1901,7 @@ __metadata:
     "@storybook/addon-a11y": "npm:^10.5.3"
     "@storybook/addon-docs": "npm:^10.5.3"
     "@storybook/addon-mcp": "npm:^0.7.0"
+    "@storybook/addon-vitest": "npm:^10.5.3"
     "@storybook/react-vite": "npm:^10.5.3"
     "@svgr/cli": "npm:^8.1.0"
     "@svgr/core": "npm:^8.1.0"
@@ -2782,6 +2783,31 @@ __metadata:
     "@storybook/addon-vitest":
       optional: true
   checksum: 10c0/c33c506062eeec37d47cfa2dcd0d3076bdc43229b88dae27336af4a33d65c408e3e7de036c36bc99db81a9b3f194fb750de7b1fae98b309433cf03376dd04d18
+  languageName: node
+  linkType: hard
+
+"@storybook/addon-vitest@npm:^10.5.3":
+  version: 10.5.3
+  resolution: "@storybook/addon-vitest@npm:10.5.3"
+  dependencies:
+    "@storybook/global": "npm:^5.0.0"
+    "@storybook/icons": "npm:^2.0.2"
+  peerDependencies:
+    "@vitest/browser": ^3.0.0 || ^4.0.0
+    "@vitest/browser-playwright": ^4.0.0
+    "@vitest/runner": ^3.0.0 || ^4.0.0
+    storybook: ^10.5.3
+    vitest: ^3.0.0 || ^4.0.0
+  peerDependenciesMeta:
+    "@vitest/browser":
+      optional: true
+    "@vitest/browser-playwright":
+      optional: true
+    "@vitest/runner":
+      optional: true
+    vitest:
+      optional: true
+  checksum: 10c0/641e38bba82cb02e4c043248b435da8dbfa76e6e45ef876a8bd43f5dbb4b8ffb57897d0cafae4cdbf740bebfdb300dc9ae97b730b14d84529fedf203f36d87d3
   languageName: node
   linkType: hard
 

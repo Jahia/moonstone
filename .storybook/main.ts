@@ -11,6 +11,7 @@ const config: StorybookConfig = {
         "@storybook/addon-a11y",
         "storybook-addon-tag-badges",
         "@storybook/addon-mcp",
+        "@storybook/addon-vitest"
     ],
     features: {
         experimentalReactComponentMeta: true,
