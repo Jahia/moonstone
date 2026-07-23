@@ -3,7 +3,7 @@ import type {DataUser, DataUserKeys} from '~/data/dataTable';
 import type {Meta, StoryObj} from '@storybook/react';
 import {DataTable, TableRow, TableCellActions, TableCellStatus} from './index';
 import {useState} from 'react';
-import {Button} from '~/components';
+import {Button, Tooltip} from '~/components';
 import {Visibility, Edit, Delete, MoreVert} from '~/icons';
 
 export default {
@@ -137,9 +137,15 @@ export const InsertCells: Story = {
                                 <TableCellActions
                                     actionsOnHover={
                                         <>
-                                            <Button icon={<Visibility/>} variant="ghost"/>
-                                            <Button icon={<Edit/>} variant="ghost"/>
-                                            <Button icon={<Delete/>} variant="ghost"/>
+                                            <Tooltip label="View">
+                                                <Button icon={<Visibility/>} variant="ghost"/>
+                                            </Tooltip>
+                                            <Tooltip label="Edit">
+                                                <Button icon={<Edit/>} variant="ghost"/>
+                                            </Tooltip>
+                                            <Tooltip label="Delete">
+                                                <Button icon={<Delete/>} variant="ghost"/>
+                                            </Tooltip>
                                         </>
                                     }
                                     actions={<Button icon={<MoreVert/>} variant="ghost" aria-label="Actions"/>}
