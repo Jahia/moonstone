@@ -44,6 +44,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     disabledDateRanges,
     disabledDaysOfWeek,
     locale = 'en',
+    dateFormat,
     weekStartsOn,
     i18n,
     size,
@@ -147,7 +148,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                 ref={handleRef}
                 {...props}
                 className={styles.dateField}
-                value={formatPlainDate(selectedDate, locale)}
+                value={formatPlainDate(selectedDate, locale, dateFormat)}
                 size={size}
                 variant={variant}
                 isDisabled={isDisabled}

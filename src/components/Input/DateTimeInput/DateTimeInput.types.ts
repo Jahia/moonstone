@@ -16,6 +16,13 @@ import type {DataAttributes} from '~/types/DataAttributes.types';
 export type DateTimeInputType = 'date' | 'dateTime' | 'zonedDateTime';
 
 /**
+ * Explicit display order for the date in the input, overriding the order guessed from `locale`
+ * (the calendar's month/weekday text still follows `locale`). Each literal is also its template:
+ * `DD`/`MM`/`YYYY` are replaced with the zero-padded parts, other characters kept as separators.
+ */
+export type DateFormat = 'DD/MM/YYYY' | 'MM/DD/YYYY' | 'YYYY-MM-DD';
+
+/**
  * A calendar date accepted by the bounds / disabled-date props.
  * Accepts a `Temporal.PlainDate` or an ISO date string (e.g. `'2026-06-19'`).
  */
@@ -111,6 +118,9 @@ export type DateTimeInputSharedProps = Omit<BaseInputProps,
      * When omitted, the browser's locale is used (`Intl.DateTimeFormat` with no locale argument).
      */
     locale?: Intl.ResolvedDateTimeFormatOptions['locale'];
+
+    /** Forces the date order in the input (e.g. `'DD/MM/YYYY'`), overriding the locale-based order. */
+    dateFormat?: DateFormat;
 
     /**
      * The day of the week that starts the calendar week.

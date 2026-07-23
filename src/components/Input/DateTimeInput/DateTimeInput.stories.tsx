@@ -43,6 +43,22 @@ export const DateOnly: Story = {
     name: 'Date Only'
 };
 
+// `dateFormat` forces the input's date order (US month-first) while `locale` keeps the calendar
+// text French — the two are decoupled. Without it, French would give day-first (`30/03/2026`).
+export const CustomDateFormat: Story = {
+    args: {
+        type: 'date',
+        locale: 'fr',
+        dateFormat: 'MM/DD/YYYY',
+        i18n: {
+            todayButton: 'Aujourd\'hui',
+            nextMonth: 'Mois suivant',
+            previousMonth: 'Mois précédent'
+        }
+    },
+    name: 'Custom Date Format'
+};
+
 export const DateTimeWithTimezone: Story = {
     args: {
         type: 'zonedDateTime',

@@ -1,6 +1,6 @@
 import {Temporal} from 'temporal-polyfill';
 import type {Matcher} from 'react-day-picker';
-import type {CalendarDate, DayOfWeek, DisabledDateRange} from './DateTimeInput.types';
+import type {CalendarDate, DateFormat, DayOfWeek, DisabledDateRange} from './DateTimeInput.types';
 import {getTodayPlainDate, plainDateToDate, toPlainDate} from '../utils/temporal';
 
 /**
@@ -31,14 +31,25 @@ export const getWeekStartsOn = (locale?: string): DayOfWeek => {
     return 1; // Monday
 };
 
+// Fills the `DateFormat` template: tokens → zero-padded parts, other chars kept as separators.
+// Each token is replaced once with digits only, so replacements never collide (order irrelevant).
+const formatWithPattern = (value: Temporal.PlainDate, dateFormat: DateFormat): string =>
+    dateFormat
+        .replace('YYYY', String(value.year).padStart(4, '0'))
+        .replace('MM', String(value.month).padStart(2, '0'))
+        .replace('DD', String(value.day).padStart(2, '0'));
+
 /**
- * Formats a calendar date for display in the trigger input.
- * Uses `Intl.DateTimeFormat` so the output respects the consumer's locale, falling back
- * to the browser locale when `locale` is not provided. Returns '' when there is no date.
+ * Formats the date for the trigger input. Returns '' when there is no date.
+ * `dateFormat` fixes the order; otherwise `Intl` derives it from `locale` (browser locale if unset).
  */
-export const formatPlainDate = (value: Temporal.PlainDate | null, locale?: string) => {
+export const formatPlainDate = (value: Temporal.PlainDate | null, locale?: string, dateFormat?: DateFormat) => {
     if (!value) {
         return '';
+    }
+
+    if (dateFormat) {
+        return formatWithPattern(value, dateFormat);
     }
 
     return new Intl.DateTimeFormat(locale || undefined).format(plainDateToDate(value));

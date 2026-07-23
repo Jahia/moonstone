@@ -794,6 +794,26 @@ describe('DateTimeInput', () => {
         expect(handleChange).not.toHaveBeenCalled();
     });
 
+    // dateFormat drives the input's display string, so we assert it directly. locale="fr" proves
+    // the format overrides the locale order; the 05/03 date keeps day vs month unambiguous.
+    it.each([
+        {dateFormat: 'DD/MM/YYYY', expected: '05/03/2026'},
+        {dateFormat: 'MM/DD/YYYY', expected: '03/05/2026'},
+        {dateFormat: 'YYYY-MM-DD', expected: '2026-03-05'}
+    ] as const)('should render $dateFormat, overriding the locale order', ({dateFormat, expected}) => {
+        render(
+            <DateTimeInput
+                type="date"
+                placeholder="Select a date"
+                defaultValue="2026-03-05"
+                locale="fr"
+                dateFormat={dateFormat}
+            />
+        );
+
+        expect(dateField()).toHaveValue(expected);
+    });
+
     describe('local time conversion hint', () => {
         beforeEach(() => {
             vi.spyOn(Temporal.Now, 'timeZoneId').mockReturnValue('Europe/Paris');
