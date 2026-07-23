@@ -68,8 +68,7 @@ export const Tooltip = ({
                                 {label}
                             </Typography>
                         </div>
-                    </FloatingPortal>
-                }
+                    </FloatingPortal>}
             </div>
         );
     }
