@@ -109,7 +109,8 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
             day: 'numeric',
             hour: 'numeric',
             minute: '2-digit',
-            hour12: timeFormat === '12h'
+            hour12: timeFormat === '12h',
+            timeZone: systemTimeZone
         }).format(new Date((currentValue as Temporal.ZonedDateTime).withTimeZone(systemTimeZone).epochMilliseconds))
         : null;
 

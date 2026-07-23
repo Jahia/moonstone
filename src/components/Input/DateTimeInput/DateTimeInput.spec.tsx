@@ -814,7 +814,7 @@ describe('DateTimeInput', () => {
         expect(dateField()).toHaveValue(expected);
     });
 
-    describe('local time conversion hint', () => {
+    describe('local time caption', () => {
         beforeEach(() => {
             vi.spyOn(Temporal.Now, 'timeZoneId').mockReturnValue('Europe/Paris');
         });
@@ -823,7 +823,7 @@ describe('DateTimeInput', () => {
             vi.restoreAllMocks();
         });
 
-        it('should not show the hint when the selected timezone equals the system timezone', () => {
+        it('should not show the local time caption when the selected timezone equals the system timezone', () => {
             render(
                 <DateTimeInput
                     type="zonedDateTime"
@@ -836,7 +836,7 @@ describe('DateTimeInput', () => {
             expect(screen.queryByText(/Your local time/)).not.toBeInTheDocument();
         });
 
-        it('should not show the hint when only a date is set but no time', () => {
+        it('should not show the local time caption when only a date is set but no time', () => {
             render(
                 <DateTimeInput
                     type="zonedDateTime"
@@ -849,7 +849,7 @@ describe('DateTimeInput', () => {
             expect(screen.queryByText(/Your local time/)).not.toBeInTheDocument();
         });
 
-        it('should show the hint when the selected timezone differs from the system timezone', () => {
+        it('should show the local time caption when the selected timezone differs from the system timezone', () => {
             // Abidjan is UTC+0; Paris in winter is UTC+1 → 11:56 Abidjan = 12:56 Paris
             render(
                 <DateTimeInput
@@ -863,7 +863,7 @@ describe('DateTimeInput', () => {
             expect(screen.getByText(/Your local time/)).toBeInTheDocument();
         });
 
-        it('should display the converted date and time in the hint', () => {
+        it('should display the converted date and time in the local time caption', () => {
             // 00:00 Abidjan (UTC+0) = 01:00 Paris (UTC+1) — same day, unambiguous
             render(
                 <DateTimeInput
@@ -875,13 +875,33 @@ describe('DateTimeInput', () => {
                 />
             );
 
-            // The hint must include both a date fragment and a time fragment.
+            // The local time caption must include both a date fragment and a time fragment.
             // We verify the time portion (01:00) is present; the exact date format is locale-dependent.
             expect(screen.getByText(/Your local time/)).toBeInTheDocument();
             expect(screen.getByText(/01:00/)).toBeInTheDocument();
         });
 
-        it('should show the previous day in the hint when the conversion crosses midnight', () => {
+        // Host TZ (Tokyo) differs from both the selected and system zones, so this only passes
+        // if the local time caption uses the system timezone rather than the host's default.
+        it('should convert to the mocked system timezone regardless of the host timezone', () => {
+            vi.stubEnv('TZ', 'Asia/Tokyo');
+
+            render(
+                <DateTimeInput
+                    type="zonedDateTime"
+                    placeholder="Select a date"
+                    defaultValue="2026-02-10T00:00[Africa/Abidjan]"
+                    locale="en"
+                    onChange={() => null}
+                />
+            );
+
+            expect(screen.getByText(/01:00/)).toBeInTheDocument();
+
+            vi.unstubAllEnvs();
+        });
+
+        it('should show the previous day in the local time caption when the conversion crosses midnight', () => {
             // 00:00 in Toronto (UTC−5 in winter) = 06:00 Paris (UTC+1) same day
             // Use the reverse: 00:00 Paris (UTC+1) = 23:00 prev day in Toronto.
             // Here system=Paris, selected=Toronto: 2026-02-10T00:00 Toronto = 2026-02-10T06:00 Paris
@@ -896,7 +916,7 @@ describe('DateTimeInput', () => {
                 />
             );
 
-            // The hint must include the converted date (Feb 9) to avoid day-boundary ambiguity.
+            // The local time caption must include the converted date (Feb 9) to avoid day-boundary ambiguity.
             expect(screen.getByText(/Feb 9/)).toBeInTheDocument();
         });
 
@@ -929,7 +949,7 @@ describe('DateTimeInput', () => {
             expect(screen.getByText(/Your local time/)).toBeInTheDocument();
         });
 
-        it('should format the hint time as 12h when timeFormat="12h"', () => {
+        it('should format the local time caption\'s time as 12h when timeFormat="12h"', () => {
             // 23:00 Abidjan (UTC+0) = 00:00 Paris next day (UTC+1)
             // Use 11:56 Abidjan = 12:56 Paris → with 12h: "12:56 PM"
             render(
@@ -943,7 +963,7 @@ describe('DateTimeInput', () => {
                 />
             );
 
-            // 12h format includes AM/PM in the hint text
+            // 12h format includes AM/PM in the local time caption's text
             expect(screen.getByText(/Your local time/)).toHaveTextContent(/PM|AM/);
         });
     });
