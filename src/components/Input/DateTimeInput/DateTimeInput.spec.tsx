@@ -319,16 +319,16 @@ describe('DateTimeInput', () => {
         );
 
         await user.click(dateField());
-        expect(screen.getByText(march2026)).toBeInTheDocument();
+        expect(screen.getByRole('grid', {name: march2026})).toBeInTheDocument();
 
         await user.click(screen.getByRole('button', {name: nextMonthLabel}));
-        expect(screen.getByText(april2026)).toBeInTheDocument();
+        expect(screen.getByRole('grid', {name: april2026})).toBeInTheDocument();
 
         // Dismiss the calendar with Escape (standard keyboard dismissal pattern) and reopen.
         await user.keyboard('{Escape}');
 
         await user.click(dateField());
-        expect(screen.getByText(march2026)).toBeInTheDocument();
+        expect(screen.getByRole('grid', {name: march2026})).toBeInTheDocument();
     });
 
     it('should refresh the timezone utc offset when the selected date changes internally', async () => {
@@ -348,7 +348,7 @@ describe('DateTimeInput', () => {
 
         await user.click(dateField());
         await user.click(screen.getByRole('button', {name: nextMonthLabel}));
-        await user.click(screen.getByText('15'));
+        await user.click(screen.getByRole('button', {name: 'Wednesday, April 15th, 2026'}));
 
         expect(screen.getByRole('listbox', {name: 'Paris (UTC +02:00)'})).toBeInTheDocument();
     });
