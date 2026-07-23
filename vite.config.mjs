@@ -6,15 +6,14 @@ import react from '@vitejs/plugin-react';
 import sbom from 'rollup-plugin-sbom';
 import {playwright} from '@vitest/browser-playwright';
 import {patchCssModules} from 'vite-css-modules';
-import {fileURLToPath} from 'node:url';
 import {storybookTest} from '@storybook/addon-vitest/vitest-plugin';
-const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url));
 
-// More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
-    plugins: [patchCssModules(), react(), sbom({
-        specVersion: '1.4'
-    })],
+    plugins: [
+        patchCssModules(),
+        react(),
+        sbom({specVersion: '1.4'})
+    ],
     resolve: {
         alias: {
             '~': path.resolve('./src')
@@ -35,11 +34,13 @@ export default defineConfig({
             cssFileName: 'scoped' // The CSS file produced by Vite only contains classes hashed by CSS modules, hence scoped
         },
         rollupOptions: {
-            external: ['react',
+            external: [
+                'react',
                 'react-dom',
                 'react/jsx-runtime',
                 // Preserve the import statement in `src/index.ts`
-                './legacy-global-bundle.css']
+                './legacy-global-bundle.css'
+            ]
         }
     },
     assetsInclude: ['**/*.md'],
@@ -47,93 +48,81 @@ export default defineConfig({
         coverage: {
             provider: 'v8',
             include: ['src/**/*.{ts,tsx}'],
-            exclude: ['src/__mocks__', 'src/__storybook__', 'src/data', '**/*.stories.*', '**/*.spec.tsx']
+            exclude: ['src/__mocks__/**', 'src/__storybook__/**', 'src/data/**', 'src/icons/components/**', '**/*.stories.*', '**/*.spec.tsx']
         },
-        projects: [{
-            extends: true,
-            test: {
-                name: 'unit',
-                setupFiles: ['./vitest.setup.js'],
-                globals: true,
-                environment: 'jsdom',
-                include: ['src/**/*.spec.tsx'],
-                exclude: ['src/visual*.spec.tsx', 'src/**/*.browser.spec.tsx'],
-                css: true
-            }
-        }, {
-            extends: true,
-            test: {
-                name: 'browser',
-                include: ['src/**/*.browser.spec.tsx'],
-                exclude: ['src/visual*.spec.tsx'],
-                css: true,
-                browser: {
-                    enabled: true,
-                    headless: true,
-                    screenshotFailures: false,
-                    provider: playwright(),
-                    instances: [{
-                        browser: 'chromium'
-                    }]
+        projects: [
+            {
+                extends: true,
+                test: {
+                    name: 'unit',
+                    setupFiles: ['./vitest.setup.js'],
+                    globals: true,
+                    environment: 'jsdom',
+                    include: ['src/**/*.spec.tsx'],
+                    exclude: ['src/visual*.spec.tsx', 'src/**/*.browser.spec.tsx'],
+                    css: true
                 }
-            }
-        }, {
-            extends: true,
-            test: {
-                name: 'visual',
-                include: ['src/visual*.spec.tsx'],
-                // It's super fast to take a screenshot, but Vitest will wait until
-                // the default timeout of 15s in case the screenshot does not match
-                testTimeout: 3000,
-                browser: {
-                    enabled: true,
-                    headless: true,
-                    provider: playwright(),
-                    instances: [{
-                        browser: 'chromium'
-                    }],
-                    expect: {
-                        toMatchScreenshot: {
-                            // Resolve all screenshots to a single directory
-                            resolveScreenshotPath: ({
-                                root,
-                                testFileDirectory,
-                                screenshotDirectory,
-                                arg,
-                                browserName,
-                                platform,
-                                ext
-                            }) => `${root}/${testFileDirectory}/${screenshotDirectory}/visual.spec.tsx/${arg}-${browserName}-${platform}${ext}`
+            },
+            {
+                extends: true,
+                test: {
+                    name: 'browser',
+                    include: ['src/**/*.browser.spec.tsx'],
+                    exclude: ['src/visual*.spec.tsx'],
+                    css: true,
+                    browser: {
+                        enabled: true,
+                        headless: true,
+                        screenshotFailures: false,
+                        provider: playwright(),
+                        instances: [{browser: 'chromium'}]
+                    }
+                }
+            },
+            {
+                extends: true,
+                test: {
+                    name: 'visual',
+                    include: ['src/visual*.spec.tsx'],
+                    // It's super fast to take a screenshot, but Vitest will wait until
+                    // the default timeout of 15s in case the screenshot does not match
+                    testTimeout: 3000,
+                    browser: {
+                        enabled: true,
+                        headless: true,
+                        provider: playwright(),
+                        instances: [{browser: 'chromium'}],
+                        expect: {
+                            toMatchScreenshot: {
+                                // Resolve all screenshots to a single directory
+                                resolveScreenshotPath: ({root, testFileDirectory, screenshotDirectory, arg, browserName, platform, ext}) => `${root}/${testFileDirectory}/${screenshotDirectory}/visual.spec.tsx/${arg}-${browserName}-${platform}${ext}`
+                            }
                         }
                     }
                 }
-            }
-        }, {
-            extends: true,
-            plugins: [
-                // The plugin will run tests for the stories defined in your Storybook config
-                // See options at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon#storybooktest
-                storybookTest({
-                    configDir: path.join(dirname, '.storybook')
-                })
-            ],
-            // Pre-bundle CJS-only deps so their named exports resolve in browser mode
-            // (e.g. aria-query's `elementRoles`, pulled in transitively by the a11y setup).
-            optimizeDeps: {
-                include: ['aria-query']
             },
-            test: {
-                name: 'storybook',
-                setupFiles: ['./.storybook/vitest.setup.ts'],
-                browser: {
-                    enabled: true,
-                    headless: true,
-                    provider: playwright({}),
-                    instances: [{
-                        browser: 'chromium'
-                    }]
+            {
+                extends: true,
+                plugins: [
+                    // Runs the tests for the stories defined in your Storybook config
+                    storybookTest({configDir: path.resolve('.storybook')})
+                ],
+                // Pre-bundle CJS-only deps so their named exports resolve in browser mode
+                // (e.g. aria-query's `elementRoles`, pulled in transitively by the a11y setup).
+                optimizeDeps: {
+                    include: ['aria-query']
+                },
+                test: {
+                    name: 'storybook',
+                    setupFiles: ['./.storybook/vitest.setup.ts'],
+                    browser: {
+                        enabled: true,
+                        headless: true,
+                        provider: playwright(),
+                        instances: [{browser: 'chromium'}]
+                    }
                 }
             }
-        }]
+        ]
     }
 });
