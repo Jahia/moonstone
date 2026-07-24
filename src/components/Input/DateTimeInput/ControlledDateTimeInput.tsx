@@ -154,6 +154,8 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                 variant={variant}
                 isDisabled={isDisabled}
                 icon={<Calendar aria-hidden/>}
+                // No-op: calendar-driven, not typed into. Avoids the controlled-input warning
+                onChange={() => undefined}
                 onClick={openCalendar}
                 onKeyUp={event => {
                     if (event.key === 'Enter' || event.key === ' ') {
