@@ -16,11 +16,12 @@ import type {DataAttributes} from '~/types/DataAttributes.types';
 export type DateTimeInputType = 'date' | 'dateTime' | 'zonedDateTime';
 
 /**
- * Explicit display order for the date in the input, overriding the order guessed from `locale`
- * (the calendar's month/weekday text still follows `locale`). Each literal is also its template:
- * `DD`/`MM`/`YYYY` are replaced with the zero-padded parts, other characters kept as separators.
+ * LDML date pattern for the trigger input, overriding the order guessed from `locale`.
+ * Supports `yyyy`/`yy`, `MMMM`/`MMM`/`MM`/`M`, `dd`/`d`; other characters are separators.
+ * Tokens still render via `Intl` in `locale`, so names stay localized (`'d MMMM yyyy'` + fr → `5 mars 2026`).
+ * An invalid pattern (no token, or stray letters, e.g. `'toto'`) falls back to the locale format.
  */
-export type DateFormat = 'DD/MM/YYYY' | 'MM/DD/YYYY' | 'YYYY-MM-DD';
+export type DateFormat = string;
 
 /**
  * A calendar date accepted by the bounds / disabled-date props.
@@ -119,7 +120,7 @@ export type DateTimeInputSharedProps = Omit<BaseInputProps,
      */
     locale?: Intl.ResolvedDateTimeFormatOptions['locale'];
 
-    /** Forces the date order in the input (e.g. `'DD/MM/YYYY'`), overriding the locale-based order. */
+    /** LDML pattern for the date input (e.g. `'dd/MM/yyyy'`), overriding the locale order. See {@link DateFormat}. */
     dateFormat?: DateFormat;
 
     /**

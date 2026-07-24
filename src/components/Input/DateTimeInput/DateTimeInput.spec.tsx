@@ -794,12 +794,11 @@ describe('DateTimeInput', () => {
         expect(handleChange).not.toHaveBeenCalled();
     });
 
-    // dateFormat drives the input's display string, so we assert it directly. locale="fr" proves
-    // the format overrides the locale order; the 05/03 date keeps day vs month unambiguous.
+    // locale="fr" proves the pattern overrides the locale order (05/03 keeps day vs month unambiguous).
     it.each([
-        {dateFormat: 'DD/MM/YYYY', expected: '05/03/2026'},
-        {dateFormat: 'MM/DD/YYYY', expected: '03/05/2026'},
-        {dateFormat: 'YYYY-MM-DD', expected: '2026-03-05'}
+        {dateFormat: 'dd/MM/yyyy', expected: '05/03/2026'},
+        {dateFormat: 'MM/dd/yyyy', expected: '03/05/2026'},
+        {dateFormat: 'yyyy-MM-dd', expected: '2026-03-05'}
     ] as const)('should render $dateFormat, overriding the locale order', ({dateFormat, expected}) => {
         render(
             <DateTimeInput
@@ -812,6 +811,42 @@ describe('DateTimeInput', () => {
         );
 
         expect(dateField()).toHaveValue(expected);
+    });
+
+    // MMMM still renders via Intl in `locale`, so text stays localized ("mars" for fr).
+    it('should localize name tokens while the pattern fixes the order', () => {
+        render(
+            <DateTimeInput
+                type="date"
+                placeholder="Select a date"
+                defaultValue="2026-03-05"
+                locale="fr"
+                dateFormat="d MMMM yyyy"
+            />
+        );
+
+        expect(dateField()).toHaveValue('5 mars 2026');
+    });
+
+    // Invalid patterns (junk, or dayjs-style `YYYY-MM-DD`) must never leak into the input as
+    // literal text — reject with a warning and fall back to the locale format instead.
+    it.each(['toto', 'YYYY-MM-DD', 'MM foo yyyy'])('should reject the invalid dateFormat %p and fall back to the locale format', dateFormat => {
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+        render(
+            <DateTimeInput
+                type="date"
+                placeholder="Select a date"
+                defaultValue="2026-03-05"
+                locale="fr"
+                dateFormat={dateFormat}
+            />
+        );
+
+        expect(dateField()).toHaveValue('05/03/2026');
+        expect(warn).toHaveBeenCalledWith(expect.stringContaining(dateFormat));
+
+        warn.mockRestore();
     });
 
     describe('local time caption', () => {

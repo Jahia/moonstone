@@ -31,17 +31,42 @@ export const getWeekStartsOn = (locale?: string): DayOfWeek => {
     return 1; // Monday
 };
 
-// Fills the `DateFormat` template: tokens → zero-padded parts, other chars kept as separators.
-// Each token is replaced once with digits only, so replacements never collide (order irrelevant).
-const formatWithPattern = (value: Temporal.PlainDate, dateFormat: DateFormat): string =>
-    dateFormat
-        .replace('YYYY', String(value.year).padStart(4, '0'))
-        .replace('MM', String(value.month).padStart(2, '0'))
-        .replace('DD', String(value.day).padStart(2, '0'));
+// Maps each supported LDML token to the `Intl` option that renders it.
+const DATE_FORMAT_TOKENS: Record<string, Intl.DateTimeFormatOptions> = {
+    yyyy: {year: 'numeric'},
+    yy: {year: '2-digit'},
+    MMMM: {month: 'long'},
+    MMM: {month: 'short'},
+    MM: {month: '2-digit'},
+    M: {month: 'numeric'},
+    dd: {day: '2-digit'},
+    d: {day: 'numeric'}
+};
+
+// Longest tokens first so `yyyy` wins over `yy`, `MMMM` over `MM`/`M`, etc.
+const DATE_FORMAT_TOKEN_RE = new RegExp(
+    Object.keys(DATE_FORMAT_TOKENS).sort((a, b) => b.length - a.length).join('|'),
+    'g'
+);
+
+// Valid only if it has at least one token and every remaining character is a non-letter —
+// rejects junk (`'toto'`) and unsupported spellings (e.g. dayjs `YYYY`).
+const isValidDateFormat = (dateFormat: string): boolean => {
+    const separators = dateFormat.replace(DATE_FORMAT_TOKEN_RE, '');
+    return separators.length < dateFormat.length && !/[a-zA-Z]/.test(separators);
+};
+
+// Each token renders via `Intl` in `locale` (localized names); other characters pass through verbatim.
+const formatWithPattern = (value: Temporal.PlainDate, locale: string | undefined, dateFormat: string): string => {
+    const date = plainDateToDate(value);
+    return dateFormat.replace(DATE_FORMAT_TOKEN_RE, token =>
+        new Intl.DateTimeFormat(locale || undefined, DATE_FORMAT_TOKENS[token]).format(date));
+};
 
 /**
  * Formats the date for the trigger input. Returns '' when there is no date.
- * `dateFormat` fixes the order; otherwise `Intl` derives it from `locale` (browser locale if unset).
+ * A valid `dateFormat` fixes the order; otherwise `Intl` derives it from `locale`.
+ * An invalid pattern warns and falls back.
  */
 export const formatPlainDate = (value: Temporal.PlainDate | null, locale?: string, dateFormat?: DateFormat) => {
     if (!value) {
@@ -49,7 +74,11 @@ export const formatPlainDate = (value: Temporal.PlainDate | null, locale?: strin
     }
 
     if (dateFormat) {
-        return formatWithPattern(value, dateFormat);
+        if (isValidDateFormat(dateFormat)) {
+            return formatWithPattern(value, locale, dateFormat);
+        }
+
+        console.warn(`Ignoring invalid \`dateFormat\` "${dateFormat}": expected LDML tokens such as \`dd/MM/yyyy\`. Falling back to the locale format.`);
     }
 
     return new Intl.DateTimeFormat(locale || undefined).format(plainDateToDate(value));
