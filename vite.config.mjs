@@ -46,6 +46,8 @@ export default defineConfig({
     test: {
         coverage: {
             provider: 'v8',
+            // Omit the default 'text' reporter so the coverage table isn't dumped to the terminal
+            reporter: ['html', 'clover', 'json-summary'],
             include: ['src/**/*.{ts,tsx}'],
             exclude: ['src/__mocks__', 'src/__storybook__', 'src/data', '**/*.stories.*', 'src/visual*']
         },
