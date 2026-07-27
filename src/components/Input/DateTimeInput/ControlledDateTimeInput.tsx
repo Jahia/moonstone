@@ -43,7 +43,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     disabledDates,
     disabledDateRanges,
     disabledDaysOfWeek,
-    locale = 'en',
+    locale,
     dateFormat,
     weekStartsOn,
     i18n,
@@ -59,6 +59,10 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     const currentValue = parseValue(value, type);
     const selectedDate = getPlainDate(currentValue);
     const selectedTime = getPlainTime(currentValue);
+
+    // Resolve to a concrete locale once: passing `undefined` through would disable the calendar
+    // formatters and force getWeekStartsOn's Monday fallback, so only the text field would localize.
+    const resolvedLocale = locale ?? new Intl.DateTimeFormat().resolvedOptions().locale;
 
     const i18nLabels = {
         todayButton: 'Today',
@@ -87,7 +91,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
 
     const minPlainDate = toPlainDate(minDate);
     const maxPlainDate = toPlainDate(maxDate);
-    const calendarDisabledMatchers = getCalendarDisabledMatchers(minDate, maxDate, disabledDates, disabledDateRanges, disabledDaysOfWeek);
+    const calendarDisabledMatchers = getCalendarDisabledMatchers({minDate, maxDate, disabledDates, disabledDateRanges, disabledDaysOfWeek});
     const todayDate = plainDateToDate(getTodayPlainDate());
     const isTodayDisabled = isDisabled || isReadOnly || dateMatchModifiers(todayDate, calendarDisabledMatchers);
     const startMonth = getMonthStart(minPlainDate, displayedMonth.getFullYear() - 20, 0);
@@ -103,7 +107,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
         currentValue instanceof Temporal.ZonedDateTime;
 
     const localTimeFormatted = showLocalTime ?
-        new Intl.DateTimeFormat(locale, {
+        new Intl.DateTimeFormat(resolvedLocale, {
             year: 'numeric',
             month: 'short',
             day: 'numeric',
@@ -149,7 +153,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                 ref={handleRef}
                 {...props}
                 className={styles.dateField}
-                value={formatPlainDate(selectedDate, locale, dateFormat)}
+                value={formatPlainDate(selectedDate, resolvedLocale, dateFormat)}
                 size={size}
                 variant={variant}
                 isDisabled={isDisabled}
@@ -214,17 +218,17 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                         }}
                         captionLayout={hasMultipleYears ? 'dropdown-years' : 'label'}
                         navLayout="around"
-                        weekStartsOn={weekStartsOn ?? getWeekStartsOn(locale)}
+                        weekStartsOn={weekStartsOn ?? getWeekStartsOn(resolvedLocale)}
                         month={displayedMonth}
                         startMonth={startMonth}
                         endMonth={endMonth}
                         disabled={calendarDisabledMatchers}
-                        formatters={locale ? {
-                            formatCaption: (date: Date) => new Intl.DateTimeFormat(locale, {month: 'long', year: 'numeric'}).format(date),
-                            formatMonthDropdown: (date: Date) => new Intl.DateTimeFormat(locale, {month: 'long'}).format(date),
-                            formatDay: (date: Date) => new Intl.DateTimeFormat(locale, {day: 'numeric'}).format(date),
-                            formatWeekdayName: (date: Date) => new Intl.DateTimeFormat(locale, {weekday: 'short'}).format(date)
-                        } : undefined}
+                        formatters={{
+                            formatCaption: (date: Date) => new Intl.DateTimeFormat(resolvedLocale, {month: 'long', year: 'numeric'}).format(date),
+                            formatMonthDropdown: (date: Date) => new Intl.DateTimeFormat(resolvedLocale, {month: 'long'}).format(date),
+                            formatDay: (date: Date) => new Intl.DateTimeFormat(resolvedLocale, {day: 'numeric'}).format(date),
+                            formatWeekdayName: (date: Date) => new Intl.DateTimeFormat(resolvedLocale, {weekday: 'short'}).format(date)
+                        }}
                         mode="single"
                         selected={selectedDate ? plainDateToDate(selectedDate) : undefined}
                         footer={(

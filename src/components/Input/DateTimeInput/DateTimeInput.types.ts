@@ -114,9 +114,10 @@ export type DateTimeInputSharedProps = Omit<BaseInputProps,
     disabledDaysOfWeek?: DayOfWeek[];
 
     /**
-     * BCP 47 locale for formatting the date displayed in the text field.
+     * BCP 47 locale driving the displayed date, the calendar text, and the first day of the week.
      * Examples: `'fr-FR'`, `'en-US'`, `'de-DE'`.
-     * When omitted, the browser's locale is used (`Intl.DateTimeFormat` with no locale argument).
+     * When omitted, the browser's locale is resolved once (`new Intl.DateTimeFormat().resolvedOptions().locale`)
+     * and applied to all of them.
      */
     locale?: Intl.ResolvedDateTimeFormatOptions['locale'];
 
@@ -126,7 +127,7 @@ export type DateTimeInputSharedProps = Omit<BaseInputProps,
     /**
      * The day of the week that starts the calendar week.
      * `0` = Sunday, `1` = Monday, ..., `6` = Saturday.
-     * @default 1
+     * When omitted, it derives from `locale` (falling back to Monday when the locale has no week info).
      */
     weekStartsOn?: DayPickerProps['weekStartsOn'];
 

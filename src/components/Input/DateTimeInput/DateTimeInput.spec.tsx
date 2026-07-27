@@ -877,6 +877,20 @@ describe('DateTimeInput', () => {
         warn.mockRestore();
     });
 
+    // Deduped per pattern, so two renders of the same bad pattern warn once. The pattern is
+    // unique to this test because the module-level Set persists across the file.
+    it('should warn only once per invalid dateFormat across renders', () => {
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+        const props = {type: 'date', defaultValue: '2026-03-05', locale: 'fr', dateFormat: 'no-tokens-here'} as const;
+
+        render(<DateTimeInput {...props} placeholder="first"/>);
+        render(<DateTimeInput {...props} placeholder="second"/>);
+
+        expect(warn).toHaveBeenCalledTimes(1);
+
+        warn.mockRestore();
+    });
+
     describe('local time caption', () => {
         beforeEach(() => {
             vi.spyOn(Temporal.Now, 'timeZoneId').mockReturnValue('Europe/Paris');

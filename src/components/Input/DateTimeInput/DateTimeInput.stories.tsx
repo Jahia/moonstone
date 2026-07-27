@@ -20,6 +20,7 @@ export default {
     },
     args: {
         'data-testid': 'dateTimeInput',
+        locale: 'en',
         defaultValue: baseDate, // Fixed (not the default "now") so the snapshot stays stable.
         timeInputProps: {
             'data-testid': 'timeInput'
@@ -138,6 +139,7 @@ export const Controlled: Story = {
                 <DateTimeInput
                     type="date"
                     placeholder="Select a date"
+                    locale="en"
                     value={value}
                     onChange={(_event, nextValue) => setValue(nextValue)}
                 />

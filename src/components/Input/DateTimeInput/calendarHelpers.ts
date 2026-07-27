@@ -61,6 +61,18 @@ const isValidDateFormat = (dateFormat: string): boolean => {
     return separators.length < dateFormat.length && !/[a-zA-Z]/.test(separators);
 };
 
+// Dedupes the warning to once per bad pattern — `formatPlainDate` runs on every render.
+const warnedDateFormats = new Set<string>();
+
+const warnInvalidDateFormat = (dateFormat: string): void => {
+    if (warnedDateFormats.has(dateFormat)) {
+        return;
+    }
+
+    warnedDateFormats.add(dateFormat);
+    console.warn(`Ignoring invalid \`dateFormat\` "${dateFormat}": expected LDML tokens such as \`dd/MM/yyyy\`. Falling back to the locale format.`);
+};
+
 // Each token renders via `Intl` in `locale` (localized names); other characters pass through verbatim.
 const formatWithPattern = (value: Temporal.PlainDate, locale: string | undefined, dateFormat: string): string => {
     const date = plainDateToDate(value);
@@ -83,7 +95,7 @@ export const formatPlainDate = (value: Temporal.PlainDate | null, locale?: strin
             return formatWithPattern(value, locale, dateFormat);
         }
 
-        console.warn(`Ignoring invalid \`dateFormat\` "${dateFormat}": expected LDML tokens such as \`dd/MM/yyyy\`. Falling back to the locale format.`);
+        warnInvalidDateFormat(dateFormat);
     }
 
     return new Intl.DateTimeFormat(locale || undefined).format(plainDateToDate(value));
@@ -104,13 +116,19 @@ export const getMonthStart = (plainDate: Temporal.PlainDate | null, fallbackYear
  * constraints. Each `PlainDate` is bridged to a local-noon JS `Date` — DayPicker compares
  * by calendar day (and normalizes to noon itself), so the time component is irrelevant.
  */
-export const getCalendarDisabledMatchers = (
-    minDate?: CalendarDate,
-    maxDate?: CalendarDate,
-    disabledDates?: CalendarDate[],
-    disabledDateRanges?: DisabledDateRange[],
-    disabledDaysOfWeek?: DayOfWeek[]
-): Matcher[] => {
+export const getCalendarDisabledMatchers = ({
+    minDate,
+    maxDate,
+    disabledDates,
+    disabledDateRanges,
+    disabledDaysOfWeek
+}: {
+    minDate?: CalendarDate;
+    maxDate?: CalendarDate;
+    disabledDates?: CalendarDate[];
+    disabledDateRanges?: DisabledDateRange[];
+    disabledDaysOfWeek?: DayOfWeek[];
+}): Matcher[] => {
     const matchers: Matcher[] = [];
     const minimumDate = toPlainDate(minDate);
     const maximumDate = toPlainDate(maxDate);
