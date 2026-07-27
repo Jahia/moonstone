@@ -1,85 +1,118 @@
 import {Temporal} from 'temporal-polyfill';
-import {completeTimeInput, filterTimeInputValue, splitTime} from './timeHelpers';
+import {formatTimeInput, getMeridiem, getTimeSegments, parseTimeInput, splitTime, stepTimeSegment} from './timeHelpers';
 
-// Characterization tests: they pin the CURRENT behavior of the time helpers so the Step 02
-// (native entry) rewrite to native `<input type=time>` segmented entry shows up as an explicit
-// diff here. The cases marked "Changes: native entry" are the ones the native model will replace
-// (e.g. `123` currently pads minutes on the right → `12:30`; native gives `12:03`).
+const time = (iso: string) => Temporal.PlainTime.from(iso);
+const toStr = (value: Temporal.PlainTime | null) => value?.toString({smallestUnit: 'minute'}) ?? null;
 
-describe('timeHelpers (current behavior)', () => {
+describe('timeHelpers', () => {
     describe('splitTime', () => {
-        it('returns empty parts with an AM meridiem for no value', () => {
-            expect(splitTime(null, '24h')).toEqual({hours: '', minutes: '', meridiem: 'AM'});
+        it('returns empty parts for no value', () => {
+            expect(splitTime(null, '24h')).toEqual({hour: '', minute: ''});
         });
 
         it('splits a 24h time as-is', () => {
-            expect(splitTime(Temporal.PlainTime.from('14:30'), '24h')).toEqual({hours: '14', minutes: '30', meridiem: 'PM'});
+            expect(splitTime(time('14:30'), '24h')).toEqual({hour: '14', minute: '30'});
         });
 
-        it('maps a 24h time into the 12h display range with a meridiem', () => {
-            expect(splitTime(Temporal.PlainTime.from('14:30'), '12h')).toEqual({hours: '02', minutes: '30', meridiem: 'PM'});
+        it('maps a 24h time into the 12h display range', () => {
+            expect(splitTime(time('14:30'), '12h')).toEqual({hour: '02', minute: '30'});
         });
 
-        it('shows midnight as 12 AM and noon as 12 PM in 12h', () => {
-            expect(splitTime(Temporal.PlainTime.from('00:00'), '12h')).toMatchObject({hours: '12', meridiem: 'AM'});
-            expect(splitTime(Temporal.PlainTime.from('12:00'), '12h')).toMatchObject({hours: '12', meridiem: 'PM'});
-        });
-    });
-
-    describe('filterTimeInputValue (24h)', () => {
-        it('keeps a complete entry as HH:MM', () => {
-            expect(filterTimeInputValue('1430', '24h')).toBe('14:30');
-        });
-
-        it('keeps the longest valid prefix and drops the rest', () => {
-            expect(filterTimeInputValue('2897', '24h')).toBe('2');
-            expect(filterTimeInputValue('146', '24h')).toBe('14');
-        });
-
-        it('returns empty for empty input', () => {
-            expect(filterTimeInputValue('', '24h')).toBe('');
-        });
-
-        // Changes: native entry — a first hour digit > 2 is currently dropped; native will
-        // auto-advance it to `0d` and route further digits to the minutes segment.
-        it('currently drops a first hour digit greater than 2', () => {
-            expect(filterTimeInputValue('3', '24h')).toBe('');
-            expect(filterTimeInputValue('9', '24h')).toBe('');
-        });
-
-        // Changes: native entry — `123` currently becomes `12:3` (→ 12:30 on blur); native gives `12:03`.
-        it('currently pads the minutes on the right', () => {
-            expect(filterTimeInputValue('123', '24h')).toBe('12:3');
+        it('shows both midnight and noon as 12 in 12h', () => {
+            expect(splitTime(time('00:00'), '12h')).toEqual({hour: '12', minute: '00'});
+            expect(splitTime(time('12:00'), '12h')).toEqual({hour: '12', minute: '00'});
         });
     });
 
-    describe('filterTimeInputValue (12h)', () => {
-        // Changes: native entry — a first hour digit > 1 is currently dropped.
-        it('currently drops a first hour digit greater than 1', () => {
-            expect(filterTimeInputValue('2', '12h')).toBe('');
+    describe('getMeridiem', () => {
+        it('defaults to AM when there is no value', () => {
+            expect(getMeridiem(null)).toBe('AM');
         });
 
-        it('rejects 00 as hours (minimum is 1), keeping the first digit', () => {
-            expect(filterTimeInputValue('00', '12h')).toBe('0');
+        it('reads the AM/PM half from the hour', () => {
+            expect(getMeridiem(time('00:00'))).toBe('AM');
+            expect(getMeridiem(time('11:59'))).toBe('AM');
+            expect(getMeridiem(time('12:00'))).toBe('PM');
+            expect(getMeridiem(time('14:30'))).toBe('PM');
         });
     });
 
-    describe('completeTimeInput', () => {
-        const toStr = (value: Temporal.PlainTime | null) => value?.toString({smallestUnit: 'minute'}) ?? null;
+    describe('formatTimeInput — segmented display (24h)', () => {
+        it.each([
+            ['', ''],
+            ['3', '03'], // First hour digit > 2 auto-advances to a padded hour.
+            ['9', '09'],
+            ['1', '1'], // Could still take a second hour digit, so stays tentative.
+            ['12', '12'],
+            ['93', '09:3'], // 9 auto-advances to the hour; 3 is a tentative minute digit.
+            ['930', '09:30'],
+            ['123', '12:3'],
+            ['146', '14:06'], // Minute 6 can't be a tens digit -> padded and committed.
+            ['1234', '12:34']
+        ])('formats %p as %p', (input, expected) => {
+            expect(formatTimeInput(input, '24h')).toBe(expected);
+        });
+    });
 
-        it('completes a partial entry, padding hours left and minutes right', () => {
-            expect(toStr(completeTimeInput('1', '24h', 'AM'))).toBe('01:00');
-            expect(toStr(completeTimeInput('143', '24h', 'AM'))).toBe('14:30');
+    describe('formatTimeInput — segmented display (12h)', () => {
+        it.each([
+            ['2', '02'], // First hour digit > 1 auto-advances.
+            ['1', '1'],
+            ['12', '12'],
+            ['13', '01:3'] // 13 isn't a valid 12h hour: 1 commits as 01, 3 becomes the minute.
+        ])('formats %p as %p', (input, expected) => {
+            expect(formatTimeInput(input, '12h')).toBe(expected);
+        });
+    });
+
+    describe('parseTimeInput', () => {
+        it.each([
+            ['1', '01:00'],
+            ['91', '09:01'],
+            ['143', '14:03'],
+            ['1430', '14:30'],
+            ['930', '09:30']
+        ])('parses %p to %p (24h, hours pad left, a lone minute digit is its units)', (input, expected) => {
+            expect(toStr(parseTimeInput(input, '24h'))).toBe(expected);
         });
 
         it('returns null for empty input', () => {
-            expect(completeTimeInput('', '24h', 'AM')).toBeNull();
+            expect(parseTimeInput('', '24h')).toBeNull();
         });
 
         it('maps the 12h range back to 24h using the meridiem', () => {
-            expect(toStr(completeTimeInput('1200', '12h', 'AM'))).toBe('00:00');
-            expect(toStr(completeTimeInput('1200', '12h', 'PM'))).toBe('12:00');
-            expect(toStr(completeTimeInput('0230', '12h', 'PM'))).toBe('14:30');
+            expect(toStr(parseTimeInput('1200', '12h', 'AM'))).toBe('00:00');
+            expect(toStr(parseTimeInput('1200', '12h', 'PM'))).toBe('12:00');
+            expect(toStr(parseTimeInput('0230', '12h', 'PM'))).toBe('14:30');
+        });
+    });
+
+    describe('stepTimeSegment', () => {
+        it('steps the minute and wraps at the hour boundary without carry', () => {
+            expect(toStr(stepTimeSegment(time('14:30'), 'minute', 1, '24h'))).toBe('14:31');
+            expect(toStr(stepTimeSegment(time('14:59'), 'minute', 1, '24h'))).toBe('14:00');
+            expect(toStr(stepTimeSegment(time('14:00'), 'minute', -1, '24h'))).toBe('14:59');
+        });
+
+        it('steps and wraps the 24h hour', () => {
+            expect(toStr(stepTimeSegment(time('23:15'), 'hour', 1, '24h'))).toBe('00:15');
+            expect(toStr(stepTimeSegment(time('00:15'), 'hour', -1, '24h'))).toBe('23:15');
+        });
+
+        it('cycles the 12h hour within the current AM/PM half', () => {
+            expect(toStr(stepTimeSegment(time('23:00'), 'hour', 1, '12h'))).toBe('12:00'); // 11PM -> 12PM
+            expect(toStr(stepTimeSegment(time('00:00'), 'hour', 1, '12h'))).toBe('01:00'); // 12AM -> 1AM
+            expect(toStr(stepTimeSegment(time('11:00'), 'hour', 1, '12h'))).toBe('00:00'); // 11AM -> 12AM
+        });
+    });
+
+    describe('getTimeSegments', () => {
+        it('returns the hour and minute ranges of an HH:MM display', () => {
+            expect(getTimeSegments('14:30')).toEqual({hour: {start: 0, end: 2}, minute: {start: 3, end: 5}});
+        });
+
+        it('collapses the minute range when no colon exists yet', () => {
+            expect(getTimeSegments('14')).toEqual({hour: {start: 0, end: 2}, minute: {start: 2, end: 2}});
         });
     });
 });

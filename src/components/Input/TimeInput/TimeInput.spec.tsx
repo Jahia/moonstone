@@ -68,15 +68,17 @@ describe('TimeInput', () => {
         expect(emittedTime(handleChange)).toBe('14:30');
     });
 
-    it('should keep the longest valid prefix while typing', async () => {
+    it('should treat a lone minute digit as its units (91 -> 09:01)', async () => {
         const user = userEvent.setup();
+        const handleChange = vi.fn();
 
-        render(<TimeInput onChange={() => null}/>);
+        render(<TimeInput onChange={handleChange}/>);
 
         const input = screen.getByPlaceholderText('HH:MM');
-        await user.type(input, '2897');
+        await user.type(input, '91');
+        fireEvent.blur(input);
 
-        expect(input).toHaveValue('2');
+        expect(emittedTime(handleChange)).toBe('09:01');
     });
 
     it('should not emit while typing, only on blur', async () => {
@@ -122,44 +124,50 @@ describe('TimeInput', () => {
         expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
     });
 
-    it('should immediately drop a leading hour digit greater than 2 in 24h mode', async () => {
+    it('should auto-advance a leading hour digit greater than 2 in 24h mode (3 -> 03)', async () => {
         const user = userEvent.setup();
 
         render(<TimeInput onChange={() => null}/>);
 
         await user.type(screen.getByPlaceholderText('HH:MM'), '3');
 
-        expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
+        expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('03');
     });
 
-    it('should immediately drop a leading hour digit greater than 1 in 12h mode', async () => {
+    it('should auto-advance a leading hour digit greater than 1 in 12h mode (2 -> 02)', async () => {
         const user = userEvent.setup();
 
         render(<TimeInput timeFormat="12h" onChange={() => null}/>);
 
         await user.type(screen.getByPlaceholderText('HH:MM'), '2');
 
-        expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
+        expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('02');
     });
 
-    it('should reject 00 as hours in 12h mode (minimum is 1)', async () => {
+    it('should complete a lone minute digit as its units on blur (143 -> 14:03)', async () => {
         const user = userEvent.setup();
+        const handleChange = vi.fn();
 
-        render(<TimeInput timeFormat="12h" onChange={() => null}/>);
+        render(<TimeInput onChange={handleChange}/>);
 
-        await user.type(screen.getByPlaceholderText('HH:MM'), '00');
+        const input = screen.getByPlaceholderText('HH:MM');
+        await user.type(input, '143');
+        fireEvent.blur(input);
 
-        expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('0');
+        expect(emittedTime(handleChange)).toBe('14:03');
     });
 
-    it('should reject a minutes first digit greater than 5, keeping only the hours', async () => {
+    it('should commit a minute first digit greater than 5 as padded units (146 -> 14:06)', async () => {
         const user = userEvent.setup();
+        const handleChange = vi.fn();
 
-        render(<TimeInput onChange={() => null}/>);
+        render(<TimeInput onChange={handleChange}/>);
 
-        await user.type(screen.getByPlaceholderText('HH:MM'), '146');
+        const input = screen.getByPlaceholderText('HH:MM');
+        await user.type(input, '146');
+        fireEvent.blur(input);
 
-        expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('14');
+        expect(emittedTime(handleChange)).toBe('14:06');
     });
 
     it('should display midnight (00:00) as 12:00 AM in 12h mode', () => {
@@ -200,5 +208,62 @@ describe('TimeInput', () => {
         fireEvent.blur(input);
 
         expect(emittedTime(handleChange)).toBe('12:00');
+    });
+
+    describe('keyboard', () => {
+        it('should seed midnight on the first ArrowUp of an empty field', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
+
+            render(<TimeInput onChange={handleChange}/>);
+
+            const input = screen.getByPlaceholderText('HH:MM');
+            input.focus();
+            await user.keyboard('{ArrowUp}');
+
+            expect(emittedTime(handleChange)).toBe('00:00');
+        });
+
+        it('should increment the hour segment with ArrowUp and wrap past 23', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
+
+            render(<TimeInput defaultValue="23:30" onChange={handleChange}/>);
+
+            const input = screen.getByDisplayValue('23:30') as HTMLInputElement;
+            input.focus();
+            input.setSelectionRange(0, 0);
+            await user.keyboard('{ArrowUp}');
+
+            expect(emittedTime(handleChange)).toBe('00:30');
+        });
+
+        it('should increment the minute segment without carrying into the hour', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
+
+            render(<TimeInput defaultValue="14:59" onChange={handleChange}/>);
+
+            const input = screen.getByDisplayValue('14:59') as HTMLInputElement;
+            input.focus();
+            input.setSelectionRange(4, 4);
+            await user.keyboard('{ArrowUp}');
+
+            expect(emittedTime(handleChange)).toBe('14:00');
+        });
+
+        it('should switch to the minute segment with ArrowRight before stepping', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
+
+            render(<TimeInput defaultValue="14:30" onChange={handleChange}/>);
+
+            const input = screen.getByDisplayValue('14:30') as HTMLInputElement;
+            input.focus();
+            input.setSelectionRange(0, 0);
+            await user.keyboard('{ArrowRight}{ArrowDown}');
+
+            expect(emittedTime(handleChange)).toBe('14:29');
+        });
     });
 });

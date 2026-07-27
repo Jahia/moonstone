@@ -215,6 +215,34 @@ describe('DateTimeInput', () => {
         expect(lastValue(handleChange).toString()).toBe('2026-02-10T14:25:00');
     });
 
+    it('should apply native segmented time entry inside dateTime mode (143 -> 14:03)', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(<DateTimeInput type="dateTime" defaultValue="2026-02-10T11:56" onChange={handleChange}/>);
+
+        const timeInput = screen.getByDisplayValue('11:56');
+        await user.clear(timeInput);
+        await user.type(timeInput, '143');
+        await user.tab();
+
+        expect(lastValue(handleChange).toString()).toBe('2026-02-10T14:03:00');
+    });
+
+    it('should step the time with ArrowUp inside dateTime mode', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(<DateTimeInput type="dateTime" defaultValue="2026-02-10T11:56" onChange={handleChange}/>);
+
+        const timeInput = screen.getByDisplayValue('11:56') as HTMLInputElement;
+        timeInput.focus();
+        timeInput.setSelectionRange(0, 0);
+        await user.keyboard('{ArrowUp}');
+
+        expect(lastValue(handleChange).toString()).toBe('2026-02-10T12:56:00');
+    });
+
     it('should render the 12h datetime layout with meridiem and timezone', () => {
         render(
             <DateTimeInput
