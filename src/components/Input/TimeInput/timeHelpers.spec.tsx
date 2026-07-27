@@ -25,10 +25,6 @@ describe('timeHelpers', () => {
     });
 
     describe('getMeridiem', () => {
-        it('defaults to AM when there is no value', () => {
-            expect(getMeridiem(null)).toBe('AM');
-        });
-
         it('reads the AM/PM half from the hour', () => {
             expect(getMeridiem(time('00:00'))).toBe('AM');
             expect(getMeridiem(time('11:59'))).toBe('AM');

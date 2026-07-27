@@ -54,6 +54,12 @@ describe('TimeInput', () => {
         expect(screen.getByText('PM')).toBeInTheDocument();
     });
 
+    it('should default the meridiem to AM on an empty 12h field', () => {
+        render(<TimeInput timeFormat="12h" onChange={() => null}/>);
+
+        expect(screen.getByText('AM')).toBeInTheDocument();
+    });
+
     it('should commit a 12h entry with the chosen meridiem', async () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();

@@ -34,6 +34,8 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
 }, ref) => {
     const time = toPlainTime(value);
     const {hour, minute} = splitTime(time, timeFormat);
+    // 12h only — its presence is the mode signal. `undefined` in 24h; an empty 12h field is AM.
+    const meridiem = timeFormat === '12h' ? (time ? getMeridiem(time) : 'AM') : undefined;
 
     // `draft` holds the raw text while editing (a partial entry like "14:3" isn't a valid time
     // yet); `null` means "show the stored value". Committing on blur completes the draft, so a
@@ -62,10 +64,9 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
         }
     });
 
-    // Parses with the current meridiem in 12h; 24h has none. Short-circuits so `getMeridiem`
-    // (and any meridiem) is never produced in 24h.
+    // A meridiem means 12h (and carries it into the parse); its absence means 24h.
     const parseTime = (text: string) =>
-        timeFormat === '12h' ? parseTimeInput(text, '12h', getMeridiem(time)) : parseTimeInput(text, '24h');
+        meridiem ? parseTimeInput(text, '12h', meridiem) : parseTimeInput(text, '24h');
 
     const emitChange = (event: React.SyntheticEvent, next: Temporal.PlainTime | null) => {
         setDraft(null);
@@ -126,12 +127,12 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
                     }
                 }}
             />
-            {timeFormat === '12h' && (
+            {meridiem && (
                 <Dropdown
                     {...meridiemDropdownProps}
                     className={clsx(styles.meridiemDropdown, meridiemDropdownProps?.className)}
                     data={[{label: 'AM', value: 'AM'}, {label: 'PM', value: 'PM'}]}
-                    value={getMeridiem(time)}
+                    value={meridiem}
                     size={size === 'big' ? 'medium' : 'small'}
                     variant={variant}
                     isDisabled={isDisabled || isReadOnly}

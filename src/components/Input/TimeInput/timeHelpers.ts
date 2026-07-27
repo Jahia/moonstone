@@ -21,8 +21,8 @@ export const splitTime = (time: Temporal.PlainTime | null, timeFormat: TimeForma
     };
 };
 
-/** The AM/PM half a time falls in (`'AM'` when there is no value). Only meaningful in 12h. */
-export const getMeridiem = (time: Temporal.PlainTime | null): Meridiem => (time !== null && time.hour >= 12 ? 'PM' : 'AM');
+/** The AM/PM half a time falls in. Only meaningful in 12h. */
+export const getMeridiem = (time: Temporal.PlainTime): Meridiem => (time.hour >= 12 ? 'PM' : 'AM');
 /**
  * Takes the leading digits for one segment. One digit when it can't be a tens digit (auto-advance)
  * or the pair is out of range; two when the pair stays within `max`. `isComplete` = padded on display.
