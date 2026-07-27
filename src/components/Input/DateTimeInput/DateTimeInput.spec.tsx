@@ -403,10 +403,10 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                isDisabled
                 type="date"
                 placeholder="Select a date"
                 defaultValue="2026-03-30"
-                isDisabled
                 onChange={() => null}
             />
         );
@@ -421,10 +421,10 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                isReadOnly
                 type="date"
                 placeholder="Select a date"
                 defaultValue="2026-03-30"
-                isReadOnly
                 onChange={() => null}
             />
         );
@@ -709,10 +709,10 @@ describe('DateTimeInput', () => {
     it('should disable the internal time input when isDisabled is set', () => {
         render(
             <DateTimeInput
+                isDisabled
                 type="dateTime"
                 placeholder="Select a date"
                 defaultValue="2026-03-15T11:56"
-                isDisabled
                 onChange={() => null}
             />
         );
@@ -725,10 +725,10 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                isDisabled
                 type="zonedDateTime"
                 placeholder="Select a date"
                 defaultValue="2026-03-15T11:56[Europe/Paris]"
-                isDisabled
                 onChange={() => null}
             />
         );
@@ -794,7 +794,7 @@ describe('DateTimeInput', () => {
         expect(handleChange).not.toHaveBeenCalled();
     });
 
-    // locale="fr" proves the pattern overrides the locale order (05/03 keeps day vs month unambiguous).
+    // Locale="fr" proves the pattern overrides the locale order (05/03 keeps day vs month unambiguous).
     it.each([
         {dateFormat: 'dd/MM/yyyy', expected: '05/03/2026'},
         {dateFormat: 'MM/dd/yyyy', expected: '03/05/2026'},
@@ -976,7 +976,7 @@ describe('DateTimeInput', () => {
                     type="zonedDateTime"
                     placeholder="Select a date"
                     defaultValue="2026-02-10T11:56[Africa/Abidjan]"
-                    i18n={{todayButton: "Aujourd'hui"}}
+                    i18n={{todayButton: 'Aujourd\'hui'}}
                     onChange={() => null}
                 />
             );

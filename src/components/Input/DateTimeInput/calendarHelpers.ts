@@ -14,16 +14,21 @@ export const getWeekStartsOn = (locale?: string): DayOfWeek => {
 
     try {
         const intlLocale = new Intl.Locale(locale) as Intl.Locale & {
-            getWeekInfo?(): {firstDay: number}; // newer spec
-            weekInfo?: {firstDay: number}; // older property form
+            getWeekInfo?(): {firstDay: number}; // Newer spec
+            weekInfo?: {firstDay: number}; // Older property form
         };
         // Both forms exist: `getWeekInfo()` (newer spec) and `weekInfo` (older property).
         const firstDay = (intlLocale.getWeekInfo?.() ?? intlLocale.weekInfo)?.firstDay;
 
         // Intl uses ISO days: 1=Mon … 7=Sun. DayPicker uses 0=Sun, 1=Mon … 6=Sat.
         // Sunday is the only value that doesn't map 1:1 (ISO 7 → JS 0).
-        if (firstDay === 7) return 0;
-        if (firstDay !== undefined) return firstDay as DayOfWeek;
+        if (firstDay === 7) {
+            return 0;
+        }
+
+        if (firstDay !== undefined) {
+            return firstDay as DayOfWeek;
+        }
     } catch {
         // Invalid locale string — fall through to default.
     }

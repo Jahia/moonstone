@@ -102,8 +102,8 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
         currentTimeZone !== systemTimeZone &&
         currentValue instanceof Temporal.ZonedDateTime;
 
-    const localTimeFormatted = showLocalTime
-        ? new Intl.DateTimeFormat(locale, {
+    const localTimeFormatted = showLocalTime ?
+        new Intl.DateTimeFormat(locale, {
             year: 'numeric',
             month: 'short',
             day: 'numeric',
@@ -111,8 +111,8 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
             minute: '2-digit',
             hour12: timeFormat === '12h',
             timeZone: systemTimeZone
-        }).format(new Date((currentValue as Temporal.ZonedDateTime).withTimeZone(systemTimeZone).epochMilliseconds))
-        : null;
+        }).format(new Date((currentValue as Temporal.ZonedDateTime).withTimeZone(systemTimeZone).epochMilliseconds)) :
+        null;
 
     // This component holds no value state: it derives display from `value` and reports the next
     // value via `onChange`. onChange drives the value — never the reverse. (Uncontrolled: the
@@ -172,9 +172,10 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                     onClose={() => setIsCalendarOpen(false)}
                 >
                     <DayPicker
-                        data-testid="calendar"
                         animate
+                        data-testid="calendar"
                         classNames={{
+                            /* eslint-disable camelcase -- react-day-picker classnames are its public API */
                             ...dayPickerClassNames,
                             root: clsx(dayPickerClassNames.root, styles.calendar),
                             month_caption: clsx(dayPickerClassNames.month_caption, styles.calendarHeader),
@@ -188,6 +189,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                             disabled: styles.calendarDisabledDate,
                             day_button: clsx(dayPickerClassNames.day_button, styles.calendarDayButton),
                             footer: styles.calendarFooter
+                            /* eslint-enable camelcase */
                         }}
                         components={{
                             YearsDropdown: (dropdownProps: DropdownProps) => (

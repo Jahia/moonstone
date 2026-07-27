@@ -1,0 +1,48 @@
+A date / date-time / zoned-date-time field: a text trigger that opens a calendar, plus an optional
+time field and timezone selector depending on the mode.
+
+## Modes
+
+`type` selects the fields rendered and the emitted value:
+
+- `'date'` — calendar only → `Temporal.PlainDate`
+- `'dateTime'` — calendar + time → `Temporal.PlainDateTime`
+- `'zonedDateTime'` — calendar + time + timezone → `Temporal.ZonedDateTime`
+
+## Value
+
+`value` / `defaultValue` accept the mode's `Temporal` instance, an ISO string (e.g. `'2026-06-19'`,
+`'2026-06-19T14:30'`, `'2026-06-19T14:30+02:00[Europe/Paris]'`), or `null`. `onChange` always emits the
+mode's `Temporal` instance (or `null`) — never a string. Pass `defaultValue={null}` to start empty;
+with no `defaultValue`, an uncontrolled field starts at the current date/time.
+
+## Controlled and uncontrolled
+
+Provide `value` + `onChange` for controlled (`onChange` is required), or `defaultValue` for uncontrolled.
+
+## Calendar constraints
+
+- `minDate` / `maxDate` — inclusive bounds; dates outside are disabled.
+- `disabledDates` — individual dates to disable.
+- `disabledDateRanges` — `{from, to}` ranges to disable (inclusive).
+- `disabledDaysOfWeek` — recurring weekdays to disable (`0` = Sunday … `6` = Saturday), e.g. `[0, 6]` for weekends.
+
+Each accepts a `Temporal.PlainDate` or an ISO date string.
+
+## Localization
+
+`locale` (BCP 47) drives the calendar text, the displayed date format, and the first day of the week.
+When omitted, the browser locale is used. `dateFormat` (LDML, e.g. `'dd/MM/yyyy'`) overrides only the
+field's date order — name tokens still render localized via `locale`. `weekStartsOn` overrides the
+locale-derived first day. `i18n` overrides the calendar action labels (today / next / previous month)
+and the local-time caption prefix.
+
+## Zoned mode
+
+In `'zonedDateTime'` the timezone defaults to the system zone until changed. When the selected zone
+differs from the system zone, a caption shows the equivalent local time.
+
+## Sub-component props
+
+`timeInputProps` and `timezoneSelectorProps` forward additional props to the internal `TimeInput`
+(`dateTime` / `zonedDateTime`) and `TimezoneSelector` (`zonedDateTime`).

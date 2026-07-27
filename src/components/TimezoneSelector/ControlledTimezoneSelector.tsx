@@ -6,7 +6,7 @@ import {Language} from '~/icons';
 import {getTimezoneDropdownData} from './timezoneHelpers';
 import {toPlainDate} from '../Input/utils/temporal';
 import type {ControlledTimezoneSelectorProps} from './TimezoneSelector.types';
-import styles from "./TimezoneSelector.module.scss";
+import styles from './TimezoneSelector.module.scss';
 
 export const ControlledTimezoneSelector: React.FC<ControlledTimezoneSelectorProps> = ({
     value,

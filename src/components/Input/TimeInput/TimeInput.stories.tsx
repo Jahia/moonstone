@@ -3,6 +3,7 @@ import type {Meta, StoryObj} from '@storybook/react-vite';
 import {Temporal} from 'temporal-polyfill';
 import {Button} from '~/components';
 import {TimeInput} from './TimeInput';
+import markdownNotes from './TimeInput.md';
 
 export default {
     title: 'Components/Input/TimeInput',
@@ -11,6 +12,7 @@ export default {
     parameters: {
         layout: 'centered',
         actions: {argTypesRegex: '^on.*'},
+        notes: {markdown: markdownNotes}
     }
 } satisfies Meta<typeof TimeInput>;
 
@@ -43,9 +45,7 @@ export const Empty: Story = {
 // time (type "9" then blur → 09:00); the buttons set it from outside.
 export const Controlled: Story = {
     render: () => {
-        // const [value, setValue] = useState<Temporal.PlainTime | string | null>('09:00');
         const [value, setValue] = useState<Temporal.PlainTime | string | null>(null);
-
 
         return (
             <div>
