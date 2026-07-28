@@ -1,5 +1,6 @@
+import preview from '~/__storybook__/preview';
 import {useState} from 'react';
-import {StoryFn, Meta} from '@storybook/react-vite';
+import {StoryFn} from '@storybook/react-vite';
 
 import {Accordion} from './index';
 import {AccordionItem} from '~/components/Accordion/AccordionItem';
@@ -10,7 +11,7 @@ import {Love, BarSquare, Bug} from '~/icons';
 
 const accordionIds = ['01', '02', '03'];
 
-export default {
+const meta = preview.meta({
     title: 'Components/Accordion',
     component: Accordion,
     subcomponents: {AccordionItem},
@@ -20,7 +21,11 @@ export default {
     decorators: [
         StoryCmp => (
             <div
-        style={{display: 'flex', flexDirection: 'column', height: '100vh'}}
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: '100vh'
+                }}
             >
                 <StoryCmp/>
             </div>
@@ -30,7 +35,7 @@ export default {
         notes: {markdown: markdownNotes},
         actions: {argTypesRegex: '^on.*'}
     }
-} as Meta<typeof Accordion>;
+});
 
 const Template: StoryFn<AccordionProps> = args => (
     <Accordion {...args}>
@@ -54,107 +59,114 @@ const Template: StoryFn<AccordionProps> = args => (
             icon={<BarSquare size="big"/>}
         >
             Topgallant mutiny spike pressgang interloper transom loaded to the
-            gunwalls hogshead smartly Letter of Marque. Arr belaying pin brigantine
-            rigging warp gibbet maroon blow the man down scurvy fathom. Smartly fire
-            in the hole aye warp sheet Pirate Round spanker squiffy line holystone.
-            Grog blossom marooned hempen halter fire in the hole pressgang
-            square-rigged chantey deadlights no prey, no pay brig. Sheet splice the
-            main brace bounty jack brigantine hogshead scurvy Plate Fleet lass warp.
-            Swab crack Jennys tea cup spike Privateer interloper boom Chain Shot
-            Brethren of the Coast execution dock hang the jib. Snow nipper skysail
-            gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a
-            rig measured fer yer chains Brethren of the Coast marooned ye ballast
-            mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or
-            just lubber poop deck draft interloper main sheet ho. Snow nipper skysail
-            gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a
-            rig measured fer yer chains Brethren of the Coast marooned ye ballast
-            mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or
-            just lubber poop deck draft interloper main sheet ho. Snow nipper skysail
-            gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a
-            rig measured fer yer chains Brethren of the Coast marooned ye ballast
-            mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or
-            just lubber poop deck draft interloper main sheet ho. Snow nipper skysail
-            gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a
-            rig measured fer yer chains Brethren of the Coast marooned ye ballast
-            mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or
-            just lubber poop deck draft interloper main sheet ho. Snow nipper skysail
-            gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a
-            rig measured fer yer chains Brethren of the Coast marooned ye ballast
-            mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or
-            just lubber poop deck draft interloper main sheet ho. Snow nipper skysail
-            gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a
-            rig measured fer yer chains Brethren of the Coast marooned ye ballast
-            mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or
-            just lubber poop deck draft interloper main sheet ho. Snow nipper skysail
-            gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a
-            rig measured fer yer chains Brethren of the Coast marooned ye ballast
-            mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or
-            just lubber poop deck draft interloper main sheet ho. Snow nipper skysail
-            gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a
-            rig measured fer yer chains Brethren of the Coast marooned ye ballast
-            mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or
-            just lubber poop deck draft interloper main sheet ho. Snow nipper skysail
-            gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a
-            rig measured fer yer chains Brethren of the Coast marooned ye ballast
-            mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or
-            just lubber poop deck draft interloper main sheet ho. Snow nipper skysail
-            gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a
-            rig measured fer yer chains Brethren of the Coast marooned ye ballast
-            mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or
-            just lubber poop deck draft interloper main sheet ho. Snow nipper skysail
-            gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a
-            rig measured fer yer chains Brethren of the Coast marooned ye ballast
-            mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or
-            just lubber poop deck draft interloper main sheet ho. Snow nipper skysail
-            gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a
-            rig measured fer yer chains Brethren of the Coast marooned ye ballast
-            mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or
-            just lubber poop deck draft interloper main sheet ho. Snow nipper skysail
-            gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a
-            rig measured fer yer chains Brethren of the Coast marooned ye ballast
-            mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or
-            just lubber poop deck draft interloper main sheet ho. Snow nipper skysail
-            gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a
-            rig measured fer yer chains Brethren of the Coast marooned ye ballast
-            mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or
-            just lubber poop deck draft interloper main sheet ho. Snow nipper skysail
-            gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a
-            rig measured fer yer chains Brethren of the Coast marooned ye ballast
-            mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or
-            just lubber poop deck draft interloper main sheet ho. Snow nipper skysail
-            gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a
-            rig measured fer yer chains Brethren of the Coast marooned ye ballast
-            mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or
-            just lubber poop deck draft interloper main sheet ho. Snow nipper skysail
-            gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a
-            rig measured fer yer chains Brethren of the Coast marooned ye ballast
-            mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or
-            just lubber poop deck draft interloper main sheet ho. Snow nipper skysail
-            gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a
-            rig measured fer yer chains Brethren of the Coast marooned ye ballast
-            mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or
-            just lubber poop deck draft interloper main sheet ho. Snow nipper skysail
-            gally barkadeer red ensign heave down weigh anchor brig me. Smartly run a
-            rig measured fer yer chains Brethren of the Coast marooned ye ballast
-            mizzenmast Sail ho knave. Bucko gangway reef sails belay landlubber or
-            just lubber poop deck draft interloper main sheet ho.
+            gunwalls hogshead smartly Letter of Marque. Arr belaying pin
+            brigantine rigging warp gibbet maroon blow the man down scurvy
+            fathom. Smartly fire in the hole aye warp sheet Pirate Round spanker
+            squiffy line holystone. Grog blossom marooned hempen halter fire in
+            the hole pressgang square-rigged chantey deadlights no prey, no pay
+            brig. Sheet splice the main brace bounty jack brigantine hogshead
+            scurvy Plate Fleet lass warp. Swab crack Jennys tea cup spike
+            Privateer interloper boom Chain Shot Brethren of the Coast execution
+            dock hang the jib. Snow nipper skysail gally barkadeer red ensign
+            heave down weigh anchor brig me. Smartly run a rig measured fer yer
+            chains Brethren of the Coast marooned ye ballast mizzenmast Sail ho
+            knave. Bucko gangway reef sails belay landlubber or just lubber poop
+            deck draft interloper main sheet ho. Snow nipper skysail gally
+            barkadeer red ensign heave down weigh anchor brig me. Smartly run a
+            rig measured fer yer chains Brethren of the Coast marooned ye
+            ballast mizzenmast Sail ho knave. Bucko gangway reef sails belay
+            landlubber or just lubber poop deck draft interloper main sheet ho.
+            Snow nipper skysail gally barkadeer red ensign heave down weigh
+            anchor brig me. Smartly run a rig measured fer yer chains Brethren
+            of the Coast marooned ye ballast mizzenmast Sail ho knave. Bucko
+            gangway reef sails belay landlubber or just lubber poop deck draft
+            interloper main sheet ho. Snow nipper skysail gally barkadeer red
+            ensign heave down weigh anchor brig me. Smartly run a rig measured
+            fer yer chains Brethren of the Coast marooned ye ballast mizzenmast
+            Sail ho knave. Bucko gangway reef sails belay landlubber or just
+            lubber poop deck draft interloper main sheet ho. Snow nipper skysail
+            gally barkadeer red ensign heave down weigh anchor brig me. Smartly
+            run a rig measured fer yer chains Brethren of the Coast marooned ye
+            ballast mizzenmast Sail ho knave. Bucko gangway reef sails belay
+            landlubber or just lubber poop deck draft interloper main sheet ho.
+            Snow nipper skysail gally barkadeer red ensign heave down weigh
+            anchor brig me. Smartly run a rig measured fer yer chains Brethren
+            of the Coast marooned ye ballast mizzenmast Sail ho knave. Bucko
+            gangway reef sails belay landlubber or just lubber poop deck draft
+            interloper main sheet ho. Snow nipper skysail gally barkadeer red
+            ensign heave down weigh anchor brig me. Smartly run a rig measured
+            fer yer chains Brethren of the Coast marooned ye ballast mizzenmast
+            Sail ho knave. Bucko gangway reef sails belay landlubber or just
+            lubber poop deck draft interloper main sheet ho. Snow nipper skysail
+            gally barkadeer red ensign heave down weigh anchor brig me. Smartly
+            run a rig measured fer yer chains Brethren of the Coast marooned ye
+            ballast mizzenmast Sail ho knave. Bucko gangway reef sails belay
+            landlubber or just lubber poop deck draft interloper main sheet ho.
+            Snow nipper skysail gally barkadeer red ensign heave down weigh
+            anchor brig me. Smartly run a rig measured fer yer chains Brethren
+            of the Coast marooned ye ballast mizzenmast Sail ho knave. Bucko
+            gangway reef sails belay landlubber or just lubber poop deck draft
+            interloper main sheet ho. Snow nipper skysail gally barkadeer red
+            ensign heave down weigh anchor brig me. Smartly run a rig measured
+            fer yer chains Brethren of the Coast marooned ye ballast mizzenmast
+            Sail ho knave. Bucko gangway reef sails belay landlubber or just
+            lubber poop deck draft interloper main sheet ho. Snow nipper skysail
+            gally barkadeer red ensign heave down weigh anchor brig me. Smartly
+            run a rig measured fer yer chains Brethren of the Coast marooned ye
+            ballast mizzenmast Sail ho knave. Bucko gangway reef sails belay
+            landlubber or just lubber poop deck draft interloper main sheet ho.
+            Snow nipper skysail gally barkadeer red ensign heave down weigh
+            anchor brig me. Smartly run a rig measured fer yer chains Brethren
+            of the Coast marooned ye ballast mizzenmast Sail ho knave. Bucko
+            gangway reef sails belay landlubber or just lubber poop deck draft
+            interloper main sheet ho. Snow nipper skysail gally barkadeer red
+            ensign heave down weigh anchor brig me. Smartly run a rig measured
+            fer yer chains Brethren of the Coast marooned ye ballast mizzenmast
+            Sail ho knave. Bucko gangway reef sails belay landlubber or just
+            lubber poop deck draft interloper main sheet ho. Snow nipper skysail
+            gally barkadeer red ensign heave down weigh anchor brig me. Smartly
+            run a rig measured fer yer chains Brethren of the Coast marooned ye
+            ballast mizzenmast Sail ho knave. Bucko gangway reef sails belay
+            landlubber or just lubber poop deck draft interloper main sheet ho.
+            Snow nipper skysail gally barkadeer red ensign heave down weigh
+            anchor brig me. Smartly run a rig measured fer yer chains Brethren
+            of the Coast marooned ye ballast mizzenmast Sail ho knave. Bucko
+            gangway reef sails belay landlubber or just lubber poop deck draft
+            interloper main sheet ho. Snow nipper skysail gally barkadeer red
+            ensign heave down weigh anchor brig me. Smartly run a rig measured
+            fer yer chains Brethren of the Coast marooned ye ballast mizzenmast
+            Sail ho knave. Bucko gangway reef sails belay landlubber or just
+            lubber poop deck draft interloper main sheet ho. Snow nipper skysail
+            gally barkadeer red ensign heave down weigh anchor brig me. Smartly
+            run a rig measured fer yer chains Brethren of the Coast marooned ye
+            ballast mizzenmast Sail ho knave. Bucko gangway reef sails belay
+            landlubber or just lubber poop deck draft interloper main sheet ho.
+            Snow nipper skysail gally barkadeer red ensign heave down weigh
+            anchor brig me. Smartly run a rig measured fer yer chains Brethren
+            of the Coast marooned ye ballast mizzenmast Sail ho knave. Bucko
+            gangway reef sails belay landlubber or just lubber poop deck draft
+            interloper main sheet ho. Snow nipper skysail gally barkadeer red
+            ensign heave down weigh anchor brig me. Smartly run a rig measured
+            fer yer chains Brethren of the Coast marooned ye ballast mizzenmast
+            Sail ho knave. Bucko gangway reef sails belay landlubber or just
+            lubber poop deck draft interloper main sheet ho.
         </AccordionItem>
     </Accordion>
 );
 
-export const Default = {
+export const Default = meta.story({
     render: Template
-};
+});
 
-export const DefaultOpened = {
+export const DefaultOpened = meta.story({
     render: Template,
 
     args: {
         defaultOpenedItem: accordionIds[1]
     }
-};
+});
 
-export const Controlled = () => {
+export const Controlled = meta.story(() => {
     const [stateOpenedItems, setStateOpenedItem] = useState(accordionIds[1]);
 
     const onSetOpenedItem = (id: string) => {
@@ -180,40 +192,40 @@ export const Controlled = () => {
                 </button>
             </span>
             <Accordion
-        openedItem={stateOpenedItems}
-        onSetOpenedItem={onSetOpenedItem}
+                openedItem={stateOpenedItems}
+                onSetOpenedItem={onSetOpenedItem}
             >
                 <AccordionItem
-          id={accordionIds[0]}
-          icon={<Love size="big"/>}
-          label="test 01"
+                    id={accordionIds[0]}
+                    icon={<Love size="big"/>}
+                    label="test 01"
                 >
                     Accordion Content
                 </AccordionItem>
                 <AccordionItem
-          id={accordionIds[1]}
-          icon={<Bug size="big"/>}
-          label="test 02 is opened by default"
+                    id={accordionIds[1]}
+                    icon={<Bug size="big"/>}
+                    label="test 02 is opened by default"
                 >
                     Accordion Content
                 </AccordionItem>
                 <AccordionItem
-          id={accordionIds[2]}
-          label="test 03 (with long content)"
-          icon={<BarSquare size="big"/>}
+                    id={accordionIds[2]}
+                    label="test 03 (with long content)"
+                    icon={<BarSquare size="big"/>}
                 >
                     Accordion Content
                 </AccordionItem>
             </Accordion>
         </>
     );
-};
+});
 
-export const Reversed = {
+export const Reversed = meta.story({
     render: Template,
 
     args: {
         isReversed: true,
         defaultOpenedItem: accordionIds[1]
     }
-};
+});

@@ -1,3 +1,4 @@
+import preview from '~/__storybook__/preview';
 import {useState} from 'react';
 import {TreeView} from './index';
 import {treeData, treeDataFlat, treeDataRootClosable} from '~/data';
@@ -10,29 +11,41 @@ const css = {
     height: '100vh'
 };
 
-export default {
+const meta = preview.meta({
     title: 'Components/TreeView',
     component: TreeView,
-    decorators: [(storyFn: () => JSX.Element) => <div style={css}>{storyFn()}</div>],
+
+    decorators: [
+        (storyFn: () => JSX.Element) => <div style={css}>{storyFn()}</div>
+    ],
+
     parameters: {
         layout: 'centered',
         notes: {markdown: markdownNotes}
     }
-};
+});
 
-export const Default = {
+export const Default = meta.story({
     render: (args: TreeViewProps, globals: { theme: string }) => {
         const theme = globals.theme;
-        return <TreeView {...args} data={treeData} isReversed={theme === 'dark'}/>;
+        return (
+            <TreeView {...args} data={treeData} isReversed={theme === 'dark'}/>
+        );
     }
-};
+});
 
-export const ClosableRoot = {
+export const ClosableRoot = meta.story({
     render: (args: TreeViewProps, globals: { theme: string }) => {
         const theme = globals.theme;
-        return <TreeView {...args} data={treeDataRootClosable} isReversed={theme === 'dark'}/>;
+        return (
+            <TreeView
+                {...args}
+                data={treeDataRootClosable}
+                isReversed={theme === 'dark'}
+            />
+        );
     }
-};
+});
 
 // Export const OpenedByDefault = {
 //     render: (args, {globals: {theme}}) => {
@@ -48,20 +61,25 @@ export const ClosableRoot = {
 //     }
 // };
 
-export const Flat = {
-    render: (args: TreeViewProps, {globals: {theme}}: { globals: { theme: string } }) => (
+export const Flat = meta.story({
+    render: (
+        args: TreeViewProps,
+        {globals: {theme}}: { globals: { theme: string } }
+    ) => (
         <TreeView {...args} data={treeDataFlat} isReversed={theme === 'dark'}/>
     )
-};
+});
 
-export const Selection = {
+export const Selection = meta.story({
     render: (args: TreeViewProps, globals: { theme: string }) => {
         const theme = globals.theme;
         const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
         const handleClick = (node: TreeViewData) => {
             if (selectedItems.includes(node.id)) {
-                setSelectedItems(selectedItems.filter(item => item !== node.id));
+                setSelectedItems(
+                    selectedItems.filter(item => item !== node.id)
+                );
             } else {
                 setSelectedItems([node.id]);
             }
@@ -69,22 +87,30 @@ export const Selection = {
 
         return (
             <TreeView
-        isReversed={theme === 'dark'}
-        selectedItems={selectedItems}
-        data={treeData}
-        onClickItem={handleClick}
-        {...args}
-      />
+                isReversed={theme === 'dark'}
+                selectedItems={selectedItems}
+                data={treeData}
+                onClickItem={handleClick}
+                {...args}
+            />
         );
     }
-};
-export const Highlight = {
-    render: (args: TreeViewProps, {globals: {theme}}: { globals: { theme: string } }) => (
-        <TreeView data={treeData} isReversed={theme === 'dark'} highlightedItems={['A']} {...args}/>
+});
+export const Highlight = meta.story({
+    render: (
+        args: TreeViewProps,
+        {globals: {theme}}: { globals: { theme: string } }
+    ) => (
+        <TreeView
+            data={treeData}
+            isReversed={theme === 'dark'}
+            highlightedItems={['A']}
+            {...args}
+        />
     )
-};
+});
 
-export const Controlled = {
+export const Controlled = meta.story({
     render: (args: TreeViewProps, globals: { theme: string }) => {
         const theme = globals.theme;
         const [openedItems, setOpenedItems] = useState<string[]>([]);
@@ -102,25 +128,29 @@ export const Controlled = {
                 <span>
                     Opened items ={' '}
                     {openedItems.map(n => (
-                        <button key={n} type="button" onClick={() => handleClose({id: n, label: n})}>
+                        <button
+                            key={n}
+                            type="button"
+                            onClick={() => handleClose({id: n, label: n})}
+                        >
                             {n}
                         </button>
-          ))}
+                    ))}
                 </span>
                 <TreeView
-          {...args}
-          data={treeData}
-          openedItems={openedItems}
-          isReversed={theme === 'dark'}
-          onOpenItem={handleOpen}
-          onCloseItem={handleClose}
-        />
+                    {...args}
+                    data={treeData}
+                    openedItems={openedItems}
+                    isReversed={theme === 'dark'}
+                    onOpenItem={handleOpen}
+                    onCloseItem={handleClose}
+                />
             </div>
         );
     }
-};
+});
 
-export const ControlledWithLoading = {
+export const ControlledWithLoading = meta.story({
     render: (args: TreeViewProps, globals: { theme: string }) => {
         const theme = globals.theme;
         const [openedItems, setOpenedItems] = useState<string[]>([]);
@@ -172,19 +202,23 @@ export const ControlledWithLoading = {
                 <span>
                     Opened items ={' '}
                     {openedItems.map(n => (
-                        <button key={n} type="button" onClick={() => handleClose({id: n, label: n})}>
+                        <button
+                            key={n}
+                            type="button"
+                            onClick={() => handleClose({id: n, label: n})}
+                        >
                             {n}
                         </button>
-          ))}
+                    ))}
                 </span>
                 <TreeView
-          data={treeDataState}
-          isReversed={theme === 'dark'}
-          openedItems={openedItems}
-          onOpenItem={handleOpen}
-          onCloseItem={handleClose}
-        />
+                    data={treeDataState}
+                    isReversed={theme === 'dark'}
+                    openedItems={openedItems}
+                    onOpenItem={handleOpen}
+                    onCloseItem={handleClose}
+                />
             </div>
         );
     }
-};
+});

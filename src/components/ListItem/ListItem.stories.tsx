@@ -1,15 +1,14 @@
-import {StoryObj} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
 import markdownNotes from './ListItem.md';
 
 import {ListItem} from './index';
-import type {ListItemProps} from './ListItem.types';
 import {Love, Cloud} from '~/icons';
 import {iconArgType} from '~/__storybook__/iconArgType';
 import imgVertical from '~/__storybook__/assets/img-vertical.webp';
 import imgHorizontal from '~/__storybook__/assets/img-horizontal.webp';
 import imgSquare from '~/__storybook__/assets/img-square.webp';
 
-export default {
+const meta = preview.meta({
     title: 'Components/ListItem',
     component: ListItem,
 
@@ -17,13 +16,14 @@ export default {
         layout: 'centered',
         notes: {markdown: markdownNotes}
     },
+
     argTypes: {
         iconStart: iconArgType,
         iconEnd: iconArgType
     }
-};
+});
 
-export const Default: StoryObj<ListItemProps> = {
+export const Default = meta.story({
     render: args => (
         <ul style={{padding: 0, margin: 0}}>
             <ListItem {...args}/>
@@ -33,9 +33,9 @@ export const Default: StoryObj<ListItemProps> = {
     args: {
         label: 'ListItem label'
     }
-};
+});
 
-export const IconText: StoryObj<ListItemProps> = {
+export const IconText = meta.story({
     render: args => (
         <ul style={{padding: 0, margin: 0}}>
             <ListItem {...args}/>
@@ -48,9 +48,9 @@ export const IconText: StoryObj<ListItemProps> = {
         label: 'ListItem',
         iconStart: <Love/>
     }
-};
+});
 
-export const IconTextIcon: StoryObj<ListItemProps> = {
+export const IconTextIcon = meta.story({
     render: args => (
         <ul style={{padding: 0}}>
             <ListItem {...args}/>
@@ -64,9 +64,9 @@ export const IconTextIcon: StoryObj<ListItemProps> = {
         iconStart: <Love/>,
         iconEnd: <Cloud/>
     }
-};
+});
 
-export const WithBigImage: StoryObj<ListItemProps> = {
+export const WithBigImage = meta.story({
     render: args => (
         <ul style={{padding: 0}}>
             <ListItem
@@ -88,9 +88,9 @@ export const WithBigImage: StoryObj<ListItemProps> = {
         label: 'ListItem label',
         imageSize: 'big'
     }
-};
+});
 
-export const WithSmallImage: StoryObj<ListItemProps> = {
+export const WithSmallImage = meta.story({
     render: args => (
         <ul style={{padding: 0}}>
             <ListItem
@@ -112,4 +112,4 @@ export const WithSmallImage: StoryObj<ListItemProps> = {
         label: 'ListItem label',
         imageSize: 'small'
     }
-};
+});

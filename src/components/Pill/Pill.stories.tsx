@@ -1,10 +1,9 @@
-import {StoryObj} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
 import markdownNotes from './Pill.md';
 
 import {Pill} from './index';
-import type {PillProps} from './Pill.types';
 
-export default {
+const meta = preview.meta({
     title: 'Components/Pill',
     component: Pill,
 
@@ -12,10 +11,10 @@ export default {
         layout: 'centered',
         notes: {markdown: markdownNotes}
     }
-};
+});
 
-export const Default: StoryObj<PillProps> = {
+export const Default = meta.story({
     args: {
         label: 'ListItem label'
     }
-};
+});

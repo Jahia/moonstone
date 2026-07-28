@@ -1,3 +1,4 @@
+import preview from '~/__storybook__/preview';
 import React from 'react';
 import '~/__storybook__/storybook.scss';
 
@@ -7,17 +8,14 @@ import {Love} from '~/icons';
 
 const iconsName = Object.keys(Icons) as (keyof typeof Icons)[];
 type IconWrapperProps = {
-    readonly iconName: keyof typeof Icons,
-    readonly size?: 'small' | 'default' | 'big',
+    readonly iconName: keyof typeof Icons;
+    readonly size?: 'small' | 'default' | 'big';
 };
 
 export const IconWrapper: React.FC<IconWrapperProps> = ({iconName, size}) => {
     return (
         <div className="storyGridItem">
-            {React.createElement(
-                Icons[iconName],
-                {size: size}
-            )}
+            {React.createElement(Icons[iconName], {size: size})}
             <span>{iconName}</span>
         </div>
     );
@@ -30,40 +28,33 @@ function displayIcons() {
     for (const name of iconsName) {
         allIcons.push(
             <IconWrapper
-        key={`key-${name}`}
-        iconName={name}
-        size="big"
-        // Color={color}
-      />
+                key={`key-${name}`}
+                iconName={name}
+                size="big"
+                // Color={color}
+            />
         );
     }
 
     return allIcons;
 }
 
-export default {
+const meta = preview.meta({
     title: 'Tokens/Icons',
     component: Icons,
+
     // Decorators: [withKnobs],
 
     parameters: {
-    // ComponentSubtitle: 'Icons',
+        // ComponentSubtitle: 'Icons',
         notes: {markdown: markdownNotes}
     },
 
     excludeStories: ['IconWrapper']
-};
+});
 
-export const _Default = () => (
+export const _Default = meta.story(() => (
     <section className="storyGrid">{displayIcons()}</section>
-);
+));
 
-export const Colored = () => <Love color="red"/>;
-
-// Export const Playground = () => (
-//     <IconWrapper
-//         iconName={select('Choose your icon', iconsName, 'Edit')}
-//         size={iconsSize()}
-//         // color={iconsColor()}
-//   />
-// );
+export const Colored = meta.story(() => <Love color="red"/>);

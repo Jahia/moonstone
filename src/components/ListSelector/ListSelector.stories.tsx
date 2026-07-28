@@ -1,11 +1,11 @@
+import preview from '~/__storybook__/preview';
 import {useState} from 'react';
 import '~/__storybook__/storybook.scss';
-import {StoryObj, Meta} from '@storybook/react-vite';
 
 import {ListSelector} from './index';
 import {listSelectorData} from '~/data/listSelectorData';
 
-export default {
+const meta = preview.meta({
     title: 'Components/ListSelector',
     component: ListSelector,
     parameters: {
@@ -22,26 +22,26 @@ export default {
             }
         }
     }
-} as Meta<typeof ListSelector>;
+});
 
-export const Basic = {
+export const Basic = meta.story({
     args: {
         options: listSelectorData,
         values: ['1', '3', '5'],
         onChange: (v: string[]) => console.log(v)
     }
-};
+});
 
-export const ReadOnly = {
+export const ReadOnly = meta.story({
     args: {
         isReadOnly: true,
         options: listSelectorData,
         values: ['1', '3', '5'],
         onChange: (v: string[]) => console.log(v)
     }
-};
+});
 
-export const Controlled: StoryObj<typeof ListSelector> = {
+export const Controlled = meta.story({
     render: args => {
         const [arrayValue, setArrayValue] = useState([]);
 
@@ -49,18 +49,18 @@ export const Controlled: StoryObj<typeof ListSelector> = {
 
         return (
             <ListSelector
-        {...args}
-        label={{
-          rightListTitle: 'Label for the right list',
-          leftListTitle: 'Label for the left list',
-          addAllTitle: 'Add all',
-          removeAllTitle: 'Remove all',
-          selected: `${arrayValue.length} item(s) selected`
-        }}
-        options={options}
-        values={arrayValue}
-        onChange={setArrayValue}
-      />
+                {...args}
+                label={{
+                    rightListTitle: 'Label for the right list',
+                    leftListTitle: 'Label for the left list',
+                    addAllTitle: 'Add all',
+                    removeAllTitle: 'Remove all',
+                    selected: `${arrayValue.length} item(s) selected`
+                }}
+                options={options}
+                values={arrayValue}
+                onChange={setArrayValue}
+            />
         );
     }
-};
+});

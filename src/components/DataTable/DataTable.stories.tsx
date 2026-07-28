@@ -1,12 +1,22 @@
-import {tableStructured, tableFlat, dataColumnsUser, getStatus} from '~/data/dataTable';
-import type {DataUser, DataUserKeys} from '~/data/dataTable';
-import type {Meta, StoryObj} from '@storybook/react';
-import {DataTable, TableRow, TableCellActions, TableCellStatus} from './index';
+import preview from '~/__storybook__/preview';
+import {
+    tableStructured,
+    tableFlat,
+    dataColumnsUser,
+    getStatus
+} from '~/data/dataTable';
+import type {DataUserKeys} from '~/data/dataTable';
+import {
+    DataTable,
+    TableRow,
+    TableCellActions,
+    TableCellStatus
+} from './index';
 import {useState} from 'react';
 import {Button, Tooltip} from '~/components';
 import {Visibility, Edit, Delete, MoreVert} from '~/icons';
 
-export default {
+const meta = preview.meta({
     title: 'Components/DataTable',
     component: DataTable,
     tags: ['beta'],
@@ -20,11 +30,9 @@ export default {
         itemsPerPageOptions: {control: 'object'},
         i18n: {control: 'object'}
     }
-} satisfies Meta<typeof DataTable<DataUser>>;
+});
 
-type Story = StoryObj<typeof DataTable<DataUser>>;
-
-export const DefaultDataTable: Story = {
+export const DefaultDataTable = meta.story({
     render: args => {
         return <DataTable {...args}/>;
     },
@@ -34,9 +42,9 @@ export const DefaultDataTable: Story = {
         primaryKey: 'id'
     },
     name: 'Default DataTable (uncontrolled)'
-};
+});
 
-export const StructuredDataTable: Story = {
+export const StructuredDataTable = meta.story({
     render: args => {
         return <DataTable {...args}/>;
     },
@@ -47,9 +55,9 @@ export const StructuredDataTable: Story = {
         primaryKey: 'id'
     },
     name: 'Structured DataTable (uncontrolled)'
-};
+});
 
-export const SelectableDataTable: Story = {
+export const SelectableDataTable = meta.story({
     render: args => {
         return <DataTable {...args}/>;
     },
@@ -61,9 +69,9 @@ export const SelectableDataTable: Story = {
         defaultSortBy: 'progress'
     },
     name: 'Selectable DataTable (uncontrolled)'
-};
+});
 
-export const DefaultSelectionDataTable: Story = {
+export const DefaultSelectionDataTable = meta.story({
     render: args => {
         return <DataTable {...args}/>;
     },
@@ -76,13 +84,15 @@ export const DefaultSelectionDataTable: Story = {
         defaultSelection: ['1', '6']
     },
     name: 'Default Selection (uncontrolled)'
-};
+});
 
-export const ControlledDataTable: Story = {
+export const ControlledDataTable = meta.story({
     render: () => {
         // Sorting
         const [sortBy, setSortBy] = useState<DataUserKeys>('progress');
-        const [sortDirection, setSortDirection] = useState<'ascending' | 'descending'>('descending');
+        const [sortDirection, setSortDirection] = useState<
+            'ascending' | 'descending'
+        >('descending');
         // Selection
         const [selection, setSelection] = useState<string[]>(['1', '2']);
         // Pagination
@@ -114,22 +124,23 @@ export const ControlledDataTable: Story = {
         );
     },
     name: 'Controlled DataTable'
-};
+});
 
-export const InsertCells: Story = {
+export const InsertCells = meta.story({
     render: args => {
         return (
             <DataTable
                 {...args}
                 renderRow={({id, data, render: renderCells}) => (
-                    <TableRow
-                        key={id}
-                    >
+                    <TableRow key={id}>
                         {renderCells({
                             before: (
-                                <TableCellStatus color={getStatus(data.status).color}>
+                                <TableCellStatus
+                                    color={getStatus(data.status).color}
+                                >
                                     <>
-                                        {getStatus(data.status).iconStart} {getStatus(data.status).text}
+                                        {getStatus(data.status).iconStart}{' '}
+                                        {getStatus(data.status).text}
                                     </>
                                 </TableCellStatus>
                             ),
@@ -138,17 +149,32 @@ export const InsertCells: Story = {
                                     actionsOnHover={
                                         <>
                                             <Tooltip label="View">
-                                                <Button icon={<Visibility/>} variant="ghost"/>
+                                                <Button
+                                                    icon={<Visibility/>}
+                                                    variant="ghost"
+                                                />
                                             </Tooltip>
                                             <Tooltip label="Edit">
-                                                <Button icon={<Edit/>} variant="ghost"/>
+                                                <Button
+                                                    icon={<Edit/>}
+                                                    variant="ghost"
+                                                />
                                             </Tooltip>
                                             <Tooltip label="Delete">
-                                                <Button icon={<Delete/>} variant="ghost"/>
+                                                <Button
+                                                    icon={<Delete/>}
+                                                    variant="ghost"
+                                                />
                                             </Tooltip>
                                         </>
                                     }
-                                    actions={<Button icon={<MoreVert/>} variant="ghost" aria-label="Actions"/>}
+                                    actions={
+                                        <Button
+                                            icon={<MoreVert/>}
+                                            variant="ghost"
+                                            aria-label="Actions"
+                                        />
+                                    }
                                 />
                             )
                         })}
@@ -164,4 +190,4 @@ export const InsertCells: Story = {
         enableSelection: true
     },
     name: 'Insert custom cells (renderRow)'
-};
+});

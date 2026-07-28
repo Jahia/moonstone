@@ -1,10 +1,10 @@
-import {Meta, StoryObj} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
 import {LayoutContent} from '~/layouts';
 import {Header} from '~/components';
 import {FakeContent} from '~/__storybook__/FakeComponents';
 import type {LayoutContentProps} from './LayoutContent.types';
 
-export default {
+const meta = preview.meta({
     title: 'Layouts/LayoutContent',
     component: LayoutContent,
     decorators: [
@@ -19,9 +19,7 @@ export default {
             control: false
         }
     }
-} as Meta<typeof LayoutContent>;
-
-type Story = StoryObj<typeof LayoutContent>;
+});
 
 const Template = (args: LayoutContentProps) => (
     <LayoutContent header={<Header title="Header"/>} {...args}>
@@ -29,30 +27,30 @@ const Template = (args: LayoutContentProps) => (
     </LayoutContent>
 );
 
-export const Default: Story = {
+export const Default = meta.story({
     render: Template
-};
+});
 
-export const Centered: Story = {
+export const Centered = meta.story({
     render: Template,
 
     args: {
         isCentered: true
     }
-};
+});
 
-export const WithoutPadding: Story = {
+export const WithoutPadding = meta.story({
     render: Template,
 
     args: {
         hasPadding: false
     }
-};
+});
 
-export const Loading: Story = {
+export const Loading = meta.story({
     render: Template,
 
     args: {
         isLoading: true
     }
-};
+});

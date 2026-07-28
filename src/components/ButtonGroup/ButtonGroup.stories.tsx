@@ -1,12 +1,11 @@
-import {StoryObj, Meta} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
 
 import markdownNotes from './ButtonGroup.md';
 import {ButtonGroup} from './index';
-import type {ButtonGroupProps} from './ButtonGroup.types';
 import {Button} from '~/components/Button';
 import {ChevronDown} from '~/icons';
 
-export default {
+const meta = preview.meta({
     title: 'Components/ButtonGroup',
     component: ButtonGroup,
     subcomponents: {Button},
@@ -17,9 +16,9 @@ export default {
         notes: {markdown: markdownNotes},
         actions: {argTypesRegex: '^on.*'}
     }
-} as Meta<typeof ButtonGroup>;
+});
 
-export const Default: StoryObj<ButtonGroupProps> = {
+export const Default = meta.story({
     render: args => (
         <ButtonGroup {...args}>
             <Button label="one" onClick={() => null}/>
@@ -31,24 +30,32 @@ export const Default: StoryObj<ButtonGroupProps> = {
     args: {
         size: 'big'
     }
-};
+});
 
-export const ButtonWithActions = () => (
+export const ButtonWithActions = meta.story(() => (
     <ButtonGroup color="accent" size="big">
         <Button label="Actions" onClick={() => null}/>
-        <Button icon={<ChevronDown/>} aria-label="button with down arrow icon" onClick={() => null}/>
+        <Button
+            icon={<ChevronDown/>}
+            aria-label="button with down arrow icon"
+            onClick={() => null}
+        />
     </ButtonGroup>
-);
+));
 
-export const ButtonOutlinedWithActions = () => (
+export const ButtonOutlinedWithActions = meta.story(() => (
     <ButtonGroup color="accent" size="big" variant="outlined">
         <Button label="Actions" onClick={() => null}/>
-        <Button icon={<ChevronDown/>} aria-label="button with down arrow icon" onClick={() => null}/>
+        <Button
+            icon={<ChevronDown/>}
+            aria-label="button with down arrow icon"
+            onClick={() => null}
+        />
     </ButtonGroup>
-);
+));
 
-export const ButtonGroupWith1Button = () => (
+export const ButtonGroupWith1Button = meta.story(() => (
     <ButtonGroup color="accent" size="big">
         <Button label="Actions" onClick={() => null}/>
     </ButtonGroup>
-);
+));

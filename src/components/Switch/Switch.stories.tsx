@@ -1,25 +1,26 @@
+import preview from '~/__storybook__/preview';
 import {useState} from 'react';
-import {StoryObj} from '@storybook/react-vite';
 
 import {Switch} from './index';
-import type {SwitchProps} from './Switch.types';
 
-export default {
+const meta = preview.meta({
     title: 'Components/Switch',
     component: Switch,
+
     parameters: {
         layout: 'centered'
-    // When enabled, the controlledSwitch doesn't work anymore. maybe it's fixed with storybook 7.4 (https://github.com/storybookjs/storybook/pull/23804)
-    // Actions: {argTypesRegex: '^on.*'}
+        // When enabled, the controlledSwitch doesn't work anymore. maybe it's fixed with storybook 7.4 (https://github.com/storybookjs/storybook/pull/23804)
+        // Actions: {argTypesRegex: '^on.*'}
     },
+
     args: {
         'aria-label': 'switch component'
     }
-};
+});
 
-export const Uncontrolled: StoryObj<SwitchProps> = {};
+export const Uncontrolled = meta.story();
 
-export const Controlled: StoryObj<SwitchProps> = {
+export const Controlled = meta.story({
     render: args => {
         const [checked, setChecked] = useState(false);
 
@@ -28,7 +29,11 @@ export const Controlled: StoryObj<SwitchProps> = {
         };
 
         return (
-            <Switch checked={checked} onChange={() => handleOnChange()} {...args}/>
+            <Switch
+                checked={checked}
+                onChange={() => handleOnChange()}
+                {...args}
+            />
         );
     }
-};
+});
