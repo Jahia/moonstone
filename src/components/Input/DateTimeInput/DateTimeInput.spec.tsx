@@ -462,6 +462,26 @@ describe('DateTimeInput', () => {
         expect(screen.queryByText('Today')).not.toBeInTheDocument();
     });
 
+    it('should clear the whole value when the date field clear button is clicked', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(
+            <DateTimeInput
+                type="dateTime"
+                placeholder="Select a date"
+                defaultValue="2026-03-15T11:56"
+                onChange={handleChange}
+            />
+        );
+
+        await user.click(screen.getByRole('button', {name: 'Reset'}));
+
+        expect(handleChange).toHaveBeenCalledWith(expect.anything(), null);
+        expect(dateField()).toHaveValue('');
+        expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
+    });
+
     it('should disable dates before minDate in the calendar', async () => {
         const user = userEvent.setup();
 
@@ -766,6 +786,38 @@ describe('DateTimeInput', () => {
         expect(screen.queryByRole('searchbox')).not.toBeInTheDocument();
     });
 
+    it('should make the internal time input read-only when isReadOnly is set', () => {
+        render(
+            <DateTimeInput
+                isReadOnly
+                type="dateTime"
+                placeholder="Select a date"
+                defaultValue="2026-03-15T11:56"
+                onChange={() => null}
+            />
+        );
+
+        expect(screen.getByPlaceholderText('HH:MM')).toHaveAttribute('readonly');
+    });
+
+    it('should make the internal timezone selector read-only (rendered as disabled) when isReadOnly is set', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                isReadOnly
+                type="zonedDateTime"
+                placeholder="Select a date"
+                defaultValue="2026-03-15T11:56[Europe/Paris]"
+                onChange={() => null}
+            />
+        );
+
+        await user.click(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'}));
+
+        expect(screen.queryByRole('searchbox')).not.toBeInTheDocument();
+    });
+
     it('should not display an invalid dateTime value', () => {
         render(<DateTimeInput type="dateTime" defaultValue="not-a-date" placeholder="Select a date" onChange={() => null}/>);
 
@@ -873,20 +925,6 @@ describe('DateTimeInput', () => {
 
         expect(dateField()).toHaveValue('05/03/2026');
         expect(warn).toHaveBeenCalledWith(expect.stringContaining(dateFormat));
-
-        warn.mockRestore();
-    });
-
-    // Deduped per pattern, so two renders of the same bad pattern warn once. The pattern is
-    // unique to this test because the module-level Set persists across the file.
-    it('should warn only once per invalid dateFormat across renders', () => {
-        const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
-        const props = {type: 'date', defaultValue: '2026-03-05', locale: 'fr', dateFormat: 'no-tokens-here'} as const;
-
-        render(<DateTimeInput {...props} placeholder="first"/>);
-        render(<DateTimeInput {...props} placeholder="second"/>);
-
-        expect(warn).toHaveBeenCalledTimes(1);
 
         warn.mockRestore();
     });

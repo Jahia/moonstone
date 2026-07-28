@@ -16,6 +16,9 @@ time field and timezone selector depending on the mode.
 mode's `Temporal` instance (or `null`) — never a string. Pass `defaultValue={null}` to start empty;
 with no `defaultValue`, an uncontrolled field starts at the current date/time.
 
+When the date field holds a value it shows a clear (reset) button. Clearing empties the whole value —
+date, time, and zone — and `onChange` emits `null`, since a date-time has no meaning without its date.
+
 ## Controlled and uncontrolled
 
 Provide `value` + `onChange` for controlled (`onChange` is required), or `defaultValue` for uncontrolled.

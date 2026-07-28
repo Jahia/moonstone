@@ -71,7 +71,8 @@ export type DateTimeInputTimezoneSelectorProps = Omit<ControlledTimezoneSelector
     'referenceDate' |
     'size' |
     'variant' |
-    'isDisabled'
+    'isDisabled' |
+    'isReadOnly'
 > & DataAttributes;
 
 /** Props common to every mode of the `DateTimeInput`. */
@@ -116,8 +117,10 @@ export type DateTimeInputSharedProps = Omit<BaseInputProps,
     /**
      * BCP 47 locale driving the displayed date, the calendar text, and the first day of the week.
      * Examples: `'fr-FR'`, `'en-US'`, `'de-DE'`.
-     * When omitted, the browser's locale is resolved once (`new Intl.DateTimeFormat().resolvedOptions().locale`)
-     * and applied to all of them.
+     * When omitted, it resolves to the browser's locale
+     * (`new Intl.DateTimeFormat().resolvedOptions().locale`), applied consistently to all three.
+     * When server-rendering, pass an explicit `locale`: the resolved locale differs between server
+     * and client, so the rendered date would otherwise mismatch on hydration.
      */
     locale?: Intl.ResolvedDateTimeFormatOptions['locale'];
 

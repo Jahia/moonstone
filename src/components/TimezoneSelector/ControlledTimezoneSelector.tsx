@@ -16,6 +16,7 @@ export const ControlledTimezoneSelector: React.FC<ControlledTimezoneSelectorProp
     variant = 'outlined',
     className,
     isDisabled,
+    isReadOnly,
     onChange,
     ...props
 }) => {
@@ -27,7 +28,7 @@ export const ControlledTimezoneSelector: React.FC<ControlledTimezoneSelectorProp
             value={value}
             size={size}
             variant={variant}
-            isDisabled={isDisabled}
+            isDisabled={isDisabled || isReadOnly}
             placeholder={placeholder}
             icon={<Language aria-hidden/>}
             onChange={(event: React.MouseEvent, item: DropdownDataOption) => {

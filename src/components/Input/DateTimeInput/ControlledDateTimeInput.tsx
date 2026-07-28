@@ -60,7 +60,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     const selectedDate = getPlainDate(currentValue);
     const selectedTime = getPlainTime(currentValue);
 
-    // Resolve to a concrete locale once: passing `undefined` through would disable the calendar
+    // Resolve to a single locale: passing `undefined` through would disable the calendar
     // formatters and force getWeekStartsOn's Monday fallback, so only the text field would localize.
     const resolvedLocale = locale ?? new Intl.DateTimeFormat().resolvedOptions().locale;
 
@@ -157,9 +157,16 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                 size={size}
                 variant={variant}
                 isDisabled={isDisabled}
+                isReadOnly={isReadOnly}
                 icon={<Calendar aria-hidden/>}
                 // No-op: calendar-driven, not typed into. Avoids the controlled-input warning
                 onChange={() => undefined}
+                // The date is the value's spine, so clearing it clears the whole value: emit null
+                // (time goes with it) and reset the pre-date zone fallback. Reported via onChange(null).
+                onClear={event => {
+                    emitChange(event, {plainDate: null});
+                    setFallbackZone(getSystemTimeZone());
+                }}
                 onClick={openCalendar}
                 onKeyUp={event => {
                     if (event.key === 'Enter' || event.key === ' ') {
@@ -284,6 +291,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                     size={size === 'big' ? 'medium' : 'small'}
                     variant={variant ?? 'outlined'}
                     isDisabled={isDisabled}
+                    isReadOnly={isReadOnly}
                     value={currentTimeZone}
                     referenceDate={selectedDate}
                     onChange={(event, nextZone) => {

@@ -17,6 +17,11 @@ type BaseTimezoneSelectorProps = Omit<DropdownProps,
      * today when omitted.
      */
     referenceDate?: Temporal.PlainDate | string | null;
+
+    /**
+     * Renders the selector as read-only.
+     */
+    isReadOnly?: boolean;
 }
 
 export type ControlledTimezoneSelectorProps = BaseTimezoneSelectorProps & {

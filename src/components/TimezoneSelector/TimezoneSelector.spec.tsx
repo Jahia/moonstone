@@ -48,6 +48,16 @@ describe('TimezoneSelector', () => {
         expect(screen.getByText('Paris (UTC +01:00)')).toBeInTheDocument();
     });
 
+    it('should not open when isReadOnly (rendered as disabled)', async () => {
+        const user = userEvent.setup();
+
+        render(<TimezoneSelector isReadOnly placeholder="Select timezone" referenceDate={baseDate}/>);
+
+        await user.click(screen.getByRole('listbox', {name: 'Select timezone'}));
+
+        expect(screen.queryByRole('searchbox')).not.toBeInTheDocument();
+    });
+
     it('should search across the full timezone universe and call onChange with the IANA id', async () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
