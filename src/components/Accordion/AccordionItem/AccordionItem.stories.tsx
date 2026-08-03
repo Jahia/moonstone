@@ -6,6 +6,7 @@ import type {AccordionItemProps} from './AccordionItem.types';
 
 import markdownNotes from './AccordionItem.md';
 import {Love} from '~/icons';
+import {iconArgType} from '~/__storybook__/iconArgType';
 
 export default {
     title: 'Components/Accordion/AccordionItem',
@@ -22,6 +23,9 @@ export default {
     parameters: {
         notes: {markdown: markdownNotes},
         actions: {argTypesRegex: '^on.*'}
+    },
+    argTypes: {
+        icon: iconArgType
     }
 } as Meta<typeof AccordionItem>;
 

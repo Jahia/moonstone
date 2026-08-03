@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {action} from 'storybook/actions';
 import markdownNotes from './Dropdown.md';
+import {iconArgType} from '~/__storybook__/iconArgType';
 import {Dropdown} from './index';
 import {Pill} from '~/components';
-import * as icons from '~/icons/components';
 import {
     dropdownData,
     dropdownDataGrouped,
@@ -30,9 +30,7 @@ export default {
         }
     },
     argTypes: {
-        icon: {
-            options: Object.keys(icons)
-        }
+        icon: iconArgType
     }
 };
 export const FlatData = {
@@ -67,7 +65,7 @@ export const FlatData = {
             <section className="storyGrid">
                 <Dropdown
                 {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                icon={args.icon}
                 placeholder={args.placeholder || 'Select something'}
                 value={currentOption?.value || null}
                 isDisabled={args.isDisabled || false}
@@ -77,7 +75,7 @@ export const FlatData = {
 
                 <Dropdown
                 {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                icon={args.icon}
                 imageSize={args.imageSize || 'small'}
                 placeholder={args.placeholder || 'Select an image'}
                 value={currentImage?.value || null}
@@ -87,7 +85,7 @@ export const FlatData = {
 
                 <Dropdown
                 {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                icon={args.icon}
                 placeholder={args.placeholder || 'Select a language'}
                 value={currentPill.value}
                 data={dropdownDataTreePill}
@@ -132,7 +130,7 @@ export const FlatDataMultiple = {
 
                 <Dropdown
                {...args}
-               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+               icon={args.icon}
                values={currentOptionData.map(v => v.value)}
                placeholder={args.placeholder || 'Select something'}
                data={dropdownData}
@@ -141,7 +139,7 @@ export const FlatDataMultiple = {
 
                 <Dropdown
                {...args}
-               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+               icon={args.icon}
                values={currentPill.map(v => v.value)}
                placeholder={args.placeholder || 'Select languages'}
                data={dropdownDataPill}
@@ -184,7 +182,7 @@ export const GroupedData = {
             <section className="storyGrid">
                 <Dropdown
                 {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                icon={args.icon}
                 placeholder={args.placeholder || 'Select something'}
                 value={currentOptionGrouped?.value || null}
                 data={dropdownDataGrouped}
@@ -193,7 +191,7 @@ export const GroupedData = {
 
                 <Dropdown
                 {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                icon={args.icon}
                 placeholder={args.placeholder || 'Select an image'}
                 value={currentImage?.value || null}
                 data={dropdownDataGroupedImages}
@@ -202,7 +200,7 @@ export const GroupedData = {
 
                 <Dropdown
                 {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                icon={args.icon}
                 placeholder={args.placeholder || 'Select a language'}
                 value={currentLanguage?.value || null}
                 data={dropdownDataGroupedPill}
@@ -246,7 +244,7 @@ export const GroupedDataMultiple = {
             <section className="storyGrid">
                 <Dropdown
                {...args}
-               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+               icon={args.icon}
                values={currentOptionDataGrouped.map(v => v.value)}
                placeholder={args.placeholder || 'Select something'}
                data={dropdownDataGrouped}
@@ -255,7 +253,7 @@ export const GroupedDataMultiple = {
 
                 <Dropdown
                {...args}
-               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+               icon={args.icon}
                values={currentPill.map(v => v.value)}
                placeholder={args.placeholder || 'Select languages'}
                data={dropdownDataGroupedPill}
@@ -291,7 +289,7 @@ export const TreeData = {
             <section>
                 <Dropdown
                 {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                icon={args.icon}
                 placeholder={args.placeholder || 'Select something'}
                 value={currentOptionTree?.value || null}
                 treeData={dropdownDataTree}
@@ -300,7 +298,7 @@ export const TreeData = {
 
                 <Dropdown
                 {...args}
-                icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                icon={args.icon}
                 placeholder={args.placeholder || 'Select a language'}
                 value={currentLanguage?.value || null}
                 treeData={dropdownDataTreePill}
@@ -344,7 +342,7 @@ export const TreeDataMultiple = {
             <section className="storyGrid">
                 <Dropdown
                {...args}
-               icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+               icon={args.icon}
                values={currentOptionDataMultiple.map(v => v.value)}
                placeholder={args.placeholder || 'Select something'}
                treeData={dropdownDataTree}
@@ -353,7 +351,7 @@ export const TreeDataMultiple = {
 
                 <Dropdown
                  {...args}
-                 icon={typeof args.icon === 'string' && icons[args.icon] ? React.createElement(icons[args.icon]) : args.icon}
+                 icon={args.icon}
                  values={currentPill.map(v => v.value)}
                  placeholder={args.placeholder || 'Select a language'}
                  treeData={dropdownDataTreePill}

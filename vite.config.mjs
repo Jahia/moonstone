@@ -6,6 +6,7 @@ import react from '@vitejs/plugin-react';
 import sbom from 'rollup-plugin-sbom';
 import {playwright} from '@vitest/browser-playwright';
 import {patchCssModules} from 'vite-css-modules';
+import {storybookTest} from '@storybook/addon-vitest/vitest-plugin';
 
 export default defineConfig({
     plugins: [
@@ -46,8 +47,8 @@ export default defineConfig({
     test: {
         coverage: {
             provider: 'v8',
-            include: ['src/**/*.spec.tsx'],
-            exclude: ['src/__mocks__', 'src/__storybook__', 'src/data', '**/*.stories.*']
+            include: ['src/**/*.{ts,tsx}'],
+            exclude: ['src/__mocks__/**', 'src/__storybook__/**', 'src/data/**', 'src/icons/components/**', '**/*.stories.*', '**/*.spec.tsx']
         },
         projects: [
             {
@@ -97,6 +98,23 @@ export default defineConfig({
                                 resolveScreenshotPath: ({root, testFileDirectory, screenshotDirectory, arg, browserName, platform, ext}) => `${root}/${testFileDirectory}/${screenshotDirectory}/visual.spec.tsx/${arg}-${browserName}-${platform}${ext}`
                             }
                         }
+                    }
+                }
+            },
+            {
+                extends: true,
+                plugins: [
+                    // Runs the tests for the stories defined in your Storybook config
+                    storybookTest({configDir: path.resolve('.storybook')})
+                ],
+                test: {
+                    name: 'storybook',
+                    setupFiles: ['./.storybook/vitest.setup.ts'],
+                    browser: {
+                        enabled: true,
+                        headless: true,
+                        provider: playwright(),
+                        instances: [{browser: 'chromium'}]
                     }
                 }
             }

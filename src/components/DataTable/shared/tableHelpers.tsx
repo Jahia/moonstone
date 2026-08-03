@@ -33,7 +33,16 @@ export const createTableColumns = <T extends Record<string, unknown>>(
             const value = getValue();
 
             if (col.render) {
-                return col.render(value as T[Exclude<keyof T, SubRowKey>], row.original as T);
+                return col.render({
+                    id: row.id,
+                    value: value as T[Exclude<keyof T, SubRowKey>],
+                    data: row.original as T,
+                    meta: {
+                        index: row.index,
+                        isSelected: row.getIsSelected(),
+                        isExpanded: row.getIsExpanded()
+                    }
+                });
             }
 
             return value as React.ReactNode;

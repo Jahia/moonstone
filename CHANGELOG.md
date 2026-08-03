@@ -1,5 +1,19 @@
 # @jahia/moonstone Changelog
 
+## 2.20.3
+
+* New icons `EditRole`, `LiveRole` and `Version` (#1390)
+
+## 2.20.2
+
+* Changed DataTable row and cell callbacks to use a stable context object instead of internal table rows, and improved controlled sorting, pagination, and row expansion behavior.
+
+  If you customize DataTable row or cell rendering, update your callbacks to use the new `id`, `data`, `meta`, and `render` fields.
+
+## 2.20.1
+
+* Fix minor styling issues (Button, Typography) (#1381)
+
 ## 2.20.0
 
 ### New Features
