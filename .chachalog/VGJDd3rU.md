@@ -3,4 +3,4 @@
 "@jahia/moonstone": minor
 ---
 
-Add content props to Pill component and deprecate label  (#1404)
+Add the prop `content` to the Pill component to allow more than just text, the prop label becomes deprecated (#1404)
