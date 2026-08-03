@@ -3,4 +3,4 @@
 "@jahia/moonstone": minor
 ---
 
-Allow ReactNode for Field/Fieldset/FieldBoolean helper prop (#1405)
+Allow any ReactNode as `helper` for Field, Fieldset, and FieldBoolean to allow formatted description (#1405)
