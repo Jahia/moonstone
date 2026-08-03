@@ -36,4 +36,14 @@ describe('Drawer', () => {
         render(<Drawer isOpen hasPadding={false} data-testid="moonstone-drawer">Drawer content</Drawer>);
         expect(screen.getByTestId('moonstone-drawer')).not.toHaveClass('moonstone-paper_padding');
     });
+
+    it('should render as an aside by default', () => {
+        render(<Drawer isOpen data-testid="moonstone-drawer">Drawer content</Drawer>);
+        expect(screen.getByTestId('moonstone-drawer').tagName).toBe('ASIDE');
+    });
+
+    it('should render as the given component', () => {
+        render(<Drawer isOpen component="div" data-testid="moonstone-drawer">Drawer content</Drawer>);
+        expect(screen.getByTestId('moonstone-drawer').tagName).toBe('DIV');
+    });
 });

@@ -7,6 +7,7 @@ export const Paper = React.forwardRef<HTMLElement, PaperProps>(({
     children,
     hasPadding = true,
     className,
+    component,
     ...props
 }, ref) => {
     const classNameProps = clsx(
@@ -19,10 +20,12 @@ export const Paper = React.forwardRef<HTMLElement, PaperProps>(({
         return null;
     }
 
+    const Component = component ?? 'section';
+
     return (
-        <section ref={ref} className={classNameProps} {...props}>
+        <Component ref={ref} className={classNameProps} {...props}>
             {children}
-        </section>
+        </Component>
     );
 });
 

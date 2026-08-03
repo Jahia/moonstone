@@ -8,12 +8,14 @@ export const Drawer = React.forwardRef<HTMLElement, DrawerProps>(({
     className,
     isOpen = false,
     children,
+    component = 'aside',
     ...props
 }, ref) => {
     return (
         isOpen && (
             <Paper
                 ref={ref}
+                component={component}
                 className={clsx(styles.drawer, className)}
                 {...props}
             >
