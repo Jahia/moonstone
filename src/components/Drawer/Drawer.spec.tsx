@@ -31,4 +31,9 @@ describe('Drawer', () => {
         render(<Drawer isOpen data-testid="moonstone-drawer">Drawer content</Drawer>);
         expect(screen.getByTestId('moonstone-drawer')).not.toHaveAttribute('aria-modal');
     });
+
+    it('should forward Paper props such as hasPadding', () => {
+        render(<Drawer isOpen hasPadding={false} data-testid="moonstone-drawer">Drawer content</Drawer>);
+        expect(screen.getByTestId('moonstone-drawer')).not.toHaveClass('moonstone-paper_padding');
+    });
 });

@@ -1,6 +1,7 @@
 import {ReactNode} from 'react';
+import type {PaperProps} from '~/components/Paper/Paper.types';
 
-export type DrawerProps = Omit<React.ComponentPropsWithRef<'section'>, 'className' | 'children'> & {
+export type DrawerProps = Omit<PaperProps, 'className' | 'children'> & {
     /**
      * Content of the Drawer
      */
