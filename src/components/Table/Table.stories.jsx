@@ -4,6 +4,8 @@
     these issues should be resolved.
 */
 
+import preview from '~/__storybook__/preview';
+
 import React, {useEffect, useState} from 'react';
 import {useExpanded, useRowSelect, useSortBy, useTable} from 'react-table';
 import '~/__storybook__/storybook.scss';
@@ -28,14 +30,15 @@ import {
 } from '~/data';
 import {Edit, Love, Visibility} from '~/icons';
 
-export default {
+const meta = preview.meta({
     title: 'Components/Table',
     component: Table,
+
     parameters: {
         controls: {disable: true},
         actions: {argTypesRegex: '^on.*'}
     }
-};
+});
 
 const columnsWidth = {
     selection: 'auto',
@@ -45,7 +48,7 @@ const columnsWidth = {
     lastModifiedOn: '160px'
 };
 
-export const Basic = () => (
+export const Basic = meta.story(() => (
     <Table>
         <TableHead>
             <TableRow>
@@ -57,7 +60,9 @@ export const Basic = () => (
         </TableHead>
         <TableBody>
             <TableRow isHighlighted>
-                <TableBodyCell iconStart={<Love color="red"/>}>cell 1</TableBodyCell>
+                <TableBodyCell iconStart={<Love color="red"/>}>
+                    cell 1
+                </TableBodyCell>
                 <TableBodyCell>cell 2</TableBodyCell>
                 <TableBodyCell>cell 3</TableBodyCell>
                 <TableBodyCell>
@@ -66,7 +71,9 @@ export const Basic = () => (
                 </TableBodyCell>
             </TableRow>
             <TableRow>
-                <TableBodyCell iconStart={<Love color="red"/>}>cell 4</TableBodyCell>
+                <TableBodyCell iconStart={<Love color="red"/>}>
+                    cell 4
+                </TableBodyCell>
                 <TableBodyCell>cell 5</TableBodyCell>
                 <TableBodyCell>cell 6</TableBodyCell>
                 <TableBodyCell>
@@ -75,7 +82,9 @@ export const Basic = () => (
                 </TableBodyCell>
             </TableRow>
             <TableRow>
-                <TableBodyCell iconStart={<Love color="red"/>}>cell 7</TableBodyCell>
+                <TableBodyCell iconStart={<Love color="red"/>}>
+                    cell 7
+                </TableBodyCell>
                 <TableBodyCell>cell 8</TableBodyCell>
                 <TableBodyCell>cell 9</TableBodyCell>
                 <TableBodyCell>
@@ -85,9 +94,9 @@ export const Basic = () => (
             </TableRow>
         </TableBody>
     </Table>
-);
+));
 
-export const BasicReactTable = {
+export const BasicReactTable = meta.story({
     render: () => {
         const data = React.useMemo(() => tableDataFlat, []);
         const columns = React.useMemo(
@@ -129,7 +138,13 @@ export const BasicReactTable = {
             []
         );
 
-        const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow} = useTable({data, columns});
+        const {
+            getTableProps,
+            getTableBodyProps,
+            headerGroups,
+            rows,
+            prepareRow
+        } = useTable({data, columns});
 
         return (
             <Table {...getTableProps()}>
@@ -177,9 +192,9 @@ export const BasicReactTable = {
     },
 
     name: 'Basic Table with React-Table'
-};
+});
 
-export const SelectableRows = {
+export const SelectableRows = meta.story({
     render: () => {
         const data = React.useMemo(() => tableDataFlat, []);
         const columns = React.useMemo(
@@ -190,7 +205,9 @@ export const SelectableRows = {
                         <Checkbox {...header.getToggleAllRowsSelectedProps()}/>
                     ),
                     Cell: cellInfo => (
-                        <Checkbox {...cellInfo.row.getToggleRowSelectedProps()}/>
+                        <Checkbox
+                            {...cellInfo.row.getToggleRowSelectedProps()}
+                        />
                     ),
                     customWidth: columnsWidth.selection
                 },
@@ -295,9 +312,9 @@ export const SelectableRows = {
     },
 
     name: 'Selectable Rows with React-Table'
-};
+});
 
-export const SortingByColumn = {
+export const SortingByColumn = meta.story({
     render: () => {
         const data = React.useMemo(() => tableDataFlat, []);
         const columns = React.useMemo(
@@ -324,7 +341,8 @@ export const SortingByColumn = {
                 {
                     Header: 'Type',
                     accessor: 'type',
-                    customWidth: columnsWidth.type},
+                    customWidth: columnsWidth.type
+                },
                 {
                     Header: 'Created By',
                     accessor: 'createdBy',
@@ -339,18 +357,23 @@ export const SortingByColumn = {
             []
         );
 
-        const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow} =
-            useTable(
-                {
-                    data,
-                    columns,
-                    initialState: {
-                        sortBy: [{id: 'lastModifiedOn', desc: true}]
-                    },
-                    disableSortRemove: true
+        const {
+            getTableProps,
+            getTableBodyProps,
+            headerGroups,
+            rows,
+            prepareRow
+        } = useTable(
+            {
+                data,
+                columns,
+                initialState: {
+                    sortBy: [{id: 'lastModifiedOn', desc: true}]
                 },
-                useSortBy
-            );
+                disableSortRemove: true
+            },
+            useSortBy
+        );
 
         const renderSortIndicator = (isSorted, isSortedDesc) => {
             const direction = isSortedDesc ? 'descending' : 'ascending';
@@ -368,10 +391,15 @@ export const SortingByColumn = {
                                 // A key is included in column.getHeaderProps
                                 // eslint-disable-next-line react/jsx-key
                                 <TableHeadCell
-                                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                                    {...column.getHeaderProps(
+                                        column.getSortByToggleProps()
+                                    )}
                                     iconEnd={
                                         column.canSort &&
-                                        renderSortIndicator(column.isSorted, column.isSortedDesc)
+                                        renderSortIndicator(
+                                            column.isSorted,
+                                            column.isSortedDesc
+                                        )
                                     }
                                     width={column.customWidth}
                                 >
@@ -410,9 +438,9 @@ export const SortingByColumn = {
     },
 
     name: 'Sorting by Column with React-Table'
-};
+});
 
-export const Pagination = {
+export const Pagination = meta.story({
     render: () => {
         const [rowsPerPage, setRowsPerPage] = useState(5);
         const [currentPage, setCurrentPage] = useState(1);
@@ -420,7 +448,10 @@ export const Pagination = {
             () =>
                 tablePaginationDataFlat.slice(
                     (currentPage - 1) * rowsPerPage,
-                    Math.min(tablePaginationDataFlat.length, currentPage * rowsPerPage)
+                    Math.min(
+                        tablePaginationDataFlat.length,
+                        currentPage * rowsPerPage
+                    )
                 ),
             [currentPage, rowsPerPage]
         );
@@ -442,7 +473,8 @@ export const Pagination = {
                 {
                     Header: 'Type',
                     accessor: 'type',
-                    customWidth: columnsWidth.type},
+                    customWidth: columnsWidth.type
+                },
                 {
                     Header: 'Created By',
                     accessor: 'createdBy',
@@ -457,7 +489,13 @@ export const Pagination = {
             []
         );
 
-        const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow} = useTable({data, columns});
+        const {
+            getTableProps,
+            getTableBodyProps,
+            headerGroups,
+            rows,
+            prepareRow
+        } = useTable({data, columns});
 
         return (
             <>
@@ -478,7 +516,7 @@ export const Pagination = {
                                     </TableHeadCell>
                                 ))}
                             </TableRow>
-                            ))}
+                        ))}
                     </TableHead>
                     <TableBody {...getTableBodyProps()}>
                         {rows.map(row => {
@@ -507,7 +545,7 @@ export const Pagination = {
                     totalNumberOfRows={tablePaginationDataFlat.length}
                     rowsPerPage={rowsPerPage}
                     onRowsPerPageChange={prevRowsPerPage =>
-                    setRowsPerPage(prevRowsPerPage)}
+                        setRowsPerPage(prevRowsPerPage)}
                     onPageChange={page => setCurrentPage(page)}
                 />
             </>
@@ -515,9 +553,9 @@ export const Pagination = {
     },
 
     name: 'Pagination with React-Table'
-};
+});
 
-export const StructuredView = {
+export const StructuredView = meta.story({
     render: () => {
         const data = React.useMemo(() => tableDataNested, []);
         const columns = React.useMemo(
@@ -620,9 +658,9 @@ export const StructuredView = {
     },
 
     name: 'Structured View with React-Table'
-};
+});
 
-export const StickyHeader = () => {
+export const StickyHeader = meta.story(() => {
     const colNum = 4;
     const rowNum = 20;
     const cols = [];
@@ -649,16 +687,18 @@ export const StickyHeader = () => {
                 {rows.map(row => (
                     <TableRow key={row}>
                         {cols.map(col => (
-                            <TableBodyCell key={row + col}>this is a cell!</TableBodyCell>
+                            <TableBodyCell key={row + col}>
+                                this is a cell!
+                            </TableBodyCell>
                         ))}
                     </TableRow>
                 ))}
             </TableBody>
         </Table>
     );
-};
+});
 
-export const KitchenSinkFlat = {
+export const KitchenSinkFlat = meta.story({
     render: () => {
         const [rowsPerPage, setRowsPerPage] = useState(5);
         const [currentPage, setCurrentPage] = useState(1);
@@ -666,7 +706,10 @@ export const KitchenSinkFlat = {
             () =>
                 tablePaginationDataFlat.slice(
                     (currentPage - 1) * rowsPerPage,
-                    Math.min(tablePaginationDataFlat.length, currentPage * rowsPerPage)
+                    Math.min(
+                        tablePaginationDataFlat.length,
+                        currentPage * rowsPerPage
+                    )
                 ),
             [currentPage, rowsPerPage]
         );
@@ -679,7 +722,9 @@ export const KitchenSinkFlat = {
                         <Checkbox {...header.getToggleAllRowsSelectedProps()}/>
                     ),
                     Cell: cellInfo => (
-                        <Checkbox {...cellInfo.row.getToggleRowSelectedProps()}/>
+                        <Checkbox
+                            {...cellInfo.row.getToggleRowSelectedProps()}
+                        />
                     )
                 },
                 {
@@ -712,8 +757,13 @@ export const KitchenSinkFlat = {
             []
         );
 
-        const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow} =
-        useTable(
+        const {
+            getTableProps,
+            getTableBodyProps,
+            headerGroups,
+            rows,
+            prepareRow
+        } = useTable(
             {
                 data,
                 columns,
@@ -744,10 +794,15 @@ export const KitchenSinkFlat = {
                                     // A key is included in column.getHeaderProps
                                     // eslint-disable-next-line react/jsx-key
                                     <TableHeadCell
-                                        {...column.getHeaderProps(column.getSortByToggleProps())}
+                                        {...column.getHeaderProps(
+                                            column.getSortByToggleProps()
+                                        )}
                                         iconEnd={
                                             column.canSort &&
-                                            renderSortIndicator(column.isSorted, column.isSortedDesc)
+                                            renderSortIndicator(
+                                                column.isSorted,
+                                                column.isSortedDesc
+                                            )
                                         }
                                         width={column.customWidth}
                                     >
@@ -773,7 +828,10 @@ export const KitchenSinkFlat = {
                                         // eslint-disable-next-line react/jsx-key
                                         <TableBodyCell
                                             {...cell.getCellProps()}
-                                            iconStart={row.original[cell.column.id]?.icon}
+                                            iconStart={
+                                                row.original[cell.column.id]
+                                                    ?.icon
+                                            }
                                             width={cell.column.customWidth}
                                         >
                                             {cell.render('Cell')}
@@ -789,7 +847,7 @@ export const KitchenSinkFlat = {
                     totalNumberOfRows={tablePaginationDataFlat.length}
                     rowsPerPage={rowsPerPage}
                     onRowsPerPageChange={prevRowsPerPage =>
-                    setRowsPerPage(prevRowsPerPage)}
+                        setRowsPerPage(prevRowsPerPage)}
                     onPageChange={page => setCurrentPage(page)}
                 />
             </>
@@ -797,9 +855,9 @@ export const KitchenSinkFlat = {
     },
 
     name: 'All features except row expansion - flat data'
-};
+});
 
-export const KitchenSinkNested = {
+export const KitchenSinkNested = meta.story({
     render: () => {
         const data = React.useMemo(() => tableDataNested, []);
         const columns = React.useMemo(
@@ -811,7 +869,9 @@ export const KitchenSinkNested = {
                         <Checkbox {...header.getToggleAllRowsSelectedProps()}/>
                     ),
                     Cell: cellInfo => (
-                        <Checkbox {...cellInfo.row.getToggleRowSelectedProps()}/>
+                        <Checkbox
+                            {...cellInfo.row.getToggleRowSelectedProps()}
+                        />
                     )
                 },
                 {
@@ -886,10 +946,15 @@ export const KitchenSinkNested = {
                                 // A key is included in column.getHeaderProps
                                 // eslint-disable-next-line react/jsx-key
                                 <TableHeadCell
-                                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                                    {...column.getHeaderProps(
+                                        column.getSortByToggleProps()
+                                    )}
                                     iconEnd={
                                         column.canSort &&
-                                        renderSortIndicator(column.isSorted, column.isSortedDesc)
+                                        renderSortIndicator(
+                                            column.isSorted,
+                                            column.isSortedDesc
+                                        )
                                     }
                                     width={column.customWidth}
                                 >
@@ -933,4 +998,4 @@ export const KitchenSinkNested = {
     },
 
     name: 'All features except pagination - nested data'
-};
+});

@@ -1,14 +1,24 @@
-import {StoryObj} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
 import '~/__storybook__/storybook.scss';
 
 import {Chip} from './index';
-import type {ChipProps} from './Chip.types';
 
-import {Cloud, Delete, File, Lock, NoCloud, Warning, CloudCheck, Build, Edit, Subdirectory} from '~/icons';
+import {
+    Cloud,
+    Delete,
+    File,
+    Lock,
+    NoCloud,
+    Warning,
+    CloudCheck,
+    Build,
+    Edit,
+    Subdirectory
+} from '~/icons';
 import {iconArgType} from '~/__storybook__/iconArgType';
 import markdownNotes from './Chip.md';
 
-export default {
+const meta = preview.meta({
     title: 'Components/Chip',
     component: Chip,
     tags: ['updated'],
@@ -17,37 +27,38 @@ export default {
         layout: 'centered',
         notes: {markdown: markdownNotes}
     },
+
     argTypes: {
         icon: iconArgType
     }
-};
+});
 
-export const Default: StoryObj<ChipProps> = {
+export const Default = meta.story({
     args: {
         label: 'chip label',
         icon: <Cloud/>,
         color: 'default',
         variant: 'default'
     }
-};
+});
 
-export const TextOnly: StoryObj<ChipProps> = {
+export const TextOnly = meta.story({
     args: {
         label: 'chip label',
         color: 'default',
         variant: 'default'
     }
-};
+});
 
-export const IconOnly: StoryObj<ChipProps> = {
+export const IconOnly = meta.story({
     args: {
         icon: <Cloud/>,
         color: 'default',
         variant: 'default'
     }
-};
+});
 
-export const StatusExample = () => (
+export const StatusExample = meta.story(() => (
     <section className="storyColumn">
         <Chip icon={<Delete/>} label="Marked for deletion" color="danger"/>
         <Chip icon={<Warning/>} label="Warning" color="warning"/>
@@ -61,4 +72,4 @@ export const StatusExample = () => (
         <Chip icon={<NoCloud/>} label="Never published" color="default"/>
         <Chip icon={<NoCloud/>} label="Unpublished" color="default"/>
     </section>
-);
+));

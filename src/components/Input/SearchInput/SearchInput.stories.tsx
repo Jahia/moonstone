@@ -1,10 +1,11 @@
-import {StoryFn, Meta} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
+import {StoryFn} from '@storybook/react-vite';
 import '~/__storybook__/storybook.scss';
 
 import {SearchInput} from './index';
 import type {SearchInputProps} from './SearchInput.types';
 
-export default {
+const meta = preview.meta({
     title: 'Components/Input',
     component: SearchInput,
     decorators: [
@@ -26,7 +27,7 @@ export default {
         onBlur: {action: 'onBlur'},
         onFocus: {action: 'onFocus'}
     }
-} as Meta<typeof SearchInput>;
+});
 
 const Template: StoryFn<SearchInputProps> = args => (
     <section className="storyWrapper">
@@ -34,6 +35,6 @@ const Template: StoryFn<SearchInputProps> = args => (
     </section>
 );
 
-export const Search = {
+export const Search = meta.story({
     render: Template
-};
+});

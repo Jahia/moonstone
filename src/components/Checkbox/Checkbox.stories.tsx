@@ -1,33 +1,33 @@
+import preview from '~/__storybook__/preview';
 import {useState} from 'react';
-import {StoryObj} from '@storybook/react-vite';
 
 import {Checkbox} from '~/components';
-import type {CheckboxProps} from './Checkbox.types';
 
-export default {
+const meta = preview.meta({
     title: 'Components/Checkbox',
     component: Checkbox,
+
     parameters: {
         layout: 'centered'
-    // When enabled, the controlledCheckbox doesn't work anymore. maybe it's fixed with storybook 7.4 (https://github.com/storybookjs/storybook/pull/23804)
-    // Actions: {argTypesRegex: '^on.*'}
+        // When enabled, the controlledCheckbox doesn't work anymore. maybe it's fixed with storybook 7.4 (https://github.com/storybookjs/storybook/pull/23804)
+        // Actions: {argTypesRegex: '^on.*'}
     }
-};
+});
 
-export const Uncontrolled = {
+export const Uncontrolled = meta.story({
     args: {
         'aria-label': 'default example checkbox'
     }
-};
+});
 
-export const Indeterminate = {
+export const Indeterminate = meta.story({
     args: {
         indeterminate: true,
         'aria-label': 'indeterminate example checkbox'
     }
-};
+});
 
-export const Controlled: StoryObj<CheckboxProps> = {
+export const Controlled = meta.story({
     render: args => {
         const [checked, setChecked] = useState(false);
 
@@ -36,7 +36,12 @@ export const Controlled: StoryObj<CheckboxProps> = {
         };
 
         return (
-            <Checkbox checked={checked} aria-label="controlled checkbox" onChange={() => handleOnChange()} {...args}/>
+            <Checkbox
+                checked={checked}
+                aria-label="controlled checkbox"
+                onChange={() => handleOnChange()}
+                {...args}
+            />
         );
     }
-};
+});

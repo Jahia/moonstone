@@ -39,6 +39,7 @@
     "node_modules",
     "build",
     "dist",
-    "types"
+    "types",
+    "src/**/*.stories.tsx"
   ]
 }

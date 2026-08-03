@@ -1,8 +1,8 @@
+import preview from '~/__storybook__/preview';
 import React, {useState} from 'react';
-import {StoryObj} from '@storybook/react-vite';
 
 import {Menu, MenuItem} from './index';
-import type {MenuProps, AnchorPosition} from './Menu.types';
+import type {AnchorPosition} from './Menu.types';
 
 import markdownNotes from './Menu.md';
 import {Separator} from '~/components';
@@ -13,10 +13,11 @@ import imgVertical from '~/__storybook__/assets/img-vertical.webp';
 import imgHorizontal from '~/__storybook__/assets/img-horizontal.webp';
 import imgSquare from '~/__storybook__/assets/img-square.webp';
 
-export default {
+const meta = preview.meta({
     title: 'Components/Menu',
     component: Menu,
     subcomponents: {MenuItem},
+
     parameters: {
         notes: {markdown: markdownNotes},
         docs: {
@@ -25,9 +26,9 @@ export default {
             IframeHeight: 500
         }
     }
-};
+});
 
-export const Default: StoryObj<MenuProps> = {
+export const Default = meta.story({
     render: args => (
         <Menu {...args}>
             <MenuItem label="Base items" variant="title"/>
@@ -48,9 +49,9 @@ export const Default: StoryObj<MenuProps> = {
         maxHeight: '250px',
         style: {zIndex: 10000}
     }
-};
+});
 
-export const ContextualMenu = () => {
+export const ContextualMenu = meta.story(() => {
     const [isDisplayed, setIsDisplayed] = useState<boolean>(false);
     const [menuPosition, setMenuPosition] = useState<AnchorPosition>();
 
@@ -72,7 +73,12 @@ export const ContextualMenu = () => {
 
     return (
         <div
-            className={clsx('flexRow_center', 'alignCenter', layout.flexRow_center, layout.alignCenter)}
+            className={clsx(
+                'flexRow_center',
+                'alignCenter',
+                layout.flexRow_center,
+                layout.alignCenter
+            )}
             style={{transform: 'scale(1)', height: '100vh'}}
             onClick={handleOnClick}
         >
@@ -88,9 +94,9 @@ export const ContextualMenu = () => {
             </Menu>
         </div>
     );
-};
+});
 
-export const AnchorElOrigin = () => {
+export const AnchorElOrigin = meta.story(() => {
     const [isDisplayed, setIsDisplayed] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const buttonEl = React.useRef();
@@ -138,12 +144,12 @@ export const AnchorElOrigin = () => {
             </Menu>
         </>
     );
-};
+});
 
-export const PositionAbsolute = () => {
+export const PositionAbsolute = meta.story(() => {
     return (
-    // <div style={{transform: 'scale(1)', height: '100vh'}}>
-    // </div>
+        // <div style={{transform: 'scale(1)', height: '100vh'}}>
+        // </div>
         <div
             style={{
                 position: 'relative',
@@ -182,9 +188,9 @@ export const PositionAbsolute = () => {
             </Menu>
         </div>
     );
-};
+});
 
-export const BigImageMenuItems = () => (
+export const BigImageMenuItems = meta.story(() => (
     <div style={{transform: 'scale(1)', height: '100vh'}}>
         <Menu
             isDisplayed
@@ -192,7 +198,10 @@ export const BigImageMenuItems = () => (
             maxHeight="440px"
             style={{zIndex: 10000}}
         >
-            <MenuItem label="Menu Items with Big Images Title" variant="title"/>
+            <MenuItem
+                label="Menu Items with Big Images Title"
+                variant="title"
+            />
             <MenuItem
                 label="Big image MenuItem"
                 image={<img src={imgVertical} alt="big vertical image"/>}
@@ -221,9 +230,9 @@ export const BigImageMenuItems = () => (
             />
         </Menu>
     </div>
-);
+));
 
-export const SmallImageMenuItems = () => (
+export const SmallImageMenuItems = meta.story(() => (
     <div style={{transform: 'scale(1)', height: '100vh', contain: 'strict'}}>
         <Menu
             isDisplayed
@@ -231,7 +240,10 @@ export const SmallImageMenuItems = () => (
             maxHeight="320px"
             style={{zIndex: 10000}}
         >
-            <MenuItem label="Menu Items with Small Images Title" variant="title"/>
+            <MenuItem
+                label="Menu Items with Small Images Title"
+                variant="title"
+            />
             <MenuItem
                 label="Small image MenuItem"
                 image={<img src={imgVertical} alt="small vertical image"/>}
@@ -260,9 +272,9 @@ export const SmallImageMenuItems = () => (
             />
         </Menu>
     </div>
-);
+));
 
-export const WithSearch = () => (
+export const WithSearch = meta.story(() => (
     <div style={{transform: 'scale(1)', height: '100vh'}}>
         <Menu
             hasSearch
@@ -283,9 +295,9 @@ export const WithSearch = () => (
             <MenuItem label="Item9"/>
         </Menu>
     </div>
-);
+));
 
-export const Reversed = () => (
+export const Reversed = meta.story(() => (
     <div
         className="moonstone-reversed"
         style={{
@@ -313,4 +325,4 @@ export const Reversed = () => (
             <MenuItem label="Item9"/>
         </Menu>
     </div>
-);
+));

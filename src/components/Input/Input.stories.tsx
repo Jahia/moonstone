@@ -1,12 +1,12 @@
+import preview from '~/__storybook__/preview';
 import React from 'react';
-import {StoryObj, Meta} from '@storybook/react-vite';
 
 import {Input} from './index';
 import {Love} from '~/icons';
 import {iconArgType} from '~/__storybook__/iconArgType';
 import {useArgs} from 'storybook/preview-api';
 
-export default {
+const meta = preview.meta({
     title: 'Components/Input',
     component: Input,
     decorators: [
@@ -29,33 +29,31 @@ export default {
         onFocus: {action: 'onFocus'},
         icon: iconArgType
     }
-} as Meta<typeof Input>;
+});
 
-type Story = StoryObj<typeof Input>;
+export const Uncontrolled = meta.story();
 
-export const Uncontrolled: Story = {};
-
-export const Controlled: Story = {
+export const Controlled = meta.story({
     render: args => {
         const [, setArgs] = useArgs();
 
-        const onChange = (e : React.ChangeEvent<HTMLInputElement>) => {
+        const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
             args.onChange(e);
             setArgs({value: e.target.value});
         };
 
         return <Input value="Default value" {...args} onChange={onChange}/>;
     }
-};
+});
 
-export const InputWithIcon: Story = {
+export const InputWithIcon = meta.story({
     args: {
         icon: <Love/>
     }
-};
+});
 
-export const InputWithDefaultValue: Story = {
+export const InputWithDefaultValue = meta.story({
     args: {
         defaultValue: 'Default value'
     }
-};
+});

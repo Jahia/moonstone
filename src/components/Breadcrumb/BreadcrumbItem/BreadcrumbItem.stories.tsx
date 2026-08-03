@@ -1,4 +1,5 @@
-import {StoryFn, Meta} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
+import {StoryFn} from '@storybook/react-vite';
 
 // Import '~/__storybook__/storybook.scss';
 
@@ -7,12 +8,18 @@ import type {BreadcrumbItemProps} from './BreadcrumbItem.types';
 
 import {Love} from '~/icons';
 
-export default {
+const meta = preview.meta({
     title: 'Components/Breadcrumb/BreadcrumbItem',
     component: BreadcrumbItem,
     decorators: [
         StoryCmp => (
-            <div style={{display: 'flex', justifyContent: 'center', width: '50vw'}}>
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    width: '50vw'
+                }}
+            >
                 <StoryCmp/>
             </div>
         )
@@ -21,7 +28,7 @@ export default {
         layout: 'centered',
         actions: {argTypesRegex: '^on.*'}
     }
-} as Meta<typeof BreadcrumbItem>;
+});
 
 const Template: StoryFn<BreadcrumbItemProps> = args => (
     <Breadcrumb>
@@ -30,27 +37,27 @@ const Template: StoryFn<BreadcrumbItemProps> = args => (
     </Breadcrumb>
 );
 
-export const Basic = {
+export const Basic = meta.story({
     render: Template,
 
     args: {
         label: 'beadcrumbItem'
     }
-};
+});
 
-export const LongLabels = {
+export const LongLabels = meta.story({
     render: Template,
 
     args: {
         label: 'Very long long long long long long long long long long label'
     }
-};
+});
 
-export const WithIcons = {
+export const WithIcons = meta.story({
     render: Template,
 
     args: {
         icon: <Love/>,
         label: 'breadcrumbItem'
     }
-};
+});

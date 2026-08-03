@@ -1,20 +1,19 @@
-import {StoryObj} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
 
 import {Typography} from './index';
 
-// Import markdownNotes from './Typography.md';
-
-export default {
+const meta = preview.meta({
     title: 'Tokens/Typography',
     component: Typography,
+
     parameters: {
         layout: 'centered',
         knobs: {disable: true},
         storysource: {disable: true}
     }
-};
+});
 
-export const Variants = () => (
+export const Variants = meta.story(() => (
     <section className="storyWrapper">
         <div className="storyItem">
             <Typography variant="title">Title</Typography>
@@ -35,8 +34,8 @@ export const Variants = () => (
             <Typography variant="button">Button</Typography>
         </div>
     </section>
-);
+));
 
-export const Playground: StoryObj<typeof Typography> = {
+export const Playground = meta.story({
     render: args => <Typography {...args}>Playground</Typography>
-};
+});

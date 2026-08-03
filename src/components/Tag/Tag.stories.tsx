@@ -1,8 +1,9 @@
-import {StoryFn, Meta} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
+import {StoryFn} from '@storybook/react-vite';
 
 import {Tag} from './index';
 
-export default {
+const meta = preview.meta({
     title: 'Components/Tag',
     component: Tag,
     parameters: {
@@ -11,12 +12,12 @@ export default {
         storysource: {disable: true},
         actions: {argTypesRegex: '^on.*'}
     }
-} as Meta<typeof Tag>;
+});
 
 const Template: StoryFn<typeof Tag> = args => (
     <Tag label="Tag" value="tag01" {...args}/>
 );
 
-export const Default = {
+export const Default = meta.story({
     render: Template
-};
+});

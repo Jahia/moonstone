@@ -1,4 +1,4 @@
-import {StoryObj, Meta} from '@storybook/react-vite';
+import preview from '~/__storybook__/preview';
 
 import {DynamicFieldset} from './index';
 import {Field, FieldSelector} from '~/components';
@@ -7,7 +7,7 @@ import {Button, Chip, Input} from '~/components';
 import {Add, Language, MoreVert} from '~/icons';
 import {useArgs} from 'storybook/preview-api';
 
-const meta: Meta<typeof DynamicFieldset> = {
+const meta = preview.meta({
     title: 'Components/Fieldset/DynamicFieldset',
     component: DynamicFieldset,
     tags: ['beta'],
@@ -22,7 +22,32 @@ const meta: Meta<typeof DynamicFieldset> = {
         label: 'Dynamic fieldset',
         helper: 'dynamic fieldset information',
         buttons: <Button icon={<MoreVert/>} variant="ghost"/>,
-        children: <Field id="field" label="Field" chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>} buttons={<><Button icon={<Add/>} label="Add"/><Button icon={<MoreVert/>} variant="ghost"/></>} helper="information"><FieldSelector selector={<Input size="big" placeholder="Input value"/>}/></Field>
+        children: (
+            <Field
+                id="field"
+                label="Field"
+                chips={
+                    <>
+                        <Chip color="accent" label="Required"/>
+                        <Chip
+                            icon={<Language/>}
+                            label="Shared by all languages"
+                        />
+                    </>
+                }
+                buttons={
+                    <>
+                        <Button icon={<Add/>} label="Add"/>
+                        <Button icon={<MoreVert/>} variant="ghost"/>
+                    </>
+                }
+                helper="information"
+            >
+                <FieldSelector
+                    selector={<Input size="big" placeholder="Input value"/>}
+                />
+            </Field>
+        )
     },
     argTypes: {
         buttons: {
@@ -32,22 +57,19 @@ const meta: Meta<typeof DynamicFieldset> = {
             control: false
         }
     }
-};
-export default meta;
+});
 
-type Story = StoryObj<typeof DynamicFieldset>;
+export const Uncontrolled = meta.story();
 
-export const Uncontrolled: Story = {};
-
-export const Controlled: Story = {
+export const Controlled = meta.story({
     render: args => {
         const [, setArgs] = useArgs();
 
-        const onChange = (e : React.ChangeEvent<HTMLInputElement>) => {
+        const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
             args.onChange(e);
             setArgs({value: e.target.value});
         };
 
         return <DynamicFieldset {...args} onChange={onChange}/>;
     }
-};
+});
