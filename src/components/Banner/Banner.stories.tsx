@@ -3,6 +3,7 @@ import {StoryObj, Meta} from '@storybook/react-vite';
 import {Banner, Button} from '~/components';
 import type {BannerProps} from './Banner.types';
 import {RichText} from '~/icons';
+import {iconArgType} from '~/__storybook__/iconArgType';
 
 const meta: Meta<typeof Banner> = {
     title: 'Components/Banner',
@@ -12,6 +13,9 @@ const meta: Meta<typeof Banner> = {
     parameters: {
         layout: 'padded',
         actions: {argTypesRegex: '^on.*'}
+    },
+    argTypes: {
+        iconStart: iconArgType
     }
 };
 export default meta;

@@ -25,20 +25,20 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
         label: 'User',
         isScrollable: true,
         ...stringColumn<DataUser>(row => row.firstName),
-        render: (value, row) => (
+        render: ({value, data}) => (
             <>
                 <Person/>
-                <Typography isNowrap variant="body">{`${value} ${row.lastName}`}</Typography>
+                <Typography isNowrap variant="body">{`${value} ${data.lastName}`}</Typography>
             </>
         )
     },
     {
         key: 'status',
         label: 'Status',
-        render: (value, row) => (
+        render: ({value, data}) => (
             <Chip
                 label={value as string}
-                color={getStatus(row.status).chipColor}
+                color={getStatus(data.status).chipColor}
             />
         ),
         isSortable: true,
