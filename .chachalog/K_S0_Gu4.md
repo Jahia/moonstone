@@ -2,4 +2,4 @@
 "@jahia/moonstone": patch
 ---
 
-feat: add animation to Drawer
+Add animation to Drawer
