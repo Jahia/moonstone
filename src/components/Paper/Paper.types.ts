@@ -2,7 +2,7 @@ import React from 'react';
 
 export type PaperProps = Omit<React.ComponentPropsWithRef<'section'>, 'children' | 'className'> & {
     /**
-     * HTML tag or component to render (default: 'section')
+     * HTML tag to render
      */
     component?: React.ElementType;
 
