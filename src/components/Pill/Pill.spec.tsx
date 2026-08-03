@@ -20,7 +20,7 @@ describe('Pill', () => {
     });
 
     it('should display an icon when content is an icon element', () => {
-        render(<Pill data-testid="moonstone-pill" content={<Cloud data-testid="moonstone-pill-icon"/>}/>);
+        render(<Pill content={<Cloud data-testid="moonstone-pill-icon"/>}/>);
         expect(screen.getByTestId('moonstone-pill-icon')).toBeInTheDocument();
     });
 
