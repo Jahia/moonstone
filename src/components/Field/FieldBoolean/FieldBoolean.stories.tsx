@@ -47,3 +47,10 @@ export const Error: Story = {
         errorMessage: 'There is an error.'
     }
 };
+
+export const WithFormattedHelper: Story = {
+    args: {
+        ...Default.args,
+        helper: <i>Text in italic</i>
+    }
+};
