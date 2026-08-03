@@ -44,7 +44,7 @@ function setupBackgroundListener() {
 setupBackgroundListener();
 
 const tagBadgesAddon = definePreviewAddon(storybookAddonTagBadges);
-const legacyDocsParametersAddon = definePreviewAddon<{
+const docsParametersAddon = definePreviewAddon<{
     parameters: {
         docs?: {
             extractComponentDescription?:(
@@ -65,7 +65,7 @@ const preview = definePreview({
         addonDocs(),
         addonA11y(),
         tagBadgesAddon,
-        legacyDocsParametersAddon
+        docsParametersAddon
     ],
     decorators: [story => story()],
     parameters: {
