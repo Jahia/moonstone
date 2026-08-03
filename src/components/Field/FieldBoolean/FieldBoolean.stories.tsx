@@ -48,7 +48,7 @@ export const Error: Story = {
     }
 };
 
-export const WithFormattedHelper: Story = {
+export const Helper: Story = {
     args: {
         ...Default.args,
         helper: <i>Text in italic</i>

@@ -90,7 +90,7 @@ export const MultipleFields: Story = {
     }
 };
 
-export const WithFormattedHelper: Story = {
+export const Helper: Story = {
     args: {
         ...SingleField.args,
         helper: <i>Text in italic</i>
