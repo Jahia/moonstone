@@ -51,6 +51,6 @@ export const Error: Story = {
 export const Helper: Story = {
     args: {
         ...Default.args,
-        helper: <i>Text in italic</i>
+        helper: <>This option is <strong>recommended</strong> for most <em>use cases</em>.</>
     }
 };

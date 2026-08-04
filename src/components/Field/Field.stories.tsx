@@ -148,6 +148,6 @@ export const Error: Story = {
 export const Helper: Story = {
     args: {
         ...Default.args,
-        helper: <i>Text in italic</i>
+        helper: <>This field is <strong>required</strong> and must be <em>unique</em>.</>
     }
 };
