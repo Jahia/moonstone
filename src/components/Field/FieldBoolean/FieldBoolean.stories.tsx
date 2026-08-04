@@ -47,3 +47,10 @@ export const Error: Story = {
         errorMessage: 'There is an error.'
     }
 };
+
+export const Helper: Story = {
+    args: {
+        ...Default.args,
+        helper: <>This option is <strong>recommended</strong> for most <em>use cases</em>.</>
+    }
+};
