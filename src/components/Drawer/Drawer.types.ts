@@ -2,7 +2,7 @@ import React, {ReactNode} from 'react';
 import type {PolymorphicPropsWithRef} from '~/types/Polymorphic.types';
 import type {PaperProps} from '~/components/Paper/Paper.types';
 
-// inherits future Paper props without needing manual updates here.
+// Inherits future Paper props without needing manual updates here.
 type PaperCustomProps = Omit<PaperProps, 'component' | 'children' | 'className' | keyof React.ComponentPropsWithRef<'section'>>;
 
 export type BasicDrawerProps = PaperCustomProps & {
