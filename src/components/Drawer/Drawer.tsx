@@ -1,28 +1,31 @@
 import React from 'react';
 import clsx from 'clsx';
-import type {DrawerProps} from './Drawer.types';
+import type {PolymorphicComponent} from '~/types/Polymorphic.types';
+import type {PaperProps} from '~/components/Paper/Paper.types';
+import type {BasicDrawerProps, DrawerProps} from './Drawer.types';
 import {Paper} from '~/components/Paper';
 import styles from './Drawer.module.scss';
 
-export const Drawer = React.forwardRef<HTMLElement, DrawerProps>(({
+export const Drawer = React.forwardRef(<C extends React.ElementType = 'aside'>({
     className,
     isOpen = false,
     children,
-    component = 'aside',
+    component,
     ...props
-}, ref) => {
+}: DrawerProps<C>,
+    ref: React.Ref<HTMLElement>) => {
     return (
         isOpen && (
             <Paper
                 ref={ref}
-                component={component}
+                component={component || 'aside'}
                 className={clsx(styles.drawer, className)}
-                {...props}
+                {...props as PaperProps}
             >
                 {children}
             </Paper>
         )
     );
-});
+}) as unknown as PolymorphicComponent<'aside', BasicDrawerProps>;
 
 Drawer.displayName = 'Drawer';
