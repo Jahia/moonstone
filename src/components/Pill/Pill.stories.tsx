@@ -24,6 +24,6 @@ export const Default: StoryObj<PillProps> = {
 
 export const IconContent: StoryObj<PillProps> = {
     args: {
-        content: <Language/>
+        content: <Language size="small"/>
     }
 };

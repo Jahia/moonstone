@@ -8,7 +8,7 @@ export type PillProps = Omit<React.ComponentPropsWithoutRef<'span'>, 'className'
     /**
      * Content of the Pill (text or icon element)
      */
-    content?: React.ReactElement | string;
+    content: React.ReactElement | string;
 
     /**
      * Whether the component should use reversed colors, it useful with dark background
