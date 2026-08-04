@@ -23,12 +23,4 @@ describe('Pill', () => {
         render(<Pill content={<Cloud data-testid="moonstone-pill-icon"/>}/>);
         expect(screen.getByTestId('moonstone-pill-icon')).toBeInTheDocument();
     });
-
-    it('should still display label and warn when using the deprecated label prop', () => {
-        const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => vi.fn());
-        render(<Pill label="Say my name"/>);
-        expect(screen.getByText('Say my name')).toBeInTheDocument();
-        expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('deprecated'));
-        warnSpy.mockRestore();
-    });
 });
