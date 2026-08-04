@@ -190,7 +190,6 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                             ...dayPickerClassNames,
                             root: clsx(dayPickerClassNames.root, styles.calendar),
                             month_caption: clsx(dayPickerClassNames.month_caption, styles.calendarHeader),
-                            caption_label: clsx(dayPickerClassNames.caption_label, styles.calendarCaptionLabel),
                             dropdowns: clsx(dayPickerClassNames.dropdowns, styles.calendarDropdowns),
                             button_next: clsx(dayPickerClassNames.button_next, styles.calendarNextButton),
                             button_previous: clsx(dayPickerClassNames.button_previous, styles.calendarPreviousButton),

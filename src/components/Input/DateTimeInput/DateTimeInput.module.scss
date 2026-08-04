@@ -76,17 +76,6 @@
     text-transform: capitalize;
 }
 
-.calendarCaptionLabel {
-    text-transform: none;
-
-    &::first-letter {
-        font-weight: bold;
-        font-size: 1.5rem;
-        color: brown;
-        text-transform: capitalize;
-    }
-}
-
 .calendarDropdowns {
     padding-left: var(--moon-spacing-small);
 }
