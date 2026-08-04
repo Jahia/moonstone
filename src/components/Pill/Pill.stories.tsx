@@ -4,7 +4,7 @@ import markdownNotes from './Pill.md';
 import {Pill} from './index';
 import type {PillProps} from './Pill.types';
 
-import {Cloud} from '~/icons';
+import {Language} from '~/icons';
 
 export default {
     title: 'Components/Pill',
@@ -24,6 +24,6 @@ export const Default: StoryObj<PillProps> = {
 
 export const IconContent: StoryObj<PillProps> = {
     args: {
-        content: <Cloud/>
+        content: <Language/>
     }
 };
