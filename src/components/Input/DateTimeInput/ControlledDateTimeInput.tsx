@@ -173,6 +173,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                     if (event.key === 'Enter' || event.key === ' ') {
                         openCalendar();
                     }
+
                     if (event.key === 'Escape') {
                         setIsCalendarOpen(false);
                     }

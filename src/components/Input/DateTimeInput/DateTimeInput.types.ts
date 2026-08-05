@@ -1,6 +1,5 @@
 import React from 'react';
 import type {Temporal} from 'temporal-polyfill';
-import type {DayPickerProps} from 'react-day-picker';
 import type {BaseInputProps} from '../BaseInput/BaseInput.types';
 import type {TimeFormat, TimeInputProps} from '../TimeInput';
 import type {ControlledTimezoneSelectorProps} from '../../TimezoneSelector';
@@ -30,7 +29,7 @@ export type DateFormat = string;
 export type CalendarDate = Temporal.PlainDate | string;
 
 /** A day-of-week index (0 = Sunday, 1 = Monday, … 6 = Saturday). */
-export type DayOfWeek = NonNullable<DayPickerProps['weekStartsOn']>;
+export type DayOfWeek = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 /**
  * A date range to disable in the calendar picker.
@@ -132,7 +131,7 @@ export type DateTimeInputSharedProps = Omit<BaseInputProps,
      * `0` = Sunday, `1` = Monday, ..., `6` = Saturday.
      * When omitted, it derives from `locale` (falling back to Monday when the locale has no week info).
      */
-    weekStartsOn?: DayPickerProps['weekStartsOn'];
+    weekStartsOn?: DayOfWeek;
 
     /** I18n labels for calendar actions */
     i18n?: DateTimeInputI18n;
