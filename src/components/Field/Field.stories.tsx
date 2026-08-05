@@ -144,3 +144,10 @@ export const Error: Story = {
         errorMessage: 'There is an error.'
     }
 };
+
+export const Helper: Story = {
+    args: {
+        ...Default.args,
+        helper: <>This field is <strong>required</strong> and must be <em>unique</em>.</>
+    }
+};
