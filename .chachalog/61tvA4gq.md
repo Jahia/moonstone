@@ -3,4 +3,4 @@
 "@jahia/moonstone": patch
 ---
 
-Allow Drawer to accept Paper props and customizable HTML tag (#1406)
+Allow `Drawer` to accept Paper's props and a customizable HTML tag for rendering (#1406)
