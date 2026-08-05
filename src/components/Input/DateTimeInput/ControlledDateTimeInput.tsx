@@ -164,6 +164,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                 // The date is the value's spine, so clearing it clears the whole value: emit null
                 // (time goes with it) and reset the pre-date zone fallback. Reported via onChange(null).
                 onClear={event => {
+                    event.stopPropagation();
                     emitChange(event, {plainDate: null});
                     setFallbackZone(getSystemTimeZone());
                 }}
