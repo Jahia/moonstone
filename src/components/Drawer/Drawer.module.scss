@@ -37,7 +37,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-
     .drawer[data-state='open'],
     .drawer[data-state='closed'] {
         animation: none;
