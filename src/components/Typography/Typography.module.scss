@@ -44,7 +44,6 @@
         @extend %weight-light;
     }
 
-    // Styled as a link as soon as it is navigable, whatever the component used
     &[href] {
         @extend %link;
     }
