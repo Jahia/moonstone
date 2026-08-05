@@ -3,4 +3,4 @@
 "@jahia/moonstone": minor
 ---
 
-Style Typography as a link when it has an href (#1408)
+Style `Typography` as a link when it has an href (#1408)
