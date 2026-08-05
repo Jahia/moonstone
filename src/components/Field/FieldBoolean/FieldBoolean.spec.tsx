@@ -32,6 +32,11 @@ describe('FieldBoolean', () => {
         expect(screen.queryByText('FieldBoolean helper')).toBeInTheDocument();
     });
 
+    it('should display formatted helper', () => {
+        render(<FieldBoolean {...requiredProps} helper={<strong>FieldBoolean helper</strong>}/>);
+        expect(screen.getByText('FieldBoolean helper').tagName).toBe('STRONG');
+    });
+
     it('should display checkbox', () => {
         render(
             <FieldBoolean
