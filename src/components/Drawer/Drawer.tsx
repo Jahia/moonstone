@@ -7,14 +7,21 @@ import {Paper} from '~/components/Paper';
 import {usePresence} from '~/hooks';
 import styles from './Drawer.module.scss';
 
+// Duration of the slide animation, in ms.
+// Feeds both the usePresence unmount delay and the CSS (via the --drawer-animation-duration custom property)
+const ANIMATION_DURATION = 400;
+
 export const Drawer = React.forwardRef(<C extends React.ElementType = 'aside'>({
     className,
     isOpen = false,
     children,
     component,
+    style,
     ...props
 }: DrawerProps<C>,
     ref: React.Ref<HTMLElement>) => {
+    const {isPresent, state} = usePresence(isOpen, ANIMATION_DURATION);
+
     return (
         isPresent && (
             <Paper
@@ -22,6 +29,8 @@ export const Drawer = React.forwardRef(<C extends React.ElementType = 'aside'>({
                 component={component || 'aside'}
                 className={clsx(styles.drawer, className)}
                 {...props as PaperProps}
+                style={{...style, '--drawer-animation-duration': `${ANIMATION_DURATION}ms`} as React.CSSProperties}
+                data-state={state}
             >
                 {children}
             </Paper>
