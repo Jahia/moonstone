@@ -3,4 +3,4 @@
 "@jahia/moonstone": minor
 ---
 
-Deprecate FieldSelector for field row CSS classes (#1410)
+Deprecate `FieldSelector` component (#1410)
