@@ -27,7 +27,7 @@ export type FieldProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 
     helper?: React.ReactNode;
 
     /**
-     * Field row(s), laid out with the `moonstone-field_row` CSS classes
+     * Field selector(s)
      */
     children: React.ReactElement | React.ReactElement[];
 

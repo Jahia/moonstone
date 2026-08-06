@@ -16,8 +16,6 @@ export type FieldSelectorProps = Omit<React.ComponentPropsWithRef<'div'>, 'class
 
     /**
      * FieldSelector isDraggable
-     *
-     * @deprecated Only displays the drag handle, it does not handle the drag and drop.
      */
     isDraggable?: boolean;
 

@@ -1,4 +1,4 @@
-**Deprecated**: use the `moonstone-field_row` CSS classes documented on Field instead.
+**Deprecated**: pass your selector directly in the `children` prop of Field.
 
 Form validation must be made on the Field level
 Prop buttons only supports button components

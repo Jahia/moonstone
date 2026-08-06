@@ -6,7 +6,7 @@ import {layout} from '~/globals/css-utils.js';
 import styles from './FieldSelector.module.scss';
 
 /**
- * @deprecated Use the `moonstone-field_row` CSS classes instead, they are documented on `Field`.
+ * @deprecated Pass your selector directly in the `children` prop of `Field`.
  */
 export const FieldSelector = React.forwardRef<HTMLDivElement, FieldSelectorProps>(({
     buttons,
@@ -15,7 +15,7 @@ export const FieldSelector = React.forwardRef<HTMLDivElement, FieldSelectorProps
     isDraggable = false,
     ...props
 }, ref) => {
-    console.warn('The FieldSelector component is deprecated and will be removed in a future release. Use the `moonstone-field_row` CSS classes instead.');
+    console.warn('The FieldSelector component is deprecated and will be removed in a future release. Pass your selector directly in the `children` prop of Field.');
 
     if (!selector) {
         return null;
