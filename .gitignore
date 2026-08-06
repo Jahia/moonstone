@@ -181,7 +181,6 @@ typings/
 
 # Yarn 4
 .yarn/*
-!.yarn/releases
 !.yarn/plugins
 .pnp.*
 
