@@ -115,10 +115,6 @@ Temporary Items
 # Logs
 logs
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
@@ -161,12 +157,6 @@ typings/
 # TypeScript cache
 *.tsbuildinfo
 
-# Optional npm cache directory
-.npm
-
-# npm registry/login information - no longer necessary locally
-.npmrc
-
 # Optional eslint cache
 .eslintcache
 
@@ -176,13 +166,9 @@ typings/
 # Output of 'npm pack'
 *.tgz
 
-# Yarn Integrity file
-.yarn-integrity
-
 # Yarn 4
-.yarn/*
-!.yarn/plugins
-.pnp.*
+**/.yarn/*
+!**/.yarn/patches
 
 # dotenv environment variables file
 .env
@@ -273,8 +259,6 @@ dist/
 
 /src/icons/components
 
-yalc.lock
-.yalc
 *.iml
 /.settings/
 /.project
