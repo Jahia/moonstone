@@ -60,6 +60,8 @@ export default defineConfig({
                     setupFiles: ['./vitest.setup.js'],
                     globals: true,
                     environment: 'jsdom',
+                    // Pin the system timezone so date/time tests are deterministic
+                    env: {TZ: 'UTC'},
                     include: ['src/**/*.spec.tsx'],
                     exclude: ['src/visual*.spec.tsx', 'src/**/*.browser.spec.tsx'],
                     css: true

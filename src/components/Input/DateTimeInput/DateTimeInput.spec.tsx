@@ -19,13 +19,14 @@ const april2026 = 'April 2026';
 const baseDate = Temporal.Now.plainDateISO().toString();
 const lastValue = (handleChange: Mock) => handleChange.mock.lastCall?.[1];
 const dateField = () => screen.getByPlaceholderText('Select a date');
+const localeProps = {locale: 'en'} as const;
 
 describe('DateTimeInput', () => {
     it('should open the calendar and select today (PlainDate)', async () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(<DateTimeInput type="date" placeholder="Select a date" onChange={handleChange}/>);
+        render(<DateTimeInput {...localeProps} type="date" placeholder="Select a date" onChange={handleChange}/>);
 
         await user.click(dateField());
         await user.click(screen.getByText('Today'));
@@ -39,6 +40,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 type="date"
                 placeholder="Select a date"
                 defaultValue={null}
@@ -56,7 +58,7 @@ describe('DateTimeInput', () => {
     it('should render default calendar action labels', async () => {
         const user = userEvent.setup();
 
-        render(<DateTimeInput type="date" placeholder="Select a date" onChange={() => null}/>);
+        render(<DateTimeInput {...localeProps} type="date" placeholder="Select a date" onChange={() => null}/>);
 
         await user.click(dateField());
 
@@ -70,6 +72,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 type="date"
                 placeholder="Select a date"
                 i18n={{todayButton: 'Current day', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
@@ -85,14 +88,14 @@ describe('DateTimeInput', () => {
     });
 
     it('should default to the current date and time when no defaultValue is given', () => {
-        render(<DateTimeInput type="dateTime" placeholder="Select a date" onChange={() => null}/>);
+        render(<DateTimeInput {...localeProps} type="dateTime" placeholder="Select a date" onChange={() => null}/>);
 
         expect(dateField()).not.toHaveValue('');
         expect(screen.getByPlaceholderText('HH:MM')).not.toHaveValue('');
     });
 
     it('should render empty when defaultValue is null', () => {
-        render(<DateTimeInput type="dateTime" placeholder="Select a date" defaultValue={null}/>);
+        render(<DateTimeInput {...localeProps} type="dateTime" placeholder="Select a date" defaultValue={null}/>);
 
         expect(dateField()).toHaveValue('');
         expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
@@ -102,7 +105,7 @@ describe('DateTimeInput', () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(<DateTimeInput type="dateTime" placeholder="Select a date" defaultValue={null} onChange={handleChange}/>);
+        render(<DateTimeInput {...localeProps} type="dateTime" placeholder="Select a date" defaultValue={null} onChange={handleChange}/>);
 
         expect(dateField()).toHaveValue('');
 
@@ -120,7 +123,7 @@ describe('DateTimeInput', () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(<DateTimeInput type="dateTime" placeholder="Select a date" defaultValue={null} onChange={handleChange}/>);
+        render(<DateTimeInput {...localeProps} type="dateTime" placeholder="Select a date" defaultValue={null} onChange={handleChange}/>);
 
         await user.click(dateField());
         await user.click(screen.getByText('Today'));
@@ -134,6 +137,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 type="zonedDateTime"
                 placeholder="Select a date"
                 defaultValue="2026-02-10T11:56[Europe/Paris]"
@@ -156,7 +160,7 @@ describe('DateTimeInput', () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(<DateTimeInput type="dateTime" defaultValue="2026-02-10T11:56" onChange={handleChange}/>);
+        render(<DateTimeInput {...localeProps} type="dateTime" defaultValue="2026-02-10T11:56" onChange={handleChange}/>);
 
         const timeInput = screen.getByDisplayValue('11:56');
         await user.clear(timeInput);
@@ -171,6 +175,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 type="dateTime"
                 placeholder="Select a date"
                 defaultValue="2026-02-10T11:56"
@@ -189,7 +194,7 @@ describe('DateTimeInput', () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(<DateTimeInput type="dateTime" defaultValue="2026-02-10T11:56" onChange={handleChange}/>);
+        render(<DateTimeInput {...localeProps} type="dateTime" defaultValue="2026-02-10T11:56" onChange={handleChange}/>);
 
         const timeInput = screen.getByDisplayValue('11:56');
         await user.clear(timeInput);
@@ -203,7 +208,7 @@ describe('DateTimeInput', () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(<DateTimeInput type="dateTime" defaultValue="2026-02-10T11:56" onChange={handleChange}/>);
+        render(<DateTimeInput {...localeProps} type="dateTime" defaultValue="2026-02-10T11:56" onChange={handleChange}/>);
 
         const timeInput = screen.getByDisplayValue('11:56');
         await user.clear(timeInput);
@@ -219,7 +224,7 @@ describe('DateTimeInput', () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(<DateTimeInput type="dateTime" defaultValue="2026-02-10T11:56" onChange={handleChange}/>);
+        render(<DateTimeInput {...localeProps} type="dateTime" defaultValue="2026-02-10T11:56" onChange={handleChange}/>);
 
         const timeInput = screen.getByDisplayValue('11:56');
         await user.clear(timeInput);
@@ -233,7 +238,7 @@ describe('DateTimeInput', () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(<DateTimeInput type="dateTime" defaultValue="2026-02-10T11:56" onChange={handleChange}/>);
+        render(<DateTimeInput {...localeProps} type="dateTime" defaultValue="2026-02-10T11:56" onChange={handleChange}/>);
 
         const timeInput = screen.getByDisplayValue('11:56') as HTMLInputElement;
         timeInput.focus();
@@ -246,6 +251,7 @@ describe('DateTimeInput', () => {
     it('should render the 12h datetime layout with meridiem and timezone', () => {
         render(
             <DateTimeInput
+                {...localeProps}
                 type="zonedDateTime"
                 timeFormat="12h"
                 defaultValue="2026-02-10T23:56[Europe/Paris]"
@@ -262,7 +268,7 @@ describe('DateTimeInput', () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(<DateTimeInput type="dateTime" timeFormat="12h" defaultValue="2026-02-10T02:30" onChange={handleChange}/>);
+        render(<DateTimeInput {...localeProps} type="dateTime" timeFormat="12h" defaultValue="2026-02-10T02:30" onChange={handleChange}/>);
 
         await user.clear(screen.getByDisplayValue('02:30'));
         await user.type(screen.getByPlaceholderText('HH:MM'), '0230');
@@ -278,6 +284,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 type="date"
                 placeholder="Select a date"
                 defaultValue="2026-03-30"
@@ -297,6 +304,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 type="date"
                 placeholder="Select a date"
                 defaultValue="2026-03-30"
@@ -316,6 +324,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 type="date"
                 placeholder="Select a date"
                 defaultValue="2026-03-30"
@@ -338,6 +347,7 @@ describe('DateTimeInput', () => {
         const user = userEvent.setup();
         render(
             <DateTimeInput
+                {...localeProps}
                 type="date"
                 placeholder="Select a date"
                 defaultValue="2026-03-30"
@@ -364,6 +374,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 type="zonedDateTime"
                 placeholder="Select a date"
                 defaultValue="2026-03-15T11:56[Europe/Paris]"
@@ -387,6 +398,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 type="date"
                 placeholder="Select a date"
                 value="2026-03-30"
@@ -406,14 +418,14 @@ describe('DateTimeInput', () => {
     });
 
     it('should not display an invalid date', () => {
-        render(<DateTimeInput type="date" defaultValue="not-a-date" placeholder="Select a date" onChange={() => null}/>);
+        render(<DateTimeInput {...localeProps} type="date" defaultValue="not-a-date" placeholder="Select a date" onChange={() => null}/>);
 
         expect(dateField()).toHaveValue('');
     });
 
     it('should open the calendar via keyboard (Enter and Space)', async () => {
         const user = userEvent.setup();
-        render(<DateTimeInput type="date" placeholder="Select a date" onChange={() => null}/>);
+        render(<DateTimeInput {...localeProps} type="date" placeholder="Select a date" onChange={() => null}/>);
 
         dateField().focus();
         await user.keyboard('{Enter}');
@@ -431,6 +443,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 isDisabled
                 type="date"
                 placeholder="Select a date"
@@ -449,6 +462,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 isReadOnly
                 type="date"
                 placeholder="Select a date"
@@ -468,6 +482,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 type="dateTime"
                 placeholder="Select a date"
                 defaultValue="2026-03-15T11:56"
@@ -487,6 +502,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 type="date"
                 placeholder="Select a date"
                 defaultValue="2026-03-15"
@@ -506,6 +522,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 type="date"
                 placeholder="Select a date"
                 defaultValue="2026-03-15"
@@ -525,6 +542,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 type="date"
                 placeholder="Select a date"
                 defaultValue="2026-03-15"
@@ -545,6 +563,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 type="zonedDateTime"
                 placeholder="Select a date"
                 value={null}
@@ -563,7 +582,7 @@ describe('DateTimeInput', () => {
     });
 
     it('should default to the current date, time, and system timezone when no defaultValue is given (ZonedDateTime)', () => {
-        render(<DateTimeInput type="zonedDateTime" placeholder="Select a date" onChange={() => null}/>);
+        render(<DateTimeInput {...localeProps} type="zonedDateTime" placeholder="Select a date" onChange={() => null}/>);
 
         expect(dateField()).not.toHaveValue('');
         expect(screen.getByPlaceholderText('HH:MM')).not.toHaveValue('');
@@ -576,6 +595,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 type="zonedDateTime"
                 placeholder="Select a date"
                 value={null}
@@ -603,6 +623,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 type="date"
                 placeholder="Select a date"
                 defaultValue="2026-03-15"
@@ -627,6 +648,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 type="date"
                 placeholder="Select a date"
                 defaultValue="2026-03-15"
@@ -650,6 +672,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 type="date"
                 placeholder="Select a date"
                 defaultValue="2026-03-15"
@@ -675,6 +698,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 type="date"
                 placeholder="Select a date"
                 defaultValue="2026-03-15"
@@ -693,20 +717,20 @@ describe('DateTimeInput', () => {
     it('should forward the ref to the underlying date input', () => {
         const ref = createRef<HTMLInputElement>();
 
-        render(<DateTimeInput ref={ref} type="date" placeholder="Select a date" onChange={() => null}/>);
+        render(<DateTimeInput {...localeProps} ref={ref} type="date" placeholder="Select a date" onChange={() => null}/>);
 
         expect(ref.current).toBe(dateField());
     });
 
     it('should render only the date field for type="date"', () => {
-        render(<DateTimeInput type="date" placeholder="Select a date" onChange={() => null}/>);
+        render(<DateTimeInput {...localeProps} type="date" placeholder="Select a date" onChange={() => null}/>);
 
         expect(screen.queryByPlaceholderText('HH:MM')).not.toBeInTheDocument();
         expect(screen.queryAllByRole('listbox')).toHaveLength(0);
     });
 
     it('should render the time field but no timezone selector for type="dateTime"', () => {
-        render(<DateTimeInput type="dateTime" placeholder="Select a date" onChange={() => null}/>);
+        render(<DateTimeInput {...localeProps} type="dateTime" placeholder="Select a date" onChange={() => null}/>);
 
         expect(screen.getByPlaceholderText('HH:MM')).toBeInTheDocument();
         expect(screen.queryAllByRole('listbox')).toHaveLength(0);
@@ -714,7 +738,7 @@ describe('DateTimeInput', () => {
 
     it('should return focus to the date field when the calendar is closed via Escape', async () => {
         const user = userEvent.setup();
-        render(<DateTimeInput type="date" placeholder="Select a date" onChange={() => null}/>);
+        render(<DateTimeInput {...localeProps} type="date" placeholder="Select a date" onChange={() => null}/>);
 
         await user.click(dateField());
         await user.keyboard('{Escape}');
@@ -724,7 +748,7 @@ describe('DateTimeInput', () => {
 
     it('should respect a custom weekStartsOn', async () => {
         const user = userEvent.setup();
-        render(<DateTimeInput type="date" placeholder="Select a date" weekStartsOn={0} onChange={() => null}/>);
+        render(<DateTimeInput {...localeProps} type="date" placeholder="Select a date" weekStartsOn={0} onChange={() => null}/>);
 
         await user.click(dateField());
 
@@ -738,6 +762,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 type="date"
                 placeholder="Select a date"
                 defaultValue="2026-03-30"
@@ -757,6 +782,7 @@ describe('DateTimeInput', () => {
     it('should disable the internal time input when isDisabled is set', () => {
         render(
             <DateTimeInput
+                {...localeProps}
                 isDisabled
                 type="dateTime"
                 placeholder="Select a date"
@@ -773,6 +799,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 isDisabled
                 type="zonedDateTime"
                 placeholder="Select a date"
@@ -789,6 +816,7 @@ describe('DateTimeInput', () => {
     it('should make the internal time input read-only when isReadOnly is set', () => {
         render(
             <DateTimeInput
+                {...localeProps}
                 isReadOnly
                 type="dateTime"
                 placeholder="Select a date"
@@ -805,6 +833,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 isReadOnly
                 type="zonedDateTime"
                 placeholder="Select a date"
@@ -819,14 +848,14 @@ describe('DateTimeInput', () => {
     });
 
     it('should not display an invalid dateTime value', () => {
-        render(<DateTimeInput type="dateTime" defaultValue="not-a-date" placeholder="Select a date" onChange={() => null}/>);
+        render(<DateTimeInput {...localeProps} type="dateTime" defaultValue="not-a-date" placeholder="Select a date" onChange={() => null}/>);
 
         expect(dateField()).toHaveValue('');
         expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
     });
 
     it('should not display an invalid zonedDateTime value', () => {
-        render(<DateTimeInput type="zonedDateTime" defaultValue="not-a-date" placeholder="Select a date" onChange={() => null}/>);
+        render(<DateTimeInput {...localeProps} type="zonedDateTime" defaultValue="not-a-date" placeholder="Select a date" onChange={() => null}/>);
 
         expect(dateField()).toHaveValue('');
         expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
@@ -837,6 +866,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 type="date"
                 placeholder="Select a date"
                 defaultValue="2026-03-15"
@@ -860,6 +890,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 type="date"
                 placeholder="Select a date"
                 defaultValue="2026-03-15"
@@ -882,6 +913,7 @@ describe('DateTimeInput', () => {
     ] as const)('should render $dateFormat, overriding the locale order', ({dateFormat, expected}) => {
         render(
             <DateTimeInput
+                {...localeProps}
                 type="date"
                 placeholder="Select a date"
                 defaultValue="2026-03-05"
@@ -897,6 +929,7 @@ describe('DateTimeInput', () => {
     it('should localize name tokens while the pattern fixes the order', () => {
         render(
             <DateTimeInput
+                {...localeProps}
                 type="date"
                 placeholder="Select a date"
                 defaultValue="2026-03-05"
@@ -915,6 +948,7 @@ describe('DateTimeInput', () => {
 
         render(
             <DateTimeInput
+                {...localeProps}
                 type="date"
                 placeholder="Select a date"
                 defaultValue="2026-03-05"
@@ -941,6 +975,7 @@ describe('DateTimeInput', () => {
         it('should not show the local time caption when the selected timezone equals the system timezone', () => {
             render(
                 <DateTimeInput
+                    {...localeProps}
                     type="zonedDateTime"
                     placeholder="Select a date"
                     defaultValue="2026-03-15T11:56[Europe/Paris]"
@@ -954,6 +989,7 @@ describe('DateTimeInput', () => {
         it('should not show the local time caption when only a date is set but no time', () => {
             render(
                 <DateTimeInput
+                    {...localeProps}
                     type="zonedDateTime"
                     placeholder="Select a date"
                     defaultValue={null}
@@ -968,6 +1004,7 @@ describe('DateTimeInput', () => {
             // Abidjan is UTC+0; Paris in winter is UTC+1 → 11:56 Abidjan = 12:56 Paris
             render(
                 <DateTimeInput
+                    {...localeProps}
                     type="zonedDateTime"
                     placeholder="Select a date"
                     defaultValue="2026-02-10T11:56[Africa/Abidjan]"
@@ -982,6 +1019,7 @@ describe('DateTimeInput', () => {
             // 00:00 Abidjan (UTC+0) = 01:00 Paris (UTC+1) — same day, unambiguous
             render(
                 <DateTimeInput
+                    {...localeProps}
                     type="zonedDateTime"
                     placeholder="Select a date"
                     defaultValue="2026-02-10T00:00[Africa/Abidjan]"
@@ -1003,6 +1041,7 @@ describe('DateTimeInput', () => {
 
             render(
                 <DateTimeInput
+                    {...localeProps}
                     type="zonedDateTime"
                     placeholder="Select a date"
                     defaultValue="2026-02-10T00:00[Africa/Abidjan]"
@@ -1023,6 +1062,7 @@ describe('DateTimeInput', () => {
             // To get a day-before case: pick a time in the east. 2026-02-10T00:00 Tokyo (UTC+9) = 2026-02-09T16:00 Paris
             render(
                 <DateTimeInput
+                    {...localeProps}
                     type="zonedDateTime"
                     placeholder="Select a date"
                     defaultValue="2026-02-10T00:00[Asia/Tokyo]"
@@ -1038,6 +1078,7 @@ describe('DateTimeInput', () => {
         it('should use the custom i18n.localTime label', () => {
             render(
                 <DateTimeInput
+                    {...localeProps}
                     type="zonedDateTime"
                     placeholder="Select a date"
                     defaultValue="2026-02-10T11:56[Africa/Abidjan]"
@@ -1053,6 +1094,7 @@ describe('DateTimeInput', () => {
         it('should fall back to the default label when i18n is partial and omits localTime', () => {
             render(
                 <DateTimeInput
+                    {...localeProps}
                     type="zonedDateTime"
                     placeholder="Select a date"
                     defaultValue="2026-02-10T11:56[Africa/Abidjan]"
@@ -1069,6 +1111,7 @@ describe('DateTimeInput', () => {
             // Use 11:56 Abidjan = 12:56 Paris → with 12h: "12:56 PM"
             render(
                 <DateTimeInput
+                    {...localeProps}
                     type="zonedDateTime"
                     placeholder="Select a date"
                     timeFormat="12h"
