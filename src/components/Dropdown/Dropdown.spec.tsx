@@ -1,4 +1,4 @@
-import {queryByText, render, screen} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {Dropdown, DropdownMenu, TreeViewMenu} from './index';
 import {dropdownData} from '~/data/dropdownData';
@@ -263,10 +263,7 @@ describe('Dropdown', () => {
     it('should display the value', () => {
         render(<Dropdown data={dropdownData} value={dropdownData[3].value}/>);
         expect(
-            getByText(
-                document.querySelector('.moonstone-typography'),
-                dropdownData[3].label
-            )
+            screen.getByText(dropdownData[3].label)
         ).toBeInTheDocument();
     });
 
