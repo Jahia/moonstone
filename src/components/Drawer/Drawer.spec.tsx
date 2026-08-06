@@ -42,4 +42,14 @@ describe('Drawer', () => {
         render(<Drawer isOpen data-testid="moonstone-drawer">Drawer content</Drawer>);
         expect(screen.getByTestId('moonstone-drawer')).not.toHaveAttribute('aria-modal');
     });
+
+    it('should render as an aside by default', () => {
+        render(<Drawer isOpen data-testid="moonstone-drawer">Drawer content</Drawer>);
+        expect(screen.getByTestId('moonstone-drawer').tagName).toBe('ASIDE');
+    });
+
+    it('should render as the given component', () => {
+        render(<Drawer isOpen component="div" data-testid="moonstone-drawer">Drawer content</Drawer>);
+        expect(screen.getByTestId('moonstone-drawer').tagName).toBe('DIV');
+    });
 });
