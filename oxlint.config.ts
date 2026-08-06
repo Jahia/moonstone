@@ -199,6 +199,7 @@ export default defineConfig({
                 afterEach: 'readonly',
             },
             rules: {
+                ...testingLibrary.configs['flat/react'].rules,
                 // Correctness category covers the other vitest rules; these two
                 // are downgraded to keep WIP tests committable
                 'vitest/expect-expect': 'warn',
@@ -213,7 +214,6 @@ export default defineConfig({
                 // Fixture objects read better with several properties per line
                 '@stylistic/object-property-newline': 'off',
                 'jsx-a11y/alt-text': 'off',
-                ...testingLibrary.configs['flat/react'].rules,
                 // TODO: ratchet to 'error' after the CSS-modules test migration (~105 hits)
                 'testing-library/no-container': 'warn',
                 'testing-library/no-node-access': 'warn',
@@ -230,6 +230,7 @@ export default defineConfig({
         'src/icons/components',
         'src/__screenshots__',
         '.vitest-attachments',
+        '.claude',
         '.yarn',
     ],
 });
