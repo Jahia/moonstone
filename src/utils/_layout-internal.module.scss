@@ -2,13 +2,13 @@
 
 %flex-column {
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: column nowrap;
     min-height: 0;
 }
 
 %flex-row {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
     min-height: 0;
 }
 

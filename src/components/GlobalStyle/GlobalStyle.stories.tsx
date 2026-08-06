@@ -1,7 +1,7 @@
 import React from 'react';
 import markdownNotes from './GlobalStyle_layout.md';
 import clsx from 'clsx';
-import {layout, layoutInternal} from '~/globals/css-utils.js';
+import {layout} from '~/globals/css-utils.js';
 import {capitalize} from '~/utils/helpers.js';
 
 const justifyOptions = [null as null, 'center', 'reverse', 'between', 'nowrap'] as const;
@@ -133,40 +133,3 @@ export const Direction = () => (
 export const Justify = () => <>{displayItems('row', 'justify')}</>;
 
 export const Alignment = () => <>{displayItems('row', 'align')}</>;
-
-export const GapUtilities = () => (
-    <>
-        <section style={{marginBottom: '48px'}}>
-            <h2 className={clsx('flexRow', layout.flexRow, 'alignCenter', layout.alignCenter)} style={{fontSize: '100%', marginBottom: '24px', fontWeight: 'normal'}}>
-                row-small
-            </h2>
-            <div className={layoutInternal['row-small']} style={cssWrap}>
-                <Item/>
-                <Item/>
-                <Item/>
-            </div>
-        </section>
-
-        <section style={{marginBottom: '48px'}}>
-            <h2 className={clsx('flexRow', layout.flexRow, 'alignCenter', layout.alignCenter)} style={{fontSize: '100%', marginBottom: '24px', fontWeight: 'normal'}}>
-                row-small + justifyBetween
-            </h2>
-            <div className={clsx(layoutInternal['row-small'], layoutInternal.justifyBetween)} style={cssWrap}>
-                <Item/>
-                <Item/>
-                <Item/>
-            </div>
-        </section>
-
-        <section style={{marginBottom: '48px'}}>
-            <h2 className={clsx('flexRow', layout.flexRow, 'alignCenter', layout.alignCenter)} style={{fontSize: '100%', marginBottom: '24px', fontWeight: 'normal'}}>
-                col-medium
-            </h2>
-            <div className={layoutInternal['col-medium']} style={cssWrap}>
-                <Item/>
-                <Item/>
-                <Item/>
-            </div>
-        </section>
-    </>
-);
