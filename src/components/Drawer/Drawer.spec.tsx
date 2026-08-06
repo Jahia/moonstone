@@ -1,10 +1,21 @@
-import {render, screen} from '@testing-library/react';
+import {render, screen, waitForElementToBeRemoved} from '@testing-library/react';
 import {Drawer} from './index';
 
 describe('Drawer', () => {
     it('should display content when open', () => {
         render(<Drawer isOpen data-testid="moonstone-drawer">Drawer content</Drawer>);
         expect(screen.getByText('Drawer content')).toBeInTheDocument();
+    });
+
+    it('should keep content mounted while closing, then remove it', async () => {
+        const {rerender} = render(<Drawer isOpen data-testid="moonstone-drawer">Drawer content</Drawer>);
+
+        rerender(<Drawer isOpen={false} data-testid="moonstone-drawer">Drawer content</Drawer>);
+        // Stays in the DOM in the closed state while the exit animation plays...
+        expect(screen.getByTestId('moonstone-drawer')).toHaveAttribute('data-state', 'closed');
+
+        // ...then unmounts once the animation completes.
+        await waitForElementToBeRemoved(() => screen.queryByText('Drawer content'));
     });
 
     it('should not display content by default', () => {

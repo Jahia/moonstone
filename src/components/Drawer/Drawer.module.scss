@@ -1,8 +1,44 @@
 .drawer {
     display: flex;
     flex-direction: column;
+    min-width: 100%;
 
     height: stretch;
     min-height: 0;
     overflow-y: auto;
+}
+
+.drawer[data-state='open'] {
+    animation: slide-in var(--drawer-animation-duration) cubic-bezier(0.39, 0.575, 0.565, 1) both; // easeOutSine
+}
+
+.drawer[data-state='closed'] {
+    animation: slide-out var(--drawer-animation-duration) cubic-bezier(0.39, 0.575, 0.565, 1) both; // easeOutSine
+}
+
+@keyframes slide-in {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slide-out {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(100%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .drawer[data-state='open'],
+    .drawer[data-state='closed'] {
+        animation: none;
+    }
 }

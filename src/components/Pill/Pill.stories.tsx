@@ -4,6 +4,8 @@ import markdownNotes from './Pill.md';
 import {Pill} from './index';
 import type {PillProps} from './Pill.types';
 
+import {Language} from '~/icons';
+
 export default {
     title: 'Components/Pill',
     component: Pill,
@@ -16,6 +18,12 @@ export default {
 
 export const Default: StoryObj<PillProps> = {
     args: {
-        label: 'ListItem label'
+        content: 'ListItem label'
+    }
+};
+
+export const IconContent: StoryObj<PillProps> = {
+    args: {
+        content: <Language size="small"/>
     }
 };
