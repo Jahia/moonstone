@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import {DynamicFieldset} from './index';
-import {Button, Input, Field, FieldSelector} from '~/components';
+import {Button, Input, Field} from '~/components';
 import {Add, Love} from '~/icons';
 
 const requiredProps = {
@@ -14,9 +14,7 @@ describe('DynamicFieldset', () => {
     it('should display additional class names', () => {
         render(
             <DynamicFieldset {...requiredProps} data-testid="dynamic-fieldset" className="extra">
-                <FieldSelector
-                    selector={<textarea placeholder="Input value"/>}
-                />
+                <textarea placeholder="Input value"/>
             </DynamicFieldset>
         );
         expect(screen.getByTestId('dynamic-fieldset')).toHaveClass('extra');
@@ -62,9 +60,7 @@ describe('DynamicFieldset', () => {
         render(
             <DynamicFieldset {...requiredProps}>
                 <Field id="field" label="Field" helper="information">
-                    <FieldSelector
-                        selector={<Input size="big" value="Input value"/>}
-                    />
+                    <Input size="big" value="Input value"/>
                 </Field>
             </DynamicFieldset>
         );
@@ -79,9 +75,7 @@ describe('UncontrolledDynamicFieldset', () => {
         render(
             <DynamicFieldset {...requiredProps} defaultChecked>
                 <Field id="field" label="Field" helper="information">
-                    <FieldSelector
-                        selector={<Input size="big" value="Input value"/>}
-                    />
+                    <Input size="big" value="Input value"/>
                 </Field>
             </DynamicFieldset>
         );
@@ -111,9 +105,7 @@ describe('ControlledDynamicFieldset', () => {
         render(
             <DynamicFieldset {...requiredProps} checked>
                 <Field id="field" label="Field" helper="information">
-                    <FieldSelector
-                        selector={<Input size="big" value="Input value"/>}
-                    />
+                    <Input size="big" value="Input value"/>
                 </Field>
             </DynamicFieldset>
         );

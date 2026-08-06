@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
+import clsx from 'clsx';
 import {action} from 'storybook/actions';
 import {CustomDropdown} from './CustomDropdown';
 import type {CustomDropdownProps} from './CustomDropdown.types';
-import {Button, Fieldset, CardSelector, Chip, Dropdown, EmptyCardSelector, Field, FieldBoolean, FieldSelector, Input, MenuItem, RadioGroup, RadioItem, Separator, Textarea, Typography} from '~/components';
+import {Button, Fieldset, CardSelector, Chip, Dropdown, EmptyCardSelector, Field, FieldBoolean, Input, MenuItem, RadioGroup, RadioItem, Separator, Textarea, Typography} from '~/components';
 import * as icons from '~/icons/components';
 import {File} from '~/icons';
+import fieldStyles from '~/components/Field/Field.module.scss';
 
 export default {
     title: 'Components/CustomDropdown',
@@ -95,45 +97,69 @@ export const Form = {
     <Fieldset id="form" label="Form">
         <Field id="field-multiple" label="Field" chips={<><Chip color="accent" label="Required"/><Chip icon={<icons.Language/>} label="Shared by all languages"/></>} buttons={<><Button icon={<icons.Add/>} label="Add"/><Button icon={<icons.MoreVert/>} variant="ghost"/></>} helper="information">
             <>
-                <FieldSelector buttons={<Button icon={<icons.MoreVert/>}/>} selector={<Input size="big" placeholder="Input value"/>}/>
-                <FieldSelector buttons={<Button icon={<icons.MoreVert/>}/>} selector={<Input size="big" placeholder="Input value"/>}/>
-                <FieldSelector buttons={<Button icon={<icons.MoreVert/>}/>} selector={<Input size="big" placeholder="Input value"/>}/>
+                <div className={clsx('moonstone-field_row', fieldStyles['moonstone-field_row'])}>
+                    <div className={clsx('moonstone-field_rowSelector', fieldStyles['moonstone-field_rowSelector'])}><Input size="big" placeholder="Input value"/></div>
+                    <Button className={clsx('moonstone-field_rowButton', fieldStyles['moonstone-field_rowButton'])} icon={<icons.MoreVert/>} variant="ghost"/>
+                </div>
+                <div className={clsx('moonstone-field_row', fieldStyles['moonstone-field_row'])}>
+                    <div className={clsx('moonstone-field_rowSelector', fieldStyles['moonstone-field_rowSelector'])}><Input size="big" placeholder="Input value"/></div>
+                    <Button className={clsx('moonstone-field_rowButton', fieldStyles['moonstone-field_rowButton'])} icon={<icons.MoreVert/>} variant="ghost"/>
+                </div>
+                <div className={clsx('moonstone-field_row', fieldStyles['moonstone-field_row'])}>
+                    <div className={clsx('moonstone-field_rowSelector', fieldStyles['moonstone-field_rowSelector'])}><Input size="big" placeholder="Input value"/></div>
+                    <Button className={clsx('moonstone-field_rowButton', fieldStyles['moonstone-field_rowButton'])} icon={<icons.MoreVert/>} variant="ghost"/>
+                </div>
             </>
         </Field>
         <FieldBoolean id="field-boolean" label="Field Boolean" helper="information" chips={<><Chip color="accent" label="Required"/><Chip icon={<icons.Language/>} label="Shared by all languages"/></>} buttons={<Button icon={<icons.MoreVert/>} variant="ghost"/>}/>
         <Field id="field-dropdown" label="Field" chips={<><Chip color="accent" label="Required"/><Chip icon={<icons.Language/>} label="Shared by all languages"/></>} buttons={<Button icon={<icons.MoreVert/>} variant="ghost"/>} helper="information">
-            <FieldSelector
-                    selector={<Dropdown
-                    variant="outlined"
-                    label="Input value"
-                    className="flexFluid"
-                    value=""
-                    data={[
-                        {
-                            label: 'option 1',
-                            value: '1'
-                        },
-                        {
-                            label: 'option 2',
-                            value: '2'
-                        },
-                        {
-                            label: 'option 3 with very long long label label label label label label label label',
-                            value: '3'
-                        }
-            ]}/>}/>
+            <div className={clsx('moonstone-field_row', fieldStyles['moonstone-field_row'])}>
+                <div className={clsx('moonstone-field_rowSelector', fieldStyles['moonstone-field_rowSelector'])}>
+                    <Dropdown
+                        variant="outlined"
+                        label="Input value"
+                        className="flexFluid"
+                        value=""
+                        data={[
+                            {
+                                label: 'option 1',
+                                value: '1'
+                            },
+                            {
+                                label: 'option 2',
+                                value: '2'
+                            },
+                            {
+                                label: 'option 3 with very long long label label label label label label label label',
+                                value: '3'
+                            }
+                ]}/>
+                </div>
+            </div>
         </Field>
         <Field hasError errorMessage="There is an error" id="field-textarea" label="Field" chips={<><Chip color="accent" label="Required"/><Chip icon={<icons.Language/>} label="Shared by all languages"/></>} buttons={<Button icon={<icons.MoreVert/>} variant="ghost"/>} helper="information">
-            <FieldSelector selector={<Textarea id="moonstone-textarea" placeholder="Input value"/>}/>
+            <div className={clsx('moonstone-field_row', fieldStyles['moonstone-field_row'])}>
+                <div className={clsx('moonstone-field_rowSelector', fieldStyles['moonstone-field_rowSelector'])}><Textarea id="moonstone-textarea" placeholder="Input value"/></div>
+            </div>
         </Field>
         <Field id="field-radio" label="Field" chips={<><Chip color="accent" label="Required"/><Chip icon={<icons.Language/>} label="Shared by all languages"/></>} helper="information">
-            <FieldSelector selector={<RadioGroup name="radio"><RadioItem id="radio1" label="Yes" value="Yes"/><RadioItem id="radio2" label="No" value="No"/></RadioGroup>}/>
+            <div className={clsx('moonstone-field_row', fieldStyles['moonstone-field_row'])}>
+                <div className={clsx('moonstone-field_rowSelector', fieldStyles['moonstone-field_rowSelector'])}><RadioGroup name="radio"><RadioItem id="radio1" label="Yes" value="Yes"/><RadioItem id="radio2" label="No" value="No"/></RadioGroup></div>
+            </div>
         </Field>
         <Field id="field-cardselectors" label="Field" chips={<><Chip color="accent" label="Required"/><Chip icon={<icons.Language/>} label="Shared by all languages"/></>} buttons={<Button icon={<icons.MoreVert/>} variant="ghost"/>} helper="information">
             <>
-                <FieldSelector selector={<CardSelector id="cardSelector1" displayName="Item name" systemName="system name" information="information" thumbnailType="icon"/>} buttons={<Button icon={<icons.Close/>}/>}/>
-                <FieldSelector selector={<CardSelector id="cardSelector2" displayName="Item name" systemName="system name" information="information" thumbnailType="icon"/>} buttons={<Button icon={<icons.Close/>}/>}/>
-                <FieldSelector selector={<EmptyCardSelector iconStart={<File/>} id="emptyCardSelector" label="Add item"/>}/>
+                <div className={clsx('moonstone-field_row', fieldStyles['moonstone-field_row'])}>
+                    <div className={clsx('moonstone-field_rowSelector', fieldStyles['moonstone-field_rowSelector'])}><CardSelector id="cardSelector1" displayName="Item name" systemName="system name" information="information" thumbnailType="icon"/></div>
+                    <Button className={clsx('moonstone-field_rowButton', fieldStyles['moonstone-field_rowButton'])} icon={<icons.Close/>} variant="ghost"/>
+                </div>
+                <div className={clsx('moonstone-field_row', fieldStyles['moonstone-field_row'])}>
+                    <div className={clsx('moonstone-field_rowSelector', fieldStyles['moonstone-field_rowSelector'])}><CardSelector id="cardSelector2" displayName="Item name" systemName="system name" information="information" thumbnailType="icon"/></div>
+                    <Button className={clsx('moonstone-field_rowButton', fieldStyles['moonstone-field_rowButton'])} icon={<icons.Close/>} variant="ghost"/>
+                </div>
+                <div className={clsx('moonstone-field_row', fieldStyles['moonstone-field_row'])}>
+                    <div className={clsx('moonstone-field_rowSelector', fieldStyles['moonstone-field_rowSelector'])}><EmptyCardSelector iconStart={<File/>} id="emptyCardSelector" label="Add item"/></div>
+                </div>
             </>
         </Field>
     </Fieldset>

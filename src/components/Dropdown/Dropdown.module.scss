@@ -4,7 +4,10 @@
 @use "../../utils/mixins" as *;
 
 .moonstone-dropdown_container {
-    composes: moonstone-dropdown_container from "../Field/FieldSelector/FieldSelector.module.scss";
+    // Remove the FieldSelector source with the deprecated component
+    composes:
+        moonstone-dropdown_container from "../Field/FieldSelector/FieldSelector.module.scss",
+        moonstone-dropdown_container from "../Field/Field.module.scss";
 
     position: relative;
 }

@@ -35,3 +35,45 @@
         color: var(--moon-color-warning_dark);
     }
 }
+
+// Field row layout: drag handle, buttons and drag and drop are up to the implementation
+.moonstone-field_row {
+    position: relative;
+
+    display: flex;
+    flex-flow: row nowrap;
+    gap: var(--moon-spacing-nano);
+    align-items: center;
+    width: 100%;
+    min-height: 0;
+
+    // Keep the width of one button free when the row has none, so every row aligns
+    &:not(:has(> .moonstone-field_rowButton))::after {
+        content: "";
+
+        min-width: var(--moon-spacing-large);
+    }
+
+    // Sits in the gutter of the field
+    .moonstone-field_rowHandle {
+        position: absolute;
+        left: -28px;
+    }
+
+    .moonstone-field_rowSelector {
+        display: flex;
+        flex: 1;
+        flex-flow: column nowrap;
+        align-items: flex-start;
+        min-width: 0;
+        min-height: 0;
+    }
+
+    .moonstone-field_rowButton {
+        flex-shrink: 0;
+    }
+
+    .moonstone-dropdown_container {
+        width: 100%;
+    }
+}

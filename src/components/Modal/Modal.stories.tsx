@@ -1,11 +1,13 @@
 import {StoryObj, Meta} from '@storybook/react';
+import clsx from 'clsx';
 
-import {Modal, Button, Typography, Field, FieldSelector, Input, Chip, Dropdown} from '~/components';
+import {Modal, Button, Typography, Field, Input, Chip, Dropdown} from '~/components';
 import type {ModalProps} from './Modal.types';
 import {Add, Language, MoreVert} from '~/icons';
 import {Fieldset} from '../Fieldset';
 import {ModalBody, ModalFooter, ModalHeader} from '~/components';
 import {useState} from 'react';
+import fieldStyles from '~/components/Field/Field.module.scss';
 
 const meta: Meta<typeof Modal> = {
     title: 'Components/Modal',
@@ -101,31 +103,36 @@ export const Advanced: Story = {
         <ModalBody>
             <Fieldset id="modal-fieldset" label="Modal fieldset">
                 <Field id="field-text" label="Text field" chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>} buttons={<><Button icon={<Add/>} label="Add"/><Button icon={<MoreVert/>} variant="ghost"/></>} helper="information">
-                    <FieldSelector buttons={<Button icon={<MoreVert/>}/>} selector={<Input size="big" placeholder="Input value"/>}/>
+                    <div className={clsx('moonstone-field_row', fieldStyles['moonstone-field_row'])}>
+                        <div className={clsx('moonstone-field_rowSelector', fieldStyles['moonstone-field_rowSelector'])}><Input size="big" placeholder="Input value"/></div>
+                        <Button className={clsx('moonstone-field_rowButton', fieldStyles['moonstone-field_rowButton'])} icon={<MoreVert/>} variant="ghost"/>
+                    </div>
                 </Field>
                 <Field id="field-dropdown" label="Dropdown field" chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>} buttons={<Button icon={<MoreVert/>} variant="ghost"/>} helper="information">
-                    <FieldSelector
-                                    selector={<Dropdown
-                                    variant="outlined"
-                                    label="Input value"
-                                    className="flexFluid"
-                                    value=""
-                                    data={[
-                                        {
-                                            label: 'option 1',
-                                            value: '1'
-                                        },
-                                        {
-                                            label: 'option 2',
-                                            value: '2'
-                                        },
-                                        {
-                                            label: 'option 3 with very long long label label label label label label label label',
-                                            value: '3'
-                                        }
-                                    ]}
-                                    />}
-                        />
+                    <div className={clsx('moonstone-field_row', fieldStyles['moonstone-field_row'])}>
+                        <div className={clsx('moonstone-field_rowSelector', fieldStyles['moonstone-field_rowSelector'])}>
+                            <Dropdown
+                                variant="outlined"
+                                label="Input value"
+                                className="flexFluid"
+                                value=""
+                                data={[
+                                    {
+                                        label: 'option 1',
+                                        value: '1'
+                                    },
+                                    {
+                                        label: 'option 2',
+                                        value: '2'
+                                    },
+                                    {
+                                        label: 'option 3 with very long long label label label label label label label label',
+                                        value: '3'
+                                    }
+                                ]}
+                            />
+                        </div>
+                    </div>
                 </Field>
             </Fieldset>
         </ModalBody>
