@@ -94,11 +94,9 @@ export const Form = {
         children:
     <Fieldset id="form" label="Form">
         <Field id="field-multiple" label="Field" chips={<><Chip color="accent" label="Required"/><Chip icon={<icons.Language/>} label="Shared by all languages"/></>} buttons={<><Button icon={<icons.Add/>} label="Add"/><Button icon={<icons.MoreVert/>} variant="ghost"/></>} helper="information">
-            <>
-                <Input size="big" placeholder="Input value"/>
-                <Input size="big" placeholder="Input value"/>
-                <Input size="big" placeholder="Input value"/>
-            </>
+            <Input size="big" placeholder="Input value"/>
+            <Input size="big" placeholder="Input value"/>
+            <Input size="big" placeholder="Input value"/>
         </Field>
         <FieldBoolean id="field-boolean" label="Field Boolean" helper="information" chips={<><Chip color="accent" label="Required"/><Chip icon={<icons.Language/>} label="Shared by all languages"/></>} buttons={<Button icon={<icons.MoreVert/>} variant="ghost"/>}/>
         <Field id="field-dropdown" label="Field" chips={<><Chip color="accent" label="Required"/><Chip icon={<icons.Language/>} label="Shared by all languages"/></>} buttons={<Button icon={<icons.MoreVert/>} variant="ghost"/>} helper="information">
@@ -128,11 +126,9 @@ export const Form = {
             <RadioGroup name="radio"><RadioItem id="radio1" label="Yes" value="Yes"/><RadioItem id="radio2" label="No" value="No"/></RadioGroup>
         </Field>
         <Field id="field-cardselectors" label="Field" chips={<><Chip color="accent" label="Required"/><Chip icon={<icons.Language/>} label="Shared by all languages"/></>} buttons={<Button icon={<icons.MoreVert/>} variant="ghost"/>} helper="information">
-            <>
-                <CardSelector id="cardSelector1" displayName="Item name" systemName="system name" information="information" thumbnailType="icon"/>
-                <CardSelector id="cardSelector2" displayName="Item name" systemName="system name" information="information" thumbnailType="icon"/>
-                <EmptyCardSelector iconStart={<File/>} id="emptyCardSelector" label="Add item"/>
-            </>
+            <CardSelector id="cardSelector1" displayName="Item name" systemName="system name" information="information" thumbnailType="icon"/>
+            <CardSelector id="cardSelector2" displayName="Item name" systemName="system name" information="information" thumbnailType="icon"/>
+            <EmptyCardSelector iconStart={<File/>} id="emptyCardSelector" label="Add item"/>
         </Field>
     </Fieldset>
     }
