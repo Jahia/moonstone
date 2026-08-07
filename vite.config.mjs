@@ -47,8 +47,10 @@ export default defineConfig({
     test: {
         coverage: {
             provider: 'v8',
+            // Omit the default 'text' reporter so the coverage table isn't dumped to the terminal
+            reporter: ['html', 'clover', 'json-summary'],
             include: ['src/**/*.{ts,tsx}'],
-            exclude: ['src/__mocks__/**', 'src/__storybook__/**', 'src/data/**', 'src/icons/components/**', '**/*.stories.*', '**/*.spec.tsx']
+            exclude: ['src/__mocks__/**', 'src/__storybook__/**', 'src/data/**', 'src/icons/components/**', '**/*.stories.*', '**/*.spec.*']
         },
         projects: [
             {
@@ -58,6 +60,8 @@ export default defineConfig({
                     setupFiles: ['./vitest.setup.js'],
                     globals: true,
                     environment: 'jsdom',
+                    // Pin the system timezone so date/time tests are deterministic
+                    env: {TZ: 'UTC'},
                     include: ['src/**/*.spec.tsx'],
                     exclude: ['src/visual*.spec.tsx', 'src/**/*.browser.spec.tsx'],
                     css: true
