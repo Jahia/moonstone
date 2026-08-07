@@ -1924,6 +1924,7 @@ __metadata:
     eslint-plugin-react: "npm:^7.37.5"
     eslint-plugin-react-hooks: "npm:^7.1.1"
     jsdom: "npm:^29.1.1"
+    pkg-pr-new: "npm:^0.0.86"
     playwright: "npm:^1.60.0"
     postcss: "npm:^8.5.14"
     publint: "npm:^0.3.20"
@@ -8781,6 +8782,15 @@ __metadata:
   version: 4.0.1
   resolution: "pify@npm:4.0.1"
   checksum: 10c0/6f9d404b0d47a965437403c9b90eca8bb2536407f03de165940e62e72c8c8b75adda5516c6b9b23675a5877cc0bcac6bdfb0ef0e39414cd2476d5495da40e7cf
+  languageName: node
+  linkType: hard
+
+"pkg-pr-new@npm:^0.0.86":
+  version: 0.0.86
+  resolution: "pkg-pr-new@npm:0.0.86"
+  bin:
+    pkg-pr-new: bin/cli.js
+  checksum: 10c0/83b5a885f23fd82a29dc4c4729b3c712feed7d206ee5cd640afb6bf38c37be6515e8fc0f0af19da4dda4a37f4eb65f0728e53846da75158e143bbd3b56e9f226
   languageName: node
   linkType: hard
 

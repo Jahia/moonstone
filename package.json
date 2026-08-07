@@ -111,6 +111,7 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.1.1",
     "jsdom": "^29.1.1",
+    "pkg-pr-new": "^0.0.86",
     "playwright": "^1.60.0",
     "postcss": "^8.5.14",
     "publint": "^0.3.20",
