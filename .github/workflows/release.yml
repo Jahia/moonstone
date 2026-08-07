@@ -10,8 +10,8 @@ jobs:
   publish-release:
     runs-on: ubuntu-slim
     permissions:
-      contents: write
-      id-token: write
+      contents: write # chachalog creates the GitHub Release and its tag
+      id-token: write # npm trusted publishing (OIDC) + provenance
     outputs:
       released_moonstone: ${{ steps.chachalog.outputs['released_@jahia/moonstone'] }}
     steps:
@@ -33,8 +33,9 @@ jobs:
     if: needs.publish-release.outputs.released_moonstone
     runs-on: ubuntu-latest
     permissions:
-      pages: write      # required to deploy to GitHub Pages
-      id-token: write   # required for OIDC authentication
+      contents: read # required for actions/checkout
+      pages: write # required to deploy to GitHub Pages
+      id-token: write # required by actions/deploy-pages to request the OIDC JWT token
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }} # displays deployed URL in Actions tab
