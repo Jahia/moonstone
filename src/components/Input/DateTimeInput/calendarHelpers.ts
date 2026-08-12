@@ -91,6 +91,34 @@ export const formatPlainDate = (value: Temporal.PlainDate | null, locale?: strin
     return new Intl.DateTimeFormat(locale || undefined).format(plainDateToDate(value));
 };
 
+const FIELD_RE = /YYYY|YY|MM|DD/g;
+
+const REFERENCE_DATE = Temporal.PlainDate.from('2033-11-22');
+
+export const getDateFormat = (locale: string, dateFormat?: DateFormat): string | undefined => {
+    const format = formatPlainDate(REFERENCE_DATE, locale, dateFormat)
+        .replace('2033', 'YYYY')
+        .replace('33', 'YY')
+        .replace('11', 'MM')
+        .replace('22', 'DD');
+
+    return new Set(format.match(FIELD_RE) ?? []).size === 3 ? format : undefined;
+};
+
+export const parseDateInput = (text: string, format: string): Temporal.PlainDate | null => {
+    const fields: string[] = format.match(FIELD_RE) ?? [];
+    const groups = text.split(/\D+/).filter(Boolean);
+
+    if (groups.length !== 3) {
+        return null;
+    }
+
+    const valueOf = (initial: string) => groups[fields.findIndex(field => field.startsWith(initial))];
+    const year = Number(valueOf('Y'));
+
+    return toPlainDate(`${year < 100 ? 2000 + year : year}-${valueOf('M').padStart(2, '0')}-${valueOf('D').padStart(2, '0')}`);
+};
+
 /** First day of the month (local noon) shown when the calendar opens for a given date. */
 export const getDisplayMonth = (plainDate: Temporal.PlainDate | null): Date => {
     const date = plainDate ?? getTodayPlainDate();

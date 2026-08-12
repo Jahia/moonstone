@@ -963,6 +963,83 @@ describe('DateTimeInput', () => {
         warn.mockRestore();
     });
 
+    describe('manual entry', () => {
+        it('should commit a typed date, keeping the time, and clear everything once emptied', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
+
+            render(<DateTimeInput {...localeProps} type="dateTime" defaultValue="2026-03-15T11:56" onChange={handleChange}/>);
+
+            const field = screen.getByPlaceholderText('MM/DD/YYYY');
+
+            await user.clear(field);
+            await user.type(field, '03/30/2026');
+            expect(handleChange).not.toHaveBeenCalled();
+
+            await user.tab();
+
+            expect(lastValue(handleChange).toString()).toBe('2026-03-30T11:56:00');
+            expect(field).toHaveValue('3/30/2026');
+
+            await user.clear(field);
+            await user.tab();
+
+            expect(handleChange).toHaveBeenLastCalledWith(expect.anything(), null);
+            expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
+        });
+
+        it.each([
+            {name: 'the locale order', props: {locale: 'fr'}, expected: 'DD/MM/YYYY'},
+            {name: 'a dateFormat override', props: {locale: 'fr', dateFormat: 'yyyy-MM-dd'}, expected: 'YYYY-MM-DD'},
+            {name: 'nothing for a textual month', props: {locale: 'fr', dateFormat: 'd MMMM yyyy'}, expected: null},
+            {name: 'nothing for a non-Gregorian locale', props: {locale: 'th-TH'}, expected: null}
+        ] as const)('should announce $name', ({props, expected}) => {
+            render(<DateTimeInput {...props} type="date" defaultValue="2026-03-15" onChange={() => null}/>);
+
+            expect(screen.getByRole('textbox').getAttribute('placeholder')).toBe(expected);
+        });
+
+        it('should discard an entry the calendar would refuse and keep a controlled value in place', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
+
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    type="date"
+                    value="2026-03-15"
+                    minDate="2026-03-10"
+                    maxDate="2026-03-20"
+                    onChange={handleChange}
+                />
+            );
+
+            const field = screen.getByPlaceholderText('MM/DD/YYYY');
+            const initialDisplay = (field as HTMLInputElement).value;
+
+            await user.clear(field);
+            await user.type(field, '03/30/2026');
+            await user.tab();
+
+            await user.clear(field);
+            await user.type(field, 'toto');
+            await user.tab();
+
+            await user.clear(field);
+            await user.type(field, '02/31/2026');
+            await user.tab();
+
+            expect(handleChange).not.toHaveBeenCalled();
+
+            await user.clear(field);
+            await user.type(field, '03/18/2026');
+            await user.tab();
+
+            expect(lastValue(handleChange).toString()).toBe('2026-03-18');
+            expect(field).toHaveValue(initialDisplay);
+        });
+    });
+
     describe('local time caption', () => {
         beforeEach(() => {
             vi.spyOn(Temporal.Now, 'timeZoneId').mockReturnValue('Europe/Paris');
