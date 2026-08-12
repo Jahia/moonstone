@@ -1,6 +1,4 @@
 .dateTimeInput {
-    position: relative;
-
     display: inline-flex;
     flex-wrap: wrap;
     gap: var(--moon-spacing-small);
@@ -10,6 +8,18 @@
 
 .dateField {
     width: 140px;
+}
+
+.calendarPopover {
+    z-index: 9000;
+
+    width: max-content;
+    max-height: calc(100vh - 16px);
+    overflow-y: auto;
+
+    border-radius: var(--moon-radius);
+    background-color: var(--moon-color-light);
+    box-shadow: 0 var(--moon-spacing-nano) var(--moon-spacing-small) var(--moon-color-gray_dark60);
 }
 
 .calendar {
