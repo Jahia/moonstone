@@ -191,9 +191,11 @@ type SearchProps<T extends NonNullable<unknown>> =
           /** Enable search for the table */
           enableSearch: true;
           /**
-           * Keys of the columns the table searches into, matched with a case-insensitive
-           * substring comparison. Omit it when `data` is already filtered by the consumer
-           * (server-side search): the table then renders the input without filtering.
+           * Keys of the columns the table searches into. The match is a case-insensitive
+           * substring comparison against the raw row value, not the rendered cell content,
+           * so a column displaying a formatted date is matched on its underlying value.
+           * Leaving it out makes the table render the input without filtering anything,
+           * which is what server-side search needs.
            */
           searchColumns?: SearchColumns<T>;
           /** Current search query (controlled) */
@@ -207,9 +209,11 @@ type SearchProps<T extends NonNullable<unknown>> =
           /** Enable search for the table */
           enableSearch: true;
           /**
-           * Keys of the columns the table searches into, matched with a case-insensitive
-           * substring comparison against the raw row value, not the rendered cell content:
-           * a column rendering a formatted date is matched on its underlying value.
+           * Keys of the columns the table searches into. The match is a case-insensitive
+           * substring comparison against the raw row value, not the rendered cell content,
+           * so a column displaying a formatted date is matched on its underlying value.
+           * Leaving it out makes the table render the input without filtering anything,
+           * which is what server-side search needs.
            */
           searchColumns: SearchColumns<T>;
           searchValue?: never;

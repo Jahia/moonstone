@@ -119,6 +119,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     const table = useReactTable({
         data,
         columns: tableColumns,
+        initialState: {globalFilter: ''},
         state: {
             expanded,
             rowSelection,
@@ -218,8 +219,9 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
     const isEmpty = !data || !Array.isArray(data) || data.length === 0;
 
-    const searchQuery = String(table.getState().globalFilter ?? '');
+    const searchQuery = String(table.getState().globalFilter);
     const setSearchQuery: (value: string) => void = onSearchChange ?? table.setGlobalFilter;
+    const searchLabel = searchInputProps?.placeholder ?? 'Search';
 
     if (isEmpty && !enableSearch) {
         return null;
@@ -231,6 +233,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 <SearchInput
                     variant="outlined"
                     value={searchQuery}
+                    aria-label={searchLabel}
+                    placeholder={searchLabel}
                     onChange={event => setSearchQuery(event.target.value)}
                     onClear={() => setSearchQuery('')}
                     {...searchInputProps}
