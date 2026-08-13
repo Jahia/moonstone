@@ -25,6 +25,9 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
         <div
             ref={ref}
             id={id}
+            role="group"
+            aria-labelledby={`${id}-label`}
+            aria-describedby={helper ? `${id}-helper` : null}
             className={clsx(
                 ['moonstone-field', styles['moonstone-field']],
                 ['flexCol_nowrap', layout.flexCol_nowrap],
@@ -47,7 +50,7 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
                         ['alignCenter', layout.alignCenter]
                     )}
                 >
-                    <Typography isNowrap component="label" weight="bold">{label}</Typography>
+                    <Typography isNowrap id={`${id}-label`} component="label" weight="bold">{label}</Typography>
                     {chips &&
                         <div
                             className={clsx(
@@ -77,7 +80,7 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
                     </div>}
             </div>
             {helper &&
-                <Typography variant="caption" className={clsx('moonstone-field_helper', styles['moonstone-field_helper'])}>{helper}</Typography>}
+                <Typography id={`${id}-helper`} variant="caption" className={clsx('moonstone-field_helper', styles['moonstone-field_helper'])}>{helper}</Typography>}
             <div
                 className={clsx(
                     ['moonstone-field_children', styles['moonstone-field_children']],
