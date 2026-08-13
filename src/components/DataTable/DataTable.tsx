@@ -2,9 +2,11 @@ import {
     useReactTable,
     getCoreRowModel,
     getExpandedRowModel,
+    getFilteredRowModel,
     getSortedRowModel,
     getPaginationRowModel
 } from '@tanstack/react-table';
+import clsx from 'clsx';
 import {toNodeArray} from '~/utils/helpers';
 import type {Row} from '@tanstack/react-table';
 import React, {useMemo, useCallback} from 'react';
@@ -13,7 +15,9 @@ import type {DataTableProps, RenderOptions} from './DataTable.types';
 import {createTableColumns} from './shared';
 import {renderCell, renderHeadCell} from './utils';
 import {Checkbox} from '~/components';
+import {SearchInput} from '~/components/Input';
 import {Pagination} from '~/components/Pagination';
+import styles from './DataTable.module.scss';
 import {
     Table,
     TableRow,
@@ -60,6 +64,11 @@ export const DataTable = <T extends NonNullable<unknown>>({
     totalItems,
     i18n,
     paginationProps,
+    enableSearch = false,
+    searchColumns,
+    searchValue,
+    onSearchChange,
+    searchInputProps,
     rowProps,
     ...props
 }: DataTableProps<T>) => {
@@ -114,7 +123,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
             expanded,
             rowSelection,
             sorting,
-            ...(enablePagination && {pagination})
+            ...(enablePagination && {pagination}),
+            ...(searchValue !== undefined && {globalFilter: searchValue})
         },
         onSortingChange: handleSortingChange,
         onExpandedChange: handleExpandedChange,
@@ -122,6 +132,10 @@ export const DataTable = <T extends NonNullable<unknown>>({
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,
         manualSorting: isSortingControlled,
+        getFilteredRowModel: enableSearch ? getFilteredRowModel() : undefined,
+        globalFilterFn: 'includesString',
+        getColumnCanGlobalFilter: column => Boolean(searchColumns?.some(key => key === column.id)),
+        filterFromLeafRows: isStructured,
         getExpandedRowModel: getExpandedRowModel(),
         getPaginationRowModel: enablePagination ? getPaginationRowModel() : undefined,
         manualPagination: isPaginationControlled,
@@ -202,12 +216,27 @@ export const DataTable = <T extends NonNullable<unknown>>({
         [renderRow, renderRowContent, rowProps]
     );
 
-    if (!data || !Array.isArray(data) || data.length === 0) {
+    const isEmpty = !data || !Array.isArray(data) || data.length === 0;
+
+    const searchQuery = String(table.getState().globalFilter ?? '');
+    const setSearchQuery: (value: string) => void = onSearchChange ?? table.setGlobalFilter;
+
+    if (isEmpty && !enableSearch) {
         return null;
     }
 
     return (
         <>
+            {enableSearch && (
+                <SearchInput
+                    variant="outlined"
+                    value={searchQuery}
+                    onChange={event => setSearchQuery(event.target.value)}
+                    onClear={() => setSearchQuery('')}
+                    {...searchInputProps}
+                    className={clsx(styles.search, searchInputProps?.className)}
+                />
+            )}
             <Table className={className} {...props}>
                 <TableHead>
                     {table.getHeaderGroups().map(headerGroup => (

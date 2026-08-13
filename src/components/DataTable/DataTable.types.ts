@@ -1,5 +1,6 @@
 import React from 'react';
 import type {TableCellProps} from '~/components/DataTable/cells';
+import type {SearchInputProps} from '~/components/Input/SearchInput/SearchInput.types';
 import type {DataTablePaginationProps} from './pagination';
 export type {PaginationUncontrolledProps} from './pagination';
 
@@ -181,6 +182,49 @@ export type SelectionProps =
           selectionCellProps?: never;
       };
 
+type SearchColumns<T extends NonNullable<unknown>> = Array<Extract<Exclude<keyof T, SubRowKey>, string>>;
+
+type SearchInputAttributes = Omit<SearchInputProps, 'value' | 'defaultValue' | 'onChange' | 'onClear'>;
+
+type SearchProps<T extends NonNullable<unknown>> =
+    | {
+          /** Enable search for the table */
+          enableSearch: true;
+          /**
+           * Keys of the columns the table searches into, matched with a case-insensitive
+           * substring comparison. Omit it when `data` is already filtered by the consumer
+           * (server-side search): the table then renders the input without filtering.
+           */
+          searchColumns?: SearchColumns<T>;
+          /** Current search query (controlled) */
+          searchValue: string;
+          /** Callback when the search query changes */
+          onSearchChange: (searchValue: string) => void;
+          /** Custom attributes added to the SearchInput element */
+          searchInputProps?: SearchInputAttributes;
+      }
+    | {
+          /** Enable search for the table */
+          enableSearch: true;
+          /**
+           * Keys of the columns the table searches into, matched with a case-insensitive
+           * substring comparison against the raw row value, not the rendered cell content:
+           * a column rendering a formatted date is matched on its underlying value.
+           */
+          searchColumns: SearchColumns<T>;
+          searchValue?: never;
+          onSearchChange?: never;
+          /** Custom attributes added to the SearchInput element */
+          searchInputProps?: SearchInputAttributes;
+      }
+    | {
+          enableSearch?: false;
+          searchColumns?: never;
+          searchValue?: never;
+          onSearchChange?: never;
+          searchInputProps?: never;
+      };
+
 export type RenderOptions = {
     /**
      * Custom cells to render before the data cells (selection + columns).
@@ -247,6 +291,7 @@ export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'c
     DataTableBaseProps<T> &
     SortingProps<T> &
     SelectionProps &
+    SearchProps<T> &
     StructuredProps &
     RenderRowProps<T> &
     DataTablePaginationProps;

@@ -18,7 +18,9 @@ export default {
         enablePagination: {control: 'boolean'},
         defaultItemsPerPage: {control: 'number'},
         itemsPerPageOptions: {control: 'object'},
-        i18n: {control: 'object'}
+        i18n: {control: 'object'},
+        enableSearch: {control: 'boolean'},
+        searchColumns: {control: 'object'}
     }
 } satisfies Meta<typeof DataTable<DataUser>>;
 
@@ -114,6 +116,75 @@ export const ControlledDataTable: Story = {
         );
     },
     name: 'Controlled DataTable'
+};
+
+export const SearchableDataTable: Story = {
+    render: args => {
+        return <DataTable {...args}/>;
+    },
+    args: {
+        data: tableFlat,
+        columns: dataColumnsUser,
+        primaryKey: 'id',
+        enableSearch: true,
+        searchColumns: ['firstName', 'status', 'progress'],
+        searchInputProps: {placeholder: 'Search by user, status or progress'}
+    },
+    name: 'Searchable DataTable (uncontrolled)'
+};
+
+export const ControlledSearchDataTable: Story = {
+    render: () => {
+        const [searchValue, setSearchValue] = useState('');
+
+        return (
+            <DataTable
+                enableSearch
+                data={tableFlat}
+                columns={dataColumnsUser}
+                primaryKey="id"
+                searchColumns={['firstName', 'status', 'progress']}
+                searchValue={searchValue}
+                onSearchChange={setSearchValue}
+            />
+        );
+    },
+    name: 'Controlled search (the table filters)'
+};
+
+export const ServerSideSearchDataTable: Story = {
+    render: () => {
+        const [searchValue, setSearchValue] = useState('');
+        const [currentPage, setCurrentPage] = useState(1);
+        const [itemsPerPage, setItemsPerPage] = useState(10);
+
+        const query = searchValue.toLowerCase();
+        const matchingRows = tableFlat.filter(row => `${row.firstName} ${row.lastName}`.toLowerCase().includes(query));
+        const pageRows = matchingRows.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+        return (
+            <DataTable
+                enableSearch
+                enablePagination
+                enableSorting={false}
+                data={pageRows}
+                columns={dataColumnsUser}
+                primaryKey="id"
+                searchValue={searchValue}
+                currentPage={currentPage}
+                itemsPerPage={itemsPerPage}
+                totalItems={matchingRows.length}
+                searchInputProps={{placeholder: 'Search on the server'}}
+                onSearchChange={value => {
+                    setSearchValue(value);
+                    setCurrentPage(1);
+                }}
+                onPageChange={setCurrentPage}
+                onItemsPerPageChange={setItemsPerPage}
+            />
+        );
+    },
+    name: 'Server-side search (the consumer filters)'
 };
 
 export const InsertCells: Story = {
