@@ -133,25 +133,6 @@ export const SearchableDataTable: Story = {
     name: 'Searchable DataTable (uncontrolled)'
 };
 
-export const ControlledSearchDataTable: Story = {
-    render: () => {
-        const [searchValue, setSearchValue] = useState('');
-
-        return (
-            <DataTable
-                enableSearch
-                data={tableFlat}
-                columns={dataColumnsUser}
-                primaryKey="id"
-                searchColumns={['firstName', 'status', 'progress']}
-                searchValue={searchValue}
-                onSearchChange={setSearchValue}
-            />
-        );
-    },
-    name: 'Controlled search (the table filters)'
-};
-
 export const ServerSideSearchDataTable: Story = {
     render: () => {
         const [searchValue, setSearchValue] = useState('');
