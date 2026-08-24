@@ -190,41 +190,23 @@ type SearchProps<T extends NonNullable<unknown>> =
     | {
           /** Enable search for the table */
           enableSearch: true;
-          /**
-           * Keys of the columns the table searches into. The match is a case-insensitive
-           * substring comparison against the raw row value, not the rendered cell content,
-           * so a column displaying a formatted date is matched on its underlying value.
-           * Leaving it out makes the table render the input without filtering anything,
-           * which is what server-side search needs.
-           */
+          /** Columns to search (case-insensitive substring match on the raw value). Omit for server-side search. */
           searchColumns?: SearchColumns<T>;
           /** Current search query (controlled) */
           searchValue: string;
           /** Callback when the search query changes */
           onSearchChange: (searchValue: string) => void;
-          /**
-           * Custom attributes added to the SearchInput element.
-           * Passing `placeholder` also localizes the field, as it is reused as the default `aria-label`.
-           */
+          /** Custom attributes added to the SearchInput element (pass `placeholder` to localize it) */
           searchInputProps?: SearchInputAttributes;
       }
     | {
           /** Enable search for the table */
           enableSearch: true;
-          /**
-           * Keys of the columns the table searches into. The match is a case-insensitive
-           * substring comparison against the raw row value, not the rendered cell content,
-           * so a column displaying a formatted date is matched on its underlying value.
-           * Leaving it out makes the table render the input without filtering anything,
-           * which is what server-side search needs.
-           */
+          /** Columns to search (case-insensitive substring match on the raw value). Omit for server-side search. */
           searchColumns: SearchColumns<T>;
           searchValue?: never;
           onSearchChange?: never;
-          /**
-           * Custom attributes added to the SearchInput element.
-           * Passing `placeholder` also localizes the field, as it is reused as the default `aria-label`.
-           */
+          /** Custom attributes added to the SearchInput element (pass `placeholder` to localize it) */
           searchInputProps?: SearchInputAttributes;
       }
     | {
