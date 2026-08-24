@@ -202,7 +202,10 @@ type SearchProps<T extends NonNullable<unknown>> =
           searchValue: string;
           /** Callback when the search query changes */
           onSearchChange: (searchValue: string) => void;
-          /** Custom attributes added to the SearchInput element */
+          /**
+           * Custom attributes added to the SearchInput element.
+           * Passing `placeholder` also localizes the field, as it is reused as the default `aria-label`.
+           */
           searchInputProps?: SearchInputAttributes;
       }
     | {
@@ -218,7 +221,10 @@ type SearchProps<T extends NonNullable<unknown>> =
           searchColumns: SearchColumns<T>;
           searchValue?: never;
           onSearchChange?: never;
-          /** Custom attributes added to the SearchInput element */
+          /**
+           * Custom attributes added to the SearchInput element.
+           * Passing `placeholder` also localizes the field, as it is reused as the default `aria-label`.
+           */
           searchInputProps?: SearchInputAttributes;
       }
     | {
