@@ -13,8 +13,6 @@
 .calendarPopover {
     z-index: 9000;
 
-    width: max-content;
-    max-height: calc(100vh - 16px);
     overflow-y: auto;
 
     border-radius: var(--moon-radius);
