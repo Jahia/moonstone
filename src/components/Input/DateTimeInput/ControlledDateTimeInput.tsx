@@ -19,7 +19,6 @@ import {
 import {
     formatPlainDate,
     getCalendarDisabledMatchers,
-    getDateFormat,
     getDisplayMonth,
     getMonthStart,
     getWeekStartsOn,
@@ -74,8 +73,6 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
         localTime: 'Your local time',
         ...i18n
     };
-
-    const format = getDateFormat(resolvedLocale, dateFormat);
 
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
     const [draft, setDraft] = useState<string | null>(null);
@@ -155,10 +152,10 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
             return;
         }
 
-        const parsedDate = format ? parseDateInput(draft, format) : null;
+        const typedDate = parseDateInput(draft, resolvedLocale, dateFormat);
 
-        if (parsedDate && !dateMatchModifiers(plainDateToDate(parsedDate), calendarDisabledMatchers)) {
-            emitChange(event, {plainDate: parsedDate});
+        if (typedDate && !dateMatchModifiers(plainDateToDate(typedDate), calendarDisabledMatchers)) {
+            emitChange(event, {plainDate: typedDate});
         }
     };
 
@@ -182,7 +179,6 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
         <div className={clsx(styles.dateTimeInput, className)}>
             <BaseInput
                 ref={handleRef}
-                placeholder={format}
                 {...props}
                 className={styles.dateField}
                 value={draft ?? formatPlainDate(selectedDate, resolvedLocale, dateFormat)}
@@ -203,8 +199,13 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                     onBlur?.(event);
                 }}
                 onKeyUp={event => {
-                    if (event.key === 'Enter' || event.key === ' ') {
-                        openCalendar();
+                    if (event.key === 'Enter') {
+                        if (draft === null) {
+                            openCalendar();
+                        } else {
+                            commitDraft(event);
+                            setIsCalendarOpen(false);
+                        }
                     }
 
                     if (event.key === 'Escape') {

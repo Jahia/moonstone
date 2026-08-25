@@ -91,32 +91,26 @@ export const formatPlainDate = (value: Temporal.PlainDate | null, locale?: strin
     return new Intl.DateTimeFormat(locale || undefined).format(plainDateToDate(value));
 };
 
-const FIELD_RE = /YYYY|YY|MM|DD/g;
+const getDateOrder = (locale: string, dateFormat?: DateFormat): string => {
+    const parts = dateFormat && isValidDateFormat(dateFormat) ?
+        dateFormat.match(DATE_FORMAT_TOKEN_RE) ?? [] :
+        new Intl.DateTimeFormat(locale || undefined).formatToParts(0).map(part => part.type);
 
-const REFERENCE_DATE = Temporal.PlainDate.from('2033-11-22');
-
-export const getDateFormat = (locale: string, dateFormat?: DateFormat): string | undefined => {
-    const format = formatPlainDate(REFERENCE_DATE, locale, dateFormat)
-        .replace('2033', 'YYYY')
-        .replace('33', 'YY')
-        .replace('11', 'MM')
-        .replace('22', 'DD');
-
-    return new Set(format.match(FIELD_RE) ?? []).size === 3 ? format : undefined;
+    return parts.map(part => part[0].toLowerCase()).filter(initial => 'ymd'.includes(initial)).join('');
 };
 
-export const parseDateInput = (text: string, format: string): Temporal.PlainDate | null => {
-    const fields: string[] = format.match(FIELD_RE) ?? [];
-    const groups = text.split(/\D+/).filter(Boolean);
+export const parseDateInput = (text: string, locale: string, dateFormat?: DateFormat): Temporal.PlainDate | null => {
+    const typedNumbers = text.split(/\D+/).filter(Boolean);
 
-    if (groups.length !== 3) {
+    if (typedNumbers.length !== 3) {
         return null;
     }
 
-    const valueOf = (initial: string) => groups[fields.findIndex(field => field.startsWith(initial))];
-    const year = Number(valueOf('Y'));
+    const order = getDateOrder(locale, dateFormat);
+    const valueOf = (field: string) => typedNumbers[order.indexOf(field)];
+    const year = Number(valueOf('y'));
 
-    return toPlainDate(`${year < 100 ? 2000 + year : year}-${valueOf('M').padStart(2, '0')}-${valueOf('D').padStart(2, '0')}`);
+    return toPlainDate(`${year < 100 ? 2000 + year : year}-${valueOf('m').padStart(2, '0')}-${valueOf('d').padStart(2, '0')}`);
 };
 
 /** First day of the month (local noon) shown when the calendar opens for a given date. */

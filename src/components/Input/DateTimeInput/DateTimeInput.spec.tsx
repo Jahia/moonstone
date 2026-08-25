@@ -423,18 +423,12 @@ describe('DateTimeInput', () => {
         expect(dateField()).toHaveValue('');
     });
 
-    it('should open the calendar via keyboard (Enter and Space)', async () => {
+    it('should open the calendar via keyboard (Enter on an untouched field)', async () => {
         const user = userEvent.setup();
         render(<DateTimeInput {...localeProps} type="date" placeholder="Select a date" onChange={() => null}/>);
 
         dateField().focus();
         await user.keyboard('{Enter}');
-        expect(screen.getByText('Today')).toBeInTheDocument();
-
-        // Close it, then verify Space also opens the calendar
-        await user.keyboard('{Escape}');
-        dateField().focus();
-        await user.keyboard('{ }');
         expect(screen.getByText('Today')).toBeInTheDocument();
     });
 
@@ -964,39 +958,61 @@ describe('DateTimeInput', () => {
     });
 
     describe('manual entry', () => {
+        it('should commit a typed date on Enter, without waiting for the blur', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
+
+            render(<DateTimeInput {...localeProps} type="date" placeholder="Select a date" defaultValue="2026-03-15" onChange={handleChange}/>);
+
+            await user.clear(dateField());
+            await user.type(dateField(), '03/30/2026{Enter}');
+
+            expect(lastValue(handleChange).toString()).toBe('2026-03-30');
+            expect(dateField()).toHaveValue('3/30/2026');
+            expect(dateField()).toHaveFocus();
+        });
+
         it('should commit a typed date, keeping the time, and clear everything once emptied', async () => {
             const user = userEvent.setup();
             const handleChange = vi.fn();
 
-            render(<DateTimeInput {...localeProps} type="dateTime" defaultValue="2026-03-15T11:56" onChange={handleChange}/>);
+            render(<DateTimeInput {...localeProps} type="dateTime" placeholder="Select a date" defaultValue="2026-03-15T11:56" onChange={handleChange}/>);
 
-            const field = screen.getByPlaceholderText('MM/DD/YYYY');
-
-            await user.clear(field);
-            await user.type(field, '03/30/2026');
+            await user.clear(dateField());
+            await user.type(dateField(), '03/30/2026');
             expect(handleChange).not.toHaveBeenCalled();
 
             await user.tab();
 
             expect(lastValue(handleChange).toString()).toBe('2026-03-30T11:56:00');
-            expect(field).toHaveValue('3/30/2026');
+            expect(dateField()).toHaveValue('3/30/2026');
 
-            await user.clear(field);
+            await user.clear(dateField());
             await user.tab();
 
             expect(handleChange).toHaveBeenLastCalledWith(expect.anything(), null);
             expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
         });
 
-        it.each([
-            {name: 'the locale order', props: {locale: 'fr'}, expected: 'DD/MM/YYYY'},
-            {name: 'a dateFormat override', props: {locale: 'fr', dateFormat: 'yyyy-MM-dd'}, expected: 'YYYY-MM-DD'},
-            {name: 'nothing for a textual month', props: {locale: 'fr', dateFormat: 'd MMMM yyyy'}, expected: null},
-            {name: 'nothing for a non-Gregorian locale', props: {locale: 'th-TH'}, expected: null}
-        ] as const)('should announce $name', ({props, expected}) => {
-            render(<DateTimeInput {...props} type="date" defaultValue="2026-03-15" onChange={() => null}/>);
+        it('should read the typed date in the order the field displays', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
 
-            expect(screen.getByRole('textbox').getAttribute('placeholder')).toBe(expected);
+            render(
+                <DateTimeInput
+                    locale="fr"
+                    type="date"
+                    dateFormat="yyyy-MM-dd"
+                    placeholder="Select a date"
+                    defaultValue="2026-03-15"
+                    onChange={handleChange}
+                />
+            );
+
+            await user.clear(dateField());
+            await user.type(dateField(), '2026-03-30{Enter}');
+
+            expect(lastValue(handleChange).toString()).toBe('2026-03-30');
         });
 
         it('should discard an entry the calendar would refuse and keep a controlled value in place', async () => {
@@ -1007,6 +1023,7 @@ describe('DateTimeInput', () => {
                 <DateTimeInput
                     {...localeProps}
                     type="date"
+                    placeholder="Select a date"
                     value="2026-03-15"
                     minDate="2026-03-10"
                     maxDate="2026-03-20"
@@ -1014,29 +1031,28 @@ describe('DateTimeInput', () => {
                 />
             );
 
-            const field = screen.getByPlaceholderText('MM/DD/YYYY');
-            const initialDisplay = (field as HTMLInputElement).value;
+            const initialDisplay = (dateField() as HTMLInputElement).value;
 
-            await user.clear(field);
-            await user.type(field, '03/30/2026');
+            await user.clear(dateField());
+            await user.type(dateField(), '03/30/2026');
             await user.tab();
 
-            await user.clear(field);
-            await user.type(field, 'toto');
+            await user.clear(dateField());
+            await user.type(dateField(), 'toto');
             await user.tab();
 
-            await user.clear(field);
-            await user.type(field, '02/31/2026');
+            await user.clear(dateField());
+            await user.type(dateField(), '02/31/2026');
             await user.tab();
 
             expect(handleChange).not.toHaveBeenCalled();
 
-            await user.clear(field);
-            await user.type(field, '03/18/2026');
+            await user.clear(dateField());
+            await user.type(dateField(), '03/18/2026');
             await user.tab();
 
             expect(lastValue(handleChange).toString()).toBe('2026-03-18');
-            expect(field).toHaveValue(initialDisplay);
+            expect(dateField()).toHaveValue(initialDisplay);
         });
     });
 
