@@ -768,6 +768,112 @@ describe('DateTimeInput', () => {
         expect(lastValue(handleChange).toString()).toBe(expectedValue);
     });
 
+    describe('fallbackTimeZone', () => {
+        beforeEach(() => {
+            vi.spyOn(Temporal.Now, 'timeZoneId').mockReturnValue('Europe/Paris');
+        });
+
+        afterEach(() => {
+            vi.restoreAllMocks();
+        });
+
+        it('should anchor a zone-less Date value in fallbackTimeZone instead of the system zone', () => {
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    type="zonedDateTime"
+                    placeholder="Select a date"
+                    value={new Date('2026-02-10T11:56:00Z')}
+                    fallbackTimeZone="America/Toronto"
+                    onChange={() => null}
+                />
+            );
+
+            expect(screen.getByRole('listbox', {name: /Toronto \(UTC/})).toBeInTheDocument();
+            expect(screen.queryByRole('listbox', {name: /Paris \(UTC/})).not.toBeInTheDocument();
+        });
+
+        it('should ignore fallbackTimeZone when the value already carries its own zone', () => {
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    type="zonedDateTime"
+                    placeholder="Select a date"
+                    value="2026-02-10T11:56[Africa/Abidjan]"
+                    fallbackTimeZone="America/Toronto"
+                    onChange={() => null}
+                />
+            );
+
+            expect(screen.getByRole('listbox', {name: /Abidjan \(UTC/})).toBeInTheDocument();
+        });
+
+        it('should fall back to the system zone when fallbackTimeZone is not a valid IANA identifier', () => {
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    type="zonedDateTime"
+                    placeholder="Select a date"
+                    value={new Date('2026-02-10T11:56:00Z')}
+                    fallbackTimeZone="not-a-real-zone"
+                    onChange={() => null}
+                />
+            );
+
+            // Value is still shown (not nulled out) and anchored in the system zone (Paris).
+            expect(dateField()).not.toHaveValue('');
+            expect(screen.getByRole('listbox', {name: /Paris \(UTC/})).toBeInTheDocument();
+        });
+
+        it('should keep displaying fallbackTimeZone across repeated Date round-trips', () => {
+            // Reproduces the jContent bug: a consumer that converts the emitted ZonedDateTime
+            // down to a plain `Date` and feeds it straight back as `value` on every change would,
+            // without fallbackTimeZone, snap back to the system zone on every single render.
+            const instant = new Date('2026-02-10T11:56:00Z');
+
+            const {rerender} = render(
+                <DateTimeInput
+                    {...localeProps}
+                    type="zonedDateTime"
+                    placeholder="Select a date"
+                    value={instant}
+                    fallbackTimeZone="America/Toronto"
+                    onChange={() => null}
+                />
+            );
+
+            expect(screen.getByRole('listbox', {name: /Toronto \(UTC/})).toBeInTheDocument();
+
+            rerender(
+                <DateTimeInput
+                    {...localeProps}
+                    type="zonedDateTime"
+                    placeholder="Select a date"
+                    value={new Date(instant.getTime())}
+                    fallbackTimeZone="America/Toronto"
+                    onChange={() => null}
+                />
+            );
+
+            expect(screen.getByRole('listbox', {name: /Toronto \(UTC/})).toBeInTheDocument();
+        });
+
+        it('should anchor a zone-less defaultValue in fallbackTimeZone when uncontrolled', () => {
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    type="zonedDateTime"
+                    placeholder="Select a date"
+                    defaultValue={new Date('2026-02-10T11:56:00Z')}
+                    fallbackTimeZone="America/Toronto"
+                    onChange={() => null}
+                />
+            );
+
+            expect(screen.getByRole('listbox', {name: /Toronto \(UTC/})).toBeInTheDocument();
+        });
+    });
+
     it('should allow selecting the minDate itself (inclusive lower boundary)', async () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();

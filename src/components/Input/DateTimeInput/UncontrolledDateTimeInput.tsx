@@ -7,15 +7,17 @@ export const UncontrolledDateTimeInput = React.forwardRef<HTMLInputElement, Unco
     type,
     defaultValue = getCurrentValue(type),
     onChange,
+    fallbackTimeZone,
     ...props
 }, ref) => {
-    const [value, setValue] = useState<DateTimeValue | null>(() => parseValue(defaultValue, type));
+    const [value, setValue] = useState<DateTimeValue | null>(() => parseValue(defaultValue, type, fallbackTimeZone));
 
     return (
         <ControlledDateTimeInput
             ref={ref}
             {...props}
             type={type}
+            fallbackTimeZone={fallbackTimeZone}
             value={value}
             onChange={(event, nextValue) => {
                 setValue(nextValue);
