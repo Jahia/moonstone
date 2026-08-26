@@ -41,6 +41,11 @@ Provide `value` + `onChange` for controlled (`onChange` is required), or `defaul
 
 Each accepts a `Temporal.PlainDate` or an ISO date string.
 
+## Calendar header
+
+The header shows a year dropdown whenever the navigable range spans more than one year.
+Set `isShowMonthDropdown` to also display React DayPicker's built-in month dropdown.
+
 ## Localization
 
 `locale` (BCP 47) drives the calendar text, the displayed date format, and the first day of the week.

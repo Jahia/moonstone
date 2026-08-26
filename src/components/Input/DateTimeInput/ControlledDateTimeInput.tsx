@@ -34,6 +34,14 @@ import {
 import type {ControlledDateTimeInputProps} from './DateTimeInput.types';
 import styles from './DateTimeInput.module.scss';
 
+const getCaptionLayout = (isShowMonthDropdown: boolean, hasMultipleYears: boolean) => {
+    if (isShowMonthDropdown) {
+        return hasMultipleYears ? 'dropdown' : 'dropdown-months';
+    }
+
+    return hasMultipleYears ? 'dropdown-years' : 'label';
+};
+
 export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, ControlledDateTimeInputProps>(({
     value,
     onChange,
@@ -47,6 +55,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     locale,
     dateFormat,
     weekStartsOn,
+    isShowMonthDropdown,
     i18n,
     size,
     variant,
@@ -261,7 +270,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                             labelNext: () => i18nLabels.nextMonth,
                             labelPrevious: () => i18nLabels.previousMonth
                         }}
-                        captionLayout={hasMultipleYears ? 'dropdown-years' : 'label'}
+                        captionLayout={getCaptionLayout(Boolean(isShowMonthDropdown), hasMultipleYears)}
                         navLayout="around"
                         weekStartsOn={weekStartsOn ?? getWeekStartsOn(resolvedLocale)}
                         month={displayedMonth}

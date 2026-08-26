@@ -343,6 +343,46 @@ describe('DateTimeInput', () => {
         expect(dateField()).toHaveValue(selectedDisplay);
     });
 
+    it('should render React DayPicker\'s month dropdown when requested', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                isShowMonthDropdown
+                type="date"
+                placeholder="Select a date"
+                defaultValue="2026-03-30"
+                onChange={() => null}
+            />
+        );
+
+        await user.click(dateField());
+
+        const monthDropdown = screen.getByRole('combobox', {name: 'Choose the Month'});
+        await user.selectOptions(monthDropdown, '4');
+
+        expect(screen.getByRole('grid', {name: 'May 2026'})).toBeInTheDocument();
+    });
+
+    it('should not render a month dropdown by default', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                type="date"
+                placeholder="Select a date"
+                defaultValue="2026-03-30"
+                onChange={() => null}
+            />
+        );
+
+        await user.click(dateField());
+
+        expect(screen.queryByRole('combobox', {name: 'Choose the Month'})).not.toBeInTheDocument();
+    });
+
     it('should reset to the selected date month when reopening the calendar', async () => {
         const user = userEvent.setup();
         render(

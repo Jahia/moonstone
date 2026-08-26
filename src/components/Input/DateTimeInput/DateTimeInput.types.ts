@@ -133,6 +133,12 @@ export type DateTimeInputSharedProps = Omit<BaseInputProps,
      */
     weekStartsOn?: DayOfWeek;
 
+    /**
+     * Displays React DayPicker's built-in month dropdown in the calendar header.
+     * The month remains plain text when omitted.
+     */
+    isShowMonthDropdown?: boolean;
+
     /** I18n labels for calendar actions */
     i18n?: DateTimeInputI18n;
 
