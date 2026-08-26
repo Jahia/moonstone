@@ -12,9 +12,11 @@ calendar it opens, plus an optional time field and timezone selector depending o
 ## Value
 
 `value` / `defaultValue` accept the mode's `Temporal` instance, an ISO string (e.g. `'2026-06-19'`,
-`'2026-06-19T14:30'`, `'2026-06-19T14:30+02:00[Europe/Paris]'`), or `null`. `onChange` always emits the
-mode's `Temporal` instance (or `null`) — never a string. Pass `defaultValue={null}` to start empty;
-with no `defaultValue`, an uncontrolled field starts at the current date/time.
+`'2026-06-19T14:30'`, `'2026-06-19T14:30+02:00[Europe/Paris]'`), or `null`. Zoned mode additionally
+accepts `Date`, `Temporal.Instant`, and ISO instants such as `'2026-06-19T12:30:00Z'`; values without
+an IANA annotation are displayed in the system timezone. `onChange` always emits the mode's
+`Temporal` instance (or `null`) — never a string. Pass `defaultValue={null}` to start empty; with no
+`defaultValue`, an uncontrolled field starts at the current date/time.
 
 When the date field holds a value it shows a clear (reset) button. Clearing empties the whole value —
 date, time, and zone — and `onChange` emits `null`, since a date-time has no meaning without its date.
