@@ -313,7 +313,6 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                                     <Dropdown
                                         size="medium"
                                         variant="ghost"
-                                        hasSearch={false}
                                         data={toDropdownData(dropdownProps.options)}
                                         value={String(dropdownProps.value ?? '')}
                                         onChange={(_e, item) => {
