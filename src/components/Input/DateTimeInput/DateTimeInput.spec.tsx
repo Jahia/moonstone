@@ -91,14 +91,14 @@ describe('DateTimeInput', () => {
         render(<DateTimeInput {...localeProps} type="dateTime" placeholder="Select a date" onChange={() => null}/>);
 
         expect(dateField()).not.toHaveValue('');
-        expect(screen.getByPlaceholderText('HH:MM')).not.toHaveValue('');
+        expect(screen.getByPlaceholderText('hh:mm')).not.toHaveValue('');
     });
 
     it('should render empty when defaultValue is null', () => {
         render(<DateTimeInput {...localeProps} type="dateTime" placeholder="Select a date" defaultValue={null}/>);
 
         expect(dateField()).toHaveValue('');
-        expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
+        expect(screen.getByPlaceholderText('hh:mm')).toHaveValue('');
     });
 
     it('should fill and display today when a time is entered without a date', async () => {
@@ -109,7 +109,7 @@ describe('DateTimeInput', () => {
 
         expect(dateField()).toHaveValue('');
 
-        const timeInput = screen.getByPlaceholderText('HH:MM');
+        const timeInput = screen.getByPlaceholderText('hh:mm');
         await user.type(timeInput, '0930');
         await user.tab();
 
@@ -271,7 +271,7 @@ describe('DateTimeInput', () => {
         render(<DateTimeInput {...localeProps} type="dateTime" timeFormat="12h" defaultValue="2026-02-10T02:30" onChange={handleChange}/>);
 
         await user.clear(screen.getByDisplayValue('02:30'));
-        await user.type(screen.getByPlaceholderText('HH:MM'), '0230');
+        await user.type(screen.getByPlaceholderText('hh:mm'), '0230');
         await user.click(screen.getByText('AM'));
         const pmOptions = screen.getAllByText('PM');
         await user.click(pmOptions[pmOptions.length - 1]);
@@ -341,6 +341,163 @@ describe('DateTimeInput', () => {
 
         expect(screen.getByText('March 2024')).toBeInTheDocument();
         expect(dateField()).toHaveValue(selectedDisplay);
+    });
+
+    it('should report unreadable typed text through onInvalidInput without emitting a change', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+        const handleInvalidInput = vi.fn();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                type="date"
+                placeholder="Select a date"
+                defaultValue="2026-03-30"
+                onChange={handleChange}
+                onInvalidInput={handleInvalidInput}
+            />
+        );
+
+        const selectedDisplay = (dateField() as HTMLInputElement).value;
+
+        await user.clear(dateField());
+        await user.type(dateField(), 'not a date');
+        await user.tab();
+
+        expect(handleInvalidInput).toHaveBeenCalledTimes(1);
+        expect(handleInvalidInput.mock.lastCall?.[1]).toBe('not a date');
+        expect(handleChange).not.toHaveBeenCalled();
+        expect(dateField()).toHaveValue(selectedDisplay);
+    });
+
+    it('should report a typed date that the calendar constraints rule out', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+        const handleInvalidInput = vi.fn();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                type="date"
+                placeholder="Select a date"
+                defaultValue="2026-03-30"
+                minDate="2026-03-01"
+                maxDate="2026-03-31"
+                onChange={handleChange}
+                onInvalidInput={handleInvalidInput}
+            />
+        );
+
+        await user.clear(dateField());
+        await user.type(dateField(), '05/30/2026');
+        await user.tab();
+
+        expect(handleInvalidInput.mock.lastCall?.[1]).toBe('05/30/2026');
+        expect(handleChange).not.toHaveBeenCalled();
+    });
+
+    it('should not report an emptied field as invalid', async () => {
+        const user = userEvent.setup();
+        const handleInvalidInput = vi.fn();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                type="date"
+                placeholder="Select a date"
+                defaultValue="2026-03-30"
+                onChange={() => null}
+                onInvalidInput={handleInvalidInput}
+            />
+        );
+
+        await user.clear(dateField());
+        await user.tab();
+
+        expect(handleInvalidInput).not.toHaveBeenCalled();
+    });
+
+    it('should mark the date field invalid when isError is set', () => {
+        const {rerender} = render(
+            <DateTimeInput {...localeProps} type="date" placeholder="Select a date" onChange={() => null}/>
+        );
+
+        expect(dateField()).not.toHaveAttribute('aria-invalid');
+
+        rerender(
+            <DateTimeInput {...localeProps} isError type="date" placeholder="Select a date" onChange={() => null}/>
+        );
+
+        expect(dateField()).toHaveAttribute('aria-invalid', 'true');
+    });
+
+    it('should keep the year range anchored on the selection instead of sliding with navigation', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                type="date"
+                placeholder="Select a date"
+                defaultValue="2026-03-30"
+                i18n={{nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
+                onChange={() => null}
+            />
+        );
+
+        await user.click(dateField());
+        await user.click(screen.getByRole('listbox', {name: '2026'}));
+        await user.click(screen.getByRole('option', {name: '2070'}));
+
+        // Anchored on the 2026 selection, so 1976 is still reachable from 2070. Derived from the
+        // displayed month it would have become 2020-2120 and dropped everything before 2020.
+        await user.click(screen.getByRole('listbox', {name: '2070'}));
+        expect(screen.getByRole('option', {name: '1976'})).toBeInTheDocument();
+    });
+
+    it('should render a month dropdown and let the user jump to another month without losing the selection', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                isShowMonthDropdown
+                type="date"
+                placeholder="Select a date"
+                defaultValue="2026-03-30"
+                i18n={{nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
+                onChange={() => null}
+            />
+        );
+
+        const selectedDisplay = (dateField() as HTMLInputElement).value;
+
+        await user.click(dateField());
+        await user.click(screen.getByRole('listbox', {name: 'March'}));
+        await user.click(screen.getByRole('option', {name: 'May'}));
+
+        expect(screen.getByRole('grid', {name: 'May 2026'})).toBeInTheDocument();
+        expect(dateField()).toHaveValue(selectedDisplay);
+    });
+
+    it('should not render a month dropdown by default', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                type="date"
+                placeholder="Select a date"
+                defaultValue="2026-03-30"
+                onChange={() => null}
+            />
+        );
+
+        await user.click(dateField());
+
+        expect(screen.queryByRole('listbox', {name: 'March'})).not.toBeInTheDocument();
+        expect(screen.getByRole('listbox', {name: '2026'})).toBeInTheDocument();
     });
 
     it('should reset to the selected date month when reopening the calendar', async () => {
@@ -488,7 +645,7 @@ describe('DateTimeInput', () => {
 
         expect(handleChange).toHaveBeenCalledWith(expect.anything(), null);
         expect(dateField()).toHaveValue('');
-        expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
+        expect(screen.getByPlaceholderText('hh:mm')).toHaveValue('');
     });
 
     it('should disable dates before minDate in the calendar', async () => {
@@ -579,7 +736,7 @@ describe('DateTimeInput', () => {
         render(<DateTimeInput {...localeProps} type="zonedDateTime" placeholder="Select a date" onChange={() => null}/>);
 
         expect(dateField()).not.toHaveValue('');
-        expect(screen.getByPlaceholderText('HH:MM')).not.toHaveValue('');
+        expect(screen.getByPlaceholderText('hh:mm')).not.toHaveValue('');
         expect(screen.getByRole('listbox').getAttribute('aria-label')).toMatch(/UTC/);
     });
 
@@ -719,15 +876,40 @@ describe('DateTimeInput', () => {
     it('should render only the date field for type="date"', () => {
         render(<DateTimeInput {...localeProps} type="date" placeholder="Select a date" onChange={() => null}/>);
 
-        expect(screen.queryByPlaceholderText('HH:MM')).not.toBeInTheDocument();
+        expect(screen.queryByPlaceholderText('hh:mm')).not.toBeInTheDocument();
         expect(screen.queryAllByRole('listbox')).toHaveLength(0);
     });
 
     it('should render the time field but no timezone selector for type="dateTime"', () => {
         render(<DateTimeInput {...localeProps} type="dateTime" placeholder="Select a date" onChange={() => null}/>);
 
-        expect(screen.getByPlaceholderText('HH:MM')).toBeInTheDocument();
+        expect(screen.getByPlaceholderText('hh:mm')).toBeInTheDocument();
         expect(screen.queryAllByRole('listbox')).toHaveLength(0);
+    });
+
+    it('should keep Escape from reaching the consumer while the calendar is open', async () => {
+        const user = userEvent.setup();
+        const handleOuterKeyDown = vi.fn();
+
+        render(
+            // Stands in for a consumer's Modal: it closes on an Escape that reaches it.
+            <div onKeyDown={handleOuterKeyDown}>
+                <DateTimeInput {...localeProps} type="date" placeholder="Select a date" onChange={() => null}/>
+            </div>
+        );
+
+        await user.click(dateField());
+        expect(screen.getByTestId('calendar')).toBeInTheDocument();
+
+        await user.keyboard('{Escape}');
+
+        expect(screen.queryByTestId('calendar')).not.toBeInTheDocument();
+        expect(handleOuterKeyDown).not.toHaveBeenCalled();
+
+        // Calendar closed, Escape belongs to the consumer again.
+        await user.keyboard('{Escape}');
+
+        expect(handleOuterKeyDown).toHaveBeenCalledTimes(1);
     });
 
     it('should return focus to the date field when the calendar is closed via Escape', async () => {
@@ -785,7 +967,7 @@ describe('DateTimeInput', () => {
             />
         );
 
-        expect(screen.getByPlaceholderText('HH:MM')).toBeDisabled();
+        expect(screen.getByPlaceholderText('hh:mm')).toBeDisabled();
     });
 
     it('should disable the internal timezone selector when isDisabled is set', async () => {
@@ -819,7 +1001,7 @@ describe('DateTimeInput', () => {
             />
         );
 
-        expect(screen.getByPlaceholderText('HH:MM')).toHaveAttribute('readonly');
+        expect(screen.getByPlaceholderText('hh:mm')).toHaveAttribute('readonly');
     });
 
     it('should make the internal timezone selector read-only (rendered as disabled) when isReadOnly is set', async () => {
@@ -845,14 +1027,14 @@ describe('DateTimeInput', () => {
         render(<DateTimeInput {...localeProps} type="dateTime" defaultValue="not-a-date" placeholder="Select a date" onChange={() => null}/>);
 
         expect(dateField()).toHaveValue('');
-        expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
+        expect(screen.getByPlaceholderText('hh:mm')).toHaveValue('');
     });
 
     it('should not display an invalid zonedDateTime value', () => {
         render(<DateTimeInput {...localeProps} type="zonedDateTime" defaultValue="not-a-date" placeholder="Select a date" onChange={() => null}/>);
 
         expect(dateField()).toHaveValue('');
-        expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
+        expect(screen.getByPlaceholderText('hh:mm')).toHaveValue('');
     });
 
     it('should disable all weekend days when disabledDaysOfWeek=[0, 6] is set', async () => {
@@ -991,7 +1173,7 @@ describe('DateTimeInput', () => {
             await user.tab();
 
             expect(handleChange).toHaveBeenLastCalledWith(expect.anything(), null);
-            expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
+            expect(screen.getByPlaceholderText('hh:mm')).toHaveValue('');
         });
 
         it('should read the typed date in the order the field displays', async () => {

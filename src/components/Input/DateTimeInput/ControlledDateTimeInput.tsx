@@ -36,6 +36,26 @@ import {
 import type {ControlledDateTimeInputProps} from './DateTimeInput.types';
 import styles from './DateTimeInput.module.scss';
 
+// Both header dropdowns render identically; only the value they write back differs.
+// `getMonthOptions`/`getYearOptions` already flag the options outside `startMonth`/`endMonth`,
+// so `minDate`/`maxDate` are honoured without any extra work here.
+const toDropdownData = (options: DropdownProps['options']) => (options ?? []).map(option => ({
+    label: option.label,
+    value: String(option.value),
+    isDisabled: option.disabled
+}));
+
+// A caption control is a dropdown only in its matching `dropdown*` layout, and plain text
+// otherwise: `dropdown-years` is exactly why the month currently renders as a `<span>`. So the
+// month select appears strictly when asked for, and the default header stays untouched.
+const getCaptionLayout = (isShowMonthDropdown: boolean, hasMultipleYears: boolean) => {
+    if (isShowMonthDropdown) {
+        return hasMultipleYears ? 'dropdown' : 'dropdown-months';
+    }
+
+    return hasMultipleYears ? 'dropdown-years' : 'label';
+};
+
 const capCalendarHeight: SizeOptions['apply'] = ({availableHeight, elements}) => {
     elements.floating.style.maxHeight = `${availableHeight}px`;
 };
@@ -53,6 +73,8 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     locale,
     dateFormat,
     weekStartsOn,
+    isShowMonthDropdown,
+    isError,
     i18n,
     size,
     variant,
@@ -62,6 +84,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     timeInputProps,
     timezoneSelectorProps,
     onBlur,
+    onInvalidInput,
     ...props
 }, ref) => {
     const currentValue = parseValue(value, type);
@@ -103,9 +126,14 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     const calendarDisabledMatchers = getCalendarDisabledMatchers({minDate, maxDate, disabledDates, disabledDateRanges, disabledDaysOfWeek});
     const todayDate = plainDateToDate(getTodayPlainDate());
     const isTodayDisabled = isDisabled || isReadOnly || dateMatchModifiers(todayDate, calendarDisabledMatchers);
-    const startMonth = getMonthStart(minPlainDate, displayedMonth.getFullYear() - 20, 0);
-    const endMonth = getMonthStart(maxPlainDate, displayedMonth.getFullYear() + 20, 11);
+    // Anchored on the selected date (today when there is none), not on the displayed month:
+    // deriving the range from `displayedMonth` made the window slide along with navigation, so
+    // jumping to 2046 turned it into 2026-2066 and dropped the years already visited.
+    const referenceYear = (selectedDate ?? getTodayPlainDate()).year;
+    const startMonth = getMonthStart(minPlainDate, referenceYear - 50, 0);
+    const endMonth = getMonthStart(maxPlainDate, referenceYear + 50, 11);
     const hasMultipleYears = startMonth.getFullYear() !== endMonth.getFullYear();
+    const captionLayout = getCaptionLayout(Boolean(isShowMonthDropdown), hasMultipleYears);
 
     const systemTimeZone = getSystemTimeZone();
     const showLocalTime =
@@ -162,7 +190,12 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
 
         if (typedDate && !dateMatchModifiers(plainDateToDate(typedDate), calendarDisabledMatchers)) {
             emitChange(event, {plainDate: typedDate});
+            return;
         }
+
+        // Unreadable, or readable but unavailable: same outcome for the value (nothing is
+        // emitted, the field falls back to the stored date) but the consumer now hears about it.
+        onInvalidInput?.(event, draft);
     };
 
     const openCalendar = () => {
@@ -187,8 +220,9 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
             <BaseInput
                 ref={fieldRef}
                 {...props}
-                className={styles.dateField}
+                className={clsx(styles.dateField, isError && styles.dateFieldError)}
                 value={draft ?? formatPlainDate(selectedDate, resolvedLocale, dateFormat)}
+                aria-invalid={isError || undefined}
                 size={size}
                 variant={variant}
                 isDisabled={isDisabled}
@@ -205,6 +239,18 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                     commitDraft(event);
                     onBlur?.(event);
                 }}
+                onKeyDown={event => {
+                    // Escape closes the calendar and stops there. `useDismiss` would do the
+                    // closing, but it listens on `document` — and so does the consumer's Modal,
+                    // through its own `useDismiss`. Two listeners on the same node means
+                    // `stopPropagation` from one cannot spare the other, so a single Escape would
+                    // close the calendar and the Modal around it. React attaches events at the
+                    // root, below `document`, so stopping here keeps the key from reaching either.
+                    if (event.key === 'Escape' && isCalendarOpen) {
+                        event.stopPropagation();
+                        setIsCalendarOpen(false);
+                    }
+                }}
                 onKeyUp={event => {
                     if (event.key === 'Enter') {
                         if (draft === null) {
@@ -213,6 +259,13 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                             commitDraft(event);
                             setIsCalendarOpen(false);
                         }
+                    }
+
+                    // Space only opens, and only while nothing has been typed: a date pattern can
+                    // use spaces as separators (`30 03 2026`), so it has to stay a plain character
+                    // as soon as the field holds a draft.
+                    if (event.key === ' ' && draft === null) {
+                        openCalendar();
                     }
                 }}
             />
@@ -244,15 +297,24 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                                 /* eslint-enable camelcase */
                             }}
                             components={{
+                                MonthsDropdown: (dropdownProps: DropdownProps) => (
+                                    <Dropdown
+                                        size="medium"
+                                        variant="ghost"
+                                        hasSearch={false}
+                                        data={toDropdownData(dropdownProps.options)}
+                                        value={String(dropdownProps.value ?? '')}
+                                        onChange={(_e, item) => {
+                                            setDisplayedMonth(new Date(displayedMonth.getFullYear(), Number(item.value), 1));
+                                        }}
+                                    />
+                                ),
                                 YearsDropdown: (dropdownProps: DropdownProps) => (
                                     <Dropdown
                                         size="medium"
                                         variant="ghost"
-                                        data={(dropdownProps.options ?? []).map(opt => ({
-                                            label: opt.label,
-                                            value: String(opt.value),
-                                            isDisabled: opt.disabled
-                                        }))}
+                                        hasSearch={false}
+                                        data={toDropdownData(dropdownProps.options)}
                                         value={String(dropdownProps.value ?? '')}
                                         onChange={(_e, item) => {
                                             setDisplayedMonth(new Date(Number(item.value), displayedMonth.getMonth(), 1));
@@ -264,7 +326,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                                 labelNext: () => i18nLabels.nextMonth,
                                 labelPrevious: () => i18nLabels.previousMonth
                             }}
-                            captionLayout={hasMultipleYears ? 'dropdown-years' : 'label'}
+                            captionLayout={captionLayout}
                             navLayout="around"
                             weekStartsOn={weekStartsOn ?? getWeekStartsOn(resolvedLocale)}
                             month={displayedMonth}

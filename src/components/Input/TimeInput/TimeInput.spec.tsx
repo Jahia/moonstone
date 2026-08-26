@@ -10,7 +10,7 @@ describe('TimeInput', () => {
     it('should render empty when uncontrolled without a default value', () => {
         render(<TimeInput/>);
 
-        expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
+        expect(screen.getByPlaceholderText('hh:mm')).toHaveValue('');
     });
 
     it('should commit a typed time on blur', async () => {
@@ -19,7 +19,7 @@ describe('TimeInput', () => {
 
         render(<TimeInput onChange={handleChange}/>);
 
-        const input = screen.getByPlaceholderText('HH:MM');
+        const input = screen.getByPlaceholderText('hh:mm');
         await user.type(input, '1430');
         expect(handleChange).not.toHaveBeenCalled();
 
@@ -33,7 +33,7 @@ describe('TimeInput', () => {
 
         render(<TimeInput onChange={handleChange}/>);
 
-        const input = screen.getByPlaceholderText('HH:MM');
+        const input = screen.getByPlaceholderText('hh:mm');
         await user.type(input, '1');
         fireEvent.blur(input);
 
@@ -66,7 +66,7 @@ describe('TimeInput', () => {
 
         render(<TimeInput timeFormat="12h" onChange={handleChange}/>);
 
-        await user.type(screen.getByPlaceholderText('HH:MM'), '0230');
+        await user.type(screen.getByPlaceholderText('hh:mm'), '0230');
         await user.click(screen.getByText('AM')); // Open the meridiem dropdown
         const pmOptions = screen.getAllByText('PM');
         await user.click(pmOptions[pmOptions.length - 1]);
@@ -80,7 +80,7 @@ describe('TimeInput', () => {
 
         render(<TimeInput onChange={handleChange}/>);
 
-        const input = screen.getByPlaceholderText('HH:MM');
+        const input = screen.getByPlaceholderText('hh:mm');
         await user.type(input, '91');
         fireEvent.blur(input);
 
@@ -93,7 +93,7 @@ describe('TimeInput', () => {
 
         render(<TimeInput onChange={handleChange}/>);
 
-        const input = screen.getByPlaceholderText('HH:MM');
+        const input = screen.getByPlaceholderText('hh:mm');
         await user.type(input, '0930');
         expect(handleChange).not.toHaveBeenCalled();
 
@@ -135,9 +135,9 @@ describe('TimeInput', () => {
 
         render(<TimeInput onChange={() => null}/>);
 
-        await user.type(screen.getByPlaceholderText('HH:MM'), '3');
+        await user.type(screen.getByPlaceholderText('hh:mm'), '3');
 
-        expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('03');
+        expect(screen.getByPlaceholderText('hh:mm')).toHaveValue('03');
     });
 
     it('should auto-advance a leading hour digit greater than 1 in 12h mode (2 -> 02)', async () => {
@@ -145,9 +145,9 @@ describe('TimeInput', () => {
 
         render(<TimeInput timeFormat="12h" onChange={() => null}/>);
 
-        await user.type(screen.getByPlaceholderText('HH:MM'), '2');
+        await user.type(screen.getByPlaceholderText('hh:mm'), '2');
 
-        expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('02');
+        expect(screen.getByPlaceholderText('hh:mm')).toHaveValue('02');
     });
 
     it('should complete a lone minute digit as its units on blur (143 -> 14:03)', async () => {
@@ -156,7 +156,7 @@ describe('TimeInput', () => {
 
         render(<TimeInput onChange={handleChange}/>);
 
-        const input = screen.getByPlaceholderText('HH:MM');
+        const input = screen.getByPlaceholderText('hh:mm');
         await user.type(input, '143');
         fireEvent.blur(input);
 
@@ -169,7 +169,7 @@ describe('TimeInput', () => {
 
         render(<TimeInput onChange={handleChange}/>);
 
-        const input = screen.getByPlaceholderText('HH:MM');
+        const input = screen.getByPlaceholderText('hh:mm');
         await user.type(input, '146');
         fireEvent.blur(input);
 
@@ -196,8 +196,8 @@ describe('TimeInput', () => {
 
         render(<TimeInput timeFormat="12h" onChange={handleChange}/>);
 
-        await user.type(screen.getByPlaceholderText('HH:MM'), '1200');
-        fireEvent.blur(screen.getByPlaceholderText('HH:MM'));
+        await user.type(screen.getByPlaceholderText('hh:mm'), '1200');
+        fireEvent.blur(screen.getByPlaceholderText('hh:mm'));
 
         expect(emittedTime(handleChange)).toBe('00:00');
     });
@@ -223,7 +223,7 @@ describe('TimeInput', () => {
 
             render(<TimeInput onChange={handleChange}/>);
 
-            const input = screen.getByPlaceholderText('HH:MM');
+            const input = screen.getByPlaceholderText('hh:mm');
             input.focus();
             await user.keyboard('{ArrowUp}');
 

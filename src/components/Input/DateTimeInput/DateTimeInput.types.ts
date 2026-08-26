@@ -28,6 +28,7 @@ export type DateFormat = string;
  */
 export type CalendarDate = Temporal.PlainDate | string;
 
+
 /** A day-of-week index (0 = Sunday, 1 = Monday, … 6 = Saturday). */
 export type DayOfWeek = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -132,6 +133,27 @@ export type DateTimeInputSharedProps = Omit<BaseInputProps,
      * When omitted, it derives from `locale` (falling back to Monday when the locale has no week info).
      */
     weekStartsOn?: DayOfWeek;
+
+    /**
+     * Displays a months dropdown in the calendar header, in addition to the automatic years dropdown.
+     * Off by default: the header renders the month as plain text.
+     */
+    isShowMonthDropdown?: boolean;
+
+    /**
+     * Called when typed text cannot be turned into an available date — either unreadable, or read
+     * but ruled out by the calendar constraints. `rawText` is the text exactly as typed, so the
+     * consumer can build its own message. Nothing is emitted through `onChange` and the value is
+     * left as it was; the field falls back to displaying it.
+     */
+    onInvalidInput?: (event: React.SyntheticEvent, rawText: string) => void;
+
+    /**
+     * Marks the date field as holding an invalid value: error border plus `aria-invalid`.
+     * Purely presentational — it never blocks entry. Pair it with `onInvalidInput` to decide
+     * when it turns on, and with `Field`'s `errorMessage` to say why.
+     */
+    isError?: boolean;
 
     /** I18n labels for calendar actions */
     i18n?: DateTimeInputI18n;

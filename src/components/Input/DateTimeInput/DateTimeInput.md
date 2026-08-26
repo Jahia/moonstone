@@ -28,6 +28,14 @@ The entry is committed on `Enter` or when the field loses focus. A date that can
 the calendar disables, is dropped: the field falls back to the stored value. Emptying the field
 clears the whole value, like the clear button.
 
+## Rejected entry
+
+Typed text that cannot be turned into an available date — unreadable, or readable but ruled out by
+the calendar constraints — emits nothing: the value stays as it was and the field falls back to
+displaying it. `onInvalidInput(event, rawText)` reports it with the text as typed, and `isError`
+draws the field in its error state. Moonstone reports; the message is the consumer's, typically
+through `Field`'s `hasError` / `errorMessage`.
+
 ## Controlled and uncontrolled
 
 Provide `value` + `onChange` for controlled (`onChange` is required), or `defaultValue` for uncontrolled.
@@ -40,6 +48,12 @@ Provide `value` + `onChange` for controlled (`onChange` is required), or `defaul
 - `disabledDaysOfWeek` — recurring weekdays to disable (`0` = Sunday … `6` = Saturday), e.g. `[0, 6]` for weekends.
 
 Each accepts a `Temporal.PlainDate` or an ISO date string.
+
+## Calendar header
+
+The header shows a years dropdown whenever the navigable range spans more than one year.
+`isShowMonthDropdown` adds a months dropdown next to it; without it the month is plain text.
+Both dropdowns respect `minDate` / `maxDate`: out-of-range entries are disabled, not hidden.
 
 ## Localization
 

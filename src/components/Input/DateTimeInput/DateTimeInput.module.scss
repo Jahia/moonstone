@@ -10,11 +10,30 @@
     width: 140px;
 }
 
+// BaseInput sets its frame with a `border` shorthand under two classes, so recolouring it from
+// here needs the override. Same token as `Field`'s error state, to read as one error.
+.dateFieldError {
+    &,
+    &:hover {
+        /* stylelint-disable-next-line declaration-no-important */
+        border-color: var(--moon-color-warning) !important;
+    }
+}
+
 .calendarPopover {
     overflow-y: auto;
 
     background-color: var(--moon-color-light);
     box-shadow: 0 var(--moon-spacing-nano) var(--moon-spacing-small) var(--moon-color-gray_dark60);
+}
+
+// A month change is animated by cloning the outgoing month inside the incoming one. The clone's
+// caption and weeks are faded out, but in `navLayout="around"` the nav buttons live inside the
+// month too and are left untouched — so its pair shows through for the length of the animation.
+// The clone is the only nested `[data-animated-month]`, and is already inert (`aria-hidden`,
+// `pointer-events: none`).
+.calendar [data-animated-month] [data-animated-month] [data-animated-button] {
+    visibility: hidden;
 }
 
 .calendar {
