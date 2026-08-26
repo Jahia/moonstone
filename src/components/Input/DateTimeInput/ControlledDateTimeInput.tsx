@@ -23,7 +23,8 @@ import {
     getCalendarDisabledMatchers,
     getDisplayMonth,
     getMonthStart,
-    getWeekStartsOn
+    getWeekStartsOn,
+    parseDateInput
 } from './calendarHelpers';
 import {
     assembleValue,
@@ -60,6 +61,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     isReadOnly,
     timeInputProps,
     timezoneSelectorProps,
+    onBlur,
     ...props
 }, ref) => {
     const currentValue = parseValue(value, type);
@@ -79,6 +81,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     };
 
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+    const [draft, setDraft] = useState<string | null>(null);
     const [displayedMonth, setDisplayedMonth] = useState(() => getDisplayMonth(selectedDate));
     // The zone to apply while no date exists yet (so a pre-date zone choice isn't lost).
     // Once a date is picked the value carries its own zone, which takes precedence.
@@ -133,8 +136,33 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
         event: React.SyntheticEvent,
         change: {plainDate?: Temporal.PlainDate | null; plainTime?: Temporal.PlainTime | null; timeZone?: string} = {}
     ) => {
+        setDraft(null);
         const {plainDate = selectedDate, plainTime = selectedTime, timeZone = currentTimeZone} = change;
         onChange?.(event, assembleValue(plainDate, plainTime, timeZone, type));
+    };
+
+    const clearValue = (event: React.SyntheticEvent) => {
+        emitChange(event, {plainDate: null});
+        setFallbackZone(getSystemTimeZone());
+    };
+
+    const commitDraft = (event: React.SyntheticEvent) => {
+        if (draft === null) {
+            return;
+        }
+
+        setDraft(null);
+
+        if (draft.trim() === '') {
+            clearValue(event);
+            return;
+        }
+
+        const typedDate = parseDateInput(draft, resolvedLocale, dateFormat);
+
+        if (typedDate && !dateMatchModifiers(plainDateToDate(typedDate), calendarDisabledMatchers)) {
+            emitChange(event, {plainDate: typedDate});
+        }
     };
 
     const openCalendar = () => {
@@ -160,25 +188,31 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                 ref={fieldRef}
                 {...props}
                 className={styles.dateField}
-                value={formatPlainDate(selectedDate, resolvedLocale, dateFormat)}
+                value={draft ?? formatPlainDate(selectedDate, resolvedLocale, dateFormat)}
                 size={size}
                 variant={variant}
                 isDisabled={isDisabled}
                 isReadOnly={isReadOnly}
+                autoComplete="off"
                 icon={<Calendar aria-hidden/>}
-                // No-op: calendar-driven, not typed into. Avoids the controlled-input warning
-                onChange={() => undefined}
-                // The date is the value's spine, so clearing it clears the whole value: emit null
-                // (time goes with it) and reset the pre-date zone fallback. Reported via onChange(null).
+                onChange={event => setDraft(event.target.value)}
                 onClear={event => {
                     event.stopPropagation();
-                    emitChange(event, {plainDate: null});
-                    setFallbackZone(getSystemTimeZone());
+                    clearValue(event);
                 }}
                 onClick={openCalendar}
+                onBlur={event => {
+                    commitDraft(event);
+                    onBlur?.(event);
+                }}
                 onKeyUp={event => {
-                    if (event.key === 'Enter' || event.key === ' ') {
-                        openCalendar();
+                    if (event.key === 'Enter') {
+                        if (draft === null) {
+                            openCalendar();
+                        } else {
+                            commitDraft(event);
+                            setIsCalendarOpen(false);
+                        }
                     }
                 }}
             />
