@@ -8,6 +8,9 @@
 
 .dateField {
     width: 140px;
+
+    // Without this floor, flexbox squeezes it below content size before touching TimezoneSelector's own 250px floor.
+    min-width: 140px;
 }
 
 // BaseInput sets its frame with a `border` shorthand under two classes, so recolouring it from
