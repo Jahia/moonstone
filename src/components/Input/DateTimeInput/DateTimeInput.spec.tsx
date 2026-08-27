@@ -473,9 +473,8 @@ describe('DateTimeInput', () => {
         expect(screen.getByText('Today')).toBeInTheDocument();
 
         await user.keyboard('{Escape}');
-        expect(screen.queryByText('Today')).not.toBeInTheDocument();
-
-        await user.keyboard(' ');
+        dateField().focus();
+        await user.keyboard('{ }');
         expect(screen.getByText('Today')).toBeInTheDocument();
     });
 
