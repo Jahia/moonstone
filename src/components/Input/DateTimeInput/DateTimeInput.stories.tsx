@@ -62,14 +62,6 @@ export const CustomDateFormat: Story = {
     name: 'Custom Date Format'
 };
 
-export const MonthDropdown: Story = {
-    args: {
-        type: 'date',
-        isShowMonthDropdown: true
-    },
-    name: 'Month Dropdown'
-};
-
 export const DateTimeWithTimezone: Story = {
     args: {
         type: 'zonedDateTime',

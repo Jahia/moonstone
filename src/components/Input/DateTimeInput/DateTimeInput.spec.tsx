@@ -343,13 +343,12 @@ describe('DateTimeInput', () => {
         expect(dateField()).toHaveValue(selectedDisplay);
     });
 
-    it('should render React DayPicker\'s month dropdown when requested', async () => {
+    it('should render React DayPicker\'s month dropdown when multiple months are navigable', async () => {
         const user = userEvent.setup();
 
         render(
             <DateTimeInput
                 {...localeProps}
-                isShowMonthDropdown
                 type="date"
                 placeholder="Select a date"
                 defaultValue="2026-03-30"
@@ -365,7 +364,7 @@ describe('DateTimeInput', () => {
         expect(screen.getByRole('grid', {name: 'May 2026'})).toBeInTheDocument();
     });
 
-    it('should not render a month dropdown by default', async () => {
+    it('should not render a month dropdown when minDate and maxDate fall within the same month', async () => {
         const user = userEvent.setup();
 
         render(
@@ -373,7 +372,9 @@ describe('DateTimeInput', () => {
                 {...localeProps}
                 type="date"
                 placeholder="Select a date"
-                defaultValue="2026-03-30"
+                defaultValue="2026-03-15"
+                minDate="2026-03-01"
+                maxDate="2026-03-31"
                 onChange={() => null}
             />
         );

@@ -43,8 +43,8 @@ Each accepts a `Temporal.PlainDate` or an ISO date string.
 
 ## Calendar header
 
-The header shows a year dropdown whenever the navigable range spans more than one year.
-Set `isShowMonthDropdown` to also display React DayPicker's built-in month dropdown.
+The header shows a year dropdown whenever the navigable range spans more than one year, and a
+month dropdown whenever it spans more than one month — no toggle needed, it's automatic.
 
 ## Localization
 
