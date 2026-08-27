@@ -208,6 +208,16 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                     commitDraft(event);
                     onBlur?.(event);
                 }}
+                // Only before the field has been typed into: once `draft` exists, Space is a
+                // character to type (e.g. as a separator), not a shortcut to open the calendar.
+                // Checked on keydown, before the browser inserts the space, so the check still
+                // sees the untouched field — by keyup the space would already be in `draft`.
+                onKeyDown={event => {
+                    if (event.key === ' ' && draft === null) {
+                        event.preventDefault();
+                        openCalendar();
+                    }
+                }}
                 onKeyUp={event => {
                     if (event.key === 'Enter') {
                         if (draft === null) {
