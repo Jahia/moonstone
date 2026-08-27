@@ -462,7 +462,6 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                isShowMonthDropdown
                 type="date"
                 placeholder="Select a date"
                 defaultValue="2026-03-30"
@@ -481,7 +480,7 @@ describe('DateTimeInput', () => {
         expect(dateField()).toHaveValue(selectedDisplay);
     });
 
-    it('should not render a month dropdown by default', async () => {
+    it('should not render a month dropdown when minDate and maxDate fall within the same month', async () => {
         const user = userEvent.setup();
 
         render(
@@ -489,15 +488,18 @@ describe('DateTimeInput', () => {
                 {...localeProps}
                 type="date"
                 placeholder="Select a date"
-                defaultValue="2026-03-30"
+                defaultValue="2026-03-15"
+                minDate="2026-03-01"
+                maxDate="2026-03-31"
                 onChange={() => null}
             />
         );
 
         await user.click(dateField());
 
+        // Nothing to navigate to in either direction, so both caption controls stay plain text.
         expect(screen.queryByRole('listbox', {name: 'March'})).not.toBeInTheDocument();
-        expect(screen.getByRole('listbox', {name: '2026'})).toBeInTheDocument();
+        expect(screen.queryByRole('listbox', {name: '2026'})).not.toBeInTheDocument();
     });
 
     it('should reset to the selected date month when reopening the calendar', async () => {

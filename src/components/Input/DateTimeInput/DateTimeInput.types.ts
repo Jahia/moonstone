@@ -135,12 +135,6 @@ export type DateTimeInputSharedProps = Omit<BaseInputProps,
     weekStartsOn?: DayOfWeek;
 
     /**
-     * Displays a months dropdown in the calendar header, in addition to the automatic years dropdown.
-     * Off by default: the header renders the month as plain text.
-     */
-    isShowMonthDropdown?: boolean;
-
-    /**
      * Called when typed text cannot be turned into an available date — either unreadable, or read
      * but ruled out by the calendar constraints. `rawText` is the text exactly as typed, so the
      * consumer can build its own message. Nothing is emitted through `onChange` and the value is

@@ -46,10 +46,10 @@ const toDropdownData = (options: DropdownProps['options']) => (options ?? []).ma
 }));
 
 // A caption control is a dropdown only in its matching `dropdown*` layout, and plain text
-// otherwise: `dropdown-years` is exactly why the month currently renders as a `<span>`. So the
-// month select appears strictly when asked for, and the default header stays untouched.
-const getCaptionLayout = (isShowMonthDropdown: boolean, hasMultipleYears: boolean) => {
-    if (isShowMonthDropdown) {
+// otherwise: `dropdown-years` is exactly why a single-month range renders the month as a `<span>`.
+// Each control therefore appears exactly when its own range is navigable, with no prop to set.
+const getCaptionLayout = (hasMultipleMonths: boolean, hasMultipleYears: boolean) => {
+    if (hasMultipleMonths) {
         return hasMultipleYears ? 'dropdown' : 'dropdown-months';
     }
 
@@ -69,7 +69,6 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     locale,
     dateFormat,
     weekStartsOn,
-    isShowMonthDropdown,
     isError,
     i18n,
     size,
@@ -82,6 +81,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     fallbackTimeZone,
     onBlur,
     onInvalidInput,
+    autoComplete = 'off',
     ...props
 }, ref) => {
     const currentValue = parseValue(value, type, fallbackTimeZone);
@@ -131,7 +131,8 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     const startMonth = getMonthStart(minPlainDate, referenceYear - 50, 0);
     const endMonth = getMonthStart(maxPlainDate, referenceYear + 50, 11);
     const hasMultipleYears = startMonth.getFullYear() !== endMonth.getFullYear();
-    const captionLayout = getCaptionLayout(Boolean(isShowMonthDropdown), hasMultipleYears);
+    const hasMultipleMonths = startMonth.getTime() !== endMonth.getTime();
+    const captionLayout = getCaptionLayout(hasMultipleMonths, hasMultipleYears);
 
     const systemTimeZone = getSystemTimeZone();
     const showLocalTime =
@@ -226,7 +227,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                     variant={variant}
                     isDisabled={isDisabled}
                     isReadOnly={isReadOnly}
-                    autoComplete="off"
+                    autoComplete={autoComplete}
                     icon={<Calendar aria-hidden/>}
                     onChange={event => setDraft(event.target.value)}
                     onClear={event => {
@@ -249,6 +250,15 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                             event.stopPropagation();
                             setIsCalendarOpen(false);
                         }
+
+                        // Space only before the field has been typed into: once `draft` exists it is
+                        // a character to type (a date pattern can use it as a separator), not a
+                        // shortcut. Checked on keydown, before the browser inserts it, so the check
+                        // still sees the untouched field — by keyup the space would be in `draft`.
+                        if (event.key === ' ' && draft === null) {
+                            event.preventDefault();
+                            openCalendar();
+                        }
                     }}
                     onKeyUp={event => {
                         if (event.key === 'Enter') {
@@ -258,13 +268,6 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                                 commitDraft(event);
                                 setIsCalendarOpen(false);
                             }
-                        }
-
-                        // Space only opens, and only while nothing has been typed: a date pattern can
-                        // use spaces as separators (`30 03 2026`), so it has to stay a plain character
-                        // as soon as the field holds a draft.
-                        if (event.key === ' ' && draft === null) {
-                            openCalendar();
                         }
                     }}
                 />
