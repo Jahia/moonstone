@@ -65,6 +65,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     timeInputProps,
     timezoneSelectorProps,
     onBlur,
+    autoComplete = 'off',
     ...props
 }, ref) => {
     const currentValue = parseValue(value, type);
@@ -195,7 +196,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                 variant={variant}
                 isDisabled={isDisabled}
                 isReadOnly={isReadOnly}
-                autoComplete="off"
+                autoComplete={autoComplete}
                 icon={<Calendar aria-hidden/>}
                 onChange={event => setDraft(event.target.value)}
                 onClear={event => {
