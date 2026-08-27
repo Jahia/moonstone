@@ -33,6 +33,7 @@ import {
     parseValue
 } from './dateTimeValue';
 import type {ControlledDateTimeInputProps} from './DateTimeInput.types';
+import baseInputStyles from '../BaseInput/BaseInput.module.scss';
 import styles from './DateTimeInput.module.scss';
 
 const capCalendarHeight: SizeOptions['apply'] = ({availableHeight, elements}) => {
@@ -139,7 +140,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
 
     const openCalendar = () => {
         if (!isDisabled && !isReadOnly) {
-            refs.setPositionReference(refs.domReference.current?.closest('.moonstone-baseInput') ?? null);
+            refs.setPositionReference(refs.domReference.current?.closest(`.${baseInputStyles['moonstone-baseInput']}`) ?? null);
             setDisplayedMonth(getDisplayMonth(selectedDate));
             setIsCalendarOpen(true);
         }
