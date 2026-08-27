@@ -22,7 +22,8 @@ import {
     getCalendarDisabledMatchers,
     getDisplayMonth,
     getMonthStart,
-    getWeekStartsOn
+    getWeekStartsOn,
+    parseDateInput
 } from './calendarHelpers';
 import {
     assembleValue,
@@ -34,6 +35,14 @@ import {
 import type {ControlledDateTimeInputProps} from './DateTimeInput.types';
 import baseInputStyles from '../BaseInput/BaseInput.module.scss';
 import styles from './DateTimeInput.module.scss';
+
+const getCaptionLayout = (hasMultipleMonths: boolean, hasMultipleYears: boolean) => {
+    if (hasMultipleMonths) {
+        return hasMultipleYears ? 'dropdown' : 'dropdown-months';
+    }
+
+    return hasMultipleYears ? 'dropdown-years' : 'label';
+};
 
 export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, ControlledDateTimeInputProps>(({
     value,
@@ -56,6 +65,8 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     isReadOnly,
     timeInputProps,
     timezoneSelectorProps,
+    onBlur,
+    autoComplete = 'off',
     ...props
 }, ref) => {
     const currentValue = parseValue(value, type);
@@ -75,6 +86,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     };
 
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+    const [draft, setDraft] = useState<string | null>(null);
     const [displayedMonth, setDisplayedMonth] = useState(() => getDisplayMonth(selectedDate));
     // The zone to apply while no date exists yet (so a pre-date zone choice isn't lost).
     // Once a date is picked the value carries its own zone, which takes precedence.
@@ -100,6 +112,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     const startMonth = getMonthStart(minPlainDate, displayedMonth.getFullYear() - 20, 0);
     const endMonth = getMonthStart(maxPlainDate, displayedMonth.getFullYear() + 20, 11);
     const hasMultipleYears = startMonth.getFullYear() !== endMonth.getFullYear();
+    const hasMultipleMonths = startMonth.getTime() !== endMonth.getTime();
 
     const systemTimeZone = getSystemTimeZone();
     const showLocalTime =
@@ -130,8 +143,33 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
         event: React.SyntheticEvent,
         change: {plainDate?: Temporal.PlainDate | null; plainTime?: Temporal.PlainTime | null; timeZone?: string} = {}
     ) => {
+        setDraft(null);
         const {plainDate = selectedDate, plainTime = selectedTime, timeZone = currentTimeZone} = change;
         onChange?.(event, assembleValue(plainDate, plainTime, timeZone, type));
+    };
+
+    const clearValue = (event: React.SyntheticEvent) => {
+        emitChange(event, {plainDate: null});
+        setFallbackZone(getSystemTimeZone());
+    };
+
+    const commitDraft = (event: React.SyntheticEvent) => {
+        if (draft === null) {
+            return;
+        }
+
+        setDraft(null);
+
+        if (draft.trim() === '') {
+            clearValue(event);
+            return;
+        }
+
+        const typedDate = parseDateInput(draft, resolvedLocale, dateFormat);
+
+        if (typedDate && !dateMatchModifiers(plainDateToDate(typedDate), calendarDisabledMatchers)) {
+            emitChange(event, {plainDate: typedDate});
+        }
     };
 
     const openCalendar = () => {
@@ -157,25 +195,41 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                 ref={fieldRef}
                 {...props}
                 className={styles.dateField}
-                value={formatPlainDate(selectedDate, resolvedLocale, dateFormat)}
+                value={draft ?? formatPlainDate(selectedDate, resolvedLocale, dateFormat)}
                 size={size}
                 variant={variant}
                 isDisabled={isDisabled}
                 isReadOnly={isReadOnly}
+                autoComplete={autoComplete}
                 icon={<Calendar aria-hidden/>}
-                // No-op: calendar-driven, not typed into. Avoids the controlled-input warning
-                onChange={() => undefined}
-                // The date is the value's spine, so clearing it clears the whole value: emit null
-                // (time goes with it) and reset the pre-date zone fallback. Reported via onChange(null).
+                onChange={event => setDraft(event.target.value)}
                 onClear={event => {
                     event.stopPropagation();
-                    emitChange(event, {plainDate: null});
-                    setFallbackZone(getSystemTimeZone());
+                    clearValue(event);
                 }}
                 onClick={openCalendar}
-                onKeyUp={event => {
-                    if (event.key === 'Enter' || event.key === ' ') {
+                onBlur={event => {
+                    commitDraft(event);
+                    onBlur?.(event);
+                }}
+                // Only before the field has been typed into: once `draft` exists, Space is a
+                // character to type (e.g. as a separator), not a shortcut to open the calendar.
+                // Checked on keydown, before the browser inserts the space, so the check still
+                // sees the untouched field — by keyup the space would already be in `draft`.
+                onKeyDown={event => {
+                    if (event.key === ' ' && draft === null) {
+                        event.preventDefault();
                         openCalendar();
+                    }
+                }}
+                onKeyUp={event => {
+                    if (event.key === 'Enter') {
+                        if (draft === null) {
+                            openCalendar();
+                        } else {
+                            commitDraft(event);
+                            setIsCalendarOpen(false);
+                        }
                     }
                 }}
             />
@@ -227,7 +281,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                                 labelNext: () => i18nLabels.nextMonth,
                                 labelPrevious: () => i18nLabels.previousMonth
                             }}
-                            captionLayout={hasMultipleYears ? 'dropdown-years' : 'label'}
+                            captionLayout={getCaptionLayout(hasMultipleMonths, hasMultipleYears)}
                             navLayout="around"
                             weekStartsOn={weekStartsOn ?? getWeekStartsOn(resolvedLocale)}
                             month={displayedMonth}
