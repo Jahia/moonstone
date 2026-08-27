@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import clsx from 'clsx';
-import {autoUpdate, flip, FloatingPortal, offset, shift, size as floatingSize, useDismiss, useFloating, useInteractions, useMergeRefs} from '@floating-ui/react';
-import type {SizeOptions} from '@floating-ui/react';
+import {autoUpdate, flip, FloatingPortal, offset, shift, useDismiss, useFloating, useInteractions, useMergeRefs} from '@floating-ui/react';
 import {dateMatchModifiers, DayPicker} from 'react-day-picker';
 import dayPickerClassNames from 'react-day-picker/style.module.css';
 import {Temporal} from 'temporal-polyfill';
@@ -35,10 +34,6 @@ import {
 import type {ControlledDateTimeInputProps} from './DateTimeInput.types';
 import baseInputStyles from '../BaseInput/BaseInput.module.scss';
 import styles from './DateTimeInput.module.scss';
-
-const capCalendarHeight: SizeOptions['apply'] = ({availableHeight, elements}) => {
-    elements.floating.style.maxHeight = `${availableHeight}px`;
-};
 
 export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, ControlledDateTimeInputProps>(({
     value,
@@ -91,7 +86,8 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
         onOpenChange: setIsCalendarOpen,
         placement: 'bottom-start',
         transform: false,
-        middleware: [offset(4), flip({padding: 8}), shift({padding: 8}), floatingSize({padding: 8, apply: capCalendarHeight})], whileElementsMounted: autoUpdate
+        middleware: [offset(4), flip({padding: 8}), shift({padding: 8})],
+        whileElementsMounted: autoUpdate
     });
     const {getFloatingProps} = useInteractions([useDismiss(context)]);
     const fieldRef = useMergeRefs([refs.setReference, ref]);
