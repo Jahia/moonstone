@@ -464,12 +464,18 @@ describe('DateTimeInput', () => {
         expect(dateField()).toHaveValue('');
     });
 
-    it('should open the calendar via keyboard (Enter on an untouched field)', async () => {
+    it('should open the calendar via keyboard (Enter and Space)', async () => {
         const user = userEvent.setup();
         render(<DateTimeInput {...localeProps} type="date" placeholder="Select a date" onChange={() => null}/>);
 
         dateField().focus();
         await user.keyboard('{Enter}');
+        expect(screen.getByText('Today')).toBeInTheDocument();
+
+        await user.keyboard('{Escape}');
+        expect(screen.queryByText('Today')).not.toBeInTheDocument();
+
+        await user.keyboard(' ');
         expect(screen.getByText('Today')).toBeInTheDocument();
     });
 
