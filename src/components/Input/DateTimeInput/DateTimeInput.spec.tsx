@@ -367,7 +367,7 @@ describe('DateTimeInput', () => {
         expect(screen.getByRole('option', {name: '1976'})).toBeInTheDocument();
     });
 
-    it('should render React DayPicker\'s month dropdown when multiple months are navigable', async () => {
+    it('should render a month dropdown and let the user jump to another month without losing the selection', async () => {
         const user = userEvent.setup();
 
         render(
@@ -376,16 +376,19 @@ describe('DateTimeInput', () => {
                 type="date"
                 placeholder="Select a date"
                 defaultValue="2026-03-30"
+                i18n={{nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={() => null}
             />
         );
 
-        await user.click(dateField());
+        const selectedDisplay = (dateField() as HTMLInputElement).value;
 
-        const monthDropdown = screen.getByRole('combobox', {name: 'Choose the Month'});
-        await user.selectOptions(monthDropdown, '4');
+        await user.click(dateField());
+        await user.click(screen.getByRole('listbox', {name: 'March'}));
+        await user.click(screen.getByRole('option', {name: 'May'}));
 
         expect(screen.getByRole('grid', {name: 'May 2026'})).toBeInTheDocument();
+        expect(dateField()).toHaveValue(selectedDisplay);
     });
 
     it('should not render a month dropdown when minDate and maxDate fall within the same month', async () => {
@@ -405,7 +408,9 @@ describe('DateTimeInput', () => {
 
         await user.click(dateField());
 
-        expect(screen.queryByRole('combobox', {name: 'Choose the Month'})).not.toBeInTheDocument();
+        // Nothing to navigate to in either direction, so both caption controls stay plain text.
+        expect(screen.queryByRole('listbox', {name: 'March'})).not.toBeInTheDocument();
+        expect(screen.queryByRole('listbox', {name: '2026'})).not.toBeInTheDocument();
     });
 
     it('should reset to the selected date month when reopening the calendar', async () => {

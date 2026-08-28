@@ -47,6 +47,7 @@ Each accepts a `Temporal.PlainDate` or an ISO date string.
 
 The header shows a year dropdown whenever the navigable range spans more than one year, and a
 month dropdown whenever it spans more than one month — no toggle needed, it's automatic.
+Both dropdowns respect `minDate` / `maxDate`: out-of-range entries are disabled, not hidden.
 
 ## Localization
 

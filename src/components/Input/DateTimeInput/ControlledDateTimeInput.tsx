@@ -36,6 +36,18 @@ import type {ControlledDateTimeInputProps} from './DateTimeInput.types';
 import baseInputStyles from '../BaseInput/BaseInput.module.scss';
 import styles from './DateTimeInput.module.scss';
 
+// Both header dropdowns render identically; only the value they write back differs.
+// `getMonthOptions`/`getYearOptions` already flag the options outside `startMonth`/`endMonth`,
+// so `minDate`/`maxDate` are honoured without any extra work here.
+const toDropdownData = (options: DropdownProps['options']) => (options ?? []).map(option => ({
+    label: option.label,
+    value: String(option.value),
+    isDisabled: option.disabled
+}));
+
+// A caption control is a dropdown only in its matching `dropdown*` layout, and plain text
+// otherwise: `dropdown-years` is exactly why a single-month range renders the month as a `<span>`.
+// Each control therefore appears exactly when its own range is navigable, with no prop to set.
 const getCaptionLayout = (hasMultipleMonths: boolean, hasMultipleYears: boolean) => {
     if (hasMultipleMonths) {
         return hasMultipleYears ? 'dropdown' : 'dropdown-months';
@@ -266,15 +278,23 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                                     /* eslint-enable camelcase */
                                 }}
                                 components={{
+                                    MonthsDropdown: (dropdownProps: DropdownProps) => (
+                                        <Dropdown
+                                            size="medium"
+                                            variant="ghost"
+                                            hasSearch={false}
+                                            data={toDropdownData(dropdownProps.options)}
+                                            value={String(dropdownProps.value ?? '')}
+                                            onChange={(_e, item) => {
+                                                setDisplayedMonth(new Date(displayedMonth.getFullYear(), Number(item.value), 1));
+                                            }}
+                                        />
+                                    ),
                                     YearsDropdown: (dropdownProps: DropdownProps) => (
                                         <Dropdown
                                             size="medium"
                                             variant="ghost"
-                                            data={(dropdownProps.options ?? []).map(opt => ({
-                                                label: opt.label,
-                                                value: String(opt.value),
-                                                isDisabled: opt.disabled
-                                            }))}
+                                            data={toDropdownData(dropdownProps.options)}
                                             value={String(dropdownProps.value ?? '')}
                                             onChange={(_e, item) => {
                                                 setDisplayedMonth(new Date(Number(item.value), displayedMonth.getMonth(), 1));
