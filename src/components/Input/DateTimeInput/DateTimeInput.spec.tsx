@@ -91,14 +91,14 @@ describe('DateTimeInput', () => {
         render(<DateTimeInput {...localeProps} type="dateTime" placeholder="Select a date" onChange={() => null}/>);
 
         expect(dateField()).not.toHaveValue('');
-        expect(screen.getByPlaceholderText('HH:MM')).not.toHaveValue('');
+        expect(screen.getByPlaceholderText('hh:mm')).not.toHaveValue('');
     });
 
     it('should render empty when defaultValue is null', () => {
         render(<DateTimeInput {...localeProps} type="dateTime" placeholder="Select a date" defaultValue={null}/>);
 
         expect(dateField()).toHaveValue('');
-        expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
+        expect(screen.getByPlaceholderText('hh:mm')).toHaveValue('');
     });
 
     it('should fill and display today when a time is entered without a date', async () => {
@@ -109,7 +109,7 @@ describe('DateTimeInput', () => {
 
         expect(dateField()).toHaveValue('');
 
-        const timeInput = screen.getByPlaceholderText('HH:MM');
+        const timeInput = screen.getByPlaceholderText('hh:mm');
         await user.type(timeInput, '0930');
         await user.tab();
 
@@ -271,7 +271,7 @@ describe('DateTimeInput', () => {
         render(<DateTimeInput {...localeProps} type="dateTime" timeFormat="12h" defaultValue="2026-02-10T02:30" onChange={handleChange}/>);
 
         await user.clear(screen.getByDisplayValue('02:30'));
-        await user.type(screen.getByPlaceholderText('HH:MM'), '0230');
+        await user.type(screen.getByPlaceholderText('hh:mm'), '0230');
         await user.click(screen.getByText('AM'));
         const pmOptions = screen.getAllByText('PM');
         await user.click(pmOptions[pmOptions.length - 1]);
@@ -558,7 +558,7 @@ describe('DateTimeInput', () => {
 
         expect(handleChange).toHaveBeenCalledWith(expect.anything(), null);
         expect(dateField()).toHaveValue('');
-        expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
+        expect(screen.getByPlaceholderText('hh:mm')).toHaveValue('');
     });
 
     it('should disable dates before minDate in the calendar', async () => {
@@ -649,7 +649,7 @@ describe('DateTimeInput', () => {
         render(<DateTimeInput {...localeProps} type="zonedDateTime" placeholder="Select a date" onChange={() => null}/>);
 
         expect(dateField()).not.toHaveValue('');
-        expect(screen.getByPlaceholderText('HH:MM')).not.toHaveValue('');
+        expect(screen.getByPlaceholderText('hh:mm')).not.toHaveValue('');
         expect(screen.getByRole('listbox').getAttribute('aria-label')).toMatch(/UTC/);
     });
 
@@ -789,14 +789,14 @@ describe('DateTimeInput', () => {
     it('should render only the date field for type="date"', () => {
         render(<DateTimeInput {...localeProps} type="date" placeholder="Select a date" onChange={() => null}/>);
 
-        expect(screen.queryByPlaceholderText('HH:MM')).not.toBeInTheDocument();
+        expect(screen.queryByPlaceholderText('hh:mm')).not.toBeInTheDocument();
         expect(screen.queryAllByRole('listbox')).toHaveLength(0);
     });
 
     it('should render the time field but no timezone selector for type="dateTime"', () => {
         render(<DateTimeInput {...localeProps} type="dateTime" placeholder="Select a date" onChange={() => null}/>);
 
-        expect(screen.getByPlaceholderText('HH:MM')).toBeInTheDocument();
+        expect(screen.getByPlaceholderText('hh:mm')).toBeInTheDocument();
         expect(screen.queryAllByRole('listbox')).toHaveLength(0);
     });
 
@@ -855,7 +855,7 @@ describe('DateTimeInput', () => {
             />
         );
 
-        expect(screen.getByPlaceholderText('HH:MM')).toBeDisabled();
+        expect(screen.getByPlaceholderText('hh:mm')).toBeDisabled();
     });
 
     it('should disable the internal timezone selector when isDisabled is set', async () => {
@@ -889,7 +889,7 @@ describe('DateTimeInput', () => {
             />
         );
 
-        expect(screen.getByPlaceholderText('HH:MM')).toHaveAttribute('readonly');
+        expect(screen.getByPlaceholderText('hh:mm')).toHaveAttribute('readonly');
     });
 
     it('should make the internal timezone selector read-only (rendered as disabled) when isReadOnly is set', async () => {
@@ -915,14 +915,14 @@ describe('DateTimeInput', () => {
         render(<DateTimeInput {...localeProps} type="dateTime" defaultValue="not-a-date" placeholder="Select a date" onChange={() => null}/>);
 
         expect(dateField()).toHaveValue('');
-        expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
+        expect(screen.getByPlaceholderText('hh:mm')).toHaveValue('');
     });
 
     it('should not display an invalid zonedDateTime value', () => {
         render(<DateTimeInput {...localeProps} type="zonedDateTime" defaultValue="not-a-date" placeholder="Select a date" onChange={() => null}/>);
 
         expect(dateField()).toHaveValue('');
-        expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
+        expect(screen.getByPlaceholderText('hh:mm')).toHaveValue('');
     });
 
     it('should disable all weekend days when disabledDaysOfWeek=[0, 6] is set', async () => {
@@ -1061,7 +1061,7 @@ describe('DateTimeInput', () => {
             await user.tab();
 
             expect(handleChange).toHaveBeenLastCalledWith(expect.anything(), null);
-            expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
+            expect(screen.getByPlaceholderText('hh:mm')).toHaveValue('');
         });
 
         it('should read the typed date in the order the field displays', async () => {
