@@ -161,7 +161,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
             minute: '2-digit',
             hour12: timeFormat === '12h',
             timeZone: systemTimeZone
-        }).format(new Date((currentValue as Temporal.ZonedDateTime).withTimeZone(systemTimeZone).epochMilliseconds)) :
+        }).format(new Date((currentValue as Temporal.ZonedDateTime).epochMilliseconds)) :
         null;
 
     // This component holds no value state: it derives display from `value` and reports the next
