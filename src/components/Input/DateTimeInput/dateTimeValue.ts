@@ -1,5 +1,5 @@
 import {Temporal} from 'temporal-polyfill';
-import {toPlainDate, toPlainDateTime, toZonedDateTime} from '../utils/temporal';
+import {toPlainDate, toPlainDateTime, toZonedDateTime, type ZonedDateTimeInput} from '../utils/temporal';
 import type {DateTimeInputType} from './DateTimeInput.types';
 
 /**
@@ -14,7 +14,7 @@ import type {DateTimeInputType} from './DateTimeInput.types';
 export type DateTimeValue = Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime;
 
 /** Any value the public API accepts (Temporal instance or ISO string). */
-export type DateTimeValueInput = DateTimeValue | string | null | undefined;
+export type DateTimeValueInput = DateTimeValue | Temporal.Instant | Date | string | null | undefined;
 
 /**
  * The current date/time/zone for the given type, truncated to the minute — used as the
@@ -39,7 +39,7 @@ export const parseValue = (input: DateTimeValueInput, type: DateTimeInputType): 
     }
 
     if (type === 'zonedDateTime') {
-        return toZonedDateTime(input as Temporal.ZonedDateTime | string | null | undefined);
+        return toZonedDateTime(input as ZonedDateTimeInput | null | undefined);
     }
 
     return toPlainDateTime(input as Temporal.PlainDateTime | string | null | undefined);

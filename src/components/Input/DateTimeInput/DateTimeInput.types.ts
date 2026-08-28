@@ -5,6 +5,7 @@ import type {TimeFormat, TimeInputProps} from '../TimeInput';
 import type {ControlledTimezoneSelectorProps} from '../../TimezoneSelector';
 import type {DateTimeValue} from './dateTimeValue';
 import type {DataAttributes} from '~/types/DataAttributes.types';
+import type {ZonedDateTimeInput} from '../utils/temporal';
 
 /**
  * Selects the component's mode, which fields it renders, and the emitted value type:
@@ -150,22 +151,22 @@ export type DateTimeInputSharedProps = Omit<BaseInputProps,
  * library's controlled/uncontrolled pattern and makes the controlled contract a type error
  * to break.
  */
-type Controlled<V> = {
+type Controlled<V, I = V | string> = {
     /** Controlled value (Temporal instance or ISO string). Requires `onChange`. */
-    value: V | string | null;
+    value: I | null;
     onChange: (event: React.SyntheticEvent, value: V | null) => void;
     defaultValue?: never;
 };
 
-type Uncontrolled<V> = {
+type Uncontrolled<V, I = V | string> = {
     value?: never;
     /** Initial value in uncontrolled mode (Temporal instance or ISO string). */
-    defaultValue?: V | string | null;
+    defaultValue?: I | null;
     /** Fired when the selected value changes. */
     onChange?: (event: React.SyntheticEvent, value: V | null) => void;
 };
 
-type ControlMode<V> = Controlled<V> | Uncontrolled<V>;
+type ControlMode<V, I = V | string> = Controlled<V, I> | Uncontrolled<V, I>;
 
 /** `type='date'` — value is a `Temporal.PlainDate` (or ISO date string). */
 type DateModeProps = {
@@ -185,8 +186,8 @@ type DateTimeModeProps = {
 } & ControlMode<Temporal.PlainDateTime>;
 
 /**
- * `type='zonedDateTime'` — value is a `Temporal.ZonedDateTime` (or ISO string with a
- * time-zone annotation). The timezone defaults to the system zone until changed.
+ * `type='zonedDateTime'` — value accepts a `Temporal.ZonedDateTime`, `Temporal.Instant`,
+ * `Date`, or ISO instant. Inputs without an IANA annotation use the system timezone.
  */
 type ZonedModeProps = {
     type: 'zonedDateTime';
@@ -196,7 +197,7 @@ type ZonedModeProps = {
      * @default '24h'
      */
     timeFormat?: TimeFormat;
-} & ControlMode<Temporal.ZonedDateTime>;
+} & ControlMode<Temporal.ZonedDateTime, ZonedDateTimeInput>;
 
 export type DateTimeInputProps = DateTimeInputSharedProps & (DateModeProps | DateTimeModeProps | ZonedModeProps);
 
@@ -211,11 +212,11 @@ export type DateTimeInputImplProps = DateTimeInputSharedProps & {
 };
 
 export type ControlledDateTimeInputProps = DateTimeInputImplProps & {
-    value: DateTimeValue | string | null;
+    value: DateTimeValue | Temporal.Instant | Date | string | null;
 };
 
 export type UncontrolledDateTimeInputProps = DateTimeInputImplProps & {
-    defaultValue?: DateTimeValue | string | null;
+    defaultValue?: DateTimeValue | Temporal.Instant | Date | string | null;
 };
 
 export type {TimeFormat} from '../TimeInput';
