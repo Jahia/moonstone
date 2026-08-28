@@ -24,6 +24,21 @@
     // cascade, so this needs !important to reliably win.
     /* stylelint-disable-next-line declaration-no-important */
     min-width: 140px !important;
+
+    // A click anywhere on the field opens the calendar, but BaseInput announces the whole thing as
+    // a text field (`cursor: text`), so the calendar icon offered a caret and nothing said it could
+    // be clicked. The icon cannot advertise itself — it is `pointer-events: none`, so the field is
+    // the hover target over it — hence pointing at the field and handing the caret back to the
+    // input alone, which is the only part that really is typed into.
+    // Disabled and read-only stay on `not-allowed`, matching openCalendar's own refusal. That
+    // `:not()` also lifts specificity above `.moonstone-baseInput`, so no !important is needed here.
+    &:not(:has(input:disabled, input:read-only)) {
+        cursor: pointer;
+
+        input {
+            cursor: text;
+        }
+    }
 }
 
 .calendarPopover {
