@@ -88,6 +88,13 @@
     }
 }
 
+// The caption (nav buttons + month/year dropdowns) is wider than the day grid for long month
+// names (September, November): stretching the grid keeps both at the same width instead of
+// leaving a blank strip on the right of the popover.
+.calendarGrid {
+    width: 100%;
+}
+
 .calendarWeekday {
     font-weight: 400;
     color: var(--moon-color-gray);
