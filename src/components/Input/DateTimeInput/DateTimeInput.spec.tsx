@@ -805,6 +805,31 @@ describe('DateTimeInput', () => {
         expect(screen.queryAllByRole('listbox')).toHaveLength(0);
     });
 
+    it('should keep Escape from reaching the consumer while the calendar is open', async () => {
+        const user = userEvent.setup();
+        const handleOuterKeyDown = vi.fn();
+
+        render(
+            // Stands in for a consumer's Modal: it closes on an Escape that reaches it.
+            <div onKeyDown={handleOuterKeyDown}>
+                <DateTimeInput {...localeProps} type="date" placeholder="Select a date" onChange={() => null}/>
+            </div>
+        );
+
+        await user.click(dateField());
+        expect(screen.getByTestId('calendar')).toBeInTheDocument();
+
+        await user.keyboard('{Escape}');
+
+        expect(screen.queryByTestId('calendar')).not.toBeInTheDocument();
+        expect(handleOuterKeyDown).not.toHaveBeenCalled();
+
+        // Calendar closed, Escape belongs to the consumer again.
+        await user.keyboard('{Escape}');
+
+        expect(handleOuterKeyDown).toHaveBeenCalledTimes(1);
+    });
+
     it('should return focus to the date field when the calendar is closed via Escape', async () => {
         const user = userEvent.setup();
         render(<DateTimeInput {...localeProps} type="date" placeholder="Select a date" onChange={() => null}/>);

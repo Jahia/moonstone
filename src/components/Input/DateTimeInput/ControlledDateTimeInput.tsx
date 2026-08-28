@@ -241,11 +241,22 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                         commitDraft(event);
                         onBlur?.(event);
                     }}
-                    // Only before the field has been typed into: once `draft` exists, Space is a
-                    // character to type (e.g. as a separator), not a shortcut to open the calendar.
-                    // Checked on keydown, before the browser inserts the space, so the check still
-                    // sees the untouched field — by keyup the space would already be in `draft`.
                     onKeyDown={event => {
+                        // Escape closes the calendar and stops there. `useDismiss` would do the
+                        // closing, but it listens on `document` — and so does the consumer's Modal,
+                        // through its own `useDismiss`. Two listeners on the same node means
+                        // `stopPropagation` from one cannot spare the other, so a single Escape would
+                        // close the calendar and the Modal around it. React attaches events at the
+                        // root, below `document`, so stopping here keeps the key from reaching either.
+                        if (event.key === 'Escape' && isCalendarOpen) {
+                            event.stopPropagation();
+                            setIsCalendarOpen(false);
+                        }
+
+                        // Space only before the field has been typed into: once `draft` exists it is
+                        // a character to type (a date pattern can use it as a separator), not a
+                        // shortcut. Checked on keydown, before the browser inserts it, so the check
+                        // still sees the untouched field — by keyup the space would be in `draft`.
                         if (event.key === ' ' && draft === null) {
                             event.preventDefault();
                             openCalendar();
@@ -268,7 +279,16 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                             ref={refs.setFloating}
                             className={styles.calendarPopover}
                             style={floatingStyles}
-                            {...getFloatingProps()}
+                            {...getFloatingProps({
+                                // Same containment as the input's Escape: without it the key also
+                                // reaches the document listener of the consumer's Modal.
+                                onKeyDown: event => {
+                                    if (event.key === 'Escape') {
+                                        event.stopPropagation();
+                                        setIsCalendarOpen(false);
+                                    }
+                                }
+                            })}
                         >
                             <DayPicker
                                 data-testid="calendar"
