@@ -785,6 +785,29 @@ describe('DateTimeInput', () => {
 
             expect(screen.getByRole('listbox', {name: /Toronto \(UTC/})).toBeInTheDocument();
         });
+
+        it('should keep the date/time/timezone fields isolated from the wrapping local-time caption', () => {
+            // The fields must stay in their own nowrap group: if the caption shared it, the
+            // group's flex-wrap would apply to the fields too, letting them wrap apart from each
+            // other instead of only the caption dropping to its own line.
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    type="zonedDateTime"
+                    placeholder="Select a date"
+                    value={new Date('2026-02-10T11:56:00Z')}
+                    fallbackTimeZone="America/Toronto"
+                    onChange={() => null}
+                />
+            );
+
+            const caption = screen.getByText(/Your local time/);
+            const timeField = screen.getByPlaceholderText('hh:mm');
+            const fieldsGroup = timeField.closest('[class*="fieldsRow"]');
+
+            expect(fieldsGroup).not.toBeNull();
+            expect(caption.closest('[class*="fieldsRow"]')).toBeNull();
+        });
     });
 
     it('should allow selecting the minDate itself (inclusive lower boundary)', async () => {
