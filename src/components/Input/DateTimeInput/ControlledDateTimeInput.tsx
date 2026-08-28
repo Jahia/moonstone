@@ -121,7 +121,8 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     const maxPlainDate = toPlainDate(maxDate);
     const calendarDisabledMatchers = getCalendarDisabledMatchers({minDate, maxDate, disabledDates, disabledDateRanges, disabledDaysOfWeek});
     const todayDate = plainDateToDate(getTodayPlainDate());
-    const isTodayDisabled = isDisabled || isReadOnly || dateMatchModifiers(todayDate, calendarDisabledMatchers);
+    const isTodayUnavailable = dateMatchModifiers(todayDate, calendarDisabledMatchers);
+    const isTodayDisabled = isDisabled || isReadOnly || isTodayUnavailable;
     // Anchored on the selected date (today when there is none), not on the displayed month:
     // deriving the range from `displayedMonth` made the window slide along with navigation, so
     // jumping to 2046 turned it into 2026-2066 and dropped the years already visited.
@@ -401,7 +402,8 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                         onChange={(event, time) => {
                             // Clearing the time with no date is a no-op; otherwise a null time
                             // assembles to midnight (and the controlled field then shows 00:00).
-                            if (time === null && selectedDate === null) {
+                            // Seeding today only happens when the calendar itself allows today.
+                            if (selectedDate === null && (time === null || isTodayUnavailable)) {
                                 return;
                             }
 
