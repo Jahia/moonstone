@@ -6,6 +6,16 @@
     max-width: 100%;
 }
 
+// Keeps the date/time/timezone trio together on one line, isolated from .dateTimeInput's own
+// wrap: without this, the local-time caption's flex-basis: 100% (which relies on that wrap to
+// drop to its own line) would let the fields themselves wrap apart under the same pressure.
+.fieldsRow {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--moon-spacing-small);
+    align-items: center;
+}
+
 .dateField {
     width: 140px;
 
