@@ -1,5 +1,6 @@
-import React, {useCallback, useLayoutEffect, useRef, useState} from 'react';
+import React, {useLayoutEffect, useRef, useState} from 'react';
 import clsx from 'clsx';
+import {useMergeRefs} from '@floating-ui/react';
 import {Temporal} from 'temporal-polyfill';
 import {Dropdown} from '~/components';
 import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
@@ -44,14 +45,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
     const displayValue = draft ?? (hour && minute ? `${hour}:${minute}` : '');
 
     const inputRef = useRef<HTMLInputElement | null>(null);
-    const handleRef = useCallback((node: HTMLInputElement | null) => {
-        inputRef.current = node;
-        if (typeof ref === 'function') {
-            ref(node);
-        } else if (ref) {
-            (ref as React.MutableRefObject<HTMLInputElement | null>).current = node;
-        }
-    }, [ref]);
+    const handleRef = useMergeRefs([inputRef, ref]);
 
     // The segment to reselect after an Arrow step: the controlled re-render would otherwise drop
     // the caret to the field's end, losing the segment being stepped.
