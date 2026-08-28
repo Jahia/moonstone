@@ -65,11 +65,12 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     isReadOnly,
     timeInputProps,
     timezoneSelectorProps,
+    fallbackTimeZone,
     onBlur,
     autoComplete = 'off',
     ...props
 }, ref) => {
-    const currentValue = parseValue(value, type);
+    const currentValue = parseValue(value, type, fallbackTimeZone);
     const selectedDate = getPlainDate(currentValue);
     const selectedTime = getPlainTime(currentValue);
 

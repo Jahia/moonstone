@@ -61,8 +61,28 @@ export const toPlainDateTime = (value?: PlainDateTimeInput | null): Temporal.Pla
     }
 };
 
-/** Coerces a zoned date+time input to `Temporal.ZonedDateTime`, or `null` when absent/invalid. */
-export const toZonedDateTime = (value?: ZonedDateTimeInput | null): Temporal.ZonedDateTime | null => {
+/**
+ * Anchors a zone-less instant in `fallbackZone` when it's a valid IANA identifier, the system
+ * zone otherwise — covers both "not provided" and "provided but invalid" without losing the value.
+ */
+const toZoneOrSystem = (instant: Temporal.Instant, fallbackZone?: string): Temporal.ZonedDateTime => {
+    if (fallbackZone) {
+        try {
+            return instant.toZonedDateTimeISO(fallbackZone);
+        } catch {
+            // Not a valid IANA zone — fall through to the system zone rather than losing the value.
+        }
+    }
+
+    return instant.toZonedDateTimeISO(getSystemTimeZone());
+};
+
+/**
+ * Coerces a zoned date+time input to `Temporal.ZonedDateTime`, or `null` when absent/invalid.
+ * `fallbackZone` anchors a zone-less value (`Date`, `Temporal.Instant`, or an offset-only/UTC
+ * string) instead of the system zone; it's ignored when the value already carries its own zone.
+ */
+export const toZonedDateTime = (value?: ZonedDateTimeInput | null, fallbackZone?: string): Temporal.ZonedDateTime | null => {
     if (value === null || value === undefined) {
         return null;
     }
@@ -73,19 +93,17 @@ export const toZonedDateTime = (value?: ZonedDateTimeInput | null): Temporal.Zon
         }
 
         if (value instanceof Date) {
-            return Temporal.Instant
-                .fromEpochMilliseconds(value.getTime())
-                .toZonedDateTimeISO(getSystemTimeZone());
+            return toZoneOrSystem(Temporal.Instant.fromEpochMilliseconds(value.getTime()), fallbackZone);
         }
 
         if (value instanceof Temporal.Instant) {
-            return value.toZonedDateTimeISO(getSystemTimeZone());
+            return toZoneOrSystem(value, fallbackZone);
         }
 
         try {
             return Temporal.ZonedDateTime.from(value);
         } catch {
-            return Temporal.Instant.from(value).toZonedDateTimeISO(getSystemTimeZone());
+            return toZoneOrSystem(Temporal.Instant.from(value), fallbackZone);
         }
     } catch {
         return null;

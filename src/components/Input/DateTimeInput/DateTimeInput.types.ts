@@ -142,6 +142,14 @@ export type DateTimeInputSharedProps = Omit<BaseInputProps,
 
     /** Additional props forwarded to the internal TimezoneSelector (`type='zonedDateTime'`). */
     timezoneSelectorProps?: DateTimeInputTimezoneSelectorProps;
+
+    /**
+     * `type='zonedDateTime'` only. IANA zone used to interpret a `Date`, `Temporal.Instant`, or
+     * offset-only/UTC string — instead of the system zone. Ignored when the value already carries
+     * its own zone (a `Temporal.ZonedDateTime`, or a string with an IANA annotation). Falls back
+     * to the system zone if the identifier is invalid.
+     */
+    fallbackTimeZone?: string;
 };
 
 /**

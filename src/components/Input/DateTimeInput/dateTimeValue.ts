@@ -32,14 +32,17 @@ export const getCurrentValue = (type: DateTimeInputType): DateTimeValue => {
         Temporal.Now.plainDateTimeISO().with(toMinute);
 };
 
-/** Coerces a consumer value (Temporal instance or ISO string) to the canonical value for the type. */
-export const parseValue = (input: DateTimeValueInput, type: DateTimeInputType): DateTimeValue | null => {
+/**
+ * Coerces a consumer value (Temporal instance or ISO string) to the canonical value for the type.
+ * `fallbackTimeZone` (zoned mode only) anchors a zone-less value instead of the system zone.
+ */
+export const parseValue = (input: DateTimeValueInput, type: DateTimeInputType, fallbackTimeZone?: string): DateTimeValue | null => {
     if (type === 'date') {
         return toPlainDate(input as Temporal.PlainDate | string | null | undefined);
     }
 
     if (type === 'zonedDateTime') {
-        return toZonedDateTime(input as ZonedDateTimeInput | null | undefined);
+        return toZonedDateTime(input as ZonedDateTimeInput | null | undefined, fallbackTimeZone);
     }
 
     return toPlainDateTime(input as Temporal.PlainDateTime | string | null | undefined);

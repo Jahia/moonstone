@@ -61,6 +61,12 @@ and the local-time caption prefix.
 In `'zonedDateTime'` the timezone defaults to the system zone until changed. When the selected zone
 differs from the system zone, a caption shows the equivalent local time.
 
+A value without its own zone (`Date`, `Temporal.Instant`, or an offset-only/UTC string) is anchored
+in the system zone by default. `fallbackTimeZone` overrides that anchor — useful for a consumer whose
+own model has no room for a zone (e.g. it round-trips the value through a plain `Date`) but still
+wants the picked zone to stick across edits instead of resetting to the system zone on every change.
+It's ignored once the value carries its own zone, and falls back to the system zone if invalid.
+
 ## Sub-component props
 
 `timeInputProps` and `timezoneSelectorProps` forward additional props to the internal `TimeInput`
