@@ -63,7 +63,7 @@ export type DateTimeInputTimeInputProps = Omit<TimeInputProps,
     'isDisabled' |
     'isReadOnly' |
     'focusOnField'
->;
+> & DataAttributes;
 
 export type DateTimeInputTimezoneSelectorProps = Omit<ControlledTimezoneSelectorProps,
     'value' |
