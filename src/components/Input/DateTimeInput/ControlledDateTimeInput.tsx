@@ -271,7 +271,6 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                             {...getFloatingProps()}
                         >
                             <DayPicker
-                                animate
                                 data-testid="calendar"
                                 classNames={{
                                     /* eslint-disable camelcase -- react-day-picker classnames are its public API */
