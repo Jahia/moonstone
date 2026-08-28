@@ -35,8 +35,7 @@ export const TwelveHours: Story = {
 
 export const Empty: Story = {
     args: {
-        defaultValue: null,
-        placeholder: 'HH:MM'
+        defaultValue: null
     },
     name: 'Empty'
 };

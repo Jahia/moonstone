@@ -23,7 +23,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
     value,
     onChange,
     timeFormat = '24h',
-    placeholder = 'HH:MM',
+    placeholder = 'hh:mm',
     meridiemDropdownProps,
     size,
     variant = 'outlined',
@@ -117,7 +117,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
                 isDisabled={isDisabled}
                 isReadOnly={isReadOnly}
                 autoComplete="off"
-                icon={<Clock aria-hidden size={size === 'big' ? 'big' : 'default'}/>}
+                icon={<Clock aria-hidden/>}
                 inputMode="numeric"
                 onChange={event => setDraft(formatTimeInput(event.target.value, timeFormat))}
                 onKeyDown={handleKeyDown}
