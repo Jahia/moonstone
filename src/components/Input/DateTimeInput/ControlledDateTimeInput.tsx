@@ -354,7 +354,14 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                                         return;
                                     }
 
-                                    emitChange(event, {plainDate: date ? dateToPlainDate(date) : null});
+                                    // Re-clicking the selected day is DayPicker's deselect (`date` is
+                                    // undefined); clearing stays on the field's own affordance.
+                                    if (!date) {
+                                        setIsCalendarOpen(false);
+                                        return;
+                                    }
+
+                                    emitChange(event, {plainDate: dateToPlainDate(date)});
                                     setIsCalendarOpen(false);
                                 }}
                             />
