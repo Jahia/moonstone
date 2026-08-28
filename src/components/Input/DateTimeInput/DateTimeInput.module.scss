@@ -8,6 +8,12 @@
 
 .dateField {
     width: 140px;
+
+    // Without this floor, flexbox squeezes it below content size before touching TimezoneSelector's own 250px floor.
+    // BaseInput's own global-bundle class sets the same property at equal specificity and can land later in the
+    // cascade, so this needs !important to reliably win.
+    /* stylelint-disable-next-line declaration-no-important */
+    min-width: 140px !important;
 }
 
 .calendarPopover {
