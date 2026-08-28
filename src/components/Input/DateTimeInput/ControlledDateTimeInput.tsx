@@ -123,7 +123,8 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     const maxPlainDate = toPlainDate(maxDate);
     const calendarDisabledMatchers = getCalendarDisabledMatchers({minDate, maxDate, disabledDates, disabledDateRanges, disabledDaysOfWeek});
     const todayDate = plainDateToDate(getTodayPlainDate());
-    const isTodayDisabled = isDisabled || isReadOnly || dateMatchModifiers(todayDate, calendarDisabledMatchers);
+    const isTodayUnavailable = dateMatchModifiers(todayDate, calendarDisabledMatchers);
+    const isTodayDisabled = isDisabled || isReadOnly || isTodayUnavailable;
     // Anchored on the selected date (today when there is none), not on the displayed month:
     // deriving the range from `displayedMonth` made the window slide along with navigation, so
     // jumping to 2046 turned it into 2026-2066 and dropped the years already visited.
@@ -132,6 +133,17 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     const endMonth = getMonthStart(maxPlainDate, referenceYear + 50, 11);
     const hasMultipleYears = startMonth.getFullYear() !== endMonth.getFullYear();
     const hasMultipleMonths = startMonth.getTime() !== endMonth.getTime();
+
+    // The header dropdowns keep the other unit as-is, which can land past the bounds
+    // (e.g. endMonth = March 2027, viewing November 2026, picking 2027).
+    const clampToRange = (month: Date) => {
+        if (month < startMonth) {
+            return startMonth;
+        }
+
+        return month > endMonth ? endMonth : month;
+    };
+
     const captionLayout = getCaptionLayout(hasMultipleMonths, hasMultipleYears);
 
     const systemTimeZone = getSystemTimeZone();
@@ -151,7 +163,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
             minute: '2-digit',
             hour12: timeFormat === '12h',
             timeZone: systemTimeZone
-        }).format(new Date((currentValue as Temporal.ZonedDateTime).withTimeZone(systemTimeZone).epochMilliseconds)) :
+        }).format(new Date((currentValue as Temporal.ZonedDateTime).epochMilliseconds)) :
         null;
 
     // This component holds no value state: it derives display from `value` and reports the next
@@ -277,16 +289,25 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                             ref={refs.setFloating}
                             className={styles.calendarPopover}
                             style={floatingStyles}
-                            {...getFloatingProps()}
+                            {...getFloatingProps({
+                                // Same containment as the input's Escape: without it the key also
+                                // reaches the document listener of the consumer's Modal.
+                                onKeyDown: event => {
+                                    if (event.key === 'Escape') {
+                                        event.stopPropagation();
+                                        setIsCalendarOpen(false);
+                                    }
+                                }
+                            })}
                         >
                             <DayPicker
-                                animate
                                 data-testid="calendar"
                                 classNames={{
                                     /* eslint-disable camelcase -- react-day-picker classnames are its public API */
                                     ...dayPickerClassNames,
                                     root: clsx(dayPickerClassNames.root, styles.calendar),
                                     month_caption: clsx(dayPickerClassNames.month_caption, styles.calendarHeader),
+                                    month_grid: clsx(dayPickerClassNames.month_grid, styles.calendarGrid),
                                     dropdowns: clsx(dayPickerClassNames.dropdowns, styles.calendarDropdowns),
                                     button_next: clsx(dayPickerClassNames.button_next, styles.calendarNextButton),
                                     button_previous: clsx(dayPickerClassNames.button_previous, styles.calendarPreviousButton),
@@ -307,7 +328,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                                             data={toDropdownData(dropdownProps.options)}
                                             value={String(dropdownProps.value ?? '')}
                                             onChange={(_e, item) => {
-                                                setDisplayedMonth(new Date(displayedMonth.getFullYear(), Number(item.value), 1));
+                                                setDisplayedMonth(clampToRange(new Date(displayedMonth.getFullYear(), Number(item.value), 1)));
                                             }}
                                         />
                                     ),
@@ -318,7 +339,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                                             data={toDropdownData(dropdownProps.options)}
                                             value={String(dropdownProps.value ?? '')}
                                             onChange={(_e, item) => {
-                                                setDisplayedMonth(new Date(Number(item.value), displayedMonth.getMonth(), 1));
+                                                setDisplayedMonth(clampToRange(new Date(Number(item.value), displayedMonth.getMonth(), 1)));
                                             }}
                                         />
                                     )
@@ -362,7 +383,14 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                                         return;
                                     }
 
-                                    emitChange(event, {plainDate: date ? dateToPlainDate(date) : null});
+                                    // Re-clicking the selected day is DayPicker's deselect (`date` is
+                                    // undefined); clearing stays on the field's own affordance.
+                                    if (!date) {
+                                        setIsCalendarOpen(false);
+                                        return;
+                                    }
+
+                                    emitChange(event, {plainDate: dateToPlainDate(date)});
                                     setIsCalendarOpen(false);
                                 }}
                             />
@@ -382,7 +410,8 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                         onChange={(event, time) => {
                             // Clearing the time with no date is a no-op; otherwise a null time
                             // assembles to midnight (and the controlled field then shows 00:00).
-                            if (time === null && selectedDate === null) {
+                            // Seeding today only happens when the calendar itself allows today.
+                            if (selectedDate === null && (time === null || isTodayUnavailable)) {
                                 return;
                             }
 

@@ -58,15 +58,6 @@
     box-shadow: 0 var(--moon-spacing-nano) var(--moon-spacing-small) var(--moon-color-gray_dark60);
 }
 
-// A month change is animated by cloning the outgoing month inside the incoming one. The clone's
-// caption and weeks are faded out, but in `navLayout="around"` the nav buttons live inside the
-// month too and are left untouched — so its pair shows through for the length of the animation.
-// The clone is the only nested `[data-animated-month]`, and is already inert (`aria-hidden`,
-// `pointer-events: none`).
-.calendar [data-animated-month] [data-animated-month] [data-animated-button] {
-    visibility: hidden;
-}
-
 .calendar {
     --rdp-accent-color: var(--moon-color-accent);
     --rdp-accent-background-color: var(--moon-color-accent);
@@ -107,6 +98,13 @@
         // background-color: var(--moon-color-gray_light_plain20);
         background-color: var(--moon-color-accent_light_plain20);
     }
+}
+
+// The caption (nav buttons + month/year dropdowns) is wider than the day grid for long month
+// names (September, November): stretching the grid keeps both at the same width instead of
+// leaving a blank strip on the right of the popover.
+.calendarGrid {
+    width: 100%;
 }
 
 .calendarWeekday {
