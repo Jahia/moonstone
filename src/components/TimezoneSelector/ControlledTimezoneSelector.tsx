@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import clsx from 'clsx';
 import {Dropdown} from '~/components';
 import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
@@ -20,11 +20,16 @@ export const ControlledTimezoneSelector: React.FC<ControlledTimezoneSelectorProp
     onChange,
     ...props
 }) => {
+    // Keyed on the ISO string: the parent may recreate an equal `referenceDate` on every render,
+    // and rebuilding the full catalog (~400 zones) per render is measurable.
+    const referenceDateKey = toPlainDate(referenceDate)?.toString() ?? null;
+    const data = useMemo(() => getTimezoneDropdownData(value, toPlainDate(referenceDateKey)), [value, referenceDateKey]);
+
     return (
         <Dropdown
             {...props}
             className={clsx(styles.timezoneSelector, className)}
-            data={getTimezoneDropdownData(value, toPlainDate(referenceDate))}
+            data={data}
             value={value}
             size={size}
             variant={variant}
