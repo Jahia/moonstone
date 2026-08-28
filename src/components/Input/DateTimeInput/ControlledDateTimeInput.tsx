@@ -130,6 +130,18 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     const hasMultipleYears = startMonth.getFullYear() !== endMonth.getFullYear();
     const hasMultipleMonths = startMonth.getTime() !== endMonth.getTime();
 
+    // The header dropdowns keep the other unit as-is, which can land past the bounds
+    // (e.g. endMonth = March 2027, viewing November 2026, picking 2027).
+    const clampToRange = (month: Date) => {
+        if (month < startMonth) {
+            return startMonth;
+        }
+
+        return month > endMonth ? endMonth : month;
+    };
+
+    const captionLayout = getCaptionLayout(hasMultipleMonths, hasMultipleYears);
+
     const systemTimeZone = getSystemTimeZone();
     const showLocalTime =
         type === 'zonedDateTime' &&
@@ -286,7 +298,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                                             data={toDropdownData(dropdownProps.options)}
                                             value={String(dropdownProps.value ?? '')}
                                             onChange={(_e, item) => {
-                                                setDisplayedMonth(new Date(displayedMonth.getFullYear(), Number(item.value), 1));
+                                                setDisplayedMonth(clampToRange(new Date(displayedMonth.getFullYear(), Number(item.value), 1)));
                                             }}
                                         />
                                     ),
@@ -297,7 +309,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                                             data={toDropdownData(dropdownProps.options)}
                                             value={String(dropdownProps.value ?? '')}
                                             onChange={(_e, item) => {
-                                                setDisplayedMonth(new Date(Number(item.value), displayedMonth.getMonth(), 1));
+                                                setDisplayedMonth(clampToRange(new Date(Number(item.value), displayedMonth.getMonth(), 1)));
                                             }}
                                         />
                                     )
@@ -306,7 +318,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                                     labelNext: () => i18nLabels.nextMonth,
                                     labelPrevious: () => i18nLabels.previousMonth
                                 }}
-                                captionLayout={getCaptionLayout(hasMultipleMonths, hasMultipleYears)}
+                                captionLayout={captionLayout}
                                 navLayout="around"
                                 weekStartsOn={weekStartsOn ?? getWeekStartsOn(resolvedLocale)}
                                 month={displayedMonth}
