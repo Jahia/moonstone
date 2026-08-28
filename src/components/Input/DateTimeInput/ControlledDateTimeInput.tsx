@@ -110,8 +110,12 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     const calendarDisabledMatchers = getCalendarDisabledMatchers({minDate, maxDate, disabledDates, disabledDateRanges, disabledDaysOfWeek});
     const todayDate = plainDateToDate(getTodayPlainDate());
     const isTodayDisabled = isDisabled || isReadOnly || dateMatchModifiers(todayDate, calendarDisabledMatchers);
-    const startMonth = getMonthStart(minPlainDate, displayedMonth.getFullYear() - 20, 0);
-    const endMonth = getMonthStart(maxPlainDate, displayedMonth.getFullYear() + 20, 11);
+    // Anchored on the selected date (today when there is none), not on the displayed month:
+    // deriving the range from `displayedMonth` made the window slide along with navigation, so
+    // jumping to 2046 turned it into 2026-2066 and dropped the years already visited.
+    const referenceYear = (selectedDate ?? getTodayPlainDate()).year;
+    const startMonth = getMonthStart(minPlainDate, referenceYear - 50, 0);
+    const endMonth = getMonthStart(maxPlainDate, referenceYear + 50, 11);
     const hasMultipleYears = startMonth.getFullYear() !== endMonth.getFullYear();
     const hasMultipleMonths = startMonth.getTime() !== endMonth.getTime();
 

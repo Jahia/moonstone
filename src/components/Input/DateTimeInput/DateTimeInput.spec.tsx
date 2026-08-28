@@ -343,6 +343,30 @@ describe('DateTimeInput', () => {
         expect(dateField()).toHaveValue(selectedDisplay);
     });
 
+    it('should keep the year range anchored on the selection instead of sliding with navigation', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                type="date"
+                placeholder="Select a date"
+                defaultValue="2026-03-30"
+                i18n={{nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
+                onChange={() => null}
+            />
+        );
+
+        await user.click(dateField());
+        await user.click(screen.getByRole('listbox', {name: '2026'}));
+        await user.click(screen.getByRole('option', {name: '2070'}));
+
+        // Anchored on the 2026 selection, so 1976 is still reachable from 2070. Derived from the
+        // displayed month it would have become 2020-2120 and dropped everything before 2020.
+        await user.click(screen.getByRole('listbox', {name: '2070'}));
+        expect(screen.getByRole('option', {name: '1976'})).toBeInTheDocument();
+    });
+
     it('should render React DayPicker\'s month dropdown when multiple months are navigable', async () => {
         const user = userEvent.setup();
 
