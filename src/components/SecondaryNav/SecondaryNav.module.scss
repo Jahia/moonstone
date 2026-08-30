@@ -82,3 +82,10 @@
         }
     }
 }
+
+@include reduced-motion {
+    .moonstone-secondaryNav_wrapper,
+    .moonstone-secondaryNav_hidden {
+        transition: none;
+    }
+}

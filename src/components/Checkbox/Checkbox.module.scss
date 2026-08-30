@@ -1,3 +1,4 @@
+@use "../../utils/motion" as *;
 @use "../../utils/mixins" as *;
 
 $checkbox-sizeDefault: 16px;
@@ -115,5 +116,17 @@ $checkbox-sizeBig: 20px;
 
     100% {
         transform: scale(1);
+    }
+}
+
+@include reduced-motion {
+    .moonstone-checkbox_input {
+        transition: none;
+    }
+
+    // Kept as an animation so its `forwards` fill still reveals the icon, but made instant.
+    .moonstone-checkbox_input[aria-checked="true"] ~ .moonstone-checkbox_icon,
+    .moonstone-checkbox_input[aria-checked="mixed"] ~ .moonstone-checkbox_icon {
+        animation-duration: 0.01ms;
     }
 }

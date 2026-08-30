@@ -1,3 +1,4 @@
+@use "../../../utils/motion" as *;
 @use "../../../utils/mixins" as *;
 
 .moonstone-primaryNavItem {
@@ -97,4 +98,10 @@
 .moonstone-primaryNavItem_linkItem {
     width: 100%;
     margin: 0;
+}
+
+@include reduced-motion {
+    .moonstone-primaryNavItem {
+        transition: none;
+    }
 }

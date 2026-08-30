@@ -1,3 +1,5 @@
+@use "../../utils/motion" as *;
+
 .moonstone-switch_icon {
     position: absolute;
 
@@ -77,4 +79,10 @@
 .moonstone-switch_disabled {
     cursor: not-allowed;
     opacity: 50%;
+}
+
+@include reduced-motion {
+    .moonstone-switch_icon {
+        transition: none;
+    }
 }

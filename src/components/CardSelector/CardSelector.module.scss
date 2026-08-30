@@ -95,3 +95,10 @@ $cardSelector-height: 58px;
         }
     }
 }
+
+@include reduced-motion {
+    .moonstone-cardSelector,
+    .moonstone-cardSelector_error {
+        transition: none;
+    }
+}

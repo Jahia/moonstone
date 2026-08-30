@@ -1,3 +1,5 @@
+@use "../../../utils/motion" as *;
+
 $radio-sizeDefault: 16px;
 
 .moonstone-radio-container {
@@ -104,5 +106,12 @@ $radio-sizeDefault: 16px;
 
     100% {
         transform: scale(1);
+    }
+}
+
+@include reduced-motion {
+    // Kept as an animation so its `forwards` fill still reveals the icon, but made instant.
+    .moonstone-radio-container .moonstone-radio_icon {
+        animation-duration: 0.01ms;
     }
 }

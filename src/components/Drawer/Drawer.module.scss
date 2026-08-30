@@ -1,3 +1,5 @@
+@use "../../utils/motion" as *;
+
 .drawer {
     display: flex;
     flex-direction: column;
@@ -36,7 +38,7 @@
     }
 }
 
-@media (prefers-reduced-motion: reduce) {
+@include reduced-motion {
     .drawer[data-state='open'],
     .drawer[data-state='closed'] {
         animation: none;

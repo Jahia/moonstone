@@ -1,3 +1,4 @@
+@use "../../../utils/motion" as *;
 @use '../CardSelector.module.scss' as *;
 
 .moonstone-emptyCardSelector {
@@ -38,5 +39,11 @@
 
     &:focus-visible {
         outline: none;
+    }
+}
+
+@include reduced-motion {
+    .moonstone-emptyCardSelector {
+        transition: none;
     }
 }

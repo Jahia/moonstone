@@ -1,0 +1,6 @@
+// Applies its content only when the user asked their OS to reduce motion.
+@mixin reduced-motion {
+    @media (prefers-reduced-motion: reduce) {
+        @content;
+    }
+}
