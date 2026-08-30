@@ -106,3 +106,10 @@ $selected-line-spacing-big: 20px;
         content: "";
     }
 }
+
+@media (forced-colors: active) {
+    // The selected underline is a background-color, which forced-colors removes.
+    .moonstone-tabItem_selected::after {
+        background-color: highlight;
+    }
+}

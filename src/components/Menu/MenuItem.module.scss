@@ -57,3 +57,22 @@
         padding-bottom: var(--moon-spacing-small);
     }
 }
+
+@media (forced-colors: active) {
+    .moonstone-menuItem.moonstone-selected {
+        color: highlighttext;
+
+        background-color: highlight;
+    }
+
+    // The keyboard highlight is a background tint and the focus ring an inset box-shadow; both are flattened.
+    .moonstone-menuItem.moonstone-highlighted {
+        outline: 1px dotted canvastext;
+        outline-offset: -1px;
+    }
+
+    .moonstone-menuItem:focus-visible {
+        outline: 2px solid highlight;
+        outline-offset: -2px;
+    }
+}

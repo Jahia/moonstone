@@ -78,3 +78,38 @@
     cursor: not-allowed;
     opacity: 50%;
 }
+
+@media (forced-colors: active) {
+    // Both states are drawn with background-color only, which forced-colors flattens.
+    .moonstone-switch_input {
+        border: 1px solid canvastext;
+        background-color: canvas;
+    }
+
+    .moonstone-switch_icon {
+        background-color: canvastext;
+    }
+
+    .moonstone-switch_checked .moonstone-switch_input {
+        border-color: highlight;
+        background-color: highlight;
+    }
+
+    .moonstone-switch_checked .moonstone-switch_icon {
+        background-color: highlighttext;
+    }
+
+    .moonstone-switch_disabled .moonstone-switch_input {
+        border-color: graytext;
+        background-color: canvas;
+    }
+
+    .moonstone-switch_disabled .moonstone-switch_icon {
+        background-color: graytext;
+    }
+
+    .moonstone-switch_input:focus-visible {
+        outline: 2px solid highlight;
+        outline-offset: 2px;
+    }
+}

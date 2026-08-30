@@ -98,3 +98,11 @@
     width: 100%;
     margin: 0;
 }
+
+@media (forced-colors: active) {
+    .moonstone-primaryNavItem.moonstone-selected {
+        color: highlighttext;
+
+        background-color: highlight;
+    }
+}

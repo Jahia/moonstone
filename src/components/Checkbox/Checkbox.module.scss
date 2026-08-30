@@ -117,3 +117,26 @@ $checkbox-sizeBig: 20px;
         transform: scale(1);
     }
 }
+
+@media (forced-colors: active) {
+    // The control is drawn entirely with box-shadow, which forced-colors removes.
+    .moonstone-checkbox_input {
+        border: 1px solid canvastext;
+    }
+
+    .moonstone-checkbox_input[aria-checked="true"],
+    .moonstone-checkbox_input[aria-checked="mixed"] {
+        border-color: highlight;
+        background-color: highlight;
+    }
+
+    .moonstone-checkbox_input[aria-checked="true"] ~ .moonstone-checkbox_icon,
+    .moonstone-checkbox_input[aria-checked="mixed"] ~ .moonstone-checkbox_icon {
+        stroke: highlighttext;
+    }
+
+    .moonstone-checkbox_input[disabled],
+    .moonstone-checkbox_input[aria-readonly="true"] {
+        border-color: graytext;
+    }
+}

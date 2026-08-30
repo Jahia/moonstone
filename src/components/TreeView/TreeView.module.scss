@@ -106,3 +106,18 @@
         color: var(--moon-color-gray40);
     }
 }
+
+@media (forced-colors: active) {
+    // The :hover variant keeps the selected state visible while the pointer is over it.
+    .moonstone-treeView_item.moonstone-selected,
+    .moonstone-treeView_item.moonstone-selected:hover {
+        color: highlighttext;
+
+        background-color: highlight;
+    }
+
+    .moonstone-treeView_item.moonstone-highlighted {
+        outline: 1px dotted canvastext;
+        outline-offset: -1px;
+    }
+}

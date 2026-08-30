@@ -30,3 +30,16 @@
         }
     }
 }
+
+@media (forced-colors: active) {
+    // The pressed state is an inset box-shadow over a tinted background; both are flattened.
+    // Selectors mirror the rules above so they win the cascade at equal specificity.
+    .moonstone-buttonToggle.moonstone-buttonToggle_pressed,
+    .moonstone-buttonToggle.moonstone-buttonToggle_pressed:hover:not(.moonstone-button_loading, [disabled]),
+    .moonstone-buttonToggle.moonstone-buttonToggle_pressed:active:not(.moonstone-button_loading, [disabled]) {
+        color: highlighttext;
+
+        border-color: highlight;
+        background-color: highlight;
+    }
+}

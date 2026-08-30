@@ -106,3 +106,11 @@ $radio-sizeDefault: 16px;
         transform: scale(1);
     }
 }
+
+@media (forced-colors: active) {
+    // Focus is only a fill change on the icon, which is too subtle in forced colors.
+    .moonstone-radio-container .moonstone-radio_input:focus-visible {
+        outline: 2px solid highlight;
+        outline-offset: 2px;
+    }
+}
