@@ -48,6 +48,21 @@ describe('MultipleLeftRightSelector', () => {
         ).toHaveLength(selection.length);
     });
 
+    it('should announce the selection count through a live region', () => {
+        const {rerender} = render(<ListSelector {...requiredProps} options={options}/>);
+        expect(screen.getByRole('status')).toBeEmptyDOMElement();
+
+        rerender(
+            <ListSelector
+                {...requiredProps}
+                label={{selected: '2 items selected'}}
+                options={options}
+                values={['1', '3']}
+            />
+        );
+        expect(screen.getByRole('status')).toHaveTextContent('2 items selected');
+    });
+
     it('should display in readonly mode', () => {
         const selection = ['1', '3'];
         const { container } = render(

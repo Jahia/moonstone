@@ -262,6 +262,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                     }}
                 />
                 <footer
+                    role="status"
                     className={clsx(
                         ['moonstone-listSelector_footer', styles['moonstone-listSelector_footer']],
                         ['flexRow', layout.flexRow],

@@ -80,6 +80,27 @@ describe('Menu', () => {
             await user.type(screen.getByRole('searchbox'), 'random search text');
 
             expect(screen.getByText(searchEmptyText)).toBeInTheDocument();
+            expect(screen.getByRole('status')).toHaveTextContent(searchEmptyText);
+        });
+
+        it('should keep the status live region mounted while there are results', () => {
+            render(
+                <Menu isDisplayed hasSearch data-testid="moonstone-menu">
+                    <MenuItem label="Item1"/>
+                </Menu>
+            );
+
+            expect(screen.getByRole('status')).toBeEmptyDOMElement();
+        });
+
+        it('should not render a status live region when there is no search', () => {
+            render(
+                <Menu isDisplayed data-testid="moonstone-menu">
+                    <MenuItem label="Item1"/>
+                </Menu>
+            );
+
+            expect(screen.queryByRole('status')).not.toBeInTheDocument();
         });
     });
 
