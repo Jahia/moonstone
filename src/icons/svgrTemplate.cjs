@@ -21,7 +21,13 @@ const template = ({
         color,
         ...otherProps
     }: IconProps) => {
-        const props = Object.assign({}, {size, className, ...otherProps});
+        const props = Object.assign({}, {size, className, focusable: 'false', ...otherProps});
+
+        // An icon is decorative unless the consumer gives it a name or a role.
+        if (props['aria-hidden'] === undefined && !props['aria-label'] && !props['aria-labelledby'] && !props.role) {
+            props['aria-hidden'] = true;
+        }
+
         props.className = clsx(className,
             'moonstone-icon', styles['moonstone-icon'],
             'moonstone-icon_' + size, styles[\`moonstone-icon_\${size}\`],
