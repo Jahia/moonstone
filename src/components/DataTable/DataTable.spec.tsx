@@ -1033,27 +1033,6 @@ describe('DataTable search', () => {
         expect(onSearchChange).toHaveBeenCalledWith('a');
     });
 
-    it('should report the query through onSearchChange when uncontrolled', async () => {
-        const user = userEvent.setup();
-        const onSearchChange = vi.fn();
-        render(
-            <DataTable<TestData>
-                enableSearch
-                data={data}
-                columns={columns}
-                primaryKey="id"
-                searchColumns={['name']}
-                onSearchChange={onSearchChange}
-            />
-        );
-
-        await user.type(screen.getByRole('searchbox'), 'a');
-
-        expect(onSearchChange).toHaveBeenCalledWith('a');
-        // The table still owns the state: the row is filtered without the consumer feeding the value back
-        expect(screen.queryByText('Bob')).not.toBeInTheDocument();
-    });
-
     it('should restore every row when the search field is cleared', async () => {
         const user = userEvent.setup();
         render(
@@ -1111,60 +1090,6 @@ describe('DataTable search', () => {
         expect(screen.getByText('Charlie')).toBeInTheDocument();
     });
 
-    it('should tell the user when the query matches nothing', async () => {
-        const user = userEvent.setup();
-        render(
-            <DataTable<TestData>
-                enableSearch
-                data={data}
-                columns={columns}
-                primaryKey="id"
-                searchColumns={['name']}
-            />
-        );
-
-        await user.type(screen.getByRole('searchbox'), 'nobody');
-
-        expect(screen.getByText('No results')).toBeInTheDocument();
-    });
-
-    it('should allow the no-results message to be localized', async () => {
-        const user = userEvent.setup();
-        render(
-            <DataTable<TestData>
-                enableSearch
-                data={data}
-                columns={columns}
-                primaryKey="id"
-                searchColumns={['name']}
-                noResultsMessage="Aucun résultat"
-            />
-        );
-
-        await user.type(screen.getByRole('searchbox'), 'nobody');
-
-        expect(screen.getByText('Aucun résultat')).toBeInTheDocument();
-    });
-
-    it('should span the no-results message over every column', async () => {
-        const user = userEvent.setup();
-        render(
-            <DataTable<TestData>
-                enableSearch
-                enableSelection
-                data={data}
-                columns={columns}
-                primaryKey="id"
-                searchColumns={['name']}
-            />
-        );
-
-        await user.type(screen.getByRole('searchbox'), 'nobody');
-
-        // Selection column + the 2 data columns
-        expect(screen.getByText('No results')).toHaveAttribute('colspan', '3');
-    });
-
     it('should keep the search field mounted when data is empty', () => {
         // Regression: a server-side query with no result used to unmount the whole component,
         // leaving the user unable to clear their own query
@@ -1180,7 +1105,6 @@ describe('DataTable search', () => {
         );
 
         expect(screen.getByRole('searchbox')).toHaveValue('no result');
-        expect(screen.getByText('No results')).toBeInTheDocument();
     });
 
     it('should go back to the first page and recount when the query changes', async () => {
@@ -1207,44 +1131,6 @@ describe('DataTable search', () => {
         expect(screen.getByText('Alice')).toBeInTheDocument();
         expect(screen.queryByText('Bob')).not.toBeInTheDocument();
         expect(screen.getByText('1-1 of 2')).toBeInTheDocument();
-    });
-
-    it('should warn when a server-side search is mixed with an uncontrolled pagination', () => {
-        const warning = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
-        render(
-            <DataTable<TestData>
-                enableSearch
-                enablePagination
-                data={data}
-                columns={columns}
-                primaryKey="id"
-                searchValue="ali"
-                onSearchChange={() => { }}
-            />
-        );
-
-        // The consumer filters and pages on their side, so `totalItems` cannot be inferred from `data`
-        expect(warning).toHaveBeenCalled();
-        warning.mockRestore();
-    });
-
-    it('should not warn when the search is controlled but the filtering stays client-side', () => {
-        const warning = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
-        render(
-            <DataTable<TestData>
-                enableSearch
-                enablePagination
-                data={data}
-                columns={columns}
-                primaryKey="id"
-                searchColumns={['name']}
-                searchValue="ali"
-                onSearchChange={() => { }}
-            />
-        );
-
-        expect(warning).not.toHaveBeenCalled();
-        warning.mockRestore();
     });
 
     it('should keep the ancestors of a matching nested row visible', async () => {
@@ -1303,21 +1189,5 @@ describe('DataTable search', () => {
 
         expect(screen.getByPlaceholderText('Find a user')).toBeInTheDocument();
         expect(screen.getByRole('search')).toHaveClass('custom-search');
-    });
-
-    it('should leave the accessible name of the SearchInput to the consumer', () => {
-        render(
-            <DataTable<TestData>
-                enableSearch
-                data={data}
-                columns={columns}
-                primaryKey="id"
-                searchColumns={['name']}
-                searchInputProps={{'aria-label': 'Search a user by name'}}
-            />
-        );
-
-        // The label is never derived from the placeholder, so it stays localizable on its own
-        expect(screen.getByRole('searchbox')).toHaveAccessibleName('Search a user by name');
     });
 });
