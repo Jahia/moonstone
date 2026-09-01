@@ -196,7 +196,10 @@ type SearchProps<T extends NonNullable<unknown>> =
           searchValue: string;
           /** Callback when the search query changes */
           onSearchChange: (searchValue: string) => void;
-          /** Custom attributes added to the SearchInput element (pass `placeholder` to localize it) */
+          /**
+           * Custom attributes added to the SearchInput element.
+           * Pass `placeholder` to localize it, and `aria-label` or `aria-labelledby` to give it an accessible name.
+           */
           searchInputProps?: SearchInputAttributes;
       }
     | {
@@ -207,7 +210,10 @@ type SearchProps<T extends NonNullable<unknown>> =
           searchValue?: never;
           /** Optional callback to observe search changes */
           onSearchChange?: (searchValue: string) => void;
-          /** Custom attributes added to the SearchInput element (pass `placeholder` to localize it) */
+          /**
+           * Custom attributes added to the SearchInput element.
+           * Pass `placeholder` to localize it, and `aria-label` or `aria-labelledby` to give it an accessible name.
+           */
           searchInputProps?: SearchInputAttributes;
       }
     | {

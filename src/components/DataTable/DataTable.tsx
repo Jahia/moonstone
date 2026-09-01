@@ -224,8 +224,6 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
     const isEmpty = !data || !Array.isArray(data) || data.length === 0;
 
-    const searchLabel = searchInputProps?.placeholder ?? 'Search';
-
     if (isEmpty && !enableSearch) {
         return null;
     }
@@ -236,8 +234,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 <SearchInput
                     variant="outlined"
                     value={globalFilter}
-                    aria-label={searchLabel}
-                    placeholder={searchLabel}
+                    placeholder="Search"
                     onChange={event => table.setGlobalFilter(event.target.value)}
                     onClear={() => table.setGlobalFilter('')}
                     {...searchInputProps}

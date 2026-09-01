@@ -1211,4 +1211,20 @@ describe('DataTable search', () => {
         expect(screen.getByPlaceholderText('Find a user')).toBeInTheDocument();
         expect(screen.getByRole('search')).toHaveClass('custom-search');
     });
+
+    it('should leave the accessible name of the SearchInput to the consumer', () => {
+        render(
+            <DataTable<TestData>
+                enableSearch
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                searchColumns={['name']}
+                searchInputProps={{'aria-label': 'Search a user by name'}}
+            />
+        );
+
+        // The label is never derived from the placeholder, so it stays localizable on its own
+        expect(screen.getByRole('searchbox')).toHaveAccessibleName('Search a user by name');
+    });
 });
