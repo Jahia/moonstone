@@ -1033,6 +1033,27 @@ describe('DataTable search', () => {
         expect(onSearchChange).toHaveBeenCalledWith('a');
     });
 
+    it('should report the query through onSearchChange when uncontrolled', async () => {
+        const user = userEvent.setup();
+        const onSearchChange = vi.fn();
+        render(
+            <DataTable<TestData>
+                enableSearch
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                searchColumns={['name']}
+                onSearchChange={onSearchChange}
+            />
+        );
+
+        await user.type(screen.getByRole('searchbox'), 'a');
+
+        expect(onSearchChange).toHaveBeenCalledWith('a');
+        // The table still owns the state: the row is filtered without the consumer feeding the value back
+        expect(screen.queryByText('Bob')).not.toBeInTheDocument();
+    });
+
     it('should restore every row when the search field is cleared', async () => {
         const user = userEvent.setup();
         render(

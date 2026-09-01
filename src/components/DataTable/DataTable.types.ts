@@ -205,7 +205,8 @@ type SearchProps<T extends NonNullable<unknown>> =
           /** Columns to search (case-insensitive substring match on the raw value). Omit for server-side search. */
           searchColumns: SearchColumns<T>;
           searchValue?: never;
-          onSearchChange?: never;
+          /** Optional callback to observe search changes */
+          onSearchChange?: (searchValue: string) => void;
           /** Custom attributes added to the SearchInput element (pass `placeholder` to localize it) */
           searchInputProps?: SearchInputAttributes;
       }

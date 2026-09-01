@@ -10,7 +10,7 @@ import clsx from 'clsx';
 import {toNodeArray} from '~/utils/helpers';
 import type {Row} from '@tanstack/react-table';
 import React, {useMemo, useCallback} from 'react';
-import {useCustomCells, useExpansion, usePagination, useSelection, useSorting} from './hooks';
+import {useCustomCells, useExpansion, usePagination, useSearch, useSelection, useSorting} from './hooks';
 import type {DataTableProps, RenderOptions} from './DataTable.types';
 import {createTableColumns} from './shared';
 import {renderCell, renderHeadCell} from './utils';
@@ -114,20 +114,25 @@ export const DataTable = <T extends NonNullable<unknown>>({
         totalItems
     });
 
+    const {globalFilter, handleGlobalFilterChange} = useSearch({
+        searchValue,
+        onSearchChange
+    });
+
     const tableColumns = useMemo(() => createTableColumns(columns), [columns]);
 
     const table = useReactTable({
         data,
         columns: tableColumns,
-        initialState: {globalFilter: ''},
         state: {
             expanded,
             rowSelection,
             sorting,
-            ...(enablePagination && {pagination}),
-            ...(searchValue !== undefined && {globalFilter: searchValue})
+            globalFilter,
+            ...(enablePagination && {pagination})
         },
         onSortingChange: handleSortingChange,
+        onGlobalFilterChange: handleGlobalFilterChange,
         onExpandedChange: handleExpandedChange,
         onRowSelectionChange: handleRowSelectionChange,
         getCoreRowModel: getCoreRowModel(),
@@ -219,8 +224,6 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
     const isEmpty = !data || !Array.isArray(data) || data.length === 0;
 
-    const searchQuery = String(table.getState().globalFilter);
-    const setSearchQuery: (value: string) => void = onSearchChange ?? table.setGlobalFilter;
     const searchLabel = searchInputProps?.placeholder ?? 'Search';
 
     if (isEmpty && !enableSearch) {
@@ -232,11 +235,11 @@ export const DataTable = <T extends NonNullable<unknown>>({
             {enableSearch && (
                 <SearchInput
                     variant="outlined"
-                    value={searchQuery}
+                    value={globalFilter}
                     aria-label={searchLabel}
                     placeholder={searchLabel}
-                    onChange={event => setSearchQuery(event.target.value)}
-                    onClear={() => setSearchQuery('')}
+                    onChange={event => table.setGlobalFilter(event.target.value)}
+                    onClear={() => table.setGlobalFilter('')}
                     {...searchInputProps}
                     className={clsx(styles.search, searchInputProps?.className)}
                 />
