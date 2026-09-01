@@ -27,9 +27,11 @@ import {
 } from './calendarHelpers';
 import {
     assembleValue,
+    getEffectiveBounds,
     getPlainDate,
     getPlainTime,
     getTimeZone,
+    isWithinBounds,
     parseValue
 } from './dateTimeValue';
 import type {ControlledDateTimeInputProps} from './DateTimeInput.types';
@@ -63,6 +65,8 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     timeFormat = '24h',
     minDate,
     maxDate,
+    minDateTime,
+    maxDateTime,
     disabledDates,
     disabledDateRanges,
     disabledDaysOfWeek,
@@ -119,9 +123,13 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     const {getFloatingProps} = useInteractions([useDismiss(context)]);
     const fieldRef = useMergeRefs([refs.setReference, ref]);
 
-    const minPlainDate = toPlainDate(minDate);
-    const maxPlainDate = toPlainDate(maxDate);
-    const calendarDisabledMatchers = getCalendarDisabledMatchers({minDate, maxDate, disabledDates, disabledDateRanges, disabledDaysOfWeek});
+    // The datetime form wins over the day form; zoned bounds follow the selected zone.
+    const {minBound, maxBound, effectiveMinDate, effectiveMaxDate} =
+        getEffectiveBounds({minDate, maxDate, minDateTime, maxDateTime, type, timeZone: currentTimeZone});
+
+    const minPlainDate = toPlainDate(effectiveMinDate);
+    const maxPlainDate = toPlainDate(effectiveMaxDate);
+    const calendarDisabledMatchers = getCalendarDisabledMatchers({minDate: effectiveMinDate, maxDate: effectiveMaxDate, disabledDates, disabledDateRanges, disabledDaysOfWeek});
     const todayDate = plainDateToDate(getTodayPlainDate());
     const isTodayUnavailable = dateMatchModifiers(todayDate, calendarDisabledMatchers);
     const isTodayDisabled = isDisabled || isReadOnly || isTodayUnavailable;
@@ -415,7 +423,14 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                                 return;
                             }
 
-                            emitChange(event, {plainDate: selectedDate ?? getTodayPlainDate(), plainTime: time});
+                            const plainDate = selectedDate ?? getTodayPlainDate();
+
+                            // A time outside the datetime bounds is dropped like any other invalid entry.
+                            if (!isWithinBounds(assembleValue(plainDate, time, currentTimeZone, type), minBound, maxBound)) {
+                                return;
+                            }
+
+                            emitChange(event, {plainDate, plainTime: time});
                         }}
                     />
                 )}

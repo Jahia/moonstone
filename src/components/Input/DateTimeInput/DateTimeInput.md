@@ -51,6 +51,17 @@ Provide `value` + `onChange` for controlled (`onChange` is required), or `defaul
 
 Each accepts a `Temporal.PlainDate` or an ISO date string.
 
+### Datetime bounds
+
+`minDateTime` / `maxDateTime` bound the value at minute precision (inclusive), winning over
+`minDate` / `maxDate` when both are set. In `dateTime` mode they take a `Temporal.PlainDateTime`
+or ISO string; in `zonedDateTime` mode they are instants (same union as `value`) and validity is
+evaluated in the selected timezone — a calendar day stays available as long as it holds at least
+one valid instant in that zone, so the boundary days follow the `TimezoneSelector`. On a boundary
+day, a typed time outside the bounds is dropped like any other invalid entry: nothing is emitted
+and the field falls back to the stored value. Picking a boundary day in the calendar always emits;
+the time component is the consumer's to validate at that point.
+
 ## Calendar header
 
 The header shows a year dropdown whenever the navigable range spans more than one year, and a

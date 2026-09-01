@@ -3,7 +3,7 @@ import type {Temporal} from 'temporal-polyfill';
 import type {BaseInputProps} from '../BaseInput/BaseInput.types';
 import type {TimeFormat, TimeInputProps} from '../TimeInput';
 import type {ControlledTimezoneSelectorProps} from '../../TimezoneSelector';
-import type {DateTimeValue} from './dateTimeValue';
+import type {DateTimeBoundInput, DateTimeValue} from './dateTimeValue';
 import type {DataAttributes} from '~/types/DataAttributes.types';
 import type {ZonedDateTimeInput} from '../utils/temporal';
 
@@ -195,6 +195,8 @@ type ControlMode<V, I = V | string> = Controlled<V, I> | Uncontrolled<V, I>;
 type DateModeProps = {
     type: 'date';
     timeFormat?: never;
+    minDateTime?: never;
+    maxDateTime?: never;
 } & ControlMode<Temporal.PlainDate>;
 
 /** `type='dateTime'` — value is a `Temporal.PlainDateTime` (or ISO date-time string). */
@@ -206,6 +208,16 @@ type DateTimeModeProps = {
      * @default '24h'
      */
     timeFormat?: TimeFormat;
+
+    /**
+     * Lower datetime bound (inclusive), e.g. `'2019-06-04T10:00'`. Days before it are disabled
+     * in the calendar, and a typed time before it on the boundary day is dropped like any other
+     * invalid entry. Wins over `minDate` when both are set.
+     */
+    minDateTime?: Temporal.PlainDateTime | string;
+
+    /** Upper datetime bound (inclusive). Wins over `maxDate` when both are set. */
+    maxDateTime?: Temporal.PlainDateTime | string;
 } & ControlMode<Temporal.PlainDateTime>;
 
 /**
@@ -220,6 +232,16 @@ type ZonedModeProps = {
      * @default '24h'
      */
     timeFormat?: TimeFormat;
+
+    /**
+     * Lower bound (inclusive) as an instant — same union as `value`. Validity is evaluated in
+     * the selected timezone, so the first available calendar day follows the `TimezoneSelector`.
+     * Wins over `minDate` when both are set.
+     */
+    minDateTime?: ZonedDateTimeInput;
+
+    /** Upper bound (inclusive) as an instant — same union as `value`. Wins over `maxDate`. */
+    maxDateTime?: ZonedDateTimeInput;
 } & ControlMode<Temporal.ZonedDateTime, ZonedDateTimeInput>;
 
 export type DateTimeInputProps = DateTimeInputSharedProps & (DateModeProps | DateTimeModeProps | ZonedModeProps);
@@ -231,6 +253,8 @@ export type DateTimeInputProps = DateTimeInputSharedProps & (DateModeProps | Dat
 export type DateTimeInputImplProps = DateTimeInputSharedProps & {
     type: DateTimeInputType;
     timeFormat?: TimeFormat;
+    minDateTime?: DateTimeBoundInput;
+    maxDateTime?: DateTimeBoundInput;
     onChange?: (event: React.SyntheticEvent, value: DateTimeValue | null) => void;
 };
 

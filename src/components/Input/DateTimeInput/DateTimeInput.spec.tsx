@@ -710,6 +710,110 @@ describe('DateTimeInput', () => {
         expect(dayButton).toBeDisabled();
     });
 
+    it('should drop a typed time outside the datetime bounds and accept one inside them', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                type="dateTime"
+                placeholder="Select a date"
+                defaultValue="2019-06-04T12:00"
+                minDateTime="2019-06-04T10:00"
+                maxDateTime="2019-06-05T09:59"
+                onChange={handleChange}
+            />
+        );
+
+        const timeField = screen.getByDisplayValue('12:00');
+        await user.clear(timeField);
+        await user.type(timeField, '0800');
+        await user.tab();
+
+        expect(handleChange).not.toHaveBeenCalled();
+        expect(timeField).toHaveValue('12:00');
+
+        await user.clear(timeField);
+        await user.type(timeField, '1030');
+        await user.tab();
+
+        expect(lastValue(handleChange).toString()).toBe('2019-06-04T10:30:00');
+    });
+
+    it('should disable only the days holding no instant inside the datetime bounds', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                type="dateTime"
+                placeholder="Select a date"
+                defaultValue="2019-06-04T12:00"
+                minDateTime="2019-06-04T10:00"
+                maxDateTime="2019-06-05T09:59"
+                onChange={() => null}
+            />
+        );
+
+        await user.click(dateField());
+
+        const dayButton = (day: string) => screen.getAllByRole('button').find(button => button.textContent === day);
+        expect(dayButton('3')).toBeDisabled();
+        expect(dayButton('4')).not.toBeDisabled();
+        expect(dayButton('5')).not.toBeDisabled();
+        expect(dayButton('6')).toBeDisabled();
+    });
+
+    it('should derive the first available day from the instant bound in the selected timezone', async () => {
+        const user = userEvent.setup();
+        const props = {
+            ...localeProps,
+            type: 'zonedDateTime',
+            placeholder: 'Select a date',
+            minDateTime: '2019-06-04T16:00:00Z',
+            onChange: (): null => null
+        } as const;
+
+        const {rerender} = render(<DateTimeInput {...props} value="2019-06-10T12:00[Asia/Tokyo]"/>);
+
+        await user.click(dateField());
+
+        const june4 = () => screen.getAllByRole('button').find(button => button.textContent === '4');
+        // 16:00Z is June 5th 01:00 in Tokyo: June 4th holds no valid instant there.
+        expect(june4()).toBeDisabled();
+
+        rerender(<DateTimeInput {...props} value="2019-06-10T12:00[Pacific/Honolulu]"/>);
+
+        // In Honolulu the bound is June 4th 06:00, so June 4th becomes available.
+        expect(june4()).not.toBeDisabled();
+    });
+
+    it('should let minDateTime win over minDate and warn about the conflict', async () => {
+        const user = userEvent.setup();
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => null);
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                type="dateTime"
+                placeholder="Select a date"
+                defaultValue="2019-06-10T12:00"
+                minDate="2019-06-08"
+                minDateTime="2019-06-04T10:00"
+                onChange={() => null}
+            />
+        );
+
+        await user.click(dateField());
+
+        const dayButton = (day: string) => screen.getAllByRole('button').find(button => button.textContent === day);
+        expect(dayButton('5')).not.toBeDisabled();
+        expect(dayButton('3')).toBeDisabled();
+        expect(warn).toHaveBeenCalled();
+        warn.mockRestore();
+    });
+
     it('should not emit when timezone changes but no date has been selected yet', async () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();

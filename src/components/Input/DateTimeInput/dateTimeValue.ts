@@ -1,6 +1,6 @@
 import {Temporal} from 'temporal-polyfill';
 import {toPlainDate, toPlainDateTime, toZonedDateTime, type ZonedDateTimeInput} from '../utils/temporal';
-import type {DateTimeInputType} from './DateTimeInput.types';
+import type {CalendarDate, DateTimeInputType} from './DateTimeInput.types';
 
 /**
  * Internal helpers that bridge the single canonical `DateTimeInput` value and the
@@ -46,6 +46,70 @@ export const parseValue = (input: DateTimeValueInput, type: DateTimeInputType, f
     }
 
     return toPlainDateTime(input as Temporal.PlainDateTime | string | null | undefined);
+};
+
+/** A `minDateTime`/`maxDateTime` bound: a wall-clock datetime, or an instant in zoned mode. */
+export type DateTimeBoundInput = Temporal.PlainDateTime | ZonedDateTimeInput;
+
+/** A normalized bound, in the canonical type of the mode. */
+export type DateTimeBound = Temporal.PlainDateTime | Temporal.ZonedDateTime | null;
+
+/**
+ * Normalizes a datetime bound for the mode. Zoned bounds are instants, projected into
+ * `timeZone` so their calendar day follows the selected zone.
+ */
+const toDateTimeBound = (bound: DateTimeBoundInput | null | undefined, type: DateTimeInputType, timeZone: string): DateTimeBound => {
+    if (bound === null || bound === undefined || type === 'date') {
+        return null;
+    }
+
+    if (type === 'zonedDateTime') {
+        return toZonedDateTime(bound as ZonedDateTimeInput)?.withTimeZone(timeZone) ?? null;
+    }
+
+    return toPlainDateTime(bound as Temporal.PlainDateTime | string);
+};
+
+/** Resolves the datetime bounds and the day-level calendar bounds they imply; the datetime form wins. */
+export const getEffectiveBounds = ({minDate, maxDate, minDateTime, maxDateTime, type, timeZone}: {
+    minDate?: CalendarDate;
+    maxDate?: CalendarDate;
+    minDateTime?: DateTimeBoundInput;
+    maxDateTime?: DateTimeBoundInput;
+    type: DateTimeInputType;
+    timeZone: string;
+}): {minBound: DateTimeBound; maxBound: DateTimeBound; effectiveMinDate?: CalendarDate; effectiveMaxDate?: CalendarDate} => {
+    if ((minDateTime && minDate) || (maxDateTime && maxDate)) {
+        console.warn('Ignoring `minDate`/`maxDate`: `minDateTime`/`maxDateTime` wins when both are set.');
+    }
+
+    const minBound = toDateTimeBound(minDateTime, type, timeZone);
+    const maxBound = toDateTimeBound(maxDateTime, type, timeZone);
+
+    return {
+        minBound,
+        maxBound,
+        effectiveMinDate: minBound?.toPlainDate() ?? minDate,
+        effectiveMaxDate: maxBound?.toPlainDate() ?? maxDate
+    };
+};
+
+/**
+ * Whether the value sits inside the datetime bounds (inclusive). Zoned values compare as
+ * instants, plain values by wall-clock; date-only values and missing bounds always pass.
+ */
+export const isWithinBounds = (value: DateTimeValue | null, minBound: DateTimeBound, maxBound: DateTimeBound): boolean => {
+    if (!value || value instanceof Temporal.PlainDate) {
+        return true;
+    }
+
+    if (value instanceof Temporal.ZonedDateTime) {
+        return (!(minBound instanceof Temporal.ZonedDateTime) || Temporal.Instant.compare(value.toInstant(), minBound.toInstant()) >= 0) &&
+            (!(maxBound instanceof Temporal.ZonedDateTime) || Temporal.Instant.compare(value.toInstant(), maxBound.toInstant()) <= 0);
+    }
+
+    return (!(minBound instanceof Temporal.PlainDateTime) || Temporal.PlainDateTime.compare(value, minBound) >= 0) &&
+        (!(maxBound instanceof Temporal.PlainDateTime) || Temporal.PlainDateTime.compare(value, maxBound) <= 0);
 };
 
 /** Extracts the calendar day from any canonical value. */
