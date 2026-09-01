@@ -36,18 +36,13 @@ import type {ControlledDateTimeInputProps} from './DateTimeInput.types';
 import baseInputStyles from '../BaseInput/BaseInput.module.scss';
 import styles from './DateTimeInput.module.scss';
 
-// Both header dropdowns render identically; only the value they write back differs.
-// `getMonthOptions`/`getYearOptions` already flag the options outside `startMonth`/`endMonth`,
-// so `minDate`/`maxDate` are honoured without any extra work here.
+// Options outside `startMonth`/`endMonth` arrive already flagged as disabled.
 const toDropdownData = (options: DropdownProps['options']) => (options ?? []).map(option => ({
     label: option.label,
     value: String(option.value),
     isDisabled: option.disabled
 }));
 
-// A caption control is a dropdown only in its matching `dropdown*` layout, and plain text
-// otherwise: `dropdown-years` is exactly why a single-month range renders the month as a `<span>`.
-// Each control therefore appears exactly when its own range is navigable, with no prop to set.
 const getCaptionLayout = (hasMultipleMonths: boolean, hasMultipleYears: boolean) => {
     if (hasMultipleMonths) {
         return hasMultipleYears ? 'dropdown' : 'dropdown-months';
@@ -123,17 +118,14 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     const todayDate = plainDateToDate(getTodayPlainDate());
     const isTodayUnavailable = dateMatchModifiers(todayDate, calendarDisabledMatchers);
     const isTodayDisabled = isDisabled || isReadOnly || isTodayUnavailable;
-    // Anchored on the selected date (today when there is none), not on the displayed month:
-    // deriving the range from `displayedMonth` made the window slide along with navigation, so
-    // jumping to 2046 turned it into 2026-2066 and dropped the years already visited.
+    // Anchored on the selection, not the displayed month, so the range doesn't slide while navigating.
     const referenceYear = (selectedDate ?? getTodayPlainDate()).year;
     const startMonth = getMonthStart(minPlainDate, referenceYear - 50, 0);
     const endMonth = getMonthStart(maxPlainDate, referenceYear + 50, 11);
     const hasMultipleYears = startMonth.getFullYear() !== endMonth.getFullYear();
     const hasMultipleMonths = startMonth.getTime() !== endMonth.getTime();
 
-    // The header dropdowns keep the other unit as-is, which can land past the bounds
-    // (e.g. endMonth = March 2027, viewing November 2026, picking 2027).
+    // A header dropdown pick can land past `startMonth`/`endMonth`.
     const clampToRange = (month: Date) => {
         if (month < startMonth) {
             return startMonth;
@@ -141,6 +133,18 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
 
         return month > endMonth ? endMonth : month;
     };
+
+    // Month and year header dropdowns differ only by the date they write back.
+    const headerDropdown = (toMonth: (value: number) => Date, hasSearch = true) => (dropdownProps: DropdownProps) => (
+        <Dropdown
+            size="medium"
+            variant="ghost"
+            hasSearch={hasSearch}
+            data={toDropdownData(dropdownProps.options)}
+            value={String(dropdownProps.value ?? '')}
+            onChange={(_e, item) => setDisplayedMonth(clampToRange(toMonth(Number(item.value))))}
+        />
+    );
 
     const captionLayout = getCaptionLayout(hasMultipleMonths, hasMultipleYears);
 
@@ -244,21 +248,13 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                         onBlur?.(event);
                     }}
                     onKeyDown={event => {
-                        // Escape closes the calendar and stops there. `useDismiss` would do the
-                        // closing, but it listens on `document` — and so does the consumer's Modal,
-                        // through its own `useDismiss`. Two listeners on the same node means
-                        // `stopPropagation` from one cannot spare the other, so a single Escape would
-                        // close the calendar and the Modal around it. React attaches events at the
-                        // root, below `document`, so stopping here keeps the key from reaching either.
+                        // Stopped before it reaches `document`, where the consumer's Modal also listens for Escape.
                         if (event.key === 'Escape' && isCalendarOpen) {
                             event.stopPropagation();
                             setIsCalendarOpen(false);
                         }
 
-                        // Space only before the field has been typed into: once `draft` exists it is
-                        // a character to type (a date pattern can use it as a separator), not a
-                        // shortcut. Checked on keydown, before the browser inserts it, so the check
-                        // still sees the untouched field — by keyup the space would be in `draft`.
+                        // Only on an untouched field — once a draft exists Space is a character; keydown runs before insertion.
                         if (event.key === ' ' && draft === null) {
                             event.preventDefault();
                             openCalendar();
@@ -282,8 +278,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                             className={styles.calendarPopover}
                             style={floatingStyles}
                             {...getFloatingProps({
-                                // Same containment as the input's Escape: without it the key also
-                                // reaches the document listener of the consumer's Modal.
+                                // Same containment as the input's Escape.
                                 onKeyDown: event => {
                                     if (event.key === 'Escape') {
                                         event.stopPropagation();
@@ -312,29 +307,8 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                                     /* eslint-enable camelcase */
                                 }}
                                 components={{
-                                    MonthsDropdown: (dropdownProps: DropdownProps) => (
-                                        <Dropdown
-                                            size="medium"
-                                            variant="ghost"
-                                            hasSearch={false}
-                                            data={toDropdownData(dropdownProps.options)}
-                                            value={String(dropdownProps.value ?? '')}
-                                            onChange={(_e, item) => {
-                                                setDisplayedMonth(clampToRange(new Date(displayedMonth.getFullYear(), Number(item.value), 1)));
-                                            }}
-                                        />
-                                    ),
-                                    YearsDropdown: (dropdownProps: DropdownProps) => (
-                                        <Dropdown
-                                            size="medium"
-                                            variant="ghost"
-                                            data={toDropdownData(dropdownProps.options)}
-                                            value={String(dropdownProps.value ?? '')}
-                                            onChange={(_e, item) => {
-                                                setDisplayedMonth(clampToRange(new Date(Number(item.value), displayedMonth.getMonth(), 1)));
-                                            }}
-                                        />
-                                    )
+                                    MonthsDropdown: headerDropdown(month => new Date(displayedMonth.getFullYear(), month, 1), false),
+                                    YearsDropdown: headerDropdown(year => new Date(year, displayedMonth.getMonth(), 1))
                                 }}
                                 labels={{
                                     labelNext: () => i18nLabels.nextMonth,
@@ -362,10 +336,8 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                                         isDisabled={isTodayDisabled}
                                         label={i18nLabels.todayButton}
                                         onClick={event => {
-                                            if (!isTodayDisabled) {
-                                                emitChange(event, {plainDate: getTodayPlainDate()});
-                                                setIsCalendarOpen(false);
-                                            }
+                                            emitChange(event, {plainDate: getTodayPlainDate()});
+                                            setIsCalendarOpen(false);
                                         }}
                                     />
                                 )}
@@ -375,14 +347,11 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                                         return;
                                     }
 
-                                    // Re-clicking the selected day is DayPicker's deselect (`date` is
-                                    // undefined); clearing stays on the field's own affordance.
-                                    if (!date) {
-                                        setIsCalendarOpen(false);
-                                        return;
+                                    // Re-clicking the selected day is DayPicker's deselect; keep the value.
+                                    if (date) {
+                                        emitChange(event, {plainDate: dateToPlainDate(date)});
                                     }
 
-                                    emitChange(event, {plainDate: dateToPlainDate(date)});
                                     setIsCalendarOpen(false);
                                 }}
                             />
@@ -400,9 +369,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                         timeFormat={timeFormat}
                         value={selectedTime}
                         onChange={(event, time) => {
-                            // Clearing the time with no date is a no-op; otherwise a null time
-                            // assembles to midnight (and the controlled field then shows 00:00).
-                            // Seeding today only happens when the calendar itself allows today.
+                            // With no date, a cleared time or an unavailable today has nothing to emit.
                             if (selectedDate === null && (time === null || isTodayUnavailable)) {
                                 return;
                             }
@@ -424,8 +391,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                             const zone = nextZone ?? currentTimeZone;
                             setFallbackZone(zone);
 
-                            // With no date yet there is nothing complete to emit; just remember
-                            // the chosen zone so it applies once a date is picked.
+                            // With no date yet, just remember the zone; it applies once a date is picked.
                             if (selectedDate) {
                                 emitChange(event, {timeZone: zone});
                             }

@@ -61,16 +61,13 @@ export const toPlainDateTime = (value?: PlainDateTimeInput | null): Temporal.Pla
     }
 };
 
-/**
- * Anchors a zone-less instant in `fallbackZone` when it's a valid IANA identifier, the system
- * zone otherwise — covers both "not provided" and "provided but invalid" without losing the value.
- */
+/** Anchors an instant in `fallbackZone` when it's a valid IANA zone, the system zone otherwise. */
 const toZoneOrSystem = (instant: Temporal.Instant, fallbackZone?: string): Temporal.ZonedDateTime => {
     if (fallbackZone) {
         try {
             return instant.toZonedDateTimeISO(fallbackZone);
         } catch {
-            // Not a valid IANA zone — fall through to the system zone rather than losing the value.
+            // Invalid zone — use the system zone.
         }
     }
 
@@ -79,8 +76,7 @@ const toZoneOrSystem = (instant: Temporal.Instant, fallbackZone?: string): Tempo
 
 /**
  * Coerces a zoned date+time input to `Temporal.ZonedDateTime`, or `null` when absent/invalid.
- * `fallbackZone` anchors a zone-less value (`Date`, `Temporal.Instant`, or an offset-only/UTC
- * string) instead of the system zone; it's ignored when the value already carries its own zone.
+ * `fallbackZone` anchors a zone-less value; it's ignored when the value carries its own zone.
  */
 export const toZonedDateTime = (value?: ZonedDateTimeInput | null, fallbackZone?: string): Temporal.ZonedDateTime | null => {
     if (value === null || value === undefined) {

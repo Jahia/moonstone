@@ -20,8 +20,7 @@ export const ControlledTimezoneSelector: React.FC<ControlledTimezoneSelectorProp
     onChange,
     ...props
 }) => {
-    // Keyed on the ISO string: the parent may recreate an equal `referenceDate` on every render,
-    // and rebuilding the full catalog (~400 zones) per render is measurable.
+    // Keyed on the ISO string: the parent may recreate an equal `referenceDate` every render.
     const referenceDateKey = toPlainDate(referenceDate)?.toString() ?? null;
     const data = useMemo(() => getTimezoneDropdownData(value, toPlainDate(referenceDateKey)), [value, referenceDateKey]);
 
