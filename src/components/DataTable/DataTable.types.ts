@@ -186,11 +186,25 @@ type SearchColumns<T extends NonNullable<unknown>> = Array<Extract<Exclude<keyof
 
 type SearchInputAttributes = Omit<SearchInputProps, 'value' | 'defaultValue' | 'onChange' | 'onClear'>;
 
+/**
+ * Search accepts two shapes, and only two.
+ *
+ * Controlled: you own the query through `searchValue` and `onSearchChange`.
+ * `searchColumns` stays optional here, because a controlled query usually
+ * means you filter `data` yourself (a server-side search) and the table must
+ * not filter it a second time. Pass it anyway if you only want to drive the
+ * value from the outside, for instance to keep it in a URL, and still let the
+ * table do the filtering.
+ *
+ * Uncontrolled: the table owns the query, so `searchColumns` becomes
+ * required — nothing else would filter the rows, and the field would look
+ * broken. `onSearchChange` is then a plain observer.
+ */
 type SearchProps<T extends NonNullable<unknown>> =
     | {
           /** Enable search for the table */
           enableSearch: true;
-          /** Columns to search (case-insensitive substring match on the raw value). Omit for server-side search. */
+          /** Columns filtered by the table. Omit it when you filter `data` yourself */
           searchColumns?: SearchColumns<T>;
           /** Current search query (controlled) */
           searchValue: string;
@@ -210,7 +224,7 @@ type SearchProps<T extends NonNullable<unknown>> =
     | {
           /** Enable search for the table */
           enableSearch: true;
-          /** Columns to search (case-insensitive substring match on the raw value). Omit for server-side search. */
+          /** Columns filtered by the table (case-insensitive substring match on the raw value) */
           searchColumns: SearchColumns<T>;
           searchValue?: never;
           /** Optional callback to observe search changes */
