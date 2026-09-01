@@ -131,13 +131,8 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
                     variant={variant}
                     isDisabled={isDisabled || isReadOnly}
                     onChange={(event: React.SyntheticEvent, item?: DropdownDataOption) => {
-                        // An empty field has no time to re-emit — without this a meridiem pick
-                        // fires a stray onChange(null) and the dropdown snaps back to AM.
-                        if (!displayValue) {
-                            return;
-                        }
-
-                        if (item?.value === 'AM' || item?.value === 'PM') {
+                        // An empty field has no time to re-emit.
+                        if (displayValue && (item?.value === 'AM' || item?.value === 'PM')) {
                             emitChange(event, parseTimeInput(displayValue, '12h', item.value));
                         }
                     }}

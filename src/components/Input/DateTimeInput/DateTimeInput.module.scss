@@ -6,9 +6,7 @@
     max-width: 100%;
 }
 
-// Keeps the date/time/timezone trio together on one line, isolated from .dateTimeInput's own
-// wrap: without this, the local-time caption's flex-basis: 100% (which relies on that wrap to
-// drop to its own line) would let the fields themselves wrap apart under the same pressure.
+// Keeps the three fields on one line; only the local-time caption wraps below.
 .fieldsRow {
     display: flex;
     flex-wrap: nowrap;
@@ -19,19 +17,12 @@
 .dateField {
     width: 140px;
 
-    // Without this floor, flexbox squeezes it below content size before touching TimezoneSelector's own 250px floor.
-    // BaseInput's own global-bundle class sets the same property at equal specificity and can land later in the
-    // cascade, so this needs !important to reliably win.
+    // Floor against flex squeeze; BaseInput's global class sets the same property at equal specificity, hence the !important.
     /* stylelint-disable-next-line declaration-no-important */
     min-width: 140px !important;
 
-    // A click anywhere on the field opens the calendar, but BaseInput announces the whole thing as
-    // a text field (`cursor: text`), so the calendar icon offered a caret and nothing said it could
-    // be clicked. The icon cannot advertise itself — it is `pointer-events: none`, so the field is
-    // the hover target over it — hence pointing at the field and handing the caret back to the
-    // input alone, which is the only part that really is typed into.
-    // Disabled and read-only stay on `not-allowed`, matching openCalendar's own refusal. That
-    // `:not()` also lifts specificity above `.moonstone-baseInput`, so no !important is needed here.
+    // The icon is pointer-events: none, so the field carries the pointer and the input keeps the caret.
+    // The :not() lifts specificity above BaseInput's class and keeps not-allowed when disabled/read-only.
     &:not(:has(input:disabled, input:read-only)) {
         cursor: pointer;
 
@@ -90,9 +81,7 @@
     }
 }
 
-// The caption (nav buttons + month/year dropdowns) is wider than the day grid for long month
-// names (September, November): stretching the grid keeps both at the same width instead of
-// leaving a blank strip on the right of the popover.
+// Long month names make the caption wider than the grid; stretch the grid to match.
 .calendarGrid {
     width: 100%;
 }
