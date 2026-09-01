@@ -1209,6 +1209,44 @@ describe('DataTable search', () => {
         expect(screen.getByText('1-1 of 2')).toBeInTheDocument();
     });
 
+    it('should warn when a server-side search is mixed with an uncontrolled pagination', () => {
+        const warning = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+        render(
+            <DataTable<TestData>
+                enableSearch
+                enablePagination
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                searchValue="ali"
+                onSearchChange={() => { }}
+            />
+        );
+
+        // The consumer filters and pages on their side, so `totalItems` cannot be inferred from `data`
+        expect(warning).toHaveBeenCalled();
+        warning.mockRestore();
+    });
+
+    it('should not warn when the search is controlled but the filtering stays client-side', () => {
+        const warning = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+        render(
+            <DataTable<TestData>
+                enableSearch
+                enablePagination
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                searchColumns={['name']}
+                searchValue="ali"
+                onSearchChange={() => { }}
+            />
+        );
+
+        expect(warning).not.toHaveBeenCalled();
+        warning.mockRestore();
+    });
+
     it('should keep the ancestors of a matching nested row visible', async () => {
         const user = userEvent.setup();
         render(

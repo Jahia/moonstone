@@ -30,6 +30,21 @@ import {
 // Styles for custom column headers (no padding to match measured cell widths)
 const CUSTOM_HEADER_STYLE = {padding: 0};
 
+type SearchPaginationGuard = {
+    enableSearch: boolean;
+    isSearchControlled: boolean;
+    searchColumns?: readonly string[];
+    enablePagination: boolean;
+    isPaginationControlled: boolean;
+};
+
+// The types cannot express a constraint spanning two features, so it is checked at runtime
+const warnOnSearchPaginationMismatch = ({enableSearch, isSearchControlled, searchColumns, enablePagination, isPaginationControlled}: SearchPaginationGuard) => {
+    if (enableSearch && isSearchControlled && !searchColumns?.length && enablePagination && !isPaginationControlled) {
+        console.warn('A controlled `searchValue` without `searchColumns` means the DataTable component filters nothing: pagination must be controlled too (`currentPage` and `totalItems`), otherwise the item count only reflects the rows of the current page.');
+    }
+};
+
 export const DataTable = <T extends NonNullable<unknown>>({
     className,
     data,
@@ -115,9 +130,17 @@ export const DataTable = <T extends NonNullable<unknown>>({
         totalItems
     });
 
-    const {globalFilter, handleGlobalFilterChange} = useSearch({
+    const {globalFilter, isSearchControlled, handleGlobalFilterChange} = useSearch({
         searchValue,
         onSearchChange
+    });
+
+    warnOnSearchPaginationMismatch({
+        enableSearch,
+        isSearchControlled,
+        searchColumns,
+        enablePagination,
+        isPaginationControlled
     });
 
     const tableColumns = useMemo(() => createTableColumns(columns), [columns]);
@@ -142,6 +165,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
         getFilteredRowModel: enableSearch ? getFilteredRowModel() : undefined,
         globalFilterFn: 'includesString',
         getColumnCanGlobalFilter: column => Boolean(searchColumns?.some(key => key === column.id)),
+        manualFiltering: !searchColumns?.length,
         filterFromLeafRows: isStructured,
         getExpandedRowModel: getExpandedRowModel(),
         getPaginationRowModel: enablePagination ? getPaginationRowModel() : undefined,
