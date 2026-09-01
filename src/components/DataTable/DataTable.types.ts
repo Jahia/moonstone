@@ -201,6 +201,11 @@ type SearchProps<T extends NonNullable<unknown>> =
            * Pass `placeholder` to localize it, and `aria-label` or `aria-labelledby` to give it an accessible name.
            */
           searchInputProps?: SearchInputAttributes;
+          /**
+           * Message displayed instead of the rows when the query matches nothing
+           * @default 'No results'
+           */
+          noResultsMessage?: string;
       }
     | {
           /** Enable search for the table */
@@ -215,6 +220,11 @@ type SearchProps<T extends NonNullable<unknown>> =
            * Pass `placeholder` to localize it, and `aria-label` or `aria-labelledby` to give it an accessible name.
            */
           searchInputProps?: SearchInputAttributes;
+          /**
+           * Message displayed instead of the rows when the query matches nothing
+           * @default 'No results'
+           */
+          noResultsMessage?: string;
       }
     | {
           enableSearch?: false;
@@ -222,6 +232,7 @@ type SearchProps<T extends NonNullable<unknown>> =
           searchValue?: never;
           onSearchChange?: never;
           searchInputProps?: never;
+          noResultsMessage?: never;
       };
 
 export type RenderOptions = {

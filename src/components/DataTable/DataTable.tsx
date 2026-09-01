@@ -69,6 +69,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     searchValue,
     onSearchChange,
     searchInputProps,
+    noResultsMessage = 'No results',
     rowProps,
     ...props
 }: DataTableProps<T>) => {
@@ -224,6 +225,9 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
     const isEmpty = !data || !Array.isArray(data) || data.length === 0;
 
+    const rows = table.getRowModel().rows;
+    const columnCount = customBeforeCount + (enableSelection ? 1 : 0) + tableColumns.length + customAfterCount;
+
     if (isEmpty && !enableSearch) {
         return null;
     }
@@ -285,7 +289,13 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     ))}
                 </TableHead>
                 <TableBody>
-                    {table.getRowModel().rows.map(row => renderRowWithCustomization(row))}
+                    {enableSearch && rows.length === 0 ? (
+                        <TableRow>
+                            <TableCell colSpan={columnCount} align="center">{noResultsMessage}</TableCell>
+                        </TableRow>
+                    ) : (
+                        rows.map(row => renderRowWithCustomization(row))
+                    )}
                 </TableBody>
             </Table>
             {enablePagination && (

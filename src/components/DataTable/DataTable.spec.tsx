@@ -1111,6 +1111,60 @@ describe('DataTable search', () => {
         expect(screen.getByText('Charlie')).toBeInTheDocument();
     });
 
+    it('should tell the user when the query matches nothing', async () => {
+        const user = userEvent.setup();
+        render(
+            <DataTable<TestData>
+                enableSearch
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                searchColumns={['name']}
+            />
+        );
+
+        await user.type(screen.getByRole('searchbox'), 'nobody');
+
+        expect(screen.getByText('No results')).toBeInTheDocument();
+    });
+
+    it('should allow the no-results message to be localized', async () => {
+        const user = userEvent.setup();
+        render(
+            <DataTable<TestData>
+                enableSearch
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                searchColumns={['name']}
+                noResultsMessage="Aucun résultat"
+            />
+        );
+
+        await user.type(screen.getByRole('searchbox'), 'nobody');
+
+        expect(screen.getByText('Aucun résultat')).toBeInTheDocument();
+    });
+
+    it('should span the no-results message over every column', async () => {
+        const user = userEvent.setup();
+        render(
+            <DataTable<TestData>
+                enableSearch
+                enableSelection
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                searchColumns={['name']}
+            />
+        );
+
+        await user.type(screen.getByRole('searchbox'), 'nobody');
+
+        // Selection column + the 2 data columns
+        expect(screen.getByText('No results')).toHaveAttribute('colspan', '3');
+    });
+
     it('should keep the search field mounted when data is empty', () => {
         // Regression: a server-side query with no result used to unmount the whole component,
         // leaving the user unable to clear their own query
@@ -1126,6 +1180,7 @@ describe('DataTable search', () => {
         );
 
         expect(screen.getByRole('searchbox')).toHaveValue('no result');
+        expect(screen.getByText('No results')).toBeInTheDocument();
     });
 
     it('should go back to the first page and recount when the query changes', async () => {
