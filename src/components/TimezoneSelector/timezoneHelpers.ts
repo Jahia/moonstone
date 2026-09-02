@@ -20,12 +20,13 @@ const FALLBACK_TIMEZONES = [
     'Australia/Sydney'
 ];
 
-/**
- * The full IANA timezone list (computed once), minus UTC — UTC is only offered when it is the
- * selected value. The dropdown's own search handles the volume; we just group + sort.
- */
-const DEFAULT_TIMEZONES = (intlWithSupportedValues.supportedValuesOf?.('timeZone') ?? FALLBACK_TIMEZONES)
-    .filter(timezone => timezone !== 'UTC');
+const UTC = 'UTC';
+
+// The full IANA list (computed once) with UTC pinned first; some runtimes list it, others don't.
+const DEFAULT_TIMEZONES = [
+    UTC,
+    ...(intlWithSupportedValues.supportedValuesOf?.('timeZone') ?? FALLBACK_TIMEZONES).filter(timezone => timezone !== UTC)
+];
 
 const getTimezoneRegion = (timezone: string) => timezone.split('/')[0] || 'Other';
 
@@ -36,6 +37,19 @@ const getTimezoneOption = (timezone: string, referenceDate: Temporal.PlainDate):
     label: `${getTimezoneCityLabel(timezone)} (UTC ${referenceDate.toZonedDateTime({timeZone: timezone, plainTime: NOON}).offset})`,
     value: timezone
 });
+
+// UTC sits in its own group, ahead of the alphabetical regions.
+const compareRegions = (left: string, right: string) => {
+    if (left === right) {
+        return 0;
+    }
+
+    if (left === UTC || right === UTC) {
+        return left === UTC ? -1 : 1;
+    }
+
+    return left.localeCompare(right);
+};
 
 export const getTimezoneDropdownData = (
     selectedTimezone?: string | null,
@@ -62,7 +76,7 @@ export const getTimezoneDropdownData = (
     }, new Map<string, DropdownDataOption[]>());
 
     return [...groups.entries()]
-        .sort(([left], [right]) => left.localeCompare(right))
+        .sort(([left], [right]) => compareRegions(left, right))
         .map(([groupLabel, options]) => ({
             groupLabel,
             options: options.sort((left, right) => left.label.localeCompare(right.label))
