@@ -1,5 +1,5 @@
-A date / date-time / zoned-date-time field: a text trigger that opens a calendar, plus an optional
-time field and timezone selector depending on the mode.
+A date / date-time / zoned-date-time field: a date field that can be typed into or filled from the
+calendar it opens, plus an optional time field and timezone selector depending on the mode.
 
 ## Modes
 
@@ -19,6 +19,15 @@ with no `defaultValue`, an uncontrolled field starts at the current date/time.
 When the date field holds a value it shows a clear (reset) button. Clearing empties the whole value —
 date, time, and zone — and `onChange` emits `null`, since a date-time has no meaning without its date.
 
+## Manual entry
+
+The date can also be typed, in the order the field displays it (from `locale` / `dateFormat`). Any
+non-digit separates the fields (`30/03/2026`, `30-3-26`) and a two-digit year is read as 20xx.
+
+The entry is committed on `Enter` or when the field loses focus. A date that can't be read, or one
+the calendar disables, is dropped: the field falls back to the stored value. Emptying the field
+clears the whole value, like the clear button.
+
 ## Controlled and uncontrolled
 
 Provide `value` + `onChange` for controlled (`onChange` is required), or `defaultValue` for uncontrolled.
@@ -31,6 +40,11 @@ Provide `value` + `onChange` for controlled (`onChange` is required), or `defaul
 - `disabledDaysOfWeek` — recurring weekdays to disable (`0` = Sunday … `6` = Saturday), e.g. `[0, 6]` for weekends.
 
 Each accepts a `Temporal.PlainDate` or an ISO date string.
+
+## Calendar header
+
+The header shows a year dropdown whenever the navigable range spans more than one year, and a
+month dropdown whenever it spans more than one month — no toggle needed, it's automatic.
 
 ## Localization
 

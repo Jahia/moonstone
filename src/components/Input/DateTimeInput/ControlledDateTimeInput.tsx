@@ -1,9 +1,10 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import clsx from 'clsx';
+import {autoUpdate, flip, FloatingPortal, offset, shift, useDismiss, useFloating, useInteractions, useMergeRefs} from '@floating-ui/react';
 import {dateMatchModifiers, DayPicker} from 'react-day-picker';
 import dayPickerClassNames from 'react-day-picker/style.module.css';
 import {Temporal} from 'temporal-polyfill';
-import {Button, Dropdown, Menu, Typography} from '~/components';
+import {Button, Dropdown, Typography} from '~/components';
 import {Calendar} from '~/icons';
 import type {DropdownProps} from 'react-day-picker';
 import {TimezoneSelector} from '../../TimezoneSelector/TimezoneSelector';
@@ -21,7 +22,8 @@ import {
     getCalendarDisabledMatchers,
     getDisplayMonth,
     getMonthStart,
-    getWeekStartsOn
+    getWeekStartsOn,
+    parseDateInput
 } from './calendarHelpers';
 import {
     assembleValue,
@@ -31,7 +33,16 @@ import {
     parseValue
 } from './dateTimeValue';
 import type {ControlledDateTimeInputProps} from './DateTimeInput.types';
+import baseInputStyles from '../BaseInput/BaseInput.module.scss';
 import styles from './DateTimeInput.module.scss';
+
+const getCaptionLayout = (hasMultipleMonths: boolean, hasMultipleYears: boolean) => {
+    if (hasMultipleMonths) {
+        return hasMultipleYears ? 'dropdown' : 'dropdown-months';
+    }
+
+    return hasMultipleYears ? 'dropdown-years' : 'label';
+};
 
 export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, ControlledDateTimeInputProps>(({
     value,
@@ -54,6 +65,8 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     isReadOnly,
     timeInputProps,
     timezoneSelectorProps,
+    onBlur,
+    autoComplete = 'off',
     ...props
 }, ref) => {
     const currentValue = parseValue(value, type);
@@ -73,21 +86,23 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     };
 
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+    const [draft, setDraft] = useState<string | null>(null);
     const [displayedMonth, setDisplayedMonth] = useState(() => getDisplayMonth(selectedDate));
     // The zone to apply while no date exists yet (so a pre-date zone choice isn't lost).
     // Once a date is picked the value carries its own zone, which takes precedence.
     const [fallbackZone, setFallbackZone] = useState(() => getTimeZone(currentValue) ?? getSystemTimeZone());
     const currentTimeZone = getTimeZone(currentValue) ?? fallbackZone;
 
-    const inputRef = React.useRef<HTMLInputElement>(null);
-    const handleRef = useCallback((node: HTMLInputElement | null) => {
-        (inputRef as React.MutableRefObject<HTMLInputElement | null>).current = node;
-        if (typeof ref === 'function') {
-            ref(node);
-        } else if (ref) {
-            (ref as React.MutableRefObject<HTMLInputElement | null>).current = node;
-        }
-    }, [ref]);
+    const {refs, floatingStyles, context} = useFloating({
+        open: isCalendarOpen,
+        onOpenChange: setIsCalendarOpen,
+        placement: 'bottom-start',
+        transform: false,
+        middleware: [offset(4), flip({padding: 8}), shift({padding: 8})],
+        whileElementsMounted: autoUpdate
+    });
+    const {getFloatingProps} = useInteractions([useDismiss(context)]);
+    const fieldRef = useMergeRefs([refs.setReference, ref]);
 
     const minPlainDate = toPlainDate(minDate);
     const maxPlainDate = toPlainDate(maxDate);
@@ -97,6 +112,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     const startMonth = getMonthStart(minPlainDate, displayedMonth.getFullYear() - 20, 0);
     const endMonth = getMonthStart(maxPlainDate, displayedMonth.getFullYear() + 20, 11);
     const hasMultipleYears = startMonth.getFullYear() !== endMonth.getFullYear();
+    const hasMultipleMonths = startMonth.getTime() !== endMonth.getTime();
 
     const systemTimeZone = getSystemTimeZone();
     const showLocalTime =
@@ -127,12 +143,38 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
         event: React.SyntheticEvent,
         change: {plainDate?: Temporal.PlainDate | null; plainTime?: Temporal.PlainTime | null; timeZone?: string} = {}
     ) => {
+        setDraft(null);
         const {plainDate = selectedDate, plainTime = selectedTime, timeZone = currentTimeZone} = change;
         onChange?.(event, assembleValue(plainDate, plainTime, timeZone, type));
     };
 
+    const clearValue = (event: React.SyntheticEvent) => {
+        emitChange(event, {plainDate: null});
+        setFallbackZone(getSystemTimeZone());
+    };
+
+    const commitDraft = (event: React.SyntheticEvent) => {
+        if (draft === null) {
+            return;
+        }
+
+        setDraft(null);
+
+        if (draft.trim() === '') {
+            clearValue(event);
+            return;
+        }
+
+        const typedDate = parseDateInput(draft, resolvedLocale, dateFormat);
+
+        if (typedDate && !dateMatchModifiers(plainDateToDate(typedDate), calendarDisabledMatchers)) {
+            emitChange(event, {plainDate: typedDate});
+        }
+    };
+
     const openCalendar = () => {
         if (!isDisabled && !isReadOnly) {
+            refs.setPositionReference(refs.domReference.current?.closest(`.${baseInputStyles['moonstone-baseInput']}`) ?? null);
             setDisplayedMonth(getDisplayMonth(selectedDate));
             setIsCalendarOpen(true);
         }
@@ -150,123 +192,136 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     return (
         <div className={clsx(styles.dateTimeInput, className)}>
             <BaseInput
-                ref={handleRef}
+                ref={fieldRef}
                 {...props}
                 className={styles.dateField}
-                value={formatPlainDate(selectedDate, resolvedLocale, dateFormat)}
+                value={draft ?? formatPlainDate(selectedDate, resolvedLocale, dateFormat)}
                 size={size}
                 variant={variant}
                 isDisabled={isDisabled}
                 isReadOnly={isReadOnly}
+                autoComplete={autoComplete}
                 icon={<Calendar aria-hidden/>}
-                // No-op: calendar-driven, not typed into. Avoids the controlled-input warning
-                onChange={() => undefined}
-                // The date is the value's spine, so clearing it clears the whole value: emit null
-                // (time goes with it) and reset the pre-date zone fallback. Reported via onChange(null).
+                onChange={event => setDraft(event.target.value)}
                 onClear={event => {
                     event.stopPropagation();
-                    emitChange(event, {plainDate: null});
-                    setFallbackZone(getSystemTimeZone());
+                    clearValue(event);
                 }}
                 onClick={openCalendar}
-                onKeyUp={event => {
-                    if (event.key === 'Enter' || event.key === ' ') {
+                onBlur={event => {
+                    commitDraft(event);
+                    onBlur?.(event);
+                }}
+                // Only before the field has been typed into: once `draft` exists, Space is a
+                // character to type (e.g. as a separator), not a shortcut to open the calendar.
+                // Checked on keydown, before the browser inserts the space, so the check still
+                // sees the untouched field — by keyup the space would already be in `draft`.
+                onKeyDown={event => {
+                    if (event.key === ' ' && draft === null) {
+                        event.preventDefault();
                         openCalendar();
                     }
-
-                    if (event.key === 'Escape') {
-                        setIsCalendarOpen(false);
+                }}
+                onKeyUp={event => {
+                    if (event.key === 'Enter') {
+                        if (draft === null) {
+                            openCalendar();
+                        } else {
+                            commitDraft(event);
+                            setIsCalendarOpen(false);
+                        }
                     }
                 }}
             />
-            {inputRef.current && (
-                <Menu
-                    isDisplayed={isCalendarOpen}
-                    anchorEl={inputRef as React.MutableRefObject<HTMLElement>}
-                    anchorPosition={{top: 4, left: 0}}
-                    position="absolute"
-                    onClose={() => setIsCalendarOpen(false)}
-                >
-                    <DayPicker
-                        animate
-                        data-testid="calendar"
-                        classNames={{
-                            /* eslint-disable camelcase -- react-day-picker classnames are its public API */
-                            ...dayPickerClassNames,
-                            root: clsx(dayPickerClassNames.root, styles.calendar),
-                            month_caption: clsx(dayPickerClassNames.month_caption, styles.calendarHeader),
-                            dropdowns: clsx(dayPickerClassNames.dropdowns, styles.calendarDropdowns),
-                            button_next: clsx(dayPickerClassNames.button_next, styles.calendarNextButton),
-                            button_previous: clsx(dayPickerClassNames.button_previous, styles.calendarPreviousButton),
-                            weekday: clsx(dayPickerClassNames.weekday, styles.calendarWeekday),
-                            today: styles.calendarToday,
-                            selected: styles.calendarSelectedDate,
-                            disabled: styles.calendarDisabledDate,
-                            day_button: clsx(dayPickerClassNames.day_button, styles.calendarDayButton),
-                            footer: styles.calendarFooter
-                            /* eslint-enable camelcase */
-                        }}
-                        components={{
-                            YearsDropdown: (dropdownProps: DropdownProps) => (
-                                <Dropdown
-                                    size="medium"
+            {isCalendarOpen && (
+                <FloatingPortal>
+                    <div
+                        ref={refs.setFloating}
+                        className={styles.calendarPopover}
+                        style={floatingStyles}
+                        {...getFloatingProps()}
+                    >
+                        <DayPicker
+                            animate
+                            data-testid="calendar"
+                            classNames={{
+                                /* eslint-disable camelcase -- react-day-picker classnames are its public API */
+                                ...dayPickerClassNames,
+                                root: clsx(dayPickerClassNames.root, styles.calendar),
+                                month_caption: clsx(dayPickerClassNames.month_caption, styles.calendarHeader),
+                                dropdowns: clsx(dayPickerClassNames.dropdowns, styles.calendarDropdowns),
+                                button_next: clsx(dayPickerClassNames.button_next, styles.calendarNextButton),
+                                button_previous: clsx(dayPickerClassNames.button_previous, styles.calendarPreviousButton),
+                                weekday: clsx(dayPickerClassNames.weekday, styles.calendarWeekday),
+                                today: styles.calendarToday,
+                                selected: styles.calendarSelectedDate,
+                                disabled: styles.calendarDisabledDate,
+                                day_button: clsx(dayPickerClassNames.day_button, styles.calendarDayButton),
+                                footer: styles.calendarFooter
+                                /* eslint-enable camelcase */
+                            }}
+                            components={{
+                                YearsDropdown: (dropdownProps: DropdownProps) => (
+                                    <Dropdown
+                                        size="medium"
+                                        variant="ghost"
+                                        data={(dropdownProps.options ?? []).map(opt => ({
+                                            label: opt.label,
+                                            value: String(opt.value),
+                                            isDisabled: opt.disabled
+                                        }))}
+                                        value={String(dropdownProps.value ?? '')}
+                                        onChange={(_e, item) => {
+                                            setDisplayedMonth(new Date(Number(item.value), displayedMonth.getMonth(), 1));
+                                        }}
+                                    />
+                                )
+                            }}
+                            labels={{
+                                labelNext: () => i18nLabels.nextMonth,
+                                labelPrevious: () => i18nLabels.previousMonth
+                            }}
+                            captionLayout={getCaptionLayout(hasMultipleMonths, hasMultipleYears)}
+                            navLayout="around"
+                            weekStartsOn={weekStartsOn ?? getWeekStartsOn(resolvedLocale)}
+                            month={displayedMonth}
+                            startMonth={startMonth}
+                            endMonth={endMonth}
+                            disabled={calendarDisabledMatchers}
+                            formatters={{
+                                formatCaption: (date: Date) => new Intl.DateTimeFormat(resolvedLocale, {month: 'long', year: 'numeric'}).format(date),
+                                formatMonthDropdown: (date: Date) => new Intl.DateTimeFormat(resolvedLocale, {month: 'long'}).format(date),
+                                formatDay: (date: Date) => new Intl.DateTimeFormat(resolvedLocale, {day: 'numeric'}).format(date),
+                                formatWeekdayName: (date: Date) => new Intl.DateTimeFormat(resolvedLocale, {weekday: 'short'}).format(date)
+                            }}
+                            mode="single"
+                            selected={selectedDate ? plainDateToDate(selectedDate) : undefined}
+                            footer={(
+                                <Button
                                     variant="ghost"
-                                    data={(dropdownProps.options ?? []).map(opt => ({
-                                        label: opt.label,
-                                        value: String(opt.value),
-                                        isDisabled: opt.disabled
-                                    }))}
-                                    value={String(dropdownProps.value ?? '')}
-                                    onChange={(_e, item) => {
-                                        setDisplayedMonth(new Date(Number(item.value), displayedMonth.getMonth(), 1));
+                                    size="default"
+                                    isDisabled={isTodayDisabled}
+                                    label={i18nLabels.todayButton}
+                                    onClick={event => {
+                                        if (!isTodayDisabled) {
+                                            emitChange(event, {plainDate: getTodayPlainDate()});
+                                            setIsCalendarOpen(false);
+                                        }
                                     }}
                                 />
-                            )
-                        }}
-                        labels={{
-                            labelNext: () => i18nLabels.nextMonth,
-                            labelPrevious: () => i18nLabels.previousMonth
-                        }}
-                        captionLayout={hasMultipleYears ? 'dropdown-years' : 'label'}
-                        navLayout="around"
-                        weekStartsOn={weekStartsOn ?? getWeekStartsOn(resolvedLocale)}
-                        month={displayedMonth}
-                        startMonth={startMonth}
-                        endMonth={endMonth}
-                        disabled={calendarDisabledMatchers}
-                        formatters={{
-                            formatCaption: (date: Date) => new Intl.DateTimeFormat(resolvedLocale, {month: 'long', year: 'numeric'}).format(date),
-                            formatMonthDropdown: (date: Date) => new Intl.DateTimeFormat(resolvedLocale, {month: 'long'}).format(date),
-                            formatDay: (date: Date) => new Intl.DateTimeFormat(resolvedLocale, {day: 'numeric'}).format(date),
-                            formatWeekdayName: (date: Date) => new Intl.DateTimeFormat(resolvedLocale, {weekday: 'short'}).format(date)
-                        }}
-                        mode="single"
-                        selected={selectedDate ? plainDateToDate(selectedDate) : undefined}
-                        footer={(
-                            <Button
-                                variant="ghost"
-                                size="default"
-                                isDisabled={isTodayDisabled}
-                                label={i18nLabels.todayButton}
-                                onClick={event => {
-                                    if (!isTodayDisabled) {
-                                        emitChange(event, {plainDate: getTodayPlainDate()});
-                                        setIsCalendarOpen(false);
-                                    }
-                                }}
-                            />
-                        )}
-                        onMonthChange={handleMonthChange}
-                        onSelect={(date, _selectedDay, modifiers, event) => {
-                            if (modifiers.disabled) {
-                                return;
-                            }
+                            )}
+                            onMonthChange={handleMonthChange}
+                            onSelect={(date, _selectedDay, modifiers, event) => {
+                                if (modifiers.disabled) {
+                                    return;
+                                }
 
-                            emitChange(event, {plainDate: date ? dateToPlainDate(date) : null});
-                            setIsCalendarOpen(false);
-                        }}
-                    />
-                </Menu>
+                                emitChange(event, {plainDate: date ? dateToPlainDate(date) : null});
+                                setIsCalendarOpen(false);
+                            }}
+                        />
+                    </div>
+                </FloatingPortal>
             )}
             {type !== 'date' && (
                 <TimeInput

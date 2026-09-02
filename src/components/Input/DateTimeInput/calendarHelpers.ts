@@ -91,6 +91,28 @@ export const formatPlainDate = (value: Temporal.PlainDate | null, locale?: strin
     return new Intl.DateTimeFormat(locale || undefined).format(plainDateToDate(value));
 };
 
+const getDateOrder = (locale: string, dateFormat?: DateFormat): string => {
+    const parts = dateFormat && isValidDateFormat(dateFormat) ?
+        dateFormat.match(DATE_FORMAT_TOKEN_RE) ?? [] :
+        new Intl.DateTimeFormat(locale || undefined).formatToParts(0).map(part => part.type);
+
+    return parts.map(part => part[0].toLowerCase()).filter(initial => 'ymd'.includes(initial)).join('');
+};
+
+export const parseDateInput = (text: string, locale: string, dateFormat?: DateFormat): Temporal.PlainDate | null => {
+    const typedNumbers = text.split(/\D+/).filter(Boolean);
+
+    if (typedNumbers.length !== 3) {
+        return null;
+    }
+
+    const order = getDateOrder(locale, dateFormat);
+    const valueOf = (field: string) => typedNumbers[order.indexOf(field)];
+    const year = Number(valueOf('y'));
+
+    return toPlainDate(`${year < 100 ? 2000 + year : year}-${valueOf('m').padStart(2, '0')}-${valueOf('d').padStart(2, '0')}`);
+};
+
 /** First day of the month (local noon) shown when the calendar opens for a given date. */
 export const getDisplayMonth = (plainDate: Temporal.PlainDate | null): Date => {
     const date = plainDate ?? getTodayPlainDate();

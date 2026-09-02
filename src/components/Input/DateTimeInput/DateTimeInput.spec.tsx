@@ -343,6 +343,47 @@ describe('DateTimeInput', () => {
         expect(dateField()).toHaveValue(selectedDisplay);
     });
 
+    it('should render React DayPicker\'s month dropdown when multiple months are navigable', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                type="date"
+                placeholder="Select a date"
+                defaultValue="2026-03-30"
+                onChange={() => null}
+            />
+        );
+
+        await user.click(dateField());
+
+        const monthDropdown = screen.getByRole('combobox', {name: 'Choose the Month'});
+        await user.selectOptions(monthDropdown, '4');
+
+        expect(screen.getByRole('grid', {name: 'May 2026'})).toBeInTheDocument();
+    });
+
+    it('should not render a month dropdown when minDate and maxDate fall within the same month', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                type="date"
+                placeholder="Select a date"
+                defaultValue="2026-03-15"
+                minDate="2026-03-01"
+                maxDate="2026-03-31"
+                onChange={() => null}
+            />
+        );
+
+        await user.click(dateField());
+
+        expect(screen.queryByRole('combobox', {name: 'Choose the Month'})).not.toBeInTheDocument();
+    });
+
     it('should reset to the selected date month when reopening the calendar', async () => {
         const user = userEvent.setup();
         render(
@@ -431,7 +472,6 @@ describe('DateTimeInput', () => {
         await user.keyboard('{Enter}');
         expect(screen.getByText('Today')).toBeInTheDocument();
 
-        // Close it, then verify Space also opens the calendar
         await user.keyboard('{Escape}');
         dateField().focus();
         await user.keyboard('{ }');
@@ -961,6 +1001,105 @@ describe('DateTimeInput', () => {
         expect(warn).toHaveBeenCalledWith(expect.stringContaining(dateFormat));
 
         warn.mockRestore();
+    });
+
+    describe('manual entry', () => {
+        it('should commit a typed date on Enter, without waiting for the blur', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
+
+            render(<DateTimeInput {...localeProps} type="date" placeholder="Select a date" defaultValue="2026-03-15" onChange={handleChange}/>);
+
+            await user.clear(dateField());
+            await user.type(dateField(), '03/30/2026{Enter}');
+
+            expect(lastValue(handleChange).toString()).toBe('2026-03-30');
+            expect(dateField()).toHaveValue('3/30/2026');
+            expect(dateField()).toHaveFocus();
+        });
+
+        it('should commit a typed date, keeping the time, and clear everything once emptied', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
+
+            render(<DateTimeInput {...localeProps} type="dateTime" placeholder="Select a date" defaultValue="2026-03-15T11:56" onChange={handleChange}/>);
+
+            await user.clear(dateField());
+            await user.type(dateField(), '03/30/2026');
+            expect(handleChange).not.toHaveBeenCalled();
+
+            await user.tab();
+
+            expect(lastValue(handleChange).toString()).toBe('2026-03-30T11:56:00');
+            expect(dateField()).toHaveValue('3/30/2026');
+
+            await user.clear(dateField());
+            await user.tab();
+
+            expect(handleChange).toHaveBeenLastCalledWith(expect.anything(), null);
+            expect(screen.getByPlaceholderText('HH:MM')).toHaveValue('');
+        });
+
+        it('should read the typed date in the order the field displays', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
+
+            render(
+                <DateTimeInput
+                    locale="fr"
+                    type="date"
+                    dateFormat="yyyy-MM-dd"
+                    placeholder="Select a date"
+                    defaultValue="2026-03-15"
+                    onChange={handleChange}
+                />
+            );
+
+            await user.clear(dateField());
+            await user.type(dateField(), '2026-03-30{Enter}');
+
+            expect(lastValue(handleChange).toString()).toBe('2026-03-30');
+        });
+
+        it('should discard an entry the calendar would refuse and keep a controlled value in place', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
+
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    type="date"
+                    placeholder="Select a date"
+                    value="2026-03-15"
+                    minDate="2026-03-10"
+                    maxDate="2026-03-20"
+                    onChange={handleChange}
+                />
+            );
+
+            const initialDisplay = (dateField() as HTMLInputElement).value;
+
+            await user.clear(dateField());
+            await user.type(dateField(), '03/30/2026');
+            await user.tab();
+
+            await user.clear(dateField());
+            await user.type(dateField(), 'toto');
+            await user.tab();
+
+            await user.clear(dateField());
+            await user.type(dateField(), '02/31/2026');
+            await user.tab();
+
+            expect(handleChange).not.toHaveBeenCalled();
+
+            await user.clear(dateField());
+            await user.type(dateField(), '03/18/2026');
+            await user.tab();
+
+            expect(lastValue(handleChange).toString()).toBe('2026-03-18');
+            expect(dateField()).toHaveValue(initialDisplay);
+        });
     });
 
     describe('local time caption', () => {
