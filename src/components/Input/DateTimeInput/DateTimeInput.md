@@ -19,7 +19,8 @@ an IANA annotation are displayed in the system timezone. `onChange` always emits
 `defaultValue`, an uncontrolled field starts at the current date/time.
 
 When the date field holds a value it shows a clear (reset) button. Clearing empties the whole value —
-date, time, and zone — and `onChange` emits `null`, since a date-time has no meaning without its date.
+date and time — and `onChange` emits `null`, since a date-time has no meaning without its date. The
+displayed timezone is kept for the next date: it is a view setting, not part of the value.
 
 ## Manual entry
 
@@ -55,12 +56,13 @@ Both dropdowns respect `minDate` / `maxDate`: out-of-range entries are disabled,
 When omitted, the browser locale is used. `dateFormat` (LDML, e.g. `'dd/MM/yyyy'`) overrides only the
 field's date order — name tokens still render localized via `locale`. `weekStartsOn` overrides the
 locale-derived first day. `i18n` overrides the calendar action labels (today / next / previous month)
-and the local-time caption prefix.
+and the timezone row label.
 
 ## Zoned mode
 
-In `'zonedDateTime'` the timezone defaults to the system zone until changed. When the selected zone
-differs from the system zone, a caption shows the equivalent local time.
+The timezone only changes how the value is shown, never the value itself. Pick a zone in the
+`Timezone:` row under the fields: the date and time are converted, `onChange` is not called.
+By default the browser's zone is used. The row is hidden without a date or when `hasError` is set.
 
 ## Sub-component props
 
