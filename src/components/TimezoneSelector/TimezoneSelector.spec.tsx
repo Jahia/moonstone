@@ -35,14 +35,17 @@ describe('TimezoneSelector', () => {
         expect(screen.getByRole('listbox', {name: 'UTC (UTC +00:00)'})).toBeInTheDocument();
     });
 
-    it('should render the grouped catalog without a UTC shortcut group', async () => {
+    it('should list UTC first, in its own group, ahead of the regions', async () => {
         const user = userEvent.setup();
 
         render(<TimezoneSelector placeholder="Select timezone" referenceDate={baseDate}/>);
 
         await user.click(screen.getByRole('listbox', {name: 'Select timezone'}));
 
-        expect(screen.queryByText('UTC')).not.toBeInTheDocument();
+        // The dropdown's own label is also an `option`; the zone entries are the ones carrying an offset.
+        const utcOption = screen.getByRole('option', {name: 'UTC (UTC +00:00)'});
+        expect(screen.getAllByRole('option', {name: /\(UTC [+-]/})[0]).toBe(utcOption);
+        expect(screen.getByText('UTC')).toBeInTheDocument();
         expect(screen.getByText('Europe')).toBeInTheDocument();
         expect(screen.getByText('America')).toBeInTheDocument();
         expect(screen.getByText('Paris (UTC +01:00)')).toBeInTheDocument();
