@@ -67,6 +67,10 @@ export const getPlainTime = (value: DateTimeValue | null): Temporal.PlainTime | 
 export const getTimeZone = (value: DateTimeValue | null): string | null =>
     value instanceof Temporal.ZonedDateTime ? value.timeZoneId : null;
 
+/** Same instant shown in `timeZone`; values without a zone are returned as is. */
+export const toDisplayZone = (value: DateTimeValue | null, timeZone: string): DateTimeValue | null =>
+    value instanceof Temporal.ZonedDateTime ? value.withTimeZone(timeZone) : value;
+
 /**
  * Builds the canonical value from its parts. Returns `null` when there is no date yet.
  * Time defaults to midnight; in zoned mode the wall-clock is interpreted in `timeZone`.

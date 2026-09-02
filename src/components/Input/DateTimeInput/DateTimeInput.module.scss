@@ -1,12 +1,13 @@
+// A column: the fields row, then the timezone row. Left-aligned so the fields don't move when the row appears.
 .dateTimeInput {
     display: inline-flex;
-    flex-wrap: wrap;
-    gap: var(--moon-spacing-small);
-    align-items: center;
+    flex-direction: column;
+    gap: var(--moon-spacing-nano);
+    align-items: flex-start;
     max-width: 100%;
 }
 
-// Keeps the three fields on one line; only the local-time caption wraps below.
+// Keeps the date and time fields on one line.
 .fieldsRow {
     display: flex;
     flex-wrap: nowrap;
@@ -162,8 +163,12 @@
     border-top: 1px solid var(--moon-color-gray20);
 }
 
-.localTimeConversion {
-    flex-basis: 100%;
+.timezoneRow {
+    display: flex;
+    gap: var(--moon-spacing-nano);
+    align-items: center;
+}
 
+.timezoneLabel {
     color: var(--moon-color-gray);
 }

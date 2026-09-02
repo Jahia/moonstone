@@ -49,8 +49,8 @@ export type DateTimeInputI18n = {
     nextMonth?: string;
     /** Accessible label for the previous month button */
     previousMonth?: string;
-    /** Prefix label shown before the converted local time when the selected timezone differs from the user's system timezone */
-    localTime?: string;
+    /** Label shown before the timezone selector (`type='zonedDateTime'`) */
+    timezone?: string;
 };
 
 export type DateTimeInputTimeInputProps = Omit<TimeInputProps,
@@ -95,6 +95,9 @@ export type DateTimeInputSharedProps = Omit<BaseInputProps,
     'readOnly'
 > & {
     variant?: 'ghost' | 'outlined';
+
+    /** Hides the timezone row (`type='zonedDateTime'`) so the field's error message can take its place. */
+    hasError?: boolean;
 
     /** Lower bound of the calendar (inclusive). Dates before this are disabled. */
     minDate?: CalendarDate;
@@ -187,7 +190,9 @@ type DateTimeModeProps = {
 
 /**
  * `type='zonedDateTime'` — value accepts a `Temporal.ZonedDateTime`, `Temporal.Instant`,
- * `Date`, or ISO instant. Inputs without an IANA annotation use the system timezone.
+ * `Date`, or ISO instant. The value's zone seeds the displayed zone; inputs without an IANA
+ * annotation display in the system timezone. Changing the zone keeps the instant and
+ * re-projects the date and time without emitting `onChange`.
  */
 type ZonedModeProps = {
     type: 'zonedDateTime';
