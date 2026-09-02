@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {action} from 'storybook/actions';
 import {CustomDropdown} from './CustomDropdown';
 import type {CustomDropdownProps} from './CustomDropdown.types';
-import {Button, Fieldset, CardSelector, Chip, Dropdown, EmptyCardSelector, Field, FieldBoolean, FieldSelector, Input, MenuItem, RadioGroup, RadioItem, Separator, Textarea, Typography} from '~/components';
+import {Button, Fieldset, CardSelector, Chip, Dropdown, EmptyCardSelector, Field, FieldBoolean, Input, MenuItem, RadioGroup, RadioItem, Separator, Textarea, Typography} from '~/components';
 import * as icons from '~/icons/components';
 import {File} from '~/icons';
 
@@ -94,47 +94,41 @@ export const Form = {
         children:
     <Fieldset id="form" label="Form">
         <Field id="field-multiple" label="Field" chips={<><Chip color="accent" label="Required"/><Chip icon={<icons.Language/>} label="Shared by all languages"/></>} buttons={<><Button icon={<icons.Add/>} label="Add"/><Button icon={<icons.MoreVert/>} variant="ghost"/></>} helper="information">
-            <>
-                <FieldSelector buttons={<Button icon={<icons.MoreVert/>}/>} selector={<Input size="big" placeholder="Input value"/>}/>
-                <FieldSelector buttons={<Button icon={<icons.MoreVert/>}/>} selector={<Input size="big" placeholder="Input value"/>}/>
-                <FieldSelector buttons={<Button icon={<icons.MoreVert/>}/>} selector={<Input size="big" placeholder="Input value"/>}/>
-            </>
+            <Input size="big" placeholder="Input value"/>
+            <Input size="big" placeholder="Input value"/>
+            <Input size="big" placeholder="Input value"/>
         </Field>
         <FieldBoolean id="field-boolean" label="Field Boolean" helper="information" chips={<><Chip color="accent" label="Required"/><Chip icon={<icons.Language/>} label="Shared by all languages"/></>} buttons={<Button icon={<icons.MoreVert/>} variant="ghost"/>}/>
         <Field id="field-dropdown" label="Field" chips={<><Chip color="accent" label="Required"/><Chip icon={<icons.Language/>} label="Shared by all languages"/></>} buttons={<Button icon={<icons.MoreVert/>} variant="ghost"/>} helper="information">
-            <FieldSelector
-                    selector={<Dropdown
-                    variant="outlined"
-                    label="Input value"
-                    className="flexFluid"
-                    value=""
-                    data={[
-                        {
-                            label: 'option 1',
-                            value: '1'
-                        },
-                        {
-                            label: 'option 2',
-                            value: '2'
-                        },
-                        {
-                            label: 'option 3 with very long long label label label label label label label label',
-                            value: '3'
-                        }
-            ]}/>}/>
+            <Dropdown
+                variant="outlined"
+                label="Input value"
+                value=""
+                data={[
+                    {
+                        label: 'option 1',
+                        value: '1'
+                    },
+                    {
+                        label: 'option 2',
+                        value: '2'
+                    },
+                    {
+                        label: 'option 3 with very long long label label label label label label label label',
+                        value: '3'
+                    }
+        ]}/>
         </Field>
         <Field hasError errorMessage="There is an error" id="field-textarea" label="Field" chips={<><Chip color="accent" label="Required"/><Chip icon={<icons.Language/>} label="Shared by all languages"/></>} buttons={<Button icon={<icons.MoreVert/>} variant="ghost"/>} helper="information">
-            <FieldSelector selector={<Textarea id="moonstone-textarea" placeholder="Input value"/>}/>
+            <Textarea id="moonstone-textarea" placeholder="Input value"/>
         </Field>
         <Field id="field-radio" label="Field" chips={<><Chip color="accent" label="Required"/><Chip icon={<icons.Language/>} label="Shared by all languages"/></>} helper="information">
-            <FieldSelector selector={<RadioGroup name="radio"><RadioItem id="radio1" label="Yes" value="Yes"/><RadioItem id="radio2" label="No" value="No"/></RadioGroup>}/>
+            <RadioGroup name="radio"><RadioItem id="radio1" label="Yes" value="Yes"/><RadioItem id="radio2" label="No" value="No"/></RadioGroup>
         </Field>
         <Field id="field-cardselectors" label="Field" chips={<><Chip color="accent" label="Required"/><Chip icon={<icons.Language/>} label="Shared by all languages"/></>} buttons={<Button icon={<icons.MoreVert/>} variant="ghost"/>} helper="information">
-            <>
-                <FieldSelector selector={<CardSelector id="cardSelector1" displayName="Item name" systemName="system name" information="information" thumbnailType="icon"/>} buttons={<Button icon={<icons.Close/>}/>}/>
-                <FieldSelector selector={<CardSelector id="cardSelector2" displayName="Item name" systemName="system name" information="information" thumbnailType="icon"/>} buttons={<Button icon={<icons.Close/>}/>}/>
-                <FieldSelector selector={<EmptyCardSelector iconStart={<File/>} id="emptyCardSelector" label="Add item"/>}/>
-            </>
+            <CardSelector id="cardSelector1" displayName="Item name" systemName="system name" information="information" thumbnailType="icon"/>
+            <CardSelector id="cardSelector2" displayName="Item name" systemName="system name" information="information" thumbnailType="icon"/>
+            <EmptyCardSelector iconStart={<File/>} id="emptyCardSelector" label="Add item"/>
         </Field>
     </Fieldset>
     }

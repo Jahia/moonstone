@@ -1,7 +1,7 @@
 import {StoryObj, Meta} from '@storybook/react-vite';
 
 import {DynamicFieldset} from './index';
-import {Field, FieldSelector} from '~/components';
+import {Field} from '~/components';
 import markdownNotes from './DynamicFieldset.md';
 import {Button, Chip, Input} from '~/components';
 import {Add, Language, MoreVert} from '~/icons';
@@ -22,7 +22,7 @@ const meta: Meta<typeof DynamicFieldset> = {
         label: 'Dynamic fieldset',
         helper: 'dynamic fieldset information',
         buttons: <Button icon={<MoreVert/>} variant="ghost"/>,
-        children: <Field id="field" label="Field" chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>} buttons={<><Button icon={<Add/>} label="Add"/><Button icon={<MoreVert/>} variant="ghost"/></>} helper="information"><FieldSelector selector={<Input size="big" placeholder="Input value"/>}/></Field>
+        children: <Field id="field" label="Field" chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>} buttons={<><Button icon={<Add/>} label="Add"/><Button icon={<MoreVert/>} variant="ghost"/></>} helper="information"><Input size="big" placeholder="Input value"/></Field>
     },
     argTypes: {
         buttons: {

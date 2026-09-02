@@ -3,7 +3,6 @@ import userEvent from '@testing-library/user-event';
 
 import {Field} from './index';
 import type {FieldProps} from './Field.types';
-import {FieldSelector} from './FieldSelector';
 import {Button} from '~/components/Button';
 import {Chip} from '~/components/Chip';
 import {Add, Love} from '~/icons';
@@ -23,9 +22,7 @@ describe('Field', () => {
     it('should display additional class names', () => {
         render(
             <Field {...requiredProps} data-testid="field" className="extra">
-                <FieldSelector
-                    selector={<textarea placeholder="Input value"/>}
-                />
+                <textarea placeholder="Input value"/>
             </Field>
         );
         expect(screen.getByTestId('field')).toHaveClass('extra');
@@ -54,7 +51,7 @@ describe('Field', () => {
     it('should display children', () => {
         render(
             <Field {...requiredProps}>
-                <FieldSelector selector={<textarea value="Input value"/>}/>
+                <textarea value="Input value"/>
             </Field>
         );
         expect(screen.queryByText('Input value')).toBeInTheDocument();
@@ -63,8 +60,8 @@ describe('Field', () => {
     it('should display multiple children', () => {
         render(
             <Field {...requiredProps}>
-                <FieldSelector selector={<textarea value="Input value"/>}/>
-                <FieldSelector selector={<textarea value="Input value"/>}/>
+                <textarea value="Input value"/>
+                <textarea value="Input value"/>
             </Field>
         );
         expect(screen.getAllByText('Input value')).toHaveLength(2);
