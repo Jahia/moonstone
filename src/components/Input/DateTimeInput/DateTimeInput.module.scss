@@ -16,11 +16,8 @@
 }
 
 .dateField {
+    flex: none;
     width: 140px;
-
-    // Floor against flex squeeze; BaseInput's global class sets the same property at equal specificity, hence the !important.
-    /* stylelint-disable-next-line declaration-no-important */
-    min-width: 140px !important;
 
     // The icon is pointer-events: none, so the field carries the pointer and the input keeps the caret.
     // The :not() lifts specificity above BaseInput's class and keeps not-allowed when disabled/read-only.

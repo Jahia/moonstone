@@ -1,6 +1,6 @@
 import {createRef, useState} from 'react';
 import {render, screen} from '@testing-library/react';
-import {vi, type Mock} from 'vitest';
+import {onTestFinished, vi, type Mock} from 'vitest';
 import userEvent from '@testing-library/user-event';
 import {Temporal} from 'temporal-polyfill';
 import {DateTimeInput} from './index';
@@ -20,6 +20,12 @@ const baseDate = Temporal.Now.plainDateISO().toString();
 const lastValue = (handleChange: Mock) => handleChange.mock.lastCall?.[1];
 const dateField = () => screen.getByPlaceholderText('Select a date');
 const localeProps = {locale: 'en'} as const;
+const spyOnDocumentKeyDown = () => {
+    const handleKeyDown = vi.fn();
+    document.addEventListener('keydown', handleKeyDown);
+    onTestFinished(() => document.removeEventListener('keydown', handleKeyDown));
+    return handleKeyDown;
+};
 
 describe('DateTimeInput', () => {
     it('should open the calendar and select today (PlainDate)', async () => {
@@ -794,14 +800,9 @@ describe('DateTimeInput', () => {
 
     it('should keep Escape from reaching the consumer while the calendar is open', async () => {
         const user = userEvent.setup();
-        const handleOuterKeyDown = vi.fn();
+        const handleDocumentKeyDown = spyOnDocumentKeyDown();
 
-        render(
-            // Stands in for a consumer's Modal: it closes on an Escape that reaches it.
-            <div onKeyDown={handleOuterKeyDown}>
-                <DateTimeInput {...localeProps} type="date" placeholder="Select a date" onChange={() => null}/>
-            </div>
-        );
+        render(<DateTimeInput {...localeProps} type="date" placeholder="Select a date" onChange={() => null}/>);
 
         await user.click(dateField());
         expect(screen.getByTestId('calendar')).toBeInTheDocument();
@@ -809,12 +810,57 @@ describe('DateTimeInput', () => {
         await user.keyboard('{Escape}');
 
         expect(screen.queryByTestId('calendar')).not.toBeInTheDocument();
-        expect(handleOuterKeyDown).not.toHaveBeenCalled();
+        expect(handleDocumentKeyDown).not.toHaveBeenCalled();
 
         // Calendar closed, Escape belongs to the consumer again.
         await user.keyboard('{Escape}');
 
-        expect(handleOuterKeyDown).toHaveBeenCalledTimes(1);
+        expect(handleDocumentKeyDown).toHaveBeenCalledTimes(1);
+    });
+
+    it('should keep Escape from reaching the consumer once the focus moved to the time field', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                type="dateTime"
+                placeholder="Select a date"
+                defaultValue={null}
+                onChange={() => null}
+            />
+        );
+
+        await user.click(dateField());
+        expect(screen.getByTestId('calendar')).toBeInTheDocument();
+
+        await user.tab();
+        expect(screen.getByPlaceholderText('hh:mm')).toHaveFocus();
+        expect(screen.getByTestId('calendar')).toBeInTheDocument();
+
+        const handleDocumentKeyDown = spyOnDocumentKeyDown();
+
+        await user.keyboard('{Escape}');
+
+        expect(screen.queryByTestId('calendar')).not.toBeInTheDocument();
+        expect(handleDocumentKeyDown).not.toHaveBeenCalled();
+    });
+
+    it('should keep Escape from reaching the consumer when the focus is inside the calendar', async () => {
+        const user = userEvent.setup();
+
+        render(<DateTimeInput {...localeProps} type="date" placeholder="Select a date" onChange={() => null}/>);
+
+        await user.click(dateField());
+        await user.click(screen.getByRole('button', {name: 'Go to the next month'}));
+        expect(screen.getByRole('button', {name: 'Go to the next month'})).toHaveFocus();
+
+        const handleDocumentKeyDown = spyOnDocumentKeyDown();
+
+        await user.keyboard('{Escape}');
+
+        expect(screen.queryByTestId('calendar')).not.toBeInTheDocument();
+        expect(handleDocumentKeyDown).not.toHaveBeenCalled();
     });
 
     it('should return focus to the date field when the calendar is closed via Escape', async () => {

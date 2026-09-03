@@ -14,7 +14,7 @@ import type {DateTimeInputType} from './DateTimeInput.types';
 export type DateTimeValue = Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime;
 
 /** Any value the public API accepts (Temporal instance or ISO string). */
-export type DateTimeValueInput = DateTimeValue | Temporal.Instant | Date | string | null | undefined;
+export type DateTimeValueInput = DateTimeValue | Temporal.Instant | string | null | undefined;
 
 /**
  * The current date/time/zone for the given type, truncated to the minute — used as the

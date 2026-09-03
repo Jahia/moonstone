@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import clsx from 'clsx';
 import {autoUpdate, flip, FloatingPortal, offset, shift, useDismiss, useFloating, useInteractions, useMergeRefs} from '@floating-ui/react';
-import {dateMatchModifiers, DayPicker} from 'react-day-picker';
-import dayPickerClassNames from 'react-day-picker/style.module.css';
+import {dateMatchModifiers, DayPicker} from '@daypicker/react';
+import dayPickerClassNames from '@daypicker/react/style.module.css';
 import {Temporal} from 'temporal-polyfill';
 import {Button, Dropdown, Typography} from '~/components';
 import {Calendar} from '~/icons';
-import type {DropdownProps} from 'react-day-picker';
+import type {DropdownProps} from '@daypicker/react';
 import {TimezoneSelector} from '../../TimezoneSelector/TimezoneSelector';
 import {BaseInput} from '../BaseInput';
 import {TimeInput} from '../TimeInput';
@@ -110,7 +110,9 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
         middleware: [offset(4), flip({padding: 8}), shift({padding: 8})],
         whileElementsMounted: autoUpdate
     });
-    const {getFloatingProps} = useInteractions([useDismiss(context)]);
+    // Escape is handled on `fieldsRow` below, not by floating-ui's `document` listener, which the
+    // consumer's Modal also uses. `FloatingTree` would scope it, but Modal doesn't render one.
+    const {getFloatingProps} = useInteractions([useDismiss(context, {escapeKey: false})]);
     const fieldRef = useMergeRefs([refs.setReference, ref]);
 
     const minPlainDate = toPlainDate(minDate);
@@ -126,7 +128,6 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     const hasMultipleYears = startMonth.getFullYear() !== endMonth.getFullYear();
     const hasMultipleMonths = startMonth.getTime() !== endMonth.getTime();
 
-    // A header dropdown pick can land past `startMonth`/`endMonth`.
     const clampToRange = (month: Date) => {
         if (month < startMonth) {
             return startMonth;
@@ -134,18 +135,6 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
 
         return month > endMonth ? endMonth : month;
     };
-
-    // Month and year header dropdowns differ only by the date they write back.
-    const headerDropdown = (toMonth: (value: number) => Date, hasSearch = true) => (dropdownProps: DropdownProps) => (
-        <Dropdown
-            size="medium"
-            variant="ghost"
-            hasSearch={hasSearch}
-            data={toDropdownData(dropdownProps.options)}
-            value={String(dropdownProps.value ?? '')}
-            onChange={(_e, item) => setDisplayedMonth(clampToRange(toMonth(Number(item.value))))}
-        />
-    );
 
     const captionLayout = getCaptionLayout(hasMultipleMonths, hasMultipleYears);
 
@@ -203,7 +192,15 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
 
     return (
         <div className={clsx(styles.dateTimeInput, className)}>
-            <div className={styles.fieldsRow}>
+            <div
+                className={styles.fieldsRow}
+                onKeyDown={event => {
+                    if (event.key === 'Escape' && isCalendarOpen) {
+                        event.stopPropagation();
+                        setIsCalendarOpen(false);
+                    }
+                }}
+            >
                 <BaseInput
                     ref={fieldRef}
                     {...props}
@@ -226,12 +223,6 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                         onBlur?.(event);
                     }}
                     onKeyDown={event => {
-                        // Stopped before it reaches `document`, where the consumer's Modal also listens for Escape.
-                        if (event.key === 'Escape' && isCalendarOpen) {
-                            event.stopPropagation();
-                            setIsCalendarOpen(false);
-                        }
-
                         // Only on an untouched field — once a draft exists Space is a character; keydown runs before insertion.
                         if (event.key === ' ' && draft === null) {
                             event.preventDefault();
@@ -255,20 +246,12 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                             ref={refs.setFloating}
                             className={styles.calendarPopover}
                             style={floatingStyles}
-                            {...getFloatingProps({
-                                // Same containment as the input's Escape.
-                                onKeyDown: event => {
-                                    if (event.key === 'Escape') {
-                                        event.stopPropagation();
-                                        setIsCalendarOpen(false);
-                                    }
-                                }
-                            })}
+                            {...getFloatingProps()}
                         >
                             <DayPicker
                                 data-testid="calendar"
                                 classNames={{
-                                    /* eslint-disable camelcase -- react-day-picker classnames are its public API */
+                                    /* eslint-disable camelcase -- DayPicker classnames are its public API */
                                     ...dayPickerClassNames,
                                     root: clsx(dayPickerClassNames.root, styles.calendar),
                                     month_caption: clsx(dayPickerClassNames.month_caption, styles.calendarHeader),
@@ -285,8 +268,29 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                                     /* eslint-enable camelcase */
                                 }}
                                 components={{
-                                    MonthsDropdown: headerDropdown(month => new Date(displayedMonth.getFullYear(), month, 1), false),
-                                    YearsDropdown: headerDropdown(year => new Date(year, displayedMonth.getMonth(), 1))
+                                    MonthsDropdown: (dropdownProps: DropdownProps) => (
+                                        <Dropdown
+                                            size="medium"
+                                            variant="ghost"
+                                            hasSearch={false}
+                                            data={toDropdownData(dropdownProps.options)}
+                                            value={String(dropdownProps.value ?? '')}
+                                            onChange={(_e, item) => {
+                                                setDisplayedMonth(clampToRange(new Date(displayedMonth.getFullYear(), Number(item.value), 1)));
+                                            }}
+                                        />
+                                    ),
+                                    YearsDropdown: (dropdownProps: DropdownProps) => (
+                                        <Dropdown
+                                            size="medium"
+                                            variant="ghost"
+                                            data={toDropdownData(dropdownProps.options)}
+                                            value={String(dropdownProps.value ?? '')}
+                                            onChange={(_e, item) => {
+                                                setDisplayedMonth(clampToRange(new Date(Number(item.value), displayedMonth.getMonth(), 1)));
+                                            }}
+                                        />
+                                    )
                                 }}
                                 labels={{
                                     labelNext: () => i18nLabels.nextMonth,
