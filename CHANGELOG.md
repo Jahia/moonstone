@@ -1,5 +1,25 @@
 # @jahia/moonstone Changelog
 
+## 2.21.0
+
+### New Features
+
+* Add `DateTimeInput`, `TimeInput`, and `TimezoneSelector` in beta (#1318)
+
+* Add the prop `content` to the `Pill` component to allow more than just text, the prop `label` becomes deprecated (#1404)
+
+### Bug Fixes
+
+* Allow any ReactNode as `helper` for Field, Fieldset, and FieldBoolean to allow formatted description (#1405)
+
+* Allow `Drawer` to accept Paper's props and a customizable HTML tag for rendering (#1406)
+
+* Add animation to Drawer
+
+* Fix Tooltip truncation in overflow containers (#1393)
+
+* Style `Typography` as a link when it has an href (#1408)
+
 ## 2.20.3
 
 * New icons `EditRole`, `LiveRole` and `Version` (#1390)
