@@ -5,11 +5,14 @@ import type {UncontrolledDateTimeInputProps} from './DateTimeInput.types';
 
 export const UncontrolledDateTimeInput = React.forwardRef<HTMLInputElement, UncontrolledDateTimeInputProps>(({
     type,
-    defaultValue = getCurrentValue(type),
+    defaultValue,
     onChange,
     ...props
 }, ref) => {
-    const [value, setValue] = useState<DateTimeValue | null>(() => parseValue(defaultValue, type));
+    // Only `undefined` falls back to "now" — an explicit `null` means an empty field.
+    const [value, setValue] = useState<DateTimeValue | null>(
+        () => parseValue(defaultValue === undefined ? getCurrentValue(type) : defaultValue, type)
+    );
 
     return (
         <ControlledDateTimeInput
