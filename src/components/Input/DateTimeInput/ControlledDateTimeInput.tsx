@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import clsx from 'clsx';
 import {autoUpdate, flip, FloatingPortal, offset, shift, useDismiss, useFloating, useInteractions, useMergeRefs} from '@floating-ui/react';
-import {dateMatchModifiers, DayPicker} from 'react-day-picker';
-import dayPickerClassNames from 'react-day-picker/style.module.css';
+import {dateMatchModifiers, DayPicker} from '@daypicker/react';
+import dayPickerClassNames from '@daypicker/react/style.module.css';
 import {Temporal} from 'temporal-polyfill';
 import {Button, Dropdown, Typography} from '~/components';
 import {Calendar} from '~/icons';
-import type {DropdownProps} from 'react-day-picker';
+import type {DropdownProps} from '@daypicker/react';
 import {TimezoneSelector} from '../../TimezoneSelector/TimezoneSelector';
 import {BaseInput} from '../BaseInput';
 import {TimeInput} from '../TimeInput';
@@ -272,7 +272,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                             <DayPicker
                                 data-testid="calendar"
                                 classNames={{
-                                    /* eslint-disable camelcase -- react-day-picker classnames are its public API */
+                                    /* eslint-disable camelcase -- DayPicker classnames are its public API */
                                     ...dayPickerClassNames,
                                     root: clsx(dayPickerClassNames.root, styles.calendar),
                                     month_caption: clsx(dayPickerClassNames.month_caption, styles.calendarHeader),
