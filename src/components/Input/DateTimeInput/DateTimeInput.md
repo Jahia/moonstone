@@ -44,6 +44,19 @@ Provide `value` + `onChange` for controlled (`onChange` is required), or `defaul
 
 Each accepts a `Temporal.PlainDate` or an ISO date string.
 
+## Date-time bounds
+
+`minDateTime` / `maxDateTime` bound the value at minute precision, for `'dateTime'` and
+`'zonedDateTime'` (a `'date'` value has no time of day: use `minDate` / `maxDate`). Both are
+inclusive. They accept the mode's value type: a `Temporal.PlainDateTime` or ISO date-time string in
+`'dateTime'`, and in `'zonedDateTime'` also a `Date`, a `Temporal.Instant`, or an ISO instant.
+
+- Days outside the bounds are disabled in the calendar, like `minDate` / `maxDate` (both kinds can be
+  combined; the tightest one wins). In zoned mode the bound's day is read in the displayed timezone.
+- On the boundary day itself, a time that would fall outside is brought back to the boundary: with
+  `minDateTime="2026-03-10T10:00"`, picking March 10 without a time gives `10:00` rather than midnight,
+  and typing `08:00` that day gives `10:00`. The clamped value keeps the selected timezone.
+
 ## Calendar header
 
 The header shows a year dropdown whenever the navigable range spans more than one year, and a

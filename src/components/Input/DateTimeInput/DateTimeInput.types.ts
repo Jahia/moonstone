@@ -168,10 +168,28 @@ type Uncontrolled<V, I = V | string> = {
 
 type ControlMode<V, I = V | string> = Controlled<V, I> | Uncontrolled<V, I>;
 
+/**
+ * Inclusive date-time bounds for the modes that carry a time of day (`'dateTime'` and
+ * `'zonedDateTime'`). Unlike `minDate` / `maxDate`, which only know about calendar days, these
+ * keep the time of the boundary: the calendar disables the days outside them, and a value that
+ * would fall outside on the boundary day itself is brought back to the boundary. Both kinds of
+ * bounds can be combined; the tightest one wins.
+ */
+type DateTimeBounds<B> = {
+    /** Lower bound (inclusive). Days before it are disabled; an earlier time on its day is clamped to it. */
+    minDateTime?: B;
+    /** Upper bound (inclusive). Days after it are disabled; a later time on its day is clamped to it. */
+    maxDateTime?: B;
+};
+
 /** `type='date'` — value is a `Temporal.PlainDate` (or ISO date string). */
 type DateModeProps = {
     type: 'date';
     timeFormat?: never;
+    /** A date-only value has no time of day to bound: use `minDate`. */
+    minDateTime?: never;
+    /** A date-only value has no time of day to bound: use `maxDate`. */
+    maxDateTime?: never;
 } & ControlMode<Temporal.PlainDate>;
 
 /** `type='dateTime'` — value is a `Temporal.PlainDateTime` (or ISO date-time string). */
@@ -183,7 +201,7 @@ type DateTimeModeProps = {
      * @default '24h'
      */
     timeFormat?: TimeFormat;
-} & ControlMode<Temporal.PlainDateTime>;
+} & DateTimeBounds<Temporal.PlainDateTime | string> & ControlMode<Temporal.PlainDateTime>;
 
 /**
  * `type='zonedDateTime'` — value accepts a `Temporal.ZonedDateTime`, `Temporal.Instant`,
@@ -197,7 +215,7 @@ type ZonedModeProps = {
      * @default '24h'
      */
     timeFormat?: TimeFormat;
-} & ControlMode<Temporal.ZonedDateTime, ZonedDateTimeInput>;
+} & DateTimeBounds<ZonedDateTimeInput> & ControlMode<Temporal.ZonedDateTime, ZonedDateTimeInput>;
 
 export type DateTimeInputProps = DateTimeInputSharedProps & (DateModeProps | DateTimeModeProps | ZonedModeProps);
 
@@ -205,7 +223,7 @@ export type DateTimeInputProps = DateTimeInputSharedProps & (DateModeProps | Dat
  * @internal Implementation props shared by the controlled/uncontrolled variants. The
  * discriminated public union is bridged onto this broadened shape in the dispatcher.
  */
-export type DateTimeInputImplProps = DateTimeInputSharedProps & {
+export type DateTimeInputImplProps = DateTimeInputSharedProps & DateTimeBounds<DateTimeValueInput> & {
     type: DateTimeInputType;
     timeFormat?: TimeFormat;
     onChange?: (event: React.SyntheticEvent, value: DateTimeValue | null) => void;

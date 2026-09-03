@@ -2,6 +2,7 @@ import {Temporal} from 'temporal-polyfill';
 import type {Matcher} from '@daypicker/react';
 import type {CalendarDate, DateFormat, DayOfWeek, DisabledDateRange} from './DateTimeInput.types';
 import {getTodayPlainDate, plainDateToDate, toPlainDate} from '../utils/temporal';
+import {getBoundPlainDate, type DateTimeBound} from './dateTimeValue';
 
 /**
  * Returns the first day of the week for a given locale, using `Intl.Locale` week-info.
@@ -113,6 +114,39 @@ export const parseDateInput = (text: string, locale: string, dateFormat?: DateFo
     return toPlainDate(`${year < 100 ? 2000 + year : year}-${valueOf('m').padStart(2, '0')}-${valueOf('d').padStart(2, '0')}`);
 };
 
+// The later / earlier of two optional calendar days (`null` when neither is set).
+const latestPlainDate = (a: Temporal.PlainDate | null, b: Temporal.PlainDate | null): Temporal.PlainDate | null => {
+    if (!a || !b) {
+        return a ?? b;
+    }
+
+    return Temporal.PlainDate.compare(a, b) >= 0 ? a : b;
+};
+
+const earliestPlainDate = (a: Temporal.PlainDate | null, b: Temporal.PlainDate | null): Temporal.PlainDate | null => {
+    if (!a || !b) {
+        return a ?? b;
+    }
+
+    return Temporal.PlainDate.compare(a, b) <= 0 ? a : b;
+};
+
+/**
+ * The calendar-day bounds the picker enforces: `minDate` / `maxDate` tightened by the day each
+ * date-time bound falls on (read in the displayed `timeZone`). Feeding these to the calendar, the
+ * typed-date check, the "Today" shortcut and the header range keeps them all in agreement.
+ */
+export const resolveDayBounds = ({minDate, maxDate, minBound, maxBound, timeZone}: {
+    minDate?: CalendarDate;
+    maxDate?: CalendarDate;
+    minBound: DateTimeBound | null;
+    maxBound: DateTimeBound | null;
+    timeZone: string;
+}): {minPlainDate: Temporal.PlainDate | null; maxPlainDate: Temporal.PlainDate | null} => ({
+    minPlainDate: latestPlainDate(toPlainDate(minDate), minBound ? getBoundPlainDate(minBound, timeZone) : null),
+    maxPlainDate: earliestPlainDate(toPlainDate(maxDate), maxBound ? getBoundPlainDate(maxBound, timeZone) : null)
+});
+
 /** First day of the month (local noon) shown when the calendar opens for a given date. */
 export const getDisplayMonth = (plainDate: Temporal.PlainDate | null): Date => {
     const date = plainDate ?? getTodayPlainDate();
@@ -135,8 +169,8 @@ export const getCalendarDisabledMatchers = ({
     disabledDateRanges,
     disabledDaysOfWeek
 }: {
-    minDate?: CalendarDate;
-    maxDate?: CalendarDate;
+    minDate?: CalendarDate | null;
+    maxDate?: CalendarDate | null;
     disabledDates?: CalendarDate[];
     disabledDateRanges?: DisabledDateRange[];
     disabledDaysOfWeek?: DayOfWeek[];

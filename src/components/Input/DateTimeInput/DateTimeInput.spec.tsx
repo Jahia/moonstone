@@ -1202,6 +1202,175 @@ describe('DateTimeInput', () => {
         });
     });
 
+    describe('date-time bounds', () => {
+        const timeField = () => screen.getByPlaceholderText('hh:mm');
+        const dayButton = (day: string) => screen.getAllByRole('button').find(button => button.textContent === day) as HTMLElement;
+
+        it('should disable the calendar days outside minDateTime / maxDateTime, keeping the boundary days themselves', async () => {
+            const user = userEvent.setup();
+
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    type="dateTime"
+                    placeholder="Select a date"
+                    defaultValue="2026-03-15T12:00"
+                    minDateTime="2026-03-10T10:00"
+                    maxDateTime="2026-03-20T18:00"
+                    onChange={() => null}
+                />
+            );
+
+            await user.click(dateField());
+
+            expect(dayButton('9')).toBeDisabled();
+            expect(dayButton('10')).not.toBeDisabled();
+            expect(dayButton('20')).not.toBeDisabled();
+            expect(dayButton('21')).toBeDisabled();
+        });
+
+        it('should combine minDate with minDateTime, the tightest bound winning', async () => {
+            const user = userEvent.setup();
+
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    type="dateTime"
+                    placeholder="Select a date"
+                    defaultValue="2026-03-15T12:00"
+                    minDate="2026-03-05"
+                    minDateTime="2026-03-10T10:00"
+                    onChange={() => null}
+                />
+            );
+
+            await user.click(dateField());
+
+            expect(dayButton('9')).toBeDisabled();
+            expect(dayButton('10')).not.toBeDisabled();
+        });
+
+        it('should clamp a typed time that falls before minDateTime on the boundary day, and accept the boundary itself', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
+
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    type="dateTime"
+                    placeholder="Select a date"
+                    defaultValue="2026-03-10T12:00"
+                    minDateTime="2026-03-10T10:00"
+                    onChange={handleChange}
+                />
+            );
+
+            await user.clear(timeField());
+            await user.type(timeField(), '0800');
+            await user.tab();
+
+            expect(lastValue(handleChange).toString()).toBe('2026-03-10T10:00:00');
+
+            await user.clear(timeField());
+            await user.type(timeField(), '1000');
+            await user.tab();
+
+            expect(lastValue(handleChange).toString()).toBe('2026-03-10T10:00:00');
+
+            await user.clear(timeField());
+            await user.type(timeField(), '1130');
+            await user.tab();
+
+            expect(lastValue(handleChange).toString()).toBe('2026-03-10T11:30:00');
+        });
+
+        it('should clamp the time to maxDateTime when the calendar moves the date onto the boundary day', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
+
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    type="dateTime"
+                    placeholder="Select a date"
+                    defaultValue="2026-03-15T20:00"
+                    maxDateTime="2026-03-20T18:00"
+                    onChange={handleChange}
+                />
+            );
+
+            await user.click(dateField());
+            await user.click(dayButton('20'));
+
+            expect(lastValue(handleChange).toString()).toBe('2026-03-20T18:00:00');
+        });
+
+        it('should give the minDateTime time, not midnight, when the boundary day is picked without a time', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
+
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    type="dateTime"
+                    placeholder="Select a date"
+                    defaultValue={null}
+                    minDateTime="2026-03-10T10:00"
+                    maxDateTime="2026-03-20T18:00"
+                    onChange={handleChange}
+                />
+            );
+
+            await user.clear(dateField());
+            await user.type(dateField(), '03/10/2026');
+            await user.tab();
+
+            expect(lastValue(handleChange).toString()).toBe('2026-03-10T10:00:00');
+        });
+
+        it('should compare zoned bounds as instants and keep the selected timezone on the clamped value', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
+
+            // 11:00Z is 12:00 in Paris (UTC+1 in March, before the DST switch).
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    type="zonedDateTime"
+                    placeholder="Select a date"
+                    defaultValue="2026-03-10T14:00[Europe/Paris]"
+                    minDateTime="2026-03-10T11:00:00Z"
+                    onChange={handleChange}
+                />
+            );
+
+            await user.clear(timeField());
+            await user.type(timeField(), '1030');
+            await user.tab();
+
+            expect(lastValue(handleChange).toString()).toBe('2026-03-10T12:00:00+01:00[Europe/Paris]');
+        });
+
+        it('should disable the today shortcut when today falls after maxDateTime', async () => {
+            const user = userEvent.setup();
+
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    type="dateTime"
+                    placeholder="Select a date"
+                    defaultValue="2000-01-01T09:00"
+                    maxDateTime="2000-01-01T18:00"
+                    onChange={() => null}
+                />
+            );
+
+            await user.click(dateField());
+
+            expect(screen.getByRole('button', {name: 'Today'})).toBeDisabled();
+        });
+    });
+
     describe('local time caption', () => {
         beforeEach(() => {
             vi.spyOn(Temporal.Now, 'timeZoneId').mockReturnValue('Europe/Paris');
