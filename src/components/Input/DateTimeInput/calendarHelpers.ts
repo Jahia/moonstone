@@ -1,5 +1,5 @@
 import {Temporal} from 'temporal-polyfill';
-import type {Matcher} from 'react-day-picker';
+import type {Matcher} from '@daypicker/react';
 import type {CalendarDate, DateFormat, DayOfWeek, DisabledDateRange} from './DateTimeInput.types';
 import {getTodayPlainDate, plainDateToDate, toPlainDate} from '../utils/temporal';
 
@@ -124,7 +124,7 @@ export const getMonthStart = (plainDate: Temporal.PlainDate | null, fallbackYear
     plainDate ? new Date(plainDate.year, plainDate.month - 1, 1) : new Date(fallbackYear, fallbackMonth, 1);
 
 /**
- * Builds the list of `react-day-picker` disabled matchers from the consumer-facing date
+ * Builds the list of `DayPicker` disabled matchers from the consumer-facing date
  * constraints. Each `PlainDate` is bridged to a local-noon JS `Date` — DayPicker compares
  * by calendar day (and normalizes to noon itself), so the time component is irrelevant.
  */

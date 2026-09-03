@@ -10,7 +10,7 @@ import {Temporal} from 'temporal-polyfill';
  *    public API accept ISO 8601 strings for free (a backend value can be passed as-is)
  *    while every component works exclusively with Temporal internally.
  *
- * 2. **The single bridge to JS `Date`** that `react-day-picker` requires. Keeping the
+ * 2. **The single bridge to JS `Date`** that `DayPicker` requires. Keeping the
  *    `Temporal ↔ Date` conversion here — and nowhere else — is what removes the
  *    midnight/noon/UTC-noon normalization that used to be spread across the components.
  */
@@ -75,7 +75,7 @@ export const toZonedDateTime = (value?: ZonedDateTimeInput | null): Temporal.Zon
 };
 
 /**
- * Builds the JS `Date` that `react-day-picker` consumes from a `PlainDate`.
+ * Builds the JS `Date` that `DayPicker` consumes from a `PlainDate`.
  *
  * The Date is set to **local noon**: DayPicker only ever compares calendar days, and
  * noon sidesteps the rare DST transition where a local midnight doesn't exist and could
