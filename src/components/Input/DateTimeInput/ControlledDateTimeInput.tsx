@@ -108,7 +108,9 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
         middleware: [offset(4), flip({padding: 8}), shift({padding: 8})],
         whileElementsMounted: autoUpdate
     });
-    const {getFloatingProps} = useInteractions([useDismiss(context)]);
+    // Escape is handled on `fieldsRow` below, not by floating-ui's `document` listener, which the
+    // consumer's Modal also uses. `FloatingTree` would scope it, but Modal doesn't render one.
+    const {getFloatingProps} = useInteractions([useDismiss(context, {escapeKey: false})]);
     const fieldRef = useMergeRefs([refs.setReference, ref]);
 
     const minPlainDate = toPlainDate(minDate);
@@ -124,7 +126,6 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     const hasMultipleYears = startMonth.getFullYear() !== endMonth.getFullYear();
     const hasMultipleMonths = startMonth.getTime() !== endMonth.getTime();
 
-    // A header dropdown pick can land past `startMonth`/`endMonth`.
     const clampToRange = (month: Date) => {
         if (month < startMonth) {
             return startMonth;
@@ -132,18 +133,6 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
 
         return month > endMonth ? endMonth : month;
     };
-
-    // Month and year header dropdowns differ only by the date they write back.
-    const headerDropdown = (toMonth: (value: number) => Date, hasSearch = true) => (dropdownProps: DropdownProps) => (
-        <Dropdown
-            size="medium"
-            variant="ghost"
-            hasSearch={hasSearch}
-            data={toDropdownData(dropdownProps.options)}
-            value={String(dropdownProps.value ?? '')}
-            onChange={(_e, item) => setDisplayedMonth(clampToRange(toMonth(Number(item.value))))}
-        />
-    );
 
     const captionLayout = getCaptionLayout(hasMultipleMonths, hasMultipleYears);
 
@@ -224,7 +213,15 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
 
     return (
         <div className={clsx(styles.dateTimeInput, className)}>
-            <div className={styles.fieldsRow}>
+            <div
+                className={styles.fieldsRow}
+                onKeyDown={event => {
+                    if (event.key === 'Escape' && isCalendarOpen) {
+                        event.stopPropagation();
+                        setIsCalendarOpen(false);
+                    }
+                }}
+            >
                 <BaseInput
                     ref={fieldRef}
                     {...props}
@@ -247,12 +244,6 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                         onBlur?.(event);
                     }}
                     onKeyDown={event => {
-                        // Stopped before it reaches `document`, where the consumer's Modal also listens for Escape.
-                        if (event.key === 'Escape' && isCalendarOpen) {
-                            event.stopPropagation();
-                            setIsCalendarOpen(false);
-                        }
-
                         // Only on an untouched field — once a draft exists Space is a character; keydown runs before insertion.
                         if (event.key === ' ' && draft === null) {
                             event.preventDefault();
@@ -276,15 +267,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                             ref={refs.setFloating}
                             className={styles.calendarPopover}
                             style={floatingStyles}
-                            {...getFloatingProps({
-                                // Same containment as the input's Escape.
-                                onKeyDown: event => {
-                                    if (event.key === 'Escape') {
-                                        event.stopPropagation();
-                                        setIsCalendarOpen(false);
-                                    }
-                                }
-                            })}
+                            {...getFloatingProps()}
                         >
                             <DayPicker
                                 data-testid="calendar"
@@ -306,8 +289,29 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                                     /* eslint-enable camelcase */
                                 }}
                                 components={{
-                                    MonthsDropdown: headerDropdown(month => new Date(displayedMonth.getFullYear(), month, 1), false),
-                                    YearsDropdown: headerDropdown(year => new Date(year, displayedMonth.getMonth(), 1))
+                                    MonthsDropdown: (dropdownProps: DropdownProps) => (
+                                        <Dropdown
+                                            size="medium"
+                                            variant="ghost"
+                                            hasSearch={false}
+                                            data={toDropdownData(dropdownProps.options)}
+                                            value={String(dropdownProps.value ?? '')}
+                                            onChange={(_e, item) => {
+                                                setDisplayedMonth(clampToRange(new Date(displayedMonth.getFullYear(), Number(item.value), 1)));
+                                            }}
+                                        />
+                                    ),
+                                    YearsDropdown: (dropdownProps: DropdownProps) => (
+                                        <Dropdown
+                                            size="medium"
+                                            variant="ghost"
+                                            data={toDropdownData(dropdownProps.options)}
+                                            value={String(dropdownProps.value ?? '')}
+                                            onChange={(_e, item) => {
+                                                setDisplayedMonth(clampToRange(new Date(Number(item.value), displayedMonth.getMonth(), 1)));
+                                            }}
+                                        />
+                                    )
                                 }}
                                 labels={{
                                     labelNext: () => i18nLabels.nextMonth,

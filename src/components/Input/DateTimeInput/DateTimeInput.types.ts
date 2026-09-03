@@ -3,7 +3,7 @@ import type {Temporal} from 'temporal-polyfill';
 import type {BaseInputProps} from '../BaseInput/BaseInput.types';
 import type {TimeFormat, TimeInputProps} from '../TimeInput';
 import type {ControlledTimezoneSelectorProps} from '../../TimezoneSelector';
-import type {DateTimeValue} from './dateTimeValue';
+import type {DateTimeValue, DateTimeValueInput} from './dateTimeValue';
 import type {DataAttributes} from '~/types/DataAttributes.types';
 import type {ZonedDateTimeInput} from '../utils/temporal';
 
@@ -187,7 +187,7 @@ type DateTimeModeProps = {
 
 /**
  * `type='zonedDateTime'` — value accepts a `Temporal.ZonedDateTime`, `Temporal.Instant`,
- * `Date`, or ISO instant. Inputs without an IANA annotation use the system timezone.
+ * or ISO instant. Inputs without an IANA annotation use the system timezone.
  */
 type ZonedModeProps = {
     type: 'zonedDateTime';
@@ -212,11 +212,11 @@ export type DateTimeInputImplProps = DateTimeInputSharedProps & {
 };
 
 export type ControlledDateTimeInputProps = DateTimeInputImplProps & {
-    value: DateTimeValue | Temporal.Instant | Date | string | null;
+    value: DateTimeValueInput;
 };
 
 export type UncontrolledDateTimeInputProps = DateTimeInputImplProps & {
-    defaultValue?: DateTimeValue | Temporal.Instant | Date | string | null;
+    defaultValue?: DateTimeValueInput;
 };
 
 export type {TimeFormat} from '../TimeInput';

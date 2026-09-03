@@ -19,7 +19,7 @@ import {Temporal} from 'temporal-polyfill';
 export type PlainDateInput = Temporal.PlainDate | string;
 export type PlainTimeInput = Temporal.PlainTime | string;
 export type PlainDateTimeInput = Temporal.PlainDateTime | string;
-export type ZonedDateTimeInput = Temporal.ZonedDateTime | Temporal.Instant | Date | string;
+export type ZonedDateTimeInput = Temporal.ZonedDateTime | Temporal.Instant | string;
 
 /** Coerces a date-only input to `Temporal.PlainDate`, or `null` when absent/invalid. */
 export const toPlainDate = (value?: PlainDateInput | null): Temporal.PlainDate | null => {
@@ -70,12 +70,6 @@ export const toZonedDateTime = (value?: ZonedDateTimeInput | null): Temporal.Zon
     try {
         if (value instanceof Temporal.ZonedDateTime) {
             return value;
-        }
-
-        if (value instanceof Date) {
-            return Temporal.Instant
-                .fromEpochMilliseconds(value.getTime())
-                .toZonedDateTimeISO(getSystemTimeZone());
         }
 
         if (value instanceof Temporal.Instant) {
