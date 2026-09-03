@@ -115,24 +115,6 @@ export const DisabledDates: Story = {
     name: 'Disabled Dates'
 };
 
-// Minute-precision bounds: the calendar disables the days outside them, and a time outside the
-// bound on its own day (before 10:00 on March 28, after 18:00 on April 5) is clamped to it.
-export const DateTimeBounds: Story = {
-    args: {
-        type: 'dateTime',
-        minDateTime: '2026-03-28T10:00',
-        maxDateTime: '2026-04-05T18:00',
-        defaultValue: '2026-03-28T12:00'
-    },
-    play: async ({canvasElement}) => {
-        const canvas = within(canvasElement);
-        await userEvent.click(canvas.getByTestId('dateTimeInput'));
-        // Wait until the calendar is rendered before the screenshot is taken
-        canvas.getByTestId('calendar');
-    },
-    name: 'Date Time Bounds'
-};
-
 export const DisabledWeekends: Story = {
     args: {
         type: 'date',

@@ -14,7 +14,8 @@ import {
     dateToPlainDate,
     getSystemTimeZone,
     getTodayPlainDate,
-    plainDateToDate
+    plainDateToDate,
+    toPlainDate
 } from '../utils/temporal';
 import {
     formatPlainDate,
@@ -22,16 +23,13 @@ import {
     getDisplayMonth,
     getMonthStart,
     getWeekStartsOn,
-    parseDateInput,
-    resolveDayBounds
+    parseDateInput
 } from './calendarHelpers';
 import {
     assembleValue,
-    clampToBounds,
     getPlainDate,
     getPlainTime,
     getTimeZone,
-    parseBound,
     parseValue
 } from './dateTimeValue';
 import type {ControlledDateTimeInputProps} from './DateTimeInput.types';
@@ -60,8 +58,6 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     timeFormat = '24h',
     minDate,
     maxDate,
-    minDateTime,
-    maxDateTime,
     disabledDates,
     disabledDateRanges,
     disabledDaysOfWeek,
@@ -117,11 +113,9 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     const {getFloatingProps} = useInteractions([useDismiss(context, {escapeKey: false})]);
     const fieldRef = useMergeRefs([refs.setReference, ref]);
 
-    // The date-time bounds tighten the day bounds by the day they fall on (see resolveDayBounds).
-    const minBound = parseBound(minDateTime, type);
-    const maxBound = parseBound(maxDateTime, type);
-    const {minPlainDate, maxPlainDate} = resolveDayBounds({minDate, maxDate, minBound, maxBound, timeZone: currentTimeZone});
-    const calendarDisabledMatchers = getCalendarDisabledMatchers({minDate: minPlainDate, maxDate: maxPlainDate, disabledDates, disabledDateRanges, disabledDaysOfWeek});
+    const minPlainDate = toPlainDate(minDate);
+    const maxPlainDate = toPlainDate(maxDate);
+    const calendarDisabledMatchers = getCalendarDisabledMatchers({minDate, maxDate, disabledDates, disabledDateRanges, disabledDaysOfWeek});
     const todayDate = plainDateToDate(getTodayPlainDate());
     const isTodayUnavailable = dateMatchModifiers(todayDate, calendarDisabledMatchers);
     const isTodayDisabled = isDisabled || isReadOnly || isTodayUnavailable;
@@ -173,9 +167,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     ) => {
         setDraft(null);
         const {plainDate = selectedDate, plainTime = selectedTime, timeZone = currentTimeZone} = change;
-        // The day is already inside the bounds (the calendar refuses the others); only the time
-        // of day can still overshoot, on the boundary day itself.
-        onChange?.(event, clampToBounds(assembleValue(plainDate, plainTime, timeZone, type), minBound, maxBound));
+        onChange?.(event, assembleValue(plainDate, plainTime, timeZone, type));
     };
 
     const clearValue = (event: React.SyntheticEvent) => {
