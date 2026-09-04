@@ -189,9 +189,9 @@ type DateTimeModeProps = {
 
 /**
  * `type='zonedDateTime'` — value accepts a `Temporal.ZonedDateTime`, `Temporal.Instant`,
- * or ISO instant. The value's zone seeds the displayed zone; inputs without an IANA
- * annotation display in the system timezone. Changing the zone keeps the instant and
- * re-projects the date and time without emitting `onChange`.
+ * or ISO instant, always displayed in the browser's timezone whatever zone it carries.
+ * Changing the displayed zone keeps the instant and re-projects the date and time without
+ * emitting `onChange`.
  */
 type ZonedModeProps = {
     type: 'zonedDateTime';

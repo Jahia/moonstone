@@ -13,8 +13,8 @@ calendar it opens, plus an optional time field and timezone selector depending o
 
 `value` / `defaultValue` accept the mode's `Temporal` instance, an ISO string (e.g. `'2026-06-19'`,
 `'2026-06-19T14:30'`, `'2026-06-19T14:30+02:00[Europe/Paris]'`), or `null`. Zoned mode additionally
-accepts `Temporal.Instant` and ISO instants such as `'2026-06-19T12:30:00Z'`; values without an IANA
-annotation are displayed in the system timezone. A JS `Date` is not accepted in any mode — pass
+accepts `Temporal.Instant` and ISO instants such as `'2026-06-19T12:30:00Z'`; whatever zone the value
+carries, it is displayed in the browser's timezone. A JS `Date` is not accepted in any mode — pass
 `date.toISOString()`. `onChange` always emits the mode's `Temporal` instance (or `null`) — never a
 string. Pass `defaultValue={null}` to start empty; with no `defaultValue`, an uncontrolled field
 starts at the current date/time.

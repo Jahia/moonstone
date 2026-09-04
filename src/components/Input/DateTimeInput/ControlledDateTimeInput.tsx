@@ -29,7 +29,6 @@ import {
     assembleValue,
     getPlainDate,
     getPlainTime,
-    getTimeZone,
     parseValue,
     toDisplayZone
 } from './dateTimeValue';
@@ -79,9 +78,9 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     ...props
 }, ref) => {
     const currentValue = parseValue(value, type);
-    // The zone is a view setting, seeded once from the value (system zone when it carries none).
-    // The selector then owns it, so a parent echoing back a UTC instant can't reset it.
-    const [displayZone, setDisplayZone] = useState(() => getTimeZone(currentValue) ?? getSystemTimeZone());
+    // The zone is a view setting: the browser's zone first, then whatever the selector picks.
+    // A value's own zone is never used, and a parent echoing back the value can't reset it.
+    const [displayZone, setDisplayZone] = useState(getSystemTimeZone);
     const displayedValue = toDisplayZone(currentValue, displayZone);
     const selectedDate = getPlainDate(displayedValue);
     const selectedTime = getPlainTime(displayedValue);
@@ -145,11 +144,11 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     // value's parts, so emitChange always reports one complete, canonical value.
     const emitChange = (
         event: React.SyntheticEvent,
-        change: {plainDate?: Temporal.PlainDate | null; plainTime?: Temporal.PlainTime | null; timeZone?: string} = {}
+        change: {plainDate?: Temporal.PlainDate | null; plainTime?: Temporal.PlainTime | null} = {}
     ) => {
         setDraft(null);
-        const {plainDate = selectedDate, plainTime = selectedTime, timeZone = displayZone} = change;
-        onChange?.(event, assembleValue(plainDate, plainTime, timeZone, type));
+        const {plainDate = selectedDate, plainTime = selectedTime} = change;
+        onChange?.(event, assembleValue(plainDate, plainTime, displayZone, type));
     };
 
     const clearValue = (event: React.SyntheticEvent) => emitChange(event, {plainDate: null});

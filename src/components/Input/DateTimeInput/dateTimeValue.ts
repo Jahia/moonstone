@@ -63,10 +63,6 @@ export const getPlainTime = (value: DateTimeValue | null): Temporal.PlainTime | 
     return value.toPlainTime();
 };
 
-/** Extracts the IANA timezone, or `null` when the value carries none. */
-export const getTimeZone = (value: DateTimeValue | null): string | null =>
-    value instanceof Temporal.ZonedDateTime ? value.timeZoneId : null;
-
 /** Same instant shown in `timeZone`; values without a zone are returned as is. */
 export const toDisplayZone = (value: DateTimeValue | null, timeZone: string): DateTimeValue | null =>
     value instanceof Temporal.ZonedDateTime ? value.withTimeZone(timeZone) : value;

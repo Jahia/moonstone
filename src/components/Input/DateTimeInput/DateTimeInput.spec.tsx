@@ -28,6 +28,15 @@ const spyOnDocumentKeyDown = () => {
 };
 
 describe('DateTimeInput', () => {
+    // Zoned values are displayed in the browser's zone: pin it so the expectations hold everywhere.
+    beforeEach(() => {
+        vi.spyOn(Temporal.Now, 'timeZoneId').mockReturnValue('Europe/Paris');
+    });
+
+    afterEach(() => {
+        vi.restoreAllMocks();
+    });
+
     it('should open the calendar and select today (PlainDate)', async () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
@@ -137,7 +146,7 @@ describe('DateTimeInput', () => {
         expect(lastValue(handleChange).toString()).toBe(`${baseDate}T00:00:00`);
     });
 
-    it('should render the 24h datetime layout and emit a ZonedDateTime on timezone change', async () => {
+    it('should render the 24h datetime layout and keep the value when the timezone changes', async () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
@@ -1190,14 +1199,6 @@ describe('DateTimeInput', () => {
     });
 
     describe('display zone', () => {
-        beforeEach(() => {
-            vi.spyOn(Temporal.Now, 'timeZoneId').mockReturnValue('Europe/Paris');
-        });
-
-        afterEach(() => {
-            vi.restoreAllMocks();
-        });
-
         const pickZone = async (user: ReturnType<typeof userEvent.setup>, search: string, label: RegExp) => {
             await user.click(screen.getAllByRole('listbox')[0]);
             await user.type(screen.getByRole('searchbox'), search);
@@ -1219,6 +1220,22 @@ describe('DateTimeInput', () => {
             expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
         });
 
+        it('should display a zoned value in the browser zone, not in its own', () => {
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    type="zonedDateTime"
+                    placeholder="Select a date"
+                    defaultValue="2026-02-10T18:56[Asia/Tokyo]"
+                    onChange={() => null}
+                />
+            );
+
+            // 18:56 Tokyo (UTC+9) is 10:56 Paris (UTC+1)
+            expect(screen.getByDisplayValue('10:56')).toBeInTheDocument();
+            expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
+        });
+
         it('should re-project the date and time when the zone changes, across midnight', async () => {
             const user = userEvent.setup();
             const handleChange = vi.fn();
@@ -1228,16 +1245,18 @@ describe('DateTimeInput', () => {
                     {...localeProps}
                     type="zonedDateTime"
                     placeholder="Select a date"
-                    defaultValue="2026-02-10T00:00[Asia/Tokyo]"
+                    defaultValue="2026-02-09T15:00:00Z"
                     onChange={handleChange}
                 />
             );
 
-            await pickZone(user, 'paris', /^Paris \(UTC/);
-
-            // 2026-02-10T00:00 Tokyo (UTC+9) is 2026-02-09T16:00 Paris (UTC+1): same instant, nothing emitted.
             expect(screen.getByDisplayValue('16:00')).toBeInTheDocument();
-            expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
+
+            await pickZone(user, 'tokyo', /^Tokyo \(UTC/);
+
+            // 2026-02-09T16:00 Paris (UTC+1) is 2026-02-10T00:00 Tokyo (UTC+9): same instant, nothing emitted.
+            expect(screen.getByDisplayValue('00:00')).toBeInTheDocument();
+            expect(screen.getByRole('listbox', {name: 'Tokyo (UTC +09:00)'})).toBeInTheDocument();
             expect(handleChange).not.toHaveBeenCalled();
         });
 
@@ -1307,11 +1326,12 @@ describe('DateTimeInput', () => {
                     {...localeProps}
                     type="zonedDateTime"
                     placeholder="Select a date"
-                    defaultValue="2026-02-10T11:56[Asia/Tokyo]"
+                    defaultValue="2026-02-10T10:56:00Z"
                     onChange={() => null}
                 />
             );
 
+            await pickZone(user, 'tokyo', /^Tokyo \(UTC/);
             await user.click(screen.getByRole('button', {name: 'Reset'}));
 
             expect(dateField()).toHaveValue('');
@@ -1325,14 +1345,6 @@ describe('DateTimeInput', () => {
     });
 
     describe('timezone row', () => {
-        beforeEach(() => {
-            vi.spyOn(Temporal.Now, 'timeZoneId').mockReturnValue('Europe/Paris');
-        });
-
-        afterEach(() => {
-            vi.restoreAllMocks();
-        });
-
         it('should use the custom i18n.timezone label', () => {
             render(
                 <DateTimeInput
