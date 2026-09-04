@@ -69,4 +69,5 @@ By default the browser's zone is used. The row is hidden without a date or when 
 ## Sub-component props
 
 `timeInputProps` and `timezoneSelectorProps` forward additional props to the internal `TimeInput`
-(`dateTime` / `zonedDateTime`) and `TimezoneSelector` (`zonedDateTime`).
+(`dateTime` / `zonedDateTime`) and `TimezoneSelector` (`zonedDateTime`). `timezoneSelectorProps.size`
+overrides the selector's size, which otherwise follows the field's (`medium` for `big`, else `small`).

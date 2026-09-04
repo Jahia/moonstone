@@ -190,6 +190,10 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
         }
     };
 
+    // Dropdowns come in small/medium, fields in default/big: a big field gets a medium selector unless
+    // the consumer asks for another size through timezoneSelectorProps.
+    const timezoneSelectorSize = timezoneSelectorProps?.size ?? (size === 'big' ? 'medium' : 'small');
+
     return (
         <div className={clsx(styles.dateTimeInput, className)}>
             <div
@@ -204,7 +208,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                 <BaseInput
                     ref={fieldRef}
                     {...props}
-                    className={styles.dateField}
+                    className={clsx(styles.dateField, size === 'big' && styles.dateField_big)}
                     value={draft ?? formatPlainDate(selectedDate, resolvedLocale, dateFormat)}
                     size={size}
                     variant={variant}
@@ -363,13 +367,13 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
             </div>
             {type === 'zonedDateTime' && currentValue !== null && !hasError && (
                 <div className={styles.timezoneRow}>
-                    <Typography component="span" variant={size === 'big' ? 'body' : 'caption'} className={styles.timezoneLabel}>
+                    <Typography component="span" variant={timezoneSelectorSize === 'small' ? 'caption' : 'body'} className={styles.timezoneLabel}>
                         {i18nLabels.timezone}:
                     </Typography>
                     <TimezoneSelector
                         {...timezoneSelectorProps}
                         variant="ghost"
-                        size={size === 'big' ? 'medium' : 'small'}
+                        size={timezoneSelectorSize}
                         isDisabled={isDisabled}
                         isReadOnly={isReadOnly}
                         value={displayZone}

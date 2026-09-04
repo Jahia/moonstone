@@ -15,7 +15,7 @@
     align-items: center;
 }
 
-.dateField {
+.fieldsRow .dateField {
     flex: none;
     width: 140px;
 
@@ -28,6 +28,10 @@
             cursor: text;
         }
     }
+}
+
+.fieldsRow .dateField_big {
+    width: 160px;
 }
 
 .calendarPopover {

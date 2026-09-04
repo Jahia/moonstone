@@ -69,7 +69,6 @@ export type DateTimeInputTimezoneSelectorProps = Omit<ControlledTimezoneSelector
     'value' |
     'onChange' |
     'referenceDate' |
-    'size' |
     'variant' |
     'isDisabled' |
     'isReadOnly'
@@ -143,7 +142,7 @@ export type DateTimeInputSharedProps = Omit<BaseInputProps,
     /** Additional props forwarded to the internal TimeInput (`type='dateTime'` or `'zonedDateTime'`). */
     timeInputProps?: DateTimeInputTimeInputProps;
 
-    /** Additional props forwarded to the internal TimezoneSelector (`type='zonedDateTime'`). */
+    /** Additional props forwarded to the internal TimezoneSelector (`type='zonedDateTime'`). Its `size` (`'small'` / `'medium'`) follows the field's `size` unless set here. */
     timezoneSelectorProps?: DateTimeInputTimezoneSelectorProps;
 };
 
