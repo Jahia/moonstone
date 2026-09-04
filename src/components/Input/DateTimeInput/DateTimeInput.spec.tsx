@@ -1,4 +1,4 @@
-import {createRef} from 'react';
+import {createRef, useState} from 'react';
 import {render, screen} from '@testing-library/react';
 import {onTestFinished, vi, type Mock} from 'vitest';
 import userEvent from '@testing-library/user-event';
@@ -28,6 +28,15 @@ const spyOnDocumentKeyDown = () => {
 };
 
 describe('DateTimeInput', () => {
+    // Zoned values are displayed in the browser's zone: pin it so the expectations hold everywhere.
+    beforeEach(() => {
+        vi.spyOn(Temporal.Now, 'timeZoneId').mockReturnValue('Europe/Paris');
+    });
+
+    afterEach(() => {
+        vi.restoreAllMocks();
+    });
+
     it('should open the calendar and select today (PlainDate)', async () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
@@ -137,7 +146,7 @@ describe('DateTimeInput', () => {
         expect(lastValue(handleChange).toString()).toBe(`${baseDate}T00:00:00`);
     });
 
-    it('should render the 24h datetime layout and emit a ZonedDateTime on timezone change', async () => {
+    it('should render the 24h datetime layout and keep the value when the timezone changes', async () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
@@ -146,20 +155,24 @@ describe('DateTimeInput', () => {
                 {...localeProps}
                 type="zonedDateTime"
                 placeholder="Select a date"
-                defaultValue="2026-02-10T11:56[Europe/Paris]"
+                defaultValue="2026-02-10T10:56:00Z"
                 onChange={handleChange}
             />
         );
 
         expect(dateField()).not.toHaveValue('');
         expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
+        expect(screen.getByText('Timezone:')).toBeInTheDocument();
         expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
 
         await user.click(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'}));
         await user.type(screen.getByRole('searchbox'), 'toronto');
         await user.click(screen.getByText('Toronto (UTC -05:00)'));
 
-        expect(lastValue(handleChange).toString()).toBe('2026-02-10T11:56:00-05:00[America/Toronto]');
+        // Same instant, re-projected: 11:56 Paris is 05:56 Toronto. The stored UTC doesn't move, so nothing is emitted.
+        expect(screen.getByDisplayValue('05:56')).toBeInTheDocument();
+        expect(screen.getByRole('listbox', {name: 'Toronto (UTC -05:00)'})).toBeInTheDocument();
+        expect(handleChange).not.toHaveBeenCalled();
     });
 
     it('should reset the selected datetime to midnight when the time is cleared', async () => {
@@ -260,7 +273,7 @@ describe('DateTimeInput', () => {
                 {...localeProps}
                 type="zonedDateTime"
                 timeFormat="12h"
-                defaultValue="2026-02-10T23:56[Europe/Paris]"
+                defaultValue="2026-02-10T22:56:00Z"
                 onChange={() => null}
             />
         );
@@ -453,7 +466,7 @@ describe('DateTimeInput', () => {
                 {...localeProps}
                 type="zonedDateTime"
                 placeholder="Select a date"
-                defaultValue="2026-03-15T11:56[Europe/Paris]"
+                defaultValue="2026-03-15T10:56:00Z"
                 i18n={{nextMonth: nextMonthLabel}}
                 onChange={() => null}
             />
@@ -632,31 +645,22 @@ describe('DateTimeInput', () => {
         expect(dayButton).toBeDisabled();
     });
 
-    it('should not emit when timezone changes but no date has been selected yet', async () => {
-        const user = userEvent.setup();
-        const handleChange = vi.fn();
-
+    it('should not render the timezone row while there is no date', () => {
         render(
             <DateTimeInput
                 {...localeProps}
                 type="zonedDateTime"
                 placeholder="Select a date"
                 value={null}
-                onChange={handleChange}
+                onChange={() => null}
             />
         );
 
-        // The zone selector shows the system zone. Interact via search to pick a known zone.
-        const tzSelector = screen.getAllByRole('listbox')[0];
-        await user.click(tzSelector);
-        await user.type(screen.getByRole('searchbox'), 'toronto');
-        await user.click(screen.getByText(/Toronto \(UTC/));
-
-        // No date → no value should have been emitted.
-        expect(handleChange).not.toHaveBeenCalled();
+        expect(screen.queryByText('Timezone:')).not.toBeInTheDocument();
+        expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
     });
 
-    it('should default to the current date, time, and system timezone when no defaultValue is given (ZonedDateTime)', () => {
+    it('should default to the current date, time, and system timezone when no defaultValue is given (Instant)', () => {
         render(<DateTimeInput {...localeProps} type="zonedDateTime" placeholder="Select a date" onChange={() => null}/>);
 
         expect(dateField()).not.toHaveValue('');
@@ -664,32 +668,24 @@ describe('DateTimeInput', () => {
         expect(screen.getByRole('listbox').getAttribute('aria-label')).toMatch(/UTC/);
     });
 
-    it('should apply a timezone chosen before any date exists once a date is later selected', async () => {
+    it('should render the timezone row in the system zone once a date is picked', async () => {
         const user = userEvent.setup();
-        const handleChange = vi.fn();
 
         render(
             <DateTimeInput
                 {...localeProps}
                 type="zonedDateTime"
                 placeholder="Select a date"
-                value={null}
-                onChange={handleChange}
+                defaultValue={null}
+                onChange={() => null}
             />
         );
-
-        const tzSelector = screen.getAllByRole('listbox')[0];
-        await user.click(tzSelector);
-        await user.type(screen.getByRole('searchbox'), 'toronto');
-        await user.click(screen.getByText(/Toronto \(UTC/));
 
         await user.click(dateField());
         await user.click(screen.getByText('Today'));
 
-        // Toronto's offset shifts with DST, so the expectation is built from Temporal itself
-        // (the same system-clock oracle `baseDate` uses) rather than a hardcoded offset.
-        const expectedValue = Temporal.PlainDate.from(baseDate).toPlainDateTime().toZonedDateTime('America/Toronto').toString();
-        expect(lastValue(handleChange).toString()).toBe(expectedValue);
+        expect(screen.getByText('Timezone:')).toBeInTheDocument();
+        expect(screen.getByRole('listbox').getAttribute('aria-label')).toMatch(/UTC/);
     });
 
     it('should allow selecting the minDate itself (inclusive lower boundary)', async () => {
@@ -934,7 +930,7 @@ describe('DateTimeInput', () => {
         expect(screen.getByPlaceholderText('hh:mm')).toBeDisabled();
     });
 
-    it('should disable the internal timezone selector when isDisabled is set', async () => {
+    it('should keep the display-only timezone selector usable when isDisabled is set', async () => {
         const user = userEvent.setup();
 
         render(
@@ -943,14 +939,14 @@ describe('DateTimeInput', () => {
                 isDisabled
                 type="zonedDateTime"
                 placeholder="Select a date"
-                defaultValue="2026-03-15T11:56[Europe/Paris]"
+                defaultValue="2026-03-15T10:56:00Z"
                 onChange={() => null}
             />
         );
 
         await user.click(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'}));
 
-        expect(screen.queryByRole('searchbox')).not.toBeInTheDocument();
+        expect(screen.getByRole('searchbox')).toBeInTheDocument();
     });
 
     it('should make the internal time input read-only when isReadOnly is set', () => {
@@ -968,7 +964,7 @@ describe('DateTimeInput', () => {
         expect(screen.getByPlaceholderText('hh:mm')).toHaveAttribute('readonly');
     });
 
-    it('should make the internal timezone selector read-only (rendered as disabled) when isReadOnly is set', async () => {
+    it('should keep the display-only timezone selector usable when isReadOnly is set', async () => {
         const user = userEvent.setup();
 
         render(
@@ -977,14 +973,14 @@ describe('DateTimeInput', () => {
                 isReadOnly
                 type="zonedDateTime"
                 placeholder="Select a date"
-                defaultValue="2026-03-15T11:56[Europe/Paris]"
+                defaultValue="2026-03-15T10:56:00Z"
                 onChange={() => null}
             />
         );
 
         await user.click(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'}));
 
-        expect(screen.queryByRole('searchbox')).not.toBeInTheDocument();
+        expect(screen.getByRole('searchbox')).toBeInTheDocument();
     });
 
     it('should not display an invalid dateTime value', () => {
@@ -1202,166 +1198,214 @@ describe('DateTimeInput', () => {
         });
     });
 
-    describe('local time caption', () => {
-        beforeEach(() => {
-            vi.spyOn(Temporal.Now, 'timeZoneId').mockReturnValue('Europe/Paris');
-        });
+    describe('display zone', () => {
+        const pickZone = async (user: ReturnType<typeof userEvent.setup>, search: string, label: RegExp) => {
+            await user.click(screen.getAllByRole('listbox')[0]);
+            await user.type(screen.getByRole('searchbox'), search);
+            await user.click(screen.getByText(label));
+        };
 
-        afterEach(() => {
-            vi.restoreAllMocks();
-        });
-
-        it('should not show the local time caption when the selected timezone equals the system timezone', () => {
+        it('should display a UTC instant in the system timezone', () => {
             render(
                 <DateTimeInput
                     {...localeProps}
                     type="zonedDateTime"
                     placeholder="Select a date"
-                    defaultValue="2026-03-15T11:56[Europe/Paris]"
+                    defaultValue="2026-02-10T10:56:00Z"
                     onChange={() => null}
                 />
             );
 
-            expect(screen.queryByText(/Your local time/)).not.toBeInTheDocument();
+            expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
+            expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
         });
 
-        it('should not show the local time caption when only a date is set but no time', () => {
+        it('should display an offset-annotated ISO string in the browser zone, not in its annotation', () => {
             render(
                 <DateTimeInput
                     {...localeProps}
                     type="zonedDateTime"
                     placeholder="Select a date"
-                    defaultValue={null}
+                    defaultValue="2026-02-10T18:56+09:00[Asia/Tokyo]"
                     onChange={() => null}
                 />
             );
 
-            expect(screen.queryByText(/Your local time/)).not.toBeInTheDocument();
+            // 18:56 Tokyo (UTC+9) is 10:56 Paris (UTC+1)
+            expect(screen.getByDisplayValue('10:56')).toBeInTheDocument();
+            expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
         });
 
-        it('should show the local time caption when the selected timezone differs from the system timezone', () => {
-            // Abidjan is UTC+0; Paris in winter is UTC+1 → 11:56 Abidjan = 12:56 Paris
+        it('should display the value in defaultTimezone instead of the system zone', () => {
             render(
                 <DateTimeInput
                     {...localeProps}
                     type="zonedDateTime"
                     placeholder="Select a date"
-                    defaultValue="2026-02-10T11:56[Africa/Abidjan]"
+                    defaultValue="2026-02-10T10:56:00Z"
+                    defaultTimezone="Asia/Tokyo"
                     onChange={() => null}
                 />
             );
 
-            expect(screen.getByText(/Your local time/)).toBeInTheDocument();
+            expect(screen.getByDisplayValue('19:56')).toBeInTheDocument();
+            expect(screen.getByRole('listbox', {name: 'Tokyo (UTC +09:00)'})).toBeInTheDocument();
         });
 
-        it('should display the converted date and time in the local time caption', () => {
-            // 00:00 Abidjan (UTC+0) = 01:00 Paris (UTC+1) — same day, unambiguous
+        it('should fall back to the system zone when defaultTimezone is not a valid IANA zone', () => {
             render(
                 <DateTimeInput
                     {...localeProps}
                     type="zonedDateTime"
                     placeholder="Select a date"
-                    defaultValue="2026-02-10T00:00[Africa/Abidjan]"
-                    locale="en"
+                    defaultValue="2026-02-10T10:56:00Z"
+                    defaultTimezone="Mars/Olympus"
                     onChange={() => null}
                 />
             );
 
-            // The local time caption must include both a date fragment and a time fragment.
-            // We verify the time portion (01:00) is present; the exact date format is locale-dependent.
-            expect(screen.getByText(/Your local time/)).toBeInTheDocument();
-            expect(screen.getByText(/01:00/)).toBeInTheDocument();
+            expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
+            expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
         });
 
-        // Host TZ (Tokyo) differs from both the selected and system zones, so this only passes
-        // if the local time caption uses the system timezone rather than the host's default.
-        it('should convert to the mocked system timezone regardless of the host timezone', () => {
-            vi.stubEnv('TZ', 'Asia/Tokyo');
+        it('should re-project the date and time when the zone changes, across midnight', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
 
             render(
                 <DateTimeInput
                     {...localeProps}
                     type="zonedDateTime"
                     placeholder="Select a date"
-                    defaultValue="2026-02-10T00:00[Africa/Abidjan]"
-                    locale="en"
+                    defaultValue="2026-02-09T15:00:00Z"
+                    onChange={handleChange}
+                />
+            );
+
+            expect(screen.getByDisplayValue('16:00')).toBeInTheDocument();
+
+            await pickZone(user, 'tokyo', /^Tokyo \(UTC/);
+
+            // 2026-02-09T16:00 Paris (UTC+1) is 2026-02-10T00:00 Tokyo (UTC+9): same instant, nothing emitted.
+            expect(screen.getByDisplayValue('00:00')).toBeInTheDocument();
+            expect(screen.getByRole('listbox', {name: 'Tokyo (UTC +09:00)'})).toBeInTheDocument();
+            expect(handleChange).not.toHaveBeenCalled();
+        });
+
+        it('should read a typed time in the displayed zone', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
+
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    type="zonedDateTime"
+                    placeholder="Select a date"
+                    defaultValue="2026-02-10T10:56:00Z"
+                    onChange={handleChange}
+                />
+            );
+
+            await pickZone(user, 'tokyo', /^Tokyo \(UTC/);
+            expect(screen.getByDisplayValue('19:56')).toBeInTheDocument();
+
+            const timeField = screen.getByPlaceholderText('hh:mm');
+            await user.clear(timeField);
+            await user.type(timeField, '0900');
+            await user.tab();
+
+            expect(lastValue(handleChange).toString()).toBe('2026-02-10T00:00:00Z');
+        });
+
+        it('should keep the displayed zone when a controlled parent echoes back the UTC instant', async () => {
+            const user = userEvent.setup();
+
+            // A backend that stores UTC only: the zone never comes back through `value`.
+            const UtcParent = () => {
+                const [value, setValue] = useState<string | null>('2026-02-10T10:56:00Z');
+
+                return (
+                    <DateTimeInput
+                        {...localeProps}
+                        type="zonedDateTime"
+                        placeholder="Select a date"
+                        value={value}
+                        onChange={(_event, next) => setValue(next ? next.toString() : null)}
+                    />
+                );
+            };
+
+            render(<UtcParent/>);
+
+            await pickZone(user, 'tokyo', /^Tokyo \(UTC/);
+            expect(screen.getByDisplayValue('19:56')).toBeInTheDocument();
+
+            // The time edit round-trips through the parent as UTC; the displayed zone must survive it.
+            const timeField = screen.getByPlaceholderText('hh:mm');
+            await user.clear(timeField);
+            await user.type(timeField, '0900');
+            await user.tab();
+
+            expect(screen.getByRole('listbox', {name: 'Tokyo (UTC +09:00)'})).toBeInTheDocument();
+            expect(screen.getByDisplayValue('09:00')).toBeInTheDocument();
+        });
+
+        it('should hide the timezone row on clear and bring the same zone back with the next date', async () => {
+            const user = userEvent.setup();
+
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    type="zonedDateTime"
+                    placeholder="Select a date"
+                    defaultValue="2026-02-10T10:56:00Z"
                     onChange={() => null}
                 />
             );
 
-            expect(screen.getByText(/01:00/)).toBeInTheDocument();
+            await pickZone(user, 'tokyo', /^Tokyo \(UTC/);
+            await user.click(screen.getByRole('button', {name: 'Reset'}));
 
-            vi.unstubAllEnvs();
+            expect(dateField()).toHaveValue('');
+            expect(screen.queryByText('Timezone:')).not.toBeInTheDocument();
+
+            await user.click(dateField());
+            await user.click(screen.getByText('Today'));
+
+            expect(screen.getByRole('listbox', {name: /^Tokyo \(UTC/})).toBeInTheDocument();
         });
+    });
 
-        it('should show the previous day in the local time caption when the conversion crosses midnight', () => {
-            // 00:00 in Toronto (UTC−5 in winter) = 06:00 Paris (UTC+1) same day
-            // Use the reverse: 00:00 Paris (UTC+1) = 23:00 prev day in Toronto.
-            // Here system=Paris, selected=Toronto: 2026-02-10T00:00 Toronto = 2026-02-10T06:00 Paris
-            // To get a day-before case: pick a time in the east. 2026-02-10T00:00 Tokyo (UTC+9) = 2026-02-09T16:00 Paris
+    describe('timezone row', () => {
+        it('should use the custom i18n.timezone label', () => {
             render(
                 <DateTimeInput
                     {...localeProps}
                     type="zonedDateTime"
                     placeholder="Select a date"
-                    defaultValue="2026-02-10T00:00[Asia/Tokyo]"
-                    locale="en"
+                    defaultValue="2026-02-10T10:56:00Z"
+                    i18n={{timezone: 'Fuseau horaire'}}
                     onChange={() => null}
                 />
             );
 
-            // The local time caption must include the converted date (Feb 9) to avoid day-boundary ambiguity.
-            expect(screen.getByText(/Feb 9/)).toBeInTheDocument();
+            expect(screen.getByText('Fuseau horaire:')).toBeInTheDocument();
+            expect(screen.queryByText('Timezone:')).not.toBeInTheDocument();
         });
 
-        it('should use the custom i18n.localTime label', () => {
+        it('should fall back to the default label when i18n is partial and omits timezone', () => {
             render(
                 <DateTimeInput
                     {...localeProps}
                     type="zonedDateTime"
                     placeholder="Select a date"
-                    defaultValue="2026-02-10T11:56[Africa/Abidjan]"
-                    i18n={{localTime: 'Heure locale'}}
-                    onChange={() => null}
-                />
-            );
-
-            expect(screen.getByText(/Heure locale/)).toBeInTheDocument();
-            expect(screen.queryByText(/Your local time/)).not.toBeInTheDocument();
-        });
-
-        it('should fall back to the default label when i18n is partial and omits localTime', () => {
-            render(
-                <DateTimeInput
-                    {...localeProps}
-                    type="zonedDateTime"
-                    placeholder="Select a date"
-                    defaultValue="2026-02-10T11:56[Africa/Abidjan]"
+                    defaultValue="2026-02-10T10:56:00Z"
                     i18n={{todayButton: 'Aujourd\'hui'}}
                     onChange={() => null}
                 />
             );
 
-            expect(screen.getByText(/Your local time/)).toBeInTheDocument();
-        });
-
-        it('should format the local time caption\'s time as 12h when timeFormat="12h"', () => {
-            // 23:00 Abidjan (UTC+0) = 00:00 Paris next day (UTC+1)
-            // Use 11:56 Abidjan = 12:56 Paris → with 12h: "12:56 PM"
-            render(
-                <DateTimeInput
-                    {...localeProps}
-                    type="zonedDateTime"
-                    placeholder="Select a date"
-                    timeFormat="12h"
-                    defaultValue="2026-02-10T11:56[Africa/Abidjan]"
-                    locale="en"
-                    onChange={() => null}
-                />
-            );
-
-            // 12h format includes AM/PM in the local time caption's text
-            expect(screen.getByText(/Your local time/)).toHaveTextContent(/PM|AM/);
+            expect(screen.getByText('Timezone:')).toBeInTheDocument();
         });
     });
 });
