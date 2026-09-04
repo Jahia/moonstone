@@ -1,5 +1,6 @@
-import React, {useCallback, useLayoutEffect, useRef, useState} from 'react';
+import React, {useLayoutEffect, useRef, useState} from 'react';
 import clsx from 'clsx';
+import {useMergeRefs} from '@floating-ui/react';
 import {Temporal} from 'temporal-polyfill';
 import {Dropdown} from '~/components';
 import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
@@ -23,7 +24,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
     value,
     onChange,
     timeFormat = '24h',
-    placeholder = 'HH:MM',
+    placeholder = 'hh:mm',
     meridiemDropdownProps,
     size,
     variant = 'outlined',
@@ -44,14 +45,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
     const displayValue = draft ?? (hour && minute ? `${hour}:${minute}` : '');
 
     const inputRef = useRef<HTMLInputElement | null>(null);
-    const handleRef = useCallback((node: HTMLInputElement | null) => {
-        inputRef.current = node;
-        if (typeof ref === 'function') {
-            ref(node);
-        } else if (ref) {
-            (ref as React.MutableRefObject<HTMLInputElement | null>).current = node;
-        }
-    }, [ref]);
+    const handleRef = useMergeRefs([inputRef, ref]);
 
     // The segment to reselect after an Arrow step: the controlled re-render would otherwise drop
     // the caret to the field's end, losing the segment being stepped.
@@ -117,7 +111,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
                 isDisabled={isDisabled}
                 isReadOnly={isReadOnly}
                 autoComplete="off"
-                icon={<Clock aria-hidden size={size === 'big' ? 'big' : 'default'}/>}
+                icon={<Clock aria-hidden/>}
                 inputMode="numeric"
                 onChange={event => setDraft(formatTimeInput(event.target.value, timeFormat))}
                 onKeyDown={handleKeyDown}
@@ -137,7 +131,8 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
                     variant={variant}
                     isDisabled={isDisabled || isReadOnly}
                     onChange={(event: React.SyntheticEvent, item?: DropdownDataOption) => {
-                        if (item?.value === 'AM' || item?.value === 'PM') {
+                        // An empty field has no time to re-emit.
+                        if (displayValue && (item?.value === 'AM' || item?.value === 'PM')) {
                             emitChange(event, parseTimeInput(displayValue, '12h', item.value));
                         }
                     }}

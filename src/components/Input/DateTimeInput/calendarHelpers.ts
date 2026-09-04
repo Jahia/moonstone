@@ -107,6 +107,12 @@ export const parseDateInput = (text: string, locale: string, dateFormat?: DateFo
     }
 
     const order = getDateOrder(locale, dateFormat);
+
+    // A format missing one of y/m/d (or repeating one, e.g. 'MM/yyyy') cannot place all three numbers.
+    if (order.length !== 3 || !['y', 'm', 'd'].every(field => order.includes(field))) {
+        return null;
+    }
+
     const valueOf = (field: string) => typedNumbers[order.indexOf(field)];
     const year = Number(valueOf('y'));
 

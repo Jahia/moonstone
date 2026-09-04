@@ -6,11 +6,32 @@
     max-width: 100%;
 }
 
+// Keeps the three fields on one line; only the local-time caption wraps below.
+.fieldsRow {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--moon-spacing-small);
+    align-items: center;
+}
+
 .dateField {
+    flex: none;
     width: 140px;
+
+    // The icon is pointer-events: none, so the field carries the pointer and the input keeps the caret.
+    // The :not() lifts specificity above BaseInput's class and keeps not-allowed when disabled/read-only.
+    &:not(:has(input:disabled, input:read-only)) {
+        cursor: pointer;
+
+        input {
+            cursor: text;
+        }
+    }
 }
 
 .calendarPopover {
+    z-index: 9000;
+
     background-color: var(--moon-color-light);
     box-shadow: 0 var(--moon-spacing-nano) var(--moon-spacing-small) var(--moon-color-gray_dark60);
 }
@@ -55,6 +76,11 @@
         // background-color: var(--moon-color-gray_light_plain20);
         background-color: var(--moon-color-accent_light_plain20);
     }
+}
+
+// Long month names make the caption wider than the grid; stretch the grid to match.
+.calendarGrid {
+    width: 100%;
 }
 
 .calendarWeekday {

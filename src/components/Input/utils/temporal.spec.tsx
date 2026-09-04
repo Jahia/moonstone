@@ -68,6 +68,27 @@ describe('temporal adapter', () => {
             expect(toZonedDateTime('2026-06-19T14:30')).toBeNull();
         });
 
+        it('converts a Temporal.Instant to the same instant in the system time zone', () => {
+            const instant = Temporal.Instant.from('2026-06-19T12:30:00Z');
+            const zdt = toZonedDateTime(instant);
+
+            expect(zdt?.epochMilliseconds).toBe(instant.epochMilliseconds);
+            expect(zdt?.timeZoneId).toBe(Temporal.Now.timeZoneId());
+        });
+
+        it('converts a UTC ISO string to the same instant in the system time zone', () => {
+            const zdt = toZonedDateTime('2026-06-19T12:30:00Z');
+
+            expect(zdt?.epochMilliseconds).toBe(new Date('2026-06-19T12:30:00Z').getTime());
+            expect(zdt?.timeZoneId).toBe(Temporal.Now.timeZoneId());
+        });
+
+        it('converts an offset ISO string to the same instant in the system time zone', () => {
+            const zdt = toZonedDateTime('2026-06-19T14:30:00+02:00');
+
+            expect(zdt?.epochMilliseconds).toBe(new Date('2026-06-19T12:30:00Z').getTime());
+        });
+
         it('returns null for absent input', () => {
             expect(toZonedDateTime(null)).toBeNull();
         });
