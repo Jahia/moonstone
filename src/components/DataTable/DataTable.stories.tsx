@@ -19,7 +19,6 @@ export default {
         defaultItemsPerPage: {control: 'number'},
         itemsPerPageOptions: {control: 'object'},
         i18n: {control: 'object'},
-        enableSearch: {control: 'boolean'},
         searchColumns: {control: 'object'}
     }
 } satisfies Meta<typeof DataTable<DataUser>>;
@@ -128,13 +127,13 @@ export const SearchableDataTable: Story = {
         primaryKey: 'id',
         enableSearch: true,
         searchColumns: ['firstName', 'status', 'progress'],
-        searchInputProps: {placeholder: 'Search by user, status or progress'}
+        searchInputProps: {'aria-label': 'Search users', placeholder: 'Search by user, status or progress'}
     },
     name: 'Searchable DataTable (uncontrolled)'
 };
 
 export const ServerSideSearchDataTable: Story = {
-    render: () => {
+    render: ({columns, primaryKey, searchInputProps}) => {
         const [searchValue, setSearchValue] = useState('');
         const [currentPage, setCurrentPage] = useState(1);
         const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -147,15 +146,16 @@ export const ServerSideSearchDataTable: Story = {
             <DataTable
                 enableSearch
                 enablePagination
+                // Sorting is off: the table holds a single server-fetched page, so it would reorder that page alone
                 enableSorting={false}
                 data={pageRows}
-                columns={dataColumnsUser}
-                primaryKey="id"
+                columns={columns}
+                primaryKey={primaryKey}
+                searchInputProps={searchInputProps}
                 searchValue={searchValue}
                 currentPage={currentPage}
                 itemsPerPage={itemsPerPage}
                 totalItems={matchingRows.length}
-                searchInputProps={{placeholder: 'Search on the server'}}
                 onSearchChange={value => {
                     setSearchValue(value);
                     setCurrentPage(1);
@@ -164,6 +164,11 @@ export const ServerSideSearchDataTable: Story = {
                 onItemsPerPageChange={setItemsPerPage}
             />
         );
+    },
+    args: {
+        columns: dataColumnsUser,
+        primaryKey: 'id',
+        searchInputProps: {'aria-label': 'Search users', placeholder: 'Search on the server'}
     },
     name: 'Server-side search (the consumer filters)'
 };

@@ -10,7 +10,7 @@ import clsx from 'clsx';
 import {toNodeArray} from '~/utils/helpers';
 import type {Row} from '@tanstack/react-table';
 import React, {useMemo, useCallback} from 'react';
-import {useCustomCells, useExpansion, usePagination, useSearch, useSelection, useSorting} from './hooks';
+import {useCustomCells, useExpansion, usePagination, useSearch, useSearchPaginationWarning, useSelection, useSorting} from './hooks';
 import type {DataTableProps, RenderOptions} from './DataTable.types';
 import {createTableColumns} from './shared';
 import {renderCell, renderHeadCell} from './utils';
@@ -30,20 +30,10 @@ import {
 // Styles for custom column headers (no padding to match measured cell widths)
 const CUSTOM_HEADER_STYLE = {padding: 0};
 
-type SearchPaginationGuard = {
-    enableSearch: boolean;
-    isSearchControlled: boolean;
-    searchColumns?: readonly string[];
-    enablePagination: boolean;
-    isPaginationControlled: boolean;
-};
+// Not translatable yet: the table-level i18n prop has its own ticket
+const NO_RESULTS_MESSAGE = 'No results';
 
-// The types cannot express a constraint spanning two features, so it is checked at runtime
-const warnOnSearchPaginationMismatch = ({enableSearch, isSearchControlled, searchColumns, enablePagination, isPaginationControlled}: SearchPaginationGuard) => {
-    if (enableSearch && isSearchControlled && !searchColumns?.length && enablePagination && !isPaginationControlled) {
-        console.warn('A controlled `searchValue` without `searchColumns` means the DataTable component filters nothing: pagination must be controlled too (`currentPage` and `totalItems`), otherwise the item count only reflects the rows of the current page.');
-    }
-};
+const hasNoSearchResult = (enableSearch: boolean, query: string, rowCount: number) => enableSearch && query !== '' && rowCount === 0;
 
 export const DataTable = <T extends NonNullable<unknown>>({
     className,
@@ -82,9 +72,9 @@ export const DataTable = <T extends NonNullable<unknown>>({
     enableSearch = false,
     searchColumns,
     searchValue,
+    defaultSearchValue,
     onSearchChange,
     searchInputProps,
-    noResultsMessage = 'No results',
     rowProps,
     ...props
 }: DataTableProps<T>) => {
@@ -130,18 +120,15 @@ export const DataTable = <T extends NonNullable<unknown>>({
         totalItems
     });
 
-    const {globalFilter, isSearchControlled, handleGlobalFilterChange} = useSearch({
+    const {globalFilter, handleGlobalFilterChange} = useSearch({
         searchValue,
+        defaultSearchValue,
         onSearchChange
     });
 
-    warnOnSearchPaginationMismatch({
-        enableSearch,
-        isSearchControlled,
-        searchColumns,
-        enablePagination,
-        isPaginationControlled
-    });
+    const isTableFiltering = Boolean(searchColumns?.length);
+
+    useSearchPaginationWarning(enableSearch && enablePagination, isTableFiltering, !isPaginationControlled);
 
     const tableColumns = useMemo(() => createTableColumns(columns), [columns]);
 
@@ -165,7 +152,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
         getFilteredRowModel: enableSearch ? getFilteredRowModel() : undefined,
         globalFilterFn: 'includesString',
         getColumnCanGlobalFilter: column => Boolean(searchColumns?.some(key => key === column.id)),
-        manualFiltering: !searchColumns?.length,
+        manualFiltering: !isTableFiltering,
         filterFromLeafRows: isStructured,
         getExpandedRowModel: getExpandedRowModel(),
         getPaginationRowModel: enablePagination ? getPaginationRowModel() : undefined,
@@ -250,6 +237,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     const isEmpty = !data || !Array.isArray(data) || data.length === 0;
 
     const rows = table.getRowModel().rows;
+    const showNoResults = hasNoSearchResult(enableSearch, globalFilter, rows.length);
     const columnCount = customBeforeCount + (enableSelection ? 1 : 0) + tableColumns.length + customAfterCount;
 
     if (isEmpty && !enableSearch) {
@@ -262,7 +250,6 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 <SearchInput
                     variant="outlined"
                     value={globalFilter}
-                    placeholder="Search"
                     onChange={event => table.setGlobalFilter(event.target.value)}
                     onClear={() => table.setGlobalFilter('')}
                     {...searchInputProps}
@@ -313,9 +300,9 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     ))}
                 </TableHead>
                 <TableBody>
-                    {enableSearch && rows.length === 0 ? (
+                    {showNoResults ? (
                         <TableRow>
-                            <TableCell colSpan={columnCount} align="center">{noResultsMessage}</TableCell>
+                            <TableCell colSpan={columnCount} align="center" aria-live="polite">{NO_RESULTS_MESSAGE}</TableCell>
                         </TableRow>
                     ) : (
                         rows.map(row => renderRowWithCustomization(row))

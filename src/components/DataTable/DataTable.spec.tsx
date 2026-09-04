@@ -981,6 +981,7 @@ describe('DataTable search', () => {
         render(
             <DataTable<TestData>
                 enableSearch
+                searchInputProps={{'aria-label': 'Search'}}
                 data={data}
                 columns={columns}
                 primaryKey="id"
@@ -1000,6 +1001,7 @@ describe('DataTable search', () => {
         render(
             <DataTable<TestData>
                 enableSearch
+                searchInputProps={{'aria-label': 'Search'}}
                 data={data}
                 columns={columns}
                 primaryKey="id"
@@ -1019,6 +1021,7 @@ describe('DataTable search', () => {
         render(
             <DataTable<TestData>
                 enableSearch
+                searchInputProps={{'aria-label': 'Search'}}
                 data={data}
                 columns={columns}
                 primaryKey="id"
@@ -1038,6 +1041,7 @@ describe('DataTable search', () => {
         render(
             <DataTable<TestData>
                 enableSearch
+                searchInputProps={{'aria-label': 'Search'}}
                 data={data}
                 columns={columns}
                 primaryKey="id"
@@ -1058,6 +1062,7 @@ describe('DataTable search', () => {
         render(
             <DataTable<TestData>
                 enableSearch
+                searchInputProps={{'aria-label': 'Search'}}
                 data={data}
                 columns={columns}
                 primaryKey="id"
@@ -1077,6 +1082,7 @@ describe('DataTable search', () => {
         render(
             <DataTable<TestData>
                 enableSearch
+                searchInputProps={{'aria-label': 'Search'}}
                 data={data}
                 columns={columns}
                 primaryKey="id"
@@ -1096,6 +1102,7 @@ describe('DataTable search', () => {
         render(
             <DataTable<TestData>
                 enableSearch
+                searchInputProps={{'aria-label': 'Search'}}
                 data={[]}
                 columns={columns}
                 primaryKey="id"
@@ -1113,6 +1120,7 @@ describe('DataTable search', () => {
             <DataTable<TestData>
                 enableSearch
                 enablePagination
+                searchInputProps={{'aria-label': 'Search'}}
                 data={data}
                 columns={columns}
                 primaryKey="id"
@@ -1139,6 +1147,7 @@ describe('DataTable search', () => {
             <DataTable<TestData>
                 isStructured
                 enableSearch
+                searchInputProps={{'aria-label': 'Search'}}
                 data={structuredData}
                 columns={columns}
                 primaryKey="id"
@@ -1158,6 +1167,7 @@ describe('DataTable search', () => {
             <DataTable<TestData>
                 enableSearch
                 enableSelection
+                searchInputProps={{'aria-label': 'Search'}}
                 data={data}
                 columns={columns}
                 primaryKey="id"
@@ -1183,11 +1193,109 @@ describe('DataTable search', () => {
                 columns={columns}
                 primaryKey="id"
                 searchColumns={['name']}
-                searchInputProps={{placeholder: 'Find a user', className: 'custom-search'}}
+                searchInputProps={{'aria-label': 'Search', placeholder: 'Find a user', className: 'custom-search'}}
             />
         );
 
         expect(screen.getByPlaceholderText('Find a user')).toBeInTheDocument();
         expect(screen.getByRole('search')).toHaveClass('custom-search');
+    });
+
+    it('should seed the query with defaultSearchValue', () => {
+        render(
+            <DataTable<TestData>
+                enableSearch
+                searchInputProps={{'aria-label': 'Search'}}
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                searchColumns={['name']}
+                defaultSearchValue="bob"
+            />
+        );
+
+        expect(screen.getByRole('searchbox')).toHaveValue('bob');
+        expect(screen.getByText('Bob')).toBeInTheDocument();
+        expect(screen.queryByText('Alice')).not.toBeInTheDocument();
+    });
+
+    it('should show the no-results message only once a query matches nothing', async () => {
+        const user = userEvent.setup();
+        render(
+            <DataTable<TestData>
+                enableSearch
+                searchInputProps={{'aria-label': 'Search'}}
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                searchColumns={['name']}
+            />
+        );
+
+        expect(screen.queryByText('No results')).not.toBeInTheDocument();
+
+        await user.type(screen.getByRole('searchbox'), 'zzz');
+
+        expect(screen.getByText('No results')).toBeInTheDocument();
+    });
+
+    it('should not show the no-results message when data is empty without a query', () => {
+        render(
+            <DataTable<TestData>
+                enableSearch
+                searchInputProps={{'aria-label': 'Search'}}
+                data={[]}
+                columns={columns}
+                primaryKey="id"
+                searchColumns={['name']}
+            />
+        );
+
+        expect(screen.queryByText('No results')).not.toBeInTheDocument();
+    });
+
+    it('should warn once when the table filters but the consumer paginates', async () => {
+        const user = userEvent.setup();
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+        render(
+            <DataTable<TestData>
+                enableSearch
+                enablePagination
+                searchInputProps={{'aria-label': 'Search'}}
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                searchColumns={['name']}
+                currentPage={1}
+                totalItems={300}
+                onPageChange={() => {}}
+            />
+        );
+
+        await user.type(screen.getByRole('searchbox'), 'alice');
+
+        expect(warn).toHaveBeenCalledTimes(1);
+        expect(warn.mock.calls[0][0]).toContain('but you paginate them');
+        warn.mockRestore();
+    });
+
+    it('should warn once when the consumer filters but the table paginates', () => {
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+        render(
+            <DataTable<TestData>
+                enableSearch
+                enablePagination
+                searchInputProps={{'aria-label': 'Search'}}
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                searchValue="alice"
+                onSearchChange={() => {}}
+            />
+        );
+
+        expect(warn).toHaveBeenCalledTimes(1);
+        expect(warn.mock.calls[0][0]).toContain('but the table paginates them');
+        warn.mockRestore();
     });
 });

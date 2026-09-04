@@ -182,23 +182,23 @@ export type SelectionProps =
           selectionCellProps?: never;
       };
 
-type SearchColumns<T extends NonNullable<unknown>> = Array<Extract<Exclude<keyof T, SubRowKey>, string>>;
+type SearchColumn<T extends NonNullable<unknown>> = Extract<Exclude<keyof T, SubRowKey>, string>;
+type SearchColumns<T extends NonNullable<unknown>> = [SearchColumn<T>, ...Array<SearchColumn<T>>];
 
-type SearchInputAttributes = Omit<SearchInputProps, 'value' | 'defaultValue' | 'onChange' | 'onClear'>;
+type SearchInputAttributes = Omit<SearchInputProps, 'value' | 'defaultValue' | 'onChange' | 'onClear'> &
+    ({'aria-label': string; 'aria-labelledby'?: never} | {'aria-labelledby': string; 'aria-label'?: never});
 
 /**
- * Search accepts two shapes, and only two.
+ * Search answers two independent questions.
  *
- * Controlled: you own the query through `searchValue` and `onSearchChange`.
- * `searchColumns` stays optional here, because a controlled query usually
- * means you filter `data` yourself (a server-side search) and the table must
- * not filter it a second time. Pass it anyway if you only want to drive the
- * value from the outside, for instance to keep it in a URL, and still let the
- * table do the filtering.
+ * Who holds the query? The table, seeded by `defaultSearchValue`, or you,
+ * through `searchValue` and `onSearchChange` — the controlled/uncontrolled
+ * choice of any React input, and nothing more.
  *
- * Uncontrolled: the table owns the query, so `searchColumns` becomes
- * required — nothing else would filter the rows, and the field would look
- * broken. `onSearchChange` is then a plain observer.
+ * Who drops the rows that do not match? The table when `searchColumns` is
+ * given, you when it is omitted, and `data` must then arrive already filtered.
+ * Omitting it requires a controlled `searchValue`, because a query the table
+ * does not use itself needs an owner.
  */
 type SearchProps<T extends NonNullable<unknown>> =
     | {
@@ -208,18 +208,14 @@ type SearchProps<T extends NonNullable<unknown>> =
           searchColumns?: SearchColumns<T>;
           /** Current search query (controlled) */
           searchValue: string;
+          defaultSearchValue?: never;
           /** Callback when the search query changes */
           onSearchChange: (searchValue: string) => void;
           /**
            * Custom attributes added to the SearchInput element.
-           * Pass `placeholder` to localize it, and `aria-label` or `aria-labelledby` to give it an accessible name.
+           * `aria-label` or `aria-labelledby` is required: it is the accessible name of the field.
            */
-          searchInputProps?: SearchInputAttributes;
-          /**
-           * Message displayed instead of the rows when the query matches nothing
-           * @default 'No results'
-           */
-          noResultsMessage?: string;
+          searchInputProps: SearchInputAttributes;
       }
     | {
           /** Enable search for the table */
@@ -227,26 +223,23 @@ type SearchProps<T extends NonNullable<unknown>> =
           /** Columns filtered by the table (case-insensitive substring match on the raw value) */
           searchColumns: SearchColumns<T>;
           searchValue?: never;
+          /** Initial search query (uncontrolled) */
+          defaultSearchValue?: string;
           /** Optional callback to observe search changes */
           onSearchChange?: (searchValue: string) => void;
           /**
            * Custom attributes added to the SearchInput element.
-           * Pass `placeholder` to localize it, and `aria-label` or `aria-labelledby` to give it an accessible name.
+           * `aria-label` or `aria-labelledby` is required: it is the accessible name of the field.
            */
-          searchInputProps?: SearchInputAttributes;
-          /**
-           * Message displayed instead of the rows when the query matches nothing
-           * @default 'No results'
-           */
-          noResultsMessage?: string;
+          searchInputProps: SearchInputAttributes;
       }
     | {
           enableSearch?: false;
           searchColumns?: never;
           searchValue?: never;
+          defaultSearchValue?: never;
           onSearchChange?: never;
           searchInputProps?: never;
-          noResultsMessage?: never;
       };
 
 export type RenderOptions = {
