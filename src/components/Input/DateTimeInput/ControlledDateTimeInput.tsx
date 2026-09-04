@@ -6,6 +6,7 @@ import dayPickerClassNames from '@daypicker/react/style.module.css';
 import {Temporal} from 'temporal-polyfill';
 import {Button, Dropdown, Typography} from '~/components';
 import {Calendar} from '~/icons';
+import {layout} from '~/globals/css-utils';
 import type {DropdownProps} from '@daypicker/react';
 import {TimezoneSelector} from '../../TimezoneSelector/TimezoneSelector';
 import {BaseInput} from '../BaseInput';
@@ -14,6 +15,7 @@ import {
     dateToPlainDate,
     getSystemTimeZone,
     getTodayPlainDate,
+    isValidTimeZone,
     plainDateToDate,
     toPlainDate
 } from '../utils/temporal';
@@ -29,8 +31,7 @@ import {
     assembleValue,
     getPlainDate,
     getPlainTime,
-    parseValue,
-    toDisplayZone
+    parseValue
 } from './dateTimeValue';
 import type {ControlledDateTimeInputProps} from './DateTimeInput.types';
 import baseInputStyles from '../BaseInput/BaseInput.module.scss';
@@ -72,17 +73,16 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     isReadOnly,
     timeInputProps,
     timezoneSelectorProps,
+    defaultTimezone,
     onBlur,
     autoComplete = 'off',
     ...props
 }, ref) => {
     const currentValue = parseValue(value, type);
-    // The zone is a view setting: the browser's zone first, then whatever the selector picks.
-    // A value's own zone is never used, and a parent echoing back the value can't reset it.
-    const [displayZone, setDisplayZone] = useState(getSystemTimeZone);
-    const displayedValue = toDisplayZone(currentValue, displayZone);
-    const selectedDate = getPlainDate(displayedValue);
-    const selectedTime = getPlainTime(displayedValue);
+    // Display-only: the zone an instant is shown in. It never reaches the value.
+    const [displayedZone, setDisplayedZone] = useState(() => (isValidTimeZone(defaultTimezone) ? defaultTimezone : getSystemTimeZone()));
+    const selectedDate = getPlainDate(currentValue, displayedZone);
+    const selectedTime = getPlainTime(currentValue, displayedZone);
 
     // Resolve to a single locale: passing `undefined` through would disable the calendar
     // formatters and force getWeekStartsOn's Monday fallback, so only the text field would localize.
@@ -147,7 +147,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     ) => {
         setDraft(null);
         const {plainDate = selectedDate, plainTime = selectedTime} = change;
-        onChange?.(event, assembleValue(plainDate, plainTime, displayZone, type));
+        onChange?.(event, assembleValue(plainDate, plainTime, displayedZone, type));
     };
 
     const clearValue = (event: React.SyntheticEvent) => emitChange(event, {plainDate: null});
@@ -188,10 +188,6 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
         }
     };
 
-    // Dropdowns come in small/medium, fields in default/big: a big field gets a medium selector unless
-    // the consumer asks for another size through timezoneSelectorProps.
-    const timezoneSelectorSize = timezoneSelectorProps?.size ?? (size === 'big' ? 'medium' : 'small');
-
     return (
         <div className={clsx(styles.dateTimeInput, className)}>
             <div
@@ -206,7 +202,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                 <BaseInput
                     ref={fieldRef}
                     {...props}
-                    className={clsx(styles.dateField, size === 'big' && styles.dateField_big)}
+                    className={styles.dateField}
                     value={draft ?? formatPlainDate(selectedDate, resolvedLocale, dateFormat)}
                     size={size}
                     variant={variant}
@@ -364,20 +360,18 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                 )}
             </div>
             {type === 'zonedDateTime' && currentValue !== null && (
-                <div className={styles.timezoneRow}>
-                    <Typography component="span" variant={timezoneSelectorSize === 'small' ? 'caption' : 'body'} className={styles.timezoneLabel}>
+                <div className={clsx(layout.flexRow_nowrap, layout.alignCenter)}>
+                    <Typography component="span" variant="caption" className={styles.timezoneLabel}>
                         {i18nLabels.timezone}:
                     </Typography>
                     <TimezoneSelector
                         {...timezoneSelectorProps}
                         variant="ghost"
-                        size={timezoneSelectorSize}
-                        isDisabled={isDisabled}
-                        isReadOnly={isReadOnly}
-                        value={displayZone}
+                        size="small"
+                        value={displayedZone}
                         referenceDate={selectedDate}
                         // Display only: the instant doesn't move, so nothing is emitted.
-                        onChange={(_event, nextZone) => setDisplayZone(nextZone ?? displayZone)}
+                        onChange={(_event, nextZone) => setDisplayedZone(nextZone ?? displayedZone)}
                     />
                 </div>
             )}

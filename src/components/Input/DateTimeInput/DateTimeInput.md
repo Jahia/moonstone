@@ -7,17 +7,17 @@ calendar it opens, plus an optional time field and timezone selector depending o
 
 - `'date'` — calendar only → `Temporal.PlainDate`
 - `'dateTime'` — calendar + time → `Temporal.PlainDateTime`
-- `'zonedDateTime'` — calendar + time + timezone → `Temporal.ZonedDateTime`
+- `'zonedDateTime'` — calendar + time + timezone → `Temporal.Instant`
 
 ## Value
 
 `value` / `defaultValue` accept the mode's `Temporal` instance, an ISO string (e.g. `'2026-06-19'`,
-`'2026-06-19T14:30'`, `'2026-06-19T14:30+02:00[Europe/Paris]'`), or `null`. Zoned mode additionally
-accepts `Temporal.Instant` and ISO instants such as `'2026-06-19T12:30:00Z'`; whatever zone the value
-carries, it is displayed in the browser's timezone. A JS `Date` is not accepted in any mode — pass
-`date.toISOString()`. `onChange` always emits the mode's `Temporal` instance (or `null`) — never a
-string. Pass `defaultValue={null}` to start empty; with no `defaultValue`, an uncontrolled field
-starts at the current date/time.
+`'2026-06-19T14:30'`, `'2026-06-19T12:30:00Z'`), or `null`. Zoned mode takes an instant — a
+`Temporal.Instant` or an ISO string with `Z` or an offset — never a `Temporal.ZonedDateTime`: the
+value carries no timezone. A JS `Date` is not accepted in any mode — pass `date.toISOString()`.
+`onChange` always emits the mode's `Temporal` instance (or `null`) — never a string. Pass
+`defaultValue={null}` to start empty; with no `defaultValue`, an uncontrolled field starts at the
+current date/time.
 
 When the date field holds a value it shows a clear (reset) button. Clearing empties the whole value —
 date and time — and `onChange` emits `null`, since a date-time has no meaning without its date. The
@@ -62,12 +62,12 @@ and the timezone row label.
 
 ## Zoned mode
 
-The timezone only changes how the value is shown, never the value itself. Pick a zone in the
-`Timezone:` row under the fields: the date and time are converted, `onChange` is not called.
-By default the browser's zone is used. The row is hidden without a date.
+The timezone only changes how the instant is shown, never the instant itself. Pick a zone in the
+`Timezone:` row under the fields: the date and time are converted, `onChange` is not called. The
+selector stays usable when the field is disabled or read-only. The initial zone is `defaultTimezone`,
+or the browser's zone when omitted. The row is hidden without a date.
 
 ## Sub-component props
 
 `timeInputProps` and `timezoneSelectorProps` forward additional props to the internal `TimeInput`
-(`dateTime` / `zonedDateTime`) and `TimezoneSelector` (`zonedDateTime`). `timezoneSelectorProps.size`
-overrides the selector's size, which otherwise follows the field's (`medium` for `big`, else `small`).
+(`dateTime` / `zonedDateTime`) and `TimezoneSelector` (`zonedDateTime`).

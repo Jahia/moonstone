@@ -15,9 +15,9 @@
     align-items: center;
 }
 
-.fieldsRow .dateField {
+.dateField {
     flex: none;
-    width: 140px;
+    width: 160px;
 
     // The icon is pointer-events: none, so the field carries the pointer and the input keeps the caret.
     // The :not() lifts specificity above BaseInput's class and keeps not-allowed when disabled/read-only.
@@ -28,10 +28,6 @@
             cursor: text;
         }
     }
-}
-
-.fieldsRow .dateField_big {
-    width: 160px;
 }
 
 .calendarPopover {
@@ -162,12 +158,6 @@
     padding-top: var(--moon-spacing-small);
 
     border-top: 1px solid var(--moon-color-gray20);
-}
-
-.timezoneRow {
-    display: flex;
-    gap: var(--moon-spacing-nano);
-    align-items: center;
 }
 
 .timezoneLabel {

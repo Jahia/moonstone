@@ -155,7 +155,7 @@ describe('DateTimeInput', () => {
                 {...localeProps}
                 type="zonedDateTime"
                 placeholder="Select a date"
-                defaultValue="2026-02-10T11:56[Europe/Paris]"
+                defaultValue="2026-02-10T10:56:00Z"
                 onChange={handleChange}
             />
         );
@@ -273,7 +273,7 @@ describe('DateTimeInput', () => {
                 {...localeProps}
                 type="zonedDateTime"
                 timeFormat="12h"
-                defaultValue="2026-02-10T23:56[Europe/Paris]"
+                defaultValue="2026-02-10T22:56:00Z"
                 onChange={() => null}
             />
         );
@@ -466,7 +466,7 @@ describe('DateTimeInput', () => {
                 {...localeProps}
                 type="zonedDateTime"
                 placeholder="Select a date"
-                defaultValue="2026-03-15T11:56[Europe/Paris]"
+                defaultValue="2026-03-15T10:56:00Z"
                 i18n={{nextMonth: nextMonthLabel}}
                 onChange={() => null}
             />
@@ -660,7 +660,7 @@ describe('DateTimeInput', () => {
         expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
     });
 
-    it('should default to the current date, time, and system timezone when no defaultValue is given (ZonedDateTime)', () => {
+    it('should default to the current date, time, and system timezone when no defaultValue is given (Instant)', () => {
         render(<DateTimeInput {...localeProps} type="zonedDateTime" placeholder="Select a date" onChange={() => null}/>);
 
         expect(dateField()).not.toHaveValue('');
@@ -930,7 +930,7 @@ describe('DateTimeInput', () => {
         expect(screen.getByPlaceholderText('hh:mm')).toBeDisabled();
     });
 
-    it('should disable the internal timezone selector when isDisabled is set', async () => {
+    it('should keep the display-only timezone selector usable when isDisabled is set', async () => {
         const user = userEvent.setup();
 
         render(
@@ -939,14 +939,14 @@ describe('DateTimeInput', () => {
                 isDisabled
                 type="zonedDateTime"
                 placeholder="Select a date"
-                defaultValue="2026-03-15T11:56[Europe/Paris]"
+                defaultValue="2026-03-15T10:56:00Z"
                 onChange={() => null}
             />
         );
 
         await user.click(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'}));
 
-        expect(screen.queryByRole('searchbox')).not.toBeInTheDocument();
+        expect(screen.getByRole('searchbox')).toBeInTheDocument();
     });
 
     it('should make the internal time input read-only when isReadOnly is set', () => {
@@ -964,7 +964,7 @@ describe('DateTimeInput', () => {
         expect(screen.getByPlaceholderText('hh:mm')).toHaveAttribute('readonly');
     });
 
-    it('should make the internal timezone selector read-only (rendered as disabled) when isReadOnly is set', async () => {
+    it('should keep the display-only timezone selector usable when isReadOnly is set', async () => {
         const user = userEvent.setup();
 
         render(
@@ -973,14 +973,14 @@ describe('DateTimeInput', () => {
                 isReadOnly
                 type="zonedDateTime"
                 placeholder="Select a date"
-                defaultValue="2026-03-15T11:56[Europe/Paris]"
+                defaultValue="2026-03-15T10:56:00Z"
                 onChange={() => null}
             />
         );
 
         await user.click(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'}));
 
-        expect(screen.queryByRole('searchbox')).not.toBeInTheDocument();
+        expect(screen.getByRole('searchbox')).toBeInTheDocument();
     });
 
     it('should not display an invalid dateTime value', () => {
@@ -1220,19 +1220,51 @@ describe('DateTimeInput', () => {
             expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
         });
 
-        it('should display a zoned value in the browser zone, not in its own', () => {
+        it('should display an offset-annotated ISO string in the browser zone, not in its annotation', () => {
             render(
                 <DateTimeInput
                     {...localeProps}
                     type="zonedDateTime"
                     placeholder="Select a date"
-                    defaultValue="2026-02-10T18:56[Asia/Tokyo]"
+                    defaultValue="2026-02-10T18:56+09:00[Asia/Tokyo]"
                     onChange={() => null}
                 />
             );
 
             // 18:56 Tokyo (UTC+9) is 10:56 Paris (UTC+1)
             expect(screen.getByDisplayValue('10:56')).toBeInTheDocument();
+            expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
+        });
+
+        it('should display the value in defaultTimezone instead of the system zone', () => {
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    type="zonedDateTime"
+                    placeholder="Select a date"
+                    defaultValue="2026-02-10T10:56:00Z"
+                    defaultTimezone="Asia/Tokyo"
+                    onChange={() => null}
+                />
+            );
+
+            expect(screen.getByDisplayValue('19:56')).toBeInTheDocument();
+            expect(screen.getByRole('listbox', {name: 'Tokyo (UTC +09:00)'})).toBeInTheDocument();
+        });
+
+        it('should fall back to the system zone when defaultTimezone is not a valid IANA zone', () => {
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    type="zonedDateTime"
+                    placeholder="Select a date"
+                    defaultValue="2026-02-10T10:56:00Z"
+                    defaultTimezone="Mars/Olympus"
+                    onChange={() => null}
+                />
+            );
+
+            expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
             expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
         });
 
@@ -1282,7 +1314,7 @@ describe('DateTimeInput', () => {
             await user.type(timeField, '0900');
             await user.tab();
 
-            expect(lastValue(handleChange).toString()).toBe('2026-02-10T09:00:00+09:00[Asia/Tokyo]');
+            expect(lastValue(handleChange).toString()).toBe('2026-02-10T00:00:00Z');
         });
 
         it('should keep the displayed zone when a controlled parent echoes back the UTC instant', async () => {
@@ -1298,7 +1330,7 @@ describe('DateTimeInput', () => {
                         type="zonedDateTime"
                         placeholder="Select a date"
                         value={value}
-                        onChange={(_event, next) => setValue(next ? next.toInstant().toString() : null)}
+                        onChange={(_event, next) => setValue(next ? next.toString() : null)}
                     />
                 );
             };
@@ -1351,7 +1383,7 @@ describe('DateTimeInput', () => {
                     {...localeProps}
                     type="zonedDateTime"
                     placeholder="Select a date"
-                    defaultValue="2026-02-10T11:56[Europe/Paris]"
+                    defaultValue="2026-02-10T10:56:00Z"
                     i18n={{timezone: 'Fuseau horaire'}}
                     onChange={() => null}
                 />
@@ -1367,7 +1399,7 @@ describe('DateTimeInput', () => {
                     {...localeProps}
                     type="zonedDateTime"
                     placeholder="Select a date"
-                    defaultValue="2026-02-10T11:56[Europe/Paris]"
+                    defaultValue="2026-02-10T10:56:00Z"
                     i18n={{todayButton: 'Aujourd\'hui'}}
                     onChange={() => null}
                 />

@@ -19,7 +19,7 @@ import {Temporal} from 'temporal-polyfill';
 export type PlainDateInput = Temporal.PlainDate | string;
 export type PlainTimeInput = Temporal.PlainTime | string;
 export type PlainDateTimeInput = Temporal.PlainDateTime | string;
-export type ZonedDateTimeInput = Temporal.ZonedDateTime | Temporal.Instant | string;
+export type InstantInput = Temporal.Instant | string;
 
 /** Coerces a date-only input to `Temporal.PlainDate`, or `null` when absent/invalid. */
 export const toPlainDate = (value?: PlainDateInput | null): Temporal.PlainDate | null => {
@@ -61,26 +61,14 @@ export const toPlainDateTime = (value?: PlainDateTimeInput | null): Temporal.Pla
     }
 };
 
-/** Coerces a zoned date+time input to `Temporal.ZonedDateTime`, or `null` when absent/invalid. */
-export const toZonedDateTime = (value?: ZonedDateTimeInput | null): Temporal.ZonedDateTime | null => {
+/** Coerces an instant input (`Temporal.Instant` or ISO instant with `Z`/offset) to `Temporal.Instant`, or `null` when absent/invalid. */
+export const toInstant = (value?: InstantInput | null): Temporal.Instant | null => {
     if (value === null || value === undefined) {
         return null;
     }
 
     try {
-        if (value instanceof Temporal.ZonedDateTime) {
-            return value;
-        }
-
-        if (value instanceof Temporal.Instant) {
-            return value.toZonedDateTimeISO(getSystemTimeZone());
-        }
-
-        try {
-            return Temporal.ZonedDateTime.from(value);
-        } catch {
-            return Temporal.Instant.from(value).toZonedDateTimeISO(getSystemTimeZone());
-        }
+        return Temporal.Instant.from(value);
     } catch {
         return null;
     }
@@ -109,3 +97,17 @@ export const getTodayPlainDate = (): Temporal.PlainDate => Temporal.Now.plainDat
 
 /** The system IANA time zone (e.g. `'Europe/Paris'`). */
 export const getSystemTimeZone = (): string => Temporal.Now.timeZoneId();
+
+/** Whether `timeZone` is an IANA identifier Temporal accepts (`'Mars/Olympus'`, `''` and `undefined` are not). */
+export const isValidTimeZone = (timeZone?: string | null): timeZone is string => {
+    if (!timeZone) {
+        return false;
+    }
+
+    try {
+        Temporal.Now.plainDateISO().toZonedDateTime(timeZone);
+        return true;
+    } catch {
+        return false;
+    }
+};
