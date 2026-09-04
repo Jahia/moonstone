@@ -1,5 +1,6 @@
 import React from 'react';
 import type {TableCellProps} from '~/components/DataTable/cells';
+import type {SearchInputProps} from '~/components/Input/SearchInput/SearchInput.types';
 import type {DataTablePaginationProps} from './pagination';
 export type {PaginationUncontrolledProps} from './pagination';
 
@@ -181,6 +182,66 @@ export type SelectionProps =
           selectionCellProps?: never;
       };
 
+type SearchColumn<T extends NonNullable<unknown>> = Extract<Exclude<keyof T, SubRowKey>, string>;
+type SearchColumns<T extends NonNullable<unknown>> = [SearchColumn<T>, ...Array<SearchColumn<T>>];
+
+type SearchInputAttributes = Omit<SearchInputProps, 'value' | 'defaultValue' | 'onChange' | 'onClear'> &
+    ({'aria-label': string; 'aria-labelledby'?: never} | {'aria-labelledby': string; 'aria-label'?: never});
+
+/**
+ * Search answers two independent questions.
+ *
+ * Who holds the query? The table, seeded by `defaultSearchValue`, or you,
+ * through `searchValue` and `onSearchChange` — the controlled/uncontrolled
+ * choice of any React input, and nothing more.
+ *
+ * Who drops the rows that do not match? The table when `searchColumns` is
+ * given, you when it is omitted, and `data` must then arrive already filtered.
+ * Omitting it requires a controlled `searchValue`, because a query the table
+ * does not use itself needs an owner.
+ */
+type SearchProps<T extends NonNullable<unknown>> =
+    | {
+          /** Enable search for the table */
+          enableSearch: true;
+          /** Columns filtered by the table. Omit it when you filter `data` yourself */
+          searchColumns?: SearchColumns<T>;
+          /** Current search query (controlled) */
+          searchValue: string;
+          defaultSearchValue?: never;
+          /** Callback when the search query changes */
+          onSearchChange: (searchValue: string) => void;
+          /**
+           * Custom attributes added to the SearchInput element.
+           * `aria-label` or `aria-labelledby` is required: it is the accessible name of the field.
+           */
+          searchInputProps: SearchInputAttributes;
+      }
+    | {
+          /** Enable search for the table */
+          enableSearch: true;
+          /** Columns filtered by the table (case-insensitive substring match on the raw value) */
+          searchColumns: SearchColumns<T>;
+          searchValue?: never;
+          /** Initial search query (uncontrolled) */
+          defaultSearchValue?: string;
+          /** Optional callback to observe search changes */
+          onSearchChange?: (searchValue: string) => void;
+          /**
+           * Custom attributes added to the SearchInput element.
+           * `aria-label` or `aria-labelledby` is required: it is the accessible name of the field.
+           */
+          searchInputProps: SearchInputAttributes;
+      }
+    | {
+          enableSearch?: false;
+          searchColumns?: never;
+          searchValue?: never;
+          defaultSearchValue?: never;
+          onSearchChange?: never;
+          searchInputProps?: never;
+      };
+
 export type RenderOptions = {
     /**
      * Custom cells to render before the data cells (selection + columns).
@@ -247,6 +308,7 @@ export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'c
     DataTableBaseProps<T> &
     SortingProps<T> &
     SelectionProps &
+    SearchProps<T> &
     StructuredProps &
     RenderRowProps<T> &
     DataTablePaginationProps;
