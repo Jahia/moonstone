@@ -70,7 +70,6 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     className,
     isDisabled,
     isReadOnly,
-    hasError,
     timeInputProps,
     timezoneSelectorProps,
     onBlur,
@@ -364,7 +363,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                     />
                 )}
             </div>
-            {type === 'zonedDateTime' && currentValue !== null && !hasError && (
+            {type === 'zonedDateTime' && currentValue !== null && (
                 <div className={styles.timezoneRow}>
                     <Typography component="span" variant={timezoneSelectorSize === 'small' ? 'caption' : 'body'} className={styles.timezoneLabel}>
                         {i18nLabels.timezone}:

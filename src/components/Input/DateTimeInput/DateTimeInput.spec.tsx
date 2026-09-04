@@ -1375,23 +1375,5 @@ describe('DateTimeInput', () => {
 
             expect(screen.getByText('Timezone:')).toBeInTheDocument();
         });
-
-        it('should hide the timezone row when hasError is set, keeping the fields', () => {
-            render(
-                <DateTimeInput
-                    {...localeProps}
-                    hasError
-                    type="zonedDateTime"
-                    placeholder="Select a date"
-                    defaultValue="2026-02-10T11:56[Europe/Paris]"
-                    onChange={() => null}
-                />
-            );
-
-            expect(dateField()).not.toHaveValue('');
-            expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
-            expect(screen.queryByText('Timezone:')).not.toBeInTheDocument();
-            expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
-        });
     });
 });

@@ -64,7 +64,7 @@ and the timezone row label.
 
 The timezone only changes how the value is shown, never the value itself. Pick a zone in the
 `Timezone:` row under the fields: the date and time are converted, `onChange` is not called.
-By default the browser's zone is used. The row is hidden without a date or when `hasError` is set.
+By default the browser's zone is used. The row is hidden without a date.
 
 ## Sub-component props
 

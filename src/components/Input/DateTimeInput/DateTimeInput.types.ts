@@ -95,9 +95,6 @@ export type DateTimeInputSharedProps = Omit<BaseInputProps,
 > & {
     variant?: 'ghost' | 'outlined';
 
-    /** Hides the timezone row (`type='zonedDateTime'`) so the field's error message can take its place. */
-    hasError?: boolean;
-
     /** Lower bound of the calendar (inclusive). Dates before this are disabled. */
     minDate?: CalendarDate;
 
