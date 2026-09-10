@@ -6,7 +6,8 @@ import {
     toPlainDate,
     toPlainDateTime,
     toPlainTime,
-    toZonedDateTime
+    toInstant,
+    isValidTimeZone
 } from './temporal';
 
 describe('temporal adapter', () => {
@@ -58,39 +59,41 @@ describe('temporal adapter', () => {
         });
     });
 
-    describe('toZonedDateTime', () => {
-        it('parses an ISO string with a time-zone annotation', () => {
-            const zdt = toZonedDateTime('2026-06-19T14:30+02:00[Europe/Paris]');
-            expect(zdt?.timeZoneId).toBe('Europe/Paris');
+    describe('toInstant', () => {
+        it('reads an offset ISO string with a time-zone annotation as its instant', () => {
+            expect(toInstant('2026-06-19T14:30+02:00[Europe/Paris]')?.toString()).toBe('2026-06-19T12:30:00Z');
         });
 
-        it('returns null for a string without a time zone', () => {
-            expect(toZonedDateTime('2026-06-19T14:30')).toBeNull();
+        it('returns null for a string without an offset', () => {
+            expect(toInstant('2026-06-19T14:30')).toBeNull();
         });
 
-        it('converts a Temporal.Instant to the same instant in the system time zone', () => {
+        it('returns a Temporal.Instant as is', () => {
             const instant = Temporal.Instant.from('2026-06-19T12:30:00Z');
-            const zdt = toZonedDateTime(instant);
 
-            expect(zdt?.epochMilliseconds).toBe(instant.epochMilliseconds);
-            expect(zdt?.timeZoneId).toBe(Temporal.Now.timeZoneId());
+            expect(toInstant(instant)?.equals(instant)).toBe(true);
         });
 
-        it('converts a UTC ISO string to the same instant in the system time zone', () => {
-            const zdt = toZonedDateTime('2026-06-19T12:30:00Z');
-
-            expect(zdt?.epochMilliseconds).toBe(new Date('2026-06-19T12:30:00Z').getTime());
-            expect(zdt?.timeZoneId).toBe(Temporal.Now.timeZoneId());
+        it('parses a UTC ISO string', () => {
+            expect(toInstant('2026-06-19T12:30:00Z')?.epochMilliseconds).toBe(new Date('2026-06-19T12:30:00Z').getTime());
         });
 
-        it('converts an offset ISO string to the same instant in the system time zone', () => {
-            const zdt = toZonedDateTime('2026-06-19T14:30:00+02:00');
-
-            expect(zdt?.epochMilliseconds).toBe(new Date('2026-06-19T12:30:00Z').getTime());
+        it('parses an offset ISO string to the same instant', () => {
+            expect(toInstant('2026-06-19T14:30:00+02:00')?.epochMilliseconds).toBe(new Date('2026-06-19T12:30:00Z').getTime());
         });
 
         it('returns null for absent input', () => {
-            expect(toZonedDateTime(null)).toBeNull();
+            expect(toInstant(null)).toBeNull();
+        });
+    });
+
+    describe('isValidTimeZone', () => {
+        it('accepts an IANA identifier and rejects anything else', () => {
+            expect(isValidTimeZone('Europe/Paris')).toBe(true);
+            expect(isValidTimeZone('UTC')).toBe(true);
+            expect(isValidTimeZone('Mars/Olympus')).toBe(false);
+            expect(isValidTimeZone('')).toBe(false);
+            expect(isValidTimeZone(undefined)).toBe(false);
         });
     });
 

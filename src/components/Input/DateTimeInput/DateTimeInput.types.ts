@@ -5,13 +5,13 @@ import type {TimeFormat, TimeInputProps} from '../TimeInput';
 import type {ControlledTimezoneSelectorProps} from '../../TimezoneSelector';
 import type {DateTimeValue, DateTimeValueInput} from './dateTimeValue';
 import type {DataAttributes} from '~/types/DataAttributes.types';
-import type {ZonedDateTimeInput} from '../utils/temporal';
+import type {InstantInput} from '../utils/temporal';
 
 /**
  * Selects the component's mode, which fields it renders, and the emitted value type:
  * - `'date'`          : calendar only            → `Temporal.PlainDate`
  * - `'dateTime'`      : calendar + time          → `Temporal.PlainDateTime`
- * - `'zonedDateTime'` : calendar + time + zone   → `Temporal.ZonedDateTime`
+ * - `'zonedDateTime'` : calendar + time + zone   → `Temporal.Instant` (the zone is display-only)
  */
 export type DateTimeInputType = 'date' | 'dateTime' | 'zonedDateTime';
 
@@ -49,8 +49,8 @@ export type DateTimeInputI18n = {
     nextMonth?: string;
     /** Accessible label for the previous month button */
     previousMonth?: string;
-    /** Prefix label shown before the converted local time when the selected timezone differs from the user's system timezone */
-    localTime?: string;
+    /** Label shown before the timezone selector (`type='zonedDateTime'`) */
+    timezone?: string;
 };
 
 export type DateTimeInputTimeInputProps = Omit<TimeInputProps,
@@ -186,8 +186,9 @@ type DateTimeModeProps = {
 } & ControlMode<Temporal.PlainDateTime>;
 
 /**
- * `type='zonedDateTime'` — value accepts a `Temporal.ZonedDateTime`, `Temporal.Instant`,
- * or ISO instant. Inputs without an IANA annotation use the system timezone.
+ * `type='zonedDateTime'` — value is a `Temporal.Instant` (or ISO instant string such as
+ * `'2026-06-19T12:30:00Z'`); it carries no zone. The timezone selector only picks the zone the
+ * instant is displayed in: changing it re-projects the date and time without emitting `onChange`.
  */
 type ZonedModeProps = {
     type: 'zonedDateTime';
@@ -197,7 +198,13 @@ type ZonedModeProps = {
      * @default '24h'
      */
     timeFormat?: TimeFormat;
-} & ControlMode<Temporal.ZonedDateTime, ZonedDateTimeInput>;
+    /**
+     * IANA timezone the value is initially displayed in (e.g. `'Europe/Paris'`).
+     * Uncontrolled: the user can switch it from the timezone selector. An unknown zone is ignored.
+     * @default the browser's timezone
+     */
+    defaultTimezone?: string;
+} & ControlMode<Temporal.Instant, InstantInput>;
 
 export type DateTimeInputProps = DateTimeInputSharedProps & (DateModeProps | DateTimeModeProps | ZonedModeProps);
 
@@ -208,6 +215,7 @@ export type DateTimeInputProps = DateTimeInputSharedProps & (DateModeProps | Dat
 export type DateTimeInputImplProps = DateTimeInputSharedProps & {
     type: DateTimeInputType;
     timeFormat?: TimeFormat;
+    defaultTimezone?: string;
     onChange?: (event: React.SyntheticEvent, value: DateTimeValue | null) => void;
 };
 
