@@ -1,0 +1,39 @@
+@use '../tokens/spacings/map' as *;
+
+%flex-column {
+    display: flex;
+    flex-flow: column nowrap;
+    min-height: 0;
+}
+
+%flex-row {
+    display: flex;
+    flex-flow: row nowrap;
+    min-height: 0;
+}
+
+// ---
+// Gap utilities
+// ---
+@each $name, $value in $spacings {
+    .row-#{$name} {
+        @extend %flex-row;
+
+        gap: $value;
+        align-items: center;
+    }
+
+    .col-#{$name} {
+        @extend %flex-column;
+
+        gap: $value;
+        align-items: center;
+    }
+}
+
+// ---
+// Justify content
+// ---
+.justifyBetween {
+    justify-content: space-between;
+}

@@ -1,12 +1,4 @@
-$spacings: (
-    "pico": var(--moon-spacing-pico),
-    "nano": var(--moon-spacing-nano),
-    "small": var(--moon-spacing-small),
-    "medium": var(--moon-spacing-medium),
-    "large": var(--moon-spacing-large),
-    "big": var(--moon-spacing-big),
-    "huge": var(--moon-spacing-huge)
-);
+@use './map' as *;
 
 @function spacing($spacingName) {
     @if map-has-key($spacings, $spacingName) {
