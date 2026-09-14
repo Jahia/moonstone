@@ -8,10 +8,15 @@ import styles from './Pill.module.scss';
 
 export const Pill: React.FC<PillProps> = ({
     label,
+    content,
     className,
     isReversed,
     ...props
 }) => {
+    if (label !== undefined) {
+        console.warn('The property `label` is deprecated in the Pill component. Use `content` instead.');
+    }
+
     return (
         <Typography
             component="span"
@@ -24,7 +29,7 @@ export const Pill: React.FC<PillProps> = ({
             )}
             {...props}
         >
-            {label}
+            {content ?? label}
         </Typography>
     );
 };

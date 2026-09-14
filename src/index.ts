@@ -24,4 +24,9 @@ import './legacy-global-bundle.css'; // Global styles for legacy HTML/CSS usage
 export * from './components';
 export * from './layouts';
 export * from './icons';
+
+// Re-export Temporal so consumers can build/read the date-time component values without
+// installing temporal-polyfill themselves, and stay instance-compatible with Moonstone.
+// When browsers ship native Temporal, the polyfill defers to it transparently.
+export {Temporal} from 'temporal-polyfill';
 // }

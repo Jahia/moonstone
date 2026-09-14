@@ -89,3 +89,10 @@ export const MultipleFields: Story = {
     </>
     }
 };
+
+export const Helper: Story = {
+    args: {
+        ...SingleField.args,
+        helper: <>These fields are <strong>required</strong> for <em>all</em> languages.</>
+    }
+};

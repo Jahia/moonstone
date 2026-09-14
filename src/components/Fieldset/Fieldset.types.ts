@@ -19,7 +19,7 @@ export type FieldsetProps = {
     /**
      * Fieldset helper
      */
-    helper?: string;
+    helper?: React.ReactNode;
 
     /**
      * Define fieldset field(s)

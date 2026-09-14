@@ -29,4 +29,9 @@ describe('Paper', () => {
         render(<Paper ref={ref} data-testid="moonstone-paper">Content here</Paper>);
         expect(ref.current).toBe(screen.getByTestId('moonstone-paper'));
     });
+
+    it('should render as the given component', () => {
+        render(<Paper component="div" data-testid="moonstone-paper">Content here</Paper>);
+        expect(screen.getByTestId('moonstone-paper').tagName).toBe('DIV');
+    });
 });

@@ -34,7 +34,11 @@ export const renderNumber = (
         return null;
     }
 
-    return <Typography isNowrap component="span">{value.toLocaleString(locale, localeOptions)}</Typography>;
+    const formattedValue = typeof value === 'bigint' ?
+        value.toLocaleString(locale, localeOptions as BigIntToLocaleStringOptions) :
+        value.toLocaleString(locale, localeOptions);
+
+    return <Typography isNowrap component="span">{formattedValue}</Typography>;
 };
 
 export const renderDate = (

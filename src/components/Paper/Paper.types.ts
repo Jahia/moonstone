@@ -1,6 +1,7 @@
 import React from 'react';
+import type {PolymorphicPropsWithRef} from '~/types/Polymorphic.types';
 
-export type PaperProps = Omit<React.ComponentPropsWithRef<'section'>, 'children' | 'className'> & {
+export type BasicPaperProps = {
     /**
      * Define if the component has padding
      */
@@ -15,4 +16,6 @@ export type PaperProps = Omit<React.ComponentPropsWithRef<'section'>, 'children'
      * Additional classname
      */
     className?: string;
-}
+};
+
+export type PaperProps<C extends React.ElementType> = PolymorphicPropsWithRef<C, BasicPaperProps>;

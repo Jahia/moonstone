@@ -44,6 +44,10 @@
         @extend %weight-light;
     }
 
+    &[href] {
+        @extend %link;
+    }
+
     &.moonstone-nowrap {
         @extend %nowrap;
     }

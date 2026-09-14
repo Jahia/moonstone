@@ -40,7 +40,7 @@ export const FlatData = {
         const [currentPill, setCurrentPill] = useState<DropdownDataOption>({
             label: 'French',
             value: 'fr',
-            iconEnd: <Pill label="FR"/>
+            iconEnd: <Pill content="FR"/>
         });
 
         const handleOnChange = (e: React.MouseEvent, item: DropdownDataOption) => {

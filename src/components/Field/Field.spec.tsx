@@ -46,6 +46,11 @@ describe('Field', () => {
         expect(screen.queryByText('Field helper')).toBeInTheDocument();
     });
 
+    it('should display formatted helper', () => {
+        render(<Field {...requiredProps} helper={<strong>Field helper</strong>}><div/></Field>);
+        expect(screen.getByText('Field helper').tagName).toBe('STRONG');
+    });
+
     it('should display children', () => {
         render(
             <Field {...requiredProps}>

@@ -6,6 +6,7 @@ import react from '@vitejs/plugin-react';
 import sbom from 'rollup-plugin-sbom';
 import {playwright} from '@vitest/browser-playwright';
 import {patchCssModules} from 'vite-css-modules';
+import {storybookTest} from '@storybook/addon-vitest/vitest-plugin';
 
 export default defineConfig({
     plugins: [
@@ -46,8 +47,10 @@ export default defineConfig({
     test: {
         coverage: {
             provider: 'v8',
-            include: ['src/**/*.spec.tsx'],
-            exclude: ['src/__mocks__', 'src/__storybook__', 'src/data', '**/*.stories.*']
+            // Omit the default 'text' reporter so the coverage table isn't dumped to the terminal
+            reporter: ['html', 'clover', 'json-summary'],
+            include: ['src/**/*.{ts,tsx}'],
+            exclude: ['src/__mocks__/**', 'src/__storybook__/**', 'src/data/**', 'src/icons/components/**', '**/*.stories.*', '**/*.spec.*']
         },
         projects: [
             {
@@ -57,6 +60,8 @@ export default defineConfig({
                     setupFiles: ['./vitest.setup.js'],
                     globals: true,
                     environment: 'jsdom',
+                    // Pin the system timezone so date/time tests are deterministic
+                    env: {TZ: 'UTC'},
                     include: ['src/**/*.spec.tsx'],
                     exclude: ['src/visual*.spec.tsx', 'src/**/*.browser.spec.tsx'],
                     css: true
@@ -97,6 +102,23 @@ export default defineConfig({
                                 resolveScreenshotPath: ({root, testFileDirectory, screenshotDirectory, arg, browserName, platform, ext}) => `${root}/${testFileDirectory}/${screenshotDirectory}/visual.spec.tsx/${arg}-${browserName}-${platform}${ext}`
                             }
                         }
+                    }
+                }
+            },
+            {
+                extends: true,
+                plugins: [
+                    // Runs the tests for the stories defined in your Storybook config
+                    storybookTest({configDir: path.resolve('.storybook')})
+                ],
+                test: {
+                    name: 'storybook',
+                    setupFiles: ['./.storybook/vitest.setup.ts'],
+                    browser: {
+                        enabled: true,
+                        headless: true,
+                        provider: playwright(),
+                        instances: [{browser: 'chromium'}]
                     }
                 }
             }

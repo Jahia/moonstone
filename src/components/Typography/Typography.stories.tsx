@@ -37,6 +37,12 @@ export const Variants = () => (
     </section>
 );
 
+export const Links = () => (
+    <section className="storyWrapper">
+        <Typography component="a" href="#links">This text is a link</Typography>
+    </section>
+);
+
 export const Playground: StoryObj<typeof Typography> = {
     render: args => <Typography {...args}>Playground</Typography>
 };

@@ -25,7 +25,7 @@ export type FieldBooleanProps = Omit<React.ComponentPropsWithRef<'div'>, 'classN
     /**
      * FieldBoolean helper
      */
-    helper?: string;
+    helper?: React.ReactNode;
 
     /**
      * Display as error

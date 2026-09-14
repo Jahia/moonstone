@@ -26,6 +26,11 @@ describe('Fieldset', () => {
         expect(screen.queryByText('Fieldset helper')).toBeInTheDocument();
     });
 
+    it('should display formatted helper', () => {
+        render(<Fieldset {...requiredProps} helper={<strong>Fieldset helper</strong>}><div/></Fieldset>);
+        expect(screen.getByText('Fieldset helper').tagName).toBe('STRONG');
+    });
+
     it('should display children', () => {
         render(<Fieldset {...requiredProps}><Field id="field" label="Field" helper="information"><FieldSelector selector={<Input size="big" value="Input value"/>}/></Field></Fieldset>);
         expect(screen.queryByDisplayValue('Input value')).toBeInTheDocument();

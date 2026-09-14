@@ -24,7 +24,7 @@ export type FieldProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 
     /**
      * Field helper
      */
-    helper?: string;
+    helper?: React.ReactNode;
 
     /**
      * Define field selector(s)

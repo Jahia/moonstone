@@ -10,12 +10,11 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: jdx/mise-action@7e36c90d9ab29c415a2384db3006f3ec8a8cc654 # v4.2.4
       - name: Install dependencies
         run: yarn
       - run: yarn build
-      - name: Publish to pkg.pr.new
-        run: npx pkg-pr-new publish --compact --packageManager=yarn
       - run: yarn playwright install chromium --only-shell
       - run: yarn test
       - name: Run visual tests
@@ -168,7 +167,7 @@ jobs:
       - name: Upload failed visual screenshots
         id: upload-screenshots
         if: failure() && steps.visual-tests.outcome == 'failure' && steps.collect-visual-screenshots.outputs.artifact_ready == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: visual-test-screenshots-${{ github.run_id }}
           path: visual-test-screenshots/

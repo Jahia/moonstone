@@ -1,6 +1,7 @@
 import React from 'react';
+import type {DataAttributes} from '~/types/DataAttributes.types';
 
-type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | 'value' | 'role' | 'placeholder' | 'className'> & {
+type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | 'value' | 'role' | 'placeholder' | 'className'> & DataAttributes & {
     /**
      * ID of the input
      */

@@ -1,0 +1,17 @@
+name: Publish Any Commit
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: Publish preview package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: jdx/mise-action@7e36c90d9ab29c415a2384db3006f3ec8a8cc654 # v4.2.4
+      - run: yarn install
+      - run: yarn build:icons && yarn build:lib
+      - run: yarn pkg-pr-new publish --packageManager=yarn
