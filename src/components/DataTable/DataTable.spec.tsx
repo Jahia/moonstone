@@ -962,3 +962,340 @@ describe('DataTable custom cells', () => {
         expect(firstHeadCell).toHaveStyle({padding: '0'});
     });
 });
+
+describe('DataTable search', () => {
+    it('should not render a search field by default', () => {
+        render(
+            <DataTable<TestData>
+                data={data}
+                columns={columns}
+                primaryKey="id"
+            />
+        );
+
+        expect(screen.queryByRole('searchbox')).not.toBeInTheDocument();
+    });
+
+    it('should filter rows on the searchable columns, ignoring case', async () => {
+        const user = userEvent.setup();
+        render(
+            <DataTable<TestData>
+                enableSearch
+                searchInputProps={{'aria-label': 'Search'}}
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                searchColumns={['name']}
+            />
+        );
+
+        await user.type(screen.getByRole('searchbox'), 'ALI');
+
+        expect(screen.getByText('Alice')).toBeInTheDocument();
+        expect(screen.queryByText('Bob')).not.toBeInTheDocument();
+        expect(screen.queryByText('Charlie')).not.toBeInTheDocument();
+    });
+
+    it('should ignore columns left out of searchColumns', async () => {
+        const user = userEvent.setup();
+        render(
+            <DataTable<TestData>
+                enableSearch
+                searchInputProps={{'aria-label': 'Search'}}
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                searchColumns={['name']}
+            />
+        );
+
+        // 25 is the age of Bob, but the age column is not searchable
+        await user.type(screen.getByRole('searchbox'), '25');
+
+        expect(screen.queryByText('Bob')).not.toBeInTheDocument();
+    });
+
+    it('should report the query through onSearchChange', async () => {
+        const user = userEvent.setup();
+        const onSearchChange = vi.fn();
+        render(
+            <DataTable<TestData>
+                enableSearch
+                searchInputProps={{'aria-label': 'Search'}}
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                searchColumns={['name']}
+                searchValue=""
+                onSearchChange={onSearchChange}
+            />
+        );
+
+        await user.type(screen.getByRole('searchbox'), 'a');
+
+        expect(onSearchChange).toHaveBeenCalledWith('a');
+    });
+
+    it('should restore every row when the search field is cleared', async () => {
+        const user = userEvent.setup();
+        render(
+            <DataTable<TestData>
+                enableSearch
+                searchInputProps={{'aria-label': 'Search'}}
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                searchColumns={['name']}
+            />
+        );
+
+        await user.type(screen.getByRole('searchbox'), 'alice');
+        expect(screen.queryByText('Bob')).not.toBeInTheDocument();
+
+        await user.click(screen.getByRole('button', {name: 'Reset'}));
+
+        expect(screen.getByText('Bob')).toBeInTheDocument();
+        expect(screen.getByRole('searchbox')).toHaveValue('');
+    });
+
+    it('should honour a controlled searchValue', () => {
+        render(
+            <DataTable<TestData>
+                enableSearch
+                searchInputProps={{'aria-label': 'Search'}}
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                searchColumns={['name']}
+                searchValue="bob"
+                onSearchChange={() => { }}
+            />
+        );
+
+        expect(screen.getByRole('searchbox')).toHaveValue('bob');
+        expect(screen.getByText('Bob')).toBeInTheDocument();
+        expect(screen.queryByText('Alice')).not.toBeInTheDocument();
+    });
+
+    it('should not filter anything when searchColumns is omitted (server-side search)', () => {
+        // No searchColumns: the consumer already filtered `data`, the table must render it as-is
+        render(
+            <DataTable<TestData>
+                enableSearch
+                searchInputProps={{'aria-label': 'Search'}}
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                searchValue="nothing matches this"
+                onSearchChange={() => { }}
+            />
+        );
+
+        expect(screen.getByText('Alice')).toBeInTheDocument();
+        expect(screen.getByText('Bob')).toBeInTheDocument();
+        expect(screen.getByText('Charlie')).toBeInTheDocument();
+    });
+
+    it('should keep the search field mounted when data is empty', () => {
+        // Regression: a server-side query with no result used to unmount the whole component,
+        // leaving the user unable to clear their own query
+        render(
+            <DataTable<TestData>
+                enableSearch
+                searchInputProps={{'aria-label': 'Search'}}
+                data={[]}
+                columns={columns}
+                primaryKey="id"
+                searchValue="no result"
+                onSearchChange={() => { }}
+            />
+        );
+
+        expect(screen.getByRole('searchbox')).toHaveValue('no result');
+    });
+
+    it('should go back to the first page and recount when the query changes', async () => {
+        const user = userEvent.setup();
+        render(
+            <DataTable<TestData>
+                enableSearch
+                enablePagination
+                searchInputProps={{'aria-label': 'Search'}}
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                searchColumns={['name']}
+                itemsPerPageOptions={[1, 5]}
+                defaultCurrentPage={2}
+                defaultItemsPerPage={1}
+            />
+        );
+
+        expect(screen.getByText('Bob')).toBeInTheDocument();
+
+        // Alice and Charlie match, Bob does not
+        await user.type(screen.getByRole('searchbox'), 'a');
+
+        expect(screen.getByText('Alice')).toBeInTheDocument();
+        expect(screen.queryByText('Bob')).not.toBeInTheDocument();
+        expect(screen.getByText('1-1 of 2')).toBeInTheDocument();
+    });
+
+    it('should keep the ancestors of a matching nested row visible', async () => {
+        const user = userEvent.setup();
+        render(
+            <DataTable<TestData>
+                isStructured
+                enableSearch
+                searchInputProps={{'aria-label': 'Search'}}
+                data={structuredData}
+                columns={columns}
+                primaryKey="id"
+                searchColumns={['name']}
+            />
+        );
+
+        await user.type(screen.getByRole('searchbox'), 'child');
+
+        expect(screen.getByText('Child')).toBeInTheDocument();
+        expect(screen.getByText('Parent')).toBeInTheDocument();
+    });
+
+    it('should keep a row selected after it has been filtered out of view', async () => {
+        const user = userEvent.setup();
+        render(
+            <DataTable<TestData>
+                enableSearch
+                enableSelection
+                searchInputProps={{'aria-label': 'Search'}}
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                searchColumns={['name']}
+                defaultSelection={['2']}
+            />
+        );
+
+        await user.type(screen.getByRole('searchbox'), 'alice');
+        expect(screen.queryByText('Bob')).not.toBeInTheDocument();
+
+        await user.click(screen.getByRole('button', {name: 'Reset'}));
+
+        // The index of the first row checkbox is index 1, as 0 is the header
+        expect(screen.getAllByRole('checkbox')[2]).toBeChecked();
+    });
+
+    it('should allow custom attributes on the SearchInput', () => {
+        render(
+            <DataTable<TestData>
+                enableSearch
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                searchColumns={['name']}
+                searchInputProps={{'aria-label': 'Search', placeholder: 'Find a user', className: 'custom-search'}}
+            />
+        );
+
+        expect(screen.getByPlaceholderText('Find a user')).toBeInTheDocument();
+        expect(screen.getByRole('search')).toHaveClass('custom-search');
+    });
+
+    it('should seed the query with defaultSearchValue', () => {
+        render(
+            <DataTable<TestData>
+                enableSearch
+                searchInputProps={{'aria-label': 'Search'}}
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                searchColumns={['name']}
+                defaultSearchValue="bob"
+            />
+        );
+
+        expect(screen.getByRole('searchbox')).toHaveValue('bob');
+        expect(screen.getByText('Bob')).toBeInTheDocument();
+        expect(screen.queryByText('Alice')).not.toBeInTheDocument();
+    });
+
+    it('should show the no-results message only once a query matches nothing', async () => {
+        const user = userEvent.setup();
+        render(
+            <DataTable<TestData>
+                enableSearch
+                searchInputProps={{'aria-label': 'Search'}}
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                searchColumns={['name']}
+            />
+        );
+
+        expect(screen.queryByText('No results')).not.toBeInTheDocument();
+
+        await user.type(screen.getByRole('searchbox'), 'zzz');
+
+        expect(screen.getByText('No results')).toBeInTheDocument();
+    });
+
+    it('should not show the no-results message when data is empty without a query', () => {
+        render(
+            <DataTable<TestData>
+                enableSearch
+                searchInputProps={{'aria-label': 'Search'}}
+                data={[]}
+                columns={columns}
+                primaryKey="id"
+                searchColumns={['name']}
+            />
+        );
+
+        expect(screen.queryByText('No results')).not.toBeInTheDocument();
+    });
+
+    it('should warn once when the table filters but the consumer paginates', async () => {
+        const user = userEvent.setup();
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+        render(
+            <DataTable<TestData>
+                enableSearch
+                enablePagination
+                searchInputProps={{'aria-label': 'Search'}}
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                searchColumns={['name']}
+                currentPage={1}
+                totalItems={300}
+                onPageChange={() => {}}
+            />
+        );
+
+        await user.type(screen.getByRole('searchbox'), 'alice');
+
+        expect(warn).toHaveBeenCalledTimes(1);
+        expect(warn.mock.calls[0][0]).toContain('but you paginate them');
+        warn.mockRestore();
+    });
+
+    it('should warn once when the consumer filters but the table paginates', () => {
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+        render(
+            <DataTable<TestData>
+                enableSearch
+                enablePagination
+                searchInputProps={{'aria-label': 'Search'}}
+                data={data}
+                columns={columns}
+                primaryKey="id"
+                searchValue="alice"
+                onSearchChange={() => {}}
+            />
+        );
+
+        expect(warn).toHaveBeenCalledTimes(1);
+        expect(warn.mock.calls[0][0]).toContain('but the table paginates them');
+        warn.mockRestore();
+    });
+});
