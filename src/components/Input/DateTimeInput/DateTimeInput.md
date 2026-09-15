@@ -7,20 +7,21 @@ calendar it opens, plus an optional time field and timezone selector depending o
 
 - `'date'` — calendar only → `Temporal.PlainDate`
 - `'dateTime'` — calendar + time → `Temporal.PlainDateTime`
-- `'zonedDateTime'` — calendar + time + timezone → `Temporal.ZonedDateTime`
+- `'zonedDateTime'` — calendar + time + timezone → `Temporal.Instant`
 
 ## Value
 
 `value` / `defaultValue` accept the mode's `Temporal` instance, an ISO string (e.g. `'2026-06-19'`,
-`'2026-06-19T14:30'`, `'2026-06-19T14:30+02:00[Europe/Paris]'`), or `null`. Zoned mode additionally
-accepts `Temporal.Instant` and ISO instants such as `'2026-06-19T12:30:00Z'`; values without an IANA
-annotation are displayed in the system timezone. A JS `Date` is not accepted in any mode — pass
-`date.toISOString()`. `onChange` always emits the mode's `Temporal` instance (or `null`) — never a
-string. Pass `defaultValue={null}` to start empty; with no `defaultValue`, an uncontrolled field
-starts at the current date/time.
+`'2026-06-19T14:30'`, `'2026-06-19T12:30:00Z'`), or `null`. Zoned mode takes an instant — a
+`Temporal.Instant` or an ISO string with `Z` or an offset — never a `Temporal.ZonedDateTime`: the
+value carries no timezone. A JS `Date` is not accepted in any mode — pass `date.toISOString()`.
+`onChange` always emits the mode's `Temporal` instance (or `null`) — never a string. Pass
+`defaultValue={null}` to start empty; with no `defaultValue`, an uncontrolled field starts at the
+current date/time.
 
 When the date field holds a value it shows a clear (reset) button. Clearing empties the whole value —
-date, time, and zone — and `onChange` emits `null`, since a date-time has no meaning without its date.
+date and time — and `onChange` emits `null`, since a date-time has no meaning without its date. The
+displayed timezone is kept for the next date: it is a view setting, not part of the value.
 
 ## Manual entry
 
@@ -57,12 +58,14 @@ years are not listed.
 When omitted, the browser locale is used. `dateFormat` (LDML, e.g. `'dd/MM/yyyy'`) overrides only the
 field's date order — name tokens still render localized via `locale`. `weekStartsOn` overrides the
 locale-derived first day. `i18n` overrides the calendar action labels (today / next / previous month)
-and the local-time caption prefix.
+and the timezone row label.
 
 ## Zoned mode
 
-In `'zonedDateTime'` the timezone defaults to the system zone until changed. When the selected zone
-differs from the system zone, a caption shows the equivalent local time.
+The timezone only changes how the instant is shown, never the instant itself. Pick a zone in the
+`Timezone:` row under the fields: the date and time are converted, `onChange` is not called. The
+selector stays usable when the field is disabled or read-only. The initial zone is `defaultTimezone`,
+or the browser's zone when omitted. The row is hidden without a date.
 
 ## Sub-component props
 
