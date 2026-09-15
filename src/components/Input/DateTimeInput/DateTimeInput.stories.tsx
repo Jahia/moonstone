@@ -65,7 +65,8 @@ export const CustomDateFormat: Story = {
 export const DateTimeWithTimezone: Story = {
     args: {
         type: 'zonedDateTime',
-        defaultValue: baseDate.toPlainDateTime().toZonedDateTime('Europe/Paris'),
+        defaultValue: baseDate.toPlainDateTime().toZonedDateTime('Europe/Paris').toInstant(),
+        defaultTimezone: 'Europe/Paris',
         size: 'big',
         locale: 'fr',
         i18n: {
@@ -87,7 +88,8 @@ export const DateTimeWithTimezone12h: Story = {
     args: {
         type: 'zonedDateTime',
         timeFormat: '12h',
-        defaultValue: baseDate.toPlainDateTime(Temporal.PlainTime.from('23:56')).toZonedDateTime('Europe/Paris')
+        defaultValue: baseDate.toPlainDateTime(Temporal.PlainTime.from('23:56')).toZonedDateTime('Europe/Paris').toInstant(),
+        defaultTimezone: 'Europe/Paris'
     },
     play: async ({canvasElement}) => {
         const canvas = within(canvasElement);

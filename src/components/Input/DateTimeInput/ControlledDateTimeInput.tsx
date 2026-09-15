@@ -6,6 +6,7 @@ import dayPickerClassNames from '@daypicker/react/style.module.css';
 import {Temporal} from 'temporal-polyfill';
 import {Button, Dropdown, Typography} from '~/components';
 import {Calendar} from '~/icons';
+import {layout} from '~/globals/css-utils';
 import type {DropdownProps} from '@daypicker/react';
 import {TimezoneSelector} from '../../TimezoneSelector/TimezoneSelector';
 import {BaseInput} from '../BaseInput';
@@ -14,6 +15,7 @@ import {
     dateToPlainDate,
     getSystemTimeZone,
     getTodayPlainDate,
+    isValidTimeZone,
     plainDateToDate,
     toPlainDate
 } from '../utils/temporal';
@@ -29,7 +31,6 @@ import {
     assembleValue,
     getPlainDate,
     getPlainTime,
-    getTimeZone,
     parseValue
 } from './dateTimeValue';
 import type {ControlledDateTimeInputProps} from './DateTimeInput.types';
@@ -72,13 +73,16 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     isReadOnly,
     timeInputProps,
     timezoneSelectorProps,
+    defaultTimezone,
     onBlur,
     autoComplete = 'off',
     ...props
 }, ref) => {
     const currentValue = parseValue(value, type);
-    const selectedDate = getPlainDate(currentValue);
-    const selectedTime = getPlainTime(currentValue);
+    // Display-only: the zone an instant is shown in. It never reaches the value.
+    const [displayedZone, setDisplayedZone] = useState(() => (isValidTimeZone(defaultTimezone) ? defaultTimezone : getSystemTimeZone()));
+    const selectedDate = getPlainDate(currentValue, displayedZone);
+    const selectedTime = getPlainTime(currentValue, displayedZone);
 
     // Resolve to a single locale: passing `undefined` through would disable the calendar
     // formatters and force getWeekStartsOn's Monday fallback, so only the text field would localize.
@@ -88,17 +92,13 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
         todayButton: 'Today',
         nextMonth: 'Go to the next month',
         previousMonth: 'Go to the previous month',
-        localTime: 'Your local time',
+        timezone: 'Timezone',
         ...i18n
     };
 
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
     const [draft, setDraft] = useState<string | null>(null);
     const [displayedMonth, setDisplayedMonth] = useState(() => getDisplayMonth(selectedDate));
-    // The zone to apply while no date exists yet (so a pre-date zone choice isn't lost).
-    // Once a date is picked the value carries its own zone, which takes precedence.
-    const [fallbackZone, setFallbackZone] = useState(() => getTimeZone(currentValue) ?? getSystemTimeZone());
-    const currentTimeZone = getTimeZone(currentValue) ?? fallbackZone;
 
     const {refs, floatingStyles, context} = useFloating({
         open: isCalendarOpen,
@@ -136,26 +136,6 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
 
     const captionLayout = getCaptionLayout(hasMultipleMonths, hasMultipleYears);
 
-    const systemTimeZone = getSystemTimeZone();
-    const showLocalTime =
-        type === 'zonedDateTime' &&
-        selectedDate !== null &&
-        selectedTime !== null &&
-        currentTimeZone !== systemTimeZone &&
-        currentValue instanceof Temporal.ZonedDateTime;
-
-    const localTimeFormatted = showLocalTime ?
-        new Intl.DateTimeFormat(resolvedLocale, {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: '2-digit',
-            hour12: timeFormat === '12h',
-            timeZone: systemTimeZone
-        }).format(new Date((currentValue as Temporal.ZonedDateTime).epochMilliseconds)) :
-        null;
-
     // This component holds no value state: it derives display from `value` and reports the next
     // value via `onChange`. onChange drives the value — never the reverse. (Uncontrolled: the
     // wrapper does setValue + the consumer's onChange. Controlled: the consumer updates `value`.)
@@ -163,17 +143,14 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     // value's parts, so emitChange always reports one complete, canonical value.
     const emitChange = (
         event: React.SyntheticEvent,
-        change: {plainDate?: Temporal.PlainDate | null; plainTime?: Temporal.PlainTime | null; timeZone?: string} = {}
+        change: {plainDate?: Temporal.PlainDate | null; plainTime?: Temporal.PlainTime | null} = {}
     ) => {
         setDraft(null);
-        const {plainDate = selectedDate, plainTime = selectedTime, timeZone = currentTimeZone} = change;
-        onChange?.(event, assembleValue(plainDate, plainTime, timeZone, type));
+        const {plainDate = selectedDate, plainTime = selectedTime} = change;
+        onChange?.(event, assembleValue(plainDate, plainTime, displayedZone, type));
     };
 
-    const clearValue = (event: React.SyntheticEvent) => {
-        emitChange(event, {plainDate: null});
-        setFallbackZone(getSystemTimeZone());
-    };
+    const clearValue = (event: React.SyntheticEvent) => emitChange(event, {plainDate: null});
 
     const commitDraft = (event: React.SyntheticEvent) => {
         if (draft === null) {
@@ -381,31 +358,22 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                         }}
                     />
                 )}
-                {type === 'zonedDateTime' && (
+            </div>
+            {type === 'zonedDateTime' && currentValue !== null && (
+                <div className={clsx(layout.flexRow_nowrap, layout.alignCenter)}>
+                    <Typography component="span" variant="caption" className={styles.timezoneLabel}>
+                        {i18nLabels.timezone}:
+                    </Typography>
                     <TimezoneSelector
                         {...timezoneSelectorProps}
-                        size={size === 'big' ? 'medium' : 'small'}
-                        variant={variant ?? 'outlined'}
-                        isDisabled={isDisabled}
-                        isReadOnly={isReadOnly}
-                        value={currentTimeZone}
+                        variant="ghost"
+                        size="small"
+                        value={displayedZone}
                         referenceDate={selectedDate}
-                        onChange={(event, nextZone) => {
-                            const zone = nextZone ?? currentTimeZone;
-                            setFallbackZone(zone);
-
-                            // With no date yet, just remember the zone; it applies once a date is picked.
-                            if (selectedDate) {
-                                emitChange(event, {timeZone: zone});
-                            }
-                        }}
+                        // Display only: the instant doesn't move, so nothing is emitted.
+                        onChange={(_event, nextZone) => setDisplayedZone(nextZone ?? displayedZone)}
                     />
-                )}
-            </div>
-            {showLocalTime && (
-                <Typography component="span" variant="caption" className={styles.localTimeConversion}>
-                    {i18nLabels.localTime}: {localTimeFormatted}
-                </Typography>
+                </div>
             )}
         </div>
     );
