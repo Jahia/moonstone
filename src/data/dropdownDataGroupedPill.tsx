@@ -8,12 +8,12 @@ export const dropdownDataGroupedPill: DropdownDataGrouped[] = [
             {
                 label: 'French',
                 value: 'fr',
-                iconEnd: <Pill content="FR"/>
+                iconEnd: <Pill>FR</Pill>
             },
             {
                 label: '[translate:French (Canadian)]',
                 value: 'fr_ca',
-                iconEnd: <Pill content="FR_CA"/>
+                iconEnd: <Pill>FR_CA</Pill>
             }
         ]
     },
@@ -23,12 +23,12 @@ export const dropdownDataGroupedPill: DropdownDataGrouped[] = [
             {
                 label: '[translate:Language with very long long label label label label label label label name (country name)]',
                 value: 'es',
-                iconEnd: <Pill content="ES"/>
+                iconEnd: <Pill>ES</Pill>
             },
             {
                 label: 'English (disabled)',
                 value: 'en',
-                iconEnd: <Pill content="EN"/>,
+                iconEnd: <Pill>EN</Pill>,
                 isDisabled: true
             }
         ]
