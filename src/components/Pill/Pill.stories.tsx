@@ -18,12 +18,12 @@ export default {
 
 export const Default: StoryObj<PillProps> = {
     args: {
-        content: 'ListItem label'
+        children: 'ListItem label'
     }
 };
 
 export const IconContent: StoryObj<PillProps> = {
     args: {
-        content: <Language size="small"/>
+        children: <Language size="small"/>
     }
 };
