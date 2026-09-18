@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/react';
 
 import {Fieldset} from './index';
 import type {FieldsetProps} from './Fieldset.types';
-import {Button, Input, Field, FieldSelector} from '~/components';
+import {Button, Input, Field} from '~/components';
 import {Add, Love} from '~/icons';
 
 const requiredProps = {
@@ -12,7 +12,7 @@ const requiredProps = {
 
 describe('Fieldset', () => {
     it('should display additional class names', () => {
-        render(<Fieldset {...requiredProps} data-testid="fieldset" className="extra"><FieldSelector selector={<textarea placeholder="Input value"/>}/></Fieldset>);
+        render(<Fieldset {...requiredProps} data-testid="fieldset" className="extra"><textarea placeholder="Input value"/></Fieldset>);
         expect(screen.getByTestId('fieldset')).toHaveClass('extra');
     });
 
@@ -32,12 +32,12 @@ describe('Fieldset', () => {
     });
 
     it('should display children', () => {
-        render(<Fieldset {...requiredProps}><Field id="field" label="Field" helper="information"><FieldSelector selector={<Input size="big" value="Input value"/>}/></Field></Fieldset>);
+        render(<Fieldset {...requiredProps}><Field id="field" label="Field" helper="information"><Input size="big" value="Input value"/></Field></Fieldset>);
         expect(screen.queryByDisplayValue('Input value')).toBeInTheDocument();
     });
 
     it('should display multiple children', () => {
-        render(<Fieldset {...requiredProps}><Field id="field" label="Field" helper="information"><FieldSelector selector={<Input size="big" value="Input value"/>}/></Field><Field id="field" label="Field" helper="information"><FieldSelector selector={<Input size="big" value="Input value"/>}/></Field></Fieldset>);
+        render(<Fieldset {...requiredProps}><Field id="field" label="Field" helper="information"><Input size="big" value="Input value"/></Field><Field id="field" label="Field" helper="information"><Input size="big" value="Input value"/></Field></Fieldset>);
         expect(screen.getAllByDisplayValue('Input value')).toHaveLength(2);
     });
 
