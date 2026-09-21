@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import clsx from 'clsx';
 import {autoUpdate, flip, FloatingPortal, offset, shift, useDismiss, useFloating, useInteractions, useMergeRefs} from '@floating-ui/react';
-import {dateMatchModifiers, DayPicker} from '@daypicker/react';
+import {dateMatchModifiers, DayPicker, useDayPicker} from '@daypicker/react';
 import dayPickerClassNames from '@daypicker/react/style.module.css';
 import {Temporal} from 'temporal-polyfill';
 import {Button, Dropdown, Typography} from '~/components';
@@ -50,6 +50,42 @@ const getCaptionLayout = (hasMultipleMonths: boolean, hasMultipleYears: boolean)
     }
 
     return hasMultipleYears ? 'dropdown-years' : 'label';
+};
+
+// DayPicker renders these itself, so they must be stable module-level components;
+// `useDayPicker` gives them the displayed month and a `goToMonth` already clamped
+// to `startMonth`/`endMonth`, which notifies us through `onMonthChange`.
+const MonthsDropdown = ({options, value}: DropdownProps) => {
+    const {months, goToMonth} = useDayPicker();
+
+    return (
+        <Dropdown
+            size="medium"
+            variant="ghost"
+            hasSearch={false}
+            data={toDropdownData(options)}
+            value={String(value ?? '')}
+            onChange={(_e, item) => {
+                goToMonth(new Date(months[0].date.getFullYear(), Number(item.value), 1));
+            }}
+        />
+    );
+};
+
+const YearsDropdown = ({options, value}: DropdownProps) => {
+    const {months, goToMonth} = useDayPicker();
+
+    return (
+        <Dropdown
+            size="medium"
+            variant="ghost"
+            data={toDropdownData(options)}
+            value={String(value ?? '')}
+            onChange={(_e, item) => {
+                goToMonth(new Date(Number(item.value), months[0].date.getMonth(), 1));
+            }}
+        />
+    );
 };
 
 export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, ControlledDateTimeInputProps>(({
@@ -125,14 +161,6 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     const endMonth = getMonthStart(maxPlainDate, referenceYear + 50, 11);
     const hasMultipleYears = startMonth.getFullYear() !== endMonth.getFullYear();
     const hasMultipleMonths = startMonth.getTime() !== endMonth.getTime();
-
-    const clampToRange = (month: Date) => {
-        if (month < startMonth) {
-            return startMonth;
-        }
-
-        return month > endMonth ? endMonth : month;
-    };
 
     const captionLayout = getCaptionLayout(hasMultipleMonths, hasMultipleYears);
 
@@ -266,29 +294,8 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                                     /* eslint-enable camelcase */
                                 }}
                                 components={{
-                                    MonthsDropdown: (dropdownProps: DropdownProps) => (
-                                        <Dropdown
-                                            size="medium"
-                                            variant="ghost"
-                                            hasSearch={false}
-                                            data={toDropdownData(dropdownProps.options)}
-                                            value={String(dropdownProps.value ?? '')}
-                                            onChange={(_e, item) => {
-                                                setDisplayedMonth(clampToRange(new Date(displayedMonth.getFullYear(), Number(item.value), 1)));
-                                            }}
-                                        />
-                                    ),
-                                    YearsDropdown: (dropdownProps: DropdownProps) => (
-                                        <Dropdown
-                                            size="medium"
-                                            variant="ghost"
-                                            data={toDropdownData(dropdownProps.options)}
-                                            value={String(dropdownProps.value ?? '')}
-                                            onChange={(_e, item) => {
-                                                setDisplayedMonth(clampToRange(new Date(Number(item.value), displayedMonth.getMonth(), 1)));
-                                            }}
-                                        />
-                                    )
+                                    MonthsDropdown,
+                                    YearsDropdown
                                 }}
                                 labels={{
                                     labelNext: () => i18nLabels.nextMonth,

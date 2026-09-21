@@ -120,7 +120,7 @@ export default defineConfig({
         '@stylistic/jsx-closing-tag-location': ['error', 'line-aligned'],
         // Other modes let the fixer split "text {expr}" without {' '}, which
         // changes the rendered output (broke a DataTable test)
-        '@stylistic/jsx-one-expression-per-line': ['error', { allow: 'non-jsx' }],
+        '@stylistic/jsx-one-expression-per-line': ['error', { allow: 'single-line' }],
         '@stylistic/object-curly-newline': ['error', {
             ObjectExpression: {
                 consistent: true,
