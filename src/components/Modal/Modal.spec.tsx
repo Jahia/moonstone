@@ -1,8 +1,9 @@
-import {useState} from 'react';
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {Modal, ModalBody, ModalFooter, ModalHeader} from './index';
-import {Button} from '~/components';
+import { useState } from 'react';
+
+import { Modal, ModalBody, ModalFooter, ModalHeader } from './index';
+import { Button } from '~/components';
 
 describe('Modal', () => {
     it('should display content', () => {
@@ -11,7 +12,7 @@ describe('Modal', () => {
     });
 
     it('should add extra classname', () => {
-        render(<Modal isOpen data-testid="moonstone-modal" className="extra"><ModalBody>Modal content</ModalBody></Modal>);
+        render(<Modal isOpen className="extra" data-testid="moonstone-modal"><ModalBody>Modal content</ModalBody></Modal>);
         expect(screen.getByTestId('moonstone-modal')).toHaveClass('extra');
     });
 
@@ -35,7 +36,7 @@ describe('Modal', () => {
         const [open, setOpen] = useState(false);
         return (
             <div>
-                <Button label="Open modal" aria-label="Open modal" onClick={() => setOpen(true)}/>
+                <Button aria-label="Open modal" label="Open modal" onClick={() => setOpen(true)}/>
                 <Modal isOpen={open} data-testid="moonstone-modal" onOpenChange={setOpen}>
                     <ModalBody>Modal content</ModalBody>
                 </Modal>

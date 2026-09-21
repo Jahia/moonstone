@@ -1,8 +1,11 @@
-import React, {useEffect, useState} from 'react';
 import clsx from 'clsx';
-import type {CustomDropdownProps} from './CustomDropdown.types';
-import {Menu, Button} from '~/components';
-import {ChevronDown} from '~/icons';
+import React, { useEffect, useState } from 'react';
+
+import { Button, Menu } from '~/components';
+import { ChevronDown } from '~/icons';
+
+import type { CustomDropdownProps } from './CustomDropdown.types';
+
 import styles from './CustomDropdown.module.scss';
 
 export const CustomDropdown: React.FC<CustomDropdownProps> = ({
@@ -19,7 +22,11 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
     ...props
 }) => {
     const [isOpened, setIsOpened] = useState(false);
-    const [focusData, setFocusData] = useState({focused: false, event: null, lastSent: false});
+    const [focusData, setFocusData] = useState({
+        focused: false,
+        event: null,
+        lastSent: false,
+    });
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
 
@@ -28,14 +35,20 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
     useEffect(() => {
         if (focusData.focused && focusData.event && !focusData.lastSent && onFocus) {
             onFocus(focusData.event);
-            setFocusData(p => ({...p, lastSent: true}));
+            setFocusData(p => ({
+                ...p,
+                lastSent: true,
+            }));
         }
     }, [onFocus, focusData]);
 
     useEffect(() => {
         if (!focusData.focused && !isOpened && focusData.event && focusData.lastSent && onBlur) {
             onBlur(focusData.event);
-            setFocusData(p => ({...p, lastSent: false}));
+            setFocusData(p => ({
+                ...p,
+                lastSent: false,
+            }));
         }
     }, [onBlur, isOpened, focusData]);
 
@@ -62,7 +75,7 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
     const menuMinWidth = 80;
     const anchorPosition = {
         top: 4,
-        left: 0
+        left: 0,
     };
     const menuMaxWidth = 'auto';
     const menuMaxHeight = '270px';
@@ -72,31 +85,39 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
             <Button
                 isDisabled={isDisabled}
                 isLoading={isLoading}
-                variant={variant}
-                size={size}
-                label={label}
-                icon={icon}
-                iconEnd={label && <ChevronDown role="presentation"/>}
-                aria-label={label}
-                aria-disabled={isDisabled || isEmpty}
                 aria-busy={isLoading ? true : undefined}
+                aria-disabled={isDisabled || isEmpty}
+                aria-label={label}
                 className={clsx(
                     ['moonstone-custom-dropdown-button', styles['moonstone-custom-dropdown-button']],
                     isOpened && ['moonstone-opened', styles['moonstone-opened']],
-                    className
+                    className,
                 )}
+                icon={icon}
+                iconEnd={label && <ChevronDown role="presentation"/>}
+                label={label}
+                size={size}
                 tabIndex={0}
+                variant={variant}
+                onBlur={(event) => {
+                    setFocusData(p => ({
+                        ...p,
+                        focused: false,
+                        event,
+                    }));
+                }}
                 onClick={(!isDisabled && !isLoading) ? handleOpenMenu : undefined}
-                onKeyUp={e => {
+                onFocus={(event) => {
+                    setFocusData(p => ({
+                        ...p,
+                        focused: true,
+                        event,
+                    }));
+                }}
+                onKeyUp={(e) => {
                     if (e.key === 'Enter' && !isDisabled && !isLoading) {
                         handleOpenMenu(e);
                     }
-                }}
-                onBlur={event => {
-                    setFocusData(p => ({...p, focused: false, event}));
-                }}
-                onFocus={event => {
-                    setFocusData(p => ({...p, focused: true, event}));
                 }}
                 {...props}
             />
@@ -104,12 +125,12 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
             {isOpened && (
                 <Menu
                     isDisplayed
-                    className={clsx('moonstone-custom-dropdown-menu', styles['moonstone-custom-dropdown-menu'])}
-                    anchorPosition={anchorPosition}
-                    minWidth={minWidth}
-                    maxWidth={menuMaxWidth}
-                    maxHeight={menuMaxHeight}
                     anchorEl={anchorEl}
+                    anchorPosition={anchorPosition}
+                    className={clsx('moonstone-custom-dropdown-menu', styles['moonstone-custom-dropdown-menu'])}
+                    maxHeight={menuMaxHeight}
+                    maxWidth={menuMaxWidth}
+                    minWidth={minWidth}
                     onClose={handleCloseMenu}
                 >
                     {children}

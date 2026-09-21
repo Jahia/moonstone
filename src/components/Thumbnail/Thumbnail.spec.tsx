@@ -1,6 +1,7 @@
-import {render, screen} from '@testing-library/react';
-import {Thumbnail} from './Thumbnail';
-import {Love} from '~/icons';
+import { render, screen } from '@testing-library/react';
+
+import { Thumbnail } from './Thumbnail';
+import { Love } from '~/icons';
 
 describe('Thumbnail', () => {
     it('should render fallback icon when no src provided', () => {
@@ -11,7 +12,7 @@ describe('Thumbnail', () => {
     });
 
     it('should render image when src is a string', () => {
-        render(<Thumbnail src="https://example.com/image.jpg" alt="Test image"/>);
+        render(<Thumbnail alt="Test image" src="https://example.com/image.jpg"/>);
         const img = screen.getByRole('img');
         expect(img).toHaveAttribute('src', 'https://example.com/image.jpg');
         expect(img).toHaveAttribute('alt', 'Test image');
@@ -33,13 +34,13 @@ describe('Thumbnail', () => {
     });
 
     it('should apply preview variant class to image', () => {
-        render(<Thumbnail src="https://example.com/image.jpg" alt="Test"/>);
+        render(<Thumbnail alt="Test" src="https://example.com/image.jpg"/>);
         const img = screen.getByRole('img');
         expect(img).toHaveClass('moonstone-thumbnail_preview');
     });
 
     it('should apply icon variant class to image', () => {
-        render(<Thumbnail src="https://example.com/image.jpg" alt="Test" variant="icon"/>);
+        render(<Thumbnail alt="Test" src="https://example.com/image.jpg" variant="icon"/>);
         const img = screen.getByRole('img');
         expect(img).toHaveClass('moonstone-thumbnail_icon');
     });

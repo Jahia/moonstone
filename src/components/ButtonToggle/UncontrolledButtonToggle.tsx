@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
-import type {UncontrolledButtonToggleProps} from './ButtonToggle.types';
-import {ControlledButtonToggle} from './index';
+import React, { useState } from 'react';
 
-export const UncontrolledButtonToggle: React.FC<UncontrolledButtonToggleProps> = ({defaultPressed = false, onClick, ...props}) => {
+import { ControlledButtonToggle } from './index';
+
+import type { UncontrolledButtonToggleProps } from './ButtonToggle.types';
+
+export const UncontrolledButtonToggle: React.FC<UncontrolledButtonToggleProps> = ({ defaultPressed = false, onClick, ...props }) => {
     const [pressed, setPressed] = useState(defaultPressed);
 
     return (

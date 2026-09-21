@@ -1,5 +1,6 @@
 import React from 'react';
-import type {TableCellProps} from '../TableCell';
+
+import type { TableCellProps } from '../TableCell';
 
 export type TableHeadCellProps = Omit<TableCellProps, 'isScrollable' | 'component'> & {
     /**
@@ -27,4 +28,3 @@ export type TableHeadCellProps = Omit<TableCellProps, 'isScrollable' | 'componen
         isActive?: boolean;
     };
 };
-

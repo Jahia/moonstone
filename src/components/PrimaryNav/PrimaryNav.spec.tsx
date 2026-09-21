@@ -1,10 +1,11 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {PrimaryNav} from './index';
+
+import { PrimaryNav } from './index';
 
 describe('PrimaryNav', () => {
     const props = {
-        modeIcon: <img/>
+        modeIcon: <img/>,
     };
 
     it('should not be expanded initialy', () => {

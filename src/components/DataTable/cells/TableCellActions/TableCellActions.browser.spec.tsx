@@ -1,10 +1,11 @@
-import {render, screen} from '@testing-library/react';
-import {describe, expect, it} from 'vitest';
-import {userEvent} from '@vitest/browser/context';
-import {TableCellActions} from './TableCellActions';
-import {TableRow} from '~/components/DataTable/TableRow';
+import { render, screen } from '@testing-library/react';
+import { userEvent } from '@vitest/browser/context';
+import { describe, expect, it } from 'vitest';
 
-const TableWrapper = ({children}: {readonly children: React.ReactNode}) => (
+import { TableCellActions } from './TableCellActions';
+import { TableRow } from '~/components/DataTable/TableRow';
+
+const TableWrapper = ({ children }: { readonly children: React.ReactNode }) => (
     <table>
         <tbody>
             <TableRow data-testid="row">
@@ -19,10 +20,10 @@ describe('TableCellActions', () => {
         render(
             <TableWrapper>
                 <TableCellActions actions={<button type="button">Edit</button>}/>
-            </TableWrapper>
+            </TableWrapper>,
         );
 
-        expect(screen.getByRole('button', {name: 'Edit'})).toBeVisible();
+        expect(screen.getByRole('button', { name: 'Edit' })).toBeVisible();
     });
 
     it('should not display `actionsOnHover` by default', async () => {
@@ -31,7 +32,7 @@ describe('TableCellActions', () => {
                 <TableCellActions
                     actionsOnHover={<button data-testid="hover-action" type="button">Delete</button>}
                 />
-            </TableWrapper>
+            </TableWrapper>,
         );
         const button = screen.getByTestId('hover-action');
         expect(button).not.toBeVisible();
@@ -43,7 +44,7 @@ describe('TableCellActions', () => {
                 <TableCellActions
                     actionsOnHover={<button data-testid="hover-action" type="button">Delete</button>}
                 />
-            </TableWrapper>
+            </TableWrapper>,
         );
 
         const button = screen.getByTestId('hover-action');
@@ -52,10 +53,10 @@ describe('TableCellActions', () => {
     });
 
     it('should render empty when no actions provided', () => {
-        const {container} = render(
+        const { container } = render(
             <TableWrapper>
                 <TableCellActions/>
-            </TableWrapper>
+            </TableWrapper>,
         );
 
         const cell = container.querySelector('td');

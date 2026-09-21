@@ -1,7 +1,9 @@
-import React from 'react';
 import clsx from 'clsx';
-import type {SvgWrapperProps} from './SvgWrapper.types';
-import {icons} from '~/globals/css-utils.js';
+import React from 'react';
+
+import { icons } from '~/globals/css-utils.js';
+
+import type { SvgWrapperProps } from './SvgWrapper.types';
 
 export const SvgWrapper: React.FC<SvgWrapperProps> = ({
     svg,
@@ -9,16 +11,16 @@ export const SvgWrapper: React.FC<SvgWrapperProps> = ({
     className,
     ...props
 }) => {
-    const {viewBox, fill, children} = svg.props;
+    const { viewBox, fill, children } = svg.props;
     const css = clsx(
         ['moonstone-icon', icons['moonstone-icon']],
         [`moonstone-icon_${size}`, icons[`moonstone-icon_${size}`]],
         svg.props.className,
-        className
+        className,
     );
 
     return (
-        <svg viewBox={viewBox} fill={fill} className={css} {...props}>
+        <svg className={css} fill={fill} viewBox={viewBox} {...props}>
             {children}
         </svg>
     );

@@ -1,5 +1,6 @@
 import React from 'react';
-import type {PolymorphicPropsWithRef} from '~/types/Polymorphic.types';
+
+import type { PolymorphicPropsWithRef } from '~/types/Polymorphic.types';
 
 export type BasicPaperProps = {
     /**

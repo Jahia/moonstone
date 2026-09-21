@@ -1,14 +1,17 @@
-import React, {useState} from 'react';
-import {usePositioning} from '~/hooks';
-import {TreeViewMenuProps} from './TreeViewMenu.types';
-import {SearchInput, TreeView} from '~/components';
-import styles from '../Menu/Menu.module.scss';
-import {TreeViewData} from '~/components/TreeView/TreeView.types';
 import clsx from 'clsx';
+import React, { useState } from 'react';
+
+import { SearchInput, TreeView } from '~/components';
+import { usePositioning } from '~/hooks';
+
+import type { TreeViewMenuProps } from './TreeViewMenu.types';
+import type { TreeViewData } from '~/components/TreeView/TreeView.types';
+
+import styles from '../Menu/Menu.module.scss';
 
 function filterNodes(predicate: (data: TreeViewData) => boolean, nodes: TreeViewData[], opened: string[]) {
     const filtered: TreeViewData[] = [];
-    nodes.forEach(c => {
+    nodes.forEach((c) => {
         const filterResult = filterNode(predicate, c, opened);
         if (filterResult) {
             filtered.push(filterResult);
@@ -31,11 +34,13 @@ const filterNode = (predicate: (data: TreeViewData) => boolean, node: TreeViewDa
     if (match || children.length > 0) {
         return {
             ...node,
-            treeItemProps: {className: clsx({
-                'moonstone-disabled': !match
-            })},
+            treeItemProps: {
+                className: clsx({
+                    'moonstone-disabled': !match,
+                }),
+            },
             isDisabled: !match,
-            children
+            children,
         };
     }
 };
@@ -75,18 +80,18 @@ const flatten = (data: TreeViewData[]): TreeViewData[] => {
 
 const defaultAnchorElOrigin = {
     horizontal: 'left',
-    vertical: 'bottom'
-}as const;
+    vertical: 'bottom',
+} as const;
 
 const defaultTransformElOrigin = {
     vertical: 'top',
-    horizontal: 'left'
-}as const;
+    horizontal: 'left',
+} as const;
 
 const defaultAnchorPosition = {
     top: 0,
-    left: 0
-}as const;
+    left: 0,
+} as const;
 
 export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     isDisplayed,
@@ -107,7 +112,7 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     values,
     handleSelect,
     // HandleKeyPress,
-    onClose
+    onClose,
 }) => {
     const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, position);
     // UseEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);
@@ -130,7 +135,7 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     }
 
     if (value) {
-        treeData.forEach(single => {
+        treeData.forEach((single) => {
             const item = find(data => data.value === value, single, openedBySearch);
             if (item) {
                 selected.push(item.id);
@@ -139,8 +144,8 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     }
 
     if (values) {
-        values.forEach(v => {
-            treeData.forEach(single => {
+        values.forEach((v) => {
+            treeData.forEach((single) => {
                 const item = find(data => data.value === v, single, openedBySearch);
                 if (item) {
                     selected.push(item.id);
@@ -154,7 +159,7 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     // ---
     const styleMenu: React.CSSProperties = {
         position,
-        ...stylePosition as React.CSSProperties
+        ...stylePosition,
     };
 
     if (minWidth) {
@@ -179,16 +184,18 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     // ---
     return (
         <>
-            <menu ref={itemRef}
-                  className={clsx('moonstone-menu', styles['moonstone-menu'])}
-                  style={styleMenu}
+            <menu
+                className={clsx('moonstone-menu', styles['moonstone-menu'])}
+                ref={itemRef}
+                style={styleMenu}
             >
                 {hasAutoSearch && (
                     <div className={clsx('moonstone-menu_searchInput', styles['moonstone-menu_searchInput'])}>
                         <SearchInput
                             value={inputValue}
                             onChange={e => setInputValue(e.target.value)}
-                            onKeyUp={e => {
+                            onClear={() => setInputValue('')}
+                            onKeyUp={(e) => {
                                 if (e.key === 'Enter' && treeData.length > 0) {
                                     const item = find(data => !data.isDisabled, treeData[0]);
                                     if (item) {
@@ -196,20 +203,20 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
                                     }
                                 }
                             }}
-                            onClear={() => setInputValue('')}
                         />
                     </div>
                 )}
-                <TreeView data={treeData}
-                          selectedItems={selected}
-                          size="small"
-                          showCheckbox={Boolean(values)}
-                          openedItems={[...openedItems, ...openedBySearch]}
-                          onOpenItem={onOpenItem}
-                          onCloseItem={onCloseItem}
-                          onClickItem={(node, e) => {
-                              handleSelect(e, node);
-                          }}
+                <TreeView
+                    data={treeData}
+                    openedItems={[...openedItems, ...openedBySearch]}
+                    selectedItems={selected}
+                    showCheckbox={Boolean(values)}
+                    size="small"
+                    onClickItem={(node, e) => {
+                        handleSelect(e, node);
+                    }}
+                    onCloseItem={onCloseItem}
+                    onOpenItem={onOpenItem}
                 />
             </menu>
             {

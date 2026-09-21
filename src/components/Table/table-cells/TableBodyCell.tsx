@@ -1,12 +1,14 @@
-import React from 'react';
 import clsx from 'clsx';
+import React from 'react';
 
-import type {TableCellProps} from './TableCell.types';
-import {IconTextIcon, Typography} from '~/components';
-import {ChevronDown, ChevronRight} from '~/icons';
-import {capitalize} from '~/utils/helpers';
-import {TableCell} from './TableCell';
-import {alignment, layout} from '~/globals/css-utils.js';
+import { TableCell } from './TableCell';
+import { IconTextIcon, Typography } from '~/components';
+import { alignment, layout } from '~/globals/css-utils.js';
+import { ChevronDown, ChevronRight } from '~/icons';
+import { capitalize } from '~/utils/helpers';
+
+import type { TableCellProps } from './TableCell.types';
+
 import styles from './TableCell.module.scss';
 
 const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellProps> = (
@@ -29,7 +31,7 @@ const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEleme
     const scrollableClass = isScrollable ? ['moonstone-tableCellContent', styles['moonstone-tableCellContent']] : '';
 
     const renderCellContent = () => (
-        <IconTextIcon component="div" iconStart={iconStart} iconEnd={iconEnd} typographyProps={{className: clsx(scrollableClass, 'flexFluid', layout.flexFluid)}}>
+        <IconTextIcon component="div" iconEnd={iconEnd} iconStart={iconStart} typographyProps={{ className: clsx(scrollableClass, 'flexFluid', layout.flexFluid) }}>
             {children}
         </IconTextIcon>
     );
@@ -39,10 +41,10 @@ const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEleme
         // which the cells show the chevron icon to expand and collapse sub-rows (isExpandableColumn)
         if (isExpandableColumn && row?.canExpand) {
             return (
-                <TableCell ref={ref} {...row?.getToggleRowExpandedProps({style: {marginLeft: `${leftMarginIndentDepth}px`}})}>
-                    {row?.isExpanded ?
-                        <ChevronDown className={clsx('moonstone-marginRightNano', styles['moonstone-marginRightNano'])}/> :
-                        <ChevronRight className={clsx('moonstone-marginRightNano', styles['moonstone-marginRightNano'])}/>}
+                <TableCell ref={ref} {...row?.getToggleRowExpandedProps({ style: { marginLeft: `${leftMarginIndentDepth}px` } })}>
+                    {row?.isExpanded
+                        ? <ChevronDown className={clsx('moonstone-marginRightNano', styles['moonstone-marginRightNano'])}/>
+                        : <ChevronRight className={clsx('moonstone-marginRightNano', styles['moonstone-marginRightNano'])}/>}
                     {renderCellContent()}
                 </TableCell>
             );
@@ -55,7 +57,7 @@ const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEleme
         // the chevron icons for expand/collapse
         if (isExpandableColumn && !row?.canExpand) {
             return (
-                <TableCell ref={ref} style={{marginLeft: `${leftMarginIndentDepth + leftMarginBuffer}px`}}>
+                <TableCell ref={ref} style={{ marginLeft: `${leftMarginIndentDepth + leftMarginBuffer}px` }}>
                     {renderCellContent()}
                 </TableCell>
             );
@@ -73,11 +75,11 @@ const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEleme
                 [`textAlign${capitalize(textAlign)}`, alignment[`textAlign${capitalize(textAlign)}`]],
                 [`verticalAlign${capitalize(verticalAlign)}`, alignment[`verticalAlign${capitalize(verticalAlign)}`]],
                 typeof width === 'undefined' && ['flexFluid', layout.flexFluid],
-                className
+                className,
             )}
             component={component}
+            style={{ width: width }}
             variant="body"
-            style={{width: width}}
             {...props}
         >
             {renderTableCell()}

@@ -1,19 +1,20 @@
-import {useState} from 'react';
-import type {RowSelectionState} from '@tanstack/react-table';
-import type {SelectionProps} from '../DataTable.types';
+import { useState } from 'react';
+
+import type { SelectionProps } from '../DataTable.types';
+import type { RowSelectionState } from '@tanstack/react-table';
 
 type UseSelectionProps = Pick<SelectionProps, 'selection' | 'defaultSelection' | 'onChangeSelection'>;
 
-export function useSelection({selection, defaultSelection = [], onChangeSelection}: UseSelectionProps) {
+export function useSelection({ selection, defaultSelection = [], onChangeSelection }: UseSelectionProps) {
     const isSelectionControlled = selection !== undefined;
 
     const [state, setState] = useState<RowSelectionState>(
-        () => defaultSelection.reduce<RowSelectionState>((acc, id) => Object.assign(acc, {[id]: true}), {})
+        () => defaultSelection.reduce<RowSelectionState>((acc, id) => Object.assign(acc, { [id]: true }), {}),
     );
 
-    const rowSelection = isSelectionControlled ?
-        selection.reduce<RowSelectionState>((acc, id) => Object.assign(acc, {[id]: true}), {}) :
-        state;
+    const rowSelection = isSelectionControlled
+        ? selection.reduce<RowSelectionState>((acc, id) => Object.assign(acc, { [id]: true }), {})
+        : state;
 
     const handleRowSelectionChange = (updater: React.SetStateAction<RowSelectionState>) => {
         const next = typeof updater === 'function' ? updater(rowSelection) : updater;
@@ -25,5 +26,9 @@ export function useSelection({selection, defaultSelection = [], onChangeSelectio
         onChangeSelection?.(Object.keys(next).filter(id => next[id]));
     };
 
-    return {rowSelection, isSelectionControlled, handleRowSelectionChange};
+    return {
+        rowSelection,
+        isSelectionControlled,
+        handleRowSelectionChange,
+    };
 }

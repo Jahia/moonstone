@@ -1,10 +1,11 @@
-import React from 'react';
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {vi} from 'vitest';
-import {TableHeadCell} from './TableHeadCell';
+import React from 'react';
+import { vi } from 'vitest';
 
-const TableWrapper: React.FC<{ readonly children: React.ReactNode }> = ({children}) => (
+import { TableHeadCell } from './TableHeadCell';
+
+const TableWrapper: React.FC<{ readonly children: React.ReactNode }> = ({ children }) => (
     <table>
         <thead>
             <tr>{children}</tr>
@@ -17,7 +18,7 @@ describe('TableHeadCell', () => {
         render(
             <TableWrapper>
                 <TableHeadCell data-testid="moonstone-TableHeadCell">Header</TableHeadCell>
-            </TableWrapper>
+            </TableWrapper>,
         );
         expect(screen.getByTestId('moonstone-TableHeadCell')).toBeInTheDocument();
         expect(screen.getByText('Header')).toBeInTheDocument();
@@ -27,7 +28,7 @@ describe('TableHeadCell', () => {
         render(
             <TableWrapper>
                 <TableHeadCell data-testid="moonstone-TableHeadCell">Header</TableHeadCell>
-            </TableWrapper>
+            </TableWrapper>,
         );
         const cell = screen.getByTestId('moonstone-TableHeadCell');
         expect(cell.tagName.toLowerCase()).toBe('th');
@@ -40,7 +41,7 @@ describe('TableHeadCell', () => {
                 <TableHeadCell data-testid="moonstone-TableHeadCell" onClick={handleClick}>
                     Header
                 </TableHeadCell>
-            </TableWrapper>
+            </TableWrapper>,
         );
 
         await userEvent.click(screen.getByTestId('moonstone-TableHeadCell'));
@@ -51,8 +52,8 @@ describe('TableHeadCell', () => {
         it('should sort descending direction', () => {
             render(
                 <TableWrapper>
-                    <TableHeadCell sorting={{direction: 'descending', isActive: true}} data-testid="cell">Header</TableHeadCell>
-                </TableWrapper>
+                    <TableHeadCell data-testid="cell" sorting={{ direction: 'descending', isActive: true }}>Header</TableHeadCell>
+                </TableWrapper>,
             );
             expect(screen.getByTestId('cell')).toHaveAttribute('aria-sort', 'descending');
         });
@@ -60,8 +61,8 @@ describe('TableHeadCell', () => {
         it('should sort ascending direction', () => {
             render(
                 <TableWrapper>
-                    <TableHeadCell sorting={{direction: 'ascending', isActive: true}} data-testid="cell">Header</TableHeadCell>
-                </TableWrapper>
+                    <TableHeadCell data-testid="cell" sorting={{ direction: 'ascending', isActive: true }}>Header</TableHeadCell>
+                </TableWrapper>,
             );
             expect(screen.getByTestId('cell')).toHaveAttribute('aria-sort', 'ascending');
         });
@@ -69,8 +70,8 @@ describe('TableHeadCell', () => {
         it('should not set `aria-sort` when `isActive` is `false`', () => {
             render(
                 <TableWrapper>
-                    <TableHeadCell sorting={{direction: 'ascending', isActive: false}} data-testid="cell">Header</TableHeadCell>
-                </TableWrapper>
+                    <TableHeadCell data-testid="cell" sorting={{ direction: 'ascending', isActive: false }}>Header</TableHeadCell>
+                </TableWrapper>,
             );
             expect(screen.getByTestId('cell')).not.toHaveAttribute('aria-sort');
         });
@@ -79,11 +80,11 @@ describe('TableHeadCell', () => {
             render(
                 <TableWrapper>
                     <TableHeadCell data-testid="cell">Header</TableHeadCell>
-                </TableWrapper>
+                </TableWrapper>,
             );
 
             expect(screen.getByTestId('cell')).not.toHaveAttribute('aria-sort');
-            expect(screen.queryByRole('svg', {hidden: true})).not.toBeInTheDocument();
+            expect(screen.queryByRole('svg', { hidden: true })).not.toBeInTheDocument();
         });
     });
 });

@@ -1,10 +1,9 @@
-import {StoryObj} from '@storybook/react-vite';
+import { Pill } from './index';
 import markdownNotes from './Pill.md';
+import { Language } from '~/icons';
 
-import {Pill} from './index';
-import type {PillProps} from './Pill.types';
-
-import {Language} from '~/icons';
+import type { PillProps } from './Pill.types';
+import type { StoryObj } from '@storybook/react-vite';
 
 export default {
     title: 'Components/Pill',
@@ -12,18 +11,18 @@ export default {
 
     parameters: {
         layout: 'centered',
-        notes: {markdown: markdownNotes}
-    }
+        notes: { markdown: markdownNotes },
+    },
 };
 
 export const Default: StoryObj<PillProps> = {
     args: {
-        children: 'ListItem label'
-    }
+        children: 'ListItem label',
+    },
 };
 
 export const IconContent: StoryObj<PillProps> = {
     args: {
-        children: <Language size="small"/>
-    }
+        children: <Language size="small"/>,
+    },
 };

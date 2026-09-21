@@ -1,16 +1,17 @@
 import React from 'react';
-import type {DataAttributes} from '~/types/DataAttributes.types';
+
+import type { DataAttributes } from '~/types/DataAttributes.types';
 
 type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | 'value' | 'role' | 'placeholder' | 'className'> & DataAttributes & {
     /**
      * ID of the input
      */
-    id?: string,
+    id?: string;
 
     /**
      * Role of the input
      */
-    role?: string,
+    role?: string;
 
     /**
      * Initial placeholder text to appear in the input field
@@ -102,14 +103,14 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
      * Function triggered on focus of the input
      */
     onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
-}
+};
 
 type ControlledProps = {
     /**
      * Value to exist in the input field. Define the component as controlled when it set. (Controlled)
      */
     value: string;
-}
+};
 
 type UncontrolledProps = {
     /**
@@ -136,7 +137,7 @@ type UncontrolledProps = {
      * Character to use as a separator
      */
     separator?: '.' | ',';
-}
+};
 
 export type BaseInputProps = BasicBaseInputProps & Partial<ControlledProps> & Partial<UncontrolledProps>;
 export type ControlledBaseInputProps = BasicBaseInputProps & ControlledProps;

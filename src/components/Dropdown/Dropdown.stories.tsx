@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
-import {action} from 'storybook/actions';
+import React, { useState } from 'react';
+import { action } from 'storybook/actions';
+
 import markdownNotes from './Dropdown.md';
-import {iconArgType} from '~/__storybook__/iconArgType';
-import {Dropdown} from './index';
-import {Pill} from '~/components';
+import { Dropdown } from './index';
+import { iconArgType } from '~/__storybook__/iconArgType';
+import { Pill } from '~/components';
 import {
     dropdownData,
     dropdownDataGrouped,
@@ -12,9 +13,10 @@ import {
     dropdownDataImages,
     dropdownDataPill,
     dropdownDataTree,
-    dropdownDataTreePill
+    dropdownDataTreePill,
 } from '~/data';
-import type {DropdownDataOption, DropdownProps} from './Dropdown.types';
+
+import type { DropdownDataOption, DropdownProps } from './Dropdown.types';
 
 export default {
     title: 'Components/Dropdown',
@@ -22,16 +24,16 @@ export default {
 
     parameters: {
         layout: 'centered',
-        notes: {markdown: markdownNotes},
+        notes: { markdown: markdownNotes },
         docs: {
             // Fix issues in the doc tab with firefox
             inlineStories: false,
-            IframeHeight: 500
-        }
+            IframeHeight: 500,
+        },
     },
     argTypes: {
-        icon: iconArgType
-    }
+        icon: iconArgType,
+    },
 };
 export const FlatData = {
     render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
@@ -40,7 +42,7 @@ export const FlatData = {
         const [currentPill, setCurrentPill] = useState<DropdownDataOption>({
             label: 'French',
             value: 'fr',
-            iconEnd: <Pill>FR</Pill>
+            iconEnd: <Pill>FR</Pill>,
         });
 
         const handleOnChange = (e: React.MouseEvent, item: DropdownDataOption) => {
@@ -64,40 +66,40 @@ export const FlatData = {
         return (
             <section className="storyGrid">
                 <Dropdown
-                {...args}
-                icon={args.icon}
-                placeholder={args.placeholder || 'Select something'}
-                value={currentOption?.value || null}
-                isDisabled={args.isDisabled || false}
-                data={dropdownData}
-                onChange={handleOnChange}
-        />
+                    {...args}
+                    isDisabled={args.isDisabled || false}
+                    data={dropdownData}
+                    icon={args.icon}
+                    placeholder={args.placeholder || 'Select something'}
+                    value={currentOption?.value || null}
+                    onChange={handleOnChange}
+                />
 
                 <Dropdown
-                {...args}
-                icon={args.icon}
-                imageSize={args.imageSize || 'small'}
-                placeholder={args.placeholder || 'Select an image'}
-                value={currentImage?.value || null}
-                data={dropdownDataImages}
-                onChange={handleOnChangeImage}
-        />
+                    {...args}
+                    data={dropdownDataImages}
+                    icon={args.icon}
+                    imageSize={args.imageSize || 'small'}
+                    placeholder={args.placeholder || 'Select an image'}
+                    value={currentImage?.value || null}
+                    onChange={handleOnChangeImage}
+                />
 
                 <Dropdown
-                {...args}
-                icon={args.icon}
-                placeholder={args.placeholder || 'Select a language'}
-                value={currentPill.value}
-                data={dropdownDataTreePill}
-                onChange={handleOnChangePill}
-        />
+                    {...args}
+                    data={dropdownDataTreePill}
+                    icon={args.icon}
+                    placeholder={args.placeholder || 'Select a language'}
+                    value={currentPill.value}
+                    onChange={handleOnChangePill}
+                />
             </section>
         );
     },
 
     args: {
-        icon: 'Love'
-    }
+        icon: 'Love',
+    },
 };
 
 export const FlatDataMultiple = {
@@ -107,9 +109,9 @@ export const FlatDataMultiple = {
 
         const handleOnChangeData = (e: React.MouseEvent, item: DropdownDataOption) => {
             setCurrentOptionData(prev =>
-                prev.indexOf(item) > -1 ?
-                    prev.filter(i => i !== item) :
-                    [...prev, item]
+                prev.indexOf(item) > -1
+                    ? prev.filter(i => i !== item)
+                    : [...prev, item],
             );
             action('onChange');
             return true;
@@ -117,9 +119,9 @@ export const FlatDataMultiple = {
 
         const handleOnChangePill = (e: React.MouseEvent, item: DropdownDataOption) => {
             setCurrentPill(prev =>
-                prev.indexOf(item) > -1 ?
-                    prev.filter(i => i !== item) :
-                    [...prev, item]
+                prev.indexOf(item) > -1
+                    ? prev.filter(i => i !== item)
+                    : [...prev, item],
             );
             action('onChange');
             return true;
@@ -129,29 +131,29 @@ export const FlatDataMultiple = {
             <section className="storyGrid">
 
                 <Dropdown
-               {...args}
-               icon={args.icon}
-               values={currentOptionData.map(v => v.value)}
-               placeholder={args.placeholder || 'Select something'}
-               data={dropdownData}
-               onChange={(e, item) => handleOnChangeData(e, item)}
-            />
+                    {...args}
+                    data={dropdownData}
+                    icon={args.icon}
+                    placeholder={args.placeholder || 'Select something'}
+                    values={currentOptionData.map(v => v.value)}
+                    onChange={(e, item) => handleOnChangeData(e, item)}
+                />
 
                 <Dropdown
-               {...args}
-               icon={args.icon}
-               values={currentPill.map(v => v.value)}
-               placeholder={args.placeholder || 'Select languages'}
-               data={dropdownDataPill}
-               onChange={(e, item) => handleOnChangePill(e, item)}
-            />
+                    {...args}
+                    data={dropdownDataPill}
+                    icon={args.icon}
+                    placeholder={args.placeholder || 'Select languages'}
+                    values={currentPill.map(v => v.value)}
+                    onChange={(e, item) => handleOnChangePill(e, item)}
+                />
             </section>
         );
     },
 
     args: {
-        icon: 'Love'
-    }
+        icon: 'Love',
+    },
 };
 
 export const GroupedData = {
@@ -181,38 +183,38 @@ export const GroupedData = {
         return (
             <section className="storyGrid">
                 <Dropdown
-                {...args}
-                icon={args.icon}
-                placeholder={args.placeholder || 'Select something'}
-                value={currentOptionGrouped?.value || null}
-                data={dropdownDataGrouped}
-                onChange={handleChangeGrouped}
-        />
+                    {...args}
+                    data={dropdownDataGrouped}
+                    icon={args.icon}
+                    placeholder={args.placeholder || 'Select something'}
+                    value={currentOptionGrouped?.value || null}
+                    onChange={handleChangeGrouped}
+                />
 
                 <Dropdown
-                {...args}
-                icon={args.icon}
-                placeholder={args.placeholder || 'Select an image'}
-                value={currentImage?.value || null}
-                data={dropdownDataGroupedImages}
-                onChange={handleChangeImage}
-        />
+                    {...args}
+                    data={dropdownDataGroupedImages}
+                    icon={args.icon}
+                    placeholder={args.placeholder || 'Select an image'}
+                    value={currentImage?.value || null}
+                    onChange={handleChangeImage}
+                />
 
                 <Dropdown
-                {...args}
-                icon={args.icon}
-                placeholder={args.placeholder || 'Select a language'}
-                value={currentLanguage?.value || null}
-                data={dropdownDataGroupedPill}
-                onChange={handleChangeLanguage}
-        />
+                    {...args}
+                    data={dropdownDataGroupedPill}
+                    icon={args.icon}
+                    placeholder={args.placeholder || 'Select a language'}
+                    value={currentLanguage?.value || null}
+                    onChange={handleChangeLanguage}
+                />
             </section>
         );
     },
 
     args: {
-        icon: 'Love'
-    }
+        icon: 'Love',
+    },
 };
 
 export const GroupedDataMultiple = {
@@ -222,9 +224,9 @@ export const GroupedDataMultiple = {
 
         const handleOnChangeDataGrouped = (e: React.MouseEvent, item: DropdownDataOption) => {
             setCurrentOptionDataGrouped(prev =>
-                prev.indexOf(item) > -1 ?
-                    prev.filter(i => i !== item) :
-                    [...prev, item]
+                prev.indexOf(item) > -1
+                    ? prev.filter(i => i !== item)
+                    : [...prev, item],
             );
             action('onChange');
             return true;
@@ -232,9 +234,9 @@ export const GroupedDataMultiple = {
 
         const handleOnChangePill = (e: React.MouseEvent, item: DropdownDataOption) => {
             setCurrentPill(prev =>
-                prev.indexOf(item) > -1 ?
-                    prev.filter(i => i !== item) :
-                    [...prev, item]
+                prev.indexOf(item) > -1
+                    ? prev.filter(i => i !== item)
+                    : [...prev, item],
             );
             action('onChange');
             return true;
@@ -243,29 +245,29 @@ export const GroupedDataMultiple = {
         return (
             <section className="storyGrid">
                 <Dropdown
-               {...args}
-               icon={args.icon}
-               values={currentOptionDataGrouped.map(v => v.value)}
-               placeholder={args.placeholder || 'Select something'}
-               data={dropdownDataGrouped}
-               onChange={(e, item) => handleOnChangeDataGrouped(e, item)}
-            />
+                    {...args}
+                    data={dropdownDataGrouped}
+                    icon={args.icon}
+                    placeholder={args.placeholder || 'Select something'}
+                    values={currentOptionDataGrouped.map(v => v.value)}
+                    onChange={(e, item) => handleOnChangeDataGrouped(e, item)}
+                />
 
                 <Dropdown
-               {...args}
-               icon={args.icon}
-               values={currentPill.map(v => v.value)}
-               placeholder={args.placeholder || 'Select languages'}
-               data={dropdownDataGroupedPill}
-               onChange={(e, item) => handleOnChangePill(e, item)}
-            />
+                    {...args}
+                    data={dropdownDataGroupedPill}
+                    icon={args.icon}
+                    placeholder={args.placeholder || 'Select languages'}
+                    values={currentPill.map(v => v.value)}
+                    onChange={(e, item) => handleOnChangePill(e, item)}
+                />
             </section>
         );
     },
 
     args: {
-        icon: 'Love'
-    }
+        icon: 'Love',
+    },
 };
 
 export const TreeData = {
@@ -288,29 +290,29 @@ export const TreeData = {
         return (
             <section>
                 <Dropdown
-                {...args}
-                icon={args.icon}
-                placeholder={args.placeholder || 'Select something'}
-                value={currentOptionTree?.value || null}
-                treeData={dropdownDataTree}
-                onChange={handleChangeTree}
-        />
+                    {...args}
+                    icon={args.icon}
+                    placeholder={args.placeholder || 'Select something'}
+                    treeData={dropdownDataTree}
+                    value={currentOptionTree?.value || null}
+                    onChange={handleChangeTree}
+                />
 
                 <Dropdown
-                {...args}
-                icon={args.icon}
-                placeholder={args.placeholder || 'Select a language'}
-                value={currentLanguage?.value || null}
-                treeData={dropdownDataTreePill}
-                onChange={handleChangeLanguage}
-        />
+                    {...args}
+                    icon={args.icon}
+                    placeholder={args.placeholder || 'Select a language'}
+                    treeData={dropdownDataTreePill}
+                    value={currentLanguage?.value || null}
+                    onChange={handleChangeLanguage}
+                />
             </section>
         );
     },
 
     args: {
-        icon: 'Love'
-    }
+        icon: 'Love',
+    },
 };
 
 export const TreeDataMultiple = {
@@ -320,9 +322,9 @@ export const TreeDataMultiple = {
 
         const handleOnChangeDataMultiple = (e: React.MouseEvent, item: DropdownDataOption) => {
             setCurrentOptionDataMultiple(prev =>
-                prev.indexOf(item) > -1 ?
-                    prev.filter(i => i !== item) :
-                    [...prev, item]
+                prev.indexOf(item) > -1
+                    ? prev.filter(i => i !== item)
+                    : [...prev, item],
             );
             action('onChange');
             return true;
@@ -330,9 +332,9 @@ export const TreeDataMultiple = {
 
         const handleOnChangePill = (e: React.MouseEvent, item: DropdownDataOption) => {
             setCurrentPill(prev =>
-                prev.indexOf(item) > -1 ?
-                    prev.filter(i => i !== item) :
-                    [...prev, item]
+                prev.indexOf(item) > -1
+                    ? prev.filter(i => i !== item)
+                    : [...prev, item],
             );
             action('onChange');
             return true;
@@ -341,27 +343,27 @@ export const TreeDataMultiple = {
         return (
             <section className="storyGrid">
                 <Dropdown
-               {...args}
-               icon={args.icon}
-               values={currentOptionDataMultiple.map(v => v.value)}
-               placeholder={args.placeholder || 'Select something'}
-               treeData={dropdownDataTree}
-               onChange={(e, item) => handleOnChangeDataMultiple(e, item)}
-            />
+                    {...args}
+                    icon={args.icon}
+                    placeholder={args.placeholder || 'Select something'}
+                    treeData={dropdownDataTree}
+                    values={currentOptionDataMultiple.map(v => v.value)}
+                    onChange={(e, item) => handleOnChangeDataMultiple(e, item)}
+                />
 
                 <Dropdown
-                 {...args}
-                 icon={args.icon}
-                 values={currentPill.map(v => v.value)}
-                 placeholder={args.placeholder || 'Select a language'}
-                 treeData={dropdownDataTreePill}
-                 onChange={(e, item) => handleOnChangePill(e, item)}
-            />
+                    {...args}
+                    icon={args.icon}
+                    placeholder={args.placeholder || 'Select a language'}
+                    treeData={dropdownDataTreePill}
+                    values={currentPill.map(v => v.value)}
+                    onChange={(e, item) => handleOnChangePill(e, item)}
+                />
             </section>
         );
     },
 
     args: {
-        icon: 'Love'
-    }
+        icon: 'Love',
+    },
 };

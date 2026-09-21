@@ -1,9 +1,11 @@
-import {useState} from 'react';
-import type {Meta, StoryObj} from '@storybook/react-vite';
-import {Temporal} from 'temporal-polyfill';
-import {Button} from '~/components';
-import {TimeInput} from './TimeInput';
+import { useState } from 'react';
+
+import { TimeInput } from './TimeInput';
 import markdownNotes from './TimeInput.md';
+import { Button } from '~/components';
+
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Temporal } from 'temporal-polyfill';
 
 export default {
     title: 'Components/Input/TimeInput',
@@ -11,33 +13,33 @@ export default {
     tags: ['beta'],
     parameters: {
         layout: 'centered',
-        actions: {argTypesRegex: '^on.*'},
-        notes: {markdown: markdownNotes}
-    }
+        actions: { argTypesRegex: '^on.*' },
+        notes: { markdown: markdownNotes },
+    },
 } satisfies Meta<typeof TimeInput>;
 
 type Story = StoryObj<typeof TimeInput>;
 
 export const Default: Story = {
     args: {
-        defaultValue: '12:30'
+        defaultValue: '12:30',
     },
-    name: 'Default'
+    name: 'Default',
 };
 
 export const TwelveHours: Story = {
     args: {
         timeFormat: '12h',
-        defaultValue: '23:56'
+        defaultValue: '23:56',
     },
-    name: 'Twelve Hours'
+    name: 'Twelve Hours',
 };
 
 export const Empty: Story = {
     args: {
-        defaultValue: null
+        defaultValue: null,
     },
-    name: 'Empty'
+    name: 'Empty',
 };
 
 // Controlled: the parent owns the value. The entry commits on blur, completed to a valid
@@ -50,12 +52,12 @@ export const Controlled: Story = {
             <div>
                 <TimeInput value={value} onChange={(_event, nextValue) => setValue(nextValue)}/>
                 <div>
-                    <Button variant="ghost" label="Set 14:30" onClick={() => setValue('14:30')}/>
-                    <Button variant="ghost" label="Clear" onClick={() => setValue(null)}/>
+                    <Button label="Set 14:30" variant="ghost" onClick={() => setValue('14:30')}/>
+                    <Button label="Clear" variant="ghost" onClick={() => setValue(null)}/>
                 </div>
                 <code>value = {value === null ? 'null' : value.toString()}</code>
             </div>
         );
     },
-    name: 'Controlled'
+    name: 'Controlled',
 };

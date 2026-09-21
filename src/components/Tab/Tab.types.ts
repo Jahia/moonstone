@@ -9,4 +9,4 @@ export type TabProps = Omit<React.ComponentPropsWithRef<'div'>, 'children' | 'cl
      * Additional classname
      */
     className?: string;
-}
+};

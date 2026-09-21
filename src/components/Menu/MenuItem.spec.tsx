@@ -1,7 +1,8 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {Menu} from './index';
-import {MenuItem} from './MenuItem';
+
+import { Menu } from './index';
+import { MenuItem } from './MenuItem';
 
 describe('MenuItem', () => {
     it('should show an icon if the iconStart props is passed in', () => {
@@ -9,7 +10,7 @@ describe('MenuItem', () => {
         render(
             <Menu isDisplayed data-testid="moonstone-menu">
                 <MenuItem iconStart={<Icon/>} label="test" value="test"/>
-            </Menu>
+            </Menu>,
         );
         expect(screen.getByTestId('moonstone-menu').querySelector('svg')).toBeInTheDocument();
     });
@@ -17,8 +18,8 @@ describe('MenuItem', () => {
     it('should add extra classnames to MenuItem', () => {
         render(
             <Menu isDisplayed>
-                <MenuItem data-testid="moonstone-menuItem" className="test-custom-class" label="test" value="test"/>
-            </Menu>
+                <MenuItem className="test-custom-class" data-testid="moonstone-menuItem" label="test" value="test"/>
+            </Menu>,
         );
         expect(screen.getByTestId('moonstone-menuItem')).toHaveClass('test-custom-class');
     });
@@ -30,7 +31,7 @@ describe('MenuItem', () => {
         render(
             <Menu isDisplayed>
                 <MenuItem label="test" value="test" onClick={handleClick}/>
-            </Menu>
+            </Menu>,
         );
 
         await user.click(screen.getByText('test'));
@@ -45,7 +46,7 @@ describe('MenuItem', () => {
         render(
             <Menu isDisplayed>
                 <MenuItem isDisabled label="test" value="test" onClick={handleClick}/>
-            </Menu>
+            </Menu>,
         );
 
         await user.click(screen.getByText('test'));

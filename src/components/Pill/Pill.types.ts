@@ -19,4 +19,4 @@ export type PillProps = Omit<React.ComponentPropsWithoutRef<'span'>, 'className'
      * Additional classname
      */
     className?: string;
-}
+};

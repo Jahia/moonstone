@@ -1,4 +1,4 @@
-import {filterNumberInputValue} from './filterNumberInputValue';
+import { filterNumberInputValue } from './filterNumberInputValue';
 
 describe('InputFilter', () => {
     it('should return numbers only', () => {

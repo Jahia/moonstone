@@ -1,8 +1,9 @@
-import {render, screen} from '@testing-library/react';
-import {LayoutContent} from './index';
+import { render, screen } from '@testing-library/react';
+
+import { LayoutContent } from './index';
 
 const requiredProps = {
-    children: 'test-content'
+    children: 'test-content',
 };
 
 describe('LayoutContent', () => {
@@ -23,12 +24,12 @@ describe('LayoutContent', () => {
     });
 
     it('should have the class "moonstone-layoutContent_centered" when "isCentered" set to true', () => {
-        const {container} = render(<LayoutContent isCentered {...requiredProps}/>);
+        const { container } = render(<LayoutContent isCentered {...requiredProps}/>);
         expect(container.querySelector('.moonstone-layoutContent_centered')).toBeInTheDocument();
     });
 
     it('should not have the class "moonstone-layoutContent_withPadding" when "hasPadding" set to false', () => {
-        const {container} = render(<LayoutContent hasPadding={false} {...requiredProps}/>);
+        const { container } = render(<LayoutContent hasPadding={false} {...requiredProps}/>);
         expect(container.querySelector('.moonstone-layoutContent_withPadding')).not.toBeInTheDocument();
     });
 

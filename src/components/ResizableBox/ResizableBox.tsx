@@ -1,16 +1,22 @@
-import React from 'react';
-import {Resizable} from 're-resizable';
 import clsx from 'clsx';
+import { Resizable } from 're-resizable';
+import React from 'react';
 
-import {HandleResize} from '~/icons';
-import {zones, EnableZonesProps, ZonesProps, ResizableBoxProps} from './ResizableBox.types';
+import { zones } from './ResizableBox.types';
+import { HandleResize } from '~/icons';
+
+import type { EnableZonesProps, ResizableBoxProps, ZonesProps } from './ResizableBox.types';
+
 import styles from './ResizableBox.module.scss';
 
 export const ResizableBox: React.FC<ResizableBoxProps> = ({
     enable = ['right'],
     minWidth = 50,
     maxWidth = 200,
-    defaultSize = {width: '100%', height: 'auto'},
+    defaultSize = {
+        width: '100%',
+        height: 'auto',
+    },
     className = '',
     size,
     children = null,
@@ -21,32 +27,32 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
 }) => {
     const enableZones: EnableZonesProps = {};
 
-    zones.forEach(zone => {
+    zones.forEach((zone) => {
         enableZones[zone] = enable.indexOf(zone as ZonesProps) > -1;
     });
 
     return (
         <Resizable
-            role="region"
             aria-label="resizable-panel"
-            enable={enableZones}
-            minWidth={minWidth}
-            maxWidth={maxWidth}
-            size={size}
+            className={clsx(className)}
             defaultSize={defaultSize}
+            enable={enableZones}
             handleClasses={
                 {
                     right: clsx('moonstone-resizable_handle', styles['moonstone-resizable_handle']),
-                    left: clsx('moonstone-resizable_handle', styles['moonstone-resizable_handle'])
+                    left: clsx('moonstone-resizable_handle', styles['moonstone-resizable_handle']),
                 }
             }
             handleComponent={
                 {
                     right: <HandleResize className={clsx('moonstone-resizable_handle_icon', styles['moonstone-resizable_handle_icon'])} size="big"/>,
-                    left: <HandleResize className={clsx('moonstone-resizable_handle_icon', styles['moonstone-resizable_handle_icon'])} size="big"/>
+                    left: <HandleResize className={clsx('moonstone-resizable_handle_icon', styles['moonstone-resizable_handle_icon'])} size="big"/>,
                 }
             }
-            className={clsx(className)}
+            maxWidth={maxWidth}
+            minWidth={minWidth}
+            role="region"
+            size={size}
             onResize={onResizing}
             onResizeStart={onResizeStart}
             onResizeStop={onResizeStop}

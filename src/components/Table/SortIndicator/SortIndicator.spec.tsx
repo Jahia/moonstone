@@ -1,5 +1,6 @@
-import {render, screen} from '@testing-library/react';
-import {SortIndicator} from './index';
+import { render, screen } from '@testing-library/react';
+
+import { SortIndicator } from './index';
 
 describe('SortIndicator', () => {
     it('should display', () => {

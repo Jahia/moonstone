@@ -1,10 +1,11 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {Button} from '~/components';
-import {Tooltip} from './index';
+
+import { Tooltip } from './index';
+import { Button } from '~/components';
 
 const requiredProps = {
-    label: 'Tooltip'
+    label: 'Tooltip',
 };
 
 describe('Tooltip', () => {

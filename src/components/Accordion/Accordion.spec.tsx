@@ -1,32 +1,33 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {Accordion} from './index';
-import {AccordionItem} from './AccordionItem/';
+
+import { AccordionItem } from './AccordionItem/';
+import { Accordion } from './index';
 
 describe('Accordion', () => {
     it('should display children content', () => {
         render(
             <Accordion>
                 <p data-testid="test"/>
-            </Accordion>
+            </Accordion>,
         );
         expect(screen.getByTestId('test')).toBeInTheDocument();
     });
 
     it('should add reversed class when component is reversed', () => {
         render(
-            <Accordion isReversed data-testid="id"><div/></Accordion>
+            <Accordion isReversed data-testid="id"><div/></Accordion>,
         );
         expect(screen.getByTestId('id')).toHaveClass('moonstone-reversed');
     });
 
     it('should add extra attribute on Accordion', () => {
         render(
-            <Accordion data-testid="id" data-custom="extra"><div/></Accordion>
+            <Accordion data-custom="extra" data-testid="id"><div/></Accordion>,
         );
         expect(screen.getByTestId('id')).toHaveAttribute(
             'data-custom',
-            'extra'
+            'extra',
         );
     });
 
@@ -43,7 +44,7 @@ describe('Accordion', () => {
                 <Accordion>
                     <AccordionItem id="1" label="item 01">content 01</AccordionItem>
                     <AccordionItem id="2" label="item 02">content 02</AccordionItem>
-                </Accordion>
+                </Accordion>,
             );
             await user.click(screen.getByText('item 01'));
 
@@ -58,7 +59,7 @@ describe('Accordion', () => {
                 <Accordion>
                     <AccordionItem id="1" label="item 01">content 01</AccordionItem>
                     <AccordionItem id="2" label="item 02">content 02</AccordionItem>
-                </Accordion>
+                </Accordion>,
             );
             await user.click(screen.getByText('item 01'));
             await user.click(screen.getByText('item 02'));
@@ -74,7 +75,7 @@ describe('Accordion', () => {
                 <Accordion>
                     <AccordionItem id="1" label="item 01">content 01</AccordionItem>
                     <AccordionItem id="2" label="item 02">content 02</AccordionItem>
-                </Accordion>
+                </Accordion>,
             );
 
             await user.click(screen.getByText('item 02'));
@@ -89,7 +90,7 @@ describe('Accordion', () => {
                 <Accordion defaultOpenedItem="2">
                     <AccordionItem id="1" label="item 01">content 01</AccordionItem>
                     <AccordionItem id="2" label="item 02">content 02</AccordionItem>
-                </Accordion>
+                </Accordion>,
             );
 
             expect(screen.queryByText('content 01')).not.toBeInTheDocument();
@@ -101,7 +102,7 @@ describe('Accordion', () => {
                 <Accordion openedItem="2">
                     <AccordionItem id="1" label="item 01">content 01</AccordionItem>
                     <AccordionItem id="2" label="item 02">content 02</AccordionItem>
-                </Accordion>
+                </Accordion>,
             );
 
             expect(screen.queryByText('content 01')).not.toBeInTheDocument();

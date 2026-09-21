@@ -1,13 +1,13 @@
-import {StoryObj} from '@storybook/react-vite';
+import { ListItem } from './index';
 import markdownNotes from './ListItem.md';
-
-import {ListItem} from './index';
-import type {ListItemProps} from './ListItem.types';
-import {Love, Cloud} from '~/icons';
-import {iconArgType} from '~/__storybook__/iconArgType';
-import imgVertical from '~/__storybook__/assets/img-vertical.webp';
 import imgHorizontal from '~/__storybook__/assets/img-horizontal.webp';
 import imgSquare from '~/__storybook__/assets/img-square.webp';
+import imgVertical from '~/__storybook__/assets/img-vertical.webp';
+import { iconArgType } from '~/__storybook__/iconArgType';
+import { Cloud, Love } from '~/icons';
+
+import type { ListItemProps } from './ListItem.types';
+import type { StoryObj } from '@storybook/react-vite';
 
 export default {
     title: 'Components/ListItem',
@@ -15,29 +15,29 @@ export default {
 
     parameters: {
         layout: 'centered',
-        notes: {markdown: markdownNotes}
+        notes: { markdown: markdownNotes },
     },
     argTypes: {
         iconStart: iconArgType,
-        iconEnd: iconArgType
-    }
+        iconEnd: iconArgType,
+    },
 };
 
 export const Default: StoryObj<ListItemProps> = {
     render: args => (
-        <ul style={{padding: 0, margin: 0}}>
+        <ul style={{ padding: 0, margin: 0 }}>
             <ListItem {...args}/>
         </ul>
     ),
 
     args: {
-        label: 'ListItem label'
-    }
+        label: 'ListItem label',
+    },
 };
 
 export const IconText: StoryObj<ListItemProps> = {
     render: args => (
-        <ul style={{padding: 0, margin: 0}}>
+        <ul style={{ padding: 0, margin: 0 }}>
             <ListItem {...args}/>
         </ul>
     ),
@@ -46,13 +46,13 @@ export const IconText: StoryObj<ListItemProps> = {
 
     args: {
         label: 'ListItem',
-        iconStart: <Love/>
-    }
+        iconStart: <Love/>,
+    },
 };
 
 export const IconTextIcon: StoryObj<ListItemProps> = {
     render: args => (
-        <ul style={{padding: 0}}>
+        <ul style={{ padding: 0 }}>
             <ListItem {...args}/>
         </ul>
     ),
@@ -62,23 +62,23 @@ export const IconTextIcon: StoryObj<ListItemProps> = {
     args: {
         label: 'ListItem',
         iconStart: <Love/>,
-        iconEnd: <Cloud/>
-    }
+        iconEnd: <Cloud/>,
+    },
 };
 
 export const WithBigImage: StoryObj<ListItemProps> = {
     render: args => (
-        <ul style={{padding: 0}}>
+        <ul style={{ padding: 0 }}>
             <ListItem
-                image={<img src={imgVertical} alt="vertical big placeholder"/>}
+                image={<img alt="vertical big placeholder" src={imgVertical}/>}
                 {...args}
             />
             <ListItem
-                image={<img src={imgHorizontal} alt="horizontal big placeholder"/>}
+                image={<img alt="horizontal big placeholder" src={imgHorizontal}/>}
                 {...args}
             />
             <ListItem
-                image={<img src={imgSquare} alt="square big placeholder"/>}
+                image={<img alt="square big placeholder" src={imgSquare}/>}
                 {...args}
             />
         </ul>
@@ -86,23 +86,23 @@ export const WithBigImage: StoryObj<ListItemProps> = {
 
     args: {
         label: 'ListItem label',
-        imageSize: 'big'
-    }
+        imageSize: 'big',
+    },
 };
 
 export const WithSmallImage: StoryObj<ListItemProps> = {
     render: args => (
-        <ul style={{padding: 0}}>
+        <ul style={{ padding: 0 }}>
             <ListItem
-                image={<img src={imgVertical} alt="vertical small placeholder"/>}
+                image={<img alt="vertical small placeholder" src={imgVertical}/>}
                 {...args}
             />
             <ListItem
-                image={<img src={imgHorizontal} alt="horizontal small placeholder"/>}
+                image={<img alt="horizontal small placeholder" src={imgHorizontal}/>}
                 {...args}
             />
             <ListItem
-                image={<img src={imgSquare} alt="square small placeholder"/>}
+                image={<img alt="square small placeholder" src={imgSquare}/>}
                 {...args}
             />
         </ul>
@@ -110,6 +110,6 @@ export const WithSmallImage: StoryObj<ListItemProps> = {
 
     args: {
         label: 'ListItem label',
-        imageSize: 'small'
-    }
+        imageSize: 'small',
+    },
 };

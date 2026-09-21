@@ -1,12 +1,16 @@
-import React, {useImperativeHandle, useRef} from 'react';
-import type {SearchContextInputProps} from './SearchContextInput.types';
-import {BaseInput} from '../BaseInput';
 import clsx from 'clsx';
+import React, { useImperativeHandle, useRef } from 'react';
+
+import { BaseInput } from '../BaseInput';
+
+import type { SearchContextInputProps } from './SearchContextInput.types';
+
 import baseInputStyles from '../BaseInput/BaseInput.module.scss';
 
 export const SearchContextInput = React.forwardRef<HTMLInputElement, SearchContextInputProps>(({
     searchContext,
-    ...props}, ref) => {
+    ...props
+}, ref) => {
     const hasSearchContext = typeof searchContext !== 'undefined';
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -16,9 +20,9 @@ export const SearchContextInput = React.forwardRef<HTMLInputElement, SearchConte
         <searchContext.type
             key="searchcontext"
             {...searchContext.props}
-            variant="ghost"
-            size="small"
             className={clsx(searchContext.props.className, 'moonstone-searchContextInput_element', baseInputStyles['moonstone-searchContextInput_element'])}
+            size="small"
+            variant="ghost"
         />
     );
 
@@ -27,8 +31,8 @@ export const SearchContextInput = React.forwardRef<HTMLInputElement, SearchConte
             ref={inputRef}
             {...props}
             isShowClearButton
-            prefixComponents={[component]}
             icon={null}
+            prefixComponents={[component]}
             role="search"
             size="big"
         />

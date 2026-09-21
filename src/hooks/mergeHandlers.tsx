@@ -16,7 +16,7 @@ export const mergeHandlers = (...props: mergeHandlersProps[]): mergeHandlersProp
     const handlerMap: Record<string, EventHandler[]> = {};
 
     // Collect all event handlers (keys starting with 'on') and other props from each props object
-    props.forEach(propsObj => {
+    props.forEach((propsObj) => {
         Object.entries(propsObj).forEach(([key, value]) => {
             // If the key is an event handler (on*) and a function, collect it for merging
             if (key.startsWith('on') && isEventHandler(value)) {

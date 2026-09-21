@@ -1,9 +1,13 @@
 import * as React from 'react';
-import {UncontrolledAccordion} from './UncontrolledAccordion';
-import {ControlledAccordion} from './ControlledAccordion';
-import {AccordionProps} from './Accordion.types';
 
-export const Accordion: React.FC<AccordionProps> = ({children, defaultOpenedItem, openedItem, onSetOpenedItem, ...props}) => {
+import { ControlledAccordion } from './ControlledAccordion';
+import { UncontrolledAccordion } from './UncontrolledAccordion';
+
+import type { AccordionProps } from './Accordion.types';
+
+export const Accordion: React.FC<AccordionProps> = ({
+    children, defaultOpenedItem, openedItem, onSetOpenedItem, ...props
+}) => {
     if (!children) {
         return null;
     }

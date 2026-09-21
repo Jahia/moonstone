@@ -1,81 +1,82 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {ListSelector} from './index';
+
+import { ListSelector } from './index';
 
 const requiredProps = {
     label: {
-        selected: '0 item selected'
+        selected: '0 item selected',
     },
-    onChange: () => ({})
+    onChange: () => ({}),
 };
 
 const options = [
-    {label: 'One', value: '1'},
-    {label: 'Two', value: '2'},
-    {label: 'Three', value: '3'}
+    { label: 'One', value: '1' },
+    { label: 'Two', value: '2' },
+    { label: 'Three', value: '3' },
 ];
 
 describe('MultipleLeftRightSelector', () => {
     it('should display empty list', () => {
-        const {container} = render(<ListSelector {...requiredProps}/>);
+        const { container } = render(<ListSelector {...requiredProps}/>);
         expect(container.querySelectorAll('li')).toHaveLength(0);
     });
 
     it('should display options in left list', () => {
-        const {container} = render(
-            <ListSelector {...requiredProps} options={options}/>
+        const { container } = render(
+            <ListSelector {...requiredProps} options={options}/>,
         );
         expect(container.querySelectorAll('li[role="left-list"]')).toHaveLength(
-            options.length
+            options.length,
         );
     });
 
     it('should display selection in right list', () => {
         const selection = ['1', '3'];
-        const {container} = render(
+        const { container } = render(
             <ListSelector
                 {...requiredProps}
                 options={options}
                 values={selection}
-            />
+            />,
         );
         expect(container.querySelectorAll('li[role="left-list"]')).toHaveLength(
-            options.length - selection.length
+            options.length - selection.length,
         );
         expect(
-            container.querySelectorAll('li[role="right-list"]')
+            container.querySelectorAll('li[role="right-list"]'),
         ).toHaveLength(selection.length);
     });
 
     it('should display in readonly mode', () => {
         const selection = ['1', '3'];
-        const {container} = render(
+        const { container } = render(
             <ListSelector
                 {...requiredProps}
                 isReadOnly
                 options={options}
                 values={selection}
-            />
+            />,
         );
         expect(container.querySelectorAll('li[role="left-list"]')).toHaveLength(
-            options.length - selection.length
+            options.length - selection.length,
         );
         expect(
-            container.querySelectorAll('li[role="right-list"]')
+            container.querySelectorAll('li[role="right-list"]'),
         ).toHaveLength(selection.length);
 
         expect(
-            container.querySelector('button[role="add-all"]')
+            container.querySelector('button[role="add-all"]'),
         ).toBeDisabled();
         expect(
-            container.querySelector('button[role="remove-all"]')
+            container.querySelector('button[role="remove-all"]'),
         ).toBeDisabled();
 
-        container.querySelectorAll('li[role="left-list"]').forEach(el => {
+        container.querySelectorAll('li[role="left-list"]').forEach((el) => {
             expect(el.querySelectorAll('svg')).toHaveLength(0);
         });
 
-        container.querySelectorAll('li[role="right-list"]').forEach(el => {
+        container.querySelectorAll('li[role="right-list"]').forEach((el) => {
             expect(el.querySelectorAll('svg')).toHaveLength(0);
         });
     });
@@ -84,13 +85,13 @@ describe('MultipleLeftRightSelector', () => {
         const mockOnChange = vi.fn();
         const user = userEvent.setup();
         const selection = ['1', '3'];
-        const {container} = render(
+        const { container } = render(
             <ListSelector
                 {...requiredProps}
                 options={options}
                 values={selection}
                 onChange={mockOnChange}
-            />
+            />,
         );
 
         const button = container.querySelector('button[title="Add all"]');
@@ -105,11 +106,11 @@ describe('MultipleLeftRightSelector', () => {
     it('should filter items', async () => {
         const mockOnChange = vi.fn();
         const user = userEvent.setup();
-        const {container} = render(
-            <ListSelector {...requiredProps} options={options} onChange={mockOnChange}/>
+        const { container } = render(
+            <ListSelector {...requiredProps} options={options} onChange={mockOnChange}/>,
         );
         expect(container.querySelectorAll('li[role="left-list"]')).toHaveLength(
-            options.length
+            options.length,
         );
 
         const search = container.querySelector('input[role="searchbox"]');
@@ -117,17 +118,17 @@ describe('MultipleLeftRightSelector', () => {
         await user.type(search, 'On');
 
         expect(container.querySelectorAll('li[role="left-list"]')).toHaveLength(
-            1
+            1,
         );
     });
 
     it('should display label for the list on the right', () => {
         render(
             <ListSelector
+                label={{ ...requiredProps.label, rightListTitle: 'test right' }}
                 options={options}
-                label={{...requiredProps.label, rightListTitle: 'test right'}}
                 onChange={requiredProps.onChange}
-            />
+            />,
         );
 
         expect(screen.getByText('test right')).toBeInTheDocument();
@@ -136,10 +137,10 @@ describe('MultipleLeftRightSelector', () => {
     it('should display label for the list on the left', () => {
         render(
             <ListSelector
+                label={{ ...requiredProps.label, leftListTitle: 'test left' }}
                 options={options}
-                label={{...requiredProps.label, leftListTitle: 'test left'}}
                 onChange={requiredProps.onChange}
-            />
+            />,
         );
 
         expect(screen.getByText('test left')).toBeInTheDocument();

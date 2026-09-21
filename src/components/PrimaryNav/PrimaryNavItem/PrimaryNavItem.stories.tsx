@@ -1,8 +1,9 @@
-import {Meta, StoryObj} from '@storybook/react-vite';
-import {PrimaryNavItem} from './index';
-import {Edit, Person, Power, Workflow} from '~/icons';
+import { PrimaryNavItem } from './index';
 import markdownNotes from './PrimaryNavItem.md';
-import {Badge, Button} from '~/components';
+import { Badge, Button } from '~/components';
+import { Edit, Person, Power, Workflow } from '~/icons';
+
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 export default {
     title: 'Components/PrimaryNavItem',
@@ -10,52 +11,54 @@ export default {
 
     parameters: {
         componentSubtitle: 'PrimaryNavItem',
-        notes: {markdown: markdownNotes}
-    }
+        notes: { markdown: markdownNotes },
+    },
 } as Meta<typeof PrimaryNavItem>;
 
-type Story = StoryObj<typeof PrimaryNavItem>
+type Story = StoryObj<typeof PrimaryNavItem>;
 
-export const Default: Story = {render: () => (
-    <ul
-    style={{
-      display: 'flex',
-      padding: 0,
-      margin: 0,
-      flexDirection: 'column',
-      backgroundColor: '#131c21',
-      width: '18.75rem',
-      height: '100vh'
-    }}
-    >
-        <PrimaryNavItem icon={<Edit/>} label="NavItem not selected (default)"/>
-        <PrimaryNavItem isSelected icon={<Edit/>} label="NavItem Selected"/>
-        <PrimaryNavItem
-      isSelected={false}
-      icon={<Workflow/>}
-      label="Another NavItem"
-      badge={<Badge label="9"/>}
-    />
-        <PrimaryNavItem
-      isSelected={false}
-      icon={<Person/>}
-      label="My profile"
-      subtitle="username as a subtitle"
-    />
-        <PrimaryNavItem
-      isSelected={false}
-      icon={<Person/>}
-      label="My profile"
-      subtitle="username as a subtitle"
-      button={
-          <Button
-          isReversed
-          icon={<Power/>}
-          label="Sign Out"
-          variant="ghost"
-          onClick={() => null}
-        />
-      }
-    />
-    </ul>
-)};
+export const Default: Story = {
+    render: () => (
+        <ul
+            style={{
+                display: 'flex',
+                padding: 0,
+                margin: 0,
+                flexDirection: 'column',
+                backgroundColor: '#131c21',
+                width: '18.75rem',
+                height: '100vh',
+            }}
+        >
+            <PrimaryNavItem icon={<Edit/>} label="NavItem not selected (default)"/>
+            <PrimaryNavItem isSelected icon={<Edit/>} label="NavItem Selected"/>
+            <PrimaryNavItem
+                isSelected={false}
+                badge={<Badge label="9"/>}
+                icon={<Workflow/>}
+                label="Another NavItem"
+            />
+            <PrimaryNavItem
+                isSelected={false}
+                icon={<Person/>}
+                label="My profile"
+                subtitle="username as a subtitle"
+            />
+            <PrimaryNavItem
+                isSelected={false}
+                button={(
+                    <Button
+                        isReversed
+                        icon={<Power/>}
+                        label="Sign Out"
+                        variant="ghost"
+                        onClick={() => null}
+                    />
+                )}
+                icon={<Person/>}
+                label="My profile"
+                subtitle="username as a subtitle"
+            />
+        </ul>
+    ),
+};

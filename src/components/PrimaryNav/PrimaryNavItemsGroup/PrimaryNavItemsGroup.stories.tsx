@@ -1,15 +1,16 @@
-import type {Meta, StoryObj} from '@storybook/react-vite';
-import {PrimaryNavItemsGroup} from './index';
-import {PrimaryNavItem} from '~/components/PrimaryNav/PrimaryNavItem';
-import {Edit} from '~/icons';
+import { PrimaryNavItemsGroup } from './index';
 import markdownNotes from './PrimaryNavItemsGroup.md';
+import { PrimaryNavItem } from '~/components/PrimaryNav/PrimaryNavItem';
+import { Edit } from '~/icons';
+
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof PrimaryNavItemsGroup> = {
     title: 'Components/PrimaryNavItemsGroup',
     component: PrimaryNavItemsGroup,
     parameters: {
-        notes: {markdown: markdownNotes},
-        layout: 'fullscreen'
+        notes: { markdown: markdownNotes },
+        layout: 'fullscreen',
     },
     decorators: [
         Story => (
@@ -17,13 +18,13 @@ const meta: Meta<typeof PrimaryNavItemsGroup> = {
                 style={{
                     backgroundColor: '#131c21',
                     width: '18.75rem',
-                    height: '100vh'
+                    height: '100vh',
                 }}
             >
                 <Story/>
             </div>
-        )
-    ]
+        ),
+    ],
 };
 
 export default meta;
@@ -36,7 +37,7 @@ export const Default: Story = {
             <PrimaryNavItem icon={<Edit/>} label="NavItem not selected (default)"/>
             <PrimaryNavItem icon={<Edit/>} label="NavItem"/>
         </PrimaryNavItemsGroup>
-    )
+    ),
 };
 
 export const CollapsedGroup: Story = {
@@ -45,5 +46,5 @@ export const CollapsedGroup: Story = {
             <PrimaryNavItem icon={<Edit/>} label="Hidden when collapsed"/>
             <PrimaryNavItem icon={<Edit/>} label="Hidden when collapsed too"/>
         </PrimaryNavItemsGroup>
-    )
+    ),
 };

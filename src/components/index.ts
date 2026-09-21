@@ -1,4 +1,4 @@
-export {DataTable} from './DataTable';
+export { DataTable } from './DataTable';
 export * from './Accordion';
 export * from './Accordion/AccordionItem';
 export * from './Badge';

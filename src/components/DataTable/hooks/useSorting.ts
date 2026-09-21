@@ -1,6 +1,7 @@
-import {useState} from 'react';
-import type {SortingState} from '@tanstack/react-table';
-import type {DataTableProps, SubRowKey} from '../DataTable.types';
+import { useState } from 'react';
+
+import type { DataTableProps, SubRowKey } from '../DataTable.types';
+import type { SortingState } from '@tanstack/react-table';
 
 type SortKey<T extends NonNullable<unknown>> = Extract<Exclude<keyof T, SubRowKey>, string>;
 
@@ -9,16 +10,28 @@ type UseSortingProps<T extends NonNullable<unknown>> = Pick<
     'sortBy' | 'sortDirection' | 'defaultSortBy' | 'defaultSortDirection' | 'onSortChange'
 >;
 
-export function useSorting<T extends NonNullable<unknown>>({sortBy, sortDirection, defaultSortBy, defaultSortDirection = 'ascending', onSortChange}: UseSortingProps<T>) {
+export function useSorting<T extends NonNullable<unknown>>({
+    sortBy, sortDirection, defaultSortBy, defaultSortDirection = 'ascending', onSortChange,
+}: UseSortingProps<T>) {
     const isSortingControlled = sortBy !== undefined;
 
     const [state, setState] = useState<SortingState>(
-        () => defaultSortBy ? [{id: defaultSortBy, desc: defaultSortDirection === 'descending'}] : []
+        () => defaultSortBy
+            ? [{
+                    id: defaultSortBy,
+                    desc: defaultSortDirection === 'descending',
+                }]
+            : [],
     );
 
-    const sorting: SortingState = isSortingControlled ?
-        (sortBy ? [{id: sortBy, desc: sortDirection === 'descending'}] : []) :
-        state;
+    const sorting: SortingState = isSortingControlled
+        ? (sortBy
+                ? [{
+                        id: sortBy,
+                        desc: sortDirection === 'descending',
+                    }]
+                : [])
+        : state;
 
     const handleSortingChange = (updater: React.SetStateAction<SortingState>) => {
         const next = typeof updater === 'function' ? updater(sorting) : updater;
@@ -32,5 +45,9 @@ export function useSorting<T extends NonNullable<unknown>>({sortBy, sortDirectio
         }
     };
 
-    return {sorting, isSortingControlled, handleSortingChange};
+    return {
+        sorting,
+        isSortingControlled,
+        handleSortingChange,
+    };
 }

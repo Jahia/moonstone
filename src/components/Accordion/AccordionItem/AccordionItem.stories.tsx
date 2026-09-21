@@ -1,12 +1,11 @@
-import {StoryFn, Meta} from '@storybook/react-vite';
-
-import {Accordion} from '~/components/Accordion';
-import {AccordionItem} from './index';
-import type {AccordionItemProps} from './AccordionItem.types';
-
 import markdownNotes from './AccordionItem.md';
-import {Love} from '~/icons';
-import {iconArgType} from '~/__storybook__/iconArgType';
+import { AccordionItem } from './index';
+import { iconArgType } from '~/__storybook__/iconArgType';
+import { Accordion } from '~/components/Accordion';
+import { Love } from '~/icons';
+
+import type { AccordionItemProps } from './AccordionItem.types';
+import type { Meta, StoryFn } from '@storybook/react-vite';
 
 export default {
     title: 'Components/Accordion/AccordionItem',
@@ -14,19 +13,19 @@ export default {
     decorators: [
         StoryCmp => (
             <div
-        style={{display: 'flex', flexDirection: 'column', height: '100vh'}}
+                style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}
             >
                 <StoryCmp/>
             </div>
-        )
+        ),
     ],
     parameters: {
-        notes: {markdown: markdownNotes},
-        actions: {argTypesRegex: '^on.*'}
+        notes: { markdown: markdownNotes },
+        actions: { argTypesRegex: '^on.*' },
     },
     argTypes: {
-        icon: iconArgType
-    }
+        icon: iconArgType,
+    },
 } as Meta<typeof AccordionItem>;
 
 const Template: StoryFn<AccordionItemProps> = args => (
@@ -41,8 +40,8 @@ export const WithIcon = {
     args: {
         id: 'id',
         label: 'AccordionItem',
-        icon: <Love size="big"/>
-    }
+        icon: <Love size="big"/>,
+    },
 };
 
 export const WithoutIcon = {
@@ -50,6 +49,6 @@ export const WithoutIcon = {
 
     args: {
         id: 'id',
-        label: 'AccordionItem'
-    }
+        label: 'AccordionItem',
+    },
 };

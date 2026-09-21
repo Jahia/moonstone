@@ -1,8 +1,10 @@
-import React from 'react';
 import clsx from 'clsx';
+import React from 'react';
+
+import type { Meta, StoryObj } from '@storybook/react-vite';
+
 import './colors.stories.scss';
 import '~/__storybook__/storybook.scss';
-import type {Meta, StoryObj} from '@storybook/react-vite';
 
 const paletteNeutral = [
     'light',
@@ -29,7 +31,7 @@ const paletteNeutral = [
     'gray_dark20',
     'gray_dark_plain60',
     'gray_dark_plain40',
-    'gray_dark_plain20'
+    'gray_dark_plain20',
 ];
 
 const paletteAccent = [
@@ -60,7 +62,7 @@ const paletteAccent = [
     'accent_light60',
     'accent_light_plain20',
     'accent_light_plain40',
-    'accent_light_plain60'
+    'accent_light_plain60',
 ];
 
 const paletteSupport = [
@@ -87,7 +89,7 @@ const paletteSupport = [
     'danger_plain20',
     'danger_plain40',
     'danger_plain60',
-    'danger_dark'
+    'danger_dark',
 ];
 
 const paletteColors = [
@@ -98,16 +100,16 @@ const paletteColors = [
     'purple_plain20',
     'purple_plain40',
     'purple_plain60',
-    'purple_dark'
+    'purple_dark',
 ];
 
-type Palettes = typeof paletteAccent      ;
+type Palettes = typeof paletteAccent;
 type ColorProps = {
-    readonly color: string,
-    readonly name: string
+    readonly color: string;
+    readonly name: string;
 };
 
-export const Color : React.FC<ColorProps> = ({color, name}) => {
+export const Color: React.FC<ColorProps> = ({ color, name }) => {
     return (
         <div className="storyItem">
             <p>{name}</p>
@@ -120,7 +122,7 @@ function displayColors(palette: Palettes) {
     const colors = [];
 
     for (const [key, color] of palette.entries()) {
-        colors.push(<Color key={key} color={color} name={`$color-${color}`}/>);
+        colors.push(<Color color={color} key={key} name={`$color-${color}`}/>);
     }
 
     return colors;
@@ -128,7 +130,7 @@ function displayColors(palette: Palettes) {
 
 const meta: Meta = {
     title: 'Tokens/Colors',
-    excludeStories: ['Color']
+    excludeStories: ['Color'],
 };
 
 export default meta;
@@ -138,23 +140,23 @@ type Story = StoryObj;
 export const Accent: Story = {
     render: () => (
         <section className="storyWrapper">{displayColors(paletteAccent)}</section>
-    )
+    ),
 };
 
 export const Neutral: Story = {
     render: () => (
         <section className="storyWrapper">{displayColors(paletteNeutral)}</section>
-    )
+    ),
 };
 
 export const Support: Story = {
     render: () => (
         <section className="storyWrapper">{displayColors(paletteSupport)}</section>
-    )
+    ),
 };
 
 export const Palette: Story = {
     render: () => (
         <section className="storyWrapper">{displayColors(paletteColors)}</section>
-    )
+    ),
 };

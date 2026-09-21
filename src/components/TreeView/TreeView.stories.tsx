@@ -1,13 +1,15 @@
-import {useState} from 'react';
-import {TreeView} from './index';
-import {treeData, treeDataFlat, treeDataRootClosable} from '~/data';
+import { useState } from 'react';
+
+import { TreeView } from './index';
 import markdownNotes from './TreeView.md';
-import type {TreeViewProps, TreeViewData} from './TreeView.types';
+import { treeData, treeDataFlat, treeDataRootClosable } from '~/data';
+
+import type { TreeViewData, TreeViewProps } from './TreeView.types';
 
 const css = {
     transform: 'scale(1)',
     width: '300px',
-    height: '100vh'
+    height: '100vh',
 };
 
 export default {
@@ -16,22 +18,22 @@ export default {
     decorators: [(storyFn: () => JSX.Element) => <div style={css}>{storyFn()}</div>],
     parameters: {
         layout: 'centered',
-        notes: {markdown: markdownNotes}
-    }
+        notes: { markdown: markdownNotes },
+    },
 };
 
 export const Default = {
     render: (args: TreeViewProps, globals: { theme: string }) => {
         const theme = globals.theme;
-        return <TreeView {...args} data={treeData} isReversed={theme === 'dark'}/>;
-    }
+        return <TreeView {...args} isReversed={theme === 'dark'} data={treeData}/>;
+    },
 };
 
 export const ClosableRoot = {
     render: (args: TreeViewProps, globals: { theme: string }) => {
         const theme = globals.theme;
-        return <TreeView {...args} data={treeDataRootClosable} isReversed={theme === 'dark'}/>;
-    }
+        return <TreeView {...args} isReversed={theme === 'dark'} data={treeDataRootClosable}/>;
+    },
 };
 
 // Export const OpenedByDefault = {
@@ -49,9 +51,9 @@ export const ClosableRoot = {
 // };
 
 export const Flat = {
-    render: (args: TreeViewProps, {globals: {theme}}: { globals: { theme: string } }) => (
-        <TreeView {...args} data={treeDataFlat} isReversed={theme === 'dark'}/>
-    )
+    render: (args: TreeViewProps, { globals: { theme } }: { globals: { theme: string } }) => (
+        <TreeView {...args} isReversed={theme === 'dark'} data={treeDataFlat}/>
+    ),
 };
 
 export const Selection = {
@@ -69,19 +71,19 @@ export const Selection = {
 
         return (
             <TreeView
-        isReversed={theme === 'dark'}
-        selectedItems={selectedItems}
-        data={treeData}
-        onClickItem={handleClick}
-        {...args}
-      />
+                isReversed={theme === 'dark'}
+                data={treeData}
+                selectedItems={selectedItems}
+                onClickItem={handleClick}
+                {...args}
+            />
         );
-    }
+    },
 };
 export const Highlight = {
-    render: (args: TreeViewProps, {globals: {theme}}: { globals: { theme: string } }) => (
-        <TreeView data={treeData} isReversed={theme === 'dark'} highlightedItems={['A']} {...args}/>
-    )
+    render: (args: TreeViewProps, { globals: { theme } }: { globals: { theme: string } }) => (
+        <TreeView isReversed={theme === 'dark'} data={treeData} highlightedItems={['A']} {...args}/>
+    ),
 };
 
 export const Controlled = {
@@ -100,24 +102,25 @@ export const Controlled = {
         return (
             <div>
                 <span>
-                    Opened items ={' '}
+                    Opened items =
+                    {' '}
                     {openedItems.map(n => (
-                        <button key={n} type="button" onClick={() => handleClose({id: n, label: n})}>
+                        <button key={n} type="button" onClick={() => handleClose({ id: n, label: n })}>
                             {n}
                         </button>
-          ))}
+                    ))}
                 </span>
                 <TreeView
-          {...args}
-          data={treeData}
-          openedItems={openedItems}
-          isReversed={theme === 'dark'}
-          onOpenItem={handleOpen}
-          onCloseItem={handleClose}
-        />
+                    {...args}
+                    isReversed={theme === 'dark'}
+                    data={treeData}
+                    openedItems={openedItems}
+                    onCloseItem={handleClose}
+                    onOpenItem={handleOpen}
+                />
             </div>
         );
-    }
+    },
 };
 
 export const ControlledWithLoading = {
@@ -125,41 +128,41 @@ export const ControlledWithLoading = {
         const theme = globals.theme;
         const [openedItems, setOpenedItems] = useState<string[]>([]);
         const [treeDataState, setTreeDataState] = useState<TreeViewData[]>([
-            {id: 'A1', label: 'A-1', hasChildren: true},
-            {id: 'A2', label: 'A-2', hasChildren: true},
-            {id: 'A3', label: 'A-3', hasChildren: true}
+            { id: 'A1', label: 'A-1', hasChildren: true },
+            { id: 'A2', label: 'A-2', hasChildren: true },
+            { id: 'A3', label: 'A-3', hasChildren: true },
         ]);
 
         const loadChildren = (node: TreeViewData) => {
             setTreeDataState(data =>
-                data.map(n => {
+                data.map((n) => {
                     if (n.id === node.id) {
                         return {
                             ...n,
                             isLoading: false,
                             children: [
-                                {id: n.id + '1', label: n.label + '-1'},
-                                {id: n.id + '2', label: n.label + '-2'}
-                            ]
+                                { id: n.id + '1', label: n.label + '-1' },
+                                { id: n.id + '2', label: n.label + '-2' },
+                            ],
                         };
                     }
 
                     return n;
-                })
+                }),
             );
         };
 
         const handleOpen = (node: TreeViewData) => {
             setOpenedItems([node.id, ...openedItems]);
             setTreeDataState(data =>
-                data.map(n => {
+                data.map((n) => {
                     if (n.id === node.id && !n.isLoading && !n.children) {
                         setTimeout(() => loadChildren(node), 1000);
-                        return {...n, isLoading: true};
+                        return { ...n, isLoading: true };
                     }
 
                     return n;
-                })
+                }),
             );
         };
 
@@ -170,21 +173,22 @@ export const ControlledWithLoading = {
         return (
             <div>
                 <span>
-                    Opened items ={' '}
+                    Opened items =
+                    {' '}
                     {openedItems.map(n => (
-                        <button key={n} type="button" onClick={() => handleClose({id: n, label: n})}>
+                        <button key={n} type="button" onClick={() => handleClose({ id: n, label: n })}>
                             {n}
                         </button>
-          ))}
+                    ))}
                 </span>
                 <TreeView
-          data={treeDataState}
-          isReversed={theme === 'dark'}
-          openedItems={openedItems}
-          onOpenItem={handleOpen}
-          onCloseItem={handleClose}
-        />
+                    isReversed={theme === 'dark'}
+                    data={treeDataState}
+                    openedItems={openedItems}
+                    onCloseItem={handleClose}
+                    onOpenItem={handleOpen}
+                />
             </div>
         );
-    }
+    },
 };

@@ -1,4 +1,4 @@
-import {ReactNode} from 'react';
+import type { ReactNode } from 'react';
 
 export type ModalBodyProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 'children'> & {
     /**
@@ -10,4 +10,4 @@ export type ModalBodyProps = Omit<React.ComponentPropsWithRef<'div'>, 'className
      * Additional classname
      */
     className?: string;
-}
+};

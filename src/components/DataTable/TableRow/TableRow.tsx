@@ -1,8 +1,10 @@
-import React from 'react';
 import clsx from 'clsx';
+import React from 'react';
 
-import type {TableRowProps} from './TableRow.types';
-import {layout} from '~/globals/css-utils.js';
+import { layout } from '~/globals/css-utils.js';
+
+import type { TableRowProps } from './TableRow.types';
+
 import styles from './TableRow.module.scss';
 
 const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowProps> = (
@@ -21,20 +23,20 @@ const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowPr
     return React.createElement(
         component,
         {
-            className: clsx(
+            'className': clsx(
                 layout.flexRow,
                 styles.tableRow,
                 layout.alignCenter,
                 isHighlighted && type === 'body' && styles.highlighted,
                 type === 'head' && styles.head,
-                className
+                className,
             ),
             'aria-selected': isHighlighted && type === 'body' ? true : undefined,
-            tabIndex: 0,
+            'tabIndex': 0,
             ...props,
-            ref
+            ref,
         },
-        children
+        children,
     );
 };
 

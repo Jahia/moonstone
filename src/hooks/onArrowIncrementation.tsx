@@ -5,7 +5,7 @@ type onArrowIncrementationProps = {
     ref: React.RefObject<HTMLInputElement>;
     step: number;
     allowNegative: boolean;
-    separator?: '.' | ',',
+    separator?: '.' | ',';
     min?: number;
     max?: number;
 };
@@ -16,9 +16,9 @@ export const onArrowIncrementation = ({
     allowNegative,
     separator,
     min,
-    max
-} :
-    onArrowIncrementationProps) => {
+    max,
+}:
+onArrowIncrementationProps) => {
     const handleKeyUp = (e: React.KeyboardEvent) => {
         const element = ref?.current;
 
@@ -71,6 +71,6 @@ export const onArrowIncrementation = ({
     };
 
     return {
-        onKeyUp: handleKeyUp
+        onKeyUp: handleKeyUp,
     };
 };

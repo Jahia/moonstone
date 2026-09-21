@@ -1,5 +1,6 @@
 import React from 'react';
-import {Typography} from '~/components';
+
+import { Typography } from '~/components';
 
 type LocaleProp = string | string[];
 
@@ -23,7 +24,7 @@ export const renderString = (value: string): React.ReactNode => {
 };
 
 export const renderNumber = (
-    {value, locale, localeOptions}: Extract<LocaleOptions, { value: number | bigint }>
+    { value, locale, localeOptions }: Extract<LocaleOptions, { value: number | bigint }>,
 ): React.ReactNode => {
     if (value === null || value === undefined) {
         return null;
@@ -34,15 +35,15 @@ export const renderNumber = (
         return null;
     }
 
-    const formattedValue = typeof value === 'bigint' ?
-        value.toLocaleString(locale, localeOptions as BigIntToLocaleStringOptions) :
-        value.toLocaleString(locale, localeOptions);
+    const formattedValue = typeof value === 'bigint'
+        ? value.toLocaleString(locale, localeOptions as BigIntToLocaleStringOptions)
+        : value.toLocaleString(locale, localeOptions);
 
     return <Typography isNowrap component="span">{formattedValue}</Typography>;
 };
 
 export const renderDate = (
-    {value, locale, localeOptions}: Extract<LocaleOptions, { value: Date | null | undefined }>
+    { value, locale, localeOptions }: Extract<LocaleOptions, { value: Date | null | undefined }>,
 ): React.ReactNode => {
     if (value === null || value === undefined) {
         return null;

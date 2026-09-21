@@ -1,8 +1,9 @@
-import {render, screen} from '@testing-library/react';
-import {Table} from './index';
-import {TableHead, TableHeadCell, TableBody, TableBodyCell, TableRow} from './index';
-import {TableCell} from './table-cells/TableCell';
-import {Love} from '~/icons';
+import { render, screen } from '@testing-library/react';
+
+import { Table } from './index';
+import { TableBody, TableBodyCell, TableHead, TableHeadCell, TableRow } from './index';
+import { TableCell } from './table-cells/TableCell';
+import { Love } from '~/icons';
 
 describe('Table', () => {
     it('should display', () => {

@@ -1,8 +1,8 @@
-import {render, screen} from '@testing-library/react';
-
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {CheckboxGroup} from './index';
-import {CheckboxItem} from './CheckboxItem';
+
+import { CheckboxItem } from './CheckboxItem';
+import { CheckboxGroup } from './index';
 
 describe('CheckboxGroup', () => {
     it('should render', () => {
@@ -10,7 +10,7 @@ describe('CheckboxGroup', () => {
             <CheckboxGroup name="test-grouped-checkboxes">
                 <CheckboxItem id="checkbox-01" label="checkbox 01" value="01"/>
                 <CheckboxItem id="checkbox-02" label="checkbox 02" value="02"/>
-            </CheckboxGroup>
+            </CheckboxGroup>,
         );
         expect(screen.getAllByRole('checkbox')).toHaveLength(2);
     });
@@ -23,10 +23,10 @@ describe('CheckboxGroup', () => {
             >
                 <CheckboxItem id="checkbox-01" label="checkbox 01" value="01"/>
                 <CheckboxItem id="checkbox-02" label="checkbox 02" value="02"/>
-            </CheckboxGroup>
+            </CheckboxGroup>,
         );
         expect(
-            screen.getByTestId('moonstone-checkboxGroup')
+            screen.getByTestId('moonstone-checkboxGroup'),
         ).toBeInTheDocument();
     });
 
@@ -40,10 +40,10 @@ describe('CheckboxGroup', () => {
             >
                 <CheckboxItem id="checkbox-01" label="checkbox 01" value="01"/>
                 <CheckboxItem id="checkbox-02" label="checkbox 02" value="02"/>
-            </CheckboxGroup>
+            </CheckboxGroup>,
         );
         expect(screen.getByTestId('moonstone-checkboxGroup')).toHaveClass(
-            className
+            className,
         );
     });
 
@@ -54,10 +54,10 @@ describe('CheckboxGroup', () => {
                 name="test-grouped-checkboxes"
             >
                 {[]}
-            </CheckboxGroup>
+            </CheckboxGroup>,
         );
         expect(
-            screen.queryByTestId('moonstone-checkboxGroup')
+            screen.queryByTestId('moonstone-checkboxGroup'),
         ).not.toBeInTheDocument();
     });
 
@@ -71,7 +71,7 @@ describe('CheckboxGroup', () => {
                     label="checkbox 02"
                     value="02"
                 />
-            </CheckboxGroup>
+            </CheckboxGroup>,
         );
         expect(screen.getByLabelText('checkbox 01')).toBeDisabled();
         expect(screen.getByLabelText('checkbox 02')).toBeDisabled();
@@ -82,7 +82,7 @@ describe('CheckboxGroup', () => {
             <CheckboxGroup name="test-grouped-checkboxes">
                 <CheckboxItem id="checkbox-01" label="checkbox 01" value="01"/>
                 <CheckboxItem id="checkbox-02" label="checkbox 02" value="02"/>
-            </CheckboxGroup>
+            </CheckboxGroup>,
         );
         expect(screen.getAllByRole('checkbox')).toHaveLength(2);
     });
@@ -92,20 +92,20 @@ describe('CheckboxGroup', () => {
             <CheckboxGroup isReadOnly name="test-grouped-checkboxes">
                 <CheckboxItem id="checkbox-01" label="checkbox 01" value="01"/>
                 <CheckboxItem
+                    isReadOnly={false}
                     id="checkbox-02"
                     label="checkbox 02"
                     value="02"
-                    isReadOnly={false}
                 />
-            </CheckboxGroup>
+            </CheckboxGroup>,
         );
         expect(screen.getByLabelText('checkbox 01')).toHaveAttribute(
             'aria-readonly',
-            'true'
+            'true',
         );
         expect(screen.getByLabelText('checkbox 02')).toHaveAttribute(
             'aria-readonly',
-            'true'
+            'true',
         );
     });
 
@@ -125,7 +125,7 @@ describe('CheckboxGroup', () => {
                     label="checkbox 02"
                     value="02"
                 />
-            </CheckboxGroup>
+            </CheckboxGroup>,
         );
 
         await user.click(screen.getByLabelText('checkbox 01'));

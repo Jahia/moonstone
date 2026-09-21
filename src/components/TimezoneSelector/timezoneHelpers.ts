@@ -1,6 +1,8 @@
-import {Temporal} from 'temporal-polyfill';
-import type {DropdownDataGrouped, DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
-import {getTodayPlainDate} from '../Input/utils/temporal';
+import { Temporal } from 'temporal-polyfill';
+
+import { getTodayPlainDate } from '../Input/utils/temporal';
+
+import type { DropdownDataGrouped, DropdownDataOption } from '~/components/Dropdown/Dropdown.types';
 
 /** Reference time of day for offset computation — noon avoids DST midnight edge cases. */
 const NOON = Temporal.PlainTime.from('12:00');
@@ -17,7 +19,7 @@ const FALLBACK_TIMEZONES = [
     'America/Los_Angeles',
     'Asia/Tokyo',
     'Asia/Shanghai',
-    'Australia/Sydney'
+    'Australia/Sydney',
 ];
 
 /**
@@ -33,13 +35,16 @@ const getTimezoneCityLabel = (timezone: string) =>
     (timezone.split('/').pop() ?? timezone).replace(/_/g, ' ');
 
 const getTimezoneOption = (timezone: string, referenceDate: Temporal.PlainDate): DropdownDataOption => ({
-    label: `${getTimezoneCityLabel(timezone)} (UTC ${referenceDate.toZonedDateTime({timeZone: timezone, plainTime: NOON}).offset})`,
-    value: timezone
+    label: `${getTimezoneCityLabel(timezone)} (UTC ${referenceDate.toZonedDateTime({
+        timeZone: timezone,
+        plainTime: NOON,
+    }).offset})`,
+    value: timezone,
 });
 
 export const getTimezoneDropdownData = (
     selectedTimezone?: string | null,
-    referenceDate?: Temporal.PlainDate | null
+    referenceDate?: Temporal.PlainDate | null,
 ): DropdownDataGrouped[] => {
     const resolvedReferenceDate = referenceDate ?? getTodayPlainDate();
     const timezones = [...DEFAULT_TIMEZONES];
@@ -48,7 +53,10 @@ export const getTimezoneDropdownData = (
     // the same offset computation used below, so an invalid string is simply ignored.
     if (selectedTimezone && !timezones.includes(selectedTimezone)) {
         try {
-            resolvedReferenceDate.toZonedDateTime({timeZone: selectedTimezone, plainTime: NOON});
+            resolvedReferenceDate.toZonedDateTime({
+                timeZone: selectedTimezone,
+                plainTime: NOON,
+            });
             timezones.push(selectedTimezone);
         } catch {
             // Not a valid IANA timezone — ignore it.
@@ -65,6 +73,6 @@ export const getTimezoneDropdownData = (
         .sort(([left], [right]) => left.localeCompare(right))
         .map(([groupLabel, options]) => ({
             groupLabel,
-            options: options.sort((left, right) => left.label.localeCompare(right.label))
+            options: options.sort((left, right) => left.label.localeCompare(right.label)),
         }));
 };

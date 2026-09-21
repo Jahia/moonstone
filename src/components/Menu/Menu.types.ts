@@ -139,4 +139,4 @@ export type MenuProps = {
      * The menu has overlay or not
      */
     hasOverlay?: boolean;
-}
+};

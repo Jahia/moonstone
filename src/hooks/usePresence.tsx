@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 
 /**
  * Keeps a component present in the DOM while its exit animation plays.
@@ -28,5 +28,8 @@ export const usePresence = (isOpen: boolean, exitDuration: number) => {
         }
     }, [isOpen, isPresent, exitDuration]);
 
-    return {isPresent, state: isOpen ? 'open' : 'closed'};
+    return {
+        isPresent,
+        state: isOpen ? 'open' : 'closed',
+    };
 };

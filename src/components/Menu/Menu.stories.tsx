@@ -1,30 +1,29 @@
-import React, {useState} from 'react';
-import type {StoryObj} from '@storybook/react-vite';
-
-import {Menu, MenuItem} from './index';
-import type {MenuProps, AnchorPosition} from './Menu.types';
-
-import markdownNotes from './Menu.md';
-import {Separator} from '~/components';
 import clsx from 'clsx';
-import {layout} from '~/globals/css-utils.js';
+import React, { useState } from 'react';
 
-import imgVertical from '~/__storybook__/assets/img-vertical.webp';
+import { Menu, MenuItem } from './index';
+import markdownNotes from './Menu.md';
 import imgHorizontal from '~/__storybook__/assets/img-horizontal.webp';
 import imgSquare from '~/__storybook__/assets/img-square.webp';
+import imgVertical from '~/__storybook__/assets/img-vertical.webp';
+import { Separator } from '~/components';
+import { layout } from '~/globals/css-utils.js';
+
+import type { AnchorPosition, MenuProps } from './Menu.types';
+import type { StoryObj } from '@storybook/react-vite';
 
 export default {
     title: 'Components/Menu',
     component: Menu,
-    subcomponents: {MenuItem},
+    subcomponents: { MenuItem },
     parameters: {
-        notes: {markdown: markdownNotes},
+        notes: { markdown: markdownNotes },
         docs: {
             // Fix issues in the doc tab with firefox
             inlineStories: false,
-            IframeHeight: 500
-        }
-    }
+            IframeHeight: 500,
+        },
+    },
 };
 
 export const Default: StoryObj<MenuProps> = {
@@ -46,8 +45,8 @@ export const Default: StoryObj<MenuProps> = {
     args: {
         isDisplayed: true,
         maxHeight: '250px',
-        style: {zIndex: 10000}
-    }
+        style: { zIndex: 10000 },
+    },
 };
 
 export const ContextualMenu = () => {
@@ -61,7 +60,7 @@ export const ContextualMenu = () => {
             setIsDisplayed(true);
             setMenuPosition({
                 top: e.clientY,
-                left: e.clientX
+                left: e.clientX,
             });
         }
     };
@@ -73,7 +72,7 @@ export const ContextualMenu = () => {
     return (
         <div
             className={clsx('flexRow_center', 'alignCenter', layout.flexRow_center, layout.alignCenter)}
-            style={{transform: 'scale(1)', height: '100vh'}}
+            style={{ transform: 'scale(1)', height: '100vh' }}
             onClick={handleOnClick}
         >
             <p>Click somewhere to display the menu, another click close it</p>
@@ -112,8 +111,8 @@ export const AnchorElOrigin = () => {
         <>
             <button
                 ref={buttonEl}
+                style={{ margin: '90px', width: '100px', height: '100px' }}
                 type="button"
-                style={{margin: '90px', width: '100px', height: '100px'}}
                 onClick={handleOnClick}
             >
                 Display menu
@@ -121,14 +120,14 @@ export const AnchorElOrigin = () => {
             <Menu
                 isDisplayed={isDisplayed}
                 anchorEl={anchorEl}
-                anchorPosition={{top: 0, left: 0}}
                 anchorElOrigin={{
                     vertical: 'bottom',
-                    horizontal: 'left'
+                    horizontal: 'left',
                 }}
+                anchorPosition={{ top: 0, left: 0 }}
                 transformElOrigin={{
                     vertical: 'top',
-                    horizontal: 'left'
+                    horizontal: 'left',
                 }}
                 onClose={handleClose}
             >
@@ -149,7 +148,7 @@ export const PositionAbsolute = () => {
                 position: 'relative',
                 transform: 'translate(90px, 90px)',
                 width: '100px',
-                height: '100px'
+                height: '100px',
             }}
         >
             <div
@@ -158,22 +157,22 @@ export const PositionAbsolute = () => {
                     width: '100%',
                     backgroundColor: 'var(--moon-color-accent)',
                     cursor: 'pointer',
-                    padding: '10px'
+                    padding: '10px',
                 }}
             >
                 Parent div is position: relative.
             </div>
             <Menu
                 isDisplayed
-                position="absolute"
-                anchorPosition={{top: 4, left: 0}}
                 anchorElOrigin={{
                     vertical: 'bottom',
-                    horizontal: 'left'
+                    horizontal: 'left',
                 }}
+                anchorPosition={{ top: 4, left: 0 }}
+                position="absolute"
                 transformElOrigin={{
                     vertical: 'top',
-                    horizontal: 'left'
+                    horizontal: 'left',
                 }}
             >
                 <MenuItem label="Item1"/>
@@ -185,91 +184,91 @@ export const PositionAbsolute = () => {
 };
 
 export const BigImageMenuItems = () => (
-    <div style={{transform: 'scale(1)', height: '100vh'}}>
+    <div style={{ transform: 'scale(1)', height: '100vh' }}>
         <Menu
             isDisplayed
-            maxWidth="400px"
             maxHeight="440px"
-            style={{zIndex: 10000}}
+            maxWidth="400px"
+            style={{ zIndex: 10000 }}
         >
             <MenuItem label="Menu Items with Big Images Title" variant="title"/>
             <MenuItem
-                label="Big image MenuItem"
-                image={<img src={imgVertical} alt="big vertical placeholder"/>}
+                image={<img alt="big vertical placeholder" src={imgVertical}/>}
                 imageSize="big"
+                label="Big image MenuItem"
             />
             <MenuItem
-                label="Big image MenuItem"
-                image={<img src={imgHorizontal} alt="big horizontal placeholder"/>}
+                image={<img alt="big horizontal placeholder" src={imgHorizontal}/>}
                 imageSize="big"
+                label="Big image MenuItem"
             />
             <MenuItem
                 isSelected
+                image={<img alt="big square placeholder" src={imgSquare}/>}
+                imageSize="big"
                 label="Big image MenuItem - selected"
-                image={<img src={imgSquare} alt="big square placeholder"/>}
-                imageSize="big"
             />
             <MenuItem
-                label="Big image MenuItem - lots of words lots of words lots of words"
-                image={<img src={imgVertical} alt="big vertical placeholder"/>}
+                image={<img alt="big vertical placeholder" src={imgVertical}/>}
                 imageSize="big"
+                label="Big image MenuItem - lots of words lots of words lots of words"
             />
             <MenuItem
-                label="Big image MenuItem - lots of words lots of words lots of words"
-                image={<img src={imgHorizontal} alt="big horizontal placeholder"/>}
+                image={<img alt="big horizontal placeholder" src={imgHorizontal}/>}
                 imageSize="big"
+                label="Big image MenuItem - lots of words lots of words lots of words"
             />
         </Menu>
     </div>
 );
 
 export const SmallImageMenuItems = () => (
-    <div style={{transform: 'scale(1)', height: '100vh', contain: 'strict'}}>
+    <div style={{ transform: 'scale(1)', height: '100vh', contain: 'strict' }}>
         <Menu
             isDisplayed
-            maxWidth="264px"
             maxHeight="320px"
-            style={{zIndex: 10000}}
+            maxWidth="264px"
+            style={{ zIndex: 10000 }}
         >
             <MenuItem label="Menu Items with Small Images Title" variant="title"/>
             <MenuItem
-                label="Small image MenuItem"
-                image={<img src={imgVertical} alt="small vertical placeholder"/>}
+                image={<img alt="small vertical placeholder" src={imgVertical}/>}
                 imageSize="small"
+                label="Small image MenuItem"
             />
             <MenuItem
-                label="Small image MenuItem"
-                image={<img src={imgHorizontal} alt="small horizontal placeholder"/>}
+                image={<img alt="small horizontal placeholder" src={imgHorizontal}/>}
                 imageSize="small"
+                label="Small image MenuItem"
             />
             <MenuItem
                 isSelected
+                image={<img alt="small square placeholder" src={imgSquare}/>}
+                imageSize="small"
                 label="Small image MenuItem - selected"
-                image={<img src={imgSquare} alt="small square placeholder"/>}
-                imageSize="small"
             />
             <MenuItem
-                label="Small image MenuItem - lots of words lots of words lots of words"
-                image={<img src={imgVertical} alt="small vertical placeholder"/>}
+                image={<img alt="small vertical placeholder" src={imgVertical}/>}
                 imageSize="small"
+                label="Small image MenuItem - lots of words lots of words lots of words"
             />
             <MenuItem
-                label="Small image MenuItem - lots of words lots of words lots of words"
-                image={<img src={imgHorizontal} alt="small horizontal placeholder"/>}
+                image={<img alt="small horizontal placeholder" src={imgHorizontal}/>}
                 imageSize="small"
+                label="Small image MenuItem - lots of words lots of words lots of words"
             />
         </Menu>
     </div>
 );
 
 export const WithSearch = () => (
-    <div style={{transform: 'scale(1)', height: '100vh'}}>
+    <div style={{ transform: 'scale(1)', height: '100vh' }}>
         <Menu
             hasSearch
             isDisplayed
-            searchEmptyText="Oh no! It seems like that doesn't exist."
             maxHeight="250px"
-            style={{zIndex: 10000}}
+            searchEmptyText="Oh no! It seems like that doesn't exist."
+            style={{ zIndex: 10000 }}
         >
             <MenuItem label="Base items" variant="title"/>
             <MenuItem label="Item1"/>
@@ -291,15 +290,15 @@ export const Reversed = () => (
         style={{
             transform: 'scale(1)',
             height: '100vh',
-            background: 'var(--moon-color-gray_dark)'
+            background: 'var(--moon-color-gray_dark)',
         }}
     >
         <Menu
             hasSearch
             isDisplayed
-            searchEmptyText="Oh no! It seems like that doesn't exist."
             maxHeight="250px"
-            style={{zIndex: 10000}}
+            searchEmptyText="Oh no! It seems like that doesn't exist."
+            style={{ zIndex: 10000 }}
         >
             <MenuItem label="Base items" variant="title"/>
             <MenuItem label="Item1"/>

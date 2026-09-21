@@ -1,21 +1,22 @@
-import {StoryObj} from '@storybook/react-vite';
-import '~/__storybook__/storybook.scss';
-
-import {Separator} from './index';
-import {SeparatorProps} from './Separator.types';
-
-import {Typography} from '~/components';
-import markdownNotes from './Separator.md';
 import clsx from 'clsx';
-import {layout} from '~/globals/css-utils.js';
+
+import { Separator } from './index';
+import markdownNotes from './Separator.md';
+import { Typography } from '~/components';
+import { layout } from '~/globals/css-utils.js';
+
+import type { SeparatorProps } from './Separator.types';
+import type { StoryObj } from '@storybook/react-vite';
+
+import '~/__storybook__/storybook.scss';
 
 export default {
     title: 'Components/Separator',
     component: Separator,
     parameters: {
         layout: 'centered',
-        notes: {markdown: markdownNotes}
-    }
+        notes: { markdown: markdownNotes },
+    },
 };
 
 export const Horizontal: StoryObj<SeparatorProps> = {
@@ -30,8 +31,8 @@ export const Horizontal: StoryObj<SeparatorProps> = {
     args: {
         variant: 'horizontal',
         size: 'full',
-        spacing: 'medium'
-    }
+        spacing: 'medium',
+    },
 };
 
 export const Vertical: StoryObj<SeparatorProps> = {
@@ -47,8 +48,8 @@ export const Vertical: StoryObj<SeparatorProps> = {
     args: {
         variant: 'vertical',
         size: 'full',
-        spacing: 'medium'
-    }
+        spacing: 'medium',
+    },
 };
 
 export const Invisible: StoryObj<SeparatorProps> = {
@@ -77,6 +78,6 @@ export const Invisible: StoryObj<SeparatorProps> = {
         variant: 'vertical',
         size: 'full',
         spacing: 'big',
-        invisible: 'lastChild'
-    }
+        invisible: 'lastChild',
+    },
 };

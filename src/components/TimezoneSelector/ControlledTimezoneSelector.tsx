@@ -1,11 +1,14 @@
-import React, {useMemo} from 'react';
 import clsx from 'clsx';
-import {Dropdown} from '~/components';
-import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
-import {Language} from '~/icons';
-import {getTimezoneDropdownData} from './timezoneHelpers';
-import {toPlainDate} from '../Input/utils/temporal';
-import type {ControlledTimezoneSelectorProps} from './TimezoneSelector.types';
+import React, { useMemo } from 'react';
+
+import { toPlainDate } from '../Input/utils/temporal';
+import { getTimezoneDropdownData } from './timezoneHelpers';
+import { Dropdown } from '~/components';
+import { Language } from '~/icons';
+
+import type { ControlledTimezoneSelectorProps } from './TimezoneSelector.types';
+import type { DropdownDataOption } from '~/components/Dropdown/Dropdown.types';
+
 import styles from './TimezoneSelector.module.scss';
 
 export const ControlledTimezoneSelector: React.FC<ControlledTimezoneSelectorProps> = ({
@@ -27,14 +30,14 @@ export const ControlledTimezoneSelector: React.FC<ControlledTimezoneSelectorProp
     return (
         <Dropdown
             {...props}
+            isDisabled={isDisabled || isReadOnly}
             className={clsx(styles.timezoneSelector, className)}
             data={data}
-            value={value}
-            size={size}
-            variant={variant}
-            isDisabled={isDisabled || isReadOnly}
-            placeholder={placeholder}
             icon={<Language aria-hidden/>}
+            placeholder={placeholder}
+            size={size}
+            value={value}
+            variant={variant}
             onChange={(event: React.MouseEvent, item: DropdownDataOption) => {
                 onChange(event, item.value ?? null);
             }}

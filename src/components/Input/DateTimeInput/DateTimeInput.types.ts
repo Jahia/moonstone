@@ -1,11 +1,12 @@
 import React from 'react';
-import type {Temporal} from 'temporal-polyfill';
-import type {BaseInputProps} from '../BaseInput/BaseInput.types';
-import type {TimeFormat, TimeInputProps} from '../TimeInput';
-import type {ControlledTimezoneSelectorProps} from '../../TimezoneSelector';
-import type {DateTimeValue, DateTimeValueInput} from './dateTimeValue';
-import type {DataAttributes} from '~/types/DataAttributes.types';
-import type {InstantInput} from '../utils/temporal';
+
+import type { ControlledTimezoneSelectorProps } from '../../TimezoneSelector';
+import type { BaseInputProps } from '../BaseInput/BaseInput.types';
+import type { TimeFormat, TimeInputProps } from '../TimeInput';
+import type { InstantInput } from '../utils/temporal';
+import type { DateTimeValue, DateTimeValueInput } from './dateTimeValue';
+import type { Temporal } from 'temporal-polyfill';
+import type { DataAttributes } from '~/types/DataAttributes.types';
 
 /**
  * Selects the component's mode, which fields it renders, and the emitted value type:
@@ -54,45 +55,45 @@ export type DateTimeInputI18n = {
 };
 
 export type DateTimeInputTimeInputProps = Omit<TimeInputProps,
-    'defaultValue' |
-    'value' |
-    'onChange' |
-    'timeFormat' |
-    'size' |
-    'variant' |
-    'isDisabled' |
-    'isReadOnly' |
-    'focusOnField'
+    'defaultValue'
+    | 'value'
+    | 'onChange'
+    | 'timeFormat'
+    | 'size'
+    | 'variant'
+    | 'isDisabled'
+    | 'isReadOnly'
+    | 'focusOnField'
 > & DataAttributes;
 
 export type DateTimeInputTimezoneSelectorProps = Omit<ControlledTimezoneSelectorProps,
-    'value' |
-    'onChange' |
-    'referenceDate' |
-    'size' |
-    'variant' |
-    'isDisabled' |
-    'isReadOnly'
+    'value'
+    | 'onChange'
+    | 'referenceDate'
+    | 'size'
+    | 'variant'
+    | 'isDisabled'
+    | 'isReadOnly'
 > & DataAttributes;
 
 /** Props common to every mode of the `DateTimeInput`. */
 export type DateTimeInputSharedProps = Omit<BaseInputProps,
-    'defaultValue' |
-    'value' |
-    'onChange' |
-    'onClear' |
-    'icon' |
-    'role' |
-    'type' |
-    'min' |
-    'max' |
-    'step' |
-    'filterFunction' |
-    'allowDecimal' |
-    'allowNegative' |
-    'separator' |
-    'disabled' |
-    'readOnly'
+    'defaultValue'
+    | 'value'
+    | 'onChange'
+    | 'onClear'
+    | 'icon'
+    | 'role'
+    | 'type'
+    | 'min'
+    | 'max'
+    | 'step'
+    | 'filterFunction'
+    | 'allowDecimal'
+    | 'allowNegative'
+    | 'separator'
+    | 'disabled'
+    | 'readOnly'
 > & {
     variant?: 'ghost' | 'outlined';
 
@@ -227,4 +228,4 @@ export type UncontrolledDateTimeInputProps = DateTimeInputImplProps & {
     defaultValue?: DateTimeValueInput;
 };
 
-export type {TimeFormat} from '../TimeInput';
+export type { TimeFormat } from '../TimeInput';

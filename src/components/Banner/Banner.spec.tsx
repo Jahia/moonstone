@@ -1,9 +1,10 @@
-import {Banner} from '~/components';
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+
+import { Banner } from '~/components';
 
 describe('Banner', () => {
     it('should display additional className', () => {
-        render(<Banner data-testid="banner" className="extra" title="Test banner">Banner content</Banner>);
+        render(<Banner className="extra" data-testid="banner" title="Test banner">Banner content</Banner>);
         expect(screen.getByTestId('banner')).toHaveClass('extra');
     });
 
@@ -20,19 +21,19 @@ describe('Banner', () => {
     const bannerVariants = ['neutral', 'info', 'warning', 'danger'] as const;
     test.each(bannerVariants)(
         'should use the specified variant %s',
-        variant => {
+        (variant) => {
             render(
                 <Banner
-                        data-testid="moonstone-banner"
-                        variant={variant}
-                        title="Test banner"
+                    data-testid="moonstone-banner"
+                    title="Test banner"
+                    variant={variant}
                 >
                     Banner content
-                </Banner>
+                </Banner>,
             );
             expect(screen.getByTestId('moonstone-banner')).toHaveClass(
-                `moonstone-banner_${variant}`
+                `moonstone-banner_${variant}`,
             );
-        }
+        },
     );
 });

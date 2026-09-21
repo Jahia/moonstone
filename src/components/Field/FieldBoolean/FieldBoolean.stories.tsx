@@ -1,9 +1,9 @@
-import {StoryObj, Meta} from '@storybook/react-vite';
-
-import {FieldBoolean} from './index';
 import markdownNotes from './FieldBoolean.md';
-import {Button, Chip} from '~/components';
-import {Language, MoreVert} from '~/icons';
+import { FieldBoolean } from './index';
+import { Button, Chip } from '~/components';
+import { Language, MoreVert } from '~/icons';
+
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof FieldBoolean> = {
     title: 'Components/Field/FieldBoolean',
@@ -12,17 +12,17 @@ const meta: Meta<typeof FieldBoolean> = {
 
     parameters: {
         layout: 'padded',
-        actions: {argTypesRegex: '^on.*'},
-        notes: {markdown: markdownNotes}
+        actions: { argTypesRegex: '^on.*' },
+        notes: { markdown: markdownNotes },
     },
     argTypes: {
         buttons: {
-            control: false
+            control: false,
         },
         chips: {
-            control: false
-        }
-    }
+            control: false,
+        },
+    },
 };
 export default meta;
 
@@ -34,23 +34,24 @@ export const Default: Story = {
         chips: <><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>,
         buttons: <Button icon={<MoreVert/>} variant="ghost"/>,
         helper: 'information',
-        checkboxAttributes: {value: 'checkbox',
-            className: 'test-class'
-        }
-    }
+        checkboxAttributes: {
+            value: 'checkbox',
+            className: 'test-class',
+        },
+    },
 };
 
 export const Error: Story = {
     args: {
         ...Default.args,
         hasError: true,
-        errorMessage: 'There is an error.'
-    }
+        errorMessage: 'There is an error.',
+    },
 };
 
 export const Helper: Story = {
     args: {
         ...Default.args,
-        helper: <>This option is <strong>recommended</strong> for most <em>use cases</em>.</>
-    }
+        helper: <>This option is <strong>recommended</strong> for most <em>use cases</em>.</>,
+    },
 };

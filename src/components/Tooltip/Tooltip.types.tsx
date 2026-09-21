@@ -16,4 +16,4 @@ export type TooltipProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'classNam
      */
     className?: string;
 
-}
+};

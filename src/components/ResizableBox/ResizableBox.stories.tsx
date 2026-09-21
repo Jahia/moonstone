@@ -1,11 +1,12 @@
-import {action} from 'storybook/actions';
-import markdownNotes from './ResizableBox.md';
-import {ResizableBox} from './index';
-
-import type {Meta, StoryObj} from '@storybook/react-vite';
-import type {ResizableBoxProps} from './ResizableBox.types';
 import clsx from 'clsx';
-import {layout} from '~/globals/css-utils.js';
+import { action } from 'storybook/actions';
+
+import { ResizableBox } from './index';
+import markdownNotes from './ResizableBox.md';
+import { layout } from '~/globals/css-utils.js';
+
+import type { ResizableBoxProps } from './ResizableBox.types';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<ResizableBoxProps> = {
     title: 'Components/ResizableBox',
@@ -17,20 +18,20 @@ const meta: Meta<ResizableBoxProps> = {
     decorators: [
         Story => (
             <section
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100vh',
-          width: '25%'
-        }}
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: '100vh',
+                    width: '25%',
+                }}
             >
                 <Story/>
             </section>
-        )
+        ),
     ],
     parameters: {
-        notes: {markdown: markdownNotes}
-    }
+        notes: { markdown: markdownNotes },
+    },
 };
 
 export default meta;
@@ -43,13 +44,13 @@ type Story = StoryObj<ResizableBoxProps>;
 export const Default: Story = {
     render: args => (
         <ResizableBox
-      {...args}
-      enable={['right']}
-      defaultSize={{width: '100%', height: 'auto'}}
+            {...args}
+            defaultSize={{ width: '100%', height: 'auto' }}
+            enable={['right']}
         >
             <div
-        className={clsx(layout.flexRow_center, layout.alignCenter, layout.flexFluid)}
-        style={{height: '100vh', background: 'yellow'}}
+                className={clsx(layout.flexRow_center, layout.alignCenter, layout.flexFluid)}
+                style={{ height: '100vh', background: 'yellow' }}
             >
                 content resizable
             </div>
@@ -57,23 +58,23 @@ export const Default: Story = {
     ),
     args: {
         minWidth: 100,
-        maxWidth: 600
-    }
+        maxWidth: 600,
+    },
 };
 
 export const Actions = () => (
     <ResizableBox
-    enable={['right']}
-    minWidth={100}
-    maxWidth={600}
-    defaultSize={{width: '100%', height: 'auto'}}
-    onResizeStart={action('onResizeStart')}
-    onResizing={action('onResizing')}
-    onResizeStop={action('onResizeStop')}
+        defaultSize={{ width: '100%', height: 'auto' }}
+        enable={['right']}
+        maxWidth={600}
+        minWidth={100}
+        onResizeStart={action('onResizeStart')}
+        onResizeStop={action('onResizeStop')}
+        onResizing={action('onResizing')}
     >
         <div
-      className={clsx(layout.flexRow_center, layout.alignCenter, layout.flexFluid)}
-      style={{height: '100vh', background: 'yellow'}}
+            className={clsx(layout.flexRow_center, layout.alignCenter, layout.flexFluid)}
+            style={{ height: '100vh', background: 'yellow' }}
         >
             content resizable
         </div>

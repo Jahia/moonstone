@@ -1,7 +1,7 @@
 import * as iconComponents from '~/icons/components';
 
 const icons = Object.fromEntries(
-    Object.entries(iconComponents).map(([name, Icon]) => [name, <Icon key={name}/>])
+    Object.entries(iconComponents).map(([name, Icon]) => [name, <Icon key={name}/>]),
 );
 
 /**
@@ -19,5 +19,5 @@ const icons = Object.fromEntries(
 export const iconArgType = {
     options: Object.keys(icons),
     mapping: icons,
-    control: {type: 'select' as const}
+    control: { type: 'select' as const },
 };

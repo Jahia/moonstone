@@ -1,8 +1,9 @@
-import type {DataTableColumn} from '~/components/DataTable/DataTable.types';
-import {Chip, Typography} from '~/components';
-import {numberColumn, dateColumn, stringColumn} from '~/components/DataTable';
-import {Person} from '~/icons';
-import {getStatus} from '~/data/dataTable/utils';
+import { Chip, Typography } from '~/components';
+import { dateColumn, numberColumn, stringColumn } from '~/components/DataTable';
+import { getStatus } from '~/data/dataTable/utils';
+import { Person } from '~/icons';
+
+import type { DataTableColumn } from '~/components/DataTable/DataTable.types';
 
 export type DataUser = {
     id: string;
@@ -25,36 +26,36 @@ export const dataColumnsUser: DataTableColumn<DataUser>[] = [
         label: 'User',
         isScrollable: true,
         ...stringColumn<DataUser>(row => row.firstName),
-        render: ({data}) => (
+        render: ({ data }) => (
             <>
                 <Person/>
                 <Typography isNowrap variant="body">{`${data.firstName} ${data.lastName}`}</Typography>
             </>
-        )
+        ),
     },
     {
         key: 'status',
         label: 'Status',
-        render: ({value, data}) => (
+        render: ({ value, data }) => (
             <Chip
-                label={value as string}
                 color={getStatus(data.status).chipColor}
+                label={value as string}
             />
         ),
         isSortable: true,
         sortFn: (a, b) => a.status.localeCompare(b.status),
-        align: 'center'
+        align: 'center',
     },
     {
         key: 'progress',
         label: 'Progress',
         isScrollable: true,
-        ...numberColumn(row => row.progress)
+        ...numberColumn(row => row.progress),
     },
     {
         key: 'date',
         label: 'Last Login',
-        ...dateColumn(row => row.date, {locale: 'fr-FR'}),
-        width: '150px'
-    }
+        ...dateColumn(row => row.date, { locale: 'fr-FR' }),
+        width: '150px',
+    },
 ];

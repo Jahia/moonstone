@@ -1,8 +1,11 @@
-import React from 'react';
 import clsx from 'clsx';
-import type {ControlledDynamicFieldsetProps} from './DynamicFieldset.types';
-import {Switch, Typography} from '~/components';
-import {layout} from '~/globals/css-utils.js';
+import React from 'react';
+
+import { Switch, Typography } from '~/components';
+import { layout } from '~/globals/css-utils.js';
+
+import type { ControlledDynamicFieldsetProps } from './DynamicFieldset.types';
+
 import styles from '../Fieldset.module.scss';
 
 export const ControlledDynamicFieldset = React.forwardRef<HTMLFieldSetElement, ControlledDynamicFieldsetProps>(({
@@ -18,22 +21,22 @@ export const ControlledDynamicFieldset = React.forwardRef<HTMLFieldSetElement, C
 }, ref) => {
     return (
         <fieldset
-            ref={ref}
-            id={id}
+            aria-checked={checked}
             className={clsx(
                 ['moonstone-dynamic-fieldset', styles['moonstone-dynamic-fieldset']],
                 checked && 'moonstone-dynamic-fieldset_open',
                 ['flexCol_nowrap', layout.flexCol_nowrap],
-                className
+                className,
             )}
-            aria-checked={checked}
+            id={id}
+            ref={ref}
             {...props}
         >
             <legend
                 className={clsx(
                     ['flexRow_nowrap', layout.flexRow_nowrap],
                     ['flexFluid', layout.flexFluid],
-                    ['alignCenter', layout.alignCenter]
+                    ['alignCenter', layout.alignCenter],
                 )}
             >
                 <Typography
@@ -41,28 +44,31 @@ export const ControlledDynamicFieldset = React.forwardRef<HTMLFieldSetElement, C
                     className={clsx(
                         ['flexRow_nowrap', layout.flexRow_nowrap],
                         ['flexFluid', layout.flexFluid],
-                        ['alignCenter', layout.alignCenter]
+                        ['alignCenter', layout.alignCenter],
                     )}
                     component="label"
                     htmlFor="moonstone-dynamic-fieldset-switch"
                     variant="heading"
                     weight="bold"
-                >{label}
+                >
+                    {label}
                 </Typography>
-                <Switch id="moonstone-dynamic-fieldset-switch" checked={checked} onChange={onChange}/>
+                <Switch checked={checked} id="moonstone-dynamic-fieldset-switch" onChange={onChange}/>
                 {buttons}
             </legend>
-            {helper &&
-                <Typography variant="caption" className={clsx('moonstone-fieldset_helper', styles['moonstone-fieldset_helper'])}>{helper}</Typography>}
-            {(checked && children) &&
-            <div
-                className={clsx(
-                    ['moonstone-fieldset_children', styles['moonstone-fieldset_children']],
-                    ['flexCol_nowrap', layout.flexCol_nowrap]
+            {helper
+                && <Typography className={clsx('moonstone-fieldset_helper', styles['moonstone-fieldset_helper'])} variant="caption">{helper}</Typography>}
+            {(checked && children)
+                && (
+                    <div
+                        className={clsx(
+                            ['moonstone-fieldset_children', styles['moonstone-fieldset_children']],
+                            ['flexCol_nowrap', layout.flexCol_nowrap],
+                        )}
+                    >
+                        {children}
+                    </div>
                 )}
-            >
-                {children}
-            </div>}
         </fieldset>
     );
 });

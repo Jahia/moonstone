@@ -1,43 +1,44 @@
-import {useArgs} from 'storybook/preview-api';
-import type {StoryObj, Meta} from '@storybook/react-vite';
-import type {CheckboxItemProps} from './CheckboxItem.types';
+import { useArgs } from 'storybook/preview-api';
 
-import {CheckboxItem} from './CheckboxItem';
+import { CheckboxItem } from './CheckboxItem';
+
+import type { CheckboxItemProps } from './CheckboxItem.types';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 export default {
     title: 'Components/CheckboxGroup/CheckboxItem',
     component: CheckboxItem,
     parameters: {
         layout: 'centered',
-        knobs: {disable: true},
-        storysource: {disable: true}
+        knobs: { disable: true },
+        storysource: { disable: true },
     },
     argTypes: {
         // When enabled, the controlledCheckbox doesn't work anymore. maybe it's fixed with storybook 7.4 (https://github.com/storybookjs/storybook/pull/23804)
         // OnChange: {action: 'onChange'},
-        onClick: {action: 'onClick'},
-        onBlur: {action: 'onBlur'},
-        onFocus: {action: 'onFocus'}
-    }
+        onClick: { action: 'onClick' },
+        onBlur: { action: 'onBlur' },
+        onFocus: { action: 'onFocus' },
+    },
 } as Meta<typeof CheckboxItem>;
 
 export const Uncontrolled: StoryObj<CheckboxItemProps> = {
-    render: args => {
+    render: (args) => {
         return <CheckboxItem {...args}/>;
     },
 
     args: {
-        label: 'Uncontrolled CheckboxItem'
-    }
+        label: 'Uncontrolled CheckboxItem',
+    },
 };
 
 type Story = StoryObj<typeof CheckboxItem>;
 export const Controlled: Story = {
-    render: (args:CheckboxItemProps) => {
-        const [{checked}, updateArgs] = useArgs();
+    render: (args: CheckboxItemProps) => {
+        const [{ checked }, updateArgs] = useArgs();
 
         const handleOnChange = () => {
-            updateArgs({isChecked: !checked});
+            updateArgs({ isChecked: !checked });
         };
 
         return (
@@ -50,12 +51,12 @@ export const Controlled: Story = {
     },
 
     args: {
-        label: 'Controlled CheckboxItem'
-    }
+        label: 'Controlled CheckboxItem',
+    },
 };
 
 export const Playground: StoryObj<CheckboxItemProps> = {
-    render: args => {
+    render: (args) => {
         return <CheckboxItem {...args}/>;
     },
 
@@ -63,6 +64,6 @@ export const Playground: StoryObj<CheckboxItemProps> = {
         id: 'playground-item',
         label: 'Play with me',
         description: 'Use the storybook controls to update this element',
-        value: 'playground-value'
-    }
+        value: 'playground-value',
+    },
 };

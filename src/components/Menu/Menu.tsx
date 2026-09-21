@@ -1,9 +1,12 @@
-import React, {useState, useEffect} from 'react';
-import {usePositioning, useEnterExitCallbacks} from '~/hooks';
 import clsx from 'clsx';
-import type {MenuProps} from './Menu.types';
-import {SearchInput} from '~/components/Input';
-import {Typography} from '~/components/Typography';
+import React, { useEffect, useState } from 'react';
+
+import { SearchInput } from '~/components/Input';
+import { Typography } from '~/components/Typography';
+import { useEnterExitCallbacks, usePositioning } from '~/hooks';
+
+import type { MenuProps } from './Menu.types';
+
 import styles from './Menu.module.scss';
 
 const getFlatChildren = (children: [React.ReactElement]) => {
@@ -47,9 +50,9 @@ const getFilteredGroups = (children: [React.ReactElement], inputValue: string) =
                             // Title
                             curr.props.children[1],
                             // Filtered children
-                            filteredChildren
-                        ]
-                    }
+                            filteredChildren,
+                        ],
+                    },
                 };
                 acc.push(filteredGroup);
             }
@@ -63,18 +66,18 @@ const getFilteredGroups = (children: [React.ReactElement], inputValue: string) =
 
 const defaultAnchorElOrigin = {
     horizontal: 'left',
-    vertical: 'bottom'
-}as const;
+    vertical: 'bottom',
+} as const;
 
 const defaultTransformElOrigin = {
     vertical: 'top',
-    horizontal: 'left'
-}as const;
+    horizontal: 'left',
+} as const;
 
 const defaultAnchorPosition = {
     top: 0,
-    left: 0
-}as const;
+    left: 0,
+} as const;
 
 export const Menu: React.FC<MenuProps> = ({
     children,
@@ -139,8 +142,8 @@ export const Menu: React.FC<MenuProps> = ({
     // ---
     const styleMenu: React.CSSProperties = {
         position,
-        ...stylePosition as React.CSSProperties,
-        ...style
+        ...stylePosition,
+        ...style,
     };
 
     if (minWidth) {
@@ -161,14 +164,14 @@ export const Menu: React.FC<MenuProps> = ({
     return (
         <>
             <menu
-                ref={itemRef}
-                style={styleMenu}
-                role="list"
                 className={clsx(
                     ['moonstone-menu', styles['moonstone-menu']],
                     className,
-                    (!isDisplayed || !stylePosition) && ['moonstone-hidden', styles['moonstone-hidden']]
+                    (!isDisplayed || !stylePosition) && ['moonstone-hidden', styles['moonstone-hidden']],
                 )}
+                ref={itemRef}
+
+                style={styleMenu}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
                 {...props}
@@ -179,7 +182,8 @@ export const Menu: React.FC<MenuProps> = ({
                             focusOnField
                             value={inputValue}
                             onChange={e => setInputValue(e.target.value)}
-                            onKeyUp={e => {
+                            onClear={() => setInputValue('')}
+                            onKeyUp={(e) => {
                                 if (e.key === 'Enter') {
                                     const list = React.Children.toArray(filteredChildren);
                                     if (list.length > 0) {
@@ -187,7 +191,6 @@ export const Menu: React.FC<MenuProps> = ({
                                     }
                                 }
                             }}
-                            onClear={() => setInputValue('')}
                         />
                     </div>
                 )}

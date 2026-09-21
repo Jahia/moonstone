@@ -1,12 +1,12 @@
-import {StoryObj} from '@storybook/react-vite';
-import '~/__storybook__/storybook.scss';
-
-import {Chip} from './index';
-import type {ChipProps} from './Chip.types';
-
-import {Cloud, Delete, File, Lock, NoCloud, Warning, CloudCheck, Build, Edit, Subdirectory} from '~/icons';
-import {iconArgType} from '~/__storybook__/iconArgType';
 import markdownNotes from './Chip.md';
+import { Chip } from './index';
+import { iconArgType } from '~/__storybook__/iconArgType';
+import { Build, Cloud, CloudCheck, Delete, Edit, File, Lock, NoCloud, Subdirectory, Warning } from '~/icons';
+
+import type { ChipProps } from './Chip.types';
+import type { StoryObj } from '@storybook/react-vite';
+
+import '~/__storybook__/storybook.scss';
 
 export default {
     title: 'Components/Chip',
@@ -15,11 +15,11 @@ export default {
 
     parameters: {
         layout: 'centered',
-        notes: {markdown: markdownNotes}
+        notes: { markdown: markdownNotes },
     },
     argTypes: {
-        icon: iconArgType
-    }
+        icon: iconArgType,
+    },
 };
 
 export const Default: StoryObj<ChipProps> = {
@@ -27,38 +27,38 @@ export const Default: StoryObj<ChipProps> = {
         label: 'chip label',
         icon: <Cloud/>,
         color: 'default',
-        variant: 'default'
-    }
+        variant: 'default',
+    },
 };
 
 export const TextOnly: StoryObj<ChipProps> = {
     args: {
         label: 'chip label',
         color: 'default',
-        variant: 'default'
-    }
+        variant: 'default',
+    },
 };
 
 export const IconOnly: StoryObj<ChipProps> = {
     args: {
         icon: <Cloud/>,
         color: 'default',
-        variant: 'default'
-    }
+        variant: 'default',
+    },
 };
 
 export const StatusExample = () => (
     <section className="storyColumn">
-        <Chip icon={<Delete/>} label="Marked for deletion" color="danger"/>
-        <Chip icon={<Warning/>} label="Warning" color="warning"/>
-        <Chip icon={<Warning/>} label="Auto-publish" color="warning"/>
-        <Chip icon={<Lock/>} label="Locked" color="warning"/>
-        <Chip icon={<Build/>} label="Work in progress" color="warning"/>
-        <Chip icon={<CloudCheck/>} label="Published" color="success"/>
-        <Chip icon={<Subdirectory/>} label="3 items" color="accent"/>
-        <Chip icon={<File/>} label="Modified" color="accent"/>
-        <Chip icon={<Edit/>} label="Unsaved changed" color="accent"/>
-        <Chip icon={<NoCloud/>} label="Never published" color="default"/>
-        <Chip icon={<NoCloud/>} label="Unpublished" color="default"/>
+        <Chip color="danger" icon={<Delete/>} label="Marked for deletion"/>
+        <Chip color="warning" icon={<Warning/>} label="Warning"/>
+        <Chip color="warning" icon={<Warning/>} label="Auto-publish"/>
+        <Chip color="warning" icon={<Lock/>} label="Locked"/>
+        <Chip color="warning" icon={<Build/>} label="Work in progress"/>
+        <Chip color="success" icon={<CloudCheck/>} label="Published"/>
+        <Chip color="accent" icon={<Subdirectory/>} label="3 items"/>
+        <Chip color="accent" icon={<File/>} label="Modified"/>
+        <Chip color="accent" icon={<Edit/>} label="Unsaved changed"/>
+        <Chip color="default" icon={<NoCloud/>} label="Never published"/>
+        <Chip color="default" icon={<NoCloud/>} label="Unpublished"/>
     </section>
 );

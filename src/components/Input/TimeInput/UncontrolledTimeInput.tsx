@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
-import {Temporal} from 'temporal-polyfill';
-import {ControlledTimeInput} from './ControlledTimeInput';
-import {toPlainTime} from '../utils/temporal';
-import type {UncontrolledTimeInputProps} from './TimeInput.types';
+import React, { useState } from 'react';
+
+import { toPlainTime } from '../utils/temporal';
+import { ControlledTimeInput } from './ControlledTimeInput';
+
+import type { UncontrolledTimeInputProps } from './TimeInput.types';
+import type { Temporal } from 'temporal-polyfill';
 
 export const UncontrolledTimeInput = React.forwardRef<HTMLInputElement, UncontrolledTimeInputProps>(({
     defaultValue,

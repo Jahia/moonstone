@@ -1,11 +1,12 @@
 import React from 'react';
-import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
-import type {DropdownMenuProps} from '~/components/Dropdown/DropdownMenu.types';
-import type {MenuItemProps} from '~/components/Menu/MenuItem.types';
-import {onAccessibleClick} from '~/hooks';
 
-import {Menu, MenuItem, Separator} from '~/components';
-import {CheckboxChecked, CheckboxUnchecked} from '~/icons';
+import { Menu, MenuItem, Separator } from '~/components';
+import { onAccessibleClick } from '~/hooks';
+import { CheckboxChecked, CheckboxUnchecked } from '~/icons';
+
+import type { DropdownDataOption } from '~/components/Dropdown/Dropdown.types';
+import type { DropdownMenuProps } from '~/components/Dropdown/DropdownMenu.types';
+import type { MenuItemProps } from '~/components/Menu/MenuItem.types';
 
 export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     isDisplayed,
@@ -22,40 +23,44 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     values,
     imageSize,
     handleSelect,
-    onClose
+    onClose,
 }) => {
-    const getIcon = (item: DropdownDataOption) => values?.indexOf(item.value) > -1 ? <CheckboxChecked role="checkbox" color="blue"/> : <CheckboxUnchecked role="checkbox"/>;
+    const getIcon = (item: DropdownDataOption) => values?.indexOf(item.value) > -1 ? <CheckboxChecked color="blue" role="checkbox"/> : <CheckboxUnchecked role="checkbox"/>;
 
     // ---
     // Generate options
     // ---
     const dropdownOption = (item: DropdownDataOption) => (
         <MenuItem
-            key={item.value}
-            iconStart={values ? getIcon(item) : item.iconStart}
-            iconSize="default"
-            label={item.label}
-            description={item.description}
-            iconEnd={item.iconEnd}
             isDisabled={item.isDisabled}
             isSelected={value === item.value}
+            description={item.description}
+            iconEnd={item.iconEnd}
+            iconSize="default"
+            iconStart={values ? getIcon(item) : item.iconStart}
             image={item.image}
             imageSize={imageSize}
-            {...onAccessibleClick({onClick: e => handleSelect(e, item), disabled: item.isDisabled, role: 'option'})}
+            key={item.value}
+            label={item.label}
+            {...onAccessibleClick({
+                onClick: e => handleSelect(e, item),
+                disabled: item.isDisabled,
+                role: 'option',
+            })}
             {...item.attributes as MenuItemProps}
         />
     );
 
     const dropdownGrouped = (options: DropdownDataOption[], groupLabel: string, index: number) => {
         return (
-            <div key={`${groupLabel}-${index}`} data-option-type="group">
+            <div data-option-type="group" key={`${groupLabel}-${index}`}>
                 {index > 0 && (
                     <Separator/>
                 )}
 
-                <MenuItem variant="title" label={groupLabel}/>
+                <MenuItem label={groupLabel} variant="title"/>
 
-                {options.map(option => {
+                {options.map((option) => {
                     return dropdownOption(option);
                 })}
             </div>
@@ -68,15 +73,15 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
 
     return (
         <Menu
-            isDisplayed={isDisplayed}
-            position="fixed"
-            anchorPosition={anchorPosition}
-            minWidth={minWidth}
-            maxWidth={maxWidth}
-            maxHeight={maxHeight}
-            anchorEl={anchorEl}
             hasSearch={hasSearch}
+            isDisplayed={isDisplayed}
+            anchorEl={anchorEl}
+            anchorPosition={anchorPosition}
             autoAddSearchLimit={autoAddSearchLimit}
+            maxHeight={maxHeight}
+            maxWidth={maxWidth}
+            minWidth={minWidth}
+            position="fixed"
             searchEmptyText={searchEmptyText}
             onClose={onClose}
         >
@@ -95,4 +100,3 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
         </Menu>
     );
 };
-

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import type {BadgeProps} from '~/components/Badge/Badge.types';
-import type {TypographyVariant} from '~/components/Typography/Typography.types';
+import type { BadgeProps } from '~/components/Badge/Badge.types';
+import type { TypographyVariant } from '~/components/Typography/Typography.types';
 
 export type ItemProps = {
     label?: string;

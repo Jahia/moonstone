@@ -1,26 +1,27 @@
-import {useState} from 'react';
-import {StoryObj} from '@storybook/react-vite';
+import { useState } from 'react';
 
-import {Switch} from './index';
-import type {SwitchProps} from './Switch.types';
+import { Switch } from './index';
+
+import type { SwitchProps } from './Switch.types';
+import type { StoryObj } from '@storybook/react-vite';
 
 export default {
     title: 'Components/Switch',
     component: Switch,
     parameters: {
-        layout: 'centered'
+        layout: 'centered',
     // When enabled, the controlledSwitch doesn't work anymore. maybe it's fixed with storybook 7.4 (https://github.com/storybookjs/storybook/pull/23804)
     // Actions: {argTypesRegex: '^on.*'}
     },
     args: {
-        'aria-label': 'switch component'
-    }
+        'aria-label': 'switch component',
+    },
 };
 
 export const Uncontrolled: StoryObj<SwitchProps> = {};
 
 export const Controlled: StoryObj<SwitchProps> = {
-    render: args => {
+    render: (args) => {
         const [checked, setChecked] = useState(false);
 
         const handleOnChange = () => {
@@ -30,5 +31,5 @@ export const Controlled: StoryObj<SwitchProps> = {
         return (
             <Switch checked={checked} onChange={() => handleOnChange()} {...args}/>
         );
-    }
+    },
 };

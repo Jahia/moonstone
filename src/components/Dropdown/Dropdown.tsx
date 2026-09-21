@@ -1,22 +1,25 @@
 /* eslint-disable complexity */
-import React, {MutableRefObject, useEffect, useMemo, useRef, useState} from 'react';
 import clsx from 'clsx';
-import {layout} from '~/globals/css-utils.js';
-import styles from './Dropdown.module.scss';
-import baseInputStyles from '../Input/BaseInput/BaseInput.module.scss';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+
+import { Tag } from '../Tag';
+import { Button, Loader, Typography } from '~/components';
+import { DropdownMenu, TreeViewMenu } from '~/components/Dropdown';
+import { layout } from '~/globals/css-utils.js';
+import { Cancel, ChevronDown } from '~/icons';
 
 import type {
     DropdownData,
-    DropdownDataOption,
     DropdownDataGrouped,
+    DropdownDataOption,
     DropdownProps,
-    HandleSelect
+    HandleSelect,
 } from './Dropdown.types';
-import {DropdownMenu, TreeViewMenu} from '~/components/Dropdown';
-import {Tag} from '../Tag';
-import type {TreeViewData} from '~/components/TreeView/TreeView.types';
-import {Button, Loader, Typography} from '~/components';
-import {Cancel, ChevronDown} from '~/icons';
+import type { MutableRefObject } from 'react';
+import type { TreeViewData } from '~/components/TreeView/TreeView.types';
+
+import baseInputStyles from '../Input/BaseInput/BaseInput.module.scss';
+import styles from './Dropdown.module.scss';
 
 const flatten = (data: TreeViewData[]): TreeViewData[] => {
     const res: TreeViewData[] = [];
@@ -88,7 +91,11 @@ export const Dropdown: React.FC<DropdownProps> = ({
     }
 
     const [isOpened, setIsOpened] = useState(false);
-    const [focusData, setFocusData] = useState({focused: false, event: null, lastSent: false});
+    const [focusData, setFocusData] = useState({
+        focused: false,
+        event: null,
+        lastSent: false,
+    });
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
     const ref: MutableRefObject<HTMLDivElement> = useRef();
@@ -100,14 +107,20 @@ export const Dropdown: React.FC<DropdownProps> = ({
     useEffect(() => {
         if (focusData.focused && focusData.event && !focusData.lastSent && onFocus) {
             onFocus(focusData.event);
-            setFocusData(p => ({...p, lastSent: true}));
+            setFocusData(p => ({
+                ...p,
+                lastSent: true,
+            }));
         }
     }, [onFocus, focusData]);
 
     useEffect(() => {
         if (!focusData.focused && !isOpened && focusData.event && focusData.lastSent && onBlur) {
             onBlur(focusData.event);
-            setFocusData(p => ({...p, lastSent: false}));
+            setFocusData(p => ({
+                ...p,
+                lastSent: false,
+            }));
         }
     }, [onBlur, isOpened, focusData]);
 
@@ -119,7 +132,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const menuMinWidth = 80;
     const anchorPosition = {
         top: 4,
-        left: 0
+        left: 0,
     };
     let menuMaxWidth;
     let menuMaxHeight;
@@ -197,7 +210,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         ((typeof isDisabled === 'undefined' && isEmpty) || isDisabled) && ['moonstone-disabled', styles['moonstone-disabled']],
         isLoading && ['moonstone-dropdown_loading', styles['moonstone-dropdown_loading']],
         isFilled && ['moonstone-filled', styles['moonstone-filled']],
-        isOpened && ['moonstone-opened', styles['moonstone-opened']]
+        isOpened && ['moonstone-opened', styles['moonstone-opened']],
     );
 
     const View = isTree ? TreeViewMenu : DropdownMenu;
@@ -208,82 +221,93 @@ export const Dropdown: React.FC<DropdownProps> = ({
             {...props}
         >
             <div
+                aria-busy={isLoading ? true : undefined}
+                aria-disabled={isDisabled || isEmpty}
+                aria-label={label || getDataItem(flatData, value)?.label || placeholder}
+                className={clsx(cssDropdown)}
                 ref={ref}
                 role="listbox"
-                aria-label={label || getDataItem(flatData, value)?.label || placeholder}
-                aria-disabled={isDisabled || isEmpty}
-                aria-busy={isLoading ? true : undefined}
-                className={clsx(cssDropdown)}
                 tabIndex={0}
+                onBlur={(event) => {
+                    setFocusData(p => ({
+                        ...p,
+                        focused: false,
+                        event,
+                    }));
+                }}
                 onClick={(!isDisabled && !isLoading) ? handleOpenMenu : undefined}
-                onKeyUp={e => {
+                onFocus={(event) => {
+                    setFocusData(p => ({
+                        ...p,
+                        focused: true,
+                        event,
+                    }));
+                }}
+                onKeyUp={(e) => {
                     if (e.key === 'Enter' && !isDisabled && !isLoading) {
                         handleOpenMenu(e);
                     }
                 }}
-                onBlur={event => {
-                    setFocusData(p => ({...p, focused: false, event}));
-                }}
-                onFocus={event => {
-                    setFocusData(p => ({...p, focused: true, event}));
-                }}
             >
-                {icon && !isLoading && <icon.type {...icon.props} size="default" className={clsx('moonstone-dropdown_icon', styles['moonstone-dropdown_icon'])} role="presentation"/>}
-                {isLoading && <Loader size="small" className={clsx({'moonstone-dropdown_loaderOverlay': !icon})}/>}
-                {!label && values && values.length > 0 ? (
-                    <div
-                        className={clsx(
-                            ['moonstone-dropdown_tags', styles['moonstone-dropdown_tags']],
-                            ['flexFluid', layout.flexFluid],
-                            ['flexRow', layout.flexRow]
+                {icon && !isLoading && <icon.type {...icon.props} className={clsx('moonstone-dropdown_icon', styles['moonstone-dropdown_icon'])} role="presentation" size="default"/>}
+                {isLoading && <Loader className={clsx({ 'moonstone-dropdown_loaderOverlay': !icon })} size="small"/>}
+                {!label && values && values.length > 0
+                    ? (
+                            <div
+                                className={clsx(
+                                    ['moonstone-dropdown_tags', styles['moonstone-dropdown_tags']],
+                                    ['flexFluid', layout.flexFluid],
+                                    ['flexRow', layout.flexRow],
+                                )}
+                            >
+                                {values.map((v) => {
+                                    const item = getDataItem(flatData, v);
+                                    return item && (
+                                        <Tag
+                                            isDisabled={isDisabled}
+                                            key={item.value}
+                                            label={item.label}
+                                            role="option"
+                                            size={size}
+                                            value={item.value}
+                                            onClick={(e) => {
+                                                ref.current.focus();
+                                                ref.current.blur();
+                                                if (!isDisabled) {
+                                                    handleSelect(e, item);
+                                                }
+                                            }}
+                                        />
+                                    );
+                                })}
+                            </div>
+                        )
+                    : (
+                            <Typography
+                                isNowrap
+                                className={clsx(
+                                    ['flexFluid', layout.flexFluid],
+                                    ['moonstone-dropdown_label', styles['moonstone-dropdown_label']],
+                                )}
+                                component="span"
+                                role="option"
+                                title={label}
+                                variant={size === 'small' ? 'caption' : 'body'}
+                            >
+                                {label || getDataItem(flatData, value)?.label || placeholder}
+                            </Typography>
                         )}
-                    >
-                        {values.map(v => {
-                            const item = getDataItem(flatData, v);
-                            return item && (
-                                <Tag key={item.value}
-                                     label={item.label}
-                                     value={item.value}
-                                     size={size}
-                                     isDisabled={isDisabled}
-                                     role="option"
-                                     onClick={e => {
-                                         ref.current.focus();
-                                         ref.current.blur();
-                                         if (!isDisabled) {
-                                             handleSelect(e, item);
-                                         }
-                                     }}
-                                />
-                            );
-                        })}
-                    </div>
-                ) : (
-                    <Typography
-                        isNowrap
-                        variant={size === 'small' ? 'caption' : 'body'}
-                        component="span"
-                        className={clsx(
-                            ['flexFluid', layout.flexFluid],
-                            ['moonstone-dropdown_label', styles['moonstone-dropdown_label']]
-                        )}
-                        title={label}
-                        role="option"
-                    >
-                        {label || getDataItem(flatData, value)?.label || placeholder}
-                    </Typography>
-                )}
                 {onClear && isFilled && !isDisabled && (
                     <Button
+                        aria-label="Reset"
                         className={clsx(
                             ['moonstone-baseInput_clearButton', baseInputStyles['moonstone-baseInput_clearButton']],
                             ['flexRow_center', layout.flexRow_center],
-                            ['alignCenter', layout.alignCenter]
+                            ['alignCenter', layout.alignCenter],
                         )}
-                        variant="ghost"
                         icon={<Cancel/>}
-                        aria-label="Reset"
-                        onClick={e => {
+                        variant="ghost"
+                        onClick={(e) => {
                             e.stopPropagation();
                             ref.current.focus();
                             ref.current.blur();
@@ -296,22 +320,22 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
             {isOpened && (
                 <View
-                    isDisplayed
-                    data={data}
-                    treeData={treeData}
-                    value={value}
-                    values={values}
-                    anchorPosition={anchorPosition}
-                    minWidth={minWidth}
-                    maxWidth={menuMaxWidth}
-                    maxHeight={menuMaxHeight}
-                    anchorEl={anchorEl}
                     hasSearch={hasSearch}
+                    isDisplayed
+                    anchorEl={anchorEl}
+                    anchorPosition={anchorPosition}
                     autoAddSearchLimit={autoAddSearchLimit}
-                    searchEmptyText={searchEmptyText}
+                    data={data}
                     handleKeyPress={handleKeyPress}
                     handleSelect={handleSelect}
                     imageSize={imageSize}
+                    maxHeight={menuMaxHeight}
+                    maxWidth={menuMaxWidth}
+                    minWidth={minWidth}
+                    searchEmptyText={searchEmptyText}
+                    treeData={treeData}
+                    value={value}
+                    values={values}
                     onClose={handleCloseMenu}
                 />
             )}

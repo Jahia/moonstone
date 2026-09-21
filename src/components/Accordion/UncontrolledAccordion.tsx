@@ -1,12 +1,14 @@
-import React, {useState} from 'react';
-import {ControlledAccordion} from './ControlledAccordion';
-import type {UncontrolledAccordionProps} from './Accordion.types';
+import React, { useState } from 'react';
 
-export const UncontrolledAccordion: React.FC<UncontrolledAccordionProps> = ({defaultOpenedItem, children, ...props}) => {
+import { ControlledAccordion } from './ControlledAccordion';
+
+import type { UncontrolledAccordionProps } from './Accordion.types';
+
+export const UncontrolledAccordion: React.FC<UncontrolledAccordionProps> = ({ defaultOpenedItem, children, ...props }) => {
     const [openedItem, setOpenedItem] = useState(defaultOpenedItem);
 
     const onSetOpenedItem = (id: string) => {
-        setOpenedItem(prevState => {
+        setOpenedItem((prevState) => {
             return prevState === id ? null : id;
         });
     };

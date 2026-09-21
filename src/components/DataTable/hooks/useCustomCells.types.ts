@@ -1,5 +1,6 @@
 import React from 'react';
-import type {DataTableProps} from '../DataTable.types';
+
+import type { DataTableProps } from '../DataTable.types';
 
 export type CustomCellPosition = 'before' | 'after';
 
@@ -20,6 +21,6 @@ export type UseCustomCellsReturn = {
         node: React.ReactNode,
         rowIndex: number,
         position: CustomCellPosition,
-        index: number
+        index: number,
     ) => React.ReactNode;
 };

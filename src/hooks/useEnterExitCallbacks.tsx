@@ -1,11 +1,11 @@
-import {useEffect, useRef} from 'react';
+import { useEffect, useRef } from 'react';
 
 export const useEnterExitCallbacks = (
     isDisplayed: boolean,
     onExiting: () => void,
     onExited: () => void,
     onEntering: () => void,
-    onEntered: () => void
+    onEntered: () => void,
 ) => {
     const previousIsDisplayed = useRef(null);
     useEffect(() => {

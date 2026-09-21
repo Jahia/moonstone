@@ -1,101 +1,104 @@
+import { PrimaryNav } from './index';
 import markdownNotes from './PrimaryNav.md';
-import {Meta, StoryObj} from '@storybook/react-vite';
-import {PrimaryNav} from './index';
+import placeholder from '~/__storybook__/assets/img-placeholder.jpg';
 import {
-    PrimaryNavItemsGroup,
-    PrimaryNavItem,
+    Badge,
     Button,
-    Badge
+    PrimaryNavItem,
+    PrimaryNavItemsGroup,
 } from '~/components';
 import {
     Apps,
     Feather,
-    Setting,
-    Profile,
     Person,
     Power,
+    Profile,
+    Setting,
     Star,
-    Workflow
+    Workflow,
 } from '~/icons';
-import placeholder from '~/__storybook__/assets/img-placeholder.jpg';
+
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 export default {
     title: 'Components/PrimaryNav',
     component: PrimaryNav,
 
     parameters: {
-        notes: {markdown: markdownNotes}
-    }
-}as Meta<typeof PrimaryNav>;
+        notes: { markdown: markdownNotes },
+    },
+} as Meta<typeof PrimaryNav>;
 
-type Story = StoryObj<typeof PrimaryNavItem>
+type Story = StoryObj<typeof PrimaryNavItem>;
 
-export const Default: Story = {render: () => (
-    <div style={{transform: 'scale(1)', height: '100vh'}}>
-        <PrimaryNav
-            headerLogo={<img src={placeholder} alt="Placeholder logo" height="30"/>}
-            headerCaption="development"
-            modeIcon={<Star/>}
-            top={
-                <>
-                    <PrimaryNavItemsGroup>
-                        <PrimaryNavItem label="NavItem not selected" icon={<Feather/>}/>
-                        <PrimaryNavItem
-                            isSelected
-                            label="NavItem selected"
-                            icon={<Apps/>}
-                        />
-                    </PrimaryNavItemsGroup>
-                    <PrimaryNavItemsGroup>
-                        <PrimaryNavItem
-                            label="Very very long long name with many characters"
-                            icon={<Feather/>}
-                        />
-                        <PrimaryNavItem
-                            icon={<Person/>}
-                            label="My profile"
-                            subtitle="username as a subtitle"
-                        />
-                        <PrimaryNavItem
-                            icon={<Person/>}
-                            label="Very very long long long long label"
-                            subtitle="username as a subtitle username as a subtitle username as a subtitle username as a subtitle"
-                            button={
-                                <Button
-                                    isReversed
-                                    icon={<Power/>}
-                                    label="Sign Out"
-                                    variant="ghost"
-                                    onClick={() => null}
-                                />
-                            }
-                        />
-                        <PrimaryNavItem
-                            icon={<Workflow/>}
-                            label="With badge"
-                            badge={<Badge label="3"/>}
-                        />
-                        <PrimaryNavItem
-                            icon={<Person/>}
-                            label="With badge"
-                            badge={<Badge label="333"/>}
-                        />
-                    </PrimaryNavItemsGroup>
-                    <PrimaryNavItemsGroup isDisplayedWhenCollapsed={false}>
-                        <PrimaryNavItem url="https://jahia.com" label="Jahia Link"/>
-                    </PrimaryNavItemsGroup>
-                </>
-            }
-            bottom={
-                <>
-                    <PrimaryNavItemsGroup>
-                        <PrimaryNavItem label="Another bottom item" icon={<Profile/>}/>
-                    </PrimaryNavItemsGroup>
-                    <PrimaryNavItemsGroup>
-                        <PrimaryNavItem label="Bottom item" icon={<Setting/>}/>
-                    </PrimaryNavItemsGroup>
-                </>
-            }
-        />
-    </div>
-)};
+export const Default: Story = {
+    render: () => (
+        <div style={{ transform: 'scale(1)', height: '100vh' }}>
+            <PrimaryNav
+                bottom={(
+                    <>
+                        <PrimaryNavItemsGroup>
+                            <PrimaryNavItem icon={<Profile/>} label="Another bottom item"/>
+                        </PrimaryNavItemsGroup>
+                        <PrimaryNavItemsGroup>
+                            <PrimaryNavItem icon={<Setting/>} label="Bottom item"/>
+                        </PrimaryNavItemsGroup>
+                    </>
+                )}
+                headerCaption="development"
+                headerLogo={<img alt="Placeholder logo" height="30" src={placeholder}/>}
+                modeIcon={<Star/>}
+                top={(
+                    <>
+                        <PrimaryNavItemsGroup>
+                            <PrimaryNavItem icon={<Feather/>} label="NavItem not selected"/>
+                            <PrimaryNavItem
+                                isSelected
+                                icon={<Apps/>}
+                                label="NavItem selected"
+                            />
+                        </PrimaryNavItemsGroup>
+                        <PrimaryNavItemsGroup>
+                            <PrimaryNavItem
+                                icon={<Feather/>}
+                                label="Very very long long name with many characters"
+                            />
+                            <PrimaryNavItem
+                                icon={<Person/>}
+                                label="My profile"
+                                subtitle="username as a subtitle"
+                            />
+                            <PrimaryNavItem
+                                button={(
+                                    <Button
+                                        isReversed
+                                        icon={<Power/>}
+                                        label="Sign Out"
+                                        variant="ghost"
+                                        onClick={() => null}
+                                    />
+                                )}
+                                icon={<Person/>}
+                                label="Very very long long long long label"
+                                subtitle="username as a subtitle username as a subtitle username as a subtitle username as a subtitle"
+                            />
+                            <PrimaryNavItem
+                                badge={<Badge label="3"/>}
+                                icon={<Workflow/>}
+                                label="With badge"
+                            />
+                            <PrimaryNavItem
+                                badge={<Badge label="333"/>}
+                                icon={<Person/>}
+                                label="With badge"
+                            />
+                        </PrimaryNavItemsGroup>
+                        <PrimaryNavItemsGroup isDisplayedWhenCollapsed={false}>
+                            <PrimaryNavItem label="Jahia Link" url="https://jahia.com"/>
+                        </PrimaryNavItemsGroup>
+                    </>
+                )}
+            />
+        </div>
+    ),
+};

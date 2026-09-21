@@ -1,4 +1,4 @@
-import type {TableCellProps} from '../TableCell';
+import type { TableCellProps } from '../TableCell';
 
 export type TableStructuredCellProps = TableCellProps & {
     /**

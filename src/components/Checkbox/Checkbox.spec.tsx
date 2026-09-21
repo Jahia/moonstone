@@ -1,13 +1,13 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import {Checkbox} from './index';
+import { Checkbox } from './index';
 
 describe('Checkbox', () => {
     it('should display additional class names', () => {
         const className = 'test';
-        const {container} = render(
-            <Checkbox aria-label="checkbox" className={className}/>
+        const { container } = render(
+            <Checkbox aria-label="checkbox" className={className}/>,
         );
         expect(container.getElementsByClassName(className)).toBeTruthy();
     });
@@ -15,11 +15,11 @@ describe('Checkbox', () => {
     it('should add additional attributes', () => {
         const customAttribute = 'test';
         render(
-            <Checkbox aria-label="checkbox" data-custom={customAttribute}/>
+            <Checkbox aria-label="checkbox" data-custom={customAttribute}/>,
         );
         expect(screen.getByRole('checkbox')).toHaveAttribute(
             'data-custom',
-            customAttribute
+            customAttribute,
         );
     });
 
@@ -32,7 +32,7 @@ describe('Checkbox', () => {
                 data-testid="moonstone-checkbox"
                 value="my-value"
                 onChange={handleOnChange}
-            />
+            />,
         );
         await user.click(screen.getByTestId('moonstone-checkbox'));
 
@@ -49,7 +49,7 @@ describe('Checkbox', () => {
                 checked
                 data-testid="moonstone-checkbox"
                 onChange={handleOnChange}
-            />
+            />,
         );
         await user.click(screen.getByTestId('moonstone-checkbox'));
 
@@ -104,7 +104,7 @@ describe('Checkbox', () => {
                 indeterminate
                 aria-label="checkbox"
                 onChange={() => null}
-            />
+            />,
         );
         expect(screen.getByRole('checkbox')).toBePartiallyChecked();
     });
@@ -112,7 +112,7 @@ describe('Checkbox', () => {
     it('should have the default size by default', () => {
         render(<Checkbox aria-label="checkbox"/>);
         expect(screen.getByRole('checkbox')).toHaveClass(
-            'moonstone-checkbox_sizeDefault'
+            'moonstone-checkbox_sizeDefault',
         );
     });
 
@@ -120,23 +120,23 @@ describe('Checkbox', () => {
         render(
             <Checkbox
                 aria-label="checkbox"
-                size="default"
                 data-testid="moonstone-checkboxDefault"
-            />
+                size="default"
+            />,
         );
         expect(screen.getByTestId('moonstone-checkboxDefault')).toHaveClass(
-            'moonstone-checkbox_sizeDefault'
+            'moonstone-checkbox_sizeDefault',
         );
 
         render(
             <Checkbox
                 aria-label="checkbox"
-                size="big"
                 data-testid="moonstone-checkboxBig"
-            />
+                size="big"
+            />,
         );
         expect(screen.getByTestId('moonstone-checkboxBig')).toHaveClass(
-            'moonstone-checkbox_sizeBig'
+            'moonstone-checkbox_sizeBig',
         );
     });
 
@@ -149,7 +149,7 @@ describe('Checkbox', () => {
         render(<Checkbox isReadOnly aria-label="checkbox"/>);
         expect(screen.getByRole('checkbox')).toHaveAttribute(
             'aria-readonly',
-            'true'
+            'true',
         );
     });
 });

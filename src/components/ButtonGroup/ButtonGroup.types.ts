@@ -1,5 +1,6 @@
 import * as React from 'react';
-import type {ButtonProps, ButtonSize, ButtonColor, ButtonVariant} from '~/components/Button/Button.types';
+
+import type { ButtonColor, ButtonProps, ButtonSize, ButtonVariant } from '~/components/Button/Button.types';
 
 export type ButtonGroupProps = Omit<React.ComponentPropsWithRef<'div'>, 'children' | 'className'> & {
     /**
@@ -26,4 +27,4 @@ export type ButtonGroupProps = Omit<React.ComponentPropsWithRef<'div'>, 'childre
      * Additional classname
      */
     className?: string;
-}
+};
