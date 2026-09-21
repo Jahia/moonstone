@@ -6,13 +6,13 @@ export const dropdownDataTreePill: TreeViewData[] = [
         id: 'fr',
         label: 'French',
         value: 'fr',
-        iconEnd: <Pill content="FR"/>,
+        iconEnd: <Pill>FR</Pill>,
         children: [
             {
                 id: 'fr_ca',
                 label: 'French (Canadian)',
                 value: 'fr_ca',
-                iconEnd: <Pill content="FR_CA"/>
+                iconEnd: <Pill>FR_CA</Pill>
             }
         ]
     },
@@ -20,13 +20,13 @@ export const dropdownDataTreePill: TreeViewData[] = [
         id: 'es',
         label: 'Label with very long long label label label label label label label name (country name)',
         value: 'es',
-        iconEnd: <Pill content="ES"/>
+        iconEnd: <Pill>ES</Pill>
     },
     {
         id: 'en',
         label: 'English (disabled)',
         value: 'en',
         isDisabled: true,
-        iconEnd: <Pill content="EN"/>
+        iconEnd: <Pill>EN</Pill>
     }
 ];

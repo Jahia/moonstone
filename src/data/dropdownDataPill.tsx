@@ -5,22 +5,22 @@ export const dropdownDataPill : DropdownDataOption[] = [
     {
         label: 'French',
         value: 'fr',
-        iconEnd: <Pill content="FR"/>
+        iconEnd: <Pill>FR</Pill>
     },
     {
         label: 'French (Canadian)',
         value: 'fr_ca',
-        iconEnd: <Pill content="FR_CA"/>
+        iconEnd: <Pill>FR_CA</Pill>
     },
     {
         label: 'Language with very long long label label label label label label label name (country name)',
         value: 'es',
-        iconEnd: <Pill content="ES"/>
+        iconEnd: <Pill>ES</Pill>
     },
     {
         label: 'English (disabled)',
         value: 'en',
-        iconEnd: <Pill content="EN"/>,
+        iconEnd: <Pill>EN</Pill>,
         isDisabled: true
     }
 ];

@@ -8,13 +8,13 @@ import styles from './Pill.module.scss';
 
 export const Pill: React.FC<PillProps> = ({
     label,
-    content,
+    children,
     className,
     isReversed,
     ...props
 }) => {
     if (label !== undefined) {
-        console.warn('The property `label` is deprecated in the Pill component. Use `content` instead.');
+        console.warn('The property `label` is deprecated in the Pill component. Use `children` instead.');
     }
 
     return (
@@ -29,7 +29,7 @@ export const Pill: React.FC<PillProps> = ({
             )}
             {...props}
         >
-            {content ?? label}
+            {children ?? label}
         </Typography>
     );
 };
