@@ -1,6 +1,8 @@
-import React from 'react';
 import clsx from 'clsx';
-import type {SeparatorProps} from './Separator.types';
+import React from 'react';
+
+import type { SeparatorProps } from './Separator.types';
+
 import styles from './Separator.module.scss';
 
 export const Separator: React.FC<SeparatorProps> = ({
@@ -12,14 +14,15 @@ export const Separator: React.FC<SeparatorProps> = ({
     ...props
 }) => {
     return (
-        <hr {...props}
+        <hr
+            {...props}
             className={clsx(
                 ['moonstone-separator', styles['moonstone-separator']],
                 [`moonstone-separator_${variant}`, styles[`moonstone-separator_${variant}`]],
                 [`moonstone-size_${size}`, styles[`moonstone-size_${size}`]],
                 [`moonstone-spacing_${spacing}`, styles[`moonstone-spacing_${spacing}`]],
                 invisible && [`moonstone-invisible_${invisible}`, styles[`moonstone-invisible_${invisible}`]],
-                className
+                className,
             )}
         />
     );

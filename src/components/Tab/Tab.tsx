@@ -1,10 +1,13 @@
-import React from 'react';
 import clsx from 'clsx';
-import type {TabProps} from './Tab.types';
-import {layout} from '~/globals/css-utils.js';
+import React from 'react';
+
+import { layout } from '~/globals/css-utils.js';
+
+import type { TabProps } from './Tab.types';
+
 import styles from './Tab.module.scss';
 
-export const Tab: React.FC<TabProps> = ({children, className = '', ...props}) => {
+export const Tab: React.FC<TabProps> = ({ children, className = '', ...props }) => {
     if (!children || React.Children.count(children) < 1) {
         return null;
     }
@@ -16,7 +19,7 @@ export const Tab: React.FC<TabProps> = ({children, className = '', ...props}) =>
                 ['moonstone-tab', styles['moonstone-tab']],
                 ['flexRow_center', layout.flexRow_center],
                 ['alignCenter', layout.alignCenter],
-                className
+                className,
             )}
             role="tablist"
         >

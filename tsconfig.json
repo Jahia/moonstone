@@ -17,10 +17,9 @@
       "dom",
       "es2022"
     ],
-    "baseUrl": "src",
     "paths": {
       "~/*": [
-        "*"
+        "./src/*"
       ]
     },
     "typeRoots": [

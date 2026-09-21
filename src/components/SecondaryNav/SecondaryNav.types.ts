@@ -26,4 +26,3 @@ export type SecondaryNavProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'chi
      */
     onToggled?: (e: React.MouseEvent) => void;
 };
-

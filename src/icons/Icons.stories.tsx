@@ -1,22 +1,23 @@
 import React from 'react';
-import '~/__storybook__/storybook.scss';
 
 import markdownNotes from './Icons.md';
+import { Love } from '~/icons';
 import * as Icons from '~/icons/components';
-import {Love} from '~/icons';
+
+import '~/__storybook__/storybook.scss';
 
 const iconsName = Object.keys(Icons) as (keyof typeof Icons)[];
 type IconWrapperProps = {
-    readonly iconName: keyof typeof Icons,
-    readonly size?: 'small' | 'default' | 'big',
+    readonly iconName: keyof typeof Icons;
+    readonly size?: 'small' | 'default' | 'big';
 };
 
-export const IconWrapper: React.FC<IconWrapperProps> = ({iconName, size}) => {
+export const IconWrapper: React.FC<IconWrapperProps> = ({ iconName, size }) => {
     return (
         <div className="storyGridItem">
             {React.createElement(
                 Icons[iconName],
-                {size: size}
+                { size: size },
             )}
             <span>{iconName}</span>
         </div>
@@ -30,11 +31,11 @@ function displayIcons() {
     for (const name of iconsName) {
         allIcons.push(
             <IconWrapper
-        key={`key-${name}`}
-        iconName={name}
-        size="big"
-        // Color={color}
-      />
+                iconName={name}
+                key={`key-${name}`}
+                size="big"
+                // Color={color}
+            />,
         );
     }
 
@@ -48,10 +49,10 @@ export default {
 
     parameters: {
     // ComponentSubtitle: 'Icons',
-        notes: {markdown: markdownNotes}
+        notes: { markdown: markdownNotes },
     },
 
-    excludeStories: ['IconWrapper']
+    excludeStories: ['IconWrapper'],
 };
 
 export const _Default = () => (

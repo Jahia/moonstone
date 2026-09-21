@@ -1,12 +1,12 @@
-import {StoryObj, Meta, StoryContext} from '@storybook/react-vite';
-import '~/__storybook__/storybook.scss';
-
-import {Button} from './index';
-import type {ButtonProps} from './Button.types';
-
-import {Love, OpenInNew} from '~/icons';
-import {iconArgType} from '~/__storybook__/iconArgType';
 import markdownNotes from './Button.md';
+import { Button } from './index';
+import { iconArgType } from '~/__storybook__/iconArgType';
+import { Love, OpenInNew } from '~/icons';
+
+import type { ButtonProps } from './Button.types';
+import type { Meta, StoryContext, StoryObj } from '@storybook/react-vite';
+
+import '~/__storybook__/storybook.scss';
 
 const meta: Meta<typeof Button> = {
     title: 'Components/Button',
@@ -14,13 +14,13 @@ const meta: Meta<typeof Button> = {
 
     parameters: {
         layout: 'centered',
-        actions: {argTypesRegex: '^on.*'},
-        notes: {markdown: markdownNotes}
+        actions: { argTypesRegex: '^on.*' },
+        notes: { markdown: markdownNotes },
     },
     argTypes: {
         icon: iconArgType,
-        iconEnd: iconArgType
-    }
+        iconEnd: iconArgType,
+    },
 };
 export default meta;
 
@@ -38,39 +38,39 @@ export const Overview: Story = {
                 <Button label="outlined" {...args} variant="outlined"/>
                 <Button label="ghost" {...args} variant="ghost"/>
             </section>
-            <section className="storyGrid" style={{backgroundColor: 'var(--moon-color-gray_dark)'}}>
+            <section className="storyGrid" style={{ backgroundColor: 'var(--moon-color-gray_dark)' }}>
                 <Button isReversed label="default" {...args} variant="default"/>
                 <Button isReversed label="outlined" {...args} variant="outlined"/>
                 <Button isReversed label="ghost" {...args} variant="ghost"/>
             </section>
         </>
-    )
+    ),
 };
 
 export const Default: Story = {
     args: {
         icon: <Love/>,
-        label: 'Button'
+        label: 'Button',
     },
-    render: Template
+    render: Template,
 };
 
 export const Ghost: Story = {
     args: {
         variant: 'ghost',
         icon: <Love/>,
-        label: 'Button'
+        label: 'Button',
     },
-    render: Template
+    render: Template,
 };
 
 export const Outlined: Story = {
     args: {
         variant: 'outlined',
         icon: <Love/>,
-        label: 'Button'
+        label: 'Button',
     },
-    render: Template
+    render: Template,
 };
 
 const IconAndLabelTemplate = (args: ButtonProps, globals: StoryContext) => {
@@ -78,20 +78,20 @@ const IconAndLabelTemplate = (args: ButtonProps, globals: StoryContext) => {
     return (
         <section className="storyGrid">
             <Button
-                label="default"
                 isReversed={theme === 'dark'}
+                label="default"
                 {...args}
                 variant="default"
             />
             <Button
-                label="ghost"
                 isReversed={theme === 'dark'}
+                label="ghost"
                 {...args}
                 variant="ghost"
             />
             <Button
-                label="outlined"
                 isReversed={theme === 'dark'}
+                label="outlined"
                 {...args}
                 variant="outlined"
             />
@@ -102,12 +102,12 @@ const IconAndLabelTemplate = (args: ButtonProps, globals: StoryContext) => {
 export const IconAndLabel: Story = {
     args: {
         icon: <Love/>,
-        iconEnd: <OpenInNew/>
+        iconEnd: <OpenInNew/>,
     },
     parameters: {
-        controls: {exclude: ['variant', 'label']}
+        controls: { exclude: ['variant', 'label'] },
     },
-    render: IconAndLabelTemplate
+    render: IconAndLabelTemplate,
 };
 
 export const OnlyLabel = {
@@ -116,20 +116,20 @@ export const OnlyLabel = {
         return (
             <section className="storyGrid">
                 <Button
-                    label="default"
                     isReversed={theme === 'dark'}
+                    label="default"
                     {...args}
                     variant="default"
                 />
                 <Button
-                    label="ghost"
                     isReversed={theme === 'dark'}
+                    label="ghost"
                     {...args}
                     variant="ghost"
                 />
                 <Button
-                    label="outlined"
                     isReversed={theme === 'dark'}
+                    label="outlined"
                     {...args}
                     variant="outlined"
                 />
@@ -138,8 +138,8 @@ export const OnlyLabel = {
     },
 
     parameters: {
-        controls: {exclude: ['variant', 'label']}
-    }
+        controls: { exclude: ['variant', 'label'] },
+    },
 };
 
 export const OnlyIcon = {
@@ -155,13 +155,13 @@ export const OnlyIcon = {
     },
 
     args: {
-        icon: <Love/>,
-        'aria-label': 'Button with Love icon'
+        'icon': <Love/>,
+        'aria-label': 'Button with Love icon',
     },
 
     parameters: {
-        controls: {exclude: ['variant', 'label']}
-    }
+        controls: { exclude: ['variant', 'label'] },
+    },
 };
 
 export const Disabled = {
@@ -170,20 +170,20 @@ export const Disabled = {
         return (
             <section className="storyGrid">
                 <Button
-                    label="default"
                     isReversed={theme === 'dark'}
+                    label="default"
                     {...args}
                     variant="default"
                 />
                 <Button
-                    label="ghost"
                     isReversed={theme === 'dark'}
+                    label="ghost"
                     {...args}
                     variant="ghost"
                 />
                 <Button
-                    label="outlined"
                     isReversed={theme === 'dark'}
+                    label="outlined"
                     {...args}
                     variant="outlined"
                 />
@@ -193,10 +193,10 @@ export const Disabled = {
 
     args: {
         icon: <Love/>,
-        isDisabled: true
+        isDisabled: true,
     },
 
     parameters: {
-        controls: {exclude: ['variant', 'label']}
-    }
+        controls: { exclude: ['variant', 'label'] },
+    },
 };

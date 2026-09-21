@@ -1,9 +1,10 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {ListItem} from './index';
+
+import { ListItem } from './index';
 
 const requiredProps = {
-    label: 'list item label'
+    label: 'list item label',
 };
 
 describe('ListItem', () => {
@@ -21,28 +22,28 @@ describe('ListItem', () => {
         render(
             <ListItem
                 {...requiredProps}
-                data-testid="moonstone-listItem"
                 data-custom="test"
-            />
+                data-testid="moonstone-listItem"
+            />,
         );
         expect(screen.getByTestId('moonstone-listItem')).toHaveAttribute(
             'data-custom',
-            'test'
+            'test',
         );
     });
 
     it('should display iconStart', () => {
         const Icon = () => <svg/>;
-        const {container} = render(
-            <ListItem {...requiredProps} iconStart={<Icon/>}/>
+        const { container } = render(
+            <ListItem {...requiredProps} iconStart={<Icon/>}/>,
         );
         expect(container.querySelector('svg')).toBeInTheDocument();
     });
 
     it('should display iconEnd', () => {
         const Icon = () => <svg/>;
-        const {container} = render(
-            <ListItem {...requiredProps} iconEnd={<Icon/>}/>
+        const { container } = render(
+            <ListItem {...requiredProps} iconEnd={<Icon/>}/>,
         );
         expect(container.querySelector('svg')).toBeInTheDocument();
     });
@@ -52,12 +53,12 @@ describe('ListItem', () => {
         render(
             <ListItem
                 {...requiredProps}
-                data-testid="moonstone-listItem"
                 className={testClassName}
-            />
+                data-testid="moonstone-listItem"
+            />,
         );
         expect(screen.getByTestId('moonstone-listItem')).toHaveClass(
-            testClassName
+            testClassName,
         );
     });
 
@@ -73,11 +74,11 @@ describe('ListItem', () => {
 
     it('should have default imageSize=small', () => {
         const Image = () => <img/>;
-        const {container} = render(
-            <ListItem {...requiredProps} image={<Image/>}/>
+        const { container } = render(
+            <ListItem {...requiredProps} image={<Image/>}/>,
         );
         expect(
-            container.querySelector('.moonstone-listItem-image_small')
+            container.querySelector('.moonstone-listItem-image_small'),
         ).toBeInTheDocument();
     });
 });

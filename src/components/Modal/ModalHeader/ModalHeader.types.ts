@@ -1,4 +1,4 @@
-import {ReactNode} from 'react';
+import type { ReactNode } from 'react';
 
 export type ModalHeaderProps = Omit<React.ComponentPropsWithRef<'header'>, 'className' | 'children'> & {
     /**
@@ -15,4 +15,4 @@ export type ModalHeaderProps = Omit<React.ComponentPropsWithRef<'header'>, 'clas
      * Additional classname
      */
     className?: string;
-}
+};

@@ -1,8 +1,11 @@
-import React, {useState, ChangeEvent} from 'react';
-import type {UncontrolledTextareaProps} from './Textarea.types';
-import {ControlledTextarea} from './ControlledTextarea';
+import React, { useState } from 'react';
 
-export const UncontrolledTextarea: React.FC<UncontrolledTextareaProps> = ({defaultValue, onChange, ...props}) => {
+import { ControlledTextarea } from './ControlledTextarea';
+
+import type { UncontrolledTextareaProps } from './Textarea.types';
+import type { ChangeEvent } from 'react';
+
+export const UncontrolledTextarea: React.FC<UncontrolledTextareaProps> = ({ defaultValue, onChange, ...props }) => {
     const [textareaValue, setTextareaValue] = useState(defaultValue);
 
     const handleOnChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -13,7 +16,7 @@ export const UncontrolledTextarea: React.FC<UncontrolledTextareaProps> = ({defau
         }
     };
 
-    return <ControlledTextarea value={textareaValue} className="uncontrolled" onChange={handleOnChange} {...props}/>;
+    return <ControlledTextarea className="uncontrolled" value={textareaValue} onChange={handleOnChange} {...props}/>;
 };
 
 UncontrolledTextarea.displayName = 'UncontrolledTextarea';

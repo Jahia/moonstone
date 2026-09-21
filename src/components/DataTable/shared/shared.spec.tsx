@@ -1,15 +1,17 @@
-import {describe, it, expect, vi} from 'vitest';
-import {render, screen} from '@testing-library/react';
-import type {DataTableColumn} from '~/components/DataTable/DataTable.types';
+import { render, screen } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
+
 import {
-    renderNumber,
-    renderDate,
-    stringColumn,
-    numberColumn,
-    dateColumn,
     createTableColumns,
-    renderString
+    dateColumn,
+    numberColumn,
+    renderDate,
+    renderNumber,
+    renderString,
+    stringColumn,
 } from './index';
+
+import type { DataTableColumn } from '~/components/DataTable/DataTable.types';
 
 describe('renderString', () => {
     it('should return null if value is not a string', () => {
@@ -29,32 +31,33 @@ describe('renderString', () => {
 
 describe('renderNumber', () => {
     it('should format number with en-US locale', () => {
-        render(<>{renderNumber({value: 1234.56, locale: 'en-US'})}</>);
+        render(<>{renderNumber({ value: 1234.56, locale: 'en-US' })}</>);
         expect(screen.getByText('1,234.56')).toBeInTheDocument();
     });
 
     it('should return null if value is null or undefined', () => {
-        expect(renderNumber({value: null})).toBeNull();
-        expect(renderNumber({value: undefined})).toBeNull();
+        expect(renderNumber({ value: null })).toBeNull();
+        expect(renderNumber({ value: undefined })).toBeNull();
     });
 
     it('should return null if value is not a number', () => {
-        expect(renderNumber({value: 'not a number' as unknown as number})).toBeNull();
+        expect(renderNumber({ value: 'not a number' as unknown as number })).toBeNull();
     });
 
     it('should format bigint with en-US locale', () => {
-        render(<>{renderNumber({value: 9007199254740992n, locale: 'en-US'})}</>);
+        render(<>{renderNumber({ value: 9007199254740992n, locale: 'en-US' })}</>);
         expect(screen.getByText('9,007,199,254,740,992')).toBeInTheDocument();
     });
 
     it('should apply minimumFractionDigits option', () => {
         render(
-            <>{renderNumber({
-                value: 1234,
-                locale: 'en-US',
-                localeOptions: {minimumFractionDigits: 2}
-            })}
-            </>
+            <>
+                {renderNumber({
+                    value: 1234,
+                    locale: 'en-US',
+                    localeOptions: { minimumFractionDigits: 2 },
+                })}
+            </>,
         );
         expect(screen.getByText('1,234.00')).toBeInTheDocument();
     });
@@ -64,23 +67,24 @@ describe('renderDate', () => {
     it('should format date with specific options', () => {
         const date = new Date('2023-06-15T12:00:00Z');
         render(
-            <>{renderDate({
-                value: date,
-                locale: 'en-US',
-                localeOptions: {year: 'numeric', month: '2-digit', day: '2-digit'}
-            })}
-            </>
+            <>
+                {renderDate({
+                    value: date,
+                    locale: 'en-US',
+                    localeOptions: { year: 'numeric', month: '2-digit', day: '2-digit' },
+                })}
+            </>,
         );
         expect(screen.getByText('06/15/2023')).toBeInTheDocument();
     });
 
     it('should return null if value is null or undefined', () => {
-        expect(renderDate({value: null})).toBeNull();
-        expect(renderDate({value: undefined})).toBeNull();
+        expect(renderDate({ value: null })).toBeNull();
+        expect(renderDate({ value: undefined })).toBeNull();
     });
 
     it('should return null if value is not a date', () => {
-        expect(renderDate({value: 'not a date' as unknown as Date})).toBeNull();
+        expect(renderDate({ value: 'not a date' as unknown as Date })).toBeNull();
     });
 });
 
@@ -88,15 +92,15 @@ describe('stringColumn', () => {
     it('should return correct config', () => {
         type Row = { val: string };
         const get = (row: Row) => row.val;
-        const col = stringColumn<Row>(get, {align: 'center'});
+        const col = stringColumn<Row>(get, { align: 'center' });
         expect(col.isSortable).toBe(true);
         expect(col.align).toBe('center');
 
-        render(<>{col.render?.({data: {val: 'test'}})}</>);
+        render(<>{col.render?.({ data: { val: 'test' } })}</>);
         expect(screen.getByText('test')).toBeInTheDocument();
 
-        const rowA = {val: 'a'};
-        const rowB = {val: 'b'};
+        const rowA = { val: 'a' };
+        const rowB = { val: 'b' };
         expect(col.sortFn(rowA, rowB)).toBeLessThan(0);
     });
 });
@@ -109,8 +113,8 @@ describe('numberColumn', () => {
         expect(col.isSortable).toBe(true);
         expect(col.align).toBe('right');
 
-        const rowA = {val: 10};
-        const rowB = {val: 20};
+        const rowA = { val: 10 };
+        const rowB = { val: 20 };
         expect(col.sortFn(rowA, rowB)).toBe(-10);
     });
 });
@@ -125,8 +129,8 @@ describe('dateColumn', () => {
 
         const d1 = new Date('2023-01-01');
         const d2 = new Date('2023-01-02');
-        const rowA = {val: d1};
-        const rowB = {val: d2};
+        const rowA = { val: d1 };
+        const rowB = { val: d2 };
         expect(col.sortFn(rowA, rowB)).toBeLessThan(0);
     });
 });
@@ -141,8 +145,8 @@ describe('createTableColumns', () => {
                 label: 'Name',
                 isSortable: true,
                 align: 'center',
-                render: ({value}) => value.toUpperCase()
-            }
+                render: ({ value }) => value.toUpperCase(),
+            },
         ];
 
         const result = createTableColumns(columns);
@@ -159,8 +163,8 @@ describe('createTableColumns', () => {
             {
                 key: 'name',
                 label: 'Name',
-                sortFn
-            }
+                sortFn,
+            },
         ];
 
         const result = createTableColumns(columns);

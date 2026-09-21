@@ -1,12 +1,13 @@
-import React from 'react';
 import clsx from 'clsx';
+import React from 'react';
 
-import type {FieldBooleanProps} from './FieldBoolean.types';
-import {Typography, Checkbox} from '~/components';
+import { Checkbox, Typography } from '~/components';
+import { layout } from '~/globals/css-utils.js';
 
-import {layout} from '~/globals/css-utils.js';
-import styles from './FieldBoolean.module.scss';
+import type { FieldBooleanProps } from './FieldBoolean.types';
+
 import fieldStyles from '../Field.module.scss';
+import styles from './FieldBoolean.module.scss';
 
 export const FieldBoolean = React.forwardRef<HTMLDivElement, FieldBooleanProps>(({
     id,
@@ -22,66 +23,70 @@ export const FieldBoolean = React.forwardRef<HTMLDivElement, FieldBooleanProps>(
 }, ref) => {
     return (
         <div
-            ref={ref}
-            id={id}
             className={clsx(
                 ['moonstone-field', fieldStyles['moonstone-field']],
                 ['moonstone-fieldBoolean', styles['moonstone-fieldBoolean']],
                 ['flexCol_nowrap', layout.flexCol_nowrap],
                 hasError && ['moonstone-field_error', fieldStyles['moonstone-field_error']],
-                className
+                className,
             )}
+            id={id}
+            ref={ref}
             {...props}
         >
             <div
                 className={clsx(
                     ['flexRow_nowrap', layout.flexRow_nowrap],
                     ['flexFluid', layout.flexFluid],
-                    ['alignCenter', layout.alignCenter]
+                    ['alignCenter', layout.alignCenter],
                 )}
             >
                 <div
                     className={clsx(
                         ['flexRow_nowrap', layout.flexRow_nowrap],
-                        ['flexFluid', layout.flexFluid]
+                        ['flexFluid', layout.flexFluid],
                     )}
                 >
                     <div className={clsx('moonstone-fieldBoolean_checkbox', styles['moonstone-fieldBoolean_checkbox'])}>
                         <Checkbox id="moonstone-fieldBoolean-checkbox" {...checkboxAttributes}/>
                     </div>
                     <Typography isNowrap component="label" htmlFor="moonstone-fieldBoolean-checkbox" weight="bold">{label}</Typography>
-                    {chips &&
+                    {chips
+                        && (
+                            <div
+                                className={clsx(
+                                    ['moonstone-field_chips', fieldStyles['moonstone-field_chips']],
+                                    ['flexRow_nowrap', layout.flexRow_nowrap],
+                                )}
+                            >
+                                {chips}
+                            </div>
+                        )}
+                </div>
+                {buttons
+                    && (
                         <div
                             className={clsx(
-                                ['moonstone-field_chips', fieldStyles['moonstone-field_chips']],
-                                ['flexRow_nowrap', layout.flexRow_nowrap]
+                                ['moonstone-field_buttons', fieldStyles['moonstone-field_buttons']],
+                                ['flexRow_nowrap', layout.flexRow_nowrap],
                             )}
                         >
-                            {chips}
-                        </div>}
-                </div>
-                {buttons &&
-                    <div
-                        className={clsx(
-                            ['moonstone-field_buttons', fieldStyles['moonstone-field_buttons']],
-                            ['flexRow_nowrap', layout.flexRow_nowrap]
-                        )}
-                    >
-                        {React.Children.map(buttons, button =>
-                            button.props && button.props.children ?
-                            (React.Children.map(button.props.children, btn => {
-                                const key = btn.props.icon ? btn.props.icon.name : btn.props.label;
-                                return (btn && <btn.type key={`btn-${key}`} size="default" {...btn.props}/>);
-                            }
-                            )) :
-                            (buttons && <buttons.type size="default" {...buttons.props}/>)
-                        )}
-                    </div>}
+                            {React.Children.map(buttons, button =>
+                                button.props && button.props.children
+                                    ? (React.Children.map(button.props.children, (btn) => {
+                                            const key = btn.props.icon ? btn.props.icon.name : btn.props.label;
+                                            return (btn && <btn.type key={`btn-${key}`} size="default" {...btn.props}/>);
+                                        },
+                                        ))
+                                    : (buttons && <buttons.type size="default" {...buttons.props}/>),
+                            )}
+                        </div>
+                    )}
             </div>
-            {helper &&
-                <Typography className={clsx('moonstone-field_helper', fieldStyles['moonstone-field_helper'])} variant="caption">{helper}</Typography>}
-            {hasError && errorMessage &&
-                <Typography className={clsx('moonstome-field_errorMessage', fieldStyles['moonstome-field_errorMessage'])} variant="caption">{errorMessage}</Typography>}
+            {helper
+                && <Typography className={clsx('moonstone-field_helper', fieldStyles['moonstone-field_helper'])} variant="caption">{helper}</Typography>}
+            {hasError && errorMessage
+                && <Typography className={clsx('moonstome-field_errorMessage', fieldStyles['moonstome-field_errorMessage'])} variant="caption">{errorMessage}</Typography>}
         </div>
     );
 });

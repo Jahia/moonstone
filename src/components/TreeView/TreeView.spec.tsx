@@ -1,36 +1,36 @@
-import {useState} from 'react';
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { useState } from 'react';
 
-import {TreeView} from './TreeView';
-import {Love, Cloud} from '~/icons';
-import {toIconComponent} from '~/icons';
+import { TreeView } from './TreeView';
+import { Cloud, Love } from '~/icons';
+import { toIconComponent } from '~/icons';
 
-import type {TreeViewData} from './TreeView.types';
+import type { TreeViewData } from './TreeView.types';
 
 const tree: TreeViewData[] = [
     {
         id: 'A',
         label: 'A level1',
         iconStart: toIconComponent(
-            'http://www.google.com/s2/favicons?domain=www.jahia.com'
+            'http://www.google.com/s2/favicons?domain=www.jahia.com',
         ),
         iconEnd: <Cloud data-testid="test-iconEnd"/>,
         children: [
             {
                 id: 'A1',
                 label: 'A-1 level2',
-                iconStart: <Love data-testid="test-iconStart"/>
-            }
-        ]
-    }
+                iconStart: <Love data-testid="test-iconStart"/>,
+            },
+        ],
+    },
 ];
 
 describe('TreeView', () => {
     it('should not display TreeView when data is empty', () => {
-        render(<TreeView data-testid="moonstone-treeView" data={[]}/>);
+        render(<TreeView data={[]} data-testid="moonstone-treeView"/>);
         expect(
-            screen.queryByTestId('moonstone-treeView')
+            screen.queryByTestId('moonstone-treeView'),
         ).not.toBeInTheDocument();
     });
 
@@ -40,19 +40,19 @@ describe('TreeView', () => {
     });
 
     it('should not display chevron for items without children', () => {
-        const {container} = render(
-            <TreeView data={[{id: 'A', label: 'A level1'}]}/>
+        const { container } = render(
+            <TreeView data={[{ id: 'A', label: 'A level1' }]}/>,
         );
         expect(
-            container.querySelector('.moonstone-treeView_itemToggle')
+            container.querySelector('.moonstone-treeView_itemToggle'),
         ).not.toBeInTheDocument();
     });
 
     it('should open node set in openItems', () => {
-        render(<TreeView openedItems={['A']} data={tree}/>);
+        render(<TreeView data={tree} openedItems={['A']}/>);
 
         expect(
-            screen.getByRole('treeitem', {expanded: true})
+            screen.getByRole('treeitem', { expanded: true }),
         ).toHaveTextContent('A level1');
     });
 
@@ -67,29 +67,29 @@ describe('TreeView', () => {
                 data={[
                     {
                         ...tree[0],
-                        iconStart: <Love data-testid="test-iconStart"/>
-                    }
+                        iconStart: <Love data-testid="test-iconStart"/>,
+                    },
                 ]}
-            />
+            />,
         );
         expect(screen.getByTestId('test-iconStart')).toBeInTheDocument();
     });
 
     it('should display loading icon if node is loading', () => {
-        render(<TreeView data={[{...tree[0], isLoading: true}]}/>);
+        render(<TreeView data={[{ ...tree[0], isLoading: true }]}/>);
         expect(screen.getAllByRole('treeitem')[0]).toHaveAttribute(
             'aria-busy',
-            'true'
+            'true',
         );
     });
 
     it('should add specific class if TreeView is reversed', () => {
-        const {container} = render(<TreeView isReversed data={tree}/>);
+        const { container } = render(<TreeView isReversed data={tree}/>);
         expect(container.getElementsByClassName('reversed')).toBeTruthy();
     });
 
     it('should have aria-level attribute', () => {
-        render(<TreeView openedItems={['A']} data={tree}/>);
+        render(<TreeView data={tree} openedItems={['A']}/>);
 
         expect(screen.getAllByRole('treeitem').length).toBe(2);
         expect(screen.getAllByRole('treeitem')[0]).toHaveAttribute('aria-level', '1');
@@ -99,7 +99,7 @@ describe('TreeView', () => {
     it('should select item set with selectedItems', () => {
         render(<TreeView data={tree} selectedItems={['A']}/>);
         expect(
-            screen.getByRole('treeitem', {selected: true})
+            screen.getByRole('treeitem', { selected: true }),
         ).toHaveTextContent('A level1');
     });
 
@@ -119,9 +119,9 @@ describe('TreeView', () => {
 
         render(
             <TreeView
-                data={[{...tree[0], isDisabled: true}]}
+                data={[{ ...tree[0], isDisabled: true }]}
                 onClickItem={clickHandler}
-            />
+            />,
         );
         await user.click(screen.getByText('A level1'));
 
@@ -144,8 +144,8 @@ describe('TreeView', () => {
 
             return (
                 <TreeView
-                    openedItems={['A']}
                     data={tree}
+                    openedItems={['A']}
                     selectedItems={selectedItems}
                     onClickItem={handleClick}
                 />
@@ -156,7 +156,7 @@ describe('TreeView', () => {
 
         await user.click(screen.getByTestId('treeitem-toggle-icon'));
 
-        expect(screen.queryAllByRole('treeitem', {selected: true})).toHaveLength(0);
+        expect(screen.queryAllByRole('treeitem', { selected: true })).toHaveLength(0);
     });
 
     it('should not call onClick when clicking on an readonly item', async () => {
@@ -165,9 +165,9 @@ describe('TreeView', () => {
 
         render(
             <TreeView
-                data={[{...tree[0], isReadonly: true}]}
+                data={[{ ...tree[0], isReadonly: true }]}
                 onClickItem={clickHandler}
-            />
+            />,
         );
         await user.click(screen.getByText('A level1'));
 
@@ -178,16 +178,16 @@ describe('TreeView', () => {
         const user = userEvent.setup();
         const openHandler = vi.fn();
         const closeHandler = vi.fn();
-        const {container} = render(
+        const { container } = render(
             <TreeView
                 data={tree}
-                onOpenItem={openHandler}
                 onCloseItem={closeHandler}
-            />
+                onOpenItem={openHandler}
+            />,
         );
 
         await user.click(
-            container.querySelector('.moonstone-treeView_itemToggle')
+            container.querySelector('.moonstone-treeView_itemToggle'),
         );
 
         expect(closeHandler).not.toHaveBeenCalled();
@@ -198,17 +198,17 @@ describe('TreeView', () => {
         const user = userEvent.setup();
         const openHandler = vi.fn();
         const closeHandler = vi.fn();
-        const {container} = render(
+        const { container } = render(
             <TreeView
                 data={tree}
                 openedItems={['A']}
-                onOpenItem={openHandler}
                 onCloseItem={closeHandler}
-            />
+                onOpenItem={openHandler}
+            />,
         );
 
         await user.click(
-            container.querySelector('.moonstone-treeView_itemToggle')
+            container.querySelector('.moonstone-treeView_itemToggle'),
         );
 
         expect(closeHandler).toHaveBeenCalled();
@@ -219,35 +219,35 @@ describe('TreeView', () => {
         render(
             <TreeView
                 data={tree}
-                data-testid="moonstone-treeView"
                 data-custom="test"
-            />
+                data-testid="moonstone-treeView"
+            />,
         );
         expect(screen.getByTestId('moonstone-treeView')).toHaveAttribute(
             'data-custom',
-            'test'
+            'test',
         );
     });
 
     it('should highlight the item set with highltedItem', () => {
-        render(<TreeView highlightedItems={['A']} data={tree}/>);
+        render(<TreeView data={tree} highlightedItems={['A']}/>);
 
         expect(
-            screen.getByRole('treeitem', {current: 'page'})
+            screen.getByRole('treeitem', { current: 'page' }),
         ).toBeInTheDocument();
     });
 
     it('should not highlight the item when it is already selected', () => {
         render(
             <TreeView
+                data={tree}
                 highlightedItems={['A']}
                 selectedItems={['A']}
-                data={tree}
-            />
+            />,
         );
 
         expect(
-            screen.queryByRole('treeitem', {current: 'page'})
+            screen.queryByRole('treeitem', { current: 'page' }),
         ).not.toBeInTheDocument();
     });
 
@@ -258,11 +258,11 @@ describe('TreeView', () => {
     });
 
     it('should checked the checkbox when the item is selected with `showCheckbox`', () => {
-        render(<TreeView showCheckbox selectedItems={['A']} data={tree}/>);
+        render(<TreeView showCheckbox data={tree} selectedItems={['A']}/>);
 
         expect(
-            screen.getByRole('treeitem', {selected: true})
-        ).toContainElement(screen.getByRole('checkbox', {checked: true}));
+            screen.getByRole('treeitem', { selected: true }),
+        ).toContainElement(screen.getByRole('checkbox', { checked: true }));
     });
 });
 
@@ -271,31 +271,31 @@ describe('Uncontrolled TreeView', () => {
         render(<TreeView data={tree}/>);
 
         expect(
-            screen.queryAllByRole('treeitem', {expanded: true})
+            screen.queryAllByRole('treeitem', { expanded: true }),
         ).toHaveLength(0);
     });
 
     it('should open node set in defaultOpenedItems', () => {
-        render(<TreeView defaultOpenedItems={['A']} data={tree}/>);
+        render(<TreeView data={tree} defaultOpenedItems={['A']}/>);
 
         expect(
-            screen.getByRole('treeitem', {expanded: true})
+            screen.getByRole('treeitem', { expanded: true }),
         ).toHaveTextContent('A level1');
     });
 
     it('should open a node by clicking on arrow icon when onClickItem function is provided', async () => {
         const user = userEvent.setup();
         const clickHandler = vi.fn();
-        const {container} = render(
-            <TreeView data={tree} onClickItem={clickHandler}/>
+        const { container } = render(
+            <TreeView data={tree} onClickItem={clickHandler}/>,
         );
 
         await user.click(
-            container.querySelector('.moonstone-treeView_itemToggle')
+            container.querySelector('.moonstone-treeView_itemToggle'),
         );
 
         expect(
-            screen.queryByRole('treeitem', {expanded: true})
+            screen.getByRole('treeitem', { expanded: true }),
         ).toBeInTheDocument();
     });
 
@@ -306,38 +306,38 @@ describe('Uncontrolled TreeView', () => {
         await user.click(screen.getByText('A level1'));
 
         expect(
-            screen.getByRole('treeitem', {expanded: true})
+            screen.getByRole('treeitem', { expanded: true }),
         ).toBeInTheDocument();
     });
 
     it('should close a node by clicking on arrow icon when onClickItem function is provided', async () => {
         const user = userEvent.setup();
         const clickHandler = vi.fn();
-        const {container} = render(
+        const { container } = render(
             <TreeView
                 data={tree}
                 defaultOpenedItems={['A']}
                 onClickItem={clickHandler}
-            />
+            />,
         );
 
         await user.click(
-            container.querySelector('.moonstone-treeView_itemToggle')
+            container.querySelector('.moonstone-treeView_itemToggle'),
         );
 
         expect(
-            screen.queryByRole('treeitem', {expanded: true})
+            screen.queryByRole('treeitem', { expanded: true }),
         ).not.toBeInTheDocument();
     });
 
     it('should close a node by clicking on the item when no onClickItem function is provided', async () => {
         const user = userEvent.setup();
-        render(<TreeView defaultOpenedItems={['A']} data={tree}/>);
+        render(<TreeView data={tree} defaultOpenedItems={['A']}/>);
 
         await user.click(screen.getByText('A level1'));
 
         expect(
-            screen.queryByRole('treeitem', {expanded: true})
+            screen.queryByRole('treeitem', { expanded: true }),
         ).not.toBeInTheDocument();
     });
 
@@ -345,17 +345,17 @@ describe('Uncontrolled TreeView', () => {
         const user = userEvent.setup();
         const openHandler = vi.fn();
         const closeHandler = vi.fn();
-        const {container} = render(
+        const { container } = render(
             <TreeView
                 data={tree}
                 defaultOpenedItems={['A']}
-                onOpenItem={openHandler}
                 onCloseItem={closeHandler}
-            />
+                onOpenItem={openHandler}
+            />,
         );
 
         await user.click(
-            container.querySelector('.moonstone-treeView_itemToggle')
+            container.querySelector('.moonstone-treeView_itemToggle'),
         );
 
         expect(closeHandler).toHaveBeenCalled();

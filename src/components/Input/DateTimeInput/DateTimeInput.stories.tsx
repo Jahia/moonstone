@@ -1,10 +1,12 @@
-import {useState} from 'react';
-import type {Meta, StoryObj} from '@storybook/react-vite';
-import {userEvent, within} from 'storybook/test';
-import {Temporal} from 'temporal-polyfill';
-import {Button} from '~/components';
-import {DateTimeInput} from './DateTimeInput';
+import { useState } from 'react';
+import { userEvent, within } from 'storybook/test';
+import { Temporal } from 'temporal-polyfill';
+
+import { DateTimeInput } from './DateTimeInput';
 import markdownNotes from './DateTimeInput.md';
+import { Button } from '~/components';
+
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 // Fixed so the rendered snapshots stay stable across runs (stories double as visual tests).
 const baseDate = Temporal.PlainDate.from('2026-03-30');
@@ -15,35 +17,35 @@ export default {
     tags: ['beta'],
     parameters: {
         layout: 'centered',
-        actions: {argTypesRegex: '^on.*'},
-        notes: {markdown: markdownNotes}
+        actions: { argTypesRegex: '^on.*' },
+        notes: { markdown: markdownNotes },
     },
     args: {
         'data-testid': 'dateTimeInput',
-        locale: 'en',
-        defaultValue: baseDate, // Fixed (not the default "now") so the snapshot stays stable.
-        timeInputProps: {
-            'data-testid': 'timeInput'
+        'locale': 'en',
+        'defaultValue': baseDate, // Fixed (not the default "now") so the snapshot stays stable.
+        'timeInputProps': {
+            'data-testid': 'timeInput',
         },
-        timezoneSelectorProps: {
-            'data-testid': 'timezoneSelector'
-        }
-    }
+        'timezoneSelectorProps': {
+            'data-testid': 'timezoneSelector',
+        },
+    },
 } satisfies Meta<typeof DateTimeInput>;
 
 type Story = StoryObj<typeof DateTimeInput>;
 
 export const DateOnly: Story = {
     args: {
-        type: 'date'
+        type: 'date',
     },
-    play: async ({canvasElement}) => {
+    play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);
         await userEvent.click(canvas.getByTestId('dateTimeInput'));
         // Wait until the calendar is rendered before the screenshot is taken
         canvas.getByTestId('calendar');
     },
-    name: 'Date Only'
+    name: 'Date Only',
 };
 
 // `dateFormat` fixes the input order (US month-first); `locale` independently keeps the
@@ -56,10 +58,10 @@ export const CustomDateFormat: Story = {
         i18n: {
             todayButton: 'Aujourd\'hui',
             nextMonth: 'Mois suivant',
-            previousMonth: 'Mois précédent'
-        }
+            previousMonth: 'Mois précédent',
+        },
     },
-    name: 'Custom Date Format'
+    name: 'Custom Date Format',
 };
 
 export const DateTimeWithTimezone: Story = {
@@ -72,16 +74,16 @@ export const DateTimeWithTimezone: Story = {
         i18n: {
             todayButton: 'Aujourd\'hui',
             nextMonth: 'Mois suivant',
-            previousMonth: 'Mois précédent'
-        }
+            previousMonth: 'Mois précédent',
+        },
     },
-    play: async ({canvasElement}) => {
+    play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);
         await userEvent.click(canvas.getByTestId('dateTimeInput'));
         // Wait until the calendar is rendered before the screenshot is taken
         canvas.getByTestId('calendar');
     },
-    name: 'Date Time With Timezone'
+    name: 'Date Time With Timezone',
 };
 
 export const DateTimeWithTimezone12h: Story = {
@@ -89,15 +91,15 @@ export const DateTimeWithTimezone12h: Story = {
         type: 'zonedDateTime',
         timeFormat: '12h',
         defaultValue: baseDate.toPlainDateTime(Temporal.PlainTime.from('23:56')).toZonedDateTime('Europe/Paris').toInstant(),
-        defaultTimezone: 'Europe/Paris'
+        defaultTimezone: 'Europe/Paris',
     },
-    play: async ({canvasElement}) => {
+    play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);
         await userEvent.click(canvas.getByTestId('dateTimeInput'));
         // Wait until the calendar is rendered before the screenshot is taken
         canvas.getByTestId('calendar');
     },
-    name: 'Date Time With Timezone 12h'
+    name: 'Date Time With Timezone 12h',
 };
 
 export const DisabledDates: Story = {
@@ -106,30 +108,30 @@ export const DisabledDates: Story = {
         minDate: '2026-03-28',
         maxDate: '2026-04-05',
         disabledDates: ['2026-03-30'],
-        defaultValue: '2026-03-30'
+        defaultValue: '2026-03-30',
     },
-    play: async ({canvasElement}) => {
+    play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);
         await userEvent.click(canvas.getByTestId('dateTimeInput'));
         // Wait until the calendar is rendered before the screenshot is taken
         canvas.getByTestId('calendar');
     },
-    name: 'Disabled Dates'
+    name: 'Disabled Dates',
 };
 
 export const DisabledWeekends: Story = {
     args: {
         type: 'date',
         disabledDaysOfWeek: [0, 6],
-        locale: 'fr'
+        locale: 'fr',
     },
-    play: async ({canvasElement}) => {
+    play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);
         await userEvent.click(canvas.getByTestId('dateTimeInput'));
         // Wait until the calendar is rendered before the screenshot is taken
         canvas.getByTestId('calendar');
     },
-    name: 'Disabled Weekends'
+    name: 'Disabled Weekends',
 };
 
 export const Controlled: Story = {
@@ -139,19 +141,19 @@ export const Controlled: Story = {
         return (
             <div>
                 <DateTimeInput
-                    type="date"
-                    placeholder="Select a date"
                     locale="en"
+                    placeholder="Select a date"
+                    type="date"
                     value={value}
                     onChange={(_event, nextValue) => setValue(nextValue)}
                 />
                 <div>
-                    <Button variant="ghost" label="Set to 2026-01-01" onClick={() => setValue('2026-01-01')}/>
-                    <Button variant="ghost" label="Clear" onClick={() => setValue(null)}/>
+                    <Button label="Set to 2026-01-01" variant="ghost" onClick={() => setValue('2026-01-01')}/>
+                    <Button label="Clear" variant="ghost" onClick={() => setValue(null)}/>
                 </div>
                 <code>value = {value === null ? 'null' : value.toString()}</code>
             </div>
         );
     },
-    name: 'Controlled'
+    name: 'Controlled',
 };

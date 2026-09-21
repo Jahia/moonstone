@@ -1,8 +1,11 @@
-import React, {useEffect, useState} from 'react';
 import clsx from 'clsx';
-import type {CustomDropdownProps} from './CustomDropdown.types';
-import {Menu, Button} from '~/components';
-import {ChevronDown} from '~/icons';
+import React, { useEffect, useRef, useState } from 'react';
+
+import { Button, Menu } from '~/components';
+import { ChevronDown } from '~/icons';
+
+import type { CustomDropdownProps } from './CustomDropdown.types';
+
 import styles from './CustomDropdown.module.scss';
 
 export const CustomDropdown: React.FC<CustomDropdownProps> = ({
@@ -19,25 +22,28 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
     ...props
 }) => {
     const [isOpened, setIsOpened] = useState(false);
-    const [focusData, setFocusData] = useState({focused: false, event: null, lastSent: false});
+    const [isFocused, setIsFocused] = useState(false);
+    // A blur owed to the consumer but not delivered yet. It sits in a ref because queuing it
+    // must not trigger a render, and the event object has to survive until the menu closes:
+    // `onBlur` takes the original FocusEvent, and there is none left at that point.
+    const pendingBlurEventRef = useRef<React.FocusEvent | null>(null);
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
 
     const isEmpty = !children;
 
+    // Opening the menu moves focus off the trigger; that must not read as leaving the
+    // component, so a queued blur is only reported once the menu is closed again.
     useEffect(() => {
-        if (focusData.focused && focusData.event && !focusData.lastSent && onFocus) {
-            onFocus(focusData.event);
-            setFocusData(p => ({...p, lastSent: true}));
+        if (isFocused || isOpened || !pendingBlurEventRef.current) {
+            return;
         }
-    }, [onFocus, focusData]);
 
-    useEffect(() => {
-        if (!focusData.focused && !isOpened && focusData.event && focusData.lastSent && onBlur) {
-            onBlur(focusData.event);
-            setFocusData(p => ({...p, lastSent: false}));
-        }
-    }, [onBlur, isOpened, focusData]);
+        const event = pendingBlurEventRef.current;
+
+        pendingBlurEventRef.current = null;
+        onBlur?.(event);
+    }, [isFocused, isOpened, onBlur]);
 
     // ---
     // Functions to handle events
@@ -62,7 +68,7 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
     const menuMinWidth = 80;
     const anchorPosition = {
         top: 4,
-        left: 0
+        left: 0,
     };
     const menuMaxWidth = 'auto';
     const menuMaxHeight = '270px';
@@ -72,31 +78,35 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
             <Button
                 isDisabled={isDisabled}
                 isLoading={isLoading}
-                variant={variant}
-                size={size}
-                label={label}
-                icon={icon}
-                iconEnd={label && <ChevronDown role="presentation"/>}
-                aria-label={label}
-                aria-disabled={isDisabled || isEmpty}
                 aria-busy={isLoading ? true : undefined}
+                aria-disabled={isDisabled || isEmpty}
+                aria-label={label}
                 className={clsx(
                     ['moonstone-custom-dropdown-button', styles['moonstone-custom-dropdown-button']],
                     isOpened && ['moonstone-opened', styles['moonstone-opened']],
-                    className
+                    className,
                 )}
+                icon={icon}
+                iconEnd={label && <ChevronDown role="presentation"/>}
+                label={label}
+                size={size}
                 tabIndex={0}
+                variant={variant}
+                onBlur={(event) => {
+                    setIsFocused(false);
+                    pendingBlurEventRef.current = event;
+                }}
                 onClick={(!isDisabled && !isLoading) ? handleOpenMenu : undefined}
-                onKeyUp={e => {
+                onFocus={(event) => {
+                    setIsFocused(true);
+                    // Focus came back before the menu closed: the queued blur never happened.
+                    pendingBlurEventRef.current = null;
+                    onFocus?.(event);
+                }}
+                onKeyUp={(e) => {
                     if (e.key === 'Enter' && !isDisabled && !isLoading) {
                         handleOpenMenu(e);
                     }
-                }}
-                onBlur={event => {
-                    setFocusData(p => ({...p, focused: false, event}));
-                }}
-                onFocus={event => {
-                    setFocusData(p => ({...p, focused: true, event}));
                 }}
                 {...props}
             />
@@ -104,12 +114,12 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
             {isOpened && (
                 <Menu
                     isDisplayed
-                    className={clsx('moonstone-custom-dropdown-menu', styles['moonstone-custom-dropdown-menu'])}
-                    anchorPosition={anchorPosition}
-                    minWidth={minWidth}
-                    maxWidth={menuMaxWidth}
-                    maxHeight={menuMaxHeight}
                     anchorEl={anchorEl}
+                    anchorPosition={anchorPosition}
+                    className={clsx('moonstone-custom-dropdown-menu', styles['moonstone-custom-dropdown-menu'])}
+                    maxHeight={menuMaxHeight}
+                    maxWidth={menuMaxWidth}
+                    minWidth={minWidth}
                     onClose={handleCloseMenu}
                 >
                     {children}

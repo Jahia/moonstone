@@ -1,10 +1,11 @@
-import {fireEvent, render, screen} from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {Temporal} from 'temporal-polyfill';
-import {TimeInput} from './index';
+import { Temporal } from 'temporal-polyfill';
+
+import { TimeInput } from './index';
 
 const emittedTime = (handleChange: ReturnType<typeof vi.fn>) =>
-    (handleChange.mock.lastCall?.[1] as Temporal.PlainTime | null)?.toString({smallestUnit: 'minute'}) ?? null;
+    (handleChange.mock.lastCall?.[1] as Temporal.PlainTime | null)?.toString({ smallestUnit: 'minute' }) ?? null;
 
 describe('TimeInput', () => {
     it('should render empty when uncontrolled without a default value', () => {
@@ -48,7 +49,7 @@ describe('TimeInput', () => {
     });
 
     it('should display a 12h default value with meridiem', () => {
-        render(<TimeInput timeFormat="12h" defaultValue="14:30" onChange={() => null}/>);
+        render(<TimeInput defaultValue="14:30" timeFormat="12h" onChange={() => null}/>);
 
         expect(screen.getByDisplayValue('02:30')).toBeInTheDocument();
         expect(screen.getByText('PM')).toBeInTheDocument();

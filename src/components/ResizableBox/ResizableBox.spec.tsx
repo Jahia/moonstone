@@ -1,5 +1,6 @@
-import {render, screen} from '@testing-library/react';
-import {ResizableBox} from './index';
+import { render, screen } from '@testing-library/react';
+
+import { ResizableBox } from './index';
 
 describe('ResizableBox', () => {
     it('should display content', () => {
@@ -8,12 +9,12 @@ describe('ResizableBox', () => {
     });
 
     it('should add extra className', () => {
-        render(<ResizableBox data-testid="resizable-box" className="extra">My content here</ResizableBox>);
+        render(<ResizableBox className="extra" data-testid="resizable-box">My content here</ResizableBox>);
         expect(screen.getByTestId('resizable-box')).toHaveClass('extra');
     });
 
     it('should add extra attribute', () => {
-        render(<ResizableBox data-testid="resizable-box" data-custom="extra">My content here</ResizableBox>);
+        render(<ResizableBox data-custom="extra" data-testid="resizable-box">My content here</ResizableBox>);
         expect(screen.getByTestId('resizable-box')).toHaveAttribute('data-custom', 'extra');
     });
 });

@@ -14,5 +14,4 @@ export type ImgWrapperProps = Omit<React.ComponentPropsWithoutRef<'img'>, 'class
      * Additional classname
      */
     className?: string;
-}
-
+};

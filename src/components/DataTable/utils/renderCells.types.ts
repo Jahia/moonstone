@@ -1,6 +1,6 @@
+import type { DataTableProps, RowContext } from '../DataTable.types';
+import type { HeaderGroup, Row } from '@tanstack/react-table';
 import type React from 'react';
-import type {HeaderGroup, Row} from '@tanstack/react-table';
-import type {DataTableProps, RowContext} from '../DataTable.types';
 
 export type CustomColumnMeta<T extends NonNullable<unknown>> = {
     isSortable?: boolean;
@@ -9,7 +9,7 @@ export type CustomColumnMeta<T extends NonNullable<unknown>> = {
     isScrollable?: boolean;
     cellProps?:
         | (React.TdHTMLAttributes<HTMLTableCellElement> & Record<string, unknown>)
-    | ((context: RowContext<T>) => React.TdHTMLAttributes<HTMLTableCellElement> & Record<string, unknown>);
+        | ((context: RowContext<T>) => React.TdHTMLAttributes<HTMLTableCellElement> & Record<string, unknown>);
 };
 
 export type RenderHeadCellProps<T extends NonNullable<unknown>> = {

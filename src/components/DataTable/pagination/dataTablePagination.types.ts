@@ -1,5 +1,6 @@
 import React from 'react';
-import type {PaginationProps as ComponentPaginationProps} from '~/components/Pagination';
+
+import type { PaginationProps as ComponentPaginationProps } from '~/components/Pagination';
 
 type PaginationBaseProps = {
     /** Choices for items per page value */
@@ -39,21 +40,21 @@ export type PaginationUncontrolledProps = {
     onItemsPerPageChange?: ComponentPaginationProps['onItemsPerPageChange'];
 };
 
-export type DataTablePaginationProps =
-    | ({
-          /** Enable Table Pagination */
-          enablePagination: true;
-      } & PaginationBaseProps & (PaginationControlledProps | PaginationUncontrolledProps))
+export type DataTablePaginationProps
+    = | ({
+        /** Enable Table Pagination */
+        enablePagination: true;
+    } & PaginationBaseProps & (PaginationControlledProps | PaginationUncontrolledProps))
     | {
-          enablePagination?: false;
-          currentPage?: never;
-          itemsPerPage?: never;
-          onPageChange?: never;
-          onItemsPerPageChange?: never;
-          totalItems?: never;
-          defaultCurrentPage?: never;
-          defaultItemsPerPage?: never;
-          itemsPerPageOptions?: never;
-          i18n?: never;
-          paginationProps?: never;
-      };
+        enablePagination?: false;
+        currentPage?: never;
+        itemsPerPage?: never;
+        onPageChange?: never;
+        onItemsPerPageChange?: never;
+        totalItems?: never;
+        defaultCurrentPage?: never;
+        defaultItemsPerPage?: never;
+        itemsPerPageOptions?: never;
+        i18n?: never;
+        paginationProps?: never;
+    };

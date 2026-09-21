@@ -1,21 +1,22 @@
-import {render, screen} from '@testing-library/react';
-import {EmptyData} from './index';
-import {Love} from '~/icons';
+import { render, screen } from '@testing-library/react';
+
+import { EmptyData } from './index';
+import { Love } from '~/icons';
 
 describe('EmptyData', () => {
     it('should display additional class names', () => {
         render(
             <EmptyData
-                data-testid="empty-data"
                 className="extra"
+                data-testid="empty-data"
                 message="Empty"
-            />
+            />,
         );
         expect(screen.getByTestId('empty-data')).toHaveClass('extra');
     });
 
     it('should display title', () => {
-        render(<EmptyData title="No Data Found" message="Empty"/>);
+        render(<EmptyData message="Empty" title="No Data Found"/>);
         expect(screen.getByText('No Data Found')).toBeInTheDocument();
     });
 
@@ -29,7 +30,7 @@ describe('EmptyData', () => {
             <EmptyData
                 icon={<Love data-testid="empty-data-icon"/>}
                 message="Empty"
-            />
+            />,
         );
         expect(screen.getByTestId('empty-data-icon')).toBeInTheDocument();
     });
@@ -37,10 +38,10 @@ describe('EmptyData', () => {
     it('should display title, message and icon together', () => {
         render(
             <EmptyData
-                title="No Data"
-                message="Check back soon"
                 icon={<Love data-testid="icon"/>}
-            />
+                message="Check back soon"
+                title="No Data"
+            />,
         );
         expect(screen.getByText('No Data')).toBeInTheDocument();
         expect(screen.getByText('Check back soon')).toBeInTheDocument();

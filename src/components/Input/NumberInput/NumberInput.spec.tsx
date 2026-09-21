@@ -1,6 +1,7 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {NumberInput} from './index';
+
+import { NumberInput } from './index';
 
 describe('NumberInput', () => {
     it('should render', () => {
@@ -9,22 +10,22 @@ describe('NumberInput', () => {
     });
 
     it('should have value', () => {
-        render(<NumberInput value="15" data-testid="moonstone-numberInput"/>);
+        render(<NumberInput data-testid="moonstone-numberInput" value="15"/>);
         expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('15');
     });
 
     it('should have default value', () => {
-        render(<NumberInput defaultValue="15" data-testid="moonstone-numberInput"/>);
+        render(<NumberInput data-testid="moonstone-numberInput" defaultValue="15"/>);
         expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('15');
     });
 
     it('should have filtered value', () => {
-        render(<NumberInput value="test15" data-testid="moonstone-numberInput"/>);
+        render(<NumberInput data-testid="moonstone-numberInput" value="test15"/>);
         expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('15');
     });
 
     it('should have filtered default value', () => {
-        render(<NumberInput defaultValue="test15" data-testid="moonstone-numberInput"/>);
+        render(<NumberInput data-testid="moonstone-numberInput" defaultValue="test15"/>);
         expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('15');
     });
 
@@ -39,9 +40,9 @@ describe('NumberInput', () => {
 
         render(
             <NumberInput
-                    data-testid="moonstone-numberInput"
-                    onChange={handleChange}
-                />
+                data-testid="moonstone-numberInput"
+                onChange={handleChange}
+            />,
         );
         await user.type(screen.getByTestId('moonstone-numberInput'), '1');
 
@@ -53,8 +54,8 @@ describe('NumberInput', () => {
 
         render(
             <NumberInput
-                    data-testid="moonstone-numberInput"
-                />
+                data-testid="moonstone-numberInput"
+            />,
         );
         await user.type(screen.getByTestId('moonstone-numberInput'), 'test1234');
 
@@ -92,7 +93,7 @@ describe('NumberInput', () => {
     it('should increase value by step on arrowUp', async () => {
         const user = userEvent.setup();
 
-        render(<NumberInput value="5" step={1} data-testid="moonstone-numberInput"/>);
+        render(<NumberInput data-testid="moonstone-numberInput" step={1} value="5"/>);
         await user.keyboard('[Tab]');
         await user.keyboard('[ArrowUp]');
         expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('6');
@@ -101,7 +102,7 @@ describe('NumberInput', () => {
     it('should decrease value by step on arrowDown', async () => {
         const user = userEvent.setup();
 
-        render(<NumberInput value="5" step={1} data-testid="moonstone-numberInput"/>);
+        render(<NumberInput data-testid="moonstone-numberInput" step={1} value="5"/>);
         await user.keyboard('[Tab]');
         await user.keyboard('[ArrowDown]');
         expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('4');
@@ -110,7 +111,7 @@ describe('NumberInput', () => {
     it('should cap value to max on arrowUp', async () => {
         const user = userEvent.setup();
 
-        render(<NumberInput value="5" step={999} max={10} data-testid="moonstone-numberInput"/>);
+        render(<NumberInput data-testid="moonstone-numberInput" max={10} step={999} value="5"/>);
         await user.keyboard('[Tab]');
         await user.keyboard('[ArrowUp]');
         expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('10');
@@ -119,10 +120,10 @@ describe('NumberInput', () => {
     it('should cap value to min on arrowDown', async () => {
         const user = userEvent.setup();
 
-        render(<NumberInput value="5" step={999} min={2} data-testid="moonstone-numberInput"/>);
+        render(<NumberInput data-testid="moonstone-numberInput" min={2} step={999} value="5"/>);
         await user.keyboard('[Tab]');
         await user.keyboard('[ArrowDown]');
         expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('2');
     });
-}
+},
 );

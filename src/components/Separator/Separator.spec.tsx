@@ -1,5 +1,6 @@
-import {render, screen} from '@testing-library/react';
-import {Separator} from './index';
+import { render, screen } from '@testing-library/react';
+
+import { Separator } from './index';
 
 describe('Separator', () => {
     it('should display separator component', () => {
@@ -33,7 +34,7 @@ describe('Separator', () => {
     });
 
     it('should add extra classname', () => {
-        render(<Separator data-testid="separator" className="extra"/>);
+        render(<Separator className="extra" data-testid="separator"/>);
         expect(screen.getByTestId('separator')).toHaveClass('extra');
     });
 
@@ -43,7 +44,7 @@ describe('Separator', () => {
                 <Separator data-testid="separator-first" invisible="firstChild"/>
                 <div>Content</div>
                 <Separator data-testid="separator-second" invisible="firstChild"/>
-            </>
+            </>,
         );
         expect(screen.getByTestId('separator-first')).not.toBeVisible();
         expect(screen.getByTestId('separator-second')).toBeVisible();
@@ -55,7 +56,7 @@ describe('Separator', () => {
                 <Separator data-testid="separator-first" invisible="lastChild"/>
                 <div>Content</div>
                 <Separator data-testid="separator-second" invisible="lastChild"/>
-            </>
+            </>,
         );
         expect(screen.getByTestId('separator-first')).toBeVisible();
         expect(screen.getByTestId('separator-second')).not.toBeVisible();
@@ -71,7 +72,7 @@ describe('Separator', () => {
             <>
                 <Separator data-testid="separator" invisible="onlyChild"/>
                 <div>Content</div>
-            </>
+            </>,
         );
         expect(screen.getByTestId('separator')).toBeVisible();
     });
@@ -82,7 +83,7 @@ describe('Separator', () => {
                 <Separator data-testid="separator-first" invisible="firstOrLastChild"/>
                 <div>Content</div>
                 <Separator data-testid="separator-second" invisible="firstOrLastChild"/>
-            </>
+            </>,
         );
         expect(screen.getByTestId('separator-first')).not.toBeVisible();
         expect(screen.getByTestId('separator-second')).not.toBeVisible();

@@ -1,13 +1,10 @@
-import React, {useLayoutEffect, useRef, useState} from 'react';
+import { useMergeRefs } from '@floating-ui/react';
 import clsx from 'clsx';
-import {useMergeRefs} from '@floating-ui/react';
-import {Temporal} from 'temporal-polyfill';
-import {Dropdown} from '~/components';
-import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
-import {Clock} from '~/icons';
-import {layout} from '~/globals/css-utils';
-import {BaseInput} from '../BaseInput';
-import {toPlainTime} from '../utils/temporal';
+import React, { useLayoutEffect, useRef, useState } from 'react';
+import { Temporal } from 'temporal-polyfill';
+
+import { BaseInput } from '../BaseInput';
+import { toPlainTime } from '../utils/temporal';
 import {
     formatTimeInput,
     getMeridiem,
@@ -15,9 +12,15 @@ import {
     parseTimeInput,
     splitTime,
     stepTimeSegment,
-    type TimeSegment
+    type TimeSegment,
 } from './timeHelpers';
-import type {ControlledTimeInputProps} from './TimeInput.types';
+import { Dropdown } from '~/components';
+import { layout } from '~/globals/css-utils';
+import { Clock } from '~/icons';
+
+import type { ControlledTimeInputProps } from './TimeInput.types';
+import type { DropdownDataOption } from '~/components/Dropdown/Dropdown.types';
+
 import styles from './TimeInput.module.scss';
 
 export const ControlledTimeInput = React.forwardRef<HTMLInputElement, ControlledTimeInputProps>(({
@@ -34,7 +37,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
     ...props
 }, ref) => {
     const time = toPlainTime(value);
-    const {hour, minute} = splitTime(time, timeFormat);
+    const { hour, minute } = splitTime(time, timeFormat);
     // 12h only — its presence is the mode signal. `undefined` in 24h; an empty 12h field is AM.
     const meridiem = timeFormat === '12h' ? (time ? getMeridiem(time) : 'AM') : undefined;
 
@@ -52,7 +55,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
     const pendingTimeSegment = useRef<TimeSegment | null>(null);
     useLayoutEffect(() => {
         if (pendingTimeSegment.current && inputRef.current) {
-            const {start, end} = getTimeSegments(inputRef.current.value)[pendingTimeSegment.current];
+            const { start, end } = getTimeSegments(inputRef.current.value)[pendingTimeSegment.current];
             inputRef.current.setSelectionRange(start, end);
             pendingTimeSegment.current = null;
         }
@@ -78,7 +81,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
         // Left/Right jump between segments (no value change).
         if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
             event.preventDefault();
-            const {start, end} = segments[event.key === 'ArrowLeft' ? 'hour' : 'minute'];
+            const { start, end } = segments[event.key === 'ArrowLeft' ? 'hour' : 'minute'];
             input.setSelectionRange(start, end);
             return;
         }
@@ -89,9 +92,9 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
             const caretIndex = input.selectionStart ?? displayValue.length;
             const segment: TimeSegment = caretIndex > segments.hour.end ? 'minute' : 'hour';
             const base = parseTime(displayValue) ?? time;
-            const next = base ?
-                stepTimeSegment(base, segment, event.key === 'ArrowUp' ? 1 : -1, timeFormat) :
-                Temporal.PlainTime.from('00:00');
+            const next = base
+                ? stepTimeSegment(base, segment, event.key === 'ArrowUp' ? 1 : -1, timeFormat)
+                : Temporal.PlainTime.from('00:00');
 
             pendingTimeSegment.current = segment;
             emitChange(event, next);
@@ -103,33 +106,39 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
             <BaseInput
                 ref={handleRef}
                 {...props}
-                value={displayValue}
-                className={timeFormat === '12h' ? styles.field_12h : undefined}
-                size={size}
-                variant={variant}
-                placeholder={placeholder}
                 isDisabled={isDisabled}
                 isReadOnly={isReadOnly}
                 autoComplete="off"
+                className={timeFormat === '12h' ? styles.field_12h : undefined}
                 icon={<Clock aria-hidden/>}
                 inputMode="numeric"
-                onChange={event => setDraft(formatTimeInput(event.target.value, timeFormat))}
-                onKeyDown={handleKeyDown}
-                onBlur={event => {
+                placeholder={placeholder}
+                size={size}
+                value={displayValue}
+                variant={variant}
+                onBlur={(event) => {
                     if (draft !== null) {
                         emitChange(event, parseTime(draft));
                     }
                 }}
+                onChange={event => setDraft(formatTimeInput(event.target.value, timeFormat))}
+                onKeyDown={handleKeyDown}
             />
             {meridiem && (
                 <Dropdown
                     {...meridiemDropdownProps}
-                    className={clsx(styles.meridiemDropdown, meridiemDropdownProps?.className)}
-                    data={[{label: 'AM', value: 'AM'}, {label: 'PM', value: 'PM'}]}
-                    value={meridiem}
-                    size={size === 'big' ? 'medium' : 'small'}
-                    variant={variant}
                     isDisabled={isDisabled || isReadOnly}
+                    className={clsx(styles.meridiemDropdown, meridiemDropdownProps?.className)}
+                    data={[{
+                        label: 'AM',
+                        value: 'AM',
+                    }, {
+                        label: 'PM',
+                        value: 'PM',
+                    }]}
+                    size={size === 'big' ? 'medium' : 'small'}
+                    value={meridiem}
+                    variant={variant}
                     onChange={(event: React.SyntheticEvent, item?: DropdownDataOption) => {
                         // An empty field has no time to re-emit.
                         if (displayValue && (item?.value === 'AM' || item?.value === 'PM')) {

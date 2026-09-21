@@ -1,9 +1,11 @@
 import React from 'react';
-import type {DynamicFieldsetProps} from './DynamicFieldset.types';
-import {UncontrolledDynamicFieldset} from './UncontrolledDynamicFieldset';
-import {ControlledDynamicFieldset} from './ControlledDynamicFieldset';
 
-export const DynamicFieldset: React.FC<DynamicFieldsetProps> = ({checked, onChange, ...props}) => {
+import { ControlledDynamicFieldset } from './ControlledDynamicFieldset';
+import { UncontrolledDynamicFieldset } from './UncontrolledDynamicFieldset';
+
+import type { DynamicFieldsetProps } from './DynamicFieldset.types';
+
+export const DynamicFieldset: React.FC<DynamicFieldsetProps> = ({ checked, onChange, ...props }) => {
     if (typeof checked === 'undefined') {
         return <UncontrolledDynamicFieldset onChange={onChange} {...props}/>;
     }

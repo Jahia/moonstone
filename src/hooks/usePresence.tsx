@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 
 /**
  * Keeps a component present in the DOM while its exit animation plays.
@@ -19,14 +19,23 @@ import {useEffect, useState} from 'react';
 export const usePresence = (isOpen: boolean, exitDuration: number) => {
     const [isPresent, setIsPresent] = useState(isOpen);
 
+    // Entering is derived during render rather than in an effect: React re-renders
+    // before painting, so the element is present on the very first open frame.
+    if (isOpen && !isPresent) {
+        setIsPresent(true);
+    }
+
     useEffect(() => {
-        if (isOpen) {
-            setIsPresent(true);
-        } else if (isPresent) {
-            const timer = setTimeout(() => setIsPresent(false), exitDuration);
-            return () => clearTimeout(timer);
+        if (isOpen || !isPresent) {
+            return;
         }
+
+        const timer = setTimeout(() => setIsPresent(false), exitDuration);
+        return () => clearTimeout(timer);
     }, [isOpen, isPresent, exitDuration]);
 
-    return {isPresent, state: isOpen ? 'open' : 'closed'};
+    return {
+        isPresent,
+        state: isOpen ? 'open' : 'closed',
+    };
 };

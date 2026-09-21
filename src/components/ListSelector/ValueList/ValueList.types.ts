@@ -4,68 +4,68 @@ type Value = {
     /**
      * Value or id
      */
-    value: string,
+    value: string;
     /**
      * Value lable
      */
-    label: string,
+    label: string;
     /**
      * Index in list
      */
-    index?: number,
+    index?: number;
     /**
      * Item is temporary
      */
-    tempItem?: boolean
-}
+    tempItem?: boolean;
+};
 
 export type ValueListProps = {
     /**
      * List values
      */
-    values?: Value[]
+    values?: Value[];
     /**
      * Set filter
      */
-    setFilter: (filter: string) => void,
+    setFilter: (filter: string) => void;
     /**
      * Orientation of the list (left side / right side)
      */
-    iconEnd: React.ReactElement,
+    iconEnd: React.ReactElement;
     /**
      * Dragged item value/id
      */
-    draggedId?: string
+    draggedId?: string;
     /**
      * Whether the component cannot be modified
      */
-    isReadOnly?: boolean
+    isReadOnly?: boolean;
     /**
      * Additional classes for <ul> element
      */
-    listClasses?: string[],
+    listClasses?: string[];
     /**
      * List role
      */
-    role: string,
+    role: string;
     /**
      * OnClick callback
      */
-    onClick: (e:React.MouseEvent, value: Value) => void
+    onClick: (e: React.MouseEvent, value: Value) => void;
     /**
      * OnDragStart callback
      */
-    onDragStart: (e:React.DragEvent, value: Value) => void
+    onDragStart: (e: React.DragEvent, value: Value) => void;
     /**
      * OnDragEnd callback
      */
-    onDragEnd: (e:React.DragEvent, value: Value) => void
+    onDragEnd: (e: React.DragEvent, value: Value) => void;
     /**
      * OnDragOver callback
      */
-    onDragOver: (e:React.DragEvent, value: Value) => void
+    onDragOver: (e: React.DragEvent, value: Value) => void;
     /**
      * OnDrop callback
      */
-    onDrop: (e:React.DragEvent, value: Value) => void
-}
+    onDrop: (e: React.DragEvent, value: Value) => void;
+};

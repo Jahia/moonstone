@@ -1,7 +1,8 @@
 import React from 'react';
-import type {TableCellProps} from '~/components/DataTable/cells';
-import type {DataTablePaginationProps} from './pagination';
-export type {PaginationUncontrolledProps} from './pagination';
+
+import type { DataTablePaginationProps } from './pagination';
+import type { TableCellProps } from '~/components/DataTable/cells';
+export type { PaginationUncontrolledProps } from './pagination';
 
 export type SubRowKey = 'subRows';
 
@@ -117,69 +118,69 @@ export type DataTableBaseProps<T extends NonNullable<unknown>> = {
 
 export type SortDirection = 'ascending' | 'descending';
 
-type SortingProps<T extends NonNullable<unknown>> =
+type SortingProps<T extends NonNullable<unknown>>
+    = | {
+        /** Enable sorting for the table */
+        enableSorting: true;
+        /** Current sort column (controlled) */
+        sortBy: Extract<Exclude<keyof T, SubRowKey>, string>;
+        /** Current sort direction (controlled) */
+        sortDirection: SortDirection;
+        /** Callback when sort changes */
+        onSortChange: (sortBy: Extract<Exclude<keyof T, SubRowKey>, string>, sortDirection: SortDirection) => void;
+        defaultSortBy?: never;
+        defaultSortDirection?: never;
+    }
     | {
-          /** Enable sorting for the table */
-          enableSorting: true;
-          /** Current sort column (controlled) */
-          sortBy: Extract<Exclude<keyof T, SubRowKey>, string>;
-          /** Current sort direction (controlled) */
-          sortDirection: SortDirection;
-          /** Callback when sort changes */
-          onSortChange: (sortBy: Extract<Exclude<keyof T, SubRowKey>, string>, sortDirection: SortDirection) => void;
-          defaultSortBy?: never;
-          defaultSortDirection?: never;
-      }
+        /** Enable sorting for the table */
+        enableSorting: true;
+        sortBy?: never;
+        sortDirection?: never;
+        /** Callback when sort changes */
+        onSortChange?: (sortBy: Extract<Exclude<keyof T, SubRowKey>, string>, sortDirection: SortDirection) => void;
+        /** Initial sort column (uncontrolled) */
+        defaultSortBy?: Extract<Exclude<keyof T, SubRowKey>, string>;
+        /** Initial sort direction (uncontrolled) */
+        defaultSortDirection?: SortDirection;
+    }
     | {
-          /** Enable sorting for the table */
-          enableSorting: true;
-          sortBy?: never;
-          sortDirection?: never;
-          /** Callback when sort changes */
-          onSortChange?: (sortBy: Extract<Exclude<keyof T, SubRowKey>, string>, sortDirection: SortDirection) => void;
-          /** Initial sort column (uncontrolled) */
-          defaultSortBy?: Extract<Exclude<keyof T, SubRowKey>, string>;
-          /** Initial sort direction (uncontrolled) */
-          defaultSortDirection?: SortDirection;
-      }
-    | {
-          enableSorting?: false;
-          sortBy?: never;
-          sortDirection?: never;
-          onSortChange?: never;
-          defaultSortBy?: never;
-          defaultSortDirection?: never;
-      };
+        enableSorting?: false;
+        sortBy?: never;
+        sortDirection?: never;
+        onSortChange?: never;
+        defaultSortBy?: never;
+        defaultSortDirection?: never;
+    };
 
-export type SelectionProps =
+export type SelectionProps
+    = | {
+        /** Enable selection for the table */
+        enableSelection: true;
+        /** Selected row primaryKey values (controlled) */
+        selection: string[];
+        /** Callback when selection changes */
+        onChangeSelection: (selection: string[]) => void;
+        defaultSelection?: never;
+        /** Custom HTML attributes added to the TableCell selection */
+        selectionCellProps?: Omit<TableCellProps, 'children' | 'width' | 'component'>;
+    }
     | {
-          /** Enable selection for the table */
-          enableSelection: true;
-          /** Selected row primaryKey values (controlled) */
-          selection: string[];
-          /** Callback when selection changes */
-          onChangeSelection: (selection: string[]) => void;
-          defaultSelection?: never;
-          /** Custom HTML attributes added to the TableCell selection */
-          selectionCellProps?: Omit<TableCellProps, 'children' | 'width' | 'component'>;
-      }
+        enableSelection: true;
+        /** Initial selected rows primaryKey values (uncontrolled) */
+        defaultSelection?: string[];
+        /** Optional callback to observe selection changes */
+        onChangeSelection?: (selection: string[]) => void;
+        selection?: never;
+        /** Custom HTML attributes added to the TableCell selection */
+        selectionCellProps?: Omit<TableCellProps, 'children' | 'width' | 'component'>;
+    }
     | {
-          enableSelection: true;
-          /** Initial selected rows primaryKey values (uncontrolled) */
-          defaultSelection?: string[];
-          /** Optional callback to observe selection changes */
-          onChangeSelection?: (selection: string[]) => void;
-          selection?: never;
-          /** Custom HTML attributes added to the TableCell selection */
-          selectionCellProps?: Omit<TableCellProps, 'children' | 'width' | 'component'>;
-      }
-    | {
-          enableSelection?: false;
-          selection?: never;
-          defaultSelection?: never;
-          onChangeSelection?: never;
-          selectionCellProps?: never;
-      };
+        enableSelection?: false;
+        selection?: never;
+        defaultSelection?: never;
+        onChangeSelection?: never;
+        selectionCellProps?: never;
+    };
 
 export type RenderOptions = {
     /**
@@ -214,39 +215,39 @@ type RenderRowProps<T extends NonNullable<unknown>> = {
     renderRow?: (context: RenderRowContext<T>) => React.ReactNode;
 };
 
-type StructuredProps =
+type StructuredProps
+    = | {
+        /** Whether the table data has a hierarchical structure with subRows */
+        isStructured: true;
+        /** IDs of currently expanded rows (controlled). */
+        expandedRows: string[];
+        /** Callback fired when expanded rows change (required in controlled mode). */
+        onExpandChange: (expandedRows: string[]) => void;
+        defaultExpandedRows?: never;
+    }
     | {
-          /** Whether the table data has a hierarchical structure with subRows */
-          isStructured: true;
-          /** IDs of currently expanded rows (controlled). */
-          expandedRows: string[];
-          /** Callback fired when expanded rows change (required in controlled mode). */
-          onExpandChange: (expandedRows: string[]) => void;
-          defaultExpandedRows?: never;
-      }
-    | {
-          /** Whether the table data has a hierarchical structure with subRows */
-          isStructured: true;
-          expandedRows?: never;
-          /** Callback fired when expanded rows change (uncontrolled). */
-          onExpandChange?: (expandedRows: string[]) => void;
-          /**
+        /** Whether the table data has a hierarchical structure with subRows */
+        isStructured: true;
+        expandedRows?: never;
+        /** Callback fired when expanded rows change (uncontrolled). */
+        onExpandChange?: (expandedRows: string[]) => void;
+        /**
            * IDs of rows expanded at mount (uncontrolled).
            * Pass `true` to expand all rows (default when `isStructured` is set).
            */
-          defaultExpandedRows?: true | string[];
-      }
+        defaultExpandedRows?: true | string[];
+    }
     | {
-          isStructured?: false;
-          expandedRows?: never;
-          onExpandChange?: never;
-          defaultExpandedRows?: never;
-      };
+        isStructured?: false;
+        expandedRows?: never;
+        onExpandChange?: never;
+        defaultExpandedRows?: never;
+    };
 
-export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'children'> &
-    DataTableBaseProps<T> &
-    SortingProps<T> &
-    SelectionProps &
-    StructuredProps &
-    RenderRowProps<T> &
-    DataTablePaginationProps;
+export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'children'>
+    & DataTableBaseProps<T>
+    & SortingProps<T>
+    & SelectionProps
+    & StructuredProps
+    & RenderRowProps<T>
+    & DataTablePaginationProps;

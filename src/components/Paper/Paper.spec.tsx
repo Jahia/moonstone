@@ -1,6 +1,7 @@
-import {createRef} from 'react';
-import {render, screen} from '@testing-library/react';
-import {Paper} from './index';
+import { render, screen } from '@testing-library/react';
+import { createRef } from 'react';
+
+import { Paper } from './index';
 
 describe('Paper', () => {
     it('should display content', () => {
@@ -14,19 +15,19 @@ describe('Paper', () => {
     });
 
     it('should display additional className', () => {
-        render(<Paper data-testid="moonstone-paper" className="extra">Content here</Paper>);
+        render(<Paper className="extra" data-testid="moonstone-paper">Content here</Paper>);
         expect(screen.getByTestId('moonstone-paper')).toHaveClass('extra');
     });
 
     it('should add additional attributes', () => {
-        render(<Paper data-testid="moonstone-paper" data-custom="test">Content here</Paper>);
+        render(<Paper data-custom="test" data-testid="moonstone-paper">Content here</Paper>);
         expect(screen.getByTestId('moonstone-paper')).toHaveAttribute('data-custom', 'test');
     });
 
     it('should forward ref', () => {
         const ref = createRef<HTMLElement>();
 
-        render(<Paper ref={ref} data-testid="moonstone-paper">Content here</Paper>);
+        render(<Paper data-testid="moonstone-paper" ref={ref}>Content here</Paper>);
         expect(ref.current).toBe(screen.getByTestId('moonstone-paper'));
     });
 

@@ -51,4 +51,4 @@ export type HeaderProps = Omit<React.ComponentPropsWithoutRef<'header'>, 'classN
      * Additional classname
      */
     className?: string;
-}
+};

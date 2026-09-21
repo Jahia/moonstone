@@ -1,35 +1,35 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import {FieldBoolean} from './index';
-import {Button} from '~/components/Button';
-import {Chip} from '~/components/Chip';
-import {Add, Love} from '~/icons';
+import { FieldBoolean } from './index';
+import { Button } from '~/components/Button';
+import { Chip } from '~/components/Chip';
+import { Add, Love } from '~/icons';
 
 const requiredProps = {
     id: 'test',
-    label: 'FieldBoolean label'
+    label: 'FieldBoolean label',
 };
 
 describe('FieldBoolean', () => {
     it('should display additional class names', () => {
-        render(<FieldBoolean {...requiredProps} data-testid="fieldBoolean" className="extra"/>);
+        render(<FieldBoolean {...requiredProps} className="extra" data-testid="fieldBoolean"/>);
         expect(screen.getByTestId('fieldBoolean')).toHaveClass('extra');
     });
 
     it('should display label', () => {
         render(<FieldBoolean {...requiredProps}/>);
-        expect(screen.queryByText('FieldBoolean label')).toBeInTheDocument();
+        expect(screen.getByText('FieldBoolean label')).toBeInTheDocument();
     });
 
     it('should display chips', () => {
         render(<FieldBoolean {...requiredProps} chips={<Chip label="FieldBoolean chip"/>}/>);
-        expect(screen.queryByText('FieldBoolean chip')).toBeInTheDocument();
+        expect(screen.getByText('FieldBoolean chip')).toBeInTheDocument();
     });
 
     it('should display helper', () => {
         render(<FieldBoolean {...requiredProps} helper="FieldBoolean helper"/>);
-        expect(screen.queryByText('FieldBoolean helper')).toBeInTheDocument();
+        expect(screen.getByText('FieldBoolean helper')).toBeInTheDocument();
     });
 
     it('should display formatted helper', () => {
@@ -41,9 +41,9 @@ describe('FieldBoolean', () => {
         render(
             <FieldBoolean
                 {...requiredProps}
+                checkboxAttributes={{ value: 'checkbox' }}
                 className="extra"
-                checkboxAttributes={{value: 'checkbox'}}
-            />
+            />,
         );
         expect(screen.getByRole('checkbox')).toBeInTheDocument();
     });
@@ -52,9 +52,9 @@ describe('FieldBoolean', () => {
         render(
             <FieldBoolean
                 {...requiredProps}
+                checkboxAttributes={{ value: 'checkbox' }}
                 className="extra"
-                checkboxAttributes={{value: 'checkbox'}}
-            />
+            />,
         );
         await userEvent.click(screen.getByRole('checkbox'));
         expect(screen.getByRole('checkbox')).toBeChecked();
@@ -62,20 +62,20 @@ describe('FieldBoolean', () => {
 
     it('should display buttons', () => {
         render(<FieldBoolean {...requiredProps} buttons={<Button label="Click me"/>}/>);
-        expect(screen.queryByText('Click me')).toBeInTheDocument();
+        expect(screen.getByText('Click me')).toBeInTheDocument();
     });
 
     it('should display multiple buttons', () => {
         render(
             <FieldBoolean
                 {...requiredProps}
-                buttons={
+                buttons={(
                     <>
                         <Button icon={<Add/>} label="Click me"/>
                         <Button icon={<Love/>} label="Click me"/>
                     </>
-                }
-            />
+                )}
+            />,
         );
         expect(screen.getAllByText('Click me')).toHaveLength(2);
     });
@@ -86,10 +86,10 @@ describe('FieldBoolean', () => {
             <FieldBoolean
                 {...requiredProps}
                 buttons={<Button data-testid="testButton" label="Click me" onClick={onClick}/>}
-            />
+            />,
         );
         await userEvent.click(
-            screen.getByTestId('testButton')
+            screen.getByTestId('testButton'),
         );
         expect(onClick).toHaveBeenCalled();
     });
@@ -97,16 +97,16 @@ describe('FieldBoolean', () => {
     it('should display as error variant', () => {
         render(<FieldBoolean {...requiredProps} hasError data-testid="fieldBoolean"/>);
         expect(screen.getByTestId('fieldBoolean')).toHaveClass(
-            'moonstone-field_error'
+            'moonstone-field_error',
         );
     });
 
     it('should display errorMessage', () => {
         render(
-            <FieldBoolean {...requiredProps} hasError errorMessage="FieldBoolean errorMessage"/>
+            <FieldBoolean {...requiredProps} hasError errorMessage="FieldBoolean errorMessage"/>,
         );
         expect(
-            screen.queryByText('FieldBoolean errorMessage')
+            screen.getByText('FieldBoolean errorMessage'),
         ).toBeInTheDocument();
     });
 });

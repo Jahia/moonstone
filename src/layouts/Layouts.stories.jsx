@@ -1,37 +1,37 @@
-import {useState} from 'react';
+import clsx from 'clsx';
+import { useState } from 'react';
 
-import {treeData, treeDataNested} from '~/data';
-import {LayoutApp, LayoutModule, LayoutContent} from '~/layouts';
-import {
-    Header,
-    PrimaryNav,
-    SecondaryNav,
-    SecondaryNavHeader,
-    Accordion,
-    AccordionItem,
-    TreeView,
-    Paper
-} from '~/components';
 import {
     FakePrimaryNavigation,
     FakeSecondaryNavigation,
-    lorem
+    lorem,
 } from '~/__storybook__/FakeComponents';
-import {Bug, Love} from '~/icons';
-import clsx from 'clsx';
-import {layout} from '~/globals/css-utils.js';
+import {
+    Accordion,
+    AccordionItem,
+    Header,
+    Paper,
+    PrimaryNav,
+    SecondaryNav,
+    SecondaryNavHeader,
+    TreeView,
+} from '~/components';
+import { treeData, treeDataNested } from '~/data';
+import { layout } from '~/globals/css-utils.js';
+import { Bug, Love } from '~/icons';
+import { LayoutApp, LayoutContent, LayoutModule } from '~/layouts';
 
 const accordionIds = ['01', '02', '03'];
 
 export default {
-    title: 'Layouts/Demos'
+    title: 'Layouts/Demos',
 };
 
 export const Example = () => {
     const [selectedItems1, setSelectedItems1] = useState([]);
     const [selectedItems2, setSelectedItems2] = useState([]);
 
-    const handleSelectItem1 = node => {
+    const handleSelectItem1 = (node) => {
         if (selectedItems1.includes(node.id)) {
             setSelectedItems1(selectedItems1.filter(item => item !== node.id));
         } else {
@@ -39,7 +39,7 @@ export const Example = () => {
         }
     };
 
-    const handleSelectItem2 = node => {
+    const handleSelectItem2 = (node) => {
         if (selectedItems2.includes(node.id)) {
             setSelectedItems2(selectedItems2.filter(item => item !== node.id));
         } else {
@@ -48,57 +48,57 @@ export const Example = () => {
     };
 
     return (
-        <div style={{transform: 'scale(1)'}}>
+        <div style={{ transform: 'scale(1)' }}>
             <LayoutApp
-        navigation={<PrimaryNav>level 1</PrimaryNav>}
-        content={
-            <LayoutModule
-            navigation={
-                <SecondaryNav
-                header={<SecondaryNavHeader>Header</SecondaryNavHeader>}
-                >
-                    <Accordion isReversed defaultOpenedItem={accordionIds[1]}>
-                        <AccordionItem
-                    id={accordionIds[0]}
-                    icon={<Love size="big"/>}
-                    label="Default tree"
-                        >
-                            <TreeView
-                      isReversed
-                      data={treeData}
-                      selectedItems={selectedItems1}
-                      onClickItem={handleSelectItem1}
+                content={(
+                    <LayoutModule
+                        content={(
+                            <LayoutContent
+                                content={(
+                                    <>
+                                        <Paper>Content</Paper>
+                                        <Paper>{lorem}</Paper>
+                                    </>
+                                )}
+                                header={<Header title="Page title"/>}
+                            />
+                        )}
+                        navigation={(
+                            <SecondaryNav
+                                header={<SecondaryNavHeader>Header</SecondaryNavHeader>}
+                            >
+                                <Accordion isReversed defaultOpenedItem={accordionIds[1]}>
+                                    <AccordionItem
+                                        icon={<Love size="big"/>}
+                                        id={accordionIds[0]}
+                                        label="Default tree"
+                                    >
+                                        <TreeView
+                                            isReversed
+                                            data={treeData}
+                                            selectedItems={selectedItems1}
+                                            onClickItem={handleSelectItem1}
+                                        />
+                                    </AccordionItem>
+                                    <AccordionItem
+                                        icon={<Bug size="big"/>}
+                                        id={accordionIds[1]}
+                                        label="Nested"
+                                    >
+                                        <TreeView
+                                            isReversed
+                                            data={treeDataNested}
+                                            selectedItems={selectedItems2}
+                                            onClickItem={handleSelectItem2}
+                                        />
+                                    </AccordionItem>
+                                </Accordion>
+                            </SecondaryNav>
+                        )}
                     />
-                        </AccordionItem>
-                        <AccordionItem
-                    id={accordionIds[1]}
-                    icon={<Bug size="big"/>}
-                    label="Nested"
-                        >
-                            <TreeView
-                      isReversed
-                      data={treeDataNested}
-                      selectedItems={selectedItems2}
-                      onClickItem={handleSelectItem2}
-                    />
-                        </AccordionItem>
-                    </Accordion>
-                </SecondaryNav>
-            }
-            content={
-                <LayoutContent
-                header={<Header title="Page title"/>}
-                content={
-                    <>
-                        <Paper>Content</Paper>
-                        <Paper>{lorem}</Paper>
-                    </>
-                }
-              />
-            }
-          />
-        }
-      />
+                )}
+                navigation={<PrimaryNav>level 1</PrimaryNav>}
+            />
         </div>
     );
 };
@@ -107,7 +107,7 @@ export const ExampleLight = () => {
     const [selectedItems1, setSelectedItems1] = useState([]);
     const [selectedItems2, setSelectedItems2] = useState([]);
 
-    const handleSelectItem1 = node => {
+    const handleSelectItem1 = (node) => {
         if (selectedItems1.includes(node.id)) {
             setSelectedItems1(selectedItems1.filter(item => item !== node.id));
         } else {
@@ -115,7 +115,7 @@ export const ExampleLight = () => {
         }
     };
 
-    const handleSelectItem2 = node => {
+    const handleSelectItem2 = (node) => {
         if (selectedItems2.includes(node.id)) {
             setSelectedItems2(selectedItems2.filter(item => item !== node.id));
         } else {
@@ -124,94 +124,94 @@ export const ExampleLight = () => {
     };
 
     return (
-        <div style={{transform: 'scale(1)'}}>
+        <div style={{ transform: 'scale(1)' }}>
             <LayoutApp
-        navigation={<PrimaryNav>level 1</PrimaryNav>}
-        content={
-            <LayoutModule
-            navigation={
-                <SecondaryNav
-                isReversed={false}
-                header={<SecondaryNavHeader>Header</SecondaryNavHeader>}
-                >
-                    <Accordion defaultOpenedItem={accordionIds[1]}>
-                        <AccordionItem
-                    id={accordionIds[0]}
-                    icon={<Love size="big"/>}
-                    label="Default tree"
-                        >
-                            <TreeView
-                      data={treeData}
-                      selectedItems={selectedItems1}
-                      onClickItem={handleSelectItem1}
+                content={(
+                    <LayoutModule
+                        content={(
+                            <LayoutContent
+                                content={(
+                                    <>
+                                        <Paper>Content</Paper>
+                                        <Paper>{lorem}</Paper>
+                                    </>
+                                )}
+                                header={<Header title="Page title"/>}
+                            />
+                        )}
+                        navigation={(
+                            <SecondaryNav
+                                isReversed={false}
+                                header={<SecondaryNavHeader>Header</SecondaryNavHeader>}
+                            >
+                                <Accordion defaultOpenedItem={accordionIds[1]}>
+                                    <AccordionItem
+                                        icon={<Love size="big"/>}
+                                        id={accordionIds[0]}
+                                        label="Default tree"
+                                    >
+                                        <TreeView
+                                            data={treeData}
+                                            selectedItems={selectedItems1}
+                                            onClickItem={handleSelectItem1}
+                                        />
+                                    </AccordionItem>
+                                    <AccordionItem
+                                        icon={<Bug size="big"/>}
+                                        id={accordionIds[1]}
+                                        label="Nested"
+                                    >
+                                        <TreeView
+                                            data={treeDataNested}
+                                            selectedItems={selectedItems2}
+                                            onClickItem={handleSelectItem2}
+                                        />
+                                    </AccordionItem>
+                                </Accordion>
+                            </SecondaryNav>
+                        )}
                     />
-                        </AccordionItem>
-                        <AccordionItem
-                    id={accordionIds[1]}
-                    icon={<Bug size="big"/>}
-                    label="Nested"
-                        >
-                            <TreeView
-                      data={treeDataNested}
-                      selectedItems={selectedItems2}
-                      onClickItem={handleSelectItem2}
-                    />
-                        </AccordionItem>
-                    </Accordion>
-                </SecondaryNav>
-            }
-            content={
-                <LayoutContent
-                header={<Header title="Page title"/>}
-                content={
-                    <>
-                        <Paper>Content</Paper>
-                        <Paper>{lorem}</Paper>
-                    </>
-                }
-              />
-            }
-          />
-        }
-      />
+                )}
+                navigation={<PrimaryNav>level 1</PrimaryNav>}
+            />
         </div>
     );
 };
 
 export const Centered = () => (
-    <div style={{transform: 'scale(1)'}}>
+    <div style={{ transform: 'scale(1)' }}>
         <LayoutApp
-      navigation={<FakePrimaryNavigation/>}
-      content={
-          <LayoutModule
-          navigation={<FakeSecondaryNavigation/>}
-          content={
-              <LayoutContent
-              isCentered
-              header={<Header title="Header"/>}
-              content={<Paper>Content</Paper>}
-            />
-          }
+            content={(
+                <LayoutModule
+                    content={(
+                        <LayoutContent
+                            isCentered
+                            content={<Paper>Content</Paper>}
+                            header={<Header title="Header"/>}
+                        />
+                    )}
+                    navigation={<FakeSecondaryNavigation/>}
+                />
+            )}
+            navigation={<FakePrimaryNavigation/>}
         />
-      }
-    />
     </div>
 );
 
 export const WithoutLevel2 = () => (
-    <div style={{transform: 'scale(1)'}}>
+    <div style={{ transform: 'scale(1)' }}>
         <LayoutApp
-      navigation={<FakePrimaryNavigation/>}
-      content={
-          <LayoutModule
-          content={
-              <LayoutContent
-              header={<Header title="Title"/>}
-              content={<Paper className={clsx('flexFluid', layout.flexFluid)}>Content</Paper>}
-            />
-          }
+            content={(
+                <LayoutModule
+                    content={(
+                        <LayoutContent
+                            content={<Paper className={clsx('flexFluid', layout.flexFluid)}>Content</Paper>}
+                            header={<Header title="Title"/>}
+                        />
+                    )}
+                />
+            )}
+            navigation={<FakePrimaryNavigation/>}
         />
-      }
-    />
     </div>
 );

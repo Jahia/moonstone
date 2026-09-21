@@ -1,9 +1,11 @@
-import React from 'react';
 import clsx from 'clsx';
+import React from 'react';
 
-import type {SortIndicatorProps} from './SortIndicator.types';
+import { ArrowDown, ArrowUp } from '~/icons';
+
+import type { SortIndicatorProps } from './SortIndicator.types';
+
 import styles from './SortIndicator.module.scss';
-import {ArrowDown, ArrowUp} from '~/icons';
 
 export const SortIndicator: React.FC<SortIndicatorProps> = ({
     direction = 'descending',
@@ -14,7 +16,7 @@ export const SortIndicator: React.FC<SortIndicatorProps> = ({
     const classNameProps = clsx(
         ['moonstone-SortIndicator', styles['moonstone-SortIndicator']],
         isSorted && ['moonstone-SortIndicator-sorted', styles['moonstone-SortIndicator-sorted']],
-        className
+        className,
     );
 
     if (direction === 'descending') {

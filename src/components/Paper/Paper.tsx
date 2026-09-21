@@ -1,7 +1,9 @@
-import React from 'react';
 import clsx from 'clsx';
-import type {PolymorphicComponent} from '~/types/Polymorphic.types';
-import type {BasicPaperProps, PaperProps} from './Paper.types';
+import React from 'react';
+
+import type { BasicPaperProps, PaperProps } from './Paper.types';
+import type { PolymorphicComponent } from '~/types/Polymorphic.types';
+
 import styles from './Paper.module.scss';
 
 export const Paper = React.forwardRef(<C extends React.ElementType = 'section'>({
@@ -15,7 +17,7 @@ export const Paper = React.forwardRef(<C extends React.ElementType = 'section'>(
     const classNameProps = clsx(
         ['moonstone-paper', styles['moonstone-paper']],
         hasPadding && ['moonstone-paper_padding', styles['moonstone-paper_padding']],
-        className
+        className,
     );
 
     if (!children) {
@@ -25,7 +27,7 @@ export const Paper = React.forwardRef(<C extends React.ElementType = 'section'>(
     const Component = component ?? 'section';
 
     return (
-        <Component ref={ref} className={classNameProps} {...props}>
+        <Component className={classNameProps} ref={ref} {...props}>
             {children}
         </Component>
     );

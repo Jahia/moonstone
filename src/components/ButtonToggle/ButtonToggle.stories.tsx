@@ -1,11 +1,10 @@
-import {StoryObj, Meta, StoryContext} from '@storybook/react-vite';
-
-import {ButtonToggle} from './index';
-import type {ButtonToggleProps} from './ButtonToggle.types';
-
-import {Apps} from '~/icons';
-import {iconArgType} from '~/__storybook__/iconArgType';
 import markdownNotes from './ButtonToggle.md';
+import { ButtonToggle } from './index';
+import { iconArgType } from '~/__storybook__/iconArgType';
+import { Apps } from '~/icons';
+
+import type { ButtonToggleProps } from './ButtonToggle.types';
+import type { Meta, StoryContext, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof ButtonToggle> = {
     title: 'Components/ButtonToggle',
@@ -13,13 +12,13 @@ const meta: Meta<typeof ButtonToggle> = {
 
     parameters: {
         layout: 'centered',
-        actions: {argTypesRegex: '^on.*'},
-        notes: {markdown: markdownNotes}
+        actions: { argTypesRegex: '^on.*' },
+        notes: { markdown: markdownNotes },
     },
     argTypes: {
         iconStart: iconArgType,
-        iconEnd: iconArgType
-    }
+        iconEnd: iconArgType,
+    },
 };
 export default meta;
 
@@ -32,25 +31,25 @@ const Template = (args: ButtonToggleProps, globals: StoryContext) => {
 export const Default: Story = {
     args: {
         iconStart: <Apps/>,
-        label: 'ButtonToggle'
+        label: 'ButtonToggle',
     },
-    render: Template
+    render: Template,
 };
 
 export const Pressed: Story = {
     args: {
         iconStart: <Apps/>,
         label: 'ButtonToggle',
-        isPressed: true
+        isPressed: true,
     },
-    render: Template
+    render: Template,
 };
 
 export const Disabled: Story = {
     args: {
         iconStart: <Apps/>,
         label: 'ButtonToggle',
-        isDisabled: true
+        isDisabled: true,
     },
-    render: Template
+    render: Template,
 };

@@ -1,20 +1,21 @@
-import {useRef} from 'react';
-import {onArrowNavigation} from './onArrowNavigation';
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { useRef } from 'react';
 
-type TestMenuProps = {readonly direction?: 'vertical' | 'horizontal' | 'both'};
+import { onArrowNavigation } from './onArrowNavigation';
+
+type TestMenuProps = { readonly direction?: 'vertical' | 'horizontal' | 'both' };
 
 describe('onArrowNavigation', () => {
-    const TestMenu = ({direction}: TestMenuProps) => {
+    const TestMenu = ({ direction }: TestMenuProps) => {
         const refs = [useRef(null), useRef(null)];
 
         return (
             <div
                 data-testid="test-menu"
             >
-                <div ref={refs[0]} {...onArrowNavigation({ref: refs[0], direction: direction, tabIndex: 3})}>Item 1</div>
-                <div ref={refs[1]} {...onArrowNavigation({ref: refs[1], direction: direction, tabIndex: 3})}>Item 2</div>
+                <div ref={refs[0]} {...onArrowNavigation({ ref: refs[0], direction: direction, tabIndex: 3 })}>Item 1</div>
+                <div ref={refs[1]} {...onArrowNavigation({ ref: refs[1], direction: direction, tabIndex: 3 })}>Item 2</div>
             </div>
         );
     };
@@ -65,9 +66,9 @@ describe('onArrowNavigation', () => {
             <div
                 data-testid="test-menu"
             >
-                <div ref={refs[0]} {...onArrowNavigation({ref: refs[0]})}>Item 1</div>
+                <div ref={refs[0]} {...onArrowNavigation({ ref: refs[0] })}>Item 1</div>
                 <div>Not an Item</div>
-                <div ref={refs[1]} {...onArrowNavigation({ref: refs[1]})}>Item 2</div>
+                <div ref={refs[1]} {...onArrowNavigation({ ref: refs[1] })}>Item 2</div>
             </div>
         );
     };

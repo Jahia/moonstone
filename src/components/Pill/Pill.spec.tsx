@@ -1,6 +1,7 @@
-import {render, screen} from '@testing-library/react';
-import {Pill} from './index';
-import {Cloud} from '~/icons';
+import { render, screen } from '@testing-library/react';
+
+import { Pill } from './index';
+import { Cloud } from '~/icons';
 
 describe('Pill', () => {
     it('should display content', () => {
@@ -10,7 +11,7 @@ describe('Pill', () => {
 
     it('should add additional class names', () => {
         const testClassName = 'hello';
-        render(<Pill data-testid="moonstone-listItemChip" className={testClassName}>Say my name</Pill>);
+        render(<Pill className={testClassName} data-testid="moonstone-listItemChip">Say my name</Pill>);
         expect(screen.getByTestId('moonstone-listItemChip')).toHaveClass(testClassName);
     });
 

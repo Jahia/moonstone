@@ -1,8 +1,10 @@
-import React from 'react';
 import clsx from 'clsx';
+import React from 'react';
 
-import type {TableRowProps} from './TableRow.types';
-import {layout} from '~/globals/css-utils.js';
+import { layout } from '~/globals/css-utils.js';
+
+import type { TableRowProps } from './TableRow.types';
+
 import styles from './TableRow.module.scss';
 
 const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowProps> = (
@@ -24,13 +26,13 @@ const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowPr
             hasMultipleLines && ['moonstone-TableRow-multipleLines', styles['moonstone-TableRow-multipleLines']],
             isSelected && 'moonstone-TableRow-selected',
             isHighlighted && ['moonstone-TableRow-highlighted', styles['moonstone-TableRow-highlighted']],
-            className
+            className,
         ),
         tabIndex: 0,
         ...props,
-        ref
+        ref,
     },
-    children
+    children,
 );
 
 export const TableRow = React.forwardRef(TableRowForwardRef);

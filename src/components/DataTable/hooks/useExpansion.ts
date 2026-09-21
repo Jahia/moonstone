@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
-import type {ExpandedState} from '@tanstack/react-table';
+import React, { useState } from 'react';
+
+import type { ExpandedState } from '@tanstack/react-table';
 
 type UseExpansionProps = {
     expandedRows?: string[];
@@ -16,10 +17,10 @@ function toRowIds(state: ExpandedState): string[] {
         return [];
     }
 
-    return Object.keys(state).filter(id => (state as Record<string, boolean>)[id]);
+    return Object.keys(state).filter(id => (state)[id]);
 }
 
-export function useExpansion({expandedRows, defaultExpandedRows, onExpandChange}: UseExpansionProps) {
+export function useExpansion({ expandedRows, defaultExpandedRows, onExpandChange }: UseExpansionProps) {
     const isExpansionControlled = expandedRows !== undefined;
 
     const [state, setState] = useState<ExpandedState>(() => {
@@ -46,5 +47,9 @@ export function useExpansion({expandedRows, defaultExpandedRows, onExpandChange}
         onExpandChange?.(toRowIds(next));
     };
 
-    return {expanded, isExpansionControlled, handleExpandedChange};
+    return {
+        expanded,
+        isExpansionControlled,
+        handleExpandedChange,
+    };
 }

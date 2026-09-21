@@ -1,8 +1,10 @@
-import {StoryObj, Meta} from '@storybook/react';
-import '~/__storybook__/storybook.scss';
+import { useArgs } from 'storybook/preview-api';
 
-import {NumberInput} from './index';
-import {useArgs} from 'storybook/preview-api';
+import { NumberInput } from './index';
+
+import type { Meta, StoryObj } from '@storybook/react-vite';
+
+import '~/__storybook__/storybook.scss';
 
 export default {
     title: 'Components/Input/Numbers',
@@ -10,14 +12,14 @@ export default {
     tags: ['new'],
     decorators: [
         StoryCmp => (
-            <div style={{width: '50vw'}}>
+            <div style={{ width: '50vw' }}>
                 <StoryCmp/>
             </div>
-        )
+        ),
     ],
     parameters: {
-        layout: 'centered'
-    }
+        layout: 'centered',
+    },
 } as Meta<typeof NumberInput>;
 
 type Story = StoryObj<typeof NumberInput>;
@@ -30,9 +32,9 @@ export const ControlledNumberInput: Story = {
         max: 10,
         min: 1,
         value: '5',
-        step: 1
+        step: 1,
     },
-    render: args => {
+    render: (args) => {
         const [, setArgs] = useArgs();
 
         const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +42,7 @@ export const ControlledNumberInput: Story = {
                 args.onChange(e);
             }
 
-            setArgs({...args, value: e.target.value});
+            setArgs({ ...args, value: e.target.value });
         };
 
         return (
@@ -49,5 +51,5 @@ export const ControlledNumberInput: Story = {
                 {...args}
             />
         );
-    }
+    },
 };

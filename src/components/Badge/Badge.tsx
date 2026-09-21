@@ -1,8 +1,11 @@
-import type React from 'react';
-import styles from './Badge.module.scss';
-import {Typography} from '~/components/Typography';
 import clsx from 'clsx';
-import {BadgeProps} from './Badge.types';
+
+import { Typography } from '~/components/Typography';
+
+import type { BadgeProps } from './Badge.types';
+import type React from 'react';
+
+import styles from './Badge.module.scss';
 
 export const Badge: React.FC<BadgeProps> = ({
     label = null,
@@ -14,7 +17,7 @@ export const Badge: React.FC<BadgeProps> = ({
         ['moonstone-badge', styles['moonstone-badge']],
         ['moonstone-badge_round', styles['moonstone-badge_round']],
         [`moonstone-badge_${color}`, styles[`moonstone-badge_${color}`]],
-        className
+        className,
     );
 
     if (!label || label.length < 1) {
@@ -22,7 +25,13 @@ export const Badge: React.FC<BadgeProps> = ({
     }
 
     return (
-        <Typography component="span" variant="caption" weight="bold" className={classNameProps} {...other}>
+        <Typography
+            className={classNameProps}
+            component="span"
+            variant="caption"
+            weight="bold"
+            {...other}
+        >
             {label}
         </Typography>
     );

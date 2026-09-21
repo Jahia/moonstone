@@ -1,3 +1,3 @@
-import {runVisualStoriesSuite} from './visualStoriesSuite';
+import { runVisualStoriesSuite } from './visualStoriesSuite';
 
 runVisualStoriesSuite();

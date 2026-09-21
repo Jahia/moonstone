@@ -4,7 +4,7 @@ export type BaseTextareaProps = Omit<React.ComponentPropsWithRef<'textarea'>, 'i
     /**
      * Required id
      */
-    id?: string
+    id?: string;
     /**
      * Textarea's function onFocus
      */
@@ -16,46 +16,46 @@ export type BaseTextareaProps = Omit<React.ComponentPropsWithRef<'textarea'>, 'i
     /**
      * Textarea's placeholder
      */
-    placeholder?: string
+    placeholder?: string;
     /**
      * Whether the textarea should be disabled
      */
-    isDisabled?: boolean
+    isDisabled?: boolean;
     /**
      * Whether the textarea should be read-only
      */
-    isReadOnly?: boolean
+    isReadOnly?: boolean;
     /**
      * Whether the textarea should be resizable
      */
-    isResizable?: boolean
+    isResizable?: boolean;
     /**
      * Additional classname
      */
-    className?: string
-}
+    className?: string;
+};
 
 export type ControlledProps = {
     /**
      * Textarea's value
      */
-    value: string
+    value: string;
     /**
      * Textarea's function onChange
      */
     onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-}
+};
 
 export type UncontrolledProps = {
     /**
      * Textarea's default value
      */
-    defaultValue?: string
+    defaultValue?: string;
     /**
      * Textarea's function onChange
      */
     onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-}
+};
 
 export type TextareaProps = BaseTextareaProps & Partial<ControlledProps> & Partial<UncontrolledProps>;
 export type ControlledTextareaProps = BaseTextareaProps & ControlledProps;

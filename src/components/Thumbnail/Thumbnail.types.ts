@@ -18,4 +18,3 @@ export type ThumbnailProps = {
     /** Additional img element props (only applies when src is a string) */
     imgProps?: Omit<React.ComponentPropsWithoutRef<'img'>, 'src' | 'alt' | 'className'>;
 };
-

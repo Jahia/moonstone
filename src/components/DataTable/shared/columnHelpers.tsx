@@ -1,8 +1,8 @@
 import {
-    renderString,
-    renderNumber,
+    type LocaleOptions,
     renderDate,
-    type LocaleOptions
+    renderNumber,
+    renderString,
 } from './renderHelpers';
 
 type ColumnOptions = Omit<LocaleOptions, 'value'> & {
@@ -21,22 +21,30 @@ type ColumnOptions = Omit<LocaleOptions, 'value'> & {
  * ];
  */
 export const stringColumn = <T, >(get: (row: T) => string, options?: ColumnOptions) => ({
-    render: ({data}: {data: T}) => renderString(get(data)),
+    render: ({ data }: { data: T }) => renderString(get(data)),
     isSortable: true,
     sortFn: (a: T, b: T) => get(a).localeCompare(get(b)),
-    align: options?.align
+    align: options?.align,
 });
 
 export const numberColumn = <T, >(get: (row: T) => number, options?: ColumnOptions) => ({
-    render: ({data}: {data: T}) => renderNumber({value: get(data), locale: options?.locale, localeOptions: options?.localeOptions}),
+    render: ({ data }: { data: T }) => renderNumber({
+        value: get(data),
+        locale: options?.locale,
+        localeOptions: options?.localeOptions,
+    }),
     isSortable: true,
     sortFn: (a: T, b: T) => get(a) - get(b),
-    align: options?.align ?? 'right'
+    align: options?.align ?? 'right',
 });
 
 export const dateColumn = <T, >(get: (row: T) => Date, options?: ColumnOptions) => ({
-    render: ({data}: {data: T}) => renderDate({value: get(data), locale: options?.locale, localeOptions: options?.localeOptions}),
+    render: ({ data }: { data: T }) => renderDate({
+        value: get(data),
+        locale: options?.locale,
+        localeOptions: options?.localeOptions,
+    }),
     isSortable: true,
     sortFn: (a: T, b: T) => get(a).getTime() - get(b).getTime(),
-    align: options?.align ?? 'right'
+    align: options?.align ?? 'right',
 });

@@ -1,6 +1,8 @@
-import React, {ReactNode} from 'react';
-import type {PolymorphicPropsWithRef} from '~/types/Polymorphic.types';
-import type {BasicPaperProps} from '~/components/Paper/Paper.types';
+import React from 'react';
+
+import type { ReactNode } from 'react';
+import type { BasicPaperProps } from '~/components/Paper/Paper.types';
+import type { PolymorphicPropsWithRef } from '~/types/Polymorphic.types';
 
 // Inherits future Paper props without needing manual updates here.
 type PaperCustomProps = Omit<BasicPaperProps, 'children' | 'className'>;

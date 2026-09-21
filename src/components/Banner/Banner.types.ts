@@ -1,4 +1,4 @@
-import {ReactNode} from 'react';
+import type { ReactNode } from 'react';
 
 export type BannerProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 'children'> & {
     /**
@@ -25,4 +25,4 @@ export type BannerProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' |
      * Additional classname
      */
     className?: string;
-}
+};

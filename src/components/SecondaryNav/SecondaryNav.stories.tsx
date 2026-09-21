@@ -1,10 +1,9 @@
-import {StoryFn, Meta} from '@storybook/react-vite';
-
-import {SecondaryNav, SecondaryNavHeader} from './index';
-import type {SecondaryNavProps} from './SecondaryNav.types';
-
+import { SecondaryNav, SecondaryNavHeader } from './index';
 import markdownNotes from './SecondaryNav.md';
-import {Love} from '~/icons';
+import { Love } from '~/icons';
+
+import type { SecondaryNavProps } from './SecondaryNav.types';
+import type { Meta, StoryFn } from '@storybook/react-vite';
 
 export default {
     title: 'Components/SecondaryNav',
@@ -12,15 +11,15 @@ export default {
     decorators: [
         StoryCmp => (
             <div
-        style={{display: 'flex', flexDirection: 'column', height: '100vh'}}
+                style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}
             >
                 <StoryCmp/>
             </div>
-        )
+        ),
     ],
     parameters: {
-        notes: {markdown: markdownNotes}
-    }
+        notes: { markdown: markdownNotes },
+    },
 } as Meta<typeof SecondaryNav>;
 
 const Template: StoryFn<SecondaryNavProps> = args => (
@@ -31,24 +30,24 @@ export const TextTitle = {
     render: Template,
 
     args: {
-        header: 'Header here'
-    }
+        header: 'Header here',
+    },
 };
 
 export const WithHeaderImage = {
     render: Template,
 
     args: {
-        header: <Love size="big"/>
-    }
+        header: <Love size="big"/>,
+    },
 };
 
 export const WithTextInHeaderComponent = {
     render: Template,
 
     args: {
-        header: <SecondaryNavHeader>Secondary Header</SecondaryNavHeader>
-    }
+        header: <SecondaryNavHeader>Secondary Header</SecondaryNavHeader>,
+    },
 };
 
 export const WithHeaderComponent = {
@@ -59,6 +58,6 @@ export const WithHeaderComponent = {
             <SecondaryNavHeader>
                 <Love size="big"/>
             </SecondaryNavHeader>
-        )
-    }
+        ),
+    },
 };

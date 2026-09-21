@@ -1,9 +1,10 @@
-import {createRef, useState} from 'react';
-import {render, screen} from '@testing-library/react';
-import {onTestFinished, vi, type Mock} from 'vitest';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {Temporal} from 'temporal-polyfill';
-import {DateTimeInput} from './index';
+import { createRef, useState } from 'react';
+import { Temporal } from 'temporal-polyfill';
+import { type Mock, onTestFinished, vi } from 'vitest';
+
+import { DateTimeInput } from './index';
 
 const nextMonthLabel = 'Next month';
 const previousMonthLabel = 'Previous month';
@@ -19,7 +20,7 @@ const april2026 = 'April 2026';
 const baseDate = Temporal.Now.plainDateISO().toString();
 const lastValue = (handleChange: Mock) => handleChange.mock.lastCall?.[1];
 const dateField = () => screen.getByPlaceholderText('Select a date');
-const localeProps = {locale: 'en'} as const;
+const localeProps = { locale: 'en' } as const;
 const spyOnDocumentKeyDown = () => {
     const handleKeyDown = vi.fn();
     document.addEventListener('keydown', handleKeyDown);
@@ -41,7 +42,7 @@ describe('DateTimeInput', () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(<DateTimeInput {...localeProps} type="date" placeholder="Select a date" onChange={handleChange}/>);
+        render(<DateTimeInput {...localeProps} placeholder="Select a date" type="date" onChange={handleChange}/>);
 
         await user.click(dateField());
         await user.click(screen.getByText('Today'));
@@ -56,30 +57,30 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="date"
-                placeholder="Select a date"
-                defaultValue={null}
                 disabledDates={[baseDate]}
+                defaultValue={null}
+                placeholder="Select a date"
+                type="date"
                 onChange={handleChange}
-            />
+            />,
         );
 
         await user.click(dateField());
 
-        expect(screen.getByRole('button', {name: 'Today'})).toBeDisabled();
+        expect(screen.getByRole('button', { name: 'Today' })).toBeDisabled();
         expect(handleChange).not.toHaveBeenCalled();
     });
 
     it('should render default calendar action labels', async () => {
         const user = userEvent.setup();
 
-        render(<DateTimeInput {...localeProps} type="date" placeholder="Select a date" onChange={() => null}/>);
+        render(<DateTimeInput {...localeProps} placeholder="Select a date" type="date" onChange={() => null}/>);
 
         await user.click(dateField());
 
-        expect(screen.getByRole('button', {name: 'Today'})).toBeInTheDocument();
-        expect(screen.getByRole('button', {name: 'Go to the next month'})).toBeInTheDocument();
-        expect(screen.getByRole('button', {name: 'Go to the previous month'})).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Today' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Go to the next month' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Go to the previous month' })).toBeInTheDocument();
     });
 
     it('should render custom calendar action labels', async () => {
@@ -88,29 +89,29 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="date"
+                i18n={{ todayButton: 'Current day', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel }}
                 placeholder="Select a date"
-                i18n={{todayButton: 'Current day', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
+                type="date"
                 onChange={() => null}
-            />
+            />,
         );
 
         await user.click(dateField());
 
-        expect(screen.getByRole('button', {name: 'Current day'})).toBeInTheDocument();
-        expect(screen.getByRole('button', {name: nextMonthLabel})).toBeInTheDocument();
-        expect(screen.getByRole('button', {name: previousMonthLabel})).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Current day' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: nextMonthLabel })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: previousMonthLabel })).toBeInTheDocument();
     });
 
     it('should default to the current date and time when no defaultValue is given', () => {
-        render(<DateTimeInput {...localeProps} type="dateTime" placeholder="Select a date" onChange={() => null}/>);
+        render(<DateTimeInput {...localeProps} placeholder="Select a date" type="dateTime" onChange={() => null}/>);
 
         expect(dateField()).not.toHaveValue('');
         expect(screen.getByPlaceholderText('hh:mm')).not.toHaveValue('');
     });
 
     it('should render empty when defaultValue is null', () => {
-        render(<DateTimeInput {...localeProps} type="dateTime" placeholder="Select a date" defaultValue={null}/>);
+        render(<DateTimeInput {...localeProps} defaultValue={null} placeholder="Select a date" type="dateTime"/>);
 
         expect(dateField()).toHaveValue('');
         expect(screen.getByPlaceholderText('hh:mm')).toHaveValue('');
@@ -120,7 +121,15 @@ describe('DateTimeInput', () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(<DateTimeInput {...localeProps} type="dateTime" placeholder="Select a date" defaultValue={null} onChange={handleChange}/>);
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue={null}
+                placeholder="Select a date"
+                type="dateTime"
+                onChange={handleChange}
+            />,
+        );
 
         expect(dateField()).toHaveValue('');
 
@@ -138,7 +147,15 @@ describe('DateTimeInput', () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(<DateTimeInput {...localeProps} type="dateTime" placeholder="Select a date" defaultValue={null} onChange={handleChange}/>);
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue={null}
+                placeholder="Select a date"
+                type="dateTime"
+                onChange={handleChange}
+            />,
+        );
 
         await user.click(dateField());
         await user.click(screen.getByText('Today'));
@@ -153,25 +170,25 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="zonedDateTime"
-                placeholder="Select a date"
                 defaultValue="2026-02-10T10:56:00Z"
+                placeholder="Select a date"
+                type="zonedDateTime"
                 onChange={handleChange}
-            />
+            />,
         );
 
         expect(dateField()).not.toHaveValue('');
         expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
         expect(screen.getByText('Timezone:')).toBeInTheDocument();
-        expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
+        expect(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' })).toBeInTheDocument();
 
-        await user.click(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'}));
+        await user.click(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' }));
         await user.type(screen.getByRole('searchbox'), 'toronto');
         await user.click(screen.getByText('Toronto (UTC -05:00)'));
 
         // Same instant, re-projected: 11:56 Paris is 05:56 Toronto. The stored UTC doesn't move, so nothing is emitted.
         expect(screen.getByDisplayValue('05:56')).toBeInTheDocument();
-        expect(screen.getByRole('listbox', {name: 'Toronto (UTC -05:00)'})).toBeInTheDocument();
+        expect(screen.getByRole('listbox', { name: 'Toronto (UTC -05:00)' })).toBeInTheDocument();
         expect(handleChange).not.toHaveBeenCalled();
     });
 
@@ -179,7 +196,7 @@ describe('DateTimeInput', () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(<DateTimeInput {...localeProps} type="dateTime" defaultValue="2026-02-10T11:56" onChange={handleChange}/>);
+        render(<DateTimeInput {...localeProps} defaultValue="2026-02-10T11:56" type="dateTime" onChange={handleChange}/>);
 
         const timeInput = screen.getByDisplayValue('11:56');
         await user.clear(timeInput);
@@ -195,11 +212,11 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="dateTime"
-                placeholder="Select a date"
                 defaultValue="2026-02-10T11:56"
+                placeholder="Select a date"
+                type="dateTime"
                 onChange={handleChange}
-            />
+            />,
         );
 
         await user.clear(screen.getByDisplayValue('11:56'));
@@ -213,7 +230,7 @@ describe('DateTimeInput', () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(<DateTimeInput {...localeProps} type="dateTime" defaultValue="2026-02-10T11:56" onChange={handleChange}/>);
+        render(<DateTimeInput {...localeProps} defaultValue="2026-02-10T11:56" type="dateTime" onChange={handleChange}/>);
 
         const timeInput = screen.getByDisplayValue('11:56');
         await user.clear(timeInput);
@@ -227,7 +244,7 @@ describe('DateTimeInput', () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(<DateTimeInput {...localeProps} type="dateTime" defaultValue="2026-02-10T11:56" onChange={handleChange}/>);
+        render(<DateTimeInput {...localeProps} defaultValue="2026-02-10T11:56" type="dateTime" onChange={handleChange}/>);
 
         const timeInput = screen.getByDisplayValue('11:56');
         await user.clear(timeInput);
@@ -243,7 +260,7 @@ describe('DateTimeInput', () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(<DateTimeInput {...localeProps} type="dateTime" defaultValue="2026-02-10T11:56" onChange={handleChange}/>);
+        render(<DateTimeInput {...localeProps} defaultValue="2026-02-10T11:56" type="dateTime" onChange={handleChange}/>);
 
         const timeInput = screen.getByDisplayValue('11:56');
         await user.clear(timeInput);
@@ -257,7 +274,7 @@ describe('DateTimeInput', () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(<DateTimeInput {...localeProps} type="dateTime" defaultValue="2026-02-10T11:56" onChange={handleChange}/>);
+        render(<DateTimeInput {...localeProps} defaultValue="2026-02-10T11:56" type="dateTime" onChange={handleChange}/>);
 
         const timeInput = screen.getByDisplayValue('11:56') as HTMLInputElement;
         timeInput.focus();
@@ -271,23 +288,31 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="zonedDateTime"
-                timeFormat="12h"
                 defaultValue="2026-02-10T22:56:00Z"
+                timeFormat="12h"
+                type="zonedDateTime"
                 onChange={() => null}
-            />
+            />,
         );
 
         expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
         expect(screen.getByText('PM')).toBeInTheDocument();
-        expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
+        expect(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' })).toBeInTheDocument();
     });
 
     it('should let the user switch meridiem in 12h datetime mode and keep canonical output', async () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(<DateTimeInput {...localeProps} type="dateTime" timeFormat="12h" defaultValue="2026-02-10T02:30" onChange={handleChange}/>);
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="2026-02-10T02:30"
+                timeFormat="12h"
+                type="dateTime"
+                onChange={handleChange}
+            />,
+        );
 
         await user.clear(screen.getByDisplayValue('02:30'));
         await user.type(screen.getByPlaceholderText('hh:mm'), '0230');
@@ -304,12 +329,12 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="date"
-                placeholder="Select a date"
-                defaultValue="2026-03-30"
                 disabledDates={['2026-03-30']}
+                defaultValue="2026-03-30"
+                placeholder="Select a date"
+                type="date"
                 onChange={() => null}
-            />
+            />,
         );
 
         await user.click(dateField());
@@ -324,16 +349,16 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="date"
-                placeholder="Select a date"
                 defaultValue="2026-03-30"
-                i18n={{nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
+                i18n={{ nextMonth: nextMonthLabel, previousMonth: previousMonthLabel }}
+                placeholder="Select a date"
+                type="date"
                 onChange={() => null}
-            />
+            />,
         );
 
         await user.click(dateField());
-        await user.click(screen.getByRole('button', {name: nextMonthLabel}));
+        await user.click(screen.getByRole('button', { name: nextMonthLabel }));
 
         expect(screen.getByText(april2026)).toBeInTheDocument();
     });
@@ -344,19 +369,19 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="date"
-                placeholder="Select a date"
                 defaultValue="2026-03-30"
-                i18n={{nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
+                i18n={{ nextMonth: nextMonthLabel, previousMonth: previousMonthLabel }}
+                placeholder="Select a date"
+                type="date"
                 onChange={() => null}
-            />
+            />,
         );
 
         const selectedDisplay = (dateField() as HTMLInputElement).value;
 
         await user.click(dateField());
-        await user.click(screen.getByRole('listbox', {name: '2026'}));
-        await user.click(screen.getByRole('option', {name: '2024'}));
+        await user.click(screen.getByRole('listbox', { name: '2026' }));
+        await user.click(screen.getByRole('option', { name: '2024' }));
 
         expect(screen.getByText('March 2024')).toBeInTheDocument();
         expect(dateField()).toHaveValue(selectedDisplay);
@@ -368,22 +393,22 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="date"
-                placeholder="Select a date"
                 defaultValue="2026-03-30"
-                i18n={{nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
+                i18n={{ nextMonth: nextMonthLabel, previousMonth: previousMonthLabel }}
+                placeholder="Select a date"
+                type="date"
                 onChange={() => null}
-            />
+            />,
         );
 
         await user.click(dateField());
-        await user.click(screen.getByRole('listbox', {name: '2026'}));
-        await user.click(screen.getByRole('option', {name: '2070'}));
+        await user.click(screen.getByRole('listbox', { name: '2026' }));
+        await user.click(screen.getByRole('option', { name: '2070' }));
 
         // Anchored on the 2026 selection, so 1976 is still reachable from 2070. Derived from the
         // displayed month it would have become 2020-2120 and dropped everything before 2020.
-        await user.click(screen.getByRole('listbox', {name: '2070'}));
-        expect(screen.getByRole('option', {name: '1976'})).toBeInTheDocument();
+        await user.click(screen.getByRole('listbox', { name: '2070' }));
+        expect(screen.getByRole('option', { name: '1976' })).toBeInTheDocument();
     });
 
     it('should render a month dropdown and let the user jump to another month without losing the selection', async () => {
@@ -392,21 +417,21 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="date"
-                placeholder="Select a date"
                 defaultValue="2026-03-30"
-                i18n={{nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
+                i18n={{ nextMonth: nextMonthLabel, previousMonth: previousMonthLabel }}
+                placeholder="Select a date"
+                type="date"
                 onChange={() => null}
-            />
+            />,
         );
 
         const selectedDisplay = (dateField() as HTMLInputElement).value;
 
         await user.click(dateField());
-        await user.click(screen.getByRole('listbox', {name: 'March'}));
-        await user.click(screen.getByRole('option', {name: 'May'}));
+        await user.click(screen.getByRole('listbox', { name: 'March' }));
+        await user.click(screen.getByRole('option', { name: 'May' }));
 
-        expect(screen.getByRole('grid', {name: 'May 2026'})).toBeInTheDocument();
+        expect(screen.getByRole('grid', { name: 'May 2026' })).toBeInTheDocument();
         expect(dateField()).toHaveValue(selectedDisplay);
     });
 
@@ -416,20 +441,20 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="date"
-                placeholder="Select a date"
                 defaultValue="2026-03-15"
-                minDate="2026-03-01"
                 maxDate="2026-03-31"
+                minDate="2026-03-01"
+                placeholder="Select a date"
+                type="date"
                 onChange={() => null}
-            />
+            />,
         );
 
         await user.click(dateField());
 
         // Nothing to navigate to in either direction, so both caption controls stay plain text.
-        expect(screen.queryByRole('listbox', {name: 'March'})).not.toBeInTheDocument();
-        expect(screen.queryByRole('listbox', {name: '2026'})).not.toBeInTheDocument();
+        expect(screen.queryByRole('listbox', { name: 'March' })).not.toBeInTheDocument();
+        expect(screen.queryByRole('listbox', { name: '2026' })).not.toBeInTheDocument();
     });
 
     it('should reset to the selected date month when reopening the calendar', async () => {
@@ -437,25 +462,25 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="date"
-                placeholder="Select a date"
                 defaultValue="2026-03-30"
-                i18n={{nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
+                i18n={{ nextMonth: nextMonthLabel, previousMonth: previousMonthLabel }}
+                placeholder="Select a date"
+                type="date"
                 onChange={() => null}
-            />
+            />,
         );
 
         await user.click(dateField());
-        expect(screen.getByRole('grid', {name: march2026})).toBeInTheDocument();
+        expect(screen.getByRole('grid', { name: march2026 })).toBeInTheDocument();
 
-        await user.click(screen.getByRole('button', {name: nextMonthLabel}));
-        expect(screen.getByRole('grid', {name: april2026})).toBeInTheDocument();
+        await user.click(screen.getByRole('button', { name: nextMonthLabel }));
+        expect(screen.getByRole('grid', { name: april2026 })).toBeInTheDocument();
 
         // Dismiss the calendar with Escape (standard keyboard dismissal pattern) and reopen.
         await user.keyboard('{Escape}');
 
         await user.click(dateField());
-        expect(screen.getByRole('grid', {name: march2026})).toBeInTheDocument();
+        expect(screen.getByRole('grid', { name: march2026 })).toBeInTheDocument();
     });
 
     it('should refresh the timezone utc offset when the selected date changes internally', async () => {
@@ -464,21 +489,21 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="zonedDateTime"
-                placeholder="Select a date"
                 defaultValue="2026-03-15T10:56:00Z"
-                i18n={{nextMonth: nextMonthLabel}}
+                i18n={{ nextMonth: nextMonthLabel }}
+                placeholder="Select a date"
+                type="zonedDateTime"
                 onChange={() => null}
-            />
+            />,
         );
 
-        expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
+        expect(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' })).toBeInTheDocument();
 
         await user.click(dateField());
-        await user.click(screen.getByRole('button', {name: nextMonthLabel}));
-        await user.click(screen.getByRole('button', {name: 'Wednesday, April 15th, 2026'}));
+        await user.click(screen.getByRole('button', { name: nextMonthLabel }));
+        await user.click(screen.getByRole('button', { name: 'Wednesday, April 15th, 2026' }));
 
-        expect(screen.getByRole('listbox', {name: 'Paris (UTC +02:00)'})).toBeInTheDocument();
+        expect(screen.getByRole('listbox', { name: 'Paris (UTC +02:00)' })).toBeInTheDocument();
     });
 
     it('should keep a controlled value until the parent updates it', async () => {
@@ -488,12 +513,12 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="date"
+                i18n={{ nextMonth: nextMonthLabel, previousMonth: previousMonthLabel }}
                 placeholder="Select a date"
+                type="date"
                 value="2026-03-30"
-                i18n={{nextMonth: nextMonthLabel, previousMonth: previousMonthLabel}}
                 onChange={handleChange}
-            />
+            />,
         );
 
         const selectedDisplay = (dateField() as HTMLInputElement).value;
@@ -507,14 +532,22 @@ describe('DateTimeInput', () => {
     });
 
     it('should not display an invalid date', () => {
-        render(<DateTimeInput {...localeProps} type="date" defaultValue="not-a-date" placeholder="Select a date" onChange={() => null}/>);
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="not-a-date"
+                placeholder="Select a date"
+                type="date"
+                onChange={() => null}
+            />,
+        );
 
         expect(dateField()).toHaveValue('');
     });
 
     it('should open the calendar via keyboard (Enter and Space)', async () => {
         const user = userEvent.setup();
-        render(<DateTimeInput {...localeProps} type="date" placeholder="Select a date" onChange={() => null}/>);
+        render(<DateTimeInput {...localeProps} placeholder="Select a date" type="date" onChange={() => null}/>);
 
         dateField().focus();
         await user.keyboard('{Enter}');
@@ -533,11 +566,11 @@ describe('DateTimeInput', () => {
             <DateTimeInput
                 {...localeProps}
                 isDisabled
-                type="date"
-                placeholder="Select a date"
                 defaultValue="2026-03-30"
+                placeholder="Select a date"
+                type="date"
                 onChange={() => null}
-            />
+            />,
         );
 
         await user.click(dateField());
@@ -552,11 +585,11 @@ describe('DateTimeInput', () => {
             <DateTimeInput
                 {...localeProps}
                 isReadOnly
-                type="date"
-                placeholder="Select a date"
                 defaultValue="2026-03-30"
+                placeholder="Select a date"
+                type="date"
                 onChange={() => null}
-            />
+            />,
         );
 
         await user.click(dateField());
@@ -571,14 +604,14 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="dateTime"
-                placeholder="Select a date"
                 defaultValue="2026-03-15T11:56"
+                placeholder="Select a date"
+                type="dateTime"
                 onChange={handleChange}
-            />
+            />,
         );
 
-        await user.click(screen.getByRole('button', {name: 'Reset'}));
+        await user.click(screen.getByRole('button', { name: 'Reset' }));
 
         expect(handleChange).toHaveBeenCalledWith(expect.anything(), null);
         expect(dateField()).toHaveValue('');
@@ -591,12 +624,12 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="date"
-                placeholder="Select a date"
                 defaultValue="2026-03-15"
                 minDate="2026-03-10"
+                placeholder="Select a date"
+                type="date"
                 onChange={() => null}
-            />
+            />,
         );
 
         await user.click(dateField());
@@ -611,12 +644,12 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="date"
-                placeholder="Select a date"
                 defaultValue="2026-03-15"
                 maxDate="2026-03-20"
+                placeholder="Select a date"
+                type="date"
                 onChange={() => null}
-            />
+            />,
         );
 
         await user.click(dateField());
@@ -631,12 +664,12 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="date"
-                placeholder="Select a date"
+                disabledDateRanges={[{ from: '2026-03-20', to: '2026-03-25' }]}
                 defaultValue="2026-03-15"
-                disabledDateRanges={[{from: '2026-03-20', to: '2026-03-25'}]}
+                placeholder="Select a date"
+                type="date"
                 onChange={() => null}
-            />
+            />,
         );
 
         await user.click(dateField());
@@ -649,11 +682,11 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="zonedDateTime"
                 placeholder="Select a date"
+                type="zonedDateTime"
                 value={null}
                 onChange={() => null}
-            />
+            />,
         );
 
         expect(screen.queryByText('Timezone:')).not.toBeInTheDocument();
@@ -661,7 +694,7 @@ describe('DateTimeInput', () => {
     });
 
     it('should default to the current date, time, and system timezone when no defaultValue is given (Instant)', () => {
-        render(<DateTimeInput {...localeProps} type="zonedDateTime" placeholder="Select a date" onChange={() => null}/>);
+        render(<DateTimeInput {...localeProps} placeholder="Select a date" type="zonedDateTime" onChange={() => null}/>);
 
         expect(dateField()).not.toHaveValue('');
         expect(screen.getByPlaceholderText('hh:mm')).not.toHaveValue('');
@@ -674,11 +707,11 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="zonedDateTime"
-                placeholder="Select a date"
                 defaultValue={null}
+                placeholder="Select a date"
+                type="zonedDateTime"
                 onChange={() => null}
-            />
+            />,
         );
 
         await user.click(dateField());
@@ -695,12 +728,12 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="date"
-                placeholder="Select a date"
                 defaultValue="2026-03-15"
                 minDate="2026-03-10"
+                placeholder="Select a date"
+                type="date"
                 onChange={handleChange}
-            />
+            />,
         );
 
         await user.click(dateField());
@@ -720,12 +753,12 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="date"
-                placeholder="Select a date"
                 defaultValue="2026-03-15"
                 maxDate="2026-03-20"
+                placeholder="Select a date"
+                type="date"
                 onChange={handleChange}
-            />
+            />,
         );
 
         await user.click(dateField());
@@ -744,12 +777,12 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="date"
-                placeholder="Select a date"
+                disabledDateRanges={[{ from: '2026-03-20', to: '2026-03-25' }]}
                 defaultValue="2026-03-15"
-                disabledDateRanges={[{from: '2026-03-20', to: '2026-03-25'}]}
+                placeholder="Select a date"
+                type="date"
                 onChange={() => null}
-            />
+            />,
         );
 
         await user.click(dateField());
@@ -757,8 +790,8 @@ describe('DateTimeInput', () => {
         // `showOutsideDays` renders trailing/leading days from adjacent months, so a bare day
         // number (e.g. '25') can also match a February outside-day button — match the full
         // accessible name to target March specifically.
-        const fromButton = screen.getByRole('button', {name: /March 20th, 2026/});
-        const toButton = screen.getByRole('button', {name: /March 25th, 2026/});
+        const fromButton = screen.getByRole('button', { name: /March 20th, 2026/ });
+        const toButton = screen.getByRole('button', { name: /March 25th, 2026/ });
 
         expect(fromButton).toBeDisabled();
         expect(toButton).toBeDisabled();
@@ -770,38 +803,46 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="date"
-                placeholder="Select a date"
                 defaultValue="2026-03-15"
-                minDate="2026-01-01"
                 maxDate="2026-12-31"
+                minDate="2026-01-01"
+                placeholder="Select a date"
+                type="date"
                 onChange={() => null}
-            />
+            />,
         );
 
         await user.click(dateField());
 
         expect(screen.getByText(march2026)).toBeInTheDocument();
-        expect(screen.queryByRole('listbox', {name: '2026'})).not.toBeInTheDocument();
+        expect(screen.queryByRole('listbox', { name: '2026' })).not.toBeInTheDocument();
     });
 
     it('should forward the ref to the underlying date input', () => {
         const ref = createRef<HTMLInputElement>();
 
-        render(<DateTimeInput {...localeProps} ref={ref} type="date" placeholder="Select a date" onChange={() => null}/>);
+        render(
+            <DateTimeInput
+                {...localeProps}
+                placeholder="Select a date"
+                ref={ref}
+                type="date"
+                onChange={() => null}
+            />,
+        );
 
         expect(ref.current).toBe(dateField());
     });
 
     it('should render only the date field for type="date"', () => {
-        render(<DateTimeInput {...localeProps} type="date" placeholder="Select a date" onChange={() => null}/>);
+        render(<DateTimeInput {...localeProps} placeholder="Select a date" type="date" onChange={() => null}/>);
 
         expect(screen.queryByPlaceholderText('hh:mm')).not.toBeInTheDocument();
         expect(screen.queryAllByRole('listbox')).toHaveLength(0);
     });
 
     it('should render the time field but no timezone selector for type="dateTime"', () => {
-        render(<DateTimeInput {...localeProps} type="dateTime" placeholder="Select a date" onChange={() => null}/>);
+        render(<DateTimeInput {...localeProps} placeholder="Select a date" type="dateTime" onChange={() => null}/>);
 
         expect(screen.getByPlaceholderText('hh:mm')).toBeInTheDocument();
         expect(screen.queryAllByRole('listbox')).toHaveLength(0);
@@ -811,7 +852,7 @@ describe('DateTimeInput', () => {
         const user = userEvent.setup();
         const handleDocumentKeyDown = spyOnDocumentKeyDown();
 
-        render(<DateTimeInput {...localeProps} type="date" placeholder="Select a date" onChange={() => null}/>);
+        render(<DateTimeInput {...localeProps} placeholder="Select a date" type="date" onChange={() => null}/>);
 
         await user.click(dateField());
         expect(screen.getByTestId('calendar')).toBeInTheDocument();
@@ -833,11 +874,11 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="dateTime"
-                placeholder="Select a date"
                 defaultValue={null}
+                placeholder="Select a date"
+                type="dateTime"
                 onChange={() => null}
-            />
+            />,
         );
 
         await user.click(dateField());
@@ -858,11 +899,11 @@ describe('DateTimeInput', () => {
     it('should keep Escape from reaching the consumer when the focus is inside the calendar', async () => {
         const user = userEvent.setup();
 
-        render(<DateTimeInput {...localeProps} type="date" placeholder="Select a date" onChange={() => null}/>);
+        render(<DateTimeInput {...localeProps} placeholder="Select a date" type="date" onChange={() => null}/>);
 
         await user.click(dateField());
-        await user.click(screen.getByRole('button', {name: 'Go to the next month'}));
-        expect(screen.getByRole('button', {name: 'Go to the next month'})).toHaveFocus();
+        await user.click(screen.getByRole('button', { name: 'Go to the next month' }));
+        expect(screen.getByRole('button', { name: 'Go to the next month' })).toHaveFocus();
 
         const handleDocumentKeyDown = spyOnDocumentKeyDown();
 
@@ -874,7 +915,7 @@ describe('DateTimeInput', () => {
 
     it('should return focus to the date field when the calendar is closed via Escape', async () => {
         const user = userEvent.setup();
-        render(<DateTimeInput {...localeProps} type="date" placeholder="Select a date" onChange={() => null}/>);
+        render(<DateTimeInput {...localeProps} placeholder="Select a date" type="date" onChange={() => null}/>);
 
         await user.click(dateField());
         await user.keyboard('{Escape}');
@@ -884,11 +925,19 @@ describe('DateTimeInput', () => {
 
     it('should respect a custom weekStartsOn', async () => {
         const user = userEvent.setup();
-        render(<DateTimeInput {...localeProps} type="date" placeholder="Select a date" weekStartsOn={0} onChange={() => null}/>);
+        render(
+            <DateTimeInput
+                {...localeProps}
+                placeholder="Select a date"
+                type="date"
+                weekStartsOn={0}
+                onChange={() => null}
+            />,
+        );
 
         await user.click(dateField());
 
-        const weekdayHeaders = screen.getAllByRole('columnheader', {hidden: true});
+        const weekdayHeaders = screen.getAllByRole('columnheader', { hidden: true });
         expect(weekdayHeaders[0]).toHaveTextContent('Su');
     });
 
@@ -899,12 +948,12 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="date"
-                placeholder="Select a date"
-                defaultValue="2026-03-30"
                 disabledDates={['2026-03-30']}
+                defaultValue="2026-03-30"
+                placeholder="Select a date"
+                type="date"
                 onChange={handleChange}
-            />
+            />,
         );
 
         await user.click(dateField());
@@ -920,11 +969,11 @@ describe('DateTimeInput', () => {
             <DateTimeInput
                 {...localeProps}
                 isDisabled
-                type="dateTime"
-                placeholder="Select a date"
                 defaultValue="2026-03-15T11:56"
+                placeholder="Select a date"
+                type="dateTime"
                 onChange={() => null}
-            />
+            />,
         );
 
         expect(screen.getByPlaceholderText('hh:mm')).toBeDisabled();
@@ -937,14 +986,14 @@ describe('DateTimeInput', () => {
             <DateTimeInput
                 {...localeProps}
                 isDisabled
-                type="zonedDateTime"
-                placeholder="Select a date"
                 defaultValue="2026-03-15T10:56:00Z"
+                placeholder="Select a date"
+                type="zonedDateTime"
                 onChange={() => null}
-            />
+            />,
         );
 
-        await user.click(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'}));
+        await user.click(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' }));
 
         expect(screen.getByRole('searchbox')).toBeInTheDocument();
     });
@@ -954,11 +1003,11 @@ describe('DateTimeInput', () => {
             <DateTimeInput
                 {...localeProps}
                 isReadOnly
-                type="dateTime"
-                placeholder="Select a date"
                 defaultValue="2026-03-15T11:56"
+                placeholder="Select a date"
+                type="dateTime"
                 onChange={() => null}
-            />
+            />,
         );
 
         expect(screen.getByPlaceholderText('hh:mm')).toHaveAttribute('readonly');
@@ -971,27 +1020,43 @@ describe('DateTimeInput', () => {
             <DateTimeInput
                 {...localeProps}
                 isReadOnly
-                type="zonedDateTime"
-                placeholder="Select a date"
                 defaultValue="2026-03-15T10:56:00Z"
+                placeholder="Select a date"
+                type="zonedDateTime"
                 onChange={() => null}
-            />
+            />,
         );
 
-        await user.click(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'}));
+        await user.click(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' }));
 
         expect(screen.getByRole('searchbox')).toBeInTheDocument();
     });
 
     it('should not display an invalid dateTime value', () => {
-        render(<DateTimeInput {...localeProps} type="dateTime" defaultValue="not-a-date" placeholder="Select a date" onChange={() => null}/>);
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="not-a-date"
+                placeholder="Select a date"
+                type="dateTime"
+                onChange={() => null}
+            />,
+        );
 
         expect(dateField()).toHaveValue('');
         expect(screen.getByPlaceholderText('hh:mm')).toHaveValue('');
     });
 
     it('should not display an invalid zonedDateTime value', () => {
-        render(<DateTimeInput {...localeProps} type="zonedDateTime" defaultValue="not-a-date" placeholder="Select a date" onChange={() => null}/>);
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="not-a-date"
+                placeholder="Select a date"
+                type="zonedDateTime"
+                onChange={() => null}
+            />,
+        );
 
         expect(dateField()).toHaveValue('');
         expect(screen.getByPlaceholderText('hh:mm')).toHaveValue('');
@@ -1003,21 +1068,21 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="date"
-                placeholder="Select a date"
-                defaultValue="2026-03-15"
                 disabledDaysOfWeek={[0, 6]}
+                defaultValue="2026-03-15"
+                placeholder="Select a date"
+                type="date"
                 onChange={() => null}
-            />
+            />,
         );
 
         await user.click(dateField());
 
         // March 2026: the 1st is a Sunday (0) and the 7th is a Saturday (6).
-        expect(screen.getByRole('button', {name: /March 1st, 2026/})).toBeDisabled();
-        expect(screen.getByRole('button', {name: /March 7th, 2026/})).toBeDisabled();
+        expect(screen.getByRole('button', { name: /March 1st, 2026/ })).toBeDisabled();
+        expect(screen.getByRole('button', { name: /March 7th, 2026/ })).toBeDisabled();
         // A weekday must remain enabled.
-        expect(screen.getByRole('button', {name: /March 2nd, 2026/})).not.toBeDisabled();
+        expect(screen.getByRole('button', { name: /March 2nd, 2026/ })).not.toBeDisabled();
     });
 
     it('should not emit a change when clicking a disabled weekend day', async () => {
@@ -1027,35 +1092,35 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="date"
-                placeholder="Select a date"
-                defaultValue="2026-03-15"
                 disabledDaysOfWeek={[0, 6]}
+                defaultValue="2026-03-15"
+                placeholder="Select a date"
+                type="date"
                 onChange={handleChange}
-            />
+            />,
         );
 
         await user.click(dateField());
-        await user.click(screen.getByRole('button', {name: /March 7th, 2026/}));
+        await user.click(screen.getByRole('button', { name: /March 7th, 2026/ }));
 
         expect(handleChange).not.toHaveBeenCalled();
     });
 
     // Locale="fr" proves the pattern overrides the locale order (05/03 keeps day vs month unambiguous).
     it.each([
-        {dateFormat: 'dd/MM/yyyy', expected: '05/03/2026'},
-        {dateFormat: 'MM/dd/yyyy', expected: '03/05/2026'},
-        {dateFormat: 'yyyy-MM-dd', expected: '2026-03-05'}
-    ] as const)('should render $dateFormat, overriding the locale order', ({dateFormat, expected}) => {
+        { dateFormat: 'dd/MM/yyyy', expected: '05/03/2026' },
+        { dateFormat: 'MM/dd/yyyy', expected: '03/05/2026' },
+        { dateFormat: 'yyyy-MM-dd', expected: '2026-03-05' },
+    ] as const)('should render $dateFormat, overriding the locale order', ({ dateFormat, expected }) => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="date"
-                placeholder="Select a date"
+                dateFormat={dateFormat}
                 defaultValue="2026-03-05"
                 locale="fr"
-                dateFormat={dateFormat}
-            />
+                placeholder="Select a date"
+                type="date"
+            />,
         );
 
         expect(dateField()).toHaveValue(expected);
@@ -1066,12 +1131,12 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                type="date"
-                placeholder="Select a date"
+                dateFormat="d MMMM yyyy"
                 defaultValue="2026-03-05"
                 locale="fr"
-                dateFormat="d MMMM yyyy"
-            />
+                placeholder="Select a date"
+                type="date"
+            />,
         );
 
         expect(dateField()).toHaveValue('5 mars 2026');
@@ -1079,18 +1144,18 @@ describe('DateTimeInput', () => {
 
     // Invalid patterns (junk, or dayjs-style `YYYY-MM-DD`) must never leak into the input as
     // literal text — reject with a warning and fall back to the locale format instead.
-    it.each(['toto', 'YYYY-MM-DD', 'MM foo yyyy'])('should reject the invalid dateFormat %p and fall back to the locale format', dateFormat => {
+    it.each(['toto', 'YYYY-MM-DD', 'MM foo yyyy'])('should reject the invalid dateFormat %p and fall back to the locale format', (dateFormat) => {
         const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
 
         render(
             <DateTimeInput
                 {...localeProps}
-                type="date"
-                placeholder="Select a date"
+                dateFormat={dateFormat}
                 defaultValue="2026-03-05"
                 locale="fr"
-                dateFormat={dateFormat}
-            />
+                placeholder="Select a date"
+                type="date"
+            />,
         );
 
         expect(dateField()).toHaveValue('05/03/2026');
@@ -1104,7 +1169,15 @@ describe('DateTimeInput', () => {
             const user = userEvent.setup();
             const handleChange = vi.fn();
 
-            render(<DateTimeInput {...localeProps} type="date" placeholder="Select a date" defaultValue="2026-03-15" onChange={handleChange}/>);
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    defaultValue="2026-03-15"
+                    placeholder="Select a date"
+                    type="date"
+                    onChange={handleChange}
+                />,
+            );
 
             await user.clear(dateField());
             await user.type(dateField(), '03/30/2026{Enter}');
@@ -1118,7 +1191,15 @@ describe('DateTimeInput', () => {
             const user = userEvent.setup();
             const handleChange = vi.fn();
 
-            render(<DateTimeInput {...localeProps} type="dateTime" placeholder="Select a date" defaultValue="2026-03-15T11:56" onChange={handleChange}/>);
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    defaultValue="2026-03-15T11:56"
+                    placeholder="Select a date"
+                    type="dateTime"
+                    onChange={handleChange}
+                />,
+            );
 
             await user.clear(dateField());
             await user.type(dateField(), '03/30/2026');
@@ -1142,13 +1223,13 @@ describe('DateTimeInput', () => {
 
             render(
                 <DateTimeInput
-                    locale="fr"
-                    type="date"
                     dateFormat="yyyy-MM-dd"
-                    placeholder="Select a date"
                     defaultValue="2026-03-15"
+                    locale="fr"
+                    placeholder="Select a date"
+                    type="date"
                     onChange={handleChange}
-                />
+                />,
             );
 
             await user.clear(dateField());
@@ -1164,13 +1245,13 @@ describe('DateTimeInput', () => {
             render(
                 <DateTimeInput
                     {...localeProps}
-                    type="date"
-                    placeholder="Select a date"
-                    value="2026-03-15"
-                    minDate="2026-03-10"
                     maxDate="2026-03-20"
+                    minDate="2026-03-10"
+                    placeholder="Select a date"
+                    type="date"
+                    value="2026-03-15"
                     onChange={handleChange}
-                />
+                />,
             );
 
             const initialDisplay = (dateField() as HTMLInputElement).value;
@@ -1209,63 +1290,63 @@ describe('DateTimeInput', () => {
             render(
                 <DateTimeInput
                     {...localeProps}
-                    type="zonedDateTime"
-                    placeholder="Select a date"
                     defaultValue="2026-02-10T10:56:00Z"
+                    placeholder="Select a date"
+                    type="zonedDateTime"
                     onChange={() => null}
-                />
+                />,
             );
 
             expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
-            expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
+            expect(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' })).toBeInTheDocument();
         });
 
         it('should display an offset-annotated ISO string in the browser zone, not in its annotation', () => {
             render(
                 <DateTimeInput
                     {...localeProps}
-                    type="zonedDateTime"
-                    placeholder="Select a date"
                     defaultValue="2026-02-10T18:56+09:00[Asia/Tokyo]"
+                    placeholder="Select a date"
+                    type="zonedDateTime"
                     onChange={() => null}
-                />
+                />,
             );
 
             // 18:56 Tokyo (UTC+9) is 10:56 Paris (UTC+1)
             expect(screen.getByDisplayValue('10:56')).toBeInTheDocument();
-            expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
+            expect(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' })).toBeInTheDocument();
         });
 
         it('should display the value in defaultTimezone instead of the system zone', () => {
             render(
                 <DateTimeInput
                     {...localeProps}
-                    type="zonedDateTime"
-                    placeholder="Select a date"
-                    defaultValue="2026-02-10T10:56:00Z"
                     defaultTimezone="Asia/Tokyo"
+                    defaultValue="2026-02-10T10:56:00Z"
+                    placeholder="Select a date"
+                    type="zonedDateTime"
                     onChange={() => null}
-                />
+                />,
             );
 
             expect(screen.getByDisplayValue('19:56')).toBeInTheDocument();
-            expect(screen.getByRole('listbox', {name: 'Tokyo (UTC +09:00)'})).toBeInTheDocument();
+            expect(screen.getByRole('listbox', { name: 'Tokyo (UTC +09:00)' })).toBeInTheDocument();
         });
 
         it('should fall back to the system zone when defaultTimezone is not a valid IANA zone', () => {
             render(
                 <DateTimeInput
                     {...localeProps}
-                    type="zonedDateTime"
-                    placeholder="Select a date"
-                    defaultValue="2026-02-10T10:56:00Z"
                     defaultTimezone="Mars/Olympus"
+                    defaultValue="2026-02-10T10:56:00Z"
+                    placeholder="Select a date"
+                    type="zonedDateTime"
                     onChange={() => null}
-                />
+                />,
             );
 
             expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
-            expect(screen.getByRole('listbox', {name: 'Paris (UTC +01:00)'})).toBeInTheDocument();
+            expect(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' })).toBeInTheDocument();
         });
 
         it('should re-project the date and time when the zone changes, across midnight', async () => {
@@ -1275,11 +1356,11 @@ describe('DateTimeInput', () => {
             render(
                 <DateTimeInput
                     {...localeProps}
-                    type="zonedDateTime"
-                    placeholder="Select a date"
                     defaultValue="2026-02-09T15:00:00Z"
+                    placeholder="Select a date"
+                    type="zonedDateTime"
                     onChange={handleChange}
-                />
+                />,
             );
 
             expect(screen.getByDisplayValue('16:00')).toBeInTheDocument();
@@ -1288,7 +1369,7 @@ describe('DateTimeInput', () => {
 
             // 2026-02-09T16:00 Paris (UTC+1) is 2026-02-10T00:00 Tokyo (UTC+9): same instant, nothing emitted.
             expect(screen.getByDisplayValue('00:00')).toBeInTheDocument();
-            expect(screen.getByRole('listbox', {name: 'Tokyo (UTC +09:00)'})).toBeInTheDocument();
+            expect(screen.getByRole('listbox', { name: 'Tokyo (UTC +09:00)' })).toBeInTheDocument();
             expect(handleChange).not.toHaveBeenCalled();
         });
 
@@ -1299,11 +1380,11 @@ describe('DateTimeInput', () => {
             render(
                 <DateTimeInput
                     {...localeProps}
-                    type="zonedDateTime"
-                    placeholder="Select a date"
                     defaultValue="2026-02-10T10:56:00Z"
+                    placeholder="Select a date"
+                    type="zonedDateTime"
                     onChange={handleChange}
-                />
+                />,
             );
 
             await pickZone(user, 'tokyo', /^Tokyo \(UTC/);
@@ -1327,8 +1408,8 @@ describe('DateTimeInput', () => {
                 return (
                     <DateTimeInput
                         {...localeProps}
-                        type="zonedDateTime"
                         placeholder="Select a date"
+                        type="zonedDateTime"
                         value={value}
                         onChange={(_event, next) => setValue(next ? next.toString() : null)}
                     />
@@ -1346,7 +1427,7 @@ describe('DateTimeInput', () => {
             await user.type(timeField, '0900');
             await user.tab();
 
-            expect(screen.getByRole('listbox', {name: 'Tokyo (UTC +09:00)'})).toBeInTheDocument();
+            expect(screen.getByRole('listbox', { name: 'Tokyo (UTC +09:00)' })).toBeInTheDocument();
             expect(screen.getByDisplayValue('09:00')).toBeInTheDocument();
         });
 
@@ -1356,15 +1437,15 @@ describe('DateTimeInput', () => {
             render(
                 <DateTimeInput
                     {...localeProps}
-                    type="zonedDateTime"
-                    placeholder="Select a date"
                     defaultValue="2026-02-10T10:56:00Z"
+                    placeholder="Select a date"
+                    type="zonedDateTime"
                     onChange={() => null}
-                />
+                />,
             );
 
             await pickZone(user, 'tokyo', /^Tokyo \(UTC/);
-            await user.click(screen.getByRole('button', {name: 'Reset'}));
+            await user.click(screen.getByRole('button', { name: 'Reset' }));
 
             expect(dateField()).toHaveValue('');
             expect(screen.queryByText('Timezone:')).not.toBeInTheDocument();
@@ -1372,7 +1453,7 @@ describe('DateTimeInput', () => {
             await user.click(dateField());
             await user.click(screen.getByText('Today'));
 
-            expect(screen.getByRole('listbox', {name: /^Tokyo \(UTC/})).toBeInTheDocument();
+            expect(screen.getByRole('listbox', { name: /^Tokyo \(UTC/ })).toBeInTheDocument();
         });
     });
 
@@ -1381,12 +1462,12 @@ describe('DateTimeInput', () => {
             render(
                 <DateTimeInput
                     {...localeProps}
-                    type="zonedDateTime"
-                    placeholder="Select a date"
                     defaultValue="2026-02-10T10:56:00Z"
-                    i18n={{timezone: 'Fuseau horaire'}}
+                    i18n={{ timezone: 'Fuseau horaire' }}
+                    placeholder="Select a date"
+                    type="zonedDateTime"
                     onChange={() => null}
-                />
+                />,
             );
 
             expect(screen.getByText('Fuseau horaire:')).toBeInTheDocument();
@@ -1397,12 +1478,12 @@ describe('DateTimeInput', () => {
             render(
                 <DateTimeInput
                     {...localeProps}
-                    type="zonedDateTime"
-                    placeholder="Select a date"
                     defaultValue="2026-02-10T10:56:00Z"
-                    i18n={{todayButton: 'Aujourd\'hui'}}
+                    i18n={{ todayButton: 'Aujourd\'hui' }}
+                    placeholder="Select a date"
+                    type="zonedDateTime"
                     onChange={() => null}
-                />
+                />,
             );
 
             expect(screen.getByText('Timezone:')).toBeInTheDocument();

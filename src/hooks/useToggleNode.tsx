@@ -14,7 +14,7 @@ export const onToggleNode = (
     onToggle: onToggleProp,
     onClick?: onClickProp,
     isDisabled = false,
-    tabIndex = 0
+    tabIndex = 0,
 ): onToggleNodeProps => {
     const handleKeyUp = (e: React.KeyboardEvent) => {
         if (e.code === 'Space') {
@@ -42,6 +42,6 @@ export const onToggleNode = (
     return {
         onKeyUp: handleKeyUp,
         disabled: isDisabled,
-        tabIndex: tabIndex
+        tabIndex: tabIndex,
     };
 };

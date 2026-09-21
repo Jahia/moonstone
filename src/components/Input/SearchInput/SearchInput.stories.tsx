@@ -1,31 +1,32 @@
-import {StoryFn, Meta} from '@storybook/react-vite';
-import '~/__storybook__/storybook.scss';
+import { SearchInput } from './index';
 
-import {SearchInput} from './index';
-import type {SearchInputProps} from './SearchInput.types';
+import type { SearchInputProps } from './SearchInput.types';
+import type { Meta, StoryFn } from '@storybook/react-vite';
+
+import '~/__storybook__/storybook.scss';
 
 export default {
     title: 'Components/Input',
     component: SearchInput,
     decorators: [
         StoryCmp => (
-            <div style={{width: '50vw'}}>
+            <div style={{ width: '50vw' }}>
                 <StoryCmp/>
             </div>
-        )
+        ),
     ],
     parameters: {
-        layout: 'centered'
+        layout: 'centered',
     },
     args: {
-        placeholder: 'Search and press Enter'
+        placeholder: 'Search and press Enter',
     },
     argTypes: {
-        onChange: {action: 'onChange'},
-        onClick: {action: 'onClick'},
-        onBlur: {action: 'onBlur'},
-        onFocus: {action: 'onFocus'}
-    }
+        onChange: { action: 'onChange' },
+        onClick: { action: 'onClick' },
+        onBlur: { action: 'onBlur' },
+        onFocus: { action: 'onFocus' },
+    },
 } as Meta<typeof SearchInput>;
 
 const Template: StoryFn<SearchInputProps> = args => (
@@ -35,5 +36,5 @@ const Template: StoryFn<SearchInputProps> = args => (
 );
 
 export const Search = {
-    render: Template
+    render: Template,
 };

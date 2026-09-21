@@ -1,7 +1,8 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {Menu} from './index';
-import {MenuItem} from './MenuItem';
+
+import { Menu } from './index';
+import { MenuItem } from './MenuItem';
 
 describe('Menu', () => {
     it('should not display the menu if isDisplayed is false', () => {
@@ -10,8 +11,8 @@ describe('Menu', () => {
     });
 
     it('should not display the menu when children is empty', () => {
-        const {queryByTestId} = render(<Menu isDisplayed data-testid="moonstone-menu">{[]}</Menu>);
-        expect(queryByTestId('moonstone-menu')).not.toBeInTheDocument();
+        render(<Menu isDisplayed data-testid="moonstone-menu">{[]}</Menu>);
+        expect(screen.queryByTestId('moonstone-menu')).not.toBeInTheDocument();
     });
 
     describe('search functionality', () => {
@@ -19,11 +20,11 @@ describe('Menu', () => {
             const user = userEvent.setup();
 
             render(
-                <Menu isDisplayed hasSearch data-testid="moonstone-menu">
+                <Menu hasSearch isDisplayed data-testid="moonstone-menu">
                     <MenuItem label="Item1"/>
                     <MenuItem label="Item2"/>
                     <MenuItem label="Item3"/>
-                </Menu>
+                </Menu>,
             );
             await user.type(screen.getByRole('searchbox'), 'item2');
 
@@ -36,11 +37,11 @@ describe('Menu', () => {
             const user = userEvent.setup();
 
             render(
-                <Menu isDisplayed hasSearch data-testid="moonstone-menu">
-                    <MenuItem label="Item1" description="Description1"/>
-                    <MenuItem label="Item2" description="Description2"/>
-                    <MenuItem label="Item3" description="Description3"/>
-                </Menu>
+                <Menu hasSearch isDisplayed data-testid="moonstone-menu">
+                    <MenuItem description="Description1" label="Item1"/>
+                    <MenuItem description="Description2" label="Item2"/>
+                    <MenuItem description="Description3" label="Item3"/>
+                </Menu>,
             );
             await user.type(screen.getByRole('searchbox'), 'description2');
 
@@ -53,11 +54,11 @@ describe('Menu', () => {
             const user = userEvent.setup();
 
             render(
-                <Menu isDisplayed hasSearch data-testid="moonstone-menu">
-                    <MenuItem label="" description="Description1"/>
-                    <MenuItem label="" description="Description2"/>
-                    <MenuItem label="" description="Description3"/>
-                </Menu>
+                <Menu hasSearch isDisplayed data-testid="moonstone-menu">
+                    <MenuItem description="Description1" label=""/>
+                    <MenuItem description="Description2" label=""/>
+                    <MenuItem description="Description3" label=""/>
+                </Menu>,
             );
             await user.type(screen.getByRole('searchbox'), 'description2');
 
@@ -71,11 +72,11 @@ describe('Menu', () => {
             const searchEmptyText = 'No search results';
 
             render(
-                <Menu isDisplayed hasSearch searchEmptyText={searchEmptyText} data-testid="moonstone-menu">
+                <Menu hasSearch isDisplayed data-testid="moonstone-menu" searchEmptyText={searchEmptyText}>
                     <MenuItem label="Item1"/>
                     <MenuItem label="Item2"/>
                     <MenuItem label="Item3"/>
-                </Menu>
+                </Menu>,
             );
             await user.type(screen.getByRole('searchbox'), 'random search text');
 
@@ -95,9 +96,9 @@ describe('Menu', () => {
                     <MenuItem label="Item6"/>
                     <MenuItem label="Item7"/>
                     <MenuItem label="Item8"/>
-                </Menu>
+                </Menu>,
             );
-            expect(screen.queryByRole('search')).toBeInTheDocument();
+            expect(screen.getByRole('search')).toBeInTheDocument();
         });
 
         it('should not show search input when autoSearch is enabled (hasSearch=undefined) and does not exceed limit', () => {
@@ -106,40 +107,40 @@ describe('Menu', () => {
                     <MenuItem label="Item1"/>
                     <MenuItem label="Item2"/>
                     <MenuItem label="Item3"/>
-                </Menu>
+                </Menu>,
             );
             expect(screen.queryByRole('search')).not.toBeInTheDocument();
         });
 
         it('should show search input when autoSearch is enabled (hasSearch=undefined) and exceeds specified limit', () => {
             render(
-                <Menu isDisplayed data-testid="moonstone-menu" autoAddSearchLimit={2}>
+                <Menu isDisplayed autoAddSearchLimit={2} data-testid="moonstone-menu">
                     <MenuItem label="Item1"/>
                     <MenuItem label="Item2"/>
                     <MenuItem label="Item3"/>
-                </Menu>
+                </Menu>,
             );
-            expect(screen.queryByRole('search')).toBeInTheDocument();
+            expect(screen.getByRole('search')).toBeInTheDocument();
         });
 
         it('should show search input when hasSearch is enabled', () => {
             render(
-                <Menu isDisplayed hasSearch data-testid="moonstone-menu">
+                <Menu hasSearch isDisplayed data-testid="moonstone-menu">
                     <MenuItem label="Item1"/>
                     <MenuItem label="Item2"/>
                     <MenuItem label="Item3"/>
-                </Menu>
+                </Menu>,
             );
-            expect(screen.queryByRole('search')).toBeInTheDocument();
+            expect(screen.getByRole('search')).toBeInTheDocument();
         });
 
         it('should not show search input when hasSearch is disabled', () => {
             render(
-                <Menu isDisplayed hasSearch={false} data-testid="moonstone-menu">
+                <Menu hasSearch={false} isDisplayed data-testid="moonstone-menu">
                     <MenuItem label="Item1"/>
                     <MenuItem label="Item2"/>
                     <MenuItem label="Item3"/>
-                </Menu>
+                </Menu>,
             );
             expect(screen.queryByRole('search')).not.toBeInTheDocument();
         });
@@ -150,7 +151,7 @@ describe('Menu', () => {
         render(
             <Menu isDisplayed data-testid="moonstone-menu">
                 <MenuItem iconStart={<Icon/>} label="test" value="test"/>
-            </Menu>
+            </Menu>,
         );
         expect(screen.getByTestId('moonstone-menu').querySelector('svg')).toBeInTheDocument();
     });
@@ -158,8 +159,8 @@ describe('Menu', () => {
     it('should add extra classnames to MenuItem', () => {
         render(
             <Menu isDisplayed>
-                <MenuItem data-testid="moonstone-menuItem" className="test-custom-class" label="test" value="test"/>
-            </Menu>
+                <MenuItem className="test-custom-class" data-testid="moonstone-menuItem" label="test" value="test"/>
+            </Menu>,
         );
         expect(screen.getByTestId('moonstone-menuItem')).toHaveClass('test-custom-class');
     });
@@ -172,7 +173,7 @@ describe('Menu', () => {
                         <MenuItem label="Sub Item"/>
                     </Menu>
                 </MenuItem>
-            </Menu>
+            </Menu>,
         );
     });
 });

@@ -1,14 +1,15 @@
-import {render, screen} from '@testing-library/react';
-import {Badge} from './index';
+import { render, screen } from '@testing-library/react';
+
+import { Badge } from './index';
 
 describe('Badge', () => {
     it('should display additional className', () => {
-        render(<Badge data-testid="moonstone-badge" label="3" className="extra"/>);
+        render(<Badge className="extra" data-testid="moonstone-badge" label="3"/>);
         expect(screen.getByTestId('moonstone-badge')).toHaveClass('extra');
     });
 
     it('should add additional attributes', () => {
-        render(<Badge data-testid="moonstone-badge" label="3" data-custom="test"/>);
+        render(<Badge data-custom="test" data-testid="moonstone-badge" label="3"/>);
         expect(screen.getByTestId('moonstone-badge')).toHaveAttribute('data-custom', 'test');
     });
 
@@ -18,17 +19,17 @@ describe('Badge', () => {
     });
 
     it('should have accent color', () => {
-        render(<Badge data-testid="moonstone-badge" color="accent" label="test-label"/>);
+        render(<Badge color="accent" data-testid="moonstone-badge" label="test-label"/>);
         expect(screen.getByTestId('moonstone-badge')).toHaveClass('moonstone-badge_accent');
     });
 
     it('should have danger color', () => {
-        render(<Badge data-testid="moonstone-badge" color="danger" label="test-label"/>);
+        render(<Badge color="danger" data-testid="moonstone-badge" label="test-label"/>);
         expect(screen.getByTestId('moonstone-badge')).toHaveClass('moonstone-badge_danger');
     });
 
     it('should have success color', () => {
-        render(<Badge data-testid="moonstone-badge" color="success" label="test-label"/>);
+        render(<Badge color="success" data-testid="moonstone-badge" label="test-label"/>);
         expect(screen.getByTestId('moonstone-badge')).toHaveClass('moonstone-badge_success');
     });
 

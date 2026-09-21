@@ -1,9 +1,12 @@
-import React, {ForwardedRef} from 'react';
 import clsx from 'clsx';
-import type {LayoutContentProps} from './LayoutContent.types';
+import React from 'react';
 
-import {Loader} from '~/components';
-import {layout} from '~/globals/css-utils.js';
+import { Loader } from '~/components';
+import { layout } from '~/globals/css-utils.js';
+
+import type { LayoutContentProps } from './LayoutContent.types';
+import type { ForwardedRef } from 'react';
+
 import styles from './LayoutContent.module.scss';
 
 export const LayoutContent = React.forwardRef(({
@@ -20,38 +23,38 @@ export const LayoutContent = React.forwardRef(({
         ['flexFluid', layout.flexFluid],
         ['moonstone-layoutContent', styles['moonstone-layoutContent']],
         hasPadding && ['moonstone-layoutContent_withPadding', styles['moonstone-layoutContent_withPadding']],
-        isLoading ? ['flexCol_center', layout.flexCol_center, 'alignCenter', layout.alignCenter] : ['flexCol_nowrap', layout.flexCol_nowrap]
+        isLoading ? ['flexCol_center', layout.flexCol_center, 'alignCenter', layout.alignCenter] : ['flexCol_nowrap', layout.flexCol_nowrap],
     );
 
     return (
         <div
-            ref={ref}
             className={clsx(
                 ['flexCol', layout.flexCol],
                 ['flexFluid', layout.flexFluid],
                 ['moonstone-layoutContent_wrapper', styles['moonstone-layoutContent_wrapper']],
-                className
+                className,
             )}
+            ref={ref}
             {...props}
         >
             {header}
-            <div className={classNameProps} aria-busy={isLoading ? 'true' : undefined}>
+            <div aria-busy={isLoading ? 'true' : undefined} className={classNameProps}>
                 {
-                    isLoading ?
-                        <Loader size="big"/> :
-                    (
-                        isCentered ?
-                        (
-                            <div className={clsx(
-                                ['flexCol_nowrap', layout.flexCol_nowrap],
-                                ['flexFluid', layout.flexFluid],
-                                ['moonstone-layoutContent_centered', styles['moonstone-layoutContent_centered']])}
-                            >
-                                {children ?? content}
-                            </div>
-                        ) :
-                        children ?? content
-                      )
+                    isLoading
+                        ? <Loader size="big"/>
+                        : (
+                                isCentered
+                                    ? (
+                                            <div className={clsx(
+                                                ['flexCol_nowrap', layout.flexCol_nowrap],
+                                                ['flexFluid', layout.flexFluid],
+                                                ['moonstone-layoutContent_centered', styles['moonstone-layoutContent_centered']])}
+                                            >
+                                                {children ?? content}
+                                            </div>
+                                        )
+                                    : children ?? content
+                            )
                 }
             </div>
         </div>

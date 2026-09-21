@@ -1,7 +1,8 @@
-import {Temporal} from 'temporal-polyfill';
-import type {Matcher} from '@daypicker/react';
-import type {CalendarDate, DateFormat, DayOfWeek, DisabledDateRange} from './DateTimeInput.types';
-import {getTodayPlainDate, plainDateToDate, toPlainDate} from '../utils/temporal';
+import { getTodayPlainDate, plainDateToDate, toPlainDate } from '../utils/temporal';
+
+import type { CalendarDate, DateFormat, DayOfWeek, DisabledDateRange } from './DateTimeInput.types';
+import type { Matcher } from '@daypicker/react';
+import type { Temporal } from 'temporal-polyfill';
 
 /**
  * Returns the first day of the week for a given locale, using `Intl.Locale` week-info.
@@ -14,8 +15,8 @@ export const getWeekStartsOn = (locale?: string): DayOfWeek => {
 
     try {
         const intlLocale = new Intl.Locale(locale) as Intl.Locale & {
-            getWeekInfo?(): {firstDay: number}; // Newer spec
-            weekInfo?: {firstDay: number}; // Older property form
+            getWeekInfo?(): { firstDay: number }; // Newer spec
+            weekInfo?: { firstDay: number }; // Older property form
         };
         // Both forms exist: `getWeekInfo()` (newer spec) and `weekInfo` (older property).
         const firstDay = (intlLocale.getWeekInfo?.() ?? intlLocale.weekInfo)?.firstDay;
@@ -38,20 +39,20 @@ export const getWeekStartsOn = (locale?: string): DayOfWeek => {
 
 // Maps each supported LDML token to the `Intl` option that renders it.
 const DATE_FORMAT_TOKENS: Record<string, Intl.DateTimeFormatOptions> = {
-    yyyy: {year: 'numeric'},
-    yy: {year: '2-digit'},
-    MMMM: {month: 'long'},
-    MMM: {month: 'short'},
-    MM: {month: '2-digit'},
-    M: {month: 'numeric'},
-    dd: {day: '2-digit'},
-    d: {day: 'numeric'}
+    yyyy: { year: 'numeric' },
+    yy: { year: '2-digit' },
+    MMMM: { month: 'long' },
+    MMM: { month: 'short' },
+    MM: { month: '2-digit' },
+    M: { month: 'numeric' },
+    dd: { day: '2-digit' },
+    d: { day: 'numeric' },
 };
 
 // Longest tokens first so `yyyy` wins over `yy`, `MMMM` over `MM`/`M`, etc.
 const DATE_FORMAT_TOKEN_RE = new RegExp(
     Object.keys(DATE_FORMAT_TOKENS).sort((a, b) => b.length - a.length).join('|'),
-    'g'
+    'g',
 );
 
 // Valid only if it has at least one token and every remaining character is a non-letter —
@@ -92,9 +93,9 @@ export const formatPlainDate = (value: Temporal.PlainDate | null, locale?: strin
 };
 
 const getDateOrder = (locale: string, dateFormat?: DateFormat): string => {
-    const parts = dateFormat && isValidDateFormat(dateFormat) ?
-        dateFormat.match(DATE_FORMAT_TOKEN_RE) ?? [] :
-        new Intl.DateTimeFormat(locale || undefined).formatToParts(0).map(part => part.type);
+    const parts = dateFormat && isValidDateFormat(dateFormat)
+        ? dateFormat.match(DATE_FORMAT_TOKEN_RE) ?? []
+        : new Intl.DateTimeFormat(locale || undefined).formatToParts(0).map(part => part.type);
 
     return parts.map(part => part[0].toLowerCase()).filter(initial => 'ymd'.includes(initial)).join('');
 };
@@ -139,7 +140,7 @@ export const getCalendarDisabledMatchers = ({
     maxDate,
     disabledDates,
     disabledDateRanges,
-    disabledDaysOfWeek
+    disabledDaysOfWeek,
 }: {
     minDate?: CalendarDate;
     maxDate?: CalendarDate;
@@ -155,28 +156,35 @@ export const getCalendarDisabledMatchers = ({
         .filter((date): date is Temporal.PlainDate => date !== null)
         .map(plainDateToDate);
     const unavailableRanges = (disabledDateRanges ?? [])
-        .map(range => ({from: toPlainDate(range.from), to: toPlainDate(range.to)}))
-        .filter((range): range is {from: Temporal.PlainDate; to: Temporal.PlainDate} =>
+        .map(range => ({
+            from: toPlainDate(range.from),
+            to: toPlainDate(range.to),
+        }))
+        .filter((range): range is { from: Temporal.PlainDate;
+            to: Temporal.PlainDate; } =>
             range.from !== null && range.to !== null);
 
     if (minimumDate) {
-        matchers.push({before: plainDateToDate(minimumDate)});
+        matchers.push({ before: plainDateToDate(minimumDate) });
     }
 
     if (maximumDate) {
-        matchers.push({after: plainDateToDate(maximumDate)});
+        matchers.push({ after: plainDateToDate(maximumDate) });
     }
 
     if (unavailableDates.length) {
         matchers.push(unavailableDates);
     }
 
-    unavailableRanges.forEach(range => {
-        matchers.push({from: plainDateToDate(range.from), to: plainDateToDate(range.to)});
+    unavailableRanges.forEach((range) => {
+        matchers.push({
+            from: plainDateToDate(range.from),
+            to: plainDateToDate(range.to),
+        });
     });
 
     if (disabledDaysOfWeek?.length) {
-        matchers.push({dayOfWeek: disabledDaysOfWeek});
+        matchers.push({ dayOfWeek: disabledDaysOfWeek });
     }
 
     return matchers;

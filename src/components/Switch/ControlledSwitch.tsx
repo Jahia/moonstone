@@ -1,7 +1,11 @@
-import React, {MutableRefObject, useRef} from 'react';
 import clsx from 'clsx';
-import type {ControlledSwitchProps} from './Switch.types';
-import {onAccessibleClick} from '~/hooks';
+import React, { useRef } from 'react';
+
+import { onAccessibleClick } from '~/hooks';
+
+import type { ControlledSwitchProps } from './Switch.types';
+import type { MutableRefObject } from 'react';
+
 import styles from './Switch.module.scss';
 
 const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ControlledSwitchProps> = ({
@@ -16,27 +20,28 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLDivElement,
 
     return (
         <div
-            ref={ref}
             className={clsx(
                 ['moonstone-switch', styles['moonstone-switch']],
                 checked && ['moonstone-switch_checked', styles['moonstone-switch_checked']],
                 isDisabled && ['moonstone-switch_disabled', styles['moonstone-switch_disabled']],
-                className
+                className,
             )}
+            ref={ref}
         >
             <input
                 {...other}
-                ref={inputRef}
+                disabled={isDisabled}
+                aria-checked={checked}
+                checked={checked}
                 className={clsx('moonstone-switch_input', styles['moonstone-switch_input'])}
+                ref={inputRef}
                 type="checkbox"
                 value={value}
-                checked={checked}
-                aria-checked={checked}
-                disabled={isDisabled}
                 {...onAccessibleClick({
                     onClick: (ev: React.KeyboardEvent | React.MouseEvent) => onChange(ev as unknown as React.ChangeEvent<HTMLInputElement>, value, inputRef.current?.checked),
                     disabled: isDisabled,
-                    role: 'checkbox'})}
+                    role: 'checkbox',
+                })}
             />
             <span className={clsx('moonstone-switch_icon', styles['moonstone-switch_icon'])}/>
         </div>

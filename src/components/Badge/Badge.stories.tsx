@@ -1,35 +1,34 @@
-import {Meta} from '@storybook/react-vite';
-
-import {Badge} from './index';
-
 import markdownNotes from './Badge.md';
+import { Badge } from './index';
+
+import type { Meta } from '@storybook/react-vite';
 
 export default {
     title: 'Components/Badge',
     component: Badge,
     parameters: {
         layout: 'centered',
-        notes: {markdown: markdownNotes}
-    }
+        notes: { markdown: markdownNotes },
+    },
 } as Meta<typeof Badge>;
 
 export const Accent = {
     args: {
         label: '3',
-        color: 'accent'
-    }
+        color: 'accent',
+    },
 };
 
 export const Success = {
     args: {
         label: '3',
-        color: 'success'
-    }
+        color: 'success',
+    },
 };
 
 export const Danger = {
     args: {
         label: '3',
-        color: 'danger'
-    }
+        color: 'danger',
+    },
 };

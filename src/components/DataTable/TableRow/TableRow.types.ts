@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type TableRowProps = Omit<React.ComponentPropsWithoutRef<'tr'>, 'children'| 'className'> & {
+export type TableRowProps = Omit<React.ComponentPropsWithoutRef<'tr'>, 'children' | 'className'> & {
     /**
      * Additional classname
      */

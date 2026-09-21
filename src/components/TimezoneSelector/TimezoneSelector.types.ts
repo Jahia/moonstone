@@ -1,15 +1,16 @@
 import React from 'react';
-import type {Temporal} from 'temporal-polyfill';
-import type {DropdownProps} from '~/components/Dropdown/Dropdown.types';
+
+import type { Temporal } from 'temporal-polyfill';
+import type { DropdownProps } from '~/components/Dropdown/Dropdown.types';
 
 type BaseTimezoneSelectorProps = Omit<DropdownProps,
-    'data' |
-    'treeData' |
-    'value' |
-    'values' |
-    'onChange' |
-    'onClear' |
-    'icon'
+    'data'
+    | 'treeData'
+    | 'value'
+    | 'values'
+    | 'onChange'
+    | 'onClear'
+    | 'icon'
 > & {
     /**
      * Reference date used to compute the UTC offsets shown in the timezone list (offsets
@@ -22,14 +23,14 @@ type BaseTimezoneSelectorProps = Omit<DropdownProps,
      * Renders the selector as read-only.
      */
     isReadOnly?: boolean;
-}
+};
 
 export type ControlledTimezoneSelectorProps = BaseTimezoneSelectorProps & {
     /** Controlled value: IANA timezone identifier (e.g. `'Europe/Paris'`), or `null`. */
     value: string | null;
     defaultValue?: never;
     onChange: (event: React.SyntheticEvent, value: string | null) => void;
-}
+};
 
 export type UncontrolledTimezoneSelectorProps = BaseTimezoneSelectorProps & {
     value?: never;
@@ -43,6 +44,6 @@ export type UncontrolledTimezoneSelectorProps = BaseTimezoneSelectorProps & {
      * @param value - Selected IANA timezone identifier (e.g. `'Europe/Paris'`)
      */
     onChange?: (event: React.SyntheticEvent, value: string | null) => void;
-}
+};
 
 export type TimezoneSelectorProps = ControlledTimezoneSelectorProps | UncontrolledTimezoneSelectorProps;

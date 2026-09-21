@@ -25,5 +25,4 @@ export type ChipProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'className'>
      * Whether the component should be disabled
      */
     isDisabled?: boolean;
-}
-
+};

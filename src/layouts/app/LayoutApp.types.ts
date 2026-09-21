@@ -15,4 +15,4 @@ export type LayoutAppProps = Omit<React.ComponentPropsWithRef<'div'>, 'content'>
      * Replace the content by a loader
      */
     isLoading?: boolean;
-}
+};

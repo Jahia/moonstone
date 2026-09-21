@@ -1,6 +1,6 @@
-import {StoryObj} from '@storybook/react-vite';
+import { Typography } from './index';
 
-import {Typography} from './index';
+import type { StoryObj } from '@storybook/react-vite';
 
 // Import markdownNotes from './Typography.md';
 
@@ -9,9 +9,9 @@ export default {
     component: Typography,
     parameters: {
         layout: 'centered',
-        knobs: {disable: true},
-        storysource: {disable: true}
-    }
+        knobs: { disable: true },
+        storysource: { disable: true },
+    },
 };
 
 export const Variants = () => (
@@ -44,5 +44,5 @@ export const Links = () => (
 );
 
 export const Playground: StoryObj<typeof Typography> = {
-    render: args => <Typography {...args}>Playground</Typography>
+    render: args => <Typography {...args}>Playground</Typography>,
 };
