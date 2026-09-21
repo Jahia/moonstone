@@ -74,6 +74,8 @@ export default defineConfig({
                     include: ['src/**/*.browser.spec.tsx'],
                     exclude: ['src/visual*.spec.tsx'],
                     css: true,
+                    globals: true,
+                    env: { TZ: 'UTC' },
                     browser: {
                         enabled: true,
                         headless: true,
