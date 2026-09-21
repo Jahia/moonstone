@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useEffect, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { SearchInput } from '~/components/Input';
 import { Typography } from '~/components/Typography';
@@ -108,24 +108,15 @@ export const Menu: React.FC<MenuProps> = ({
     const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, position);
     useEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);
     const [inputValue, setInputValue] = useState('');
-    const [filteredChildren, setFilteredChildren] = useState(children);
-    const [isEmptySearch, setIsEmptySearch] = useState(false);
-    // UseEffect hook to filter the search results and determine whether to show the no search results text
-    useEffect(() => {
-        if (inputValue !== '' && Array.isArray(children)) {
-            const _filtered = getFilteredGroups(children as [React.ReactElement], inputValue);
-            setFilteredChildren(_filtered);
-
-            if (_filtered.length === 0) {
-                setIsEmptySearch(true);
-            } else {
-                setIsEmptySearch(false);
-            }
-        } else {
-            setFilteredChildren(null);
-            setIsEmptySearch(false);
-        }
-    }, [inputValue, children]);
+    // Search results are derived from the query, not stored: no effect, no extra render.
+    // `null` means "no active search", so the unfiltered children are rendered as-is.
+    const filteredChildren = useMemo(
+        () => (inputValue !== '' && Array.isArray(children)
+            ? getFilteredGroups(children as [React.ReactElement], inputValue)
+            : null),
+        [inputValue, children],
+    );
+    const isEmptySearch = filteredChildren !== null && filteredChildren.length === 0;
 
     if (!children || React.Children.count(children) < 1) {
         return null;

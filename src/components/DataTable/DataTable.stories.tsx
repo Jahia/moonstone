@@ -109,7 +109,7 @@ export const ControlledDataTable: Story = {
                 onItemsPerPageChange={setItemsPerPage}
                 onPageChange={setCurrentPage}
                 onSortChange={(newSortBy, newSortDirection) => {
-                    setSortBy(newSortBy as DataUserKeys);
+                    setSortBy(newSortBy);
                     setSortDirection(newSortDirection);
                 }}
             />

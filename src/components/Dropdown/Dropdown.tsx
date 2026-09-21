@@ -91,11 +91,11 @@ export const Dropdown: React.FC<DropdownProps> = ({
     }
 
     const [isOpened, setIsOpened] = useState(false);
-    const [focusData, setFocusData] = useState({
-        focused: false,
-        event: null,
-        lastSent: false,
-    });
+    const [isFocused, setIsFocused] = useState(false);
+    // A blur owed to the consumer but not delivered yet. It sits in a ref because queuing it
+    // must not trigger a render, and the event object has to survive until the menu closes:
+    // `onBlur` takes the original FocusEvent, and there is none left at that point.
+    const pendingBlurEventRef = useRef<React.FocusEvent | null>(null);
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
     const ref: MutableRefObject<HTMLDivElement> = useRef();
@@ -104,25 +104,18 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const flatData = useMemo(() => isTree ? flatten(treeData) : data, [treeData, data, isTree]);
     const isEmpty = flatData.length === 0;
 
+    // Opening the menu moves focus off the trigger; that must not read as leaving the
+    // component, so a queued blur is only reported once the menu is closed again.
     useEffect(() => {
-        if (focusData.focused && focusData.event && !focusData.lastSent && onFocus) {
-            onFocus(focusData.event);
-            setFocusData(p => ({
-                ...p,
-                lastSent: true,
-            }));
+        if (isFocused || isOpened || !pendingBlurEventRef.current) {
+            return;
         }
-    }, [onFocus, focusData]);
 
-    useEffect(() => {
-        if (!focusData.focused && !isOpened && focusData.event && focusData.lastSent && onBlur) {
-            onBlur(focusData.event);
-            setFocusData(p => ({
-                ...p,
-                lastSent: false,
-            }));
-        }
-    }, [onBlur, isOpened, focusData]);
+        const event = pendingBlurEventRef.current;
+
+        pendingBlurEventRef.current = null;
+        onBlur?.(event);
+    }, [isFocused, isOpened, onBlur]);
 
     // Return nothing if `data` isn't an array
     if (!Array.isArray(flatData)) {
@@ -229,19 +222,15 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 role="listbox"
                 tabIndex={0}
                 onBlur={(event) => {
-                    setFocusData(p => ({
-                        ...p,
-                        focused: false,
-                        event,
-                    }));
+                    setIsFocused(false);
+                    pendingBlurEventRef.current = event;
                 }}
                 onClick={(!isDisabled && !isLoading) ? handleOpenMenu : undefined}
                 onFocus={(event) => {
-                    setFocusData(p => ({
-                        ...p,
-                        focused: true,
-                        event,
-                    }));
+                    setIsFocused(true);
+                    // Focus came back before the menu closed: the queued blur never happened.
+                    pendingBlurEventRef.current = null;
+                    onFocus?.(event);
                 }}
                 onKeyUp={(e) => {
                     if (e.key === 'Enter' && !isDisabled && !isLoading) {

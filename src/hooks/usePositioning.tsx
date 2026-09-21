@@ -301,7 +301,18 @@ export const usePositioning = (
     position: PositioningType,
 ): [React.CSSProperties, React.MutableRefObject<HTMLDivElement>] => {
     const [stylePosition, setStylePosition] = useState<React.CSSProperties>(initialPosition as React.CSSProperties);
+    const [wasDisplayed, setWasDisplayed] = useState(isDisplayed);
     const itemRef = useRef(null);
+
+    // Reset while hiding rather than from an effect: reopening then starts off-screen
+    // instead of flashing one frame at the previous anchor's position.
+    if (isDisplayed !== wasDisplayed) {
+        setWasDisplayed(isDisplayed);
+
+        if (!isDisplayed) {
+            setStylePosition(initialPosition as React.CSSProperties);
+        }
+    }
 
     const computePosition = useCallback(() => {
         if (!itemRef.current) {
@@ -318,8 +329,6 @@ export const usePositioning = (
     useEffect(() => {
         if (isDisplayed) {
             computePosition();
-        } else {
-            setStylePosition(initialPosition);
         }
     }, [
         anchorEl,

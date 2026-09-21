@@ -95,7 +95,7 @@ describe('usePositioning - ResizeObserver', () => {
         const anchorElement = document.createElement('div');
         const getBoundingClientRectMock = vi.fn().mockReturnValue({
             top: 0, bottom: 100, left: 75, right: 175, width: 100, height: 50,
-        } as DOMRect);
+        });
         anchorElement.getBoundingClientRect = getBoundingClientRectMock;
         const anchorEl = { current: anchorElement };
 
@@ -118,7 +118,7 @@ describe('usePositioning - ResizeObserver', () => {
         const anchorEl = makeAnchorEl();
         const getBoundingClientRectMock = vi.fn().mockReturnValue({
             top: 0, bottom: 100, left: 75, right: 175, width: 100, height: 50,
-        } as DOMRect);
+        });
         anchorEl.current.getBoundingClientRect = getBoundingClientRectMock;
 
         render(<TestComponent isDisplayed={false} anchorEl={anchorEl}/>);

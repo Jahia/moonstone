@@ -30,12 +30,20 @@ export default defineConfig({
         'react/display-name': 'off',
         'react-hooks/rules-of-hooks': 'error',
         'react-hooks/exhaustive-deps': 'warn',
+        // Warn: flags any ref *passed* to a call during render (useMergeRefs, floating-ui,
+        // onArrowNavigation), which is our standard pattern — no hit reads `.current` in
+        // render. Kept visible so a genuine render-time `.current` read still surfaces.
+        'react/refs': 'warn',
+        'react/set-state-in-effect': 'error',
+        // Off: only reports that React Compiler would skip memoizing `useReactTable`.
+        'react/incompatible-library': 'off',
         'typescript/consistent-type-imports': 'error',
         // Never switch to 'interface': its autofix drops implicit index
         'typescript/consistent-type-definitions': ['error', 'type'],
         'typescript/no-shadow': 'error',
         'typescript/no-inferrable-types': 'error',
-        'typescript/no-unnecessary-type-assertion': 'error',
+        // Off: tsgolint disagrees with tsc here and its autofix removes load-bearing, breaking the build.
+        'typescript/no-unnecessary-type-assertion': 'off',
         // From tseslint "recommended"; missing from oxlint's correctness category
         'typescript/ban-ts-comment': 'error',
         'typescript/no-explicit-any': 'warn',

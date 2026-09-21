@@ -5,7 +5,7 @@ import React from 'react';
 import { zones } from './ResizableBox.types';
 import { HandleResize } from '~/icons';
 
-import type { EnableZonesProps, ResizableBoxProps, ZonesProps } from './ResizableBox.types';
+import type { EnableZonesProps, ResizableBoxProps } from './ResizableBox.types';
 
 import styles from './ResizableBox.module.scss';
 
@@ -28,7 +28,7 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
     const enableZones: EnableZonesProps = {};
 
     zones.forEach((zone) => {
-        enableZones[zone] = enable.indexOf(zone as ZonesProps) > -1;
+        enableZones[zone] = enable.indexOf(zone) > -1;
     });
 
     return (
