@@ -5,8 +5,8 @@ import markdownNotes from './GlobalStyle_layout.md';
 import { layout } from '~/globals/css-utils.js';
 import { capitalize } from '~/utils/helpers.js';
 
-const justifyOptions = [null, 'center', 'reverse', 'between', 'nowrap'] as const;
-type JustifyOption = typeof justifyOptions[number];
+type JustifyOption = null | 'center' | 'reverse' | 'between' | 'nowrap';
+const justifyOptions: readonly JustifyOption[] = [null, 'center', 'reverse', 'between', 'nowrap'];
 
 const alignOptions = ['start', 'center', 'end'] as const;
 type AlignOption = typeof alignOptions[number];
@@ -91,31 +91,27 @@ const Item = () => {
 };
 
 function displayItems(direction: Direction, type: 'justify' | 'align') {
-    const display = [];
-    let arrayOptions: JustifyOption[] | AlignOption[] = [];
-
-    if (type === 'justify') {
-        // @ts-expect-error let's not touch that for now
-        arrayOptions = justifyOptions;
-    } else if (type === 'align') {
-        // @ts-expect-error let's not touch that for now
-        arrayOptions = alignOptions;
-    }
-
-    for (const option of arrayOptions) {
-        display.push(
+    if (type === 'align') {
+        return alignOptions.map(align => (
             <ItemContainer
-                // @ts-expect-error let's not touch that for now
-                align={type === 'align' ? option : 'center'}
+                align={align}
                 direction={direction}
-                // @ts-expect-error let's not touch that for now
-                justify={type === 'justify' ? option : 'center'}
-                title={`${type} ${clsx(option)}`}
-            />,
-        );
+                justify="center"
+                key={align}
+                title={`align ${align}`}
+            />
+        ));
     }
 
-    return display;
+    return justifyOptions.map(justify => (
+        <ItemContainer
+            align="center"
+            direction={direction}
+            justify={justify}
+            key={clsx(justify)}
+            title={`justify ${clsx(justify)}`}
+        />
+    ));
 }
 
 export default {

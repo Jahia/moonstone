@@ -4,6 +4,7 @@ import testingLibrary from 'eslint-plugin-testing-library';
 import { defineConfig } from 'oxlint';
 
 export default defineConfig({
+    options: { typeAware: true },
     plugins: [
         'typescript',
         'react',

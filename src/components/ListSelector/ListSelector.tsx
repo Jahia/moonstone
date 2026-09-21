@@ -181,9 +181,9 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                 <ValueList
                     isReadOnly={isReadOnly}
                     draggedId={dragged?.value.value}
+                    // @ts-expect-error prop does not exist, removal to be investigated
                     filter={filterRight}
                     iconEnd={<Close className={clsx('moonstone-displayNone', valueListStyles['moonstone-displayNone'])}/>}
-                    // @ts-expect-error prop does not exist, removal to be investigated
                     label={label}
                     listClasses={(dragged && !filterRight) ? ['moonstone-draggedOver', styles['moonstone-draggedOver']] : []}
                     role="right-list"
