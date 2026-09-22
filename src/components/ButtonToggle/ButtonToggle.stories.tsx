@@ -12,6 +12,7 @@ const meta: Meta<typeof ButtonToggle> = {
     tags: ['dark-theme'],
 
     parameters: {
+        a11y: { test: 'todo' }, // axe gate: known violations, WCAG AA epic #1421
         layout: 'centered',
         actions: { argTypesRegex: '^on.*' },
         notes: { markdown: markdownNotes },

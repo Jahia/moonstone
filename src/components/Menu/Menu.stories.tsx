@@ -17,6 +17,7 @@ export default {
     component: Menu,
     subcomponents: { MenuItem },
     parameters: {
+        a11y: { test: 'todo' }, // axe gate: known violations, WCAG AA epic #1421
         notes: { markdown: markdownNotes },
         docs: {
             // Fix issues in the doc tab with firefox

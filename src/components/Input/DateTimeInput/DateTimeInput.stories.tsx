@@ -16,6 +16,7 @@ export default {
     component: DateTimeInput,
     tags: ['beta'],
     parameters: {
+        a11y: { test: 'todo' }, // axe gate: known violations, WCAG AA epic #1421
         layout: 'centered',
         actions: { argTypesRegex: '^on.*' },
         notes: { markdown: markdownNotes },

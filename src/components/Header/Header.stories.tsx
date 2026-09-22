@@ -26,6 +26,9 @@ const DropdownData = [
 export default {
     title: 'Components/Header',
     component: Header,
+    parameters: {
+        a11y: { test: 'todo' }, // axe gate: known violations, WCAG AA epic #1421
+    },
     argTypes: {
         title: {
             table: {

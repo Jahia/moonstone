@@ -7,6 +7,7 @@ export default {
     title: 'Components/CheckboxGroup',
     component: CheckboxGroup,
     parameters: {
+        a11y: { test: 'todo' }, // axe gate: known violations, WCAG AA epic #1421
         layout: 'centered',
         knobs: { disable: true },
         storysource: { disable: true },

@@ -52,6 +52,13 @@ the spreadsheet from the audits committed in `a11y/history/`, and never writes t
 When the figures measured on `main` differ from the latest committed audit, the spreadsheet still gets today's
 figures, and the run fails with the file to add: run `yarn a11y:report` on `main` and commit the JSON.
 
+### The axe gate on pull requests
+
+`yarn test` also runs the `storybook-light` and `storybook-dark` projects, with the a11y addon in `error` mode:
+a story with an axe violation fails the PR. Components that still had violations when the gate was enabled carry
+`parameters: { a11y: { test: 'todo' } }` in their story meta (reported, not failing). That list only shrinks: when
+a component is fixed, remove its `todo` so the gate protects it. Never add a new one.
+
 Setup, once: repository secrets `A11Y_SHEET_ID` (the spreadsheet id) and `GOOGLE_SHEETS_SA_KEY` (a service account
 JSON key), and the spreadsheet shared with the service account's email as an editor.
 

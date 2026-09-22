@@ -72,7 +72,7 @@
     "lint:scss:fix": "yarn lint:scss --fix",
     "start": "storybook dev -p 6006",
     "tdd": "vitest watch",
-    "test": "vitest run --coverage --project unit --project browser",
+    "test": "vitest run --coverage --project unit --project browser --project storybook-light --project storybook-dark",
     "test:visual": "vitest --project visual --reporter verbose",
     "test:a11y": "vitest run --project storybook-light --reporter=json --outputFile=reports/a11y/light.json; vitest run --project storybook-dark --reporter=json --outputFile=reports/a11y/dark.json",
     "a11y:report": "yarn test:a11y; yarn test --reporter=json --outputFile=reports/a11y/unit.json; yarn lint:a11y; node scripts/a11y-kpi.mjs && node scripts/a11y-csv.mjs && node scripts/a11y-sheet.mjs",

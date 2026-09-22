@@ -11,6 +11,7 @@ const meta: Meta<typeof FieldBoolean> = {
     tags: ['beta'],
 
     parameters: {
+        a11y: { test: 'todo' }, // axe gate: known violations, WCAG AA epic #1421
         layout: 'padded',
         actions: { argTypesRegex: '^on.*' },
         notes: { markdown: markdownNotes },

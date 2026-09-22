@@ -13,6 +13,7 @@ export default {
     subcomponents: { Button },
 
     parameters: {
+        a11y: { test: 'todo' }, // axe gate: known violations, WCAG AA epic #1421
         layout: 'centered',
         componentSubtitle: 'ButtonGroup',
         notes: { markdown: markdownNotes },
