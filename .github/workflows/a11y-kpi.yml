@@ -1,0 +1,80 @@
+name: A11y KPI
+
+# Accessibility audit on every change merged to main: runs axe on every story in both themes, the
+# unit suite and the jsx-a11y lint, then refreshes the KPI spreadsheet from the audits committed in
+# a11y/history/. The audits are written by the developers (`yarn a11y:report`, committed with the fix):
+# this workflow never writes to git. When the figures measured on main differ from the latest committed
+# audit, the spreadsheet still gets today's figures, and the run fails to ask for the missing audit file.
+#
+# Setup, once:
+#   - repository variable A11Y_SHEET_ID = the spreadsheet id
+#   - repository secret GOOGLE_SHEETS_SA_KEY = the service account JSON key, the spreadsheet
+#     being shared with that account's email as an editor
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - '.storybook/**'
+      - 'oxlint.config.ts'
+      - 'package.json'
+      - 'yarn.lock'
+      - 'a11y/history/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: jdx/mise-action@7e36c90d9ab29c415a2384db3006f3ec8a8cc654 # v4.2.4
+      - name: Install dependencies
+        run: yarn
+      - run: yarn build:icons
+      - run: yarn playwright install chromium --only-shell
+
+      # The three runs below are expected to exit non-zero: their failures are the measurement.
+      - name: Axe, light and dark themes
+        run: yarn test:a11y || true
+      - name: Unit suite
+        run: yarn test --reporter=json --outputFile=reports/a11y/unit.json || true
+      - name: Lint jsx-a11y
+        run: yarn lint:a11y || true
+
+      # Today's figures go to reports/ (not committed); `changed` says whether they differ from a11y/history.
+      - name: Measure and compare with the committed audits
+        id: kpi
+        run: node scripts/a11y-kpi.mjs --history a11y/history --out reports/a11y/current --force
+
+      - name: Refresh the spreadsheet
+        env:
+          A11Y_SHEET_ID: ${{ vars.A11Y_SHEET_ID }}
+          GOOGLE_SHEETS_SA_KEY: ${{ secrets.GOOGLE_SHEETS_SA_KEY }}
+        run: |
+          extra=$(ls reports/a11y/current/*.json | head -1)
+          if [ "${{ steps.kpi.outputs.changed }}" = "true" ]; then node scripts/a11y-csv.mjs --extra "$extra"; else node scripts/a11y-csv.mjs; fi
+          node scripts/a11y-sheet.mjs
+
+      - name: Ask for the missing audit file
+        if: steps.kpi.outputs.changed == 'true'
+        run: |
+          file=$(basename reports/a11y/current/*.json)
+          {
+            echo "### Accessibility figures changed, no audit file records it"
+            echo
+            echo "The spreadsheet shows today's figures, but \`a11y/history/\` on main does not. Run \`yarn a11y:report\` on main and commit \`a11y/history/$file\`."
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "::error::Accessibility figures changed since the latest audit in a11y/history. Run yarn a11y:report and commit a11y/history/$file."
+          exit 1
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: a11y-reports
+          path: reports/a11y
+          retention-days: 30

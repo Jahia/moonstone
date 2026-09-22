@@ -11,6 +11,7 @@ import '~/__storybook__/storybook.scss';
 const meta: Meta<typeof Button> = {
     title: 'Components/Button',
     component: Button,
+    tags: ['dark-theme'],
 
     parameters: {
         layout: 'centered',
@@ -25,7 +26,7 @@ const meta: Meta<typeof Button> = {
 export default meta;
 
 type Story = StoryObj<ButtonProps>;
-const Template = (args: ButtonProps, globals: StoryContext) => {
+const Template = (args: ButtonProps, { globals }: StoryContext) => {
     const theme = globals.theme;
     return <Button isReversed={theme === 'dark'} {...args}/>;
 };
@@ -73,7 +74,7 @@ export const Outlined: Story = {
     render: Template,
 };
 
-const IconAndLabelTemplate = (args: ButtonProps, globals: StoryContext) => {
+const IconAndLabelTemplate = (args: ButtonProps, { globals }: StoryContext) => {
     const theme = globals.theme;
     return (
         <section className="storyGrid">
@@ -111,7 +112,7 @@ export const IconAndLabel: Story = {
 };
 
 export const OnlyLabel = {
-    render: (args: ButtonProps, globals: StoryContext) => {
+    render: (args: ButtonProps, { globals }: StoryContext) => {
         const theme = globals.theme;
         return (
             <section className="storyGrid">
@@ -143,7 +144,7 @@ export const OnlyLabel = {
 };
 
 export const OnlyIcon = {
-    render: (args: ButtonProps, globals: StoryContext) => {
+    render: (args: ButtonProps, { globals }: StoryContext) => {
         const theme = globals.theme;
         return (
             <section className="storyGrid">
@@ -165,7 +166,7 @@ export const OnlyIcon = {
 };
 
 export const Disabled = {
-    render: (args: ButtonProps, globals: StoryContext) => {
+    render: (args: ButtonProps, { globals }: StoryContext) => {
         const theme = globals.theme;
         return (
             <section className="storyGrid">

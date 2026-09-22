@@ -9,6 +9,7 @@ import type { Meta, StoryContext, StoryObj } from '@storybook/react-vite';
 const meta: Meta<typeof ButtonToggle> = {
     title: 'Components/ButtonToggle',
     component: ButtonToggle,
+    tags: ['dark-theme'],
 
     parameters: {
         layout: 'centered',
@@ -23,7 +24,7 @@ const meta: Meta<typeof ButtonToggle> = {
 export default meta;
 
 type Story = StoryObj<ButtonToggleProps>;
-const Template = (args: ButtonToggleProps, globals: StoryContext) => {
+const Template = (args: ButtonToggleProps, { globals }: StoryContext) => {
     const theme = globals.theme;
     return <ButtonToggle {...args} isReversed={theme === 'dark'}/>;
 };
