@@ -1,24 +1,23 @@
 #!/usr/bin/env node
-// Aggregates the raw accessibility reports into one dated audit file.
+// Measures the WCAG 2.2 AA state of every component and appends it to the KPI spreadsheet, one row per component.
 //
-//   yarn test:a11y                                   -> reports/a11y/light.json, dark.json
+//   yarn test:a11y                                                  -> reports/a11y/light.json, dark.json
 //   yarn test --reporter=json --outputFile=reports/a11y/unit.json
-//   yarn lint:a11y                                   -> reports/a11y/lint.json (oxlint, jsx-a11y rules)
-//   node scripts/a11y-kpi.mjs [--date YYYY-MM-DD] [--label text] [--reports dir] [--out dir] [--history dir] [--force]
-// The previous audit is read from --history (default: --out). Same figures: nothing is written and GITHUB_OUTPUT
-// gets changed=false, unless --force.
+//   node scripts/a11y-report.mjs [--dry-run] [--id <spreadsheetId>] [--reports dir] [--label text]
 //
-// Output: <out>/<date>.json, the schema read by a11y-csv.mjs.
-import {readFileSync, writeFileSync, appendFileSync, existsSync, readdirSync, mkdirSync, globSync} from 'node:fs';
-import {basename, join} from 'node:path';
+// The script runs oxlint itself for the jsx-a11y findings, writes the full audit to reports/a11y/audit.json (the
+// workflow artefact) and appends the History rows to the sheet. Credentials: GOOGLE_SHEETS_SA_KEY (the JSON itself,
+// for CI) or GOOGLE_APPLICATION_CREDENTIALS (a path). Without them the script behaves as --dry-run.
+import {JWT} from 'google-auth-library';
 import {execSync} from 'node:child_process';
+import {existsSync, globSync, mkdirSync, readFileSync, writeFileSync} from 'node:fs';
+import {basename, join} from 'node:path';
 
 const arg = (name, fallback) => { const i = process.argv.indexOf(name); return i > -1 ? process.argv[i + 1] : fallback; };
 const reportsDir = arg('--reports', 'reports/a11y');
-const outDir = arg('--out', 'a11y/history');
-const historyDir = arg('--history', outDir);
-const date = arg('--date', new Date().toISOString().slice(0, 10));
 const label = arg('--label', '');
+const spreadsheetId = arg('--id', process.env.A11Y_SHEET_ID);
+const date = new Date().toISOString().slice(0, 10);
 const git = cmd => { try { return execSync(`git ${cmd}`, {encoding: 'utf8'}).trim(); } catch { return 'unknown'; } };
 
 const readJson = name => {
@@ -28,6 +27,7 @@ const readJson = name => {
 };
 const componentOfStory = file => basename(file.replace(/\\/g, '/')).replace(/\.stories\.[jt]sx?$/, '');
 const componentOfSpec = file => basename(file.replace(/\\/g, '/')).replace(/\.spec\.[jt]sx?$/, '');
+const componentOfPath = file => (file.replace(/\\/g, '/').match(/src\/components\/([^/]+)/) || [, 'other'])[1];
 const sortDesc = (list, key) => list.sort((a, b) => b[key] - a[key] || String(a.id || a.name).localeCompare(String(b.id || b.name)));
 
 // WCAG success criteria carried by axe tags such as "wcag412" or "wcag1411".
@@ -160,12 +160,9 @@ for (const file of unit.testResults) {
     }
 }
 const kbList = Object.values(kb);
-// Root causes are written by hand; carry them over from the latest audit (same date included, so a rerun keeps them).
-const previous = existsSync(historyDir) ? readdirSync(historyDir).filter(f => /^\d{4}-\d{2}-\d{2}.*\.json$/.test(f)).sort().filter(f => f <= `${date}.json`).pop() : null;
-const previousAudit = previous ? JSON.parse(readFileSync(join(historyDir, previous), 'utf8')) : null;
-// A run without keyboard blocks would report 0 gap, i.e. a fake win: carry the previous figures over instead.
-if (!kbList.length && !previousAudit?.keyboard) throw new Error('No keyboard test in unit.json and no previous audit to carry over.');
-const keyboard = !kbList.length ? {...previousAudit.keyboard, carriedOverFrom: previousAudit.date} : {
+// A run without keyboard blocks would report 0 gap, i.e. a fake win.
+if (!kbList.length) throw new Error('No keyboard test in unit.json.');
+const keyboard = {
     environment: 'jsdom',
     components: kbList.length,
     componentsHit: kbList.filter(c => c.fail > 0).length,
@@ -174,45 +171,103 @@ const keyboard = !kbList.length ? {...previousAudit.keyboard, carriedOverFrom: p
     fail: kbList.reduce((s, c) => s + c.fail, 0),
     clean: kbList.filter(c => c.fail === 0).map(c => c.name).sort((a, b) => a.localeCompare(b)),
     byComponent: sortDesc(kbList.filter(c => c.fail > 0).map(({name, tests, fail, gaps}) => ({name, tests, fail, gaps: gaps.sort()})), 'fail'),
-    rootCauses: previousAudit?.keyboard?.rootCauses?.length ? previousAudit.keyboard.rootCauses
-        : (existsSync(join(historyDir, 'root-causes.json')) ? JSON.parse(readFileSync(join(historyDir, 'root-causes.json'), 'utf8')) : []),
 };
 
-// ---------- lint ----------
-const lint = readJson('lint.json');
-const lintOut = {
+// ---------- lint (oxlint, jsx-a11y rules) ----------
+// oxlint exits non-zero when it reports errors; the JSON is on stdout either way.
+const run = cmd => { try { return execSync(cmd, {encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], maxBuffer: 64 * 1024 * 1024}); } catch (e) { return e.stdout || ''; } };
+const rawLint = run('yarn oxlint . --format json');
+const lintReport = JSON.parse(rawLint.slice(rawLint.indexOf('{')));
+const kindOf = file => /\.stories\./.test(file) ? 'stories' : /\.spec\./.test(file) ? 'specs' : 'components';
+const tally = (list, key) => list.reduce((acc, x) => { const k = key(x); acc[k] = (acc[k] || 0) + 1; return acc; }, {});
+const messages = lintReport.diagnostics.filter(d => /^jsx[-_]a11y\(/.test(d.code || '')).map(d => ({
+    component: kindOf(d.filename) === 'components' ? componentOfPath(d.filename) : 'other',
+    rule: d.code.replace(/^jsx[-_]a11y\((.*)\)$/, '$1'),
+    file: d.filename.replace(/\\/g, '/'),
+    line: d.labels?.[0]?.span?.line ?? null,
+}));
+const byKind = tally(messages, m => kindOf(m.file));
+const lint = {
     plugin: 'oxlint jsx-a11y',
-    warnings: lint.total,
-    files: lint.files,
-    rulesHit: Object.keys(lint.byRule).length,
-    byKind: {components: lint.byKind.components || 0, stories: lint.byKind.stories || 0, specs: lint.byKind.specs || 0},
-    byRule: sortDesc(Object.entries(lint.byRule).map(([id, n]) => ({id, n})), 'n'),
-    byComponent: sortDesc(Object.entries(lint.byComponent).map(([name, n]) => ({name, n})), 'n'),
+    warnings: messages.length,
+    files: new Set(messages.map(m => m.file)).size,
+    rulesHit: new Set(messages.map(m => m.rule)).size,
+    byKind: {components: byKind.components || 0, stories: byKind.stories || 0, specs: byKind.specs || 0},
+    byRule: sortDesc(Object.entries(tally(messages, m => m.rule)).map(([id, n]) => ({id, n})), 'n'),
+    byComponent: sortDesc(Object.entries(tally(messages.filter(m => kindOf(m.file) === 'components'), m => m.component)).map(([name, n]) => ({name, n})), 'n'),
     // One line per finding: the per-component follow-up across audits.
-    messages: (lint.messages || []).map(m => ({
-        component: (m.file.replace(/\\/g, '/').match(/src\/components\/([^/]+)/) || [, 'other'])[1],
-        rule: m.rule, file: m.file.replace(/\\/g, '/'), line: m.line,
-    })),
+    messages,
 };
 
-// ---------- write ----------
-const audit = {date, sha: git('rev-parse --short HEAD'), branch: git('branch --show-current'), label, axe, keyboard, lint: lintOut};
+// ---------- audit artefact ----------
+const audit = {date, sha: git('rev-parse --short HEAD'), branch: git('branch --show-current'), label, axe, keyboard, lint};
+mkdirSync(reportsDir, {recursive: true});
+writeFileSync(join(reportsDir, 'audit.json'), JSON.stringify(audit, null, 2) + '\n');
+console.log(`axe: ${axe.light.violations} light + ${axe.dark.violations} dark = ${unique.total} unique story x rule (${unique.both} in both themes), ${axe.componentsHit}/${axe.componentsTotal} components, ${axe.light.noReport + axe.dark.noReport} stories without report`);
+console.log(`keyboard: ${keyboard.fail}/${keyboard.tests} gaps, ${keyboard.componentsHit}/${keyboard.components} components`);
+console.log(`lint: ${lint.warnings} warnings, ${lint.rulesHit} rules`);
 
-// The figures the spreadsheet shows; identical to the previous audit means there is nothing to record.
-const figures = a => JSON.stringify({axe: [a.axe.unique, a.axe.componentRules], keyboard: [a.keyboard.fail, a.keyboard.byComponent], lint: [a.lint.warnings, a.lint.byRule]});
-const changed = !previousAudit || figures(audit) !== figures(previousAudit);
-if (process.env.GITHUB_OUTPUT) appendFileSync(process.env.GITHUB_OUTPUT, `changed=${changed}
-`);
-if (!changed && !process.argv.includes('--force')) {
-    console.log(`No change since the audit of ${previousAudit.date}: nothing written.`);
+// ---------- History rows ----------
+// total = axe (deduplicated) + keyboard gaps; the family columns add up to total; Lint is a separate static signal.
+const FAMILY_COLUMNS = ['Color', 'Structure', 'Attribute', 'Forms', 'Keyboard', 'Other'];
+const FAMILY_OF = {'cat.color': 'Color', 'cat.structure': 'Structure', 'cat.aria': 'Attribute', 'cat.name-role-value': 'Attribute', 'cat.forms': 'Forms', 'cat.keyboard': 'Keyboard'};
+const HEADER = ['date', 'sha', 'component', 'total', 'critical', 'serious', 'A', 'AA', ...FAMILY_COLUMNS, 'Lint'];
+const rowsOf = {};
+const rowOf = name => rowsOf[name] = rowsOf[name] || {total: 0, critical: 0, serious: 0, A: 0, AA: 0, ...Object.fromEntries(FAMILY_COLUMNS.map(f => [f, 0])), Lint: 0};
+for (const r of audit.axe.componentRules) {
+    const e = rowOf(r.component);
+    e.total += r.unique;
+    if (r.impact === 'critical' || r.impact === 'serious') e[r.impact] += r.unique;
+    if (r.level === 'A' || r.level === 'AA') e[r.level] += r.unique;
+    e[FAMILY_OF[r.family] || 'Other'] += r.unique;
+}
+for (const c of audit.keyboard.byComponent) { const e = rowOf(c.name); e.total += c.fail; e.Keyboard += c.fail; }
+// Lint findings in stories or specs land on the row "other", so that the Lint column adds up to lint.warnings.
+for (const m of audit.lint.messages) rowOf(m.component).Lint++;
+const rows = Object.entries(rowsOf)
+    .sort(([a, x], [b, y]) => y.total - x.total || a.localeCompare(b))
+    .map(([name, e]) => [audit.date, audit.sha, name, e.total, e.critical, e.serious, e.A, e.AA, ...FAMILY_COLUMNS.map(f => e[f]), e.Lint]);
+
+// ---------- Google Sheet ----------
+const keyPath = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+const rawKey = process.env.GOOGLE_SHEETS_SA_KEY || (keyPath && existsSync(keyPath) ? readFileSync(keyPath, 'utf8') : null);
+const dryRun = process.argv.includes('--dry-run') || !rawKey || !spreadsheetId;
+if (dryRun) {
+    if (!process.argv.includes('--dry-run')) console.log('No spreadsheet id or credentials: dry run.');
+    console.log([HEADER, ...rows].map(r => r.join('\t')).join('\n'));
+    console.log(`${rows.length} History row(s) for ${audit.sha}, not pushed.`);
     process.exit(0);
 }
 
-mkdirSync(outDir, {recursive: true});
-const outFile = join(outDir, `${date}.json`);
-writeFileSync(outFile, JSON.stringify(audit, null, 2) + '\n');
+const {client_email: clientEmail, private_key: privateKey} = JSON.parse(rawKey);
+if (!clientEmail || !privateKey) throw new Error('The credentials are not a service account key (no client_email / private_key).');
+const {token} = await new JWT({email: clientEmail, key: privateKey, scopes: ['https://www.googleapis.com/auth/spreadsheets']}).getAccessToken();
+const api = async (path, method = 'GET', body) => {
+    const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}${path}`, {
+        method,
+        headers: {authorization: `Bearer ${token}`, 'content-type': 'application/json'},
+        body: body && JSON.stringify(body)
+    });
+    const json = await res.json();
+    if (!res.ok) throw new Error(`${method} ${path} -> ${res.status}: ${json.error?.message || JSON.stringify(json)}`);
+    return json;
+};
 
-console.log(`Audit ${date} written to ${outFile}`);
-console.log(`axe: ${axe.light.violations} light + ${axe.dark.violations} dark = ${unique.total} unique story x rule (${unique.both} in both themes), ${axe.componentsHit}/${axe.componentsTotal} components, ${axe.light.noReport + axe.dark.noReport} stories without report`);
-console.log(`keyboard: ${keyboard.fail}/${keyboard.tests} gaps, ${keyboard.componentsHit}/${keyboard.components} components`);
-console.log(`lint: ${lintOut.warnings} warnings, ${lintOut.rulesHit} rules`);
+const TAB = 'History';
+const VALUES = '/values/' + TAB + '!';
+const {sheets} = await api('?fields=sheets.properties.title');
+if (!sheets.some(s => s.properties.title === TAB)) {
+    await api(':batchUpdate', 'POST', {requests: [{addSheet: {properties: {title: TAB, gridProperties: {frozenRowCount: 1}}}}]});
+    await api(VALUES + 'A1?valueInputOption=USER_ENTERED', 'PUT', {values: [HEADER]});
+    console.log(`Created the ${TAB} tab.`);
+}
+
+// One audit per commit: a re-run of the same commit adds nothing.
+const shas = ((await api(VALUES + 'B:B')).values || []).flat();
+if (shas.includes(audit.sha)) {
+    console.log(`${audit.sha} is already in ${TAB}: nothing appended.`);
+    process.exit(0);
+}
+await api(VALUES + 'A1:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS', 'POST', {values: rows});
+console.log(`Appended ${rows.length} row(s) for ${audit.sha} to ${TAB}.`);
+console.log(`https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit`);

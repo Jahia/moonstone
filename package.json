@@ -67,7 +67,6 @@
     "lint:fix": "yarn lint:js:fix && yarn lint:scss:fix",
     "lint:js": "oxlint .",
     "lint:js:fix": "oxlint . --fix",
-    "lint:a11y": "node scripts/a11y-lint.mjs",
     "lint:scss": "stylelint ./src/**/*.scss",
     "lint:scss:fix": "yarn lint:scss --fix",
     "start": "storybook dev -p 6006",
@@ -75,7 +74,7 @@
     "test": "vitest run --coverage --project unit --project browser",
     "test:visual": "vitest --project visual --reporter verbose",
     "test:a11y": "vitest run --project storybook-light --reporter=json --outputFile=reports/a11y/light.json; vitest run --project storybook-dark --reporter=json --outputFile=reports/a11y/dark.json",
-    "a11y:report": "yarn test:a11y; yarn test --reporter=json --outputFile=reports/a11y/unit.json; yarn lint:a11y; node scripts/a11y-kpi.mjs && node scripts/a11y-csv.mjs && node scripts/a11y-sheet.mjs",
+    "a11y:report": "yarn test:a11y; yarn test --reporter=json --outputFile=reports/a11y/unit.json; node scripts/a11y-report.mjs",
     "tsc": "tsc --build tsconfig.json && cp ./dist/index.d.ts ./dist/index.d.cts"
   },
   "dependencies": {
@@ -112,6 +111,7 @@
     "eslint-plugin-perfectionist": "^5.11.1",
     "eslint-plugin-storybook": "^10.6.0",
     "eslint-plugin-testing-library": "^7.16.2",
+    "google-auth-library": "^11.1.0",
     "jsdom": "^29.1.1",
     "oxlint": "^1.83.0",
     "oxlint-tsgolint": "^7.0.2002",
