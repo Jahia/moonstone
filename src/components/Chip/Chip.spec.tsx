@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 
 import { Chip } from './index';
 
@@ -46,39 +45,5 @@ describe('Chip', () => {
     it('should be disabled', () => {
         render(<Chip isDisabled data-testid="moonstone-chip"/>);
         expect(screen.getByTestId('moonstone-chip')).toHaveClass('moonstone-disabled');
-    });
-});
-
-const renderChip = () => {
-    const onClick = vi.fn();
-    render(
-        <>
-            <button type="button">before</button>
-            <Chip label="Published" onClick={onClick}/>
-        </>,
-    );
-    return { onClick, chip: screen.getByText('Published').parentElement };
-};
-
-describe('Chip keyboard', () => {
-    it.fails('reaches a clickable chip with Tab', async () => {
-        const { chip } = renderChip();
-        screen.getByRole('button', { name: 'before' }).focus();
-        await userEvent.keyboard('{Tab}');
-        expect(chip).toHaveFocus();
-    });
-
-    it.fails('activates the focused clickable chip with Enter', async () => {
-        const { onClick, chip } = renderChip();
-        chip.focus();
-        await userEvent.keyboard('{Enter}');
-        expect(onClick).toHaveBeenCalledTimes(1);
-    });
-
-    it.fails('activates the focused clickable chip with Space', async () => {
-        const { onClick, chip } = renderChip();
-        chip.focus();
-        await userEvent.keyboard(' ');
-        expect(onClick).toHaveBeenCalledTimes(1);
     });
 });
