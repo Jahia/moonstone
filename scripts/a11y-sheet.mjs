@@ -3,10 +3,10 @@
 //   node scripts/a11y-sheet.mjs --id <spreadsheetId> [--csv reports/a11y/csv] [--key <service-account.json>] [--dry-run]
 // Credentials, in order: --key, GOOGLE_SHEETS_SA_KEY (the JSON itself, for CI), GOOGLE_APPLICATION_CREDENTIALS (a path).
 // The service account only needs the spreadsheet shared with its email as an editor, no IAM role.
-// The script owns the tabs Overview, General and <date>; any other tab is left alone and listed at the end.
+// The script owns the tabs Overview (charts only), Data (hidden, the chart series) and <date>; any other tab is left alone and listed at the end.
 import {readFileSync, existsSync} from 'node:fs';
 import {createSign} from 'node:crypto';
-import {loadTables, wantedMerges as layoutMerges, isAuditTab, headerRows, frozenColumns, dataRows, a1, columnLetter} from './a11y-layout.mjs';
+import {loadTables, wantedMerges as layoutMerges, headerRows, frozenColumns, dataRows, a1, columnLetter, CHARTS_TAB} from './a11y-layout.mjs';
 
 const arg = (name, fallback) => { const i = process.argv.indexOf(name); return i > -1 ? process.argv[i + 1] : fallback; };
 const csvDir = arg('--csv', 'reports/a11y/csv');
@@ -15,11 +15,11 @@ const keyPath = arg('--key', process.env.GOOGLE_APPLICATION_CREDENTIALS);
 const dryRun = process.argv.includes('--dry-run');
 
 const tables = loadTables(csvDir);
-const overview = tables.find(([tab]) => tab === 'Overview')?.[1];
+const overview = tables.find(([tab]) => tab === 'Data')?.[1];
 const wantedMerges = (tab, rows, sheetId) => layoutMerges(tab, rows).map(m => ({sheetId, ...m}));
 
-// Overview charts: the trend of the three totals, and the family split of the latest audit.
-// The pie reads a two-column block written next to the table, so it never depends on row-shaped ranges.
+// Overview charts: the trend of the three totals, and the family split of the latest audit. Both read the
+// hidden Data tab; the pie reads a two-column block written next to the table, so it never depends on row-shaped ranges.
 const FAMILY_START = 4;
 const PIE_COLUMN = overview ? overview[0].length + 1 : 0;
 const pieBlock = overview ? [['Family', 'Issues'], ...overview[0].slice(FAMILY_START).map((label, i) => [label.replace(/ =.*/, ''), overview.at(-1)[FAMILY_START + i]])] : [];
@@ -28,22 +28,23 @@ const SERIES_COLORS = ['#2a78d6', '#eb6834', '#1baf7a'];
 const chartSpecs = sheetId => {
     const range = (startColumnIndex, endColumnIndex, endRowIndex) => ({sourceRange: {sources: [{sheetId, startRowIndex: 0, endRowIndex, startColumnIndex, endColumnIndex}]}});
     return [{
-        key: 'Issues per audit',
-        anchor: {rowIndex: 0, columnIndex: PIE_COLUMN + 3},
+        key: 'Accessibility issues',
+        legacy: 'Issues per audit',
+        anchor: {rowIndex: 0, columnIndex: 0},
         spec: {
-            title: 'Issues per audit',
+            title: 'Accessibility issues, one point per audit',
             basicChart: {
                 chartType: 'LINE',
                 legendPosition: 'BOTTOM_LEGEND',
                 headerCount: 1,
-                axis: [{position: 'BOTTOM_AXIS', title: 'Audit'}, {position: 'LEFT_AXIS', title: 'Issues'}],
+                axis: [{position: 'BOTTOM_AXIS', title: 'Audit date'}, {position: 'LEFT_AXIS', title: 'Issues'}],
                 domains: [{domain: range(0, 1, overview.length)}],
                 series: [1, 2, 3].map(col => ({series: range(col, col + 1, overview.length), targetAxis: 'LEFT_AXIS', colorStyle: rgb(SERIES_COLORS[col - 1])}))
             }
         }
     }, {
         key: 'Issues by family',
-        anchor: {rowIndex: 20, columnIndex: PIE_COLUMN + 3},
+        anchor: {rowIndex: 0, columnIndex: 10},
         spec: {
             title: `Issues by family, ${overview.at(-1)[0]}`,
             pieChart: {
@@ -61,7 +62,7 @@ if (dryRun) {
         console.log(`${tab}: ${dataRows(tab, rows)} row(s) x ${rows.at(-1).length} column(s)${merges.length ? `, merges ${merges.join(' ')}` : ''}`);
     }
 
-    if (overview) console.log(`Overview charts: ${chartSpecs(0).map(c => c.spec.title).join(' | ')}; pie data ${pieBlock.slice(1).map(r => r.join('=')).join(', ')}`);
+    if (overview) console.log(`${CHARTS_TAB} charts (series on the hidden Data tab): ${chartSpecs(0).map(c => c.spec.title).join(' | ')}; pie data ${pieBlock.slice(1).map(r => r.join('=')).join(', ')}`);
     process.exit(0);
 }
 
@@ -111,53 +112,56 @@ const api = async (path, method = 'GET', body) => {
 const describe = async () => Object.fromEntries((await api('?fields=sheets(properties(title,sheetId),merges,charts(chartId,spec(title)))')).sheets
     .map(s => [s.properties.title, {sheetId: s.properties.sheetId, merges: s.merges || [], charts: s.charts || []}]));
 let sheets = await describe();
-const missing = tables.map(([tab]) => tab).filter(tab => !(tab in sheets));
+const owned = [CHARTS_TAB, ...tables.map(([tab]) => tab)];
+const missing = owned.filter(tab => !(tab in sheets));
 if (missing.length) {
-    // Overview and General go first, the audit tabs follow in date order.
-    await api(':batchUpdate', 'POST', {requests: missing.map(title => ({addSheet: {properties: {title, index: tables.findIndex(([tab]) => tab === title)}}}))});
+    // Overview first, then Data, then the audit tabs in date order.
+    await api(':batchUpdate', 'POST', {requests: missing.map(title => ({addSheet: {properties: {title, index: owned.indexOf(title)}}}))});
     sheets = await describe();
 }
 
 // Clearing the values keeps the tabs, and with them the charts and the pivot tables bound to their columns.
-await api('/values:batchClear', 'POST', {ranges: tables.map(([tab]) => `'${tab}'`)});
+await api('/values:batchClear', 'POST', {ranges: owned.map(tab => `'${tab}'`)});
 await api('/values:batchUpdate', 'POST', {
     valueInputOption: 'USER_ENTERED',
     data: [
         ...tables.map(([tab, rows]) => ({range: `'${tab}'!A1`, values: rows})),
-        ...(overview ? [{range: `'Overview'!${columnLetter(PIE_COLUMN)}1`, values: pieBlock}] : [])
+        ...(overview ? [{range: `'Data'!${columnLetter(PIE_COLUMN)}1`, values: pieBlock}] : [])
     ]
 });
 
 // Layout is owned here and reapplied on every run, so a tab is right whether this run created it or not.
 const span = m => `${m.startRowIndex}-${m.endRowIndex}/${m.startColumnIndex}-${m.endColumnIndex}`;
 const bold = (sheetId, range) => ({repeatCell: {range: {sheetId, ...range}, cell: {userEnteredFormat: {textFormat: {bold: true}, verticalAlignment: 'MIDDLE'}}, fields: 'userEnteredFormat(textFormat.bold,verticalAlignment)'}});
-const layout = tables.flatMap(([tab, rows], index) => {
+// Overview holds the charts only; Data holds their series and stays hidden; the audits follow in date order.
+const layout = [
+    {updateSheetProperties: {properties: {sheetId: sheets[CHARTS_TAB].sheetId, index: 0, gridProperties: {frozenRowCount: 0, frozenColumnCount: 0}}, fields: 'index,gridProperties(frozenRowCount,frozenColumnCount)'}},
+    ...tables.flatMap(([tab, rows], i) => {
     const {sheetId, merges} = sheets[tab];
     const requests = [
-        // Overview, General, then the audits in date order, whatever else the spreadsheet holds.
-        {updateSheetProperties: {properties: {sheetId, index, gridProperties: {frozenRowCount: headerRows(tab), frozenColumnCount: frozenColumns(tab)}}, fields: 'index,gridProperties(frozenRowCount,frozenColumnCount)'}},
+        {updateSheetProperties: {properties: {sheetId, index: i + 1, hidden: tab === 'Data', gridProperties: {frozenRowCount: headerRows(tab), frozenColumnCount: frozenColumns(tab)}}, fields: 'index,hidden,gridProperties(frozenRowCount,frozenColumnCount)'}},
         bold(sheetId, {endRowIndex: headerRows(tab)})
     ];
-    if (tab === 'General') requests.push(bold(sheetId, {startRowIndex: 1, startColumnIndex: 0, endColumnIndex: 1}));
-    if (tab === 'Overview') requests.push(bold(sheetId, {endRowIndex: 1, startColumnIndex: PIE_COLUMN, endColumnIndex: PIE_COLUMN + 2}));
+    if (tab === 'Data') requests.push(bold(sheetId, {endRowIndex: 1, startColumnIndex: PIE_COLUMN, endColumnIndex: PIE_COLUMN + 2}));
 
     const wanted = wantedMerges(tab, rows, sheetId);
-    const current = merges.filter(m => isAuditTab(tab) ? m.startRowIndex === 0 && m.endRowIndex === 1 : m.startColumnIndex === 0 && m.endColumnIndex === 1);
+    const current = merges.filter(m => m.startRowIndex === 0 && m.endRowIndex === 1);
     if (current.map(span).sort().join() === wanted.map(span).sort().join()) return requests;
     return [...requests, ...current.map(range => ({unmergeCells: {range}})), ...wanted.map(range => ({mergeCells: {mergeType: 'MERGE_ALL', range}}))];
-});
+    }),
+];
 
 // A chart is created once, then its spec is refreshed on every run so the ranges follow the history as it grows.
-const charts = overview ? chartSpecs(sheets.Overview.sheetId).map(({key, anchor, spec}) => {
-    const existing = sheets.Overview.charts.find(c => c.spec?.title?.startsWith(key));
+const charts = overview ? chartSpecs(sheets.Data.sheetId).map(({key, legacy, anchor, spec}) => {
+    const existing = sheets[CHARTS_TAB].charts.find(c => [key, legacy].some(k => k && c.spec?.title?.startsWith(k)));
     return existing ?
         {updateChartSpec: {chartId: existing.chartId, spec}} :
-        {addChart: {chart: {spec, position: {overlayPosition: {anchorCell: {sheetId: sheets.Overview.sheetId, ...anchor}, widthPixels: 600, heightPixels: 370}}}}};
+        {addChart: {chart: {spec, position: {overlayPosition: {anchorCell: {sheetId: sheets[CHARTS_TAB].sheetId, ...anchor}, widthPixels: 600, heightPixels: 370}}}}};
 }) : [];
 
 await api(':batchUpdate', 'POST', {requests: [...layout, ...charts]});
 
-const foreign = Object.keys(sheets).filter(tab => !tables.some(([t]) => t === tab));
+const foreign = Object.keys(sheets).filter(tab => !owned.includes(tab));
 console.log(`Pushed ${tables.map(([tab, rows]) => `${tab} (${dataRows(tab, rows)})`).join(', ')}${missing.length ? `, created ${missing.join(', ')}` : ''}; charts: ${charts.filter(c => c.addChart).length} created, ${charts.filter(c => c.updateChartSpec).length} refreshed`);
 if (foreign.length) console.log(`Left untouched (not produced by a11y-csv.mjs, delete by hand if obsolete): ${foreign.join(', ')}`);
 console.log(`https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit`);

@@ -2,7 +2,7 @@
 // Turns the audits in a11y/history/<date>.json into the tabs of the KPI spreadsheet.
 //   node scripts/a11y-csv.mjs [--history a11y/history] [--out reports/a11y/csv] [--extra <audit.json>]
 // --extra adds one more audit (today's measurement in CI) on top of the committed ones, replacing a same-day file.
-// general.csv = KPI x date grid, overview.csv = one row per audit (feeds the charts), <date>.csv = one row per component.
+// overview.csv = one row per audit (feeds the charts of the Overview tab), <date>.csv = one row per component.
 import {readFileSync, writeFileSync, readdirSync, mkdirSync} from 'node:fs';
 import {join} from 'node:path';
 
@@ -25,22 +25,6 @@ if (!audits[0].axe.unique.impact || audits[0].axe.rules[0]?.unique === undefined
 const cell = v => (v === null || v === undefined) ? '' : /[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : String(v);
 const csv = rows => rows.map(r => r.map(cell).join(',')).join('\n') + '\n';
 const total = a => a.axe.unique.total + a.keyboard.fail;
-
-// General: one KPI per row, one audit per column, laid out like the user's sheet. Column A carries a
-// group label on the first row of its group (merged down to the next label by a11y-sheet.mjs).
-const kpis = [
-    ['', 'Total issues (axe + keyboard)', a => total(a)],
-    ['', 'Axe violations', a => a.axe.unique.total],
-    ['Violations', 'Axe critical ( part of violations )', a => a.axe.unique.impact.critical],
-    ['', 'Axe serious ( part of violations )', a => a.axe.unique.impact.serious],
-    ['', 'Axe level A ( part of violations )', a => a.axe.unique.level.A],
-    ['', 'Axe level AA', a => a.axe.unique.level.AA],
-    ['', 'Components with axe violation', a => `${a.axe.componentsHit} / ${a.axe.componentsTotal}`],
-    ['Keyboard', 'Keyboard gaps', a => a.keyboard.fail],
-    ['', 'Components with keyboard gap', a => `${a.keyboard.componentsHit} / ${a.keyboard.components}`],
-    ['Total', '', a => total(a)],
-];
-const general = [['', 'KPI', ...audits.map(a => a.date)], ...kpis.map(([group, label, fn]) => [group, label, ...audits.map(fn)])];
 
 // The family columns of the user's sheet, and nothing else: an axe category outside them only counts in Total.
 const FAMILIES = [['cat.color', 'Color'], ['cat.structure', 'Structure'], ['cat.aria', 'Aria attribute'], ['cat.forms', 'From']];
@@ -72,7 +56,7 @@ const auditTable = a => [
         .sort((x, y) => y[2] - x[2] || x[1].localeCompare(y[1])),
 ];
 
-// Overview: one row per audit, the whole of General's totals plus the family split, for the charts.
+// Overview data: one row per audit, the totals plus the family split, for the charts.
 const overview = [
     ['date', 'Total issues', 'Axe violations', 'Keyboard gaps', ...familyLabels],
     ...audits.map(a => {
@@ -82,6 +66,6 @@ const overview = [
 ];
 
 mkdirSync(outDir, {recursive: true});
-const files = {'general.csv': general, 'overview.csv': overview, ...Object.fromEntries(audits.map(a => [`${a.date}.csv`, auditTable(a)]))};
+const files = {'overview.csv': overview, ...Object.fromEntries(audits.map(a => [`${a.date}.csv`, auditTable(a)]))};
 for (const [name, rows] of Object.entries(files)) writeFileSync(join(outDir, name), csv(rows));
 console.log(`${audits.length} audit(s) (${audits[0].date} -> ${audits.at(-1).date}) written to ${outDir}/{${Object.keys(files).join(',')}}`);

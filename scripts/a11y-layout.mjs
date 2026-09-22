@@ -3,12 +3,13 @@
 import {readFileSync, readdirSync} from 'node:fs';
 import {join} from 'node:path';
 
-// overview.csv -> Overview, general.csv -> General, <date>.csv -> one tab per audit, named after its date.
-export const FIXED = {'overview.csv': 'Overview', 'general.csv': 'General'};
+// overview.csv -> Data (hidden, feeds the charts of the Overview tab), <date>.csv -> one tab per audit, named after its date.
+export const FIXED = {'overview.csv': 'Data'};
+export const CHARTS_TAB = 'Overview';
 export const isAuditTab = tab => /^\d{4}-\d{2}-\d{2}$/.test(tab);
 export const tabOf = file => FIXED[file] || file.replace(/\.csv$/, '');
 export const headerRows = tab => isAuditTab(tab) ? 2 : 1;
-export const frozenColumns = tab => tab === 'Overview' ? 1 : 2;
+export const frozenColumns = tab => tab === 'Data' ? 1 : 2;
 export const dataRows = (tab, rows) => rows.length - headerRows(tab);
 
 // RFC 4180 reader: a11y-csv.mjs quotes any field holding a comma, a quote or a newline.
@@ -34,7 +35,7 @@ export const parseCsv = text => {
     return rows.filter(r => r.length);
 };
 
-// Overview and General first, then the audit tabs in date order. Each entry is [tab, rows].
+// Data first, then the audit tabs in date order. Each entry is [tab, rows].
 const rank = file => file in FIXED ? Object.keys(FIXED).indexOf(file) : Object.keys(FIXED).length;
 export const loadTables = csvDir => {
     const tables = readdirSync(csvDir)
@@ -46,7 +47,7 @@ export const loadTables = csvDir => {
 };
 
 // A merge lives in the spreadsheet, never in the data file. A group label sits on the first cell of its
-// span and spans up to the next label: along row 1 for an audit tab, down column A for General.
+// span and spans up to the next label along row 1 of an audit tab.
 // Ranges are zero-based and half-open, the convention of the Google Sheets API.
 const groupsOf = (cells, size) => {
     const groups = cells.map((label, i) => ({label, start: i})).filter(g => g.label);
@@ -58,11 +59,6 @@ export const wantedMerges = (tab, rows) => {
     if (isAuditTab(tab)) {
         return groupsOf(rows[0], rows[1].length)
             .map(g => ({startRowIndex: 0, endRowIndex: 1, startColumnIndex: g.start, endColumnIndex: g.end}));
-    }
-
-    if (tab === 'General') {
-        return groupsOf(rows.map(r => r[0]), rows.length)
-            .map(g => ({startRowIndex: g.start, endRowIndex: g.end, startColumnIndex: 0, endColumnIndex: 1}));
     }
 
     return [];

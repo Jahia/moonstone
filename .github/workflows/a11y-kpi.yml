@@ -7,7 +7,7 @@ name: A11y KPI
 # audit, the spreadsheet still gets today's figures, and the run fails to ask for the missing audit file.
 #
 # Setup, once:
-#   - repository variable A11Y_SHEET_ID = the spreadsheet id
+#   - repository secret A11Y_SHEET_ID = the spreadsheet id
 #   - repository secret GOOGLE_SHEETS_SA_KEY = the service account JSON key, the spreadsheet
 #     being shared with that account's email as an editor
 
@@ -53,7 +53,7 @@ jobs:
 
       - name: Refresh the spreadsheet
         env:
-          A11Y_SHEET_ID: ${{ vars.A11Y_SHEET_ID }}
+          A11Y_SHEET_ID: ${{ secrets.A11Y_SHEET_ID }}
           GOOGLE_SHEETS_SA_KEY: ${{ secrets.GOOGLE_SHEETS_SA_KEY }}
         run: |
           extra=$(ls reports/a11y/current/*.json | head -1)

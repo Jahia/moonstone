@@ -24,7 +24,7 @@ const sheetXml = (tab, rows) => {
     const cell = (v, r, c) => {
         if (v === '') return '';
         const ref = `${columnLetter(c)}${r + 1}`;
-        const style = r < headers || (tab === 'General' && c === 0) ? ` s="${BOLD}"` : '';
+        const style = r < headers ? ` s="${BOLD}"` : '';
         return /^-?\d+(\.\d+)?$/.test(v) ? `<c r="${ref}"${style}><v>${v}</v></c>` : `<c r="${ref}" t="inlineStr"${style}><is><t>${xml(v)}</t></is></c>`;
     };
     const widths = rows[0].map((_, c) => Math.min(60, Math.max(8, ...rows.map(r => (r[c] || '').length + 2))));

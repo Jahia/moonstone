@@ -18,11 +18,13 @@ reports/a11y/*.json  ──a11y-kpi.mjs──▶  a11y/history/<date>.json      
                                               │
                                         a11y-csv.mjs                    reports/a11y/csv/*.csv (values only)
                                               │
-                                        a11y-sheet.mjs                  Google Sheet (tabs, merges, charts)
+                                        a11y-sheet.mjs                  Google Sheet
 ```
 
-`a11y-kpi.mjs` writes nothing when the figures equal the previous audit. To check the layout without Google,
-`node scripts/a11y-xlsx.mjs` writes the same tables as an XLSX in `reports/a11y/` (same layout module, not kept in the repo).
+The Google Sheet has one tab per audit (one row per component, merged group headers), an **Overview** tab
+with two charts only (issues per audit date, issues by family of the latest audit), and a hidden **Data** tab
+holding the chart series. `a11y-kpi.mjs` writes nothing when the figures equal the previous audit. To check the
+tables without Google, `node scripts/a11y-xlsx.mjs` writes them as an XLSX in `reports/a11y/` (not kept in the repo).
 
 ## Run it locally
 
@@ -50,7 +52,7 @@ the spreadsheet from the audits committed in `a11y/history/`, and never writes t
 When the figures measured on `main` differ from the latest committed audit, the spreadsheet still gets today's
 figures, and the run fails with the file to add: run `yarn a11y:report` on `main` and commit the JSON.
 
-Setup, once: repository variable `A11Y_SHEET_ID`, repository secret `GOOGLE_SHEETS_SA_KEY` (a service account
+Setup, once: repository secrets `A11Y_SHEET_ID` (the spreadsheet id) and `GOOGLE_SHEETS_SA_KEY` (a service account
 JSON key), and the spreadsheet shared with the service account's email as an editor.
 
 ## Files

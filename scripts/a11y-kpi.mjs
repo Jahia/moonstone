@@ -172,7 +172,7 @@ const keyboard = !kbList.length ? {...previousAudit.keyboard, carriedOverFrom: p
     tests: kbList.reduce((s, c) => s + c.tests, 0),
     pass: kbList.reduce((s, c) => s + c.tests - c.fail, 0),
     fail: kbList.reduce((s, c) => s + c.fail, 0),
-    clean: kbList.filter(c => c.fail === 0).map(c => c.name).sort(),
+    clean: kbList.filter(c => c.fail === 0).map(c => c.name).sort((a, b) => a.localeCompare(b)),
     byComponent: sortDesc(kbList.filter(c => c.fail > 0).map(({name, tests, fail, gaps}) => ({name, tests, fail, gaps: gaps.sort()})), 'fail'),
     rootCauses: previousAudit?.keyboard?.rootCauses?.length ? previousAudit.keyboard.rootCauses
         : (existsSync(join(historyDir, 'root-causes.json')) ? JSON.parse(readFileSync(join(historyDir, 'root-causes.json'), 'utf8')) : []),

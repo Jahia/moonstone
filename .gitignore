@@ -272,6 +272,3 @@ dist/
 # Accessibility reports (yarn test:a11y, yarn a11y:report)
 /reports/
 
-# Claude Code local files
-/.claude/scheduled_tasks.lock
-/.claude/worktrees/
