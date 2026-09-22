@@ -6,6 +6,7 @@ export default {
     title: 'Components/Tag',
     component: Tag,
     parameters: {
+        a11y: { test: 'todo' }, // axe gate: known violations, WCAG AA epic #1421
         layout: 'fullscreen',
         knobs: { disable: true },
         storysource: { disable: true },

@@ -15,22 +15,24 @@ const css = {
 export default {
     title: 'Components/TreeView',
     component: TreeView,
+    tags: ['dark-theme'],
     decorators: [(storyFn: () => JSX.Element) => <div style={css}>{storyFn()}</div>],
     parameters: {
+        a11y: { test: 'todo' }, // axe gate: known violations, WCAG AA epic #1421
         layout: 'centered',
         notes: { markdown: markdownNotes },
     },
 };
 
 export const Default = {
-    render: (args: TreeViewProps, globals: { theme: string }) => {
+    render: (args: TreeViewProps, { globals }: { globals: { theme: string } }) => {
         const theme = globals.theme;
         return <TreeView {...args} isReversed={theme === 'dark'} data={treeData}/>;
     },
 };
 
 export const ClosableRoot = {
-    render: (args: TreeViewProps, globals: { theme: string }) => {
+    render: (args: TreeViewProps, { globals }: { globals: { theme: string } }) => {
         const theme = globals.theme;
         return <TreeView {...args} isReversed={theme === 'dark'} data={treeDataRootClosable}/>;
     },
@@ -57,7 +59,7 @@ export const Flat = {
 };
 
 export const Selection = {
-    render: (args: TreeViewProps, globals: { theme: string }) => {
+    render: (args: TreeViewProps, { globals }: { globals: { theme: string } }) => {
         const theme = globals.theme;
         const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
@@ -87,7 +89,7 @@ export const Highlight = {
 };
 
 export const Controlled = {
-    render: (args: TreeViewProps, globals: { theme: string }) => {
+    render: (args: TreeViewProps, { globals }: { globals: { theme: string } }) => {
         const theme = globals.theme;
         const [openedItems, setOpenedItems] = useState<string[]>([]);
 
@@ -124,7 +126,7 @@ export const Controlled = {
 };
 
 export const ControlledWithLoading = {
-    render: (args: TreeViewProps, globals: { theme: string }) => {
+    render: (args: TreeViewProps, { globals }: { globals: { theme: string } }) => {
         const theme = globals.theme;
         const [openedItems, setOpenedItems] = useState<string[]>([]);
         const [treeDataState, setTreeDataState] = useState<TreeViewData[]>([

@@ -44,7 +44,18 @@ function setupBackgroundListener() {
     channel.addListener(STORY_ARGS_UPDATED, storyListener);
 }
 
-export const decorators = story => story();
+// Dark theme runs: stories tagged `dark-theme` render their reversed variant unless they set it
+export const decorators = [
+    (Story, { globals, args, tags }) =>
+        globals.theme === 'dark' && tags.includes('dark-theme') && args.isReversed === undefined
+            ? Story({
+                    args: {
+                        ...args,
+                        isReversed: true,
+                    },
+                })
+            : Story(),
+];
 
 export const parameters = {
     layout: 'fullscreen',
@@ -88,7 +99,14 @@ export const parameters = {
         // 'todo' - show a11y violations in the test UI only
         // 'error' - fail CI on a11y violations
         // 'off' - skip a11y checks entirely
-        test: 'todo',
+        test: 'error',
+        // WCAG 2.2 AA: axe tags are incremental, so every A/AA tag since 2.0 is needed
+        options: {
+            runOnly: {
+                type: 'tag',
+                values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'],
+            },
+        },
     },
 };
 

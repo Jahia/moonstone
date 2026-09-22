@@ -16,6 +16,7 @@ export default {
     component: DateTimeInput,
     tags: ['beta'],
     parameters: {
+        a11y: { test: 'todo' }, // axe gate: known violations, WCAG AA epic #1421
         layout: 'centered',
         actions: { argTypesRegex: '^on.*' },
         notes: { markdown: markdownNotes },
@@ -43,7 +44,7 @@ export const DateOnly: Story = {
         const canvas = within(canvasElement);
         await userEvent.click(canvas.getByTestId('dateTimeInput'));
         // Wait until the calendar is rendered before the screenshot is taken
-        canvas.getByTestId('calendar');
+        await within(document.body).findByTestId('calendar');
     },
     name: 'Date Only',
 };
@@ -81,7 +82,7 @@ export const DateTimeWithTimezone: Story = {
         const canvas = within(canvasElement);
         await userEvent.click(canvas.getByTestId('dateTimeInput'));
         // Wait until the calendar is rendered before the screenshot is taken
-        canvas.getByTestId('calendar');
+        await within(document.body).findByTestId('calendar');
     },
     name: 'Date Time With Timezone',
 };
@@ -97,7 +98,7 @@ export const DateTimeWithTimezone12h: Story = {
         const canvas = within(canvasElement);
         await userEvent.click(canvas.getByTestId('dateTimeInput'));
         // Wait until the calendar is rendered before the screenshot is taken
-        canvas.getByTestId('calendar');
+        await within(document.body).findByTestId('calendar');
     },
     name: 'Date Time With Timezone 12h',
 };
@@ -114,7 +115,7 @@ export const DisabledDates: Story = {
         const canvas = within(canvasElement);
         await userEvent.click(canvas.getByTestId('dateTimeInput'));
         // Wait until the calendar is rendered before the screenshot is taken
-        canvas.getByTestId('calendar');
+        await within(document.body).findByTestId('calendar');
     },
     name: 'Disabled Dates',
 };
@@ -129,7 +130,7 @@ export const DisabledWeekends: Story = {
         const canvas = within(canvasElement);
         await userEvent.click(canvas.getByTestId('dateTimeInput'));
         // Wait until the calendar is rendered before the screenshot is taken
-        canvas.getByTestId('calendar');
+        await within(document.body).findByTestId('calendar');
     },
     name: 'Disabled Weekends',
 };

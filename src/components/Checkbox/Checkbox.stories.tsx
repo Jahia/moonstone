@@ -9,6 +9,7 @@ export default {
     title: 'Components/Checkbox',
     component: Checkbox,
     parameters: {
+        a11y: { test: 'todo' }, // axe gate: known violations, WCAG AA epic #1421
         layout: 'centered',
     // When enabled, the controlledCheckbox doesn't work anymore. maybe it's fixed with storybook 7.4 (https://github.com/storybookjs/storybook/pull/23804)
     // Actions: {argTypesRegex: '^on.*'}

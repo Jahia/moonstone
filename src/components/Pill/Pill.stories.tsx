@@ -8,8 +8,10 @@ import type { StoryObj } from '@storybook/react-vite';
 export default {
     title: 'Components/Pill',
     component: Pill,
+    tags: ['dark-theme'],
 
     parameters: {
+        a11y: { test: 'todo' }, // axe gate: known violations, WCAG AA epic #1421
         layout: 'centered',
         notes: { markdown: markdownNotes },
     },
