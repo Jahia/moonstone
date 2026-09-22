@@ -9,6 +9,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 export default {
     title: 'Components/ButtonGroup',
     component: ButtonGroup,
+    tags: ['dark-theme'],
     subcomponents: { Button },
 
     parameters: {

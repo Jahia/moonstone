@@ -1,0 +1,60 @@
+name: A11y KPI
+
+# Accessibility audit on every change merged to main: runs axe on every story in both themes and the unit
+# suite, then scripts/a11y-report.mjs measures (including the jsx-a11y lint) and appends one row per component
+# to the History tab of the KPI spreadsheet. One audit per commit: a re-run of the same commit appends nothing.
+# The full audit is uploaded as an artefact (reports/a11y/audit.json); nothing is written to git.
+#
+# Setup, once:
+#   - repository secret A11Y_SHEET_ID = the spreadsheet id
+#   - repository secret GOOGLE_SHEETS_SA_KEY = the service account JSON key, the spreadsheet
+#     being shared with that account's email as an editor
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - '.storybook/**'
+      - 'oxlint.config.ts'
+      - 'package.json'
+      - 'yarn.lock'
+  workflow_dispatch:
+
+concurrency:
+  group: a11y-kpi
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: jdx/mise-action@7e36c90d9ab29c415a2384db3006f3ec8a8cc654 # v4.2.4
+      - name: Install dependencies
+        run: yarn
+      - run: yarn build:icons
+      - run: yarn playwright install chromium --only-shell
+
+      # The two runs below are expected to exit non-zero: their failures are the measurement.
+      - name: Axe, light and dark themes
+        run: yarn test:a11y || true
+      - name: Unit suite
+        run: yarn test --reporter=json --outputFile=reports/a11y/unit.json || true
+
+      - name: Measure and append to the spreadsheet
+        env:
+          A11Y_SHEET_ID: ${{ secrets.A11Y_SHEET_ID }}
+          GOOGLE_SHEETS_SA_KEY: ${{ secrets.GOOGLE_SHEETS_SA_KEY }}
+        run: node scripts/a11y-report.mjs
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: a11y-reports
+          path: reports/a11y
+          retention-days: 30
