@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { userEvent } from 'vitest/browser';
 import { vi } from 'vitest';
+import { userEvent } from 'vitest/browser';
 
 import { DateTimeInput } from './index';
 

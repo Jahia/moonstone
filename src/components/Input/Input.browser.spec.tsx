@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import { userEvent } from 'vitest/browser';
 import { useState } from 'react';
+import { userEvent } from 'vitest/browser';
 
 import { Input } from './index';
 
