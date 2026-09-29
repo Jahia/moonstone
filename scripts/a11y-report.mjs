@@ -25,7 +25,7 @@ const readJson = name => {
     return JSON.parse(readFileSync(file, 'utf8'));
 };
 const componentOfStory = file => basename(file.replace(/\\/g, '/')).replace(/\.stories\.[jt]sx?$/, '');
-const componentOfSpec = file => basename(file.replace(/\\/g, '/')).replace(/\.spec\.[jt]sx?$/, '');
+const componentOfSpec = file => basename(file.replace(/\\/g, '/')).replace(/\.(?:browser\.)?spec\.[jt]sx?$/, '');
 const componentOfPath = file => (file.replace(/\\/g, '/').match(/src\/components\/([^/]+)/) || [, 'other'])[1];
 const levelOf = tags => tags.some(t => /^wcag2\d*a$/.test(t)) ? 'A' : tags.some(t => /^wcag2\d*aa$/.test(t)) ? 'AA' : 'other';
 const familyOf = tags => tags.find(t => t.startsWith('cat.')) || 'cat.other';
