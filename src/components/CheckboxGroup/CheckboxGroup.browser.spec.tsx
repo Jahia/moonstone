@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { userEvent } from '@vitest/browser/context';
+import { userEvent } from 'vitest/browser';
 
 import { CheckboxItem } from './CheckboxItem';
 import { CheckboxGroup } from './index';

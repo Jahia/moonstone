@@ -268,3 +268,7 @@ dist/
 # Ignore all but CI screenshots
 **/__screenshots__/**/*.png
 !**/__screenshots__/**/*-chromium-linux.png
+
+# Accessibility reports (yarn test:a11y, yarn a11y:report)
+/reports/
+

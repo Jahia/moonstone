@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import { userEvent } from '@vitest/browser/context';
 import { describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 
 import { TableCellActions } from './TableCellActions';
 import { TableRow } from '~/components/DataTable/TableRow';

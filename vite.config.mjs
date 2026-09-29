@@ -109,14 +109,28 @@ export default defineConfig({
                     },
                 },
             },
-            {
+            // Runs the tests for the stories defined in your Storybook config, once per theme.
+            // The dark run only covers stories tagged `dark-theme` (components with a reversed variant).
+            ...[
+                { theme: 'light' },
+                {
+                    theme: 'dark',
+                    tags: { include: ['dark-theme'] },
+                },
+            ].map(({ theme, tags }) => ({
                 extends: true,
                 plugins: [
-                    // Runs the tests for the stories defined in your Storybook config
-                    storybookTest({ configDir: path.resolve('.storybook') }),
+                    storybookTest({
+                        configDir: path.resolve('.storybook'),
+                        tags,
+                        initialGlobals: {
+                            theme,
+                            backgrounds: { value: theme },
+                        },
+                    }),
                 ],
                 test: {
-                    name: 'storybook',
+                    name: `storybook-${theme}`,
                     setupFiles: ['./.storybook/vitest.setup.ts'],
                     browser: {
                         enabled: true,
@@ -125,7 +139,7 @@ export default defineConfig({
                         instances: [{ browser: 'chromium' }],
                     },
                 },
-            },
+            })),
         ],
     },
 });

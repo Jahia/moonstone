@@ -1,5 +1,5 @@
 import { render, screen, within } from '@testing-library/react';
-import { userEvent } from '@vitest/browser/context';
+import { userEvent } from 'vitest/browser';
 
 import { SearchContextInput } from './index';
 import { Dropdown } from '~/components';

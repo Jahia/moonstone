@@ -8,6 +8,7 @@ import type { StoryObj } from '@storybook/react-vite';
 export default {
     title: 'Components/Pill',
     component: Pill,
+    tags: ['dark-theme'],
 
     parameters: {
         layout: 'centered',

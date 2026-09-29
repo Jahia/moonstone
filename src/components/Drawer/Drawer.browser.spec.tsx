@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { userEvent } from '@vitest/browser/context';
 import { useState } from 'react';
+import { userEvent } from 'vitest/browser';
 
 import { Drawer } from './index';
 import { Button } from '~/components';
