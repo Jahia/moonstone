@@ -1,8 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { Menu } from './index';
-import { MenuItem } from './MenuItem';
+import { Menu, MenuItem } from './index';
 
 describe('Menu', () => {
     it('should not display the menu if isDisplayed is false', () => {
