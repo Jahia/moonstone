@@ -1,8 +1,8 @@
 name: A11y KPI
 
-# Accessibility audit on every change merged to main: scripts/a11y-report.mjs runs axe on every story (both
-# themes), the unit and browser suites (keyboard) and the jsx-a11y lint, then appends one row per component to
-# the History tab of the KPI spreadsheet. One audit per commit: a re-run of the same commit appends nothing.
+# Weekly accessibility audit: scripts/a11y-report.mjs runs axe on every story (both themes), the unit and
+# browser suites (keyboard) and the jsx-a11y lint, then appends one row per component to the History tab of the
+# KPI spreadsheet. One audit per run: if main has not moved since the last one, nothing is appended.
 # The pushed rows are uploaded as an artefact (reports/audit-a11y.csv); nothing is written to git.
 #
 # Setup, once:
@@ -11,14 +11,8 @@ name: A11y KPI
 #     being shared with that account's email as an editor
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'src/**'
-      - '.storybook/**'
-      - 'oxlint.config.ts'
-      - 'package.json'
-      - 'yarn.lock'
+  schedule:
+    - cron: '0 3 * * 6' # Saturday 03:00 UTC — captures the whole week, ready by Monday
   workflow_dispatch:
 
 concurrency:

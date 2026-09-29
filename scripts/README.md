@@ -18,10 +18,10 @@ The measurements are expected to report failures — those failures are the data
 ```
 node scripts/a11y-report.mjs ──▶ measures everything in a temp dir, then discards it
                               ├─▶ reports/audit-a11y.csv   the pushed rows (workflow artefact, gitignored)
-                              └─▶ Google Sheet             the source of truth (one audit per commit)
+                              └─▶ Google Sheet             the source of truth (one audit per run)
 ```
 
-Runs on every push to `main` via `.github/workflows/a11y-kpi.yml`, or locally with `yarn a11y:report`.
+Runs weekly (Saturday) via `.github/workflows/a11y-kpi.yml`, or locally with `yarn a11y:report`.
 Without credentials (or with `--dry-run`) it just prints the rows instead of pushing.
 
 ## Setup (once)
