@@ -3,7 +3,7 @@ name: A11y KPI
 # Accessibility audit on every change merged to main: runs axe on every story in both themes and the unit
 # suite, then scripts/a11y-report.mjs measures (including the jsx-a11y lint) and appends one row per component
 # to the History tab of the KPI spreadsheet. One audit per commit: a re-run of the same commit appends nothing.
-# The full audit is uploaded as an artefact (reports/a11y/audit.json); nothing is written to git.
+# The pushed rows are uploaded as an artefact (reports/audit-a11y.csv); nothing is written to git.
 #
 # Setup, once:
 #   - repository secret A11Y_SHEET_ID = the spreadsheet id
@@ -55,6 +55,6 @@ jobs:
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
         with:
-          name: a11y-reports
-          path: reports/a11y
+          name: a11y-audit
+          path: reports/audit-a11y.csv
           retention-days: 30
