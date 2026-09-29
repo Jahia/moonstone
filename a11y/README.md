@@ -7,14 +7,14 @@ One audit = three measurements:
 |---|---|---|
 | axe on every story, light and dark theme | `yarn test:a11y` | `reports/a11y/light.json`, `dark.json` |
 | keyboard tests (`describe('X keyboard')` in the specs) | `yarn test --reporter=json --outputFile=reports/a11y/unit.json` | `reports/a11y/unit.json` |
-| jsx-a11y rules of oxlint | run by `scripts/a11y-report.mjs` itself | part of `reports/a11y/audit.json` |
+| jsx-a11y rules of oxlint | run by `scripts/a11y-report.mjs` itself | the `Lint` column of `reports/audit-a11y.csv` |
 
 `reports/` is gitignored. The two test runs are expected to exit non-zero: the failures are the measurement.
 
 ## Flow
 
 ```
-                              ┌─▶ reports/a11y/audit.json     the full audit, uploaded as a workflow artefact
+                              ┌─▶ reports/audit-a11y.csv     the pushed rows, uploaded as a workflow artefact
 reports/a11y/*.json ──a11y-report.mjs──┤
                               └─▶ Google Sheet, tab History    append, one row per component
                                             │
@@ -51,7 +51,7 @@ components of the latest audit. Two audits on the same day share a `date`: group
 yarn a11y:report
 ```
 
-Runs the two test suites, then `node scripts/a11y-report.mjs`, which lints, writes `reports/a11y/audit.json`
+Runs the two test suites, then `node scripts/a11y-report.mjs`, which lints, writes `reports/audit-a11y.csv`
 and appends the rows to the Sheet. Without `A11Y_SHEET_ID` and credentials (`GOOGLE_SHEETS_SA_KEY`, the JSON
 itself, or `GOOGLE_APPLICATION_CREDENTIALS`, a path) the script prints the rows instead of pushing them, as
 does `node scripts/a11y-report.mjs --dry-run`.
@@ -60,8 +60,8 @@ does `node scripts/a11y-report.mjs --dry-run`.
 
 `.github/workflows/a11y-kpi.yml` runs on every push to `main` that touches `src/`, `.storybook/`, the lint config
 or the dependencies, and can be started by hand (Actions, "A11y KPI", "Run workflow"). One audit per commit: when
-the `sha` is already in `History`, the run appends nothing. `reports/a11y/` is uploaded as the `a11y-reports`
-artefact.
+the `sha` is already in `History`, the run appends nothing. `reports/audit-a11y.csv` is uploaded as the `a11y-audit`
+artefact. The run fails if `A11Y_SHEET_ID` or `GOOGLE_SHEETS_SA_KEY` is missing: it never passes without pushing.
 
 ## Setup, once
 
