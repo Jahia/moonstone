@@ -1,8 +1,8 @@
 name: A11y KPI
 
-# Accessibility audit on every change merged to main: runs axe on every story in both themes and the unit
-# suite, then scripts/a11y-report.mjs measures (including the jsx-a11y lint) and appends one row per component
-# to the History tab of the KPI spreadsheet. One audit per commit: a re-run of the same commit appends nothing.
+# Accessibility audit on every change merged to main: scripts/a11y-report.mjs runs axe on every story (both
+# themes), the unit and browser suites (keyboard) and the jsx-a11y lint, then appends one row per component to
+# the History tab of the KPI spreadsheet. One audit per commit: a re-run of the same commit appends nothing.
 # The pushed rows are uploaded as an artefact (reports/audit-a11y.csv); nothing is written to git.
 #
 # Setup, once:
@@ -39,12 +39,6 @@ jobs:
         run: yarn
       - run: yarn build:icons
       - run: yarn playwright install chromium --only-shell
-
-      # The two runs below are expected to exit non-zero: their failures are the measurement.
-      - name: Axe, light and dark themes
-        run: yarn test:a11y || true
-      - name: Unit suite
-        run: yarn test --reporter=json --outputFile=reports/a11y/unit.json || true
 
       - name: Measure and append to the spreadsheet
         env:

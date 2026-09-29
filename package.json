@@ -73,8 +73,7 @@
     "tdd": "vitest watch",
     "test": "vitest run --coverage --project unit --project browser",
     "test:visual": "vitest --project visual --reporter verbose",
-    "test:a11y": "vitest run --project storybook-light --reporter=json --outputFile=reports/a11y/light.json; vitest run --project storybook-dark --reporter=json --outputFile=reports/a11y/dark.json",
-    "a11y:report": "yarn test:a11y; yarn test --reporter=json --outputFile=reports/a11y/unit.json; node scripts/a11y-report.mjs",
+    "a11y:report": "node scripts/a11y-report.mjs",
     "tsc": "tsc --build tsconfig.json && cp ./dist/index.d.ts ./dist/index.d.cts"
   },
   "dependencies": {

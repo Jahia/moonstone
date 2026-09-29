@@ -1,38 +1,48 @@
 #!/usr/bin/env node
 // Measures the WCAG 2.2 AA state of every component and appends one row per component to the KPI spreadsheet.
 //
-//   yarn test:a11y                                                  -> reports/a11y/light.json, dark.json
-//   yarn test --reporter=json --outputFile=reports/a11y/unit.json
-//   node scripts/a11y-report.mjs [--dry-run] [--id <spreadsheetId>] [--reports dir]
+//   node scripts/a11y-report.mjs [--dry-run] [--id <spreadsheetId>]
 //
-// The script runs oxlint itself for the jsx-a11y findings, writes the pushed rows to reports/audit-a11y.csv (the
-// workflow artefact) and appends them to the History tab. Credentials: GOOGLE_SHEETS_SA_KEY (the JSON itself, for
-// CI) or GOOGLE_APPLICATION_CREDENTIALS (a path). Without them it prints the rows (dry run); in CI it fails instead.
+// The script runs the measurements itself — axe on every story (light and dark themes), the unit and browser
+// suites (keyboard), and oxlint (jsx-a11y) — keeping the raw reports in a temp dir it deletes right after. It
+// writes the pushed rows to reports/audit-a11y.csv (the workflow artefact) and appends them to the History tab.
+// Credentials: GOOGLE_SHEETS_SA_KEY (the JSON itself, for CI) or GOOGLE_APPLICATION_CREDENTIALS (a path).
+// Without them it prints the rows (dry run); in CI it fails instead.
 import {JWT} from 'google-auth-library';
 import {execSync} from 'node:child_process';
-import {existsSync, globSync, mkdirSync, readFileSync, writeFileSync} from 'node:fs';
+import {existsSync, globSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:fs';
+import {tmpdir} from 'node:os';
 import {basename, join} from 'node:path';
 
 const arg = (name, fallback) => { const i = process.argv.indexOf(name); return i > -1 ? process.argv[i + 1] : fallback; };
-const reportsDir = arg('--reports', 'reports/a11y');
 const spreadsheetId = arg('--id', process.env.A11Y_SHEET_ID);
 const date = new Date().toISOString().slice(0, 10);
 const git = cmd => { try { return execSync(`git ${cmd}`, {encoding: 'utf8'}).trim(); } catch { return 'unknown'; } };
 
-const readJson = name => {
-    const file = join(reportsDir, name);
-    if (!existsSync(file)) throw new Error(`Missing ${file}. Run the command that produces it first.`);
-    return JSON.parse(readFileSync(file, 'utf8'));
-};
 const componentOfStory = file => basename(file.replace(/\\/g, '/')).replace(/\.stories\.[jt]sx?$/, '');
 const componentOfSpec = file => basename(file.replace(/\\/g, '/')).replace(/\.(?:browser\.)?spec\.[jt]sx?$/, '');
 const componentOfPath = file => (file.replace(/\\/g, '/').match(/src\/components\/([^/]+)/) || [, 'other'])[1];
 const levelOf = tags => tags.some(t => /^wcag2\d*a$/.test(t)) ? 'A' : tags.some(t => /^wcag2\d*aa$/.test(t)) ? 'AA' : 'other';
 const familyOf = tags => tags.find(t => t.startsWith('cat.')) || 'cat.other';
 
+// ---------- run the measurements into a throwaway temp dir ----------
+// Vitest needs an --outputFile to emit clean JSON, so we point it at a temp file, read it, and drop the dir.
+// A non-zero exit is expected (violations, it.fails): the failures are the measurement; the file is written anyway.
+const tmp = mkdtempSync(join(tmpdir(), 'a11y-report-'));
+const vitest = (projects, name, label) => {
+    const out = join(tmp, name);
+    console.log(`Measuring ${label}…`);
+    try { execSync(`yarn vitest run ${projects} --reporter=json --outputFile="${out}"`, {stdio: 'inherit'}); } catch { /* expected */ }
+    if (!existsSync(out)) throw new Error(`vitest produced no report for ${projects} (see the output above).`);
+    return JSON.parse(readFileSync(out, 'utf8'));
+};
+const lightReport = vitest('--project storybook-light', 'light.json', 'axe, light theme');
+const darkReport = vitest('--project storybook-dark', 'dark.json', 'axe, dark theme');
+const unitReport = vitest('--project unit --project browser', 'unit.json', 'unit and browser suites (keyboard)');
+rmSync(tmp, {recursive: true, force: true});
+
 // ---------- axe: one deduplicated entry per story x rule, across the light and dark themes ----------
-function readAxe(theme) {
-    const report = readJson(`${theme}.json`);
+function readAxe(report) {
     const stories = [];
     let withReport = 0;
     for (const file of report.testResults) {
@@ -43,15 +53,15 @@ function readAxe(theme) {
         }
     }
     if (stories.length && withReport === 0) {
-        throw new Error(`${theme}.json contains no axe result in meta.reports. The Storybook a11y addon output has changed; update this script.`);
+        throw new Error('An axe run contains no result in meta.reports. The Storybook a11y addon output has changed; update this script.');
     }
     return stories;
 }
 
 const violations = new Map(); // story::rule -> {impact, tags, component}
 const axeStat = {light: {violations: 0, noReport: 0}, dark: {violations: 0, noReport: 0}};
-for (const theme of ['light', 'dark']) {
-    for (const story of readAxe(theme)) {
+for (const [theme, report] of [['light', lightReport], ['dark', darkReport]]) {
+    for (const story of readAxe(report)) {
         if (!story.result) { axeStat[theme].noReport++; continue; }
         for (const v of story.result.violations) {
             axeStat[theme].violations++;
@@ -62,15 +72,14 @@ for (const theme of ['light', 'dark']) {
 
 // ---------- keyboard: describe('<Component> keyboard') blocks in the specs ----------
 // A known gap is a test marked it.fails in its spec. Vitest reports such a test as passed, so the gaps are read
-// from the sources; unit.json only confirms the keyboard tests ran and flags a gap that no longer fails.
-const unit = readJson('unit.json');
+// from the sources; the unit/browser run only confirms the keyboard tests ran and flags a gap that no longer fails.
 const kb = {};
 const kbEntry = name => kb[name] = kb[name] || {tests: 0, gaps: []};
 for (const file of globSync('src/components/**/*.spec.tsx')) {
     const gaps = [...readFileSync(file, 'utf8').matchAll(/\b(?:it|test)\.fails\(\s*(['"`])((?:\\.|(?!\1).)*)\1/g)].map(m => m[2]);
     if (gaps.length) kbEntry(componentOfSpec(file)).gaps = gaps;
 }
-for (const file of unit.testResults) {
+for (const file of unitReport.testResults) {
     for (const test of file.assertionResults) {
         if (!(test.ancestorTitles || []).some(t => /^\S+ keyboard$/.test(t))) continue;
         const name = componentOfSpec(file.name);
@@ -80,7 +89,7 @@ for (const file of unit.testResults) {
     }
 }
 const kbComponents = Object.keys(kb).length;
-if (!kbComponents) throw new Error('No keyboard test in unit.json.');
+if (!kbComponents) throw new Error('No keyboard test found in the unit/browser run.');
 const keyboardGaps = Object.fromEntries(Object.entries(kb).map(([name, c]) => [name, c.gaps.length]));
 const keyboardFail = Object.values(keyboardGaps).reduce((s, n) => s + n, 0);
 const keyboardTests = Object.values(kb).reduce((s, c) => s + c.tests, 0);
