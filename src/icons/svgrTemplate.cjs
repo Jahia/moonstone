@@ -1,4 +1,6 @@
-const template = ({imports, interfaces, componentName, jsx, exports}, {tpl}) => {
+const template = ({
+    imports, interfaces, componentName, jsx, exports,
+}, { tpl }) => {
     return tpl`
     import styles from '../_icons.module.scss';
     import clsx from 'clsx';

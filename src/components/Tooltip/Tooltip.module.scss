@@ -1,7 +1,7 @@
 $bgColor: var(--moon-color-gray_dark);
 
 .moonstone-tooltip_label {
-    z-index: 1;
+    z-index: 9100;
 
     width: inherit;
     max-width: 450px;
@@ -14,7 +14,7 @@ $bgColor: var(--moon-color-gray_dark);
 }
 
 .moonstone-tooltip_arrow {
-    z-index: 1;
+    z-index: 9100;
 
     fill: $bgColor;
 }

@@ -30,4 +30,4 @@ export type TagProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'className
      * Whether the component should be disabled
      */
     isDisabled?: boolean;
-}
+};

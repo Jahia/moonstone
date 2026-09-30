@@ -1,5 +1,6 @@
 import React from 'react';
-import {CheckboxItemProps} from './CheckboxItem/CheckboxItem.types';
+
+import type { CheckboxItemProps } from './CheckboxItem/CheckboxItem.types';
 
 export type CheckboxGroupProps = {
     /**
@@ -31,7 +32,7 @@ export type CheckboxGroupProps = {
      * Whether the checkboxes can be selected but not changed by the user
      */
     isReadOnly?: boolean;
-}
+};
 
 export type CheckboxGroupContextProps = {
     /**
@@ -53,5 +54,4 @@ export type CheckboxGroupContextProps = {
      * Whether all CheckboxItems should be read-only
      */
     isReadOnly?: boolean;
-}
-
+};

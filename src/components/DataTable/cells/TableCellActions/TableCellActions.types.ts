@@ -1,5 +1,6 @@
 import React from 'react';
-import type {TableCellProps} from '../TableCell';
+
+import type { TableCellProps } from '../TableCell';
 
 /**
  * Props for TableCellActions - a cell dedicated to row actions.

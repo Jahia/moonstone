@@ -1,18 +1,17 @@
-import {StoryObj} from '@storybook/react-vite';
+import { Paper } from './index';
 
-import {Paper} from './index';
-import type {PaperProps} from './Paper.types';
+import type { StoryObj } from '@storybook/react-vite';
 
 export default {
     title: 'Components/Paper',
-    component: Paper
+    component: Paper,
 };
 
-export const Default: StoryObj<PaperProps> = {
-    render: args => <Paper {...args}>Content here</Paper>
-};
-
-export const NoPadding: StoryObj<PaperProps> = {
+export const Default: StoryObj<typeof Paper> = {
     render: args => <Paper {...args}>Content here</Paper>,
-    args: {hasPadding: false}
+};
+
+export const NoPadding: StoryObj<typeof Paper> = {
+    render: args => <Paper {...args}>Content here</Paper>,
+    args: { hasPadding: false },
 };

@@ -3,6 +3,8 @@
 .moonstone-menuItem {
     padding: var(--moon-spacing-nano) var(--moon-spacing-medium);
 
+    font-weight: 500;
+
     cursor: pointer;
 
     &:focus-visible {

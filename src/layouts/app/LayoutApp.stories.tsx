@@ -1,45 +1,46 @@
-import {Meta, StoryObj} from '@storybook/react-vite';
-import {LayoutApp} from './index';
-import type {LayoutAppProps} from './LayoutApp.types';
-import {
-    FakePrimaryNavigation,
-    FakeContent
-} from '~/__storybook__/FakeComponents';
+import { LayoutApp } from './index';
 import markdownNotes from './LayoutApp.md';
+import {
+    FakeContent,
+    FakePrimaryNavigation,
+} from '~/__storybook__/FakeComponents';
+
+import type { LayoutAppProps } from './LayoutApp.types';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 export default {
     title: 'Layouts/LayoutApp',
     component: LayoutApp,
     parameters: {
         subtitle: 'How to use our root application layout',
-        notes: {markdown: markdownNotes}
+        notes: { markdown: markdownNotes },
     },
     argTypes: {
         navigation: {
-            control: false
+            control: false,
         },
         content: {
-            control: false
-        }
-    }
+            control: false,
+        },
+    },
 } as Meta<typeof LayoutApp>;
 
-type Story = StoryObj<typeof LayoutApp>
+type Story = StoryObj<typeof LayoutApp>;
 
 const Template = (args: LayoutAppProps) => (
     <LayoutApp
-    navigation={<FakePrimaryNavigation/>}
-    content={<FakeContent/>}
-    {...args}
-  />
+        content={<FakeContent/>}
+        navigation={<FakePrimaryNavigation/>}
+        {...args}
+    />
 );
 export const Default: Story = {
-    render: Template
+    render: Template,
 };
 
 export const Loading: Story = {
     render: Template,
     args: {
-        isLoading: true
-    }
+        isLoading: true,
+    },
 };

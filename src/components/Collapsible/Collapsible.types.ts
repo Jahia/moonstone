@@ -25,7 +25,7 @@ type BasicCollapsibleProps = Omit<React.ComponentPropsWithRef<'div'>, 'className
      * Function trigger on click
      */
     onClick?: React.MouseEventHandler;
-}
+};
 
 type ControlledProps = {
     /**

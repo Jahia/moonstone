@@ -1,8 +1,9 @@
-import {render, screen} from '@testing-library/react';
-import {describe, expect, it} from 'vitest';
-import {TableCellStatus} from './TableCellStatus';
+import { render, screen } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
 
-const TableWrapper = ({children}: {readonly children: React.ReactNode}) => (
+import { TableCellStatus } from './TableCellStatus';
+
+const TableWrapper = ({ children }: { readonly children: React.ReactNode }) => (
     <table>
         <tbody>
             <tr>
@@ -19,7 +20,7 @@ describe('TableCellStatus', () => {
                 <TableCellStatus color="success">
                     test
                 </TableCellStatus>
-            </TableWrapper>
+            </TableWrapper>,
         );
         expect(screen.getByText('test')).toBeInTheDocument();
     });

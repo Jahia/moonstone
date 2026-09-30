@@ -1,5 +1,6 @@
-import {render, screen} from '@testing-library/react';
-import {LayoutModule} from './index';
+import { render, screen } from '@testing-library/react';
+
+import { LayoutModule } from './index';
 
 describe('LayoutModule', () => {
     it('should display navigation', () => {
@@ -14,7 +15,7 @@ describe('LayoutModule', () => {
     });
 
     it('should display a specific HTML markup when component prop is provided', () => {
-        const {container} = render(<LayoutModule component="section"/>);
+        const { container } = render(<LayoutModule component="section"/>);
         expect(container.querySelector('section')).toBeInTheDocument();
     });
 });

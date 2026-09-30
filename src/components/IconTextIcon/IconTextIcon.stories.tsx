@@ -1,12 +1,17 @@
-import {IconTextIcon} from './index';
-import {Apps, Love} from '~/icons';
+import { IconTextIcon } from './index';
+import { iconArgType } from '~/__storybook__/iconArgType';
+import { Apps, Love } from '~/icons';
 
 export default {
     title: 'Components/IconTextIcon',
     component: IconTextIcon,
     parameters: {
-        layout: 'centered'
-    }
+        layout: 'centered',
+    },
+    argTypes: {
+        iconStart: iconArgType,
+        iconEnd: iconArgType,
+    },
 };
 
 export const Default = {
@@ -15,6 +20,6 @@ export const Default = {
     args: {
         iconStart: <Love/>,
         iconEnd: <Apps/>,
-        children: 'This is text sandwiched by icons'
-    }
+        children: 'This is text sandwiched by icons',
+    },
 };

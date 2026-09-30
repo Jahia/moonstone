@@ -12,7 +12,7 @@ $background-highlight-hover: var(--moon-color-accent_light_plain40);
     background-color: var(--moon-row-background);
 
     &:not(.head) {
-        &:focus-within,
+        &:focus-visible,
         &:hover {
             --moon-row-background: #{$background-hover};
             --moon-cellAction-visibility: visible;
@@ -25,7 +25,7 @@ $background-highlight-hover: var(--moon-color-accent_light_plain40);
 
     // color: var(--color-light);
 
-    &:focus-within,
+    &:focus-visible,
     &:hover {
         --moon-row-background: #{$background-highlight-hover};
     }

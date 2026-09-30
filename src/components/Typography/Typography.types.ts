@@ -1,5 +1,6 @@
 import React from 'react';
-import type {PolymorphicPropsWithRef} from '~/types/Polymorphic.types';
+
+import type { PolymorphicPropsWithRef } from '~/types/Polymorphic.types';
 
 export const variants = ['title', 'heading', 'subheading', 'body', 'caption', 'button'] as const;
 export type TypographyVariant = typeof variants[number];

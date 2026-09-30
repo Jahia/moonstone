@@ -1,8 +1,10 @@
-import React, {useRef, useEffect, useImperativeHandle} from 'react';
-import type {NumberInputProps} from './NumberInput.types';
-import {BaseInput} from '../BaseInput';
-import {onArrowIncrementation} from '~/hooks';
-import {filterNumberInputValue} from '~/utils/filterNumberInputValue';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
+
+import { BaseInput } from '../BaseInput';
+import { onArrowIncrementation } from '~/hooks';
+import { filterNumberInputValue } from '~/utils/filterNumberInputValue';
+
+import type { NumberInputProps } from './NumberInput.types';
 
 const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(({
     allowNegative = false,
@@ -53,20 +55,27 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(({
 
     return (
         <BaseInput
-            ref={inputRef}
-            filterFunction={filterNumberInputValue}
-            inputMode={allowDecimal ? 'decimal' : 'numeric'}
-            min={min}
-            max={max}
             allowDecimal={allowDecimal}
             allowNegative={allowNegative}
+            filterFunction={filterNumberInputValue}
+            inputMode={allowDecimal ? 'decimal' : 'numeric'}
+            max={max}
+            min={min}
+            ref={inputRef}
             separator={separator}
             {...props}
             onChange={handleOnChange}
-            {...onArrowIncrementation({ref: inputRef, step: step, allowNegative: allowNegative, min: min, max: max, separator: separator})}
-            />
+            {...onArrowIncrementation({
+                ref: inputRef,
+                step: step,
+                allowNegative: allowNegative,
+                min: min,
+                max: max,
+                separator: separator,
+            })}
+        />
     );
 });
 
 NumberInput.displayName = 'NumberInput';
-export {NumberInput};
+export { NumberInput };

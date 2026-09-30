@@ -18,9 +18,9 @@ export type TreeViewData = {
 };
 
 type TreeItemProps = {
-    style?: object,
-    className?: string
-}
+    style?: object;
+    className?: string;
+};
 
 type BasicTreeViewProps = {
     /**
@@ -91,7 +91,7 @@ type ControlledProps = {
      * Trigger on opening node
      */
     onCloseItem: (node: TreeViewData, e?: React.MouseEvent) => void;
-}
+};
 
 type UncontrolledProps = {
     /**
@@ -106,7 +106,7 @@ type UncontrolledProps = {
      * Trigger on opening node
      */
     onCloseItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
-}
+};
 
 export type TreeViewProps = BasicTreeViewProps & Partial<ControlledProps> & Partial<UncontrolledProps>;
 export type ControlledTreeViewProps = BasicTreeViewProps & ControlledProps;

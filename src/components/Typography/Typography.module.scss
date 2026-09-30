@@ -1,6 +1,8 @@
 @use '../../utils/index';
 
 .moonstone-typography {
+    font-family: var(--moon-font-family);
+
     &:not(td, th) {
         margin: 0;
         padding: 0;
@@ -40,6 +42,10 @@
 
     &.moonstone-weight_light {
         @extend %weight-light;
+    }
+
+    &[href] {
+        @extend %link;
     }
 
     &.moonstone-nowrap {

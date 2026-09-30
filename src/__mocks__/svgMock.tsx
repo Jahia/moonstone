@@ -1,21 +1,24 @@
-import React from 'react';
 import clsx from 'clsx';
+import React from 'react';
 
 type SvgProps = {
-    readonly size?: 'small'| 'default' | 'big',
-    readonly color?: 'red' | 'yellow' | 'green' | 'blue' | 'purple' | 'gray',
-    readonly className?: string
+    readonly size?: 'small' | 'default' | 'big';
+    readonly color?: 'red' | 'yellow' | 'green' | 'blue' | 'purple' | 'gray';
+    readonly className?: string;
 };
 
-const Svg : React.FC<SvgProps> = ({className = '', color, size = 'default', ...props}) => {
+const Svg: React.FC<SvgProps> = ({
+    className = '', color, size = 'default', ...props
+}) => {
     return (
         <svg
             className={clsx(
                 className,
                 `moonstone-icon moonstone-icon_${size}`,
-                color && `moonstone-icon_${color}`
+                color && `moonstone-icon_${color}`,
             )}
-            {...props}/>
+            {...props}
+        />
     );
 };
 

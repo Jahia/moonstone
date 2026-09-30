@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type {TypographyVariant} from '~/components/Typography/Typography.types';
+import type { TypographyVariant } from '~/components/Typography/Typography.types';
 
 export type ListItemProps = Omit<React.ComponentPropsWithRef<'li'>, 'className'> & {
     /**
@@ -47,4 +47,4 @@ export type ListItemProps = Omit<React.ComponentPropsWithRef<'li'>, 'className'>
      * Which icon size to render.
      */
     iconSize?: 'small' | 'default' | 'big';
-}
+};

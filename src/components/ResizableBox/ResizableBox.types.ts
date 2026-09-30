@@ -1,5 +1,6 @@
 import React from 'react';
-import type {Size, ResizeStartCallback, ResizeCallback} from 're-resizable';
+
+import type { ResizeCallback, ResizeStartCallback, Size } from 're-resizable';
 
 export type EnableZonesProps = {
     // Top?: boolean;
@@ -77,5 +78,4 @@ export type ResizableBoxProps = {
      * @param {object} delta - delta between after resize
      */
     onResizeStop?: ResizeCallback;
-}
-
+};

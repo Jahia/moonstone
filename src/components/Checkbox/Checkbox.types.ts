@@ -35,7 +35,7 @@ export type BasicCheckboxProps = Omit<React.ComponentPropsWithRef<'input'>, 'val
      * Function triggered when the checkbox value loses focus
      */
     onBlur?: React.FocusEventHandler;
-}
+};
 
 type ControlledProps = {
     /**

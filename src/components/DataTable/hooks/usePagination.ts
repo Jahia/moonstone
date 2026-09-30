@@ -1,6 +1,7 @@
-import {useState} from 'react';
-import type {PaginationState} from '@tanstack/react-table';
-import type {PaginationProps as ComponentPaginationProps} from '~/components/Pagination';
+import { useState } from 'react';
+
+import type { PaginationState } from '@tanstack/react-table';
+import type { PaginationProps as ComponentPaginationProps } from '~/components/Pagination';
 
 type UsePaginationProps = {
     currentPage?: ComponentPaginationProps['currentPage'];
@@ -12,20 +13,22 @@ type UsePaginationProps = {
     onItemsPerPageChange?: ComponentPaginationProps['onItemsPerPageChange'];
 };
 
-export function usePagination({currentPage, itemsPerPage, defaultCurrentPage, defaultItemsPerPage, totalItems, onPageChange, onItemsPerPageChange}: UsePaginationProps) {
+export function usePagination({
+    currentPage, itemsPerPage, defaultCurrentPage, defaultItemsPerPage, totalItems, onPageChange, onItemsPerPageChange,
+}: UsePaginationProps) {
     const isPaginationControlled = currentPage !== undefined && totalItems !== undefined;
     const isItemsPerPageControlled = itemsPerPage !== undefined;
     const [state, setState] = useState<PaginationState>({
         pageIndex: defaultCurrentPage - 1,
-        pageSize: defaultItemsPerPage
+        pageSize: defaultItemsPerPage,
     });
 
-    const pagination: PaginationState = isPaginationControlled ?
-        {
-            pageIndex: (currentPage ?? 1) - 1,
-            pageSize: isItemsPerPageControlled ? itemsPerPage : state.pageSize
-        } :
-        state;
+    const pagination: PaginationState = isPaginationControlled
+        ? {
+                pageIndex: (currentPage ?? 1) - 1,
+                pageSize: isItemsPerPageControlled ? itemsPerPage : state.pageSize,
+            }
+        : state;
 
     const handlePaginationChange = (updater: React.SetStateAction<PaginationState>) => {
         const next = typeof updater === 'function' ? updater(pagination) : updater;
@@ -33,7 +36,10 @@ export function usePagination({currentPage, itemsPerPage, defaultCurrentPage, de
         if (!isPaginationControlled) {
             setState(next);
         } else if (!isItemsPerPageControlled && next.pageSize !== state.pageSize) {
-            setState(previous => ({...previous, pageSize: next.pageSize}));
+            setState(previous => ({
+                ...previous,
+                pageSize: next.pageSize,
+            }));
         }
 
         if (next.pageIndex !== pagination.pageIndex) {
@@ -45,5 +51,9 @@ export function usePagination({currentPage, itemsPerPage, defaultCurrentPage, de
         }
     };
 
-    return {pagination, isPaginationControlled, handlePaginationChange};
+    return {
+        pagination,
+        isPaginationControlled,
+        handlePaginationChange,
+    };
 }

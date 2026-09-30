@@ -1,13 +1,18 @@
-import React from 'react';
 import clsx from 'clsx';
-import {Typography} from '~/components/Typography';
-import {AccordionContext} from '~/components/Accordion/Accordion.context';
-import type {AccordionItemProps} from './AccordionItem.types';
-import {onAccessibleClick} from '~/hooks';
-import {icons, layout} from '~/globals/css-utils.js';
+import React from 'react';
+
+import { AccordionContext } from '~/components/Accordion/Accordion.context';
+import { Typography } from '~/components/Typography';
+import { icons, layout } from '~/globals/css-utils.js';
+import { onAccessibleClick } from '~/hooks';
+
+import type { AccordionItemProps } from './AccordionItem.types';
+
 import styles from './AccordionItem.module.scss';
 
-export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = null, onClick = () => undefined, className, children, ...props}) => {
+export const AccordionItem: React.FC<AccordionItemProps> = ({
+    id, label, icon = null, onClick = () => undefined, className, children, ...props
+}) => {
     const context = React.useContext(AccordionContext);
     const open = context.currentItem === id;
 
@@ -24,52 +29,53 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
                 context.isReversed && ['moonstone-reversed', styles['moonstone-reversed']],
                 ['flexCol', layout.flexCol],
                 open ? ['flexFluid', layout.flexFluid] : null,
-                className
+                className,
             )}
         >
             <header
+                aria-controls={id}
+                aria-expanded={open}
                 className={clsx(
                     ['moonstone-accordionItem_header', styles['moonstone-accordionItem_header']],
                     open && ['moonstone-selected', styles['moonstone-selected']],
                     context.isReversed && ['moonstone-reversed', styles['moonstone-reversed']],
                     ['flexRow', layout.flexRow],
-                    ['alignCenter', layout.alignCenter]
+                    ['alignCenter', layout.alignCenter],
                 )}
-                aria-controls={id}
-                aria-expanded={open}
-                {...onAccessibleClick({onClick: e => handleClick(e, open)})}
+                {...onAccessibleClick({ onClick: e => handleClick(e, open) })}
                 role="accordion-item"
             >
-                {icon &&
-                    (
+                {icon
+                    && (
                         <div className={clsx(
                             ['moonstone-accordionItem_iconContainer', styles['moonstone-accordionItem_iconContainer']],
                             ['flexRow_center', layout.flexRow_center],
-                            ['alignCenter', layout.alignCenter]
+                            ['alignCenter', layout.alignCenter],
                         )}
                         >
-                            {icon && <icon.type {...icon.props} size="big" className={clsx('moonstone-icon_big', icons['moonstone-icon_big'], icon.props.className)}/>}
+                            {icon && <icon.type {...icon.props} className={clsx('moonstone-icon_big', icons['moonstone-icon_big'], icon.props.className)} size="big"/>}
                         </div>
                     )}
                 <Typography
                     isNowrap
+                    className={clsx('flexFluid', layout.flexFluid)}
                     variant="subheading"
                     weight={open ? 'bold' : 'default'}
-                    className={clsx('flexFluid', layout.flexFluid)}
                 >
                     {label}
                 </Typography>
             </header>
 
             {/* Accordion content */}
-            {open &&
-                (
-                    <div className={clsx(
-                        ['moonstone-accordionItem_content', styles['moonstone-accordionItem_content']],
-                        ['flexFluid', layout.flexFluid],
-                        ['flexCol_nowrap', layout.flexCol_nowrap]
-                    )}
-                         role="region"
+            {open
+                && (
+                    <div
+                        className={clsx(
+                            ['moonstone-accordionItem_content', styles['moonstone-accordionItem_content']],
+                            ['flexFluid', layout.flexFluid],
+                            ['flexCol_nowrap', layout.flexCol_nowrap],
+                        )}
+                        role="region"
                     >
                         {children}
                     </div>

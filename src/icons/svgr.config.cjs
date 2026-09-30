@@ -5,7 +5,7 @@ module.exports = {
     prettierConfig: {
         parser: 'babel',
         singleQuote: true,
-        trailingComma: 'none'
+        trailingComma: 'none',
     },
     outDir: 'src/icons/components',
     svgoConfig: {
@@ -13,19 +13,20 @@ module.exports = {
             {
                 name: 'removeAttrs',
                 params: {
-                    attrs: 'fill'
-                }
-            },
-            {name: 'addAttributesToSVGElement',
-                params: {
-                    attribute: {
-                        fill: 'currentColor'
-                    }
-                }
+                    attrs: 'fill',
+                },
             },
             {
-                name: 'removeDimensions'
-            }
-        ]
-    }
+                name: 'addAttributesToSVGElement',
+                params: {
+                    attribute: {
+                        fill: 'currentColor',
+                    },
+                },
+            },
+            {
+                name: 'removeDimensions',
+            },
+        ],
+    },
 };

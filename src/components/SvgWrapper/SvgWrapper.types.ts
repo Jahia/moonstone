@@ -15,5 +15,4 @@ export type SvgWrapperProps = Omit<React.ComponentPropsWithoutRef<'svg'>, 'class
      * Additional classname
      */
     className?: string;
-}
-
+};

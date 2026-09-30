@@ -1,13 +1,16 @@
-import React, {useEffect} from 'react';
 import clsx from 'clsx';
-import {Cancel} from '~/icons';
-import {Button} from '~/components';
-import type {ControlledBaseInputProps} from './BaseInput.types';
-import {layout} from '~/globals/css-utils.js';
+import React, { useEffect } from 'react';
+
+import { Button } from '~/components';
+import { layout } from '~/globals/css-utils.js';
+import { Cancel } from '~/icons';
+
+import type { ControlledBaseInputProps } from './BaseInput.types';
+
 import styles from './BaseInput.module.scss';
 
 const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInputProps>(({
-    value = '',
+    value,
     id,
     role,
     placeholder,
@@ -35,12 +38,12 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
         ['moonstone-baseInput', styles['moonstone-baseInput']],
         [`moonstone-${size}`, size === 'big' && styles[`moonstone-${size}`]],
         [`moonstone-${variant}`, variant === 'outlined' && styles[`moonstone-${variant}`]],
-        className
+        className,
     );
 
     useEffect(() => {
         if (focusOnField && !isDisabled && !isReadOnly && ref && typeof ref === 'object') {
-            ref.current.focus({preventScroll: true});
+            ref.current.focus({ preventScroll: true });
         }
     }, [focusOnField, isDisabled, isReadOnly, ref]);
 
@@ -60,7 +63,7 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
                     className={clsx(
                         ['moonstone-baseInput_icon', styles['moonstone-baseInput_icon']],
                         ['flexRow_nowrap', layout.flexRow_nowrap],
-                        ['alignCenter', layout.alignCenter]
+                        ['alignCenter', layout.alignCenter],
                     )}
                 >
                     <icon.type {...icon.props} focusable="false"/>
@@ -71,27 +74,27 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
                     ['flexRow', layout.flexRow],
                     ['alignCenter', layout.alignCenter],
                     ['flexFluid', layout.flexFluid],
-                    ['moonstone-baseInput_elementsWrapper', styles['moonstone-baseInput_elementsWrapper']]
+                    ['moonstone-baseInput_elementsWrapper', styles['moonstone-baseInput_elementsWrapper']],
                 )}
             >
                 {prefixComponents}
                 <input
-                    ref={ref}
-                    className={clsx(
-                        ['moonstone-baseInput-element', styles['moonstone-baseInput-element']],
-                        [`moonstone-${size}`, size === 'big' && styles[`moonstone-${size}`]]
-                    )}
-                    type="text"
-                    value={value}
-                    role={role === 'search' ? 'searchbox' : undefined}
-                    id={id}
-                    placeholder={placeholder}
                     disabled={isDisabled}
                     readOnly={isReadOnly}
-                    onChange={onChange}
+                    className={clsx(
+                        ['moonstone-baseInput-element', styles['moonstone-baseInput-element']],
+                        [`moonstone-${size}`, size === 'big' && styles[`moonstone-${size}`]],
+                    )}
+                    id={id}
+                    placeholder={placeholder}
+                    ref={ref}
+                    role={role === 'search' ? 'searchbox' : undefined}
+                    type="text"
+                    value={value}
                     onBlur={onBlur}
+                    onChange={onChange}
                     onFocus={onFocus}
-                    onKeyUp={e => {
+                    onKeyUp={(e) => {
                         if (onKeyPress) {
                             console.warn('onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
                             onKeyPress(e);
@@ -105,14 +108,14 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
             </div>
             { onClear && isFilled && !isDisabled && !isReadOnly && (
                 <Button
+                    aria-label="Reset"
                     className={clsx(
                         ['moonstone-baseInput_clearButton', styles['moonstone-baseInput_clearButton']],
                         ['flexRow_center', layout.flexRow_center],
-                        ['alignCenter', layout.alignCenter]
+                        ['alignCenter', layout.alignCenter],
                     )}
-                    variant="ghost"
                     icon={<Cancel/>}
-                    aria-label="Reset"
+                    variant="ghost"
                     onClick={onClear}
                 />
             )}
@@ -121,4 +124,4 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
 });
 
 ControlledBaseInput.displayName = 'ControlledBaseInput';
-export {ControlledBaseInput};
+export { ControlledBaseInput };

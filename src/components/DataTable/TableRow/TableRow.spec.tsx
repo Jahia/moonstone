@@ -1,10 +1,11 @@
-import React from 'react';
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {describe, it, expect, vi} from 'vitest';
-import {TableRow} from './TableRow';
+import React from 'react';
+import { describe, expect, it, vi } from 'vitest';
 
-const TableWrapper: React.FC<{ readonly children: React.ReactNode }> = ({children}) => (
+import { TableRow } from './TableRow';
+
+const TableWrapper: React.FC<{ readonly children: React.ReactNode }> = ({ children }) => (
     <table>
         <tbody>
             {children}
@@ -19,7 +20,7 @@ describe('TableRow', () => {
                 <TableRow data-testid="row">
                     <td>Cell Content</td>
                 </TableRow>
-            </TableWrapper>
+            </TableWrapper>,
         );
         expect(screen.getByText('Cell Content')).toBeInTheDocument();
         expect(screen.getByTestId('row').tagName).toBe('TR');
@@ -31,7 +32,7 @@ describe('TableRow', () => {
                 <TableRow data-testid="row">
                     <td>Content</td>
                 </TableRow>
-            </TableWrapper>
+            </TableWrapper>,
         );
         expect(screen.getByTestId('row')).toHaveAttribute('tabIndex', '0');
     });
@@ -42,9 +43,9 @@ describe('TableRow', () => {
                 <TableRow isHighlighted data-testid="row">
                     <td>Content</td>
                 </TableRow>
-            </TableWrapper>
+            </TableWrapper>,
         );
-        expect(screen.getByRole('row', {selected: true})).toBeInTheDocument();
+        expect(screen.getByRole('row', { selected: true })).toBeInTheDocument();
     });
 
     it('should call onClick when clicked', async () => {
@@ -55,7 +56,7 @@ describe('TableRow', () => {
                 <TableRow data-testid="row" onClick={onClick}>
                     <td>Content</td>
                 </TableRow>
-            </TableWrapper>
+            </TableWrapper>,
         );
 
         await user.click(screen.getByTestId('row'));
@@ -70,7 +71,7 @@ describe('TableRow', () => {
                 <TableRow data-testid="row" onDoubleClick={onDoubleClick}>
                     <td>Content</td>
                 </TableRow>
-            </TableWrapper>
+            </TableWrapper>,
         );
 
         await user.dblClick(screen.getByTestId('row'));
@@ -84,7 +85,7 @@ describe('TableRow', () => {
                 <TableRow ref={ref}>
                     <td>Content</td>
                 </TableRow>
-            </TableWrapper>
+            </TableWrapper>,
         );
         expect(ref.current?.tagName).toBe('TR');
     });
@@ -95,7 +96,7 @@ describe('TableRow', () => {
                 <TableRow className="custom-class" data-testid="row">
                     <td>Content</td>
                 </TableRow>
-            </TableWrapper>
+            </TableWrapper>,
         );
         expect(screen.getByTestId('row')).toHaveClass('custom-class');
     });

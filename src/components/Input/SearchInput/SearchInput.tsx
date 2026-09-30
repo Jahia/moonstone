@@ -1,7 +1,9 @@
-import React, {useImperativeHandle, useRef} from 'react';
-import type {SearchInputProps} from './SearchInput.types';
-import {BaseInput} from '../BaseInput';
-import {Search} from '~/icons';
+import React, { useImperativeHandle, useRef } from 'react';
+
+import { BaseInput } from '../BaseInput';
+import { Search } from '~/icons';
+
+import type { SearchInputProps } from './SearchInput.types';
 
 export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(({
     ...props
@@ -14,8 +16,8 @@ export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
             ref={inputRef}
             {...props}
             isShowClearButton
-            role="search"
             icon={<Search aria-hidden/>}
+            role="search"
         />
     );
 });

@@ -1,20 +1,21 @@
-import {StoryObj, Meta} from '@storybook/react-vite';
+import { ButtonGroup } from './index';
+import { Button } from '~/components/Button';
+import { ChevronDown } from '~/icons';
 
-import {ButtonGroup} from './index';
-import type {ButtonGroupProps} from './ButtonGroup.types';
-import {Button} from '~/components/Button';
-import {ChevronDown} from '~/icons';
+import type { ButtonGroupProps } from './ButtonGroup.types';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 export default {
     title: 'Components/ButtonGroup',
     component: ButtonGroup,
-    subcomponents: {Button},
+    tags: ['dark-theme'],
+    subcomponents: { Button },
 
     parameters: {
         layout: 'centered',
         componentSubtitle: 'ButtonGroup',
-        actions: {argTypesRegex: '^on.*'}
-    }
+        actions: { argTypesRegex: '^on.*' },
+    },
 } as Meta<typeof ButtonGroup>;
 
 export const Default: StoryObj<ButtonGroupProps> = {
@@ -27,21 +28,21 @@ export const Default: StoryObj<ButtonGroupProps> = {
     ),
 
     args: {
-        size: 'big'
-    }
+        size: 'big',
+    },
 };
 
 export const ButtonWithActions = () => (
     <ButtonGroup color="accent" size="big">
         <Button label="Actions" onClick={() => null}/>
-        <Button icon={<ChevronDown/>} aria-label="button with down arrow icon" onClick={() => null}/>
+        <Button aria-label="button with down arrow icon" icon={<ChevronDown/>} onClick={() => null}/>
     </ButtonGroup>
 );
 
 export const ButtonOutlinedWithActions = () => (
     <ButtonGroup color="accent" size="big" variant="outlined">
         <Button label="Actions" onClick={() => null}/>
-        <Button icon={<ChevronDown/>} aria-label="button with down arrow icon" onClick={() => null}/>
+        <Button aria-label="button with down arrow icon" icon={<ChevronDown/>} onClick={() => null}/>
     </ButtonGroup>
 );
 

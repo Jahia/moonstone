@@ -1,5 +1,6 @@
 import * as React from 'react';
-import type {AccordionItemProps} from './AccordionItem/AccordionItem.types';
+
+import type { AccordionItemProps } from './AccordionItem/AccordionItem.types';
 
 type BasicProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'className' | 'children'> & {
     /**
@@ -15,13 +16,13 @@ type BasicProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'className' | 'chi
      * Content of the component
      */
     children: React.ReactElement<AccordionItemProps> | React.ReactElement<AccordionItemProps>[];
-}
+};
 
 type ControlledProps = {
     /**
      * Id of the AccordionItem opened. Define the component as controlled when it set (controlled)
      */
-    openedItem: string,
+    openedItem: string;
 
     /**
      * Function to set the opened AccordionItem (controlled)

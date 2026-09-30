@@ -30,7 +30,7 @@ export type AccordionItemProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'cl
      * Additional classname
      */
     className?: string;
-}
+};
 
 export type AccordionContextType = {
     /**
@@ -45,4 +45,4 @@ export type AccordionContextType = {
      * Function to set the opened AccordionItem
      */
     onSetOpenedItem?: (id: string) => void;
-}
+};

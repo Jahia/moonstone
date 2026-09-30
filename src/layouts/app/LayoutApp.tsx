@@ -1,29 +1,32 @@
-import React from 'react';
 import clsx from 'clsx';
-import type {LayoutAppProps} from './LayoutApp.types';
-import {Loader} from '~/components';
-import {layout} from '~/globals/css-utils.js';
+import React from 'react';
+
+import { Loader } from '~/components';
+import { layout } from '~/globals/css-utils.js';
+
+import type { LayoutAppProps } from './LayoutApp.types';
+
 import styles from './LayoutApp.module.scss';
 
 export const LayoutApp = React.forwardRef(({
     navigation = null,
     content = null,
-    isLoading = false
+    isLoading = false,
 }: LayoutAppProps, ref: React.ForwardedRef<HTMLDivElement>) => {
     const classNameProps = clsx(
         'moonstone-layoutApp_content',
         ['flexFluid', layout.flexFluid],
-        isLoading ? ['flexCol_center', layout.flexCol_center, 'alignCenter', layout.alignCenter] : ['flexRow_nowrap', layout.flexRow_nowrap]
+        isLoading ? ['flexCol_center', layout.flexCol_center, 'alignCenter', layout.alignCenter] : ['flexRow_nowrap', layout.flexRow_nowrap],
     );
 
     return (
         <div
-            ref={ref}
             className={clsx(
                 ['moonstone-layoutApp', styles['moonstone-layoutApp']],
                 ['flexRow_center', layout.flexRow_center],
-                ['flexRow_nowrap', layout.flexRow_nowrap]
+                ['flexRow_nowrap', layout.flexRow_nowrap],
             )}
+            ref={ref}
         >
             <div className={clsx(['moonstone-layoutApp_navigation', styles['moonstone-layoutApp_navigation']])}>
                 {navigation}

@@ -1,7 +1,8 @@
-import React from 'react';
 import clsx from 'clsx';
+import React from 'react';
 
-import type {TableBodyProps} from './TableBody.types';
+import type { TableBodyProps } from './TableBody.types';
+
 import styles from './TableBody.module.scss';
 
 export const TableBody: React.FC<TableBodyProps> = ({
@@ -13,9 +14,9 @@ export const TableBody: React.FC<TableBodyProps> = ({
     component,
     {
         className: clsx('moonstone-TableBody', styles['moonstone-TableBody'], className),
-        ...props
+        ...props,
     },
-    children
+    children,
 );
 
 TableBody.displayName = 'TableBody';

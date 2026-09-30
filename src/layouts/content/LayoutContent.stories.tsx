@@ -1,24 +1,25 @@
-import {Meta, StoryObj} from '@storybook/react-vite';
-import {LayoutContent} from '~/layouts';
-import {Header} from '~/components';
-import {FakeContent} from '~/__storybook__/FakeComponents';
-import type {LayoutContentProps} from './LayoutContent.types';
+import { FakeContent } from '~/__storybook__/FakeComponents';
+import { Header } from '~/components';
+import { LayoutContent } from '~/layouts';
+
+import type { LayoutContentProps } from './LayoutContent.types';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 export default {
     title: 'Layouts/LayoutContent',
     component: LayoutContent,
     decorators: [
         StoryCmp => (
-            <div style={{width: '1OOvw', height: '100vh', display: 'flex'}}>
+            <div style={{ width: '1OOvw', height: '100vh', display: 'flex' }}>
                 <StoryCmp/>
             </div>
-        )
+        ),
     ],
     argTypes: {
         header: {
-            control: false
-        }
-    }
+            control: false,
+        },
+    },
 } as Meta<typeof LayoutContent>;
 
 type Story = StoryObj<typeof LayoutContent>;
@@ -30,29 +31,29 @@ const Template = (args: LayoutContentProps) => (
 );
 
 export const Default: Story = {
-    render: Template
+    render: Template,
 };
 
 export const Centered: Story = {
     render: Template,
 
     args: {
-        isCentered: true
-    }
+        isCentered: true,
+    },
 };
 
 export const WithoutPadding: Story = {
     render: Template,
 
     args: {
-        hasPadding: false
-    }
+        hasPadding: false,
+    },
 };
 
 export const Loading: Story = {
     render: Template,
 
     args: {
-        isLoading: true
-    }
+        isLoading: true,
+    },
 };

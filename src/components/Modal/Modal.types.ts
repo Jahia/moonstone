@@ -1,4 +1,4 @@
-import {ReactElement} from 'react';
+import type { ReactElement } from 'react';
 
 export type ModalProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 'children'> & {
 
@@ -26,4 +26,4 @@ export type ModalProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 
      * Additional classname
      */
     className?: string;
-}
+};

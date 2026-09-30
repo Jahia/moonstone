@@ -1,6 +1,7 @@
 import React from 'react';
-import type {PolymorphicProps} from '~/types/Polymorphic.types';
-import type {BasicTypographyProps} from '~/components/Typography/Typography.types';
+
+import type { BasicTypographyProps } from '~/components/Typography/Typography.types';
+import type { PolymorphicProps } from '~/types/Polymorphic.types';
 
 export type BasicIconTextIconProps = {
     /**

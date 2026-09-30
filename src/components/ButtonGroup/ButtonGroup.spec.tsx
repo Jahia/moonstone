@@ -1,6 +1,7 @@
-import {render, screen} from '@testing-library/react';
-import {ButtonGroup} from './index';
-import {Button} from '~/components/Button';
+import { render, screen } from '@testing-library/react';
+
+import { ButtonGroup } from './index';
+import { Button } from '~/components/Button';
 
 describe('ButtonGroup', () => {
     it('should render ButtonGroup', () => {
@@ -8,15 +9,15 @@ describe('ButtonGroup', () => {
             <ButtonGroup>
                 <Button label="One" onClick={() => null}/>
                 <Button label="Two" onClick={() => null}/>
-            </ButtonGroup>
+            </ButtonGroup>,
         );
-        expect(screen.queryByRole('group')).toBeInTheDocument();
+        expect(screen.getByRole('group')).toBeInTheDocument();
     });
 
     it('should not render error', () => {
         // @ts-expect-error testing invalid children
         render(<ButtonGroup>test</ButtonGroup>);
-        expect(screen.queryByRole('group')).toBeInTheDocument();
+        expect(screen.getByRole('group')).toBeInTheDocument();
     });
 
     it('should display nothing when no children is provided', () => {
@@ -35,7 +36,7 @@ describe('ButtonGroup', () => {
             <ButtonGroup color="accent">
                 <Button label="One" onClick={() => null}/>
                 <Button label="One" onClick={() => null}/>
-            </ButtonGroup>
+            </ButtonGroup>,
         );
         expect(screen.getByRole('group').firstChild).toHaveClass('moonstone-button_accent');
         expect(screen.getByRole('group').lastChild).toHaveClass('moonstone-button_accent');
@@ -46,7 +47,7 @@ describe('ButtonGroup', () => {
             <ButtonGroup size="big">
                 <Button label="One" onClick={() => null}/>
                 <Button label="One" onClick={() => null}/>
-            </ButtonGroup>
+            </ButtonGroup>,
         );
         expect(screen.getByRole('group').firstChild).toHaveClass('moonstone-button_big');
         expect(screen.getByRole('group').lastChild).toHaveClass('moonstone-button_big');
@@ -57,7 +58,7 @@ describe('ButtonGroup', () => {
             <ButtonGroup className="extra">
                 <Button label="One" onClick={() => null}/>
                 <Button label="One" onClick={() => null}/>
-            </ButtonGroup>
+            </ButtonGroup>,
         );
         expect(screen.getByRole('group')).toHaveClass('extra');
     });
@@ -67,7 +68,7 @@ describe('ButtonGroup', () => {
             <ButtonGroup data-custom="extra">
                 <Button label="One" onClick={() => null}/>
                 <Button label="One" onClick={() => null}/>
-            </ButtonGroup>
+            </ButtonGroup>,
         );
         expect(screen.getByRole('group')).toHaveAttribute('data-custom', 'extra');
     });

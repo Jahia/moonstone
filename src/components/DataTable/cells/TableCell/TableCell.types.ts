@@ -3,7 +3,7 @@ import React from 'react';
 /**
  * Props for TableCell - a composable cell wrapper component.
  */
-export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'children'| 'className' | 'width'> & {
+export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'children' | 'className' | 'width'> & {
     /**
      * Additional classname
      */

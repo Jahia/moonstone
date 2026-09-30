@@ -1,11 +1,11 @@
-import {render, screen} from '@testing-library/react';
-
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {RadioGroup} from './index';
-import {RadioItem} from './RadioItem';
+
+import { RadioGroup } from './index';
+import { RadioItem } from './RadioItem';
 
 const requiredProps = {
-    name: 'test-name'
+    name: 'test-name',
 };
 
 describe('RadioGroup', () => {
@@ -14,7 +14,7 @@ describe('RadioGroup', () => {
             <RadioGroup {...requiredProps}>
                 <RadioItem id="radio-01" label="radio 01" value="01"/>
                 <RadioItem id="radio-02" label="radio 02" value="02"/>
-            </RadioGroup>
+            </RadioGroup>,
         );
         expect(screen.getAllByRole('radio')).toHaveLength(2);
     });
@@ -27,7 +27,7 @@ describe('RadioGroup', () => {
             >
                 <RadioItem id="radio-01" label="radio 01" value="01"/>
                 <RadioItem id="radio-02" label="radio 02" value="02"/>
-            </RadioGroup>
+            </RadioGroup>,
         );
         expect(screen.getByTestId('moonstone-radioGroup')).toBeInTheDocument();
     });
@@ -37,24 +37,24 @@ describe('RadioGroup', () => {
         render(
             <RadioGroup
                 {...requiredProps}
-                data-testid="moonstone-radioGroup"
                 className={className}
+                data-testid="moonstone-radioGroup"
             >
                 <RadioItem id="radio-01" label="radio 01" value="01"/>
                 <RadioItem id="radio-02" label="radio 02" value="02"/>
-            </RadioGroup>
+            </RadioGroup>,
         );
         expect(screen.getByTestId('moonstone-radioGroup')).toHaveClass(
-            className
+            className,
         );
     });
 
     it('should not display the RadioGroup when children is empty', () => {
         render(
-            <RadioGroup {...requiredProps} data-testid="moonstone-radioGroup">{[]}</RadioGroup>
+            <RadioGroup {...requiredProps} data-testid="moonstone-radioGroup">{[]}</RadioGroup>,
         );
         expect(
-            screen.queryByTestId('moonstone-radioGroup')
+            screen.queryByTestId('moonstone-radioGroup'),
         ).not.toBeInTheDocument();
     });
 
@@ -63,10 +63,10 @@ describe('RadioGroup', () => {
             // @ts-expect-error testing with one element
             <RadioGroup {...requiredProps} data-testid="moonstone-radioGroup">
                 <RadioItem id="radio-01" label="radio 01" value="01"/>
-            </RadioGroup>
+            </RadioGroup>,
         );
         expect(
-            screen.queryByTestId('moonstone-radioGroup')
+            screen.queryByTestId('moonstone-radioGroup'),
         ).not.toBeInTheDocument();
     });
 
@@ -75,7 +75,7 @@ describe('RadioGroup', () => {
             <RadioGroup {...requiredProps}>
                 <RadioItem id="radio-01" label="radio 01" value="01"/>
                 <RadioItem id="radio-02" label="radio 02" value="02"/>
-            </RadioGroup>
+            </RadioGroup>,
         );
         expect(screen.getAllByRole('radio')[0]).toBeChecked();
         expect(screen.getAllByRole('radio')[1]).not.toBeChecked();
@@ -86,7 +86,7 @@ describe('RadioGroup', () => {
             <RadioGroup {...requiredProps} isDisabled>
                 <RadioItem id="radio-01" label="radio 01" value="01"/>
                 <RadioItem id="radio-02" label="radio 02" value="02"/>
-            </RadioGroup>
+            </RadioGroup>,
         );
         expect(screen.getByLabelText('radio 01')).toBeDisabled();
         expect(screen.getByLabelText('radio 02')).toBeDisabled();
@@ -97,15 +97,15 @@ describe('RadioGroup', () => {
             <RadioGroup {...requiredProps} isReadOnly>
                 <RadioItem id="radio-01" label="radio 01" value="01"/>
                 <RadioItem id="radio-02" label="radio 02" value="02"/>
-            </RadioGroup>
+            </RadioGroup>,
         );
         expect(screen.getByLabelText('radio 01')).toHaveAttribute(
             'aria-readonly',
-            'true'
+            'true',
         );
         expect(screen.getByLabelText('radio 02')).toHaveAttribute(
             'aria-readonly',
-            'true'
+            'true',
         );
     });
 });
@@ -116,7 +116,7 @@ describe('UnControlledRadioGroup', () => {
             <RadioGroup {...requiredProps} defaultValue="02">
                 <RadioItem id="radio-01" label="radio 01" value="01"/>
                 <RadioItem id="radio-02" label="radio 02" value="02"/>
-            </RadioGroup>
+            </RadioGroup>,
         );
 
         expect(screen.getByLabelText('radio 01')).not.toBeChecked();
@@ -130,7 +130,7 @@ describe('UnControlledRadioGroup', () => {
             <RadioGroup {...requiredProps} defaultValue="02">
                 <RadioItem id="radio-01" label="radio 01" value="01"/>
                 <RadioItem id="radio-02" label="radio 02" value="02"/>
-            </RadioGroup>
+            </RadioGroup>,
         );
         await user.click(screen.getByLabelText('radio 01'));
 
@@ -150,7 +150,7 @@ describe('UnControlledRadioGroup', () => {
             >
                 <RadioItem id="radio-01" label="radio 01" value="01"/>
                 <RadioItem id="radio-02" label="radio 02" value="02"/>
-            </RadioGroup>
+            </RadioGroup>,
         );
         await user.click(screen.getByLabelText('radio 01'));
 
@@ -164,7 +164,7 @@ describe('ControlledRadioGroup', () => {
             <RadioGroup {...requiredProps} value="02">
                 <RadioItem id="radio-01" label="radio 01" value="01"/>
                 <RadioItem id="radio-02" label="radio 02" value="02"/>
-            </RadioGroup>
+            </RadioGroup>,
         );
         expect(screen.getByLabelText('radio 01')).not.toBeChecked();
         expect(screen.getByLabelText('radio 02')).toBeChecked();
@@ -175,7 +175,7 @@ describe('ControlledRadioGroup', () => {
             <RadioGroup {...requiredProps}>
                 <RadioItem id="radio-01" label="radio 01" value="01"/>
                 <RadioItem id="radio-02" label="radio 02" value="02"/>
-            </RadioGroup>
+            </RadioGroup>,
         );
         expect(screen.getByLabelText('radio 01')).toBeChecked();
         expect(screen.getByLabelText('radio 02')).not.toBeChecked();

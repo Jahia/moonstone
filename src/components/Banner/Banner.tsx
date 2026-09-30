@@ -1,9 +1,12 @@
-import React from 'react';
 import clsx from 'clsx';
-import type {BannerProps} from './Banner.types';
-import {Typography} from '../Typography';
-import {HelpOutline, Information, Warning, Report} from '~/icons';
-import {layout} from '~/globals/css-utils.js';
+import React from 'react';
+
+import { Typography } from '../Typography';
+import { layout } from '~/globals/css-utils.js';
+import { HelpOutline, Information, Report, Warning } from '~/icons';
+
+import type { BannerProps } from './Banner.types';
+
 import styles from './Banner.module.scss';
 
 const BannerForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, BannerProps> = ({
@@ -14,7 +17,7 @@ const BannerForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, BannerPro
     children,
     ...props
 }, ref) => {
-    const getDefaultIcon = (bannerVariant : BannerProps['variant']) => {
+    const getDefaultIcon = (bannerVariant: BannerProps['variant']) => {
         switch (bannerVariant) {
             case 'info':
                 return <Information/>;
@@ -32,28 +35,28 @@ const BannerForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, BannerPro
 
     return (
         <div
-            ref={ref}
+            aria-label={title}
             className={clsx(
                 ['moonstone-banner', styles['moonstone-banner']],
                 [`moonstone-banner_${variant}`, styles[`moonstone-banner_${variant}`]],
                 className,
-                ['flexCol', layout.flexCol]
+                ['flexCol', layout.flexCol],
             )}
-            aria-label={title}
+            ref={ref}
             {...props}
         >
             <div className={clsx(
-                    ['moonstone-banner_title', styles['moonstone-banner_title']],
-                    ['alignCenter', layout.alignCenter],
-                    ['flexRow', layout.flexRow]
-                )}
+                ['moonstone-banner_title', styles['moonstone-banner_title']],
+                ['alignCenter', layout.alignCenter],
+                ['flexRow', layout.flexRow],
+            )}
             >
                 {effectiveIcon && <effectiveIcon.type {...effectiveIcon.props} size="default"/>}
                 <Typography variant="subheading" weight="bold">
                     {title}
                 </Typography>
             </div>
-            <Typography variant="body" component="div" className={clsx('moonstone-banner_content')}>
+            <Typography className={clsx('moonstone-banner_content')} component="div" variant="body">
                 {children}
             </Typography>
         </div>

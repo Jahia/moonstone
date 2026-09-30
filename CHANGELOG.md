@@ -1,5 +1,39 @@
 # @jahia/moonstone Changelog
 
+## 2.21.0
+
+### New Features
+
+* Add `DateTimeInput`, `TimeInput`, and `TimezoneSelector` in beta (#1415, #1416, #1453, #1458)
+
+* Allow the `Pill` component to accept any content as `children`, the prop `label` becomes deprecated (#1404)
+
+### Bug Fixes
+
+* Allow any ReactNode as `helper` for Field, Fieldset, and FieldBoolean to allow formatted description (#1405)
+
+* Allow `Drawer` to accept Paper's props and a customizable HTML tag for rendering (#1406)
+
+* Add animation to `Drawer` (#1407)
+
+* Fix Tooltip truncation in overflow containers (#1393)
+
+* Style `Typography` as a link when it has an href (#1408)
+
+## 2.20.3
+
+* New icons `EditRole`, `LiveRole` and `Version` (#1390)
+
+## 2.20.2
+
+* Changed DataTable row and cell callbacks to use a stable context object instead of internal table rows, and improved controlled sorting, pagination, and row expansion behavior.
+
+  If you customize DataTable row or cell rendering, update your callbacks to use the new `id`, `data`, `meta`, and `render` fields.
+
+## 2.20.1
+
+* Fix minor styling issues (Button, Typography) (#1381)
+
 ## 2.20.0
 
 ### New Features

@@ -1,0 +1,1492 @@
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { createRef, useState } from 'react';
+import { Temporal } from 'temporal-polyfill';
+import { type Mock, onTestFinished, vi } from 'vitest';
+
+import { DateTimeInput } from './index';
+
+const nextMonthLabel = 'Next month';
+const previousMonthLabel = 'Previous month';
+const march2026 = 'March 2026';
+const april2026 = 'April 2026';
+
+// Inputs are passed as ISO strings; emitted values are asserted via `.toString()` against
+// literal ISO. Fields are located by stable handles (placeholder / role), never by a
+// re-derived display string, so the tests don't mirror the component's own formatting.
+// `baseDate` is this spec's reference date: today, since the "Today" shortcut tests assert
+// against it. Read once from the system-clock oracle the component uses (Temporal.Now) — a
+// reference, not a copy of any formatting logic.
+const baseDate = Temporal.Now.plainDateISO().toString();
+const lastValue = (handleChange: Mock) => handleChange.mock.lastCall?.[1];
+const dateField = () => screen.getByPlaceholderText('Select a date');
+const localeProps = { locale: 'en' } as const;
+const spyOnDocumentKeyDown = () => {
+    const handleKeyDown = vi.fn();
+    document.addEventListener('keydown', handleKeyDown);
+    onTestFinished(() => document.removeEventListener('keydown', handleKeyDown));
+    return handleKeyDown;
+};
+
+describe('DateTimeInput', () => {
+    // Zoned values are displayed in the browser's zone: pin it so the expectations hold everywhere.
+    beforeEach(() => {
+        vi.spyOn(Temporal.Now, 'timeZoneId').mockReturnValue('Europe/Paris');
+    });
+
+    afterEach(() => {
+        vi.restoreAllMocks();
+    });
+
+    it('should open the calendar and select today (PlainDate)', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(<DateTimeInput {...localeProps} placeholder="Select a date" type="date" onChange={handleChange}/>);
+
+        await user.click(dateField());
+        await user.click(screen.getByText('Today'));
+
+        expect(lastValue(handleChange).toString()).toBe(baseDate);
+    });
+
+    it('should disable the today shortcut when today is configured as unavailable', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                disabledDates={[baseDate]}
+                defaultValue={null}
+                placeholder="Select a date"
+                type="date"
+                onChange={handleChange}
+            />,
+        );
+
+        await user.click(dateField());
+
+        expect(screen.getByRole('button', { name: 'Today' })).toBeDisabled();
+        expect(handleChange).not.toHaveBeenCalled();
+    });
+
+    it('should render default calendar action labels', async () => {
+        const user = userEvent.setup();
+
+        render(<DateTimeInput {...localeProps} placeholder="Select a date" type="date" onChange={() => null}/>);
+
+        await user.click(dateField());
+
+        expect(screen.getByRole('button', { name: 'Today' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Go to the next month' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Go to the previous month' })).toBeInTheDocument();
+    });
+
+    it('should render custom calendar action labels', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                i18n={{ todayButton: 'Current day', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel }}
+                placeholder="Select a date"
+                type="date"
+                onChange={() => null}
+            />,
+        );
+
+        await user.click(dateField());
+
+        expect(screen.getByRole('button', { name: 'Current day' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: nextMonthLabel })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: previousMonthLabel })).toBeInTheDocument();
+    });
+
+    it('should default to the current date and time when no defaultValue is given', () => {
+        render(<DateTimeInput {...localeProps} placeholder="Select a date" type="dateTime" onChange={() => null}/>);
+
+        expect(dateField()).not.toHaveValue('');
+        expect(screen.getByPlaceholderText('hh:mm')).not.toHaveValue('');
+    });
+
+    it('should render empty when defaultValue is null', () => {
+        render(<DateTimeInput {...localeProps} defaultValue={null} placeholder="Select a date" type="dateTime"/>);
+
+        expect(dateField()).toHaveValue('');
+        expect(screen.getByPlaceholderText('hh:mm')).toHaveValue('');
+    });
+
+    it('should fill and display today when a time is entered without a date', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue={null}
+                placeholder="Select a date"
+                type="dateTime"
+                onChange={handleChange}
+            />,
+        );
+
+        expect(dateField()).toHaveValue('');
+
+        const timeInput = screen.getByPlaceholderText('hh:mm');
+        await user.type(timeInput, '0930');
+        await user.tab();
+
+        // Entering a time with no date fills today, and the trigger shows it — so the user
+        // sees the date that was applied under the hood.
+        expect(lastValue(handleChange).toString()).toBe(`${baseDate}T09:30:00`);
+        expect(dateField()).not.toHaveValue('');
+    });
+
+    it('should select a datetime date at midnight when no time exists (PlainDateTime)', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue={null}
+                placeholder="Select a date"
+                type="dateTime"
+                onChange={handleChange}
+            />,
+        );
+
+        await user.click(dateField());
+        await user.click(screen.getByText('Today'));
+
+        expect(lastValue(handleChange).toString()).toBe(`${baseDate}T00:00:00`);
+    });
+
+    it('should render the 24h datetime layout and keep the value when the timezone changes', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="2026-02-10T10:56:00Z"
+                placeholder="Select a date"
+                type="zonedDateTime"
+                onChange={handleChange}
+            />,
+        );
+
+        expect(dateField()).not.toHaveValue('');
+        expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
+        expect(screen.getByText('Timezone:')).toBeInTheDocument();
+        expect(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' })).toBeInTheDocument();
+
+        await user.click(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' }));
+        await user.type(screen.getByRole('searchbox'), 'toronto');
+        await user.click(screen.getByText('Toronto (UTC -05:00)'));
+
+        // Same instant, re-projected: 11:56 Paris is 05:56 Toronto. The stored UTC doesn't move, so nothing is emitted.
+        expect(screen.getByDisplayValue('05:56')).toBeInTheDocument();
+        expect(screen.getByRole('listbox', { name: 'Toronto (UTC -05:00)' })).toBeInTheDocument();
+        expect(handleChange).not.toHaveBeenCalled();
+    });
+
+    it('should reset the selected datetime to midnight when the time is cleared', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(<DateTimeInput {...localeProps} defaultValue="2026-02-10T11:56" type="dateTime" onChange={handleChange}/>);
+
+        const timeInput = screen.getByDisplayValue('11:56');
+        await user.clear(timeInput);
+        await user.tab();
+
+        expect(lastValue(handleChange).toString()).toBe('2026-02-10T00:00:00');
+    });
+
+    it('should keep midnight after clearing the time and selecting another date', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="2026-02-10T11:56"
+                placeholder="Select a date"
+                type="dateTime"
+                onChange={handleChange}
+            />,
+        );
+
+        await user.clear(screen.getByDisplayValue('11:56'));
+        await user.click(dateField());
+        await user.click(screen.getByText('12'));
+
+        expect(lastValue(handleChange).toString()).toBe('2026-02-12T00:00:00');
+    });
+
+    it('should not emit a change while the time is incomplete', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(<DateTimeInput {...localeProps} defaultValue="2026-02-10T11:56" type="dateTime" onChange={handleChange}/>);
+
+        const timeInput = screen.getByDisplayValue('11:56');
+        await user.clear(timeInput);
+        handleChange.mockClear();
+        await user.type(timeInput, '12');
+
+        expect(handleChange).not.toHaveBeenCalled();
+    });
+
+    it('should emit the selected date with the typed complete time', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(<DateTimeInput {...localeProps} defaultValue="2026-02-10T11:56" type="dateTime" onChange={handleChange}/>);
+
+        const timeInput = screen.getByDisplayValue('11:56');
+        await user.clear(timeInput);
+        handleChange.mockClear();
+        await user.type(timeInput, '1425');
+        await user.tab();
+
+        expect(handleChange).toHaveBeenCalledTimes(1);
+        expect(lastValue(handleChange).toString()).toBe('2026-02-10T14:25:00');
+    });
+
+    it('should apply native segmented time entry inside dateTime mode (143 -> 14:03)', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(<DateTimeInput {...localeProps} defaultValue="2026-02-10T11:56" type="dateTime" onChange={handleChange}/>);
+
+        const timeInput = screen.getByDisplayValue('11:56');
+        await user.clear(timeInput);
+        await user.type(timeInput, '143');
+        await user.tab();
+
+        expect(lastValue(handleChange).toString()).toBe('2026-02-10T14:03:00');
+    });
+
+    it('should step the time with ArrowUp inside dateTime mode', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(<DateTimeInput {...localeProps} defaultValue="2026-02-10T11:56" type="dateTime" onChange={handleChange}/>);
+
+        const timeInput = screen.getByDisplayValue('11:56') as HTMLInputElement;
+        timeInput.focus();
+        timeInput.setSelectionRange(0, 0);
+        await user.keyboard('{ArrowUp}');
+
+        expect(lastValue(handleChange).toString()).toBe('2026-02-10T12:56:00');
+    });
+
+    it('should render the 12h datetime layout with meridiem and timezone', () => {
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="2026-02-10T22:56:00Z"
+                timeFormat="12h"
+                type="zonedDateTime"
+                onChange={() => null}
+            />,
+        );
+
+        expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
+        expect(screen.getByText('PM')).toBeInTheDocument();
+        expect(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' })).toBeInTheDocument();
+    });
+
+    it('should let the user switch meridiem in 12h datetime mode and keep canonical output', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="2026-02-10T02:30"
+                timeFormat="12h"
+                type="dateTime"
+                onChange={handleChange}
+            />,
+        );
+
+        await user.clear(screen.getByDisplayValue('02:30'));
+        await user.type(screen.getByPlaceholderText('hh:mm'), '0230');
+        await user.click(screen.getByText('AM'));
+        const pmOptions = screen.getAllByText('PM');
+        await user.click(pmOptions[pmOptions.length - 1]);
+
+        expect(lastValue(handleChange).toString()).toBe('2026-02-10T14:30:00');
+    });
+
+    it('should disable configured dates in the calendar', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                disabledDates={['2026-03-30']}
+                defaultValue="2026-03-30"
+                placeholder="Select a date"
+                type="date"
+                onChange={() => null}
+            />,
+        );
+
+        await user.click(dateField());
+
+        const dayButton = screen.getAllByRole('button').find(button => button.textContent === '30');
+        expect(dayButton).toBeDisabled();
+    });
+
+    it('should let the user navigate to the next month without snapping back', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="2026-03-30"
+                i18n={{ nextMonth: nextMonthLabel, previousMonth: previousMonthLabel }}
+                placeholder="Select a date"
+                type="date"
+                onChange={() => null}
+            />,
+        );
+
+        await user.click(dateField());
+        await user.click(screen.getByRole('button', { name: nextMonthLabel }));
+
+        expect(screen.getByText(april2026)).toBeInTheDocument();
+    });
+
+    it('should render a year dropdown and let the user jump to another year without losing the selection', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="2026-03-30"
+                i18n={{ nextMonth: nextMonthLabel, previousMonth: previousMonthLabel }}
+                placeholder="Select a date"
+                type="date"
+                onChange={() => null}
+            />,
+        );
+
+        const selectedDisplay = (dateField() as HTMLInputElement).value;
+
+        await user.click(dateField());
+        await user.click(screen.getByRole('listbox', { name: '2026' }));
+        await user.click(screen.getByRole('option', { name: '2024' }));
+
+        expect(screen.getByText('March 2024')).toBeInTheDocument();
+        expect(dateField()).toHaveValue(selectedDisplay);
+    });
+
+    it('should keep the year range anchored on the selection instead of sliding with navigation', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="2026-03-30"
+                i18n={{ nextMonth: nextMonthLabel, previousMonth: previousMonthLabel }}
+                placeholder="Select a date"
+                type="date"
+                onChange={() => null}
+            />,
+        );
+
+        await user.click(dateField());
+        await user.click(screen.getByRole('listbox', { name: '2026' }));
+        await user.click(screen.getByRole('option', { name: '2070' }));
+
+        // Anchored on the 2026 selection, so 1976 is still reachable from 2070. Derived from the
+        // displayed month it would have become 2020-2120 and dropped everything before 2020.
+        await user.click(screen.getByRole('listbox', { name: '2070' }));
+        expect(screen.getByRole('option', { name: '1976' })).toBeInTheDocument();
+    });
+
+    it('should render a month dropdown and let the user jump to another month without losing the selection', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="2026-03-30"
+                i18n={{ nextMonth: nextMonthLabel, previousMonth: previousMonthLabel }}
+                placeholder="Select a date"
+                type="date"
+                onChange={() => null}
+            />,
+        );
+
+        const selectedDisplay = (dateField() as HTMLInputElement).value;
+
+        await user.click(dateField());
+        await user.click(screen.getByRole('listbox', { name: 'March' }));
+        await user.click(screen.getByRole('option', { name: 'May' }));
+
+        expect(screen.getByRole('grid', { name: 'May 2026' })).toBeInTheDocument();
+        expect(dateField()).toHaveValue(selectedDisplay);
+    });
+
+    it('should not render a month dropdown when minDate and maxDate fall within the same month', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="2026-03-15"
+                maxDate="2026-03-31"
+                minDate="2026-03-01"
+                placeholder="Select a date"
+                type="date"
+                onChange={() => null}
+            />,
+        );
+
+        await user.click(dateField());
+
+        // Nothing to navigate to in either direction, so both caption controls stay plain text.
+        expect(screen.queryByRole('listbox', { name: 'March' })).not.toBeInTheDocument();
+        expect(screen.queryByRole('listbox', { name: '2026' })).not.toBeInTheDocument();
+    });
+
+    it('should reset to the selected date month when reopening the calendar', async () => {
+        const user = userEvent.setup();
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="2026-03-30"
+                i18n={{ nextMonth: nextMonthLabel, previousMonth: previousMonthLabel }}
+                placeholder="Select a date"
+                type="date"
+                onChange={() => null}
+            />,
+        );
+
+        await user.click(dateField());
+        expect(screen.getByRole('grid', { name: march2026 })).toBeInTheDocument();
+
+        await user.click(screen.getByRole('button', { name: nextMonthLabel }));
+        expect(screen.getByRole('grid', { name: april2026 })).toBeInTheDocument();
+
+        // Dismiss the calendar with Escape (standard keyboard dismissal pattern) and reopen.
+        await user.keyboard('{Escape}');
+
+        await user.click(dateField());
+        expect(screen.getByRole('grid', { name: march2026 })).toBeInTheDocument();
+    });
+
+    it('should refresh the timezone utc offset when the selected date changes internally', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="2026-03-15T10:56:00Z"
+                i18n={{ nextMonth: nextMonthLabel }}
+                placeholder="Select a date"
+                type="zonedDateTime"
+                onChange={() => null}
+            />,
+        );
+
+        expect(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' })).toBeInTheDocument();
+
+        await user.click(dateField());
+        await user.click(screen.getByRole('button', { name: nextMonthLabel }));
+        await user.click(screen.getByRole('button', { name: 'Wednesday, April 15th, 2026' }));
+
+        expect(screen.getByRole('listbox', { name: 'Paris (UTC +02:00)' })).toBeInTheDocument();
+    });
+
+    it('should keep a controlled value until the parent updates it', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                i18n={{ nextMonth: nextMonthLabel, previousMonth: previousMonthLabel }}
+                placeholder="Select a date"
+                type="date"
+                value="2026-03-30"
+                onChange={handleChange}
+            />,
+        );
+
+        const selectedDisplay = (dateField() as HTMLInputElement).value;
+
+        await user.click(dateField());
+        await user.click(screen.getByText('15'));
+
+        expect(lastValue(handleChange).toString()).toBe('2026-03-15');
+        // Controlled: the parent didn't update `value`, so the field still shows the original.
+        expect(dateField()).toHaveValue(selectedDisplay);
+    });
+
+    it('should not display an invalid date', () => {
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="not-a-date"
+                placeholder="Select a date"
+                type="date"
+                onChange={() => null}
+            />,
+        );
+
+        expect(dateField()).toHaveValue('');
+    });
+
+    it('should open the calendar via keyboard (Enter and Space)', async () => {
+        const user = userEvent.setup();
+        render(<DateTimeInput {...localeProps} placeholder="Select a date" type="date" onChange={() => null}/>);
+
+        dateField().focus();
+        await user.keyboard('{Enter}');
+        expect(screen.getByText('Today')).toBeInTheDocument();
+
+        await user.keyboard('{Escape}');
+        dateField().focus();
+        await user.keyboard('{ }');
+        expect(screen.getByText('Today')).toBeInTheDocument();
+    });
+
+    it('should not open the calendar when the input is disabled', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                isDisabled
+                defaultValue="2026-03-30"
+                placeholder="Select a date"
+                type="date"
+                onChange={() => null}
+            />,
+        );
+
+        await user.click(dateField());
+
+        expect(screen.queryByText('Today')).not.toBeInTheDocument();
+    });
+
+    it('should not open the calendar when the input is read-only', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                isReadOnly
+                defaultValue="2026-03-30"
+                placeholder="Select a date"
+                type="date"
+                onChange={() => null}
+            />,
+        );
+
+        await user.click(dateField());
+
+        expect(screen.queryByText('Today')).not.toBeInTheDocument();
+    });
+
+    it('should clear the whole value when the date field clear button is clicked', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="2026-03-15T11:56"
+                placeholder="Select a date"
+                type="dateTime"
+                onChange={handleChange}
+            />,
+        );
+
+        await user.click(screen.getByRole('button', { name: 'Reset' }));
+
+        expect(handleChange).toHaveBeenCalledWith(expect.anything(), null);
+        expect(dateField()).toHaveValue('');
+        expect(screen.getByPlaceholderText('hh:mm')).toHaveValue('');
+    });
+
+    it('should disable dates before minDate in the calendar', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="2026-03-15"
+                minDate="2026-03-10"
+                placeholder="Select a date"
+                type="date"
+                onChange={() => null}
+            />,
+        );
+
+        await user.click(dateField());
+
+        const dayButton = screen.getAllByRole('button').find(button => button.textContent === '5');
+        expect(dayButton).toBeDisabled();
+    });
+
+    it('should disable dates after maxDate in the calendar', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="2026-03-15"
+                maxDate="2026-03-20"
+                placeholder="Select a date"
+                type="date"
+                onChange={() => null}
+            />,
+        );
+
+        await user.click(dateField());
+
+        const dayButton = screen.getAllByRole('button').find(button => button.textContent === '31');
+        expect(dayButton).toBeDisabled();
+    });
+
+    it('should disable a date range via disabledDateRanges', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                disabledDateRanges={[{ from: '2026-03-20', to: '2026-03-25' }]}
+                defaultValue="2026-03-15"
+                placeholder="Select a date"
+                type="date"
+                onChange={() => null}
+            />,
+        );
+
+        await user.click(dateField());
+
+        const dayButton = screen.getAllByRole('button').find(button => button.textContent === '22');
+        expect(dayButton).toBeDisabled();
+    });
+
+    it('should not render the timezone row while there is no date', () => {
+        render(
+            <DateTimeInput
+                {...localeProps}
+                placeholder="Select a date"
+                type="zonedDateTime"
+                value={null}
+                onChange={() => null}
+            />,
+        );
+
+        expect(screen.queryByText('Timezone:')).not.toBeInTheDocument();
+        expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+    });
+
+    it('should default to the current date, time, and system timezone when no defaultValue is given (Instant)', () => {
+        render(<DateTimeInput {...localeProps} placeholder="Select a date" type="zonedDateTime" onChange={() => null}/>);
+
+        expect(dateField()).not.toHaveValue('');
+        expect(screen.getByPlaceholderText('hh:mm')).not.toHaveValue('');
+        expect(screen.getByRole('listbox').getAttribute('aria-label')).toMatch(/UTC/);
+    });
+
+    it('should render the timezone row in the system zone once a date is picked', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue={null}
+                placeholder="Select a date"
+                type="zonedDateTime"
+                onChange={() => null}
+            />,
+        );
+
+        await user.click(dateField());
+        await user.click(screen.getByText('Today'));
+
+        expect(screen.getByText('Timezone:')).toBeInTheDocument();
+        expect(screen.getByRole('listbox').getAttribute('aria-label')).toMatch(/UTC/);
+    });
+
+    it('should allow selecting the minDate itself (inclusive lower boundary)', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="2026-03-15"
+                minDate="2026-03-10"
+                placeholder="Select a date"
+                type="date"
+                onChange={handleChange}
+            />,
+        );
+
+        await user.click(dateField());
+
+        const dayButton = screen.getAllByRole('button').find(button => button.textContent === '10');
+        expect(dayButton).not.toBeDisabled();
+
+        await user.click(dayButton as HTMLElement);
+
+        expect(lastValue(handleChange).toString()).toBe('2026-03-10');
+    });
+
+    it('should allow selecting the maxDate itself (inclusive upper boundary)', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="2026-03-15"
+                maxDate="2026-03-20"
+                placeholder="Select a date"
+                type="date"
+                onChange={handleChange}
+            />,
+        );
+
+        await user.click(dateField());
+
+        const dayButton = screen.getAllByRole('button').find(button => button.textContent === '20');
+        expect(dayButton).not.toBeDisabled();
+
+        await user.click(dayButton as HTMLElement);
+
+        expect(lastValue(handleChange).toString()).toBe('2026-03-20');
+    });
+
+    it('should disable the inclusive boundaries of a disabledDateRanges entry', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                disabledDateRanges={[{ from: '2026-03-20', to: '2026-03-25' }]}
+                defaultValue="2026-03-15"
+                placeholder="Select a date"
+                type="date"
+                onChange={() => null}
+            />,
+        );
+
+        await user.click(dateField());
+
+        // `showOutsideDays` renders trailing/leading days from adjacent months, so a bare day
+        // number (e.g. '25') can also match a February outside-day button — match the full
+        // accessible name to target March specifically.
+        const fromButton = screen.getByRole('button', { name: /March 20th, 2026/ });
+        const toButton = screen.getByRole('button', { name: /March 25th, 2026/ });
+
+        expect(fromButton).toBeDisabled();
+        expect(toButton).toBeDisabled();
+    });
+
+    it('should not render a year dropdown when minDate and maxDate fall within the same year', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="2026-03-15"
+                maxDate="2026-12-31"
+                minDate="2026-01-01"
+                placeholder="Select a date"
+                type="date"
+                onChange={() => null}
+            />,
+        );
+
+        await user.click(dateField());
+
+        expect(screen.getByText(march2026)).toBeInTheDocument();
+        expect(screen.queryByRole('listbox', { name: '2026' })).not.toBeInTheDocument();
+    });
+
+    it('should forward the ref to the underlying date input', () => {
+        const ref = createRef<HTMLInputElement>();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                placeholder="Select a date"
+                ref={ref}
+                type="date"
+                onChange={() => null}
+            />,
+        );
+
+        expect(ref.current).toBe(dateField());
+    });
+
+    it('should render only the date field for type="date"', () => {
+        render(<DateTimeInput {...localeProps} placeholder="Select a date" type="date" onChange={() => null}/>);
+
+        expect(screen.queryByPlaceholderText('hh:mm')).not.toBeInTheDocument();
+        expect(screen.queryAllByRole('listbox')).toHaveLength(0);
+    });
+
+    it('should render the time field but no timezone selector for type="dateTime"', () => {
+        render(<DateTimeInput {...localeProps} placeholder="Select a date" type="dateTime" onChange={() => null}/>);
+
+        expect(screen.getByPlaceholderText('hh:mm')).toBeInTheDocument();
+        expect(screen.queryAllByRole('listbox')).toHaveLength(0);
+    });
+
+    it('should keep Escape from reaching the consumer while the calendar is open', async () => {
+        const user = userEvent.setup();
+        const handleDocumentKeyDown = spyOnDocumentKeyDown();
+
+        render(<DateTimeInput {...localeProps} placeholder="Select a date" type="date" onChange={() => null}/>);
+
+        await user.click(dateField());
+        expect(screen.getByTestId('calendar')).toBeInTheDocument();
+
+        await user.keyboard('{Escape}');
+
+        expect(screen.queryByTestId('calendar')).not.toBeInTheDocument();
+        expect(handleDocumentKeyDown).not.toHaveBeenCalled();
+
+        // Calendar closed, Escape belongs to the consumer again.
+        await user.keyboard('{Escape}');
+
+        expect(handleDocumentKeyDown).toHaveBeenCalledTimes(1);
+    });
+
+    it('should keep Escape from reaching the consumer once the focus moved to the time field', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue={null}
+                placeholder="Select a date"
+                type="dateTime"
+                onChange={() => null}
+            />,
+        );
+
+        await user.click(dateField());
+        expect(screen.getByTestId('calendar')).toBeInTheDocument();
+
+        await user.tab();
+        expect(screen.getByPlaceholderText('hh:mm')).toHaveFocus();
+        expect(screen.getByTestId('calendar')).toBeInTheDocument();
+
+        const handleDocumentKeyDown = spyOnDocumentKeyDown();
+
+        await user.keyboard('{Escape}');
+
+        expect(screen.queryByTestId('calendar')).not.toBeInTheDocument();
+        expect(handleDocumentKeyDown).not.toHaveBeenCalled();
+    });
+
+    it('should keep Escape from reaching the consumer when the focus is inside the calendar', async () => {
+        const user = userEvent.setup();
+
+        render(<DateTimeInput {...localeProps} placeholder="Select a date" type="date" onChange={() => null}/>);
+
+        await user.click(dateField());
+        await user.click(screen.getByRole('button', { name: 'Go to the next month' }));
+        expect(screen.getByRole('button', { name: 'Go to the next month' })).toHaveFocus();
+
+        const handleDocumentKeyDown = spyOnDocumentKeyDown();
+
+        await user.keyboard('{Escape}');
+
+        expect(screen.queryByTestId('calendar')).not.toBeInTheDocument();
+        expect(handleDocumentKeyDown).not.toHaveBeenCalled();
+    });
+
+    it('should return focus to the date field when the calendar is closed via Escape', async () => {
+        const user = userEvent.setup();
+        render(<DateTimeInput {...localeProps} placeholder="Select a date" type="date" onChange={() => null}/>);
+
+        await user.click(dateField());
+        await user.keyboard('{Escape}');
+
+        expect(dateField()).toHaveFocus();
+    });
+
+    it('should respect a custom weekStartsOn', async () => {
+        const user = userEvent.setup();
+        render(
+            <DateTimeInput
+                {...localeProps}
+                placeholder="Select a date"
+                type="date"
+                weekStartsOn={0}
+                onChange={() => null}
+            />,
+        );
+
+        await user.click(dateField());
+
+        const weekdayHeaders = screen.getAllByRole('columnheader', { hidden: true });
+        expect(weekdayHeaders[0]).toHaveTextContent('Su');
+    });
+
+    it('should not emit a change when clicking a disabled calendar day', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                disabledDates={['2026-03-30']}
+                defaultValue="2026-03-30"
+                placeholder="Select a date"
+                type="date"
+                onChange={handleChange}
+            />,
+        );
+
+        await user.click(dateField());
+
+        const dayButton = screen.getAllByRole('button').find(button => button.textContent === '30');
+        await user.click(dayButton as HTMLElement);
+
+        expect(handleChange).not.toHaveBeenCalled();
+    });
+
+    it('should disable the internal time input when isDisabled is set', () => {
+        render(
+            <DateTimeInput
+                {...localeProps}
+                isDisabled
+                defaultValue="2026-03-15T11:56"
+                placeholder="Select a date"
+                type="dateTime"
+                onChange={() => null}
+            />,
+        );
+
+        expect(screen.getByPlaceholderText('hh:mm')).toBeDisabled();
+    });
+
+    it('should keep the display-only timezone selector usable when isDisabled is set', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                isDisabled
+                defaultValue="2026-03-15T10:56:00Z"
+                placeholder="Select a date"
+                type="zonedDateTime"
+                onChange={() => null}
+            />,
+        );
+
+        await user.click(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' }));
+
+        expect(screen.getByRole('searchbox')).toBeInTheDocument();
+    });
+
+    it('should make the internal time input read-only when isReadOnly is set', () => {
+        render(
+            <DateTimeInput
+                {...localeProps}
+                isReadOnly
+                defaultValue="2026-03-15T11:56"
+                placeholder="Select a date"
+                type="dateTime"
+                onChange={() => null}
+            />,
+        );
+
+        expect(screen.getByPlaceholderText('hh:mm')).toHaveAttribute('readonly');
+    });
+
+    it('should keep the display-only timezone selector usable when isReadOnly is set', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                isReadOnly
+                defaultValue="2026-03-15T10:56:00Z"
+                placeholder="Select a date"
+                type="zonedDateTime"
+                onChange={() => null}
+            />,
+        );
+
+        await user.click(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' }));
+
+        expect(screen.getByRole('searchbox')).toBeInTheDocument();
+    });
+
+    it('should not display an invalid dateTime value', () => {
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="not-a-date"
+                placeholder="Select a date"
+                type="dateTime"
+                onChange={() => null}
+            />,
+        );
+
+        expect(dateField()).toHaveValue('');
+        expect(screen.getByPlaceholderText('hh:mm')).toHaveValue('');
+    });
+
+    it('should not display an invalid zonedDateTime value', () => {
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="not-a-date"
+                placeholder="Select a date"
+                type="zonedDateTime"
+                onChange={() => null}
+            />,
+        );
+
+        expect(dateField()).toHaveValue('');
+        expect(screen.getByPlaceholderText('hh:mm')).toHaveValue('');
+    });
+
+    it('should disable all weekend days when disabledDaysOfWeek=[0, 6] is set', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                disabledDaysOfWeek={[0, 6]}
+                defaultValue="2026-03-15"
+                placeholder="Select a date"
+                type="date"
+                onChange={() => null}
+            />,
+        );
+
+        await user.click(dateField());
+
+        // March 2026: the 1st is a Sunday (0) and the 7th is a Saturday (6).
+        expect(screen.getByRole('button', { name: /March 1st, 2026/ })).toBeDisabled();
+        expect(screen.getByRole('button', { name: /March 7th, 2026/ })).toBeDisabled();
+        // A weekday must remain enabled.
+        expect(screen.getByRole('button', { name: /March 2nd, 2026/ })).not.toBeDisabled();
+    });
+
+    it('should not emit a change when clicking a disabled weekend day', async () => {
+        const user = userEvent.setup();
+        const handleChange = vi.fn();
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                disabledDaysOfWeek={[0, 6]}
+                defaultValue="2026-03-15"
+                placeholder="Select a date"
+                type="date"
+                onChange={handleChange}
+            />,
+        );
+
+        await user.click(dateField());
+        await user.click(screen.getByRole('button', { name: /March 7th, 2026/ }));
+
+        expect(handleChange).not.toHaveBeenCalled();
+    });
+
+    // Locale="fr" proves the pattern overrides the locale order (05/03 keeps day vs month unambiguous).
+    it.each([
+        { dateFormat: 'dd/MM/yyyy', expected: '05/03/2026' },
+        { dateFormat: 'MM/dd/yyyy', expected: '03/05/2026' },
+        { dateFormat: 'yyyy-MM-dd', expected: '2026-03-05' },
+    ] as const)('should render $dateFormat, overriding the locale order', ({ dateFormat, expected }) => {
+        render(
+            <DateTimeInput
+                {...localeProps}
+                dateFormat={dateFormat}
+                defaultValue="2026-03-05"
+                locale="fr"
+                placeholder="Select a date"
+                type="date"
+            />,
+        );
+
+        expect(dateField()).toHaveValue(expected);
+    });
+
+    // MMMM still renders via Intl in `locale`, so text stays localized ("mars" for fr).
+    it('should localize name tokens while the pattern fixes the order', () => {
+        render(
+            <DateTimeInput
+                {...localeProps}
+                dateFormat="d MMMM yyyy"
+                defaultValue="2026-03-05"
+                locale="fr"
+                placeholder="Select a date"
+                type="date"
+            />,
+        );
+
+        expect(dateField()).toHaveValue('5 mars 2026');
+    });
+
+    // Invalid patterns (junk, or dayjs-style `YYYY-MM-DD`) must never leak into the input as
+    // literal text — reject with a warning and fall back to the locale format instead.
+    it.each(['toto', 'YYYY-MM-DD', 'MM foo yyyy'])('should reject the invalid dateFormat %p and fall back to the locale format', (dateFormat) => {
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+        render(
+            <DateTimeInput
+                {...localeProps}
+                dateFormat={dateFormat}
+                defaultValue="2026-03-05"
+                locale="fr"
+                placeholder="Select a date"
+                type="date"
+            />,
+        );
+
+        expect(dateField()).toHaveValue('05/03/2026');
+        expect(warn).toHaveBeenCalledWith(expect.stringContaining(dateFormat));
+
+        warn.mockRestore();
+    });
+
+    describe('manual entry', () => {
+        it('should commit a typed date on Enter, without waiting for the blur', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
+
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    defaultValue="2026-03-15"
+                    placeholder="Select a date"
+                    type="date"
+                    onChange={handleChange}
+                />,
+            );
+
+            await user.clear(dateField());
+            await user.type(dateField(), '03/30/2026{Enter}');
+
+            expect(lastValue(handleChange).toString()).toBe('2026-03-30');
+            expect(dateField()).toHaveValue('3/30/2026');
+            expect(dateField()).toHaveFocus();
+        });
+
+        it('should commit a typed date, keeping the time, and clear everything once emptied', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
+
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    defaultValue="2026-03-15T11:56"
+                    placeholder="Select a date"
+                    type="dateTime"
+                    onChange={handleChange}
+                />,
+            );
+
+            await user.clear(dateField());
+            await user.type(dateField(), '03/30/2026');
+            expect(handleChange).not.toHaveBeenCalled();
+
+            await user.tab();
+
+            expect(lastValue(handleChange).toString()).toBe('2026-03-30T11:56:00');
+            expect(dateField()).toHaveValue('3/30/2026');
+
+            await user.clear(dateField());
+            await user.tab();
+
+            expect(handleChange).toHaveBeenLastCalledWith(expect.anything(), null);
+            expect(screen.getByPlaceholderText('hh:mm')).toHaveValue('');
+        });
+
+        it('should read the typed date in the order the field displays', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
+
+            render(
+                <DateTimeInput
+                    dateFormat="yyyy-MM-dd"
+                    defaultValue="2026-03-15"
+                    locale="fr"
+                    placeholder="Select a date"
+                    type="date"
+                    onChange={handleChange}
+                />,
+            );
+
+            await user.clear(dateField());
+            await user.type(dateField(), '2026-03-30{Enter}');
+
+            expect(lastValue(handleChange).toString()).toBe('2026-03-30');
+        });
+
+        it('should discard an entry the calendar would refuse and keep a controlled value in place', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
+
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    maxDate="2026-03-20"
+                    minDate="2026-03-10"
+                    placeholder="Select a date"
+                    type="date"
+                    value="2026-03-15"
+                    onChange={handleChange}
+                />,
+            );
+
+            const initialDisplay = (dateField() as HTMLInputElement).value;
+
+            await user.clear(dateField());
+            await user.type(dateField(), '03/30/2026');
+            await user.tab();
+
+            await user.clear(dateField());
+            await user.type(dateField(), 'toto');
+            await user.tab();
+
+            await user.clear(dateField());
+            await user.type(dateField(), '02/31/2026');
+            await user.tab();
+
+            expect(handleChange).not.toHaveBeenCalled();
+
+            await user.clear(dateField());
+            await user.type(dateField(), '03/18/2026');
+            await user.tab();
+
+            expect(lastValue(handleChange).toString()).toBe('2026-03-18');
+            expect(dateField()).toHaveValue(initialDisplay);
+        });
+    });
+
+    describe('display zone', () => {
+        const pickZone = async (user: ReturnType<typeof userEvent.setup>, search: string, label: RegExp) => {
+            await user.click(screen.getAllByRole('listbox')[0]);
+            await user.type(screen.getByRole('searchbox'), search);
+            await user.click(screen.getByText(label));
+        };
+
+        it('should display a UTC instant in the system timezone', () => {
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    defaultValue="2026-02-10T10:56:00Z"
+                    placeholder="Select a date"
+                    type="zonedDateTime"
+                    onChange={() => null}
+                />,
+            );
+
+            expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
+            expect(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' })).toBeInTheDocument();
+        });
+
+        it('should display an offset-annotated ISO string in the browser zone, not in its annotation', () => {
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    defaultValue="2026-02-10T18:56+09:00[Asia/Tokyo]"
+                    placeholder="Select a date"
+                    type="zonedDateTime"
+                    onChange={() => null}
+                />,
+            );
+
+            // 18:56 Tokyo (UTC+9) is 10:56 Paris (UTC+1)
+            expect(screen.getByDisplayValue('10:56')).toBeInTheDocument();
+            expect(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' })).toBeInTheDocument();
+        });
+
+        it('should display the value in defaultTimezone instead of the system zone', () => {
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    defaultTimezone="Asia/Tokyo"
+                    defaultValue="2026-02-10T10:56:00Z"
+                    placeholder="Select a date"
+                    type="zonedDateTime"
+                    onChange={() => null}
+                />,
+            );
+
+            expect(screen.getByDisplayValue('19:56')).toBeInTheDocument();
+            expect(screen.getByRole('listbox', { name: 'Tokyo (UTC +09:00)' })).toBeInTheDocument();
+        });
+
+        it('should fall back to the system zone when defaultTimezone is not a valid IANA zone', () => {
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    defaultTimezone="Mars/Olympus"
+                    defaultValue="2026-02-10T10:56:00Z"
+                    placeholder="Select a date"
+                    type="zonedDateTime"
+                    onChange={() => null}
+                />,
+            );
+
+            expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
+            expect(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' })).toBeInTheDocument();
+        });
+
+        it('should re-project the date and time when the zone changes, across midnight', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
+
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    defaultValue="2026-02-09T15:00:00Z"
+                    placeholder="Select a date"
+                    type="zonedDateTime"
+                    onChange={handleChange}
+                />,
+            );
+
+            expect(screen.getByDisplayValue('16:00')).toBeInTheDocument();
+
+            await pickZone(user, 'tokyo', /^Tokyo \(UTC/);
+
+            // 2026-02-09T16:00 Paris (UTC+1) is 2026-02-10T00:00 Tokyo (UTC+9): same instant, nothing emitted.
+            expect(screen.getByDisplayValue('00:00')).toBeInTheDocument();
+            expect(screen.getByRole('listbox', { name: 'Tokyo (UTC +09:00)' })).toBeInTheDocument();
+            expect(handleChange).not.toHaveBeenCalled();
+        });
+
+        it('should read a typed time in the displayed zone', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
+
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    defaultValue="2026-02-10T10:56:00Z"
+                    placeholder="Select a date"
+                    type="zonedDateTime"
+                    onChange={handleChange}
+                />,
+            );
+
+            await pickZone(user, 'tokyo', /^Tokyo \(UTC/);
+            expect(screen.getByDisplayValue('19:56')).toBeInTheDocument();
+
+            const timeField = screen.getByPlaceholderText('hh:mm');
+            await user.clear(timeField);
+            await user.type(timeField, '0900');
+            await user.tab();
+
+            expect(lastValue(handleChange).toString()).toBe('2026-02-10T00:00:00Z');
+        });
+
+        it('should keep the displayed zone when a controlled parent echoes back the UTC instant', async () => {
+            const user = userEvent.setup();
+
+            // A backend that stores UTC only: the zone never comes back through `value`.
+            const UtcParent = () => {
+                const [value, setValue] = useState<string | null>('2026-02-10T10:56:00Z');
+
+                return (
+                    <DateTimeInput
+                        {...localeProps}
+                        placeholder="Select a date"
+                        type="zonedDateTime"
+                        value={value}
+                        onChange={(_event, next) => setValue(next ? next.toString() : null)}
+                    />
+                );
+            };
+
+            render(<UtcParent/>);
+
+            await pickZone(user, 'tokyo', /^Tokyo \(UTC/);
+            expect(screen.getByDisplayValue('19:56')).toBeInTheDocument();
+
+            // The time edit round-trips through the parent as UTC; the displayed zone must survive it.
+            const timeField = screen.getByPlaceholderText('hh:mm');
+            await user.clear(timeField);
+            await user.type(timeField, '0900');
+            await user.tab();
+
+            expect(screen.getByRole('listbox', { name: 'Tokyo (UTC +09:00)' })).toBeInTheDocument();
+            expect(screen.getByDisplayValue('09:00')).toBeInTheDocument();
+        });
+
+        it('should hide the timezone row on clear and bring the same zone back with the next date', async () => {
+            const user = userEvent.setup();
+
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    defaultValue="2026-02-10T10:56:00Z"
+                    placeholder="Select a date"
+                    type="zonedDateTime"
+                    onChange={() => null}
+                />,
+            );
+
+            await pickZone(user, 'tokyo', /^Tokyo \(UTC/);
+            await user.click(screen.getByRole('button', { name: 'Reset' }));
+
+            expect(dateField()).toHaveValue('');
+            expect(screen.queryByText('Timezone:')).not.toBeInTheDocument();
+
+            await user.click(dateField());
+            await user.click(screen.getByText('Today'));
+
+            expect(screen.getByRole('listbox', { name: /^Tokyo \(UTC/ })).toBeInTheDocument();
+        });
+    });
+
+    describe('timezone row', () => {
+        it('should use the custom i18n.timezone label', () => {
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    defaultValue="2026-02-10T10:56:00Z"
+                    i18n={{ timezone: 'Fuseau horaire' }}
+                    placeholder="Select a date"
+                    type="zonedDateTime"
+                    onChange={() => null}
+                />,
+            );
+
+            expect(screen.getByText('Fuseau horaire:')).toBeInTheDocument();
+            expect(screen.queryByText('Timezone:')).not.toBeInTheDocument();
+        });
+
+        it('should fall back to the default label when i18n is partial and omits timezone', () => {
+            render(
+                <DateTimeInput
+                    {...localeProps}
+                    defaultValue="2026-02-10T10:56:00Z"
+                    i18n={{ todayButton: 'Aujourd\'hui' }}
+                    placeholder="Select a date"
+                    type="zonedDateTime"
+                    onChange={() => null}
+                />,
+            );
+
+            expect(screen.getByText('Timezone:')).toBeInTheDocument();
+        });
+    });
+});

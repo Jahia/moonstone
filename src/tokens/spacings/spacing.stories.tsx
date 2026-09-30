@@ -1,13 +1,15 @@
-import React from 'react';
 import clsx from 'clsx';
+import React from 'react';
+
+import type { Meta, StoryObj } from '@storybook/react-vite';
+
 import './spacings.stories.scss';
 import '~/__storybook__/storybook.scss';
-import {Meta, StoryObj} from '@storybook/react';
 
 type SpacingProps = {
-    readonly name: string
-}
-export const Spacing: React.FC<SpacingProps> = ({name}) => {
+    readonly name: string;
+};
+export const Spacing: React.FC<SpacingProps> = ({ name }) => {
     return (
         <div className="storyItem">
             <p>{name}</p>
@@ -18,7 +20,7 @@ export const Spacing: React.FC<SpacingProps> = ({name}) => {
 
 const meta: Meta = {
     title: 'Tokens/Spacings',
-    excludeStories: ['Spacing']
+    excludeStories: ['Spacing'],
 };
 
 export default meta;
@@ -35,5 +37,5 @@ export const Default: Story = {
             <Spacing name="big"/>
             <Spacing name="huge"/>
         </section>
-    )
+    ),
 };

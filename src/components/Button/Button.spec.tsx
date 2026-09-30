@@ -1,26 +1,26 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {buttonColors, buttonSizes, buttonVariants} from './Button.types';
 
-import {Button} from './index';
-import {Love} from '~/icons';
+import { buttonColors, buttonSizes, buttonVariants } from './Button.types';
+import { Button } from './index';
+import { Love } from '~/icons';
 
 describe('Button', () => {
     it('should render', () => {
-        render(<Button label="test me" data-testid="moonstone-button"/>);
+        render(<Button data-testid="moonstone-button" label="test me"/>);
         expect(screen.getByTestId('moonstone-button')).toBeInTheDocument();
     });
 
     it('should display additional className', () => {
         render(
             <Button
-                label="test me"
-                data-testid="moonstone-button"
                 className="test-className"
-            />
+                data-testid="moonstone-button"
+                label="test me"
+            />,
         );
         expect(screen.getByTestId('moonstone-button')).toHaveClass(
-            'test-className'
+            'test-className',
         );
     });
 
@@ -39,19 +39,19 @@ describe('Button', () => {
             <Button
                 iconEnd={<Love data-testid="moonstone-buttonIconEnd"/>}
                 label="test me"
-            />
+            />,
         );
         expect(
-            screen.getByTestId('moonstone-buttonIconEnd')
+            screen.getByTestId('moonstone-buttonIconEnd'),
         ).toBeInTheDocument();
     });
 
     it('should not display the iconEnd when no label is provided', () => {
         render(
-            <Button iconEnd={<Love data-testid="moonstone-buttonIconEnd"/>}/>
+            <Button iconEnd={<Love data-testid="moonstone-buttonIconEnd"/>}/>,
         );
         expect(
-            screen.queryByTestId('moonstone-buttonIconEnd')
+            screen.queryByTestId('moonstone-buttonIconEnd'),
         ).not.toBeInTheDocument();
     });
 
@@ -60,7 +60,7 @@ describe('Button', () => {
             <Button
                 icon={<Love data-testid="moonstone-buttonIcon"/>}
                 label="test me"
-            />
+            />,
         );
         expect(screen.getByTestId('moonstone-buttonIcon')).toBeInTheDocument();
         expect(screen.getByText('test me')).toBeInTheDocument();
@@ -69,7 +69,7 @@ describe('Button', () => {
     it('should use default styles', () => {
         render(<Button data-testid="moonstone-button" label="test me"/>);
         expect(screen.getByTestId('moonstone-button')).toHaveClass(
-            'moonstone-button'
+            'moonstone-button',
         );
     });
 
@@ -78,26 +78,26 @@ describe('Button', () => {
             <>
                 <Button isReversed data-testid="moonstone-button" label="test me"/>
                 <Button isReversed data-testid="moonstone-button-icononly" icon={<Love/>}/>
-            </>
+            </>,
         );
         expect(screen.getByTestId('moonstone-button')).toHaveClass(
-            'moonstone-reverse'
+            'moonstone-reverse',
         );
         expect(screen.getByTestId('moonstone-button-icononly')).toHaveClass(
-            'moonstone-reverse'
+            'moonstone-reverse',
         );
     });
 
     it('should be disabled', () => {
         render(
-            <Button isDisabled data-testid="moonstone-button" label="test me"/>
+            <Button isDisabled data-testid="moonstone-button" label="test me"/>,
         );
         expect(screen.getByTestId('moonstone-button')).toBeDisabled();
     });
 
     it('should display a loader when no icon is provided', () => {
         render(
-            <Button isLoading data-testid="moonstone-button" label="test me"/>
+            <Button isLoading data-testid="moonstone-button" label="test me"/>,
         );
         expect(screen.getByRole('status')).toBeInTheDocument();
     });
@@ -117,7 +117,7 @@ describe('Button', () => {
                 data-testid="moonstone-button"
                 label="test me"
                 onClick={onClick}
-            />
+            />,
         );
         await user.click(screen.getByTestId('moonstone-button'));
 
@@ -130,52 +130,52 @@ describe('Button', () => {
                 isLoading
                 icon={<Love data-testid="moonstone-buttonIcon"/>}
                 label="test me"
-            />
+            />,
         );
         expect(
-            screen.queryByTestId('moonstone-buttonIcon')
+            screen.queryByTestId('moonstone-buttonIcon'),
         ).not.toBeInTheDocument();
     });
 
     test.each(buttonVariants)(
         'should use the specified variant %s',
-        variant => {
+        (variant) => {
             render(
                 <Button
                     data-testid="moonstone-button"
-                    variant={variant}
                     label="test me"
-                />
+                    variant={variant}
+                />,
             );
             expect(screen.getByTestId('moonstone-button')).toHaveClass(
-                `moonstone-button_${variant}`
+                `moonstone-button_${variant}`,
             );
-        }
+        },
     );
 
-    test.each(buttonColors)('should use the specified color %s', color => {
+    test.each(buttonColors)('should use the specified color %s', (color) => {
         render(
             <Button
-                data-testid="moonstone-button"
                 color={color}
+                data-testid="moonstone-button"
                 label="test me"
-            />
+            />,
         );
         expect(screen.getByTestId('moonstone-button')).toHaveClass(
-            `moonstone-button_${color}`
+            `moonstone-button_${color}`,
         );
     });
 
-    test.each(buttonSizes)('should use the specified size %s', size => {
+    test.each(buttonSizes)('should use the specified size %s', (size) => {
         render(
             <Button
                 data-testid="moonstone-button"
-                size={size}
                 label="test me"
-            />
+                size={size}
+            />,
         );
         expect(screen.getByTestId('moonstone-button')).toHaveClass(
-            `moonstone-button_${size}`
+            `moonstone-button_${size}`,
         );
     });
 
@@ -188,7 +188,7 @@ describe('Button', () => {
                 data-testid="moonstone-button"
                 label="test me"
                 onClick={onClick}
-            />
+            />,
         );
         await user.click(screen.getByTestId('moonstone-button'));
 

@@ -15,4 +15,4 @@ export type BadgeProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'className'
      * Additional classname
      */
     className?: string;
-}
+};

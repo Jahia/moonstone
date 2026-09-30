@@ -1,20 +1,24 @@
-import React from 'react';
 import clsx from 'clsx';
-import {Button} from '~/components/Button';
-import type {BreadcrumbItemProps} from './BreadcrumbItem.types';
-import {layout} from '~/globals/css-utils.js';
+import React from 'react';
+
+import { Button } from '~/components/Button';
+import { layout } from '~/globals/css-utils.js';
+
+import type { BreadcrumbItemProps } from './BreadcrumbItem.types';
+
 import styles from './BreadcrumbItem.module.scss';
 
-export const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({className = '', ...props}) => (
+export const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({ className = '', ...props }) => (
     <li className={clsx(
-            ['moonstone-breadcrumbItem', styles['moonstone-breadcrumbItem']],
-            ['flexRow_center', layout.flexRow_center]
-        )}
+        ['moonstone-breadcrumbItem', styles['moonstone-breadcrumbItem']],
+        ['flexRow_center', layout.flexRow_center],
+    )}
     >
-        <Button {...props}
-                variant="ghost"
-                size="small"
-                className={clsx(className)}
+        <Button
+            {...props}
+            className={clsx(className)}
+            size="small"
+            variant="ghost"
         />
     </li>
 );

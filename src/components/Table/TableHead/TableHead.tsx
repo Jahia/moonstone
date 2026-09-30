@@ -1,7 +1,8 @@
-import React from 'react';
 import clsx from 'clsx';
+import React from 'react';
 
-import type {TableHeadProps} from './TableHead.types';
+import type { TableHeadProps } from './TableHead.types';
+
 import styles from './TableHead.module.scss';
 
 export const TableHead: React.FC<TableHeadProps> = ({
@@ -16,11 +17,11 @@ export const TableHead: React.FC<TableHeadProps> = ({
         className: clsx(
             ['moonstone-tableHead', styles['moonstone-tableHead']],
             isSticky && ['moonstone-tableHead-sticky', styles['moonstone-tableHead-sticky']],
-            className
+            className,
         ),
-        ...props
+        ...props,
     },
-    children
+    children,
 );
 
 TableHead.displayName = 'TableHead';

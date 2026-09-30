@@ -6,4 +6,3 @@ export type SecondaryNavHeaderProps = Omit<React.ComponentPropsWithoutRef<'heade
      */
     children: React.ReactNode;
 };
-

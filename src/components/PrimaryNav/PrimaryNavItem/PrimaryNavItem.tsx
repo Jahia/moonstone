@@ -1,13 +1,18 @@
-import React, {useContext} from 'react';
 import clsx from 'clsx';
-import type {ItemProps, ItemTypeResolverProps, PrimaryNavItemProps} from './PrimaryNavItem.types';
-import {Typography} from '~/components';
-import {PrimaryNavContext} from '../PrimaryNav.context';
-import {onAccessibleClick} from '~/hooks';
+import React, { useContext } from 'react';
+
+import { PrimaryNavContext } from '../PrimaryNav.context';
+import { Typography } from '~/components';
+import { onAccessibleClick } from '~/hooks';
+
+import type { ItemProps, ItemTypeResolverProps, PrimaryNavItemProps } from './PrimaryNavItem.types';
+
 import styles from './PrimaryNavItem.module.scss';
 
 // Internal component
-const Item: React.FC<ItemProps> = ({icon, label, textVariant, subtitle, button}) => (
+const Item: React.FC<ItemProps> = ({
+    icon, label, textVariant, subtitle, button,
+}) => (
     <>
         <div className={clsx('moonstone-primaryNavItem_content', styles['moonstone-primaryNavItem_content'])}>
             <div className={clsx('moonstone-primaryNavItem_iconContainer', styles['moonstone-primaryNavItem_iconContainer'])}>
@@ -15,22 +20,23 @@ const Item: React.FC<ItemProps> = ({icon, label, textVariant, subtitle, button})
             </div>
 
             <div className={clsx('moonstone-primaryNavItem_textContainer', styles['moonstone-primaryNavItem_textContainer'])}>
-                <Typography isNowrap
-                            variant={textVariant}
-                            component="span"
-                            className={clsx('moonstone-primaryNavItem_label', styles['moonstone-primaryNavItem_label'])}
+                <Typography
+                    isNowrap
+                    className={clsx('moonstone-primaryNavItem_label', styles['moonstone-primaryNavItem_label'])}
+                    component="span"
+                    variant={textVariant}
                 >
                     {label}
                 </Typography>
                 {subtitle && (
                     <Typography
                         isNowrap
-                        component="div"
-                        variant="caption"
                         className={clsx(
                             ['moonstone-primaryNavItem_label', styles['moonstone-primaryNavItem_label']],
-                            ['moonstone-subtitle', styles['moonstone-subtitle']]
+                            ['moonstone-subtitle', styles['moonstone-subtitle']],
                         )}
+                        component="div"
+                        variant="caption"
                     >
                         {subtitle}
                     </Typography>
@@ -46,25 +52,39 @@ const Item: React.FC<ItemProps> = ({icon, label, textVariant, subtitle, button})
 );
 
 // Internal component
-const ItemTypeResolver: React.FC<ItemTypeResolverProps> = ({url, icon, label, subtitle, button}) => {
+const ItemTypeResolver: React.FC<ItemTypeResolverProps> = ({
+    url, icon, label, subtitle, button,
+}) => {
     if (url) {
         return (
             <a
                 className={clsx(
                     ['moonstone-primaryNavItem', styles['moonstone-primaryNavItem']],
-                    ['moonstone-primaryNavItem_linkItem', styles['moonstone-primaryNavItem_linkItem']]
+                    ['moonstone-primaryNavItem_linkItem', styles['moonstone-primaryNavItem_linkItem']],
                 )}
                 href={url}
-                target="_blank"
                 rel="noopener noreferrer"
+                target="_blank"
             >
-                <Item icon={icon} label={label} subtitle={subtitle} textVariant="body" button={button}/>
+                <Item
+                    button={button}
+                    icon={icon}
+                    label={label}
+                    subtitle={subtitle}
+                    textVariant="body"
+                />
             </a>
         );
     }
 
     return (
-        <Item icon={icon} label={label} subtitle={subtitle} textVariant="subheading" button={button}/>
+        <Item
+            button={button}
+            icon={icon}
+            label={label}
+            subtitle={subtitle}
+            textVariant="subheading"
+        />
     );
 };
 
@@ -88,26 +108,34 @@ export const PrimaryNavItem: React.FC<PrimaryNavItemProps> = ({
             className={clsx(
                 ['moonstone-primaryNavItem', styles['moonstone-primaryNavItem']],
                 isSelected && ['moonstone-selected', styles['moonstone-selected']],
-                className
+                className,
             )}
             title={label}
-            {...onAccessibleClick({onClick: (e: React.MouseEvent) => {
-                if (typeof primaryNavContext.collapse === 'function') {
-                    primaryNavContext.collapse();
-                }
+            {...onAccessibleClick({
+                onClick: (e: React.MouseEvent) => {
+                    if (typeof primaryNavContext.collapse === 'function') {
+                        primaryNavContext.collapse();
+                    }
 
-                onClick(e);
-            }})}
+                    onClick(e);
+                },
+            })}
             {...props}
         >
-            <ItemTypeResolver icon={icon} label={label} subtitle={subtitle} url={url} button={button}/>
+            <ItemTypeResolver
+                button={button}
+                icon={icon}
+                label={label}
+                subtitle={subtitle}
+                url={url}
+            />
 
             {badge && (
                 <badge.type
                     className={clsx('moonstone-primaryNavItem_badge', styles['moonstone-primaryNavItem_badge'])}
                     color="danger"
-                    type="round"
                     label={badge.props.label}
+                    type="round"
                 />
             )}
         </li>

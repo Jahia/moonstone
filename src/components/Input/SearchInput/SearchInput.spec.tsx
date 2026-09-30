@@ -1,7 +1,8 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {SearchInput} from './index';
-import {Love} from '~/icons';
+
+import { SearchInput } from './index';
+import { Love } from '~/icons';
 
 describe('SearchInput', () => {
     it('should render', () => {
@@ -28,7 +29,7 @@ describe('UncontrolledInput', () => {
             <SearchInput
                 data-testid="moonstone-input"
                 defaultValue="test-default-value"
-            />
+            />,
         );
         await user.click(screen.getByLabelText('Reset'));
 
@@ -43,7 +44,7 @@ describe('UncontrolledInput', () => {
             <SearchInput
                 defaultValue="test-default-value"
                 onClear={handleClear}
-            />
+            />,
         );
         await user.click(screen.getByLabelText('Reset'));
 
@@ -61,7 +62,7 @@ describe('ControlledInput', () => {
                 value="test-value"
                 onChange={() => null}
                 onClear={handleClear}
-            />
+            />,
         );
         await user.click(screen.getByLabelText('Reset'));
 

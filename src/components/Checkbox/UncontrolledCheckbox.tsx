@@ -1,15 +1,19 @@
-import React, {useState} from 'react';
-import type {UncontrolledCheckboxProps} from './Checkbox.types';
-import {ControlledCheckbox} from '~/components/Checkbox/ControlledCheckbox';
+import React, { useState } from 'react';
 
-export const UncontrolledCheckbox: React.FC<UncontrolledCheckboxProps> = ({defaultChecked = false, onChange, value, ...props}) => {
+import { ControlledCheckbox } from '~/components/Checkbox/ControlledCheckbox';
+
+import type { UncontrolledCheckboxProps } from './Checkbox.types';
+
+export const UncontrolledCheckbox: React.FC<UncontrolledCheckboxProps> = ({
+    defaultChecked = false, onChange, value, ...props
+}) => {
     const [checked, setChecked] = useState(defaultChecked);
 
     return (
         <ControlledCheckbox
             {...props}
-            value={value}
             checked={checked}
+            value={value}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 const toggleChecked = !checked;
                 setChecked(toggleChecked);

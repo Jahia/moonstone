@@ -1,8 +1,11 @@
-import React from 'react';
 import clsx from 'clsx';
-import {TableCell} from '../TableCell';
-import type {TableCellStatusProps} from './TableCellStatus.types';
-import {layout} from '~/globals/css-utils.js';
+import React from 'react';
+
+import { TableCell } from '../TableCell';
+import { layout } from '~/globals/css-utils.js';
+
+import type { TableCellStatusProps } from './TableCellStatus.types';
+
 import style from './TableCellStatus.module.scss';
 
 const TableCellStatusForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellStatusProps> = (
@@ -12,16 +15,16 @@ const TableCellStatusForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEle
         className,
         ...props
     },
-    ref
+    ref,
 ) => (
     <TableCell
-        ref={ref}
         className={clsx(
             style.tableCellStatus,
             style[color],
-            className
+            className,
         )}
         component="td"
+        ref={ref}
         width="8px"
         {...props}
     >

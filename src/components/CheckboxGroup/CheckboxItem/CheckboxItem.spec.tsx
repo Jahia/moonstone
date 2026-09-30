@@ -1,19 +1,19 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import {CheckboxItem} from './index';
+import { CheckboxItem } from './index';
 
 const initProps = {
     id: 'test',
     label: 'Checkbox\'s label',
-    value: 'test'
+    value: 'test',
 };
 
 describe('CheckboxItem', () => {
     it('should display additional class names', () => {
         const className = 'test';
-        const {container} = render(
-            <CheckboxItem {...initProps} className={className}/>
+        const { container } = render(
+            <CheckboxItem {...initProps} className={className}/>,
         );
         expect(container.querySelector('.test')).toBeInTheDocument();
     });
@@ -24,7 +24,7 @@ describe('CheckboxItem', () => {
                 {...initProps}
                 isDisabled
                 data-testid="moonstone-checkboxItem"
-            />
+            />,
         );
         expect(screen.getByTestId('moonstone-checkboxItem')).toBeDisabled();
     });
@@ -35,11 +35,11 @@ describe('CheckboxItem', () => {
                 {...initProps}
                 isReadOnly
                 data-testid="moonstone-checkboxItem"
-            />
+            />,
         );
         expect(screen.getByTestId('moonstone-checkboxItem')).toHaveAttribute(
             'aria-readonly',
-            'true'
+            'true',
         );
     });
 
@@ -57,7 +57,7 @@ describe('CheckboxItem', () => {
                 {...initProps}
                 data-testid="moonstone-checkboxItem"
                 onChange={() => handleOnChange()}
-            />
+            />,
         );
         await user.click(screen.getByTestId('moonstone-checkboxItem'));
 

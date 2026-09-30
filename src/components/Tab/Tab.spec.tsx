@@ -1,19 +1,20 @@
-import {render, screen} from '@testing-library/react';
-import {Tab} from './index';
+import { render, screen } from '@testing-library/react';
+
+import { Tab } from './index';
 
 describe('Tab', () => {
     it('should render the children', () => {
         render(<Tab>toto</Tab>);
-        expect(screen.queryByText('toto')).toBeInTheDocument();
+        expect(screen.getByText('toto')).toBeInTheDocument();
     });
 
     it('should pass props to the element', () => {
         render(<Tab title="tabulation">toto</Tab>);
-        expect(screen.queryByTitle('tabulation')).toBeInTheDocument();
+        expect(screen.getByTitle('tabulation')).toBeInTheDocument();
     });
 
     it('should add extra className', () => {
-        render(<Tab data-testid="tabulation" className="extra">toto</Tab>);
+        render(<Tab className="extra" data-testid="tabulation">toto</Tab>);
         expect(screen.getByTestId('tabulation')).toHaveClass('extra');
     });
 

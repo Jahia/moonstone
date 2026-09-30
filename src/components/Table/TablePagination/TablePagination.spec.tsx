@@ -1,12 +1,13 @@
-import {render, screen, waitFor} from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {TablePagination} from './TablePagination';
+
+import { TablePagination } from './TablePagination';
 
 const requiredProps = {
     totalNumberOfRows: 33,
     currentPage: 1,
     onPageChange: () => {},
-    onRowsPerPageChange: () => {}
+    onRowsPerPageChange: () => {},
 };
 
 describe('TablePagination', () => {
@@ -18,7 +19,7 @@ describe('TablePagination', () => {
 
     it('should display', () => {
         render(
-            <TablePagination {...requiredProps} data-testid="table-pagination"/>
+            <TablePagination {...requiredProps} data-testid="table-pagination"/>,
         );
         expect(screen.getByTestId('table-pagination')).toBeInTheDocument();
     });
@@ -27,7 +28,7 @@ describe('TablePagination', () => {
         vi.spyOn(console, 'error').mockImplementation(() => vi.fn());
         await waitFor(() => expect(
             () => render(<TablePagination {...requiredProps} currentPage={0}/>))
-            .toThrow('currentPage must always be >= 1')
+            .toThrow('currentPage must always be >= 1'),
         );
         vi.restoreAllMocks();
     });
@@ -36,18 +37,18 @@ describe('TablePagination', () => {
         vi.spyOn(console, 'error').mockImplementation(() => vi.fn());
         await waitFor(() => expect(
             () => render(<TablePagination {...requiredProps} rowsPerPage={35}/>))
-            .toThrow('rowsPerPage must exist in rowsPerPageOptions')
+            .toThrow('rowsPerPage must exist in rowsPerPageOptions'),
         );
         vi.restoreAllMocks();
     });
 
     it('should be correctly displayed for beginning of rows', () => {
-        const {container} = render(
+        const { container } = render(
             <TablePagination
                 {...requiredProps}
                 data-testid="table-pagination"
                 rowsPerPage={5}
-            />
+            />,
         );
         expect(screen.getByText('1-5 of 33')).toBeDefined();
         const buttons = container.querySelectorAll('button');
@@ -59,13 +60,13 @@ describe('TablePagination', () => {
     });
 
     it('should be correctly displayed for middle of rows', () => {
-        const {container} = render(
+        const { container } = render(
             <TablePagination
                 {...requiredProps}
-                data-testid="table-pagination"
                 currentPage={3}
+                data-testid="table-pagination"
                 rowsPerPage={5}
-            />
+            />,
         );
         expect(screen.getByText('11-15 of 33')).toBeDefined();
         const buttons = container.querySelectorAll('button');
@@ -77,13 +78,13 @@ describe('TablePagination', () => {
     });
 
     it('should be correctly displayed for end of rows', () => {
-        const {container} = render(
+        const { container } = render(
             <TablePagination
                 {...requiredProps}
-                data-testid="table-pagination"
                 currentPage={7}
+                data-testid="table-pagination"
                 rowsPerPage={5}
-            />
+            />,
         );
         expect(screen.getByText('31-33 of 33')).toBeDefined();
         const buttons = container.querySelectorAll('button');
@@ -95,16 +96,16 @@ describe('TablePagination', () => {
     });
 
     it('should have data-sel-role tags', () => {
-        const {container} = render(
+        const { container } = render(
             <TablePagination
                 {...requiredProps}
-                data-testid="table-pagination"
                 currentPage={4}
+                data-testid="table-pagination"
                 rowsPerPage={10}
-            />
+            />,
         );
 
-        const testDataRoleTags = (tag:string) => {
+        const testDataRoleTags = (tag: string) => {
             const elem = container.querySelector(`[data-sel-role="${tag}"]`);
             expect(elem).toBeInTheDocument();
         };
@@ -120,18 +121,18 @@ describe('TablePagination', () => {
     it('should call onPageChange when first page button is clicked', async () => {
         const user = userEvent.setup();
         const onPageChange = vi.fn();
-        const {container} = render(
+        const { container } = render(
             <TablePagination
                 {...requiredProps}
-                data-testid="table-pagination"
                 currentPage={3}
+                data-testid="table-pagination"
                 onPageChange={onPageChange}
-            />
+            />,
         );
         await user.click(
             container.querySelector(
-                '[data-sel-role="table-pagination-button-first-page"]'
-            )
+                '[data-sel-role="table-pagination-button-first-page"]',
+            ),
         );
         expect(onPageChange).toHaveBeenCalled();
     });
@@ -139,18 +140,18 @@ describe('TablePagination', () => {
     it('should call onPageChange when previous page button is clicked', async () => {
         const user = userEvent.setup();
         const onPageChange = vi.fn();
-        const {container} = render(
+        const { container } = render(
             <TablePagination
                 {...requiredProps}
-                data-testid="table-pagination"
                 currentPage={3}
+                data-testid="table-pagination"
                 onPageChange={onPageChange}
-            />
+            />,
         );
         await user.click(
             container.querySelector(
-                '[data-sel-role="table-pagination-button-previous-page"]'
-            )
+                '[data-sel-role="table-pagination-button-previous-page"]',
+            ),
         );
         expect(onPageChange).toHaveBeenCalled();
     });
@@ -158,18 +159,18 @@ describe('TablePagination', () => {
     it('should call onPageChange when next page button is clicked', async () => {
         const user = userEvent.setup();
         const onPageChange = vi.fn();
-        const {container} = render(
+        const { container } = render(
             <TablePagination
                 {...requiredProps}
-                data-testid="table-pagination"
                 currentPage={3}
+                data-testid="table-pagination"
                 onPageChange={onPageChange}
-            />
+            />,
         );
         await user.click(
             container.querySelector(
-                '[data-sel-role="table-pagination-button-next-page"]'
-            )
+                '[data-sel-role="table-pagination-button-next-page"]',
+            ),
         );
         expect(onPageChange).toHaveBeenCalled();
     });
@@ -177,18 +178,18 @@ describe('TablePagination', () => {
     it('should call onPageChange when last page button is clicked', async () => {
         const user = userEvent.setup();
         const onPageChange = vi.fn();
-        const {container} = render(
+        const { container } = render(
             <TablePagination
                 {...requiredProps}
-                data-testid="table-pagination"
                 currentPage={3}
+                data-testid="table-pagination"
                 onPageChange={onPageChange}
-            />
+            />,
         );
         await user.click(
             container.querySelector(
-                '[data-sel-role="table-pagination-button-last-page"]'
-            )
+                '[data-sel-role="table-pagination-button-last-page"]',
+            ),
         );
         expect(onPageChange).toHaveBeenCalled();
     });

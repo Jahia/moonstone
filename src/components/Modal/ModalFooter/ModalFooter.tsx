@@ -1,7 +1,10 @@
-import React from 'react';
 import clsx from 'clsx';
-import type {ModalFooterProps} from './ModalFooter.types';
-import {layout} from '~/globals/css-utils.js';
+import React from 'react';
+
+import { layout } from '~/globals/css-utils.js';
+
+import type { ModalFooterProps } from './ModalFooter.types';
+
 import styles from './ModalFooter.module.scss';
 
 const ModalFooterForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalFooterProps> = ({
@@ -10,19 +13,21 @@ const ModalFooterForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, Moda
     ...props
 }, ref) => {
     return (
-        children &&
-        <footer
-            ref={ref}
-            className={clsx(
-                ['moonstone-modalFooter', styles['moonstone-modalFooter']],
-                ['alignCenter', layout.alignCenter],
-                ['flexRow_reverse', layout.flexRow_reverse],
-                className
-            )}
-            {...props}
-        >
-            {children}
-        </footer>
+        children
+        && (
+            <footer
+                className={clsx(
+                    ['moonstone-modalFooter', styles['moonstone-modalFooter']],
+                    ['alignCenter', layout.alignCenter],
+                    ['flexRow_reverse', layout.flexRow_reverse],
+                    className,
+                )}
+                ref={ref}
+                {...props}
+            >
+                {children}
+            </footer>
+        )
     );
 };
 

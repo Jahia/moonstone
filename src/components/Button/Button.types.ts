@@ -53,7 +53,7 @@ export type ButtonProps = Omit<React.ComponentPropsWithRef<'button'>, 'className
     /**
      * Whether the button is loading
      */
-     isLoading?: boolean;
+    isLoading?: boolean;
 
     /**
      * Additional classname
@@ -64,4 +64,4 @@ export type ButtonProps = Omit<React.ComponentPropsWithRef<'button'>, 'className
      * Function triggered on click
      */
     onClick?: React.MouseEventHandler;
-}
+};

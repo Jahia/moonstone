@@ -1,5 +1,5 @@
 import type React from 'react';
-import type {ThumbnailSrc, ThumbnailVariant} from '~/components/Thumbnail/Thumbnail.types';
+import type { ThumbnailSrc, ThumbnailVariant } from '~/components/Thumbnail/Thumbnail.types';
 
 type BasicProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'id' | 'onClick'> & {
     /** Thumbnail URL or React element */
@@ -69,6 +69,8 @@ type BasicProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'id'
      */
     onClick?: React.MouseEventHandler;
 
-}
+};
 
-export type CardSelectorProps = (BasicProps & {hasError: true; errorMessage: string;}) | (BasicProps & {hasError?: false; errorMessage?: never;});
+export type CardSelectorProps = (BasicProps & { hasError: true;
+    errorMessage: string; }) | (BasicProps & { hasError?: false;
+        errorMessage?: never; });

@@ -1,4 +1,4 @@
-import {filterNumberInputValue} from './filterNumberInputValue';
+import { filterNumberInputValue } from './filterNumberInputValue';
 
 describe('InputFilter', () => {
     it('should return numbers only', () => {
@@ -21,7 +21,7 @@ describe('InputFilter', () => {
         expect(filterNumberInputValue(testValue, false, true, '.')).toBe('12.34');
     });
 
-    it('should return negative number', () => {
+    it('should return decimal negative number', () => {
         const testValue = '-te12.st.34';
         expect(filterNumberInputValue(testValue, true, true, '.')).toBe('-12.34');
     });

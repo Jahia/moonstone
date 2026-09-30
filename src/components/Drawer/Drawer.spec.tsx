@@ -1,10 +1,22 @@
-import {render, screen} from '@testing-library/react';
-import {Drawer} from './index';
+import { render, screen, waitForElementToBeRemoved } from '@testing-library/react';
+
+import { Drawer } from './index';
 
 describe('Drawer', () => {
     it('should display content when open', () => {
         render(<Drawer isOpen data-testid="moonstone-drawer">Drawer content</Drawer>);
         expect(screen.getByText('Drawer content')).toBeInTheDocument();
+    });
+
+    it('should keep content mounted while closing, then remove it', async () => {
+        const { rerender } = render(<Drawer isOpen data-testid="moonstone-drawer">Drawer content</Drawer>);
+
+        rerender(<Drawer isOpen={false} data-testid="moonstone-drawer">Drawer content</Drawer>);
+        // Stays in the DOM in the closed state while the exit animation plays...
+        expect(screen.getByTestId('moonstone-drawer')).toHaveAttribute('data-state', 'closed');
+
+        // ...then unmounts once the animation completes.
+        await waitForElementToBeRemoved(() => screen.queryByText('Drawer content'));
     });
 
     it('should not display content by default', () => {
@@ -18,17 +30,27 @@ describe('Drawer', () => {
     });
 
     it('should add extra classname', () => {
-        render(<Drawer isOpen data-testid="moonstone-drawer" className="extra">Drawer content</Drawer>);
+        render(<Drawer isOpen className="extra" data-testid="moonstone-drawer">Drawer content</Drawer>);
         expect(screen.getByTestId('moonstone-drawer')).toHaveClass('extra');
     });
 
     it('should add additional attributes', () => {
-        render(<Drawer isOpen data-testid="moonstone-drawer" data-custom="test">Drawer content</Drawer>);
+        render(<Drawer isOpen data-custom="test" data-testid="moonstone-drawer">Drawer content</Drawer>);
         expect(screen.getByTestId('moonstone-drawer')).toHaveAttribute('data-custom', 'test');
     });
 
     it('should not be modal by default', () => {
         render(<Drawer isOpen data-testid="moonstone-drawer">Drawer content</Drawer>);
         expect(screen.getByTestId('moonstone-drawer')).not.toHaveAttribute('aria-modal');
+    });
+
+    it('should render as an aside by default', () => {
+        render(<Drawer isOpen data-testid="moonstone-drawer">Drawer content</Drawer>);
+        expect(screen.getByTestId('moonstone-drawer').tagName).toBe('ASIDE');
+    });
+
+    it('should render as the given component', () => {
+        render(<Drawer isOpen component="div" data-testid="moonstone-drawer">Drawer content</Drawer>);
+        expect(screen.getByTestId('moonstone-drawer').tagName).toBe('DIV');
     });
 });

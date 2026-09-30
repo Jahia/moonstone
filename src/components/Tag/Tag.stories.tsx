@@ -1,16 +1,16 @@
-import {StoryFn, Meta} from '@storybook/react-vite';
+import { Tag } from './index';
 
-import {Tag} from './index';
+import type { Meta, StoryFn } from '@storybook/react-vite';
 
 export default {
     title: 'Components/Tag',
     component: Tag,
     parameters: {
         layout: 'fullscreen',
-        knobs: {disable: true},
-        storysource: {disable: true},
-        actions: {argTypesRegex: '^on.*'}
-    }
+        knobs: { disable: true },
+        storysource: { disable: true },
+        actions: { argTypesRegex: '^on.*' },
+    },
 } as Meta<typeof Tag>;
 
 const Template: StoryFn<typeof Tag> = args => (
@@ -18,5 +18,5 @@ const Template: StoryFn<typeof Tag> = args => (
 );
 
 export const Default = {
-    render: Template
+    render: Template,
 };

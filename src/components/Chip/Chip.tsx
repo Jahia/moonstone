@@ -1,9 +1,12 @@
-import React from 'react';
 import clsx from 'clsx';
-import type {ChipProps} from './Chip.types';
-import {Typography} from '~/components/Typography';
+import React from 'react';
+
+import { Typography } from '~/components/Typography';
+import { icons } from '~/globals/css-utils.js';
+
+import type { ChipProps } from './Chip.types';
+
 import styles from './Chip.module.scss';
-import {icons} from '~/globals/css-utils.js';
 
 export const Chip: React.FC<ChipProps> = ({
     label = '',
@@ -20,11 +23,11 @@ export const Chip: React.FC<ChipProps> = ({
             [`moonstone-color_${color}`, styles[`moonstone-color_${color}`]],
             [`moonstone-chip_${variant}`, styles[`moonstone-chip_${variant}`]],
             isDisabled && ['moonstone-disabled', styles['moonstone-disabled']],
-            className
+            className,
         )}
         {...props}
     >
-        {icon && <icon.type {...icon.props} size="small" className={clsx('moonstone-icon_small', icons['moonstone-icon_small'], icon.props.className)}/>}
+        {icon && <icon.type {...icon.props} className={clsx('moonstone-icon_small', icons['moonstone-icon_small'], icon.props.className)} size="small"/>}
         {label && <Typography isNowrap component="span" variant="caption" weight="semiBold">{label}</Typography>}
     </div>
 );

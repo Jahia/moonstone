@@ -1,17 +1,20 @@
-import React, {Attributes, FunctionComponent, PropsWithChildren, ReactElement} from 'react';
+import React from 'react';
+
+import { ImgWrapper, SvgWrapper } from '~/components';
 import * as Icons from '~/icons/components';
-import {ImgWrapper, SvgWrapper} from '~/components';
-import {SvgWrapperProps} from '~/components/SvgWrapper/SvgWrapper.types';
+
+import type { Attributes, FunctionComponent, PropsWithChildren, ReactElement } from 'react';
+import type { SvgWrapperProps } from '~/components/SvgWrapper/SvgWrapper.types';
 
 type SVGProps = React.HTMLProps<SVGElement> & React.HTMLProps<HTMLElement>;
 
-const camelCased = (s: string) => s.replace(/-([a-z])/g, g => {
+const camelCased = (s: string) => s.replace(/-([a-z])/g, (g) => {
     return g[1].toUpperCase();
 });
 
 const toComp = (node: HTMLElement, idx: number) => {
     if (node.nodeType === 1) {
-        const props: {[key: string]: unknown} = {key: idx};
+        const props: { [key: string]: unknown } = { key: idx };
         Array.prototype.slice.call(node.attributes).forEach((attr: SVGProps) => {
             props[camelCased(attr.name)] = attr.value;
         });
@@ -32,7 +35,7 @@ export const toIconComponentFunction = (icon: string | ReactElement): FunctionCo
         return (props: PropsWithChildren<Attributes>) => <SvgWrapper svg={icon} {...props}/>;
     }
 
-    const iconFunction:FunctionComponent = Icons[icon as keyof typeof Icons];
+    const iconFunction: FunctionComponent = Icons[icon as keyof typeof Icons];
     if (iconFunction) {
         return iconFunction;
     }
@@ -47,4 +50,3 @@ export const toIconComponentFunction = (icon: string | ReactElement): FunctionCo
 export const toIconComponent = (icon: string | ReactElement, props?: SvgWrapperProps & Attributes) => {
     return React.createElement(toIconComponentFunction(icon), props);
 };
-

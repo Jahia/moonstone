@@ -1,8 +1,9 @@
 import React from 'react';
-import {StoryObj, Meta} from '@storybook/react-vite';
+import { useArgs } from 'storybook/preview-api';
 
-import {Textarea} from './index';
-import {useArgs} from 'storybook/preview-api';
+import { Textarea } from './index';
+
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof Textarea> = {
     title: 'Components/Textarea',
@@ -10,22 +11,22 @@ const meta: Meta<typeof Textarea> = {
     component: Textarea,
     decorators: [
         StoryCmp => (
-            <div style={{width: '50vw'}}>
+            <div style={{ width: '50vw' }}>
                 <StoryCmp/>
             </div>
-        )
+        ),
     ],
     parameters: {
-        layout: 'centered'
+        layout: 'centered',
     },
     args: {
-        placeholder: 'Placeholder text'
+        placeholder: 'Placeholder text',
     },
     argTypes: {
-        onChange: {action: 'onChange'},
-        onBlur: {action: 'onBlur'},
-        onFocus: {action: 'onFocus'}
-    }
+        onChange: { action: 'onChange' },
+        onBlur: { action: 'onBlur' },
+        onFocus: { action: 'onFocus' },
+    },
 };
 export default meta;
 
@@ -34,14 +35,14 @@ type Story = StoryObj<typeof Textarea>;
 export const Uncontrolled: Story = {};
 
 export const Controlled: Story = {
-    render: args => {
+    render: (args) => {
         const [, setArgs] = useArgs();
 
-        const onChange = (e : React.ChangeEvent<HTMLTextAreaElement>) => {
+        const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
             args.onChange(e);
-            setArgs({value: e.target.value});
+            setArgs({ value: e.target.value });
         };
 
         return <Textarea value="Default value" {...args} onChange={onChange}/>;
-    }
+    },
 };

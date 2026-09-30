@@ -1,11 +1,13 @@
 import clsx from 'clsx';
 import React from 'react';
-import {ChevronDown, ChevronRight} from '~/icons';
 
-import {TableCell} from '../TableCell';
-import {Typography} from '~/components';
-import type {TableStructuredCellProps} from './TableStructuredCell.types';
-import {layout} from '~/globals/css-utils.js';
+import { TableCell } from '../TableCell';
+import { Typography } from '~/components';
+import { layout } from '~/globals/css-utils.js';
+import { ChevronDown, ChevronRight } from '~/icons';
+
+import type { TableStructuredCellProps } from './TableStructuredCell.types';
+
 import styles from './TableStructuredCell.module.scss';
 
 // Spacing constants for tree structure alignment
@@ -23,7 +25,7 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
             onToggleExpand,
             ...props
         },
-        ref
+        ref,
     ) => {
         // Render nothing when no children are provided to avoid empty HTML markup
         if (!children) {
@@ -31,16 +33,16 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
         }
 
         const indent = depth * indentSpace;
-        const handleToggleExpand: React.MouseEventHandler = event => {
+        const handleToggleExpand: React.MouseEventHandler = (event) => {
             event.stopPropagation();
             onToggleExpand?.();
         };
 
         return (
             <TableCell
-                ref={ref}
-                className={clsx(styles.tableStructuredCell, className)}
                 aria-expanded={isExpanded}
+                className={clsx(styles.tableStructuredCell, className)}
+                ref={ref}
                 onClick={handleToggleExpand}
                 {...props}
             >
@@ -51,34 +53,35 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                         layout.alignCenter,
                         {
                             [styles.expandable]: isExpandable,
-                            [styles.scrollable]: isScrollable && !isExpandable
-                        }
+                            [styles.scrollable]: isScrollable && !isExpandable,
+                        },
                     )}
-                    style={{marginLeft: indent}}
+                    style={{ marginLeft: indent }}
                 >
-                    {isExpandable ? (
-                        <>
-                            {isExpanded ?
-                                <ChevronDown/> :
-                                <ChevronRight/>}
-                            <Typography
-                                isNowrap
-                                component="div"
-                                className={clsx(
-                                    layout.flexRow_nowrap,
-                                    layout.alignCenter,
-                                    {[styles.scrollable]: isScrollable}
-                                )}
-                            >
-                                {children}
-                            </Typography>
-                        </>
-                    ) :
-                    children}
+                    {isExpandable
+                        ? (
+                                <>
+                                    {isExpanded
+                                        ? <ChevronDown/>
+                                        : <ChevronRight/>}
+                                    <Typography
+                                        isNowrap
+                                        className={clsx(
+                                            layout.flexRow_nowrap,
+                                            layout.alignCenter,
+                                            { [styles.scrollable]: isScrollable },
+                                        )}
+                                        component="div"
+                                    >
+                                        {children}
+                                    </Typography>
+                                </>
+                            )
+                        : children}
                 </div>
             </TableCell>
         );
-    }
+    },
 );
 
 TableStructuredCell.displayName = 'TableStructuredCell';

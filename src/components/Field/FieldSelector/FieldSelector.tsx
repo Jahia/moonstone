@@ -1,8 +1,11 @@
-import React from 'react';
 import clsx from 'clsx';
-import type {FieldSelectorProps} from './FieldSelector.types';
-import {HandleDrag} from '~/icons';
-import {layout} from '~/globals/css-utils.js';
+import React from 'react';
+
+import { layout } from '~/globals/css-utils.js';
+import { HandleDrag } from '~/icons';
+
+import type { FieldSelectorProps } from './FieldSelector.types';
+
 import styles from './FieldSelector.module.scss';
 
 export const FieldSelector = React.forwardRef<HTMLDivElement, FieldSelectorProps>(({
@@ -18,21 +21,21 @@ export const FieldSelector = React.forwardRef<HTMLDivElement, FieldSelectorProps
 
     return (
         <div
-            ref={ref}
             className={clsx(
                 ['moonstone-fieldSelector', styles['moonstone-fieldSelector']],
                 ['flexRow_nowrap', layout.flexRow_nowrap],
                 ['alignCenter', layout.alignCenter],
-                className
+                className,
             )}
             draggable={isDraggable}
+            ref={ref}
             {...props}
         >
             <div
                 className={clsx(
                     ['moonstone-cardSelector_dragIcon', styles['moonstone-cardSelector_dragIcon']],
                     ['flexRow_between', layout.flexRow_between],
-                    ['alignCenter', layout.alignCenter]
+                    ['alignCenter', layout.alignCenter],
                 )}
             >
                 {isDraggable && <HandleDrag color="gray" size="big"/>}
@@ -42,7 +45,7 @@ export const FieldSelector = React.forwardRef<HTMLDivElement, FieldSelectorProps
                     'moonstone-fieldSelector_selector',
                     ['flexCol_nowrap', layout.flexCol_nowrap],
                     ['alignStart', layout.alignStart],
-                    ['flexFluid', layout.flexFluid]
+                    ['flexFluid', layout.flexFluid],
                 )}
             >
                 {selector}
@@ -50,17 +53,18 @@ export const FieldSelector = React.forwardRef<HTMLDivElement, FieldSelectorProps
             <div
                 className={clsx(
                     ['moonstone-fieldSelector_buttons', styles['moonstone-fieldSelector_buttons']],
-                    ['flexRow_nowrap', layout.flexRow_nowrap]
+                    ['flexRow_nowrap', layout.flexRow_nowrap],
                 )}
             >
-                {buttons &&
-                    React.Children.map(buttons, button =>
-                        button.props && button.props.children ?
-                            (React.Children.map(button.props.children, btn => {
-                                const key = btn.props.icon ? btn.props.icon.name : btn.props.label;
-                                return (btn && <btn.type key={`btn-${key}`} size="default" variant="ghost" {...btn.props}/>);
-                            }
-                            )) : (buttons && <buttons.type size="default" variant="ghost" {...buttons.props}/>)
+                {buttons
+                    && React.Children.map(buttons, button =>
+                        button.props && button.props.children
+                            ? (React.Children.map(button.props.children, (btn) => {
+                                    const key = btn.props.icon ? btn.props.icon.name : btn.props.label;
+                                    return (btn && <btn.type key={`btn-${key}`} size="default" variant="ghost" {...btn.props}/>);
+                                },
+                                ))
+                            : (buttons && <buttons.type size="default" variant="ghost" {...buttons.props}/>),
                     )}
             </div>
         </div>

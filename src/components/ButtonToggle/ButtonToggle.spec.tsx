@@ -1,32 +1,32 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import {ButtonToggle} from './index';
-import {Apps} from '~/icons';
+import { ButtonToggle } from './index';
+import { Apps } from '~/icons';
 
 describe('ButtonToggle', () => {
     it('should render', () => {
         render(
             <ButtonToggle
-                label="test me"
                 data-testid="moonstone-buttonToggle"
-            />
+                label="test me"
+            />,
         );
         expect(
-            screen.getByTestId('moonstone-buttonToggle')
+            screen.getByTestId('moonstone-buttonToggle'),
         ).toBeInTheDocument();
     });
 
     it('should display additional className', () => {
         render(
             <ButtonToggle
-                label="test me"
-                data-testid="moonstone-buttonToggle"
                 className="test-className"
-            />
+                data-testid="moonstone-buttonToggle"
+                label="test me"
+            />,
         );
         expect(screen.getByTestId('moonstone-buttonToggle')).toHaveClass(
-            'test-className'
+            'test-className',
         );
     });
 
@@ -39,10 +39,10 @@ describe('ButtonToggle', () => {
         render(
             <ButtonToggle
                 iconStart={<Apps data-testid="moonstone-buttonToggleIcon"/>}
-            />
+            />,
         );
         expect(
-            screen.getByTestId('moonstone-buttonToggleIcon')
+            screen.getByTestId('moonstone-buttonToggleIcon'),
         ).toBeInTheDocument();
     });
 
@@ -51,10 +51,10 @@ describe('ButtonToggle', () => {
             <ButtonToggle
                 iconEnd={<Apps data-testid="moonstone-buttonToggleIconEnd"/>}
                 label="test me"
-            />
+            />,
         );
         expect(
-            screen.getByTestId('moonstone-buttonToggleIconEnd')
+            screen.getByTestId('moonstone-buttonToggleIconEnd'),
         ).toBeInTheDocument();
     });
 
@@ -62,10 +62,10 @@ describe('ButtonToggle', () => {
         render(
             <ButtonToggle
                 iconEnd={<Apps data-testid="moonstone-buttonToggleIconEnd"/>}
-            />
+            />,
         );
         expect(
-            screen.queryByTestId('moonstone-buttonToggleIconEnd')
+            screen.queryByTestId('moonstone-buttonToggleIconEnd'),
         ).not.toBeInTheDocument();
     });
 
@@ -74,10 +74,10 @@ describe('ButtonToggle', () => {
             <ButtonToggle
                 iconStart={<Apps data-testid="moonstone-buttonToggleIcon"/>}
                 label="test me"
-            />
+            />,
         );
         expect(
-            screen.getByTestId('moonstone-buttonToggleIcon')
+            screen.getByTestId('moonstone-buttonToggleIcon'),
         ).toBeInTheDocument();
         expect(screen.getByText('test me')).toBeInTheDocument();
     });
@@ -87,10 +87,10 @@ describe('ButtonToggle', () => {
             <ButtonToggle
                 data-testid="moonstone-buttonToggle"
                 label="test me"
-            />
+            />,
         );
         expect(screen.getByTestId('moonstone-buttonToggle')).toHaveClass(
-            'moonstone-button'
+            'moonstone-button',
         );
     });
 
@@ -98,12 +98,12 @@ describe('ButtonToggle', () => {
         render(
             <ButtonToggle
                 data-testid="moonstone-buttonToggle"
-                size="big"
                 label="test me"
-            />
+                size="big"
+            />,
         );
         expect(screen.getByTestId('moonstone-buttonToggle')).toHaveClass(
-            'moonstone-button_big'
+            'moonstone-button_big',
         );
     });
 
@@ -113,7 +113,7 @@ describe('ButtonToggle', () => {
                 isReversed
                 data-testid="moonstone-buttonToggle"
                 label="test me"
-            />
+            />,
         );
     });
 
@@ -123,7 +123,7 @@ describe('ButtonToggle', () => {
                 isDisabled
                 data-testid="moonstone-buttonToggle"
                 label="test me"
-            />
+            />,
         );
         expect(screen.getByTestId('moonstone-buttonToggle')).toBeDisabled();
     });
@@ -134,7 +134,7 @@ describe('ButtonToggle', () => {
                 isLoading
                 data-testid="moonstone-buttonToggle"
                 label="test me"
-            />
+            />,
         );
         expect(screen.getByRole('status')).toBeInTheDocument();
     });
@@ -154,7 +154,7 @@ describe('ButtonToggle', () => {
                 data-testid="moonstone-buttonToggle"
                 label="test me"
                 onClick={onClick}
-            />
+            />,
         );
         await user.click(screen.getByTestId('moonstone-buttonToggle'));
 
@@ -167,10 +167,10 @@ describe('ButtonToggle', () => {
                 isLoading
                 iconStart={<Apps data-testid="moonstone-buttonToggleIcon"/>}
                 label="test me"
-            />
+            />,
         );
         expect(
-            screen.queryByTestId('moonstone-buttonToggleIcon')
+            screen.queryByTestId('moonstone-buttonToggleIcon'),
         ).not.toBeInTheDocument();
     });
 
@@ -183,7 +183,7 @@ describe('ButtonToggle', () => {
                 data-testid="moonstone-buttonToggle"
                 label="test me"
                 onClick={onClick}
-            />
+            />,
         );
         await user.click(screen.getByTestId('moonstone-buttonToggle'));
 
@@ -199,12 +199,12 @@ describe('ButtonToggle', () => {
                 data-testid="moonstone-buttonToggle"
                 label="test me"
                 onClick={onClick}
-            />
+            />,
         );
         await user.click(screen.getByTestId('moonstone-buttonToggle'));
 
         expect(screen.getByTestId('moonstone-buttonToggle')).toHaveClass(
-            'moonstone-buttonToggle_pressed'
+            'moonstone-buttonToggle_pressed',
         );
     });
 
@@ -217,13 +217,13 @@ describe('ButtonToggle', () => {
                 data-testid="moonstone-buttonToggle"
                 label="test me"
                 onClick={onClick}
-            />
+            />,
         );
         await user.click(screen.getByTestId('moonstone-buttonToggle'));
         await user.click(screen.getByTestId('moonstone-buttonToggle'));
 
         expect(screen.getByTestId('moonstone-buttonToggle')).not.toHaveClass(
-            'moonstone-buttonToggle_pressed'
+            'moonstone-buttonToggle_pressed',
         );
     });
 
@@ -236,7 +236,7 @@ describe('ButtonToggle', () => {
                 data-testid="moonstone-buttonToggle"
                 label="test me"
                 onChange={handleOnChange}
-            />
+            />,
         );
         await user.click(screen.getByTestId('moonstone-buttonToggle'));
 
@@ -247,7 +247,7 @@ describe('ButtonToggle', () => {
         render(<ButtonToggle isPressed data-testid="moonstone-buttonToggle"/>);
         expect(screen.getByTestId('moonstone-buttonToggle')).toHaveAttribute(
             'aria-pressed',
-            'true'
+            'true',
         );
     });
 });

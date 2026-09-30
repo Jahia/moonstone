@@ -1,6 +1,8 @@
-import React from 'react';
 import clsx from 'clsx';
-import type {ControlledTextareaProps} from './Textarea.types';
+import React from 'react';
+
+import type { ControlledTextareaProps } from './Textarea.types';
+
 import styles from './Textarea.module.scss';
 
 export const ControlledTextarea = React.forwardRef<HTMLTextAreaElement, ControlledTextareaProps>(({
@@ -18,19 +20,19 @@ export const ControlledTextarea = React.forwardRef<HTMLTextAreaElement, Controll
 }, ref) => {
     return (
         <textarea
-            ref={ref}
+            disabled={isDisabled}
+            readOnly={isReadOnly}
             className={clsx(
                 ['moonstone-textarea', styles['moonstone-textarea']],
                 isResizable && ['moonstone-textarea_resizable', styles['moonstone-textarea_resizable']],
-                className
+                className,
             )}
-            value={value}
             id={id}
             placeholder={placeholder}
-            disabled={isDisabled}
-            readOnly={isReadOnly}
-            onChange={(!isDisabled || !isReadOnly) && onChange}
+            ref={ref}
+            value={value}
             onBlur={(!isDisabled || !isReadOnly) && onBlur}
+            onChange={(!isDisabled || !isReadOnly) && onChange}
             onFocus={(!isDisabled || !isReadOnly) && onFocus}
             {...props}
         />

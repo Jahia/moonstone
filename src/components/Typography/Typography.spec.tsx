@@ -1,6 +1,7 @@
-import {render, screen} from '@testing-library/react';
-import {Typography} from './index';
-import {variants, weights} from './Typography.types';
+import { render, screen } from '@testing-library/react';
+
+import { Typography } from './index';
+import { variants, weights } from './Typography.types';
 
 describe('Typography', () => {
     it('should display nothing when no children', () => {
@@ -10,7 +11,7 @@ describe('Typography', () => {
 
     it('should display a text children', () => {
         render(<Typography>Content children</Typography>);
-        expect(screen.queryByText('Content children')).toBeInTheDocument();
+        expect(screen.getByText('Content children')).toBeInTheDocument();
     });
 
     it('should display a body variant by default', () => {
@@ -18,7 +19,7 @@ describe('Typography', () => {
         expect(screen.getByTestId('typography')).toHaveClass('moonstone-variant_body');
     });
 
-    test.each(variants)('should display the specified variant', variant => {
+    test.each(variants)('should display the specified variant', (variant) => {
         render(<Typography data-testid="typography" variant={variant}>Content children</Typography>);
         expect(screen.getByTestId('typography')).toHaveClass(`moonstone-variant_${variant}`);
     });
@@ -28,7 +29,7 @@ describe('Typography', () => {
         expect(screen.getByTestId('typography')).toHaveClass('moonstone-weight_default');
     });
 
-    test.each(weights)('should use the specified weight', weight => {
+    test.each(weights)('should use the specified weight', (weight) => {
         render(<Typography data-testid="typography" weight={weight}>Content children</Typography>);
         expect(screen.getByTestId('typography')).toHaveClass(`moonstone-weight_${weight}`);
     });
@@ -64,22 +65,22 @@ describe('Typography', () => {
     });
 
     it('should display a tag html p by default', () => {
-        const {container} = render(<Typography>Content children</Typography>);
+        const { container } = render(<Typography>Content children</Typography>);
         expect(container.querySelector('p')).toBeInTheDocument();
     });
 
     it('should display a tag html h1', () => {
-        const {container} = render(<Typography component="h1">Content children</Typography>);
+        const { container } = render(<Typography component="h1">Content children</Typography>);
         expect(container.querySelector('h1')).toBeInTheDocument();
     });
 
     it('should add extra attribute', () => {
-        render(<Typography data-testid="typography" data-custom="extra">Content children</Typography>);
+        render(<Typography data-custom="extra" data-testid="typography">Content children</Typography>);
         expect(screen.getByTestId('typography')).toHaveAttribute('data-custom', 'extra');
     });
 
     it('should add extra className', () => {
-        render(<Typography data-testid="typography" className="extra">Content children</Typography>);
+        render(<Typography className="extra" data-testid="typography">Content children</Typography>);
         expect(screen.getByTestId('typography')).toHaveClass('extra');
     });
 });

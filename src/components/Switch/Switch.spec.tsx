@@ -1,11 +1,11 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import {Switch} from './index';
+import { Switch } from './index';
 
 describe('Switch', () => {
     it('should display additional class names', () => {
-        const {container} = render(<Switch className="class-switch"/>);
+        const { container } = render(<Switch className="class-switch"/>);
         expect(container.getElementsByClassName('class-switch')).toBeTruthy();
     });
 
@@ -13,7 +13,7 @@ describe('Switch', () => {
         render(<Switch aria-label="switch" data-custom="test"/>);
         expect(screen.getByRole('checkbox')).toHaveAttribute(
             'data-custom',
-            'test'
+            'test',
         );
     });
 
@@ -26,7 +26,7 @@ describe('Switch', () => {
                 data-testid="moonstone-switch"
                 value="my-value"
                 onChange={handleOnChange}
-            />
+            />,
         );
         await user.click(screen.getByTestId('moonstone-switch'));
 
@@ -43,7 +43,7 @@ describe('Switch', () => {
                 checked
                 data-testid="moonstone-switch"
                 onChange={handleOnChange}
-            />
+            />,
         );
         await user.click(screen.getByTestId('moonstone-switch'));
 

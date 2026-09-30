@@ -1,14 +1,15 @@
-import {BreadcrumbItem} from '~/components';
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+
+import { BreadcrumbItem } from '~/components';
 
 describe('BreadcrumbItem', () => {
     it('should display additional className', () => {
-        render(<BreadcrumbItem data-testid="breadcrumb-item" className="extra" onClick={() => null}/>);
+        render(<BreadcrumbItem className="extra" data-testid="breadcrumb-item" onClick={() => null}/>);
         expect(screen.getByTestId('breadcrumb-item')).toHaveClass('extra');
     });
 
     it('should display additional attributes', () => {
-        render(<BreadcrumbItem data-testid="breadcrumb-item" data-custom="extra" onClick={() => null}/>);
+        render(<BreadcrumbItem data-custom="extra" data-testid="breadcrumb-item" onClick={() => null}/>);
         expect(screen.getByTestId('breadcrumb-item')).toHaveAttribute('data-custom', 'extra');
     });
 

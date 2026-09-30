@@ -1,17 +1,18 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {CustomDropdown, Typography} from '~/components';
-import {Love} from '~/icons';
+
+import { CustomDropdown, Typography } from '~/components';
+import { Love } from '~/icons';
 
 describe('CustomDropdown', () => {
     it('should display', () => {
         render(
             <CustomDropdown
-                label="dropdown action"
                 data-testid="moonstone-dropdown"
+                label="dropdown action"
             >
                 <Typography>Dropdown children</Typography>
-            </CustomDropdown>
+            </CustomDropdown>,
         );
         expect(screen.getByTestId('moonstone-dropdown')).toBeInTheDocument();
     });
@@ -19,27 +20,27 @@ describe('CustomDropdown', () => {
     it('should display icon', () => {
         render(
             <CustomDropdown
-                label="dropdown action"
                 icon={<Love data-testid="dropdown-icon"/>}
+                label="dropdown action"
             >
                 <Typography>Dropdown children</Typography>
-            </CustomDropdown>
+            </CustomDropdown>,
         );
-        expect(screen.queryByTestId('dropdown-icon')).toBeInTheDocument();
+        expect(screen.getByTestId('dropdown-icon')).toBeInTheDocument();
     });
 
     it('should add dropdown_loading class if the dropdown is loading', () => {
         render(
             <CustomDropdown
                 isLoading
-                label="dropdown action"
                 data-testid="moonstone-dropdown"
+                label="dropdown action"
             >
                 <Typography>Dropdown children</Typography>
-            </CustomDropdown>
+            </CustomDropdown>,
         );
         expect(screen.getByTestId('moonstone-dropdown')).toHaveClass(
-            'moonstone-button_loading'
+            'moonstone-button_loading',
         );
     });
 
@@ -47,25 +48,25 @@ describe('CustomDropdown', () => {
         render(
             <CustomDropdown
                 isLoading
-                label="dropdown action"
                 data-testid="moonstone-dropdown"
+                label="dropdown action"
             >
                 <Typography>Dropdown children</Typography>
-            </CustomDropdown>
+            </CustomDropdown>,
         );
         expect(screen.getByTestId('moonstone-dropdown')).toHaveAttribute(
-            'aria-busy'
+            'aria-busy',
         );
     });
 
     it('should not display the menu dropdown by default', () => {
         render(
             <CustomDropdown
-                label="dropdown action"
                 data-testid="moonstone-dropdown"
+                label="dropdown action"
             >
                 <Typography>Dropdown children</Typography>
-            </CustomDropdown>
+            </CustomDropdown>,
         );
         expect(screen.queryByRole('list')).not.toBeInTheDocument();
     });
@@ -74,11 +75,11 @@ describe('CustomDropdown', () => {
         const user = userEvent.setup();
         render(
             <CustomDropdown
-                label="dropdown action"
                 data-testid="moonstone-dropdown"
+                label="dropdown action"
             >
                 <Typography>Dropdown children</Typography>
-            </CustomDropdown>
+            </CustomDropdown>,
         );
 
         await user.click(screen.getByRole('button'));
@@ -89,11 +90,11 @@ describe('CustomDropdown', () => {
         const user = userEvent.setup();
         render(
             <CustomDropdown
-                label="dropdown action"
                 data-testid="moonstone-dropdown"
+                label="dropdown action"
             >
                 <Typography>Dropdown children</Typography>
-            </CustomDropdown>
+            </CustomDropdown>,
         );
 
         await user.keyboard('[Tab]');

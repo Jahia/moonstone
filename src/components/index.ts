@@ -1,4 +1,4 @@
-export {DataTable} from './DataTable';
+export { DataTable } from './DataTable';
 export * from './Accordion';
 export * from './Accordion/AccordionItem';
 export * from './Badge';
@@ -49,6 +49,7 @@ export * from './Tab/TabItem';
 export * from './Table';
 export * from './Textarea';
 export * from './Thumbnail';
+export * from './TimezoneSelector';
 export * from './Tooltip';
 export * from './TreeView';
 export * from './Typography';

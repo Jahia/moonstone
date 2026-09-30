@@ -20,7 +20,7 @@ export type TablePaginationProps = Omit<React.ComponentPropsWithoutRef<'div'>, '
      * Callback when rowsPerPage value changes
      * @param rowsPerPage
      */
-    onRowsPerPageChange: (rowsPerPage: number) => void
+    onRowsPerPageChange: (rowsPerPage: number) => void;
 
     /**
      * How many rows there will be in total for all the pages currently available (total number of records to display)
@@ -42,7 +42,7 @@ export type TablePaginationProps = Omit<React.ComponentPropsWithoutRef<'div'>, '
      * Pagination labels
      */
     label?: {
-        rowsPerPage: string,
-        of: string
-    }
+        rowsPerPage: string;
+        of: string;
+    };
 };

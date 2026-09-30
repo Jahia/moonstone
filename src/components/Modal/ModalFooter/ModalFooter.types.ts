@@ -1,4 +1,4 @@
-import {ReactNode} from 'react';
+import type { ReactNode } from 'react';
 
 export type ModalFooterProps = Omit<React.ComponentPropsWithRef<'footer'>, 'className' | 'children'> & {
     /**
@@ -10,4 +10,4 @@ export type ModalFooterProps = Omit<React.ComponentPropsWithRef<'footer'>, 'clas
      * Additional classname
      */
     className?: string;
-}
+};

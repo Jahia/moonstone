@@ -1,11 +1,13 @@
-import React from 'react';
 import clsx from 'clsx';
+import React from 'react';
 
-import type {TableCellProps} from './TableCell.types';
-import {Typography} from '~/components';
-import {capitalize} from '~/utils/helpers';
-import {TableCell} from './TableCell';
-import {alignment, layout} from '~/globals/css-utils.js';
+import { TableCell } from './TableCell';
+import { Typography } from '~/components';
+import { alignment, layout } from '~/globals/css-utils.js';
+import { capitalize } from '~/utils/helpers';
+
+import type { TableCellProps } from './TableCell.types';
+
 import styles from './TableCell.module.scss';
 
 export const TableHeadCell: React.FC<TableCellProps> = ({
@@ -27,15 +29,18 @@ export const TableHeadCell: React.FC<TableCellProps> = ({
                 styles.tableHeadCell,
                 [`textAlign${capitalize(textAlign)}`, alignment[`textAlign${capitalize(textAlign)}`]],
                 [`verticalAlign${capitalize(verticalAlign)}`, alignment[`verticalAlign${capitalize(verticalAlign)}`]],
-                className
+                className,
             )}
             component={component}
-            weight="bold"
+            style={{
+                ...props.style,
+                width: width,
+            }}
             variant="body"
-            style={{...props.style, width: width}}
+            weight="bold"
         >
 
-            <TableCell iconStart={iconStart} iconEnd={iconEnd}>
+            <TableCell iconEnd={iconEnd} iconStart={iconStart}>
                 {children}
             </TableCell>
 

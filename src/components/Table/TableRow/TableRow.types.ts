@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type TableRowProps = Omit<React.ComponentPropsWithoutRef<'tr'>, 'children'| 'className'> & {
+export type TableRowProps = Omit<React.ComponentPropsWithoutRef<'tr'>, 'children' | 'className'> & {
     /**
      * Additional classname
      */
@@ -9,7 +9,7 @@ export type TableRowProps = Omit<React.ComponentPropsWithoutRef<'tr'>, 'children
     /**
      * Name of HTML element to render in the DOM for this component
      */
-    component?: 'string;'
+    component?: 'string;';
 
     /**
      * Whether the cell height should be increased to show more than 1 line

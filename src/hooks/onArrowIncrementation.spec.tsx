@@ -1,29 +1,31 @@
-import {useRef} from 'react';
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {onArrowIncrementation} from './onArrowIncrementation';
+import { useRef } from 'react';
 
-type TestInputProps = {readonly step?: number;
+import { onArrowIncrementation } from './onArrowIncrementation';
+
+type TestInputProps = { readonly step?: number;
     readonly defaultValue?: string;
     readonly isNegative?: boolean;
     readonly isDecimal?: boolean;
     readonly separator?: '.' | ',';
     readonly min?: number;
-    readonly max?: number;
-};
+    readonly max?: number; };
 
 describe('onArrowIncrementation', () => {
-    const TestInput = ({step = 1, defaultValue = '5', isNegative = false, min = 2, max = 10, separator = '.'}: TestInputProps) => {
+    const TestInput = ({
+        step = 1, defaultValue = '5', isNegative = false, min = 2, max = 10, separator = '.',
+    }: TestInputProps) => {
         const inputRef = useRef(null);
 
         return (
-            <input ref={inputRef} type="text" defaultValue={defaultValue} {...onArrowIncrementation({ref: inputRef, step: step, allowNegative: isNegative, min: min, max: max, separator: separator})}/>
+            <input defaultValue={defaultValue} ref={inputRef} type="text" {...onArrowIncrementation({ ref: inputRef, step: step, allowNegative: isNegative, min: min, max: max, separator: separator })}/>
         );
     };
 
     it('should return if ref is undefined', async () => {
         const user = userEvent.setup();
-        render(<input ref={null} type="text" defaultValue="5" {...onArrowIncrementation({ref: null, step: 1, allowNegative: true, min: null, max: null})}/>);
+        render(<input defaultValue="5" ref={null} type="text" {...onArrowIncrementation({ ref: null, step: 1, allowNegative: true, min: null, max: null })}/>);
 
         await user.keyboard('[Tab]');
         await user.keyboard('[ArrowDown]');
@@ -122,7 +124,7 @@ describe('onArrowIncrementation', () => {
 
     it('should not go under 0 if allowNegative is false', async () => {
         const user = userEvent.setup();
-        render(<TestInput min={undefined} defaultValue="0"/>);
+        render(<TestInput defaultValue="0" min={undefined}/>);
 
         await user.keyboard('[Tab]');
         await user.keyboard('[ArrowDown]');
@@ -131,7 +133,7 @@ describe('onArrowIncrementation', () => {
 
     it('should go under 0 if allowNegative is true', async () => {
         const user = userEvent.setup();
-        render(<TestInput isNegative min={null} defaultValue="0"/>);
+        render(<TestInput isNegative defaultValue="0" min={null}/>);
 
         await user.keyboard('[Tab]');
         await user.keyboard('[ArrowDown]');

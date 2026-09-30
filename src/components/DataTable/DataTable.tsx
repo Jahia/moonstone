@@ -1,30 +1,32 @@
 import {
-    useReactTable,
     getCoreRowModel,
     getExpandedRowModel,
+    getPaginationRowModel,
     getSortedRowModel,
-    getPaginationRowModel
+    useReactTable,
 } from '@tanstack/react-table';
-import {toNodeArray} from '~/utils/helpers';
-import type {ExpandedState, Row} from '@tanstack/react-table';
-import React, {useState, useEffect, useMemo, useCallback} from 'react';
-import {useCustomCells, usePagination, useSelection, useSorting} from './hooks';
-import type {DataTableProps, RenderOptions} from './DataTable.types';
-import {createTableColumns} from './shared';
-import {renderCell, renderHeadCell} from './utils';
-import {Checkbox} from '~/components';
-import {Pagination} from '~/components/Pagination';
+import React, { useCallback, useMemo } from 'react';
+
+import { useCustomCells, useExpansion, usePagination, useSelection, useSorting } from './hooks';
+import { createTableColumns } from './shared';
+import { renderCell, renderHeadCell } from './utils';
+import { Checkbox } from '~/components';
 import {
     Table,
-    TableRow,
     TableBody,
-    TableHead,
     TableCell,
-    TableHeadCell
+    TableHead,
+    TableHeadCell,
+    TableRow,
 } from '~/components/DataTable';
+import { Pagination } from '~/components/Pagination';
+import { toNodeArray } from '~/utils/helpers';
+
+import type { DataTableProps, RenderOptions } from './DataTable.types';
+import type { Row } from '@tanstack/react-table';
 
 // Styles for custom column headers (no padding to match measured cell widths)
-const CUSTOM_HEADER_STYLE = {padding: 0};
+const CUSTOM_HEADER_STYLE = { padding: 0 };
 
 export const DataTable = <T extends NonNullable<unknown>>({
     className,
@@ -42,6 +44,9 @@ export const DataTable = <T extends NonNullable<unknown>>({
     defaultSortBy,
     defaultSortDirection = 'ascending',
     defaultSelection = [],
+    expandedRows,
+    defaultExpandedRows,
+    onExpandChange,
     renderRow,
     onClickTableHeadCell,
     selectionCellProps,
@@ -60,41 +65,46 @@ export const DataTable = <T extends NonNullable<unknown>>({
     rowProps,
     ...props
 }: DataTableProps<T>) => {
-    const [expanded, setExpanded] = useState<ExpandedState>({});
+    const { expanded, handleExpandedChange } = useExpansion({
+        expandedRows,
+        defaultExpandedRows: defaultExpandedRows ?? (isStructured ? true : undefined),
+        onExpandChange,
+    });
+
     const {
         customBeforeCount,
         customAfterCount,
         customHeaderWidths,
         registerCustomCellCounts,
-        withCustomCellObserver
+        withCustomCellObserver,
     } = useCustomCells({
         data,
         primaryKey,
-        renderRow
+        renderRow,
     });
 
-    const {sorting, handleSortingChange} = useSorting<T>({
+    const { sorting, isSortingControlled, handleSortingChange } = useSorting<T>({
         sortBy,
         sortDirection,
         defaultSortBy,
         defaultSortDirection,
-        onSortChange
+        onSortChange,
     });
 
-    const {rowSelection, handleRowSelectionChange} = useSelection({
+    const { rowSelection, handleRowSelectionChange } = useSelection({
         selection,
         defaultSelection,
-        onChangeSelection
+        onChangeSelection,
     });
 
-    const {pagination, isPaginationControlled, handlePaginationChange} = usePagination({
+    const { pagination, isPaginationControlled, handlePaginationChange } = usePagination({
         currentPage,
         itemsPerPage,
         defaultCurrentPage,
         defaultItemsPerPage,
         onPageChange,
         onItemsPerPageChange,
-        totalItems
+        totalItems,
     });
 
     const tableColumns = useMemo(() => createTableColumns(columns), [columns]);
@@ -106,15 +116,18 @@ export const DataTable = <T extends NonNullable<unknown>>({
             expanded,
             rowSelection,
             sorting,
-            ...(enablePagination && {pagination})
+            ...(enablePagination && { pagination }),
         },
         onSortingChange: handleSortingChange,
-        onExpandedChange: setExpanded,
+        onExpandedChange: handleExpandedChange,
         onRowSelectionChange: handleRowSelectionChange,
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,
+        manualSorting: isSortingControlled,
         getExpandedRowModel: getExpandedRowModel(),
         getPaginationRowModel: enablePagination ? getPaginationRowModel() : undefined,
+        manualPagination: isPaginationControlled,
+        rowCount: isPaginationControlled ? totalItems : undefined,
         // Enables hierarchical/structured table rendering by allowing TanStack to access nested subRows
         getSubRows: (row: T) => (row as T & { subRows?: T[] }).subRows,
         onPaginationChange: enablePagination ? handlePaginationChange : undefined,
@@ -122,14 +135,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
         // UX decision: Toggle between asc/desc only, no unsorted state to prevent user confusion
         enableSortingRemoval: false,
         enableRowSelection: enableSelection,
-        getRowId: (row: T) => String(row[primaryKey])
+        getRowId: (row: T) => String(row[primaryKey]),
     });
-
-    useEffect(() => {
-        if (isStructured && data.length > 0) {
-            table.toggleAllRowsExpanded(true);
-        }
-    }, [data, isStructured, table]);
 
     const renderRowContent = useCallback(
         (row: Row<T>, options?: RenderOptions) => {
@@ -153,7 +160,10 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             />
                         </TableCell>
                     )}
-                    {renderCell({row, isStructured})}
+                    {renderCell({
+                        row,
+                        isStructured,
+                    })}
 
                     {afterCells.map((cell, i) => (
                         <React.Fragment key={(cell as React.ReactElement).key}>
@@ -163,28 +173,41 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 </>
             );
         },
-        [enableSelection, isStructured, registerCustomCellCounts, selectionCellProps, withCustomCellObserver]
+        [enableSelection, isStructured, registerCustomCellCounts, selectionCellProps, withCustomCellObserver],
     );
 
     const renderRowWithCustomization = useCallback(
         (row: Row<T>) => {
             const render = (options?: RenderOptions) => renderRowContent(row, options);
 
+            const rowContext = {
+                id: row.id,
+                data: row.original,
+                meta: {
+                    index: row.index,
+                    isSelected: row.getIsSelected(),
+                    isExpanded: row.getIsExpanded(),
+                },
+            };
+
             if (renderRow) {
-                return renderRow(row, render);
+                return renderRow({
+                    ...rowContext,
+                    render,
+                });
             }
 
             return (
                 <TableRow
-                    key={row.id}
                     aria-selected={row.getIsSelected() || undefined}
-                    {...rowProps}
+                    key={row.id}
+                    {...(typeof rowProps === 'function' ? rowProps(rowContext) : rowProps)}
                 >
                     {render()}
                 </TableRow>
             );
         },
-        [renderRow, renderRowContent, rowProps]
+        [renderRow, renderRowContent, rowProps],
     );
 
     if (!data || !Array.isArray(data) || data.length === 0) {
@@ -198,11 +221,11 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     {table.getHeaderGroups().map(headerGroup => (
                         <TableRow key={headerGroup.id} type="head">
                             {/* Custom "before" column headers */}
-                            {Array.from({length: customBeforeCount}, (_, i) => (
+                            {Array.from({ length: customBeforeCount }, (_, i) => (
                                 <TableHeadCell
                                     key={`custom-before-header-${i}`}
-                                    width={customHeaderWidths.before[i]}
                                     style={CUSTOM_HEADER_STYLE}
+                                    width={customHeaderWidths.before[i]}
                                 />
                             ))}
 
@@ -222,15 +245,15 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                 headerGroup,
                                 enableSorting,
                                 isStructured,
-                                onClickTableHeadCell
+                                onClickTableHeadCell,
                             })}
 
                             {/* Custom "after" column headers */}
-                            {Array.from({length: customAfterCount}, (_, i) => (
+                            {Array.from({ length: customAfterCount }, (_, i) => (
                                 <TableHeadCell
                                     key={`custom-after-header-${i}`}
-                                    width={customHeaderWidths.after[i]}
                                     style={CUSTOM_HEADER_STYLE}
+                                    width={customHeaderWidths.after[i]}
                                 />
                             ))}
                         </TableRow>
@@ -243,16 +266,16 @@ export const DataTable = <T extends NonNullable<unknown>>({
             {enablePagination && (
                 <Pagination
                     currentPage={table.getState().pagination.pageIndex + 1}
-                    totalOfItems={
-                        isPaginationControlled && totalItems !== undefined ?
-                            totalItems :
-                            table.getPrePaginationRowModel().rows.length
-                    }
+                    i18n={i18n}
                     itemsPerPage={table.getState().pagination.pageSize}
                     itemsPerPageOptions={itemsPerPageOptions}
-                    i18n={i18n}
-                    onPageChange={(page: number) => table.setPageIndex(page - 1)}
+                    totalOfItems={
+                        isPaginationControlled && totalItems !== undefined
+                            ? totalItems
+                            : table.getPrePaginationRowModel().rows.length
+                    }
                     onItemsPerPageChange={(size: number) => table.setPageSize(size)}
+                    onPageChange={(page: number) => table.setPageIndex(page - 1)}
                     {...paginationProps}
                 />
             )}

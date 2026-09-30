@@ -1,5 +1,6 @@
 import React from 'react';
-import type {TreeViewData} from '~/components/TreeView/TreeView.types';
+
+import type { TreeViewData } from '~/components/TreeView/TreeView.types';
 
 type DropdownVariant = 'ghost' | 'outlined';
 
@@ -17,15 +18,15 @@ export type DropdownDataOption = {
     attributes?: React.HTMLAttributes<HTMLElement>;
     image?: React.ReactElement;
     imageSize?: DropdownImageSize;
-}
+};
 
 export type DropdownDataGrouped = {
     groupLabel: string;
     options: DropdownDataOption[];
-}
+};
 
 export type DropdownData = DropdownDataOption[] | DropdownDataGrouped[];
-export type DropdownDataTree = TreeViewData[]
+export type DropdownDataTree = TreeViewData[];
 
 export type HandleSelect = (e: React.MouseEvent | React.KeyboardEvent, item?: DropdownDataOption) => void;
 
@@ -117,7 +118,7 @@ export type BaseDropdownProps = {
      */
     onBlur?: React.FocusEventHandler;
 
- /**
+    /**
      * Function trigger on change with the current option as param
      * @param {object} event - Mouse event
      * @param {object} item - The current item selected
@@ -138,7 +139,7 @@ type WithDataProps = {
      * Not allowed when using regular data
      */
     treeData?: never;
-}
+};
 
 /**
  * Props when using tree data
@@ -153,7 +154,7 @@ type WithTreeDataProps = {
      * Content of the dropdown, if tree
      */
     treeData: DropdownDataTree;
-}
+};
 
 /**
  * Props for single value dropdown
@@ -193,6 +194,6 @@ type MultipleValuesProps = {
  * Using both will result in a TypeScript error
  */
 export type DropdownProps = BaseDropdownProps & (
-     (SingleValueProps | MultipleValuesProps) &
-     (WithTreeDataProps | WithDataProps)
+     (SingleValueProps | MultipleValuesProps)
+     & (WithTreeDataProps | WithDataProps)
 );

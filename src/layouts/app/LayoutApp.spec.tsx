@@ -1,5 +1,6 @@
-import {render, screen} from '@testing-library/react';
-import {LayoutApp} from './index';
+import { render, screen } from '@testing-library/react';
+
+import { LayoutApp } from './index';
 
 describe('LayoutApp', () => {
     it('should display navigation', () => {
@@ -13,4 +14,3 @@ describe('LayoutApp', () => {
         expect(screen.queryByText('my content')).not.toBeInTheDocument();
     });
 });
-

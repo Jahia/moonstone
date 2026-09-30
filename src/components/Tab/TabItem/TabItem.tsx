@@ -1,9 +1,12 @@
-import React, {useRef} from 'react';
 import clsx from 'clsx';
-import type {TabItemProps} from './TabItem.types';
-import {Typography} from '~/components';
-import {onArrowNavigation} from '~/hooks';
-import {layout} from '~/globals/css-utils.js';
+import React, { useRef } from 'react';
+
+import { Typography } from '~/components';
+import { layout } from '~/globals/css-utils.js';
+import { onArrowNavigation } from '~/hooks';
+
+import type { TabItemProps } from './TabItem.types';
+
 import styles from './TabItem.module.scss';
 
 export const TabItem: React.FC<TabItemProps> = ({
@@ -23,7 +26,7 @@ export const TabItem: React.FC<TabItemProps> = ({
         React.createElement(
             component,
             {
-                className: clsx(
+                'className': clsx(
                     ['moonstone-tabItem', styles['moonstone-tabItem']],
                     [`moonstone-tabItem_${size}`, styles[`moonstone-tabItem_${size}`]],
                     !label && ['moonstone-tabItem_noLabel', styles['moonstone-tabItem_noLabel']],
@@ -32,32 +35,35 @@ export const TabItem: React.FC<TabItemProps> = ({
                     isDisabled && ['moonstone-disabled'],
                     ['flexRow_center', layout.flexRow_center],
                     ['alignCenter', layout.alignCenter],
-                    className
+                    className,
                 ),
-                ref: ref,
-                role: 'tab',
+                'ref': ref,
+                'role': 'tab',
                 'aria-selected': isSelected,
-                disabled: isDisabled,
+                'disabled': isDisabled,
                 onClick,
-                ...onArrowNavigation({ref: ref, direction: 'horizontal'}),
-                ...props
+                ...onArrowNavigation({
+                    ref: ref,
+                    direction: 'horizontal',
+                }),
+                ...props,
             },
             (
                 <>
                     {icon && <icon.type {...icon.props} className={clsx('moonstone-tabItem_icon', styles['moonstone-tabItem_icon'], icon.props.className)} size={(size === 'big') ? 'default' : size}/>}
 
                     {label && (
-                    <Typography
-                        isNowrap
-                        component="span"
-                        variant={size === 'big' ? 'heading' : 'button'}
-                        weight={size === 'big' ? 'semiBold' : 'default'}
-                    >
-                        {label}
-                    </Typography>
+                        <Typography
+                            isNowrap
+                            component="span"
+                            variant={size === 'big' ? 'heading' : 'button'}
+                            weight={size === 'big' ? 'semiBold' : 'default'}
+                        >
+                            {label}
+                        </Typography>
                     )}
                 </>
-            )
+            ),
         ));
 };
 

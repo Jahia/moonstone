@@ -1,9 +1,11 @@
-import React from 'react';
 import clsx from 'clsx';
+import React from 'react';
 
-import type {IconTextIconProps} from './IconTextIcon.types';
-import {Typography} from '~/components';
-import {icons, layout} from '~/globals/css-utils.js';
+import { Typography } from '~/components';
+import { icons, layout } from '~/globals/css-utils.js';
+
+import type { IconTextIconProps } from './IconTextIcon.types';
+
 import styles from './IconTextIcon.module.scss';
 
 export const IconTextIcon = <C extends React.ElementType = 'div'> ({
@@ -15,7 +17,7 @@ export const IconTextIcon = <C extends React.ElementType = 'div'> ({
     className,
     children,
     ...props
-}:IconTextIconProps<C>) => {
+}: IconTextIconProps<C>) => {
     const Component = component || 'div';
 
     return (
@@ -24,7 +26,7 @@ export const IconTextIcon = <C extends React.ElementType = 'div'> ({
                 ['moonstone-IconTextIcon', styles['moonstone-IconTextIcon']],
                 ['flexRow_nowrap', layout.flexRow_nowrap],
                 ['alignCenter', layout.alignCenter],
-                className
+                className,
             )}
             {...props}
         >
@@ -32,15 +34,15 @@ export const IconTextIcon = <C extends React.ElementType = 'div'> ({
                 {iconStart && (
                     <iconStart.type
                         {...iconStart.props}
-                        size={iconSize}
                         className={clsx(`moonstone-icon_${iconSize}`, icons[`moonstone-icon_${iconSize}`], iconStart.props.className)}
+                        size={iconSize}
                     />
                 )}
 
                 <Typography
                     isNowrap
-                    component="span"
                     className={clsx('flexFluid', layout.flexFluid, typographyProps?.className)}
+                    component="span"
                     {...typographyProps}
                 >
                     {children}
@@ -49,8 +51,8 @@ export const IconTextIcon = <C extends React.ElementType = 'div'> ({
                 {iconEnd && (
                     <iconEnd.type
                         {...iconEnd.props}
-                        size={iconSize}
                         className={clsx(`moonstone-icon_${iconSize}`, icons[`moonstone-icon_${iconSize}`], iconEnd.props.className)}
+                        size={iconSize}
                     />
                 )}
             </>

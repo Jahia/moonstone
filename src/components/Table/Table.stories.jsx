@@ -4,39 +4,40 @@
     these issues should be resolved.
 */
 
-import React, {useEffect, useState} from 'react';
-import {useExpanded, useRowSelect, useSortBy, useTable} from 'react-table';
-import '~/__storybook__/storybook.scss';
+import React, { useEffect, useState } from 'react';
+import { useExpanded, useRowSelect, useSortBy, useTable } from 'react-table';
 
+import markdownNotes from './Table.md?raw';
 import {
+    Button,
     Checkbox,
     IconTextIcon,
     SortIndicator,
     Table,
-    TableHead,
-    TableHeadCell,
-    TableRow,
     TableBody,
     TableBodyCell,
+    TableHead,
+    TableHeadCell,
     TablePagination,
-    Button
+    TableRow,
 } from '~/components';
 import {
     tableDataFlat,
     tableDataNested,
-    tablePaginationDataFlat
+    tablePaginationDataFlat,
 } from '~/data';
-import {Edit, Love, Visibility} from '~/icons';
-import markdownNotes from './Table.md?raw';
+import { Edit, Love, Visibility } from '~/icons';
+
+import '~/__storybook__/storybook.scss';
 
 export default {
     title: 'Components/Table',
     component: Table,
     parameters: {
-        controls: {disable: true},
-        actions: {argTypesRegex: '^on.*'},
-        notes: {markdown: markdownNotes}
-    }
+        controls: { disable: true },
+        actions: { argTypesRegex: '^on.*' },
+        notes: { markdown: markdownNotes },
+    },
 };
 
 const columnsWidth = {
@@ -44,7 +45,7 @@ const columnsWidth = {
     status: '120px',
     type: '120px',
     createdBy: '120px',
-    lastModifiedOn: '160px'
+    lastModifiedOn: '160px',
 };
 
 export const Basic = () => (
@@ -63,8 +64,8 @@ export const Basic = () => (
                 <TableBodyCell>cell 2</TableBodyCell>
                 <TableBodyCell>cell 3</TableBodyCell>
                 <TableBodyCell>
-                    <Button variant="ghost" icon={<Edit/>}/>
-                    <Button variant="ghost" icon={<Visibility/>}/>
+                    <Button icon={<Edit/>} variant="ghost"/>
+                    <Button icon={<Visibility/>} variant="ghost"/>
                 </TableBodyCell>
             </TableRow>
             <TableRow>
@@ -72,8 +73,8 @@ export const Basic = () => (
                 <TableBodyCell>cell 5</TableBodyCell>
                 <TableBodyCell>cell 6</TableBodyCell>
                 <TableBodyCell>
-                    <Button variant="ghost" icon={<Edit/>}/>
-                    <Button variant="ghost" icon={<Visibility/>}/>
+                    <Button icon={<Edit/>} variant="ghost"/>
+                    <Button icon={<Visibility/>} variant="ghost"/>
                 </TableBodyCell>
             </TableRow>
             <TableRow>
@@ -81,8 +82,8 @@ export const Basic = () => (
                 <TableBodyCell>cell 8</TableBodyCell>
                 <TableBodyCell>cell 9</TableBodyCell>
                 <TableBodyCell>
-                    <Button variant="ghost" icon={<Edit/>}/>
-                    <Button variant="ghost" icon={<Visibility/>}/>
+                    <Button icon={<Edit/>} variant="ghost"/>
+                    <Button icon={<Visibility/>} variant="ghost"/>
                 </TableBodyCell>
             </TableRow>
         </TableBody>
@@ -98,51 +99,53 @@ export const BasicReactTable = {
                     Header: 'Name',
                     id: 'name',
                     accessor: row => row.name.value,
-                    Cell: cellInfo => {
-                        const {row} = cellInfo;
+                    Cell: (cellInfo) => {
+                        const { row } = cellInfo;
                         return (
                             <IconTextIcon iconStart={row.original.name.icon}>
                                 {row.values.name}
                             </IconTextIcon>
                         );
-                    }
+                    },
                 },
                 {
                     Header: 'Status',
                     accessor: 'status',
-                    customWidth: columnsWidth.status
+                    customWidth: columnsWidth.status,
                 },
                 {
                     Header: 'Type',
                     accessor: 'type',
-                    customWidth: columnsWidth.type
+                    customWidth: columnsWidth.type,
                 },
                 {
                     Header: 'Created By',
                     accessor: 'createdBy',
-                    customWidth: columnsWidth.createdBy
+                    customWidth: columnsWidth.createdBy,
                 },
                 {
                     Header: 'Last Modified On',
                     accessor: 'lastModifiedOn',
-                    customWidth: columnsWidth.lastModifiedOn
-                }
+                    customWidth: columnsWidth.lastModifiedOn,
+                },
             ],
-            []
+            [],
         );
 
-        const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow} = useTable({data, columns});
+        const {
+            getTableProps, getTableBodyProps, headerGroups, rows, prepareRow,
+        } = useTable({ data, columns });
 
         return (
             <Table {...getTableProps()}>
                 <TableHead>
+                    {/* oxlint-disable-next-line react/jsx-key */}
                     {headerGroups.map(headerGroup => (
                         // A key is included in headerGroup.getHeaderGroupProps
-                        // eslint-disable-next-line react/jsx-key
                         <TableRow {...headerGroup.getHeaderGroupProps()}>
+                            {/* oxlint-disable-next-line react/jsx-key */}
                             {headerGroup.headers.map(column => (
                                 // A key is included in column.getHeaderProps
-                                // eslint-disable-next-line react/jsx-key
                                 <TableHeadCell
                                     {...column.getHeaderProps()}
                                     width={column.customWidth}
@@ -154,15 +157,15 @@ export const BasicReactTable = {
                     ))}
                 </TableHead>
                 <TableBody {...getTableBodyProps()}>
-                    {rows.map(row => {
+                    {/* oxlint-disable-next-line react/jsx-key */}
+                    {rows.map((row) => {
                         prepareRow(row);
                         return (
                             // A key is included in row.getRowProps
-                            // eslint-disable-next-line react/jsx-key
                             <TableRow {...row.getRowProps()}>
+                                {/* oxlint-disable-next-line react/jsx-key */}
                                 {row.cells.map(cell => (
                                     // A key is included in cell.getCellProps
-                                    // eslint-disable-next-line react/jsx-key
                                     <TableBodyCell
                                         {...cell.getCellProps()}
                                         width={cell.column.customWidth}
@@ -178,7 +181,7 @@ export const BasicReactTable = {
         );
     },
 
-    name: 'Basic Table with React-Table'
+    name: 'Basic Table with React-Table',
 };
 
 export const SelectableRows = {
@@ -194,43 +197,43 @@ export const SelectableRows = {
                     Cell: cellInfo => (
                         <Checkbox {...cellInfo.row.getToggleRowSelectedProps()}/>
                     ),
-                    customWidth: columnsWidth.selection
+                    customWidth: columnsWidth.selection,
                 },
                 {
                     Header: 'Name',
                     id: 'name',
                     accessor: row => row.name.value,
-                    Cell: cellInfo => {
-                        const {row} = cellInfo;
+                    Cell: (cellInfo) => {
+                        const { row } = cellInfo;
                         return (
                             <IconTextIcon iconStart={row.original.name.icon}>
                                 {row.values.name}
                             </IconTextIcon>
                         );
-                    }
+                    },
                 },
                 {
                     Header: 'Status',
                     accessor: 'status',
-                    customWidth: columnsWidth.status
+                    customWidth: columnsWidth.status,
                 },
                 {
                     Header: 'Type',
                     accessor: 'type',
-                    customWidth: columnsWidth.type
+                    customWidth: columnsWidth.type,
                 },
                 {
                     Header: 'Created By',
                     accessor: 'createdBy',
-                    customWidth: columnsWidth.createdBy
+                    customWidth: columnsWidth.createdBy,
                 },
                 {
                     Header: 'Last Modified On',
                     accessor: 'lastModifiedOn',
-                    customWidth: columnsWidth.lastModifiedOn
-                }
+                    customWidth: columnsWidth.lastModifiedOn,
+                },
             ],
-            []
+            [],
         );
 
         const {
@@ -238,25 +241,25 @@ export const SelectableRows = {
             getTableBodyProps,
             headerGroups,
             rows,
-            prepareRow
+            prepareRow,
         } = useTable(
             {
                 data,
-                columns
+                columns,
             },
-            useRowSelect
+            useRowSelect,
         );
 
         return (
             <Table {...getTableProps()}>
                 <TableHead>
+                    {/* oxlint-disable-next-line react/jsx-key */}
                     {headerGroups.map(headerGroup => (
                         // A key is included in headerGroup.getHeaderGroupProps
-                        // eslint-disable-next-line react/jsx-key
                         <TableRow {...headerGroup.getHeaderGroupProps()}>
+                            {/* oxlint-disable-next-line react/jsx-key */}
                             {headerGroup.headers.map(column => (
                                 // A key is included in column.getHeaderProps
-                                // eslint-disable-next-line react/jsx-key
                                 <TableHeadCell
                                     {...column.getHeaderProps()}
                                     width={column.customWidth}
@@ -268,19 +271,19 @@ export const SelectableRows = {
                     ))}
                 </TableHead>
                 <TableBody {...getTableBodyProps()}>
+                    {/* oxlint-disable-next-line react/jsx-key */}
                     {rows.map((row, id) => {
                         prepareRow(row);
                         return (
                             // A key is included in row.getRowProps
-                            // eslint-disable-next-line react/jsx-key
                             <TableRow
-                                isSelected={row.isSelected}
                                 isHighlighted={id === 1}
+                                isSelected={row.isSelected}
                                 {...row.getRowProps()}
                             >
+                                {/* oxlint-disable-next-line react/jsx-key */}
                                 {row.cells.map(cell => (
                                     // A key is included in cell.getCellProps
-                                    // eslint-disable-next-line react/jsx-key
                                     <TableBodyCell
                                         {...cell.getCellProps()}
                                         width={cell.column.customWidth}
@@ -296,7 +299,7 @@ export const SelectableRows = {
         );
     },
 
-    name: 'Selectable Rows with React-Table'
+    name: 'Selectable Rows with React-Table',
 };
 
 export const SortingByColumn = {
@@ -308,50 +311,53 @@ export const SortingByColumn = {
                     Header: 'Name',
                     id: 'name',
                     accessor: row => row.name.value,
-                    Cell: cellInfo => {
-                        const {row} = cellInfo;
+                    Cell: (cellInfo) => {
+                        const { row } = cellInfo;
                         return (
                             <IconTextIcon iconStart={row.original.name.icon}>
                                 {row.values.name}
                             </IconTextIcon>
                         );
-                    }
+                    },
                 },
                 {
                     Header: 'Status',
                     accessor: 'status',
                     disableSortBy: true,
-                    customWidth: columnsWidth.status
+                    customWidth: columnsWidth.status,
                 },
                 {
                     Header: 'Type',
                     accessor: 'type',
-                    customWidth: columnsWidth.type},
+                    customWidth: columnsWidth.type,
+                },
                 {
                     Header: 'Created By',
                     accessor: 'createdBy',
-                    customWidth: columnsWidth.createdBy
+                    customWidth: columnsWidth.createdBy,
                 },
                 {
                     Header: 'Last Modified On',
                     accessor: 'lastModifiedOn',
-                    customWidth: columnsWidth.lastModifiedOn
-                }
+                    customWidth: columnsWidth.lastModifiedOn,
+                },
             ],
-            []
+            [],
         );
 
-        const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow} =
-            useTable(
+        const {
+            getTableProps, getTableBodyProps, headerGroups, rows, prepareRow,
+        }
+            = useTable(
                 {
                     data,
                     columns,
                     initialState: {
-                        sortBy: [{id: 'lastModifiedOn', desc: true}]
+                        sortBy: [{ id: 'lastModifiedOn', desc: true }],
                     },
-                    disableSortRemove: true
+                    disableSortRemove: true,
                 },
-                useSortBy
+                useSortBy,
             );
 
         const renderSortIndicator = (isSorted, isSortedDesc) => {
@@ -362,18 +368,18 @@ export const SortingByColumn = {
         return (
             <Table {...getTableProps()}>
                 <TableHead>
+                    {/* oxlint-disable-next-line react/jsx-key */}
                     {headerGroups.map(headerGroup => (
                         // A key is included in headerGroup.getHeaderGroupProps
-                        // eslint-disable-next-line react/jsx-key
                         <TableRow {...headerGroup.getHeaderGroupProps()}>
+                            {/* oxlint-disable-next-line react/jsx-key */}
                             {headerGroup.headers.map(column => (
                                 // A key is included in column.getHeaderProps
-                                // eslint-disable-next-line react/jsx-key
                                 <TableHeadCell
                                     {...column.getHeaderProps(column.getSortByToggleProps())}
                                     iconEnd={
-                                        column.canSort &&
-                                        renderSortIndicator(column.isSorted, column.isSortedDesc)
+                                        column.canSort
+                                        && renderSortIndicator(column.isSorted, column.isSortedDesc)
                                     }
                                     width={column.customWidth}
                                 >
@@ -384,18 +390,18 @@ export const SortingByColumn = {
                     ))}
                 </TableHead>
                 <TableBody {...getTableBodyProps()}>
-                    {rows.map(row => {
+                    {/* oxlint-disable-next-line react/jsx-key */}
+                    {rows.map((row) => {
                         prepareRow(row);
                         return (
                             // A key is included in row.getRowProps
-                            // eslint-disable-next-line react/jsx-key
                             <TableRow
                                 {...row.getRowProps()}
                                 isHighlighted={row.values.name === 'Highlight Row'}
                             >
+                                {/* oxlint-disable-next-line react/jsx-key */}
                                 {row.cells.map(cell => (
                                     // A key is included in cell.getCellProps
-                                    // eslint-disable-next-line react/jsx-key
                                     <TableBodyCell
                                         {...cell.getCellProps()}
                                         width={cell.column.customWidth}
@@ -411,7 +417,7 @@ export const SortingByColumn = {
         );
     },
 
-    name: 'Sorting by Column with React-Table'
+    name: 'Sorting by Column with React-Table',
 };
 
 export const Pagination = {
@@ -422,9 +428,9 @@ export const Pagination = {
             () =>
                 tablePaginationDataFlat.slice(
                     (currentPage - 1) * rowsPerPage,
-                    Math.min(tablePaginationDataFlat.length, currentPage * rowsPerPage)
+                    Math.min(tablePaginationDataFlat.length, currentPage * rowsPerPage),
                 ),
-            [currentPage, rowsPerPage]
+            [currentPage, rowsPerPage],
         );
         const columns = React.useMemo(
             () => [
@@ -432,46 +438,49 @@ export const Pagination = {
                     Header: 'Name',
                     id: 'name',
                     accessor: row => row.name.value,
-                    Cell: cellInfo => {
-                        const {row} = cellInfo;
+                    Cell: (cellInfo) => {
+                        const { row } = cellInfo;
                         return (
                             <IconTextIcon iconStart={row.original.name.icon}>
                                 {row.values.name}
                             </IconTextIcon>
                         );
-                    }
+                    },
                 },
                 {
                     Header: 'Type',
                     accessor: 'type',
-                    customWidth: columnsWidth.type},
+                    customWidth: columnsWidth.type,
+                },
                 {
                     Header: 'Created By',
                     accessor: 'createdBy',
-                    customWidth: columnsWidth.createdBy
+                    customWidth: columnsWidth.createdBy,
                 },
                 {
                     Header: 'Last Modified On',
                     accessor: 'lastModifiedOn',
-                    customWidth: columnsWidth.lastModifiedOn
-                }
+                    customWidth: columnsWidth.lastModifiedOn,
+                },
             ],
-            []
+            [],
         );
 
-        const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow} = useTable({data, columns});
+        const {
+            getTableProps, getTableBodyProps, headerGroups, rows, prepareRow,
+        } = useTable({ data, columns });
 
         return (
             <>
                 <Table {...getTableProps()}>
                     <TableHead>
+                        {/* oxlint-disable-next-line react/jsx-key */}
                         {headerGroups.map(headerGroup => (
                             // A key is included in headerGroup.getHeaderGroupProps
-                            // eslint-disable-next-line react/jsx-key
                             <TableRow {...headerGroup.getHeaderGroupProps()}>
+                                {/* oxlint-disable-next-line react/jsx-key */}
                                 {headerGroup.headers.map(column => (
                                     // A key is included in column.getHeaderProps
-                                    // eslint-disable-next-line react/jsx-key
                                     <TableHeadCell
                                         {...column.getHeaderProps()}
                                         width={column.customWidth}
@@ -480,18 +489,18 @@ export const Pagination = {
                                     </TableHeadCell>
                                 ))}
                             </TableRow>
-                            ))}
+                        ))}
                     </TableHead>
                     <TableBody {...getTableBodyProps()}>
-                        {rows.map(row => {
+                        {/* oxlint-disable-next-line react/jsx-key */}
+                        {rows.map((row) => {
                             prepareRow(row);
                             return (
                                 // A key is included in row.getRowProps
-                                // eslint-disable-next-line react/jsx-key
                                 <TableRow {...row.getRowProps()}>
+                                    {/* oxlint-disable-next-line react/jsx-key */}
                                     {row.cells.map(cell => (
                                         // A key is included in cell.getCellProps
-                                        // eslint-disable-next-line react/jsx-key
                                         <TableBodyCell
                                             {...cell.getCellProps()}
                                             width={cell.column.customWidth}
@@ -506,17 +515,17 @@ export const Pagination = {
                 </Table>
                 <TablePagination
                     currentPage={currentPage}
-                    totalNumberOfRows={tablePaginationDataFlat.length}
                     rowsPerPage={rowsPerPage}
-                    onRowsPerPageChange={prevRowsPerPage =>
-                    setRowsPerPage(prevRowsPerPage)}
+                    totalNumberOfRows={tablePaginationDataFlat.length}
                     onPageChange={page => setCurrentPage(page)}
+                    onRowsPerPageChange={prevRowsPerPage =>
+                        setRowsPerPage(prevRowsPerPage)}
                 />
             </>
         );
     },
 
-    name: 'Pagination with React-Table'
+    name: 'Pagination with React-Table',
 };
 
 export const StructuredView = {
@@ -527,30 +536,30 @@ export const StructuredView = {
                 {
                     Header: 'Name',
                     id: 'name',
-                    accessor: row => row.name.value
+                    accessor: row => row.name.value,
                 },
                 {
                     Header: 'Status',
                     accessor: 'status',
-                    customWidth: columnsWidth.status
+                    customWidth: columnsWidth.status,
                 },
                 {
                     Header: 'Type',
                     accessor: 'type',
-                    customWidth: columnsWidth.type
+                    customWidth: columnsWidth.type,
                 },
                 {
                     Header: 'Created By',
                     accessor: 'createdBy',
-                    customWidth: columnsWidth.createdBy
+                    customWidth: columnsWidth.createdBy,
                 },
                 {
                     Header: 'Last Modified On',
                     accessor: 'lastModifiedOn',
-                    customWidth: columnsWidth.lastModifiedOn
-                }
+                    customWidth: columnsWidth.lastModifiedOn,
+                },
             ],
-            []
+            [],
         );
 
         const {
@@ -559,13 +568,13 @@ export const StructuredView = {
             headerGroups,
             rows,
             prepareRow,
-            toggleAllRowsExpanded
+            toggleAllRowsExpanded,
         } = useTable(
             {
                 data,
-                columns
+                columns,
             },
-            useExpanded
+            useExpanded,
         );
 
         useEffect(() => {
@@ -575,13 +584,13 @@ export const StructuredView = {
         return (
             <Table {...getTableProps()}>
                 <TableHead>
+                    {/* oxlint-disable-next-line react/jsx-key */}
                     {headerGroups.map(headerGroup => (
                         // A key is included in headerGroup.getHeaderGroupProps
-                        // eslint-disable-next-line react/jsx-key
                         <TableRow {...headerGroup.getHeaderGroupProps()}>
+                            {/* oxlint-disable-next-line react/jsx-key */}
                             {headerGroup.headers.map(column => (
                                 // A key is included in column.getHeaderProps
-                                // eslint-disable-next-line react/jsx-key
                                 <TableHeadCell
                                     {...column.getHeaderProps()}
                                     width={column.customWidth}
@@ -593,21 +602,22 @@ export const StructuredView = {
                     ))}
                 </TableHead>
                 <TableBody {...getTableBodyProps()}>
-                    {rows.map(row => {
+                    {/* oxlint-disable-next-line react/jsx-key */}
+                    {rows.map((row) => {
                         prepareRow(row);
                         return (
                             // A key is included in row.getRowProps
                             // eslint-disable-next-line react/jsx-key
                             <TableRow {...row.getRowProps()}>
+                                {/* oxlint-disable-next-line react/jsx-key */}
                                 {row.cells.map(cell => (
                                     // A key is included in cell.getCellProps
-                                    // eslint-disable-next-line react/jsx-key
                                     <TableBodyCell
                                         {...cell.getCellProps()}
-                                        row={row}
-                                        cell={cell}
                                         isExpandableColumn={cell.column.id === 'name'}
+                                        cell={cell}
                                         iconStart={row.original[cell.column.id]?.icon}
+                                        row={row}
                                         width={cell.column.customWidth}
                                     >
                                         {cell.render('Cell')}
@@ -621,7 +631,7 @@ export const StructuredView = {
         );
     },
 
-    name: 'Structured View with React-Table'
+    name: 'Structured View with React-Table',
 };
 
 export const StickyHeader = () => {
@@ -668,9 +678,9 @@ export const KitchenSinkFlat = {
             () =>
                 tablePaginationDataFlat.slice(
                     (currentPage - 1) * rowsPerPage,
-                    Math.min(tablePaginationDataFlat.length, currentPage * rowsPerPage)
+                    Math.min(tablePaginationDataFlat.length, currentPage * rowsPerPage),
                 ),
-            [currentPage, rowsPerPage]
+            [currentPage, rowsPerPage],
         );
         const columns = React.useMemo(
             () => [
@@ -682,52 +692,54 @@ export const KitchenSinkFlat = {
                     ),
                     Cell: cellInfo => (
                         <Checkbox {...cellInfo.row.getToggleRowSelectedProps()}/>
-                    )
+                    ),
                 },
                 {
                     Header: 'Name',
                     id: 'name',
-                    accessor: row => row.name.value
+                    accessor: row => row.name.value,
                 },
                 {
                     Header: 'Status',
                     accessor: 'status',
                     disableSortBy: true,
-                    customWidth: columnsWidth.status
+                    customWidth: columnsWidth.status,
                 },
                 {
                     Header: 'Type',
                     accessor: 'type',
-                    customWidth: columnsWidth.type
+                    customWidth: columnsWidth.type,
                 },
                 {
                     Header: 'Created By',
                     accessor: 'createdBy',
-                    customWidth: columnsWidth.createdBy
+                    customWidth: columnsWidth.createdBy,
                 },
                 {
                     Header: 'Last Modified On',
                     accessor: 'lastModifiedOn',
-                    customWidth: columnsWidth.lastModifiedOn
-                }
+                    customWidth: columnsWidth.lastModifiedOn,
+                },
             ],
-            []
+            [],
         );
 
-        const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow} =
-        useTable(
-            {
-                data,
-                columns,
-                initialState: {
-                    sortBy: [{id: 'lastModifiedOn', desc: true}]
+        const {
+            getTableProps, getTableBodyProps, headerGroups, rows, prepareRow,
+        }
+            = useTable(
+                {
+                    data,
+                    columns,
+                    initialState: {
+                        sortBy: [{ id: 'lastModifiedOn', desc: true }],
+                    },
+                    disableSortRemove: true,
                 },
-                disableSortRemove: true
-            },
-            useSortBy,
-            useRowSelect
+                useSortBy,
+                useRowSelect,
             // UseFlexLayout
-        );
+            );
 
         const renderSortIndicator = (isSorted, isSortedDesc) => {
             const direction = isSortedDesc ? 'descending' : 'ascending';
@@ -738,18 +750,18 @@ export const KitchenSinkFlat = {
             <>
                 <Table {...getTableProps()}>
                     <TableHead isSticky>
+                        {/* oxlint-disable-next-line react/jsx-key */}
                         {headerGroups.map(headerGroup => (
                             // A key is included in headerGroup.getHeaderGroupProps
-                            // eslint-disable-next-line react/jsx-key
                             <TableRow {...headerGroup.getHeaderGroupProps()}>
+                                {/* oxlint-disable-next-line react/jsx-key */}
                                 {headerGroup.headers.map(column => (
                                     // A key is included in column.getHeaderProps
-                                    // eslint-disable-next-line react/jsx-key
                                     <TableHeadCell
                                         {...column.getHeaderProps(column.getSortByToggleProps())}
                                         iconEnd={
-                                            column.canSort &&
-                                            renderSortIndicator(column.isSorted, column.isSortedDesc)
+                                            column.canSort
+                                            && renderSortIndicator(column.isSorted, column.isSortedDesc)
                                         }
                                         width={column.customWidth}
                                     >
@@ -760,19 +772,19 @@ export const KitchenSinkFlat = {
                         ))}
                     </TableHead>
                     <TableBody {...getTableBodyProps()}>
+                        {/* oxlint-disable-next-line react/jsx-key */}
                         {rows.map((row, id) => {
                             prepareRow(row);
                             return (
                                 // A key is included in row.getRowProps
-                                // eslint-disable-next-line react/jsx-key
                                 <TableRow
-                                    isSelected={row.isSelected}
                                     isHighlighted={id === 1}
+                                    isSelected={row.isSelected}
                                     {...row.getRowProps()}
                                 >
+                                    {/* oxlint-disable-next-line react/jsx-key */}
                                     {row.cells.map(cell => (
                                         // A key is included in cell.getCellProps
-                                        // eslint-disable-next-line react/jsx-key
                                         <TableBodyCell
                                             {...cell.getCellProps()}
                                             iconStart={row.original[cell.column.id]?.icon}
@@ -788,17 +800,17 @@ export const KitchenSinkFlat = {
                 </Table>
                 <TablePagination
                     currentPage={currentPage}
-                    totalNumberOfRows={tablePaginationDataFlat.length}
                     rowsPerPage={rowsPerPage}
-                    onRowsPerPageChange={prevRowsPerPage =>
-                    setRowsPerPage(prevRowsPerPage)}
+                    totalNumberOfRows={tablePaginationDataFlat.length}
                     onPageChange={page => setCurrentPage(page)}
+                    onRowsPerPageChange={prevRowsPerPage =>
+                        setRowsPerPage(prevRowsPerPage)}
                 />
             </>
         );
     },
 
-    name: 'All features except row expansion - flat data'
+    name: 'All features except row expansion - flat data',
 };
 
 export const KitchenSinkNested = {
@@ -814,36 +826,36 @@ export const KitchenSinkNested = {
                     ),
                     Cell: cellInfo => (
                         <Checkbox {...cellInfo.row.getToggleRowSelectedProps()}/>
-                    )
+                    ),
                 },
                 {
                     Header: 'Name',
                     id: 'name',
-                    accessor: row => row.name.value
+                    accessor: row => row.name.value,
                 },
                 {
                     Header: 'Status',
                     accessor: 'status',
                     disableSortBy: true,
-                    customWidth: columnsWidth.status
+                    customWidth: columnsWidth.status,
                 },
                 {
                     Header: 'Type',
                     accessor: 'type',
-                    customWidth: columnsWidth.type
+                    customWidth: columnsWidth.type,
                 },
                 {
                     Header: 'Created By',
                     accessor: 'createdBy',
-                    customWidth: columnsWidth.createdBy
+                    customWidth: columnsWidth.createdBy,
                 },
                 {
                     Header: 'Last Modified On',
                     accessor: 'lastModifiedOn',
-                    customWidth: columnsWidth.lastModifiedOn
-                }
+                    customWidth: columnsWidth.lastModifiedOn,
+                },
             ],
-            []
+            [],
         );
 
         const {
@@ -852,19 +864,19 @@ export const KitchenSinkNested = {
             headerGroups,
             rows,
             prepareRow,
-            toggleAllRowsExpanded
+            toggleAllRowsExpanded,
         } = useTable(
             {
                 data,
                 columns,
                 initialState: {
-                    sortBy: [{id: 'lastModifiedOn', desc: true}]
+                    sortBy: [{ id: 'lastModifiedOn', desc: true }],
                 },
-                disableSortRemove: true
+                disableSortRemove: true,
             },
             useSortBy,
             useExpanded,
-            useRowSelect
+            useRowSelect,
             // UseFlexLayout
         );
 
@@ -880,18 +892,18 @@ export const KitchenSinkNested = {
         return (
             <Table {...getTableProps()}>
                 <TableHead isSticky>
+                    {/* oxlint-disable-next-line react/jsx-key */}
                     {headerGroups.map(headerGroup => (
                         // A key is included in headerGroup.getHeaderGroupProps
-                        // eslint-disable-next-line react/jsx-key
                         <TableRow {...headerGroup.getHeaderGroupProps()}>
+                            {/* oxlint-disable-next-line react/jsx-key */}
                             {headerGroup.headers.map(column => (
                                 // A key is included in column.getHeaderProps
-                                // eslint-disable-next-line react/jsx-key
                                 <TableHeadCell
                                     {...column.getHeaderProps(column.getSortByToggleProps())}
                                     iconEnd={
-                                        column.canSort &&
-                                        renderSortIndicator(column.isSorted, column.isSortedDesc)
+                                        column.canSort
+                                        && renderSortIndicator(column.isSorted, column.isSortedDesc)
                                     }
                                     width={column.customWidth}
                                 >
@@ -902,25 +914,25 @@ export const KitchenSinkNested = {
                     ))}
                 </TableHead>
                 <TableBody {...getTableBodyProps()}>
+                    {/* oxlint-disable-next-line react/jsx-key */}
                     {rows.map((row, id) => {
                         prepareRow(row);
                         return (
                             // A key is included in row.getRowProps
-                            // eslint-disable-next-line react/jsx-key
                             <TableRow
-                                isSelected={row.isSelected}
                                 isHighlighted={id === 1}
+                                isSelected={row.isSelected}
                                 {...row.getRowProps()}
                             >
+                                {/* oxlint-disable-next-line react/jsx-key */}
                                 {row.cells.map(cell => (
                                     // A key is included in cell.getCellProps
-                                    // eslint-disable-next-line react/jsx-key
                                     <TableBodyCell
                                         {...cell.getCellProps()}
-                                        row={row}
-                                        cell={cell}
                                         isExpandableColumn={cell.column.id === 'name'}
+                                        cell={cell}
                                         iconStart={row.original[cell.column.id]?.icon}
+                                        row={row}
                                         width={cell.column.customWidth}
                                     >
                                         {cell.render('Cell')}
@@ -934,5 +946,5 @@ export const KitchenSinkNested = {
         );
     },
 
-    name: 'All features except pagination - nested data'
+    name: 'All features except pagination - nested data',
 };

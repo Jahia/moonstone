@@ -1,10 +1,11 @@
+import { render, screen } from '@testing-library/react';
 import React from 'react';
-import {render, screen} from '@testing-library/react';
-import {describe, it, expect} from 'vitest';
-import {TableCell} from './TableCell';
-import {layout} from '~/globals/css-utils.js';
+import { describe, expect, it } from 'vitest';
 
-const TableWrapper: React.FC<{ readonly children: React.ReactNode }> = ({children}) => (
+import { TableCell } from './TableCell';
+import { layout } from '~/globals/css-utils.js';
+
+const TableWrapper: React.FC<{ readonly children: React.ReactNode }> = ({ children }) => (
     <table>
         <tbody>
             <tr>{children}</tr>
@@ -17,7 +18,7 @@ describe('TableCell', () => {
         render(
             <TableWrapper>
                 <TableCell data-testid="cell">Cell Content</TableCell>
-            </TableWrapper>
+            </TableWrapper>,
         );
         expect(screen.getByText('Cell Content')).toBeInTheDocument();
         expect(screen.getByTestId('cell').tagName).toBe('TD');
@@ -26,8 +27,8 @@ describe('TableCell', () => {
     it('should render as `th` when component prop is set', () => {
         render(
             <TableWrapper>
-                <TableCell data-testid="cell" component="th">Header</TableCell>
-            </TableWrapper>
+                <TableCell component="th" data-testid="cell">Header</TableCell>
+            </TableWrapper>,
         );
         expect(screen.getByTestId('cell').tagName).toBe('TH');
     });
@@ -35,10 +36,10 @@ describe('TableCell', () => {
     it('should apply alignment classes', () => {
         render(
             <TableWrapper>
-                <TableCell data-testid="left" align="left">L</TableCell>
-                <TableCell data-testid="center" align="center">C</TableCell>
-                <TableCell data-testid="right" align="right">R</TableCell>
-            </TableWrapper>
+                <TableCell align="left" data-testid="left">L</TableCell>
+                <TableCell align="center" data-testid="center">C</TableCell>
+                <TableCell align="right" data-testid="right">R</TableCell>
+            </TableWrapper>,
         );
         expect(screen.getByTestId('left')).toHaveClass(layout.justifyStart);
         expect(screen.getByTestId('center')).toHaveClass(layout.justifyCenter);
@@ -49,8 +50,8 @@ describe('TableCell', () => {
         render(
             <TableWrapper>
                 <TableCell data-testid="cell" width="100px">W</TableCell>
-            </TableWrapper>
+            </TableWrapper>,
         );
-        expect(screen.getByTestId('cell')).toHaveStyle({width: '100px'});
+        expect(screen.getByTestId('cell')).toHaveStyle({ width: '100px' });
     });
 });

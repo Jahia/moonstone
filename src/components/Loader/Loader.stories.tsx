@@ -1,15 +1,16 @@
-import {Loader as LoaderCmp} from './index';
+import { Loader as LoaderCmp } from './index';
 
 export default {
     title: 'Components/Loader',
     component: LoaderCmp,
+    tags: ['dark-theme'],
     parameters: {
-        layout: 'centered'
-    }
+        layout: 'centered',
+    },
 };
 
 export const Loader = {
     args: {
-        size: 'small'
-    }
+        size: 'small',
+    },
 };

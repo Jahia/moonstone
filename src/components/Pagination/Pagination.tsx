@@ -1,22 +1,24 @@
-import React from 'react';
 import clsx from 'clsx';
+import React from 'react';
 
-import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
-import type {PaginationProps} from './Pagination.types';
-import {Button, Dropdown, Typography} from '~/components';
-import {ChevronFirstPage, ChevronLastPage, ChevronLeft, ChevronRight} from '~/icons';
-import {layout} from '~/globals/css-utils.js';
+import { Button, Dropdown, Typography } from '~/components';
+import { layout } from '~/globals/css-utils.js';
+import { ChevronFirstPage, ChevronLastPage, ChevronLeft, ChevronRight } from '~/icons';
+
+import type { PaginationProps } from './Pagination.types';
+import type { DropdownDataOption } from '~/components/Dropdown/Dropdown.types';
+
 import styles from './Pagination.module.scss';
 
 export const Pagination: React.FC<PaginationProps> = ({
     className,
     label = {
         itemsPerPage: 'Items',
-        of: 'of'
+        of: 'of',
     },
     i18n = {
         itemsPerPage: label.itemsPerPage,
-        of: label.of
+        of: label.of,
     },
     itemsPerPageOptions = [25, 50, 100],
     itemsPerPage = itemsPerPageOptions[0],
@@ -46,7 +48,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                 ['flexRow', layout.flexRow],
                 ['alignCenter', layout.alignCenter],
                 ['justifyEnd', layout.justifyEnd],
-                className
+                className,
             )}
             {...props}
         >
@@ -54,21 +56,21 @@ export const Pagination: React.FC<PaginationProps> = ({
                 className={clsx(
                     ['moonstone-pagination_navigation', styles['moonstone-pagination_navigation']],
                     ['flexRow', layout.flexRow],
-                    ['alignCenter', layout.alignCenter]
+                    ['alignCenter', layout.alignCenter],
                 )}
             >
                 <Button
+                    isDisabled={currentPage === 1}
+                    data-testid="pagination-button-first-page"
                     icon={<ChevronFirstPage/>}
                     variant="ghost"
-                    data-testid="pagination-button-first-page"
-                    isDisabled={currentPage === 1}
                     onClick={() => onPageChange(1)}
                 />
                 <Button
+                    isDisabled={currentPage === 1}
+                    data-testid="pagination-button-previous-page"
                     icon={<ChevronLeft/>}
                     variant="ghost"
-                    data-testid="pagination-button-previous-page"
-                    isDisabled={currentPage === 1}
                     onClick={() => onPageChange(currentPage - 1)}
                 />
             </div>
@@ -76,12 +78,12 @@ export const Pagination: React.FC<PaginationProps> = ({
                 className={clsx(
                     ['moonstone-pagination_info', styles['moonstone-pagination_info']],
                     ['flexRow', layout.flexRow],
-                    ['alignCenter', layout.alignCenter]
+                    ['alignCenter', layout.alignCenter],
                 )}
             >
                 <Typography
-                    variant="caption"
                     data-testid="pagination-total-items"
+                    variant="caption"
                 >
                     {`${visibleRangeStart}-${visibleRangeEnd} ${i18n.of} ${totalOfItems}`}
                 </Typography>
@@ -89,14 +91,17 @@ export const Pagination: React.FC<PaginationProps> = ({
                     className={clsx(
                         styles['moonstone-pagination_itemsPerPage'],
                         layout.flexRow,
-                        layout.alignCenter
+                        layout.alignCenter,
                     )}
                 >
                     <Typography variant="caption">{i18n.itemsPerPage}</Typography>
                     <Dropdown
-                        size="small"
+                        data={itemsPerPageOptions.map((opt: number) => ({
+                            label: opt.toString(),
+                            value: opt.toString(),
+                        }))}
                         data-testid="pagination-dropdown-items-per-page"
-                        data={itemsPerPageOptions.map((opt: number) => ({label: opt.toString(), value: opt.toString()}))}
+                        size="small"
                         value={itemsPerPage.toString()}
                         onChange={(event: React.MouseEvent, item: DropdownDataOption) => onItemsPerPageChange(parseInt(item.value, 10))}
                     />
@@ -106,21 +111,21 @@ export const Pagination: React.FC<PaginationProps> = ({
                 className={clsx(
                     ['moonstone-pagination_navigation', styles['moonstone-pagination_navigation']],
                     ['flexRow', layout.flexRow],
-                    ['alignCenter', layout.alignCenter]
+                    ['alignCenter', layout.alignCenter],
                 )}
             >
                 <Button
+                    isDisabled={lastPage === currentPage}
+                    data-testid="pagination-button-next-page"
                     icon={<ChevronRight/>}
                     variant="ghost"
-                    data-testid="pagination-button-next-page"
-                    isDisabled={lastPage === currentPage}
                     onClick={() => onPageChange(currentPage + 1)}
                 />
                 <Button
+                    isDisabled={lastPage === currentPage}
+                    data-testid="pagination-button-last-page"
                     icon={<ChevronLastPage/>}
                     variant="ghost"
-                    data-testid="pagination-button-last-page"
-                    isDisabled={lastPage === currentPage}
                     onClick={() => onPageChange(lastPage)}
                 />
             </div>

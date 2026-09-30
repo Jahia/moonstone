@@ -1,26 +1,26 @@
-import {useState} from 'react';
-import {StoryObj} from '@storybook/react-vite';
+import { useState } from 'react';
 
-import {Tab} from './index';
-import type {TabProps} from './Tab.types';
-
-import {TabItem} from './TabItem';
-import {Apps} from '~/icons';
+import { Tab } from './index';
 import markdownNotes from './Tab.md';
+import { TabItem } from './TabItem';
+import { Apps } from '~/icons';
+
+import type { TabProps } from './Tab.types';
+import type { StoryObj } from '@storybook/react-vite';
 
 export default {
     title: 'Components/Tab',
     component: Tab,
-    subcomponents: {TabItem},
+    subcomponents: { TabItem },
 
     parameters: {
         layout: 'centered',
-        notes: {markdown: markdownNotes}
-    }
+        notes: { markdown: markdownNotes },
+    },
 };
 
 export const _Tab: StoryObj<TabProps> = {
-    render: args => {
+    render: (args) => {
         const [selectedTabItemLabel, setSelectedTabItemLabel] = useState('Tab 1');
         const handleClick = (label: string) => {
             setSelectedTabItemLabel(label);
@@ -33,75 +33,75 @@ export const _Tab: StoryObj<TabProps> = {
                     icon={<Apps/>}
                     label="Tab 1"
                     onClick={() => {
-                      handleClick('Tab 1');
+                        handleClick('Tab 1');
                     }}
                 />
                 <TabItem
-                  isSelected={selectedTabItemLabel === 'Tab 2'}
-                  icon={<Apps/>}
-                  label="Tab 2"
-                  onClick={() => {
-                    handleClick('Tab 2');
-                  }}
+                    isSelected={selectedTabItemLabel === 'Tab 2'}
+                    icon={<Apps/>}
+                    label="Tab 2"
+                    onClick={() => {
+                        handleClick('Tab 2');
+                    }}
                 />
                 <TabItem
-                  isDisabled
-                  isSelected={selectedTabItemLabel === 'Tab 3'}
-                  icon={<Apps/>}
-                  label="Tab 3"
-                  onClick={() => {
-                    handleClick('Tab 3');
-                  }}
+                    isDisabled
+                    isSelected={selectedTabItemLabel === 'Tab 3'}
+                    icon={<Apps/>}
+                    label="Tab 3"
+                    onClick={() => {
+                        handleClick('Tab 3');
+                    }}
                 />
             </Tab>
         );
-    }
+    },
 };
 
 export const Reversed: StoryObj<TabProps> = {
-    render: args => {
+    render: (args) => {
         const [selectedTabItemLabel, setSelectedTabItemLabel] = useState('Tab 1');
         const handleClick = (label: string) => {
             setSelectedTabItemLabel(label);
         };
 
         return (
-            <Tab style={{backgroundColor: '#333', padding: '20px'}} {...args}>
+            <Tab style={{ backgroundColor: '#333', padding: '20px' }} {...args}>
                 <TabItem
-                  isReversed
-                  isSelected={selectedTabItemLabel === 'Tab 1'}
-                  icon={<Apps/>}
-                  label="Tab 1"
-                  onClick={() => {
-                    handleClick('Tab 1');
-                  }}
+                    isReversed
+                    isSelected={selectedTabItemLabel === 'Tab 1'}
+                    icon={<Apps/>}
+                    label="Tab 1"
+                    onClick={() => {
+                        handleClick('Tab 1');
+                    }}
                 />
                 <TabItem
-                  isReversed
-                  isSelected={selectedTabItemLabel === 'Tab 2'}
-                  icon={<Apps/>}
-                  label="Tab 2"
-                  onClick={() => {
-                    handleClick('Tab 2');
-                  }}
+                    isReversed
+                    isSelected={selectedTabItemLabel === 'Tab 2'}
+                    icon={<Apps/>}
+                    label="Tab 2"
+                    onClick={() => {
+                        handleClick('Tab 2');
+                    }}
                 />
                 <TabItem
-                  isReversed
-                  isDisabled
-                  isSelected={selectedTabItemLabel === 'Tab 3'}
-                  icon={<Apps/>}
-                  label="Tab 3"
-                  onClick={() => {
-                    handleClick('Tab 3');
-                  }}
+                    isDisabled
+                    isReversed
+                    isSelected={selectedTabItemLabel === 'Tab 3'}
+                    icon={<Apps/>}
+                    label="Tab 3"
+                    onClick={() => {
+                        handleClick('Tab 3');
+                    }}
                 />
             </Tab>
         );
-    }
+    },
 };
 
 export const SizeBig: StoryObj<TabProps> = {
-    render: args => {
+    render: (args) => {
         const [selectedTabItemLabel, setSelectedTabItemLabel] = useState('Tab 1');
         const handleClick = (label: string) => {
             setSelectedTabItemLabel(label);
@@ -110,34 +110,34 @@ export const SizeBig: StoryObj<TabProps> = {
         return (
             <Tab {...args}>
                 <TabItem
-                  isSelected={selectedTabItemLabel === 'Tab 1'}
-                  icon={<Apps/>}
-                  size="big"
-                  label="Tab 1"
-                  onClick={() => {
-                    handleClick('Tab 1');
-                  }}
+                    isSelected={selectedTabItemLabel === 'Tab 1'}
+                    icon={<Apps/>}
+                    label="Tab 1"
+                    size="big"
+                    onClick={() => {
+                        handleClick('Tab 1');
+                    }}
                 />
                 <TabItem
-                  isSelected={selectedTabItemLabel === 'Tab 2'}
-                  icon={<Apps/>}
-                  size="big"
-                  label="Tab 2"
-                  onClick={() => {
-                    handleClick('Tab 2');
-                  }}
+                    isSelected={selectedTabItemLabel === 'Tab 2'}
+                    icon={<Apps/>}
+                    label="Tab 2"
+                    size="big"
+                    onClick={() => {
+                        handleClick('Tab 2');
+                    }}
                 />
                 <TabItem
-                  isDisabled
-                  isSelected={selectedTabItemLabel === 'Tab 3'}
-                  icon={<Apps/>}
-                  size="big"
-                  label="Tab 3"
-                  onClick={() => {
-                    handleClick('Tab 3');
-                  }}
+                    isDisabled
+                    isSelected={selectedTabItemLabel === 'Tab 3'}
+                    icon={<Apps/>}
+                    label="Tab 3"
+                    size="big"
+                    onClick={() => {
+                        handleClick('Tab 3');
+                    }}
                 />
             </Tab>
         );
-    }
+    },
 };

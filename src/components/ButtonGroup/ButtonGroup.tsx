@@ -1,7 +1,10 @@
-import React from 'react';
 import clsx from 'clsx';
-import {ButtonGroupProps} from './ButtonGroup.types';
-import {layout} from '~/globals/css-utils.js';
+import React from 'react';
+
+import { layout } from '~/globals/css-utils.js';
+
+import type { ButtonGroupProps } from './ButtonGroup.types';
+
 import styles from './ButtonGroup.module.scss';
 
 export const ButtonGroup: React.FC<ButtonGroupProps> = ({
@@ -19,20 +22,20 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
 
     return (
         <div
-            role="group"
             className={clsx(
                 ['moonstone-buttonGroup', styles['moonstone-buttonGroup']],
                 className,
                 ['flexRow', layout.flexRow],
-                ['alignCenter', layout.alignCenter]
+                ['alignCenter', layout.alignCenter],
             )}
+            role="group"
             {...props}
-            data-variant={variant}
             data-color={color}
             data-size={size}
+            data-variant={variant}
         >
             {
-                React.Children.map(children, button => {
+                React.Children.map(children, (button) => {
                     if (!React.isValidElement(button)) {
                         return null;
                     }
@@ -40,10 +43,10 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
                     return (
                         <button.type
                             {...button.props}
-                            size={size}
-                            variant={variant}
                             isReversed={isReversed}
                             color={color}
+                            size={size}
+                            variant={variant}
                         />
                     );
                 })

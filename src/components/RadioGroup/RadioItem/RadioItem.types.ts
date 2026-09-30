@@ -45,4 +45,4 @@ export type RadioItemProps = Omit<React.ComponentPropsWithoutRef<'input'>, 'clas
      * Function triggered when the radio value loses focus
      */
     onBlur?: React.FocusEventHandler;
-}
+};

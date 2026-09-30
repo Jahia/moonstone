@@ -1,16 +1,17 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {Tag} from './Tag';
+
+import { Tag } from './Tag';
 
 const requiredProps = {
     label: 'label',
     value: 'test',
-    onClick: vi.fn()
+    onClick: vi.fn(),
 };
 
 describe('Tag', () => {
     it('should display additional className', () => {
-        render(<Tag {...requiredProps} data-testid="moonstone-paper" className="extra"/>);
+        render(<Tag {...requiredProps} className="extra" data-testid="moonstone-paper"/>);
         expect(screen.getByTestId('moonstone-paper')).toHaveClass('extra');
     });
 

@@ -1,15 +1,19 @@
-import React, {useState} from 'react';
-import type {UncontrolledSwitchProps} from './Switch.types';
-import {ControlledSwitch} from '~/components/Switch/ControlledSwitch';
+import React, { useState } from 'react';
 
-export const UncontrolledSwitch: React.FC<UncontrolledSwitchProps> = ({defaultChecked = false, onChange, value, ...props}) => {
+import { ControlledSwitch } from '~/components/Switch/ControlledSwitch';
+
+import type { UncontrolledSwitchProps } from './Switch.types';
+
+export const UncontrolledSwitch: React.FC<UncontrolledSwitchProps> = ({
+    defaultChecked = false, onChange, value, ...props
+}) => {
     const [checked, setChecked] = useState(defaultChecked);
 
     return (
         <ControlledSwitch
             {...props}
-            value={value}
             checked={checked}
+            value={value}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 const toggleChecked = !checked;
                 setChecked(toggleChecked);

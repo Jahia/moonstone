@@ -1,5 +1,6 @@
 import React from 'react';
-import type {CheckboxProps} from '~/components/Checkbox/Checkbox.types';
+
+import type { CheckboxProps } from '~/components/Checkbox/Checkbox.types';
 
 export type FieldBooleanProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 'id'> & {
     /**
@@ -25,7 +26,7 @@ export type FieldBooleanProps = Omit<React.ComponentPropsWithRef<'div'>, 'classN
     /**
      * FieldBoolean helper
      */
-    helper?: string;
+    helper?: React.ReactNode;
 
     /**
      * Display as error

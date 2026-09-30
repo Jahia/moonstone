@@ -10,8 +10,9 @@ type onArrowNavigationProps = {
 export const onArrowNavigation = ({
     ref,
     direction = 'vertical',
-    tabIndex = 0} :
-    onArrowNavigationProps) => {
+    tabIndex = 0,
+}:
+onArrowNavigationProps) => {
     const handleKeyUp = (e: React.KeyboardEvent) => {
         const element = ref.current;
 
@@ -54,6 +55,6 @@ export const onArrowNavigation = ({
 
     return {
         onKeyUp: handleKeyUp,
-        tabIndex: tabIndex
+        tabIndex: tabIndex,
     };
 };

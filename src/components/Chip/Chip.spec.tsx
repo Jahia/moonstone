@@ -1,5 +1,6 @@
-import {render, screen} from '@testing-library/react';
-import {Chip} from './index';
+import { render, screen } from '@testing-library/react';
+
+import { Chip } from './index';
 
 describe('Chip', () => {
     it('should render', () => {
@@ -10,7 +11,7 @@ describe('Chip', () => {
     it('should display additional className', () => {
         const className = 'test';
 
-        render(<Chip data-testid="moonstone-chip" className={className}/>);
+        render(<Chip className={className} data-testid="moonstone-chip"/>);
         expect(screen.getByTestId('moonstone-chip')).toHaveClass(className);
     });
 

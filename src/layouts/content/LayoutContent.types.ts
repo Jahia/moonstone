@@ -4,32 +4,32 @@ export type LayoutContentProps = Omit<React.ComponentPropsWithRef<'div'>, 'class
     /**
      * Header of the page
      */
-    header?: React.ReactNode,
+    header?: React.ReactNode;
 
     /**
      * Content of the page
      *
      * @deprecated Use `children`
      */
-    content?: React.ReactNode,
+    content?: React.ReactNode;
 
     /**
      * Define if the content is centered
      */
-    isCentered?: boolean,
+    isCentered?: boolean;
 
     /**
      * Replace the content by a loading
      */
-    isLoading?: boolean,
+    isLoading?: boolean;
 
     /**
      * Define if the layout has padding
      */
-    hasPadding?: boolean
+    hasPadding?: boolean;
 
     /**
      * Additional classname
      */
-     className?: string,
-}
+    className?: string;
+};

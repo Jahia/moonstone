@@ -1,10 +1,13 @@
-import React, {useRef} from 'react';
 import clsx from 'clsx';
-import {Typography} from '../Typography';
-import {TypographyWeight} from '~/components/Typography/Typography.types';
-import {ButtonProps} from './Button.types';
-import {Loader} from '~/components/Loader';
-import {layout} from '~/globals/css-utils.js';
+import React, { useRef } from 'react';
+
+import { Typography } from '../Typography';
+import { Loader } from '~/components/Loader';
+import { layout } from '~/globals/css-utils.js';
+
+import type { ButtonProps } from './Button.types';
+import type { TypographyWeight } from '~/components/Typography/Typography.types';
+
 import styles from './Button.module.scss';
 
 // We have many conditions because of classname=..., we can safely ignore complexity here
@@ -34,7 +37,7 @@ export const Button = ({
         typoWeight = 'semiBold';
     }
 
-    const handleOnClick: React.MouseEventHandler = e => {
+    const handleOnClick: React.MouseEventHandler = (e) => {
         onClick(e);
     };
 
@@ -42,7 +45,7 @@ export const Button = ({
 
     return (
         <button
-            ref={ButtonEl}
+            disabled={isDisabled || isLoading}
             className={clsx(
                 ['moonstone-button', styles['moonstone-button']],
                 [`moonstone-button_${size}`, styles[`moonstone-button_${size}`]],
@@ -52,30 +55,34 @@ export const Button = ({
                 isReversed && ['moonstone-reverse', styles['moonstone-reverse']],
                 isLoading && ['moonstone-button_loading', styles['moonstone-button_loading']],
                 layout.alignCenter,
-                className
+                className,
             )}
-            type="button"
-            data-variant={variant}
             data-color={color}
             data-size={size}
-            disabled={isDisabled || isLoading}
+            data-variant={variant}
+            ref={ButtonEl}
+            type="button"
             onClick={e => handleOnClick(e)}
             {...props}
         >
             {/* Display icon when an icon is provided */}
             {icon && !isLoading && <icon.type {...icon.props} size={(size === 'big') ? 'default' : size}/>}
             {/* When the button has an icon the loader replaces the icon otherwise we display the loader as overlay */}
-            {isLoading && <Loader size="small"
-                                  isReversed={LoaderReversed}
-                                  className={clsx(!icon && ['moonstone-button_loaderOverlay', styles['moonstone-button_loaderOverlay']])}/>}
+            {isLoading && (
+                <Loader
+                    isReversed={LoaderReversed}
+                    className={clsx(!icon && ['moonstone-button_loaderOverlay', styles['moonstone-button_loaderOverlay']])}
+                    size="small"
+                />
+            )}
             {label && (
                 <Typography
                     isNowrap
+                    isUpperCase={size === 'big'}
+                    className={clsx('flexFluid', layout.flexFluid)}
                     component="span"
                     variant="button"
-                    isUpperCase={size === 'big'}
                     weight={typoWeight}
-                    className={clsx('flexFluid', layout.flexFluid)}
                 >
                     {label}
                 </Typography>

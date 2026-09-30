@@ -53,6 +53,26 @@
     font-weight: 300;
 }
 
+// Defined before %lineThrough so that an explicit `hasLineThrough`
+// takes precedence over the underline a link gets automatically.
+%link {
+    color: var(--moon-color-accent);
+
+    text-decoration-line: underline;
+
+    &:hover {
+        color: var(--moon-color-accent_dark);
+    }
+
+    &:focus-visible {
+        @extend %is-focused;
+    }
+
+    &:active {
+        color: var(--moon-color-accent_dark_contrast);
+    }
+}
+
 %nowrap {
     @include mixins.truncate(100%);
 }

@@ -1,11 +1,13 @@
-import React from 'react';
 import clsx from 'clsx';
+import React from 'react';
 
-import type {TablePaginationProps} from './TablePagination.types';
-import type {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
-import {Button, Dropdown, Typography} from '~/components';
-import {ChevronFirstPage, ChevronLastPage, ChevronLeft, ChevronRight} from '~/icons';
-import {layout} from '~/globals/css-utils.js';
+import { Button, Dropdown, Typography } from '~/components';
+import { layout } from '~/globals/css-utils.js';
+import { ChevronFirstPage, ChevronLastPage, ChevronLeft, ChevronRight } from '~/icons';
+
+import type { TablePaginationProps } from './TablePagination.types';
+import type { DropdownDataOption } from '~/components/Dropdown/Dropdown.types';
+
 import styles from './TablePagination.module.scss';
 
 const cssClass = 'moonstone-tablePagination';
@@ -16,7 +18,7 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
     className,
     label = {
         rowsPerPage: 'Rows per page',
-        of: 'of'
+        of: 'of',
     },
     rowsPerPage = 10,
     rowsPerPageOptions = [5, 10, 25],
@@ -39,66 +41,70 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
     const visibleRowsRangeRight = Math.min(totalNumberOfRows, currentPage * rowsPerPage);
 
     return (
-        <div className={clsx(
+        <div
+            className={clsx(
                 [cssClass, styles[cssClass]],
                 ['flexRow_reverse', layout.flexRow_reverse],
                 ['alignCenter', layout.alignCenter],
-                className
+                className,
             )}
-             {...props}
+            {...props}
         >
             <Typography variant="caption">{label.rowsPerPage}</Typography>
             <Dropdown
                 className={clsx('alignCenter', layout.alignCenter, cssClass16, styles[cssClass16])}
-                size="small"
+                data={rowsPerPageOptions.map(opt => ({
+                    label: opt.toString(),
+                    value: opt.toString(),
+                }))}
                 data-sel-role="table-pagination-dropdown-rows-per-page"
-                data={rowsPerPageOptions.map(opt => ({label: opt.toString(), value: opt.toString()}))}
-                value={rowsPerPage.toString()}
                 label={rowsPerPage.toString()}
+                size="small"
+                value={rowsPerPage.toString()}
                 onChange={(event: React.MouseEvent, item: DropdownDataOption) => onRowsPerPageChange(parseInt(item.value, 10))}
             />
             <Typography
-                variant="caption"
                 className={clsx(
                     [cssClass, styles[cssClass]],
                     ['flexRow_reverse', layout.flexRow_reverse],
                     ['alignCenter', layout.alignCenter],
-                    [cssClass32, styles[cssClass32]]
+                    [cssClass32, styles[cssClass32]],
                 )}
                 data-sel-role="table-pagination-total-rows"
+                variant="caption"
             >
                 {`${visibleRowsRangeLeft}-${visibleRowsRangeRight} ${label.of} ${totalNumberOfRows}`}
             </Typography>
             <Button
+                isDisabled={currentPage === 1}
                 className={clsx([cssClass32, styles[cssClass32]])}
+                data-sel-role="table-pagination-button-first-page"
                 icon={<ChevronFirstPage/>}
                 variant="ghost"
-                data-sel-role="table-pagination-button-first-page"
-                isDisabled={currentPage === 1}
                 onClick={() => onPageChange(1)}
             />
             <Button
+                isDisabled={currentPage === 1}
                 className={clsx([cssClass32, styles[cssClass32]])}
+                data-sel-role="table-pagination-button-previous-page"
                 icon={<ChevronLeft/>}
                 variant="ghost"
-                data-sel-role="table-pagination-button-previous-page"
-                isDisabled={currentPage === 1}
                 onClick={() => onPageChange(currentPage - 1)}
             />
             <Button
+                isDisabled={lastPage === currentPage}
                 className={clsx([cssClass32, styles[cssClass32]])}
+                data-sel-role="table-pagination-button-next-page"
                 icon={<ChevronRight/>}
                 variant="ghost"
-                data-sel-role="table-pagination-button-next-page"
-                isDisabled={lastPage === currentPage}
                 onClick={() => onPageChange(currentPage + 1)}
             />
             <Button
+                isDisabled={lastPage === currentPage}
                 className={clsx([cssClass16, styles[cssClass16]])}
+                data-sel-role="table-pagination-button-last-page"
                 icon={<ChevronLastPage/>}
                 variant="ghost"
-                data-sel-role="table-pagination-button-last-page"
-                isDisabled={lastPage === currentPage}
                 onClick={() => onPageChange(lastPage)}
             />
         </div>

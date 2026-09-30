@@ -1,9 +1,11 @@
 import React from 'react';
-import type {TextareaProps} from './Textarea.types';
-import {UncontrolledTextarea} from './UncontrolledTextarea';
-import {ControlledTextarea} from './ControlledTextarea';
 
-export const Textarea: React.FC<TextareaProps> = ({value, onChange, ...props}) => {
+import { ControlledTextarea } from './ControlledTextarea';
+import { UncontrolledTextarea } from './UncontrolledTextarea';
+
+import type { TextareaProps } from './Textarea.types';
+
+export const Textarea: React.FC<TextareaProps> = ({ value, onChange, ...props }) => {
     if (typeof value === 'undefined') {
         return <UncontrolledTextarea onChange={onChange} {...props}/>;
     }

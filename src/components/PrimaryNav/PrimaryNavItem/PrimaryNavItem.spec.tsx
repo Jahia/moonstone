@@ -1,28 +1,29 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {PrimaryNavItem} from './index';
-import {PrimaryNav} from '../PrimaryNav';
-import {Badge} from '~/components';
+
+import { PrimaryNav } from '../PrimaryNav';
+import { PrimaryNavItem } from './index';
+import { Badge } from '~/components';
 
 describe('NavItem', () => {
     it('should display a text children', () => {
         render(<PrimaryNavItem label="Content children"/>);
-        expect(screen.queryByText('Content children')).toBeInTheDocument();
+        expect(screen.getByText('Content children')).toBeInTheDocument();
     });
 
     it('should add extra attribute', () => {
         render(
-            <PrimaryNavItem data-testid="primaryNav-item" data-custom="extra"/>
+            <PrimaryNavItem data-custom="extra" data-testid="primaryNav-item"/>,
         );
         expect(screen.getByTestId('primaryNav-item')).toHaveAttribute(
             'data-custom',
-            'extra'
+            'extra',
         );
     });
 
     it('should add extra className', () => {
         render(
-            <PrimaryNavItem data-testid="primaryNav-item" className="extra"/>
+            <PrimaryNavItem className="extra" data-testid="primaryNav-item"/>,
         );
         expect(screen.getByTestId('primaryNav-item')).toHaveClass('extra');
     });
@@ -30,15 +31,15 @@ describe('NavItem', () => {
     it('should display the icon', () => {
         const Icon = () => <svg data-testid="primaryNav-icon"/>;
         render(<PrimaryNavItem icon={<Icon/>}/>);
-        expect(screen.queryByTestId('primaryNav-icon')).toBeInTheDocument();
+        expect(screen.getByTestId('primaryNav-icon')).toBeInTheDocument();
     });
 
     it('should display the badge', () => {
         render(
-            <PrimaryNavItem badge={<Badge label="primaryNavItem-badge"/>}/>
+            <PrimaryNavItem badge={<Badge label="primaryNavItem-badge"/>}/>,
         );
         expect(screen.getByText('primaryNavItem-badge')).toHaveClass(
-            'moonstone-primaryNavItem_badge'
+            'moonstone-primaryNavItem_badge',
         );
     });
 
@@ -46,7 +47,7 @@ describe('NavItem', () => {
         render(<PrimaryNavItem isSelected data-testid="primaryNav-item"/>);
         expect(screen.getByTestId('primaryNav-item')).toHaveAttribute(
             'aria-current',
-            'true'
+            'true',
         );
     });
 
@@ -54,7 +55,7 @@ describe('NavItem', () => {
         render(<PrimaryNavItem data-testid="primaryNav-item"/>);
         expect(screen.getByTestId('primaryNav-item')).toHaveAttribute(
             'aria-current',
-            'false'
+            'false',
         );
     });
 
@@ -65,12 +66,12 @@ describe('NavItem', () => {
 
     it('should display subtitle when given a subtitle props', () => {
         render(<PrimaryNavItem subtitle="I'm a subtitle"/>);
-        expect(screen.queryByText('I\'m a subtitle')).toBeInTheDocument();
+        expect(screen.getByText('I\'m a subtitle')).toBeInTheDocument();
     });
 
     it('should display button', () => {
         render(<PrimaryNavItem button={<div>hello</div>}/>);
-        expect(screen.queryByText('hello')).toBeInTheDocument();
+        expect(screen.getByText('hello')).toBeInTheDocument();
     });
 
     it('should call onClick function', async () => {
@@ -80,7 +81,7 @@ describe('NavItem', () => {
         render(
             <PrimaryNav
                 top={<PrimaryNavItem label="test me" onClick={onClick}/>}
-            />
+            />,
         );
         await user.click(screen.getByText('test me'));
 

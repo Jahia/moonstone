@@ -1,29 +1,29 @@
-import { addons } from 'storybook/manager-api'
 import {
-  defaultConfig,
-  type TagBadgeParameters,
-} from 'storybook-addon-tag-badges/manager-helpers'
+    defaultConfig,
+    type TagBadgeParameters,
+} from 'storybook-addon-tag-badges/manager-helpers';
+import { addons } from 'storybook/manager-api';
 
 addons.setConfig({
-  tagBadges: [
-    {
-      tags: 'updated',
-      badge: {
-        text: 'Updated',
-        style: {
-            backgroundColor: '#caeaf8',
-            color: '#004781',
+    tagBadges: [
+        {
+            tags: 'updated',
+            badge: {
+                text: 'Updated',
+                style: {
+                    backgroundColor: '#caeaf8',
+                    color: '#004781',
+                },
+                tooltip: 'This component has been updated since last version',
+            },
+            //   display: {
+            //     sidebar: [
+            //         {type: 'component', skipInherited: false},
+            //         {type: 'group', skipInherited: false},
+            //     ],
+            //     toolbar: true,
+            //   },
         },
-        tooltip: 'This component has been updated since last version',
-      },
-    //   display: {
-    //     sidebar: [
-    //         {type: 'component', skipInherited: false},
-    //         {type: 'group', skipInherited: false},
-    //     ],
-    //     toolbar: true,
-    //   },
-    },
-    ...defaultConfig,
-  ] satisfies TagBadgeParameters,
-})
+        ...defaultConfig,
+    ] satisfies TagBadgeParameters,
+});

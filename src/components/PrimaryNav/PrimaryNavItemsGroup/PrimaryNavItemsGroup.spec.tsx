@@ -1,13 +1,15 @@
-import {render, screen} from '@testing-library/react';
-import {PrimaryNavItemsGroup} from './index';
+import { render, screen } from '@testing-library/react';
+
+import { PrimaryNavItemsGroup } from './index';
 
 describe('PrimaryNavItemsGroup', () => {
     it('should render nothing when it\'s not expanded', () => {
         render(
-            <PrimaryNavItemsGroup data-testid="primaryNav-itemsGroup" isDisplayedWhenCollapsed={false}>
+            <PrimaryNavItemsGroup isDisplayedWhenCollapsed={false} data-testid="primaryNav-itemsGroup">
                 <span>First child</span>
                 <span>Second child</span>
-            </PrimaryNavItemsGroup>);
+            </PrimaryNavItemsGroup>,
+        );
         expect(screen.queryByTestId('primaryNav-itemsGroup')).not.toBeInTheDocument();
     });
 
@@ -16,8 +18,9 @@ describe('PrimaryNavItemsGroup', () => {
             <PrimaryNavItemsGroup data-testid="primaryNav-itemsGroup">
                 <span>First child</span>
                 <span>Second child</span>
-            </PrimaryNavItemsGroup>);
-        expect(screen.queryByTestId('primaryNav-itemsGroup')).toBeInTheDocument();
+            </PrimaryNavItemsGroup>,
+        );
+        expect(screen.getByTestId('primaryNav-itemsGroup')).toBeInTheDocument();
     });
 
     it('should render something when it\'s expanded and isDisplayedWhenCollapsed', () => {
@@ -25,8 +28,9 @@ describe('PrimaryNavItemsGroup', () => {
             <PrimaryNavItemsGroup isDisplayedWhenCollapsed data-testid="primaryNav-itemsGroup">
                 <span>First child</span>
                 <span>Second child</span>
-            </PrimaryNavItemsGroup>);
-        expect(screen.queryByTestId('primaryNav-itemsGroup')).toBeInTheDocument();
+            </PrimaryNavItemsGroup>,
+        );
+        expect(screen.getByTestId('primaryNav-itemsGroup')).toBeInTheDocument();
     });
 
     it('should render children when it\'s expanded and isDisplayedWhenCollapsed', () => {
@@ -34,16 +38,18 @@ describe('PrimaryNavItemsGroup', () => {
             <PrimaryNavItemsGroup>
                 <span>First child</span>
                 <span>Second child</span>
-            </PrimaryNavItemsGroup>);
-        expect(screen.queryByText('First child')).toBeInTheDocument();
+            </PrimaryNavItemsGroup>,
+        );
+        expect(screen.getByText('First child')).toBeInTheDocument();
     });
 
     it('should add extra attribute', () => {
         render(
-            <PrimaryNavItemsGroup data-testid="primaryNav-itemsGroup" data-custom="extra">
+            <PrimaryNavItemsGroup data-custom="extra" data-testid="primaryNav-itemsGroup">
                 <span>First child</span>
                 <span>Second child</span>
-            </PrimaryNavItemsGroup>);
+            </PrimaryNavItemsGroup>,
+        );
         expect(screen.getByTestId('primaryNav-itemsGroup')).toHaveAttribute('data-custom', 'extra');
     });
 });

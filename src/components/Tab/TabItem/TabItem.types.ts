@@ -3,7 +3,7 @@ import React from 'react';
 export const tabItemSizes = ['default', 'big'] as const;
 type TabItemSize = typeof tabItemSizes[number];
 
-export type TabItemProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'onClick'| 'className'> & {
+export type TabItemProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'onClick' | 'className'> & {
     /**
      * The component used for the root node
      */
@@ -40,4 +40,4 @@ export type TabItemProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'onCli
      * Additional classname
      */
     className?: string;
-}
+};

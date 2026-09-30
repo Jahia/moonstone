@@ -1,8 +1,10 @@
-import React from 'react';
 import clsx from 'clsx';
+import React from 'react';
 
-import type {TableCellProps} from './TableCell.types';
-import {icons, layout} from '~/globals/css-utils.js';
+import { icons, layout } from '~/globals/css-utils.js';
+
+import type { TableCellProps } from './TableCell.types';
+
 import styles from './TableCell.module.scss';
 
 const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, TableCellProps> = (
@@ -14,14 +16,15 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, TableC
         ...props
     }, ref) => {
     return (
-        <div ref={ref}
-             className={clsx(
-                 ['moonstone-TableCell', styles['moonstone-TableCell']],
-                 ['flexRow_nowrap', layout.flexRow_nowrap],
-                 ['alignCenter', layout.alignCenter],
-                 className
-             )}
-             {...props}
+        <div
+            className={clsx(
+                ['moonstone-TableCell', styles['moonstone-TableCell']],
+                ['flexRow_nowrap', layout.flexRow_nowrap],
+                ['alignCenter', layout.alignCenter],
+                className,
+            )}
+            ref={ref}
+            {...props}
         >
 
             {iconStart && (
