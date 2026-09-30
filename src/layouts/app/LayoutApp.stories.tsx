@@ -1,5 +1,5 @@
 import { LayoutApp } from './index';
-import markdownNotes from './LayoutApp.md';
+import markdownNotes from './LayoutApp.md?raw';
 import {
     FakeContent,
     FakePrimaryNavigation,
@@ -13,7 +13,7 @@ export default {
     component: LayoutApp,
     parameters: {
         subtitle: 'How to use our root application layout',
-        notes: { markdown: markdownNotes },
+        docs: { description: { component: markdownNotes } },
     },
     argTypes: {
         navigation: {

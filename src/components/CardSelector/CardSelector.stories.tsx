@@ -1,3 +1,4 @@
+import markdownNotes from './CardSelector.md?raw';
 import { CardSelector } from './index';
 import imgIcon from '~/__storybook__/assets/img-icon.webp';
 import imgVertical from '~/__storybook__/assets/img-vertical.webp';
@@ -14,6 +15,8 @@ const meta: Meta<typeof CardSelector> = {
     tags: ['new'],
 
     parameters: {
+        componentSubtitle: 'Displays a selected content item with its thumbnail, metadata, and optional actions.',
+        docs: { description: { component: markdownNotes } },
         layout: 'padded',
         actions: { argTypesRegex: '^on.*' },
     },

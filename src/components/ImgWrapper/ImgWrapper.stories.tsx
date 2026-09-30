@@ -1,4 +1,4 @@
-import markdownNotes from './ImgWrapper.md';
+import markdownNotes from './ImgWrapper.md?raw';
 import { ImgWrapper } from './index';
 import icon from '~/__storybook__/assets/img-icon.webp';
 
@@ -8,7 +8,7 @@ export default {
     parameters: {
         componentSubtitle: 'Image wrapper',
         layout: 'centered',
-        notes: { markdown: markdownNotes },
+        docs: { description: { component: markdownNotes } },
     },
 };
 

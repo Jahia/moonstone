@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { TreeView } from './index';
-import markdownNotes from './TreeView.md';
+import markdownNotes from './TreeView.md?raw';
 import { treeData, treeDataFlat, treeDataRootClosable } from '~/data';
 
 import type { TreeViewData, TreeViewProps } from './TreeView.types';
@@ -19,7 +19,7 @@ export default {
     decorators: [(storyFn: () => JSX.Element) => <div style={css}>{storyFn()}</div>],
     parameters: {
         layout: 'centered',
-        notes: { markdown: markdownNotes },
+        docs: { description: { component: markdownNotes } },
     },
 };
 

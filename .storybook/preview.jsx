@@ -1,3 +1,4 @@
+import { Controls, Description, Primary, Subtitle, Title } from '@storybook/addon-docs/blocks';
 import React from 'react';
 import {
     STORY_ARGS_UPDATED,
@@ -61,17 +62,19 @@ export const parameters = {
     layout: 'fullscreen',
 
     docs: {
-        // Storybook 10 calls this as (component, {component, parameters}).
-        // The markdown lives at parameters.notes — read it from there, not the top-level arg.
-        extractComponentDescription: (component, { parameters: storyParameters }) => {
-            const notes = storyParameters?.notes;
-            if (notes) {
-                return typeof notes === 'string'
-                    ? notes
-                    : notes.markdown || notes.text;
-            }
-            return null;
-        },
+        // One Docs page for every component, built from native blocks only:
+        // subtitle = parameters.componentSubtitle, preview = first story,
+        // prose = parameters.docs.description.component (the component's .md).
+        page: () => (
+            <>
+                <Title/>
+                <Subtitle/>
+                <Primary/>
+                <h2>Props</h2>
+                <Controls/>
+                <Description/>
+            </>
+        ),
     },
 
     options: {

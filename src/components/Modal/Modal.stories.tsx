@@ -16,7 +16,7 @@ const meta: Meta<typeof Modal> = {
 
     parameters: {
         layout: 'centered',
-        notes: { markdown: markdownNotes },
+        docs: { description: { component: markdownNotes } },
         // Overrides onOpenChange
         // actions: {argTypesRegex: '^on.*'}
     },

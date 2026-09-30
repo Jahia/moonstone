@@ -1,5 +1,5 @@
 import { PrimaryNavItemsGroup } from './index';
-import markdownNotes from './PrimaryNavItemsGroup.md';
+import markdownNotes from './PrimaryNavItemsGroup.md?raw';
 import { PrimaryNavItem } from '~/components/PrimaryNav/PrimaryNavItem';
 import { Edit } from '~/icons';
 
@@ -9,7 +9,7 @@ const meta: Meta<typeof PrimaryNavItemsGroup> = {
     title: 'Components/PrimaryNavItemsGroup',
     component: PrimaryNavItemsGroup,
     parameters: {
-        notes: { markdown: markdownNotes },
+        docs: { description: { component: markdownNotes } },
         layout: 'fullscreen',
     },
     decorators: [

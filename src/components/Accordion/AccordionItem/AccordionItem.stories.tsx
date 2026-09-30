@@ -1,4 +1,4 @@
-import markdownNotes from './AccordionItem.md';
+import markdownNotes from './AccordionItem.md?raw';
 import { AccordionItem } from './index';
 import { iconArgType } from '~/__storybook__/iconArgType';
 import { Accordion } from '~/components/Accordion';
@@ -20,7 +20,8 @@ export default {
         ),
     ],
     parameters: {
-        notes: { markdown: markdownNotes },
+        componentSubtitle: 'A single collapsible section used inside an Accordion, with an optional icon and a required label.',
+        docs: { description: { component: markdownNotes } },
         actions: { argTypesRegex: '^on.*' },
     },
     argTypes: {

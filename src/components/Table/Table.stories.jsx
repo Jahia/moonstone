@@ -36,7 +36,7 @@ export default {
     parameters: {
         controls: { disable: true },
         actions: { argTypesRegex: '^on.*' },
-        notes: { markdown: markdownNotes },
+        docs: { description: { component: markdownNotes } },
     },
 };
 

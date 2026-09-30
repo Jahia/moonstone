@@ -1,3 +1,4 @@
+import markdownNotes from './EmptyCardSelector.md?raw';
 import { EmptyCardSelector } from './index';
 import { iconArgType } from '~/__storybook__/iconArgType';
 import { File } from '~/icons';
@@ -11,6 +12,8 @@ const meta: Meta<typeof EmptyCardSelector> = {
     tags: ['new'],
 
     parameters: {
+        componentSubtitle: 'Represents an unselected content-picker slot and invites the user to make a selection.',
+        docs: { description: { component: markdownNotes } },
         layout: 'padded',
         actions: { argTypesRegex: '^on.*' },
     },

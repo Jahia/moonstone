@@ -1,6 +1,6 @@
 ---
-description: "Use when creating, updating, or auditing the documentation of a component (its .md prose and .mdx Storybook Docs page under src/components/)."
-applyTo: "src/components/**/*.{md,mdx}"
+description: "Use when creating, updating, or auditing the documentation of a component (its .md prose and its Storybook wiring under src/components/)."
+applyTo: "src/components/**/*.md"
 ---
 # Component documentation
 

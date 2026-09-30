@@ -1,4 +1,4 @@
-import markdownNotes from './FieldBoolean.md';
+import markdownNotes from './FieldBoolean.md?raw';
 import { FieldBoolean } from './index';
 import { Button, Chip } from '~/components';
 import { Language, MoreVert } from '~/icons';
@@ -13,7 +13,7 @@ const meta: Meta<typeof FieldBoolean> = {
     parameters: {
         layout: 'padded',
         actions: { argTypesRegex: '^on.*' },
-        notes: { markdown: markdownNotes },
+        docs: { description: { component: markdownNotes } },
     },
     argTypes: {
         buttons: {

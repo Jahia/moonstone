@@ -1,3 +1,4 @@
+import markdownNotes from './ButtonGroup.md?raw';
 import { ButtonGroup } from './index';
 import { Button } from '~/components/Button';
 import { ChevronDown } from '~/icons';
@@ -12,8 +13,9 @@ export default {
     subcomponents: { Button },
 
     parameters: {
+        docs: { description: { component: markdownNotes } },
         layout: 'centered',
-        componentSubtitle: 'ButtonGroup',
+        componentSubtitle: 'Wraps related Buttons into a single visual unit with shared variant, color, and size.',
         actions: { argTypesRegex: '^on.*' },
     },
 } as Meta<typeof ButtonGroup>;

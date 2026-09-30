@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import markdownNotes from './Accordion.md';
+import markdownNotes from './Accordion.md?raw';
 import { Accordion } from './index';
 import { AccordionItem } from '~/components/Accordion/AccordionItem';
 import { BarSquare, Bug, Love } from '~/icons';
@@ -28,7 +28,8 @@ export default {
         ),
     ],
     parameters: {
-        notes: { markdown: markdownNotes },
+        componentSubtitle: 'Organises content into vertically stacked, collapsible sections where only one section is open at a time.',
+        docs: { description: { component: markdownNotes } },
         actions: { argTypesRegex: '^on.*' },
     },
 } as Meta<typeof Accordion>;

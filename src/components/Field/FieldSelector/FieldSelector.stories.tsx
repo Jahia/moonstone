@@ -1,4 +1,4 @@
-import markdownNotes from './FieldSelector.md';
+import markdownNotes from './FieldSelector.md?raw';
 import { FieldSelector } from './index';
 import { Button, Dropdown, Input, RadioGroup, RadioItem } from '~/components';
 import { Close, MoreVert } from '~/icons';
@@ -13,7 +13,7 @@ const meta: Meta<typeof FieldSelector> = {
     parameters: {
         layout: 'padded',
         actions: { argTypesRegex: '^on.*' },
-        notes: { markdown: markdownNotes },
+        docs: { description: { component: markdownNotes } },
     },
     argTypes: {
 

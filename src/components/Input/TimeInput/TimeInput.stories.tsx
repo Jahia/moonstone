@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { TimeInput } from './TimeInput';
-import markdownNotes from './TimeInput.md';
+import markdownNotes from './TimeInput.md?raw';
 import { Button } from '~/components';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
@@ -14,7 +14,7 @@ export default {
     parameters: {
         layout: 'centered',
         actions: { argTypesRegex: '^on.*' },
-        notes: { markdown: markdownNotes },
+        docs: { description: { component: markdownNotes } },
     },
 } satisfies Meta<typeof TimeInput>;
 

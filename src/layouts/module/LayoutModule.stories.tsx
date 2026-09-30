@@ -1,5 +1,5 @@
 import { LayoutModule } from './index';
-import markdownNotes from './LayoutModule.md';
+import markdownNotes from './LayoutModule.md?raw';
 import {
     FakeContent,
     FakeSecondaryNavigation,
@@ -12,7 +12,7 @@ export default {
     title: 'Layouts/LayoutModule',
     component: LayoutModule,
     parameters: {
-        notes: { markdown: markdownNotes },
+        docs: { description: { component: markdownNotes } },
     },
     argTypes: {
         navigation: {

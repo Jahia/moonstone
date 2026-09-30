@@ -1,3 +1,4 @@
+import markdownNotes from './LayoutContent.md?raw';
 import { FakeContent } from '~/__storybook__/FakeComponents';
 import { Header } from '~/components';
 import { LayoutContent } from '~/layouts';
@@ -8,6 +9,10 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 export default {
     title: 'Layouts/LayoutContent',
     component: LayoutContent,
+    parameters: {
+        componentSubtitle: 'Lays out the main content area of a page, with an optional header and loading state.',
+        docs: { description: { component: markdownNotes } },
+    },
     decorators: [
         StoryCmp => (
             <div style={{ width: '1OOvw', height: '100vh', display: 'flex' }}>

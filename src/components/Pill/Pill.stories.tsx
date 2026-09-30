@@ -1,5 +1,5 @@
 import { Pill } from './index';
-import markdownNotes from './Pill.md';
+import markdownNotes from './Pill.md?raw';
 import { Language } from '~/icons';
 
 import type { PillProps } from './Pill.types';
@@ -12,7 +12,7 @@ export default {
 
     parameters: {
         layout: 'centered',
-        notes: { markdown: markdownNotes },
+        docs: { description: { component: markdownNotes } },
     },
 };
 

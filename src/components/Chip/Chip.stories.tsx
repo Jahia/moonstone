@@ -1,4 +1,4 @@
-import markdownNotes from './Chip.md';
+import markdownNotes from './Chip.md?raw';
 import { Chip } from './index';
 import { iconArgType } from '~/__storybook__/iconArgType';
 import { Build, Cloud, CloudCheck, Delete, Edit, File, Lock, NoCloud, Subdirectory, Warning } from '~/icons';
@@ -15,7 +15,7 @@ export default {
 
     parameters: {
         layout: 'centered',
-        notes: { markdown: markdownNotes },
+        docs: { description: { component: markdownNotes } },
     },
     argTypes: {
         icon: iconArgType,

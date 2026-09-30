@@ -3,7 +3,7 @@ import { userEvent, within } from 'storybook/test';
 import { Temporal } from 'temporal-polyfill';
 
 import { DateTimeInput } from './DateTimeInput';
-import markdownNotes from './DateTimeInput.md';
+import markdownNotes from './DateTimeInput.md?raw';
 import { Button } from '~/components';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
@@ -18,7 +18,7 @@ export default {
     parameters: {
         layout: 'centered',
         actions: { argTypesRegex: '^on.*' },
-        notes: { markdown: markdownNotes },
+        docs: { description: { component: markdownNotes } },
     },
     args: {
         'data-testid': 'dateTimeInput',

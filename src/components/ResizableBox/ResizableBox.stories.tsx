@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { action } from 'storybook/actions';
 
 import { ResizableBox } from './index';
-import markdownNotes from './ResizableBox.md';
+import markdownNotes from './ResizableBox.md?raw';
 import { layout } from '~/globals/css-utils.js';
 
 import type { ResizableBoxProps } from './ResizableBox.types';
@@ -30,7 +30,7 @@ const meta: Meta<ResizableBoxProps> = {
         ),
     ],
     parameters: {
-        notes: { markdown: markdownNotes },
+        docs: { description: { component: markdownNotes } },
     },
 };
 

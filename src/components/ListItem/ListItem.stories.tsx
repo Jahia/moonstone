@@ -1,5 +1,5 @@
 import { ListItem } from './index';
-import markdownNotes from './ListItem.md';
+import markdownNotes from './ListItem.md?raw';
 import imgHorizontal from '~/__storybook__/assets/img-horizontal.webp';
 import imgSquare from '~/__storybook__/assets/img-square.webp';
 import imgVertical from '~/__storybook__/assets/img-vertical.webp';
@@ -15,7 +15,7 @@ export default {
 
     parameters: {
         layout: 'centered',
-        notes: { markdown: markdownNotes },
+        docs: { description: { component: markdownNotes } },
     },
     argTypes: {
         iconStart: iconArgType,

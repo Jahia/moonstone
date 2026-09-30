@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { Tab } from './index';
-import markdownNotes from './Tab.md';
+import markdownNotes from './Tab.md?raw';
 import { TabItem } from './TabItem';
 import { Apps } from '~/icons';
 
@@ -15,7 +15,7 @@ export default {
 
     parameters: {
         layout: 'centered',
-        notes: { markdown: markdownNotes },
+        docs: { description: { component: markdownNotes } },
     },
 };
 

@@ -1,5 +1,5 @@
 import { SecondaryNav, SecondaryNavHeader } from './index';
-import markdownNotes from './SecondaryNav.md';
+import markdownNotes from './SecondaryNav.md?raw';
 import { Love } from '~/icons';
 
 import type { SecondaryNavProps } from './SecondaryNav.types';
@@ -19,7 +19,7 @@ export default {
         ),
     ],
     parameters: {
-        notes: { markdown: markdownNotes },
+        docs: { description: { component: markdownNotes } },
     },
 } as Meta<typeof SecondaryNav>;
 

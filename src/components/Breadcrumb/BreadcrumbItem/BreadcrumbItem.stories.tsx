@@ -1,3 +1,4 @@
+import markdownNotes from './BreadcrumbItem.md?raw';
 // Import '~/__storybook__/storybook.scss';
 import { Breadcrumb, BreadcrumbItem } from '~/components';
 import { Love } from '~/icons';
@@ -16,6 +17,8 @@ export default {
         ),
     ],
     parameters: {
+        componentSubtitle: 'A single navigation step used inside a Breadcrumb, with an optional icon and a label.',
+        docs: { description: { component: markdownNotes } },
         layout: 'centered',
         actions: { argTypesRegex: '^on.*' },
     },

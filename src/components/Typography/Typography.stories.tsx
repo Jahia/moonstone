@@ -7,10 +7,11 @@ export default {
     title: 'Tokens/Typography',
     component: Typography,
     parameters: {
+        componentSubtitle: 'Renders text in the design system\'s type scale, applying the correct style for a given level of the content hierarchy.',
         layout: 'centered',
         knobs: { disable: true },
         storysource: { disable: true },
-        notes: { markdown: markdownNotes },
+        docs: { description: { component: markdownNotes } },
     },
 };
 

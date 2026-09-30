@@ -1,3 +1,4 @@
+import markdownNotes from './Banner.md?raw';
 import { iconArgType } from '~/__storybook__/iconArgType';
 import { Banner, Button } from '~/components';
 import { RichText } from '~/icons';
@@ -11,6 +12,8 @@ const meta: Meta<typeof Banner> = {
     tags: ['new'],
 
     parameters: {
+        componentSubtitle: 'Displays a titled status message with optional body content and actions.',
+        docs: { description: { component: markdownNotes } },
         layout: 'padded',
         actions: { argTypesRegex: '^on.*' },
     },

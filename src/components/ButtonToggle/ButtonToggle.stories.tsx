@@ -1,3 +1,4 @@
+import markdownNotes from './ButtonToggle.md?raw';
 import { ButtonToggle } from './index';
 import { iconArgType } from '~/__storybook__/iconArgType';
 import { Apps } from '~/icons';
@@ -11,6 +12,8 @@ const meta: Meta<typeof ButtonToggle> = {
     tags: ['dark-theme'],
 
     parameters: {
+        componentSubtitle: 'A button that holds a pressed/active state, used for toggleable modes and toolbar controls.',
+        docs: { description: { component: markdownNotes } },
         layout: 'centered',
         actions: { argTypesRegex: '^on.*' },
     },

@@ -1,4 +1,5 @@
 import { Tooltip } from './index';
+import markdownNotes from './Tooltip.md?raw';
 import placeholder from '~/__storybook__/assets/img-placeholder.jpg';
 import { Badge, Button, Chip, PrimaryNav, PrimaryNavItem, PrimaryNavItemsGroup } from '~/components';
 import { Apps, Feather, Home, Person, Profile, Setting } from '~/icons';
@@ -10,6 +11,8 @@ export default {
     component: Tooltip,
     tags: ['new'],
     parameters: {
+        componentSubtitle: 'A small floating label that appears when the user hovers or focuses an element.',
+        docs: { description: { component: markdownNotes } },
         layout: 'centered',
         knobs: { disable: true },
         storysource: { disable: true },

@@ -1,32 +1,36 @@
 # Component documentation style
 
 > 🟢 **Maturity: Enforced — single source of truth.** This is how every `<Component>.md`
-> and `<Component>.mdx` is written. Do not duplicate these rules elsewhere; reference this file.
+> is written and wired into Storybook. Do not duplicate these rules elsewhere; reference this file.
 > This is distinct from [ui-copy.md](../consuming/ui-copy.md), which governs *UI microcopy*
 > (the labels and messages inside components). This file governs the *docs themselves*.
-> **Last updated:** 2026-06-12
+> **Last updated:** 2026-09-30
 
 ## What this file is
 
 The single source for **how a component's documentation is written**: the prose of
-`<Component>.md` and the structure of `<Component>.mdx`. It covers, in order, the two files and
-what grounds them, the `.md` section structure, the `.mdx` template, how to verify the result,
-and the writing style.
+`<Component>.md` and how it is wired into the Storybook Docs page. It covers, in order, the
+files and what grounds them, the `.md` section structure, the Storybook wiring, how to verify
+the result, and the writing style.
 
 Microcopy *inside* a component (a button label, a placeholder) is a separate concern. It lives
 in [ui-copy.md](../consuming/ui-copy.md), and the example labels in these docs follow it.
 
-## The two files
+## The files
 
 Each component lives in its own folder under `src/` (`src/components/<Component>/`, or
-`src/layouts/<name>/` for layouts). Its documentation is two files:
+`src/layouts/<name>/` for layouts). Its documentation is:
 
 - **`<Component>.md`** — the prose usage doc. Single source of truth for the wording; also the
-  corpus an LLM or manifest reads.
-- **`<Component>.mdx`** — the Storybook Docs page. Pulls the `.md` prose in via a `<Markdown>`
-  block and composes the page with Doc Blocks.
+  corpus an LLM reads.
+- **Three lines in `<Component>.stories.*`** — the `.md` import, `componentSubtitle`, and
+  `docs.description.component` (see *Wiring into Storybook* below).
 
-The canonical, approved reference is **`src/components/Button/`** (`Button.md`, `Button.mdx`,
+There is **no per-component `.mdx`**. Every Docs page uses the one layout defined in
+`.storybook/preview.jsx` (`parameters.docs.page`), built from native Doc Blocks only. To change
+the layout of every page, change that one file.
+
+The canonical, approved reference is **`src/components/Button/`** (`Button.md`,
 `Button.stories.tsx`). When in doubt, match Button.
 
 ## Grounding in code
@@ -120,38 +124,32 @@ gist> `` followed by a two-column table, one row per allowed value:
 - **Never invent design intent.** The "Use it for" cells are the designer's call: write
   `_Pending design guidance_` with a brief `<!-- designer: … -->` hint rather than a guess.
 
-## `<Component>.mdx` — the Storybook page (exact template)
+## Wiring into Storybook
 
-```mdx
-import {Meta, Title, Subtitle, Markdown, Canvas, Controls} from '@storybook/addon-docs/blocks';
-import * as <Component>Stories from './<Component>.stories';
-import notes from './<Component>.md?raw';
+In the default export (meta) of `<Component>.stories.*`:
 
-<Meta of={<Component>Stories} />
+```tsx
+import markdownNotes from './<Component>.md?raw';
 
-<Title />
-<Subtitle><one-line description of what the component is/does.></Subtitle>
-
-<Canvas of={<Component>Stories.<PrimaryStory>} />
-
-## Props
-
-<Controls of={<Component>Stories.<AStoryWithArgs>} />
-
-<Markdown>{notes}</Markdown>
+export default {
+    title: 'Components/<Component>',
+    component: <Component>,
+    parameters: {
+        componentSubtitle: '<one-line description of what the component is/does.>',
+        docs: { description: { component: markdownNotes } },
+    },
+};
 ```
 
 - **Import the `.md` with `?raw`.** `vite.config.mjs` has `assetsInclude: ['**/*.md']`, so a
   plain `.md` import returns the file *path*, not its contents. `?raw` returns the text. This is
   the #1 pitfall; always use `?raw`.
-- `<Subtitle>` is the one-line description (the `.md` has no intro paragraph). Factual, no prose
-  duplication.
-- `<Canvas of={…}>` shows **one** curated story (an Overview/primary), not every story.
-- `<Controls of={…}>` renders the props table; point it at a story with representative args.
-- Layout order is Preview → Props → prose. Match Button.
-- An attached MDX (`<Meta of={stories}/>`) is automatically the single Docs page (Storybook
-  `attached-mdx`) and renders only the MDX content, so `tags: ['!autodocs']` is **not** needed
-  and the story needs **no** `.md` import or `notes:` parameter.
+- `componentSubtitle` is the one-line description (the `.md` has no intro paragraph). Factual,
+  no prose duplication.
+- The global page renders, in order: title, subtitle, the **first exported story** (preview),
+  the Props table (Controls of that story), then the `.md` prose. So the first story in the file
+  is the one shown: make it representative and driven by args.
+- Never add a `<Component>.mdx`, and never use the `notes` parameter.
 
 ### Element props (icon, children…) — clean Controls
 
@@ -165,12 +163,12 @@ Controls dropdown, not as dumped element source.
 ## Verify
 
 Do the **static** checks yourself by re-reading the files you wrote: the `.md` starts at
-`## Example` (no leading `#`); the `.mdx` imports `./<Component>.md?raw` and uses one
-`<Canvas of>` plus one `<Controls of>`; the section order is correct.
+`## Example` (no leading `#`); the stories meta imports `./<Component>.md?raw` and sets both
+`componentSubtitle` and `docs.description.component`; the section order is correct.
 
 Do **not** boot Storybook to verify — it is slow and unreliable in an automated run. The
-**runtime** render check (one title; prose renders as text, not a `/src/...` path; only the
-curated story under Preview) is a human or CI step. State it as *pending* in your report.
+**runtime** render check (one title; prose renders as text, not a `/src/...` path; tables
+render as tables) is a human or CI step. State it as *pending* in your report.
 If Storybook is needed, it runs on port **6017** (the developer's own instance usually holds 6006).
 
 ## Voice

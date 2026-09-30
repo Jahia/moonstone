@@ -1,4 +1,5 @@
 import { Thumbnail } from './Thumbnail';
+import markdownNotes from './Thumbnail.md?raw';
 import imgHorizontal from '~/__storybook__/assets/img-horizontal.webp';
 import imgIcon from '~/__storybook__/assets/img-icon.webp';
 import imgVertical from '~/__storybook__/assets/img-vertical.webp';
@@ -11,6 +12,8 @@ const meta: Meta<typeof Thumbnail> = {
     component: Thumbnail,
     tags: ['beta'],
     parameters: {
+        componentSubtitle: 'Displays a small visual preview of a resource, with a fallback placeholder when no image is available.',
+        docs: { description: { component: markdownNotes } },
         layout: 'centered',
     },
     argTypes: {

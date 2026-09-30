@@ -1,6 +1,6 @@
 import { useArgs } from 'storybook/preview-api';
 
-import markdownNotes from './DynamicFieldset.md';
+import markdownNotes from './DynamicFieldset.md?raw';
 import { DynamicFieldset } from './index';
 import { Field, FieldSelector } from '~/components';
 import { Button, Chip, Input } from '~/components';
@@ -16,7 +16,7 @@ const meta: Meta<typeof DynamicFieldset> = {
     parameters: {
         layout: 'padded',
         actions: { argTypesRegex: '^on.*' },
-        notes: { markdown: markdownNotes },
+        docs: { description: { component: markdownNotes } },
     },
     args: {
         id: 'dynamic-fieldset',

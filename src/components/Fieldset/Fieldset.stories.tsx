@@ -1,4 +1,4 @@
-import markdownNotes from './Fieldset.md';
+import markdownNotes from './Fieldset.md?raw';
 import { Fieldset } from './index';
 import { Field, FieldBoolean, FieldSelector } from '~/components';
 import { Button, CardSelector, Chip, Dropdown, EmptyCardSelector, Input, RadioGroup, RadioItem, Textarea } from '~/components';
@@ -14,7 +14,7 @@ const meta: Meta<typeof Fieldset> = {
     parameters: {
         layout: 'padded',
         actions: { argTypesRegex: '^on.*' },
-        notes: { markdown: markdownNotes },
+        docs: { description: { component: markdownNotes } },
     },
     argTypes: {
         buttons: {
