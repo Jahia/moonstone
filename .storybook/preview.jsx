@@ -61,10 +61,10 @@ export const parameters = {
     layout: 'fullscreen',
 
     docs: {
-        // Storybook 10 calls this as (component, {component, param}).
-        // The markdown lives at param.notes — read it from there, not the top-level arg.
-        extractComponentDescription: (component, { param }) => {
-            const notes = param?.notes;
+        // Storybook 10 calls this as (component, {component, parameters}).
+        // The markdown lives at parameters.notes — read it from there, not the top-level arg.
+        extractComponentDescription: (component, { parameters: storyParameters }) => {
+            const notes = storyParameters?.notes;
             if (notes) {
                 return typeof notes === 'string'
                     ? notes
