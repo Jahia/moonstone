@@ -5,9 +5,6 @@ import {ButtonToggle} from '@jahia/moonstone';
 import {Grid} from '@jahia/moonstone/icons';
 
 <ButtonToggle iconStart={<Grid/>} label="Grid view"/>
-
-// Icon-only (requires aria-label; see Accessibility)
-<ButtonToggle iconStart={<Grid/>} aria-label="Grid view"/>
 ```
 
 ## Controlled & uncontrolled

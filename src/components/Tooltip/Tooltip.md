@@ -1,16 +1,10 @@
 ## Example
 ```jsx
 import {Tooltip, Button} from '@jahia/moonstone';
-import {Home, Setting} from '@jahia/moonstone/icons';
+import {Home} from '@jahia/moonstone/icons';
 
-// Icon-only button: the tooltip provides a visible label on hover and keyboard focus.
 <Tooltip label="Home">
     <Button icon={<Home/>} variant="outlined" aria-label="Home"/>
-</Tooltip>
-
-// Button with a visible label: the tooltip adds supplementary detail.
-<Tooltip label="Opens global settings for this workspace">
-    <Button icon={<Setting/>} label="Settings" variant="outlined"/>
 </Tooltip>
 ```
 
@@ -30,6 +24,3 @@ import {Home, Setting} from '@jahia/moonstone/icons';
 - The component automatically adds `aria-describedby` to the anchor. Do not set it manually.
 - Tooltips appear on both hover and keyboard focus. Do not remove the focus ring from the anchor.
 - Never put essential information only in the tooltip. Screen readers may not announce it in every context.
-
-## Related
-- **Field** helper text (for essential guidance), **Banner**, **Menu**.

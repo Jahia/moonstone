@@ -1,13 +1,48 @@
-Select an IANA timezone (e.g. `'Europe/Paris'`) from a searchable dropdown. Options are grouped by region and labelled with their current UTC offset.
+## Example
+```jsx
+import {TimezoneSelector} from '@jahia/moonstone';
 
-## Value
+<TimezoneSelector defaultValue="Europe/Paris" referenceDate="2026-06-19"/>
+```
 
-`value` / `defaultValue` are IANA timezone identifiers (strings). `onChange` emits the selected identifier. The selector always has a value and cannot be cleared.
+## Controlled & uncontrolled
+- Controlled: pass `value` and `onChange` (required). `onChange(event, value)` gives the selected
+  IANA timezone identifier, such as `'Europe/Paris'`, or `null`.
+- Uncontrolled: pass `defaultValue` (optional) and let the component manage its own state.
+- Don't mix the two modes. Passing both `value` and `defaultValue` is not supported.
+- The selector always has a value once a timezone is chosen and cannot be cleared.
 
-## Controlled and uncontrolled
+## Do
+- Use it to let the user pick an IANA timezone on its own, such as setting a user's or a site's
+  default timezone.
+- Pair it with **Field** when it needs a label, helper text, or an error message.
 
-Provide `value` + `onChange` for controlled, or `defaultValue` for uncontrolled.
+## Don't
+- Don't use it to pick a timezone together with a date or a time. Use **DateTimeInput** with
+  `type="zonedDateTime"` instead.
 
-## Specifications
+## Appearance
 
-The list is the full IANA timezone set (from `Intl.supportedValuesOf`), grouped by region (`Europe`, `America`, …) and sorted alphabetically; the dropdown's search handles the volume. Each option shows the offset for the `referenceDate` (e.g. `Paris (UTC +01:00)`) — pass `referenceDate` (a `Temporal.PlainDate` or ISO date string) so offsets reflect the right day, since they vary with DST. `UTC` is not listed but is shown if it is the selected value.
+### `variant` for emphasis
+
+| Value | Use it for |
+|---|---|
+| `outlined` | _Pending design guidance_ <!-- designer: is `outlined` the default, general-purpose choice, as in other fields? --> |
+| `ghost` | _Pending design guidance_ <!-- designer: when should a consumer reach for the borderless variant here? --> |
+
+### `size` for prominence
+
+| Value | Use it for |
+|---|---|
+| `small` | _Pending design guidance_ <!-- designer: which contexts call for the small size? --> |
+| `medium` | _Pending design guidance_ <!-- designer: is `medium` the default, general-purpose size? --> |
+
+## Voice and tone
+- Write `placeholder` and `searchEmptyText` in sentence case, kept short.
+
+## Accessibility
+- Pair it with **Field** for a visible label; the component renders none on its own.
+- `isReadOnly` renders the selector fully disabled, the same as `isDisabled`: it is removed from
+  the tab order and cannot be opened, not merely non-editable.
+- The option list opens with a searchable text input; typing filters the full IANA set, not only
+  the visible groups.

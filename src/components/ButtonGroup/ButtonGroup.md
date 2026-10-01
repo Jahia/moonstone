@@ -3,16 +3,9 @@
 import {ButtonGroup, Button} from '@jahia/moonstone';
 import {ChevronDown} from '@jahia/moonstone/icons';
 
-// Primary action with a dropdown trigger
 <ButtonGroup color="accent" size="big">
   <Button label="Publish" onClick={handlePublish}/>
-  <Button icon={<ChevronDown/>} aria-label="More publish options" onClick={handleMore}/>
-</ButtonGroup>
-
-// Outlined secondary group
-<ButtonGroup variant="outlined" color="accent" size="big">
-  <Button label="Export" onClick={handleExport}/>
-  <Button icon={<ChevronDown/>} aria-label="More export options" onClick={handleMore}/>
+  <Button icon={<ChevronDown/>} aria-label="Show more options" onClick={handleMore}/>
 </ButtonGroup>
 ```
 
@@ -51,7 +44,7 @@ The same emphasis rules apply as for **Button**: one `default` + `accent` group 
 | Value | Use it for |
 |---|---|
 | `default` | Most contexts. |
-| `small` | BreadcrumbItem only; don't use elsewhere for now. |
+| `small` | **BreadcrumbItem** only; don't use elsewhere for now. |
 | `big` | Header and modal-footer groups, to raise visual emphasis. |
 
 ## Accessibility

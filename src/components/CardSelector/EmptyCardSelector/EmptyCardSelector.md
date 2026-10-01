@@ -4,17 +4,9 @@
 import {EmptyCardSelector} from '@jahia/moonstone';
 import {File} from '@jahia/moonstone/icons';
 
-// Default empty state
 <EmptyCardSelector
     id="picker-empty"
     label="No item selected"
-    onClick={handleOpenPicker}
-/>
-
-// With an icon hinting at the expected content type
-<EmptyCardSelector
-    id="picker-empty-icon"
-    label="Click to add a file"
     iconStart={<File/>}
     onClick={handleOpenPicker}
 />
@@ -22,6 +14,7 @@ import {File} from '@jahia/moonstone/icons';
 
 ## Do
 - Use it in the same picker field as **CardSelector**: show EmptyCardSelector when no selection has been made, then replace it with CardSelector once the user picks an item.
+- Use it with `iconStart` to hint at the expected content type.
 
 ## Don't
 - Don't use it as a generic call-to-action button. Use **Button** instead.
@@ -33,5 +26,6 @@ import {File} from '@jahia/moonstone/icons';
 - Avoid vague labels such as "Empty" or "None". Be specific about what the user is selecting.
 
 ## Accessibility
+- An icon-only EmptyCardSelector (no `label`) must have an `aria-label` describing what the user is selecting.
 - `id` is optional but recommended when the field has an associated label, so you can connect them with `aria-labelledby`.
 - Use `isDisabled` rather than removing the component when the field is not currently editable, so assistive technologies can still discover and announce the field.

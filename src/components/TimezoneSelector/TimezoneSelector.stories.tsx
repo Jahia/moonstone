@@ -14,6 +14,7 @@ export default {
     parameters: {
         layout: 'centered',
         actions: { argTypesRegex: '^on.*' },
+        componentSubtitle: 'Picks an IANA timezone from a searchable, region-grouped dropdown.',
         docs: { description: { component: markdownNotes } },
     },
 } satisfies Meta<typeof TimezoneSelector>;

@@ -2,18 +2,10 @@
 
 ```jsx
 import {Breadcrumb, BreadcrumbItem} from '@jahia/moonstone';
-import {Folder} from '@jahia/moonstone/icons';
 
-// Basic trail showing the current location in a hierarchy
 <Breadcrumb>
     <BreadcrumbItem label="Home" onClick={() => navigate('/')}/>
     <BreadcrumbItem label="Media" onClick={() => navigate('/media')}/>
-    <BreadcrumbItem label="Images"/>
-</Breadcrumb>
-
-// With an icon on one of the items
-<Breadcrumb>
-    <BreadcrumbItem icon={<Folder/>} label="Media" onClick={() => navigate('/media')}/>
     <BreadcrumbItem label="Images"/>
 </Breadcrumb>
 ```
@@ -27,7 +19,6 @@ import {Folder} from '@jahia/moonstone/icons';
 
 - Don't use it for flat, single-level navigation. Use **Tab** or **SecondaryNav** instead.
 - Don't use it as a step indicator for a wizard or multi-step form. It conveys location, not progress.
-- Don't use it when there is only one item. A single-item breadcrumb provides no useful hierarchy context.
 
 ## Accessibility
 

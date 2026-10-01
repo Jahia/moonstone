@@ -1,17 +1,8 @@
 ## Example
 ```jsx
-import {Input, Field} from '@jahia/moonstone';
+import {Input} from '@jahia/moonstone';
 import {Love} from '@jahia/moonstone/icons';
 
-// Controlled, inside a Field for label + error
-<Field label="Email" id="email" hasError={!valid} errorMessage="Enter a valid email">
-    <Input id="email" value={email} onChange={e => setEmail(e.target.value)}/>
-</Field>
-
-// Uncontrolled, with a clear button
-<Input defaultValue="" onClear={() => setValue('')}/>
-
-// With a leading icon
 <Input placeholder="Favorite" icon={<Love/>}/>
 ```
 
@@ -37,12 +28,12 @@ import {Love} from '@jahia/moonstone/icons';
 
 ## Appearance
 
-### `size` for Input
+### `size` for prominence
 
 | Value | Use it for |
 |---|---|
-| `default` | _Pending design guidance_ <!-- designer: when should `default` be used over `big`? --> |
-| `big` | _Pending design guidance_ <!-- designer: when should `big` be used over `default`? --> |
+| `default` | Small contexts, such as **SecondaryNav** or **Menu**. |
+| `big` | The main area of the product, such as a form or a table. |
 
 ## Voice and tone
 - Write `placeholder` text in sentence case, and keep it short.

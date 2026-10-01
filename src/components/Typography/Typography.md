@@ -3,9 +3,6 @@
 import {Typography} from '@jahia/moonstone';
 
 <Typography variant="title" component="h1">Page title</Typography>
-<Typography variant="heading" component="h2">Section heading</Typography>
-<Typography variant="body">Body copy goes here.</Typography>
-<Typography variant="caption">Secondary detail</Typography>
 ```
 
 ## Do
@@ -25,21 +22,21 @@ Choose the variant that matches the text's role in the content hierarchy, then a
 
 | Value | Use it for |
 |---|---|
-| `title` | _Pending design guidance_ <!-- designer: page-level titles, the largest text level --> |
-| `heading` | _Pending design guidance_ <!-- designer: section headings within a page --> |
-| `subheading` | _Pending design guidance_ <!-- designer: subsection headings or group labels --> |
-| `body` | _Pending design guidance_ <!-- designer: default body text, the most common variant --> |
-| `caption` | _Pending design guidance_ <!-- designer: small supporting text, metadata, secondary details --> |
-| `button` | _Pending design guidance_ <!-- designer: control and button labels; used internally by Button --> |
+| `title` | The page title of the application. |
+| `heading` | A heading of a section. |
+| `subheading` | Subsection headings or group labels. |
+| `body` | The default body text size, the most common variant. |
+| `caption` | Small text such as a description or helper text. |
+| `button` | The specific text style for a button's label. |
 
 ### `weight` for emphasis
 
 | Value | Use it for |
 |---|---|
-| `default` | _Pending design guidance_ <!-- designer: regular weight, the baseline for all variants --> |
-| `bold` | _Pending design guidance_ <!-- designer: strong emphasis within a text block --> |
-| `semiBold` | _Pending design guidance_ <!-- designer: moderate emphasis --> |
-| `light` | _Pending design guidance_ <!-- designer: de-emphasised or secondary text --> |
+| `default` | The baseline weight for all variants. |
+| `bold` | Strong emphasis within a text block. |
+| `semiBold` | Moderate emphasis. |
+| `light` | De-emphasised or secondary text. |
 
 ## Accessibility
 - Set the `component` prop to the correct HTML heading element (`h1`, `h2`, and so on) when the text is a heading. Typography renders as `<p>` by default regardless of variant.

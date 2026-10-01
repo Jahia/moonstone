@@ -25,6 +25,7 @@ export default {
     component: PrimaryNav,
 
     parameters: {
+        componentSubtitle: 'The application\'s single top-level (level-1) navigation, collapsible to an icon rail.',
         docs: { description: { component: markdownNotes } },
     },
 } as Meta<typeof PrimaryNav>;

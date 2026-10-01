@@ -1,20 +1,39 @@
-## Goals:
+## Example
+```jsx
+import {PrimaryNav, PrimaryNavItem, PrimaryNavItemsGroup} from '@jahia/moonstone';
+import {Apps, Person, Power} from '@jahia/moonstone/icons';
 
-Create the Navigation-primary component for the main navigation (level 1).
+<PrimaryNav
+    headerCaption="Production"
+    headerLogo={<img alt="Acme" height={30} src="/logo.svg"/>}
+    top={(
+        <PrimaryNavItemsGroup>
+            <PrimaryNavItem isSelected icon={<Apps/>} label="Dashboard"/>
+            <PrimaryNavItem icon={<Person/>} label="Users"/>
+        </PrimaryNavItemsGroup>
+    )}
+    bottom={(
+        <PrimaryNavItemsGroup>
+            <PrimaryNavItem icon={<Power/>} label="Sign out" onClick={handleSignOut}/>
+        </PrimaryNavItemsGroup>
+    )}
+/>
+```
 
-## Specifications:
+## Do
+- Use it as the application's single top-level (level-1) navigation.
+- Use it to group the application's destinations into sections with **PrimaryNavItemsGroup**, each holding one or more **PrimaryNavItem**.
+- Use it when the navigation should collapse to an icon-only rail and expand back on demand. It manages that state itself.
 
-The navigation bar should be collapsable/expandable by clicking on the burger menu.
+## Don't
+- Don't use it for secondary or in-page navigation within a section. Use **SecondaryNav** instead.
+- Don't use it to switch between views inside a single page, such as panel tabs. Use **Tab** instead.
+- Don't place a **PrimaryNavItem** directly in `top` or `bottom`. Wrap it in a **PrimaryNavItemsGroup** first.
 
-Show or Hide elements depends on the state of the display.
+## Voice and tone
+- Write `headerCaption` in sentence case and keep it short, such as an environment name ("Production").
 
-if expanded :
-
- - Switch {{burger-menu}} to {{arrow-back}} icon
- - Show HeaderLogo
- - Show label’s icon
- - Show helping links (documentations ...)
- - Show mail of the user
- - Show sign out button
-
-Figma Link : https://www.figma.com/file/939bW74C3TLW5VAzK23uox/moonstone-components?node-id=140%3A0
+## Accessibility
+- Give `headerLogo` a meaningful `alt` attribute when it's an image, or an empty one if it's purely decorative.
+- If the page has more than one navigation landmark, pass `aria-label` to distinguish this one. It is forwarded to the underlying `<nav>`.
+- The expand/collapse toggle already exposes an accessible name and reports its state through `aria-expanded`. Don't duplicate it with another control.

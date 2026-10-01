@@ -1,19 +1,8 @@
 ## Example
 ```jsx
 import {Thumbnail} from '@jahia/moonstone';
-import {Love} from '@jahia/moonstone/icons';
 
-// Default (no src) — shows a placeholder icon
-<Thumbnail />
-
-// Image preview from a URL
-<Thumbnail src="https://example.com/photo.jpg" alt="Product photo" />
-
-// React element as the visual (icon or custom graphic)
-<Thumbnail src={<Love size="big" color="gray" />} variant="icon" />
-
-// Small size
-<Thumbnail src="https://example.com/thumb.jpg" alt="Small preview" size="small" />
+<Thumbnail src="https://example.com/photo.jpg" alt="Product photo"/>
 ```
 
 ## Do

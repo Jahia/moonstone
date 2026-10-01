@@ -1,8 +1,8 @@
 import type { ButtonProps } from '~/components/Button/Button.types';
 
-export type BreadcrumbItemProps = Omit<ButtonProps, 'variant' | 'size' | 'label'> & {
+export type BreadcrumbItemProps = Omit<ButtonProps, 'variant' | 'size' | 'label' | 'color'> & {
     /**
-     * Label of the BreadcrumbItem
+     * Text shown for this navigation step
      */
     label?: string;
 };

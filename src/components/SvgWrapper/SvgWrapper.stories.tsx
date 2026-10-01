@@ -28,6 +28,7 @@ export default {
 
     parameters: {
         layout: 'centered',
+        componentSubtitle: 'Renders an inline SVG element at icon scale.',
         docs: { description: { component: markdownNotes } },
     },
 } as Meta<typeof SvgWrapper>;

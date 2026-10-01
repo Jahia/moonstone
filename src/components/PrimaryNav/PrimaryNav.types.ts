@@ -21,15 +21,15 @@ export type PrimaryNavHeaderProps = {
 
 export type PrimaryNavProps = React.ComponentPropsWithoutRef<'nav'> & {
     /**
-     * Image of logo application
+     * Image of logo module
      */
     headerLogo?: React.ReactNode;
     /**
-     * Image for application mode
+    * Icon shown next to the header caption (and, collapsed, above the toggle button) to indicate the application's mode or environment.
      */
     modeIcon?: React.ReactElement;
     /**
-     * Application's environment
+    * Caption shown next to `modeIcon` when expanded, typically naming the application's environment (for example "Production").
      */
     headerCaption?: string;
     /**

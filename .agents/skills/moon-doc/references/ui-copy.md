@@ -1,17 +1,14 @@
-# Moonstone UI copy (voice & tone)
+# UI copy (voice and tone)
 
-> 🟢 **Maturity: Enforced (core rules).** Rules for the user-visible text in components.
-> **Primarily for consumers** — the copy you pass into a component, such as a button label.
-> Contributors follow the same rules for component **default** labels and **doc examples**.
-> Feeds the future consumer `AGENTS.md`. The *Open items* at the end await product/design.
-> **Last updated:** 2026-06-12
+Rules for the user-visible text in components: labels in doc examples, default labels, and
+the copy consumers pass in.
 
 ## Scope
 
 All user-facing text rendered through or alongside Moonstone components — button
 labels, field labels, menu items, placeholders, empty-state messages, etc.
 
-## Casing — sentence case ✅
+## Casing — sentence case
 
 - Write UI text in **sentence case**: capitalize the first word and proper nouns only.
   "Save changes", not "Save Changes".
@@ -40,7 +37,3 @@ labels, field labels, menu items, placeholders, empty-state messages, etc.
 - Canonical per-action label list (a fixed wording list). Until defined, the action-label
   rules above apply.
 - A fuller accessibility-text voice beyond the interim `aria-label` rule.
-
-## Used by
-
-- [Button](../../src/components/Button/Button.md#writing-button-labels-voice--tone) — first adopter.

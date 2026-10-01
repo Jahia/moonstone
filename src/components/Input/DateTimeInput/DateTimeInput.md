@@ -1,73 +1,67 @@
-A date / date-time / zoned-date-time field: a date field that can be typed into or filled from the
-calendar it opens, plus an optional time field and timezone selector depending on the mode.
+## Example
+```jsx
+import {DateTimeInput} from '@jahia/moonstone';
 
-## Modes
+<DateTimeInput type="date" defaultValue="2026-06-19"/>
+```
 
-`type` selects the fields rendered and the emitted value:
+## Controlled & uncontrolled
+- Controlled: pass `value` and `onChange` (required). `onChange(event, value)` always gives the
+  mode's `Temporal` instance, or `null` when the field is cleared, even though `value` itself also
+  accepts an ISO string.
+- Uncontrolled: pass `defaultValue` (optional) and let the component manage its own state. With no
+  `defaultValue`, the field starts at the current date/time; pass `defaultValue={null}` to start empty.
+- Don't mix the two modes. Passing both `value` and `defaultValue` is not supported.
 
-- `'date'` — calendar only → `Temporal.PlainDate`
-- `'dateTime'` — calendar + time → `Temporal.PlainDateTime`
-- `'zonedDateTime'` — calendar + time + timezone → `Temporal.Instant`
+## Do
+- Use it to capture a calendar date, optionally with a time and a timezone, such as a publish
+  date, a deadline, or a scheduled event.
+- Pair it with **Field** when it needs a label, helper text, or an error message.
 
-## Value
+## Don't
+- Don't use it to capture a time with no date. Use **TimeInput** instead.
+- Don't use it to pick a timezone on its own, with no date value. Use **TimezoneSelector** instead.
 
-`value` / `defaultValue` accept the mode's `Temporal` instance, an ISO string (e.g. `'2026-06-19'`,
-`'2026-06-19T14:30'`, `'2026-06-19T12:30:00Z'`), or `null`. Zoned mode takes an instant — a
-`Temporal.Instant` or an ISO string with `Z` or an offset — never a `Temporal.ZonedDateTime`: the
-value carries no timezone. A JS `Date` is not accepted in any mode — pass `date.toISOString()`.
-`onChange` always emits the mode's `Temporal` instance (or `null`) — never a string. Pass
-`defaultValue={null}` to start empty; with no `defaultValue`, an uncontrolled field starts at the
-current date/time.
+## Appearance
 
-When the date field holds a value it shows a clear (reset) button. Clearing empties the whole value —
-date and time — and `onChange` emits `null`, since a date-time has no meaning without its date. The
-displayed timezone is kept for the next date: it is a view setting, not part of the value.
+`type` determines which fields render and which value is emitted; `variant` and `size` only
+affect the field's own styling.
 
-## Manual entry
+### `type` for scope
 
-The date can also be typed, in the order the field displays it (from `locale` / `dateFormat`). Any
-non-digit separates the fields (`30/03/2026`, `30-3-26`) and a two-digit year is read as 20xx.
+| Value | Use it for |
+|---|---|
+| `date` | A date only, with no time, such as a deadline, a due date, or a birthday. |
+| `dateTime` | A date and a time, such as scheduling within a single timezone. |
+| `zonedDateTime` | A date, a time, and a timezone together, such as scheduling across timezones. The timezone picker only changes how the value is displayed, never the value itself. |
 
-The entry is committed on `Enter` or when the field loses focus. A date that can't be read, or one
-the calendar disables, is dropped: the field falls back to the stored value. Emptying the field
-clears the whole value, like the clear button.
+### `variant` for emphasis
 
-## Controlled and uncontrolled
+| Value | Use it for |
+|---|---|
+| `ghost` | A borderless field, such as one embedded in a toolbar or a compact filter bar. |
+| `outlined` | A field with a visible border, the typical choice inside a form or a **Field**. |
 
-Provide `value` + `onChange` for controlled (`onChange` is required), or `defaultValue` for uncontrolled.
+### `size` for prominence
 
-## Calendar constraints
+| Value | Use it for |
+|---|---|
+| `default` | Small contexts, such as **SecondaryNav** or **Menu**. |
+| `big` | The main area of the product, such as a form or a table. |
 
-- `minDate` / `maxDate` — inclusive bounds; dates outside are disabled.
-- `disabledDates` — individual dates to disable.
-- `disabledDateRanges` — `{from, to}` ranges to disable (inclusive).
-- `disabledDaysOfWeek` — recurring weekdays to disable (`0` = Sunday … `6` = Saturday), e.g. `[0, 6]` for weekends.
+## Voice and tone
+- Write `i18n.todayButton` as a short, verb-first action label in sentence case, such as "Today".
+- Write `i18n.nextMonth` and `i18n.previousMonth` as accessible labels describing the action, in
+  sentence case, such as "Go to the next month".
+- Write `i18n.timezone` as a short label in sentence case, such as "Timezone".
 
-Each accepts a `Temporal.PlainDate` or an ISO date string.
-
-## Calendar header
-
-The header shows a year dropdown whenever the navigable range spans more than one year, and a
-month dropdown whenever it spans more than one month — no toggle needed, it's automatic.
-Both dropdowns respect `minDate` / `maxDate`: out-of-range months are disabled, and out-of-range
-years are not listed.
-
-## Localization
-
-`locale` (BCP 47) drives the calendar text, the displayed date format, and the first day of the week.
-When omitted, the browser locale is used. `dateFormat` (LDML, e.g. `'dd/MM/yyyy'`) overrides only the
-field's date order — name tokens still render localized via `locale`. `weekStartsOn` overrides the
-locale-derived first day. `i18n` overrides the calendar action labels (today / next / previous month)
-and the timezone row label.
-
-## Zoned mode
-
-The timezone only changes how the instant is shown, never the instant itself. Pick a zone in the
-`Timezone:` row under the fields: the date and time are converted, `onChange` is not called. The
-selector stays usable when the field is disabled or read-only. The initial zone is `defaultTimezone`,
-or the browser's zone when omitted. The row is hidden without a date.
-
-## Sub-component props
-
-`timeInputProps` and `timezoneSelectorProps` forward additional props to the internal `TimeInput`
-(`dateTime` / `zonedDateTime`) and `TimezoneSelector` (`zonedDateTime`).
+## Accessibility
+- Pair it with **Field** for a visible label; the field renders none on its own.
+- The date can be typed directly, not only picked from the calendar. Keep both paths available;
+  don't trap keyboard users in one of them.
+- `Escape` closes the open calendar and `Enter` opens it or commits a typed date. Don't remove the
+  focus ring.
+- The timezone selector (`type="zonedDateTime"`) stays focusable and operable even when the field
+  is `isDisabled` or `isReadOnly`.
+- Override `i18n`'s calendar and timezone labels when translating; left unset, they default to
+  English.

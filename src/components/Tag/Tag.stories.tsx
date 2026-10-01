@@ -6,6 +6,7 @@ import type { Meta, StoryFn } from '@storybook/react-vite';
 export default {
     title: 'Components/Tag',
     component: Tag,
+    tags: ['internal', '!manifest'],
     parameters: {
         componentSubtitle: 'Represents a removable attribute, such as an applied filter or a selected option.',
         docs: { description: { component: markdownNotes } },

@@ -12,9 +12,11 @@ import type { StoryObj } from '@storybook/react-vite';
 export default {
     title: 'Components/ListItem',
     component: ListItem,
+    tags: ['internal', '!manifest'],
 
     parameters: {
         layout: 'centered',
+        componentSubtitle: 'Renders a single row of a list, with an optional icon, image, and description.',
         docs: { description: { component: markdownNotes } },
     },
     argTypes: {

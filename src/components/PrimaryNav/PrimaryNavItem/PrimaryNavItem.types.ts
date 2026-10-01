@@ -21,27 +21,27 @@ export type ItemTypeResolverProps = {
 
 export type PrimaryNavItemProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'onClick' | 'className'> & {
     /**
-     * Label
+     * Label of the navigation entry
      */
     label?: string;
     /**
-     * Icon node from our icon library
+     * Icon to illustrate the navigation entry
      */
     icon?: React.ReactElement;
     /**
-     * Subtitle
+     * Secondary line of text shown below the label.
      */
     subtitle?: string;
     /**
-     * Optional button
+     * Extra control rendered at the end of the item
      */
     button?: React.ReactNode;
     /**
-     * Element is selected or not
+     * Marks the item as the current page or section. Set it on only one item at a time.
      */
     isSelected?: boolean;
     /**
-     * Badge
+     * Badge shown at the end of the item
      */
     badge?: React.ReactElement<BadgeProps>;
     /**
@@ -53,7 +53,7 @@ export type PrimaryNavItemProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'on
      */
     className?: string;
     /**
-     * Function triggered on click
+     * Called when the item is activated by click, Enter, or Space. Activating it also collapses an expanded PrimaryNav.
      */
     onClick?: React.MouseEventHandler;
 };

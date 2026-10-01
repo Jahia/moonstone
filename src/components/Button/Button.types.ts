@@ -46,12 +46,12 @@ export type ButtonProps = Omit<React.ComponentPropsWithRef<'button'>, 'className
     isDisabled?: boolean;
 
     /**
-     * Whether the component should use reversed colors, it useful with dark background
+     * Whether the component should use reversed colors. Useful on a dark background
      */
     isReversed?: boolean;
 
     /**
-     * Whether the button is loading
+     * Shows a spinner in place of the icon and disables interaction
      */
     isLoading?: boolean;
 

@@ -15,6 +15,7 @@ export default {
     component: Separator,
     parameters: {
         layout: 'centered',
+        componentSubtitle: 'Visually divides sections of content.',
         docs: { description: { component: markdownNotes } },
     },
 };

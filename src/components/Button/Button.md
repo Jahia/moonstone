@@ -1,15 +1,8 @@
 ## Example
 ```jsx
 import {Button} from '@jahia/moonstone';
-import {Love} from '@jahia/moonstone/icons';
 
 <Button label="Save" color="accent" onClick={handleSave}/>
-
-// Destructive action
-<Button label="Delete" variant="outlined" color="danger" onClick={handleDelete}/>
-
-// Icon-only button. See Accessibility for the required aria-label.
-<Button icon={<Love/>} aria-label="Add to favorites" onClick={handleFav}/>
 ```
 
 ## Do
@@ -48,7 +41,7 @@ Each area, such as a page, a modal, or a panel, should have one main action. Low
 | Value | Use it for |
 |---|---|
 | `default` | Most contexts. |
-| `small` | BreadcrumbItem only. Don't use it elsewhere for now. |
+| `small` | **BreadcrumbItem** only. Don't use it elsewhere for now. |
 | `big` | Header and modal-footer buttons, where you want to raise emphasis. The label is shown in uppercase. |
 
 ## Voice and tone

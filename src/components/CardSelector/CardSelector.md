@@ -4,17 +4,8 @@
 import {CardSelector, Chip, Button} from '@jahia/moonstone';
 import {FileImage, Close} from '@jahia/moonstone/icons';
 
-// Basic usage
 <CardSelector
-    id="card-1"
-    displayName="Item name"
-    systemName="item-system-name"
-    onClick={handleClick}
-/>
-
-// With thumbnail, chips, and extra information
-<CardSelector
-    id="card-2"
+    id="card"
     displayName="Hero image"
     systemName="hero-image"
     thumbnail={imageUrl}
@@ -22,22 +13,6 @@ import {FileImage, Close} from '@jahia/moonstone/icons';
     thumbnailType="preview"
     chips={[<Chip key="type" label="Image" icon={<FileImage/>} color="accent"/>]}
     information="Last modified 2 days ago"
-    onClick={handleClick}
-/>
-
-// With a remove action
-<CardSelector
-    id="card-3"
-    displayName="Document.pdf"
-    cardAction={<Button variant="ghost" icon={<Close/>} aria-label="Remove"/>}
-    onClick={handleClick}
-/>
-
-// Error state: the referenced item cannot be resolved.
-<CardSelector
-    id="card-4"
-    hasError
-    errorMessage="Broken reference"
     onClick={handleClick}
 />
 ```

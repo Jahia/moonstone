@@ -18,6 +18,7 @@ export default {
     parameters: {
         layout: 'centered',
         actions: { argTypesRegex: '^on.*' },
+        componentSubtitle: 'A date field, with an optional time and timezone, typed or picked from a calendar.',
         docs: { description: { component: markdownNotes } },
     },
     args: {

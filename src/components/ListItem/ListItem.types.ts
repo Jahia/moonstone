@@ -14,13 +14,13 @@ export type ListItemProps = Omit<React.ComponentPropsWithRef<'li'>, 'className'>
     label: React.ReactNode;
 
     /**
-     * Optional description to display to describe the item
+     * Optional description shown below the label
      */
     description?: string;
 
     /**
-     * A leading icon display before the label. Cannot be used in conjunction with the image property.
-     */
+     * A leading icon shown before the label. Takes priority over `image` when both are passed.
+    */
     iconStart?: React.ReactElement;
 
     /**
@@ -29,7 +29,7 @@ export type ListItemProps = Omit<React.ComponentPropsWithRef<'li'>, 'className'>
     iconEnd?: React.ReactElement;
 
     /**
-     * Optional image to display to describe the menu item. Cannot be used in conjunction with the iconStart property.
+     * Image shown before the label.
      */
     image?: React.ReactElement;
 
