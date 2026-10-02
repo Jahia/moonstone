@@ -11,7 +11,8 @@ names.
 
 ## Before anything
 
-Read `references/structure.md`, `references/style.md`, and `references/ui-copy.md`. They hold
+Read `references/structure.md`, `references/style.md`, `references/ui-copy.md`, and
+`references/component-rules.md`. They hold
 every rule; this file only holds the workflow.
 
 Ground every claim in the code. Read `<Component>.types.ts` (props and JSDoc), `<Component>.tsx`,

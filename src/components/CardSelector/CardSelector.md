@@ -22,7 +22,6 @@ import {FileImage, Close} from '@jahia/moonstone/icons';
 - Pair it with **EmptyCardSelector** to handle the state before the user has made a selection.
 
 ## Don't
-- Don't use it in a multi-select list. Use **ListSelector** instead.
 - Don't use it as a purely decorative display with no clickable behavior. Use **Thumbnail** combined with **Typography** instead.
 
 ## Appearance

@@ -63,10 +63,8 @@ Per-section content (for phrasing, see `style.md`):
   exported** component (for example, "Don't use a Button for an on/off setting. Use a **Switch**
   instead."). This routing steers an LLM to built-ins, so it is required; cross-references to
   other components live here or in the prose.
-  To choose between selection components, route by the number of options and the selection
-  mode: up to 5 options, **RadioGroup** (single) or **CheckboxGroup** (multiple); 6 or more,
-  **Dropdown** (single, or multiple selection); a large number of options to pick from,
-  **ListSelector**.
+  To route between components of the same group (such as the selection components), apply
+  `component-rules.md`, with its exact values.
 - **Appearance** — see the pattern below.
 - **Voice and tone** — include ONLY for components where the user writes copy (Button, Input,
   Field, EmptyData…); omit for components with no user copy (Typography, Table, Loader). When

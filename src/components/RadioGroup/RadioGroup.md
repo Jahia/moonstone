@@ -36,14 +36,13 @@ In both modes, one item is always selected: the first one when no value is given
   ```
 
 ## Do
-- Use it to let the user choose exactly one option from a short list where every option stays visible.
+- Use it to let the user choose exactly one option out of 3 or fewer, all visible at once.
 - Use it for a choice that always has an answer, since one option is always selected.
 
 ## Don't
 - Don't use a RadioGroup when the user can select several options. Use a **CheckboxGroup** instead.
 - Don't use a RadioGroup for a single option. It renders nothing with fewer than two items. Use a **CheckboxItem** instead.
-- Don't use a RadioGroup for an on/off setting that applies immediately. Use a **Switch** instead.
-- Don't use a RadioGroup for a long list of options. Use a **Dropdown** instead.
+- Don't use a RadioGroup for 4 options or more. Use a **Dropdown** instead.
 
 ## Accessibility
 - The group renders no label of its own. Give it an accessible name with `aria-labelledby`, pointing at its visible label, or `aria-label`, together with `role="radiogroup"`.

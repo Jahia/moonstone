@@ -15,7 +15,6 @@ import {ChevronDown} from '@jahia/moonstone/icons';
 ## Don't
 - Don't use a ButtonGroup for a single action. Use a **Button** instead.
 - Don't use a ButtonGroup to wrap unrelated actions that happen to sit side by side. Use separate **Button** components instead.
-- Don't use a ButtonGroup for a binary on/off setting. Use a **Switch** instead.
 - Don't use a ButtonGroup for buttons that hold a pressed or active state. Use a **ButtonToggle** instead.
 
 ## Appearance

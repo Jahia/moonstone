@@ -19,16 +19,13 @@ import {Dropdown} from '@jahia/moonstone';
 - Use it to let the user pick several values from a list. Each selected value shows as a tag in
   the field, and the user can remove it from there.
 - Use it to let the user pick an item in a hierarchy, such as a page in a site tree.
-- Use it for a long list of options. A search field appears automatically once the list grows
-  past a few options.
+- Use it for 4 options or more. A search field appears automatically past 7 options.
 
 ## Don't
 - Don't use it for a list of actions. Use a **Menu** instead.
-- Don't use it for a binary on/off setting. Use a **Switch** instead.
-- Don't use it when a few mutually exclusive options should stay visible. Use a **RadioGroup**
-  instead.
-- Don't use it when the user picks many values and sets their order. Use a **ListSelector**
-  instead.
+- Don't use it for 3 options or fewer. Use a **RadioGroup** (one value) or a **CheckboxGroup**
+  (several values) instead.
+- Don't use it when the user selects 10 values or more. Use a **ListSelector** instead.
 - Don't use it to open custom content, such as a small form or sorting controls. Use a
   **CustomDropdown** instead.
 

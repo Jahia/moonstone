@@ -21,7 +21,6 @@ const [selectedTab, setSelectedTab] = useState('content');
 
 ## Don't
 - Don't use it to navigate between the pages or sections of the application. Use **PrimaryNav** or **SecondaryNav** instead.
-- Don't use it to let the user pick one value in a form. Use a **RadioGroup** instead.
 - Don't use it to stack sections that the user expands and collapses. Use an **Accordion** instead.
 
 ## Voice and tone

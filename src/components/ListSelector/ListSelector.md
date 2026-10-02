@@ -18,14 +18,12 @@ import {ListSelector} from '@jahia/moonstone';
 ```
 
 ## Do
-- Use it to let the user pick several values from a long list and set their order, such as the
-  languages of a site.
-- Use it when the user needs to see the available and the selected values side by side.
+- Use it when the user selects 10 values or more. The user can also set their order.
 
 ## Don't
 - Don't use it to pick a single value. Use a **Dropdown** instead.
-- Don't use it to pick several values when their order does not matter. Use a **Dropdown** in
-  multiple selection instead.
+- Don't use it when the user selects fewer than 10 values. Use a **Dropdown** in multiple
+  selection instead.
 
 ## Voice and tone
 - Write both list titles in sentence case, using a few words that name what each list holds,

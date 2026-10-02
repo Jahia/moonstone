@@ -40,7 +40,6 @@ and the new on/off state as its third.
 ## Don't
 - Don't use a Switch for a choice the user submits later with a form. Use a **CheckboxItem** instead, or a **FieldBoolean** for a form field with a label, a helper text, or an error message.
 - Don't use a Switch for a toolbar button that holds a pressed state, such as bold or italic. Use a **ButtonToggle** instead.
-- Don't use a Switch to pick one of several mutually exclusive values. Use a **RadioGroup** instead.
 - Don't use a Switch to trigger a one-shot action. Use a **Button** instead.
 
 ## Accessibility
