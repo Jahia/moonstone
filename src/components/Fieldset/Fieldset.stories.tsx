@@ -14,6 +14,7 @@ const meta: Meta<typeof Fieldset> = {
     parameters: {
         layout: 'padded',
         actions: { argTypesRegex: '^on.*' },
+        componentSubtitle: 'Groups related fields under a heading, with optional helper text and actions.',
         docs: { description: { component: markdownNotes } },
     },
     argTypes: {

@@ -19,6 +19,7 @@ export default {
         ),
     ],
     parameters: {
+        componentSubtitle: 'The second-level navigation panel of a section, which the user can hide and resize.',
         docs: { description: { component: markdownNotes } },
     },
 } as Meta<typeof SecondaryNav>;

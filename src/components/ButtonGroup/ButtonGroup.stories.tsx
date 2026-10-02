@@ -15,7 +15,7 @@ export default {
     parameters: {
         docs: { description: { component: markdownNotes } },
         layout: 'centered',
-        componentSubtitle: 'Wraps related Buttons into a single visual unit with shared variant, color, and size.',
+        componentSubtitle: 'Joins related Buttons into one unit.',
         actions: { argTypesRegex: '^on.*' },
     },
 } as Meta<typeof ButtonGroup>;

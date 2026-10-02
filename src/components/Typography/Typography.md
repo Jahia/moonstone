@@ -2,21 +2,22 @@
 ```jsx
 import {Typography} from '@jahia/moonstone';
 
-<Typography variant="title" component="h1">Page title</Typography>
+<Typography variant="heading" component="h2">Recent activity</Typography>
 ```
 
 ## Do
-- Use it for all visible text in your UI: headings, body copy, captions, and labels.
-- Use the `component` prop to render the correct semantic HTML element for the text's role in the page, such as `h1`, `h2`, or `label`.
-- Use `weight` to adjust emphasis within a variant without changing its visual size.
+- Use it for every piece of text you render yourself, such as headings, body copy, captions, and labels.
+- Use it to give a heading or a link the design system's type style while keeping the right HTML element for its role in the page.
+- Use it to emphasize or de-emphasize part of a text, such as a key figure or a secondary detail.
 
 ## Don't
-- Don't use raw HTML elements with custom styles for text. Use a Typography variant instead to stay consistent with the design system's type scale.
-- Don't double-wrap text that is already inside a Moonstone component that renders Typography internally, such as the `label` prop of a **Button**.
+- Don't use Typography to style the label of a Moonstone component, such as a **Button**. Pass the text to the component, which already renders it with the right style.
+- Don't use Typography to build a form-field label. Use a **Field** instead, which renders the label and links it to its control.
+- Don't use Typography to build the title bar of a page. Use a **Header** instead.
 
 ## Appearance
 
-Choose the variant that matches the text's role in the content hierarchy, then adjust weight and modifiers as needed.
+Choose the variant that matches the text's role in the content hierarchy, then adjust the weight if needed.
 
 ### `variant` for hierarchy
 
@@ -36,9 +37,9 @@ Choose the variant that matches the text's role in the content hierarchy, then a
 | `default` | The baseline weight for all variants. |
 | `bold` | Strong emphasis within a text block. |
 | `semiBold` | Moderate emphasis. |
-| `light` | De-emphasised or secondary text. |
+| `light` | De-emphasized or secondary text. |
 
 ## Accessibility
-- Set the `component` prop to the correct HTML heading element (`h1`, `h2`, and so on) when the text is a heading. Typography renders as `<p>` by default regardless of variant.
-- Use `component="label"` when the Typography wraps a form-field label, and associate it with the input via `htmlFor`.
-- Don't rely on `variant` alone for semantic structure. Screen readers use the HTML element, not the visual style, to convey hierarchy.
+- The component renders a `<p>` whatever the variant. When the text is a heading, set `component` to the matching heading element, such as `h1` or `h2`.
+- Don't rely on `variant` for structure. Assistive technology conveys the hierarchy from the HTML element, not from the visual style.
+- Keep heading levels in order on the page. Don't skip a level to get a smaller style. Pick the `variant` for the look and the `component` for the level.

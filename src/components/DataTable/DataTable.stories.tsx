@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import markdownNotes from './DataTable.md?raw';
 import { DataTable, TableCellActions, TableCellStatus, TableRow } from './index';
 import { Button, Tooltip } from '~/components';
 import { dataColumnsUser, getStatus, tableFlat, tableStructured } from '~/data/dataTable';
@@ -14,6 +15,8 @@ export default {
     tags: ['beta'],
     parameters: {
         controls: { expanded: true },
+        componentSubtitle: 'Displays a list of records as rows and columns, with built-in sorting, selection, pagination, and expandable rows.',
+        docs: { description: { component: markdownNotes } },
     },
     argTypes: {
         onChangeSelection: { action: 'onChangeSelection' },

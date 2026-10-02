@@ -4,8 +4,8 @@
 import {EmptyCardSelector} from '@jahia/moonstone';
 import {File} from '@jahia/moonstone/icons';
 
+// Replace it with a CardSelector once the user has picked an item.
 <EmptyCardSelector
-    id="picker-empty"
     label="No item selected"
     iconStart={<File/>}
     onClick={handleOpenPicker}
@@ -13,19 +13,19 @@ import {File} from '@jahia/moonstone/icons';
 ```
 
 ## Do
-- Use it in the same picker field as **CardSelector**: show EmptyCardSelector when no selection has been made, then replace it with CardSelector once the user picks an item.
-- Use it with `iconStart` to hint at the expected content type.
+- Use it in a picker field before the user has selected an item. Once the user picks one, replace it with a **CardSelector** that shows the selection.
+- Use it to let the user open a picker, such as a content or media picker, from an empty field.
 
 ## Don't
-- Don't use it as a generic call-to-action button. Use **Button** instead.
-- Don't use it to illustrate an empty state that requires no user action. Use **EmptyData** instead.
+- Don't use an EmptyCardSelector as a generic call-to-action button. Use a **Button** instead.
+- Don't use an EmptyCardSelector to show an empty state that requires no user action. Use **EmptyData** instead.
 
 ## Voice and tone
-- Write `label` in sentence case, using a short phrase.
-- Start with a clear invitation or a description of the current state, such as "No item selected" or "Click to add a page".
-- Avoid vague labels such as "Empty" or "None". Be specific about what the user is selecting.
+- Write the label in sentence case, using a few words at most (3 maximum). Never write a full sentence.
+- Describe the current state or what the user can select, such as "No item selected" or "Add image".
+- Be specific about what the user is selecting. Never write a vague label, such as "Empty" or "None".
 
 ## Accessibility
-- An icon-only EmptyCardSelector (no `label`) must have an `aria-label` describing what the user is selecting.
-- `id` is optional but recommended when the field has an associated label, so you can connect them with `aria-labelledby`.
-- Use `isDisabled` rather than removing the component when the field is not currently editable, so assistive technologies can still discover and announce the field.
+- An icon-only EmptyCardSelector (one with no `label`) must have an `aria-label` that describes what the user can select.
+- In a form, make sure its accessible name includes the field label, such as by pointing `aria-labelledby` at that label.
+- The focus ring appears automatically on keyboard focus. Don't remove it.

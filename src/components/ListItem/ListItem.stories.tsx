@@ -16,7 +16,7 @@ export default {
 
     parameters: {
         layout: 'centered',
-        componentSubtitle: 'Renders a single row of a list, with an optional icon, image, and description.',
+        componentSubtitle: 'A single row of a list.',
         docs: { description: { component: markdownNotes } },
     },
     argTypes: {

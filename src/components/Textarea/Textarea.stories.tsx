@@ -2,6 +2,7 @@ import React from 'react';
 import { useArgs } from 'storybook/preview-api';
 
 import { Textarea } from './index';
+import markdownNotes from './Textarea.md?raw';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
@@ -18,6 +19,8 @@ const meta: Meta<typeof Textarea> = {
     ],
     parameters: {
         layout: 'centered',
+        componentSubtitle: 'Lets the user type multi-line text.',
+        docs: { description: { component: markdownNotes } },
     },
     args: {
         placeholder: 'Placeholder text',

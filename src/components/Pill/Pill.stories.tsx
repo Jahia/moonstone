@@ -12,6 +12,7 @@ export default {
 
     parameters: {
         layout: 'centered',
+        componentSubtitle: 'Shows a short code or icon next to the label of a dropdown list item.',
         docs: { description: { component: markdownNotes } },
     },
 };

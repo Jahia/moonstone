@@ -16,7 +16,7 @@ export default {
         ),
     ],
     parameters: {
-        componentSubtitle: 'Shows the current page\'s position in a multi-level hierarchy and lets the user navigate to an ancestor level.',
+        componentSubtitle: 'Shows where the current page sits in the hierarchy.',
         layout: 'centered',
         docs: { description: { component: markdownNotes } },
     },

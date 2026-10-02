@@ -63,14 +63,20 @@ Per-section content (for phrasing, see `style.md`):
   exported** component (for example, "Don't use a Button for an on/off setting. Use a **Switch**
   instead."). This routing steers an LLM to built-ins, so it is required; cross-references to
   other components live here or in the prose.
+  To choose between selection components, route by the number of options and the selection
+  mode: up to 5 options, **RadioGroup** (single) or **CheckboxGroup** (multiple); 6 or more,
+  **Dropdown** (single, or multiple selection); a large number of options to pick from,
+  **ListSelector**.
 - **Appearance** — see the pattern below.
 - **Voice and tone** — include ONLY for components where the user writes copy (Button, Input,
   Field, EmptyData…); omit for components with no user copy (Typography, Table, Loader). When
   present, state the relevant rules **inline** (sentence case; a few words, 3 max, never a
   sentence; verb-first; be specific, never "OK") plus any component-specific rule. **Never link
   to `ui-copy.md`**; the section is self-contained.
-- **Accessibility** — bullets of the must-dos the consumer is responsible for (icon-only
-  controls need `aria-label`; labels via `Field`; don't remove the focus ring).
+- **Accessibility** — each bullet names the attribute or element the consumer must **add at
+  implementation**, and when (for example, "Add an `aria-label` when the Button has no `label`.",
+  "Add `aria-hidden="true"` on a decorative icon."). Don't describe what the component already
+  does on its own.
 
 ### The Appearance pattern (generalizable)
 
@@ -119,8 +125,8 @@ Its `.md` keeps the same sections, written for the contributors who maintain the
 
 The props' JSDoc is user-facing: the IDE shows it, and Storybook renders it as the Props table.
 
-- **Write JSDoc for the consumer.** Say what the prop does and when to reach for it, in the
-  reader's terms.
+- **Write JSDoc for the consumer.** It shows in IDE tooltips: one short line saying what the
+  prop does, plus the one fact a user would get wrong. Put defaults in `@default`.
 - **JSDoc must match the code.** Defaults, types, and nullability in the doc must reflect the
   implementation; a stale or aspirational doc is a defect. Flag it and emit the fix.
 - **Non-obvious booleans get a one-sentence rationale** in their JSDoc (see *The Appearance
@@ -147,8 +153,9 @@ export default {
 - **Import the `.md` with `?raw`.** `vite.config.mjs` has `assetsInclude: ['**/*.md']`, so a
   plain `.md` import returns the file *path*, not its contents. `?raw` returns the text. This is
   the #1 pitfall; always use `?raw`.
-- `componentSubtitle` is the one-line description (the `.md` has no intro paragraph). Factual,
-  no prose duplication.
+- `componentSubtitle` is the one-line description (the `.md` has no intro paragraph): one
+  sentence of **10 words at most**, saying what the component is or does. No list of features,
+  no prop names (for example, "A single row of a list.").
 - The global page renders, in order: title, subtitle, the **first exported story** (preview),
   the Props table (Controls of that story), then the `.md` prose. So the first story in the file
   is the one shown: make it representative and driven by args.

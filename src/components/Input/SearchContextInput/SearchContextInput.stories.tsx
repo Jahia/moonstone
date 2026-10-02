@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { SearchContextInput } from './index';
+import markdownNotes from './SearchContextInput.md?raw';
 import { Dropdown } from '~/components';
 import { Collections, Person, SiteWeb } from '~/icons';
 
@@ -11,7 +12,7 @@ import type { DropdownDataOption } from '~/components/Dropdown/Dropdown.types';
 import '~/__storybook__/storybook.scss';
 
 export default {
-    title: 'Components/Input',
+    title: 'Components/Input/SearchContextInput',
     component: SearchContextInput,
     decorators: [
         StoryCmp => (
@@ -22,6 +23,8 @@ export default {
     ],
     parameters: {
         layout: 'centered',
+        componentSubtitle: 'A search field with a Dropdown that sets where the search runs.',
+        docs: { description: { component: markdownNotes } },
     },
     args: {
         placeholder: 'Placeholder text',

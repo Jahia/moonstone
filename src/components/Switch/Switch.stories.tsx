@@ -11,6 +11,7 @@ export default {
     component: Switch,
     parameters: {
         layout: 'centered',
+        componentSubtitle: 'Turns a single setting on or off.',
         docs: { description: { component: markdownNotes } },
     // When enabled, the controlledSwitch doesn't work anymore. maybe it's fixed with storybook 7.4 (https://github.com/storybookjs/storybook/pull/23804)
     // Actions: {argTypesRegex: '^on.*'}

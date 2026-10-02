@@ -17,7 +17,7 @@ export default {
         ),
     ],
     parameters: {
-        componentSubtitle: 'A single navigation step used inside a Breadcrumb, with an optional icon and a label.',
+        componentSubtitle: 'One level of a Breadcrumb, which the user clicks to navigate to that level.',
         docs: { description: { component: markdownNotes } },
         layout: 'centered',
         actions: { argTypesRegex: '^on.*' },

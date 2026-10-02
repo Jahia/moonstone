@@ -13,6 +13,7 @@ const meta: Meta<typeof FieldBoolean> = {
     parameters: {
         layout: 'padded',
         actions: { argTypesRegex: '^on.*' },
+        componentSubtitle: 'A single checkbox laid out as a form field.',
         docs: { description: { component: markdownNotes } },
     },
     argTypes: {

@@ -1,28 +1,25 @@
 ## Example
 
 ```jsx
-import {Banner, Button} from '@jahia/moonstone';
-import {Warning} from '@jahia/moonstone/icons';
+import {Banner} from '@jahia/moonstone';
 
 <Banner title="Unsaved changes" variant="warning">
-  Your changes will be lost if you navigate away.
+    Your changes will be lost if you leave this page.
 </Banner>
 ```
 
 ## Do
-- Use it to surface a contextual status message, such as neutral, info, warning, or danger, within a page or panel.
-- Use it for persistent in-page feedback that stays visible until the user acts, such as unsaved changes, a failed background process, or a feature notice.
-- Pair the message body with an action by placing a **Button** inside `children` to let users retry, dismiss, or navigate.
+- Use it to show a status message about a page or a panel, such as a notice, a warning, or an error.
+- Use it for persistent feedback that stays visible until the user acts, such as unsaved changes, a failed background process, or a feature notice.
+- Use it to pair a status message with an action, such as Retry, by placing a **Button** in its content.
 
 ## Don't
-- Don't use Banner for inline validation errors scoped to a single form field. Use **Field** instead.
-- Don't use Banner to interrupt the user and require an explicit response before they continue. Use **Modal** instead.
-- Don't use Banner for a standalone heading or body text with no status meaning. Use **Typography** instead.
-- Don't use Banner for brief contextual info on hover. Use **Tooltip** instead.
+- Don't use a Banner for a validation error on a single form field. Use a **Field** instead.
+- Don't use a Banner to interrupt the user and require a response before they continue. Use a **Modal** instead.
+- Don't use a Banner for a heading or body text that carries no status. Use **Typography** instead.
+- Don't use a Banner for brief information shown on hover. Use a **Tooltip** instead.
 
 ## Appearance
-
-Each `variant` automatically provides a matching default icon. Supply `iconStart` only when you need to override it.
 
 ### `variant` for meaning
 
@@ -34,9 +31,10 @@ Each `variant` automatically provides a matching default icon. Supply `iconStart
 | `danger` | A destructive consequence that demands the user's full attention. |
 
 ## Voice and tone
-- **title:** keep it short and describe the situation, such as "Connection failed", not an action, such as "Are you sure?".
-- **body copy:** be specific. Say what happened and what the user can do, such as "Your changes will be lost if you navigate away." Avoid vague messages like "Something went wrong."
+- Write the title in sentence case, using a few words at most (3 maximum). Never write a full sentence.
+- Make the title describe the situation, such as "Connection failed", not ask a question, such as "Are you sure?".
+- Be specific in the content. Say what happened and what the user can do, such as "Your changes will be lost if you leave this page." Never write a vague message, such as "Something went wrong."
 
 ## Accessibility
-- The component sets `aria-label` on its root element from `title` automatically.
-- Use Banner for persistent in-page messages only. Do not use it for ephemeral feedback that should be announced by a screen-reader live region.
+- Screen readers don't announce a Banner when it appears. Don't rely on it for feedback that the user must hear right away.
+- Don't convey the status by color or icon alone. Write a title that states it.

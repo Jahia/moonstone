@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { Drawer } from './Drawer';
+import markdownNotes from './Drawer.md?raw';
 import { Button, Typography } from '~/components';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
@@ -11,6 +12,8 @@ const meta = {
     tags: ['beta'],
     parameters: {
         layout: 'fullscreen',
+        componentSubtitle: 'Shows a side panel that slides in beside the page content.',
+        docs: { description: { component: markdownNotes } },
     },
 } satisfies Meta<typeof Drawer>;
 export default meta;

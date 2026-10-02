@@ -2,17 +2,17 @@
 ```jsx
 import {Thumbnail} from '@jahia/moonstone';
 
-<Thumbnail src="https://example.com/photo.jpg" alt="Product photo"/>
+<Thumbnail alt="Hero banner preview" src={image.url}/>
 ```
 
 ## Do
 - Use it to show a small visual preview of a resource, such as a page, a file, or a media item.
-- Use it when a list or table row needs a compact image slot that gracefully falls back to a placeholder when no image is available.
-- Pair it with an icon element as `src` when the resource is represented by an icon rather than a raster image.
+- Use it for a compact image slot in a list or table row. When the resource has no image, it shows a placeholder instead.
+- Use it to represent a resource with an icon when the resource has no picture of its own, such as a file type.
 
 ## Don't
-- Don't use a Thumbnail to display a large or featured image. Use an `<img>` element or a dedicated media component instead.
-- Don't use a Thumbnail as an interactive control. Wrap it in a **Button** if click interaction is required.
+- Don't use a Thumbnail as a selectable or clickable item. Use a **CardSelector** instead, which shows a thumbnail inside a selectable card.
+- Don't use a Thumbnail to show an image at the size of an icon, next to text or inside a control. Use an **ImgWrapper** instead.
 
 ## Appearance
 
@@ -20,17 +20,17 @@ import {Thumbnail} from '@jahia/moonstone';
 
 | Value | Use it for |
 |---|---|
-| `preview` | Raster images that should fill the thumbnail area with cover-crop behaviour. |
-| `icon` | Icons or graphics that should be centered and not cropped. |
+| `preview` | _Pending design guidance_ <!-- designer: which images fill the area, such as photos or page captures? --> The image fills the whole area and is cropped to fit. |
+| `icon` | _Pending design guidance_ <!-- designer: which graphics are shown small and centered, such as file-type icons? --> The image is shown small and centered, without cropping. |
 
 ### `size` for prominence
 
 | Value | Use it for |
 |---|---|
-| `default` | _Pending design guidance_ <!-- designer: standard list/table rows --> |
-| `small` | _Pending design guidance_ <!-- designer: compact/dense rows --> |
+| `default` | _Pending design guidance_ <!-- designer: standard list and table rows? --> |
+| `small` | _Pending design guidance_ <!-- designer: compact or dense rows? --> |
 
 ## Accessibility
-- Always pass a descriptive `alt` prop when `src` is a URL string; it is forwarded to the underlying `<img>` element.
-- When `src` is a React element (an icon), ensure the element itself carries appropriate accessibility attributes if it conveys meaning.
-- When no `src` is provided the fallback placeholder is decorative; no additional label is needed.
+- When `src` is an image URL, pass an `alt` that describes the image. It is forwarded to the image. If the image only repeats text shown next to it, pass an empty `alt`.
+- When `src` is an icon element and the icon conveys meaning, give the icon its own accessible name.
+- With no `src`, the placeholder is decorative. No label is needed.

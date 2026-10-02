@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { ListSelector } from './index';
+import markdownNotes from './ListSelector.md?raw';
 import { listSelectorData } from '~/data/listSelectorData';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
@@ -14,7 +15,8 @@ export default {
         layout: 'centered',
         knobs: { disable: true },
         storysource: { disable: true },
-        componentSubtitle: 'RadioGroup & RadioItem',
+        componentSubtitle: 'Lets the user pick and order values between two lists.',
+        docs: { description: { component: markdownNotes } },
         actions: { argTypesRegex: '^on.*' },
     },
     argTypes: {

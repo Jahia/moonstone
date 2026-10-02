@@ -1,20 +1,21 @@
 ## Example
 ```jsx
-import {LayoutContent, Header} from '@jahia/moonstone';
+import {Header, LayoutContent} from '@jahia/moonstone';
 
-<LayoutContent header={<Header title="Settings"/>}>
+<LayoutContent header={<Header title="Settings"/>} isLoading={isLoading}>
     <SettingsPanel/>
 </LayoutContent>
 ```
 
 ## Do
-- Use it to lay out the main content area of a page, keeping that layout consistent across the product.
-- Pair it with a **Header** passed to `header`. Most pages need one for a consistent title bar.
+- Use it to lay out the main content area of a page.
+- Use it for a page with a title bar above a scrollable content area. The title bar stays in place while the content scrolls.
+- Use it for a page whose content loads asynchronously. It shows a loader in place of the content until the data is ready.
 
 ## Don't
-- Don't use it as the top-level frame for a whole screen with a side navigation. Use a **LayoutApp** instead.
-- Don't use it to arrange a navigation panel beside a content area. Use a **LayoutModule** instead.
+- Don't use it as the top-level frame of a whole screen with the primary navigation. Use a **LayoutApp** instead.
+- Don't use it to place a secondary navigation beside a content area. Use a **LayoutModule** instead, and put the LayoutContent in its content area.
 
 ## Accessibility
-- While `isLoading` is `true`, the content region is marked busy and the content is replaced by a **Loader**, so assistive technology announces that the region is loading.
-- Provide an accessible name for the content of the `header` so the page has a clear title.
+- Give the page a title with a **Header**. It renders the title as the page's main heading.
+- While `isLoading` is `true`, the content region is marked busy and its content is replaced by a **Loader**. Set it back to `false` as soon as the content is ready, so assistive technology reads the new content.

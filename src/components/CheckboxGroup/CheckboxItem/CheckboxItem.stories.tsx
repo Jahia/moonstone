@@ -1,6 +1,7 @@
 import { useArgs } from 'storybook/preview-api';
 
 import { CheckboxItem } from './CheckboxItem';
+import markdownNotes from './CheckboxItem.md?raw';
 
 import type { CheckboxItemProps } from './CheckboxItem.types';
 import type { Meta, StoryObj } from '@storybook/react-vite';
@@ -12,6 +13,8 @@ export default {
         layout: 'centered',
         knobs: { disable: true },
         storysource: { disable: true },
+        componentSubtitle: 'A checkbox with a clickable label and an optional description.',
+        docs: { description: { component: markdownNotes } },
     },
     argTypes: {
         // When enabled, the controlledCheckbox doesn't work anymore. maybe it's fixed with storybook 7.4 (https://github.com/storybookjs/storybook/pull/23804)

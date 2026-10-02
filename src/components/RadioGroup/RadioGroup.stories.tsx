@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { RadioGroup } from './index';
+import markdownNotes from './RadioGroup.md?raw';
 import { RadioItem } from './RadioItem';
 
 import type { Meta, StoryFn, StoryObj } from '@storybook/react-vite';
@@ -13,7 +14,8 @@ export default {
         layout: 'centered',
         knobs: { disable: true },
         storysource: { disable: true },
-        componentSubtitle: 'RadioGroup & RadioItem',
+        componentSubtitle: 'Lets the user choose exactly one option.',
+        docs: { description: { component: markdownNotes } },
         actions: { argTypesRegex: '^on.*' },
     },
     argTypes: {

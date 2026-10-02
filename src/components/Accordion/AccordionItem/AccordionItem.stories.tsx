@@ -20,7 +20,7 @@ export default {
         ),
     ],
     parameters: {
-        componentSubtitle: 'A single collapsible section used inside an Accordion, with an optional icon and a required label.',
+        componentSubtitle: 'A section of an Accordion, with a header that opens and closes its content.',
         docs: { description: { component: markdownNotes } },
         actions: { argTypesRegex: '^on.*' },
     },

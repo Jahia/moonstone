@@ -1,6 +1,7 @@
 import { useArgs } from 'storybook/preview-api';
 
 import { NumberInput } from './index';
+import markdownNotes from './NumberInput.md?raw';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
@@ -19,6 +20,8 @@ export default {
     ],
     parameters: {
         layout: 'centered',
+        componentSubtitle: 'Lets the user type a number and step it with the arrow keys.',
+        docs: { description: { component: markdownNotes } },
     },
 } as Meta<typeof NumberInput>;
 

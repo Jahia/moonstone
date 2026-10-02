@@ -1,3 +1,4 @@
+import markdownNotes from './IconTextIcon.md?raw';
 import { IconTextIcon } from './index';
 import { iconArgType } from '~/__storybook__/iconArgType';
 import { Apps, Love } from '~/icons';
@@ -7,6 +8,8 @@ export default {
     component: IconTextIcon,
     parameters: {
         layout: 'centered',
+        componentSubtitle: 'Displays a line of text with an optional icon before it, after it, or both.',
+        docs: { description: { component: markdownNotes } },
     },
     argTypes: {
         iconStart: iconArgType,

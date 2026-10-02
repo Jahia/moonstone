@@ -7,6 +7,9 @@ import type { TableProps } from './Table.types';
 
 import styles from './Table.module.scss';
 
+/**
+ * @deprecated Use DataTable instead.
+ */
 export const Table: React.FC<TableProps> = ({
     component = 'table',
     className,

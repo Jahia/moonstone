@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import markdownNotes from './Collapsible.md?raw';
 import { Collapsible } from './index';
 import { Typography } from '~/components';
 
@@ -11,6 +12,8 @@ export default {
     component: Collapsible,
     parameters: {
         actions: { argTypesRegex: '^on.*' },
+        componentSubtitle: 'Shows or hides a section of content when the user clicks its header.',
+        docs: { description: { component: markdownNotes } },
     },
 };
 

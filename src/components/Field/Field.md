@@ -1,42 +1,35 @@
-Wraps a form control to give it the standard form anatomy: a label, optional helper
-text, an error state with message, and optional chips and action buttons. Use Field
-around your inputs so labelling, error display, and validation are consistent.
-
-## When to use
-- Any form control that needs a visible label and/or validation feedback
-  (**Input**, **Textarea**, **Dropdown**, selectors…).
-- Showing a field-level error message.
-
-## When NOT to use
-- A bare control with no label/validation needs (rare) — you can use the control alone.
-- Grouping several checkboxes/radios → use **CheckboxGroup** / **RadioGroup** (which
-  handle their own group label).
-
-## Usage
+## Example
 ```jsx
-import {Field, Input} from '@jahia/moonstone';
+import {Field, FieldSelector, Input} from '@jahia/moonstone';
 
 <Field
-    label="Project name"
-    id="project-name"
-    helper="Shown in the project list"
-    hasError={Boolean(error)}
-    errorMessage={error}
+    id="page-title"
+    label="Title"
+    helper="Shown in search results."
+    hasError={Boolean(titleError)}
+    errorMessage={titleError}
 >
-    <Input id="project-name" value={name} onChange={onNameChange}/>
+    <FieldSelector selector={<Input aria-label="Title" size="big" value={title} onChange={handleTitleChange}/>}/>
 </Field>
 ```
 
-- `hasError` + `errorMessage` render the error state and message.
-- `helper` shows guidance text; `chips` and `buttons` add adornments/actions.
-- `label` + `id` wire the label to the control for accessibility.
+## Do
+- Use it to give a form control a visible label, with optional helper text and a validation error message.
+- Use it for a field that holds several values, with one **FieldSelector** per value.
+- Use it to show the validation error of a single field. The validation logic stays in your code.
 
-## Composition
-- Put the form control (`Input`, `Textarea`, a selector…) as `children`.
-- Validation is owned at the Field level — the control reports values; Field shows errors.
+## Don't
+- Don't use a Field for a single checkbox that holds a yes/no value. Use a **FieldBoolean** instead.
+- Don't use a Field to group several fields under a heading. Use a **Fieldset** instead.
+- Don't put a control directly in a Field. Wrap each control in a **FieldSelector**.
+
+## Voice and tone
+- Write the `label` in sentence case, using a few words at most (3 maximum), such as "Title". Never write a full sentence.
+- Write the `helper` text and the chip labels in sentence case, such as a "Required" chip.
+- Error message wording: _Pending design guidance_ <!-- designer: rules for `errorMessage` copy (tone, whether it says how to fix the problem, punctuation). -->
 
 ## Accessibility
-- `label` and the control's `id` must match so the label is correctly associated.
-
-## Related
-- **Input**, **Textarea**, **Dropdown**, **Fieldset** (grouping multiple fields).
+- The Field label is shown, but it is not linked to the control. Give every control an accessible name, such as an `aria-label` that repeats the label.
+- The error message is not linked to the control either. When `hasError` is set, also mark the control as invalid, such as with `aria-invalid`.
+- Give each Field a unique `id`.
+- An icon-only **Button** in `buttons` must have an `aria-label` that describes the action.

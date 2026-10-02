@@ -4,51 +4,47 @@ import {ButtonGroup, Button} from '@jahia/moonstone';
 import {ChevronDown} from '@jahia/moonstone/icons';
 
 <ButtonGroup color="accent" size="big">
-  <Button label="Publish" onClick={handlePublish}/>
-  <Button icon={<ChevronDown/>} aria-label="Show more options" onClick={handleMore}/>
+    <Button label="Publish" onClick={handlePublish}/>
+    <Button icon={<ChevronDown/>} aria-label="Show more options" onClick={handleMore}/>
 </ButtonGroup>
 ```
 
 ## Do
-- Use it to group 2 to 3 tightly related actions that share the same context, such as a primary label button next to an icon-only chevron for a dropdown trigger.
-- Use it to apply a uniform `variant`, `color`, and `size` to a set of Buttons without repeating those props on each one.
-- Use it to set `variant`, `color`, `size`, and `isReversed` on the group once. Props set on the group override the same props on the individual child Buttons.
+- Use it to join 2 to 3 tightly related actions that share the same context, such as a main action next to an icon-only button that opens more options.
 
 ## Don't
-- Don't use ButtonGroup for a single standalone action. Use **Button** directly.
-- Don't wrap unrelated actions that happen to be positioned near each other. Keep them as individual **Button** elements with no wrapper.
-- Don't use ButtonGroup for a binary on/off setting. Use **Switch** instead. For a button that holds an active/pressed state, use **ButtonToggle**.
+- Don't use a ButtonGroup for a single action. Use a **Button** instead.
+- Don't use a ButtonGroup to wrap unrelated actions that happen to sit side by side. Use separate **Button** components instead.
+- Don't use a ButtonGroup for a binary on/off setting. Use a **Switch** instead.
+- Don't use a ButtonGroup for buttons that hold a pressed or active state. Use a **ButtonToggle** instead.
 
 ## Appearance
-
-The same emphasis rules apply as for **Button**: one `default` + `accent` group per area.
 
 ### `variant` for emphasis
 
 | Value | Use it for |
 |---|---|
-| `default` | The primary group, as the main action of an area. |
-| `outlined` | Secondary groups that perform a meaningful action but are not the primary call-to-action. |
-| `ghost` | Lowest-emphasis groups: cancel / dismiss, and toolbar or icon-only actions. |
+| `default` | _Pending design guidance_ <!-- designer: does Button's guidance for `default` (the main action of an area) apply to a ButtonGroup? --> |
+| `outlined` | _Pending design guidance_ <!-- designer: does Button's guidance for `outlined` apply to a ButtonGroup? --> |
+| `ghost` | _Pending design guidance_ <!-- designer: does Button's guidance for `ghost` apply to a ButtonGroup? --> |
 
 ### `color` for meaning
 
 | Value | Use it for |
 |---|---|
-| `default` | Neutral action groups. |
-| `accent` | The main action group; pair with `variant="default"`. |
-| `danger` | Destructive or irreversible action groups. |
+| `default` | _Pending design guidance_ <!-- designer: does Button's guidance for `color=default` apply to a ButtonGroup? --> |
+| `accent` | _Pending design guidance_ <!-- designer: does Button's guidance for `accent` apply to a ButtonGroup? --> |
+| `danger` | _Pending design guidance_ <!-- designer: does Button's guidance for `danger` apply to a ButtonGroup? --> |
 
 ### `size` for prominence
 
 | Value | Use it for |
 |---|---|
-| `default` | Most contexts. |
-| `small` | **BreadcrumbItem** only; don't use elsewhere for now. |
-| `big` | Header and modal-footer groups, to raise visual emphasis. |
+| `default` | _Pending design guidance_ <!-- designer: when should a ButtonGroup use the default size? --> |
+| `small` | _Pending design guidance_ <!-- designer: should a ButtonGroup ever be small? --> |
+| `big` | _Pending design guidance_ <!-- designer: does Button's guidance for `big` (header and modal-footer actions) apply to a ButtonGroup? --> The labels are shown in uppercase. |
 
 ## Accessibility
-- The group wrapper renders `role="group"` automatically. Do not add it manually.
-- When the group's purpose is not clear from surrounding context, add an `aria-label` or `aria-labelledby` directly on `<ButtonGroup>`.
-- Each icon-only Button inside the group still requires its own `aria-label` describing its specific action.
-- `ButtonGroup` renders nothing when no children are provided. Ensure at least one Button child is always passed.
+- The ButtonGroup is exposed as a group automatically. Don't add a `role` yourself.
+- When the purpose of the group is not clear from the surrounding context, add an `aria-label` or `aria-labelledby` on the ButtonGroup.
+- Each icon-only Button in the group still needs its own `aria-label` that describes its action.

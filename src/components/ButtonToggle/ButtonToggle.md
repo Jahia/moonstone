@@ -2,9 +2,9 @@
 
 ```jsx
 import {ButtonToggle} from '@jahia/moonstone';
-import {Grid} from '@jahia/moonstone/icons';
+import {ViewGrid} from '@jahia/moonstone/icons';
 
-<ButtonToggle iconStart={<Grid/>} label="Grid view"/>
+<ButtonToggle iconStart={<ViewGrid/>} label="Grid view"/>
 ```
 
 ## Controlled & uncontrolled

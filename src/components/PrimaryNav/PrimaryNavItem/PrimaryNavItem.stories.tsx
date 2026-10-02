@@ -10,7 +10,7 @@ export default {
     component: PrimaryNavItem,
 
     parameters: {
-        componentSubtitle: 'PrimaryNavItem',
+        componentSubtitle: 'Leads to a section of the application, or runs an action, from the PrimaryNav.',
         docs: { description: { component: markdownNotes } },
     },
 } as Meta<typeof PrimaryNavItem>;

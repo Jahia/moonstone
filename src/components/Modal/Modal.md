@@ -1,37 +1,57 @@
-A dialog that overlays the page to focus the user on a single task or message
-(built on Floating UI). Compose it from a header, body, and footer.
-
-## When to use
-- A focused task or confirmation that must interrupt the current flow.
-- Content that needs the user's full attention before continuing.
-
-## When NOT to use
-- Lightweight, non-blocking info on hover → use **Tooltip**.
-- A list of actions anchored to a trigger → use **Menu**.
-- A transient status message → use **Banner**.
-
-## Usage
+## Example
 ```jsx
-import {Modal, ModalHeader, ModalBody, ModalFooter, Button} from '@jahia/moonstone';
+import {useState} from 'react';
+import {Button, Modal, ModalBody, ModalFooter, ModalHeader, Typography} from '@jahia/moonstone';
 
-<Modal isOpen={isOpen} onOpenChange={setIsOpen} size="medium">
-    <ModalHeader title="Delete project"/>
-    <ModalBody>This action cannot be undone.</ModalBody>
-    <ModalFooter>
-        <Button label="Cancel" onClick={() => setIsOpen(false)}/>
-        <Button label="Delete" color="danger" onClick={onDelete}/>
-    </ModalFooter>
+const [isOpen, setIsOpen] = useState(false);
+
+<Button label="Delete" color="danger" onClick={() => setIsOpen(true)}/>
+{/* onOpenChange reports Escape and clicks outside the modal. */}
+<Modal isOpen={isOpen} aria-labelledby="delete-project-title" onOpenChange={setIsOpen}>
+    {/* Modal takes a single child: wrap its parts in a fragment. */}
+    <>
+        <ModalHeader id="delete-project-title" title="Delete project"/>
+        <ModalBody>
+            <Typography>This project and its content will be deleted. You can't undo this action.</Typography>
+        </ModalBody>
+        <ModalFooter>
+            <Button label="Cancel" variant="ghost" onClick={() => setIsOpen(false)}/>
+            <Button label="Delete" color="danger" onClick={handleDelete}/>
+        </ModalFooter>
+    </>
 </Modal>
 ```
 
-- `isOpen` controls visibility; `onOpenChange` reports open/close (e.g. Esc, overlay click).
-- `size`: `small` · `medium` · `large` · `full`.
+## Do
+- Use it for a focused task that must interrupt the current flow, such as a short form.
+- Use it to confirm a destructive or irreversible action, such as deleting content.
+- Use it when the user must respond before going back to the page.
 
-## Composition
-- Must be used with **ModalHeader**, **ModalBody**, and **ModalFooter**.
+## Don't
+- Don't use a Modal for supplementary content that the user works with alongside the page, such as the details of a selected item. Use a **Drawer** instead.
+- Don't use a Modal for a list of actions attached to a trigger. Use a **Menu** instead.
+- Don't use a Modal for a status or system message that needs no response. Use a **Banner** instead.
+- Don't use a Modal for a short hint on hover. Use a **Tooltip** instead.
+
+## Appearance
+
+### `size` for width
+
+| Value | Use it for |
+|---|---|
+| `small` | _Pending design guidance_ <!-- designer: when should a modal use the small size? --> |
+| `medium` | The default. |
+| `large` | _Pending design guidance_ <!-- designer: when should a modal use the large size, such as for a form? --> |
+| `full` | _Pending design guidance_ <!-- designer: when should a modal take the full width of the page? --> |
+
+## Voice and tone
+- Write the `title` in sentence case and name the task, such as "Delete project" or "Rename page".
+- Write footer button labels in sentence case, using a few words at most (3 maximum). Never write a full sentence.
+- Start each button label with a verb that names the action, such as "Save", "Publish", or "Delete".
+- Be specific and name the real outcome. Write "Delete", never "OK", especially for destructive actions.
 
 ## Accessibility
-- Focus is managed within the dialog while open; provide a clear title via `ModalHeader`.
-
-## Related
-- **Banner** (inline messages), **Menu** (action overlays), **Button** (footer actions).
+- Always render a **ModalHeader** with a `title`. Give it an `id` and pass that `id` as the Modal's `aria-labelledby`, so screen readers announce the title as the dialog's name. Without it, the dialog is named after its whole content.
+- Keep `isOpen` in sync with `onOpenChange`. Escape and a click outside the modal only close it through that callback.
+- The focus moves into the modal when it opens, and Tab stays inside it until it closes. Make sure the modal holds at least one focusable control, such as a close or cancel **Button**.
+- When modals are nested, Escape closes only the last one opened.

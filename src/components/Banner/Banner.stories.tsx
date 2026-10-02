@@ -12,7 +12,7 @@ const meta: Meta<typeof Banner> = {
     tags: ['new'],
 
     parameters: {
-        componentSubtitle: 'Displays a titled status message with optional body content and actions.',
+        componentSubtitle: 'Displays a status message with a title, an icon, and content.',
         docs: { description: { component: markdownNotes } },
         layout: 'padded',
         actions: { argTypesRegex: '^on.*' },

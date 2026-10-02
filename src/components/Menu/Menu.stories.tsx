@@ -17,6 +17,7 @@ export default {
     component: Menu,
     subcomponents: { MenuItem },
     parameters: {
+        componentSubtitle: 'Shows a floating list of actions, anchored to an element or to a position on the page.',
         docs: {
             description: { component: markdownNotes },
             // Fix issues in the doc tab with firefox

@@ -3,23 +3,33 @@
 import {PrimaryNavItem} from '@jahia/moonstone';
 import {Apps} from '@jahia/moonstone/icons';
 
-<PrimaryNavItem isSelected icon={<Apps/>} label="Dashboard"/>
+// Mark the item of the section the user is on.
+<PrimaryNavItem
+    icon={<Apps/>}
+    isSelected={currentSection === 'dashboard'}
+    label="Dashboard"
+    onClick={() => navigate('/dashboard')}
+/>
 ```
 
 ## Do
-- Use it for each destination or action inside a **PrimaryNavItemsGroup**, such as a section link or a sign-out action.
-- Use it to mark the page or section the user is currently on. Set `isSelected` on that one item.
-- Use it with a `url` to link to an external resource. It renders as a link that opens in a new tab.
-- Use it with a `button` to add a secondary action, such as a sign-out control, alongside the item's main click target.
+- Use it for each destination of the application's primary navigation, inside a **PrimaryNavItemsGroup**.
+- Use it for an action that belongs in the primary navigation, such as signing out.
+- Use it to link to an external resource, such as the documentation. The link opens in a new tab.
+- Use it for the user's own entry, such as a profile item that shows the user name below its label and holds a sign-out control.
 
 ## Don't
-- Don't use it outside a **PrimaryNav**. It depends on the navigation's context to collapse an expanded **PrimaryNav** when clicked.
-- Don't use it for a generic, non-navigation list row. Use **ListItem** instead.
+- Don't use it on its own or in another list. Place it in a **PrimaryNavItemsGroup** inside a **PrimaryNav**.
+- Don't use it for the navigation inside a section of the application. Use **SecondaryNav** instead.
+- Don't use it for an entry of a dropdown or contextual menu. Use a **MenuItem** inside a **Menu** instead.
 
 ## Voice and tone
-- Write `label` and `subtitle` in sentence case and keep them short. They don't wrap and are cut off when they overflow the rail.
+- Write `label` and `subtitle` in sentence case.
+- Keep them to a few words, 3 at most, and never a full sentence. They don't wrap and are cut off when they overflow.
+- For an action, start with the verb that names it, such as "Sign out".
+- Be specific and name the real destination or outcome. Never write a vague label such as "OK".
 
 ## Accessibility
-- Set `isSelected` on only one item at a time. It's exposed as `aria-current`, which assumes a single current page or section.
-- Pass a `label`. It also becomes the native `title` tooltip shown when the collapsed nav exposes only the icon.
-- If you omit `label` for an icon-only item, pass `aria-label` instead so the item still has an accessible name.
+- Set `isSelected` on one item at a time. It's exposed as `aria-current`, which assumes a single current page or section.
+- Always pass a `label`. It is also shown as a tooltip when the collapsed navigation shows only the icon.
+- The item is focusable and activates with Enter or Space, like a button. Don't add another click handler or `tabIndex` on a wrapper.

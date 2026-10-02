@@ -1,4 +1,5 @@
 import { SearchInput } from './index';
+import markdownNotes from './SearchInput.md?raw';
 
 import type { SearchInputProps } from './SearchInput.types';
 import type { Meta, StoryFn } from '@storybook/react-vite';
@@ -6,7 +7,7 @@ import type { Meta, StoryFn } from '@storybook/react-vite';
 import '~/__storybook__/storybook.scss';
 
 export default {
-    title: 'Components/Input',
+    title: 'Components/Input/SearchInput',
     component: SearchInput,
     decorators: [
         StoryCmp => (
@@ -17,6 +18,8 @@ export default {
     ],
     parameters: {
         layout: 'centered',
+        componentSubtitle: 'A text field for search queries, with a search icon and a clear button.',
+        docs: { description: { component: markdownNotes } },
     },
     args: {
         placeholder: 'Search and press Enter',

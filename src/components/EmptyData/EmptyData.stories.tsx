@@ -1,3 +1,4 @@
+import markdownNotes from './EmptyData.md?raw';
 import { EmptyData } from './index';
 import { Love } from '~/icons';
 
@@ -7,6 +8,8 @@ export default {
     tags: ['beta'],
     parameters: {
         layout: 'centered',
+        componentSubtitle: 'Tells the user that an area has no content to show, with an optional icon and title.',
+        docs: { description: { component: markdownNotes } },
     },
 };
 

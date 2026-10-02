@@ -7,11 +7,11 @@ import {Button} from '@jahia/moonstone';
 
 ## Do
 - Use it to submit a form or confirm a choice.
-- Use it to trigger an action, such as opening a modal, running a command, or toggling a setting.
-- Use it for a compact, icon-only utility action, such as a table-row action or a 3-dots "more" menu. Omit the `label`, pass an `icon`, and add an `aria-label`.
+- Use it to trigger an action, such as opening a modal, running a command, or refreshing data.
+- Use it for a compact, icon-only utility action, such as a table-row action or a 3-dots "more" menu.
 
 ## Don't
-- Don't use a Button to navigate to another page or URL. Use a link or navigation component instead.
+- Don't use a Button to navigate to another page or URL. Use a native link instead, or a navigation component such as a **Breadcrumb** or a **Tab**.
 - Don't use separate Buttons for a group of related actions. Wrap them in a **ButtonGroup**.
 - Don't use a Button for a binary on/off setting. Use a **Switch** instead.
 - Don't use a Button for a control that holds a pressed or active state. Use a **ButtonToggle** instead.

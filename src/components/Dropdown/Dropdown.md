@@ -1,41 +1,71 @@
-A control that lets the user pick one or several values from a list. It replaces the
-native HTML `<select>` and adds grouping, search, icons/images, and tree data.
-
-## When to use
-- Selecting from a fixed set of options (single or multiple).
-- The list is long enough to benefit from search, grouping, or a tree.
-
-## When NOT to use
-- A free-floating list of *actions* (not a value selection) → use **Menu**.
-- 2–4 mutually exclusive options always visible → consider **RadioGroup**.
-- A simple on/off → use **Switch**.
-
-## Usage
+## Example
 ```jsx
 import {Dropdown} from '@jahia/moonstone';
 
-// Single selection
+// The component is controlled: keep the selected value in your state
 <Dropdown
-    data={[{label: 'Draft', value: 'draft'}, {label: 'Published', value: 'published'}]}
+    data={[
+        {label: 'Draft', value: 'draft'},
+        {label: 'Published', value: 'published'}
+    ]}
     value={status}
     placeholder="Select a status"
-    onChange={(e, item) => setStatus(item.value)}
+    onChange={(event, item) => setStatus(item.value)}
 />
-
-// Multiple selection: pass `values` (string[]) instead of `value`
-// Tree selection: pass `treeData` instead of `data`
 ```
 
-- Single vs multiple: use **either** `value` **or** `values` (TS enforces this).
-- Regular vs tree: use **either** `data` **or** `treeData`.
-- Options support `iconStart`/`iconEnd`, `description`, `image`, and `isDisabled`.
-- Group options with `{groupLabel, options}`; if you group, **all** options must be in a group.
-- Search: `hasSearch` (auto-enabled past `autoAddSearchLimit`, default 7); `searchEmptyText` for no results.
-- `placeholder` shows when nothing is selected (`label` is deprecated).
+## Do
+- Use it to let the user pick one value from a list of options, such as a status or a language.
+- Use it to let the user pick several values from a list. Each selected value shows as a tag in
+  the field, and the user can remove it from there.
+- Use it to let the user pick an item in a hierarchy, such as a page in a site tree.
+- Use it for a long list of options. A search field appears automatically once the list grows
+  past a few options.
+
+## Don't
+- Don't use it for a list of actions. Use a **Menu** instead.
+- Don't use it for a binary on/off setting. Use a **Switch** instead.
+- Don't use it when a few mutually exclusive options should stay visible. Use a **RadioGroup**
+  instead.
+- Don't use it when the user picks many values and sets their order. Use a **ListSelector**
+  instead.
+- Don't use it to open custom content, such as a small form or sorting controls. Use a
+  **CustomDropdown** instead.
+
+## Appearance
+
+### `variant` for emphasis
+
+| Value | Use it for |
+|---|---|
+| `ghost` | _Pending design guidance_ <!-- designer: default value. Where should a borderless Dropdown be used (toolbars, inline filters)? --> |
+| `outlined` | _Pending design guidance_ <!-- designer: is outlined the form-field look, such as inside a Field? --> |
+
+### `size` for prominence
+
+| Value | Use it for |
+|---|---|
+| `small` | _Pending design guidance_ <!-- designer: which contexts call for a small Dropdown? --> |
+| `medium` | _Pending design guidance_ <!-- designer: default value. Confirm it is the standard size for forms. --> |
+
+### `imageSize` for previews
+
+| Value | Use it for |
+|---|---|
+| `small` | _Pending design guidance_ <!-- designer: when options carry an image, when should the images be small? --> |
+| `big` | _Pending design guidance_ <!-- designer: when should option images be big, such as a visual picker for templates? --> |
+
+## Voice and tone
+- Write option labels and the `placeholder` in sentence case, using a few words at most.
+- Make the `placeholder` say what to pick, such as "Select a status". It shows only while nothing
+  is selected.
+- Write `searchEmptyText` as a short, plain statement, such as "No results found.".
 
 ## Accessibility
-- Keyboard: Tab to move between options, Enter to select; click outside to dismiss.
-- The selected item has a distinct visual state.
-
-## Related
-- **Menu** (actions overlay), **TreeView** (tree without selection control), **Field** (label/error).
+- Always pass a `placeholder`. While nothing is selected, it is the accessible name of the field.
+  Once a value is selected, the label of that option is used instead.
+- The user opens the list with Enter, moves between options with Tab or the Up and Down arrow
+  keys, and selects one with Enter or Space. Clicking outside the list closes it.
+- The clear button (shown when `onClear` is passed and a value is selected) has a fixed
+  `aria-label="Reset"`.
+- The focus ring appears automatically on keyboard focus. Don't remove it.

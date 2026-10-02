@@ -11,6 +11,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 const meta: Meta<ResizableBoxProps> = {
     title: 'Components/ResizableBox',
     component: ResizableBox,
+    tags: ['internal', '!manifest'],
     /**
    * Decorator wraps stories with layout styling.
    * Uses Story component for compatibility with Storybook v6+ and TypeScript.
@@ -30,6 +31,7 @@ const meta: Meta<ResizableBoxProps> = {
         ),
     ],
     parameters: {
+        componentSubtitle: 'Wraps content in a box that the user can resize by dragging its right edge.',
         docs: { description: { component: markdownNotes } },
     },
 };

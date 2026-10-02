@@ -1,20 +1,27 @@
 ## Example
 ```jsx
-import {PrimaryNavItemsGroup, PrimaryNavItem} from '@jahia/moonstone';
-import {Apps} from '@jahia/moonstone/icons';
+import {PrimaryNav, PrimaryNavItem, PrimaryNavItemsGroup} from '@jahia/moonstone';
+import {Apps, Person} from '@jahia/moonstone/icons';
 
-<PrimaryNavItemsGroup>
-    <PrimaryNavItem isSelected icon={<Apps/>} label="Dashboard"/>
-    <PrimaryNavItem icon={<Apps/>} label="Reports"/>
-</PrimaryNavItemsGroup>
+<PrimaryNav
+    headerCaption="Production"
+    top={(
+        <PrimaryNavItemsGroup>
+            <PrimaryNavItem isSelected icon={<Apps/>} label="Dashboard"/>
+            <PrimaryNavItem icon={<Person/>} label="Users"/>
+        </PrimaryNavItemsGroup>
+    )}
+/>
 ```
 
 ## Do
-- Use it to group related **PrimaryNavItem**s inside a **PrimaryNav**, separated from the next group by a divider.
-- Use it to keep a low-priority group out of sight when the navigation is collapsed. Set `isDisplayedWhenCollapsed` to `false`.
+- Use it to group related **PrimaryNavItem** entries at the top or the bottom of a **PrimaryNav**. Each group starts with a divider.
+- Use it for a low-priority set of entries that should disappear while the navigation is collapsed to icons.
 
 ## Don't
-- Don't use it outside a **PrimaryNav**. It reads the navigation's expanded state from context to decide whether to render.
+- Don't use it outside a **PrimaryNav**. To divide other content, use a **Separator** instead.
+- Don't use it to group the entries of a navigation inside a section of the application. Use **SecondaryNav** instead.
 
 ## Accessibility
-- Always render it inside a **PrimaryNav**'s `top` or `bottom`. It depends on the surrounding `<nav>` and list markup for correct navigation semantics.
+- Place it directly in the `top` or `bottom` of a **PrimaryNav**. It renders list items, which need the list that the **PrimaryNav** provides.
+- Put only **PrimaryNavItem** entries in it, so the nested list holds only list items.

@@ -1,0 +1,33 @@
+## Example
+```jsx
+import {SecondaryNav, SecondaryNavHeader, TreeView} from '@jahia/moonstone';
+
+<SecondaryNav
+    aria-label="Site content"
+    header={<SecondaryNavHeader>Content</SecondaryNavHeader>}
+>
+    <TreeView isReversed data={siteTree} selectedItems={selectedItems} onClickItem={handleSelectItem}/>
+</SecondaryNav>
+```
+
+## Do
+- Use it as the second-level navigation of a section of the application, next to the **PrimaryNav**.
+- Use it to hold the navigation of the current section, such as a **TreeView** or an **Accordion** of trees.
+- Use it when the user needs to hide the navigation to make room for the content, or to resize it. It manages its visibility and width itself.
+- Use it as the navigation of a **LayoutModule**.
+
+## Don't
+- Don't use it for the top-level navigation of the application. Use **PrimaryNav** instead.
+- Don't use it to switch between views inside a page. Use **Tab** instead.
+- Don't use it as a generic resizable side panel. Use a **ResizableBox** instead.
+
+## Voice and tone
+- Write the header title in sentence case, using a few words at most (3 maximum). Never write a full sentence.
+- Name the section that the navigation belongs to, such as "Content" or "Settings".
+
+## Accessibility
+- Pass an `aria-label` that names the navigation, such as "Site content". It is forwarded to the root element, which is a landmark region.
+- The show/hide toggle already has an accessible name. Don't add another control for it.
+- Render only one SecondaryNav per page. The toggle refers to the navigation content through a fixed `id`, so a second instance would break that link.
+- Resizing works with the pointer only. Make sure the content stays usable at the default width.
+- The SecondaryNav uses reversed colors by default, for a dark background. Give its content the same `isReversed` value, such as `<TreeView isReversed/>`, so the text keeps enough contrast.

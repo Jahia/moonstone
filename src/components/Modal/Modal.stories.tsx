@@ -16,6 +16,7 @@ const meta: Meta<typeof Modal> = {
 
     parameters: {
         layout: 'centered',
+        componentSubtitle: 'Shows a dialog above the page that keeps the focus until the user closes it.',
         docs: { description: { component: markdownNotes } },
         // Overrides onOpenChange
         // actions: {argTypesRegex: '^on.*'}
