@@ -25,8 +25,6 @@ import {SearchInput} from '@jahia/moonstone';
 ## Don't
 - Don't use it when the user also picks where to search. Use **SearchContextInput** instead.
 - Don't use it for other free-form text. Use **Input** instead.
-- Don't use it to pick a value from a long list of options. Use **Dropdown** instead, which adds
-  its own search field.
 
 ## Appearance
 
