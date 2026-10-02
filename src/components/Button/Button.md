@@ -53,5 +53,3 @@ Each area, such as a page, a modal, or a panel, should have one main action. Low
 
 ## Accessibility
 - An icon-only Button (one with no `label`) must have an `aria-label` that describes the action.
-- A disabled or loading Button is non-interactive and cannot be activated with the keyboard.
-- The focus ring appears automatically on keyboard focus. Don't remove it.

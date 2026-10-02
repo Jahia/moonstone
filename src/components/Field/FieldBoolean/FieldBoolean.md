@@ -46,7 +46,4 @@ FieldBoolean renders a **Checkbox**, and both modes go through `checkboxAttribut
 - Error message wording: _Pending design guidance_ <!-- designer: rules for `errorMessage` copy (tone, whether it says how to fix the problem, punctuation). Keep it aligned with Field. -->
 
 ## Accessibility
-- The label is linked to the checkbox. Clicking it toggles the checkbox, and assistive technology reads it as the checkbox name.
-- Don't set an `id` in `checkboxAttributes`. The label would no longer be linked to the checkbox.
-- Known limitation: with several FieldBoolean on the same page, every label is linked to the first checkbox.
 - An icon-only **Button** in `buttons` must have an `aria-label` that describes the action.

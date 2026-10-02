@@ -63,6 +63,3 @@ import {Dropdown} from '@jahia/moonstone';
   Once a value is selected, the label of that option is used instead.
 - The user opens the list with Enter, moves between options with Tab or the Up and Down arrow
   keys, and selects one with Enter or Space. Clicking outside the list closes it.
-- The clear button (shown when `onClear` is passed and a value is selected) has a fixed
-  `aria-label="Reset"`.
-- The focus ring appears automatically on keyboard focus. Don't remove it.

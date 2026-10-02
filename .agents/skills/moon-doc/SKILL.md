@@ -24,9 +24,14 @@ Ground every claim in the code. Read `<Component>.types.ts` (props and JSDoc), `
 1. Write `<Component>.md` and its doc wiring in the stories meta. If the `.md` already
    exists, treat it as a draft: check every section against the references and rewrite what
    diverges. Keeping the existing text is not a goal.
-2. Edit nothing else. JSDoc and any other story change are emitted as copy-paste snippets.
-3. Verify by re-reading what you wrote against every rule in the references, the content of
-   each section as well as the structure. Never boot Storybook.
+2. Fix the props' JSDoc in `<Component>.types.ts`: edit only the `/** … */` blocks. Never change
+   a type, a default, or a `.tsx` file. When the JSDoc and the code disagree, the code is right:
+   fix the JSDoc and report the gap as a code bug.
+3. Edit nothing else. Any other story change is emitted as a copy-paste snippet.
+4. Verify by re-reading what you wrote against every rule in the references, the content of
+   each section as well as the structure. Then read `git diff` on every `*.types.ts` you
+   touched: every changed line must sit inside a `/** … */` block. If a line of code changed,
+   revert it and report it. Never boot Storybook.
 
 ## Review
 
@@ -42,4 +47,4 @@ by prop, and quote each `<!-- designer: … -->` question. Change nothing. End w
 ## Report
 
 Per component: files changed (or divergences found), `_Pending design guidance_` count, standard
-gaps, snippets to apply. The render check in Storybook is always *pending* (a human step).
+gaps, JSDoc blocks changed, snippets to apply. The render check in Storybook is always *pending* (a human step).

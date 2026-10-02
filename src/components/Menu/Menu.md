@@ -77,5 +77,3 @@ This prop belongs to each **MenuItem**.
 ## Accessibility
 - An icon-only trigger, such as a **Button** with only an `icon`, must have an `aria-label` that describes the menu, such as "More actions".
 - Arrow keys move the focus between items. Disabled, title, and selected items are skipped in the tab sequence.
-- Pressing Enter or Space on a focused item does not call its `onClick`, and Escape does not close the menu. Handle these keys yourself: activate items with `onKeyUp` on each **MenuItem**, and catch Escape on an element that wraps the Menu.
-- The menu does not return the focus to its trigger when it closes. Move it back yourself, so keyboard users don't lose their place.

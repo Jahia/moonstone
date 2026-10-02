@@ -50,6 +50,4 @@ import {TimeInput} from '@jahia/moonstone';
 ## Accessibility
 - Pair it with **Field** for a visible label; the field renders none on its own.
 - `ArrowUp` / `ArrowDown` step the hour or minute segment under the caret; `ArrowLeft` /
-  `ArrowRight` jump between the two segments. Don't remove the focus ring.
-- The AM/PM control (`timeFormat="12h"`) is a standard dropdown, reachable by keyboard like any
-  other.
+  `ArrowRight` jump between the two segments.

@@ -27,5 +27,4 @@ import {Search} from '@jahia/moonstone/icons';
 
 ## Accessibility
 - When the empty state appears in response to a user action, such as a search or a filter, pass `role="status"` so screen readers announce it.
-- The `title` looks like a heading but is not announced as one. If the area needs a heading for navigation, place it outside the EmptyData.
 - The `icon` is decorative. Pass `aria-hidden="true"` to it, and keep all the meaning in `title` and `message`.

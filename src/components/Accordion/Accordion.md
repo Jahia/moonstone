@@ -56,5 +56,3 @@ Do not pass both `openedItem` and `defaultOpenedItem` at the same time. `openedI
 ## Accessibility
 
 - Each **AccordionItem** must have a unique `id`. The component uses it to link the header to the content region.
-- The `label` prop is the accessible name for the header. Write it to describe the section's content clearly so screen-reader users can scan the available sections.
-- The focus ring appears on keyboard focus. Do not suppress it.

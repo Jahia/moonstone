@@ -28,7 +28,7 @@ const languages = [
 
 ## Voice and tone
 - Keep the content to a short code or a single word, such as the language code "FR".
+- The Pill is read right after the item's label. Make sure the two read well together, such as "French FR".
 
 ## Accessibility
-- The Pill is plain text, read right after the item's label. Make sure the two read well together, such as "French FR".
 - An icon-only Pill gives screen readers no text. If the icon carries information, state it in the item's label or description too.

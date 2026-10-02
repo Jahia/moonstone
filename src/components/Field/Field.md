@@ -29,7 +29,5 @@ import {Field, FieldSelector, Input} from '@jahia/moonstone';
 - Error message wording: _Pending design guidance_ <!-- designer: rules for `errorMessage` copy (tone, whether it says how to fix the problem, punctuation). -->
 
 ## Accessibility
-- The Field label is shown, but it is not linked to the control. Give every control an accessible name, such as an `aria-label` that repeats the label.
-- The error message is not linked to the control either. When `hasError` is set, also mark the control as invalid, such as with `aria-invalid`.
 - Give each Field a unique `id`.
 - An icon-only **Button** in `buttons` must have an `aria-label` that describes the action.

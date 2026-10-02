@@ -47,4 +47,3 @@ In both modes, one item is always selected: the first one when no value is given
 ## Accessibility
 - The group renders no label of its own. Give it an accessible name with `aria-labelledby`, pointing at its visible label, or `aria-label`, together with `role="radiogroup"`.
 - Give every RadioItem a unique `id`.
-- The focus ring appears automatically on keyboard focus. Don't remove it.

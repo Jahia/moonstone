@@ -49,6 +49,3 @@ import {SearchInput} from '@jahia/moonstone';
 
 ## Accessibility
 - Always provide a label. Pass an `aria-label`, or use **Field** when the search box sits in a form.
-- The clear button (shown when the field is filled) has a fixed `aria-label="Reset"`. It empties
-  the field and calls `onChange` with an empty value. Pass `onClear` only to replace that
-  behaviour.

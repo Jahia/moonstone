@@ -57,4 +57,3 @@ as well.
 
 ## Accessibility
 - Give each CheckboxItem a unique `id`. It links the checkbox to its label and description.
-- The focus ring appears automatically on keyboard focus. Don't remove it.

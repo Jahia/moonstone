@@ -51,7 +51,7 @@ const [isOpen, setIsOpen] = useState(false);
 - Be specific and name the real outcome. Write "Delete", never "OK", especially for destructive actions.
 
 ## Accessibility
-- Always render a **ModalHeader** with a `title`. Give it an `id` and pass that `id` as the Modal's `aria-labelledby`, so screen readers announce the title as the dialog's name. Without it, the dialog is named after its whole content.
+- Always render a **ModalHeader** with a `title`. Give it an `id` and pass that `id` as the Modal's `aria-labelledby`, so screen readers announce the title as the dialog's name.
 - Keep `isOpen` in sync with `onOpenChange`. Escape and a click outside the modal only close it through that callback.
 - The focus moves into the modal when it opens, and Tab stays inside it until it closes. Make sure the modal holds at least one focusable control, such as a close or cancel **Button**.
 - When modals are nested, Escape closes only the last one opened.

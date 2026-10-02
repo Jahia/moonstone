@@ -25,6 +25,4 @@ import {Close} from '@jahia/moonstone/icons';
 - Don't use a FieldSelector to group several fields under a heading. Use a **Fieldset** instead.
 
 ## Accessibility
-- The control in `selector` needs an accessible name, such as an `aria-label`. The **Field** label is not linked to it.
 - An icon-only **Button** in `buttons` must have an `aria-label` that describes the action.
-- The drag handle works with a pointer only. When rows can be reordered, also offer a keyboard alternative, such as "Move up" and "Move down" actions in `buttons`.

@@ -75,7 +75,6 @@ When you pass `onClickItem`, a click on a node's label calls it instead of openi
 ## Accessibility
 - Give every node a unique `id`. The component uses it to track the open, selected, and highlighted nodes.
 - Give the tree an accessible name with `aria-label`, such as "Site pages", when no visible heading names it.
-- Icons passed in `iconStart` or `iconEnd` get a generated accessible name by default. Pass `aria-hidden` on a decorative icon, or an `aria-label` that describes a meaningful one.
 - Set `isLoading` on a node while its children load. The node is then reported as busy.
 - The up and down arrow keys move the focus between nodes. The left and right arrow keys and Space open or close the focused node, and Enter activates it.
 - A disabled or read-only node doesn't call `onClickItem`, with the mouse or the keyboard. The user can still open and close it.

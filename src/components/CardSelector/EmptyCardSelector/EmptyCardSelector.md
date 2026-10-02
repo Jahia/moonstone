@@ -28,4 +28,3 @@ import {File} from '@jahia/moonstone/icons';
 ## Accessibility
 - An icon-only EmptyCardSelector (one with no `label`) must have an `aria-label` that describes what the user can select.
 - In a form, make sure its accessible name includes the field label, such as by pointing `aria-labelledby` at that label.
-- The focus ring appears automatically on keyboard focus. Don't remove it.

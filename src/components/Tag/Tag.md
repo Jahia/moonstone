@@ -30,9 +30,3 @@ Inside **Dropdown**, the Tag's `size` always matches the Dropdown's own `size`: 
 |---|---|
 | `medium` | The default size. |
 | `small` | Denser contexts. |
-
-## Accessibility
-- The Tag is a real button, so it is focusable and can be activated with the keyboard.
-- The close icon is decorative and hidden from assistive technology. The accessible name comes from the `label`, so write a `label` that identifies the item being removed.
-- A disabled Tag is non-interactive and cannot be activated with the keyboard.
-- The focus ring appears automatically on keyboard focus. Don't remove it.

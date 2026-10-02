@@ -42,7 +42,3 @@ import {TimezoneSelector} from '@jahia/moonstone';
 
 ## Accessibility
 - Pair it with **Field** for a visible label; the component renders none on its own.
-- `isReadOnly` renders the selector fully disabled, the same as `isDisabled`: it is removed from
-  the tab order and cannot be opened, not merely non-editable.
-- The option list opens with a searchable text input; typing filters the full IANA set, not only
-  the visible groups.

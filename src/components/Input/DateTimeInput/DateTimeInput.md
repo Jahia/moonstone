@@ -57,11 +57,6 @@ affect the field's own styling.
 
 ## Accessibility
 - Pair it with **Field** for a visible label; the field renders none on its own.
-- The date can be typed directly, not only picked from the calendar. Keep both paths available;
-  don't trap keyboard users in one of them.
-- `Escape` closes the open calendar and `Enter` opens it or commits a typed date. Don't remove the
-  focus ring.
-- The timezone selector (`type="zonedDateTime"`) stays focusable and operable even when the field
-  is `isDisabled` or `isReadOnly`.
+- `Escape` closes the open calendar and `Enter` opens it or commits a typed date.
 - Override `i18n`'s calendar and timezone labels when translating; left unset, they default to
   English.

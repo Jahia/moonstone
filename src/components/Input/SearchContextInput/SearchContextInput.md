@@ -44,4 +44,3 @@ import {Dropdown, SearchContextInput} from '@jahia/moonstone';
 ## Accessibility
 - Always provide a label. Pass an `aria-label` for the text field. The **Dropdown** takes its
   accessible name from the selected scope.
-- The clear button (shown when the field is filled) has a fixed `aria-label="Reset"`.

@@ -55,6 +55,4 @@ The callbacks receive the new state: `onSortChange(sortBy, sortDirection)`, `onC
 - The default pagination labels are in English. Pass translated labels through `i18n`.
 
 ## Accessibility
-- Give every column a meaningful `label`. It becomes the header that screen readers announce with each cell.
-- Sorted headers get `aria-sort` and selected rows get `aria-selected` automatically. When you render rows yourself with `renderRow`, pass `aria-selected={meta.isSelected || undefined}` to your `TableRow`, as the default rows do.
 - An icon-only **Button** in a custom cell must have an `aria-label` that describes the action. A **Tooltip** doesn't replace it.

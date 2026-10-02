@@ -25,7 +25,4 @@ const [isOpen, setIsOpen] = useState(false);
 
 ## Accessibility
 - By default, the Drawer renders a complementary landmark. Give it an `aria-label` that names the panel, such as "Page details".
-- Always provide a visible control that closes the Drawer, such as a "Close" **Button**. The Drawer does not close on Escape or on a click outside it.
-- The focus does not move into the Drawer when it opens, and does not return to the trigger when it closes. Move it yourself, so keyboard users can reach the content and keep their place.
-- The Drawer does not trap the focus: the rest of the page stays reachable with Tab.
-- The slide animation is turned off when the user's system asks for reduced motion.
+- Always provide a visible control that closes the Drawer, such as a "Close" **Button**.

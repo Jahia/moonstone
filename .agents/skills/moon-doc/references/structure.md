@@ -24,7 +24,8 @@ The canonical, approved reference is **`src/components/Button/`** (`Button.md`,
 
 **No leading `# Title`.** Storybook prints the title; a leading H1 doubles it. Start the file
 at `## Example`. Sections, in this exact order and with these exact h2 titles (`[ ]` = include
-only when the condition holds). There is **no "Related" section**.
+only when the condition holds). There is **no "Related" section**. **Never leave a section
+empty:** a section with nothing to say is omitted, whatever the section.
 
 ```
 ## Example
@@ -71,10 +72,20 @@ Per-section content (for phrasing, see `style.md`):
   present, state the relevant rules **inline** (sentence case; a few words, 3 max, never a
   sentence; verb-first; be specific, never "OK") plus any component-specific rule. **Never link
   to `ui-copy.md`**; the section is self-contained.
-- **Accessibility** — each bullet names the attribute or element the consumer must **add at
-  implementation**, and when (for example, "Add an `aria-label` when the Button has no `label`.",
-  "Add `aria-hidden="true"` on a decorative icon."). Don't describe what the component already
-  does on its own.
+- **Accessibility** — plain bullets, no sub-section. Two kinds only:
+  - What the consumer must **add at implementation**, and when (for example, "Add an
+    `aria-label` when the Button has no `label`.", "Add `aria-hidden="true"` on a decorative
+    icon.").
+  - Each **keyboard interaction the component adds**, such as arrow keys, Home and End, or
+    Escape. Never the browser's native ones, such as Tab to move the focus or Space on a
+    checkbox. Source: the keyboard tests in `<Component>.browser.spec.tsx`. A behaviour tested
+    with `it.fails` ends with "(soon)"; remove "(soon)" when `.fails` is removed.
+  - Never say how to write a text, such as a label: that goes to *Voice and tone*.
+  - Never document a bug or its workaround: report it to the human as a code bug.
+  - No bullet for an ARIA attribute the component sets by default: the consumer can override
+    it. A default that can't be overridden is a code bug.
+  - No bullet for built-in behaviour the consumer can only break, such as the focus ring or a
+    native role.
 
 ### The Appearance pattern (generalizable)
 
@@ -96,13 +107,12 @@ gist> `` followed by a two-column table, one row per allowed value:
 - Do **not** give a subsection to a simple **boolean** prop (`isReversed`, `isDisabled`…): the
   Props table already covers it. If a boolean's *when/why* is not obvious (for example
   `isLoading`, `isReversed`), put a one-sentence rationale in the prop's **JSDoc** so it surfaces
-  in the Props table; emit that JSDoc change as a copy-paste snippet (do not edit source files).
+  in the Props table.
 - Gist words: emphasis (variant), meaning (color), prominence (size); pick a fitting one-word
   gist for other props.
 - Do **not** build a combined "action-type" matrix mixing several props (too dense). If two
   props combine meaningfully, fold that into a cell ("pair with `variant=default`").
 - Optionally open with **one** short sentence stating a cross-prop principle.
-- If the component has no choice props, omit the Appearance section.
 - **Never invent design intent.** The "Use it for" cells are the designer's call: write
   `_Pending design guidance_` with a brief `<!-- designer: … -->` hint rather than a guess.
 
@@ -129,7 +139,7 @@ The props' JSDoc is user-facing: the IDE shows it, and Storybook renders it as t
   implementation; a stale or aspirational doc is a defect. Flag it and emit the fix.
 - **Non-obvious booleans get a one-sentence rationale** in their JSDoc (see *The Appearance
   pattern*).
-- JSDoc lives in source files: emit every JSDoc change as a copy-paste snippet, never apply it.
+- Edit only the `/** … */` blocks, never the types or the code (see the Write workflow).
 
 ## Wiring into Storybook
 

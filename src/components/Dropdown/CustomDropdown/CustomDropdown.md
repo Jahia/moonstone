@@ -50,4 +50,3 @@ import {CustomDropdown, Dropdown, MenuItem} from '@jahia/moonstone';
   it opens.
 - The user opens the menu with Enter. Make sure every control you pass as children is reachable
   with the keyboard. Clicking outside the menu closes it.
-- The focus ring appears automatically on keyboard focus. Don't remove it.

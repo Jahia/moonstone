@@ -50,6 +50,4 @@ import {Separator} from '@jahia/moonstone';
 | `firstOrLastChild` | A separator that may land at either edge, such as around a repeated item. It hides when it is the first or the last child of its parent. |
 
 ## Accessibility
-- The component renders a native `<hr>`, which assistive technology already announces as a separator. No extra ARIA is needed for a horizontal one.
 - For a vertical Separator, pass `aria-orientation="vertical"`. A separator is horizontal for assistive technology unless told otherwise.
-- A hidden Separator is removed from the accessibility tree, not only hidden visually.

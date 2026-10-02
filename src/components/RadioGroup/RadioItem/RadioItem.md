@@ -24,4 +24,3 @@ import {RadioGroup, RadioItem} from '@jahia/moonstone';
 
 ## Accessibility
 - Give each RadioItem a unique `id`. It is set on the radio input and links it to its label and description.
-- The focus ring appears automatically on keyboard focus. Don't remove it.

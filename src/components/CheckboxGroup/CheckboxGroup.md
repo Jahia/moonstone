@@ -23,5 +23,3 @@ import {CheckboxGroup, CheckboxItem} from '@jahia/moonstone';
 
 ## Accessibility
 - Each CheckboxItem is labelled by its own `label`. Give every item a unique `id`.
-- The group renders no label and no group role, so it has no accessible name. Wrapping it in a **Field** shows a visible label for the set, but that label is not linked to the group.
-- The focus ring appears automatically on keyboard focus. Don't remove it.

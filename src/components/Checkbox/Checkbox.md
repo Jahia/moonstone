@@ -56,5 +56,3 @@ and the new checked state as its third.
 
 ## Accessibility
 - The Checkbox has no visible label. Give it an accessible name with `aria-label`, `aria-labelledby`, or a `<label>` whose `htmlFor` matches the Checkbox `id`.
-- The indeterminate state is announced as "mixed" automatically. No extra wiring is needed.
-- The focus ring appears automatically on keyboard focus. Don't remove it.

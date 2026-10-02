@@ -10,8 +10,6 @@ import {NumberInput} from '@jahia/moonstone';
 - Controlled: pass `value` and `onChange`. You own the state and `onChange(event)` gives you the
   new text through `event.target.value`, already filtered to a valid number. The value is a
   string, so convert it before doing math.
-- Known limitation: stepping with the arrow keys never calls `onChange`. In controlled mode, your
-  state falls behind the displayed value until the user types again.
 - Uncontrolled: pass `defaultValue` (optional) and let the component manage its own state.
 - Use controlled when the value drives other UI, such as a total or a validation message. Use
   uncontrolled for a simple field whose value you only need on submit.
@@ -56,7 +54,5 @@ import {NumberInput} from '@jahia/moonstone';
 
 ## Accessibility
 - Always provide a label. Use **Field**, or pass an `aria-label` when the input is standalone.
-- The Up and Down arrow keys step the value by `step`, within `min` and `max`. This does not
-  call `onChange` (see *Controlled & uncontrolled*). The numeric keyboard opens on touch devices.
-- The clear button (shown when `onClear` is passed and the field is filled) has a fixed
-  `aria-label="Reset"`.
+- The Up and Down arrow keys step the value by `step`, within `min` and `max`. The numeric
+  keyboard opens on touch devices.

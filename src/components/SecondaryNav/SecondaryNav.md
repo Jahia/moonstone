@@ -27,7 +27,4 @@ import {SecondaryNav, SecondaryNavHeader, TreeView} from '@jahia/moonstone';
 
 ## Accessibility
 - Pass an `aria-label` that names the navigation, such as "Site content". It is forwarded to the root element, which is a landmark region.
-- The show/hide toggle already has an accessible name. Don't add another control for it.
-- Render only one SecondaryNav per page. The toggle refers to the navigation content through a fixed `id`, so a second instance would break that link.
-- Resizing works with the pointer only. Make sure the content stays usable at the default width.
 - The SecondaryNav uses reversed colors by default, for a dark background. Give its content the same `isReversed` value, such as `<TreeView isReversed/>`, so the text keeps enough contrast.

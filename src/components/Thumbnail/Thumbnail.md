@@ -33,4 +33,3 @@ import {Thumbnail} from '@jahia/moonstone';
 ## Accessibility
 - When `src` is an image URL, pass an `alt` that describes the image. It is forwarded to the image. If the image only repeats text shown next to it, pass an empty `alt`.
 - When `src` is an icon element and the icon conveys meaning, give the icon its own accessible name.
-- With no `src`, the placeholder is decorative. No label is needed.

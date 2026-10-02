@@ -25,7 +25,4 @@ import {Breadcrumb, BreadcrumbItem} from '@jahia/moonstone';
 
 ## Accessibility
 
-- The label is the accessible name of the item. Make it name the destination.
 - An icon-only BreadcrumbItem (one with no `label`) must have an `aria-label` that names the destination.
-- Don't set `aria-current` yourself. The Breadcrumb sets it on the last item automatically.
-- The focus ring appears automatically on keyboard focus. Don't remove it.

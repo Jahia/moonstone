@@ -32,5 +32,3 @@ import {Tab, TabItem} from '@jahia/moonstone';
 ## Accessibility
 - An icon-only TabItem (one with no `label`) must have an `aria-label` that names the view.
 - Link the TabItem to the panel it shows: give it an `id` and an `aria-controls` that point to the panel, and give the panel `role="tabpanel"` with an `aria-labelledby` back to the TabItem.
-- A disabled TabItem is non-interactive and cannot be activated with the keyboard.
-- The focus ring appears automatically on keyboard focus. Don't remove it.

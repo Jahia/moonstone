@@ -48,5 +48,4 @@ Don't pass both `size` and `defaultSize`. Once `size` is set, `defaultSize` is i
 
 ## Accessibility
 - Pass an `aria-label` that names the panel, such as "Properties panel". The root element is a landmark region, and the default name is not meaningful.
-- Resizing works with the pointer only. Make sure the content stays usable at the default width, without resizing.
 - Set a `minWidth` that keeps the content readable, so the user can't shrink the panel until it becomes unusable.

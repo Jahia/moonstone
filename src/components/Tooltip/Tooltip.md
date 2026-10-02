@@ -21,6 +21,4 @@ import {Home} from '@jahia/moonstone/icons';
 
 ## Accessibility
 - An icon-only anchor, such as a **Button** with only an `icon`, must still carry an `aria-label` that names the action. The tooltip is supplementary and is not a substitute for an accessible name.
-- The component automatically adds `aria-describedby` to the anchor. Do not set it manually.
-- Tooltips appear on both hover and keyboard focus. Do not remove the focus ring from the anchor.
 - Never put essential information only in the tooltip. Screen readers may not announce it in every context.

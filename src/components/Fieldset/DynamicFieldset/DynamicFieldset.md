@@ -44,7 +44,5 @@ import {DynamicFieldset, Field, FieldSelector, Input} from '@jahia/moonstone';
 - Write the `helper` text in sentence case.
 
 ## Accessibility
-- The label is linked to the switch. Clicking it toggles the switch, and assistive technology reads it as the switch name.
-- Known limitation: with several DynamicFieldset on the same page, every label is linked to the first switch.
 - An icon-only **Button** in `buttons` must have an `aria-label` that describes the action.
 - Each field inside still needs its own accessible name. Follow the accessibility rules of **Field** and **FieldBoolean**.

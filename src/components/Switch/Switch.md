@@ -44,4 +44,3 @@ and the new on/off state as its third.
 
 ## Accessibility
 - The Switch has no visible label. Give it an accessible name with `aria-label` or `aria-labelledby` that names the setting it controls.
-- The focus ring appears automatically on keyboard focus. Don't remove it.

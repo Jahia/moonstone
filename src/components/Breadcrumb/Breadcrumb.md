@@ -22,7 +22,4 @@ import {Breadcrumb, BreadcrumbItem} from '@jahia/moonstone';
 
 ## Accessibility
 
-- The `<nav>` element is rendered with `aria-label="breadcrumb"` automatically. Do not wrap it in another `<nav>`.
-- The last `BreadcrumbItem` receives `aria-current="page"` automatically. Do not set it manually.
 - An icon-only `BreadcrumbItem` (no `label`) must have an `aria-label` that names the destination.
-- The focus ring appears automatically on keyboard focus. Do not remove it.

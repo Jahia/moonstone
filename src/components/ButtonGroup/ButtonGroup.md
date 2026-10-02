@@ -44,6 +44,5 @@ import {ChevronDown} from '@jahia/moonstone/icons';
 | `big` | _Pending design guidance_ <!-- designer: does Button's guidance for `big` (header and modal-footer actions) apply to a ButtonGroup? --> The labels are shown in uppercase. |
 
 ## Accessibility
-- The ButtonGroup is exposed as a group automatically. Don't add a `role` yourself.
 - When the purpose of the group is not clear from the surrounding context, add an `aria-label` or `aria-labelledby` on the ButtonGroup.
 - Each icon-only Button in the group still needs its own `aria-label` that describes its action.

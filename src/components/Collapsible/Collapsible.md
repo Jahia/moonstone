@@ -47,6 +47,3 @@ Use one mode or the other. Do not pass both `isExpanded` (controlled) and `isDef
 
 ## Accessibility
 - Give each Collapsible a unique `id`. The component uses it to link the header to the content region.
-- The header is a native button that reports its state with `aria-expanded`. Enter and Space toggle it, with no extra wiring.
-- The `label` is the accessible name of the header. Write it to describe the section's content.
-- The focus ring appears on keyboard focus. Don't remove it.

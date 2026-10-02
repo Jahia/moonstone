@@ -32,4 +32,3 @@ const [selectedTab, setSelectedTab] = useState('content');
 - Mark exactly one **TabItem** as selected at a time. Its selected state is exposed to assistive technologies.
 - An icon-only **TabItem** (one with no `label`) must have an `aria-label` that names the view.
 - The left and right arrow keys move the focus between tabs. Enter or Space selects the focused tab.
-- The focus ring appears automatically on keyboard focus. Don't remove it.

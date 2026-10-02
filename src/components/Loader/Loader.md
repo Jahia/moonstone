@@ -28,5 +28,5 @@ Always set `size`. Without it, the spinner is not drawn.
 | `big` | _Pending design guidance_ <!-- designer: when to use the big Loader? Moonstone itself uses it for the loading state of LayoutApp, LayoutModule, and LayoutContent. --> |
 
 ## Accessibility
-- The Loader has the `status` role but no accessible name. Pass an `aria-label` that says what is loading, such as `aria-label="Loading content"`.
+- Pass an `aria-label` that says what is loading, such as `aria-label="Loading content"`.
 - On a dark background, set `isReversed` so the spinner keeps enough contrast.

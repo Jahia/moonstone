@@ -40,5 +40,4 @@ import {Textarea} from '@jahia/moonstone';
 - A placeholder is a hint, not a label. Don't use it as a replacement for the **Field** label.
 
 ## Accessibility
-- Always give it an accessible name with an `aria-label`, also inside a **Field**. The Field label is not linked to the control.
-- The focus ring appears automatically on keyboard focus. Don't remove it.
+- Always give it an accessible name with an `aria-label`.

@@ -36,4 +36,3 @@ import {Apps, Person, Power} from '@jahia/moonstone/icons';
 ## Accessibility
 - Give `headerLogo` a meaningful `alt` attribute when it's an image, or an empty one if it's purely decorative.
 - If the page has more than one navigation landmark, pass `aria-label` to distinguish this one. It is forwarded to the underlying `<nav>`.
-- The expand/collapse toggle already exposes an accessible name and reports its state through `aria-expanded`. Don't duplicate it with another control.

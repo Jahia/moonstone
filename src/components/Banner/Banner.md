@@ -36,5 +36,4 @@ import {Banner} from '@jahia/moonstone';
 - Be specific in the content. Say what happened and what the user can do, such as "Your changes will be lost if you leave this page." Never write a vague message, such as "Something went wrong."
 
 ## Accessibility
-- Screen readers don't announce a Banner when it appears. Don't rely on it for feedback that the user must hear right away.
 - Don't convey the status by color or icon alone. Write a title that states it.

@@ -57,6 +57,4 @@ Passed straight through to the inner **Typography** that renders `label`.
 - Write `label` and `description` in sentence case.
 
 ## Accessibility
-- ListItem renders a plain `<li>`. Passing `onClick` makes it clickable with a mouse, but the component does not add a button role, keyboard focus, or `Enter`/`Space` activation on its own. If the item must be fully keyboard-operable, use **MenuItem**, which adds focus and arrow-key navigation, or add your own `tabIndex` and key handling.
-- `image` and `iconStart` are mutually exclusive: when both are passed, only `iconStart` is shown. Pass one or the other.
 - `label` is truncated with an ellipsis when it doesn't fit, with no built-in way to reveal the full text. If it's likely to truncate, pair it with a **Tooltip** or a native `title` attribute so the full text stays available.

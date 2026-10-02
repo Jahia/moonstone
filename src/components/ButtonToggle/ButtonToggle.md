@@ -55,6 +55,3 @@ Use one mode or the other. Do not mix `isPressed` (controlled) with `defaultPres
 
 ## Accessibility
 - An **icon-only** ButtonToggle (no `label`) **must** have an `aria-label` describing the mode or view it activates.
-- The component sets `aria-pressed` automatically. No extra wiring is needed.
-- `iconEnd` is only rendered when a `label` is also provided; do not rely on it for icon-only buttons.
-- Focus shows the standard focus ring. Do not remove it.

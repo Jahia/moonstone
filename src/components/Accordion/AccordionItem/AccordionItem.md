@@ -30,6 +30,5 @@ import {Page} from '@jahia/moonstone/icons';
 
 ## Accessibility
 
-- The label is the only text of the header. Make it describe the section so that a screen-reader user can identify it without opening it.
 - Don't rely on the icon to convey the purpose of the section. The icon has no text alternative.
-- The header is focusable and opens or closes with Enter or Space. The focus ring appears automatically on keyboard focus. Don't remove it.
+- The header is focusable and opens or closes with Enter or Space.
