@@ -26,12 +26,20 @@ Ground every claim in the code. Read `<Component>.types.ts` (props and JSDoc), `
    diverges. Keeping the existing text is not a goal.
 2. Fix the props' JSDoc in `<Component>.types.ts`: edit only the `/** … */` blocks. Never change
    a type, a default, or a `.tsx` file. When the JSDoc and the code disagree, the code is right:
-   fix the JSDoc and report the gap as a code bug.
+   fix the JSDoc and handle the gap as a code bug (see *Code bugs*).
 3. Edit nothing else. Any other story change is emitted as a copy-paste snippet.
 4. Verify by re-reading what you wrote against every rule in the references, the content of
    each section as well as the structure. Then read `git diff` on every `*.types.ts` you
    touched: every changed line must sit inside a `/** … */` block. If a line of code changed,
    revert it and report it. Never boot Storybook.
+
+## Code bugs
+
+A code bug found while documenting (a JSDoc that disagrees with the code, a default the consumer
+can't override, any behaviour the docs would otherwise have to describe as a bug) goes through the
+`moon-ticket` skill, in its default *Write* mode. It verifies the bug, checks it for duplicates,
+and writes or updates a draft in `tickets/`. Never record code bugs anywhere else, never document
+them in the `.md`, and never publish the drafts: they wait for human review.
 
 ## Review
 
@@ -47,4 +55,5 @@ by prop, and quote each `<!-- designer: … -->` question. Change nothing. End w
 ## Report
 
 Per component: files changed (or divergences found), `_Pending design guidance_` count, standard
-gaps, JSDoc blocks changed, snippets to apply. The render check in Storybook is always *pending* (a human step).
+gaps, JSDoc blocks changed, snippets to apply, and the code bugs handed to `moon-ticket` (the
+draft written or updated in `tickets/`, or the issue that already covers each one). The render check in Storybook is always *pending* (a human step).

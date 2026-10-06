@@ -1,8 +1,9 @@
 import markdownNotes from './BreadcrumbItem.md?raw';
+import { iconArgType } from '~/__storybook__/iconArgType';
 // Import '~/__storybook__/storybook.scss';
 import { Breadcrumb, BreadcrumbItem } from '~/components';
 import { Love } from '~/icons';
-import { iconArgType } from '~/__storybook__/iconArgType';
+
 import type { BreadcrumbItemProps } from './BreadcrumbItem.types';
 import type { Meta, StoryFn } from '@storybook/react-vite';
 

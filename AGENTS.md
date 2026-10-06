@@ -7,6 +7,8 @@
 
 - `src/components/<Name>/` — one folder per component. A component is a multi-file contract, colocated and kept in sync: `<Name>.tsx`, `<Name>.types.ts`, `<Name>.module.scss`, `<Name>.spec.tsx`, `<Name>.stories.tsx`, `<Name>.md` (docs), `index.ts` (+ `variants/` when applicable).
 - `src/icons/components/` is **generated** from `src/icons/assets/` by svgr (`yarn build:icons`) — never edit these files by hand.
+- `tickets/` — draft GitHub issues awaiting human review (see the `moon-ticket` skill). Everything
+  in it is a draft; a file is deleted once its issue is published.
 - `src/tokens/` — design tokens. `src/index.ts` — the public API of the library.
 
 ## Working rules
@@ -18,6 +20,9 @@
 - **Respect the public / internal API boundary.** Only what `src/index.ts` exports is public.
   A component tagged `internal` in its stories is internal even if it is still exported.
 - **Stay in your declared scope.** Emit out-of-scope changes as a suggestion; do not apply them.
+- **Every code bug goes through the `moon-ticket` skill.** A bug found during any task becomes a
+  draft in `tickets/`, verified and checked for duplicates. Never record bugs in another file,
+  and never publish a draft without human approval.
 - **Verify before claiming done.** Run the relevant check and report the real result, including
   failures.
 - A behavior or props change must update every affected file of the component contract (code, types, spec, stories, docs) — not just the code.
@@ -33,3 +38,5 @@ rules. `.claude/skills/<name>` is a symlink to that folder. Each rule is written
 Naming: `moon-<artifact>`, one skill per artifact, covering both writing and reviewing it.
 
 - `moon-doc` — a component's `.md`, the props' JSDoc, and its Storybook wiring.
+- `moon-ticket` — a GitHub issue for Jahia/moonstone: one draft file per ticket in `tickets/`,
+  verified and checked for duplicates, published with `gh` once approved, then deleted.

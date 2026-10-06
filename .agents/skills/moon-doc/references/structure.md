@@ -81,7 +81,7 @@ Per-section content (for phrasing, see `style.md`):
     checkbox. Source: the keyboard tests in `<Component>.browser.spec.tsx`. A behaviour tested
     with `it.fails` ends with "(soon)"; remove "(soon)" when `.fails` is removed.
   - Never say how to write a text, such as a label: that goes to *Voice and tone*.
-  - Never document a bug or its workaround: report it to the human as a code bug.
+  - Never document a bug or its workaround: handle it as a code bug (`SKILL.md`, *Code bugs*).
   - No bullet for an ARIA attribute the component sets by default: the consumer can override
     it. A default that can't be overridden is a code bug.
   - No bullet for built-in behaviour the consumer can only break, such as the focus ring or a
