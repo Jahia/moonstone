@@ -43,14 +43,16 @@ describe('EmptyCardSelector', () => {
         expect(onClick).toHaveBeenCalled();
     });
 
-    // Vitest fails the run on the uncaught `onClick is not a function` this used to throw.
     it('should not throw when clicked without onClick', async () => {
         const user = userEvent.setup();
+        const onError = vi.fn((event: ErrorEvent) => event.preventDefault());
+        window.addEventListener('error', onError);
 
         render(<EmptyCardSelector data-testid="card-selector"/>);
         await user.click(screen.getByTestId('card-selector'));
 
-        expect(screen.getByTestId('card-selector')).toBeInTheDocument();
+        window.removeEventListener('error', onError);
+        expect(onError).not.toHaveBeenCalled();
     });
 
     it('should be disabled', () => {
