@@ -194,4 +194,14 @@ describe('Button', () => {
 
         expect(onClick).toHaveBeenCalled();
     });
+
+    // Vitest fails the run on the uncaught `onClick is not a function` this used to throw.
+    it('should not throw when clicked without onClick', async () => {
+        const user = userEvent.setup();
+
+        render(<Button data-testid="moonstone-button" label="test me"/>);
+        await user.click(screen.getByTestId('moonstone-button'));
+
+        expect(screen.getByTestId('moonstone-button')).toBeInTheDocument();
+    });
 });

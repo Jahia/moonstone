@@ -105,4 +105,14 @@ describe('ControlledCollapsible', () => {
 
         expect(onClick).toHaveBeenCalled();
     });
+
+    // Vitest fails the run on the uncaught `onClick is not a function` this used to throw.
+    it('should not throw when clicked without onClick', async () => {
+        const user = userEvent.setup();
+
+        render(<Collapsible isExpanded label="test">content here</Collapsible>);
+        await user.click(screen.getByRole('button'));
+
+        expect(screen.getByRole('button')).toBeInTheDocument();
+    });
 });
