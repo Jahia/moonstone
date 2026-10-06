@@ -41,6 +41,10 @@
     background: none;
     cursor: pointer;
 
+    &:focus-visible {
+        @extend %is-focused;
+    }
+
     &:hover {
         background-color: var(--moon-color-gray_light60);
     }

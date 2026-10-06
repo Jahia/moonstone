@@ -89,6 +89,10 @@ $primaryNav: 56px;
     background: inherit;
     cursor: pointer;
 
+    &:focus-visible {
+        @extend %is-focused;
+    }
+
     &:hover {
         color: var(--moon-color-accent);
 
