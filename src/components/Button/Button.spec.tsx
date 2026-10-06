@@ -197,7 +197,7 @@ describe('Button', () => {
 
     it('should not throw when clicked without onClick', async () => {
         const user = userEvent.setup();
-        const onError = vi.fn((event: ErrorEvent) => event.preventDefault());
+        const onError = vi.fn();
         window.addEventListener('error', onError);
 
         render(<Button label="test me"/>);
