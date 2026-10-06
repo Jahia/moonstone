@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useRef } from 'react';
+import React, { useImperativeHandle, useRef } from 'react';
 
 import { onAccessibleClick } from '~/hooks';
 
@@ -8,7 +8,7 @@ import type { MutableRefObject } from 'react';
 
 import styles from './Switch.module.scss';
 
-const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ControlledSwitchProps> = ({
+const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLInputElement, ControlledSwitchProps> = ({
     className,
     checked = false,
     value,
@@ -17,6 +17,7 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLDivElement,
     ...other
 }, ref) => {
     const inputRef: MutableRefObject<HTMLInputElement> = useRef();
+    useImperativeHandle(ref, () => inputRef.current!, []);
 
     return (
         <div
@@ -26,7 +27,6 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLDivElement,
                 isDisabled && ['moonstone-switch_disabled', styles['moonstone-switch_disabled']],
                 className,
             )}
-            ref={ref}
         >
             <input
                 {...other}

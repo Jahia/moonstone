@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useRef } from 'react';
+import React, { useImperativeHandle, useRef } from 'react';
 
 import { capitalize } from '~/utils/helpers';
 
@@ -7,10 +7,11 @@ import type { ControlledCheckboxProps } from './Checkbox.types';
 
 import styles from './Checkbox.module.scss';
 
-export const ControlledCheckbox: React.FC<ControlledCheckboxProps> = ({
+export const ControlledCheckbox = React.forwardRef<HTMLInputElement, ControlledCheckboxProps>(({
     className, checked, indeterminate = false, size = 'default', isDisabled, isReadOnly, onChange, value, ...props
-}) => {
+}, ref) => {
     const inputRef = useRef<HTMLInputElement>(null);
+    useImperativeHandle(ref, () => inputRef.current!, []);
 
     return (
         <div className={clsx('moonstone-checkbox', styles['moonstone-checkbox'], className)}>
@@ -42,6 +43,6 @@ export const ControlledCheckbox: React.FC<ControlledCheckboxProps> = ({
             </svg>
         </div>
     );
-};
+});
 
 ControlledCheckbox.displayName = 'ControlledCheckbox';

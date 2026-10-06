@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { createRef } from 'react';
 
 import { buttonColors, buttonSizes, buttonVariants } from './Button.types';
 import { Button } from './index';
@@ -193,5 +194,13 @@ describe('Button', () => {
         await user.click(screen.getByTestId('moonstone-button'));
 
         expect(onClick).toHaveBeenCalled();
+    });
+
+    it('should forward the ref to the button', () => {
+        const ref = createRef<HTMLButtonElement>();
+
+        render(<Button label="test me" ref={ref}/>);
+
+        expect(ref.current).toBe(screen.getByRole('button'));
     });
 });

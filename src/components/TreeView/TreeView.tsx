@@ -18,6 +18,7 @@ const TreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElement, TreeV
             <UncontrolledTreeView
                 data={data}
                 defaultOpenedItems={defaultOpenedItems}
+                ref={ref}
                 onCloseItem={onCloseItem}
                 onOpenItem={onOpenItem}
                 {...others}
