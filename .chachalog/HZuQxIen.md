@@ -3,4 +3,4 @@
 "@jahia/moonstone": patch
 ---
 
-Clicking a `Button`, `ButtonToggle`, `CardSelector`, `EmptyCardSelector` or controlled `Collapsible` without `onClick` no longer throws (#1506)
+Fix `onClick is not a function` error when clicking a component without `onClick` (#1506)
