@@ -7,7 +7,6 @@ import {Badge} from '@jahia/moonstone';
 
 ## Do
 - Use it to show a count of unread items, notifications, or pending actions, such as "3" or "99+".
-- Use it to annotate an icon, list item, or navigation entry with a brief system-driven status, such as a success confirmation or an error indicator.
 
 ## Don't
 - Don't use Badge to label a category, a tag, or a user-selected attribute. Use **Chip** instead.

@@ -12,7 +12,7 @@ export default {
     title: 'Layouts/LayoutApp',
     component: LayoutApp,
     parameters: {
-        componentSubtitle: 'The root layout of an application, pairing a navigation panel with the main content area.',
+        componentSubtitle: 'The root layout of an application screen.',
         docs: { description: { component: markdownNotes } },
     },
     argTypes: {

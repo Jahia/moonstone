@@ -13,7 +13,7 @@ export default {
         knobs: { disable: true },
         storysource: { disable: true },
         actions: { argTypesRegex: '^on.*' },
-        componentSubtitle: 'A single option of a RadioGroup, with a clickable label and an optional description.',
+        componentSubtitle: 'One option of a RadioGroup.',
         docs: { description: { component: markdownNotes } },
     },
 };

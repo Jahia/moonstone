@@ -13,7 +13,7 @@ const meta: Meta<typeof FieldSelector> = {
     parameters: {
         layout: 'padded',
         actions: { argTypesRegex: '^on.*' },
-        componentSubtitle: 'Places one control of a Field on its own row, with optional actions and a drag handle.',
+        componentSubtitle: 'One row of a Field, holding a single control.',
         docs: { description: { component: markdownNotes } },
     },
     argTypes: {

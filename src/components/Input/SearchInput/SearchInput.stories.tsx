@@ -18,7 +18,7 @@ export default {
     ],
     parameters: {
         layout: 'centered',
-        componentSubtitle: 'A text field for search queries, with a search icon and a clear button.',
+        componentSubtitle: 'A text field for search queries.',
         docs: { description: { component: markdownNotes } },
     },
     args: {

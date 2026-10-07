@@ -8,7 +8,7 @@ export default {
     tags: ['beta'],
     parameters: {
         layout: 'centered',
-        componentSubtitle: 'Tells the user that an area has no content to show, with an optional icon and title.',
+        componentSubtitle: 'A placeholder explaining why an area has no content.',
         docs: { description: { component: markdownNotes } },
     },
 };

@@ -8,7 +8,7 @@ export default {
     component: IconTextIcon,
     parameters: {
         layout: 'centered',
-        componentSubtitle: 'Displays a line of text with an optional icon before it, after it, or both.',
+        componentSubtitle: 'Short text framed by icons.',
         docs: { description: { component: markdownNotes } },
     },
     argTypes: {

@@ -36,7 +36,7 @@ export default {
     parameters: {
         controls: { disable: true },
         actions: { argTypesRegex: '^on.*' },
-        componentSubtitle: 'Lays out rows and columns of data, composed from head, body, row, and cell parts.',
+        componentSubtitle: 'Table styling for markup you write yourself.',
         docs: { description: { component: markdownNotes } },
     },
 };

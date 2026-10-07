@@ -19,7 +19,7 @@ export default {
     decorators: [(storyFn: () => JSX.Element) => <div style={css}>{storyFn()}</div>],
     parameters: {
         layout: 'centered',
-        componentSubtitle: 'Displays a hierarchy of nodes that the user can open, close, and select.',
+        componentSubtitle: 'A hierarchy the user browses and selects from.',
         docs: { description: { component: markdownNotes } },
     },
 };

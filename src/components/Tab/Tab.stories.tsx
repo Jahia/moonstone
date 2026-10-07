@@ -15,7 +15,7 @@ export default {
 
     parameters: {
         layout: 'centered',
-        componentSubtitle: 'Displays a row of tabs that switches between views of the same content.',
+        componentSubtitle: 'Views of the same content, shown one at a time.',
         docs: { description: { component: markdownNotes } },
     },
 };

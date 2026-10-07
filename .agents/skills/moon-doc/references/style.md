@@ -4,8 +4,8 @@
 
 Mixed, by section:
 
-- **Descriptive** for the subtitle and any introductory sentence. Present tense, third person,
-  stating what the component is or does ("Triggers an action when the user clicks it.").
+- **Descriptive** for any introductory sentence. Present tense, third person, stating what the
+  component is or does. The subtitle is a noun phrase (see `structure.md`).
 - **Imperative** for guidance (Do, Don't, Appearance, Accessibility, Voice and tone). Address
   the reader directly ("Use it to submit a form." "Don't use it for navigation.").
 

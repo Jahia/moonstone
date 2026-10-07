@@ -31,7 +31,7 @@ const meta: Meta<ResizableBoxProps> = {
         ),
     ],
     parameters: {
-        componentSubtitle: 'Wraps content in a box that the user can resize by dragging its right edge.',
+        componentSubtitle: 'A side panel the user widens or narrows by dragging.',
         docs: { description: { component: markdownNotes } },
     },
 };

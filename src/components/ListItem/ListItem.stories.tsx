@@ -16,7 +16,7 @@ export default {
 
     parameters: {
         layout: 'centered',
-        componentSubtitle: 'A single row of a list.',
+        componentSubtitle: 'A single row to build lists and menus from.',
         docs: { description: { component: markdownNotes } },
     },
     argTypes: {

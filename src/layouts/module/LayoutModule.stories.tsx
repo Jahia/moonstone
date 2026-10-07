@@ -12,7 +12,7 @@ export default {
     title: 'Layouts/LayoutModule',
     component: LayoutModule,
     parameters: {
-        componentSubtitle: 'Pairs a secondary navigation with a content area for a module nested in the application.',
+        componentSubtitle: 'A module\'s screen, with its own navigation.',
         docs: { description: { component: markdownNotes } },
     },
     argTypes: {

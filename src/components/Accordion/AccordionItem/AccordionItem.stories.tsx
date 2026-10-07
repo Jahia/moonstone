@@ -20,7 +20,7 @@ export default {
         ),
     ],
     parameters: {
-        componentSubtitle: 'A section of an Accordion, with a header that opens and closes its content.',
+        componentSubtitle: 'One section of an Accordion.',
         docs: { description: { component: markdownNotes } },
         actions: { argTypesRegex: '^on.*' },
     },

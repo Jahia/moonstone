@@ -7,7 +7,7 @@ export default {
     title: 'Components/Paper',
     component: Paper,
     parameters: {
-        componentSubtitle: 'Groups content on a raised surface that stands out from the page background.',
+        componentSubtitle: 'A raised surface that groups a block of related content.',
         docs: { description: { component: markdownNotes } },
     },
 };

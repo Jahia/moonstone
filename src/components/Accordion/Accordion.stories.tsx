@@ -28,7 +28,7 @@ export default {
         ),
     ],
     parameters: {
-        componentSubtitle: 'Organises content into vertically stacked, collapsible sections where only one section is open at a time.',
+        componentSubtitle: 'Collapsible sections, one open at a time.',
         docs: { description: { component: markdownNotes } },
         actions: { argTypesRegex: '^on.*' },
     },

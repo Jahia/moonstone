@@ -12,7 +12,7 @@ const meta: Meta<typeof Thumbnail> = {
     component: Thumbnail,
     tags: ['beta'],
     parameters: {
-        componentSubtitle: 'Displays a small visual preview of a resource, with a fallback placeholder when no image is available.',
+        componentSubtitle: 'Displays a small visual preview of a resource.',
         docs: { description: { component: markdownNotes } },
         layout: 'centered',
     },

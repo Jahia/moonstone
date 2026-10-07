@@ -8,7 +8,7 @@ export default {
     component: Tag,
     tags: ['internal', '!manifest'],
     parameters: {
-        componentSubtitle: 'Represents a removable attribute, such as an applied filter or a selected option.',
+        componentSubtitle: 'A removable attribute.',
         docs: { description: { component: markdownNotes } },
         layout: 'fullscreen',
         knobs: { disable: true },

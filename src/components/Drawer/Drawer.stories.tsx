@@ -12,7 +12,7 @@ const meta = {
     tags: ['beta'],
     parameters: {
         layout: 'fullscreen',
-        componentSubtitle: 'Shows a side panel that slides in beside the page content.',
+        componentSubtitle: 'Supplementary content beside the page.',
         docs: { description: { component: markdownNotes } },
     },
 } satisfies Meta<typeof Drawer>;

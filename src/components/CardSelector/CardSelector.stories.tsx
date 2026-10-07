@@ -15,7 +15,7 @@ const meta: Meta<typeof CardSelector> = {
     tags: ['new'],
 
     parameters: {
-        componentSubtitle: 'Displays a selected content item with its thumbnail, metadata, and optional actions.',
+        componentSubtitle: 'The selected item of a content-picker field.',
         docs: { description: { component: markdownNotes } },
         layout: 'padded',
         actions: { argTypesRegex: '^on.*' },

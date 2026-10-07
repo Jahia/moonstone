@@ -6,7 +6,7 @@ export default {
     title: 'Utilities/ImgWrapper',
     component: ImgWrapper,
     parameters: {
-        componentSubtitle: 'Image wrapper',
+        componentSubtitle: 'An image shown at icon scale.',
         layout: 'centered',
         docs: { description: { component: markdownNotes } },
     },

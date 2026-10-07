@@ -12,7 +12,7 @@ const meta: Meta<typeof EmptyCardSelector> = {
     tags: ['new'],
 
     parameters: {
-        componentSubtitle: 'Shows an empty picker field that the user clicks to select an item.',
+        componentSubtitle: 'An empty picker field, before the user selects an item.',
         docs: { description: { component: markdownNotes } },
         layout: 'padded',
         actions: { argTypesRegex: '^on.*' },

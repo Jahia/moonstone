@@ -14,7 +14,7 @@ export default {
     parameters: {
         layout: 'centered',
         actions: { argTypesRegex: '^on.*' },
-        componentSubtitle: 'A time-of-day field, typed segment by segment, in 24-hour or 12-hour format.',
+        componentSubtitle: 'A time of day to capture.',
         docs: { description: { component: markdownNotes } },
     },
 } satisfies Meta<typeof TimeInput>;

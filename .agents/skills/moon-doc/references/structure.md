@@ -169,9 +169,13 @@ export default {
 - **Import the `.md` with `?raw`.** `vite.config.mjs` has `assetsInclude: ['**/*.md']`, so a
   plain `.md` import returns the file *path*, not its contents. `?raw` returns the text. This is
   the #1 pitfall; always use `?raw`.
-- `componentSubtitle` is the one-line description (the `.md` has no intro paragraph): one
-  sentence of **10 words at most**, saying what the component is or does. No list of features,
-  no prop names (for example, "A single row of a list.").
+- `componentSubtitle` is the one-line description (the `.md` has no intro paragraph): one line of
+  **10 words at most** that says what the component is for, written for the reader. Free form:
+  a noun phrase or a verb, whichever reads best. It must be **true of every use** of the
+  component: no example ("such as"), no number or threshold, no context taken from a single use
+  case. It must pass the obviousness test: if it would be true of any component of the same
+  kind, it says nothing. No list of features, no prop names, no description of how it renders.
+  Ground it in the code and in the Do section as a whole, never in one bullet.
 - The global page renders, in order: title, subtitle, the **first exported story** (preview),
   the Props table (Controls of that story), then the `.md` prose. So the first story in the file
   is the one shown: make it representative and driven by args.

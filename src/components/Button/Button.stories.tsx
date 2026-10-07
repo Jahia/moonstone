@@ -16,7 +16,7 @@ const meta: Meta<typeof Button> = {
     parameters: {
         layout: 'centered',
         actions: { argTypesRegex: '^on.*' },
-        componentSubtitle: 'Triggers an action when the user clicks it.',
+        componentSubtitle: 'The control that triggers an action when clicked.',
         docs: { description: { component: markdownNotes } },
     },
     argTypes: {

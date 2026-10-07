@@ -12,7 +12,7 @@ export default {
     component: Collapsible,
     parameters: {
         actions: { argTypesRegex: '^on.*' },
-        componentSubtitle: 'Shows or hides a section of content when the user clicks its header.',
+        componentSubtitle: 'Shows or hides a section from its header.',
         docs: { description: { component: markdownNotes } },
     },
 };

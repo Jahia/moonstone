@@ -7,7 +7,7 @@ export default {
     title: 'Components/Badge',
     component: Badge,
     parameters: {
-        componentSubtitle: 'A compact label that surfaces counts or system-driven status on another element.',
+        componentSubtitle: 'A count shown on another element.',
         docs: { description: { component: markdownNotes } },
         layout: 'centered',
     },

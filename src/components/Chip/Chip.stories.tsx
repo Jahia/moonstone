@@ -15,7 +15,7 @@ export default {
 
     parameters: {
         layout: 'centered',
-        componentSubtitle: 'Displays a static status, category, or attribute label.',
+        componentSubtitle: 'A static label for an item\'s status or type.',
         docs: { description: { component: markdownNotes } },
     },
     argTypes: {

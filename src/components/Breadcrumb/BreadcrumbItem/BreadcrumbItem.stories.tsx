@@ -18,7 +18,7 @@ export default {
         ),
     ],
     parameters: {
-        componentSubtitle: 'One level of a Breadcrumb, which the user clicks to navigate to that level.',
+        componentSubtitle: 'One level of a Breadcrumb\'s path.',
         docs: { description: { component: markdownNotes } },
         layout: 'centered',
         actions: { argTypesRegex: '^on.*' },

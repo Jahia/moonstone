@@ -11,7 +11,7 @@ export default {
     component: Tooltip,
     tags: ['new'],
     parameters: {
-        componentSubtitle: 'A small floating label that appears when the user hovers or focuses an element.',
+        componentSubtitle: 'A small label that appears on hover or focus.',
         docs: { description: { component: markdownNotes } },
         layout: 'centered',
         knobs: { disable: true },

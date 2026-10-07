@@ -10,7 +10,7 @@ export default {
     title: 'Layouts/LayoutContent',
     component: LayoutContent,
     parameters: {
-        componentSubtitle: 'Lays out the main content area of a page, with an optional header and loading state.',
+        componentSubtitle: 'The main content area of a page.',
         docs: { description: { component: markdownNotes } },
     },
     decorators: [

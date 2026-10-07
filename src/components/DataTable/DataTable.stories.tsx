@@ -15,7 +15,7 @@ export default {
     tags: ['beta'],
     parameters: {
         controls: { expanded: true },
-        componentSubtitle: 'Displays a list of records as rows and columns, with built-in sorting, selection, pagination, and expandable rows.',
+        componentSubtitle: 'Displays records as rows and columns.',
         docs: { description: { component: markdownNotes } },
     },
     argTypes: {

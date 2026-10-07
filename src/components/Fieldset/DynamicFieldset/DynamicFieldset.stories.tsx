@@ -16,7 +16,7 @@ const meta: Meta<typeof DynamicFieldset> = {
     parameters: {
         layout: 'padded',
         actions: { argTypesRegex: '^on.*' },
-        componentSubtitle: 'Groups related fields under a heading with a switch that shows or hides them.',
+        componentSubtitle: 'Optional fields the user turns on with a switch.',
         docs: { description: { component: markdownNotes } },
     },
     args: {

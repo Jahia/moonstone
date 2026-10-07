@@ -12,7 +12,7 @@ const meta: Meta<typeof ButtonToggle> = {
     tags: ['dark-theme'],
 
     parameters: {
-        componentSubtitle: 'A button that stays pressed until clicked again.',
+        componentSubtitle: 'An action that stays on until the user toggles it.',
         docs: { description: { component: markdownNotes } },
         layout: 'centered',
         actions: { argTypesRegex: '^on.*' },

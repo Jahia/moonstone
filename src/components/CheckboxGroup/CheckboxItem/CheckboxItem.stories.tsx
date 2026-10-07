@@ -13,7 +13,7 @@ export default {
         layout: 'centered',
         knobs: { disable: true },
         storysource: { disable: true },
-        componentSubtitle: 'A checkbox with a clickable label and an optional description.',
+        componentSubtitle: 'A labelled option the user opts into.',
         docs: { description: { component: markdownNotes } },
     },
     argTypes: {

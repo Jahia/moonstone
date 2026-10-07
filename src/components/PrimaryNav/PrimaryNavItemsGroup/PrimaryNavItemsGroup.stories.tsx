@@ -9,7 +9,7 @@ const meta: Meta<typeof PrimaryNavItemsGroup> = {
     title: 'Components/PrimaryNavItemsGroup',
     component: PrimaryNavItemsGroup,
     parameters: {
-        componentSubtitle: 'Groups related PrimaryNavItems inside a PrimaryNav, separated by a divider.',
+        componentSubtitle: 'Related PrimaryNav entries.',
         docs: { description: { component: markdownNotes } },
         layout: 'fullscreen',
     },

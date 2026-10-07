@@ -7,7 +7,7 @@ export default {
     tags: ['dark-theme'],
     parameters: {
         layout: 'centered',
-        componentSubtitle: 'Shows an animated spinner while content is loading.',
+        componentSubtitle: 'A wait of unknown length while content loads.',
         docs: { description: { component: markdownNotes } },
     },
 };

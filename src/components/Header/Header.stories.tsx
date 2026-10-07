@@ -28,7 +28,7 @@ export default {
     title: 'Components/Header',
     component: Header,
     parameters: {
-        componentSubtitle: 'Displays the title of a page with its main actions, its context, and an optional toolbar.',
+        componentSubtitle: 'The top of a page: its title and main actions.',
         docs: { description: { component: markdownNotes } },
     },
     argTypes: {

@@ -7,7 +7,7 @@ export default {
     title: 'Tokens/Typography',
     component: Typography,
     parameters: {
-        componentSubtitle: 'Renders text in the design system\'s type scale.',
+        componentSubtitle: 'Any text you render.',
         layout: 'centered',
         knobs: { disable: true },
         storysource: { disable: true },

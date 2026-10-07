@@ -16,7 +16,7 @@ export default {
         ),
     ],
     parameters: {
-        componentSubtitle: 'Shows where the current page sits in the hierarchy.',
+        componentSubtitle: 'The current page\'s path, with a link to each ancestor.',
         layout: 'centered',
         docs: { description: { component: markdownNotes } },
     },

@@ -20,7 +20,7 @@ export default {
     ],
     parameters: {
         layout: 'centered',
-        componentSubtitle: 'Lets the user type a number and step it with the arrow keys.',
+        componentSubtitle: 'A number the user types or steps.',
         docs: { description: { component: markdownNotes } },
     },
 } as Meta<typeof NumberInput>;

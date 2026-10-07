@@ -20,7 +20,7 @@ export default {
     ],
     parameters: {
         layout: 'centered',
-        componentSubtitle: 'Lets the user enter a single line of text.',
+        componentSubtitle: 'Short, single-line free text.',
         docs: { description: { component: markdownNotes } },
     },
     args: {

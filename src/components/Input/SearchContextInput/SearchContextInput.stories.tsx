@@ -23,7 +23,7 @@ export default {
     ],
     parameters: {
         layout: 'centered',
-        componentSubtitle: 'A search field with a Dropdown that sets where the search runs.',
+        componentSubtitle: 'A search box where the user also picks the scope.',
         docs: { description: { component: markdownNotes } },
     },
     args: {
