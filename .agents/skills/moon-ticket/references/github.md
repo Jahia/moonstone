@@ -80,7 +80,7 @@ draft. Ignore trailing newlines: `jq` adds one, so a byte-for-byte diff always f
 
 ### Ids
 
-Node ids are stable. Look them up again if a call fails:
+Look ids at the start of every publish run.
 
 ```bash
 gh api graphql -f query='{organization(login:"Jahia"){issueTypes(first:20){nodes{id name}}}}'
@@ -89,18 +89,6 @@ gh api graphql -f query='{node(id:"<Severity field node id>"){... on IssueFieldS
 gh api graphql -f query='{repository(owner:"Jahia",name:"moonstone"){id
   issue(number:1465){id} labels(first:5,query:"a11y"){nodes{id name}}}}'
 ```
-
-Ids known on 2026-10-02:
-
-| What | Node id |
-|---|---|
-| repository `Jahia/moonstone` | `MDEwOlJlcG9zaXRvcnkyMDUxNjkwODg=` |
-| type Bug / Task / Story | `IT_kwDOAArxx84AAgvt` / `IT_kwDOAArxx84AAgvq` / `IT_kwDOAArxx84Ba6IL` |
-| field Story Points | `IFT_kgDOAomy1A` |
-| field Severity | `IFSS_kgDOAomzFw` |
-| Severity Critical / Major / Minor | `IFSSO_kgDOBHDzBQ` / `IFSSO_kgDOBHDzBg` / `IFSSO_kgDOBHDzBw` |
-| epic #1421 / #1465 | `I_kwDODDqhwM8AAAABOeEMvg` / `I_kwDODDqhwM8AAAABQm0IMw` |
-| label `a11y` / `typescript` | `LA_kwDODDqhwM8AAAAB6Pav7w` / `LA_kwDODDqhwM8AAAAB6Pa7_A` |
 
 ## Mentions and notifications
 
