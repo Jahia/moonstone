@@ -7,7 +7,7 @@ import type { ButtonGroupProps } from './ButtonGroup.types';
 
 import styles from './ButtonGroup.module.scss';
 
-export const ButtonGroup: React.FC<ButtonGroupProps> = ({
+export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(({
     size = 'default',
     isReversed = false,
     variant = 'default',
@@ -15,7 +15,7 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
     className = null,
     children,
     ...props
-}) => {
+}, ref) => {
     if (!children || React.Children.count(children) < 1) {
         return null;
     }
@@ -28,6 +28,7 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
                 ['flexRow', layout.flexRow],
                 ['alignCenter', layout.alignCenter],
             )}
+            ref={ref}
             role="group"
             {...props}
             data-color={color}
@@ -40,19 +41,16 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
                         return null;
                     }
 
-                    return (
-                        <button.type
-                            {...button.props}
-                            isReversed={isReversed}
-                            color={color}
-                            size={size}
-                            variant={variant}
-                        />
-                    );
+                    return React.cloneElement(button, {
+                        isReversed,
+                        color,
+                        size,
+                        variant,
+                    });
                 })
             }
         </div>
     );
-};
+});
 
 ButtonGroup.displayName = 'ButtonGroup';
