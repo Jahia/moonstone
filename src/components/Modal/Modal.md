@@ -1,22 +1,12 @@
 ## Example
 ```jsx
-import {useState} from 'react';
-import {Button, Modal, ModalBody, ModalFooter, ModalHeader, Typography} from '@jahia/moonstone';
+import {Button, Modal, ModalFooter, ModalHeader} from '@jahia/moonstone';
 
-const [isOpen, setIsOpen] = useState(false);
-
-<Button label="Delete" color="danger" onClick={() => setIsOpen(true)}/>
-{/* onOpenChange reports Escape and clicks outside the modal. */}
 <Modal isOpen={isOpen} aria-labelledby="delete-project-title" onOpenChange={setIsOpen}>
-    {/* Modal takes a single child: wrap its parts in a fragment. */}
     <>
         <ModalHeader id="delete-project-title" title="Delete project"/>
-        <ModalBody>
-            <Typography>This project and its content will be deleted. You can't undo this action.</Typography>
-        </ModalBody>
         <ModalFooter>
-            <Button label="Cancel" variant="ghost" onClick={() => setIsOpen(false)}/>
-            <Button label="Delete" color="danger" onClick={handleDelete}/>
+            <Button label="Cancel"/>
         </ModalFooter>
     </>
 </Modal>

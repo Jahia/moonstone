@@ -1,9 +1,8 @@
 ## Example
 ```jsx
 import {IconTextIcon} from '@jahia/moonstone';
-import {FilePdf} from '@jahia/moonstone/icons';
 
-<IconTextIcon iconStart={<FilePdf/>}>Annual report.pdf</IconTextIcon>
+<IconTextIcon>Annual report.pdf</IconTextIcon>
 ```
 
 ## Do

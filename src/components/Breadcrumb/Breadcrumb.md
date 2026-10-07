@@ -4,9 +4,8 @@
 import {Breadcrumb, BreadcrumbItem} from '@jahia/moonstone';
 
 <Breadcrumb>
-    <BreadcrumbItem label="Home" onClick={() => navigate('/')}/>
-    <BreadcrumbItem label="Media" onClick={() => navigate('/media')}/>
-    <BreadcrumbItem label="Images"/>
+    <BreadcrumbItem label="Home"/>
+    <BreadcrumbItem label="Media"/>
 </Breadcrumb>
 ```
 

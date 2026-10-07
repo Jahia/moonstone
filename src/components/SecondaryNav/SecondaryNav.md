@@ -6,7 +6,7 @@ import {SecondaryNav, SecondaryNavHeader, TreeView} from '@jahia/moonstone';
     aria-label="Site content"
     header={<SecondaryNavHeader>Content</SecondaryNavHeader>}
 >
-    <TreeView isReversed data={siteTree} selectedItems={selectedItems} onClickItem={handleSelectItem}/>
+    <TreeView isReversed data={siteTree}/>
 </SecondaryNav>
 ```
 

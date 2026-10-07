@@ -2,13 +2,7 @@
 ```jsx
 import {CheckboxItem} from '@jahia/moonstone';
 
-<CheckboxItem
-    id="include-subpages"
-    label="Include subpages"
-    description="Publish every page under this one."
-    value="subpages"
-    onChange={(event, value, checked) => setIncludeSubpages(checked)}
-/>
+<CheckboxItem id="include-subpages" label="Include subpages"/>
 ```
 
 ## Controlled & uncontrolled

@@ -2,7 +2,6 @@
 ```jsx
 import {Dropdown} from '@jahia/moonstone';
 
-// The component is controlled: keep the selected value in your state
 <Dropdown
     data={[
         {label: 'Draft', value: 'draft'},
@@ -10,7 +9,6 @@ import {Dropdown} from '@jahia/moonstone';
     ]}
     value={status}
     placeholder="Select a status"
-    onChange={(event, item) => setStatus(item.value)}
 />
 ```
 

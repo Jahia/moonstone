@@ -40,10 +40,18 @@ empty:** a section with nothing to say is omitted, whatever the section.
 Per-section content (for phrasing, see `style.md`):
 
 - **Example** — a fenced ` ```jsx ` block: the import line(s) plus exactly **one** usage, the
-  one a consumer writes most often in a real app. Never one example per variant, size, or state:
-  the preview and the Controls already show every possibility. Realistic labels that
-  follow `ui-copy.md`. Import the component from `@jahia/moonstone` and any icons from
-  `@jahia/moonstone/icons`. Code only, with short sentence comments. Placed first so it renders
+  minimum valid one: exactly the props that `<Component>.types.ts` makes required, plus the
+  attributes the Accessibility section requires (such as `aria-label` on a Switch). Nothing else.
+  If that minimum makes no sense (a Button with neither `label` nor `icon`), the type is too
+  loose: report it as a typing bug, and use the props that the bug says should be required.
+  Every component used inside the Example follows the Accessibility section of its own doc.
+  When a prop takes content the consumer builds (`children`, `content`, a slot), use
+  `<YourContent/>`. Never a real implementation.
+  Code only, **no comments**: the doc explains, the Example illustrates. If a comment would add
+  information, the doc lacks it: raise it to the human and ask where it goes. Never one example
+  per variant, size, or state: the preview and the Controls already show every possibility.
+  Realistic labels that follow `ui-copy.md`. Import the component from `@jahia/moonstone` and any
+  icons from `@jahia/moonstone/icons`. Placed first so it renders
   right after the Props table.
 - **Controlled & uncontrolled** — include ONLY when the component supports both modes (a
   controlled prop such as `value` / `checked` / `isPressed`, plus an uncontrolled `default*`

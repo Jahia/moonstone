@@ -2,14 +2,13 @@
 ```jsx
 import {SvgWrapper} from '@jahia/moonstone';
 
-// An inline SVG element, sized at the same scale as a built-in icon.
 const logo = (
     <svg fill="none" viewBox="0 0 24 24">
         <path d="M12 2 2 7l10 5 10-5-10-5z" fill="currentColor"/>
     </svg>
 );
 
-<SvgWrapper svg={logo}/>
+<SvgWrapper svg={logo} role="img" aria-label="Company logo"/>
 ```
 
 ## Do

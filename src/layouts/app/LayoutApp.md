@@ -2,7 +2,7 @@
 ```jsx
 import {LayoutApp} from '@jahia/moonstone';
 
-<LayoutApp navigation={<AppNavigation/>} content={<Dashboard/>}/>
+<LayoutApp content={<YourContent/>}/>
 ```
 
 ## Do

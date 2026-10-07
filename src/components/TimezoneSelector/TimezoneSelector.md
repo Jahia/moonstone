@@ -2,7 +2,7 @@
 ```jsx
 import {TimezoneSelector} from '@jahia/moonstone';
 
-<TimezoneSelector defaultValue="Europe/Paris" referenceDate="2026-06-19"/>
+<TimezoneSelector aria-label="Timezone"/>
 ```
 
 ## Controlled & uncontrolled
@@ -41,7 +41,7 @@ import {TimezoneSelector} from '@jahia/moonstone';
 - Write `placeholder` and `searchEmptyText` in sentence case, kept short.
 
 ## Accessibility
-- Pair it with **Field** for a visible label; the component renders none on its own.
+- Always give it a label. Use a **Field**, or pass an `aria-label` when it stands alone.
 - Enter opens the list and moves the focus to its search field. Space and the Down arrow key open
   it too (soon).
 - The Up and Down arrow keys move the focus between options. From the search field, the Down

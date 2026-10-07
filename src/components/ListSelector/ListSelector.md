@@ -2,19 +2,7 @@
 ```jsx
 import {ListSelector} from '@jahia/moonstone';
 
-// The component is controlled: keep the selected values, in order, in your state
-<ListSelector
-    options={languages}
-    values={selectedLanguages}
-    label={{
-        leftListTitle: 'Available languages',
-        rightListTitle: 'Selected languages',
-        addAllTitle: 'Add all',
-        removeAllTitle: 'Remove all',
-        selected: `${selectedLanguages.length} selected`
-    }}
-    onChange={setSelectedLanguages}
-/>
+<ListSelector options={languages} onChange={setSelectedLanguages}/>
 ```
 
 ## Do

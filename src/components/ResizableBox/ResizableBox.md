@@ -1,15 +1,9 @@
 ## Example
 ```jsx
-import {ResizableBox} from '@jahia/moonstone';
+import {ResizableBox} from '~/components';
 
-// The user drags the right edge to resize the panel, between 200 and 600 pixels wide.
-<ResizableBox
-    aria-label="Properties panel"
-    defaultSize={{width: 300, height: 'auto'}}
-    minWidth={200}
-    maxWidth={600}
->
-    <PropertiesPanel/>
+<ResizableBox aria-label="Properties panel" minWidth={200}>
+    <YourContent/>
 </ResizableBox>
 ```
 

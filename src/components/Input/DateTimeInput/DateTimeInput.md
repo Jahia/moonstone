@@ -2,7 +2,7 @@
 ```jsx
 import {DateTimeInput} from '@jahia/moonstone';
 
-<DateTimeInput type="date" defaultValue="2026-06-19"/>
+<DateTimeInput type="date" aria-label="Publication date"/>
 ```
 
 ## Controlled & uncontrolled
@@ -56,7 +56,7 @@ affect the field's own styling.
 - Write `i18n.timezone` as a short label in sentence case, such as "Timezone".
 
 ## Accessibility
-- Pair it with **Field** for a visible label; the field renders none on its own.
+- Always give it a label. Use a **Field**, or pass an `aria-label` when it stands alone.
 - Enter or Space on the date field opens the calendar. Escape closes it.
 - In the calendar, the Left and Right arrow keys move between days, and the Up and Down arrow
   keys between weeks. Enter selects the focused day and closes the calendar.

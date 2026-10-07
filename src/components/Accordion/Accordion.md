@@ -2,18 +2,13 @@
 
 ```jsx
 import {Accordion, AccordionItem} from '@jahia/moonstone';
-import {Page, Folder, Cloud} from '@jahia/moonstone/icons';
 
-// Uncontrolled: opens the "pages" section by default
-<Accordion defaultOpenedItem="pages">
-    <AccordionItem id="pages" icon={<Page />} label="Pages">
-        Pages list here.
+<Accordion>
+    <AccordionItem id="pages" label="Pages">
+        <YourContent/>
     </AccordionItem>
-    <AccordionItem id="media" icon={<Folder />} label="Media">
-        Media library here.
-    </AccordionItem>
-    <AccordionItem id="publishing" icon={<Cloud />} label="Publishing">
-        Publishing settings here.
+    <AccordionItem id="media" label="Media">
+        <YourContent/>
     </AccordionItem>
 </Accordion>
 ```

@@ -2,14 +2,8 @@
 ```jsx
 import {Field, FieldSelector, Input} from '@jahia/moonstone';
 
-<Field
-    id="page-title"
-    label="Title"
-    helper="Shown in search results."
-    hasError={Boolean(titleError)}
-    errorMessage={titleError}
->
-    <FieldSelector selector={<Input aria-label="Title" size="big" value={title} onChange={handleTitleChange}/>}/>
+<Field id="page-title" label="Title">
+    <FieldSelector selector={<Input/>}/>
 </Field>
 ```
 

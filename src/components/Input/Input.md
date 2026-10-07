@@ -2,13 +2,7 @@
 ```jsx
 import {Input} from '@jahia/moonstone';
 
-// In a form, wrap it in a Field to give it a visible label.
-<Input
-    aria-label="Page title"
-    size="big"
-    value={title}
-    onChange={e => setTitle(e.target.value)}
-/>
+<Input aria-label="Page title"/>
 ```
 
 ## Controlled & uncontrolled

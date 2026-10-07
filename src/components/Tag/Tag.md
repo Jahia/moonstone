@@ -2,10 +2,7 @@
 ```jsx
 import {Tag} from '~/components';
 
-// The onClick handler receives the click event and the tag's value.
-const handleRemove = (event, value) => removeFilter(value);
-
-<Tag label="Draft" value="draft" onClick={handleRemove}/>
+<Tag label="Draft" value="draft" onClick={(event, value) => removeFilter(value)}/>
 ```
 
 ## Do

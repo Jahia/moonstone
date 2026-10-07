@@ -1,29 +1,19 @@
 ## Example
 ```jsx
-import {useState} from 'react';
 import {TreeView} from '@jahia/moonstone';
-import {Folder, Page} from '@jahia/moonstone/icons';
 
-// Each node needs a unique `id` and a `label`. Nest nodes through `children`.
 const siteTree = [
     {
         id: 'home',
         label: 'Home',
-        iconStart: <Page/>,
         children: [
-            {id: 'about', label: 'About us', iconStart: <Page/>},
-            {id: 'news', label: 'News', iconStart: <Folder/>, hasChildren: true},
+            {id: 'about', label: 'About us'},
+            {id: 'news', label: 'News'},
         ],
     },
 ];
 
-const [selectedItems, setSelectedItems] = useState([]);
-
-<TreeView
-    data={siteTree}
-    selectedItems={selectedItems}
-    onClickItem={node => setSelectedItems([node.id])}
-/>
+<TreeView data={siteTree}/>
 ```
 
 ## Controlled & uncontrolled

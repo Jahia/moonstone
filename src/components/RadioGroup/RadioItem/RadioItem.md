@@ -2,9 +2,9 @@
 ```jsx
 import {RadioGroup, RadioItem} from '@jahia/moonstone';
 
-<RadioGroup name="visibility" defaultValue="public">
+<RadioGroup name="visibility" role="radiogroup" aria-label="Visibility">
     <RadioItem id="visibility-public" label="Public" value="public"/>
-    <RadioItem id="visibility-private" label="Private" description="Only editors can see it." value="private"/>
+    <RadioItem id="visibility-private" label="Private" value="private"/>
 </RadioGroup>
 ```
 

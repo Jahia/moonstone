@@ -1,10 +1,8 @@
 ## Example
 ```jsx
 import {Chip} from '@jahia/moonstone';
-import {CloudCheck} from '@jahia/moonstone/icons';
 
-
-<Chip label="Published" color="success" icon={<CloudCheck/>}/>
+<Chip label="Published"/>
 ```
 
 ## Do

@@ -1,16 +1,9 @@
 ## Example
 ```jsx
 import {ListItem} from '~/components';
-import {Setting, ChevronRight} from '~/icons';
 
 <ul>
-    <ListItem
-        label="Settings"
-        description="Manage your account preferences"
-        iconStart={<Setting/>}
-        iconEnd={<ChevronRight/>}
-        onClick={handleSelect}
-    />
+    <ListItem label="Settings"/>
 </ul>
 ```
 

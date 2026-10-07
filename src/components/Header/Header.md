@@ -1,20 +1,8 @@
 ## Example
 ```jsx
-import {Breadcrumb, BreadcrumbItem, Button, Header} from '@jahia/moonstone';
+import {Header} from '@jahia/moonstone';
 
-<Header
-    title="Home page"
-    breadcrumb={(
-        <Breadcrumb>
-            <BreadcrumbItem label="Digitall" onClick={handleOpenSite}/>
-            <BreadcrumbItem label="Home page" onClick={handleOpenPage}/>
-        </Breadcrumb>
-    )}
-    mainActions={[
-        <Button key="preview" label="Preview" size="big" variant="outlined" onClick={handlePreview}/>,
-        <Button key="publish" color="accent" label="Publish" size="big" onClick={handlePublish}/>,
-    ]}
-/>
+<Header title="Home page"/>
 ```
 
 ## Do

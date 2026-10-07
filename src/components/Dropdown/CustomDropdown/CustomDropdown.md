@@ -1,17 +1,9 @@
 ## Example
 ```jsx
-import {CustomDropdown, Dropdown, MenuItem} from '@jahia/moonstone';
+import {CustomDropdown} from '@jahia/moonstone';
 
-// The children render inside the menu that opens under the button
-<CustomDropdown label="Sort" variant="outlined">
-    <MenuItem label="Sort by" variant="title"/>
-    <Dropdown
-        data={sortFields}
-        value={sortField}
-        placeholder="Select a field"
-        variant="outlined"
-        onChange={(event, item) => setSortField(item.value)}
-    />
+<CustomDropdown label="Filters">
+    <YourContent/>
 </CustomDropdown>
 ```
 

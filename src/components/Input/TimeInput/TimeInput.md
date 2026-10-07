@@ -2,7 +2,7 @@
 ```jsx
 import {TimeInput} from '@jahia/moonstone';
 
-<TimeInput defaultValue="14:30"/>
+<TimeInput aria-label="Start time"/>
 ```
 
 ## Controlled & uncontrolled
@@ -48,6 +48,6 @@ import {TimeInput} from '@jahia/moonstone';
   shows the expected format.
 
 ## Accessibility
-- Pair it with **Field** for a visible label; the field renders none on its own.
+- Always give it a label. Use a **Field**, or pass an `aria-label` when it stands alone.
 - The Up and Down arrow keys step the hour or minute segment under the caret. The Left and Right
   arrow keys move between the two segments.

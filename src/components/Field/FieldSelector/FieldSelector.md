@@ -1,18 +1,8 @@
 ## Example
 ```jsx
-import {Button, Field, FieldSelector, Input} from '@jahia/moonstone';
-import {Close} from '@jahia/moonstone/icons';
+import {FieldSelector, Input} from '@jahia/moonstone';
 
-// One FieldSelector per value of a multi-value field.
-<Field id="keywords" label="Keywords">
-    {keywords.map(keyword => (
-        <FieldSelector
-            key={keyword.id}
-            selector={<Input aria-label="Keyword" size="big" value={keyword.value} onChange={event => updateKeyword(keyword.id, event.target.value)}/>}
-            buttons={<Button icon={<Close/>} aria-label="Remove keyword" onClick={() => removeKeyword(keyword.id)}/>}
-        />
-    ))}
-</Field>
+<FieldSelector selector={<Input aria-label="Keyword"/>}/>
 ```
 
 ## Do

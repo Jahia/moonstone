@@ -2,13 +2,7 @@
 ```jsx
 import {Textarea} from '@jahia/moonstone';
 
-<Textarea
-    id="page-description"
-    aria-label="Description"
-    placeholder="Describe the page"
-    value={description}
-    onChange={event => setDescription(event.target.value)}
-/>
+<Textarea aria-label="Description"/>
 ```
 
 ## Controlled & uncontrolled

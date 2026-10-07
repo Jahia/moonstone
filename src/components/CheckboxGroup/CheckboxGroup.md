@@ -2,11 +2,9 @@
 ```jsx
 import {CheckboxGroup, CheckboxItem} from '@jahia/moonstone';
 
-// The group onChange runs for every item, in addition to each item's own onChange.
-<CheckboxGroup name="languages" onChange={(event, value, checked) => toggleLanguage(value, checked)}>
-    <CheckboxItem id="language-en" label="English" value="en"/>
-    <CheckboxItem id="language-fr" label="French" value="fr"/>
-    <CheckboxItem id="language-de" label="German" value="de"/>
+<CheckboxGroup name="languages">
+    <CheckboxItem id="language-en" label="English"/>
+    <CheckboxItem id="language-fr" label="French"/>
 </CheckboxGroup>
 ```
 

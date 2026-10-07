@@ -2,12 +2,10 @@
 
 ```jsx
 import {Accordion, AccordionItem} from '@jahia/moonstone';
-import {Page} from '@jahia/moonstone/icons';
 
-// Each item needs an id that is unique within its Accordion.
 <Accordion>
-    <AccordionItem id="pages" icon={<Page/>} label="Pages">
-        Pages list here.
+    <AccordionItem id="pages" label="Pages">
+        <YourContent/>
     </AccordionItem>
 </Accordion>
 ```

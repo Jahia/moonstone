@@ -2,8 +2,7 @@
 ```jsx
 import {NumberInput} from '@jahia/moonstone';
 
-// Characters that don't form a valid number are filtered out as the user types
-<NumberInput value={quantity} min={1} max={10} onChange={event => setQuantity(event.target.value)}/>
+<NumberInput aria-label="Quantity"/>
 ```
 
 ## Controlled & uncontrolled

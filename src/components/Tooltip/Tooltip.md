@@ -1,10 +1,10 @@
 ## Example
 ```jsx
-import {Tooltip, Button} from '@jahia/moonstone';
+import {Button, Tooltip} from '@jahia/moonstone';
 import {Home} from '@jahia/moonstone/icons';
 
 <Tooltip label="Home">
-    <Button icon={<Home/>} variant="outlined" aria-label="Home"/>
+    <Button icon={<Home/>} aria-label="Home"/>
 </Tooltip>
 ```
 

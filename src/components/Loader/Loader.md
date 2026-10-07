@@ -2,7 +2,7 @@
 ```jsx
 import {Loader} from '@jahia/moonstone';
 
-<Loader size="big" aria-label="Loading content"/>
+<Loader aria-label="Loading content"/>
 ```
 
 ## Do

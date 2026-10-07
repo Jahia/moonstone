@@ -1,11 +1,11 @@
 ## Example
 ```jsx
-import {ButtonGroup, Button} from '@jahia/moonstone';
+import {Button, ButtonGroup} from '@jahia/moonstone';
 import {ChevronDown} from '@jahia/moonstone/icons';
 
-<ButtonGroup color="accent" size="big">
-    <Button label="Publish" onClick={handlePublish}/>
-    <Button icon={<ChevronDown/>} aria-label="Show more options" onClick={handleMore}/>
+<ButtonGroup>
+    <Button label="Publish"/>
+    <Button icon={<ChevronDown/>} aria-label="Show more options"/>
 </ButtonGroup>
 ```
 

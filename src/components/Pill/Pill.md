@@ -1,21 +1,8 @@
 ## Example
 ```jsx
-import {useState} from 'react';
-import {Dropdown, Pill} from '@jahia/moonstone';
+import {Pill} from '@jahia/moonstone';
 
-const [language, setLanguage] = useState(null);
-
-const languages = [
-    {label: 'French', value: 'fr', iconEnd: <Pill>FR</Pill>},
-    {label: 'English', value: 'en', iconEnd: <Pill>EN</Pill>},
-];
-
-<Dropdown
-    data={languages}
-    value={language}
-    placeholder="Select a language"
-    onChange={(e, item) => setLanguage(item.value)}
-/>
+<Pill>FR</Pill>
 ```
 
 ## Do

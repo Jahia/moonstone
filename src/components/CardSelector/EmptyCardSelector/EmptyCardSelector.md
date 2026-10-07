@@ -2,14 +2,8 @@
 
 ```jsx
 import {EmptyCardSelector} from '@jahia/moonstone';
-import {File} from '@jahia/moonstone/icons';
 
-// Replace it with a CardSelector once the user has picked an item.
-<EmptyCardSelector
-    label="No item selected"
-    iconStart={<File/>}
-    onClick={handleOpenPicker}
-/>
+<EmptyCardSelector label="No item selected"/>
 ```
 
 ## Do

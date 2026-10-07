@@ -2,15 +2,11 @@
 ```jsx
 import {Field, FieldBoolean, FieldSelector, Fieldset, Input} from '@jahia/moonstone';
 
-<Fieldset id="seo" label="SEO settings" helper="Controls how search engines list the page.">
+<Fieldset id="seo" label="SEO settings">
     <Field id="seo-title" label="Page title">
-        <FieldSelector selector={<Input aria-label="Page title" size="big" value={seoTitle} onChange={handleSeoTitleChange}/>}/>
+        <FieldSelector selector={<Input/>}/>
     </Field>
-    <FieldBoolean
-        id="seo-indexing"
-        label="Allow indexing"
-        checkboxAttributes={{checked: isIndexed, onChange: (event, value, checked) => setIsIndexed(checked)}}
-    />
+    <FieldBoolean id="seo-indexing" label="Allow indexing"/>
 </Fieldset>
 ```
 

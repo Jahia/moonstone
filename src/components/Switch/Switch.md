@@ -2,11 +2,7 @@
 ```jsx
 import {Switch} from '@jahia/moonstone';
 
-<Switch
-    aria-label="Enable notifications"
-    checked={isEnabled}
-    onChange={(event, value, checked) => setIsEnabled(checked)}
-/>
+<Switch aria-label="Enable notifications"/>
 ```
 
 ## Controlled & uncontrolled

@@ -2,7 +2,6 @@
 ```jsx
 import {ImgWrapper} from '@jahia/moonstone';
 
-// Renders the image at the same scale as a built-in icon.
 <ImgWrapper alt="Partner logo" src="https://example.com/logo.svg"/>
 ```
 

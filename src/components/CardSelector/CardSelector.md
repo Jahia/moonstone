@@ -1,20 +1,9 @@
 ## Example
 
 ```jsx
-import {CardSelector, Chip, Button} from '@jahia/moonstone';
-import {FileImage, Close} from '@jahia/moonstone/icons';
+import {CardSelector} from '@jahia/moonstone';
 
-<CardSelector
-    id="card"
-    displayName="Hero image"
-    systemName="hero-image"
-    thumbnail={imageUrl}
-    thumbnailAlt="Hero image preview"
-    thumbnailType="preview"
-    chips={[<Chip key="type" label="Image" icon={<FileImage/>} color="accent"/>]}
-    information="Last modified 2 days ago"
-    onClick={handleClick}
-/>
+<CardSelector id="hero-image" displayName="Hero image"/>
 ```
 
 ## Do

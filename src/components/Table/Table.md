@@ -1,19 +1,19 @@
 ## Example
 ```jsx
-import {Table, TableHead, TableHeadCell, TableBody, TableRow, TableBodyCell} from '@jahia/moonstone';
+import {Table, TableBody, TableBodyCell, TableHead, TableHeadCell, TableRow} from '@jahia/moonstone';
 
 <Table>
     <TableHead>
         <TableRow>
             <TableHeadCell>Name</TableHeadCell>
-            <TableHeadCell width="120px">Status</TableHeadCell>
+            <TableHeadCell>Status</TableHeadCell>
         </TableRow>
     </TableHead>
     <TableBody>
         {pages.map(page => (
             <TableRow key={page.id}>
                 <TableBodyCell>{page.name}</TableBodyCell>
-                <TableBodyCell width="120px">{page.status}</TableBodyCell>
+                <TableBodyCell>{page.status}</TableBodyCell>
             </TableRow>
         ))}
     </TableBody>

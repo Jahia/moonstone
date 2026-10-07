@@ -2,8 +2,8 @@
 ```jsx
 import {Header, LayoutContent} from '@jahia/moonstone';
 
-<LayoutContent header={<Header title="Settings"/>} isLoading={isLoading}>
-    <SettingsPanel/>
+<LayoutContent header={<Header title="Settings"/>}>
+    <YourContent/>
 </LayoutContent>
 ```
 

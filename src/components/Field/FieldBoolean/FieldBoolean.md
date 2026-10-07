@@ -2,15 +2,7 @@
 ```jsx
 import {FieldBoolean} from '@jahia/moonstone';
 
-<FieldBoolean
-    id="auto-publish"
-    label="Publish automatically"
-    helper="Publishes the page as soon as it is saved."
-    checkboxAttributes={{
-        checked: isAutoPublished,
-        onChange: (event, value, checked) => setIsAutoPublished(checked),
-    }}
-/>
+<FieldBoolean id="auto-publish" label="Publish automatically"/>
 ```
 
 ## Controlled & uncontrolled

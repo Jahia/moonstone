@@ -1,17 +1,9 @@
 ## Example
 ```jsx
-import {DynamicFieldset, Field, FieldSelector, Input} from '@jahia/moonstone';
+import {DynamicFieldset} from '@jahia/moonstone';
 
-<DynamicFieldset
-    id="expiration"
-    label="Expiration"
-    helper="Unpublishes the page on the chosen date."
-    checked={hasExpiration}
-    onChange={event => setHasExpiration(event.target.checked)}
->
-    <Field id="expiration-date" label="Expiration date">
-        <FieldSelector selector={<Input aria-label="Expiration date" size="big" value={expirationDate} onChange={handleDateChange}/>}/>
-    </Field>
+<DynamicFieldset id="expiration" label="Expiration">
+    <YourContent/>
 </DynamicFieldset>
 ```
 

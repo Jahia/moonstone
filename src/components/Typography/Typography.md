@@ -2,7 +2,7 @@
 ```jsx
 import {Typography} from '@jahia/moonstone';
 
-<Typography variant="heading" component="h2">Recent activity</Typography>
+<Typography>Recent activity</Typography>
 ```
 
 ## Do

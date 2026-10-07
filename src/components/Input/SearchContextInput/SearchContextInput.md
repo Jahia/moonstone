@@ -2,19 +2,11 @@
 ```jsx
 import {Dropdown, SearchContextInput} from '@jahia/moonstone';
 
-// The Dropdown sets where to search; its size and variant are set by the component
 <SearchContextInput
     aria-label="Search"
-    placeholder="Search"
-    value={query}
     searchContext={(
-        <Dropdown
-            data={searchScopes}
-            value={scope}
-            onChange={(event, item) => setScope(item.value)}
-        />
+        <Dropdown data={searchScopes} value={scope} placeholder="Select a scope"/>
     )}
-    onChange={event => setQuery(event.target.value)}
 />
 ```
 

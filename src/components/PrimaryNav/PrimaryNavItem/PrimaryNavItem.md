@@ -1,15 +1,8 @@
 ## Example
 ```jsx
 import {PrimaryNavItem} from '@jahia/moonstone';
-import {Apps} from '@jahia/moonstone/icons';
 
-// Mark the item of the section the user is on.
-<PrimaryNavItem
-    icon={<Apps/>}
-    isSelected={currentSection === 'dashboard'}
-    label="Dashboard"
-    onClick={() => navigate('/dashboard')}
-/>
+<PrimaryNavItem label="Dashboard"/>
 ```
 
 ## Do

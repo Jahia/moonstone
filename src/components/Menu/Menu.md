@@ -1,21 +1,10 @@
 ## Example
 ```jsx
-import {useRef, useState} from 'react';
-import {Button, Menu, MenuItem} from '@jahia/moonstone';
-import {MoreVert} from '@jahia/moonstone/icons';
+import {Menu, MenuItem} from '@jahia/moonstone';
 
-const anchorRef = useRef(null);
-const [isOpen, setIsOpen] = useState(false);
-const close = () => setIsOpen(false);
-
-// Button does not forward a ref, so anchor the menu on a wrapper element.
-<span ref={anchorRef}>
-    <Button variant="ghost" icon={<MoreVert/>} aria-label="More actions" onClick={() => setIsOpen(true)}/>
-</span>
-<Menu isDisplayed={isOpen} anchorEl={anchorRef} onClose={close}>
-    {/* Clicking an item does not close the menu. Close it in the item's handler. */}
-    <MenuItem label="Rename" onClick={() => { close(); handleRename(); }}/>
-    <MenuItem label="Delete" onClick={() => { close(); handleDelete(); }}/>
+<Menu isDisplayed={isOpen}>
+    <MenuItem label="Rename"/>
+    <MenuItem label="Delete"/>
 </Menu>
 ```
 

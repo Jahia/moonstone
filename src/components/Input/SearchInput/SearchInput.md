@@ -2,13 +2,7 @@
 ```jsx
 import {SearchInput} from '@jahia/moonstone';
 
-// The search icon and the clear button are built in
-<SearchInput
-    aria-label="Search pages"
-    placeholder="Search pages"
-    value={query}
-    onChange={event => setQuery(event.target.value)}
-/>
+<SearchInput aria-label="Search pages"/>
 ```
 
 ## Controlled & uncontrolled

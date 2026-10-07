@@ -3,7 +3,7 @@
 ```jsx
 import {Banner} from '@jahia/moonstone';
 
-<Banner title="Unsaved changes" variant="warning">
+<Banner title="Unsaved changes">
     Your changes will be lost if you leave this page.
 </Banner>
 ```

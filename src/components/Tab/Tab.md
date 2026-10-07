@@ -1,17 +1,14 @@
 ## Example
 ```jsx
-import {useState} from 'react';
 import {Tab, TabItem} from '@jahia/moonstone';
 
-const [selectedTab, setSelectedTab] = useState('content');
-
-// Your component owns the selection: mark exactly one TabItem as selected.
-// Place only TabItem components inside a Tab.
 <Tab>
-    <TabItem isSelected={selectedTab === 'content'} label="Content" onClick={() => setSelectedTab('content')}/>
-    <TabItem isSelected={selectedTab === 'metadata'} label="Metadata" onClick={() => setSelectedTab('metadata')}/>
-    <TabItem isSelected={selectedTab === 'usages'} label="Usages" onClick={() => setSelectedTab('usages')}/>
+    <TabItem isSelected id="tab-content" aria-controls="panel-content" label="Content" onClick={selectTab}/>
+    <TabItem id="tab-metadata" aria-controls="panel-metadata" label="Metadata" onClick={selectTab}/>
 </Tab>
+<div id="panel-content" role="tabpanel" aria-labelledby="tab-content">
+    <YourContent/>
+</div>
 ```
 
 ## Do

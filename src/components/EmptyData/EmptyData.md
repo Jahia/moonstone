@@ -1,13 +1,8 @@
 ## Example
 ```jsx
 import {EmptyData} from '@jahia/moonstone';
-import {Search} from '@jahia/moonstone/icons';
 
-<EmptyData
-    icon={<Search size="big" aria-hidden="true"/>}
-    title="No results found"
-    message="Try a different search term."
-/>
+<EmptyData message="Try a different search term."/>
 ```
 
 ## Do

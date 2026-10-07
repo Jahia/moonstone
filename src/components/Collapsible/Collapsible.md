@@ -1,9 +1,9 @@
 ## Example
 ```jsx
-import {Collapsible, Typography} from '@jahia/moonstone';
+import {Collapsible} from '@jahia/moonstone';
 
 <Collapsible id="advanced-settings" label="Advanced settings">
-    <Typography>Cache duration, custom headers, and redirects.</Typography>
+    <YourContent/>
 </Collapsible>
 ```
 

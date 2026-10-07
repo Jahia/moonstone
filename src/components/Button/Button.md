@@ -2,7 +2,7 @@
 ```jsx
 import {Button} from '@jahia/moonstone';
 
-<Button label="Save" color="accent" onClick={handleSave}/>
+<Button label="Save"/>
 ```
 
 ## Do

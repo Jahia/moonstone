@@ -1,16 +1,10 @@
 ## Example
 ```jsx
-import {useState} from 'react';
-import {Button, Drawer, Typography} from '@jahia/moonstone';
+import {Button, Drawer} from '@jahia/moonstone';
 
-const [isOpen, setIsOpen] = useState(false);
-
-<Button label="Show details" onClick={() => setIsOpen(true)}/>
-{/* The Drawer renders in place, not above the page, and fills at least the full width of its parent. */}
 <Drawer isOpen={isOpen} aria-label="Page details">
-    <Typography component="h2" variant="heading" weight="bold">Page details</Typography>
-    <Typography>Last published by Jane Doe.</Typography>
-    <Button label="Close" variant="ghost" onClick={() => setIsOpen(false)}/>
+    <Button label="Close"/>
+    <YourContent/>
 </Drawer>
 ```
 

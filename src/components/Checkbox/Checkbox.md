@@ -2,13 +2,7 @@
 ```jsx
 import {Checkbox} from '@jahia/moonstone';
 
-// A row selector in a table. The row itself shows what is selected.
-<Checkbox
-    aria-label="Select row"
-    checked={isSelected}
-    value={row.id}
-    onChange={(event, value, checked) => toggleRow(value, checked)}
-/>
+<Checkbox aria-label="Select row"/>
 ```
 
 ## Controlled & uncontrolled

@@ -4,7 +4,7 @@ import {Paper, Typography} from '@jahia/moonstone';
 
 <Paper aria-labelledby="languages-title">
     <Typography id="languages-title" component="h2" variant="heading">Languages</Typography>
-    <Typography>Choose the languages available on this site.</Typography>
+    <YourContent/>
 </Paper>
 ```
 

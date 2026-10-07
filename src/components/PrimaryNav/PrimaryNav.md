@@ -1,20 +1,12 @@
 ## Example
 ```jsx
 import {PrimaryNav, PrimaryNavItem, PrimaryNavItemsGroup} from '@jahia/moonstone';
-import {Apps, Person, Power} from '@jahia/moonstone/icons';
 
 <PrimaryNav
-    headerCaption="Production"
-    headerLogo={<img alt="Acme" height={30} src="/logo.svg"/>}
     top={(
         <PrimaryNavItemsGroup>
-            <PrimaryNavItem isSelected icon={<Apps/>} label="Dashboard"/>
-            <PrimaryNavItem icon={<Person/>} label="Users"/>
-        </PrimaryNavItemsGroup>
-    )}
-    bottom={(
-        <PrimaryNavItemsGroup>
-            <PrimaryNavItem icon={<Power/>} label="Sign out" onClick={handleSignOut}/>
+            <PrimaryNavItem label="Dashboard"/>
+            <PrimaryNavItem label="Users"/>
         </PrimaryNavItemsGroup>
     )}
 />

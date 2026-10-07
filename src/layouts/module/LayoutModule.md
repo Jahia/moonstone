@@ -1,19 +1,8 @@
 ## Example
 ```jsx
-import {Header, LayoutContent, LayoutModule, SecondaryNav, SecondaryNavHeader} from '@jahia/moonstone';
+import {LayoutModule} from '@jahia/moonstone';
 
-<LayoutModule
-    navigation={(
-        <SecondaryNav header={<SecondaryNavHeader>Settings</SecondaryNavHeader>}>
-            <SettingsTree/>
-        </SecondaryNav>
-    )}
-    content={(
-        <LayoutContent header={<Header title="Users"/>}>
-            <UserList/>
-        </LayoutContent>
-    )}
-/>
+<LayoutModule content={<YourContent/>}/>
 ```
 
 ## Do

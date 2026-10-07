@@ -3,9 +3,9 @@
 import {DataTable} from '@jahia/moonstone';
 
 const columns = [
-    {key: 'name', label: 'Name', isSortable: true},
-    {key: 'status', label: 'Status', width: '120px'},
-    {key: 'lastModified', label: 'Last modified', width: '160px', isSortable: true},
+    {key: 'name', label: 'Name'},
+    {key: 'status', label: 'Status'},
+    {key: 'lastModified', label: 'Last modified'},
 ];
 
 <DataTable primaryKey="id" data={pages} columns={columns}/>
