@@ -105,4 +105,16 @@ describe('ControlledCollapsible', () => {
 
         expect(onClick).toHaveBeenCalled();
     });
+
+    it('should not throw when clicked without onClick', async () => {
+        const user = userEvent.setup();
+        const onError = vi.fn();
+        window.addEventListener('error', onError);
+
+        render(<Collapsible isExpanded label="test">content here</Collapsible>);
+        await user.click(screen.getByRole('button'));
+
+        window.removeEventListener('error', onError);
+        expect(onError).not.toHaveBeenCalled();
+    });
 });

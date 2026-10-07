@@ -69,7 +69,7 @@ const ControlledCollapsibleForwardRef: React.ForwardRefRenderFunction<HTMLDivEle
                 )}
                 ref={buttonRef}
                 type="button"
-                onClick={e => onClick(e)}
+                onClick={e => onClick?.(e)}
             >
                 <ChevronRight
                     className={clsx(

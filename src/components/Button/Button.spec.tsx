@@ -194,4 +194,16 @@ describe('Button', () => {
 
         expect(onClick).toHaveBeenCalled();
     });
+
+    it('should not throw when clicked without onClick', async () => {
+        const user = userEvent.setup();
+        const onError = vi.fn();
+        window.addEventListener('error', onError);
+
+        render(<Button label="test me"/>);
+        await user.click(screen.getByRole('button'));
+
+        window.removeEventListener('error', onError);
+        expect(onError).not.toHaveBeenCalled();
+    });
 });
