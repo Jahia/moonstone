@@ -37,7 +37,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     }
 
     const handleOnClick: React.MouseEventHandler = (e) => {
-        onClick(e);
+        onClick?.(e);
     };
 
     const LoaderReversed = Boolean(variant === 'default' && (color === 'accent' || color === 'danger'));

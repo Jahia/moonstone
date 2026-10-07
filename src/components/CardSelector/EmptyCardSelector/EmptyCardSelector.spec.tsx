@@ -43,6 +43,18 @@ describe('EmptyCardSelector', () => {
         expect(onClick).toHaveBeenCalled();
     });
 
+    it('should not throw when clicked without onClick', async () => {
+        const user = userEvent.setup();
+        const onError = vi.fn();
+        window.addEventListener('error', onError);
+
+        render(<EmptyCardSelector data-testid="card-selector"/>);
+        await user.click(screen.getByTestId('card-selector'));
+
+        window.removeEventListener('error', onError);
+        expect(onError).not.toHaveBeenCalled();
+    });
+
     it('should be disabled', () => {
         render(<EmptyCardSelector isDisabled data-testid="card-selector"/>);
         expect(screen.getByTestId('card-selector')).toHaveClass(
