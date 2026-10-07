@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { createRef } from 'react';
 
 import { ButtonGroup } from './index';
 import { Button } from '~/components/Button';
@@ -71,5 +72,21 @@ describe('ButtonGroup', () => {
             </ButtonGroup>,
         );
         expect(screen.getByRole('group')).toHaveAttribute('data-custom', 'extra');
+    });
+
+    it('should forward the ref to the group', () => {
+        const ref = createRef<HTMLDivElement>();
+
+        render(<ButtonGroup ref={ref}><Button label="One"/></ButtonGroup>);
+
+        expect(ref.current).toBe(screen.getByRole('group'));
+    });
+
+    it('should keep the ref of each button', () => {
+        const ref = createRef<HTMLButtonElement>();
+
+        render(<ButtonGroup><Button label="One" ref={ref}/></ButtonGroup>);
+
+        expect(ref.current).toBe(screen.getByRole('button'));
     });
 });

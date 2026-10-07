@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useState } from 'react';
+import { createRef, useState } from 'react';
 
 import { TreeView } from './TreeView';
 import { Cloud, Love } from '~/icons';
@@ -263,6 +263,22 @@ describe('TreeView', () => {
         expect(
             screen.getByRole('treeitem', { selected: true }),
         ).toContainElement(screen.getByRole('checkbox', { checked: true }));
+    });
+
+    it('should forward the ref to the tree when uncontrolled', () => {
+        const ref = createRef<HTMLUListElement>();
+
+        render(<TreeView data={tree} ref={ref}/>);
+
+        expect(ref.current).toBe(screen.getByRole('tree'));
+    });
+
+    it('should forward the ref to the tree when controlled', () => {
+        const ref = createRef<HTMLUListElement>();
+
+        render(<TreeView data={tree} openedItems={[]} ref={ref}/>);
+
+        expect(ref.current).toBe(screen.getByRole('tree'));
     });
 });
 

@@ -4,15 +4,16 @@ import { ControlledCheckbox } from '~/components/Checkbox/ControlledCheckbox';
 
 import type { UncontrolledCheckboxProps } from './Checkbox.types';
 
-export const UncontrolledCheckbox: React.FC<UncontrolledCheckboxProps> = ({
+export const UncontrolledCheckbox = React.forwardRef<HTMLInputElement, UncontrolledCheckboxProps>(({
     defaultChecked = false, onChange, value, ...props
-}) => {
+}, ref) => {
     const [checked, setChecked] = useState(defaultChecked);
 
     return (
         <ControlledCheckbox
             {...props}
             checked={checked}
+            ref={ref}
             value={value}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 const toggleChecked = !checked;
@@ -23,6 +24,6 @@ export const UncontrolledCheckbox: React.FC<UncontrolledCheckboxProps> = ({
             }}
         />
     );
-};
+});
 
 UncontrolledCheckbox.displayName = 'UncontrolledCheckbox';
