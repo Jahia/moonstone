@@ -1,5 +1,13 @@
 # @jahia/moonstone Changelog
 
+## 2.21.1
+
+* Add a visible focus indicator on the `PrimaryNav` and `SecondaryNav` toggle buttons (#1422)
+
+* Fix `onClick is not a function` error when clicking a component without `onClick` (#1506)
+
+* Fix `ref` not being forwarded on several components (#1466)
+
 ## 2.21.0
 
 ### New Features
