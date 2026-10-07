@@ -31,4 +31,6 @@ const [selectedTab, setSelectedTab] = useState('content');
 - The Tab renders the tab list only. Render the content of the selected tab yourself, in an element with `role="tabpanel"`, and link it to its **TabItem** through `id`, `aria-controls`, and `aria-labelledby`.
 - Mark exactly one **TabItem** as selected at a time. Its selected state is exposed to assistive technologies.
 - An icon-only **TabItem** (one with no `label`) must have an `aria-label` that names the view.
-- The left and right arrow keys move the focus between tabs. Enter or Space selects the focused tab.
+- The Left and Right arrow keys move the focus between tabs.
+- The arrow keys wrap from the last tab to the first and back, and skip disabled tabs (soon).
+- Home and End move the focus to the first and last tabs (soon).

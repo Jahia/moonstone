@@ -56,3 +56,5 @@ The callbacks receive the new state: `onSortChange(sortBy, sortDirection)`, `onC
 
 ## Accessibility
 - An icon-only **Button** in a custom cell must have an `aria-label` that describes the action. A **Tooltip** doesn't replace it.
+- Enter or Space on a sortable header sorts the column (soon).
+- Enter or Space activates a clickable row (soon).

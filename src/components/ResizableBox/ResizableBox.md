@@ -49,3 +49,5 @@ Don't pass both `size` and `defaultSize`. Once `size` is set, `defaultSize` is i
 ## Accessibility
 - Pass an `aria-label` that names the panel, such as "Properties panel". The root element is a landmark region, and the default name is not meaningful.
 - Set a `minWidth` that keeps the content readable, so the user can't shrink the panel until it becomes unusable.
+- From the focused handle, the Left and Right arrow keys narrow and widen the box (soon).
+- Home and End shrink the box to its minimum width and grow it to its maximum width (soon).

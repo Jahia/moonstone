@@ -49,5 +49,5 @@ import {TimeInput} from '@jahia/moonstone';
 
 ## Accessibility
 - Pair it with **Field** for a visible label; the field renders none on its own.
-- `ArrowUp` / `ArrowDown` step the hour or minute segment under the caret; `ArrowLeft` /
-  `ArrowRight` jump between the two segments.
+- The Up and Down arrow keys step the hour or minute segment under the caret. The Left and Right
+  arrow keys move between the two segments.

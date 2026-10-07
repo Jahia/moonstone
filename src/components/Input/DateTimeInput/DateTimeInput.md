@@ -57,6 +57,8 @@ affect the field's own styling.
 
 ## Accessibility
 - Pair it with **Field** for a visible label; the field renders none on its own.
-- `Escape` closes the open calendar and `Enter` opens it or commits a typed date.
+- Enter or Space on the date field opens the calendar. Escape closes it.
+- In the calendar, the Left and Right arrow keys move between days, and the Up and Down arrow
+  keys between weeks. Enter selects the focused day and closes the calendar.
 - Override `i18n`'s calendar and timezone labels when translating; left unset, they default to
   English.

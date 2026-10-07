@@ -54,5 +54,5 @@ import {NumberInput} from '@jahia/moonstone';
 
 ## Accessibility
 - Always provide a label. Use **Field**, or pass an `aria-label` when the input is standalone.
-- The Up and Down arrow keys step the value by `step`, within `min` and `max`. The numeric
-  keyboard opens on touch devices.
+- The Up and Down arrow keys step the value by `step`, within `min` and `max`.
+- Home and End jump to `min` and `max`, when they are set (soon).

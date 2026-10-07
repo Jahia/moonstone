@@ -56,3 +56,5 @@ Do not pass both `openedItem` and `defaultOpenedItem` at the same time. `openedI
 ## Accessibility
 
 - Each **AccordionItem** must have a unique `id`. The component uses it to link the header to the content region.
+- The Up and Down arrow keys move the focus between headers (soon).
+- Home and End move the focus to the first and last headers (soon).

@@ -30,3 +30,6 @@ Inside **Dropdown**, the Tag's `size` always matches the Dropdown's own `size`: 
 |---|---|
 | `medium` | The default size. |
 | `small` | Denser contexts. |
+
+## Accessibility
+- Delete or Backspace removes the focused Tag (soon).

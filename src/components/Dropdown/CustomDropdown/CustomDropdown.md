@@ -48,5 +48,8 @@ import {CustomDropdown, Dropdown, MenuItem} from '@jahia/moonstone';
 ## Accessibility
 - An icon-only CustomDropdown (one with no `label`) must have an `aria-label` that describes what
   it opens.
-- The user opens the menu with Enter. Make sure every control you pass as children is reachable
-  with the keyboard. Clicking outside the menu closes it.
+- Make sure every control you pass as children is reachable with the keyboard.
+- The Down arrow key opens the menu (soon).
+- The Up and Down arrow keys move the focus between items.
+- Enter activates the focused item (soon).
+- Escape closes the menu and returns the focus to the trigger (soon).

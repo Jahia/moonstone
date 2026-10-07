@@ -37,4 +37,6 @@ import {ListSelector} from '@jahia/moonstone';
   falls back to "0 item selected" whatever the number of values.
 
 ## Accessibility
-- The user adds an option with a click, Enter, or Space.
+- Enter or Space adds the focused option of the left list.
+- Enter or Space removes the focused option of the right list (soon).
+- The Up and Down arrow keys move the focus between options (soon).

@@ -32,4 +32,4 @@ import {Apps} from '@jahia/moonstone/icons';
 ## Accessibility
 - Set `isSelected` on one item at a time. It's exposed as `aria-current`, which assumes a single current page or section.
 - Always pass a `label`. It is also shown as a tooltip when the collapsed navigation shows only the icon.
-- The item is focusable and activates with Enter or Space, like a button. Don't add another click handler or `tabIndex` on a wrapper.
+- Enter or Space activates the focused item. Don't add another click handler or `tabIndex` on a wrapper.

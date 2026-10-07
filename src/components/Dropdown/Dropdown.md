@@ -61,5 +61,9 @@ import {Dropdown} from '@jahia/moonstone';
 ## Accessibility
 - Always pass a `placeholder`. While nothing is selected, it is the accessible name of the field.
   Once a value is selected, the label of that option is used instead.
-- The user opens the list with Enter, moves between options with Tab or the Up and Down arrow
-  keys, and selects one with Enter or Space. Clicking outside the list closes it.
+- Enter opens the list. Space and the Down arrow key open it too (soon).
+- The Up and Down arrow keys move the focus between options.
+- Home and End move the focus to the first and last options (soon).
+- Enter selects the focused option and closes the list. In multiple selection, Space toggles the
+  focused option.
+- Escape closes the list and returns the focus to the trigger (soon).

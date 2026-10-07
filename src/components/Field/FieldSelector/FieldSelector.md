@@ -17,7 +17,7 @@ import {Close} from '@jahia/moonstone/icons';
 
 ## Do
 - Use it to place each control of a **Field** on its own row.
-- Use it for each value of a multi-value field, where every row carries its own actions, such as a remove action, and can be dragged.
+- Use it for each value of a multi-value field, where every row carries its own actions, such as a remove action. `isDraggable` only shows a drag handle: you implement the drag and drop.
 
 ## Don't
 - Don't use a FieldSelector on its own. Place it inside a **Field**, which provides the label and the error message.

@@ -31,4 +31,4 @@ import {Page} from '@jahia/moonstone/icons';
 ## Accessibility
 
 - Don't rely on the icon to convey the purpose of the section. The icon has no text alternative.
-- The header is focusable and opens or closes with Enter or Space.
+- Enter or Space opens or closes the focused header.

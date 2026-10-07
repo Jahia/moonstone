@@ -26,3 +26,4 @@ const [isOpen, setIsOpen] = useState(false);
 ## Accessibility
 - By default, the Drawer renders a complementary landmark. Give it an `aria-label` that names the panel, such as "Page details".
 - Always provide a visible control that closes the Drawer, such as a "Close" **Button**.
+- Escape closes the Drawer (soon).

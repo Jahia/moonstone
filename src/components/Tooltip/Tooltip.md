@@ -22,3 +22,4 @@ import {Home} from '@jahia/moonstone/icons';
 ## Accessibility
 - An icon-only anchor, such as a **Button** with only an `icon`, must still carry an `aria-label` that names the action. The tooltip is supplementary and is not a substitute for an accessible name.
 - Never put essential information only in the tooltip. Screen readers may not announce it in every context.
+- Escape hides the tooltip. The anchor keeps the focus.

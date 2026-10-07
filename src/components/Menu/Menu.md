@@ -76,4 +76,7 @@ This prop belongs to each **MenuItem**.
 
 ## Accessibility
 - An icon-only trigger, such as a **Button** with only an `icon`, must have an `aria-label` that describes the menu, such as "More actions".
-- Arrow keys move the focus between items. Disabled, title, and selected items are skipped in the tab sequence.
+- The Up and Down arrow keys move the focus between items.
+- Enter or Space activates the focused item (soon).
+- Home and End move the focus to the first and last items (soon).
+- Escape closes the menu (soon).
