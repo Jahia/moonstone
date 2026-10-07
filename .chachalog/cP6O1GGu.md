@@ -3,4 +3,4 @@
 "@jahia/moonstone": patch
 ---
 
-Forward `ref` on `Button`, `ButtonGroup`, `ButtonToggle`, `Checkbox`, `Switch`, `Tab`, `Textarea` and uncontrolled `TreeView` (#1466)
+Fix `ref` not being forwarded on several components (#1466)
