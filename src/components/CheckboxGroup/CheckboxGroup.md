@@ -13,11 +13,11 @@ import {CheckboxGroup, CheckboxItem} from '@jahia/moonstone';
 - Use it when every option of the set needs a visible label, and some need a short explanation.
 
 ## Don't
-- Don't use a CheckboxGroup when the user must choose exactly one option. Use a **RadioGroup** instead.
-- Don't use a CheckboxGroup for a single option. Use a **CheckboxItem** on its own instead, or a **FieldBoolean** for a form field with a label, a helper text, or an error message.
-- Don't use a CheckboxGroup for 4 options or more. Use a **Dropdown** with multiple selection instead.
-- Don't use a CheckboxGroup for settings that apply immediately. Use a **Switch** for each setting instead.
-- Don't fill a CheckboxGroup with bare Checkboxes. Use **CheckboxItem** children instead, so they receive the group's `name`, its `onChange`, and its disabled or read-only state.
+- Don't use a CheckboxGroup when the user must choose exactly one option. Use a [RadioGroup](?path=/docs/components-radiogroup--docs) instead.
+- Don't use a CheckboxGroup for a single option. Use a [CheckboxItem](?path=/docs/components-checkboxitem--docs) on its own instead, or a [FieldBoolean](?path=/docs/components-fieldboolean--docs) for a form field with a label, a helper text, or an error message.
+- Don't use a CheckboxGroup for 4 options or more. Use a [Dropdown](?path=/docs/components-dropdown--docs) with multiple selection instead.
+- Don't use a CheckboxGroup for settings that apply immediately. Use a [Switch](?path=/docs/components-switch--docs) for each setting instead.
+- Don't fill a CheckboxGroup with bare Checkboxes. Use [CheckboxItem](?path=/docs/components-checkboxitem--docs) children instead, so they receive the group's `name`, its `onChange`, and its disabled or read-only state.
 
 ## Accessibility
-- Each CheckboxItem is labelled by its own `label`. Give every item a unique `id`.
+- Each [CheckboxItem](?path=/docs/components-checkboxitem--docs) is labelled by its own `label`. Give every item a unique `id`.

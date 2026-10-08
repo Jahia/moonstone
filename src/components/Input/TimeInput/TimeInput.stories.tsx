@@ -8,7 +8,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { Temporal } from 'temporal-polyfill';
 
 export default {
-    title: 'Components/Input/TimeInput',
+    title: 'Components/TimeInput',
     component: TimeInput,
     tags: ['beta'],
     parameters: {

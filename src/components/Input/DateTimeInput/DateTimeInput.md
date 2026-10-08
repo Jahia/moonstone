@@ -16,11 +16,11 @@ import {DateTimeInput} from '@jahia/moonstone';
 ## Do
 - Use it to capture a calendar date, optionally with a time and a timezone, such as a publish
   date, a deadline, or a scheduled event.
-- Pair it with **Field** when it needs a label, helper text, or an error message.
+- Pair it with [Field](?path=/docs/components-field--docs) when it needs a label, helper text, or an error message.
 
 ## Don't
-- Don't use it to capture a time with no date. Use **TimeInput** instead.
-- Don't use it to pick a timezone on its own, with no date value. Use **TimezoneSelector** instead.
+- Don't use it to capture a time with no date. Use [TimeInput](?path=/docs/components-timeinput--docs) instead.
+- Don't use it to pick a timezone on its own, with no date value. Use [TimezoneSelector](?path=/docs/components-timezoneselector--docs) instead.
 
 ## Appearance
 
@@ -40,13 +40,13 @@ affect the field's own styling.
 | Value | Use it for |
 |---|---|
 | `ghost` | A borderless field, such as one embedded in a toolbar or a compact filter bar. |
-| `outlined` | A field with a visible border, the typical choice inside a form or a **Field**. |
+| `outlined` | A field with a visible border, the typical choice inside a form or a [Field](?path=/docs/components-field--docs). |
 
 ### `size` for prominence
 
 | Value | Use it for |
 |---|---|
-| `default` | Small contexts, such as **SecondaryNav** or **Menu**. |
+| `default` | Small contexts, such as [SecondaryNav](?path=/docs/components-secondarynav--docs) or [Menu](?path=/docs/components-menu--docs). |
 | `big` | The main area of the product, such as a form or a table. |
 
 ## Voice and tone
@@ -56,7 +56,7 @@ affect the field's own styling.
 - Write `i18n.timezone` as a short label in sentence case, such as "Timezone".
 
 ## Accessibility
-- Always give it a label. Use a **Field**, or pass an `aria-label` when it stands alone.
+- Always give it a label. Use a [Field](?path=/docs/components-field--docs), or pass an `aria-label` when it stands alone.
 - Enter or Space on the date field opens the calendar. Escape closes it.
 - In the calendar, the Left and Right arrow keys move between days, and the Up and Down arrow
   keys between weeks. Enter selects the focused day and closes the calendar.

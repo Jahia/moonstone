@@ -11,8 +11,8 @@ import {Thumbnail} from '@jahia/moonstone';
 - Use it to represent a resource with an icon when the resource has no picture of its own, such as a file type.
 
 ## Don't
-- Don't use a Thumbnail as a selectable or clickable item. Use a **CardSelector** instead, which shows a thumbnail inside a selectable card.
-- Don't use a Thumbnail to show an image at the size of an icon, next to text or inside a control. Use an **ImgWrapper** instead.
+- Don't use a Thumbnail as a selectable or clickable item. Use a [CardSelector](?path=/docs/components-cardselector--docs) instead, which shows a thumbnail inside a selectable card.
+- Don't use a Thumbnail to show an image at the size of an icon, next to text or inside a control. Use an [ImgWrapper](?path=/docs/utilities-imgwrapper--docs) instead.
 
 ## Appearance
 

@@ -37,8 +37,8 @@ Don't pass both `size` and `defaultSize`. Once `size` is set, `defaultSize` is i
 - Use it to let the user widen or narrow a side panel, such as a properties panel, by dragging its right edge.
 
 ## Don't
-- Don't wrap the second-level navigation of a section in your own ResizableBox. Use a **SecondaryNav** instead, which is already resizable and can be hidden.
-- Don't use it for a panel that the user opens and closes. Use a **Drawer** instead.
+- Don't wrap the second-level navigation of a section in your own ResizableBox. Use a [SecondaryNav](?path=/docs/components-secondarynav--docs) instead, which is already resizable and can be hidden.
+- Don't use it for a panel that the user opens and closes. Use a [Drawer](?path=/docs/components-drawer--docs) instead.
 
 ## Accessibility
 - Pass an `aria-label` that names the panel, such as "Properties panel". The root element is a landmark region, and the default name is not meaningful.

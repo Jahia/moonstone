@@ -6,7 +6,7 @@ import type { RadioItemProps } from './RadioItem.types';
 import type { StoryObj } from '@storybook/react-vite';
 
 export default {
-    title: 'Components/RadioGroup/RadioItem',
+    title: 'Components/RadioItem',
     component: RadioItem,
     parameters: {
         layout: 'centered',

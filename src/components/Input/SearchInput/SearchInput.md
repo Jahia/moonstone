@@ -17,8 +17,8 @@ import {SearchInput} from '@jahia/moonstone';
 - Use it for a dedicated search box, such as one that filters a list or a table.
 
 ## Don't
-- Don't use it when the user also picks where to search. Use **SearchContextInput** instead.
-- Don't use it for other free-form text. Use **Input** instead.
+- Don't use it when the user also picks where to search. Use [SearchContextInput](?path=/docs/components-searchcontextinput--docs) instead.
+- Don't use it for other free-form text. Use [Input](?path=/docs/components-input--docs) instead.
 
 ## Appearance
 
@@ -42,4 +42,4 @@ import {SearchInput} from '@jahia/moonstone';
 - A placeholder is a hint, not a label. It disappears as soon as the user types.
 
 ## Accessibility
-- Always provide a label. Pass an `aria-label`, or use **Field** when the search box sits in a form.
+- Always provide a label. Pass an `aria-label`, or use [Field](?path=/docs/components-field--docs) when the search box sits in a form.

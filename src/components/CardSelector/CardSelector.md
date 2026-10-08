@@ -8,10 +8,10 @@ import {CardSelector} from '@jahia/moonstone';
 
 ## Do
 - Use it to display the currently selected item in a content-picker or reference field.
-- Pair it with **EmptyCardSelector** to handle the state before the user has made a selection.
+- Pair it with [EmptyCardSelector](?path=/docs/components-emptycardselector--docs) to handle the state before the user has made a selection.
 
 ## Don't
-- Don't use it as a purely decorative display with no clickable behavior. Use **Thumbnail** combined with **Typography** instead.
+- Don't use it as a purely decorative display with no clickable behavior. Use [Thumbnail](?path=/docs/components-thumbnail--docs) combined with [Typography](?path=/docs/tokens-typography--docs) instead.
 
 ## Appearance
 

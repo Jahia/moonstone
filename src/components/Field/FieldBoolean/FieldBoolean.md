@@ -6,7 +6,7 @@ import {FieldBoolean} from '@jahia/moonstone';
 ```
 
 ## Controlled & uncontrolled
-FieldBoolean renders a **Checkbox**, and both modes go through `checkboxAttributes`.
+FieldBoolean renders a [Checkbox](?path=/docs/components-checkbox--docs), and both modes go through `checkboxAttributes`.
 
 - Controlled: pass `checked` and `onChange` in `checkboxAttributes`. You own the state, and `onChange(event, value, checked)` gives you the new state as its third argument.
 
@@ -27,10 +27,10 @@ FieldBoolean renders a **Checkbox**, and both modes go through `checkboxAttribut
 - Use it for a single yes/no option in a form, such as "Publish automatically", when it needs its own label, helper text, or error message.
 
 ## Don't
-- Don't use a FieldBoolean for a set of related options under one label. Use a **Field** that wraps a **CheckboxGroup** instead.
-- Don't use a FieldBoolean for any control other than a checkbox. Use a **Field** instead.
-- Don't use a FieldBoolean for a setting that applies immediately, without a save step. Use a **Switch** instead.
-- Don't use a FieldBoolean to group several fields under a heading. Use a **Fieldset** instead.
+- Don't use a FieldBoolean for a set of related options under one label. Use a [Field](?path=/docs/components-field--docs) that wraps a [CheckboxGroup](?path=/docs/components-checkboxgroup--docs) instead.
+- Don't use a FieldBoolean for any control other than a checkbox. Use a [Field](?path=/docs/components-field--docs) instead.
+- Don't use a FieldBoolean for a setting that applies immediately, without a save step. Use a [Switch](?path=/docs/components-switch--docs) instead.
+- Don't use a FieldBoolean to group several fields under a heading. Use a [Fieldset](?path=/docs/components-fieldset--docs) instead.
 
 ## Voice and tone
 - Write the `label` in sentence case, using a few words at most (3 maximum), such as "Publish automatically". Never write a full sentence.
@@ -38,4 +38,4 @@ FieldBoolean renders a **Checkbox**, and both modes go through `checkboxAttribut
 - Error message wording: _Pending design guidance_ <!-- designer: rules for `errorMessage` copy (tone, whether it says how to fix the problem, punctuation). Keep it aligned with Field. -->
 
 ## Accessibility
-- An icon-only **Button** in `buttons` must have an `aria-label` that describes the action.
+- An icon-only [Button](?path=/docs/components-button--docs) in `buttons` must have an `aria-label` that describes the action.

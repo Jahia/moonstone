@@ -6,7 +6,7 @@ import { Close, MoreVert } from '~/icons';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof FieldSelector> = {
-    title: 'Components/Field/FieldSelector',
+    title: 'Components/FieldSelector',
     component: FieldSelector,
     tags: ['beta'],
 

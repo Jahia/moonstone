@@ -13,10 +13,10 @@ import {Chip} from '@jahia/moonstone';
 - Pair it with an icon to reinforce the meaning, only use icon only when there is not enough space.
 
 ## Don't
-- Don't use a Chip for a count or short numeric system signal, such as "3" or "99+". Use a **Badge** instead.
-- Don't use a Chip for an item the user can remove, such as an active filter or a selected option. Use a **Tag** instead.
-- Don't use a Chip for a status label inside a dropdown list item. Use a **Pill** instead.
-- Don't rely on a Chip for clickable behavior. Use a **Button** instead.
+- Don't use a Chip for a count or short numeric system signal, such as "3" or "99+". Use a [Badge](?path=/docs/components-badge--docs) instead.
+- Don't use a Chip for an item the user can remove, such as an active filter or a selected option. Use a Tag instead.
+- Don't use a Chip for a status label inside a dropdown list item. Use a [Pill](?path=/docs/components-pill--docs) instead.
+- Don't rely on a Chip for clickable behavior. Use a [Button](?path=/docs/components-button--docs) instead.
 
 ## Appearance
 

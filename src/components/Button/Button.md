@@ -11,10 +11,10 @@ import {Button} from '@jahia/moonstone';
 - Use it for a compact, icon-only utility action, such as a table-row action or a 3-dots "more" menu.
 
 ## Don't
-- Don't use a Button to navigate to another page or URL. Use a native link instead, or a navigation component such as a **Breadcrumb** or a **Tab**.
-- Don't use separate Buttons for a group of related actions. Wrap them in a **ButtonGroup**.
-- Don't use a Button for a binary on/off setting. Use a **Switch** instead.
-- Don't use a Button for a control that holds a pressed or active state. Use a **ButtonToggle** instead.
+- Don't use a Button to navigate to another page or URL. Use a native link instead, or a navigation component such as a [Breadcrumb](?path=/docs/components-breadcrumb--docs) or a [Tab](?path=/docs/components-tab--docs).
+- Don't use separate Buttons for a group of related actions. Wrap them in a [ButtonGroup](?path=/docs/components-buttongroup--docs).
+- Don't use a Button for a binary on/off setting. Use a [Switch](?path=/docs/components-switch--docs) instead.
+- Don't use a Button for a control that holds a pressed or active state. Use a [ButtonToggle](?path=/docs/components-buttontoggle--docs) instead.
 
 ## Appearance
 
@@ -41,7 +41,7 @@ Each area, such as a page, a modal, or a panel, should have one main action. Low
 | Value | Use it for |
 |---|---|
 | `default` | Most contexts. |
-| `small` | **BreadcrumbItem** only. Don't use it elsewhere for now. |
+| `small` | [BreadcrumbItem](?path=/docs/components-breadcrumbitem--docs) only. Don't use it elsewhere for now. |
 | `big` | Header and modal-footer buttons, where you want to raise emphasis. The label is shown in uppercase. |
 
 ## Voice and tone

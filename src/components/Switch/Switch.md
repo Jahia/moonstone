@@ -34,9 +34,9 @@ and the new on/off state as its third.
 - Use it for a preference that stays on until the user turns it off, such as notifications.
 
 ## Don't
-- Don't use a Switch for a choice the user submits later with a form. Use a **CheckboxItem** instead, or a **FieldBoolean** for a form field with a label, a helper text, or an error message.
-- Don't use a Switch for a toolbar button that holds a pressed state, such as bold or italic. Use a **ButtonToggle** instead.
-- Don't use a Switch to trigger a one-shot action. Use a **Button** instead.
+- Don't use a Switch for a choice the user submits later with a form. Use a [CheckboxItem](?path=/docs/components-checkboxitem--docs) instead, or a [FieldBoolean](?path=/docs/components-fieldboolean--docs) for a form field with a label, a helper text, or an error message.
+- Don't use a Switch for a toolbar button that holds a pressed state, such as bold or italic. Use a [ButtonToggle](?path=/docs/components-buttontoggle--docs) instead.
+- Don't use a Switch to trigger a one-shot action. Use a [Button](?path=/docs/components-button--docs) instead.
 
 ## Accessibility
 - The Switch has no visible label. Give it an accessible name with `aria-label` or `aria-labelledby` that names the setting it controls.

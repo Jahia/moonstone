@@ -11,8 +11,8 @@ import {Separator} from '@jahia/moonstone';
 - Use it between repeated items, such as in a list built from a template. It can hide itself at the edges of the list, and when two Separators end up next to each other, the first one hides itself.
 
 ## Don't
-- Don't use a Separator between the steps of a breadcrumb trail. Use a **Breadcrumb** instead, which renders its own dividers.
-- Don't use a Separator to group the entries of the primary navigation. Use a **PrimaryNavItemsGroup** instead, which adds the divider for you.
+- Don't use a Separator between the steps of a breadcrumb trail. Use a [Breadcrumb](?path=/docs/components-breadcrumb--docs) instead, which renders its own dividers.
+- Don't use a Separator to group the entries of the primary navigation. Use a [PrimaryNavItemsGroup](?path=/docs/components-primarynavitemsgroup--docs) instead, which adds the divider for you.
 
 ## Appearance
 

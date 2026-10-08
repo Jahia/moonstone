@@ -23,15 +23,15 @@ import {Textarea} from '@jahia/moonstone';
 
 ## Do
 - Use it to capture multi-line free-form text, such as a description or a comment.
-- Use it inside a **Field** when it needs a label, helper text, or an error message.
+- Use it inside a [Field](?path=/docs/components-field--docs) when it needs a label, helper text, or an error message.
 
 ## Don't
-- Don't use a Textarea for a single line of text, such as a name or a title. Use an **Input** instead.
-- Don't use a Textarea to choose from a fixed list of options. Use a **Dropdown** instead.
+- Don't use a Textarea for a single line of text, such as a name or a title. Use an [Input](?path=/docs/components-input--docs) instead.
+- Don't use a Textarea to choose from a fixed list of options. Use a [Dropdown](?path=/docs/components-dropdown--docs) instead.
 
 ## Voice and tone
 - Write `placeholder` text in sentence case, and keep it short.
-- A placeholder is a hint, not a label. Don't use it as a replacement for the **Field** label.
+- A placeholder is a hint, not a label. Don't use it as a replacement for the [Field](?path=/docs/components-field--docs) label.
 
 ## Accessibility
 - Always give it an accessible name with an `aria-label`.

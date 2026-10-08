@@ -7,7 +7,7 @@ import type { CheckboxItemProps } from './CheckboxItem.types';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 export default {
-    title: 'Components/CheckboxGroup/CheckboxItem',
+    title: 'Components/CheckboxItem',
     component: CheckboxItem,
     parameters: {
         layout: 'centered',

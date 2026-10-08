@@ -39,17 +39,10 @@ Do not pass both `openedItem` and `defaultOpenedItem` at the same time. `openedI
 ## Don't
 
 - Don't use it when all sections need to be visible simultaneously. Use a plain stacked layout instead.
-- Don't use it for navigating between pages or routes. Use **TreeView** or **PrimaryNav** instead.
-- Don't use it when you need a single expandable section. Use **Collapsible** instead.
-
-## Voice and tone
-
-- Write each item label in sentence case, using a few words at most.
-- Start with a noun that names the section, such as "Pages", "Media", or "Publishing".
-- Avoid verbs in section headers unless the section contains a form or an action-oriented task, such as "Add content".
+- Don't use it for navigating between pages or routes. Use [TreeView](?path=/docs/components-treeview--docs) or [PrimaryNav](?path=/docs/components-primarynav--docs) instead.
+- Don't use it when you need a single expandable section. Use [Collapsible](?path=/docs/components-collapsible--docs) instead.
 
 ## Accessibility
 
-- Each **AccordionItem** must have a unique `id`. The component uses it to link the header to the content region.
 - The Up and Down arrow keys move the focus between headers (soon).
 - Home and End move the focus to the first and last headers (soon).

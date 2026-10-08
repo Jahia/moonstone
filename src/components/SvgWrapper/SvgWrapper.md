@@ -17,7 +17,7 @@ const logo = (
 
 ## Don't
 - Don't use SvgWrapper for an icon that already exists in Moonstone's icon set. Import the generated icon component instead.
-- Don't use SvgWrapper to display a photo, a preview, or any other content image. Use a **Thumbnail** instead.
+- Don't use SvgWrapper to display a photo, a preview, or any other content image. Use a [Thumbnail](?path=/docs/components-thumbnail--docs) instead.
 
 ## Appearance
 

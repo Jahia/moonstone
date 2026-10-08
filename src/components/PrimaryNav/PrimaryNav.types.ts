@@ -21,7 +21,7 @@ export type PrimaryNavHeaderProps = {
 
 export type PrimaryNavProps = React.ComponentPropsWithoutRef<'nav'> & {
     /**
-     * Image of logo module
+     * Logo shown in the header of the navigation.
      */
     headerLogo?: React.ReactNode;
     /**
@@ -33,11 +33,11 @@ export type PrimaryNavProps = React.ComponentPropsWithoutRef<'nav'> & {
      */
     headerCaption?: string;
     /**
-     * Primary nav groups displayed at the top
+     * The PrimaryNavItemsGroup components shown at the top.
      */
     top?: React.ReactElement<PrimaryNavItemsGroupProps> | React.ReactElement<PrimaryNavItemsGroupProps>[];
     /**
-     * Primary nav groups displayed at the bottom
+     * The PrimaryNavItemsGroup components shown at the bottom.
      */
     bottom?: React.ReactElement<PrimaryNavItemsGroupProps> | React.ReactElement<PrimaryNavItemsGroupProps>[];
 };

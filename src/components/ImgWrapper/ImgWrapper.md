@@ -11,7 +11,7 @@ import {ImgWrapper} from '@jahia/moonstone';
 
 ## Don't
 - Don't use ImgWrapper for an icon that already exists in Moonstone's icon set. Import the generated icon component instead.
-- Don't use ImgWrapper to display a photo, a preview, or any other content image. Use a **Thumbnail** instead.
+- Don't use ImgWrapper to display a photo, a preview, or any other content image. Use a [Thumbnail](?path=/docs/components-thumbnail--docs) instead.
 
 ## Appearance
 

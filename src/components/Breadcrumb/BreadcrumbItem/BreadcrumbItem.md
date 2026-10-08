@@ -10,12 +10,11 @@ import {Breadcrumb, BreadcrumbItem} from '@jahia/moonstone';
 
 ## Do
 
-- Use it for each level of a **Breadcrumb**, from the root to the current page.
-- Use it to let the user go back to an ancestor level of the current page.
+- Use it for each level of a [Breadcrumb](?path=/docs/components-breadcrumb--docs), from the root to the current page.
 
 ## Don't
 
-- Don't use a BreadcrumbItem outside a Breadcrumb. Use a **Button** instead for a standalone action.
+- Don't use a BreadcrumbItem outside a [Breadcrumb](?path=/docs/components-breadcrumb--docs). Use a [Button](?path=/docs/components-button--docs) instead for a standalone action.
 
 ## Voice and tone
 

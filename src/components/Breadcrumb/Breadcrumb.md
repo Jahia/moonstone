@@ -16,9 +16,5 @@ import {Breadcrumb, BreadcrumbItem} from '@jahia/moonstone';
 
 ## Don't
 
-- Don't use it for flat, single-level navigation. Use **Tab** or **SecondaryNav** instead.
+- Don't use it for flat, single-level navigation. Use [Tab](?path=/docs/components-tab--docs) or [SecondaryNav](?path=/docs/components-secondarynav--docs) instead.
 - Don't use it as a step indicator for a wizard or multi-step form. It conveys location, not progress.
-
-## Accessibility
-
-- An icon-only `BreadcrumbItem` (no `label`) must have an `aria-label` that names the destination.

@@ -9,7 +9,7 @@ import { Add, Language, MoreVert } from '~/icons';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof DynamicFieldset> = {
-    title: 'Components/Fieldset/DynamicFieldset',
+    title: 'Components/DynamicFieldset',
     component: DynamicFieldset,
     tags: ['beta'],
 

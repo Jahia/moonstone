@@ -7,7 +7,7 @@ import type { Meta, StoryFn } from '@storybook/react-vite';
 import '~/__storybook__/storybook.scss';
 
 export default {
-    title: 'Components/Input/SearchInput',
+    title: 'Components/SearchInput',
     component: SearchInput,
     decorators: [
         StoryCmp => (

@@ -11,13 +11,13 @@ import {Banner} from '@jahia/moonstone';
 ## Do
 - Use it to show a status message about a page or a panel, such as a notice, a warning, or an error.
 - Use it for persistent feedback that stays visible until the user acts, such as unsaved changes, a failed background process, or a feature notice.
-- Use it to pair a status message with an action, such as Retry, by placing a **Button** in its content.
+- Use it to pair a status message with an action, such as Retry, by placing a [Button](?path=/docs/components-button--docs) in its content.
 
 ## Don't
-- Don't use a Banner for a validation error on a single form field. Use a **Field** instead.
-- Don't use a Banner to interrupt the user and require a response before they continue. Use a **Modal** instead.
-- Don't use a Banner for a heading or body text that carries no status. Use **Typography** instead.
-- Don't use a Banner for brief information shown on hover. Use a **Tooltip** instead.
+- Don't use a Banner for a validation error on a single form field. Use a [Field](?path=/docs/components-field--docs) instead.
+- Don't use a Banner to interrupt the user and require a response before they continue. Use a [Modal](?path=/docs/components-modal--docs) instead.
+- Don't use a Banner for a heading or body text that carries no status. Use [Typography](?path=/docs/tokens-typography--docs) instead.
+- Don't use a Banner for brief information shown on hover. Use a [Tooltip](?path=/docs/components-tooltip--docs) instead.
 
 ## Appearance
 

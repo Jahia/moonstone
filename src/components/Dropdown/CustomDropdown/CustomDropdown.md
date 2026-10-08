@@ -12,8 +12,8 @@ import {CustomDropdown} from '@jahia/moonstone';
   leaving the page.
 
 ## Don't
-- Don't use it to pick one or several values from a list of options. Use a **Dropdown** instead.
-- Don't use it for a single action with no content to show. Use a **Button** instead.
+- Don't use it to pick one or several values from a list of options. Use a [Dropdown](?path=/docs/components-dropdown--docs) instead.
+- Don't use it for a single action with no content to show. Use a [Button](?path=/docs/components-button--docs) instead.
 
 ## Appearance
 

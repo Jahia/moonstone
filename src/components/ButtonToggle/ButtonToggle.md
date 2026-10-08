@@ -33,9 +33,9 @@ Use one mode or the other. Do not mix `isPressed` (controlled) with `defaultPres
 - Pair multiple ButtonToggles to represent independent or mutually exclusive view switches.
 
 ## Don't
-- Don't use ButtonToggle for an immediate on/off setting controlling a persistent preference. Use **Switch** instead.
-- Don't use ButtonToggle for a one-shot action that triggers something without holding state. Use **Button** instead.
-- Don't use ButtonToggle for a group of related action buttons where none hold state. Use **ButtonGroup** instead.
+- Don't use ButtonToggle for an immediate on/off setting controlling a persistent preference. Use [Switch](?path=/docs/components-switch--docs) instead.
+- Don't use ButtonToggle for a one-shot action that triggers something without holding state. Use [Button](?path=/docs/components-button--docs) instead.
+- Don't use ButtonToggle for a group of related action buttons where none hold state. Use [ButtonGroup](?path=/docs/components-buttongroup--docs) instead.
 
 ## Appearance
 

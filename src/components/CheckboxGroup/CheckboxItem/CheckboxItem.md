@@ -29,20 +29,20 @@ Use one mode or the other. Do not mix `checked` (controlled) with `defaultChecke
   ```
 
 In both modes, `onChange(event, value, checked)` receives the `value` prop as its second argument
-and the new checked state as its third. Inside a **CheckboxGroup**, the group's `onChange` runs
+and the new checked state as its third. Inside a [CheckboxGroup](?path=/docs/components-checkboxgroup--docs), the group's `onChange` runs
 as well.
 
 ## Do
 - Use it for a single labelled option the user opts into, such as including subpages in a publication.
-- Use it for each option of a **CheckboxGroup**.
+- Use it for each option of a [CheckboxGroup](?path=/docs/components-checkboxgroup--docs).
 - Use it when an option needs a short explanation under its label.
 
 ## Don't
-- Don't use a CheckboxItem when the label is already shown elsewhere, such as in a table row. Use a **Checkbox** instead.
-- Don't use a CheckboxItem for a form field that needs a helper text or an error message. Use a **FieldBoolean** instead.
-- Don't use separate CheckboxItems for a set of related options. Wrap them in a **CheckboxGroup**.
-- Don't use CheckboxItems when the user must choose exactly one option. Use a **RadioGroup** instead.
-- Don't use a CheckboxItem for a setting that applies immediately. Use a **Switch** instead.
+- Don't use a CheckboxItem when the label is already shown elsewhere, such as in a table row. Use a [Checkbox](?path=/docs/components-checkbox--docs) instead.
+- Don't use a CheckboxItem for a form field that needs a helper text or an error message. Use a [FieldBoolean](?path=/docs/components-fieldboolean--docs) instead.
+- Don't use separate CheckboxItems for a set of related options. Wrap them in a [CheckboxGroup](?path=/docs/components-checkboxgroup--docs).
+- Don't use CheckboxItems when the user must choose exactly one option. Use a [RadioGroup](?path=/docs/components-radiogroup--docs) instead.
+- Don't use a CheckboxItem for a setting that applies immediately. Use a [Switch](?path=/docs/components-switch--docs) instead.
 
 ## Voice and tone
 - Write the label in sentence case, using a few words (3 maximum). Never write a full sentence.

@@ -69,7 +69,7 @@ Per-section content (for phrasing, see `style.md`):
   configuration, which belongs in the Props table: rewrite it as a use case or delete it.
 - **Don't** — answers only **"when should I NOT use this component?"** Each bullet names a wrong
   *use case*, then names the correct alternative as a complete sentence, citing a **real,
-  exported** component (for example, "Don't use a Button for an on/off setting. Use a **Switch**
+  exported** component (for example, "Don't use a Button for an on/off setting. Use a [Switch](?path=/docs/components-switch--docs)
   instead."). This routing steers an LLM to built-ins, so it is required; cross-references to
   other components live here or in the prose.
   To route between components of the same group (such as the selection components), apply
@@ -123,6 +123,22 @@ gist> `` followed by a two-column table, one row per allowed value:
 - Optionally open with **one** short sentence stating a cross-prop principle.
 - **Never invent design intent.** The "Use it for" cells are the designer's call: write
   `_Pending design guidance_` with a brief `<!-- designer: … -->` hint rather than a guess.
+
+## Families (a parent and its sub-components)
+
+A sub-component only works inside its parent: it throws outside it, its element or role needs
+the parent's (a `<li>` needs the parent's list, a `role="tab"` needs a `tablist`), or it is made
+to fill a part of the parent (SecondaryNavHeader, ModalHeader). A group of
+standalone components (ButtonGroup with Button, CheckboxGroup with CheckboxItem) is not a family.
+
+- Every component of a family has its own stories file and `.md`, so each page has its own
+  interactive Controls.
+- Titles are flat: `Components/TabItem`, never `Components/Tab/TabItem`.
+- The parent's meta declares `subcomponents: { TabItem }`: the manifest uses it to tie the family
+  together. A group of standalone components declares no `subcomponents`.
+- Each piece of guidance lives on the page of the component it concerns. The parent's page
+  covers the family: when to use it and how to compose it. It never restates a rule about a
+  sub-component's own props, copy, or accessibility; that goes on the sub-component's page.
 
 ## Internal components
 

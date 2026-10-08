@@ -12,7 +12,7 @@ import type { DropdownDataOption } from '~/components/Dropdown/Dropdown.types';
 import '~/__storybook__/storybook.scss';
 
 export default {
-    title: 'Components/Input/SearchContextInput',
+    title: 'Components/SearchContextInput',
     component: SearchContextInput,
     decorators: [
         StoryCmp => (

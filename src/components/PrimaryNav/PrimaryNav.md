@@ -14,13 +14,13 @@ import {PrimaryNav, PrimaryNavItem, PrimaryNavItemsGroup} from '@jahia/moonstone
 
 ## Do
 - Use it as the application's single top-level (level-1) navigation.
-- Use it to group the application's destinations into sections with **PrimaryNavItemsGroup**, each holding one or more **PrimaryNavItem**.
+- Use it to group the application's destinations into sections with [PrimaryNavItemsGroup](?path=/docs/components-primarynavitemsgroup--docs), each holding one or more [PrimaryNavItem](?path=/docs/components-primarynavitem--docs).
 - Use it when the navigation should collapse to an icon-only rail and expand back on demand. It manages that state itself.
 
 ## Don't
-- Don't use it for secondary or in-page navigation within a section. Use **SecondaryNav** instead.
-- Don't use it to switch between views inside a single page, such as panel tabs. Use **Tab** instead.
-- Don't place a **PrimaryNavItem** directly in `top` or `bottom`. Wrap it in a **PrimaryNavItemsGroup** first.
+- Don't use it for secondary or in-page navigation within a section. Use [SecondaryNav](?path=/docs/components-secondarynav--docs) instead.
+- Don't use it to switch between views inside a single page, such as panel tabs. Use [Tab](?path=/docs/components-tab--docs) instead.
+- Don't place a [PrimaryNavItem](?path=/docs/components-primarynavitem--docs) directly in `top` or `bottom`. Wrap it in a [PrimaryNavItemsGroup](?path=/docs/components-primarynavitemsgroup--docs) first.
 
 ## Voice and tone
 - Write `headerCaption` in sentence case and keep it short, such as an environment name ("Production").

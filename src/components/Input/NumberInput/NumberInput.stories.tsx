@@ -8,7 +8,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import '~/__storybook__/storybook.scss';
 
 export default {
-    title: 'Components/Input/Numbers',
+    title: 'Components/NumberInput',
     component: NumberInput,
     tags: ['new'],
     decorators: [

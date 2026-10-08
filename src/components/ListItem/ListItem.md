@@ -11,10 +11,10 @@ import {ListItem} from '~/components';
 - Use it to render a single row of a list, such as a settings list or a menu.
 - Pair it with a leading icon or image to help identify the item, and a trailing icon, such as a chevron, to hint at a next step.
 - Use it to show a secondary line of detail below the main text, such as extra context about the item.
-- Use it to build **MenuItem**'s row, and the draggable rows of **ListSelector**'s dual list.
+- Use it to build [MenuItem](?path=/docs/components-menuitem--docs)'s row, and the draggable rows of [ListSelector](?path=/docs/components-listselector--docs)'s dual list.
 
 ## Don't
-- Don't use ListItem alone for a menu item that needs keyboard focus and arrow-key navigation between items. Use **MenuItem** instead.
+- Don't use ListItem alone for a menu item that needs keyboard focus and arrow-key navigation between items. Use [MenuItem](?path=/docs/components-menuitem--docs) instead.
 
 ## Appearance
 
@@ -35,7 +35,7 @@ import {ListItem} from '~/components';
 
 ### `typographyVariant` for emphasis
 
-Passed straight through to the inner **Typography** that renders `label`.
+Passed straight through to the inner [Typography](?path=/docs/tokens-typography--docs) that renders `label`.
 
 | Value | Use it for |
 |---|---|
@@ -50,4 +50,4 @@ Passed straight through to the inner **Typography** that renders `label`.
 - Write `label` and `description` in sentence case.
 
 ## Accessibility
-- `label` is truncated with an ellipsis when it doesn't fit, with no built-in way to reveal the full text. If it's likely to truncate, pair it with a **Tooltip** or a native `title` attribute so the full text stays available.
+- `label` is truncated with an ellipsis when it doesn't fit, with no built-in way to reveal the full text. If it's likely to truncate, pair it with a [Tooltip](?path=/docs/components-tooltip--docs) or a native `title` attribute so the full text stays available.

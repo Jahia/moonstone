@@ -20,9 +20,9 @@ import {NumberInput} from '@jahia/moonstone';
 
 ## Don't
 - Don't use it for free-form text, even when it holds digits, such as a phone number or a postal
-  code. Use **Input** instead.
-- Don't use it to choose from a fixed list of values. Use **Dropdown** instead.
-- Don't use it for a date or a time. Use **DateTimeInput** or **TimeInput** instead.
+  code. Use [Input](?path=/docs/components-input--docs) instead.
+- Don't use it to choose from a fixed list of values. Use [Dropdown](?path=/docs/components-dropdown--docs) instead.
+- Don't use it for a date or a time. Use [DateTimeInput](?path=/docs/components-datetimeinput--docs) or [TimeInput](?path=/docs/components-timeinput--docs) instead.
 
 ## Appearance
 
@@ -49,9 +49,9 @@ import {NumberInput} from '@jahia/moonstone';
 
 ## Voice and tone
 - Write `placeholder` text in sentence case, and keep it short.
-- A placeholder is a hint, not a label. Don't use it as a replacement for the **Field** label.
+- A placeholder is a hint, not a label. Don't use it as a replacement for the [Field](?path=/docs/components-field--docs) label.
 
 ## Accessibility
-- Always provide a label. Use **Field**, or pass an `aria-label` when the input is standalone.
+- Always provide a label. Use [Field](?path=/docs/components-field--docs), or pass an `aria-label` when the input is standalone.
 - The Up and Down arrow keys step the value by `step`, within `min` and `max`.
 - Home and End jump to `min` and `max`, when they are set (soon).

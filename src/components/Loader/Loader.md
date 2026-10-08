@@ -10,10 +10,10 @@ import {Loader} from '@jahia/moonstone';
 - Use it in place of an area's content while that content loads, such as a panel or a section of a page.
 
 ## Don't
-- Don't place a Loader inside a **Button** to show a pending action. Use the Button's loading state instead.
-- Don't add a Loader to a **Dropdown** that is fetching its options. Use the Dropdown's loading state instead.
-- Don't add a Loader on top of a whole layout. Use the loading state of **LayoutApp**, **LayoutModule**, or **LayoutContent** instead.
-- Don't keep a Loader once the content has loaded with nothing to show. Use an **EmptyData** instead.
+- Don't place a Loader inside a [Button](?path=/docs/components-button--docs) to show a pending action. Use the [Button](?path=/docs/components-button--docs)'s loading state instead.
+- Don't add a Loader to a [Dropdown](?path=/docs/components-dropdown--docs) that is fetching its options. Use the [Dropdown](?path=/docs/components-dropdown--docs)'s loading state instead.
+- Don't add a Loader on top of a whole layout. Use the loading state of [LayoutApp](?path=/docs/layouts-layoutapp--docs), [LayoutModule](?path=/docs/layouts-layoutmodule--docs), or [LayoutContent](?path=/docs/layouts-layoutcontent--docs) instead.
+- Don't keep a Loader once the content has loaded with nothing to show. Use an [EmptyData](?path=/docs/components-emptydata--docs) instead.
 
 ## Appearance
 

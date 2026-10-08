@@ -45,13 +45,13 @@ When you pass `onClickItem`, a click on a node's label calls it instead of openi
 - Use it to display a hierarchy that the user browses, such as the pages of a site or the folders of a media library.
 - Use it to let the user select one or several items within a hierarchy.
 - Use it when the children of a node load on demand, as the user opens it.
-- Use it as the main content of a **SecondaryNav**, alone or inside an **Accordion**.
+- Use it as the main content of a [SecondaryNav](?path=/docs/components-secondarynav--docs), alone or inside an [Accordion](?path=/docs/components-accordion--docs).
 
 ## Don't
-- Don't use it to pick a value from a hierarchy in a form. Use a **Dropdown**, which accepts tree data, instead.
-- Don't use it to show items with several attributes side by side. Use a **Table** or a **DataTable** instead.
-- Don't use it to stack sections of content that the user expands and collapses. Use an **Accordion** instead.
-- Don't use it for the top-level navigation of the application. Use **PrimaryNav** instead.
+- Don't use it to pick a value from a hierarchy in a form. Use a [Dropdown](?path=/docs/components-dropdown--docs), which accepts tree data, instead.
+- Don't use it to show items with several attributes side by side. Use a [Table](?path=/docs/components-table--docs) or a [DataTable](?path=/docs/components-datatable--docs) instead.
+- Don't use it to stack sections of content that the user expands and collapses. Use an [Accordion](?path=/docs/components-accordion--docs) instead.
+- Don't use it for the top-level navigation of the application. Use [PrimaryNav](?path=/docs/components-primarynav--docs) instead.
 
 ## Appearance
 

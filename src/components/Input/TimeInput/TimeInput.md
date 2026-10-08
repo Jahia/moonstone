@@ -15,10 +15,10 @@ import {TimeInput} from '@jahia/moonstone';
 
 ## Do
 - Use it to capture a time of day, such as an opening hour or a reminder time.
-- Pair it with **Field** when it needs a label, helper text, or an error message.
+- Pair it with [Field](?path=/docs/components-field--docs) when it needs a label, helper text, or an error message.
 
 ## Don't
-- Don't use it to capture a date, or a date and a time together. Use **DateTimeInput** instead.
+- Don't use it to capture a date, or a date and a time together. Use [DateTimeInput](?path=/docs/components-datetimeinput--docs) instead.
 
 ## Appearance
 
@@ -34,13 +34,13 @@ import {TimeInput} from '@jahia/moonstone';
 | Value | Use it for |
 |---|---|
 | `ghost` | A borderless field, such as one embedded in a toolbar or a compact filter bar. |
-| `outlined` | The default. A field with a visible border, the typical choice inside a form or a **Field**. |
+| `outlined` | The default. A field with a visible border, the typical choice inside a form or a [Field](?path=/docs/components-field--docs). |
 
 ### `size` for prominence
 
 | Value | Use it for |
 |---|---|
-| `default` | Small contexts, such as **SecondaryNav** or **Menu**. |
+| `default` | Small contexts, such as [SecondaryNav](?path=/docs/components-secondarynav--docs) or [Menu](?path=/docs/components-menu--docs). |
 | `big` | The main area of the product, such as a form or a table. |
 
 ## Voice and tone
@@ -48,6 +48,6 @@ import {TimeInput} from '@jahia/moonstone';
   shows the expected format.
 
 ## Accessibility
-- Always give it a label. Use a **Field**, or pass an `aria-label` when it stands alone.
+- Always give it a label. Use a [Field](?path=/docs/components-field--docs), or pass an `aria-label` when it stands alone.
 - The Up and Down arrow keys step the hour or minute segment under the caret. The Left and Right
   arrow keys move between the two segments.

@@ -22,7 +22,10 @@ Mixed, by section:
 
 - Refer to the component by its exact name, or as "the component". Be consistent within a doc.
 - Put prop names, values, and code in backticks: `variant`, `default`, `aria-label`.
-- Name other components in bold on first mention: **Switch**, **ButtonGroup**.
+- Every mention of another public component is a link to its Docs page:
+  `[Switch](?path=/docs/components-switch--docs)`. The id is the page's id in the Storybook
+  index. Never link the component the page documents, nor an internal component (it is left out
+  of the published build). A link must point to a page that exists.
 - Only mention public, exported components and props. Never reference internal or non-exported
   parts.
 - No implementation details (pixel values, `.moonstone-*` classes, `$` Sass variables,

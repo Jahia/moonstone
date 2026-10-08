@@ -6,7 +6,7 @@ import { Language, MoreVert } from '~/icons';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof FieldBoolean> = {
-    title: 'Components/Field/FieldBoolean',
+    title: 'Components/FieldBoolean',
     component: FieldBoolean,
     tags: ['beta'],
 

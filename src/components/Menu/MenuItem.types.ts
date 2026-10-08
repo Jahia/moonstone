@@ -4,47 +4,51 @@ import type { ListItemProps } from '~/components/ListItem/ListItem.types';
 
 export type MenuItemProps = Omit<ListItemProps, 'onClick' | 'onMouseEnter' | 'onMouseLeave' | 'onKeyPress' | 'typographyVariant'> & {
     /**
-     * Is item being hovered
+     * Whether the item shows its hover style.
      */
     isHover?: boolean;
 
     /**
-     * Is item selected
+     * Whether the item is selected.
+     * @default false
      */
     isSelected?: boolean;
 
     /**
-     * Whether the component should be disabled
+     * Whether the item is disabled. A disabled item ignores clicks.
+     * @default false
      */
     isDisabled?: boolean;
 
     /**
-     * Is item highlighted, cannot be selected at the same time
+     * Whether the item is highlighted. Ignored when `isSelected` is set.
+     * @default false
      */
     isHighlighted?: boolean;
 
     /**
-     * MenuItem variants
+     * Kind of item. `title` makes it a heading for a group: it can't be focused or chosen.
+     * @default 'default'
      */
     variant?: 'default' | 'title';
 
     /**
-     * Optional value which can be returned when being used in user input elements such as Dropdown
+     * Value of the item, returned when the item is used in a selection component, such as a Dropdown.
      */
     value?: unknown;
 
     /**
-     * Function triggered on clicking the item
+     * Called when the user clicks the item. Not called when the item is disabled.
      */
     onClick?: React.MouseEventHandler;
 
     /**
-     * Function triggered when the mouse pointer hovering the item
+     * Called when the pointer enters the item.
      */
     onMouseEnter?: React.MouseEventHandler;
 
     /**
-     * Function triggered when the mouse pointer move off the item
+     * Called when the pointer leaves the item.
      */
     onMouseLeave?: React.MouseEventHandler;
 
@@ -54,12 +58,13 @@ export type MenuItemProps = Omit<ListItemProps, 'onClick' | 'onMouseEnter' | 'on
     onKeyPress?: React.KeyboardEventHandler;
 
     /**
-     * Function triggered when a key is pressed
+     * Called when a key is released on the item.
      */
     onKeyUp?: React.KeyboardEventHandler;
 
     /**
-     * Which icon size to render. The default is small
+     * Size of the item's icons.
+     * @default 'default'
      */
     iconSize?: 'small' | 'default' | 'big';
 };

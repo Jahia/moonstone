@@ -7,7 +7,7 @@ import type { EmptyCardSelectorProps } from './EmptyCardSelector.types';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof EmptyCardSelector> = {
-    title: 'Components/CardSelector/EmptyCardSelector',
+    title: 'Components/EmptyCardSelector',
     component: EmptyCardSelector,
     tags: ['new'],
 

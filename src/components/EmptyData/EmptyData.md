@@ -10,8 +10,8 @@ import {EmptyData} from '@jahia/moonstone';
 - Use it to explain why an area is empty, such as a search with no results or a filter that matches nothing.
 
 ## Don't
-- Don't use an EmptyData while the content is still loading. Show a **Loader** instead.
-- Don't use an EmptyData to report an error or a warning. Use a **Banner** instead.
+- Don't use an EmptyData while the content is still loading. Show a [Loader](?path=/docs/components-loader--docs) instead.
+- Don't use an EmptyData to report an error or a warning. Use a [Banner](?path=/docs/components-banner--docs) instead.
 
 ## Voice and tone
 - Write `title` and `message` in sentence case.

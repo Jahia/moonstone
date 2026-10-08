@@ -8,7 +8,7 @@ import type { BreadcrumbItemProps } from './BreadcrumbItem.types';
 import type { Meta, StoryFn } from '@storybook/react-vite';
 
 export default {
-    title: 'Components/Breadcrumb/BreadcrumbItem',
+    title: 'Components/BreadcrumbItem',
     component: BreadcrumbItem,
     decorators: [
         StoryCmp => (

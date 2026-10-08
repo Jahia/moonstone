@@ -40,10 +40,9 @@ In both modes, one item is always selected: the first one when no value is given
 - Use it for a choice that always has an answer, since one option is always selected.
 
 ## Don't
-- Don't use a RadioGroup when the user can select several options. Use a **CheckboxGroup** instead.
-- Don't use a RadioGroup for a single option. It renders nothing with fewer than two items. Use a **CheckboxItem** instead.
-- Don't use a RadioGroup for 4 options or more. Use a **Dropdown** instead.
+- Don't use a RadioGroup when the user can select several options. Use a [CheckboxGroup](?path=/docs/components-checkboxgroup--docs) instead.
+- Don't use a RadioGroup for a single option. It renders nothing with fewer than two items. Use a [CheckboxItem](?path=/docs/components-checkboxitem--docs) instead.
+- Don't use a RadioGroup for 4 options or more. Use a [Dropdown](?path=/docs/components-dropdown--docs) instead.
 
 ## Accessibility
 - The group renders no label of its own. Give it an accessible name with `aria-labelledby`, pointing at its visible label, or `aria-label`, together with `role="radiogroup"`.
-- Give every RadioItem a unique `id`.

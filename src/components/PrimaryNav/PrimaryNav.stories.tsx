@@ -23,6 +23,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 export default {
     title: 'Components/PrimaryNav',
     component: PrimaryNav,
+    subcomponents: { PrimaryNavItemsGroup, PrimaryNavItem },
 
     parameters: {
         componentSubtitle: 'The application\'s single top-level navigation.',

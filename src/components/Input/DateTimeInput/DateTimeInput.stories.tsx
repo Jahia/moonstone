@@ -12,7 +12,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 const baseDate = Temporal.PlainDate.from('2026-03-30');
 
 export default {
-    title: 'Components/Input/DateTimeInput',
+    title: 'Components/DateTimeInput',
     component: DateTimeInput,
     tags: ['beta'],
     parameters: {

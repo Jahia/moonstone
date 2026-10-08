@@ -17,7 +17,7 @@ import {Dropdown, SearchContextInput} from '@jahia/moonstone';
 - Use controlled when the query drives other UI, such as a list of results. Use uncontrolled
   when you only read the query on a key press, such as Enter.
 - Don't mix the two modes. Passing both `value` and `defaultValue` is not supported.
-- The **Dropdown** in `searchContext` stays controlled by you, through its own `value` and
+- The [Dropdown](?path=/docs/components-dropdown--docs) in `searchContext` stays controlled by you, through its own `value` and
   `onChange`.
 
 ## Do
@@ -25,14 +25,14 @@ import {Dropdown, SearchContextInput} from '@jahia/moonstone';
   users.
 
 ## Don't
-- Don't use it when there is only one place to search. Use **SearchInput** instead.
-- Don't use it for other free-form text. Use **Input** instead.
+- Don't use it when there is only one place to search. Use [SearchInput](?path=/docs/components-searchinput--docs) instead.
+- Don't use it for other free-form text. Use [Input](?path=/docs/components-input--docs) instead.
 
 ## Voice and tone
 - Write `placeholder` text in sentence case, and keep it short.
-- Write the scope labels of the **Dropdown** in sentence case, using a few words that name where
+- Write the scope labels of the [Dropdown](?path=/docs/components-dropdown--docs) in sentence case, using a few words that name where
   the search runs, such as "Media" or "Global users".
 
 ## Accessibility
-- Always provide a label. Pass an `aria-label` for the text field. The **Dropdown** takes its
+- Always provide a label. Pass an `aria-label` for the text field. The [Dropdown](?path=/docs/components-dropdown--docs) takes its
   accessible name from the selected scope.

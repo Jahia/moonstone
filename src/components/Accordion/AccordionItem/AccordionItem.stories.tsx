@@ -8,7 +8,7 @@ import type { AccordionItemProps } from './AccordionItem.types';
 import type { Meta, StoryFn } from '@storybook/react-vite';
 
 export default {
-    title: 'Components/Accordion/AccordionItem',
+    title: 'Components/AccordionItem',
     component: AccordionItem,
     decorators: [
         StoryCmp => (

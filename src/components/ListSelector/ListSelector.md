@@ -9,8 +9,8 @@ import {ListSelector} from '@jahia/moonstone';
 - Use it when the user selects 10 values or more. The user can also set their order.
 
 ## Don't
-- Don't use it to pick a single value. Use a **Dropdown** instead.
-- Don't use it when the user selects fewer than 10 values. Use a **Dropdown** in multiple
+- Don't use it to pick a single value. Use a [Dropdown](?path=/docs/components-dropdown--docs) instead.
+- Don't use it when the user selects fewer than 10 values. Use a [Dropdown](?path=/docs/components-dropdown--docs) in multiple
   selection instead.
 
 ## Voice and tone

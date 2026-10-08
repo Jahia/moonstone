@@ -11,9 +11,9 @@ import {Typography} from '@jahia/moonstone';
 - Use it to emphasize or de-emphasize part of a text, such as a key figure or a secondary detail.
 
 ## Don't
-- Don't use Typography to style the label of a Moonstone component, such as a **Button**. Pass the text to the component, which already renders it with the right style.
-- Don't use Typography to build a form-field label. Use a **Field** instead, which renders the label and links it to its control.
-- Don't use Typography to build the title bar of a page. Use a **Header** instead.
+- Don't use Typography to style the label of a Moonstone component, such as a [Button](?path=/docs/components-button--docs). Pass the text to the component, which already renders it with the right style.
+- Don't use Typography to build a form-field label. Use a [Field](?path=/docs/components-field--docs) instead, which renders the label and links it to its control.
+- Don't use Typography to build the title bar of a page. Use a [Header](?path=/docs/components-header--docs) instead.
 
 ## Appearance
 

@@ -2,11 +2,11 @@ import React from 'react';
 
 export type TabProps = Omit<React.ComponentPropsWithRef<'div'>, 'children' | 'className'> & {
     /**
-     * Content of Tab component
+     * The TabItem components of the tab list.
      */
     children: React.ReactNode;
     /**
-     * Additional classname
+     * Additional class name.
      */
     className?: string;
 };

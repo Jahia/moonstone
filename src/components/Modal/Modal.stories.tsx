@@ -12,6 +12,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 const meta: Meta<typeof Modal> = {
     title: 'Components/Modal',
     component: Modal,
+    subcomponents: { ModalHeader, ModalBody, ModalFooter },
     tags: ['beta'],
 
     parameters: {

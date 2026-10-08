@@ -20,12 +20,12 @@ import {Dropdown} from '@jahia/moonstone';
 - Use it for 4 options or more. A search field appears automatically past 7 options.
 
 ## Don't
-- Don't use it for a list of actions. Use a **Menu** instead.
-- Don't use it for 3 options or fewer. Use a **RadioGroup** (one value) or a **CheckboxGroup**
+- Don't use it for a list of actions. Use a [Menu](?path=/docs/components-menu--docs) instead.
+- Don't use it for 3 options or fewer. Use a [RadioGroup](?path=/docs/components-radiogroup--docs) (one value) or a [CheckboxGroup](?path=/docs/components-checkboxgroup--docs)
   (several values) instead.
-- Don't use it when the user selects 10 values or more. Use a **ListSelector** instead.
+- Don't use it when the user selects 10 values or more. Use a [ListSelector](?path=/docs/components-listselector--docs) instead.
 - Don't use it to open custom content, such as a small form or sorting controls. Use a
-  **CustomDropdown** instead.
+  [CustomDropdown](?path=/docs/components-customdropdown--docs) instead.
 
 ## Appearance
 

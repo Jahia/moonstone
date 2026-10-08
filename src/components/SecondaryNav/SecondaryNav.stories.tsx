@@ -8,6 +8,7 @@ import type { Meta, StoryFn } from '@storybook/react-vite';
 export default {
     title: 'Components/SecondaryNav',
     component: SecondaryNav,
+    subcomponents: { SecondaryNavHeader },
     tags: ['dark-theme'],
     decorators: [
         StoryCmp => (

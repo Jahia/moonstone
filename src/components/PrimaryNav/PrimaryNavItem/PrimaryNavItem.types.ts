@@ -49,7 +49,7 @@ export type PrimaryNavItemProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'on
      */
     url?: string;
     /**
-     * Additional classname
+     * Additional class name.
      */
     className?: string;
     /**

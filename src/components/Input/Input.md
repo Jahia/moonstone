@@ -21,14 +21,14 @@ import {Input} from '@jahia/moonstone';
 
 ## Do
 - Use it to capture a short piece of free-form text on a single line, such as a name, a title, or a URL.
-- Use it inside a **Field** when it needs a visible label, helper text, or an error message.
+- Use it inside a [Field](?path=/docs/components-field--docs) when it needs a visible label, helper text, or an error message.
 
 ## Don't
-- Don't use an Input for multi-line text. Use a **Textarea** instead.
-- Don't use an Input for numbers that need stepping or numeric validation. Use a **NumberInput** instead.
-- Don't use an Input for a search box. Use a **SearchInput** instead.
-- Don't use an Input for a date or a time. Use a **DateTimeInput** or a **TimeInput** instead.
-- Don't use an Input to choose from a fixed list of options. Use a **Dropdown** instead.
+- Don't use an Input for multi-line text. Use a [Textarea](?path=/docs/components-textarea--docs) instead.
+- Don't use an Input for numbers that need stepping or numeric validation. Use a [NumberInput](?path=/docs/components-numberinput--docs) instead.
+- Don't use an Input for a search box. Use a [SearchInput](?path=/docs/components-searchinput--docs) instead.
+- Don't use an Input for a date or a time. Use a [DateTimeInput](?path=/docs/components-datetimeinput--docs) or a [TimeInput](?path=/docs/components-timeinput--docs) instead.
+- Don't use an Input to choose from a fixed list of options. Use a [Dropdown](?path=/docs/components-dropdown--docs) instead.
 
 ## Appearance
 
@@ -36,7 +36,7 @@ import {Input} from '@jahia/moonstone';
 
 | Value | Use it for |
 |---|---|
-| `default` | Small contexts, such as **SecondaryNav** or **Menu**. |
+| `default` | Small contexts, such as [SecondaryNav](?path=/docs/components-secondarynav--docs) or [Menu](?path=/docs/components-menu--docs). |
 | `big` | The main area of the product, such as a form or a table. |
 
 ## Voice and tone
@@ -44,5 +44,5 @@ import {Input} from '@jahia/moonstone';
 - Use the placeholder as a hint about the expected text, such as "Enter a title". Never use it to replace the label.
 
 ## Accessibility
-- Always give the Input a label. Use a **Field**, or pass an `aria-label` when the Input stands alone.
+- Always give the Input a label. Use a [Field](?path=/docs/components-field--docs), or pass an `aria-label` when the Input stands alone.
 - Don't rely on the placeholder as the label. It disappears as soon as the user types.

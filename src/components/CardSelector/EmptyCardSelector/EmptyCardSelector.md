@@ -7,12 +7,12 @@ import {EmptyCardSelector} from '@jahia/moonstone';
 ```
 
 ## Do
-- Use it in a picker field before the user has selected an item. Once the user picks one, replace it with a **CardSelector** that shows the selection.
+- Use it in a picker field before the user has selected an item. Once the user picks one, replace it with a [CardSelector](?path=/docs/components-cardselector--docs) that shows the selection.
 - Use it to let the user open a picker, such as a content or media picker, from an empty field.
 
 ## Don't
-- Don't use an EmptyCardSelector as a generic call-to-action button. Use a **Button** instead.
-- Don't use an EmptyCardSelector to show an empty state that requires no user action. Use **EmptyData** instead.
+- Don't use an EmptyCardSelector as a generic call-to-action button. Use a [Button](?path=/docs/components-button--docs) instead.
+- Don't use an EmptyCardSelector to show an empty state that requires no user action. Use [EmptyData](?path=/docs/components-emptydata--docs) instead.
 
 ## Voice and tone
 - Write the label in sentence case, using a few words at most (3 maximum). Never write a full sentence.

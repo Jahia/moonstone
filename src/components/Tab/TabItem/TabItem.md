@@ -12,12 +12,12 @@ import {Tab, TabItem} from '@jahia/moonstone';
 ```
 
 ## Do
-- Use it for each view that a **Tab** lets the user switch to.
+- Use it for each view that a [Tab](?path=/docs/components-tab--docs) lets the user switch to.
 
 ## Don't
-- Don't use it on its own, outside a **Tab**. Wrap every TabItem in a **Tab**.
-- Don't use it for a control that toggles a pressed or active state. Use a **ButtonToggle** instead.
-- Don't use it to trigger an action. Use a **Button** instead.
+- Don't use it on its own, outside a [Tab](?path=/docs/components-tab--docs). Wrap every TabItem in a [Tab](?path=/docs/components-tab--docs).
+- Don't use it for a control that toggles a pressed or active state. Use a [ButtonToggle](?path=/docs/components-buttontoggle--docs) instead.
+- Don't use it to trigger an action. Use a [Button](?path=/docs/components-button--docs) instead.
 
 ## Appearance
 

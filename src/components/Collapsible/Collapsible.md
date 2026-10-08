@@ -39,8 +39,8 @@ Use one mode or the other. Do not pass both `isExpanded` (controlled) and `isDef
 - Use it to stack several independent sections that the user can expand at the same time.
 
 ## Don't
-- Don't use Collapsible for a set of sections where only one is open at a time. Use an **Accordion** instead.
-- Don't use Collapsible for supplementary content beside the page. Use a **Drawer** instead.
+- Don't use Collapsible for a set of sections where only one is open at a time. Use an [Accordion](?path=/docs/components-accordion--docs) instead.
+- Don't use Collapsible for supplementary content beside the page. Use a [Drawer](?path=/docs/components-drawer--docs) instead.
 
 ## Voice and tone
 - Write the `label` in sentence case, using a few words at most (3 maximum). Never write a full sentence. The label is shown in uppercase automatically: never type it in uppercase.

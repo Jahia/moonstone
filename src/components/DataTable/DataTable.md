@@ -45,9 +45,9 @@ The callbacks receive the new state: `onSortChange(sortBy, sortDirection)`, `onC
 - Use it when each row needs extra cells next to the data columns, such as a status or row actions.
 
 ## Don't
-- Don't render a DataTable to show that there is nothing to display. It renders nothing when `data` is empty, so render an **EmptyData** in its place.
-- Don't use a DataTable when you write the markup of every row and cell yourself, or when an external table library already drives the table. Use a **Table** instead.
-- Don't build custom DataTable rows with the `TableRow` and cells exported from `@jahia/moonstone`. They belong to **Table**. Import **TableRow**, **TableCellStatus**, and **TableCellActions** from `@jahia/moonstone/DataTable` instead.
+- Don't render a DataTable to show that there is nothing to display. It renders nothing when `data` is empty, so render an [EmptyData](?path=/docs/components-emptydata--docs) in its place.
+- Don't use a DataTable when you write the markup of every row and cell yourself, or when an external table library already drives the table. Use a [Table](?path=/docs/components-table--docs) instead.
+- Don't build custom DataTable rows with the `TableRow` and cells exported from `@jahia/moonstone`. They belong to [Table](?path=/docs/components-table--docs). Import **TableRow**, **TableCellStatus**, and **TableCellActions** from `@jahia/moonstone/DataTable` instead.
 - Don't add a separate **Pagination** under a DataTable. Use its built-in pagination instead.
 
 ## Voice and tone
@@ -55,6 +55,6 @@ The callbacks receive the new state: `onSortChange(sortBy, sortDirection)`, `onC
 - The default pagination labels are in English. Pass translated labels through `i18n`.
 
 ## Accessibility
-- An icon-only **Button** in a custom cell must have an `aria-label` that describes the action. A **Tooltip** doesn't replace it.
+- An icon-only [Button](?path=/docs/components-button--docs) in a custom cell must have an `aria-label` that describes the action. A [Tooltip](?path=/docs/components-tooltip--docs) doesn't replace it.
 - Enter or Space on a sortable header sorts the column (soon).
 - Enter or Space activates a clickable row (soon).
