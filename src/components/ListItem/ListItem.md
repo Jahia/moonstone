@@ -36,12 +36,12 @@ Passed straight through to the inner [Typography](?path=/docs/components-typogra
 
 | Value | Use it for |
 |---|---|
-| `caption` | The default, for most list items. |
-| `title` | _Pending design guidance_ <!-- designer: when should a ListItem label use the title variant instead of caption? --> |
-| `heading` | _Pending design guidance_ <!-- designer: when should a ListItem label use the heading variant instead of caption? --> |
-| `subheading` | _Pending design guidance_ <!-- designer: when should a ListItem label use the subheading variant instead of caption? --> |
-| `body` | _Pending design guidance_ <!-- designer: when should a ListItem label use the body variant instead of caption? --> |
-| `button` | _Pending design guidance_ <!-- designer: when should a ListItem label use the button variant instead of caption? --> |
+| `title` | The page title of the application. |
+| `heading` | A heading of a section. |
+| `subheading` | Subsection headings or group labels. |
+| `body` | The default body text size, the most common variant. |
+| `caption` | Small text such as a description or helper text. |
+| `button` | The specific text style for a button's label. |
 
 ## Voice and tone
 - Write `label` and `description` in sentence case.

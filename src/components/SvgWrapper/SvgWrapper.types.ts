@@ -9,6 +9,7 @@ export type SvgWrapperProps = Omit<React.ComponentPropsWithoutRef<'svg'>, 'class
     svg: React.ReactElement;
     /**
      * Svg size
+     * @default 'default'
      */
     size?: SvgWrapperSize;
     /**

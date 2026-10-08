@@ -17,6 +17,7 @@ export type ButtonProps = Omit<React.ComponentPropsWithRef<'button'>, 'className
 
     /**
      * Size of the button
+     * @default 'default'
      */
     size?: ButtonSize;
 
@@ -32,11 +33,13 @@ export type ButtonProps = Omit<React.ComponentPropsWithRef<'button'>, 'className
 
     /**
      * Style of the button
+     * @default 'default'
      */
     variant?: ButtonVariant;
 
     /**
      * Color of the button
+     * @default 'default'
      */
     color?: ButtonColor;
 

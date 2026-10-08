@@ -21,16 +21,16 @@ import {CustomDropdown} from '@jahia/moonstone';
 
 | Value | Use it for |
 |---|---|
-| `ghost` | _Pending design guidance_ <!-- designer: default value. Does the Button `ghost` guidance (toolbars, icon-only) apply here? --> |
-| `outlined` | _Pending design guidance_ <!-- designer: when should the trigger be outlined, such as a sorting control above a list? --> |
+| `ghost` | _Pending design guidance_ <!-- designer: default value. Where should a borderless Dropdown be used (toolbars, inline filters)? --> |
+| `outlined` | _Pending design guidance_ <!-- designer: is outlined the form-field look, such as inside a Field? --> |
 
 ### `size` for prominence
 
 | Value | Use it for |
 |---|---|
-| `small` | _Pending design guidance_ <!-- designer: Button restricts `small` to BreadcrumbItem. Is it allowed here? --> |
-| `default` | _Pending design guidance_ <!-- designer: default value. Confirm it is the standard size. --> |
-| `big` | _Pending design guidance_ <!-- designer: does `big` apply here as in Button (headers, modal footers)? --> |
+| `default` | Most contexts. |
+| `small` | [BreadcrumbItem](?path=/docs/components-breadcrumbitem--docs) only. Don't use it elsewhere for now. |
+| `big` | Header and modal-footer buttons, where you want to raise emphasis. The label is shown in uppercase. |
 
 ## Voice and tone
 - Write the `label` in sentence case, using a few words at most (3 maximum). Never write a full

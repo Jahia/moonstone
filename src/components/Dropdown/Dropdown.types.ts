@@ -52,11 +52,13 @@ export type BaseDropdownProps = {
 
     /**
      * Dropdown's variants
+     * @default 'ghost'
      */
     variant?: DropdownVariant;
 
     /**
      * Dropdown's sizes
+     * @default 'medium'
      */
     size?: DropdownSize;
 
@@ -88,11 +90,13 @@ export type BaseDropdownProps = {
      * Applies only when autosearch is enabled, that is when `hasSearch` is undefined.
      * Defaults to 7 if undefined or < 0
      * Autosearch is when search input is automatically added in the dropdown
+     * @default 7
      */
     autoAddSearchLimit?: number;
 
     /**
      * The text to display if the Dropdown Menu has a search input and the search doesn't have any results
+     * @default 'No results found.'
      */
     searchEmptyText?: string;
 

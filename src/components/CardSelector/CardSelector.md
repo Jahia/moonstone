@@ -21,8 +21,8 @@ CardSelector renders in a row layout: the thumbnail appears on the left, the bod
 
 | Value | Use it for |
 |---|---|
-| `preview` | Rectangular content previews, such as page screenshots or document images. |
-| `icon` | Square icon-sized thumbnails, such as file-type icons or small logos. |
+| `preview` | _Pending design guidance_ <!-- designer: which images fill the area, such as photos or page captures? --> The image fills the whole area and is cropped to fit. |
+| `icon` | _Pending design guidance_ <!-- designer: which graphics are shown small and centered, such as file-type icons? --> The image is shown small and centered, without cropping. |
 
 ## Voice and tone
 - Write `errorMessage` in sentence case, using a short phrase of 3 words or fewer.

@@ -25,6 +25,7 @@ export type LayoutContentProps = Omit<React.ComponentPropsWithRef<'div'>, 'class
 
     /**
      * Define if the layout has padding
+     * @default true
      */
     hasPadding?: boolean;
 

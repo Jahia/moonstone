@@ -9,7 +9,7 @@ import {ListSelector} from '@jahia/moonstone';
 - Use it when the user selects 10 values or more. The user can also set their order.
 
 ## Don't
-- Don't use it to pick a single value. Use a [Dropdown](?path=/docs/components-dropdown--docs) instead.
+- Don't use it to pick a single value. Use a [RadioGroup](?path=/docs/components-radiogroup--docs) for 3 options or fewer, or a [Dropdown](?path=/docs/components-dropdown--docs) for 4 or more.
 - Don't use it when the user selects fewer than 10 values. Use a [Dropdown](?path=/docs/components-dropdown--docs) in multiple
   selection instead.
 

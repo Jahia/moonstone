@@ -23,7 +23,7 @@ import {Textarea} from '@jahia/moonstone';
 
 ## Do
 - Use it to capture multi-line free-form text, such as a description or a comment.
-- Use it inside a [Field](?path=/docs/components-field--docs) when it needs a label, helper text, or an error message.
+- Use it inside a [Field](?path=/docs/components-field--docs) when it needs a visible label, helper text, or an error message.
 
 ## Don't
 - Don't use a Textarea for a single line of text, such as a name or a title. Use an [Input](?path=/docs/components-input--docs) instead.

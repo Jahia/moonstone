@@ -9,10 +9,12 @@ export type ButtonGroupProps = Omit<React.ComponentPropsWithRef<'div'>, 'childre
     children: React.ReactElement<ButtonProps> | React.ReactElement<ButtonProps>[];
     /**
      * Size of the button
+     * @default 'default'
      */
     size?: ButtonSize;
     /**
      * Style of the button
+     * @default 'default'
      */
     variant?: ButtonVariant;
     /**

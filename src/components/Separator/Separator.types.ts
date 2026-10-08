@@ -1,16 +1,19 @@
 export type SeparatorProps = Omit<React.ComponentPropsWithoutRef<'hr'>, 'className'> & {
     /**
      * The orientation of the separator
+     * @default 'horizontal'
      */
     variant?: 'horizontal' | 'vertical';
 
     /**
      * The margin applied around the separator
+     * @default 'small'
      */
     spacing?: 'none' | 'small' | 'medium' | 'big';
 
     /**
      * How much of the container's width (or height, when vertical) the separator spans
+     * @default 'full'
      */
     size?: 'medium' | 'large' | 'full';
 

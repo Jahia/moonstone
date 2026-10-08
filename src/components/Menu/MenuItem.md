@@ -26,16 +26,16 @@ import {Menu, MenuItem} from '@jahia/moonstone';
 
 | Value | Use it for |
 |---|---|
-| `small` | _Pending design guidance_ <!-- designer: when should a MenuItem icon use the small size? --> |
+| `small` | _Pending design guidance_ <!-- designer: when should iconStart/iconEnd use the small size? --> |
 | `default` | The default. |
-| `big` | _Pending design guidance_ <!-- designer: when should a MenuItem icon use the big size? --> |
+| `big` | _Pending design guidance_ <!-- designer: when should iconStart/iconEnd use the big size? --> |
 
 ### `imageSize` for prominence
 
 | Value | Use it for |
 |---|---|
-| `small` | The default. |
-| `big` | _Pending design guidance_ <!-- designer: when should a MenuItem show its image at the big size instead of small? --> |
+| `small` | The default. A compact row. |
+| `big` | _Pending design guidance_ <!-- designer: when should an image be shown at the larger size instead of small? --> |
 
 ## Voice and tone
 - Write item labels in sentence case, using a few words at most (3 maximum). Never write a full sentence.

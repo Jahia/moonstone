@@ -35,15 +35,15 @@ import {TimezoneSelector} from '@jahia/moonstone';
 
 | Value | Use it for |
 |---|---|
-| `outlined` | _Pending design guidance_ <!-- designer: is `outlined` the default, general-purpose choice, as in other fields? --> |
-| `ghost` | _Pending design guidance_ <!-- designer: when should a consumer reach for the borderless variant here? --> |
+| `ghost` | _Pending design guidance_ <!-- designer: default value. Where should a borderless Dropdown be used (toolbars, inline filters)? --> |
+| `outlined` | _Pending design guidance_ <!-- designer: is outlined the form-field look, such as inside a Field? --> |
 
 ### `size` for prominence
 
 | Value | Use it for |
 |---|---|
-| `small` | _Pending design guidance_ <!-- designer: which contexts call for the small size? --> |
-| `medium` | _Pending design guidance_ <!-- designer: is `medium` the default, general-purpose size? --> |
+| `small` | _Pending design guidance_ <!-- designer: which contexts call for a small Dropdown? --> |
+| `medium` | _Pending design guidance_ <!-- designer: default value. Confirm it is the standard size for forms. --> |
 
 ## Voice and tone
 - Write `placeholder` and `searchEmptyText` in sentence case, kept short.

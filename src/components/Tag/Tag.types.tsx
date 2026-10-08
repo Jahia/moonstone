@@ -23,6 +23,7 @@ export type TagProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'className
 
     /**
      * Tag size
+     * @default 'medium'
      */
     size?: 'small' | 'medium';
 

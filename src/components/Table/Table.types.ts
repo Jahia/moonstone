@@ -3,6 +3,7 @@ import React from 'react';
 export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children' | 'className'> & {
     /**
      * Which html element to render the table as
+     * @default 'table'
      */
     component?: string;
 

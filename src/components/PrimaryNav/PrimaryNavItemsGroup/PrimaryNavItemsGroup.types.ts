@@ -3,6 +3,7 @@ import React from 'react';
 export type PrimaryNavItemsGroupProps = React.ComponentPropsWithoutRef<'li'> & {
     /**
      * Whether the group stays visible when the navigation is collapsed to icons. Set it to `false` to hide low-priority items.
+     * @default true
      */
     isDisplayedWhenCollapsed?: boolean;
     /**

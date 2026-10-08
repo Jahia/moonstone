@@ -13,6 +13,7 @@ export type BasicNumberInputProps = Omit<BaseInputProps, 'isShowClearButton' | '
 
     /**
      * Character to use as a separator
+     * @default '.'
      */
     separator?: '.' | ',';
 

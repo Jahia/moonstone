@@ -23,25 +23,25 @@ import {ChevronDown} from '@jahia/moonstone/icons';
 
 | Value | Use it for |
 |---|---|
-| `default` | _Pending design guidance_ <!-- designer: does Button's guidance for `default` (the main action of an area) apply to a ButtonGroup? --> |
-| `outlined` | _Pending design guidance_ <!-- designer: does Button's guidance for `outlined` apply to a ButtonGroup? --> |
-| `ghost` | _Pending design guidance_ <!-- designer: does Button's guidance for `ghost` apply to a ButtonGroup? --> |
+| `default` | The main action of an area. Use it once per area. |
+| `outlined` | Secondary actions that perform something, such as Save, Copy, or Export. |
+| `ghost` | The lowest-emphasis actions, such as Cancel, Close, toolbar buttons, and icon-only buttons. |
 
 ### `color` for meaning
 
 | Value | Use it for |
 |---|---|
-| `default` | _Pending design guidance_ <!-- designer: does Button's guidance for `color=default` apply to a ButtonGroup? --> |
-| `accent` | _Pending design guidance_ <!-- designer: does Button's guidance for `accent` apply to a ButtonGroup? --> |
-| `danger` | _Pending design guidance_ <!-- designer: does Button's guidance for `danger` apply to a ButtonGroup? --> |
+| `default` | Neutral actions. |
+| `accent` | The main action. Pair it with `variant="default"`. |
+| `danger` | Destructive or irreversible actions, such as Delete. When two destructive actions sit side by side, make the lesser one `outlined`. |
 
 ### `size` for prominence
 
 | Value | Use it for |
 |---|---|
-| `default` | _Pending design guidance_ <!-- designer: when should a ButtonGroup use the default size? --> |
-| `small` | _Pending design guidance_ <!-- designer: should a ButtonGroup ever be small? --> |
-| `big` | _Pending design guidance_ <!-- designer: does Button's guidance for `big` (header and modal-footer actions) apply to a ButtonGroup? --> The labels are shown in uppercase. |
+| `default` | Most contexts. |
+| `small` | [BreadcrumbItem](?path=/docs/components-breadcrumbitem--docs) only. Don't use it elsewhere for now. |
+| `big` | Header and modal-footer buttons, where you want to raise emphasis. The label is shown in uppercase. |
 
 ## Accessibility
 - When the purpose of the group is not clear from the surrounding context, add an `aria-label` or `aria-labelledby` on the ButtonGroup.

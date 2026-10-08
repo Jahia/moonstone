@@ -37,7 +37,7 @@ and the new checked state as its third.
 - Don't use a Checkbox for a form field that needs a label, a helper text, or an error message. Use a [FieldBoolean](?path=/docs/components-fieldboolean--docs) instead.
 - Don't use separate Checkboxes for a set of related options. Use a [CheckboxGroup](?path=/docs/components-checkboxgroup--docs) instead.
 - Don't use a Checkbox when the user must choose exactly one option. Use a [RadioGroup](?path=/docs/components-radiogroup--docs) instead.
-- Don't use a Checkbox for an on/off setting that applies immediately. Use a [Switch](?path=/docs/components-switch--docs) instead.
+- Don't use a Checkbox for an on/off setting that applies immediately, without a save step. Use a [Switch](?path=/docs/components-switch--docs) instead.
 
 ## Appearance
 

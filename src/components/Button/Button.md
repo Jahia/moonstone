@@ -13,7 +13,7 @@ import {Button} from '@jahia/moonstone';
 ## Don't
 - Don't use a Button to navigate to another page or URL. Use a native link instead, or a navigation component such as a [Breadcrumb](?path=/docs/components-breadcrumb--docs) or a [Tab](?path=/docs/components-tab--docs).
 - Don't use separate Buttons for a group of related actions. Wrap them in a [ButtonGroup](?path=/docs/components-buttongroup--docs).
-- Don't use a Button for a binary on/off setting. Use a [Switch](?path=/docs/components-switch--docs) instead.
+- Don't use a Button for an on/off setting that applies immediately, without a save step. Use a [Switch](?path=/docs/components-switch--docs) instead.
 - Don't use a Button for a control that holds a pressed or active state. Use a [ButtonToggle](?path=/docs/components-buttontoggle--docs) instead.
 
 ## Appearance
