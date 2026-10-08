@@ -13,16 +13,16 @@ import styles from './Button.module.scss';
 // We have many conditions because of classname=..., we can safely ignore complexity here
 // eslint-disable-next-line complexity
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
-    label = '',
+    label,
     size = 'default',
-    isReversed = false,
-    isDisabled = false,
-    isLoading = false,
-    icon = null,
-    iconEnd = null,
+    isReversed,
+    isDisabled,
+    isLoading,
+    icon,
+    iconEnd,
     variant = 'default',
     color = 'default',
-    className = null,
+    className,
     onClick,
     ...props
 }, ref) => {

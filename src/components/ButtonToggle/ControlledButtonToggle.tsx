@@ -18,7 +18,7 @@ const ControlledButtonToggleForwardRef: React.ForwardRefRenderFunction<HTMLButto
     iconStart,
     iconEnd,
     className,
-    onChange = () => undefined,
+    onChange,
     onClick,
     ...props
 }, ref) => {
@@ -26,7 +26,7 @@ const ControlledButtonToggleForwardRef: React.ForwardRefRenderFunction<HTMLButto
         onClick?.(e);
         (e.currentTarget as HTMLElement).blur();
         if (!isDisabled && !isLoading) {
-            onChange(e, !isPressed);
+            onChange?.(e, !isPressed);
         }
     };
 

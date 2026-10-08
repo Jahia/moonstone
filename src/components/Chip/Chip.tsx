@@ -9,11 +9,11 @@ import type { ChipProps } from './Chip.types';
 import styles from './Chip.module.scss';
 
 export const Chip: React.FC<ChipProps> = ({
-    label = '',
+    label,
     color = 'default',
     variant = 'default',
-    icon = null,
-    isDisabled = false,
+    icon,
+    isDisabled,
     className,
     ...props
 }) => (

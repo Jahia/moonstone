@@ -90,14 +90,14 @@ const ItemTypeResolver: React.FC<ItemTypeResolverProps> = ({
 
 export const PrimaryNavItem: React.FC<PrimaryNavItemProps> = ({
     label = '',
-    icon = null,
-    className = null,
-    subtitle = null,
-    url = null,
-    button = null,
+    icon,
+    className,
+    subtitle,
+    url,
+    button,
     isSelected = false,
-    onClick = () => undefined,
-    badge = null,
+    onClick,
+    badge,
     ...props
 }) => {
     const primaryNavContext = useContext(PrimaryNavContext);
@@ -117,7 +117,7 @@ export const PrimaryNavItem: React.FC<PrimaryNavItemProps> = ({
                         primaryNavContext.collapse();
                     }
 
-                    onClick(e);
+                    onClick?.(e);
                 },
             })}
             {...props}

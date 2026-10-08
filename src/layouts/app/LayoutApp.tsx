@@ -9,9 +9,9 @@ import type { LayoutAppProps } from './LayoutApp.types';
 import styles from './LayoutApp.module.scss';
 
 export const LayoutApp = React.forwardRef(({
-    navigation = null,
-    content = null,
-    isLoading = false,
+    navigation,
+    content,
+    isLoading,
 }: LayoutAppProps, ref: React.ForwardedRef<HTMLDivElement>) => {
     const classNameProps = clsx(
         'moonstone-layoutApp_content',
