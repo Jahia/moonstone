@@ -8,13 +8,10 @@ import {ListItem} from '~/components';
 ```
 
 ## Do
-- Use it to render a single row of a list, such as a settings list or a menu.
-- Pair it with a leading icon or image to help identify the item, and a trailing icon, such as a chevron, to hint at a next step.
-- Use it to show a secondary line of detail below the main text, such as extra context about the item.
-- Use it to build [MenuItem](?path=/docs/components-menuitem--docs)'s row, and the draggable rows of [ListSelector](?path=/docs/components-listselector--docs)'s dual list.
+- Use it to build the row of [MenuItem](?path=/docs/components-menuitem--docs), and the draggable rows of [ListSelector](?path=/docs/components-listselector--docs)'s two lists.
 
 ## Don't
-- Don't use ListItem alone for a menu item that needs keyboard focus and arrow-key navigation between items. Use [MenuItem](?path=/docs/components-menuitem--docs) instead.
+- Don't use ListItem in application code. Use a [MenuItem](?path=/docs/components-menuitem--docs) inside a [Menu](?path=/docs/components-menu--docs) for a list of actions, or a [ListSelector](?path=/docs/components-listselector--docs) to pick and order values.
 
 ## Appearance
 

@@ -9,7 +9,7 @@ export type ListItemProps = Omit<React.ComponentPropsWithRef<'li'>, 'className'>
     className?: string;
 
     /**
-     * ListItem label
+     * Main text of the row.
      */
     label: React.ReactNode;
 
@@ -24,7 +24,7 @@ export type ListItemProps = Omit<React.ComponentPropsWithRef<'li'>, 'className'>
     iconStart?: React.ReactElement;
 
     /**
-     * A trailing icon display at the end of ListItem
+     * A trailing icon shown at the end of the row.
      */
     iconEnd?: React.ReactElement;
 
@@ -34,17 +34,20 @@ export type ListItemProps = Omit<React.ComponentPropsWithRef<'li'>, 'className'>
     image?: React.ReactElement;
 
     /**
-     * Sets pre-defined max height/width to image; defaults to small
+     * Size of `image`.
+     * @default 'small'
      */
     imageSize?: 'small' | 'big';
 
     /**
-     * Which variant to pass to the inner typography component. The default is caption
+     * Typography variant of `label`.
+     * @default 'caption'
      */
     typographyVariant?: TypographyVariant;
 
     /**
-     * Which icon size to render.
+     * Size of `iconStart` and `iconEnd`.
+     * @default 'default'
      */
     iconSize?: 'small' | 'default' | 'big';
 };
