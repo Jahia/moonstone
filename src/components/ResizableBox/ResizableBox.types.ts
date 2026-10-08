@@ -27,27 +27,31 @@ export type ResizableBoxMaxWidth = string | number;
 
 export type ResizableBoxProps = {
     /**
-     * Content of the component
+     * Content of the panel.
      */
     children?: React.ReactNode;
     /**
-     * Set the resizable area of the box
+     * Edges the user drags to resize the box. Only `right` is supported.
+     * @default ['right']
      */
     enable?: ResizableBoxEnable[];
     /**
-     * Set the minimum width
+     * Minimum width, in pixels or as a CSS length. Keep it wide enough for the content to stay readable.
+     * @default 50
      */
     minWidth?: ResizableBoxMinWidth;
     /**
-     * Set the maximum width
+     * Maximum width, in pixels or as a CSS length.
+     * @default 200
      */
     maxWidth?: ResizableBoxMaxWidth;
     /**
-     * Set the default size
+     * Size on first render, in uncontrolled mode.
+     * @default {width: '100%', height: 'auto'}
      */
     defaultSize?: Size;
     /**
-     * Manage the size
+     * Size of the box, in controlled mode: update it in `onResizeStop`. `defaultSize` is then ignored.
      */
     size?: Size;
     /**
@@ -55,27 +59,22 @@ export type ResizableBoxProps = {
      */
     className?: string;
     /**
-     * Role
+     * ARIA role of the root element.
+     * @default 'region'
      */
     role?: string;
     /**
-     * Function triggered when the resize begins
-     * @param {object} e - Mouse event
-     * @param {string} dir - Direction resized
-     * @param {node} ref - HTML element resized
+     * Called when the user starts a resize, with the event, the resized edge, and the resized element.
      */
     onResizeStart?: ResizeStartCallback;
     /**
-     * Function on resizing
-     * @param {object} e - event
+     * Called on every move during a resize, with the event, the resized edge, the resized element,
+     * and the change of size since the resize began.
      */
     onResizing?: ResizeCallback;
     /**
-     * Function triggered when the resize is finished
-     * @param {object} e - Mouse event
-     * @param {string} dir - Direction resized
-     * @param {node} ref - HTML element resized
-     * @param {object} delta - delta between after resize
+     * Called when the user ends a resize, with the event, the resized edge, the resized element,
+     * and the change of size since the resize began.
      */
     onResizeStop?: ResizeCallback;
 };
