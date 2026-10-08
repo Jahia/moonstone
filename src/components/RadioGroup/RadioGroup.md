@@ -15,10 +15,8 @@ In both modes, one item is always selected: the first one when no value is given
 
 - **Uncontrolled** (default): the component tracks the selected item itself. Optionally set the
   starting item with `defaultValue`. Use it when nothing else needs to read or drive the choice.
-  In this mode, the second argument of `onChange` is the previously selected value. Read the new
-  one from `event.target.value`.
   ```jsx
-  <RadioGroup name="visibility" defaultValue="public" onChange={event => saveVisibility(event.target.value)}>
+  <RadioGroup name="visibility" defaultValue="public" onChange={(event, value) => saveVisibility(value)}>
       <RadioItem id="visibility-public" label="Public" value="public"/>
       <RadioItem id="visibility-private" label="Private" value="private"/>
   </RadioGroup>

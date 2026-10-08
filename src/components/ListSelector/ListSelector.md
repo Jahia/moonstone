@@ -20,9 +20,6 @@ import {ListSelector} from '@jahia/moonstone';
   languages" and "Remove all languages". They name the two icon-only buttons between the lists,
   and the defaults, "Add all" and "Remove all", are too generic.
 - Build the `selected` text from the number of values yourself. The component shows it as is.
-- Always pass every key of `label`. With a partial object, missing list titles are not shown,
-  `addAllTitle` and `removeAllTitle` fall back to "Add all" and "Remove all", and `selected`
-  falls back to "0 item selected" whatever the number of values.
 
 ## Accessibility
 - Enter or Space adds the focused option of the left list.

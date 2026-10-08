@@ -2,9 +2,9 @@
 ```jsx
 import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from '@jahia/moonstone';
 
-<Modal isOpen={isOpen} aria-labelledby="delete-project-title" onOpenChange={setIsOpen}>
+<Modal isOpen={isOpen} onOpenChange={setIsOpen}>
     <>
-        <ModalHeader id="delete-project-title" title="Delete project"/>
+        <ModalHeader title="Delete project"/>
         <ModalBody>
             <YourContent/>
         </ModalBody>

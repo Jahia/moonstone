@@ -2,7 +2,7 @@
 ```jsx
 import {Loader} from '@jahia/moonstone';
 
-<Loader aria-label="Loading content"/>
+<Loader size="medium" aria-label="Loading content"/>
 ```
 
 ## Do
@@ -16,8 +16,6 @@ import {Loader} from '@jahia/moonstone';
 - Don't keep a Loader once the content has loaded with nothing to show. Use an [EmptyData](?path=/docs/components-emptydata--docs) instead.
 
 ## Appearance
-
-Always set `size`. Without it, the spinner is not drawn.
 
 ### `size` for prominence
 

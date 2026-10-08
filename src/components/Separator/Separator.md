@@ -48,6 +48,3 @@ import {Separator} from '@jahia/moonstone';
 | `lastChild` | A separator rendered after each item, so none shows after the last one. It hides when it is the last child of its parent. |
 | `onlyChild` | A separator that may end up alone, with nothing to separate. It hides when it is the only child of its parent. |
 | `firstOrLastChild` | A separator that may land at either edge, such as around a repeated item. It hides when it is the first or the last child of its parent. |
-
-## Accessibility
-- For a vertical Separator, pass `aria-orientation="vertical"`. A separator is horizontal for assistive technology unless told otherwise.
