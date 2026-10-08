@@ -10,13 +10,11 @@ export default {
         componentSubtitle: 'A raised surface that groups a block of related content.',
         docs: { description: { component: markdownNotes } },
     },
+    args: { children: 'Content here' },
 };
 
-export const Default: StoryObj<typeof Paper> = {
-    render: args => <Paper {...args}>Content here</Paper>,
-};
+export const Default: StoryObj<typeof Paper> = {};
 
 export const NoPadding: StoryObj<typeof Paper> = {
-    render: args => <Paper {...args}>Content here</Paper>,
     args: { hasPadding: false },
 };

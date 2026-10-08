@@ -3,7 +3,6 @@ import markdownNotes from './ListItem.md?raw';
 import imgHorizontal from '~/__storybook__/assets/img-horizontal.webp';
 import imgSquare from '~/__storybook__/assets/img-square.webp';
 import imgVertical from '~/__storybook__/assets/img-vertical.webp';
-import { iconArgType } from '~/__storybook__/iconArgType';
 import { Cloud, Love } from '~/icons';
 
 import type { ListItemProps } from './ListItem.types';
@@ -18,10 +17,6 @@ export default {
         layout: 'centered',
         componentSubtitle: 'A single row to build lists and menus from.',
         docs: { description: { component: markdownNotes } },
-    },
-    argTypes: {
-        iconStart: iconArgType,
-        iconEnd: iconArgType,
     },
 };
 

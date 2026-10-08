@@ -15,6 +15,10 @@ export default {
     },
 };
 
+export const Playground: StoryObj<typeof Typography> = {
+    render: args => <Typography {...args}>Playground</Typography>,
+};
+
 export const Variants = () => (
     <section className="storyWrapper">
         <div className="storyItem">
@@ -43,7 +47,3 @@ export const Links = () => (
         <Typography component="a" href="#links">This text is a link</Typography>
     </section>
 );
-
-export const Playground: StoryObj<typeof Typography> = {
-    render: args => <Typography {...args}>Playground</Typography>,
-};

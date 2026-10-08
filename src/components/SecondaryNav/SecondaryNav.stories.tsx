@@ -23,10 +23,11 @@ export default {
         componentSubtitle: 'The second-level navigation of an application section.',
         docs: { description: { component: markdownNotes } },
     },
+    args: { children: 'My content here' },
 } as Meta<typeof SecondaryNav>;
 
 const Template: StoryFn<SecondaryNavProps> = args => (
-    <SecondaryNav {...args}>My content here</SecondaryNav>
+    <SecondaryNav {...args}/>
 );
 
 export const TextTitle = {

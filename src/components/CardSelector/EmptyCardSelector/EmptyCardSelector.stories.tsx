@@ -1,6 +1,5 @@
 import markdownNotes from './EmptyCardSelector.md?raw';
 import { EmptyCardSelector } from './index';
-import { iconArgType } from '~/__storybook__/iconArgType';
 import { File } from '~/icons';
 
 import type { EmptyCardSelectorProps } from './EmptyCardSelector.types';
@@ -16,9 +15,6 @@ const meta: Meta<typeof EmptyCardSelector> = {
         docs: { description: { component: markdownNotes } },
         layout: 'padded',
         actions: { argTypesRegex: '^on.*' },
-    },
-    argTypes: {
-        iconStart: iconArgType,
     },
 };
 export default meta;

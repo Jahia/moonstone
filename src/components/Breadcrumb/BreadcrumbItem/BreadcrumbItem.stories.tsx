@@ -1,5 +1,4 @@
 import markdownNotes from './BreadcrumbItem.md?raw';
-import { iconArgType } from '~/__storybook__/iconArgType';
 // Import '~/__storybook__/storybook.scss';
 import { Breadcrumb, BreadcrumbItem } from '~/components';
 import { Love } from '~/icons';
@@ -22,10 +21,6 @@ export default {
         docs: { description: { component: markdownNotes } },
         layout: 'centered',
         actions: { argTypesRegex: '^on.*' },
-    },
-    argTypes: {
-        icon: iconArgType,
-        iconEnd: iconArgType,
     },
 } as Meta<typeof BreadcrumbItem>;
 

@@ -209,6 +209,7 @@ export default {
 
 ### Element props (icon, children…) — clean Controls
 
-React-element props (`icon`, `iconStart`, `iconEnd`) render as a clean Controls dropdown through
-`iconArgType` (`~/__storybook__/iconArgType`), set in the stories meta `argTypes`. Follow Button.
-It is a story change: emit it as a snippet.
+`.storybook/preview.jsx` gives every prop its control from its type, for every story: an icon
+prop (`icon`, `iconStart`, `iconEnd`…) gets the icon select, a `ReactNode` prop a text field, and
+`ref`, element, and `on*` props no control. Stories pass icons as elements (`icon: <Love/>`), as
+the types require; never add `iconArgType` to a story's `argTypes`.

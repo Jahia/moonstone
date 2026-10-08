@@ -1,6 +1,5 @@
 import markdownNotes from './IconTextIcon.md?raw';
 import { IconTextIcon } from './index';
-import { iconArgType } from '~/__storybook__/iconArgType';
 import { Apps, Love } from '~/icons';
 
 export default {
@@ -10,10 +9,6 @@ export default {
         layout: 'centered',
         componentSubtitle: 'Short text framed by icons.',
         docs: { description: { component: markdownNotes } },
-    },
-    argTypes: {
-        iconStart: iconArgType,
-        iconEnd: iconArgType,
     },
 };
 

@@ -1,6 +1,5 @@
 import markdownNotes from './AccordionItem.md?raw';
 import { AccordionItem } from './index';
-import { iconArgType } from '~/__storybook__/iconArgType';
 import { Accordion } from '~/components/Accordion';
 import { Love } from '~/icons';
 
@@ -24,14 +23,12 @@ export default {
         docs: { description: { component: markdownNotes } },
         actions: { argTypesRegex: '^on.*' },
     },
-    argTypes: {
-        icon: iconArgType,
-    },
+    args: { children: 'Content here' },
 } as Meta<typeof AccordionItem>;
 
 const Template: StoryFn<AccordionItemProps> = args => (
     <Accordion>
-        <AccordionItem {...args}>Content here</AccordionItem>
+        <AccordionItem {...args}/>
     </Accordion>
 );
 
@@ -41,7 +38,7 @@ export const WithIcon = {
     args: {
         id: 'id',
         label: 'AccordionItem',
-        icon: <Love size="big"/>,
+        icon: <Love/>,
     },
 };
 
