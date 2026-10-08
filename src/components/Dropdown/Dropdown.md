@@ -60,6 +60,7 @@ import {Dropdown} from '@jahia/moonstone';
 - Always pass a `placeholder`. While nothing is selected, it is the accessible name of the field.
   Once a value is selected, the label of that option is used instead.
 - Enter opens the list. Space and the Down arrow key open it too (soon).
+- Opening the list with the keyboard moves the focus into the options (soon).
 - The Up and Down arrow keys move the focus between options.
 - Home and End move the focus to the first and last options (soon).
 - Enter selects the focused option and closes the list. In multiple selection, Space toggles the

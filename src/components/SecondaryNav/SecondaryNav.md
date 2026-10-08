@@ -19,7 +19,6 @@ import {SecondaryNav, SecondaryNavHeader, TreeView} from '@jahia/moonstone';
 ## Don't
 - Don't use it for the top-level navigation of the application. Use [PrimaryNav](?path=/docs/components-primarynav--docs) instead.
 - Don't use it to switch between views inside a page. Use [Tab](?path=/docs/components-tab--docs) instead.
-- Don't use it as a generic resizable side panel. Use a ResizableBox instead.
 
 ## Accessibility
 - Pass an `aria-label` that names the navigation, such as "Site content". It is forwarded to the root element, which is a landmark region.

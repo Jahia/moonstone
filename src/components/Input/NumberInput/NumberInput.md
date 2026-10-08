@@ -14,6 +14,14 @@ import {NumberInput} from '@jahia/moonstone';
   uncontrolled for a simple field whose value you only need on submit.
 - Don't mix the two modes. Passing both `value` and `defaultValue` is not supported.
 
+```jsx
+// Controlled
+<NumberInput aria-label="Quantity" value={quantity} onChange={e => setQuantity(e.target.value)}/>
+
+// Uncontrolled
+<NumberInput aria-label="Quantity" defaultValue="1"/>
+```
+
 ## Do
 - Use it to capture a number typed by the user, such as a quantity, a limit, or a price.
 - Use it when the user benefits from stepping the value up and down with the arrow keys.

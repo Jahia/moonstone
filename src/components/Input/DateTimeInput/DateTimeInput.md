@@ -13,10 +13,18 @@ import {DateTimeInput} from '@jahia/moonstone';
   `defaultValue`, the field starts at the current date/time; pass `defaultValue={null}` to start empty.
 - Don't mix the two modes. Passing both `value` and `defaultValue` is not supported.
 
+```jsx
+// Controlled
+<DateTimeInput type="date" aria-label="Publication date" value={date} onChange={(e, next) => setDate(next)}/>
+
+// Uncontrolled
+<DateTimeInput type="date" aria-label="Publication date" defaultValue="2026-06-19"/>
+```
+
 ## Do
 - Use it to capture a calendar date, optionally with a time and a timezone, such as a publish
   date, a deadline, or a scheduled event.
-- Pair it with [Field](?path=/docs/components-field--docs) when it needs a label, helper text, or an error message.
+- Use it inside a [Field](?path=/docs/components-field--docs) when it needs a visible label, helper text, or an error message.
 
 ## Don't
 - Don't use it to capture a time with no date. Use [TimeInput](?path=/docs/components-timeinput--docs) instead.
@@ -43,7 +51,10 @@ import {DateTimeInput} from '@jahia/moonstone';
 ## Accessibility
 - Always give it a label. Use a [Field](?path=/docs/components-field--docs), or pass an `aria-label` when it stands alone.
 - Enter or Space on the date field opens the calendar. Escape closes it.
+- Opening the calendar moves the focus to the selected day (soon).
 - In the calendar, the Left and Right arrow keys move between days, and the Up and Down arrow
   keys between weeks. Enter selects the focused day and closes the calendar.
+- Selecting a day with Enter returns the focus to the date field (soon).
+- Escape on a day closes the calendar and returns the focus to the date field (soon).
 - Override `i18n`'s calendar and timezone labels when translating; left unset, they default to
   English.

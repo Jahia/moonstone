@@ -46,3 +46,4 @@ import {Input} from '@jahia/moonstone';
 ## Accessibility
 - Always give the Input a label. Use a [Field](?path=/docs/components-field--docs), or pass an `aria-label` when the Input stands alone.
 - Don't rely on the placeholder as the label. It disappears as soon as the user types.
+- Clearing the Input with the clear button returns the focus to the Input (soon).

@@ -68,10 +68,9 @@ When you pass `onClickItem`, a click on a node's label calls it instead of openi
 - Set `isLoading` on a node while its children load. The node is then reported as busy.
 - The Up and Down arrow keys move the focus between visible nodes.
 - Home and End move the focus to the first and last visible nodes (soon).
-- The Right arrow key opens a closed node, and the Left arrow key closes an open one. Space opens
-  or closes the focused node.
-- On an open node, the Right arrow key moves the focus to the first child. On a child node, the
-  Left arrow key moves it to the parent (soon).
-- Enter selects the focused node.
+- The Right arrow key opens a closed node, and the Left arrow key closes an open one.
+- On an open node, the Right arrow key moves the focus to the first child (soon).
+- On a child node, the Left arrow key moves the focus to the parent (soon).
+- Enter selects the focused node. Space selects it too (soon).
 - `*` opens all the sibling nodes (soon).
 - A disabled or read-only node doesn't call `onClickItem`, with the mouse or the keyboard. The user can still open and close it.

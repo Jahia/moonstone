@@ -48,7 +48,7 @@ The callbacks receive the new state: `onSortChange(sortBy, sortDirection)`, `onC
 - Don't render a DataTable to show that there is nothing to display. It renders nothing when `data` is empty, so render an [EmptyData](?path=/docs/components-emptydata--docs) in its place.
 - Don't use a DataTable when you write the markup of every row and cell yourself, or when an external table library already drives the table. Use a [Table](?path=/docs/components-table--docs) instead.
 - Don't build custom DataTable rows with the `TableRow` and cells exported from `@jahia/moonstone`. They belong to [Table](?path=/docs/components-table--docs). Import **TableRow**, **TableCellStatus**, and **TableCellActions** from `@jahia/moonstone/DataTable` instead.
-- Don't add a separate **Pagination** under a DataTable. Use its built-in pagination instead.
+- Don't add a separate [Pagination](?path=/docs/components-pagination--docs) under a DataTable. Use its built-in pagination instead.
 
 ## Voice and tone
 - Write column labels in sentence case, using a few words (3 maximum), such as "Last modified". Never write a full sentence.

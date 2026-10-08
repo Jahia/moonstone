@@ -20,6 +20,14 @@ import {Dropdown, SearchContextInput} from '@jahia/moonstone';
 - The [Dropdown](?path=/docs/components-dropdown--docs) in `searchContext` stays controlled by you, through its own `value` and
   `onChange`.
 
+```jsx
+// Controlled
+<SearchContextInput aria-label="Search" searchContext={scopeDropdown} value={query} onChange={e => setQuery(e.target.value)}/>
+
+// Uncontrolled
+<SearchContextInput aria-label="Search" searchContext={scopeDropdown} defaultValue="home"/>
+```
+
 ## Do
 - Use it for a search box where the user also picks where to search, such as in pages, media, or
   users.

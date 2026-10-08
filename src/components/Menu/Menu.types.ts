@@ -83,7 +83,7 @@ export type MenuProps = {
 
     /**
      * Autosearch is triggered when data items exceed this limit
-     * Applies only when autosearch is enabled (i.e. hasSearch is undefined)
+     * Applies only when autosearch is enabled, that is when `hasSearch` is undefined.
      * Defaults to 7 if undefined or < 0
      * Autosearch is when search input is automatically added in the dropdown
      */
@@ -96,7 +96,7 @@ export type MenuProps = {
 
     /**
      * If 'absolute' is passed in for the position, the component will be positioned as per normal
-     * CSS rules (i.e., positioned against the closest positioned ancestor). Position is 'fixed' by default
+     * CSS rules, that is positioned against the closest positioned ancestor. Position is 'fixed' by default
      */
     position?: PositioningType;
 

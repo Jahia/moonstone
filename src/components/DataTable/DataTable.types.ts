@@ -76,7 +76,7 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
     /** Alignment of the column content */
     align?: 'left' | 'center' | 'right';
     /**
-     * Column width as a CSS string (e.g., '250px', '20%').
+     * Column width as a CSS string, such as `'250px'` or `'20%'`.
      * When undefined, the column takes all available space.
      */
     width?: string;
@@ -209,7 +209,7 @@ export type RenderRowContext<T extends NonNullable<unknown>> = RowContext<T> & {
 
 type RenderRowProps<T extends NonNullable<unknown>> = {
     /**
-     * Custom render function for rows (e.g. custom styling, wrapper elements).
+     * Custom render function for rows, such as for custom styling or wrapper elements.
      * @param context - Row context with id, data, meta, and render function.
      */
     renderRow?: (context: RenderRowContext<T>) => React.ReactNode;

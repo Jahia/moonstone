@@ -95,7 +95,7 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 
     /**
-     * Function triggered on blur of the input (i.e., focussing away from the input)
+     * Function triggered on blur of the input, when the focus leaves it
      */
     onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
 
