@@ -12,7 +12,7 @@ import {IconTextIcon} from '@jahia/moonstone';
 ## Don't
 - Don't use an IconTextIcon for a clickable action. Use a [Button](?path=/docs/components-button--docs) with an icon instead.
 - Don't use an IconTextIcon to show the status of an item as a label. Use a [Chip](?path=/docs/components-chip--docs) instead. <!-- designer: where is the line between an icon-and-text pair (IconTextIcon) and a status or content-type label (Chip)? -->
-- Don't use an IconTextIcon for text that must wrap over several lines. By default it keeps the text on one line and truncates it. Place the icon next to a [Typography](?path=/docs/tokens-typography--docs) instead.
+- Don't use an IconTextIcon for text that must wrap over several lines. By default it keeps the text on one line and truncates it. Place the icon next to a [Typography](?path=/docs/components-typography--docs) instead.
 
 ## Appearance
 

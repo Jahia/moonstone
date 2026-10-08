@@ -35,7 +35,7 @@ import {ListItem} from '~/components';
 
 ### `typographyVariant` for emphasis
 
-Passed straight through to the inner [Typography](?path=/docs/tokens-typography--docs) that renders `label`.
+Passed straight through to the inner [Typography](?path=/docs/components-typography--docs) that renders `label`.
 
 | Value | Use it for |
 |---|---|

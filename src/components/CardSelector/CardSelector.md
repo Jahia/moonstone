@@ -11,7 +11,7 @@ import {CardSelector} from '@jahia/moonstone';
 - Pair it with [EmptyCardSelector](?path=/docs/components-emptycardselector--docs) to handle the state before the user has made a selection.
 
 ## Don't
-- Don't use it as a purely decorative display with no clickable behavior. Use [Thumbnail](?path=/docs/components-thumbnail--docs) combined with [Typography](?path=/docs/tokens-typography--docs) instead.
+- Don't use it as a purely decorative display with no clickable behavior. Use [Thumbnail](?path=/docs/components-thumbnail--docs) combined with [Typography](?path=/docs/components-typography--docs) instead.
 
 ## Appearance
 

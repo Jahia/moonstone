@@ -4,7 +4,7 @@ import markdownNotes from './Typography.md?raw';
 import type { StoryObj } from '@storybook/react-vite';
 
 export default {
-    title: 'Tokens/Typography',
+    title: 'Components/Typography',
     component: Typography,
     parameters: {
         componentSubtitle: 'Any text you render.',

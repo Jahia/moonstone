@@ -11,7 +11,7 @@ import {Badge} from '@jahia/moonstone';
 ## Don't
 - Don't use Badge to label a category, a tag, or a user-selected attribute. Use [Chip](?path=/docs/components-chip--docs) instead.
 - Don't use Badge to show a status label or supplementary tag inside a dropdown list item. Use [Pill](?path=/docs/components-pill--docs) instead.
-- Don't use Badge to render text that forms part of the page's reading flow. Use [Typography](?path=/docs/tokens-typography--docs) instead.
+- Don't use Badge to render text that forms part of the page's reading flow. Use [Typography](?path=/docs/components-typography--docs) instead.
 
 ## Appearance
 

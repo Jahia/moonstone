@@ -13,7 +13,7 @@ import {Header} from '@jahia/moonstone';
 
 ## Don't
 - Don't use it for the navigation of the application. Use [PrimaryNav](?path=/docs/components-primarynav--docs) or [SecondaryNav](?path=/docs/components-secondarynav--docs) instead.
-- Don't use it to title a section inside a page. Use [Typography](?path=/docs/tokens-typography--docs) instead.
+- Don't use it to title a section inside a page. Use [Typography](?path=/docs/components-typography--docs) instead.
 - Don't use it as the header of a modal. Use [ModalHeader](?path=/docs/components-modalheader--docs) instead.
 - Don't use it to title a secondary navigation panel. Use [SecondaryNavHeader](?path=/docs/components-secondarynavheader--docs) instead.
 

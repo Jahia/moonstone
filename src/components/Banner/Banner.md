@@ -16,7 +16,7 @@ import {Banner} from '@jahia/moonstone';
 ## Don't
 - Don't use a Banner for a validation error on a single form field. Use a [Field](?path=/docs/components-field--docs) instead.
 - Don't use a Banner to interrupt the user and require a response before they continue. Use a [Modal](?path=/docs/components-modal--docs) instead.
-- Don't use a Banner for a heading or body text that carries no status. Use [Typography](?path=/docs/tokens-typography--docs) instead.
+- Don't use a Banner for a heading or body text that carries no status. Use [Typography](?path=/docs/components-typography--docs) instead.
 - Don't use a Banner for brief information shown on hover. Use a [Tooltip](?path=/docs/components-tooltip--docs) instead.
 
 ## Appearance
