@@ -29,20 +29,6 @@ import {TimeInput} from '@jahia/moonstone';
 | `24h` | The default. Most contexts, especially schedules, logs, and 24-hour operations. |
 | `12h` | Audiences or locales that expect AM/PM. Adds an AM/PM dropdown next to the field. |
 
-### `variant` for emphasis
-
-| Value | Use it for |
-|---|---|
-| `ghost` | A borderless field, such as one embedded in a toolbar or a compact filter bar. |
-| `outlined` | The default. A field with a visible border, the typical choice inside a form or a [Field](?path=/docs/components-field--docs). |
-
-### `size` for prominence
-
-| Value | Use it for |
-|---|---|
-| `default` | Small contexts, such as [SecondaryNav](?path=/docs/components-secondarynav--docs) or [Menu](?path=/docs/components-menu--docs). |
-| `big` | The main area of the product, such as a form or a table. |
-
 ## Voice and tone
 - Write `placeholder` text in sentence case, and keep it short. The default, `hh:mm`, already
   shows the expected format.

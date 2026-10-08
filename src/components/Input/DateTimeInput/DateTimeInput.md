@@ -24,8 +24,7 @@ import {DateTimeInput} from '@jahia/moonstone';
 
 ## Appearance
 
-`type` determines which fields render and which value is emitted; `variant` and `size` only
-affect the field's own styling.
+`type` determines which fields render and which value is emitted.
 
 ### `type` for scope
 
@@ -34,20 +33,6 @@ affect the field's own styling.
 | `date` | A date only, with no time, such as a deadline, a due date, or a birthday. |
 | `dateTime` | A date and a time, such as scheduling within a single timezone. |
 | `zonedDateTime` | A date, a time, and a timezone together, such as scheduling across timezones. The timezone picker only changes how the value is displayed, never the value itself. |
-
-### `variant` for emphasis
-
-| Value | Use it for |
-|---|---|
-| `ghost` | A borderless field, such as one embedded in a toolbar or a compact filter bar. |
-| `outlined` | A field with a visible border, the typical choice inside a form or a [Field](?path=/docs/components-field--docs). |
-
-### `size` for prominence
-
-| Value | Use it for |
-|---|---|
-| `default` | Small contexts, such as [SecondaryNav](?path=/docs/components-secondarynav--docs) or [Menu](?path=/docs/components-menu--docs). |
-| `big` | The main area of the product, such as a form or a table. |
 
 ## Voice and tone
 - Write `i18n.todayButton` as a short, verb-first action label in sentence case, such as "Today".

@@ -26,20 +26,6 @@ import {NumberInput} from '@jahia/moonstone';
 
 ## Appearance
 
-### `size` for prominence
-
-| Value | Use it for |
-|---|---|
-| `default` | _Pending design guidance_ <!-- designer: does the Input size guidance apply to NumberInput? --> |
-| `big` | _Pending design guidance_ <!-- designer: does the Input size guidance apply to NumberInput? --> |
-
-### `variant` for emphasis
-
-| Value | Use it for |
-|---|---|
-| `outlined` | _Pending design guidance_ <!-- designer: default value. Confirm it is the standard look for a form field. --> |
-| `ghost` | _Pending design guidance_ <!-- designer: where should a borderless NumberInput be used? --> |
-
 ### `separator` for locale
 
 | Value | Use it for |

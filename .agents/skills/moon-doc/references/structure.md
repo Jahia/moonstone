@@ -77,9 +77,9 @@ Per-section content (for phrasing, see `style.md`):
 - **Appearance** — see the pattern below.
 - **Voice and tone** — include ONLY for components where the user writes copy (Button, Input,
   Field, EmptyData…); omit for components with no user copy (Typography, Table, Loader). When
-  present, state the relevant rules **inline** (sentence case; a few words, 3 max, never a
-  sentence; verb-first; be specific, never "OK") plus any component-specific rule. **Never link
-  to `ui-copy.md`**; the section is self-contained.
+  present, state the relevant rules of `ui-copy.md` **inline**, worded as `ui-copy.md` words
+  them, plus any component-specific rule. **Never link to `ui-copy.md`**; the section is
+  self-contained.
 - **Accessibility** — plain bullets, no sub-section. Two kinds only:
   - What the consumer must **add at implementation**, and when (for example, "Add an
     `aria-label` when the Button has no `label`.", "Add `aria-hidden="true"` on a decorative
@@ -123,6 +123,11 @@ gist> `` followed by a two-column table, one row per allowed value:
 - Optionally open with **one** short sentence stating a cross-prop principle.
 - **Never invent design intent.** The "Use it for" cells are the designer's call: write
   `_Pending design guidance_` with a brief `<!-- designer: … -->` hint rather than a guess.
+- **A shared prop is worded by its source component.** When a prop's type is inherited from
+  another component's type (TimeInput's `size` comes from BaseInput, so from Input), copy the
+  "Use it for" text of the source component's doc word for word, `_Pending design guidance_`
+  included. To change it, change the source doc, then every copy. Never copy a text from a
+  sibling whose prop merely has the same name.
 
 ## Families (a parent and its sub-components)
 
@@ -161,6 +166,9 @@ The props' JSDoc is user-facing: the IDE shows it, and Storybook renders it as t
   prop does, plus the one fact a user would get wrong. Put defaults in `@default`.
 - **JSDoc must match the code.** Defaults, types, and nullability in the doc must reflect the
   implementation; a stale or aspirational doc is a defect. Flag it and emit the fix.
+- **A `@deprecated` tag says why the prop goes or what replaces it**, in full sentences, such as
+  ``@deprecated Use `onKeyUp` instead.`` Never write "deprecated" in it: the Props table lists the
+  prop under *Deprecated*, led by this message, and the IDE strikes it through.
 - **Non-obvious booleans get a one-sentence rationale** in their JSDoc (see *The Appearance
   pattern*).
 - Edit only the `/** … */` blocks, never the types or the code (see the Write workflow).

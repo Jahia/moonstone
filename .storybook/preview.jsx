@@ -121,6 +121,7 @@ setupBackgroundListener();
 export const tags = ['autodocs'];
 
 // Group props into categories in the args table, by Moonstone naming convention:
+//  - @deprecated → "Deprecated", listed last: kept for migrations, led by the tag's message
 //  - on*      → "Events"  (and disable the control: a JSON editor for a callback is meaningless;
 //               handlers belong in the Actions panel, but stay documented here)
 //  - is*/has* → "State", EXCEPT the appearance/theme flags below. Those are not interaction
@@ -128,12 +129,24 @@ export const tags = ['autodocs'];
 // secondPass = run after control inference so our control settings aren't re-inferred away.
 const APPEARANCE_FLAGS = ['isReversed', 'isItalic', 'isUpperCase', 'isNowrap', 'hasLineThrough'];
 const categorizeArgs = (context) => {
-    const { argTypes = {} } = context;
+    const { argTypes = {}, component } = context;
+    // The docgen keeps `@deprecated` in its tags, but the args table drops it
+    const docgenProps = component?.__docgenInfo?.props ?? {};
     const next = {};
     for (const key in argTypes) {
         const argType = argTypes[key];
         const table = argType.table || {};
-        if (/^on[A-Z]/.test(key)) {
+        const deprecated = docgenProps[key]?.tags?.deprecated;
+        if (deprecated !== undefined) {
+            next[key] = {
+                ...argType,
+                description: [deprecated.replace(/([^.])$/, '$1.'), argType.description].filter(Boolean).join(' '),
+                table: {
+                    ...table,
+                    category: 'Deprecated',
+                },
+            };
+        } else if (/^on[A-Z]/.test(key)) {
             next[key] = {
                 ...argType,
                 control: false,
@@ -154,7 +167,10 @@ const categorizeArgs = (context) => {
             next[key] = argType;
         }
     }
-    return next;
+    // The table lists categories in the order of their first prop: deprecated props go last
+    const isDeprecated = key => next[key].table?.category === 'Deprecated';
+    const keys = Object.keys(next);
+    return Object.fromEntries([...keys.filter(key => !isDeprecated(key)), ...keys.filter(isDeprecated)].map(key => [key, next[key]]));
 };
 categorizeArgs.secondPass = true;
 export const argTypesEnhancers = [categorizeArgs];

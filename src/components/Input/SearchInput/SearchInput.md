@@ -26,15 +26,8 @@ import {SearchInput} from '@jahia/moonstone';
 
 | Value | Use it for |
 |---|---|
-| `default` | _Pending design guidance_ <!-- designer: does the Input size guidance apply to SearchInput? --> |
-| `big` | _Pending design guidance_ <!-- designer: does the Input size guidance apply to SearchInput? --> |
-
-### `variant` for emphasis
-
-| Value | Use it for |
-|---|---|
-| `outlined` | _Pending design guidance_ <!-- designer: default value. Confirm it is the standard look for a search box. --> |
-| `ghost` | _Pending design guidance_ <!-- designer: where should a borderless SearchInput be used, such as a toolbar? --> |
+| `default` | Small contexts, such as [SecondaryNav](?path=/docs/components-secondarynav--docs) or [Menu](?path=/docs/components-menu--docs). |
+| `big` | The main area of the product, such as a form or a table. |
 
 ## Voice and tone
 - Write `placeholder` text in sentence case, and keep it short. Say what the user searches, such

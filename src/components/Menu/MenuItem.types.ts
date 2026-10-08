@@ -53,7 +53,7 @@ export type MenuItemProps = Omit<ListItemProps, 'onClick' | 'onMouseEnter' | 'on
     onMouseLeave?: React.MouseEventHandler;
 
     /**
-     * @deprecated onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.
+     * @deprecated Use `onKeyUp` instead.
      */
     onKeyPress?: React.KeyboardEventHandler;
 
