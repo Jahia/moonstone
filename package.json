@@ -56,13 +56,14 @@
     "!*.stories.d.ts"
   ],
   "scripts": {
-    "build": "yarn build:icons && yarn build:storybook && yarn build:lib",
+    "build": "yarn build:icons && yarn build:storybook && yarn build:lib && yarn build:docs",
     "build:icons": "rimraf -g 'src/icons/components/*.tsx' && svgr --template ./src/icons/svgrTemplate.cjs --config-file ./src/icons/svgr.config.cjs ./src/icons/assets",
     "prebuild:lib": "rimraf dist/",
     "build:lib:scoped": "vite build && yarn tsc && tsc-alias -f",
     "build:lib:legacy": "sass src/globals.scss dist/legacy-global-bundle.css --no-source-map --style=compressed",
     "build:lib": "yarn build:lib:scoped && yarn build:lib:legacy && publint",
     "build:storybook": "storybook build",
+    "build:docs": "node scripts/build-docs.mjs",
     "lint": "yarn lint:js && yarn lint:scss",
     "lint:fix": "yarn lint:js:fix && yarn lint:scss:fix",
     "lint:js": "oxlint .",
