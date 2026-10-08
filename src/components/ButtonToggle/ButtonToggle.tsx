@@ -5,12 +5,12 @@ import { ControlledButtonToggle } from './index';
 
 import type { ButtonToggleProps } from './ButtonToggle.types';
 
-export const ButtonToggle: React.FC<ButtonToggleProps> = ({ isPressed, ...props }) => {
+export const ButtonToggle = React.forwardRef<HTMLButtonElement, ButtonToggleProps>(({ isPressed, ...props }, ref) => {
     if (typeof isPressed === 'undefined') {
-        return <UncontrolledButtonToggle {...props}/>;
+        return <UncontrolledButtonToggle ref={ref} {...props}/>;
     }
 
-    return <ControlledButtonToggle isPressed={isPressed} {...props}/>;
-};
+    return <ControlledButtonToggle isPressed={isPressed} ref={ref} {...props}/>;
+});
 
 ButtonToggle.displayName = 'ButtonToggle';

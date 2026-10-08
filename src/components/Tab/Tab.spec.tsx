@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { createRef } from 'react';
 
 import { Tab } from './index';
 
@@ -21,5 +22,13 @@ describe('Tab', () => {
     it('should not display the menu when children is empty', () => {
         render(<Tab data-testid="tabulation">{[]}</Tab>);
         expect(screen.queryByTestId('tabulation')).not.toBeInTheDocument();
+    });
+
+    it('should forward the ref to the tablist', () => {
+        const ref = createRef<HTMLDivElement>();
+
+        render(<Tab ref={ref}>toto</Tab>);
+
+        expect(ref.current).toBe(screen.getByRole('tablist'));
     });
 });

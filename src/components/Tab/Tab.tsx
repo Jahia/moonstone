@@ -7,7 +7,7 @@ import type { TabProps } from './Tab.types';
 
 import styles from './Tab.module.scss';
 
-export const Tab: React.FC<TabProps> = ({ children, className = '', ...props }) => {
+export const Tab = React.forwardRef<HTMLDivElement, TabProps>(({ children, className = '', ...props }, ref) => {
     if (!children || React.Children.count(children) < 1) {
         return null;
     }
@@ -21,11 +21,12 @@ export const Tab: React.FC<TabProps> = ({ children, className = '', ...props }) 
                 ['alignCenter', layout.alignCenter],
                 className,
             )}
+            ref={ref}
             role="tablist"
         >
             {children}
         </div>
     );
-};
+});
 
 Tab.displayName = 'Tab';

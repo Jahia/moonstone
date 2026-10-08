@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useRef } from 'react';
+import React from 'react';
 
 import { Typography } from '../Typography';
 import { Loader } from '~/components/Loader';
@@ -12,7 +12,7 @@ import styles from './Button.module.scss';
 
 // We have many conditions because of classname=..., we can safely ignore complexity here
 // eslint-disable-next-line complexity
-export const Button = ({
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     label = '',
     size = 'default',
     isReversed = false,
@@ -25,9 +25,8 @@ export const Button = ({
     className = null,
     onClick,
     ...props
-}: ButtonProps) => {
+}, ref) => {
     let typoWeight: TypographyWeight = 'default';
-    const ButtonEl = useRef(null);
 
     if (size === 'small') {
         typoWeight = 'light';
@@ -38,7 +37,7 @@ export const Button = ({
     }
 
     const handleOnClick: React.MouseEventHandler = (e) => {
-        onClick(e);
+        onClick?.(e);
     };
 
     const LoaderReversed = Boolean(variant === 'default' && (color === 'accent' || color === 'danger'));
@@ -60,7 +59,7 @@ export const Button = ({
             data-color={color}
             data-size={size}
             data-variant={variant}
-            ref={ButtonEl}
+            ref={ref}
             type="button"
             onClick={e => handleOnClick(e)}
             {...props}
@@ -90,6 +89,6 @@ export const Button = ({
             {label && iconEnd && <iconEnd.type {...iconEnd.props} size={(size === 'big') ? 'default' : size}/>}
         </button>
     );
-};
+});
 
 Button.displayName = 'Button';

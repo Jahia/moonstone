@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { createRef } from 'react';
 
 import { Checkbox } from './index';
 
@@ -151,5 +152,21 @@ describe('Checkbox', () => {
             'aria-readonly',
             'true',
         );
+    });
+
+    it('should forward the ref to the input when uncontrolled', () => {
+        const ref = createRef<HTMLInputElement>();
+
+        render(<Checkbox aria-label="checkbox" ref={ref}/>);
+
+        expect(ref.current).toBe(screen.getByRole('checkbox'));
+    });
+
+    it('should forward the ref to the input when controlled', () => {
+        const ref = createRef<HTMLInputElement>();
+
+        render(<Checkbox aria-label="checkbox" checked={false} ref={ref} onChange={vi.fn()}/>);
+
+        expect(ref.current).toBe(screen.getByRole('checkbox'));
     });
 });

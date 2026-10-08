@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { createRef } from 'react';
 
 import { Textarea } from './index';
 
@@ -62,6 +63,22 @@ describe('Textarea', () => {
         );
 
         expect(screen.getByDisplayValue('type a value')).toBeInTheDocument();
+    });
+
+    it('should forward the ref to the textarea when uncontrolled', () => {
+        const ref = createRef<HTMLTextAreaElement>();
+
+        render(<Textarea ref={ref}/>);
+
+        expect(ref.current).toBe(screen.getByRole('textbox'));
+    });
+
+    it('should forward the ref to the textarea when controlled', () => {
+        const ref = createRef<HTMLTextAreaElement>();
+
+        render(<Textarea ref={ref} value="" onChange={vi.fn()}/>);
+
+        expect(ref.current).toBe(screen.getByRole('textbox'));
     });
 });
 

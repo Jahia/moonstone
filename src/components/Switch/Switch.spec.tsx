@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { createRef } from 'react';
 
 import { Switch } from './index';
 
@@ -90,5 +91,21 @@ describe('Switch', () => {
     it('should be disabled when isDisabled is set', () => {
         render(<Switch isDisabled aria-label="switch"/>);
         expect(screen.getByRole('checkbox')).toBeDisabled();
+    });
+
+    it('should forward the ref to the input when uncontrolled', () => {
+        const ref = createRef<HTMLInputElement>();
+
+        render(<Switch aria-label="switch" ref={ref}/>);
+
+        expect(ref.current).toBe(screen.getByRole('checkbox'));
+    });
+
+    it('should forward the ref to the input when controlled', () => {
+        const ref = createRef<HTMLInputElement>();
+
+        render(<Switch checked aria-label="switch" ref={ref} onChange={vi.fn()}/>);
+
+        expect(ref.current).toBe(screen.getByRole('checkbox'));
     });
 });

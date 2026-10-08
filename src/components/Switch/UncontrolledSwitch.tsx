@@ -4,15 +4,16 @@ import { ControlledSwitch } from '~/components/Switch/ControlledSwitch';
 
 import type { UncontrolledSwitchProps } from './Switch.types';
 
-export const UncontrolledSwitch: React.FC<UncontrolledSwitchProps> = ({
+export const UncontrolledSwitch = React.forwardRef<HTMLInputElement, UncontrolledSwitchProps>(({
     defaultChecked = false, onChange, value, ...props
-}) => {
+}, ref) => {
     const [checked, setChecked] = useState(defaultChecked);
 
     return (
         <ControlledSwitch
             {...props}
             checked={checked}
+            ref={ref}
             value={value}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 const toggleChecked = !checked;
@@ -23,6 +24,6 @@ export const UncontrolledSwitch: React.FC<UncontrolledSwitchProps> = ({
             }}
         />
     );
-};
+});
 
 UncontrolledSwitch.displayName = 'UncontrolledSwitch';

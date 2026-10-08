@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { createRef } from 'react';
 
 import { ButtonToggle } from './index';
 import { Apps } from '~/icons';
@@ -249,5 +250,33 @@ describe('ButtonToggle', () => {
             'aria-pressed',
             'true',
         );
+    });
+
+    it('should forward the ref to the button when uncontrolled', () => {
+        const ref = createRef<HTMLButtonElement>();
+
+        render(<ButtonToggle label="test me" ref={ref}/>);
+
+        expect(ref.current).toBe(screen.getByRole('button'));
+    });
+
+    it('should forward the ref to the button when controlled', () => {
+        const ref = createRef<HTMLButtonElement>();
+
+        render(<ButtonToggle isPressed={false} label="test me" ref={ref}/>);
+
+        expect(ref.current).toBe(screen.getByRole('button'));
+    });
+
+    it('should not throw when clicked without onClick', async () => {
+        const user = userEvent.setup();
+        const onError = vi.fn();
+        window.addEventListener('error', onError);
+
+        render(<ButtonToggle isPressed={false} label="test me"/>);
+        await user.click(screen.getByRole('button'));
+
+        window.removeEventListener('error', onError);
+        expect(onError).not.toHaveBeenCalled();
     });
 });
