@@ -16,7 +16,7 @@ const meta: Meta<typeof Field> = {
     parameters: {
         layout: 'padded',
         actions: { argTypesRegex: '^on.*' },
-        componentSubtitle: 'A form control\'s visible label, helper text, and error.',
+        componentSubtitle: 'Turns a control into a labelled form field.',
         docs: { description: { component: markdownNotes } },
     },
     argTypes: {

@@ -10,12 +10,10 @@ import {Table, TableBody, TableBodyCell, TableHead, TableHeadCell, TableRow} fro
         </TableRow>
     </TableHead>
     <TableBody>
-        {pages.map(page => (
-            <TableRow key={page.id}>
-                <TableBodyCell>{page.name}</TableBodyCell>
-                <TableBodyCell>{page.status}</TableBodyCell>
-            </TableRow>
-        ))}
+        <TableRow>
+            <TableBodyCell>Home</TableBodyCell>
+            <TableBodyCell>Published</TableBodyCell>
+        </TableRow>
     </TableBody>
 </Table>
 ```

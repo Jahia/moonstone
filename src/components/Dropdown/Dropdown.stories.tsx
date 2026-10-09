@@ -24,7 +24,7 @@ export default {
 
     parameters: {
         layout: 'centered',
-        componentSubtitle: 'Lets the user pick values from a list of options.',
+        componentSubtitle: 'A select that also handles multiple and nested values.',
         docs: {
             description: { component: markdownNotes },
             // Fix issues in the doc tab with firefox

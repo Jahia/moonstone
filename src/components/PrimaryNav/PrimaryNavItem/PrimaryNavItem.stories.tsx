@@ -10,7 +10,7 @@ export default {
     component: PrimaryNavItem,
 
     parameters: {
-        componentSubtitle: 'One destination of the primary navigation.',
+        componentSubtitle: 'One entry of the primary navigation.',
         docs: { description: { component: markdownNotes } },
     },
 } as Meta<typeof PrimaryNavItem>;

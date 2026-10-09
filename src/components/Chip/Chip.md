@@ -38,5 +38,9 @@ import {Chip} from '@jahia/moonstone';
 | `default` | Most contexts. |
 | `bright` | Highlighting a status in Page Builder. |
 
+## Voice and tone
+- Write the `label` in sentence case.
+- Name the status of the item in the passive voice, such as "Published" or "Marked for deletion".
+
 ## Accessibility
 - An icon-only Chip (no `label`) has no accessible name for screen readers. Pass an `aria-label` describing the status.

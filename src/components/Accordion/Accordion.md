@@ -38,7 +38,6 @@ Do not pass both `openedItem` and `defaultOpenedItem` at the same time. `openedI
 
 ## Don't
 
-- Don't use it when all sections need to be visible simultaneously. Use a plain stacked layout instead.
 - Don't use it for navigating between pages or routes. Use [TreeView](?path=/docs/components-treeview--docs) or [PrimaryNav](?path=/docs/components-primarynav--docs) instead.
 - Don't use it when you need a single expandable section. Use [Collapsible](?path=/docs/components-collapsible--docs) instead.
 

@@ -46,7 +46,10 @@ Per-section content (for phrasing, see `style.md`):
   loose: report it as a typing bug, and use the props that the bug says should be required.
   Every component used inside the Example follows the Accessibility section of its own doc.
   When a prop takes content the consumer builds (`children`, `content`, a slot), use
-  `<YourContent/>`. Never a real implementation.
+  `<YourContent/>`. Never a real implementation. Exception: when Moonstone components must be
+  used together (a Fieldset of Fields, a Tab of TabItems), show them composed: the Example is
+  the one place that shows how they fit. Content that could be any component stays
+  `<YourContent/>`.
   Code only, **no comments**: the doc explains, the Example illustrates. If a comment would add
   information, the doc lacks it: raise it to the human and ask where it goes. Never one example
   per variant, size, or state: the preview and the Controls already show every possibility.
@@ -71,7 +74,9 @@ Per-section content (for phrasing, see `style.md`):
   *use case*, then names the correct alternative as a complete sentence, citing a **real,
   exported** component (for example, "Don't use a Button for an on/off setting. Use a [Switch](?path=/docs/components-switch--docs)
   instead."). This routing steers an LLM to built-ins, so it is required; cross-references to
-  other components live here or in the prose.
+  other components live here or in the prose. When Moonstone has no component for the use case,
+  say why it is the wrong use instead of naming one (Breadcrumb: "It conveys location, not
+  progress.").
   To route between components of the same group (such as the selection components), apply
   `component-rules.md`, with its exact values.
 - **Appearance** — see the pattern below.

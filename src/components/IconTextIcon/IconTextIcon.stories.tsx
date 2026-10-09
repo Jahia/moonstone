@@ -7,7 +7,7 @@ export default {
     component: IconTextIcon,
     parameters: {
         layout: 'centered',
-        componentSubtitle: 'Short text framed by icons.',
+        componentSubtitle: 'Keeps short text and its icons aligned on one line.',
         docs: { description: { component: markdownNotes } },
     },
 };

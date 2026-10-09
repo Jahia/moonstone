@@ -9,7 +9,7 @@ export default {
     component: MenuItem,
     parameters: {
         actions: { argTypesRegex: '^on.*' },
-        componentSubtitle: 'One action of a Menu.',
+        componentSubtitle: 'One entry of a Menu.',
         docs: {
             description: { component: markdownNotes },
             // Same as Menu: the menu is displayed in an iframe of its own

@@ -15,7 +15,7 @@ export default {
         layout: 'centered',
         knobs: { disable: true },
         storysource: { disable: true },
-        componentSubtitle: 'Lets the user pick and order values between two lists.',
+        componentSubtitle: 'Lets the user pick many values between two lists.',
         docs: { description: { component: markdownNotes } },
         actions: { argTypesRegex: '^on.*' },
     },

@@ -1,12 +1,12 @@
 ## Example
 ```jsx
-import {SecondaryNav, SecondaryNavHeader, TreeView} from '@jahia/moonstone';
+import {SecondaryNav, SecondaryNavHeader} from '@jahia/moonstone';
 
 <SecondaryNav
     aria-label="Site content"
     header={<SecondaryNavHeader>Content</SecondaryNavHeader>}
 >
-    <TreeView isReversed data={siteTree}/>
+    <YourContent/>
 </SecondaryNav>
 ```
 

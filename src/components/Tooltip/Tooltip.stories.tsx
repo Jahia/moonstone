@@ -11,7 +11,7 @@ export default {
     component: Tooltip,
     tags: ['new'],
     parameters: {
-        componentSubtitle: 'A small label that appears on hover or focus.',
+        componentSubtitle: 'A short hint attached to an element.',
         docs: { description: { component: markdownNotes } },
         layout: 'centered',
         knobs: { disable: true },

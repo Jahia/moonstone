@@ -15,7 +15,7 @@ export default {
     tags: ['beta'],
     parameters: {
         controls: { expanded: true },
-        componentSubtitle: 'Displays records as rows and columns.',
+        componentSubtitle: 'Builds a table from your records and columns.',
         docs: { description: { component: markdownNotes } },
     },
     argTypes: {

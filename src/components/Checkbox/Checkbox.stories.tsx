@@ -11,7 +11,7 @@ export default {
     component: Checkbox,
     parameters: {
         layout: 'centered',
-        componentSubtitle: 'Lets the user set a boolean value.',
+        componentSubtitle: 'A bare checkbox whose label is shown elsewhere.',
         docs: { description: { component: markdownNotes } },
     // When enabled, the controlledCheckbox doesn't work anymore. maybe it's fixed with storybook 7.4 (https://github.com/storybookjs/storybook/pull/23804)
     // Actions: {argTypesRegex: '^on.*'}

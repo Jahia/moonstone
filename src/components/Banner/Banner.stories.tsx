@@ -11,7 +11,7 @@ const meta: Meta<typeof Banner> = {
     tags: ['new'],
 
     parameters: {
-        componentSubtitle: 'A notice, warning, or error about an item or action.',
+        componentSubtitle: 'A status message that stays visible until the user acts.',
         docs: { description: { component: markdownNotes } },
         layout: 'padded',
         actions: { argTypesRegex: '^on.*' },

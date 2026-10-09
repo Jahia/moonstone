@@ -19,7 +19,7 @@ const meta: Meta<typeof Textarea> = {
     ],
     parameters: {
         layout: 'centered',
-        componentSubtitle: 'Multi-line free text.',
+        componentSubtitle: 'Free text too long for a single line.',
         docs: { description: { component: markdownNotes } },
     },
     args: {
