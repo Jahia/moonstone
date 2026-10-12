@@ -6,6 +6,7 @@ export type ImgWrapperProps = Omit<React.ComponentPropsWithoutRef<'img'>, 'class
      * Image URL
      */
     src: string;
+    alt: string;
     /**
      * Image size
      */
