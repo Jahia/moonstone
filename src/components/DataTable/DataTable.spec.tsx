@@ -591,9 +591,43 @@ describe('DataTable', () => {
         );
 
         const checkboxes = screen.getAllByRole('checkbox');
+        expect(checkboxes[0]).toHaveAccessibleName('Select all rows');
+        expect(checkboxes[1]).toHaveAccessibleName('Select row');
         expect(checkboxes[1]).toBeChecked();
         expect(checkboxes[2]).toBeChecked();
         expect(checkboxes[3]).not.toBeChecked();
+    });
+
+    it('should translate the selection checkboxes and keep the pagination labels', () => {
+        render(
+            <DataTable<TestData>
+                enableSelection
+                columns={columns}
+                data={data}
+                i18n={{ itemsPerPage: 'Lignes', of: 'sur', selectRow: 'Sélectionner la ligne', selectAllRows: 'Tout sélectionner' }}
+                primaryKey="id"
+            />,
+        );
+
+        expect(screen.getByRole('checkbox', { name: 'Tout sélectionner' })).toBeInTheDocument();
+        expect(screen.getAllByRole('checkbox', { name: 'Sélectionner la ligne' })).toHaveLength(data.length);
+        expect(screen.getByText('Lignes')).toBeInTheDocument();
+    });
+
+    it('should translate the selection checkboxes without pagination', () => {
+        render(
+            <DataTable<TestData>
+                enableSelection
+                columns={columns}
+                data={data}
+                enablePagination={false}
+                i18n={{ selectRow: 'Sélectionner la ligne', selectAllRows: 'Tout sélectionner' }}
+                primaryKey="id"
+            />,
+        );
+
+        expect(screen.getByRole('checkbox', { name: 'Tout sélectionner' })).toBeInTheDocument();
+        expect(screen.getAllByRole('checkbox', { name: 'Sélectionner la ligne' })).toHaveLength(data.length);
     });
 
     it('should call onChangeSelection when selection changes in controlled mode', async () => {

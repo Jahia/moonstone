@@ -2,11 +2,16 @@ import React from 'react';
 
 import type { PaginationProps as ComponentPaginationProps } from '~/components/Pagination';
 
+type SelectionI18n = {
+    selectRow?: string;
+    selectAllRows?: string;
+};
+
 type PaginationBaseProps = {
     /** Choices for items per page value */
     itemsPerPageOptions?: ComponentPaginationProps['itemsPerPageOptions'];
     /** Pagination labels */
-    i18n?: ComponentPaginationProps['i18n'];
+    i18n?: ComponentPaginationProps['i18n'] & SelectionI18n;
     /** Custom attributes for the Pagination element */
     paginationProps?: Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> & Record<string, unknown>;
 };
@@ -55,6 +60,6 @@ export type DataTablePaginationProps
         defaultCurrentPage?: never;
         defaultItemsPerPage?: never;
         itemsPerPageOptions?: never;
-        i18n?: never;
+        i18n?: SelectionI18n;
         paginationProps?: never;
     };
