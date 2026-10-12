@@ -267,9 +267,10 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                         ['flexRow', layout.flexRow],
                         ['alignCenter', layout.alignCenter],
                     )}
-                    role="status"
                 >
-                    {values.length > 0 && <Typography variant="caption" weight="semiBold">{label.selected || '0 item selected'}</Typography>}
+                    <div role="status">
+                        {values.length > 0 && <Typography variant="caption" weight="semiBold">{label.selected || '0 item selected'}</Typography>}
+                    </div>
                 </footer>
             </div>
         </div>
