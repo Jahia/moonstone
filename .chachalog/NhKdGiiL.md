@@ -3,4 +3,4 @@
 "@jahia/moonstone": patch
 ---
 
-Respect `prefers-reduced-motion` across animated components (#1441)
+Animations turn off when users enable “reduce motion” in their OS (#1441)
