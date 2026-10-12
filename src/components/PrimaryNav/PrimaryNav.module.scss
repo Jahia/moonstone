@@ -4,15 +4,17 @@ $primaryNavExpanded: 300px;
 $primaryNav: 56px;
 
 .moonstone-primaryNav_logoCaptionGroup {
+    @include transition(visibility 0.15s, opacity 0.2s);
+
     padding-right: 40px;
 
     visibility: hidden;
     opacity: 0;
-
-    transition: visibility 0.15s, opacity 0.2s;
 }
 
 .moonstone-primaryNav {
+    @include transition(width 0.3s);
+
     position: fixed;
     top: 0;
     left: 0;
@@ -25,8 +27,6 @@ $primaryNav: 56px;
 
     background: var(--moon-color-dark);
     overflow: hidden;
-
-    transition: width 0.3s;
 
     &.moonstone-expanded {
         z-index: 9000;
@@ -126,11 +126,4 @@ $primaryNav: 56px;
 
     font-size: 8pt;
     color: var(--moon-color-light);
-}
-
-@include reduced-motion {
-    .moonstone-primaryNav,
-    .moonstone-primaryNav_logoCaptionGroup {
-        transition: none;
-    }
 }

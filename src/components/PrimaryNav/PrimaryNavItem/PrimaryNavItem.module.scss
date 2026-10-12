@@ -2,6 +2,8 @@
 @use "../../../utils/mixins" as *;
 
 .moonstone-primaryNavItem {
+    @include transition(color 0.2s, background-color 0.2s);
+
     position: relative;
 
     display: flex;
@@ -14,8 +16,6 @@
 
     border-radius: var(--moon-radius_rounded);
     cursor: pointer;
-
-    transition: color 0.2s, background-color 0.2s;
 
     &.moonstone-selected {
         color: var(--moon-color-light);
@@ -98,10 +98,4 @@
 .moonstone-primaryNavItem_linkItem {
     width: 100%;
     margin: 0;
-}
-
-@include reduced-motion {
-    .moonstone-primaryNavItem {
-        transition: none;
-    }
 }

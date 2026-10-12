@@ -34,7 +34,7 @@
 }
 
 .moonstone-collapsible_button_expanded {
-    transition: box-shadow 0.2s ease-in-out 0s;
+    @include transition(box-shadow 0.2s ease-in-out 0s);
 }
 
 .moonstone-collapsible_button_sticky {
@@ -48,11 +48,11 @@
 
 // Chevron icon animation
 .moonstone-collapsible_icon {
+    @include transition(transform 0.2s ease-in-out);
+
     margin-right: $spacing-icon_big;
 
     transform: rotate(0);
-
-    transition: transform 0.2s ease-in-out;
 }
 
 .moonstone-collapsible_icon_expanded {
@@ -70,11 +70,4 @@
 
 .moonstone-collapsible_content_expanded {
     padding: var(--moon-spacing-medium) var(--moon-spacing-big);
-}
-
-@include reduced-motion {
-    .moonstone-collapsible_button_expanded,
-    .moonstone-collapsible_icon {
-        transition: none;
-    }
 }

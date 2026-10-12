@@ -53,5 +53,7 @@
 
 // Loading
 .moonstone-icon_isLoading {
+    // Keeps spinning with reduced motion: the spin is the loading signal
+    // stylelint-disable-next-line property-disallowed-list
     animation: spin 2s linear infinite;
 }

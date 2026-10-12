@@ -1,6 +1,27 @@
+// The motion must be declared before its reduced-motion override, or the override loses: hence the disabled order rule.
+/* stylelint-disable order/order, property-disallowed-list */
+
 // Applies its content only when the user asked their OS to reduce motion.
 @mixin reduced-motion {
     @media (prefers-reduced-motion: reduce) {
         @content;
+    }
+}
+
+// Use instead of `transition`: it is turned off for users who asked to reduce motion.
+@mixin transition($values...) {
+    transition: $values;
+
+    @include reduced-motion {
+        transition: none;
+    }
+}
+
+// Use instead of `animation`: it becomes instant, so the element still ends in its final state.
+@mixin animation($values...) {
+    animation: $values;
+
+    @include reduced-motion {
+        animation-duration: 0.01ms;
     }
 }

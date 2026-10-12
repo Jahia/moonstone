@@ -1,6 +1,7 @@
 @use "../../utils/motion" as *;
 
 .moonstone-resizable_handle {
+    @include transition(color 0.2s ease-in);
     /* stylelint-disable-next-line declaration-no-important */
     right: -3px !important;
 
@@ -10,8 +11,6 @@
 
     /* stylelint-disable-next-line declaration-no-important */
     width: 3px !important;
-
-    transition: color 0.2s ease-in;
 
     &:active,
     &:hover {
@@ -26,10 +25,4 @@
     bottom: 0;
 
     margin: auto;
-}
-
-@include reduced-motion {
-    .moonstone-resizable_handle {
-        transition: none;
-    }
 }

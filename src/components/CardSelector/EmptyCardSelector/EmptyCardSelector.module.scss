@@ -2,6 +2,8 @@
 @use '../CardSelector.module.scss' as *;
 
 .moonstone-emptyCardSelector {
+    @include transition(all 0.2s ease-in-out);
+
     gap: var(--moon-spacing-nano);
     width: 100%;
     min-height: $cardSelector-height;
@@ -12,8 +14,6 @@
     border-radius: var(--moon-radius-selector);
     background-color: var(--moon-background-selector);
     cursor: pointer;
-
-    transition: all 0.2s ease-in-out;
 
     &[disabled] {
         @extend %selector_disabled;
@@ -39,11 +39,5 @@
 
     &:focus-visible {
         outline: none;
-    }
-}
-
-@include reduced-motion {
-    .moonstone-emptyCardSelector {
-        transition: none;
     }
 }

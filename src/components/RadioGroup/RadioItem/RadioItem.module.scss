@@ -40,6 +40,8 @@ $radio-sizeDefault: 16px;
     }
 
     .moonstone-radio_icon {
+        @include animation(radioBounce 0.1s linear forwards 0.05s);
+
         position: absolute;
         top: 0;
         left: 0;
@@ -48,8 +50,6 @@ $radio-sizeDefault: 16px;
         stroke: none;
 
         transform: scale(0) translateZ(0);
-
-        animation: radioBounce 0.1s linear forwards 0.05s;
 
         pointer-events: none;
         stroke-width: 0;
@@ -106,12 +106,5 @@ $radio-sizeDefault: 16px;
 
     100% {
         transform: scale(1);
-    }
-}
-
-@include reduced-motion {
-    // Kept as an animation so its `forwards` fill still reveals the icon, but made instant.
-    .moonstone-radio-container .moonstone-radio_icon {
-        animation-duration: 0.01ms;
     }
 }
