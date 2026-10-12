@@ -34,7 +34,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({ children, className, ...
                                             )
                                         }
                                     >
-                                        <ChevronRight aria-hidden/>
+                                        <ChevronRight/>
                                     </li>
                                 </Fragment>
                             )
