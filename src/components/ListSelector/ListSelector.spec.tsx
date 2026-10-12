@@ -63,6 +63,11 @@ describe('MultipleLeftRightSelector', () => {
         expect(screen.getByRole('status')).toHaveTextContent('2 items selected');
     });
 
+    it('should count the selection when the label has no selected text', () => {
+        render(<ListSelector label={{ leftListTitle: 'Available' }} options={options} values={['1', '3']} onChange={() => ({})}/>);
+        expect(screen.getByRole('status')).toHaveTextContent('2 item(s) selected');
+    });
+
     it('should display in readonly mode', () => {
         const selection = ['1', '3'];
         const { container } = render(

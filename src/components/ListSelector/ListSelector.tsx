@@ -269,7 +269,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                     )}
                 >
                     <div role="status">
-                        {values.length > 0 && <Typography variant="caption" weight="semiBold">{label.selected || '0 item selected'}</Typography>}
+                        {values.length > 0 && <Typography variant="caption" weight="semiBold">{label.selected || `${values.length} item(s) selected`}</Typography>}
                     </div>
                 </footer>
             </div>
