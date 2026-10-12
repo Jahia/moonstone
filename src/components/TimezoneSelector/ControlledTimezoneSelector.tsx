@@ -33,7 +33,7 @@ export const ControlledTimezoneSelector: React.FC<ControlledTimezoneSelectorProp
             isDisabled={isDisabled || isReadOnly}
             className={clsx(styles.timezoneSelector, className)}
             data={data}
-            icon={<Language aria-hidden/>}
+            icon={<Language/>}
             placeholder={placeholder}
             size={size}
             value={value}

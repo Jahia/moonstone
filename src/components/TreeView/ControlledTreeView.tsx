@@ -27,7 +27,6 @@ const displayIcon = (icon: React.ReactElement, size: 'small' | 'default' | 'big'
             {icon
                 && (
                     <icon.type
-                        aria-label={(icon.type as React.ComponentType).name || 'moonstone-treeView-icon'}
                         {...icon.props}
                         className={clsx(`moonstone-icon_${size}`, icons[`moonstone-icon_${size}`], icon.props.className)}
                         size={size}
