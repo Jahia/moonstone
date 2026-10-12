@@ -8,7 +8,7 @@ describe('Thumbnail', () => {
         render(<Thumbnail/>);
         const figure = document.querySelector('.moonstone-thumbnail');
         expect(figure).toBeInTheDocument();
-        expect(figure?.querySelector('svg')).toBeInTheDocument();
+        expect(figure?.querySelector('svg')).toHaveAttribute('aria-hidden', 'true');
     });
 
     it('should render image when src is a string', () => {
@@ -16,6 +16,11 @@ describe('Thumbnail', () => {
         const img = screen.getByRole('img');
         expect(img).toHaveAttribute('src', 'https://example.com/image.jpg');
         expect(img).toHaveAttribute('alt', 'Test image');
+    });
+
+    it('should render a decorative image when no alt is given', () => {
+        render(<Thumbnail src="https://example.com/image.jpg"/>);
+        expect(screen.getByRole('presentation')).toHaveAttribute('alt', '');
     });
 
     it('should render React element when src is an element', () => {
