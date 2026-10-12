@@ -64,6 +64,11 @@ describe('BaseInput', () => {
 
         expect(screen.getByDisplayValue('type a value')).toBeInTheDocument();
     });
+
+    it('should let the consumer translate the clear button name', () => {
+        render(<BaseInput defaultValue="test-default-value" i18n={{ clearButton: 'Effacer' }} onClear={() => {}}/>);
+        expect(screen.getByRole('button', { name: 'Effacer' })).toBeInTheDocument();
+    });
 });
 
 describe('UncontrolledBaseInput', () => {

@@ -52,6 +52,7 @@ export type DateTimeInputI18n = {
     previousMonth?: string;
     /** Label shown before the timezone selector (`type='zonedDateTime'`) */
     timezone?: string;
+    clearButton?: string;
 };
 
 export type DateTimeInputTimeInputProps = Omit<TimeInputProps,
