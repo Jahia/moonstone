@@ -3,4 +3,4 @@
 "@jahia/moonstone": patch
 ---
 
-Announce the `ListSelector` selection count and the `Menu`/`Dropdown` empty-search text through live regions (#1447)
+Screen readers now announce the `ListSelector` selection count and the `Menu`/`Dropdown` "no results" text (#1447)
