@@ -44,5 +44,9 @@ export type TablePaginationProps = Omit<React.ComponentPropsWithoutRef<'div'>, '
     label?: {
         rowsPerPage: string;
         of: string;
+        firstPage?: string;
+        previousPage?: string;
+        nextPage?: string;
+        lastPage?: string;
     };
 };
