@@ -85,9 +85,9 @@ describe('Menu', () => {
 
         it('should keep the status live region mounted while there are results', () => {
             render(
-                <Menu isDisplayed hasSearch data-testid="moonstone-menu">
+                <Menu hasSearch isDisplayed data-testid="moonstone-menu">
                     <MenuItem label="Item1"/>
-                </Menu>
+                </Menu>,
             );
 
             expect(screen.getByRole('status')).toBeEmptyDOMElement();
@@ -97,7 +97,7 @@ describe('Menu', () => {
             render(
                 <Menu isDisplayed data-testid="moonstone-menu">
                     <MenuItem label="Item1"/>
-                </Menu>
+                </Menu>,
             );
 
             expect(screen.queryByRole('status')).not.toBeInTheDocument();

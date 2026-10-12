@@ -262,12 +262,12 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                     }}
                 />
                 <footer
-                    role="status"
                     className={clsx(
                         ['moonstone-listSelector_footer', styles['moonstone-listSelector_footer']],
                         ['flexRow', layout.flexRow],
                         ['alignCenter', layout.alignCenter],
                     )}
+                    role="status"
                 >
                     {values.length > 0 && <Typography variant="caption" weight="semiBold">{label.selected || '0 item selected'}</Typography>}
                 </footer>
