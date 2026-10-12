@@ -175,19 +175,27 @@ const api = async (path, method = 'GET', body) => {
 
 const TAB = 'History';
 const VALUES = '/values/' + TAB + '!';
-const {sheets} = await api('?fields=sheets.properties.title');
-if (!sheets.some(s => s.properties.title === TAB)) {
-    await api(':batchUpdate', 'POST', {requests: [{addSheet: {properties: {title: TAB, gridProperties: {frozenRowCount: 1}}}}]});
+const {sheets} = await api('?fields=sheets.properties(sheetId,title,gridProperties.rowCount)');
+let tab = sheets.find(s => s.properties.title === TAB)?.properties;
+if (!tab) {
+    const {replies} = await api(':batchUpdate', 'POST', {requests: [{addSheet: {properties: {title: TAB, gridProperties: {frozenRowCount: 1}}}}]});
+    tab = replies[0].addSheet.properties;
     await api(VALUES + 'A1?valueInputOption=RAW', 'PUT', {values: [HEADER]});
     console.log(`Created the ${TAB} tab.`);
 }
 
 // One audit per commit: a re-run of the same commit adds nothing.
-const shas = ((await api(VALUES + 'B:B')).values || []).flat();
-if (shas.includes(sha)) {
+const columnB = (await api(VALUES + 'B:B')).values || [];
+if (columnB.flat().includes(sha)) {
     console.log(`${sha} is already in ${TAB}: nothing appended.`);
     process.exit(0);
 }
-await api(VALUES + 'A1:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS', 'POST', {values: rows});
-console.log(`Appended ${rows.length} row(s) for ${sha} to ${TAB}.`);
+// Written at explicit coordinates, right below the last filled row of column B (empty rows inside the range come
+// back as [], so its length is that row). values:append guesses where the table ends: on a two-row header whose
+// first cells are empty, it inserted the rows at the top, copying the header's bold and widening the frozen rows.
+const first = columnB.length + 1;
+const missing = first + rows.length - 1 - tab.gridProperties.rowCount;
+if (missing > 0) await api(':batchUpdate', 'POST', {requests: [{appendDimension: {sheetId: tab.sheetId, dimension: 'ROWS', length: missing}}]});
+await api(`${VALUES}A${first}?valueInputOption=RAW`, 'PUT', {values: rows});
+console.log(`Appended ${rows.length} row(s) for ${sha} to ${TAB}, from row ${first}.`);
 console.log(`https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit`);
