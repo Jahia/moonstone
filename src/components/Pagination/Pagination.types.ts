@@ -53,5 +53,9 @@ export type PaginationProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'class
     i18n?: {
         itemsPerPage: string;
         of: string;
+        firstPage?: string;
+        previousPage?: string;
+        nextPage?: string;
+        lastPage?: string;
     };
 };
