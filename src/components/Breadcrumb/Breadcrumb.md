@@ -5,14 +5,14 @@ import {Breadcrumb, BreadcrumbItem} from '@jahia/moonstone';
 
 <Breadcrumb>
     <BreadcrumbItem label="Home"/>
-    <BreadcrumbItem label="Media"/>
+    <BreadcrumbItem label="About us"/>
 </Breadcrumb>
 ```
 
 ## Do
 
 - Use it to show the current page's position in a multi-level hierarchy and let the user navigate to an ancestor level.
-- Use it at the top of a content area so the user can always tell where they are in the navigation hierarchy.
+- Use it at the top of a page, inside its [Header](?path=/docs/components-header--docs), so the user can always tell where they are in the hierarchy.
 
 ## Don't
 

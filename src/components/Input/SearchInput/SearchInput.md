@@ -2,23 +2,24 @@
 ```jsx
 import {SearchInput} from '@jahia/moonstone';
 
-<SearchInput aria-label="Search pages"/>
+<SearchInput aria-label="Search content"/>
 ```
 
-## Controlled & uncontrolled
-- Controlled: pass `value` and `onChange`. You own the state and `onChange(event)` gives you the
-  new text through `event.target.value`.
-- Uncontrolled: pass `defaultValue` (optional) and let the component manage its own state.
-- Use controlled when the query drives other UI, such as a filtered list. Use uncontrolled when
-  you only read the query on a key press, such as Enter.
+## Controlled
+- Pass `value` and `onChange`. You own the state and `onChange(event)` gives you the new text through `event.target.value`.
+- Use it when the query drives other UI, such as a filtered list.
 - Don't mix the two modes. Passing both `value` and `defaultValue` is not supported.
 
 ```jsx
-// Controlled
-<SearchInput aria-label="Search pages" value={query} onChange={e => setQuery(e.target.value)}/>
+<SearchInput aria-label="Search content" value={query} onChange={e => setQuery(e.target.value)}/>
+```
 
-// Uncontrolled
-<SearchInput aria-label="Search pages" defaultValue="home"/>
+## Uncontrolled
+- Pass `defaultValue` (optional) and let the component manage its own state.
+- Use it when you only read the query on a key press, such as Enter.
+
+```jsx
+<SearchInput aria-label="Search content" defaultValue="home"/>
 ```
 
 ## Do
@@ -39,7 +40,7 @@ import {SearchInput} from '@jahia/moonstone';
 
 ## Voice and tone
 - Write `placeholder` text in sentence case, and keep it short. Say what the user searches, such
-  as "Search pages".
+  as "Search content".
 - A placeholder is a hint, not a label. It disappears as soon as the user types.
 
 ## Accessibility

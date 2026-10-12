@@ -14,11 +14,8 @@ import {ListSelector} from '@jahia/moonstone';
   selection instead.
 
 ## Voice and tone
-- Write both list titles in sentence case, using a few words that name what each list holds,
-  such as "Available languages" and "Selected languages".
-- Write `addAllTitle` and `removeAllTitle` verb-first, naming what moves, such as "Add all
-  languages" and "Remove all languages". They name the two icon-only buttons between the lists,
-  and the defaults, "Add all" and "Remove all", are too generic.
+- Write both list titles in sentence case, using a few words that name what each list holds.
+- Write `addAllTitle` and `removeAllTitle` verb-first, naming what moves. They name the two icon-only buttons between the lists, and the defaults, "Add all" and "Remove all", are too generic.
 - Build the `selected` text from the number of values yourself. The component shows it as is.
 
 ## Accessibility

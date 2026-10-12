@@ -5,30 +5,28 @@ import {NumberInput} from '@jahia/moonstone';
 <NumberInput aria-label="Quantity"/>
 ```
 
-## Controlled & uncontrolled
-- Controlled: pass `value` and `onChange`. You own the state and `onChange(event)` gives you the
-  new text through `event.target.value`, already filtered to a valid number. The value is a
-  string, so convert it before doing math.
-- Uncontrolled: pass `defaultValue` (optional) and let the component manage its own state.
-- Use controlled when the value drives other UI, such as a total or a validation message. Use
-  uncontrolled for a simple field whose value you only need on submit.
+## Controlled
+- Pass `value` and `onChange`. You own the state and `onChange(event)` gives you the new text through `event.target.value`, already filtered to a valid number. The value is a string, so convert it before doing math.
 - Don't mix the two modes. Passing both `value` and `defaultValue` is not supported.
 
 ```jsx
-// Controlled
 <NumberInput aria-label="Quantity" value={quantity} onChange={e => setQuantity(e.target.value)}/>
+```
 
-// Uncontrolled
+## Uncontrolled
+- Pass `defaultValue` (optional) and let the component manage its own state.
+- Use it for a simple field whose value you only need on submit.
+
+```jsx
 <NumberInput aria-label="Quantity" defaultValue="1"/>
 ```
 
 ## Do
-- Use it to capture a number typed by the user, such as a quantity, a limit, or a price.
+- Use it to capture a number typed by the user.
 - Use it when the user benefits from stepping the value up and down with the arrow keys.
 
 ## Don't
-- Don't use it for free-form text, even when it holds digits, such as a phone number or a postal
-  code. Use [Input](?path=/docs/components-input--docs) instead.
+- Don't use it for free-form text, even when it holds digits. Use [Input](?path=/docs/components-input--docs) instead.
 - Don't use it to choose from a fixed list of values. Use [Dropdown](?path=/docs/components-dropdown--docs) instead.
 - Don't use it for a date or a time. Use [DateTimeInput](?path=/docs/components-datetimeinput--docs) or [TimeInput](?path=/docs/components-timeinput--docs) instead.
 

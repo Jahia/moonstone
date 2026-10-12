@@ -6,9 +6,7 @@ import {Separator} from '@jahia/moonstone';
 ```
 
 ## Do
-- Use it to divide sections of content, such as groups of rows in a list or sections of a page.
-- Use it to separate items laid out in a row, such as groups of controls in a toolbar.
-- Use it between repeated items, such as in a list built from a template. It can hide itself at the edges of the list, and when two Separators end up next to each other, the first one hides itself.
+- Use it to divide sections of content.
 
 ## Don't
 - Don't use a Separator between the steps of a breadcrumb trail. Use a [Breadcrumb](?path=/docs/components-breadcrumb--docs) instead, which renders its own dividers.
@@ -20,7 +18,7 @@ import {Separator} from '@jahia/moonstone';
 
 | Value | Use it for |
 |---|---|
-| `horizontal` | Stacked content, such as rows in a vertical list. |
+| `horizontal` | Stacked content. |
 | `vertical` | Content laid out in a row, such as items in a toolbar. |
 
 ### `size` for span
@@ -47,4 +45,4 @@ import {Separator} from '@jahia/moonstone';
 | `firstChild` | A separator rendered before each item, so none shows before the first one. It hides when it is the first child of its parent. |
 | `lastChild` | A separator rendered after each item, so none shows after the last one. It hides when it is the last child of its parent. |
 | `onlyChild` | A separator that may end up alone, with nothing to separate. It hides when it is the only child of its parent. |
-| `firstOrLastChild` | A separator that may land at either edge, such as around a repeated item. It hides when it is the first or the last child of its parent. |
+| `firstOrLastChild` | A separator that may land at either edge. It hides when it is the first or the last child of its parent. |

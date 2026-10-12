@@ -14,12 +14,12 @@ import {Breadcrumb, BreadcrumbItem} from '@jahia/moonstone';
 
 ## Don't
 
-- Don't use a BreadcrumbItem outside a [Breadcrumb](?path=/docs/components-breadcrumb--docs). Use a [Button](?path=/docs/components-button--docs) instead for a standalone action.
+- Don't use a BreadcrumbItem outside a [Breadcrumb](?path=/docs/components-breadcrumb--docs). Place it inside a [Breadcrumb](?path=/docs/components-breadcrumb--docs) instead.
 
 ## Voice and tone
 
-- Write labels in sentence case, using a few words at most (3 maximum). Never write a full sentence.
-- Use the name of the page or section the item leads to, such as "Home", "Media", or "Images".
+- Use the display name of the item the level leads to.
+- A long label is truncated automatically, with an ellipsis.
 
 ## Accessibility
 

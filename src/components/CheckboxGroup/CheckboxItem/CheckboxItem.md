@@ -5,35 +5,26 @@ import {CheckboxItem} from '@jahia/moonstone';
 <CheckboxItem id="include-subpages" label="Include subpages"/>
 ```
 
-## Controlled & uncontrolled
+## Controlled
+- Pass `checked` and `onChange`. You own the state, and `onChange(event, value, checked)` gives you the `value` prop as its second argument and the new checked state as its third.
+- Use it when the state is read or driven elsewhere.
+- Don't mix the two modes. Passing both `checked` and `defaultChecked` is not supported.
+- Inside a [CheckboxGroup](?path=/docs/components-checkboxgroup--docs), the group's `onChange` runs as well.
 
-Use one mode or the other. Do not mix `checked` (controlled) with `defaultChecked` (uncontrolled).
+```jsx
+<CheckboxItem id="include-subpages" label="Include subpages" value="subpages" checked={includeSubpages} onChange={(event, value, checked) => setIncludeSubpages(checked)}/>
+```
 
-- **Uncontrolled** (default): the component tracks its own checked state. Optionally set the
-  starting state with `defaultChecked`. Use it when nothing else needs to read or drive the state.
-  ```jsx
-  <CheckboxItem id="include-subpages" label="Include subpages" value="subpages" defaultChecked/>
-  ```
-- **Controlled**: the parent owns the state through `checked`, updated in `onChange`. Use it when
-  the state is read or driven elsewhere.
-  ```jsx
-  const [includeSubpages, setIncludeSubpages] = useState(false);
+## Uncontrolled
+- Pass `defaultChecked` (optional) and let the component manage its own state.
+- Use it when nothing else needs it.
 
-  <CheckboxItem
-      id="include-subpages"
-      label="Include subpages"
-      value="subpages"
-      checked={includeSubpages}
-      onChange={(event, value, checked) => setIncludeSubpages(checked)}
-  />
-  ```
-
-In both modes, `onChange(event, value, checked)` receives the `value` prop as its second argument
-and the new checked state as its third. Inside a [CheckboxGroup](?path=/docs/components-checkboxgroup--docs), the group's `onChange` runs
-as well.
+```jsx
+<CheckboxItem id="include-subpages" label="Include subpages" value="subpages" defaultChecked/>
+```
 
 ## Do
-- Use it for a single labelled option the user opts into, such as including subpages in a publication.
+- Use it for a single labelled option the user opts into.
 - Use it for each option of a [CheckboxGroup](?path=/docs/components-checkboxgroup--docs).
 - Use it when an option needs a short explanation under its label.
 - Use it for a choice the user submits later with a form.

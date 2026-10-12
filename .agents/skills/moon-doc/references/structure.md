@@ -29,7 +29,8 @@ empty:** a section with nothing to say is omitted, whatever the section.
 
 ```
 ## Example
-## Controlled & uncontrolled   ← ONLY if the component supports both modes
+## Controlled                 ← ONLY if the component supports both modes
+## Uncontrolled               ← ONLY if the component supports both modes
 ## Do
 ## Don't
 ## Appearance
@@ -53,18 +54,25 @@ Per-section content (for phrasing, see `style.md`):
   Code only, **no comments**: the doc explains, the Example illustrates. If a comment would add
   information, the doc lacks it: raise it to the human and ask where it goes. Never one example
   per variant, size, or state: the preview and the Controls already show every possibility.
-  Realistic labels that follow `ui-copy.md`. Import the component from `@jahia/moonstone` and any
+  Labels follow `ui-copy.md` and come from a source (see *Every example must have a source* in
+  `style.md`). Without one, use a neutral text that names the role, not a use case, such as
+  `label="Label"` or `placeholder="Select a value"`. Import the component from `@jahia/moonstone` and any
   icons from `@jahia/moonstone/icons`. Placed first so it renders
   right after the Props table.
-- **Controlled & uncontrolled** — include ONLY when the component supports both modes (a
-  controlled prop such as `value` / `checked` / `isPressed`, plus an uncontrolled `default*`
-  prop; confirm from `*.types.ts`). Explain each mode in one line with a short code example,
-  say when to use which, and warn not to mix them. Surface the **change-callback signature**
-  when its arguments are not obvious (for example `onChange(event, isPressed)`, where the second
-  argument is the new state). If the two modes are also exported as **named components** (for
-  example `ControlledX` / `UncontrolledX`), the unified component stays the single documented
-  entry: explain the modes through its props and steer consumers to it, rather than giving the
-  named variants their own docs.
+- **Controlled** and **Uncontrolled** — two sections, included ONLY when the component supports
+  both modes (a controlled prop such as `value` / `checked` / `isPressed`, plus an uncontrolled
+  `default*` prop; confirm from `*.types.ts`). Input is the reference. Each section holds plain
+  bullets, then **one** top-level ` ```jsx ` block for that mode. Never a code block inside a
+  bullet: Storybook renders it as plain text.
+  - **Controlled**: `- Pass … You own the state, and … gives you …` (surface the **change-callback
+    signature** when its arguments are not obvious, such as `onChange(event, isPressed)`), then
+    `- Use it when …`, then `- Don't mix the two modes. Passing both … is not supported.`, then
+    any fact that holds for both modes.
+  - **Uncontrolled**: `- Pass … (optional) and let the component manage its own state.`, then
+    `- Use it when …`.
+  - If the two modes are also exported as **named components** (`ControlledX` / `UncontrolledX`),
+    the unified component stays the single documented entry: explain the modes through its props
+    and steer consumers to it, rather than giving the named variants their own docs.
 - **Do** — answers only **"when should I reach for this component?"** Each bullet is a
   "when to use" statement, refers to the component as "it", and leads with "Use it to / for /
   when …" (for example, "Use it to submit a form or confirm a choice."). **Mechanical test: a Do

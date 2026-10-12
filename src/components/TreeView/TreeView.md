@@ -16,30 +16,23 @@ const siteTree = [
 <TreeView data={siteTree}/>
 ```
 
-## Controlled & uncontrolled
+## Controlled
+- Pass `openedItems`, the `id` of every open node, with both `onOpenItem` and `onCloseItem`. You own the state: without the two callbacks, the nodes don't open or close.
+- Use it when another part of the UI drives the open nodes, or when you load the children of a node as it opens.
+- Don't mix the two modes. Passing both `openedItems` and `defaultOpenedItems` is not supported.
+- When you pass `onClickItem`, a click on a node's label calls it instead of opening or closing the node. It receives the node, the event, and a `toggleNode` function: call `toggleNode(event)` to also open or close the node. A click on the arrow always opens or closes the node.
 
-**Uncontrolled** mode: the TreeView manages which nodes are open. Set `defaultOpenedItems` to open some nodes on first render. Use it when no other part of the UI needs to read or drive the open nodes.
+```jsx
+<TreeView data={siteTree} openedItems={openedItems} onOpenItem={node => setOpenedItems([...openedItems, node.id])} onCloseItem={node => setOpenedItems(openedItems.filter(id => id !== node.id))}/>
+```
+
+## Uncontrolled
+- Pass `defaultOpenedItems` (optional) and let the component manage its own state.
+- Use it when nothing else needs it.
 
 ```jsx
 <TreeView data={siteTree} defaultOpenedItems={['home']}/>
 ```
-
-**Controlled** mode: pass `openedItems` (the `id` of every open node) with both `onOpenItem` and `onCloseItem`. Your component owns the state. Use it when another part of the UI drives the open nodes, or when you load the children of a node as it opens.
-
-```jsx
-const [openedItems, setOpenedItems] = useState(['home']);
-
-<TreeView
-    data={siteTree}
-    openedItems={openedItems}
-    onOpenItem={node => setOpenedItems([...openedItems, node.id])}
-    onCloseItem={node => setOpenedItems(openedItems.filter(id => id !== node.id))}
-/>
-```
-
-Don't pass both `openedItems` and `defaultOpenedItems`. Passing `openedItems` makes the component controlled, and `defaultOpenedItems` is then ignored. In controlled mode, pass both callbacks: without them, the nodes don't open or close.
-
-When you pass `onClickItem`, a click on a node's label calls it instead of opening or closing the node. It receives the node, the event, and a `toggleNode` function: call `toggleNode(event)` to also open or close the node. A click on the arrow always opens or closes the node.
 
 ## Do
 - Use it to display a hierarchy that the user browses, such as the pages of a site or the folders of a media library.
@@ -64,7 +57,7 @@ When you pass `onClickItem`, a click on a node's label calls it instead of openi
 
 ## Accessibility
 - Give every node a unique `id`. The component uses it to track the open, selected, and highlighted nodes.
-- Give the tree an accessible name with `aria-label`, such as "Site pages", when no visible heading names it.
+- Give the tree an accessible name with `aria-label` when no visible heading names it.
 - Set `isLoading` on a node while its children load. The node is then reported as busy.
 - The Up and Down arrow keys move the focus between visible nodes.
 - Home and End move the focus to the first and last visible nodes (soon).

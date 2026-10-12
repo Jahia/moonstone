@@ -6,7 +6,7 @@ import {LayoutModule} from '@jahia/moonstone';
 ```
 
 ## Do
-- Use it to pair a secondary navigation with a content area, for a module of the application such as a settings or administration screen.
+- Use it to pair a secondary navigation with a content area, for a module of the application.
 - Use it as the content area of a [LayoutApp](?path=/docs/layouts-layoutapp--docs), beside the primary navigation. It places the navigation and the content side by side in that row.
 
 ## Don't

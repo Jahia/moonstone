@@ -5,22 +5,25 @@ import {Input} from '@jahia/moonstone';
 <Input aria-label="Page title"/>
 ```
 
-## Controlled & uncontrolled
-- Controlled: pass `value` and `onChange`. You own the state, and `onChange(event)` gives you the new text through `event.target.value`.
-- Uncontrolled: pass `defaultValue` (optional) and let the component manage its own state.
-- Use controlled when the value drives other UI, such as validation or a live preview. Use uncontrolled for a simple field whose value you only need on submit.
+## Controlled
+- Pass `value` and `onChange`. You own the state, and `onChange(event)` gives you the new text through `event.target.value`.
+- Use it when the value drives other UI.
 - Don't mix the two modes. Passing both `value` and `defaultValue` is not supported.
 
 ```jsx
-// Controlled
 <Input aria-label="Page title" value={title} onChange={e => setTitle(e.target.value)}/>
+```
 
-// Uncontrolled
-<Input aria-label="Page title" defaultValue="Home"/>
+## Uncontrolled
+- Pass `defaultValue` (optional) and let the component manage its own state.
+- Use it for a simple field whose value you only need on submit.
+
+```jsx
+<Input aria-label="Page title" defaultValue="About us"/>
 ```
 
 ## Do
-- Use it to capture a short piece of free-form text on a single line, such as a name, a title, or a URL.
+- Use it to capture a short piece of free-form text on a single line.
 - Use it inside a [Field](?path=/docs/components-field--docs) when it needs a visible label, helper text, or an error message.
 
 ## Don't
@@ -37,7 +40,7 @@ import {Input} from '@jahia/moonstone';
 | Value | Use it for |
 |---|---|
 | `default` | Small contexts, such as [SecondaryNav](?path=/docs/components-secondarynav--docs) or [Menu](?path=/docs/components-menu--docs). |
-| `big` | The main area of the product, such as a form or a table. |
+| `big` | The main area of the product. |
 
 ## Voice and tone
 - Write the placeholder in sentence case, using a few words at most (3 maximum). Never write a full sentence.

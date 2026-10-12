@@ -14,7 +14,7 @@ import {Home} from '@jahia/moonstone/icons';
 - Use it to show the full text of a truncated label, such as in a collapsed nav item or a list row.
 
 ## Don't
-- Don't use Tooltip for information the user must read to complete a task. Put it directly in the UI, such as helper text in a [Field](?path=/docs/components-field--docs).
+- Don't use Tooltip for information the user must read to complete a task. Put it directly in the UI.
 - Don't use Tooltip for a list of actions. Use a [Menu](?path=/docs/components-menu--docs) instead.
 - Don't use Tooltip for persistent status or system alerts. Use a [Banner](?path=/docs/components-banner--docs) instead.
 

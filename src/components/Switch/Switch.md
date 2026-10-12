@@ -2,36 +2,29 @@
 ```jsx
 import {Switch} from '@jahia/moonstone';
 
-<Switch aria-label="Enable notifications"/>
+<Switch aria-label="Setting"/>
 ```
 
-## Controlled & uncontrolled
+## Controlled
+- Pass `checked` and `onChange`. You own the state, and `onChange(event, value, checked)` gives you the `value` prop as its second argument and the new on/off state as its third.
+- Use it when the state is read or driven elsewhere.
+- Don't mix the two modes. Passing both `checked` and `defaultChecked` is not supported.
 
-Use one mode or the other. Do not mix `checked` (controlled) with `defaultChecked` (uncontrolled).
+```jsx
+<Switch aria-label="Setting" checked={isOn} onChange={(event, value, checked) => setIsOn(checked)}/>
+```
 
-- **Uncontrolled** (default): the component tracks its own on/off state. Optionally set the
-  starting state with `defaultChecked`. Use it when nothing else needs to read or drive the state.
-  ```jsx
-  <Switch aria-label="Enable notifications" defaultChecked onChange={(event, value, checked) => saveSetting(checked)}/>
-  ```
-- **Controlled**: the parent owns the state through `checked`, updated in `onChange`. Use it when
-  the state is read or driven elsewhere.
-  ```jsx
-  const [isEnabled, setIsEnabled] = useState(false);
+## Uncontrolled
+- Pass `defaultChecked` (optional) and let the component manage its own state.
+- Use it when you only save the change in `onChange`.
 
-  <Switch
-      aria-label="Enable notifications"
-      checked={isEnabled}
-      onChange={(event, value, checked) => setIsEnabled(checked)}
-  />
-  ```
-
-In both modes, `onChange(event, value, checked)` receives the `value` prop as its second argument
-and the new on/off state as its third.
+```jsx
+<Switch aria-label="Setting" defaultChecked onChange={(event, value, checked) => saveSetting(checked)}/>
+```
 
 ## Do
 - Use it to turn a single setting on or off when the change applies immediately, without a save step.
-- Use it for a preference that stays on until the user turns it off, such as notifications.
+- Use it for a preference that stays on until the user turns it off.
 
 ## Don't
 - Don't use a Switch for a choice the user submits later with a form. Use a [CheckboxItem](?path=/docs/components-checkboxitem--docs) instead, or a [FieldBoolean](?path=/docs/components-fieldboolean--docs) for a form field with a label, a helper text, or an error message.

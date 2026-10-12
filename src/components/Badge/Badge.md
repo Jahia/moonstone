@@ -20,7 +20,7 @@ import {Badge} from '@jahia/moonstone';
 | Value | Use it for |
 |---|---|
 | `accent` | General counts and neutral notifications (the default). |
-| `success` | Positive outcomes such as confirmed, published, or completed. |
+| `success` | Positive outcomes, such as published or completed. |
 | `danger` | Errors, failures, or counts that need immediate attention. |
 
 ## Accessibility

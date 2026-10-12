@@ -2,7 +2,7 @@
 ```jsx
 import {SecondaryNav, SecondaryNavHeader} from '@jahia/moonstone';
 
-<SecondaryNav aria-label="Site content" header={<SecondaryNavHeader>Content</SecondaryNavHeader>}>
+<SecondaryNav aria-label="Administration" header={<SecondaryNavHeader>Content</SecondaryNavHeader>}>
     <YourContent/>
 </SecondaryNav>
 ```

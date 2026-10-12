@@ -2,12 +2,12 @@
 ```jsx
 import {IconTextIcon} from '@jahia/moonstone';
 
-<IconTextIcon>Annual report.pdf</IconTextIcon>
+<IconTextIcon>content item</IconTextIcon>
 ```
 
 ## Do
 - Use it to show a short piece of text with an icon before it, after it, or both, such as a file name with its icon.
-- Use it to keep an icon and its text aligned on a single line, such as in a custom cell of a [DataTable](?path=/docs/components-datatable--docs).
+- Use it to keep an icon and its text aligned on a single line.
 
 ## Don't
 - Don't use an IconTextIcon for a clickable action. Use a [Button](?path=/docs/components-button--docs) with an icon instead.

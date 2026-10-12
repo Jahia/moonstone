@@ -3,34 +3,29 @@
 ```jsx
 import {ButtonToggle} from '@jahia/moonstone';
 
-<ButtonToggle label="Grid view"/>
+<ButtonToggle label="Toggle side panel"/>
 ```
 
-## Controlled & uncontrolled
+## Controlled
+- Pass `isPressed` and `onChange`. You own the state, and `onChange(event, isPressed)` gives you the new pressed state as its second argument.
+- Use it when the pressed state is read or driven elsewhere.
+- Don't mix the two modes. Passing both `isPressed` and `defaultPressed` is not supported.
 
-Use one mode or the other. Do not mix `isPressed` (controlled) with `defaultPressed` (uncontrolled).
+```jsx
+<ButtonToggle label="Toggle side panel" isPressed={isPanelShown} onChange={(event, isPressed) => setIsPanelShown(isPressed)}/>
+```
 
-- **Uncontrolled** (default): the component tracks its own pressed state. Optionally set the
-  starting state with `defaultPressed`. Use when nothing else needs to read or drive the state.
-  ```jsx
-  <ButtonToggle label="List view" defaultPressed/>
-  ```
-- **Controlled**: the parent owns the state via `isPressed`, updated through `onChange`. Use
-  when the pressed state is read or driven elsewhere.
-  ```jsx
-  const [isGridView, setIsGridView] = useState(false);
+## Uncontrolled
+- Pass `defaultPressed` (optional) and let the component manage its own state.
+- Use it when nothing else needs it.
 
-  <ButtonToggle
-    label="Grid view"
-    isPressed={isGridView}
-    onChange={(e, pressed) => setIsGridView(pressed)}
-  />
-  ```
+```jsx
+<ButtonToggle label="Toggle side panel" defaultPressed/>
+```
 
 ## Do
-- Use it in a toolbar or panel header to represent a toggleable mode or view, such as grid view rather than list view.
+- Use it in a toolbar for a mode or a panel that stays on until the user toggles it off, such as showing a side panel.
 - Use it when the pressed/active state must persist until the user explicitly toggles it off.
-- Pair multiple ButtonToggles to represent independent or mutually exclusive view switches.
 
 ## Don't
 - Don't use a ButtonToggle for a setting that applies immediately, without a save step. Use a [Switch](?path=/docs/components-switch--docs) instead.
@@ -49,8 +44,7 @@ Use one mode or the other. Do not mix `isPressed` (controlled) with `defaultPres
 ## Voice and tone
 
 - **Sentence case; a few words (3 max), never a sentence.**
-- **Label the mode, not the action.** Write "Grid view", not "Switch to grid".
-- **Be specific.** Name the view or mode the button activates.
+- **Label the action, not the state.** The label doesn't change when the button is pressed.
 
 ## Accessibility
-- An **icon-only** ButtonToggle (no `label`) **must** have an `aria-label` describing the mode or view it activates.
+- An **icon-only** ButtonToggle (no `label`) **must** have an `aria-label` that names the action.

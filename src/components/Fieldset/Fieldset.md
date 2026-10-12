@@ -11,7 +11,7 @@ import {Field, FieldBoolean, FieldSelector, Fieldset, Input} from '@jahia/moonst
 ```
 
 ## Do
-- Use it to group several related fields under one heading, such as the settings of one section of a form.
+- Use it to group several related fields under one heading.
 
 ## Don't
 - Don't use a Fieldset to label a single control. Use a [Field](?path=/docs/components-field--docs) instead.

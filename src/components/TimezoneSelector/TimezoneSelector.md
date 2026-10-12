@@ -5,24 +5,24 @@ import {TimezoneSelector} from '@jahia/moonstone';
 <TimezoneSelector aria-label="Timezone"/>
 ```
 
-## Controlled & uncontrolled
-- Controlled: pass `value` and `onChange` (required). `onChange(event, value)` gives the selected
-  IANA timezone identifier, such as `'Europe/Paris'`, or `null`.
-- Uncontrolled: pass `defaultValue` (optional) and let the component manage its own state.
+## Controlled
+- Pass `value` and `onChange` (required). `onChange(event, value)` gives the selected IANA timezone identifier, such as `'Europe/Paris'`, or `null`.
 - Don't mix the two modes. Passing both `value` and `defaultValue` is not supported.
 - The selector always has a value once a timezone is chosen and cannot be cleared.
 
 ```jsx
-// Controlled
 <TimezoneSelector aria-label="Timezone" value={timezone} onChange={(e, next) => setTimezone(next)}/>
+```
 
-// Uncontrolled
+## Uncontrolled
+- Pass `defaultValue` (optional) and let the component manage its own state.
+
+```jsx
 <TimezoneSelector aria-label="Timezone" defaultValue="Europe/Paris"/>
 ```
 
 ## Do
-- Use it to let the user pick an IANA timezone on its own, such as setting a user's or a site's
-  default timezone.
+- Use it to let the user pick an IANA timezone on its own.
 - Use it inside a [Field](?path=/docs/components-field--docs) when it needs a visible label, helper text, or an error message.
 
 ## Don't

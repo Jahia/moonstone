@@ -2,13 +2,13 @@
 ```jsx
 import {Header} from '@jahia/moonstone';
 
-<Header title="Home page"/>
+<Header title="About us"/>
 ```
 
 ## Do
 - Use it at the top of a page to show the page title and the main actions of the page.
 - Use it to give the context of the item shown on the page, such as its location in a [Breadcrumb](?path=/docs/components-breadcrumb--docs), its content type, or its status with a [Chip](?path=/docs/components-chip--docs).
-- Use it to hold a toolbar of controls that act on the page content, such as a [Tab](?path=/docs/components-tab--docs), a [Dropdown](?path=/docs/components-dropdown--docs), or view switchers.
+- Use it to hold a toolbar: the actions on the item shown in the title on the left, and display controls, such as switching the view, on the right.
 - Use it as the header of a [LayoutContent](?path=/docs/layouts-layoutcontent--docs).
 
 ## Don't
@@ -19,7 +19,7 @@ import {Header} from '@jahia/moonstone';
 
 ## Voice and tone
 - Write the title in sentence case, using a few words at most (3 maximum). Never write a full sentence.
-- Name the page or the item it shows, such as "Home page" or "Users".
+- Name the page or the item it shows, such as "About us" or "Users".
 - Write the labels of the main actions as [Button](?path=/docs/components-button--docs) labels: start with a verb that names the action, such as "Publish" or "Preview", and never write "OK".
 
 ## Accessibility

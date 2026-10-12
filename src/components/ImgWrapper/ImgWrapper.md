@@ -6,7 +6,7 @@ import {ImgWrapper} from '@jahia/moonstone';
 ```
 
 ## Do
-- Use it to render an image URL at the same scale as Moonstone's built-in icon set, such as a user-provided or remote icon.
+- Use it to render an image URL at the same scale as Moonstone's built-in icon set.
 - Use it when a component's icon-like prop accepts a URL instead of one of the built-in icon components.
 
 ## Don't

@@ -19,7 +19,7 @@ import {PrimaryNav, PrimaryNavItem, PrimaryNavItemsGroup} from '@jahia/moonstone
 
 ## Don't
 - Don't use it for secondary or in-page navigation within a section. Use [SecondaryNav](?path=/docs/components-secondarynav--docs) instead.
-- Don't use it to switch between views inside a single page, such as panel tabs. Use [Tab](?path=/docs/components-tab--docs) instead.
+- Don't use it to switch between views inside a single page. Use [Tab](?path=/docs/components-tab--docs) instead.
 - Don't place a [PrimaryNavItem](?path=/docs/components-primarynavitem--docs) directly in `top` or `bottom`. Wrap it in a [PrimaryNavItemsGroup](?path=/docs/components-primarynavitemsgroup--docs) first.
 
 ## Voice and tone

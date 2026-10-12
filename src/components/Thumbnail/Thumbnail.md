@@ -6,7 +6,7 @@ import {Thumbnail} from '@jahia/moonstone';
 ```
 
 ## Do
-- Use it to show a small visual preview of a resource, such as a page, a file, or a media item.
+- Use it to show a small visual preview of a resource, such as a file or a media item.
 - Use it for a compact image slot in a list or table row. When the resource has no image, it shows a placeholder instead.
 - Use it to represent a resource with an icon when the resource has no picture of its own, such as a file type.
 

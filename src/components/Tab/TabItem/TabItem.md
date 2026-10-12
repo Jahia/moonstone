@@ -3,10 +3,10 @@
 import {Tab, TabItem} from '@jahia/moonstone';
 
 <Tab>
-    <TabItem isSelected id="tab-content" aria-controls="panel-content" label="Content" onClick={selectTab}/>
-    <TabItem id="tab-metadata" aria-controls="panel-metadata" label="Metadata" onClick={selectTab}/>
+    <TabItem isSelected id="tab-preview" aria-controls="panel-preview" label="Preview" onClick={selectTab}/>
+    <TabItem id="tab-details" aria-controls="panel-details" label="Details" onClick={selectTab}/>
 </Tab>
-<div id="panel-content" role="tabpanel" aria-labelledby="tab-content">
+<div id="panel-preview" role="tabpanel" aria-labelledby="tab-preview">
     <YourContent/>
 </div>
 ```

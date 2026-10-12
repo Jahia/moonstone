@@ -5,25 +5,23 @@ import {DateTimeInput} from '@jahia/moonstone';
 <DateTimeInput type="date" aria-label="Publication date"/>
 ```
 
-## Controlled & uncontrolled
-- Controlled: pass `value` and `onChange` (required). `onChange(event, value)` always gives the
-  mode's `Temporal` instance, or `null` when the field is cleared, even though `value` itself also
-  accepts an ISO string.
-- Uncontrolled: pass `defaultValue` (optional) and let the component manage its own state. With no
-  `defaultValue`, the field starts at the current date/time; pass `defaultValue={null}` to start empty.
+## Controlled
+- Pass `value` and `onChange` (required). `onChange(event, value)` always gives the mode's `Temporal` instance, or `null` when the field is cleared, even though `value` itself also accepts an ISO string.
 - Don't mix the two modes. Passing both `value` and `defaultValue` is not supported.
 
 ```jsx
-// Controlled
 <DateTimeInput type="date" aria-label="Publication date" value={date} onChange={(e, next) => setDate(next)}/>
+```
 
-// Uncontrolled
+## Uncontrolled
+- Pass `defaultValue` (optional) and let the component manage its own state. With no `defaultValue`, the field starts at the current date/time; pass `defaultValue={null}` to start empty.
+
+```jsx
 <DateTimeInput type="date" aria-label="Publication date" defaultValue="2026-06-19"/>
 ```
 
 ## Do
-- Use it to capture a calendar date, optionally with a time and a timezone, such as a publish
-  date, a deadline, or a scheduled event.
+- Use it to capture a calendar date, optionally with a time and a timezone.
 - Use it inside a [Field](?path=/docs/components-field--docs) when it needs a visible label, helper text, or an error message.
 
 ## Don't
@@ -38,9 +36,9 @@ import {DateTimeInput} from '@jahia/moonstone';
 
 | Value | Use it for |
 |---|---|
-| `date` | A date only, with no time, such as a deadline, a due date, or a birthday. |
-| `dateTime` | A date and a time, such as scheduling within a single timezone. |
-| `zonedDateTime` | A date, a time, and a timezone together, such as scheduling across timezones. The timezone picker only changes how the value is displayed, never the value itself. |
+| `date` | A date only, with no time. |
+| `dateTime` | A date and a time. |
+| `zonedDateTime` | A date, a time, and a timezone together. The timezone picker only changes how the value is displayed, never the value itself. |
 
 ## Voice and tone
 - Write `i18n.todayButton` as a short, verb-first action label in sentence case, such as "Today".

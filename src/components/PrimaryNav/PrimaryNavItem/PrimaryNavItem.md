@@ -7,9 +7,9 @@ import {PrimaryNavItem} from '@jahia/moonstone';
 
 ## Do
 - Use it for each destination of the application's primary navigation, inside a [PrimaryNavItemsGroup](?path=/docs/components-primarynavitemsgroup--docs).
-- Use it for an action that belongs in the primary navigation, such as signing out.
-- Use it to link to an external resource, such as the documentation. The link opens in a new tab.
-- Use it for the user's own entry, such as a profile item that shows the user name below its label and holds a sign-out control.
+- Use it for an action that belongs in the primary navigation.
+- Use it to link to an external resource. The link opens in a new tab.
+- Use it for the user's own entry.
 
 ## Don't
 - Don't use it for the navigation inside a section of the application. Use [SecondaryNav](?path=/docs/components-secondarynav--docs) instead.

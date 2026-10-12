@@ -9,7 +9,7 @@ import {Button, Drawer} from '@jahia/moonstone';
 ```
 
 ## Do
-- Use it to show supplementary content beside the main page, such as the details or settings of a selected item.
+- Use it to show supplementary content beside the main page, such as additional information about an item.
 - Use it for a side panel that the user opens and closes while the rest of the page stays visible and usable.
 
 ## Don't
@@ -18,6 +18,6 @@ import {Button, Drawer} from '@jahia/moonstone';
 - Don't use a Drawer to show or hide a section within the page flow. Use a [Collapsible](?path=/docs/components-collapsible--docs) instead.
 
 ## Accessibility
-- By default, the Drawer renders a complementary landmark. Give it an `aria-label` that names the panel, such as "Page details".
+- By default, the Drawer renders a complementary landmark. Give it an `aria-label` that names the panel.
 - Always provide a visible control that closes the Drawer, such as a "Close" [Button](?path=/docs/components-button--docs).
 - Escape closes the Drawer (soon).

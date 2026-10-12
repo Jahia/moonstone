@@ -4,7 +4,7 @@ import {Button, Modal, ModalFooter, ModalHeader} from '@jahia/moonstone';
 
 <Modal isOpen={isOpen} onOpenChange={setIsOpen}>
     <>
-        <ModalHeader title="Delete project"/>
+        <ModalHeader title="Rename content"/>
         <ModalFooter>
             <Button label="Cancel"/>
         </ModalFooter>

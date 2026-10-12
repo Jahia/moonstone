@@ -2,29 +2,29 @@
 ```jsx
 import {FieldBoolean} from '@jahia/moonstone';
 
-<FieldBoolean id="auto-publish" label="Publish automatically"/>
+<FieldBoolean id="detect-coordinates" label="Detect latitude/longitude automatically on save"/>
 ```
 
-## Controlled & uncontrolled
-FieldBoolean renders a [Checkbox](?path=/docs/components-checkbox--docs), and both modes go through `checkboxAttributes`.
-
-- Controlled: pass `checked` and `onChange` in `checkboxAttributes`. You own the state, and `onChange(event, value, checked)` gives you the new state as its third argument.
-
-  ```jsx
-  <FieldBoolean id="auto-publish" label="Publish automatically" checkboxAttributes={{checked: isAutoPublished, onChange: handleChange}}/>
-  ```
-
-- Uncontrolled: pass `defaultChecked` (optional) in `checkboxAttributes` and let the checkbox manage its own state.
-
-  ```jsx
-  <FieldBoolean id="auto-publish" label="Publish automatically" checkboxAttributes={{defaultChecked: true}}/>
-  ```
-
-- Use controlled when the value drives other UI or is validated before submit. Use uncontrolled when you only need the value on submit.
+## Controlled
+- FieldBoolean renders a [Checkbox](?path=/docs/components-checkbox--docs), and both modes go through `checkboxAttributes`.
+- Pass `checked` and `onChange` in `checkboxAttributes`. You own the state, and `onChange(event, value, checked)` gives you the new state as its third argument.
+- Use it when the value drives other UI or is validated before submit.
 - Don't mix the two modes. Passing both `checked` and `defaultChecked` is not supported.
 
+```jsx
+<FieldBoolean id="detect-coordinates" label="Detect latitude/longitude automatically on save" checkboxAttributes={{checked: isDetected, onChange: handleChange}}/>
+```
+
+## Uncontrolled
+- Pass `defaultChecked` (optional) in `checkboxAttributes` and let the checkbox manage its own state.
+- Use it when you only need the value on submit.
+
+```jsx
+<FieldBoolean id="detect-coordinates" label="Detect latitude/longitude automatically on save" checkboxAttributes={{defaultChecked: true}}/>
+```
+
 ## Do
-- Use it for a single yes/no option in a form, such as "Publish automatically", when it needs its own label, helper text, or error message.
+- Use it to show a boolean value in a form, with its own label, helper text, or error message.
 
 ## Don't
 - Don't use a FieldBoolean for a set of related options under one label. Use a [Field](?path=/docs/components-field--docs) that wraps a [CheckboxGroup](?path=/docs/components-checkboxgroup--docs) instead.
@@ -33,7 +33,7 @@ FieldBoolean renders a [Checkbox](?path=/docs/components-checkbox--docs), and bo
 - Don't use a FieldBoolean to group several fields under a heading. Use a [Fieldset](?path=/docs/components-fieldset--docs) instead.
 
 ## Voice and tone
-- Write the `label` in sentence case, using a few words at most (3 maximum), such as "Publish automatically". Never write a full sentence.
+- Write the `label` in sentence case.
 - Write the `helper` text and the chip labels in sentence case, such as a "Required" chip.
 - Error message wording: _Pending design guidance_ <!-- designer: rules for `errorMessage` copy (tone, whether it says how to fix the problem, punctuation). Keep it aligned with Field. -->
 

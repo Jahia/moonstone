@@ -13,26 +13,26 @@ import {Accordion, AccordionItem} from '@jahia/moonstone';
 </Accordion>
 ```
 
-## Controlled & uncontrolled
+## Controlled
+- Pass `openedItem`, the `id` of the open item, and `onSetOpenedItem`. You own the state, and `onSetOpenedItem` is called when the user clicks a header.
+- Use it when another part of the UI drives or reacts to which item is open.
+- Don't mix the two modes. Passing both `openedItem` and `defaultOpenedItem` is not supported.
 
-**Uncontrolled** mode: the Accordion manages which item is open internally. Set `defaultOpenedItem` to open a specific item on first render. Use it when no other part of the UI needs to read or control the open state.
+```jsx
+<Accordion openedItem={openedItem} onSetOpenedItem={setOpenedItem}>…</Accordion>
+```
+
+## Uncontrolled
+- Pass `defaultOpenedItem` (optional) and let the component manage its own state.
+- Use it when nothing else needs it.
 
 ```jsx
 <Accordion defaultOpenedItem="pages">…</Accordion>
 ```
 
-**Controlled** mode: pass `openedItem` (the `id` of the currently open item) and `onSetOpenedItem` (called when the user clicks a header). Your component owns the state. Use it when another part of the UI drives or reacts to which section is open.
-
-```jsx
-const [open, setOpen] = useState('pages');
-<Accordion openedItem={open} onSetOpenedItem={setOpen}>…</Accordion>
-```
-
-Do not pass both `openedItem` and `defaultOpenedItem` at the same time. `openedItem` makes the component controlled; `defaultOpenedItem` is for uncontrolled mode only.
-
 ## Do
 
-- Use it to organise content into collapsible sections inside a constrained vertical space, such as a sidebar panel.
+- Use it to organise content into collapsible sections inside a constrained vertical space.
 - Use it when the user only needs to work in one section at a time and the remaining sections can stay hidden.
 - Use it to group related settings, navigation entries, or content categories that share the same panel.
 

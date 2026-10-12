@@ -3,15 +3,14 @@
 ```jsx
 import {Banner} from '@jahia/moonstone';
 
-<Banner title="Unsaved changes">
-    Your changes will be lost if you leave this page.
+<Banner title="Form errors">
+    Fix the highlighted fields before saving.
 </Banner>
 ```
 
 ## Do
-- Use it to show a status message about a page or a panel, such as a notice, a warning, or an error.
-- Use it for persistent feedback that stays visible until the user acts, such as unsaved changes, a failed background process, or a feature notice.
-- Use it to pair a status message with an action, such as Retry, by placing a [Button](?path=/docs/components-button--docs) in its content.
+- Use it to show a status message, such as a notice, a warning, or an error.
+- Use it for persistent feedback that stays visible until the user acts, such as a form error.
 
 ## Don't
 - Don't use a Banner for a validation error on a single form field. Use a [Field](?path=/docs/components-field--docs) instead.
@@ -33,7 +32,7 @@ import {Banner} from '@jahia/moonstone';
 ## Voice and tone
 - Write the title in sentence case, using a few words at most (3 maximum). Never write a full sentence.
 - Make the title describe the situation, such as "Connection failed", not ask a question, such as "Are you sure?".
-- Be specific in the content. Say what happened and what the user can do, such as "Your changes will be lost if you leave this page." Never write a vague message, such as "Something went wrong."
+- Be specific in the content. Say what happened and what the user can do, such as "Fix the highlighted fields before saving." Never write a vague message, such as "Something went wrong."
 
 ## Accessibility
 - Don't convey the status by color or icon alone. Write a title that states it.

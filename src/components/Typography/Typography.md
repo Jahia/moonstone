@@ -6,7 +6,7 @@ import {Typography} from '@jahia/moonstone';
 ```
 
 ## Do
-- Use it for every piece of text you render yourself, such as headings, body copy, captions, and labels.
+- Use it for every piece of text you render yourself.
 - Use it to give a heading or a link the design system's type style while keeping the right HTML element for its role in the page.
 - Use it to emphasize or de-emphasize part of a text, such as a key figure or a secondary detail.
 

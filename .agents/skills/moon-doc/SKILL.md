@@ -32,6 +32,9 @@ Ground every claim in the code. Read `<Component>.types.ts` (props and JSDoc), `
    each section as well as the structure. Then read `git diff` on every `*.types.ts` you
    touched: every changed line must sit inside a `/** … */` block. If a line of code changed,
    revert it and report it. Never boot Storybook.
+5. A change to the shape of the docs (a section, a heading, a snippet format) that would apply to
+   several components is never chosen alone. Show the options with an example to the human, wait
+   for the choice, then write it in the references before applying it.
 
 ## Code bugs
 
@@ -44,7 +47,11 @@ them in the `.md`, and never publish the drafts: they wait for human review.
 ## Review
 
 Check the component against the references. Report each divergence with its file and line.
-Change nothing. For fresh eyes, run the review in a new session, not the one that wrote the docs.
+Change nothing.
+
+List every "such as" example and every Example label of the reviewed docs with its source (file
+and line, story, repository usage, or decision). Report each one without a source as a divergence.
+Don't replace it with another example: only a human can confirm a usage. For fresh eyes, run the review in a new session, not the one that wrote the docs.
 
 ## Pending
 

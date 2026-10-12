@@ -3,13 +3,13 @@
 import {Menu, MenuItem} from '@jahia/moonstone';
 
 <Menu isDisplayed={isOpen}>
-    <MenuItem label="Rename"/>
+    <MenuItem label="Edit"/>
     <MenuItem label="Delete"/>
 </Menu>
 ```
 
 ## Do
-- Use it to show a list of actions for an item, such as a "more actions" menu on a table row.
+- Use it to show a list of actions for an item.
 - Use it for a context menu that opens where the user clicks.
 - Use it for a long list of actions that the user needs to filter.
 - Use it to split a list of actions into groups, each introduced by a title item.

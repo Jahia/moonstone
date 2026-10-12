@@ -7,7 +7,7 @@ import {EmptyData} from '@jahia/moonstone';
 
 ## Do
 - Use it to fill an area that has no content to show, such as a table with no rows or a list with no items.
-- Use it to explain why an area is empty, such as a search with no results or a filter that matches nothing.
+- Use it to explain why an area is empty.
 
 ## Don't
 - Don't use an EmptyData while the content is still loading. Show a [Loader](?path=/docs/components-loader--docs) instead.

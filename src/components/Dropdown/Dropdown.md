@@ -8,15 +8,15 @@ import {Dropdown} from '@jahia/moonstone';
         {label: 'Published', value: 'published'}
     ]}
     value={status}
-    placeholder="Select a status"
+    placeholder="Select a value"
 />
 ```
 
 ## Do
-- Use it to let the user pick one value from a list of options, such as a status or a language.
+- Use it to let the user pick one value from a list of options.
 - Use it to let the user pick several values from a list. Each selected value shows as a tag in
   the field, and the user can remove it from there.
-- Use it to let the user pick an item in a hierarchy, such as a page in a site tree.
+- Use it to let the user pick an item in a hierarchy.
 - Use it for 4 options or more. A search field appears automatically past 7 options.
 
 ## Don't
@@ -24,8 +24,7 @@ import {Dropdown} from '@jahia/moonstone';
 - Don't use it for 3 options or fewer. Use a [RadioGroup](?path=/docs/components-radiogroup--docs) (one value) or a [CheckboxGroup](?path=/docs/components-checkboxgroup--docs)
   (several values) instead.
 - Don't use it when the user selects 10 values or more. Use a [ListSelector](?path=/docs/components-listselector--docs) instead.
-- Don't use it to open custom content, such as a small form or sorting controls. Use a
-  [CustomDropdown](?path=/docs/components-customdropdown--docs) instead.
+- Don't use it to open custom content. Use a [CustomDropdown](?path=/docs/components-customdropdown--docs) instead.
 
 ## Appearance
 
@@ -52,8 +51,7 @@ import {Dropdown} from '@jahia/moonstone';
 
 ## Voice and tone
 - Write option labels and the `placeholder` in sentence case, using a few words at most.
-- Make the `placeholder` say what to pick, such as "Select a status". It shows only while nothing
-  is selected.
+- Make the `placeholder` say what to pick. It shows only while nothing is selected.
 - Write `searchEmptyText` as a short, plain statement, such as "No results found.".
 
 ## Accessibility

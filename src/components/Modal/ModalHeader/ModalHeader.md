@@ -4,7 +4,7 @@ import {Button, Modal, ModalFooter, ModalHeader} from '@jahia/moonstone';
 
 <Modal isOpen={isOpen} onOpenChange={setIsOpen}>
     <>
-        <ModalHeader title="Delete project"/>
+        <ModalHeader title="Rename content"/>
         <ModalFooter>
             <Button label="Cancel"/>
         </ModalFooter>
@@ -19,4 +19,4 @@ import {Button, Modal, ModalFooter, ModalHeader} from '@jahia/moonstone';
 - Don't use it outside a [Modal](?path=/docs/components-modal--docs). For the title of a page, use a [Header](?path=/docs/components-header--docs) instead.
 
 ## Voice and tone
-- Write the `title` in sentence case and name the task, such as "Delete project" or "Rename page".
+- Write the `title` in sentence case and name the task, such as "Rename content".

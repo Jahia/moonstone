@@ -10,27 +10,26 @@ import {Dropdown, SearchContextInput} from '@jahia/moonstone';
 />
 ```
 
-## Controlled & uncontrolled
-- Controlled: pass `value` and `onChange`. You own the state and `onChange(event)` gives you the
-  new text through `event.target.value`.
-- Uncontrolled: pass `defaultValue` (optional) and let the component manage its own state.
-- Use controlled when the query drives other UI, such as a list of results. Use uncontrolled
-  when you only read the query on a key press, such as Enter.
+## Controlled
+- Pass `value` and `onChange`. You own the state and `onChange(event)` gives you the new text through `event.target.value`.
+- Use it when the query drives other UI.
 - Don't mix the two modes. Passing both `value` and `defaultValue` is not supported.
-- The [Dropdown](?path=/docs/components-dropdown--docs) in `searchContext` stays controlled by you, through its own `value` and
-  `onChange`.
+- The [Dropdown](?path=/docs/components-dropdown--docs) in `searchContext` stays controlled by you, through its own `value` and `onChange`.
 
 ```jsx
-// Controlled
 <SearchContextInput aria-label="Search" searchContext={scopeDropdown} value={query} onChange={e => setQuery(e.target.value)}/>
+```
 
-// Uncontrolled
+## Uncontrolled
+- Pass `defaultValue` (optional) and let the component manage its own state.
+- Use it when you only read the query on a key press, such as Enter.
+
+```jsx
 <SearchContextInput aria-label="Search" searchContext={scopeDropdown} defaultValue="home"/>
 ```
 
 ## Do
-- Use it for a search box where the user also picks where to search, such as in pages, media, or
-  users.
+- Use it for a search box where the user also picks where to search.
 
 ## Don't
 - Don't use it when there is only one place to search. Use [SearchInput](?path=/docs/components-searchinput--docs) instead.

@@ -3,7 +3,7 @@
 import {Menu, MenuItem} from '@jahia/moonstone';
 
 <Menu isDisplayed={isOpen}>
-    <MenuItem label="Rename"/>
+    <MenuItem label="Edit"/>
 </Menu>
 ```
 
@@ -40,5 +40,5 @@ import {Menu, MenuItem} from '@jahia/moonstone';
 ## Voice and tone
 - Write item labels in sentence case, using a few words at most (3 maximum). Never write a full sentence.
 - Start an action item with a verb that names the action, such as "Rename", "Duplicate", or "Delete".
-- Add a noun only when the same verb applies to different objects, such as "Copy link" and "Copy content".
+- Add a noun only when the same verb applies to different objects.
 - Be specific and name the real outcome. Write "Delete", never "OK".

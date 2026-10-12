@@ -100,8 +100,29 @@ export const parameters = {
     },
 
     options: {
-        storySort: {
-            method: 'alphabetical',
+        // Alphabetical by title, but EmptyCardSelector sorts as "CardSelector Empty", right after
+        // CardSelector. Self-contained: Storybook serializes this function.
+        storySort: (a, b) => {
+            if (a.title === b.title) {
+                return 0;
+            }
+            const key = entry => entry.title.replace(/(^|\/)EmptyCardSelector$/, '$1CardSelector Empty').split('/');
+            const [keyA, keyB] = [key(a), key(b)];
+            for (let i = 0; i < Math.max(keyA.length, keyB.length); i++) {
+                if (keyA[i] === undefined) {
+                    return -1;
+                }
+                if (keyB[i] === undefined) {
+                    return 1;
+                }
+                if (keyA[i] !== keyB[i]) {
+                    return keyA[i].localeCompare(keyB[i], undefined, {
+                        numeric: true,
+                        sensitivity: 'accent',
+                    });
+                }
+            }
+            return 0;
         },
     },
 

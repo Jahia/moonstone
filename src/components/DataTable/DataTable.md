@@ -11,38 +11,30 @@ const columns = [
 <DataTable primaryKey="id" data={pages} columns={columns}/>
 ```
 
-## Controlled & uncontrolled
+## Controlled
+- Sorting, selection, pagination, and row expansion each work in either mode. Pick one mode per feature.
+- Pass the state and its callback, such as `sortBy` and `sortDirection` with `onSortChange`. You own the state, and the DataTable doesn't sort or slice `data` itself: pass the rows already sorted and, for pagination, only the rows of the current page, with `totalItems` set to the full count.
+- Use it when the state lives elsewhere.
+- Don't mix a controlled prop with its `default*` counterpart.
+- The callbacks receive the new state: `onSortChange(sortBy, sortDirection)`, `onChangeSelection(selection)` with the `primaryKey` values of the selected rows, `onPageChange(page)` with a page number that starts at 1, and `onExpandChange(expandedRows)` with the `primaryKey` values of the expanded rows.
 
-Sorting, selection, pagination, and row expansion each work in either mode. Pick one mode per feature, and don't mix a controlled prop with its `default*` counterpart.
+```jsx
+<DataTable primaryKey="id" data={sortedPages} columns={columns} enableSorting sortBy={sortBy} sortDirection={sortDirection} onSortChange={(by, direction) => setSort(by, direction)}/>
+```
 
-- **Uncontrolled** (default): the DataTable sorts, selects, paginates, and expands rows on its own from the `default*` props, so use it when all the rows are loaded at once.
-  ```jsx
-  <DataTable primaryKey="id" data={pages} columns={columns} enableSorting defaultSortBy="name"/>
-  ```
-- **Controlled**: the parent owns each state through its prop and callback, such as `sortBy` and `sortDirection` with `onSortChange`, so use it when the state lives elsewhere, such as in the URL or on the server.
-  ```jsx
-  const [sort, setSort] = useState({sortBy: 'name', sortDirection: 'ascending'});
+## Uncontrolled
+- Pass the `default*` props (optional), such as `defaultSortBy`, and let the DataTable sort, select, paginate, and expand rows on its own. All the rows must be loaded at once.
+- Use it when all the rows are loaded at once.
 
-  <DataTable
-      primaryKey="id"
-      data={sortedPages}
-      columns={columns}
-      enableSorting
-      sortBy={sort.sortBy}
-      sortDirection={sort.sortDirection}
-      onSortChange={(sortBy, sortDirection) => setSort({sortBy, sortDirection})}
-  />
-  ```
-
-In controlled mode, the DataTable doesn't sort or slice `data` itself. Pass the rows already sorted and, for pagination, only the rows of the current page, with `totalItems` set to the full count.
-
-The callbacks receive the new state: `onSortChange(sortBy, sortDirection)`, `onChangeSelection(selection)` with the `primaryKey` values of the selected rows, `onPageChange(page)` with a page number that starts at 1, and `onExpandChange(expandedRows)` with the `primaryKey` values of the expanded rows.
+```jsx
+<DataTable primaryKey="id" data={pages} columns={columns} enableSorting defaultSortBy="name"/>
+```
 
 ## Do
-- Use it to display a list of records as rows and columns, such as pages, users, or releases.
+- Use it to display a list of records as rows and columns.
 - Use it when users need to sort, select, or page through the rows.
 - Use it to show hierarchical records, where a row expands to reveal its sub-rows.
-- Use it when each row needs extra cells next to the data columns, such as a status or row actions.
+- Use it when each row needs extra cells next to the data columns.
 
 ## Don't
 - Don't render a DataTable to show that there is nothing to display. It renders nothing when `data` is empty, so render an [EmptyData](?path=/docs/components-emptydata--docs) in its place.

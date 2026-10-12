@@ -5,31 +5,25 @@ import {Checkbox} from '@jahia/moonstone';
 <Checkbox aria-label="Select row"/>
 ```
 
-## Controlled & uncontrolled
+## Controlled
+- Pass `checked` and `onChange`. You own the state, and `onChange(event, value, checked)` gives you the `value` prop as its second argument and the new checked state as its third.
+- Use it when the state is read or driven elsewhere, such as by a "select all" control.
+- Don't mix the two modes. Passing both `checked` and `defaultChecked` is not supported.
 
-Use one mode or the other. Do not mix `checked` (controlled) with `defaultChecked` (uncontrolled).
+```jsx
+<Checkbox aria-label="Select all" checked={allSelected} indeterminate={someSelected && !allSelected} onChange={(event, value, checked) => selectAll(checked)}/>
+```
 
-- **Uncontrolled** (default): the component tracks its own checked state. Optionally set the
-  starting state with `defaultChecked`. Use it when nothing else needs to read or drive the state.
-  ```jsx
-  <Checkbox aria-label="Select row" defaultChecked/>
-  ```
-- **Controlled**: the parent owns the state through `checked`, updated in `onChange`. Use it when
-  the state is read or driven elsewhere, such as a "select all" control.
-  ```jsx
-  <Checkbox
-      aria-label="Select all"
-      checked={allSelected}
-      indeterminate={someSelected && !allSelected}
-      onChange={(event, value, checked) => selectAll(checked)}
-  />
-  ```
+## Uncontrolled
+- Pass `defaultChecked` (optional) and let the component manage its own state.
+- Use it when nothing else needs it.
 
-In both modes, `onChange(event, value, checked)` receives the `value` prop as its second argument
-and the new checked state as its third.
+```jsx
+<Checkbox aria-label="Select row" defaultChecked/>
+```
 
 ## Do
-- Use it to select an item whose label is already shown next to it, such as a table row.
+- Use it to select an item whose label is already shown next to it.
 - Use it for a "select all" control that reflects a partial selection.
 
 ## Don't

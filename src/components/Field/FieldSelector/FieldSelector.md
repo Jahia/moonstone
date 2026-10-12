@@ -7,7 +7,7 @@ import {FieldSelector, Input} from '@jahia/moonstone';
 
 ## Do
 - Use it to place each control of a [Field](?path=/docs/components-field--docs) on its own row.
-- Use it for each value of a multi-value field, where every row carries its own actions, such as a remove action. `isDraggable` only shows a drag handle: you implement the drag and drop.
+- Use it for each value of a multi-value field, where every row carries its own actions. `isDraggable` only shows a drag handle: you implement the drag and drop.
 
 ## Don't
 - Don't use a FieldSelector on its own. Place it inside a [Field](?path=/docs/components-field--docs), which provides the label and the error message.

@@ -4,7 +4,7 @@ import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from '@jahia/moonsto
 
 <Modal isOpen={isOpen} onOpenChange={setIsOpen}>
     <>
-        <ModalHeader title="Delete project"/>
+        <ModalHeader title="Rename content"/>
         <ModalBody>
             <YourContent/>
         </ModalBody>

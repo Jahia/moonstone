@@ -3,7 +3,7 @@
 import {SecondaryNav, SecondaryNavHeader} from '@jahia/moonstone';
 
 <SecondaryNav
-    aria-label="Site content"
+    aria-label="Administration"
     header={<SecondaryNavHeader>Content</SecondaryNavHeader>}
 >
     <YourContent/>
@@ -19,7 +19,8 @@ import {SecondaryNav, SecondaryNavHeader} from '@jahia/moonstone';
 ## Don't
 - Don't use it for the top-level navigation of the application. Use [PrimaryNav](?path=/docs/components-primarynav--docs) instead.
 - Don't use it to switch between views inside a page. Use [Tab](?path=/docs/components-tab--docs) instead.
+- Don't put [Collapsible](?path=/docs/components-collapsible--docs) sections in it. Use an [Accordion](?path=/docs/components-accordion--docs) instead.
 
 ## Accessibility
-- Pass an `aria-label` that names the navigation, such as "Site content". It is forwarded to the root element, which is a landmark region.
+- Pass an `aria-label` that names the navigation, such as "Administration". It is forwarded to the root element, which is a landmark region.
 - The SecondaryNav uses reversed colors by default, for a dark background. Give its content the same `isReversed` value, such as `<TreeView isReversed/>`, so the text keeps enough contrast.

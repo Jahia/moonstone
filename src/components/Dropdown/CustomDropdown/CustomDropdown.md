@@ -8,8 +8,7 @@ import {CustomDropdown} from '@jahia/moonstone';
 ```
 
 ## Do
-- Use it to open custom content from a button, such as sorting controls or a small form, without
-  leaving the page.
+- Use it to open custom content from a button, without leaving the page.
 
 ## Don't
 - Don't use it to pick one or several values from a list of options. Use a [Dropdown](?path=/docs/components-dropdown--docs) instead.

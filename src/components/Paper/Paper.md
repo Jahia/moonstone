@@ -2,8 +2,8 @@
 ```jsx
 import {Paper, Typography} from '@jahia/moonstone';
 
-<Paper aria-labelledby="languages-title">
-    <Typography id="languages-title" component="h2" variant="heading">Languages</Typography>
+<Paper aria-labelledby="content-title">
+    <Typography id="content-title" component="h2" variant="heading">Content</Typography>
     <YourContent/>
 </Paper>
 ```
@@ -13,7 +13,7 @@ import {Paper, Typography} from '@jahia/moonstone';
 - Use it to stack several blocks of content on a page. Consecutive Papers are spaced apart automatically.
 
 ## Don't
-- Don't use a Paper for content that must interrupt the user, such as a confirmation. Use a [Modal](?path=/docs/components-modal--docs) instead.
+- Don't use a Paper for content that must interrupt the user. Use a [Modal](?path=/docs/components-modal--docs) instead.
 - Don't use a Paper for a side panel that slides in beside the page content. Use a [Drawer](?path=/docs/components-drawer--docs) instead.
 - Don't use a Paper for a section that the user expands and collapses. Use an [Accordion](?path=/docs/components-accordion--docs) or a [Collapsible](?path=/docs/components-collapsible--docs) instead.
 

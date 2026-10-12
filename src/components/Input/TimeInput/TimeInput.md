@@ -5,24 +5,23 @@ import {TimeInput} from '@jahia/moonstone';
 <TimeInput aria-label="Start time"/>
 ```
 
-## Controlled & uncontrolled
-- Controlled: pass `value` and `onChange` (required). `onChange(event, value)` fires when an entry
-  commits (on blur once typing completes a valid time, or via the AM/PM dropdown in
-  `timeFormat="12h"`) and on each Up or Down arrow step, never on each typed character. It gives a
-  `Temporal.PlainTime`, or `null` when the field is cleared.
-- Uncontrolled: pass `defaultValue` (optional) and let the component manage its own state.
+## Controlled
+- Pass `value` and `onChange` (required). `onChange(event, value)` fires when an entry commits (on blur once typing completes a valid time, or via the AM/PM dropdown in `timeFormat="12h"`) and on each Up or Down arrow step, never on each typed character. It gives a `Temporal.PlainTime`, or `null` when the field is cleared.
 - Don't mix the two modes. Passing both `value` and `defaultValue` is not supported.
 
 ```jsx
-// Controlled
 <TimeInput aria-label="Start time" value={startTime} onChange={(e, time) => setStartTime(time)}/>
+```
 
-// Uncontrolled
+## Uncontrolled
+- Pass `defaultValue` (optional) and let the component manage its own state.
+
+```jsx
 <TimeInput aria-label="Start time" defaultValue="09:00"/>
 ```
 
 ## Do
-- Use it to capture a time of day, such as an opening hour or a reminder time.
+- Use it to capture a time of day.
 - Use it inside a [Field](?path=/docs/components-field--docs) when it needs a visible label, helper text, or an error message.
 
 ## Don't

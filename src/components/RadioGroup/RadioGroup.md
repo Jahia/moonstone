@@ -8,30 +8,23 @@ import {RadioGroup, RadioItem} from '@jahia/moonstone';
 </RadioGroup>
 ```
 
-## Controlled & uncontrolled
+## Controlled
+- Pass `value` and `onChange`. You own the state, and `onChange(event, value)` gives you the value of the item the user selected.
+- Use it when the choice is read or driven elsewhere.
+- Don't mix the two modes. Passing both `value` and `defaultValue` is not supported.
+- In both modes, one item is always selected: the first one when no value is given.
 
-Use one mode or the other. Do not mix `value` (controlled) with `defaultValue` (uncontrolled).
-In both modes, one item is always selected: the first one when no value is given.
+```jsx
+<RadioGroup name="visibility" value={visibility} onChange={(event, value) => setVisibility(value)}>…</RadioGroup>
+```
 
-- **Uncontrolled** (default): the component tracks the selected item itself. Optionally set the
-  starting item with `defaultValue`. Use it when nothing else needs to read or drive the choice.
-  ```jsx
-  <RadioGroup name="visibility" defaultValue="public" onChange={(event, value) => saveVisibility(value)}>
-      <RadioItem id="visibility-public" label="Public" value="public"/>
-      <RadioItem id="visibility-private" label="Private" value="private"/>
-  </RadioGroup>
-  ```
-- **Controlled**: the parent owns the selected value through `value`, updated in
-  `onChange(event, value)`, where `value` is the value of the item the user selected. Use it
-  when the choice is read or driven elsewhere.
-  ```jsx
-  const [visibility, setVisibility] = useState('public');
+## Uncontrolled
+- Pass `defaultValue` (optional) and let the component manage its own state.
+- Use it when nothing else needs it.
 
-  <RadioGroup name="visibility" value={visibility} onChange={(event, value) => setVisibility(value)}>
-      <RadioItem id="visibility-public" label="Public" value="public"/>
-      <RadioItem id="visibility-private" label="Private" value="private"/>
-  </RadioGroup>
-  ```
+```jsx
+<RadioGroup name="visibility" defaultValue="public">…</RadioGroup>
+```
 
 ## Do
 - Use it to let the user choose exactly one option out of 3 or fewer, all visible at once.

@@ -2,7 +2,7 @@
 ```jsx
 import {Tag} from '~/components';
 
-<Tag label="Draft" value="draft" onClick={(event, value) => removeFilter(value)}/>
+<Tag label="Featured" value="featured" onClick={(event, value) => removeFilter(value)}/>
 ```
 
 ## Do

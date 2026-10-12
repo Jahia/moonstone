@@ -24,7 +24,7 @@ import {Accordion, AccordionItem} from '@jahia/moonstone';
 - Write the label in sentence case, using a few words at most (3 maximum). Never write a full sentence.
 - Name the content of the section, such as "Pages", "Media", or "Publishing settings".
 - Keep the label short. It stays on one line and does not wrap.
-- Avoid verbs unless the section contains a form or an action-oriented task, such as "Add content".
+- Avoid verbs unless the section contains a form or an action-oriented task.
 
 ## Accessibility
 

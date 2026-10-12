@@ -16,6 +16,10 @@ Mixed, by section:
 - **Avoid arrow shortcuts (`→`).** Write the alternative as a sentence ("Use a link instead.").
 - Present tense, active voice. Sentence case for all headings.
 - Use "such as" for examples, not "e.g." or "i.e.".
+- **Every example must have a source.** An example ("such as …") or a label in an Example comes
+  from the code, the stories, a real usage in a Jahia repository, or a human decision. Never
+  invent one to illustrate a bullet: a bullet without an example is better than a wrong one. When
+  no source exists, drop the example, or ask the human.
 - Never gerunds ("Showing …") or bare noun phrases in Do/Don't bullets.
 
 ## Terminology & formatting
