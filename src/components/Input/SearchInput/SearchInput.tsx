@@ -16,7 +16,7 @@ export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
             ref={inputRef}
             {...props}
             isShowClearButton
-            icon={<Search aria-hidden/>}
+            icon={<Search/>}
             role="search"
         />
     );
