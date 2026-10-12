@@ -28,7 +28,7 @@ describe('Icons', () => {
     });
 
     test.each(Object.values(Icons))('should become meaningful when given a role', (Icon) => {
-        render(<Icon aria-labelledby="x" data-testid="moonstone-icon" role="img"/>);
+        render(<Icon data-testid="moonstone-icon" role="img"/>);
         expect(screen.getByTestId('moonstone-icon')).not.toHaveAttribute('aria-hidden');
     });
 
