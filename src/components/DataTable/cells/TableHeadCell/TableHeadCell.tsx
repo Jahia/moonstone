@@ -34,7 +34,6 @@ export const TableHeadCell = ({
             {children}
             {isSortable && (
                 <SortIcon
-                    aria-hidden="true"
                     className={clsx(
                         { [styles.sort]: !isSortActive },
                         { [styles.sortActive]: isSortActive },
