@@ -23,7 +23,7 @@ export const Tag: React.FC<TagProps> = ({
         {...props}
     >
         {label && <Typography isNowrap component="span" variant="caption">{label}</Typography>}
-        <Close aria-hidden className={clsx('moonstone-tag_icon', styles['moonstone-tag_icon'])} size={size === 'small' ? 'small' : 'default'}/>
+        <Close className={clsx('moonstone-tag_icon', styles['moonstone-tag_icon'])} size={size === 'small' ? 'small' : 'default'}/>
     </button>
 );
 

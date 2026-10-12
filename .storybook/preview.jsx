@@ -156,7 +156,18 @@ export const parameters = {
                 values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'],
             },
             resultTypes: ['violations'],
+            rules: {
+                'aria-allowed-role': { enabled: true },
+                'presentation-role-conflict': { enabled: true },
+                'aria-dialog-name': { enabled: true },
+                'aria-treeitem-name': { enabled: true },
+                'aria-text': { enabled: true },
+                'empty-heading': { enabled: true },
+                'empty-table-header': { enabled: true },
+                'label-title-only': { enabled: true },
+            },
         },
+
     },
 };
 
