@@ -62,7 +62,7 @@
     "build:lib:scoped": "vite build && yarn tsc && tsc-alias -f",
     "build:lib:legacy": "sass src/globals.scss dist/legacy-global-bundle.css --no-source-map --style=compressed",
     "build:lib": "yarn build:lib:scoped && yarn build:lib:legacy && publint",
-    "build:storybook": "storybook build",
+    "build:storybook": "storybook build --docs",
     "lint": "yarn lint:js && yarn lint:scss",
     "lint:fix": "yarn lint:js:fix && yarn lint:scss:fix",
     "lint:js": "oxlint .",
