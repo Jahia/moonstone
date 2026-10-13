@@ -47,7 +47,7 @@ export const ValueList: React.FC<ValueListProps> = ({
                     return (
                         <ListItem
                             className={clsx(...classNames)}
-                            data-list={side}
+                            data-sel-role={`${side}-list`}
                             iconEnd={!isReadOnly && (side === 'left'
                                 ? (
                                         <div className={clsx('moonstone-iconContainer', styles['moonstone-iconContainer'])}>

@@ -26,7 +26,7 @@ describe('MultipleLeftRightSelector', () => {
         const { container } = render(
             <ListSelector {...requiredProps} options={options}/>,
         );
-        expect(container.querySelectorAll('li[data-list="left"]')).toHaveLength(
+        expect(container.querySelectorAll('li[data-sel-role="left-list"]')).toHaveLength(
             options.length,
         );
     });
@@ -40,11 +40,11 @@ describe('MultipleLeftRightSelector', () => {
                 values={selection}
             />,
         );
-        expect(container.querySelectorAll('li[data-list="left"]')).toHaveLength(
+        expect(container.querySelectorAll('li[data-sel-role="left-list"]')).toHaveLength(
             options.length - selection.length,
         );
         expect(
-            container.querySelectorAll('li[data-list="right"]'),
+            container.querySelectorAll('li[data-sel-role="right-list"]'),
         ).toHaveLength(selection.length);
     });
 
@@ -58,25 +58,25 @@ describe('MultipleLeftRightSelector', () => {
                 values={selection}
             />,
         );
-        expect(container.querySelectorAll('li[data-list="left"]')).toHaveLength(
+        expect(container.querySelectorAll('li[data-sel-role="left-list"]')).toHaveLength(
             options.length - selection.length,
         );
         expect(
-            container.querySelectorAll('li[data-list="right"]'),
+            container.querySelectorAll('li[data-sel-role="right-list"]'),
         ).toHaveLength(selection.length);
 
         expect(
-            container.querySelector('button[data-action="add-all"]'),
+            container.querySelector('button[data-sel-role="add-all"]'),
         ).toBeDisabled();
         expect(
-            container.querySelector('button[data-action="remove-all"]'),
+            container.querySelector('button[data-sel-role="remove-all"]'),
         ).toBeDisabled();
 
-        container.querySelectorAll('li[data-list="left"]').forEach((el) => {
+        container.querySelectorAll('li[data-sel-role="left-list"]').forEach((el) => {
             expect(el.querySelectorAll('svg')).toHaveLength(0);
         });
 
-        container.querySelectorAll('li[data-list="right"]').forEach((el) => {
+        container.querySelectorAll('li[data-sel-role="right-list"]').forEach((el) => {
             expect(el.querySelectorAll('svg')).toHaveLength(0);
         });
     });
@@ -109,7 +109,7 @@ describe('MultipleLeftRightSelector', () => {
         const { container } = render(
             <ListSelector {...requiredProps} options={options} onChange={mockOnChange}/>,
         );
-        expect(container.querySelectorAll('li[data-list="left"]')).toHaveLength(
+        expect(container.querySelectorAll('li[data-sel-role="left-list"]')).toHaveLength(
             options.length,
         );
 
@@ -117,7 +117,7 @@ describe('MultipleLeftRightSelector', () => {
 
         await user.type(search, 'On');
 
-        expect(container.querySelectorAll('li[data-list="left"]')).toHaveLength(
+        expect(container.querySelectorAll('li[data-sel-role="left-list"]')).toHaveLength(
             1,
         );
     });
@@ -156,8 +156,8 @@ describe('MultipleLeftRightSelector', () => {
             />,
         );
         expect(screen.getAllByRole('listitem')).toHaveLength(options.length);
-        expect(screen.getByRole('button', { name: 'Add all' })).toHaveAttribute('data-action', 'add-all');
-        expect(screen.getByRole('button', { name: 'Remove all' })).toHaveAttribute('data-action', 'remove-all');
+        expect(screen.getByRole('button', { name: 'Add all' })).toHaveAttribute('data-sel-role', 'add-all');
+        expect(screen.getByRole('button', { name: 'Remove all' })).toHaveAttribute('data-sel-role', 'remove-all');
     });
 
     it('should not use any invented role', () => {

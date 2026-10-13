@@ -207,11 +207,6 @@ describe('AccordionItem', () => {
         expect(screen.getByRole('heading', { level: 3 })).toContainElement(screen.getByRole('button', { name: requiredProps.label }));
     });
 
-    it('should use the given heading level', () => {
-        render(<AccordionItem {...requiredProps} headingLevel={2}>content here</AccordionItem>);
-        expect(screen.getByRole('heading', { level: 2, name: requiredProps.label })).toBeInTheDocument();
-    });
-
     it('should link an open header and its panel', () => {
         render(
             <AccordionContext.Provider value={{ onSetOpenedItem: vi.fn(), currentItem: 'test-id' }}>

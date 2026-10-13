@@ -144,7 +144,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
             >
                 <Button
                     isDisabled={isReadOnly || valuesLeft.length === 0}
-                    data-action="add-all"
+                    data-sel-role="add-all"
                     icon={<ChevronDoubleRight/>}
                     title={label.addAllTitle || 'Add all'}
                     variant="ghost"
@@ -152,7 +152,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                 />
                 <Button
                     isDisabled={isReadOnly || valuesRight.length === 0}
-                    data-action="remove-all"
+                    data-sel-role="remove-all"
                     icon={<ChevronDoubleLeft/>}
                     title={label.removeAllTitle || 'Remove all'}
                     variant="ghost"

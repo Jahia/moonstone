@@ -17,4 +17,14 @@ describe('ResizableBox', () => {
         render(<ResizableBox data-custom="extra" data-testid="resizable-box">My content here</ResizableBox>);
         expect(screen.getByTestId('resizable-box')).toHaveAttribute('data-custom', 'extra');
     });
+
+    it('should be named only by the consumer', () => {
+        render(<ResizableBox data-testid="resizable-box">My content here</ResizableBox>);
+        expect(screen.getByTestId('resizable-box')).not.toHaveAttribute('aria-label');
+    });
+
+    it('should forward the consumer name', () => {
+        render(<ResizableBox aria-label="Side panel">My content here</ResizableBox>);
+        expect(screen.getByRole('region', { name: 'Side panel' })).toBeInTheDocument();
+    });
 });

@@ -13,10 +13,6 @@ export type TabItemProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'onCli
      */
     label?: string;
     /**
-     * Id of the tab. Pair it with `aria-controls`, the id of the panel the tab shows, which refers back to the tab with `aria-labelledby`
-     */
-    id?: string;
-    /**
      * Icon size
      */
     size?: TabItemSize;

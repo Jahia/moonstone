@@ -10,13 +10,12 @@ import type { AccordionItemProps } from './AccordionItem.types';
 import styles from './AccordionItem.module.scss';
 
 export const AccordionItem: React.FC<AccordionItemProps> = ({
-    id, label, icon = null, headingLevel = 3, onClick = () => undefined, className, children, ...props
+    id, label, icon = null, onClick = () => undefined, className, children, ...props
 }) => {
     const context = React.useContext(AccordionContext);
     const open = context.currentItem === id;
     const buttonId = useId();
     const panelId = useId();
-    const Heading = `h${headingLevel}` as const;
 
     const handleClick = (e: React.MouseEvent) => {
         onClick(e, !open);
@@ -34,7 +33,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
                 className,
             )}
         >
-            <Heading className={clsx('moonstone-accordionItem_heading', styles['moonstone-accordionItem_heading'])}>
+            <h3 className={clsx('moonstone-accordionItem_heading', styles['moonstone-accordionItem_heading'])}>
                 <button
                     // The panel is only rendered when open, so it can only be referenced then
                     aria-controls={open ? panelId : undefined}
@@ -71,7 +70,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
                         {label}
                     </Typography>
                 </button>
-            </Heading>
+            </h3>
 
             {/* Accordion content */}
             {open
