@@ -3,4 +3,4 @@
 "@jahia/moonstone": patch
 ---
 
-The `EmptyData` title is now an `h2` heading (#1514)
+The `EmptyData` title is now an `h3` heading (#1514)
