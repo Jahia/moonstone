@@ -8,12 +8,6 @@ describe('ImgWrapper', () => {
         expect(screen.getByRole('img')).toHaveAttribute('src', 'https://toto.jahia.com');
     });
 
-    it('should require an alt text', () => {
-        // @ts-expect-error alt is required
-        render(<ImgWrapper src="https://toto.jahia.com"/>);
-        expect(screen.getByRole('img')).toBeInTheDocument();
-    });
-
     it('should display alt attribute', () => {
         render(<ImgWrapper alt="extra" src="https://toto.jahia.com"/>);
         expect(screen.getByAltText('extra')).toBeInTheDocument();

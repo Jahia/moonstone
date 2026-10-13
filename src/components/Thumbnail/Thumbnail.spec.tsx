@@ -5,7 +5,7 @@ import { Love } from '~/icons';
 
 describe('Thumbnail', () => {
     it('should render fallback icon when no src provided', () => {
-        render(<Thumbnail/>);
+        render(<Thumbnail alt=""/>);
         const figure = document.querySelector('.moonstone-thumbnail');
         expect(figure).toBeInTheDocument();
         expect(figure?.querySelector('svg')).toHaveAttribute('aria-hidden', 'true');
@@ -18,23 +18,18 @@ describe('Thumbnail', () => {
         expect(img).toHaveAttribute('alt', 'Test image');
     });
 
-    it('should render a decorative image when no alt is given', () => {
-        render(<Thumbnail src="https://example.com/image.jpg"/>);
-        expect(screen.getByRole('presentation')).toHaveAttribute('alt', '');
-    });
-
     it('should render React element when src is an element', () => {
-        render(<Thumbnail src={<Love data-testid="custom-icon"/>}/>);
+        render(<Thumbnail alt="" src={<Love data-testid="custom-icon"/>}/>);
         expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
     });
 
     it('should apply default size class', () => {
-        render(<Thumbnail/>);
+        render(<Thumbnail alt=""/>);
         expect(document.querySelector('.moonstone-thumbnail_default')).toBeInTheDocument();
     });
 
     it('should apply small size class', () => {
-        render(<Thumbnail size="small"/>);
+        render(<Thumbnail alt="" size="small"/>);
         expect(document.querySelector('.moonstone-thumbnail_small')).toBeInTheDocument();
     });
 
@@ -51,7 +46,7 @@ describe('Thumbnail', () => {
     });
 
     it('should apply custom className', () => {
-        render(<Thumbnail className="custom-class"/>);
+        render(<Thumbnail alt="" className="custom-class"/>);
         expect(document.querySelector('.moonstone-thumbnail.custom-class')).toBeInTheDocument();
     });
 });

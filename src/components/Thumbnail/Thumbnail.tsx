@@ -34,7 +34,7 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({
         return (
             <div className={rootClassName} {...props}>
                 <img
-                    alt={alt ?? ''}
+                    alt={alt}
                     className={clsx([`moonstone-thumbnail_${variant}`, styles[`moonstone-thumbnail_${variant}`]])}
                     src={src}
                     {...imgProps}

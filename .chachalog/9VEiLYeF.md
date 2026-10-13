@@ -3,4 +3,4 @@
 "@jahia/moonstone": minor
 ---
 
-`ImgWrapper` now requires an `alt` text, and `Thumbnail` no longer renders an image without `alt` (#1424)
+`ImgWrapper` and `Thumbnail` now require an `alt` text (#1424)
