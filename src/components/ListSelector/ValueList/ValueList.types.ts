@@ -45,9 +45,9 @@ export type ValueListProps = {
      */
     listClasses?: string[];
     /**
-     * List role
+     * Side of the selector the list sits on: the left list holds the available values, the right list the selected ones
      */
-    role: string;
+    side: 'left' | 'right';
     /**
      * OnClick callback
      */

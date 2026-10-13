@@ -17,7 +17,7 @@ export const ValueList: React.FC<ValueListProps> = ({
     draggedId,
     isReadOnly,
     listClasses = [],
-    role,
+    side,
     onClick,
     onDragStart,
     onDragEnd,
@@ -47,7 +47,8 @@ export const ValueList: React.FC<ValueListProps> = ({
                     return (
                         <ListItem
                             className={clsx(...classNames)}
-                            iconEnd={!isReadOnly && (role === 'left-list'
+                            data-list={side}
+                            iconEnd={!isReadOnly && (side === 'left'
                                 ? (
                                         <div className={clsx('moonstone-iconContainer', styles['moonstone-iconContainer'])}>
                                             { iconEnd }
@@ -70,16 +71,15 @@ export const ValueList: React.FC<ValueListProps> = ({
                             )}
                             key={v.label}
                             label={v.label}
-                            role={role}
                             typographyVariant="body"
                             {...onAccessibleClick({
                                 onClick: (e: React.MouseEvent) => {
-                                    if (!isReadOnly && role === 'left-list') {
+                                    if (!isReadOnly && side === 'left') {
                                         onClick(e, v);
                                     }
                                 },
                                 disabled: isReadOnly,
-                                role: role,
+                                role: 'listitem',
                             })}
                             onDragOver={(e: React.DragEvent) => {
                                 if (!isReadOnly) {
