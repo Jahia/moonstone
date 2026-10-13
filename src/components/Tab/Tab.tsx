@@ -12,7 +12,10 @@ import styles from './Tab.module.scss';
 export const Tab = React.forwardRef<HTMLDivElement, TabProps>(({ children, className = '', ...props }, ref) => {
     const tabRef = useRef<HTMLDivElement>(null);
     const mergedRef = useMergeRefs([tabRef, ref]);
-    const rovingFocus = useRovingFocus(tabRef, { itemSelector: '[role="tab"]', orientation: 'horizontal' });
+    const rovingFocus = useRovingFocus(tabRef, {
+        itemSelector: '[role="tab"]',
+        orientation: 'horizontal',
+    });
 
     if (!children || React.Children.count(children) < 1) {
         return null;

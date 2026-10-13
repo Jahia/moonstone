@@ -7,8 +7,14 @@ type UseRovingFocusOptions = {
 };
 
 const arrowKeys = {
-    vertical: { previous: 'ArrowUp', next: 'ArrowDown' },
-    horizontal: { previous: 'ArrowLeft', next: 'ArrowRight' },
+    vertical: {
+        previous: 'ArrowUp',
+        next: 'ArrowDown',
+    },
+    horizontal: {
+        previous: 'ArrowLeft',
+        next: 'ArrowRight',
+    },
 };
 
 const isEnabled = (el: HTMLElement) => !el.matches(':disabled, [aria-disabled="true"]');
@@ -75,5 +81,8 @@ export const useRovingFocus = (
         next?.focus();
     };
 
-    return { onFocus, onKeyDown };
+    return {
+        onFocus,
+        onKeyDown,
+    };
 };

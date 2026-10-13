@@ -27,14 +27,6 @@ export const MenuItem: React.FC<MenuItemProps> = ({
 }) => {
     return (
         <ListItem
-            onKeyUp={(e: React.KeyboardEvent<HTMLLIElement>) => {
-                if (onKeyPress) {
-                    console.warn('onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
-                    onKeyPress(e);
-                }
-
-                onKeyUp?.(e);
-            }}
             aria-disabled={isDisabled}
             className={clsx(
                 ['moonstone-menuItem', styles['moonstone-menuItem']],
@@ -54,6 +46,14 @@ export const MenuItem: React.FC<MenuItemProps> = ({
             imageSize={imageSize}
             tabIndex={isDisabled || variant === 'title' || isSelected ? null : 0}
             onClick={isDisabled ? undefined : onClick}
+            onKeyUp={(e: React.KeyboardEvent<HTMLLIElement>) => {
+                if (onKeyPress) {
+                    console.warn('onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
+                    onKeyPress(e);
+                }
+
+                onKeyUp?.(e);
+            }}
             {...props}
         />
     );

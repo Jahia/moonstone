@@ -25,6 +25,7 @@ describe('onToggleNode', () => {
                 aria-disabled={isDisabled}
                 aria-expanded={opened}
                 data-testid="toggleable-div"
+                role="treeitem"
                 tabIndex={0}
                 {...onToggleNode({ onToggle: handleToggle, onClick: handleClick, isDisabled, isOpen: opened })}
             >

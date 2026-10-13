@@ -12,7 +12,7 @@ describe('useRovingFocus', () => {
         const rovingFocus = useRovingFocus(ref, { itemSelector: '[data-item]', orientation, loop });
 
         return (
-            <div ref={ref} data-testid="test-menu" {...rovingFocus}>
+            <div data-testid="test-menu" ref={ref} {...rovingFocus}>
                 <div data-item>Item 1</div>
                 <div>Not an Item</div>
                 <div data-item>Item 2</div>

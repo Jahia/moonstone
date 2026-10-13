@@ -61,7 +61,10 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
     const refs = useRef(new Map<string, React.RefObject<HTMLElement>>());
     const treeRef = useRef<HTMLUListElement>(null);
     const mergedRef = useMergeRefs([treeRef, ref]);
-    const rovingFocus = useRovingFocus(treeRef, { itemSelector: '[role="treeitem"]', loop: false });
+    const rovingFocus = useRovingFocus(treeRef, {
+        itemSelector: '[role="treeitem"]',
+        loop: false,
+    });
 
     function generateLevelJSX(nodeData: TreeViewData[], depth: number, parentHasIconStart: boolean, parentRef?: React.RefObject<HTMLElement>): React.ReactNode[] {
         const expandSiblings = (e: React.MouseEvent) => {
