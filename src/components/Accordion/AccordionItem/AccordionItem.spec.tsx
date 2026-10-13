@@ -149,7 +149,7 @@ describe('AccordionItem', () => {
                 </AccordionItem>
             </AccordionContext.Provider>,
         );
-        await user.click(screen.getByRole('accordion-item'));
+        await user.click(screen.getByRole('button', { name: requiredProps.label }));
 
         expect(isOpen).toBe(true);
     });
@@ -177,7 +177,7 @@ describe('AccordionItem', () => {
                 </AccordionItem>
             </AccordionContext.Provider>,
         );
-        await user.click(screen.getByRole('accordion-item'));
+        await user.click(screen.getByRole('button', { name: requiredProps.label }));
 
         expect(isOpen).toBe(false);
     });
@@ -199,6 +199,38 @@ describe('AccordionItem', () => {
         );
 
         // No error should occur when there is no onClickToClose defined
-        await user.click(screen.getByRole('accordion-item'));
+        await user.click(screen.getByRole('button', { name: requiredProps.label }));
+    });
+
+    it('should expose the header as a button inside a heading', () => {
+        render(<AccordionItem {...requiredProps}>content here</AccordionItem>);
+        expect(screen.getByRole('heading', { level: 3 })).toContainElement(screen.getByRole('button', { name: requiredProps.label }));
+    });
+
+    it('should use the given heading level', () => {
+        render(<AccordionItem {...requiredProps} headingLevel={2}>content here</AccordionItem>);
+        expect(screen.getByRole('heading', { level: 2, name: requiredProps.label })).toBeInTheDocument();
+    });
+
+    it('should link an open header and its panel', () => {
+        render(
+            <AccordionContext.Provider value={{ onSetOpenedItem: vi.fn(), currentItem: 'test-id' }}>
+                <AccordionItem {...requiredProps}>content here</AccordionItem>
+            </AccordionContext.Provider>,
+        );
+        const button = screen.getByRole('button', { name: requiredProps.label });
+        const panel = screen.getByRole('region', { name: requiredProps.label });
+
+        expect(button).toHaveAttribute('aria-expanded', 'true');
+        expect(button).toHaveAttribute('aria-controls', panel.id);
+        expect(panel).toHaveTextContent('content here');
+    });
+
+    it('should not reference a panel that is not rendered', () => {
+        render(<AccordionItem {...requiredProps}>content here</AccordionItem>);
+        const button = screen.getByRole('button', { name: requiredProps.label });
+
+        expect(button).toHaveAttribute('aria-expanded', 'false');
+        expect(button).not.toHaveAttribute('aria-controls');
     });
 });

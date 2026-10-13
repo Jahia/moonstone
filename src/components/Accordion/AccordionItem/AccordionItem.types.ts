@@ -22,6 +22,11 @@ export type AccordionItemProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'cl
     icon?: React.ReactElement;
 
     /**
+     * Level of the heading that wraps the label, so it fits in the heading outline of the page
+     */
+    headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
+
+    /**
      * Content of the component
      */
     children: React.ReactNode;

@@ -27,10 +27,23 @@ $accordionHeader_height: 48px;
 // ---
 // Header
 // ---
+.moonstone-accordionItem_heading {
+    margin: 0;
+
+    font: inherit;
+}
+
 .moonstone-accordionItem_header {
     width: 100%;
     height: $accordionHeader_height;
     padding: 0 var(--moon-spacing-medium);
+
+    font: inherit;
+
+    color: inherit;
+    text-align: start;
+
+    border: 0;
 
     background-color: var(--moon-color-gray_light60);
 

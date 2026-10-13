@@ -33,7 +33,7 @@ describe('Accordion', () => {
 
     it('should display nothing when the component has no children', () => {
         render(<Accordion data-testid="id"><div/></Accordion>);
-        expect(screen.queryByRole('accordion-item')).not.toBeInTheDocument();
+        expect(screen.queryByRole('button')).not.toBeInTheDocument();
     });
 
     describe('withAccordionItem Mock', () => {
