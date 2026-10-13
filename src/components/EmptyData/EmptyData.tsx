@@ -10,7 +10,7 @@ import styles from './EmptyData.module.scss';
 
 export const EmptyData = React.forwardRef<HTMLElement, EmptyDataProps>(
     ({
-        title, message, icon, className, component, headingLevel = 'h2', ...props
+        title, message, icon, className, component, ...props
     }, ref) => {
         const Component = component ?? 'div';
         return (
@@ -27,7 +27,7 @@ export const EmptyData = React.forwardRef<HTMLElement, EmptyDataProps>(
             >
                 {icon}
                 {title && (
-                    <Typography component={headingLevel} variant="heading" weight="semiBold">
+                    <Typography component="h2" variant="heading" weight="semiBold">
                         {title}
                     </Typography>
                 )}

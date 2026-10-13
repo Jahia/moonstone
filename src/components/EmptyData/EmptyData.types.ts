@@ -9,7 +9,6 @@ export type EmptyDataProps = React.HTMLAttributes<HTMLDivElement> & {
      * Title of the empty state
      */
     title?: string;
-    headingLevel?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
     /**
      * Message to display
      */

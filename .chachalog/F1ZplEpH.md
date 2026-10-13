@@ -1,6 +1,6 @@
 ---
 # Allowed version bumps: patch, minor, major
-"@jahia/moonstone": minor
+"@jahia/moonstone": patch
 ---
 
-The `EmptyData` title is now a heading (`h2` by default), and `headingLevel` sets its level (#1514)
+The `EmptyData` title is now an `h2` heading (#1514)
