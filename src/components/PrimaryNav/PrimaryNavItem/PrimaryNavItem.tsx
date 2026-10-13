@@ -45,7 +45,7 @@ const Item: React.FC<ItemProps> = ({
 
 // Internal component: the one interactive element of the item, a link or a button
 const ItemTypeResolver: React.FC<ItemTypeResolverProps> = ({
-    url, icon, label, subtitle, isSelected, onClick,
+    url, icon, label, subtitle, isSelected, onClick, children,
 }) => {
     const ariaCurrent = isSelected ? 'page' : undefined;
 
@@ -68,6 +68,7 @@ const ItemTypeResolver: React.FC<ItemTypeResolverProps> = ({
                     subtitle={subtitle}
                     textVariant="body"
                 />
+                {children}
             </a>
         );
     }
@@ -85,6 +86,7 @@ const ItemTypeResolver: React.FC<ItemTypeResolverProps> = ({
                 subtitle={subtitle}
                 textVariant="subheading"
             />
+            {children}
         </button>
     );
 };
@@ -128,21 +130,22 @@ export const PrimaryNavItem: React.FC<PrimaryNavItemProps> = ({
                 subtitle={subtitle}
                 url={url}
                 onClick={handleClick}
-            />
+            >
+                {/* Inside the control so the count is part of its accessible name */}
+                {badge && (
+                    <badge.type
+                        className={clsx('moonstone-primaryNavItem_badge', styles['moonstone-primaryNavItem_badge'])}
+                        color="danger"
+                        label={badge.props.label}
+                        type="round"
+                    />
+                )}
+            </ItemTypeResolver>
 
             {button && (
                 <div className={clsx('moonstone-primaryNavItem_buttonContainer', styles['moonstone-primaryNavItem_buttonContainer'])}>
                     {button}
                 </div>
-            )}
-
-            {badge && (
-                <badge.type
-                    className={clsx('moonstone-primaryNavItem_badge', styles['moonstone-primaryNavItem_badge'])}
-                    color="danger"
-                    label={badge.props.label}
-                    type="round"
-                />
             )}
         </li>
     );

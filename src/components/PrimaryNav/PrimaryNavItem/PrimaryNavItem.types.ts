@@ -17,6 +17,7 @@ export type ItemTypeResolverProps = {
     subtitle?: string;
     isSelected?: boolean;
     onClick: React.MouseEventHandler;
+    children?: React.ReactNode;
 };
 
 export type PrimaryNavItemProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'onClick' | 'className'> & {

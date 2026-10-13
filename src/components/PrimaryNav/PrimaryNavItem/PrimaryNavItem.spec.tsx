@@ -43,6 +43,16 @@ describe('NavItem', () => {
         );
     });
 
+    it('should announce the badge with the item', () => {
+        render(<PrimaryNavItem badge={<Badge label="3"/>} label="Workflow"/>);
+        expect(screen.getByRole('button', { name: 'Workflow 3' })).toBeInTheDocument();
+    });
+
+    it('should announce the badge with a link item', () => {
+        render(<PrimaryNavItem badge={<Badge label="3"/>} label="Workflow" url="toto.com"/>);
+        expect(screen.getByRole('link', { name: 'Workflow 3' })).toBeInTheDocument();
+    });
+
     it('should mark the selected item as the current page', () => {
         render(<PrimaryNavItem isSelected label="Item"/>);
         expect(screen.getByRole('button', { name: 'Item' })).toHaveAttribute('aria-current', 'page');
