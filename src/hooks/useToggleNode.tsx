@@ -3,45 +3,70 @@ import React from 'react';
 type onClickProp = (e: React.KeyboardEvent | React.MouseEvent) => void;
 type onToggleProp = (e: React.KeyboardEvent | React.MouseEvent) => void;
 
-type onToggleNodeProps = {
+type onToggleNodeOptions = {
+    onToggle: onToggleProp;
     onClick?: onClickProp;
-    onKeyUp?: React.KeyboardEventHandler;
-    disabled?: boolean;
-    tabIndex?: number;
+    isDisabled?: boolean;
+    // Undefined when the node cannot be opened
+    isOpen?: boolean;
+    onFocusParent?: () => void;
+    onFocusFirstChild?: () => void;
+    onExpandSiblings?: onToggleProp;
 };
 
-export const onToggleNode = (
-    onToggle: onToggleProp,
-    onClick?: onClickProp,
+type onToggleNodeProps = {
+    onKeyDown?: React.KeyboardEventHandler;
+    disabled?: boolean;
+};
+
+export const onToggleNode = ({
+    onToggle,
+    onClick,
     isDisabled = false,
-    tabIndex = 0,
-): onToggleNodeProps => {
-    const handleKeyUp = (e: React.KeyboardEvent) => {
-        if (e.code === 'Space') {
-            onToggle(e);
+    isOpen,
+    onFocusParent,
+    onFocusFirstChild,
+    onExpandSiblings,
+}: onToggleNodeOptions): onToggleNodeProps => {
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        switch (e.key) {
+            case 'Enter':
+            case ' ':
+                if (onClick && !isDisabled) {
+                    onClick(e);
+                } else {
+                    onToggle(e);
+                }
+
+                break;
+            case 'ArrowRight':
+                if (isOpen) {
+                    onFocusFirstChild?.();
+                } else if (isOpen === false) {
+                    onToggle(e);
+                }
+
+                break;
+            case 'ArrowLeft':
+                if (isOpen) {
+                    onToggle(e);
+                } else {
+                    onFocusParent?.();
+                }
+
+                break;
+            case '*':
+                onExpandSiblings?.(e);
+                break;
+            default:
+                return;
         }
 
-        if (e.code === 'Enter') {
-            e.preventDefault();
-            if (onClick && !isDisabled) {
-                onClick(e);
-            } else {
-                onToggle(e);
-            }
-        }
-
-        if (e.code === 'ArrowLeft') {
-            onToggle(e);
-        }
-
-        if (e.code === 'ArrowRight') {
-            onToggle(e);
-        }
+        e.preventDefault();
     };
 
     return {
-        onKeyUp: handleKeyUp,
+        onKeyDown: handleKeyDown,
         disabled: isDisabled,
-        tabIndex: tabIndex,
     };
 };

@@ -35,12 +35,10 @@ describe('Menu keyboard', () => {
         expect(item('First')).toHaveFocus();
     });
 
-    it('skips disabled items in the tab sequence', async () => {
+    it('skips disabled items when moving with the arrow keys', async () => {
         renderMenu();
-        screen.getByRole('button', { name: 'before' }).focus();
-        await userEvent.keyboard('{Tab}');
-        await userEvent.keyboard('{Tab}');
-        await userEvent.keyboard('{Tab}');
+        item('Second').focus();
+        await userEvent.keyboard('{ArrowDown}');
         expect(item('Last')).toHaveFocus();
     });
 
@@ -72,7 +70,7 @@ describe('Menu keyboard', () => {
         expect(item('First')).toHaveFocus();
     });
 
-    it.fails('moves focus to the first and last items with Home and End', async () => {
+    it('moves focus to the first and last items with Home and End', async () => {
         renderMenu();
         item('Second').focus();
         await userEvent.keyboard('{End}');

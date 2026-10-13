@@ -25,30 +25,31 @@ describe('onToggleNode', () => {
                 aria-disabled={isDisabled}
                 aria-expanded={opened}
                 data-testid="toggleable-div"
-                {...onToggleNode(handleToggle, handleClick, isDisabled)}
+                tabIndex={0}
+                {...onToggleNode({ onToggle: handleToggle, onClick: handleClick, isDisabled, isOpen: opened })}
             >
                 {label}
             </div>
         );
     };
 
-    it('should call onToggle when spacebar is pressed', async () => {
+    it('should call onClick when spacebar is pressed & onclick is set', async () => {
         const user = userEvent.setup();
         render(<ToggleableDiv isClickable/>);
         await user.keyboard('[Tab]');
         await user.keyboard('[Space]');
-        expect(screen.getByText('toggled')).toBeInTheDocument();
+        expect(screen.getByText('clicked')).toBeInTheDocument();
     });
 
-    it('should call onToggle when left arrow is pressed', async () => {
+    it('should call onToggle when left arrow is pressed on an open node', async () => {
         const user = userEvent.setup();
-        render(<ToggleableDiv isClickable/>);
+        render(<ToggleableDiv isClickable isOpen/>);
         await user.keyboard('[Tab]');
         await user.keyboard('[ArrowLeft]');
         expect(screen.getByText('toggled')).toBeInTheDocument();
     });
 
-    it('should call onToggle when right arrow is pressed', async () => {
+    it('should call onToggle when right arrow is pressed on a closed node', async () => {
         const user = userEvent.setup();
         render(<ToggleableDiv isClickable/>);
         await user.keyboard('[Tab]');

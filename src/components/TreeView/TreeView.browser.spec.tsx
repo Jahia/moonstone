@@ -33,7 +33,7 @@ const renderTree = (props = {}) => {
 const node = (label: string) => screen.getByRole('treeitem', { name: new RegExp(`^${label}`) });
 
 describe('TreeView keyboard', () => {
-    it.fails('exposes a single Tab stop: Tab enters the tree and the next Tab leaves it', async () => {
+    it('exposes a single Tab stop: Tab enters the tree and the next Tab leaves it', async () => {
         renderTree();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
@@ -75,7 +75,7 @@ describe('TreeView keyboard', () => {
         expect(node('Root B')).toHaveFocus();
     });
 
-    it.fails('moves focus to the first child with ArrowRight on an open node', async () => {
+    it('moves focus to the first child with ArrowRight on an open node', async () => {
         renderTree();
         node('Root A').focus();
         await userEvent.keyboard('{ArrowRight}');
@@ -92,7 +92,7 @@ describe('TreeView keyboard', () => {
         expect(node('Root A')).toHaveFocus();
     });
 
-    it.fails('moves focus to the parent with ArrowLeft on a child node', async () => {
+    it('moves focus to the parent with ArrowLeft on a child node', async () => {
         renderTree();
         node('Child A1').focus();
         await userEvent.keyboard('{ArrowLeft}');
@@ -108,7 +108,7 @@ describe('TreeView keyboard', () => {
         expect(onClickItem.mock.calls[0][0]).toMatchObject({ id: 'A1' });
     });
 
-    it.fails('selects the focused node with Space', async () => {
+    it('selects the focused node with Space', async () => {
         const { onClickItem } = renderTree();
         node('Child A1').focus();
         await userEvent.keyboard(' ');
@@ -116,7 +116,7 @@ describe('TreeView keyboard', () => {
         expect(onClickItem.mock.calls[0][0]).toMatchObject({ id: 'A1' });
     });
 
-    it.fails('moves focus to the first and last visible nodes with Home and End', async () => {
+    it('moves focus to the first and last visible nodes with Home and End', async () => {
         renderTree();
         node('Child A1').focus();
         await userEvent.keyboard('{End}');
@@ -125,7 +125,7 @@ describe('TreeView keyboard', () => {
         expect(node('Root A')).toHaveFocus();
     });
 
-    it.fails('expands all sibling nodes with *', async () => {
+    it('expands all sibling nodes with *', async () => {
         renderTree();
         node('Root C').focus();
         await userEvent.keyboard('*');
