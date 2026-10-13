@@ -110,7 +110,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
                 isReadOnly={isReadOnly}
                 autoComplete="off"
                 className={timeFormat === '12h' ? styles.field_12h : undefined}
-                icon={<Clock aria-hidden/>}
+                icon={<Clock/>}
                 inputMode="numeric"
                 placeholder={placeholder}
                 size={size}
