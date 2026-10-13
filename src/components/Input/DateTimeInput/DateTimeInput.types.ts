@@ -52,6 +52,10 @@ export type DateTimeInputI18n = {
     previousMonth?: string;
     /** Label shown before the timezone selector (`type='zonedDateTime'`) */
     timezone?: string;
+    /**
+     * Accessible name of the clear button
+     * @default 'Reset'
+     */
     clearButton?: string;
 };
 

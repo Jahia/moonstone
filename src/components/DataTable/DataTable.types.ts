@@ -152,6 +152,19 @@ type SortingProps<T extends NonNullable<unknown>>
         defaultSortDirection?: never;
     };
 
+type SelectionI18n = {
+    /**
+     * Accessible name of each row checkbox
+     * @default 'Select row'
+     */
+    selectRow?: string;
+    /**
+     * Accessible name of the header checkbox
+     * @default 'Select all rows'
+     */
+    selectAllRows?: string;
+};
+
 export type SelectionProps
     = | {
         /** Enable selection for the table */
@@ -163,6 +176,8 @@ export type SelectionProps
         defaultSelection?: never;
         /** Custom HTML attributes added to the TableCell selection */
         selectionCellProps?: Omit<TableCellProps, 'children' | 'width' | 'component'>;
+        /** Selection labels */
+        selectionI18n?: SelectionI18n;
     }
     | {
         enableSelection: true;
@@ -173,6 +188,8 @@ export type SelectionProps
         selection?: never;
         /** Custom HTML attributes added to the TableCell selection */
         selectionCellProps?: Omit<TableCellProps, 'children' | 'width' | 'component'>;
+        /** Selection labels */
+        selectionI18n?: SelectionI18n;
     }
     | {
         enableSelection?: false;
@@ -180,6 +197,7 @@ export type SelectionProps
         defaultSelection?: never;
         onChangeSelection?: never;
         selectionCellProps?: never;
+        selectionI18n?: never;
     };
 
 export type RenderOptions = {

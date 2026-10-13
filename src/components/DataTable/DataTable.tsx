@@ -50,6 +50,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     renderRow,
     onClickTableHeadCell,
     selectionCellProps,
+    selectionI18n,
     // Pagination props
     enablePagination = !isStructured,
     currentPage,
@@ -155,7 +156,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     {enableSelection && (
                         <TableCell width="auto" {...selectionCellProps}>
                             <Checkbox
-                                aria-label={i18n?.selectRow || 'Select row'}
+                                aria-label={selectionI18n?.selectRow || 'Select row'}
                                 checked={row.getIsSelected()}
                                 onChange={row.getToggleSelectedHandler()}
                             />
@@ -174,7 +175,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 </>
             );
         },
-        [enableSelection, isStructured, registerCustomCellCounts, selectionCellProps, withCustomCellObserver],
+        [enableSelection, isStructured, registerCustomCellCounts, selectionCellProps, selectionI18n, withCustomCellObserver],
     );
 
     const renderRowWithCustomization = useCallback(
@@ -234,7 +235,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             {enableSelection && (
                                 <TableHeadCell width="auto" {...selectionCellProps}>
                                     <Checkbox
-                                        aria-label={i18n?.selectAllRows || 'Select all rows'}
+                                        aria-label={selectionI18n?.selectAllRows || 'Select all rows'}
                                         checked={table.getIsAllRowsSelected()}
                                         indeterminate={table.getIsSomeRowsSelected()}
                                         onChange={table.getToggleAllRowsSelectedHandler()}
@@ -268,7 +269,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
             {enablePagination && (
                 <Pagination
                     currentPage={table.getState().pagination.pageIndex + 1}
-                    i18n={i18n && 'itemsPerPage' in i18n ? i18n : undefined}
+                    i18n={i18n}
                     itemsPerPage={table.getState().pagination.pageSize}
                     itemsPerPageOptions={itemsPerPageOptions}
                     totalOfItems={

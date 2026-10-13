@@ -601,11 +601,13 @@ describe('DataTable', () => {
     it('should translate the selection checkboxes and keep the pagination labels', () => {
         render(
             <DataTable<TestData>
+                enablePagination
                 enableSelection
                 columns={columns}
                 data={data}
-                i18n={{ itemsPerPage: 'Lignes', of: 'sur', selectRow: 'Sélectionner la ligne', selectAllRows: 'Tout sélectionner' }}
+                i18n={{ itemsPerPage: 'Lignes', of: 'sur' }}
                 primaryKey="id"
+                selectionI18n={{ selectRow: 'Sélectionner la ligne', selectAllRows: 'Tout sélectionner' }}
             />,
         );
 
@@ -621,8 +623,8 @@ describe('DataTable', () => {
                 columns={columns}
                 data={data}
                 enablePagination={false}
-                i18n={{ selectRow: 'Sélectionner la ligne', selectAllRows: 'Tout sélectionner' }}
                 primaryKey="id"
+                selectionI18n={{ selectRow: 'Sélectionner la ligne', selectAllRows: 'Tout sélectionner' }}
             />,
         );
 

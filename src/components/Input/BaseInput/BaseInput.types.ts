@@ -59,7 +59,14 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
      */
     isShowClearButton?: boolean;
 
+    /**
+     * Input labels
+     */
     i18n?: {
+        /**
+         * Accessible name of the clear button
+         * @default 'Reset'
+         */
         clearButton?: string;
     };
 
