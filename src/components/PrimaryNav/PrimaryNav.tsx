@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useId, useMemo, useState } from 'react';
 
 import { PrimaryNavContext } from './PrimaryNav.context';
 import { layout } from '~/globals/css-utils.js';
@@ -9,7 +9,9 @@ import type { PrimaryNavButtonProps, PrimaryNavHeaderProps, PrimaryNavProps } fr
 
 import styles from './PrimaryNav.module.scss';
 
-const NavButton: React.FC<PrimaryNavButtonProps> = ({ isExpanded, toggleExpand, modeIcon }) => {
+const NavButton: React.FC<PrimaryNavButtonProps> = ({
+    isExpanded, navId, toggleExpand, modeIcon,
+}) => {
     return (
         <>
             {!isExpanded && modeIcon && (
@@ -19,6 +21,8 @@ const NavButton: React.FC<PrimaryNavButtonProps> = ({ isExpanded, toggleExpand, 
                 />
             )}
             <button
+                aria-controls={navId}
+                aria-expanded={isExpanded}
                 aria-label="Toggle primary navigation"
                 className={clsx('moonstone-primaryNav_button', styles['moonstone-primaryNav_button'])}
                 data-testid="primaryNavMenuButton"
@@ -65,6 +69,8 @@ export const PrimaryNav: React.FC<PrimaryNavProps> = ({
     ...props
 }) => {
     const [isExpanded, setExpanded] = useState(false);
+    const generatedId = useId();
+    const navId = props.id ?? generatedId;
 
     const toggleExpand = () => {
         setExpanded(!isExpanded);
@@ -79,13 +85,14 @@ export const PrimaryNav: React.FC<PrimaryNavProps> = ({
     return (
         <PrimaryNavContext.Provider value={contextValue}>
             <nav
+                aria-label="Primary"
                 {...props}
-                aria-expanded={isExpanded}
                 className={clsx(
                     ['moonstone-primaryNav', styles['moonstone-primaryNav']],
                     isExpanded && ['moonstone-expanded', styles['moonstone-expanded']],
                     ['flexCol_nowrap', layout.flexCol_nowrap],
                 )}
+                id={navId}
             >
                 <div className={clsx(
                     ['flexRow_nowrap', layout.flexRow_nowrap],
@@ -98,7 +105,7 @@ export const PrimaryNav: React.FC<PrimaryNavProps> = ({
                         ['alignCenter', layout.alignCenter],
                     )}
                     >
-                        <NavButton isExpanded={isExpanded} modeIcon={modeIcon} toggleExpand={toggleExpand}/>
+                        <NavButton isExpanded={isExpanded} modeIcon={modeIcon} navId={navId} toggleExpand={toggleExpand}/>
                     </div>
                     <div
                         className={clsx(

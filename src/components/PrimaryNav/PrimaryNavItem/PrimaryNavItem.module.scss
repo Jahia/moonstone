@@ -23,12 +23,36 @@
         cursor: default;
     }
 
-    &:focus-visible {
-        @extend %is-focused;
-    }
-
     &:not(.moonstone-selected):hover {
         background-color: var(--moon-color-gray_dark60);
+    }
+}
+
+// Reset the native link and button so the control fills the item and looks like it
+.moonstone-primaryNavItem_control {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    align-self: stretch;
+
+    min-width: 0;
+    padding: 0;
+
+    font: inherit;
+
+    color: inherit;
+    text-align: start;
+    text-decoration: none;
+
+    border: 0;
+    border-radius: inherit;
+
+    background: none;
+    cursor: inherit;
+    overflow: hidden;
+
+    &:focus-visible {
+        @extend %is-focused;
     }
 }
 

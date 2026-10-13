@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 
 import { ResizableBox } from '~/components/ResizableBox';
 import { layout } from '~/globals/css-utils.js';
@@ -19,6 +19,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
     ...props
 }) => {
     const [isVisible, setIsVisible] = useState(isDefaultVisible);
+    const wrapperId = useId();
 
     const handleToggle = (e: React.MouseEvent) => {
         setIsVisible(prevState => !prevState);
@@ -27,7 +28,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
 
     return (
         <ResizableBox
-            aria-expanded={isVisible}
+            aria-label="Secondary navigation"
             className={
                 clsx(
                     className,
@@ -54,7 +55,8 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
             {...props}
         >
             <button
-                aria-controls="moonstone-secondaryNav_wrapper"
+                aria-controls={wrapperId}
+                aria-expanded={isVisible}
                 aria-label="Toggle secondary navigation"
                 className={clsx(
                     ['moonstone-secondaryNav_buttonToggle', styles['moonstone-secondaryNav_buttonToggle']],
@@ -75,7 +77,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
                     ['flexFluid', layout.flexFluid],
                     ['flexCol_nowrap', layout.flexCol_nowrap],
                 )}
-                id="moonstone-secondaryNav_wrapper"
+                id={wrapperId}
             >
                 {header}
                 <div className={clsx('flexFluid', layout.flexFluid, 'flexCol_nowrap', layout.flexCol_nowrap)}>

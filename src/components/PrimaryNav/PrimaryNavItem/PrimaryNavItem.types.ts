@@ -8,7 +8,6 @@ export type ItemProps = {
     icon?: React.ReactElement;
     textVariant?: TypographyVariant;
     subtitle?: string;
-    button?: React.ReactNode;
 };
 
 export type ItemTypeResolverProps = {
@@ -16,7 +15,8 @@ export type ItemTypeResolverProps = {
     label?: string;
     icon?: React.ReactElement;
     subtitle?: string;
-    button?: React.ReactNode;
+    isSelected?: boolean;
+    onClick: React.MouseEventHandler;
 };
 
 export type PrimaryNavItemProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'onClick' | 'className'> & {

@@ -35,7 +35,7 @@ describe('SecondaryNav', () => {
                 content here
             </SecondaryNav>,
         );
-        expect(screen.getByTestId('secondary-nav')).toHaveAttribute(
+        expect(screen.getByRole('button', { name: 'Toggle secondary navigation' })).toHaveAttribute(
             'aria-expanded',
             'false',
         );
@@ -47,7 +47,7 @@ describe('SecondaryNav', () => {
                 content here
             </SecondaryNav>,
         );
-        expect(screen.getByTestId('secondary-nav')).toHaveAttribute(
+        expect(screen.getByRole('button', { name: 'Toggle secondary navigation' })).toHaveAttribute(
             'aria-expanded',
             'true',
         );
@@ -77,7 +77,7 @@ describe('SecondaryNav', () => {
         );
         await user.click(screen.getByLabelText('Toggle secondary navigation'));
 
-        expect(screen.getByTestId('secondary-nav')).toHaveAttribute(
+        expect(screen.getByRole('button', { name: 'Toggle secondary navigation' })).toHaveAttribute(
             'aria-expanded',
             'true',
         );
@@ -93,7 +93,7 @@ describe('SecondaryNav', () => {
         );
         await user.click(screen.getByLabelText('Toggle secondary navigation'));
 
-        expect(screen.getByTestId('secondary-nav')).toHaveAttribute(
+        expect(screen.getByRole('button', { name: 'Toggle secondary navigation' })).toHaveAttribute(
             'aria-expanded',
             'false',
         );
@@ -121,6 +121,28 @@ describe('SecondaryNav', () => {
 
         expect(clickHandler).toHaveBeenCalled();
     });
+
+    it('should name the navigation region', () => {
+        render(<SecondaryNav {...requiredProps}>content here</SecondaryNav>);
+        expect(screen.getByRole('region', { name: 'Secondary navigation' })).toBeInTheDocument();
+    });
+
+    it('should point the toggle button to the content it hides', () => {
+        render(<SecondaryNav {...requiredProps}>content here</SecondaryNav>);
+        const controlledId = screen.getByRole('button', { name: 'Toggle secondary navigation' }).getAttribute('aria-controls');
+        expect(document.getElementById(controlledId)).toHaveTextContent('content here');
+    });
+
+    it('should give each instance its own controlled id', () => {
+        render(
+            <>
+                <SecondaryNav {...requiredProps}>first</SecondaryNav>
+                <SecondaryNav {...requiredProps}>second</SecondaryNav>
+            </>,
+        );
+        const [first, second] = screen.getAllByRole('button', { name: 'Toggle secondary navigation' });
+        expect(first.getAttribute('aria-controls')).not.toBe(second.getAttribute('aria-controls'));
+    });
 });
 
 describe('SecondaryNavHeader', () => {
@@ -130,6 +152,7 @@ describe('SecondaryNavHeader', () => {
                 <span>required children</span>
             </SecondaryNavHeader>,
         );
-        expect(screen.getByLabelText('moonstone-secondaryNavHeader')).toBeInTheDocument();
+        expect(screen.getByText('required children')).toBeInTheDocument();
+        expect(screen.getByRole('banner')).not.toHaveAttribute('aria-label');
     });
 });

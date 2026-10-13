@@ -10,7 +10,7 @@ describe('PrimaryNav', () => {
 
     it('should not be expanded initialy', () => {
         render(<PrimaryNav {...props}/>);
-        expect(screen.getByRole('navigation')).toHaveAttribute('aria-expanded', 'false');
+        expect(screen.getByRole('button', { name: 'Toggle primary navigation' })).toHaveAttribute('aria-expanded', 'false');
     });
 
     it('should expand when click on NavButton', async () => {
@@ -18,7 +18,7 @@ describe('PrimaryNav', () => {
         render(<PrimaryNav {...props}/>);
 
         await user.click(screen.getByLabelText('Toggle primary navigation'));
-        expect(screen.getByRole('navigation')).toHaveAttribute('aria-expanded', 'true');
+        expect(screen.getByRole('button', { name: 'Toggle primary navigation' })).toHaveAttribute('aria-expanded', 'true');
     });
 
     it('should collapse when click twice on NavButton', async () => {
@@ -28,7 +28,7 @@ describe('PrimaryNav', () => {
         await user.click(screen.getByLabelText('Toggle primary navigation'));
         await user.click(screen.getByLabelText('Toggle primary navigation'));
 
-        expect(screen.getByRole('navigation')).toHaveAttribute('aria-expanded', 'false');
+        expect(screen.getByRole('button', { name: 'Toggle primary navigation' })).toHaveAttribute('aria-expanded', 'false');
     });
 
     it('should also work when not displaying modeIcon', () => {
@@ -38,5 +38,22 @@ describe('PrimaryNav', () => {
     it('should add extra attribute', () => {
         render(<PrimaryNav data-custom="extra" {...props}/>);
         expect(screen.getByRole('navigation')).toHaveAttribute('data-custom', 'extra');
+    });
+
+    it('should name the navigation', () => {
+        render(<PrimaryNav {...props}/>);
+        expect(screen.getByRole('navigation', { name: 'Primary' })).toBeInTheDocument();
+    });
+
+    it('should let the consumer name the navigation', () => {
+        render(<PrimaryNav {...props} aria-label="Main menu"/>);
+        expect(screen.getByRole('navigation', { name: 'Main menu' })).toBeInTheDocument();
+    });
+
+    it('should point the toggle button to the navigation', () => {
+        render(<PrimaryNav {...props} id="main-nav"/>);
+        expect(screen.getByRole('button', { name: 'Toggle primary navigation' })).toHaveAttribute('aria-controls', 'main-nav');
+        expect(screen.getByRole('navigation')).toHaveAttribute('id', 'main-nav');
+        expect(screen.getByRole('navigation')).not.toHaveAttribute('aria-expanded');
     });
 });

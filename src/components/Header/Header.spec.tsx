@@ -86,4 +86,14 @@ describe('Header', () => {
         const { container } = render(<Header status={[<Chip key="1" label="status A"/>, <Chip key="2" label="status B"/>]} title="title"/>);
         expect(container.querySelectorAll('.moonstone-chip')).toHaveLength(2);
     });
+
+    it('should name the toolbar', () => {
+        render(<Header title="title" toolbarRight="test"/>);
+        expect(screen.getByRole('toolbar', { name: 'Page actions' })).toBeInTheDocument();
+    });
+
+    it('should name the toolbar with the given label', () => {
+        render(<Header title="title" toolbarLabel="Actions de la page" toolbarRight="test"/>);
+        expect(screen.getByRole('toolbar', { name: 'Actions de la page' })).toBeInTheDocument();
+    });
 });

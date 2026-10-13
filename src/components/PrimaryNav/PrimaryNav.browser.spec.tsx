@@ -45,7 +45,7 @@ describe('PrimaryNav keyboard', () => {
         expect(item('Second')).toHaveFocus();
     });
 
-    it.fails('exposes a link item as a single Tab stop', async () => {
+    it('exposes a link item as a single Tab stop', async () => {
         renderNav();
         item('Second').focus();
         await userEvent.keyboard('{Tab}');
@@ -70,27 +70,27 @@ describe('PrimaryNav keyboard', () => {
 
     it('expands the nav with Enter on the toggle button and reports it with aria-expanded', async () => {
         renderNav();
-        expect(screen.getByRole('navigation')).toHaveAttribute('aria-expanded', 'false');
+        expect(toggle()).toHaveAttribute('aria-expanded', 'false');
         toggle().focus();
         await userEvent.keyboard('{Enter}');
-        expect(screen.getByRole('navigation')).toHaveAttribute('aria-expanded', 'true');
+        expect(toggle()).toHaveAttribute('aria-expanded', 'true');
     });
 
     it('expands the nav with Space on the toggle button', async () => {
         renderNav();
         toggle().focus();
         await userEvent.keyboard(' ');
-        expect(screen.getByRole('navigation')).toHaveAttribute('aria-expanded', 'true');
+        expect(toggle()).toHaveAttribute('aria-expanded', 'true');
     });
 
     it.fails('collapses an expanded nav with Escape and returns focus to the toggle button', async () => {
         renderNav();
         toggle().focus();
         await userEvent.keyboard('{Enter}');
-        expect(screen.getByRole('navigation')).toHaveAttribute('aria-expanded', 'true');
+        expect(toggle()).toHaveAttribute('aria-expanded', 'true');
         item('First').focus();
         await userEvent.keyboard('{Escape}');
-        expect(screen.getByRole('navigation')).toHaveAttribute('aria-expanded', 'false');
+        expect(toggle()).toHaveAttribute('aria-expanded', 'false');
         expect(toggle()).toHaveFocus();
     });
 });
