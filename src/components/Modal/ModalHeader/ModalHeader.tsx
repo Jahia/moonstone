@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useContext, useLayoutEffect } from 'react';
+import React, { useContext } from 'react';
 
 import { ModalContext } from '../Modal.context';
 import { Typography } from '~/components';
@@ -15,17 +15,7 @@ const ModalHeaderForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, Moda
     className,
     ...props
 }, ref) => {
-    const modalContext = useContext(ModalContext);
-
-    // Runs before the focus moves into the modal, so the modal is named when it is announced
-    useLayoutEffect(() => {
-        if (!modalContext || !title) {
-            return undefined;
-        }
-
-        modalContext.setHasTitle(true);
-        return () => modalContext.setHasTitle(false);
-    }, [modalContext, title]);
+    const titleId = useContext(ModalContext);
 
     return (
         title
@@ -39,7 +29,7 @@ const ModalHeaderForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, Moda
                 ref={ref}
                 {...props}
             >
-                <Typography component="h4" id={modalContext?.titleId} variant="heading" weight="bold">
+                <Typography component="h4" id={titleId} variant="heading" weight="bold">
                     {title}
                 </Typography>
                 {children

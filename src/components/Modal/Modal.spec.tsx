@@ -61,7 +61,7 @@ describe('Modal', () => {
 
     it('should not be named by its content when it has no header', () => {
         render(<Modal isOpen><ModalBody>Modal content</ModalBody></Modal>);
-        expect(screen.getByRole('dialog')).not.toHaveAttribute('aria-labelledby');
+        expect(screen.getByRole('dialog')).toHaveAccessibleName('');
     });
 
     it('should let the consumer name the modal', () => {

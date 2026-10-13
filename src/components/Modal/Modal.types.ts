@@ -27,15 +27,3 @@ export type ModalProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 
      */
     className?: string;
 };
-
-export type ModalContextProps = {
-    /**
-     * Id of the title that names the modal
-     */
-    titleId: string;
-
-    /**
-     * Called by the ModalHeader when it renders or removes its title
-     */
-    setHasTitle: (hasTitle: boolean) => void;
-};

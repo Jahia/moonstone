@@ -11,7 +11,7 @@ import {
     useRole,
 } from '@floating-ui/react';
 import clsx from 'clsx';
-import React, { useMemo, useState } from 'react';
+import React from 'react';
 
 import { ModalContext } from './Modal.context';
 import { layout } from '~/globals/css-utils.js';
@@ -47,11 +47,6 @@ const ModalForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalProps
     ]);
 
     const titleId = useId();
-    const [hasTitle, setHasTitle] = useState(false);
-    const contextValue = useMemo(() => ({
-        titleId,
-        setHasTitle,
-    }), [titleId]);
 
     return (
         children && isOpen && (
@@ -61,7 +56,7 @@ const ModalForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalProps
                 (e.g if a modal is inside a modal: pressing esc will only close the last one open) */}
                     <FloatingFocusManager context={context}>
                         <div
-                            aria-labelledby={hasTitle && !props['aria-label'] ? titleId : undefined}
+                            aria-labelledby={props['aria-label'] ? undefined : titleId}
                             aria-modal="true"
                             className={clsx(
                                 ['moonstone-modal', styles['moonstone-modal']],
@@ -73,7 +68,7 @@ const ModalForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalProps
                             {...getFloatingProps()}
                             {...props}
                         >
-                            <ModalContext.Provider value={contextValue}>
+                            <ModalContext.Provider value={titleId}>
                                 {children}
                             </ModalContext.Provider>
                         </div>
