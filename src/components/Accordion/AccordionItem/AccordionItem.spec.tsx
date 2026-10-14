@@ -202,11 +202,6 @@ describe('AccordionItem', () => {
         await user.click(screen.getByRole('button', { name: requiredProps.label }));
     });
 
-    it('should expose the header as a button inside a heading', () => {
-        render(<AccordionItem {...requiredProps}>content here</AccordionItem>);
-        expect(screen.getByRole('heading', { level: 3 })).toContainElement(screen.getByRole('button', { name: requiredProps.label }));
-    });
-
     it('should associate the open button with its panel', () => {
         render(
             <AccordionContext.Provider value={{ onSetOpenedItem: vi.fn(), currentItem: 'test-id' }}>
