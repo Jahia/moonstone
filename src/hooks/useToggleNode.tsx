@@ -39,7 +39,6 @@ export const onToggleNode = ({
 
         switch (e.key) {
             case 'Enter':
-            case ' ':
                 if (e.repeat) {
                     break;
                 }
@@ -47,6 +46,12 @@ export const onToggleNode = ({
                 if (onClick && !isDisabled) {
                     onClick(e);
                 } else {
+                    onToggle(e);
+                }
+
+                break;
+            case ' ':
+                if (!e.repeat) {
                     onToggle(e);
                 }
 

@@ -34,12 +34,12 @@ describe('onToggleNode', () => {
         );
     };
 
-    it('should call onClick when spacebar is pressed & onclick is set', async () => {
+    it('should call onToggle when spacebar is pressed', async () => {
         const user = userEvent.setup();
         render(<ToggleableDiv isClickable/>);
         await user.keyboard('[Tab]');
         await user.keyboard('[Space]');
-        expect(screen.getByText('clicked')).toBeInTheDocument();
+        expect(screen.getByText('toggled')).toBeInTheDocument();
     });
 
     it('should call onToggle when left arrow is pressed on an open node', async () => {
