@@ -89,4 +89,14 @@ describe('useRovingFocus', () => {
         await user.keyboard('[ArrowUp]');
         expect(screen.queryByText('Item 1')).toHaveFocus();
     });
+
+    it('should not rewrite the tabindex of the items on a render that changes nothing', () => {
+        const { rerender } = render(<TestMenu/>);
+        // A write of the same value still records a mutation
+        const observer = new MutationObserver(() => undefined);
+        observer.observe(screen.getByTestId('test-menu'), { subtree: true, attributeFilter: ['tabindex'] });
+        rerender(<TestMenu/>);
+        expect(observer.takeRecords()).toHaveLength(0);
+        observer.disconnect();
+    });
 });
