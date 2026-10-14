@@ -13,8 +13,8 @@ export const EmptyCardSelector = React.forwardRef<HTMLButtonElement, EmptyCardSe
     iconStart,
     id,
     className,
-    isDisabled = false,
-    isReadOnly = false,
+    isDisabled,
+    isReadOnly,
     onClick,
     ...props
 }, ref) => {

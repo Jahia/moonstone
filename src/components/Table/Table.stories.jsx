@@ -7,6 +7,7 @@
 import React, { useEffect, useState } from 'react';
 import { useExpanded, useRowSelect, useSortBy, useTable } from 'react-table';
 
+import markdownNotes from './Table.md?raw';
 import {
     Button,
     Checkbox,
@@ -35,6 +36,8 @@ export default {
     parameters: {
         controls: { disable: true },
         actions: { argTypesRegex: '^on.*' },
+        componentSubtitle: 'Table styling for markup you write yourself.',
+        docs: { description: { component: markdownNotes } },
     },
 };
 

@@ -1,30 +1,46 @@
-A time-of-day field displaying `HH:MM`, in 24-hour (default) or 12-hour format.
+## Example
+```jsx
+import {TimeInput} from '@jahia/moonstone';
 
-## Value
+<TimeInput aria-label="Start time"/>
+```
 
-`value` / `defaultValue` accept a `Temporal.PlainTime`, an ISO time string (e.g. `'14:30'`), or `null`.
-`onChange` always emits a `Temporal.PlainTime` (or `null` when the field is emptied) — never a string.
+## Controlled
+- Pass `value` and `onChange` (required). `onChange(event, value)` fires when an entry commits (on blur once typing completes a valid time, or via the AM/PM dropdown in `timeFormat="12h"`) and on each Up or Down arrow step, never on each typed character. It gives a `Temporal.PlainTime`, or `null` when the field is cleared.
+- Don't mix the two modes. Passing both `value` and `defaultValue` is not supported.
 
-## Controlled and uncontrolled
+```jsx
+<TimeInput aria-label="Start time" value={startTime} onChange={(e, time) => setStartTime(time)}/>
+```
 
-Provide `value` + `onChange` for controlled, or `defaultValue` for uncontrolled.
+## Uncontrolled
+- Pass `defaultValue` (optional) and let the component manage its own state.
 
-## Format
+```jsx
+<TimeInput aria-label="Start time" defaultValue="09:00"/>
+```
 
-`timeFormat="24h"` (default) shows `HH:MM`. `timeFormat="12h"` shows `hh:MM` with an AM/PM dropdown
-to the right of the field. `timeFormat` only affects display; the emitted `Temporal.PlainTime` is unaffected.
+## Do
+- Use it to capture a time of day.
+- Use it inside a [Field](?path=/docs/components-field--docs) when it needs a visible label, helper text, or an error message.
 
-## Entry
+## Don't
+- Don't use it to capture a date, or a date and a time together. Use [DateTimeInput](?path=/docs/components-datetimeinput--docs) instead.
 
-Type the time as digits, segment by segment, like the native `<input type=time>`. A digit that
-can't start a two-digit segment auto-advances, and a lone minute digit is its units:
-`9` → `09`, `91` → `09:01`, `143` → `14:03`, `1430` → `14:30`. A partial entry is completed on blur
-(`9` → `09:00`) and is never emitted while typing. Clearing the field and blurring emits `null`.
+## Appearance
 
-## Keyboard
+### `timeFormat` for format
 
-`ArrowUp` / `ArrowDown` step the segment the caret is in, wrapping within it (minute `59 → 00`,
-hour `23 → 00`, 12h `12 → 01`); the value updates immediately. On an empty field the first step
-seeds `00:00`. `ArrowLeft` / `ArrowRight` move between the hour and minute segments.
+| Value | Use it for |
+|---|---|
+| `24h` | The default. Most contexts, especially schedules, logs, and 24-hour operations. |
+| `12h` | Audiences or locales that expect AM/PM. Adds an AM/PM dropdown next to the field. |
 
-Forward extra props to the AM/PM dropdown (12h) via `meridiemDropdownProps`.
+## Voice and tone
+- Write `placeholder` text in sentence case, and keep it short. The default, `hh:mm`, already
+  shows the expected format.
+
+## Accessibility
+- Always give it a label. Use a [Field](?path=/docs/components-field--docs), or pass an `aria-label` when it stands alone.
+- The Up and Down arrow keys step the hour or minute segment under the caret. The Left and Right
+  arrow keys move between the two segments.

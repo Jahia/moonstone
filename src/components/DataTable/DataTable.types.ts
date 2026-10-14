@@ -76,7 +76,7 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
     /** Alignment of the column content */
     align?: 'left' | 'center' | 'right';
     /**
-     * Column width as a CSS string (e.g., '250px', '20%').
+     * Column width as a CSS string, such as `'250px'` or `'20%'`.
      * When undefined, the column takes all available space.
      */
     width?: string;
@@ -120,7 +120,10 @@ export type SortDirection = 'ascending' | 'descending';
 
 type SortingProps<T extends NonNullable<unknown>>
     = | {
-        /** Enable sorting for the table */
+        /**
+         * Enable sorting for the table
+         * @default `true`, or `false` when `isStructured`
+         */
         enableSorting: true;
         /** Current sort column (controlled) */
         sortBy: Extract<Exclude<keyof T, SubRowKey>, string>;
@@ -132,7 +135,10 @@ type SortingProps<T extends NonNullable<unknown>>
         defaultSortDirection?: never;
     }
     | {
-        /** Enable sorting for the table */
+        /**
+         * Enable sorting for the table
+         * @default `true`, or `false` when `isStructured`
+         */
         enableSorting: true;
         sortBy?: never;
         sortDirection?: never;
@@ -140,7 +146,10 @@ type SortingProps<T extends NonNullable<unknown>>
         onSortChange?: (sortBy: Extract<Exclude<keyof T, SubRowKey>, string>, sortDirection: SortDirection) => void;
         /** Initial sort column (uncontrolled) */
         defaultSortBy?: Extract<Exclude<keyof T, SubRowKey>, string>;
-        /** Initial sort direction (uncontrolled) */
+        /**
+         * Initial sort direction (uncontrolled)
+         * @default 'ascending'
+         */
         defaultSortDirection?: SortDirection;
     }
     | {
@@ -209,7 +218,7 @@ export type RenderRowContext<T extends NonNullable<unknown>> = RowContext<T> & {
 
 type RenderRowProps<T extends NonNullable<unknown>> = {
     /**
-     * Custom render function for rows (e.g. custom styling, wrapper elements).
+     * Custom render function for rows, such as for custom styling or wrapper elements.
      * @param context - Row context with id, data, meta, and render function.
      */
     renderRow?: (context: RenderRowContext<T>) => React.ReactNode;

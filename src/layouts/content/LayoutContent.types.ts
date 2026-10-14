@@ -9,7 +9,7 @@ export type LayoutContentProps = Omit<React.ComponentPropsWithRef<'div'>, 'class
     /**
      * Content of the page
      *
-     * @deprecated Use `children`
+     * @deprecated Use `children` instead.
      */
     content?: React.ReactNode;
 
@@ -25,6 +25,7 @@ export type LayoutContentProps = Omit<React.ComponentPropsWithRef<'div'>, 'class
 
     /**
      * Define if the layout has padding
+     * @default true
      */
     hasPadding?: boolean;
 

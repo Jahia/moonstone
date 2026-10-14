@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { action } from 'storybook/actions';
 
 import { ResizableBox } from './index';
-import markdownNotes from './ResizableBox.md';
+import markdownNotes from './ResizableBox.md?raw';
 import { layout } from '~/globals/css-utils.js';
 
 import type { ResizableBoxProps } from './ResizableBox.types';
@@ -11,6 +11,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 const meta: Meta<ResizableBoxProps> = {
     title: 'Components/ResizableBox',
     component: ResizableBox,
+    tags: ['internal', '!manifest'],
     /**
    * Decorator wraps stories with layout styling.
    * Uses Story component for compatibility with Storybook v6+ and TypeScript.
@@ -30,7 +31,8 @@ const meta: Meta<ResizableBoxProps> = {
         ),
     ],
     parameters: {
-        notes: { markdown: markdownNotes },
+        componentSubtitle: 'A side panel the user widens or narrows by dragging.',
+        docs: { description: { component: markdownNotes } },
     },
 };
 

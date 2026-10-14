@@ -84,11 +84,11 @@ type ControlledProps = {
      */
     openedItems: string[];
     /**
-     * Trigger on opening node
+     * Called when the user opens a node.
      */
     onOpenItem: (node: TreeViewData, e?: React.MouseEvent) => void;
     /**
-     * Trigger on opening node
+     * Called when the user closes a node.
      */
     onCloseItem: (node: TreeViewData, e?: React.MouseEvent) => void;
 };
@@ -99,11 +99,11 @@ type UncontrolledProps = {
      */
     defaultOpenedItems?: string[];
     /**
-     * Trigger on opening node
+     * Called when the user opens a node.
      */
     onOpenItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
     /**
-     * Trigger on opening node
+     * Called when the user closes a node.
      */
     onCloseItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
 };

@@ -2,32 +2,32 @@ import * as React from 'react';
 
 export type AccordionItemProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'className' | 'children' | 'id' | 'onClick'> & {
     /**
-     * Specific identifier to define AccordionItem
+     * Identifier of the item, unique within its Accordion.
      */
     id: string;
 
     /**
-     * Label displays as accordion title
+     * Text of the item's header.
      */
     label: string;
 
     /**
-     * Function triggered on click
+     * Called when the user opens or closes the item. The second argument is the new open state.
      */
     onClick?: (e: React.MouseEvent | React.KeyboardEvent, isOpen: boolean) => void;
 
     /**
-     * Icon displays before the label
+     * Icon shown before the label.
      */
     icon?: React.ReactElement;
 
     /**
-     * Content of the component
+     * Content shown when the item is open.
      */
     children: React.ReactNode;
 
     /**
-     * Additional classname
+     * Additional class name.
      */
     className?: string;
 };

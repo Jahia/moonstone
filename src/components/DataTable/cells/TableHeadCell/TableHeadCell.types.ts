@@ -16,8 +16,8 @@ export type TableHeadCellProps = Omit<TableCellProps, 'isScrollable' | 'componen
     sorting?: {
         /**
          * The current sort direction to display.
-         * - `'ascending'`: Shows an up arrow (A→Z / 1→9)
-         * - `'descending'`: Shows a down arrow (Z→A / 9→1)
+         * - `'ascending'`: Shows an up arrow (A to Z, 1 to 9)
+         * - `'descending'`: Shows a down arrow (Z to A, 9 to 1)
          */
         direction: 'ascending' | 'descending';
 

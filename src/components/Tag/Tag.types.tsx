@@ -17,12 +17,13 @@ export type TagProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'className
     className?: string;
 
     /**
-     * Function triggered on click
+     * Function triggered when the tag is clicked
      */
     onClick: (event: React.MouseEvent, value: string) => void;
 
     /**
      * Tag size
+     * @default 'medium'
      */
     size?: 'small' | 'medium';
 

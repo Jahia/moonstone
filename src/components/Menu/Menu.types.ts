@@ -50,16 +50,19 @@ export type MenuProps = {
 
     /**
      * Position of the menu in px relative to anchorEl or the document
+     * @default {top: 0, left: 0}
      */
     anchorPosition?: AnchorPosition;
 
     /**
      * Point on the anchor where the menu's anchorEl will attach to
+     * @default {horizontal: 'left', vertical: 'bottom'}
      */
     anchorElOrigin?: AnchorElOrigin;
 
     /**
      * This is the point on the menu which will attach to the anchor's origin
+     * @default {vertical: 'top', horizontal: 'left'}
      */
     transformElOrigin?: TransformElOrigin;
 
@@ -83,20 +86,23 @@ export type MenuProps = {
 
     /**
      * Autosearch is triggered when data items exceed this limit
-     * Applies only when autosearch is enabled (i.e. hasSearch is undefined)
+     * Applies only when autosearch is enabled, that is when `hasSearch` is undefined.
      * Defaults to 7 if undefined or < 0
      * Autosearch is when search input is automatically added in the dropdown
+     * @default 7
      */
     autoAddSearchLimit?: number;
 
     /**
      * Text to display when the search doesn't show any results
+     * @default 'No results found.'
      */
     searchEmptyText?: string;
 
     /**
      * If 'absolute' is passed in for the position, the component will be positioned as per normal
-     * CSS rules (i.e., positioned against the closest positioned ancestor). Position is 'fixed' by default
+     * CSS rules, that is positioned against the closest positioned ancestor.
+     * @default 'fixed'
      */
     position?: PositioningType;
 
@@ -137,6 +143,7 @@ export type MenuProps = {
 
     /**
      * The menu has overlay or not
+     * @default true
      */
     hasOverlay?: boolean;
 };

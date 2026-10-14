@@ -2,47 +2,47 @@ import React from 'react';
 
 export type RadioItemProps = Omit<React.ComponentPropsWithoutRef<'input'>, 'className' | 'id' | 'value' | 'onFocus' | 'onBlur'> & {
     /**
-     * Identifier added to the input element
+     * Id of the radio input. It also links the input to its label and description.
      */
     id: string;
 
     /**
-     * Radio label
+     * Text of the option.
      */
     label: string;
 
     /**
-     * The value of the input element, used when submitting an HTML form
+     * Value of the option, passed to the RadioGroup's `onChange` and submitted with a form.
      */
     value: string;
 
     /**
-     * Radio description
+     * Short explanation shown under the label.
      */
     description?: string;
 
     /**
-     * Additional classname
+     * Additional class name.
      */
     className?: string;
 
     /**
-     * Whether the component should be disabled
+     * Whether the option is disabled. Ignored when the RadioGroup sets `isDisabled`.
      */
     isDisabled?: boolean;
 
     /**
-     * Whether the radio can be selected but not changed by the user
+     * Whether the option is read-only. Ignored when the RadioGroup sets `isReadOnly`.
      */
     isReadOnly?: boolean;
 
     /**
-     * Function triggered on focus of the radio value
+     * Called when the radio input gets the focus.
      */
     onFocus?: React.FocusEventHandler;
 
     /**
-     * Function triggered when the radio value loses focus
+     * Called when the radio input loses the focus.
      */
     onBlur?: React.FocusEventHandler;
 };

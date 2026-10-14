@@ -9,7 +9,7 @@ export const Separator: React.FC<SeparatorProps> = ({
     size = 'full',
     spacing = 'small',
     variant = 'horizontal',
-    invisible = null,
+    invisible,
     className,
     ...props
 }) => {

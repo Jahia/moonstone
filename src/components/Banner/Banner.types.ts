@@ -8,6 +8,7 @@ export type BannerProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' |
 
     /**
      * Variant of the Banner
+     * @default 'neutral'
      */
     variant?: 'neutral' | 'info' | 'warning' | 'danger';
 

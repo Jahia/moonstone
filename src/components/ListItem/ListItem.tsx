@@ -15,7 +15,7 @@ const ListItemForwardRef: React.ForwardRefRenderFunction<HTMLLIElement, ListItem
     iconEnd,
     image,
     imageSize = 'small',
-    className = '',
+    className,
     typographyVariant = 'caption',
     iconSize = 'default',
     ...props

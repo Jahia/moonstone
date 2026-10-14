@@ -7,8 +7,8 @@ import { filterNumberInputValue } from '~/utils/filterNumberInputValue';
 import type { NumberInputProps } from './NumberInput.types';
 
 const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(({
-    allowNegative = false,
-    allowDecimal = false,
+    allowNegative,
+    allowDecimal,
     separator = '.',
     step = 1,
     min,

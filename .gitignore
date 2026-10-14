@@ -272,3 +272,5 @@ dist/
 # Accessibility reports (yarn test:a11y, yarn a11y:report)
 /reports/
 
+# IA workflow
+/tickets

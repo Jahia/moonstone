@@ -1,4 +1,4 @@
-import markdownNotes from './FieldBoolean.md';
+import markdownNotes from './FieldBoolean.md?raw';
 import { FieldBoolean } from './index';
 import { Button, Chip } from '~/components';
 import { Language, MoreVert } from '~/icons';
@@ -6,14 +6,15 @@ import { Language, MoreVert } from '~/icons';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof FieldBoolean> = {
-    title: 'Components/Field/FieldBoolean',
+    title: 'Components/FieldBoolean',
     component: FieldBoolean,
     tags: ['beta'],
 
     parameters: {
         layout: 'padded',
         actions: { argTypesRegex: '^on.*' },
-        notes: { markdown: markdownNotes },
+        componentSubtitle: 'A labelled checkbox for forms.',
+        docs: { description: { component: markdownNotes } },
     },
     argTypes: {
         buttons: {

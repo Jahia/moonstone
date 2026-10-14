@@ -8,7 +8,7 @@ export type HeaderProps = Omit<React.ComponentPropsWithoutRef<'header'>, 'classN
 
     /**
      * BackButton is used to comeback to the previous location
-     * @deprecated backButton is deprecated and will be removed in a future release.
+     * @deprecated The Header design no longer has a back button. Remove the prop: it will be dropped.
      */
     backButton?: React.ReactElement;
 
@@ -18,7 +18,8 @@ export type HeaderProps = Omit<React.ComponentPropsWithoutRef<'header'>, 'classN
     search?: React.ReactNode;
 
     /**
-     * Main actions of the pages
+     * Main actions of the page, shown on the right. Put the main action last, at the far right,
+     * such as "Action", "Secondary action", "Main action".
      */
     mainActions?: React.ReactNode;
 
@@ -38,12 +39,12 @@ export type HeaderProps = Omit<React.ComponentPropsWithoutRef<'header'>, 'classN
     contentType?: React.ReactNode;
 
     /**
-     * Slot to display item on the right of the toolbar
+     * Display controls, on the right of the toolbar, such as switching the view or showing options.
      */
     toolbarRight?: React.ReactNode;
 
     /**
-     * Slot to display item on the left of the toolbar
+     * Actions on the item shown in the title, on the left of the toolbar.
      */
     toolbarLeft?: React.ReactNode;
 

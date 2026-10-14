@@ -12,7 +12,7 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLInputElemen
     className,
     checked = false,
     value,
-    onChange = () => undefined,
+    onChange,
     isDisabled,
     ...other
 }, ref) => {
@@ -38,7 +38,7 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLInputElemen
                 type="checkbox"
                 value={value}
                 {...onAccessibleClick({
-                    onClick: (ev: React.KeyboardEvent | React.MouseEvent) => onChange(ev as unknown as React.ChangeEvent<HTMLInputElement>, value, inputRef.current?.checked),
+                    onClick: (ev: React.KeyboardEvent | React.MouseEvent) => onChange?.(ev as unknown as React.ChangeEvent<HTMLInputElement>, value, inputRef.current?.checked),
                     disabled: isDisabled,
                     role: 'checkbox',
                 })}

@@ -1,24 +1,37 @@
-## Specifications:
+## Example
+```jsx
+import {Menu, MenuItem} from '@jahia/moonstone';
 
-A type of widget that offers a list of choices or actions to the user.
+<Menu isDisplayed={isOpen}>
+    <MenuItem label="Edit"/>
+    <MenuItem label="Delete"/>
+</Menu>
+```
 
-- It displays above the content.
-- User can validate a value by pressing `Enter`
-- The menu has a maximum height and it’s scrollable
-- To hide the menu click on an item of the list or click outside to it
+## Do
+- Use it to show a list of actions for an item.
+- Use it for a context menu that opens where the user clicks.
+- Use it for a long list of actions that the user needs to filter.
+- Use it to split a list of actions into groups, each introduced by a title item.
 
+## Don't
+- Don't use a Menu to let the user pick a value for a form field. Use a [Dropdown](?path=/docs/components-dropdown--docs) instead.
+- Don't use a Menu for persistent navigation between pages. Use [PrimaryNav](?path=/docs/components-primarynav--docs) or [SecondaryNav](?path=/docs/components-secondarynav--docs) instead.
+- Don't use a Menu for a task that needs the user's full attention or a confirmation. Use a [Modal](?path=/docs/components-modal--docs) instead.
+- Don't use a Menu for a short hint on hover. Use a [Tooltip](?path=/docs/components-tooltip--docs) instead.
 
-## Positioning
+## Appearance
 
-`anchorEl` is the reference element to posioning the menu
-`anchorPosition` Position of the menu
-`position` determines whether the menu is `position: fixed` (the default) or `position: absolute`
+### `position` for placement
 
-- if `anchorEl` is provided the position is relative to the bottom left corner to this element.
-- if `anchorEl` is not set the position is relative to the top left corner of the viewport.
-- if `position="absolute"` is provided to the menu component, the menu will be positioned relatively to the first positioned ancestor and if an `anchorEl` was passed in, it will be ignored.
+| Value | Use it for |
+|---|---|
+| `fixed` | The default. _Pending design guidance_ <!-- designer: when should a menu keep the default fixed position? --> |
+| `absolute` | _Pending design guidance_ <!-- designer: when should a menu be positioned against its closest positioned ancestor instead of the viewport? --> |
 
-## Search
-Use the `hasSearch` boolean prop to display the search input at the top of the menu.
-
-Use the `searchEmptyText` prop to provide a string to display when the search returns no results.
+## Accessibility
+- An icon-only trigger, such as a [Button](?path=/docs/components-button--docs) with only an `icon`, must have an `aria-label` that describes the menu, such as "More actions".
+- The Up and Down arrow keys move the focus between items.
+- Enter or Space activates the focused item (soon).
+- Home and End move the focus to the first and last items (soon).
+- Escape closes the menu (soon).

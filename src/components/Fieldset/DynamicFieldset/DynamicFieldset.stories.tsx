@@ -1,6 +1,6 @@
 import { useArgs } from 'storybook/preview-api';
 
-import markdownNotes from './DynamicFieldset.md';
+import markdownNotes from './DynamicFieldset.md?raw';
 import { DynamicFieldset } from './index';
 import { Field, FieldSelector } from '~/components';
 import { Button, Chip, Input } from '~/components';
@@ -9,14 +9,15 @@ import { Add, Language, MoreVert } from '~/icons';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof DynamicFieldset> = {
-    title: 'Components/Fieldset/DynamicFieldset',
+    title: 'Components/DynamicFieldset',
     component: DynamicFieldset,
     tags: ['beta'],
 
     parameters: {
         layout: 'padded',
         actions: { argTypesRegex: '^on.*' },
-        notes: { markdown: markdownNotes },
+        componentSubtitle: 'Optional fields the user turns on with a switch.',
+        docs: { description: { component: markdownNotes } },
     },
     args: {
         id: 'dynamic-fieldset',

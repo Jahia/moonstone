@@ -2,27 +2,29 @@ import React from 'react';
 
 export type SecondaryNavProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'children' | 'className' | 'onChange'> & {
     /**
-     * Is visible or hidden by default
+     * Whether the navigation is visible on first render.
+     * @default true
      */
     isDefaultVisible?: boolean;
     /**
-     * Header of the secondary navigation
+     * Title area of the navigation, usually a SecondaryNavHeader.
      */
     header: React.ReactNode;
     /**
-     * Content of the component
+     * Navigation of the section, such as a TreeView.
      */
     children: React.ReactNode;
     /**
-     * Additional classname
+     * Additional class name.
      */
     className?: string;
     /**
-     * Whether the component should use reversed colors, it useful with dark background
+     * Whether the navigation uses reversed colors, for a dark background.
+     * @default true
      */
     isReversed?: boolean;
     /**
-     * Triggered when the visibility is toggled
+     * Called when the user shows or hides the navigation.
      */
     onToggled?: (e: React.MouseEvent) => void;
 };

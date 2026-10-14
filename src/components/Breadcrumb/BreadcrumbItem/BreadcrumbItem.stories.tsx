@@ -1,3 +1,4 @@
+import markdownNotes from './BreadcrumbItem.md?raw';
 // Import '~/__storybook__/storybook.scss';
 import { Breadcrumb, BreadcrumbItem } from '~/components';
 import { Love } from '~/icons';
@@ -6,7 +7,7 @@ import type { BreadcrumbItemProps } from './BreadcrumbItem.types';
 import type { Meta, StoryFn } from '@storybook/react-vite';
 
 export default {
-    title: 'Components/Breadcrumb/BreadcrumbItem',
+    title: 'Components/BreadcrumbItem',
     component: BreadcrumbItem,
     decorators: [
         StoryCmp => (
@@ -16,6 +17,8 @@ export default {
         ),
     ],
     parameters: {
+        componentSubtitle: 'One level of a Breadcrumb\'s path.',
+        docs: { description: { component: markdownNotes } },
         layout: 'centered',
         actions: { argTypesRegex: '^on.*' },
     },

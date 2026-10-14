@@ -4,35 +4,35 @@ import type { AccordionItemProps } from './AccordionItem/AccordionItem.types';
 
 type BasicProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'className' | 'children'> & {
     /**
-     * Whether the component should use reversed colors, it useful with dark background
+     * Whether the accordion uses reversed colors, for a dark background.
      */
     isReversed?: boolean;
 
     /**
-     * Additional classname
+     * Additional class name.
     */
     className?: string;
     /**
-     * Content of the component
+     * The AccordionItem components of the accordion.
      */
     children: React.ReactElement<AccordionItemProps> | React.ReactElement<AccordionItemProps>[];
 };
 
 type ControlledProps = {
     /**
-     * Id of the AccordionItem opened. Define the component as controlled when it set (controlled)
+     * Id of the open AccordionItem (controlled). Setting it makes the accordion controlled.
      */
     openedItem: string;
 
     /**
-     * Function to set the opened AccordionItem (controlled)
+     * Called with the id of the item the user opens or closes (controlled).
      */
     onSetOpenedItem: (id: string) => void;
 };
 
 type UncontrolledProps = {
     /**
-     * Id of the AccordionItem opened by default (uncontrolled)
+     * Id of the AccordionItem open on first render (uncontrolled).
      */
     defaultOpenedItem?: string;
 };

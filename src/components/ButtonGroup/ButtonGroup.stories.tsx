@@ -1,4 +1,4 @@
-import markdownNotes from './ButtonGroup.md';
+import markdownNotes from './ButtonGroup.md?raw';
 import { ButtonGroup } from './index';
 import { Button } from '~/components/Button';
 import { ChevronDown } from '~/icons';
@@ -10,12 +10,11 @@ export default {
     title: 'Components/ButtonGroup',
     component: ButtonGroup,
     tags: ['dark-theme'],
-    subcomponents: { Button },
 
     parameters: {
+        docs: { description: { component: markdownNotes } },
         layout: 'centered',
-        componentSubtitle: 'ButtonGroup',
-        notes: { markdown: markdownNotes },
+        componentSubtitle: 'Related actions, joined as one unit.',
         actions: { argTypesRegex: '^on.*' },
     },
 } as Meta<typeof ButtonGroup>;

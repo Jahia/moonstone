@@ -9,7 +9,7 @@ import type { TagProps } from './Tag.types';
 import styles from './Tag.module.scss';
 
 export const Tag: React.FC<TagProps> = ({
-    label, value, size = 'medium', onClick, className, isDisabled = false, ...props
+    label, value, size = 'medium', onClick, className, isDisabled, ...props
 }) => (
     <button
         disabled={isDisabled}

@@ -5,39 +5,45 @@ type TabItemSize = typeof tabItemSizes[number];
 
 export type TabItemProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'onClick' | 'className'> & {
     /**
-     * The component used for the root node
+     * Element rendered as the tab.
+     * @default 'button'
      */
     component?: string;
     /**
-     * TabItem label
+     * Text of the tab.
+     * @default ''
      */
     label?: string;
     /**
-     * Icon size
+     * Size of the tab. `big` shows the label in the heading style.
+     * @default 'default'
      */
     size?: TabItemSize;
     /**
-     * Icon name, if it's empty the tabItem has no icon
+     * Icon shown before the label.
      */
     icon?: React.ReactElement;
     /**
-     * Whether the component should be disabled
+     * Whether the tab is disabled.
+     * @default false
      */
     isDisabled?: boolean;
     /**
-     * Is tabItem selected
+     * Whether the tab is the selected one. Only one TabItem of a Tab is selected at a time.
+     * @default false
      */
     isSelected?: boolean;
     /**
-     * Function trigger on click
+     * Called when the user clicks the tab. Update `isSelected` here: the Tab doesn't select it.
      */
     onClick?: React.MouseEventHandler;
     /**
-     * Whether the component should use reversed colors, it useful with dark background
+     * Whether the tab uses reversed colors, for a dark background.
+     * @default false
      */
     isReversed?: boolean;
     /**
-     * Additional classname
+     * Additional class name.
      */
     className?: string;
 };
