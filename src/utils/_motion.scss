@@ -1,0 +1,19 @@
+/* stylelint-disable order/order, property-disallowed-list */
+
+// Use instead of `transition`: it is turned off for users who asked to reduce motion.
+@mixin transition($values...) {
+    transition: $values;
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
+}
+
+// Use instead of `animation`: it becomes instant, so the element still ends in its final state.
+@mixin animation($values...) {
+    animation: $values;
+
+    @media (prefers-reduced-motion: reduce) {
+        animation-duration: 0.01ms;
+    }
+}
