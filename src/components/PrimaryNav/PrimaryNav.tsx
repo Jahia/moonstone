@@ -110,8 +110,8 @@ export const PrimaryNav: React.FC<PrimaryNavProps> = ({
                     )}
                     >
                         <NavButton
-                            controlsId={navId}
                             isExpanded={isExpanded}
+                            controlsId={navId}
                             label={i18n.toggleButtonLabel}
                             modeIcon={modeIcon}
                             toggleExpand={toggleExpand}
