@@ -16,6 +16,10 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
     isReversed = true,
     onToggled = () => undefined,
     className,
+    i18n = {
+        navigationLabel: 'Secondary navigation',
+        toggleButtonLabel: 'Toggle secondary navigation',
+    },
     ...props
 }) => {
     const [isVisible, setIsVisible] = useState(isDefaultVisible);
@@ -28,7 +32,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
 
     return (
         <ResizableBox
-            aria-label="Secondary navigation"
+            aria-label={i18n.navigationLabel}
             className={
                 clsx(
                     className,
@@ -57,7 +61,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
             <button
                 aria-controls={wrapperId}
                 aria-expanded={isVisible}
-                aria-label="Toggle secondary navigation"
+                aria-label={i18n.toggleButtonLabel}
                 className={clsx(
                     ['moonstone-secondaryNav_buttonToggle', styles['moonstone-secondaryNav_buttonToggle']],
                     isReversed && ['moonstone-secondaryNav_buttonToggle_reversed', styles['moonstone-secondaryNav_buttonToggle_reversed']],

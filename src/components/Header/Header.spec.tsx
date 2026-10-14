@@ -93,7 +93,7 @@ describe('Header', () => {
     });
 
     it('should name the toolbar with the given label', () => {
-        render(<Header title="title" toolbarLabel="Actions de la page" toolbarRight="test"/>);
+        render(<Header i18n={{ toolbarLabel: 'Actions de la page' }} title="title" toolbarRight="test"/>);
         expect(screen.getByRole('toolbar', { name: 'Actions de la page' })).toBeInTheDocument();
     });
 });

@@ -50,6 +50,12 @@ describe('PrimaryNav', () => {
         expect(screen.getByRole('navigation', { name: 'Main menu' })).toBeInTheDocument();
     });
 
+    it('should use the given labels', () => {
+        render(<PrimaryNav {...props} i18n={{ navigationLabel: 'Principale', toggleButtonLabel: 'Afficher la navigation' }}/>);
+        expect(screen.getByRole('navigation', { name: 'Principale' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Afficher la navigation' })).toBeInTheDocument();
+    });
+
     it('should point the toggle button to the navigation', () => {
         render(<PrimaryNav {...props} id="main-nav"/>);
         expect(screen.getByRole('button', { name: 'Toggle primary navigation' })).toHaveAttribute('aria-controls', 'main-nav');

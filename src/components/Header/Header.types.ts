@@ -48,9 +48,14 @@ export type HeaderProps = Omit<React.ComponentPropsWithoutRef<'header'>, 'classN
     toolbarLeft?: React.ReactNode;
 
     /**
-     * Accessible name of the toolbar, announced by screen readers. Pass a translated value.
+     * Header labels
      */
-    toolbarLabel?: string;
+    i18n?: {
+        /**
+         * aria-label of the toolbar
+         */
+        toolbarLabel: string;
+    };
 
     /**
      * Additional classname

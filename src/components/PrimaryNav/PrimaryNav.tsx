@@ -10,7 +10,7 @@ import type { PrimaryNavButtonProps, PrimaryNavHeaderProps, PrimaryNavProps } fr
 import styles from './PrimaryNav.module.scss';
 
 const NavButton: React.FC<PrimaryNavButtonProps> = ({
-    isExpanded, navId, toggleExpand, modeIcon,
+    isExpanded, navId, label, toggleExpand, modeIcon,
 }) => {
     return (
         <>
@@ -23,7 +23,7 @@ const NavButton: React.FC<PrimaryNavButtonProps> = ({
             <button
                 aria-controls={navId}
                 aria-expanded={isExpanded}
-                aria-label="Toggle primary navigation"
+                aria-label={label}
                 className={clsx('moonstone-primaryNav_button', styles['moonstone-primaryNav_button'])}
                 data-testid="primaryNavMenuButton"
                 type="button"
@@ -66,6 +66,10 @@ export const PrimaryNav: React.FC<PrimaryNavProps> = ({
     bottom = null,
     headerCaption = '',
     modeIcon,
+    i18n = {
+        navigationLabel: 'Primary',
+        toggleButtonLabel: 'Toggle primary navigation',
+    },
     ...props
 }) => {
     const [isExpanded, setExpanded] = useState(false);
@@ -85,7 +89,7 @@ export const PrimaryNav: React.FC<PrimaryNavProps> = ({
     return (
         <PrimaryNavContext.Provider value={contextValue}>
             <nav
-                aria-label="Primary"
+                aria-label={i18n.navigationLabel}
                 {...props}
                 className={clsx(
                     ['moonstone-primaryNav', styles['moonstone-primaryNav']],
@@ -105,7 +109,13 @@ export const PrimaryNav: React.FC<PrimaryNavProps> = ({
                         ['alignCenter', layout.alignCenter],
                     )}
                     >
-                        <NavButton isExpanded={isExpanded} modeIcon={modeIcon} navId={navId} toggleExpand={toggleExpand}/>
+                        <NavButton
+                            isExpanded={isExpanded}
+                            label={i18n.toggleButtonLabel}
+                            modeIcon={modeIcon}
+                            navId={navId}
+                            toggleExpand={toggleExpand}
+                        />
                     </div>
                     <div
                         className={clsx(

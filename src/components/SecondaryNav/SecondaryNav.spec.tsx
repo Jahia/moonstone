@@ -127,6 +127,16 @@ describe('SecondaryNav', () => {
         expect(screen.getByRole('region', { name: 'Secondary navigation' })).toBeInTheDocument();
     });
 
+    it('should use the given labels', () => {
+        render(
+            <SecondaryNav {...requiredProps} i18n={{ navigationLabel: 'Navigation secondaire', toggleButtonLabel: 'Afficher la navigation' }}>
+                content here
+            </SecondaryNav>,
+        );
+        expect(screen.getByRole('region', { name: 'Navigation secondaire' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Afficher la navigation' })).toBeInTheDocument();
+    });
+
     it('should point the toggle button to the content it hides', () => {
         render(<SecondaryNav {...requiredProps}>content here</SecondaryNav>);
         const controlledId = screen.getByRole('button', { name: 'Toggle secondary navigation' }).getAttribute('aria-controls');
