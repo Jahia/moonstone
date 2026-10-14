@@ -9,9 +9,16 @@ type onAccessibleClickProps = {
 };
 
 const handleKeyDown = (e: React.KeyboardEvent, onClick: onClickProp) => {
+    // A nested link or button keeps its native activation
+    if (e.target !== e.currentTarget) {
+        return;
+    }
+
     if (e.code === 'Space' || e.code === 'Enter') {
         e.preventDefault();
-        onClick(e);
+        if (!e.repeat) {
+            onClick(e);
+        }
     }
 };
 
