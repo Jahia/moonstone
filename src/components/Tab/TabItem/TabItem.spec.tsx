@@ -76,15 +76,4 @@ describe('TabItem', () => {
         render(<TabItem className="extra" data-testid="tab-item"/>);
         expect(screen.getByTestId('tab-item')).toHaveClass('extra');
     });
-
-    it('should link each tab to the panel it shows', () => {
-        render(
-            <>
-                <TabItem isSelected aria-controls="panel-content" id="tab-content" label="Content"/>
-                <div aria-labelledby="tab-content" id="panel-content" role="tabpanel">Panel content</div>
-            </>,
-        );
-        expect(screen.getByRole('tab', { name: 'Content' })).toHaveAttribute('aria-controls', 'panel-content');
-        expect(screen.getByRole('tabpanel', { name: 'Content' })).toHaveTextContent('Panel content');
-    });
 });

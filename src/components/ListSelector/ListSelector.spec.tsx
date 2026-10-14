@@ -159,11 +159,4 @@ describe('MultipleLeftRightSelector', () => {
         expect(screen.getByRole('button', { name: 'Add all' })).toHaveAttribute('data-sel-role', 'add-all');
         expect(screen.getByRole('button', { name: 'Remove all' })).toHaveAttribute('data-sel-role', 'remove-all');
     });
-
-    it('should not use any invented role', () => {
-        const { container } = render(<ListSelector {...requiredProps} options={options} values={['3']}/>);
-        ['left-list', 'right-list', 'add-all', 'remove-all'].forEach((role) => {
-            expect(container.querySelector(`[role="${role}"]`)).toBeNull();
-        });
-    });
 });

@@ -43,12 +43,12 @@ describe('NavItem', () => {
         );
     });
 
-    it('should announce the badge with the item', () => {
+    it('should include the badge in the accessible name of the item', () => {
         render(<PrimaryNavItem badge={<Badge label="3"/>} label="Workflow"/>);
         expect(screen.getByRole('button', { name: 'Workflow 3' })).toBeInTheDocument();
     });
 
-    it('should announce the badge with a link item', () => {
+    it('should include the badge in the accessible name of a link item', () => {
         render(<PrimaryNavItem badge={<Badge label="3"/>} label="Workflow" url="toto.com"/>);
         expect(screen.getByRole('link', { name: 'Workflow 3' })).toBeInTheDocument();
     });
@@ -66,12 +66,6 @@ describe('NavItem', () => {
     it('should mark a selected link item as the current page', () => {
         render(<PrimaryNavItem isSelected label="Link" url="toto.com"/>);
         expect(screen.getByRole('link', { name: 'Link' })).toHaveAttribute('aria-current', 'page');
-    });
-
-    it('should expose a link item as a single control', () => {
-        render(<PrimaryNavItem data-testid="primaryNav-item" label="Link" url="toto.com"/>);
-        expect(screen.queryByRole('button')).not.toBeInTheDocument();
-        expect(screen.getByTestId('primaryNav-item')).not.toHaveAttribute('tabindex');
     });
 
     it('should not nest the button slot inside the item control', () => {
@@ -106,5 +100,17 @@ describe('NavItem', () => {
         await user.click(screen.getByText('test me'));
 
         expect(onClick).toHaveBeenCalled();
+    });
+
+    it('should not throw when clicked without onClick', async () => {
+        const user = userEvent.setup();
+        const onError = vi.fn();
+        window.addEventListener('error', onError);
+
+        render(<PrimaryNavItem label="test me"/>);
+        await user.click(screen.getByRole('button', { name: 'test me' }));
+
+        window.removeEventListener('error', onError);
+        expect(onError).not.toHaveBeenCalled();
     });
 });

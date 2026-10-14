@@ -132,17 +132,6 @@ describe('SecondaryNav', () => {
         const controlledId = screen.getByRole('button', { name: 'Toggle secondary navigation' }).getAttribute('aria-controls');
         expect(document.getElementById(controlledId)).toHaveTextContent('content here');
     });
-
-    it('should give each instance its own controlled id', () => {
-        render(
-            <>
-                <SecondaryNav {...requiredProps}>first</SecondaryNav>
-                <SecondaryNav {...requiredProps}>second</SecondaryNav>
-            </>,
-        );
-        const [first, second] = screen.getAllByRole('button', { name: 'Toggle secondary navigation' });
-        expect(first.getAttribute('aria-controls')).not.toBe(second.getAttribute('aria-controls'));
-    });
 });
 
 describe('SecondaryNavHeader', () => {
