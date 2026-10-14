@@ -15,7 +15,6 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
     const context = React.useContext(AccordionContext);
     const open = context.currentItem === id;
     const buttonId = useId();
-    const panelId = useId();
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         onClick(e, !open);
@@ -36,8 +35,8 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
             <Typography component="h3">
                 <Typography
                     isNowrap
-                    // The panel is only rendered when open, so it can only be referenced then
-                    aria-controls={open ? panelId : undefined}
+                    // The consumer id, kept even when closed: product tests select the item with it
+                    aria-controls={id}
                     aria-expanded={open}
                     className={clsx(
                         ['moonstone-accordionItem_header', styles['moonstone-accordionItem_header']],
@@ -74,7 +73,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
                             ['flexFluid', layout.flexFluid],
                             ['flexCol_nowrap', layout.flexCol_nowrap],
                         )}
-                        id={panelId}
+                        id={id}
                         role="region"
                     >
                         {children}

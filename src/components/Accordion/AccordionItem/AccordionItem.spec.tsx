@@ -212,15 +212,16 @@ describe('AccordionItem', () => {
         const panel = screen.getByRole('region', { name: requiredProps.label });
 
         expect(button).toHaveAttribute('aria-expanded', 'true');
-        expect(button).toHaveAttribute('aria-controls', panel.id);
+        expect(button).toHaveAttribute('aria-controls', requiredProps.id);
+        expect(panel).toHaveAttribute('id', requiredProps.id);
         expect(panel).toHaveTextContent('content here');
     });
 
-    it('should not reference a panel that is not rendered', () => {
+    it('should keep the consumer id in aria-controls when closed', () => {
         render(<AccordionItem {...requiredProps}>content here</AccordionItem>);
         const button = screen.getByRole('button', { name: requiredProps.label });
 
         expect(button).toHaveAttribute('aria-expanded', 'false');
-        expect(button).not.toHaveAttribute('aria-controls');
+        expect(button).toHaveAttribute('aria-controls', requiredProps.id);
     });
 });
