@@ -111,6 +111,23 @@ describe('TreeView keyboard', () => {
         expect(node('Child G1')).toBeVisible();
     });
 
+    it('runs the onKeyDown of treeItemProps before the keys of the tree, which its preventDefault() turns off', async () => {
+        const onKeyDown = vi.fn((e: React.KeyboardEvent) => {
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+            }
+        });
+        const treeItemProps = { onKeyDown } as TreeViewData['treeItemProps'];
+        renderTree({ data: [{ id: 'A', label: 'Root A', treeItemProps, children: [{ id: 'A1', label: 'Child A1' }] }] });
+        node('Root A').focus();
+        await userEvent.keyboard('{ArrowRight}');
+        expect(onKeyDown).toHaveBeenCalledTimes(1);
+        expect(node('Child A1')).toHaveFocus();
+        node('Root A').focus();
+        await userEvent.keyboard('{ArrowLeft}');
+        expect(node('Root A')).toHaveAttribute('aria-expanded', 'true');
+    });
+
     it('selects the focused node with Enter', async () => {
         const { onClickItem } = renderTree();
         node('Child A1').focus();

@@ -138,6 +138,17 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                 node.isDisabled && ['moonstone-disabled', styles['moonstone-disabled']],
             );
 
+            const toggleNodeProps = onToggleNode({
+                onToggle: toggleNode,
+                onClick: handleNodeClick,
+                isDisabled: !isClickable,
+                isExpandable: hasChild && isClosable,
+                isOpen: hasChild && isOpen,
+                onFocusParent: () => parentRef?.current?.focus(),
+                onFocusFirstChild: () => refs.current.get(node.children?.[0]?.id)?.current?.focus(),
+                onExpandSiblings: onOpenItem && onCloseItem ? expandSiblings : undefined,
+            });
+
             return [
                 React.createElement(
                     itemComponent,
@@ -156,17 +167,10 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                         },
                         'onDoubleClick': handleNodeDoubleClick,
                         'onContextMenu': handleNodeContextMenu,
-                        ...onToggleNode({
-                            onToggle: toggleNode,
-                            onClick: handleNodeClick,
-                            isDisabled: !isClickable,
-                            isExpandable: hasChild && isClosable,
-                            isOpen: hasChild && isOpen,
-                            onFocusParent: () => parentRef?.current?.focus(),
-                            onFocusFirstChild: () => refs.current.get(node.children?.[0]?.id)?.current?.focus(),
-                            onExpandSiblings: onOpenItem && onCloseItem ? expandSiblings : undefined,
-                        }),
+                        ...toggleNodeProps,
                         ...node.treeItemProps,
+                        // The consumer's onKeyDown runs first, and its preventDefault() turns the keys of the tree off
+                        'onKeyDown': mergeHandlers(node.treeItemProps ?? {}, toggleNodeProps).onKeyDown,
                     },
                     <div className={cssTreeViewItem}>
                         {/* Icon arrow */}
