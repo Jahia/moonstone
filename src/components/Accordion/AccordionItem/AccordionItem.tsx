@@ -17,7 +17,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
     const buttonId = useId();
     const panelId = useId();
 
-    const handleClick = (e: React.MouseEvent) => {
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         onClick(e, !open);
         context.onSetOpenedItem(id);
     };
@@ -33,8 +33,9 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
                 className,
             )}
         >
-            <h3 className={clsx('moonstone-accordionItem_heading', styles['moonstone-accordionItem_heading'])}>
-                <button
+            <Typography component="h3">
+                <Typography
+                    isNowrap
                     // The panel is only rendered when open, so it can only be referenced then
                     aria-controls={open ? panelId : undefined}
                     aria-expanded={open}
@@ -45,32 +46,23 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
                         ['flexRow', layout.flexRow],
                         ['alignCenter', layout.alignCenter],
                     )}
+                    component="button"
                     id={buttonId}
                     type="button"
+                    variant="subheading"
+                    weight={open ? 'bold' : 'default'}
                     onClick={handleClick}
                 >
-                    {icon
-                        && (
-                            <span className={clsx(
-                                ['moonstone-accordionItem_iconContainer', styles['moonstone-accordionItem_iconContainer']],
-                                ['flexRow_center', layout.flexRow_center],
-                                ['alignCenter', layout.alignCenter],
-                            )}
-                            >
-                                <icon.type {...icon.props} className={clsx('moonstone-icon_big', icons['moonstone-icon_big'], icon.props.className)} size="big"/>
-                            </span>
-                        )}
-                    <Typography
-                        isNowrap
-                        className={clsx('flexFluid', layout.flexFluid)}
-                        component="span"
-                        variant="subheading"
-                        weight={open ? 'bold' : 'default'}
-                    >
-                        {label}
-                    </Typography>
-                </button>
-            </h3>
+                    {icon && (
+                        <icon.type
+                            {...icon.props}
+                            className={clsx('moonstone-icon_big', icons['moonstone-icon_big'], styles['moonstone-accordionItem_icon'], icon.props.className)}
+                            size="big"
+                        />
+                    )}
+                    {label}
+                </Typography>
+            </Typography>
 
             {/* Accordion content */}
             {open

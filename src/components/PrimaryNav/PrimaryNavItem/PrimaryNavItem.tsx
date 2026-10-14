@@ -4,90 +4,64 @@ import React, { useContext } from 'react';
 import { PrimaryNavContext } from '../PrimaryNav.context';
 import { Typography } from '~/components';
 
-import type { ItemProps, ItemTypeResolverProps, PrimaryNavItemProps } from './PrimaryNavItem.types';
+import type { ItemTypeResolverProps, PrimaryNavItemProps } from './PrimaryNavItem.types';
 
 import styles from './PrimaryNavItem.module.scss';
-
-// Internal component
-const Item: React.FC<ItemProps> = ({
-    icon, label, textVariant, subtitle,
-}) => (
-    <span className={clsx('moonstone-primaryNavItem_content', styles['moonstone-primaryNavItem_content'])}>
-        <span className={clsx('moonstone-primaryNavItem_iconContainer', styles['moonstone-primaryNavItem_iconContainer'])}>
-            {icon && <icon.type {...icon.props} size="big"/>}
-        </span>
-
-        <span className={clsx('moonstone-primaryNavItem_textContainer', styles['moonstone-primaryNavItem_textContainer'])}>
-            <Typography
-                isNowrap
-                className={clsx('moonstone-primaryNavItem_label', styles['moonstone-primaryNavItem_label'])}
-                component="span"
-                variant={textVariant}
-            >
-                {label}
-            </Typography>
-            {subtitle && (
-                <Typography
-                    isNowrap
-                    className={clsx(
-                        ['moonstone-primaryNavItem_label', styles['moonstone-primaryNavItem_label']],
-                        ['moonstone-subtitle', styles['moonstone-subtitle']],
-                    )}
-                    component="span"
-                    variant="caption"
-                >
-                    {subtitle}
-                </Typography>
-            )}
-        </span>
-    </span>
-);
 
 // Internal component: the one interactive element of the item, a link or a button
 const ItemTypeResolver: React.FC<ItemTypeResolverProps> = ({
     url, icon, label, subtitle, isSelected, onClick, children,
 }) => {
-    const ariaCurrent = isSelected ? 'page' : undefined;
-
-    if (url) {
-        return (
-            <a
-                aria-current={ariaCurrent}
-                className={clsx(
-                    ['moonstone-primaryNavItem_control', styles['moonstone-primaryNavItem_control']],
-                    ['moonstone-primaryNavItem_linkItem', styles['moonstone-primaryNavItem_linkItem']],
-                )}
-                href={url}
-                rel="noopener noreferrer"
-                target="_blank"
-                onClick={onClick}
-            >
-                <Item
-                    icon={icon}
-                    label={label}
-                    subtitle={subtitle}
-                    textVariant="body"
-                />
-                {children}
-            </a>
-        );
-    }
+    const controlProps = url
+        ? {
+                component: 'a',
+                href: url,
+                rel: 'noopener noreferrer',
+                target: '_blank',
+            } as const
+        : {
+                component: 'button',
+                type: 'button',
+            } as const;
 
     return (
-        <button
-            aria-current={ariaCurrent}
-            className={clsx('moonstone-primaryNavItem_control', styles['moonstone-primaryNavItem_control'])}
-            type="button"
+        <Typography
+            {...controlProps}
+            aria-current={isSelected ? 'page' : undefined}
+            className={clsx(
+                ['moonstone-primaryNavItem_control', styles['moonstone-primaryNavItem_control']],
+                url && ['moonstone-primaryNavItem_linkItem', styles['moonstone-primaryNavItem_linkItem']],
+            )}
             onClick={onClick}
         >
-            <Item
-                icon={icon}
-                label={label}
-                subtitle={subtitle}
-                textVariant="subheading"
-            />
+            <span className={clsx('moonstone-primaryNavItem_iconContainer', styles['moonstone-primaryNavItem_iconContainer'])}>
+                {icon && <icon.type {...icon.props} size="big"/>}
+            </span>
+            <span className={clsx('moonstone-primaryNavItem_textContainer', styles['moonstone-primaryNavItem_textContainer'])}>
+                <Typography
+                    isNowrap
+                    className={clsx('moonstone-primaryNavItem_label', styles['moonstone-primaryNavItem_label'])}
+                    component="span"
+                    variant={url ? 'body' : 'subheading'}
+                >
+                    {label}
+                </Typography>
+                {subtitle && (
+                    <Typography
+                        isNowrap
+                        className={clsx(
+                            ['moonstone-primaryNavItem_label', styles['moonstone-primaryNavItem_label']],
+                            ['moonstone-subtitle', styles['moonstone-subtitle']],
+                        )}
+                        component="span"
+                        variant="caption"
+                    >
+                        {subtitle}
+                    </Typography>
+                )}
+            </span>
             {children}
-        </button>
+        </Typography>
     );
 };
 

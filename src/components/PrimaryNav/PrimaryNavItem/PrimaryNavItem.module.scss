@@ -28,7 +28,6 @@
     }
 }
 
-// Reset the native link and button so the control fills the item and looks like it
 .moonstone-primaryNavItem_control {
     display: flex;
     flex: 1;
@@ -36,18 +35,10 @@
     align-self: stretch;
 
     min-width: 40px;
-    padding: 0;
+    max-width: 100%; // Necessery to truncate text inside it
 
-    font: inherit;
-
-    color: inherit;
-    text-align: start;
-    text-decoration: none;
-
-    border: 0;
     border-radius: inherit;
 
-    background: none;
     cursor: inherit;
     overflow: hidden;
 
@@ -56,24 +47,18 @@
     }
 }
 
-.moonstone-primaryNavItem_content {
-    display: flex;
-    flex: 1;
-    justify-content: flex-start;
-    overflow: hidden;
-
-    min-width: 40px;
-    max-width: 100%; // Necessery to truncate text inside it
-
-    &:hover {
-        color: var(--moon-color-accent);
+// Typography styles [href] as a link, the item keeps its own colors
+.moonstone-primaryNavItem .moonstone-primaryNavItem_control[href] {
+    &,
+    &:hover,
+    &:active {
+        color: inherit;
+        text-decoration: none;
     }
 }
 
-.moonstone-selected {
-    .moonstone-primaryNavItem_content:hover {
-        color: currentColor;
-    }
+.moonstone-primaryNavItem:not(.moonstone-selected) .moonstone-primaryNavItem_control:hover {
+    color: var(--moon-color-accent);
 }
 
 .moonstone-primaryNavItem_iconContainer {
