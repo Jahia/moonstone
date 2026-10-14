@@ -88,6 +88,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                     filter={filterLeft}
                     iconEnd={<ChevronRight className={clsx('moonstone-displayNone', valueListStyles['moonstone-displayNone'])}/>}
                     listClasses={typeof dragged?.originalIndex === 'number' ? ['moonstone-draggedOver', styles['moonstone-draggedOver']] : []}
+                    listLabel={label.leftListTitle}
                     setFilter={setFilterLeft}
                     side="left"
                     values={valuesLeft}
@@ -144,7 +145,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
             >
                 <Button
                     isDisabled={isReadOnly || valuesLeft.length === 0}
-                    data-sel-role="add-all"
+                    aria-label={label.addAllTitle || 'Add all'}
                     icon={<ChevronDoubleRight/>}
                     title={label.addAllTitle || 'Add all'}
                     variant="ghost"
@@ -152,7 +153,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                 />
                 <Button
                     isDisabled={isReadOnly || valuesRight.length === 0}
-                    data-sel-role="remove-all"
+                    aria-label={label.removeAllTitle || 'Remove all'}
                     icon={<ChevronDoubleLeft/>}
                     title={label.removeAllTitle || 'Remove all'}
                     variant="ghost"
@@ -186,6 +187,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                     iconEnd={<Close className={clsx('moonstone-displayNone', valueListStyles['moonstone-displayNone'])}/>}
                     label={label}
                     listClasses={(dragged && !filterRight) ? ['moonstone-draggedOver', styles['moonstone-draggedOver']] : []}
+                    listLabel={label.rightListTitle}
                     setFilter={setFilterRight}
                     side="right"
                     values={valuesRight}

@@ -1,14 +1,19 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { ListSelector } from './index';
 
 const requiredProps = {
     label: {
+        leftListTitle: 'Available',
+        rightListTitle: 'Selected',
         selected: '0 item selected',
     },
     onChange: () => ({}),
 };
+
+const leftItems = () => within(screen.getByRole('list', { name: 'Available' })).queryAllByRole('listitem');
+const rightItems = () => within(screen.getByRole('list', { name: 'Selected' })).queryAllByRole('listitem');
 
 const options = [
     { label: 'One', value: '1' },
@@ -23,34 +28,28 @@ describe('MultipleLeftRightSelector', () => {
     });
 
     it('should display options in left list', () => {
-        const { container } = render(
+        render(
             <ListSelector {...requiredProps} options={options}/>,
         );
-        expect(container.querySelectorAll('li[data-sel-role="left-list"]')).toHaveLength(
-            options.length,
-        );
+        expect(leftItems()).toHaveLength(options.length);
     });
 
     it('should display selection in right list', () => {
         const selection = ['1', '3'];
-        const { container } = render(
+        render(
             <ListSelector
                 {...requiredProps}
                 options={options}
                 values={selection}
             />,
         );
-        expect(container.querySelectorAll('li[data-sel-role="left-list"]')).toHaveLength(
-            options.length - selection.length,
-        );
-        expect(
-            container.querySelectorAll('li[data-sel-role="right-list"]'),
-        ).toHaveLength(selection.length);
+        expect(leftItems()).toHaveLength(options.length - selection.length);
+        expect(rightItems()).toHaveLength(selection.length);
     });
 
     it('should display in readonly mode', () => {
         const selection = ['1', '3'];
-        const { container } = render(
+        render(
             <ListSelector
                 {...requiredProps}
                 isReadOnly
@@ -58,25 +57,17 @@ describe('MultipleLeftRightSelector', () => {
                 values={selection}
             />,
         );
-        expect(container.querySelectorAll('li[data-sel-role="left-list"]')).toHaveLength(
-            options.length - selection.length,
-        );
-        expect(
-            container.querySelectorAll('li[data-sel-role="right-list"]'),
-        ).toHaveLength(selection.length);
+        expect(leftItems()).toHaveLength(options.length - selection.length);
+        expect(rightItems()).toHaveLength(selection.length);
 
-        expect(
-            container.querySelector('button[data-sel-role="add-all"]'),
-        ).toBeDisabled();
-        expect(
-            container.querySelector('button[data-sel-role="remove-all"]'),
-        ).toBeDisabled();
+        expect(screen.getByRole('button', { name: 'Add all' })).toBeDisabled();
+        expect(screen.getByRole('button', { name: 'Remove all' })).toBeDisabled();
 
-        container.querySelectorAll('li[data-sel-role="left-list"]').forEach((el) => {
+        leftItems().forEach((el) => {
             expect(el.querySelectorAll('svg')).toHaveLength(0);
         });
 
-        container.querySelectorAll('li[data-sel-role="right-list"]').forEach((el) => {
+        rightItems().forEach((el) => {
             expect(el.querySelectorAll('svg')).toHaveLength(0);
         });
     });
@@ -109,17 +100,13 @@ describe('MultipleLeftRightSelector', () => {
         const { container } = render(
             <ListSelector {...requiredProps} options={options} onChange={mockOnChange}/>,
         );
-        expect(container.querySelectorAll('li[data-sel-role="left-list"]')).toHaveLength(
-            options.length,
-        );
+        expect(leftItems()).toHaveLength(options.length);
 
         const search = container.querySelector('input[role="searchbox"]');
 
         await user.type(search, 'On');
 
-        expect(container.querySelectorAll('li[data-sel-role="left-list"]')).toHaveLength(
-            1,
-        );
+        expect(leftItems()).toHaveLength(1);
     });
 
     it('should display label for the list on the right', () => {
@@ -146,17 +133,16 @@ describe('MultipleLeftRightSelector', () => {
         expect(screen.getByText('test left')).toBeInTheDocument();
     });
 
-    it('should keep the native roles of the entries and of the move-all buttons', () => {
+    it('should name the move-all buttons with the given labels', () => {
         render(
             <ListSelector
                 {...requiredProps}
-                label={{ ...requiredProps.label, addAllTitle: 'Add all', removeAllTitle: 'Remove all' }}
+                label={{ ...requiredProps.label, addAllTitle: 'Tout ajouter', removeAllTitle: 'Tout retirer' }}
                 options={options}
                 values={['3']}
             />,
         );
-        expect(screen.getAllByRole('listitem')).toHaveLength(options.length);
-        expect(screen.getByRole('button', { name: 'Add all' })).toHaveAttribute('data-sel-role', 'add-all');
-        expect(screen.getByRole('button', { name: 'Remove all' })).toHaveAttribute('data-sel-role', 'remove-all');
+        expect(screen.getByRole('button', { name: 'Tout ajouter' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Tout retirer' })).toBeInTheDocument();
     });
 });
