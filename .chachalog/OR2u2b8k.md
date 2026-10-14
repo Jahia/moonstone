@@ -3,4 +3,4 @@
 "@jahia/moonstone": minor
 ---
 
-Fixed screen readers announcing the wrong name, role or state on accordions, dialogs, tooltips, banners, tabs and navigation (#1428)
+Fix screen readers announcing the wrong name, role or state on `Accordion`, `Modal`, `Tooltip`, `Banner`, `Tab`, `PrimaryNav` and `SecondaryNav` (#1428)
