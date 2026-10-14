@@ -11,10 +11,10 @@
 }
 
 .moonstone-secondaryNav_wrapper {
-    position: relative;
-
     // Transition when it's expanding
-    transition: max-width 0.4s ease-out;
+    @include transition(max-width 0.4s ease-out);
+
+    position: relative;
 }
 
 .moonstone-secondaryNav_buttonToggle {
@@ -59,11 +59,11 @@
 }
 
 .moonstone-secondaryNav_hidden {
-    overflow: hidden;
-
     // Transition when it's collapsing
     // it's triggered on change of the resizableBox size
-    transition: width 0.2s ease-out;
+    @include transition(width 0.2s ease-out);
+
+    overflow: hidden;
 
     .moonstone-secondaryNav_wrapper {
         max-width: 0;
