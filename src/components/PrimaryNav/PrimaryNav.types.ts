@@ -9,7 +9,7 @@ export type PrimaryNavContextProps = {
 
 export type PrimaryNavButtonProps = {
     isExpanded: boolean;
-    navId: string;
+    controlsId: string;
     label: string;
     toggleExpand: () => void;
     modeIcon?: React.ReactElement;

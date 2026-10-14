@@ -10,7 +10,7 @@ import type { PrimaryNavButtonProps, PrimaryNavHeaderProps, PrimaryNavProps } fr
 import styles from './PrimaryNav.module.scss';
 
 const NavButton: React.FC<PrimaryNavButtonProps> = ({
-    isExpanded, navId, label, toggleExpand, modeIcon,
+    isExpanded, controlsId, label, toggleExpand, modeIcon,
 }) => {
     return (
         <>
@@ -21,7 +21,7 @@ const NavButton: React.FC<PrimaryNavButtonProps> = ({
                 />
             )}
             <button
-                aria-controls={navId}
+                aria-controls={controlsId}
                 aria-expanded={isExpanded}
                 aria-label={label}
                 className={clsx('moonstone-primaryNav_button', styles['moonstone-primaryNav_button'])}
@@ -110,10 +110,10 @@ export const PrimaryNav: React.FC<PrimaryNavProps> = ({
                     )}
                     >
                         <NavButton
+                            controlsId={navId}
                             isExpanded={isExpanded}
                             label={i18n.toggleButtonLabel}
                             modeIcon={modeIcon}
-                            navId={navId}
                             toggleExpand={toggleExpand}
                         />
                     </div>
