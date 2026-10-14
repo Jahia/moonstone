@@ -15,7 +15,7 @@ const ModalHeaderForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, Moda
     className,
     ...props
 }, ref) => {
-    const titleId = useContext(ModalContext);
+    const { titleId } = useContext(ModalContext);
 
     return (
         title

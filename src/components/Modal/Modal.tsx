@@ -11,7 +11,7 @@ import {
     useRole,
 } from '@floating-ui/react';
 import clsx from 'clsx';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { ModalContext } from './Modal.context';
 import { layout } from '~/globals/css-utils.js';
@@ -47,6 +47,7 @@ const ModalForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalProps
     ]);
 
     const titleId = useId();
+    const contextValue = useMemo(() => ({ titleId }), [titleId]);
 
     return (
         children && isOpen && (
@@ -68,7 +69,7 @@ const ModalForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalProps
                             {...getFloatingProps()}
                             {...props}
                         >
-                            <ModalContext.Provider value={titleId}>
+                            <ModalContext.Provider value={contextValue}>
                                 {children}
                             </ModalContext.Provider>
                         </div>
