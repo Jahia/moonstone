@@ -7,7 +7,9 @@ type onToggleNodeOptions = {
     onToggle: onToggleProp;
     onClick?: onClickProp;
     isDisabled?: boolean;
-    // Undefined when the node cannot be opened
+    // The node has children and the user can open and close it
+    isExpandable?: boolean;
+    // The children of the node are shown
     isOpen?: boolean;
     onFocusParent?: () => void;
     onFocusFirstChild?: () => void;
@@ -23,15 +25,25 @@ export const onToggleNode = ({
     onToggle,
     onClick,
     isDisabled = false,
-    isOpen,
+    isExpandable = false,
+    isOpen = false,
     onFocusParent,
     onFocusFirstChild,
     onExpandSiblings,
 }: onToggleNodeOptions): onToggleNodeProps => {
     const handleKeyDown = (e: React.KeyboardEvent) => {
+        // A link or a button inside the node keeps its native keys
+        if (e.target !== e.currentTarget) {
+            return;
+        }
+
         switch (e.key) {
             case 'Enter':
             case ' ':
+                if (e.repeat) {
+                    break;
+                }
+
                 if (onClick && !isDisabled) {
                     onClick(e);
                 } else {
@@ -42,13 +54,13 @@ export const onToggleNode = ({
             case 'ArrowRight':
                 if (isOpen) {
                     onFocusFirstChild?.();
-                } else if (isOpen === false) {
+                } else if (isExpandable) {
                     onToggle(e);
                 }
 
                 break;
             case 'ArrowLeft':
-                if (isOpen) {
+                if (isOpen && isExpandable) {
                     onToggle(e);
                 } else {
                     onFocusParent?.();
@@ -56,7 +68,11 @@ export const onToggleNode = ({
 
                 break;
             case '*':
-                onExpandSiblings?.(e);
+                if (!onExpandSiblings) {
+                    return;
+                }
+
+                onExpandSiblings(e);
                 break;
             default:
                 return;

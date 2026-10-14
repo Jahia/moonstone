@@ -27,7 +27,7 @@ describe('onToggleNode', () => {
                 data-testid="toggleable-div"
                 role="treeitem"
                 tabIndex={0}
-                {...onToggleNode({ onToggle: handleToggle, onClick: handleClick, isDisabled, isOpen: opened })}
+                {...onToggleNode({ onToggle: handleToggle, onClick: handleClick, isDisabled, isExpandable: true, isOpen: opened })}
             >
                 {label}
             </div>

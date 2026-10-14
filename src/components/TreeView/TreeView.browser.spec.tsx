@@ -100,12 +100,30 @@ describe('TreeView keyboard', () => {
         expect(node('Root A')).toHaveAttribute('aria-expanded', 'true');
     });
 
+    it('moves between a node that cannot be closed and its first child with ArrowRight and ArrowLeft', async () => {
+        renderTree({ data: [{ id: 'G', label: 'Group G', isClosable: false, children: [{ id: 'G1', label: 'Child G1' }] }] });
+        node('Group G').focus();
+        await userEvent.keyboard('{ArrowRight}');
+        expect(node('Child G1')).toHaveFocus();
+        await userEvent.keyboard('{ArrowLeft}');
+        expect(node('Group G')).toHaveFocus();
+        await userEvent.keyboard('{ArrowLeft}');
+        expect(node('Child G1')).toBeVisible();
+    });
+
     it('selects the focused node with Enter', async () => {
         const { onClickItem } = renderTree();
         node('Child A1').focus();
         await userEvent.keyboard('{Enter}');
         expect(onClickItem).toHaveBeenCalledTimes(1);
         expect(onClickItem.mock.calls[0][0]).toMatchObject({ id: 'A1' });
+    });
+
+    it('selects the focused node once when Enter is held down', async () => {
+        const { onClickItem } = renderTree();
+        node('Child A1').focus();
+        await userEvent.keyboard('{Enter>3/}');
+        expect(onClickItem).toHaveBeenCalledTimes(1);
     });
 
     it('selects the focused node with Space', async () => {
