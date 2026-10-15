@@ -1,4 +1,5 @@
 @use "../../utils/motion" as *;
+@use "../../utils" as *;
 
 .moonstone-resizable_handle {
     @include transition(color 0.2s ease-in);
@@ -15,6 +16,15 @@
     &:active,
     &:hover {
         color: var(--moon-color-accent);
+    }
+}
+
+.moonstone-resizable_handle_control {
+    position: absolute;
+    inset: 0;
+
+    &:focus-visible {
+        @extend %is-focused;
     }
 }
 
