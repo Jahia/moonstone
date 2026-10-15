@@ -26,6 +26,20 @@ onArrowIncrementationProps) => {
             return;
         }
 
+        if (e.key === 'Home' || e.key === 'End') {
+            const bound = e.key === 'Home' ? min : max;
+
+            // Without that bound, Home and End keep moving the caret in the text box
+            if (!Number.isFinite(bound)) {
+                return;
+            }
+
+            e.preventDefault();
+            element.value = bound.toString().replace('.', separator ?? '.');
+            element.defaultValue = element.value;
+            return;
+        }
+
         if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') {
             return;
         }

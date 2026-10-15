@@ -9,7 +9,7 @@ import type { TagProps } from './Tag.types';
 import styles from './Tag.module.scss';
 
 export const Tag: React.FC<TagProps> = ({
-    label, value, size = 'medium', onClick, className, isDisabled = false, ...props
+    label, value, size = 'medium', onClick, onKeyDown, className, isDisabled = false, ...props
 }) => (
     <button
         disabled={isDisabled}
@@ -20,6 +20,14 @@ export const Tag: React.FC<TagProps> = ({
         )}
         type="button"
         onClick={e => onClick(e, value)}
+        onKeyDown={(e) => {
+            onKeyDown?.(e);
+            // Delete and Backspace remove the tag: a native click keeps onClick's MouseEvent signature
+            if (!e.defaultPrevented && (e.key === 'Delete' || e.key === 'Backspace')) {
+                e.preventDefault();
+                e.currentTarget.click();
+            }
+        }}
         {...props}
     >
         {label && <Typography isNowrap component="span" variant="caption">{label}</Typography>}

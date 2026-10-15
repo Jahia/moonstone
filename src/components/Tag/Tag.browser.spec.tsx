@@ -38,17 +38,26 @@ describe('Tag keyboard', () => {
         expect(onClick).toHaveBeenCalledTimes(1);
     });
 
-    it.fails('removes the focused tag with Delete', async () => {
+    it('removes the focused tag with Delete', async () => {
         const { onClick } = renderTag();
         screen.getByRole('button', { name: 'Alpha' }).focus();
         await userEvent.keyboard('{Delete}');
         expect(onClick).toHaveBeenCalledTimes(1);
     });
 
-    it.fails('removes the focused tag with Backspace', async () => {
+    it('removes the focused tag with Backspace', async () => {
         const { onClick } = renderTag();
         screen.getByRole('button', { name: 'Alpha' }).focus();
         await userEvent.keyboard('{Backspace}');
+        expect(onClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('still calls the consumer onKeyDown when the tag is removed with Delete', async () => {
+        const onKeyDown = vi.fn();
+        const { onClick } = renderTag({ onKeyDown });
+        screen.getByRole('button', { name: 'Alpha' }).focus();
+        await userEvent.keyboard('{Delete}');
+        expect(onKeyDown).toHaveBeenCalledTimes(1);
         expect(onClick).toHaveBeenCalledTimes(1);
     });
 
