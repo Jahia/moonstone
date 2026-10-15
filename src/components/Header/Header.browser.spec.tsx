@@ -39,7 +39,7 @@ describe('Header keyboard', () => {
         expect(screen.getByRole('toolbar')).toBeVisible();
     });
 
-    it.fails('moves focus to the next toolbar button with ArrowRight', async () => {
+    it('moves focus to the next toolbar button with ArrowRight', async () => {
         renderHeader();
         action('Action 01').focus();
         await userEvent.keyboard('{ArrowRight}');
@@ -48,14 +48,14 @@ describe('Header keyboard', () => {
         expect(action('View')).toHaveFocus();
     });
 
-    it.fails('moves focus to the previous toolbar button with ArrowLeft', async () => {
+    it('moves focus to the previous toolbar button with ArrowLeft', async () => {
         renderHeader();
         action('Action 02').focus();
         await userEvent.keyboard('{ArrowLeft}');
         expect(action('Action 01')).toHaveFocus();
     });
 
-    it.fails('moves focus to the first and last toolbar buttons with Home and End', async () => {
+    it('moves focus to the first and last toolbar buttons with Home and End', async () => {
         renderHeader();
         action('Action 02').focus();
         await userEvent.keyboard('{End}');

@@ -65,21 +65,21 @@ describe('Accordion keyboard', () => {
         expect(screen.queryByText('Content first')).not.toBeInTheDocument();
     });
 
-    it.fails('moves focus to the next header with ArrowDown', async () => {
+    it('moves focus to the next header with ArrowDown', async () => {
         renderAccordion();
         header('First').focus();
         await userEvent.keyboard('{ArrowDown}');
         expect(header('Second')).toHaveFocus();
     });
 
-    it.fails('moves focus to the previous header with ArrowUp', async () => {
+    it('moves focus to the previous header with ArrowUp', async () => {
         renderAccordion();
         header('Second').focus();
         await userEvent.keyboard('{ArrowUp}');
         expect(header('First')).toHaveFocus();
     });
 
-    it.fails('moves focus to the first and last headers with Home and End', async () => {
+    it('moves focus to the first and last headers with Home and End', async () => {
         renderAccordion();
         header('Second').focus();
         await userEvent.keyboard('{End}');

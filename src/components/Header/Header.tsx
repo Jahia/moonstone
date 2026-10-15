@@ -1,8 +1,9 @@
 import clsx from 'clsx';
-import React from 'react';
+import React, { useRef } from 'react';
 
 import { Separator, Typography } from '~/components';
 import { layout } from '~/globals/css-utils.js';
+import { useRovingFocus } from '~/hooks';
 
 import type { HeaderProps } from './Header.types';
 
@@ -23,6 +24,12 @@ export const Header: React.FC<HeaderProps> = ({
 }: HeaderProps) => {
     const hasInformationArea = Boolean(breadcrumb || contentType || status);
     const hasToolbar = Boolean(toolbarLeft || toolbarRight);
+    const toolbarRef = useRef<HTMLDivElement>(null);
+    // Buttons only: the arrow keys of a field in the toolbar keep moving its caret
+    const toolbarFocus = useRovingFocus(toolbarRef, {
+        itemSelector: 'button',
+        orientation: 'horizontal',
+    });
 
     if (backButton !== null) {
         console.warn('backButton is deprecated and will be removed in a future release.');
@@ -120,7 +127,10 @@ export const Header: React.FC<HeaderProps> = ({
                             ['alignCenter', layout.alignCenter],
                             ['moonstone-header_toolbar', styles['moonstone-header_toolbar']],
                         )}
+                        ref={toolbarRef}
                         role="toolbar"
+                        onFocus={toolbarFocus.onFocus}
+                        onKeyDown={toolbarFocus.onKeyDown}
                     >
                         <div
                             className={clsx(
