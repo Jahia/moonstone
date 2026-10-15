@@ -51,8 +51,16 @@ export type PaginationProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'class
      * Pagination labels
      */
     i18n?: {
-        itemsPerPage: string;
-        of: string;
+        /**
+         * Label before the items per page selector
+         * @default 'Items'
+         */
+        itemsPerPage?: string;
+        /**
+         * Word between the visible range and the total, as in "1-10 of 50"
+         * @default 'of'
+         */
+        of?: string;
         /**
          * Accessible name of the first page button
          * @default 'First page'

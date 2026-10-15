@@ -646,21 +646,6 @@ describe('DataTable', () => {
         expect(screen.queryByText(/undefined/)).not.toBeInTheDocument();
     });
 
-    it('should not accept selection labels without selection', () => {
-        render(
-            // @ts-expect-error the selection labels need enableSelection
-            <DataTable<TestData>
-                enablePagination
-                columns={columns}
-                data={data}
-                i18n={{ itemsPerPage: 'Lignes', of: 'sur', selectRow: 'Sélectionner la ligne' }}
-                primaryKey="id"
-            />,
-        );
-
-        expect(screen.queryByRole('checkbox')).not.toBeInTheDocument();
-    });
-
     it('should call onChangeSelection when selection changes in controlled mode', async () => {
         const onChangeSelection = vi.fn();
         const user = userEvent.setup();

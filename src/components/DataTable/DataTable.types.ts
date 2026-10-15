@@ -115,6 +115,8 @@ export type DataTableBaseProps<T extends NonNullable<unknown>> = {
     rowProps?:
         | (React.HTMLAttributes<HTMLTableRowElement> & Record<string, unknown>)
         | ((context: RowContext<T>) => React.HTMLAttributes<HTMLTableRowElement> & Record<string, unknown>);
+    /** Labels of the pagination and of the selection checkboxes */
+    i18n?: DataTableI18n;
 };
 
 export type SortDirection = 'ascending' | 'descending';
@@ -153,7 +155,7 @@ type SortingProps<T extends NonNullable<unknown>>
         defaultSortDirection?: never;
     };
 
-export type SelectionI18n = {
+export type DataTableI18n = NonNullable<PaginationProps['i18n']> & {
     /**
      * Accessible name of each row checkbox
      * @default 'Select row'
@@ -165,37 +167,6 @@ export type SelectionI18n = {
      */
     selectAllRows?: string;
 };
-
-export type DataTablePaginationI18n = NonNullable<PaginationProps['i18n']>;
-
-// The keys of a disabled feature are typed `never`: an extra key in a union passes the excess property check
-type Without<T> = { [K in keyof T]?: never };
-
-// One `i18n` prop for every feature: each feature's keys are allowed only when that feature is enabled
-type I18nProps
-    = | {
-        enablePagination: true;
-        enableSelection: true;
-        /** Labels of the pagination and of the selection checkboxes */
-        i18n?: DataTablePaginationI18n & SelectionI18n;
-    }
-    | {
-        enablePagination: true;
-        enableSelection?: false;
-        /** Labels of the pagination */
-        i18n?: DataTablePaginationI18n & Without<SelectionI18n>;
-    }
-    | {
-        enablePagination?: false;
-        enableSelection: true;
-        /** Labels of the selection checkboxes */
-        i18n?: SelectionI18n & Without<DataTablePaginationI18n>;
-    }
-    | {
-        enablePagination?: false;
-        enableSelection?: false;
-        i18n?: never;
-    };
 
 export type SelectionProps
     = | {
@@ -295,5 +266,4 @@ export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'c
     & SelectionProps
     & StructuredProps
     & RenderRowProps<T>
-    & DataTablePaginationProps
-    & I18nProps;
+    & DataTablePaginationProps;

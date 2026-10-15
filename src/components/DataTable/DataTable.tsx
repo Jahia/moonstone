@@ -22,7 +22,7 @@ import {
 import { Pagination } from '~/components/Pagination';
 import { toNodeArray } from '~/utils/helpers';
 
-import type { DataTablePaginationI18n, DataTableProps, RenderOptions, SelectionI18n } from './DataTable.types';
+import type { DataTableProps, RenderOptions } from './DataTable.types';
 import type { Row } from '@tanstack/react-table';
 
 // Styles for custom column headers (no padding to match measured cell widths)
@@ -65,8 +65,6 @@ export const DataTable = <T extends NonNullable<unknown>>({
     rowProps,
     ...props
 }: DataTableProps<T>) => {
-    // The type admits each key only with its feature enabled, so each reader below can read its own keys
-    const labels = i18n as (DataTablePaginationI18n & SelectionI18n) | undefined;
     const { expanded, handleExpandedChange } = useExpansion({
         expandedRows,
         defaultExpandedRows: defaultExpandedRows ?? (isStructured ? true : undefined),
@@ -157,7 +155,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     {enableSelection && (
                         <TableCell width="auto" {...selectionCellProps}>
                             <Checkbox
-                                aria-label={labels?.selectRow || 'Select row'}
+                                aria-label={i18n?.selectRow || 'Select row'}
                                 checked={row.getIsSelected()}
                                 onChange={row.getToggleSelectedHandler()}
                             />
@@ -176,7 +174,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 </>
             );
         },
-        [enableSelection, isStructured, registerCustomCellCounts, selectionCellProps, labels?.selectRow, withCustomCellObserver],
+        [enableSelection, isStructured, registerCustomCellCounts, selectionCellProps, i18n?.selectRow, withCustomCellObserver],
     );
 
     const renderRowWithCustomization = useCallback(
@@ -236,7 +234,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             {enableSelection && (
                                 <TableHeadCell width="auto" {...selectionCellProps}>
                                     <Checkbox
-                                        aria-label={labels?.selectAllRows || 'Select all rows'}
+                                        aria-label={i18n?.selectAllRows || 'Select all rows'}
                                         checked={table.getIsAllRowsSelected()}
                                         indeterminate={table.getIsSomeRowsSelected()}
                                         onChange={table.getToggleAllRowsSelectedHandler()}
@@ -270,7 +268,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
             {enablePagination && (
                 <Pagination
                     currentPage={table.getState().pagination.pageIndex + 1}
-                    i18n={labels}
+                    i18n={i18n}
                     itemsPerPage={table.getState().pagination.pageSize}
                     itemsPerPageOptions={itemsPerPageOptions}
                     totalOfItems={
