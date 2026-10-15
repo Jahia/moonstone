@@ -32,8 +32,8 @@ export const onToggleNode = ({
     onExpandSiblings,
 }: onToggleNodeOptions): onToggleNodeProps => {
     const handleKeyDown = (e: React.KeyboardEvent) => {
-        // A link or a button inside the node keeps its native keys
-        if (e.target !== e.currentTarget) {
+        // A link or a button inside the node keeps its native keys, and a modifier keeps the browser shortcuts
+        if (e.target !== e.currentTarget || e.altKey || e.ctrlKey || e.metaKey) {
             return;
         }
 

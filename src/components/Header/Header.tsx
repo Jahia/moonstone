@@ -25,10 +25,11 @@ export const Header: React.FC<HeaderProps> = ({
     const hasInformationArea = Boolean(breadcrumb || contentType || status);
     const hasToolbar = Boolean(toolbarLeft || toolbarRight);
     const toolbarRef = useRef<HTMLDivElement>(null);
-    // Buttons only: the arrow keys of a field in the toolbar keep moving its caret
+    // Buttons only, so a field keeps its arrow keys. Not roving: the consumer owns the buttons, so each stays a Tab stop
     const toolbarFocus = useRovingFocus(toolbarRef, {
         itemSelector: 'button',
         orientation: 'horizontal',
+        isRoving: false,
     });
 
     if (backButton !== null) {

@@ -4,7 +4,7 @@ type UseRovingFocusOptions = {
     itemSelector: string;
     orientation?: 'vertical' | 'horizontal';
     loop?: boolean;
-    /** False keeps every item in the Tab sequence and only adds the arrow keys, Home and End (an accordion) */
+    /** False keeps every item in the Tab sequence and only adds the arrow keys, Home and End (an accordion, a toolbar of consumer buttons) */
     isRoving?: boolean;
 };
 
@@ -63,6 +63,11 @@ export const useRovingFocus = (
     };
 
     const onKeyDown = (e: React.KeyboardEvent) => {
+        // A nested widget or the consumer already handled the key; a modifier keeps the browser shortcuts (Alt+ArrowLeft)
+        if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) {
+            return;
+        }
+
         const items = getAllItems().filter(isEnabled);
         const index = items.indexOf(e.target as HTMLElement);
         if (index === -1) {
