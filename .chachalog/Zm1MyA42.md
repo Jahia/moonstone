@@ -3,4 +3,4 @@
 "@jahia/moonstone": minor
 ---
 
-Allow adding a custom `aria-label` to buttons in `Pagination`, `TablePagination`, `DataTable` and `Input` (#1425)
+Added accessible names to the `Pagination`, `TablePagination` and `DataTable` controls and to the `Input` clear button (#1425). Each name can be translated.

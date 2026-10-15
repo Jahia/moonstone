@@ -176,7 +176,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 </>
             );
         },
-        [enableSelection, isStructured, registerCustomCellCounts, selectionCellProps, labels, withCustomCellObserver],
+        [enableSelection, isStructured, registerCustomCellCounts, selectionCellProps, labels?.selectRow, withCustomCellObserver],
     );
 
     const renderRowWithCustomization = useCallback(

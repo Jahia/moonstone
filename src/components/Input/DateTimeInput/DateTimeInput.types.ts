@@ -84,6 +84,7 @@ export type DateTimeInputTimezoneSelectorProps = Omit<ControlledTimezoneSelector
 /** Props common to every mode of the `DateTimeInput`. */
 export type DateTimeInputSharedProps = Omit<BaseInputProps,
     'defaultValue'
+    | 'i18n'
     | 'value'
     | 'onChange'
     | 'onClear'

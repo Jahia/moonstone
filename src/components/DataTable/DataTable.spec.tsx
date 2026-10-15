@@ -631,6 +631,21 @@ describe('DataTable', () => {
         expect(screen.getAllByRole('checkbox', { name: 'Sélectionner la ligne' })).toHaveLength(data.length);
     });
 
+    it('should keep the default pagination labels when i18n holds only the selection labels', () => {
+        render(
+            <DataTable<TestData>
+                enableSelection
+                columns={columns}
+                data={data}
+                i18n={{ selectRow: 'Sélectionner la ligne' }}
+                primaryKey="id"
+            />,
+        );
+
+        expect(screen.getAllByRole('checkbox', { name: 'Sélectionner la ligne' })).toHaveLength(data.length);
+        expect(screen.queryByText(/undefined/)).not.toBeInTheDocument();
+    });
+
     it('should not accept selection labels without selection', () => {
         render(
             // @ts-expect-error the selection labels need enableSelection
