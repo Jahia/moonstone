@@ -1,6 +1,8 @@
 import clsx from 'clsx';
 import React from 'react';
 
+import { useFieldAria } from '~/components/Field/Field.context';
+
 import type { ControlledTextareaProps } from './Textarea.types';
 
 import styles from './Textarea.module.scss';
@@ -18,8 +20,11 @@ export const ControlledTextarea = React.forwardRef<HTMLTextAreaElement, Controll
     onFocus,
     ...props
 }, ref) => {
+    const fieldAria = useFieldAria(props['aria-label']);
+
     return (
         <textarea
+            {...fieldAria}
             disabled={isDisabled}
             readOnly={isReadOnly}
             className={clsx(

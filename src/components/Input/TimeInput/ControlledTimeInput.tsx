@@ -15,6 +15,7 @@ import {
     type TimeSegment,
 } from './timeHelpers';
 import { Dropdown } from '~/components';
+import { withoutField } from '~/components/Field/Field.context';
 import { layout } from '~/globals/css-utils';
 import { Clock } from '~/icons';
 
@@ -124,7 +125,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
                 onChange={event => setDraft(formatTimeInput(event.target.value, timeFormat))}
                 onKeyDown={handleKeyDown}
             />
-            {meridiem && (
+            {meridiem && withoutField(
                 <Dropdown
                     {...meridiemDropdownProps}
                     isDisabled={isDisabled || isReadOnly}
@@ -145,7 +146,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
                             emitChange(event, parseTimeInput(displayValue, '12h', item.value));
                         }
                     }}
-                />
+                />,
             )}
         </div>
     );

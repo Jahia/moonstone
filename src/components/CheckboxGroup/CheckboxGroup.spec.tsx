@@ -138,4 +138,15 @@ describe('CheckboxGroup', () => {
 
         expect(handleOnChange).toHaveBeenCalledTimes(2);
     });
+
+    it('should be a group named by aria-label, and name each item without an id', () => {
+        render(
+            <CheckboxGroup aria-label="Options" name="options">
+                <CheckboxItem label="First" value="1"/>
+                <CheckboxItem label="Second" value="2"/>
+            </CheckboxGroup>,
+        );
+        expect(screen.getByRole('group', { name: 'Options' })).toBeInTheDocument();
+        expect(screen.getByRole('checkbox', { name: 'Second' })).toBeInTheDocument();
+    });
 });

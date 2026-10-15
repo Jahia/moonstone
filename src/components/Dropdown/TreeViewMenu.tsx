@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import React, { useState } from 'react';
 
 import { SearchInput, TreeView } from '~/components';
+import { withoutField } from '~/components/Field/Field.context';
 import { usePositioning } from '~/hooks';
 
 import type { TreeViewMenuProps } from './TreeViewMenu.types';
@@ -182,7 +183,7 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     // ---
     // Render
     // ---
-    return (
+    return withoutField(
         <>
             <menu
                 className={clsx('moonstone-menu', styles['moonstone-menu'])}
@@ -229,7 +230,7 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
                     />
                 )
             }
-        </>
+        </>,
     );
 };
 

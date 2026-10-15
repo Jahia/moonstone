@@ -29,6 +29,7 @@ import {
     parseValue,
 } from './dateTimeValue';
 import { Button, Dropdown, Typography } from '~/components';
+import { withoutField } from '~/components/Field/Field.context';
 import { layout } from '~/globals/css-utils';
 import { Calendar } from '~/icons';
 
@@ -276,7 +277,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                         }
                     }}
                 />
-                {isCalendarOpen && (
+                {isCalendarOpen && withoutField(
                     <FloatingPortal>
                         <div
                             className={styles.calendarPopover}
@@ -356,7 +357,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                                 }}
                             />
                         </div>
-                    </FloatingPortal>
+                    </FloatingPortal>,
                 )}
                 {type !== 'date' && (
                     <TimeInput
@@ -382,7 +383,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                     />
                 )}
             </div>
-            {type === 'zonedDateTime' && currentValue !== null && (
+            {type === 'zonedDateTime' && currentValue !== null && withoutField(
                 <div className={clsx(layout.flexRow_nowrap, layout.alignCenter)}>
                     <Typography className={styles.timezoneLabel} component="span" variant="caption">
                         {i18nLabels.timezone}:
@@ -396,7 +397,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                         // Display only: the instant doesn't move, so nothing is emitted.
                         onChange={(_event, nextZone) => setDisplayedZone(nextZone ?? displayedZone)}
                     />
-                </div>
+                </div>,
             )}
         </div>
     );

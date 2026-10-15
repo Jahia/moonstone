@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import React, { useMemo } from 'react';
 
 import { CheckboxGroupContext } from './CheckboxGroup.context';
+import { useFieldAria } from '~/components/Field/Field.context';
 import { layout } from '~/globals/css-utils.js';
 
 import type { CheckboxGroupProps } from './CheckboxGroup.types';
@@ -9,6 +10,7 @@ import type { CheckboxGroupProps } from './CheckboxGroup.types';
 export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
     children, name, isDisabled, isReadOnly, className, onChange, ...props
 }) => {
+    const fieldAria = useFieldAria(props['aria-label']);
     const provider = useMemo(() => ({
         name,
         isDisabled,
@@ -19,6 +21,9 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
     return (
         <CheckboxGroupContext.Provider value={provider}>
             <div
+                aria-describedby={fieldAria['aria-describedby']}
+                aria-labelledby={fieldAria['aria-labelledby']}
+                role="group"
                 {...props}
                 className={clsx(
                     ['flexCol', layout.flexCol],

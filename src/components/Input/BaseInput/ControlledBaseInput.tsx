@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import React, { useEffect } from 'react';
 
 import { Button } from '~/components';
+import { useFieldAria } from '~/components/Field/Field.context';
 import { layout } from '~/globals/css-utils.js';
 import { Cancel } from '~/icons';
 
@@ -34,6 +35,7 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
     ...props
 }, ref) => {
     const isFilled = value !== '';
+    const fieldAria = useFieldAria(props['aria-label']);
     const classNameProps = clsx(
         ['moonstone-baseInput', styles['moonstone-baseInput']],
         [`moonstone-${size}`, size === 'big' && styles[`moonstone-${size}`]],
@@ -79,6 +81,7 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
             >
                 {prefixComponents}
                 <input
+                    {...fieldAria}
                     disabled={isDisabled}
                     readOnly={isReadOnly}
                     className={clsx(

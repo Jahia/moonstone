@@ -5,6 +5,7 @@ import { FieldSelector } from './FieldSelector';
 import { Field } from './index';
 import { Button } from '~/components/Button';
 import { Chip } from '~/components/Chip';
+import { Input } from '~/components/Input';
 import { Add, Love } from '~/icons';
 
 import type { FieldProps } from './Field.types';
@@ -114,5 +115,22 @@ describe('Field', () => {
     it('should display errorMessage', () => {
         render(<Field {...requiredProps} hasError errorMessage="Field errorMessage"><div/></Field>);
         expect(screen.getByText('Field errorMessage')).toBeInTheDocument();
+    });
+
+    it('should name and describe the input inside with its label, helper and error', () => {
+        render(
+            <Field
+                hasError
+                errorMessage="Required"
+                helper="Help"
+                id="title"
+                label="Title"
+            >
+                <FieldSelector selector={<Input/>}/>
+            </Field>,
+        );
+        const input = screen.getByRole('textbox', { name: 'Title' });
+        expect(input).toHaveAccessibleDescription('Help Required');
+        expect(input).toBeInvalid();
     });
 });

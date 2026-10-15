@@ -23,6 +23,7 @@ export const Fieldset = React.forwardRef<HTMLFieldSetElement, FieldsetProps>(({
 
     return (
         <fieldset
+            aria-labelledby={`${id}-label`}
             className={clsx(
                 ['moonstone-fieldset', styles['moonstone-fieldset']],
                 ['flexCol_nowrap', layout.flexCol_nowrap],
@@ -32,7 +33,7 @@ export const Fieldset = React.forwardRef<HTMLFieldSetElement, FieldsetProps>(({
             ref={ref}
             {...props}
         >
-            <div
+            <legend
                 className={clsx(
                     ['flexRow_nowrap', layout.flexRow_nowrap],
                     ['flexFluid', layout.flexFluid],
@@ -42,14 +43,15 @@ export const Fieldset = React.forwardRef<HTMLFieldSetElement, FieldsetProps>(({
                 <Typography
                     isNowrap
                     className={clsx(['flexRow_nowrap', layout.flexRow_nowrap], ['flexFluid', layout.flexFluid], ['alignCenter', layout.alignCenter])}
-                    component="legend"
+                    component="span"
+                    id={`${id}-label`}
                     variant="heading"
                     weight="bold"
                 >
                     {label}
                 </Typography>
                 {buttons}
-            </div>
+            </legend>
             {helper
                 && <Typography className={clsx('moonstone-fieldset_helper', styles['moonstone-fieldset_helper'])} variant="caption">{helper}</Typography>}
             {children

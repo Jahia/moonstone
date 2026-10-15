@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import React, { useMemo, useState } from 'react';
 
+import { withoutField } from '~/components/Field/Field.context';
 import { SearchInput } from '~/components/Input';
 import { Typography } from '~/components/Typography';
 import { useEnterExitCallbacks, usePositioning } from '~/hooks';
@@ -152,7 +153,7 @@ export const Menu: React.FC<MenuProps> = ({
     // ---
     // Render
     // ---
-    return (
+    return withoutField(
         <>
             <menu
                 className={clsx(
@@ -204,7 +205,7 @@ export const Menu: React.FC<MenuProps> = ({
                     />
                 )
             }
-        </>
+        </>,
     );
 };
 

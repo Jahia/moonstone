@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import React from 'react';
 
 import { ListItem, SearchInput } from '~/components';
+import { withoutField } from '~/components/Field/Field.context';
 import { layout } from '~/globals/css-utils.js';
 import { onAccessibleClick } from '~/hooks';
 import { HandleDrag } from '~/icons';
@@ -32,7 +33,7 @@ export const ValueList: React.FC<ValueListProps> = ({
                 isReadOnly && ['moonstone-valueList_wrapper_readOnly', styles['moonstone-valueList_wrapper_readOnly']],
             )}
         >
-            <SearchInput onChange={e => setFilter(e.target.value.trim())}/>
+            {withoutField(<SearchInput onChange={e => setFilter(e.target.value.trim())}/>)}
             <ul className={clsx('moonstone-valueList', styles['moonstone-valueList'], ...listClasses)} onDragOver={e => onDragOver(e, null)} onDrop={e => onDrop(e, null)}>
                 {values.map((v) => {
                     const classNames = ['moonstone-valueListItem', styles['moonstone-valueListItem']];

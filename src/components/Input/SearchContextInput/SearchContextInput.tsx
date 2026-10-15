@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import React, { useImperativeHandle, useRef } from 'react';
 
 import { BaseInput } from '../BaseInput';
+import { withoutField } from '~/components/Field/Field.context';
 
 import type { SearchContextInputProps } from './SearchContextInput.types';
 
@@ -32,7 +33,7 @@ export const SearchContextInput = React.forwardRef<HTMLInputElement, SearchConte
             {...props}
             isShowClearButton
             icon={null}
-            prefixComponents={[component]}
+            prefixComponents={[withoutField(component)]}
             role="search"
             size="big"
         />

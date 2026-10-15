@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React from 'react';
+import React, { useId } from 'react';
 
 import { Checkbox, Typography } from '~/components';
 import { layout } from '~/globals/css-utils.js';
@@ -21,6 +21,9 @@ export const FieldBoolean = React.forwardRef<HTMLDivElement, FieldBooleanProps>(
     checkboxAttributes,
     ...props
 }, ref) => {
+    const generatedId = useId();
+    const checkboxId = checkboxAttributes?.id ?? generatedId;
+
     return (
         <div
             className={clsx(
@@ -48,9 +51,9 @@ export const FieldBoolean = React.forwardRef<HTMLDivElement, FieldBooleanProps>(
                     )}
                 >
                     <div className={clsx('moonstone-fieldBoolean_checkbox', styles['moonstone-fieldBoolean_checkbox'])}>
-                        <Checkbox id="moonstone-fieldBoolean-checkbox" {...checkboxAttributes}/>
+                        <Checkbox {...checkboxAttributes} id={checkboxId}/>
                     </div>
-                    <Typography isNowrap component="label" htmlFor="moonstone-fieldBoolean-checkbox" weight="bold">{label}</Typography>
+                    <Typography isNowrap component="label" htmlFor={checkboxId} weight="bold">{label}</Typography>
                     {chips
                         && (
                             <div

@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 
 import { RadioGroup } from './index';
 import { RadioItem } from './RadioItem';
+import { Field } from '~/components/Field';
 
 const requiredProps = {
     name: 'test-name',
@@ -179,5 +180,18 @@ describe('ControlledRadioGroup', () => {
         );
         expect(screen.getByLabelText('radio 01')).toBeChecked();
         expect(screen.getByLabelText('radio 02')).not.toBeChecked();
+    });
+
+    it('should be a radio group named by its Field, and name each item without an id', () => {
+        render(
+            <Field id="size" label="Size">
+                <RadioGroup name="size">
+                    <RadioItem label="Small" value="s"/>
+                    <RadioItem label="Medium" value="m"/>
+                </RadioGroup>
+            </Field>,
+        );
+        expect(screen.getByRole('radiogroup', { name: 'Size' })).toBeInTheDocument();
+        expect(screen.getByRole('radio', { name: 'Medium' })).toBeInTheDocument();
     });
 });
