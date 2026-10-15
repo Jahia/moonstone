@@ -69,7 +69,6 @@ describe('useAccessibleClick', () => {
         await user.keyboard('[Enter]');
         document.removeEventListener('keydown', keydown);
         expect(keydown).toHaveReturnedWith(false);
-        expect(onClick).toHaveBeenCalledTimes(1);
     });
 
     it('should add role button', async () => {

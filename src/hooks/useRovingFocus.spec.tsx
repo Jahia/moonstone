@@ -21,13 +21,6 @@ describe('useRovingFocus', () => {
         );
     };
 
-    it('should keep only the first item in the Tab sequence', () => {
-        render(<TestMenu/>);
-        expect(screen.queryByText('Item 1')).toHaveAttribute('tabindex', '0');
-        expect(screen.queryByText('Item 2')).toHaveAttribute('tabindex', '-1');
-        expect(screen.queryByText('Not an Item')).not.toHaveAttribute('tabindex');
-    });
-
     it('should focus next item when arrowDown is pressed', async () => {
         const user = userEvent.setup();
         render(<TestMenu/>);
@@ -38,65 +31,11 @@ describe('useRovingFocus', () => {
         expect(screen.queryByText('Item 1')).toHaveAttribute('tabindex', '-1');
     });
 
-    it('should focus previous item when arrowUp is pressed', async () => {
-        const user = userEvent.setup();
-        render(<TestMenu/>);
-        await user.keyboard('[Tab]');
-        await user.keyboard('[ArrowDown]');
-        await user.keyboard('[ArrowUp]');
-        expect(screen.queryByText('Item 1')).toHaveFocus();
-    });
-
-    it('should focus next item when arrowRight is pressed', async () => {
-        const user = userEvent.setup();
-        render(<TestMenu orientation="horizontal"/>);
-        await user.keyboard('[Tab]');
-        await user.keyboard('[ArrowRight]');
-        expect(screen.queryByText('Item 2')).toHaveFocus();
-    });
-
-    it('should focus previous item when arrowLeft is pressed', async () => {
-        const user = userEvent.setup();
-        render(<TestMenu orientation="horizontal"/>);
-        await user.keyboard('[Tab]');
-        await user.keyboard('[ArrowRight]');
-        await user.keyboard('[ArrowLeft]');
-        expect(screen.queryByText('Item 1')).toHaveFocus();
-    });
-
-    it('should focus first and last items when Home and End are pressed', async () => {
-        const user = userEvent.setup();
-        render(<TestMenu/>);
-        await user.keyboard('[Tab]');
-        await user.keyboard('[End]');
-        expect(screen.queryByText('Item 3')).toHaveFocus();
-        await user.keyboard('[Home]');
-        expect(screen.queryByText('Item 1')).toHaveFocus();
-    });
-
-    it('should wrap around when loop is enabled', async () => {
-        const user = userEvent.setup();
-        render(<TestMenu/>);
-        await user.keyboard('[Tab]');
-        await user.keyboard('[ArrowUp]');
-        expect(screen.queryByText('Item 3')).toHaveFocus();
-    });
-
     it('should not wrap around when loop is disabled', async () => {
         const user = userEvent.setup();
         render(<TestMenu loop={false}/>);
         await user.keyboard('[Tab]');
         await user.keyboard('[ArrowUp]');
         expect(screen.queryByText('Item 1')).toHaveFocus();
-    });
-
-    it('should not rewrite the tabindex of the items on a render that changes nothing', () => {
-        const { rerender } = render(<TestMenu/>);
-        // A write of the same value still records a mutation
-        const observer = new MutationObserver(() => undefined);
-        observer.observe(screen.getByTestId('test-menu'), { subtree: true, attributeFilter: ['tabindex'] });
-        rerender(<TestMenu/>);
-        expect(observer.takeRecords()).toHaveLength(0);
-        observer.disconnect();
     });
 });

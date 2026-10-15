@@ -35,7 +35,7 @@ export const ControlledAccordion: React.FC<ControlledAccordionProps> = ({
                     )
                 }
                 ref={accordionRef}
-                {...mergeHandlers({ onKeyDown }, props)}
+                {...mergeHandlers(props, { onKeyDown })}
             >
                 {children}
             </div>

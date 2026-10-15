@@ -73,11 +73,7 @@ export const onToggleNode = ({
 
                 break;
             case '*':
-                if (!onExpandSiblings) {
-                    return;
-                }
-
-                onExpandSiblings(e);
+                onExpandSiblings?.(e);
                 break;
             default:
                 return;

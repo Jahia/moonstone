@@ -44,7 +44,6 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLInputElemen
                 type="checkbox"
                 value={value}
                 {...accessibleClick}
-                // The consumer's onKeyDown runs first, and its preventDefault() turns the keys of the component off
                 onKeyDown={mergeHandlers(other, accessibleClick).onKeyDown as React.KeyboardEventHandler}
             />
             <span className={clsx('moonstone-switch_icon', styles['moonstone-switch_icon'])}/>

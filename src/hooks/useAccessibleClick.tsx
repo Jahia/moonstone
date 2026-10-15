@@ -3,7 +3,7 @@ type onClickProp = (e: React.KeyboardEvent | React.MouseEvent) => void;
 type onAccessibleClickProps = {
     onClick: onClickProp;
     disabled?: boolean;
-    onKeyDown?: React.KeyboardEventHandler;
+    onKeyUp?: React.KeyboardEventHandler;
     role?: string;
     tabIndex?: number;
 };

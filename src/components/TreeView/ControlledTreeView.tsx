@@ -146,7 +146,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                 isOpen: hasChild && isOpen,
                 onFocusParent: () => parentRef?.current?.focus(),
                 onFocusFirstChild: () => refs.current.get(node.children?.[0]?.id)?.current?.focus(),
-                onExpandSiblings: onOpenItem && onCloseItem ? expandSiblings : undefined,
+                onExpandSiblings: expandSiblings,
             });
 
             return [

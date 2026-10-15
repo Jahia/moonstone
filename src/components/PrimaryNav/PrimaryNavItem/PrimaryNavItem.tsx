@@ -123,7 +123,6 @@ export const PrimaryNavItem: React.FC<PrimaryNavItemProps> = ({
             title={label}
             {...accessibleClick}
             {...props}
-            // The consumer's onKeyDown runs first, and its preventDefault() turns the keys of the component off
             onKeyDown={mergeHandlers(props, accessibleClick).onKeyDown as React.KeyboardEventHandler}
         >
             <ItemTypeResolver

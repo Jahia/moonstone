@@ -51,7 +51,6 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
                 label={item.label}
                 {...accessibleClick}
                 {...item.attributes as MenuItemProps}
-                // The consumer's onKeyDown runs first, and its preventDefault() turns the keys of the component off
                 onKeyDown={mergeHandlers({ ...item.attributes }, accessibleClick).onKeyDown as React.KeyboardEventHandler}
             />
         );

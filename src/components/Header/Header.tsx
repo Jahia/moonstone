@@ -129,8 +129,7 @@ export const Header: React.FC<HeaderProps> = ({
                         )}
                         ref={toolbarRef}
                         role="toolbar"
-                        onFocus={toolbarFocus.onFocus}
-                        onKeyDown={toolbarFocus.onKeyDown}
+                        {...toolbarFocus}
                     >
                         <div
                             className={clsx(

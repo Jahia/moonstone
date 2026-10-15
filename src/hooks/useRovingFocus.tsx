@@ -38,12 +38,7 @@ export const useRovingFocus = (
     const setActive = (active: HTMLElement | null) => {
         activeRef.current = active;
         getAllItems().forEach((el) => {
-            const tabIndex = el === active ? '0' : '-1';
-            // The layout effect runs on every render, so an unchanged item is left alone. The attribute is
-            // read because the tabIndex property is already -1 on an element that has no tabindex
-            if (el.getAttribute('tabindex') !== tabIndex) {
-                el.setAttribute('tabindex', tabIndex);
-            }
+            el.setAttribute('tabindex', el === active ? '0' : '-1');
         });
     };
 
