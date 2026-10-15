@@ -1,22 +1,16 @@
 import clsx from 'clsx';
 import { Resizable } from 're-resizable';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { zones } from './ResizableBox.types';
 import { HandleResize } from '~/icons';
 
-import type { EnableZonesProps, ResizableBoxMaxWidth, ResizableBoxMinWidth, ResizableBoxProps } from './ResizableBox.types';
+import type { EnableZonesProps, ResizableBoxProps } from './ResizableBox.types';
 
 import styles from './ResizableBox.module.scss';
 
 // Pixels per ArrowLeft or ArrowRight press on the handle
 const KEYBOARD_STEP = 10;
-
-// re-resizable reads a percent bound against the width of the parent
-const toPixels = (bound: ResizableBoxMinWidth | ResizableBoxMaxWidth, parentWidth: number) => {
-    const pixels = String(bound).endsWith('%') ? (parentWidth * parseFloat(String(bound))) / 100 : parseFloat(String(bound));
-    return Number.isFinite(pixels) ? pixels : undefined;
-};
 
 export const ResizableBox: React.FC<ResizableBoxProps> = ({
     enable = ['right'],
@@ -44,25 +38,13 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
     });
 
     const resizableRef = useRef<Resizable>(null);
-    const [value, setValue] = useState<{
-        now?: number;
-        min?: number;
-        max?: number;
-    }>({});
-
-    const syncValue = useCallback((now?: number) => {
-        const resizable = resizableRef.current;
-        const parentWidth = resizable?.parentNode?.clientWidth ?? 0;
-        setValue({
-            now: now ?? resizable?.size.width,
-            min: toPixels(minWidth, parentWidth),
-            max: toPixels(maxWidth, parentWidth),
-        });
-    }, [minWidth, maxWidth]);
+    const [width, setWidth] = useState<number>();
+    const min = parseFloat(String(minWidth));
+    const max = parseFloat(String(maxWidth));
 
     useEffect(() => {
-        syncValue();
-    }, [syncValue, size?.width]);
+        setWidth(resizableRef.current?.size.width);
+    }, []);
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.altKey || e.ctrlKey || e.metaKey) {
@@ -71,9 +53,6 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
 
         const resizable = resizableRef.current;
         const current = resizable.size.width;
-        const parentWidth = resizable.parentNode?.clientWidth ?? 0;
-        const min = toPixels(minWidth, parentWidth) ?? 0;
-        const max = toPixels(maxWidth, parentWidth) ?? Infinity;
         const targets: Record<string, number> = {
             ArrowLeft: current - KEYBOARD_STEP,
             ArrowRight: current + KEYBOARD_STEP,
@@ -87,26 +66,21 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
         }
 
         e.preventDefault();
-        const next = Math.min(Math.max(target, min), max);
+        const next = Math.min(Math.max(target, Number.isFinite(min) ? min : 0), Number.isFinite(max) ? max : Infinity);
         resizable.updateSize({
             width: next,
             height: resizable.state.height,
         });
-        syncValue(next);
-        // re-resizable types its callbacks for a pointer event only
-        onResizeStop?.(e.nativeEvent as unknown as MouseEvent, 'right', resizable.resizable, {
-            width: next - current,
-            height: 0,
-        });
+        setWidth(next);
     };
 
     const handle = (
         <div
             aria-label={i18n.handleLabel}
             aria-orientation="vertical"
-            aria-valuemax={value.max}
-            aria-valuemin={value.min}
-            aria-valuenow={value.now}
+            aria-valuemax={Number.isFinite(max) ? max : undefined}
+            aria-valuemin={Number.isFinite(min) ? min : undefined}
+            aria-valuenow={width}
             className={clsx('moonstone-resizable_handle_control', styles['moonstone-resizable_handle_control'])}
             role="separator"
             tabIndex={0}
@@ -140,7 +114,7 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
             onResize={onResizing}
             onResizeStart={onResizeStart}
             onResizeStop={(e, dir, ref, delta) => {
-                syncValue(ref.offsetWidth);
+                setWidth(ref.offsetWidth);
                 onResizeStop?.(e, dir, ref, delta);
             }}
             {...props}

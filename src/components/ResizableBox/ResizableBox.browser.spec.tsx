@@ -55,14 +55,6 @@ describe('ResizableBox keyboard', () => {
         expect(width()).toBeLessThan(initial);
     });
 
-    it('reports a keyboard resize through onResizeStop', async () => {
-        const onResizeStop = vi.fn();
-        const { handle } = renderBox({ onResizeStop });
-        handle.focus();
-        await userEvent.keyboard('{ArrowRight}');
-        expect(onResizeStop).toHaveBeenCalledWith(expect.anything(), 'right', expect.anything(), { width: 10, height: 0 });
-    });
-
     it('shrinks the box to its minimum width with Home', async () => {
         const { handle, width } = renderBox();
         handle.focus();
