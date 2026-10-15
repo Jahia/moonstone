@@ -1,5 +1,6 @@
+import { useMergeRefs } from '@floating-ui/react';
 import clsx from 'clsx';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { Button } from '~/components';
 import { layout } from '~/globals/css-utils.js';
@@ -56,11 +57,30 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
         };
     }
 
+    // An inner ref reaches the input whatever the shape of the forwarded ref (DateTimeInput and TimeInput pass a callback)
+    const inputRef = useRef<HTMLInputElement>(null);
+    const mergedRef = useMergeRefs([inputRef, ref]);
+
     const handleClear: React.MouseEventHandler = (e) => {
         onClear(e);
-        // The clear button unmounts once the field is empty, so focus would fall back to <body>
-        if (ref && typeof ref === 'object') {
-            ref.current?.focus();
+        // React re-renders before this microtask: a clear button unmounted by an empty field has dropped focus to <body>
+        queueMicrotask(() => {
+            if (document.activeElement === document.body) {
+                inputRef.current?.focus();
+            }
+        });
+    };
+
+    // Enter clicks a button on keydown, so its keyup would reach the input: activate on keyup, as Space does
+    const handleClearKeyDown: React.KeyboardEventHandler<HTMLButtonElement> = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+        }
+    };
+
+    const handleClearKeyUp: React.KeyboardEventHandler<HTMLButtonElement> = (e) => {
+        if (e.key === 'Enter') {
+            e.currentTarget.click();
         }
     };
 
@@ -95,7 +115,7 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
                     )}
                     id={id}
                     placeholder={placeholder}
-                    ref={ref}
+                    ref={mergedRef}
                     role={role === 'search' ? 'searchbox' : undefined}
                     type="text"
                     value={value}
@@ -125,6 +145,8 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
                     icon={<Cancel/>}
                     variant="ghost"
                     onClick={handleClear}
+                    onKeyDown={handleClearKeyDown}
+                    onKeyUp={handleClearKeyUp}
                 />
             )}
         </div>
