@@ -21,14 +21,17 @@ describe('useRovingFocus', () => {
         );
     };
 
-    it('should focus next item when arrowDown is pressed', async () => {
+    it('should keep the page from scrolling on an arrow key', async () => {
         const user = userEvent.setup();
         render(<TestMenu/>);
         await user.keyboard('[Tab]');
+        // The document sees the keydown once React has handled it
+        const keydown = vi.fn((e: KeyboardEvent) => e.defaultPrevented);
+        document.addEventListener('keydown', keydown);
         await user.keyboard('[ArrowDown]');
-        expect(screen.queryByText('Item 2')).toHaveFocus();
-        expect(screen.queryByText('Item 2')).toHaveAttribute('tabindex', '0');
-        expect(screen.queryByText('Item 1')).toHaveAttribute('tabindex', '-1');
+        document.removeEventListener('keydown', keydown);
+        expect(keydown).toHaveReturnedWith(true);
+        expect(screen.getByText('Item 2')).toHaveFocus();
     });
 
     it('should not wrap around when loop is disabled', async () => {

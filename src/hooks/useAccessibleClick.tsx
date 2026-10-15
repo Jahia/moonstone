@@ -14,7 +14,7 @@ const handleKeyDown = (e: React.KeyboardEvent, onClick: onClickProp) => {
         return;
     }
 
-    if (e.code === 'Space' || e.code === 'Enter') {
+    if (e.key === ' ' || e.key === 'Enter') {
         e.preventDefault();
         if (!e.repeat) {
             onClick(e);

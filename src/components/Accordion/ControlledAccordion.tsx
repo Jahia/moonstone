@@ -1,9 +1,8 @@
 import clsx from 'clsx';
-import React, { useRef } from 'react';
+import React from 'react';
 
 import { AccordionContext } from './Accordion.context';
 import { layout } from '~/globals/css-utils.js';
-import { mergeHandlers, useRovingFocus } from '~/hooks';
 
 import type { ControlledAccordionProps } from './Accordion.types';
 
@@ -17,11 +16,6 @@ export const ControlledAccordion: React.FC<ControlledAccordionProps> = ({
         onSetOpenedItem,
         isReversed,
     }), [openedItem, onSetOpenedItem, isReversed]);
-    const accordionRef = useRef<HTMLDivElement>(null);
-    const { onKeyDown } = useRovingFocus(accordionRef, {
-        itemSelector: '.moonstone-accordionItem_header',
-        isRoving: false,
-    });
 
     return (
         <AccordionContext.Provider value={provider}>
@@ -34,8 +28,7 @@ export const ControlledAccordion: React.FC<ControlledAccordionProps> = ({
                         isReversed && ['moonstone-reversed', styles['moonstone-reversed']],
                     )
                 }
-                ref={accordionRef}
-                {...mergeHandlers(props, { onKeyDown })}
+                {...props}
             >
                 {children}
             </div>

@@ -4,8 +4,6 @@ type UseRovingFocusOptions = {
     itemSelector: string;
     orientation?: 'vertical' | 'horizontal';
     loop?: boolean;
-    /** False keeps every item in the Tab sequence and only adds the arrow keys, Home and End (an accordion, a toolbar of consumer buttons) */
-    isRoving?: boolean;
 };
 
 const arrowKeys = {
@@ -28,7 +26,6 @@ export const useRovingFocus = (
         itemSelector,
         orientation = 'vertical',
         loop = true,
-        isRoving = true,
     }: UseRovingFocusOptions,
 ) => {
     const activeRef = useRef<HTMLElement | null>(null);
@@ -42,12 +39,8 @@ export const useRovingFocus = (
         });
     };
 
-    // Items are owned by the consumer, so the Tab stop is re-synced on every render
+    // Items are owned by the consumer, so the Tab stop is re-synced on every render of the container; an item added later heals on its first focus
     useLayoutEffect(() => {
-        if (!isRoving) {
-            return;
-        }
-
         const items = getAllItems().filter(isEnabled);
         const selected = items.find(el => el.getAttribute('aria-selected') === 'true');
         const hasFocus = containerRef.current?.contains(document.activeElement);
@@ -57,7 +50,7 @@ export const useRovingFocus = (
 
     const onFocus = (e: React.FocusEvent) => {
         const target = e.target as HTMLElement;
-        if (isRoving && getAllItems().filter(isEnabled).includes(target)) {
+        if (getAllItems().filter(isEnabled).includes(target)) {
             setActive(target);
         }
     };

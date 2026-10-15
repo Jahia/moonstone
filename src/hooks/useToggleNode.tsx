@@ -7,9 +7,9 @@ type onToggleNodeOptions = {
     onToggle: onToggleProp;
     onClick?: onClickProp;
     isDisabled?: boolean;
-    // The node has children and the user can open and close it
+    /** The node has children and the user can open and close it */
     isExpandable?: boolean;
-    // The children of the node are shown
+    /** The children of the node are shown */
     isOpen?: boolean;
     onFocusParent?: () => void;
     onFocusFirstChild?: () => void;

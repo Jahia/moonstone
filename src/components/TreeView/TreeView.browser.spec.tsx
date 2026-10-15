@@ -118,12 +118,13 @@ describe('TreeView keyboard', () => {
         expect(onClickItem.mock.calls[0][0]).toMatchObject({ id: 'A1' });
     });
 
-    it.fails('selects the focused node with Space', async () => {
-        const { onClickItem } = renderTree();
-        node('Child A1').focus();
+    it('opens and closes the focused node with Space', async () => {
+        renderTree();
+        node('Root B').focus();
         await userEvent.keyboard(' ');
-        expect(onClickItem).toHaveBeenCalledTimes(1);
-        expect(onClickItem.mock.calls[0][0]).toMatchObject({ id: 'A1' });
+        expect(node('Root B')).toHaveAttribute('aria-expanded', 'true');
+        await userEvent.keyboard(' ');
+        expect(node('Root B')).toHaveAttribute('aria-expanded', 'false');
     });
 
     it('moves focus to the first and last visible nodes with Home and End', async () => {

@@ -1,9 +1,8 @@
 import clsx from 'clsx';
-import React, { useRef } from 'react';
+import React from 'react';
 
 import { Separator, Typography } from '~/components';
 import { layout } from '~/globals/css-utils.js';
-import { useRovingFocus } from '~/hooks';
 
 import type { HeaderProps } from './Header.types';
 
@@ -24,13 +23,6 @@ export const Header: React.FC<HeaderProps> = ({
 }: HeaderProps) => {
     const hasInformationArea = Boolean(breadcrumb || contentType || status);
     const hasToolbar = Boolean(toolbarLeft || toolbarRight);
-    const toolbarRef = useRef<HTMLDivElement>(null);
-    // Buttons only, so a field keeps its arrow keys. Not roving: the consumer owns the buttons, so each stays a Tab stop
-    const toolbarFocus = useRovingFocus(toolbarRef, {
-        itemSelector: 'button',
-        orientation: 'horizontal',
-        isRoving: false,
-    });
 
     if (backButton !== null) {
         console.warn('backButton is deprecated and will be removed in a future release.');
@@ -128,9 +120,7 @@ export const Header: React.FC<HeaderProps> = ({
                             ['alignCenter', layout.alignCenter],
                             ['moonstone-header_toolbar', styles['moonstone-header_toolbar']],
                         )}
-                        ref={toolbarRef}
                         role="toolbar"
-                        {...toolbarFocus}
                     >
                         <div
                             className={clsx(
