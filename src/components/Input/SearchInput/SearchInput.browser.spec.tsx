@@ -74,13 +74,6 @@ describe('SearchInput keyboard', () => {
         expect(screen.getByRole('searchbox')).toHaveFocus();
     });
 
-    it('keeps focus on the clear button when the consumer onClear leaves the value', async () => {
-        render(<SearchInput defaultValue="abc" onClear={vi.fn()}/>);
-        screen.getByRole('button', { name: 'Reset' }).focus();
-        await userEvent.keyboard(' ');
-        expect(screen.getByRole('button', { name: 'Reset' })).toHaveFocus();
-    });
-
     it('does not pass the Enter of the clear button to the search box onKeyUp', async () => {
         const onKeyUp = vi.fn();
         render(<SearchInput defaultValue="abc" onKeyUp={onKeyUp}/>);

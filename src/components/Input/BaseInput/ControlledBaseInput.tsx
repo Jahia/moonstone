@@ -57,30 +57,15 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
         };
     }
 
-    // An inner ref reaches the input whatever the shape of the forwarded ref (DateTimeInput and TimeInput pass a callback)
+    // DateTimeInput and TimeInput forward a callback ref, so the input is reached through an inner one
     const inputRef = useRef<HTMLInputElement>(null);
     const mergedRef = useMergeRefs([inputRef, ref]);
 
     const handleClear: React.MouseEventHandler = (e) => {
         onClear(e);
-        // React re-renders before this microtask: a clear button unmounted by an empty field has dropped focus to <body>
-        queueMicrotask(() => {
-            if (document.activeElement === document.body) {
-                inputRef.current?.focus();
-            }
-        });
-    };
-
-    // Enter clicks a button on keydown, so its keyup would reach the input: activate on keyup, as Space does
-    const handleClearKeyDown: React.KeyboardEventHandler<HTMLButtonElement> = (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-        }
-    };
-
-    const handleClearKeyUp: React.KeyboardEventHandler<HTMLButtonElement> = (e) => {
-        if (e.key === 'Enter') {
-            e.currentTarget.click();
+        // Unless onClear moved it, focus goes back to the field
+        if (document.activeElement === e.currentTarget) {
+            inputRef.current?.focus();
         }
     };
 
@@ -145,8 +130,17 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
                     icon={<Cancel/>}
                     variant="ghost"
                     onClick={handleClear}
-                    onKeyDown={handleClearKeyDown}
-                    onKeyUp={handleClearKeyUp}
+                    // Enter clicks on keydown, so its keyup would reach the field: click on keyup, as Space does
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                        }
+                    }}
+                    onKeyUp={(e) => {
+                        if (e.key === 'Enter') {
+                            e.currentTarget.click();
+                        }
+                    }}
                 />
             )}
         </div>
