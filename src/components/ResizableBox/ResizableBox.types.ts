@@ -78,4 +78,13 @@ export type ResizableBoxProps = {
      * @param {object} delta - delta between after resize
      */
     onResizeStop?: ResizeCallback;
+    /**
+     * ResizableBox labels
+     */
+    i18n?: {
+        /**
+         * aria-label of the resize handle
+         */
+        handleLabel: string;
+    };
 };

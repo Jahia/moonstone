@@ -3,11 +3,19 @@ import { userEvent } from 'vitest/browser';
 
 import { ResizableBox } from './index';
 
-const renderBox = () => {
+import type { ResizableBoxProps } from './ResizableBox.types';
+
+const renderBox = (props: Partial<ResizableBoxProps> = {}) => {
     render(
         <div style={{ width: 400 }}>
             <button type="button">before</button>
-            <ResizableBox defaultSize={{ width: 100, height: 100 }} enable={['right']} maxWidth={200} minWidth={50}>
+            <ResizableBox
+                defaultSize={{ width: 100, height: 100 }}
+                enable={['right']}
+                maxWidth={200}
+                minWidth={50}
+                {...props}
+            >
                 <div>content</div>
             </ResizableBox>
         </div>,
@@ -25,10 +33,10 @@ describe('ResizableBox keyboard', () => {
         expect(handle).toHaveFocus();
     });
 
-    it('exposes the resize handle as a separator with a value', () => {
-        renderBox();
-        const separator = screen.getByRole('separator');
-        expect(separator).toHaveAttribute('aria-valuenow');
+    it('exposes the resize handle as a named separator with the width of the box', () => {
+        const { handle } = renderBox();
+        expect(handle).toHaveAccessibleName('Resize');
+        expect(handle).toHaveAttribute('aria-valuenow', '100');
     });
 
     it('widens the box with ArrowRight on the focused handle', async () => {
@@ -45,6 +53,14 @@ describe('ResizableBox keyboard', () => {
         handle.focus();
         await userEvent.keyboard('{ArrowLeft}');
         expect(width()).toBeLessThan(initial);
+    });
+
+    it('reports a keyboard resize through onResizeStop', async () => {
+        const onResizeStop = vi.fn();
+        const { handle } = renderBox({ onResizeStop });
+        handle.focus();
+        await userEvent.keyboard('{ArrowRight}');
+        expect(onResizeStop).toHaveBeenCalledWith(expect.anything(), 'right', expect.anything(), { width: 10, height: 0 });
     });
 
     it('shrinks the box to its minimum width with Home', async () => {
