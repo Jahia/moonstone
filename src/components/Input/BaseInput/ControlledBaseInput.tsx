@@ -56,6 +56,14 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
         };
     }
 
+    const handleClear: React.MouseEventHandler = (e) => {
+        onClear(e);
+        // The clear button unmounts once the field is empty, so focus would fall back to <body>
+        if (ref && typeof ref === 'object') {
+            ref.current?.focus();
+        }
+    };
+
     return (
         <div className={classNameProps} role={role} onClick={onClick}>
             {icon && (
@@ -116,7 +124,7 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
                     )}
                     icon={<Cancel/>}
                     variant="ghost"
-                    onClick={onClear}
+                    onClick={handleClear}
                 />
             )}
         </div>
