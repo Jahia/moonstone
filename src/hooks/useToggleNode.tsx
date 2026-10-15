@@ -37,49 +37,30 @@ export const onToggleNode = ({
             return;
         }
 
-        switch (e.key) {
-            case 'Enter':
-                if (e.repeat) {
-                    break;
-                }
-
-                if (onClick && !isDisabled) {
-                    onClick(e);
-                } else {
-                    onToggle(e);
-                }
-
-                break;
-            case ' ':
-                if (!e.repeat) {
-                    onToggle(e);
-                }
-
-                break;
-            case 'ArrowRight':
+        const actions: Record<string, () => void> = {
+            'Enter': () => (onClick && !isDisabled ? onClick(e) : onToggle(e)),
+            ' ': () => onToggle(e),
+            'ArrowRight': () => {
                 if (isOpen) {
                     onFocusFirstChild?.();
                 } else if (isExpandable) {
                     onToggle(e);
                 }
+            },
+            'ArrowLeft': () => (isOpen && isExpandable ? onToggle(e) : onFocusParent?.()),
+            '*': () => onExpandSiblings?.(e),
+        };
 
-                break;
-            case 'ArrowLeft':
-                if (isOpen && isExpandable) {
-                    onToggle(e);
-                } else {
-                    onFocusParent?.();
-                }
-
-                break;
-            case '*':
-                onExpandSiblings?.(e);
-                break;
-            default:
-                return;
+        const action = actions[e.key];
+        if (!action) {
+            return;
         }
 
         e.preventDefault();
+        // A held Enter or Space repeats keydown: act once per press
+        if (!(e.repeat && (e.key === 'Enter' || e.key === ' '))) {
+            action();
+        }
     };
 
     return {
