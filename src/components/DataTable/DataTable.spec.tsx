@@ -605,9 +605,8 @@ describe('DataTable', () => {
                 enableSelection
                 columns={columns}
                 data={data}
-                i18n={{ itemsPerPage: 'Lignes', of: 'sur' }}
+                i18n={{ itemsPerPage: 'Lignes', of: 'sur', selectRow: 'Sélectionner la ligne', selectAllRows: 'Tout sélectionner' }}
                 primaryKey="id"
-                selectionI18n={{ selectRow: 'Sélectionner la ligne', selectAllRows: 'Tout sélectionner' }}
             />,
         );
 
@@ -623,13 +622,28 @@ describe('DataTable', () => {
                 columns={columns}
                 data={data}
                 enablePagination={false}
+                i18n={{ selectRow: 'Sélectionner la ligne', selectAllRows: 'Tout sélectionner' }}
                 primaryKey="id"
-                selectionI18n={{ selectRow: 'Sélectionner la ligne', selectAllRows: 'Tout sélectionner' }}
             />,
         );
 
         expect(screen.getByRole('checkbox', { name: 'Tout sélectionner' })).toBeInTheDocument();
         expect(screen.getAllByRole('checkbox', { name: 'Sélectionner la ligne' })).toHaveLength(data.length);
+    });
+
+    it('should not accept selection labels without selection', () => {
+        render(
+            // @ts-expect-error the selection labels need enableSelection
+            <DataTable<TestData>
+                enablePagination
+                columns={columns}
+                data={data}
+                i18n={{ itemsPerPage: 'Lignes', of: 'sur', selectRow: 'Sélectionner la ligne' }}
+                primaryKey="id"
+            />,
+        );
+
+        expect(screen.queryByRole('checkbox')).not.toBeInTheDocument();
     });
 
     it('should call onChangeSelection when selection changes in controlled mode', async () => {

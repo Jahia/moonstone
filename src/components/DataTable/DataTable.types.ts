@@ -2,6 +2,7 @@ import React from 'react';
 
 import type { DataTablePaginationProps } from './pagination';
 import type { TableCellProps } from '~/components/DataTable/cells';
+import type { PaginationProps } from '~/components/Pagination';
 export type { PaginationUncontrolledProps } from './pagination';
 
 export type SubRowKey = 'subRows';
@@ -152,7 +153,7 @@ type SortingProps<T extends NonNullable<unknown>>
         defaultSortDirection?: never;
     };
 
-type SelectionI18n = {
+export type SelectionI18n = {
     /**
      * Accessible name of each row checkbox
      * @default 'Select row'
@@ -165,6 +166,37 @@ type SelectionI18n = {
     selectAllRows?: string;
 };
 
+export type DataTablePaginationI18n = NonNullable<PaginationProps['i18n']>;
+
+// The keys of a disabled feature are typed `never`: an extra key in a union passes the excess property check
+type Without<T> = { [K in keyof T]?: never };
+
+// One `i18n` prop for every feature: each feature's keys are allowed only when that feature is enabled
+type I18nProps
+    = | {
+        enablePagination: true;
+        enableSelection: true;
+        /** Labels of the pagination and of the selection checkboxes */
+        i18n?: DataTablePaginationI18n & SelectionI18n;
+    }
+    | {
+        enablePagination: true;
+        enableSelection?: false;
+        /** Labels of the pagination */
+        i18n?: DataTablePaginationI18n & Without<SelectionI18n>;
+    }
+    | {
+        enablePagination?: false;
+        enableSelection: true;
+        /** Labels of the selection checkboxes */
+        i18n?: SelectionI18n & Without<DataTablePaginationI18n>;
+    }
+    | {
+        enablePagination?: false;
+        enableSelection?: false;
+        i18n?: never;
+    };
+
 export type SelectionProps
     = | {
         /** Enable selection for the table */
@@ -176,8 +208,6 @@ export type SelectionProps
         defaultSelection?: never;
         /** Custom HTML attributes added to the TableCell selection */
         selectionCellProps?: Omit<TableCellProps, 'children' | 'width' | 'component'>;
-        /** Selection labels */
-        selectionI18n?: SelectionI18n;
     }
     | {
         enableSelection: true;
@@ -188,8 +218,6 @@ export type SelectionProps
         selection?: never;
         /** Custom HTML attributes added to the TableCell selection */
         selectionCellProps?: Omit<TableCellProps, 'children' | 'width' | 'component'>;
-        /** Selection labels */
-        selectionI18n?: SelectionI18n;
     }
     | {
         enableSelection?: false;
@@ -197,7 +225,6 @@ export type SelectionProps
         defaultSelection?: never;
         onChangeSelection?: never;
         selectionCellProps?: never;
-        selectionI18n?: never;
     };
 
 export type RenderOptions = {
@@ -268,4 +295,5 @@ export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'c
     & SelectionProps
     & StructuredProps
     & RenderRowProps<T>
-    & DataTablePaginationProps;
+    & DataTablePaginationProps
+    & I18nProps;
