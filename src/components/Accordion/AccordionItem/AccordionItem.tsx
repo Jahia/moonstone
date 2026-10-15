@@ -35,7 +35,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
             <Typography component="h3">
                 <Typography
                     isNowrap
-                    // The consumer id, kept even when closed: product tests select the item with it
+                    // Kept while closed: referencing an unrendered panel is valid when aria-expanded is false
                     aria-controls={id}
                     aria-expanded={open}
                     className={clsx(

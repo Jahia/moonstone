@@ -47,6 +47,7 @@ describe('Banner', () => {
 
     it('should let the consumer override the role', () => {
         render(<Banner role="region" title="Test banner" variant="danger">Banner content</Banner>);
+        expect(screen.getByRole('region')).toBeInTheDocument();
         expect(screen.queryByRole('alert')).not.toBeInTheDocument();
     });
 });

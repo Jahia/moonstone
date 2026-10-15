@@ -55,7 +55,7 @@ export const Tooltip = ({
             >
                 {/* Children is the element to interact with in order for the tooltip to appear */}
                 {React.cloneElement(children, {
-                    'aria-describedby': [(children.props as React.AriaAttributes)['aria-describedby'], tooltipId].filter(Boolean).join(' '),
+                    'aria-describedby': [(children.props as React.AriaAttributes)['aria-describedby'], isOpen && tooltipId].filter(Boolean).join(' ') || undefined,
                 })}
                 {isOpen
                     && (

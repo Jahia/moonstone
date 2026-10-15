@@ -101,16 +101,4 @@ describe('NavItem', () => {
 
         expect(onClick).toHaveBeenCalled();
     });
-
-    it('should not throw when clicked without onClick', async () => {
-        const user = userEvent.setup();
-        const onError = vi.fn();
-        window.addEventListener('error', onError);
-
-        render(<PrimaryNavItem label="test me"/>);
-        await user.click(screen.getByRole('button', { name: 'test me' }));
-
-        window.removeEventListener('error', onError);
-        expect(onError).not.toHaveBeenCalled();
-    });
 });

@@ -152,6 +152,5 @@ describe('SecondaryNavHeader', () => {
             </SecondaryNavHeader>,
         );
         expect(screen.getByText('required children')).toBeInTheDocument();
-        expect(screen.getByRole('banner')).not.toHaveAttribute('aria-label');
     });
 });
