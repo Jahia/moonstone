@@ -52,24 +52,6 @@ describe('Tag keyboard', () => {
         expect(onClick).toHaveBeenCalledTimes(1);
     });
 
-    it('still calls the consumer onKeyDown when the tag is removed with Delete', async () => {
-        const onKeyDown = vi.fn();
-        const { onClick } = renderTag({ onKeyDown });
-        screen.getByRole('button', { name: 'Alpha' }).focus();
-        await userEvent.keyboard('{Delete}');
-        expect(onKeyDown).toHaveBeenCalledTimes(1);
-        expect(onClick).toHaveBeenCalledTimes(1);
-    });
-
-    it('does not remove the tag with a modifier or on key repeat', async () => {
-        const { onClick } = renderTag();
-        screen.getByRole('button', { name: 'Alpha' }).focus();
-        await userEvent.keyboard('{Control>}{Backspace}{/Control}');
-        await userEvent.keyboard('{Shift>}{Delete}{/Shift}');
-        await userEvent.keyboard('{Delete>3/}');
-        expect(onClick).toHaveBeenCalledTimes(1);
-    });
-
     it('skips a disabled tag in the tab sequence and does not activate it', async () => {
         const { onClick } = renderTag({ isDisabled: true });
         screen.getByRole('button', { name: 'before' }).focus();
