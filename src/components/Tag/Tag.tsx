@@ -23,7 +23,9 @@ export const Tag: React.FC<TagProps> = ({
         onKeyDown={(e) => {
             onKeyDown?.(e);
             // Delete and Backspace remove the tag: a native click keeps onClick's MouseEvent signature
-            if (!e.defaultPrevented && (e.key === 'Delete' || e.key === 'Backspace')) {
+            const isRemoveKey = e.key === 'Delete' || e.key === 'Backspace';
+            const hasModifier = e.shiftKey || e.ctrlKey || e.metaKey || e.altKey;
+            if (!e.defaultPrevented && isRemoveKey && !hasModifier && !e.repeat) {
                 e.preventDefault();
                 e.currentTarget.click();
             }

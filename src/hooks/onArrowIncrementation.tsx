@@ -28,9 +28,10 @@ onArrowIncrementationProps) => {
 
         if (e.key === 'Home' || e.key === 'End') {
             const bound = e.key === 'Home' ? min : max;
+            const hasModifier = e.shiftKey || e.ctrlKey || e.metaKey || e.altKey;
 
-            // Without that bound, Home and End keep moving the caret in the text box
-            if (!Number.isFinite(bound)) {
+            // Without that bound, or with a modifier (Shift+Home selects), Home and End keep editing the text box
+            if (!Number.isFinite(bound) || hasModifier || element.readOnly) {
                 return;
             }
 

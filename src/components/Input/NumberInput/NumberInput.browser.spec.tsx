@@ -78,4 +78,18 @@ describe('NumberInput keyboard', () => {
         expect(input).toHaveValue('123');
         expect(input.selectionStart).toBe(3);
     });
+
+    it('keeps Shift+Home for the text selection when bounds are set', async () => {
+        render(<NumberInput defaultValue="5" max={10} min={0}/>);
+        screen.getByRole('textbox').focus();
+        await userEvent.keyboard('{Shift>}{Home}{/Shift}');
+        expect(screen.getByRole('textbox')).toHaveValue('5');
+    });
+
+    it('does not jump to a bound when the input is read-only', async () => {
+        render(<NumberInput isReadOnly defaultValue="5" max={10} min={0}/>);
+        screen.getByRole('textbox').focus();
+        await userEvent.keyboard('{End}');
+        expect(screen.getByRole('textbox')).toHaveValue('5');
+    });
 });
