@@ -643,7 +643,8 @@ describe('DataTable', () => {
         );
 
         expect(screen.getAllByRole('checkbox', { name: 'Sélectionner la ligne' })).toHaveLength(data.length);
-        expect(screen.queryByText(/undefined/)).not.toBeInTheDocument();
+        expect(screen.getByText('Items')).toBeInTheDocument();
+        expect(screen.getByTestId('pagination-total-items')).toHaveTextContent(/^\d+-\d+ of \d+$/);
     });
 
     it('should call onChangeSelection when selection changes in controlled mode', async () => {

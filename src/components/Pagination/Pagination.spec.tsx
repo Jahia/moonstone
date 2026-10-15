@@ -152,6 +152,14 @@ describe('Pagination', () => {
         expect(screen.getByRole('button', { name: 'Dernière page' })).toBeInTheDocument();
     });
 
+    it('should keep the default labels the consumer does not translate', () => {
+        render(<Pagination {...defaultProps} i18n={{ firstPage: 'Première page' }}/>);
+        expect(screen.getByRole('button', { name: 'Première page' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Last page' })).toBeInTheDocument();
+        expect(screen.getByText('Items')).toBeInTheDocument();
+        expect(screen.getByTestId('pagination-total-items')).toHaveTextContent('1-10 of 100');
+    });
+
     it('should render the items per page dropdown', () => {
         render(<Pagination {...defaultProps}/>);
         expect(screen.getByTestId('pagination-dropdown-items-per-page')).toBeInTheDocument();
