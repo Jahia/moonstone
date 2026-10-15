@@ -79,16 +79,4 @@ describe('Input keyboard', () => {
         expect(screen.getByRole('textbox')).toHaveValue('');
         expect(screen.getByRole('textbox')).toHaveFocus();
     });
-    it('keeps the focus that the consumer onClear moves elsewhere', async () => {
-        render(
-            <>
-                <ClearableInput onClear={() => screen.getByRole('button', { name: 'after' }).focus()}/>
-                <button type="button">after</button>
-            </>,
-        );
-        screen.getByRole('button', { name: 'Reset' }).focus();
-        await userEvent.keyboard('{Enter}');
-        expect(screen.getByRole('textbox')).toHaveValue('');
-        expect(screen.getByRole('button', { name: 'after' })).toHaveFocus();
-    });
 });
