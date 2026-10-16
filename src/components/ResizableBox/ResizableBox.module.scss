@@ -1,4 +1,4 @@
-@use "../../utils" as *;
+@use "../../utils/motion" as *;
 
 .moonstone-resizable_handle {
     @include transition(color 0.2s ease-in);
@@ -13,8 +13,12 @@
     width: 3px !important;
 
     &:active,
-    &:hover {
+    &:hover,
+    &:has(.moonstone-resizable_handle_control:focus-visible) {
         color: var(--moon-color-accent);
+
+        // A simple border along the panel edge shows where to resize, for the mouse and the keyboard
+        box-shadow: inset 2px 0 0 var(--moon-color-accent);
     }
 }
 
@@ -22,9 +26,8 @@
     position: absolute;
     inset: 0;
 
-    &:focus-visible {
-        @extend %is-focused;
-    }
+    // The border of the handle shows the focus, instead of the generic ring around the 3px strip
+    outline: none;
 }
 
 .moonstone-resizable_handle_icon {

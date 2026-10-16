@@ -101,12 +101,10 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
             handleClasses={
                 {
                     right: clsx('moonstone-resizable_handle', styles['moonstone-resizable_handle']),
-                    left: clsx('moonstone-resizable_handle', styles['moonstone-resizable_handle']),
                 }
             }
             handleComponent={{
                 right: handle,
-                left: handle,
             }}
             maxWidth={maxWidth}
             minWidth={minWidth}
