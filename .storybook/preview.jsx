@@ -96,10 +96,10 @@ export const parameters = {
     },
 
     a11y: {
-        // 'todo' - show a11y violations in the test UI only
-        // 'error' - fail CI on a11y violations
-        // 'off' - skip a11y checks entirely
-        test: 'todo',
+        // 'todo'  - reported only, does not fail CI
+        // 'error' - fails CI on any violation
+        // 'off'   - skip a11y checks entirely
+        test: 'error',
         // WCAG 2.2 AA: axe tags are incremental, so every A/AA tag since 2.0 is needed
         options: {
             runOnly: {
