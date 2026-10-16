@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type FieldsetProps = {
+export type FieldsetProps = Omit<React.ComponentPropsWithoutRef<'fieldset'>, 'children' | 'className' | 'id' | 'onChange'> & {
     /**
      * Fieldset label
      */

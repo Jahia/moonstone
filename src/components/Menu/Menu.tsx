@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import React, { useMemo, useState } from 'react';
 
+import { WithoutField } from '~/components/Field/Field.context';
 import { SearchInput } from '~/components/Input';
 import { Typography } from '~/components/Typography';
 import { useEnterExitCallbacks, usePositioning } from '~/hooks';
@@ -167,22 +168,25 @@ export const Menu: React.FC<MenuProps> = ({
                 {...props}
             >
                 { hasAutoSearch && (
-                    <div className={clsx('moonstone-menu_searchInput', styles['moonstone-menu_searchInput'])}>
-                        <SearchInput
-                            focusOnField
-                            value={inputValue}
-                            onChange={e => setInputValue(e.target.value)}
-                            onClear={() => setInputValue('')}
-                            onKeyUp={(e) => {
-                                if (e.key === 'Enter') {
-                                    const list = React.Children.toArray(filteredChildren);
-                                    if (list.length > 0) {
-                                        (list[0] as React.ReactElement).props.onClick(e);
+                    // The search box of a menu is not the control of a Field around it
+                    <WithoutField>
+                        <div className={clsx('moonstone-menu_searchInput', styles['moonstone-menu_searchInput'])}>
+                            <SearchInput
+                                focusOnField
+                                value={inputValue}
+                                onChange={e => setInputValue(e.target.value)}
+                                onClear={() => setInputValue('')}
+                                onKeyUp={(e) => {
+                                    if (e.key === 'Enter') {
+                                        const list = React.Children.toArray(filteredChildren);
+                                        if (list.length > 0) {
+                                            (list[0] as React.ReactElement).props.onClick(e);
+                                        }
                                     }
-                                }
-                            }}
-                        />
-                    </div>
+                                }}
+                            />
+                        </div>
+                    </WithoutField>
                 )}
                 {filteredChildren || children}
                 {isEmptySearch && (

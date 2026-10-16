@@ -4,7 +4,7 @@ type BasicCheckboxItemProps = Omit<BasicCheckboxProps, 'size' | 'id'> & {
     /**
      * Identifier added to the input element
      */
-    id: string;
+    id?: string;
 
     /**
      * Checkbox description
