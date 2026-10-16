@@ -37,6 +37,7 @@ describe('ResizableBox keyboard', () => {
         const { handle } = renderBox();
         expect(handle).toHaveAccessibleName('Resize');
         expect(handle).toHaveAttribute('aria-valuenow', '100');
+        expect(handle).toHaveAttribute('aria-valuetext', '100 pixels');
     });
 
     it('widens the box with ArrowRight on the focused handle', async () => {

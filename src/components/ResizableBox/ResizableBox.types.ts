@@ -86,5 +86,9 @@ export type ResizableBoxProps = {
          * aria-label of the resize handle
          */
         handleLabel: string;
+        /**
+         * Unit read after the width of the resize handle, e.g. "300 pixels"
+         */
+        pixels: string;
     };
 };

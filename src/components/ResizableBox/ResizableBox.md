@@ -1,3 +1,7 @@
 This component allow the user to resize the size of an element.
 
-From the keyboard, Tab to the handle, then use ArrowLeft and ArrowRight to resize by 10px, and Home and End to go to the minimum and maximum width.
+When the handle is focused, use the keyboard to resize the panel:
+- `ArrowLeft` to decrease the width by 10px
+- `ArrowRight` to increase the width by 10px
+- `Home` to go to the minimum width
+- `End` to go to the maximum width
