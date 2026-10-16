@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { Resizable } from 're-resizable';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { zones } from './ResizableBox.types';
 import { HandleResize } from '~/icons';
@@ -8,6 +8,9 @@ import { HandleResize } from '~/icons';
 import type { EnableZonesProps, ResizableBoxProps } from './ResizableBox.types';
 
 import styles from './ResizableBox.module.scss';
+
+// Pixels per ArrowLeft or ArrowRight press on the handle
+const KEYBOARD_STEP = 10;
 
 export const ResizableBox: React.FC<ResizableBoxProps> = ({
     enable = ['right'],
@@ -23,6 +26,10 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
     onResizeStart,
     onResizing,
     onResizeStop,
+    i18n = {
+        handleLabel: 'Resize',
+        pixels: 'pixels',
+    },
     ...props
 }) => {
     const enableZones: EnableZonesProps = {};
@@ -30,6 +37,60 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
     zones.forEach((zone) => {
         enableZones[zone] = enable.indexOf(zone) > -1;
     });
+
+    const resizableRef = useRef<Resizable>(null);
+    const [width, setWidth] = useState<number>();
+    const min = parseFloat(String(minWidth));
+    const max = parseFloat(String(maxWidth));
+
+    useEffect(() => {
+        setWidth(resizableRef.current?.size.width);
+    }, []);
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.altKey || e.ctrlKey || e.metaKey) {
+            return;
+        }
+
+        const resizable = resizableRef.current;
+        const current = resizable.size.width;
+        const targets: Record<string, number> = {
+            ArrowLeft: current - KEYBOARD_STEP,
+            ArrowRight: current + KEYBOARD_STEP,
+            Home: min,
+            End: max,
+        };
+        const target = targets[e.key];
+
+        if (!Number.isFinite(target)) {
+            return;
+        }
+
+        e.preventDefault();
+        const next = Math.min(Math.max(target, Number.isFinite(min) ? min : 0), Number.isFinite(max) ? max : Infinity);
+        resizable.updateSize({
+            width: next,
+            height: resizable.state.height,
+        });
+        setWidth(next);
+    };
+
+    const handle = (
+        <div
+            aria-label={i18n.handleLabel}
+            aria-orientation="vertical"
+            aria-valuemax={Number.isFinite(max) ? max : undefined}
+            aria-valuemin={Number.isFinite(min) ? min : undefined}
+            aria-valuenow={width}
+            aria-valuetext={width === undefined ? undefined : `${width} ${i18n.pixels}`}
+            className={clsx('moonstone-resizable_handle_control', styles['moonstone-resizable_handle_control'])}
+            role="separator"
+            tabIndex={0}
+            onKeyDown={handleKeyDown}
+        >
+            <HandleResize className={clsx('moonstone-resizable_handle_icon', styles['moonstone-resizable_handle_icon'])} size="big"/>
+        </div>
+    );
 
     return (
         <Resizable
@@ -40,22 +101,22 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
             handleClasses={
                 {
                     right: clsx('moonstone-resizable_handle', styles['moonstone-resizable_handle']),
-                    left: clsx('moonstone-resizable_handle', styles['moonstone-resizable_handle']),
                 }
             }
-            handleComponent={
-                {
-                    right: <HandleResize className={clsx('moonstone-resizable_handle_icon', styles['moonstone-resizable_handle_icon'])} size="big"/>,
-                    left: <HandleResize className={clsx('moonstone-resizable_handle_icon', styles['moonstone-resizable_handle_icon'])} size="big"/>,
-                }
-            }
+            handleComponent={{
+                right: handle,
+            }}
             maxWidth={maxWidth}
             minWidth={minWidth}
+            ref={resizableRef}
             role="region"
             size={size}
             onResize={onResizing}
             onResizeStart={onResizeStart}
-            onResizeStop={onResizeStop}
+            onResizeStop={(e, dir, ref, delta) => {
+                setWidth(ref.offsetWidth);
+                onResizeStop?.(e, dir, ref, delta);
+            }}
             {...props}
         >
             {children}
