@@ -5,6 +5,8 @@ import { FieldSelector } from './FieldSelector';
 import { Field } from './index';
 import { Button } from '~/components/Button';
 import { Chip } from '~/components/Chip';
+import { Dropdown } from '~/components/Dropdown';
+import { Input } from '~/components/Input';
 import { Add, Love } from '~/icons';
 
 import type { FieldProps } from './Field.types';
@@ -114,5 +116,32 @@ describe('Field', () => {
     it('should display errorMessage', () => {
         render(<Field {...requiredProps} hasError errorMessage="Field errorMessage"><div/></Field>);
         expect(screen.getByText('Field errorMessage')).toBeInTheDocument();
+    });
+
+    it('should name the input inside with its label, and describe it with its helper and its error', () => {
+        render(
+            <Field
+                hasError
+                errorMessage="Required"
+                helper="Help"
+                id="title"
+                label="Title"
+            >
+                <Input/>
+            </Field>,
+        );
+        const input = screen.getByRole('textbox', { name: 'Title' });
+        expect(input).toHaveAccessibleDescription('Help Required');
+        expect(input).toBeInvalid();
+        expect(screen.getByRole('alert')).toHaveTextContent('Required');
+    });
+
+    it('should name a Dropdown inside with its label followed by the selected value', () => {
+        render(
+            <Field id="language" label="Language">
+                <Dropdown data={[{ label: 'French', value: 'fr' }]} value="fr" onChange={() => null}/>
+            </Field>,
+        );
+        expect(screen.getByRole('listbox', { name: 'Language French' })).toBeInTheDocument();
     });
 });

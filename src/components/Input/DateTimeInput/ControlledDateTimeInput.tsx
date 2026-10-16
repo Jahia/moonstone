@@ -29,6 +29,7 @@ import {
     parseValue,
 } from './dateTimeValue';
 import { Button, Dropdown, Typography } from '~/components';
+import { WithoutField } from '~/components/Field/Field.context';
 import { layout } from '~/globals/css-utils';
 import { Calendar } from '~/icons';
 
@@ -62,16 +63,18 @@ const MonthsDropdown = ({ options, value }: DropdownProps) => {
     const { months, goToMonth } = useDayPicker();
 
     return (
-        <Dropdown
-            hasSearch={false}
-            data={toDropdownData(options)}
-            size="medium"
-            value={String(value ?? '')}
-            variant="ghost"
-            onChange={(_e, item) => {
-                goToMonth(new Date(months[0].date.getFullYear(), Number(item.value), 1));
-            }}
-        />
+        <WithoutField>
+            <Dropdown
+                hasSearch={false}
+                data={toDropdownData(options)}
+                size="medium"
+                value={String(value ?? '')}
+                variant="ghost"
+                onChange={(_e, item) => {
+                    goToMonth(new Date(months[0].date.getFullYear(), Number(item.value), 1));
+                }}
+            />
+        </WithoutField>
     );
 };
 
@@ -79,15 +82,17 @@ const YearsDropdown = ({ options, value }: DropdownProps) => {
     const { months, goToMonth } = useDayPicker();
 
     return (
-        <Dropdown
-            data={toDropdownData(options)}
-            size="medium"
-            value={String(value ?? '')}
-            variant="ghost"
-            onChange={(_e, item) => {
-                goToMonth(new Date(Number(item.value), months[0].date.getMonth(), 1));
-            }}
-        />
+        <WithoutField>
+            <Dropdown
+                data={toDropdownData(options)}
+                size="medium"
+                value={String(value ?? '')}
+                variant="ghost"
+                onChange={(_e, item) => {
+                    goToMonth(new Date(Number(item.value), months[0].date.getMonth(), 1));
+                }}
+            />
+        </WithoutField>
     );
 };
 
@@ -387,15 +392,17 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                     <Typography className={styles.timezoneLabel} component="span" variant="caption">
                         {i18nLabels.timezone}:
                     </Typography>
-                    <TimezoneSelector
-                        {...timezoneSelectorProps}
-                        referenceDate={selectedDate}
-                        size="small"
-                        value={displayedZone}
-                        variant="ghost"
-                        // Display only: the instant doesn't move, so nothing is emitted.
-                        onChange={(_event, nextZone) => setDisplayedZone(nextZone ?? displayedZone)}
-                    />
+                    <WithoutField>
+                        <TimezoneSelector
+                            {...timezoneSelectorProps}
+                            referenceDate={selectedDate}
+                            size="small"
+                            value={displayedZone}
+                            variant="ghost"
+                            // Display only: the instant doesn't move, so nothing is emitted.
+                            onChange={(_event, nextZone) => setDisplayedZone(nextZone ?? displayedZone)}
+                        />
+                    </WithoutField>
                 </div>
             )}
         </div>

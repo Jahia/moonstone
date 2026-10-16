@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useRef } from 'react';
+import React, { useId, useRef } from 'react';
 
 import { Typography } from '~/components';
 import { RadioGroupContext } from '~/components/RadioGroup/RadioGroup.context';
@@ -17,6 +17,8 @@ export const RadioItem: React.FC<RadioItemProps> = ({
     const isDisabledItem = (typeof context.isDisabled === 'undefined') ? isDisabled : context.isDisabled;
     const isReadOnlyItem = (typeof context.isReadOnly === 'undefined') ? isReadOnly : context.isReadOnly;
     const containerRef = useRef(null);
+    const generatedId = useId();
+    const itemId = id ?? generatedId;
 
     return (
         <Typography
@@ -37,12 +39,12 @@ export const RadioItem: React.FC<RadioItemProps> = ({
                     <input
                         {...props}
                         disabled={isDisabledItem}
-                        aria-describedby={description ? `${id}-description` : null}
-                        aria-labelledby={`${id}-label`}
+                        aria-describedby={description ? `${itemId}-description` : null}
+                        aria-labelledby={`${itemId}-label`}
                         aria-readonly={isReadOnlyItem}
                         checked={context.value === value}
                         className={clsx('moonstone-radio_input', styles['moonstone-radio_input'])}
-                        id={id}
+                        id={itemId}
                         name={context.name}
                         type="radio"
                         value={value}
@@ -62,7 +64,7 @@ export const RadioItem: React.FC<RadioItemProps> = ({
                 <Typography
                     className={clsx('moonstone-radio-label', styles['moonstone-radio-label'])}
                     component="span"
-                    id={`${id}-label`}
+                    id={`${itemId}-label`}
                     variant="body"
                     weight="default"
                 >
@@ -76,7 +78,7 @@ export const RadioItem: React.FC<RadioItemProps> = ({
                         ['flexRow', layout.flexRow],
                     )}
                     component="span"
-                    id={`${id}-description`}
+                    id={`${itemId}-description`}
                     variant="caption"
                     weight="default"
                 >
