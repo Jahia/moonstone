@@ -6,15 +6,19 @@ $cardSelector-height: 58px;
     @include transition(all 0.2s ease-in-out);
 
     gap: var(--moon-spacing-small);
+    box-sizing: border-box;
     width: 100%;
     height: $cardSelector-height;
     padding: var(--moon-spacing-nano);
+
+    // box-sizing and color: the defaults of a native button, for the div of a card with a cardAction
+    color: ButtonText;
 
     border: var(--moon-border-selector);
     border-radius: var(--moon-radius-selector);
     background-color: var(--moon-background-selector);
 
-    &:not([disabled]) {
+    &:not(.moonstone-cardSelector_disabled) {
         &:hover {
             border: var(--moon-border-selector_hover);
             box-shadow: 0 1px 6px var(--moon-color-gray20);
@@ -24,7 +28,9 @@ $cardSelector-height: 58px;
             border: var(--moon-border-selector_active);
         }
 
-        &:focus-visible {
+        // The card is the button, or the wrapper of the button when it has a cardAction
+        &:focus-visible,
+        &:has(> .moonstone-cardSelector_button:focus-visible) {
             @extend %is-focused;
         }
     }
@@ -36,6 +42,20 @@ $cardSelector-height: 58px;
 
         cursor: not-allowed;
     }
+}
+
+.moonstone-cardSelector_button {
+    gap: var(--moon-spacing-small);
+    align-self: stretch;
+    min-width: 0;
+    padding: 0;
+
+    color: inherit;
+
+    border: 0;
+    outline: none;
+    background: none;
+    cursor: inherit;
 }
 
 .moonstone-cardSelector_body {

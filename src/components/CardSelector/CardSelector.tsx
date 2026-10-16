@@ -72,11 +72,18 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
         );
     }
 
-    return (
+    const button = (
         <button
             disabled={isDisabled || isReadOnly}
             aria-label={displayName}
-            className={classNameProps}
+            className={cardAction
+                ? clsx(
+                        ['moonstone-cardSelector_button', styles['moonstone-cardSelector_button']],
+                        ['flexFluid', layout.flexFluid],
+                        ['flexRow_nowrap', layout.flexRow_nowrap],
+                        ['alignCenter', layout.alignCenter],
+                    )
+                : classNameProps}
             id={id}
             ref={ref}
             type="button"
@@ -140,17 +147,26 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
                     </div>
                 )}
             </div>
-            {cardAction && (
-                <div className={clsx(
-                    ['moonstone-cardSelector_actions', styles['moonstone-cardSelector_actions']],
-                    ['flexRow_nowrap', layout.flexRow_nowrap],
-                    ['alignCenter', layout.alignCenter],
-                )}
-                >
-                    {cardAction}
-                </div>
-            )}
         </button>
+    );
+
+    if (!cardAction) {
+        return button;
+    }
+
+    // The action is a sibling of the button, never inside it: a button cannot hold another control
+    return (
+        <div className={classNameProps}>
+            {button}
+            <div className={clsx(
+                ['moonstone-cardSelector_actions', styles['moonstone-cardSelector_actions']],
+                ['flexRow_nowrap', layout.flexRow_nowrap],
+                ['alignCenter', layout.alignCenter],
+            )}
+            >
+                {cardAction}
+            </div>
+        </div>
     );
 });
 

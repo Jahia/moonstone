@@ -94,6 +94,13 @@ describe('CardSelector', () => {
         expect(screen.getByText('action')).toBeInTheDocument();
     });
 
+    it('should render the cardAction outside the card button', () => {
+        render(
+            <CardSelector {...requiredProps} cardAction={<button type="button">Remove</button>}/>,
+        );
+        expect(screen.getByRole('button', { name: 'card name' })).not.toContainElement(screen.getByRole('button', { name: 'Remove' }));
+    });
+
     it('should call onClick when clicked', async () => {
         const user = userEvent.setup();
         const onClick = vi.fn();
