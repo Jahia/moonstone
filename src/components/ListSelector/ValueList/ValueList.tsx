@@ -17,7 +17,8 @@ export const ValueList: React.FC<ValueListProps> = ({
     draggedId,
     isReadOnly,
     listClasses = [],
-    role,
+    listLabel,
+    side,
     onClick,
     onDragStart,
     onDragEnd,
@@ -33,7 +34,7 @@ export const ValueList: React.FC<ValueListProps> = ({
             )}
         >
             <SearchInput onChange={e => setFilter(e.target.value.trim())}/>
-            <ul className={clsx('moonstone-valueList', styles['moonstone-valueList'], ...listClasses)} onDragOver={e => onDragOver(e, null)} onDrop={e => onDrop(e, null)}>
+            <ul aria-label={listLabel} className={clsx('moonstone-valueList', styles['moonstone-valueList'], ...listClasses)} onDragOver={e => onDragOver(e, null)} onDrop={e => onDrop(e, null)}>
                 {values.map((v) => {
                     const classNames = ['moonstone-valueListItem', styles['moonstone-valueListItem']];
                     if (draggedId === v.value && v.tempItem) {
@@ -47,7 +48,7 @@ export const ValueList: React.FC<ValueListProps> = ({
                     return (
                         <ListItem
                             className={clsx(...classNames)}
-                            iconEnd={!isReadOnly && (role === 'left-list'
+                            iconEnd={!isReadOnly && (side === 'left'
                                 ? (
                                         <div className={clsx('moonstone-iconContainer', styles['moonstone-iconContainer'])}>
                                             { iconEnd }
@@ -70,16 +71,15 @@ export const ValueList: React.FC<ValueListProps> = ({
                             )}
                             key={v.label}
                             label={v.label}
-                            role={role}
                             typographyVariant="body"
                             {...onAccessibleClick({
                                 onClick: (e: React.MouseEvent) => {
-                                    if (!isReadOnly && role === 'left-list') {
+                                    if (!isReadOnly && side === 'left') {
                                         onClick(e, v);
                                     }
                                 },
                                 disabled: isReadOnly,
-                                role: role,
+                                role: 'listitem',
                             })}
                             onDragOver={(e: React.DragEvent) => {
                                 if (!isReadOnly) {

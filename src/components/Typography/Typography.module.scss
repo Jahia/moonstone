@@ -64,3 +64,14 @@
         @extend %upperCase;
     }
 }
+
+// Native button reset, without specificity so the component styles always win
+:where(button.moonstone-typography) {
+    color: inherit;
+    text-align: inherit;
+
+    border: 0;
+
+    background: none;
+    cursor: pointer;
+}

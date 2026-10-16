@@ -9,6 +9,8 @@ export type PrimaryNavContextProps = {
 
 export type PrimaryNavButtonProps = {
     isExpanded: boolean;
+    controlsId: string;
+    label: string;
     toggleExpand: () => void;
     modeIcon?: React.ReactElement;
 };
@@ -40,4 +42,17 @@ export type PrimaryNavProps = React.ComponentPropsWithoutRef<'nav'> & {
      * Primary nav groups displayed at the bottom
      */
     bottom?: React.ReactElement<PrimaryNavItemsGroupProps> | React.ReactElement<PrimaryNavItemsGroupProps>[];
+    /**
+     * Primary nav labels
+     */
+    i18n?: {
+        /**
+         * aria-label of the navigation
+         */
+        navigationLabel: string;
+        /**
+         * aria-label of the button that expands and collapses the navigation
+         */
+        toggleButtonLabel: string;
+    };
 };

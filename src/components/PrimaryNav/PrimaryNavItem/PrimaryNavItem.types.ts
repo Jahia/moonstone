@@ -1,22 +1,15 @@
 import React from 'react';
 
 import type { BadgeProps } from '~/components/Badge/Badge.types';
-import type { TypographyVariant } from '~/components/Typography/Typography.types';
-
-export type ItemProps = {
-    label?: string;
-    icon?: React.ReactElement;
-    textVariant?: TypographyVariant;
-    subtitle?: string;
-    button?: React.ReactNode;
-};
 
 export type ItemTypeResolverProps = {
     url?: string;
     label?: string;
     icon?: React.ReactElement;
     subtitle?: string;
-    button?: React.ReactNode;
+    isSelected?: boolean;
+    onClick: React.MouseEventHandler;
+    children?: React.ReactNode;
 };
 
 export type PrimaryNavItemProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'onClick' | 'className'> & {

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 
 import { ResizableBox } from '~/components/ResizableBox';
 import { layout } from '~/globals/css-utils.js';
@@ -16,9 +16,14 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
     isReversed = true,
     onToggled = () => undefined,
     className,
+    i18n = {
+        navigationLabel: 'Secondary navigation',
+        toggleButtonLabel: 'Toggle secondary navigation',
+    },
     ...props
 }) => {
     const [isVisible, setIsVisible] = useState(isDefaultVisible);
+    const wrapperId = useId();
 
     const handleToggle = (e: React.MouseEvent) => {
         setIsVisible(prevState => !prevState);
@@ -27,7 +32,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
 
     return (
         <ResizableBox
-            aria-expanded={isVisible}
+            aria-label={i18n.navigationLabel}
             className={
                 clsx(
                     className,
@@ -54,8 +59,9 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
             {...props}
         >
             <button
-                aria-controls="moonstone-secondaryNav_wrapper"
-                aria-label="Toggle secondary navigation"
+                aria-controls={wrapperId}
+                aria-expanded={isVisible}
+                aria-label={i18n.toggleButtonLabel}
                 className={clsx(
                     ['moonstone-secondaryNav_buttonToggle', styles['moonstone-secondaryNav_buttonToggle']],
                     isReversed && ['moonstone-secondaryNav_buttonToggle_reversed', styles['moonstone-secondaryNav_buttonToggle_reversed']],
@@ -75,7 +81,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
                     ['flexFluid', layout.flexFluid],
                     ['flexCol_nowrap', layout.flexCol_nowrap],
                 )}
-                id="moonstone-secondaryNav_wrapper"
+                id={wrapperId}
             >
                 {header}
                 <div className={clsx('flexFluid', layout.flexFluid, 'flexCol_nowrap', layout.flexCol_nowrap)}>

@@ -11,8 +11,9 @@ import {
     useRole,
 } from '@floating-ui/react';
 import clsx from 'clsx';
-import React from 'react';
+import React, { useMemo } from 'react';
 
+import { ModalContext } from './Modal.context';
 import { layout } from '~/globals/css-utils.js';
 
 import type { ModalProps } from './Modal.types';
@@ -36,7 +37,8 @@ const ModalForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalProps
 
     const click = useClick(context);
     const role = useRole(context);
-    const dismiss = useDismiss(context, { outsidePressEvent: 'mousedown' });
+    // 'click' closes on the up-event, so a press outside can still be cancelled by dragging away (WCAG 2.5.2)
+    const dismiss = useDismiss(context, { outsidePressEvent: 'click' });
 
     const { getFloatingProps } = useInteractions([
         click,
@@ -44,7 +46,8 @@ const ModalForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalProps
         dismiss,
     ]);
 
-    const headingId = useId();
+    const titleId = useId();
+    const contextValue = useMemo(() => ({ titleId }), [titleId]);
 
     return (
         children && isOpen && (
@@ -54,7 +57,7 @@ const ModalForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalProps
                 (e.g if a modal is inside a modal: pressing esc will only close the last one open) */}
                     <FloatingFocusManager context={context}>
                         <div
-                            aria-labelledby={`moonstone-modal_${headingId}`}
+                            aria-labelledby={props['aria-label'] ? undefined : titleId}
                             aria-modal="true"
                             className={clsx(
                                 ['moonstone-modal', styles['moonstone-modal']],
@@ -64,10 +67,11 @@ const ModalForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalProps
                             )}
                             ref={modalRef}
                             {...getFloatingProps()}
-                            id={`moonstone-modal_${headingId}`}
                             {...props}
                         >
-                            {children}
+                            <ModalContext.Provider value={contextValue}>
+                                {children}
+                            </ModalContext.Provider>
                         </div>
                     </FloatingFocusManager>
                 </FloatingOverlay>

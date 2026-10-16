@@ -149,7 +149,7 @@ describe('AccordionItem', () => {
                 </AccordionItem>
             </AccordionContext.Provider>,
         );
-        await user.click(screen.getByRole('accordion-item'));
+        await user.click(screen.getByRole('button', { name: requiredProps.label }));
 
         expect(isOpen).toBe(true);
     });
@@ -177,7 +177,7 @@ describe('AccordionItem', () => {
                 </AccordionItem>
             </AccordionContext.Provider>,
         );
-        await user.click(screen.getByRole('accordion-item'));
+        await user.click(screen.getByRole('button', { name: requiredProps.label }));
 
         expect(isOpen).toBe(false);
     });
@@ -199,6 +199,29 @@ describe('AccordionItem', () => {
         );
 
         // No error should occur when there is no onClickToClose defined
-        await user.click(screen.getByRole('accordion-item'));
+        await user.click(screen.getByRole('button', { name: requiredProps.label }));
+    });
+
+    it('should associate the open button with its panel', () => {
+        render(
+            <AccordionContext.Provider value={{ onSetOpenedItem: vi.fn(), currentItem: 'test-id' }}>
+                <AccordionItem {...requiredProps}>content here</AccordionItem>
+            </AccordionContext.Provider>,
+        );
+        const button = screen.getByRole('button', { name: requiredProps.label });
+        const panel = screen.getByRole('region', { name: requiredProps.label });
+
+        expect(button).toHaveAttribute('aria-expanded', 'true');
+        expect(button).toHaveAttribute('aria-controls', requiredProps.id);
+        expect(panel).toHaveAttribute('id', requiredProps.id);
+        expect(panel).toHaveTextContent('content here');
+    });
+
+    it('should keep the consumer id in aria-controls when closed', () => {
+        render(<AccordionItem {...requiredProps}>content here</AccordionItem>);
+        const button = screen.getByRole('button', { name: requiredProps.label });
+
+        expect(button).toHaveAttribute('aria-expanded', 'false');
+        expect(button).toHaveAttribute('aria-controls', requiredProps.id);
     });
 });

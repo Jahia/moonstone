@@ -7,12 +7,18 @@ const renderBox = () => {
     const { container } = render(
         <div style={{ width: 400 }}>
             <button type="button">before</button>
-            <ResizableBox defaultSize={{ width: 100, height: 100 }} enable={['right']} maxWidth={200} minWidth={50}>
+            <ResizableBox
+                aria-label="Side panel"
+                defaultSize={{ width: 100, height: 100 }}
+                enable={['right']}
+                maxWidth={200}
+                minWidth={50}
+            >
                 <div>content</div>
             </ResizableBox>
         </div>,
     );
-    const box = screen.getByRole('region', { name: 'resizable-panel' });
+    const box = screen.getByRole('region', { name: 'Side panel' });
     const handle = container.querySelector<HTMLElement>('.moonstone-resizable_handle');
     return { box, handle, width: () => box.getBoundingClientRect().width };
 };
