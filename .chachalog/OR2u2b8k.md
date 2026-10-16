@@ -1,6 +1,6 @@
 ---
 # Allowed version bumps: patch, minor, major
-"@jahia/moonstone": minor
+"@jahia/moonstone": patch
 ---
 
-Fix screen readers announcing the wrong name, role or state on `Accordion`, `Modal`, `Tooltip`, `Banner`, `Tab`, `PrimaryNav` and `SecondaryNav` (#1428)
+Fix screen readers announcing the wrong name, role or state on `Accordion`, `Banner`, `DynamicFieldset`, `ListSelector`, `Modal`, `PrimaryNav`, `ResizableBox`, `SecondaryNav` and `Tooltip` (#1428)

@@ -11,6 +11,11 @@ $accordionHeader_height: 48px;
 
     overflow: hidden;
 
+    // In a wrapping flex column the heading would otherwise take its content width
+    > h3 {
+        width: 100%;
+    }
+
     &:only-child {
         border-bottom: none;
     }
