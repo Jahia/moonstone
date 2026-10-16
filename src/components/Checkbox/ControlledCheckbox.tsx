@@ -14,10 +14,9 @@ export const ControlledCheckbox = React.forwardRef<HTMLInputElement, ControlledC
     useImperativeHandle(ref, () => inputRef.current!, []);
 
     // The mixed state of a checkbox is a DOM property, with no HTML attribute
-    // A click clears it, so it is set again when checked changes
     useEffect(() => {
         inputRef.current.indeterminate = indeterminate;
-    }, [indeterminate, checked]);
+    }, [indeterminate]);
 
     return (
         <div className={clsx('moonstone-checkbox', styles['moonstone-checkbox'], className)}>
@@ -34,7 +33,13 @@ export const ControlledCheckbox = React.forwardRef<HTMLInputElement, ControlledC
                 ref={inputRef}
                 type="checkbox"
                 value={value}
-                onChange={ev => (typeof onChange === 'function') && onChange(ev, value, inputRef.current?.checked)}
+                onChange={(ev) => {
+                    // A click clears the property, even when the checkbox should stay indeterminate
+                    inputRef.current.indeterminate = indeterminate;
+                    if (typeof onChange === 'function') {
+                        onChange(ev, value, inputRef.current?.checked);
+                    }
+                }}
             />
             <svg
                 className={clsx(
