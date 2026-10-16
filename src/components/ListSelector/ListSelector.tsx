@@ -29,6 +29,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
 }) => {
     const [dragged, setDragged] = useState(null);
     const hasTitle = label?.rightListTitle?.length > 0 || label?.leftListTitle?.length > 0;
+    const selectedLabel = label.selected || `${values.length} item(s) selected`;
 
     // This tracks drag operation without delay and prevents NPE, if we ever experience issues with this, 'dragged' will need to live in this ref
     // like it did before, but so far state updates are pretty fast and I did not see any issues.
@@ -268,7 +269,12 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                         ['alignCenter', layout.alignCenter],
                     )}
                 >
-                    {values.length > 0 && <Typography variant="caption" weight="semiBold">{label.selected || '0 item selected'}</Typography>}
+                    <div role="status">
+                        {/* Hidden at 0 but still read out, so removing the last item is announced */}
+                        {values.length > 0
+                            ? <Typography variant="caption" weight="semiBold">{selectedLabel}</Typography>
+                            : <span className={styles['moonstone-listSelector_visuallyHidden']}>{selectedLabel}</span>}
+                    </div>
                 </footer>
             </div>
         </div>

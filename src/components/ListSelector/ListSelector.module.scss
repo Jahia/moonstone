@@ -32,3 +32,16 @@ $gap: 8px;
 
     color: var(--moon-color-gray60);
 }
+
+.moonstone-listSelector_visuallyHidden {
+    position: absolute;
+
+    overflow: hidden;
+
+    width: 1px;
+    height: 1px;
+
+    white-space: nowrap;
+
+    clip-path: inset(50%);
+}

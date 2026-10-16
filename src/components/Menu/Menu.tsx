@@ -185,13 +185,18 @@ export const Menu: React.FC<MenuProps> = ({
                     </div>
                 )}
                 {filteredChildren || children}
-                {isEmptySearch && (
-                    <Typography
-                        className={clsx('moonstone-menu_emptySearchText', styles['moonstone-menu_emptySearchText'])}
-                        variant="caption"
-                    >
-                        {searchEmptyText}
-                    </Typography>
+                {/* Stays mounted while the search exists so the empty state is announced when it appears */}
+                {hasAutoSearch && (
+                    <div role="status">
+                        {isEmptySearch && (
+                            <Typography
+                                className={clsx('moonstone-menu_emptySearchText', styles['moonstone-menu_emptySearchText'])}
+                                variant="caption"
+                            >
+                                {searchEmptyText}
+                            </Typography>
+                        )}
+                    </div>
                 )}
             </menu>
             {

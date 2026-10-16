@@ -184,6 +184,23 @@ describe('Dropdown', () => {
         expect(screen.queryByText(/option 3/i)).not.toBeInTheDocument();
     });
 
+    it('should announce the empty search text through a live region', async () => {
+        const user = userEvent.setup();
+        render(
+            <Dropdown
+                hasSearch
+                data={dropdownDataGrouped}
+                searchEmptyText="Nothing found"
+                value=""
+                onChange={() => 'testing'}
+            />,
+        );
+
+        await user.click(screen.getByRole('listbox'));
+        await user.type(screen.getByRole('searchbox'), 'no match at all');
+        expect(screen.getByRole('status')).toHaveTextContent('Nothing found');
+    });
+
     it('should call onChange when I select a value', async () => {
         const user = userEvent.setup();
         const onChange = vi.fn();
