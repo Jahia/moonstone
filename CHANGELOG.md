@@ -1,5 +1,27 @@
 # @jahia/moonstone Changelog
 
+## 2.22.0
+
+### New Features
+
+* `ImgWrapper` and `Thumbnail` now require an `alt` text (#1424)
+
+* Added Delete and Backspace to remove a `Tag`, and Home and End to jump to the `NumberInput` bounds (#1545)
+
+### Bug Fixes
+
+* Add a visible focus indicator on the `PrimaryNav` and `SecondaryNav` toggle buttons (#1422)
+
+* Make generated icons decorative by default, and stop `TreeView` naming icons after a function (#1423)
+
+* The `EmptyData` title is now an `h3` heading (#1514)
+
+* Fix `onClick is not a function` error when clicking a component without `onClick` (#1506)
+
+* Animations turn off when users enable “reduce motion” in their OS (#1441)
+
+* Fix `ref` not being forwarded on several components (#1466)
+
 ## 2.21.0
 
 ### New Features
