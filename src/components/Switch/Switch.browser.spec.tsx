@@ -3,7 +3,7 @@ import { userEvent } from 'vitest/browser';
 
 import { Switch } from './index';
 
-const getSwitch = () => screen.queryByRole('switch') ?? screen.getByRole('checkbox');
+const getSwitch = () => screen.getByRole('switch');
 
 describe('Switch keyboard', () => {
     it('reaches the switch with Tab', async () => {

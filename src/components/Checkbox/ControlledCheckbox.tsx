@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useImperativeHandle, useRef } from 'react';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
 
 import { capitalize } from '~/utils/helpers';
 
@@ -12,6 +12,12 @@ export const ControlledCheckbox = React.forwardRef<HTMLInputElement, ControlledC
 }, ref) => {
     const inputRef = useRef<HTMLInputElement>(null);
     useImperativeHandle(ref, () => inputRef.current!, []);
+
+    // The mixed state of a checkbox is a DOM property, with no HTML attribute
+    // A click clears it, so it is set again when checked changes
+    useEffect(() => {
+        inputRef.current.indeterminate = indeterminate;
+    }, [indeterminate, checked]);
 
     return (
         <div className={clsx('moonstone-checkbox', styles['moonstone-checkbox'], className)}>
