@@ -84,7 +84,8 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
             {...props}
         >
             <Thumbnail
-                alt={thumbnailAlt}
+                // Decorative by default: the button is already named by aria-label
+                alt={thumbnailAlt ?? ''}
                 src={thumbnail}
                 variant={thumbnailType}
             />

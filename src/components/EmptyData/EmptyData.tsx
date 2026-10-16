@@ -27,7 +27,7 @@ export const EmptyData = React.forwardRef<HTMLElement, EmptyDataProps>(
             >
                 {icon}
                 {title && (
-                    <Typography variant="heading" weight="semiBold">
+                    <Typography component="h3" variant="heading" weight="semiBold">
                         {title}
                     </Typography>
                 )}

@@ -3,6 +3,8 @@
 $cardSelector-height: 58px;
 
 .moonstone-cardSelector {
+    @include transition(all 0.2s ease-in-out);
+
     gap: var(--moon-spacing-small);
     width: 100%;
     height: $cardSelector-height;
@@ -11,8 +13,6 @@ $cardSelector-height: 58px;
     border: var(--moon-border-selector);
     border-radius: var(--moon-radius-selector);
     background-color: var(--moon-background-selector);
-
-    transition: all 0.2s ease-in-out;
 
     &:not([disabled]) {
         &:hover {
@@ -64,6 +64,8 @@ $cardSelector-height: 58px;
 }
 
 .moonstone-cardSelector_error {
+    @include transition(all 0.2s ease-in-out);
+
     gap: var(--moon-spacing-nano);
     width: 100%;
     height: $cardSelector-height;
@@ -74,8 +76,6 @@ $cardSelector-height: 58px;
     border-radius: var(--moon-radius-selector);
     background-color: var(--moon-background-selector);
     cursor: pointer;
-
-    transition: all 0.2s ease-in-out;
 
     &[disabled] {
         @extend %selector_disabled;
