@@ -1,8 +1,7 @@
 import clsx from 'clsx';
-import React, { useRef } from 'react';
+import React from 'react';
 
 import { ListItem } from '~/components';
-import { mergeHandlers, onArrowNavigation } from '~/hooks';
 
 import type { MenuItemProps } from './MenuItem.types';
 
@@ -26,23 +25,8 @@ export const MenuItem: React.FC<MenuItemProps> = ({
     onKeyUp,
     ...props
 }) => {
-    const containerRef = useRef(null);
     return (
         <ListItem
-            ref={containerRef}
-            {...mergeHandlers(
-                {
-                    onKeyUp: (e: React.KeyboardEvent) => {
-                        if (onKeyPress) {
-                            console.warn('onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
-                            onKeyPress(e);
-                        }
-
-                        onKeyUp?.(e);
-                    },
-                },
-                onArrowNavigation({ ref: containerRef }),
-            )}
             aria-disabled={isDisabled}
             className={clsx(
                 ['moonstone-menuItem', styles['moonstone-menuItem']],
@@ -62,6 +46,14 @@ export const MenuItem: React.FC<MenuItemProps> = ({
             imageSize={imageSize}
             tabIndex={isDisabled || variant === 'title' || isSelected ? null : 0}
             onClick={isDisabled ? undefined : onClick}
+            onKeyUp={(e: React.KeyboardEvent<HTMLLIElement>) => {
+                if (onKeyPress) {
+                    console.warn('onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
+                    onKeyPress(e);
+                }
+
+                onKeyUp?.(e);
+            }}
             {...props}
         />
     );

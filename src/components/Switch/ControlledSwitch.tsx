@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React, { useImperativeHandle, useRef } from 'react';
 
-import { onAccessibleClick } from '~/hooks';
+import { mergeHandlers, onAccessibleClick } from '~/hooks';
 
 import type { ControlledSwitchProps } from './Switch.types';
 import type { MutableRefObject } from 'react';
@@ -18,6 +18,12 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLInputElemen
 }, ref) => {
     const inputRef: MutableRefObject<HTMLInputElement> = useRef();
     useImperativeHandle(ref, () => inputRef.current!, []);
+
+    const accessibleClick = onAccessibleClick({
+        onClick: (ev: React.KeyboardEvent | React.MouseEvent) => onChange(ev as unknown as React.ChangeEvent<HTMLInputElement>, value, inputRef.current?.checked),
+        disabled: isDisabled,
+        role: 'checkbox',
+    });
 
     return (
         <div
@@ -37,11 +43,8 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLInputElemen
                 ref={inputRef}
                 type="checkbox"
                 value={value}
-                {...onAccessibleClick({
-                    onClick: (ev: React.KeyboardEvent | React.MouseEvent) => onChange(ev as unknown as React.ChangeEvent<HTMLInputElement>, value, inputRef.current?.checked),
-                    disabled: isDisabled,
-                    role: 'checkbox',
-                })}
+                {...accessibleClick}
+                onKeyDown={mergeHandlers(other, accessibleClick).onKeyDown as React.KeyboardEventHandler}
             />
             <span className={clsx('moonstone-switch_icon', styles['moonstone-switch_icon'])}/>
         </div>

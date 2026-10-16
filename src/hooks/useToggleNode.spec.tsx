@@ -25,7 +25,9 @@ describe('onToggleNode', () => {
                 aria-disabled={isDisabled}
                 aria-expanded={opened}
                 data-testid="toggleable-div"
-                {...onToggleNode(handleToggle, handleClick, isDisabled)}
+                role="treeitem"
+                tabIndex={0}
+                {...onToggleNode({ onToggle: handleToggle, onClick: handleClick, isDisabled, isExpandable: true, isOpen: opened })}
             >
                 {label}
             </div>
@@ -40,15 +42,15 @@ describe('onToggleNode', () => {
         expect(screen.getByText('toggled')).toBeInTheDocument();
     });
 
-    it('should call onToggle when left arrow is pressed', async () => {
+    it('should call onToggle when left arrow is pressed on an open node', async () => {
         const user = userEvent.setup();
-        render(<ToggleableDiv isClickable/>);
+        render(<ToggleableDiv isClickable isOpen/>);
         await user.keyboard('[Tab]');
         await user.keyboard('[ArrowLeft]');
         expect(screen.getByText('toggled')).toBeInTheDocument();
     });
 
-    it('should call onToggle when right arrow is pressed', async () => {
+    it('should call onToggle when right arrow is pressed on a closed node', async () => {
         const user = userEvent.setup();
         render(<ToggleableDiv isClickable/>);
         await user.keyboard('[Tab]');

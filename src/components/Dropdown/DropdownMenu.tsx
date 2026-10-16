@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Menu, MenuItem, Separator } from '~/components';
-import { onAccessibleClick } from '~/hooks';
+import { mergeHandlers, onAccessibleClick } from '~/hooks';
 import { CheckboxChecked, CheckboxUnchecked } from '~/icons';
 
 import type { DropdownDataOption } from '~/components/Dropdown/Dropdown.types';
@@ -30,26 +30,31 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     // ---
     // Generate options
     // ---
-    const dropdownOption = (item: DropdownDataOption) => (
-        <MenuItem
-            isDisabled={item.isDisabled}
-            isSelected={value === item.value}
-            description={item.description}
-            iconEnd={item.iconEnd}
-            iconSize="default"
-            iconStart={values ? getIcon(item) : item.iconStart}
-            image={item.image}
-            imageSize={imageSize}
-            key={item.value}
-            label={item.label}
-            {...onAccessibleClick({
-                onClick: e => handleSelect(e, item),
-                disabled: item.isDisabled,
-                role: 'option',
-            })}
-            {...item.attributes as MenuItemProps}
-        />
-    );
+    const dropdownOption = (item: DropdownDataOption) => {
+        const accessibleClick = onAccessibleClick({
+            onClick: e => handleSelect(e, item),
+            disabled: item.isDisabled,
+            role: 'option',
+        });
+
+        return (
+            <MenuItem
+                isDisabled={item.isDisabled}
+                isSelected={value === item.value}
+                description={item.description}
+                iconEnd={item.iconEnd}
+                iconSize="default"
+                iconStart={values ? getIcon(item) : item.iconStart}
+                image={item.image}
+                imageSize={imageSize}
+                key={item.value}
+                label={item.label}
+                {...accessibleClick}
+                {...item.attributes as MenuItemProps}
+                onKeyDown={mergeHandlers({ ...item.attributes }, accessibleClick).onKeyDown as React.KeyboardEventHandler}
+            />
+        );
+    };
 
     const dropdownGrouped = (options: DropdownDataOption[], groupLabel: string, index: number) => {
         return (

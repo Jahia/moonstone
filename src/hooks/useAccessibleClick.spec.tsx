@@ -45,6 +45,32 @@ describe('useAccessibleClick', () => {
         expect(screen.getByText('clicked')).toBeInTheDocument();
     });
 
+    it('should call onClick once when enter key is held down', async () => {
+        const onClick = vi.fn();
+        const user = userEvent.setup();
+        render(<div data-testid="clickable-div" {...onAccessibleClick({ onClick })}/>);
+        await user.keyboard('[Tab]');
+        await user.keyboard('{Enter>3/}');
+        expect(onClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('should leave the keys of a nested link to the link', async () => {
+        const onClick = vi.fn();
+        const user = userEvent.setup();
+        render(
+            <div {...onAccessibleClick({ onClick })}>
+                <a href="#nested">nested link</a>
+            </div>,
+        );
+        screen.getByRole('link').focus();
+        // The document sees the keydown once React has handled it
+        const keydown = vi.fn((e: KeyboardEvent) => e.defaultPrevented);
+        document.addEventListener('keydown', keydown);
+        await user.keyboard('[Enter]');
+        document.removeEventListener('keydown', keydown);
+        expect(keydown).toHaveReturnedWith(false);
+    });
+
     it('should add role button', async () => {
         const user = userEvent.setup();
         render(<ClickableDiv/>);

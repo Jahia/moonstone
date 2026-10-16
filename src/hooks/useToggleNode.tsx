@@ -3,45 +3,68 @@ import React from 'react';
 type onClickProp = (e: React.KeyboardEvent | React.MouseEvent) => void;
 type onToggleProp = (e: React.KeyboardEvent | React.MouseEvent) => void;
 
-type onToggleNodeProps = {
+type onToggleNodeOptions = {
+    onToggle: onToggleProp;
     onClick?: onClickProp;
-    onKeyUp?: React.KeyboardEventHandler;
-    disabled?: boolean;
-    tabIndex?: number;
+    isDisabled?: boolean;
+    /** The node has children and the user can open and close it */
+    isExpandable?: boolean;
+    /** The children of the node are shown */
+    isOpen?: boolean;
+    onFocusParent?: () => void;
+    onFocusFirstChild?: () => void;
+    onExpandSiblings?: onToggleProp;
 };
 
-export const onToggleNode = (
-    onToggle: onToggleProp,
-    onClick?: onClickProp,
+type onToggleNodeProps = {
+    onKeyDown?: React.KeyboardEventHandler;
+    disabled?: boolean;
+};
+
+export const onToggleNode = ({
+    onToggle,
+    onClick,
     isDisabled = false,
-    tabIndex = 0,
-): onToggleNodeProps => {
-    const handleKeyUp = (e: React.KeyboardEvent) => {
-        if (e.code === 'Space') {
-            onToggle(e);
+    isExpandable = false,
+    isOpen = false,
+    onFocusParent,
+    onFocusFirstChild,
+    onExpandSiblings,
+}: onToggleNodeOptions): onToggleNodeProps => {
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        // A link or a button inside the node keeps its native keys, and a modifier keeps the browser shortcuts
+        if (e.target !== e.currentTarget || e.altKey || e.ctrlKey || e.metaKey) {
+            return;
         }
 
-        if (e.code === 'Enter') {
-            e.preventDefault();
-            if (onClick && !isDisabled) {
-                onClick(e);
-            } else {
-                onToggle(e);
-            }
+        const actions: Record<string, () => void> = {
+            'Enter': () => (onClick && !isDisabled ? onClick(e) : onToggle(e)),
+            ' ': () => onToggle(e),
+            'ArrowRight': () => {
+                if (isOpen) {
+                    onFocusFirstChild?.();
+                } else if (isExpandable) {
+                    onToggle(e);
+                }
+            },
+            'ArrowLeft': () => (isOpen && isExpandable ? onToggle(e) : onFocusParent?.()),
+            '*': () => onExpandSiblings?.(e),
+        };
+
+        const action = actions[e.key];
+        if (!action) {
+            return;
         }
 
-        if (e.code === 'ArrowLeft') {
-            onToggle(e);
-        }
-
-        if (e.code === 'ArrowRight') {
-            onToggle(e);
+        e.preventDefault();
+        // A held Enter or Space repeats keydown: act once per press
+        if (!(e.repeat && (e.key === 'Enter' || e.key === ' '))) {
+            action();
         }
     };
 
     return {
-        onKeyUp: handleKeyUp,
+        onKeyDown: handleKeyDown,
         disabled: isDisabled,
-        tabIndex: tabIndex,
     };
 };

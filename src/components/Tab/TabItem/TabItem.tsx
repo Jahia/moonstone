@@ -1,9 +1,8 @@
 import clsx from 'clsx';
-import React, { useRef } from 'react';
+import React from 'react';
 
 import { Typography } from '~/components';
 import { layout } from '~/globals/css-utils.js';
-import { onArrowNavigation } from '~/hooks';
 
 import type { TabItemProps } from './TabItem.types';
 
@@ -21,7 +20,6 @@ export const TabItem: React.FC<TabItemProps> = ({
     onClick,
     ...props
 }) => {
-    const ref = useRef(null);
     return (
         React.createElement(
             component,
@@ -37,15 +35,10 @@ export const TabItem: React.FC<TabItemProps> = ({
                     ['alignCenter', layout.alignCenter],
                     className,
                 ),
-                'ref': ref,
                 'role': 'tab',
                 'aria-selected': isSelected,
                 'disabled': isDisabled,
                 onClick,
-                ...onArrowNavigation({
-                    ref: ref,
-                    direction: 'horizontal',
-                }),
                 ...props,
             },
             (

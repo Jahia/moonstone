@@ -1,9 +1,10 @@
+import { useMergeRefs } from '@floating-ui/react';
 import clsx from 'clsx';
 import React, { useRef } from 'react';
 
 import { Loader, Typography } from '~/components';
 import { icons, layout } from '~/globals/css-utils.js';
-import { mergeHandlers, onArrowNavigation, onToggleNode } from '~/hooks';
+import { mergeHandlers, onToggleNode, useRovingFocus } from '~/hooks';
 import { CheckboxChecked, CheckboxUnchecked, ChevronDown, ChevronRight } from '~/icons';
 
 import type { ControlledTreeViewProps, TreeViewData } from './TreeView.types';
@@ -58,8 +59,20 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
     }, ref) => {
     const isFlatData = data.filter(item => item.children && item.children.length > 0).length === 0;
     const refs = useRef(new Map<string, React.RefObject<HTMLElement>>());
+    const treeRef = useRef<HTMLUListElement>(null);
+    const mergedRef = useMergeRefs([treeRef, ref]);
+    const rovingFocus = useRovingFocus(treeRef, {
+        itemSelector: '[role="treeitem"]',
+        loop: false,
+    });
 
-    function generateLevelJSX(nodeData: TreeViewData[], depth: number, parentHasIconStart: boolean): React.ReactNode[] {
+    function generateLevelJSX(nodeData: TreeViewData[], depth: number, parentHasIconStart: boolean, parentRef?: React.RefObject<HTMLElement>): React.ReactNode[] {
+        const expandSiblings = (e: React.MouseEvent) => {
+            nodeData
+                .filter(sibling => (sibling.hasChildren || sibling.children?.length > 0) && sibling.isClosable !== false && !openedItems.includes(sibling.id))
+                .forEach(sibling => onOpenItem?.(sibling, e));
+        };
+
         return nodeData.map((node) => {
             let containerRef = refs.current.get(node.id);
             if (!containerRef) {
@@ -125,6 +138,17 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                 node.isDisabled && ['moonstone-disabled', styles['moonstone-disabled']],
             );
 
+            const toggleNodeProps = onToggleNode({
+                onToggle: toggleNode,
+                onClick: handleNodeClick,
+                isDisabled: !isClickable,
+                isExpandable: hasChild && isClosable,
+                isOpen: hasChild && isOpen,
+                onFocusParent: () => parentRef?.current?.focus(),
+                onFocusFirstChild: () => refs.current.get(node.children?.[0]?.id)?.current?.focus(),
+                onExpandSiblings: expandSiblings,
+            });
+
             return [
                 React.createElement(
                     itemComponent,
@@ -143,8 +167,10 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                         },
                         'onDoubleClick': handleNodeDoubleClick,
                         'onContextMenu': handleNodeContextMenu,
-                        ...mergeHandlers(onArrowNavigation({ ref: containerRef }), onToggleNode(toggleNode, handleNodeClick, !isClickable)),
+                        ...toggleNodeProps,
                         ...node.treeItemProps,
+                        // The consumer's onKeyDown runs first, and its preventDefault() turns the keys of the tree off
+                        'onKeyDown': mergeHandlers(node.treeItemProps ?? {}, toggleNodeProps).onKeyDown,
                     },
                     <div className={cssTreeViewItem}>
                         {/* Icon arrow */}
@@ -208,7 +234,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                         </div>
                     </div>,
                 ),
-                ...((isOpen && node.children) ? generateLevelJSX(node.children, isClosable ? (depth + 1) : depth, hasIconStart) : []),
+                ...((isOpen && node.children) ? generateLevelJSX(node.children, isClosable ? (depth + 1) : depth, hasIconStart, containerRef) : []),
             ];
         });
     }
@@ -216,10 +242,10 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
     // TreeView component
     return React.createElement(
         component, {
-            ref,
+            'ref': mergedRef,
             'role': 'tree',
             'aria-multiselectable': showCheckbox,
-            ...props,
+            ...mergeHandlers(props, rovingFocus),
             'className': clsx(styles.treeView, className),
         }, generateLevelJSX(data, 0, false),
     );

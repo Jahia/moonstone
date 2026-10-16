@@ -8,10 +8,17 @@ type onAccessibleClickProps = {
     tabIndex?: number;
 };
 
-const handleKeyUp = (e: React.KeyboardEvent, onClick: onClickProp) => {
-    if (e.code === 'Space' || e.code === 'Enter') {
+const handleKeyDown = (e: React.KeyboardEvent, onClick: onClickProp) => {
+    // A nested link or button keeps its native activation
+    if (e.target !== e.currentTarget) {
+        return;
+    }
+
+    if (e.key === ' ' || e.key === 'Enter') {
         e.preventDefault();
-        onClick(e);
+        if (!e.repeat) {
+            onClick(e);
+        }
     }
 };
 
@@ -23,7 +30,7 @@ export const onAccessibleClick = ({
 }: onAccessibleClickProps) => {
     return {
         onClick: disabled ? undefined : onClick,
-        onKeyUp: disabled ? undefined : (e: React.KeyboardEvent) => handleKeyUp(e, onClick),
+        onKeyDown: disabled ? undefined : (e: React.KeyboardEvent) => handleKeyDown(e, onClick),
         disabled: disabled,
         role: role,
         tabIndex: disabled ? -1 : tabIndex,

@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 
 import { PrimaryNavContext } from '../PrimaryNav.context';
 import { Typography } from '~/components';
-import { onAccessibleClick } from '~/hooks';
+import { mergeHandlers, onAccessibleClick } from '~/hooks';
 
 import type { ItemProps, ItemTypeResolverProps, PrimaryNavItemProps } from './PrimaryNavItem.types';
 
@@ -102,6 +102,16 @@ export const PrimaryNavItem: React.FC<PrimaryNavItemProps> = ({
 }) => {
     const primaryNavContext = useContext(PrimaryNavContext);
 
+    const accessibleClick = onAccessibleClick({
+        onClick: (e: React.MouseEvent) => {
+            if (typeof primaryNavContext.collapse === 'function') {
+                primaryNavContext.collapse();
+            }
+
+            onClick(e);
+        },
+    });
+
     return (
         <li
             aria-current={isSelected}
@@ -111,16 +121,9 @@ export const PrimaryNavItem: React.FC<PrimaryNavItemProps> = ({
                 className,
             )}
             title={label}
-            {...onAccessibleClick({
-                onClick: (e: React.MouseEvent) => {
-                    if (typeof primaryNavContext.collapse === 'function') {
-                        primaryNavContext.collapse();
-                    }
-
-                    onClick(e);
-                },
-            })}
+            {...accessibleClick}
             {...props}
+            onKeyDown={mergeHandlers(props, accessibleClick).onKeyDown as React.KeyboardEventHandler}
         >
             <ItemTypeResolver
                 button={button}
