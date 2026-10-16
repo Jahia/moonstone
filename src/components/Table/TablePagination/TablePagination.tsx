@@ -77,6 +77,7 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
             </Typography>
             <Button
                 isDisabled={currentPage === 1}
+                aria-label={label.firstPage || 'First page'}
                 className={clsx([cssClass32, styles[cssClass32]])}
                 data-sel-role="table-pagination-button-first-page"
                 icon={<ChevronFirstPage/>}
@@ -85,6 +86,7 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
             />
             <Button
                 isDisabled={currentPage === 1}
+                aria-label={label.previousPage || 'Previous page'}
                 className={clsx([cssClass32, styles[cssClass32]])}
                 data-sel-role="table-pagination-button-previous-page"
                 icon={<ChevronLeft/>}
@@ -93,6 +95,7 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
             />
             <Button
                 isDisabled={lastPage === currentPage}
+                aria-label={label.nextPage || 'Next page'}
                 className={clsx([cssClass32, styles[cssClass32]])}
                 data-sel-role="table-pagination-button-next-page"
                 icon={<ChevronRight/>}
@@ -101,6 +104,7 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
             />
             <Button
                 isDisabled={lastPage === currentPage}
+                aria-label={label.lastPage || 'Last page'}
                 className={clsx([cssClass16, styles[cssClass16]])}
                 data-sel-role="table-pagination-button-last-page"
                 icon={<ChevronLastPage/>}

@@ -72,6 +72,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     searchEmptyText = 'No results found.',
     imageSize,
     onClear,
+    i18n,
     onChange,
     onBlur,
     onFocus,
@@ -288,7 +289,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                         )}
                 {onClear && isFilled && !isDisabled && (
                     <Button
-                        aria-label="Reset"
+                        aria-label={i18n?.clearButton || 'Reset'}
                         className={clsx(
                             ['moonstone-baseInput_clearButton', baseInputStyles['moonstone-baseInput_clearButton']],
                             ['flexRow_center', layout.flexRow_center],

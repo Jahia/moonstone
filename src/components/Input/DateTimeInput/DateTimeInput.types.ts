@@ -52,6 +52,11 @@ export type DateTimeInputI18n = {
     previousMonth?: string;
     /** Label shown before the timezone selector (`type='zonedDateTime'`) */
     timezone?: string;
+    /**
+     * Accessible name of the clear button
+     * @default 'Reset'
+     */
+    clearButton?: string;
 };
 
 export type DateTimeInputTimeInputProps = Omit<TimeInputProps,
@@ -79,6 +84,7 @@ export type DateTimeInputTimezoneSelectorProps = Omit<ControlledTimezoneSelector
 /** Props common to every mode of the `DateTimeInput`. */
 export type DateTimeInputSharedProps = Omit<BaseInputProps,
     'defaultValue'
+    | 'i18n'
     | 'value'
     | 'onChange'
     | 'onClear'
