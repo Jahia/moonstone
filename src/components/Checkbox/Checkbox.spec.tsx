@@ -110,6 +110,17 @@ describe('Checkbox', () => {
         expect(screen.getByRole('checkbox')).toBePartiallyChecked();
     });
 
+    it('should set the indeterminate property of the input', () => {
+        render(<Checkbox indeterminate aria-label="checkbox"/>);
+        expect(screen.getByRole('checkbox')).toHaveProperty('indeterminate', true);
+    });
+
+    it('should stay indeterminate when the parent keeps it indeterminate', async () => {
+        render(<Checkbox indeterminate aria-label="checkbox" checked={false} onChange={vi.fn()}/>);
+        await userEvent.setup().click(screen.getByRole('checkbox'));
+        expect(screen.getByRole('checkbox')).toHaveProperty('indeterminate', true);
+    });
+
     it('should have the default size by default', () => {
         render(<Checkbox aria-label="checkbox"/>);
         expect(screen.getByRole('checkbox')).toHaveClass(

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useImperativeHandle, useRef } from 'react';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
 
 import { capitalize } from '~/utils/helpers';
 
@@ -12,6 +12,11 @@ export const ControlledCheckbox = React.forwardRef<HTMLInputElement, ControlledC
 }, ref) => {
     const inputRef = useRef<HTMLInputElement>(null);
     useImperativeHandle(ref, () => inputRef.current!, []);
+
+    // The mixed state of a checkbox is a DOM property, with no HTML attribute
+    useEffect(() => {
+        inputRef.current.indeterminate = indeterminate;
+    }, [indeterminate]);
 
     return (
         <div className={clsx('moonstone-checkbox', styles['moonstone-checkbox'], className)}>
@@ -28,7 +33,13 @@ export const ControlledCheckbox = React.forwardRef<HTMLInputElement, ControlledC
                 ref={inputRef}
                 type="checkbox"
                 value={value}
-                onChange={ev => (typeof onChange === 'function') && onChange(ev, value, inputRef.current?.checked)}
+                onChange={(ev) => {
+                    // A click clears the property, even when the checkbox should stay indeterminate
+                    inputRef.current.indeterminate = indeterminate;
+                    if (typeof onChange === 'function') {
+                        onChange(ev, value, inputRef.current?.checked);
+                    }
+                }}
             />
             <svg
                 className={clsx(

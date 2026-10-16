@@ -1,8 +1,6 @@
 import clsx from 'clsx';
 import React, { useImperativeHandle, useRef } from 'react';
 
-import { onAccessibleClick } from '~/hooks';
-
 import type { ControlledSwitchProps } from './Switch.types';
 import type { MutableRefObject } from 'react';
 
@@ -13,6 +11,7 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLInputElemen
     checked = false,
     value,
     onChange = () => undefined,
+    onKeyDown,
     isDisabled,
     ...other
 }, ref) => {
@@ -35,13 +34,18 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLInputElemen
                 checked={checked}
                 className={clsx('moonstone-switch_input', styles['moonstone-switch_input'])}
                 ref={inputRef}
+                role="switch"
                 type="checkbox"
                 value={value}
-                {...onAccessibleClick({
-                    onClick: (ev: React.KeyboardEvent | React.MouseEvent) => onChange(ev as unknown as React.ChangeEvent<HTMLInputElement>, value, inputRef.current?.checked),
-                    disabled: isDisabled,
-                    role: 'checkbox',
-                })}
+                onChange={event => onChange(event, value, event.target.checked)}
+                onKeyDown={(event) => {
+                    onKeyDown?.(event);
+                    // A native checkbox toggles with Space only, and Moonstone also toggles a switch with Enter
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        event.currentTarget.click();
+                    }
+                }}
             />
             <span className={clsx('moonstone-switch_icon', styles['moonstone-switch_icon'])}/>
         </div>

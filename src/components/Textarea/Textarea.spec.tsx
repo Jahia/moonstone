@@ -156,4 +156,16 @@ describe('UncontrolledTextarea', () => {
             expect(handleChange).toHaveBeenCalledTimes(1);
         });
     });
+
+    it('should forward aria-invalid and aria-describedby to the textarea', () => {
+        render(
+            <>
+                <Textarea aria-describedby="error" aria-invalid="true" aria-label="Description"/>
+                <span id="error">Required</span>
+            </>,
+        );
+        const textarea = screen.getByRole('textbox', { name: 'Description' });
+        expect(textarea).toBeInvalid();
+        expect(textarea).toHaveAccessibleDescription('Required');
+    });
 });
