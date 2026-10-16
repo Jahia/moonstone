@@ -41,7 +41,7 @@ describe('SearchInput keyboard', () => {
         expect(screen.getByRole('button', { name: 'Reset' })).toHaveFocus();
     });
 
-    it.fails('clears with Enter on the clear button and returns focus to the search box', async () => {
+    it('clears with Enter on the clear button and returns focus to the search box', async () => {
         render(<SearchInput defaultValue="abc"/>);
         screen.getByRole('button', { name: 'Reset' }).focus();
         await userEvent.keyboard('{Enter}');
@@ -49,12 +49,22 @@ describe('SearchInput keyboard', () => {
         expect(screen.getByRole('searchbox')).toHaveFocus();
     });
 
-    it.fails('clears with Space on the clear button and returns focus to the search box', async () => {
+    it('clears with Space on the clear button and returns focus to the search box', async () => {
         const onClear = vi.fn();
         render(<SearchInput defaultValue="abc" onClear={onClear}/>);
         screen.getByRole('button', { name: 'Reset' }).focus();
         await userEvent.keyboard(' ');
         expect(onClear).toHaveBeenCalledTimes(1);
         expect(screen.getByRole('searchbox')).toHaveFocus();
+    });
+
+    it('does not pass the Enter of the clear button to the search box onKeyUp', async () => {
+        const onKeyUp = vi.fn();
+        render(<SearchInput defaultValue="abc" onKeyUp={onKeyUp}/>);
+        screen.getByRole('button', { name: 'Reset' }).focus();
+        await userEvent.keyboard('{Enter}');
+        expect(screen.getByRole('searchbox')).toHaveValue('');
+        expect(screen.getByRole('searchbox')).toHaveFocus();
+        expect(onKeyUp).not.toHaveBeenCalled();
     });
 });

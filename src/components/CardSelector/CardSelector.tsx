@@ -42,7 +42,6 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
         }
 
         onClick?.(e);
-        (e.currentTarget as HTMLElement).blur();
     };
 
     if (hasError) {

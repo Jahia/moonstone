@@ -42,7 +42,7 @@ describe('ButtonToggle keyboard', () => {
         expect(toggle).toHaveAttribute('aria-pressed', 'false');
     });
 
-    it.fails('keeps focus on the toggle button after it is toggled with the keyboard', async () => {
+    it('keeps focus on the toggle button after it is toggled with the keyboard', async () => {
         renderToggle();
         const toggle = screen.getByRole('button', { name: 'Bold' });
         toggle.focus();

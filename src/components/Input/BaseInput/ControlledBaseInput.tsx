@@ -1,5 +1,6 @@
+import { useMergeRefs } from '@floating-ui/react';
 import clsx from 'clsx';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { Button } from '~/components';
 import { layout } from '~/globals/css-utils.js';
@@ -56,6 +57,18 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
         };
     }
 
+    // DateTimeInput and TimeInput forward a callback ref, so the input is reached through an inner one
+    const inputRef = useRef<HTMLInputElement>(null);
+    const mergedRef = useMergeRefs([inputRef, ref]);
+
+    const handleClear: React.MouseEventHandler = (e) => {
+        onClear(e);
+        // Unless onClear moved it, focus goes back to the field
+        if (document.activeElement === e.currentTarget) {
+            inputRef.current?.focus();
+        }
+    };
+
     return (
         <div className={classNameProps} role={role} onClick={onClick}>
             {icon && (
@@ -87,7 +100,7 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
                     )}
                     id={id}
                     placeholder={placeholder}
-                    ref={ref}
+                    ref={mergedRef}
                     role={role === 'search' ? 'searchbox' : undefined}
                     type="text"
                     value={value}
@@ -116,7 +129,18 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
                     )}
                     icon={<Cancel/>}
                     variant="ghost"
-                    onClick={onClear}
+                    onClick={handleClear}
+                    // Enter clicks on keydown, so its keyup would reach the field: click on keyup, as Space does
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                        }
+                    }}
+                    onKeyUp={(e) => {
+                        if (e.key === 'Enter') {
+                            e.currentTarget.click();
+                        }
+                    }}
                 />
             )}
         </div>
