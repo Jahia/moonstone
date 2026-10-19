@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { userEvent } from 'vitest/browser';
 
 import { Menu, MenuItem } from './index';
+import { Separator } from '~/components';
 
 const renderMenu = (props = {}) => {
     const onClose = vi.fn();
@@ -41,6 +42,7 @@ describe('Menu keyboard', () => {
                 <button type="button">before</button>
                 <Menu isDisplayed>
                     <MenuItem label="First"/>
+                    <Separator/>
                     <MenuItem isSelected label="Second"/>
                 </Menu>
             </>,

@@ -41,8 +41,7 @@ const handleKeyUp = (e: React.KeyboardEvent, onClick: onClickProp) => {
 
 /**
  * Makes a non-native element act as a button: Enter on keydown, Space on keyup, once per press.
- * Chain it with the consumer's handlers through `{...mergeHandlers(props, onAccessibleClick(…))}`;
- * the precedence of the other consumer props stays with #1431.
+ * Chain it with the consumer's handlers through `{...mergeHandlers(props, onAccessibleClick(…))}`.
  */
 export const onAccessibleClick = ({
     onClick,

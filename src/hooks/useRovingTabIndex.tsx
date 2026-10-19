@@ -7,6 +7,20 @@ export const rovingItemProps = { 'data-roving-item': '' };
 
 const isEnabled = (item: HTMLElement) => !item.hasAttribute('disabled') && item.getAttribute('aria-disabled') !== 'true';
 
+type InitialItemProps = {
+    isSelected?: boolean;
+    isDisabled?: boolean;
+};
+
+/**
+ * The item that holds the Tab stop while focus is outside the widget: the first selected enabled item, else the first enabled one
+ * @param items - the props of the items, in the order of the `CompositeItem`s
+ */
+export const getInitialIndex = (items: InitialItemProps[]) => {
+    const selectedIndex = items.findIndex(item => item.isSelected && !item.isDisabled);
+    return selectedIndex === -1 ? Math.max(items.findIndex(item => !item.isDisabled), 0) : selectedIndex;
+};
+
 /**
  * Roving tabindex of a composite widget (`Tab`, `Menu`, `TreeView`), on top of the `Composite` of floating-ui:
  * the widget is one Tab stop, and the arrow keys, Home and End move between its items.
@@ -18,7 +32,7 @@ const isEnabled = (item: HTMLElement) => !item.hasAttribute('disabled') && item.
  * @see https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#kbd_roving_tabindex
  */
 export const useRovingTabIndex = () => {
-    // The item focused in the widget, by its key or else its index, or null once focus has left it
+    // The item focused in the widget, by its key or else its index, or null once focus has left the items
     const [focusedKey, setFocusedKey] = useState<string | number | null>(null);
 
     return {
@@ -54,9 +68,10 @@ export const useRovingTabIndex = () => {
 
             compositeKeyDown(e);
         },
-        /** Blur of the widget: once focus leaves it, the Tab stop goes back to the initial item */
+        /** Blur of the widget: once focus leaves its items (for the search box of a Menu, or out of the widget), the Tab stop goes back to the initial item */
         onBlur: (e: React.FocusEvent<HTMLElement>) => {
-            if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+            const next = e.relatedTarget as HTMLElement | null;
+            if (!next?.matches(ITEM_SELECTOR) || !e.currentTarget.contains(next)) {
                 setFocusedKey(null);
             }
         },

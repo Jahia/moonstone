@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import React from 'react';
 
 import { layout } from '~/globals/css-utils.js';
-import { mergeHandlers, useRovingTabIndex } from '~/hooks';
+import { getInitialIndex, mergeHandlers, useRovingTabIndex } from '~/hooks';
 
 import type { TabProps } from './Tab.types';
 import type { TabItemProps } from './TabItem/TabItem.types';
@@ -19,8 +19,7 @@ export const Tab = React.forwardRef<HTMLDivElement, TabProps>(({ children, class
 
     // Focus enters the tab list on the selected tab, else on the first enabled one
     const tabs = React.Children.toArray(children).filter(React.isValidElement) as React.ReactElement<TabItemProps>[];
-    const selectedIndex = tabs.findIndex(tab => tab.props.isSelected && !tab.props.isDisabled);
-    const initialIndex = selectedIndex === -1 ? Math.max(tabs.findIndex(tab => !tab.props.isDisabled), 0) : selectedIndex;
+    const initialIndex = getInitialIndex(tabs.map(tab => tab.props));
 
     return (
         <Composite

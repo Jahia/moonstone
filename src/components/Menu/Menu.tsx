@@ -2,9 +2,10 @@ import { Composite } from '@floating-ui/react';
 import clsx from 'clsx';
 import React, { useMemo, useState } from 'react';
 
+import { MenuItem } from './MenuItem';
 import { SearchInput } from '~/components/Input';
 import { Typography } from '~/components/Typography';
-import { mergeHandlers, useEnterExitCallbacks, usePositioning, useRovingTabIndex } from '~/hooks';
+import { getInitialIndex, mergeHandlers, useEnterExitCallbacks, usePositioning, useRovingTabIndex } from '~/hooks';
 
 import type { MenuProps } from './Menu.types';
 import type { MenuItemProps } from './MenuItem.types';
@@ -131,10 +132,11 @@ export const Menu: React.FC<MenuProps> = ({
         hasAutoSearch = React.Children.count(flatChildren) > autoAddSearchLimit;
     }
 
-    // Focus enters the menu on its selected item, else on its first one. A title, or an item out of the Tab sequence, is no item of the Composite
+    // Focus enters the menu on its selected item, else on its first enabled one, among the MenuItems that are items of the Composite
     const shownChildren = filteredChildren || children;
-    const items = (Array.isArray(shownChildren) && shownChildren.length > 0 ? getFlatChildren(shownChildren as [React.ReactElement]) : []) as React.ReactElement<MenuItemProps>[];
-    const initialIndex = Math.max(items.filter(item => item.props?.variant !== 'title' && item.props?.tabIndex !== -1).findIndex(item => item.props?.isSelected), 0);
+    const items = (Array.isArray(shownChildren) && shownChildren.length > 0 ? getFlatChildren(shownChildren as [React.ReactElement]) : [])
+        .filter((item): item is React.ReactElement<MenuItemProps> => React.isValidElement<MenuItemProps>(item) && item.type === MenuItem && item.props.variant !== 'title' && item.props.tabIndex !== -1);
+    const initialIndex = getInitialIndex(items.map(item => item.props));
 
     // ---
     // Styling
