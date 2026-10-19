@@ -69,6 +69,23 @@ describe('CardSelector keyboard', () => {
         expect(onClick).not.toHaveBeenCalled();
     });
 
+    it('moves from the card to its action with Tab', async () => {
+        renderCard({ cardAction: <button type="button">Remove</button> });
+        screen.getByRole('button', { name: 'Item name' }).focus();
+        await userEvent.keyboard('{Tab}');
+        expect(screen.getByRole('button', { name: 'Remove' })).toHaveFocus();
+    });
+
+    it('does not activate the card when its action is activated', async () => {
+        const onRemove = vi.fn();
+        const { onClick } = renderCard({ cardAction: <button type="button" onClick={onRemove}>Remove</button> });
+        screen.getByRole('button', { name: 'Remove' }).focus();
+        await userEvent.keyboard('{Enter}');
+        await userEvent.keyboard(' ');
+        expect(onRemove).toHaveBeenCalledTimes(2);
+        expect(onClick).not.toHaveBeenCalled();
+    });
+
     it('skips a read-only card in the tab sequence', async () => {
         renderCard({ isReadOnly: true });
         screen.getByRole('button', { name: 'before' }).focus();
