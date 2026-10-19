@@ -31,11 +31,13 @@ export type SecondaryNavProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'chi
     i18n?: {
         /**
          * aria-label of the handle that resizes the navigation
+         * @default 'Resize'
          */
-        resizeHandleLabel: string;
+        resizeHandleLabel?: string;
         /**
          * Unit read after the width of the navigation, e.g. "300 pixels"
+         * @default 'pixels'
          */
-        widthUnit: string;
+        widthUnit?: string;
     };
 };

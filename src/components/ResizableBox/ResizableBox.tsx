@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { Resizable } from 're-resizable';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 
 import { zones } from './ResizableBox.types';
 import { HandleResize } from '~/icons';
@@ -26,10 +26,7 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
     onResizeStart,
     onResizing,
     onResizeStop,
-    i18n = {
-        handleLabel: 'Resize',
-        widthUnit: 'pixels',
-    },
+    i18n,
     ...props
 }) => {
     const enableZones: EnableZonesProps = {};
@@ -43,7 +40,7 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
     const min = parseFloat(String(minWidth));
     const max = parseFloat(String(maxWidth));
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         setWidth(resizableRef.current?.size.width);
     }, []);
 
@@ -78,12 +75,12 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
 
     const handle = (
         <div
-            aria-label={i18n.handleLabel}
+            aria-label={i18n?.handleLabel || 'Resize'}
             aria-orientation="vertical"
             aria-valuemax={Number.isFinite(max) ? max : undefined}
             aria-valuemin={Number.isFinite(min) ? min : undefined}
             aria-valuenow={width}
-            aria-valuetext={width === undefined ? undefined : `${width} ${i18n.widthUnit}`}
+            aria-valuetext={width === undefined ? undefined : `${width} ${i18n?.widthUnit || 'pixels'}`}
             className={clsx('moonstone-resizable_handle_control', styles['moonstone-resizable_handle_control'])}
             role="separator"
             tabIndex={0}

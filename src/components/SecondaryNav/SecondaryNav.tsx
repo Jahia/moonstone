@@ -16,10 +16,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
     isReversed = true,
     onToggled = () => undefined,
     className,
-    i18n = {
-        resizeHandleLabel: 'Resize',
-        widthUnit: 'pixels',
-    },
+    i18n,
     ...props
 }) => {
     const [isVisible, setIsVisible] = useState(isDefaultVisible);
@@ -48,8 +45,8 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
             }}
             enable={isVisible ? ['right'] : []}
             i18n={{
-                handleLabel: i18n.resizeHandleLabel,
-                widthUnit: i18n.widthUnit,
+                handleLabel: i18n?.resizeHandleLabel,
+                widthUnit: i18n?.widthUnit,
             }}
             maxWidth="900"
             minWidth={isVisible ? 300 : 0}
