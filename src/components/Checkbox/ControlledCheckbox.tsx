@@ -23,7 +23,6 @@ export const ControlledCheckbox = React.forwardRef<HTMLInputElement, ControlledC
             <input
                 {...props}
                 disabled={isDisabled}
-                aria-checked={indeterminate ? 'mixed' : checked}
                 aria-readonly={isReadOnly}
                 checked={checked}
                 className={clsx(
@@ -35,10 +34,8 @@ export const ControlledCheckbox = React.forwardRef<HTMLInputElement, ControlledC
                 value={value}
                 onChange={(ev) => {
                     // A click clears the property, even when the checkbox should stay indeterminate
-                    inputRef.current.indeterminate = indeterminate;
-                    if (typeof onChange === 'function') {
-                        onChange(ev, value, inputRef.current?.checked);
-                    }
+                    ev.target.indeterminate = indeterminate;
+                    onChange?.(ev, value, ev.target.checked);
                 }}
             />
             <svg

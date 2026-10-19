@@ -62,13 +62,8 @@ $checkbox-sizeBig: 20px;
         --shadow-size: 2px;
     }
 
-    // Only triggered when the input is focus with tab
-    &:focus-visible:not([disabled], [aria-readonly="true"]) {
-        @extend %is-focused;
-    }
-
-    &[aria-checked="true"],
-    &[aria-checked="mixed"] {
+    &:checked,
+    &:indeterminate {
         --shadow-size: 12px;
         --shadow-color: var(--moon-color-accent);
 
@@ -79,6 +74,11 @@ $checkbox-sizeBig: 20px;
         & ~ .moonstone-checkbox_icon {
             @include animation(checkboxBounce 0.1s linear forwards 0.05s);
         }
+    }
+
+    // Only triggered when the input is focus with tab
+    &:focus-visible:not([disabled], [aria-readonly="true"]) {
+        @extend %is-focused;
     }
 
     &[disabled],
@@ -95,8 +95,8 @@ $checkbox-sizeBig: 20px;
             --shadow-size: 1px;
         }
 
-        &[aria-checked="true"]:hover,
-        &[aria-checked="mixed"]:hover {
+        &:checked:hover,
+        &:indeterminate:hover {
             --shadow-color: var(--moon-color-accent);
             --shadow-size: 12px;
 

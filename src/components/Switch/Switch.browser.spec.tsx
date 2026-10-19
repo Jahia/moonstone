@@ -47,12 +47,20 @@ describe('Switch keyboard', () => {
         expect(onChange).toHaveBeenCalledTimes(1);
     });
 
-    it('exposes its state through aria-checked', async () => {
+    it('exposes its state through the native checked state', async () => {
         render(<Switch value="a"/>);
-        expect(getSwitch()).toHaveAttribute('aria-checked', 'false');
+        expect(getSwitch()).not.toBeChecked();
         getSwitch().focus();
         await userEvent.keyboard(' ');
-        expect(getSwitch()).toHaveAttribute('aria-checked', 'true');
+        expect(getSwitch()).toBeChecked();
+    });
+
+    it('toggles once when Enter is held', async () => {
+        const onChange = vi.fn();
+        render(<Switch value="a" onChange={onChange}/>);
+        getSwitch().focus();
+        await userEvent.keyboard('{Enter>3/}');
+        expect(onChange).toHaveBeenCalledTimes(1);
     });
 
     it('skips a disabled switch in the tab sequence', async () => {

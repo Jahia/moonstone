@@ -1,8 +1,9 @@
 import clsx from 'clsx';
-import React, { useImperativeHandle, useRef } from 'react';
+import React from 'react';
+
+import { mergeHandlers } from '~/hooks';
 
 import type { ControlledSwitchProps } from './Switch.types';
-import type { MutableRefObject } from 'react';
 
 import styles from './Switch.module.scss';
 
@@ -11,12 +12,21 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLInputElemen
     checked = false,
     value,
     onChange = () => undefined,
-    onKeyDown,
     isDisabled,
     ...other
 }, ref) => {
-    const inputRef: MutableRefObject<HTMLInputElement> = useRef();
-    useImperativeHandle(ref, () => inputRef.current!, []);
+    // A native checkbox toggles with Space only; Enter also toggles a switch, like a native button
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        const hasModifier = event.shiftKey || event.ctrlKey || event.metaKey || event.altKey;
+        if (event.defaultPrevented || hasModifier || event.key !== 'Enter') {
+            return;
+        }
+
+        event.preventDefault();
+        if (!event.repeat) {
+            event.currentTarget.click();
+        }
+    };
 
     return (
         <div
@@ -28,24 +38,15 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLInputElemen
             )}
         >
             <input
-                {...other}
+                {...mergeHandlers(other, { onKeyDown: handleKeyDown })}
                 disabled={isDisabled}
-                aria-checked={checked}
                 checked={checked}
                 className={clsx('moonstone-switch_input', styles['moonstone-switch_input'])}
-                ref={inputRef}
+                ref={ref}
                 role="switch"
                 type="checkbox"
                 value={value}
                 onChange={event => onChange(event, value, event.target.checked)}
-                onKeyDown={(event) => {
-                    onKeyDown?.(event);
-                    // A native checkbox toggles with Space only, and Moonstone also toggles a switch with Enter
-                    if (event.key === 'Enter') {
-                        event.preventDefault();
-                        event.currentTarget.click();
-                    }
-                }}
             />
             <span className={clsx('moonstone-switch_icon', styles['moonstone-switch_icon'])}/>
         </div>
