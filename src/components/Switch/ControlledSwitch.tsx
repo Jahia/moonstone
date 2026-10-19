@@ -15,7 +15,7 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLInputElemen
     isDisabled,
     ...other
 }, ref) => {
-    // A native checkbox toggles with Space only; Enter also toggles a switch, like a native button
+    // A native checkbox toggles with Space only; the switch pattern also toggles on Enter
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         const hasModifier = event.shiftKey || event.ctrlKey || event.metaKey || event.altKey;
         if (event.defaultPrevented || hasModifier || event.key !== 'Enter') {

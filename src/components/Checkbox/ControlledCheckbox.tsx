@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useEffect, useImperativeHandle, useRef } from 'react';
+import React, { useImperativeHandle, useLayoutEffect, useRef } from 'react';
 
 import { capitalize } from '~/utils/helpers';
 
@@ -14,7 +14,7 @@ export const ControlledCheckbox = React.forwardRef<HTMLInputElement, ControlledC
     useImperativeHandle(ref, () => inputRef.current!, []);
 
     // The mixed state of a checkbox is a DOM property, with no HTML attribute
-    useEffect(() => {
+    useLayoutEffect(() => {
         inputRef.current.indeterminate = indeterminate;
     }, [indeterminate]);
 
