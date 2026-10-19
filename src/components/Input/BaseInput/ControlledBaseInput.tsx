@@ -26,6 +26,7 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
     postfixComponents,
     onClick,
     onKeyPress,
+    onKeyDown,
     onKeyUp,
     onClear,
     onChange,
@@ -57,15 +58,16 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
         };
     }
 
-    // DateTimeInput and TimeInput forward a callback ref, so the input is reached through an inner one
+    // DateTimeInput forwards a callback ref, so the input is reached through an inner one
     const inputRef = useRef<HTMLInputElement>(null);
     const mergedRef = useMergeRefs([inputRef, ref]);
+    const pressedKeys = useRef(new Set<string>());
 
     const handleClear: React.MouseEventHandler = (e) => {
         onClear(e);
         // Unless onClear moved it, focus goes back to the field
         if (document.activeElement === e.currentTarget) {
-            inputRef.current?.focus();
+            inputRef.current.focus();
         }
     };
 
@@ -107,7 +109,16 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
                     onBlur={onBlur}
                     onChange={onChange}
                     onFocus={onFocus}
+                    onKeyDown={(e) => {
+                        pressedKeys.current.add(e.key);
+                        onKeyDown?.(e);
+                    }}
                     onKeyUp={(e) => {
+                        // Pressed elsewhere, e.g. Enter on the clear button, which moves focus here on keydown
+                        if (!pressedKeys.current.delete(e.key)) {
+                            return;
+                        }
+
                         if (onKeyPress) {
                             console.warn('onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
                             onKeyPress(e);
@@ -130,17 +141,6 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
                     icon={<Cancel/>}
                     variant="ghost"
                     onClick={handleClear}
-                    // Enter clicks on keydown, so its keyup would reach the field: click on keyup, as Space does
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                            e.preventDefault();
-                        }
-                    }}
-                    onKeyUp={(e) => {
-                        if (e.key === 'Enter') {
-                            e.currentTarget.click();
-                        }
-                    }}
                 />
             )}
         </div>
