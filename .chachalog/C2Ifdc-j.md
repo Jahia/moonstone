@@ -3,4 +3,4 @@
 "@jahia/moonstone": patch
 ---
 
-Screen readers now announce the `ListSelector` selection count and the `Menu`/`Dropdown` "no results" text (#1447)
+Add `role="status"` to the `ListSelector` selection count and to the `Menu` and `Dropdown` "no results" text (#1447)
