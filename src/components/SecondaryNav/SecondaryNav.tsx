@@ -44,7 +44,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
             }}
             enable={['right']}
             maxWidth="900"
-            minWidth={isVisible ? 300 : 0}
+            minWidth={isVisible ? 280 : 0}
             size={isVisible
                 ? null
                 : {

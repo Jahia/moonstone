@@ -3,8 +3,8 @@
 @use "../../../utils/mixins" as *;
 
 $big-tab-height: 32px;
-$selected-line-spacing: 6px;
-$selected-line-spacing-big: 20px;
+$selected-line-spacing: 4px;
+$selected-line-spacing-big: 8px;
 
 .moonstone-tabItem {
     width: fit-content;
@@ -65,8 +65,8 @@ $selected-line-spacing-big: 20px;
 }
 
 .moonstone-tabItem_big {
-    height: $big-tab-height;
-    margin-bottom: calc($selected-line-spacing-big + var(--moon-spacing-small));
+    // height: $big-tab-height;
+    margin-bottom: calc($selected-line-spacing-big);
 
     .moonstone-tabItem_icon {
         margin-right: $spacing-icon_big;
