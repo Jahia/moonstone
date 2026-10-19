@@ -202,6 +202,19 @@ describe('TablePagination', () => {
         expect(screen.getByRole('button', { name: 'Last page' })).toBeInTheDocument();
     });
 
+    it('should let the consumer translate the navigation button names', () => {
+        render(
+            <TablePagination
+                {...requiredProps}
+                label={{ rowsPerPage: 'Lignes par page', of: 'sur', firstPage: 'Première page', previousPage: 'Page précédente', nextPage: 'Page suivante', lastPage: 'Dernière page' }}
+            />,
+        );
+        expect(screen.getByRole('button', { name: 'Première page' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Page précédente' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Page suivante' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Dernière page' })).toBeInTheDocument();
+    });
+
     it('should translate one label and keep the default of the others', () => {
         render(<TablePagination {...requiredProps} label={{ firstPage: 'Première page' }}/>);
         expect(screen.getByRole('button', { name: 'Première page' })).toBeInTheDocument();
