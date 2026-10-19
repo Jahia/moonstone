@@ -25,4 +25,17 @@ export type SecondaryNavProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'chi
      * Triggered when the visibility is toggled
      */
     onToggled?: (e: React.MouseEvent) => void;
+    /**
+     * SecondaryNav labels
+     */
+    i18n?: {
+        /**
+         * aria-label of the handle that resizes the navigation
+         */
+        resizeHandleLabel: string;
+        /**
+         * Unit read after the width of the navigation, e.g. "300 pixels"
+         */
+        widthUnit: string;
+    };
 };

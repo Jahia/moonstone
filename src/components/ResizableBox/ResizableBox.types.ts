@@ -89,6 +89,6 @@ export type ResizableBoxProps = {
         /**
          * Unit read after the width of the resize handle, e.g. "300 pixels"
          */
-        pixels: string;
+        widthUnit: string;
     };
 };

@@ -28,7 +28,7 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
     onResizeStop,
     i18n = {
         handleLabel: 'Resize',
-        pixels: 'pixels',
+        widthUnit: 'pixels',
     },
     ...props
 }) => {
@@ -82,7 +82,7 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
             aria-valuemax={Number.isFinite(max) ? max : undefined}
             aria-valuemin={Number.isFinite(min) ? min : undefined}
             aria-valuenow={width}
-            aria-valuetext={width === undefined ? undefined : `${width} ${i18n.pixels}`}
+            aria-valuetext={width === undefined ? undefined : `${width} ${i18n.widthUnit}`}
             className={clsx('moonstone-resizable_handle_control', styles['moonstone-resizable_handle_control'])}
             role="separator"
             tabIndex={0}
