@@ -12,18 +12,19 @@ type TestListProps = {
 };
 
 const TestList = ({ orientation = 'vertical', initialIndex, onKeyDown }: TestListProps) => {
-    const rovingTabIndex = useRovingTabIndex({ orientation });
+    const rovingTabIndex = useRovingTabIndex();
 
     return (
         <>
             <button type="button">before</button>
             <Composite
                 {...rovingTabIndex.getCompositeProps(initialIndex)}
+                orientation={orientation}
                 render={compositeProps => (
                     <div
                         {...compositeProps}
                         {...mergeHandlers({ onKeyDown }, {
-                            onKeyDown: rovingTabIndex.onKeyDown,
+                            onKeyDown: rovingTabIndex.onKeyDown(compositeProps.onKeyDown),
                             onBlur: rovingTabIndex.onBlur,
                         })}
                     />

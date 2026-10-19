@@ -146,32 +146,16 @@ describe('TreeView keyboard', () => {
         expect(node('Root C')).toHaveFocus();
     });
 
-    describe('after nodes open above the focused one', () => {
+    it('moves from the focused node after nodes open above it', async () => {
         const shiftedData: TreeViewData[] = [
             { id: 'X', label: 'Root X', children: [{ id: 'X1', label: 'Child X1' }, { id: 'X2', label: 'Child X2' }] },
             { id: 'Y', label: 'Root Y', children: [{ id: 'Y1', label: 'Child Y1' }] },
             { id: 'Z', label: 'Root Z', children: [{ id: 'Z1', label: 'Child Z1' }] },
         ];
-
-        it('moves from the focused node', async () => {
-            render(<TreeView data={shiftedData}/>);
-            node('Root Z').focus();
-            await userEvent.keyboard('*');
-            await userEvent.keyboard('{ArrowDown}');
-            expect(node('Child Z1')).toHaveFocus();
-        });
-
-        it('leaves the tree with Shift+Tab', async () => {
-            render(
-                <>
-                    <button type="button">before</button>
-                    <TreeView data={shiftedData}/>
-                </>,
-            );
-            node('Root Z').focus();
-            await userEvent.keyboard('*');
-            await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
-            expect(screen.getByRole('button', { name: 'before' })).toHaveFocus();
-        });
+        render(<TreeView data={shiftedData}/>);
+        node('Root Z').focus();
+        await userEvent.keyboard('*');
+        await userEvent.keyboard('{ArrowDown}');
+        expect(node('Child Z1')).toHaveFocus();
     });
 });

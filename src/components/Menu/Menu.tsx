@@ -2,10 +2,9 @@ import { Composite } from '@floating-ui/react';
 import clsx from 'clsx';
 import React, { useMemo, useState } from 'react';
 
-import { MenuItem } from './MenuItem';
 import { SearchInput } from '~/components/Input';
 import { Typography } from '~/components/Typography';
-import { getInitialIndex, mergeHandlers, useEnterExitCallbacks, usePositioning, useRovingTabIndex } from '~/hooks';
+import { mergeHandlers, useEnterExitCallbacks, usePositioning, useRovingTabIndex } from '~/hooks';
 
 import type { MenuProps } from './Menu.types';
 import type { MenuItemProps } from './MenuItem.types';
@@ -67,19 +66,6 @@ const getFilteredGroups = (children: [React.ReactElement], inputValue: string) =
     return children.filter(child => getFilteredChildren(child, inputValue));
 };
 
-// The MenuItems of the Menu, in the order of its `CompositeItem`s: a title, or an item out of the Tab sequence, is not one
-const getMenuItems = (children: React.ReactNode): React.ReactElement<MenuItemProps>[] => React.Children.toArray(children).filter(React.isValidElement).flatMap((child) => {
-    const props = child.props as MenuItemProps & {
-        'data-option-type'?: string;
-        'children'?: React.ReactNode;
-    };
-    if (props['data-option-type'] === 'group') {
-        return getMenuItems(props.children);
-    }
-
-    return child.type === MenuItem && props.variant !== 'title' && props.tabIndex !== -1 ? [child as React.ReactElement<MenuItemProps>] : [];
-});
-
 const defaultAnchorElOrigin = {
     horizontal: 'left',
     vertical: 'bottom',
@@ -123,7 +109,7 @@ export const Menu: React.FC<MenuProps> = ({
 }) => {
     const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, position);
     useEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);
-    const rovingTabIndex = useRovingTabIndex({ orientation: 'vertical' });
+    const rovingTabIndex = useRovingTabIndex();
     const [inputValue, setInputValue] = useState('');
     // Search results are derived from the query, not stored: no effect, no extra render.
     // `null` means "no active search", so the unfiltered children are rendered as-is.
@@ -144,6 +130,11 @@ export const Menu: React.FC<MenuProps> = ({
         const flatChildren = (Array.isArray(children)) ? getFlatChildren(children as [React.ReactElement]) : children; // Check for grouped data
         hasAutoSearch = React.Children.count(flatChildren) > autoAddSearchLimit;
     }
+
+    // Focus enters the menu on its selected item, else on its first one. A title, or an item out of the Tab sequence, is no item of the Composite
+    const shownChildren = filteredChildren || children;
+    const items = (Array.isArray(shownChildren) && shownChildren.length > 0 ? getFlatChildren(shownChildren as [React.ReactElement]) : []) as React.ReactElement<MenuItemProps>[];
+    const initialIndex = Math.max(items.filter(item => item.props?.variant !== 'title' && item.props?.tabIndex !== -1).findIndex(item => item.props?.isSelected), 0);
 
     // ---
     // Styling
@@ -172,8 +163,8 @@ export const Menu: React.FC<MenuProps> = ({
     return (
         <>
             <Composite
-                // Focus enters the menu on the selected item, else on the first enabled one
-                {...rovingTabIndex.getCompositeProps(getInitialIndex(getMenuItems(filteredChildren || children).map(item => item.props)))}
+                {...rovingTabIndex.getCompositeProps(initialIndex)}
+                orientation="vertical"
                 ref={itemRef}
                 render={compositeProps => (
                     <menu
@@ -189,7 +180,7 @@ export const Menu: React.FC<MenuProps> = ({
                         onMouseEnter={onMouseEnter}
                         onMouseLeave={onMouseLeave}
                         {...mergeHandlers(props, {
-                            onKeyDown: rovingTabIndex.onKeyDown,
+                            onKeyDown: rovingTabIndex.onKeyDown(compositeProps.onKeyDown),
                             onBlur: rovingTabIndex.onBlur,
                         })}
                     />
