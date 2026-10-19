@@ -48,7 +48,8 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
     }, []);
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
-        if (e.altKey || e.ctrlKey || e.metaKey) {
+        const hasModifier = e.shiftKey || e.ctrlKey || e.metaKey || e.altKey;
+        if (e.defaultPrevented || hasModifier) {
             return;
         }
 
