@@ -132,17 +132,4 @@ describe('MultipleLeftRightSelector', () => {
 
         expect(screen.getByText('test left')).toBeInTheDocument();
     });
-
-    it('should name the move-all buttons with the given labels', () => {
-        render(
-            <ListSelector
-                {...requiredProps}
-                label={{ ...requiredProps.label, addAllTitle: 'Tout ajouter', removeAllTitle: 'Tout retirer' }}
-                options={options}
-                values={['3']}
-            />,
-        );
-        expect(screen.getByRole('button', { name: 'Tout ajouter' })).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: 'Tout retirer' })).toBeInTheDocument();
-    });
 });

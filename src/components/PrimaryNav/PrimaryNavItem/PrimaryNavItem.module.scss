@@ -29,11 +29,10 @@
     }
 }
 
-.moonstone-primaryNavItem_control {
+.primaryNavItem_control {
     display: flex;
     flex: 1;
     align-items: center;
-    align-self: stretch;
 
     min-width: 40px;
     max-width: 100%; // Necessery to truncate text inside it
@@ -49,7 +48,7 @@
 }
 
 // Typography styles [href] as a link, the item keeps its own colors
-.moonstone-primaryNavItem .moonstone-primaryNavItem_control[href] {
+.moonstone-primaryNavItem .primaryNavItem_control[href] {
     &,
     &:hover,
     &:active {
@@ -58,7 +57,7 @@
     }
 }
 
-.moonstone-primaryNavItem:not(.moonstone-selected) .moonstone-primaryNavItem_control:hover {
+.moonstone-primaryNavItem:not(.moonstone-selected) .primaryNavItem_control:hover {
     color: var(--moon-color-accent);
 }
 
@@ -102,9 +101,4 @@
     overflow: hidden;
 
     margin: 0 var(--moon-spacing-nano);
-}
-
-.moonstone-primaryNavItem_linkItem {
-    width: 100%;
-    margin: 0;
 }

@@ -53,8 +53,9 @@ export type HeaderProps = Omit<React.ComponentPropsWithoutRef<'header'>, 'classN
     i18n?: {
         /**
          * aria-label of the toolbar
+         * @default 'Page actions'
          */
-        toolbarLabel: string;
+        toolbarLabel?: string;
     };
 
     /**

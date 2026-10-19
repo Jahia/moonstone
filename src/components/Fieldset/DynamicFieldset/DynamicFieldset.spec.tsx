@@ -138,8 +138,8 @@ describe('ControlledDynamicFieldset', () => {
     });
 
     it('should expose the state on the switch only', () => {
-        render(<DynamicFieldset {...requiredProps} data-testid="dynamic-fieldset"/>);
+        render(<DynamicFieldset {...requiredProps} checked data-testid="dynamic-fieldset"/>);
         expect(screen.getByTestId('dynamic-fieldset')).not.toHaveAttribute('aria-checked');
-        expect(screen.getByLabelText(requiredProps.label)).not.toBeChecked();
+        expect(screen.getByLabelText(requiredProps.label)).toBeChecked();
     });
 });

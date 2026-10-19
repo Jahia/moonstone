@@ -2,16 +2,6 @@ import React from 'react';
 
 import type { BadgeProps } from '~/components/Badge/Badge.types';
 
-export type ItemTypeResolverProps = {
-    url?: string;
-    label?: string;
-    icon?: React.ReactElement;
-    subtitle?: string;
-    isSelected?: boolean;
-    onClick: React.MouseEventHandler;
-    children?: React.ReactNode;
-};
-
 export type PrimaryNavItemProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'onClick' | 'className'> & {
     /**
      * Label

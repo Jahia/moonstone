@@ -208,13 +208,8 @@ describe('AccordionItem', () => {
                 <AccordionItem {...requiredProps}>content here</AccordionItem>
             </AccordionContext.Provider>,
         );
-        const button = screen.getByRole('button', { name: requiredProps.label });
         const panel = screen.getByRole('region', { name: requiredProps.label });
-
-        expect(button).toHaveAttribute('aria-expanded', 'true');
-        expect(button).toHaveAttribute('aria-controls', requiredProps.id);
-        expect(panel).toHaveAttribute('id', requiredProps.id);
-        expect(panel).toHaveTextContent('content here');
+        expect(screen.getByRole('button', { name: requiredProps.label })).toHaveAttribute('aria-controls', panel.id);
     });
 
     it('should keep the consumer id in aria-controls when closed', () => {

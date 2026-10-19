@@ -34,7 +34,6 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
         >
             <Typography component="h3">
                 <Typography
-                    isNowrap
                     // Kept while closed: referencing an unrendered panel is valid when aria-expanded is false
                     aria-controls={id}
                     aria-expanded={open}
@@ -48,14 +47,12 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
                     component="button"
                     id={buttonId}
                     type="button"
-                    variant="subheading"
-                    weight={open ? 'bold' : 'default'}
                     onClick={handleClick}
                 >
                     {icon && (
                         <icon.type
                             {...icon.props}
-                            className={clsx('moonstone-icon_big', icons['moonstone-icon_big'], styles['moonstone-accordionItem_icon'], icon.props.className)}
+                            className={clsx('moonstone-icon_big', icons['moonstone-icon_big'], styles.accordionItem_icon, icon.props.className)}
                             size="big"
                         />
                     )}

@@ -62,4 +62,9 @@ describe('PrimaryNav', () => {
         expect(screen.getByRole('navigation')).toHaveAttribute('id', 'main-nav');
         expect(screen.getByRole('navigation')).not.toHaveAttribute('aria-expanded');
     });
+
+    it('should point the toggle button to the navigation without an id', () => {
+        render(<PrimaryNav {...props}/>);
+        expect(screen.getByRole('button', { name: 'Toggle primary navigation' })).toHaveAttribute('aria-controls', screen.getByRole('navigation').id);
+    });
 });

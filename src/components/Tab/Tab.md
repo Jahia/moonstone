@@ -26,9 +26,9 @@ Not available
 
 ```jsx
 <Tab>
-    <TabItem id="tab-content" aria-controls="panel-content" label="Content" isSelected={selected === 'content'}/>
-    <TabItem id="tab-settings" aria-controls="panel-settings" label="Settings" isSelected={selected === 'settings'}/>
+    <TabItem id="tab-1" aria-controls="panel-1" label="Tab 1"/>
+    <TabItem id="tab-2" aria-controls="panel-2" label="Tab 2"/>
 </Tab>
-<div role="tabpanel" id="panel-content" aria-labelledby="tab-content" hidden={selected !== 'content'}>…</div>
-<div role="tabpanel" id="panel-settings" aria-labelledby="tab-settings" hidden={selected !== 'settings'}>…</div>
+<div role="tabpanel" id="panel-1" aria-labelledby="tab-1">…</div>
+<div role="tabpanel" id="panel-2" aria-labelledby="tab-2">…</div>
 ```

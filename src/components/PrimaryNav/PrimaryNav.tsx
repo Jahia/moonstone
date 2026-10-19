@@ -66,10 +66,7 @@ export const PrimaryNav: React.FC<PrimaryNavProps> = ({
     bottom = null,
     headerCaption = '',
     modeIcon,
-    i18n = {
-        navigationLabel: 'Primary',
-        toggleButtonLabel: 'Toggle primary navigation',
-    },
+    i18n,
     ...props
 }) => {
     const [isExpanded, setExpanded] = useState(false);
@@ -89,7 +86,7 @@ export const PrimaryNav: React.FC<PrimaryNavProps> = ({
     return (
         <PrimaryNavContext.Provider value={contextValue}>
             <nav
-                aria-label={i18n.navigationLabel}
+                aria-label={i18n?.navigationLabel || 'Primary'}
                 {...props}
                 className={clsx(
                     ['moonstone-primaryNav', styles['moonstone-primaryNav']],
@@ -112,7 +109,7 @@ export const PrimaryNav: React.FC<PrimaryNavProps> = ({
                         <NavButton
                             isExpanded={isExpanded}
                             controlsId={navId}
-                            label={i18n.toggleButtonLabel}
+                            label={i18n?.toggleButtonLabel || 'Toggle primary navigation'}
                             modeIcon={modeIcon}
                             toggleExpand={toggleExpand}
                         />

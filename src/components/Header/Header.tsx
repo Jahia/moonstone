@@ -18,9 +18,7 @@ export const Header: React.FC<HeaderProps> = ({
     toolbarLeft,
     backButton = null,
     breadcrumb,
-    i18n = {
-        toolbarLabel: 'Page actions',
-    },
+    i18n,
     className,
     ...props
 }: HeaderProps) => {
@@ -118,7 +116,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <>
                     {hasInformationArea && <Separator spacing="none"/>}
                     <div
-                        aria-label={i18n.toolbarLabel}
+                        aria-label={i18n?.toolbarLabel || 'Page actions'}
                         className={clsx(
                             ['flexRow_between', layout.flexRow_between],
                             ['alignCenter', layout.alignCenter],

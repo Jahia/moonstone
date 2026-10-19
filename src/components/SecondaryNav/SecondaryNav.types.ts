@@ -31,11 +31,13 @@ export type SecondaryNavProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'chi
     i18n?: {
         /**
          * aria-label of the navigation
+         * @default 'Secondary navigation'
          */
-        navigationLabel: string;
+        navigationLabel?: string;
         /**
          * aria-label of the button that shows and hides the navigation
+         * @default 'Toggle secondary navigation'
          */
-        toggleButtonLabel: string;
+        toggleButtonLabel?: string;
     };
 };

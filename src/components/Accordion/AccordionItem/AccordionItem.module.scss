@@ -11,11 +11,6 @@ $accordionHeader_height: 48px;
 
     overflow: hidden;
 
-    // In a wrapping flex column the heading would otherwise take its content width
-    > h3 {
-        width: 100%;
-    }
-
     &:only-child {
         border-bottom: none;
     }
@@ -89,7 +84,7 @@ $accordionHeader_height: 48px;
     }
 }
 
-.moonstone-accordionItem_icon {
+.accordionItem_icon {
     margin-right: $spacing-icon_big;
 }
 

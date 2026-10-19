@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 
 import { PrimaryNav } from '../PrimaryNav';
 import { PrimaryNavItem } from './index';
-import { Badge } from '~/components';
+import { Badge, Tooltip } from '~/components';
 
 describe('NavItem', () => {
     it('should display a text children', () => {
@@ -100,5 +100,12 @@ describe('NavItem', () => {
         await user.click(screen.getByText('test me'));
 
         expect(onClick).toHaveBeenCalled();
+    });
+
+    it('should give the description of a Tooltip to the control', async () => {
+        const user = userEvent.setup();
+        render(<Tooltip label="Tip"><PrimaryNavItem label="Item"/></Tooltip>);
+        await user.hover(screen.getByRole('button', { name: 'Item' }));
+        expect(screen.getByRole('button', { name: 'Item' })).toHaveAccessibleDescription('Tip');
     });
 });

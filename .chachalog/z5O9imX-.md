@@ -3,4 +3,4 @@
 "@jahia/moonstone": minor
 ---
 
-Add an `i18n` prop to `Header`, `PrimaryNav` and `SecondaryNav` to translate their accessible names (#1428)
+Add an `i18n` prop to `Header`, `PrimaryNav` and `SecondaryNav` to translate their `aria-label` (#1428)

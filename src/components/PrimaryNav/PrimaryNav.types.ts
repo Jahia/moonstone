@@ -48,11 +48,13 @@ export type PrimaryNavProps = React.ComponentPropsWithoutRef<'nav'> & {
     i18n?: {
         /**
          * aria-label of the navigation
+         * @default 'Primary'
          */
-        navigationLabel: string;
+        navigationLabel?: string;
         /**
          * aria-label of the button that expands and collapses the navigation
+         * @default 'Toggle primary navigation'
          */
-        toggleButtonLabel: string;
+        toggleButtonLabel?: string;
     };
 };
