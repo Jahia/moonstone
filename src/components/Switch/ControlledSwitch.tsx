@@ -46,7 +46,7 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLInputElemen
                 role="switch"
                 type="checkbox"
                 value={value}
-                onChange={event => onChange(event, value, event.target.checked)}
+                onChange={event => onChange?.(event, value, event.target.checked)}
             />
             <span className={clsx('moonstone-switch_icon', styles['moonstone-switch_icon'])}/>
         </div>
