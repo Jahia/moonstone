@@ -34,7 +34,13 @@ export const ValueList: React.FC<ValueListProps> = ({
             )}
         >
             <SearchInput onChange={e => setFilter(e.target.value.trim())}/>
-            <ul aria-label={listLabel} className={clsx('moonstone-valueList', styles['moonstone-valueList'], ...listClasses)} onDragOver={e => onDragOver(e, null)} onDrop={e => onDrop(e, null)}>
+            <ul
+                aria-label={listLabel}
+                className={clsx('moonstone-valueList', styles['moonstone-valueList'], ...listClasses)}
+                data-list={side}
+                onDragOver={e => onDragOver(e, null)}
+                onDrop={e => onDrop(e, null)}
+            >
                 {values.map((v) => {
                     const classNames = ['moonstone-valueListItem', styles['moonstone-valueListItem']];
                     if (draggedId === v.value && v.tempItem) {

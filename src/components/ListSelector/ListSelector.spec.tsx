@@ -27,6 +27,12 @@ describe('MultipleLeftRightSelector', () => {
         expect(container.querySelectorAll('li')).toHaveLength(0);
     });
 
+    it('should mark each list with its side', () => {
+        render(<ListSelector {...requiredProps}/>);
+        expect(screen.getByRole('list', { name: 'Available' })).toHaveAttribute('data-list', 'left');
+        expect(screen.getByRole('list', { name: 'Selected' })).toHaveAttribute('data-list', 'right');
+    });
+
     it('should display options in left list', () => {
         render(
             <ListSelector {...requiredProps} options={options}/>,
