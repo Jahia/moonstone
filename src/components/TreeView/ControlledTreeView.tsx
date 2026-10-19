@@ -4,7 +4,7 @@ import React, { useRef } from 'react';
 
 import { Loader, Typography } from '~/components';
 import { icons, layout } from '~/globals/css-utils.js';
-import { mergeHandlers, onTreeItemKeys, rovingItemProps, useRovingTabIndex } from '~/hooks';
+import { getInitialIndex, mergeHandlers, onTreeItemKeys, rovingItemProps, useRovingTabIndex } from '~/hooks';
 import { CheckboxChecked, CheckboxUnchecked, ChevronDown, ChevronRight } from '~/icons';
 
 import type { ControlledTreeViewProps, TreeViewData } from './TreeView.types';
@@ -59,7 +59,10 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
     }, ref) => {
     const isFlatData = data.filter(item => item.children && item.children.length > 0).length === 0;
     const refs = useRef(new Map<string, React.RefObject<HTMLElement>>());
-    const rovingTabIndex = useRovingTabIndex();
+    const rovingTabIndex = useRovingTabIndex({
+        orientation: 'vertical',
+        loop: false,
+    });
     // The rendered nodes, in the order of the items of the Composite
     const visibleNodes: TreeViewData[] = [];
 
@@ -238,23 +241,23 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
 
     const treeItems = generateLevelJSX(data, 0, false);
     // Focus enters the tree on the first selected node, else on the first enabled one
-    const selectedIndex = visibleNodes.findIndex(node => selectedItems.includes(node.id) && !node.isDisabled);
-    const initialIndex = selectedIndex === -1 ? Math.max(visibleNodes.findIndex(node => !node.isDisabled), 0) : selectedIndex;
+    const initialIndex = getInitialIndex(visibleNodes.map(node => ({
+        isSelected: selectedItems.includes(node.id),
+        isDisabled: node.isDisabled,
+    })));
 
     // TreeView component. ArrowUp, ArrowDown, Home and End move between the nodes (useRovingTabIndex);
     // Enter, Space, ArrowLeft, ArrowRight and `*` act on the focused node (onTreeItemKeys)
     return (
         <Composite
             {...rovingTabIndex.getCompositeProps(initialIndex)}
-            loop={false}
-            orientation="vertical"
             ref={ref}
             render={compositeProps => React.createElement(component, {
                 ...compositeProps,
                 'role': 'tree',
                 'aria-multiselectable': showCheckbox,
                 ...mergeHandlers(props, {
-                    onKeyDown: rovingTabIndex.onKeyDown(compositeProps.onKeyDown),
+                    onKeyDown: rovingTabIndex.onKeyDown,
                     onBlur: rovingTabIndex.onBlur,
                 }),
                 'className': clsx(styles.treeView, className),

@@ -5,8 +5,6 @@ type onAccessibleClickProps = {
     onClick: onClickProp;
     /** Removes the handlers and takes the element out of the Tab sequence */
     disabled?: boolean;
-    /** Not read: chain a consumer `onKeyUp` with `mergeHandlers` */
-    onKeyUp?: React.KeyboardEventHandler;
     /** Role of the element, `button` by default */
     role?: string;
     /** Tab index of the element when enabled, `0` by default */

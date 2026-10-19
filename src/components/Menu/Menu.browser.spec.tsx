@@ -35,6 +35,21 @@ describe('Menu keyboard', () => {
         expect(item('First')).toHaveFocus();
     });
 
+    it('reaches the selected item with Tab', async () => {
+        render(
+            <>
+                <button type="button">before</button>
+                <Menu isDisplayed>
+                    <MenuItem label="First"/>
+                    <MenuItem isSelected label="Second"/>
+                </Menu>
+            </>,
+        );
+        screen.getByRole('button', { name: 'before' }).focus();
+        await userEvent.keyboard('{Tab}');
+        expect(item('Second')).toHaveFocus();
+    });
+
     it('skips disabled items when moving with the arrow keys', async () => {
         renderMenu();
         item('Second').focus();

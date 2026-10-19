@@ -31,7 +31,10 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     // Generate options
     // ---
     const dropdownOption = (item: DropdownDataOption) => {
-        const accessibleClick = onAccessibleClick({
+        // Only the handlers are chained: a `role`, `tabIndex` or `disabled` in the attributes of the item wins
+        const {
+            role, disabled, tabIndex, ...accessibleHandlers
+        } = onAccessibleClick({
             onClick: e => handleSelect(e, item),
             disabled: item.isDisabled,
             role: 'option',
@@ -49,7 +52,11 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
                 imageSize={imageSize}
                 key={item.value}
                 label={item.label}
-                {...mergeHandlers({ ...item.attributes }, accessibleClick) as MenuItemProps}
+                {...mergeHandlers({
+                    role,
+                    disabled,
+                    tabIndex,
+                }, { ...item.attributes }, accessibleHandlers) as MenuItemProps}
             />
         );
     };

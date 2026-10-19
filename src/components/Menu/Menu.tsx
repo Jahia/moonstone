@@ -2,11 +2,13 @@ import { Composite } from '@floating-ui/react';
 import clsx from 'clsx';
 import React, { useMemo, useState } from 'react';
 
+import { MenuItem } from './MenuItem';
 import { SearchInput } from '~/components/Input';
 import { Typography } from '~/components/Typography';
-import { mergeHandlers, useEnterExitCallbacks, usePositioning, useRovingTabIndex } from '~/hooks';
+import { getInitialIndex, mergeHandlers, useEnterExitCallbacks, usePositioning, useRovingTabIndex } from '~/hooks';
 
 import type { MenuProps } from './Menu.types';
+import type { MenuItemProps } from './MenuItem.types';
 
 import styles from './Menu.module.scss';
 
@@ -65,6 +67,19 @@ const getFilteredGroups = (children: [React.ReactElement], inputValue: string) =
     return children.filter(child => getFilteredChildren(child, inputValue));
 };
 
+// The MenuItems of the Menu, in the order of its `CompositeItem`s: a title, or an item out of the Tab sequence, is not one
+const getMenuItems = (children: React.ReactNode): React.ReactElement<MenuItemProps>[] => React.Children.toArray(children).filter(React.isValidElement).flatMap((child) => {
+    const props = child.props as MenuItemProps & {
+        'data-option-type'?: string;
+        'children'?: React.ReactNode;
+    };
+    if (props['data-option-type'] === 'group') {
+        return getMenuItems(props.children);
+    }
+
+    return child.type === MenuItem && props.variant !== 'title' && props.tabIndex !== -1 ? [child as React.ReactElement<MenuItemProps>] : [];
+});
+
 const defaultAnchorElOrigin = {
     horizontal: 'left',
     vertical: 'bottom',
@@ -108,7 +123,7 @@ export const Menu: React.FC<MenuProps> = ({
 }) => {
     const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, position);
     useEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);
-    const rovingTabIndex = useRovingTabIndex();
+    const rovingTabIndex = useRovingTabIndex({ orientation: 'vertical' });
     const [inputValue, setInputValue] = useState('');
     // Search results are derived from the query, not stored: no effect, no extra render.
     // `null` means "no active search", so the unfiltered children are rendered as-is.
@@ -157,8 +172,8 @@ export const Menu: React.FC<MenuProps> = ({
     return (
         <>
             <Composite
-                {...rovingTabIndex.getCompositeProps()}
-                orientation="vertical"
+                // Focus enters the menu on the selected item, else on the first enabled one
+                {...rovingTabIndex.getCompositeProps(getInitialIndex(getMenuItems(filteredChildren || children).map(item => item.props)))}
                 ref={itemRef}
                 render={compositeProps => (
                     <menu
@@ -174,7 +189,7 @@ export const Menu: React.FC<MenuProps> = ({
                         onMouseEnter={onMouseEnter}
                         onMouseLeave={onMouseLeave}
                         {...mergeHandlers(props, {
-                            onKeyDown: rovingTabIndex.onKeyDown(compositeProps.onKeyDown),
+                            onKeyDown: rovingTabIndex.onKeyDown,
                             onBlur: rovingTabIndex.onBlur,
                         })}
                     />
