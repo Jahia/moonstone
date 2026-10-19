@@ -9,7 +9,7 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLInputElemen
     className,
     checked = false,
     value,
-    onChange = () => undefined,
+    onChange,
     isDisabled,
     ...other
 }, ref) => {
