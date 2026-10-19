@@ -15,7 +15,7 @@
         border-bottom: none;
     }
 
-    &+.moonstone-accordionItem {
+    & + .moonstone-accordionItem {
         border-top: 0;
     }
 

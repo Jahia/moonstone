@@ -15,7 +15,7 @@ $header-toolbar-minheight: 35px;
 
 // Set the same spacing between each elements (buttons, chips, ...)
 .moonstone-header_actions {
-    >*+* {
+    >* + * {
         margin-left: var(--moon-spacing-small);
     }
 }
