@@ -16,10 +16,7 @@ const cssClass16 = 'moonstone-marginRight16';
 
 export const TablePagination: React.FC<TablePaginationProps> = ({
     className,
-    label = {
-        rowsPerPage: 'Rows per page',
-        of: 'of',
-    },
+    label,
     rowsPerPage = 10,
     rowsPerPageOptions = [5, 10, 25],
     totalNumberOfRows,
@@ -50,7 +47,7 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
             )}
             {...props}
         >
-            <Typography variant="caption">{label.rowsPerPage}</Typography>
+            <Typography variant="caption">{label?.rowsPerPage || 'Rows per page'}</Typography>
             <Dropdown
                 className={clsx('alignCenter', layout.alignCenter, cssClass16, styles[cssClass16])}
                 data={rowsPerPageOptions.map(opt => ({
@@ -73,11 +70,11 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
                 data-sel-role="table-pagination-total-rows"
                 variant="caption"
             >
-                {`${visibleRowsRangeLeft}-${visibleRowsRangeRight} ${label.of} ${totalNumberOfRows}`}
+                {`${visibleRowsRangeLeft}-${visibleRowsRangeRight} ${label?.of || 'of'} ${totalNumberOfRows}`}
             </Typography>
             <Button
                 isDisabled={currentPage === 1}
-                aria-label={label.firstPage || 'First page'}
+                aria-label={label?.firstPage || 'First page'}
                 className={clsx([cssClass32, styles[cssClass32]])}
                 data-sel-role="table-pagination-button-first-page"
                 icon={<ChevronFirstPage/>}
@@ -86,7 +83,7 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
             />
             <Button
                 isDisabled={currentPage === 1}
-                aria-label={label.previousPage || 'Previous page'}
+                aria-label={label?.previousPage || 'Previous page'}
                 className={clsx([cssClass32, styles[cssClass32]])}
                 data-sel-role="table-pagination-button-previous-page"
                 icon={<ChevronLeft/>}
@@ -95,7 +92,7 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
             />
             <Button
                 isDisabled={lastPage === currentPage}
-                aria-label={label.nextPage || 'Next page'}
+                aria-label={label?.nextPage || 'Next page'}
                 className={clsx([cssClass32, styles[cssClass32]])}
                 data-sel-role="table-pagination-button-next-page"
                 icon={<ChevronRight/>}
@@ -104,7 +101,7 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
             />
             <Button
                 isDisabled={lastPage === currentPage}
-                aria-label={label.lastPage || 'Last page'}
+                aria-label={label?.lastPage || 'Last page'}
                 className={clsx([cssClass16, styles[cssClass16]])}
                 data-sel-role="table-pagination-button-last-page"
                 icon={<ChevronLastPage/>}
