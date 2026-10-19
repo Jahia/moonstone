@@ -14,7 +14,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
     children,
     isDefaultVisible = true,
     isReversed = true,
-    onToggled = () => undefined,
+    onToggled,
     className,
     i18n,
     ...props
@@ -24,7 +24,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
 
     const handleToggle = (e: React.MouseEvent) => {
         setIsVisible(prevState => !prevState);
-        onToggled(e);
+        onToggled?.(e);
     };
 
     return (

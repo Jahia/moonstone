@@ -16,7 +16,7 @@ export const PrimaryNavItem: React.FC<PrimaryNavItemProps> = ({
     url = null,
     button = null,
     isSelected = false,
-    onClick = () => undefined,
+    onClick,
     badge = null,
     'aria-describedby': ariaDescribedBy,
     ...props
@@ -28,7 +28,7 @@ export const PrimaryNavItem: React.FC<PrimaryNavItemProps> = ({
             primaryNavContext.collapse();
         }
 
-        onClick(e);
+        onClick?.(e);
     };
 
     const controlProps = url

@@ -10,14 +10,14 @@ import type { AccordionItemProps } from './AccordionItem.types';
 import styles from './AccordionItem.module.scss';
 
 export const AccordionItem: React.FC<AccordionItemProps> = ({
-    id, label, icon = null, onClick = () => undefined, className, children, ...props
+    id, label, icon = null, onClick, className, children, ...props
 }) => {
     const context = React.useContext(AccordionContext);
     const open = context.currentItem === id;
     const buttonId = useId();
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-        onClick(e, !open);
+        onClick?.(e, !open);
         context.onSetOpenedItem(id);
     };
 
