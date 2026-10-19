@@ -1,10 +1,10 @@
-import { useMergeRefs } from '@floating-ui/react';
+import { Composite, CompositeItem } from '@floating-ui/react';
 import clsx from 'clsx';
 import React, { useRef } from 'react';
 
 import { Loader, Typography } from '~/components';
 import { icons, layout } from '~/globals/css-utils.js';
-import { mergeHandlers, onToggleNode, useRovingFocus } from '~/hooks';
+import { mergeHandlers, onTreeItemKeys, rovingItemProps, useRovingTabIndex } from '~/hooks';
 import { CheckboxChecked, CheckboxUnchecked, ChevronDown, ChevronRight } from '~/icons';
 
 import type { ControlledTreeViewProps, TreeViewData } from './TreeView.types';
@@ -59,12 +59,9 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
     }, ref) => {
     const isFlatData = data.filter(item => item.children && item.children.length > 0).length === 0;
     const refs = useRef(new Map<string, React.RefObject<HTMLElement>>());
-    const treeRef = useRef<HTMLUListElement>(null);
-    const mergedRef = useMergeRefs([treeRef, ref]);
-    const rovingFocus = useRovingFocus(treeRef, {
-        itemSelector: '[role="treeitem"]',
-        loop: false,
-    });
+    const rovingTabIndex = useRovingTabIndex();
+    // The rendered nodes, in the order of the items of the Composite
+    const visibleNodes: TreeViewData[] = [];
 
     function generateLevelJSX(nodeData: TreeViewData[], depth: number, parentHasIconStart: boolean, parentRef?: React.RefObject<HTMLElement>): React.ReactNode[] {
         const expandSiblings = (e: React.MouseEvent) => {
@@ -74,6 +71,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
         };
 
         return nodeData.map((node) => {
+            visibleNodes.push(node);
             let containerRef = refs.current.get(node.id);
             if (!containerRef) {
                 containerRef = React.createRef<HTMLElement>();
@@ -138,7 +136,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                 node.isDisabled && ['moonstone-disabled', styles['moonstone-disabled']],
             );
 
-            const toggleNodeProps = onToggleNode({
+            const treeItemKeys = onTreeItemKeys({
                 onToggle: toggleNode,
                 onClick: handleNodeClick,
                 isDisabled: !isClickable,
@@ -149,105 +147,121 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                 onExpandSiblings: expandSiblings,
             });
 
-            return [
-                React.createElement(
-                    itemComponent,
-                    {
-                        'ref': containerRef,
-                        'role': 'treeitem',
-                        'aria-selected': isSelected,
-                        'aria-expanded': hasChild ? isOpen : null,
-                        'aria-busy': isLoading,
-                        'aria-current': isHighlighted ? 'page' : null,
-                        'aria-level': depth + 1,
-                        'key': `${depth}-${node.id}`,
-                        'style': {
-                            '--treeItem-depth': depth,
-                            ...node?.treeItemProps?.style,
-                        },
-                        'onDoubleClick': handleNodeDoubleClick,
-                        'onContextMenu': handleNodeContextMenu,
-                        ...toggleNodeProps,
-                        ...node.treeItemProps,
-                        // The consumer's onKeyDown runs first, and its preventDefault() turns the keys of the tree off
-                        'onKeyDown': mergeHandlers(node.treeItemProps ?? {}, toggleNodeProps).onKeyDown,
+            const treeItem = React.createElement(
+                itemComponent,
+                {
+                    'role': 'treeitem',
+                    'aria-selected': isSelected,
+                    'aria-expanded': hasChild ? isOpen : null,
+                    'aria-busy': isLoading,
+                    'aria-current': isHighlighted ? 'page' : null,
+                    'aria-disabled': node.isDisabled || undefined,
+                    'aria-level': depth + 1,
+                    ...rovingItemProps,
+                    'onDoubleClick': handleNodeDoubleClick,
+                    'onContextMenu': handleNodeContextMenu,
+                    ...mergeHandlers(node.treeItemProps ?? {}, treeItemKeys),
+                    'style': {
+                        '--treeItem-depth': depth,
+                        ...node?.treeItemProps?.style,
                     },
-                    <div className={cssTreeViewItem}>
-                        {/* Icon arrow */}
-                        {isClosable && hasChild && (
-                            <div
-                                className={clsx(
-                                    ['flexRow', layout.flexRow],
-                                    ['alignCenter', layout.alignCenter],
-                                    ['moonstone-treeView_itemToggle', styles['moonstone-treeView_itemToggle']],
-                                )}
-                                data-testid="treeitem-toggle-icon"
-                                onClick={toggleNode}
-                            >
-                                {isLoading ? <Loader isReversed={isReversed} size="small"/> : isOpen ? <ChevronDown size={size}/> : <ChevronRight size={size}/>}
-                            </div>
-                        )}
-                        {!isFlatData && !hasChild
-                            && (
-                                <div className={clsx(
-                                    ['flexRow', layout.flexRow],
-                                    ['alignCenter', layout.alignCenter],
-                                    ['moonstone-treeView_itemToggle', styles['moonstone-treeView_itemToggle']],
-                                )}
-                                />
-                            )}
-
-                        {isPadVirtualizedRow && isFlatData && !isClosable
-                            && (
-                                <div className={clsx(
-                                    ['flexRow', layout.flexRow],
-                                    ['alignCenter', layout.alignCenter],
-                                    ['moonstone-treeView_itemToggle', styles['moonstone-treeView_itemToggle']],
-                                )}
-                                />
-                            )}
-
-                        {/* TreeViewItem */}
+                },
+                <div className={cssTreeViewItem}>
+                    {/* Icon arrow */}
+                    {isClosable && hasChild && (
                         <div
                             className={clsx(
-                                ['flexRow_nowrap', layout.flexRow],
+                                ['flexRow', layout.flexRow],
                                 ['alignCenter', layout.alignCenter],
-                                ['flexFluid', layout.flexFluid],
-                                ['moonstone-treeView_itemLabel', styles['moonstone-treeView_itemLabel']],
-                                node.className,
+                                ['moonstone-treeView_itemToggle', styles['moonstone-treeView_itemToggle']],
                             )}
-                            onClick={isClickable ? handleNodeClick : undefined}
+                            data-testid="treeitem-toggle-icon"
+                            onClick={toggleNode}
                         >
-                            {showCheckbox
-                                ? (isSelected ? <CheckboxChecked aria-checked="true" className={clsx('moonstone-treeView_itemIconStart', styles['moonstone-treeView_itemIconStart'])} color="blue" role="checkbox"/> : <CheckboxUnchecked aria-checked="false" className={clsx('moonstone-treeView_itemIconStart', styles['moonstone-treeView_itemIconStart'])} role="checkbox"/>)
-                                : (displayIcon(node.iconStart, 'small', clsx('moonstone-treeView_itemIconStart', styles['moonstone-treeView_itemIconStart']), parentHasIconStart))}
-                            <Typography
-                                isNowrap
-                                className={clsx('flexFluid', layout.flexFluid)}
-                                component="span"
-                                variant={size === 'default' ? 'body' : 'caption'}
-                                {...node.typographyOptions}
-                            >
-                                {node.label}
-                            </Typography>
-                            {hasIconEnd && displayIcon(node.iconEnd, 'small')}
+                            {isLoading ? <Loader isReversed={isReversed} size="small"/> : isOpen ? <ChevronDown size={size}/> : <ChevronRight size={size}/>}
                         </div>
-                    </div>,
-                ),
+                    )}
+                    {!isFlatData && !hasChild
+                        && (
+                            <div className={clsx(
+                                ['flexRow', layout.flexRow],
+                                ['alignCenter', layout.alignCenter],
+                                ['moonstone-treeView_itemToggle', styles['moonstone-treeView_itemToggle']],
+                            )}
+                            />
+                        )}
+
+                    {isPadVirtualizedRow && isFlatData && !isClosable
+                        && (
+                            <div className={clsx(
+                                ['flexRow', layout.flexRow],
+                                ['alignCenter', layout.alignCenter],
+                                ['moonstone-treeView_itemToggle', styles['moonstone-treeView_itemToggle']],
+                            )}
+                            />
+                        )}
+
+                    {/* TreeViewItem */}
+                    <div
+                        className={clsx(
+                            ['flexRow_nowrap', layout.flexRow],
+                            ['alignCenter', layout.alignCenter],
+                            ['flexFluid', layout.flexFluid],
+                            ['moonstone-treeView_itemLabel', styles['moonstone-treeView_itemLabel']],
+                            node.className,
+                        )}
+                        onClick={isClickable ? handleNodeClick : undefined}
+                    >
+                        {showCheckbox
+                            ? (isSelected ? <CheckboxChecked aria-checked="true" className={clsx('moonstone-treeView_itemIconStart', styles['moonstone-treeView_itemIconStart'])} color="blue" role="checkbox"/> : <CheckboxUnchecked aria-checked="false" className={clsx('moonstone-treeView_itemIconStart', styles['moonstone-treeView_itemIconStart'])} role="checkbox"/>)
+                            : (displayIcon(node.iconStart, 'small', clsx('moonstone-treeView_itemIconStart', styles['moonstone-treeView_itemIconStart']), parentHasIconStart))}
+                        <Typography
+                            isNowrap
+                            className={clsx('flexFluid', layout.flexFluid)}
+                            component="span"
+                            variant={size === 'default' ? 'body' : 'caption'}
+                            {...node.typographyOptions}
+                        >
+                            {node.label}
+                        </Typography>
+                        {hasIconEnd && displayIcon(node.iconEnd, 'small')}
+                    </div>
+                </div>,
+            );
+
+            return [
+                <CompositeItem key={`${depth}-${node.id}`} ref={containerRef} render={treeItem}/>,
                 ...((isOpen && node.children) ? generateLevelJSX(node.children, isClosable ? (depth + 1) : depth, hasIconStart, containerRef) : []),
             ];
         });
     }
 
-    // TreeView component
-    return React.createElement(
-        component, {
-            'ref': mergedRef,
-            'role': 'tree',
-            'aria-multiselectable': showCheckbox,
-            ...mergeHandlers(props, rovingFocus),
-            'className': clsx(styles.treeView, className),
-        }, generateLevelJSX(data, 0, false),
+    const treeItems = generateLevelJSX(data, 0, false);
+    // Focus enters the tree on the first selected node, else on the first enabled one
+    const selectedIndex = visibleNodes.findIndex(node => selectedItems.includes(node.id) && !node.isDisabled);
+    const initialIndex = selectedIndex === -1 ? Math.max(visibleNodes.findIndex(node => !node.isDisabled), 0) : selectedIndex;
+
+    // TreeView component. ArrowUp, ArrowDown, Home and End move between the nodes (useRovingTabIndex);
+    // Enter, Space, ArrowLeft, ArrowRight and `*` act on the focused node (onTreeItemKeys)
+    return (
+        <Composite
+            {...rovingTabIndex.getCompositeProps(initialIndex)}
+            loop={false}
+            orientation="vertical"
+            ref={ref}
+            render={compositeProps => React.createElement(component, {
+                ...compositeProps,
+                'role': 'tree',
+                'aria-multiselectable': showCheckbox,
+                ...mergeHandlers(props, {
+                    onKeyDown: rovingTabIndex.onKeyDown(compositeProps.onKeyDown),
+                    onBlur: rovingTabIndex.onBlur,
+                }),
+                'className': clsx(styles.treeView, className),
+            })}
+        >
+            {treeItems}
+        </Composite>
     );
 };
 

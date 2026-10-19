@@ -49,9 +49,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
                 imageSize={imageSize}
                 key={item.value}
                 label={item.label}
-                {...accessibleClick}
-                {...item.attributes as MenuItemProps}
-                onKeyDown={mergeHandlers({ ...item.attributes }, accessibleClick).onKeyDown as React.KeyboardEventHandler}
+                {...mergeHandlers({ ...item.attributes }, accessibleClick) as MenuItemProps}
             />
         );
     };

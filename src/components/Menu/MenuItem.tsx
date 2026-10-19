@@ -1,7 +1,9 @@
+import { CompositeItem } from '@floating-ui/react';
 import clsx from 'clsx';
 import React from 'react';
 
 import { ListItem } from '~/components';
+import { rovingItemProps } from '~/hooks';
 
 import type { MenuItemProps } from './MenuItem.types';
 
@@ -25,7 +27,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
     onKeyUp,
     ...props
 }) => {
-    return (
+    const listItem = (
         <ListItem
             aria-disabled={isDisabled}
             className={clsx(
@@ -44,7 +46,6 @@ export const MenuItem: React.FC<MenuItemProps> = ({
             iconStart={iconStart}
             image={image}
             imageSize={imageSize}
-            tabIndex={isDisabled || variant === 'title' || isSelected ? null : 0}
             onClick={isDisabled ? undefined : onClick}
             onKeyUp={(e: React.KeyboardEvent<HTMLLIElement>) => {
                 if (onKeyPress) {
@@ -57,6 +58,13 @@ export const MenuItem: React.FC<MenuItemProps> = ({
             {...props}
         />
     );
+
+    // A title, or an item the consumer takes out of the Tab sequence, is no item of the Menu
+    if (variant === 'title' || props.tabIndex === -1) {
+        return listItem;
+    }
+
+    return <CompositeItem {...rovingItemProps} render={listItem}/>;
 };
 
 MenuItem.displayName = 'MenuItem';

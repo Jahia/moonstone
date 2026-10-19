@@ -1,9 +1,10 @@
+import { Composite } from '@floating-ui/react';
 import clsx from 'clsx';
 import React, { useMemo, useState } from 'react';
 
 import { SearchInput } from '~/components/Input';
 import { Typography } from '~/components/Typography';
-import { mergeHandlers, useEnterExitCallbacks, usePositioning, useRovingFocus } from '~/hooks';
+import { mergeHandlers, useEnterExitCallbacks, usePositioning, useRovingTabIndex } from '~/hooks';
 
 import type { MenuProps } from './Menu.types';
 
@@ -107,7 +108,7 @@ export const Menu: React.FC<MenuProps> = ({
 }) => {
     const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, position);
     useEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);
-    const rovingFocus = useRovingFocus(itemRef, { itemSelector: 'li[tabindex]' });
+    const rovingTabIndex = useRovingTabIndex();
     const [inputValue, setInputValue] = useState('');
     // Search results are derived from the query, not stored: no effect, no extra render.
     // `null` means "no active search", so the unfiltered children are rendered as-is.
@@ -155,17 +156,29 @@ export const Menu: React.FC<MenuProps> = ({
     // ---
     return (
         <>
-            <menu
-                className={clsx(
-                    ['moonstone-menu', styles['moonstone-menu']],
-                    className,
-                    (!isDisplayed || !stylePosition) && ['moonstone-hidden', styles['moonstone-hidden']],
-                )}
+            <Composite
+                {...rovingTabIndex.getCompositeProps()}
+                orientation="vertical"
                 ref={itemRef}
-                style={styleMenu}
-                onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}
-                {...mergeHandlers(props, rovingFocus)}
+                render={compositeProps => (
+                    <menu
+                        {...compositeProps}
+                        // A <menu> is a list, which takes no aria-orientation
+                        aria-orientation={undefined}
+                        className={clsx(
+                            ['moonstone-menu', styles['moonstone-menu']],
+                            className,
+                            (!isDisplayed || !stylePosition) && ['moonstone-hidden', styles['moonstone-hidden']],
+                        )}
+                        style={styleMenu}
+                        onMouseEnter={onMouseEnter}
+                        onMouseLeave={onMouseLeave}
+                        {...mergeHandlers(props, {
+                            onKeyDown: rovingTabIndex.onKeyDown(compositeProps.onKeyDown),
+                            onBlur: rovingTabIndex.onBlur,
+                        })}
+                    />
+                )}
             >
                 { hasAutoSearch && (
                     <div className={clsx('moonstone-menu_searchInput', styles['moonstone-menu_searchInput'])}>
@@ -194,7 +207,7 @@ export const Menu: React.FC<MenuProps> = ({
                         {searchEmptyText}
                     </Typography>
                 )}
-            </menu>
+            </Composite>
             {
                 hasOverlay && isDisplayed && (
                     <div

@@ -54,7 +54,34 @@ describe('useAccessibleClick', () => {
         expect(onClick).toHaveBeenCalledTimes(1);
     });
 
-    it('should leave the keys of a nested link to the link', async () => {
+    it('should call onClick on Space keyup only', async () => {
+        const onClick = vi.fn();
+        const user = userEvent.setup();
+        render(<div {...onAccessibleClick({ onClick })}/>);
+        await user.keyboard('[Tab]');
+        await user.keyboard('[Space>]');
+        expect(onClick).not.toHaveBeenCalled();
+        await user.keyboard('[/Space]');
+        expect(onClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not call onClick on a Space keyup whose keydown happened elsewhere', async () => {
+        const onClick = vi.fn();
+        const user = userEvent.setup();
+        render(
+            <>
+                <button type="button">before</button>
+                <div data-testid="clickable-div" {...onAccessibleClick({ onClick })}/>
+            </>,
+        );
+        screen.getByRole('button', { name: 'before' }).focus();
+        await user.keyboard('[Space>]');
+        screen.getByTestId('clickable-div').focus();
+        await user.keyboard('[/Space]');
+        expect(onClick).not.toHaveBeenCalled();
+    });
+
+    it('should leave the keydown of a nested link to the link', async () => {
         const onClick = vi.fn();
         const user = userEvent.setup();
         render(
