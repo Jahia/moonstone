@@ -26,6 +26,21 @@ onArrowIncrementationProps) => {
             return;
         }
 
+        if (e.key === 'Home' || e.key === 'End') {
+            const bound = e.key === 'Home' ? min : max;
+            const hasModifier = e.shiftKey || e.ctrlKey || e.metaKey || e.altKey;
+
+            // Without that bound, or with a modifier (Shift+Home selects), Home and End keep editing the text box
+            if (!Number.isFinite(bound) || hasModifier || element.readOnly) {
+                return;
+            }
+
+            e.preventDefault();
+            element.value = bound.toString().replace('.', separator ?? '.');
+            element.defaultValue = element.value;
+            return;
+        }
+
         if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') {
             return;
         }
