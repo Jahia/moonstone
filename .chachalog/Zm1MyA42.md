@@ -3,4 +3,4 @@
 "@jahia/moonstone": minor
 ---
 
-Added accessible names to the `Pagination`, `TablePagination` and `DataTable` controls and to the `Input` and `Dropdown` clear buttons (#1425). Each name can be translated.
+Name the `Pagination`, `TablePagination` and `DataTable` controls and the `Input` and `Dropdown` clear buttons, translatable with `i18n` (#1425)
