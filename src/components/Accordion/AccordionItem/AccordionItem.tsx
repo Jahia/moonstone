@@ -60,7 +60,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
                     isNowrap
                     className={clsx('flexFluid', layout.flexFluid)}
                     variant="subheading"
-                    weight={open ? 'bold' : 'default'}
+                    weight={open ? 'bold' : 'semiBold'}
                 >
                     {label}
                 </Typography>

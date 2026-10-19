@@ -28,7 +28,7 @@
 
 .moonstone-treeView_item {
     flex-wrap: nowrap;
-
+    height: 27px; // need for jContent ???
     padding-block: var(--moon-spacing-nano);
 
     padding-right: var(--moon-spacing-small);

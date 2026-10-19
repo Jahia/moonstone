@@ -7,7 +7,7 @@ $header-toolbar-minheight: 35px;
     width: 100%;
 
     // min-height: $header-minHeight;
-    padding: var(--moon-spacing-small) var(--moon-spacing-large);
+    padding: var(--moon-spacing-small) var(--moon-spacing-medium) 0 var(--moon-spacing-medium);
 
     background-color: var(--moon-background-selector);
     box-shadow: 0 1px 8px var(--moon-color-gray60);
@@ -60,6 +60,8 @@ $header-toolbar-minheight: 35px;
 //---
 // Toolbar Section
 //---
-// .moonstone-header_toolbar {
-//     height: $header-toolbar-minheight;
-// }
+.moonstone-header_toolbar {
+    padding-block: var(--moon-spacing-nano);
+
+    //     height: $header-toolbar-minheight;
+}
