@@ -53,13 +53,13 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
                             ['alignCenter', layout.alignCenter],
                         )}
                         >
-                            {icon && <icon.type {...icon.props} className={clsx('moonstone-icon_big', icons['moonstone-icon_big'], icon.props.className)} size="big"/>}
+                            {icon && <icon.type {...icon.props} className={clsx(icon.props.className)}/>}
                         </div>
                     )}
                 <Typography
                     isNowrap
                     className={clsx('flexFluid', layout.flexFluid)}
-                    variant="subheading"
+                    variant="body"
                     weight={open ? 'bold' : 'semiBold'}
                 >
                     {label}
