@@ -3,4 +3,4 @@
 "@jahia/moonstone": patch
 ---
 
-Reveal hover-only content on keyboard focus, and keep a `Tooltip` open while hovered (#1446)
+Show hover-only content on keyboard focus, and make `Tooltip` hoverable (#1446)
