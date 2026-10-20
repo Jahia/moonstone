@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useRef } from 'react';
+import React, { useId, useRef } from 'react';
 
 import { CheckboxGroupContext } from '../CheckboxGroup.context';
 import { Checkbox, Typography } from '~/components';
@@ -18,6 +18,8 @@ export const ControlledCheckboxItem: React.FC<ControlledCheckboxItemProps> = ({
     const isReadOnlyItem = (typeof context === 'undefined') ? isReadOnly : context.isReadOnly;
     const nameItem = (typeof context === 'undefined') ? name : context.name;
     const containerRef = useRef(null);
+    const generatedId = useId();
+    const itemId = id ?? generatedId;
 
     return (
         <Typography
@@ -37,8 +39,9 @@ export const ControlledCheckboxItem: React.FC<ControlledCheckboxItemProps> = ({
                 <Checkbox
                     isDisabled={isDisabledItem}
                     isReadOnly={isReadOnlyItem}
-                    aria-describedby={description ? `${id}-description` : null}
-                    aria-labelledby={`${id}-label`}
+                    aria-describedby={description ? `${itemId}-description` : null}
+                    aria-labelledby={`${itemId}-label`}
+                    id={itemId}
                     name={nameItem}
                     value={value}
                     onChange={(event, val, checked) => {
@@ -55,7 +58,7 @@ export const ControlledCheckboxItem: React.FC<ControlledCheckboxItemProps> = ({
                 <Typography
                     className={clsx('moonstone-checkboxItem_label', styles['moonstone-checkboxItem_label'])}
                     component="span"
-                    id={`${id}-label`}
+                    id={`${itemId}-label`}
                     variant="body"
                 >
                     {label}
@@ -68,7 +71,7 @@ export const ControlledCheckboxItem: React.FC<ControlledCheckboxItemProps> = ({
                         ['flexRow', layout.flexRow],
                     )}
                     component="span"
-                    id={`${id}-description`}
+                    id={`${itemId}-description`}
                     variant="caption"
                     weight="default"
                 >

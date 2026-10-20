@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React from 'react';
+import React, { useId } from 'react';
 
 import { Checkbox, Typography } from '~/components';
 import { layout } from '~/globals/css-utils.js';
@@ -21,6 +21,11 @@ export const FieldBoolean = React.forwardRef<HTMLDivElement, FieldBooleanProps>(
     checkboxAttributes,
     ...props
 }, ref) => {
+    const generatedId = useId();
+    const checkboxId = checkboxAttributes?.id ?? generatedId;
+    const hasErrorMessage = Boolean(hasError && errorMessage);
+    const descriptionId = [helper && `${checkboxId}-helper`, hasErrorMessage && `${checkboxId}-error`].filter(Boolean).join(' ') || undefined;
+
     return (
         <div
             className={clsx(
@@ -48,9 +53,9 @@ export const FieldBoolean = React.forwardRef<HTMLDivElement, FieldBooleanProps>(
                     )}
                 >
                     <div className={clsx('moonstone-fieldBoolean_checkbox', styles['moonstone-fieldBoolean_checkbox'])}>
-                        <Checkbox id="moonstone-fieldBoolean-checkbox" {...checkboxAttributes}/>
+                        <Checkbox aria-describedby={descriptionId} aria-invalid={hasError || undefined} {...checkboxAttributes} id={checkboxId}/>
                     </div>
-                    <Typography isNowrap component="label" htmlFor="moonstone-fieldBoolean-checkbox" weight="bold">{label}</Typography>
+                    <Typography isNowrap component="label" htmlFor={checkboxId} weight="bold">{label}</Typography>
                     {chips
                         && (
                             <div
@@ -84,9 +89,9 @@ export const FieldBoolean = React.forwardRef<HTMLDivElement, FieldBooleanProps>(
                     )}
             </div>
             {helper
-                && <Typography className={clsx('moonstone-field_helper', fieldStyles['moonstone-field_helper'])} variant="caption">{helper}</Typography>}
-            {hasError && errorMessage
-                && <Typography className={clsx('moonstome-field_errorMessage', fieldStyles['moonstome-field_errorMessage'])} variant="caption">{errorMessage}</Typography>}
+                && <Typography className={clsx('moonstone-field_helper', fieldStyles['moonstone-field_helper'])} id={`${checkboxId}-helper`} variant="caption">{helper}</Typography>}
+            {hasErrorMessage
+                && <Typography className={clsx('moonstome-field_errorMessage', fieldStyles['moonstome-field_errorMessage'])} id={`${checkboxId}-error`} role="alert" variant="caption">{errorMessage}</Typography>}
         </div>
     );
 });

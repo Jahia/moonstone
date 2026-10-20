@@ -5,6 +5,9 @@ import { FieldSelector } from './FieldSelector';
 import { Field } from './index';
 import { Button } from '~/components/Button';
 import { Chip } from '~/components/Chip';
+import { Dropdown } from '~/components/Dropdown';
+import { Input } from '~/components/Input';
+import { Textarea } from '~/components/Textarea';
 import { Add, Love } from '~/icons';
 
 import type { FieldProps } from './Field.types';
@@ -114,5 +117,63 @@ describe('Field', () => {
     it('should display errorMessage', () => {
         render(<Field {...requiredProps} hasError errorMessage="Field errorMessage"><div/></Field>);
         expect(screen.getByText('Field errorMessage')).toBeInTheDocument();
+    });
+
+    it('should name the input inside with its label, and describe it with its helper and its error', () => {
+        render(
+            <Field
+                hasError
+                errorMessage="Required"
+                helper="Help"
+                id="title"
+                label="Title"
+            >
+                <Input/>
+            </Field>,
+        );
+        const input = screen.getByRole('textbox', { name: 'Title' });
+        expect(input).toHaveAccessibleDescription('Help Required');
+        expect(input).toBeInvalid();
+        expect(screen.getByRole('alert')).toHaveTextContent('Required');
+    });
+
+    it('should name a Dropdown inside with its label followed by the selected value', () => {
+        render(
+            <Field id="language" label="Language">
+                <Dropdown data={[{ label: 'French', value: 'fr' }]} value="fr" onChange={() => null}/>
+            </Field>,
+        );
+        expect(screen.getByRole('listbox', { name: 'Language French' })).toBeInTheDocument();
+    });
+
+    it('should name a Textarea inside with its label, and describe it with its helper', () => {
+        render(<Field helper="Help" id="summary" label="Summary"><Textarea/></Field>);
+        expect(screen.getByRole('textbox', { name: 'Summary' })).toHaveAccessibleDescription('Help');
+    });
+
+    it('should focus the input inside on a click on its label', async () => {
+        render(<Field id="title" label="Title"><Input/></Field>);
+        await userEvent.click(screen.getByText('Title'));
+        expect(screen.getByRole('textbox', { name: 'Title' })).toHaveFocus();
+    });
+
+    it('should join the aria-describedby of the input to its helper', () => {
+        render(
+            <Field helper="Help" id="title" label="Title">
+                <span id="hint">Hint</span>
+                <Input aria-describedby="hint"/>
+            </Field>,
+        );
+        expect(screen.getByRole('textbox', { name: 'Title' })).toHaveAccessibleDescription('Hint Help');
+    });
+
+    it('should not name the search box of a Dropdown inside with its label', async () => {
+        render(
+            <Field id="language" label="Language">
+                <Dropdown hasSearch data={[{ label: 'French', value: 'fr' }]} value="fr" onChange={() => null}/>
+            </Field>,
+        );
+        await userEvent.click(screen.getByRole('listbox', { name: 'Language French' }));
+        expect(screen.getByRole('searchbox')).not.toHaveAttribute('aria-labelledby');
     });
 });
