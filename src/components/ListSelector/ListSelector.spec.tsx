@@ -53,6 +53,24 @@ describe('MultipleLeftRightSelector', () => {
         expect(rightItems()).toHaveLength(selection.length);
     });
 
+    it('should use label.selected when given', () => {
+        render(<ListSelector {...requiredProps} label={{ selected: '2 items selected' }} options={options} values={['1', '3']}/>);
+        expect(screen.getByRole('status')).toHaveTextContent('2 items selected');
+    });
+
+    it('should announce the count when the last item is removed', () => {
+        const { rerender } = render(<ListSelector options={options} values={['1']} onChange={() => ({})}/>);
+        expect(screen.getByRole('status')).toHaveTextContent('1 item(s) selected');
+
+        rerender(<ListSelector options={options} values={[]} onChange={() => ({})}/>);
+        expect(screen.getByRole('status')).toHaveTextContent('0 item(s) selected');
+    });
+
+    it('should count the selection when the label has no selected text', () => {
+        render(<ListSelector label={{ leftListTitle: 'Available' }} options={options} values={['1', '3']} onChange={() => ({})}/>);
+        expect(screen.getByRole('status')).toHaveTextContent('2 item(s) selected');
+    });
+
     it('should display in readonly mode', () => {
         const selection = ['1', '3'];
         render(
