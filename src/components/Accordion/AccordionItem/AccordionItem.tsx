@@ -3,7 +3,7 @@ import React from 'react';
 
 import { AccordionContext } from '~/components/Accordion/Accordion.context';
 import { Typography } from '~/components/Typography';
-import { icons, layout } from '~/globals/css-utils.js';
+import { layout } from '~/globals/css-utils.js';
 import { onAccessibleClick } from '~/hooks';
 
 import type { AccordionItemProps } from './AccordionItem.types';
