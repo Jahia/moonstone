@@ -57,8 +57,8 @@ years are not listed.
 `locale` (BCP 47) drives the calendar text, the displayed date format, and the first day of the week.
 When omitted, the browser locale is used. `dateFormat` (LDML, e.g. `'dd/MM/yyyy'`) overrides only the
 field's date order — name tokens still render localized via `locale`. `weekStartsOn` overrides the
-locale-derived first day. `i18n` overrides the calendar action labels (today / next / previous month)
-and the timezone row label.
+locale-derived first day. `i18n` overrides the calendar action labels (today / next / previous month),
+the timezone row label and the clear button name.
 
 ## Zoned mode
 
