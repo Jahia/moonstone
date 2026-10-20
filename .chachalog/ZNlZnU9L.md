@@ -3,4 +3,4 @@
 "@jahia/moonstone": minor
 ---
 
-Fixed `Field` and `FieldBoolean` so screen readers read their label, helper and error on the control inside them (#1426). `RadioGroup` and `CheckboxGroup` are now named groups, and `RadioItem` and `CheckboxItem` no longer need an `id`.
+Link the `Field` label, helper and error to its control, name `RadioGroup`, `CheckboxGroup` and `Fieldset` as groups, and make the `id` of `RadioItem` and `CheckboxItem` optional (#1426)
