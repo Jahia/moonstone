@@ -29,6 +29,20 @@ describe('SecondaryNav', () => {
         );
     });
 
+    it('should name the resize handle after the navigation by default', () => {
+        render(<SecondaryNav {...requiredProps}>content here</SecondaryNav>);
+        expect(screen.getByRole('separator', { name: 'Secondary' })).toBeInTheDocument();
+    });
+
+    it('should name the resize handle from i18n', () => {
+        render(
+            <SecondaryNav {...requiredProps} i18n={{ resizeHandleLabel: 'Redimensionner', widthUnit: 'pixels' }}>
+                content here
+            </SecondaryNav>,
+        );
+        expect(screen.getByRole('separator', { name: 'Redimensionner' })).toBeInTheDocument();
+    });
+
     it('should not be expanded when the menu is hidden', () => {
         render(
             <SecondaryNav {...requiredProps} isDefaultVisible={false} data-testid="secondary-nav">
