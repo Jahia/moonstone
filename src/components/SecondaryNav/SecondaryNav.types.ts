@@ -26,7 +26,7 @@ export type SecondaryNavProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'chi
      */
     onToggled?: (e: React.MouseEvent) => void;
     /**
-     * Secondary nav labels
+     * SecondaryNav labels
      */
     i18n?: {
         /**
@@ -39,5 +39,15 @@ export type SecondaryNavProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'chi
          * @default 'Toggle secondary navigation'
          */
         toggleButtonLabel?: string;
+        /**
+         * aria-label of the handle that resizes the navigation
+         * @default the aria-label of the navigation
+         */
+        resizeHandleLabel?: string;
+        /**
+         * Unit read after the width of the navigation, e.g. "300 pixels"
+         * @default 'pixels'
+         */
+        widthUnit?: string;
     };
 };
