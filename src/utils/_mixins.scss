@@ -1,3 +1,17 @@
+// Hides an element visually and keeps it in the accessibility tree
+@mixin visually-hidden {
+    position: absolute;
+
+    overflow: hidden;
+
+    width: 1px;
+    height: 1px;
+
+    white-space: nowrap;
+
+    clip-path: inset(50%);
+}
+
 @mixin truncate($maxWidth: 100%, $display: null) {
     @if ($display) {
         display: $display;
