@@ -1,7 +1,7 @@
 import React, { useEffect, useImperativeHandle, useRef } from 'react';
 
 import { BaseInput } from '../BaseInput';
-import { onArrowIncrementation } from '~/hooks';
+import { mergeHandlers, onArrowIncrementation } from '~/hooks';
 import { filterNumberInputValue } from '~/utils/filterNumberInputValue';
 
 import type { NumberInputProps } from './NumberInput.types';
@@ -63,16 +63,15 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(({
             min={min}
             ref={inputRef}
             separator={separator}
-            {...props}
-            onChange={handleOnChange}
-            {...onArrowIncrementation({
+            {...mergeHandlers(props, onArrowIncrementation({
                 ref: inputRef,
                 step: step,
                 allowNegative: allowNegative,
                 min: min,
                 max: max,
                 separator: separator,
-            })}
+            }))}
+            onChange={handleOnChange}
         />
     );
 });
