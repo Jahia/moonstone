@@ -11,6 +11,7 @@ describe('Separator', () => {
     it('should display horizontal separator by default', () => {
         render(<Separator/>);
         expect(screen.getByRole('separator')).toHaveClass('moonstone-separator_horizontal');
+        expect(screen.getByRole('separator')).not.toHaveAttribute('aria-orientation');
     });
 
     it('should display vertical separator', () => {
