@@ -10,17 +10,19 @@ const renderBox = (props: Partial<ResizableBoxProps> = {}) => {
         <div style={{ width: 400 }}>
             <button type="button">before</button>
             <ResizableBox
+                aria-label="Side panel"
                 defaultSize={{ width: 100, height: 100 }}
                 enable={['right']}
                 maxWidth={200}
                 minWidth={50}
+                role="region"
                 {...props}
             >
                 <div>content</div>
             </ResizableBox>
         </div>,
     );
-    const box = screen.getByRole('region', { name: 'resizable-panel' });
+    const box = screen.getByRole('region', { name: 'Side panel' });
     const handle = screen.getByRole('separator');
     return { box, handle, width: () => box.getBoundingClientRect().width };
 };
@@ -35,7 +37,7 @@ describe('ResizableBox keyboard', () => {
 
     it('exposes the resize handle as a named separator with the width of the box', () => {
         const { handle } = renderBox();
-        expect(handle).toHaveAccessibleName('Resize');
+        expect(handle).toHaveAccessibleName('Side panel');
         expect(handle).toHaveAttribute('aria-valuenow', '100');
         expect(handle).toHaveAttribute('aria-valuetext', '100 pixels');
     });
@@ -45,6 +47,11 @@ describe('ResizableBox keyboard', () => {
         const handle = screen.getByRole('separator');
         expect(handle).toHaveAccessibleName('Side panel');
         expect(handle).toHaveAttribute('aria-controls', 'side-panel');
+    });
+
+    it('names the resize handle "Resize" when the box has no name', () => {
+        render(<ResizableBox><div>content</div></ResizableBox>);
+        expect(screen.getByRole('separator')).toHaveAccessibleName('Resize');
     });
 
     it('widens the box with ArrowRight on the focused handle', async () => {

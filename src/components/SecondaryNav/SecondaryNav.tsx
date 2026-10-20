@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 
 import { ResizableBox } from '~/components/ResizableBox';
 import { layout } from '~/globals/css-utils.js';
@@ -14,21 +14,22 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
     children,
     isDefaultVisible = true,
     isReversed = true,
-    onToggled = () => undefined,
+    onToggled,
     className,
     i18n,
     ...props
 }) => {
     const [isVisible, setIsVisible] = useState(isDefaultVisible);
+    const wrapperId = useId();
 
     const handleToggle = (e: React.MouseEvent) => {
         setIsVisible(prevState => !prevState);
-        onToggled(e);
+        onToggled?.(e);
     };
 
     return (
         <ResizableBox
-            aria-expanded={isVisible}
+            aria-label={i18n?.navigationLabel || 'Secondary'}
             className={
                 clsx(
                     className,
@@ -50,6 +51,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
             }}
             maxWidth="900"
             minWidth={isVisible ? 300 : 0}
+            role="navigation"
             size={isVisible
                 ? null
                 : {
@@ -59,8 +61,9 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
             {...props}
         >
             <button
-                aria-controls="moonstone-secondaryNav_wrapper"
-                aria-label="Toggle secondary navigation"
+                aria-controls={wrapperId}
+                aria-expanded={isVisible}
+                aria-label={i18n?.toggleButtonLabel || 'Toggle secondary navigation'}
                 className={clsx(
                     ['moonstone-secondaryNav_buttonToggle', styles['moonstone-secondaryNav_buttonToggle']],
                     isReversed && ['moonstone-secondaryNav_buttonToggle_reversed', styles['moonstone-secondaryNav_buttonToggle_reversed']],
@@ -80,7 +83,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
                     ['flexFluid', layout.flexFluid],
                     ['flexCol_nowrap', layout.flexCol_nowrap],
                 )}
-                id="moonstone-secondaryNav_wrapper"
+                id={wrapperId}
             >
                 {header}
                 <div className={clsx('flexFluid', layout.flexFluid, 'flexCol_nowrap', layout.flexCol_nowrap)}>

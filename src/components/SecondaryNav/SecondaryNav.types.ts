@@ -30,8 +30,18 @@ export type SecondaryNavProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'chi
      */
     i18n?: {
         /**
+         * aria-label of the navigation
+         * @default 'Secondary'
+         */
+        navigationLabel?: string;
+        /**
+         * aria-label of the button that shows and hides the navigation
+         * @default 'Toggle secondary navigation'
+         */
+        toggleButtonLabel?: string;
+        /**
          * aria-label of the handle that resizes the navigation
-         * @default the aria-label of the navigation, else 'Resize'
+         * @default the aria-label of the navigation
          */
         resizeHandleLabel?: string;
         /**

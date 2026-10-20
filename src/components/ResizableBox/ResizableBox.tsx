@@ -98,7 +98,6 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
 
     return (
         <Resizable
-            aria-label="resizable-panel"
             className={clsx(className)}
             defaultSize={defaultSize}
             enable={enableZones}
@@ -113,7 +112,6 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
             maxWidth={maxWidth}
             minWidth={minWidth}
             ref={resizableRef}
-            role="region"
             size={size}
             onResize={onResizing}
             onResizeStart={onResizeStart}
