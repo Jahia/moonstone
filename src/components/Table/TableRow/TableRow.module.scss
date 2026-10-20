@@ -24,7 +24,7 @@ $row-multiple-line-height: 64px;
         .moonstone-checkbox_input {
             border: 1px solid var(--moon-color-light);
 
-            &[aria-checked="false"] {
+            &:not(:checked, :indeterminate) {
                 box-shadow: none;
             }
 
