@@ -18,6 +18,11 @@ describe('Separator', () => {
         expect(screen.getByRole('separator')).toHaveClass('moonstone-separator_vertical');
     });
 
+    it('should announce a vertical separator as vertical', () => {
+        render(<Separator variant="vertical"/>);
+        expect(screen.getByRole('separator')).toHaveAttribute('aria-orientation', 'vertical');
+    });
+
     it('should set size props', () => {
         render(<Separator size="medium"/>);
         expect(screen.getByRole('separator')).toHaveClass('moonstone-size_medium');
