@@ -25,7 +25,7 @@ const renderFieldset = (props = {}) => {
     return { onChange, onMore };
 };
 
-const getSwitch = () => screen.queryByRole('switch') ?? screen.getByRole('checkbox');
+const getSwitch = () => screen.getByRole('switch');
 
 describe('DynamicFieldset keyboard', () => {
     it('reaches the switch with Tab', async () => {
@@ -35,7 +35,7 @@ describe('DynamicFieldset keyboard', () => {
         expect(getSwitch()).toHaveFocus();
     });
 
-    it.fails('reveals the fields with Space on the switch and calls onChange', async () => {
+    it('reveals the fields with Space on the switch and calls onChange', async () => {
         const { onChange } = renderFieldset();
         expect(screen.queryByRole('textbox')).toBeNull();
         getSwitch().focus();
@@ -44,7 +44,7 @@ describe('DynamicFieldset keyboard', () => {
         expect(onChange).toHaveBeenCalledTimes(1);
     });
 
-    it.fails('hides the fields with Space on the switch and keeps focus on the switch', async () => {
+    it('hides the fields with Space on the switch and keeps focus on the switch', async () => {
         renderFieldset({ defaultChecked: true });
         getSwitch().focus();
         await userEvent.keyboard(' ');
