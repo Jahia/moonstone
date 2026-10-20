@@ -129,8 +129,7 @@ describe('DataTable keyboard', () => {
             expect(screen.getByRole('button', { name: 'Edit 1' })).toBeVisible();
         });
 
-        // TableRow reveals the actions on `:focus-visible`/`:hover` only, never on `:focus-within`.
-        it.fails('shows the hover actions when a control inside the row receives focus', () => {
+        it('shows the hover actions when a control inside the row receives focus', () => {
             renderWithActions();
             const more = screen.getByRole('button', { name: 'More 1' });
             more.focus();
@@ -138,7 +137,7 @@ describe('DataTable keyboard', () => {
             expect(screen.getByRole('button', { name: 'Edit 1' })).toBeVisible();
         });
 
-        it.fails('lets the keyboard reach the hover actions from the focused row with Tab', async () => {
+        it('lets the keyboard reach the hover actions from the focused row with Tab', async () => {
             renderWithActions();
             screen.getByRole('button', { name: 'before' }).focus();
             await userEvent.keyboard('{Tab}');
