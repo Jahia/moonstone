@@ -1,12 +1,15 @@
+import { Composite } from '@floating-ui/react';
 import clsx from 'clsx';
 import React, { useMemo, useState } from 'react';
 
+import { MenuItem } from './MenuItem';
 import { WithoutField } from '~/components/Field/Field.context';
 import { SearchInput } from '~/components/Input';
 import { Typography } from '~/components/Typography';
-import { useEnterExitCallbacks, usePositioning } from '~/hooks';
+import { getInitialIndex, mergeHandlers, useEnterExitCallbacks, usePositioning, useRovingTabIndex } from '~/hooks';
 
 import type { MenuProps } from './Menu.types';
+import type { MenuItemProps } from './MenuItem.types';
 
 import styles from './Menu.module.scss';
 
@@ -108,6 +111,7 @@ export const Menu: React.FC<MenuProps> = ({
 }) => {
     const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, position);
     useEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);
+    const rovingTabIndex = useRovingTabIndex();
     const [inputValue, setInputValue] = useState('');
     // Search results are derived from the query, not stored: no effect, no extra render.
     // `null` means "no active search", so the unfiltered children are rendered as-is.
@@ -128,6 +132,12 @@ export const Menu: React.FC<MenuProps> = ({
         const flatChildren = (Array.isArray(children)) ? getFlatChildren(children as [React.ReactElement]) : children; // Check for grouped data
         hasAutoSearch = React.Children.count(flatChildren) > autoAddSearchLimit;
     }
+
+    // Focus enters the menu on its selected item, else on its first enabled one, among the MenuItems that are items of the Composite
+    const shownChildren = filteredChildren || children;
+    const items = (Array.isArray(shownChildren) && shownChildren.length > 0 ? getFlatChildren(shownChildren as [React.ReactElement]) : [])
+        .filter((item): item is React.ReactElement<MenuItemProps> => React.isValidElement<MenuItemProps>(item) && item.type === MenuItem && item.props.variant !== 'title' && item.props.tabIndex !== -1);
+    const initialIndex = getInitialIndex(items.map(item => item.props));
 
     // ---
     // Styling
@@ -155,17 +165,29 @@ export const Menu: React.FC<MenuProps> = ({
     // ---
     return (
         <>
-            <menu
-                className={clsx(
-                    ['moonstone-menu', styles['moonstone-menu']],
-                    className,
-                    (!isDisplayed || !stylePosition) && ['moonstone-hidden', styles['moonstone-hidden']],
-                )}
+            <Composite
+                {...rovingTabIndex.getCompositeProps(initialIndex)}
+                orientation="vertical"
                 ref={itemRef}
-                style={styleMenu}
-                onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}
-                {...props}
+                render={compositeProps => (
+                    <menu
+                        {...compositeProps}
+                        // A <menu> is a list, which takes no aria-orientation
+                        aria-orientation={undefined}
+                        className={clsx(
+                            ['moonstone-menu', styles['moonstone-menu']],
+                            className,
+                            (!isDisplayed || !stylePosition) && ['moonstone-hidden', styles['moonstone-hidden']],
+                        )}
+                        style={styleMenu}
+                        onMouseEnter={onMouseEnter}
+                        onMouseLeave={onMouseLeave}
+                        {...mergeHandlers(props, {
+                            onKeyDown: rovingTabIndex.onKeyDown(compositeProps.onKeyDown),
+                            onBlur: rovingTabIndex.onBlur,
+                        })}
+                    />
+                )}
             >
                 { hasAutoSearch && (
                     // The search box of a menu is not the control of a Field around it
@@ -189,15 +211,20 @@ export const Menu: React.FC<MenuProps> = ({
                     </WithoutField>
                 )}
                 {filteredChildren || children}
-                {isEmptySearch && (
-                    <Typography
-                        className={clsx('moonstone-menu_emptySearchText', styles['moonstone-menu_emptySearchText'])}
-                        variant="caption"
-                    >
-                        {searchEmptyText}
-                    </Typography>
+                {/* Stays mounted while the search exists so the empty state is announced when it appears */}
+                {hasAutoSearch && (
+                    <div role="status">
+                        {isEmptySearch && (
+                            <Typography
+                                className={clsx('moonstone-menu_emptySearchText', styles['moonstone-menu_emptySearchText'])}
+                                variant="caption"
+                            >
+                                {searchEmptyText}
+                            </Typography>
+                        )}
+                    </div>
                 )}
-            </menu>
+            </Composite>
             {
                 hasOverlay && isDisplayed && (
                     <div
