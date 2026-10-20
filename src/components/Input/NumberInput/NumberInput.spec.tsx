@@ -110,6 +110,15 @@ describe('NumberInput', () => {
         expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('6');
     });
 
+    it('should not increase the value when a consumer onKeyUp prevents the default', async () => {
+        const user = userEvent.setup();
+
+        render(<NumberInput data-testid="moonstone-numberInput" step={1} value="5" onKeyUp={e => e.preventDefault()}/>);
+        await user.keyboard('[Tab]');
+        await user.keyboard('[ArrowUp]');
+        expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('5');
+    });
+
     it('should decrease value by step on arrowDown', async () => {
         const user = userEvent.setup();
 
