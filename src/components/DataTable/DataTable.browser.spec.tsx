@@ -1,8 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 
-import { type DataTableColumn, type RenderRowContext, TableCellActions } from './index';
+import { type DataTableColumn, type RenderRowContext, TableCellActions, TableCellStatus } from './index';
 import { Button } from '~/components/Button';
 import { DataTable, TableRow } from '~/components/DataTable';
 
@@ -145,6 +145,41 @@ describe('DataTable keyboard', () => {
             expect(row('Alice')).toHaveFocus();
             await userEvent.keyboard('{Tab}');
             expect(screen.getByRole('button', { name: 'Edit 1' })).toHaveFocus();
+        });
+    });
+
+    describe('TableCellStatus', () => {
+        const renderWithStatus = () => {
+            renderTable({
+                renderRow: ({ id, render: renderCells }: RenderRowContext<User>) => (
+                    <TableRow key={id}>
+                        {renderCells({ before: <TableCellStatus color="success">{`Status ${id}`}</TableCellStatus> })}
+                    </TableRow>
+                ),
+            });
+        };
+
+        it('shows the status panel while its row has keyboard focus', async () => {
+            renderWithStatus();
+            screen.getByRole('button', { name: 'before' }).focus();
+            await userEvent.keyboard('{Tab}');
+            await userEvent.keyboard('{Tab}');
+            expect(row('Alice')).toHaveFocus();
+            await waitFor(() => expect(screen.getByText('Status 1')).toBeVisible());
+        });
+
+        it('hides the status panel with Escape until its row loses focus', async () => {
+            renderWithStatus();
+            screen.getByRole('button', { name: 'before' }).focus();
+            await userEvent.keyboard('{Tab}');
+            await userEvent.keyboard('{Tab}');
+            await userEvent.keyboard('{Escape}');
+            expect(row('Alice')).toHaveFocus();
+            await waitFor(() => expect(screen.getByText('Status 1')).not.toBeVisible());
+            await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+            await userEvent.keyboard('{Tab}');
+            expect(row('Alice')).toHaveFocus();
+            await waitFor(() => expect(screen.getByText('Status 1')).toBeVisible());
         });
     });
 });

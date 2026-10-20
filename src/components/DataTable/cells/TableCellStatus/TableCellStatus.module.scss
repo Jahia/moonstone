@@ -36,7 +36,7 @@
     border-left: 6px solid var(--tableCellStatus-bar);
 
     &:hover,
-    tr:focus-visible > & {
+    tr:focus-visible > &:not(.dismissed) {
         .panel {
             max-width: 500px;
 
