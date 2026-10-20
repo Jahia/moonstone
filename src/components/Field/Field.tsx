@@ -24,6 +24,7 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
     const hasErrorMessage = Boolean(hasError && errorMessage);
     const field = useMemo(() => ({
         labelId: `${id}-label`,
+        controlId: `${id}-control`,
         descriptionId: [helper && `${id}-helper`, hasErrorMessage && `${id}-error`].filter(Boolean).join(' ') || undefined,
         hasError,
     }), [id, helper, hasErrorMessage, hasError]);
@@ -58,7 +59,15 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
                         ['alignCenter', layout.alignCenter],
                     )}
                 >
-                    <Typography isNowrap component="label" id={`${id}-label`} weight="bold">{label}</Typography>
+                    <Typography
+                        isNowrap
+                        component="label"
+                        htmlFor={field.controlId}
+                        id={field.labelId}
+                        weight="bold"
+                    >
+                        {label}
+                    </Typography>
                     {chips
                         && (
                             <div

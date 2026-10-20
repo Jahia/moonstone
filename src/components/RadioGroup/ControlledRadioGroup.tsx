@@ -15,7 +15,7 @@ export const ControlledRadioGroup: React.FC<ControlledRadioGroupProps> = ({
         value = (children[0].props.value);
     }
 
-    const fieldAria = useFieldAria(props['aria-label']);
+    const fieldAria = useFieldAria(props);
     const provider = useMemo(() => ({
         name,
         value,
@@ -27,9 +27,9 @@ export const ControlledRadioGroup: React.FC<ControlledRadioGroupProps> = ({
     return (
         <RadioGroupContext.Provider value={provider}>
             <div
-                {...fieldAria}
                 role="radiogroup"
                 {...props}
+                {...fieldAria}
                 className={clsx(
                     'flexCol', layout.flexCol, className,
                 )}

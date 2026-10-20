@@ -1,7 +1,7 @@
 import { dateMatchModifiers, DayPicker, useDayPicker } from '@daypicker/react';
 import { autoUpdate, flip, FloatingPortal, offset, shift, useDismiss, useFloating, useInteractions, useMergeRefs } from '@floating-ui/react';
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 
 import { TimezoneSelector } from '../../TimezoneSelector/TimezoneSelector';
 import { BaseInput } from '../BaseInput';
@@ -141,6 +141,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     };
 
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+    const timeInputId = useId();
     const [draft, setDraft] = useState<string | null>(null);
     const [displayedMonth, setDisplayedMonth] = useState(() => getDisplayMonth(selectedDate));
 
@@ -366,6 +367,8 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                 )}
                 {type !== 'date' && (
                     <TimeInput
+                        // The label of a Field around it points to the date input, which takes the id of the Field control
+                        id={timeInputId}
                         {...timeInputProps}
                         isDisabled={isDisabled}
                         isReadOnly={isReadOnly}
