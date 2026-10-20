@@ -21,6 +21,7 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
     icon,
     variant = 'outlined',
     isShowClearButton,
+    i18n,
     prefixComponents,
     postfixComponents,
     onClick,
@@ -108,7 +109,7 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
             </div>
             { onClear && isFilled && !isDisabled && !isReadOnly && (
                 <Button
-                    aria-label="Reset"
+                    aria-label={i18n?.clearButton || 'Reset'}
                     className={clsx(
                         ['moonstone-baseInput_clearButton', styles['moonstone-baseInput_clearButton']],
                         ['flexRow_center', layout.flexRow_center],

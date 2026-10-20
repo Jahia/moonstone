@@ -53,17 +53,29 @@ describe('NumberInput keyboard', () => {
         expect(screen.getByRole('textbox')).toHaveValue('2');
     });
 
-    it.fails('jumps to min with Home when bounds are set', async () => {
+    it('jumps to min with Home when bounds are set', async () => {
         render(<NumberInput defaultValue="5" max={10} min={0}/>);
         screen.getByRole('textbox').focus();
         await userEvent.keyboard('{Home}');
         expect(screen.getByRole('textbox')).toHaveValue('0');
     });
 
-    it.fails('jumps to max with End when bounds are set', async () => {
+    it('jumps to max with End when bounds are set', async () => {
         render(<NumberInput defaultValue="5" max={10} min={0}/>);
         screen.getByRole('textbox').focus();
         await userEvent.keyboard('{End}');
         expect(screen.getByRole('textbox')).toHaveValue('10');
+    });
+
+    it('moves the caret with Home and End when no bound is set', async () => {
+        render(<NumberInput defaultValue="123"/>);
+        const input = screen.getByRole<HTMLInputElement>('textbox');
+        input.focus();
+        await userEvent.keyboard('{Home}');
+        expect(input).toHaveValue('123');
+        expect(input.selectionStart).toBe(0);
+        await userEvent.keyboard('{End}');
+        expect(input).toHaveValue('123');
+        expect(input.selectionStart).toBe(3);
     });
 });

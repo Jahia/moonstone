@@ -244,6 +244,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                     isReadOnly={isReadOnly}
                     autoComplete={autoComplete}
                     className={styles.dateField}
+                    i18n={i18nLabels}
                     icon={<Calendar/>}
                     size={size}
                     value={draft ?? formatPlainDate(selectedDate, resolvedLocale, dateFormat)}

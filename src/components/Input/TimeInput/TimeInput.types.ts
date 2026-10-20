@@ -29,6 +29,7 @@ type TimeInputBaseProps = Omit<BaseInputProps,
     | 'onChange'
     | 'onBlur'
     | 'onClear'
+    | 'i18n'
     | 'icon'
     | 'role'
     | 'min'

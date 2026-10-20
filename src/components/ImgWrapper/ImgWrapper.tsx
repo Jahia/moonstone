@@ -6,6 +6,7 @@ import { icons } from '~/globals/css-utils.js';
 import type { ImgWrapperProps } from './ImgWrapper.types';
 
 export const ImgWrapper: React.FC<ImgWrapperProps> = ({
+    alt,
     size = 'default',
     className = '',
     ...props
@@ -16,8 +17,7 @@ export const ImgWrapper: React.FC<ImgWrapperProps> = ({
         [`moonstone-icon_${size}`, icons[`moonstone-icon_${size}`]],
     );
     return (
-        // oxlint-disable-next-line jsx-a11y/alt-text
-        <img {...props} className={classes}/>
+        <img {...props} alt={alt} className={classes}/>
     );
 };
 
