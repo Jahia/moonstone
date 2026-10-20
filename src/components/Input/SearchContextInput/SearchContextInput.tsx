@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import React, { useImperativeHandle, useRef } from 'react';
 
 import { BaseInput } from '../BaseInput';
+import { WithoutField } from '~/components/Field/Field.context';
 
 import type { SearchContextInputProps } from './SearchContextInput.types';
 
@@ -17,13 +18,14 @@ export const SearchContextInput = React.forwardRef<HTMLInputElement, SearchConte
     useImperativeHandle(ref, () => inputRef.current!, []);
 
     const component = hasSearchContext && (
-        <searchContext.type
-            key="searchcontext"
-            {...searchContext.props}
-            className={clsx(searchContext.props.className, 'moonstone-searchContextInput_element', baseInputStyles['moonstone-searchContextInput_element'])}
-            size="small"
-            variant="ghost"
-        />
+        <WithoutField key="searchcontext">
+            <searchContext.type
+                {...searchContext.props}
+                className={clsx(searchContext.props.className, 'moonstone-searchContextInput_element', baseInputStyles['moonstone-searchContextInput_element'])}
+                size="small"
+                variant="ghost"
+            />
+        </WithoutField>
     );
 
     return (

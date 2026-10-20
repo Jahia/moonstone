@@ -1,10 +1,11 @@
 /* eslint-disable complexity */
 import clsx from 'clsx';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useId, useMemo, useRef, useState } from 'react';
 
 import { Tag } from '../Tag';
 import { Button, Loader, Typography } from '~/components';
 import { DropdownMenu, TreeViewMenu } from '~/components/Dropdown';
+import { useFieldAria } from '~/components/Field/Field.context';
 import { layout } from '~/globals/css-utils.js';
 import { Cancel, ChevronDown } from '~/icons';
 
@@ -100,6 +101,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
     const ref: MutableRefObject<HTMLDivElement> = useRef();
+    const triggerId = useId();
+    const fieldAria = useFieldAria();
 
     const isTree = Array.isArray(treeData);
     const flatData = useMemo(() => isTree ? flatten(treeData) : data, [treeData, data, isTree]);
@@ -216,9 +219,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
         >
             <div
                 aria-busy={isLoading ? true : undefined}
+                aria-describedby={fieldAria['aria-describedby']}
                 aria-disabled={isDisabled || isEmpty}
+                aria-invalid={fieldAria['aria-invalid']}
                 aria-label={label || getDataItem(flatData, value)?.label || placeholder}
+                // In a Field, the name is the Field label followed by the aria-label above, such as "Language French"
+                aria-labelledby={fieldAria['aria-labelledby'] && `${fieldAria['aria-labelledby']} ${triggerId}`}
                 className={clsx(cssDropdown)}
+                id={triggerId}
                 ref={ref}
                 role="listbox"
                 tabIndex={0}
