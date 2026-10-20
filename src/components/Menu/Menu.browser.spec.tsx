@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { userEvent } from 'vitest/browser';
 
 import { Menu, MenuItem } from './index';
+import { Separator } from '~/components';
 
 const renderMenu = (props = {}) => {
     const onClose = vi.fn();
@@ -35,12 +36,26 @@ describe('Menu keyboard', () => {
         expect(item('First')).toHaveFocus();
     });
 
-    it('skips disabled items in the tab sequence', async () => {
-        renderMenu();
+    it('reaches the selected item with Tab', async () => {
+        render(
+            <>
+                <button type="button">before</button>
+                <Menu isDisplayed>
+                    <MenuItem label="First"/>
+                    <Separator/>
+                    <MenuItem isSelected label="Second"/>
+                </Menu>
+            </>,
+        );
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
-        await userEvent.keyboard('{Tab}');
-        await userEvent.keyboard('{Tab}');
+        expect(item('Second')).toHaveFocus();
+    });
+
+    it('skips disabled items when moving with the arrow keys', async () => {
+        renderMenu();
+        item('Second').focus();
+        await userEvent.keyboard('{ArrowDown}');
         expect(item('Last')).toHaveFocus();
     });
 
@@ -72,7 +87,7 @@ describe('Menu keyboard', () => {
         expect(item('First')).toHaveFocus();
     });
 
-    it.fails('moves focus to the first and last items with Home and End', async () => {
+    it('moves focus to the first and last items with Home and End', async () => {
         renderMenu();
         item('Second').focus();
         await userEvent.keyboard('{End}');

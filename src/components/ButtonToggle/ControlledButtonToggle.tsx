@@ -24,7 +24,6 @@ const ControlledButtonToggleForwardRef: React.ForwardRefRenderFunction<HTMLButto
 }, ref) => {
     const handleOnClick: React.MouseEventHandler = (e) => {
         onClick?.(e);
-        (e.currentTarget as HTMLElement).blur();
         if (!isDisabled && !isLoading) {
             onChange(e, !isPressed);
         }

@@ -19,10 +19,10 @@ const renderAccordion = () => {
     return { onFirst };
 };
 
-const header = (label: string) => screen.getByText(label).closest('header');
+const header = (label: string) => screen.getByRole('button', { name: label });
 
 describe('Accordion keyboard', () => {
-    it.fails('exposes each header as a button', () => {
+    it('exposes each header as a button', () => {
         renderAccordion();
         expect(screen.getByRole('button', { name: 'First' })).toBeVisible();
         expect(screen.getByRole('button', { name: 'Second' })).toBeVisible();

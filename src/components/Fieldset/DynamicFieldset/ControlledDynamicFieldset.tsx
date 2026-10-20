@@ -21,7 +21,6 @@ export const ControlledDynamicFieldset = React.forwardRef<HTMLFieldSetElement, C
 }, ref) => {
     return (
         <fieldset
-            aria-checked={checked}
             className={clsx(
                 ['moonstone-dynamic-fieldset', styles['moonstone-dynamic-fieldset']],
                 checked && 'moonstone-dynamic-fieldset_open',
