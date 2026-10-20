@@ -55,8 +55,11 @@ describe('Modal', () => {
     });
 
     it('should be named by the title of its header', () => {
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
         render(<Modal isOpen><ModalHeader title="Modal title">Modal content</ModalHeader></Modal>);
         expect(screen.getByRole('dialog', { name: 'Modal title' })).toBeInTheDocument();
+        expect(warn).not.toHaveBeenCalled();
+        warn.mockRestore();
     });
 
     it('should warn when it has no header and no aria-label', () => {

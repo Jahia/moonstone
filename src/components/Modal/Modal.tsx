@@ -28,7 +28,7 @@ const ModalForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalProps
     children,
     ...props
 }, ref) => {
-    const { refs, context } = useFloating({
+    const { refs, elements, context } = useFloating({
         open: isOpen,
         onOpenChange,
     });
@@ -51,11 +51,12 @@ const ModalForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalProps
     const ariaLabel = props['aria-label'];
     const ariaLabelledBy = props['aria-labelledby'];
 
+    // The portal mounts the dialog one render after isOpen, so the check waits for the dialog element
     useEffect(() => {
-        if (isOpen && !ariaLabel && !ariaLabelledBy && !document.getElementById(titleId)) {
+        if (elements.floating && !ariaLabel && !ariaLabelledBy && !document.getElementById(titleId)) {
             console.warn('Modal: add a ModalHeader with a title, or an aria-label, to name the dialog');
         }
-    }, [isOpen, ariaLabel, ariaLabelledBy, titleId]);
+    }, [elements.floating, ariaLabel, ariaLabelledBy, titleId]);
 
     return (
         children && isOpen && (
