@@ -308,6 +308,13 @@ describe('Dropdown', () => {
         );
     });
 
+    it('should let the consumer translate the reset button name', () => {
+        render(
+            <Dropdown data={dropdownData} i18n={{ clearButton: 'Effacer' }} values={['4']} onClear={vi.fn()}/>,
+        );
+        expect(screen.getByRole('button', { name: 'Effacer' })).toBeInTheDocument();
+    });
+
     it('should call onClear when the reset button is clicked', async () => {
         const user = userEvent.setup();
         const onClear = vi.fn();
