@@ -40,6 +40,13 @@ describe('ResizableBox keyboard', () => {
         expect(handle).toHaveAttribute('aria-valuetext', '100 pixels');
     });
 
+    it('names the resize handle after the box it resizes, and points to it', () => {
+        render(<ResizableBox aria-label="Side panel" id="side-panel"><div>content</div></ResizableBox>);
+        const handle = screen.getByRole('separator');
+        expect(handle).toHaveAccessibleName('Side panel');
+        expect(handle).toHaveAttribute('aria-controls', 'side-panel');
+    });
+
     it('widens the box with ArrowRight on the focused handle', async () => {
         const { handle, width } = renderBox();
         const initial = width();

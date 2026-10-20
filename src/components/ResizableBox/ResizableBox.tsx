@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { Resizable } from 're-resizable';
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useId, useLayoutEffect, useRef, useState } from 'react';
 
 import { zones } from './ResizableBox.types';
 import { HandleResize } from '~/icons';
@@ -37,6 +37,11 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
 
     const resizableRef = useRef<Resizable>(null);
     const [width, setWidth] = useState<number>();
+    const generatedId = useId();
+    const boxProps = {
+        ...props,
+        id: props.id ?? generatedId,
+    };
     const min = parseFloat(String(minWidth));
     const max = parseFloat(String(maxWidth));
 
@@ -75,7 +80,8 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
 
     const handle = (
         <div
-            aria-label={i18n?.handleLabel || 'Resize'}
+            aria-controls={boxProps.id}
+            aria-label={i18n?.handleLabel || boxProps['aria-label'] || 'Resize'}
             aria-orientation="vertical"
             aria-valuemax={Number.isFinite(max) ? max : undefined}
             aria-valuemin={Number.isFinite(min) ? min : undefined}
@@ -115,7 +121,7 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
                 setWidth(ref.offsetWidth);
                 onResizeStop?.(e, dir, ref, delta);
             }}
-            {...props}
+            {...boxProps}
         >
             {children}
         </Resizable>

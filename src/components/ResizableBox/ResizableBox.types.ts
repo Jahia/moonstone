@@ -25,7 +25,7 @@ export type ResizableBoxMinWidth = string | number;
 
 export type ResizableBoxMaxWidth = string | number;
 
-export type ResizableBoxProps = {
+export type ResizableBoxProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'children' | 'className' | 'onResize'> & {
     /**
      * Content of the component
      */
@@ -59,19 +59,19 @@ export type ResizableBoxProps = {
      */
     role?: string;
     /**
-     * Function triggered when the resize begins
+     * Function triggered when the resize begins. A keyboard resize does not call it
      * @param {object} e - Mouse event
      * @param {string} dir - Direction resized
      * @param {node} ref - HTML element resized
      */
     onResizeStart?: ResizeStartCallback;
     /**
-     * Function on resizing
+     * Function on resizing. A keyboard resize does not call it
      * @param {object} e - event
      */
     onResizing?: ResizeCallback;
     /**
-     * Function triggered when the resize is finished
+     * Function triggered when the resize is finished. A keyboard resize does not call it
      * @param {object} e - Mouse event
      * @param {string} dir - Direction resized
      * @param {node} ref - HTML element resized
@@ -84,7 +84,7 @@ export type ResizableBoxProps = {
     i18n?: {
         /**
          * aria-label of the resize handle
-         * @default 'Resize'
+         * @default the aria-label of the box, else 'Resize'
          */
         handleLabel?: string;
         /**
