@@ -2,6 +2,7 @@ import React from 'react';
 
 import type { DataTablePaginationProps } from './pagination';
 import type { TableCellProps } from '~/components/DataTable/cells';
+import type { PaginationProps } from '~/components/Pagination';
 export type { PaginationUncontrolledProps } from './pagination';
 
 export type SubRowKey = 'subRows';
@@ -114,6 +115,8 @@ export type DataTableBaseProps<T extends NonNullable<unknown>> = {
     rowProps?:
         | (React.HTMLAttributes<HTMLTableRowElement> & Record<string, unknown>)
         | ((context: RowContext<T>) => React.HTMLAttributes<HTMLTableRowElement> & Record<string, unknown>);
+    /** Labels of the pagination and of the selection checkboxes */
+    i18n?: DataTableI18n;
 };
 
 export type SortDirection = 'ascending' | 'descending';
@@ -151,6 +154,19 @@ type SortingProps<T extends NonNullable<unknown>>
         defaultSortBy?: never;
         defaultSortDirection?: never;
     };
+
+export type DataTableI18n = NonNullable<PaginationProps['i18n']> & {
+    /**
+     * Accessible name of each row checkbox
+     * @default 'Select row'
+     */
+    selectRow?: string;
+    /**
+     * Accessible name of the header checkbox
+     * @default 'Select all rows'
+     */
+    selectAllRows?: string;
+};
 
 export type SelectionProps
     = | {
