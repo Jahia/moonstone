@@ -30,11 +30,13 @@ $accordionHeader_height: 48px;
 .moonstone-accordionItem_header {
     width: 100%;
     height: $accordionHeader_height;
-    padding: 0 var(--moon-spacing-medium);
 
     background-color: var(--moon-color-gray_light60);
 
-    cursor: pointer;
+    // Doubled class to outrank the padding reset of Typography
+    &.moonstone-accordionItem_header {
+        padding: 0 var(--moon-spacing-medium);
+    }
 
     &.moonstone-selected {
         border-bottom: 1px solid var(--moon-color-gray_light);
@@ -82,7 +84,7 @@ $accordionHeader_height: 48px;
     }
 }
 
-.moonstone-accordionItem_iconContainer {
+.accordionItem_icon {
     margin-right: $spacing-icon_big;
 }
 

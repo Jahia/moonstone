@@ -2,9 +2,9 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useState } from 'react';
 
-import { onToggleNode } from './useToggleNode';
+import { onTreeItemKeys } from './onTreeItemKeys';
 
-describe('onToggleNode', () => {
+describe('onTreeItemKeys', () => {
     type ToggleableDivProps = {
         isDisabled?: boolean;
         isOpen?: boolean;
@@ -25,7 +25,9 @@ describe('onToggleNode', () => {
                 aria-disabled={isDisabled}
                 aria-expanded={opened}
                 data-testid="toggleable-div"
-                {...onToggleNode(handleToggle, handleClick, isDisabled)}
+                role="treeitem"
+                tabIndex={0}
+                {...onTreeItemKeys({ onToggle: handleToggle, onClick: handleClick, isDisabled, isExpandable: true, isOpen: opened })}
             >
                 {label}
             </div>
@@ -40,15 +42,15 @@ describe('onToggleNode', () => {
         expect(screen.getByText('toggled')).toBeInTheDocument();
     });
 
-    it('should call onToggle when left arrow is pressed', async () => {
+    it('should call onToggle when left arrow is pressed on an open node', async () => {
         const user = userEvent.setup();
-        render(<ToggleableDiv isClickable/>);
+        render(<ToggleableDiv isClickable isOpen/>);
         await user.keyboard('[Tab]');
         await user.keyboard('[ArrowLeft]');
         expect(screen.getByText('toggled')).toBeInTheDocument();
     });
 
-    it('should call onToggle when right arrow is pressed', async () => {
+    it('should call onToggle when right arrow is pressed on a closed node', async () => {
         const user = userEvent.setup();
         render(<ToggleableDiv isClickable/>);
         await user.keyboard('[Tab]');
@@ -72,19 +74,21 @@ describe('onToggleNode', () => {
         expect(screen.getByText('toggled')).toBeInTheDocument();
     });
 
-    it('should not call onClick when disabled', async () => {
+    it('should toggle instead of calling onClick when the node cannot be activated', async () => {
         const user = userEvent.setup();
         render(<ToggleableDiv isClickable isDisabled/>);
         await user.keyboard('[Tab]');
         await user.keyboard('[Enter]');
-        expect(screen.getByText('default')).toBeInTheDocument();
+        expect(screen.getByText('toggled')).toBeInTheDocument();
     });
 
-    it('should not call onToggle when disabled', async () => {
+    it('should call onToggle on Space keyup only', async () => {
         const user = userEvent.setup();
-        render(<ToggleableDiv isDisabled/>);
+        render(<ToggleableDiv/>);
         await user.keyboard('[Tab]');
-        await user.keyboard('[Enter]');
+        await user.keyboard('[Space>]');
         expect(screen.getByText('default')).toBeInTheDocument();
+        await user.keyboard('[/Space]');
+        expect(screen.getByText('toggled')).toBeInTheDocument();
     });
 });

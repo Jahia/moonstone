@@ -1,6 +1,6 @@
 import { arrow, flip, FloatingArrow, FloatingPortal, offset, safePolygon, shift, useDismiss, useFloating, useFocus, useHover, useInteractions } from '@floating-ui/react';
 import clsx from 'clsx';
-import React, { useRef, useState } from 'react';
+import React, { useId, useRef, useState } from 'react';
 
 import { Typography } from '~/components';
 
@@ -17,6 +17,7 @@ export const Tooltip = ({
     // Floating UI manages everything from the hover to the display by using isOpen
     const [isOpen, setIsOpen] = useState(false);
     const arrowRef = useRef(null);
+    const tooltipId = useId();
 
     const { refs, floatingStyles, context } = useFloating({
         open: isOpen,
@@ -54,14 +55,14 @@ export const Tooltip = ({
             >
                 {/* Children is the element to interact with in order for the tooltip to appear */}
                 {React.cloneElement(children, {
-                    'aria-describedby': 'moonstone-tooltip_label',
+                    'aria-describedby': [(children.props as React.AriaAttributes)['aria-describedby'], isOpen && tooltipId].filter(Boolean).join(' ') || undefined,
                 })}
                 {isOpen
                     && (
                         <FloatingPortal>
                             <div
                                 className={clsx('moonstone-tooltip_label', styles['moonstone-tooltip_label'])}
-                                id="moonstone-tooltip_label"
+                                id={tooltipId}
                                 ref={refs.setFloating}
                                 role="tooltip"
                                 style={floatingStyles}

@@ -17,4 +17,8 @@ if expanded :
  - Show mail of the user
  - Show sign out button
 
+## Labels:
+
+The navigation and its toggle button are named in English by default. Pass translated values with `i18n`.
+
 Figma Link : https://www.figma.com/file/939bW74C3TLW5VAzK23uox/moonstone-components?node-id=140%3A0
