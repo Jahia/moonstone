@@ -44,7 +44,11 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
                 height: '0%',
                 width: '300px',
             }}
-            enable={['right']}
+            enable={isVisible ? ['right'] : []}
+            i18n={{
+                handleLabel: i18n?.resizeHandleLabel,
+                widthUnit: i18n?.widthUnit,
+            }}
             maxWidth="900"
             minWidth={isVisible ? 300 : 0}
             role="navigation"
