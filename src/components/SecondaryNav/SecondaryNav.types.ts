@@ -31,7 +31,7 @@ export type SecondaryNavProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'chi
     i18n?: {
         /**
          * aria-label of the handle that resizes the navigation
-         * @default 'Resize'
+         * @default the aria-label of the navigation, else 'Resize'
          */
         resizeHandleLabel?: string;
         /**
