@@ -31,7 +31,7 @@ export type SecondaryNavProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'chi
     i18n?: {
         /**
          * aria-label of the navigation
-         * @default 'Secondary navigation'
+         * @default 'Secondary'
          */
         navigationLabel?: string;
         /**

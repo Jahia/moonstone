@@ -29,7 +29,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
 
     return (
         <ResizableBox
-            aria-label={i18n?.navigationLabel || 'Secondary navigation'}
+            aria-label={i18n?.navigationLabel || 'Secondary'}
             className={
                 clsx(
                     className,
@@ -47,6 +47,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
             enable={['right']}
             maxWidth="900"
             minWidth={isVisible ? 300 : 0}
+            role="navigation"
             size={isVisible
                 ? null
                 : {

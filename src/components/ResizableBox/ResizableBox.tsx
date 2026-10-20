@@ -50,7 +50,6 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
             }
             maxWidth={maxWidth}
             minWidth={minWidth}
-            role="region"
             size={size}
             onResize={onResizing}
             onResizeStart={onResizeStart}

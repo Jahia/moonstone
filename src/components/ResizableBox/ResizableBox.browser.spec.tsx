@@ -13,6 +13,7 @@ const renderBox = () => {
                 enable={['right']}
                 maxWidth={200}
                 minWidth={50}
+                role="region"
             >
                 <div>content</div>
             </ResizableBox>

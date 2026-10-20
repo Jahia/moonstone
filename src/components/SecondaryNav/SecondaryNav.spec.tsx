@@ -122,9 +122,9 @@ describe('SecondaryNav', () => {
         expect(clickHandler).toHaveBeenCalled();
     });
 
-    it('should name the navigation region', () => {
+    it('should be a named navigation landmark', () => {
         render(<SecondaryNav {...requiredProps}>content here</SecondaryNav>);
-        expect(screen.getByRole('region', { name: 'Secondary navigation' })).toBeInTheDocument();
+        expect(screen.getByRole('navigation', { name: 'Secondary' })).toBeInTheDocument();
     });
 
     it('should use the given labels', () => {
@@ -133,7 +133,7 @@ describe('SecondaryNav', () => {
                 content here
             </SecondaryNav>,
         );
-        expect(screen.getByRole('region', { name: 'Navigation secondaire' })).toBeInTheDocument();
+        expect(screen.getByRole('navigation', { name: 'Navigation secondaire' })).toBeInTheDocument();
         expect(screen.getByRole('button', { name: 'Afficher la navigation' })).toBeInTheDocument();
     });
 
