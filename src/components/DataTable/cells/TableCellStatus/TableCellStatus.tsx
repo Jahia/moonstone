@@ -33,7 +33,9 @@ const TableCellStatusForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEle
                 return;
             }
 
-            if (e.key === 'Escape') {
+            // Stops here while the panel is shown, so a Modal around the table closes on the next Escape only
+            if (e.key === 'Escape' && !isDismissed && row.matches(':focus-visible')) {
+                e.stopPropagation();
                 setIsDismissed(true);
             }
         };
@@ -45,7 +47,7 @@ const TableCellStatusForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEle
             row.removeEventListener('keydown', handleKeyDown);
             row.removeEventListener('blur', handleBlur);
         };
-    }, []);
+    }, [isDismissed]);
 
     return (
         <TableCell

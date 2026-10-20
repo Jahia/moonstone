@@ -5,6 +5,7 @@ import { userEvent } from 'vitest/browser';
 import { type DataTableColumn, type RenderRowContext, TableCellActions, TableCellStatus } from './index';
 import { Button } from '~/components/Button';
 import { DataTable, TableRow } from '~/components/DataTable';
+import { Modal } from '~/components/Modal';
 
 type User = { id: string; name: string; age: number };
 
@@ -180,6 +181,33 @@ describe('DataTable keyboard', () => {
             await userEvent.keyboard('{Tab}');
             expect(row('Alice')).toHaveFocus();
             await waitFor(() => expect(screen.getByText('Status 1')).toBeVisible());
+        });
+
+        it('hides the status panel before closing a Modal around the table with Escape', async () => {
+            const onOpenChange = vi.fn();
+            render(
+                <Modal isOpen aria-label="Users" onOpenChange={onOpenChange}>
+                    <DataTable
+                        columns={kbColumns}
+                        data={kbData}
+                        enablePagination={false}
+                        primaryKey="id"
+                        renderRow={({ id, render: renderCells }: RenderRowContext<User>) => (
+                            <TableRow key={id}>
+                                {renderCells({ before: <TableCellStatus color="success">{`Status ${id}`}</TableCellStatus> })}
+                            </TableRow>
+                        )}
+                    />
+                </Modal>,
+            );
+            // The Modal moves focus into the dialog once open
+            await waitFor(() => expect(screen.getByRole('dialog')).toContainElement(document.activeElement as HTMLElement));
+            row('Alice').focus();
+            await waitFor(() => expect(screen.getByText('Status 1')).toBeVisible());
+            await userEvent.keyboard('{Escape}');
+            expect(onOpenChange).not.toHaveBeenCalled();
+            await userEvent.keyboard('{Escape}');
+            expect(onOpenChange).toHaveBeenCalledWith(false, expect.anything(), 'escape-key');
         });
     });
 });
