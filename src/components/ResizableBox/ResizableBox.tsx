@@ -45,9 +45,10 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
     const min = parseFloat(String(minWidth));
     const max = parseFloat(String(maxWidth));
 
+    // A controlled size, such as a collapsed SecondaryNav that expands, changes the width without a resize
     useLayoutEffect(() => {
         setWidth(resizableRef.current?.size.width);
-    }, []);
+    }, [size?.width]);
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
         const hasModifier = e.shiftKey || e.ctrlKey || e.metaKey || e.altKey;

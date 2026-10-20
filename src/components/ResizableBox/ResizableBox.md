@@ -1,5 +1,7 @@
 This component allow the user to resize the size of an element.
 
+Name the box with `aria-label`: the resize handle takes that name, else "Resize".
+
 When the handle is focused, use the keyboard to resize the panel:
 - `ArrowLeft` to decrease the width by 10px
 - `ArrowRight` to increase the width by 10px

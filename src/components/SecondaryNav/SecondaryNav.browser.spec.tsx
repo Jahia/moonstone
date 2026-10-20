@@ -49,4 +49,10 @@ describe('SecondaryNav keyboard', () => {
         await userEvent.keyboard('{Enter}');
         expect(toggle()).toHaveAttribute('aria-expanded', 'true');
     });
+
+    it('reads the width of a nav that starts collapsed once it is expanded', async () => {
+        render(<SecondaryNav isDefaultVisible={false} header="Header">Nav content</SecondaryNav>);
+        await userEvent.click(toggle());
+        expect(screen.getByRole('separator')).toHaveAttribute('aria-valuenow', '300');
+    });
 });
