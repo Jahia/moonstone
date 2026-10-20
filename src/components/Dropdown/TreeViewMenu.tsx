@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import React, { useState } from 'react';
 
 import { SearchInput, TreeView } from '~/components';
+import { WithoutField } from '~/components/Field/Field.context';
 import { usePositioning } from '~/hooks';
 
 import type { TreeViewMenuProps } from './TreeViewMenu.types';
@@ -190,21 +191,24 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
                 style={styleMenu}
             >
                 {hasAutoSearch && (
-                    <div className={clsx('moonstone-menu_searchInput', styles['moonstone-menu_searchInput'])}>
-                        <SearchInput
-                            value={inputValue}
-                            onChange={e => setInputValue(e.target.value)}
-                            onClear={() => setInputValue('')}
-                            onKeyUp={(e) => {
-                                if (e.key === 'Enter' && treeData.length > 0) {
-                                    const item = find(data => !data.isDisabled, treeData[0]);
-                                    if (item) {
-                                        handleSelect(e, item);
+                    // The search box of a menu is not the control of a Field around it
+                    <WithoutField>
+                        <div className={clsx('moonstone-menu_searchInput', styles['moonstone-menu_searchInput'])}>
+                            <SearchInput
+                                value={inputValue}
+                                onChange={e => setInputValue(e.target.value)}
+                                onClear={() => setInputValue('')}
+                                onKeyUp={(e) => {
+                                    if (e.key === 'Enter' && treeData.length > 0) {
+                                        const item = find(data => !data.isDisabled, treeData[0]);
+                                        if (item) {
+                                            handleSelect(e, item);
+                                        }
                                     }
-                                }
-                            }}
-                        />
-                    </div>
+                                }}
+                            />
+                        </div>
+                    </WithoutField>
                 )}
                 <TreeView
                     data={treeData}
