@@ -3,4 +3,4 @@
 "@jahia/moonstone": minor
 ---
 
-Add `role="switch"` to `Switch`, toggle it with Space only, set the `indeterminate` property of `Checkbox`, and drop `aria-checked` from both (#1427)
+Add `role="switch"` to `Switch`, set the `indeterminate` property of `Checkbox`, and drop `aria-checked` from both (#1427)

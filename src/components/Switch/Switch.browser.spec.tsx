@@ -38,13 +38,13 @@ describe('Switch keyboard', () => {
         expect(onChange).toHaveBeenCalledWith(expect.anything(), 'a', false);
     });
 
-    it('does not toggle with Enter, as a native checkbox', async () => {
+    it('turns on with Enter and calls onChange once', async () => {
         const onChange = vi.fn();
         render(<Switch value="a" onChange={onChange}/>);
         getSwitch().focus();
         await userEvent.keyboard('{Enter}');
-        expect(getSwitch()).not.toBeChecked();
-        expect(onChange).not.toHaveBeenCalled();
+        expect(getSwitch()).toBeChecked();
+        expect(onChange).toHaveBeenCalledTimes(1);
     });
 
     it('exposes its state through the native checked state', async () => {
@@ -53,6 +53,14 @@ describe('Switch keyboard', () => {
         getSwitch().focus();
         await userEvent.keyboard(' ');
         expect(getSwitch()).toBeChecked();
+    });
+
+    it('toggles once when Enter is held', async () => {
+        const onChange = vi.fn();
+        render(<Switch value="a" onChange={onChange}/>);
+        getSwitch().focus();
+        await userEvent.keyboard('{Enter>3/}');
+        expect(onChange).toHaveBeenCalledTimes(1);
     });
 
     it('skips a disabled switch in the tab sequence', async () => {

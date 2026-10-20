@@ -1,6 +1,8 @@
 import clsx from 'clsx';
 import React from 'react';
 
+import { mergeHandlers } from '~/hooks';
+
 import type { ControlledSwitchProps } from './Switch.types';
 
 import styles from './Switch.module.scss';
@@ -13,6 +15,19 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLInputElemen
     isDisabled,
     ...other
 }, ref) => {
+    // A native checkbox toggles with Space only; the switch pattern allows Enter too
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        const hasModifier = event.shiftKey || event.ctrlKey || event.metaKey || event.altKey;
+        if (event.defaultPrevented || hasModifier || event.key !== 'Enter') {
+            return;
+        }
+
+        event.preventDefault();
+        if (!event.repeat) {
+            event.currentTarget.click();
+        }
+    };
+
     return (
         <div
             className={clsx(
@@ -23,7 +38,7 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLInputElemen
             )}
         >
             <input
-                {...other}
+                {...mergeHandlers(other, { onKeyDown: handleKeyDown })}
                 disabled={isDisabled}
                 checked={checked}
                 className={clsx('moonstone-switch_input', styles['moonstone-switch_input'])}
