@@ -14,7 +14,7 @@ export type AccordionItemProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'cl
     /**
      * Function triggered on click
      */
-    onClick?: (e: React.MouseEvent | React.KeyboardEvent, isOpen: boolean) => void;
+    onClick?: (e: React.MouseEvent<HTMLButtonElement>, isOpen: boolean) => void;
 
     /**
      * Icon displays before the label

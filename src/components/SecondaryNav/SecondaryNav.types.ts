@@ -25,4 +25,19 @@ export type SecondaryNavProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'chi
      * Triggered when the visibility is toggled
      */
     onToggled?: (e: React.MouseEvent) => void;
+    /**
+     * Secondary nav labels
+     */
+    i18n?: {
+        /**
+         * aria-label of the navigation
+         * @default 'Secondary'
+         */
+        navigationLabel?: string;
+        /**
+         * aria-label of the button that shows and hides the navigation
+         * @default 'Toggle secondary navigation'
+         */
+        toggleButtonLabel?: string;
+    };
 };
