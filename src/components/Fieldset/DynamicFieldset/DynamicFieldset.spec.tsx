@@ -68,7 +68,7 @@ describe('DynamicFieldset', () => {
                 </Field>
             </DynamicFieldset>,
         );
-        await user.click(screen.getByRole('checkbox'));
+        await user.click(screen.getByRole('switch'));
 
         expect(screen.getByDisplayValue('Input value')).toBeInTheDocument();
     });
@@ -100,7 +100,7 @@ describe('UncontrolledDynamicFieldset', () => {
                 onChange={handleChange}
             />,
         );
-        await user.click(screen.getByRole('checkbox'));
+        await user.click(screen.getByRole('switch'));
 
         expect(handleChange).toHaveBeenCalledTimes(1);
     });
@@ -132,7 +132,7 @@ describe('ControlledDynamicFieldset', () => {
                 onChange={handleChange}
             />,
         );
-        await user.click(screen.getByRole('checkbox'));
+        await user.click(screen.getByRole('switch'));
 
         expect(handleChange).toHaveBeenCalledTimes(1);
     });
