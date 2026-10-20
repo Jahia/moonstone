@@ -5,10 +5,10 @@
 // ---
 
 %variant-title {
-    font-weight: 300;
-    font-size: 28px; // 1.75rem
+    font-weight: 400;
+    font-size: 22px;
 
-    line-height: 32px; // 2rem
+    // line-height: 32px; // 2rem
 
     &::first-letter {
         text-transform: capitalize;

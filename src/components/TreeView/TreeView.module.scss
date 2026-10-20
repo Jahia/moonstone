@@ -29,7 +29,9 @@
 .moonstone-treeView_item {
     flex-wrap: nowrap;
 
-    height: 32px;
+    // height: 27px;
+    padding-block: var(--moon-spacing-nano);
+
     padding-right: var(--moon-spacing-small);
     padding-left: var(--treeItem-indent);
 

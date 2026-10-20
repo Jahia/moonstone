@@ -1,10 +1,10 @@
 @use "../../../tokens/spacings/spacings" as *;
 @use "../../../utils/mixins" as *;
 
-$accordionHeader_height: 48px;
+// $accordionHeader_height: 40px;
 
 .moonstone-accordionItem {
-    min-height: $accordionHeader_height;
+    // min-height: $accordionHeader_height;
 
     border-top: 1px solid var(--moon-color-gray_light);
     border-bottom: 1px solid var(--moon-color-gray_light);
@@ -29,8 +29,9 @@ $accordionHeader_height: 48px;
 // ---
 .moonstone-accordionItem_header {
     width: 100%;
-    height: $accordionHeader_height;
-    padding: 0 var(--moon-spacing-medium);
+
+    // height: $accordionHeader_height;
+    padding: var(--moon-spacing-small) var(--moon-spacing-medium);
 
     background-color: var(--moon-color-gray_light60);
 
