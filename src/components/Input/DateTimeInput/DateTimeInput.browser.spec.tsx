@@ -134,4 +134,12 @@ describe('DateTimeInput keyboard', () => {
         await userEvent.keyboard('{Tab}');
         await waitFor(() => expect(screen.getByRole('button', { name: 'after' })).toHaveFocus());
     });
+
+    it('returns focus to the date field after clearing it with Enter', async () => {
+        renderInput();
+        screen.getByRole('button', { name: 'Reset' }).focus();
+        await userEvent.keyboard('{Enter}');
+        expect(getField()).toHaveValue('');
+        expect(getField()).toHaveFocus();
+    });
 });
