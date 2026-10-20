@@ -26,11 +26,11 @@ describe('SecondaryNav keyboard', () => {
 
     it('collapses the nav with Enter and reports it with aria-expanded', async () => {
         const { onToggled } = renderNav();
-        expect(screen.getByRole('region')).toHaveAttribute('aria-expanded', 'true');
+        expect(toggle()).toHaveAttribute('aria-expanded', 'true');
         toggle().focus();
         await userEvent.keyboard('{Enter}');
         expect(onToggled).toHaveBeenCalledTimes(1);
-        expect(screen.getByRole('region')).toHaveAttribute('aria-expanded', 'false');
+        expect(toggle()).toHaveAttribute('aria-expanded', 'false');
     });
 
     it('collapses the nav with Space', async () => {
@@ -38,7 +38,7 @@ describe('SecondaryNav keyboard', () => {
         toggle().focus();
         await userEvent.keyboard(' ');
         expect(onToggled).toHaveBeenCalledTimes(1);
-        expect(screen.getByRole('region')).toHaveAttribute('aria-expanded', 'false');
+        expect(toggle()).toHaveAttribute('aria-expanded', 'false');
     });
 
     it('keeps the toggle button focusable once collapsed and expands again with Enter', async () => {
@@ -47,6 +47,6 @@ describe('SecondaryNav keyboard', () => {
         await userEvent.keyboard('{Enter}');
         expect(toggle()).toHaveFocus();
         await userEvent.keyboard('{Enter}');
-        expect(screen.getByRole('region')).toHaveAttribute('aria-expanded', 'true');
+        expect(toggle()).toHaveAttribute('aria-expanded', 'true');
     });
 });

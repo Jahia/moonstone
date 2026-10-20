@@ -88,8 +88,9 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                     filter={filterLeft}
                     iconEnd={<ChevronRight className={clsx('moonstone-displayNone', valueListStyles['moonstone-displayNone'])}/>}
                     listClasses={typeof dragged?.originalIndex === 'number' ? ['moonstone-draggedOver', styles['moonstone-draggedOver']] : []}
-                    role="left-list"
+                    listLabel={label.leftListTitle}
                     setFilter={setFilterLeft}
+                    side="left"
                     values={valuesLeft}
                     onClick={(e, value) => {
                         onChange(values.concat(value.value));
@@ -145,7 +146,6 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                 <Button
                     isDisabled={isReadOnly || valuesLeft.length === 0}
                     icon={<ChevronDoubleRight/>}
-                    role="add-all"
                     title={label.addAllTitle || 'Add all'}
                     variant="ghost"
                     onClick={() => onChange([...valuesRight, ...valuesLeft].map(o => o.value))}
@@ -153,7 +153,6 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                 <Button
                     isDisabled={isReadOnly || valuesRight.length === 0}
                     icon={<ChevronDoubleLeft/>}
-                    role="remove-all"
                     title={label.removeAllTitle || 'Remove all'}
                     variant="ghost"
                     onClick={() => onChange(values.filter(v => !valuesRight.find(o => o.value === v)))}
@@ -186,8 +185,9 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                     iconEnd={<Close className={clsx('moonstone-displayNone', valueListStyles['moonstone-displayNone'])}/>}
                     label={label}
                     listClasses={(dragged && !filterRight) ? ['moonstone-draggedOver', styles['moonstone-draggedOver']] : []}
-                    role="right-list"
+                    listLabel={label.rightListTitle}
                     setFilter={setFilterRight}
+                    side="right"
                     values={valuesRight}
                     onClick={(e, value) => {
                         onChange(values.filter(val => val !== value.value));
