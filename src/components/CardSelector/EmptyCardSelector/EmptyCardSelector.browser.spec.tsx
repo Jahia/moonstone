@@ -37,7 +37,7 @@ describe('EmptyCardSelector keyboard', () => {
         expect(onClick).toHaveBeenCalledTimes(1);
     });
 
-    it.fails('keeps focus on the card after it is activated with the keyboard', async () => {
+    it('keeps focus on the card after it is activated with the keyboard', async () => {
         renderCard();
         const card = screen.getByRole('button', { name: 'No item selected' });
         card.focus();
