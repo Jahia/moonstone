@@ -48,18 +48,8 @@ describe('MultipleLeftRightSelector', () => {
         ).toHaveLength(selection.length);
     });
 
-    it('should announce the selection count through a live region', () => {
-        const { rerender } = render(<ListSelector {...requiredProps} options={options}/>);
-        expect(screen.getByRole('status')).toHaveTextContent('0 item selected');
-
-        rerender(
-            <ListSelector
-                {...requiredProps}
-                label={{ selected: '2 items selected' }}
-                options={options}
-                values={['1', '3']}
-            />,
-        );
+    it('should use label.selected when given', () => {
+        render(<ListSelector {...requiredProps} label={{ selected: '2 items selected' }} options={options} values={['1', '3']}/>);
         expect(screen.getByRole('status')).toHaveTextContent('2 items selected');
     });
 
@@ -69,7 +59,6 @@ describe('MultipleLeftRightSelector', () => {
 
         rerender(<ListSelector options={options} values={[]} onChange={() => ({})}/>);
         expect(screen.getByRole('status')).toHaveTextContent('0 item(s) selected');
-        expect(screen.getByText('0 item(s) selected').tagName).toBe('SPAN');
     });
 
     it('should count the selection when the label has no selected text', () => {

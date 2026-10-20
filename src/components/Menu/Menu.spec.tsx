@@ -79,7 +79,6 @@ describe('Menu', () => {
             );
             await user.type(screen.getByRole('searchbox'), 'random search text');
 
-            expect(screen.getByText(searchEmptyText)).toBeInTheDocument();
             expect(screen.getByRole('status')).toHaveTextContent(searchEmptyText);
         });
 

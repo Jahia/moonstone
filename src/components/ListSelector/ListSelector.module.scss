@@ -1,3 +1,5 @@
+@use "../../utils";
+
 $footerHeight: 24px;
 $gap: 8px;
 
@@ -34,14 +36,5 @@ $gap: 8px;
 }
 
 .moonstone-listSelector_visuallyHidden {
-    position: absolute;
-
-    overflow: hidden;
-
-    width: 1px;
-    height: 1px;
-
-    white-space: nowrap;
-
-    clip-path: inset(50%);
+    @include utils.visually-hidden;
 }

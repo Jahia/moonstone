@@ -23,7 +23,6 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
         leftListTitle: 'Label for the left list',
         addAllTitle: 'Add all',
         removeAllTitle: 'Remove all',
-        selected: `${values.length} item(s) selected`,
     },
     ...props
 }) => {
@@ -271,9 +270,13 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                 >
                     <div role="status">
                         {/* Hidden at 0 but still read out, so removing the last item is announced */}
-                        {values.length > 0
-                            ? <Typography variant="caption" weight="semiBold">{selectedLabel}</Typography>
-                            : <span className={styles['moonstone-listSelector_visuallyHidden']}>{selectedLabel}</span>}
+                        <Typography
+                            className={clsx(values.length === 0 && styles['moonstone-listSelector_visuallyHidden'])}
+                            variant="caption"
+                            weight="semiBold"
+                        >
+                            {selectedLabel}
+                        </Typography>
                     </div>
                 </footer>
             </div>
