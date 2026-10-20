@@ -1,6 +1,8 @@
 import clsx from 'clsx';
 import React from 'react';
 
+import { useFieldAria, useFieldControlId } from '~/components/Field/Field.context';
+
 import type { ControlledTextareaProps } from './Textarea.types';
 
 import styles from './Textarea.module.scss';
@@ -18,6 +20,9 @@ export const ControlledTextarea = React.forwardRef<HTMLTextAreaElement, Controll
     onFocus,
     ...props
 }, ref) => {
+    const fieldAria = useFieldAria(props);
+    const controlId = useFieldControlId(id);
+
     return (
         <textarea
             disabled={isDisabled}
@@ -27,7 +32,7 @@ export const ControlledTextarea = React.forwardRef<HTMLTextAreaElement, Controll
                 isResizable && ['moonstone-textarea_resizable', styles['moonstone-textarea_resizable']],
                 className,
             )}
-            id={id}
+            id={controlId}
             placeholder={placeholder}
             ref={ref}
             value={value}
@@ -35,6 +40,7 @@ export const ControlledTextarea = React.forwardRef<HTMLTextAreaElement, Controll
             onChange={(!isDisabled || !isReadOnly) && onChange}
             onFocus={(!isDisabled || !isReadOnly) && onFocus}
             {...props}
+            {...fieldAria}
         />
     );
 });
