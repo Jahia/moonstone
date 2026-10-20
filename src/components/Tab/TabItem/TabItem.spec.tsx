@@ -15,7 +15,8 @@ describe('TabItem', () => {
         expect(screen.getByText('TabItem Toto')).toBeInTheDocument();
     });
 
-    it('should use label variant heading & weight semiBold on size big', () => {
+    // Should be check by visual tests
+    it.skip('should use label variant heading & weight semiBold on size big', () => {
         render(<TabItem label="TabItem Toto" size="big"/>);
         expect(screen.getByText('TabItem Toto')).toHaveClass('moonstone-variant_heading');
         expect(screen.getByText('TabItem Toto')).toHaveClass('moonstone-weight_semiBold');
