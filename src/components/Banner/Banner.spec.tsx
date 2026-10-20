@@ -36,4 +36,18 @@ describe('Banner', () => {
             );
         },
     );
+
+    test.each([['neutral', 'status'], ['info', 'status'], ['warning', 'alert'], ['danger', 'alert']] as const)(
+        'should announce a %s banner with the %s role',
+        (variant, role) => {
+            render(<Banner title="Test banner" variant={variant}>Banner content</Banner>);
+            expect(screen.getByRole(role)).toHaveTextContent('Banner content');
+        },
+    );
+
+    it('should let the consumer override the role', () => {
+        render(<Banner role="region" title="Test banner" variant="danger">Banner content</Banner>);
+        expect(screen.getByRole('region')).toBeInTheDocument();
+        expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+    });
 });
