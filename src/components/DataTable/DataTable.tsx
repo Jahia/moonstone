@@ -155,6 +155,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     {enableSelection && (
                         <TableCell width="auto" {...selectionCellProps}>
                             <Checkbox
+                                aria-label={i18n?.selectRow || 'Select row'}
                                 checked={row.getIsSelected()}
                                 onChange={row.getToggleSelectedHandler()}
                             />
@@ -173,7 +174,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 </>
             );
         },
-        [enableSelection, isStructured, registerCustomCellCounts, selectionCellProps, withCustomCellObserver],
+        [enableSelection, isStructured, registerCustomCellCounts, selectionCellProps, i18n?.selectRow, withCustomCellObserver],
     );
 
     const renderRowWithCustomization = useCallback(
@@ -233,6 +234,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             {enableSelection && (
                                 <TableHeadCell width="auto" {...selectionCellProps}>
                                     <Checkbox
+                                        aria-label={i18n?.selectAllRows || 'Select all rows'}
                                         checked={table.getIsAllRowsSelected()}
                                         indeterminate={table.getIsSomeRowsSelected()}
                                         onChange={table.getToggleAllRowsSelectedHandler()}
