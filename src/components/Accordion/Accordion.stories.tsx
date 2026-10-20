@@ -36,21 +36,21 @@ export default {
 const Template: StoryFn<AccordionProps> = args => (
     <Accordion {...args}>
         <AccordionItem
-            icon={<Love size="big"/>}
+            icon={<Love/>}
             id={accordionIds[0]}
             label="test 01"
         >
             Accordion Content 01
         </AccordionItem>
         <AccordionItem
-            icon={<Bug size="big"/>}
+            icon={<Bug/>}
             id={accordionIds[1]}
             label="test 02"
         >
             Accordion Content 02
         </AccordionItem>
         <AccordionItem
-            icon={<BarSquare size="big"/>}
+            icon={<BarSquare/>}
             id={accordionIds[2]}
             label="test 03 (with long content)"
         >
@@ -185,21 +185,21 @@ export const Controlled = () => {
                 onSetOpenedItem={onSetOpenedItem}
             >
                 <AccordionItem
-                    icon={<Love size="big"/>}
+                    icon={<Love/>}
                     id={accordionIds[0]}
                     label="test 01"
                 >
                     Accordion Content
                 </AccordionItem>
                 <AccordionItem
-                    icon={<Bug size="big"/>}
+                    icon={<Bug/>}
                     id={accordionIds[1]}
                     label="test 02 is opened by default"
                 >
                     Accordion Content
                 </AccordionItem>
                 <AccordionItem
-                    icon={<BarSquare size="big"/>}
+                    icon={<BarSquare/>}
                     id={accordionIds[2]}
                     label="test 03 (with long content)"
                 >
