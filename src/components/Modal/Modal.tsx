@@ -11,7 +11,7 @@ import {
     useRole,
 } from '@floating-ui/react';
 import clsx from 'clsx';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { ModalContext } from './Modal.context';
 import { layout } from '~/globals/css-utils.js';
@@ -48,6 +48,14 @@ const ModalForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalProps
 
     const titleId = useId();
     const contextValue = useMemo(() => ({ titleId }), [titleId]);
+    const ariaLabel = props['aria-label'];
+    const ariaLabelledBy = props['aria-labelledby'];
+
+    useEffect(() => {
+        if (isOpen && !ariaLabel && !ariaLabelledBy && !document.getElementById(titleId)) {
+            console.warn('Modal: add a ModalHeader with a title, or an aria-label, to name the dialog');
+        }
+    }, [isOpen, ariaLabel, ariaLabelledBy, titleId]);
 
     return (
         children && isOpen && (

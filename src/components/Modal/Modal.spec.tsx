@@ -59,9 +59,11 @@ describe('Modal', () => {
         expect(screen.getByRole('dialog', { name: 'Modal title' })).toBeInTheDocument();
     });
 
-    it('should not be named by its content when it has no header', () => {
+    it('should warn when it has no header and no aria-label', () => {
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
         render(<Modal isOpen><ModalBody>Modal content</ModalBody></Modal>);
-        expect(screen.getByRole('dialog')).toHaveAccessibleName('');
+        expect(warn).toHaveBeenCalledWith('Modal: add a ModalHeader with a title, or an aria-label, to name the dialog');
+        warn.mockRestore();
     });
 
     it('should let the consumer name the modal', () => {
