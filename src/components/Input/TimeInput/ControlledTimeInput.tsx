@@ -15,6 +15,7 @@ import {
     type TimeSegment,
 } from './timeHelpers';
 import { Dropdown } from '~/components';
+import { WithoutField } from '~/components/Field/Field.context';
 import { layout } from '~/globals/css-utils';
 import { Clock } from '~/icons';
 
@@ -125,27 +126,29 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
                 onKeyDown={handleKeyDown}
             />
             {meridiem && (
-                <Dropdown
-                    {...meridiemDropdownProps}
-                    isDisabled={isDisabled || isReadOnly}
-                    className={clsx(styles.meridiemDropdown, meridiemDropdownProps?.className)}
-                    data={[{
-                        label: 'AM',
-                        value: 'AM',
-                    }, {
-                        label: 'PM',
-                        value: 'PM',
-                    }]}
-                    size={size === 'big' ? 'medium' : 'small'}
-                    value={meridiem}
-                    variant={variant}
-                    onChange={(event: React.SyntheticEvent, item?: DropdownDataOption) => {
-                        // An empty field has no time to re-emit.
-                        if (displayValue && (item?.value === 'AM' || item?.value === 'PM')) {
-                            emitChange(event, parseTimeInput(displayValue, '12h', item.value));
-                        }
-                    }}
-                />
+                <WithoutField>
+                    <Dropdown
+                        {...meridiemDropdownProps}
+                        isDisabled={isDisabled || isReadOnly}
+                        className={clsx(styles.meridiemDropdown, meridiemDropdownProps?.className)}
+                        data={[{
+                            label: 'AM',
+                            value: 'AM',
+                        }, {
+                            label: 'PM',
+                            value: 'PM',
+                        }]}
+                        size={size === 'big' ? 'medium' : 'small'}
+                        value={meridiem}
+                        variant={variant}
+                        onChange={(event: React.SyntheticEvent, item?: DropdownDataOption) => {
+                            // An empty field has no time to re-emit.
+                            if (displayValue && (item?.value === 'AM' || item?.value === 'PM')) {
+                                emitChange(event, parseTimeInput(displayValue, '12h', item.value));
+                            }
+                        }}
+                    />
+                </WithoutField>
             )}
         </div>
     );
