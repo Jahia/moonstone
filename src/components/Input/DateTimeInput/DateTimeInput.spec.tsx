@@ -89,12 +89,14 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                i18n={{ todayButton: 'Current day', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel }}
+                i18n={{ todayButton: 'Current day', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel, clearButton: 'Clear the date' }}
                 placeholder="Select a date"
                 type="date"
                 onChange={() => null}
             />,
         );
+
+        expect(screen.getByRole('button', { name: 'Clear the date' })).toBeInTheDocument();
 
         await user.click(dateField());
 
