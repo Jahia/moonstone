@@ -60,7 +60,7 @@ describe('Input keyboard', () => {
         expect(screen.getByRole('button', { name: 'Reset' })).toHaveFocus();
     });
 
-    it.fails('clears with Enter on the clear button and returns focus to the input', async () => {
+    it('clears with Enter on the clear button and returns focus to the input', async () => {
         const onClear = vi.fn();
         render(<ClearableInput onClear={onClear}/>);
         screen.getByRole('button', { name: 'Reset' }).focus();
@@ -70,7 +70,7 @@ describe('Input keyboard', () => {
         expect(screen.getByRole('textbox')).toHaveFocus();
     });
 
-    it.fails('clears with Space on the clear button and returns focus to the input', async () => {
+    it('clears with Space on the clear button and returns focus to the input', async () => {
         const onClear = vi.fn();
         render(<ClearableInput onClear={onClear}/>);
         screen.getByRole('button', { name: 'Reset' }).focus();

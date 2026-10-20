@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { AccordionItem } from './AccordionItem/';
@@ -33,7 +33,7 @@ describe('Accordion', () => {
 
     it('should display nothing when the component has no children', () => {
         render(<Accordion data-testid="id"><div/></Accordion>);
-        expect(screen.queryByRole('accordion-item')).not.toBeInTheDocument();
+        expect(within(screen.getByTestId('id')).queryByRole('button')).not.toBeInTheDocument();
     });
 
     describe('withAccordionItem Mock', () => {

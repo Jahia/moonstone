@@ -82,7 +82,7 @@ describe('Dropdown keyboard', () => {
         expect(getOption('Apple')).toHaveFocus();
     });
 
-    it.fails('moves focus to the first and last options with Home and End', async () => {
+    it('moves focus to the first and last options with Home and End', async () => {
         const { trigger } = renderDropdown();
         await openWithEnter(trigger);
         getOption('Banana').focus();

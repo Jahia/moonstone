@@ -30,9 +30,9 @@ export default defineConfig({
         'react/display-name': 'off',
         'react-hooks/rules-of-hooks': 'error',
         'react-hooks/exhaustive-deps': 'warn',
-        // Warn: flags any ref *passed* to a call during render (useMergeRefs, floating-ui,
-        // onArrowNavigation), which is our standard pattern — no hit reads `.current` in
-        // render. Kept visible so a genuine render-time `.current` read still surfaces.
+        // Warn: flags any ref *passed* to a call during render (useMergeRefs, floating-ui),
+        // which is our standard pattern — no hit reads `.current` in render. Kept visible
+        // so a genuine render-time `.current` read still surfaces.
         'react/refs': 'warn',
         'react/set-state-in-effect': 'error',
         // Off: only reports that React Compiler would skip memoizing `useReactTable`.
