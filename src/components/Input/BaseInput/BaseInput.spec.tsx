@@ -22,6 +22,18 @@ describe('BaseInput', () => {
         ).toBeInTheDocument();
     });
 
+    it('should forward aria-invalid and aria-describedby to the input', () => {
+        render(
+            <>
+                <BaseInput aria-describedby="error" aria-invalid="true" aria-label="Title"/>
+                <span id="error">Required</span>
+            </>,
+        );
+        const input = screen.getByRole('textbox', { name: 'Title' });
+        expect(input).toBeInvalid();
+        expect(input).toHaveAccessibleDescription('Required');
+    });
+
     it('should have specified id', () => {
         const { container } = render(<BaseInput id="test-id"/>);
         expect(container.querySelector('#test-id')).toBeInTheDocument();

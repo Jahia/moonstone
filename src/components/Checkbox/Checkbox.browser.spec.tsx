@@ -69,11 +69,10 @@ describe('Checkbox keyboard', () => {
     it('becomes checked with Space when indeterminate', async () => {
         const onChange = vi.fn();
         render(<IndeterminateCheckbox onChange={onChange}/>);
-        expect(screen.getByRole('checkbox')).toHaveAttribute('aria-checked', 'mixed');
+        expect(screen.getByRole('checkbox')).toBePartiallyChecked();
         screen.getByRole('checkbox').focus();
         await userEvent.keyboard(' ');
         expect(onChange).toHaveBeenCalledWith(true);
         expect(screen.getByRole('checkbox')).toBeChecked();
-        expect(screen.getByRole('checkbox')).toHaveAttribute('aria-checked', 'true');
     });
 });
