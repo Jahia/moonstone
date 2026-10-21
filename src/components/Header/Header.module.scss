@@ -24,7 +24,9 @@ $header-toolbar-minheight: 35px;
 // Main
 //---
 .moonstone-header_main {
-    // margin-bottom: var(--moon-spacing-nano);
+    &:only-child {
+        padding-bottom: var(--moon-spacing-small);
+    }
 }
 
 .moonstone-header_back {
