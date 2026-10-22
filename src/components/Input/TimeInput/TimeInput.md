@@ -41,6 +41,6 @@ import {TimeInput} from '@jahia/moonstone';
   shows the expected format.
 
 ## Accessibility
-- Always give it a label. Use a [Field](?path=/docs/components-field--docs), or pass an `aria-label` when it stands alone.
+- Add an `aria-label` when it is not in a [Field](?path=/docs/components-field--docs).
 - The Up and Down arrow keys step the hour or minute segment under the caret. The Left and Right
   arrow keys move between the two segments.

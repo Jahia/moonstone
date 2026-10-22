@@ -44,5 +44,5 @@ import {SearchInput} from '@jahia/moonstone';
 - A placeholder is a hint, not a label. It disappears as soon as the user types.
 
 ## Accessibility
-- Always provide a label. Pass an `aria-label`, or use [Field](?path=/docs/components-field--docs) when the search box sits in a form.
+- Add an `aria-label` when it is not in a [Field](?path=/docs/components-field--docs).
 - Clearing the search box with the clear button returns the focus to the search box (soon).

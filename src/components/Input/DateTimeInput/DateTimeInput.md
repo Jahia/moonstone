@@ -48,7 +48,7 @@ import {DateTimeInput} from '@jahia/moonstone';
 - Write `i18n.clearButton` as a short, verb-first accessible label in sentence case, such as "Reset".
 
 ## Accessibility
-- Always give it a label. Use a [Field](?path=/docs/components-field--docs), or pass an `aria-label` when it stands alone.
+- Add an `aria-label` when it is not in a [Field](?path=/docs/components-field--docs).
 - Enter or Space on the date field opens the calendar. Escape closes it.
 - Opening the calendar moves the focus to the selected day (soon).
 - In the calendar, the Left and Right arrow keys move between days, and the Up and Down arrow

@@ -44,6 +44,6 @@ import {NumberInput} from '@jahia/moonstone';
 - A placeholder is a hint, not a label. Don't use it as a replacement for the [Field](?path=/docs/components-field--docs) label.
 
 ## Accessibility
-- Always provide a label. Use [Field](?path=/docs/components-field--docs), or pass an `aria-label` when the input is standalone.
+- Add an `aria-label` when it is not in a [Field](?path=/docs/components-field--docs).
 - The Up and Down arrow keys step the value by `step`, within `min` and `max`.
 - Home and End jump to `min` and `max`, when they are set (soon).

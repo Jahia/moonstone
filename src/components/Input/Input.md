@@ -47,6 +47,6 @@ import {Input} from '@jahia/moonstone';
 - Use the placeholder as a hint about the expected text, such as "Enter a title". Never use it to replace the label.
 
 ## Accessibility
-- Always give the Input a label. Use a [Field](?path=/docs/components-field--docs), or pass an `aria-label` when the Input stands alone.
+- Add an `aria-label` when the Input is not in a [Field](?path=/docs/components-field--docs).
 - Don't rely on the placeholder as the label. It disappears as soon as the user types.
 - Clearing the Input with the clear button returns the focus to the Input (soon).
