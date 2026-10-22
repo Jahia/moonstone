@@ -46,4 +46,4 @@ import {NumberInput} from '@jahia/moonstone';
 ## Accessibility
 - Add an `aria-label` when it is not in a [Field](?path=/docs/components-field--docs).
 - The Up and Down arrow keys step the value by `step`, within `min` and `max`.
-- Home and End jump to `min` and `max`, when they are set (soon).
+- Home and End jump to `min` and `max`, when they are set.

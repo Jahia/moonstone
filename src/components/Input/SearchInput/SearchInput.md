@@ -45,4 +45,4 @@ import {SearchInput} from '@jahia/moonstone';
 
 ## Accessibility
 - Add an `aria-label` when it is not in a [Field](?path=/docs/components-field--docs).
-- Clearing the search box with the clear button returns the focus to the search box (soon).
+- Clearing the search box with the clear button returns the focus to the search box.

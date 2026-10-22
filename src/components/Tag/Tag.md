@@ -22,4 +22,4 @@ import {Tag} from '~/components';
 | `small` | The trigger of a `small` Dropdown. |
 
 ## Accessibility
-- Delete or Backspace removes the focused Tag (soon).
+- Delete or Backspace removes the focused Tag.

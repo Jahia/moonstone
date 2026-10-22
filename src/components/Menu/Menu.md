@@ -33,5 +33,5 @@ import {Menu, MenuItem} from '@jahia/moonstone';
 - An icon-only trigger, such as a [Button](?path=/docs/components-button--docs) with only an `icon`, must have an `aria-label` that describes the menu, such as "More actions".
 - The Up and Down arrow keys move the focus between items.
 - Enter or Space activates the focused item (soon).
-- Home and End move the focus to the first and last items (soon).
+- Home and End move the focus to the first and last items.
 - Escape closes the menu (soon).

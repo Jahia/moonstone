@@ -24,5 +24,5 @@ import {Tab, TabItem} from '@jahia/moonstone';
 - The Tab renders the tab list only. Render the content of the selected tab yourself, in an element with `role="tabpanel"` linked to its [TabItem](?path=/docs/components-tabitem--docs).
 - Mark exactly one [TabItem](?path=/docs/components-tabitem--docs) as selected at a time. Its selected state is exposed to assistive technologies.
 - The Left and Right arrow keys move the focus between tabs.
-- The arrow keys wrap from the last tab to the first and back, and skip disabled tabs (soon).
-- Home and End move the focus to the first and last tabs (soon).
+- The arrow keys wrap from the last tab to the first and back, and skip disabled tabs.
+- Home and End move the focus to the first and last tabs.

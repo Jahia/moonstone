@@ -60,10 +60,10 @@ const siteTree = [
 - Give the tree an accessible name with `aria-label` when no visible heading names it.
 - Set `isLoading` on a node while its children load. The node is then reported as busy.
 - The Up and Down arrow keys move the focus between visible nodes.
-- Home and End move the focus to the first and last visible nodes (soon).
+- Home and End move the focus to the first and last visible nodes.
 - The Right arrow key opens a closed node, and the Left arrow key closes an open one.
-- On an open node, the Right arrow key moves the focus to the first child (soon).
-- On a child node, the Left arrow key moves the focus to the parent (soon).
-- Enter selects the focused node. Space selects it too (soon).
-- `*` opens all the sibling nodes (soon).
+- On an open node, the Right arrow key moves the focus to the first child.
+- On a child node, the Left arrow key moves the focus to the parent.
+- Enter selects the focused node. Space opens and closes it.
+- `*` opens all the sibling nodes.
 - A disabled or read-only node doesn't call `onClickItem`, with the mouse or the keyboard. The user can still open and close it.
