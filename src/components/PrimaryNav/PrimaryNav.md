@@ -24,8 +24,10 @@ import {PrimaryNav, PrimaryNavItem, PrimaryNavItemsGroup} from '@jahia/moonstone
 
 ## Voice and tone
 - Write `headerCaption` in sentence case and keep it short, such as an environment name ("Production").
+- Write `i18n.toggleButtonLabel` as a short, verb-first accessible label in sentence case, such as "Toggle primary navigation".
 
 ## Accessibility
 - Give `headerLogo` a meaningful `alt` attribute when it's an image, or an empty one if it's purely decorative.
 - If the page has more than one navigation landmark, pass `aria-label` to distinguish this one. It is forwarded to the underlying `<nav>`.
+- Override `i18n`'s navigation and toggle button labels when translating; left unset, they default to English.
 - Escape collapses the expanded navigation and returns the focus to the toggle (soon).

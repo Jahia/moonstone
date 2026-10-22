@@ -14,7 +14,7 @@ export type AccordionItemProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'cl
     /**
      * Called when the user opens or closes the item. The second argument is the new open state.
      */
-    onClick?: (e: React.MouseEvent | React.KeyboardEvent, isOpen: boolean) => void;
+    onClick?: (e: React.MouseEvent<HTMLButtonElement>, isOpen: boolean) => void;
 
     /**
      * Icon shown before the label.

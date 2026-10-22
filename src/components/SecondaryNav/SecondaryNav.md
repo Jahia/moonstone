@@ -21,6 +21,10 @@ import {SecondaryNav, SecondaryNavHeader} from '@jahia/moonstone';
 - Don't use it to switch between views inside a page. Use [Tab](?path=/docs/components-tab--docs) instead.
 - Don't put [Collapsible](?path=/docs/components-collapsible--docs) sections in it. Use an [Accordion](?path=/docs/components-accordion--docs) instead.
 
+## Voice and tone
+- Write `i18n.toggleButtonLabel` as a short, verb-first accessible label in sentence case, such as "Toggle secondary navigation".
+
 ## Accessibility
-- Pass an `aria-label` that names the navigation, such as "Administration". It is forwarded to the root element, which is a landmark region.
+- Pass an `aria-label` that names the navigation, such as "Administration". It is forwarded to the root element, which is a navigation landmark.
+- Override `i18n`'s navigation, toggle button, and resize handle labels and its width unit when translating; left unset, they default to English.
 - The SecondaryNav uses reversed colors by default, for a dark background. Give its content the same `isReversed` value, such as `<TreeView isReversed/>`, so the text keeps enough contrast.

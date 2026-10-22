@@ -7,6 +7,10 @@ export type ImgWrapperProps = Omit<React.ComponentPropsWithoutRef<'img'>, 'class
      */
     src: string;
     /**
+     * Text alternative of the image, use an empty string for a decorative image
+     */
+    alt: string;
+    /**
      * Image size
      * @default 'default'
      */

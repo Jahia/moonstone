@@ -131,6 +131,35 @@ describe('Pagination', () => {
         expect(screen.getByText('Rows')).toBeInTheDocument();
     });
 
+    it('should name the navigation buttons', () => {
+        render(<Pagination {...defaultProps}/>);
+        expect(screen.getByRole('button', { name: 'First page' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Previous page' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Next page' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Last page' })).toBeInTheDocument();
+    });
+
+    it('should let the consumer translate the navigation button names', () => {
+        render(
+            <Pagination
+                {...defaultProps}
+                i18n={{ itemsPerPage: 'Éléments', of: 'sur', firstPage: 'Première page', previousPage: 'Page précédente', nextPage: 'Page suivante', lastPage: 'Dernière page' }}
+            />,
+        );
+        expect(screen.getByRole('button', { name: 'Première page' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Page précédente' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Page suivante' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Dernière page' })).toBeInTheDocument();
+    });
+
+    it('should keep the default labels the consumer does not translate', () => {
+        render(<Pagination {...defaultProps} i18n={{ firstPage: 'Première page' }}/>);
+        expect(screen.getByRole('button', { name: 'Première page' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Last page' })).toBeInTheDocument();
+        expect(screen.getByText('Items')).toBeInTheDocument();
+        expect(screen.getByTestId('pagination-total-items')).toHaveTextContent('1-10 of 100');
+    });
+
     it('should render the items per page dropdown', () => {
         render(<Pagination {...defaultProps}/>);
         expect(screen.getByTestId('pagination-dropdown-items-per-page')).toBeInTheDocument();

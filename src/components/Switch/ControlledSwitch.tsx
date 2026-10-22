@@ -1,10 +1,9 @@
 import clsx from 'clsx';
-import React, { useImperativeHandle, useRef } from 'react';
+import React from 'react';
 
-import { onAccessibleClick } from '~/hooks';
+import { mergeHandlers } from '~/hooks';
 
 import type { ControlledSwitchProps } from './Switch.types';
-import type { MutableRefObject } from 'react';
 
 import styles from './Switch.module.scss';
 
@@ -16,8 +15,18 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLInputElemen
     isDisabled,
     ...other
 }, ref) => {
-    const inputRef: MutableRefObject<HTMLInputElement> = useRef();
-    useImperativeHandle(ref, () => inputRef.current!, []);
+    // A native checkbox toggles with Space only; the switch pattern allows Enter too
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        const hasModifier = event.shiftKey || event.ctrlKey || event.metaKey || event.altKey;
+        if (event.defaultPrevented || hasModifier || event.key !== 'Enter') {
+            return;
+        }
+
+        event.preventDefault();
+        if (!event.repeat) {
+            event.currentTarget.click();
+        }
+    };
 
     return (
         <div
@@ -29,19 +38,15 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLInputElemen
             )}
         >
             <input
-                {...other}
+                {...mergeHandlers(other, { onKeyDown: handleKeyDown })}
                 disabled={isDisabled}
-                aria-checked={checked}
                 checked={checked}
                 className={clsx('moonstone-switch_input', styles['moonstone-switch_input'])}
-                ref={inputRef}
+                ref={ref}
+                role="switch"
                 type="checkbox"
                 value={value}
-                {...onAccessibleClick({
-                    onClick: (ev: React.KeyboardEvent | React.MouseEvent) => onChange?.(ev as unknown as React.ChangeEvent<HTMLInputElement>, value, inputRef.current?.checked),
-                    disabled: isDisabled,
-                    role: 'checkbox',
-                })}
+                onChange={event => onChange?.(event, value, event.target.checked)}
             />
             <span className={clsx('moonstone-switch_icon', styles['moonstone-switch_icon'])}/>
         </div>

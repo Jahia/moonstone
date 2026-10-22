@@ -1,6 +1,9 @@
+@use "../../../utils/motion" as *;
 @use "../../../utils/mixins" as *;
 
 .moonstone-primaryNavItem {
+    @include transition(color 0.2s, background-color 0.2s);
+
     position: relative;
 
     display: flex;
@@ -14,8 +17,6 @@
     border-radius: var(--moon-radius_rounded);
     cursor: pointer;
 
-    transition: color 0.2s, background-color 0.2s;
-
     &.moonstone-selected {
         color: var(--moon-color-light);
 
@@ -23,33 +24,41 @@
         cursor: default;
     }
 
-    &:focus-visible {
-        @extend %is-focused;
-    }
-
     &:not(.moonstone-selected):hover {
         background-color: var(--moon-color-gray_dark60);
     }
 }
 
-.moonstone-primaryNavItem_content {
+.primaryNavItem_control {
     display: flex;
     flex: 1;
-    justify-content: flex-start;
-    overflow: hidden;
+    align-items: center;
 
     min-width: 40px;
     max-width: 100%; // Necessery to truncate text inside it
 
-    &:hover {
-        color: var(--moon-color-accent);
+    border-radius: inherit;
+
+    cursor: inherit;
+    overflow: hidden;
+
+    &:focus-visible {
+        @extend %is-focused;
     }
 }
 
-.moonstone-selected {
-    .moonstone-primaryNavItem_content:hover {
-        color: currentColor;
+// Typography styles [href] as a link, the item keeps its own colors
+.moonstone-primaryNavItem .primaryNavItem_control[href] {
+    &,
+    &:hover,
+    &:active {
+        color: inherit;
+        text-decoration: none;
     }
+}
+
+.moonstone-primaryNavItem:not(.moonstone-selected) .primaryNavItem_control:hover {
+    color: var(--moon-color-accent);
 }
 
 .moonstone-primaryNavItem_iconContainer {
@@ -92,9 +101,4 @@
     overflow: hidden;
 
     margin: 0 var(--moon-spacing-nano);
-}
-
-.moonstone-primaryNavItem_linkItem {
-    width: 100%;
-    margin: 0;
 }

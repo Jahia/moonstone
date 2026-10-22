@@ -38,3 +38,4 @@ import {Button, Modal, ModalFooter, ModalHeader} from '@jahia/moonstone';
 - Keep `isOpen` in sync with `onOpenChange`. Escape and a click outside the modal only close it through that callback.
 - The focus moves into the modal when it opens, and Tab stays inside it until it closes. Make sure the modal holds at least one focusable control, such as a close or cancel [Button](?path=/docs/components-button--docs).
 - When modals are nested, Escape closes only the last one opened.
+- Add an `aria-label` that names the modal when it has no [ModalHeader](?path=/docs/components-modalheader--docs). With a ModalHeader, its `title` names the modal.

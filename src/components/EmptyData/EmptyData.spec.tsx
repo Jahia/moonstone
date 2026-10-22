@@ -15,9 +15,9 @@ describe('EmptyData', () => {
         expect(screen.getByTestId('empty-data')).toHaveClass('extra');
     });
 
-    it('should display title', () => {
+    it('should display title as a level 3 heading', () => {
         render(<EmptyData message="Empty" title="No Data Found"/>);
-        expect(screen.getByText('No Data Found')).toBeInTheDocument();
+        expect(screen.getByRole('heading', { level: 3, name: 'No Data Found' })).toBeInTheDocument();
     });
 
     it('should display message', () => {

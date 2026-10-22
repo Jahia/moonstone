@@ -89,12 +89,14 @@ describe('DateTimeInput', () => {
         render(
             <DateTimeInput
                 {...localeProps}
-                i18n={{ todayButton: 'Current day', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel }}
+                i18n={{ todayButton: 'Current day', nextMonth: nextMonthLabel, previousMonth: previousMonthLabel, clearButton: 'Clear the date' }}
                 placeholder="Select a date"
                 type="date"
                 onChange={() => null}
             />,
         );
+
+        expect(screen.getByRole('button', { name: 'Clear the date' })).toBeInTheDocument();
 
         await user.click(dateField());
 
@@ -403,12 +405,13 @@ describe('DateTimeInput', () => {
 
         await user.click(dateField());
         await user.click(screen.getByRole('listbox', { name: '2026' }));
-        await user.click(screen.getByRole('option', { name: '2070' }));
+        // By text inside an option: a role query computes the name of every one of the 100+ years
+        await user.click(screen.getByText('2070', { selector: '[role="option"] *' }));
 
         // Anchored on the 2026 selection, so 1976 is still reachable from 2070. Derived from the
         // displayed month it would have become 2020-2120 and dropped everything before 2020.
         await user.click(screen.getByRole('listbox', { name: '2070' }));
-        expect(screen.getByRole('option', { name: '1976' })).toBeInTheDocument();
+        expect(screen.getByText('1976', { selector: '[role="option"] *' })).toBeInTheDocument();
     });
 
     it('should render a month dropdown and let the user jump to another month without losing the selection', async () => {

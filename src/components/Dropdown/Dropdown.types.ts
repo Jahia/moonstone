@@ -111,6 +111,17 @@ export type BaseDropdownProps = {
     onClear?: React.MouseEventHandler;
 
     /**
+     * Dropdown labels
+     */
+    i18n?: {
+        /**
+         * Accessible name of the clear button
+         * @default 'Reset'
+         */
+        clearButton?: string;
+    };
+
+    /**
      * Function triggered on focus of the checkbox value
      */
     onFocus?: React.FocusEventHandler;

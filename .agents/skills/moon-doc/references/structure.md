@@ -182,6 +182,10 @@ The props' JSDoc is user-facing: the IDE shows it, and Storybook renders it as t
 - **A `@deprecated` tag says why the prop goes or what replaces it**, in full sentences, such as
   ``@deprecated Use `onKeyUp` instead.`` Never write "deprecated" in it: the Props table lists the
   prop under *Deprecated*, led by this message, and the IDE strikes it through.
+- **A callback prop documents each argument with `@param`**, one tag per argument, in order, with
+  the name its type gives it: ``@param delta - The change of `width` and `height` since the drag
+  began.`` No `{type}`: the type already shows it. The first line says when the callback is
+  called.
 - **Non-obvious booleans get a one-sentence rationale** in their JSDoc (see *The Appearance
   pattern*).
 - Edit only the `/** … */` blocks, never the types or the code (see the Write workflow).

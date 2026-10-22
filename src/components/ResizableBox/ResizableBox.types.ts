@@ -25,7 +25,7 @@ export type ResizableBoxMinWidth = string | number;
 
 export type ResizableBoxMaxWidth = string | number;
 
-export type ResizableBoxProps = {
+export type ResizableBoxProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'children' | 'className' | 'onResize'> & {
     /**
      * Content of the panel.
      */
@@ -59,22 +59,45 @@ export type ResizableBoxProps = {
      */
     className?: string;
     /**
-     * ARIA role of the root element.
-     * @default 'region'
+     * ARIA role of the root element. The box has none by default: pass the landmark the panel needs, such as `region`.
      */
     role?: string;
     /**
-     * Called when the user starts a resize, with the event, the resized edge, and the resized element.
+     * Called when the user starts dragging the handle. A keyboard resize does not call it.
+     * @param e - The mouse or touch event.
+     * @param dir - The resized edge, `'right'`.
+     * @param elementRef - The resized element.
      */
     onResizeStart?: ResizeStartCallback;
     /**
-     * Called on every move during a resize, with the event, the resized edge, the resized element,
-     * and the change of size since the resize began.
+     * Called on every move while the user drags the handle. A keyboard resize does not call it.
+     * @param event - The mouse or touch event.
+     * @param direction - The resized edge, `'right'`.
+     * @param elementRef - The resized element.
+     * @param delta - The change of `width` and `height` since the drag began.
      */
     onResizing?: ResizeCallback;
     /**
-     * Called when the user ends a resize, with the event, the resized edge, the resized element,
-     * and the change of size since the resize began.
+     * Called when the user releases the handle. A keyboard resize does not call it.
+     * @param event - The mouse or touch event.
+     * @param direction - The resized edge, `'right'`.
+     * @param elementRef - The resized element.
+     * @param delta - The change of `width` and `height` since the drag began.
      */
     onResizeStop?: ResizeCallback;
+    /**
+     * Texts read by screen readers. Translate them with the rest of the UI.
+     */
+    i18n?: {
+        /**
+         * Accessible name of the resize handle.
+         * @default the `aria-label` of the box, else 'Resize'
+         */
+        handleLabel?: string;
+        /**
+         * Unit read after the width when the handle is focused, such as "pixels".
+         * @default 'pixels'
+         */
+        widthUnit?: string;
+    };
 };

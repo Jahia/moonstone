@@ -1,3 +1,4 @@
+@use "../../utils/motion" as *;
 @use "../../utils/mixins" as *;
 
 $checkbox-sizeDefault: 16px;
@@ -34,6 +35,8 @@ $checkbox-sizeBig: 20px;
 }
 
 .moonstone-checkbox_input {
+    @include transition(box-shadow 0.1s);
+
     --shadow-size: 1px;
     --shadow-color: var(--moon-color-gray);
 
@@ -54,20 +57,13 @@ $checkbox-sizeBig: 20px;
     box-shadow: inset 0 0 0 var(--shadow-size) var(--shadow-color);
     cursor: pointer;
 
-    transition: box-shadow 0.1s;
-
     &:hover {
         --shadow-color: var(--moon-color-gray60);
         --shadow-size: 2px;
     }
 
-    // Only triggered when the input is focus with tab
-    &:focus-visible:not([disabled], [aria-readonly="true"]) {
-        @extend %is-focused;
-    }
-
-    &[aria-checked="true"],
-    &[aria-checked="mixed"] {
+    &:checked,
+    &:indeterminate {
         --shadow-size: 12px;
         --shadow-color: var(--moon-color-accent);
 
@@ -76,8 +72,13 @@ $checkbox-sizeBig: 20px;
         }
 
         & ~ .moonstone-checkbox_icon {
-            animation: checkboxBounce 0.1s linear forwards 0.05s;
+            @include animation(checkboxBounce 0.1s linear forwards 0.05s);
         }
+    }
+
+    // Only triggered when the input is focus with tab
+    &:focus-visible:not([disabled], [aria-readonly="true"]) {
+        @extend %is-focused;
     }
 
     &[disabled],
@@ -94,8 +95,8 @@ $checkbox-sizeBig: 20px;
             --shadow-size: 1px;
         }
 
-        &[aria-checked="true"]:hover,
-        &[aria-checked="mixed"]:hover {
+        &:checked:hover,
+        &:indeterminate:hover {
             --shadow-color: var(--moon-color-accent);
             --shadow-size: 12px;
 

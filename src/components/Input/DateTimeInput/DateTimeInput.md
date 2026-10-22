@@ -45,6 +45,7 @@ import {DateTimeInput} from '@jahia/moonstone';
 - Write `i18n.nextMonth` and `i18n.previousMonth` as accessible labels describing the action, in
   sentence case, such as "Go to the next month".
 - Write `i18n.timezone` as a short label in sentence case, such as "Timezone".
+- Write `i18n.clearButton` as a short, verb-first accessible label in sentence case, such as "Reset".
 
 ## Accessibility
 - Always give it a label. Use a [Field](?path=/docs/components-field--docs), or pass an `aria-label` when it stands alone.
@@ -54,5 +55,4 @@ import {DateTimeInput} from '@jahia/moonstone';
   keys between weeks. Enter selects the focused day and closes the calendar.
 - Selecting a day with Enter returns the focus to the date field (soon).
 - Escape on a day closes the calendar and returns the focus to the date field (soon).
-- Override `i18n`'s calendar and timezone labels when translating; left unset, they default to
-  English.
+- Override `i18n`'s calendar, timezone, and clear button labels when translating.

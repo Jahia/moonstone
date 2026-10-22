@@ -44,14 +44,31 @@ export type DisabledDateRange = {
 
 /** I18n labels for the calendar actions of the `DateTimeInput` */
 export type DateTimeInputI18n = {
-    /** Label for the "Today" shortcut button in the calendar footer */
+    /**
+     * Label for the "Today" shortcut button in the calendar footer
+     * @default 'Today'
+     */
     todayButton?: string;
-    /** Accessible label for the next month button */
+    /**
+     * Accessible label for the next month button
+     * @default 'Go to the next month'
+     */
     nextMonth?: string;
-    /** Accessible label for the previous month button */
+    /**
+     * Accessible label for the previous month button
+     * @default 'Go to the previous month'
+     */
     previousMonth?: string;
-    /** Label shown before the timezone selector (`type='zonedDateTime'`) */
+    /**
+     * Label shown before the timezone selector (`type='zonedDateTime'`)
+     * @default 'Timezone'
+     */
     timezone?: string;
+    /**
+     * Accessible name of the clear button
+     * @default 'Reset'
+     */
+    clearButton?: string;
 };
 
 export type DateTimeInputTimeInputProps = Omit<TimeInputProps,
@@ -79,6 +96,7 @@ export type DateTimeInputTimezoneSelectorProps = Omit<ControlledTimezoneSelector
 /** Props common to every mode of the `DateTimeInput`. */
 export type DateTimeInputSharedProps = Omit<BaseInputProps,
     'defaultValue'
+    | 'i18n'
     | 'value'
     | 'onChange'
     | 'onClear'

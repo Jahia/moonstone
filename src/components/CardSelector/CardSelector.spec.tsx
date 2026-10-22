@@ -11,9 +11,9 @@ const requiredProps = {
 };
 
 describe('CardSelector', () => {
-    it('should display additional class names', () => {
-        render(<CardSelector {...requiredProps} className="extra" data-testid="card-selector"/>);
-        expect(screen.getByTestId('card-selector')).toHaveClass('extra');
+    it('should display additional class names on the card that holds the button', () => {
+        const { container } = render(<CardSelector {...requiredProps} className="extra"/>);
+        expect(container.querySelector('.extra')).toContainElement(screen.getByRole('button', { name: 'card name' }));
     });
 
     it('should display displayName', () => {
@@ -94,6 +94,13 @@ describe('CardSelector', () => {
         expect(screen.getByText('action')).toBeInTheDocument();
     });
 
+    it('should render the cardAction outside the card button', () => {
+        render(
+            <CardSelector {...requiredProps} cardAction={<button type="button">Remove</button>}/>,
+        );
+        expect(screen.getByRole('button', { name: 'card name' })).not.toContainElement(screen.getByRole('button', { name: 'Remove' }));
+    });
+
     it('should call onClick when clicked', async () => {
         const user = userEvent.setup();
         const onClick = vi.fn();
@@ -105,17 +112,13 @@ describe('CardSelector', () => {
     });
 
     it('should be disabled', () => {
-        render(<CardSelector {...requiredProps} isDisabled data-testid="card-selector"/>);
-        expect(screen.getByTestId('card-selector')).toHaveClass(
-            'moonstone-cardSelector_disabled',
-        );
+        render(<CardSelector {...requiredProps} isDisabled/>);
+        expect(screen.getByRole('button', { name: 'card name' })).toBeDisabled();
     });
 
     it('should be disabled when isReadOnly', () => {
-        render(<CardSelector {...requiredProps} isReadOnly data-testid="card-selector"/>);
-        expect(screen.getByTestId('card-selector')).toHaveClass(
-            'moonstone-cardSelector_disabled',
-        );
+        render(<CardSelector {...requiredProps} isReadOnly/>);
+        expect(screen.getByRole('button', { name: 'card name' })).toBeDisabled();
     });
 
     it('should not call onClick when disabled', async () => {

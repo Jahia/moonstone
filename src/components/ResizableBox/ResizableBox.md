@@ -2,7 +2,7 @@
 ```jsx
 import {ResizableBox} from '~/components';
 
-<ResizableBox aria-label="Properties panel">
+<ResizableBox role="region" aria-label="Properties panel">
     <YourContent/>
 </ResizableBox>
 ```
@@ -33,6 +33,8 @@ import {ResizableBox} from '~/components';
 - Don't use ResizableBox in application code. For the second-level navigation of a section, use a [SecondaryNav](?path=/docs/components-secondarynav--docs) instead, which is already resizable and can be hidden.
 
 ## Accessibility
-- Pass an `aria-label` that names the panel, such as "Properties panel". The root element is a landmark region.
-- From the focused handle, the Left and Right arrow keys narrow and widen the box (soon).
-- Home and End shrink the box to its minimum width and grow it to its maximum width (soon).
+- Pass the landmark `role` the panel needs, such as `region` or `navigation`, and an `aria-label` that names it, such as "Properties panel". The box has no role of its own.
+- The resize handle takes the `aria-label` of the box as its name. Pass `i18n.handleLabel` to name it differently.
+- Override `i18n.widthUnit` when translating; left unset, it defaults to English.
+- From the focused handle, the Left and Right arrow keys narrow and widen the box.
+- Home and End shrink the box to its minimum width and grow it to its maximum width.

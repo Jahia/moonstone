@@ -8,8 +8,6 @@ type PaginationBaseProps = {
      * @default [5, 10, 25]
      */
     itemsPerPageOptions?: ComponentPaginationProps['itemsPerPageOptions'];
-    /** Pagination labels */
-    i18n?: ComponentPaginationProps['i18n'];
     /** Custom attributes for the Pagination element */
     paginationProps?: Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> & Record<string, unknown>;
 };
@@ -67,6 +65,5 @@ export type DataTablePaginationProps
         defaultCurrentPage?: never;
         defaultItemsPerPage?: never;
         itemsPerPageOptions?: never;
-        i18n?: never;
         paginationProps?: never;
     };

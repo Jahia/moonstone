@@ -42,7 +42,6 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
         }
 
         onClick?.(e);
-        (e.currentTarget as HTMLElement).blur();
     };
 
     if (hasError) {
@@ -72,73 +71,82 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
         );
     }
 
+    // The action is a sibling of the button, never inside it: a button cannot hold another control
     return (
-        <button
-            disabled={isDisabled || isReadOnly}
-            aria-label={displayName}
-            className={classNameProps}
-            id={id}
-            ref={ref}
-            type="button"
-            onClick={e => handleOnClick(e)}
-            {...props}
-        >
-            <Thumbnail
-                alt={thumbnailAlt}
-                src={thumbnail}
-                variant={thumbnailType}
-            />
-
-            <div className={clsx(
-                ['moonstone-cardSelector_body', styles['moonstone-cardSelector_body']],
-                ['flexFluid', layout.flexFluid],
-                ['flexCol_nowrap', layout.flexCol_nowrap],
-            )}
+        <div className={classNameProps}>
+            <button
+                disabled={isDisabled || isReadOnly}
+                aria-label={displayName}
+                className={clsx(
+                    styles.cardSelector_button,
+                    ['flexFluid', layout.flexFluid],
+                    ['flexRow_nowrap', layout.flexRow_nowrap],
+                    ['alignCenter', layout.alignCenter],
+                )}
+                id={id}
+                ref={ref}
+                type="button"
+                onClick={e => handleOnClick(e)}
+                {...props}
             >
-                <div className={clsx(['flexRow_nowrap', layout.flexRow_nowrap], ['flexFluid', layout.flexFluid])}>
-                    {displayName && (
-                        <Typography
-                            isNowrap
-                            className={clsx('moonstone-cardSelector_displayName', styles['moonstone-cardSelector_displayName'])}
-                            component="span"
-                            data-testid="cardSelector-displayName"
-                            id={id && `${id}-displayName`}
-                            variant="body"
-                        >
-                            {displayName}
-                        </Typography>
-                    )}
+                <Thumbnail
+                    // Decorative by default: the button is already named by aria-label
+                    alt={thumbnailAlt ?? ''}
+                    src={thumbnail}
+                    variant={thumbnailType}
+                />
 
-                    {systemName && (systemName !== displayName) && (
-                        <Typography
-                            isNowrap
-                            className={clsx('moonstone-cardSelector_systemName', styles['moonstone-cardSelector_systemName'])}
-                            component="span"
-                            data-testid="cardSelector-systemName"
-                            id={id && `${id}-systemName`}
-                            variant="body"
-                        >
-                            ({systemName})
-                        </Typography>
-                    )}
-                </div>
-                {(chips || information) && (
-                    <div className={clsx('flexRow_nowrap', layout.flexRow_nowrap)}>
-                        {chips}
-                        {information && (
+                <div className={clsx(
+                    ['moonstone-cardSelector_body', styles['moonstone-cardSelector_body']],
+                    ['flexFluid', layout.flexFluid],
+                    ['flexCol_nowrap', layout.flexCol_nowrap],
+                )}
+                >
+                    <div className={clsx(['flexRow_nowrap', layout.flexRow_nowrap], ['flexFluid', layout.flexFluid])}>
+                        {displayName && (
                             <Typography
                                 isNowrap
-                                className={clsx('moonstone-cardSelector_information', styles['moonstone-cardSelector_information'])}
+                                className={clsx('moonstone-cardSelector_displayName', styles['moonstone-cardSelector_displayName'])}
                                 component="span"
-                                data-testid="cardSelector-information"
-                                variant="caption"
+                                data-testid="cardSelector-displayName"
+                                id={id && `${id}-displayName`}
+                                variant="body"
                             >
-                                {information}
+                                {displayName}
+                            </Typography>
+                        )}
+
+                        {systemName && (systemName !== displayName) && (
+                            <Typography
+                                isNowrap
+                                className={clsx('moonstone-cardSelector_systemName', styles['moonstone-cardSelector_systemName'])}
+                                component="span"
+                                data-testid="cardSelector-systemName"
+                                id={id && `${id}-systemName`}
+                                variant="body"
+                            >
+                                ({systemName})
                             </Typography>
                         )}
                     </div>
-                )}
-            </div>
+                    {(chips || information) && (
+                        <div className={clsx('flexRow_nowrap', layout.flexRow_nowrap)}>
+                            {chips}
+                            {information && (
+                                <Typography
+                                    isNowrap
+                                    className={clsx('moonstone-cardSelector_information', styles['moonstone-cardSelector_information'])}
+                                    component="span"
+                                    data-testid="cardSelector-information"
+                                    variant="caption"
+                                >
+                                    {information}
+                                </Typography>
+                            )}
+                        </div>
+                    )}
+                </div>
+            </button>
             {cardAction && (
                 <div className={clsx(
                     ['moonstone-cardSelector_actions', styles['moonstone-cardSelector_actions']],
@@ -149,7 +157,7 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
                     {cardAction}
                 </div>
             )}
-        </button>
+        </div>
     );
 });
 

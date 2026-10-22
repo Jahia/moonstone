@@ -25,3 +25,5 @@ import {Field, FieldSelector, Input} from '@jahia/moonstone';
 ## Accessibility
 - Give each Field a unique `id`.
 - An icon-only [Button](?path=/docs/components-button--docs) in `buttons` must have an `aria-label` that describes the action.
+- A control that is not a Moonstone component, such as a native `select`, is not linked to the label, the helper, and the error on its own. Call `useFieldAria` with its props and spread the result after them: `<select {...props} {...useFieldAria(props)}/>`. Your own `aria-*` values still win.
+- Give that control the id `<Field id>-control`, so a click on the label focuses it.

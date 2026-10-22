@@ -1,4 +1,8 @@
+@use "../../utils/motion" as *;
+
 .moonstone-switch_icon {
+    @include transition(all 0.2s ease-out);
+
     position: absolute;
 
     width: 20px;
@@ -6,8 +10,6 @@
 
     border-radius: 100%;
     background-color: var(--switch-icon_bg);
-
-    transition: all 0.2s ease-out;
 
     pointer-events: none;
 }

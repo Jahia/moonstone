@@ -68,7 +68,7 @@ describe('DynamicFieldset', () => {
                 </Field>
             </DynamicFieldset>,
         );
-        await user.click(screen.getByRole('checkbox'));
+        await user.click(screen.getByRole('switch'));
 
         expect(screen.getByDisplayValue('Input value')).toBeInTheDocument();
     });
@@ -100,7 +100,7 @@ describe('UncontrolledDynamicFieldset', () => {
                 onChange={handleChange}
             />,
         );
-        await user.click(screen.getByRole('checkbox'));
+        await user.click(screen.getByRole('switch'));
 
         expect(handleChange).toHaveBeenCalledTimes(1);
     });
@@ -132,8 +132,14 @@ describe('ControlledDynamicFieldset', () => {
                 onChange={handleChange}
             />,
         );
-        await user.click(screen.getByRole('checkbox'));
+        await user.click(screen.getByRole('switch'));
 
         expect(handleChange).toHaveBeenCalledTimes(1);
+    });
+
+    it('should expose the state on the switch only', () => {
+        render(<DynamicFieldset {...requiredProps} checked data-testid="dynamic-fieldset"/>);
+        expect(screen.getByTestId('dynamic-fieldset')).not.toHaveAttribute('aria-checked');
+        expect(screen.getByLabelText(requiredProps.label)).toBeChecked();
     });
 });
