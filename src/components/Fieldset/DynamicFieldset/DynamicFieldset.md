@@ -1,6 +1,6 @@
 ## Example
 ```jsx
-import {DynamicFieldset} from '@jahia/moonstone';
+import {DynamicFieldset} from '~/components/Fieldset/DynamicFieldset';
 
 <DynamicFieldset id="fieldset" label="Label">
     <YourContent/>

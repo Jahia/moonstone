@@ -16,6 +16,7 @@ export default {
             </div>
         ),
     ],
+    argTypes: { color: { table: { disable: true } } },
     parameters: {
         componentSubtitle: 'One level of a Breadcrumb\'s path.',
         docs: { description: { component: markdownNotes } },

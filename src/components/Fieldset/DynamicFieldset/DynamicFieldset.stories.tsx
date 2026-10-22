@@ -11,7 +11,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 const meta: Meta<typeof DynamicFieldset> = {
     title: 'Components/DynamicFieldset',
     component: DynamicFieldset,
-    tags: ['beta'],
+    tags: ['internal', '!manifest'],
 
     parameters: {
         layout: 'padded',
