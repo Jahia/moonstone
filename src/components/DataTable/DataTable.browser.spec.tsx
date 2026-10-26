@@ -150,10 +150,10 @@ describe('DataTable keyboard', () => {
     });
 
     describe('TableCellStatus', () => {
-        const renderWithStatus = () => {
+        const renderWithStatus = (rowProps = {}) => {
             renderTable({
                 renderRow: ({ id, render: renderCells }: RenderRowContext<User>) => (
-                    <TableRow key={id}>
+                    <TableRow key={id} {...rowProps}>
                         {renderCells({ before: <TableCellStatus color="success">{`Status ${id}`}</TableCellStatus> })}
                     </TableRow>
                 ),
@@ -183,6 +183,18 @@ describe('DataTable keyboard', () => {
             await waitFor(() => expect(screen.getByText('Status 1')).toBeVisible());
         });
 
+        it('passes the Escape that hides the status panel to the onKeyDown of the row', async () => {
+            const onKeyDown = vi.fn();
+            renderWithStatus({ onKeyDown });
+            screen.getByRole('button', { name: 'before' }).focus();
+            await userEvent.keyboard('{Tab}');
+            await userEvent.keyboard('{Tab}');
+            await waitFor(() => expect(screen.getByText('Status 1')).toBeVisible());
+            await userEvent.keyboard('{Escape}');
+            expect(onKeyDown).toHaveBeenCalledWith(expect.objectContaining({ key: 'Escape' }));
+            await waitFor(() => expect(screen.getByText('Status 1')).not.toBeVisible());
+        });
+
         it('hides the status panel before closing a Modal around the table with Escape', async () => {
             const onOpenChange = vi.fn();
             render(
@@ -202,10 +214,29 @@ describe('DataTable keyboard', () => {
             );
             // The Modal moves focus into the dialog once open
             await waitFor(() => expect(screen.getByRole('dialog')).toContainElement(document.activeElement as HTMLElement));
+            // A key press puts the browser in keyboard mode, so the focused row matches :focus-visible
+            await userEvent.keyboard('{Shift}');
             row('Alice').focus();
+            expect(row('Alice')).toHaveFocus();
             await waitFor(() => expect(screen.getByText('Status 1')).toBeVisible());
             await userEvent.keyboard('{Escape}');
             expect(onOpenChange).not.toHaveBeenCalled();
+            await userEvent.keyboard('{Escape}');
+            expect(onOpenChange).toHaveBeenCalledWith(false, expect.anything(), 'escape-key');
+        });
+
+        it('closes a Modal around the table with the first Escape on a row without a status panel', async () => {
+            const onOpenChange = vi.fn();
+            render(
+                <Modal isOpen aria-label="Users" onOpenChange={onOpenChange}>
+                    <DataTable columns={kbColumns} data={kbData} enablePagination={false} primaryKey="id"/>
+                </Modal>,
+            );
+            // The Modal moves focus into the dialog once open
+            await waitFor(() => expect(screen.getByRole('dialog')).toContainElement(document.activeElement as HTMLElement));
+            await userEvent.keyboard('{Shift}');
+            row('Alice').focus();
+            expect(row('Alice')).toHaveFocus();
             await userEvent.keyboard('{Escape}');
             expect(onOpenChange).toHaveBeenCalledWith(false, expect.anything(), 'escape-key');
         });

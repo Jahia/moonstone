@@ -1,6 +1,7 @@
 import clsx from 'clsx';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 
+import { TableRowContext } from '../../TableRow/TableRow.context';
 import { TableCell } from '../TableCell';
 import { layout } from '~/globals/css-utils.js';
 
@@ -17,44 +18,17 @@ const TableCellStatusForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEle
     },
     ref,
 ) => {
-    const panelRef = useRef<HTMLDivElement>(null);
-    const [isDismissed, setIsDismissed] = useState(false);
+    const row = useContext(TableRowContext);
+    const registerStatus = row?.registerStatus;
 
-    // Keys reach the focused row, not this cell, so the listeners go on the row
-    useEffect(() => {
-        const row = panelRef.current?.closest('tr');
-        if (!row) {
-            return;
-        }
-
-        const handleKeyDown = (e: KeyboardEvent) => {
-            const hasModifier = e.shiftKey || e.ctrlKey || e.metaKey || e.altKey;
-            if (e.target !== row || e.defaultPrevented || hasModifier) {
-                return;
-            }
-
-            // Stops here while the panel is shown, so a Modal around the table closes on the next Escape only
-            if (e.key === 'Escape' && !isDismissed && row.matches(':focus-visible')) {
-                e.stopPropagation();
-                setIsDismissed(true);
-            }
-        };
-        const handleBlur = () => setIsDismissed(false);
-
-        row.addEventListener('keydown', handleKeyDown);
-        row.addEventListener('blur', handleBlur);
-        return () => {
-            row.removeEventListener('keydown', handleKeyDown);
-            row.removeEventListener('blur', handleBlur);
-        };
-    }, [isDismissed]);
+    useEffect(() => registerStatus?.(), [registerStatus]);
 
     return (
         <TableCell
             className={clsx(
                 style.tableCellStatus,
                 style[color],
-                isDismissed && style.dismissed,
+                row?.isStatusDismissed && style.dismissed,
                 className,
             )}
             component="td"
@@ -62,7 +36,7 @@ const TableCellStatusForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEle
             width="8px"
             {...props}
         >
-            <div className={clsx(layout.flexRow_nowrap, layout.alignCenter, style.panel)} ref={panelRef}>
+            <div className={clsx(layout.flexRow_nowrap, layout.alignCenter, style.panel)}>
                 {children}
             </div>
         </TableCell>
