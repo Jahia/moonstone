@@ -27,6 +27,11 @@ describe('MultipleLeftRightSelector', () => {
         expect(container.querySelectorAll('li')).toHaveLength(0);
     });
 
+    it('should name the search input of each list', () => {
+        render(<ListSelector {...requiredProps}/>);
+        expect(screen.getAllByRole('searchbox', { name: 'Search' })).toHaveLength(2);
+    });
+
     it('should mark each list with its side', () => {
         render(<ListSelector {...requiredProps}/>);
         expect(screen.getByRole('list', { name: 'Available' })).toHaveAttribute('data-list', 'left');

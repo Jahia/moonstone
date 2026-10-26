@@ -95,6 +95,17 @@ export type MenuProps = {
     searchEmptyText?: string;
 
     /**
+     * Menu labels
+     */
+    i18n?: {
+        /**
+         * Accessible name of the search input
+         * @default 'Search'
+         */
+        searchLabel?: string;
+    };
+
+    /**
      * If 'absolute' is passed in for the position, the component will be positioned as per normal
      * CSS rules (i.e., positioned against the closest positioned ancestor). Position is 'fixed' by default
      */

@@ -19,6 +19,11 @@ type Label = {
      * Label for number of items selected, use values to determine the number
      */
     selected?: string;
+    /**
+     * Accessible name of the search input of each list
+     * @default 'Search'
+     */
+    searchLabel?: string;
 };
 
 export type Option = {

@@ -107,6 +107,7 @@ export const Menu: React.FC<MenuProps> = ({
     hasSearch,
     autoAddSearchLimit = 7,
     searchEmptyText = 'No results found.',
+    i18n,
     ...props
 }) => {
     const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, position);
@@ -195,6 +196,7 @@ export const Menu: React.FC<MenuProps> = ({
                         <div className={clsx('moonstone-menu_searchInput', styles['moonstone-menu_searchInput'])}>
                             <SearchInput
                                 focusOnField
+                                aria-label={i18n?.searchLabel || 'Search'}
                                 value={inputValue}
                                 onChange={e => setInputValue(e.target.value)}
                                 onClear={() => setInputValue('')}
