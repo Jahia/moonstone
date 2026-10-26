@@ -10,6 +10,7 @@
 
     &:focus-visible {
         @extend %is-focused;
+
         // The wrapper hides what overflows, so the ring goes inside the area
         outline-offset: -2px;
     }
