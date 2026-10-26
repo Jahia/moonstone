@@ -12,6 +12,16 @@ describe('LayoutContent', () => {
         expect(screen.getByText('test-header')).toBeInTheDocument();
     });
 
+    it('should be a focusable region named "Content"', () => {
+        render(<LayoutContent {...requiredProps}/>);
+        expect(screen.getByRole('region', { name: 'Content' })).toHaveAttribute('tabindex', '0');
+    });
+
+    it('should name the content area with i18n.contentLabel', () => {
+        render(<LayoutContent {...requiredProps} i18n={{ contentLabel: 'Users' }}/>);
+        expect(screen.getByRole('region', { name: 'Users' })).toBeInTheDocument();
+    });
+
     it('should display content', () => {
         render(<LayoutContent {...requiredProps}/>);
         expect(screen.getByText(requiredProps.children)).toBeInTheDocument();

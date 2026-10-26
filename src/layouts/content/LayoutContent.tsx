@@ -17,6 +17,7 @@ export const LayoutContent = React.forwardRef(({
     isCentered = false,
     className,
     children,
+    i18n,
     ...props
 }: LayoutContentProps, ref: ForwardedRef<HTMLDivElement>) => {
     const classNameProps = clsx(
@@ -38,7 +39,15 @@ export const LayoutContent = React.forwardRef(({
             {...props}
         >
             {header}
-            <div aria-busy={isLoading ? 'true' : undefined} className={classNameProps}>
+            <div
+                aria-busy={isLoading ? 'true' : undefined}
+                aria-label={i18n?.contentLabel || 'Content'}
+                className={classNameProps}
+                role="region"
+                // The keyboard scrolls a focused area, even when it holds no focusable element (axe scrollable-region-focusable)
+                // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+                tabIndex={0}
+            >
                 {
                     isLoading
                         ? <Loader size="big"/>

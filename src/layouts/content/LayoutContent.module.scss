@@ -1,3 +1,5 @@
+@use '../../utils';
+
 .moonstone-layoutContent_wrapper {
     overflow: hidden;
 }
@@ -5,6 +7,12 @@
 .moonstone-layoutContent {
     background-color: var(--moon-color-gray_light40);
     overflow: auto;
+
+    &:focus-visible {
+        @extend %is-focused;
+        // The wrapper hides what overflows, so the ring goes inside the area
+        outline-offset: -2px;
+    }
 }
 
 .moonstone-layoutContent_withPadding {
