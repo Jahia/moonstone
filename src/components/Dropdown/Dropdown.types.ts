@@ -113,6 +113,11 @@ export type BaseDropdownProps = {
      */
     i18n?: {
         /**
+         * Action read before the label in the name of the remove button of a tag, e.g. "Remove Draft"
+         * @default 'Remove'
+         */
+        removeTagLabel?: string;
+        /**
          * Accessible name of the clear button
          * @default 'Reset'
          */

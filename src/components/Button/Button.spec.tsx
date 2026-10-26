@@ -100,12 +100,26 @@ describe('Button', () => {
         render(
             <Button isLoading data-testid="moonstone-button" label="test me"/>,
         );
-        expect(screen.getByRole('status')).toBeInTheDocument();
+        expect(screen.getByRole('status', { hidden: true })).toBeInTheDocument();
+    });
+
+    it('should keep the name of a loading button and mark it busy', () => {
+        render(<Button isLoading label="test me"/>);
+        expect(screen.getByRole('button', { name: 'test me' })).toHaveAttribute('aria-busy', 'true');
+    });
+
+    it('should warn when a button that only shows an icon has no name', () => {
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+        render(<Button icon={<Love/>} title="Like"/>);
+        expect(warn).not.toHaveBeenCalled();
+        render(<Button icon={<Love/>}/>);
+        expect(warn).toHaveBeenCalledWith('Button: add a label, an aria-label or a title to name a button that only shows an icon');
+        warn.mockRestore();
     });
 
     it('should display loader when an icon is provided', () => {
         render(<Button isLoading icon={<Love/>} label="test me"/>);
-        expect(screen.getByRole('status')).toBeInTheDocument();
+        expect(screen.getByRole('status', { hidden: true })).toBeInTheDocument();
     });
 
     it('should prevent click when the button is loading', async () => {

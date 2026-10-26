@@ -9,10 +9,11 @@ import type { TagProps } from './Tag.types';
 import styles from './Tag.module.scss';
 
 export const Tag: React.FC<TagProps> = ({
-    label, value, size = 'medium', onClick, onKeyDown, className, isDisabled = false, ...props
+    label, value, size = 'medium', onClick, onKeyDown, className, isDisabled = false, i18n, ...props
 }) => (
     <button
         disabled={isDisabled}
+        aria-label={`${i18n?.removeLabel || 'Remove'} ${label}`}
         className={clsx(
             ['moonstone-tag', styles['moonstone-tag']],
             className,

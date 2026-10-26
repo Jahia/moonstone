@@ -306,6 +306,11 @@ describe('Dropdown', () => {
         expect(screen.getByText(dropdownData[3].label)).toBeInTheDocument();
     });
 
+    it('should name the remove button of a tag with i18n.removeTagLabel', () => {
+        render(<Dropdown data={dropdownData} i18n={{ removeTagLabel: 'Supprimer' }} values={[dropdownData[3].value]}/>);
+        expect(screen.getByRole('option', { name: `Supprimer ${dropdownData[3].label}` })).toBeInTheDocument();
+    });
+
     it('should show checkboxes for multiple select', async () => {
         const user = userEvent.setup();
         render(<Dropdown data={dropdownData} values={['4']}/>);

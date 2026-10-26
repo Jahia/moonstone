@@ -81,6 +81,7 @@ describe('TreeView', () => {
             'aria-busy',
             'true',
         );
+        expect(screen.getAllByRole('treeitem')[0]).toHaveAccessibleName(tree[0].label);
     });
 
     it('should add specific class if TreeView is reversed', () => {
