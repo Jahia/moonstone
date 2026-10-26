@@ -26,6 +26,7 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
     onResizeStart,
     onResizing,
     onResizeStop,
+    onKeyboardResize,
     i18n,
     ...props
 }) => {
@@ -72,11 +73,16 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
 
         e.preventDefault();
         const next = Math.min(Math.max(target, Number.isFinite(min) ? min : 0), Number.isFinite(max) ? max : Infinity);
-        resizable.updateSize({
-            width: next,
-            height: resizable.state.height,
-        });
-        setWidth(next);
+        // A controlled width is drawn from `size`, so the consumer applies it
+        if (size?.width === undefined) {
+            resizable.updateSize({
+                width: next,
+                height: resizable.state.height,
+            });
+            setWidth(next);
+        }
+
+        onKeyboardResize?.(next);
     };
 
     const handle = (

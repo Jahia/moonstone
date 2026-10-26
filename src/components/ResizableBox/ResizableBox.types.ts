@@ -79,6 +79,11 @@ export type ResizableBoxProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'chi
      */
     onResizeStop?: ResizeCallback;
     /**
+     * Function triggered when a key resizes the box from the handle. With a controlled `size`, apply the new width to it
+     * @param {number} width - New width, in pixels
+     */
+    onKeyboardResize?: (width: number) => void;
+    /**
      * ResizableBox labels
      */
     i18n?: {

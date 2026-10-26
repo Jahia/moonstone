@@ -7,3 +7,5 @@ When the handle is focused, use the keyboard to resize the panel:
 - `ArrowRight` to increase the width by 10px
 - `Home` to go to the minimum width
 - `End` to go to the maximum width
+
+A keyboard resize calls `onKeyboardResize(width)`. With a controlled `size`, set `size` to that width.

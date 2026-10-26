@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { useState } from 'react';
 import { userEvent } from 'vitest/browser';
 
 import { ResizableBox } from './index';
@@ -82,5 +83,44 @@ describe('ResizableBox keyboard', () => {
         handle.focus();
         await userEvent.keyboard('{End}');
         expect(width()).toBe(200);
+    });
+
+    it('calls onKeyboardResize with the new width after a key press', async () => {
+        const onKeyboardResize = vi.fn();
+        const { handle } = renderBox({ onKeyboardResize });
+        handle.focus();
+        await userEvent.keyboard('{ArrowRight}');
+        expect(onKeyboardResize).toHaveBeenCalledWith(110);
+    });
+
+    it('keeps the width of a controlled box until the consumer updates its size', async () => {
+        const { handle } = renderBox({ size: { width: 100, height: 100 } });
+        handle.focus();
+        await userEvent.keyboard('{ArrowRight}');
+        expect(handle).toHaveAttribute('aria-valuenow', '100');
+    });
+
+    it('resizes a controlled box once the consumer updates its size', async () => {
+        const ControlledBox = () => {
+            const [size, setSize] = useState({ width: 100, height: 100 });
+            return (
+                <ResizableBox
+                    aria-label="Side panel"
+                    maxWidth={200}
+                    minWidth={50}
+                    role="region"
+                    size={size}
+                    onKeyboardResize={newWidth => setSize({ width: newWidth, height: 100 })}
+                />
+            );
+        };
+        render(<ControlledBox/>);
+        const box = screen.getByRole('region', { name: 'Side panel' });
+        const handle = screen.getByRole('separator');
+        handle.focus();
+        await userEvent.keyboard('{ArrowRight}');
+        await userEvent.keyboard('{ArrowRight}');
+        expect(box.getBoundingClientRect().width).toBe(120);
+        expect(handle).toHaveAttribute('aria-valuenow', '120');
     });
 });
