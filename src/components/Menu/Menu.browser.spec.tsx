@@ -59,14 +59,14 @@ describe('Menu keyboard', () => {
         expect(item('Last')).toHaveFocus();
     });
 
-    it.fails('activates the focused item with Enter', async () => {
+    it('activates the focused item with Enter', async () => {
         const { onFirst } = renderMenu();
         item('First').focus();
         await userEvent.keyboard('{Enter}');
         expect(onFirst).toHaveBeenCalledTimes(1);
     });
 
-    it.fails('activates the focused item with Space', async () => {
+    it('activates the focused item with Space', async () => {
         const { onFirst } = renderMenu();
         item('First').focus();
         await userEvent.keyboard(' ');
@@ -96,10 +96,29 @@ describe('Menu keyboard', () => {
         expect(item('First')).toHaveFocus();
     });
 
-    it.fails('closes with Escape', async () => {
+    it('closes with Escape', async () => {
         const { onClose } = renderMenu();
         item('First').focus();
         await userEvent.keyboard('{Escape}');
         expect(onClose).toHaveBeenCalledTimes(1);
+    });
+
+    it('moves focus to the selected item when it shows, and back when it hides', () => {
+        const menu = (isDisplayed: boolean) => (
+            <>
+                <button type="button">trigger</button>
+                <Menu isDisplayed={isDisplayed}>
+                    <MenuItem label="First"/>
+                    <MenuItem isSelected label="Second"/>
+                </Menu>
+            </>
+        );
+        const { rerender } = render(menu(false));
+        const trigger = screen.getByRole('button', { name: 'trigger' });
+        trigger.focus();
+        rerender(menu(true));
+        expect(item('Second')).toHaveFocus();
+        rerender(menu(false));
+        expect(trigger).toHaveFocus();
     });
 });

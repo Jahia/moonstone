@@ -1,6 +1,6 @@
 import { Composite } from '@floating-ui/react';
 import clsx from 'clsx';
-import React, { useMemo, useState } from 'react';
+import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { MenuItem } from './MenuItem';
 import { WithoutField } from '~/components/Field/Field.context';
@@ -123,6 +123,39 @@ export const Menu: React.FC<MenuProps> = ({
     );
     const isEmptySearch = filteredChildren !== null && filteredChildren.length === 0;
 
+    // Focus enters the menu when it shows, and goes back where it was when the menu hides with focus inside.
+    // The items are found by their marker: on mount, the Composite has not indexed them yet and gives each one tabindex="-1".
+    const returnFocusTo = useRef<HTMLElement | null>(null);
+    useLayoutEffect(() => {
+        const menu = itemRef.current;
+        if (isDisplayed) {
+            // StrictMode runs the effect twice on mount: the second run must not save a focus already inside
+            if (!menu?.contains(document.activeElement)) {
+                returnFocusTo.current = document.activeElement as HTMLElement | null;
+            }
+
+            const target = menu?.querySelector<HTMLElement>('input')
+                ?? menu?.querySelector<HTMLElement>('[data-roving-item].moonstone-selected:not([aria-disabled="true"])')
+                ?? menu?.querySelector<HTMLElement>('[data-roving-item]:not([aria-disabled="true"])');
+            target?.focus({ preventScroll: true });
+        } else if (menu?.contains(document.activeElement)) {
+            returnFocusTo.current?.focus();
+        }
+    }, [isDisplayed, itemRef]);
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLMenuElement>) => {
+        const hasModifier = e.shiftKey || e.ctrlKey || e.metaKey || e.altKey;
+        if (e.defaultPrevented || hasModifier || e.key !== 'Escape' || !isDisplayed || !onClose) {
+            return;
+        }
+
+        // Stops a Drawer or a Modal around the menu from closing on the same Escape
+        e.stopPropagation();
+        // Before onClose: a Dropdown unmounts its menu, which then cannot give the focus back
+        returnFocusTo.current?.focus();
+        onClose(e);
+    };
+
     if (!children || React.Children.count(children) < 1) {
         return null;
     }
@@ -185,7 +218,7 @@ export const Menu: React.FC<MenuProps> = ({
                         {...mergeHandlers(props, {
                             onKeyDown: rovingTabIndex.onKeyDown(compositeProps.onKeyDown),
                             onBlur: rovingTabIndex.onBlur,
-                        })}
+                        }, { onKeyDown: handleKeyDown })}
                     />
                 )}
             >

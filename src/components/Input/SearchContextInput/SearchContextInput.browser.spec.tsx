@@ -58,7 +58,7 @@ describe('SearchContextInput keyboard', () => {
         expect(await findOption('Media')).toBeVisible();
     });
 
-    it.fails('moves focus to the selected option when the menu opens', async () => {
+    it('moves focus to the selected option when the menu opens', async () => {
         renderInput();
         getTrigger().focus();
         await userEvent.keyboard('{Enter}');
@@ -87,7 +87,7 @@ describe('SearchContextInput keyboard', () => {
         expect(screen.queryByRole('list')).toBeNull();
     });
 
-    it.fails('closes the menu with Escape and returns focus to the context selector', async () => {
+    it('closes the menu with Escape and returns focus to the context selector', async () => {
         renderInput();
         getTrigger().focus();
         await userEvent.keyboard('{Enter}');

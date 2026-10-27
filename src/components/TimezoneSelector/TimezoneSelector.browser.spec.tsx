@@ -91,7 +91,7 @@ describe('TimezoneSelector keyboard', () => {
         await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
     });
 
-    it.fails('closes with Escape and returns focus to the trigger', async () => {
+    it('closes with Escape and returns focus to the trigger', async () => {
         const { trigger } = renderSelector();
         await openAndSearch(trigger);
         await userEvent.keyboard('{Escape}');

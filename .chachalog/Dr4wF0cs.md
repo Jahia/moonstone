@@ -3,4 +3,4 @@
 "@jahia/moonstone": minor
 ---
 
-Move focus into a `Drawer` when it opens and back to the element that had it when it closes, and close it with Escape through a new `onOpenChange` prop (#1432)
+Move focus into a `Drawer` or a `Menu` when it opens and back when it closes, close both with Escape when `onOpenChange` or `onClose` is set, and click a `MenuItem` with Enter or Space (#1432)
