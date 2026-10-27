@@ -106,6 +106,7 @@ describe('Dropdown', () => {
         expect(screen.getByTestId('moonstone-dropdown').firstChild).toHaveAttribute(
             'aria-busy',
         );
+        expect(screen.queryByRole('status')).not.toBeInTheDocument();
     });
 
     it('should not display the menu dropdown by default', () => {

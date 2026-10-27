@@ -3,4 +3,4 @@
 "@jahia/moonstone": minor
 ---
 
-Name a standalone `Loader` "Loading", keep the label as the name of a loading `Button`, name the remove button of a `Dropdown` tag "Remove <label>", and warn when a `Button` that only shows an icon has no name (#1527)
+Name the `Loader` "Loading" and the `Tag` remove button `Remove <label>`, translatable through new `i18n` keys, and warn on an unnamed icon-only `Button` (#1527)
