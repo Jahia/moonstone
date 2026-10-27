@@ -10,7 +10,7 @@ const Harness = () => {
     return (
         <>
             <Button label="Toggle drawer" onClick={() => setOpen(!open)}/>
-            <Drawer isOpen={open} aria-label="Side panel">
+            <Drawer isOpen={open} aria-label="Side panel" onOpenChange={setOpen}>
                 <p>Drawer content</p>
                 <button type="button">Inside action</button>
                 <Button label="Close" onClick={() => setOpen(false)}/>
@@ -30,7 +30,7 @@ const renderAndOpen = async () => {
 };
 
 describe('Drawer keyboard', () => {
-    it.fails('moves focus inside the drawer when it opens', async () => {
+    it('moves focus inside the drawer when it opens', async () => {
         const { drawer } = await renderAndOpen();
         await waitFor(() => expect(drawer).toContainElement(document.activeElement as HTMLElement));
     });
@@ -42,18 +42,51 @@ describe('Drawer keyboard', () => {
         expect(screen.getByRole('button', { name: 'Inside action' })).toHaveFocus();
     });
 
-    it.fails('closes with Escape', async () => {
-        await renderAndOpen();
+    it('closes with Escape', async () => {
+        const { trigger } = await renderAndOpen();
         screen.getByRole('button', { name: 'Inside action' }).focus();
         await userEvent.keyboard('{Escape}');
         await waitFor(() => expect(screen.queryByText('Drawer content')).not.toBeInTheDocument());
+        expect(trigger).toHaveFocus();
     });
 
-    it.fails('returns focus to the trigger when closed from inside', async () => {
+    it('skips an element out of the Tab sequence when it opens', () => {
+        const content = (
+            <>
+                <button tabIndex={-1} type="button">Inactive tab</button>
+                <button type="button">Selected tab</button>
+            </>
+        );
+        const { rerender } = render(<Drawer aria-label="Side panel">{content}</Drawer>);
+        rerender(<Drawer isOpen aria-label="Side panel">{content}</Drawer>);
+        expect(screen.getByRole('button', { name: 'Selected tab' })).toHaveFocus();
+    });
+
+    it('returns focus to the trigger when closed from inside', async () => {
         const { trigger } = await renderAndOpen();
         screen.getByRole('button', { name: 'Close' }).focus();
         await userEvent.keyboard('{Enter}');
         await waitFor(() => expect(screen.queryByText('Drawer content')).not.toBeInTheDocument());
         expect(trigger).toHaveFocus();
+    });
+
+    it('lets Tab leave the drawer without closing it', async () => {
+        await renderAndOpen();
+        screen.getByRole('button', { name: 'Close' }).focus();
+        await userEvent.keyboard('{Tab}');
+        expect(screen.getByRole('button', { name: 'after' })).toHaveFocus();
+        expect(screen.getByText('Drawer content')).toBeInTheDocument();
+    });
+
+    it('stays open on Escape without onOpenChange', async () => {
+        render(<Drawer isOpen aria-label="Side panel"><button type="button">Inside action</button></Drawer>);
+        screen.getByRole('button', { name: 'Inside action' }).focus();
+        await userEvent.keyboard('{Escape}');
+        expect(screen.getByRole('complementary', { name: 'Side panel' })).toBeInTheDocument();
+    });
+
+    it('does not take focus when it is rendered open', () => {
+        render(<Drawer isOpen aria-label="Side panel"><button type="button">Inside action</button></Drawer>);
+        expect(screen.getByRole('button', { name: 'Inside action' })).not.toHaveFocus();
     });
 });

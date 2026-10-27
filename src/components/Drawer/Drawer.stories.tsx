@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { Drawer } from './Drawer';
+import markdownNotes from './Drawer.md';
 import { Button, Typography } from '~/components';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
@@ -11,6 +12,7 @@ const meta = {
     tags: ['beta'],
     parameters: {
         layout: 'fullscreen',
+        notes: { markdown: markdownNotes },
     },
 } satisfies Meta<typeof Drawer>;
 export default meta;
@@ -25,7 +27,13 @@ export const Playground: Story = {
                 <div style={{ flex: 1, padding: 'var(--moon-spacing-medium)' }}>
                     <Button label="Toggle drawer" onClick={() => setOpen(!open)}/>
                 </div>
-                <Drawer {...args} isOpen={open} style={{ width: '320px' }}>
+                <Drawer
+                    aria-label="Drawer title"
+                    {...args}
+                    isOpen={open}
+                    style={{ width: '320px' }}
+                    onOpenChange={setOpen}
+                >
                     <Typography component="h2" variant="heading" weight="bold">
                         Drawer title
                     </Typography>
