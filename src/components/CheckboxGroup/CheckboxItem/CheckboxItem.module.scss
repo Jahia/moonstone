@@ -13,8 +13,7 @@
         @extend %is-focused;
     }
 
-    &[aria-disabled="true"],
-    &[aria-readonly="true"] {
+    &:has(input:disabled, input[aria-readonly="true"]) {
         cursor: default;
         opacity: 0.4;
 
