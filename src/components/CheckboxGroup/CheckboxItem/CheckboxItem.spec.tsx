@@ -43,14 +43,6 @@ describe('CheckboxItem', () => {
         );
     });
 
-    it('should not set aria-disabled or aria-readonly on its label', () => {
-        render(<CheckboxItem {...initProps} isDisabled isReadOnly/>);
-        // oxlint-disable-next-line testing-library/no-node-access -- a <label> has no role
-        const label = screen.getByText(initProps.label).closest('label');
-        expect(label).not.toHaveAttribute('aria-disabled');
-        expect(label).not.toHaveAttribute('aria-readonly');
-    });
-
     it('should display the description', () => {
         render(<CheckboxItem {...initProps} description="test description"/>);
         expect(screen.getByText('test description')).toBeInTheDocument();

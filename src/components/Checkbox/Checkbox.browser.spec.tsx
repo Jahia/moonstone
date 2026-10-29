@@ -53,6 +53,28 @@ describe('Checkbox keyboard', () => {
         expect(onChange).toHaveBeenCalledWith(expect.anything(), 'a', false);
     });
 
+    it('keeps a read-only checkbox unchecked with Space', async () => {
+        const onChange = vi.fn();
+        render(<Checkbox isReadOnly value="a" onChange={onChange}/>);
+        screen.getByRole('checkbox').focus();
+        await userEvent.keyboard(' ');
+        expect(screen.getByRole('checkbox')).not.toBeChecked();
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
+    it('shows the focus of a read-only checkbox', async () => {
+        // The colour of the focus ring is a global token, which the tests do not load
+        render(
+            <div style={{ '--moon-color-accent_light': 'blue' } as React.CSSProperties}>
+                <button type="button">before</button>
+                <Checkbox isReadOnly value="a"/>
+            </div>,
+        );
+        screen.getByRole('button', { name: 'before' }).focus();
+        await userEvent.keyboard('{Tab}');
+        expect(getComputedStyle(screen.getByRole('checkbox')).outlineStyle).toBe('solid');
+    });
+
     it('skips a disabled checkbox in the tab sequence', async () => {
         render(
             <>

@@ -81,3 +81,24 @@ describe('CheckboxGroup keyboard', () => {
         expect(screen.getByRole('button', { name: 'after' })).toHaveFocus();
     });
 });
+
+describe('CheckboxItem dimmed style', () => {
+    const opacityOf = (name: string) => getComputedStyle(screen.getByRole<HTMLInputElement>('checkbox', { name }).labels[0]).opacity;
+
+    it.each([
+        ['an enabled item', {}, '1'],
+        ['a disabled item', { isDisabled: true }, '0.4'],
+        ['a read-only item', { isReadOnly: true }, '0.4'],
+    ])('gives %s an opacity of %s', (_case, props, opacity) => {
+        render(<CheckboxItem id="apple" label="Apple" value="apple" {...props}/>);
+        expect(opacityOf('Apple')).toBe(opacity);
+    });
+
+    it.each([
+        ['a disabled group', { isDisabled: true }],
+        ['a read-only group', { isReadOnly: true }],
+    ])('dims the items of %s', (_case, props) => {
+        renderGroup(props);
+        expect(opacityOf('Apple')).toBe('0.4');
+    });
+});
