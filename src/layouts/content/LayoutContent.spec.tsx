@@ -12,9 +12,11 @@ describe('LayoutContent', () => {
         expect(screen.getByText('test-header')).toBeInTheDocument();
     });
 
-    it('should be a focusable region named "Content"', () => {
+    it('should be a focusable region named "Page content"', () => {
         render(<LayoutContent {...requiredProps}/>);
-        expect(screen.getByRole('region', { name: 'Content' })).toHaveAttribute('tabindex', '0');
+        const region = screen.getByRole('region', { name: 'Page content' });
+        expect(region.tagName).toBe('SECTION');
+        expect(region).toHaveAttribute('tabindex', '0');
     });
 
     it('should name the content area with i18n.contentLabel', () => {

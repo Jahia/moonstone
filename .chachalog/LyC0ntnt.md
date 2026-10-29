@@ -3,4 +3,4 @@
 "@jahia/moonstone": minor
 ---
 
-Make the scrolling area of `LayoutContent` a focusable region named through `i18n.contentLabel` (#1537)
+Make the scrolling area of `LayoutContent` a focusable `section` named "Page content", translatable through `i18n.contentLabel` (#1537)

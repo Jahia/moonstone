@@ -39,11 +39,10 @@ export const LayoutContent = React.forwardRef(({
             {...props}
         >
             {header}
-            <div
+            <section
                 aria-busy={isLoading ? 'true' : undefined}
-                aria-label={i18n?.contentLabel || 'Content'}
+                aria-label={i18n?.contentLabel || 'Page content'}
                 className={classNameProps}
-                role="region"
                 // The keyboard scrolls a focused area, even when it holds no focusable element (axe scrollable-region-focusable)
                 // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex
                 tabIndex={0}
@@ -65,7 +64,7 @@ export const LayoutContent = React.forwardRef(({
                                     : children ?? content
                             )
                 }
-            </div>
+            </section>
         </div>
     );
 });
