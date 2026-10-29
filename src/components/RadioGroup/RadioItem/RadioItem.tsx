@@ -23,9 +23,9 @@ export const RadioItem: React.FC<RadioItemProps> = ({
     return (
         <Typography
             aria-disabled={isDisabledItem}
-            aria-readonly={isReadOnlyItem}
             className={clsx(
                 ['moonstone-radio-container', styles['moonstone-radio-container']],
+                isReadOnlyItem && styles.readOnly,
                 ['flexCol', layout.flexCol],
                 className,
             )}
@@ -41,7 +41,6 @@ export const RadioItem: React.FC<RadioItemProps> = ({
                         disabled={isDisabledItem}
                         aria-describedby={description ? `${itemId}-description` : null}
                         aria-labelledby={`${itemId}-label`}
-                        aria-readonly={isReadOnlyItem}
                         checked={context.value === value}
                         className={clsx('moonstone-radio_input', styles['moonstone-radio_input'])}
                         id={itemId}
