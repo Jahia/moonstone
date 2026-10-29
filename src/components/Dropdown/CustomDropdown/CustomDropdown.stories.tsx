@@ -28,7 +28,7 @@ export default {
     },
 };
 
-const TemplateSimple = (args: CustomDropdownProps) => {
+const TemplateSimple = (args: CustomDropdownProps & { ariaLabel?: string }) => {
     const {
         label,
         icon,
@@ -44,6 +44,7 @@ const TemplateSimple = (args: CustomDropdownProps) => {
         <CustomDropdown
             isDisabled={isDisabled}
             isLoading={isLoading}
+            aria-label={args.ariaLabel || label}
             className={className}
             icon={typeof icon === 'string' && icons[icon] ? React.createElement(icons[icon]) : undefined}
             label={label}
