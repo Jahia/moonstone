@@ -93,7 +93,7 @@ describe('Dropdown', () => {
         );
     });
 
-    it('should add aria-busy attribute if the dropdown is loading', () => {
+    it('should mark a loading dropdown busy and hide its loader from screen readers', () => {
         render(
             <Dropdown
                 isLoading
