@@ -108,7 +108,7 @@ describe('Button', () => {
         expect(screen.getByRole('button', { name: 'test me' })).toHaveAttribute('aria-busy', 'true');
     });
 
-    it('should warn when a button that only shows an icon has no name', () => {
+    it('should warn when an icon-only button has no name, and not when it has a title', () => {
         const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
         render(<Button icon={<Love/>} title="Like"/>);
         expect(warn).not.toHaveBeenCalled();
