@@ -127,9 +127,9 @@ $button-size_big: 32px;
 
     transform: translate(-50%, -50%);
 
-    // Hide siblings of the loader when it displays as overlay (Typography, iconEnd)
+    // Hide siblings of the loader when it displays as overlay (Typography, iconEnd). Opacity, not visibility, keeps the label as the name of the button
     ~ * {
-        visibility: hidden;
+        opacity: 0;
     }
 }
 
