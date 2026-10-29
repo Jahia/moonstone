@@ -25,6 +25,7 @@ export const RadioItem: React.FC<RadioItemProps> = ({
             className={clsx(
                 ['moonstone-radio-container', styles['moonstone-radio-container']],
                 ['flexCol', layout.flexCol],
+                isReadOnlyItem && ['moonstone-readonly', styles['moonstone-readonly']],
                 className,
             )}
             component="label"

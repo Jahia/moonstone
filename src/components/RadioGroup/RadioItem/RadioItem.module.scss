@@ -9,7 +9,7 @@ $radio-sizeDefault: 16px;
         margin-top: var(--moon-spacing-medium);
     }
 
-    [aria-readonly="true"] &,
+    &.moonstone-readonly,
     &:has(.moonstone-radio_input:disabled) {
         cursor: default;
         opacity: 0.4;

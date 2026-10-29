@@ -122,3 +122,23 @@ describe('RadioGroup keyboard', () => {
         expect(screen.getByRole('radio', { name: 'Large' })).toBeChecked();
     });
 });
+
+describe('RadioGroup read-only style', () => {
+    const opacityOf = (name: string) => getComputedStyle(screen.getByRole<HTMLInputElement>('radio', { name }).labels[0]).opacity;
+
+    it('dims every item of a read-only group', () => {
+        renderGroup({ isReadOnly: true });
+        expect(opacityOf('Small')).toBe('0.4');
+    });
+
+    it('dims a read-only item in an editable group, and only that item', () => {
+        render(
+            <RadioGroup name="size">
+                <RadioItem id="small" label="Small" value="small"/>
+                <RadioItem isReadOnly id="medium" label="Medium" value="medium"/>
+            </RadioGroup>,
+        );
+        expect(opacityOf('Small')).toBe('1');
+        expect(opacityOf('Medium')).toBe('0.4');
+    });
+});
