@@ -41,6 +41,11 @@ describe('DynamicFieldset', () => {
         expect(screen.getByText('Click me')).toBeInTheDocument();
     });
 
+    it('should be a group named by its label, without the text of its buttons', () => {
+        render(<DynamicFieldset {...requiredProps} buttons={<Button label="Click me"/>}/>);
+        expect(screen.getByRole('group', { name: 'Dynamic fieldset label' })).toBeInTheDocument();
+    });
+
     it('should display multiple buttons', () => {
         render(
             <DynamicFieldset
@@ -157,6 +162,6 @@ describe('ControlledDynamicFieldset', () => {
     it('should expose the state on the switch only', () => {
         render(<DynamicFieldset {...requiredProps} checked data-testid="dynamic-fieldset"/>);
         expect(screen.getByTestId('dynamic-fieldset')).not.toHaveAttribute('aria-checked');
-        expect(screen.getByLabelText(requiredProps.label)).toBeChecked();
+        expect(screen.getByRole('switch', { name: requiredProps.label })).toBeChecked();
     });
 });

@@ -36,6 +36,11 @@ describe('LayoutContent', () => {
         expect(screen.queryByText(requiredProps.children)).not.toBeInTheDocument();
     });
 
+    it('should name the loader with i18n.loadingLabel', () => {
+        render(<LayoutContent isLoading i18n={{ loadingLabel: 'Chargement' }} {...requiredProps}/>);
+        expect(screen.getByRole('status')).toHaveAccessibleName('Chargement');
+    });
+
     it('should have the class "moonstone-layoutContent_centered" when "isCentered" set to true', () => {
         const { container } = render(<LayoutContent isCentered {...requiredProps}/>);
         expect(container.querySelector('.moonstone-layoutContent_centered')).toBeInTheDocument();

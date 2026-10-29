@@ -42,5 +42,11 @@ export type LayoutContentProps = Omit<React.ComponentPropsWithRef<'div'>, 'class
          * @default 'Page content'
          */
         contentLabel?: string;
+
+        /**
+         * Accessible name of the loader shown while `isLoading`
+         * @default 'Loading'
+         */
+        loadingLabel?: string;
     };
 };

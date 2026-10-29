@@ -49,7 +49,7 @@ export const LayoutContent = React.forwardRef(({
             >
                 {
                     isLoading
-                        ? <Loader size="big"/>
+                        ? <Loader i18n={{ loadingLabel: i18n?.loadingLabel }} size="big"/>
                         : (
                                 isCentered
                                     ? (
