@@ -83,7 +83,7 @@ describe('PrimaryNav keyboard', () => {
         expect(toggle()).toHaveAttribute('aria-expanded', 'true');
     });
 
-    it.fails('collapses an expanded nav with Escape and returns focus to the toggle button', async () => {
+    it('collapses an expanded nav with Escape and returns focus to the toggle button', async () => {
         renderNav();
         toggle().focus();
         await userEvent.keyboard('{Enter}');
@@ -92,5 +92,19 @@ describe('PrimaryNav keyboard', () => {
         await userEvent.keyboard('{Escape}');
         expect(toggle()).toHaveAttribute('aria-expanded', 'false');
         expect(toggle()).toHaveFocus();
+    });
+
+    it('stops Escape only while expanded, so a Modal around the nav closes on the next one', async () => {
+        renderNav();
+        const onEscape = vi.fn();
+        const listener = (e: KeyboardEvent) => e.key === 'Escape' && onEscape();
+        document.addEventListener('keydown', listener);
+        toggle().focus();
+        await userEvent.keyboard('{Enter}');
+        await userEvent.keyboard('{Escape}');
+        expect(onEscape).not.toHaveBeenCalled();
+        await userEvent.keyboard('{Escape}');
+        expect(onEscape).toHaveBeenCalledTimes(1);
+        document.removeEventListener('keydown', listener);
     });
 });

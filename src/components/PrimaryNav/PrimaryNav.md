@@ -6,6 +6,8 @@ Create the Navigation-primary component for the main navigation (level 1).
 
 The navigation bar should be collapsable/expandable by clicking on the burger menu.
 
+Escape collapses an expanded navigation and returns the focus to the toggle button.
+
 Show or Hide elements depends on the state of the display.
 
 if expanded :
