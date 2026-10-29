@@ -72,6 +72,23 @@ describe('DynamicFieldset', () => {
 
         expect(screen.getByDisplayValue('Input value')).toBeInTheDocument();
     });
+
+    it('should toggle its own switch when its label is clicked', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <>
+                <DynamicFieldset id="first" label="First"/>
+                <DynamicFieldset id="second" label="Second"/>
+            </>,
+        );
+        await user.click(screen.getByText('Second'));
+
+        const [first, second] = screen.getAllByRole('switch');
+        expect(second).toHaveAccessibleName('Second');
+        expect(second).toBeChecked();
+        expect(first).not.toBeChecked();
+    });
 });
 
 describe('UncontrolledDynamicFieldset', () => {
