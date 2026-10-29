@@ -94,7 +94,7 @@ describe('Dropdown', () => {
         );
     });
 
-    it('should add aria-busy attribute if the dropdown is loading', () => {
+    it('should mark a loading dropdown busy and hide its loader from screen readers', () => {
         render(
             <Dropdown
                 isLoading
@@ -107,6 +107,7 @@ describe('Dropdown', () => {
         expect(screen.getByTestId('moonstone-dropdown').firstChild).toHaveAttribute(
             'aria-busy',
         );
+        expect(screen.queryByRole('status')).not.toBeInTheDocument();
     });
 
     it('should not display the menu dropdown by default', () => {

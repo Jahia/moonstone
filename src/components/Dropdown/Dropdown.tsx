@@ -250,7 +250,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 }}
             >
                 {icon && !isLoading && <icon.type {...icon.props} className={clsx('moonstone-dropdown_icon', styles['moonstone-dropdown_icon'])} role="presentation" size="default"/>}
-                {isLoading && <Loader className={clsx({ 'moonstone-dropdown_loaderOverlay': !icon })} size="small"/>}
+                {isLoading && <Loader aria-hidden className={clsx({ 'moonstone-dropdown_loaderOverlay': !icon })} size="small"/>}
                 {!label && values && values.length > 0
                     ? (
                             <div
