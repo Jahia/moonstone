@@ -81,7 +81,7 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
             setWidth(next);
         }
 
-        // The keyboard drives the right handle only
+        // Only the right handle has keyboard support
         onResizeStop?.(e.nativeEvent, 'right', resizable.resizable, {
             width: next - current,
             height: 0,
