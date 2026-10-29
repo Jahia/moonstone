@@ -12,11 +12,11 @@ describe('LayoutContent', () => {
         expect(screen.getByText('test-header')).toBeInTheDocument();
     });
 
-    it('should be a focusable region named "Page content"', () => {
+    it('should let the keyboard reach the "Page content" region with Tab', async () => {
+        const user = userEvent.setup();
         render(<LayoutContent {...requiredProps}/>);
-        const region = screen.getByRole('region', { name: 'Page content' });
-        expect(region.tagName).toBe('SECTION');
-        expect(region).toHaveAttribute('tabindex', '0');
+        await user.tab();
+        expect(screen.getByRole('region', { name: 'Page content' })).toHaveFocus();
     });
 
     it('should name the content area with i18n.contentLabel', () => {
