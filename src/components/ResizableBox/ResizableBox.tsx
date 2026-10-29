@@ -72,7 +72,7 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
 
         e.preventDefault();
         const next = Math.min(Math.max(target, Number.isFinite(min) ? min : 0), Number.isFinite(max) ? max : Infinity);
-        // A controlled width is drawn from `size`, so the consumer applies it
+        // With a controlled `size`, the consumer resizes the box
         if (size?.width === undefined) {
             resizable.updateSize({
                 width: next,
