@@ -50,7 +50,8 @@
         background-color: var(--moon-color-gray_light60);
     }
 
-    &:hover > div > div > .moonstone-displayNone {
+    &:hover > div > div > .moonstone-displayNone,
+    &:focus-visible > div > div > .moonstone-displayNone {
         display: block;
     }
 }

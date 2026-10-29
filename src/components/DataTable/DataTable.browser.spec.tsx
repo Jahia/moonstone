@@ -1,10 +1,11 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 
-import { type DataTableColumn, type RenderRowContext, TableCellActions } from './index';
+import { type DataTableColumn, type RenderRowContext, TableCellActions, TableCellStatus } from './index';
 import { Button } from '~/components/Button';
 import { DataTable, TableRow } from '~/components/DataTable';
+import { Modal } from '~/components/Modal';
 
 type User = { id: string; name: string; age: number };
 
@@ -129,8 +130,7 @@ describe('DataTable keyboard', () => {
             expect(screen.getByRole('button', { name: 'Edit 1' })).toBeVisible();
         });
 
-        // TableRow reveals the actions on `:focus-visible`/`:hover` only, never on `:focus-within`.
-        it.fails('shows the hover actions when a control inside the row receives focus', () => {
+        it('shows the hover actions when a control inside the row receives focus', () => {
             renderWithActions();
             const more = screen.getByRole('button', { name: 'More 1' });
             more.focus();
@@ -138,7 +138,7 @@ describe('DataTable keyboard', () => {
             expect(screen.getByRole('button', { name: 'Edit 1' })).toBeVisible();
         });
 
-        it.fails('lets the keyboard reach the hover actions from the focused row with Tab', async () => {
+        it('lets the keyboard reach the hover actions from the focused row with Tab', async () => {
             renderWithActions();
             screen.getByRole('button', { name: 'before' }).focus();
             await userEvent.keyboard('{Tab}');
@@ -146,6 +146,99 @@ describe('DataTable keyboard', () => {
             expect(row('Alice')).toHaveFocus();
             await userEvent.keyboard('{Tab}');
             expect(screen.getByRole('button', { name: 'Edit 1' })).toHaveFocus();
+        });
+    });
+
+    describe('TableCellStatus', () => {
+        const renderWithStatus = (rowProps = {}) => {
+            renderTable({
+                renderRow: ({ id, render: renderCells }: RenderRowContext<User>) => (
+                    <TableRow key={id} {...rowProps}>
+                        {renderCells({ before: <TableCellStatus color="success">{`Status ${id}`}</TableCellStatus> })}
+                    </TableRow>
+                ),
+            });
+        };
+
+        it('shows the status panel while its row has keyboard focus', async () => {
+            renderWithStatus();
+            screen.getByRole('button', { name: 'before' }).focus();
+            await userEvent.keyboard('{Tab}');
+            await userEvent.keyboard('{Tab}');
+            expect(row('Alice')).toHaveFocus();
+            await waitFor(() => expect(screen.getByText('Status 1')).toBeVisible());
+        });
+
+        it('hides the status panel with Escape until its row loses focus', async () => {
+            renderWithStatus();
+            screen.getByRole('button', { name: 'before' }).focus();
+            await userEvent.keyboard('{Tab}');
+            await userEvent.keyboard('{Tab}');
+            await userEvent.keyboard('{Escape}');
+            expect(row('Alice')).toHaveFocus();
+            await waitFor(() => expect(screen.getByText('Status 1')).not.toBeVisible());
+            await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+            await userEvent.keyboard('{Tab}');
+            expect(row('Alice')).toHaveFocus();
+            await waitFor(() => expect(screen.getByText('Status 1')).toBeVisible());
+        });
+
+        it('passes the Escape that hides the status panel to the onKeyDown of the row', async () => {
+            const onKeyDown = vi.fn();
+            renderWithStatus({ onKeyDown });
+            screen.getByRole('button', { name: 'before' }).focus();
+            await userEvent.keyboard('{Tab}');
+            await userEvent.keyboard('{Tab}');
+            await waitFor(() => expect(screen.getByText('Status 1')).toBeVisible());
+            await userEvent.keyboard('{Escape}');
+            expect(onKeyDown).toHaveBeenCalledWith(expect.objectContaining({ key: 'Escape' }));
+            await waitFor(() => expect(screen.getByText('Status 1')).not.toBeVisible());
+        });
+
+        it('hides the status panel before closing a Modal around the table with Escape', async () => {
+            const onOpenChange = vi.fn();
+            render(
+                <Modal isOpen aria-label="Users" onOpenChange={onOpenChange}>
+                    <DataTable
+                        columns={kbColumns}
+                        data={kbData}
+                        enablePagination={false}
+                        primaryKey="id"
+                        renderRow={({ id, render: renderCells }: RenderRowContext<User>) => (
+                            <TableRow key={id}>
+                                {renderCells({ before: <TableCellStatus color="success">{`Status ${id}`}</TableCellStatus> })}
+                            </TableRow>
+                        )}
+                    />
+                </Modal>,
+            );
+            // The Modal moves focus into the dialog once open
+            await waitFor(() => expect(screen.getByRole('dialog')).toContainElement(document.activeElement as HTMLElement));
+            // A key press puts the browser in keyboard mode, so the focused row matches :focus-visible
+            await userEvent.keyboard('{Shift}');
+            row('Alice').focus();
+            expect(row('Alice')).toHaveFocus();
+            await waitFor(() => expect(screen.getByText('Status 1')).toBeVisible());
+            await userEvent.keyboard('{Escape}');
+            expect(onOpenChange).not.toHaveBeenCalled();
+            await userEvent.keyboard('{Escape}');
+            expect(onOpenChange).toHaveBeenCalledWith(false, expect.anything(), 'escape-key');
+        });
+
+        it('closes a Modal around the table with the first Escape on a row without a status panel', async () => {
+            const onOpenChange = vi.fn();
+            render(
+                <Modal isOpen aria-label="Users" onOpenChange={onOpenChange}>
+                    <DataTable columns={kbColumns} data={kbData} enablePagination={false} primaryKey="id"/>
+                </Modal>,
+            );
+            // The Modal moves focus into the dialog once open
+            await waitFor(() => expect(screen.getByRole('dialog')).toContainElement(document.activeElement as HTMLElement));
+            await userEvent.keyboard('{Shift}');
+            row('Alice').focus();
+            expect(row('Alice')).toHaveFocus();
+            await userEvent.keyboard('{Escape}');
+            expect(onOpenChange).toHaveBeenCalledWith(false, expect.anything(), 'escape-key');
         });
     });
 });
