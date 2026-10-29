@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { Resizable } from 're-resizable';
 import React, { useId, useLayoutEffect, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
 
 import { zones } from './ResizableBox.types';
 import { HandleResize } from '~/icons';
@@ -72,11 +73,22 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
 
         e.preventDefault();
         const next = Math.min(Math.max(target, Number.isFinite(min) ? min : 0), Number.isFinite(max) ? max : Infinity);
-        resizable.updateSize({
-            width: next,
-            height: resizable.state.height,
+        // With a controlled `size`, the consumer resizes the box
+        if (size?.width === undefined) {
+            flushSync(() => {
+                resizable.updateSize({
+                    width: next,
+                    height: resizable.state.height,
+                });
+                setWidth(next);
+            });
+        }
+
+        // Only the right handle has keyboard support
+        onResizeStop?.(e.nativeEvent, 'right', resizable.resizable, {
+            width: next - current,
+            height: 0,
         });
-        setWidth(next);
     };
 
     const handle = (

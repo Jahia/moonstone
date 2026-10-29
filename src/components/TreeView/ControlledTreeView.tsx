@@ -178,7 +178,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                             data-testid="treeitem-toggle-icon"
                             onClick={toggleNode}
                         >
-                            {isLoading ? <Loader isReversed={isReversed} size="small"/> : isOpen ? <ChevronDown size={size}/> : <ChevronRight size={size}/>}
+                            {isLoading ? <Loader isReversed={isReversed} aria-hidden size="small"/> : isOpen ? <ChevronDown size={size}/> : <ChevronRight size={size}/>}
                         </div>
                     )}
                     {!isFlatData && !hasChild
