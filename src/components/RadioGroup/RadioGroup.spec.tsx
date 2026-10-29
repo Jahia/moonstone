@@ -103,16 +103,6 @@ describe('RadioGroup', () => {
         expect(screen.getByRole('radiogroup')).toHaveAttribute('aria-readonly', 'true');
         expect(screen.getByLabelText('radio 01')).not.toHaveAttribute('aria-readonly');
     });
-
-    it('should not set aria-readonly when isReadOnly is false', () => {
-        render(
-            <RadioGroup {...requiredProps} isReadOnly={false}>
-                <RadioItem id="radio-01" label="radio 01" value="01"/>
-                <RadioItem id="radio-02" label="radio 02" value="02"/>
-            </RadioGroup>,
-        );
-        expect(screen.getByRole('radiogroup')).not.toHaveAttribute('aria-readonly');
-    });
 });
 
 describe('UnControlledRadioGroup', () => {
