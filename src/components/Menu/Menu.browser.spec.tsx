@@ -121,4 +121,14 @@ describe('Menu keyboard', () => {
         rerender(menu(false));
         expect(trigger).toHaveFocus();
     });
+
+    it('moves focus to an item, not to a field of the content, when it has no search box', () => {
+        render(
+            <Menu isDisplayed>
+                <MenuItem label="First"/>
+                <input aria-label="Filter value"/>
+            </Menu>,
+        );
+        expect(item('First')).toHaveFocus();
+    });
 });

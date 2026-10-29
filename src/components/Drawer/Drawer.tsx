@@ -53,7 +53,7 @@ export const Drawer = React.forwardRef(<C extends React.ElementType = 'aside'>({
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
         const hasModifier = e.shiftKey || e.ctrlKey || e.metaKey || e.altKey;
-        if (e.defaultPrevented || hasModifier || e.key !== 'Escape' || !isOpen || !onOpenChange) {
+        if (e.defaultPrevented || hasModifier || e.key !== 'Escape' || !onOpenChange) {
             return;
         }
 

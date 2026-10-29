@@ -134,7 +134,7 @@ export const Menu: React.FC<MenuProps> = ({
                 returnFocusTo.current = document.activeElement as HTMLElement | null;
             }
 
-            const target = menu?.querySelector<HTMLElement>('input')
+            const target = menu?.querySelector<HTMLElement>('.moonstone-menu_searchInput input')
                 ?? menu?.querySelector<HTMLElement>('[data-roving-item].moonstone-selected:not([aria-disabled="true"])')
                 ?? menu?.querySelector<HTMLElement>('[data-roving-item]:not([aria-disabled="true"])');
             target?.focus({ preventScroll: true });
@@ -145,7 +145,7 @@ export const Menu: React.FC<MenuProps> = ({
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLMenuElement>) => {
         const hasModifier = e.shiftKey || e.ctrlKey || e.metaKey || e.altKey;
-        if (e.defaultPrevented || hasModifier || e.key !== 'Escape' || !isDisplayed || !onClose) {
+        if (e.defaultPrevented || hasModifier || e.key !== 'Escape' || !onClose) {
             return;
         }
 
@@ -227,7 +227,6 @@ export const Menu: React.FC<MenuProps> = ({
                     <WithoutField>
                         <div className={clsx('moonstone-menu_searchInput', styles['moonstone-menu_searchInput'])}>
                             <SearchInput
-                                focusOnField
                                 value={inputValue}
                                 onChange={e => setInputValue(e.target.value)}
                                 onClear={() => setInputValue('')}

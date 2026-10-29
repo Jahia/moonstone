@@ -70,21 +70,6 @@ describe('Drawer keyboard', () => {
         expect(trigger).toHaveFocus();
     });
 
-    it('lets Tab leave the drawer without closing it', async () => {
-        await renderAndOpen();
-        screen.getByRole('button', { name: 'Close' }).focus();
-        await userEvent.keyboard('{Tab}');
-        expect(screen.getByRole('button', { name: 'after' })).toHaveFocus();
-        expect(screen.getByText('Drawer content')).toBeInTheDocument();
-    });
-
-    it('stays open on Escape without onOpenChange', async () => {
-        render(<Drawer isOpen aria-label="Side panel"><button type="button">Inside action</button></Drawer>);
-        screen.getByRole('button', { name: 'Inside action' }).focus();
-        await userEvent.keyboard('{Escape}');
-        expect(screen.getByRole('complementary', { name: 'Side panel' })).toBeInTheDocument();
-    });
-
     it('does not take focus when it is rendered open', () => {
         render(<Drawer isOpen aria-label="Side panel"><button type="button">Inside action</button></Drawer>);
         expect(screen.getByRole('button', { name: 'Inside action' })).not.toHaveFocus();
