@@ -91,6 +91,15 @@ describe('RadioGroup keyboard', () => {
         expect(screen.getByRole('radio', { name: 'Large' })).toBeChecked();
     });
 
+    it('moves the focus but keeps the value of a read-only group with ArrowDown', async () => {
+        const { onChange } = renderGroup({ defaultValue: 'small', isReadOnly: true });
+        screen.getByRole('radio', { name: 'Small' }).focus();
+        await userEvent.keyboard('{ArrowDown}');
+        expect(screen.getByRole('radio', { name: 'Medium' })).toHaveFocus();
+        expect(screen.getByRole('radio', { name: 'Small' })).toBeChecked();
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
     it('checks the focused unchecked item with Space', async () => {
         const { onChange } = renderGroup({ defaultValue: 'small' });
         screen.getByRole('radio', { name: 'Large' }).focus();

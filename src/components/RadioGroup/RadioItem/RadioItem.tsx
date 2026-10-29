@@ -22,10 +22,8 @@ export const RadioItem: React.FC<RadioItemProps> = ({
 
     return (
         <Typography
-            aria-disabled={isDisabledItem}
             className={clsx(
                 ['moonstone-radio-container', styles['moonstone-radio-container']],
-                isReadOnlyItem && styles.readOnly,
                 ['flexCol', layout.flexCol],
                 className,
             )}
@@ -48,7 +46,9 @@ export const RadioItem: React.FC<RadioItemProps> = ({
                         type="radio"
                         value={value}
                         onChange={(event) => {
-                            context.onChange(event, value);
+                            if (!isReadOnlyItem) {
+                                context.onChange(event, value);
+                            }
                         }}
                     />
                     <RadioChecked className={clsx(

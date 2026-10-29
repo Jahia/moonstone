@@ -9,8 +9,8 @@ $radio-sizeDefault: 16px;
         margin-top: var(--moon-spacing-medium);
     }
 
-    &[aria-disabled="true"],
-    &.readOnly {
+    [aria-readonly="true"] &,
+    &:has(.moonstone-radio_input:disabled) {
         cursor: default;
         opacity: 0.4;
 
@@ -90,7 +90,7 @@ $radio-sizeDefault: 16px;
         }
     }
 
-    &:not(.readOnly) .moonstone-radio_input:focus-visible:not([aria-disabled="true"]) ~ .moonstone-radio_icon {
+    .moonstone-radio_input:focus-visible ~ .moonstone-radio_icon {
         fill: var(--moon-color-accent_dark_contrast);
     }
 }
