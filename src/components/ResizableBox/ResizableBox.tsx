@@ -74,11 +74,13 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
         const next = Math.min(Math.max(target, Number.isFinite(min) ? min : 0), Number.isFinite(max) ? max : Infinity);
         // With a controlled `size`, the consumer resizes the box
         if (size?.width === undefined) {
-            resizable.updateSize({
-                width: next,
-                height: resizable.state.height,
+            flushSync(() => {
+                resizable.updateSize({
+                    width: next,
+                    height: resizable.state.height,
+                });
+                setWidth(next);
             });
-            setWidth(next);
         }
 
         // Only the right handle has keyboard support
