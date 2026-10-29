@@ -62,7 +62,7 @@ describe('CustomDropdown keyboard', () => {
         expect(await screen.findByRole('list')).toBeInTheDocument();
     });
 
-    it.fails('moves focus to the first item when opened with the keyboard', async () => {
+    it('moves focus to the first item when opened with the keyboard', async () => {
         const { trigger } = renderCustomDropdown();
         await openWithEnter(trigger);
         expect(getItem('First')).toHaveFocus();
@@ -78,7 +78,7 @@ describe('CustomDropdown keyboard', () => {
         expect(getItem('First')).toHaveFocus();
     });
 
-    it.fails('activates the focused item with Enter', async () => {
+    it('activates the focused item with Enter', async () => {
         const { trigger, onFirst } = renderCustomDropdown();
         await openWithEnter(trigger);
         getItem('First').focus();
@@ -86,7 +86,7 @@ describe('CustomDropdown keyboard', () => {
         expect(onFirst).toHaveBeenCalledTimes(1);
     });
 
-    it.fails('closes with Escape and returns focus to the trigger', async () => {
+    it('closes with Escape and returns focus to the trigger', async () => {
         const { trigger } = renderCustomDropdown();
         await openWithEnter(trigger);
         getItem('First').focus();

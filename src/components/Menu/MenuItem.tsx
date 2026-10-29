@@ -3,9 +3,10 @@ import clsx from 'clsx';
 import React from 'react';
 
 import { ListItem } from '~/components';
-import { rovingItemProps } from '~/hooks';
+import { mergeHandlers, onAccessibleClick, rovingItemProps } from '~/hooks';
 
 import type { MenuItemProps } from './MenuItem.types';
+import type { ListItemProps } from '~/components/ListItem/ListItem.types';
 
 import styles from './MenuItem.module.scss';
 
@@ -27,6 +28,12 @@ export const MenuItem: React.FC<MenuItemProps> = ({
     onKeyUp,
     ...props
 }) => {
+    // Enter and Space click the item, so `onClick` keeps its MouseEvent
+    const keys = onAccessibleClick({
+        onClick: e => (e.currentTarget as HTMLElement).click(),
+        disabled: isDisabled,
+    });
+
     const listItem = (
         <ListItem
             aria-disabled={isDisabled}
@@ -47,15 +54,20 @@ export const MenuItem: React.FC<MenuItemProps> = ({
             image={image}
             imageSize={imageSize}
             onClick={isDisabled ? undefined : onClick}
-            onKeyUp={(e: React.KeyboardEvent<HTMLLIElement>) => {
-                if (onKeyPress) {
-                    console.warn('onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
-                    onKeyPress(e);
-                }
+            {...mergeHandlers({
+                ...props,
+                onKeyUp: (e: React.KeyboardEvent<HTMLLIElement>) => {
+                    if (onKeyPress) {
+                        console.warn('onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
+                        onKeyPress(e);
+                    }
 
-                onKeyUp?.(e);
-            }}
-            {...props}
+                    onKeyUp?.(e);
+                },
+            }, {
+                onKeyDown: keys.onKeyDown,
+                onKeyUp: keys.onKeyUp,
+            }) as ListItemProps}
         />
     );
 
