@@ -8,4 +8,4 @@ When the handle is focused, use the keyboard to resize the panel:
 - `Home` to go to the minimum width
 - `End` to go to the maximum width
 
-A keyboard resize calls `onKeyboardResize(width)`. With a controlled `size`, set `size` to that width.
+A keyboard resize calls `onResizeStop`, like a pointer resize, with the keyboard event. With a controlled `size`, set its width to `size.width + delta.width`.

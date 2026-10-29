@@ -85,12 +85,12 @@ describe('ResizableBox keyboard', () => {
         expect(width()).toBe(200);
     });
 
-    it('calls onKeyboardResize with the new width after a key press', async () => {
-        const onKeyboardResize = vi.fn();
-        const { handle } = renderBox({ onKeyboardResize });
+    it('calls onResizeStop with the keyboard event and the delta after a key press', async () => {
+        const onResizeStop = vi.fn();
+        const { box, handle } = renderBox({ onResizeStop });
         handle.focus();
         await userEvent.keyboard('{ArrowRight}');
-        expect(onKeyboardResize).toHaveBeenCalledWith(110);
+        expect(onResizeStop).toHaveBeenCalledWith(expect.any(KeyboardEvent), 'right', box, { width: 10, height: 0 });
     });
 
     it('keeps the width of a controlled box until the consumer updates its size', async () => {
@@ -110,7 +110,7 @@ describe('ResizableBox keyboard', () => {
                     minWidth={50}
                     role="region"
                     size={size}
-                    onKeyboardResize={newWidth => setSize({ width: newWidth, height: 100 })}
+                    onResizeStop={(_e, _dir, _ref, delta) => setSize({ width: size.width + delta.width, height: 100 })}
                 />
             );
         };

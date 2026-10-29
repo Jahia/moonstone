@@ -26,7 +26,6 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
     onResizeStart,
     onResizing,
     onResizeStop,
-    onKeyboardResize,
     i18n,
     ...props
 }) => {
@@ -82,7 +81,11 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
             setWidth(next);
         }
 
-        onKeyboardResize?.(next);
+        // The keyboard drives the right handle only
+        onResizeStop?.(e.nativeEvent, 'right', resizable.resizable, {
+            width: next - current,
+            height: 0,
+        });
     };
 
     const handle = (

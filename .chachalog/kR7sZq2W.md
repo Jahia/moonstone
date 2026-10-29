@@ -3,4 +3,4 @@
 "@jahia/moonstone": minor
 ---
 
-Add `onKeyboardResize` to `ResizableBox`, called with the new width after a keyboard resize (#1561)
+Call `onResizeStop` of `ResizableBox` after a keyboard resize, and resize a controlled box through its `size` (#1561)
