@@ -44,6 +44,8 @@ export type BaseDropdownProps = {
      * Id of the element that names the trigger. It replaces the label of a surrounding Field
      */
     'aria-labelledby'?: string;
+    // The quoted keys stay in their own object, or quote-props quotes every key of the type
+} & {
     /**
      * Text for dropdown, when no value is selected
      */
