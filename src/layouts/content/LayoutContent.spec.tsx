@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { LayoutContent } from './index';
 
@@ -10,6 +11,18 @@ describe('LayoutContent', () => {
     it('should display header', () => {
         render(<LayoutContent {...requiredProps} header="test-header"/>);
         expect(screen.getByText('test-header')).toBeInTheDocument();
+    });
+
+    it('should let the keyboard reach the "Page content" region with Tab', async () => {
+        const user = userEvent.setup();
+        render(<LayoutContent {...requiredProps}/>);
+        await user.tab();
+        expect(screen.getByRole('region', { name: 'Page content' })).toHaveFocus();
+    });
+
+    it('should name the content area with i18n.contentLabel', () => {
+        render(<LayoutContent {...requiredProps} i18n={{ contentLabel: 'Users' }}/>);
+        expect(screen.getByRole('region', { name: 'Users' })).toBeInTheDocument();
     });
 
     it('should display content', () => {

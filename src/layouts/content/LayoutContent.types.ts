@@ -38,6 +38,12 @@ export type LayoutContentProps = Omit<React.ComponentPropsWithRef<'div'>, 'class
      */
     i18n?: {
         /**
+         * Accessible name of the scrolling content area. An aria-label of the consumer names the wrapper, not this area
+         * @default 'Page content'
+         */
+        contentLabel?: string;
+
+        /**
          * Accessible name of the loader shown while `isLoading`
          * @default 'Loading'
          */
