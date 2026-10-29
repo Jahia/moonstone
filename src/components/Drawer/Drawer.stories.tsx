@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useId, useState } from 'react';
 
 import { Drawer } from './Drawer';
 import markdownNotes from './Drawer.md';
@@ -22,19 +22,20 @@ type Story = StoryObj<typeof meta>;
 export const Playground: Story = {
     render: (args) => {
         const [open, setOpen] = useState(false);
+        const titleId = useId();
         return (
             <div style={{ display: 'flex', minHeight: '320px', overflow: 'hidden' }}>
                 <div style={{ flex: 1, padding: 'var(--moon-spacing-medium)' }}>
                     <Button label="Toggle drawer" onClick={() => setOpen(!open)}/>
                 </div>
                 <Drawer
-                    aria-label="Drawer title"
+                    aria-labelledby={titleId}
                     {...args}
                     isOpen={open}
                     style={{ width: '320px' }}
                     onOpenChange={setOpen}
                 >
-                    <Typography component="h2" variant="heading" weight="bold">
+                    <Typography component="h2" id={titleId} variant="heading" weight="bold">
                         Drawer title
                     </Typography>
                     <Typography>

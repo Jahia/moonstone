@@ -123,8 +123,9 @@ export const Menu: React.FC<MenuProps> = ({
     );
     const isEmptySearch = filteredChildren !== null && filteredChildren.length === 0;
 
-    // Focus enters the menu when it shows, and goes back where it was when the menu hides with focus inside.
-    // The items are found by their marker: on mount, the Composite has not indexed them yet and gives each one tabindex="-1".
+    // Focus moves into the menu when it shows, and back when it hides with focus inside.
+    // On mount, every item still has tabindex="-1", so the items are found by `data-roving-item`.
+    const searchRef = useRef<HTMLInputElement>(null);
     const returnFocusTo = useRef<HTMLElement | null>(null);
     useLayoutEffect(() => {
         const menu = itemRef.current;
@@ -134,7 +135,7 @@ export const Menu: React.FC<MenuProps> = ({
                 returnFocusTo.current = document.activeElement as HTMLElement | null;
             }
 
-            const target = menu?.querySelector<HTMLElement>('.moonstone-menu_searchInput input')
+            const target = searchRef.current
                 ?? menu?.querySelector<HTMLElement>('[data-roving-item].moonstone-selected:not([aria-disabled="true"])')
                 ?? menu?.querySelector<HTMLElement>('[data-roving-item]:not([aria-disabled="true"])');
             target?.focus({ preventScroll: true });
@@ -227,6 +228,7 @@ export const Menu: React.FC<MenuProps> = ({
                     <WithoutField>
                         <div className={clsx('moonstone-menu_searchInput', styles['moonstone-menu_searchInput'])}>
                             <SearchInput
+                                ref={searchRef}
                                 value={inputValue}
                                 onChange={e => setInputValue(e.target.value)}
                                 onClear={() => setInputValue('')}

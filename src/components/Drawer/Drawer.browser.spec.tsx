@@ -50,7 +50,7 @@ describe('Drawer keyboard', () => {
         expect(trigger).toHaveFocus();
     });
 
-    it('skips an element out of the Tab sequence when it opens', () => {
+    it('moves focus to the first element that Tab reaches when it opens', () => {
         const content = (
             <>
                 <button tabIndex={-1} type="button">Inactive tab</button>
