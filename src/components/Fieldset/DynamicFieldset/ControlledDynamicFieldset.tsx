@@ -46,13 +46,13 @@ export const ControlledDynamicFieldset = React.forwardRef<HTMLFieldSetElement, C
                         ['alignCenter', layout.alignCenter],
                     )}
                     component="label"
-                    htmlFor="moonstone-dynamic-fieldset-switch"
+                    htmlFor={`${id}-control`}
                     variant="heading"
                     weight="bold"
                 >
                     {label}
                 </Typography>
-                <Switch checked={checked} id="moonstone-dynamic-fieldset-switch" onChange={onChange}/>
+                <Switch checked={checked} id={`${id}-control`} onChange={onChange}/>
                 {buttons}
             </legend>
             {helper
