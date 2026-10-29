@@ -71,7 +71,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
             >
                 {hasTitle
                     && (
-                        <header
+                        <div
                             className={clsx(
                                 ['moonstone-listSelector_title', styles['moonstone-listSelector_title']],
                                 ['flexRow', layout.flexRow],
@@ -79,7 +79,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                             )}
                         >
                             <Typography isNowrap component="h3" weight="bold">{label?.leftListTitle}</Typography>
-                        </header>
+                        </div>
                     )}
                 <ValueList
                     isReadOnly={isReadOnly}
@@ -167,7 +167,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
             >
                 {hasTitle
                     && (
-                        <header
+                        <div
                             className={clsx(
                                 ['moonstone-listSelector_title', styles['moonstone-listSelector_title']],
                                 ['flexRow', layout.flexRow],
@@ -175,7 +175,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                             )}
                         >
                             <Typography isNowrap component="h3" weight="bold">{label?.rightListTitle}</Typography>
-                        </header>
+                        </div>
                     )}
                 <ValueList
                     isReadOnly={isReadOnly}
@@ -261,7 +261,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                         }
                     }}
                 />
-                <footer
+                <div
                     className={clsx(
                         ['moonstone-listSelector_footer', styles['moonstone-listSelector_footer']],
                         ['flexRow', layout.flexRow],
@@ -278,7 +278,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                             {selectedLabel}
                         </Typography>
                     </div>
-                </footer>
+                </div>
             </div>
         </div>
     );
