@@ -19,7 +19,6 @@ export const ValueList: React.FC<ValueListProps> = ({
     isReadOnly,
     listClasses = [],
     listLabel,
-    searchLabel,
     side,
     onClick,
     onDragStart,
@@ -36,7 +35,7 @@ export const ValueList: React.FC<ValueListProps> = ({
             )}
         >
             <WithoutField>
-                <SearchInput aria-label={searchLabel} onChange={e => setFilter(e.target.value.trim())}/>
+                <SearchInput aria-label={listLabel || 'Search'} onChange={e => setFilter(e.target.value.trim())}/>
             </WithoutField>
             <ul
                 aria-label={listLabel}

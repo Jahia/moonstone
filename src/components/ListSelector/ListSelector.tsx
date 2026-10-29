@@ -89,7 +89,6 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                     iconEnd={<ChevronRight className={clsx('moonstone-displayNone', valueListStyles['moonstone-displayNone'])}/>}
                     listClasses={typeof dragged?.originalIndex === 'number' ? ['moonstone-draggedOver', styles['moonstone-draggedOver']] : []}
                     listLabel={label.leftListTitle}
-                    searchLabel={label.searchLabel || 'Search'}
                     setFilter={setFilterLeft}
                     side="left"
                     values={valuesLeft}
@@ -187,7 +186,6 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                     label={label}
                     listClasses={(dragged && !filterRight) ? ['moonstone-draggedOver', styles['moonstone-draggedOver']] : []}
                     listLabel={label.rightListTitle}
-                    searchLabel={label.searchLabel || 'Search'}
                     setFilter={setFilterRight}
                     side="right"
                     values={valuesRight}
