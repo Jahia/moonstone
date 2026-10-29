@@ -6,8 +6,6 @@ Create the Navigation-primary component for the main navigation (level 1).
 
 The navigation bar should be collapsable/expandable by clicking on the burger menu.
 
-Escape collapses an expanded navigation and returns the focus to the toggle button.
-
 Show or Hide elements depends on the state of the display.
 
 if expanded :
@@ -18,6 +16,10 @@ if expanded :
  - Show helping links (documentations ...)
  - Show mail of the user
  - Show sign out button
+
+## Accessibility
+
+With the focus inside an expanded navigation, Escape collapses it and returns the focus to the toggle button. The key does not bubble while the navigation is expanded.
 
 ## Labels:
 

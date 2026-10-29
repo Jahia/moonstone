@@ -99,12 +99,15 @@ describe('PrimaryNav keyboard', () => {
         const onEscape = vi.fn();
         const listener = (e: KeyboardEvent) => e.key === 'Escape' && onEscape();
         document.addEventListener('keydown', listener);
-        toggle().focus();
-        await userEvent.keyboard('{Enter}');
-        await userEvent.keyboard('{Escape}');
-        expect(onEscape).not.toHaveBeenCalled();
-        await userEvent.keyboard('{Escape}');
-        expect(onEscape).toHaveBeenCalledTimes(1);
-        document.removeEventListener('keydown', listener);
+        try {
+            toggle().focus();
+            await userEvent.keyboard('{Enter}');
+            await userEvent.keyboard('{Escape}');
+            expect(onEscape).not.toHaveBeenCalled();
+            await userEvent.keyboard('{Escape}');
+            expect(onEscape).toHaveBeenCalledTimes(1);
+        } finally {
+            document.removeEventListener('keydown', listener);
+        }
     });
 });
