@@ -42,7 +42,7 @@ export const LayoutContent = React.forwardRef(({
             <div aria-busy={isLoading ? 'true' : undefined} className={classNameProps}>
                 {
                     isLoading
-                        ? <Loader i18n={i18n} size="big"/>
+                        ? <Loader i18n={{ loadingLabel: i18n?.loadingLabel }} size="big"/>
                         : (
                                 isCentered
                                     ? (

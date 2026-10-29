@@ -3,4 +3,4 @@
 "@jahia/moonstone": minor
 ---
 
-Name the `Loader` "Loading" and the `Tag` remove button `Remove <label>`, translatable through new `i18n` keys, and warn on an unnamed icon-only `Button` (#1527)
+Name the `Loader` "Loading", translatable through `i18n.loadingLabel` of `Loader` and `LayoutContent`, and warn on an unnamed icon-only `Button` (#1527)

@@ -20,12 +20,12 @@ describe('Tag keyboard', () => {
         renderTag();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
-        expect(screen.getByRole('button', { name: 'Remove Alpha' })).toHaveFocus();
+        expect(screen.getByRole('button', { name: 'Alpha' })).toHaveFocus();
     });
 
     it('activates the focused tag with Enter and passes its value', async () => {
         const { onClick } = renderTag();
-        screen.getByRole('button', { name: 'Remove Alpha' }).focus();
+        screen.getByRole('button', { name: 'Alpha' }).focus();
         await userEvent.keyboard('{Enter}');
         expect(onClick).toHaveBeenCalledTimes(1);
         expect(onClick.mock.calls[0][1]).toBe('alpha');
@@ -33,21 +33,21 @@ describe('Tag keyboard', () => {
 
     it('activates the focused tag with Space', async () => {
         const { onClick } = renderTag();
-        screen.getByRole('button', { name: 'Remove Alpha' }).focus();
+        screen.getByRole('button', { name: 'Alpha' }).focus();
         await userEvent.keyboard(' ');
         expect(onClick).toHaveBeenCalledTimes(1);
     });
 
     it('removes the focused tag with Delete', async () => {
         const { onClick } = renderTag();
-        screen.getByRole('button', { name: 'Remove Alpha' }).focus();
+        screen.getByRole('button', { name: 'Alpha' }).focus();
         await userEvent.keyboard('{Delete}');
         expect(onClick).toHaveBeenCalledTimes(1);
     });
 
     it('removes the focused tag with Backspace', async () => {
         const { onClick } = renderTag();
-        screen.getByRole('button', { name: 'Remove Alpha' }).focus();
+        screen.getByRole('button', { name: 'Alpha' }).focus();
         await userEvent.keyboard('{Backspace}');
         expect(onClick).toHaveBeenCalledTimes(1);
     });
@@ -57,7 +57,7 @@ describe('Tag keyboard', () => {
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
         expect(screen.getByRole('button', { name: 'after' })).toHaveFocus();
-        screen.getByRole('button', { name: 'Remove Alpha' }).focus();
+        screen.getByRole('button', { name: 'Alpha' }).focus();
         await userEvent.keyboard('{Enter}');
         await userEvent.keyboard(' ');
         expect(onClick).not.toHaveBeenCalled();

@@ -113,7 +113,7 @@ describe('Button', () => {
         render(<Button icon={<Love/>} title="Like"/>);
         expect(warn).not.toHaveBeenCalled();
         render(<Button icon={<Love/>}/>);
-        expect(warn).toHaveBeenCalledWith('Button: add a label, an aria-label or a title to name a button that only shows an icon');
+        expect(warn).toHaveBeenCalledWith('Button: add a label, an aria-label, an aria-labelledby or a title to name a button that only shows an icon');
         warn.mockRestore();
     });
 

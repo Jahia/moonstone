@@ -1,7 +1,5 @@
 import React from 'react';
 
-import type { LoaderProps } from '~/components/Loader/Loader.types';
-
 export type LayoutContentProps = Omit<React.ComponentPropsWithRef<'div'>, 'className'> & {
     /**
      * Header of the page
@@ -36,7 +34,13 @@ export type LayoutContentProps = Omit<React.ComponentPropsWithRef<'div'>, 'class
     className?: string;
 
     /**
-     * Labels of the loader shown while `isLoading`
+     * LayoutContent labels
      */
-    i18n?: LoaderProps['i18n'];
+    i18n?: {
+        /**
+         * Accessible name of the loader shown while `isLoading`
+         * @default 'Loading'
+         */
+        loadingLabel?: string;
+    };
 };

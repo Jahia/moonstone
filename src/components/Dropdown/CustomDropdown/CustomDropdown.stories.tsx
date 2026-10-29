@@ -97,27 +97,27 @@ export const Form = {
         children: (
             <Fieldset id="form" label="Form">
                 <Field
-                    buttons={<><Button icon={<icons.Add/>} label="Add"/><Button icon={<icons.MoreVert/>} variant="ghost"/></>}
+                    buttons={<><Button icon={<icons.Add/>} label="Add"/><Button aria-label="More actions" icon={<icons.MoreVert/>} variant="ghost"/></>}
                     chips={<><Chip color="accent" label="Required"/><Chip icon={<icons.Language/>} label="Shared by all languages"/></>}
                     helper="information"
                     id="field-multiple"
                     label="Field"
                 >
                     <>
-                        <FieldSelector buttons={<Button icon={<icons.MoreVert/>}/>} selector={<Input placeholder="Input value" size="big"/>}/>
-                        <FieldSelector buttons={<Button icon={<icons.MoreVert/>}/>} selector={<Input placeholder="Input value" size="big"/>}/>
-                        <FieldSelector buttons={<Button icon={<icons.MoreVert/>}/>} selector={<Input placeholder="Input value" size="big"/>}/>
+                        <FieldSelector buttons={<Button aria-label="More actions" icon={<icons.MoreVert/>}/>} selector={<Input placeholder="Input value" size="big"/>}/>
+                        <FieldSelector buttons={<Button aria-label="More actions" icon={<icons.MoreVert/>}/>} selector={<Input placeholder="Input value" size="big"/>}/>
+                        <FieldSelector buttons={<Button aria-label="More actions" icon={<icons.MoreVert/>}/>} selector={<Input placeholder="Input value" size="big"/>}/>
                     </>
                 </Field>
                 <FieldBoolean
-                    buttons={<Button icon={<icons.MoreVert/>} variant="ghost"/>}
+                    buttons={<Button aria-label="More actions" icon={<icons.MoreVert/>} variant="ghost"/>}
                     chips={<><Chip color="accent" label="Required"/><Chip icon={<icons.Language/>} label="Shared by all languages"/></>}
                     helper="information"
                     id="field-boolean"
                     label="Field Boolean"
                 />
                 <Field
-                    buttons={<Button icon={<icons.MoreVert/>} variant="ghost"/>}
+                    buttons={<Button aria-label="More actions" icon={<icons.MoreVert/>} variant="ghost"/>}
                     chips={<><Chip color="accent" label="Required"/><Chip icon={<icons.Language/>} label="Shared by all languages"/></>}
                     helper="information"
                     id="field-dropdown"
@@ -150,7 +150,7 @@ export const Form = {
                 </Field>
                 <Field
                     hasError
-                    buttons={<Button icon={<icons.MoreVert/>} variant="ghost"/>}
+                    buttons={<Button aria-label="More actions" icon={<icons.MoreVert/>} variant="ghost"/>}
                     chips={<><Chip color="accent" label="Required"/><Chip icon={<icons.Language/>} label="Shared by all languages"/></>}
                     errorMessage="There is an error"
                     helper="information"
@@ -163,7 +163,7 @@ export const Form = {
                     <FieldSelector selector={<RadioGroup name="radio"><RadioItem id="radio1" label="Yes" value="Yes"/><RadioItem id="radio2" label="No" value="No"/></RadioGroup>}/>
                 </Field>
                 <Field
-                    buttons={<Button icon={<icons.MoreVert/>} variant="ghost"/>}
+                    buttons={<Button aria-label="More actions" icon={<icons.MoreVert/>} variant="ghost"/>}
                     chips={<><Chip color="accent" label="Required"/><Chip icon={<icons.Language/>} label="Shared by all languages"/></>}
                     helper="information"
                     id="field-cardselectors"
@@ -171,7 +171,7 @@ export const Form = {
                 >
                     <>
                         <FieldSelector
-                            buttons={<Button icon={<icons.Close/>}/>}
+                            buttons={<Button aria-label="Remove" icon={<icons.Close/>}/>}
                             selector={(
                                 <CardSelector
                                     displayName="Item name"
@@ -183,7 +183,7 @@ export const Form = {
                             )}
                         />
                         <FieldSelector
-                            buttons={<Button icon={<icons.Close/>}/>}
+                            buttons={<Button aria-label="Remove" icon={<icons.Close/>}/>}
                             selector={(
                                 <CardSelector
                                     displayName="Item name"

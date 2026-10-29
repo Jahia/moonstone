@@ -263,7 +263,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                     return item && (
                                         <Tag
                                             isDisabled={isDisabled}
-                                            i18n={{ removeLabel: i18n?.removeTagLabel }}
                                             key={item.value}
                                             label={item.label}
                                             role="option"

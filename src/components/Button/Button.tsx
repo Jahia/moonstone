@@ -41,7 +41,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     };
 
     if (!label && !props['aria-label'] && !props['aria-labelledby'] && !props.title) {
-        console.warn('Button: add a label, an aria-label or a title to name a button that only shows an icon');
+        console.warn('Button: add a label, an aria-label, an aria-labelledby or a title to name a button that only shows an icon');
     }
 
     const LoaderReversed = Boolean(variant === 'default' && (color === 'accent' || color === 'danger'));
