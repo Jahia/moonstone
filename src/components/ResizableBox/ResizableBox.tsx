@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { Resizable } from 're-resizable';
 import React, { useId, useLayoutEffect, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
 
 import { zones } from './ResizableBox.types';
 import { HandleResize } from '~/icons';

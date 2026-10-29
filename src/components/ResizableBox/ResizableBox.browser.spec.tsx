@@ -93,6 +93,14 @@ describe('ResizableBox keyboard', () => {
         expect(onResizeStop).toHaveBeenCalledWith(expect.any(KeyboardEvent), 'right', box, { width: 10, height: 0 });
     });
 
+    it('reads the new width of an uncontrolled box in onResizeStop', async () => {
+        const onResizeStop = vi.fn((_e: KeyboardEvent, _dir: string, ref: HTMLElement) => ref.offsetWidth);
+        const { handle } = renderBox({ onResizeStop });
+        handle.focus();
+        await userEvent.keyboard('{ArrowRight}');
+        expect(onResizeStop).toHaveReturnedWith(110);
+    });
+
     it('keeps the width of a controlled box until the consumer updates its size', async () => {
         const { handle } = renderBox({ size: { width: 100, height: 100 } });
         handle.focus();
